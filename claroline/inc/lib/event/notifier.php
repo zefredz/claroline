@@ -127,11 +127,10 @@ class Notifier extends EventDriven
     }
      
     /**
-     * Function to know which course of a user
+     * Function to know which course contains new ressources that must be notified for a specific user and since a specific date
      *
-     * @param $user_id
-     * @param $date unix_timestamp
-     * @param $dbnameGlu=NULL
+     * @param $user_id user from which we must know what is new
+     * @param $date unix_timestamp the date from wich we must take account new items 
      *
      * @return an array with the courses with recent unknown event until the date '$date' in the course list of the user
      */
@@ -149,10 +148,11 @@ class Notifier extends EventDriven
         $sql="SELECT `code_cours` FROM `".$tbl_cours_user."` AS CU, `".$tbl_notify."` AS N 
                WHERE CU.`code_cours` = N.`course_code`
                  AND CU.`user_id` = '".$user_id."'
-             AND UNIX_TIMESTAMP(N.`date`) > '".$date."'
+             AND N.`date` > '".$date."'
                  ";
 
         $courseList = claro_sql_query_fetch_all($sql);
+                
         if (is_array($courseList))
         foreach ($courseList as $course)
         {
@@ -182,7 +182,7 @@ class Notifier extends EventDriven
         $sql = "SELECT `tool_id`, MAX(`date`)
                 FROM `".$tbl_notify."` AS N 
                 WHERE N.`course_code` = '".$course_id."'
-                  AND UNIX_TIMESTAMP(N.`date`) > '".$date."'
+                  AND N.`date` > '".$date."'
                 GROUP BY `tool_id`
 
                  ";
@@ -197,7 +197,38 @@ class Notifier extends EventDriven
 
         return $tools;
 
-    }    
+    }
+    
+    /**
+     *  Function to know when was the last login BEFORE TODAY of the user on the platform, wihtout taking account of the login
+     *
+     *  @param user_id the UID of the user. 
+     *
+     *  @return the last login date with the last login before 00:00:00 of today of the user with the UID  ==  $user_id
+     */
+    
+    function get_last_login_before_today($user_id)
+    {
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_track_e_login    = $tbl_mdb_names['track_e_login'];
+        
+        $today = date("Y-m-d 00:00:00");
+        
+        $sql = "SELECT MAX(`login_date`) AS THEDAY
+                  FROM `".$tbl_track_e_login."` AS N
+                 WHERE N.`login_user_id` = '".$user_id."'
+                   AND N.`login_date` < '".$today."'
+               ";
+        
+        $result = claro_sql_query_fetch_all($sql); 
+        
+        if (isset($result[0]['THEDAY'])) $login_date = $result[0]['THEDAY']; else $login_date = $today;
+        
+        //echo $login_date;//debug
+        
+        return $login_date;
+    }
+        
 } // CLASS Notifier extends EventDriven 
 
 ?>

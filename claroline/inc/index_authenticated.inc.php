@@ -168,7 +168,9 @@ echo "<p>"
 
 // get the list of personnal courses marked as contening new events 
 
-$modified_course = $claro_notifier->get_notified_courses($_uid,$_user ['lastLogin']);
+$date = $claro_notifier->get_last_login_before_today($_uid);
+
+$modified_course = $claro_notifier->get_notified_courses($_uid,$date);
 
 //display list
  
