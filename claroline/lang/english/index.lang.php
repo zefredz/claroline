@@ -4,6 +4,7 @@ $langAgenda = "Agenda";
 $langAgendaNextEvents = "Agenda next events";
 $langAnnouncement = "Announcements";
 $langAuthentication = "Authentication";
+$langCancel = "Cancel";
 $langCategories = "Categories";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";

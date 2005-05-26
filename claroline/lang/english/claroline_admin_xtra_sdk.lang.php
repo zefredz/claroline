@@ -8,6 +8,7 @@ $langBuildEmptyLangFile = "Empty language file";
 $langBuildLangFile = "Build language files";
 $langBuildMissingLangFile = "Missing language files";
 $langBuildProductionLangFile = "Production language files";
+$langCancel = "Cancel";
 $langChat = "Chat";
 $langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
 $langCodeUsed = "This official code is already used by another user.";

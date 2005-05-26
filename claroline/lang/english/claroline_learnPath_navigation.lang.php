@@ -12,6 +12,7 @@ $langAltScorm = "Scorm";
 $langAnnouncement = "Announcements";
 $langBack = "Back";
 $langBrowserCannotSeeFrames = "Your browser cannot see frames.";
+$langCancel = "Cancel";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";

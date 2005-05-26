@@ -78,7 +78,7 @@ $langPasswordSimple = "Password given is too simple or too close to the username
 $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Private access (site accessible only to people on the <a href=../user/user.php>User list</a>)";
-$langProfessor = "Lecturer";
+$langProfessors = "Lecturer(s)";
 $langPublicAccess = "Public access from campus home page even without login";
 $langReg = "Registration";
 $langStatistics = "Statistics";

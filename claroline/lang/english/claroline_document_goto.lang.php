@@ -2,6 +2,7 @@
 $langAddIntro = "Add introduction text";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
+$langCancel = "Cancel";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";

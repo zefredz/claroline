@@ -4,6 +4,7 @@ $langAdministration = "Administration";
 $langAgenda = "Agenda";
 $langAll = "All";
 $langAnnouncement = "Announcements";
+$langCancel = "Cancel";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";

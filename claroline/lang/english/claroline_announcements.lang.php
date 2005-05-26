@@ -8,6 +8,7 @@ $langAnnEmpty = "Announcements list has been cleared up";
 $langAnnModify = "Announcement has been modified";
 $langAnnouncement = "Announcements";
 $langBackList = "Return to the list";
+$langCancel = "Cancel";
 $langChat = "Chat";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";
@@ -27,6 +28,7 @@ $langHelp = "Help";
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
 
  or single users from the list on the left.";
+$langInvisible = "Invisible";
 $langLearningPath = "Learning Path";
 $langLogin = "Login";
 $langLogout = "Logout";
@@ -67,7 +69,9 @@ $langUnvalid = "have unvalid or no email address";
 $langUserName = "User name";
 $langUserlist = "Users List";
 $langUsers = "Users";
+$langViMod = "Visibility modified";
 $langViewMode = "View mode";
+$langVisible = "Visible";
 $langWork = "Assignments";
 $lang_click_here = "click here";
 $lang_enter_your_user_name_and_password = "Enter your user name and password";

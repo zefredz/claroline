@@ -9,6 +9,7 @@ $langAnnouncement = "Announcements";
 $langAreYouSureToDelete = "Are you sure to delete";
 $langBack = "Back";
 $langBackCat = "Back to categories";
+$langCancel = "Cancel";
 $langCannotAddForumInGroups = "Group forums are added when creating a group and deleted when deleting corresponding group.";
 $langCannotBeDeleted = "cannot be deleted";
 $langCannotMoveGroupForum = "Group forum cannot be moved";

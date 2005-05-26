@@ -2,7 +2,9 @@
 $langAddIntro = "Add introduction text";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
+$langAnonymous = "Anonymous";
 $langArchive = "archive";
+$langCancel = "Cancel";
 $langCannotInitChat = "Error : Cannot initialize chat";
 $langChat = "Chat";
 $langChatResetBy = "Chat reset by";
