@@ -1255,6 +1255,7 @@ $langHumanAndPhysicalRessources = "Human and Physical Resources";
 $langIfNotRedirect = "If not redirected ";
 $langImport = "Import";
 $langImpossible = "Operation impossible";
+$langImpossibleToPromote = "Impossible to promote group tutor a student already register to group";
 $langIn = "in";
 $langInFrames = "In frames";
 $langIncorrectDate = "Start date must be before end date ...";
