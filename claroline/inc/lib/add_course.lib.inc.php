@@ -602,6 +602,7 @@ claro_sql_query("
         `title` VARCHAR(255),
         `content` TEXT,
         `upDate` DATETIME NOT NULL,
+		`visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
         UNIQUE (`id`)
     )
     COMMENT = 'for course description tool';");

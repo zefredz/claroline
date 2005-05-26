@@ -157,6 +157,20 @@ if ( $is_allowedToEdit )
 	    }
 	}
 
+
+
+	/******************************************************************************
+	                       EDIT  VISIBILITY DESCRIPTION ITEM
+	 ******************************************************************************/
+	
+	
+	if ( ($cmd == 'mkShow'|| $cmd == 'mkHide') && !empty($descId) )
+	{
+	    if ( course_description_visibility_item($descId , $cmd) ) 
+	    {
+	        $dialogBox .= '<p>' . $langViMod. '</p>';
+	    }
+	}
 }
 
 /*---------------------------------------------------------------------------*/
@@ -282,12 +296,26 @@ if ( count($descList) )
 {
     foreach ( $descList as $thisDesc )
     {
-        echo "\n".'<h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
-            .'<blockquote>'."\n"
-            . claro_parse_user_text($thisDesc['content'])."\n"
-            .'<br>'."\n"
-            .'</blockquote>'."\n";
-
+    	if ($thisDesc['visibility']=='SHOW')
+    	{    	
+	        echo "\n".'<h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
+	            .'<blockquote>'."\n"
+	            . claro_parse_user_text($thisDesc['content'])."\n"
+	            .'<br>'."\n"
+	            .'</blockquote>'."\n";
+    	}
+    	else 
+    	{
+			if ( $is_allowedToEdit )
+	        {	
+	    		echo "\n".'<div class="invisible"><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
+		            .'<blockquote>'."\n"
+		            . claro_parse_user_text($thisDesc['content'])."\n"
+		            .'<br></div>'."\n"
+		            .'</blockquote>'."\n";
+	        }
+    	}
+	
         if ( $is_allowedToEdit )
         {
             
@@ -298,7 +326,19 @@ if ( count($descList) )
                 .' onClick="if(!confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).' '.$thisDesc['title'].' ?\')){ return false}">'
                 .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'">'
                 .'</a>'."\n\n";
-        }
+           if ($thisDesc['visibility']=='SHOW')
+           {
+           	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkHide&amp;id='.$thisDesc['id'].'">'
+                .'<img src="'.$imgRepositoryWeb.'visible.gif" alt="'.$langInvisibley.'">'
+                .'</a>'."\n";
+           }
+           else 
+           {
+           	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkShow&amp;id='.$thisDesc['id'].'">'
+                .'<img src="'.$imgRepositoryWeb.'invisible.gif" alt="'.$langVisible.'">'
+                .'</a>'."\n";           
+           }
+    	}
     }
 }
 else
@@ -325,7 +365,7 @@ function course_description_get_item_list($dbnameGlu=Null)
     $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     
-    $sql = "SELECT `id`, `title`, `content` 
+    $sql = "SELECT `id`, `title`, `content` , `visibility`
             FROM `".$tbl_course_description."` 
             ORDER BY `id`";
     return  claro_sql_query_fetch_all($sql);
@@ -350,7 +390,7 @@ function course_description_get_item($descId, $dbnameGlu=Null)
     $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     
-    $sql = 'SELECT id, title, content
+    $sql = 'SELECT `id`, `title`, `content`, `visibility`
             FROM `'.$tbl_course_description.'`
             WHERE id = ' . (int) $descId;
 
@@ -439,6 +479,33 @@ function course_description_add_item($descTitle,$descContent, $dbnameGlu=Null)
                      `id` = ". (int) ($maxId + 1);
 
     return claro_sql_query_insert_id($sql);
+}
+
+/**
+ * insert values in a new item 
+ * 
+ * @param $descTitle    string Title of the item
+ * @param $cmd			string with command to hide or show item
+ * @param $dbnameGlu    string  glued dbName of the course to affect default: current course
+ *
+ * @return integer id of the new item
+ * 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function course_description_visibility_item($descId, $cmd, $dbnameGlu=Null)
+{
+    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    
+    if ($cmd == "mkShow")  $visibility = 'SHOW'; else $visibility = 'HIDE';
+    if ($cmd == "mkHide")  $visibility = 'HIDE'; else $visibility = 'SHOW';
+    
+    $sql = "UPDATE `".$tbl_course_description."`
+               SET   `visibility`   = '" . $visibility . "'
+               WHERE `id` = '". $descId ."' ";
+
+    return claro_sql_query($sql);
 }
 
 ?>
