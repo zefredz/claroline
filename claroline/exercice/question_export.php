@@ -178,7 +178,7 @@ class ImsItem
         global $charset;
         $head = $foot = "";
         if ($standalone) {
-            $head = '<?xml version = "1.0" encoding = "' . $charset . '" standalone = "no"?>' . "\n"
+            $head = '<?xml version = "1.0" encoding = "'.$charset.'" standalone = "no"?>' . "\n"
                   . '<!DOCTYPE questestinterop SYSTEM "ims_qtiasiv1p2p1.dtd">' . "\n"
                   . "<questestinterop>\n";
             $foot = "</questestinterop>\n";
@@ -354,19 +354,29 @@ class ImsFIB extends ImsItem
         list($response, $weighting) = explode('::', $this->answer->selectAnswer(1));
         
         // Save the weightings for later
-        $this->weighting=explode(',',$weighting);
-        
+        $this->weighting = explode(',',$weighting);
+
         $responsePart = explode(']', $response);
         $i = 0; // Used for the reference generation.
         foreach($responsePart as $part)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
         
-            list($rawText, $blank) = explode('[', $part);
-            if ($rawText!="")
+            if( strpos($part,'[') !== false )
+            {
+            	list($rawText, $blank) = explode('[', $part);
+			}
+			else
+			{
+				$rawText = $part;
+				$blank = "";
+			}
+
+			if ($rawText!="")
             {
                 $out.="  <material><mattext><![CDATA[" . $rawText . "]]></mattext></material>\n";
             }
+            
             if ($blank!="")
             {
                 $this->word[] = $blank;
@@ -379,7 +389,7 @@ class ImsFIB extends ImsItem
             $i++;
         }
         $out.="</flow>\n";
-        
+
         return $out;
         
     }
@@ -399,10 +409,9 @@ class ImsFIB extends ImsItem
         for ($i=0; $i < count($this->word); $i++)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
-            
             $out.= '  <respcondition continue="Yes"><conditionvar>' . "\n"
                  . '    <varequal respident="' . $response_ident . '" case="No"><![CDATA[' . $this->word[$i] . ']]></varequal>' . "\n"
-                 . '  </conditionvar><setvar action="Add">' . $this->answer->weighting[$i] . "</setvar>\n"
+                 . '  </conditionvar><setvar action="Add">' . $this->weighting[$i] . "</setvar>\n"
                  . "  </respcondition>\n";
         }
         return $out;
