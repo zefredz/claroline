@@ -160,7 +160,7 @@
 	    {
 	    	global $crlSource;
 
-    	    if( crlSource 
+    	    if( isset($crlSource) 
     	    	// do not reload links in database if linker 
     	    	// was already opened for current resource
     	        && (($this->_isEmpty($_SESSION["servAdd"]) )	
