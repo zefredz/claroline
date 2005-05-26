@@ -290,7 +290,7 @@
                     var title = result[i]['title'];
                     
                     print('nav','<a href=\"http://claroline.net\" onclick=\"display_navigator(\''+crl+'\');return false;\">'+name+'</a>'); 
-                    print('nav',"&nbsp;&nbsp;<a href=\"http://claroline.net\" onclick=\"attach(\'"+crl+"\',\'"+title+"\');return false;\">["+lang_add+"]</a><br>\n");
+                    print('nav',"&nbsp;&nbsp;<a href=\"http://claroline.net\" class=\"claroCmd\" onclick=\"attach(\'"+crl+"\',\'"+title+"\');return false;\">["+lang_add+"]</a><br>\n");
                 }
             }  
         }
@@ -310,7 +310,7 @@
                     var title = result[i]['title'];
                     
                     print('nav','<a href=\"http://claroline.net\" onclick=\"display_navigator(\''+crl+'\');return false;\">'+name+'</a>'); 
-                    print('nav',"&nbsp;&nbsp;<a href=\"http://claroline.net\" onclick=\"attach(\'"+crl+"\',\'"+title+"\');return false;\">["+lang_add+"]</a><br>\n");
+                    print('nav',"&nbsp;&nbsp;<a href=\"http://claroline.net\" class=\"claroCmd\" onclick=\"attach(\'"+crl+"\',\'"+title+"\');return false;\">["+lang_add+"]</a><br>\n");
                 }
             }  
         }

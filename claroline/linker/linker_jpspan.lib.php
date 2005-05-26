@@ -197,8 +197,10 @@
 	/**
     * the dislay of the linker 
     *
+    * @param $extraGetVar not use in jpspan 
+    *	but left in respect to the linker api 
     */	
-	function linker_set_display()
+	function linker_set_display( $extraGetVar = false )
     {   
     	global $langLinkerAddNewAttachment;
     	 

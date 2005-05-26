@@ -46,14 +46,14 @@
     * @param $extraGetVar integer who is id of a resource
     * @global $langLinkerResourceAttachment
     */	
-	function linker_set_display( $extraGetVar )
+	function linker_set_display( $extraGetVar = false )
     {
     	global $langLinkerResourceAttachment;
     	
     	echo "<br>\n";
 		echo "<A href=\"javascript:popup('../linker/linker_popup.inc.php"; 
 		
-		if( isset($extraGetVar) )
+		if( $extraGetVar !== false )
 		{	
 			echo "?id=".$extraGetVar;
 		}
