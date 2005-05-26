@@ -36,6 +36,29 @@ $nameTools = $langAgenda;
 
 claro_set_display_mode_available(TRUE);
 
+//------------------------
+//linker
+
+    require_once("../linker/linker.inc.php");
+    
+    if ( !isset($_REQUEST['cmd']) )
+    {
+    	linker_init_session();
+    }
+    
+    if( $jpspanEnabled )
+    {
+   		linker_set_local_crl( isset ($_REQUEST['id']) );
+   	}
+   
+   	if( ($_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit')  )
+   	{
+    	linker_html_head_xtra();
+    }
+
+//linker		
+//------------------------
+
 include($includePath."/claro_init_header.inc.php");
 
 //stats
@@ -46,6 +69,7 @@ $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
 $is_allowedToEdit   = $is_courseAdmin;
+
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
@@ -82,12 +106,19 @@ if ( $is_allowedToEdit )
                       day     = '".$date_selection."',
                       hour    = '".$hour."',
                       lasting = '".$_REQUEST['lasting']."'";
-        
-    	$res_id = claro_sql_query_insert_id($sql); 
+		
+		$insert_id = claro_sql_query_insert_id($sql); 
 		      
-        if ( $res_id != false )
+        if ( $insert_id != false )
         {
-            $dialogBox .= '<p>'.$langEventAdded.'</p>';
+            $dialogBox .= '<p>'.$langEventAdded.'</p>';	
+		//------------------------
+        //linker
+
+        	$dialogBox .= linker_update();
+           
+        //linker		
+		//------------------------
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
@@ -96,7 +127,7 @@ if ( $is_allowedToEdit )
 	    
     	    // notify that a new agenda event has been posted
 	    
-	        $eventNotifier->notifyCourseEvent("agenda_event_added",$_cid, $_tid, $res_id, $_gid, "0");
+	        $eventNotifier->notifyCourseEvent("agenda_event_added",$_cid, $_tid, $insert_id, $_gid, "0");
 	    
         }
         else
@@ -122,6 +153,14 @@ if ( $is_allowedToEdit )
 
             if ( claro_sql_query($sql) !== FALSE)
             {
+            //------------------------
+			//linker
+			
+				$dialogBox .= linker_update();
+			
+            //linker		
+			//------------------------
+
                 $dialogBox .= '<p>' . $langEventUpdated . '</p>';
             }
             else
@@ -147,6 +186,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
+
             $dialogBox = '<p>' . $langUnableToDelete . '</p>';
         }
 
@@ -181,7 +221,9 @@ if ( $is_allowedToEdit )
                            `hour` as `hourAncient`,
                            `lasting` as `lastingAncient`
                     FROM `".$tbl_calendar_event."` 
+
                     WHERE `id` = '". (int) $id . "'";
+
 
             list($editedEvent) = claro_sql_query_fetch_all($sql);
 
@@ -201,7 +243,7 @@ if ( $is_allowedToEdit )
         }
 
 ?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form onSubmit="linker_confirm();delay(500);return true;" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
 <input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
 <input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
@@ -238,10 +280,11 @@ if ( $is_allowedToEdit )
 
       $titre   = $editedEvent['titre'];
       $contenu = $editedEvent['contenu'];
+
 ?>
 <tr>
 
-<td>&nbsp;</td>
+<td>&nbsp</td>
 
 <td>
 <select name="fday" id="fday">
@@ -390,8 +433,40 @@ if ( $is_allowedToEdit )
 <td colspan="6"> 
 <?php claro_disp_html_area('contenu', htmlspecialchars($contenu), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br>
-<input class="claroButton" type="Submit" name="submitEvent" value="<?php echo $langOk ?>"> 
-<?php claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
+
+</td></tr>
+<tr>
+<td>&nbsp;</td>
+<td colspan="6">
+
+<?php 
+//---------------------
+// linker 
+ 
+	if( $jpspanEnabled )
+    {
+   		linker_set_local_crl( isset ($_REQUEST['id']) );
+   	}
+   	
+  	linker_set_display($_REQUEST['id']);
+     
+   	echo "</td></tr>\n";
+    echo '<tr><td>&nbsp;</td><td colspan="6">' . "\n";
+
+	if( $jpspanEnabled )
+   	{
+   		echo "<input type=\"Submit\" onClick=\"linker_confirm();\"  class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
+   	}
+   	else
+   	{
+   		echo "<input type=\"Submit\" class=\"claroButton\" name=\"submitEvent\"    value=\"".$langOk."\">\n";
+   	}
+   	
+// linker
+//---------------------	
+	claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); 
+	
+?>
 </td>
 
 </tr>
@@ -519,7 +594,6 @@ foreach ( $eventList as $thisEvent )
          $nowBarAlreadyShowed = TRUE;
     }
 
-
 	/*
 	 * Display the month bar when the current month
 	 * is different from the current month bar
@@ -562,8 +636,16 @@ foreach ( $eventList as $thisEvent )
 		.( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text($thisEvent['contenu']) )
 		.'</div>'."\n"
 		;
+	  //------------------------
+      //linker
+	  
+	  linker_display_resource();
 
-	if ( $is_allowedToEdit )
+
+	  //linker
+  	  //------------------------
+	if ($is_allowedToEdit)
+
 	{
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisEvent['id'].'">'
 		    .'<img src="'.$imgRepositoryWeb.'edit.gif" border="O" alt="'.$langModify.'">'
@@ -579,6 +661,7 @@ foreach ( $eventList as $thisEvent )
 	echo '</td>'."\n"
 		. '</tr>'."\n"
 		;
+
 }   // end while
 
 echo '</table>';
