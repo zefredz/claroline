@@ -80,7 +80,8 @@ if ( $is_allowedToEdit )
 	        // Update description
 	        if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
 	        {
-	            $dialogBox .= '<p>' . $langDescUpdated . '</p>';
+	            $eventNotifier->notifyCourseEvent("course_description_modified",$_cid, $_tid, $descId, $_gid, "0");
+                    $dialogBox .= '<p>' . $langDescUpdated . '</p>';
 	        }
 	        else
 	        {
@@ -90,9 +91,13 @@ if ( $is_allowedToEdit )
 	    else
 	    {          
 	        // Add new description
-	        if ( course_description_add_item($descTitle,$descContent) !== FALSE )
+                
+                $descId = course_description_add_item($descTitle,$descContent);
+                echo "blah:".$descId;
+	        if ($descId != FALSE )
 	        {
-	            $dialogBox .= '<p>' . $langDescAdded . '</p>';
+	            $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
+                    $dialogBox .= '<p>' . $langDescAdded . '</p>';
 	        }
 	        else
 	        {
@@ -170,6 +175,13 @@ if ( $is_allowedToEdit )
 	    {
 	        $dialogBox .= '<p>' . $langViMod. '</p>';
 	    }
+            
+            //notify that an item is now visible
+            
+            if ($cmd == 'mkShow')
+            {
+                $eventNotifier->notifyCourseEvent("course_description_visible",$_cid, $_tid, $descId, $_gid, "0");
+            }
 	}
 }
 
@@ -471,8 +483,15 @@ function course_description_add_item($descTitle,$descContent, $dbnameGlu=Null)
                      `content` = '". addslashes($descContent) . "',
                      `upDate`  = NOW(),
                      `id` = ". (int) ($maxId + 1);
-
-    return claro_sql_query_insert_id($sql);
+                     
+    if (claro_sql_query($sql)) 
+    {
+        return ($maxId + 1); 
+    }
+    else 
+    {
+        return FALSE; 
+    }
 }
 
 /**

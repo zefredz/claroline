@@ -41,5 +41,5 @@ $notif_listen8  = $claro_notifier->addListener( 'update', "anouncement_added");
 $notif_listen9  = $claro_notifier->addListener( 'update', "anouncement_modified");
 $notif_listen10 = $claro_notifier->addListener( 'update', "course_description_added");
 $notif_listen11 = $claro_notifier->addListener( 'update', "course_description_modified");
-
+$notif_listen12 = $claro_notifier->addListener( 'update', "course_description_visible");
 ?>
