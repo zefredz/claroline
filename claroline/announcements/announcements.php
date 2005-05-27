@@ -68,6 +68,7 @@ if ( !$_cid ) claro_disp_select_course();
 
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
+require_once("../linker/linker.inc.php");
 
 claro_set_display_mode_available(TRUE);
 
@@ -95,10 +96,23 @@ $displayList = TRUE;
 
 $subTitle = '';
 
-//------------------------
-//linker
 
-    require_once("../linker/linker.inc.php");
+/*============================================================================
+                     COMMANDS SECTION (COURSE MANAGER ONLY)
+  ============================================================================*/
+
+if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
+else                          $id = 0;
+
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = '';
+
+if($is_allowedToEdit) // check teacher status
+{
+	//------------------------
+	//linker
+
+    
     
     if ( !isset($_REQUEST['cmd']) )
     {
@@ -116,21 +130,8 @@ $subTitle = '';
     	linker_html_head_xtra();
     }
 
-//linker		
-//------------------------
-/*============================================================================
-                     COMMANDS SECTION (COURSE MANAGER ONLY)
-  ============================================================================*/
-
-if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
-else                          $id = 0;
-
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = '';
-
-if($is_allowedToEdit) // check teacher status
-{
-
+	//linker		
+	//------------------------	
     if ( !empty($cmd) )
     {
 
@@ -670,7 +671,7 @@ if ($displayList)
 } // end if displayList
 
 /*------------------------------------*/
-
+echo $a;
 include($includePath."/claro_init_footer.inc.php");
 
 
