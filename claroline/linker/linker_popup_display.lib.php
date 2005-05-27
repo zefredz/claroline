@@ -52,7 +52,8 @@
  		$baseServUrl = $rootWeb;
  		
         $content = $caddy->getAttachmentList();
-		if( !$caddy->_isEmpty($content["crl"] ) )
+        
+		if( is_array($content) && isset($content["crl"]) && !$caddy->_isEmpty($content["crl"] ) )
         {
             echo "<hr><b>".$langLinkerAttachements."</b><br />\n";
 			
