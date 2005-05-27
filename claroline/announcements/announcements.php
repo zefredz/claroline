@@ -232,11 +232,7 @@ if($is_allowedToEdit) // check teacher status
 		    
 		    if ( claro_sql_query($sql) )
             {
-                $message = $$langViMod;
-            }
-            else
-            {
-                //error on delete
+                $message = $langViMod;
             }
 		}
     
