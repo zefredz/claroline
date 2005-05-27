@@ -291,6 +291,7 @@ if ( $is_allowedToEdit )
 /******************************************************************************
                             DESCRIPTION LIST DISPLAY
  ******************************************************************************/
+$hasDisplayedItems = false;
 
 if ( count($descList) )
 {
@@ -298,17 +299,18 @@ if ( count($descList) )
     {
     	if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
     	{  
-	    	if ($thisDesc['visibility']=='HIDE') $style="invisible";  else $style='';
-	    	echo "\n".'<div class="'.$style.'"><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
+	    	if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
+	    	echo "\n".'<div'.$style.'><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
 		          .'<blockquote>'."\n"
 		          . claro_parse_user_text($thisDesc['content'])."\n"
 		          .'<br></div>'."\n"
 		          .'</blockquote>'."\n";
+
+			$hasDisplayedItems = true;
     	}
 	
         if ( $is_allowedToEdit )
         {
-            
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisDesc['id'].'">'
                 .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'">'
                 .'</a>'."\n"
@@ -329,9 +331,11 @@ if ( count($descList) )
                 .'</a>'."\n";           
            }
     	}
+    	
     }
 }
-else
+
+if( !$hasDisplayedItems )
 {
 	echo "\n".'<p>'.$langThisCourseDescriptionIsEmpty.'</p>'."\n";
 }
