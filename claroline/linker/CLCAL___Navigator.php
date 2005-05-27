@@ -72,7 +72,8 @@
                              $crl = $node."/".$itemAgenda["id"];
                              $res = new CLCAL___Resolver($rootWeb); 
                              $title = $res->getTitle($elementCRLArray["course_sys_code"],$itemAgenda["id"]);
-                             $container = new ClaroObject( $title , $crl );
+                             $isVisible = ( $itemAgenda["visibility"] == 'SHOW');
+                             $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
                              $elementList[] = $container ;   
                          }    
                           
@@ -114,7 +115,7 @@
             
             $tbl_agenda = $tbl_cdb_names['calendar_event'];
 
-            $sql = 'SELECT `id`,`titre`,`day` FROM `'.$tbl_agenda.'` ORDER BY `day`  DESC';
+            $sql = 'SELECT `id`,`titre`,`day`, `visibility` FROM `'.$tbl_agenda.'` ORDER BY `day`  DESC';
             $agenda = claro_sql_query_fetch_all($sql);
             
             return $agenda;

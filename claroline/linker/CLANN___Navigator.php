@@ -75,7 +75,8 @@
                              $crl = $node."/".$itemAnnonce["id"]; 
                              $res = new CLANN___Resolver($rootWeb); 
                              $title = $res->getTitle($elementCRLArray["course_sys_code"],$itemAnnonce["id"]); 
-                             $container = new ClaroObject( $title , $crl );
+                             $isVisible = ( $itemAnnonce["visibility"] == 'SHOW');
+                             $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
                              $elementList[] = $container ;   
                          }    
                           
@@ -116,7 +117,7 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_annonce = $tbl_cdb_names['announcement'];
             
-            $sql = 'SELECT `id`,`title` FROM `'.$tbl_annonce.'`'; 
+            $sql = 'SELECT `id`,`title` , `visibility` FROM `'.$tbl_annonce.'`'; 
             $annonces = claro_sql_query_fetch_all($sql);
             
             return $annonces;

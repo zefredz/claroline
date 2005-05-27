@@ -66,7 +66,8 @@
                          
                          foreach ($description as $itemDescription )
                          {
-                             $crl = $node."/".$itemDescription["id"];  
+                             $crl = $node."/".$itemDescription["id"]; 
+                             $isVisible = ( $itemDescription["visibility"] == 'SHOW'); 
                             
 							  if( strlen($itemDescription["title"]) > 0)
             				  {
@@ -83,9 +84,8 @@
            						*--------------------------------------------------*/
            						  $title = "no name";  	
            					  } 
-							                               
-                             
-                             $container = new ClaroObject( $title , $crl );
+
+                             $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
                              $elementList[] = $container ;   
                          }    
                           
@@ -127,7 +127,7 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_descritpion = $tbl_cdb_names['course_description'];
 
-            $sql = 'SELECT `id`,`title`,`content` FROM `'.$tbl_descritpion.'`'; 
+            $sql = 'SELECT `id`,`title`,`content`, `visibility` FROM `'.$tbl_descritpion.'`'; 
             $description = claro_sql_query_fetch_all($sql);
 
             return $description;
