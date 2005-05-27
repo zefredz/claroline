@@ -22,6 +22,7 @@
 $tlabelReq = "CLCAL___";
 
 require '../inc/claro_init_global.inc.php';
+require_once("../linker/linker.inc.php");
 
 claro_unquote_gpc();
 
@@ -36,11 +37,13 @@ $nameTools = $langAgenda;
 
 claro_set_display_mode_available(TRUE);
 
+$is_allowedToEdit   = $is_courseAdmin;
+
+
+if ( $is_allowedToEdit )
+{
 //------------------------
 //linker
-
-    require_once("../linker/linker.inc.php");
-    
     if ( !isset($_REQUEST['cmd']) )
     {
         linker_init_session();
@@ -56,9 +59,9 @@ claro_set_display_mode_available(TRUE);
        {
         linker_html_head_xtra();
     }
-
 //linker        
-//------------------------
+//------------------------    
+}
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -68,8 +71,6 @@ event_access_tool($_tid, $_courseTool['label']);
 
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
-
-$is_allowedToEdit   = $is_courseAdmin;
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
@@ -87,7 +88,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 /*============================================================================
                      COMMANDS SECTION 
   ============================================================================*/
-
+// MUST BE DONE BEFORE INCLUDING CLARO_INIT_HEADER -> NEED REFACTORING
 if ( $is_allowedToEdit )
 {
     if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
@@ -693,15 +694,15 @@ foreach ( $eventList as $thisEvent )
             .( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text($thisEvent['contenu']) )
             .'</div>'."\n"
             ;
-    }
+    
       //------------------------
       //linker
       
       linker_display_resource();
 
-
       //linker
-        //------------------------
+      //------------------------
+    }    
     if ($is_allowedToEdit)
 
     {
