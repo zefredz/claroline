@@ -246,7 +246,7 @@ if ( $is_allowedToEdit )
             
             if ( claro_sql_query($sql) )
             {
-                $message = $$langViMod;
+                $dialogBox = $langViMod;
             }
             else
             {
