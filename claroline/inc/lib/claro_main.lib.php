@@ -139,32 +139,56 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * @since 1.7
  */
 
-function claro_get_course_keys($course_id = null)
+function claro_get_course_data($course_id = NULL)
 {
     global $_cid, $_course,$courseTablePrefix , $dbGlu; 
-    static $_courseKeys = array();
+    static $_courseDatas = array();
     static $cachedCid = null;
     if ( is_null($course_id) )
     { 
         $course_id = $_cid;
-        $_courseKeys['dbName']  = $_course['dbName'];
-        $_courseKeys['sysCode'] = $_course['sysCode'];
-        $_courseKeys['path']    = $_course['path'];
+        $_courseDatas  = $_course;
     }
     elseif ($cachedCid!=$course_id) 
-        unset($_courseKeys);
+        unset($_courseDatas);
     
-    if ( !isset($_courseKeys) )
+    if ( !isset($_courseDatas) )
     {
         $cachedCid = $course_id;
         $tbl_mdb_names =  claro_sql_get_main_tbl();
-        $sql ="Select dbName, code sysCode, directory path
-        FROM `".$tbl_mdb_names['course']."`
-        WHERE code = '" . $course_id . "'";
-        list($_courseKeys) = claro_sql_query_fetch_all($sql);
+        $sql =  "SELECT `c`.`code` `sysCode`, 
+                `c`.`intitule`  `name`, 
+                `c`.`fake_code` `officialCode`, 
+                `c`.`directory` `path`, 
+                `c`.`dbName` `dbName`, 
+#                concat('".$courseTablePrefix."',
+#                        `c`.`dbName` ,
+#                        '".$dbGlu."'
+#                      ) `dbNameGlu`, 
+                `c`.`titulaires` `titular`, 
+                `c`.`email` , 
+                `c`.`languageCourse` `language`, 
+                `c`.`departmentUrl` `extLinkUrl`, 
+                `c`.`departmentUrlName` `extLinkName`, 
+                `c`.`visible` `visible`,
+                `cat`.`code` `categoryCode`, 
+                `cat`.`name` `categoryName`
+         FROM `".$tbl_mdb_names['course']."` `c`
+         LEFT JOIN `".$tbl_mdb_names['category']."` `cat`
+         ON `c`.`faculte` =  `cat`.`code`
+         WHERE `c`.`code` = '" . $course_id . "'";
+
+        if($_courseDatas = claro_sql_query_fetch_all($sql))
+        {
+            $_courseDatas = $_courseDatas[0];
+            $_courseDatas['visibility'  ]         = (bool) ($_courseDatas['visible'] == 2 || $_courseDatas['visible'] == 3);
+            $_courseDatas['registrationAllowed']  = (bool) ($_courseDatas['visible'] == 1 || $_courseDatas['visible'] == 2);
+            $_courseDatas['dbNameGlu'] = $courseTablePrefix . $_courseDatas['dbName'] . $dbGlu; // use in all queries
+        }
+
+        
     } // end if ( count($course_tbl) == 0 )
-    $_courseKeys['dbNameGlu'] = $courseTablePrefix . $_courseKeys['dbName'] . $dbGlu; // use in all queries
-    return $_courseKeys;
+    return $_courseDatas;
 }
 
 /**
@@ -177,7 +201,7 @@ function claro_get_course_keys($course_id = null)
  */
 function claro_get_course_db_name($cid=NULL) 
 {
-    $k =claro_get_course_keys($cid); 
+    $k =claro_get_course_data($cid); 
     return $k['dbName'];
 }
 
@@ -191,7 +215,7 @@ function claro_get_course_db_name($cid=NULL)
  */
 function claro_get_course_db_name_glued($cid=NULL) 
 {
-    $k =claro_get_course_keys($cid); 
+    $k =claro_get_course_data($cid); 
     return $k['dbNameGlu'];
 }
 
@@ -205,7 +229,7 @@ function claro_get_course_db_name_glued($cid=NULL)
  */
 function claro_get_course_path($cid=NULL) 
 {
-    $k =claro_get_course_keys($cid); 
+    $k =claro_get_course_data($cid); 
     return $k['path'];
 }
 
