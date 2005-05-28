@@ -9,7 +9,7 @@
  * insert between smin and smax students
  * insert between pmin and pmax courses admins
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -39,12 +39,12 @@ DEFINE('DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT',3);
 DEFINE('DEFAULT_PREFIX','TEST');
 
 
-/////////////////////DON'T EDIT ///////////
-DEFINE('DISP_RESULT_INSERT'        ,1);     //
-DEFINE('DISP_FORM_SET_OPTION'      ,2);     //
-DEFINE('CONF_VAL_STUDENT_STATUS'    ,5); //
-DEFINE('CONF_VAL_TEACHER_STATUS'    ,1); //
-/////////////////////DON'T EDIT ///////////
+/////////////////////DON'T EDIT /////////////
+DEFINE("DISP_RESULT_INSERT"     ,__LINE__); //
+DEFINE("DISP_FORM_SET_OPTION"   ,__LINE__); ///
+DEFINE("CONF_VAL_STUDENT_STATUS",5);        ///
+DEFINE("CONF_VAL_TEACHER_STATUS",1);        //
+/////////////////////DON'T EDIT /////////////
 
 
 unset($includePath);
@@ -63,11 +63,11 @@ include($includePath.'/lib/fileManage.lib.php');
 include($includePath.'/conf/course_main.conf.php');
 
 $nameTools = $langCreateSite;
-$interbredcrump[]= array ('url'=>'../index.php', 'name'=> $langAdministration);
-$interbredcrump[]= array ('url'=>'index.php', 'name'=> $langDevTools);
+$interbredcrump[]= array ('url' => '../index.php', 'name'=> $langAdministration);
+$interbredcrump[]= array ('url' => 'index.php',    'name'=> $langDevTools);
 /*
- * DB tables definition
- */
+* DB tables definition
+*/
 
 $tbl_cdb_names 		= claro_sql_get_course_tbl();
 $tbl_mdb_names 		= claro_sql_get_main_tbl();
@@ -80,26 +80,29 @@ $TABLEANNOUNCEMENTS = $tbl_cdb_names['announcement'          ];
 $can_create_courses   = (bool) ($is_allowedCreateCourse);
 $coursesRepositories  = $coursesRepositorySys;
 
-$nc   = is_numeric($_REQUEST["nc"])?$_REQUEST["nc"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
-$smin = is_numeric($_REQUEST["smin"])?$_REQUEST["smin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
-$smax = is_numeric($_REQUEST["smax"])?$_REQUEST["smax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
-$pmin = is_numeric($_REQUEST["pmin"])?$_REQUEST["pmin"]:DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
-$pmax = is_numeric($_REQUEST["pmax"])?$_REQUEST["pmax"]:DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
-$gmin = is_numeric($_REQUEST["gmin"])?$_REQUEST["gmin"]:DEFAULT_MIN_QTY_GROUP_REGISTRED_IN_COURSE;
-$gmax = is_numeric($_REQUEST["gmax"])?$_REQUEST["gmax"]:DEFAULT_MAX_QTY_GROUP_REGISTRED_IN_COURSE;
-$gpumin = is_numeric($_REQUEST["gpumin"])?$_REQUEST["gpumin"]:DEFAULT_MIN_QTY_GROUP_OF_A_STUDENT;
-$gpumax = is_numeric($_REQUEST["gpumax"])?$_REQUEST["gpumax"]:DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT;
+$nc     = isset($_REQUEST['nc'])    ? (int) $_REQUEST['nc']    : DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$smin   = isset($_REQUEST['smin'])  ? (int) $_REQUEST['smin']  : DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$smax   = isset($_REQUEST['smax'])  ? (int) $_REQUEST['smax']  : DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
+$pmin   = isset($_REQUEST['pmin'])  ? (int) $_REQUEST['pmin']  : DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
+$pmax   = isset($_REQUEST['pmax'])  ? (int) $_REQUEST['pmax']  : DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE;
+$gmin   = isset($_REQUEST['gmin'])  ? (int) $_REQUEST['gmin']  : DEFAULT_MIN_QTY_GROUP_REGISTRED_IN_COURSE;
+$gmax   = isset($_REQUEST['gmax'])  ? (int) $_REQUEST['gmax']  : DEFAULT_MAX_QTY_GROUP_REGISTRED_IN_COURSE;
+$gpumin = isset($_REQUEST['gpumin'])? (int) $_REQUEST['gpumin']: DEFAULT_MIN_QTY_GROUP_OF_A_STUDENT;
+$gpumax = isset($_REQUEST['gpumax'])? (int) $_REQUEST['gpumax']: DEFAULT_MAX_QTY_GROUP_OF_A_STUDENT;
+$emin   = isset($_REQUEST['emin'])  ? (int) $_REQUEST['emin']  : DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_GROUP;
+$emax   = isset($_REQUEST['emax'])  ? (int) $_REQUEST['emax']  : DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_GROUP;
+$pfCode = strtoupper((isset($_REQUEST['pfCode'])&&$_REQUEST['pfCode']!='')?$_REQUEST['pfCode']:DEFAULT_PREFIX);
 
-$emin = is_numeric($_REQUEST["emin"])?$_REQUEST["emin"]:DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_GROUP;
-$emax = is_numeric($_REQUEST["emax"])?$_REQUEST["emax"]:DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_GROUP;
-$pfCode = strtoupper($_REQUEST["pfCode"]!=""?$_REQUEST["pfCode"]:DEFAULT_PREFIX);
 
 $display =DISP_FORM_SET_OPTION;
 
-if (isset($_REQUEST["nc"]))
+if (isset($_REQUEST['cmd'])  )
+$cmd = $_REQUEST['cmd'];
+else
+$cmd ='rqFill';
+
+if ($cmd == 'exFill')
 {
-
-
     srand ((double) microtime() * 10000000);
     $nameOfCourses = array (
     'Neo', 'Morpheus', 'Trinit&eacute;e', 'Cypher', 'Tank',
@@ -142,117 +145,107 @@ if (isset($_REQUEST["nc"]))
     );
 
     $aivailableLang[]= $platformLanguage;
-    if ($_REQUEST['random_lang'])
+    if (isset($_REQUEST['random_lang']))
     {
-        $dirname = $includePath.'/../lang/';
-        if($dirname[strlen($dirname)-1]!='/')
-            $dirname.='/';
-        $handle=opendir($dirname);
-        while ($entries = readdir($handle))
-        {
-            if ($entries=='.'||$entries=='..'||$entries=='CVS')
-                continue;
-            if (is_dir($dirname.$entries))
-            {
-                $aivailableLang[]=$entries;
-            }
-        }
-        closedir($handle);
-    }
-    $sqlCat = "Select `code` `code` from `".$TABLECOURSDOMAIN."` WHERE canHaveCoursesChild  = 'TRUE'";
-    $resCat = claro_sql_query($sqlCat);
-    while ($fac = mysql_fetch_array($resCat,MYSQL_ASSOC))
-    {
-        $aivailableFaculty[] = $fac["code"];
+        $aivailableLang = get_lang_list();
     }
 
-    $sqlTeachers = "Select `user_id` `uid` from `".$TABLEUSER."` WHERE statut = 1";
+    $sqlCat = "SELECT `code` `code` FROM `".$TABLECOURSDOMAIN."` WHERE canHaveCoursesChild  = 'TRUE'";
+
+    $aivailableFaculty = claro_sql_query_fetch_all($sqlCat);
+    if (is_array($aivailableFaculty))
+    foreach ($aivailableFaculty as $fac)
+    {
+        $aivailableFaculty[] = $fac['code'];
+    }
+
+    $sqlTeachers = "SELECT `user_id` `uid` FROM `".$TABLEUSER."` WHERE statut = 1";
     $resTeachers = claro_sql_query($sqlTeachers);
     while ($teacher = mysql_fetch_array($resTeachers,MYSQL_ASSOC))
     {
-        $teachersUid[] = $teacher["uid"];
+        $teachersUid[] = $teacher['uid'];
     }
 
-    $sqlUsers = "Select `user_id` `uid` from `".$TABLEUSER."`";
+    $sqlUsers = "SELECT `user_id` `uid` FROM `".$TABLEUSER."`";
     if (!CONF_COURSE_ADMIN_CAN_BE_STUDENT)
-        $sqlUsers .= " WHERE statut = '".CONF_VAL_STUDENT_STATUS."'";
+    $sqlUsers .= " WHERE statut = '".CONF_VAL_STUDENT_STATUS."'";
     $resUsers = claro_sql_query($sqlUsers);
     while ($users = mysql_fetch_array($resUsers,MYSQL_ASSOC))
     {
-        $usersUid[] = $users["uid"];
+        $usersUid[] = $users['uid'];
     }
 
     $strWork = "<OL>";
     for($noCourse=1;$noCourse<=$nc;$noCourse++)
     {
-            $wantedCode     = substr($pfCode." ".field_rand($nameOfCourses)." (".substr(md5(uniqid("")),0,3).")",0,12);
-            $faculte           = field_rand($aivailableFaculty);
-            $language_course   = field_rand($aivailableLang);
-            $uidCourse         = field_rand($teachersUid);
+        $wantedCode     = substr($pfCode." ".field_rand($nameOfCourses)." (".substr(md5(uniqid("")),0,3).")",0,12);
+        $faculte           = field_rand($aivailableFaculty);
+        $language_course   = field_rand($aivailableLang);
+        $uidCourse         = field_rand($teachersUid);
         //  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="",     $prefix4path="", $addUniquePrefix =false,    $useCodeInDepedentKeys = TRUE    )
-            $keys             = define_course_keys ($wantedCode,"",$dbNamePrefix);
-            $currentCourseCode       = $keys["currentCourseCode"];
-            $currentCourseId         = $keys["currentCourseId"];
-            $currentCourseDbName     = $keys["currentCourseDbName"];
-            $currentCourseRepository = $keys["currentCourseRepository"];
-            $expirationDate          = time() + $firstExpirationDelay;
+        $keys             = define_course_keys ($wantedCode,"",$dbNamePrefix);
+        $currentCourseCode       = $keys["currentCourseCode"];
+        $currentCourseId         = $keys["currentCourseId"];
+        $currentCourseDbName     = $keys["currentCourseDbName"];
+        $currentCourseRepository = $keys["currentCourseRepository"];
+        $expirationDate          = time() + 3600*12*24*30;
 
         if ($DEBUG) echo "[Code:",    $currentCourseCode,"][Id:",$currentCourseId,"][Db:",$currentCourseDbName     ,"][Path:",$coursesRepositorySys, " - ",$coursesRepositories," - ",$currentCourseRepository ,"]";
 
         //function prepare_course_repository($courseRepository, $courseId)
-            prepare_course_repository(
-                $currentCourseRepository,
-                $currentCourseId
-                );
-            update_Db_course(
-                $currentCourseDbName
-                );
-            fill_course_repository(
-                $currentCourseRepository
-                );
+        prepare_course_repository(
+        $currentCourseRepository,
+        $currentCourseId
+        );
+        update_Db_course(
+        $currentCourseDbName
+        );
+        fill_course_repository(
+        $currentCourseRepository
+        );
 
         // function     fill_Db_course($courseDbName,$courseRepository)
-            fill_Db_course(
-                $currentCourseDbName,
-                $currentCourseRepository,
-                $language_course
-                );
-            register_course(
-                $currentCourseId,
-                $currentCourseCode,
-                $currentCourseRepository,
-                $currentCourseDbName,
-                "test team",
-                $_user['email'],
-				$faculte,
-                $wantedCode,
-                $language_course,
-                $uidCourse,
-                $expirationDate
-                );
+        fill_Db_course(
+        $currentCourseDbName,
+        $currentCourseRepository,
+        $language_course
+        );
+        register_course(
+        $currentCourseId,
+        $currentCourseCode,
+        $currentCourseRepository,
+        $currentCourseDbName,
+        "test team",
+        (isset($_user['email'])?$_user['email']:$administrator_email),
+        $faculte,
+        $wantedCode,
+        $language_course,
+        $uidCourse,
+        $expirationDate
+        );
 
-/////// REGISTER TEATCHERS
-                $qtyOfTeacher = rand(min($pmin,count($teachersUid)),min($pmax,count($teachersUid)));
-                if ($qtyOfTeacher>0)
-                {
-                    $addTeatcher = array_rand($teachersUid,$qtyOfTeacher);
-                    if (is_array($addTeatcher))
-                    while (list(,$key)=each($addTeatcher))
-                    {
-                        $userSqlSegment[]="('".$currentCourseId."', ".$teachersUid[$key].", 1)";
-                    }
-                }
-/////// REGISTER STUDENTS
-                $qtyOfStudents = rand(min($smin,count($usersUid)),min($smax,count($usersUid)));
-                if ($qtyOfStudents>0)
-                {
-                    $addStudents = array_rand($usersUid,$qtyOfStudents);
-                    if (is_array($addStudents))
-                    while (list(,$key)=each($addStudents))
-                    {
-                        $userSqlSegment[]="('".$currentCourseId."', ".$usersUid[$key].", 5)";
-                    }
-                }
+        /////// REGISTER TEATCHERS
+        $qtyOfTeacher = rand(min($pmin,count($teachersUid)),min($pmax,count($teachersUid)));
+        if ($qtyOfTeacher>0)
+        {
+            $addTeatcher = array_rand($teachersUid,$qtyOfTeacher);
+            if (is_array($addTeatcher))
+            while (list(,$key)=each($addTeatcher))
+            {
+                $userSqlSegment[]="('".$currentCourseId."', ".$teachersUid[$key].", 1)";
+            }
+        }
+        /////// REGISTER STUDENTS
+        $qtyOfStudents = rand(min($smin,count($usersUid)),min($smax,count($usersUid)));
+        if ($qtyOfStudents>0)
+        {
+            $addStudents = array_rand($usersUid,$qtyOfStudents);
+            if (is_array($addStudents))
+            while (list(,$key)=each($addStudents))
+            {
+                $userSqlSegment[]="('".$currentCourseId."', ".$usersUid[$key].", 5)";
+            }
+        }
         if (is_array($userSqlSegment))
         {
             $sqlAddUserToCourse = "
@@ -265,83 +258,83 @@ if (isset($_REQUEST["nc"]))
         }
 
 
-//-----------------------------------------------------------------------------------
-		$group_quantity = rand($gmin,$gmax);
-		$group_max		= $emax; //maximum of student for a group
-
-		$_course['dbNameGlu']	= $courseTablePrefix . $currentCourseDbName. $dbGlu; // use in all queries
-		$tbl_Groups		   		= $_course['dbNameGlu']."group_team";
-		$tbl_GroupsUsers		= $_course['dbNameGlu']."group_rel_team_user";
-		$tbl_Forums             = $_course['dbNameGlu'].'bb_forums';
+        //-----------------------------------------------------------------------------------
+        $group_quantity = rand($gmin,$gmax);
+        $group_max		= $emax; //maximum of student for a group
 
 
-/*
-	// For all Group forums, cat_id=2
-*/
+        $tbl_cdb_names = claro_sql_get_course_tbl($courseTablePrefix . $currentCourseDbName. $dbGlu);
+        $tbl_Groups		   		= $tbl_cdb_names['group_team'];
+        $tbl_GroupsUsers		= $tbl_cdb_names['group_rel_team_user'];
+        $tbl_Forums             = $tbl_cdb_names['bb_forums'];
 
-		for ($i = 1; $i <= $group_quantity; $i++)
-		{
-			/*
-			* Insert a new group in the course group table and keep its ID
-			*/
+        /*
+        // For all Group forums, cat_id=2
+        */
 
-			$sql = "INSERT INTO `".$tbl_Groups."`
-					(maxStudent) VALUES ('".$group_max."')";
+        for ($i = 1; $i <= $group_quantity; $i++)
+        {
+            /*
+            * Insert a new group in the course group table and keep its ID
+            */
 
-			claro_sql_query($sql);
-			$lastId = mysql_insert_id();
+            $sql = "INSERT INTO `" . $tbl_Groups . "`
+					(maxStudent) VALUES ('" . $group_max . "')";
 
-			/*
-			* Create a forum for the group in the forum table
-			*/
+            claro_sql_query($sql);
+            $lastId = mysql_insert_id();
 
-			$sql = "INSERT INTO `".$tbl_Forums."`
+            /*
+            * Create a forum for the group in the forum table
+            */
+
+            $sql = "INSERT INTO `".$tbl_Forums."`
 					(forum_id, forum_name, forum_desc, forum_access, forum_moderator,
 					forum_topics, forum_posts, forum_last_post_id, cat_id,
 					forum_type, md5)
 					VALUES ('','$langForumGroup $lastId','', 2, 1, 0, 0,
 							1, 1, 0,'".md5(time())."')";
 
-			claro_sql_query($sql);
-			$forumInsertId = mysql_insert_id();
+            claro_sql_query($sql);
+            $forumInsertId = mysql_insert_id();
 
-			/*
-			* Create a directory for to allow group student to upload documents
-			*/
+            /*
+            * Create a directory for to allow group student to upload documents
+            */
 
-			/*  Create a Unique ID path preventing other enter */
+            /*  Create a Unique ID path preventing other enter */
 
-			$secretDirectory	=	uniqid("")."_team_".$lastId;
+            $secretDirectory	=	uniqid($platform_id) . '_team_' . $lastId;
 
-			while ( check_name_exist($coursesRepositorySys.$currentCourseRepository."/group/$secretDirectory") )
-			{
-				$secretDirectory = uniqid("")."_team_".$lastId;
-			}
+            while ( check_name_exist($coursesRepositorySys . $currentCourseRepository . '/group/' . $secretDirectory) )
+            {
+                $secretDirectory = uniqid($platform_id) . '_team_' . $lastId;
+            }
 
-			mkdirs($coursesRepositorySys.$currentCourseRepository."/group/".$secretDirectory, 0777);
+            claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $secretDirectory, 0777);
 
-			/* Stores the directory path into the group table */
+            /* Stores the directory path into the group table */
 
-			$sql = "UPDATE `".$tbl_Groups."`
-					SET   name            = '".$langGroup." ".$lastId."',
-						forumId         = '".$forumInsertId."',
-						secretDirectory = '".$secretDirectory."'
-					WHERE id ='".$lastId."'";
+            $sql = "UPDATE `" . $tbl_Groups . "`
+					SET name            = '" . $langGroup . ' ' . $lastId . "',
+						forumId         = '" . $forumInsertId . "',
+						secretDirectory = '" . $secretDirectory . "'
+					WHERE id ='" . $lastId . "'";
 
-			claro_sql_query($sql);
+            claro_sql_query($sql);
 
-		}	// end for ($i = 1; $i <= $group_quantity; $i++)
+        }	// end for ($i = 1; $i <= $group_quantity; $i++)
 
-			$nbGroupPerUser	= rand($gpumin,$gpumax);
-			$tbl_CoursUsers	=$TABLECOURSUSER;
-			$tbl_Users		=$TABLEUSER;
+        $nbGroupPerUser	= rand($gpumin,$gpumax);
+        $tbl_CoursUsers	= $TABLECOURSUSER;
+        $tbl_Users		= $TABLEUSER;
 
-		if ($group_quantity>0)
-			fill_in_groups();
+        if ($group_quantity>0)
+        fill_in_groups();
 
-//-----------------------------------------------------------
+        //-----------------------------------------------------------
 
-                $strWork .= "
+        $strWork .= "
         <LI>    <strong>[wantedCode:".$wantedCode ."]</strong><br>
                 [Code:".    $currentCourseCode."]
                 [Id:".$currentCourseId."]
@@ -359,20 +352,18 @@ if (isset($_REQUEST["nc"]))
     $display = DISP_RESULT_INSERT;
 }
 
-//////////////// OUTPUT
-    #### OUTPUT ####
-    //// HEADER ////
-include($includePath.'/claro_init_header.inc.php');
-claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools
-	)
-	);
-claro_disp_msg_arr($controlMsg);
+//////////////// //////////////// //////////////// ////////////////
+//OUTPUT
+//////////////// //////////////// //////////////// ////////////////
+
+include( $includePath . '/claro_init_header.inc.php');
+claro_disp_tool_title( $nameTools);
+if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
+
 switch ($display)
 {
     case DISP_RESULT_INSERT :
-        echo $strWork;
+    echo $strWork;
         ?>
             <UL class="menu">
                 <LI>
@@ -384,7 +375,7 @@ switch ($display)
             </UL>
         <?php
         break;
-    case DISP_FORM_SET_OPTION :
+        case DISP_FORM_SET_OPTION :
         ?>
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
@@ -410,7 +401,7 @@ switch ($display)
     <input align="right" id="pmax"  type="text" name="pmax" value="<?php echo $pmax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
-    <Label for="noLangRand"><input type="radio" id="noLangRand" name="random_lang" value="" checked="checked">    <?php echo $langOnly." ".$language ?></label>
+    <Label for="noLangRand"><input type="radio" id="noLangRand" name="random_lang" value="" checked="checked">    <?php echo $langOnly . " " . $langNameOfLang[$platformLanguage] ?></label>
     <Label for="langRand"><input type="radio" id="langRand"   name="random_lang" value="random_lang"><?php echo $langRandomLanguage ?></label>
     </fieldset>
 	<fieldset>
@@ -433,18 +424,39 @@ switch ($display)
     <input align="right" id="gpumax"  type="text" name="gmax" value="<?php echo $gpumax ?>" size="5" maxlength="3">
     </fieldset>
 
-
-    <input type="submit" name="create" value="create">
+    
+    <input type="hidden" name="cmd" value="exFill">
+    <input type="submit" name="create" value="<?php echo $langCreate ?>">
 </form>
         <?php
         break;
-    default : "hum erreur de display";
+        default : "hum erreur de display";
 
 }
 
 function field_rand($arr)
 {
-    $rand_keys    = array_rand ($arr);
+    $rand_keys = array_rand ($arr);
     return $arr[$rand_keys];
+}
+
+function get_lang_list()
+{
+    GLOBAL $includePath;
+    $dirname = $includePath.'/../lang/';
+    if($dirname[strlen($dirname)-1]!='/')
+    $dirname.='/';
+    $handle=opendir($dirname);
+    while ($entries = readdir($handle))
+    {
+        if ($entries=='.'||$entries=='..'||$entries=='CVS')
+        continue;
+        if (is_dir($dirname.$entries))
+        {
+            $aivailableLang[]=$entries;
+        }
+    }
+    closedir($handle);
+    return $aivailableLang;
 }
 ?>
