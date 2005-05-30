@@ -251,11 +251,10 @@ if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || is
 	// shows a link to go back to the question pool
 	if (isset($_REQUEST['fromExercise'])) 	$addFrom = "fromExercise=".$_REQUEST['fromExercise'];
     else 									$addFrom = '';
-        
-    if(!isset($exerciseId))
+
+    if( $_SESSION['objExercise']->selectTitle() == '' )
 	{
-		
-                $interbredcrump[] = array("url" => "question_pool.php?".$addFrom,"name" => $langQuestionPool);
+		$interbredcrump[] = array("url" => "question_pool.php?".$addFrom,"name" => $langQuestionPool);
 	}
 	else
 	{
@@ -266,7 +265,7 @@ if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || is
 }
 else
 {
-	if(isset($_REQUEST['exerciseId']))
+	if( isset($exerciseId))
 	{
 		$nameTools = $_SESSION['objExercise']->selectTitle();
 	}
