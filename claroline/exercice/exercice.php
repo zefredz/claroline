@@ -184,6 +184,7 @@ if($is_allowedToEdit)
 				case 'enable':  // enables an exercise
 								$objExerciseTmp->enable();
 								$objExerciseTmp->save();
+                                                                $eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
 
 								break;
 				case 'disable': // disables an exercise
