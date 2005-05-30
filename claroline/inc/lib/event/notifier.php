@@ -129,28 +129,33 @@ class Notifier extends EventDriven
     /**
      * Function to know which course contains new ressources that must be notified for a specific user and since a specific date
      *
-     * @param $user_id user from which we must know what is new
      * @param $date unix_timestamp the date from wich we must take account new items 
+     * @param $user_id user for which we must know what is new
      *
      * @return an array with the courses with recent unknown event until the date '$date' in the course list of the user
      */
      
-    function get_notified_courses($user_id,$date)
+    function get_notified_courses($date, $user_id)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_cours_user = $tbl_mdb_names['rel_course_user'];
-        $tbl_notify     = $tbl_mdb_names['notify'];
-
+        $tbl_notify     = $tbl_mdb_names['notify'];        
+        
         $courses = array();
 
-        //1- find the list of the user's course and in this list, take only the course where recent events happened
+        //  1- find the list of the user's course and in this list, take only the course where recent events happened 
+        //    A- FOR A STUDENT : where the events concerned everybody (uid = 0) or the user himself (uid)
+        //    B- FOR A TEACHER : every events of a course must be reported (this take much sense in the work tool, with submissions)
 
         $sql="SELECT `code_cours` FROM `".$tbl_cours_user."` AS CU, `".$tbl_notify."` AS N 
                WHERE CU.`code_cours` = N.`course_code`
                  AND CU.`user_id` = '".$user_id."'
-             AND N.`date` > '".$date."'
+                 AND N.`date` > '".$date."'
+                 AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')) 
+                     OR
+                     (CU.`statut` = '1') )
                  ";
-
+        
         $courseList = claro_sql_query_fetch_all($sql);
                 
         if (is_array($courseList))
@@ -170,21 +175,27 @@ class Notifier extends EventDriven
      *  @return an array with the tools id with recent unknow event until the date '$date'
      */
      
-    function get_notified_tools($course_id, $date)
+    function get_notified_tools($course_id, $date, $user_id)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_cours_user = $tbl_mdb_names['rel_course_user'];
         $tbl_notify    = $tbl_mdb_names['notify'];
 
         $tools = array();
 
         // 1- find the tool list of the given course that contains some event newer than the date '$date'
-        
+        //    A- FOR A STUDENT : where the events concerned everybody (uid = 0) or the user himself (uid)
+        //    B- FOR A TEACHER : every events of a course must be reported (this take much sense in the work tool, with submissions)
         $sql = "SELECT `tool_id`, MAX(`date`)
-                FROM `".$tbl_notify."` AS N 
+                FROM `".$tbl_notify."` AS N, `".$tbl_cours_user."` AS CU
                 WHERE N.`course_code` = '".$course_id."'
+                  AND CU.`user_id` = '".$user_id."'
+                  AND CU.`code_cours` = N.`course_code`
                   AND N.`date` > '".$date."'
-                GROUP BY `tool_id`
-
+                  AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')) 
+                       OR
+                      (CU.`statut` = '1') )
+                GROUP BY `tool_id`            
                  ";
         $toolList = claro_sql_query_fetch_all($sql);
         if (is_array($toolList))

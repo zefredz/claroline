@@ -71,7 +71,7 @@ $dispWrkForm = false;
 $dispWrkDet   = false;
 $dispFbkFields = false;
 /*============================================================================
-                     CLEAN INFORMATIONS SEND BY USER
+                     CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
 stripSubmitValue($_REQUEST);
 
@@ -590,7 +590,7 @@ if($is_allowedToEditAll)
 	                    CORRECTION OF A WORK
 	--------------------------------------------------------------------*/
 	/*-----------------------------------
-	        STEP 2 : check & quey
+	        STEP 2 : check & query
 	-------------------------------------*/
 	if( $cmd == "exGradeWrk" && isset($_REQUEST['wrkId']) )
 	{
@@ -614,6 +614,10 @@ if($is_allowedToEditAll)
 			claro_sql_query($sqlAddWork);
 
 			$dialogBox .= $langFeedbackAdded;
+                        
+                        // notify eventmanager that a new submission has been posted
+        
+                        $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], $_gid, $_REQUEST['authId']);
 
 			// display flags
 			$dispWrkLst = true;
@@ -799,6 +803,10 @@ if( $is_allowedToSubmit )
             claro_sql_query($sqlAddWork);
                         
             $dialogBox .= $langWrkAdded;
+            
+            // notify eventmanager that a new submission has been posted
+        
+            $eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], $_gid, $_uid);
             
             // display flags
             $dispWrkLst = true;

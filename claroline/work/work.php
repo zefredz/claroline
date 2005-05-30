@@ -67,7 +67,7 @@ $dialogBox = '';
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 /*============================================================================
-                     CLEAN INFORMATIONS SEND BY USER
+                     CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
 stripSubmitValue($_REQUEST);
 
@@ -199,6 +199,13 @@ if($is_allowedToEdit)
                      WHERE `id` = ".$_REQUEST['assigId']."
                        AND `visibility` != '".$visibility."'";
             claro_sql_query ($sql);
+            
+            //notify eventmanager
+            
+            if ($_REQUEST['vis'] == 'v')
+            {
+                $eventNotifier->notifyCourseEvent("work_visible",$_cid, $_tid, $_REQUEST['assigId'], $_gid, "0");
+            }
         }
     }
 
@@ -226,7 +233,7 @@ if($is_allowedToEdit)
     }
    
     /*--------------------------------------------------------------------
-                          MODIFY An ASSIGNMENT
+                          MODIFY AN ASSIGNMENT
     --------------------------------------------------------------------*/
     /*-----------------------------------
         STEP 2 : check & query
@@ -258,7 +265,7 @@ if($is_allowedToEdit)
     /*-----------------------------------
     STEP 1 : display form
     -------------------------------------*/
-    // edit aassignment / display the form
+    // edit assignment / display the form
     if( $cmd == 'rqEditAssig' )
     {
         include($includePath."/lib/form.lib.php");
@@ -349,6 +356,10 @@ if($is_allowedToEdit)
         
             // confirmation message
             $dialogBox .= $langAssignmentAdded;
+            
+            //notify eventmanager that a new assignement is created
+            
+            $eventNotifier->notifyCourseEvent("work_added",$_cid, $_tid, $lastassigId, $_gid, "0");
         }
         else
         {

@@ -46,6 +46,7 @@ $notif_listen13 = $claro_notifier->addListener( 'update', "exercise_visible");
 $notif_listen14 = $claro_notifier->addListener( 'update', "learningpath_created");
 $notif_listen15 = $claro_notifier->addListener( 'update', "learningpath_visible");
 $notif_listen16 = $claro_notifier->addListener( 'update', "work_added");
-$notif_listen16 = $claro_notifier->addListener( 'update', "work_visible");
-$notif_listen17 = $claro_notifier->addListener( 'update', "work_submission_posted");
+$notif_listen17 = $claro_notifier->addListener( 'update', "work_visible");
+$notif_listen18 = $claro_notifier->addListener( 'update', "work_submission_posted");
+$notif_listen19 = $claro_notifier->addListener( 'update', "work_correction_posted");
 ?>
