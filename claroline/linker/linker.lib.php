@@ -461,7 +461,7 @@
 		return $attachement;
 	}
 	
-	/**
+   /**
    * return the index of a tool
    *
    * @param $label the TLabel of a tool
@@ -470,7 +470,7 @@
 	function get_tool_index($label)
     {
    		global $_courseToolList;
-   		
+
    		$indexTool = 0;
    		foreach($_courseToolList as $toolTbl)
    		{
@@ -480,27 +480,53 @@
    			}
    			$indexTool++;
    		}
-   		
+
    		return FALSE;
     }
-    
+
+   /**
+   * return the name of a tool
+   *
+   * @param $label the TLabel of a tool
+   * @return  integer if the tlabel is found in the list of a tool or false
+   */
+    function get_tool_name($course_sys_code,$label)
+    {
+         $courseToolList = get_course_tool_list($course_sys_code);
+         $toolName = "";
+
+         foreach($courseToolList as $toolTbl)
+         {
+                $name = $toolTbl["name"];
+                $tLabel = $toolTbl["label"];
+
+                if ($tLabel == $label)
+                {
+                     $toolName = $name;
+                }
+         }
+
+         return  $toolName;
+    }
+
+
     /**
     * return the title of a tool
     *
-    * @param $elementCRLArray (array) an associative array containing the elements of a crl  
+    * @param $elementCRLArray (array) an associative array containing the elements of a crl
     * @return string (string) the title of a tool
     * @global $_courseToolList
     */
 	function get_toolname_title($elementCRLArray)
 	{
 		global $_courseToolList;
-	
-		$toolIndex = false; 
+
+		$toolIndex = false;
 		if( isset($elementCRLArray["tool_name"]) )
 		{
 			$toolIndex = get_tool_index($elementCRLArray["tool_name"]);
 		}
-		
+
 		$title  = get_course_title($elementCRLArray["course_sys_code"]);
 
 		if( isset($elementCRLArray["tool_name"]) && $elementCRLArray["tool_name"] == "CLEXT___")
@@ -517,10 +543,12 @@
                      
                 $title = $resolver->getResourceName($crl); 
 			}
-			
-        	$title .= " > ".$_courseToolList[$toolIndex]["name"];
+
+            $name =  get_tool_name($elementCRLArray['course_sys_code'],$elementCRLArray["tool_name"]);
+           // $name = $_courseToolList[$toolIndex]["name"];
+            $title .=  " > ".$name;
         }
-        
+
         return $title;
 	}
 	
