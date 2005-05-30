@@ -73,108 +73,108 @@ if ( $is_allowedToEdit )
     if ( isset($_REQUEST['id']) ) $descId = (int) $_REQUEST['id'];
     else                          $descId = 0;
 
-	if ( $cmd == 'exEdit' )
-	{
-	    if ( !empty($descId) )
-	    {
-	        // Update description
-	        if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
-	        {
-	            $eventNotifier->notifyCourseEvent("course_description_modified",$_cid, $_tid, $descId, $_gid, "0");
+    if ( $cmd == 'exEdit' )
+    {
+        if ( !empty($descId) )
+        {
+            // Update description
+            if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
+            {
+                $eventNotifier->notifyCourseEvent("course_description_modified",$_cid, $_tid, $descId, $_gid, "0");
                     $dialogBox .= '<p>' . $langDescUpdated . '</p>';
-	        }
-	        else
-	        {
-	            $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
-	        }
-	    }
-	    else
-	    {          
-	        // Add new description
+            }
+            else
+            {
+                $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
+            }
+        }
+        else
+        {
+            // Add new description
                 
                 $descId = course_description_add_item($descTitle,$descContent);
                 echo "blah:".$descId;
-	        if ($descId != FALSE )
-	        {
-	            $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
+            if ($descId != FALSE )
+            {
+                $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
                     $dialogBox .= '<p>' . $langDescAdded . '</p>';
-	        }
-	        else
-	        {
-	            $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
-	        }
-	    }    
-	}
-	
-	/******************************************************************************
-	                        REQUEST DESCRIPTION ITEM EDITION
-	 ******************************************************************************/
-	
-	if ( $cmd == 'rqEdit' )
-	{
-	    if ( !empty($descId) )
-	    {       
-	        $descItem = course_description_get_item($descId);
-	        $descPresetKey = array_search($descItem['title'] , $titreBloc);
-	    }
-	    else
-	    {
-	    	$descItem['id'     ] = NULL;
-	        $descItem['title'  ] = '';
-	        $descItem['content'] = '';
-	
-	        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
-	        {
-	            $descPresetKey = $_REQUEST['numBloc'];
-	        }
-	    }
-	
-	    if ( !empty($descPresetKey) )
-	    {
-	         $descPresetTitle    = $titreBloc[$descPresetKey];
-	         $descPresetQuestion = $questionPlan[$descPresetKey];
-	         $descPresetTip      = $info2Say[$descPresetKey];
-	    }
-	    else
-	    {
-	         $descPresetTitle    = NULL;
-	         $descPresetQuestion = NULL;
-	         $descPresetTip      = NULL;
-	    }
-	
-	    $displayForm = TRUE;
-	}
-	
-	/******************************************************************************
-	                            DELETE DESCRIPTION ITEM
-	 ******************************************************************************/
-	
-	
-	if ( $cmd == 'exDelete' && !empty($descId) )
-	{
-	    if ( course_description_delete_item($descId) ) 
-	    {
-	        $dialogBox .= '<p>' . $langDescDeleted . '</p>';
-	    }
-	    else
-	    {
-	        $dialogBox .= '<p>' . $langDescUnableToDelete . '</p>';
-	    }
-	}
+            }
+            else
+            {
+                $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
+            }
+        }    
+    }
+    
+    /******************************************************************************
+                            REQUEST DESCRIPTION ITEM EDITION
+     ******************************************************************************/
+    
+    if ( $cmd == 'rqEdit' )
+    {
+        if ( !empty($descId) )
+        {
+            $descItem = course_description_get_item($descId);
+            $descPresetKey = array_search($descItem['title'] , $titreBloc);
+        }
+        else
+        {
+            $descItem['id'     ] = NULL;
+            $descItem['title'  ] = '';
+            $descItem['content'] = '';
+    
+            if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
+            {
+                $descPresetKey = $_REQUEST['numBloc'];
+            }
+        }
+    
+        if ( !empty($descPresetKey) )
+        {
+             $descPresetTitle    = $titreBloc[$descPresetKey];
+             $descPresetQuestion = $questionPlan[$descPresetKey];
+             $descPresetTip      = $info2Say[$descPresetKey];
+        }
+        else
+        {
+             $descPresetTitle    = NULL;
+             $descPresetQuestion = NULL;
+             $descPresetTip      = NULL;
+        }
+    
+        $displayForm = TRUE;
+    }
+    
+    /******************************************************************************
+                                DELETE DESCRIPTION ITEM
+     ******************************************************************************/
+    
+    
+    if ( $cmd == 'exDelete' && !empty($descId) )
+    {
+        if ( course_description_delete_item($descId) ) 
+        {
+            $dialogBox .= '<p>' . $langDescDeleted . '</p>';
+        }
+        else
+        {
+            $dialogBox .= '<p>' . $langDescUnableToDelete . '</p>';
+        }
+    }
 
 
 
-	/******************************************************************************
-	                       EDIT  VISIBILITY DESCRIPTION ITEM
-	 ******************************************************************************/
-	
-	
-	if ( ($cmd == 'mkShow'|| $cmd == 'mkHide') && !empty($descId) )
-	{
-	    if ( course_description_visibility_item($descId , $cmd) ) 
-	    {
-	        $dialogBox .= '<p>' . $langViMod. '</p>';
-	    }
+    /******************************************************************************
+                           EDIT  VISIBILITY DESCRIPTION ITEM
+     ******************************************************************************/
+    
+    
+    if ( ($cmd == 'mkShow'|| $cmd == 'mkHide') && !empty($descId) )
+    {
+        if ( course_description_visibility_item($descId , $cmd) ) 
+        {
+            $dialogBox .= '<p>' . $langViMod. '</p>';
+        }
             
             //notify that an item is now visible
             
@@ -182,7 +182,7 @@ if ( $is_allowedToEdit )
             {
                 $eventNotifier->notifyCourseEvent("course_description_visible",$_cid, $_tid, $descId, $_gid, "0");
             }
-	}
+    }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -237,13 +237,13 @@ if ( $is_allowedToEdit )
 
             .'<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n";
 
-	        claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
+            claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
 
-	        echo '<input type="submit" name="save" value="' . $langOk . '">' . "\n";
+            echo '<input type="submit" name="save" value="' . $langOk . '">' . "\n";
 
-	        claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
+            claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
 
-	        echo '</form>'."\n"
+            echo '</form>'."\n"
             
             .'</td>'  ."\n"
 
@@ -309,18 +309,18 @@ if ( count($descList) )
 {
     foreach ( $descList as $thisDesc )
     {
-    	if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
-    	{  
-	    	if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
-	    	echo "\n".'<div'.$style.'><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
-		          .'<blockquote>'."\n"
-		          . claro_parse_user_text($thisDesc['content'])."\n"
-		          .'<br></div>'."\n"
-		          .'</blockquote>'."\n";
+        if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
+        {  
+            if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
+            echo "\n".'<div'.$style.'><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
+                  .'<blockquote>'."\n"
+                  . claro_parse_user_text($thisDesc['content'])."\n"
+                  .'<br></div>'."\n"
+                  .'</blockquote>'."\n";
 
-			$hasDisplayedItems = true;
-    	}
-	
+            $hasDisplayedItems = true;
+        }
+    
         if ( $is_allowedToEdit )
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisDesc['id'].'">'
@@ -332,24 +332,24 @@ if ( count($descList) )
                 .'</a>'."\n\n";
            if ($thisDesc['visibility']=='SHOW')
            {
-           	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkHide&amp;id='.$thisDesc['id'].'">'
+               echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkHide&amp;id='.$thisDesc['id'].'">'
                 .'<img src="'.$imgRepositoryWeb.'visible.gif" alt="'.$langInvisible.'">'
                 .'</a>'."\n";
            }
            else 
            {
-           	echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkShow&amp;id='.$thisDesc['id'].'">'
+               echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkShow&amp;id='.$thisDesc['id'].'">'
                 .'<img src="'.$imgRepositoryWeb.'invisible.gif" alt="'.$langVisible.'">'
                 .'</a>'."\n";           
            }
-    	}
-    	
+        }
+        
     }
 }
 
 if( !$hasDisplayedItems )
 {
-	echo "\n".'<p>'.$langThisCourseDescriptionIsEmpty.'</p>'."\n";
+    echo "\n".'<p>'.$langThisCourseDescriptionIsEmpty.'</p>'."\n";
 }
 
 include $includePath.'/claro_init_footer.inc.php';
@@ -498,7 +498,7 @@ function course_description_add_item($descTitle,$descContent, $dbnameGlu=Null)
  * insert values in a new item 
  * 
  * @param $descTitle    string Title of the item
- * @param $cmd			string with command to hide or show item
+ * @param $cmd          string with command to hide or show item
  * @param $dbnameGlu    string  glued dbName of the course to affect default: current course
  *
  * @return integer id of the new item
