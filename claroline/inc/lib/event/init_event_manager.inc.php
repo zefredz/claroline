@@ -42,4 +42,10 @@ $notif_listen9  = $claro_notifier->addListener( 'update', "anouncement_modified"
 $notif_listen10 = $claro_notifier->addListener( 'update', "course_description_added");
 $notif_listen11 = $claro_notifier->addListener( 'update', "course_description_modified");
 $notif_listen12 = $claro_notifier->addListener( 'update', "course_description_visible");
+$notif_listen13 = $claro_notifier->addListener( 'update', "exercise_visible");
+$notif_listen14 = $claro_notifier->addListener( 'update', "learningpath_created");
+$notif_listen15 = $claro_notifier->addListener( 'update', "learningpath_visible");
+$notif_listen16 = $claro_notifier->addListener( 'update', "work_added");
+$notif_listen16 = $claro_notifier->addListener( 'update', "work_visible");
+$notif_listen17 = $claro_notifier->addListener( 'update', "work_submission_posted");
 ?>
