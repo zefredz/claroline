@@ -55,11 +55,11 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_course_user = $tbl_mdb_names['rel_course_user'];
 $tbl_users       = $tbl_mdb_names['user'];
 
-$tbl_categories       = $tbl_cdb_names['bb_categories'];
-$tbl_forums           = $tbl_cdb_names['bb_forums'];
-$tbl_group_properties = $tbl_cdb_names['group_property'];
-$tbl_posts            = $tbl_cdb_names['bb_posts'];
-$tbl_student_group    = $tbl_cdb_names['group_team'];
+$tbl_categories       = $tbl_cdb_names['bb_categories'      ];
+$tbl_forums           = $tbl_cdb_names['bb_forums'          ];
+$tbl_group_properties = $tbl_cdb_names['group_property'     ];
+$tbl_posts            = $tbl_cdb_names['bb_posts'           ];
+$tbl_student_group    = $tbl_cdb_names['group_team'         ];
 $tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
 
 /*-----------------------------------------------------------------
@@ -182,8 +182,7 @@ foreach ( $categories as $this_category )
 
             echo '<tr align="left" valign="top">' . "\n";
 
-            if ( !empty($last_post) && is_numeric($last_post)
-                && datetime_to_timestamp($last_post) > $last_visit )
+            if ( ! is_null($last_post) && datetime_to_timestamp($last_post) > $last_visit )
             {
                 $forum_img = 'forum_hot.gif';
             }
