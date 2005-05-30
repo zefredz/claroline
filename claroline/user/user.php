@@ -103,21 +103,35 @@ if ( $is_allowedToEdit )
 {
     $disp_tool_link = TRUE;
 
-    // Unregister user from course
-    // (notice : it does not delete user from claroline main DB)
-
-    if ( isset($_REQUEST['unregister']) && $_REQUEST['unregister'] )
+    if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'unregister')
     {
-        // delete user from course user list
-        if ( remove_user_from_course($_REQUEST['user_id'], $_cid) )
+        // Unregister user from course
+        // (notice : it does not delete user from claroline main DB)
+    
+    if ($_REQUEST['user_id'] == 'allStudent')
         {
-	   $dialogBox = $langUserUnsubscribedFromCourse;
+            $sql = "DELETE FROM `".$tbl_rel_course_user."`
+                    WHERE `code_cours` = '".$currentCourseID."'
+                     AND `statut` = 5";
+
+            $unregisterdUserCount = claro_sql_query_affected_rows($sql);
+
+            $dialogBox = $unregisterdUserCount . " student(s) unregistered from this course";
         }
-        else
+        elseif ( 0 < (int)$_REQUEST['user_id'] )
         {
-           $dialogBox = $langUserNotUnsubscribedFromCourse;
+            // delete user from course user list
+            if ( remove_user_from_course( $_REQUEST['user_id'], $_cid) )
+            {
+               $dialogBox = $langUserUnsubscribedFromCourse;
+            }
+            else
+            {
+               $dialogBox = $langUserNotUnsubscribedFromCourse;
+            }
         }
-   }
+    } // end if isset $_REQUEST['cmd']
+
 }    // end if allowed to edit
 
 /*----------------------------------------------------------------------
@@ -128,7 +142,7 @@ $sqlNbUser = 'SELECT count(user.user_id) `nb_users`
               FROM `'.$tbl_rel_course_user.'` `cours_user`,
                    `'.$tbl_users.'` `user`
               WHERE `cours_user`.`code_cours` = "'.$currentCourseID.'"
-              AND cours_user.user_id = `user`.user_id';
+                AND `cours_user`.`user_id` = `user`.user_id';
 
 $userTotalNb = claro_sql_query_fetch_all($sqlNbUser);
 
@@ -227,7 +241,13 @@ if ( $disp_tool_link )
     
     }
     ?>
-    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a>
+    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a> |
+
+    <a class="claroCmd" href="<?php echo $PHP_SELF; ?>?cmd=unregister&user_id=allStudent"
+       onClick="return confirmation('<?php echo clean_str_for_javascript(' all students '); ?>')">
+    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif">
+    Unregister all students
+    </a>
     </p>
 <?php
 }
@@ -359,7 +379,7 @@ foreach ( $userList as $thisUser )
 
         if ($thisUser['user_id'] != $_uid)
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&amp;user_id='.$thisUser['user_id'].'" '
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
                . 'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
                . '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif">'
                . '</a>'
