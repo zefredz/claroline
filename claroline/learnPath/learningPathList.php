@@ -267,6 +267,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
         // VISIBILITY COMMAND
         case "mkVisibl" :
+              $eventNotifier->notifyCourseEvent("learningpath_visible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
         case "mkInvisibl" :
               $cmd == "mkVisibl" ? $visibility = 'SHOW' : $visibility = 'HIDE';
               $sql = "UPDATE `".$TABLELEARNPATH."`
@@ -327,10 +328,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                                        (`name`, `comment`, `rank`)
                                 VALUES ('".claro_addslashes($_POST['newPathName'])."','".claro_addslashes(trim($_POST['newComment']))."',".$order.")";
                         //echo $sql;
-                        $query = claro_sql_query($sql);
-                        //echo $langOKNewPath;
-
-
+                        $lp_id = claro_sql_query_insert_id($sql);
+                        
+                        // notify the creation to eventmanager
+                        $eventNotifier->notifyCourseEvent("learningpath_created",$_cid, $_tid, $lp_id, $_gid, "0");
                  }
                  else
                  {
