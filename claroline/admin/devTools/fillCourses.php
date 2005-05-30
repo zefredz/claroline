@@ -69,12 +69,12 @@ $interbredcrump[]= array ('url' => 'index.php',    'name'=> $langDevTools);
 * DB tables definition
 */
 
-$tbl_cdb_names 		= claro_sql_get_course_tbl();
-$tbl_mdb_names 		= claro_sql_get_main_tbl();
-$TABLECOURSE 		= $tbl_mdb_names['course'           ];
-$TABLECOURSUSER 	= $tbl_mdb_names['rel_course_user'  ];
-$TABLECOURSDOMAIN 	= $tbl_mdb_names['category'         ];
-$TABLEUSER 			= $tbl_mdb_names['user'             ];
+$tbl_cdb_names      = claro_sql_get_course_tbl();
+$tbl_mdb_names      = claro_sql_get_main_tbl();
+$TABLECOURSE        = $tbl_mdb_names['course'           ];
+$TABLECOURSUSER     = $tbl_mdb_names['rel_course_user'  ];
+$TABLECOURSDOMAIN   = $tbl_mdb_names['category'         ];
+$TABLEUSER          = $tbl_mdb_names['user'             ];
 $TABLEANNOUNCEMENTS = $tbl_cdb_names['announcement'          ];
 
 $can_create_courses   = (bool) ($is_allowedCreateCourse);
@@ -260,13 +260,13 @@ if ($cmd == 'exFill')
 
         //-----------------------------------------------------------------------------------
         $group_quantity = rand($gmin,$gmax);
-        $group_max		= $emax; //maximum of student for a group
+        $group_max        = $emax; //maximum of student for a group
 
 
-        $tbl_cdb_names = claro_sql_get_course_tbl($courseTablePrefix . $currentCourseDbName. $dbGlu);
-        $tbl_Groups		   		= $tbl_cdb_names['group_team'];
-        $tbl_GroupsUsers		= $tbl_cdb_names['group_rel_team_user'];
-        $tbl_Forums             = $tbl_cdb_names['bb_forums'];
+        $tbl_cdb_names   = claro_sql_get_course_tbl($courseTablePrefix . $currentCourseDbName. $dbGlu);
+        $tbl_Groups      = $tbl_cdb_names['group_team'];
+        $tbl_GroupsUsers = $tbl_cdb_names['group_rel_team_user'];
+        $tbl_Forums      = $tbl_cdb_names['bb_forums'];
 
         /*
         // For all Group forums, cat_id=2
@@ -279,24 +279,23 @@ if ($cmd == 'exFill')
             */
 
             $sql = "INSERT INTO `" . $tbl_Groups . "`
-					(maxStudent) VALUES ('" . $group_max . "')";
+                    (maxStudent) VALUES ('" . $group_max . "')";
 
-            claro_sql_query($sql);
-            $lastId = mysql_insert_id();
+            $lastId = claro_sql_query_insert_id($sql);
 
             /*
             * Create a forum for the group in the forum table
             */
 
-            $sql = "INSERT INTO `".$tbl_Forums."`
-					(forum_id, forum_name, forum_desc, forum_access, forum_moderator,
-					forum_topics, forum_posts, forum_last_post_id, cat_id,
-					forum_type, md5)
-					VALUES ('','$langForumGroup $lastId','', 2, 1, 0, 0,
-							1, 1, 0,'".md5(time())."')";
+            $sql = "INSERT INTO `" . $tbl_Forums . "`
+                    (forum_id, forum_name, forum_desc, forum_access, forum_moderator,
+                    forum_topics, forum_posts, forum_last_post_id, cat_id,
+                    forum_type, md5)
+                    VALUES ('','" . $langForumGroup . " " . $lastId . "','', 2, 1, 0, 0,
+                            1, 1, 0,'" . md5(time()) . "')";
 
-            claro_sql_query($sql);
-            $forumInsertId = mysql_insert_id();
+            
+            $forumInsertId = claro_sql_query_insert_id($sql);
 
             /*
             * Create a directory for to allow group student to upload documents
@@ -304,7 +303,7 @@ if ($cmd == 'exFill')
 
             /*  Create a Unique ID path preventing other enter */
 
-            $secretDirectory	=	uniqid($platform_id) . '_team_' . $lastId;
+            $secretDirectory = uniqid($platform_id) . '_team_' . $lastId;
 
             while ( check_name_exist($coursesRepositorySys . $currentCourseRepository . '/group/' . $secretDirectory) )
             {
@@ -316,18 +315,18 @@ if ($cmd == 'exFill')
             /* Stores the directory path into the group table */
 
             $sql = "UPDATE `" . $tbl_Groups . "`
-					SET name            = '" . $langGroup . ' ' . $lastId . "',
-						forumId         = '" . $forumInsertId . "',
-						secretDirectory = '" . $secretDirectory . "'
-					WHERE id ='" . $lastId . "'";
+                    SET name            = '" . $langGroup . ' ' . $lastId . "',
+                        forumId         = '" . $forumInsertId . "',
+                        secretDirectory = '" . $secretDirectory . "'
+                    WHERE id ='" . $lastId . "'";
 
             claro_sql_query($sql);
 
-        }	// end for ($i = 1; $i <= $group_quantity; $i++)
+        }    // end for ($i = 1; $i <= $group_quantity; $i++)
 
-        $nbGroupPerUser	= rand($gpumin,$gpumax);
-        $tbl_CoursUsers	= $TABLECOURSUSER;
-        $tbl_Users		= $TABLEUSER;
+        $nbGroupPerUser = rand($gpumin,$gpumax);
+        $tbl_CoursUsers = $TABLECOURSUSER;
+        $tbl_Users      = $TABLEUSER;
 
         if ($group_quantity>0)
         fill_in_groups();
@@ -344,8 +343,8 @@ if ($cmd == 'exFill')
                 [faculte:".$faculte ."]
                 [uidCourse:".$uidCourse."]<br>
                 [nb users added:".$addedUsers."]
-				[nb group:".$group_quantity."]
-				[maximum student per group:".$group_max."]
+                [nb group:".$group_quantity."]
+                [maximum student per group:".$group_max."]
         </LI>        ";
     }
     $strWork .= "</OL>";
@@ -404,19 +403,19 @@ switch ($display)
     <Label for="noLangRand"><input type="radio" id="noLangRand" name="random_lang" value="" checked="checked">    <?php echo $langOnly . " " . $langNameOfLang[$platformLanguage] ?></label>
     <Label for="langRand"><input type="radio" id="langRand"   name="random_lang" value="random_lang"><?php echo $langRandomLanguage ?></label>
     </fieldset>
-	<fieldset>
+    <fieldset>
     <legend ><?php echo $langNumGroup; ?> </legend>
     <Label for="gmin"> <?php echo $langMin ?> </Label>
     <input align="right" id="gmin"  type="text" name="gmin" value="<?php echo $gmin ?>" size="5" maxlength="3"><br>
     <Label for="gmax"> <?php echo $langMaximum ?> </Label>
     <input align="right" id="gmax"  type="text" name="gmax" value="<?php echo $gmax ?>" size="5" maxlength="3">
     </fieldset>
-		<fieldset>
+        <fieldset>
     <legend ><?php echo $langMaxStudentGroup; ?> </legend>
     <Label for="emax"> <?php echo $langMaximum ?> </Label>
     <input align="right" id="emax"  type="text" name="emax" value="<?php echo $emax ?>" size="5" maxlength="3">
     </fieldset>
-		<fieldset>
+        <fieldset>
     <legend ><?php echo $langNumGroupStudent; ?> </legend>
     <Label for="gpumin"> <?php echo $langMin ?> </Label>
     <input align="right" id="gpumin"  type="text" name="gmin" value="<?php echo $gpumin ?>" size="5" maxlength="3"><br>
@@ -440,9 +439,17 @@ function field_rand($arr)
     return $arr[$rand_keys];
 }
 
+/**
+ * Get list aivailable lang in this claroline.
+ * This function suppose that all lang directory found are complete.
+ * @global $includePath 
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+
 function get_lang_list()
 {
     GLOBAL $includePath;
+
     $dirname = $includePath.'/../lang/';
     if($dirname[strlen($dirname)-1]!='/')
     $dirname.='/';
