@@ -48,12 +48,14 @@ include($includePath.'/lib/events.lib.inc.php');
 event_access_tool($_tid, $_courseTool['label']);
 
 /*----------------------------------------------------------------------
-   JavaScript - Delete Confirmation
+   JavaScript 
   ----------------------------------------------------------------------*/
 
 $htmlHeadXtra[] =
 '
 <script type="text/javascript" language="JavaScript" >
+
+/* Delete Confirmation */
 function confirmation (name)
 {
     if (confirm(" '.clean_str_for_javascript($langAreYouSureToDelete).' "+ name + " ?"))
@@ -61,6 +63,18 @@ function confirmation (name)
     else
         {return false;}
 }
+
+/* Check checkboxes */
+function checkall( form_name, state) {
+	var t_elements = (eval("document." + form_name + ".elements"));
+
+	for (var i = 0; i < t_elements.length; i++) {
+    	if(t_elements[i].type == "checkbox") {
+      		t_elements[i].checked = state;
+   		}
+  	}
+}
+
 </script>
 ';
 
@@ -118,7 +132,34 @@ if ( $is_allowedToEdit )
            $dialogBox = $langUserNotUnsubscribedFromCourse;
         }
    }
-}    // end if allowed to edit
+    
+
+/*----------------------------------------------------------------------
+   Command delete selected users
+  ---------------------------------------------------------------------*/
+	if (isset($_REQUEST['cmd']))
+	     $cmd = $_REQUEST['cmd'];
+	else $cmd = null;
+	
+    if (isset($_REQUEST['user_arr']))
+	     $user_arr = $_REQUEST['user_arr'];
+	else $user_arr = null;
+	
+	if ($cmd=='del')
+	{
+	    	foreach( $user_arr as $user_id ) 
+	    	{
+	    		$sql=' DELETE FROM `'.$tbl_rel_course_user.'` 
+	    				WHERE `user_id` = '.$user_id;
+	    		if ( claro_sql_query($sql) )
+	    		{
+	    			$dialogBox = $langUnreg;
+	    		}
+	    	}
+	}
+
+}
+// end if allowed to edit
 
 /*----------------------------------------------------------------------
    Get total user
@@ -228,6 +269,11 @@ if ( $disp_tool_link )
     }
     ?>
     <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a>
+	
+   	   <!--- form to select all  ---->
+    <form method="post" name="alluser" id="alluser_form" action="user.php">
+    <input type="hidden" name="cmd" value="del">
+
     </p>
 <?php
 }
@@ -267,7 +313,9 @@ echo '<table class="claroTable emphaseLine" '
         echo '<th scope="col" id="tut"  >'.$langGroupTutor.'</th>'."\n"
            . '<th scope="col" id="CM"   >'.$langCourseManager.'</th>'."\n"
            . '<th scope="col" id="edit" >'.$langEdit.'</th>'."\n"
-           . '<th scope="col" id="del"  >'.$langUnreg.'</th>'."\n"
+           . '<th scope="col" id="del" class="claroCmd">
+                 <a style="font-size:medium" onclick="document.alluser.submit()" >'.$langUnreg.'&nbsp;</a>
+              </th>'."\n"
            ;
     }
 
@@ -359,17 +407,14 @@ foreach ( $userList as $thisUser )
 
         if ($thisUser['user_id'] != $_uid)
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?unregister=yes&amp;user_id='.$thisUser['user_id'].'" '
-               . 'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-               . '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif">'
-               . '</a>'
-               ;
+         echo '<input type=checkbox name="user_arr[]" value="'.$thisUser['user_id'].'">' ;;  
         }
+         
 
         echo '</td>'."\n";
     }  // END - is_allowedToEdit
 
-    echo '</tr>'."\n";
+    echo '</tr>'."\n";    
 
     $previousUser = $thisUser['user_id'];
 
@@ -378,9 +423,13 @@ foreach ( $userList as $thisUser )
 /*----------------------------------------------------------------------
    Display table footer
   ----------------------------------------------------------------------*/
+echo   '<tr align="center"><td colspan=6></td><td>
+	      <input type="checkbox" name="all_users" value="all" onclick="checkall(\'alluser\', this.form.all_users.checked)">
+	      <span>'.$langSelectAll.'</span>
+	    </td></tr>';
 
 echo '</tbody>' . "\n"
-    .'</table>' . "\n" ;
+    .'</table>' . "\n</form>" ;
 
 /*----------------------------------------------------------------------
    Display pager

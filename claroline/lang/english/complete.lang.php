@@ -1,4 +1,5 @@
 <?php 
+$langSelectAll="Select all";
 $l_author = "Author";
 $l_body = "Message Body";
 $l_by = "by";
