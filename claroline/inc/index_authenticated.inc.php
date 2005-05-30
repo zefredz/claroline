@@ -170,7 +170,7 @@ echo "<p>"
 
 $date = $claro_notifier->get_last_login_before_today($_uid);
 
-$modified_course = $claro_notifier->get_notified_courses($_uid,$date);
+$modified_course = $claro_notifier->get_notified_courses($date,$_uid);
 
 //display list
  
