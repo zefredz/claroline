@@ -18,9 +18,9 @@
  *
  */
 
-/*=====================================================================
-   Initialisation
-  =====================================================================*/
+/**
+ * Initialisation
+ */
 
 $tlabelReq = 'CLUSR___';
 
@@ -37,7 +37,7 @@ claro_set_display_mode_available(true);
   ----------------------------------------------------------------------*/
 
 include($includePath.'/lib/admin.lib.inc.php');
-include($includePath."/lib/pager.lib.php");
+include($includePath.'/lib/pager.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
 @include($includePath.'/lib/debug.lib.inc.php');
 
@@ -107,10 +107,10 @@ $tbl_courses_users   = $tbl_rel_course_user;
 $tbl_rel_users_groups= $tbl_cdb_names['group_rel_team_user'    ];
 $tbl_groups          = $tbl_cdb_names['group_team'             ];
 
-/*=====================================================================
-  Main section
-  =====================================================================*/
-    
+/**
+ * Main section
+ */
+
 $disp_tool_link = FALSE;
 
 if ( $is_allowedToEdit )
@@ -226,9 +226,9 @@ while ($thisAffiliation = mysql_fetch_array($resultUserGroup,MYSQL_ASSOC))
     $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
 }
 
-/*=====================================================================
-  Display section
-  =====================================================================*/
+/**
+ * Display section
+ */
 
 $nameTools = $langUsers;
 
@@ -270,7 +270,7 @@ if ( $disp_tool_link )
     ?>
     <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a>
 	
-   	   <!--- form to select all  ---->
+ 	<!-- form to select all  -->
     <form method="post" name="alluser" id="alluser_form" action="user.php">
     <input type="hidden" name="cmd" value="del">
 
