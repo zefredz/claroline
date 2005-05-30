@@ -27,10 +27,10 @@ $htmlHeadXtra[] = '
 <script>
 function prepare_message()
 {
-	document.chatForm.chatLine.value=document.chatForm.msg.value;
-	document.chatForm.msg.value = "";
-	document.chatForm.msg.focus();
-	return true;
+    document.chatForm.chatLine.value=document.chatForm.msg.value;
+    document.chatForm.msg.value = "";
+    document.chatForm.msg.focus();
+    return true;
 }
 </script>';
 
@@ -40,10 +40,10 @@ include($includePath.'/claro_init_header.inc.php');
 
 ?>
 <form name     = "chatForm" 
-	  action   = "messageList.php#final"
-	  method   = "post"
-	  target   = "messageList"
-	  onSubmit = "return prepare_message();">
+      action   = "messageList.php#final"
+      method   = "post"
+      target   = "messageList"
+      onSubmit = "return prepare_message();">
 
 
 <input type="text"    name="msg" size="80">

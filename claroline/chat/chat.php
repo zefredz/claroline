@@ -25,7 +25,7 @@ $tlabelReq = 'CLCHT___';
 require '../inc/claro_init_global.inc.php'; 
 
 if ( !$_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed )	claro_disp_auth_form();
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 $nameTools  = $langChat;
 
@@ -51,17 +51,17 @@ $paramList = array();
 
 if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == TRUE )
 {
-	$paramList[] = 'gidReset=1';
+    $paramList[] = 'gidReset=1';
 }
 
 if ( isset($_REQUEST['gidReq']) )
 {
-	$paramList[] = 'gidReq='.$_REQUEST['gidReq'];
+    $paramList[] = 'gidReq='.$_REQUEST['gidReq'];
 }
 
 if (is_array($paramList))
 {
-	$paramLine = '?'.implode('&', $paramList);
+    $paramLine = '?'.implode('&', $paramList);
 }
 
 
@@ -72,10 +72,10 @@ if (is_array($paramList))
 
 <head><title><?php echo $titlePage; ?></title></head>
 
-	<frameset rows="215,*,120" marginwidth="0" frameborder="yes">
-		<frame src="chat_header.php" name="topBanner" scrolling="no">
-		<frame src="messageList.php<?php echo $paramLine ?>#final" name="messageList">
-		<frame src="messageEditor.php" name="messageEditor" scrolling="no">
-	</frameset>
+    <frameset rows="215,*,120" marginwidth="0" frameborder="yes">
+        <frame src="chat_header.php" name="topBanner" scrolling="no">
+        <frame src="messageList.php<?php echo $paramLine ?>#final" name="messageList">
+        <frame src="messageEditor.php" name="messageEditor" scrolling="no">
+    </frameset>
 
 </html>

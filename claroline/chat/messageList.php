@@ -31,11 +31,11 @@ require '../inc/claro_init_global.inc.php';
 claro_unquote_gpc();
 
 if ( !$_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed )	claro_disp_auth_form();
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 
 /*============================================================================
-		CONNECTION BLOC
+        CONNECTION BLOC
 ============================================================================*/
 
 
@@ -64,7 +64,7 @@ $refresh_display_rate = (int) $refresh_display_rate;
 if (!isset($refresh_display_rate) || $refresh_display_rate==0)  $refresh_display_rate = 10;
 
 /*============================================================================
-		CHAT INIT
+        CHAT INIT
 ============================================================================*/
 
 
@@ -133,14 +133,14 @@ if ( ! file_exists($activeChatFile))
 
 
 /*============================================================================
-		COMMANDS
+        COMMANDS
 ============================================================================*/
 
 
 
 
 /*----------------------------------------------------------------------------
-		RESET COMMAND
+        RESET COMMAND
 ----------------------------------------------------------------------------*/
 
 
@@ -157,7 +157,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToRese
 
 
 /*----------------------------------------------------------------------------
-		STORE COMMAND
+        STORE COMMAND
 ----------------------------------------------------------------------------*/
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStore)
@@ -201,14 +201,14 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
 
 
 /*----------------------------------------------------------------------------
-	'ADD NEW LINE' COMMAND
+    'ADD NEW LINE' COMMAND
 ----------------------------------------------------------------------------*/
 // don't use empty() because it will prevent to post a line with only "0"
 if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
 {
     $fchat = fopen($activeChatFile,'a');
     $chatLine = htmlspecialchars( $_REQUEST['chatLine'] );
-	// replace url with real html link
+    // replace url with real html link
     $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
     fwrite($fchat,
@@ -233,7 +233,7 @@ DISPLAY MESSAGE LIST
 if ( !isset($dateLastWrite) )
 {
     $dateLastWrite = $langDateLastWrite
-				.strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
+                .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
 
 
@@ -265,12 +265,12 @@ else
 }
 
 echo '<html>'."\n"
-	. '<head>'."\n"
-   	. '<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
-   	. '<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
-   	. '</head>'."\n"
-   	. '<body>'."\n"."\n"
-   	;
+    . '<head>'."\n"
+       . '<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
+       . '<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
+       . '</head>'."\n"
+       . '<body>'."\n"."\n"
+       ;
 
 if( isset($cmdMsg) )
 {
@@ -314,7 +314,7 @@ function buffer($content, $tmpFile)
     if ( ! file_exists($tmpFile) )
     {
         $content = '<html>'."\n"
-				 . '<head>'."\n"
+                 . '<head>'."\n"
                  . '<title>'.$langChat.' - '.$langArchive.'</title>'."\n"
                  . '</head>'."\n\n"
                  . '<body>'."\n"
