@@ -423,11 +423,13 @@ foreach ( $userList as $thisUser )
 /*----------------------------------------------------------------------
    Display table footer
   ----------------------------------------------------------------------*/
-echo   '<tr align="center"><td colspan=6></td><td>
-	      <input type="checkbox" name="all_users" value="all" onclick="checkall(\'alluser\', this.form.all_users.checked)">
-	      <span>'.$langSelectAll.'</span>
-	    </td></tr>';
-
+if ( $is_allowedToEdit )
+{
+	echo   '<tr align="center"><td colspan=6></td><td>
+		      <input type="checkbox" name="all_users" value="all" onclick="checkall(\'alluser\', this.form.all_users.checked)">
+		      <span>'.$langSelectAll.'</span>
+		    </td></tr>';
+}
 echo '</tbody>' . "\n"
     .'</table>' . "\n</form>" ;
 
