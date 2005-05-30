@@ -23,6 +23,7 @@ $tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
 require_once($clarolineRepositorySys . '/linker/linker.inc.php');
+require_once($includePath.'/lib/CLCAL.lib.inc.php');
 
 claro_unquote_gpc();
 
@@ -52,8 +53,9 @@ if ( $is_allowedToEdit )
         linker_set_local_crl( isset ($_REQUEST['id']) );
     }
 
-    if( isset($_REQUEST['cmd'])
-    && ( $_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit' ) )
+    if ( isset($_REQUEST['cmd'])
+         && ( $_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit' ) 
+       )
     {
         linker_html_head_xtra();
     }
@@ -78,40 +80,34 @@ elseif ( $cmd == 'rqEdit') $subTitle = $langEditEvent;
 else                       $subTitle = '';
 
 
-include($includePath . '/claro_init_header.inc.php');
-claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
-
 $is_allowedToEdit = claro_is_allowed_to_edit();
-
 /**
  * COMMANDS SECTION
  */
-// MUST BE DONE BEFORE INCLUDING CLARO_INIT_HEADER -> NEED REFACTORING
+
+$display_form = FALSE;
+$display_command = FALSE;
+
 if ( $is_allowedToEdit )
 {
     if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
     else                          $id = 0;
 
-    if ( isset($_REQUEST['titre']) ) $titre = trim($_REQUEST['titre']);
-    else                             $titre = '';
+    if ( isset($_REQUEST['titre']) ) $title = trim($_REQUEST['titre']);
+    else                             $title = '';
 
-    if ( isset($_REQUEST['contenu']) ) $contenu = trim($_REQUEST['contenu']);
-    else                               $contenu = '';
+    if ( isset($_REQUEST['contenu']) ) $content = trim($_REQUEST['contenu']);
+    else                               $content = '';
+
+    $lasting = ( isset($_REQUEST['contenu']) ? trim($_REQUEST['lasting']) : '');
 
     if ( $cmd == 'exAdd' )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
+        
 
-        $sql = "INSERT INTO `" . $tbl_calendar_event . "`
-                SET   titre   = '" . addslashes($titre) . "',
-                      contenu = '" . addslashes($contenu) . "',
-                      day     = '" . $date_selection . "',
-                      hour    = '" . $hour . "',
-                      lasting = '" . $_REQUEST['lasting'] . "'";
-
-        $insert_id = claro_sql_query_insert_id($sql);
-
+        $insert_id = CLCAL_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $insert_id != false )
         {
             $dialogBox .= '<p>' . $langEventAdded . '</p>';
@@ -146,8 +142,8 @@ if ( $is_allowedToEdit )
         if ( !empty($id) )
         {
             $sql = "UPDATE `".$tbl_calendar_event."`
-                    SET   `titre`   = '" . addslashes($titre) . "',
-                          `contenu` = '" . addslashes($contenu) . "',
+                    SET   `titre`   = '" . addslashes($title) . "',
+                          `contenu` = '" . addslashes($content) . "',
                           `day`     = '" . $date_selection . "',
                           `hour`    = '" . $hour . "',
                           `lasting` = '" . $_REQUEST['lasting'] . "'
@@ -172,11 +168,8 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'exDelete' && !empty($id) )
     {
-        $sql = "DELETE
-                FROM `" . $tbl_calendar_event . "`
-                WHERE `id` ='" . (int)$id . "'";
 
-        if ( claro_sql_query($sql) !== FALSE )
+        if ( CLCAL_delete_item($id) )
         {
             $dialogBox .= '<p>' . $langEventDeleted . '</p>';
 
@@ -187,7 +180,6 @@ if ( $is_allowedToEdit )
         }
         else
         {
-
             $dialogBox = '<p>' . $langUnableToDelete . '</p>';
         }
 
@@ -199,10 +191,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'exDeleteAll' )
     {
-        $sql = "DELETE
-                FROM `" . $tbl_calendar_event . "`" ;
-
-        if ( claro_sql_query($sql) !== FALSE )
+        if ( CLCAL_delete_all_items())
         {
             $dialogBox .= '<p>' . $langEventDeleted . '</p>';
 
@@ -223,21 +212,17 @@ if ( $is_allowedToEdit )
 
     if ($cmd == 'mkShow' || $cmd == 'mkHide')
     {
-        if ($cmd == 'mkShow')  $visibility = 'SHOW'; else $visibility = 'HIDE';
-        if ($cmd == 'mkHide')  $visibility = 'HIDE'; else $visibility = 'SHOW';
+        if ($cmd == 'mkShow')  $visibility = 'SHOW';
+        if ($cmd == 'mkHide')  $visibility = 'HIDE';
 
-        $sql = "UPDATE `".$tbl_calendar_event."`
-                       SET   `visibility`   = '" . $visibility . "'
-                       WHERE id=\"" . $id ."\"";
-
-        if ( claro_sql_query($sql) )
+        if ( CLCAL_set_item_visibility($id, $visibility)  )
         {
             $dialogBox = $langViMod;
         }
-        else
-        {
-            //error on delete
-        }
+//        else
+//        {
+//            //error on delete
+//        }
     }
 
     /*------------------------------------------------------------------------
@@ -246,26 +231,17 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'rqEdit' || $cmd == 'rqAdd' )
     {
+        
         if ( $cmd == 'rqEdit' && !empty($id) )
         {
-            $sql = "SELECT `id`, `titre`, `contenu`,
-                           `day` as `dayAncient`,
-                           `hour` as `hourAncient`,
-                           `lasting` as `lastingAncient`
-                    FROM `" . $tbl_calendar_event . "` 
-
-                    WHERE `id` = '". (int) $id . "'";
-
-
-            list($editedEvent) = claro_sql_query_fetch_all($sql);
-
+            $editedEvent = CLCAL_get_item($id) ;
             $nextCommand = 'exEdit';
         }
         else
         {
             $editedEvent['id'            ] = '';
-            $editedEvent['titre'         ] = '';
-            $editedEvent['contenu'       ] = '';
+            $editedEvent['title'         ] = '';
+            $editedEvent['content'       ] = '';
             $editedEvent['dayAncient'    ] = FALSE;
             $editedEvent['hourAncient'   ] = FALSE;
             $editedEvent['lastingAncient'] = FALSE;
@@ -273,7 +249,38 @@ if ( $is_allowedToEdit )
             $nextCommand = 'exAdd';
 
         }
+        $display_form =TRUE; 
+    } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
+    if ( !empty($dialogBox) ) claro_disp_message_box($dialogBox);
+
+
+    if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
+    {
+        $display_command = TRUE;
+    } // end if diplayMainCommands
+
+} // end id is_allowed to edit
+
+
+
+
+
+
+
+
+
+/**
+ *     DISPLAY SECTION
+ *                    
+ */
+include($includePath . '/claro_init_header.inc.php');
+claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+
+
+
+if ($display_form)
+{
 ?>
 <form onSubmit="linker_confirm();delay(500);return true;" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
@@ -310,8 +317,8 @@ if ($editedEvent['dayAncient'])
     list($year, $month, $day) = split('-',  $editedEvent['dayAncient']);
 }
 
-$titre   = $editedEvent['titre'];
-$contenu = $editedEvent['contenu'];
+$titre   = $editedEvent['title'];
+$contenu = $editedEvent['content'];
 
 ?>
 <tr>
@@ -483,7 +490,7 @@ if( $jpspanEnabled )
 else // popup mode
 {
     if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
-    else linker_set_display();
+    else                       linker_set_display();
 }
 
 echo '</td></tr>' . "\n"
@@ -511,14 +518,10 @@ claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
 
 </form>
 <?php
+}
 
-    } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
-
-    if ( !empty($dialogBox) ) claro_disp_message_box($dialogBox);
-
-
-    if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
-    {
+if ($display_command)
+{
         echo '<p>'
 
         /*
@@ -542,15 +545,10 @@ claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
         .    '</a>'
         .    '</p>'
         ;
-    } // end if diplayMainCommands
 
-} // end id is_allowed to edit
+}
 
-/*============================================================================
-DISPLAY SECTION
-============================================================================*/
-
-echo "<table class=\"claroTable\" width=\"100%\">\n";
+echo '<table class="claroTable" width="100%">' . "\n";
 
 if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' )
 {
@@ -561,12 +559,7 @@ else
     $orderDirection = 'ASC';
 }
 
-
-$sql = "SELECT `id`, `titre`, `contenu`, `day`, `hour`, `lasting`, `visibility`
-        FROM `".$tbl_calendar_event."`
-        ORDER BY `day` ".$orderDirection." , `hour` ".$orderDirection;
-
-$eventList = claro_sql_query_fetch_all($sql);
+$eventList = CLCAL_get_item_list($orderDirection);
 
 $monthBar     = '';
 
@@ -715,8 +708,6 @@ foreach ( $eventList as $thisEvent )
 echo '</table>';
 
 include($includePath.'/claro_init_footer.inc.php');
-
-
 
 
 ?>
