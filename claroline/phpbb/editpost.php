@@ -61,7 +61,7 @@ $tbl_posts            = $tbl_cdb_names['bb_posts'];
 $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
 
 $tbl_group_properties = $tbl_cdb_names['group_property'];
-$tbl_student_group	  = $tbl_cdb_names['group_team'];
+$tbl_student_group    = $tbl_cdb_names['group_team'];
 $tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
 $tbl_course_user      = $tbl_mdb_names['rel_course_user'];
 $tbl_group_properties = $tbl_cdb_names['group_property'];
@@ -75,7 +75,7 @@ $last_visit = $_user['lastLogin'];
 $error = FALSE;
 $allowed = TRUE;
 $error_message = '';
-	
+
 $pagetitle = 'Edit Post';
 $pagetype  = 'editpost';
 
@@ -102,126 +102,126 @@ $is_allowedToEdit = claro_is_allowed_to_edit()
 if ( $post_exists && $is_allowedToEdit )
 {
 
-  	$forumSettingList = get_forum_settings($forum_id);
-	
-	$forum_name 		= stripslashes($forumSettingList['forum_name']);
-	$forum_access 		= $forumSettingList['forum_access'];
-	$forum_type 		= $forumSettingList['forum_type'  ];
-	$forum_groupId 		= $forumSettingList['idGroup'     ];
+    $forumSettingList = get_forum_settings($forum_id);
+    
+    $forum_name         = stripslashes($forumSettingList['forum_name']);
+    $forum_access       = $forumSettingList['forum_access'];
+    $forum_type         = $forumSettingList['forum_type'  ];
+    $forum_groupId      = $forumSettingList['idGroup'     ];
     $forum_cat_id       = $forumSettingList['cat_id'      ];
 
     /* 
      * Check if the topic isn't attached to a group,  or -- if it is attached --, 
-	 * check the user is allowed to see the current group forum.
-	 */
-	
-	if (   ! is_null($forumSettingList['idGroup']) 
-	    && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
-	{
-	    // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
-	    // attempt like rewriting the request without $cidReq. If we are in group 
-	    // forum and the group of the concerned forum isn't the same as the session 
-	    // one, something weird is happening, indeed ...
-	    $allowed = FALSE;
+     * check the user is allowed to see the current group forum.
+     */
+    
+    if (   ! is_null($forumSettingList['idGroup']) 
+        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
+    {
+        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
+        // attempt like rewriting the request without $cidReq. If we are in group 
+        // forum and the group of the concerned forum isn't the same as the session 
+        // one, something weird is happening, indeed ...
+        $allowed = FALSE;
         $error_message = $langNotAllowed ;
-	} 
+    } 
     else 
     {
 
-		if ( isset($_REQUEST['submit']) )
-		{
-	        /*-----------------------------------------------------------------
-			  Edit Post
-	         -----------------------------------------------------------------*/
-	          
-	        $sql = "SELECT poster_id, forum_id, topic_id, post_time 
-	                FROM `".$tbl_posts."` 
-	                WHERE post_id = '".$post_id."'";
-	
-			$myrow = claro_sql_query_fetch_all($sql);
-	        if (count($myrow) == 1) $myrow = $myrow[0];
-	        else                    error_die($err_db_retrieve_data);
-			          
-			$poster_id        = $myrow['poster_id'];
-			$forum_id         = $myrow['forum_id' ];
-			$topic_id         = $myrow['topic_id' ];
-			$this_post_time   = $myrow['post_time'];
-			list($day, $time) = split(' ', $myrow['post_time']);
-			$posterdata       = get_userdata_from_id($poster_id, $db);
-			$date             = date('Y-m-d H:i');
-	
-	        if ( isset($_REQUEST['message']) ) 
-	        {
-	            $message = $_REQUEST['message'];
-	
-	            if ( $allow_html == 0 || isset($html) ) $message = htmlspecialchars($message);
-	
-	        }
-	        else
-	        {
-	            $message = ''; 
-	        }
-	        
-	        if ( isset($_REQUEST['subject']) ) 
-	        {
-	            $subject = $_REQUEST['subject'];
-	        }
-	        else
-	        {
-	            $subject = ''; 
-	        }
-	
-			if ( !isset($_REQUEST['delete']) )
-			{
-	            update_post($post_id, $topic_id, $message, $subject);
-			}
-			else
-			{
-	            delete_post($post_id, $topic_id, $forum_id, $posterdata['user_id']);
-			}
-			
-		} // end submit management
-		else
-		{
-			/*==========================
-			      EDIT FORM BUILDING
-			  ==========================*/
-	
-	        $sql = "SELECT p.post_id, p.topic_id, p.forum_id, p.poster_id, 
-	                       p.post_time, p.poster_ip, p.nom , p.prenom,
-	                       pt.post_text,
-			               u.username, u.user_id,
-			               t.topic_title, t.topic_notify
-	                       
-			        FROM `".$tbl_posts."` p, `".$tbl_users."` u, 
-			             `".$tbl_topics."` t, `".$tbl_posts_text."` pt,
-					     `".$tbl_forums."` f
-	
-			        WHERE p.post_id   = '" . $post_id . "'
-	                  AND p.topic_id  = '" . $topic_id . "'
-	                  AND f.forum_id  = '" . $forum_id . "'
-	                  AND pt.post_id  = p.post_id
-	                  AND p.topic_id  = t.topic_id
-	                  AND p.forum_id  = f.forum_id
-	                  AND p.poster_id = u.user_id";
-	
-			$myrow = claro_sql_query_fetch_all($sql);
-	        
-	        if (count($myrow) == 1) $myrow = $myrow[0];
-	        else
-	        {
-	            $allowed = FALSE;
-	            $error_message = 'unexisting forum';
-	        }
-	        
+        if ( isset($_REQUEST['submit']) )
+        {
+            /*-----------------------------------------------------------------
+              Edit Post
+             -----------------------------------------------------------------*/
+              
+            $sql = "SELECT poster_id, forum_id, topic_id, post_time 
+                    FROM `".$tbl_posts."` 
+                    WHERE post_id = '".$post_id."'";
+
+            $myrow = claro_sql_query_fetch_all($sql);
+            if (count($myrow) == 1) $myrow = $myrow[0];
+            else                    error_die($err_db_retrieve_data);
+
+            $poster_id        = $myrow['poster_id'];
+            $forum_id         = $myrow['forum_id' ];
+            $topic_id         = $myrow['topic_id' ];
+            $this_post_time   = $myrow['post_time'];
+            list($day, $time) = split(' ', $myrow['post_time']);
+            $posterdata       = get_userdata_from_id($poster_id, $db);
+            $date             = date('Y-m-d H:i');
+
+            if ( isset($_REQUEST['message']) ) 
+            {
+                $message = $_REQUEST['message'];
+
+                if ( $allow_html == 0 || isset($html) ) $message = htmlspecialchars($message);
+
+            }
+            else
+            {
+                $message = ''; 
+            }
+            
+            if ( isset($_REQUEST['subject']) ) 
+            {
+                $subject = $_REQUEST['subject'];
+            }
+            else
+            {
+                $subject = ''; 
+            }
+    
+            if ( !isset($_REQUEST['delete']) )
+            {
+                update_post($post_id, $topic_id, $message, $subject);
+            }
+            else
+            {
+                delete_post($post_id, $topic_id, $forum_id, $posterdata['user_id']);
+            }
+            
+        } // end submit management
+        else
+        {
+            /*==========================
+                  EDIT FORM BUILDING
+              ==========================*/
+
+            $sql = "SELECT p.post_id, p.topic_id, p.forum_id, p.poster_id, 
+                           p.post_time, p.poster_ip, p.nom , p.prenom,
+                           pt.post_text,
+                           u.username, u.user_id,
+                           t.topic_title, t.topic_notify
+                           
+                    FROM `".$tbl_posts."` p, `".$tbl_users."` u, 
+                         `".$tbl_topics."` t, `".$tbl_posts_text."` pt,
+                         `".$tbl_forums."` f
+    
+                    WHERE p.post_id   = '" . $post_id . "'
+                      AND p.topic_id  = '" . $topic_id . "'
+                      AND f.forum_id  = '" . $forum_id . "'
+                      AND pt.post_id  = p.post_id
+                      AND p.topic_id  = t.topic_id
+                      AND p.forum_id  = f.forum_id
+                      AND p.poster_id = u.user_id";
+    
+            $myrow = claro_sql_query_fetch_all($sql);
+            
+            if (count($myrow) == 1) $myrow = $myrow[0];
+            else
+            {
+                $allowed = FALSE;
+                $error_message = 'unexisting forum';
+            }
+            
             $subject = $myrow['topic_title'];
-			$message = $myrow['post_text'];
-	
-			// Special handling for </textarea> tags in the message, which can break the editing form..
-			$message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
-	
-			list($day, $time) = split(' ', $myrow['post_time']);
-	    }
+            $message = $myrow['post_text'];
+
+            // Special handling for </textarea> tags in the message, which can break the editing form..
+            $message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
+
+            list($day, $time) = split(' ', $myrow['post_time']);
+        }
     }
 }
 else
@@ -250,7 +250,7 @@ else
  
     if ( isset($_REQUEST['submit']) && !$error)
     {
-		if ( ! isset($_REQUEST['delete']) )
+        if ( ! isset($_REQUEST['delete']) )
         {
             disp_confirmation_message ($l_stored, $forum_id, $topic_id);
         }
@@ -336,6 +336,6 @@ echo  '<br />
 <small>Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a></small>
 </center>';
 
-include($includePath.'/claro_init_footer.inc.php');
+include($includePath . '/claro_init_footer.inc.php');
 
 ?>

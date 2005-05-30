@@ -29,50 +29,50 @@ $interbredcrump[]= array ("url"=>"..", "name"=> $langAdmin);
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechnical);
 if ($_REQUEST['to'])
 {
-	$interbredcrump[]= array ("url"=>basename($_SERVER['PHP_SELF']), "name"=> $lang_php_info);
-	$nameTools = $HTTP_GET_VARS["to"];
+    $interbredcrump[]= array ("url"=>basename($_SERVER['PHP_SELF']), "name"=> $lang_php_info);
+    $nameTools = $HTTP_GET_VARS["to"];
 }
 @include($rootAdminSys."/checkIfHtAccessIsPresent.php");
-$is_allowedToAdmin 	= $is_platformAdmin;
+$is_allowedToAdmin = $is_platformAdmin;
 if ($is_allowedToAdmin)
 {
-	include($includePath."/claro_init_header.inc.php");
-	claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools,
-	'subTitle'=> $PHP_AUTH_USER." - ".$siteName." - ".$clarolineVersion." - ".$dateNow
-	)
-	);
-	claro_disp_msg_arr($controlMsg);
+    include($includePath."/claro_init_header.inc.php");
+    claro_disp_tool_title(
+    array(
+    'mainTitle'=>$nameTools,
+    'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - ' . $dateNow
+    )
+    );
+    claro_disp_msg_arr($controlMsg);
 ?>
 <img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right">
 <?php
-	if (isset($_REQUEST))
-	{
-		while(list($name, $value) = each($_REQUEST))
-		{
-			$$name = $value;
-		}
-	}
-	if (!isset($to)) $to = '';
-	if (!isset($ext)) $ext = '';
-	if (!isset($ext)) $do = '';
-	if (!isset($ext)) $directory = '';
+    if (isset($_REQUEST))
+    {
+        while(list($name, $value) = each($_REQUEST))
+        {
+            $$name = $value;
+        }
+    }
+    if (!isset($to)) $to = '';
+    if (!isset($ext)) $ext = '';
+    if (!isset($ext)) $do = '';
+    if (!isset($ext)) $directory = '';
 
 
-	function localtest()
-	{
-		global $local_test,$REMOTE_ADDR;
-		$local_addr = $REMOTE_ADDR;
-		if ($local_addr == "127.0.0.1")
-		{
-			$local_test = true;
-		}
-		else
-		{
-			$local_test = false;
-		}
-	}
+    function localtest()
+    {
+        global $local_test,$REMOTE_ADDR;
+        $local_addr = $REMOTE_ADDR;
+        if ($local_addr == "127.0.0.1")
+        {
+            $local_test = TRUE;
+        }
+        else
+        {
+            $local_test = FALSE;
+        }
+    }
 ?>
 
 <br>
@@ -96,55 +96,55 @@ if ($is_allowedToAdmin)
 
 <?php
 
-	if ($to=="ext")
-	{
-		$extensions = @get_loaded_extensions();
-		echo count($extensions)." extensions
-	<hr><br>
-	";
-		@sort($extensions);
-		foreach($extensions as $extension)
-		{
-			echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?to=ext&amp;ext='.$extension.'" >'.$langFunctions.'</a><br>'."\n";
-			if ($extension==$ext)
-			{
-				$functions = @get_extension_funcs($ext);
-				@sort($functions);
-				if (is_array($functions))
-				{
-    				echo '<OL>';
-    				foreach($functions as $function)
-    				{
-    					print '<LI>'.$function.'</li>';
-    				}
-    				echo '</OL>';
-				}
-				else 
-				{
-				    echo '!! '.$langNoFunctionInThisSection.'!!<BR>';
-				}
-			}
-		}
-	}
-	elseif ($to=="phpinfo")
-	{
-		phpinfo();
-	}
-	elseif ($to=="phpcredit")
-	{
-		phpcredits(CREDITS_ALL);
-	}
+    if ($to=="ext")
+    {
+        $extensions = @get_loaded_extensions();
+        echo count($extensions)." extensions
+    <hr><br>
+    ";
+        @sort($extensions);
+        foreach($extensions as $extension)
+        {
+            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?to=ext&amp;ext='.$extension.'" >'.$langFunctions.'</a><br>'."\n";
+            if ($extension==$ext)
+            {
+                $functions = @get_extension_funcs($ext);
+                @sort($functions);
+                if (is_array($functions))
+                {
+                    echo '<OL>';
+                    foreach($functions as $function)
+                    {
+                        print '<LI>'.$function.'</li>';
+                    }
+                    echo '</OL>';
+                }
+                else 
+                {
+                    echo '!! '.$langNoFunctionInThisSection.'!!<BR>';
+                }
+            }
+        }
+    }
+    elseif ($to=="phpinfo")
+    {
+        phpinfo();
+    }
+    elseif ($to=="phpcredit")
+    {
+        phpcredits(CREDITS_ALL);
+    }
 
-	elseif ($to=="clarconf")
-	{
-	echo '<div style="background-color: #dfdfff;"><HR>config file<HR>';
-	highlight_file($includePath."/conf/claro_main.conf.php");
-	echo '<HR></div>';
+    elseif ($to=="clarconf")
+    {
+    echo '<div style="background-color: #dfdfff;"><HR>config file<HR>';
+    highlight_file($includePath."/conf/claro_main.conf.php");
+    echo '<HR></div>';
 
-	}
-	elseif ($to=="clarcredit")
-	{
-	?>
+    }
+    elseif ($to=="clarcredit")
+    {
+    ?>
 <h3>Credits</h3>Claroline has been developed by an international team of
 teachers and developers scattered around the world. It recycles entire programs
 or pieces of code found in the vast programmes and scripts library of the
@@ -245,17 +245,17 @@ Thomas  De Praetere <a href="mailto:depraetere@ipm.ucl.ac.be">depraetere@ipm.ucl
 
 <?php
 
-	}
-	else
-	{
-		$hideBar =true;
-	}
+    }
+    else
+    {
+        $hideBar =true;
+    }
 
 
 }
 else
 {
-	echo $lang_no_access_here;
+    echo $lang_no_access_here;
 }
 
 ?>
