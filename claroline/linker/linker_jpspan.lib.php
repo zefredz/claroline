@@ -208,7 +208,7 @@
     	echo "</div>\n";
     	
     	echo "<div style=\"margin-top : 1em;margin-bottom : 1em;\" id=\"openCloseAttachment\">\n";    
-    	echo "<A href=\"#\" onclick=\"change_button('open');\">".$langLinkerAddNewAttachment."</A>\n";
+    	echo "<A href=\"#btn\" name=\"btn\" onclick=\"change_button('open');return false;\">".$langLinkerAddNewAttachment."</A>\n";
     	echo "</div>\n";  
        	
        	echo "<div class=\"claroMessageBox\" style=\"margin-top : 1em;margin-bottom : 1em;\" id=\"navbox\">\n";

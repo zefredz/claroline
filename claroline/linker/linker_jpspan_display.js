@@ -537,12 +537,12 @@
 		     
 		     if ( btn == 'open' )
      		 {
-         		print('openCloseAttachment','<a href="#" onclick="change_button(\'close\');return false;">'+lang_linker_close+'</a>');
+         		print('openCloseAttachment','<a href="#btn" name="btn" onclick="change_button(\'close\');return false;">'+lang_linker_close+'</a>');
          		display_navigator();
      		 }
      		 else if ( btn == 'close' )
      		 {
-        		 print('openCloseAttachment','<a href="#" onclick="change_button(\'open\');return false;\">'+lang_linker_add_new_attachment+'</a>');
+        		 print('openCloseAttachment','<a href="#btn" name="btn" onclick="change_button(\'open\');return false;\">'+lang_linker_add_new_attachment+'</a>');
         		 close_navigator();
      		 }
      		 else
