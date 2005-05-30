@@ -1,4 +1,32 @@
-<?php
+<?php // $Id$
+
+/** 
+ * CLAROLINE 
+ *
+ * User lib contains function to manage users on the platform 
+ *
+ * @version 1.6 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE   
+ *
+ * @package USERS
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+/**
+ * Initialise user data 
+ *
+ * @return  array with user data
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
 
 function user_initialise()
 {
@@ -18,24 +46,35 @@ function user_initialise()
     return $data;
 }
 
+/**
+ * Get user data on the platform
+ *
+ * @param $user_id integer
+ *
+ * @return  array with user data
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
 function user_get_data($user_id)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
     $sql = 'SELECT `nom` as `lastname` , 
-    			    `prenom` as `firstname` , 
-    			    `username` , 
-    			    `email` , 
-    			    `pictureUri` , 
-    			    `officialCode` , 
-    			    `phoneNumber` as `phone`,  
-    			    `statut` as `status`  
+        		    `prenom` as `firstname` , 
+        		    `username` , 
+        		    `email` , 
+        		    `pictureUri` as `picture` , 
+        		    `officialCode` , 
+        		    `phoneNumber` as `phone` ,  
+        		    `statut` as `status`  
             FROM  `' . $tbl_user . '`
             WHERE 
-    			`user_id` = "'.(int) $user_id.'"';
+        		`user_id` = "'.(int) $user_id.'"';
 
-    $result = claro_mysql_query($sql);
+    $result = claro_sql_query($sql);
 
     if ( mysql_num_rows($result) )
     {
@@ -48,17 +87,298 @@ function user_get_data($user_id)
     }
 }
 
-function user_display_form_registration( $data )
+/**
+ * Add a new user 
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_insert ($data)
+{
+    global $userPasswordCrypted;
+
+    $password = $userPasswordCrypted?md5($date['password']):$data['password'];
+    
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user      = $tbl_mdb_names['user'];
+
+    $sql = "INSERT INTO `".$tbl_user."`
+            SET `nom`          = '". addslashes($data['lastname']) ."' ,
+                `prenom`       = '". addslashes($data['firstname']) ."',
+                `username`     = '". addslashes($data['username']) ."',
+                `password`     = '". addslashes($data['password']) ."',
+                `email`        = '". addslashes($data['email']) ."',
+                `statut`       = '". (int) $data['status'] ."',
+                `officialCode` = '". addslashes($data['officialCode']) ."',
+                `phoneNumber`  = '". addslashes($data['phone']) ."'";
+
+    return claro_sql_query_insert_id($sql);
+}
+
+/**
+ * Update user data
+ *
+ * @param $user_id integer
+ * @param $data array
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_update ($user_id, $data)
+{
+    global $userPasswordCrypted, $_uid;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user      = $tbl_mdb_names['user'];
+    
+    $sql = "UPDATE  `" . $tbl_user . "`
+
+            SET `nom`         = '" . addslashes($data['lastname']) . "',
+                `prenom`      = '" . addslashes($data['firstname']) . "',
+                `username`    = '" . addslashes($data['username']) . "',
+                `phoneNumber` = '" . addslashes($data['phone']) . "',
+                `creatorId`   = '" . (int)$_uid. "',
+                `email`       = '" . addslashes($data['email']) . "' ";
+
+    if ( !empty($data['officialCode']) ) $sql .= ", officialCode   = '" . addslashes($data['officialCode']) . "' ";
+
+    if ( !empty($data['password']) ) 
+    {
+        $password = $userPasswordCrypted?md5($date['password']):$data['password'];
+        $sql .= ", `password`   = '" . addslashes($data['password']) . "' " ;
+    }
+
+    if ( !empty($data['picture']) )
+    {
+        $sql .= ", `pictureUri` = '" . addslashes($data['picture']) . "' " ;
+    } 
+    else
+    {
+        $sql .= ", `pictureUri` = NULL " ;
+    }
+
+    $sql .= " WHERE `user_id`  = '" . (int)$_uid . "'";
+
+    return claro_sql_query($sql);
+
+}
+
+/**
+ * Delete user form claroline platform
+ *
+ * @param $user_id integer
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_delete ($user_id)
+{
+    global $is_platformAdmin, $dbGlu, $courseTablePrefix;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user = $tbl_mdb_names['user'];
+    $tbl_admin = $tbl_mdb_names['admin'];
+    $tbl_course = $tbl_mdb_names['course'];
+    $tbl_sso = $tbl_mdb_names['sso'];
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+    $tbl_rel_class_user = $tbl_mdb_names['rel_class_user'];
+    $tbl_track_default = $tbl_mdb_names['track_e_default'];
+    $tbl_track_login = $tbl_mdb_names['track_e_login'];
+
+    $sql_user_courses = " SELECT `c`.`dbName`
+                         FROM `" . $tbl_rel_course_user . "` cu,`" . $tbl_course . "` c
+                         WHERE `cu`.`code_cours`=`c`.`code` 
+                           AND `cu`.`user_id`='" . $user_id . "'";
+
+    $res_user_courses = claro_sql_query($sql_user_courses) ;
+
+    if (  mysql_num_rows($res_user_courses) )
+    {
+        while ( $user_course = mysql_fetch_array($res_user_courses) )
+        {
+            $dbNameGlued = $courseTablePrefix . $user_course['dbName'] . $dbGlu;
+            $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+
+            $tbl_group_team = $tbl_cdb_names[''];
+            $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+            $tbl_bb_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+            $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
+            $tbl_track_e_access = $tbl_cdb_names['track_e_access'];
+            $tbl_track_e_downloads = $tbl_cdb_names['track_e_downloads'];
+            $tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
+            $tbl_track_e_uploads = $tbl_cdb_names['track_e_uploads'];
+
+            // delete user information in the table group_rel_team_user
+            $sql_deleteUserFromGroup = " delete from `" . $tbl_group_rel_team_user . "` where user='" . $user_id . "'";
+            claro_sql_query($sql_deleteUserFromGroup) ;
+            
+            // change tutor -> NULL for the course where the the tutor is the user deleting
+            $sql_update = " update `" . $tbl_group_team . "` set tutor=NULL where tutor='" . $user_id . "'";
+            claro_sql_query($sql_update) ;
+
+            // delete user notification in the table bb_rel_topic_userstonotify 
+            $sql_deleteUserNotification = " delete from `" . $tbl_bb_rel_topic_userstonotify . "` where user_id ='" . $user_id . "'";
+            claro_sql_query($sql_deleteUserFromGroup) ;
+
+            // delete user information in the table userinfo_content
+            $sql_deleteUserFromGroup = " delete from `" . $tbl_userinfo_content . "` where user_id='" . $user_id . "'";
+            claro_sql_query($sql_deleteUserFromGroup) ;
+
+            // delete user data in tracking tables
+            $sql_DeleteUser = " delete from `" . $tbl_track_access ."` where access_user_id='" . $user_id."'";
+            claro_sql_query($sql_DeleteUser);
+
+            $sql_DeleteUser = " delete from `" . $tbl_track_downloads . "` where down_user_id='" . $user_id . "'";
+            claro_sql_query($sql_DeleteUser);
+
+            $sql_DeleteUser = " delete from `" . $tbl_track_exercices . "` where exe_user_id='" . $user_id . "'";
+            claro_sql_query($sql_DeleteUser);
+
+            $sql_DeleteUser = " delete from `" . $tbl_track_upload . "` where upload_user_id='" . $user_id . "'";
+            claro_sql_query($sql_DeleteUser);
+            
+        }
+
+    }
+
+    // delete the user in the table user
+    $sql_DeleteUser= " delete from `" . $tbl_user . "` where user_id='" . $user_id . "'";
+    claro_sql_query($sql_DeleteUser);
+
+    // delete user information in the table course_user
+    $sql_DeleteUser = " delete from `" . $tbl_rel_course_user . "` where user_id='" . $user_id . "'";
+    claro_sql_query($sql_DeleteUser);
+
+    // delete user information in the table admin
+    $sql_DeleteUser = "delete from `" . $tbl_admin . "` where idUser='" . $user_id . "'";
+    claro_sql_query($sql_DeleteUser);
+
+    // change creatorId -> NULL
+    $sql_update = " update `" . $tbl_user . "` set creatorId=NULL where creatorId='" . $user_id . "'";
+    claro_sql_query($sql_update);
+
+    // delete user information in the tables clarolineStat
+    $sql_DeleteUser = " delete from `" . $tbl_track_default . "` where default_user_id='" . $user_id . "'";
+    claro_sql_query($sql_DeleteUser);
+
+    $sql_DeleteUser = " delete from `" . $tbl_track_login . "` where login_user_id='" . $user_id . "'";
+    claro_sql_query($sql_DeleteUser);
+
+    // delete the info in the class table
+    $sql_DeleteUser = " delete from `" . $tbl_rel_class_user . "` where user_id='" . $user_id . "'";
+    claro_sql_query($sql_DeleteUser);
+    
+    // delete info from sso table
+    $sql_DeleteUser = " delete from `" . $tbl_sso . "` where user_id='" . $user_id . "'";
+    
+    return true;    
+
+}
+
+/**
+ * Send registration succeded email to user
+ *
+ * @param $user_id integer
+ * @param $data array
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_send_registration_mail ($user_id, $data)
+{
+    global $langDear, $langYourReg, $langYouAreReg, $langSettings, $langPassword, $langAddress,
+           $langIs, $langProblem, $langFormula, $langManager, $langEmail;
+
+    global $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email;
+
+    if ( ! empty($data['email']) )
+    {
+        // email subjet
+        $emailSubject  = '[' . $siteName . '] ' . $langYourReg ;
+
+        // email body
+        $emailBody = $langDear . ' ' . $data['firstname'] . ' ' . $data['lastname'] . ',' . "\n"
+                    . $langYouAreReg . ' ' . $siteName . ' ' . $langSettings . ' ' . $data['username'] . "\n"
+                    . $langPassword . ' : ' . $data['password'] . "\n"
+                    . $langAddress . ' ' . $siteName . ' ' . $langIs . ' : ' . $rootWeb . "\n"
+                    . $langProblem . "\n"
+                    . $langFormula . ',' . "\n"
+                    . $administrator_name . "\n"
+                    . $langManager . ' ' . $siteName . "\n"
+                    . 'T. ' . $administrator_phone . "\n"
+                    . $langEmail . ' : ' . $administrator_email . "\n";
+
+        if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+/**
+ * Display user form registration
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_display_form_registration($data)
+{
+    user_display_form($data,'registration');
+}
+
+/**
+ * Display user form profile 
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_display_form_profile($data)
+{
+    user_display_form($data,'profile');
+}
+
+/**
+ * Display form p to the platform
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_display_form($data, $form_type='registration')
 {
 
     global $langLastname, $langFirstname, $langOfficialCode, $langUserName, $langPassword,
            $langConfirmation, $langEmail, $langPhone, $langAction, $langRegister,
-           $langRegStudent, $langRegAdmin ;
+           $langRegStudent, $langRegAdmin, 
+           $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel  ;
 
     global $allowSelfRegProf;
 
     // display registration form
-    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n"
         . '<input type="hidden" name="cmd" value="registration" />' . "\n"
         . '<input type="hidden" name="claroFormId" value="' . uniqid(rand()) . '" />' . "\n"
     
@@ -79,6 +399,29 @@ function user_display_form_registration( $data )
             . '  <td align="right"><label for="officialCode">' . $langOfficialCode . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
+    }
+
+    if ( defined('CONFVAL_ASK_FOR_PICTURE ') && CONFVAL_ASK_FOR_PICTURE == TRUE && $form_type == profile)
+    {
+        echo '<tr>' 
+            . '<td align="right">'
+            . ' <label for="picture">' . $user_data['picture']?$langUpdateImage:$langAddImage . ' :<br />'
+            . ' <small>(.jpg or .jpeg only)</small></label>'
+            . ' </td>'
+            . ' <td>'
+            . '<input type="file" name="picture" id="picture" >';
+
+        if ( $empty($data['picture']) )
+        {
+            echo '<br><label for="del_picture">' . $langDelImage . '</label>'
+                . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">';
+        }
+        else
+        {
+            echo '<input type="hidden" name="del_picture" id="del_picture" value="no">';
+        }
+        echo '</td>'
+            . '</tr>' . "\n";
     }
 
     echo ' <tr>' . "\n"
@@ -120,7 +463,7 @@ function user_display_form_registration( $data )
 
     // Allow registration as course manager
 
-    if ( $allowSelfRegProf )
+    if ( $allowSelfRegProf && $form_type == 'registration' )
     {
         echo ' <tr>' . "\n"
             . '  <td align="right"><label for="status">' . $langAction . '&nbsp;:</label></td>' . "\n"
@@ -133,101 +476,26 @@ function user_display_form_registration( $data )
             . ' </tr>' . "\n";
     }
 
-    echo ' <tr>' . "\n"
-        . '  <td>&nbsp;</td>' . "\n"
-        . '     <td><input type="submit" value="' . $langRegister . '" /></td>' . "\n"
-        . ' </tr>' . "\n"
-
-        . '</table>' . "\n"
-
-        . '</form>' . "\n";
-
-}
-
-function user_display_form_profile($data)
-{
-
-
-}
-
-function user_insert ($data)
-{
-    global $userPasswordCrypted;
-
-    $password = $userPasswordCrypted?md5($date['password']):$data['password'];
-    
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user      = $tbl_mdb_names['user'];
-
-    $sql = "INSERT INTO `".$tbl_user."`
-            SET `nom`          = '". addslashes($data['lastname']) ."' ,
-                `prenom`       = '". addslashes($data['firstname']) ."',
-                `username`     = '". addslashes($data['username']) ."',
-                `password`     = '". addslashes($data['password']) ."',
-                `email`        = '". addslashes($data['email']) ."',
-                `statut`       = '". (int) $data['status'] ."',
-                `officialCode` = '". addslashes($data['officialCode']) ."',
-                `phoneNumber`  = '". addslashes($data['phone']) ."'";
-
-    return claro_sql_query_insert_id($sql);
-}
-
-function user_update ($user_id, $data)
-{
-
-
-}
-
-function user_update_right_profile($user_id, $profile_id)
-{
-
-
-}
-
-function user_delete ($user_id)
-{
-
-
-
-}
-
-function user_send_registration_mail ($user_id, $data)
-{
-    global $langDear, $langYourReg, $langYouAreReg, $langSettings, $langPassword, $langAddress,
-           $langIs, $langProblem, $langFormula, $langManager, $langEmail;
-
-    global $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email;
-
-    if ( ! empty($data['email']) )
+    if ( $form_type == 'registration' )
     {
-        // email subjet
-        $emailSubject  = '[' . $siteName . '] ' . $langYourReg ;
-
-        // email body
-        $emailBody = $langDear . ' ' . $data['firstname'] . ' ' . $data['lastname'] . ',' . "\n"
-                    . $langYouAreReg . ' ' . $siteName . ' ' . $langSettings . ' ' . $data['username'] . "\n"
-                    . $langPassword . ' : ' . $data['password'] . "\n"
-                    . $langAddress . ' ' . $siteName . ' ' . $langIs . ' : ' . $rootWeb . "\n"
-                    . $langProblem . "\n"
-                    . $langFormula . ',' . "\n"
-                    . $administrator_name . "\n"
-                    . $langManager . ' ' . $siteName . "\n"
-                    . 'T. ' . $administrator_phone . "\n"
-                    . $langEmail . ' : ' . $administrator_email . "\n";
-
-        if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        echo ' <tr>' . "\n"
+            . '  <td>&nbsp;</td>' . "\n"
+            . '     <td><input type="submit" value="' . $langRegister . '" /></td>' . "\n"
+            . ' </tr>' . "\n";
     }
     else
     {
-        return false;
+        echo '<tr>' . "\n"
+            . ' <td align="right"><label for="applyChange">' . $langSaveChanges . ' : </label></td>' . "\n"
+            . ' <td>'
+            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />' 
+            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            . ' </td>' . "\n"
+            . '</tr>';
     }
+
+    echo '</table>' . "\n"
+        . '</form>' . "\n";
 
 }
 
