@@ -1,26 +1,27 @@
 <?php # $Id$
-/*
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-*/
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLHOME
+ *
+ * @author Claro Team <cvs@claroline.net>
+ */
+
 
 $course_homepage = TRUE;
 
 $gidReset = true; // If user is here. It means he isn't in any group space now.
-                  // So it's careful to to reset the group setting
+// So it's careful to to reset the group setting
 
 require '../inc/claro_init_global.inc.php';
 
-if ($is_courseAdmin)     $is_allowedToEdit = true;
+if ($is_courseAdmin)    $is_allowedToEdit = TRUE;
 if (!$is_allowedToEdit) claro_disp_auth_form();
 
 $htmlHeadXtra[] =
@@ -38,46 +39,37 @@ $toolRepository = '../';
 
 $currentCourseRepository = $_course['path'];
 
-include($includePath.'/claro_init_header.inc.php');
-include($includePath.'/lib/course_home.lib.php');
+include($includePath . '/claro_init_header.inc.php');
+include($includePath . '/lib/course_home.lib.php');
 
 
 /*
- * set access level of the user
- */
+* set access level of the user
+*/
 
 if     ($is_platformAdmin)   $reqAccessLevel = 'PLATFORM_ADMIN';
 elseif ($is_courseAdmin  )   $reqAccessLevel = 'COURSE_ADMIN';
 
 /*
- * Language initialisation of the tool names
- */
+* Language initialisation of the tool names
+*/
 
-$toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForums,
-                      'CLCAL___' => $langAgenda,
-                      'CLCHT___' => $langChat,
-                      'CLDOC___' => $langDocument,
-                      'CLDSC___' => $langDescriptionCours,
-                      'CLGRP___' => $langGroups,
-                      'CLLNP___' => $langLearningPath,
-                      'CLQWZ___' => $langExercises,
-                      'CLWRK___' => $langWork,
-                      'CLUSR___' => $langUsers);
+$toolNameList = claro_get_tool_name_list();
 
 /*
- * Initialisation for the access level types
- */
+* Initialisation for the access level types
+*/
 
-$accessLevelList = array('ALL'            => 0, 
-                         'COURSE_MEMBER'  => 1, 
-                         'GROUP_TUTOR'    => 2, 
-                         'COURSE_ADMIN'   => 3, 
-                         'PLATFORM_ADMIN' => 4);
+$accessLevelList = array( 'ALL'            => 0
+                        , 'COURSE_MEMBER'  => 1
+                        , 'GROUP_TUTOR'    => 2
+                        , 'COURSE_ADMIN'   => 3
+                        , 'PLATFORM_ADMIN' => 4
+                        );
 
 /*============================================================================
-                                COMMAND SECTION
-  ============================================================================*/
+COMMAND SECTION
+============================================================================*/
 
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
@@ -86,12 +78,12 @@ else                           $cmd = '';
 $msg = '';
 
 /*----------------------------------------------------------------------------
-                              SET THE TOOL ACCESSES
-  ----------------------------------------------------------------------------*/
+SET THE TOOL ACCESSES
+----------------------------------------------------------------------------*/
 
 if ($cmd == 'exSetToolAccess')
 {
-    $enablableToolList = array();
+    $enablableToolList  = array();
     $disablableToolList = array();
 
     $currentToolStateList=get_course_tool_list($reqAccessLevel);
@@ -101,7 +93,7 @@ if ($cmd == 'exSetToolAccess')
 
         if (is_array($_REQUEST['toolAccessList']) && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
         {
-             $enablableToolList[] = $thisCurrentToolState['id'];
+            $enablableToolList[] = $thisCurrentToolState['id'];
         }
         else
         {
@@ -109,7 +101,7 @@ if ($cmd == 'exSetToolAccess')
         }
     }
 
-    $enableToolQuerySucceed = enable_course_tool($enablableToolList);
+    $enableToolQuerySucceed  = enable_course_tool($enablableToolList);
     $disableToolQuerySucceed = disable_course_tool($disablableToolList);
 
     if ($enableToolQuerySucceed !== FALSE && $disableToolQuerySucceed !== FALSE)
@@ -124,21 +116,21 @@ if ($cmd == 'exSetToolAccess')
 }
 
 /*----------------------------------------------------------------------------
-                              ADD AN EXTERNAL TOOL
-  ----------------------------------------------------------------------------*/
+ADD AN EXTERNAL TOOL
+----------------------------------------------------------------------------*/
 
 
 if ($cmd == 'exAdd')
 {
     if ( ! empty ($_REQUEST['toolName']) && ! empty ($_REQUEST['toolUrl']))
     {
-        if (insert_local_course_tool($_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
+        if (insert_local_course_tool($_REQUEST['toolName'], $_REQUEST['toolUrl']) !== FALSE )
         {
-         $msg .= $langAddedExternalTool;
+            $msg .= $langAddedExternalTool;
         }
         else
         {
-         $msg .= $langUnableAddExternalTool;
+            $msg .= $langUnableAddExternalTool;
         }
     }
     else
@@ -148,10 +140,9 @@ if ($cmd == 'exAdd')
     }
 }
 
-/*----------------------------------------------------------------------------
-                         UPDATE EXTERNAL TOOL SETTINGS
-  ----------------------------------------------------------------------------*/
-
+/**
+ * UPDATE EXTERNAL TOOL SETTINGS
+ */
 
 if ($cmd == 'exEdit')
 {
@@ -175,8 +166,8 @@ if ($cmd == 'exEdit')
 }
 
 /*----------------------------------------------------------------------------
-                    DELETE EXTERNAL TOOL
-  ----------------------------------------------------------------------------*/
+DELETE EXTERNAL TOOL
+----------------------------------------------------------------------------*/
 
 if ($cmd == 'exDelete')
 {
@@ -194,15 +185,14 @@ if ($cmd == 'exDelete')
     else
     {
         $msg .= $langUnableDeleteExternalTool;
-
     }
 
 
 }
 
 /*----------------------------------------------------------------------------
-                     REQUEST AN EXTERNAL TOOL CHANGE OR ADD
-  ----------------------------------------------------------------------------*/
+REQUEST AN EXTERNAL TOOL CHANGE OR ADD
+----------------------------------------------------------------------------*/
 
 if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 {
@@ -230,36 +220,39 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $toolUrl  = '';
     }
 
-    $msg .= "<form action=\"".$_SERVER['PHP_SELF']."\">\n"
-            ."<input type=\"hidden\" name=\"cmd\" value=\"".($externalToolId ? 'exEdit' : 'exAdd')."\">\n";
+    $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+    .       '<input type="hidden" name="cmd" value="' . ($externalToolId ? 'exEdit' : 'exAdd') . '">' . "\n";
 
     if ($externalToolId)
     {
-        $msg .= "<input type=\"hidden\" name=\"externalToolId\" value=\"".$externalToolId."\">\n";
+        $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '">' . "\n";
     }
 
-    $msg .= "<label for=\"toolName\">".$langExternalToolName."</label><br />\n"
-            ."<input type=\"text\" name=\"toolName\" name=\"toolName\" value=\"".$toolName."\"><br />\n"
-            ."<label for=\"toolUrl\">".$langExternalToolUrl."</label><br />\n"
-            ."<input type=\"text\" name=\"toolUrl\" name=\"toolUrl\" value=\"".$toolUrl."\"><br />\n"
-            ."<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\">&nbsp;\n"
-            ."<a class=\"claroButton\" href=\"" . $_SERVER['PHP_SELF'] ."\">".$langCancel."</a>\n"
-            ."</form>\n";
+    $msg .= '<label for="toolName">' . $langExternalToolName . '</label><br />' . "\n"
+    .       '<input type="text" name="toolName" name="toolName" value="' . $toolName . '"><br />' . "\n"
+    .       '<label for="toolUrl">' . $langExternalToolUrl . '</label><br />' . "\n"
+    .       '<input type="text" name="toolUrl" name="toolUrl" value="' . $toolUrl . '"><br />' . "\n"
+    .       '<input class="claroButton" type="submit" value="' . $langOk . '">&nbsp;' . "\n"
+    .       '<a class="claroButton" href="' . $_SERVER['PHP_SELF'] . '">' . $langCancel . '</a>' . "\n"
+    .       '</form>' . "\n"
+    ;
 }
 
 
 
 
-/*============================================================================
-                                    DISPLAY
-  ============================================================================*/
 
-$backLink = "\n<p>"
-            . "<small>"
-            . "<a href=\"".$coursesRepositoryWeb.$currentCourseRepository."/index.php?cidReset=true&cidReq=".$_cid."\">"
-            . "&lt;&lt;&nbsp;" . $langHome. "</a>"
-            . "</small>"
-            . "</p>\n\n";
+$backLink = '<p>'
+.           '<small>'
+.           '<a href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php?cidReset=true&amp;cidReq=' . $_cid . '">'
+.           '&lt;&lt;&nbsp;' . $langHome. '</a>'
+.           '</small>'
+.           '</p>' . "\n\n"
+;
+
+/*============================================================================
+DISPLAY
+============================================================================*/
 
 echo $backLink;
 
@@ -267,24 +260,23 @@ claro_disp_tool_title($langEditToolList);
 
 if ($msg) claro_disp_message_box($msg);
 
-echo "<p>".$langIntroEditToolList."</p>\n";
-
-echo "<blockquote>\n"
-    ."<form action=\"".$_SERVER['PHP_SELF']."\">\n";
-
-echo "<input type=\"hidden\" name=\"cmd\" value=\"exSetToolAccess\" />\n";
+echo '<p>' . $langIntroEditToolList . '</p>' . "\n"
+.    '<blockquote>'."\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+.    '<input type="hidden" name="cmd" value="exSetToolAccess" >' . "\n"
+;
 
 $toolList = get_course_tool_list($reqAccessLevel);
 
-echo "<table class=\"claroTable\" >\n\n"
-    . " <thead>\n"
-    . " <tr class=\"headerX\">\n"
-    . " <th>".$langTools."</th>\n"
-    . " <th>".$langActivate."</th>\n"
-    . " </tr>\n"
-    . "</thead>\n\n";
-
-echo "<tbody>\n";
+echo '<table class="claroTable" >' . "\n\n"
+.    '<thead>' . "\n"
+.    '<tr class="headerX">' . "\n"
+.    '<th>' . $langTools . '</th>' . "\n"
+.    '<th>' . $langActivate . '</th>' . "\n"
+.    '</tr>' . "\n"
+.    '</thead>' ."\n\n"
+.    '<tbody>' . "\n"
+;
 
 foreach($toolList as $thisTool)
 {
@@ -315,7 +307,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-    	$icon = $imgRepositoryWeb.'tool.gif'; // default icon if none defined
+        $icon = $imgRepositoryWeb.'tool.gif'; // default icon if none defined
     }
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
@@ -330,40 +322,36 @@ foreach($toolList as $thisTool)
     echo "<tr>\n";
 
     echo "<td >\n"
-    	."<label for=\"toolAccessList".$thisTool['id']."\">"
-        ."<img src=\"".$icon."\">"
-        .$toolName . "</label>\n</td>\n"
-       ."<td>\n<input type=\"checkbox\" name=\"toolAccessList[]\" id=\"toolAccessList".$thisTool['id']."\" value=\"".$thisTool['id']."\"".$checkState.">\n";
+    ."<label for=\"toolAccessList".$thisTool['id']."\">"
+    ."<img src=\"".$icon."\">"
+    .$toolName . "</label>\n</td>\n"
+    ."<td>\n<input type=\"checkbox\" name=\"toolAccessList[]\" id=\"toolAccessList".$thisTool['id']."\" value=\"".$thisTool['id']."\"".$checkState.">\n";
 
     if ($removableTool)
     {
         echo "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=rqEdit&amp;externalToolId=".$thisTool['id']."\">"
-             ."<img src=\"" . $imgRepositoryWeb. "edit.gif\" alt=\"".$langModify."\" />"
-             ."</a>\n"
-             . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&amp;externalToolId=". $thisTool['id'] . "\""
-             . " onClick=\"return confirmation('" . clean_str_for_javascript($toolName) . "');\">"
-             ."<img src=\"" . $imgRepositoryWeb. "delete.gif\" alt=\"".$langDelete."\" />"
-             ."</a>\n";
+        ."<img src=\"" . $imgRepositoryWeb. "edit.gif\" alt=\"".$langModify."\" />"
+        ."</a>\n"
+        . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&amp;externalToolId=". $thisTool['id'] . "\""
+        . " onClick=\"return confirmation('" . clean_str_for_javascript($toolName) . "');\">"
+        ."<img src=\"" . $imgRepositoryWeb. "delete.gif\" alt=\"".$langDelete."\" />"
+        ."</a>\n";
 
     }
 
     echo "</td>\n</tr>\n\n";
 }
 
-echo "</tbody>\n";
-echo "</table>\n\n";
+echo '</tbody>'."\n"
+.    '</table>'."\n\n"
+.    '<input class="claroButton" type="submit" value="' . $langOk . '" >'."\n";
+claro_disp_button($coursesRepositoryWeb . $_course['path'], $langCancel);
+echo '</form>'."\n"
+.    '</blockquote>' . "\n"
+.    '<hr size="1" noshade="noshade" >' . "\n\n"
+.    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . $langAddExternalTool . '</a>' . "\n"
+.    $backLink;
 
-echo "<input class=\"claroButton\" type=\"submit\" value=\"".$langOk."\" />\n";
-claro_disp_button($coursesRepositoryWeb.$_course['path'], $langCancel);
-echo "</form>\n"
-    ."</blockquote>\n";
-
-echo "\n\n<hr size=\"1\" noshade=\"noshade\"  />\n\n";
-
-echo "<a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?cmd=rqAdd\">".$langAddExternalTool."</a>\n";
-
-echo $backLink;
-
-include $includePath.'/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>
