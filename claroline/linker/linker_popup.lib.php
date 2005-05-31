@@ -89,7 +89,7 @@
         **/
     	function removeItem( $crl )
     	{
-    		if( $this->_isValid($_SESSION['AttachmentList']) && !$this->_isEmpty($_SESSION['AttachmentList']) )
+    		if( is_array($_SESSION['AttachmentList']) && count($_SESSION['AttachmentList']) > 0 )
        		{    			
     			$ret = $this->_removeCrlFromShopping( $crl , $_SESSION['AttachmentList'] );
 
@@ -163,8 +163,8 @@
     	    if( isset($crlSource) 
     	    	// do not reload links in database if linker 
     	    	// was already opened for current resource
-    	        && (($this->_isEmpty($_SESSION["servAdd"]) )	
-    	    	&& ($this->_isEmpty($_SESSION["servDel"]) ) ) )	
+    	        && ( is_array($_SESSION["servAdd"]) && count($_SESSION["servAdd"]) == 0 )
+    	    	&& ( is_array($_SESSION["servDel"]) && count($_SESSION["servDel"]) == 0 ))
     	    {
     	    	$_SESSION['AttachmentList'] = array();
     	    	$crlDBList = linker_get_link_list($crlSource);
@@ -182,36 +182,6 @@
     	    	}
     	    }
 	    }
-	    
-	    
-	    /**
-        * check if the array is empty 
-        *
-        * @param $tbl (array) the array to check
-        * @return boolean (boolean) true if the array is empty
-        **/
-	    function _isEmpty( $tbl )
-	    {
-	    	if( count($tbl) > 0 )
-	    	{
-	    		return FALSE; 
-	    	}
-	    	else
-	    	{
-	    		return TRUE;
-	    	}
-	    }
-	    
-	    /**
-        * check if the array is valid 
-        *
-        * @param $tbl (array) the array to check
-        * @return boolean (boolean) true if the array is an array
-        **/
-	    function _isValid( $tbl )
-	    {
-	    	return is_array($tbl);
-	    }
     
 	    /**
         * check if the array contains a crl
@@ -222,7 +192,7 @@
         **/
 		function _contains( $crl , $tbl )	
     	{
-       		if(  $this->_isValid($tbl) && !$this->_isEmpty($tbl) )
+       		if(  is_array( $tbl ) && count($tbl) > 0 )
        		{
        			if( in_array ( $crl , $tbl ) )
         		{
