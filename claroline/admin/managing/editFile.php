@@ -35,7 +35,7 @@ $EditFile=array($rootSys.$NameFile[0],$rootSys.$NameFile[1]);
 $display=DISP_FILE_LIST;
 //If choose a file to modify
 //Modify a file
-if( isset($_REQUEST["modify"]) )
+if( isset($_REQUEST['modify']) )
 {
 	$text = $_REQUEST["textFile"];
 
@@ -53,18 +53,25 @@ if( isset($_REQUEST["modify"]) )
 	$display = DISP_FILE_LIST;
 }
 
-if( isset($_REQUEST["file"]) )
+if( isset($_REQUEST['file']) )
 {
-	$TextFile=contentFile($EditFile[$_REQUEST["file"]]);
+	if (file_exists( $EditFile[$_REQUEST['file']] ) )
+	{
+		$TextFile = implode("\n", file($EditFile[$_REQUEST['file']]) );
+	}
+    else
+    {
+    	$TextFile = false;
+    }
 
-	if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd']=="edit"  )
+	if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'edit'  )
 	{
 		$subtitle = 'Edit : '.basename($NameFile[$_REQUEST["file"]]);
 		$display = DISP_EDIT_FILE;
 	}
 	else
 	{
-		if (trim(strip_tags($TextFile))=="")
+		if (trim(strip_tags($TextFile)) == '')
 			$TextFile = '<blockquote><font color="#808080">- <em>'.$langNoContent.'</em> -</font><br></blockquote>
 			';
 		$subtitle = 'Preview : '.basename($NameFile[$_REQUEST["file"]]);
