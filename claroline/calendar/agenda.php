@@ -115,7 +115,7 @@ if ( $is_allowedToEdit )
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
-                event_default('CALENDAR',array ('ADD_ENTRY' => $entryId));
+                event_default('CALENDAR', array ('ADD_ENTRY' => $entryId));
             }
 
             // notify that a new agenda event has been posted
@@ -136,8 +136,8 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'exEdit' )
     {
-        $date_selection = $_REQUEST['fyear']."-".$_REQUEST['fmonth'].'-'.$_REQUEST['fday'];
-        $hour           = $_REQUEST['fhour'].':'.$_REQUEST['fminute'].':00';
+        $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
+        $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
 
         if ( !empty($id) )
         {
@@ -252,8 +252,6 @@ if ( $is_allowedToEdit )
         $display_form =TRUE; 
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
-    if ( !empty($dialogBox) ) claro_disp_message_box($dialogBox);
-
 
     if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
     {
@@ -277,6 +275,7 @@ if ( $is_allowedToEdit )
 include($includePath . '/claro_init_header.inc.php');
 claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
+if ( !empty($dialogBox) ) claro_disp_message_box($dialogBox);
 
 
 if ($display_form)
@@ -586,7 +585,7 @@ foreach ( $eventList as $thisEvent )
 
     if (($thisEvent['visibility']=='HIDE' && $is_allowedToEdit) || $thisEvent['visibility']=='SHOW')
     {
-        if ($thisEvent['visibility']=='HIDE') $style="invisible";  else $style='';
+        $style = $thisEvent['visibility']=='HIDE' ?'invisible' : $style='';
 
         // TREAT "NOW" BAR CASE
         if ( ! $nowBarAlreadyShowed )
@@ -708,6 +707,5 @@ foreach ( $eventList as $thisEvent )
 echo '</table>';
 
 include($includePath.'/claro_init_footer.inc.php');
-
 
 ?>
