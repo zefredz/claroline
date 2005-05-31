@@ -99,7 +99,7 @@ function CLANN_delete_all_items($course_id=NULL)
  * @since  1.7
  */
 
-function CLANN_add_item($title='',$content='', $visibility='SHOW', $time=null, $course_id=NULL) 
+function CLANN_add_item($title='',$content='', $visibility='SHOW', $time=NULL, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -127,6 +127,40 @@ function CLANN_add_item($title='',$content='', $visibility='SHOW', $time=null, $
              ". $sqlTime ."
             ordre ='" . (int) $nextRank[0]['nextRank'] . "'";
     return claro_sql_query_insert_id($sql);
+}
+
+/**
+ * Update an announcement in the given or current course
+ *
+ * @param $title     string=''      :title of the new item        
+ * @param $content   string=''      :content of the new item
+ * @param $time      date='now'     :publication dat of the item def:now
+ * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @return id of the new item
+ * @since  1.7
+ */
+
+function CLANN_update_item($announcement_id, $title=NULL,$content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL) 
+{
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_announcement = $tbl_c_names['announcement'];
+    $sqlSet = array();
+    if(!is_null($title))      $sqlSet[] = " title = '" . addslashes(trim($title)) . "' ";
+    if(!is_null($content))    $sqlSet[] = " contenu = '".addslashes(trim($content))."' ";
+    if(!is_null($visibility)) $sqlSet[] = " visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
+    if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".$time."') ";
+    
+    if (count($sqlSet)>0)
+    {
+        $sql = "UPDATE  `".$tbl_announcement."`
+                SET " . implode(', ',$sqlSet)
+            ."  WHERE id='" . (int) $announcement_id . "'";
+    
+        echo $sql;
+        return claro_sql_query_insert_id($sql);
+    }
+    else return NULL;
 }
 
 /**
@@ -200,6 +234,7 @@ function moveEntry($item_id, $cmd, $course_id=NULL)
 
         $result = claro_sql_query($sql);
         $thisAnnouncementRankFound = FALSE;
+        $thisAnnouncementRank = '';
         while (list ($announcementId, $announcementRank) = mysql_fetch_row($result))
         {
             // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.
