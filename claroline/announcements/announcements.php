@@ -82,9 +82,6 @@ $userLastLogin    = $_user['lastLogin'];
  * DB tables definition
  */
 
-$tbl_cdb_names    = claro_sql_get_course_tbl();
-$tbl_announcement = $tbl_cdb_names['announcement'];
-
 $tbl_cdb_names   = claro_sql_get_main_tbl();
 $tbl_course_user = $tbl_cdb_names['rel_course_user'];
 $tbl_user        = $tbl_cdb_names['user'];
@@ -100,11 +97,8 @@ $subTitle = '';
  *                    COMMANDS SECTION (COURSE MANAGER ONLY)
  */
 
-if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
-else                          $id = 0;
-
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = '';
+$id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
+$cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
 
 if($is_allowedToEdit) // check teacher status
 {
@@ -233,26 +227,16 @@ if($is_allowedToEdit) // check teacher status
         if ( $cmd == 'exCreate' || $cmd == 'exEdit')
         {
 
-            if ( isset($_REQUEST['title']) ) $title = trim($_REQUEST['title']);
-            else                             $title = '';
-
-            if ( isset($_REQUEST['newContent']) ) $newContent = trim($_REQUEST['newContent']);
-            else                                  $newContent = '';
-
-            if ( isset($_REQUEST['emailOption']) ) $emailOption = (int) $_REQUEST['emailOption'];
-            else                                   $emailOption = 0;
+            $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
+            $content     = isset($_REQUEST['newContent']) ? trim($_REQUEST['newContent']) : '';
+            $emailOption = isset($_REQUEST['emailOption'])? (int) $_REQUEST['emailOption'] : 0;
 
             /* MODIFY ANNOUNCEMENT */
 
             if ( $cmd == 'exEdit' ) // there is an Id => the announcement already exists => udpate mode
             {
-                $sql = "UPDATE  `".$tbl_announcement."`
-                        SET contenu= '". addslashes($newContent) ."',
-                            temps  = NOW(),
-                            `title`  = '" . addslashes(trim($_REQUEST['title'])) . "'
-                        WHERE id='" . (int) $_REQUEST['id'] . "'";
-
-                if ( claro_sql_query($sql) )
+                
+                if ( CLANN_update_item((int) $_REQUEST['id'], $title, $content) )
                 {
                     $message = $langAnnModify;
                     $message .= linker_update();
@@ -260,10 +244,11 @@ if($is_allowedToEdit) // check teacher status
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                     $ex_rss_refresh = TRUE;
                 }
-                else
-                {
-                    //error on UPDATE
-                }
+//                else
+//                {
+//                    //error on UPDATE
+//                    //claro_failure::set_failure('CLANN:announcement can be update '.mysql_error());
+//                }
             }
 
             /* CREATE NEW ANNOUNCEMENT */
@@ -272,7 +257,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
 
-                $insert_id = CLANN_add_item(trim($_REQUEST['title']),trim($_REQUEST['newContent'])) ;
+                $insert_id = CLANN_add_item($title,$content) ;
                 if ( $insert_id )
                 {
                     // notify that a new anouncement is present in this course
