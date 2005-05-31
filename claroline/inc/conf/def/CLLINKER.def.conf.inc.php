@@ -40,7 +40,7 @@ array ( 'jpspanAllowed'
 
 $conf_def_property_list['jpspanAllowed'] =
 array ('label'         => 'Activate Jpspan'
-      ,'description'   => '...'
+ //     ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -50,7 +50,7 @@ array ('label'         => 'Activate Jpspan'
 
 $conf_def_property_list['otherCoursesAllowed'] =
 array ('label'         => 'Show the link of the other course '
-      ,'description'   => '...'
+    //  ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -60,7 +60,7 @@ array ('label'         => 'Show the link of the other course '
      
 $conf_def_property_list['publicCoursesAllowed'] =
 array ('label'         => 'Show the link of the public course '
-      ,'description'   => '...'
+  //    ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -70,7 +70,7 @@ array ('label'         => 'Show the link of the public course '
 
 $conf_def_property_list['externalLinkAllowed'] =
 array ('label'         => 'Show the link of the external link '
-      ,'description'   => '...'
+ //     ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -80,7 +80,7 @@ array ('label'         => 'Show the link of the external link '
       
 $conf_def_property_list['groupAllowed'] =
 array ('label'         => 'Explore the group'
-      ,'description'   => '...'
+ //     ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -90,7 +90,7 @@ array ('label'         => 'Explore the group'
      
 $conf_def_property_list['toolGroupAllowed'] =
 array ('label'         => 'Explore the tool of a group'
-      ,'description'   => '...'
+  //    ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
