@@ -153,25 +153,29 @@
         *  get the list of other courses from a teacher
         *
         * @return array a a assosiatif array with info of courses
-        * @global $_course 
+        * @global $_course, $_uid
         */
         function getOtherCoursesList()
         {
-            global $_course;
-            
+            global $_course,$_uid;
+
             $mainTbl = claro_sql_get_main_tbl();
-        	
-            $titular = $_course['titular'];
+            $publicCourseInfo = array();
 
-            $sql = "SELECT `code` , `intitule` , `fake_code` FROM `".$mainTbl["course"]."` WHERE `titulaires` LIKE '$titular'"; 
-            $publicCourseInfo = claro_sql_query_fetch_all($sql);
+            $sql = 'SELECT `code` , `intitule` , `fake_code`
+                    FROM `'.$mainTbl['rel_course_user'].'`, `'.$mainTbl["course"].'`
+                    WHERE `'.$mainTbl["course"].'`.`code` =`'.$mainTbl['rel_course_user'].'`.`code_cours`
+                    AND `'.$mainTbl['rel_course_user'].'`.`user_id` = '.$_uid;
 
-	    	return $publicCourseInfo;
-	    
+
+            $otherCourseInfo = claro_sql_query_fetch_all($sql);
+
+	    	return $otherCourseInfo;
+
         }
-        
+
         /**
-        *  get the list of public courses 
+        *  get the list of public courses
         *
         * @return array a a assosiatif array with info of courses
         * @global $_course a assosiatif array with info of course
@@ -179,10 +183,10 @@
         function getPublicCoursesList()
         {
             global $_course;
-            
+
             $mainTbl = claro_sql_get_main_tbl();
 
-            $sql = "SELECT `code` , `intitule` , `fake_code` FROM `".$mainTbl["course"]."` WHERE  `visible` = 2 or `visible` = 3"; 
+            $sql = "SELECT `code` , `intitule` , `fake_code` FROM `".$mainTbl["course"]."` WHERE  `visible` = 2 or `visible` = 3";
             $publicCoursesInfo = claro_sql_query_fetch_all($sql);
 
 	    	return $publicCoursesInfo;
