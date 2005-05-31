@@ -138,6 +138,17 @@ function CLCAL_get_item($event_id, $course_id=NULL)
     return  $event[0];
 }
 
+/**
+ * return data for the event  of the given id of the given or current course
+ *
+ * @param $event_id integer:id the requested event
+ * @param $visibility 'SHOW' || 'HIDE' : ordering of the list.
+ * @param $course_id       string :sysCode of the course (leaveblank for current course) 
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @return result handler
+ * @since  1.7
+ */
+
 function CLCAL_set_item_visibility($event_id, $visibility, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
