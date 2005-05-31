@@ -18,28 +18,18 @@ $nameTools = $langStatsOfCampus;
  * DB tables definition
  */
 
-$tbl_mdb_names 			= claro_sql_get_main_tbl();
-$tbl_cdb_names 			= claro_sql_get_course_tbl();
-$tbl_course 			= $tbl_mdb_names['course'           ];
-$tbl_rel_course_user	= $tbl_mdb_names['rel_course_user'  ];
-$tbl_user 				= $tbl_mdb_names['user'             ];
-$tbl_track_e_default    = $tbl_mdb_names['track_e_default'];
-$tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
-$tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$tbl_cdb_names       = claro_sql_get_course_tbl();
+$tbl_course          = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user            = $tbl_mdb_names['user'             ];
+$tbl_track_e_default = $tbl_mdb_names['track_e_default'];
+$tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_open    = $tbl_mdb_names['track_e_open'];
 
-$tbl_document 	        = $tbl_cdb_names['document'         ];
+$tbl_document        = $tbl_cdb_names['document'         ];
 
-$toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForums,
-                      'CLCAL___' => $langAgenda,
-                      'CLCHT___' => $langChat,
-                      'CLDOC___' => $langDocument,
-                      'CLDSC___' => $langDescriptionCours,
-                      'CLGRP___' => $langGroups,
-                      'CLLNP___' => $langLearningPath,
-                      'CLQWZ___' => $langExercises,
-                      'CLWRK___' => $langWork,
-                      'CLUSR___' => $langUsers);
+$toolNameList = claro_get_tool_name_list();
 
 include($includePath."/lib/statsUtils.lib.inc.php");
 
@@ -49,7 +39,7 @@ $limitBeforeUnused = "INTERVAL 6 MONTH";
 
 $is_allowedToTrack 	= $is_platformAdmin;
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 claro_disp_tool_title(
 	array(
 	'mainTitle'=>$nameTools,
@@ -325,7 +315,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
          echo "-&nbsp;&nbsp;<b>".$langToolsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
       $resCourseList = claro_sql_query("SELECT code, dbName
-	                                   FROM    `".$tbl_course."`
+                                       FROM    `".$tbl_course."`
                                      ORDER BY code ASC");
     
       while ( $course = mysql_fetch_array($resCourseList) )
@@ -368,10 +358,10 @@ if( $is_allowedToTrack && $is_trackingEnabled)
           arsort($resultsTools);
           foreach( $resultsTools as $tool => $nbr)
           {
-              echo '<tr>'."\n"
-                 . '<td>'.$toolNameList[$tool].'</td>'."\n"
-                 . '<td>'.$nbr.'</td>'."\n"
-                 . '</tr>'."\n\n"
+              echo '<tr>' . "\n"
+                 . '<td>' . $toolNameList[$tool].'</td>'."\n"
+                 . '<td>' . $nbr.'</td>'."\n"
+                 . '</tr>' . "\n\n"
                  ;
           }
       }
