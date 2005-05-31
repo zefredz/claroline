@@ -81,22 +81,6 @@ include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_tool            = $tbl_mdb_names['tool'];
-$tbl_config_file     = $tbl_mdb_names['config_file'];
-
-$toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForums,
-                      'CLCAL___' => $langAgenda,
-                      'CLCHT___' => $langChat,
-                      'CLDOC___' => $langDocument,
-                      'CLDSC___' => $langDescriptionCours,
-                      'CLGRP___' => $langGroups,
-                      'CLLNP___' => $langLearningPath,
-                      'CLQWZ___' => $langExercises,
-                      'CLWRK___' => $langWork,
-                      'CLUSR___' => $langUsers);
-
 /* ************************************************************************** */
 /* Process
 /* ************************************************************************** */
@@ -107,7 +91,7 @@ if ( !isset($_REQUEST['config_code']) )
 {
     // no config_code
     // return to index
-    $controlMsg['info'][] = "No configuration code";
+    $controlMsg['info'][] = 'No configuration code';
     $display_form = FALSE;
 }
 else
@@ -211,8 +195,8 @@ else
                                                                , $config_name
                                                                , $config_code
                                                                );
-                                $controlMsg['debug'][] = 'File generated for <b>'.$config_name.'</b> is <em>'.$conf_file.'</em><br />' . "\n"
-                                                       . 'Signature : <tt>'.$conf_hash.'</tt>';
+                                $controlMsg['debug'][] = 'File generated for <b>' . $config_name . '</b> is <em>'.$conf_file.'</em><br />' . "\n"
+                                                       . 'Signature : <tt>' . $conf_hash . '</tt>';
                             }
                         }
                         else
@@ -285,7 +269,7 @@ else
         {
             $conf_def['section']['sectionmissing']['label'] = $langPropertiesNotIncludeInSections;
             $conf_def['section']['sectionmissing']['description'] =
-            $langThisIsAnErrorInDefinitionFile.' '.
+            $langThisIsAnErrorInDefinitionFile . ' ' .
             $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile;
         }
     }
@@ -316,15 +300,15 @@ else
 {
     // tool name and url to edit config file
     $nameTools = $config_name; // the name of the configuration page
-    $QUERY_STRING = 'config_code='.$config_code;
+    $QUERY_STRING = 'config_code=' . $config_code;
 }
 
 // define bredcrumb
-$interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
-$interbredcrump[] = array ('url'=>$rootAdminWeb.'tool/config_list.php', 'name'=> $langConfiguration);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'name' => $langConfiguration);
 
 // display claroline header
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 
 // display tool title
 claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
@@ -426,6 +410,6 @@ if ( $display_form )
 }
 
 // display footer
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php' );
 
 ?>

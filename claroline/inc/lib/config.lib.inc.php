@@ -233,8 +233,8 @@ function cleanwritevalue($string)
 
 function get_def_file_list()
 {
-    global $includePath, $toolNameList;
-
+    global $includePath ;
+    
     $defConfFileList = array();
     if (is_dir($includePath.'/conf/def') && $handle = opendir($includePath.'/conf/def'))
     {
