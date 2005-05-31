@@ -1,18 +1,19 @@
 <?php // $Id$
 /**
- * @version CLAROLINE 1.6.*
- * ----------------------------------------------------------------------
+ * CLAROLINE 
+ * This tool run some check to detect abnormal situation
+ * @version 1.7
+ * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * ----------------------------------------------------------------------
+ * 
  * @license GENERAL PUBLIC LICENSE (GPL)
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * ----------------------------------------------------------------------
+ * 
  * @author Sébastien Piraux <pir@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
- * ----------------------------------------------------------------------
- * This tool run some check to detect abnormal situation
+ * 
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -29,8 +30,8 @@ TD {border-bottom: thin dashed Gray;}
 
 // regroup table names for maintenance purpose
 /*
- * DB tables definition
- */
+* DB tables definition
+*/
 
 $tbl_mdb_names 			= claro_sql_get_main_tbl();
 $tbl_cdb_names 			= claro_sql_get_course_tbl();
@@ -41,19 +42,10 @@ $tbl_track_e_default    = $tbl_mdb_names['track_e_default'];
 $tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
 $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 
-$tbl_document 	        = $tbl_cdb_names['document'         ];
+$tbl_document           = $tbl_cdb_names['document'         ];
 
-$toolNameList = array('CLANN___' => $langAnnouncement,
-                      'CLFRM___' => $langForums,
-                      'CLCAL___' => $langAgenda,
-                      'CLCHT___' => $langChat,
-                      'CLDOC___' => $langDocument,
-                      'CLDSC___' => $langDescriptionCours,
-                      'CLGRP___' => $langGroups,
-                      'CLLNP___' => $langLearningPath,
-                      'CLQWZ___' => $langExercises,
-                      'CLWRK___' => $langWork,
-                      'CLUSR___' => $langUsers);
+
+$toolNameList = claro_get_tool_name_list();
 
 include($includePath."/lib/statsUtils.lib.inc.php");
 
@@ -65,44 +57,44 @@ $is_allowedToTrack 	= $is_platformAdmin;
 
 include($includePath."/claro_init_header.inc.php");
 claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools	)
-	);
+array(
+'mainTitle'=>$nameTools	)
+);
 
 if( $is_allowedToTrack && $is_trackingEnabled)
 {
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show
     echo "\n<small>"
-            ."[<a href=\"".$_SERVER['PHP_SELF']."?view=1111111\">$langShowAll</a>]"
-            ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
-            ."</small>\n\n";
+    ."[<a href=\"".$_SERVER['PHP_SELF']."?view=1111111\">$langShowAll</a>]"
+    ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
+    ."</small>\n\n";
 
     if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
-	else							$view = "0000000";
-	
-	$levelView=-1;
-	
+    else							$view = "0000000";
+
+    $levelView=-1;
+
     /***************************************************************************
-     *		Main
-     ***************************************************************************/
+    *		Main
+    ***************************************************************************/
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo "<p>\n";
     if($view[$levelView] == '1')
     {
         $tempView[$levelView] = '0';
         echo '- &nbsp;&nbsp;<b>'.$langMultipleLogins.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
-        //--  multiple logins | 
+        //--  multiple logins |
         //--     multiple logins are not possible in the new version but this page can be used with previous versions
-        $sql = "SELECT DISTINCT username , count(*) as nb 
+        $sql = "SELECT DISTINCT username , count(*) as nb
                     FROM `".$tbl_user."` 
                     GROUP BY username 
                     HAVING nb > 1
                     ORDER BY nb DESC";
-    
+
         buildTabDefcon(getManyResults2Col($sql));
-    
+
 
         echo '<br />'."\n";
     }
@@ -114,27 +106,27 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     echo '</p>'."\n\n";
 
     /***************************************************************************
-     *
-     *		Platform access and logins
-     *
-     ***************************************************************************/
+    *
+    *		Platform access and logins
+    *
+    ***************************************************************************/
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo '<p>'."\n";
     if($view[$levelView] == '1')
     {
         $tempView[$levelView] = '0';
         echo '- &nbsp;&nbsp;<b>'.$langMultipleEmails.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
-		//--  multiple account with same email
-        
-        $sql = "SELECT DISTINCT email , count(*) as nb 
+        //--  multiple account with same email
+
+        $sql = "SELECT DISTINCT email , count(*) as nb
                     FROM `".$tbl_user."` 
                     GROUP BY email 
                     HAVING nb > 1  
                     ORDER BY nb DESC";
-    
+
         buildTabDefcon(getManyResults2Col($sql));
-        
+
 
     }
     else
@@ -146,7 +138,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
 
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo "<p>\n";
     if($view[$levelView] == '1')
     {
@@ -164,7 +156,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     ORDER BY code_cours";
 
         buildTabDefcon(getManyResults2Col($sql));
-        
+
     }
     else
     {
@@ -174,7 +166,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     echo "</p>\n\n";
 
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo "<p>\n";
     if($view[$levelView] == '1')
     {
@@ -192,7 +184,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     ORDER BY code_cours";
 
         buildTabDefcon(getManyResults2Col($sql));
-        
+
     }
     else
     {
@@ -203,7 +195,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
 
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo "<p>\n";
     if($view[$levelView] == '1')
     {
@@ -217,13 +209,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     ON`lo`.`login_user_id` = `us`.`user_id`
                     GROUP BY `us`.`username`
                     HAVING ( MAX(`lo`.`login_date`) < (NOW() - ".$limitBeforeUnused." ) ) OR MAX(`lo`.`login_date`) IS NULL";
-        
+
 
         $loginWithoutAccessResults = getManyResults2Col($sql);
         for($i = 0; $i < sizeof($loginWithoutAccessResults); $i++)
         {
             if ( !isset($loginWithoutAccessResults[$i][1]) )
-            {            
+            {
                 $loginWithoutAccessResults[$i][1] = $langNeverUsed;
             }
         }
@@ -238,12 +230,12 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
 
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo "<p>\n";
     if($view[$levelView] == '1')
     {
         $tempView[$levelView] = '0';
-           //--  multiple account with same username AND same password (for compatibility with previous versions) 
+        //--  multiple account with same username AND same password (for compatibility with previous versions)
         echo '- &nbsp;&nbsp;<b>'.$langMultipleUsernameAndPassword.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
 
         $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password) as paire, count(*) as nb
@@ -263,7 +255,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
 
     $tempView = $view;
-	$levelView++;
+    $levelView++;
     echo "<p>\n";
     if($view[$levelView] == '1')
     {
@@ -281,7 +273,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - ".$limitBeforeUnused." ), MAX(`access_date`) , 'recentlyUsedOrNull' )  as lastDate, count(`access_date`) as nbrAccess
                         FROM `".$TABLEACCESSCOURSE."`";
             $coursesNotUsedResult = claro_sql_query($sql);
-            
+
             $courseWithoutAccess = array();
             if( $courseAccess = mysql_fetch_array($coursesNotUsedResult) )
             {
@@ -296,12 +288,12 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     $courseWithoutAccess[$i][1] = $courseAccess['lastDate'];
                 }
             }
-            
-        $i++;
+
+            $i++;
         }
 
         buildTabDefcon($courseWithoutAccess);
-        
+
     }
     else
     {
