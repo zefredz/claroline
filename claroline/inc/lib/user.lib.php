@@ -19,6 +19,8 @@
  *
  */
 
+if ( !defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') ) define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
+
 /**
  * Initialise user data 
  *
@@ -62,7 +64,8 @@ function user_get_data($user_id)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = 'SELECT `nom` as `lastname` , 
+    $sql = 'SELECT  `user_id`,
+                    `nom` as `lastname` , 
         		    `prenom` as `firstname` , 
         		    `username` , 
         		    `email` , 
@@ -145,6 +148,11 @@ function user_update ($user_id, $data)
                 `email`       = '" . addslashes($data['email']) . "' ";
 
     if ( !empty($data['officialCode']) ) $sql .= ", officialCode   = '" . addslashes($data['officialCode']) . "' ";
+    
+    if ( !empty($data['status']) )
+    {
+        $sql .= ", `statut` = '" . (int) $data['status'] . "' " ;
+    } 
 
     if ( !empty($data['password']) ) 
     {
@@ -161,7 +169,7 @@ function user_update ($user_id, $data)
         $sql .= ", `pictureUri` = NULL " ;
     }
 
-    $sql .= " WHERE `user_id`  = '" . (int)$_uid . "'";
+    $sql .= " WHERE `user_id`  = '" . (int) $user_id . "'";
 
     return claro_sql_query($sql);
 
@@ -281,6 +289,93 @@ function user_delete ($user_id)
 }
 
 /**
+ * Return true, if user is admin on the platform
+ *
+ * @param $user_id integer
+ *
+ * @return boolean 
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_is_admin($user_id)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_admin = $tbl_mdb_names['admin'];
+
+    $sql = " SELECT `idUser`
+             FROM `" . $tbl_admin . "` 
+             WHERE `idUser` = " .  (int)$user_id . "";
+    $result = claro_sql_query($sql);
+
+    return (bool) mysql_num_rows($result);
+}
+
+/**
+ * Add user in admin table
+ *
+ * @param $user_id integer
+ *
+ * @return boolean
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_add_admin($user_id)
+{
+    global $is_platformAdmin;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user = $tbl_mdb_names['user'];
+    $tbl_admin = $tbl_mdb_names['admin'];
+
+    $sql = "SELECT * FROM `" . $tbl_admin . "`
+            WHERE idUser='" . (int)$user_id . "'";
+    $result =  claro_sql_query($sql);
+    
+    if ( mysql_num_rows($result) > 0 )
+    {
+        // user is already administrator
+        return true;
+    }
+    else
+    {
+        // add user in administrator table
+        $sql = "INSERT INTO `" . $tbl_admin . "` (idUser) VALUES (" . (int)$user_id . ")";
+        return (bool) claro_sql_query($sql);
+    }   
+
+}
+
+/**
+ * delete user from admin table
+ *
+ * @param $user_id integer
+ *
+ * @return boolean
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_delete_admin($user_id)
+{
+    global $is_platformAdmin;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user = $tbl_mdb_names['user'];
+    $tbl_admin = $tbl_mdb_names['admin'];
+
+    $sql = "DELETE FROM `" . $tbl_admin . "`
+            WHERE idUser='" . (int)$user_id . "'";
+
+    return (bool) claro_sql_query($sql);
+
+}
+
+/**
  * Send registration succeded email to user
  *
  * @param $user_id integer
@@ -359,7 +454,35 @@ function user_display_form_profile($data)
 }
 
 /**
- * Display form p to the platform
+ * Display user admin form registration
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_display_form_admin_add_new_user($data)
+{
+    user_display_form($data,'admin_add_new_user');
+}
+
+/**
+ * Display user admin form registration
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_display_form_admin_user_profile($data)
+{
+    user_display_form($data,'admin_user_profile');
+}
+
+/**
+ * Display form to edit or add user to the platform
  *
  * @param $data array to fill the form
  *
@@ -372,27 +495,46 @@ function user_display_form($data, $form_type='registration')
 
     global $langLastname, $langFirstname, $langOfficialCode, $langUserName, $langPassword,
            $langConfirmation, $langEmail, $langPhone, $langAction, $langRegister,
-           $langRegStudent, $langRegAdmin, 
-           $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel  ;
+           $langRegStudent, $langRegAdmin, $langUserid, 
+           $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langChangePwdexp,
+           $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin;
 
     global $allowSelfRegProf;
 
     // display registration form
-    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n"
-        . '<input type="hidden" name="cmd" value="registration" />' . "\n"
-        . '<input type="hidden" name="claroFormId" value="' . uniqid(rand()) . '" />' . "\n"
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
+
+    // hidden fields
+    echo '<input type="hidden" name="cmd" value="registration" />' . "\n"
+        . '<input type="hidden" name="claroFormId" value="' . uniqid(rand()) . '" />' . "\n";
     
-        . '<table cellpadding="3" cellspacing="0" border="0">' . "\n"
-        . ' <tr>' . "\n"
+    // table begin 
+    echo '<table cellpadding="3" cellspacing="0" border="0">' . "\n";
+
+    // user id
+    if ( $form_type == 'admin_user_profile' )
+    {
+        echo '<input type="hidden" name="uidToEdit" value="' . $data['user_id'] . '">';
+        echo '<tr>'
+            . '<td align="right">' . $langUserid . ' :</td>'
+            . '<td >' . $data['user_id'] . '</td>'
+            . '</tr>';
+
+    }
+
+    // lastname
+    echo ' <tr>' . "\n"
         . '  <td align="right"><label for="lastname">' . $langLastname . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" name="lastname" id="lastname" value="' . htmlspecialchars($data['lastname']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n"
+        . ' </tr>' . "\n";
 
-        . ' <tr>' . "\n"
+    // firstname
+    echo ' <tr>' . "\n"
         . '  <td align="right"><label for="firstname">' . $langFirstname . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="firstname" name="firstname" value="' . htmlspecialchars($data['firstname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n" ;
 
+    // official code
     if ( defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') && CONFVAL_ASK_FOR_OFFICIAL_CODE )
     {
         echo ' <tr>'  . "\n"
@@ -401,26 +543,27 @@ function user_display_form($data, $form_type='registration')
             . ' </tr>' . "\n";
     }
 
-    if ( defined('CONFVAL_ASK_FOR_PICTURE ') && CONFVAL_ASK_FOR_PICTURE == TRUE && $form_type == profile)
+    // user picture
+    if ( defined('CONFVAL_ASK_FOR_PICTURE ') && CONFVAL_ASK_FOR_PICTURE == TRUE && $form_type == 'profile' )
     {
-        echo '<tr>' 
-            . '<td align="right">'
-            . ' <label for="picture">' . $user_data['picture']?$langUpdateImage:$langAddImage . ' :<br />'
+        echo '<tr>' . "\n" 
+            . '<td align="right">' . "\n" 
+            . ' <label for="picture">' . $user_data['picture']?$langUpdateImage:$langAddImage . ' :<br />' . "\n" 
             . ' <small>(.jpg or .jpeg only)</small></label>'
-            . ' </td>'
-            . ' <td>'
+            . ' </td>' . "\n" 
+            . ' <td>' . "\n" 
             . '<input type="file" name="picture" id="picture" >';
 
         if ( $empty($data['picture']) )
         {
-            echo '<br><label for="del_picture">' . $langDelImage . '</label>'
+            echo '<br />' . "\n" . '<label for="del_picture">' . $langDelImage . '</label>'
                 . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">';
         }
         else
         {
             echo '<input type="hidden" name="del_picture" id="del_picture" value="no">';
         }
-        echo '</td>'
+        echo '</td>' . "\n" 
             . '</tr>' . "\n";
     }
 
@@ -429,17 +572,28 @@ function user_display_form($data, $form_type='registration')
         . '  <td>&nbsp;</td>' . "\n"
         . ' </tr>' . "\n";
 
+    if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+    {
+        echo '<tr>' . "\n" 
+            . '<td>&nbsp;</td>' . "\n" 
+            . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n" 
+            . '</tr>' . "\n" ;
+    }
+
+    // username
     echo ' <tr>' . "\n"
         . '  <td align="right"><label for="username">' . $langUserName . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n"
+        . ' </tr>' . "\n";
 
-        . ' <tr>'  . "\n"
+    // password
+    echo ' <tr>'  . "\n"
         . '     <td align="right"><label for="password">' . $langPassword . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="password" size="40" id="password" name="password" /></td>' . "\n"
-        . '    </tr>' . "\n"
-
-        . ' <tr>' . "\n"
+        . '    </tr>' . "\n";
+    
+    // password confirmation
+    echo ' <tr>' . "\n"
         . '     <td align="right"><label for="password_conf">' . $langPassword . '&nbsp;:<br>' . "\n" . "\n"
         . ' <small>(' . $langConfirmation . ')</small></label></td>' . "\n"
         . '  <td><input type="password" size="40" id="password_conf" name="password_conf" /></td>' . "\n"
@@ -450,7 +604,7 @@ function user_display_form($data, $form_type='registration')
         . '  <td>&nbsp;</td>' . "\n"
         . ' </tr>' . "\n";
 
-
+    // email
     echo ' <tr>' . "\n"
         . '  <td align="right"><label for="email">' . $langEmail . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
@@ -461,9 +615,8 @@ function user_display_form($data, $form_type='registration')
         . '  <td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
 
-    // Allow registration as course manager
-
-    if ( $allowSelfRegProf && $form_type == 'registration' )
+    // Status: Allow registration as course manager
+    if ( ($allowSelfRegProf && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
     {
         echo ' <tr>' . "\n"
             . '  <td align="right"><label for="status">' . $langAction . '&nbsp;:</label></td>' . "\n"
@@ -476,7 +629,32 @@ function user_display_form($data, $form_type='registration')
             . ' </tr>' . "\n";
     }
 
-    if ( $form_type == 'registration' )
+    // Administrator
+    if ( $form_type == 'admin_user_profile' )
+    {
+        echo '<tr valign="top">'
+            . '<td align="right">' . $langUserIsPlaformAdmin .' : </td>'
+            . '<td>'
+            . '<input type="radio" name="is_admin" value="1" id="admin_form_yes" ' . ($data['is_admin']?'checked':'') . ' >'
+            . '<label for="admin_form_yes">' . $langYes . '</label>'
+            . '<input type="radio" name="is_admin" value="0"  id="admin_form_no" ' . (!$data['is_admin']?'checked':'') . ' >'
+            . '<label for="admin_form_no">' . $langNo . '</label>'
+            . '</td>'
+            . '</tr>';
+    }
+
+    // Personnal course list
+    if ( $form_type == 'admin_user_profile' )
+    {
+        echo '<tr>'
+            . '<td>' . $langPersonalCourseList . ' :</td>'
+            . '<td><a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">' . $lang_click_here . '</a></td>'
+            . '</tr>';
+
+    }
+
+    // Submit
+    if ( $form_type == 'registration' || $form_type == 'admin_add_new_user' )
     {
         echo ' <tr>' . "\n"
             . '  <td>&nbsp;</td>' . "\n"
@@ -488,9 +666,9 @@ function user_display_form($data, $form_type='registration')
         echo '<tr>' . "\n"
             . ' <td align="right"><label for="applyChange">' . $langSaveChanges . ' : </label></td>' . "\n"
             . ' <td>'
-            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />' 
-            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
-            . ' </td>' . "\n"
+            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'; 
+        claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel);
+        echo ' </td>' . "\n"
             . '</tr>';
     }
 
