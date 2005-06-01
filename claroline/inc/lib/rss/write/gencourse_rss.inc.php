@@ -23,11 +23,23 @@ if ((bool) stristr($_SERVER['PHP_SELF'],'course_rss.pear.inc.php'))
 die("---");
 
 define('RSS_FILE_EXT', 'xml');
-$rssRepositorySys = $rootSys . 'rss/';
+
 require_once 'XML/Serializer.php';
+
+include_once $includePath . '/conf/rss.conf.inc.php'; 
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/CLANN.lib.inc.php';
 require_once $includePath . '/lib/CLCAL.lib.inc.php';
+if (!isset($rssRepository))
+{
+    $rssRepositorySys = $rootSys . 'rss/';
+    echo '<Hr><H1>Message for Devel </H1>goto <a href="'.$clarolineRepositoryWeb.'/admin/tool/config_edit.php?config_code=CLRSS">config</a> to build RSS conf file.<HR>'; 
+}
+else 
+{
+    $rssRepositorySys = $rootSys . $rssRepository;
+}
+
 claro_mkdir($rssRepositorySys);
 
 
@@ -80,7 +92,7 @@ function CLCAL_get_rss_item_list( $course_id=NULL)
                           , 'guid' => $clarolineRepositoryWeb.'calendar/agenda.php?cidReq='.$_cid.'&amp;l#event'.$eventItem['id']
                           , 'link' => $clarolineRepositoryWeb.'calendar/agenda.php?cidReq='.$_cid.'&amp;l#event'.$eventItem['id']
                           , 'description' => str_replace('<!-- content: html -->','',$eventItem['content'])
-                          , 'pubDate' => date("r", stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
+                          , 'pubDate' => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
                           //, 'author' => $_course['email']
                           );
     }
