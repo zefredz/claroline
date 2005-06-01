@@ -10,330 +10,166 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+
+/*=====================================================================
+ Init Section
+ =====================================================================*/ 
+
+$cidReset = TRUE;
+$gidReset = TRUE;
+$tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
-//SECURITY CHECK
+
+claro_unquote_gpc();
+
+// Security Check
 $is_allowedToAdmin     = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 
-
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/userManage.lib.php");
-include($includePath."/lib/admin.lib.inc.php");
-include($includePath."/conf/user_profile.conf.php");
+// Include library
+include($includePath.'/conf/user_profile.conf.php');
+include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/user.lib.php');
+include($includePath.'/lib/auth.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
-$nameTools             = $langAddUser;
+// Initialise variables
+$nameTools = $langAddUser;
+$error = false;
+$message = '';
+
+// DB tables definition
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user = $tbl_mdb_names['user'];
+
+/*=====================================================================
+  Main Section
+ =====================================================================*/ 
+
+// Initialise field variable from subscription form 
+$user_data = user_initialise();
+
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = '';
+
+if ( $cmd == 'registration' )
+{
+    // get params from the form
+
+    if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
+    if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
+    if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
+    if ( isset($_REQUEST['username']) )      $user_data['username']  = strip_tags(trim($_REQUEST['username']));
+    if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
+    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
+    if ( isset($_REQUEST['email']) )         $user_data['email']  = strip_tags(trim($_REQUEST['email'])) ;
+    if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
+    if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
+
+    // check if there are no empty fields
+
+    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+
+    if (  empty($user_data['lastname'] )       || empty($user_data['firstname'] ) 
+        || empty($user_data['password_conf'] ) || empty($user_data['password'] )
+        || empty($user_data['username'] )      || (empty($user_data['email'] ) && !$userMailCanBeEmpty) )
+    {
+        $error = true;
+        $message .= '<p>' . $langEmptyFields . '</p>' . "\n";
+    }
+    
+    // check if the two password are identical
+    elseif ( $user_data['password_conf']  != $user_data['password']  )
+    {
+        $error = true;
+        $message .= '<p>' . $langPassTwice . '</p>' . "\n";
+    }
+
+    // check if password isn't too easy
+    elseif ( $user_data['password'] 
+             && SECURE_PASSWORD_REQUIRED
+             && ! is_password_secure_enough($user_data['password'],
+                  array( $user_data['username'] , 
+                         $user_data['officialCode'] , 
+                         $user_data['lastname'] , 
+                         $user_data['firstname'] , 
+                         $user_data['email'] )) )
+    {
+        $error = true;
+        $message .= '<p>' . $langPassTooEasy . ' <code>' . substr(md5(date('Bis').$_SERVER['HTTP_REFERER']),0,8) . '</code></p>' . "\n";
+    }
+
+    // check email address validity
+    elseif ( !empty($user_data['email'] ) && ! eregi($regexp,$user_data['email'] ) )
+    {
+        $error = true;
+        $message .= '<p>' . $langEmailWrong . '</p>' . "\n" ;
+    }
+
+    // check if the username is already owned by another user
+    else
+    {
+        $sql = 'SELECT COUNT(*) `loginCount`
+                FROM `'.$tbl_user.'` 
+                WHERE username="' . addslashes($user_data['username'] ) . '"';
+
+        list($result) = claro_sql_query_fetch_all($sql);
+
+        if ( $result['loginCount'] > 0 )
+        {
+            $error = true;
+            $message .= '<p>' . $langUserTaken . '</p>' . "\n";
+        }
+
+    }
+
+    if ( $error == false )
+    {
+        // register the new user in the claroline platform
+        $inserted_uid = user_insert($user_data);
+        
+        // send a mail to the user
+        user_send_registration_mail($inserted_uid,$user_data);
+    }
+}
+
+/*=====================================================================
+  Display Section
+ =====================================================================*/ 
 
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $noQUERY_STRING   = TRUE;
 
-//TABLES USED
-/*
- * DB tables definition
- */
-
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user = $tbl_mdb_names['user'];
-
-$display_form        = TRUE;
-$display_resultCSV    = FALSE;
-
-$dialogBox = "";
-
-//init banner
-
+// Display Header
 include($includePath."/claro_init_header.inc.php");
 
-//retrieve needed parameters from URL to prefill creation form (in case of relaod with error to correct by user)
- 
-if (isset($_REQUEST['lastname']))      $lastname        = $_REQUEST['lastname'];      else $lastname = "";
-if (isset($_REQUEST['firstname']))     $firstname       = $_REQUEST['firstname'];     else $firstname = "";
-if (isset($_REQUEST['official_code'])) $official_code   = $_REQUEST['official_code']; else $official_code = "";
-if (isset($_REQUEST['username']))      $username        = $_REQUEST['username'];      else $username = "";
-if (isset($_REQUEST['password']))      $password        = $_REQUEST['password'];      else $password = "";
-if (isset($_REQUEST['password1']))     $password1       = $_REQUEST['password1'];     else $password1 = "";
-if (isset($_REQUEST['email']))         $email           = $_REQUEST['email'];         else $email = "";
-if (isset($_REQUEST['phone']))         $phone           = $_REQUEST['phone'];         else $phone = "";
+// Display title
+claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
 
- /*==========================
-   EXECUTE COMMAND SECTION
-  ==========================*/
-
-if(isset($_REQUEST['register']) && $_REQUEST['register']=="yes")
+if ( $cmd == 'registration' && $error == false )
 {
-    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-    $username   = trim ($HTTP_POST_VARS["username"  ]);
-    $email      = trim ($HTTP_POST_VARS["email"     ]);
-    $lastname   = trim ($HTTP_POST_VARS["lastname"  ]);
-    $firstname  = trim ($HTTP_POST_VARS["firstname" ]);
-    $password   = trim ($HTTP_POST_VARS["password"  ]);
-    $password1  = trim ($HTTP_POST_VARS["password1" ]);
-    $statut     = ($HTTP_POST_VARS["statut"    ]==COURSEMANAGER)?COURSEMANAGER:STUDENT;
-
-    /*==========================
-       DATA SUBIMITED CHECKIN
-      ==========================*/
-
-    // CHECK IF THERE IS NO EMPTY FIELD
-
-    if (
-           empty($lastname)
-        OR empty($firstname)
-        OR empty($password1)
-        OR empty($password)
-        OR empty($username)
-        OR (empty($email) && !$userMailCanBeEmpty)
-            )
-    {
-        $regDataOk = false;
-
-        unset($password1, $password);
-
-        $dialogBox .= $langEmptyFields;
-    }
-
-    // CHECK IF THE TWO PASSWORD TOKEN ARE IDENTICAL
-
-    elseif($password1 != $password)
-    {
-        $regDataOk = false;
-        unset($password1, $password);
-
-        $dialogBox .= $langPassTwice;
-    }
-
-    // CHECK EMAIL ADDRESS VALIDITY
-
-    elseif( !empty($email) && ! eregi( $regexp, $email ))
-    {
-        $regDataOk = false;
-        unset($password1, $password);
-
-        $dialogBox .= $langEmailWrong;
-    }
-
-    // CHECK IF THE LOGIN NAME IS ALREADY OWNED BY ANOTHER USER
-
-    else
-    {
-        $sql = "SELECT `user_id` 
-                FROM `".$tbl_user."`
-                WHERE username=\"".$username."\"";
-        $result = claro_sql_query($sql);
-
-
-        if (mysql_num_rows($result) > 0)
-        {
-            $regDataOk = false;
-            $dialogBox .= $langUserNameTaken;
-            unset($password1, $password, $username);
-        }
-        else
-        {
-            $regDataOk = TRUE;
-        }
-    }
+    echo '<p>' . $langUserCreated . '</p>'
+        . '<ul>'
+        . '<li><a class="claroCmd" href="../auth/courses.php?cmd=rqReg&uidToEdit=' . $inserted_uid . '&category=&fromAdmin=settings">' . $langRegisterTheNewUser . '</a></li>'
+        . '<li><a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&category="> ' . $langGoToUserSettings . '</a></li>'
+        . '<li><a class="claroCmd" href="adminaddnewuser.php"> ' . $langCreateAnotherUser . ' </a></li>'
+        . '<li><a class="claroCmd" href="index.php"> ' . $langBackToAdmin . ' </a></li>'
+        . '</ul>';
 }
-
-if (isset($regDataOk) && (!$regDataOk))
+else
 {
-    $display_form = TRUE;
-}
-
-
-/*> > > > > > > > > > > > REGISTRATION ACCEPTED < < < < < < < < < < < <*/
-
-if (isset($regDataOk) && ($regDataOk))
-{
-    /*-----------------------------------------------------
-      STORE THE NEW USER DATA INSIDE THE CLAROLINE DATABASE
-      -----------------------------------------------------*/
-
-    $sql = "INSERT INTO `".$tbl_user."`
-                 SET `nom`          = \"".$lastname."\",
-                     `prenom`       = \"".$firstname."\",
-                     `username`     = \"".$username."\",
-                     `password`     = \"".($userPasswordCrypted?md5($password):$password)."\",
-                     `email`        = \"".$email."\",
-                     `phoneNumber`  = \"".$phone."\",
-                     `statut`       = \"".$statut."\",
-                     `officialCode`    = \"".$official_code."\"";
-	// exec query and get last inserted id
-    $inserted_uid = claro_sql_query_insert_id($sql);
-
-    /*--------------------------------------
-                 EMAIL NOTIFICATION
-      --------------------------------------*/
-	// do not event try to send the mail if there is no specified email address
-	// mail address has already be checked via regex if set
-	if( !empty($email) )
-	{
-    	$emailSubject  = '['.$siteName.'] '.$langYourReg;
-
-    	$emailBody    = $langDear.' '.$firstname.' '.$lastname.",\n"
-						.$langYouAreReg.' '.$siteName.' '.$langSettings.' '.$username."\n"
-                        .$langPassword.' : '.$password."\n"
-                        .$langAddress.' '.$siteName.' '.$langIs.' : '.$rootWeb."\n"
-                        .$langProblem."\n"
-                        .$langFormula.",\n"
-                        .$administrator_name."\n"
-                        .$langManager.' '.$siteName."\n"
-						.'T. '. $administrator_phone."\n"
-        				.$langEmail.' : '.$administrator_email."\n";
-
-		claro_mail_user($inserted_uid, $emailBody, $emailSubject);
-	}
-		
-    $display_form = false;
-    $display_success = TRUE;
-
-}
-
-/*==========================
-   OUTPUT : ADD ONE USER FORM
-  ==========================*/
-
-  // tool title
-
-claro_disp_tool_title(
-    array(
-    'mainTitle'=>$nameTools
-    )
-);
-
-if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
-
-  // Display Forms or dialog box(if needed)
-
-if( !empty($dialogBox) )
-{
-	claro_disp_message_box($dialogBox);
-}
-
-
-if($display_form)
-{
+    if ( $error ) 
+    {
+        claro_disp_message_box($message);
+    }
+    
     echo $langAddUserOneByOne;
 
-?>
+    user_display_form_admin_add_new_user($user_data);
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>?register=yes">
-    <table cellpadding="3" cellspacing="0" border="0">
-    <tr>
-        <td align="right">
-            <label for="lastname"><?php echo $langLastName; ?></label> :
-        </td>
-        <td>
-            <input type="text" size="40" name="lastname" id="lastname" value="<?php echo htmlentities(stripslashes($lastname)); ?>">
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="firstname"><?php echo $langFirstName; ?></label> :
-        </td>
-        <td>
-            <input type="text" size="40" name="firstname" id="firstname" value="<?php echo htmlentities(stripslashes($firstname)); ?>">
-        </td>
-    </tr>
-
-    <tr>
-        <td align="right">
-            <label for="official_code"><?php echo $langOfficialCode; ?></label> :
-        </td>
-        <td>
-            <input type="text" size="40" name="official_code" id="official_code" value="<?php echo htmlentities(stripslashes($official_code)); ?>">
-        </td>
-    </tr>
-
-    <tr>
-      <td><br></td>
-    </tr>
-    <tr>
-      <td></td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="username"><?php echo $langUserName ?></label> :
-        </td>
-        <td>
-            <input type="text" size="40" name="username" id="username" value="<?php echo htmlentities(stripslashes($username)); ?>">
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="password"><?php echo $langPassword ?></label> :
-        </td>
-        <td>
-            <input type="password" size="40" name="password"  id="password" value="">
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="password1"><?php echo $langConfirm ?></label> :
-        </td>
-        <td>
-            <input type="password" size="40" name="password1" id="password1" value="">
-        </td>
-    </tr>
-    <tr>
-      <td><br></td>
-    </tr>
-    <tr>
-      <td></td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="email"><?php echo $langEmail; ?></label> :
-        </td>
-        <td>
-            <input type="text" size="40" name="email" id="email" value="<?php echo $email; ?>">
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="phone"><?php echo $langPhone; ?></label> :
-        </td>
-        <td>
-            <input type="text" size="40" name="phone" id="phone" value="<?php echo $phone; ?>">
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-             <label for="statut"><?php echo $langAction; ?></label>
-              :
-        </td>
-        <td>
-            <select name="statut" id="statut">
-                <option value="5"><?php echo $langRegStudent; ?></option>
-                <option value="1"><?php echo $langCreateCourse; ?></option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            <input type="submit" name="submit" value="<?php echo  $langCreateUser ?>">
-        </td>
-    </tr>
-    </table>
-</form>
-<?php
-} //end display form
-
-if (isset($display_success))
-{
-   echo $langUserCreated."<br /><br />
-   <ul>";
-   echo "<li><a class=\"claroCmd\" href=\"../auth/courses.php?cmd=rqReg&uidToEdit=".$inserted_uid."&category=&fromAdmin=settings\"> ".$langRegisterTheNewUser." </a></li>";
-   echo "<li><a class=\"claroCmd\" href=\"adminprofile.php?uidToEdit=".$inserted_uid."&category=\"> ".$langGoToUserSettings." </a></li>";
-   echo "<li><a class=\"claroCmd\" href=\"adminaddnewuser.php\"> ".$langCreateAnotherUser." </a></li>";
-   echo "<li><a class=\"claroCmd\" href=\"index.php\"> ".$langBackToAdmin." </a></li>
-   </ul>
-   ";
 }
 
+// Display footer
 include($includePath."/claro_init_footer.inc.php");
 ?>
