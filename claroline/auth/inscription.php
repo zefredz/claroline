@@ -11,13 +11,16 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-// Include claro_init_global
+/*=====================================================================
+ Init Section
+ =====================================================================*/ 
+
 require '../inc/claro_init_global.inc.php';
 
 claro_unquote_gpc();
 
 // Redirect before first output
-if( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
+if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
 {
     header("Location: ".$rootWeb);
     exit;
@@ -35,11 +38,6 @@ include($includePath.'/lib/events.lib.inc.php');
 $error = false;
 $message = '';
 
-DEFINE('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
-
-if ( !isset($userMailCanBeEmpty) ) $userMailCanBeEmpty = true;
-if ( !isset($userPasswordCrypted) ) $userPasswordCrypted = false;
-
 // Initialise field variable from subscription form 
 
 $user_data = user_initialise();
@@ -47,7 +45,9 @@ $user_data = user_initialise();
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
-// Main Section
+/*=====================================================================
+  Main Section
+ =====================================================================*/ 
 
 if ( $cmd == 'registration' )
 {
@@ -156,7 +156,9 @@ if ( $cmd == 'registration' )
 
 }
 
-// Display Section
+/*=====================================================================
+  Display Section
+ =====================================================================*/ 
 
 $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 
