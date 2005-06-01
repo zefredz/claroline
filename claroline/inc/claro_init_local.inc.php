@@ -258,7 +258,9 @@ else
     $uidReset = false;
 
     $_uid = null; // uid not in session ? prevent any hacking
-
+    
+    if (!isset($_SESSION['firstLogin'])) $_SESSION['firstLogin'] = false;
+        
     if ( $login && $password ) // $login && $password are given to log in
     {
         // lookup the user in the Claroline database
@@ -307,7 +309,9 @@ else
                             WHERE user_id='".$_uid."'";
 
                     claro_sql_query($sql);
+                    $_SESSION['firstLogin'] = true;
                 }
+                
             }
             else // no standard claroline login - try external authentification
             {
