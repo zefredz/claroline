@@ -37,7 +37,7 @@
  * @since  1.7
  */
 
-function CLANN_get_item_list($order='DESC', $course_id=NULL)
+function announcement_get_item_list($order='DESC', $course_id=NULL)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -58,7 +58,7 @@ function CLANN_get_item_list($order='DESC', $course_id=NULL)
  * @return result of deletion query
  * @since  1.7
  */
-function CLANN_delete_item($id, $course_id=NULL) 
+function announcement_delete_item($id, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -78,7 +78,7 @@ function CLANN_delete_item($id, $course_id=NULL)
  * @return result of deletion query
  * @since  1.7
  */
-function CLANN_delete_all_items($course_id=NULL) 
+function announcement_delete_all_items($course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -99,7 +99,7 @@ function CLANN_delete_all_items($course_id=NULL)
  * @since  1.7
  */
 
-function CLANN_add_item($title='',$content='', $visibility='SHOW', $time=NULL, $course_id=NULL) 
+function announcement_add_item($title='',$content='', $visibility='SHOW', $time=NULL, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -137,11 +137,11 @@ function CLANN_add_item($title='',$content='', $visibility='SHOW', $time=NULL, $
  * @param $time      date='now'     :publication dat of the item def:now
  * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
- * @return id of the new item
+ * @return handler of query
  * @since  1.7
  */
 
-function CLANN_update_item($announcement_id, $title=NULL,$content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL) 
+function announcement_update_item($announcement_id, $title=NULL,$content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -156,9 +156,7 @@ function CLANN_update_item($announcement_id, $title=NULL,$content=NULL, $visibil
         $sql = "UPDATE  `".$tbl_announcement."`
                 SET " . implode(', ',$sqlSet)
             ."  WHERE id='" . (int) $announcement_id . "'";
-    
-        echo $sql;
-        return claro_sql_query_insert_id($sql);
+        return claro_sql_query($sql);
     }
     else return NULL;
 }
@@ -173,7 +171,7 @@ function CLANN_update_item($announcement_id, $title=NULL,$content=NULL, $visibil
  * @since  1.7
  */
 
-function CLANN_get_item($announcement_id, $course_id=NULL) 
+function announcement_get_item($announcement_id, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
@@ -187,7 +185,7 @@ function CLANN_get_item($announcement_id, $course_id=NULL)
     return  $announcement[0];
 }
 
-function CLANN_set_item_visibility($announcement_id, $visibility, $course_id=NULL) 
+function announcement_set_item_visibility($announcement_id, $visibility, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];

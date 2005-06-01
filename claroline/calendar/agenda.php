@@ -23,7 +23,7 @@ $tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
 require_once($clarolineRepositorySys . '/linker/linker.inc.php');
-require_once($includePath.'/lib/CLCAL.lib.inc.php');
+require_once($includePath . '/lib/CLCAL.lib.inc.php');
 
 claro_unquote_gpc();
 
@@ -93,13 +93,13 @@ if ( $is_allowedToEdit )
     if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
     else                          $id = 0;
 
-    if ( isset($_REQUEST['titre']) ) $title = trim($_REQUEST['titre']);
+    if ( isset($_REQUEST['title']) ) $title = trim($_REQUEST['title']);
     else                             $title = '';
 
-    if ( isset($_REQUEST['contenu']) ) $content = trim($_REQUEST['contenu']);
+    if ( isset($_REQUEST['content']) ) $content = trim($_REQUEST['content']);
     else                               $content = '';
 
-    $lasting = ( isset($_REQUEST['contenu']) ? trim($_REQUEST['lasting']) : '');
+    $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
 
     if ( $cmd == 'exAdd' )
     {
@@ -107,7 +107,7 @@ if ( $is_allowedToEdit )
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
         
 
-        $insert_id = CLCAL_add_item($title,$content, $date_selection, $hour, $lasting) ;
+        $insert_id = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $insert_id != false )
         {
             $dialogBox .= '<p>' . $langEventAdded . '</p>';
@@ -141,16 +141,8 @@ if ( $is_allowedToEdit )
 
         if ( !empty($id) )
         {
-            $sql = "UPDATE `".$tbl_calendar_event."`
-                    SET   `titre`   = '" . addslashes($title) . "',
-                          `contenu` = '" . addslashes($content) . "',
-                          `day`     = '" . $date_selection . "',
-                          `hour`    = '" . $hour . "',
-                          `lasting` = '" . $_REQUEST['lasting'] . "'
-                    WHERE `id`      = '" . (int) $id ."'";
-
-            if ( claro_sql_query($sql) !== FALSE)
-            {
+            if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting))
+{
                 $dialogBox .= linker_update(); //return textual error msg
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
                 $dialogBox .= '<p>' . $langEventUpdated . '</p>';
@@ -169,7 +161,7 @@ if ( $is_allowedToEdit )
     if ( $cmd == 'exDelete' && !empty($id) )
     {
 
-        if ( CLCAL_delete_item($id) )
+        if ( agenda_delete_item($id) )
         {
             $dialogBox .= '<p>' . $langEventDeleted . '</p>';
             
@@ -193,7 +185,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'exDeleteAll' )
     {
-        if ( CLCAL_delete_all_items())
+        if ( agenda_delete_all_items())
         {
             $dialogBox .= '<p>' . $langEventDeleted . '</p>';
 
@@ -226,7 +218,7 @@ if ( $is_allowedToEdit )
             $eventNotifier->notifyCourseEvent('agenda_event_invisible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
         }
 
-        if ( CLCAL_set_item_visibility($id, $visibility)  )
+        if ( agenda_set_item_visibility($id, $visibility)  )
         {
             $dialogBox = $langViMod;
         }
@@ -245,7 +237,7 @@ if ( $is_allowedToEdit )
         
         if ( $cmd == 'rqEdit' && !empty($id) )
         {
-            $editedEvent = CLCAL_get_item($id) ;
+            $editedEvent = agenda_get_item($id) ;
             $nextCommand = 'exEdit';
         }
         else
@@ -327,8 +319,8 @@ if ($editedEvent['dayAncient'])
     list($year, $month, $day) = split('-',  $editedEvent['dayAncient']);
 }
 
-$titre   = $editedEvent['title'];
-$contenu = $editedEvent['content'];
+$title   = $editedEvent['title'];
+$content = $editedEvent['content'];
 
 ?>
 <tr>
@@ -466,21 +458,21 @@ $contenu = $editedEvent['content'];
 
 
 <tr>
-<td valign="top"><label for="titre"><?php echo $langTitle ?> : </label></td>
+<td valign="top"><label for="title"><?php echo $langTitle ?> : </label></td>
 
 <td colspan="6"> 
-<input size="80" type="text" name="titre" id="titre" value="<?php  echo isset($titre) ? htmlspecialchars($titre) : '' ?>">   
+<input size="80" type="text" name="title" id="title" value="<?php  echo isset($title) ? htmlspecialchars($title) : '' ?>">   
 </td>
 </tr>
 
 <tr> 
 
 <td valign="top">
-<label for="contenu"><?php echo $langDetail ?> : </label>
+<label for="content"><?php echo $langDetail ?> : </label>
 </td>
 
 <td colspan="6"> 
-<?php claro_disp_html_area('contenu', htmlspecialchars($contenu), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
+<?php claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br>
 
 </td></tr>
@@ -569,7 +561,7 @@ else
     $orderDirection = 'ASC';
 }
 
-$eventList = CLCAL_get_item_list($orderDirection);
+$eventList = agenda_get_item_list($orderDirection);
 
 $monthBar     = '';
 
@@ -675,8 +667,8 @@ foreach ( $eventList as $thisEvent )
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
         .    '<div class="content ' . $style . '">' . "\n"
-        .    ( empty($thisEvent['titre']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['titre']) . '</strong></p>' . "\n" )
-        .    ( empty($thisEvent['contenu']) ? '' :  claro_parse_user_text($thisEvent['contenu']) )
+        .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
+        .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
         linker_display_resource();
@@ -689,7 +681,7 @@ foreach ( $eventList as $thisEvent )
         .    '</a> '
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] . '" '
         .    'onclick="javascript:if(!confirm(\''
-        .    clean_str_for_javascript($langDelete . ' ' . $thisEvent['titre'].' ?')
+        .    clean_str_for_javascript($langDelete . ' ' . $thisEvent['title'].' ?')
         .    '\')) {document.location=\'' . $_SERVER['PHP_SELF'] . '\'; return false}" >'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '">'
         .    '</a>'

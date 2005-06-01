@@ -145,7 +145,7 @@ if($is_allowedToEdit) // check teacher status
         if ( $cmd == 'exDelete')
         {
             
-            if ( CLANN_delete_item($id) )
+            if ( announcement_delete_item($id) )
             {
                 $message = $langAnnDel;
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default("ANNOUNCEMENT",array("DELETE_ENTRY"=>$id));
@@ -165,7 +165,7 @@ if($is_allowedToEdit) // check teacher status
 
         if ( $cmd == 'exDeleteAll' )
         {
-            if ( CLANN_delete_all_items() )
+            if ( announcement_delete_all_items() )
             {
                 $message = $langAnnEmpty;
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
@@ -187,7 +187,7 @@ if($is_allowedToEdit) // check teacher status
             $subTitle = $langModifAnn;
 
             // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
-            $announcementToEdit = CLANN_get_item($id);
+            $announcementToEdit = announcement_get_item($id);
             $displayForm = TRUE;
             $nextCommand = 'exEdit';
 
@@ -211,7 +211,7 @@ if($is_allowedToEdit) // check teacher status
                 $visibility = 'HIDE';
             }
 
-            if (CLANN_set_item_visibility($id,$visibility))
+            if (announcement_set_item_visibility($id,$visibility))
             {
                 $message = $langViMod;
             }
@@ -245,7 +245,7 @@ if($is_allowedToEdit) // check teacher status
             if ( $cmd == 'exEdit' ) // there is an Id => the announcement already exists => udpate mode
             {
                 
-                if ( CLANN_update_item((int) $_REQUEST['id'], $title, $content) )
+                if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
                 {
                     $message = $langAnnModify;
                     $message .= linker_update();
@@ -266,7 +266,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
 
-                $insert_id = CLANN_add_item($title,$content) ;
+                $insert_id = announcement_add_item($title,$content) ;
                 if ( $insert_id )
                 {
                     // notify that a new anouncement is present in this course
@@ -344,12 +344,11 @@ if($is_allowedToEdit) // check teacher status
         }   // end if $submit Announcement
 
         // rss update
-        if ($ex_rss_refresh && file_exists('./CLANN.rssgen.inc.php'))
+        if ($ex_rss_refresh && file_exists('./announcements.rssgen.inc.php'))
         {
-            include('./CLANN.rssgen.inc.php');
+            include('./announcements.rssgen.inc.php');
+
         }
-
-
 
     } // end if isset $_REQUEST['cmd']
 
@@ -361,7 +360,7 @@ if ($displayForm && HIDE_LIST_WHEN_DISP_FORM) $displayList = FALSE;
 if($displayList)
 {
     // list
-    $announcementList = CLANN_get_item_list();
+    $announcementList = announcement_get_item_list();
     $bottomAnnouncement = $announcementNumber = count($announcementList);
     //stats
 }
@@ -616,6 +615,6 @@ if ($displayList)
 
 } // end if displayList
 
-include($includePath.'/claro_init_footer.inc.php');
+include($includePath . '/claro_init_footer.inc.php');
 
 ?>
