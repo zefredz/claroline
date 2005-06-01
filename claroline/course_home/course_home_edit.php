@@ -106,6 +106,9 @@ if ($cmd == 'exSetToolAccess')
 
     if ($enableToolQuerySucceed !== FALSE && $disableToolQuerySucceed !== FALSE)
     {
+        // notify that tool list has been changed
+
+        $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');        
         $msg .= $langChangedTool;
     }
     else
@@ -126,7 +129,12 @@ if ($cmd == 'exAdd')
     {
         if (insert_local_course_tool($_REQUEST['toolName'], $_REQUEST['toolUrl']) !== FALSE )
         {
-            $msg .= $langAddedExternalTool;
+        
+         // notify that tool list has been changed
+
+         $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');     
+                
+         $msg .= $langAddedExternalTool;
         }
         else
         {
@@ -150,6 +158,10 @@ if ($cmd == 'exEdit')
     {
         if ( set_local_course_tool($_REQUEST['externalToolId'],$_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
         {
+            // notify that tool list has been changed
+
+            $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');   
+            
             $msg .= $langUpdatedExternalTool;
         }
         else

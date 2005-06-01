@@ -18,7 +18,7 @@
  */
 
 /*=================================================================
-  Inistialise
+  Initialize
  =================================================================*/
 
 $tlabelReq = 'CLFRM___';
@@ -171,6 +171,10 @@ elseif ( $forum_exists )
 		        {
 		            create_new_post($topic_id, $forum_id, $_uid, $time, $poster_ip, $userLastname, $userFirstname, $message);
     		    }
+                // notify eventmanager that a new message has been posted
+        
+                $eventNotifier->notifyCourseEvent("forum_new_topic",$_cid, $_tid, $forum_id, $_gid, "0");
+     
             }
 		
 		} // end if submit

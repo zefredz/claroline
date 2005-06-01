@@ -128,9 +128,15 @@ if($is_allowedToEdit)
 		{
 			switch($_REQUEST['choice'])
 			{
-				case 'delete':	// deletes an exercise
-								$objExerciseTmp->delete();
+				case 'delete':	
+                                // deletes an exercise
+				
+                                $objExerciseTmp->delete();
 
+                                //notify manager that the exercise is deleted
+                                
+                                $eventNotifier->notifyCourseEvent("exercise_deleted",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
+                                
                                 //if some learning path must be deleted too, just do it
                                 if (isset($_REQUEST['lpmDel']) && $_REQUEST['lpmDel']=='true')
                                 {
@@ -190,6 +196,7 @@ if($is_allowedToEdit)
 				case 'disable': // disables an exercise
 								$objExerciseTmp->disable();
 								$objExerciseTmp->save();
+                                                                $eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
 
 								break;
 			}

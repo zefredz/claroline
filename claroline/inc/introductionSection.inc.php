@@ -46,7 +46,11 @@ if ($intro_editAllowed)
                     SET `id` = \"".$moduleId."\",
                         `texte_intro` = \"".claro_addslashes($intro_content)."\"";
 
-            claro_sql_query($sql);
+                    claro_sql_query($sql);
+            
+                    // notify that a new introsection has been posted
+
+                    $eventNotifier->notifyCourseEvent('introsection_modified', $_cid, $_tid, $moduleId, $_gid, '0');        
 		}
 		else 
 		{

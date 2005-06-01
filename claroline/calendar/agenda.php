@@ -172,7 +172,9 @@ if ( $is_allowedToEdit )
         if ( CLCAL_delete_item($id) )
         {
             $dialogBox .= '<p>' . $langEventDeleted . '</p>';
-
+            
+            $eventNotifier->notifyCourseEvent('agenda_event_deleted', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+            
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
                 event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
@@ -212,8 +214,17 @@ if ( $is_allowedToEdit )
 
     if ($cmd == 'mkShow' || $cmd == 'mkHide')
     {
-        if ($cmd == 'mkShow')  $visibility = 'SHOW';
-        if ($cmd == 'mkHide')  $visibility = 'HIDE';
+        if ($cmd == 'mkShow')  
+        {
+            $visibility = 'SHOW';
+            $eventNotifier->notifyCourseEvent('agenda_event_visible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+        }
+        
+        if ($cmd == 'mkHide')  
+        {
+            $visibility = 'HIDE';
+            $eventNotifier->notifyCourseEvent('agenda_event_invisible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+        }
 
         if ( CLCAL_set_item_visibility($id, $visibility)  )
         {

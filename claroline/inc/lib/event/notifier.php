@@ -39,12 +39,44 @@ class Notifier extends EventDriven
 
         // call function to update db info
 
-        if ($eventType != "DELETE")
+        if ($eventType != "delete")
         {
              $this->update_last_event($course, $tool, $ressource,$gid, $uid);
         }
+        
     }
+    
+    /**
+     *  delete the notification information about a ressource that do not exist any longer
+     */
+    
+    function delete_notif($event)
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_notify     = $tbl_mdb_names['notify'];
+        
+        // get needed info from event
 
+        $event_args = $event->getArgs();
+
+        $course     = $event_args['cid'];
+        $tool       = $event_args['tid'];
+        $ressource  = $event_args['rid'];
+        $gid        = $event_args['gid'];
+        $uid        = $event_args['uid'];
+        $eventType  = $event->getEventType();
+        
+        $sql = "DELETE FROM `".$tbl_notify."`
+                      WHERE `course_code`='".$course."'
+                        AND `tool_id`='".$tool."'
+                        AND `ressource_id`='".$ressource."'
+                        AND `group_id` = '".$gid."'
+                        AND `user_id` = '".$uid."'
+                        ";
+                        
+        claro_sql_query($sql);                   
+    }
+    
     /**
      * Function used to tell the notifier that some new event happened in a tool :
      * For a specific tool in a specific course, 
@@ -151,7 +183,7 @@ class Notifier extends EventDriven
                WHERE CU.`code_cours` = N.`course_code`
                  AND CU.`user_id` = '".$user_id."'
                  AND N.`date` > '".$date."'
-                 AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')) 
+                 AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."') AND N.`group_id` = '0') 
                      OR
                      (CU.`statut` = '1') )
                  ";
@@ -186,13 +218,14 @@ class Notifier extends EventDriven
         // 1- find the tool list of the given course that contains some event newer than the date '$date'
         //    A- FOR A STUDENT : where the events concerned everybody (uid = 0) or the user himself (uid)
         //    B- FOR A TEACHER : every events of a course must be reported (this take much sense in the work tool, with submissions)
+        
         $sql = "SELECT `tool_id`, MAX(`date`)
                 FROM `".$tbl_notify."` AS N, `".$tbl_cours_user."` AS CU
                 WHERE N.`course_code` = '".$course_id."'
                   AND CU.`user_id` = '".$user_id."'
                   AND CU.`code_cours` = N.`course_code`
                   AND N.`date` > '".$date."'
-                  AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')) 
+                  AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."') AND N.`group_id` = '0' ) 
                        OR
                       (CU.`statut` = '1') )
                 GROUP BY `tool_id`            

@@ -149,6 +149,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 $message = $langAnnDel;
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default("ANNOUNCEMENT",array("DELETE_ENTRY"=>$id));
+                $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
                 $ex_rss_refresh = TRUE;
             }
 //            else
@@ -199,8 +200,16 @@ if($is_allowedToEdit) // check teacher status
 
         if ($cmd == 'mkShow'|| $cmd == 'mkHide')
         {
-            if ($cmd == 'mkShow')  $visibility = 'SHOW';
-            if ($cmd == 'mkHide')  $visibility = 'HIDE';
+            if ($cmd == 'mkShow')  
+            {
+                $eventNotifier->notifyCourseEvent('anouncement_visible', $_cid, $_tid, $id, $_gid, '0');
+                $visibility = 'SHOW';
+            }
+            if ($cmd == 'mkHide')  
+            {
+                $eventNotifier->notifyCourseEvent('anouncement_invisible', $_cid, $_tid, $id, $_gid, '0');
+                $visibility = 'HIDE';
+            }
 
             if (CLANN_set_item_visibility($id,$visibility))
             {

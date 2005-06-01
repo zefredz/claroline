@@ -582,6 +582,10 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
                 update_Doc_Path_in_Assets('delete', $file, '');
             }
 
+            //notify that a document has been deleted
+        
+            $eventNotifier->notifyCourseEvent("document_file_deleted",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
+                
             $dialogBox = $langDocDeleted;
         }
     }
@@ -810,12 +814,16 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 	$dialogBox = $langViMod;
                 
-        //notify claroline that some hidden files are now visibles
+        //notify claroline that visibility changed
 	  
 	if ($_REQUEST['vis']=="v")
 	    {
 		$eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");	
-	    }   
+	    }
+        else
+            {
+                $eventNotifier->notifyCourseEvent("document_invisible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
+            }   
 	}
 } // END is Allowed to Edit
 

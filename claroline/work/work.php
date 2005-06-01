@@ -206,6 +206,10 @@ if($is_allowedToEdit)
             {
                 $eventNotifier->notifyCourseEvent("work_visible",$_cid, $_tid, $_REQUEST['assigId'], $_gid, "0");
             }
+            else
+            {
+                $eventNotifier->notifyCourseEvent("work_invisible",$_cid, $_tid, $_REQUEST['assigId'], $_gid, "0");
+            }
         }
     }
 
@@ -228,6 +232,10 @@ if($is_allowedToEdit)
                 WHERE `id` = ".$_REQUEST['assigId'];
         
         claro_sql_query($sql);
+        
+        //notify eventmanager
+        
+        $eventNotifier->notifyCourseEvent("work_deleted",$_cid, $_tid, $_REQUEST['assigId'], $_gid, "0");
         
         $dialogBox .= $langAssignmentDeleted;    
     }

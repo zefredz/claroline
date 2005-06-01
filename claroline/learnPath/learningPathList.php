@@ -251,6 +251,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                             WHERE `learnPath_id` = ".$_GET['del_path_id'] ;
               $query = claro_sql_query($sql3);
               
+              //notify the event manager with the deletion
+              
+              $eventNotifier->notifyCourseEvent("learningpath_deleted",$_cid, $_tid, $_GET['del_path_id'], $_gid, "0");
+              
               break;
 
 
@@ -267,14 +271,25 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
         // VISIBILITY COMMAND
         case "mkVisibl" :
-              $eventNotifier->notifyCourseEvent("learningpath_visible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
-        case "mkInvisibl" :
+        case "mkInvisibl" :      
               $cmd == "mkVisibl" ? $visibility = 'SHOW' : $visibility = 'HIDE';
               $sql = "UPDATE `".$TABLELEARNPATH."`
                          SET `visibility` = '$visibility'
                        WHERE `learnPath_id` = ".$_GET['visibility_path_id']."
                          AND `visibility` != '$visibility'";
               $query = claro_sql_query ($sql);
+              
+              //notify the event manager with the event of new visibility
+              
+              if ($visibility == 'SHOW')
+              {
+                  $eventNotifier->notifyCourseEvent("learningpath_visible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
+              }
+              else
+              {
+                  $eventNotifier->notifyCourseEvent("learningpath_invisible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
+              }
+              
               break;
 
         // ORDER COMMAND
