@@ -178,7 +178,7 @@ class Notifier extends EventDriven
         //  1- find the list of the user's course and in this list, take only the course where recent events happened 
         //    A- FOR A STUDENT : where the events concerned everybody (uid = 0) or the user himself (uid)
         //    B- FOR A TEACHER : every events of a course must be reported (this take much sense in the work tool, with submissions)
-        if (!$_SESSION['firstLogin']) {     
+        if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
             $sql="SELECT `code_cours` FROM `".$tbl_cours_user."` AS CU, `".$tbl_notify."` AS N 
                 WHERE CU.`code_cours` = N.`course_code`
                     AND CU.`user_id` = '".$user_id."'
@@ -222,7 +222,7 @@ class Notifier extends EventDriven
         //    B- FOR A TEACHER : every events of a course must be reported (this take much sense in the work tool, with submissions)
 
         
-        if (!$_SESSION['firstLogin']) {
+        if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
             $sql = "SELECT `tool_id`, MAX(`date`)
                     FROM `".$tbl_notify."` AS N, `".$tbl_cours_user."` AS CU
                     WHERE N.`course_code` = '".$course_id."'
