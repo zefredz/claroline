@@ -202,7 +202,15 @@ echo '</td>';
 <?php
     if (isset($loginFailed) && $loginFailed)
     {
-        claro_disp_message_box($langInvalidId);
+        if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
+        {
+    		claro_disp_message_box($langInvalidId);
+        }
+        else
+        {
+        	claro_disp_message_box($langInvalidIdSelfReg);
+        }
+        
     }
 ?>
 <p>

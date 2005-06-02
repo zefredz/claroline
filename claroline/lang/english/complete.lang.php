@@ -1300,7 +1300,8 @@ $langIntroWork = "This tool allows the teacher to create assignments in which an
 <br />You will be able to add a comment or a grade to each work.
 
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
-$langInvalidId = "Login failed.<BR>If you are not registered, use <a href=claroline/auth/inscription.php>registration form</a></font color>";
+$langInvalidId = "Login failed.<BR>Contact your administrator.";
+$langInvalidIdSelfReg = "Login failed.<BR>If you are not registered, use <a href=claroline/auth/inscription.php>registration form</a></font color>";
 $langInvisible = "Invisible";
 $langIs = "is";
 $langIsAlreadyRegistered = "is already registered to course";
