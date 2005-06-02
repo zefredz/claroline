@@ -77,14 +77,14 @@ if ( $cmd == 'registration' )
     }
     
     // check if the two password are identical
-    elseif ( $user_data['password_conf']  != $user_data['password']  )
+    if ( $user_data['password_conf']  != $user_data['password']  )
     {
         $error = true;
         $message .= '<p>' . $langPassTwice . '</p>' . "\n";
     }
 
     // check if password isn't too easy
-    elseif ( $user_data['password'] 
+    if ( $user_data['password'] 
              && SECURE_PASSWORD_REQUIRED
              && ! is_password_secure_enough($user_data['password'],
                   array( $user_data['username'] , 
@@ -98,14 +98,14 @@ if ( $cmd == 'registration' )
     }
 
     // check email address validity
-    elseif ( !empty($user_data['email'] ) && ! eregi($regexp,$user_data['email'] ) )
+    if ( !empty($user_data['email'] ) && ! eregi($regexp,$user_data['email'] ) )
     {
         $error = true;
         $message .= '<p>' . $langEmailWrong . '</p>' . "\n" ;
     }
 
     // check if the username is already owned by another user
-    else
+    if (isset($_REQUEST['email']))
     {
         $sql = 'SELECT COUNT(*) `loginCount`
                 FROM `'.$tbl_user.'` 
@@ -120,7 +120,24 @@ if ( $cmd == 'registration' )
         }
 
     }
+    
+    // check if the officialcode is already owned by another user
+    if (isset($_REQUEST['officialCode']))
+    {
+        $sql = 'SELECT COUNT(*) `officialCodeCount`
+                FROM `'.$tbl_user.'` 
+                WHERE officialCode="' . addslashes($user_data['officialCode'] ) . '"';
+                
+        list($result) = claro_sql_query_fetch_all($sql);
 
+        if ( $result['officialCodeCount'] > 0 )
+        {
+            $error = true;
+            $message .= '<p>Official Code taken</p>' . "\n";
+        }
+
+    }
+    
     if ( $error == false )
     {
         // register the new user in the claroline platform
