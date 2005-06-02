@@ -114,7 +114,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 		<input type="radio" 
 		       name="choice[<?php echo $questionId; ?>]" 
 		       id="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]"
-               value="<?php echo $answerId; ?>[<?php echo $answerId; ?>]">
+               value="<?php echo $answerId; ?>">
 	  </td>
 	  <td width="95%">
 		<label for="choice[<?php echo $questionId; ?>][<?php echo $answerId; ?>]">
