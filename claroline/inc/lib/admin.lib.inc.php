@@ -154,7 +154,7 @@ function claro_CSV_format_ok($format)
  * 
  */
  
-function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="")
+function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="dbquote")
 {
         //check if temporary directory for uploaded file exists, if not we create it
 	
@@ -584,16 +584,18 @@ function check_duplicate_mail_userlist($userlist)
     {       
         //check email duplicata in the array
 
-		$found = array_search($userlist['email'][$i],$userlist['email']);
-
+		if ($userlist['email'][$i] != "")
+		{
+		    $found = array_search($userlist['email'][$i],$userlist['email']);
+        }
+		else
+		{
+		    $found = FALSE; // do not check if email is empty
+		}
 		if (!($found===FALSE) && ($i!=$found))
         {
 	    	$errors[$i] = TRUE;
         }
-	else
-	{
-	        $errors[$i] = FALSE;
-	}
     }
     return $errors;
 }
@@ -786,7 +788,9 @@ class CSV
                 foreach($temp AS $field_index=>$field_value)
                 {
                 	// Remove enclose characters
+                    echo $field_value."111";
                     $this->stripENCLOSED($field_value,$enclosed_by);
+                    echo $field_value."222";
                     $data_set[$this->mapping[$field_index]] = $field_value;
 				}
                 if(count($data_set)>0)
