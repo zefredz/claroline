@@ -32,12 +32,11 @@ $tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
 
 // course db
 $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-$TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
-$TABLETRACK_DOWNLOADS     = $tbl_cdb_names['track_e_downloads'];
-$TABLETRACK_UPLOADS       = $tbl_cdb_names['track_e_uploads'];
-$TABLETRACK_EXERCICES     = $tbl_cdb_names['track_e_exercices'];
-
-
+$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
+$tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
+$tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
+$tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
+$tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
 
 
 define("CONFVAL_LOG_DIRECT_IN_TABLE",true); //unstable with false
@@ -140,7 +139,7 @@ function event_access_course()
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $TABLETRACK_ACCESS;
+    global $tbl_track_e_access;
 
     $reallyNow = time();
     if($_uid)
@@ -151,7 +150,7 @@ function event_access_course()
     {
         $user_id = "NULL";
     }
-    $sql = "INSERT INTO `".$TABLETRACK_ACCESS."`
+    $sql = "INSERT INTO `".$tbl_track_e_access."`
             (`access_user_id`,  
              `access_date`)
             VALUES
@@ -177,7 +176,7 @@ function event_access_tool($tid, $tlabel)
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $TABLETRACK_ACCESS;
+    global $tbl_track_e_access;
     global $rootWeb;
     global $_course;
 
@@ -194,7 +193,7 @@ function event_access_tool($tid, $tlabel)
             $user_id = "NULL";
         }
 
-        $sql = "INSERT INTO `".$TABLETRACK_ACCESS."`
+        $sql = "INSERT INTO `".$tbl_track_e_access."`
                 (`access_user_id`,
                  `access_tid`,
                  `access_tlabel`,
@@ -229,7 +228,7 @@ function event_download($doc_url)
 
     global $_uid;
 
-    global $TABLETRACK_DOWNLOADS;
+    global $tbl_track_e_downloads;
 
     $reallyNow = time();
     if($_uid)
@@ -241,7 +240,7 @@ function event_download($doc_url)
         $user_id = "NULL";
     }
 
-    $sql = "INSERT INTO `".$TABLETRACK_DOWNLOADS."`
+    $sql = "INSERT INTO `".$tbl_track_e_downloads."`
             (
              `down_user_id`,
              `down_doc_path`,
@@ -275,7 +274,7 @@ function event_upload($doc_id)
 
     global $_uid;
 
-    global $TABLETRACK_UPLOADS;
+    global $tbl_track_e_uploads;
 
     $reallyNow = time();
     if($_uid)
@@ -287,7 +286,7 @@ function event_upload($doc_id)
         $user_id = "NULL";
     }
     
-    $sql = "INSERT INTO `".$TABLETRACK_UPLOADS."`
+    $sql = "INSERT INTO `".$tbl_track_e_uploads."`
             (
              `upload_user_id`,
              `upload_work_id`, 
@@ -309,6 +308,7 @@ function event_upload($doc_id)
  * @param exo_id ( id in courseDb exercices table )
  * @param result ( score @ exercice )
  * @param weighting ( higher score )
+ * @return inserted id or false if the query cannot be done
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record result of user when an exercice was done
 */
@@ -316,9 +316,9 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 {
     global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! $is_trackingEnabled ) return false;
 
-    global $TABLETRACK_EXERCICES;
+    global $tbl_track_e_exercises;
 
     $reallyNow = time();
     if($uid && $uid != "")
@@ -329,7 +329,7 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
     {
         $user_id = "NULL";
     }
-    $sql="INSERT INTO `".$TABLETRACK_EXERCICES."`
+    $sql = "INSERT INTO `".$tbl_track_e_exercises."`
           (
 			`exe_user_id`,
 			`exe_exo_id`,
@@ -347,6 +347,40 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
            '".$weighting."',
            FROM_UNIXTIME(".$reallyNow."),
 	   $time
+          )";
+
+    return claro_sql_query_insert_id($sql);
+}
+
+/**
+ * @param exerciseTrackId id in track_e_exercices table
+ * @param questionId
+ * @param values user answers
+ * @param questionResult result of this question
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ * @desc Record result of user when an exercice was done
+*/
+function event_exercise_details($exerciseTrackId,$questionId,$values,$questionResult)
+{
+    global $is_trackingEnabled ;
+    // if tracking is disabled record nothing
+    if( ! $is_trackingEnabled ) return 0;
+
+    global $tbl_track_e_exe_details;
+
+    $sql="INSERT INTO `".$tbl_track_e_exe_details."`
+          (
+			`exercise_track_id`,
+			`question_id`,
+			`value`,
+			`result`
+          )
+          VALUES
+          (
+          	".(int) $exerciseTrackId.",
+           	'".(int) $questionId."',
+           	'".addslashes($values)."',
+           	'".(int) $questionResult."'
           )";
 
     $res = claro_sql_query($sql);
