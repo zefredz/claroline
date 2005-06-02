@@ -282,6 +282,9 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
         
 		for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
 		{
+			// $answerId is NOT a unique id of the answer but a
+			// unique id of the answer INSIDE the question
+			// unique id of an answer in table is composed of id in question and id of the question
 			$answer = $objAnswerTmp->selectAnswer($answerId);
 			$answerComment = $objAnswerTmp->selectComment($answerId);
 			$answerCorrect = $objAnswerTmp->isCorrect($answerId);
@@ -307,13 +310,12 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 				// for multiple answers
 				case MULTIPLE_ANSWER :	if( isset($choice[$answerId]) ) $studentChoice = $choice[$answerId];
 
-
 										if($studentChoice)
 										{
 											$questionScore += $answerWeighting;
 											$totalScore += $answerWeighting;
 											// add all selected answers in the value used for question tracking
-											$valueToTrack .= $studentChoice.';';
+											$valueToTrack .= $answerId.';';
 										}
 
 										break;
@@ -409,23 +411,22 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 										{
 											if( isset($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
 											{
+            									// add answer in the value used for question tracking
+            						            $valueToTrack .= $answerId.'-'.$choice[$answerId].';';
 												$questionScore += $answerWeighting;
 												$totalScore += $answerWeighting;
 												$choice[$answerId] = $matching[$choice[$answerId]];
-												// add answer in the value used for question tracking
-												// user has correct answer so the left column value is the same as his choice
-												$valueToTrack .= $answerId.','.$answerId.';';
-											}
+            								}
 											elseif(!isset($choice[$answerId]))
 											{
 												$choice[$answerId] = '&nbsp;&nbsp;&nbsp;';
 												// add answer in the value used for question tracking
-												$valueToTrack .= $answerId.',;';
+												$valueToTrack .= $answerId.'-;';
 											}
 											elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
 											{
                                                 // add answer in the value used for question tracking
-                                                $valueToTrack .= $answerId.','.$choice[$answerId].';';
+                                                $valueToTrack .= $answerId.'-'.$choice[$answerId].';';
 												$choice[$answerId] = "<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
 											}
 										}
@@ -511,7 +512,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
         $answersToTrack[$i]['values'] = $valueToTrack;
         $answersToTrack[$i]['questionResult'] = $questionScore;
 		$i++;
-		
+
 		$totalWeighting+=$questionWeighting;
 	}	// end foreach()
 ?>
