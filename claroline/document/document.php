@@ -792,6 +792,13 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 		else
 		{
 			claro_mkdir($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName, 0777);
+
+            if ( trim($_REQUEST['comment']) != '' && $courseContext)
+            {
+                update_db_info('update', $_REQUEST['cwd'].'/'.$newDirName, 
+                                array('comment' => trim($_REQUEST['comment']) ) );
+            }
+
 			$dialogBox = $langDirCr;
 		}
 	}
@@ -803,13 +810,20 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
 	if ($cmd == 'rqMkDir')
 	{
-		$dialogBox .=	 "<form>\n"
-						."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"					
-						."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
-						."<label for=\"newName\">".$langNameDir." : </label>\n"
-						."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
-						."<input type=\"submit\" value=\"".$langOk."\">\n"
-						."</form>\n";
+        $dialogBox .= "<form>\n"
+                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"                 
+                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
+                      ."<label for=\"newName\">".$langNameDir." : </label>\n"
+                      ."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
+                      ."<br /><br />"
+                      ."<label for=\"comment\">\n"
+                      ."Add a comment (optionnal) :\n"
+                      ."</label>\n"
+                      ."<br>\n"
+                      ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
+                      ."<br>\n"
+                      ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                      ."</form>\n";
 	}
 
 	/*========================================================================
