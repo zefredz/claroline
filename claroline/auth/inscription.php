@@ -133,7 +133,7 @@ if ( $cmd == 'registration' )
         if ( $result['officialCodeCount'] > 0 )
         {
             $error = true;
-            $message .= '<p>Official Code taken</p>' . "\n";
+            $message .= '<p>'.$langCodeUsed.'</p>' . "\n";
         }
 
     }
