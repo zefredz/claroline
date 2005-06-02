@@ -278,6 +278,8 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 		$questionScore = 0;
 
+        $valueToTrack = '';
+        
 		for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
 		{
 			$answer = $objAnswerTmp->selectAnswer($answerId);
@@ -286,18 +288,21 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 			$answerWeighting = $objAnswerTmp->selectWeighting($answerId);
 
 			$studentChoice = ''; // init to empty string, will be overwritten when a answer has been given
+
 			switch($answerType)
 			{
-				// for unique answer or true/false (true/false IS a unique answer exercise)
+     			// for unique answer or true/false (true/false IS a unique answer exercise)
 				case TRUEFALSE : // no break, execute UNIQUE_ANSWER instructions
 				case UNIQUE_ANSWER :	$studentChoice = ($choice == $answerId)?1:0;
 
 										if($studentChoice)
 										{
+											// if this answer has been selected by the user
 										  	$questionScore += $answerWeighting;
 											$totalScore += $answerWeighting;
+											// add answer in the value used for question tracking
+											$valueToTrack = $choice;
 										}
-
 										break;
 				// for multiple answers
 				case MULTIPLE_ANSWER :	if( isset($choice[$answerId]) ) $studentChoice = $choice[$answerId];
@@ -307,6 +312,8 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 										{
 											$questionScore += $answerWeighting;
 											$totalScore += $answerWeighting;
+											// add all selected answers in the value used for question tracking
+											$valueToTrack .= $studentChoice.';';
 										}
 
 										break;
@@ -348,8 +355,12 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 												break;
 											}
 
-											if( isset($choice[$j]) )
-												$choice[$j] = trim(stripslashes($choice[$j]));
+											// [ and ] are prohibited in answers because of the [word] system in
+											// statement creation
+											$charsToAvoid = array("[","]");
+
+		   									if( isset($choice[$j]) )
+												$choice[$j] = trim(stripslashes(str_replace($charsToAvoid, "", $choice[$j])));
 											else
 											    $choice[$j] = '';
 
@@ -364,17 +375,22 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 												// adds the word in green at the end of the string
 												$answer .= $choice[$j];
+												
+												$valueToTrack .= '['.$choice[$j].']';
 											}
 											// else if the word entered by the student IS NOT the same as the one defined by the professor
 											elseif(!empty($choice[$j]))
 											{
 												// adds the word in red at the end of the string, and strikes it
 												$answer .= "<span class=\"error\"><s>".$choice[$j]."</s></span>";
+
+												$valueToTrack .= '['.$choice[$j].']';
 											}
 											else
 											{
 												// adds a tabulation if no word has been typed by the student
 												$answer .= '&nbsp;&nbsp;&nbsp;';
+												$valueToTrack .= '[]';
 											}
 
 											// adds the correct word, followed by ] to close the blank
@@ -387,26 +403,37 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 										break;
 				// for matching
-				case MATCHING :			if($answerCorrect)
+				case MATCHING :         // in matching when $answerCorrect is true ( != 0 )
+										// it means that the answer is a LEFT column proposal
+										if($answerCorrect)
 										{
 											if( isset($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
 											{
 												$questionScore += $answerWeighting;
 												$totalScore += $answerWeighting;
 												$choice[$answerId] = $matching[$choice[$answerId]];
+												// add answer in the value used for question tracking
+												// user has correct answer so the left column value is the same as his choice
+												$valueToTrack .= $answerId.','.$answerId.';';
 											}
 											elseif(!isset($choice[$answerId]))
 											{
 												$choice[$answerId] = '&nbsp;&nbsp;&nbsp;';
+												// add answer in the value used for question tracking
+												$valueToTrack .= $answerId.',;';
 											}
 											elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
 											{
+                                                // add answer in the value used for question tracking
+                                                $valueToTrack .= $answerId.','.$choice[$answerId].';';
 												$choice[$answerId] = "<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
 											}
 										}
 										else
 										{
-											$matching[$answerId] = $answer;
+											// in matching $answerCorrect == 0 it means that the answer is a
+											// right column proposal
+   											$matching[$answerId] = $answer;
 										}
 										break;
 			}	// end switch()
@@ -480,8 +507,11 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 		// destruction of Answer
 		unset($objAnswerTmp);
 
+        $answersToTrack[$i]['questionId'] = $questionId;
+        $answersToTrack[$i]['values'] = $valueToTrack;
+        $answersToTrack[$i]['questionResult'] = $questionScore;
 		$i++;
-
+		
 		$totalWeighting+=$questionWeighting;
 	}	// end foreach()
 ?>
@@ -541,13 +571,20 @@ if($is_trackingEnabled && $displayScore)
     // if anonymousAttemps is true : record anonymous user stats, record authentified user stats without uid
     if ( $_SESSION['objExercise']->anonymous_attempts()  )
     {
-        event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
+        $exerciseTrackId = event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe );
     }
     elseif( $_uid ) // anonymous attempts not allowed, record stats with uid only if uid is set
     {
-		event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );
+		$exerciseTrackId = event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );
     }
 
+	if( isset($exerciseTrackId) && $exerciseTrackId )
+	{
+  		foreach( $answersToTrack as $answerToTrack )
+  		{
+            event_exercise_details($exerciseTrackId,$answerToTrack['questionId'],$answerToTrack['values'],$answerToTrack['questionResult']);
+		}
+	}
 }
 
 // record progression 
