@@ -610,7 +610,7 @@ if($is_allowedToEdit) // Document edition are reserved to certain people
 
     if ($cmd == 'exEdit')
     {
-        if ( $_REQUEST['url'])
+        if ( isset($_REQUEST['url']))
         {
             $url = trim ($_REQUEST['url']);
 
@@ -1669,8 +1669,20 @@ claro_disp_tool_title($titleElement,
 		/*------------------------------------------------------------------------
 	                               DISPLAY FILE LIST
 		  ------------------------------------------------------------------------*/
-	
-		if (isset($fileList))
+	        
+                //find the recent documents with the notification system   
+                
+                if (isset($_uid))
+                {    
+                    $date = $claro_notifier->get_last_login_before_today($_uid);
+                    $modified_documents = $claro_notifier->get_notified_documents($_cid, $date, $_uid, $_gid);
+                }
+                else
+                {
+                    $modified_documents = array();
+                }
+                    
+                if (isset($fileList))
 		{
 	        foreach($fileList['path'] as $fileKey => $fileName )
 			{
@@ -1697,6 +1709,22 @@ claro_disp_tool_title($titleElement,
 					$style='';
 				}
 				
+                                //modify style if the file is recently added since last login
+                                
+                                // see if tool name must be displayed in bold text or not
+
+                                if (in_array($fileName, $modified_documents))
+                                {
+                                    $span_open='<span class="hotItem">';
+                                    $span_close='</span>';
+                                }
+                                else // otherwise just display its name normally
+                                {
+                                    $span_open='';
+                                    $span_close='';
+                                }
+                                
+                                
 				if ($fileList['type'][$fileKey] == A_FILE)
 				{
 					$image       = choose_image($fileName);
@@ -1722,17 +1750,17 @@ claro_disp_tool_title($titleElement,
 						
 				if( is_image( $fileName ) )
 				{
-					echo "<a href=\"". $_SERVER['PHP_SELF'],
+					echo $span_open."<a href=\"". $_SERVER['PHP_SELF'],
 						"?docView=image&file=" . urlencode($fileName) . "&cwd="
                         . $curDirPath . $searchCmdUrl ."\"". $style . ">";
 				}
 				else
 				{
-						echo "<a href=\"".$urlFileName."\"".$style.">";
+						echo $span_open."<a href=\"".$urlFileName."\"".$style.">";
 				} // end if is_image
 				
 				echo "<img src=\"".$imgRepositoryWeb."",
-						$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>";
+						$image,"\" border=\"0\" hspace=\"5\" alt=\"\">",$dspFileName,"</a>".$span_close;
 				
 				echo		"</td>\n",
 						
