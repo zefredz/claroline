@@ -466,6 +466,15 @@ a:visited.invisible{
  font-weight: bold;
 }
 
+/* 'hotItem' is used when something needs to be notified as new on the platform since the last login
+    to the user
+*/
+.hotItem,
+.hotItem a
+{
+ color: #FF00CC;
+ font-weight: bold;
+}
 
 /*
  * 'rightMenu' is mainly use in the platform home page

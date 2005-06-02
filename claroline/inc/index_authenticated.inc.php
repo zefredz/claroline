@@ -183,20 +183,20 @@ foreach($personnalCourseList as $thisCourse)
     
     if (in_array ($thisCourse['sysCode'], $modified_course)) 
     {
-        $div_open="<b>";
-        $div_close="</b>";
+        $span_open="<span class=\"hotItem\">";
+        $span_close="</span>";
     }
-    else // otherwise just diplsy its name normally
+    else // otherwise just display its name normally
     {
-        $div_open="";
-        $div_close="";
+        $span_open="";
+        $span_close="";
     }
        
-    echo "<li>$div_open\n"
+    echo "<li>$span_open\n"
         ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
         .$thisCourse['officialCode']." - "
         .$thisCourse['title']
-        ."</a>$div_close"
+        ."</a>$span_close"
         ."<br>"
         ."<small>"
         .$thisCourse['titular']

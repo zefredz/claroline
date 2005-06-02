@@ -138,22 +138,22 @@ foreach($toolList as $thisTool)
 
     if (in_array($thisTool['id'], $modified_tools))
     {
-        $div_open='<b>';
-        $div_close='</b>';
+        $span_open='<span class="hotItem">';
+        $span_close='</span>';
     }
     else // otherwise just display its name normally
     {
-        $div_open='';
-        $div_close='';
+        $span_open='';
+        $span_close='';
     }
 
     if ( ! empty($url) )
     {
-        echo $div_open . ' <a ' . $style . ' href="' . $url . '">'
+        echo $span_open . ' <a ' . $style . ' href="' . $url . '">'
         .    '<img src="' . $icon . '" hspace="5" alt="">'
         .    $toolName
         .    '</a>'
-        .    $div_close
+        .    $span_close
         .    '<br>' . "\n"
         ;
     }
