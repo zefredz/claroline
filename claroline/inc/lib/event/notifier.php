@@ -183,9 +183,7 @@ class Notifier extends EventDriven
                 WHERE CU.`code_cours` = N.`course_code`
                     AND CU.`user_id` = '".$user_id."'
                     AND N.`date` > '".$date."'
-                    AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."') AND N.`group_id` = '0') 
-                        OR
-                        (CU.`statut` = '1') )
+                    AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')
                     ";
             
             $courseList = claro_sql_query_fetch_all($sql);
@@ -229,10 +227,8 @@ class Notifier extends EventDriven
                     AND CU.`user_id` = '".$user_id."'
                     AND CU.`code_cours` = N.`course_code`
                     AND N.`date` > '".$date."'
-                    AND ( (CU.`statut` = '5' AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."') AND N.`group_id` = '0' ) 
-                        OR
-                        (CU.`statut` = '1') )
-                    GROUP BY `tool_id`            
+                    AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')
+                    GROUP BY `tool_id`
                     ";
             $toolList = claro_sql_query_fetch_all($sql);
             if (is_array($toolList))
@@ -247,6 +243,47 @@ class Notifier extends EventDriven
         return $tools;
 
     }
+    
+    /**
+     *  Function to know which documents in a course of a user is new since a given date
+     *  @param course_id the course code of the course concerned 
+     *  @param date the given date
+     *  @param user_id the user concerned
+     *  @param gid the group ID from which the tool is concerned
+     * 
+     *  @return an array with the documents (paths) with recent unknow event until the date '$date' for the user_id and course_id concerned
+     */
+     
+    function get_notified_documents($course_id, $date, $user_id, $gid = "0")
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_notify    = $tbl_mdb_names['notify'];
+        
+        $documents = array();
+        
+        if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
+        $sql = "SELECT `ressource_id`
+                    FROM `".$tbl_notify."` AS N
+                    WHERE N.`course_code` = '".$course_id."'
+                    AND N.`date` > '".$date."'
+                    AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."') 
+                    AND (N.`group_id` = '0' OR N.`group_id` = '".$gid."')
+                    AND (N.`tool_id` = '7')      
+                    ";
+        }
+        $documentList = claro_sql_query_fetch_all($sql);
+            if (is_array($documentList))
+            foreach ($documentList as $document)
+            {
+                $documents[] = $document['ressource_id'];
+            }
+       
+        // 2- return an array with the documents paths with recent unknow event until the date '$date' in the course and for 
+
+        return $documents;     
+             
+    }
+    
     
     /**
      *  Function to know when was the last login BEFORE TODAY of the user on the platform, wihtout taking account of the login
