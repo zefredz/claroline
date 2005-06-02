@@ -212,7 +212,7 @@ function user_delete ($user_id)
             $dbNameGlued = $courseTablePrefix . $user_course['dbName'] . $dbGlu;
             $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
 
-            $tbl_group_team = $tbl_cdb_names[''];
+            $tbl_group_team = $tbl_cdb_names['group_team'];
             $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
             $tbl_bb_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
             $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
