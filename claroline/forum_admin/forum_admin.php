@@ -311,7 +311,6 @@ elseif ( isset($_REQUEST['forumcatedit']) )
 
     $result   = claro_sql_query($sql);
     list($cat_id, $cat_title) = mysql_fetch_row($result);
-
 }
 
 /*---------------------------------------------------------------------
@@ -321,18 +320,18 @@ elseif ( isset($_REQUEST['forumcatedit']) )
 elseif ( isset($_REQUEST['forumcatsave']) )
 {
     $display = DISP_FORUM_CAT_SAVE;
+
     if ( !empty($cat_title) )
     {
-        $sql = "UPDATE `".$tbl_forum_categories."`
-                SET   cat_title = '". addslashes($cat_title) ."'
-                WHERE cat_id    = '".$cat_id."'";
-        claro_sql_query($sql);
+        update_category_title( $cat_id, $cat_title );
     }
     else
     {
         $display_error_mess = TRUE;
     }
 }
+
+
 
 /*---------------------------------------------------------------------
   SAVE FORUM NAME & DESCRIPTION
@@ -341,17 +340,10 @@ elseif ( isset($_REQUEST['forumcatsave']) )
 elseif ( isset($_REQUEST['forumgosave']) )
 {
     $display = DISP_FORUM_GO_SAVE;
+
     if ( !empty($forum_name) )
     {
-        $sql = 'UPDATE `'.$tbl_forum_forums.'`
-                SET `forum_name`     = "'. addslashes($forum_name) .'",
-                    `forum_desc`     = "'. addslashes($forum_desc) .'",
-                    `forum_access`   = "2",
-                    `forum_moderator`= "1",
-                    `cat_id`         = "'.$cat_id.'",
-                    `forum_type`     = "'.$forum_type.'"
-                WHERE `forum_id` = "'.$forum_id.'"';
-        claro_sql_query($sql);
+        update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_type, $cat_id);
     }
     else
     {
@@ -378,25 +370,7 @@ elseif ( isset($_REQUEST['forumcatadd']) )
 
     if ( !empty($cat_title) )
     {
-        // find order in the category we must give to the newly created forum
-        $sql = 'SELECT MAX(`cat_order`) FROM `'.$tbl_forum_categories.'`';
-        $result = claro_sql_query($sql);
-
-        list($orderMax) = mysql_fetch_row($result);
-        $order = $orderMax + 1;
-
-    /*  not useful patch for 1.4.2 to 1.5 see Hugues...
-
-        claro_sql_query("INSERT    IGNORE INTO `".$tbl_forum_categories."`
-                 SET cat_title = \"groups\",
-                 cat_id = '".CAT_FOR_GROUPS."',
-                 cat_order = 0
-                 ");
-    */
-        $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
-                SET `cat_title` = "'. addslashes($cat_title) .'",
-                    `cat_order` = "'.$order.'"';
-        claro_sql_query($sql);
+        create_category($cat_title);
     }
     else
     {
@@ -414,23 +388,7 @@ elseif ( isset($_REQUEST['forumgoadd']) )
 	
     if ( !empty($forum_name)) //do not add forum if empty name given
     {
-        // find order in the category we must give to the newly created forum
-
-        $sql = 'SELECT MAX(`forum_order`)
-                FROM `'.$tbl_forum_forums.'`
-                WHERE cat_id = "'.$cat_id.'"';
-        $result = claro_sql_query($sql);
-
-        list($orderMax) = mysql_fetch_row($result);
-        $order = $orderMax + 1;
-
-        // add new forum in DB
-
-        $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
-                (forum_id, forum_name, forum_desc, forum_access,forum_moderator, cat_id, forum_type, md5, forum_order)
-                VALUES
-                (NULL,"'. addslashes($forum_name) .'", "'. addslashes($forum_desc) .'", "2", "1", "'.$cat_id.'", "'.$forum_type.'", "'.md5(time()).'", "'.$order.'")';
-        claro_sql_query($sql);
+        create_forum($forum_name, $forum_desc, $forum_type, $cat_id);
     }
     else
     {
@@ -483,14 +441,7 @@ elseif ( isset($_REQUEST['forumgodel']) )
 {
     $display=DISP_FORUM_GO_DEL;
 
-	$sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
-            WHERE `forum_id` = "'.$forum_id.'"';
-    claro_sql_query($sql);
-
-	$sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
-            WHERE `forum_id` = "'.$forum_id.'"';
-    claro_sql_query($sql);
-
+    delete_forum ($forum_id);
 }
 
 /*---------------------------------------------------------------------
@@ -947,4 +898,115 @@ switch ($display)
  ---------------------------------------------------------------------*/
 
 include($includePath."/claro_init_footer.inc.php");
+
+//////////////////////////////////////////////////////////////////////////////
+
+function update_category_title( $catId, $catTitle )
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    if ( !empty($catTitle) )
+    {
+        $sql = "UPDATE `".$tbl_forum_categories."`
+            SET   cat_title = '". addslashes($catTitle) ."'
+            WHERE cat_id    = '".(int)$catId."'";
+        
+        if (claro_sql_query($sql) != false) return true;
+    }
+
+    return false;
+}
+
+function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_type, $cat_id)
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
+    $sql = 'UPDATE `'.$tbl_forum_forums.'`
+            SET `forum_name`     = "'. addslashes($forum_name) .'",
+                `forum_desc`     = "'. addslashes($forum_desc) .'",
+                `forum_access`   = 2,
+                `forum_moderator`= 1,
+                `cat_id`         = "' . (int)$cat_id     . '",
+                `forum_type`     = "' . $forum_type .'"
+            WHERE `forum_id` = ' . (int)$forum_id;
+
+    if (claro_sql_query($sql) != false) return true;
+    else                                return false;
+}
+
+function create_category($cat_title)
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    // Find order in the category we must give to the newly created forum
+    $sql = 'SELECT MAX(`cat_order`) FROM `'.$tbl_forum_categories.'`';
+    $result = claro_sql_query($sql);
+
+    list($orderMax) = mysql_fetch_row($result);
+    $order = $orderMax + 1;
+
+    $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
+            SET `cat_title` = "'. addslashes($cat_title) .'",
+                `cat_order` = "'.$order.'"';
+
+    if ( claro_sql_query($sql) != false) return true;
+    else                                 return false;
+}
+
+
+function delete_forum($forum_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
+    $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
+
+    $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
+            WHERE `forum_id` = "'.$forum_id.'"';
+    
+    if ( claro_sql_query($sql) == false ) return false;
+
+    $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
+            WHERE `forum_id` = "'.$forum_id.'"';
+        
+    if ( claro_sql_query($sql) == false) return false;
+    else                                 return true;
+
+    // note we should also clean the topic notification table ...
+}
+
+function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
+{
+     $tbl_cdb_names    = claro_sql_get_course_tbl();
+     $tbl_forum_forums = $tbl_cdb_names['bb_forums'             ];
+
+   // find order in the category we have to give to the newly created forum
+
+    $sql = 'SELECT MAX(`forum_order`)
+            FROM `'.$tbl_forum_forums.'`
+            WHERE cat_id = "'.$cat_id.'"';
+
+    $result = claro_sql_query($sql);
+
+    list($orderMax) = mysql_fetch_row($result);
+    $order = $orderMax + 1;
+
+    // add new forum in DB
+
+    $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
+            SET forum_name  = "'. addslashes($forum_name) .'", 
+            forum_desc      = "'. addslashes($forum_desc) .'", 
+            forum_access    = 2,
+            forum_moderator = 1, 
+            cat_id          = "'. (int)$cat_id .'", 
+            forum_type      = "'. $forum_type  . '",
+            md5             ="'.md5(time()).'", 
+            forum_order    ="'. (int) $order.'"';
+
+    if ( claro_sql_query($sql) != false) return true;
+    else                                 return false;
+}
+
 ?>
