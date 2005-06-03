@@ -40,7 +40,10 @@ function get_userdata_from_id($userId)
 }
 
 /**
- * Gets the total number of topics in a form
+ * Gets the total number of topics in a forum
+ * @param $forum_id integer 
+ * @param $dbnameGlued string dbName with glu
+ * @return quantity of topics in the given forum
  */
 
 function get_total_topics($forum_id, $dbnameGlued=NULL)
@@ -65,7 +68,7 @@ function get_total_posts($id, $type, $dbnameGlued=NULL)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_users = $tbl_mdb_names['user'];
     $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
-    $tbl_posts   = $tbl_cdb_names['bb_posts'];
+    $tbl_posts = $tbl_cdb_names['bb_posts'];
 
     switch ( $type )
     {
