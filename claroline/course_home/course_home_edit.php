@@ -91,7 +91,7 @@ if ($cmd == 'exSetToolAccess')
     foreach($currentToolStateList as $thisCurrentToolState)
     {
 
-        if (is_array($_REQUEST['toolAccessList']) && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
+        if ( isset($_REQUEST['toolAccessList']) && is_array($_REQUEST['toolAccessList']) && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
         {
             $enablableToolList[] = $thisCurrentToolState['id'];
         }
