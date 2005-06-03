@@ -65,10 +65,10 @@ define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
 if ( ! $_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
-require_once($includePath.'/lib/events.lib.inc.php');
-require_once($includePath.'/lib/CLANN.lib.inc.php');
-require_once($includePath.'/lib/claro_mail.lib.inc.php');
-require_once($clarolineRepositorySys.'/linker/linker.inc.php');
+require_once($includePath . '/lib/events.lib.inc.php');
+require_once($includePath . '/lib/CLANN.lib.inc.php');
+require_once($includePath . '/lib/claro_mail.lib.inc.php');
+require_once($clarolineRepositorySys . '/linker/linker.inc.php');
 
 claro_set_display_mode_available(TRUE);
 
@@ -271,7 +271,7 @@ if($is_allowedToEdit) // check teacher status
                 {
                     // notify that a new anouncement is present in this course
                     $eventNotifier->notifyCourseEvent('anouncement_added',$_cid, $_tid, $insert_id, $_gid, '0');
-                    $message = $langAnnAdd;
+                    $message  = $langAnnAdd;
                     $message .= linker_update();
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $ex_rss_refresh = TRUE;
@@ -513,10 +513,15 @@ if ($displayList)
             
             $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
             $last_post_date = $thisAnnouncement['time'];// post time format date de mysql
-
-            list($year, $month, $day) = explode("-", $last_post_date);
-
-            $announceDate = mktime(0, 0, 0, $month, $day, $year);
+            list($year, $month, $day) = explode('-', $last_post_date);
+            if (checkdate($month,$day,$year))
+            {
+                $announceDate = mktime(0, 0, 0, $month, $day, $year);
+            }
+            else 
+            {
+                $announceDate = null;
+            }
 
             if ( $announceDate > $userLastLogin )
             {
