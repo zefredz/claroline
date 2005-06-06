@@ -14,12 +14,12 @@
  * 
  * All this  function output only  if  debugClaro is on 
  *
- * function echoSessionValue()
- * function debugIO($file="")
+ * function echo_session_value()
+ * function debug_IO($file="")
  */
 
 /**
- * function echoSessionValue()
+ * function echo_session_value()
  *
  * @desc print out  content of session's variable
  *
@@ -27,7 +27,7 @@
  * @authot Christophe Gesché gesché@ipm.ucl.ac.be
  *
  */
-function echoSessionValue()
+function echo_session_value()
 {
 	$infoResult = "";
 	GLOBAL $statuts,$statut,$status,
@@ -136,113 +136,118 @@ function echoSessionValue()
 
 
 /**
- * function debugIO($file="")
- *
- * @desc io file
- * @return 
- * @author Christophe Gesché gesché@ipm.ucl.ac.be
- *
+ * get verbose version of file right
+ * @return string
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 
-function debugIO($file="")
+function debug_IO($file = '')
 {
-	 GLOBAL $SERVER_SOFTWARE;	
+	$infoResult = '[Script :             ' . $_SERVER['PHP_SELF']   . ']'
+                . '[Server :             ' . $SERVER_SOFTWARE       . ']'
+                . '[Php :                ' . phpversion()           . ']'
+                . '[sys :                ' . php_uname()            . ']'
+                . '[My uid :             ' . getmyuid()             . ']'
+                . '[current_user :       ' . get_current_user()     . ']'
+                . '[my gid :             ' . getmygid()             . ']'
+                . '[my inode :           ' . getmyinode()           . ']'
+                . '[my pid :             ' . getmypid()             . ']'
+                . '[space  : - free -  : ' . disk_free_space ('..')
+                . ' - total - :          ' . disk_total_space('..') . ']'
+                ;
 
-	$infoResult = "
-[Script :  ".$_SERVER['PHP_SELF']."]
-[Server :  ".$SERVER_SOFTWARE."]
-[Php :  ".phpversion()."]
-[sys :  ".php_uname()."]
-[My uid : ".getmyuid()."]
-[current_user : ".get_current_user()."]
-[my gid : ".getmygid()."]
-[my inode : ".getmyinode()."]
-[my pid : ".getmypid()."]
-[space  : - free -  : ".disk_free_space ('..')."
- - total - : ".disk_total_space('..')."
-]";
-
-	if  ($file != "")
+	if  ($file != '' )
 	{
-	$infoResult .= "<HR> <strong>".$file."</strong> -
-		[<strong>o</strong>:".fileowner($file)." <strong>g</strong>:".filegroup($file)." ".display_perms(fileperms($file))."]";
-		if (is_dir($file)) $infoResult .=  "-Dir-";
-		if (is_file($file)) $infoResult .=  "-File-";
-		if (is_link($file)) $infoResult .=  "-Lnk-";
-		if (is_executable($file)) $infoResult .=  "-X-";
-		if (is_readable($file)) $infoResult .=  "-R-";
-		if (is_writeable($file)) $infoResult .=  "-W-";
+    	$infoResult .= '<HR> '
+        .              '<strong>' . $file . '</strong> = '
+        .              '[<strong>o</strong>:' . fileowner($file) 
+        .              ' <strong>g</strong>:' . filegroup($file) 
+        .              ' ' . display_perms(fileperms($file)) . ']'
+        ;
+		if ( is_dir(        $file ) ) $infoResult .=  '-Dir-' ;
+		if ( is_file(       $file ) ) $infoResult .=  '-File-';
+		if ( is_link(       $file ) ) $infoResult .=  '-Lnk-';
+		if ( is_executable( $file ) ) $infoResult .=  '-X-';
+		if ( is_readable(   $file ) ) $infoResult .=  '-R-';
+		if ( is_writeable(  $file ) ) $infoResult .=  '-W-';
 	}
 	
-	$file = ".";
-	$infoResult .=  "<HR> <strong>".$file."</strong> -
-	[<strong>o</strong>:".fileowner($file)." <strong>g</strong>:".filegroup($file)." ".display_perms(fileperms($file))."]";
-	if (is_dir($file)) $infoResult .=  "-Dir-";
-	if (is_file($file)) $infoResult .=  "-File-";
-	if (is_link($file)) echo "-Lnk-";
-	if (is_executable($file)) echo "-X-";
-	if (is_readable($file)) echo "-R-";
-	if (is_writeable($file)) echo "-W-";
+	$file = '.';
+	$infoResult .= '<HR> <strong>' . $file . '</strong> - '
+    .              '[<strong>o</strong>:' . fileowner($file) 
+    .              ' <strong>g</strong>:' . filegroup($file) 
+    .              ' ' . display_perms(fileperms($file)) . ']'
+    ;
+	if ( is_dir(        $file ) ) $infoResult .=  '-Dir-';
+	if ( is_file(       $file ) ) $infoResult .=  '-File-';
+	if ( is_link(       $file ) ) echo '-Lnk-';
+	if ( is_executable( $file ) ) echo '-X-';
+	if ( is_readable(   $file ) ) echo '-R-';
+	if ( is_writeable(  $file ) ) echo '-W-'; 
 
-	$file = "..";
-	echo "<HR> <strong>".$file."</strong> -
-	[<strong>o</strong>:".fileowner($file)." <strong>g</strong>:".filegroup($file)." ".display_perms(fileperms($file))."]";
-	if (is_dir($file)) $infoResult .=  "-Dir-";
-	if (is_file($file)) $infoResult .=  "-File-";
-	if (is_link($file)) $infoResult .=  "-Lnk-";
-	if (is_executable($file)) $infoResult .=  "-X-";
-	if (is_readable($file)) $infoResult .=  "-R-";
-	if (is_writeable($file)) $infoResult .=  "-W-";
+	$file = '..';
+	echo '<HR> <strong>' . $file . '</strong> - '
+	.    '[<strong>o</strong>:' . fileowner($file) 
+    .    ' <strong>g</strong>:' . filegroup($file)
+    .    ' ' . display_perms(     fileperms($file) ) . ']'
+    ;
+	if ( is_dir(        $file ) ) $infoResult .=  '-Dir-';
+	if ( is_file(       $file ) ) $infoResult .=  '-File-';
+	if ( is_link(       $file ) ) $infoResult .=  '-Lnk-';
+	if ( is_executable( $file ) ) $infoResult .=  '-X-';
+	if ( is_readable(   $file ) ) $infoResult .=  '-R-';
+	if ( is_writeable(  $file ) ) $infoResult .=  '-W-';
 
 	if (PRINT_DEBUG_INFO)
-	echo $infoResult;
+	    echo $infoResult;
 	return $infoResult;
 
 }
+
 function display_perms( $mode )
-  {
+{
      /* Determine Type */
      if( $mode & 0x1000 )
-        $type='p'; /* FIFO pipe */
+        $type = 'p'; /* FIFO pipe */
      else if( $mode & 0x2000 )
-        $type='c'; /* Character special */
+        $type = 'c'; /* Character special */
      else if( $mode & 0x4000 )
-        $type='d'; /* Directory */
+        $type = 'd'; /* Directory */
      else if( $mode & 0x6000 )
-      $type='b'; /* Block special */
+      $type = 'b'; /* Block special */
      else if( $mode & 0x8000 )
-        $type='-'; /* Regular */
+        $type = '-'; /* Regular */
      else if( $mode & 0xA000 )
-        $type='l'; /* Symbolic Link */
+        $type = 'l'; /* Symbolic Link */
      else if( $mode & 0xC000 )
-        $type='s'; /* Socket */
+        $type = 's'; /* Socket */
     else
         $type='u'; /* UNKNOWN */
 
      /* Determine permissions */
-     $owner["read"]    = ($mode & 00400) ? 'r' : '-';
-     $owner["write"]   = ($mode & 00200) ? 'w' : '-';
-     $owner["execute"] = ($mode & 00100) ? 'x' : '-';
-     $group["read"]    = ($mode & 00040) ? 'r' : '-';
-     $group["write"]   = ($mode & 00020) ? 'w' : '-';
-     $group["execute"] = ($mode & 00010) ? 'x' : '-';
-     $world["read"]    = ($mode & 00004) ? 'r' : '-';
-     $world["write"]   = ($mode & 00002) ? 'w' : '-';
-     $world["execute"] = ($mode & 00001) ? 'x' : '-';
+     $owner['read'   ] = ($mode & 00400) ? 'r' : '-';
+     $owner['write'  ] = ($mode & 00200) ? 'w' : '-';
+     $owner['execute'] = ($mode & 00100) ? 'x' : '-';
+     $group['read'   ] = ($mode & 00040) ? 'r' : '-';
+     $group['write'  ] = ($mode & 00020) ? 'w' : '-';
+     $group['execute'] = ($mode & 00010) ? 'x' : '-';
+     $world['read'   ] = ($mode & 00004) ? 'r' : '-';
+     $world['write'  ] = ($mode & 00002) ? 'w' : '-';
+     $world['execute'] = ($mode & 00001) ? 'x' : '-';
 
      /* Adjust for SUID, SGID and sticky bit */
    if( $mode & 0x800 )
-        $owner["execute"] = ($owner[execute]=='x') ? 's' : 'S';
+        $owner['execute'] = ($owner[execute]=='x') ? 's' : 'S';
      if( $mode & 0x400 )
-       $group["execute"] = ($group[execute]=='x') ? 's' : 'S';
+       $group['execute'] = ($group[execute]=='x') ? 's' : 'S';
      if( $mode & 0x200 )
-        $world["execute"] = ($world[execute]=='x') ? 't' : 'T';
+        $world['execute'] = ($world[execute]=='x') ? 't' : 'T';
 
-     $strPerms = 
-	 "<strong>t</strong>:".$type
-	 ."<strong>o</strong>:".$owner[read].$owner[write].$owner[execute]
-	 ."<strong>g</strong>:".$group[read].$group[write].$group[execute]
-	 ."<strong>w</strong>:".$world[read].$world[write].$world[execute];
+     $strPerms = '<strong>t</strong>:' . $type
+     .           '<strong>o</strong>:' . $owner['read'] . $owner['write'] . $owner['execute']
+	 .           '<strong>g</strong>:' . $group['read'] . $group['write'] . $group['execute']
+	 .           '<strong>w</strong>:' . $world['read'] . $world['write'] . $world['execute']
+     ;
 	 return $strPerms;
   }
 
@@ -251,19 +256,21 @@ function printVar($var, $varName="@")
 	GLOBAL $DEBUG;
 	if ($DEBUG)
 	{
-		echo "<blockquote>\n";
-		echo "<b>[$varName]</b>";
-		echo "<hr noshade size=\"1\" style=\"color:blue\">";
-		echo "<pre style=\"color:red\">\n";
-		var_export($var);
-		echo "</pre>\n";
-		echo "<hr noshade size=\"1\" style=\"color:blue\">";
-		echo "</blockquote>\n";
+		echo '<blockquote>' . "\n"
+        .    '<b>[' . $varName . ']</b>' . "\n"
+        .    '<hr noshade="noshade" size="1" style="color:blue">' . "\n"
+        .    '<pre style="color:red">' . "\n"
+        .    var_export($var, 1) . "\n"
+        .    '</pre>' . "\n"
+        .    '<hr noshade size="1" style="color:blue">' . "\n"
+        .    '</blockquote>' . "\n"
+        ;
 	}
 	else
 	{
-		echo "<!-- DEBUG is OFF -->";
-		echo "DEBUG is OFF";
+		echo '<!-- DEBUG is OFF -->' . "\n"
+        .    'DEBUG is OFF'
+        ;
 	}
 }
 

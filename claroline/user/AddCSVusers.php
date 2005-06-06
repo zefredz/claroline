@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 /*--------------------------------------------------------------------------------------------------------------*/
-/*	Declaration and preliminar tests section                                                                */
+/*    Declaration and preliminar tests section                                                                */
 /*--------------------------------------------------------------------------------------------------------------*/
 
 //used libraries
@@ -63,7 +63,7 @@ if (isset($_REQUEST['usedFormat']))
     else
     {
         $dialogBox ="Format changed";
-	$_SESSION['claro_usedFormat'] = $_REQUEST['usedFormat'];
+        $_SESSION['claro_usedFormat'] = $_REQUEST['usedFormat'];
     }
 }
 
@@ -85,19 +85,19 @@ if (isset($NewAddType))
 {
     switch ($NewAddType)
     {
-        case "adminTool":
-            if (!$is_platformAdmin) treatNotAuthorized();
+        case 'adminTool' :
+            if ( !$is_platformAdmin ) claro_disp_auth_form();
             $_SESSION['AddType'] = $_REQUEST['AddType'];
         break;
     
-        case "adminClassTool":
-            if (!$is_platformAdmin) treatNotAuthorized();
-    	    $_SESSION['AddType'] = $_REQUEST['AddType'];
+        case 'adminClassTool':
+            if (!$is_platformAdmin) claro_disp_auth_form();
+            $_SESSION['AddType'] = $_REQUEST['AddType'];
         break;
         
-        case "userTool":
-            if (!$is_courseAdmin) treatNotAuthorized();
-	    $_SESSION['AddType'] = $_REQUEST['AddType'];
+        case 'userTool':
+            if (!$is_courseAdmin) claro_disp_auth_form();
+        $_SESSION['AddType'] = $_REQUEST['AddType'];
         break;
     }
 }
@@ -105,7 +105,7 @@ if (isset($NewAddType))
 $AddType = $_SESSION['AddType'];
 
 /*--------------------------------------------------------------------------------------------------------------*/
-/*	Execute command section                                                                                 */
+/*    Execute command section                                                                                 */
 /*--------------------------------------------------------------------------------------------------------------*/
 
 if (isset($_REQUEST['cmd']))
@@ -117,115 +117,115 @@ switch ($cmd)
     
     //STEP ONE : FILE UPLOADED, CHECK FOR POTENTIAL ERRORS
     
-    case "exImp" :
+    case 'exImp' :
         
-	//see if format is defined in session or in file
+    //see if format is defined in session or in file
     
-	if ($_REQUEST['firstLineFormat']=="YES")
-	{
-	    $useFirstLine = true;
-	}
-	else
-	{
-	    $fieldSeparator  = $_REQUEST['fieldSeparator'];    
-	    $enclosedBy      = $_REQUEST['enclosedBy'];
-	    if ($_REQUEST['enclosedBy']=="dbquote") 
-	    {
-	        $enclosedBy = "\"";
-	    }
-	    $useFirstLine = false; 
-	}
-	
-	//check if a file was actually posted and that the mimetype is good
-
-	
-	if ( $_FILES["CSVfile"]['size'] == 0 )
-	{
-	    $display   = "default";
-	    $dialogBox = $langMustSelectAFile;
-	}
-	elseif (strpos($_FILES["CSVfile"]['type'],'text') !== 0)
-	{
-	    $display   = "default";
-	    $dialogBox = $langMustSelectATxtFile;
-	}
-	else
-	{
-	   //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
-	
-	   claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);	
-	   $display = "stepone";
-	}
-	
-        break;
-	
-    //STEP TWO : ADD CONFIRMED, USERS ARE ADDED
-	
-    case "exImpSec" :
-    	
-        //build 2D array with users who will be add, avoiding those with error(s).
-	
-	$usersToAdd = array();
-	
-	for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
+    if ($_REQUEST['firstLineFormat']=='YES')
+    {
+        $useFirstLine = true;
+    }
+    else
+    {
+        $fieldSeparator  = $_REQUEST['fieldSeparator'];    
+        $enclosedBy      = $_REQUEST['enclosedBy'];
+        if ($_REQUEST['enclosedBy']=='dbquote') 
         {
-	    // user must be added only if we encountered exactly no error
-	    
-	    if ((isset($_SESSION['claro_mail_synthax_error'][$i])           && !($_SESSION['claro_mail_synthax_error'][$i])) &&
-	        (isset($_SESSION['claro_mail_used_error'][$i])              && !($_SESSION['claro_mail_used_error'][$i])) &&
-		(isset($_SESSION['claro_username_used_error'][$i])          && !($_SESSION['claro_username_used_error'][$i])) &&                
-	        (isset($_SESSION['claro_officialcode_used_error'][$i])      && !($_SESSION['claro_officialcode_used_error'][$i])) &&         
-	        (isset($_SESSION['claro_password_error'][$i])               && !($_SESSION['claro_password_error'][$i])) &&                  
-	        (isset($_SESSION['claro_mail_duplicate_error'][$i])         && !($_SESSION['claro_mail_duplicate_error'][$i])) &&               
-	        (isset($_SESSION['claro_username_duplicate_error'][$i])     && !($_SESSION['claro_username_duplicate_error'][$i])) &&         
-	        (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && !($_SESSION['claro_officialcode_duplicate_error'][$i])))
-	    {
-	        $usersToAdd[] = $_SESSION['claro_csv_userlist'][$i];
+            $enclosedBy = '"';
+        }
+        $useFirstLine = false; 
+    }
+    
+    //check if a file was actually posted and that the mimetype is good
+
+    
+    if ( $_FILES['CSVfile']['size'] == 0 )
+    {
+        $display   = 'default';
+        $dialogBox = $langMustSelectAFile;
+    }
+    elseif (strpos($_FILES['CSVfile']['type'],'text') !== 0)
+    {
+        $display   = 'default';
+        $dialogBox = $langMustSelectATxtFile;
+    }
+    else
+    {
+       //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
+    
+       claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);    
+       $display = 'stepone';
+    }
+    
+        break;
+    
+    //STEP TWO : ADD CONFIRMED, USERS ARE ADDED
+    
+    case 'exImpSec' :
+        
+        //build 2D array with users who will be add, avoiding those with error(s).
+    
+    $usersToAdd = array();
+    
+    for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
+        {
+        // user must be added only if we encountered exactly no error
+        
+        if ((isset($_SESSION['claro_mail_synthax_error'][$i])           && !($_SESSION['claro_mail_synthax_error'][$i])) &&
+            (isset($_SESSION['claro_mail_used_error'][$i])              && !($_SESSION['claro_mail_used_error'][$i])) &&
+        (isset($_SESSION['claro_username_used_error'][$i])          && !($_SESSION['claro_username_used_error'][$i])) &&                
+            (isset($_SESSION['claro_officialcode_used_error'][$i])      && !($_SESSION['claro_officialcode_used_error'][$i])) &&         
+            (isset($_SESSION['claro_password_error'][$i])               && !($_SESSION['claro_password_error'][$i])) &&                  
+            (isset($_SESSION['claro_mail_duplicate_error'][$i])         && !($_SESSION['claro_mail_duplicate_error'][$i])) &&               
+            (isset($_SESSION['claro_username_duplicate_error'][$i])     && !($_SESSION['claro_username_duplicate_error'][$i])) &&         
+            (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && !($_SESSION['claro_officialcode_duplicate_error'][$i])))
+        {
+            $usersToAdd[] = $_SESSION['claro_csv_userlist'][$i];
             }
 
         }
-	
-	// perform subscriptions of users with "no error" found.  
+    
+    // perform subscriptions of users with 'no error' found.  
         
-	foreach ($usersToAdd as $user)
+    foreach ($usersToAdd as $user)
         {
           $uid=add_user($user['name'], $user['surname'], $user['email'], $user['phone'], $user['officialCode'], $user['username'], $user['password'],FALSE);
-	  
-	  // for each use case alos perform thze other needed action :
-	
-	  switch ($AddType)
+      
+      // for each use case alos perform thze other needed action :
+    
+      switch ($AddType)
           {
-              case "adminTool":	          
+              case 'adminTool':              
                  //its all done in this case
               break;
               
-              case "adminClassTool":
+              case 'adminClassTool':
                   add_user_to_class($uid, $_SESSION['admin_user_class_id']);
-		  
+          
               break;
         
-              case "userTool":
+              case 'userTool':
                   
-		  add_user_to_course($uid, $_cid);
+          add_user_to_course($uid, $_cid);
               break;
           }  
         }
      
-	
-	//notify in session that action was done (to prevent double action if user uses back button of browser
-	
-	$_SESSION['claro_CSV_done'] = TRUE;
-	
-	// select display type
+    
+    //notify in session that action was done (to prevent double action if user uses back button of browser
+    
+    $_SESSION['claro_CSV_done'] = TRUE;
+    
+    // select display type
 
-	$display = "steptwo";
+    $display = 'steptwo';
         
-	break;    
+    break;    
     
 }
 
 /*----------------------------------------------------------------------------------------------------------*/
-/*	Display section          */
+/*    Display section          */
 /*----------------------------------------------------------------------------------------------------------*/
 
 // Deal with interbredcrumps and title variable this depends on the use case of the CSV import(see addType)
@@ -234,24 +234,24 @@ switch ($cmd)
 
 switch ($AddType)
 {
-    case "adminTool":
+    case 'adminTool':
         $noQUERY_STRING   = true;
         $nameTools        = $langAddCSVUsers;
-        $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+        $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
     break;
         
-    case "adminClassTool":
+    case 'adminClassTool':
         $noQUERY_STRING      = true;
         $nameTools           = $langAddCSVUsersInClass;
-        $interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-	$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
-	$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class_user.php", "name"=> $langClassMembers);
+        $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> $langClass);
+    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> $langClassMembers);
     break;
         
-    case "userTool":
+    case 'userTool':
         $noQUERY_STRING   = true;
         $nameTools        = $langAddCSVUsersInCourse;
-        $interbredcrump[] = array ("url"=>"user.php", "name"=> $langUsers);
+        $interbredcrump[] = array ('url'=>'user.php', 'name'=> $langUsers);
     break;
 }
 
@@ -259,7 +259,7 @@ switch ($AddType)
 
 //Header declaration
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath.'/claro_init_header.inc.php');
 
 //display title
 
@@ -267,31 +267,32 @@ claro_disp_tool_title($nameTools);
 
 //modify dialogbox if user asked form to change used format
 
-if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=="yes")
+if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
-    $dialogBox = "$langModifyFormat :<br><br>"
-        ."$langTheFields \"<b>surname;</b>\", \"<b>name;</b>\", \"<b>username;</b>\" and \"<b>password;</b>\" $langAreCompulsory.<br><br>"
-        ."<form metod=\"POST\" action=\"".$_SERVER['PHP_SELF']."\">"
-        ."  <input type=\"text\" name=\"usedFormat\" value=\"".$usedFormat."\" size=\"55\">"
-	."  <input type=\"submit\" value=\"".$langOk."\""
-	."</form>";
+    $dialogBox = $langModifyFormat .' :<br><br>'
+    .            $langTheFields . ' "<b>surname;</b>", "<b>name;</b>", "<b>username;</b>" and "<b>password;</b>" ' . $langAreCompulsory . '<br><br>'
+    .            '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">"'
+    .            '<input type="text" name="usedFormat" value="' . $usedFormat . '" size="55">'
+    .            '<input type="submit" value="' . $langOk . '"'
+    .            '</form>'
+    ;
 }
 
 
 //display dialog Box (or any forms)
 
-if(isset($dialogBox))
+if( isset( $dialogBox ) )
 {
     claro_disp_message_box($dialogBox);
-    echo "<br>";
+    echo '<br>';
 }
 
-switch ($display)
+switch ( $display )
 {
 
 //DEFAULT DISPLAY : display form to upload
 
-case "default" :
+case 'default' :
 
     $_SESSION['claro_CSV_done'] = FALSE;
     
@@ -306,8 +307,9 @@ case "default" :
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']."?display=default&usedFormat=".$defaultFormat.""; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
-    | [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']."?display=default&chformat=yes"; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;usedFormat=' . $defaultFormat; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
+    | 
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes'; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -322,8 +324,8 @@ case "default" :
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <label for="enclosedBy">
-	<?php echo $lang_fields_enclosed_by; ?> :
-	</label>
+    <?php echo $lang_fields_enclosed_by; ?> :
+    </label>
     
     <select name="enclosedBy" id="enclosedBy">
       <option value=""><?php echo $langNone; ?></option>
@@ -348,36 +350,38 @@ case "stepone" :
    
     if (!(empty($_SESSION['claro_mail_synthax_error']))       ||
         !(empty($_SESSION['claro_mail_used_error']))          ||
-	!(empty($_SESSION['claro_username_used_error']))      ||
-	!(empty($_SESSION['claro_officialcode_used_error']))  ||
-	!(empty($_SESSION['claro_password_error']))           ||
-	!(empty($_SESSION['claro_mail_duplicate_error']))     ||
-	!(empty($_SESSION['claro_username_duplicate_error'])) ||
-	!(empty($_SESSION['claro_officialcode_duplicate_error'])))
+    !(empty($_SESSION['claro_username_used_error']))      ||
+    !(empty($_SESSION['claro_officialcode_used_error']))  ||
+    !(empty($_SESSION['claro_password_error']))           ||
+    !(empty($_SESSION['claro_mail_duplicate_error']))     ||
+    !(empty($_SESSION['claro_username_duplicate_error'])) ||
+    !(empty($_SESSION['claro_officialcode_duplicate_error'])))
     {
-        echo '<b>'.$lang_the_following_errors_were_found." :</b><br><br>\n";
+        echo '<b>' . $lang_the_following_errors_were_found . ' :</b><br><br>' . "\n";
  
-	//display errors encountered while trying to add users
-	
-	claro_disp_CSV_error_backlog();
-	$noerror = FALSE;
+        //display errors encountered while trying to add users
+    
+        claro_disp_CSV_error_backlog();
+        $noerror = FALSE;
     }
     else 
     {
         echo $lang_no_error_in_file_found."<br>";
-	$noerror = TRUE;
+        $noerror = TRUE;
     }
-        echo "<br>"
-            .$lang_do_you_want_to_continue
-			."<br>";
-	if (!$noerror) 
-	{
-	    echo '('.$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored.')<br>';        
-	}
-	echo "<br><form method=\"POST\" action=\"".$_SERVER['PHP_SELF']."?cmd=exImpSec\">\n";
+    echo '<br>'
+    .    $lang_do_you_want_to_continue
+    .    '<br>'
+    ;
+    if (!$noerror) 
+    {
+        echo '(' . $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored . ')<br>';
+    }
+    echo '<br>'
+    .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+    ;
 
         claro_disp_button($_SERVER['PHP_SELF'], $langCancel); 
-      
         echo "<input type=\"submit\" value=\"".$langContinue."\">\n "
             ."</form>\n";
     break;

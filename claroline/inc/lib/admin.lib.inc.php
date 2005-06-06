@@ -44,7 +44,8 @@ $tbl_courseUser         = $tbl_rel_course_user ;
 $tbl_courses_nodes      = $tbl_category;
 // End of List of alias  to track an set at original name
 
-include_once(dirname(__FILE__).'/../lib/fileManage.lib.php');
+include_once( $includePath . '/fileManage.lib.php'   );
+include_once( $includePath . '/lib/auth.lib.inc.php' );
 
 /**
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -106,22 +107,22 @@ function claro_CSV_format_ok($format)
     
     foreach ($fieldarray as $field)
     {
-        if (trim($field)=="surname")
-	{
-	    $surname_found = TRUE;
-	}
-	if (trim($field)=="name")
-	{
-	    $name_found = TRUE;
-	}
-	if (trim($field)=="username")
-	{
-	    $username_found = TRUE;
-	}
-	if (trim($field)=="password")
-	{
-	    $password_found = TRUE;
-	}
+        if ( trim($field) == 'surname' )
+    	{
+    	    $surname_found = TRUE;
+    	}
+    	if (trim($field)=="name")
+    	{
+    	    $name_found = TRUE;
+    	}
+    	if (trim($field)=="username")
+    	{
+    	    $username_found = TRUE;
+    	}
+    	if ( trim($field) == 'password' )
+    	{
+    	    $password_found = TRUE;
+    	}
     } 
     
     return ($username_found && $password_found && $surname_found && $name_found);
@@ -333,10 +334,9 @@ function check_email_synthax_userlist($userlist)
 {
     $errors = array();
     //CHECK: check email validity
-    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
     {
-		if ((!empty($userlist['email'][$i])) && !eregi( $regexp, $userlist['email'][$i] )) 
+		if ((!empty($userlist['email'][$i])) && ! is_well_formed_email_address( $userlist['email'][$i] )) 
       	{
 	    	$errors[$i] = TRUE;
         }
@@ -1401,7 +1401,7 @@ function update_user_course_properties($user_id, $course_id, $properties)
  * @param  int     id of course in DB
  * @return boolean true if user is enrolled false otherwise
  */
-function isRegisteredTo($user_id, $course_id)
+function is_registered_to($user_id, $course_id)
 {
  
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -1413,19 +1413,6 @@ function isRegisteredTo($user_id, $course_id)
     $res = claro_sql_query_fetch_all($sql);
     return (bool) ($res[0]['user_reg']>0);
 }
-
-/**
- * deprecated : use claro_disp_auth_form()
- * To know if user is registered to a course or not
- * @ver 1.5
- 
- */
-function treatNotAuthorized()
-{
-    return claro_disp_auth_form();
-}
-
-
 /**
  * function to transfrom a key word into a usable key word ina SQL : "*" must be replaced by "%" and "%" by "\%"
  * @param  the string to transform

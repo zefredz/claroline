@@ -69,20 +69,18 @@ if(isset($_REQUEST['register']) && $_REQUEST['register'])
 	 * Fields Checking
 	 */
 
-    $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-
-    $username_form  = trim($_REQUEST['username_form']);
-    $email_form     = trim($_REQUEST['email_form']);
-    $nom_form       = trim($_REQUEST['nom_form']);
-    $prenom_form    = trim($_REQUEST['prenom_form']);
-    $password_form  = trim($_REQUEST['password_form']);
-    $confirm_form   = trim($_REQUEST['confirm_form']);
+    $username_form  = trim( $_REQUEST['username_form' ] );
+    $email_form     = trim( $_REQUEST['email_form'    ] );
+    $nom_form       = trim( $_REQUEST['nom_form'      ] );
+    $prenom_form    = trim( $_REQUEST['prenom_form'   ] );
+    $password_form  = trim( $_REQUEST['password_form' ] );
+    $confirm_form   = trim( $_REQUEST['confirm_form'  ] );
         
 	$dataChecked = true; // initially set to true, will change to false if there is a problem
 
 	// empty field checking
 	if (
-        empty($nom_form) 
+           empty($nom_form) 
         || empty($prenom_form) 
         || empty($password_form)
         || empty($confirm_form)
@@ -96,7 +94,7 @@ if(isset($_REQUEST['register']) && $_REQUEST['register'])
 
 	// valid mail address checking
 
-	elseif( !empty($email_form) && !eregi( $emailRegex, $email_form))
+	elseif( !empty($email_form) && ! is_well_formed_email_address( $email_form ) )
 	{
 		$dataChecked = false;
 		$message     = $langEmailWrong;

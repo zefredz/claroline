@@ -14,7 +14,7 @@
  * @param boolean	$insertComplet	true => clause INSERT avec nom des champs 
  * @param boolean	$verbose 		true => comment are printed
  */ 
-function backupDatabase($link , $db_name , $structure , $donnees , $format="SQL" , $whereSave=".", $insertComplet="",$verbose=false)
+function backup_database($link , $db_name , $structure , $donnees , $format="SQL" , $whereSave=".", $insertComplet="",$verbose=false)
 { 
 
 	$errorCode ="";
@@ -684,39 +684,39 @@ INSERT INTO users SET ";
 		<LI>
 			".$langBackupOfDataBase." ".$exportedCourseId."  (SQL)
 			<hr>";
-	backupDatabase($db , $exportedCourseId , true, true , 'SQL' , $archiveDirSql.$appendCourse,true,$verboseBackup);
+	backup_database($db , $exportedCourseId , true, true , 'SQL' , $archiveDirSql.$appendCourse,true,$verboseBackup);
 	if ( $verboseBackup )
 		echo "
 		</LI>
 		<LI>
 			".$langBackupOfDataBase." ".$exportedCourseId."  (PHP)
 			<hr>";
-	backupDatabase($db , $exportedCourseId , true, true , 'PHP' , $archiveDirPhp.$appendCourse,true,$verboseBackup);
+	backup_database($db , $exportedCourseId , true, true , 'PHP' , $archiveDirPhp.$appendCourse,true,$verboseBackup);
 	if ( $verboseBackup )
 		echo "
 		</LI>
 		<LI>
 			".$langBackupOfDataBase." ".$exportedCourseId."  (CSV)
 			<hr>";
-	backupDatabase($db , $exportedCourseId , true, true , 'CSV' , $archiveDirCsv.$appendCourse,true,$verboseBackup);
+	backup_database($db , $exportedCourseId , true, true , 'CSV' , $archiveDirCsv.$appendCourse,true,$verboseBackup);
 	if ( $verboseBackup )
 		echo "
 		<LI>
 			".$langBackupOfDataBase." ".$exportedCourseId."  (HTML)
 			<hr>";
-	backupDatabase($db , $exportedCourseId , true, true , 'HTML' , $archiveDirHtml.$appendCourse,true,$verboseBackup);
+	backup_database($db , $exportedCourseId , true, true , 'HTML' , $archiveDirHtml.$appendCourse,true,$verboseBackup);
 	if ( $verboseBackup )
 		echo "
 		<LI>
 			".$langBackupOfDataBase." ".$exportedCourseId."  (XML)
 			<hr>";
-	backupDatabase($db , $exportedCourseId , true, true , 'XML' , $archiveDirXml.$appendCourse,true,$verboseBackup);
+	backup_database($db , $exportedCourseId , true, true , 'XML' , $archiveDirXml.$appendCourse,true,$verboseBackup);
 	if ( $verboseBackup )
 		echo "
 		<LI>
 			".$langBackupOfDataBase." ".$exportedCourseId."  (LOG)
 			<hr>";
-	backupDatabase($db , $exportedCourseId , true, true , 'LOG' , $archiveDirLog.$appendCourse,true,$verboseBackup);
+	backup_database($db , $exportedCourseId , true, true , 'LOG' , $archiveDirLog.$appendCourse,true,$verboseBackup);
 
 // ********************************************************************
 // Copy of DB course

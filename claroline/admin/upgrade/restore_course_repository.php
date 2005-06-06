@@ -21,7 +21,7 @@ $nameTools = $langRestoreCourseRepository;
 
 // Security Check
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if ( !$is_platformAdmin ) claro_disp_auth_form();
 
 // Execute command
 
@@ -61,7 +61,7 @@ if ( $_REQUEST['cmd'] == 'exRestore' )
 // Deal with interbredcrumps  and title variable
 $interbredcrump[]  = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 
 claro_disp_tool_title($nameTools);
 
@@ -73,7 +73,7 @@ if (isset($restored_courses)) echo $restored_courses;
 
 echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . $langLaunchRestoreCourseRepository . '</a></p>';
 
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 
 // Functions
 
@@ -82,7 +82,7 @@ function restore_course_repository($courseID,$courseRepository)
 
     global $clarolineRepositorySys, $includePath;
 
-    if (is_writable($courseRepository))
+    if ( is_writable($courseRepository) )
     {
         umask(0);
 
@@ -91,16 +91,16 @@ function restore_course_repository($courseID,$courseRepository)
         */
     
         if ( !is_dir($courseRepository) ) mkdir($courseRepository, 0777);
-        if ( !is_dir($courseRepository."/chat") ) mkdir($courseRepository."/chat", 0777);
-        if ( !is_dir($courseRepository."/modules") ) mkdir($courseRepository."/modules", 0777);
-        if ( !is_dir($courseRepository."/scormPackages") ) mkdir($courseRepository."/scormPackages", 0777);
+        if ( !is_dir($courseRepository . '/chat'          ) ) mkdir($courseRepository . '/chat'          , 0777);
+        if ( !is_dir($courseRepository . '/modules'       ) ) mkdir($courseRepository . '/modules'       , 0777);
+        if ( !is_dir($courseRepository . '/scormPackages' ) ) mkdir($courseRepository . '/scormPackages' , 0777);
 
-        /*
-            add $cidReq in index.php (Missing var in claroline 1.3)
-        */
+        /**
+         *    add $cidReq in index.php (Missing var in claroline 1.3)
+         */
 
         // build index.php of course
-        $fd=fopen($courseRepository."/index.php", "w");
+        $fd = fopen( $courseRepository . '/index.php', 'w');
 
         // str_replace() removes \r that cause squares to appear at the end of each line
         $string=str_replace("\r","","<?"."php
@@ -118,7 +118,7 @@ function restore_course_repository($courseID,$courseRepository)
         return 1;
     
     } else {
-        printf ("repository %s not writable",$courseRepository);
+        printf ('repository %s not writable', $courseRepository);
         return 0;
     }
 

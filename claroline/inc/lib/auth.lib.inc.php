@@ -1,44 +1,17 @@
 <?php // $Id$
- /*
-	  +----------------------------------------------------------------------+
-	  | CLAROLINE version 1.6
-	  +----------------------------------------------------------------------+
-	  | Copyright (c) 2001, 2004
-	  +----------------------------------------------------------------------+
-	  | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>				|
-	  |		  Hugues Peeters	<peeters@ipm.ucl.ac.be>				   |
-	  |		  Christophe Gesché <gesche@ipm.ucl.ac.be>					|
-	  +----------------------------------------------------------------------+
- */
-
 /**
- * Build a string without logic
- * to be used as password
+ * CLAROLINE 
  *
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
- * @version 1.0
- * @param  integer	$nbcar 			default 5   	define here  length of password
- * @param  boolean	$lettresseules	default false	fix  if pass can content digit
- * @return string password
- * @desc return a string to be use as password
- * @see rand()
- * @package claro.auth.lib
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLAUTH
+ *
+ * @author Claro Team <cvs@claroline.net>
  */
-
-function generePass($nbcar=5,$lettresseules = false)
-{ 
-	$chaine = "abBDEFcdefghijkmnPQRSTUVWXYpqrst23456789"; //caractères possibles 
-	if ($lettresseules) 
-		$chaine = "abcdefghijklmnopqrstuvwxyzAZERTYUIOPMLKJHGFDSQWXCVBN"; //caractères possibles 
-	for($i=0; $i<$nbcar; $i++) 
-	{ 
-		$pass .= $chaine[rand()%strlen($chaine)];//mot de passe 
-	} 
-	return $pass;
-}
-
-
-//////////////////////////////////////////////////////////////////////////////
 
 /**
  * generates randomly a new password
@@ -99,7 +72,6 @@ function generate_passwd()
 }
 
 
-
 /**
  * Check if the password chosen by the user is not too much easy to find
  *
@@ -130,7 +102,6 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
     return true;
 }
 
-
 /**
  * Check an email
  * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
@@ -143,6 +114,9 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 
 function is_well_formed_email_address($address)
 {
-	return eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", $address);
+    $regexp = '^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$';
+
+//  $regexp = '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$';
+	return eregi($regexp, $address);
 }
 ?>

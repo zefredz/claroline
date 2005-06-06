@@ -1,35 +1,38 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-// This script list member of campus and  propose to subscribe it to the given course
+/**
+ * CLAROLINE
+ *
+ * This script list member of campus and  propose to subscribe it to the given course
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/CLADMIN/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLUSR
+ * 
+ */
 
-
-// Lang files needed :
-
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
 // initialisation of global variables and used libraries
 unset($includePath);
 require '../inc/claro_init_global.inc.php';
-include($includePath.'/lib/pager.lib.php');
-include($includePath.'/lib/admin.lib.inc.php');
+include($includePath . '/lib/pager.lib.php');
+include($includePath . '/lib/admin.lib.inc.php');
 $canEditSubscription = $is_platformAdmin;
 
 //SECURITY CHECK
 if (!$canEditSubscription) claro_disp_auth_form();
-if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=="") || !isset($_REQUEST['cidToEdit']))
+if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
-    $dialogBox ="ERROR : NO COURSE SET!!!";
+    $dialogBox = 'ERROR : NO COURSE SET!!!';
     
 }
 else
@@ -40,52 +43,45 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 //get needed parameter from URL
 
-if (isset($_REQUEST['user_id']))
-	        $user_id = $_REQUEST['user_id'];
-	else    $user_id = null;
+$user_id = isset( $_REQUEST['user_id'] ) ? $_REQUEST['user_id'] : null ;
 
-if ($cidToEdit=="") {$dialogBox ='ERROR : NO USER SET!!!';}
-
+if ($cidToEdit=='') { $dialogBox ='ERROR : NO USER SET!!!'; }
 
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => $langAdministration);
 $nameTools = $langEnrollUser;
 
-
 //TABLES
-$tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_user          = $tbl_mdb_names['user'  ];
-$tbl_courses       = $tbl_mdb_names['course'];
-$tbl_admin         = $tbl_mdb_names['admin' ];
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user          = $tbl_mdb_names['user'            ];
+$tbl_courses       = $tbl_mdb_names['course'          ];
+$tbl_admin         = $tbl_mdb_names['admin'           ];
 $tbl_course_user   = $tbl_mdb_names['rel_course_user' ];
 $tbl_track_default = $tbl_mdb_names['track_e_default' ];
 
-
 // See SESSION variables used for reorder criteria :
 
-if (isset($_REQUEST['dir']))       {$_SESSION['admin_register_dir'] = $_REQUEST['dir'];}
+if (isset($_REQUEST['dir']))       {$_SESSION['admin_register_dir']        = $_REQUEST['dir'];       }
 if (isset($_REQUEST['order_crit'])){$_SESSION['admin_register_order_crit'] = $_REQUEST['order_crit'];}
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 
-switch ($cmd)
+switch ( $cmd )
 {
     case 'sub' : //execute subscription command...
         
-        if (!isRegisteredTo($user_id, $cidToEdit))
+        if ( !is_registered_to($user_id, $cidToEdit) )
         {
             $done = add_user_to_course($user_id, $cidToEdit,true);
             // The user is add as student (default value in  add_user_to_course)
         }
         
         // Set status requested
-        if ($_REQUEST['subas']=="teach")     // ... as teacher
+        if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher
         {
             $properties['status'] = 1;
             $properties['role']   = $langCourseManager;
@@ -94,14 +90,14 @@ switch ($cmd)
         elseif ($_REQUEST['subas']=='stud')  // ... as student
         {
             $properties['status'] = 5;
-            $properties['role']   = ""; 
+            $properties['role']   = ''; 
             $properties['tutor']  = 0;
         }
         update_user_course_properties($user_id, $cidToEdit, $properties);
 
         //set dialogbox message
 
-        if ($done)
+        if ( $done )
         {
            $dialogBox = $langUserSubscribed;
         }
@@ -109,7 +105,7 @@ switch ($cmd)
 
   case 'unsubscribe' :
         $done = remove_user_from_course($user_id, $cidToEdit);
-        $dialogBox = ($done?$langUserUnsubscribed:$langUserNotUnsubscribed);
+        $dialogBox = ( $done ? $langUserUnsubscribed : $langUserNotUnsubscribed );
         
         break;
 }
@@ -117,8 +113,8 @@ switch ($cmd)
 //build and call DB to get info about current course (for title) if needed :
 
 $sql = "SELECT *
-        FROM  `".$tbl_courses."`
-        WHERE `code`='".$cidToEdit."'
+        FROM  `" . $tbl_courses . "`
+        WHERE `code`='" . $cidToEdit . "'
         ";
 $queryCourse =  claro_sql_query($sql);
 $resultCourse = mysql_fetch_array($queryCourse);
@@ -130,13 +126,14 @@ $resultCourse = mysql_fetch_array($queryCourse);
 $sql = "
 SELECT 
     U.nom, U.prenom, U.`user_id` AS ID, 
-    CU.*,CU.`user_id` AS Register
-FROM  `".$tbl_user."` AS U";
+    CU.*,
+    CU.`user_id` AS Register
+FROM  `" . $tbl_user . "` AS U";
 
 $toAdd = "
-LEFT JOIN `".$tbl_course_user."` AS CU 
+LEFT JOIN `" . $tbl_course_user . "` AS CU 
     ON             CU.`user_id`=U.`user_id` 
-            AND CU.`code_cours` = '".$cidToEdit."'
+            AND CU.`code_cours` = '" . $cidToEdit . "'
         ";
 
 $sql.=$toAdd;
@@ -146,57 +143,55 @@ $sql.=$toAdd;
 if (isset($_GET['letter']))
 {
     $toAdd = "
-            AND U.`nom` LIKE '".$_GET['letter']."%' ";
-    $sql.=$toAdd;
+            AND U.`nom` LIKE '" . $_GET['letter'] . "%' ";
+    $sql .= $toAdd;
 }
 
 //deal with KEY WORDS classification call
 
-if (isset($_REQUEST['search']) && $_REQUEST['search']!="")
+if ( isset( $_REQUEST['search'] ) && $_REQUEST['search'] != '' )
 {
-    $toAdd = " WHERE (U.`nom` LIKE '".$_REQUEST['search']."%'
-              OR U.`username` LIKE '".$_REQUEST['search']."%'
-              OR U.`prenom` LIKE '".$_REQUEST['search']."%') ";
+    $toAdd = " WHERE (U.`nom` LIKE '" . $_REQUEST['search'] . "%'
+              OR U.`username` LIKE '" . $_REQUEST['search'] . "%'
+              OR U.`prenom` LIKE '" . $_REQUEST['search'] . "%') " ;
 
-    $sql.=$toAdd;
+    $sql .= $toAdd;
 }
 
 // deal with REORDER
 
-  //first see is direction must be changed
+//first see is direction must be changed
 
-if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
+if ( isset( $_REQUEST['chdir'] ) && ( $_REQUEST['chdir'] == 'yes' ) )
 {
-  if ($_SESSION['admin_register_dir'] == "ASC") 
-  {
-      $_SESSION['admin_register_dir']="DESC";
-  }
-  else
-  {
-      $_SESSION['admin_register_dir']="ASC";
-  }
+    if ( $_SESSION['admin_register_dir'] == 'ASC' ) 
+    {
+        $_SESSION['admin_register_dir'] = 'DESC';
+    }
+    else
+    {
+        $_SESSION['admin_register_dir'] = 'ASC';
+    }
 }
 
 if (isset($_SESSION['admin_register_order_crit']))
 {
-    if ($_SESSION['admin_register_order_crit']=="user_id")
+    if ($_SESSION['admin_register_order_crit'] == 'user_id' )
     {
-        $toAdd = " ORDER BY `U`.`user_id` ".$_SESSION['admin_register_dir'];
+        $toAdd = " ORDER BY `U`.`user_id` " . $_SESSION['admin_register_dir'];
     }
     else
     {
-        $toAdd = " ORDER BY `".$_SESSION['admin_register_order_crit']."` ".$_SESSION['admin_register_dir'];
+        $toAdd = " ORDER BY `" . $_SESSION['admin_register_order_crit'] . "` " . $_SESSION['admin_register_dir'];
     }
-    $sql.=$toAdd;
+    $sql .= $toAdd;
 }
-
-//echo $sql; //debug
 
 //Build pager with SQL request
 
-if (!isset($_REQUEST['offset'])) 
+if ( !isset( $_REQUEST['offset'] ) ) 
 {
-    $offset = "0";
+    $offset = '0';
 }
 else
 {
@@ -206,20 +201,22 @@ else
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 
-$isSearched ="";
+$isSearched = '';
 
 //get the search keyword, if any
 
-if (!isset($_REQUEST['search']))
+if ( !isset( $_REQUEST['search']) )
 {
-   $search = "";
+   $search = '';
 }
 else
 {
    $search = $_REQUEST['search'];
 }
 
-if (!isset($addToURL)) $addToURL ="";
+if ( !isset($addToURL) ) $addToURL = '';
+
+$nameTools .= " : ".$resultCourse['intitule'];
 
 //------------------------------------
 // DISPLAY
@@ -227,73 +224,77 @@ if (!isset($addToURL)) $addToURL ="";
 
 // Display tool title
 
-$nameTools .= " : ".$resultCourse['intitule'];
-
 //Header
-include($includePath.'/claro_init_header.inc.php');
+include($includePath . '/claro_init_header.inc.php' );
 
-claro_disp_tool_title($nameTools);
+claro_disp_tool_title( $nameTools );
 
 // Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
+if( isset($dialogBox) )
 {
     claro_disp_message_box($dialogBox);
 }
 
 // search form
        
-if (isset($search) && $search!="")    {$isSearched .= $search."* ";}
-if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
+if ( isset( $search ) && $search != '' )         { $isSearched .= $search . '* '; }
+if (($isSearched == '') || !isset($isSearched) ) { $title = ''; } 
+                                            else { $title = $langSearchOn . ' : '; }
 
-echo '<table width="100%" >
-        <tr>
-          <td align="left">
-             <b>'.$title.'</b>
-             <small>
-             '.$isSearched.'
-             </small>
-          </td>
-          <td align="right">
-            <form action="'.$_SERVER['PHP_SELF'].'">
-            <label for="search">'.$langMakeSearch.'</label> :
-            <input type="text" value="'.$search.'" name="search" id="search" >
-            <input type="submit" value=" '.$langOk.' \">
-            <input type="hidden" name="newsearch" value="yes">
-            <input type="hidden" name="cidToEdit" value="'.$cidToEdit.'">
-            </form>
-          </td>
-        </tr>
-      </table>';
-
+echo '<table width="100%" >'
+.    '<tr>'
+.    '<td align="left">' . "\n"
+.    '<b>'.$title.'</b>' . "\n"
+.    '<small>' . "\n"
+.    $isSearched . "\n"
+.    '</small>' . "\n"
+.    '</td>' . "\n"
+.    '<td align="right">' . "\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+.    '<label for="search">' . $langMakeSearch . '</label> :' . "\n"
+.    '<input type="text" value="' . $search . '" name="search" id="search" >' . "\n"
+.    '<input type="submit" value=" ' . $langOk . ' \">' . "\n"
+.    '<input type="hidden" name="newsearch" value="yes">' . "\n"
+.    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '">' . "\n"
+.    '</form>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
 //TOOL LINKS
-
-echo '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'.$langAllUsersOfThisCourse.'</a><br><br>';
+.    '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'
+.    $langAllUsersOfThisCourse
+.    '</a><br><br>'
+;
       
 //Pager
 
 if (isset($_REQUEST['order_crit']))
 {
-    $addToURL = "&amp;order_crit=".$_SESSION['admin_register_order_crit']."&amp;dir=".$_SESSION['admin_register_dir'];
+    $addToURL = '&amp;order_crit=' . $_SESSION['admin_register_order_crit'] 
+              . '&amp;dir=' . $_SESSION['admin_register_dir']
+              ;
 }
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$addToURL);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
 
 // Display list of users
 // start table...
 //columns titles...
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
-<thead>
-    <tr class="headerX" align="center" valign="top">
-        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=user_id&amp;chdir=yes&amp;search='.$search.'&amp;cidToEdit='.$cidToEdit.'">'.$langUserid.'</a></th>
-        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=nom&amp;chdir=yes&amp;search='.$search.'&amp;cidToEdit='.$cidToEdit.'">'.$langLastName.'</a></th>
-        <th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=prenom&amp;chdir=yes&amp;search='.$search.'&amp;cidToEdit='.$cidToEdit.'">'.$langFirstName.'</a></th>
-        <th>'.$langEnrollAsStudent.'</th>
-        <th>'.$langEnrollAsManager.'</th>
-    </tr>
-</thead>
-<tbody>';
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+.    '<thead>' . "\n"
+.    '<tr class="headerX" align="center" valign="top">' . "\n"
+.    '<th>' 
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' . $langUserid . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' . $langLastName . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' . $langFirstName . '</a></th>' . "\n"
+.    '<th>' . $langEnrollAsStudent . '</th>' . "\n"
+.    '<th>' . $langEnrollAsManager . '</th>' . "\n"
+.    '</tr>' . "\n"
+.    '</thead>' . "\n"
+.    '<tbody>'
+;
 
 // Start the list of users...
 

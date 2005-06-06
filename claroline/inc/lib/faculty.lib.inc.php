@@ -21,7 +21,7 @@
 
  */
 
-function SearchMaxTreePos()
+function search_max_tree_pos()
 {
 	GLOBAL $tbl_faculty;
 
@@ -42,7 +42,7 @@ function SearchMaxTreePos()
 
  */
 
-function displayBom($elem,$father,$space)
+function display_tree($elem, $father, $space)
 {
 	GLOBAL $lang_faculty_ConfirmDelete, $imgRepositoryWeb, $langDelete;
 
@@ -158,8 +158,8 @@ function displayBom($elem,$father,$space)
 <?php
 
 				//display the bom of this category
-				if($one_faculty["visible"])
-					displayBom($elem,$one_faculty["code"],$space);
+				if($one_faculty['visible'])
+					display_tree($elem, $one_faculty['code'], $space);
 			}
 		}
 	}
@@ -215,7 +215,7 @@ function displaySimpleBom($elem,$father,$facultyEdit)
  * @desc : delete a number of child of all father from a category
  */
 
-function deleteNbChildFather($fatherChangeChild,$newNbChild)
+function delete_qty_child_father($fatherChangeChild,$newNbChild)
 {
 	GLOBAL $tbl_faculty;
 	while(!is_null($fatherChangeChild))

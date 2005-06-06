@@ -22,7 +22,7 @@ $nameTools = $langSDK;
 
 // SECURITY CHECK
 
-if (!$is_platformAdmin) treatNotAuthorized();
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 // DISPLAY
 

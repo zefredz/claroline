@@ -23,8 +23,9 @@ $dialogBox = '';
 if ( ! $_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
-include($includePath."/lib/course.lib.inc.php");
-include($includePath."/conf/course_main.conf.php");
+include_once( $includePath . '/lib/auth.lib.inc.php'      );
+include_once( $includePath . '/lib/course.lib.inc.php'    );
+include_once( $includePath . '/conf/course_main.conf.php' );
 
 /*
  * Configuration array , define here which field can be left empty or not
@@ -182,12 +183,11 @@ if( $is_allowedToEdit )
 			$dialogBox .= $langErrorDepartmentURLWrong."<br>";
 		
 		//check e-mail validity
-		
-		$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-		
-		if ((!empty($_REQUEST['email'])) && !eregi( $regexp, $_REQUEST['email']))			
+
+		if ( !empty($_REQUEST['email']) && ! is_well_formed_email_address( $_REQUEST['email'] ) )
+        {
 			$dialogBox .= $langErrorEmailInvalid."<br>";
-		
+		}
 		//if at least one error is found, we cancel update
 		
 		if (!$dialogBox)
@@ -295,7 +295,7 @@ if (!empty ($dialogBox))
 <td>
 
 <?php
-BuildEditableCatTable($facu," &gt; ");      
+build_editable_cat_table($facu, ' &gt; ');      
 ?>
 
 </td>

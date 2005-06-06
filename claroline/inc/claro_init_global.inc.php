@@ -17,17 +17,17 @@ $includePath = dirname(__FILE__);
 
 // YOU CAN REMOVE THE @ of the following line after install.
 
-if ( file_exists($includePath.'/conf/claro_main.conf.php') )
+if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
-    include($includePath.'/conf/claro_main.conf.php');
+    include($includePath . '/conf/claro_main.conf.php');
 } 
 else
 {
     die ( "<center>"
-	   ."WARNING ! SYSTEM UNABLE TO FIND CONFIGURATION SETTINGS"
-	   ."<br>If it is your first connection to your Claroline Platform, "
-	   ."read <code>INSTALL.txt</code>."
-	   ."</center>");
+       ."WARNING ! SYSTEM UNABLE TO FIND CONFIGURATION SETTINGS"
+       ."<br>If it is your first connection to your Claroline Platform, "
+       ."read <code>INSTALL.txt</code>."
+       ."</center>");
 }
 
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application

@@ -158,8 +158,8 @@ function define_course_keys ($wantedCode,
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
-            $finalSuffix['CourseDir']    = substr(md5 (uniqid (rand())),0,$nbCharFinalSuffix);
-            if ($DEBUG) echo '[dir]';
+            $finalSuffix['CourseDir'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
+            if ($DEBUG) echo '[dir'.$coursesRepositories.'/'.$keysCourseRepository.']<br>';
         };
         
         if(!$keysAreUnique && $forceSameSuffix)
@@ -170,13 +170,13 @@ function define_course_keys ($wantedCode,
         }
     }
 
-    // here  we  can add a  counter  to exit  if need too many try
-    $limitNumbTry = 128;
+    // here  we can add a counter to exit if need too many try
+    $limitQtyTry = 128;
 
-    if (($tryNewFSCId+$tryNewFSCDb+$tryNewFSCDir > $limitNumbTry)
-            or ($tryNewFSCId > $limitNumbTry / 2 )
-            or ($tryNewFSCDb > $limitNumbTry / 2 )
-            or ($tryNewFSCDir > $limitNumbTry / 2 )
+    if (($tryNewFSCId+$tryNewFSCDb+$tryNewFSCDir > $limitQtyTry)
+            or ($tryNewFSCId > $limitQtyTry / 2 )
+            or ($tryNewFSCDb > $limitQtyTry / 2 )
+            or ($tryNewFSCDir > $limitQtyTry / 2 )
         )
     {
         return FALSE;
@@ -917,7 +917,7 @@ function     fill_course_repository($courseRepository)
  * note  $language would be removed soon.
  */
 
-function fill_Db_course($courseDbName,$courseRepository, $language)
+function fill_db_course($courseDbName, $courseRepository, $language)
 {
     global $singleDbEnabled, $courseTablePrefix, $dbGlu, $clarolineRepositorySys, $_user, $mainDbName;
 
@@ -1189,7 +1189,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
     if ($okForRegisterCourse)
     {
-        if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+        if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
         // here we must add 2 fields
         $sql ="INSERT INTO `" . $TABLECOURSE . "` SET
             code = '" . $courseSysCode . "',
@@ -1228,18 +1228,6 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 };
 
 /**
- * Check intergrity and security of content to insert in campus
- * @param string    $pathToArchive         COMPLETE path to archive.
- * @author    Christophe Gesché <moosh@claroline.net>
- * @version 0.1
- */
-function checkArchive($pathToArchive)
-{
-    return TRUE;
-};
-
-
-/**
  * Search and read archive.ini file add ins archive build by claroline
  * @param   $archive       string   COMPLETE path to archive.
  * @param   $isCompressed  boolean  whether archive would be unzip before read in
@@ -1247,7 +1235,7 @@ function checkArchive($pathToArchive)
  * @version 1.0
  */
 
-function readPropertiesInArchive($archive, $isCompressed=TRUE)
+function read_properties_in_archive(($archive, $isCompressed=TRUE)
 {
     include('../inc/lib/pclzip/pclzip.lib.php');
     printVar(dirname($archive), 'Zip : ');

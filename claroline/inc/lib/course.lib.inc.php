@@ -24,11 +24,11 @@
   *
   * @desc The function create a backup of a cours in a file
   */
-function backupDatabase($link,$sysCode,&$dir)
+function backup_database( $link, $sysCode, &$dir )
 {
-    global $tbl_courses,$coursesRepositorySys;
+    global $tbl_courses, $coursesRepositorySys;
 
-    $sql_searchCourse="select * from `$tbl_courses` where code='".$sysCode."'";
+    $sql_searchCourse = "select * from `$tbl_courses` where code='" . $sysCode . "'";
     $arrayCourse=claro_sql_query_fetch_all($sql_searchCourse);
 
     global $courseTablePrefix,$dbGlu;
@@ -118,10 +118,10 @@ function backupDatabase($link,$sysCode,&$dir)
 	global $mainDbName;
 	fwrite($fp, "Use `$mainDbName`;\n");
 
-	$com=commandCreateTableTemporary($tbl_courses,"temp_cours");
+	$com = command_create_temporary_table($tbl_courses, 'temp_cours' );
     fwrite($fp,$com."\n\n");
 
-    $query = "SELECT * FROM `$tbl_courses` where code='".$sysCode."'";
+    $query = "SELECT * FROM `$tbl_courses` where code='" . $sysCode . "'";
     $resData = claro_sql_query($query);
     $tablename="temp_cours";
 
@@ -159,7 +159,7 @@ function backupDatabase($link,$sysCode,&$dir)
         $i++;
     }
 
-	$com=commandCreateTableTemporary($tbl_user,"temp_user");
+	$com=command_create_temporary_table($tbl_user, 'temp_user');
 
     fwrite($fp,$com."\n\n");
 
@@ -174,7 +174,7 @@ function backupDatabase($link,$sysCode,&$dir)
     }
 
 
-	$com=commandCreateTableTemporary($tbl_course_user,"temp_cours_user");
+	$com=command_create_temporary_table($tbl_course_user, 'temp_cours_user');
 
     fwrite($fp,$com."\n\n");
 
@@ -196,7 +196,7 @@ function backupDatabase($link,$sysCode,&$dir)
   	$v_list = $archive->create($localArchivesRepository."backup_".$db_name."_".date("Y_m_d"),
 							PCLZIP_OPT_REMOVE_PATH,$localArchivesRepository."backup_".$db_name."_".date("Y_m_d"));
 
-	deldir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d"));
+	delete_directory( $localArchivesRepository . "backup_".$db_name."_".date("Y_m_d"));
 }
 
 
@@ -204,9 +204,9 @@ function backupDatabase($link,$sysCode,&$dir)
   * Insert to a file a sql order
   * @author Muret Benoît <muret_ben@hotmail.com>
   *
-  * @param handler &$fp            the file
-  *           string  $tablename     the table
-  *           string  $resData         the values
+  * @param handler &$fp        the file
+  * @param string  $tablename  the table
+  * @param string  $resData    the values
   *
   * @return nothing
   *
@@ -382,14 +382,14 @@ function PMA_splitSqlFile(&$ret, $sql)
   *
   * @desc The function delete a directory and his below directoy
   */
-function deldir($dir){
+function delete_directory($dir){
     $current_dir = opendir($dir);
 
       while($entryname = readdir($current_dir))
       {
          if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname!=".."))
          {
-               deldir("${dir}/${entryname}");
+               delete_directory("${dir}/${entryname}");
          }
         elseif($entryname != "." && $entryname!="..")
         {
@@ -413,7 +413,7 @@ function deldir($dir){
   *
   * @desc The function create the command to create a temporary table
   */
-function CommandCreateTableTemporary($tbl,$name)
+function command_create_temporary_table($tbl, $name )
 {
 	$sql="describe `$tbl`";
 	$res=claro_sql_query_fetch_all($sql);
@@ -447,9 +447,9 @@ function CommandCreateTableTemporary($tbl,$name)
   *
   * @desc The function create the command to create a selectBox with the language
   */
-function createSelectBoxLanguage($selected=NULL)
+function create_select_box_language($selected=NULL)
 {
-	$arrayLanguage=languageExist();
+	$arrayLanguage = language_exists();
 	foreach($arrayLanguage as $entries)
 	{
 		$selectBox.="<option value=\"$entries\" ";
@@ -479,7 +479,7 @@ function createSelectBoxLanguage($selected=NULL)
   *
   * @desc The function return an array with the language
   */
-function languageExist()
+function language_exists()
 {
 	global $clarolineRepositorySys;
 	$dirname = $clarolineRepositorySys.'lang/';
@@ -510,16 +510,16 @@ function languageExist()
 
 
 /**
-  * build the <option> element with categories where we can create/have courses
-  *
-  * @param the code of the preselected categorie
-  * @param the separator used between a cat and its paretn cat to display in the <select> 
-  * @return echo all the <option> elements needed for a <select>. 
-  * 
-  */
+ * build the <option> element with categories where we can create/have courses
+ *
+ * @param the code of the preselected categorie
+ * @param the separator used between a cat and its paretn cat to display in the <select> 
+ * @return echo all the <option> elements needed for a <select>. 
+ * 
+ */
 
 
-function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
+function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_category        = $tbl_mdb_names['category'];
@@ -541,30 +541,30 @@ function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
 	// then we build the table we need : full path of editable cats in an array
 	
 	$tableToDisplay = array();
-	echo "<select name =\"faculte\" id=\"faculte\">\n";	
+	echo '<select name="faculte" id="faculte">' . "\n";	
 	foreach ($categories as $cat)
 	{
-		if ($cat["childs"]=="TRUE") 
+		if ( $cat["childs"] == 'TRUE' ) 
 		{ 
 			
-			echo "<option value=\"".$cat["code"]."\"";
-			if ($cat["code"]==$selectedCat) echo " selected ";
-			echo ">";
-			$tableToDisplay[$cat["code"]]= $cat;
-			$parentPath  = getFullPath($categories, $cat["code"], $separator);
-			 
-			$tableToDisplay[$cat["code"]]["fullpath"] = $parentPath;
-			echo "(".$tableToDisplay[$cat["code"]]["fullpath"].") ".$cat["name"];
-			echo "</option>\n";
+			echo '<option value="' . $cat['code'] . '"';
+			if ($cat["code"]==$selectedCat) echo ' selected ';
+			echo '>';
+			$tableToDisplay[$cat['code']]= $cat;
+			$parentPath  = get_full_path($categories, $cat['code'], $separator);
+
+			$tableToDisplay[$cat['code']]['fullpath'] = $parentPath;
+			echo '(' . $tableToDisplay[$cat['code']]['fullpath'] . ') ' . $cat['name'];
+			echo '</option>' . "\n";
 		}
 	}
-	echo "</select>\n";
+	echo '</select>' . "\n";
 	
 	return $tableToDisplay;
 }
 
 /**
- * function getFullPath($categories, $catcode = NULL, $separator = ' &gt; ')
+ * function get_full_path($categories, $catcode = NULL, $separator = ' &gt; ')
  * Recursive function to get the full categories path of a specified categorie
  *
  * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names, 
@@ -574,7 +574,7 @@ function BuildEditableCatTable($selectedCat = null, $separator = "&gt;")
   */
 
  
-function getFullPath($categories, $catcode = NULL, $separator = ' &gt; ')
+function get_full_path($categories, $catcode = NULL, $separator = ' &gt; ')
 {
 	//Find parent code
 	
@@ -597,7 +597,7 @@ function getFullPath($categories, $catcode = NULL, $separator = ' &gt; ')
 	{
 		if (($currentCat['code'] == $parent))
 		{
-			return getFullPath($categories, $parent, $separator).$separator.$catcode;
+			return get_full_path($categories, $parent, $separator).$separator.$catcode;
 			break;
 		}
 	}

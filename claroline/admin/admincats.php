@@ -149,7 +149,7 @@ else
 		        else    // The parent of the new category is root
 		        {
 			        // Search the maximum treePos
-			        $treePosCat=SearchMaxTreePos()+1;
+			        $treePosCat=search_max_tree_pos()+1;
 		        }
 	
 		        // Insert the new category to the table
@@ -552,7 +552,7 @@ else
                 $treePosLastChild=$facultyEdit["treePos"]+$facultyEdit["nb_childs"];
 
                 // The treePos max
-                $maxTree=SearchMaxTreePos();
+                $maxTree=search_max_tree_pos();
 
                 // The treePos of her and his childeren = max(treePos)+i
                 $i=1;
@@ -624,7 +624,7 @@ else
 
                 // Change the number of childeren of the father category and his parent
                 $fatherChangeChild=$facultyEdit["code_P"];
-                deleteNbChildFather($fatherChangeChild,$newNbChild);
+                delete_qty_child_father($fatherChangeChild,$newNbChild);
 
                 // Change the number of childeren of the new father and his parent
                 $fatherChangeChild=$_REQUEST["fatherCat"];
@@ -1001,7 +1001,7 @@ echo "<th>".$lang_faculty_CodeCat."</td>"
 
 echo "</tr></thead>";
 
-displayBom($categories,NULL,"");
+display_tree($categories,NULL,"");
 
 echo "</table>";
 
@@ -1024,7 +1024,7 @@ include($includePath."/claro_init_footer.inc.php");
      *@desc - return the treePos maximum of the table faculty
      */
 
-    function SearchMaxTreePos()
+    function search_max_tree_pos()
     {
         GLOBAL $tbl_course_node;
 
@@ -1048,7 +1048,7 @@ include($includePath."/claro_init_footer.inc.php");
      * @desc - display the bom whith option to edit or delete the categories
      */
 
-    function displayBom($elem,$father,$space)
+    function display_tree($elem,$father,$space)
     {
         GLOBAL $lang_faculty_ConfirmDelete, $imgRepositoryWeb;
 
@@ -1167,11 +1167,11 @@ include($includePath."/claro_init_footer.inc.php");
 <?php
 
                     //display the bom of this category
-                    if($one_faculty["visible"])
-                        displayBom($elem,$one_faculty["code"],$space);
+                    if($one_faculty['visible'])
+                        display_tree($elem, $one_faculty['code'], $space);
                 }
             }
-            echo "</tbody>";
+            echo '</tbody>';
         }
     }
 
@@ -1194,18 +1194,18 @@ include($includePath."/claro_init_footer.inc.php");
         {
             foreach($elem as $one_faculty)
             {
-                if(!strcmp($one_faculty["code_P"],$father))
+                if( !strcmp( $one_faculty['code_P'], $father ))
                 {
                 ?>
                     <ul><li>
                     <?php
-                    echo (!strcmp($one_faculty["code"],$facultyEdit)?"<font color=\"red\">":"");
-                    echo $one_faculty["code"];
-                    echo (!strcmp($one_faculty["code"],$facultyEdit)?"</font>":"");
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'<font color="red">':'');
+                    echo $one_faculty['code'];
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'</font>':'');
 
-                    echo (!strcmp($one_faculty["code"],$facultyEdit)?"<font color=\"blue\">":"");
-                    displaySimpleBom($elem,$one_faculty["code"],$facultyEdit);
-                    echo (!strcmp($one_faculty["code"],$facultyEdit)?"</font>":"");
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'<font color="blue">':'');
+                    displaySimpleBom($elem,$one_faculty['code'],$facultyEdit);
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'</font>':'');
                 ?>
                     </li></ul>
                 <?php
@@ -1227,7 +1227,7 @@ include($includePath."/claro_init_footer.inc.php");
      * @desc : delete a number of child of all father from a category
      */
 
-    function deleteNbChildFather($fatherChangeChild,$newNbChild)
+    function delete_qty_child_father($fatherChangeChild, $newNbChild)
     {
         GLOBAL $tbl_course_node;
         while(!is_null($fatherChangeChild))

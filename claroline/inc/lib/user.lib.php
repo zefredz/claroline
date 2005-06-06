@@ -20,6 +20,7 @@
  */
 
 if ( !defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') ) define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
+include_once( $includePath . '/lib/auth.lib.inc.php'      );
 
 /**
  * Initialise user data 
@@ -637,9 +638,7 @@ function is_valid_email($email)
 {
     global $langEmailWrong;
 
-    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-
-    if ( eregi($regexp,$email) )
+    if (is_well_formed_email_address($email) )
     {
         return true;
     }

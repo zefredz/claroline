@@ -1,8 +1,9 @@
 <?php // $Id$
-require("class.phpmailer.php");
+require_once('class.phpmailer.php');
+include_once( $includePath . '/lib/auth.lib.inc.php'      );
+
 
   //needed to see if email is valid to try sending the notification
- $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
 
     /**
@@ -176,7 +177,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
 		return claro_failure::set_failure('No user with such an ID !!!');
     }
 		
-	if(!eregi($regexp,$list['email']) or empty($list['email']) )
+	if(! is_well_formed_email_address($list['email']) or empty($list['email']) )
 	{
 		return claro_failure::set_failure( $list['nom'] . " " . $list['prenom'] ." : wrong or empty email address"."<br>");
 	}

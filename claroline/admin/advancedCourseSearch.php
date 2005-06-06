@@ -119,7 +119,7 @@ claro_disp_tool_title($nameTools." : ");
     <select name="language" id="language" >
     <option  value=""></option>
     <?php
-      echo createSelectBoxLanguage($language);
+      echo create_select_box_language($language);
     ?>
     </select>
   </td>
@@ -212,9 +212,9 @@ function buildSelectFaculty($elem,$father,$EditFather,$space)
     }
 }
 
-function createSelectBoxLanguage($selected=NULL)
+function create_select_box_language($selected=NULL)
 {
-    $arrayLanguage=languageExist();
+    $arrayLanguage = language_exists();
     foreach($arrayLanguage as $entries)
     {
         $selectBox.="<option value=\"$entries\" ";
@@ -234,7 +234,7 @@ function createSelectBoxLanguage($selected=NULL)
     return $selectBox;
 }
 
-function languageExist()
+function language_exists()
 {
     global $clarolineRepositorySys;
     $dirname = $clarolineRepositorySys."lang/";

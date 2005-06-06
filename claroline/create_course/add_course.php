@@ -142,8 +142,9 @@ else
 		}
 
 		// if an email is given It would be correct
-		$regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-		if (!empty($newcourse_email)&&!eregi( $regexp, $newcourse_email)) 
+		if (    !empty( $newcourse_email) 
+             && !eregi( $newcourse_email)
+           ) 
 		{
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langEmailWrong;
@@ -177,8 +178,8 @@ else
 			update_Db_course($currentCourseDbName);
 			fill_course_repository($currentCourseRepository);
 
-			// function 	fill_Db_course($courseDbName,$courseRepository)
-            fill_Db_course(	$currentCourseDbName
+			// function 	fill_db_course($courseDbName,$courseRepository)
+            fill_db_course(	$currentCourseDbName
                           , $currentCourseRepository
                           , $newcourse_language)
                           ;
@@ -305,7 +306,7 @@ elseif($displayCoursePropertiesForm)
 </td>
 <td>
 <?php
-BuildEditableCatTable($facu," &gt; ");      
+build_editable_cat_table($facu, ' &gt; ');
 ?>
 <br><small><?php echo $langTargetFac ?></small>
 </td>

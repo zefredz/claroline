@@ -204,8 +204,8 @@ if ($cmd == 'exFill')
         $currentCourseRepository
         );
 
-        // function     fill_Db_course($courseDbName,$courseRepository)
-        fill_Db_course(
+        // function     fill_db_course($courseDbName,$courseRepository)
+        fill_db_course(
         $currentCourseDbName,
         $currentCourseRepository,
         $language_course
