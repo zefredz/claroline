@@ -32,7 +32,6 @@
  *
  * @param $order  'ASC' || 'DESC' : ordering of the list.
  * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
- * @author Christophe Gesché <moosh@claroline.net>
  * @return array of array(id, title, content, time, visibility, rank)
  * @since  1.7
  */
@@ -54,7 +53,6 @@ function announcement_get_item_list($order='DESC', $course_id=NULL)
  *
  * @param $announcement_id integer:id the requested announcement
  * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
- * @author Christophe Gesché <moosh@claroline.net>
  * @return result of deletion query
  * @since  1.7
  */
@@ -74,7 +72,6 @@ function announcement_delete_item($id, $course_id=NULL)
  *
  * @param $announcement_id integer:id the requested announcement
  * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
- * @author Christophe Gesché <moosh@claroline.net>
  * @return result of deletion query
  * @since  1.7
  */
@@ -94,7 +91,6 @@ function announcement_delete_all_items($course_id=NULL)
  * @param $content   string=''      :content of the new item
  * @param $time      date='now'     :publication dat of the item def:now
  * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
- * @author Christophe Gesché <moosh@claroline.net>
  * @return id of the new item
  * @since  1.7
  */
@@ -136,7 +132,6 @@ function announcement_add_item($title='',$content='', $visibility='SHOW', $time=
  * @param $content   string=''      :content of the new item
  * @param $time      date='now'     :publication dat of the item def:now
  * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
- * @author Christophe Gesché <moosh@claroline.net>
  * @return handler of query
  * @since  1.7
  */
@@ -166,7 +161,6 @@ function announcement_update_item($announcement_id, $title=NULL,$content=NULL, $
  *
  * @param $announcement_id integer:id the requested announcement
  * @param $course_id       string :sysCode of the course (leaveblank for current course) 
- * @author Christophe Gesché <moosh@claroline.net>
  * @return array(id, title, content, visibility, rank) of the announcement
  * @since  1.7
  */
