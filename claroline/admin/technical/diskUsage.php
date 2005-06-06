@@ -43,19 +43,19 @@ echo $langCourse_Repository." : ".$coursesRepositorySys."<br>".$langMysql_Reposi
 if ($display_all_size_of_clarolineRepositorySys )
     echo "
     <li>
-        Claroline : ",sprintf("%01.2f", diskUsage($clarolineRepositorySys,"","m"))." ".$byteUnits[2]."
+        Claroline : ",sprintf("%01.2f", disk_usage($clarolineRepositorySys,"","m"))." ".$byteUnits[2]."
     </li>";
 
 if ($display_all_size_of_Total_Courses)
     echo "
     <li>
-        ".$langCourses." : ",sprintf("%01.2f", diskUsage($coursesRepositorySys, $mysqlRepositorySys, "m"))." ".$byteUnits[2]."
+        ".$langCourses." : ",sprintf("%01.2f", disk_usage($coursesRepositorySys, $mysqlRepositorySys, "m"))." ".$byteUnits[2]."
         (".$langPerhaps_with_others_directory.")
     </li>";
 if ($display_all_size_of_garbageRepositorySys )
     echo "
     <li>
-        ".$langGarbage." :  ",sprintf("%01.2f", diskUsage($garbageRepositorySys,"","m"))." ".$byteUnits[2]."
+        ".$langGarbage." :  ",sprintf("%01.2f", disk_usage($garbageRepositorySys,"","m"))." ".$byteUnits[2]."
     </li>";
 ?>
 <li>
@@ -91,9 +91,7 @@ if ($display_all_size_of_garbageRepositorySys )
 <?php
 if ($display_all_size_of_selected_courses && $coursesToCheck)
 {
-    echo "
-    <li>
-        <ol>";
+    echo '<li><ol>';
     $sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_course."` ";
     if($coursesToCheck[0]==" all ")
     {
@@ -113,23 +111,28 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
         $resCourses= claro_sql_query($sqlListCourses);
         while ($course = mysql_fetch_array($resCourses,MYSQL_ASSOC))
         {
-            $duFiles = diskUsage($coursesRepositorySys.$course["dir"]."/","","k");
-            $duBase  = diskUsage($mysqlRepositorySys.$course["db"]."/","","k");
+            $duFiles = disk_usage($coursesRepositorySys.$course["dir"]."/","","k");
+            $duBase  = disk_usage($mysqlRepositorySys.$course["db"]."/","","k");
 //            $duBase  = getdbsize($course["db"],k);
             
-            $duTotal = diskUsage($coursesRepositorySys.$course["dir"]."/",$mysqlRepositorySys.$course["db"]."/","m");
-            $quota   = $course["diskQuota"]*1; 
-            echo "
-            <li>
-                ".$course["code"]." : ".
-                (is_null($course["diskQuota"])?" ".$langNoQuota." ":"Quota : ".$course["diskQuota"])." ".$byteUnits[2]." | ".
-                  sprintf("%01.2f", $duFiles )." ".$byteUnits[1]."
-                +
-                ".sprintf("%01.2f", $duBase  )." ".$byteUnits[1]."
-                =
-                <strong>".sprintf("%01.2f", $duTotal)." ".$byteUnits[2]."</strong>
-                ".(is_null($course["diskQuota"]) || ($quota > (int) $duTotal)?" ok ":" <font color=\"#FF0000\">!!!!!!!! OVER QUOTA !!!!!!</font>")."
-            </li>";
+            $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
+            $quota   = $course['diskQuota'] * 1; 
+            echo '<li>'
+            .    $course['code'] . ' : ' 
+            .    (is_null($course['diskQuota']) ? ' ' . $langNoQuota . ' ' 
+                                                : 'Quota : ' . $course["diskQuota"]
+                 )
+            .    ' ' . $byteUnits[2] . ' | '
+            .    sprintf("%01.2f", $duFiles ) . ' ' . $byteUnits[1]
+            .    ' + '
+            .    sprintf('%01.2f', $duBase  ) . ' ' . $byteUnits[1] . ' = <strong>' 
+            .    sprintf('%01.2f', $duTotal ) . ' ' . $byteUnits[2] . '</strong>'
+            .    (is_null($course['diskQuota']) || ($quota > (int) $duTotal) 
+                 ? ' ok ' 
+                 : ' <font color="#FF0000">!!!!!!!! OVER QUOTA !!!!!!</font>'
+                 )
+            .   '</li>'
+            ;
         }
     }
 
@@ -143,16 +146,16 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
 
 <?php
 
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 
 
 
-function diskUsage($dirFiles="",$dirBase="",$precision="m")
+function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 {
     // $precision  -> b Bytes, k Kilobyte, m Megabyte
     switch (PHP_OS)
     {
-        case "Linux" :
+        case 'Linux' :
             $usedspace = (int)`du -sc$precision $dirFiles`;
             $usedspace += (int)`du -sc$precision $dirBase`;
 //            $usedspace += (int) getdbsize($course["db"],k);
@@ -161,12 +164,12 @@ function diskUsage($dirFiles="",$dirBase="",$precision="m")
         //case "WIN32" : // no  optimazing found  for  WIN32, use  long version
         //case "WINNT" : // no  optimazing found  for  WINNT, use  long version
         default :
-            $usedspace    = claro_get_file_size($dirFiles);
+            $usedspace  = claro_get_file_size($dirFiles);
             $usedspace += claro_get_file_size($dirBase);
             switch ($precision)
             {
-                case "m" : $usedspace /= 1024;
-                case "k" : $usedspace /= 1024;
+                case 'm' : $usedspace /= 1024;
+                case 'k' : $usedspace /= 1024;
             }
             break;
     }
