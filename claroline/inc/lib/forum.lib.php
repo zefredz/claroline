@@ -19,6 +19,8 @@
 
 /**
  * Gets user data from uid
+ * @param  int   user id
+ * @return array user data if it succeeds, boolean false otherwise
  */
 
 function get_userdata_from_id($userId)
@@ -40,16 +42,17 @@ function get_userdata_from_id($userId)
 }
 
 /**
- * Gets the total number of topics in a forum
- * @param $forum_id integer 
+ * forum.lib.php
+ * Gets the total number of topics in a form
+ * @param int forum id
  * @param $dbnameGlued string dbName with glu
- * @return quantity of topics in the given forum
+ * @return int topic count in this forum
  */
 
-function get_total_topics($forum_id, $dbnameGlued=NULL)
+function get_total_topics($forum_id, $dbnameGlued = NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
-    $tbl_topics = $tbl_cdb_names['bb_topics'];
+    $tbl_topics    = $tbl_cdb_names['bb_topics'];
 
 	$sql = "SELECT COUNT(*) AS total
 	        FROM `" . $tbl_topics."`
@@ -72,11 +75,11 @@ function get_total_posts($id, $type, $dbnameGlued=NULL)
 
     switch ( $type )
     {
-        case 'users': $condition = "poster_id = '" . (int) $id . "'";
+        case 'users': $condition = 'poster_id = ' . (int) $id;
             break;
-        case 'forum': $condition = "forum_id = '" . (int) $id . "'";
+        case 'forum': $condition = 'forum_id = '  . (int) $id ;
             break;
-        case 'topic': $condition = "topic_id = '" . (int) $id . "'";           
+        case 'topic': $condition = 'topic_id = '  . (int) $id ;
             break;
         case 'all'  : $condition = '1'; // forces TRUE in all cases ...
             break;
@@ -88,7 +91,7 @@ function get_total_posts($id, $type, $dbnameGlued=NULL)
     if ( $condition !== false )
     {
         $sql = "SELECT COUNT(*) AS total 
-                        FROM `" . $tbl_posts."` 
+                FROM `" . $tbl_posts."` 
                 WHERE " . $condition;
 
         return claro_sql_query_get_single_value($sql);
@@ -101,23 +104,27 @@ function get_total_posts($id, $type, $dbnameGlued=NULL)
 
 /**
  * Returns the most recent post in a forum, or a topic
+ * @param int    element id
+ * @param string element type (forum_id, topic_id, poster_id)
+ * @param string dbnameGlued (optionnal)
+ * return string post time
  */
 
-function get_last_post($id, $type, $dbnameGlued=NULL)
+function get_last_post($id, $type, $dbnameGlued = null)
 {
     global $l_error, $l_noposts, $l_by;
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users = $tbl_mdb_names['user'];
+    $tbl_users      = $tbl_mdb_names['user'];
     $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
-    $tbl_posts   = $tbl_cdb_names['bb_posts'];
+    $tbl_posts     = $tbl_cdb_names['bb_posts'];
 
     switch ( $type )
     {
-        case 'forum': $condition = "forum_id = '" . (int) $id . "'";
+        case 'forum': $condition = 'forum_id = '  . (int) $id;
             break;
-        case 'topic': $condition = "topic_id = '" . (int) $id . "'";
+        case 'topic': $condition = 'topic_id = '  . (int) $id;
             break;
-        case 'user' : $condition = "poster_id = '" . (int) $id . "'";
+        case 'user' : $condition = 'poster_id = ' . (int) $id;
             break;
         default :     $condition = false;
     }
@@ -143,9 +150,10 @@ function get_last_post($id, $type, $dbnameGlued=NULL)
 /**
  * Checks if a forum or a topic exists in the database. Used to prevent
  * users from simply editing the URL to post to a non-existant forum or topic
+
  */
 
-function does_exists($id, $type, $dbnameGlued=NULL)
+function does_exists($id, $type, $dbnameGlued = null)
 {
 	$tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
     $tbl_forums  = $tbl_cdb_names['bb_forums'];
@@ -179,16 +187,19 @@ function does_exists($id, $type, $dbnameGlued=NULL)
 
 /**
  * Returns the name of the forum based on ID number
+ * @param int forum id
+ * @param string dbnameGlued (optionnal)
+ * @return string forum name
  */
 
 function get_forum_name($forum_id, $dbnameGlued=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
-    $tbl_forums  = $tbl_cdb_names['bb_forums'];
+    $tbl_forums    = $tbl_cdb_names['bb_forums'];
 
 	$sql = "SELECT forum_name
 	        FROM `" . $tbl_forums . "`
-	        WHERE forum_id = '" . (int) $forum_id . "'";
+	        WHERE forum_id = " . (int) $forum_id;
 
 	$forum_name = claro_sql_query_get_single_value($sql);
 	if ($forum_name) return stripslashes($forum_name);
@@ -628,8 +639,8 @@ function delete_post($postId, $topicId, $forumId, $userId, $dbnameGlued=NULL)
 
 
     if( get_total_posts($topicId, 'topic') == 0 ) # warning $db poses 
-                                                       # problems, we have to 
-                                                       # remove it.
+                                                  # problems, we have to 
+                                                  # remove it.
     {
         $sql = "DELETE FROM `" . $tbl_topics . "` 
                 WHERE topic_id = '" . (int) $topicId . "'";
@@ -656,7 +667,7 @@ function delete_post($postId, $topicId, $forumId, $userId, $dbnameGlued=NULL)
 //        $result = claro_sql_query($sql);
 //    }
 
-    // don't understand these two lines below    
+    // don't understand these two lines below
     sync($forumId, 'forum');
     if (!$topic_removed) sync($topicId, 'topic');
 
@@ -1061,22 +1072,28 @@ function disp_forum_group_toolbar($gid)
 
 	// group space links
 
-	echo '<p><a href="../group/group_space.php?gidReq=' .(int) $gid . '">' . $langGroupSpaceLink. '</a>' 
+	echo  '<p>'
+        . '<a href="../group/group_space.php?gidReq=' .(int) $gid . '">'
+        . $langGroupSpaceLink
+        . '</a>' 
         . '&nbsp;&nbsp' 
-		. '<a href="../document/document.php?gidReq=' . (int) $gid . '">' . $langGroupDocumentsLink . '</a>'
+		. '<a href="../document/document.php?gidReq='
+        . (int) $gid . '">'
+        . $langGroupDocumentsLink
+        . '</a>'
         . '</p>' . "\n";
 
 }
 
-function private_forum($dbnameGlued=NULL)
+function private_forum($dbnameGlued = NULL)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
+    $tbl_cdb_names        = claro_sql_get_course_tbl($dbnameGlued);
     $tbl_group_properties = $tbl_cdb_names['group_property'];
 
     // Determine if Forums are private. O=public, 1=private
 
     $sql = "SELECT private 
-        FROM `" . $tbl_group_properties . "`";
+            FROM `" . $tbl_group_properties . "`";
 
     return claro_sql_query_get_single_value($sql);
 }
@@ -1106,10 +1123,10 @@ function user_is_tutor($user_id, $course_id)
     }
 
 }
-    
+
 // Determine if forum category is Groups
 
-function is_a_group_forum($forum_id, $dbnameGlued=NULL)
+function is_a_group_forum($forum_id, $dbnameGlued = NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
     $tbl_forums  = $tbl_cdb_names['bb_forums'];
@@ -1125,5 +1142,364 @@ function is_a_group_forum($forum_id, $dbnameGlued=NULL)
 }
 
 
+
+
+/**
+ * delete all post and topics from a sepcific forum
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param int - forum id
+ * @return boolean - true if it succeed, flase otherwise
+ */
+
+function delete_all_post_in_forum($forumId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
+    $tbl_forums                  = $tbl_cdb_names['bb_forums'                 ];
+    $tbl_topics                  = $tbl_cdb_names['bb_topics'                 ];
+    $tbl_posts                   = $tbl_cdb_names['bb_posts'                  ];
+    $tbl_posts_text              = $tbl_cdb_names['bb_posts_text'             ];
+    $tbl_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+
+    $sql = "SELECT post_id FROM `".$tbl_posts."`
+            WHERE forum_id = '" . (int) $forumId . "'";
+
+    $postIdList = claro_sql_query_fetch_all_cols($sql);
+    $postIdList = $postIdList['post_id'];
+
+    $sql = "SELECT topic_id FROM `".$tbl_topics."` 
+            WHERE forum_id = ".(int) $forumId;
+
+    $topicIdList = claro_sql_query_fetch_all_cols($sql);
+    $topicIdList = $postIdList['topic_id'];
+
+    if ( count($topicIdList) > 0)
+    {
+        $sql = "DELETE FROM `".$tbl_rel_topic_userstonotify."`
+                WHERE  topic_id IN (".implode(', ', topicIdList).")";
+        if (claro_sql_query($sql) == false) return false;
+    }
+
+    $sql = "DELETE FROM `".$tbl_topics."` 
+            WHERE forum_id = ".(int) $forumId;
+
+    if (claro_sql_query($sql) == false) return false;
+
+    $sql = "DELETE FROM `" . $tbl_posts . "` 
+            WHERE forum_id = " . (int) $forumId . "";
+
+    if (claro_sql_query($sql) == false) return false;
+
+    if ( count($postIdList) > 0 )
+    {
+        $sql = "DELETE FROM `".$tbl_posts_text."`
+                WHERE post_id IN (".implode(', ', $postIdList).")";
+
+        if (claro_sql_query($sql) == false) return false;
+    }
+
+    $sql = "UPDATE `".$tbl_forums."` 
+            SET  forum_topics = 0,
+                 forum_posts  = 0
+            WHERE forum_id = ".(int)$forumId;
+
+    if (claro_sql_query($sql) == false) return false;
+
+    return true;
+}
+
+function update_category_title( $catId, $catTitle )
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    if ( !empty($catTitle) )
+    {
+        $sql = "UPDATE `".$tbl_forum_categories."`
+            SET   cat_title = '". addslashes($catTitle) ."'
+            WHERE cat_id    = '".(int)$catId."'";
+        
+        if (claro_sql_query($sql) != false) return true;
+    }
+
+    return false;
+}
+
+function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_type, $cat_id)
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
+    $sql = 'UPDATE `'.$tbl_forum_forums.'`
+            SET `forum_name`     = "'. addslashes($forum_name) .'",
+                `forum_desc`     = "'. addslashes($forum_desc) .'",
+                `forum_access`   = 2,
+                `forum_moderator`= 1,
+                `cat_id`         = "' . (int)$cat_id     . '",
+                `forum_type`     = "' . $forum_type .'"
+            WHERE `forum_id` = ' . (int)$forum_id;
+
+    if (claro_sql_query($sql) != false) return true;
+    else                                return false;
+}
+
+function create_category($cat_title)
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    // Find order in the category we must give to the newly created forum
+    $sql = 'SELECT MAX(`cat_order`) FROM `'.$tbl_forum_categories.'`';
+    $result = claro_sql_query($sql);
+
+    list($orderMax) = mysql_fetch_row($result);
+    $order = $orderMax + 1;
+
+    $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
+            SET `cat_title` = "'. addslashes($cat_title) .'",
+                `cat_order` = "'.$order.'"';
+
+    if ( claro_sql_query($sql) != false) return true;
+    else                                 return false;
+}
+
+function delete_category($cat_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
+    $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
+
+    $sql = 'SELECT `forum_id` 
+            FROM `'.$tbl_forum_forums.'` 
+            WHERE `cat_id` = "'.$cat_id.'"';
+    $result = claro_sql_query($sql);
+
+    while( list($forum_id) = mysql_fetch_row($result) )
+    {
+        $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
+                WHERE `forum_id` = "'.$forum_id.'"';
+
+        claro_sql_query($sql);
+    }
+
+    $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
+            WHERE `cat_id` = "'.$cat_id.'"';
+
+    claro_sql_query($sql);
+
+    $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
+            WHERE `cat_id` = "'.$cat_id.'"';
+    claro_sql_query($sql);
+}
+
+function delete_forum($forum_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
+    $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
+
+    $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
+            WHERE `forum_id` = "'.$forum_id.'"';
+    
+    if ( claro_sql_query($sql) == false ) return false;
+
+    $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
+            WHERE `forum_id` = "'.$forum_id.'"';
+        
+    if ( claro_sql_query($sql) == false) return false;
+    else                                 return true;
+
+    // note we should also clean the topic notification table ...
+}
+
+
+
+function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
+{
+     $tbl_cdb_names    = claro_sql_get_course_tbl();
+     $tbl_forum_forums = $tbl_cdb_names['bb_forums'             ];
+
+   // find order in the category we have to give to the newly created forum
+
+    $sql = 'SELECT MAX(`forum_order`)
+            FROM `'.$tbl_forum_forums.'`
+            WHERE cat_id = "'.$cat_id.'"';
+
+    $result = claro_sql_query($sql);
+
+    list($orderMax) = mysql_fetch_row($result);
+    $order = $orderMax + 1;
+
+    // add new forum in DB
+
+    $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
+            SET forum_name  = "'. addslashes($forum_name) .'", 
+            forum_desc      = "'. addslashes($forum_desc) .'", 
+            forum_access    = 2,
+            forum_moderator = 1, 
+            cat_id          = "'. (int)$cat_id .'", 
+            forum_type      = "'. $forum_type  . '",
+            md5             ="'.md5(time()).'", 
+            forum_order    ="'. (int) $order.'"';
+
+    if ( claro_sql_query($sql) != false) return true;
+    else                                 return false;
+}
+
+function move_up_forum($forum_id, $cat_id)
+{
+    $tbl_cdb_names    = claro_sql_get_course_tbl();
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
+
+    $forum_rank = get_forum_rank($forum_id);
+
+    if ($forum_rank > 1 )
+    {
+        // previous forum +1
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET    `forum_order` = `forum_order`+1
+                WHERE  `forum_order` =  '. ($forum_rank - 1) . '
+                  AND  `cat_id` = '. $cat_id ;
+
+        if ( claro_sql_query($sql) == false ) return false;
+
+        // forum -1
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET    `forum_order` = `forum_order`-1
+                WHERE  `forum_id` =  "'.$forum_id.'"
+                  AND  `cat_id` = '. $cat_id ;
+        if ( claro_sql_query($sql) == false ) return false;
+
+        return true;
+    }
+}
+
+function move_down_forum($forum_id, $cat_id)
+{
+    $tbl_cdb_names    = claro_sql_get_course_tbl();
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
+
+    $forum_rank = get_forum_rank($forum_id);
+
+    $sql = 'SELECT MAX(f.`forum_order`) AS `max_order`
+            FROM  `'.$tbl_forum_forums.'` f
+            WHERE `cat_id` = '. $cat_id ;
+
+    $max_order = claro_sql_query_get_single_value($sql);
+
+    if ( $forum_rank < $max_order )
+    {
+        // next forum - 1
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET `forum_order` = `forum_order`-1
+                WHERE `forum_order` =  '. ($forum_rank + 1) . ' 
+                    AND `cat_id` = '. $cat_id ;
+
+        if ( claro_sql_query($sql) == false ) return false;
+
+        // forum + 1
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET `forum_order` = `forum_order`+1
+                WHERE `forum_id` =  ' . $forum_id . '
+                AND `cat_id` = ' . $cat_id ;
+
+        if ( claro_sql_query($sql) == false ) return false;
+    }
+}
+
+
+/**
+ * return the rank (order) of a forum into a category
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  int fourm id
+ * @return int forum rank (order)
+ */
+
+function get_forum_rank($forum_id)
+{
+    $tbl_cdb_names    = claro_sql_get_course_tbl();
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
+
+    $sql = 'SELECT f.`forum_order` 
+            FROM `'.$tbl_forum_forums.'` f
+            WHERE `forum_id` = ' . $forum_id ;
+
+    $forum_rank = claro_sql_query_get_single_value($sql);
+
+    return $forum_rank;
+}
+
+function get_category_rank($cat_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    $sql = 'SELECT f.`cat_order` 
+    FROM `'.$tbl_forum_categories.'` f
+    WHERE f.`cat_id` = ' . $cat_id;
+
+    $category_rank = claro_sql_query_get_single_value($sql);
+    return $category_rank;
+}
+
+function move_up_category($cat_id)
+{
+	$order = get_category_rank($cat_id);
+
+    if ($order > 1 )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+        // previous cat +1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`+1
+                WHERE `cat_order` = ' . ($order-1);
+
+        if ( claro_sql_query($sql) == false) return false;
+
+        // cat -1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`-1
+                WHERE `cat_id` = ' . $cat_id ;
+
+        if ( claro_sql_query($sql) == false) return false;
+    }
+
+    return true;
+}
+
+function move_down_category($cat_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    $order = get_category_rank($cat_id);
+
+    $sql = 'SELECT max(f.`cat_order`) as `cat_order`
+         FROM `'.$tbl_forum_categories.'` f';
+
+    $max_order = claro_sql_query_get_single_value($sql);
+    
+    if ( $order < $max_order )
+    {
+        // next cat - 1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`-1
+                WHERE `cat_order` =  '. ($order+1);
+        if ( claro_sql_query($sql) == false) return false;
+
+        // cat + 1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`+1
+                WHERE `cat_id` = '. $cat_id;
+        if ( claro_sql_query($sql) == false) return false;
+        
+    }
+
+    return true;
+}
 
 ?>
