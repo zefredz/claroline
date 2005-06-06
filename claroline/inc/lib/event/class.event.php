@@ -32,14 +32,6 @@
 //      - pass additonnal arguments to event listeners
 //      - modify event manager to use $event->type instead of $event in eventOccurs
 
-// ERROR handling constants
-define("FATAL", E_USER_ERROR );
-define("ERROR", E_USER_WARNING );
-define("WARNING", E_USER_NOTICE );
-
-// DEBUG_MODE
-define ("DEBUG_MODE", false );
-
 // ---------------------- Functions ----------------------
 
 /**
@@ -51,57 +43,20 @@ define ("DEBUG_MODE", false );
  */
 function array_size( $arry )
 {
-    if( !is_array( $arry ) )
-    return -1;
+    if ( !is_array( $arry ) )
+    {
+        return -1;
+    }
     $size = 0;
-    foreach( $arry as $value )
+    
+    foreach ( $arry as $value )
     {
         $size++;
     }
+    
     return $size;
 }
 
-/**
- * Custom Error Handler
- * @access protected
- */
-function event_error_handler( $errno, $errmsg, $errfile, $errline, $context )
-{
-    switch ($errno)
-    {
-        case FATAL:
-        echo "FATAL ERROR : $errmsg in file $errfile on line $errline\n";
-        if (defined("DEBUG_MODE" ) && DEBUG_MODE == true )
-        {
-            echo "<pre>";
-            echo "Print trace :\n\tCONTEXT :\n";
-            var_dump($context );
-            echo "</pre>";
-        }
-        exit;
-        break;
-        case ERROR:
-        echo "ERROR : $errmsg in file $errfile on line $errline\n";
-        if (defined("DEBUG_MODE" ) && DEBUG_MODE == true )
-        {
-            echo "<pre>";
-            echo "Print trace :\n\tCONTEXT :\n";
-            var_dump($context );
-            echo "</pre>";
-        }
-        break;
-        case WARNING:
-        echo "WARNING : $errmsg in file $errfile on line $errline\n";
-        if (defined("DEBUG_MODE" ) && DEBUG_MODE == true )
-        {
-            echo "<pre>";
-            echo "Print trace :\n\tCONTEXT :\n";
-            var_dump($context );
-            echo "</pre>";
-        }
-        break;
-    }
-}
 
 // ------------------- Classes ------------------------
 
@@ -130,7 +85,7 @@ class EventManager
      * @param $listener (object) reference to the event listener
      * @return (string) event listener ID
      */
-    function register( $event, & $listener )
+    function register( $event, &$listener )
     {
         if( ! isset( $this->_registry[$event] ) )
         {
@@ -164,7 +119,7 @@ class EventManager
     function eventOccurs( $event )
     {
         if ( is_array( $this->_registry[$event->getEventType()] )
-        && array_size( $this->_registry[$event->getEventType()] ) != 0 )
+            && array_size( $this->_registry[$event->getEventType()] ) != 0 )
         {
             foreach( $this->_registry[$event->getEventType()] as $listener )
             {
@@ -175,7 +130,7 @@ class EventManager
         else
         {
             $errmsg = __CLASS__ . "{no listener found for EVENT[".$event->getEventType()."]}";
-            trigger_error( $errmsg, ERROR );
+            trigger_error( $errmsg, E_USER_ERROR );
         }
     }
 
@@ -276,9 +231,9 @@ class EventGenerator
         * @access public
         * @param $registry (object) reference to an event manager
         */
-    function EventGenerator(& $registry)
+    function EventGenerator( &$registry )
     {
-        $this->_registry = & $registry;
+        $this->_registry =& $registry;
     }
 
     /**
@@ -349,9 +304,9 @@ class EventDriven
      * @access public
      * @param $registry (object) reference to the event manager
      */
-    function EventDriven( & $registry )
+    function EventDriven( &$registry )
     {
-        $this->_registry = & $registry;
+        $this->_registry =& $registry;
         $this->_listeners = array();
     }
 
@@ -381,7 +336,7 @@ class EventDriven
         unset( $this->_listeners[$event][$id] );
         $this->_registry->unregister($event, $id);
         if( is_array( $this->_listeners[$event] )
-        && array_size( $this->_listeners[$event] ) == 0 )
+            && array_size( $this->_listeners[$event] ) == 0 )
         {
             unset( $this->_listeners[$event] );
         }
@@ -441,90 +396,87 @@ class Event
 
 // ---------------------- Test Class --------------------
 
-class MyEventDrivenObject extends EventDriven
-{
-    function MyEventDrivenObject( & $registry )
+    class MyEventDrivenObject extends EventDriven
     {
-        parent::EventDriven( $registry );
+        function MyEventDrivenObject( &$registry )
+        {
+            parent::EventDriven( $registry );
+        }
+
+        function onHelloEventCallMe( )
+        {
+            echo "Hello World\n";
+        }
+
+        function onHelloEventCallMe2( )
+        {
+            echo "Hello World 2\n";
+        }
+
+        function onAnotherEventCallMe( )
+        {
+            echo "another event occurs\n";
+        }
+
+        function main( )
+        {
+            echo "> creating objects...\n";
+            $registry = new EventManager( );
+            $edo = new MyEventDrivenObject( $registry );
+            $em = new EventGenerator( $registry );
+            echo "> done\n\n";
+
+            echo "> registrering listeners\n";
+            $id1 = $edo->addListener( 'onHelloEventCallMe', "hello" );
+            $id2 = $edo->addListener( 'onAnotherEventCallMe', "another" );
+            echo "> done\n\n";
+
+            echo "> sending events\n";
+            $em->sendEvent( new Event("hello") );
+            $em->sendEvent( new Event("another") );
+            echo "> done\n\n";
+
+            echo "> lists\n";
+            echo "* registry:\n";
+            $registry->listRegisteredListeners( );
+            echo "* listeners\n";
+            $edo->listListeners( );
+            echo "> done\n\n";
+
+            echo "> registrering another hello listener\n";
+            $id3 = $edo->addListener( 'onHelloEventCallMe2', "hello" );
+            echo "> done\n\n";
+
+            echo "> lists\n";
+            echo "* registry:\n";
+            $registry->listRegisteredListeners( );
+            echo "* listeners\n";
+            $edo->listListeners( );
+            echo "> done\n\n";
+
+            echo "> sending events\n";
+            $em->sendEvent( new Event("hello") );
+            $em->sendEvent( new Event("another") );
+            echo "> done\n\n";
+
+            echo "> unregistrering another and second hello listener\n";
+            $edo->removeListener( "another", $id2 );
+            $edo->removeListener( "hello", $id3 );
+            echo "> done\n\n";
+
+            echo "> lists\n";
+            echo "* registry:\n";
+            $registry->listRegisteredListeners( );
+            echo "* listeners\n";
+            $edo->listListeners( );
+            echo "> done\n\n";
+
+            echo "> sending events\n";
+            $em->sendEvent( new Event("hello") );
+            $em->sendEvent( new Event("another") );
+            echo "> done\n";
+        }
     }
-
-    function onHelloEventCallMe()
-    {
-        echo "Hello World\n";
-    }
-
-    function onHelloEventCallMe2()
-    {
-        echo "Hello World 2\n";
-    }
-
-    function onAnotherEventCallMe()
-    {
-        echo "another event occurs\n";
-    }
-
-    function main()
-    {
-        $old_error_handler = set_error_handler( 'event_error_handler' );
-        echo "> creating objects...\n";
-        $registry = new EventManager();
-        $edo = new MyEventDrivenObject( $registry );
-        $em = new EventGenerator( $registry );
-        echo "> done\n\n";
-
-        echo "> registrering listeners\n";
-        $id1 = $edo->addListener( 'onHelloEventCallMe', "hello" );
-        $id2 = $edo->addListener( 'onAnotherEventCallMe', "another");
-        echo "> done\n\n";
-
-        echo "> sending events\n";
-        $em->sendEvent("hello");
-        $em->sendEvent("another");
-        echo "> done\n\n";
-
-        echo "> lists\n";
-        echo "* registry:\n";
-        $registry->listRegisteredListeners();
-        echo "* listeners\n";
-        $edo->listListeners();
-        echo "> done\n\n";
-
-        echo "> registrering another hello listener\n";
-        $id3 = $edo->addListener( 'onHelloEventCallMe2', "hello" );
-        echo "> done\n\n";
-
-        echo "> lists\n";
-        echo "* registry:\n";
-        $registry->listRegisteredListeners();
-        echo "* listeners\n";
-        $edo->listListeners();
-        echo "> done\n\n";
-
-        echo "> sending events\n";
-        $em->sendEvent("hello");
-        $em->sendEvent("another");
-        echo "> done\n\n";
-
-        echo "> unregistrering another and second hello listener\n";
-        $edo->removeListener("another", $id2);
-        $edo->removeListener("hello", $id3);
-        echo "> done\n\n";
-
-        echo "> lists\n";
-        echo "* registry:\n";
-        $registry->listRegisteredListeners();
-        echo "* listeners\n";
-        $edo->listListeners();
-        echo "> done\n\n";
-
-        echo "> sending events\n";
-        $em->sendEvent("hello");
-        $em->sendEvent("another");
-        echo "> done\n";
-
-        restore_error_handler( $old_error_handler );
-    }
-}
 
 // -------------------- Run Test ---------------------
 
