@@ -30,7 +30,6 @@ if ( !$is_platformAdmin ) claro_disp_auth_form();
 include $includePath.'/conf/user_profile.conf.php';
 
 // Include libraries
-include $includePath.'/lib/auth.lib.inc.php';
 include $includePath.'/lib/user.lib.php';
 
 // Initialise variables
@@ -78,83 +77,13 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     if ( isset($_REQUEST['is_admin']) )      $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];
 
-    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+    // validate forum params
 
-
-    // Check there are no empty fields
-    if (     empty($user_data['lastname']) 
-        ||   empty($user_data['firstname'])
-        ||   empty($user_data['username'])
-        || ( empty($user_data['officialCode']) && ! $userOfficialCodeCanBeEmpty )
-        || ( empty($user_data['email'] ) && ! $userMailCanBeEmpty) )
-    {
-        $error = true;
-        $messageList[] =  $langFields;
-    }
-
-    // check if the two password are identical
-    if ( empty($user_data['password']) && empty($user_data['password_conf']) )
-    {
-        $new_password = false;
-    }
-    elseif ( $user_data['password'] != $user_data['password_conf'] )
-    {
-        $error = true;
-        $new_password = false;
-        $passwordOK   = false;
-        $messageList[] = $langPassTwice.'<br>';
-    }
-    else
-    {
-        $new_password  = true;
-        $passwordOK    = true;
-    }
-
-    // Check if password isn't too easy
-    if ( $new_password && $passwordOK && SECURE_PASSWORD_REQUIRED )
-    {
-        if ( is_password_secure_enough($user_data['password'],
-                                       array($user_data['username'],
-                                             $user_data['officialCode'], 
-                                             $user_data['lastname'], 
-                                             $user_data['firstname'], 
-                                             $user_data['email'])) )
-        {
-            $passwordOK = true;
-        }
-        else
-        {
-            $passwordOK    = false;
-            $messageList[] =  $langPassTooEasy." :\n"
-                            ."<code>".substr( md5( date('Bis').$_SERVER['HTTP_REFFERER'] ), 0, 8 )."</code>\n";
-        }       
-    }
-
-    // check email address validity
-    $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
-
-    if ( ! empty($user_data['email']) && ! eregi($emailRegex, $user_data['email']) )
-    {
-        $error = true;
-        $messageList[] = $langEmailWrong;
-    }
+    $messageList = user_validate_form_profile($user_data, $_uid);
     
-    // check if the username is already owned by another user
-    $sql = 'SELECT COUNT(*) `loginNameCount`
-            FROM `'.$tbl_user.'`
-            WHERE `username` =  "' . addslashes($user_data['username']) . '"
-              AND `user_id`  <> "' . $user_id . '"';
-
-    list($result) = claro_sql_query_fetch_all($sql);
-
-    if ( $result['loginNameCount'] > 0 )
+    if ( count($messageList) == 0 )
     {
-        $error = true;
-        $messageList[] = $langUserTaken;
-    }
 
-    if ( ! $error )
-    {
         // if no error update use setting 
         user_update ($user_id, $user_data); 
 
@@ -179,6 +108,11 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         }
 
         $messageList[] = $langAppliedChange;
+    }
+    else
+    {
+        // user validate form return error messages 
+        $error = true;
     }
 
 } // if apply changes
