@@ -130,11 +130,11 @@ if($is_allowedToEdit) // check teacher status
          */
         if ( $cmd == 'exMvDown' )
         {
-            moveEntry($id,'DOWN');
+            move_entry($id,'DOWN');
         }
         if ( $cmd == 'exMvUp' )
         {
-            moveEntry($id,'UP');
+            move_entry($id,'UP');
         }
 
 

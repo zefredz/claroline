@@ -192,7 +192,7 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
 }
 
 /**
- * function moveEntry($entryId,$cmd)
+ * function move_entry($entryId,$cmd)
  *
  * @author Christophe Gesché <moosh@claroline.net>
  * @param $entryId     integer     an valid id of announcement.
@@ -200,7 +200,7 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
  * @return true;
  *
  */
-function moveEntry($item_id, $cmd, $course_id=NULL)
+function move_entry($item_id, $cmd, $course_id=NULL)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
