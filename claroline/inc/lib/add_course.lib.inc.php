@@ -300,7 +300,7 @@ function prepare_course_repository($courseRepository, $courseId)
  * @version 1.0
  */
 
-function update_Db_course($courseDbName)
+function update_db_course($courseDbName)
 {
     global $singleDbEnabled, $courseTablePrefix, $dbGlu;
 

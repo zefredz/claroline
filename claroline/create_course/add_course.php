@@ -175,7 +175,7 @@ else
 			//function prepare_course_repository($courseRepository, $courseId)
 
 			prepare_course_repository($currentCourseRepository,$currentCourseId);
-			update_Db_course($currentCourseDbName);
+			update_db_course($currentCourseDbName);
 			fill_course_repository($currentCourseRepository);
 
 			// function 	fill_db_course($courseDbName,$courseRepository)

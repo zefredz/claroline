@@ -197,7 +197,7 @@ if ($cmd == 'exFill')
         $currentCourseRepository,
         $currentCourseId
         );
-        update_Db_course(
+        update_db_course(
         $currentCourseDbName
         );
         fill_course_repository(
