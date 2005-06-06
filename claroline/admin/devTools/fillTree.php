@@ -33,9 +33,9 @@ echo "INSERT INTO `faculte`
 			`code_P`	= NULL ,
 			`name` 		= 'test tree root'	;<br>" ;
 
-createChilds($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep);
+create_childs($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep);
 
-function createChilds($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep)
+function create_childs($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep)
 {
 	GLOBAL $number;
 	//echo "#DEEP :".$deep."<br>";
@@ -44,15 +44,15 @@ function createChilds($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep)
 	if ($deep > 0)
 	for ($i=1;$i<=(rand($largeurMin,$largeurMax));$i++)
 	{
-		$nom = 	$nom_P.$nomSep.$i;
-		$code =	$code_P.$catSep.$i;
+		$nom  = $nom_P . $nomSep . $i;
+		$code =	$code_P . $catSep . $i;
 		//echo "# ".$nom." * ".$code."<br>";
 		echo "INSERT INTO `faculte`
 		SET
-			`code`		= '".$code."' ,
-			`code_P`	= '".$code_P."' ,
-			`name` 		= '".$nom."'	;<br>" ;
-		createChilds(rand(0,$largeurMin),rand($largeurMin,$largeurMax),$deep-rand(1,3),$nom,$nomSep,$code,$catSep);
+			`code`		= '" . $code . "' ,
+			`code_P`	= '" . $code_P . "' ,
+			`name` 		= '" . $nom . "';<br>" ;
+		create_childs(rand(0,$largeurMin), rand($largeurMin,$largeurMax), $deep-rand(1,3), $nom, $nomSep, $code, $catSep);
 	}
 	return true;
 }
