@@ -31,13 +31,12 @@ if (!$is_allowedToAdmin) claro_disp_auth_form();
 include($includePath.'/conf/user_profile.conf.php');
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/user.lib.php');
-include($includePath.'/lib/auth.lib.inc.php');
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
 // Initialise variables
 $nameTools = $langAddUser;
 $error = false;
-$message = '';
+$messageList = array();
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -67,70 +66,22 @@ if ( $cmd == 'registration' )
     if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
 
-    // check if there are no empty fields
+    // validate forum params
 
-    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+    $messageList = user_validate_form_registration($user_data);
 
-    if (  empty($user_data['lastname'] )       || empty($user_data['firstname'] ) 
-        || empty($user_data['password_conf'] ) || empty($user_data['password'] )
-        || empty($user_data['username'] )      || (empty($user_data['email'] ) && !$userMailCanBeEmpty) )
-    {
-        $error = true;
-        $message .= '<p>' . $langEmptyFields . '</p>' . "\n";
-    }
-    
-    // check if the two password are identical
-    elseif ( $user_data['password_conf']  != $user_data['password']  )
-    {
-        $error = true;
-        $message .= '<p>' . $langPassTwice . '</p>' . "\n";
-    }
-
-    // check if password isn't too easy
-    elseif ( $user_data['password'] 
-             && SECURE_PASSWORD_REQUIRED
-             && ! is_password_secure_enough($user_data['password'],
-                  array( $user_data['username'] , 
-                         $user_data['officialCode'] , 
-                         $user_data['lastname'] , 
-                         $user_data['firstname'] , 
-                         $user_data['email'] )) )
-    {
-        $error = true;
-        $message .= '<p>' . $langPassTooEasy . ' <code>' . substr(md5(date('Bis').$_SERVER['HTTP_REFERER']),0,8) . '</code></p>' . "\n";
-    }
-
-    // check email address validity
-    elseif ( !empty($user_data['email'] ) && ! eregi($regexp,$user_data['email'] ) )
-    {
-        $error = true;
-        $message .= '<p>' . $langEmailWrong . '</p>' . "\n" ;
-    }
-
-    // check if the username is already owned by another user
-    else
-    {
-        $sql = 'SELECT COUNT(*) `loginCount`
-                FROM `'.$tbl_user.'` 
-                WHERE username="' . addslashes($user_data['username'] ) . '"';
-
-        list($result) = claro_sql_query_fetch_all($sql);
-
-        if ( $result['loginCount'] > 0 )
-        {
-            $error = true;
-            $message .= '<p>' . $langUserTaken . '</p>' . "\n";
-        }
-
-    }
-
-    if ( $error == false )
+    if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
         $inserted_uid = user_insert($user_data);
         
         // send a mail to the user
         user_send_registration_mail($inserted_uid,$user_data);
+    }
+    else
+    {
+        // user validate form return error messages
+        $error = true;
     }
 }
 
@@ -142,9 +93,11 @@ $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $noQUERY_STRING   = TRUE;
 
 // Display Header
+
 include($includePath."/claro_init_header.inc.php");
 
 // Display title
+
 claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
 
 if ( $cmd == 'registration' && $error == false )
@@ -158,18 +111,20 @@ if ( $cmd == 'registration' && $error == false )
         . '</ul>';
 }
 else
-{
-    if ( $error ) 
+{    
+    //  if registration failed display error message
+
+    if ( count($messageList) > 0 ) 
     {
-        claro_disp_message_box($message);
+        claro_disp_message_box( implode('<br />', $messageList) );
     }
     
     echo $langAddUserOneByOne;
 
     user_display_form_admin_add_new_user($user_data);
-
 }
 
 // Display footer
+
 include($includePath."/claro_init_footer.inc.php");
 ?>
