@@ -1,10 +1,12 @@
 <?php // $Id$
 /** 
- * @version Claroline 1.6
+ * Claroline 
+ *
+ * This  tool comput the disk Usage of each course.
+ * @version 1.7 $Revision$
  * @license GLP
  * @author  Christophe Gesché <moosh@claroline.net>
  * @package maintenance
- * This  tool comput the disk Usage of each course.
  *
  */
 
@@ -13,50 +15,53 @@ require '../../inc/claro_init_global.inc.php';
 $is_allowedToAdmin = $is_platformAdmin;
 if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 
-@include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
+@include($includePath . '/lib/debug.lib.inc.php');
+include($includePath . '/lib/fileManage.lib.php');
 
 $tbl_cdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_cdb_names['course'];
 
 $nameTools = $langDiskUsage;
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => $langTechAdmin);
 
 $dateNow = claro_disp_localised_date($dateTimeFormatLong);
 
-include($includePath."/claro_init_header.inc.php");
+include( $includePath . '/claro_init_header.inc.php' );
 
 claro_disp_tool_title(
     array(
-    'mainTitle'=>$nameTools,
-    'subTitle'=> $siteName
+    'mainTitle' => $nameTools,
+    'subTitle'  => $siteName
     )
 );
 
-echo $langCourse_Repository." : ".$coursesRepositorySys."<br>".$langMysql_Repository." : ".($mysqlRepositorySys?$mysqlRepositorySys:"!!! ".$langMissing)."<br>";
+echo $langCourse_Repository . ' : ' . $coursesRepositorySys . '<br>' . $langMysql_Repository . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . $langMissing) . '<br>';
 
 ?>
 <ul>
 <?php
 if ($display_all_size_of_clarolineRepositorySys )
-    echo "
-    <li>
-        Claroline : ",sprintf("%01.2f", disk_usage($clarolineRepositorySys,"","m"))." ".$byteUnits[2]."
-    </li>";
+    echo '<li>'
+    .    'Claroline : ' 
+    .    sprintf('%01.2f', disk_usage($clarolineRepositorySys,'','m')) . ' ' . $byteUnits[2]
+    .    '</li>'
+    ;
 
 if ($display_all_size_of_Total_Courses)
-    echo "
-    <li>
-        ".$langCourses." : ",sprintf("%01.2f", disk_usage($coursesRepositorySys, $mysqlRepositorySys, "m"))." ".$byteUnits[2]."
-        (".$langPerhaps_with_others_directory.")
-    </li>";
+    echo '<li>'
+    .    $langCourses . ' : '
+    .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
+    .    '(' . $langPerhaps_with_others_directory . ')</li>'
+    ;
 if ($display_all_size_of_garbageRepositorySys )
-    echo "
-    <li>
-        ".$langGarbage." :  ",sprintf("%01.2f", disk_usage($garbageRepositorySys,"","m"))." ".$byteUnits[2]."
-    </li>";
+    echo '<li>'
+    .    $langGarbage
+    .    ' :  '
+    .    sprintf('%01.2f', disk_usage($garbageRepositorySys,'','m')) . ' ' . $byteUnits[2]
+    .    '</li>'
+    ;
 ?>
 <li>
 <hr>
@@ -113,7 +118,7 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
         {
             $duFiles = disk_usage($coursesRepositorySys.$course["dir"]."/","","k");
             $duBase  = disk_usage($mysqlRepositorySys.$course["db"]."/","","k");
-//            $duBase  = getdbsize($course["db"],k);
+//            $duBase  = get_db_size($course["db"],k);
             
             $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
             $quota   = $course['diskQuota'] * 1; 
@@ -158,7 +163,7 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
         case 'Linux' :
             $usedspace = (int)`du -sc$precision $dirFiles`;
             $usedspace += (int)`du -sc$precision $dirBase`;
-//            $usedspace += (int) getdbsize($course["db"],k);
+//            $usedspace += (int) get_db_size($course["db"],k);
 
             break;
         //case "WIN32" : // no  optimazing found  for  WIN32, use  long version
@@ -176,7 +181,7 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
     return $usedspace;
 }
 
-function getdbsize($tdb)
+function get_db_size($tdb)
 {
     global $dbHost,$dbLogin,$dbPass;
     $db = mysql_connect($dbHost, $dbLogin, $dbPass) or die ("Error connecting to MySQL Server!\n");
