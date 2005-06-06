@@ -3,12 +3,13 @@
  * CLAROLINE 
  *
  * Set value to detect if script set version is same than upgrade state
+ *
  * @var $version_file_cvs contain the version of script set 
  *                        (kernel sctructure, document structure, config value, ...)
  * @var $version_db_cvs   contain the version of script set 
  *                        (different from _file_ because some time there is nothing to change in db)
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -30,8 +31,8 @@ $version_db_cvs   = '1.7.alpha';
 
 if (!$is_upgrade_available)
 {
-	$version_file_cvs = $version_file_cvs .".[unstable:".date("yzBs")."]";
-	$version_db_cvs	  = $version_db_cvs .".[unstable:".date("yzBs")."]";
+    $version_file_cvs = $version_file_cvs . '.[unstable:' . date('yzBs') . ']';
+    $version_db_cvs   = $version_db_cvs . '.[unstable:' . date('yzBs') . ']';
 }
 
 ?>
