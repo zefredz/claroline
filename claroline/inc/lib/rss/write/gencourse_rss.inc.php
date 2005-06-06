@@ -68,7 +68,7 @@ $data['channel'] = array(
             'pubDate'        => date("r")
     );
 
-$eventRssList = CLCAL_get_rss_item_list();
+$eventRssList = agenda_get_rss_item_list();
 $announcementRssList = announcement_get_rss_item_list();
 $data['channel'] = array_merge($data['channel'], $eventRssList, $announcementRssList );
 
@@ -81,7 +81,7 @@ if ($serializer->serialize($data))
     fclose($fprss);
 }
 
-function CLCAL_get_rss_item_list( $course_id=NULL)
+function agenda_get_rss_item_list( $course_id=NULL)
 {
     GLOBAL $platform_id, $clarolineRepositoryWeb, $_cid, $_course;
     $eventList        = agenda_get_item_list('ASC', $course_id);
@@ -89,8 +89,8 @@ function CLCAL_get_rss_item_list( $course_id=NULL)
     {   
         $eventRssList[] = array( 'title' => $eventItem['title']
                           , 'category' => $toolNameList[str_pad('CLCAL',8,'_')]
-                          , 'guid' => $clarolineRepositoryWeb.'calendar/agenda.php?cidReq='.$_cid.'&amp;l#event'.$eventItem['id']
-                          , 'link' => $clarolineRepositoryWeb.'calendar/agenda.php?cidReq='.$_cid.'&amp;l#event'.$eventItem['id']
+                          , 'guid' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
+                          , 'link' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
                           , 'description' => str_replace('<!-- content: html -->','',$eventItem['content'])
                           , 'pubDate' => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
                           //, 'author' => $_course['email']
