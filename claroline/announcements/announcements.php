@@ -42,7 +42,6 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-
 /*
 * Originally written  by Thomas Depraetere <depraetere@ipm.ucl.ac.be> 15 January 2002.
 * Partially rewritten by Hugues Peeters <peeters@ipm.ucl.ac.be> 19 April 2002.
@@ -361,7 +360,7 @@ if($displayList)
 {
     // list
     $announcementList = announcement_get_item_list();
-    $bottomAnnouncement = $announcementNumber = count($announcementList);
+    $bottomAnnouncement = $announcementQty = count($announcementList);
     //stats
 }
 
@@ -401,23 +400,33 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 
 if ( $displayButtonLine )
 {
-    echo '<p>'."\n"
+    echo '<p>' . "\n"
     .    '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
     .    '<img src="'.$imgRepositoryWeb.'announcement.gif">'
     .    $langAddAnn
-    .    '</a>'
-    .    ' | '
+    .    '</a>' . "\n"
+    .    ' | ' . "\n"
     .    '<a class="claroCmd" href="messages.php">'
     .    '<img src="'.$imgRepositoryWeb.'email.gif">'
     .    $langMessageToSelectedUsers
-    .    '</a>'
-    .    ' | '
-    .    '<a class="'.(($announcementNumber > 0 )?'claroCmd':'claroCmdDisabled').'" href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll" '
-    .    ' onclick="if (confirm(\''.clean_str_for_javascript($langEmptyAnn).' ?\')){return true;}else{return false;}">'
-    .    '<img src="'.$imgRepositoryWeb.'delete.gif" />'
-    .    $langEmptyAnn
-    .    '</a>'
-    .    '</p>'."\n";
+    .    '</a>' . "\n"
+    .    ' | ' . "\n";
+    if (($announcementQty > 0 ))
+    {   
+        echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
+        .    ' onclick="if (confirm(\'' . clean_str_for_javascript($langEmptyAnn) . ' ?\')){return true;}else{return false;}">'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" />'
+        .    $langEmptyAnn
+        .    '</a>' . "\n";
+    }
+    else
+    {   
+        echo '<span class="claroCmdDislabed" >'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" />'
+        .    $langEmptyAnn
+        .    '</span>' . "\n";
+    }
+    echo '</p>' . "\n";
 }
 
 
@@ -497,7 +506,7 @@ if ($displayList)
 {
     $iterator = 1;
 
-    if ($announcementNumber < 1)
+    if ($announcementQty < 1)
     {
         echo '<br><blockquote><p>' . $langNoAnnouncement . '<p></blockquote>' . "\n";
     }
