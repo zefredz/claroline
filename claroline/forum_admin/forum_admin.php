@@ -104,17 +104,8 @@ else                           $cmd = '';
 
 if ( !empty($cat_id) && !empty($forum_id) && ( $cmd == 'exMovedown' || $cmd == 'exMoveup' ) )
 {
-    $order = get_forum_rank($forum_id);
-
-    if ( $cmd == 'exMoveup')
-    {
-        move_up_forum($forum_id, $cat_id);
-    }
-
-    if ( $cmd == 'exMovedown' )
-    {
-        move_down_forum($forum_id, $cat_id);
-    }
+    if ( $cmd == 'exMoveup'   ) move_up_forum($forum_id, $cat_id);
+    if ( $cmd == 'exMovedown' ) move_down_forum($forum_id, $cat_id);
 }
 
 /*---------------------------------------------------------------------
@@ -123,49 +114,8 @@ if ( !empty($cat_id) && !empty($forum_id) && ( $cmd == 'exMovedown' || $cmd == '
 
 if ( !empty($cat_id) && $cmd == 'exMovedownCat' || $cmd == 'exMoveupCat' )
 {
-    $sql = 'SELECT f.`cat_order` 
-            FROM `'.$tbl_forum_categories.'` f
-            WHERE f.`cat_id` = ' . $cat_id;
-
-    $order = claro_sql_query_get_single_value($sql);
-
-    if ( $cmd == 'exMoveupCat' && $order>1 )
-    {
-        // previous cat +1
-        $sql = 'UPDATE `'.$tbl_forum_categories.'`
-                SET `cat_order` = `cat_order`+1
-                WHERE `cat_order` = ' . ($order-1);
-        claro_sql_query($sql);
-
-        // cat -1
-        $sql = 'UPDATE `'.$tbl_forum_categories.'`
-                SET `cat_order` = `cat_order`-1
-                WHERE `cat_id` = ' . $cat_id ;
-        claro_sql_query($sql);
-        
-    }
-    
-    if ( $cmd == 'exMovedownCat' )
-    {
-         $sql = 'SELECT max(f.`cat_order`) as `cat_order`
-                 FROM `'.$tbl_forum_categories.'` f';
-         $max_order = claro_sql_query_get_single_value($sql);
-    
-        if ( $order<$max_order )
-        {
-            // next cat - 1
-            $sql = 'UPDATE `'.$tbl_forum_categories.'`
-                    SET `cat_order` = `cat_order`-1
-                    WHERE `cat_order` =  '. ($order+1);
-            claro_sql_query($sql);
-    
-            // cat + 1
-            $sql = 'UPDATE `'.$tbl_forum_categories.'`
-                    SET `cat_order` = `cat_order`+1
-                    WHERE `cat_id` = '. $cat_id;
-            claro_sql_query($sql);
-        }
-    }
+    if ( $cmd == 'exMoveupCat'   ) move_up_category($cat_id);
+    if ( $cmd == 'exMovedownCat' ) move_down_category($cat_id);
 }
 
 /*---------------------------------------------------------------------
@@ -1070,4 +1020,78 @@ function get_forum_rank($forum_id)
 
     return $forum_rank;
 }
+
+function get_category_rank($cat_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    $sql = 'SELECT f.`cat_order` 
+    FROM `'.$tbl_forum_categories.'` f
+    WHERE f.`cat_id` = ' . $cat_id;
+
+    $category_rank = claro_sql_query_get_single_value($sql);
+    return $category_rank;
+}
+
+function move_up_category($cat_id)
+{
+	$order = get_category_rank($cat_id);
+
+    if ($order > 1 )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+        // previous cat +1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`+1
+                WHERE `cat_order` = ' . ($order-1);
+
+        if ( claro_sql_query($sql) == false) return false;
+
+        // cat -1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`-1
+                WHERE `cat_id` = ' . $cat_id ;
+
+        if ( claro_sql_query($sql) == false) return false;
+    }
+
+    return true;
+}
+
+function move_down_category($cat_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+
+    $order = get_category_rank($cat_id);
+
+    $sql = 'SELECT max(f.`cat_order`) as `cat_order`
+         FROM `'.$tbl_forum_categories.'` f';
+
+    $max_order = claro_sql_query_get_single_value($sql);
+    
+    if ( $order < $max_order )
+    {
+        // next cat - 1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`-1
+                WHERE `cat_order` =  '. ($order+1);
+        if ( claro_sql_query($sql) == false) return false;
+
+        // cat + 1
+        $sql = 'UPDATE `'.$tbl_forum_categories.'`
+                SET `cat_order` = `cat_order`+1
+                WHERE `cat_id` = '. $cat_id;
+        if ( claro_sql_query($sql) == false) return false;
+        
+    }
+
+    return true;
+}
+
+
+
 ?>
