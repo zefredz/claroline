@@ -426,6 +426,304 @@ function user_send_registration_mail ($user_id, $data)
 }
 
 /**
+ * validate form registration
+ *
+ * @param $data array from the form
+ *
+ * @return array with error messages
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_validate_form_registration($data)
+{
+    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice;
+
+    $messageList = array();
+
+    // required fields
+    if ( empty($data['lastname']) 
+        || empty($data['firstname']) 
+        || empty($data['password_conf'])
+        || empty($data['password'])
+        || empty($data['username'])
+        || ( empty($data['officialCode']) && ! $userOfficialCodeCanBeEmpty )
+        || ( empty($data['email'] ) && !$userMailCanBeEmpty )
+       )
+    {
+        $error = true;
+        $messageList[] = $langEmptyFields;
+    } 
+    
+    // check if official code is available
+    if ( !empty($data['officialCode']) )
+    {
+        if ( ! is_official_code_available($data['officialCode']) )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+    
+    // check if username is available
+    if ( !empty($data['username']) )
+    {
+        if ( ! is_username_available($data['username']) )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+
+    // check if the two password are identical 
+    if ( $data['password_conf']  != $data['password']  )
+    {
+        $error = true;
+        $messageList[] = $langPassTwice ;
+    }
+
+    // check if password isn't too easy
+    if ( !empty($data['password']) && SECURE_PASSWORD_REQUIRED )
+    {
+        if ( ! is_password_secure_enough( $data['password'],
+                                          array( $data['username'] , 
+                                                 $data['officialCode'] , 
+                                                 $data['lastname'] , 
+                                                 $data['firstname'] , 
+                                                 $data['email'] ))
+            )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+
+    // check email validity
+    if ( !empty($data['email']) )
+    {
+        if ( ! is_valid_email($data['email']) )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+
+    return $messageList;
+
+}
+
+/**
+ * validate form profile
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_validate_form_profile($data,$user_id)
+{
+    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice;
+
+    $messageList = array();
+    
+    // required fields
+    if ( empty($data['lastname']) 
+        || empty($data['firstname']) 
+        || empty($data['username'])
+        || ( empty($data['officialCode']) && ! $userOfficialCodeCanBeEmpty )
+        || ( empty($data['email'] ) && !$userMailCanBeEmpty )
+       )
+    {
+        $error = true;
+        $messageList[] = $langEmptyFields;
+    } 
+    
+    // check if official code is available
+    if ( !empty($data['officialCode']) )
+    {
+        if ( ! is_official_code_available($data['officialCode'],$user_id) )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+    
+    // check if username is available
+    if ( !empty($data['username']) )
+    {
+        if ( ! is_username_available($data['username'],$user_id) )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+
+    // check if the two password are identical 
+    if ( $data['password_conf'] != $data['password']  )
+    {
+        $error = true;
+        $messageList[] = $langPassTwice ;
+    }
+    else
+    {
+        // check if password isn't too easy
+        if ( !empty($data['password']) && SECURE_PASSWORD_REQUIRED )
+        {
+            if ( ! is_password_secure_enough( $data['password'],
+                                              array( $data['username'] , 
+                                                     $data['officialCode'] , 
+                                                     $data['lastname'] , 
+                                                     $data['firstname'] , 
+                                                     $data['email'] ))
+                )
+            {
+                $error = true;
+                $messageList[] = claro_failure::get_last_failure();
+            }
+        }
+    }
+
+    // check email validity
+    if ( !empty($data['email']) )
+    {
+        if ( ! is_valid_email($data['email']) )
+        {
+            $error = true;
+            $messageList[] = claro_failure::get_last_failure();
+        }
+    }
+
+    return $messageList;
+
+}
+
+/**
+ * Check if the password chosen by the user is not too much easy to find
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string requested password
+ * @param array list of other values of the form we wnt to check the password
+ *
+ * @return boolean true if not too much easy to find
+ *
+ */
+
+function is_password_secure_enough($requestedPassword, $forbiddenValueList)
+{
+    global $langPassTooEasy;
+
+    foreach ( $forbiddenValueList as $thisValue )
+    {
+        if ( strtoupper($requestedPassword) == strtoupper($thisValue) )
+        {
+            return claro_failure::set_failure($langPassTooEasy);
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Check if the email is valid
+ *
+ * @param string email
+ *
+ * @return boolean
+ */
+
+function is_valid_email($email)
+{
+    global $langEmailWrong;
+
+    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+
+    if ( eregi($regexp,$email) )
+    {
+        return true;
+    }
+    else
+    {
+        return claro_failure::set_failure($langEmailWrong);
+    }
+}
+
+/**
+ * Check if the username is available
+ *
+ * @param string username
+ * @param integer user_id
+ *
+ * @return boolean
+ */
+
+function is_username_available($username,$user_id=null)
+{
+    global $langUserTaken;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user = $tbl_mdb_names['user'];
+
+    $sql = "SELECT COUNT(*) `loginCount`
+            FROM `" . $tbl_user . "` 
+            WHERE username='" . addslashes($username) . "' ";
+    
+    if ( !empty($user_id) )
+    {
+        $sql .= " AND user_id <> "  . (int) $user_id ; 
+    }
+
+    list($result) = claro_sql_query_fetch_all($sql);
+
+    if ( $result['loginCount'] == 0 )
+    {
+        return true;
+    }
+    else
+    {
+        return claro_failure::set_failure($langUserTaken);
+    }
+}
+
+/**
+ * Check if the official code is available
+ *
+ * @param string official code
+ * @param integer user_id
+ *
+ * @return boolean
+ */
+
+function is_official_code_available($official_code,$user_id=null)
+{
+    global $langCodeUsed;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user = $tbl_mdb_names['user'];
+   
+    $sql = "SELECT COUNT(*) `officialCodeCount`
+            FROM `" . $tbl_user . "` 
+            WHERE officialCode='" . addslashes($official_code) . "' ";
+
+    if ( !empty($user_id) )
+    {
+        $sql .= " AND user_id <> "  . (int) $user_id ; 
+    }
+                
+    list($result) = claro_sql_query_fetch_all($sql);
+
+    if ( $result['officialCodeCount'] == 0 )
+    {
+        return true;
+    }
+    else
+    {
+        return claro_failure::set_failure($langCodeUsed);
+    }
+}
+
+/**
  * Display user form registration
  *
  * @param $data array to fill the form
