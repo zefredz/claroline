@@ -73,13 +73,27 @@
         		{
         			$_SESSION['claro_linker_current'] = $crlSource;
         			$_SESSION['AttachmentList'] = array();
+        			$_SESSION['AttachmentList']['crl'] = array();
+                    $_SESSION['AttachmentList']['title'] = array();
         			$_SESSION['servAdd'] = array();
         			$_SESSION['servDel'] = array();	
         		}	
         	}
         	$_SESSION['claro_linker_current'] = $crlSource;
         }
-        // end TO FIX
+        // END OF FIX CALENDAR
+        
+        // FIX E_ALL
+        
+        if( is_array( $_SESSION['AttachmentList'] )
+            && ( ! isset($_SESSION['AttachmentList']['crl'])
+                && ! isset($_SESSION['AttachmentList']['title']) ) )
+        {
+            $_SESSION['AttachmentList']['crl'] = array();
+            $_SESSION['AttachmentList']['title'] = array();
+        }
+        
+        // END OF FIX E_ALL
         
         // init the variable
         $baseServDir = $coursesRepositorySys;

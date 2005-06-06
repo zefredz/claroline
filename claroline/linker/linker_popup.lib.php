@@ -75,6 +75,8 @@
 			if( !isset ( $_SESSION['AttachmentList'] ) )
    	    	{    
     	        $_SESSION['AttachmentList'] = array();
+    	        $_SESSION['AttachmentList']['crl'] = array();
+    	        $_SESSION['AttachmentList']['title'] = array();
     	        $_SESSION['servAdd'] = array();
     	        $_SESSION['servDel'] = array();
    	    	}    
@@ -119,13 +121,13 @@
         **/
 	    function addItem($crl)
 	    {
-	    	if( !$this->_contains( $crl , $_SESSION['AttachmentList']["crl"] ) )
+	    	if( !$this->_contains( $crl , $_SESSION['AttachmentList']['crl'] ) )
 	    	{
 	    		$res = new Resolver("");
            		$title = $res->getResourceName($crl);
 	    		
-	    		$_SESSION['AttachmentList']["crl"][] = $crl;
-	    		$_SESSION['AttachmentList']["title"][] = $title;
+	    		$_SESSION['AttachmentList']['crl'][] = $crl;
+	    		$_SESSION['AttachmentList']['title'][] = $title;
 	    		$_SESSION['servAdd'][] = $crl;
 	    		
 	    		if( $this->_contains( $crl , $_SESSION['servDel']) )
