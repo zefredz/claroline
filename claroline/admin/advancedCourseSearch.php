@@ -105,7 +105,7 @@ claro_disp_tool_title($nameTools." : ");
     <?php
 
         //Display each option value for categories in the select
-        buildSelectFaculty($arrayFaculty,NULL,$category,"");
+        build_select_faculty($arrayFaculty,NULL,$category,"");
     ?>
     </select>
   </td>
@@ -185,7 +185,7 @@ include($includePath."/claro_init_footer.inc.php");
  * @author  - < Benoît Muret >
  * @param   - elem            array     :     the faculties
  * @param   - father        string    :    the father of the faculty
- * @param    - $EditFather    string    :    the faculty editing
+ * @param    - $editFather    string    :    the faculty editing
  * @param    - $space        string    :    space to the bom of the faculty
 
  * @return  - void
@@ -193,7 +193,7 @@ include($includePath."/claro_init_footer.inc.php");
  * @desc : create de select box categories
  */
 
-function buildSelectFaculty($elem,$father,$EditFather,$space)
+function build_select_faculty($elem,$father,$editFather,$space)
 {
     if($elem)
     {
@@ -203,10 +203,10 @@ function buildSelectFaculty($elem,$father,$EditFather,$space)
             if(!strcmp($one_faculty["code_P"],$father))
             {
                 echo "<option value=\"".$one_faculty['code']."\" ".
-                        ($one_faculty['code']==$EditFather?"selected ":"")
+                        ($one_faculty['code']==$editFather?"selected ":"")
                 ."> ".$space.$one_faculty['code']." </option>
                 ";
-                buildSelectFaculty($elem,$one_faculty["code"],$EditFather,$space);
+                build_select_faculty($elem,$one_faculty["code"],$editFather,$space);
             }
         }
     }

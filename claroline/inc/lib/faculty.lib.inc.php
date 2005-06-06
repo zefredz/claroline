@@ -266,12 +266,12 @@ function addNbChildFather($fatherChangeChild,$newNbChild)
  *
  * @param  $elem		array 	: 	the faculties
  * @param  $father		string	:	the father of the faculty
- * @param  $EditFather	string	:	the faculty editing
+ * @param  $editFather	string	:	the faculty editing
  * @param  $space		string	:	space to the bom of the faculty
  * @return  - void
  */
 
-function buildSelectFaculty($elem,$father,$EditFather,$space)
+function build_select_faculty($elem,$father,$editFather,$space)
 {
 	if($elem)
 	{
@@ -281,10 +281,10 @@ function buildSelectFaculty($elem,$father,$EditFather,$space)
 			if(!strcmp($one_faculty["code_P"],$father))
 			{
 				echo "<option value=\"".$one_faculty['code']."\" ".
-						($one_faculty['code']==$EditFather?"selected ":"")
+						($one_faculty['code']==$editFather?"selected ":"")
 				."> ".$space.$one_faculty['code']." </option>";
 
-				buildSelectFaculty($elem,$one_faculty["code"],$EditFather,$space);
+				build_select_faculty($elem, $one_faculty['code'], $editFather, $space);
 			}
 		}
 	}

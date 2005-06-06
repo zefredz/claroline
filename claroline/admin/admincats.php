@@ -388,7 +388,7 @@ else
         $EditId=$array[0]["id"];
         $EditName=$array[0]["name"];
         $EditCode=$array[0]["code"];
-        $EditFather=$array[0]["code_P"];
+        $editFather=$array[0]["code_P"];
         $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
         $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
 	
@@ -408,7 +408,7 @@ else
         $EditId=$array[0]["id"];
         $EditName=$array[0]["name"];
         $EditCode=$array[0]["code"];
-        $EditFather=$array[0]["code_P"];
+        $editFather=$array[0]["code_P"];
         $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
         $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
 
@@ -820,7 +820,7 @@ if($CREATE)
         <option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         // Display each category in the select
-        buildSelectFaculty($categories,NULL,$EditFather,"");
+        build_select_faculty($categories,NULL,$editFather,"");
         ?>
         </select>
         </td>
@@ -943,7 +943,7 @@ elseif($MOVE)
 				<option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         //Display each category in the select
-        buildSelectFaculty($categories,NULL,$EditFather,"");
+        build_select_faculty($categories,NULL,$editFather,"");
         ?>
 			</select>
         </td>
@@ -1286,7 +1286,7 @@ include($includePath."/claro_init_footer.inc.php");
      * @author  - < Benoît Muret >
      * @param   - elem            array     :     the categories
      * @param   - father        string    :    the father of the category
-     * @param    - $EditFather    string    :    the category editing
+     * @param    - $editFather    string    :    the category editing
      * @param    - $space        string    :    space to the bom of the category
 
      * @return  - void
@@ -1294,7 +1294,7 @@ include($includePath."/claro_init_footer.inc.php");
      * @desc : create de select box categories
      */
 
-    function buildSelectFaculty($elem,$father,$EditFather,$space)
+    function build_select_faculty($elem,$father, $editFather, $space)
     {
         if($elem)
         {
@@ -1304,10 +1304,10 @@ include($includePath."/claro_init_footer.inc.php");
                 if(!strcmp($one_faculty["code_P"],$father))
                 {
                     echo "<option value=\"".$one_faculty['code']."\" ".
-                            ($one_faculty['code']==$EditFather?"selected ":"")
+                            ($one_faculty['code']==$editFather?"selected ":"")
                     ."> ".$space.$one_faculty['code']." </option>";
 
-                    buildSelectFaculty($elem,$one_faculty["code"],$EditFather,$space);
+                    build_select_faculty($elem,$one_faculty["code"],$editFather,$space);
                 }
             }
         }
