@@ -1,26 +1,33 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ *
+ * Show news read from claroline.net
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/CLNEWS/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLNEWS
+ * 
+ */
 $cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-include($includePath.'/lib/admin.lib.inc.php');
+include ($includePath . '/lib/admin.lib.inc.php');
 // rss reader library
-require($includePath.'/lib/lastRSS/lastRSS.php');
+require ($includePath . '/lib/lastRSS/lastRSS.php');
 
 //SECURITY CHECK
 $is_allowedToAdmin     = $is_platformAdmin;
-if (!$is_allowedToAdmin) treatNotAuthorized();
+if (!$is_allowedToAdmin) claro_disp_auth_form();
 
 $nameTools = $langClarolineNetNews;
 
