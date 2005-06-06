@@ -16,7 +16,7 @@
  * third block is building paths
  * Forth block check some right
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -167,11 +167,11 @@ if ($runfillMainDb && $runfillStatsDb)
 // Build path
 
 $rootSys                    = str_replace("\\","/",realpath($pathForm)."/") ;
-$coursesRepositoryAppend    = "";
+$coursesRepositoryAppend    = '';
 $coursesRepositorySys = $rootSys.$courseRepositoryForm;
 @mkdir($coursesRepositorySys,0777);
-$clarolineRepositoryAppend  = "claroline/";
-$clarolineRepositorySys     = $rootSys.$clarolineRepositoryAppend;
+$clarolineRepositoryAppend  = 'claroline/';
+$clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
 $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)."/claroline_garbage");
 @mkdir($garbageRepositorySys,0777);
 
@@ -184,7 +184,7 @@ $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)
 // here I want find  something to get garbage out of documentRoot
 include_once('../inc/conf/def/CLMAIN.def.conf.inc.php');
 
-$fd=@fopen($configFilePath, "w");
+$fd = @fopen($configFilePath, 'w');
 if (!$fd)
 {
     $fileConfigCreationError = true;
@@ -245,9 +245,9 @@ else
 
     $arr_file_to_undist =
     array (
-    $newIncludePath.'../../textzone_top.inc.html',
-    $newIncludePath.'../../textzone_right.inc.html',
-    $newIncludePath.'conf/auth.conf.php'
+    $newIncludePath . '../../textzone_top.inc.html',
+    $newIncludePath . '../../textzone_right.inc.html',
+    $newIncludePath . 'conf/auth.conf.php'
     );
     
     foreach ($arr_file_to_undist As $undist_this)
@@ -365,7 +365,7 @@ else
     $display=DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 
-include_once($newIncludePath."lib/admin.lib.inc.php");
+include_once($newIncludePath . 'lib/admin.lib.inc.php');
 $idAdmin = add_user( cleanwritevalue($adminNameForm)
         , cleanwritevalue($adminSurnameForm)
         , cleanwritevalue($adminEmailForm)

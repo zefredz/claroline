@@ -4,7 +4,7 @@
  *
  * GOAL : install claroline 1.6 on server
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -22,24 +22,24 @@
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number but order of panels
 
-define ("DISP_WELCOME",__LINE__);
-define ("DISP_LICENCE",__LINE__);
-//define ("DISP_FILE_SYSTEM_SETTING",__LINE__);
-define ("DISP_DB_CONNECT_SETTING",__LINE__);
-define ("DISP_DB_NAMES_SETTING",__LINE__);
-define ("DISP_ADMINISTRATOR_SETTING",__LINE__);
-define ("DISP_PLATFORM_SETTING",__LINE__);
-define ("DISP_ADMINISTRATIVE_SETTING",__LINE__);
-define ("DISP_LAST_CHECK_BEFORE_INSTALL",__LINE__);
-define ("DISP_RUN_INSTALL_NOT_COMPLETE",__LINE__);
-define ("DISP_RUN_INSTALL_COMPLETE",__LINE__);
+define ('DISP_WELCOME',__LINE__);
+define ('DISP_LICENCE',__LINE__);
+//define ('DISP_FILE_SYSTEM_SETTING',__LINE__);
+define ('DISP_DB_CONNECT_SETTING',__LINE__);
+define ('DISP_DB_NAMES_SETTING',__LINE__);
+define ('DISP_ADMINISTRATOR_SETTING',__LINE__);
+define ('DISP_PLATFORM_SETTING',__LINE__);
+define ('DISP_ADMINISTRATIVE_SETTING',__LINE__);
+define ('DISP_LAST_CHECK_BEFORE_INSTALL',__LINE__);
+define ('DISP_RUN_INSTALL_NOT_COMPLETE',__LINE__);
+define ('DISP_RUN_INSTALL_COMPLETE',__LINE__);
 /* LET DEFINE ON SEPARATE LINES !!!*/
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 // Place of Config file
-$configFileName = "claro_main.conf.php";
-$configFilePath = "../inc/conf/".$configFileName;
+$configFileName = 'claro_main.conf.php';
+$configFilePath = '../inc/conf/'.$configFileName;
 
 
 session_start();
@@ -50,16 +50,16 @@ if (!empty($_GET))      {extract($_GET, EXTR_OVERWRITE);}
 if (!empty($_POST))     {extract($_POST, EXTR_OVERWRITE);}
 if (!empty($_SERVER))     {extract($_SERVER, EXTR_OVERWRITE);}
 
-$newIncludePath ="../inc/";
-include ($newIncludePath."installedVersion.inc.php");
+$newIncludePath ='../inc/';
+include ($newIncludePath . 'installedVersion.inc.php');
 
-include ("../lang/english/complete.lang.php");
-include ("../lang/english/locale_settings.php");
+include ('../lang/english/complete.lang.php');
+include ('../lang/english/locale_settings.php');
 
-include ($newIncludePath."lib/auth.lib.inc.php"); // to generate pass and to cryto it if needed
-include ("./install.lib.inc.php");
-include ($newIncludePath."lib/config.lib.inc.php");
-include ($newIncludePath."lib/claro_main.lib.php");
+include ($newIncludePath . 'lib/auth.lib.inc.php'); // to generate pass and to cryto it if needed
+include ('./install.lib.inc.php');
+include ($newIncludePath . 'lib/config.lib.inc.php');
+include ($newIncludePath . 'lib/claro_main.lib.php');
 
 $panelSequence  = array(
 DISP_WELCOME,
@@ -136,7 +136,7 @@ else
     $campusForm  = $_REQUEST['campusForm'];
 }
 
-if ($PHP_SELF == "") $PHP_SELF = $_SERVER['PHP_SELF'];
+if ($PHP_SELF == '') $PHP_SELF = $_SERVER['PHP_SELF'];
 
 
 // This script is a big form.
@@ -200,7 +200,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
             }
             else     // if not empty but wrong, I can suppose the good value, so I let it blank
             {
-                $contactEmailForm ="";
+                $contactEmailForm ='';
             }
         }
         $msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br>';
@@ -234,23 +234,25 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
                     <font color="red">Warning !</font>
                     <small>['.$no.'] - '.$msg.'</small>
                     <br>';
-        if ($no=="2005")
+        if ($no=='2005')
         $msg_no_connection .= '
                     Wrong '.$langDBHost.' : <I>'.$dbHostForm.'</I>';
-        elseif ($no=="1045")
-        $msg_no_connection .= '
-                    Wrong database Login : (<I>'.$dbUsernameForm.'</I>)
-                    or Password (<I>'.$dbPassForm.'</I>)';
+        elseif ($no=='1045')
+        $msg_no_connection .= 'Wrong database Login : '
+                           .  '(<I>' . $dbUsernameForm . '</I>) '
+                           .  'or Password '
+                           .  '(<I>'.$dbPassForm.'</I>)'
+                           ;
         else
-        $msg_no_connection .= '
-                    Server unavailable. Is your MySQL server started ?';
-        $msg_no_connection .= '
-                    <BR>
-                    <font color="blue">
-                        Fix this problem before going further
-                    </font>
-                    <BR>
-                </P>';
+        $msg_no_connection .= 'Server unavailable. '
+                           .  'Is your MySQL server started ?';
+        $msg_no_connection .= '<BR>'
+                           .  '<font color="blue">'
+                           .  'Fix this problem before going further'
+                           .  '</font>'
+                           .  '<BR>'
+                           .  '</P>'
+                           ;
         $databaseParam_ok = FALSE;
         $canRunCmd = FALSE;
         if ($cmd>DISP_DB_CONNECT_SETTING)
@@ -268,7 +270,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 // CHECK DATA OF DB NAMES Form
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
-    $regexpPatternForDbName = "^[a-z][a-z0-9_]*$";
+    $regexpPatternForDbName = '^[a-z][a-z0-9_]*$';
     // Now mysql connect param are ok, try  to use given DBNames
     // 1° check given string
     // 2° check if db exists
@@ -280,6 +282,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     $dbStatsForm = trim($dbStatsForm);
     $databaseNameValid = TRUE;
     $databaseAlreadyExist = FALSE;
+
     if (!eregi($regexpPatternForDbName,$dbNameForm)|| strlen($dbNameForm)>64 
         ||
         !eregi($regexpPatternForDbName,$dbStatsForm)|| strlen($dbStatsForm)>64 ) 
@@ -289,23 +292,24 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
         $databaseNameValid = FALSE;
         $msgErrorDbMain_dbNameToolLong = (strlen($dbNameForm)>64);
         $msgErrorDbMain_dbNameInvalid = !eregi($regexpPatternForDbName,$dbNameForm);
-        $msgErrorDbMain_dbNameBadStart = !eregi("^[a-z]",$dbNameForm);
+        $msgErrorDbMain_dbNameBadStart = !eregi('^[a-z]',$dbNameForm);
         
         if (!$singleDbForm)
         {
             $msgErrorDbMain_dbName = $msgErrorDbMain_dbNameToolLong ||
-                                        $msgErrorDbMain_dbNameInvalid ||
-                                        $msgErrorDbMain_dbNameBadStart ;
+                                     $msgErrorDbMain_dbNameInvalid ||
+                                     $msgErrorDbMain_dbNameBadStart ;
         
             $msgErrorDbStat_dbNameInvalid = !eregi($regexpPatternForDbName,$dbStatsForm);
             $msgErrorDbStat_dbNameToolLong = (strlen($dbStatsForm)>64);
-            $msgErrorDbStat_dbNameBadStart = !eregi("^[a-z]",$dbStatsForm);
+            $msgErrorDbStat_dbNameBadStart = !eregi('^[a-z]',$dbStatsForm);
         }
         
     }
     else
-    {
-        $db = @mysql_connect($dbHostForm, $dbUsernameForm, $dbPassForm);
+    {   
+        $db = mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+        
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
         if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
@@ -317,22 +321,25 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
             if ($valMain)    $mainDbNameExist  = TRUE;
             if ($valStat)    $statsDbNameExist = TRUE;
         }
+
     }
+    
     if (   $databaseAlreadyExist 
        || !$databaseNameValid    )
     {
         $canRunCmd = FALSE;
         if ($cmd > DISP_DB_NAMES_SETTING)
         {
-            $databaseAlreadyExist             = TRUE;
+            $databaseAlreadyExist              = TRUE;
             if ($valMain)    $mainDbNameExist  = TRUE;
             if ($valStat)    $statsDbNameExist = TRUE;
-            $canRunCmd                        = FALSE;
+            $canRunCmd                         = FALSE;
         }
         else
         {
             $databaseAlreadyExist = false;
         }
+        
         if (!$canRunCmd)
         {
             if ($cmd > DISP_DB_NAMES_SETTING)
@@ -367,13 +374,13 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
     if (empty($campusForm))
     {
         $platformDataMissing = TRUE;
-        $missing_platform_data[]='the <B>name</b> of your online campus';
+        $missing_platform_data[]= 'the <B>name</b> of your online campus';
     }
 
     if($platformDataMissing)
     {
         $canRunCmd = FALSE;
-        $msg_missing_platform_data = '<font color="red" >Please fill '.implode(', ',$missing_platform_data).'</font><br>';
+        $msg_missing_platform_data = '<font color="red" >Please fill ' . implode(', ',$missing_platform_data) . '</font><br>';
         if ($cmd > DISP_PLATFORM_SETTING)
         {
             $display = DISP_PLATFORM_SETTING;
@@ -396,7 +403,7 @@ if ($canRunCmd)
     // OK TEST WAS GOOD, What's the next step ?
 
     // SET default display
-    $display=DISP_WELCOME;
+    $display = DISP_WELCOME;
     if($_REQUEST['cmdLicence'])
     {
         $display = DISP_LICENCE;
@@ -411,7 +418,7 @@ if ($canRunCmd)
     }
     elseif($_REQUEST['install6'] || $_REQUEST['back6'] )
     {
-        $display=DISP_LAST_CHECK_BEFORE_INSTALL;
+        $display = DISP_LAST_CHECK_BEFORE_INSTALL;
     }
     elseif($_REQUEST['cmdDbNameSetting'])
     {
@@ -451,7 +458,7 @@ if ($display==DISP_DB_NAMES_SETTING)
     $res = claro_sql_query($sql,$db);
     while ($__dbName = mysql_fetch_array($res, MYSQL_NUM))
     {
-        $existingDbs[]=$__dbName[0];
+        $existingDbs[] = $__dbName[0];
     }
     unset($__dbName);
 }
@@ -460,17 +467,17 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 {
     if ($contactNameForm == '*not set*')
     {
-        $contactNameForm     = $adminSurnameForm.' '.$adminNameForm;
+        $contactNameForm = $adminSurnameForm . ' ' . $adminNameForm;
     }
 
     if ($contactEmailForm == '*not set*')
     {
-        $contactEmailForm     = $adminEmailForm;
+        $contactEmailForm = $adminEmailForm;
     }
 
     if ($contactPhoneForm == '*not set*')
     {
-        $contactPhoneForm     = $adminPhoneForm;
+        $contactPhoneForm = $adminPhoneForm;
     }
 }
 
@@ -522,7 +529,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
         <tr  bgcolor="#000066" >
             <th valign="top">
                <FONT color="White">
-                    Claroline 1.6 (<?php echo $clarolineVersion ?>) - installation
+                    Claroline 1.7 (<?php echo $clarolineVersion ?>) - installation
                 </font>
             </th>
         </TR>
@@ -530,44 +537,44 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
         <td>
 <?php
 echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
-    .'<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
-    .'<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
-    .'<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'">'           ."\n"
-    .'<input type="hidden" name="pathForm" value="'.str_replace("\\","/",realpath($pathForm)."/").'" >'      ."\n"
-    .'<input type="hidden" name="imgRepositoryAppendForm" value="'.str_replace("\\","/",$imgRepositoryAppendForm).'" >'      ."\n"
-    .'<input type="hidden" name="userImageRepositoryAppendForm" value="'.str_replace("\\","/",$userImageRepositoryAppendForm).'" >'      ."\n"
-    .'<input type="hidden" name="dbHostForm"                   value="'.$dbHostForm.'">'                     ."\n"
-    .'<input type="hidden" name="dbUsernameForm"               value="'.$dbUsernameForm.'">'                 ."\n\n"
-    .'<input type="hidden" name="singleDbForm"                 value="'.$singleDbForm.'">'                   ."\n\n"
-    .'<input type="hidden" name="dbPrefixForm"                 value="'.$dbPrefixForm.'">'                   ."\n"
-    .'<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'">'                     ."\n"
-    .'<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'">'                    ."\n"
-    .'<input type="hidden" name="mainTblPrefixForm"            value="'.$mainTblPrefixForm.'">'              ."\n"
-    .'<input type="hidden" name="statsTblPrefixForm"           value="'.$statsTblPrefixForm.'">'              ."\n"
-    .'<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
-    .'<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
-    .'<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
-    .'<input type="hidden" name="adminEmailForm"               value="'.cleanoutputvalue($adminEmailForm).'">'   ."\n"
-    .'<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
-    .'<input type="hidden" name="adminNameForm"                value="'.cleanoutputvalue($adminNameForm).'">'    ."\n"
-    .'<input type="hidden" name="adminSurnameForm"             value="'.cleanoutputvalue($adminSurnameForm).'">' ."\n\n"
-    .'<input type="hidden" name="loginForm"                    value="'.cleanoutputvalue($loginForm).'">'        ."\n"
-    .'<input type="hidden" name="passForm"                     value="'.cleanoutputvalue($passForm).'">'         ."\n\n"
-    .'<input type="hidden" name="languageForm"                 value="'.$languageForm.'">'                   ."\n\n"
-    .'<input type="hidden" name="campusForm"                   value="'.cleanoutputvalue($campusForm).'">'       ."\n"
-    .'<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
-    .'<input type="hidden" name="contactNameForm"              value="'.cleanoutputvalue($contactNameForm).'">'  ."\n"
-    .'<input type="hidden" name="contactEmailForm"             value="'.cleanoutputvalue($contactEmailForm).'">' ."\n"
-    .'<input type="hidden" name="contactPhoneForm"             value="'.cleanoutputvalue($contactPhoneForm).'">' ."\n"
-    .'<input type="hidden" name="institutionForm"              value="'.cleanoutputvalue($institutionForm).'">'  ."\n"
-    .'<input type="hidden" name="institutionUrlForm"           value="'.$institutionUrlForm.'">'             ."\n\n"
-    .'<!-- BOOLEAN -->'                                                                                      ."\n"
-    .'<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'">'             ."\n"
-    .'<input type="hidden" name="allowSelfReg"                 value="'.$allowSelfReg.'">'                   ."\n"
-    .'<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'">'            ."\n"
-    .'<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'">'                ."\n"
-    .'<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'">'       ."\n"
-    .'<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'">';
+.    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
+.    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
+.    '<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'">'           ."\n"
+.    '<input type="hidden" name="pathForm" value="'.str_replace("\\","/",realpath($pathForm)."/").'" >'      ."\n"
+.    '<input type="hidden" name="imgRepositoryAppendForm" value="'.str_replace("\\","/",$imgRepositoryAppendForm).'" >'      ."\n"
+.    '<input type="hidden" name="userImageRepositoryAppendForm" value="'.str_replace("\\","/",$userImageRepositoryAppendForm).'" >'      ."\n"
+.    '<input type="hidden" name="dbHostForm"                   value="'.$dbHostForm.'">'                     ."\n"
+.    '<input type="hidden" name="dbUsernameForm"               value="'.$dbUsernameForm.'">'                 ."\n\n"
+.    '<input type="hidden" name="singleDbForm"                 value="'.$singleDbForm.'">'                   ."\n\n"
+.    '<input type="hidden" name="dbPrefixForm"                 value="'.$dbPrefixForm.'">'                   ."\n"
+.    '<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'">'                     ."\n"
+.    '<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'">'                    ."\n"
+.    '<input type="hidden" name="mainTblPrefixForm"            value="'.$mainTblPrefixForm.'">'              ."\n"
+.    '<input type="hidden" name="statsTblPrefixForm"           value="'.$statsTblPrefixForm.'">'              ."\n"
+.    '<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
+.    '<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
+.    '<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
+.    '<input type="hidden" name="adminEmailForm"               value="'.cleanoutputvalue($adminEmailForm).'">'   ."\n"
+.    '<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
+.    '<input type="hidden" name="adminNameForm"                value="'.cleanoutputvalue($adminNameForm).'">'    ."\n"
+.    '<input type="hidden" name="adminSurnameForm"             value="'.cleanoutputvalue($adminSurnameForm).'">' ."\n\n"
+.    '<input type="hidden" name="loginForm"                    value="'.cleanoutputvalue($loginForm).'">'        ."\n"
+.    '<input type="hidden" name="passForm"                     value="'.cleanoutputvalue($passForm).'">'         ."\n\n"
+.    '<input type="hidden" name="languageForm"                 value="'.$languageForm.'">'                   ."\n\n"
+.    '<input type="hidden" name="campusForm"                   value="'.cleanoutputvalue($campusForm).'">'       ."\n"
+.    '<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
+.    '<input type="hidden" name="contactNameForm"              value="'.cleanoutputvalue($contactNameForm).'">'  ."\n"
+.    '<input type="hidden" name="contactEmailForm"             value="'.cleanoutputvalue($contactEmailForm).'">' ."\n"
+.    '<input type="hidden" name="contactPhoneForm"             value="'.cleanoutputvalue($contactPhoneForm).'">' ."\n"
+.    '<input type="hidden" name="institutionForm"              value="'.cleanoutputvalue($institutionForm).'">'  ."\n"
+.    '<input type="hidden" name="institutionUrlForm"           value="'.$institutionUrlForm.'">'             ."\n\n"
+.    '<!-- BOOLEAN -->'                                                                                      ."\n"
+.    '<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'">'             ."\n"
+.    '<input type="hidden" name="allowSelfReg"                 value="'.$allowSelfReg.'">'                   ."\n"
+.    '<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'">'            ."\n"
+.    '<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'">'                ."\n"
+.    '<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'">'       ."\n"
+.    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'">';
 
 
 
@@ -595,11 +602,11 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
 ###################################################################
 if ($display==DISP_WELCOME)
 {
-    echo '
-                <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                '.sprintf($langStepNOfN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME].'
-                </h2>';
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
+    .    '<h2>'
+    .    sprintf($langStepNOfN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME]
+    .    '</h2>'
+    ;
     // check if an claroline configuration file doesn't already exists.
     if ( file_exists('../inc/conf/claro_main.conf.inc.php')
     ||   file_exists('../inc/conf/claro_main.conf.php')
@@ -607,74 +614,73 @@ if ($display==DISP_WELCOME)
     ||   file_exists('../include/config.inc.php')
     ||   file_exists('../include/config.php'))
     {
-        echo '
- <div style="background-color:#FFFFFF;margin:20px;padding:5px">
-    <b>
-        <font color="red">Warning !</font> 
-        The installer has detected an existing
-        claroline platform on your system.
-        <br>
-    </b>
-    <ul>';
+        echo '<div style="background-color:#FFFFFF;margin:20px;padding:5px">'
+        .    '<b>'
+        .    '<font color="red">Warning !</font> '
+        .    'The installer has detected an existing claroline platform on your system. '
+        .    '<br>'
+        .    '</b>'
+        .    '<ul>'
+        ;
         if ($is_upgrade_available)
         {
-            echo '
-        <li>
-            For Claroline upgrade click
-            <a href="../admin/upgrade/upgrade.php">here</a>.
-        </li>';
+            echo '<li>'
+            .    'For Claroline upgrade click '
+            .    '<a href="../admin/upgrade/upgrade.php">here</a>.'
+            .    '</li>'
+            ;
         }
         else
         {
-            echo '
-        <li>
-            For claroline upgrade please wait a stable release.
-        </li>';
+            echo '<li>'
+            .    'For claroline upgrade please wait a stable release. '
+            .    '</li>'
+            ;
         }
-        echo     '
-        <li>
-            For claroline overwrite click on "next" button
-        </li>
-    </ul>
-</div>';
+        echo '<li>'
+        .    'For claroline overwrite click on "next" button'
+        .    '</li>'
+        .    '</ul>'
+        .    '</div>'
+        ;
     }
 
 
     if(!$stable)
     {
-        echo '
-        
-        <B>
-        Notice .
-        This version is not considered as stable
-        and is not aimed for production.
-        </B><br>
-
-        If  something goes wrong,
-        come talk on our support forum at
-        <a href="http://www.claroline.net/forum/viewforum.php?f=62" target="_clarodev">http://www.claroline.net</a>.';
+        echo '<B>'
+        .    'Notice. This version is not considered as stable '
+        .    'and is not aimed for production.'
+        .    '</B><br>'
+        .    'If  something goes wrong, '
+        .    'come talk on our support forum at '
+        .    '<a href="http://www.claroline.net/forum/viewforum.php?f=62" '
+        .    'target="_clarodev">http://www.claroline.net'
+        .    '</a>.'
+        ;
     }
 
     if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
     $WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
-    echo '
-    <p>Read thoroughly <a href="../../INSTALL.txt">INSTALL.txt</a>
-    before proceeding to install.</p>
-    <h4>Checking requirement</h4>
-<ul>
+    echo '<p>Read thoroughly '
+    .    '<a href="../../INSTALL.txt">INSTALL.txt</a> '
+    .    'before proceeding to install.'
+    .    '</p>'
+    .    '<h4>Checking requirement</h4>'
+    .    '<ul>'
+    .    '<li>'
+    .    'Checking PHP extentions.'
+    .    '<UL>'
+    ;
 
-    <li>
-        Checking PHP extentions.
-        <UL>';
-
-    warnIfExtNotLoaded("standard");
-    warnIfExtNotLoaded("session");
-    warnIfExtNotLoaded("mysql");
-    warnIfExtNotLoaded("zlib");
-    warnIfExtNotLoaded("pcre");
-    warnIfExtNotLoaded("tokenizer");
-//    warnIfExtNotLoaded("exif"); // exif  would be needed later for pic view properties.
-//    warnIfExtNotLoaded("nameOfExtention"); // list here http://www.php.net/manual/fr/resources.php
+    warnIfExtNotLoaded('standard');
+    warnIfExtNotLoaded('session');
+    warnIfExtNotLoaded('mysql');
+    warnIfExtNotLoaded('zlib');
+    warnIfExtNotLoaded('pcre');
+    warnIfExtNotLoaded('tokenizer');
+    //    warnIfExtNotLoaded('exif'); // exif  would be needed later for pic view properties.
+    //    warnIfExtNotLoaded('nameOfExtention'); // list here http://www.php.net/manual/fr/resources.php
 
     echo '
         </UL>
@@ -685,83 +691,89 @@ if ($display==DISP_WELCOME)
             ';
     if ( ini_get('register_globals') )
     {
-        echo '
-            <li>
-                <p class="setup_error">
-                    <font color="red">Warning !</font>
-                    register_globals is set to <strong>on</strong>.
-                    <br>
-                    For more security, we recommand you to change the following parameter in your <i>php.ini</i> file to this value :<br>
-                    <font color="blue">
-                    <code>register_globals = off </code>
-                    </font>
-                </p>
-            </li>';
+        echo '<li>'
+        .    '<p class="setup_error">' . "\n"
+        .    '<font color="red">Warning !</font>' . "\n"
+        .    'register_globals is set to <strong>on</strong>.' . "\n"
+        .    '<br>' . "\n"
+        .    'For more security, we recommand you to change the following parameter in your <i>php.ini</i> file to this value :<br>' . "\n"
+        .    '<font color="blue">' . "\n"
+        .    '<code>register_globals = off </code>' . "\n"
+        .    '</font>' . "\n"
+        .    '</p>' . "\n"
+        .    '</li>' . "\n"
+        ;
     }
 
     if (!ini_get('magic_quotes_gpc'))
     {
-        echo '
-            <LI>
-                <font color="red">Warning !</font> magic_quotes_gpc is set to <strong>off</strong>.
-                <br>
-                Change the following parameter in your <i>php.ini</i> file to this value :<br>
-                <font color="blue">
-                <code>magic_quotes_gpc = on</code>
-                </font>
-            </LI>';
+        echo '<LI>'  . "\n"
+        .    '<font color="red">Warning !</font> magic_quotes_gpc is set to <strong>off</strong>.'  . "\n"
+        .    '<br>'  . "\n"
+        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br>'  . "\n"
+        .    '<font color="blue">'  . "\n"
+        .    '<code>magic_quotes_gpc = on</code>'  . "\n"
+        .    '</font>'  . "\n"
+        .    '</LI>'
+        ;
     }
 
     if (    ini_get('display_errors')
-        && (ini_get('error_reporting') & E_NOTICE )
-        )
+    && (ini_get('error_reporting') & E_NOTICE )
+    )
     {
-        echo '
-            <LI>
-                <font color="red">
-                    Warning !
-                </font>
-                error_reporting include <strong>E_NOTICE</strong>.
-                <br>
-                Change the following parameter in your <i>php.ini</i> file to this value :<br>
-                <font color="blue">
-                    <code>error_reporting  =  E_ALL & ~E_NOTICE</code>
-                </font><BR>
-                or<BR>
-
-                <font color="blue">
-                    <code>display_errors = off</code>
-                </font>
-                <br>
-            </LI>';
+        echo '<LI>'  . "\n"
+        .    '<font color="red">'  . "\n"
+        .    'Warning !'  . "\n"
+        .    '</font>'  . "\n"
+        .    'error_reporting include <strong>E_NOTICE</strong>.'  . "\n"
+        .    '<br>'  . "\n"
+        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br>'  . "\n"
+        .    '<font color="blue">'  . "\n"
+        .    '<code>error_reporting  =  E_ALL & ~E_NOTICE</code>'  . "\n"
+        .    '</font><BR>'  . "\n"
+        .    'or<BR>'  . "\n"
+        .    '<font color="blue">'  . "\n"
+        .    '<code>display_errors = off</code>'  . "\n"
+        .    '</font>'  . "\n"
+        .    '<br>'  . "\n"
+        .    '</LI>'
+        ;
     }
 
-    echo '
-        </UL>
-    </li>
-
-    <li>
-        Checking file access to web directory.
-        <ul>
-        '.(is_writable('../..')?'':'</li>
-            <font color="red">Warning !</font> Claroline is not able to write on : <br>
-            <nobr><code>'.realpath('../..').'</code><nobr>
-                <br>
-                Change this file permission the server file system.</li>
-        ').'
-        '.(is_readable('../..')?'':'
-            <li><font color="red">Warning !</font> claroline is not able to read on : <br>
-            <nobr><code>'.realpath('../..').'</code><nobr>
-            <br>
-            Change this file permission the server file system.
-        </li>
-        ').'
-        </ul>
-    </li>
-</ul>
-<p>
-If the checks above has passed without any problem, click on the <i>Next</i> button to continue.
-<p align="right"><input type="submit" name="cmdLicence" value="Next &gt;"></p>';
+    echo '</UL>'
+    .    '</li>'
+    .    '<li>'
+    .    'Checking file access to web directory.'
+    .    '<ul>'
+    .    (is_writable('../..')
+    ? ''
+    : '</li>'
+    . '<font color="red">Warning !</font> Claroline is not able to write on : <br>'
+    . '<nobr><code>' . realpath('../..') . '</code><nobr>'
+    . '<br>'
+    . 'Change this file permission the server file system.'
+    . '</li>')
+    .    ' '
+    .    (is_readable('../..')
+    ? ''
+    : '<li>'
+    . '<font color="red">Warning !</font> '
+    . 'claroline is not able to read on : <br>'
+    . '<nobr><code>' . realpath('../..') . '</code><nobr>'
+    . '<br>'
+    . 'Change this file permission the server file system.'
+    . '</li>')
+    .    '</ul>'
+    .    '</li>'
+    .    '</ul>'
+    .    '<p>'
+    .    'If the checks above has passed without any problem, '
+    .    'click on the <i>Next</i> button to continue.'
+    .    '<p align="right">'
+    .    '<input type="submit" name="cmdLicence" value="Next &gt;">'
+    .    '</p>'
+    ;
 
 }
 
@@ -772,35 +784,35 @@ If the checks above has passed without any problem, click on the <i>Next</i> but
 ###################################################################
 elseif($display==DISP_LICENCE)
 {
-    echo '
-                <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                '.sprintf($langStepNOfN,(array_search(DISP_LICENCE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENCE].'
-                </h2>
-                <P>
-                Claroline is free software, distributed under GNU General Public licence (GPL).
-                Please read the licence and click &quot;I accept&quot;.
-                <a href="../../LICENCE.txt">'.$langPrintVers.'</a>
-                </P>
-                <textarea wrap="virtual" cols="65" rows="15">';
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
+    .    '<h2>'  . "\n"
+    .    sprintf($langStepNOfN,(array_search(DISP_LICENCE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENCE]
+    .    '</h2>'  . "\n"
+    .    '<P>'  . "\n"
+    .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
+    .    'Please read the licence and click &quot;I accept&quot;.'  . "\n"
+    .    '<a href="../../LICENCE.txt">'.$langPrintVers.'</a>'  . "\n"
+    .    '</P>'  . "\n"
+    .    '<textarea wrap="virtual" cols="65" rows="15">'
+    ;
     include ('../license/gpl.txt');
-    echo '</textarea>
-
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table width="100%">
-                <tr>
-                    <td>
-                    </td>
-                    <td align="right">
-                    <input type="submit" name="cmdWelcomePanel" value="&lt; Back">
-                    <!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="I accept &gt;" -->
-                    <input type="submit" name="cmdDB_CONNECT_SETTING" value="I accept &gt;">
-                    </td>
-                </tr>
-            </table>';
+    echo '</textarea>'
+    .    '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>'
+    .    '<table width="100%">'
+    .    '<tr>'
+    .    '<td>'
+    .    '</td>'
+    .    '<td align="right">'
+    .    '<input type="submit" name="cmdWelcomePanel" value="&lt; Back">'
+    .    '<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="I accept &gt;" -->'
+    .    '<input type="submit" name="cmdDB_CONNECT_SETTING" value="I accept &gt;">'
+    .    '</td>'
+    .    '</tr>'
+    .    '</table>'
+    ;
 
 }
 
@@ -815,40 +827,40 @@ elseif($display==DISP_LICENCE)
 elseif($display==DISP_FILE_SYSTEM_SETTING)
 {
 
-    echo '
-                <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
-                </h2>
-            </td>
-        </tr>
-        <tr>
-            <td>
+echo '
+<input type="hidden" name="fromPanel" value="'.$display.'">
+<h2>
+'.sprintf($langStepNOfN,(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
+</h2>
+</td>
+</tr>
+<tr>
+<td>
 <!--            <h4>Absolute path</h4>
-                <label for="urlForm">Campus Path (absolute path to your campus)</label><br>
-                <input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br>
-                <h4>Relative path</h4>
-                <label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br>
-                <input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br>
-                <br>
+<label for="urlForm">Campus Path (absolute path to your campus)</label><br>
+<input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br>
+<h4>Relative path</h4>
+<label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br>
+<input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br>
+<br>
 -->
-                 <label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br>
-                <input type="text"  size="85" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
-                <br>
-                <br>
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <input type="submit" name="cmdLicence" value="&lt; Back">
-                        </td>
-                        <td >
-                            &nbsp;
-                        </td>
-                        <td align="right">
-                            <input type="submit" name="cmdDB_CONNECT_SETTING" value="Next &gt;">
-                        </td>
-                    </tr>
-                </table>';
+<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br>
+<input type="text"  size="85" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
+<br>
+<br>
+<table width="100%">
+<tr>
+<td>
+<input type="submit" name="cmdLicence" value="&lt; Back">
+</td>
+<td >
+&nbsp;
+</td>
+<td align="right">
+<input type="submit" name="cmdDB_CONNECT_SETTING" value="Next &gt;">
+</td>
+</tr>
+</table>';
 }     // cmdDB_CONNECT_SETTING
 
 
@@ -867,108 +879,107 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 
 
 
-    echo '
-                <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING].'
-                </h2>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4>'.$langDBConnectionParameters.'</h4>
-                <p>
-                Enter here the parameters given by your database server administrator.
-                </p>
-                '.$msg_no_connection.'
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <label for="dbHostForm">'.$langDBHost.'</label>
-                        </td>
-                        <td>
-                            <input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.cleanoutputvalue($dbHostForm).'">
-                        </td>
-                        <td>
-                            '.$langEG.' localhost
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="dbUsernameForm">'.$langDBLogin.'</label>
-                        </td>
-                        <td>
-                            <input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.cleanoutputvalue($dbUsernameForm).'">
-                        </td>
-                        <td>
-                            '.$langEG.' root
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="dbPassForm">'.$langDBPassword.'</label>
-                        </td>
-                        <td>
-                            <input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.cleanoutputvalue($dbPassForm).'">
-                        </td>
-                        <td>
-                            '.$langEG.' '.generePass(8).'
-                        </td>
-                    </tr>
-                </table>
-                <h4>'.$langDBUse.'</h4>
-                <table width="100%">
-                    <tr>
-                            <td>
-                                    Tracking</label>
-                            </td>
-                            <td>
-                                    <input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'>
-                                    <label for="enableTrackingForm_enabled">
-                                        Enabled
-                                    </label>
-                            </td>
-                            <td>
-                                    <input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'>
-                                    <label for="enableTrackingForm_disabled">
-                                        Disabled
-                                    </label>
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Database mode
-                        </td>
-                        <td>
-                            <input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' >
-                            <label for="singleDbForm_single">
-                                Single
-                            </label>
-                        </td>
-                        <td>
-                            <input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' >
-                            <label for="singleDbForm_multi">
-                                Multi
-                                <small>
-                                    (a database is created at each course creation)
-                                </small>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-
-                            <input type="submit" name="cmdLicence" value="&lt; Back">
-                            <!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->
-                        </td>
-                        <td >
-                            &nbsp;
-                        </td>
-                        <td align="right">
-                            <input type="submit" name="cmdDbNameSetting" value="Next &gt;">
-                        </td>
-                    </tr>
-                </table>';
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
+    .    '<h2>'
+    .    sprintf($langStepNOfN,(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING]
+    .    '</h2>'
+    .    '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>'
+    .    '<h4>'.$langDBConnectionParameters.'</h4>'
+    .    '<p>'
+    .    'Enter here the parameters given by your database server administrator.'
+    .    '</p>'
+    .    $msg_no_connection
+    .    '<table width="100%">'
+    .    '<tr>'
+    .    '<td>'
+    .    '<label for="dbHostForm">' . $langDBHost . '</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.cleanoutputvalue($dbHostForm).'">'
+    .    '</td>'
+    .    '<td>'
+    .    $langEG . ' localhost'
+    .    '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>'
+    .    '<label for="dbUsernameForm">'.$langDBLogin.'</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.cleanoutputvalue($dbUsernameForm).'">'
+    .    '</td>'
+    .    '<td>'
+    .    $langEG.' root'
+    .    '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>'
+    .    '<label for="dbPassForm">'.$langDBPassword.'</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.cleanoutputvalue($dbPassForm).'">'
+    .    '</td>'
+    .    '<td>'
+    .    $langEG.' '.generePass(8)
+    .    '</td>'
+    .    '</tr>'
+    .    '</table>'
+    .    '<h4>'.$langDBUse.'</h4>'
+    .    '<table width="100%">'
+    .    '<tr>'
+    .    '<td>'
+    .    'Tracking</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'>'
+    .    '<label for="enableTrackingForm_enabled">'
+    .    'Enabled'
+    .    '</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'>'
+    .    '<label for="enableTrackingForm_disabled">'
+    .    'Disabled'
+    .    '</label>'
+    .    '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>'
+    .    'Database mode'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' >'
+    .    '<label for="singleDbForm_single">'
+    .    'Single'
+    .    '</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' >'
+    .    '<label for="singleDbForm_multi">'
+    .    'Multi'
+    .    '<small>'
+    .    '(a database is created at each course creation)'
+    .    '</small>'
+    .    '</label>'
+    .    '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>'
+    .    '<input type="submit" name="cmdLicence" value="&lt; Back">'
+    .    '<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->'
+    .    '</td>'
+    .    '<td >'
+    .    '&nbsp;'
+    .    '</td>'
+    .    '<td align="right">'
+    .    '<input type="submit" name="cmdDbNameSetting" value="Next &gt;">'
+    .    '</td>'
+    .    '</tr>'
+    .    '</table>'
+    ;
 }     // cmdDB_CONNECT_SETTING
 
 
@@ -977,220 +988,218 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 ##########################################################################
 elseif($display == DISP_DB_NAMES_SETTING )
 {
-    echo '
-            <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING].'
-                </h2>
-                '.($singleDbForm?'':$langDBSettingNamesIntro).'
-            </td>
-        </tr>
-        <tr>
-            <td>
-                '.$msg_no_connection.'
-                <table width="100%">';
-                if (isset($databaseNameValid) && !$databaseNameValid)
-                {
-                    
-                    echo '
-                    <tr>
-                        <td colspan="2">
-                            <P class="setup_error">
-                                <font color="red">Warning !</font> 
-                                : Database <em>'.$dbNameForm.'</em> is not valid. 
-                                <ul>'
-                    .($msgErrorDbMain_dbName?'<LI>Main db<UL>':'')
-                    .($msgErrorDbMain_dbNameToolLong?'<LI>dbName Too Long':'')
-                    .($msgErrorDbMain_dbNameInvalid?'<LI>dbName Invalid Check the character (only letter ciffer and _)':'')
-                    .($msgErrorDbMain_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
-                    .($msgErrorDbStat_dbName?'</UL><LI>Stat db<UL>':'')
-                    .($msgErrorDbStat_dbNameToolLong?'<LI>dbName Too Long':'')
-                    .($msgErrorDbStat_dbNameInvalid?'<LI>dbName Invalid. Check the character (only letter ciffer and _)':'')
-                    .($msgErrorDbStat_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
-                    .'
-                                </UL>
-                                </UL>
-                                
-                            </P>
-                        </td>
-                    </tr>';
-                }
-                if ($mainDbNameExist)
-                    echo '
-                    <tr>
-                        <td colspan="2">
-                            <P class="setup_error">
-                                <font color="red">Warning !</font>
-                                : Database <em>'.$dbNameForm.'</em> already exists
-                                <BR>
-                                Claroline could overwrite data previsously recorded
-                                in these database tables.
-                                <BR>
-                                <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
-                                <label for="confirmUseExistingMainDb" >
-                                    <B>I know, I want to use this database.</B>
-                                </label>
-                            </P>
-                        </td>
-                    </tr>';
-            echo '
-                    <tr>
-                        <td>
-                            <label for="dbNameForm">
-                                '.($singleDbForm?$langDbName:$langMainDB).'
-                            </label>
-                        </td>
-                        <td>
-                            <input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.cleanoutputvalue($dbNameForm).'">
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="mainTblPrefixForm">
-                                Prefix for names of main tables
-                            </label>
-                        </td>
-                        <td>
-                            <input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.cleanoutputvalue($mainTblPrefixForm).'">
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                        </td>
-                    </tr>
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
+    .    '<h2>'  . "\n"
+    .    sprintf($langStepNOfN,(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING]  . "\n"
+    .    '</h2>'  . "\n"
+    .    ($singleDbForm?'':$langDBSettingNamesIntro)  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    $msg_no_connection.''  . "\n"
+    .    '<table width="100%">'
+    ;
+    if (isset($databaseNameValid) && !$databaseNameValid)
+    {
 
-                    ';
+        echo '<tr>'  . "\n"
+        .    '<td colspan="2">'  . "\n"
+        .    '<P class="setup_error">'  . "\n"
+        .    '<font color="red">Warning !</font> '  . "\n"
+        .    ' : Database <em>'.$dbNameForm.'</em> is not valid. '  . "\n"
+        .    '<ul>'
+        .    ($msgErrorDbMain_dbName?'<LI>Main db<UL>':'')
+        .    ($msgErrorDbMain_dbNameToolLong?'<LI>dbName Too Long':'')
+        .    ($msgErrorDbMain_dbNameInvalid?'<LI>dbName Invalid Check the character (only letter ciffer and _)':'')
+        .    ($msgErrorDbMain_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
+        .    ($msgErrorDbStat_dbName?'</UL><LI>Stat db<UL>':'')
+        .    ($msgErrorDbStat_dbNameToolLong?'<LI>dbName Too Long':'')
+        .    ($msgErrorDbStat_dbNameInvalid?'<LI>dbName Invalid. Check the character (only letter ciffer and _)':'')
+        .    ($msgErrorDbStat_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
+        .    '</UL>'  . "\n"
+        .    '</UL>'  . "\n"
+        .    '</P>'  . "\n"
+        .    '</td>'  . "\n"
+        .    '</tr>'
+        ;
+
+    }
+    if ($mainDbNameExist)
+    {
+        echo '<tr>'  . "\n"
+        .    '<td colspan="2">'  . "\n"
+        .    '<p class="setup_error">'  . "\n"
+        .    '<font color="red">Warning !</font>'  . "\n"
+        .    ': Database <em>'.$dbNameForm.'</em> already exists'  . "\n"
+        .    '<BR>'  . "\n"
+        .    'Claroline could overwrite data previsously recorded'  . "\n"
+        .    'in these database tables.'  . "\n"
+        .    '<BR>'  . "\n"
+        .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>'  . "\n"
+        .    '<label for="confirmUseExistingMainDb" >'  . "\n"
+        .    '<B>I know, I want to use this database.</B>'  . "\n"
+        .    '</label>'  . "\n"
+        .    '</p>'  . "\n"
+        .    '</td>'  . "\n"
+        .    '</tr>'
+        ;
+    }
+    echo '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="dbNameForm">'  . "\n"
+    .    ''.($singleDbForm?$langDbName:$langMainDB).''  . "\n"
+    .    '</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.cleanoutputvalue($dbNameForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '&nbsp;'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="mainTblPrefixForm">'  . "\n"
+    .    'Prefix for names of main tables'  . "\n"
+    .    '</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.cleanoutputvalue($mainTblPrefixForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '&nbsp;'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td colspan="3">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    ;
     if (!$singleDbForm)
     {
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
         {
-            echo '
-                    <tr>
-                        <td colspan="2">
-                            <P class="setup_error">
-                                <font color="red">Warning !</font>
-                                : '.$dbStatsForm.' already exist
-                                <BR>
-                                Claroline could overwrite data previsously recorded
-                                in these database tables.
-                                <BR>
-                                <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
-                                <label for="confirmUseExistingStatsDb" >
-                                    <B>I know, I want to use this database.</B>
-                                </label>
-                            </P>
-                        </td>
-                    </tr>';
+            echo '<tr>'  . "\n"
+            .    '<td colspan="2">'  . "\n"
+            .    '<P class="setup_error">'  . "\n"
+            .    '<font color="red">Warning !</font>'  . "\n"
+            .    ' : '.$dbStatsForm.' already exist'  . "\n"
+            .    '<BR>'  . "\n"
+            .    'Claroline could overwrite data previsously recorded'  . "\n"
+            .    'in these database tables.'  . "\n"
+            .    '<BR>'  . "\n"
+            .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>'  . "\n"
+            .    '<label for="confirmUseExistingStatsDb" >'  . "\n"
+            .    '<B>I know, I want to use this database.</B>'  . "\n"
+            .    '</label>'  . "\n"
+            .    '</P>'  . "\n"
+            .    '</td>'  . "\n"
+            .    '</tr>'
+            ;
         }
-        echo '
-                    <tr>
-                        <td>
-                            <label for="dbStatsForm">'.$langStatDB.'</label>
-                        </td>
-                        <td>
-                            <input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.cleanoutputvalue($dbStatsForm).'">
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="statsTblPrefixForm">
-                                Prefix for names of tracking tables
-                            </label>
-                        </td>
-                        <td>
-                            <input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.cleanoutputvalue($statsTblPrefixForm).'">
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td colspan="3">
-                        <blockquote><small>
-        Normally, Claroline creates a separate database for the tracking tables. 
-        But, you can share the same database for the main tables and the tracking ones
-        (you can specify a prefix for each of these tables).
-    </small></blockquote>
-                        </td>
-                    </tr>
-        ';
+        echo '<tr>'  . "\n"
+        .    '<td>'  . "\n"
+        .    '<label for="dbStatsForm">'.$langStatDB.'</label>'  . "\n"
+        .    '</td>'  . "\n"
+        .    '<td>'  . "\n"
+        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.cleanoutputvalue($dbStatsForm).'">'  . "\n"
+        .    '</td>'  . "\n"
+        .    '<td>'  . "\n"
+        .    '&nbsp;'  . "\n"
+        .    '</td>'  . "\n"
+        .    '</tr>'  . "\n"
+        .    '<tr>'  . "\n"
+        .    '<td>'  . "\n"
+        .    '<label for="statsTblPrefixForm">'  . "\n"
+        .    'Prefix for names of tracking tables'  . "\n"
+        .    '</label>'  . "\n"
+        .    '</td>'  . "\n"
+        .    '<td>'  . "\n"
+        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.cleanoutputvalue($statsTblPrefixForm).'">'  . "\n"
+        .    '</td>'  . "\n"
+        .    '<td>'  . "\n"
+        .    '&nbsp;'  . "\n"
+        .    '</td>'  . "\n"
+        .    '</tr>'  . "\n"
+        .    '<tr>'  . "\n"
+        .    '<td colspan="3">'  . "\n"
+        .    '<blockquote><small>'  . "\n"
+        .    'Normally, Claroline creates a separate database for the tracking tables. '  . "\n"
+        .    'But, you can share the same database for the main tables and the tracking ones'  . "\n"
+        .    '(you can specify a prefix for each of these tables).'  . "\n"
+        .    '</small></blockquote>'  . "\n"
+        .    '</td>'  . "\n"
+        .    '</tr>'  . "\n"
+        ;
     }
-    echo '
-                    <tr>
-                        <td>
-                            <label for="dbPrefixForm">
-                                '.($singleDbForm?'Prefix for names of course tables':$langDbPrefixForm).'
-                            </label>
-                        </td>
-                        <td>
-                            <input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.cleanoutputvalue($dbPrefixForm).'">
-                        </td>
-                        <td>
-                            e.g. \''.$dbPrefixForm.'\'
-                        </td>
-                    </tr>';
+    echo '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="dbPrefixForm">'  . "\n"
+    .    ($singleDbForm?'Prefix for names of course tables':$langDbPrefixForm).''  . "\n"
+    .    '</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.cleanoutputvalue($dbPrefixForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    'e.g. \''.$dbPrefixForm.'\''  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'
+    ;
     if (!$singleDbForm)
     {
-        echo '
-                    <tr>
-                        <td colspan="3">
-                        <blockquote>
-                        <small>
-                            <b>
-                            Afterwards, Claroline will create a new database for each newly 
-                            created course. 
-                            </b>
-                            <BR>
-                            You can specify a prefix for these database names.
-                        </small>
-                        </blockquote>
-                        </td>
-                    </tr>';
+        echo '<tr>'  . "\n"
+        .    '<td colspan="3">'  . "\n"
+        .    '<blockquote>'  . "\n"
+        .    '<small>'  . "\n"
+        .    '<b>'  . "\n"
+        .    'Afterwards, Claroline will create a new database for each newly '  . "\n"
+        .    'created course. '  . "\n"
+        .    '</b>'  . "\n"
+        .    '<BR>'  . "\n"
+        .    'You can specify a prefix for these database names.'  . "\n"
+        .    '</small>'  . "\n"
+        .    '</blockquote>'  . "\n"
+        .    '</td>'  . "\n"
+        .    '</tr>'
+        ;
 
-    }              
-                    echo '
-                </table>
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td align="right">
-                            <input type="submit" name="cmdAdministratorSetting" value="Next &gt;">
-                        </td>
-                    </tr>
-                </table>';
-/*
-                I want  put this in a popup.
-                if (is_array($existingDbs))
-                {
-                    echo "
-                INFO : Bases existantes
-                <SELECT>";
+    }
+    echo '</table>'  . "\n"
+    .    '<table width="100%">'  . "\n"
+    .    '<tr>
+'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '&nbsp;'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td align="right">'  . "\n"
+    .    '<input type="submit" name="cmdAdministratorSetting" value="Next &gt;">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '</table>'
+    ;
+    /*
+    I want  put this in a popup.
+    if (is_array($existingDbs))
+    {
+    echo "
+    INFO : Bases existantes
+    <SELECT>";
 
-                    foreach($existingDbs as $__dbName)
-                    {
-                    echo "
-                    <OPTION>".$__dbName."</OPTION>";
-                    }
-                    echo "
-                    </SELECT>";
-                    unset($__dbName);
-                }
-*/
+    foreach($existingDbs as $__dbName)
+    {
+    echo "
+    <OPTION>".$__dbName."</OPTION>";
+    }
+    echo "
+    </SELECT>";
+    unset($__dbName);
+    }
+    */
 }     // cmdDB_CONNECT_SETTING
 
 
@@ -1204,92 +1213,89 @@ elseif($display == DISP_DB_NAMES_SETTING )
 elseif($display==DISP_ADMINISTRATOR_SETTING)
 
 {
-    echo '
-                <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING].'
-                </h2>
-            </td>
-        </tr>
-        <tr>
-            <td>
-              
-
-                  '.$msg_missing_admin_data.'
-                  '.$msg_admin_exist.'
-
-                <table width="100%">
-                    <tr>
-                        <tr>
-                            <td>
-                                <b><label for="loginForm">'.$langAdminLogin.'</label></b>
-                            </td>
-                            <td>
-                                <input type="text" size="40" id="loginForm" name="loginForm" value="'.cleanoutputvalue($loginForm).'">
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b><label for="passForm">'.$langAdminPass.'</label></b>
-                            </td>
-                            <td>
-                                <input type="text" size="40" id="passForm" name="passForm" value="'.cleanoutputvalue($passForm).'">
-                            </td>
-                            <td>
-                                e.g. '.generePass(8).'
-                            </td>
-                        </tr>
-                        <td>
-                                <label for="adminEmailForm">'.$langAdminEmail.'</label>
-                            </td>
-                            <td>
-                            <input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.cleanoutputvalue($adminEmailForm).'">
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <td>
-                                <label for="adminPhoneForm">Phone</label>
-                            </td>
-                            <td>
-                            <input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.cleanoutputvalue($adminPhoneForm).'">
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="adminNameForm">'.$langAdminName.'</label>
-                            </td>
-                            <td>
-                                <input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.cleanoutputvalue($adminNameForm).'">
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="adminSurnameForm">'.$langAdminSurname.'</label>
-                            </td>
-                            <td>
-                                <input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.cleanoutputvalue($adminSurnameForm).'">
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                </table>
-                <table width="100%">
-                        <tr>
-                            <td>
-                                <input type="submit" name="cmdDbNameSetting" value="&lt; Back">
-                            </td>
-                            <td align="right">
-                                <input type="submit" name="cmdPlatformSetting" value="Next &gt;">
-                            </td>
-                        </tr>
-                    </table>';
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
+    .    '<h2>'  . "\n"
+    .    sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING] . "\n"
+    .    '</h2>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    $msg_missing_admin_data. "\n"
+    .    $msg_admin_exist.''  . "\n"
+    .    '<table width="100%">'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<b><label for="loginForm">'.$langAdminLogin.'</label></b>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.cleanoutputvalue($loginForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<b><label for="passForm">'.$langAdminPass.'</label></b>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.cleanoutputvalue($passForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    'e.g. '.generePass(8).''  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="adminEmailForm">'.$langAdminEmail.'</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.cleanoutputvalue($adminEmailForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="adminPhoneForm">Phone</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.cleanoutputvalue($adminPhoneForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="adminNameForm">'.$langAdminName.'</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.cleanoutputvalue($adminNameForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<label for="adminSurnameForm">'.$langAdminSurname.'</label>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.cleanoutputvalue($adminSurnameForm).'">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '</table>'  . "\n"
+    .    '<table width="100%">'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '<input type="submit" name="cmdDbNameSetting" value="&lt; Back">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td align="right">'  . "\n"
+    .    '<input type="submit" name="cmdPlatformSetting" value="Next &gt;">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '</tr>'  . "\n"
+    .    '</table>'
+    ;
 }
 
 

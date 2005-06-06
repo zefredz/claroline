@@ -4,7 +4,7 @@
  *
  * These code is run to fill central tables during install 
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
