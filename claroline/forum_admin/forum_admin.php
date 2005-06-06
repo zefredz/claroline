@@ -369,25 +369,7 @@ elseif ( isset($_REQUEST['forumcatdel']) )
 
     if ($cat_id!=CAT_FOR_GROUPS)
     {
-        $sql = 'SELECT `forum_id` 
-                FROM `'.$tbl_forum_forums.'` 
-                WHERE `cat_id` = "'.$cat_id.'"';
-        $result = claro_sql_query($sql);
-
-        while(list($forum_id) = mysql_fetch_row($result))
-        {
-            $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
-                    WHERE `forum_id` = "'.$forum_id.'"';
-            claro_sql_query($sql);
-        }
-        $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
-                WHERE `cat_id` = "'.$cat_id.'"';
-        claro_sql_query($sql);
-
-        $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
-                WHERE `cat_id` = "'.$cat_id.'"';
-        claro_sql_query($sql);
-
+        delete_category($cat_id);
         $msg_can_del_cat_1 = $langForumCategoryDeleted;
     }
     else
@@ -920,6 +902,35 @@ function create_category($cat_title)
     else                                 return false;
 }
 
+function delete_category($cat_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
+    $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
+
+    $sql = 'SELECT `forum_id` 
+            FROM `'.$tbl_forum_forums.'` 
+            WHERE `cat_id` = "'.$cat_id.'"';
+    $result = claro_sql_query($sql);
+
+    while( list($forum_id) = mysql_fetch_row($result) )
+    {
+        $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
+                WHERE `forum_id` = "'.$forum_id.'"';
+
+        claro_sql_query($sql);
+    }
+
+    $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
+            WHERE `cat_id` = "'.$cat_id.'"';
+
+    claro_sql_query($sql);
+
+    $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
+            WHERE `cat_id` = "'.$cat_id.'"';
+    claro_sql_query($sql);
+}
 
 function delete_forum($forum_id)
 {
@@ -975,12 +986,6 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
     if ( claro_sql_query($sql) != false) return true;
     else                                 return false;
 }
-
-
-$tbl_cdb_names        = claro_sql_get_course_tbl();
-$tbl_forum_categories = $tbl_cdb_names['bb_categories'         ];
-$tbl_forum_forums     = $tbl_cdb_names['bb_forums'             ];
-$tbl_forum_topics     = $tbl_cdb_names['bb_topics'             ];
 
 function move_up_forum($forum_id, $cat_id)
 {
