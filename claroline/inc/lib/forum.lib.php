@@ -42,47 +42,6 @@ function get_userdata_from_id($userId)
 }
 
 /**
- * Returns the total number of posts in the whole system, a forum, or a topic
- * Also can return the number of users on the system.
- */
-
-function get_total_posts($id, $type)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users = $tbl_mdb_names['user'];
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_posts = $tbl_cdb_names['bb_posts'];
-
-    switch ( $type )
-    {
-        case 'users': $condition = 'poster_id = ' . (int) $id;
-            break;
-        case 'forum': $condition = 'forum_id = '  . (int) $id ;
-            break;
-        case 'topic': $condition = 'topic_id = '  . (int) $id ;
-            break;
-        case 'all'  : $condition = '1'; // forces TRUE in all cases ...
-            break;
-
-        // Old, we should never get this.
-        default     : $condition = false;
-    }
-
-    if ( $condition !== false )
-    {
-        $sql = "SELECT COUNT(*) AS total 
-                FROM `" . $tbl_posts."` 
-                WHERE " . $condition;
-
-        return claro_sql_query_get_single_value($sql);
-    }
-    else
-    {
-    	return false;
-    }
-}
-
-/**
  * Returns the most recent post in a forum, or a topic
  * @param int    element id
  * @param string element type (forum_id, topic_id, poster_id)
