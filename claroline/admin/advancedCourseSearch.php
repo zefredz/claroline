@@ -1,48 +1,46 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLADMIN
+ *
+ * @author Claro Team <cvs@claroline.net>
+ */
+
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+if (file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
 include($includePath."/lib/admin.lib.inc.php");
 
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();
-//$tbl_course           = $tbl_mdb_names['course'           ];
-//$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 $tbl_course_nodes     = $tbl_mdb_names['category'         ];
-//$tbl_user             = $tbl_mdb_names['user'             ];
-//$tbl_class            = $tbl_mdb_names['class'            ];
-//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
 $nameTools = $langSearchCourseAdvanced;
 
-//------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 // clean session of possible previous search information.
 
-unset($_REQUEST['admin_course_code']);
-unset($_REQUEST['admin_course_letter']);
-unset($_REQUEST['admin_course_search']);
-unset($_REQUEST['admin_course_intitule']);
-unset($_REQUEST['admin_course_category']);
-unset($_REQUEST['admin_course_language']);
-unset($_REQUEST['admin_course_access']);
+unset($_REQUEST['admin_course_code'        ]);
+unset($_REQUEST['admin_course_letter'      ]);
+unset($_REQUEST['admin_course_search'      ]);
+unset($_REQUEST['admin_course_intitule'    ]);
+unset($_REQUEST['admin_course_category'    ]);
+unset($_REQUEST['admin_course_language'    ]);
+unset($_REQUEST['admin_course_access'      ]);
 unset($_REQUEST['admin_course_subscription']);
 unset($_REQUEST['admin_course_order_crit']);
 
@@ -56,22 +54,18 @@ if (isset($_REQUEST['category']))      $category      = $_REQUEST['category'];  
 if (isset($_REQUEST['language']))      $language      = $_REQUEST['language'];      else $language = "";
 
 // Search needed info in db to create the right formulaire
-
-$sql_searchfaculty = 'SELECT * FROM `'.$tbl_course_nodes.'` order by `treePos`';
-$arrayFaculty = claro_sql_query_fetch_all($sql_searchfaculty);
-
-
+$arrayFaculty = course_category_get_list();
 //----------------------------------
 // DISPLAY
 //----------------------------------
 
 //header and bredcrump display
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php' );
 
 //tool title
 
-claro_disp_tool_title($nameTools." : ");
+claro_disp_tool_title($nameTools . ' : ');
 
 ?>
 
@@ -105,7 +99,7 @@ claro_disp_tool_title($nameTools." : ");
     <?php
 
         //Display each option value for categories in the select
-        build_select_faculty($arrayFaculty,NULL,$category,"");
+        build_select_faculty($arrayFaculty, NULL, $category, '');
     ?>
     </select>
   </td>
@@ -174,7 +168,7 @@ claro_disp_tool_title($nameTools." : ");
 </table>
 </form>
 <?php
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 
 //NEEDED FUNCTION (to be moved in libraries)
 
@@ -217,18 +211,20 @@ function create_select_box_language($selected=NULL)
     $arrayLanguage = language_exists();
     foreach($arrayLanguage as $entries)
     {
-        $selectBox.="<option value=\"$entries\" ";
+        $selectBox .= '<option value="' . $entries . '" ';
 
         if ($entries == $selected)
-            $selectBox.=" selected ";
+            $selectBox .= ' selected ';
 
-        $selectBox.=">".$entries;
+        $selectBox.= '>' . $entries;
 
         global $langNameOfLang;
-        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-            $selectBox.=" - $langNameOfLang[$entries]";
+        if (    !empty($langNameOfLang[$entries]) 
+             && $langNameOfLang[$entries]!='' 
+             && $langNameOfLang[$entries]!=$entries )
+            $selectBox .= ' - ' . $langNameOfLang[$entries];
 
-        $selectBox.="</option>\n";
+        $selectBox .= '</option>' . "\n";
     }
 
     return $selectBox;
@@ -237,30 +233,55 @@ function create_select_box_language($selected=NULL)
 function language_exists()
 {
     global $clarolineRepositorySys;
-    $dirname = $clarolineRepositorySys."lang/";
+    $dirname = $clarolineRepositorySys . 'lang/';
 
-    if($dirname[strlen($dirname)-1]!='/')
+    if( $dirname[ strlen($dirname) - 1] != '/' )
         $dirname.='/';
 
     //Open the repertoy
-    $handle=opendir($dirname);
+    $handle = opendir($dirname);
 
     //For each reportery in the repertory /lang/
     while ($entries = readdir($handle))
     {
         //If . or .. or CVS continue
-        if ($entries=='.' || $entries=='..' || $entries=='CVS')
+        if ( $entries=='.' || $entries=='..' || $entries=='CVS' )
             continue;
 
         //else it is a repertory of a language
         if (is_dir($dirname.$entries))
         {
-            $arrayLanguage[]=$entries;
+            $arrayLanguage[] = $entries;
         }
     }
     closedir($handle);
 
     return $arrayLanguage;
+}
+
+/**
+ * return all courses category order by treepos
+ * @return array (id, name, code, code_P, bc, treePos, nb_childs, canHaveCoursesChild, canHaveCatChild )
+ */
+function  course_category_get_list()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course_nodes     = $tbl_mdb_names['category'];
+    $sql_searchfaculty = "
+SELECT 
+    id,
+    name,
+    code,
+    code_P,
+    bc,
+    treePos,
+    nb_childs,
+    canHaveCoursesChild,
+    canHaveCatChild 
+FROM `" . $tbl_course_nodes . "` 
+ORDER BY `treePos`";
+    
+    return claro_sql_query_fetch_all($sql_searchfaculty);
 }
 
 ?>
