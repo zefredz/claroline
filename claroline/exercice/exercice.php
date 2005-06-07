@@ -422,7 +422,7 @@ if($is_trackingEnabled && $_uid):
 </thead>
 
 <?php
-$sql="SELECT `ce`.`titre`, `te`.`exe_result` ,
+$sql="SELECT `ce`.`titre`, `te`.`exe_id`, `te`.`exe_result` ,
 			 `te`.`exe_weighting`, UNIX_TIMESTAMP(`te`.`exe_date`) AS `exeDate`,
 			 `te`.`exe_time`
       FROM `".$tbl_quiz_test."` AS ce , `".$tbl_track_e_exercises."` AS te
@@ -440,7 +440,7 @@ foreach($results as $row)
 ?>
 <tr>
   <td><?php echo $row['titre']; ?></td>
-  <td><small><?php echo claro_disp_localised_date($dateTimeFormatLong,$row['exeDate']); ?></small></td>
+  <td><small><a href="../tracking/user_exercise_details.php?track_id=<?php echo $row['exe_id'] ?>"><?php echo claro_disp_localised_date($dateTimeFormatLong,$row['exeDate']); ?></a></small></td>
   <td><?php echo $row['exe_result']; ?> / <?php echo $row['exe_weighting']; ?></td>
   <td><?php echo disp_minutes_seconds($row['exe_time']); ?></td>
 </tr>
