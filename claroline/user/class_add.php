@@ -181,6 +181,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
     global $tbl_class_user; 
     global $langUsersMin;
     global $imgRepositoryWeb;
+    global $langSubscribeToCourse;
 
     foreach ($class_list as $cur_class)
     {
@@ -253,7 +254,7 @@ function display_tree($class_list, $parent_class = null, $deep = 0)
 			
             echo "  <td align=\"center\">\n"
 	        ."    <a onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
-                ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" >\n"
+                ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".$langSubscribeToCourse."\">\n"
 	        ."    </a>\n"
 		."  </td>\n";
 	    
