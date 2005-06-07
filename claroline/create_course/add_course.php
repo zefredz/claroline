@@ -44,13 +44,13 @@
 require '../inc/claro_init_global.inc.php';
 claro_unquote_gpc();
 //// Config tool
-include($includePath.'/conf/course_main.conf.php');
+include($includePath . '/conf/course_main.conf.php');
 
 //// LIBS
-include($includePath.'/lib/add_course.lib.inc.php');
-include($includePath.'/lib/course.lib.inc.php');
-include($includePath.'/lib/fileManage.lib.php');
-include($includePath.'/lib/claro_mail.lib.inc.php');
+include($includePath . '/lib/add_course.lib.inc.php');
+include($includePath . '/lib/course.lib.inc.php');
+include($includePath . '/lib/fileManage.lib.php');
+include($includePath . '/lib/claro_mail.lib.inc.php');
 
 $nameTools = $langCreateSite;
 $controlMsg = array();
@@ -64,7 +64,7 @@ $tbl_course         = $tbl_mdb_names['course'          ];
 $tbl_rel_course_user= $tbl_mdb_names['rel_course_user' ];
 $tbl_category       = $tbl_mdb_names['category'        ];
 $tbl_user           = $tbl_mdb_names['user'            ];
-$tbl_admin			= $tbl_mdb_names['admin'    		];
+$tbl_admin          = $tbl_mdb_names['admin'    	   ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_announcement   = $tbl_cdb_names['announcement'    ];
@@ -125,26 +125,26 @@ else
 		// LABEL (Previously called intitule
 		if ($human_label_needed && empty($newcourse_label)) 
 		{
-			$okToCreate = FALSE;
+            $okToCreate = FALSE;
 			$controlMsg['error'][] = $langLabelCanBeEmpty;
 		}
 		
 		if ($human_code_needed && empty($wantedCode)) 
 		{
-			$okToCreate = FALSE;
+            $okToCreate = FALSE;
 			$controlMsg['error'][] = $langCodeCanBeEmpty;
 		}
 		
 		if ($course_email_needed && empty($newcourse_email)) 
 		{
-			$okToCreate = FALSE;
-			$controlMsg['error'][] = $langEmailCanBeEmpty;
-		}
+            $okToCreate = FALSE;
+            $controlMsg['error'][] = $langEmailCanBeEmpty;
+        }
 
-		// if an email is given It would be correct
-		if (    !empty( $newcourse_email) 
-             && !eregi( $newcourse_email)
-           ) 
+        // if an email is given It would be correct
+        if (    !empty( $newcourse_email) 
+             && ! is_well_formed_email_address( $newcourse_email )
+           )
 		{
 			$okToCreate = FALSE;
 			$controlMsg['error'][] = $langEmailWrong;
