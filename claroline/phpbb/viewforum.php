@@ -50,8 +50,8 @@ require $includePath . '/lib/pager.lib.php';
   DB table names
  -----------------------------------------------------------------*/
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_course_user = $tbl_mdb_names['rel_course_user'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 

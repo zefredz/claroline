@@ -113,7 +113,7 @@ elseif ( $topic_exists )
     $forum_id         = $topicSettingList['forum_id'];
     $topic_title      = $topicSettingList['topic_title'];
 
-    $forumSettingList = get_forum_settings($forum_id, $topic_id);
+    $forumSettingList = get_forum_settings($forum_id);
     
     $forum_name    = $forumSettingList['forum_name'  ];
     $forum_access  = $forumSettingList['forum_access'];

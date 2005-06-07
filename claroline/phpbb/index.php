@@ -62,6 +62,18 @@ $tbl_posts            = $tbl_cdb_names['bb_posts'           ];
 $tbl_student_group    = $tbl_cdb_names['group_team'         ];
 $tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
 
+if ( isset($_REQUEST['cmd']) )
+{
+    $cmd = $_REQUEST['cmd'];
+
+    if ($cmd = "emptyForum" && isset($_REQUEST['id']) )
+    {
+        delete_all_post_in_forum($_REQUEST['id']);
+    }
+    
+}
+
+
 /*-----------------------------------------------------------------
   Initialise variables
  -----------------------------------------------------------------*/
@@ -194,7 +206,6 @@ foreach ( $categories as $this_category )
             echo '<td align="center" valign="top" width="5%">' . "\n"
                 .'<img src="' . $imgRepositoryWeb . $forum_img . '">' . "\n"
                 .'</td>' . "\n";
-
 
             echo '<td>' . "\n";
 

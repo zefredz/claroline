@@ -100,12 +100,13 @@ if ( $forum_exists && $topic_exists )
 {
 
     // Get forum and topics settings
-    $topicSettingList = get_topic_settings($topic_id); 
-    $forum_id         = $topicSettingList['forum_id'];
-	$forumSettingList = get_forum_settings($forum_id, $topic_id);
+    $topicSettingList = get_topic_settings($topic_id);
 
     $topic_subject    = own_stripslashes($topicSettingList['topic_title']);
     $lock_state       = $topicSettingList['topic_status'];
+    $forum_id         = $topicSettingList['forum_id'    ];
+
+	$forumSettingList = get_forum_settings($forum_id);
 	$forum_name       = own_stripslashes($forumSettingList['forum_name']);
     $forum_cat_id     = $forumSettingList['cat_id'];
 	
