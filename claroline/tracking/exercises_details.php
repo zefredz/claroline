@@ -21,12 +21,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 $tbl_quiz_test      = $tbl_cdb_names['quiz_test'              ];
-
-// regroup table names for maintenance purpose
-$TABLETRACK_EXERCISES  = $_course['dbNameGlu']."track_e_exercices";
-$TABLE_QUIZ_TEST       = $tbl_quiz_test;
-$TABLECOURSUSER	       = $tbl_rel_course_user;
-$TABLEUSER             = $tbl_user;
+$tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
 
 include($includePath."/lib/statsUtils.lib.inc.php");
 
@@ -34,7 +29,7 @@ $is_allowedToTrack = $is_courseAdmin;
 
 // get infos about the exercise
 $sql = "SELECT `id`, `titre` `title`
-        FROM `".$TABLE_QUIZ_TEST."`
+        FROM `".$tbl_quiz_test."`
        WHERE `id` = ". (int) $_REQUEST['exo_id'];
 $result = claro_sql_query($sql);
 $exo_details = @mysql_fetch_array($result);
@@ -61,7 +56,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                 COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
                 COUNT(TEX.`exe_user_id`) AS `tusers`,
 				AVG(`TEX`.`exe_time`) AS `avgTime`
-        FROM `".$TABLETRACK_EXERCISES."` AS TEX
+        FROM `".$tbl_track_e_exercices."` AS TEX
         WHERE TEX.`exe_exo_id` = ".$exo_details['id']."
                 AND TEX.`exe_user_id` IS NOT NULL";
   
@@ -105,8 +100,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
             AVG(TEX.`exe_result`) AS `average`,
             COUNT(TEX.`exe_result`) AS `attempts`,
 			AVG(TEX.`exe_time`) AS `avgTime`
-    FROM `".$TABLEUSER."` AS `U`, `".$TABLECOURSUSER."` AS `CU`, `".$TABLE_QUIZ_TEST."` AS `QT`
-    LEFT JOIN `".$TABLETRACK_EXERCISES."` AS `TEX` 
+    FROM `".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_quiz_test."` AS `QT`
+    LEFT JOIN `".$tbl_track_e_exercices."` AS `TEX`
           ON `CU`.`user_id` = `TEX`.`exe_user_id` 
           AND `QT`.`id` = `TEX`.`exe_exo_id`
     WHERE `CU`.`user_id` = `U`.`user_id`
