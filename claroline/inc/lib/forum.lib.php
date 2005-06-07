@@ -41,50 +41,6 @@ function get_userdata_from_id($userId)
     else                       return false;
 }
 
-/**
- * Returns the most recent post in a forum, or a topic
- * @param int    element id
- * @param string element type (forum_id, topic_id, poster_id)
- * @param string dbnameGlued (optionnal)
- * return string post time
- */
-
-function get_last_post($id, $type)
-{
-    global $l_error, $l_noposts, $l_by;
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users      = $tbl_mdb_names['user'];
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_posts     = $tbl_cdb_names['bb_posts'];
-
-    switch ( $type )
-    {
-        case 'forum': $condition = 'forum_id = '  . (int) $id;
-            break;
-        case 'topic': $condition = 'topic_id = '  . (int) $id;
-            break;
-        case 'user' : $condition = 'poster_id = ' . (int) $id;
-            break;
-        default :     $condition = false;
-    }
-
-    if ( $condition !== false )
-    {
-        $sql = "SELECT post_time
-                FROM `" . $tbl_posts."`
-                WHERE " . $condition."
-                ORDER BY post_time DESC LIMIT 1";
-    
-        $result = claro_sql_query_fetch_all($sql);
-
-        if (count($result) == 0) return 0;
-        else                     return $result[0]['post_time'];
-    }
-    else
-    {
-        return false;
-    }
-}
 
 /**
  * Checks if a forum or a topic exists in the database. Used to prevent
