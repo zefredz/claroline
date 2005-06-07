@@ -1091,26 +1091,6 @@ function user_is_tutor($user_id, $course_id)
 
 }
 
-// Determine if forum category is Groups
-
-function is_a_group_forum($forum_id)
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forums  = $tbl_cdb_names['bb_forums'];
-
-    $sqlForumCatId = "SELECT cat_id 
-                      FROM `" . $tbl_forums . "`
-                      WHERE forum_id = '" . (int) $forum_id . "'";
-
-    $catId = claro_sql_query_get_single_value($sqlForumCatId);
-
-    if ( $catId == 1 ) return TRUE ;
-    else               return FALSE ;
-}
-
-
-
-
 /**
  * delete all post and topics from a sepcific forum
  *
