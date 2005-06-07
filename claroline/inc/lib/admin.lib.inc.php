@@ -28,6 +28,9 @@
  * DB tables initialisation
  */
 
+include_once( dirname(__FILE__) . '/fileManage.lib.php');
+include_once( dirname(__FILE__) . '/auth.lib.inc.php');
+
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course           = $tbl_mdb_names['course'          ];
@@ -43,9 +46,6 @@ $tbl_track_login      = $tbl_mdb_names['track_e_login'];
 $tbl_courseUser         = $tbl_rel_course_user ;
 $tbl_courses_nodes      = $tbl_category;
 // End of List of alias  to track an set at original name
-
-include_once( $includePath . '/fileManage.lib.php'   );
-include_once( $includePath . '/lib/auth.lib.inc.php' );
 
 /**
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>

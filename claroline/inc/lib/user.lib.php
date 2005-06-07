@@ -20,7 +20,7 @@
  */
 
 if ( !defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') ) define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
-include_once( dirname(__FILE__) . '/lib/auth.lib.inc.php'      );
+include_once( dirname(__FILE__) . '/auth.lib.inc.php'      );
 
 /**
  * Initialise user data 
