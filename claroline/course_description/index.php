@@ -93,7 +93,6 @@ if ( $is_allowedToEdit )
             // Add new description
                 
                 $descId = course_description_add_item($descTitle,$descContent);
-                echo "blah:".$descId;
             if ($descId != FALSE )
             {
                 $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
