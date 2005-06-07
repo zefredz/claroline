@@ -71,39 +71,6 @@ function generate_passwd()
 	return $retour;
 }
 
-
-/**
- * Check if the password chosen by the user is not too much easy to find
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param string requested password
- * @param array list of other values of the form we wnt to check the password
- *
- * @return boolean true if not too much easy to find
- *
- */
-if  (! function_exists('is_password_secure_enough'))
-{
-function is_password_secure_enough($requestedPassword, $forbiddenValueList)
-{
-    // Temporarly deactivated ...
-    //
-    // if (strlen($requestedPassword) < 8)
-    // {
-    //    return false;
-    // }
-
-    foreach($forbiddenValueList as $thisValue)
-    {
-        if( strtoupper($requestedPassword) == strtoupper($thisValue) )
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-}
 /**
  * Check an email
  * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
