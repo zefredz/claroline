@@ -1425,7 +1425,7 @@ function claro_is_javascript_enabled()
 {
     global $_COOKIE;
 
-    if ($_COOKIE['javascriptEnabled'] == true)
+    if ( isset( $_COOKIE['javascriptEnabled'] ) && $_COOKIE['javascriptEnabled'] == true)
     {
         return true;
     }
