@@ -42,26 +42,6 @@ function get_userdata_from_id($userId)
 }
 
 /**
- * forum.lib.php
- * Gets the total number of topics in a form
- * @param int forum id
- * @param $dbnameGlued string dbName with glu
- * @return int topic count in this forum
- */
-
-function get_total_topics($forum_id)
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_topics    = $tbl_cdb_names['bb_topics'];
-
-	$sql = "SELECT COUNT(*) AS total
-	        FROM `" . $tbl_topics."`
-	        WHERE forum_id = '" . (int) $forum_id . "'";
-
-    return claro_sql_query_get_single_value($sql);
-}
-
-/**
  * Returns the total number of posts in the whole system, a forum, or a topic
  * Also can return the number of users on the system.
  */
