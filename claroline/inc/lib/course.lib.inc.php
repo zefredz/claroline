@@ -110,7 +110,7 @@ function backup_database( $link, $sysCode, &$dir )
         $query = "SELECT * FROM $tablename";
         $resData = claro_sql_query($query);
 
-        insertRegistry($fp,$tablename,$resData);
+        insert_registry($fp,$tablename,$resData);
 
         $i++;
     }
@@ -123,9 +123,9 @@ function backup_database( $link, $sysCode, &$dir )
 
     $query = "SELECT * FROM `$tbl_courses` where code='" . $sysCode . "'";
     $resData = claro_sql_query($query);
-    $tablename="temp_cours";
+    $tablename = "temp_cours";
 
-    insertRegistry($fp,$tablename,$resData);
+    insert_registry($fp,$tablename,$resData);
 
     global $tbl_user,$tbl_course_user;
     $sql_searchUserCourse="SELECT `cu`.user_id user
@@ -170,7 +170,7 @@ function backup_database( $link, $sysCode, &$dir )
         $resData = claro_sql_query($query);
         $tablename="temp_user";
 
-        insertRegistry($fp,$tablename,$resData);
+        insert_registry($fp,$tablename,$resData);
     }
 
 
@@ -186,7 +186,7 @@ function backup_database( $link, $sysCode, &$dir )
         $resData = claro_sql_query($query);
         $tablename="temp_cours_user";
 
-        insertRegistry($fp,$tablename,$resData);
+        insert_registry($fp,$tablename,$resData);
     }
 
     fclose($fp);
@@ -212,7 +212,7 @@ function backup_database( $link, $sysCode, &$dir )
   *
   * @desc The function delete a directory and his below directoy
   */
-function insertRegistry(&$fp,$tablename,$resData)
+function insert_registry(&$fp,$tablename,$resData)
 {
     if (mysql_num_rows($resData) > 0)
     {
