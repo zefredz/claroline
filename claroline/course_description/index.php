@@ -6,8 +6,7 @@
  *
  * If ist's the admin, he can access to the editing
  *
- *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -45,7 +44,7 @@ $tbl_course_description  = $tbl_cdb_names['course_description'];
 include 'tiplistinit.inc.php';
 
 //stats
-include $includePath.'/lib/events.lib.inc.php';
+include $includePath . '/lib/events.lib.inc.php';
 
 $dialogBox = '';
 
@@ -61,17 +60,18 @@ if ( $is_allowedToEdit )
 
     /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
 
-    if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-    else                           $cmd = NULL;
-
-    if ( isset($_REQUEST['descTitle']) ) $descTitle = trim($_REQUEST['descTitle']);
-    else                                 $descTitle = '';
-
-    if ( isset($_REQUEST['descContent']) ) $descContent = trim($_REQUEST['descContent']);
-    else                                   $descContent = '';
-
-    if ( isset($_REQUEST['id']) ) $descId = (int) $_REQUEST['id'];
-    else                          $descId = 0;
+    $cmd         = isset($_REQUEST['cmd'])         
+                 ? $_REQUEST['cmd'] 
+                 : NULL;
+    $descTitle   = isset($_REQUEST['descTitle'])   
+                 ? trim($_REQUEST['descTitle'])
+                 : '';
+    $descContent = isset($_REQUEST['descContent']) 
+                 ? trim($_REQUEST['descContent'])
+                 : '';
+    $descId      = isset($_REQUEST['id'])          
+                 ? (int) $_REQUEST['id'] 
+                 : 0 ;
 
     if ( $cmd == 'exEdit' )
     {
