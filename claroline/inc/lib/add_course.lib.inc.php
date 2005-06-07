@@ -364,7 +364,8 @@ function update_db_course($courseDbName)
     $TABLETRACKDOWNLOADS  = $tbl_cdb_names['track_e_downloads'];//  "track_e_downloads";
     $TABLETRACKUPLOADS    = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
     $TABLETRACKEXERCICES  = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
-    $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details'];
+    $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details']; //"track_e_exe_details"
+    $TABLETRACKEXEANSWERS = $tbl_cdb_names['track_e_exe_answers']; //"track_e_exe_details"
 
     $sql ="
 CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
@@ -837,12 +838,19 @@ claro_sql_query ("
 				  `id` int(11) NOT NULL auto_increment,
 				  `exercise_track_id` int(11) NOT NULL default '0',
 				  `question_id` int(11) NOT NULL default '0',
-				  `value` text NOT NULL,
 				  `result` float NOT NULL default '0',
 				  PRIMARY KEY  (`id`)
 				) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
 		claro_sql_query($sql);
 		
+		$sql = "CREATE TABLE `".$TABLETRACKEXEANSWERS."` (
+				  `id` int(11) NOT NULL auto_increment,
+				  `details_id` int(11) NOT NULL default '0',
+				  `answer` text NOT NULL,
+				  PRIMARY KEY  (`id`)
+				) TYPE=MyISAM COMMENT";
+		claro_sql_query($sql);
+
         $sql = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
                   `upload_id` int(11) NOT NULL auto_increment,
                   `upload_user_id` int(10) default NULL,
