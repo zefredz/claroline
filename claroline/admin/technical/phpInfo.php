@@ -121,7 +121,7 @@ if ($is_allowedToAdmin)
                 }
                 else 
                 {
-                    echo '!! '.$langNoFunctionInThisSection.'!!<BR>';
+                    echo '!! ' . $langNoFunctionInThisSection . '!!<BR>';
                 }
             }
         }
