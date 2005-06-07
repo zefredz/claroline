@@ -278,7 +278,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 
 		$questionScore = 0;
 
-        $valueToTrack = '';
+        $valueToTrack = array();
         
 		for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
 		{
@@ -304,7 +304,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 										  	$questionScore += $answerWeighting;
 											$totalScore += $answerWeighting;
 											// add answer in the value used for question tracking
-											$valueToTrack = $choice;
+											$valueToTrack[] = $choice;
 										}
 										break;
 				// for multiple answers
@@ -315,7 +315,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											$questionScore += $answerWeighting;
 											$totalScore += $answerWeighting;
 											// add all selected answers in the value used for question tracking
-											$valueToTrack .= $answerId.';';
+											$valueToTrack[] = $answerId;
 										}
 
 										break;
@@ -378,7 +378,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 												// adds the word in green at the end of the string
 												$answer .= $choice[$j];
 												
-												$valueToTrack .= '['.$choice[$j].']';
+												$valueToTrack[] = $choice[$j];
 											}
 											// else if the word entered by the student IS NOT the same as the one defined by the professor
 											elseif(!empty($choice[$j]))
@@ -386,13 +386,13 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 												// adds the word in red at the end of the string, and strikes it
 												$answer .= "<span class=\"error\"><s>".$choice[$j]."</s></span>";
 
-												$valueToTrack .= '['.$choice[$j].']';
+												$valueToTrack[] = $choice[$j];
 											}
 											else
 											{
 												// adds a tabulation if no word has been typed by the student
 												$answer .= '&nbsp;&nbsp;&nbsp;';
-												$valueToTrack .= '[]';
+												$valueToTrack[] = '';
 											}
 
 											// adds the correct word, followed by ] to close the blank
@@ -412,7 +412,7 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											if( isset($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
 											{
             									// add answer in the value used for question tracking
-            						            $valueToTrack .= $answerId.'-'.$choice[$answerId].';';
+            						            $valueToTrack[] = $answerId.'-'.$choice[$answerId];
 												$questionScore += $answerWeighting;
 												$totalScore += $answerWeighting;
 												$choice[$answerId] = $matching[$choice[$answerId]];
@@ -421,12 +421,12 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											{
 												$choice[$answerId] = '&nbsp;&nbsp;&nbsp;';
 												// add answer in the value used for question tracking
-												$valueToTrack .= $answerId.'-;';
+												$valueToTrack[] = $answerId.'-';
 											}
 											elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
 											{
                                                 // add answer in the value used for question tracking
-                                                $valueToTrack .= $answerId.'-'.$choice[$answerId].';';
+                                                $valueToTrack[] = $answerId.'-'.$choice[$answerId];
 												$choice[$answerId] = "<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
 											}
 										}
