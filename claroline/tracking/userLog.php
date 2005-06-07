@@ -328,33 +328,33 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                               ."</tr>\n";
                               
                               // display details of the exercise, all attempts
-                              if ($_GET['exoDet'] == $exo_details['id'])
+                              if ( isset($_GET['exoDet']) && $_GET['exoDet'] == $exo_details['id'])
                               {
-                                $sql = "SELECT `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
+                                $sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
                                 FROM `".$tbl_track_e_exercises."`
                                 WHERE `exe_exo_id` = ".$exo_details['id']."
                                 AND `exe_user_id` = ".$_GET['uInfo']."
                                 ORDER BY `exe_date` ASC";
                                 $resListAttempts = claro_sql_query($sql);
                                 
-                                echo "<tr>"
-                                        ."<td class=\"noHover\">&nbsp;</td>"
-                                        ."<td colspan=\"6\" class=\"noHover\">"
-                                        ."<table class=\"claroTable\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" width=\"100%\">\n"
-                                        ."<tr class=\"headerX\">\n"
-                                        ."<th><small>$langDate</small></th>\n"
-                                        ."<th><small>$langScore</small></th>\n"
-                                        ."<th><small>$langExeTime</small></th>\n"
-                                        ."</tr>\n"
-                                        ."<tbody>\n";
+                                echo '<tr>'
+                                        .'<td class="noHover">&nbsp;</td>'."\n"
+                                        .'<td colspan="6" class="noHover">'."\n"
+                                        .'<table class="claroTable" cellspacing="1" cellpadding="2" border="0" width="100%">'."\n"
+                                        .'<tr class="headerX">'."\n"
+                                        .'<th><small>'.$langDate.'</small></th>'."\n"
+                                        .'<th><small>'.$langScore.'</small></th>'."\n"
+                                        .'<th><small>'.$langExeTime.'</small></th>'."\n"
+                                        .'</tr>'."\n"
+                                        .'<tbody>'."\n";
                                 
                                 while ( $exo_attempt = mysql_fetch_array($resListAttempts) )
                                 {
-                                        echo "<tr>\n"
-                                        ."<td><small>".$exo_attempt['exe_date']."</small></td>\n"
-                                      ."<td><small>".$exo_attempt['exe_result']."/".$exo_attempt['exe_weighting']."</small></td>\n"
-                                      ."<td><small>".$exo_attempt['exe_time']."</small></td>\n"
-                                        ."</tr>\n";
+                                        echo '<tr>'."\n"
+											.'<td><small><a href="user_exercise_details.php?track_id='.$exo_attempt['exe_id'].'">'.$exo_attempt['exe_date'].'</a></small></td>'."\n"
+											.'<td><small>'.$exo_attempt['exe_result'].'/'.$exo_attempt['exe_weighting'].'</small></td>'."\n"
+											.'<td><small>'.$exo_attempt['exe_time'].'</small></td>'."\n"
+											.'</tr>'."\n";
                                 }
                                 echo  "</tbody>\n</table>\n\n"
                                     ."</td>\n"
