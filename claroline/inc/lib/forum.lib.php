@@ -929,7 +929,7 @@ class postLister
 
                ORDER BY post_id";
 
-        require_once $includePath.'/lib/pager.lib.php';
+        require_once dirname(__FILE__) . '/lib/pager.lib.php';
 
         $this->sqlPager = new claro_sql_pager($sql, $start, $postsPerPage);
 
