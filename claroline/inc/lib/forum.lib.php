@@ -911,7 +911,6 @@ class postLister
 
     function postLister($topicId, $start = 1, $postsPerPage, $dbnameGlued=NULL)
     {
-        global $includePath;
         $tbl_cdb_names = claro_sql_get_course_tbl($dbnameGlued);
         $tbl_posts            = $tbl_cdb_names['bb_posts'];
         $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
