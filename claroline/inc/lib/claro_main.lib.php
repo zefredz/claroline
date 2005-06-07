@@ -497,7 +497,25 @@ $claro_failureList = array();
 /**
  * collects and manage failures occuring during script execution
  * The main purpose is allowing to manage the display messages externaly
- * from functions or objects. This strengthens encupsalation principle
+ * from functions or objects. This strengthens encapsulation principle
+ *  
+ * Example :
+ *
+ *  function my_function()
+ *  {
+ *      if ($succeeds) return true;
+ *      else           return claro_failure::set_failure('my_failure_type');
+ *  }
+ *  
+ *  if ( my_function() )
+ *  { 
+ *      SOME CODE ...
+ *  }
+ *  else 
+ *  {
+ *      $failure_type = claro_failure::set_last_failure()
+ *  }
+ *  
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
