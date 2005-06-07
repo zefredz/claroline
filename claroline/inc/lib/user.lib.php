@@ -20,7 +20,7 @@
  */
 
 if ( !defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') ) define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
-include_once( $includePath . '/lib/auth.lib.inc.php'      );
+include_once( dirname(__FILE__) . '/lib/auth.lib.inc.php'      );
 
 /**
  * Initialise user data 
@@ -76,7 +76,7 @@ function user_get_data($user_id)
         		    `statut` as `status`  
             FROM  `' . $tbl_user . '`
             WHERE 
-        		`user_id` = "'.(int) $user_id.'"';
+        		`user_id` = "' . (int) $user_id . '"';
 
     $result = claro_sql_query($sql);
 
