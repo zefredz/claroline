@@ -79,7 +79,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     // validate forum params
 
-    $messageList = user_validate_form_profile($user_data, $_uid);
+    $messageList = user_validate_form_profile($user_data, $user_id);
     
     if ( count($messageList) == 0 )
     {
