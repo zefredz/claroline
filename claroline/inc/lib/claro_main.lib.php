@@ -115,6 +115,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'track_e_access'         => $courseDb.'track_e_access',
               'track_e_downloads'      => $courseDb.'track_e_downloads',
 			  'track_e_exe_details'    => $courseDb.'track_e_exe_details',
+			  'track_e_exe_answers'    => $courseDb.'track_e_exe_answers',
               'track_e_exercices'      => $courseDb.'track_e_exercices',
               'track_e_uploads'        => $courseDb.'track_e_uploads',
               'userinfo_content'       => $courseDb.'userinfo_content',
