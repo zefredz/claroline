@@ -37,6 +37,7 @@ $tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
 $tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
 $tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
+$tbl_track_e_exe_answers  = $tbl_cdb_names['track_e_exe_answers'];
 
 
 define("CONFVAL_LOG_DIRECT_IN_TABLE",true); //unstable with false
@@ -355,7 +356,7 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 /**
  * @param exerciseTrackId id in track_e_exercices table
  * @param questionId
- * @param values user answers
+ * @param values array with user answers
  * @param questionResult result of this question
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record result of user when an exercice was done
@@ -366,24 +367,44 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
     // if tracking is disabled record nothing
     if( ! $is_trackingEnabled ) return 0;
 
-    global $tbl_track_e_exe_details;
+    global $tbl_track_e_exe_details, $tbl_track_e_exe_answers;
 
-    $sql="INSERT INTO `".$tbl_track_e_exe_details."`
+	// add the answer tracking informations
+    $sql = "INSERT INTO `".$tbl_track_e_exe_details."`
           (
 			`exercise_track_id`,
 			`question_id`,
-			`value`,
 			`result`
           )
           VALUES
           (
           	".(int) $exerciseTrackId.",
            	'".(int) $questionId."',
-           	'".addslashes($values)."',
            	'".(int) $questionResult."'
           )";
-
-    $res = claro_sql_query($sql);
+    $details_id = claro_sql_query_insert_id($sql);
+    
+    // check if previous query succeed to add answers
+    if( $details_id )
+    {
+	    // add, if needed, the different answers of the user
+	    // one line by answer
+	    // each entry of $values should be correctly formatted depending on the question type
+	    foreach( $values as $answer )
+	    {
+			$sql = "INSERT INTO `".$tbl_track_e_exe_answers."`
+				(
+					`details_id`,
+					`answer`
+				)
+				VALUES
+				(
+				    ".$details_id.",
+				    '".addslashes($answer)."'
+				)";
+		    claro_sql_query($sql);
+		}
+	}
     return 1;
 }
 
