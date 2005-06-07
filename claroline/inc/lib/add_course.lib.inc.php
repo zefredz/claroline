@@ -1164,7 +1164,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
         }
         else 
         {
-            $intitule =$courseScreenCode;
+            $intitule = $courseScreenCode;
         }
     }
     if ($languageCourse == '')
@@ -1192,32 +1192,32 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
         if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
         // here we must add 2 fields
         $sql ="INSERT INTO `" . $TABLECOURSE . "` SET
-            code = '" . $courseSysCode . "',
-            dbName = '" . $courseDbName . "',
-            directory = '" . $courseRepository . "',
+            code           = '" . $courseSysCode . "',
+            dbName         = '" . $courseDbName . "',
+            directory      = '" . $courseRepository . "',
             languageCourse = '" . $languageCourse . "',
-            intitule = '" . addslashes($intitule) . "',
-            description = '" . addslashes($langCourseDescription) ."',
-            faculte = '" . $faculte."',
-            visible = '" . $defaultVisibilityForANewCourse . "',
-            scoreShow = '',
-            diskQuota = NULL,
-            creationDate = now(),
+            intitule       = '" . addslashes($intitule) . "',
+            description    = '" . addslashes($langCourseDescription) ."',
+            faculte        = '" . $faculte."',
+            visible        = '" . $defaultVisibilityForANewCourse . "',
+            scoreShow      = '',
+            diskQuota      = NULL,
+            creationDate   = now(),
             expirationDate = '" . $expirationDate . "',
-            versionDb = '" . $versionDb."',
-            versionClaro = '" . $clarolineVersion . "',
-            lastEdit = now(),
-            lastVisit = NULL,
-            titulaires = '" . addslashes($titular) . "',
-            email = '" . addslashes($email) . "',
-            fake_code = '" . $courseScreenCode . "'";
+            versionDb      = '" . $versionDb."',
+            versionClaro   = '" . $clarolineVersion . "',
+            lastEdit       = now(),
+            lastVisit      = NULL,
+            titulaires     = '" . addslashes($titular) . "',
+            email          = '" . addslashes($email) . "',
+            fake_code      = '" . $courseScreenCode . "'";
         claro_sql_query($sql);
-        $sql = "INSERT INTO `".$TABLECOURSUSER."` SET
-            code_cours = '" . $courseSysCode . "',
-            user_id = '" . (int) $uidCreator."',
-            statut = '1',
-            role = '" . addslashes($langProfessor) . "',
-            tutor='1'";
+        $sql = "INSERT INTO `" . $TABLECOURSUSER . "` 
+                SET code_cours     = '" . $courseSysCode . "',
+                    user_id = '" . (int) $uidCreator."',
+                    statut  = '1',
+                    role    = '" . addslashes($langProfessor) . "',
+                    tutor   = '1'";
         claro_sql_query($sql);
     }
     else //if ($okForRegisterCourse)
@@ -1235,9 +1235,9 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
  * @version 1.0
  */
 
-function read_properties_in_archive(($archive, $isCompressed=TRUE)
+function read_properties_in_archive($archive, $isCompressed=TRUE)
 {
-    include('../inc/lib/pclzip/pclzip.lib.php');
+    include_once (dirname(__FILE__) . '/pclzip/pclzip.lib.php');
     printVar(dirname($archive), 'Zip : ');
     /*
     string tempnam ( string dir, string prefix)
@@ -1247,13 +1247,13 @@ function read_properties_in_archive(($archive, $isCompressed=TRUE)
     */
     $zipFile = new pclZip($archive);
     $tmpDirName = dirname($archive) . '/tmp' . $uid . uniqid($uid);
-    if (claro_mkdir($tmpDirName, 0777, TRUE))
+    if (claro_mkdir( $tmpDirName, 0777, TRUE ) )
         $unzippingSate = $zipFile->extract($tmpDirName);
     else
         die ('claro_mkdir error');
     $pathToArchiveIni = dirname($tmpDirName) . '/archive.ini';
 //    echo $pathToArchiveIni;
-    $courseProperties = parse_ini_file($pathToArchiveIni);
+    $courseProperties = parse_ini_file( $pathToArchiveIni );
     rmdir($tmpDirName);
     return $courseProperties;
 };
