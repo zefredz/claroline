@@ -82,6 +82,8 @@ function generate_passwd()
  * @return boolean true if not too much easy to find
  *
  */
+if  (! function_exists('is_password_secure_enough'))
+{
 function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 {
     // Temporarly deactivated ...
@@ -101,7 +103,7 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 
     return true;
 }
-
+}
 /**
  * Check an email
  * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
