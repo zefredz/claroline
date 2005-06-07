@@ -185,27 +185,6 @@ function does_exists($id, $type)
 }
 
 /**
- * Returns the name of the forum based on ID number
- * @param int forum id
- * @param string dbnameGlued (optionnal)
- * @return string forum name
- */
-
-function get_forum_name($forum_id)
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forums    = $tbl_cdb_names['bb_forums'];
-
-    $sql = "SELECT forum_name
-            FROM `" . $tbl_forums . "`
-            WHERE forum_id = " . (int) $forum_id;
-
-    $forum_name = claro_sql_query_get_single_value($sql);
-    if ($forum_name) return stripslashes($forum_name);
-    else             return 'None';
-}
-
-/**
  * Check if this is the first post in a topic. Used in editpost.php
  * @param $topic_id integer
  */
