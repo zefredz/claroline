@@ -1,6 +1,6 @@
 <?php // $Id$
 require_once('class.phpmailer.php');
-include_once( $includePath . '/lib/auth.lib.inc.php'      );
+include_once( dirname(__FILE__) . '/auth.lib.inc.php');
 
 
   //needed to see if email is valid to try sending the notification
