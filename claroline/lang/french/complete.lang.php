@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Auteur";
 $l_body = "Message";
 $l_by = "par";
@@ -718,8 +718,8 @@ $langEx = "p. ex. <i>Histoire de la littérature</i>";
 $langExAlreadyUsed = "Cet exercice est déjà utilisé comme module dans ce parcours pédagogique";
 $langExInsertedAsModule = "a été ajouté comme module de ce cours et comme module de ce parcours pédagogique";
 $langExMessage = "Message exemple";
-$langExeAvgTime = "Temps moyen (s.)";
-$langExeTime = "Temps (s.)";
+$langExeAvgTime = "Temps moyen";
+$langExeTime = "Temps";
 $langExercice = "Exercice";
 $langExerciceEx = "Exemple d'exercice";
 $langExercices = "Exercices";
@@ -1476,7 +1476,9 @@ $langPathContentTitle = "Contenu du parcours pédagogique";
 $langPathsInCourseProg = "Progression dans le cours";
 $langPerhaps_with_others_directory = "peut-être avec d'autres dossiers";
 $langPeriodDay = "Jour";
+$langPeriodDayShort = "j.";
 $langPeriodHour = "Heure";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "Mois";
 $langPeriodToDisplay = "Période";
 $langPeriodWeek = "Semaine";
