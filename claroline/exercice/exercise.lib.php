@@ -372,23 +372,4 @@ function display_attached_file($attachedFile)
   return $returnedString;
 }
 
-function disp_minutes_seconds($timeInSec)
-{
-  global $langMinuteShort,$langSecondShort;
-  
-  $sec = $timeInSec%60 ;
-  $min = ($timeInSec - $sec)/ 60;
-  
-  $returnedString = "";
-  
-  if ( $min != 0 )
-  {
-    $returnedString .= $min." ".$langMinuteShort."&nbsp;";
-  }
-  
-  $returnedString .= $sec." ".$langSecondShort;
-  
-  return $returnedString;  
-  
-}
 ?>
