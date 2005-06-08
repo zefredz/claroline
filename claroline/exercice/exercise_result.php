@@ -521,10 +521,10 @@ claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 <tr>
   <td align="center">
 	<?php 
-		echo $langYourTime." ".disp_minutes_seconds($timeToCompleteExe); 
+		echo $langYourTime." ".claro_disp_duration($timeToCompleteExe);
 		if( $exerciseMaxTime > 0 )
 		{
-			echo "<br />".$langMaxAllowedTime." ".disp_minutes_seconds($exerciseMaxTime);
+			echo "<br />".$langMaxAllowedTime." ".claro_disp_duration($exerciseMaxTime);
 		}
 	?>
   </td>

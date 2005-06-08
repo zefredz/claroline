@@ -357,7 +357,7 @@ else
   }
   else
   {
-    echo $langAllowedTime." : ".disp_minutes_seconds($maxTime);
+    echo $langAllowedTime." : ".claro_disp_duration($maxTime);
   }
 ?>
   <li>

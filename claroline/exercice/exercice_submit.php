@@ -237,7 +237,7 @@ if($exerciseType == 2)
 
 if($exerciseMaxTime != 0)
 {
-  $statusMsg .= " ".$langMaxAllowedTime." : ".disp_minutes_seconds($exerciseMaxTime);
+  $statusMsg .= " ".$langMaxAllowedTime." : ".claro_disp_duration($exerciseMaxTime);
 }
 else
 {

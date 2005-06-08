@@ -442,7 +442,7 @@ foreach($results as $row)
   <td><?php echo $row['titre']; ?></td>
   <td><small><a href="../tracking/user_exercise_details.php?track_id=<?php echo $row['exe_id'] ?>"><?php echo claro_disp_localised_date($dateTimeFormatLong,$row['exeDate']); ?></a></small></td>
   <td><?php echo $row['exe_result']; ?> / <?php echo $row['exe_weighting']; ?></td>
-  <td><?php echo disp_minutes_seconds($row['exe_time']); ?></td>
+  <td><?php echo claro_disp_duration($row['exe_time']); ?></td>
 </tr>
 
 <?php
