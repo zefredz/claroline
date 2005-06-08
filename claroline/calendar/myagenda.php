@@ -2,11 +2,11 @@
 /**
  * CLAROLINE 
  *
- *	This file generates a general agenda of all items of the courses
- *	the user is registered for.
+ *    This file generates a general agenda of all items of the courses
+ *    the user is registered for.
  *
- *	Based on the master-calendar code of Eric Remy (6 Oct 2003)
- *	adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
+ *    Based on the master-calendar code of Eric Remy (6 Oct 2003)
+ *    adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
  * @version 1.7 $Revision$
  *
@@ -26,7 +26,7 @@
 $cidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
-require_once($includePath . '/lib/CLCAL.lib.inc.php');
+require_once($includePath . '/lib/agenda.lib.php');
 
 $nameTools = $langMyAgenda;
 
@@ -35,15 +35,15 @@ $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_course          = $tbl_mdb_names['course'];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-if (isset($_uid))
+if ( isset( $_uid ) )
 {
     $sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
                    cours.intitule title, cours.titulaires t, 
                    cours.dbName db, cours.directory dir
-	        FROM    `" . $tbl_course . "`     cours,
-				    `" . $tbl_rel_course_user . "` cours_user
-	        WHERE cours.code         = cours_user.code_cours
-	        AND   cours_user.user_id = '" . (int) $_uid . "'";
+            FROM    `" . $tbl_course . "`     cours,
+                    `" . $tbl_rel_course_user . "` cours_user
+            WHERE cours.code         = cours_user.code_cours
+            AND   cours_user.user_id = '" . (int) $_uid . "'";
 
     $userCourseList = claro_sql_query_fetch_all($sql);
 
@@ -71,13 +71,12 @@ if (isset($_uid))
 
     $monthName   = $langMonthNames['long'][$month-1];
     $diplay_monthly_calendar = TRUE;
-
 }
 else
 {
     $diplay_monthly_calendar = FALSE;
-
 }
+
 include($includePath . '/claro_init_header.inc.php');
 claro_disp_tool_title($nameTools);
 
@@ -85,6 +84,7 @@ if ($diplay_monthly_calendar)
 {
     claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
 }
+
 include($includePath . '/claro_init_footer.inc.php');
 
 ?>
