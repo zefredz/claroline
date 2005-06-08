@@ -1209,6 +1209,38 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 }
 
 /**
+ * @author Sébastien Piraux <pir@cerdecam.be>
+ * @param duration time in seconds to convert to a human readable duration
+ * @desc  convert a duration in seconds to a human readable duration
+ */
+function claro_disp_duration( $duration  )
+{
+	global $langPeriodDayShort, $langPeriodHourShort,
+			$langMinuteShort, $langSecondShort;
+
+	if( $duration == 0 ) return '0 '.$langSecondShort;
+
+	$days = floor(($duration/86400));
+	$duration = $duration % 86400;
+
+	$hours = floor(($duration/3600));
+	$duration = $duration % 3600;
+
+	$minutes = floor(($duration/60));
+	$duration = $duration % 60;
+	// $duration is now equal to seconds
+
+	$durationString = '';
+
+	if( $days > 0 ) $durationString .= $days.' '.$langPeriodDayShort.' ';
+	if( $hours > 0 ) $durationString .= $hours.' '.$langPeriodHourShort.' ';
+    if( $minutes > 0 ) $durationString .= $minutes.' '.$langMinuteShort.' ';
+	if( $duration > 0 ) $durationString .= $duration.' '.$langSecondShort;
+
+	return $durationString;
+}
+
+/**
  * Insert a    sort of    HTML Wysiwyg textarea inside a FORM
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
