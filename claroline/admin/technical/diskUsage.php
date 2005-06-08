@@ -15,7 +15,7 @@ require '../../inc/claro_init_global.inc.php';
 $is_allowedToAdmin = $is_platformAdmin;
 if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 
-@include($includePath . '/lib/debug.lib.inc.php');
+include($includePath . '/lib/debug.lib.inc.php');
 include($includePath . '/lib/fileManage.lib.php');
 
 $tbl_cdb_names = claro_sql_get_main_tbl();
@@ -28,6 +28,70 @@ $interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => $langTechAdmin);
 
 $dateNow = claro_disp_localised_date($dateTimeFormatLong);
 
+$disp_form = true;
+
+if (isset( $_REQUEST['display_all_size_of_clarolineRepositorySys']))
+{
+    $display_all_size_of_clarolineRepositorySys =  $_REQUEST['display_all_size_of_clarolineRepositorySys'];
+}
+else
+{
+    $display_all_size_of_clarolineRepositorySys =  false;
+}
+
+
+if (isset( $_REQUEST['display_all_size_of_selected_courses']))
+{
+    $display_all_size_of_selected_courses =  $_REQUEST['display_all_size_of_selected_courses'];
+}
+else
+{
+    $display_all_size_of_selected_courses =  false;
+}
+
+
+if (isset( $_REQUEST['display_all_size_of_Total_Courses']))
+{
+    $display_all_size_of_Total_Courses =  $_REQUEST['display_all_size_of_Total_Courses'];
+}
+else
+{
+    $display_all_size_of_Total_Courses =  false;
+}
+
+if (isset( $_REQUEST['display_all_size_of_garbageRepositorySys']))
+{
+    $display_all_size_of_garbageRepositorySys =  $_REQUEST['display_all_size_of_garbageRepositorySys'];
+    $garbagedisk_usage = disk_usage($garbageRepositorySys,'','m');
+}
+else
+{
+    $display_all_size_of_garbageRepositorySys =  false;
+    
+}
+
+if (isset( $_REQUEST['coursesToCheck']))
+{
+    $coursesToCheck =  $_REQUEST['coursesToCheck'];
+}
+else
+{
+    $coursesToCheck =  false;
+}
+
+
+
+if ($disp_form)
+{
+    $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
+    $courseList = claro_sql_query_fetch_all($sqlListCoursesSel);
+}
+
+
+
+//OUTPUT
+
+
 include( $includePath . '/claro_init_header.inc.php' );
 
 claro_disp_tool_title(
@@ -38,6 +102,11 @@ claro_disp_tool_title(
 );
 
 echo $langCourse_Repository . ' : ' . $coursesRepositorySys . '<br>' . $langMysql_Repository . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . $langMissing) . '<br>';
+
+
+
+if ($disp_form)
+{
 
 ?>
 <ul>
@@ -55,11 +124,12 @@ if ($display_all_size_of_Total_Courses)
     .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
     .    '(' . $langPerhaps_with_others_directory . ')</li>'
     ;
+
 if ($display_all_size_of_garbageRepositorySys )
     echo '<li>'
     .    $langGarbage
     .    ' :  '
-    .    sprintf('%01.2f', disk_usage($garbageRepositorySys,'','m')) . ' ' . $byteUnits[2]
+    .    sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2]
     .    '</li>'
     ;
 ?>
@@ -79,13 +149,12 @@ if ($display_all_size_of_garbageRepositorySys )
 <select name="coursesToCheck[]" size="" multiple>
         <option value=" all " >** <?php echo $langAll ?> ** !!! <?php echo $langHigh_resources ?></option>
         <?php
-            $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `".$tbl_course."` order by trim(fake_code) ASC";
-            $resCoursesSel= claro_sql_query($sqlListCoursesSel);
-            while ($courseSel = mysql_fetch_array($resCoursesSel,MYSQL_ASSOC))
+            foreach ($courseList as $courseSel)
             {
-                echo "\t<option value=\"".$courseSel['sysCode']."\" >".$courseSel['officialCode']."</option>\n";
+                echo '<option value="' . $courseSel['sysCode'] . '" >'
+                .    $courseSel['officialCode']
+                .    '</option>' . "\n";
             }
-            mysql_free_result($resCoursesSel);
 
         ?>
 </select>
@@ -94,6 +163,9 @@ if ($display_all_size_of_garbageRepositorySys )
 <hr>
 </li>
 <?php
+}
+
+
 if ($display_all_size_of_selected_courses && $coursesToCheck)
 {
     echo '<li><ol>';
