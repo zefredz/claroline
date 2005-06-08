@@ -23,7 +23,7 @@ $tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
 require_once($clarolineRepositorySys . '/linker/linker.inc.php');
-require_once($includePath . '/lib/CLCAL.lib.inc.php');
+require_once($includePath . '/lib/agenda.lib.php');
 
 claro_unquote_gpc();
 

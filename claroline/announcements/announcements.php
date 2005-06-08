@@ -65,7 +65,7 @@ if ( ! $_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 
 require_once($includePath . '/lib/events.lib.inc.php');
-require_once($includePath . '/lib/CLANN.lib.inc.php');
+require_once($includePath . '/lib/announcement.lib.php');
 require_once($includePath . '/lib/claro_mail.lib.inc.php');
 require_once($clarolineRepositorySys . '/linker/linker.inc.php');
 

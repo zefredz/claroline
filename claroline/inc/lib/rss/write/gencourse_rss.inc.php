@@ -28,8 +28,8 @@ require_once 'XML/Serializer.php';
 
 include_once $includePath . '/conf/rss.conf.inc.php'; 
 require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/CLANN.lib.inc.php';
-require_once $includePath . '/lib/CLCAL.lib.inc.php';
+require_once $includePath . '/lib/announcement.lib.php';
+require_once $includePath . '/lib/agenda.lib.php';
 if (!isset($rssRepository))
 {
     $rssRepositorySys = $rootSys . 'rss/';
