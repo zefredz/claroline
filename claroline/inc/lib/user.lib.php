@@ -377,6 +377,155 @@ function user_delete_admin($user_id)
 }
 
 /**
+ * subscribe a specific user to a specific course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ * @param boolean $force_it if true  : it means we must'nt check if subcription is the course is set to allowed or not
+ *                          if false : (default value) it means we must take account of the subscription setting
+ *
+ * @return boolean TRUE  if subscribtion succeed
+ *         boolean FALSE otherwise.
+ */
+
+function user_add_to_course($user_id, $couse_code, $force_it=false)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user = $tbl_mdb_names['user'];
+    $tbl_course = $tbl_mdb_names['course'];
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+
+    // previously check if the user are already registered on the platform
+    $sql = "SELECT `statut` `status` 
+            FROM `" . $tbl_user . "`
+            WHERE user_id = '" . (int)$user_id . "'";
+
+    $handle = claro_sql_query($sql);
+
+    if ( mysql_num_rows($handle) == 0 )
+    {
+        return false; // the user isn't registered to the platform
+    }
+    else
+    {
+        // previously check if the user isn't already subscribed to the course
+        $sql = "SELECT * 
+                FROM `" . $tbl_rel_course_user . "`
+                WHERE `user_id` = '" . (int)$userId . "'
+                AND `code_cours` ='" . addslashes($course_id) . "'";
+
+        $handle = claro_sql_query($sql);
+
+        if ( mysql_num_rows($handle) > 0 )
+        {
+            return true; // the user is already subscribed to the course
+        }
+        else
+        {
+            // previously check if subscribtion is allowed for this course
+            $sql = " SELECT `code`, `visible` 
+                     FROM `" . $tbl_course . "`
+                     WHERE  `code` = '" . addslashes($course_id) . "'
+                     AND    (`visible` = 0 OR `visible` = 3)" ;
+
+            $handle = claro_sql_query($sql);
+
+            if ( ( mysql_num_rows($handle) > 0 ) && !$force_it )
+            {
+                return false; // subscribtion not allowed for this course
+            }
+            else
+            {
+                $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
+                        SET `code_cours` = '" . addslashes($course_id) . "',
+                            `user_id`    = '" . (int)$user_id . "',
+                            `statut`     = '5' ";
+
+                if ( claro_sql_query($sql) )
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        } // end else user not subscribed in the course
+    } // end else user register in the platform
+}
+
+/**
+ * unsubscribe a specific user from a specific course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param  int     $userId     user ID from the course_user table
+ * @param  string  $courseCode course code from the cours table
+ *
+ * @return boolean TRUE        if unsubscribtion succeed
+ *         boolean FALSE       otherwise.
+ */
+
+function user_remove_from_course($user_id, $course_id)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
+
+    // previously check if the user is not administrator of the course
+    // a course administrator can not unsubscribe himself from a course
+    $sql = "SELECT *
+            FROM `" . $tbl_rel_course_user . "`
+            WHERE user_id  = '" . (int)$user_id . "'
+             AND code_cours = '" . addslashes($course_id) . "'
+             AND statut = '1' ";
+
+    $handle = claro_sql_query($sql);
+
+    if ( mysql_num_rows($handle) > 0 )
+    {
+        return false; // the user is administrator of the course
+    }
+
+    $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
+            WHERE user_id = '" . (int)$user_id . "'
+              AND code_cours = '" . addslashes($course_id) . "'";
+
+    if ( claro_sql_query($sql) )
+    {
+        user_remove_from_group($user_id, $course_id);
+    }
+
+    return true;
+}
+
+/**
+ * remove a specific user from a course groups
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param  int     $userId     user ID from the course_user table
+ * @param  string  $courseCode course code from the cours table
+ *
+ * @return boolean TRUE        if removing suceed
+ *         boolean FALSE       otherwise.
+ */
+
+function user_remove_from_group($user_id, $course_id)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+
+    $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
+            WHERE user = '" . (int)$user_id . "'";
+
+    claro_sql_query($sql);
+
+    return true;
+}
+
+/**
  * Send registration succeded email to user
  *
  * @param $user_id integer
@@ -751,6 +900,20 @@ function user_display_form_profile($data)
 }
 
 /**
+ * Display user form registration
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_display_form_add_new_user($data)
+{
+    user_display_form($data,'add_new_user');
+}
+
+/**
  * Display user admin form registration
  *
  * @param $data array to fill the form
@@ -794,6 +957,7 @@ function user_display_form($data, $form_type='registration')
            $langConfirmation, $langEmail, $langPhone, $langAction, $langRegister,
            $langRegStudent, $langRegAdmin, $langUserid, 
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langChangePwdexp,
+           $langGroupTutor,$langManager,
            $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin;
 
     global $allowSelfRegProf;
@@ -911,6 +1075,34 @@ function user_display_form($data, $form_type='registration')
         . '  <td align="right"><label for="phone">' . $langPhone . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
+    
+    // Group Tutor
+    if ( $form_type == 'add_new_user' )
+    {
+        echo '<tr valign="top">'
+            . '<td align="right">' . $langGroupTutor .' : </td>'
+            . '<td>'
+            . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_admin']?'checked':'') . ' >'
+            . '<label for="tutor_form_yes">' . $langYes . '</label>'
+            . '<input type="radio" name="is_tutor" value="0"  id="tutor_form_no" ' . (!$data['is_admin']?'checked':'') . ' >'
+            . '<label for="tutor_form_no">' . $langNo . '</label>'
+            . '</td>'
+            . '</tr>';
+    }
+    
+    // Course manager of the course
+    if ( $form_type == 'add_new_user' )
+    {
+        echo ' <tr>' . "\n"
+            . '  <td align="right">' . $langManager . '&nbsp;:</label></td>' . "\n"
+            . '<td>'
+            . '<input type="radio" name="is_coursemanager" value="' . STUDENT . '" id="coursemanager_form_yes" ' . ($data['is_coursemanager']==STUDENT?'checked':'') . ' >'
+            . '<label for="coursemanager_form_yes">' . $langYes . '</label>'
+            . '<input type="radio" name="is_coursemanager" value="' . COURSEMANAGER . '" id="coursemanager_form_no" ' . (!$data['is_coursemanager']==COURSEMANAGER?'checked':'') . ' >'
+            . '<label for="coursemanager_form_no">' . $langNo . '</label>'
+            . '</td>'
+            . ' </tr>' . "\n";
+    }
 
     // Status: Allow registration as course manager
     if ( ($allowSelfRegProf && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
