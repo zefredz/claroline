@@ -232,8 +232,6 @@ else
     $form_value_list['allowSelfReg'] = trueFalse($allowSelfReg);
     $form_value_list['platformLanguage'] = $languageForm ;
     $form_value_list['claro_stylesheet'] = 'default.css';
-    $form_value_list['clarolineVersion'] = $clarolineVersion;
-    $form_value_list['versionDb'] = $versionDb;
     $form_value_list['CLARO_DEBUG_MODE']= trueFalse($conf_def_property_list['CLARO_DEBUG_MODE']['default']);
     $form_value_list['DEVEL_MODE']= trueFalse($conf_def_property_list['DEVEL_MODE']['default']);
 
@@ -328,6 +326,16 @@ else
 	    } 
     }
 }
+
+// write currentVersion.inc.php
+
+$fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
+$currentVersionStr = '<?php
+$clarolineVersion = "'.$version_file_cvs.'";
+$versionDb = "'.$version_db_cvs.'";
+?>';
+fwrite($fp_currentVersion, $currentVersionStr);
+fclose($fp_currentVersion);
 
 // Check File System
 
