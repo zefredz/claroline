@@ -365,15 +365,23 @@ else
     $display=DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 
-include_once($newIncludePath . 'lib/admin.lib.inc.php');
-$idAdmin = add_user( cleanwritevalue($adminNameForm)
-        , cleanwritevalue($adminSurnameForm)
-        , cleanwritevalue($adminEmailForm)
-        , cleanwritevalue($adminPhoneForm)
-        , ''
-        , cleanwritevalue($loginForm)
-        , cleanwritevalue($passForm)
-        , TRUE);
+/**
+ * Add administrator in user and admin table
+ */
 
-set_user_admin($idAdmin);
+include_once($newIncludePath . 'lib/user.lib.php');
+
+$user_data['lastname'] = $adminNameForm;
+$user_data['firstname'] = $adminSurnameForm;
+$user_data['username'] = $loginForm;
+$user_data['password'] = $passForm;
+$user_data['email'] = $adminEmailForm;
+$user_data['status'] = 1; // COURSEMANAGER constant
+$user_data['officialCode'] = '';
+$user_data['phone'] = $adminPhoneForm;
+
+$id_admin = user_insert ($user_data);
+
+user_add_admin($id_admin);
+
 ?>
