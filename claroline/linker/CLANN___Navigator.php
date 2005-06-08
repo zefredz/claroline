@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,38 +11,38 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
-    require_once ("CLANN___Resolver.php");
+    require_once (dirname(__FILE__) . '/navigator.lib.php');
+    require_once (dirname(__FILE__) . '/CLANN___Resolver.php');
 
    /**
     * Class announcementNavigator  
-    * 
+    *
     *
     * @author Fallier Renaud
     */
     class CLANN___Navigator extends Navigator  
     {
-        /*-------------------------
-                 variable
-         ------------------------*/
+        /**
+         * @var $_claroContainer
+         */
         var $_claroContainer;  
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
         * @param   $basePath string path root directory of courses  
-        * g@lobal  $_course
+        * @global  $_course
         */
         function CLANN___Navigator($basePath = null)
         {
             global $_course;
             $this->_claroContainer = FALSE; 
         }
-        
+
         /**
         * list the contents of a announcement
         *
@@ -54,58 +54,58 @@
         */
         function getResource($node = null)
         {
-        	global $rootWeb;
-        	
-        	// if the node is not null	
+            global $rootWeb;
+            
+            // if the node is not null	
             if($node)
             {
-            	// if this node (crl) is for annoncement
-                if(CRLTool::isForThisTool($node,"CLANN___"))
+                // if this node (crl) is for announcement
+                if(CRLTool::isForThisTool($node, 'CLANN___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
                      if( !isset ($elementCRLArray["resource_id"]) )               
                      {
-                         // listing of annonce
-                         $annonce = $this->_listAnnonce($elementCRLArray["course_sys_code"]);
+                         // listing of annoncouncement
+                         $annonce = $this->_listAnnonce($elementCRLArray['course_sys_code']);
                          $elementList = array();
-                         
+
                          foreach ($annonce as $itemAnnonce )
                          {
-                             $crl = $node."/".$itemAnnonce["id"]; 
+                             $crl = $node . '/' . $itemAnnonce['id']; 
                              $res = new CLANN___Resolver($rootWeb); 
-                             $title = $res->getTitle($elementCRLArray["course_sys_code"],$itemAnnonce["id"]); 
-                             $isVisible = ( $itemAnnonce["visibility"] == 'SHOW');
+                             $title = $res->getTitle($elementCRLArray['course_sys_code'], $itemAnnonce['id']); 
+                             $isVisible = ( $itemAnnonce['visibility'] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
                              $elementList[] = $container ;   
-                         }    
-                          
+                         }
+
                          $this->_claroContainer = new ClaroContainer ( '' , $node , $elementList );   
-                         
+
                          return $this->_claroContainer;
-                     
+
                      }
                      else
                      {
                          trigger_error ("Error : resource_id must be empty", E_USER_ERROR);   
-                     }                  
+                     }
                 }
                 else
                 {
                     trigger_error ("Error : not crl for a announcement tool", E_USER_ERROR);
-                }               
+                }
             }
             // if the node is null
             else
             {
                 trigger_error ("Error : crl is empty", E_USER_ERROR);
-            }   
+            }
         }
         
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the announcement of a course
         *
