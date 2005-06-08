@@ -84,7 +84,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
   <li><?php echo $langScoreMin; ?> : <?php echo $exo_scores_details['minimum']; ?></li>
   <li><?php echo $langScoreMax; ?> : <?php echo $exo_scores_details['maximum']; ?></li>
   <li><?php echo $langScoreAvg; ?> : <?php echo $exo_scores_details['average']; ?></li>
-  <li><?php echo $langExeAvgTime; ?> : <?php echo round($exo_scores_details['avgTime']*100)/100; ?></li>
+  <li><?php echo $langExeAvgTime; ?> : <?php echo claro_disp_duration(floor($exo_scores_details['avgTime'])); ?></li>
 </ul>
 <ul>
   <li><?php echo $langExerciseUsersAttempts; ?> : <?php echo $exo_scores_details['users']; ?></li>
@@ -142,7 +142,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
       		."<td>".$exo_users_details['maximum']."</td>\n"
       		."<td>".(round($exo_users_details['average']*100)/100)."</td>\n"
       		."<td>".$exo_users_details['attempts']."</td>\n"
-      		."<td>".(round($exo_users_details['avgTime']*100)/100)."</td>\n"
+      		."<td>".claro_disp_duration(floor($exo_users_details['avgTime']))."</td>\n"
     		."</tr>";
   }
   // foot of table
