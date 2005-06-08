@@ -148,7 +148,7 @@ if( $display == DISP_EDIT_FILE )
 
     ?>
 
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 <?php
 claro_disp_html_area('textContent', $textContent);
 ?>
