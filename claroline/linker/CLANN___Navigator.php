@@ -56,7 +56,7 @@
         {
             global $rootWeb;
             
-            // if the node is not null	
+            // if the node is not null    
             if($node)
             {
                 // if this node (crl) is for announcement
@@ -64,7 +64,7 @@
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray["resource_id"]) )               
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
                          // listing of annoncouncement
                          $annonce = $this->_listAnnonce($elementCRLArray['course_sys_code']);
@@ -98,10 +98,10 @@
             // if the node is null
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/

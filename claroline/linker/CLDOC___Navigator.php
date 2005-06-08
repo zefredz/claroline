@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-   require_once ("navigator.lib.php");
+   require_once dirname(__FILE__) . '/navigator.lib.php';
 
     /**
     * Class DocumentNavigator  
@@ -26,11 +26,11 @@
          ------------------------*/
         var $_claroContainer; 
         var $_basePath; 
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             $this->_claroContainer = FALSE;
             $this->_basePath = $basePath; 
         }
-        
+
         /**
         * seek the repertory and the files for a current node
         *
@@ -54,28 +54,28 @@
         {
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLDOC___"))
+                if(CRLTool::isForThisTool($node, 'CLDOC___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
                      
                      // the base dir path is different if in groups  
                      if( isset ($elementCRLArray["team"]) )
                      {
-                    	$secretDirectory = $this->_getSecretDirectory($elementCRLArray);
-                    	
-                     	$baseDirPath = $this->_basePath."/".$elementCRLArray["course_sys_code"]."/group";
-                     	$baseDirPath .= "/".$secretDirectory;
+                        $secretDirectory = $this->_getSecretDirectory($elementCRLArray);
+                        
+                         $baseDirPath = $this->_basePath."/".$elementCRLArray['course_sys_code']."/group";
+                         $baseDirPath .= "/".$secretDirectory;
                      }
                      else
-                     {	 
-                     	$baseDirPath = $this->_basePath."/".$elementCRLArray["course_sys_code"]."/document"; 
+                     {     
+                         $baseDirPath = $this->_basePath."/".$elementCRLArray['course_sys_code']."/document"; 
                      }
                      
                      // add the resource if it exists
-                     if( isset ($elementCRLArray["resource_id"]) )
+                     if( isset ($elementCRLArray['resource_id']) )
                      {
-                         $baseDirPath .= "/".$elementCRLArray["resource_id"];
-                         $pathFromBase = "/".$elementCRLArray["resource_id"];
+                         $baseDirPath .= "/".$elementCRLArray['resource_id'];
+                         $pathFromBase = "/".$elementCRLArray['resource_id'];
                      }
                      else
                      {
@@ -93,7 +93,7 @@
                          $crl = $this->_createObjectCRL( $elementCRLArray , $valeur );
                          
                          $filePath = $pathFromBase.'/'.$valeur;
-                         $isVisible = $this->_isVisible($filePath,$elementCRLArray["course_sys_code"]);
+                         $isVisible = $this->_isVisible($filePath,$elementCRLArray['course_sys_code']);
                          $container = new ClaroContainer( $valeur, $crl , FALSE , TRUE , $isVisible );
                          $elementList[] = $container ;    
                      }
@@ -102,7 +102,7 @@
                      {
                          $crl = $this->_createObjectCRL( $elementCRLArray , $valeur );
                          $filePath =  $pathFromBase.'/'.$valeur;
-                         $isVisible = $this->_isVisible($filePath,$elementCRLArray["course_sys_code"]);
+                         $isVisible = $this->_isVisible($filePath,$elementCRLArray['course_sys_code']);
                          $object = new ClaroObject( $valeur, $crl, TRUE , FALSE , $isVisible);
                          $elementList[] = $object ;            
                      }
@@ -119,14 +119,14 @@
             // if the node is null
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * List the content of the given directory
         *
@@ -168,7 +168,7 @@
             }
             else
             {   
-            	trigger_error ("Error : is not a dir", E_USER_ERROR);
+                trigger_error ("Error : is not a dir", E_USER_ERROR);
             }
             
             // sort the array
@@ -177,7 +177,7 @@
             
             return $fileList;   
         }
-        
+
         /**
         * Create a new CRL with a crl and a element of resource_id 
         *
@@ -190,9 +190,9 @@
         {
              global $platform_id;
              
-             if( isset($elementCRLArray["resource_id"]) )
+             if( isset($elementCRLArray['resource_id']) )
              {
-                 $resource_id = $elementCRLArray["resource_id"]."/".$partResourceId; 
+                 $resource_id = $elementCRLArray['resource_id']."/".$partResourceId; 
              }
              else
              {
@@ -201,16 +201,16 @@
              
              if( isset($elementCRLArray["team"]) )
              {
-             	$crl = CRLTool::createCRL($platform_id , $elementCRLArray["course_sys_code"] , $elementCRLArray["tool_name"] ,$resource_id ,$elementCRLArray["team"]);
+                 $crl = CRLTool::createCRL($platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id ,$elementCRLArray["team"]);
              }
              else
              {
-             	$crl = CRLTool::createCRL($platform_id , $elementCRLArray["course_sys_code"] , $elementCRLArray["tool_name"] ,$resource_id );
+                 $crl = CRLTool::createCRL($platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
              }
              
              return $crl;
         }
-        
+
         /**
         * test if the file is visible
         *  
@@ -222,10 +222,10 @@
             $filePath = addslashes($filePath);  
             $isVisible = TRUE;
             
-    		$course = get_info_course($course_sys_code);
+            $course = get_info_course($course_sys_code);
             $tbl_cdb_names = claro_sql_get_course_tbl($course['dbNameGlu']);    
             $dbTable = $tbl_cdb_names['document'];
-         
+
             $sql = "SELECT `visibility` FROM `".$dbTable."` WHERE path ='".$filePath."'" ;
             $attributeList = claro_sql_query_fetch_all_cols($sql);
 
@@ -236,7 +236,7 @@
 
             return $isVisible;
         }
-        
+
         /**
         *  search the name of the secret directory of a group.
         *  
@@ -245,15 +245,15 @@
         */
         function _getSecretDirectory($elementCRLArray)
         {
-        	$courseInfoArray = get_info_course($elementCRLArray["course_sys_code"]); 
+            $courseInfoArray = get_info_course($elementCRLArray['course_sys_code']); 
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_group = $tbl_cdb_names['group_team'];
-               		
+                       
             $sql = 'SELECT `secretDirectory` FROM `'.$tbl_group.'` WHERE `id` ='.$elementCRLArray["team"];
             $secretDirectory = claro_sql_query_get_single_value($sql);
             
             return $secretDirectory;
         }
-        
+
     }
 ?>

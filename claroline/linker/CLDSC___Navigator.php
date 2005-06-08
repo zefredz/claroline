@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,12 +11,12 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
-    require_once dirname(__FILE__) ."/".'../inc/lib/claro_utils.lib.php';
+    require_once dirname(__FILE__) . '/navigator.lib.php';
+    require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
 
     /**
-    * Class DescriptionNavigator  
-    * 
+    * Class DescriptionNavigator 
+    *
     *
     * @author Fallier Renaud
     */
@@ -26,11 +26,11 @@
                  variable
          ------------------------*/
         var $_claroContainer;  
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -42,7 +42,7 @@
             global $_course;
             $this->_claroContainer = FALSE; 
         }
-        
+
         /**
         * list the contents of a exercice 
         *
@@ -55,13 +55,13 @@
         {
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLDSC___"))
+                if(CRLTool::isForThisTool($node, 'CLDSC___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray["resource_id"]) )               
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
-                         $description = $this->_listDescritpion($elementCRLArray["course_sys_code"]);
+                         $description = $this->_listDescritpion($elementCRLArray['course_sys_code']);
                          $elementList = array();
                          
                          foreach ($description as $itemDescription )
@@ -69,21 +69,21 @@
                              $crl = $node."/".$itemDescription["id"]; 
                              $isVisible = ( $itemDescription["visibility"] == 'SHOW'); 
                             
-							  if( strlen($itemDescription["title"]) > 0)
-            				  {
-            					  $title = stripslashes($itemDescription["title"]); 
-            				  }
-            				  else if( !empty($itemDescription["content"])  )
-                              {	
-            	 				  $title = cutstring( $itemDescription["content"], 15 , FALSE , 3) ;  	
-            			      }
-            				  else 
-            				  { 
-				           	   /*--------------------------------------------------
-           						*   todo : no name of Title of course description -
-           						*--------------------------------------------------*/
-           						  $title = "no name";  	
-           					  } 
+                              if( strlen($itemDescription["title"]) > 0)
+                              {
+                                  $title = stripslashes($itemDescription["title"]); 
+                              }
+                              else if( !empty($itemDescription["content"])  )
+                              {    
+                                   $title = cutstring( $itemDescription["content"], 15 , FALSE , 3) ;      
+                              }
+                              else 
+                              { 
+                                  /*--------------------------------------------------
+                                   *   todo : no name of Title of course description -
+                                   *--------------------------------------------------*/
+                                     $title = "no name";      
+                                 } 
 
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
                              $elementList[] = $container ;   
@@ -107,14 +107,14 @@
             // if the node is NULL
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the course description
         *

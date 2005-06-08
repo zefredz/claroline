@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,12 +11,12 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
+    require_once dirname(__FILE__) . '/navigator.lib.php';
     require_once ("CLCAL___Resolver.php");
 
     /**
-    * Class AgendaNavigator  
-    * 
+    * Class AgendaNavigator 
+    *
     *
     * @author Fallier Renaud
     */
@@ -26,11 +26,11 @@
                  variable
          ------------------------*/
         var $_claroContainer;  
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             global $_course;
             $this->_claroContainer = FALSE; 
         }
-        
+
         /**
         * list the contents of a agenda 
         *
@@ -53,25 +53,25 @@
         */
         function getResource($node = null)
         {
-        	global $rootWeb;
-        	
+            global $rootWeb;
+            
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLCAL___"))
+                if(CRLTool::isForThisTool($node, 'CLCAL___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray["resource_id"]) )               
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
                          // listing of agenda
-                         $agenda = $this->_listAgenda($elementCRLArray["course_sys_code"]);
+                         $agenda = $this->_listAgenda($elementCRLArray['course_sys_code']);
                          $elementList = array();
                          
                          foreach ($agenda as $itemAgenda )
                          {
                              $crl = $node."/".$itemAgenda["id"];
                              $res = new CLCAL___Resolver($rootWeb); 
-                             $title = $res->getTitle($elementCRLArray["course_sys_code"],$itemAgenda["id"]);
+                             $title = $res->getTitle($elementCRLArray['course_sys_code'],$itemAgenda["id"]);
                              $isVisible = ( $itemAgenda["visibility"] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
                              $elementList[] = $container ;   
@@ -95,14 +95,14 @@
             // if the node is null
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the event of a course 
         *

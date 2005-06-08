@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("resolver.lib.php");
-    require_once dirname(__FILE__) ."/".'../inc/lib/claro_utils.lib.php';
+    require_once dirname(__FILE__) . '/resolver.lib.php';
+    require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
 
    /**
     * Class DescriptionResolver 
@@ -27,11 +27,11 @@
                  variable
          ------------------------*/
         var $_basePath;
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -42,7 +42,7 @@
             $basePath = preg_replace( '~/$~', "", $basePath );
             $this->_basePath = $basePath; 
         }
-        
+
         /**
         * translated a crl into valid URL for the forum tool
         *
@@ -56,14 +56,14 @@
         {
            if($crl)
            {
-                if(CRLTool::isForThisTool($crl,"CLDSC___"))
+                if(CRLTool::isForThisTool($crl,'CLDSC___'))
                {    
                    $elementCRLArray = CRLTool::parseCRL($crl);
-                   $url = $this->_basePath . "/claroline/course_description/";
+                   $url = $this->_basePath . '/claroline/course_description/';
                    
                    if( isset($elementCRLArray["tool_name"])  )
                    {
-                       $url .= "index.php?cidReq={$elementCRLArray["course_sys_code"]}";    
+                       $url .= "index.php?cidReq={$elementCRLArray['course_sys_code']}";    
                        return $url;
                    }
                    else
@@ -81,38 +81,38 @@
                trigger_error("ERROR: crl is required",E_USER_ERROR);
            }     
         }
-        
+
         /**
         * the name of the resource which will be posted
         *
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
         * @global $_courseToolList
-		* @throw  E_USER_ERROR if it isn't for tool exercice
+        * @throw  E_USER_ERROR if it isn't for tool exercice
         **/
         function getResourceName($crl)
         {
-        	if(CRLTool::isForThisTool($crl,"CLDSC___"))
+            if(CRLTool::isForThisTool($crl,'CLDSC___'))
             {    
-            	$elementCRLArray = CRLTool::parseCRL($crl);
-            	if( isset($elementCRLArray["resource_id"]) )
-            	{
-            		$title  = get_toolname_title( $elementCRLArray );
-            		$title .= " > ". stripslashes($this->getTitle($elementCRLArray["course_sys_code"],$elementCRLArray["resource_id"]));	
-            	}
+                $elementCRLArray = CRLTool::parseCRL($crl);
+                if( isset($elementCRLArray['resource_id']) )
+                {
+                    $title  = get_toolname_title( $elementCRLArray );
+                    $title .= " > ". stripslashes($this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']));    
+                }
 
-            	return $title;
+                return $title;
             }
             else
             {
-            	trigger_error("Error: missing resource id for course desription",E_USER_ERROR);	
-            }                  	
+                trigger_error("Error: missing resource id for course desription",E_USER_ERROR);    
+            }                      
         }
-        
+
         /**
         * FIXME use same field name for title in DB tables
         *
-        * @param  $course_sys_code identifies a course in data base	
+        * @param  $course_sys_code identifies a course in data base    
         * @param  $id integer who identifies the exercice
         * @return the title of a annoncement
         */
@@ -127,7 +127,7 @@
                        
             return $descriptionInfo;
         }  
-        
+
         /**
         *
         * @param  $course_sys_code identifies a course in data base
@@ -135,26 +135,26 @@
         * @return the title of a annoncement
         */ 
         function getTitle( $course_sys_code , $id )
-        {    	
-        	$descriptionInfo = $this->_getInfo( $course_sys_code , $id );
-            		
+        {        
+            $descriptionInfo = $this->_getInfo( $course_sys_code , $id );
+                    
             if( strlen($descriptionInfo[0]["title"]) > 0)
             {
-            	$title = cutstring( $descriptionInfo[0]["title"], 15 , FALSE , 3 ) ;  
+                $title = cutstring( $descriptionInfo[0]["title"], 15 , FALSE , 3 ) ;  
             }
             else if( !empty($descriptionInfo[0]["content"])  )
-            {	
-            	$title = cutstring( $descriptionInfo[0]["content"], 15 , FALSE , 3 ) ;  
+            {    
+                $title = cutstring( $descriptionInfo[0]["content"], 15 , FALSE , 3 ) ;  
             }
             else 
             {
-           	   /*------------------------------
-           		*   todo : no name of annonce -
-           		*-----------------------------*/
-           		$title = "no name";  	
-           	}
-           	
-           	return $title; 
+                  /*------------------------------
+                   *   todo : no name of annonce -
+                   *-----------------------------*/
+                   $title = "no name";      
+               }
+               
+               return $title; 
         } 
     }
 ?>

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("resolver.lib.php");
+    require_once dirname(__FILE__) . '/resolver.lib.php';
 
     /**
     * Class WorkResolver 
@@ -26,11 +26,11 @@
                  variable
          ------------------------*/
         var $_basePath;
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             $basePath = preg_replace( '~/$~', "", $basePath );
             $this->_basePath = $basePath; 
         }
-        
+
         /**
         * translated a crl into valid URL for the forum tool
         *
@@ -55,25 +55,25 @@
         {
            if($crl)
            {
-                if(CRLTool::isForThisTool($crl,"CLWRK___"))
+                if(CRLTool::isForThisTool($crl,'CLWRK___'))
                {    
                    $elementCRLArray = CRLTool::parseCRL($crl);
                    $url = $this->_basePath . "/claroline/work/";
                                           
-              	   if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray["resource_id"]) )
+                     if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
                    {
-                       $url .= "workList.php?assigId={$elementCRLArray["resource_id"]}&cidReq={$elementCRLArray["course_sys_code"]}";    
+                       $url .= "workList.php?assigId={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";    
                        
                        return $url;    
                    }
                    else
                    {
-                       trigger_error("ERROR: crl not valid",E_USER_ERROR);
+                       trigger_error('ERROR: crl not valid', E_USER_ERROR);
                    }
                }
                else
                {
-                   trigger_error("ERROR: isn't for tool work",E_USER_ERROR);
+                   trigger_error('ERROR: isn\'t for tool work',E_USER_ERROR);
                }
            }
            else
@@ -81,40 +81,40 @@
                trigger_error("ERROR: crl is required",E_USER_ERROR);
            }     
         }
-        
+
        /**
         * the name of the resource which will be posted
         *
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
         * @global $_courseToolList
-		* @throw  E_USER_ERROR if it isn't for tool work
+        * @throw  E_USER_ERROR if it isn't for tool work
         **/
         function getResourceName($crl)
         {
-        	global $_courseToolList;
-        	
-        	if(CRLTool::isForThisTool($crl,"CLWRK___"))
+            global $_courseToolList;
+            
+            if(CRLTool::isForThisTool($crl,'CLWRK___'))
             {    
-            	$elementCRLArray = CRLTool::parseCRL($crl);
-            	if( isset($elementCRLArray["resource_id"]) )
-            	{
-            		$title  = get_toolname_title( $elementCRLArray );
-            		$title .= " > ".stripslashes($this->_getTitle($elementCRLArray["course_sys_code"],$elementCRLArray["resource_id"]));	
-            	}
+                $elementCRLArray = CRLTool::parseCRL($crl);
+                if( isset($elementCRLArray['resource_id']) )
+                {
+                    $title  = get_toolname_title( $elementCRLArray );
+                    $title .= " > ".stripslashes($this->_getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']));    
+                }
 
-            	return $title;
+                return $title;
             }
             else
             {
-            	trigger_error("Error: missing resource id for work ",E_USER_ERROR);	
-            }                  	
+                trigger_error("Error: missing resource id for work ",E_USER_ERROR);    
+            }                      
         }      
-        
+
          /**
         * FIXME use same field name for title in DB tables
         *
-        * @param  $course_sys_code identifies a course in data base	
+        * @param  $course_sys_code identifies a course in data base    
         * @param  $id integer who identifies the work
         * @return the title of a work
         */

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("resolver.lib.php");
+    require_once dirname(__FILE__) . '/resolver.lib.php';
 
     /**
     * Class DocumentResolver 
@@ -26,11 +26,11 @@
                  variable
          ------------------------*/
         var $_basePath; 
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             $basePath = preg_replace( '~/$~', "", $basePath );
             $this->_basePath = $basePath;
         }
-        
+
         /**
         * translated a crl into valid URL for the document tool
         *
@@ -58,44 +58,44 @@
             
             if($crl)
             {
-                if(CRLTool::isForThisTool($crl,"CLDOC___"))
+                if(CRLTool::isForThisTool($crl,'CLDOC___'))
                 {    
                     $elementCRLArray = CRLTool::parseCRL($crl);
                     $url = $this->_basePath.'/claroline/document';
                     
-                    if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray["resource_id"]) )
+                    if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
                     {
                         $path = $coursesRepositorySys
-                        ."/".$elementCRLArray["course_sys_code"];
+                        ."/".$elementCRLArray['course_sys_code'];
                         
                         // the path is different if in groups  
                         if( isset($elementCRLArray["team"]) )
-                   		{
-                    		$secretDirectory = $this->_getSecretDirectory($elementCRLArray);
-                    	
-                     		$path .= '/group';
-                     		$path .= "/".$secretDirectory;
-							$path .= "/".$elementCRLArray["resource_id"];				
-                    	}
-                     	else
-                     	{	 
-                       	 	$path .= "/document"
-                        	."/".$elementCRLArray["resource_id"    ]
-                        	;
+                           {
+                            $secretDirectory = $this->_getSecretDirectory($elementCRLArray);
+                        
+                             $path .= '/group';
+                             $path .= "/".$secretDirectory;
+                            $path .= "/".$elementCRLArray['resource_id'];                
+                        }
+                         else
+                         {     
+                                $path .= "/document"
+                            ."/".$elementCRLArray["resource_id"    ]
+                            ;
                         }
 
-						$path = preg_replace("~/+~","/",$path);
+                        $path = preg_replace("~/+~","/",$path);
                         
-						if( is_dir($path)) 
+                        if( is_dir($path)) 
                         {
                             $url .= "/document.php?cmd=exChDir&file=/"
-                                .$elementCRLArray["resource_id"]
+                                .$elementCRLArray['resource_id']
                                 ;
                         }
                         else if( is_file($path)) 
                         {
                             $url .= "/goto/?doc_url=/"
-                                .$elementCRLArray["resource_id"]
+                                .$elementCRLArray['resource_id']
                                 ;
                         }
                         else
@@ -103,7 +103,7 @@
                             trigger_error("ERROR: invalid path ($crl)",E_USER_ERROR);
                         }
                         
-                        $url .= '&cidReq=' . $elementCRLArray["course_sys_code"] ;
+                        $url .= '&cidReq=' . $elementCRLArray['course_sys_code'] ;
                         
                         if(isset($elementCRLArray["team"]))
                         {
@@ -125,40 +125,40 @@
                trigger_error("ERROR: crl is required",E_USER_ERROR);
             }     
          }
-         
+
        /**
         * the name of the resource which will be posted
         *
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
         * @global $_courseToolList
-		* @throw  E_USER_ERROR if it isn't for tool document
+        * @throw  E_USER_ERROR if it isn't for tool document
         **/
         function getResourceName($crl)
         {
-        	global $_courseToolList;
-        	
-        	if(CRLTool::isForThisTool($crl,"CLDOC___"))
+            global $_courseToolList;
+            
+            if(CRLTool::isForThisTool($crl,'CLDOC___'))
             {    
-            	$elementCRLArray = CRLTool::parseCRL($crl);
-            	if( isset($elementCRLArray["resource_id"]) )
-            	{
-            		$resourceElement = explode("/",$elementCRLArray["resource_id"]);
-            		$title  = get_toolname_title( $elementCRLArray );
-					foreach ($resourceElement as $item)
-					{
-            		   $title .= " > ". $item;
-					}	
-            	}
+                $elementCRLArray = CRLTool::parseCRL($crl);
+                if( isset($elementCRLArray['resource_id']) )
+                {
+                    $resourceElement = explode("/",$elementCRLArray['resource_id']);
+                    $title  = get_toolname_title( $elementCRLArray );
+                    foreach ($resourceElement as $item)
+                    {
+                       $title .= " > ". $item;
+                    }    
+                }
 
-            	return $title;
+                return $title;
             }
             else
             {
-            	trigger_error("Error: missing resource id for document ",E_USER_ERROR);	
-            }                  	
+                trigger_error("Error: missing resource id for document ",E_USER_ERROR);    
+            }                      
         } 
-        
+
        /**
         *  search the name of the secret directory of a group.
         *  
@@ -167,10 +167,10 @@
         */
         function _getSecretDirectory($elementCRLArray)
         {
-        	$courseInfoArray = get_info_course($elementCRLArray["course_sys_code"]); 
+            $courseInfoArray = get_info_course($elementCRLArray['course_sys_code']); 
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_group = $tbl_cdb_names['group_team'];
-               		
+                       
             $sql = 'SELECT `secretDirectory` FROM `'.$tbl_group.'` WHERE `id` ='.$elementCRLArray["team"];
             $secretDirectory = claro_sql_query_get_single_value($sql);
             

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,11 +11,11 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-   require_once ("navigator.lib.php");
+   require_once dirname(__FILE__) . '/navigator.lib.php';
 
     /**
-    * Class ExerciceNavigator  
-    * 
+    * Class ExerciceNavigator 
+    *
     *
     * @author Fallier Renaud
     */
@@ -25,11 +25,11 @@
                  variable
          ------------------------*/
         var $_claroContainer;  
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             global $_course;
             $this->_claroContainer = FALSE; 
         }
-        
+
         /**
         * list the contents of a exercice 
         *
@@ -54,15 +54,15 @@
         {
             if($node)
             {
-                //if(CRLTool::isForThisTool($node,"exercice"))
-                if(CRLTool::isForThisTool($node,"CLQWZ___"))
+                //if(CRLTool::isForThisTool($node, 'exercice"))
+                if(CRLTool::isForThisTool($node, 'CLQWZ___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray["resource_id"]) )               
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
                          // listing of annonce
-                         $exercices = $this->_listExo($elementCRLArray["course_sys_code"]);
+                         $exercices = $this->_listExo($elementCRLArray['course_sys_code']);
                          $elementList = array();
                          
                          foreach ($exercices as $itemExercice )
@@ -87,25 +87,25 @@
                      }
                      else
                      {
-                         trigger_error ("Error : resource_id must be empty", E_USER_ERROR);   
+                         trigger_error ('Error : resource_id must be empty', E_USER_ERROR);   
                      }                  
                 }
                 else
                 {
-                    trigger_error ("Error : not crl for a exercice tool", E_USER_ERROR);
+                    trigger_error ('Error : not crl for a exercice tool', E_USER_ERROR);
                 }               
             }
             // if the node is NULL
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the exercice of a course
         *

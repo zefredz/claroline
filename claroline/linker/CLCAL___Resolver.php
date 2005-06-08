@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,8 +11,8 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("resolver.lib.php");
-    require_once dirname(__FILE__) ."/".'../inc/lib/claro_utils.lib.php';
+    require_once dirname(__FILE__) . '/resolver.lib.php';
+    require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
 
     /**
     * Class AgendaResolver 
@@ -27,11 +27,11 @@
                  variable
          ------------------------*/
         var $_basePath;
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -42,7 +42,7 @@
             $basePath = preg_replace( '~/$~', "", $basePath );
             $this->_basePath = $basePath; 
         }
-        
+
         /**
         * translated a crl into valid URL for the forum tool
         *
@@ -56,21 +56,21 @@
         {
            if($crl)
            {
-               if(CRLTool::isForThisTool($crl,"CLCAL___"))
+               if(CRLTool::isForThisTool($crl,'CLCAL___'))
                {    
                    $elementCRLArray = CRLTool::parseCRL($crl);
                    $url = $this->_basePath . "/claroline/calendar/";
-                   $url .= "agenda.php?cidReq={$elementCRLArray["course_sys_code"]}";
+                   $url .= "agenda.php?cidReq={$elementCRLArray['course_sys_code']}";
                    
-                   if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray["resource_id"]) )
+                   if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
                    {
-                       $url .= "#event{$elementCRLArray["resource_id"]}";   
+                       $url .= "#event{$elementCRLArray['resource_id']}";   
                         
                        return $url;    
                    }
                    else
                    {
-                       trigger_error("ERROR: tool_name required",E_USER_ERROR);
+                       trigger_error('ERROR: tool_name required',E_USER_ERROR);
                    }
                }
                else
@@ -83,7 +83,7 @@
                trigger_error("ERROR: crl is required",E_USER_ERROR);
            }     
         }
-        
+
         /**
         * get the resource identifier of an event 
         *
@@ -91,32 +91,32 @@
         * @global $thisAnnouncement integer of an identifier of event when the announcement are posted 
         * @param  $tool_name the Tlabel of a tool 
         * @return string who contains the resouce id
-		* @throw  E_USER_ERROR if tool_name is empty
+        * @throw  E_USER_ERROR if tool_name is empty
         */
         function getResourceId($tool_name)
         {
-        	global $insert_id;
-        	global $thisEvent;
-          	
-        	if( isset( $tool_name ) )
+            global $insert_id;
+            global $thisEvent;
+              
+            if( isset( $tool_name ) )
             { 
                if( isset( $thisEvent['id'] ) )
                {
-               		$resource_id = $thisEvent['id'];
+                       $resource_id = $thisEvent['id'];
                }
-               	
+                   
                else if( $insert_id != FALSE ) 
                {
-               		$resource_id = $insert_id;
+                       $resource_id = $insert_id;
                }
                
                else if( isset($_REQUEST['id']) )
                {
-               		$resource_id = $_REQUEST['id'];			
+                       $resource_id = $_REQUEST['id'];            
                } 
                else
-               {	
-               		return FALSE;
+               {    
+                       return FALSE;
                }
              
                return $resource_id;    
@@ -126,7 +126,7 @@
                 trigger_error("Error: missing tool name ",E_USER_ERROR);
             }
         }
-        
+
         
         /**
         * the name of the resource which will be posted
@@ -136,25 +136,25 @@
         */
         function getResourceName($crl)
         {
-        	if(CRLTool::isForThisTool($crl,"CLCAL___"))
+            if(CRLTool::isForThisTool($crl,'CLCAL___'))
             {    
-            	$elementCRLArray = CRLTool::parseCRL($crl);
-            	$title = "";
-            	
-            	if( isset($elementCRLArray["resource_id"]) )
-            	{
-            		$title  = get_toolname_title( $elementCRLArray );
-            		$title .= " > ".$this->getTitle($elementCRLArray["course_sys_code"],$elementCRLArray["resource_id"]);	
-            	}
+                $elementCRLArray = CRLTool::parseCRL($crl);
+                $title = "";
+                
+                if( isset($elementCRLArray['resource_id']) )
+                {
+                    $title  = get_toolname_title( $elementCRLArray );
+                    $title .= " > ".$this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']);    
+                }
 
-            	return $title;
+                return $title;
             }
             else
             {
-            	trigger_error("Error: missing resource id for calendar",E_USER_ERROR);	
-            }                  	
+                trigger_error("Error: missing resource id for calendar",E_USER_ERROR);    
+            }                      
         }
-        
+
         /**
         * $FIXME use same field name for title in DB tables
         *
@@ -173,7 +173,7 @@
             
             return $agendaInfo;
         }   
-        
+
         /**
         *
         * @param  $course_sys_code identifies a course in data base
@@ -181,31 +181,31 @@
         * @return the title of a annoncement
         */ 
         function getTitle( $course_sys_code , $id )
-        {       	
-        	global $langLinkerUntitled;
-        	$agendaInfo = $this->_getInfo( $course_sys_code , $id );
+        {           
+            global $langLinkerUntitled;
+            $agendaInfo = $this->_getInfo( $course_sys_code , $id );
 
-            $content = trim( stripslashes(strip_tags($agendaInfo[0]["contenu"]))); 	
-            	
+            $content = trim( stripslashes(strip_tags($agendaInfo[0]["contenu"])));     
+                
             if( strlen($agendaInfo[0]["titre"]) > 0)
             {
-            	$titreEvent = stripslashes($agendaInfo[0]["titre"]);
-            	$title = cutstring( $titreEvent, 15 , FALSE ) ." {". $agendaInfo[0]["day"]."}";  
+                $titreEvent = stripslashes($agendaInfo[0]["titre"]);
+                $title = cutstring( $titreEvent, 15 , FALSE ) ." {". $agendaInfo[0]["day"]."}";  
             }
             else if( !empty($content) )
-            {	
-            	$titreEvent = $content;
-            	$title = cutstring( $titreEvent, 15 , FALSE , 3) ." {". $agendaInfo[0]["day"]."}";  	
+            {    
+                $titreEvent = $content;
+                $title = cutstring( $titreEvent, 15 , FALSE , 3) ." {". $agendaInfo[0]["day"]."}";      
             }
             else 
             {
-           	   /*------------------------------
-           		*   todo : no name of event   -
-           		*-----------------------------*/
-           		$title = $langLinkerUntitled." {" . $agendaInfo[0]["day"]."}";  	
-           	}
-           	
-           	return $title; 
+                  /*------------------------------
+                   *   todo : no name of event   -
+                   *-----------------------------*/
+                   $title = $langLinkerUntitled." {" . $agendaInfo[0]["day"]."}";      
+               }
+               
+               return $title; 
         }
     }
 ?>

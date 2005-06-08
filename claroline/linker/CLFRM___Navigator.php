@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,11 +11,11 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
+    require_once dirname(__FILE__) . '/navigator.lib.php';
 
     /**
-    * Class forumNavigator  
-    * 
+    * Class forumNavigator 
+    *
     *
     * @author Fallier Renaud
     */
@@ -26,11 +26,11 @@
          ------------------------*/
         var $_claroContainer; 
         var $_tbl_cdb_names; 
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             $this->_claroContainer = FALSE; 
             $this->_tbl_cdb_names = claro_sql_get_course_tbl();
         }
-        
+
         /**
         * list the contents of a category, a forum or a topic 
         *
@@ -55,43 +55,43 @@
         */
         function getResource($node = NULL)
         {
-        	global $langCategories;
-        	global $langForums;
-        	global $l_topics;
-        	global $platform_id;
-        	
+            global $langCategories;
+            global $langForums;
+            global $l_topics;
+            global $platform_id;
+            
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLFRM___"))
+                if(CRLTool::isForThisTool($node, 'CLFRM___'))
                 {
                     $elementCRLArray = CRLTool::parseCRL($node);
 
-                    $courseInfoArray = get_info_course($elementCRLArray["course_sys_code"]); 
+                    $courseInfoArray = get_info_course($elementCRLArray['course_sys_code']); 
                     $this->_tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
                      
                     // listing of topic for a groups 
                     if( isset ($elementCRLArray["team"]) )
                     {
-                    	$tbl_group = $this->_tbl_cdb_names['group_team'];
-                    	$tbl_topics = $this->_tbl_cdb_names['bb_topics'];
-                    	
-                    	$sql = 'SELECT `forumId` FROM `'.$tbl_group.'` WHERE `id` ='.$elementCRLArray["team"];
-                    	$forumId = claro_sql_query_get_single_value($sql);
-                    	
-                    	$sql = 'SELECT `topic_id`,`topic_title` FROM `'.$tbl_topics.'` WHERE `forum_id` ='.$forumId;
-                    	$groupTopicList = claro_sql_query_fetch_all($sql);
-                    	$elementList = array();
-                    	$name = "";
-                    	
-                    	foreach ($groupTopicList as $groupTopic )
+                        $tbl_group = $this->_tbl_cdb_names['group_team'];
+                        $tbl_topics = $this->_tbl_cdb_names['bb_topics'];
+                        
+                        $sql = 'SELECT `forumId` FROM `'.$tbl_group.'` WHERE `id` ='.$elementCRLArray["team"];
+                        $forumId = claro_sql_query_get_single_value($sql);
+                        
+                        $sql = 'SELECT `topic_id`,`topic_title` FROM `'.$tbl_topics.'` WHERE `forum_id` ='.$forumId;
+                        $groupTopicList = claro_sql_query_fetch_all($sql);
+                        $elementList = array();
+                        $name = "";
+                        
+                        foreach ($groupTopicList as $groupTopic )
                         {
-                        	$crl = CRLTool::createCRL( $platform_id , $elementCRLArray["course_sys_code"] , $elementCRLArray["tool_name"] , $groupTopic["topic_id"] , $elementCRLArray["team"] ); 
+                            $crl = CRLTool::createCRL( $platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] , $groupTopic["topic_id"] , $elementCRLArray["team"] ); 
                             $container = new ClaroObject( $groupTopic["topic_title"] , $crl  );
                             $elementList[] = $container ;   
                         }  
-                    	
+                        
                     }
-                    else if(!isset ($elementCRLArray["resource_id"]) )               
+                    else if(!isset ($elementCRLArray['resource_id']) )               
                     {
                          // listing of a categories, it is a container no linkable
                          $categories = $this->_listCat();
@@ -107,7 +107,7 @@
                      }
                      else
                      {
-                        $resultat = $this->_toolForumTopic($elementCRLArray["resource_id"]);
+                        $resultat = $this->_toolForumTopic($elementCRLArray['resource_id']);
                          
                          if( $resultat["type"] == "forum")
                          {
@@ -148,14 +148,14 @@
             // if the node is NULL
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the categories which do not belong to a group
         * 
@@ -170,7 +170,7 @@
             
             return $categories;
         }
-        
+
         /**
         *  list forum according to the category
         *
@@ -185,7 +185,7 @@
 
             return $forum;
         }
-        
+
         /**
         *  list topic according to the forum
         *
@@ -200,7 +200,7 @@
 
             return $topic;
         }
-        
+
         /**
         *  identify the resource, if it is a forum or a topic
         *
@@ -225,7 +225,7 @@
             
             return $resultat;
         }
-        
+
         /**
         * Create a new CRL with a crl and a element of resource_id 
         *
@@ -238,16 +238,16 @@
         {
              global $platform_id;
              
-             if( isset ($elementCRLArray["resource_id"]) )
+             if( isset ($elementCRLArray['resource_id']) )
              {
-                 $resource_id = $elementCRLArray["resource_id"]."/".$partResourceId; 
+                 $resource_id = $elementCRLArray['resource_id']."/".$partResourceId; 
              }
              else
              {
                  $resource_id = $partResourceId;    
              }
              
-			 $crl = CRLTool::createCRL( $platform_id , $elementCRLArray["course_sys_code"] , $elementCRLArray["tool_name"] ,$resource_id );
+             $crl = CRLTool::createCRL( $platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
              
              return $crl;
         }

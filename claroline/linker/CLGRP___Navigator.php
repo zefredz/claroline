@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,11 +11,11 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
+    require_once dirname(__FILE__) . '/navigator.lib.php';
 
    /**
-    * Class announcementNavigator  
-    * 
+    * Class announcementNavigator 
+    *
     *
     * @author Fallier Renaud
     */
@@ -25,23 +25,23 @@
                  variable
          ------------------------*/
         var $_claroContainer;  
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
         * @param   $basePath string path root directory of courses  
-        * g@lobal  $_course
+        * @global  $_course
         */
         function CLGRP___Navigator($basePath = null)
         {
             global $_course;
             $this->_claroContainer = FALSE; 
         }
-        
+
         /**
         * list the contents of a announcement
         *
@@ -53,23 +53,23 @@
         */
         function getResource($node = null)
         {
-        	global $rootWeb,$groupAllowed;
-        	
+            global $rootWeb,$groupAllowed;
+            
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLGRP___"))
+                if(CRLTool::isForThisTool($node, 'CLGRP___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray["resource_id"]) )               
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
                          // listing of annonce
-                         $groups = $this->_listGroup($elementCRLArray["course_sys_code"]);
+                         $groups = $this->_listGroup($elementCRLArray['course_sys_code']);
                          $elementList = array();
                          
                          foreach ($groups as $itemGroups )
                          {
-                             $crl = CRLTool::createCRL($elementCRLArray["platform_id"],$elementCRLArray["course_sys_code"],"","",$itemGroups["id"]);
+                             $crl = CRLTool::createCRL($elementCRLArray["platform_id"],$elementCRLArray['course_sys_code'],"","",$itemGroups["id"]);
                              $title = $itemGroups["name"]; 
                              $container = new ClaroContainer( $title , $crl );
                              $elementList[] = $container ;   
@@ -93,14 +93,14 @@
             // if the node is null
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the announcement of a course
         *

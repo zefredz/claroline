@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,12 +11,12 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
-        
+    require_once dirname(__FILE__) . '/navigator.lib.php';
+
     
     /**
-    * Class WorkNavigator  
-    * 
+    * Class WorkNavigator 
+    *
     *
     * @author Fallier Renaud
     */
@@ -26,11 +26,11 @@
                  variable
          ------------------------*/
         var $_claroContainer;  
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -42,7 +42,7 @@
             global $_course;
             $this->_claroContainer = FALSE; 
         }
-        
+
         /**
         * list the contents of a work 
         *
@@ -55,14 +55,14 @@
         {
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLWRK___"))
+                if(CRLTool::isForThisTool($node, 'CLWRK___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray["resource_id"]) )               
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
                          // listing of work
-                         $work = $this->_listWork($elementCRLArray["course_sys_code"]);
+                         $work = $this->_listWork($elementCRLArray['course_sys_code']);
                          $elementList = array();
                          
                          foreach ($work as $itemWork )
@@ -100,14 +100,14 @@
             // if the node is NULL
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the work of a course
         *

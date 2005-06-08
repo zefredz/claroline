@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("navigator.lib.php");
+    require_once dirname(__FILE__) . '/navigator.lib.php';
 
     /**
     * Class LearnPathNavigator  
@@ -26,11 +26,11 @@
          ------------------------*/
         var $_claroContainer; 
         var $_basePath; 
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
         /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             $this->_claroContainer = FALSE;
             $this->_basePath = $basePath; 
         }
-        
+
         /**
         * list the contents of a learnPath
         *
@@ -54,13 +54,13 @@
         {
             if($node)
             {
-                if(CRLTool::isForThisTool($node,"CLLNP___"))
+                if(CRLTool::isForThisTool($node, 'CLLNP___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
                      
-                     if( !isset ($elementCRLArray["resource_id"]) )
+                     if( !isset ($elementCRLArray['resource_id']) )
                      {    
-                         $learnPath = $this->_listLearnPath($elementCRLArray["course_sys_code"]);
+                         $learnPath = $this->_listLearnPath($elementCRLArray['course_sys_code']);
                          $elementList = array();
                          
                          foreach ( $learnPath as $learnPathItem )                         
@@ -96,14 +96,14 @@
             // if the node is null
             else
             {
-                trigger_error ("Error : crl is empty", E_USER_ERROR);
+                trigger_error ('Error : crl is empty', E_USER_ERROR);
             }   
         }
-        
+
         /*----------------------------
                 private method
         ---------------------------*/
-        
+
         /**
         * list the learnPath
         * 

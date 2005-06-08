@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    require_once ("resolver.lib.php");
+    require_once dirname(__FILE__) . '/resolver.lib.php';
 
     /**
     * Class LearnPathResolver 
@@ -26,11 +26,11 @@
                  variable
          ------------------------*/
         var $_basePath;
-         
+
         /*----------------------------
                 public method
         ---------------------------*/
-        
+
        /**
         * Constructor
         *
@@ -41,7 +41,7 @@
             $basePath = preg_replace( '~/$~', "", $basePath );
             $this->_basePath = $basePath; 
         }
-        
+
        /**
         * translated a crl into valid URL for the announcement tool
         *
@@ -55,20 +55,20 @@
         {
            if($crl)
            {
-                if(CRLTool::isForThisTool($crl,"CLLNP___"))
+                if(CRLTool::isForThisTool($crl,'CLLNP___'))
                {    
                    $elementCRLArray = CRLTool::parseCRL($crl);
                    $url = $this->_basePath . "/claroline/learnPath/";
                    
-                   if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray["resource_id"]) )
+                   if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
                    {
-                       $url .= "learningPath.php?path_id={$elementCRLArray["resource_id"]}&cidReq={$elementCRLArray["course_sys_code"]}";   
+                       $url .= "learningPath.php?path_id={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";   
                         
                        return $url;
                    }
                    else 
                    {
-                       trigger_error("ERROR: tool_name required",E_USER_ERROR);
+                       trigger_error('ERROR: tool_name required',E_USER_ERROR);
                    }
                }
                else
@@ -81,39 +81,39 @@
                trigger_error("ERROR: crl is required",E_USER_ERROR);
            }     
         }
-        
+
        /**
         * the name of the resource which will be posted
         *
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
         * @global $_courseToolList
-		* @throw  E_USER_ERROR if it isn't for tool announcement
+        * @throw  E_USER_ERROR if it isn't for tool announcement
         **/
         function getResourceName($crl)
         {
-        	global $_courseToolList;
-        	
-        	if(CRLTool::isForThisTool($crl,"CLLNP___"))
-            {    
-            	$elementCRLArray = CRLTool::parseCRL($crl);
-            	if( isset($elementCRLArray["resource_id"]) )
-            	{
-            		$title  = get_toolname_title( $elementCRLArray );
-            		$title .= " > ". stripslashes($this->_getTitle($elementCRLArray["course_sys_code"],$elementCRLArray["resource_id"]));	
-            	}
+            global $_courseToolList;
             
-            	return $title;
+            if(CRLTool::isForThisTool($crl,'CLLNP___'))
+            {    
+                $elementCRLArray = CRLTool::parseCRL($crl);
+                if( isset($elementCRLArray['resource_id']) )
+                {
+                    $title  = get_toolname_title( $elementCRLArray );
+                    $title .= " > ". stripslashes($this->_getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']));    
+                }
+            
+                return $title;
             }
             else
             {
-            	trigger_error("Error: missing resource id for learnPath ",E_USER_ERROR);	
-            }                  	
+                trigger_error("Error: missing resource id for learnPath ",E_USER_ERROR);    
+            }                      
         }      
-        
+
        /**
         *  FIXME use same field name for title in DB tables
-        * @param  $course_sys_code identifies a course in data base	
+        * @param  $course_sys_code identifies a course in data base    
         * @param  $id integer who identifies the learnPath
         * @return the title of a learnPath
         **/
