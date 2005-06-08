@@ -47,7 +47,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 // get infos about the user
 // get infos about the exercise attempt
 $sql = "SELECT `E`.`titre`, `E`.`show_answer`, `E`.`max_attempt`,
-				`U`.`user_id`, `U`.`nom`, `U`.`prenom`,
+				`U`.`user_id`, `U`.`nom` as `lastname`, `U`.`prenom` as `firstname`,
 				`TE`.`exe_exo_id`, `TE`.`exe_result`, `TE`.`exe_time`, `TE`.`exe_weighting`,
 				UNIX_TIMESTAMP(`TE`.`exe_date`) AS `unix_exe_date`
 		FROM `".$tbl_quiz_test."` as `E`, `".$tbl_track_e_exercices."` as `TE`, `".$tbl_user."` as `U`
@@ -128,6 +128,17 @@ echo $backLink;
 
 if( $is_allowedToTrack && $is_trackingEnabled )
 {
+	// display infos about the details ...
+    echo '<p>'
+	    .'<ul>'."\n"
+	    .'<li>'.$langLastName.' : '.$thisAttemptDetails['lastname'].'</li>'."\n"
+	    .'<li>'.$langFirstName.' : '.$thisAttemptDetails['firstname'].'</li>'."\n"
+	    .'<li>'.$langDate.' : '.claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']).'</li>'."\n"
+	    .'<li>'.$langScore.' : '.$thisAttemptDetails['exe_result'].'/'.$thisAttemptDetails['exe_weighting'].'</li>'."\n"
+	    .'<li>'.$langExeTime.' : '.claro_disp_duration($thisAttemptDetails['exe_time']).'</li>'."\n"
+	    .'</ul>'
+	    .'</p>';
+
 	// get all question that user get for this attempt
 	$sql = "SELECT TD.`id`, TD.`question_id`, TD.`result`
 			FROM `".$tbl_track_e_exe_details."` as TD
@@ -480,31 +491,21 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 		$totalWeighting += $questionWeighting;
 	}	// end foreach of questions
 
-// if there is no question (it is a old exercise attempt (before introduction of improved exo stats))
-if( $i == 0 )
-{
-	echo "(lang)No specific tracking for this attempt.";
-}
+	// if there is no question (it is a old exercise attempt (before introduction of improved exo stats))
+	if( $i == 0 )
+	{
+		echo "(lang)No specific tracking for this attempt.";
+	}
 
-echo $backLink;
+	echo $backLink;
 
-echo '<p align="center">'."\n";
-
-// check if computed score is the same than the recorded total score, same for weighting
-// a difference could show a integrity error (i.e. an exercise that have been modified after the attempt)
-if( $thisAttemptDetails['exe_weighting'] != $totalWeighting || $thisAttemptDetails['exe_result'] != $totalScore )
-{
-	// display msg of integrity problem
-	echo $langTrackExerciseError.'<br /><br />'."\n";
-}
-
-echo $langDate.' : '.claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date'])
-	.'<br />'
-	.$langYourTime." ".disp_minutes_seconds($thisAttemptDetails['exe_time'])
-	.'<br />'
-	.$langYourTotalScore." ". $thisAttemptDetails['exe_result']."/".$thisAttemptDetails['exe_weighting']
-	.'</p>'."\n\n";
-	
+	// check if computed score is the same than the recorded total score, same for weighting
+	// a difference could show a integrity error (i.e. an exercise that have been modified after the attempt)
+	if( $thisAttemptDetails['exe_weighting'] != $totalWeighting || $thisAttemptDetails['exe_result'] != $totalScore )
+	{
+		// display msg of integrity problem
+		echo '<p align="center">'.$langTrackExerciseError.'</p>'."\n";
+	}
 }
 // not allowed
 else
