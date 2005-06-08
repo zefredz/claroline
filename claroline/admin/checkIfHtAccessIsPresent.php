@@ -1,8 +1,8 @@
 <?php
 /*--protectAdminIndex--*/
 if (	("apache" ==  strtolower(substr($_SERVER['SERVER_SOFTWARE'],0,6))) 
-		&& ($PHP_AUTH_USER=="" ) 
-	    && ($REMOTE_ADDR != $SERVER_ADDR)
+		&& ($_SERVER['PHP_AUTH_USER']=="" ) 
+	    && ($_SERVER['REMOTE_ADDR'] != $_SERVER['SERVER_ADDR'] )
 	)  
 {  
 	session_unregister("is_admin");
