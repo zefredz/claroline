@@ -509,7 +509,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 <head>
 
 <title>
--- Claroline installation -- version <?php echo$version_file_cvss ?>
+-- Claroline installation -- version <?php echo $version_file_cvs ?>
 </title>
 
 <link rel="stylesheet" href="../css/default.css" type="text/css" >
