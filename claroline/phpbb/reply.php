@@ -51,27 +51,6 @@ require $includePath . '/lib/pager.lib.php';
 // for notification
 include $includePath . '/lib/claro_mail.lib.inc.php';
 
-/*-----------------------------------------------------------------
-  DB table names
- -----------------------------------------------------------------*/
-
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_cdb_names = claro_sql_get_course_tbl();
-
-$tbl_users            = $tbl_mdb_names['user'];
-$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
-
-$tbl_forums           = $tbl_cdb_names['bb_forums'];
-$tbl_categories       = $tbl_cdb_names['bb_categories'];
-$tbl_posts            = $tbl_cdb_names['bb_posts'];
-$tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
-$tbl_topics           = $tbl_cdb_names['bb_topics'];
-$tbl_user_notify      = $tbl_cdb_names['bb_rel_topic_userstonotify'];
-$tbl_group_properties = $tbl_cdb_names['group_property'];
-$tbl_student_group	  = $tbl_cdb_names['group_team'];
-$tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
-$tbl_topics           = $tbl_cdb_names['bb_topics'];
-
 $error = FALSE;
 $error_message = '';
 $allowed = TRUE;
@@ -93,10 +72,10 @@ else                               $message = '';
 
 if ( isset($_REQUEST['cancel']) )
 {
-	header('Location: viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
+    header('Location: viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
 }
 
-$topic_exists = does_exists($topic_id, 'topic');
+$topicSettingList = get_topic_settings($topic_id); 
 
 if ( ! isset($_uid) )
 {
@@ -105,11 +84,9 @@ if ( ! isset($_uid) )
     $error_message = $langLoginBeforePost1 . '<br />' . "\n"
     . $langLoginBeforePost2 .'<a href=../../index.php>' . $langLoginBeforePost3 . '.</a>';
 }
-elseif ( $topic_exists )
+elseif ( $topicSettingList )
 {
-
     // Get forum and topics settings
-    $topicSettingList = get_topic_settings($topic_id); 
     $forum_id         = $topicSettingList['forum_id'];
     $topic_title      = $topicSettingList['topic_title'];
 
@@ -118,7 +95,7 @@ elseif ( $topic_exists )
     $forum_name    = $forumSettingList['forum_name'  ];
     $forum_access  = $forumSettingList['forum_access'];
     $forum_type    = $forumSettingList['forum_type'  ];
-	$forum_groupId = $forumSettingList['idGroup'     ];
+    $forum_groupId = $forumSettingList['idGroup'     ];
     $forum_cat_id  = $forumSettingList['cat_id'      ];
 
     /**

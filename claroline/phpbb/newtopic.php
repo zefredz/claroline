@@ -47,21 +47,6 @@ event_access_tool($_tid, $_courseTool['label']);
 
 include $includePath . '/lib/forum.lib.php';
 
-/*-----------------------------------------------------------------
-  DB table names
- -----------------------------------------------------------------*/
-
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_cdb_names = claro_sql_get_course_tbl();
-
-$tbl_forums           = $tbl_cdb_names['bb_forums'];
-$tbl_topics           = $tbl_cdb_names['bb_topics'];
-$tbl_student_group	  = $tbl_cdb_names['group_team'];
-$tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
-$tbl_posts            = $tbl_cdb_names['bb_posts'];
-
-$tbl_users            = $tbl_mdb_names['user'];
-
 // variables
 
 $allowed = TRUE;
@@ -90,7 +75,7 @@ else                               $subject = '';
 if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
 else                               $message = '';
 
-$forum_exists = does_exists($forum_id, 'forum');
+$forumSettingList = get_forum_settings($forum_id);
 
 $is_allowedToEdit = claro_is_allowed_to_edit() 
                     || ( $is_groupTutor && !$is_courseAdmin);
@@ -105,15 +90,13 @@ if ( ! isset($_uid) )    // exclude anonymous users
     $error_message = $langLoginBeforePost1 . '<br />' . "\n"
        . $langLoginBeforePost2 .'<a href=../../index.php>' . $langLoginBeforePost3 . '.</a>';
 } 
-elseif ( $forum_exists )
+elseif ( $forumSettingList )
 {
-	$forumSettingList = get_forum_settings($forum_id);
-	
 	$forum_name 		= stripslashes($forumSettingList['forum_name']);
 	$forum_access 		= $forumSettingList['forum_access'];
 	$forum_type 		= $forumSettingList['forum_type'  ];
 	$forum_groupId 		= $forumSettingList['idGroup'     ];
-    $forum_cat_id              = $forumSettingList['cat_id'      ];
+    $forum_cat_id       = $forumSettingList['cat_id'      ];
 	
 	/* 
 	 * Check if the topic isn't attached to a group,  or -- if it is attached --, 

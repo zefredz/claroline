@@ -44,7 +44,6 @@ event_access_tool($_tid, $_courseTool['label']);
  -----------------------------------------------------------------*/
 
 include $includePath . '/lib/forum.lib.php';
-require $includePath . '/lib/pager.lib.php';
 
 /*-----------------------------------------------------------------
   DB table names
@@ -81,9 +80,6 @@ $error_message = '';
 
 // Get params
 
-if ( isset($_REQUEST['forum'] ) ) $forum_id = (int) $_REQUEST['forum'];
-else                              $forum_id = 0;
-
 if ( isset($_REQUEST['topic']) ) $topic_id = (int) $_REQUEST['topic'];
 else                             $topic_id = '';
 
@@ -93,15 +89,10 @@ else                             $cmd = '';
 if ( isset($_REQUEST['start'] ) ) $start = (int) $_REQUEST['start'];
 else                              $start = 0;
 
-$forum_exists = does_exists($forum_id, 'forum');
-$topic_exists = does_exists($topic_id, 'topic');
+$topicSettingList = get_topic_settings($topic_id);
 
-if ( $forum_exists && $topic_exists )
+if ($topicSettingList)
 {
-
-    // Get forum and topics settings
-    $topicSettingList = get_topic_settings($topic_id);
-
     $topic_subject    = own_stripslashes($topicSettingList['topic_title']);
     $lock_state       = $topicSettingList['topic_status'];
     $forum_id         = $topicSettingList['forum_id'    ];
@@ -126,7 +117,7 @@ if ( $forum_exists && $topic_exists )
         // get post and use pager	
 		$postLister = new postLister($topic_id, $start, $posts_per_page);
 		$postList   = $postLister->get_post_list();		
-		$pagerUrl = $_SERVER['PHP_SELF']."?topic=".$topic_id;
+		$pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
 		
 		// EMAIL NOTIFICATION COMMANDS
 		// Execute notification preference change if the command was called
@@ -170,7 +161,8 @@ if ( $forum_exists && $topic_exists )
 		    }
 		    else   //display link to be notified for this topic
 		    {
-		        $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
+		        $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
+                                    . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
 		                            . '<img src="' . $imgRepositoryWeb . 'email.gif"> '
 		                            . $l_notify 
 		                            . '</a>';
@@ -194,7 +186,7 @@ else
 
 include $includePath . '/claro_init_header.inc.php';
 
-if ( !$allowed )
+if ( ! $allowed )
 {
     claro_disp_message_box($error_message);
 }
@@ -263,14 +255,13 @@ else
 	    {
 	        echo '<p>' . "\n"
 	
-	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;topic=' . $topic_id . '&amp;forum=' . $forum_id . '">'
+	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
 	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEditDel . '">'
 	            . '</a>' . "\n"
 	
-	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;topic=' . $topic_id . '&amp;forum=' . $forum_id
-	            . '&amp;delete=delete&amp;submit=submit">'
+	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit">'
 	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langEditDel . '">'
-	            . '</a>'
+	            . '</a>' . "\n"
 	
 	            . '</p>' . "\n";
 	    }

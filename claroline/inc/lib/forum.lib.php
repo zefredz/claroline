@@ -41,44 +41,6 @@ function get_userdata_from_id($userId)
     else                       return false;
 }
 
-
-/**
- * Checks if a forum or a topic exists in the database. Used to prevent
- * users from simply editing the URL to post to a non-existant forum or topic
- */
-
-function does_exists($id, $type)
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forums  = $tbl_cdb_names['bb_forums'];
-    $tbl_topics  = $tbl_cdb_names['bb_topics'];
-    $tbl_posts   = $tbl_cdb_names['bb_posts'];
-
-    switch ( $type )
-    {
-        case 'forum':
-            $sql = "SELECT COUNT(forum_id)
-                    FROM `" . $tbl_forums . "` 
-                    WHERE forum_id = '" . (int) $id . "'";
-        break;
-        case 'topic':
-            $sql = "SELECT COUNT(topic_id)
-                    FROM `" . $tbl_topics . "`
-                    WHERE topic_id = '" . (int) $id . "'";
-        break;
-        case 'post':
-            $sql = "SELECT COUNT(post_id)
-                    FROM `" . $tbl_posts . "`
-                    WHERE post_id = '" . (int) $id . "'";
-        break;
-    }
-
-    $itemCount = claro_sql_query_get_single_value($sql);
-
-    if ($itemCount > 0) return 1;
-    else                return 0;
-}
-
 /**
  * Check if this is the first post in a topic. Used in editpost.php
  * @param $topic_id integer
@@ -292,11 +254,10 @@ function get_forum_settings($forumId)
 
              WHERE `f`.`forum_id` = '" . (int) $forumId."'" ;
 
-
     $result = claro_sql_query_fetch_all($sql);
 
     if ( count($result) == 1) return $result[0];
-    else                      error_die('Unexisting forum.');
+    else                      return false;
 }
 
 /**
@@ -322,7 +283,7 @@ function get_topic_settings($topicId)
     $settingList = claro_sql_query_fetch_all($sql);
 
     if ( count($settingList) == 1) $settingList = $settingList[0];
-    else                           error_die('Unexisting topic.');
+    else                           return false;
 
     return $settingList;
 }
@@ -352,7 +313,7 @@ function create_new_topic($subject, $time, $forumId
             SET topic_title  = '" . addslashes($subject) . "', 
                 topic_poster = '" . (int) $userId . "', 
                 forum_id     = '" . (int) $forumId . "', 
-                topic_time   = '" . $time . "', 
+                topic_time   = '" . addslashes($time) . "', 
                 topic_notify = 1,
                 nom          = '" . addslashes($userLastname) . "', 
                 prenom       = '" . addslashes($userFirstname) . "'";
@@ -369,6 +330,36 @@ function create_new_topic($subject, $time, $forumId
 
     return $topicId;
 }
+
+/**
+ * get the main settings of a post
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param int $postId 
+ * @return array containing poster_id, forum_id, topic_id and post_time
+ */
+
+function get_post_settings($postId)
+{
+    $tbl_cdb_names  = claro_sql_get_course_tbl();
+    $tbl_posts      = $tbl_cdb_names['bb_posts'     ];
+    $tbl_posts_text = $tbl_cdb_names['bb_posts_text'];
+
+    $sql = "SELECT p.forum_id, p.topic_id, p.poster_id,
+                   p.nom poster_lastname, p.prenom poster_firstname,
+                   p.poster_ip, p.post_time,
+                   pt.post_text
+            FROM `".$tbl_posts."`      p,
+                 `".$tbl_posts_text."` pt
+            WHERE p.post_id   = '". (int) $postId."'
+              AND pt.post_id  = p.post_id";
+
+    $result = claro_sql_query_fetch_all($sql);
+
+    if ( count($result) == 1) return $result[0];
+    else                      return false;
+}
+
 
 /**
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -395,7 +386,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
             SET topic_id  = '" . (int) $topicId . "', 
                 forum_id  = '" . (int) $forumId . "', 
                 poster_id = '" . (int) $userId . "', 
-                post_time = '" . $time . "', 
+                post_time = '" . addslashes($time) . "', 
                 poster_ip = '" . $posterIp . "', 
                 nom       = '" . addslashes($userLastname) . "', 
                 prenom    = '" . addslashes($userFirstname) . "'";
@@ -417,7 +408,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
         $sql = "UPDATE `" . $tbl_topics . "` 
                 SET   topic_replies      =  topic_replies+1, # should be transformed into `topic_posts`
                       topic_last_post_id = '" .(int) $postId . "',
-                      topic_time         = '" .$time . "' 
+                      topic_time         = '" .addslashes($time) . "' 
                 WHERE topic_id = '" . (int) $topicId . "'";
 
         $result = claro_sql_query($sql);
@@ -619,7 +610,7 @@ function trig_topic_notification($topicId)
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `" . $tbl_user_notify . "` AS notif, 
                  `" . $tbl_users . "` AS u
-            WHERE notif.topic_id = '" . $topicId . "'
+            WHERE notif.topic_id = '" . (int) $topicId . "'
             AND   notif.user_id  = u.user_id";
 
     $notifyResult = claro_sql_query($sql);
@@ -752,6 +743,75 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
 }
 
 /**
+ * class building a list of all topic of a specific forum, with pager option
+ * The class is actually based on the claro_sql_pager class
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @see    claro_sql_pager class
+ */
+
+class topicLister
+{
+    var $sqlPager;
+
+    /**
+     * class constructor
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @param int $forumId     id of the current forum
+     * @param int $start       post where to start
+     * @param int $postPerPage number of post to display per page
+     */
+
+    function topicLister($forumId, $start = 1, $topicPerPage)
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_topics    = $tbl_cdb_names['bb_topics'];
+        $tbl_posts     = $tbl_cdb_names['bb_posts'];
+
+        // Get topics list
+
+        $sql = "SELECT    t.*, p.post_time
+                FROM      `" . $tbl_topics . "` t
+                LEFT JOIN `" . $tbl_posts . "` p 
+                       ON t.topic_last_post_id = p.post_id
+                WHERE     t.forum_id = '" . (int) $forumId . "'
+                ORDER BY  topic_time DESC";
+
+        require_once dirname(__FILE__) . '/pager.lib.php';
+
+        $this->sqlPager = new claro_sql_pager($sql, $start, $topicPerPage);
+        $this->sqlPager->set_pager_call_param_name('start');
+    }
+
+    /**
+     * return all the topic list of the current forum
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @return array post list
+     */
+
+    function get_topic_list()
+    {
+        return $this->sqlPager->get_result_list();
+    }
+
+    /**
+     * display a pager tool bar
+     *
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+     * @param string $url page where to point
+     * @return void
+     */
+
+    function disp_pager_tool_bar($pagerUrl)
+    {
+        $this->sqlPager->disp_pager_tool_bar($pagerUrl);
+    }
+}
+
+
+/**
  * Class building a list of all the post of specific topic, with pager options
  * The class is actually based on the claro_sql_pager class
  *
@@ -786,7 +846,7 @@ class postLister
                FROM     `" . $tbl_posts . "`      p, 
                         `" . $tbl_posts_text . "` pt 
 
-               WHERE    topic_id  = '" . $topicId . "' 
+               WHERE    topic_id  = '" . (int) $topicId . "' 
                  AND    p.post_id = pt.`post_id`
 
                ORDER BY post_id";
@@ -947,45 +1007,6 @@ function disp_forum_group_toolbar($gid)
 
 }
 
-function private_forum()
-{
-    $tbl_cdb_names        = claro_sql_get_course_tbl();
-    $tbl_group_properties = $tbl_cdb_names['group_property'];
-
-    // Determine if Forums are private. O=public, 1=private
-
-    $sql = "SELECT private 
-            FROM `" . $tbl_group_properties . "`";
-
-    return claro_sql_query_get_single_value($sql);
-}
-
-function user_is_tutor($user_id, $course_id)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
-
-    // Determine if uid is tutor for this course
-
-    $sql = "SELECT tutor 
-            FROM `" . $tbl_course_user . "`
-            WHERE  user_id    ='" . (int) $user_id . "'
-            AND    code_cours ='" . (int) $course_id . "'";
-
-    $result = claro_sql_query($sql);
-
-    if ( mysql_num_rows($result) )
-    {
-       $user = mysql_fetch_array($sqlTutor);
-       return $_user['tutor'];  
-    }
-    else
-    {
-       return 0;
-    }
-
-}
-
 /**
  * delete all post and topics from a sepcific forum
  *
@@ -1018,7 +1039,7 @@ function delete_all_post_in_forum($forumId)
     if ( count($topicIdList) > 0)
     {
         $sql = "DELETE FROM `".$tbl_rel_topic_userstonotify."`
-                WHERE  topic_id IN (".implode(', ', topicIdList).")";
+                WHERE  topic_id IN (".implode(', ', $topicIdList).")";
         if (claro_sql_query($sql) == false) return false;
     }
 
@@ -1098,7 +1119,7 @@ function create_category($cat_title)
 
     $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
             SET `cat_title` = "'. addslashes($cat_title) .'",
-                `cat_order` = "'.$order.'"';
+                `cat_order` = "'. (int) $order.'"';
 
     if ( claro_sql_query($sql) != false) return true;
     else                                 return false;
@@ -1125,12 +1146,12 @@ function delete_category($cat_id)
     }
 
     $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
-            WHERE `cat_id` = "'.$cat_id.'"';
+            WHERE `cat_id` = "'. (int) $cat_id.'"';
 
     claro_sql_query($sql);
 
     $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
-            WHERE `cat_id` = "'.$cat_id.'"';
+            WHERE `cat_id` = "'.(int) $cat_id.'"';
     claro_sql_query($sql);
 }
 
@@ -1149,7 +1170,7 @@ function delete_forum($forum_id)
 
 
     $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
-            WHERE `forum_id` = "'.$forum_id.'"';
+            WHERE `forum_id` = "'. (int) $forum_id.'"';
         
     if ( claro_sql_query($sql) == false) return false;
     else                                 return true;
@@ -1168,7 +1189,7 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
 
     $sql = 'SELECT MAX(`forum_order`)
             FROM `'.$tbl_forum_forums.'`
-            WHERE cat_id = "'.$cat_id.'"';
+            WHERE cat_id = "'. (int) $cat_id.'"';
 
     $result = claro_sql_query($sql);
 
@@ -1182,8 +1203,8 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
             forum_desc      = "'. addslashes($forum_desc) .'", 
             forum_access    = 2,
             forum_moderator = 1, 
-            cat_id          = "'. (int)$cat_id .'", 
-            forum_type      = "'. $forum_type  . '",
+            cat_id          = "'. (int) $cat_id .'", 
+            forum_type      = "'. (int) $forum_type  . '",
             md5             ="'.md5(time()).'", 
             forum_order    ="'. (int) $order.'"';
 
@@ -1204,15 +1225,16 @@ function move_up_forum($forum_id, $cat_id)
         $sql = 'UPDATE `'.$tbl_forum_forums.'`
                 SET    `forum_order` = `forum_order`+1
                 WHERE  `forum_order` =  '. ($forum_rank - 1) . '
-                  AND  `cat_id` = '. $cat_id ;
+                  AND  `cat_id` = '. (int) $cat_id ;
 
         if ( claro_sql_query($sql) == false ) return false;
 
         // forum -1
         $sql = 'UPDATE `'.$tbl_forum_forums.'`
                 SET    `forum_order` = `forum_order`-1
-                WHERE  `forum_id` =  "'.$forum_id.'"
-                  AND  `cat_id` = '. $cat_id ;
+                WHERE  `forum_id` =  "'.(int) $forum_id.'"
+                  AND  `cat_id` = '. (int) $cat_id ;
+
         if ( claro_sql_query($sql) == false ) return false;
 
         return true;
@@ -1228,7 +1250,7 @@ function move_down_forum($forum_id, $cat_id)
 
     $sql = 'SELECT MAX(f.`forum_order`) AS `max_order`
             FROM  `'.$tbl_forum_forums.'` f
-            WHERE `cat_id` = '. $cat_id ;
+            WHERE `cat_id` = '. (int) $cat_id ;
 
     $max_order = claro_sql_query_get_single_value($sql);
 
@@ -1238,7 +1260,7 @@ function move_down_forum($forum_id, $cat_id)
         $sql = 'UPDATE `'.$tbl_forum_forums.'`
                 SET `forum_order` = `forum_order`-1
                 WHERE `forum_order` =  '. ($forum_rank + 1) . ' 
-                    AND `cat_id` = '. $cat_id ;
+                    AND `cat_id` = '. (int) $cat_id ;
 
         if ( claro_sql_query($sql) == false ) return false;
 
@@ -1246,7 +1268,7 @@ function move_down_forum($forum_id, $cat_id)
         $sql = 'UPDATE `'.$tbl_forum_forums.'`
                 SET `forum_order` = `forum_order`+1
                 WHERE `forum_id` =  ' . $forum_id . '
-                AND `cat_id` = ' . $cat_id ;
+                AND `cat_id` = ' . (int) $cat_id ;
 
         if ( claro_sql_query($sql) == false ) return false;
     }
@@ -1268,7 +1290,7 @@ function get_forum_rank($forum_id)
 
     $sql = 'SELECT f.`forum_order` 
             FROM `'.$tbl_forum_forums.'` f
-            WHERE `forum_id` = ' . $forum_id ;
+            WHERE `forum_id` = ' . (int) $forum_id ;
 
     $forum_rank = claro_sql_query_get_single_value($sql);
 
@@ -1282,7 +1304,7 @@ function get_category_rank($cat_id)
 
     $sql = 'SELECT f.`cat_order` 
     FROM `'.$tbl_forum_categories.'` f
-    WHERE f.`cat_id` = ' . $cat_id;
+    WHERE f.`cat_id` = ' . (int) $cat_id;
 
     $category_rank = claro_sql_query_get_single_value($sql);
     return $category_rank;
@@ -1300,14 +1322,14 @@ function move_up_category($cat_id)
         // previous cat +1
         $sql = 'UPDATE `'.$tbl_forum_categories.'`
                 SET `cat_order` = `cat_order`+1
-                WHERE `cat_order` = ' . ($order-1);
+                WHERE `cat_order` = ' . (int) ($order-1);
 
         if ( claro_sql_query($sql) == false) return false;
 
         // cat -1
         $sql = 'UPDATE `'.$tbl_forum_categories.'`
                 SET `cat_order` = `cat_order`-1
-                WHERE `cat_id` = ' . $cat_id ;
+                WHERE `cat_id` = ' . (int) $cat_id ;
 
         if ( claro_sql_query($sql) == false) return false;
     }
@@ -1332,13 +1354,15 @@ function move_down_category($cat_id)
         // next cat - 1
         $sql = 'UPDATE `'.$tbl_forum_categories.'`
                 SET `cat_order` = `cat_order`-1
-                WHERE `cat_order` =  '. ($order+1);
+                WHERE `cat_order` =  '. (int) ($order+1);
+
         if ( claro_sql_query($sql) == false) return false;
 
         // cat + 1
         $sql = 'UPDATE `'.$tbl_forum_categories.'`
                 SET `cat_order` = `cat_order`+1
-                WHERE `cat_id` = '. $cat_id;
+                WHERE `cat_id` = '. (int) $cat_id;
+
         if ( claro_sql_query($sql) == false) return false;
         
     }

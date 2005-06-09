@@ -175,7 +175,7 @@ foreach ( $categories as $this_category )
         .' <th colspan="7" class="superHeader">' . $title . '</th>' . "\n"
         .'</tr>' . "\n"
         .' <tr class="headerX" align="center">' . "\n"
-        .' <th colspan="2" align="left">' . $langForum . '</th>' . "\n"
+        .' <th align="left">' . $langForum . '</th>' . "\n"
         .' <th>' . $l_topics . '</th>' . "\n"
         .' <th>' . $l_posts  . '</th>' . "\n"
         .' <th>' . $l_lastpost . '</th>' . "\n"
@@ -203,11 +203,9 @@ foreach ( $categories as $this_category )
                 $forum_img = 'forum.gif';
             }
 
-            echo '<td align="center" valign="top" width="5%">' . "\n"
+            echo '<td>'                                               . "\n"
                 .'<img src="' . $imgRepositoryWeb . $forum_img . '">' . "\n"
-                .'</td>' . "\n";
-
-            echo '<td>' . "\n";
+                .'&nbsp;'                                             . "\n";
 
             // Visit only my group forum if not admin or tutor.
             // If tutor, see all groups but indicate my groups.

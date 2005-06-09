@@ -87,15 +87,12 @@ else                             $forum_id = 0;
 if ( !empty($_REQUEST['start']) ) $start = (int) $_REQUEST['start'];
 else                              $start = 0;
 
-$forum_exists = does_exists($forum_id, 'forum');
+// Get forum settings
+$forumSettingList = get_forum_settings($forum_id);
 
-if ( $forum_exists )
+if ( $forumSettingList )
 {
-    // Get forum settings
-    
-    $forumSettingList = get_forum_settings($forum_id);
-    
-    $forum_name = own_stripslashes($forumSettingList['forum_name']);
+    $forum_name   = own_stripslashes($forumSettingList['forum_name']);
     $forum_cat_id = $forumSettingList['cat_id'];
     
     /* 
@@ -107,27 +104,19 @@ if ( $forum_exists )
         && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
     {
         // user are not allowed to see topics of this group
-        $allowed = false;
+        $allowed       = false;
         $error_message = $langNotAllowed;
     } 
 
     if ( $allowed )
     {  
         // Get topics list
-        
-        $sql = "SELECT    t.*, p.post_time
-                FROM      `" . $tbl_topics . "` t
-                LEFT JOIN `" . $tbl_posts . "` p 
-                       ON t.topic_last_post_id = p.post_id
-                WHERE     t.forum_id = '" . (int) $forum_id . "'
-                ORDER BY  topic_time DESC";
-        
-        $topicPager = new claro_sql_pager($sql, $start, $topics_per_page);
-        $topicPager->set_pager_call_param_name('start');
-        $topicList  = $topicPager->get_result_list();
-        
+
+        $topicLister = new topicLister($forum_id, $start, $topics_per_page);
+        $topicList   = $topicLister->get_topic_list();
+
         $pagerUrl = 'viewforum.php?forum=' . $forum_id . '&gidReq='.$_gid;
-        
+
         /*================================================
           RELATE TO GROUP DOCUMENT AND SPACE FOR CLAROLINE
           ================================================*/
@@ -145,16 +134,16 @@ if ( $forum_exists )
     
         while ($myTeamUser = mysql_fetch_array($findTeamUser))
         {
-    	    $myTeam          = $myTeamUser['team'           ];
-        	$myGroupForum    = $myTeamUser['forumId'        ];
-    	    $myTutor         = $myTeamUser['tutor'          ];
+    	    $myTeam          = $myTeamUser['team'   ];
+        	$myGroupForum    = $myTeamUser['forumId'];
+    	    $myTutor         = $myTeamUser['tutor'  ];
         }
     }   
 }
 else
 {
     // No forum
-    $allowed = false;
+    $allowed       = false;
     $error_message = $langNotAllowed;
 }
 
@@ -173,7 +162,7 @@ else
     /*-----------------------------------------------------------------
       Display Forum Header
     -----------------------------------------------------------------*/
-    
+
     $pagetitle = $l_viewforum;
     $pagetype = 'viewforum';
     
@@ -201,20 +190,20 @@ else
     
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
     
-    $topicPager->disp_pager_tool_bar($pagerUrl);
+    $topicLister->disp_pager_tool_bar($pagerUrl);
     
     echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
     
-        .' <tr class="superHeader">' . "\n"
+        .' <tr class="superHeader">'                  . "\n"
         .'  <th colspan="6">' . $forum_name . '</th>' . "\n"
-        .' </tr>' . "\n"
+        .' </tr>'                                     . "\n"
     
-        .' <tr class="headerX" align="left">' . "\n"
-        .'  <th colspan="2">&nbsp;' . $l_topic . '</th>' . "\n"
-        .'  <th width="9%"  align="center">' . $l_posts . '</th>' . "\n"
+        .' <tr class="headerX" align="left">'                            . "\n"
+        .'  <th>&nbsp;' . $l_topic . '</th>'                             . "\n"
+        .'  <th width="9%"  align="center">' . $l_posts . '</th>'        . "\n"
         .'  <th width="20%" align="center">&nbsp;' . $l_poster . '</th>' . "\n"
-        .'  <th width="8%"  align="center">' . $langSeen . '</th>' . "\n"
-        .'  <th width="15%" align="center">' . $langLastMsg . '</th>' . "\n"
+        .'  <th width="8%"  align="center">' . $langSeen . '</th>'       . "\n"
+        .'  <th width="15%" align="center">' . $langLastMsg . '</th>'    . "\n"
         .' </tr>' . "\n";
     
     $topics_start = $start;
@@ -222,7 +211,7 @@ else
     if ( count($topicList) == 0 )
     {
         echo ' <tr>' . "\n" 
-            .'  <td colspan="6" align="center">' . $l_notopics . '</td>'. "\n"
+            .'  <td colspan="5" align="center">' . $l_notopics . '</td>'. "\n"
             .' </tr>' . "\n";
     }
     else 
@@ -232,9 +221,9 @@ else
             echo ' <tr>' . "\n";
     
             $replys         = $thisTopic['topic_replies'];
-            $topic_time     = $thisTopic['topic_time'];
-            $last_post_time = $thisTopic['post_time'];
-            $last_post      = $thisTopic['post_time'];
+            $topic_time     = $thisTopic['topic_time'   ];
+            $last_post_time = $thisTopic['post_time'    ];
+            $last_post      = $thisTopic['post_time'    ];
     
             if ( empty($last_post_time) ) 
             {
@@ -258,13 +247,13 @@ else
     
             if($thisTopic['topic_status'] == 1) $image = $locked_image;
     
-            echo '  <td><img src="' . $image . '" alt="' . $alt . '"></td>' . "\n";
+            echo '<td>'
+                .'<img src="' . $image . '" alt="' . $alt . '">';
     
             $topic_title = own_stripslashes($thisTopic['topic_title']);
-            $topic_link  = 'viewtopic.php?forum=' . $forum_id . '&amp;topic='.$thisTopic['topic_id'];
+            $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id'];
     
-            echo '  <td>'
-                .'&nbsp;'
+            echo '&nbsp;'
                 .'<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
     
             disp_mini_pager($topic_link, 'start', $replys+1, $posts_per_page);
@@ -289,7 +278,7 @@ else
     
     echo '</table>' . "\n";
     
-    $topicPager->disp_pager_tool_bar($pagerUrl);
+    $topicLister->disp_pager_tool_bar($pagerUrl);
 }
 
 /*-----------------------------------------------------------------
