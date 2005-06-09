@@ -1,20 +1,13 @@
 <?php 
 $l_author = "Συγγραφέας";
-$l_banned = "Σας έχει απαγορευτεί η πρόσβαση σε αυτή την περιοχή. Αν έχετε κάποια ερώτηση επικοινωνήστε με το διαχειριστή του συστήματος.";
 $l_body = "Σώμα μηνύματος";
-$l_by = "από";
 $l_click = "Πιέστε";
 $l_delete = "Διαγραφή αυτού του μηνύματος";
 $l_deleted = "Το Αποστολή διαγράφτηκε.";
 $l_emptymsg = "Για να στείλετε ένα μήνυμα πρέπει να γράψετε κάποιο κείμενο. Δεν μπορείτε να στείλετε κενό μήνυμα.";
-$l_error = "Σφάλμα";
-$l_go = "Πήγαινε";
-$l_guest = "Φιλοξενούμενος";
 $l_here = "εδώ";
 $l_indextitle = "Ευρετήριο περιοχών συζητήσεων";
 $l_lastpost = "Τελευταία Αποστολή";
-$l_nopostlock = "Δεν μπορείτε να στείλετε απαντήσεις σε αυτό το θέμα, έχει κλειδωθεί.";
-$l_noposts = "Όχι Αποστολές";
 $l_notify = "Ειδοποίηση μέσω email αν σταλούν απαντήσεις";
 $l_notifybody = "Λαμβάνετε αυτό το email γιατί κάποιος απάντησε
 σε ένα μήνυμα που στείλατε στις περιοχές συζητήσεων , και είχατε
@@ -36,13 +29,8 @@ $l_notopics = "Δεν υπάρχουν θέματα σε αυτή την περιοχή. Μπορείτε να ξεκινήσετε έ
 $l_posted = "Στάλθηκε";
 $l_poster = "Αποστολέας";
 $l_posts = "Αποστολές";
-$l_quotemsg = "[quote]
-Στις %1\$s, ο/η %2\$s έγραψε:
-%3\$s
-[/quote]";
 $l_returnindex = "για επιστροφή στο ευρετήριο περιοχών συζητήσεων.";
 $l_returntopic = "για επιστροφή στον κατάλογο θεμάτων της περιοχής συζητήσεων.";
-$l_selectforum = "Επιλογή Περιοχή συζητήσεων";
 $l_separator = "» »";
 $l_stored = "Το Μήνυμα αποθηκεύτηκε στη βάση.";
 $l_subject = "Θέμα";
@@ -52,24 +40,98 @@ $l_topics = "Θέματα";
 $l_topictitle = "Εμφάνιση θέματος";
 $l_viewforum = "Εμφάνιση περιοχής συζητήσεων";
 $l_viewmsg = "για να εμφανίσετε το Μήνυμα.";
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "Σε περίπτωση διακοπής <sup>*</sup>, το <em>σύστημα Αναβάθμισης Claroline </em> θα πρέπει να κάνει αυτόματη επανεκίνηση.
+Σε διαφορετική περίπτωση, κάντε κλικ στο παρακάτω πλήκτρο.";
+$langAccess = "Πρόσβαση";
+$langAccessExplain = "(Όταν κάποιος χρήστης ανοίξει τα περιεχόμενα του campus)";
+$langAction = "Ενέργεια";
 $langActivate = "ενεργοποίηση";
 $langAdd = "Προσθήκη";
+$langAddAClassToCourse = "Γράψε μια τάξη σε ένα μάθημα";
 $langAddAU = "Προσθέστε ένα χρήστη";
 $langAddAnn = "Προσθήκη Ανακοίνωσης";
+$langAddCSVUsers = "Πρόσθεσε λίστα χρηστών";
+$langAddCSVUsersInClass = "Πρόσθεσε λίστα χρηστών στην τάξη ";
+$langAddCSVUsersInCourse = "Πρόσθεσε λίστα χρηστών στο μάθημα";
 $langAddCategory = "Προσθήκη κατηγορίας";
+$langAddClass = "Γράψε μια τάξη";
 $langAddComment = "Προσθήκη / αλλαγή σχολίου στο";
+$langAddCommentOptionnal = "Πρόσθεσε σχόλιο (προαιρετικό) :";
 $langAddEvent = "Προσθήκη ενός γεγονότος";
+$langAddExternalTool = "Πρόσθεσε εξωτερικό σύνδεσμο";
+$langAddFeedback = "Πρόσθέστε Eπικοινωνία";
 $langAddForCat = "Προσθήκη περιοχής συζητήσεων στην κατηγορία";
 $langAddForums = "Για να προσθέσετε περιοχές συζητήσεων, κάντε κλίκ στο «Περιοχές συζητήσεων» στην κατηγορία της επιλογής σας. Μια κενή κατηγορία (χωρίς περιοχές) δεν θα φαίνεται στους φοιτητές";
+$langAddImage = "Συμπεριέλαβε εικόνα";
 $langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
+$langAddListUser = "Πρόσθεσε λίστα των χρηστών";
+$langAddLoginPass = "Πρόσθεσε κωδικό εισόδου(login/pass) στο .htpassword</a><br>";
+$langAddLoginPassForThisUser = "Πρόσθεσε κωδικό εισόδου του ιδίου χρήστη απο το λογαριασμό του campus στο .htpassword";
+$langAddModifyComment = "Πρόσθεσε/ Μετέτρεψε παρατήρηση";
+$langAddModule = "Πρόσθεσε";
+$langAddModulesButton = "Πρόσθεσε ενότητα -ες (μονάδα-ες προγράμματος)";
+$langAddMyCampusOnClarolineNet = "Πρόσθεσε το campus στο Claroline.net ";
+$langAddNewHeading = "Πρόσθεσε νέα επικεφαλίδα";
+$langAddOneModuleButton = "Πρόσθεσε ενότητα";
 $langAddPage = "Προσθήκη μιας σελίδας";
 $langAddTutors = "Διαχείριση καταλόγου χρηστών";
+$langAddUser = "Δημιούργησε νέο χρήστη";
+$langAddUserOneByOne = "Οι νέοι χρήστες θα λάβουν ένα e-mail με το username και το κωδικό τους(password)";
+$langAdd_users = "Πρόσθεσε χρήστες";
+$langAddedExternalTool = "Εξωτερικό εργαλείο/μέσο  προστέθηκε.";
+$langAddedToCampus = " έχει προστεθεί στο campus";
+$langAddedToCampusAndClass = " έχει προστεθεί στο campus και στη τάξη";
+$langAddedToCampusAndCourse = " έχει προστεθεί στο campus και στο μάθημα";
 $langAddedToCourse = "είναι ήδη γραμμένος στο πανεπιστήμιου αλλά όχι σε αυτό το μάθημα. Τώρα έγινε.";
+$langAddedToCreator = "Aρχική Σελίδα Μαθήματος";
 $langAddress = "Η διεύθυνση του";
 $langAdm = "διαχείριση";
+$langAdmin = "Διαχειριστής";
+$langAdminEmail = "Email";
+$langAdminLogin = "Σύνδεση";
+$langAdminName = "Επώνυμο";
+$langAdminPass = "Κωδικός (password)";
+$langAdminSetting = "Ρυθμίσεις Διαχειριστή";
+$langAdminSurname = "Όνομα";
+$langAdministration = "Διαχείρηση";
+$langAdministrationClassTools = "Τάξεις";
+$langAdministrator = "Διαχειρηστής";
+$langAdminsOfThisCours = "Διευθυντής του μαθήματος";
 $langAdmitError = "Παραδοχή των δικών σας σφαλμάτων ώστε να ενθαρρύνετε το συνομιλητή σας να κάνει το ίδιο.";
-$langAgain = "Ξαναπροσπαθήστε!";
+$langAdvanced = "Προχωρημένο";
 $langAgenda = "Ατζέντα";
+$langAgendaNextEvents = "Έπομενα γεγονόντα της Ατζέντας";
+$langAlertBlockingMakedInvisible = "Αυτή η ενότητα είναι φραγμένη.
+Κάνοντας το αόρατο θα επιτρέψει στους μαθητές την είσοδο
+στην επόμενη ενότητα χωρίς να χρειάζεται να ολοκληρώσουν αυτή.
+
+Confirm ?";
+$langAlertBlockingPathMadeInvisible = "Αυτή η πορεία ειναι φραγμένη.
+Κάνοντας την μη ορατή θα επιτρέωει στους μαθητές την είσοδο
+στην επόμενη πορεία/ διαδρομή χωρίς να χρειάζεται να ολοκληρώσουν αυτή.
+
+Confirm ?";
+$langAll = "Όλα";
+$langAllExercises = "Όλες τις ασκήσεις";
+$langAllRight = "Δεν υπάρχει άγνωστη περίπτωση εδώ";
+$langAllUsersOfThisCourse = "Μέλη του μαθήματος";
+$langAllowAnonymousAttempts = "Ανώνυμες προσπάθειες";
+$langAllowLateUpload = "Ναι,να επιτρέπεται στουσ χρήστες να υποβάλουν εργασίες μετά τη λήξη ημερομηνίας";
+$langAllowLateUploadShort = "Να επιτρέπεται η καθυστερημένη υποβολή";
+$langAllowed = "Επιτρέπεται";
+$langAllowedTime = "Όριο /Περιορισμός Χρόνου";
+$langAlreadyAnswered = "έχετε ήδη απαντήσει στην ερώτηση";
+$langAlreadyBrowsed = "ήδη αναζητήθηκε";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Εγγραφο";
+$langAltExercise = "Ασκηση";
+$langAltMakeNotBlocking = "Αποδέσμευση ";
+$langAltMakeVisible = "Κάντετο ορατό";
+$langAltMove = "Μετακίνηση";
+$langAltMoveUp = "Διαταγή";
+$langAltScorm = "Scorm";
+$langAlways = "Πάντα";
+$langAmong = "μεταξύ";
 $langAnd = "και";
 $langAnnAdd = "Η ανακοίνωση προστέθηκε";
 $langAnnDel = "η ανακοίνωση διαγράφτηκε";
@@ -77,23 +139,99 @@ $langAnnEmpty = "Τα περιεχόμενα του καταλόγου ανακοινώσεων διαγράφτηκαν";
 $langAnnModify = "η ανακοίνωση άλλαξε";
 $langAnnouncement = "Ανακοινώσεις";
 $langAnonymous = "Ανώνυμος";
+$langAnonymousAttemptsAllowed = "Επιτρέπεται : μη καταγραφή των ονομάτων χρηστών στην παρακολούθηση, ανώνυμοι χρήστες μπορούν να κάνουν την άσκηση.";
+$langAnonymousAttemptsNotAllowed = "Δεν επιτρέπεται: καταγραφή των ονομάτων χρηστών στην παρακολούθηση, ανώνυμοι χρήστες δεν μπορούν να κάνουν την άσκηση.";
+$langAnonymousUserAccessCount = "Καταμέτρηση εισόδου ανώνυμων χρηστών: ";
+$langAnotherCreateSite = "Δημιουργία ενός άλλου website μαθήματος";
 $langAnswer = "Απάντηση";
+$langAnswerRequired = "Aπαιτείται απάντηση";
+$langAnswerType = "Πληκτρολογήστε απάντηση";
 $langAntique = "Ιστορία της αρχαίας φιλοσοφίας";
+$langAppliedChange = "Οι αλλαγές έχουν εφαρμοστεί στις ρυθμίσεις του χρήστη";
 $langArchive = "αποθήκευση";
+$langAreCompulsory = "είναι υποχρεωτικές";
 $langAreYouSureToDelete = "Είστε βέβαιος ότι θέλετε να το διαγράψετε";
+$langAreYouSureToDeleteScorm = "H διαδρομή μάθησης αποτελεί μέρος ενός  πακέτου SCORM. Αν διαγράψεις αυτή τη διαδρομή -πορεία, όλες οι ενότητες που συμβαδίζουν με το SCORM και όλα τα σχετικά αρχεία θα διαγραφούν απο την πλατφόρμα.Είσαι σίγουρος θέλεις να διαγράψεις τη διαδρομή μάθησης";
+$langAreYouSureToRemove = "Είσαι σίγουρος οτι θέλεις να απομακρύνεις/αφαιρέσεις την παρακάτω ενότητα απο τη διαδρομή μάθησης: ";
+$langAreYouSureToRemoveLabel = "Διαγράφοντας μία ετικέτα θα διαγραφούν και όλες οι ενότητες ή ετικέτες που περιέχει.";
+$langAreYouSureToRemoveSCORM = "Ενότητες σύμφωνες με το SCORM θα αφαιρεθούν οριστικά απο το server όταν διαγράψεις τη πορεία μάθησης.";
+$langAreYouSureToRemoveStd = "Η ενότητα θα είναι ακόμα διαθέσιμη στην ομάδα των ενοτήτων.";
+$langAreYouSureToUnsubscribe = "Είσαι σίγουρος επιθυμείς να διαγραφείς";
+$langAssignment = "Εργασία";
+$langAssignmentAdded = "Νέα Εργασία δημιουργήθηκε";
+$langAssignmentDeleted = "Εργασία διαγράφηκε";
+$langAssignmentDescription = "Περιγραφή";
+$langAssignmentEdited = "Εργασίας τροποποιήθηκε";
+$langAssignmentTitle = "Τίτλος Εργασίας";
+$langAssignmentTitleAlreadyExists = "Ο τίτλος αυτός υπάρχει ήδη";
+$langAssignmentTitleRequired = "Απαιτείται τίτλος Εργασίας";
+$langAssignmentType = "Τύπος Εργασίας";
+$langAttachDoc = "Επισύναψη αρχείου";
+$langAttachFile = "Επισύναψη αρχείου";
+$langAttachedFile = "Το αρχείο έχει επισυναπθεί";
+$langAttempt = "Προσπάθεια";
+$langAttemptAllowed = "Η προσπαθεια επετράπει";
+$langAttempts = "Προσπάθειες";
+$langAttemptsAllowed = "Οι προσπαθειες επιτράπηκαν";
+$langAuthentication = "Πιστοποίηση Αυθεντικότητας";
+$langAvailableFrom = "Διαθέσιμο από";
 $langBack = "Επιστροφή";
-$langBackAndForget = "Επιστροφή και ακύρωση";
 $langBackCat = "επιστροφή στις κατηγορίες";
 $langBackHomeOf = "Επιστροφή στην αρχική σελίδα του";
 $langBackList = "Επιστροφή στον κατάλογο";
+$langBackModule = "Επιστροφή στη λίστα";
+$langBackTo = "Επιστροφή σε:";
+$langBackToAdmin = "Επιστροφή στη σελίδα διαχείρησης";
+$langBackToClass = "Επιστροφή στη τάξη";
+$langBackToClassList = "Επιστροφή στη λίστα τάξης";
+$langBackToClassMembers = "Επιστροφή στα μέλη της τάξης";
+$langBackToCourseList = "Επιστροφή στη λίστα των μαθημάτων";
+$langBackToEditor = "Επιστροφή στο συντάκτη /επιμελητή";
+$langBackToLPAdmin = "Επιστροφή στη διαχείρηση της πορείας μάθησης";
+$langBackToList = "Επιστροφή στη λίστα";
+$langBackToMyCourseList = "Επιστροφή στη λίστα του μαθήματος μου";
+$langBackToUserList = "Επιστροφή στη λίστα του χρήστη";
+$langBackToUserSettings = "Επιστροφή στις ρυθμίσεις του χρήστη";
+$langBackToUsersList = "Επιστροφή στη λίστα χρηστών";
+$langBlankSpace = "(Κενός χώρος)";
+$langBlock = "Φραγή";
+$langBrowserCannotSeeFrames = "Ο browser σου δεν αναγνωρίζει τα πλαίσια.";
+$langBuildCompleteLangFile = "Ολοκλήρωση αρχείων γλώσσας";
+$langBuildEmptyLangFile = "Αδειασμα αρχείου γλώσσας";
+$langBuildLangFile = "Κατασκευή αρχείων γλώσσας";
+$langBuildMissingLangFile = "Ελλιπή αρχεία γλώσσας";
+$langBuildProductionLangFile = "Παραγωγή αρχείων γλώσσας";
 $langByDel = "Διαγράφοντας αυτό το μάθημα θα διαγραφτούν μόνιμα όλα τα περιεχόμενα του και όλοι οι φοιτητές που είναι γραμμένοι σε αυτό (δεν θα διαγραφτούν από τα άλλα μαθήματα).<p>Θέλετε πράγματι να το διαγράψετε";
+$langByUser = "απο τον χρήστη";
+$langCSVSeeUserList = "Βλέπε λίστα χρήστη";
+$langCampusAlreadyRegistered = "Φαίνεται πως έχεις ήδη εγγραφεί στο campus.";
+$langCampusDeleted = "<strong>Διαγραμμένο</strong><p>Η εγγραφή σας στο campus έχει απενεργοποιηθεί, επικοινωνήστε μαζί μας εαν θεωρείτε ότι υπάρχει κάποιο σφάλμα.</p>";
+$langCampusRegistered = "<strong>Εγκρίθηκε</strong><p>Η εγγραφή σας στο campus έχει γίνει αποδεκτή απο την ομάδα του Claroline.net .<br />Σύνδεση με το campus σου. Φαίνεται στην σελίδα του Claroline.net.</p>";
+$langCampusRegistrationSubmitted = "Το campus σου, έχει υποβληθεί και βρίσκεται σε αναμονή επικύρωσης απο την ομάδα του Claroline.net";
+$langCampusRemoved = "<strong>Αφαιρέθηκε</strong><p>Το campus σου, έχει αφαιρεθεί απο την σελίδα Claroline.net.</p>";
+$langCampusSubmitted = "<strong>Υποβλήθηκε</strong><p>Αναμονή επικύρωσης απο την ομάδα του Claroline.net .</p>";
 $langCancel = "Ακύρωση";
+$langCannotAddForumInGroups = "Ομαδικά forums έχουν προστεθεί κατά τη δημιουργία ενός group και διαγράφονται όταν διαγραφεί το αντίστοιχο group.";
+$langCannotBeBlank = "Δεν μπορείς να δώσεις κενό όνομα σε μια τάξη ";
+$langCannotBeDeleted = "δεν διαγράφεται";
+$langCannotCopyFile = "Δεν αντιγράφεται το αρχείο.";
+$langCannotInitChat = "Σφαλμα : Δεν μπορεί να ξεκινήσει το chat";
+$langCannotMoveGroupForum = "Ομαδικό forum δεν μπορεί να αφαιρεθεί";
 $langCatagoryGroup = "Συζήτησεις Ομάδων χρηστών";
 $langCatagoryMain = "Αρχή";
 $langCategories = "Κατηγορίες";
+$langCategory = "Κατηγορία";
+$langCfgSetting = "Ρυθμίσεις πλατφόρμας";
 $langChangeCat = "Αλλαγή της κατηγορίας";
+$langChangePwdexp = "Βάλτε δυο φορές νεο κωδικό (password) για να γίνει αλλαγή, αφήστε το κενό για να κρατήσετε το ίδιο";
+$langChangeRaw = "Αλλαξε το ελάχιστο αρχικό σημείο  για να περάσει αυτή η ενότητα (ποσοστό): ";
+$langChangedTool = "Εργαλείο/μέσο εισόδου άλλαξε";
 $langChat = "Κουβεντούλα";
+$langChatResetBy = " Ρύθμιση Chat εκ νέου από";
 $langChoice = "Η επιλογή σας";
+$langChooseDateHelper = "(d/m/y hh:mm)= (μέρα/μήνας/έτος ώρες:λεπτά)";
+$langChooseGoodAnswer = "Παρακαλώ διαλέξτε μια καλή απάντηση";
+$langChooseGoodAnswers = "Παρακαλώ διαλέξτε μια ή περισσότερες καλές απαντήσεις";
 $langClarContent = "Εδώ, καθηγητές και βοηθοί δημιουργούν και διαχειρίζονται
  τους δικτυακούς τόπους των μαθημάτων τους. Οι φοιτητές μπορούν να διαβάσουν
  τα έγγραφα,  τα προγράμματα, την ατζέντα, κλπ., να κάνουν ασκήσεις, να
@@ -110,40 +248,161 @@ $langClarContent = "Εδώ, καθηγητές και βοηθοί δημιουργούν και διαχειρίζονται
  παρακαλούμε ενημερώστε μας μέσω της λίστας «Να γίνουν», που εμφανίζεται στην
  αρχική σελίδα της τάξης
  ";
+$langClarolineNetNews = "Claroline.net νέα";
+$langClass = "Τάξεις";
+$langClassMembers = "Μέλη της τάξης";
+$langClassMoved = "Η τάξη έχει μετακινηθεί";
+$langClassName = "Όνομα τάξης";
+$langClassRegisterUser = "Εγγραφή χρήστη για την τάξη αυτή";
+$langClassRegisterWholeClass = "Εγγραφή τάξης για μάθημα";
+$langClassRegisterWholeClassAgain = "Εγγραφή ολόκληρης τάξης (class) για άλλο μάθημα (course)";
+$langClassRegistered = "Εγινε εγγραφή τάξης";
+$langClearList = "Καθαρισμός/ άδειασμα λίστα γεγονότων";
 $langClose = "Κλείσιμο παραθύρου";
+$langCloseWindow = "Κλείστε το παράθυρο";
 $langCode = "Κωδικός Μαθήματος";
+$langCodeAppearAlready = "Αυτός ο επίσημος κώδικας εμφανίζεται ήδη σε προηγούμενη σειρά του αρχείου CSV.";
+$langCodeCanBeEmpty = "Το πεδίο κωδικού του μαθήματος (Course) πρέπει να συμπληρωθεί";
+$langCodeUsed = "Αυτός ο επίσημος κωδικός χρησιμοποιείται ήδη από άλλο χρήστη.";
 $langComMod = "Τα σχόλια τροποποιήθηκαν";
 $langComment = "Σχόλιο";
 $langConfTip = "Εξ' ορισμού, το μάθημα είναι προσπελάσιμο μόνο από εσάς. Αν θέλετε ελεγχόμενη πρόσβαση, μπορείτε να επιλέξετε 'Ελεγχόμενη Προσβαση με ανοιχτή 
 εγγραφή' και να ζητήσετε από τους χρήστες να γραφτούν. Μόλις τελειώσει η εγγραφή μπορείτε να επιλέξετε 'Ελεγχομενη προσβαση'.";
+$langConfigMenuContent = "Διαμόρφωση του Menu";
+$langConfiguration = "Διαμόρφωση";
+$langConfigurationFile = "Διαμόρφωση αρχείου";
+$langConfirmDeleteExercise = "Είστε σίγουρος επιθυμείτε να διαγράψετε αυτή την άσκηση ?";
+$langConfirmDeleteGroups = "Είσαι σίγουρος επιθυμείς να διαγράψεις όλες τις ομάδες ";
+$langConfirmDeleteQuestion = "Είσαι σίγουρος επιθυμείς να διαγράψεις εντελώς αυτή την ερώτηση ?";
+$langConfirmDeleteStats = "Αν διαγράψεις τα στατιστικά των μαθημάτων (courses)δεν υπάρχει τρόπος να τα ξανααποκτήσεις !<br /><br />Είσαι σίγουρος επιθυμείς να διαγράψεις εντελώς τα στατιστικά ?";
+$langConfirmEmptyGroups = "Είσαι σίγουρος οτι επιθυμείς να αδειάσεις/καθαρίσεις όλες τις ομάδες  ?";
+$langConfirmEnrollClassToCourse = "Είσαι σίγουρος επιθυμείς να εγγράψεις όλοκληρη την τάξη (class) στο μάθημα (course) ?";
+$langConfirmYourChoice = "Παρακαλώ επιβεβαιώστε την επιλογή σας";
 $langConfirmation = "επιβεβαίωση";
+$langContent = "Περιεχόμενο";
 $langContradiction = "Χρήση της αρχής της αποφυγής αντιφάσεων προκειμένου να οδηγήσετε τον συνομιλητή σας σε αδιέξοδο.";
 $langCopy = "Αντιγραφή";
 $langCopyFailed = "Η εκτύπωση απέτυχε";
+$langCorrespondsTo = "Ανταποκρίνεται σε";
 $langCouldNot = "Το αρχείο δεν ήταν δυνατόν να σταλεί";
+$langCountCours = "Αριθμός μαθημάτων (courses)";
+$langCountCourseByFaculte = "Αριθμός μαθημάτων κατά κλάδο";
+$langCountCourseByLanguage = "Αριθμός μαθημάτων κατά γλώσσα";
+$langCountCourseByVisibility = "Αριθμός μαθημάτων κατά εμφάνιση ";
+$langCountToolAccess = "Συνολικός αριθμός συνδέσεων σε αυτό το μάθημα";
+$langCountUsers = "Αριθμός χρηστών";
+$langCountUsersByCourse = "Αριθμός χρηστών κατά μάθημα";
+$langCountUsersByFaculte = "Αριθμός χρηστών κατά κλάδο";
+$langCountUsersByStatus = "Αριθμός χρηστών κατά κατάσταση/υπόσταση (status)";
+$langCountry = "Χώρα";
+$langCountryCodeError = "Ο κωδικός χώρας φαίνεται οτι είναι λανθασμένος";
 $langCourse = "το μάθημα";
+$langCourseAccess = "Είσοδος μαθήματος (course)";
+$langCourseAdministratorOnly = "Διαχειρηστής του μαθήματος (course)μόνο";
+$langCourseContent = "Περιεχόμενο/ αντικείμενο μαθήματος (Course)";
+$langCourseContentComment1 = "Ποιά η σπουδαιότητα του ποικίλου περιεχόμενου να διαδαχτεί μέσα στα πλαίσια του μαθήματος?  Ποιό το επίπεδο δυσκολίας του περιεχομένου/αντικειμένου αυτού?  Πως είναι δομημένη η ενότητα?  Ποια θα είναι η συνέχεια του περιεχομένου?  Που οδηγεί το περιεχόμενο";
+$langCourseContentComment2 = "Παρουσίαση του αντικειμένου του μαθήματος, της δομής του αντικειμένου, της προόδου και της χρονολογικής τάξης ";
 $langCourseCreate = "Δημιουργία ενός μαθήματος";
+$langCourseCreator = "Δημιουργός μαθήματος";
+$langCourseDelete = "Το μάθημα έχει διαγραφεί με επιτυχία";
 $langCourseDescription = "Γράψτε μια περιγραφή η οποία θα εμφανίζεται στο κατάλογο μαθημάτων .";
+$langCourseHome = "Αρχική σελίδα μαθήματος(Course)";
+$langCourseList = "Λίστα μαθήματος (Course)";
+$langCourseManager = "Διαχειρηστής μαθήματος (Course)";
+$langCourseManagerStatusToUser = "Η κατάσταση του δημιουργού μαθήματος (Course) σε %s %s";
 $langCourseProgram = "Περιγραφή Μαθήματος";
+$langCourseSettings = "Ρυθμίσεις μαθήματος";
 $langCourseTitle = "Τίτλος Μαθήματος";
+$langCourseWithoutAccess = "Μαθήματα που δεν χρησιμοποιούνται";
+$langCourseWithoutProf = "Μαθήματα χωρίς λέκτορα";
+$langCourseWithoutStudents = "Μαθήματα χωρίς μαθητές";
+$langCourse_Repository = "Πηγή πληροφοριών μαθήματος(Course)";
 $langCourses = "μαθήματα.";
 $langCreate = "Δημιουργία";
+$langCreateAnotherUser = "Δημιουργία άλλου νέου χρήστη";
+$langCreateAssignment = "Δημιουργία νέας ανάθεσης (εργασίας)";
+$langCreateCourse = "Δημιουργία μαθήματος (course)";
+$langCreateCourses = "Δημιουργία μαθήματος (course)";
 $langCreateDir = "Δημιουργία καταλόγου";
+$langCreateDocument = "Δημιουργία Εγγράφου";
+$langCreateHyperlink = "Δημιουργία υπερσύνδεσης";
+$langCreateLabel = "Δημιουργία ετικέτας";
+$langCreateModifyDocument = "Δημιουργία/σύνταξη εγγράφου";
+$langCreateNewClass = "Δημιουργία νέας τάξης";
+$langCreateNewLearningPath = "Δημιουργία νέας διαδρομής μάθησης";
 $langCreateSite = "Δημιουργία ενός μαθήματος";
+$langCreateUser = "Δημιουργία χρήστη";
+$langCreateUserAccount = "Δημιουργία λογαριασμού χρήστη";
+$langCreationMailNotificationBody = "Δημιουργία μαθήματος (Course) ενεργό";
+$langCreationMailNotificationSubject = "Δημιουργία μαθήματος (Course)";
+$langCurrentAttachedDoc = "Τρέχων επισυναπτόμενο αρχείο";
+$langCurrentDoc = "Τρέχων αρχείο ";
+$langCurrentFeedbackFile = "Τρέχων αρχείο Επικοινωνίας";
+$langCurrentStatus = "Τρέχουσα κατάστασης εγγραφής : <br /> <br />
+";
+$langCurrentTime = "Τρέχων χρόνος";
+$langDBConnectionParameters = "Mysql παράμετροι σύνδεσης";
+$langDBHost = "Host Βάσης Δεδομένων";
+$langDBLogin = "όνομα χρήστη κΒάσης Δεδομένων";
+$langDBPassword = "Κωδικός Βάσης Δεδομένων";
+$langDBSetting = "MySQL ρυθμίσεις Βάσης Δεδομένων";
+$langDBSettingNamesIntro = "
+Ο εγκαταστάτης θα δημιουργήσει τις Βάσεις Δεδομένων του Claroline.
+Αν είστε περιορισμένοι απο το συστημα διαχείρησης της Βάσης Δεδομένων να χρησιμοποιήσετε
+μόνο μια Βάση Δεδομένων, τότε επιστρέψτε στην προηγούμενη σελίδα
+και διαλέξτε την επιλογή 'single' για το 'Database mode'.<BR><BR>
+";
+$langDBUse = "Χρήση της Βάσης Δεδομένων";
+$langDOCUMENTTypeDesc = "Έγγραφο";
 $langDate = "Ημερομηνία";
+$langDateLastWrite = "Προηγούμενο μήνυμα ήταν ενεργό : ";
 $langDay = "Μέρα";
 $langDay_of_weekNames = "Array";
+$langDbName = "Όνομα Βάσης Δεδομένων";
+$langDbPrefixForm = "Πρόθεμα ονόματα για Βάσεις Δεδομένων μαθήματος";
 $langDear = "Αγαπητέ";
+$langDefSubVisibility = "Εμφάνιση προκαθορισμένων εργασιών";
+$langDefaultLearningPathComment = "Αυτό είναι το εισαγωγικό κείμενο αυτής της διαδρομής μάθησης. Για να το αντικαταστήσετε με δικό σας κείμενο, καντε κλικ παρακάτω στο <b>μετατροπή</b>.";
+$langDefaultModuleAddedComment = "Αυτό είναι πρόσθετο εισαγωγικό κείμενο σχετικά με την παρουσία αυτής της ενότητας ειδικά σε αυτή τη διαδρομή μάθησης. Για να το αντικαταστήσετε με δικό σας κείμενο, κάντε κλικ παρακάτω στο <b>μετατροπή</b>.";
+$langDefaultModuleComment = "Αυτό είναι το εισαγωγικό κείμενο αυτής της ενότητας, θα εμφανίζεται σε κάθε διαδρομή μάθησης που θα περιέχει αυτή την ενότητα. Για να το αντικαταστήσετε με δικό σας κείμενο, κάντε κλικ παρακάτω στο <b>μετατροπή</b>.";
+$langDefaultTextInBlanks = "[Οι Βρετανοί] ζουν στο [Ηνωμένο Βασίλειο].";
+$langDefcon = "Οοοπς, παράξενες περιπτώσεις εντοπίστηκαν !!";
+$langDefineBlanks = "Παρακαλώ ορίστε τουλάχιστον ένα κενό με αγκύλες [...]";
+$langDefineHeadings = "Ορίστε Επικεφαλίδες";
+$langDefineOptions = "Παρακαλώ ορίστε τις επιλογές";
 $langDelAdmin = "Διαγράψτε την μέσω του εργαλείου διαχείρισης της περιοχής";
 $langDelCourse = "Διαγραφή ολόκληρου του μαθήματος";
+$langDelCourseStats = "Διαγράψτε όλα τα στατιστικά μαθήματος";
+$langDelCourseStatsDone = "Διαγραφή όλων των στατιστικών μαθήματος";
+$langDelImage = "Απομάκρυνση εικόνας";
 $langDelete = "Διαγραφή";
+$langDeleteAttachedFile = "Διαγραφή επισυναπτόμενου αρχείου";
+$langDeleteCaution = "! Αυτό θα διαγράψει επίσης και όλες τις εργασίες που υποβλήθηκαν !";
 $langDeleteGroups = "Διαγραφή όλων των ομάδων χρηστών";
+$langDeleteMyAccount = "Διαγραφή του λογαριασμού μου";
+$langDeleteUser = "Διαγραφή χρήστη";
+$langDeletedExternalTool = "Eξωτερικό εργαλείο διαγράφηκε";
+$langDenied = "Αρνηση /Απαγόρευση";
 $langDepartmentUrl = "Ιστοσελίδα Πανεπιστημίου";
 $langDepartmentUrlName = "Πανεπιστήμιο";
+$langDescAdded = "Ποσθήκη περιγραφής.";
+$langDescDeleted = "Διαγραφή περιγραφής.";
+$langDescUnableToDelete = "Αδύνατο να διαγραφθεί";
+$langDescUnableToUpdate = "Αδύνατο να ενημερωθεί";
+$langDescUpdated = "Περιγραφή ενημερώθηκε.";
 $langDescription = "Περιγραφή εργασίας";
+$langDescriptionComment1 = "Ποιό είναι το μέρος και ποια η ιδιαιτερότητα του μαθήματος στο πρόγραμμα?  Υπάρχουν προ-απαιτούμενα μαθήματα?  Ποιές σχέσεις έχει με τα άλλα μαθήματα?";
+$langDescriptionComment2 = "Πληροφορίες που επιτρέπουν στο μάθημα να αναγνωρισθεί (ρυθμίσεις έναρξης, τίτλος, αριθμός ωρών, παραδόσεις...) και η διδασκαλία του (επώνυμο, μικρό όνομα, γραφείο, τηλ., e-mail, πιθανές διαθεσιμότητες).  Γενική παρουσίαση του μαθήματος στο πρόγραμμα.";
+$langDescriptionCours = "Περιγραφή μαθήματος";
 $langDetail = "Λεπτομέρειες";
+$langDetailView = "Προβολή";
+$langDetails = "Λεπτομέρειες";
+$langDevTools = "Εργαλεία Devel";
 $langDirCr = "Ο κατάλογος δημιουργήθηκε";
 $langDirMv = "Ο κατάλογος μετακινήθηκε";
+$langDisable = "Αδύνατο";
+$langDiskUsage = "Χρήση δίσκου";
+$langDispClassAdded = "Παρουσίαση της τάξης που προστέθηκε";
 $langDocContent = "<p>Το εργαλείο αρχείων είναι όμοιο σε λειτουργία με τον Διαχειριστή Αρχείων
  του προσωπικού σας υπολογιστή.</p><p>Μπορείτε να ανεβάσετε αρχεία οποιουδήποτε τύπου (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, κ.λπ.). Ο μόνος σας περιορισμός είναι
@@ -225,14 +484,44 @@ $langDocContent = "<p>Το εργαλείο αρχείων είναι όμοιο σε λειτουργία με τον Διαχε
 	<center>
 	  <p>";
 $langDocDeleted = "Διαγράφτηκε το έγγραφο";
+$langDocInsertedAsModule = "έχει προστεθεί σαν ενότητα";
 $langDocument = "Εγγραφα";
+$langDocumentAlreadyUsed = "Αυτό το έγγραφο έχει ήδη χρησιμοποιηθεί σαν ενότητα σε αυτή τη διαδρομή μάθησης";
+$langDocumentAsModule = "Χρήση εγγράφου";
+$langDocumentContent = "Περιεχόμενο εγγράφου : ";
+$langDocumentInModule = "Έγγαρφο σε ενότητα";
+$langDocumentName = "Όνομα εγγράφου : ";
+$langDocumentation = "Τεκμιρίωση";
 $langDocuments = "Έγγραφα";
+$langDocumentsAccess = "Έγγραφα";
+$langDocumentsDetails = "Αρχεία που κατέβασε (donwloads) ο μαθητής";
+$langDocumentsTitleCountColumn = "Σύνολο Downloads";
+$langDocumentsTitleDocumentColumn = "Έγγραφο";
+$langDocumentsTitleUsersColumn = "Downloads των χρηστών";
+$langDone = "Ολοκλήρωση βηματων";
+$langDown = "Εντολή συνέχειας";
+$langDownloadAttachedFile = "Κατεβάστε επισυναπτόμενο αρχείο";
+$langEG = "π.χ.";
+$langEXERCISETypeDesc = "’σκηση Claroline";
 $langEdit = "Διόρθωση";
-$langEditCourseProgram = "Δημιουργία και διόρθωση";
+$langEditAnswers = "Σύνταξη/επιμέλεια απαντήσεων ";
 $langEditDel = "αλλαγή/διαγραφή";
+$langEditEvent = "Σύνταξη γεγονότων";
+$langEditExercise = "Σύνταξη/επιμέλεια ρυθμίσεων άσκησης";
+$langEditFeedback = "Σύνταξη/επιμέλεια αυτόματης επικοινωνίας";
+$langEditFileContent = "επιμέλεια περιεχομενου αρχείου";
+$langEditFormat = "Επιμέλεια φόρμας/διάταξης χρήσης";
 $langEditGroup = "Διόρθωση της ομάδας χρηστών";
+$langEditQuestion = "Σύνταξη ερώτησης";
+$langEditSettings = "Σύνταξη/ επιμέλεια ρυθμίσεων";
+$langEditToolList = "Σύνταξη/επιμέλεια λίστας εργαλείων";
+$langEditWork = "Επεξεργασία εργασίας";
 $langElRen = "Το αντικείμενο μετονομάστηκε";
+$langElementList = "Λίστα στοιχείων";
 $langEmail = "Email";
+$langEmailAddressNotFound = "Δεν υπάρχει λογαριασμός χρήστη με αυτή την διεύθυνση email.";
+$langEmailCanBeEmpty = "Το πεδίο με το Email πρέπει να συμπληρωθεί";
+$langEmailNotSent = "Το σύστημα αδυνατεί να σου στείλει e-mail.<br>Παρακαλώ επικοινωνήστε με  ";
 $langEmailOption = "Αποστολή (με email) της ανακοίνωσης στους εγγεγραμμένους μαθητές";
 $langEmailSent = " στάλθηκε στους εγγεγραμμένους μαθητές";
 $langEmailWrong = "Η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι συμπληρωμένη ή περιέχει άκυρους χαρακτήρες";
@@ -240,21 +529,223 @@ $langEmpty = "Αφήσατε μερικά πεδία κενά.<br>Πατήστε το πλήκτρο «Επιστροφή» του b
 $langEmptyAnn = "Διαγραφή καταλόγου ανακοινώσεων";
 $langEmptyFields = "Αφήσατε μερικά πεδία κενά. Χρησιμοποιήστε το πλήκτρο «επιστροφή» του browser σας και ξαναδοκιμάστε.";
 $langEmtpyGroups = "Εκκαθάριση όλων των ομάδων χρηστών";
+$langEnable = "Εξουσιοδότηση";
+$langEndDate = "Τέλος/λήξη ημερομηνίας";
+$langEnrollAsManager = "Εγγραφή ως διευθυντής μαθήματος";
+$langEnrollAsStudent = "Εγγραφή ως μαθητής";
+$langEnrollAsTeacher = "Εγγραφή ως δασκαλος";
+$langEnrollClass = "Εγγραφή τάξης";
+$langEnrollToNewCourse = "Eγγραφή σε νέο μάθημα";
+$langEnrollUser = "Εγγραφή χρήστη";
 $langEnter = "Είσοδος";
+$langEnterMail = "Εισαγωγή του email σου ώστε να μπορούμε να σου στείλουμε τον κωδικό σου.";
+$langErrorAssetNotFound = "Στοιχείο δεν ευρέθη : ";
+$langErrorCannotReadRSSFile = "Σφάλμα : δεν ειναι δυνατόν να διαβαστούν τα RSS δεδομένα";
+$langErrorCategoryEmpty = "Η κατηγορία δεν μπορεί να αδειάσει";
+$langErrorClassNotEmpty = "Αυτή η τάξη περιέχει ακόμα κάποιες υποκατηγορίες τάξεων, να τις διαγράψετε πρώτα";
+$langErrorCourseCodeEmpty = "Ο κωδικας του μαθήματος δεν μπορεί να αδειάσει";
+$langErrorCourseTitleEmpty = "Ο τίτλος του μαθήματος δεν μπορεί να αδειάσει";
+$langErrorDepartmentEmpty = "Τμήμα δεν μπορεί να αδειάσει";
+$langErrorDepartmentURLEmpty = "Τμήμα URL δεν μπορει να αδειάσει";
+$langErrorDepartmentURLWrong = "Τμήμα URL δεν είναι έγκυρο";
+$langErrorEmailEmpty = " το Email δεν μπορεί να αδειάσει-σβήσει";
+$langErrorEmailInvalid = " Το Email δεν είναι έγκυρο";
+$langErrorEmptyName = "Το όνομα πρέπει να συμπληρωθεί";
+$langErrorFileMustBeZip = "Το αρχείο πρέπει να είναι σε μορφή αρχείου zip(.zip)";
+$langErrorFormatCSV = "ΣΦΑΛΜΑ: Η φόρμα-διάταξη που δώσατε δεν είναι συμβατή με το Claroline";
+$langErrorInvalidParms = "Σφάλμα : μη έγγυρη παράμετρος (χρήση αριθμών μόνο)";
+$langErrorLanguageEmpty = "Η γλώσσα δεν ,μπορει να αδειάσει-σβήσει";
+$langErrorLecturerEmpty = "Ο λέκτορας δεν μπορεί να αδειάσει-σβήσει ";
+$langErrorMove = "Δεν μπορείτε αν μετακινήσετε μια τάξη μεσα στην ίδια!";
+$langErrorMyOwnSettings = "Δεν μπορείτε να αλλάξετε τη δική σας κατάσταση";
+$langErrorNameAlreadyExists = "Σφάλμα : Το όνομα υπάρχει ήδη στη διαδρομή μάθησης ή στο σύνολο των ενοτήτων ";
+$langErrorNoModuleInPackage = "Δεν υπάρχει ενότητα στο πακέτο";
+$langErrorNoZlibExtension = "Επέκταση Zlib php απαιτείται για τη χρήση αυτού του εργαλείου.  Παρακαλώ επικοινωνήστε με τον διαχειρηστή της πλατφόρμας σας.";
+$langErrorOpeningManifest = "Δεν μπορεί να βρεί το αρχείο <i>manifest</i> στο πακέτο.<br /> Αρχείο δε βρέθηκε : imsmanifest.xml";
+$langErrorOpeningXMLFile = "Δεν μπορει να βρεί δευτερεύον ρύθμιση έναρξης αρχείου στο πακέτο.<br /> Αρχείο δε βρέθηκε  : ";
+$langErrorReadingManifest = "Σφαλμα ανάγνωσης αρχείου <i>manifest</i>";
+$langErrorReadingXMLFile = "Σφάλμα ανάγνωσης δευτερεύουσας ρύθμισης έναρξης αρχείου : ";
+$langErrorReadingZipFile = "Σφάλμα ανάγνωσης αρχειου zip.";
+$langErrorSql = "Σφλαμα στη δήλωση SQL";
+$langErrorUserNotInGroup = "Μη έγγυρος χρήστης: αυτός ο χρήστης δεν υπάρχει στην ομάδα σας";
+$langErrorValuesInDouble = "Σφάλμα : Μία ή δυο τιμές είναι διπλές";
+$langErrortExtractingManifest = "Δεν μπορεί να εμφανίσει απόσπασμα απο το zip αρχείο .";
+$langEventAdded = "Γεγονός προστέθηκε στην Ατζέντα";
+$langEventDeleted = "Γεγονός διαγράφεται απο την Ατζέντα.";
+$langEventUpdated = "Γεγονός ενημερώνεται στην ημερήσια διάταξη.";
 $langEx = "π.χ. <i>Ιστορία της Τέχνης</i>";
+$langExAlreadyUsed = "Αυτή η άσκηση ήδη χρησιμοποιείται σαν ενότητα σε αυτή τη πορεία μάθησης";
+$langExInsertedAsModule = "έχει προστεθεί σαν ενότητα μαθήματος αυτής της πορείας μάθησης";
 $langExMessage = "Παράδειγμα Μηνύματος";
+$langExeAvgTime = "Μέσο όρο χρόνου (s.)";
+$langExeTime = "Χρόνος (s.)";
 $langExercice = "Ασκηση";
 $langExerciceEx = "Υπόδειγμα Ασκησης";
 $langExercices = "Ασκήσεις";
 $langExercise = "Ασκήσεις";
+$langExerciseAsModule = "Χρήση της άσκησης";
+$langExerciseCancelled = "Ακυρωση άσκησης, επιλέξτε ενότητα σε αυτή τη λίστα για να συνεχίσετε.";
+$langExerciseClosing = "Τέλος άσκησης";
+$langExerciseContent = "<h4>Ποιό είναι το εργαλείο-μέσο ασκησης ?</h4>
+Αυτό το εργαλείο επιτρέπει το να δημιουργήσεις ασκήσεις online που αποτελούνται απο μια λίστα ερωτήσεων. Οι ερωτήσεις μπορούν να είναι διαφορετικών τύπων, οι μαθητές μπορούν να συμπληρώνουν τις ασκήσεις και αν είναι εγγεγραμένοι στο μάθημα σας, οι βαθμολογίες τους θα αποθηκευτούν και θα φαινονται στα στατιστικά του μαθήματος.
+
+<hr />
+
+<h4>Διαχείρηση των ασκήσεων</h4>
+<p>Για να δημιουργήσεις μια άσκηση</p>
+<ul>
+<li> κάνε κλικ \"Nέα άσκηση\", στην αρχική σελίδα εργαλείου (βεβαιωθείτε ότι έχετε εισέρθει σαν δάσκαλος του μαθήματος ή σαν διαχειριστής)</li>
+<li> Eισαγωγή ονόματος για την άσκηση στο κουτί</li>
+<li> Eισαγωγή περιγραφής</li>
+<li> Διάλεξε αν ο χρήστης θα δεί όλες τις ερωτήσεις σε μία μονο σελίδα ή μία σελίδα για κάθε ερώτηση</li>
+<li> Μπορείτε να επεξεργαστείτε και τις προχωρημένες ρυθμίσεις(δεν απαιτείται)
+<ul>
+<li> Επιλέξτε ημερομηνία έναρξης</li>
+<li> Επιλέξτε ημερομηνία τέλους</li>
+<li> ορίστε χρονικό περιθώριο</li>
+<li> Επιλέξτε αριμό επιτρεπόμενων προσπαθειών</li>
+<li> Επιλέξτε αν οι ανώνυμες προσπάθειες επιτρέπονται (αν οχι, δεν θα υπάρχει παρακολούθηση)</li>
+<li> Επιλέξτε πότε θα πρέπει να εμφανίζεται η επικοινωνία</li>
+</ul>
+</li>
+<li> κανε κλικ στο Ok</li>
+</ul>
+<p>τώρα μπορείς να συμπληρώσεις τις νεες ασκήσεις με καινούριες ερωτήσεις ή ερωτήσεις απο το σύνολο/πλήθος.</p>
+
+<hr />
+<h4>Ερωτήσεις</h4>
+<h4>Ερωτήσεις πολλαπλών επιλογων </h4>
+<p>Υπάρχουν δυο είδη ερωτησεων πολλαπλών επιλογων&nbsp;:
+</p>
+<ul>
+<li> Ερωτήσεις με μοναδική απάντηση</li>
+<li> Ερωτήσεις με πολλαπλές απαντήσεις</li>
+</ul>
+<p>Και στις δυο περιπτώσεις, όταν αρχίζεις τη δημιουργία νέας ερώτησης, υπάρχουν μόνο δυο δυνατές εμφανιζόμενες απαντήσεις. Εαν επιθυμείτε να έχετε περισσότερες πιθανές απαντήσεις τοτε</p>
+<ul>
+<li> πατήστε +Answ για κάθε πρόσθετη απάντηση που απαιτείται</li>
+</ul>
+<p>Εαν επιθυμείτε να μειώσετε τον αριθμό των πιθανών απαντήσεων τοτε </p>
+<ul>
+<li> πατήστε -Answ για κάθε απάντηση που αφαιρείται</li>
+</ul>
+<p>μετα για ακάθε απάντηση&nbsp;:</p>
+<ul>
+<li> Βάλτε ένα τικ (ν) στο κουτί της σωστής απάντησης.</li>
+<li> Στη στήλη απαντήσεων εισάγετε το κείμενο των πιθανών απαντήσεων των ερωτήσεων</li>
+<li> Στη στήλη σχολίων εισάγετε το  feedback που έχει δοθεί εφόσον ο μαθητής επιλέξει την απάντηση αυτή.</li>
+<li> Προσαρμόστε σταθμιση αξιολόγησης. Η αρχή αυτού του πίνακα βαθμολογίας έιναι για να ορίσει σωστή αναλογία, αριθμο καλών απαντήσεων με την ερώτηση. Για παράδειγμα, εαν έχετε μια ερώτηση με 4 απαντήσεις (πιθανότατα περισσότερες απο μια σωστές) και ο μαθητής έχει δυο λάθη και δυο σωστά, μπορείς να του δώσεις τους μισούς πόντους/βαθμούς, αλλά μπορείς και να αποφασίσεις οτι αυτό δεν είναι ικανοποιητικό και να δώσεις, για π.χ., μέγιστους βαθμούς (20) αν όλα είναι σωστά και μηδεν βαθμούς σε άλλο συνδυασμό.
+</li>
+</ul>
+
+<h4>Ερωτήσεις ταιριάσματος</h4>
+<p>Σε τετοιου τύπου ερωτησης, ο μαθητής πρέπει να βρεί την συσχέτιση ανάμεσα σε στοιχεία δυο απο δυο ξεχωριστές λίστες.</p>
+<p>Όταν αρχίσεις δημιουργία νέας ερώτησης τετοιου είδους, υπάρχουν 2 μόνο στοιχεία στις δυο εμφανιζόμενες λίστες. Εαν επιθυμείτε να έχετε περισσότερα πιθανά στοιχεία για αντιστοίχιση τότε</p>
+<ul>
+<li> Πατήστε +elem για καθε πρόσθετη απάντηση απαιτείται</li>
+</ul>
+<p>Εαν επιθυμείτε να μειώσετε το αριθμό στοιχείων τότε </p>
+<ul>
+<li> Πατήστε  -elem για κάθε απάντηση που αφαιρείται</li>
+</ul>
+
+<p>Μπορείτε και να ορίσετε το βάρος κάθε απάντησης, δεν μπορεί να είναι αρνητικό. Μη ξεχάσετε να κάνετε κλικ σε \"ok\" για να πιστοποιήσετε τη νεα σας ερώτηση.</p>
+
+<h4>'Συμπλήρωσε τα κενά ερωτήσεων</h4>
+<p>Αυτός ο τύπος ερωτήσεων είναι ένα κείμενο με καποιες λέξεις να λείπουν τις οποίες πρέπει να συμπληρώσει ο μαθητής.
+Όταν δημιουργείς μια τετοια ερώτηση&nbsp;:
+</p>
+<ul>
+<li> Εισείγαγε πρώτα το κείμενο για την ερώτηση.</li>
+<li> Χρησιμοποήσε αγκύλες [...] για να ορίσεις ένα ή περισσότερα κενά στο κείμενο, βάλτε τις σωστές απαντήσεις μεταξύ των αγκυλών.
+<ul>
+<li> <em>παράδειγμα:</em> [Αγγλοι] μένουν σε [Ηνωμένο Βασίλειο].</li>
+</ul>
+</li>
+<li> Καντε κλικ στο \"επόμενο\" όταν τελειώσετε</li>
+<li> Ορίστε το βάρος της κάθε ερώτησης</li>
+<li> Κάντε κλικ στο \"Ok\" για να πιστοποιήσετε τη νεα σας ερώτηση</li>
+</ul>
+
+<hr />
+
+<h4>Tο πλήθος/σύνολο ερωτήσεων </h4>
+<p>Tο πλήθος-σύνολο ερωτήσεων κρατάει λίστα  όλων των ερωτήσεων που δημιουργήθηκαν στο μάθημα.  Οι λίστες ομαδοποιούν τις ήδη χρησιμοποιούμενες ερωτήσεις(σε μια ή περισσότερες ασκήσεις) και απομονομένες ερωτήσεις (που δεν έχουν χρησιμοποιηθεί σε καμια άσκηση).</p>
+<p>Όταν διαγράψετε μια άσκηση, οι ερωτήσεις της δεν αφαιρούνται απο τη βάση δεδομένων, και μπορούν να χρησιμοποιηθούν ξανά σε νέα άσκηση, μέσω του πλήθους ερωτήσεων.</p>
+<p>Το πλήθος ερωτήσεων επιτρέπει να ξαναχρησιμοποιήσεις την ίδια ερώτηση σε πολλές ασκήσεις.</p>
+<p>Εξ ορισμού, όλες οι ερωτήσεις του μαθήματος εμφανίζονται. Μπορείς να εμφανίσεις τις ερωτήσεις σχετιζόμενες με κάποια άσκηση, επιλέγοντας τες στο drop-down μενού \"Filter\".</p>
+
+<hr />
+
+<h4>Πώς να δώ τις προηγούμενες βαθμολογίες μου ?</h4>
+<p>Κάθε χρήστης μπορεί να δεί τη δική του βαθμολογία κάτω απο τη λίστα ασκήσεων.  Ως διευθυντής μαθήματος μπορείς να κανεις κλικ στο σύνδεσμο παρακολούθησης διαθέσιμο για καθε άσκηση στη λίστα ασκήσεων ώστε να υπάρχει πρόσβαση στη λεπτομερεις βαθμολογίες του κάθε μαθητή του μαθήματος.</p>";
+$langExerciseDescription = "Περιγραφή άσκησης";
+$langExerciseDone = "Ασκηση έτοιμη, διάλεξε ενότητα στη λίστα για να συνεχίσεις.";
+$langExerciseInModule = "Ασκηση στην ενότητα";
+$langExerciseManagement = "’σκηση διαχείρησης";
+$langExerciseName = "Όνομα άσκησης";
+$langExerciseNoMoreAvailable = "’σκηση όχι πια διαθέσιμη";
+$langExerciseNotAvailable = "άσκηση όχι διαθέσιμη";
+$langExerciseNotFound = "’σκηση δεν εβρέθει";
+$langExerciseOpening = "’σκηση αρχίζει:";
+$langExerciseTotalAttempts = "Σύνολο προσπαθειών";
+$langExerciseType = "Τύπος άσκησης";
+$langExerciseUsersAttempts = "Προσπάθειες χρήστη";
+$langExercises = "Ασκήσεις";
+$langExercisesDetails = "Βαθμοί ασκήσεων έτοιμοι";
+$langExercisesResults = "Αποτελέσματα ασκήσεων έτοιμα";
+$langExercisesTitleExerciseColumn = "’σκηση";
 $langExistingGroups = "Ομάδες Χρηστών";
+$langExpectedChoice = "Αναμενόμενη επιλογή";
+$langExplainDeleteFile = "Σημειώστε αυτό το κουτί για να διαγραψετε το επισυναπτόμενο αρχείο.";
+$langExplainReplaceFile = "Ενημερώστε/κατεβάστε καινούριο αρχείο για να αντικαταστήσετε αυτό";
 $langExplanation = "Οταν πατήσετε το «Εντάξει», θα δημιουργηθεί μια ιστοσελίδα με Περιοχή συζητήσεων, Ατζέντα, κ.λπ.. Μπορείτε να τη τροποποιήσετε σύμφωνα με τις απαιτήσεις σας.";
-$langFields = "Αφήσατε μερικά πεδία κενά";
+$langExternalToolName = "Ονόμασε το σύνδεσμο";
+$langExternalToolUrl = "URL σύνδεσμος";
+$langExtractFromLangFile = "Απο αρχεία γλώσσας";
+$langExtractFromScriptFile = "Απο αρχεία κειμένων";
+$langExtractLangVariable = "Ποικιλία αποσπασμάτων γλώσσας";
+$langFailed = "<span style=\"color: red\">Failed</span>";
+$langFeedback = "Feedback";
+$langFeedbackAdded = "Feedback προστέθηκε";
+$langFeedbackEdited = "Σύνταξη Feedback";
+$langFeedbackFile = "Feedback αρχείο";
+$langFeedbackHelp = "Feedback είναι προαιρετικό. Είναι ο σωστός τρόπος αυτής της ανάθεσης (εργασίας). Αν δεν αδειάσει θα φαινέται στους χρήστες σύμφωνα με την διάταξη 'υποβολής του feedback'.";
+$langFeedbackSubmit = "Υποβολή feedback";
+$langFeedbackText = "Feedback κείμενο";
+$langFeedbacks = "Feedbacks";
+$langFieldSeparatorUsed = "Διαχωριστικά πεδίων σε χρήση";
 $langFieldsRequ = "Ολα τα πεδία είναι υποχρεωτικά";
+$langFileContentModified = "Περιεχόμενο αρχείου επεξεργάζεται";
+$langFileCreated = "Δημιουργία αρχείου ";
+$langFileDesc = "Περιγραφή αρχείου";
+$langFileError = "Το αρχείο που θα ενημερωθεί δεν είναι έγκυρο.";
 $langFileExists = "Δεν είναι δυνατή η λειτουργία.<br>Υπάρχει ήδη ένα αρχείο με το ίδιο όνομα.";
+$langFileForCSVUpload = "CSV αρχείο με τη λίστα χρήστη : ";
+$langFileName = "Όνομα αρχείου";
+$langFileNameMissing = "Ελλιπες όνομα αρχείου";
+$langFileNameOrURLMissing = "Ονομα αρχείου ή το URL λείπει.";
+$langFileOnly = "Aρχείο (Απαιτείται αρχείο,περιγραφή κειμένου προαιρετική)";
+$langFileRequired = "Απαιτείται αρχείο";
+$langFiles = "Λίστα αρχείων";
+$langFillBlanks = "Συμπλήρωσε τα κενά";
+$langFillCourses = "Κατασκευή κειμένων μαθήματος";
 $langFillGroups = "Συμπλήρωμα των ομάδων χρηστών";
-$langFilled = "Εχετε αφήσει μερικά πεδία κενά.";
+$langFillLists = "Παρακαλώ συμπλήρωσε τις δυο παρακάτω λίστες";
+$langFillTheAreaToExplainTheMotivations = "Συμπλήρωσε την περιοχή εξηγόντας το κίνητρό σου και υπέβαλε το αίτημά σου. Ένα e-mail θα σταλεί στον -ους διαχειρηστή-ές πλατφόρμας(platform).";
+$langFillToolCourses = "Συμπλήρωσε εργαλεία μαθημάτων";
+$langFillTree = "Εισαγωγή κατηγοριών μαθηματος";
+$langFillUsers = "Εισαγωγή χρηστών";
+$langFilling = "Συμπλήρωσε με αξίες κειμένου (test values)";
+$langFilter = "Φίλτρο";
+$langFindDoubledVariable = "Ανίχνευση διπλών μεταβλητών";
+$langFindVarWithSameContentAndDifferentName = "Μεταβλητές με το ίδιο περιεχόμενο και διαφορετική ονομασία";
+$langFindVarWithSameNameAndDifferentContent = "Μεταβλητές με το ίδιο ονομα και διαφορετικό περιεχόμενο";
 $langFinish = "Τέλος";
+$langFirstDefOfThisValue = "!!! Πρώτος ορισμός αυτής της εκτίμησης !!!";
+$langFirstName = "Πρώτο όνομα";
+$langFirstSubmission = "Πρώτη υποβολή ";
+$langFirstname = "Πρώτο όνομα";
 $langForCat = "Περιοχές συζητήσεων της κατηγορίας";
 $langForCategories = "Κατηγορίες περιοχών συζητήσεων";
 $langForContent = "Οι περιοχές συζητήσεων είναι ένα εργαλείο για ασύγχρονη
@@ -282,16 +773,114 @@ $langForName = "Όνομα περιοχής συζητήσεων";
 $langForce = "Εξώθηση του συνομιλητή σας, με μια σειρά ερωτήσεων και υποερωτήσεων, να παραδεχτεί ότι δεν ξέρει ό,τι ισχυρίζεται πως ξέρει.";
 $langFormula = "Φιλικά";
 $langForum = "Περιοχή Συζητήσεων";
+$langForumCategoryDeleted = "Κατηγορία Forum Διαγράφηκε";
+$langForumDeleted = "Forum διαγράφηκε";
 $langForumGroup = "Περιοχή συζητήσεων της ομάδας";
+$langForumModified = "Tο forum έχει επεξεργαστεί";
 $langForums = "Περιοχή συζητήσεων";
+$langFree = "δωρεάν";
+$langFrom = "απο";
+$langFullScreen = "μεγάλη/γεμάτη οθόνη ";
+$langFunctions = "Λίστα λειτουργίας";
+$langGarbage = "Σκουπίδια";
+$langGetExistingQuestion = "Ερώτηση απο άλλη άσκηση";
+$langGiveAdminRight = "Όρισμος χρήστη ως διαχειρηστή";
+$langGiveAnswers = "Παρακαλώ δώστε τις απαντήσεις στην ερώτηση";
+$langGiveExerciseName = "Παρακαλώ δώστε όνομα στην άσκηση";
+$langGiveQuestion = "Παρακαλώ δώστε την ερώτηση";
+$langGiveText = "Παρακαλώ πληκτρολογήστε το κείμενο";
+$langGlobalProgress = "Πρόοδος της πορείας μάθησης : ";
+$langGoBackToEx = "Επιστροφή στην άσκηση";
+$langGoBackToQuestionList = "Επιστροφή στην λίστα ερωτήσεων";
+$langGoBackToQuestionPool = "Επιστροφή στο σύνολο ερωτήσεων";
+$langGoToMainUserSettings = "Πήγαινε στις ρυθμίσεις του κεντρικού χρήστη";
+$langGoToUserSettings = "Πήγαινε στις ρυθμίσεις του χρήστη";
 $langGroup = "ομάδα χρηστών";
 $langGroupAllowStudentRegistration = "Οι φοιτητές επιτρέπονται να εγγραφούν στις ομάδες χρηστών";
+$langGroupAlwaysPrivate = "(παντα εμπιστευτικά)";
+$langGroupAssignment = "Ομάδες(απο εργαλεία ομάδων, μόνο μέλη των ομάδων μπορουν να καταχωρούν)";
+$langGroupContent = "<p><b>Εισαγωγή</b></p>
+
+<p>Αυτό το εργαλείο επιτρέπει τη δημιουργία και διαχείρηση ομάδων εργασίας.
+
+Κατα τη δημιουργία(Create groups), οι ομάδες είναι άδειες. Υπάρχουν
+
+πολλοί τρόποι  να τις συμπληρώσουμε:
+
+<ul><li>αυτόματα ('Fill groups'),</li>
+
+<li>περιοδικά ('Edit'),</li>
+
+<li>προσωπική εγγραφή απο τους μαθητές(Ρυθμίσεις ομάδων: 'Προσωπική εγγραφή επιτρέπεται...').</li>
+
+</ul>
+
+Αυτοι οι τρεις τρόποι μπορούν να συνδιαστούν. Μπορείς, για π.χ., να ρωτήσεις τους μαθητές εγγραφούν προσωπικά πρώτα.
+
+Μετά να ανακαλύψεις οτι καποιοι δεν το καναν και να αποφασίσεις να συμπληρώσεις τις ομάδες αυτόματα με
+
+σκοπό να τα ολοκληρώσεις. Μπορείς επίσης να επιμεληθεις κάθε ομάδας να να συμπληρώνει εγγραφή ενας μαθητής
+
+τη φορά μετά ή πρίν την προσωπική εγγραφή και /ή  αυτόματη συμπλήρωση.</p>
+
+<p>Συμπλήρωση ομάδων, είτε αυτόματα είτε περιοδικά, λειτουργεί μονο εφόσον υπάρχουν ήδη μαθητές
+
+εγγεγραμένοι στην ομάδα (μην μπερδευεται την εγγραφή  στο μάθημα με την εγγραφή στις ομάδες).
+
+Η λίστα μαθητών είναι ορατή στο εργαλείο <b>Users</b> . </p><hr noshade size=1>
+
+<p><b>Δημιουργία ομάδων</b></p>
+
+<p>Για τη δημιουργία νέων ομάδων, κάντε κλικ στο 'Δημιουργία νεών ομάδων' και ορίστε αριθμό ομάδων για
+
+δημιουργία. Ο μέγιστος αριθμός μελών είναι προαιρετικός αλλά προτείνουμε να επιλέξετε κάποιο.  Εαν αφήσετε το πεδίο μεγιστου αριθμού
+
+χωρίς αλλαγή, το μεγιστο μέγεθος των ομάδων θα είναι αόριστο.</p><hr noshade size=1>
+
+<p><b>Ρυθμίσεις ομάδας</b></p>
+
+<p>Μπορείτε να ορίσετε ρυθμίσεις ομάδας σφαιρικά (για όλες τις ομάδες).
+
+<b>Οι μαθητές επιτρέπεται να εγγραφούν προσωπικά στις ομάδες</b>:
+
+<p>Δημιουργείτε κενές ομάδες, οι μαθητές εγγράφονται προσωπικά.
+
+Εαν ορίσετε μεγιστο αριθμό, οι συμπληρωμένες ομάδες δεν δέχονται νέα μέλη.
+
+Αυτή η μέθοδος είναι καλή για δασκαλους που δεν γνωρίζουν τη λίστα των μαθητών όταν
+
+δημιουργούν ομάδες.</p>
+
+<b>Εργαλεία</b>:</p>
+
+<p>Κάθε ομάδα κατέχει είτε ένα forum (ιδιωτικό ή δημόσιο) ή μια περιοχή εγγραφων
+
+(ενα κοινό αρχείο διαχείρησης) ή  (πιο συχνά) και τα δυο.</p>
+
+<hr noshade size=1>
+
+<p><b>Περιδική συνταξη-επιμέλεια</b></p>
+
+<p>Αφού δημιουγηθούν οι ομάδες (Create groups), βλέπετε στο τελος της σελίδας, μια λίστα ομάδων
+
+με μια σειρα πληροφοριών και λειτουργίες
+
+<ul><li><b>Edit</b> για περιοδική επεξεργασία ονόματος ομάδας, περιγραφή , εκπαιδευτή,
+
+λίστα μελών.</li>
+
+<li><b>Διαγραφή</b> διαγράφει ομάδα.</li></ul>
+
+<hr noshade size=1>";
 $langGroupCreation = "Δημιουργία καινούριας ομάδας χρηστών";
 $langGroupDel = "Η ομάδα χρηστών διαγράφτηκε";
 $langGroupDescription = "Περιγραφή";
 $langGroupDocument = "Έγγραφα";
+$langGroupDocumentAlwaysPrivate = "(παντα εμπιστευτικα)";
+$langGroupDocumentsLink = "Εγγραφα της ομάδας ";
 $langGroupFilledGroups = "Οι ομάδες χρηστών έχουν συμπληρωθεί από φοιτητές που βρίσκονται στον κατάλογο «Χρήστες».";
 $langGroupForum = "Περιοχή συζητήσεων";
+$langGroupLimit = "όριο";
 $langGroupMembers = "Μέλη ομάδας χρηστών";
 $langGroupName = "Όνομα ομάδας χρηστών";
 $langGroupNoGroup = "μη εγγεγραμμένοι φοιτητές";
@@ -314,6 +903,7 @@ $langGroupTooMuchMembers = "Ο αριθμός που προτάθηκε υπερβαίνει το μέγιστο επιτρε
 	Η σύνθεση της ομάδας δεν άλλαξε";
 $langGroupTools = "Εργαλεία";
 $langGroupTutor = "Διδάσκοντας";
+$langGroupTutors = "Δάσκαλοι ομάδας";
 $langGroupUserManagement = "Διαχείριση ομάδας χρηστών";
 $langGroupUsersList = "Βλέπε <a href=../user/user.php>Χρήστες</a>";
 $langGroups = "Ομάδες Χρηστών";
@@ -322,11 +912,86 @@ $langGroupsDeleted = "Ολες οι ομάδες χρηστών έχουν διαγραφεί";
 $langGroupsEmptied = "Όλες οι ομάδες χρηστών είναι άδειες";
 $langHClar = "Αρχική σελίδα βοήθειας";
 $langHDoc = "Αρχεία Βοήθειας";
+$langHExercise = "Βοηθητικές ασκήσεις";
 $langHFor = "Βοήθεια περιοχής συζητήσεων";
 $langHHome = "Αρχική σελίδα βοήθειας";
 $langHUser = "Βοήθεια Χρηστών";
+$langHasBeenEnrolled = "έχει εγγραφεί";
 $langHasDel = "έχει διαγραφτεί";
+$langHeading = "Επικεφαλίδα";
 $langHelp = "Βοήθεια";
+$langHelpAssignment = "Αναθεση (εργασίας) βοηθειας";
+$langHelpAssignmentContent = "<p>
+To εργαλειο ανάθεσης εργασίας είναι μια περιοχή δημοσιευμένη για τους μαθητες. Ό διευθυντής του μαθήματος δημιουργεί μία ή περισσότερες αναθέσεις ( Διαφορετικές περιοχές δημοσίευσης ) όπου οι μαθητές θα μπορούν να δημοσιεύσουν τις εργασίες τους.<br /><br />
+
+Κάθε ανάθεση μπορεί να έχει διαφορετικά αντικείμενα ή απαιτήσεις : δημοσίευση πρεπει να είναι αρχείο, ή κείμενο ή κείμενο και αρχείο, δημοσίευση μπορεί να γίνει για ομάδα αντί για ένα μόνο χρήστη,...<br /><br />
+
+Οι μαθητές έχουν την δυνατότητα να επεξεργαστουν την εργασία τους μετά την υποβολή και ο διευθυντής μαθήματος μπορεί να τους δώσει feedback σχετικά με τις υποβολές τους.
+</p>
+<hr />
+
+<h4>Δημιουργία ανάθεσης</h4>
+<p>Για να δημιουργήσετε νέα ανάθεση ο διευθυντής μαθήματος πρέπει να εισάγει το εργαλείο ανάθεσης και να κάνει κλικ στο συνδεσμο \"Δημιουργία νέας ανάθεσης\".
+</p>
+<p>Η φόρμα που εμφανίζεται ρωτά το διαυθυντή μαθήματος για &nbsp;:
+</p>
+<ul><li> τίτλο&nbsp;: το όνομα της ανάθεσης
+</li><li> περιγραφή&nbsp;: τη δήλωση της ανάθεσης, τι πρεπει οι μαθητευόμενοι να κάνουν
+</li><li> τρόπο υποβολής&nbsp;:
+<ul><li>αρχείο&nbsp;: κάθε ειδος αρχείου που μπορεί να καταχωρηθεί, εχοντας υπ όψη οτι υπάρχει όριο μεγέυους που εξαρτάται απο τη platform, ένα κείμενο μπορεί να ενωθεί για να περιγράφει το αρχείο
+
+</li><li> μονο κειμενο&nbsp;: ενα κείμενο formatted χρησιμοποιώντας το wysiwyg editor
+</li><li> Κείμενο με επισυναπτόμενο αρχείο&nbsp;: ενα κείμενο formatted χρησιμοποιώντας το wysiwyg editor και ένα αρχείο (δεν απαιτειται αρχείο)
+</li></ul>
+</li><li> ημερομηνία εναρξης&nbsp;: ημερομηνία που θα μπορουν οι χρήστες να αποστείλουν δημοσιευση της ανάθεσης
+</li><li> ημερομηνία προθεσμίας&nbsp;: ημερομηνία μεχρι την οποία θα μπορούν οι χρήστες να αποστείλουν δημοσιευση της ανάθεσης
+</li><li> the default publications visibility&nbsp;: διάλεξε εαν οι δημοσιεύσεις υα είναι φανερές ή οχι σε άλλους χρήστες
+</li><li> τύπος ανάθεσης&nbsp;:
+
+<ul><li> ατομικός τρόπος&nbsp;: κάθε αυθεντικός χρήστης μπορεί να καταχωρήσει δημοσίευση
+</li><li> ομαδικος τρόπος&nbsp;: ο χρήστης πρέπει να είναι μέλος τουλάχιστον μιας ομάδας του μαθήματος για να δημοσιευσει εργασία και η εργασία πρεπει να καταχωρηθεί στο όνομα της ομάδας
+</li></ul>
+</li><li> άδεια να καταχωρήσει μετα το τέλος προθεσμίας
+</li></ul>
+<p><br />
+<strong>Προσθήκη αυτόματου feedback</strong>
+</p>
+<p>Ένα feedback είναι σωστός τρόπος για την ανάθεση εργασίας.  Για να προσθέσεις αυτόματο feedback σε μια εργασία εισήγαγε την εργασια και κανε κλικ στο \"Edit automatic feedback\" link.  </p>
+<p>Μπορεί να είναι κείμενο ή αρχείο ή και τα δυο.  Ο διευθυντής μαθήματος μπορεί να επιλέξει πότε αυτό το αυτόματο feedback θα εμφανίζεται στους χρήστες ( μετά το τέλος προθεσμίας ανάθεσης εργασίας ή μετά τη πρώτη υποβολή του χρηστη αυτής της ανάθεσης )
+</p>
+
+<hr />
+<h4>Εργασίες</h4>
+<p>Οι εργασίες είναι οι δημοσιευμένες καταχωρήεις των χρηστων.</p>
+<p>Για κάθε ανάθεση το μεσο-εργαλειο δειχνει μια λίστα όλων των χρηστων εγγεγραμενων στο μάθημα και για κάθε χρήστη ο τίτλος της πρώτης εργασίας που δημοσίευσε, τον αριθμό υποβολών και των αριθμό των feedbacks.
+Η λίστα δημοσιευμάτων σχετιζόμενων με το χρήστη και την ανάθεση μπορεί να εμφανιστεί με το να κανεις κλικ στο όνομα του χρήστη.</p>
+<p><strong>Υποβολή εργασίας</strong></p>
+<p>Εαν ο χρήστης έχει το δικαιώμα να υποβάλλει εργασία θα εμφανίζεται σε ένα σύνδεσμο υποβολής αίτησης .</p>
+<p><strong>Λίστα εργασιών</strong></p>
+<p>Σαν διευθυντής μαθήματος έχετε το δικαίωμα να επιμεληθείτε, διαγράψετε, κανετε ορατη/μη ορατη  όποια εργασια θελετε.  Μπορείς επίσης να προσθέσεις feedback για καθε εργασία.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: Εαν παρουσιαστεί αθτό το σύμβολο σημαίνει ότι ο χρήστης μπορεί να επεγεργαστεί το περιεχόμενο της εργασίας, εμφανίζεται όταν ο χρήστης είναι διευθυντής μαθήματος, όταν ο χρήστης κοιτάζει τις εργασίες του ή της ομαδας του.
+
+</li>
+<li> <strong>Delete</strong>&nbsp;: Αυτή η εντολή επιτρέπει στο διευθυντή μαθήματος να διαγράψει εργασία.
+</li>
+<li> <strong>Visible</strong>&nbsp;: Εαν εμφανιστεί αυτο το συμβολο για καποια εργασία, σημαινει οτι η εργασία ειναι ορατή  στους μαθητες. Αυτό είναι όπως  στο εργαλειο εγγράφου του Claroline. Μπορείς να αλλάξεις τη ρύθμιση με το να κανεις κλικ στο συμβολο-εικόνα.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: Εαν εμφανιστεί αυτο το συμβολο για καποια εργασία, σημαινει οτι η εργασία δεν ειναι ορατή  στους μαθητες. Αυτό είναι όπως  στο εργαλειο εγγράφου του Claroline. Μπορείς να αλλάξεις τη ρύθμιση με το να κανεις κλικ στο συμβολο-εικόνα.
+
+</li>
+<li> <strong>Προσθήκη feedback</strong>&nbsp;: επιτρέπει στο διευθυντή μαθήματος να δημοσιεύσει  ένα feedback σχετικά με την εργασία του χρήστη.  Το feedback μπορεί να είναι αρχείο ή κείμενο ή και τα δυο με προσωπικό μήνυμα που μονο διευθυντης-ες μαθήματος θα μπορουν να δουν και να βαθμολογήσουν σε ποσοστό.
+</li>
+</ul>
+
+
+
+";
+$langHelpGroups = "Ομάδες βοηθείας";
+$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Εδώ μπορείσ να επεξεργαστείς το περιεχόμενο επόμενων ζώνων καταχωρημένα στη platform αρχικής σελίδας";
+$langHigh_resources = "Υψηλές πόροι";
+$langHits = "Hits (χτυπήματα/βολές???)";
 $langHome = "Επιστροφή στην αρχική σελίδα";
 $langHomeContent = "Για περισσότερη ευκολία, τα εργαλεία του Claroline δε
 δημιουργούνται κενά. Σε κάθε εργαλείο υπάρχει ένα μικρό παράδειγμα για
@@ -360,143 +1025,648 @@ $langHomeContent = "Για περισσότερη ευκολία, τα εργαλεία του Claroline δε
 να επιλέξετε το πόσο ανοιχτή είναι για τους χρήστες του συστήματος, από
 την επιλογή «Αλλαγή πληροφορίας για το μάθημα». Στην αρχή, είναι κρυμμένη
 (γιατί δουλεύετε ακόμη σε αυτήν).</p>";
+$langHomePageTextZone = "Αρχικής σελίδας κείμενα ζωνων";
 $langHour = "Ωρα";
+$langHumanAndPhysicalResourcesComment1 = "Ποιοι είναι οι διαθέσιμοι ανθρώπινοι και φυσικού πόροι?  Ποία είναι η φύση πλαισιου(???????)?  Τι μπορούν να περιμένουν οι μαθητές απο τον οργανισμό ομάδας ή τον οργανισμό δασκάλων?";
+$langHumanAndPhysicalResourcesComment2 = "Παρουσίαση άλλων δασκάλων που θα οργανώσουν το μάθημα (βοηθοί, ερευνητές, μαθητές -οθόνες...), της διαθεσιμότητας των ατόμων, τα κτίρια και τον εξοπλισμό ή εξοπλισμό computer διαθέσιμα.";
+$langHumanAndPhysicalRessources = "Ανθρώπινοι και φυσικοί πόροι";
+$langIfNotRedirect = "Αν δεν έχουν προωθηθεί";
+$langImport = "εισαγωγή";
 $langImpossible = "Δεν είναι δυνατή η λειτουργία";
 $langIn = "στο";
+$langInFrames = "σε πλαίσια";
+$langIncorrectDate = "Η ημερομηνία έναρξησς πρέπει να είναι πριν το τέλος /λήξη της ημερομηνίας ...";
 $langIndeed = "Πράγματι, η Σωκρατική ειρωνεία είναι μια μέθοδος ερωτημάτων.";
+$langIndividual = "ατομικά";
 $langInfo2Say = "Πληροφορία για τους φοιτητές";
+$langInfoProgNameTitle = "πληροφορία";
+$langInsertMyDocToolName = "Εισαγωγή εγγράφου σαν ενότητα";
+$langInsertMyExerciseToolName = "Εισαγωγή της άσκησης μου";
+$langInsertMyModuleToolName = "Εισαγωγή της ενότητας";
+$langInsertMyModulesTitle = "Εισαγωγή ενότητας μαθήματος";
+$langInsertNewModuleName = "Εισαγωγή νέου ονόματος";
+$langInstalled = "Η διαδρομή μάθησης έχει εισαχθεί με επιτυχία.";
+$langInstitution = "Καθιέρωση";
+$langInstitutionUrl = "Καθιέρωση URL";
+$langIntroCourse = "Βρίσκεσαι στην αρχική σελίδα μαθήματος.<br /><br />Σε αυτή τη σελίδα, μπορείς :
+
+<ul>
+
+<li>να ενεργοποιήσεις ή απενεργοποιήσεις εργαλεία (κάνε κλικ στο 'Edit Tool list'(επιμέλεια λίστα εργαλείων)κουπίκατω αριστερα).</li>
+
+<li>να αλλαξεις τις ρυθμίσεις ή να δεις τα στατιστικά (κάνε κλικ στις αντίστοιχες συνδέσεις απο κάτω).</li>
+
+</ul>
+
+Τώρα, για να προσθέσεις ένα εισαγωγικό κείμενο παρουσιάζοντας το μάθημα σου στους μαθητές , κανε κλικ σε αυτό το πλήκτρο ";
+$langIntroEditToolList = "Διάλεξε τα εργαλεία ποθ θελεις να φαίνονται στο δικό σου χρήστη.
+
+ένα αόρατο εργαλείο θα (be greyed out???) στο προσωπικό σου επιφάνεια";
+$langIntroLearningPath = "Χρησιμοποήσε αυτό το εργαλείο για να παρέχεις στους μαθητές σου μια συνεχιζόμενη πορεία μεταξύ εγγράφων, ασκήσεων,σελίδες HTML, συνδέσεις,...<br><br>Εάν επιθυμείτε να παρουσιάσετε στους μαθητές την πορεία μάθησης σας, κάντε κλικ στο παρακάτω πλήκτρο.<br>";
+$langIntroStep1 = "<p>Το <em>Claroline εργαλείο αναβάθμισης </em> θα προχωρήσει στην κεντρική ρύθμιση αναβάθμισης. Αυτές οι ρυθμίσεις ήταν αποθηκευμένες στο claroline/inc/conf/claro_main.conf.php στην προηγούμενη σειρά (version) platform .</p>";
+$langIntroStep2 = "<p>Tώρα, το <em>Claroline Εργαλείο Αναβάθμισης</em> θα ετοιμάσει μία βάση δεδομένων αποθηκευμένα στο <b>main Claroline tables</b>
+(χρήστες, κατηγορίες μαθήματος, λίστα εργαλείων, ...) και θα τα ορίσει να ειναι συμβατά με το νεό τύπο Claroline.</p><p class=\"help\">Note. Εξαρτώμενη απο την ταχύτητα του server σας η ποσότητα δεδομένων που θα αποθηκευτεί στη platform, η λειτουργία αυτή μπορεί να πάρει καποιο χρόνο.</p>";
+$langIntroStep3 = "<p>Τώρα το <em>Claroline Εργαλείο Αναβάθμισης</em> θα ετοιμάσει τα δεδομένα <b>course</b> (κατάλογοι και πίνακες δεδομένων) ενα - ένα και θα το ορίσει να είναι συμβατό με το νέο τύπο Claroline  .<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
+$langIntroStep3Run = "<p>Το  <em>Claroline Εργαλείο Αναβάθμισης</em> προχωρά στα μαθήματα αναβάθμισης δεδομένων </p>";
+$langIntroText = "Για να στείλεις μήνυμα, επέλεξε ομάδες χρηστών (σημειωμένα με ένα * μπροστά)
+
+ή μεμονομένουσ χρήστες απο τη λίστα αριστερά.";
+$langIntroWork = "Αυτό το εργαλείο επιτρέπει στο δάσκαλο να αναθέσει εργασίες στις οποίες οποιοσδήποτε μαθητής(σύμφωνα με τις ρυθμίσεις της κάθε ανάθεσης) θα μπορεί να καταχωρήσει(???) καποιο έγγραφο, ή να γράψει κάποιο κείμενο, στο website του μαθήματος.
+
+<br />Θα μπορείς να προσθέσεις σχόλιο ή βαθμό σε κάθε εργασία.
+
+<br /><br />Εάν επιθυμείς να παροθσιάσεις αυτό το εργαλείο-μέσο ή να δόσεις συμβουλές στους μαθητές, κανε κλικ στο πλήκτρο παρακάτω.<br>";
 $langInvalidId = "Λάθος στοιχεία. Αν δεν είστε γραμμένος, συμπληρωστε τη <a href='claroline/auth/inscription.php'>φόρμα εγγραφής</a></font color>";
+$langInvisible = "Αόρατο";
 $langIs = "είναι";
+$langIsAlreadyRegistered = "έχει ήδη γραφτεί σε μάθημα";
 $langIsNowInYourDocDir = "είναι τώρα στο εργαλείο των εγγράφων. <br><B>Το αρχείο είναι ορατό</B>";
+$langIsNowRegistered = "τώρα εγγράφεται σε μάθημα";
 $langJustCreated = "Μόλις δημιουργήσατε το μάθημα";
+$langLabelCanBeEmpty = "Τίτλος μαθήματος απαιτείται";
 $langLanguage = "Γλώσσα";
+$langLast31days = "Τελεθταίες 31 ημέρες";
 $langLast7Days = "Τελευταίες 7 μέρες";
+$langLastAccess = "Τελευταία είσοδο";
+$langLastActiveTopics = "Τελευταία ενεργά -τρέχων- θέματα";
+$langLastAttempt = "Τελευαταίες προσπάθειες";
+$langLastCheck = "Τελεθταίος έλεγχος πρίν την εγκατάσταση";
+$langLastEditDate = "Τελευταία ημέρα επιμέλειας";
 $langLastMsg = "Τελευταίο μην.";
+$langLastMsgs = "Τελευταία μηνύματα";
+$langLastName = "Τελευταίο όνομα (επίθετο??)";
+$langLastSessionTimeSpent = "Τελευταία χρονική συνεδρίαση (???)";
 $langLasting = "Διάρκεια";
+$langLastname = "Τελευταίο όνομα (επίθετο)";
+$langLateUpload = "Καθυστερημένη καταχώρηση";
+$langLaunchRestoreCourseRepository = "Παρουσίαση αποκατάσταση του χώρου φύλαξης μαθήματος";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Παρουσίαση (launch???) κεντρικών ρυθμίσεων αναβάθμισης της platform </button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Παρουσίαση πινακων αναβαθμισης της κεντρικής platform</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Παρουσίαση αναβάθμισης δεδομένων μαθήματος</button></p>";
+$langLearnPathDetails = "Πρόοδο στις διαδρομές μάθησης";
+$langLearningPath = "Διαδρομή μάθησης";
+$langLearningPathAdmin = "Διαχειρηση διαδρομής μάθησης";
+$langLearningPathList = "Λίστα διαχείρησης διαδρομής ";
+$langLearningPathName = "Νέο όνομα διαδρομής μάθησης : ";
+$langLessAnswers = "Rem. answ. (απομάκρυνση απαντήσεων)";
+$langLessElements = "Rem. elem.(απομάκρυνση στοιχείων)";
+$langLessonStatus = "Κατάσταση ενότητας";
+$langLicence = "Αδεια";
+$langLine = "γραμμή";
+$langLineNumber = "Αριθμός γραμμής";
+$langLineOrLines = "γραμμή -ες";
+$langLines = "γραμμες";
 $langLink = "Σύνδεσμος";
 $langLinkSite = "Σύνδεση σε ένα site";
 $langLinks = "Σύνδεσμοι";
+$langListAdmin = "Λίστα χρηστών διαχείρησης";
+$langListAllUsers = "Λίστα όλων των χρηστών";
+$langListClassUser = "Χρήστες τάξης";
+$langListCourseUsers = "Λίστα χρηστών μαθήματος";
+$langListHtUsers = "εμφάνιση .htpassword";
+$langListStudents = "Λίστα μαθητών σε αυτή την ομάδα";
+$langListUsers = "Λίστα χρηστών";
+$langLoadDefaultFormat = "Load default format(Φόρτωση εξ ορισμού ????)";
+$langLocation = "Τοποθεσία";
+$langLogin = "Login";
 $langLoginBeforePost1 = "Για να στείλετε μηνύματα, ";
 $langLoginBeforePost2 = "πρέπει προηγουμένως να ";
 $langLoginBeforePost3 = "κάνετε login στην Τάξη";
+$langLoginRequest = "Login απαιτείται";
+$langLoginWithoutAccess = "Logins δεν χρησιμοποιούνται";
+$langLogins = "Logins";
+$langLoginsAndAccessTools = "Logins και εργαλεία εισόδου";
+$langLoginsDetails = "Κάνε κλικ στο όνομα του μήνα για περισσότερες πληροφορίες";
+$langLoginsTitleCountColumn = "Αριθμό των logins";
+$langLoginsTitleMonthColumn = "Mήνας";
 $langLogout = "Εξοδος";
+$langLostPassword = "Χαμένος κωδικός";
+$langMailAppearAlready = "Αυτό το mail εμφανίζεται ήδη και σε προηγούμενη γραμμή του αρχείου CSV .";
+$langMailSynthaxError = "Mail synthax σφάλμα.";
+$langMailTo = "Mail σε : ";
+$langMailUsed = "Mail χρησιμοποιείται ήδη απο άλλο χρήστη";
+$langMainDB = "Κεντρική βάση δεδομένων";
+$langMakeABackupBefore = "
+<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
+installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
+<ol>
+<li>
+It will get your previous platform main settings and put them in a new configuration files
+</li>
+<li>
+It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.
+</li>
+<li>
+It will update one by one each course data (directories, database tables, ...)
+</li>
+</ol>
+<p>
+Before starting the <em>Claroline Upgrade Tool</em>,
+we recommend you to make yourself a complete backup of
+the platform data (files and databases).
+</p>
+<table>
+<tbody>
+<tr valign=\"top\">
+<td>
+The data backup has been done</td>
+<td>%s</td>
+</tr>
+</tbody>
+</table>
+<p>
+The <em>Claroline Upgrade Tool</em>
+is not able to start if you do not confirm that the data has been done.</p>
+
+";
+$langMakeCorrespond = "Γίνεται Αντιστοίχιση";
+$langMakeInvisible = "Γίνεται μη ορατό";
+$langMakeNewSearch = "Γίνεται νέα έρευνα : ";
+$langMakeSearch = "Γίνεται έρευνα";
+$langMakeVisible = "Γίνεται ορατό";
+$langManage = "Διαχείρηση Campus";
+$langManageClasses = "Διαχείρηση τάξεων";
+$langManageCourseCategories = "Διαχείρηση κατηγοριων μαθήματος";
 $langManager = "Διαχειριστής";
 $langManyAnswers = "(περισσότερες από μία απαντήσεις μπορεί να είναι σωστές)";
+$langMatching = "Matching (Ταίριασμα???)";
 $langMax = "μέγ.";
+$langMaxAllowedTime = "Μέγιστος επιτρεπόμενος χρόνος";
+$langMaxFileSize = "Μέγιστο μέγεθος αρχείου : ";
 $langMaxSizeCourseCode = "με λατινικά γράμματα μέχρι 12 χαρακτήρες, π.χ. <i>FYS1234</i>";
+$langMaxStudentGroup = "Μέγιστο αριθμό μαθητών σε κάθε ομάδα";
+$langMaximum = "Mέγιστο : ";
 $langMessage = "Οταν διαγράψετε τη δοκιμαστική περιοχή συζητήσεων, θα διαγραφτεί και το παρόν μήνυμα.";
+$langMessageSubscribeDone_p_firstname_lastname = "Αγαπητε %s, %s. Οι προσωπικές σας ρυθμίσεις έχουν καταχωρηθεί και ενα email έχει σταλεί για να σας βοηθήσει να θυμάστε το όνομα χρήστη και τον κωδικό.";
+$langMessageToSelectedUsers = "Mηνύματα σε επιλεγμένους χρήστες";
+$langMessages = "Mηνύματα";
+$langMethodsOfEvaluation = "Mέθοδοι αξιολόγησης";
+$langMethodsOfEvaluationComment1 = "Ακριβείς λεπτομέρειες όπως είναι τα μέσα αξιολόγησης (γραπτές εξετάσεις, προφορικές, εργασίες (projects), ανάθεση εργασίας...), ημερομηνία προβολής αξιολόγησης  , ημερομηνίες προσθεσμίας για τις παραδόσεις εργασιών, με το κριτήριο της αξιολόγησης, πιθανό ζύγισμα κριτηρίων ή κατηγορίες κριτηρίων.";
+$langMin = "Ελάχιστο: ";
 $langMinute = "Λεπτά";
+$langMinuteShort = "min. (ελαχ.)";
 $langMissing = "λείπει";
+$langMissingImagesDetected = "Εντοπ'ιστηκαν ελλιπείς εικόνες-σύμβολα";
+$langMissingValue = "Ελλειπής αξιολόγηση";
 $langModCatName = "Αλλαγή ονόματος κατηγορίας";
+$langModeVerbose = "Τύπος Verbose";
 $langModifAnn = "Αλλαγή της ανακοίνωσης";
 $langModifDone = "Η πληροφορία έχει αλλάξει";
+$langModifUserCourseSettings = "Ρυθμίσεις μαθήματος χρήστη";
 $langModify = "Διόρθωση";
+$langModifyFormat = "Επεξεργασία φορμαρίσματος";
+$langModifyInAllExercises = "σε όλες τις ασκήσεις";
+$langModifyInThisExercise = "μόνο στην τρέχουσα άσκηση";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
+$langModule = "Ενότητα";
+$langModuleMoved = "Μετακίνηση ενότητας";
+$langModuleOfMyCourse = "Χρήση ενότητας αυτού του μαθήματος";
+$langModuleStillInPool = "Ενότητες αυτής της διαδρομήςθα είναι ακόμα διαθέσιμες στο σύνολο των ενοτήτων";
+$langModules = "Ενότητες";
+$langModulesPoolToolName = "Σύνολο ενοτήτων";
 $langMonth = "Μήνας";
 $langMonthNames = "Array";
+$langMoreAnswers = "Προσθήκη απάντησης";
+$langMoreElements = "Προσθήκη στοιχείων";
+$langMoreRepliedTopics = "Περισσότερα θέματα απαντήθηκαν";
+$langMoreSeenTopics = "Περισσότερα θέματα εμφανίζονται";
 $langMove = "Μετακίνηση";
+$langMoveDown = "Κίνηση προς τα κάτω";
+$langMoveUp = "Κίνηση προς τα πάνω";
+$langMsgSent = "Το μήνυμα έχει σταλεί στους επιλεγμένους μαθητές";
+$langMultipleAnswers = "Πολλαπλές απαντήσεις";
+$langMultipleEmails = "Λογαριασμοί με το ίδιο <i>Email</i>";
+$langMultipleLogins = "Λογαριασμοί με το ίδιο <i>User name</i>";
+$langMultipleSelect = "Πόλλαπλές επιλογές (Πολλαπλές απαντήσεις)";
+$langMultipleUsernameAndPassword = "Λογαριαμοί με το ίδιο <i>User name</i> ΚΑΙ το ίδιο <i>Password</i>";
+$langMustSelectAFile = "Πρέπει να επιλέξεις ένα αρχείο";
+$langMustSelectATxtFile = "Πρέπει να επιλέξεις ένα αρχείο κειμένου.";
+$langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langMyGroup = "η ομάδα μου";
+$langMyResults = "Τα αποτελέσματα";
+$langMyStats = "Εμφανιση των στατιστιών μου";
+$langMysqlNames = "MySQL Βάση δεδομένων και πίνακα ονομάτων";
+$langMysql_Repository = "Mysql Repository (πηγή πληροφοριών???)";
+$langNULLValue = "Αδειασμα( NULL)";
+$langName = "Όνομα";
 $langNameCat = "Το όνομα της κατηγορίας έχει αλλάξει";
+$langNameChanged = "Όνομα τάξης έχει αλλαχθεί";
 $langNameDir = "Όνομα του καινούριου καταλόγου";
+$langNameOfLang = "Διάταξη";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
+$langNbLines = "Αριμός σειρών/γραμμών";
+$langNbrAccess = "Μέτρηση εισόδου";
+$langNever = "Ποτέ";
+$langNeverBrowsed = "browsed ποτέ";
+$langNeverConnectedStudents = "Δεν έχει συνδέσει ποτέ μαθητές : ";
+$langNeverUsed = "Δεν έχει χρησιμοποιηθεί ποτέ";
 $langNewBloc = "Αλλοr";
+$langNewChat = "Νέο chat";
+$langNewClassCreated = "Η νέα τάξη έχει δημιουργηθεί";
+$langNewClassName = "Όνομα νέας τάξης";
 $langNewEx = "Καινούρια Ασκηση";
 $langNewGroupCreate = "Δημιουργία καινούριας ομάδας χρηστών";
 $langNewGroups = "ομάδα(ες) χρηστών";
+$langNewLabel = "Δημιουργία νέου επιπέδου / τίτλος αυτής της διαδρομής μάθησης";
 $langNewQu = "Καινούρια ερώτηση";
 $langNewToOld = "Αντιστροφή σειράς παρουσίασης";
 $langNewTopic = "Νέο θέμα";
+$langNewUsersIn = "νέοι χρήστες σε αυτή τη platform : ";
+$langNext = "Επόμενο";
+$langNextDay = "Επόμενη ημέρα";
+$langNextMonth = "Επόμενος μήνας";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Επόμενο ></button></p>";
+$langNextWeek = "Επόμενη εβδομάδα";
+$langNextYear = "Επόμενο έτος";
 $langNo = "όχι";
+$langNoAnnouncement = "Καμία ανακοίνωση.";
+$langNoAnswer = "Δεν υπάρχει αυτή τη στιγμή καμία απάντηση";
+$langNoContent = "Κανένα περιεχόμενο";
+$langNoCourseResult = "Δεν υπάρχει μάθημα να ταιριάζει τα κριτήρια αυτά";
+$langNoEmail = "Δεν έχει γίνει συγκεκριμένη η διεύθυνση του email";
+$langNoEndDate = "Δεν υπάρχει ημερομηνία κλεισίματος";
+$langNoEventInTheAgenda = "Δεν υπάρχουν γεγονότα στην ημερήσια Ατζέντα";
 $langNoEx = "Αυτή τη στιγμή δεν υπάρχει άσκηση";
+$langNoFile = "- κανένα -";
+$langNoFunctionInThisSection = "Καμία λειτουργία σε αυτο τον τομέα(?)";
 $langNoGroupStudents = "Μη εγγεγραμμένοι φοιτητές";
+$langNoImage = "Καμία εικόνα να εμφανίσει";
+$langNoLearningPath = "Καμία διαδρομή μάθησης";
+$langNoModule = "Καμία ενότητα";
+$langNoMoreAttemptsAvailable = "Έχετε φτάσει το μέγιστο αριθμό επιτρεπόμενων προσπαθειών.";
+$langNoMoreModuleToAdd = "Όλες οι ενότητες αυτού του μαθήματος ήδη χρησιμοποιήθηκαν σε αυτή τη διαδρομή μάθησης.";
+$langNoPost = "Καμία καταχώρηση";
 $langNoPsychology = "Όχι, η Σωκρατική ειρωνεία δεν είναι θέμα ψυχολογίας, αλλά σχετίζεται με την επιχειρηματολογία.";
+$langNoQuestion = "Δεν υπάρχει ερώτηση αυτή τη στιγμή";
+$langNoQuota = "Καμια αναλογία";
+$langNoRegisteredCourses = "Δεν υπάρχουν στατιστικά να εμφανίσει.  Δεν έχετε εγγραφεί σε κανένα μάθημα.";
+$langNoResult = "Κανένα αποτέλεσμα";
+$langNoResultYet = "Δεν υπάρχει αποτέλεσμα ακόμα";
+$langNoScore = "Καμία βαθμολογία";
 $langNoSeduction = "Όχι, η Σωκρατική ειρωνεία δεν είναι μέθοδος αποπλάνησης, ούτε βασίζεται στο παράδειγμα.";
 $langNoSpace = "Το ανέβασμα του αρχείου απότυχε. Δεν υπάρχει αρκετός χώρος στον κατάλογο σας";
+$langNoStartAsset = "Δεν υπάρχει κανένα απόκτημα/στοιχείο έναρξης που να ορίζεται για αυτή την ενότητα.";
+$langNoTimeLimit = "Κανένας χρονικός περιορισμός";
+$langNoUserResult = "Κανένας χρήστης για να εμφανίσει";
+$langNoVisibleAssignment = "Δεν υπάρχει καμία ορατή ανάθεση αυτή τη στιγμή.";
+$langNoVisibleSubmission = "Δεν υπάρχει καμία ορατή υποβολή";
 $langNomPageAddHtPass = "Προσθήκη διαχειριστή";
 $langNone = "κανένας";
+$langNormalUser = "Κανονικό";
 $langNotAllowed = "Δεν επιτρέπεται";
 $langNotFalse = "Η απάντηση δεν είναι εσφαλμένη. Είναι αλήθεια ότι η αποκάλυψη της άγνοιας του συνομιλητή σας επιδεικνύει τα αντιφατικά συμπεράσματα που προκύπτουν από τις αρχικές παραδοχές του.";
+$langNotGroupMember = "Δεν είσαι μέλος αυτής της ομάδας";
+$langNotInstalled = "Προέκυψε σφάλμα.  Η εισαγωγή της διαδρομής μάθηση απέτυχε.";
+$langNotRecentlyConnectedStudents = "Δεν υπάρχουν πρόσφατα συνδεδεμένοι χρήστες : ";
+$langNotUnregYourself = "Δεν μπορείς να αλλάξεις τις προσωπικές σου ρυθμίσεις!";
+$langNotice = "Παρατήρηση";
 $langNow = "Τώρα";
+$langNowGoChooseYourCourses = "Μπορείς τώρα να διαλέξεις, απο τη λίστα, τα μαθήματα που θέλεις να κάνεις είσοδο.";
+$langNowGoCreateYourCourse = "Μπορείς τώρα να δημιουργήσεις το δικό σου μάθημα";
+$langNumGroup = "Αριθμός ομάδων κατά μάθημα";
+$langNumGroupStudent = "Αριθμός ομάδων στο μάθημα στις οποίες ο μαθητής μπορεί να εγγραφεί ";
+$langNumero = "No.";
+$langOfficialCode = "Κωδικός διαχείρησης";
 $langOk = "Εντάξει";
+$langOkChapterHeadAdded = "Τίτλος προστέθηκε : ";
+$langOkDefaultCommentUsed = "προειδοποίηση : Η εγκατάσταση δε μπορεί να βρεί τη περιγραφή της διαδρομής μάθησης και έχει ορίσει σχόλιο/παρατήρηση.  Θα πρέπει να το αλλάξεις";
+$langOkDefaultTitleUsed = "προειδοποίηση : Η εγκατάσταση δε μπορεί να βρεί το όνομα της διαδρομής μάθησης και έχει ορίσει καποιο όνομα .  Θα πρέπει να το αλλάξεις.";
+$langOkFileReceived = "Αρχείο ελήφθη : ";
+$langOkManifestFound = "Ανακοίνωση εβρέθη σε zip αρχείο : ";
+$langOkManifestRead = "Ανακοίνωση διαβάστηκε.";
+$langOkModuleAdded = "Προσθήκη ενότητας : ";
 $langOkSent = "Η σελίδα σας στάλθηκε.<p>Θα δημιουργηθεί σύνδεσμος σε αυτήν στη <a href=../..//index.php>εισαγωγική σελίδα</a>";
 $langOldToNew = "Αντιστροφή σειράς παρουσίασης";
 $langOn = "On";
 $langOneByOne = "Πρσθήκη χρήστη";
 $langOneMyGroups = "ο επιβλέπων μου";
 $langOneResp = "Ενας από τους διαχειριστές του μαθήματος";
+$langOnly = "Μόνο";
+$langOptional = "Προαιρετικό";
+$langOrder = "Εντολή ";
+$langOrderUp = "Εντολή πάνω";
 $langOrganisation = "Διαχείριση των περιοχών συζητήσεων";
+$langOrphanQuestions = "ερωτήσεις που μείναν";
 $langOtherCourses = "Λίστα Μαθημάτων";
+$langOtherWorks = "άλλες λειτουργίες";
 $langPassTooEasy = "Το συνθηματικό σας είναι πολύ απλό. Χρησιμοποιήστε ένα συνθηματικό σαν και αυτό";
 $langPassTwice = "Πληκτρολογήσατε δύο διαφορετικά συνθηματικά. Χρησιμοποιήστε το πλήκτρο «επιστροφή» του browser σας και ξαναδοκιμάστε.";
-$langPassTwo = "Εχετε πληκτρολογήσει δυο διαφορετικά συνθηματικά";
+$langPassword = "Κωδικός";
+$langPasswordHasBeenEmailed = "Ο κωδικός σας έχει σταλεί με email στο ";
+$langPasswordSimple = "Ο κωδικός που δόθηκε είναι πολύ απλός ή παρόμοιος με το όνομα χρήστη.";
+$langPathContentTitle = "Περιεχόμενο διαδρομής μάθησης";
+$langPathsInCourseProg = "Πρόοδος μαθήματος ";
+$langPerhaps_with_others_directory = "ίσως με άλλο οδηγό";
+$langPeriodDay = "Ημέρα";
+$langPeriodHour = "Ώρα";
+$langPeriodMonth = "Mήνας";
+$langPeriodToDisplay = "Περίοδος";
+$langPeriodWeek = "Εβδομάδα";
+$langPeriodYear = "Έτος";
+$langPersoValue = "Αξιολόγηση";
+$langPersonalCourseList = "Προσωπική λίστα μαθήματος";
 $langPgTitle = "Τίτλος σελίδας";
+$langPhone = "Τηλέφωνο";
 $langPlaces = "συμμετέχοντες στην ομάδα χρηστών (προαιρετικό)";
+$langPlatform = "Πλατφόρμα";
+$langPlatformAccess = "Είσοδος στο campus";
+$langPlatformAdministration = "Διαχείρηση Πλατφόρμας";
+$langPlatformAdministrator = "Διαχειρηστής Πλατφόρμας";
+$langPlatformCoursesAccess = "Είσοδο στα μαθήματα";
+$langPlatformStats = "Στατιστικά Πλατφόρμας";
+$langPleaseEnterMessage = "Πρέπει να παρουσιάσετε το κείμενο μηνύματος.";
+$langPleaseSelectUsers = "Πρέπει να επιλέξετε χρήστες.";
+$langPopulateTools = "Εγκατάσταση εργαλείων σε μαθήματα";
 $langPoweredBy = "Με τη βοήθεια του";
+$langPrefix = "Prefix  : ";
+$langPreventLateUpload = "όχι, να εμποδίζεται η υποβολή εργασιών χρηστών μετά το τέλος της χρονικής προθεσμίας";
+$langPreview = "Παρουσίαση/προβολή";
+$langPrevious = "Προηγουμενου";
+$langPreviousDay = "Προηγούμενης ημέρας";
+$langPreviousLevel = "Προηγούμενου επιπέδου";
+$langPreviousMonth = "Προηγούμενου μήνα";
+$langPreviousWeek = "Προηγούμενης Εβδομάδας";
+$langPreviousYear = "Προηγούμενου έτους";
+$langPrintVers = "Εκτυπώσιμος τύπος";
 $langPrivate = "κλειστό";
 $langPrivateAccess = "Ελεγχόμενη Πρόσβαση (στο μάθημα έχουν πρόσβαση μόνο οι χρήστες που βρίσκοναι στη <a href=../user/user.php>Λίστα Χρηστών</a>)";
+$langPrivateFeedback = "Προσωπική επικοινωνία";
+$langPrivateOnly = "Προσωπικό μάθημα μόνο";
 $langProblem = "Στη περίπτωση που αντιμετωπίζετε προβλήματα, επικοινωνήστε μαζί μας";
 $langProfessor = "Καθηγητής";
+$langProfessorMessage = "Mήνυμα απο τον λέκτορα σου ";
 $langProfessors = "Καθηγητής(ές)";
 $langProfileReg = "Το καινούριο σας προφίλ έχει σωθεί";
+$langProgInModuleTitle = "Η πρόοδος σου σε αυτή την ενότητα";
+$langProgress = "Πρόοδος";
+$langPropertiesNotIncludeInSections = "Ιδιότητε μη περιλαμβανομενες σε τμήματα";
 $langPubl = "Τοποθετήθηκε την";
 $langPublic = "ανοικτό";
 $langPublicAccess = "Ελεύθερη Πρόσβαση από τη αρχική σελίδα χωρίς συνθηματικό";
+$langPublicOnly = "Δημόσιο μάθημα μόνο";
 $langPublish = "Δημοσίευση";
+$langQantity = "Ποσότητα  : ";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;ομάδες";
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "Ένας χρήστης μπορεί να γίνει μέλος στο μεγιστο";
+$langQualificationsAndGoals = "Προυποθέσεις και στόχοι";
+$langQualificationsAndGoalsComment1 = "Ποιοί ελιναι οι στόχοι διδασκαλίας?  Στο τέλος του μαθήματος, ποιά απαιτούμενα προσόντα,ποιές ικανότητες και γνώσεις θα μπορούν οι μαθητές να έχουν και να κινητοποιήσουν?";
+$langQualificationsAndGoalsComment2 = "Παρουσίαση των γενικών και ειδικών αντικειμένων του μαθήματος, προσόντα στα οποία θα οδηγήσει ο έλεγχος αυτών των αντικειμένων.";
 $langQuestion = "Ερώτηση";
+$langQuestionAnswers = "Απαντήσεις σε ερώτηση";
+$langQuestionDescription = "Δήλωση";
+$langQuestionList = "Λίστα ερωτήσεων της άσκησης";
+$langQuestionManagement = "Διαχείρηση Ερώτησης / Aπάντησης ";
+$langQuestionNotFound = "Ερώτηση δεν βρέθηκε";
 $langQuestionPlan = "Ερώτηση στον διδάσκοντα";
+$langQuestionPool = "Σύνολο/πλήθος ερωτήσεων";
+$langQuestionTitle = "Τίτλος ερώτησης";
+$langQuestionWeighting = "Ζύγισμα";
 $langQuestions = "Ερωτήσεις";
+$langQuitViewer = "Επιστροφή στη λίστα";
+$langRandomLanguage = "Ανακατάταξη επιλογών σε διαθέσιμες γλώσσες";
+$langRandomQuestions = "Ερωτήσεις σε τυχαία σειρά";
+$langRawHasBeenChanged = "Ο ελάχιστος βαθμός για να προαγωγή έχει αλλαχθεί";
 $langReg = "Εγγραφή";
 $langRegAdmin = "Δημιουργία μαθημάτων";
 $langRegIntoGroup = "Προσθέστε με στην ομάδα";
 $langRegStudent = "Παρακολούθηση μαθημάτων";
 $langRegUser = "εγγεγραμμένοι χρήστες του μαθήματος";
 $langRegYou = "σας έχει γράψει σε αυτό το μάθημα";
+$langRegister = "Εγγραφή";
+$langRegisterClass = " Εγγραφή σε τάξη";
+$langRegisterLocalUrl = "Το campus url φαινεται να είναι τοπικό τοπικό url.
+Απαιτείται προσβάσιμο web url για να εγγραψετε στο site σας στο Claroline.net.<br /><br />
+Ελέξτε την αξία του  'Web base' στην διαμόρφωση-διάταξη για το Claroline .";
+$langRegisterMyCampus = "Εγγραφή στο campus μου";
+$langRegisterTheNewUser = "Εγγραφή αυτού του χρήστη σε μάθημα";
+$langRegisterUser = "Εγγραφή σε νέο μάθημα";
+$langRegisterUserToClass = "Εγγραφή χρήστη σε τάξη";
 $langRegistered = "Εγγεγραμμένοι";
 $langRegistration = "Εγγραφή";
+$langRemainingSteps = "Βήματα που απέμειναν";
 $langRemove = "διαγραφή";
+$langRemoveAdminLevel = "Οχι πια Διαχειρ. ";
 $langRename = "Μετονομασία";
+$langReplaceAttachedFile = "Αντικατάσταη επισυναπτόμενου αρχείου";
 $langReply = "Απάντηση";
+$langRequestOfCourseCreatorStatus = "Αίτημα για την κατάσταη του Δημιουργού Μαθήματος";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Αίτημα προς τον προγραμματιστή αυτών των ρυθμίσεων για να προσθέσει αυτές τις ιδιότητες σε ένα τμήμα του αρχείου ορισμών.";
+$langRequired = "Απαιτείται";
+$langRequirements = "Απαιτούμενα";
+$langResetChat = "Ρυθμιση εκ νέου";
+$langRestoreCourseRepository = "Επαναφορά πηγης πληροφοριών";
 $langResult = "Βαθμολογία";
+$langReuse = "ξανα χρησιμοποείται";
+$langRevoquationOfUser = "Κατάργηση του %s %s";
 $langRidiculise = "Γελοιοποίηση του συνομιλητή σας προκειμένου να παραδεχτεί ότι κάνει λάθος.";
 $langRole = "Ρόλος";
+$langRoot = "αιτία";
+$langSCORMTypeDesc = "SCORM 1.2 προσαρμοσμένο περιεχόμενο";
+$langSDK = "SDK";
+$langSampleDocument = "παράδειγμα_εγγράφου";
+$langSampleDocumentDesc = "Μπορείς να χρησιμοποιήσεις οποιοδήποτε έγγραφο υπάρχει στα εργαλεία εγγράφων αυτού του μαθήματος.";
+$langSampleExerciseDesc = "Μπορείς να χρησιμοποήσεις οποιαδήποτε άσκηση απο τα εργαλεία άσκησης αυτού του μαθήματος.";
+$langSampleLearnPath = "Παράδειγμα διαδρομής μάθησης";
+$langSampleLearnPathDesc = "Αυτό είναι παράδειγμα της διαδρομής μάθησης, χρησιμοποιεί τα παραδείγματα άσκηση; και εγγράφου απο τα εργαλεία ασκήσης και εργαλεία εγγράφου . Κάνε κλικ σε
+
+                            <b>Τροποποίηση</b> για να αλλάξεις αυτό το κείμενο.";
 $langSave = "Αποθήκευση";
+$langSaveChanges = "Αποθήκευση αλλαγών";
+$langScore = "Βαθμολογία";
+$langScoreAvg = "Μέσο όρο";
+$langScoreMax = "Mέγιστο";
+$langScoreMin = "Ελάχιστο";
+$langScormIntroTextForDummies = "Εισαγώμενα πακέτα πρεπει να αποτελούνται απο ένα zip αρχείο και να είναι συμβατά με το SCORM 1.2 ";
+$langSearch = "Έρευνα";
+$langSearchAgain = "έρευνα εκ νεου (προχωρημένη)";
+$langSearchCourse = "Έρευνα μαθήματος";
+$langSearchCourseAdvanced = "Προχωρημένη έρευνα μαθήματος";
+$langSearchOn = "Ανοιγμα/ξεκίνημα έρευνας";
+$langSearchResult = "Αποτέλεσμα έρευνας";
+$langSearchUser = "Ερευνα χρήστη";
+$langSearchUserAdvanced = "Προχωρημένη έρευνα χρήστη";
+$langSecondShort = "sec.";
+$langSeeAgenda = "Βλεπε το ημρολόγιο μου";
+$langSeeUserSettings = "Βλεπε ρυθμίσεις χρήστη";
+$langSeebelowthefilesyoucaneditfromthistool = "Δες κάτω απο τα αρχεία που μπορείς να επεξεργαστείς απο αυτό το εργαλείο-μέσο.";
 $langSeen = "Παλιά";
+$langSelUser = "Επιλεγμένοι χρήστες απο το site";
+$langSelectAUser = "Διάλεξε χρήστη";
+$langSelectedUsers = "Επιλεγμένοι χρήστες";
 $langSendPage = "Όνομα αρχείου της σελιδας";
+$langSendToUserAccountInfoByMail = "Αποστολή πληροφοριών λογαριασμού στο χρήστη μέσω email";
+$langSequentialExercise = "Μία ερώτηση ανά σελίδα (συνεχόμενα)";
+$langSetAdmin = "Ορισε Admin";
 $langSettings = "δημιουργήθηκε με επιτυχία!
  Τα προσωπικά στοιχεία του λογαριασμού σας είναι τα εξής:
 
 Όνομα χρήστη:";
+$langShowAll = "Εμφάνιση όλων";
+$langShowAnswers = "Εμφάνιση απαντήσεων";
+$langShowAnswersAfterLastTry = "Μετά απο την τελευταία επιτρεπόμενη προσπάθεια";
+$langShowNone = "Να μην εμφανιστεί τιποτα";
+$langSimpleExercise = "Σε μία μοναδική σελίδα";
+$langSiteName = "Όνομα site";
 $langSize = "Μέγεθος";
+$langSize_of_claroline_scripts = " μέγεθος των κειμένων του claroline";
+$langSize_of_course_repository = "!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπεριλαμβάνεται το claroline και άχρηστα σε παλιά συστήματα)";
+$langSize_of_selected_courses = "μέγεθος επιλεγμενων μαθήματων";
 $langSocraticIrony = "Η Σωκρατική ειρωνεία είναι...";
+$langSpecifyFormat = "Πρέπει να συγκεκριμενοποιήσετε το format του CSV που χρησιμοποείται στο αρχείο σας";
+$langStartAgain = "Επανεκίνηση";
+$langStartDate = "Ημερομηνία έναρξης";
+$langStartModule = "Έναρξη ενότητας";
+$langStatDB = "Στατιστικά της βάσης δεδομένων";
 $langStatistics = "Στατιστικά";
+$langStatsOfCampus = "Στατιστικά του campus";
+$langStatsOfCourse = "Στατιστικά του μαθήματος";
+$langStatsOfExercise = "Στατιστικά της άσκησης";
+$langStatsOfLearnPath = "Στατιστικά ";
+$langStatsOfUser = "Στατιστικά του χρήστη";
 $langStatus = "Ενέργεια";
+$langStatusChangeNotMade = "Καμία αλλαγή δεν έχει γίνει";
+$langStepNOfN = "Step %d of %d";
+$langStoreChat = "Αποθήκευση Chat";
 $langStudent = "φοιτητής";
+$langStudents = "Μαθητές";
+$langStudentsNotInThisGroups = "Χρήστες όχι σε αυτή την ομάδα";
 $langSubTitle = "Προσθήκη ενος συνδέσμου σε site στην αρχική σελίδα του μαθήματος, μιας σελίδας ή οποιουδήποτε URL. Συμβουλή: αν θέλετε να προσθέσετε ένα σύνδεσμο σε μια σελίδα, πηγαίνετε σε αυτή τη σελίδα, και κάντε αποκοπή και επικόλληση τη διεύθυνσή της στη μπάρα των URL στο πάνω μέρος του browser και εισάγετέ το στο \"link\" πεδίο παρακάτω.";
+$langSubTitleChangeParent = "Αλλαγή μητρικής κατηγορίας ";
+$langSubTitleCreate = "Δημιουργία κατηγορίας";
+$langSubTitleEdit = "Σύνταξη-επιμέλεια κατηγορίας";
+$langSubmissionDate = "First&nbsp;submission&nbsp;date";
+$langSubmissionType = "Τύπος υποβολής";
+$langSubmissions = "Υποβολές";
+$langSubmit = "Υποβάλεται";
+$langSubmitFeedbackAfterEndDate = "Αυτόματα, μετά απο το τέλος της ημερομηνίας";
+$langSubmitFeedbackAfterPost = "Αυτόματα, μετά απο κάθε υποβολή ";
+$langSubmitWork = "Υποβολή εργασίας";
+$langSubmittedWork = "Εργασία";
+$langSubscribeClass = "Εγγραφή σε τάξη";
+$langSubscribeToCourse = "Εγγραφή σε μάθημα";
+$langSubscribeUser = "Εγγραφή χρήστη";
+$langSubscribed = "άτομα εγγεγραμένα σε αυτό το μάθημα";
+$langSubscription = "Εγγραφή";
+$langSubscriptionAllowedOnly = "Εγγραφή επιτρέπεται μόνο ";
+$langSubscriptionDeniedOnly = "Εγγραφή απορριπτεται μόνο";
+$langSucceeded = "έγινε επιτυχώς";
 $langSupportForum = "Περιοχή υποστήριξης";
+$langSupports = " Υποστήριξη ";
+$langSupportsComment1 = "Υπάρχει η υποστήριξη μαθήματος?  Τί είδος υποστήριξη πρέπει να δώσω?  Ανοιχτή?  Κλειστή?";
+$langSupportsComment2 = "Παρουσίαση της υποστήριξης του μαθήματος.  Παρουσίαση της βιβλιογραφίας, πακέτα εγγράφων ή συμπληρωματικής βιβλιογραφίας.";
+$langSwitchEditorToTextConfirm = "Η εντολή θα αφαιρέσει τη τρέχουσα διάταξη κειμένου. Θέλετε να συμεχίσετε ?";
+$langTake = "αποδοχή";
 $langTaken = "χρησιμοποιείται ήδη. Διαλέχτε άλλο.";
 $langTargetFac = "Η σχολή ή το τμήμα που αναφέρεται το μάθημα";
+$langTeachers = "Δάσκαλοι";
+$langTeachingTrainingActivities = "Δραστηριότητες διδασκαλίας - εκπαίδευσης";
+$langTeachingTrainingActivitiesComment1 = "Ποιές μεθόδους και ποιές δραστηριότητες θα υποστηρίξουν τα  αντικείμενα που έχουν οριστεί για το μάθημα?  Ποιές είναι οι δραστηριότητες του ημερολογίου?";
+$langTeachingTrainingActivitiesComment2 = "Παρουσίαση των εξεταζόμενων δραστηριοτήτων (έγγυρες κριτικές, αναμενόμενη συμμετοχή μαθητών, πρακτική άσκηση, εργαστηριακές συναντήσεις, επισκέψεις, συλλογή πληροφοριών...).";
+$langTechAdmin = "Τεχνική διαχείρησης";
+$langTechnical = "Τεχνικά Εργαλεία ";
 $langTestForum = "Δοκιμαστική περιοχή συζητήσεων";
+$langTextEditorDisable = "Απενεργοποίηση επεξεργαστή κειμένου";
+$langTextEditorEnable = "Ενεργοποίηση επεξεργαστή κειμένου";
+$langTextFile = "Κείμενο με επισυναπτόμενο αρχείο (απαιτείατι κείμενο, προαιρετικά αρχείο)";
+$langTextOnly = "Μόνο κειμενο (απαιτείατι κείμενο, όχι αρχείο)";
+$langTheFields = "Tα πεδία";
 $langTheU = "Ο χρήστης";
 $langThisCourseDescriptionIsEmpty = "Το μάθημα δεν διαθέτει περιγραφή";
+$langThisIsAnErrorInDefinitionFile = "Αυτό είναι σφάλμα στον ορισμό αρχείου.";
+$langThisday = "Αυτή την ημέρα";
+$langThumbnails = "Thumbnails";
+$langTimeInLearnPath = "Χρόνος στη διαδρομή μάθησης";
+$langTimeOver = "Λήξη χρόνου, αποτελέσματα δεν έχουν καταχωρηθεί.";
 $langTipLang = "Αυτή η γλώσσα θα ισχύει για κάθε επισκέπτη του μαθήματος.";
 $langTitle = "Τίτλος";
+$langTitleUpgrade = "<h2>Claroline Εργαλείο αναβάθμισης<br />απο %s σε %s </h2>";
 $langTitular = "Συγγραφέας";
 $langTo = "στο";
+$langToDate = "σε";
 $langToday = "Σήμερα";
 $langTodo = "Να γίνουν";
 $langTooBig = "Δεν διαλέξατε κάποιο αρχείο για να στείλετε,ή είναι πολύ μεγάλο";
+$langTool = "Εργαλείο";
+$langToolTitleCountColumn = "Σύνολο κλικ";
+$langToolTitleToolnameColumn = "Όνομα εργαλείου";
+$langToolTitleUsersColumn = "τα κλικ των χρηστων ";
 $langTools = "Εργαλεία";
+$langToolsAccess = "Πρόσβαση στα εργαλεία";
+$langTopLevel = "επίπεδο κορυφής";
+$langTopicReplies = "Απαντήσεις";
+$langTotal = "Σύνολο";
+$langTotalPlatformAccess = "Σύνολο";
+$langTotalPlatformLogin = "Σύνολο";
+$langTotalTimeSpent = "Σύνολο χρόνου";
+$langTrackAllPath = "Παρακολούθηση διαδρομής μάθησης";
+$langTrackAllPathExplanation = "Πρόοδο χρηστών σε όλες τις διαδρομές μάθηαης";
+$langTrackForumUsage = "Χρήση Forum ";
+$langTrackTotalPosts = "Καταχώρηση /ενημέρωση μηνυμάτων";
+$langTrackTotalTopics = "Θέματα που ξεκίνησαν";
+$langTracking = "Παρακολουθηση";
+$langTrackingDisabled = "Η παρακολούθηση (Tracking) έχει  απενεργοποιηθεί (disabled) απο τον διαχειρηστή του συστήματος.";
+$langTrafficDetails = "Λεπτομέρειες κίνησης";
+$langTranslationStatistics = "Πρόοδος μετάφρασης";
+$langTranslationTools = "Εργαλεία μετάφρασης";
+$langTranslations = "Μεταφράσεις";
 $langTrue = "Σωστό";
+$langTypeOfModule = "τύπος ενότητας";
+$langTypeTextBelow = "Παρακαλώ πληκτρολογήστε το κείμενο παρακάτω";
+$langURL = "URL : ";
+$langUnableAddExternalTool = "Αδυνατεί να προσθέσει εξωτερικό εργαλείο";
+$langUnableChangedTool = "Αδυνατεί να αλλάξει εργαλείο/μέσο  πρόσβασης";
+$langUnableDeleteExternalTool = "Αδυνατεί να διαγράψει εξωτερικό εργαλείο";
+$langUnableDescToAdd = "Αδυνατεί να προσθέσει περιγραφή";
+$langUnableToAdd = "Αδυνατεί να προσθέσει το γεγονός στην Ατζέντα.";
+$langUnableToDelete = "Αδυνατεί να διαγράψει το γεγονός στην Ατζέντα.";
+$langUnableToUpdate = "Αδυνατεί να ενημερώσει το γεγονός στην Ατζέντα.";
+$langUnableUpdateExternalTool = "Αδυνατεί να ενημερώσει εξωτερικό μέσο-εργαλείο";
+$langUnamedModule = "Ενότητα χωρίς όνομα";
+$langUnamedPath = "Διαδρομή χωρίς όνομα";
 $langUncompress = "αποσυμπίεση του αρχείο (.zip) στον εξυπηρέτη";
 $langUncompulsory = "(προαιρετικό)";
+$langUndist = "Undist";
+$langUniqueAnswer = "Μοναδική απάντηση";
+$langUniqueSelect = "Πόλλαπλές επιλογές (Μοναδική απάντηση)";
+$langUnkownSOAPError = "Σφαλμα προέκυψε κατα την επικοινωνία με το Claroline.net";
+$langUnlimitedAttempts = "Απεριόριστες προσπάθειες";
 $langUnreg = "Διαγραφή";
+$langUnsubscribe = "Μη εγγεγραμένος χρήστης";
+$langUnsubscribeClass = "Κατάργηση εγγραφής απο τάξη";
+$langUntil = "σε";
 $langUnvalid = "έχουν άκυρη διεύθυνση email ή δεν έχουν καθόλου";
 $langUp = "Πάνω";
+$langUpdateImage = "Αλλαγή εικόνας";
+$langUpdated = "Ενημερώθηκε";
+$langUpdatedExternalTool = "Εξωτερικό εργαλείο ενημερώθηκε";
+$langUpgrade = "Αναβάθμιση";
+$langUpgradeCourseFailed = "Αποτυχία αναβάθμισης";
+$langUpgradeCourseSucceed = "Επιτυχία αναβάθμισης";
+$langUpgradeStep0 = "Backup επιβεβαίωση";
+$langUpgradeStep1 = "Βήμα 1 απο 3: κεντρικές ρυθμίσεις πλατφόρμας";
+$langUpgradeStep2 = "Βήμα  2 απο 3: αναβάθμιση πινακων κεντρικής πλατφόρμας";
+$langUpgradeStep3 = "Βήμα  3 απο 3: αναβάθμιση μαθημάτων";
+$langUpgradeSucceed = "Tο <em>Εργαλείο Αναβάθμισης Claroline </em> έχει ολοκληρώσει την αναβάθμιση της πλατφόρμας.";
 $langUpload = "Ανέβασμα";
 $langUploadAndZipEnd = "Το αρχείο zip ανέβηκε και αποσυμπιέστηκε";
+$langUploadDoc = "Ενημέρωση εγγράφου";
 $langUploadEnd = "Ολοκληρώθηκε το ανέβασμα";
 $langUploadFile = "Ανέβασμα αρχείου στον εξυπηρέτη";
+$langUploadedFile = "Ενημέρωση αρχείου";
+$langUseFollowingFormat = " Χρησιμοποίειτε το ακόλουθο format : ";
+$langUseFormatDefined = "Χρησιμοποίειστε το format που έχει ορισθεί στη πρώτη σειρά του αρχείου";
+$langUseOfPool = "Αυτή η σελίδα ειτρέπει να δείς όλες τις ενότητες διαθέσιμες σε αυτό το μάθημα. <br>
+
+                     Όποια άσκηση ή έγγραφο έχει προστεθεί στη διαδρομή μάθησης θα εμφανίζεται σε αυτή τη λίστα.";
+$langUseTagForBlank = "Χρησιμοποίειστε αγκύλες [...] για να ορίσετε ένα ή περισσότερα κενά";
+$langUsedInLearningPaths = "
+Αριθμός διαδρομών μάθησης που χρησιμοποιούν αυτή την ενότητα : ";
+$langUsedInSeveralExercises = "Προσοχή ! Αυτή η ερώτηση και οι απαντήσεις της χρησιμοποιούνται σε πολλές ασκήσεις. Θα θέλατε να τις επεξεργαστείτε";
+$langUsedInSeveralPath = "Αυτή η άσκηση χρεισιμοποιείται σε μια ή περισσότερες διαδρομές μάθησης. Εάν τη διαγράψετε δεν θα είναι πλέον διαθέσιμη στη διαδρομή μάθησης.";
 $langUser = "Χρήστες";
+$langUserAccessDetails = "Λεπτομέρειες πρόσβασης χρήστη";
+$langUserAlreadyInClass = "Χρήστης ήδη σε τάξη";
 $langUserContent = "<b>Ρόλοι</b><p>Οι ρόλοι δεν σχετίζονται καθόλου με τον υπολογιστή.
  Δεν δίνουν δικαιώματα πάνω στο λειτουργικό σύστημα. Συνήθως δείχνουν στους ανθρώπους,
  ποιος είναι ποιος. Μπορείτε να τους τροποποιήσετε κάνοντας κλίκ στη 'τροποποίηση' κάτω από 
@@ -519,19 +1689,179 @@ $langUserContent = "<b>Ρόλοι</b><p>Οι ρόλοι δεν σχετίζονται καθόλου με τον υπολο
 <p>Για να προσθέσετε ένα χρήστη στο μάθημά σας, συμπληρώστε τα πεδία και επιβεβαιώστε το. Ο χρήστης
 θα λάβει ένα e-mail που θα τον/την ενημερώνει ότι τον/την έχετε εγγράψει και απλά πείτε του/της
 ή θυμήστε του/της το όνομα χρήστη και το συνθηματικό.</p>";
+$langUserCourseList = "λίστα μαθήματος του χρήστη";
+$langUserCreated = "Ο καινούριος χρήστης έχει δημιουργηθεί με επιτυχία";
+$langUserDelete = "Διαγραφή του χρήστη έγινε επιτυχώς";
+$langUserIsNowCourseManager = "Ο χρήστης είναι τώρα διαχειρηστής μαθήματος";
+$langUserIsNowStudent = "Ο χρήστης είναι τώρα μαθητής του μαθήματος αυτού";
+$langUserIsPlaformAdmin = "είναι διαχειρηστής της πλατφόρμας ";
 $langUserName = "Όνομα χρήστη";
+$langUserNameTaken = "Αυτό το όνομα χρήστη έχει ήδη δοθεί, παρακαλώ επιλέξτε ένα άλλο";
 $langUserNo = "Το όνομα χρήστη που διαλέξατε";
+$langUserNoCourseToDisplay = "Δεν υπάρχει μάθημα για να παρουσιαστεί";
+$langUserNotInClass = "Χρήστης όχι σε τάξη";
+$langUserNotUnsubscribed = "Ακύρωση της εγγραφής απέτυχε!!! <br> Αυτός ο χρήστης δεν μπορεί να καταργήσει την εγγραφή,<br>
+
+                            δεν μπορείς να καταργήσεις τη εγγραφή ενός διαχειρηστή μαθήματος, άλλαξε πρώτα ρυθμίσεις";
+$langUserNotUnsubscribedFromCourse = "Σφάλμα!! δεν μπορείς να καταργήσεις την εγγραφή ενός διαχειρηστή μαθήματος";
 $langUserNumber = "αριθμός";
 $langUserOneByOneExplanation = "Αυτός (αυτή) θα λάβει ειδοποίηση μέσω email με όνομα χρήστη και συνθηματικό";
+$langUserRegisteredClass = "Ο χρήστης έχει εγγραφεί με επιτυχία στη τάξη";
+$langUserSettings = "Ρυθμίσεις χρήστη";
+$langUserStatus = "Κατάσταση";
+$langUserSubscribed = "Ο χρήστης έχει εγγραφεί με επιτυχία";
 $langUserTaken = "Το όνομα χρήστη ήδη χρησιμοποιείται από κάποιον άλλον";
+$langUserUnregistered = "Κατάργση εγγραφής χρήστη";
+$langUserUnregisteredFromClass = "Η εγγραφή του χρήστη απο την τάξη έχει καταργηθεί";
+$langUserUnsubscribed = "O χρήστης έχει καταργήσει επιτυχώς την εγγραφή του";
+$langUserUnsubscribedFromCourse = "O χρήστης έχει καταργήσει επιτυχώς την εγγραφή του απο το μάθημα";
+$langUserid = " Ταυτότητα χρήστη";
+$langUserlist = "Λίστα χρηστών";
+$langUsernameAppearAlready = "Αυτό το όνομα χρήστη εμφανίζεται ήδη σε προηγούμενη σειρά του αρχείου  CSV.";
+$langUsernameUsed = "Αυτό το όνομα χρήστη χρησιμοποείται ήδη απο άλλο χρήστη.";
 $langUsers = "Χρήστες";
-$langValid = "Επικύρωση";
+$langUsersMin = "χρήστες";
+$langValvas = "Τελευταίες ανακοινώσεις";
 $langViMod = "Η ορατότητα του εγγράφου άλλαξε";
+$langView = "Εμφάνιση";
+$langViewCourse = "Εμφάνιση/παρουσίαση μαθήματος";
+$langViewMode = "Παρουσίαση τρόπου";
+$langViewPlatFormError = "Ανίχνευση τεχνικών σφαλμάτων";
+$langViewPlatFormStatistics = "Στατιστικά Πλατφόρμας";
+$langViewToolList = "Παρουσίαση λίστας όλων των εργαλείων";
 $langVisibility = "Ορατό / Αόρατο";
+$langVisible = "Ορατό";
+$langVisits = "Επισκέψεις";
+$langWeighting = "Στάθμιση ";
+$langWeightingForEachBlank = "Παρακαλώ δώστε βάρος σε κάθε κενό";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
+$langWorkAuthors = "Συγγραφείς";
+$langWorkTitle = "Τίτλος εργασίας";
+$langWorkUploads = "Καταχωρήσεις εργασίας";
+$langWorksDetails = "Εργασίες καταχωρημένες απο μαθητή στο όνομα \"Συγγραφείς\" ";
+$langWrkAdded = "Εργασία προστέθηκε";
+$langWrkAuthors = "Συγγραφέας -εις";
+$langWrkAuthorsRequired = "Συγγραφέας -εις/Δημιουργός-οι απαιτούνται";
+$langWrkEdited = "Επεξεργασία εργασίας";
+$langWrkScoreRequired = "Βαθμολογία απαιτείται";
+$langWrkTitle = "Tίτλος";
+$langWrkTitleRequired = "Τίτλος εργασίας απαιτείται ";
+$langWrongOperation = "Λάθος λειτουργία";
 $langYear = "Ετος";
 $langYes = "Ναι";
+$langYesterday = "Χθές";
 $langYouAreReg = "Ο λογαριασμός σας στην πλατφόρμα ";
+$langYouCannotDelCatOfGroupsForums = "Δεν μπορείς να διαγράψεις ομάδα κατηγορίας forum.
+
+’ν πρέπει να αφαιρέσεις ομάδες του forum, θα πρεπει να διαγραψεις την ομάδα (group)";
+$langYourAccountParam = "Αυτό είναι το Login-Pass του λογαριασμού σου";
+$langYourBestScore = "Η καλύτερη σου εκτέλεση/παρουσίαση";
 $langYourReg = "Η εγγραφή σας στο";
+$langYourRequestToBeCourseManagerIsSent = "Το αίτημα σου να γίνεις δημιουργός μαθήματος έχει σταλεί στο διαχειρηστή -ες της πλατφόρμας.";
+$langYourRequestToRemoveYourAccountIsSent = "Το αίτημα σου για να αφαιρεθεί ο λογαριασμός έχει σταλεί";
+$langYourTime = "Ο χρόνος σου είναι";
+$langYourTotalScore = "Η συνολική βαθμολογία σου είναι";
 $langZipNoPhp = "Το αρχείο zip δεν πρέπει να περιέχει αρχεία.PHP";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Το μάθημα δεν έχει ύλη.</strong>
+<br><small>%s</small> Δεν βρέθηκε. ";
+$lang_EditFile_ModifyOk = "Οι αλλαγές έχουν πραγματοποιηθεί σωστά";
+$lang_RetryWithMoreDetails = "Ξαναπροσπάθησε με περισσότερες λεπτομέρειες";
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Οι κεντρικοί πίνακες του claroline έχουν αναβαθμιστεί με επιτυχία";
+$lang_UpgradeFailedForCourses = "Το Εργαλείο αναβάθμισης δεν μπορεί να αναβαθμίσει τα παρακάτω μαθήματα  :";
+$lang_add_user_list = "Προσθήκη λίστα χρήστη";
+$lang_already_enrolled = "ήδη εγγεγραμένος";
+$lang_are_you_sure_to_remove_the_course_from_your_list = "Είσαι σίγουρος επιθυμείς να αφαιρέσεις αυτό το μάθημα απο τη λίστα σου ?";
+$lang_back_to_my_personnal_course_list = "Επιστροφή στη προσωπική λίστα μαθήματος";
+$lang_back_to_parent_category = "Επιστοφή στη μητρική κατηγορία";
+$lang_click_here = "Κάνε κλικ εδώ";
+$lang_continueCoursesDataUpgrade = "Συνέχισε αναβάθμιση δεδομένων μαθημάτων";
+$lang_course_enrollment = "Μάθημα χρήστη";
+$lang_do_you_want_to_continue = "Επιθυμείτε να συνεχίσετε?";
+$lang_enroll = "Eγγραφή";
+$lang_enroll_to_a_new_course = "Eγγραφή σε νέο μάθημα";
+$lang_enter_your_user_name_and_password = "Eισαγωγή ονόματος χρήστη (username) και κωδικού (password)";
+$lang_faculty_CanHaveCatCourse = "Μαθήματα που μπορεί να έχει : ";
+$lang_faculty_CatHaveCat = "Αυτή η κατηγορία περιέχει και άλλες κατηγορίες, πρέπει πρώτα να τις διαγράψετε !";
+$lang_faculty_CatHaveCourses = "Αυτή η κατηγορία περιέχει κάποια μαθήματα,δεν μπορείτε να την σβήσετε!";
+$lang_faculty_CodeCat = "Κωδικός κατηγορίας :";
+$lang_faculty_CodeEmpty = "Κωδικός κατηγορίας απαιτείται";
+$lang_faculty_ConfirmDelete = "Θέλετε σιγουρα να διαγραψετε την κατηγορία";
+$lang_faculty_CreateNotOk = "Αυτή η κατηγορία υπάρχει ήδη!";
+$lang_faculty_CreateOk = "Δημιουργία κατηγορίας";
+$lang_faculty_DeleteOk = "Διαγραφή κατηγορίας";
+$lang_faculty_EditOk = "Αλλαγές έχουν αποθηκευτεί";
+$lang_faculty_Father = "Μητρική κατηγορία ";
+$lang_faculty_HaveCourses = "Αυτή η κατηγορία περιλαμβάνει μερικά μαθήματα,  πρέπει να τα διαγράψεις ή να τα μετακινήσεις πρώτα";
+$lang_faculty_MoveOk = "Μετακίνηση κατηγορίας";
+$lang_faculty_NameCat = "Όνομα κατηγορίας :";
+$lang_faculty_NameEmpty = "Απαιτείται όνομα κατηγορίας";
+$lang_faculty_NoCat = "Δεν υπάρχει διαθέσιμη κατηγορία !";
+$lang_faculty_NoChange = "Δεν εφαρμοστηκε καμια αλλαγη.";
+$lang_faculty_NoMove_1 = "Δεν μετακινείται ";
+$lang_faculty_NoMove_2 = " στην ίδια κατηγορία !";
+$lang_faculty_imgDown = "Κάτω";
+$lang_fields_enclosed_by = "Πεδία που είναι κλεισμένα απο";
+$lang_fileUpgrade = "Αναβάθμιση αρχείου :";
+$lang_footer_p_CourseManager = "Διευθυντής-ες για %s";
+$lang_htAccessIncPath_added = "Ο Φάκελος <em>inc</em> προστατεύεται";
+$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "αν διαλέξετε να συνεχίσετε, σειρές με λάθη απλώς θα αγνοηθούν";
+$lang_if_you_dont_have_a_user_account_profile_on = "Εαν δεν έχετε λογαριασμό χρήστη ανοιχτό";
+$lang_if_you_wish_to_enroll_to_this_course = "Εαν επιθυμείτε να εγγραφείτε στο μάθημα αυτό";
+$lang_my_personnal_course_list = "Η προσωπική μου λίστα μαθήματος";
+$lang_no_access_here = "Δεν υπάρχει δυνατότητα";
+$lang_no_course_available_fitting_this_keyword = "Δεν υπάρχει μάθημα διαθέσιμο που να ταιριάζει σε αυτή τη λέξη κλειδί";
+$lang_no_error_in_file_found = "Δεν βρέθηκε σφάλμα σε αρχείο.";
+$lang_oldFileBackup = "Παλαιού αρχείου backup :";
+$lang_or_search_from_keyword = "Ερευνα απο λέξη κλειδί";
+$lang_p_CannotCreate_s = "Δεν μπορεί να δημιουργήσει %s";
+$lang_p_CannotRename_s_s = "Δεν μπορεί να ονομάστει ξανα %s σε %s";
+$lang_p_ErrorOnBuild_S_for_S = "Σφάλμα κατασκευής απο <em>%s</em> για <B>%s</B>";
+$lang_p_PropForConfigCommited = "Ιδιοκτησίες για %s (%s) είναι τώρα αποτελεσματικά στο server.";
+$lang_p_UpgradeMainClarolineDatabase_s = "Αναβάθμιση κυρίας βάσης δεδομένων του Claroline (<em>%s</em>)";
+$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Αναβάθμιση βάσης δεδομένων του μαθήματος <strong>%2\$s</strong><br><small>
+DB Name : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Διόρθωσε πρώτα το τεχνικό πρόβλημα και <a href=\"%s\"> προσπάθησε πάλι για αναβάθμισης</a>.";
+$lang_p_config_file_creation = "Ρυθμίσεις δημιουργίας αρχείου:<BR> %s";
+$lang_p_d_affected_rows = "%d Επηρεασμένες σειρές";
+$lang_p_d_course = "%2d μάθημα";
+$lang_p_d_course_manager = "%2d καθηγητής ";
+$lang_p_d_course_managers = "%2d καθηγητές ";
+$lang_p_d_course_member = "%2d μελος";
+$lang_p_d_course_members = "%2d μέλη";
+$lang_p_d_courses = "%2d μαθήματα";
+$lang_p_d_coursesToUpgrade = "%s μαθήματα για αναβάθμιση";
+$lang_p_d_errorFound = " %d σφάλματα βρέθηκαν";
+$lang_p_d_student = "%2d μαθητής";
+$lang_p_d_students = "%2d μαθητές";
+$lang_p_expectedRemainingTime = " <!-- Χρόνος εκτέλεσης αυτού του μαθήματος [%01.2f s] - μέσο όρο  [%01.2f s] - σύνολο [%s] - μαθήματα που απομείναν [%d]. --><b>Αναμενόμενος χρόνος που απομένει %s</b>.";
+$lang_p_nothing_to_edit_in_S = "Τίποτα για επιμέλεια στο %s";
+$lang_p_platformManager = "Διαχειρηστής για %s";
+$lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> έχει εγγραφεί με επιτυχία στο μάθημα";
+$lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> δεν έχει εγγραφεί με επιτυχία στο μάθημα";
+$lang_p_s_s_isInvalid = "%s : %s δεν είναι έγκυρο";
+$lang_php_info = "PHP σύστημα πληροφοριών";
+$lang_remove_course_enrollment = "Αφαίρεση εγγραφης μαθηματος";
+$lang_remove_course_from_your_personnal_course_list = "Αφαίρεση του μαθήματος απο την προσωπική λίστα μαθήματος";
+$lang_rules_s_in_s = "Κανόνες : %s in %s";
+$lang_seeInTheStatusBarOfYourBrowser = "(*) δες στην γραμμη κατάστασης του browser σου.";
+$lang_select_course_in = "Επιλογή μαθήματος σε ";
+$lang_select_course_in_search_results = "Επιλογή μαθήματος στην έρευνα αποτελεσμάτων";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Η διαδικασία αναβάμισης του Claroline ολοκληρώθηκε";
+$lang_the_following_errors_were_found = "Τα ακόλουθα λάθη βρέθηκαν ";
+$lang_this_course_is_protected = "Αυτό το μάθημα προστατεύεται";
+$lang_unsubscribe = "Κατάργηση της εγγραφής/διαγραφή";
+$lang_upgradeToolCannotUpgradeThisCourse = "Το εργαλείο αναβάθμισης δεν μπορεί να αναβαθμίσει αυτό το μάθημα.  <br>
+Διόρθωσε, πρώτα, το τεχνικό πρόβλημα και ξεκίνησε πάλι το εργαλείο αναβάθμισης.";
+$lang_user_has_been_enrolled_to_the_course = "Ο χρήστης έχει εγγραφεί στο μάθημα";
+$lang_you_had_request = "Ρώτα";
+$lang_you_have_been_enrolled_to_the_course = "Έχεις εγγραφεί στο μάθημα";
+$lang_your_enrollment_to_the_course_has_been_removed = "Η εγγραφή σου στο μάθημα έχει αφαιρεθεί";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα";
+$langcatcreated = "Η νέα κατηγορία έχει δημιουργηθεί.";
+$langemptycatname = "Πρέπει να δώσεις όνομα στη νέα κατηγορία!";
+$langemptyforumname = "Πρέπει να δώσεις όνομα στο νέο σου forum!";
+$langforumcreated = "Το νέο forum έχει δημιουργηθεί.";
+$langimportLearningPath = "Εισαγωγή διαδρομής μάθησης";
 ?>
