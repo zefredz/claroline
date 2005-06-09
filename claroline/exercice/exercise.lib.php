@@ -20,9 +20,6 @@
  * shows a question and its answers
  *
  * @returns 'number of answers' if question exists, otherwise false
- *
- * @author Olivier Brouckaert <oli.brouckaert@skynet.be>
- *
  * @param integer	$questionId		ID of the question to show
  * @param boolean	$onlyAnswers	set to true to show only answers
  */
@@ -98,10 +95,54 @@ function showQuestion($questionId, $onlyAnswers=false)
 		if($answerType == FILL_IN_BLANKS)
 		{
 			// splits text and weightings that are joined with the character '::'
-			list($answer) = explode('::',$answer);
+            $explodedAnswer = explode( '::',$answer);
+            $answer = (isset($explodedAnswer[0]))?$explodedAnswer[0]:'';
+            $weighting = (isset($explodedAnswer[1]))?$explodedAnswer[1]:'';
+            $fillType = (!empty($explodedAnswer[2]))?$explodedAnswer[2]:1;
+            // default value if value is invalid
+            if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
+            $wrongAnswers = (isset($explodedAnswer[3]))?explode('[',$explodedAnswer[3]):array();
+            
+            // according to the help type replace blanks by input or select box
+            if( $fillType == LISTBOX_FILL )// listbox
+			{
+                // get the list of propositions to display (all good and wrong answers)
+				// add wrongAnswers in the list
+				$answerList = $wrongAnswers;
+				// add good answers in the list
 
-			// replaces [blank] by an input field
-			$answer = ereg_replace('\[[^]]+\]','<input type="text" name="choice['.$questionId.'][]" size="10">',claro_parse_user_text($answer));
+				// we save the answer because it will be modified
+				$temp = $answer;
+				while(1)
+				{
+					// quits the loop if there are no more blanks
+					if(($pos = strpos($temp,'[')) === false)
+					{
+						break;
+					}
+					// removes characters till '['
+					$temp = substr($temp,$pos+1);
+					// quits the loop if there are no more blanks
+					if(($pos = strpos($temp,']')) === false)
+					{
+						break;
+					}
+					// stores the found blank into the array
+					$answerList[] = substr($temp,0,$pos);
+                    // removes the character ']'
+					$temp = substr($temp,$pos+1);
+				}
+				// alphabetical sort of the array
+    			sort($answerList);
+				// replace all [blank] by a select box with all answers
+				$selectBox = build_answers_select_box($answerList,$questionId);
+                $answer = ereg_replace('\[[^]]+\]',$selectBox,claro_parse_user_text($answer));
+			}
+			else // default, fill text fields
+            {
+				// replaces all [blank] by an input field
+				$answer = ereg_replace('\[[^]]+\]','<input type="text" name="choice['.$questionId.'][]" size="10">',claro_parse_user_text($answer));
+			}
 		}
 
 		// unique answer
@@ -372,4 +413,25 @@ function display_attached_file($attachedFile)
   return $returnedString;
 }
 
+/**
+ * return html code for the select box needed in fill in blanks questions
+ *
+ * @returns string html code of the select box
+ * @param array $answerList list of answers to display in selectbox
+ * @param integer	$questionId		ID of the question to show (need to be added in selectbox)
+ */
+function build_answers_select_box($answerList, $questionId)
+{
+	$selectBox = '<select name="choice['.$questionId.'][]">'."\n"
+	            .'<option value="">&nbsp</option>';
+	
+	foreach($answerList as $answer)
+	{
+		$selectBox .= '<option value="'.$answer.'">'.$answer.'</option>'."\n";
+	}
+
+	$selectBox .= '</select>'."\n";
+
+	return $selectBox;
+}
 ?>

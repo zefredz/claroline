@@ -76,6 +76,10 @@ define('FILL_IN_BLANKS', 3);
 define('MATCHING',	 4);
 define('TRUEFALSE',	 5);
 
+// for help display in fill in blanks questions
+define('TEXTFIELD_FILL', 1);
+define('LISTBOX_FILL',	2);
+
 // allows script inclusions
 define('ALLOWED_TO_INCLUDE',1);
 

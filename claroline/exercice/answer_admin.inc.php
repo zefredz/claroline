@@ -42,6 +42,8 @@ if( isset($_REQUEST['option']) ) $option = $_REQUEST['option'];
 if( isset($_REQUEST['sel']) ) $sel = $_REQUEST['sel'];
 // for "fill in the blanks"
 if( isset($_REQUEST['blanks']) ) $blanks = $_REQUEST['blanks'];
+if( isset($_REQUEST['fillType']) ) $fillType = $_REQUEST['fillType'];
+if( isset($_REQUEST['wrongAnswers']) ) $wrongAnswers = $_REQUEST['wrongAnswers'];
 
 if( isset($_REQUEST['weighting']) ) $weighting = $_REQUEST['weighting'];
 if( isset($_REQUEST['setWeighting']) ) $setWeighting = $_REQUEST['setWeighting'];
@@ -100,7 +102,7 @@ if( isset($modifyIn) )
 		$sel = unserialize($sel);
 		$weighting = unserialize($weighting);
 	}
-	else
+	else // FILL IN BLANKS
 	{
 		$reponse = unserialize($reponse);
 		$comment = unserialize($comment);
@@ -235,6 +237,34 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 
 					$reponse = substr($reponse,0,-1);
 
+					// add help type
+					if( isset($fillType)
+						&& ($fillType == TEXTFIELD_FILL || $fillType == LISTBOX_FILL)
+					  )
+					{
+						$reponse .= '::'.$fillType;
+					}
+					else
+					{
+						// default is no help
+                        $reponse .= '::1';
+					}
+					
+					// add list of false answers
+					$reponse .= '::';
+					
+					// split wrongAnswers and build the list for db storage
+					// we have to remove blank lines
+					$wrongAnswers = explode("\n", $wrongAnswers);
+					$temp = array();
+					$charsToAvoid = array('::','[',']');
+					for( $j = 0; $j < count($wrongAnswers); $j++)
+					{
+                        if( trim($wrongAnswers[$j]) != "" )
+                            $temp[] = str_replace($charsToAvoid,'',trim($wrongAnswers[$j]));
+      				}
+     				$reponse .= implode('[',$temp);
+
 					$_SESSION['objAnswer']->createAnswer($reponse,0,'',0,'');
 					$_SESSION['objAnswer']->save();
 
@@ -358,7 +388,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 		if(empty($msgErr))
 		{
 			// checks if the question is used in several exercises
-			if($exerciseId && !$modifyIn && $_SESSION['objQuestion']->selectNbrExercises() > 1)
+			if($exerciseId && (empty($modifyIn) || !$modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 			{
 				$usedInSeveralExercises = 1;
 			}
@@ -443,19 +473,28 @@ if( isset($modifyAnswers) )
 		{
 			if( !isset($setWeighting) )
 			{
-				// $reponse is like :  [British people] live in [United Kingdom]::5,5
+    			// $reponse is like :  [British people] live in [United Kingdom]::5,5::1::French People[Belgium
 				// split it to have
 				// $reponse = [British people] live in [United Kingdom]
 				// $weighting[0] = 5; $weighting[1] = 5;
+				// $fillType = 1
+				// use '[' to split wrong answers as it is already a banned char in answers
 				$reponse = $_SESSION['objAnswer']->selectAnswer(1);
 
-				$separatorPosition = strrpos($reponse, '::');
+                $explodedResponse = explode( '::',$reponse);
+                $reponse = (isset($explodedResponse[0]))?$explodedResponse[0]:'';
+                
+                $weighting = (isset($explodedResponse[1]))?$explodedResponse[1]:'';
 
-				if( $separatorPosition !== false )  $weighting = explode(',', substr($reponse,$separatorPosition+1));
-				else                                $weighting = array();
-				
-				if( $separatorPosition !== false ) 	$reponse = substr($reponse,0,$separatorPosition-1);
-				// else $reponse = $reponse;
+                $fillType = (!empty($explodedResponse[2]))?$explodedResponse[2]:1;
+                // default value if value is invalid
+
+                if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
+
+                $wrongAnswers = (isset($explodedResponse[3]))?$explodedResponse[3]:'';
+
+				$weighting = explode(',', $weighting);
+				$wrongAnswers = str_replace('[',"\n", $wrongAnswers);
 
 				$temp = Array();
 
@@ -679,7 +718,7 @@ if( isset($modifyAnswers) )
 <input type="hidden" name="setWeighting" value="<?php if(isset($setWeighting)) echo $setWeighting; ?>">
 
 <?php
-			if(!isset($setWeighting) )
+			if(!isset($setWeighting) || !empty($msgErr))
 			{
 ?>
 
@@ -697,20 +736,25 @@ if( isset($modifyAnswers) )
 					claro_disp_message_box($msgErr);
 				}
 ?>
-<table border="0" cellpadding="5" width="500">
-<tr>
-  <td><?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?>&nbsp;:</td>
-</tr>
-<tr>
-  <td><textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea></td>
-</tr>
-<tr>
-  <td colspan="5" align="center">
+<p>
+	<?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?>&nbsp;:
+</p>
+
+<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea>
+
+<p>
+	<?php echo $langFillType; ?>:<br />
+	<input type="radio" name="fillType" id="textFill" value="<?php echo TEXTFIELD_FILL; ?>" <?php if(isset($fillType) && $fillType == TEXTFIELD_FILL) echo 'checked="checked"'; ?> /><label for="textFill"><?php echo $langFillTextField; ?></label><br />
+	<input type="radio" name="fillType" id="listboxFill" value="<?php echo LISTBOX_FILL; ?>" <?php if(isset($fillType) && $fillType == LISTBOX_FILL) echo 'checked="checked"'; ?> /><label for="listboxFill"><?php echo $langFillSelectBox; ?></label><br />
+</p>
+<p>
+	<?php echo $langAddWrongAnswers; ?><br />
+	<textarea name="wrongAnswers" cols="30" rows="6"><?php echo $wrongAnswers; ?></textarea>
+</p>
+<p>
 	<input type="submit" name="submitAnswers" value="<?php echo $langNext; ?> &gt;">
 	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
-  </td>
-</tr>
-</table>
+</p>
 
 <?php
 			}
@@ -720,6 +764,8 @@ if( isset($modifyAnswers) )
 
 <input type="hidden" name="blanks" value="<?php echo htmlentities(serialize($blanks)); ?>">
 <input type="hidden" name="reponse" value="<?php echo htmlentities($reponse); ?>">
+<input type="hidden" name="fillType" value="<?php if(isset($fillType)) echo $fillType; ?>">
+<input type="hidden" name="wrongAnswers" value="<?php if(isset($wrongAnswers)) echo htmlentities($wrongAnswers); ?>">
 
 <?php
 				// if there is an error message
@@ -728,17 +774,16 @@ if( isset($modifyAnswers) )
 					claro_disp_message_box($msgErr);
 				}
 ?>
-<table border="0" cellpadding="5" width="500">
-<tr>
-  <td colspan="2"><?php echo $langWeightingForEachBlank; ?> :</td>
-</tr>
-<tr>
-  <td colspan="2">&nbsp;</td>
-</tr>
+<p>
+<?php echo $langWeightingForEachBlank; ?> :
+</p>
 
 <?php
 				if( isset($blanks) && is_array($blanks) )
 				{
+?>
+<table border="0" cellpadding="5" width="500">
+<?php
 					foreach($blanks as $i=>$blank)
 					{
 ?>
@@ -750,20 +795,17 @@ if( isset($modifyAnswers) )
 
 <?php
 					}
+?>
+</table>
+<?php
 	    		}
 ?>
 
-<tr>
-  <td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-  <td colspan="2" align="center">
+<p>
 	<input type="submit" name="buttonBack" value="&lt; <?php echo $langBack; ?>">
 	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
 	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
-  </td>
-</tr>
-</table>
+</p>
 
 <?php
 			}
