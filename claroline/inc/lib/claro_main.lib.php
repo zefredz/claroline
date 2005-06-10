@@ -12,6 +12,8 @@
  * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
  * 
  * @author see 'credits' file
+ *
+ * @package KERNEL
  * 
  */
 //////////////////////////////////////////////////////////////////////////////
@@ -19,8 +21,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Get list of table names for central table.
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @return array list of the central claroline database    tables
+ * @return array list of the central claroline database tables
  */
 
 function claro_sql_get_main_tbl()
@@ -66,65 +69,68 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 {
     global $_course;
     static $courseTblList = array();
-    static $courseDb      = null;
+    static $courseDbInCache = null;
 
     if ( is_null($dbNameGlued) )
     { 
-        $forceTableSet = (bool) ( $courseDb != $_course['dbNameGlu'] );
-        $courseDb      = $_course['dbNameGlu'];
+
+        $forceTableSet   = (bool) ( $courseDbInCache != $_course['dbNameGlu'] );
+        $courseDbInCache = $_course['dbNameGlu'];
     }
     else
     {
-        $forceTableSet = (bool) ( $courseDb != $dbNameGlued );
-        $courseDb      = $dbNameGlued;
+
+        $forceTableSet   = (bool) ( $courseDbInCache != $dbNameGlued );
+        $courseDbInCache = $dbNameGlued;
     }
 
     if ( count($courseTblList) == 0 || $forceTableSet )
     {
+
         $courseTblList = array(
 
-              'announcement'           => $courseDb.'announcement',
-              'bb_categories'          => $courseDb.'bb_categories',
-              'bb_forums'              => $courseDb.'bb_forums',
-              'bb_posts'               => $courseDb.'bb_posts',
-              'bb_posts_text'          => $courseDb.'bb_posts_text',
-              'bb_priv_msgs'           => $courseDb.'bb_priv_msgs',
+              'announcement'           => $courseDbInCache . 'announcement',
+              'bb_categories'          => $courseDbInCache . 'bb_categories',
+              'bb_forums'              => $courseDbInCache . 'bb_forums',
+              'bb_posts'               => $courseDbInCache . 'bb_posts',
+              'bb_posts_text'          => $courseDbInCache . 'bb_posts_text',
+              'bb_priv_msgs'           => $courseDbInCache . 'bb_priv_msgs',
               'bb_rel_topic_userstonotify'
-                            => $courseDb.'bb_rel_topic_userstonotify',
-              'bb_topics'              => $courseDb.'bb_topics',
-              'bb_users'               => $courseDb.'bb_users',
-              'bb_whosonline'          => $courseDb.'bb_whosonline',
+                            => $courseDbInCache . 'bb_rel_topic_userstonotify',
+              'bb_topics'              => $courseDbInCache . 'bb_topics',
+              'bb_users'               => $courseDbInCache . 'bb_users',
+              'bb_whosonline'          => $courseDbInCache . 'bb_whosonline', 
 
-              'calendar_event'         => $courseDb.'calendar_event',
-              'course_description'     => $courseDb.'course_description',
-              'document'               => $courseDb.'document',
-              'group_property'         => $courseDb.'group_property',
-              'group_rel_team_user'    => $courseDb.'group_rel_team_user',
-              'group_team'             => $courseDb.'group_team',
-              'lp_learnPath'           => $courseDb.'lp_learnPath',
-              'lp_rel_learnPath_module'=> $courseDb.'lp_rel_learnPath_module',
-              'lp_user_module_progress'=> $courseDb.'lp_user_module_progress',
-              'lp_module'              => $courseDb.'lp_module',
-              'lp_asset'               => $courseDb.'lp_asset',
-              'quiz_answer'            => $courseDb.'quiz_answer',
-              'quiz_question'          => $courseDb.'quiz_question',
-              'quiz_rel_test_question' => $courseDb.'quiz_rel_test_question',
-              'quiz_test'              => $courseDb.'quiz_test' ,
-              'tool_intro'             => $courseDb.'tool_intro',
-              'tool'                   => $courseDb.'tool_list',
-              'track_e_access'         => $courseDb.'track_e_access',
-              'track_e_downloads'      => $courseDb.'track_e_downloads',
-			  'track_e_exe_details'    => $courseDb.'track_e_exe_details',
-			  'track_e_exe_answers'    => $courseDb.'track_e_exe_answers',
-              'track_e_exercices'      => $courseDb.'track_e_exercices',
-              'track_e_uploads'        => $courseDb.'track_e_uploads',
-              'userinfo_content'       => $courseDb.'userinfo_content',
-              'userinfo_def'           => $courseDb.'userinfo_def',
-              'wrk_assignment'         => $courseDb.'wrk_assignment',
-              'wrk_submission'         => $courseDb.'wrk_submission',
-              'links'                  => $courseDb.'lnk_links',
-              'resources'              => $courseDb.'lnk_resources'              
-
+              'calendar_event'         => $courseDbInCache . 'calendar_event',
+              'course_description'     => $courseDbInCache . 'course_description',
+              'document'               => $courseDbInCache . 'document',
+              'group_property'         => $courseDbInCache . 'group_property',
+              'group_rel_team_user'    => $courseDbInCache . 'group_rel_team_user',
+              'group_team'             => $courseDbInCache . 'group_team',
+              'lp_learnPath'           => $courseDbInCache . 'lp_learnPath',
+              'lp_rel_learnPath_module'=> $courseDbInCache . 'lp_rel_learnPath_module',
+              'lp_user_module_progress'=> $courseDbInCache . 'lp_user_module_progress',
+              'lp_module'              => $courseDbInCache . 'lp_module',
+              'lp_asset'               => $courseDbInCache . 'lp_asset',
+              'quiz_answer'            => $courseDbInCache . 'quiz_answer',
+              'quiz_question'          => $courseDbInCache . 'quiz_question',
+              'quiz_rel_test_question' => $courseDbInCache . 'quiz_rel_test_question',
+              'quiz_test'              => $courseDbInCache . 'quiz_test' ,
+              'tool_intro'             => $courseDbInCache . 'tool_intro',
+              'tool'                   => $courseDbInCache . 'tool_list',
+              'track_e_access'         => $courseDbInCache . 'track_e_access',
+              'track_e_downloads'      => $courseDbInCache . 'track_e_downloads',
+			  'track_e_exe_details'    => $courseDbInCache . 'track_e_exe_details',
+			  'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
+              'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
+              'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
+              'userinfo_content'       => $courseDbInCache . 'userinfo_content',
+              'userinfo_def'           => $courseDbInCache . 'userinfo_def',
+              'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
+              'wrk_submission'         => $courseDbInCache . 'wrk_submission',
+              'links'                  => $courseDbInCache . 'lnk_links',
+              'resources'              => $courseDbInCache . 'lnk_resources'              
+ 
               ); // end array
 
     } // end if ( count($course_tbl) == 0 )
@@ -143,60 +149,50 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 
 function claro_get_course_data($course_id = NULL)
 {
-    global $_cid, $_course,$courseTablePrefix , $dbGlu; 
-    static $_courseDatas ;
-    static $cachedCid = null;
+    global $_cid, $_course, $courseTablePrefix , $dbGlu; 
+    static $courseDataInCache='';
+    static $_courseDatas = array();
     if ( is_null($course_id) )
     { 
         $course_id = $_cid;
         $_courseDatas  = $_course;
+        $courseDataInCache = $_cid;
     }
-    elseif ($cachedCid!=$course_id) 
-        unset($_courseDatas);
-    
-    if ( !isset($_courseDatas) )
+    else 
     {
-        $cachedCid = $course_id;
-        $tbl_mdb_names =  claro_sql_get_main_tbl();
-        $sql =  "SELECT 
-                 
-                `c`.`code` `sysCode`, 
-                `c`.`intitule`  `name`, 
-                `c`.`fake_code` `officialCode`, 
-                `c`.`directory` `path`, 
-                `c`.`dbName` `dbName`, 
-#                concat('".$courseTablePrefix."',
-#                        `c`.`dbName` ,
-#                        '".$dbGlu."'
-#                      ) `dbNameGlu`, 
-                `c`.`titulaires` `titular`, 
-                `c`.`email` , 
-                `c`.`languageCourse` `language`, 
-                `c`.`departmentUrl` `extLinkUrl`, 
-                `c`.`departmentUrlName` `extLinkName`, 
-                `c`.`visible` `visible`,
-                `cat`.`code` `categoryCode`, 
-                `cat`.`name` `categoryName`,
-                `c`.`diskQuota` `diskQuota`
-#               `c`.`versionDb`,
-#               `c`.`versionClaro`,
-#               `c`.`lastVisit`, 
-#               `c`.`lastEdit`, 
-#               `c`.`creationDate`,
-#               `c`.`expirationDate`,
-         FROM `".$tbl_mdb_names['course']."` `c`
-         LEFT JOIN `".$tbl_mdb_names['category']."` `cat`
-         ON `c`.`faculte` =  `cat`.`code`
-         WHERE `c`.`code` = '" . $course_id . "'";
-
-        if($_courseDatas = claro_sql_query_fetch_all($sql))
+        if($courseDataInCache != $course_id)
         {
+            $tbl_mdb_names =  claro_sql_get_main_tbl();
+            $sql =  "SELECT 
+                     
+                    `c`.`code` `sysCode`, 
+                    `c`.`intitule`  `name`, 
+                    `c`.`fake_code` `officialCode`, 
+                    `c`.`directory` `path`, 
+                    `c`.`dbName` `dbName`, 
+                    `c`.`titulaires` `titular`, 
+                    `c`.`email` , 
+                    `c`.`languageCourse` `language`, 
+                    `c`.`departmentUrl` `extLinkUrl`, 
+                    `c`.`departmentUrlName` `extLinkName`, 
+                    `c`.`visible` `visible`,
+                    `cat`.`code` `categoryCode`, 
+                    `cat`.`name` `categoryName`,
+                    `c`.`diskQuota` `diskQuota`
+             FROM `" . $tbl_mdb_names['course'] . "` `c`
+             LEFT JOIN `" . $tbl_mdb_names['category'] . "` `cat`
+             ON `c`.`faculte` =  `cat`.`code`
+             WHERE `c`.`code` = '" . $course_id . "'";
+            $_courseDatas = claro_sql_query_fetch_all($sql);
             $_courseDatas = $_courseDatas[0];
+            $courseDataInCache = $course_id;
             $_courseDatas['visibility'  ]         = (bool) ($_courseDatas['visible'] == 2 || $_courseDatas['visible'] == 3);
             $_courseDatas['registrationAllowed']  = (bool) ($_courseDatas['visible'] == 1 || $_courseDatas['visible'] == 2);
             $_courseDatas['dbNameGlu'] = $courseTablePrefix . $_courseDatas['dbName'] . $dbGlu; // use in all queries
             $_courseDatas['extLink']['name'] = $_courseDatas['extLinkName'];
             $_courseDatas['extLink']['url']  = $_courseDatas['extLinkUrl'];
+
+            echo 'sql';
         }
         
     } // end if ( count($course_tbl) == 0 )
@@ -231,6 +227,7 @@ function claro_get_course_db_name($cid=NULL)
 function claro_get_course_db_name_glued($cid=NULL) 
 {
     $k = claro_get_course_data($cid); 
+    
     if (isset($k['dbNameGlu'])) return $k['dbNameGlu'];
     else                        return NULL;
 }
@@ -656,6 +653,7 @@ function claro_disp_tool_title($titleElement, $helpUrl = false)
  * @see claro_set_display_mode_available()
  * @see claro_get_tool_view_mode()
  * @see claro_set_tool_view_mode()
+ * @return true;
  */
 
 
@@ -722,18 +720,32 @@ function claro_disp_tool_view_option($viewModeRequested = false)
         .$studentButton
         ." | "
         .$courseAdminButton;
+        
+    return true;
 }
 
 
-
+/**
+ * Set if  the  access level switcher is aivailable
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @global $claro_toolViewOptionEnabled;
+ * @return true
+ */
 
 function claro_enable_tool_view_option()
 {
     global $claro_toolViewOptionEnabled;
     $claro_toolViewOptionEnabled = true;
+    return true;
 }
 
 
+/**
+ * Set if  the  access level switcher is aivailable
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  $viewMode 'STUDENT' or 'COURSE_ADMIN'
+ * @return true if set succeed.
+ */
 
 function claro_set_tool_view_mode($viewMode)
 {
@@ -754,7 +766,6 @@ function claro_set_tool_view_mode($viewMode)
  * return the current mode in tool able to handle different view mode
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param void
  * @return string 'COURSE_ADMIN' or 'STUDENT'
  */
 
@@ -891,7 +902,7 @@ function claro_disp_auth_form()
             $lang_footer_p_CourseManager,  $lang_p_platformManager, $administrator_name,
             $langPoweredBy, $claro_banner, $text_dir, $allowSelfReg;
 
-    include($includePath.'/claro_init_header.inc.php');
+    include($includePath . '/claro_init_header.inc.php');
 
     if ( ! $is_courseAllowed )
     {
@@ -899,21 +910,20 @@ function claro_disp_auth_form()
         if( ! $_uid && ! $_course['visibility'])
         {
             echo '<p align="center>">'
-                .$lang_this_course_is_protected.'<br>'
-                .$lang_enter_your_user_name_and_password
-                .'</p>';
+            .    $lang_this_course_is_protected.'<br>'
+            .    $lang_enter_your_user_name_and_password
+            .    '</p>'
+            .   '<table align="center">'."\n"
+            .   '<tr>'
+            .   '<td>'
+            .   '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
 
-            echo '<table align="center">'."\n"
-                .'<tr>'
-                .'<td>'
-                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+            .   '<fieldset>'."\n"
 
-                .'<fieldset>'."\n"
+            .   '<legend>' . $langLogin . '</legend>'."\n"
 
-                .'<legend>'.$langLogin.'</legend>'."\n"
-
-                .'<label for="username">'.$langUserName.' : </label><br>'."\n"
-                .'<input type="text" name="login" id="username"><br>'."\n"
+            .   '<label for="username">' . $langUserName . ' : </label><br>' . "\n"
+            .   '<input type="text" name="login" id="username"><br>' . "\n"
 
                 .'<label for="password">'.$langPassword.' : </label><br>'."\n"
                 .'<input type="password" name="password" id="password"><br>'."\n"
@@ -935,12 +945,12 @@ function claro_disp_auth_form()
             {
 
                 echo '<p>'."\n"
-                    .$lang_if_you_dont_have_a_user_account_profile_on.' '.$siteName
-                    .'&nbsp;' . '<a href="'.$clarolineRepositoryWeb.'auth/inscription.php">'
-                    .$lang_click_here
-                    .'</a>'."\n"
-                    .'</p>'."\n"
-                    ;
+                .    $lang_if_you_dont_have_a_user_account_profile_on . ' ' . $siteName
+                .    '&nbsp;' . '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
+                .    $lang_click_here
+                .    '</a>' . "\n"
+                .    '</p>' . "\n"
+                ;
             }
         } // end if ! $uid && ! $course['visibility']
 
@@ -975,7 +985,7 @@ function claro_disp_auth_form()
             echo '<p>' . $langNotAllowed . '</p>';
         }
 
-        include($includePath.'/claro_init_footer.inc.php');
+        include($includePath . '/claro_init_footer.inc.php');
 
         die('');
     }
@@ -983,11 +993,11 @@ function claro_disp_auth_form()
 
 
 /**
-    Display selectbox for select a course
-
-    @author    Christophe gesché <moosh@claroline.net>
-    @version 0.1
-*/
+ *    Display selectbox for select a course
+ *
+ *  @author    Christophe gesché <moosh@claroline.net>
+ *  @version 0.1
+ */
 
 function claro_disp_select_course()
 {
@@ -998,8 +1008,8 @@ function claro_disp_select_course()
             ;
 
     $mainTbl = claro_sql_get_main_tbl();
-    $tbl_courses            = $mainTbl['course'];
-    $tbl_rel_user_courses   = $mainTbl['rel_course_user'];
+    $tbl_courses          = $mainTbl['course'];
+    $tbl_rel_user_courses = $mainTbl['rel_course_user'];
     if ( ! $_cid)
     {
         /*
