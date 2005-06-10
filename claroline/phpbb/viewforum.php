@@ -92,7 +92,7 @@ $forumSettingList = get_forum_settings($forum_id);
 
 if ( $forumSettingList )
 {
-    $forum_name   = own_stripslashes($forumSettingList['forum_name']);
+    $forum_name   =$forumSettingList['forum_name'];
     $forum_cat_id = $forumSettingList['cat_id'];
     
     /* 
@@ -127,7 +127,7 @@ if ( $forumSettingList )
                          FROM  `".$tbl_student_group."` s, `".$tbl_user_group."` u
                          WHERE u.user=\"".$_uid."\"
                          AND   s.id = u.team";
-    
+
         $findTeamUser = claro_sql_query($sqlFindTeamUser);
 
         $myTeam = $myGroupForum = $myTutor = $secretDirectory = '';
@@ -138,7 +138,7 @@ if ( $forumSettingList )
         	$myGroupForum    = $myTeamUser['forumId'];
     	    $myTutor         = $myTeamUser['tutor'  ];
         }
-    }   
+    }
 }
 else
 {
@@ -250,7 +250,7 @@ else
             echo '<td>'
                 .'<img src="' . $image . '" alt="' . $alt . '">';
     
-            $topic_title = own_stripslashes($thisTopic['topic_title']);
+            $topic_title = $thisTopic['topic_title'];
             $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id'];
     
             echo '&nbsp;'

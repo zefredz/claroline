@@ -113,17 +113,19 @@ if ( !empty($_uid) )
 {
     // Get the id of groups'forum where the user have access.
 
+    get_group_list_from_uid($_uid);
+
     $sql = "SELECT `g`.`forumId` as `forum_id`
             FROM `" . $tbl_student_group . "` `g`,
                  `" . $tbl_user_group . "` `gu`
             WHERE `g`.`id`    = `gu`.`team`
-              AND `gu`.`user` = '".$_uid."'";
+              AND `gu`.`user` = '".(int)$_uid."'";
 
     $userGroupList = claro_sql_query_fetch_all_cols($sql);
     $userGroupList = $userGroupList['forum_id'];
 
     // Get the id of groups'forum where the user is tutor.
-
+    // get_group_list_from_tutor_uid() ?
     $sql = "SELECT `forumId` `forum_id`, `id` `group_id` 
             FROM `" . $tbl_student_group . "`
             WHERE tutor = '" . $_uid . "'";

@@ -49,29 +49,16 @@ include $includePath . '/lib/forum.lib.php';
   DB table names
  -----------------------------------------------------------------*/
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_cdb_names = claro_sql_get_course_tbl();
-
-$tbl_forums           = $tbl_cdb_names['bb_forums'];
 $tbl_topics           = $tbl_cdb_names['bb_topics'];
-
-$tbl_posts            = $tbl_cdb_names['bb_posts'];
-$tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
-
-$tbl_group_properties = $tbl_cdb_names['group_property'];
-$tbl_student_group	  = $tbl_cdb_names['group_team'];
-$tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
-$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
-$tbl_group_properties = $tbl_cdb_names['group_property'];
-$tbl_user_notify      = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
 /*-----------------------------------------------------------------
   Initialise variables
  -----------------------------------------------------------------*/
 
-$last_visit = $_user['lastLogin'];
-$error = FALSE;
-$allowed = TRUE;
+$last_visit    = $_user['lastLogin'];
+$error         = FALSE;
+$allowed       = TRUE;
 $error_message = '';
 
 /*=================================================================
@@ -93,13 +80,13 @@ $topicSettingList = get_topic_settings($topic_id);
 
 if ($topicSettingList)
 {
-    $topic_subject    = own_stripslashes($topicSettingList['topic_title']);
+    $topic_subject    = $topicSettingList['topic_title' ];
     $lock_state       = $topicSettingList['topic_status'];
     $forum_id         = $topicSettingList['forum_id'    ];
 
 	$forumSettingList = get_forum_settings($forum_id);
-	$forum_name       = own_stripslashes($forumSettingList['forum_name']);
-    $forum_cat_id     = $forumSettingList['cat_id'];
+	$forum_name       = $forumSettingList['forum_name'];
+    $forum_cat_id     = $forumSettingList['cat_id'    ];
 	
 	/* 
 	 * Check if the topic isn't attached to a group,  or -- if it is attached --, 
@@ -249,7 +236,7 @@ else
 	        .' <tr>' . "\n"
 	
 	        .'  <td>' . "\n"
-	        .claro_parse_user_text(own_stripslashes($thisPost['post_text'])) . "\n";
+	        .claro_parse_user_text($thisPost['post_text']) . "\n";
 	
 	    if ( $is_allowedToEdit )
 	    {
