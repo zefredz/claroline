@@ -13,9 +13,11 @@
 
 require '../inc/claro_init_global.inc.php';
 include $includePath."/lib/admin.lib.inc.php";
+include $includePath."/lib/class.lib.php";
 include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 
 define('DISP_RESULT',__LINE__);
+
 //SECURITY CHECK
 
 if (!$is_platformAdmin) claro_disp_auth_form();
@@ -94,36 +96,4 @@ claro_disp_button($clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=
 // display footer
 
 include($includePath."/claro_init_footer.inc.php");
-
-function register_class_to_course($class_id, $course_code) 
-{
-    global $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname;
-    $tbl_mdb_names  = claro_sql_get_main_tbl();
-    $tbl_user       = $tbl_mdb_names['user'];
-    $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
-    //get the list of users in this class 
-    
-    $sql = "SELECT * FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u` 
-                    WHERE `class_id`='".$class_id."' 
-               AND `rel_c_u`.`user_id` = `u`.`user_id`";
-    $result = claro_sql_query_fetch_all($sql);
-    
-    //subscribe the users each by each
-    
-    $resultLog .= "";
-    
-    foreach ($result as $user)
-    {
-        $done = add_user_to_course($user['user_id'], $course_code); 
-        if ($done)
-        {
-            $resultLog['OK'][] = $user;
-        }
-        else
-        {
-            $resultLog['KO'][] = $user;
-        } 
-    }
-    return $resultLog;
-}
 ?>

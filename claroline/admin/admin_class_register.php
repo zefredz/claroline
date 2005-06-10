@@ -15,6 +15,7 @@
 
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/class.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 
 

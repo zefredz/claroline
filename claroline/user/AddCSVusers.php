@@ -18,6 +18,7 @@
 require '../inc/claro_init_global.inc.php';
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/import_csv.lib.php");
 
 /*
  * DB tables definition
