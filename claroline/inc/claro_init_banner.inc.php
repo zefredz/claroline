@@ -242,12 +242,11 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
 	    {
     		claro_disp_tool_view_option();
     	}
-	    echo '</div>'                                       ."\n";
+	    echo "\n".'</div>'                                       ."\n";
     }
 
     echo '<div class="spacer"></div>'                       ."\n"
-        .'<hr />'                                           ."\n"
-        .'</div>'                                           ."\n";
+        .'<hr />'                                           ."\n";
 
 } // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
 else
