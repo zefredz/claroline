@@ -216,8 +216,6 @@ function prepare_course_repository($courseRepository, $courseId)
     }
     if (is_writable($coursesRepositorySys))
     {
-        umask(0);
-
         /*
             here would come new section of code to
             read in tools table witch directories to create
