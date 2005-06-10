@@ -53,16 +53,16 @@ if ($is_allowedToEdit)
 {
 	$display = WHAT_YOU_WANT_TO_DO;
 
-	if (isset($HTTP_GET_VARS["addLoginPass"]))
+	if (isset($_REQUEST["addLoginPass"]))
 	{
 		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langAddLoginPass;
 		$display = ADD_LOGIN_PASS;
 	}
-	elseif (isset($HTTP_GET_VARS["giveAdminRight"]))
+	elseif (isset($_REQUEST["giveAdminRight"]))
 	{
 		$display = USER_SELECT_FORM;
-		if (isset($HTTP_GET_VARS["listAllUsers"]))
+		if (isset($_REQUEST["listAllUsers"]))
 		{
 //	$sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM  `".$tbl_user."` `user` ORDER BY UPPER(nom), UPPER(prenom) ";
 			$sqlGetListUser = "
@@ -85,7 +85,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		
 		if (mysql_num_rows($resListOfUsers)==0)
 		{
-			if (isset($HTTP_GET_VARS["listAllUsers"]))
+			if (isset($_REQUEST["listAllUsers"]))
 			{
 			    $controlMsg["warning"][]="There is no user wich can be set as admin";
 				$display = WHAT_YOU_WANT_TO_DO;
@@ -103,7 +103,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 			$nameTools = $langGiveAdminRight;
 		}
 	}
-	elseif (isset($HTTP_GET_VARS["listAdmins"]))
+	elseif (isset($_REQUEST["listAdmins"]))
 	{
 		$display = LIST_ADMINS;
 		$sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM `".$tbl_user."` u, `".$tbl_admin."` a WHERE u.user_id = a.idUSer ";
@@ -111,7 +111,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langListAdmin;
 	}
-	elseif (isset($HTTP_GET_VARS["listHtLogins"]))
+	elseif (isset($_REQUEST["listHtLogins"]))
 	{
 		$display = LIST_HT_LOGIN;
 		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
@@ -129,7 +129,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langGiveAdminRight;
 	}
-	elseif (isset($HTTP_GET_VARS["uidToSetNotAdmin"]))
+	elseif (isset($_REQUEST["uidToSetNotAdmin"]))
 	{
 		if(!isset($_uid))
 		{
@@ -137,18 +137,18 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		}
 		else
 		{
-			$sqlDelAdminUser = "Delete From `".$tbl_admin."`  `user`  Where NOT (`idUser` = '".$_uid."') AND `idUser` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."'";
+			$sqlDelAdminUser = "Delete From `".$tbl_admin."`  `user`  Where NOT (`idUser` = '".$_uid."') AND `idUser` = '".$_REQUEST["uidToSetNotAdmin"]."'";
 	  		claro_sql_query($sqlDelAdminUser) or die("Erreur sqlDelAdminUser ".$sqlDelAdminUser);
-			$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user`  WHERE `user_id` = '".$HTTP_GET_VARS["uidToSetNotAdmin"]."';";
+			$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user`  WHERE `user_id` = '".$_REQUEST["uidToSetNotAdmin"]."';";
 	  		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 			$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 			$controlMsg["warning"][]= "ok : Now, <strong>".$user["prenom"]." ".$user["nom"]."</strong> is no more admin for ".$siteName." but you must remove your self login-pass in .htaccess ";
 		}
 	}
-	elseif (isset($HTTP_GET_VARS["addLoginPassFromClaroUser"]))
+	elseif (isset($_REQUEST["addLoginPassFromClaroUser"]))
 	{
 		$display = FINAL_MESSAGE;
-		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user`  WHERE `user_id` = '".$HTTP_GET_VARS["addLoginPassFromClaroUser"]."';";
+		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user`  WHERE `user_id` = '".$_REQUEST["addLoginPassFromClaroUser"]."';";
   		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 		if ($user["username"]!="" || $user["password"]!="")
