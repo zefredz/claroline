@@ -170,28 +170,6 @@ function sync($id, $type)
 }
 
 /**
- * Less agressive version of stripslashes. Only replaces \\ \' and \"
- * The PHP stripslashes() also removed single backslashes from the string.
- * Expects a string or array as an argument.
- * Returns the result.
- */
-
-function own_stripslashes($string)
-{
-	$find = array(
-			'/\\\\\'/',  // \\\'
-			'/\\\\/',    // \\
-				'/\\\'/',    // \'
-			'/\\\"/');   // \"
-	$replace = array(
-			'\'',   // \
-			'\\',   // \
-			'\'',   // '
-			'"');   // "
-	return preg_replace($find, $replace, $string);
-}
-
-/**
  * Convert a SQL date or datetime to a unix time stamp
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -1368,6 +1346,22 @@ function move_down_category($cat_id)
     }
 
     return true;
+}
+
+
+function get_group_list_from_uid($uid)
+{
+    $tbl_cdb_names     = claro_sql_get_course_tbl();
+    $tbl_student_group = $tbl_cdb_names['group_team'         ];
+    $tbl_user_group    = $tbl_cdb_names['group_rel_team_user'];
+
+    $sql = "SELECT `g`.`forumId` AS `forum_id`
+            FROM `" . $tbl_student_group . "` `g`,
+                 `" . $tbl_user_group    . "` `gu`
+            WHERE `g`.`id`    = `gu`.`team`
+              AND `gu`.`user` = '".(int)$uid."'";
+
+    return claro_sql_query_fetch_all_cols($sql);
 }
 
 ?>

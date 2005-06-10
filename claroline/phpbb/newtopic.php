@@ -216,8 +216,8 @@ else
 	     . '<tr  valign="top">' . "\n" 
          . '<td align="right"><br />' . $l_body . ' :</td>'; 
 
-		if ( !empty($message) ) $content = htmlspecialchars($message);
-	    else                    $content = '';
+        if ( !empty($message) ) $content = htmlspecialchars($message);
+        else                    $content = '';
         
         echo '<td>';
 	    
