@@ -97,7 +97,7 @@ $total_categories = count($categories);
 
 // Get forums data
 
-$sql = "SELECT f.*, u.username, u.user_id, p.post_time, g.id gid
+$sql = "SELECT f.*, u.username, u.user_id, p.post_time, g.id group_id
         FROM `" . $tbl_forums . "` f
         LEFT JOIN `" . $tbl_posts . "` p 
                ON p.post_id = f.forum_last_post_id
@@ -111,26 +111,8 @@ $forum_list = claro_sql_query_fetch_all($sql);
 
 if ( !empty($_uid) )
 {
-    // Get the id of groups'forum where the user have access.
-
-    get_group_list_from_uid($_uid);
-
-    $sql = "SELECT `g`.`forumId` as `forum_id`
-            FROM `" . $tbl_student_group . "` `g`,
-                 `" . $tbl_user_group . "` `gu`
-            WHERE `g`.`id`    = `gu`.`team`
-              AND `gu`.`user` = '".(int)$_uid."'";
-
-    $userGroupList = claro_sql_query_fetch_all_cols($sql);
-    $userGroupList = $userGroupList['forum_id'];
-
-    // Get the id of groups'forum where the user is tutor.
-    // get_group_list_from_tutor_uid() ?
-    $sql = "SELECT `forumId` `forum_id`, `id` `group_id` 
-            FROM `" . $tbl_student_group . "`
-            WHERE tutor = '" . $_uid . "'";
-
-    $tutorGroupList = claro_sql_query_fetch_all_cols($sql);
+    $userGroupList  = get_user_group_list($_uid);
+    $tutorGroupList = get_tutor_group_list($_uid);
 }
 
 /*=================================================================
@@ -187,9 +169,10 @@ foreach ( $categories as $this_category )
     {
         if ( $this_forum['cat_id'] == $this_category['cat_id'] )
         {
-            $forum_name   = htmlspecialchars(stripslashes($this_forum['forum_name']));
-            $forum_desc   = htmlspecialchars(stripslashes($this_forum['forum_desc']));
+            $forum_name   = htmlspecialchars($this_forum['forum_name']);
+            $forum_desc   = htmlspecialchars($this_forum['forum_desc']);
             $forum_id     = $this_forum['forum_id'    ];
+            $group_id     = $this_forum['group_id'    ];
             $total_topics = $this_forum['forum_topics'];
             $total_posts  = $this_forum['forum_posts' ];
             $last_post    = $this_forum['post_time'   ];
@@ -215,8 +198,8 @@ foreach ( $categories as $this_category )
 
             if ( $this_category['cat_id'] == 1 )
             {
-                if (   ( isset($userGroupList) && in_array($forum_id, $userGroupList) )
-                    || ( isset($tutorGroupList['forum_id']) && in_array($forum_id, $tutorGroupList['forum_id']) )
+                if (   in_array($group_id, $userGroupList ) 
+                    || in_array($group_id, $tutorGroupList)
                     || $is_forumAdmin
                     || ( isset($is_groupPrivate) && ! $is_groupPrivate)
                    )
@@ -226,12 +209,12 @@ foreach ( $categories as $this_category )
                         .$forum_name
                         .'</a>' ;
 
-                    if ( in_array($forum_id, $tutorGroupList['forum_id']) )
+                    if ( in_array($group_id, $tutorGroupList) )
                     {
                         echo '&nbsp;<small>(' . $langOneMyGroups . ')</small>';
                     }
 
-                    if ( in_array($forum_id, $userGroupList) )
+                    if ( in_array($group_id, $userGroupList) )
                     {
                         echo '&nbsp;<small>(' . $langMyGroup . ')</small>';
                     }

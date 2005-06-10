@@ -172,17 +172,16 @@ else
                         //  is added to give admin status to tutor 
                         // && !$is_courseAdmin)
                         // is added  to let course admin, tutor of current group, use student mode
-    
+
     claro_disp_tool_title($langForums, 
                           $is_allowedToEdit ? 'help_forum.php' : false);
-    
-    
+
     // Show Group Documents and Group Space
     // only if in Category 2 = Group Forums Category
     
     if ( $forum_cat_id == 1 && $forum_id == $myGroupForum )
     {
-    	// group space links
+        // group space links
         disp_forum_group_toolbar($_gid);
     }
     
@@ -225,7 +224,7 @@ else
             $last_post_time = $thisTopic['post_time'    ];
             $last_post      = $thisTopic['post_time'    ];
     
-            if ( empty($last_post_time) ) 
+            if ( empty($last_post_time) )
             {
                 $last_post_time = datetime_to_timestamp($topic_time);
             }

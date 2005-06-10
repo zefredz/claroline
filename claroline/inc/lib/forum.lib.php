@@ -1349,19 +1349,35 @@ function move_down_category($cat_id)
 }
 
 
-function get_group_list_from_uid($uid)
+function get_user_group_list($uid)
 {
     $tbl_cdb_names     = claro_sql_get_course_tbl();
     $tbl_student_group = $tbl_cdb_names['group_team'         ];
     $tbl_user_group    = $tbl_cdb_names['group_rel_team_user'];
 
-    $sql = "SELECT `g`.`forumId` AS `forum_id`
+    $sql = "SELECT `g`.`id` `group_id` 
             FROM `" . $tbl_student_group . "` `g`,
                  `" . $tbl_user_group    . "` `gu`
             WHERE `g`.`id`    = `gu`.`team`
               AND `gu`.`user` = '".(int)$uid."'";
 
-    return claro_sql_query_fetch_all_cols($sql);
+    $groupList = claro_sql_query_fetch_all_cols($sql);
+    $groupList = $groupList['group_id'];
+    return $groupList;
+}
+
+function get_tutor_group_list($uid)
+{
+    $tbl_cdb_names     = claro_sql_get_course_tbl();
+    $tbl_student_group = $tbl_cdb_names['group_team'];
+
+    $sql = "SELECT `id` `group_id` 
+            FROM `" . $tbl_student_group . "`
+            WHERE tutor = '" . $uid . "'";
+
+    $groupList = claro_sql_query_fetch_all_cols($sql);
+    $groupList = $groupList['group_id'];
+    return $groupList;
 }
 
 ?>
