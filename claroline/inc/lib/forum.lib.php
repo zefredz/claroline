@@ -1012,7 +1012,7 @@ function delete_all_post_in_forum($forumId)
             WHERE forum_id = ".(int) $forumId;
 
     $topicIdList = claro_sql_query_fetch_all_cols($sql);
-    $topicIdList = $postIdList['topic_id'];
+    $topicIdList = $topicIdList['topic_id'];
 
     if ( count($topicIdList) > 0)
     {
