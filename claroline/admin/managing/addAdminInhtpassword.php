@@ -117,11 +117,11 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 		$interbredcrump[]= array ("url"=>$_SERVER['PHP_SELF'], "name"=> $langNomPageAddHtPass);
 		$nameTools = $langListHtUsers;
 	}
-	elseif (isset($HTTP_POST_VARS["uidToSetAdmin"]))
+	elseif (isset($_REQUEST["uidToSetAdmin"]))
 	{
-		$sqlSetAdminUser = "Insert IGNORE INTO  `".$tbl_admin."` SET `idUser` = '".$HTTP_POST_VARS["uidToSetAdmin"]."'";
+		$sqlSetAdminUser = "Insert IGNORE INTO  `".$tbl_admin."` SET `idUser` = '".$_REQUEST["uidToSetAdmin"]."'";
   		claro_sql_query($sqlSetAdminUser) or die("Erreur sqlSetAdminUser ".$sqlSetAdminUser);
-		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user` WHERE `user_id` = '".$HTTP_POST_VARS["uidToSetAdmin"]."';";
+		$sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user` WHERE `user_id` = '".$_REQUEST["uidToSetAdmin"]."';";
   		$resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
 		$user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
 	    $controlMsg["success"][]= "ok : Now, add a login-pass for <strong>".$user["prenom"]." ".$user["nom"]."</strong> in .htaccess and  give it to the user by secure way";
@@ -169,7 +169,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
 			$controlMsg["error"][]= $user["prenom"]." ".$user["nom"]." have username or password empty";
 		}
 	}
-	elseif (isset($HTTP_POST_VARS["crypt"]))
+	elseif (isset($_REQUEST["crypt"]))
 	{
 		if ($encodeLogin!="" || $encodePass!="")
 		{
@@ -239,7 +239,7 @@ elseif ($display == AFTER_ADD_ADMIN)
 	<UL>
 		<LI>
 			<strong>
-				<a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPassFromClaroUser=<?php echo $HTTP_POST_VARS["uidToSetAdmin"] ?>"><?php echo $langAddLoginPassForThisUser; ?></a> (<?php echo $user["prenom"]." ".$user["nom"]; ?>)
+				<a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPassFromClaroUser=<?php echo $_REQUEST["uidToSetAdmin"] ?>"><?php echo $langAddLoginPassForThisUser; ?></a> (<?php echo $user["prenom"]." ".$user["nom"]; ?>)
 			</strong>
 		</LI>
 	</UL>
