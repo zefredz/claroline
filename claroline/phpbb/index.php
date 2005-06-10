@@ -46,38 +46,38 @@ event_access_tool($_tid, $_courseTool['label']);
 include $includePath . '/lib/forum.lib.php';
 
 /*-----------------------------------------------------------------
-  DB table names
- -----------------------------------------------------------------*/
-
-if ( isset($_REQUEST['cmd']) )
-{
-    $cmd = $_REQUEST['cmd'];
-
-    if ($cmd = "emptyForum" && isset($_REQUEST['id']) )
-    {
-        delete_all_post_in_forum($_REQUEST['id']);
-    }
-    
-}
-
-
-/*-----------------------------------------------------------------
   Initialise variables
  -----------------------------------------------------------------*/
 
 $last_visit = $_user['lastLogin'];
+$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
 /*=================================================================
   Main Section
  =================================================================*/
 
-// Get forums categories
+/*-----------------------------------------------------------------
+  Administration command
+ -----------------------------------------------------------------*/
 
+if ( $is_allowedToEdit )
+{
+
+    $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:'';
+    
+    if ( $cmd = 'emptyForum' && isset($_REQUEST['id']) )
+    {
+        delete_all_post_in_forum($_REQUEST['id']);
+    }
+        
+}
+
+/*-----------------------------------------------------------------
+  Get forums categories
+ -----------------------------------------------------------------*/
 
 $categories       = get_category_list();
 $total_categories = count($categories);
-
-
 
 $forum_list = get_forum_list();
 
