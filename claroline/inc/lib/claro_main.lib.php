@@ -120,8 +120,8 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'tool'                   => $courseDbInCache . 'tool_list',
               'track_e_access'         => $courseDbInCache . 'track_e_access',
               'track_e_downloads'      => $courseDbInCache . 'track_e_downloads',
-			  'track_e_exe_details'    => $courseDbInCache . 'track_e_exe_details',
-			  'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
+              'track_e_exe_details'    => $courseDbInCache . 'track_e_exe_details',
+              'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
               'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
               'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
               'userinfo_content'       => $courseDbInCache . 'userinfo_content',
@@ -129,8 +129,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
               'wrk_submission'         => $courseDbInCache . 'wrk_submission',
               'links'                  => $courseDbInCache . 'lnk_links',
-              'resources'              => $courseDbInCache . 'lnk_resources'              
- 
+              'resources'              => $courseDbInCache . 'lnk_resources' 
               ); // end array
 
     } // end if ( count($course_tbl) == 0 )
