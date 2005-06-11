@@ -439,7 +439,7 @@ function resetStatForCourse($course_id, $dateLimite )
 		$tbl_course            = $tbl_mdb_names['course'];
 		$sql = 'SELECT dbName From `'.$tbl_course.'` WHERE code = "'.$course_id.'"';
 		$course_data = claro_sql_query_fetch_all($sql);
-		$tbl_crs_name = claro_sql_get_course_tbl($course_data['dbName'].$dbGlu);
+		$tbl_crs_name = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 		$tbl_track_e_access    = $tbl_crs_name['track_e_access'   ];
 		$tbl_track_e_downloads = $tbl_crs_name['track_e_downloads'];
 		$tbl_track_e_exercices = $tbl_crs_name['track_e_exercices'];

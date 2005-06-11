@@ -190,7 +190,7 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
     {
         global $courseTablePrefix, $dbGlu; // from config.
 
-        $courseTblList = claro_sql_get_course_tbl($courseTablePrefix . $course['dbName'] . $dbGlu);
+        $courseTblList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid));
 
         $tbl_group_team          = $courseTblList['group_team'         ];
         $tbl_group_property      = $courseTblList['group_property'     ];
