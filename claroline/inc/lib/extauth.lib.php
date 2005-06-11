@@ -149,7 +149,7 @@ class ExternalAuthentication
                                    'officialCode' => 'officialCode', 
                                    'phoneNumber'  => 'phoneNumber', 
                                    'statut'       => 'status', 
-                                   'authSource'   =>'authSource');
+                                   'authSource'   => 'authSource');
         $sqlPrepareList = array();
 
         foreach($dbFieldToClaroMap as $dbFieldName => $claroAttribName)
