@@ -363,7 +363,7 @@ switch ($display)
                  * Upgrade course table
                  */
     
-                $tbl_cdb_names = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+                $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseIDsys));
 
                 // Include array with sql statement ($sqlForUpdate)
                 unset($sqlForUpdate);
