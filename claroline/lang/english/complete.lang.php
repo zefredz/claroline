@@ -2145,6 +2145,12 @@ $lang_select_course_in = "Select course in ";
 $lang_select_course_in_search_results = "Select course in search results";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
 $lang_the_following_errors_were_found = "The following errors were found ";
+$langPopulateTools = 'Populate tools in courses';
+$lang_toolsToFill = 'Tools to populate'; 
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = 'You need to be authenticated with your %s account';
+
+$lang_completeUserInfoOfUser  = 'Complete userInfo of user';
+$lang_p_FillCourses = 'Fill %s with %s';
 $lang_this_course_is_protected = "This course is protected";
 $lang_unsubscribe = "Unsubscribe";
 $lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>

@@ -11,6 +11,12 @@ $l_here = "ici";
 $l_indextitle = "Index du forum";
 $l_lastpost = "Dernier Message";
 $l_noposts = "Pas de Messages";
+$langPopulateTools = 'Remplir les outils dans les cours';
+$lang_toolsToFill = 'Outils à remplir'; 
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = 'Vous devez être identifé avec votre login pass %s';
+
+$lang_completeUserInfoOfUser  = 'Complète les infos de l\'utilisateur';
+$lang_p_FillCourses = 'Remplissage de %s avec %s';
 $l_notify = "Notifier par e-mail quand des réponses sont postées";
 $l_notifybody = "Vous recevez cet e-mail parce qu'un message
 que vous avez posté sur nos forums a reçu une réponse, et que
