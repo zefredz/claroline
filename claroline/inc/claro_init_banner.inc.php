@@ -99,17 +99,7 @@ if (isset($_cid))
  */
 if (is_array($_courseToolList))
 {
-	$toolNameList = array('CLANN___' => $langAnnouncement,
-	                      'CLFRM___' => $langForums,
-	                      'CLCAL___' => $langAgenda,
-	                      'CLCHT___' => $langChat,
-	                      'CLDOC___' => $langDocument,
-	                      'CLDSC___' => $langDescriptionCours,
-	                      'CLGRP___' => $langGroups,
-	                      'CLLNP___' => $langLearningPath,
-	                      'CLQWZ___' => $langExercises,
-	                      'CLWRK___' => $langWork,
-	                      'CLUSR___' => $langUsers);
+	$toolNameList = claro_get_tool_name_list();
 	
 	foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
 	{
