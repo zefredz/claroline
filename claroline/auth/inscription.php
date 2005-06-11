@@ -1,19 +1,17 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*=====================================================================
- Init Section
- =====================================================================*/ 
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package AUTH
+ *
+ * @author Claro Team <cvs@claroline.net>
+ */
 
 require '../inc/claro_init_global.inc.php';
 
@@ -27,10 +25,10 @@ if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
 }
 
 // include profile library
-include($includePath.'/conf/user_profile.conf.php');
-include($includePath.'/lib/user.lib.php');
-include($includePath.'/lib/claro_mail.lib.inc.php');
-include($includePath.'/lib/events.lib.inc.php');
+include($includePath . '/conf/user_profile.conf.php');
+include($includePath . '/lib/user.lib.php');
+include($includePath . '/lib/claro_mail.lib.inc.php');
+include($includePath . '/lib/events.lib.inc.php');
 
 // Initialise variables
 
@@ -69,7 +67,6 @@ if ( $cmd == 'registration' )
     
     if ( count($messageList) == 0 )
     {
-
         // register the new user in the claroline platform
 
         $_uid = user_insert($user_data);
@@ -95,7 +92,7 @@ if ( $cmd == 'registration' )
             $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
     
             // send info to user by email 
-            user_send_registration_mail($_uid,$user_data);
+            user_send_registration_mail($_uid, $user_data);
         
         } // if _uid
 
@@ -116,7 +113,7 @@ $interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
 
 // Display Header
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 
 // Display Title
 
@@ -138,8 +135,8 @@ if ( $cmd == 'registration' && $error == false )
         }
 
         echo '<form action="../../index.php?cidReset=1" >'
-            . '<input type="submit" name="next" value="' . $langNext . '" validationmsg=" ' . $langNext . ' ">' . "\n"
-            . '</form>'."\n" ;
+        .    '<input type="submit" name="next" value="' . $langNext . '" validationmsg=" ' . $langNext . ' ">' . "\n"
+        .    '</form>'."\n" ;
 }
 else
 {
@@ -156,6 +153,6 @@ else
 
 // Display Footer
 
-include ("../inc/claro_init_footer.inc.php");
+include ($includePath . '/claro_init_footer.inc.php' );
 
 ?>
