@@ -2,7 +2,7 @@
 /** 
  * CLAROLINE 
  *
- * @version 1.6
+ * @version 1.7
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -29,9 +29,16 @@
 
 function delete_groups($groupIdList = 'ALL')
 {
-    global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys,
-           $tbl_GroupsUsers,$tbl_Groups,$tbl_Forums, $db;
+    global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys
+           , $db;
 
+    $tbl_c_names = claro_sql_get_course_tbl();
+    
+    $tbl_Groups           = $tbl_c_names['group_team'         ];
+    $tbl_GroupsUsers      = $tbl_c_names['group_rel_team_user'];
+    $tbl_Forums           = $tbl_c_names['bb_forums'          ];
+    
+    
     /*
      * Check the data
      */
@@ -66,14 +73,14 @@ function delete_groups($groupIdList = 'ALL')
      */
 
     $sql_searchGroup = "SELECT `id` `gid`, `secretDirectory` `groupRepository`, `forumId`
-                        FROM `".$tbl_Groups."`".
+                        FROM `" . $tbl_Groups . "`".
                         $sql_condition;
 
     $res_searchGroup = claro_sql_query($sql_searchGroup);
 
     if ( $res_searchGroup )
     {
-        while ( $gpData =mysql_fetch_array($res_searchGroup) )
+        while ( $gpData = mysql_fetch_array($res_searchGroup) )
         {
             $groupList['id'       ][] = $gpData['gid'            ];
             $groupList['directory'][] = $gpData['groupRepository'];
@@ -117,24 +124,24 @@ function delete_groups($groupIdList = 'ALL')
                                     AUTO_INCREMENT = " . ($maxGroupId[0]['max']+1) . "";
         claro_sql_query($sql_reset_autoincrement);
         
-        /*
+        /**
          * Archive and delete the group files
          */
 
         // define repository for deleted element
 
-        $groupGarbage = $garbageRepositorySys."/".$currentCourseRepository."/group/";
+        $groupGarbage = $garbageRepositorySys . '/' . $currentCourseRepository . '/group/';
         if ( ! file_exists($groupGarbage) ) mkdirs($groupGarbage, 0777);
 
         foreach ( $groupList['directory'] as $thisDirectory )
         {
-            if ( file_exists($coursesRepositorySys.$currentCourseRepository."/group/".$thisDirectory) )
+            if ( file_exists($coursesRepositorySys.$currentCourseRepository . '/group/' . $thisDirectory) )
             {
-                rename($coursesRepositorySys.$currentCourseRepository."/group/".$thisDirectory,
-                       $groupGarbage.$thisDirectory);
+                rename($coursesRepositorySys . $currentCourseRepository . '/group/' . $thisDirectory,
+                       $groupGarbage . $thisDirectory);
             }
         }
-        
+
         return $deletedGroupNumber;
 
     } // end if $groupList
@@ -150,16 +157,16 @@ function delete_groups($groupIdList = 'ALL')
 
 function deleteAllGroups()
 {
-    return delete_groups();
+    return delete_groups('ALL');
 }
 
 /**
  * is $_cid set. 
- * @param $ifNot default "DIE" 
+ * @param $ifNot default 'DIE' 
  * @return boolean Whether is set $_cid
  */
 
-function cidNeeded( $ifNot = "DIE" )
+function cidNeeded( $ifNot = 'DIE' )
 {
     global $_cid;
 
@@ -167,12 +174,12 @@ function cidNeeded( $ifNot = "DIE" )
     {
         switch ( $ifNot )
         {
-            case "DIE"  :
-                die ("\$_cid missing");
-            case "echo" :
-                echo ("\$_cid missing");
+            case 'DIE'  :
+                die ('$_cid missing');
+            case 'echo' :
+                echo ('$_cid missing');
                 break;
-            case "rtnFals" :
+            case 'rtnFals' :
                 return false;
         }
     }
@@ -185,7 +192,7 @@ function cidNeeded( $ifNot = "DIE" )
  * including any necessary but nonexistent parent directories.
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  *
  * @param  string $path - path to create
  * @param  string $mode - directory permission (default is '777')
@@ -217,11 +224,16 @@ function mkdirs($path, $mode = 0777)
  * @return void
  */
 
-function fill_in_groups()
+function fill_in_groups($course_id = NULL)
 {
-    global $currentCourseId, $nbGroupPerUser,
-           $tbl_CoursUsers, $tbl_Groups, $tbl_Users, $tbl_GroupsUsers;
+    global $currentCourseId, $nbGroupPerUser;
+    $tbl_m_names = claro_sql_get_main_tbl();
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     
+    $tbl_CoursUsers       = $tbl_m_names['rel_course_user'    ];
+    $tbl_Groups           = $tbl_c_names['group_team'         ];
+    $tbl_GroupsUsers      = $tbl_c_names['group_rel_team_user'];
+   
     // check if nbGroupPerUser is a positive integer else return false
     if( !settype($nbGroupPerUser, "integer") || $nbGroupPerUser < 0 )
         return FALSE;
@@ -333,7 +345,7 @@ function fill_in_groups()
                 }
             }
             // if the user cannot be put in any group delete him from the userToken
-            if ( $userPutSucceed == false) unset( $userToken[$thisUser] );
+            if ( $userPutSucceed == false ) unset( $userToken[$thisUser] );
         }
     }
 
@@ -344,9 +356,9 @@ function fill_in_groups()
 
     if ( is_array($prepareQuery) && count($prepareQuery) > 0)
     {
-            $sql = "INSERT INTO `".$tbl_GroupsUsers."`
+            $sql = "INSERT INTO `" . $tbl_GroupsUsers . "`
                     (`user`, `team`)
-                    VALUES ".implode(" , ", $prepareQuery);
+                    VALUES " . implode(" , ", $prepareQuery);
 
             claro_sql_query($sql);
     }
