@@ -203,8 +203,8 @@ function define_course_keys ($wantedCode,
  * @param  $courseId             string sysId of course
  * @GLOBAL $coursesRepositorySys string path to root of courses
  *
- * @author    Christophe Gesché <moosh@claroline.net>
- * @version    1.0
+ * @author  Christophe Gesché <moosh@claroline.net>
+ * @version 1.0
  *
  */
 function prepare_course_repository($courseRepository, $courseId)
@@ -846,7 +846,7 @@ claro_sql_query ("
 				  `details_id` int(11) NOT NULL default '0',
 				  `answer` text NOT NULL,
 				  PRIMARY KEY  (`id`)
-				) TYPE=MyISAM COMMENT";
+				) TYPE=MyISAM COMMENT ''";
 		claro_sql_query($sql);
 
         $sql = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
