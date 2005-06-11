@@ -191,7 +191,6 @@ function claro_get_course_data($course_id = NULL)
             $_courseDatas['extLink']['name'] = $_courseDatas['extLinkName'];
             $_courseDatas['extLink']['url']  = $_courseDatas['extLinkUrl'];
 
-            echo 'sql';
         }
         
     } // end if ( count($course_tbl) == 0 )
