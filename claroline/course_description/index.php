@@ -357,7 +357,7 @@ include $includePath.'/claro_init_footer.inc.php';
 /**
  * get all the items
  * 
- * @param $dbnameGlu string  glued dbName of the course to affect default: current course
+ * @param $course_id string  glued dbName of the course to affect default: current course
  *
  * @return array of arrays with data of the item
  * 
@@ -365,9 +365,9 @@ include $includePath.'/claro_init_footer.inc.php';
  *
  */
 
-function course_description_get_item_list($dbnameGlu=Null)
+function course_description_get_item_list($course_id=Null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     
     $sql = "SELECT `id`, `title`, `content` , `visibility`
@@ -382,7 +382,7 @@ function course_description_get_item_list($dbnameGlu=Null)
  * get the item of the given id.
  * 
  * @param $descId   integer id of the item to get
- * @param $dbnameGlu string  glued dbName of the course to affect default: current course
+ * @param $course_id string  glued dbName of the course to affect default: current course
  *
  * @return array with data of the item
  * 
@@ -390,9 +390,9 @@ function course_description_get_item_list($dbnameGlu=Null)
  *
 */
 
-function course_description_get_item($descId, $dbnameGlu=Null)
+function course_description_get_item($descId, $course_id=Null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     
     $sql = 'SELECT `id`, `title`, `content`, `visibility`
@@ -407,7 +407,7 @@ function course_description_get_item($descId, $dbnameGlu=Null)
  * remove the item of the given id.
  * 
  * @param $descId   integer id of the item to delete
- * @param $dbnameGlu string  glued dbName of the course to affect default: current course
+ * @param $course_id string  glued dbName of the course to affect default: current course
  *
  * @return result of query
  * 
@@ -415,9 +415,9 @@ function course_description_get_item($descId, $dbnameGlu=Null)
  *
  */
 
-function course_description_delete_item($descId, $dbnameGlu=Null)
+function course_description_delete_item($descId, $course_id=Null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     
     $sql = 'DELETE FROM `'.$tbl_course_description.'`
@@ -433,7 +433,7 @@ function course_description_delete_item($descId, $dbnameGlu=Null)
  * @param $descId       integer id of the item to update
  * @param $descTitle    string Title of the item
  * @param $descContent  string Content of the item
- * @param $dbnameGlu    string  glued dbName of the course to affect default: current course
+ * @param $course_id    string  glued dbName of the course to affect default: current course
  *
  * @return result of query
  * 
@@ -441,9 +441,9 @@ function course_description_delete_item($descId, $dbnameGlu=Null)
  *
  */
 
-function course_description_set_item($descId , $descTitle , $descContent, $dbnameGlu=Null)
+function course_description_set_item($descId , $descTitle , $descContent, $course_id=Null)
 {        
-    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
     $sql = "UPDATE `".$tbl_course_description."`
@@ -461,16 +461,16 @@ function course_description_set_item($descId , $descTitle , $descContent, $dbnam
  * 
  * @param $descTitle    string Title of the item
  * @param $descContent  string Content of the item
- * @param $dbnameGlu    string  glued dbName of the course to affect default: current course
+ * @param $course_id    string  glued dbName of the course to affect default: current course
  *
  * @return integer id of the new item
  * 
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function course_description_add_item($descTitle,$descContent, $dbnameGlu=Null)
+function course_description_add_item($descTitle,$descContent, $course_id=Null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
     $sql = "SELECT MAX(id)
                 FROM `".$tbl_course_description."` ";
