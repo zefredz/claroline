@@ -2,11 +2,12 @@
 $langAddIntro = "Aggiungi un testo di presentazione";
 $langAgenda = "Calendario";
 $langAnnouncement = "Annunci";
+$langCancel = "Cancella";
 $langChat = "Chat";
 $langClarContent = "Qui i docenti e gli assistenti creano e amministrano i siti dei corsi, i corsisti li adoperano (Documenti, Agende, informazioni diverse). Nel caso, i corsisti svolgono degli Esercizi, trasmettono dei Contributi, prendono parte alle discussioni nei Forum...</p><b>Iscrizione</b><p>Se siete un corsista, è sufficiente iscrivervi scegliendo 'Iscrivermi a dei corsi (corsista)' e in seguito marcare il corso che desiderate seguire.</p><p>Se siete un docente o un assistente , iscrivetevi ugualmente, scegliendo però l'opzione 'Creare dei siti di corso (docente)'. A questo punto vi sarà chiesto di riempire un modulo precisando il codice e il titolo del primo corso. Dopo che avrete confermato la scelta, sarete condotti al sito da voi creato e potrete modificarne il contenuto e l'organizzazione, a seconda delle vostre necessità.</P><p>Se questo portale di creazione e amministrazione non vi soddisfa, non esitate a segnalarcelo tramite l'opzione 'Suggerimenti' accessibile dalla pagina principale del campus virtuale, una volta che siate stati identificati.</p><p>Il collegamento verso 'Iscrizione' è posto nella pagina principale in alto a destra.</p><b>Identificazione personale (login)</b><p>Nelle vostre prossime visite, per accedere al vostro corso, immettete il vostro Identificativo utente e la vostra Password nel campo posto in altro a destra dello schermo. L'indirizzo del sito è";
 $langCloseWindow = "Chiudi finestra";
+$langConfigMenuContent = "Menu di Configurazione";
 $langConfirmYourChoice = "Conferma la tua scelta";
-$langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langDay_of_weekNames = "Array";
 $langDelete = "Eliminare";
@@ -195,12 +196,81 @@ $langHFor = "Aiuto forum";
 $langHHome = "Aiuto pagina principale";
 $langHUser = "Aiuto Utenti";
 $langHelp = "Aiuto";
+$langHelpAssignment = "Aiuto Compiti";
+$langHelpAssignmentContent = "<p>
+Lo strumento dell'assegnamento dei compiti è un'area di pubblicazione per gli studenti. Il manager del corso crea uno o più compiti ( differenti zone di pubblicazione ) dove gli studenti possono pubblicare i loro lavori.<br /><br />
+
+Ogni compito può avere diversi obiettivi o specifiche : la pubblicazione può essere un file, o un testo o un testo e un file, è possibile che la pubblicazione sia fatta da un gruppi piuttosto che un singolo utente,...<br /><br />
+
+Gli studenti hanno la possibilità di modificare i loro lavori dopo averli inseriti e il docente può dare un giudizio sui loro lavori.
+</p>
+<hr />
+
+<h4>Crea un compito</h4>
+<p>Per creare un nuovo compito il docente de entrare nello strumento e cliccare sul link \"Crea un nuovo compito\".
+</p>
+<p>La scheda che viene visualizzata chiede al docente&nbsp;:
+</p>
+<ul><li> un titolo&nbsp;: il nome del compito
+</li><li> una descrizione&nbsp;: una spiegazione del compito che gli studenti dovranno eseguire
+</li><li> un tipo di inserimento&nbsp;:
+<ul><li> File&nbsp;: può essere uploadato ogni tipo di file, tenendo presente il limite delle dimensioni del file che dipende dalla piattaforma, può essere aggiunto anche un testo per descrivere il file
+
+</li><li> Solo Testo&nbsp;: un testo formattato utilizzando l'editor wysiwyg 
+</li><li> Testo con un file allegato&nbsp;: un testo formattato utilizzando l'editor wysiwyg  e un file (opzionale)
+</li></ul>
+</li><li> una data di inizio&nbsp;: la data dalla quale gli utenti potranno inserire la pubblicazione del compito
+</li><li> una data di fine&nbsp;: la data fino alla quale gli utenti potranno inserire la pubblicazione del compito
+</li><li> la visibilità di default&nbsp;: la scelta se la pubblicazione sarà visibile o meno agli altri utenti
+</li><li> il tipo di compito&nbsp;:
+
+<ul><li> modo individuale&nbsp;: ogni utente autenticato può inserire una pubblicazione
+</li><li> modo di gruppo&nbsp;: l'utente deve essere membro di almeno un gruppo del corso per pubblicare un lavoro e il lavoro sarà pubblicato con il nome del gruppo
+</li></ul>
+</li><li> permesso di inserimento oltre la data di scadenza
+</li></ul>
+<p><br />
+<strong>Aggiungi un feedback automatico</strong>
+</p>
+<p>Un feedback è la versione corretta del compito.  Per aggiungere un feedback automatico entra nel compito e clicca sul link  \"Modifica Feedback Automatico\".  </p>
+<p>Può essere un testo o un file o entrambi.  Il docente può scegliere quando questo feedback automatico dovrà essere visualizzato agli utenti( dopo la data di fine del compito o dopo il primo inserimento dell'utente )
+</p>
+
+<hr />
+<h4>Lavori</h4>
+<p>I lavori sono le pubblicazioni inserite dagli utenti.</p>
+<p>Per ogni lavoro lo strumento mostra un elenco di tutti gli studenti registrati al corso e per ognuno di loro il primo lavoro pubblicato, il numero di inserimento e il numero di feedbacks.
+L'elenco di pubblicazioni relative all'utente e al compito può essere visualizzato cliccando sul nome dell'utente.</p>
+<p><strong>Inserire un lavoro</strong></p>
+<p>Se gli utenti hanno il permesso di inserire i lavori sarà visualizzato loro un link alla pagina di inserimento.</p>
+<p><strong>Elenco Lavori</strong></p>
+<p>Come docente hai il diritto di modificare, eliminare, rendere visibile/invisibile ogni lavoro.  Puoi aggiungere anche un feedback ad ognuno di loro.
+</p>
+<ul>
+<li> <strong>Modifica</strong>&nbsp;: Se appare questa icona significa che l'utente può modificare il contenuto del lavoro, essa appare se l'utente è il docente del corso, se sta visualizzando il proprio lavoro o i lavori del suo grupppo.
+
+</li>
+<li> <strong>Elimina</strong>&nbsp;: Questo comando consente al docente di eliminare un lavoro.
+</li>
+<li> <strong>Visibile</strong>&nbsp;: Se appare questa icona per un lavoro, significa che il lavoro è visibile agli studenti. E' simile alla sezione documenti di Claroline. Puoi modificare questa impostazione cliccando sull'icona.
+</li>
+<li> <strong>Invisibile</strong>&nbsp;: Se appare questa icona per un lavoro, significa che il lavoro è invisibile agli studenti. E' simile alla sezione documenti di Claroline. Puoi modificare questa impostazione cliccando sull'icona.
+
+</li>
+<li> <strong>Aggiungi feedback</strong>&nbsp;: consente al docente di pubblicare un feedback circa il lavoro dell'utente.  Un feedback può essere un file un testo o entrambi con un commento privato che solo il docente sarà in grado di vedere con un punteggio in percentuale.
+</li>
+</ul>
+
+
+
+";
 $langHelpGroups = "Aiuto gruppi";
 $langHomeContent = "La maggior parte delle rubriche del campus sono già state riempite con breve testo, un collegamento di default o un esempio. E' vostro interesse modificarli.</p><p>Un breve testo è anche presente, ben visibile, nella pagina principale del vostro sito: modificatelo approfittando dell'occasione per descrivere il corso, gli obiettivi da raggiungere, l'organizzazione. Queste informazioni daranno una chiara visibilità al vostro lavoro.</p><p>Alla creazione del sito risulteranno attivi per default numerosi strumenti (Calendario, Documenti, Esercizi...). Vi consigliamo di disattivare quelli che non utilizzate per non far inutilmente perder tempo ai vostri utenti o ai visitatori.</p><p>Potete anche aggiungere collegamenti a pagine alla pagina principale. Utilizzate l'opzione 'Collegare una pagina...' per aggiungere una pagina (con formato HTML) trasmettendola al server. Se invece volete rinviare verso una pagina o un sito web esistente, utilizzate l'opzione \"Collegare un sito...\" . Le pagine e i collegamenti che aggiungete all pagina iniziale possono essere disattivati ed in seguito eliminati, a differenza di quanto accade per gli strumenti esistenti per default, che possono essere disattivati ma non eliminati.</p><p>Dovrete decidere anche se il vostro corso debba comparire nell'elenco dei corsi. E' desiderabile che un corso ancora 'in lavorazione' non compaia nell'elenco (vedi l'opzione 'Modificare le informazioni sul corso') e resti privo della possibilità di iscrizioni nel tempo in cui viene messo a punto.</p>";
 $langLearningPath = "Learning Path";
 $langLogin = "login";
 $langLogout = "Uscita";
 $langManager = "Responsabile";
+$langMinuteShort = "min.";
 $langModify = "Modificare";
 $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
@@ -213,6 +283,7 @@ $langPassword = "password";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
 $langReg = "Iscriviti";
+$langSecondShort = "sec.";
 $langStudent = "Studenti";
 $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
 $langTextEditorDisable = "Disabilita editor di testo";

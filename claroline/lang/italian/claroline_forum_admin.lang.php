@@ -1,14 +1,39 @@
 <?php
+$l_click = "Clicca";
+$l_here = "qui";
+$l_notifybody = "Ti e\' stata inviata questa mail perche\' a un messaggio
+che tu hai inviato sui forum e\' stata inviata una risposta, e
+tu avevi richiesto di essere avvertito in questa occasione.
+
+Puoi visionare la risposta all\'indirizzo:
+
+%1\$s
+
+o visualizzare l\'indice dei forum di all\'indirizzo:
+
+%2\$s
+
+Grazie per aver utilizzato i forum di.
+
+Arrivederci.";
+$l_notifysubj = "E' stata inviata una risposta a un tuo messaggio.";
+$l_returnindex = " per tornare  all'indice dei forum";
+$l_returntopic = " per tornare  alla lista degli argomenti del forum.";
+$l_separator = "» »";
+$l_viewmsg = "per vedere il tuo messaggio.";
 $langAdd = "Aggiungi";
 $langAddCategory = "Aggiungi una categoria";
 $langAddForCat = "Aggiungi un Forum alla categoria";
 $langAddForums = "Per aggiungere un forum, clicca su \"Forum\" all'interno della categoria prescelta. Una categoria vuota (senza forum) non sarà visibile per il corsista";
 $langAddIntro = "Aggiungi un testo di presentazione";
+$langAdm = "Amministrare";
 $langAgenda = "Calendario";
 $langAnnouncement = "Annunci";
 $langAreYouSureToDelete = "sicuro di voler cancellare ";
 $langBack = "Ritorno alle proprietà del corso";
 $langBackCat = "Ritorna alle categorie";
+$langBackTo = "Torna a :";
+$langCancel = "Cancella";
 $langCannotAddForumInGroups = "I gruppi vengono aggiunti nel forum quando vengono creati e cancellati quando vengono eliminati.";
 $langCannotBeDeleted = "non può esser cancellato";
 $langCannotMoveGroupForum = "I gruppi del forum non possono esser cancellati";
@@ -17,9 +42,9 @@ $langCategory = "Categoria";
 $langChangeCat = "Cambia categoria";
 $langChat = "Chat";
 $langConfirmYourChoice = "Conferma la tua scelta";
-$langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langDay_of_weekNames = "Array";
+$langDear = "Cara/o";
 $langDelete = "Eliminare";
 $langDescription = "Descrizione eventuale";
 $langDescriptionCours = "Programma";
@@ -33,12 +58,15 @@ $langForumCategoryDeleted = "Categoria del Forum eliminata";
 $langForumDeleted = "Forum eliminato";
 $langForumModified = "Il forum è stato modificato";
 $langForums = "Forum";
+$langGroupDocumentsLink = "Documenti del gruppo ";
+$langGroupSpaceLink = "Spazio di lavoro del gruppo";
 $langGroups = "iscrizione degli utilizzatori nei gruppi";
 $langHelp = "Aiuto";
 $langLearningPath = "Learning Path";
 $langLogin = "login";
 $langLogout = "Uscita";
 $langManager = "Responsabile";
+$langMinuteShort = "min.";
 $langModCatName = "Modifica il nome della categoria";
 $langModify = "Modificare";
 $langModifyProfile = "Modificare il mio profilo";
@@ -46,6 +74,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langNameCat = "Il nome della category è stato cambiato";
+$langNewTopic = "Lanciare un nuovo argomento";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOk = "Ok";
 $langOrder = "Ordina";
@@ -55,7 +84,9 @@ $langPassword = "password";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
 $langReg = "Iscriviti";
+$langReply = "Rispondere";
 $langSave = "Salva";
+$langSecondShort = "sec.";
 $langStudent = "Studenti";
 $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
 $langTextEditorDisable = "Disabilita editor di testo";

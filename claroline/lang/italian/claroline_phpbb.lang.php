@@ -1,20 +1,13 @@
 <?php
 $l_author = "Autore";
-$l_banned = "Sei stato escluso da questo forum. Contattare l'amministratore in caso di domande.";
 $l_body = "Testo del messaggio";
-$l_by = "da";
 $l_click = "Clicca";
 $l_delete = "Cancella questo messaggio";
 $l_deleted = "Il tuo messaggio &egrave; stato cancellato.";
 $l_emptymsg = "Occorre inserire un messaggio da inviare. Non si possono inviare messaggi senza testo.";
-$l_error = "Errore";
-$l_go = "Vai";
-$l_guest = "Ospite";
 $l_here = "qui";
 $l_indextitle = "Indice dei forum";
 $l_lastpost = "Ultimo Messaggio";
-$l_nopostlock = "Non &egrave; possibile inviare risposte a questo messaggio, l'argomento &egrave; stato chiuso.";
-$l_noposts = "Nessun Messaggi";
 $l_notify = "Notifica per email quando vengono inviate delle risposte al messaggio";
 $l_notifybody = "Ti e\' stata inviata questa mail perche\' a un messaggio
 che tu hai inviato sui forum e\' stata inviata una risposta, e
@@ -36,14 +29,8 @@ $l_notopics = "Non  ci sono argomenti in questo forum. &Egrave; possibile inviar
 $l_posted = "Inviato";
 $l_poster = "Mittente";
 $l_posts = "Messaggi";
-$l_privnotify = "<br>Hai %1\$s <a href=\"%2\$s\">nuovo(i) messaggio(i) privato(i)</a>.";
-$l_quotemsg = "[quote]
-In data %1\$s, %2\$s scrive:
-%3\$s
-[/quote]";
 $l_returnindex = " per tornare  all'indice dei forum";
 $l_returntopic = " per tornare  alla lista degli argomenti del forum.";
-$l_selectforum = "Seleziona un Forum";
 $l_separator = "» »";
 $l_stored = "Il tuo messaggio &egrave; stato memorizzato nel database.";
 $l_subject = "Oggetto";
@@ -57,12 +44,10 @@ $langAddIntro = "Aggiungi un testo di presentazione";
 $langAdm = "Amministrare";
 $langAgenda = "Calendario";
 $langAnnouncement = "Annunci";
-$langBack = "Ritorno alle proprietà del corso";
 $langBackTo = "Torna a :";
 $langCancel = "Cancella";
 $langChat = "Chat";
 $langConfirmYourChoice = "Conferma la tua scelta";
-$langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langDay_of_weekNames = "Array";
 $langDear = "Cara/o";
@@ -86,6 +71,7 @@ $langLoginBeforePost2 = "prima, è necessario ";
 $langLoginBeforePost3 = "effettuare il login sul Campus";
 $langLogout = "Uscita";
 $langManager = "Responsabile";
+$langMinuteShort = "min.";
 $langModify = "Modificare";
 $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
@@ -103,6 +89,7 @@ $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
 $langReg = "Iscriviti";
 $langReply = "Rispondere";
+$langSecondShort = "sec.";
 $langSeen = "Letto";
 $langStudent = "Studenti";
 $langSubmit = "Invia";
