@@ -795,6 +795,6 @@ if ( $is_allowedToManage )
     }  // end if ! $multiGroupAllowed
 } // end if $is_allowedToManage
 
-include($includePath.'/claro_init_footer.inc.php');
+include($includePath . '/claro_init_footer.inc.php');
 
 ?>
