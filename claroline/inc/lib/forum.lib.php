@@ -622,7 +622,6 @@ function trig_topic_notification($topicId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_users       = $tbl_mdb_names['user'];
 
-    global $sys_lang;
     global $langDear, $l_notifybody, $l_notifysubj;
     global $rootWeb, $_course;
 
