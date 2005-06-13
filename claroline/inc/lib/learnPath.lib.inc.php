@@ -148,11 +148,11 @@ function commentBox($type, $mode)
                       WHERE " . $where_cond;
             $query = claro_sql_query($sql);
             $oldComment = @mysql_fetch_array($query);
-            echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-          //.    '<textarea name="insertCommentBox" rows="8" cols="55" wrap="virtual">'
-            .    claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55)
-          //.    htmlentities($oldComment[$col_name])."</textarea>\n"
-            .    '<br>' . "\n"
+            echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n";
+            
+            claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55);
+
+			echo '<br>' . "\n"
             .    '<input type="hidden" name="cmd" value="update' . $col_name . '">'
             .    '<input type="submit" value="' . $langOk . '">' . "\n"
             .    '<br>' . "\n"
