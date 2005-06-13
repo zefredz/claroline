@@ -737,7 +737,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
 
     for($offset = 0; $offset < $total; $offset += $step)
     {
-        $isLastPage = (bool) ( ($x + $step) >= $total);
+        $isLastPage = (bool) ( ($offset + $step) >= $total);
 
         if ($pageNum < $pageMax || $isLastPage)
         {
