@@ -67,24 +67,23 @@ define ( 'LEARNINGPATH_', 3 );
 define ( 'LEARNINGPATHMODULE_', 4 );
 
 /**
-* This function is used to display comments of module or learning path with admin links if needed.
-* Admin links are 'edit' and 'delete' links.
-*
-* @param string $type MODULE_ , LEARNINGPATH_ , LEARNINGPATHMODULE_
-* @param string $mode DISPLAY_ , UPDATE_ , DELETE_
-*
-* @author Piraux Sébastien <pir@cerdecam.be>
-* @author Lederer Guillaume <led@cerdecam.be>
-*/
-function commentBox($type, $mode, $dbNameGlued=NULL)
+ * This function is used to display comments of module or learning path with admin links if needed.
+ * Admin links are 'edit' and 'delete' links.
+ *
+ * @param string $type MODULE_ , LEARNINGPATH_ , LEARNINGPATHMODULE_
+ * @param string $mode DISPLAY_ , UPDATE_ , DELETE_
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ */
+function commentBox($type, $mode)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'];
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     // globals
     global $is_AllowedToEdit;
-    global $urlAppend;
     global $langModify, $langOk, $langErrorNameAlreadyExists, $langAddComment, $langConfirmYourChoice;
     global $langDefaultLearningPathComment, $langDefaultModuleComment;
 	global $langDefaultModuleAddedComment, $imgRepositoryWeb, $langDelete;
@@ -167,8 +166,8 @@ function commentBox($type, $mode, $dbNameGlued=NULL)
     if ( $mode == DELETE_ && $is_AllowedToEdit)
     {
         $sql =  "UPDATE `" . $tbl_name . "`
-                          SET `" . $col_name . "` = ''
-                        WHERE " . $where_cond;
+                 SET `" . $col_name . "` = ''
+                 WHERE " . $where_cond;
         claro_sql_query($sql);
         $dsp = TRUE;
     }
@@ -177,8 +176,8 @@ function commentBox($type, $mode, $dbNameGlued=NULL)
     if ( $mode == DISPLAY_ || $dsp == TRUE )
     {
         $sql = "SELECT *
-                      FROM `" . $tbl_name . "`
-                     WHERE " . $where_cond;
+                FROM `" . $tbl_name . "`
+                WHERE " . $where_cond;
         //echo "<4 dsp> ".$sql."<br>";
         $query = claro_sql_query($sql);
         $currentComment = @mysql_fetch_array($query);
@@ -205,17 +204,18 @@ function commentBox($type, $mode, $dbNameGlued=NULL)
             // display edit and delete links if user as the right to see it
             if ( $is_AllowedToEdit )
             {
-                echo '<p>'."\n"
-                . '<small>'."\n"
-                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=update'.$col_name.'">'."\n"
-                . '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'" border="0">'."\n"
-                . '</a>'."\n"
-                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=del'.$col_name.'" '
-                . ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;">'."\n"
-                . '<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" border="0">'. "\n"
-                . '</a>' . "\n"
-                . '</small>' . "\n"
-                . '</p>' . "\n"
+
+                echo '<p>' . "\n"
+                .    '<small>' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0">' . "\n"
+                .    '</a>' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
+                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . $langDelete . '" border="0">' . "\n"
+                .    '</a>' . "\n"
+                .    '</small>' . "\n"
+                .    '</p>' . "\n"
                 ;
             }
         }
@@ -232,9 +232,9 @@ function commentBox($type, $mode, $dbNameGlued=NULL)
   * @author Piraux Sébastien <pir@cerdecam.be>
   * @author Lederer Guillaume <led@cerdecam.be>
   */
-function nameBox($type, $mode, $dbNameGlued=NULL)
+function nameBox($type, $mode)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_topics                  = $tbl_cdb_names['bb_topics'];
     $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
@@ -466,9 +466,9 @@ function is_num($var)
  *  This function allows to display the modules content of a learning path.
  *  The function must be called from inside a learning path where the session variable path_id is known.
  */
-function display_path_content( $dbNameGlued=NULL)
+function display_path_content()
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'];
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
@@ -558,9 +558,9 @@ function display_path_content( $dbNameGlued=NULL)
  *
  * @return integer percentage of progression os user $mpUid in the learning path $lpid
  */
-function get_learnPath_progress($lpid, $lpUid, $dbNameGlued=NULL)
+function get_learnPath_progress($lpid, $lpUid)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'];
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
@@ -639,9 +639,9 @@ function get_learnPath_progress($lpid, $lpUid, $dbNameGlued=NULL)
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  */
-function display_my_exercises($dialogBox, $dbNameGlued=NULL)
+function display_my_exercises($dialogBox)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_quiz_test = $tbl_cdb_names['quiz_test'];
 
     global $langAddModule;
@@ -767,9 +767,9 @@ function display_my_documents($dialogBox)
     global $imgRepositoryWeb;
     global $color2;
 
-    /*==========================
-    DISPLAY
-    ==========================*/
+    /**
+     * DISPLAY
+     */
     echo '<!-- display_my_documents output -->' . "\n";
 
     $dspCurDirName = htmlentities($curDirName);
@@ -803,7 +803,7 @@ function display_my_documents($dialogBox)
     }
     /* CURRENT DIRECTORY */
     echo '<table class="claroTable" width="100%" border="0" cellspacing="2">';
-    if ($curDirName) /* if the $curDirName is empty, we're in the root point
+    if ( $curDirName ) /* if the $curDirName is empty, we're in the root point
     and there is'nt a dir name to display */
     {
         echo '<!-- current dir name -->' . "\n"
@@ -829,11 +829,11 @@ function display_my_documents($dialogBox)
     DISPLAY FILE LIST
     --------------------------------------*/
 
-    if ($fileList)
+    if ( $fileList )
     {
         $iterator = 0;
 
-        while (list($fileKey, $fileName) = each ($fileList['name']))
+        while ( list( $fileKey, $fileName ) = each ( $fileList['name'] ) )
         {
 
             $dspFileName = htmlentities($fileName);
@@ -843,7 +843,7 @@ function display_my_documents($dialogBox)
             {
                 if ($is_AllowedToEdit)
                 {
-                    $style = " class=\"invisible\"";
+                    $style = ' class="invisible"';
                 }
                 else
                 {
@@ -1067,9 +1067,9 @@ function build_display_element_list($elementList, $deepness = 0)
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  */
-function set_module_tree_visibility($module_tree, $visibility, $dbNameGlued=NULL)
+function set_module_tree_visibility($module_tree, $visibility)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 
     foreach($module_tree as $module)
@@ -1080,7 +1080,7 @@ function set_module_tree_visibility($module_tree, $visibility, $dbNameGlued=NULL
                         SET `visibility` = '" . $visibility . "'
                         WHERE `learnPath_module_id` = " . (int) $module['learnPath_module_id'] . "
                           AND `visibility` != '" . $visibility . "'";
-            $query = claro_sql_query ($sql);
+            claro_sql_query ($sql);
         }
         if (isset($module['children']) && is_array($module['children']) ) set_module_tree_visibility($module['children'], $visibility);
     }
@@ -1093,9 +1093,9 @@ function set_module_tree_visibility($module_tree, $visibility, $dbNameGlued=NULL
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  */
-function delete_module_tree($module_tree, $dbNameGlued=NULL)
+function delete_module_tree($module_tree)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
