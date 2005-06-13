@@ -1423,32 +1423,28 @@ function get_tutor_group_list($uid)
 
 function get_forum_list()
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_cdb_names = claro_sql_get_course_tbl();
 
-    $tbl_users            = $tbl_mdb_names['user'];
-    $tbl_forums           = $tbl_cdb_names['bb_forums'          ];
-    $tbl_posts            = $tbl_cdb_names['bb_posts'           ];
-    $tbl_student_group    = $tbl_cdb_names['group_team'         ];
+    $tbl_forums           = $tbl_cdb_names['bb_forums' ];
+    $tbl_posts            = $tbl_cdb_names['bb_posts'  ];
+    $tbl_student_group    = $tbl_cdb_names['group_team'];
 
-    $sql = "SELECT f.*, u.username, u.user_id, p.post_time, g.id group_id
-        FROM `" . $tbl_forums . "` f
-        LEFT JOIN `" . $tbl_posts . "` p 
-               ON p.post_id = f.forum_last_post_id
-        LEFT JOIN `" . $tbl_users . "` u 
-               ON u.user_id = p.poster_id
-        LEFT JOIN `" . $tbl_student_group . "` g 
-               ON g.forumId = f.forum_id
-        ORDER BY f.forum_order, f.cat_id, f.forum_id ";
+    $sql = "SELECT f.*, p.poster_id, p.post_time, g.id group_id
+            FROM `" . $tbl_forums . "` f
+            LEFT JOIN `" . $tbl_posts . "` p 
+                   ON p.post_id = f.forum_last_post_id
+            LEFT JOIN `" . $tbl_student_group . "` g 
+                   ON g.forumId = f.forum_id
+            ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
      return claro_sql_query_fetch_all($sql);
 }
 
 function get_category_list()
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_categories       = $tbl_cdb_names['bb_categories'      ];
-    $tbl_forums           = $tbl_cdb_names['bb_forums'          ];
+    $tbl_cdb_names  = claro_sql_get_course_tbl();
+    $tbl_categories = $tbl_cdb_names['bb_categories'      ];
+    $tbl_forums     = $tbl_cdb_names['bb_forums'          ];
 
     $sql = "SELECT `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
            FROM   `" . $tbl_categories . "` c, `" . $tbl_forums . "` f
