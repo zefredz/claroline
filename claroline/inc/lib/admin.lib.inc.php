@@ -147,8 +147,8 @@ function add_user_to_course($userId, $courseCode, $force_it=false)
     else
     {
         // previously check if the user are already registered on the platform
-        $sql = 'SELECT `statut` `status` FROM `'.$tbl_user.'`
-                               WHERE user_id = "'.$userId.'"';
+        $sql = 'SELECT `statut` `status` FROM `' . $tbl_user . '`
+                               WHERE user_id = "' . (int) $userId . '"';
         $handle = claro_sql_query($sql);
 
         if (mysql_num_rows($handle) == 0)
@@ -158,22 +158,22 @@ function add_user_to_course($userId, $courseCode, $force_it=false)
         else
         {
             // previously check if the user isn't already subscribed to the course
+            $sql = "SELECT count(user_id) subscription FROM `" . $tbl_rel_course_user . "`
+                                   WHERE `user_id` = '" . (int) $userId . "'
+                                   AND `code_cours` ='" . addslashes($courseCode) . "'";
+            $subscriptionQty = claro_sql_query_get_single_value($sql);
 
-            $handle = claro_sql_query("SELECT * FROM `".$tbl_rel_course_user."`
-                                   WHERE `user_id` = \"".$userId."\"
-                                   AND `code_cours` =\"".$courseCode."\"");
-
-            if (mysql_num_rows($handle) > 0)
+            if ($subscriptionQty > 0)
             {
-                return false; // the user is already subscrided to the course
+                return claro_failure::set_failure('already_enrolled_in_course'); // the user is already enrolled in the course
             }
             else
             {
                 // previously check if subscribtion is allowed for this course
-
-                $handle = claro_sql_query( "SELECT `code`, `visible` FROM `".$tbl_course."`
-                                        WHERE  `code` = \"".$courseCode."\"
-                                        AND    (`visible` = 0 OR `visible` = 3)");
+                $sql =  "SELECT `code`, `visible` FROM `" . $tbl_course . "`
+                                        WHERE  `code` = '" . $courseCode . "'
+                                        AND    (`visible` = 0 OR `visible` = 3)";
+                $handle = claro_sql_query($sql);
 
                 if ((mysql_num_rows($handle) > 0) && !($force_it))
                 {
@@ -295,15 +295,19 @@ function add_user_to_class($userId, $classId)
     $tbl_class                      = $tbl_mdb_names['class'];
 
     //1. See if there is a user with such ID in the main DB (not implemented)
-
+    $user_data = user_get_data($userId);
+    if (!$user_data)
+    {
+        return claro_failure::get_last_failure();
+    }
     //2. See if there is a class with such ID in the main DB
 
-    $sql = "SELECT * FROM `".$tbl_class."` WHERE `id` = '".$classId."' ";
+    $sql = "SELECT * FROM `" . $tbl_class . "` WHERE `id` = '" . $classId . "' ";
     $handle = claro_sql_query($sql);
 
     if (mysql_num_rows($handle) == 0)
     {
-        return false; // the class does not exist
+        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class does not exist
     }
 
     //3. See if user is not already in class
@@ -458,41 +462,30 @@ function delete_course($code)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'           ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-    $tbl_course_nodes     = $tbl_mdb_names['category'         ];
 
-    $sql = "SELECT `code`      `code`,
-                   `dbName`    `dbName`, 
-                   `directory` `directory`, 
-                   `fake_code` `officialCode`, 
-                   `intitule`   `name`
-            FROM `".$tbl_course."`
-            WHERE `code` = '".$code."'";
-
-    $this_course = claro_sql_query_fetch_all($sql);
-    $currentCourseId = $this_course[0]['code'];
+    $this_course = claro_get_course_data($code);
+    $currentCourseId = $this_course['sysCode'];
 
     if ($currentCourseId == $code)
     {
-        $currentCourseDbName    = $this_course[0]['dbName'];
-        $currentCourseDbNameGlu = $courseTablePrefix.$this_course[0]['dbName'].$dbGlu;
-        $currentCoursePath      = $this_course[0]['directory'];
-        $currentCourseCode      = $this_course[0]['officialCode'];
-        $currentCourseName      = $this_course[0]['name'];
+        $currentCourseDbName    = $this_course['dbName'];
+        $currentCourseDbNameGlu = $this_course['dbNameGlu'];
+        $currentCoursePath      = $this_course['path'];
 
         if($singleDbEnabled)
         // IF THE PLATFORM IS IN MONO DATABASE MODE
         {
             // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
-            claro_sql_query("use ".$mainDbName);
+            claro_sql_query("use " . $mainDbName);
             $tbl_to_delete = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseId));
             foreach($tbl_to_delete as $tbl_name)
             {
-                $sql = 'DROP TABLE `' . $tbl_name . '`';
+                $sql = 'DROP IGNORE TABLE `' . $tbl_name . '`';
                 claro_sql_query($sql);
             }
             // underscores must be replaced because they are used as wildcards in LIKE sql statement
             $cleanCourseDbNameGlu = str_replace("_","\_", $currentCourseDbNameGlu);
-            $sql = 'SHOW TABLES LIKE "'.$cleanCourseDbNameGlu.'%"';
+            $sql = 'SHOW TABLES LIKE "' . $cleanCourseDbNameGlu . '%"';
 
             $result = claro_sql_query($sql);
             // DELETE ALL TABLES OF THE CURRENT COURSE
@@ -516,21 +509,21 @@ function delete_course($code)
         else
         // IF THE PLATFORM IS IN MULTI DATABASE MODE
         {
-            $sql = "DROP DATABASE `".$currentCourseDbName."`";
+            $sql = "DROP DATABASE `" . $currentCourseDbName . "`";
             claro_sql_query($sql);
         }
 
         // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 
-        $sql = 'DELETE FROM `'.$tbl_course.'`
-                WHERE code= "'.$currentCourseId.'"';
+        $sql = 'DELETE FROM `' . $tbl_course . '`
+                WHERE code= "' . $currentCourseId . '"';
 
         claro_sql_query($sql);
 
         // DELETE USER ENROLLMENT INTO THIS COURSE
 
-        $sql = 'DELETE FROM `'.$tbl_rel_course_user.'`
-                WHERE code_cours="'.$currentCourseId.'"';
+        $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
+                WHERE code_cours="' . $currentCourseId . '"';
 
         claro_sql_query($sql);
 
@@ -538,8 +531,8 @@ function delete_course($code)
 
         claro_mkdir($garbageRepositorySys, 0777, true);
 
-        rename($coursesRepositorySys.$currentCoursePath."/",
-        $garbageRepositorySys."/".$currentCoursePath.'_'.date('YmdHis')
+        rename($coursesRepositorySys . $currentCoursePath . '/',
+        $garbageRepositorySys . '/' . $currentCoursePath . '_' . date('YmdHis')
         );
     }
     else
@@ -597,7 +590,7 @@ function update_user_course_properties($user_id, $course_id, $properties)
            WHERE   `user_id`    = \"".$user_id."\"
            AND     `code_cours` = \"".$course_id."\"";
 
-    $result = claro_sql_query($sql) or die ("CANNOT UPDATE DB !");
+    claro_sql_query($sql) or die ("CANNOT UPDATE DB !");
 
     if (mysql_affected_rows() > 0)
     {
@@ -624,13 +617,14 @@ function is_registered_to($user_id, $course_id)
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     $sql = "SELECT count(*) `user_reg`
-                 FROM `".$tbl_rel_course_user."`
-                 WHERE `code_cours` = '".$course_id."' AND `user_id` = '".$user_id."'";
+                 FROM `" . $tbl_rel_course_user . "`
+                 WHERE `code_cours` = '" . $course_id . "' AND `user_id` = '".$user_id."'";
     $res = claro_sql_query_fetch_all($sql);
     return (bool) ($res[0]['user_reg']>0);
 }
+
 /**
- * function to transfrom a key word into a usable key word ina SQL : "*" must be replaced by "%" and "%" by "\%"
+ * Transfrom a key word into a usable key word ina SQL : "*" must be replaced by "%" and "%" by "\%"
  * @param  the string to transform
  * @return the string modified
  */
