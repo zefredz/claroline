@@ -158,7 +158,7 @@ function user_update ($user_id, $data)
     if ( !empty($data['password']) ) 
     {
         $password = $userPasswordCrypted?md5($date['password']):$data['password'];
-        $sql .= ", `password`   = '" . addslashes($data['password']) . "' " ;
+        $sql .= ", `password`   = '" . addslashes($password) . "' " ;
     }
 
     if ( !empty($data['picture']) )
@@ -187,7 +187,7 @@ function user_update ($user_id, $data)
 
 function user_delete ($user_id)
 {
-    global $is_platformAdmin, $dbGlu, $courseTablePrefix;
+    global $dbGlu, $courseTablePrefix;
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
@@ -239,16 +239,16 @@ function user_delete ($user_id)
             claro_sql_query($sql_deleteUserFromGroup) ;
 
             // delete user data in tracking tables
-            $sql_DeleteUser = " delete from `" . $tbl_track_access ."` where access_user_id='" . $user_id."'";
+            $sql_DeleteUser = " delete from `" . $tbl_track_e_access ."` where access_user_id='" . $user_id."'";
             claro_sql_query($sql_DeleteUser);
 
-            $sql_DeleteUser = " delete from `" . $tbl_track_downloads . "` where down_user_id='" . $user_id . "'";
+            $sql_DeleteUser = " delete from `" . $tbl_track_e_downloads . "` where down_user_id='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
 
-            $sql_DeleteUser = " delete from `" . $tbl_track_exercices . "` where exe_user_id='" . $user_id . "'";
+            $sql_DeleteUser = " delete from `" . $tbl_track_e_exercices . "` where exe_user_id='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
 
-            $sql_DeleteUser = " delete from `" . $tbl_track_upload . "` where upload_user_id='" . $user_id . "'";
+            $sql_DeleteUser = " delete from `" . $tbl_track_e_uploads . "` where upload_user_id='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
             
         }
