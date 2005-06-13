@@ -600,25 +600,21 @@ if( isset($modifyAnswers) )
 
 	if( !isset($usedInSeveralExercises) || !$usedInSeveralExercises )
 	{
+		echo '<h3>'.$questionName.'</h3>';
+
+		if(!empty($questionStatement))
+		{
+			echo "<p>".$questionStatement."</p>";
+		}
+
+		if($okAttachedFile)
+		{
+			echo "<p>".display_attached_file($attachedFile)."</p>";
+		}
+
 		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
 		{
 ?>
-
-<h3>
-  <?php echo $questionName; ?>
-</h3>
-
-<?php
-			if(!empty($questionStatement))
-			{
-				echo "<p>".$questionStatement."</p>";
-			}
-			
-			if($okAttachedFile)
-			{
-				echo "<p>".display_attached_file($attachedFile)."</p>";
-			}			
-?>			
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
@@ -688,13 +684,13 @@ if( isset($modifyAnswers) )
   <td colspan="5" align="center">
 	<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
 <?php
-	if( $answerType != TRUEFALSE )
-	{
+			if( $answerType != TRUEFALSE )
+			{
 ?>
 	&nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo $langLessAnswers; ?>">
 	&nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo $langMoreAnswers; ?>">
 <?php
-	}
+			}
 ?>
 	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
   </td>
@@ -708,11 +704,6 @@ if( isset($modifyAnswers) )
 		elseif($answerType == FILL_IN_BLANKS)
 		{
 ?>
-
-<h3>
-  <?php echo $questionName; ?>
-</h3>
-
 <form name="formulaire" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="setWeighting" value="<?php if(isset($setWeighting)) echo $setWeighting; ?>">
@@ -725,11 +716,6 @@ if( isset($modifyAnswers) )
 <input type="hidden" name="weighting" value="<?php echo isset($_REQUEST['submitAnswers'])?htmlentities($weighting):htmlentities(serialize($weighting)); ?>">
 
 <?php
-				if($okAttachedFile)
-				{
-					echo "<p>\n".display_attached_file($attachedFile)."\n</p>\n\n";
-				}
-
 				// if there is an error message
 				if(!empty($msgErr))
 				{
@@ -743,12 +729,15 @@ if( isset($modifyAnswers) )
 <textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea>
 
 <p>
-	<?php echo $langFillType; ?>:<br />
+	<?php echo $langFillType; ?>&nbsp;:
+</p>
+<p>
 	<input type="radio" name="fillType" id="textFill" value="<?php echo TEXTFIELD_FILL; ?>" <?php if(isset($fillType) && $fillType == TEXTFIELD_FILL) echo 'checked="checked"'; ?> /><label for="textFill"><?php echo $langFillTextField; ?></label><br />
 	<input type="radio" name="fillType" id="listboxFill" value="<?php echo LISTBOX_FILL; ?>" <?php if(isset($fillType) && $fillType == LISTBOX_FILL) echo 'checked="checked"'; ?> /><label for="listboxFill"><?php echo $langFillSelectBox; ?></label><br />
 </p>
 <p>
-	<?php echo $langAddWrongAnswers; ?><br />
+	<?php echo $langAddWrongAnswers; ?>
+</p>
 	<textarea name="wrongAnswers" cols="30" rows="6"><?php echo $wrongAnswers; ?></textarea>
 </p>
 <p>
@@ -819,10 +808,6 @@ if( isset($modifyAnswers) )
 		{
 ?>
 
-<h3>
-  <?php echo $questionName; ?>
-</h3>
-
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $modifyAnswers; ?>">
 <input type="hidden" name="formSent" value="1">
 <input type="hidden" name="nbrOptions" value="<?php echo $nbrOptions; ?>">
@@ -830,10 +815,6 @@ if( isset($modifyAnswers) )
 
 
 <?php
-			if($okAttachedFile)
-			{
-				echo "<p>\n".display_attached_file($attachedFile)."</p>\n\n";
-			}
 
 			// if there is an error message
 			if(!empty($msgErr))
