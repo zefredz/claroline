@@ -150,11 +150,10 @@ else
 	// is attached file set ?
 	$okAttachedFile = empty($attachedFile)?false:true;
 ?>
-
+<?php echo $backLinkHtml; ?>
 <h3>
   <?php echo $questionName; ?>
 </h3>
-<?php echo $backLinkHtml; ?>
 <blockquote>
   <?php echo claro_parse_user_text($questionDescription); ?>
 </blockquote>
