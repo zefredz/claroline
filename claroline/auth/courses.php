@@ -1,19 +1,19 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*=====================================================================
-  Init Section
- =====================================================================*/
+/**
+ * CLAROLINE 
+ *
+ * prupose list of course to enroll or leave 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package AUTH
+ *
+ * @author Claro Team <cvs@claroline.net>
+ */
 
 require '../inc/claro_init_global.inc.php';
 
@@ -30,8 +30,8 @@ if ( ! $_uid ) claro_disp_auth_form();
   Include Files and initialize variables
  ---------------------------------------------------------------------*/
 
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/admin.lib.inc.php");
+include($includePath . '/lib/debug.lib.inc.php');
+include($includePath . '/lib/admin.lib.inc.php');
 
 $parentCategoryCode = '';
 $userSettingMode    = FALSE;
@@ -48,9 +48,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course           = $tbl_mdb_names['course'           ];
 $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 $tbl_course_nodes     = $tbl_mdb_names['category'         ];
-$tbl_user             = $tbl_mdb_names['user'             ];
 $tbl_class            = $tbl_mdb_names['class'            ];
-$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
 
 /*---------------------------------------------------------------------
   Define Display 
@@ -149,7 +147,7 @@ if ( !empty($fromAdmin) )
         // bred different if we come from admin tool for a CLASS  
     	$nameTools = $langRegisterClass;
 	    //find info about the class
-        $sqlclass = "SELECT * FROM `".$tbl_class."` WHERE `id`='".$_SESSION['admin_user_class_id']."'";
+        $sqlclass = "SELECT * FROM `" . $tbl_class . "` WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
         list($classinfo) = claro_sql_query_fetch_all($sqlclass);
     }
 }
@@ -159,9 +157,7 @@ if ( !empty($fromAdmin) )
   Find info about user we are working with
  ---------------------------------------------------------------------*/
 
-$sql = "SELECT * FROM `".$tbl_user."` WHERE user_id=".$userId;
-$userInfo = claro_sql_query($sql);
-$userInfo = mysql_fetch_array($userInfo);
+$userInfo = user_get_data($userId);
 
 /*----------------------------------------------------------------------------
   Unsubscribe from a course
@@ -216,7 +212,13 @@ if ( $cmd == 'exReg' )
     }
     else
     {
-    	$message = $langUnableToEnrollInCourse;
+        switch (claro_failure::get_last_failure())
+        {
+           case 'already_enrolled_in_course' : 
+            $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
+            break;
+    	   default: $message = $langUnableToEnrollInCourse;
+        }
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -230,8 +232,8 @@ if ( $cmd == 'exReg' )
 if ( $cmd == 'rqUnreg' )
 {
     $sql = "SELECT *
-	        FROM `".$tbl_course."` `c`, `".$tbl_rel_course_user."` `cu`
-		    WHERE `cu`.`user_id` = '".$userId."'
+	        FROM `" . $tbl_course."` `c`, `" . $tbl_rel_course_user . "` `cu`
+		    WHERE `cu`.`user_id` = '" . (int) $userId . "'
 		    AND   `c`.`code`    = `cu`.`code_cours`
 		    ORDER BY `c`.`fake_code`";
 
@@ -308,11 +310,11 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 	    {
 	        $sqlFilter = "# get the direct children categories
 	
-	                      UPPER(`faculte`.`code_P`) = UPPER(\"".$category."\")
+	                      UPPER(`faculte`.`code_P`) = UPPER('" . $category . "')
 	
 	                      # get the current category
 	
-	                      OR UPPER(`faculte`.`code`  ) = UPPER(\"".$category."\")";
+	                      OR UPPER(`faculte`.`code`  ) = UPPER('" . $category . "')";
 	    }
 	    else
 	    {
@@ -324,21 +326,21 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 	                   `faculte`.`code_P`, `faculte`.`nb_childs`,
 	                   COUNT( c.`cours_id` ) `nbCourse`
 	
-	            FROM `".$tbl_course_nodes."` `faculte`
+	            FROM `" . $tbl_course_nodes . "` `faculte`
 	
 	            # The two left are used for the course count
 	
-	            LEFT JOIN `".$tbl_course_nodes."` `subCat`
+	            LEFT JOIN `" . $tbl_course_nodes . "` `subCat`
 	            ON  `subCat`.`treePos` >= `faculte`.`treePos`
 	            AND `subCat`.`treePos` <= (`faculte`.`treePos` + `faculte`.`nb_childs`)
 	
 	            LEFT JOIN `".$tbl_course."` c
 	            ON c.`faculte` = `subCat`.`code`
-	            AND ".$visibility_cond."
+	            AND " . $visibility_cond . "
 	
 	            # filter to get the current and direct children categories
 	
-	            WHERE".$sqlFilter."
+	            WHERE " . $sqlFilter . "
 	
 	            GROUP  BY  `faculte`.`code`
 	            
@@ -421,7 +423,7 @@ $backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&lt
   Display header
  ---------------------------------------------------------------------*/
 
-include($includePath.'/claro_init_header.inc.php');
+include($includePath . '/claro_init_header.inc.php');
 
 echo $backLink;
 
@@ -443,14 +445,24 @@ switch ( $displayMode )
 		//  Display Title
 		
     	if ( $fromAdmin != 'class' )
-	    {
-            claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['prenom']." ".$userInfo['nom'],
-                                         'subTitle'  => $lang_select_course_in.' '.$currentCategoryName));
+	    { 
+
+            claro_disp_tool_title( array( 'mainTitle' => $lang_course_enrollment 
+                                        .                ' : ' 
+                                        .                $userInfo['firstname'] . ' ' 
+                                        .                $userInfo['lastname']
+                                        , 'subTitle'  => $lang_select_course_in
+                                        .                ' ' 
+                                        .                $currentCategoryName
+                                        )
+                                 );
 	    }
 	    else
 	    {
-		    claro_disp_tool_title( array('mainTitle' => $langEnrollClass." : ".$classinfo['name'],
-                                         'subTitle'  => $lang_select_course_in.' '.$currentCategoryName));
+		    claro_disp_tool_title( array( 'mainTitle' => $langEnrollClass . ' : ' . $classinfo['name']
+                                        , 'subTitle'  => $lang_select_course_in . ' ' . $currentCategoryName
+                                        )
+                                 );
 	    }
 
         // Display message
@@ -622,7 +634,7 @@ switch ( $displayMode )
 
         // claro_disp_tool_title( $lang_course_enrollment);
 
-        claro_disp_tool_title($lang_course_enrollment . ' : ' . $userInfo['prenom'] . ' ' . $userInfo['nom'] );
+        claro_disp_tool_title($lang_course_enrollment . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
 
         echo '<blockquote>' . "\n";	
 
@@ -641,7 +653,7 @@ switch ( $displayMode )
 
 	case DISPLAY_USER_COURSES :
 
-        claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['prenom']." ".$userInfo['nom'],
+        claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['firstname'] . ' ' . $userInfo['lastname'],
                                      'subTitle' => $lang_remove_course_from_your_personnal_course_list));
 
         if ( count($courseList) > 0 )
@@ -673,11 +685,13 @@ switch ( $displayMode )
                 }
 
 				echo '</td>' . "\n"
-                    . '</tr>' . "\n";
+                .    '</tr>' . "\n"
+                ;
             } // foreach $courseList as $thisCourse
 
             echo '</table>' . "\n"
-                . '</blockquote>' . "\n";
+            .    '</blockquote>' . "\n"
+            ;
         }
 		break;
 
@@ -689,7 +703,7 @@ echo $backLink;
   Display footer
  ---------------------------------------------------------------------*/
 
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 
 //////////////////////////////////////////////////////////////////////////////
 

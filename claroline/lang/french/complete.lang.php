@@ -139,6 +139,7 @@ $langAlreadyAnswered = "Vous avez déjà répondu à la question";
 $langAlreadyBrowsed = "Déjà visité";
 $langAltClarodoc = "Clarodoc";
 $langAltDocument = "Document";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = 'L\'utilisateur est déjà inscrit à ce cours';
 $langAltExercise = "Exercise";
 $langAltMakeNotBlocking = "Rendre non bloquant";
 $langAltMakeVisible = "Rendre visible";

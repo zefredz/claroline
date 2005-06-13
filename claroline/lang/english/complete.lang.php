@@ -170,6 +170,7 @@ $langAntique = "History of Ancient Philosophy";
 $langAppliedChange = "Changes have been applied to the user settings";
 $langArchive = "archive";
 $langAreCompulsory = "are compulsory";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = 'The user is already enrolled in this course';
 $langAreYouSureDeleteModule = "Are you sure to totally delete this module ?
 
 It will be completely deleted from the server and from any learning path it is in.
