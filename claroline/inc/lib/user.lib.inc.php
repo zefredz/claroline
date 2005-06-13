@@ -16,17 +16,17 @@
  * @author Muret Benoît <muret_ben@hotmail.com>
  *
  * @param string $user1
- *        string $user2
+ * @param string $user2
  *
  * @return array information of the course and the group of each user
  *
  */
 function searchCoursesGroup($user1,$user2)
 {
-    $tbl_mdb_names       = claro_sql_get_main_tbl();
-    $tbl_user            = $tbl_mdb_names['user'  ];
-    $tbl_courses         = $tbl_mdb_names['course'];
-    $tbl_course_user     = $tbl_mdb_names['rel_course_user' ];
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_user        = $tbl_mdb_names['user'  ];
+    $tbl_courses     = $tbl_mdb_names['course'];
+    $tbl_course_user = $tbl_mdb_names['rel_course_user' ];
 
     GLOBAL $courseTablePrefix;
     GLOBAL $dbGlu;
