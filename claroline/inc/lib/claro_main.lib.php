@@ -1145,7 +1145,7 @@ function claro_disp_button($url, $text, $confirmMessage = '')
     }
     else
     {
-        echo '<nobr>[ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
+        echo '<nobr>[ <a  href="'.$url.'">'.$text.'</a> ]</nobr>';
     }
 }
 
