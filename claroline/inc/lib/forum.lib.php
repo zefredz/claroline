@@ -188,7 +188,7 @@ function sync($id, $type)
         foreach($forumList as $thisForum)
         {
             $id = $thisForum['forum_id'];
-            sync($db, $id, 'forum');
+            sync($id, 'forum');
         }
         
     break;
@@ -200,7 +200,7 @@ function sync($id, $type)
         foreach($topicList as $thisTopic)
         {
             $id = $thisTopic['topic_id'];
-            sync($db, $id, "topic");
+            sync($id, "topic");
         }
         
     break;
