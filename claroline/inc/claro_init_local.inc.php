@@ -445,6 +445,9 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
 
             if ( $ssoEnabled )
             {
+               $ssoCookieExpireTime = time() + $ssoCookiePeriodValidity;
+               $ssoCookieValue      = md5( mktime() );
+
                 $sql = "UPDATE `".$tbl_sso."` 
                         SET cookie    = '".$ssoCookieValue."',
                             rec_time  = NOW()
@@ -461,10 +464,11 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
 
                     claro_sql_query($sql);
                 }
-
+               
                $boolCookie = setcookie($ssoCookieName, $ssoCookieValue, 
-                                       time() + $ssoCookiePeriodValidity, 
+                                       $ssoCookieExpireTime, 
                                        $ssoCookiePath, $ssoCookieDomain);
+
                // Note. $ssoCookieName, $ssoCookieValussoCookieExpireTime,
                //       $soCookiePath and $ssoCookieDomain are coming from 
                //       claroline/inc/conf/auth.conf.php
