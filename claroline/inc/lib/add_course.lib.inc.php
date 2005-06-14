@@ -111,9 +111,9 @@ function define_course_keys ($wantedCode,
 
     while (!$keysAreUnique)
     {
-        $keysCourseId         = $prefix4all.$uniquePrefix.strtoupper($wantedCode).$uniqueSuffix.$finalSuffix['CourseId'];
-        $keysCourseDbName     = $prefix4baseName.$uniquePrefix.strtoupper($keysCourseId).$uniqueSuffix.$finalSuffix['CourseDb'];
-        $keysCourseRepository = $prefix4path.$uniquePrefix.strtoupper($wantedCode).$uniqueSuffix.$finalSuffix['CourseDir'];
+        $keysCourseId         = $prefix4all . $uniquePrefix . strtoupper($wantedCode) . $uniqueSuffix . $finalSuffix['CourseId'];
+        $keysCourseDbName     = $prefix4baseName . $uniquePrefix . strtoupper($keysCourseId) . $uniqueSuffix . $finalSuffix['CourseDb'];
+        $keysCourseRepository = $prefix4path . $uniquePrefix . strtoupper($wantedCode) . $uniqueSuffix . $finalSuffix['CourseDir'];
 
         $keysAreUnique = TRUE;
         // Now we go to check if there are unique
@@ -130,7 +130,6 @@ function define_course_keys ($wantedCode,
             $keysAreUnique = FALSE;
             $tryNewFSCId++;
             $finalSuffix['CourseId'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
-            if ($DEBUG) echo '[id]';
         };
 
         if ($singleDbEnabled)
@@ -150,8 +149,7 @@ function define_course_keys ($wantedCode,
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDb++;
-            $finalSuffix['CourseDb']    = substr('_'.md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
-            if ($DEBUG) echo '[db:' . $isCheckCourseDbUsed . ':' . $sqlCheckCourseDb.']';
+            $finalSuffix['CourseDb'] = substr('_'.md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
         };
 
         if (file_exists($coursesRepositories . '/' . $keysCourseRepository))
@@ -159,14 +157,14 @@ function define_course_keys ($wantedCode,
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
             $finalSuffix['CourseDir'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
-            if ($DEBUG) echo '[dir'.$coursesRepositories.'/'.$keysCourseRepository.']<br>';
+            if ($DEBUG) echo '[dir'.$coursesRepositories . '/' . $keysCourseRepository.']<br>';
         };
         
         if(!$keysAreUnique && $forceSameSuffix)
         {
             $finalSuffix['CourseDir'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
-            $finalSuffix['CourseId'] = $finalSuffix['CourseDir'];
-            $finalSuffix['CourseDb'] = $finalSuffix['CourseDir'];
+            $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
+            $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }
     }
 
@@ -188,10 +186,10 @@ function define_course_keys ($wantedCode,
         $keysCourseDbName = $prefixAntiNumber.$keysCourseDbName;
     }
     
-    $keys['currentCourseCode']        = $keysCourseCode;         // screen code
-    $keys['currentCourseId']        = $keysCourseId;        // sysCode
-    $keys['currentCourseDbName']    = $keysCourseDbName;    // dbname
-    $keys['currentCourseRepository']= $keysCourseRepository;// append to course repository
+    $keys['currentCourseCode']       = $keysCourseCode;         // screen code
+    $keys['currentCourseId']         = $keysCourseId;        // sysCode
+    $keys['currentCourseDbName']     = $keysCourseDbName;    // dbname
+    $keys['currentCourseRepository'] = $keysCourseRepository;// append to course repository
 
     return $keys;
 };
@@ -349,8 +347,8 @@ function update_db_course($courseDbName)
     $TABLEPHPBBWHOSONLINE   = $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
 
     //linker
-    $TABLELINKS  	 	    = $tbl_cdb_names['links'];//  "lnk_links";
-    $TABLERESOURCES  	 	= $tbl_cdb_names['resources'];//  "lnk_resources";
+    $TABLELINKS               = $tbl_cdb_names['links'];//  "lnk_links";
+    $TABLERESOURCES           = $tbl_cdb_names['resources'];//  "lnk_resources";
     
     $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE             = $tbl_cdb_names['lp_module'];//  "lp_module";
@@ -603,7 +601,7 @@ claro_sql_query("
         `title` VARCHAR(255),
         `content` TEXT,
         `upDate` DATETIME NOT NULL,
-		`visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
+        `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
         UNIQUE (`id`)
     )
     COMMENT = 'for course description tool';");
@@ -833,21 +831,21 @@ claro_sql_query ("
         claro_sql_query($sql);
         
         $sql = "CREATE TABLE `".$TABLETRACKEXEDETAILS."` (
-				  `id` int(11) NOT NULL auto_increment,
-				  `exercise_track_id` int(11) NOT NULL default '0',
-				  `question_id` int(11) NOT NULL default '0',
-				  `result` float NOT NULL default '0',
-				  PRIMARY KEY  (`id`)
-				) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
-		claro_sql_query($sql);
-		
-		$sql = "CREATE TABLE `".$TABLETRACKEXEANSWERS."` (
-				  `id` int(11) NOT NULL auto_increment,
-				  `details_id` int(11) NOT NULL default '0',
-				  `answer` text NOT NULL,
-				  PRIMARY KEY  (`id`)
-				) TYPE=MyISAM COMMENT ''";
-		claro_sql_query($sql);
+                  `id` int(11) NOT NULL auto_increment,
+                  `exercise_track_id` int(11) NOT NULL default '0',
+                  `question_id` int(11) NOT NULL default '0',
+                  `result` float NOT NULL default '0',
+                  PRIMARY KEY  (`id`)
+                ) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
+        claro_sql_query($sql);
+        
+        $sql = "CREATE TABLE `" . $TABLETRACKEXEANSWERS . "` (
+                  `id` int(11) NOT NULL auto_increment,
+                  `details_id` int(11) NOT NULL default '0',
+                  `answer` text NOT NULL,
+                  PRIMARY KEY  (`id`)
+                ) TYPE=MyISAM COMMENT=''";
+        claro_sql_query($sql);
 
         $sql = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
                   `upload_id` int(11) NOT NULL auto_increment,
@@ -859,22 +857,22 @@ claro_sql_query ("
         claro_sql_query($sql);
         
 ########################## linker ##############################
-		$sql = "CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
-				  `id` int(11) NOT NULL auto_increment,
-  				  `src_id` int(11) NOT NULL default '0',
-  				  `dest_id` int(11) NOT NULL default '0',
-  				  `creation_time` timestamp(14) NOT NULL,
-  				  PRIMARY KEY  (`id`)
-				) TYPE=MyISAM";
-	    claro_sql_query($sql);
-		   	
-		$sql = "CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
-  				 `id` int(11) NOT NULL auto_increment,
- 				 `crl` text NOT NULL,
- 				 `title` text NOT NULL,
- 				 PRIMARY KEY  (`id`)
-				) TYPE=MyISAM";
-		claro_sql_query($sql);
+        $sql = "CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
+                  `id` int(11) NOT NULL auto_increment,
+                    `src_id` int(11) NOT NULL default '0',
+                    `dest_id` int(11) NOT NULL default '0',
+                    `creation_time` timestamp(14) NOT NULL,
+                    PRIMARY KEY  (`id`)
+                ) TYPE=MyISAM";
+        claro_sql_query($sql);
+               
+        $sql = "CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
+                   `id` int(11) NOT NULL auto_increment,
+                  `crl` text NOT NULL,
+                  `title` text NOT NULL,
+                  PRIMARY KEY  (`id`)
+                ) TYPE=MyISAM";
+        claro_sql_query($sql);
 
     return 0;
 };
