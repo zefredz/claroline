@@ -377,7 +377,7 @@ function fill_tool_in_course($course_code,$tool_label)
             break;
         case 'CLUSR' : 
             return 'Filler not ready';
-            require_once($includePath.'/lib/user.lib.inc.php');
+            require_once($includePath.'/lib/user_info.lib.php');
             $def_title = lorem('words',rand(2  ,10));
             $def_comment = lorem('paragraphs',rand(1,5));
             $tbl_userinfo_def     = $tbl_cdb_names['userinfo_def'];

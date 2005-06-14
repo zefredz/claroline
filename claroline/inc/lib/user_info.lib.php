@@ -11,73 +11,10 @@
  */
 
 
-/**
- * search informations of the group of two users
- * @author Muret Benoît <muret_ben@hotmail.com>
- *
- * @param string $user1
- * @param string $user2
- *
- * @return array information of the course and the group of each user
- *
- */
-function searchCoursesGroup($user1,$user2)
-{
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_user        = $tbl_mdb_names['user'  ];
-    $tbl_courses     = $tbl_mdb_names['course'];
-    $tbl_course_user = $tbl_mdb_names['rel_course_user' ];
-
-    GLOBAL $courseTablePrefix;
-    GLOBAL $dbGlu;
-
-    $sql_searchCourseData =
-    "select `cu`.`user_id`,`cu`.`code_cours`,`cu`.`statut`,`cu`.`role`,`cu`.`tutor` titular,`c`.`cours_id`,`c`.`code` sysCode
-            ,`c`.`languageCourse`,`c`.`intitule`,`c`.`faculte`,`c`.`titulaires`,`c`.`fake_code`,`c`.`directory`,`c`.`dbName`
-        FROM `" . $tbl_course_user . "` cu,
-             `" . $tbl_courses . "` c
-        WHERE `cu`.`code_cours`=`c`.`code` 
-              AND   (`cu`.`user_id`='" . $user1 . "' 
-                  OR `cu`.`user_id`='" . $user2 . "')";
-
-    $res_searchCourseData = claro_sql_query_fetch_all($sql_searchCourseData) ;
-
-    //this is the choose course
-    if($res_searchCourseData)
-    {
-        foreach($res_searchCourseData as $this_course)
-        {
-            $tbl_cdb_names = claro_sql_get_course_tbl($courseTablePrefix . $this_course['dbName'] . $dbGlu);  
-            $tbl_rel_usergroup = $tbl_cdb_names['group_rel_team_user'];
-            $tbl_group         = $tbl_cdb_names['group_team'];
-
-            //search the user groups in this course
-            $sql_searchCourseUserGroup =
-            "select
-                    `g`.`name`, `g`.`description`, `g`.`tutor`,  `g`.`secretDirectory`,
-                    `g`.`id` id_group,
-                    `ug`.`role`,
-                    `tutor`.`nom` lastname,
-                    `tutor`.`prenom` firstname,
-                    `tutor`.`email`
-                FROM `" . $tbl_rel_usergroup . "` ug, 
-                     `" . $tbl_group . "` g
-                LEFT JOIN `" . $tbl_user . "` tutor
-                    ON `g`.`tutor` = `tutor`.`user_id`
-                WHERE `ug`.`team`  = `g`.`id`
-                AND ug.user='" . (int) $this_course['user_id'] . "'";
-
-            $courseUserGroup[] = claro_sql_query_fetch_all($sql_searchCourseUserGroup) ;
-        }
-    }
-    $array[0]=$res_searchCourseData;
-    $array[1]=$courseUserGroup;
-    return $array;
-}
-
 /*----------------------------------------
      CATEGORIES DEFINITION TREATMENT
  --------------------------------------*/
+
 /**
  * create a new category definition for the user information
  *
