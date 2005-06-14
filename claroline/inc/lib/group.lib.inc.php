@@ -29,8 +29,7 @@
 
 function delete_groups($groupIdList = 'ALL')
 {
-    global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys
-           , $db;
+    global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys;
 
     $tbl_c_names = claro_sql_get_course_tbl();
     
@@ -95,33 +94,46 @@ function delete_groups($groupIdList = 'ALL')
          */
 
         $sql_deleteGroup        = "DELETE FROM `" . $tbl_Groups . "`
-                                   WHERE id IN (" . implode(" , ",$groupList['id']) . ")";
+                                   WHERE id IN (" . implode(" , ",$groupList['id']) . ")
+                                    # ".__FUNCTION__."
+                                    # ".__FILE__."
+                                    # ".__LINE__;
 
         $sql_cleanOutGroupUsers = "DELETE FROM `" . $tbl_GroupsUsers . "`
-                                   WHERE team IN (" . implode(" , ",$groupList['id']) . ")";
+                                   WHERE team IN (" . implode(" , ",$groupList['id']) . ")
+                                    # ".__FUNCTION__."
+                                    # ".__FILE__."
+                                    # ".__LINE__;
 
         $sql_deleteGroupForums  = "DELETE FROM `" . $tbl_Forums . "`
                                    WHERE cat_id='1'
-                                   AND forum_id IN (" . implode(" , ",$groupList['forumId']) . ")";
+                                   AND forum_id IN (" . implode(" , ",$groupList['forumId']) . ")
+                                    # ".__FUNCTION__."
+                                    # ".__FILE__."
+                                    # ".__LINE__;
 
         // Deleting group record in table
-        $res_deleteGroup    = claro_sql_query($sql_deleteGroup);
+        claro_sql_query($sql_deleteGroup);
         $deletedGroupNumber = mysql_affected_rows();
 
         // Delete all members of deleted group(s)
-        $res_cleanOutGroupUsers = claro_sql_query($sql_cleanOutGroupUsers);
+        claro_sql_query($sql_cleanOutGroupUsers);
 
         // Delete all Forum of deleted group(s)
-        $res_deleteGroupForums = claro_sql_query($sql_deleteGroupForums);
+        claro_sql_query($sql_deleteGroupForums);
 
         // Reset auto_increment
-        $sql_getmaxId = 'SELECT MAX( id ) max From  `'.$tbl_Groups.'` ';
+        $sql_getmaxId = 'SELECT MAX( id ) max From  `' . $tbl_Groups . '` ';
         $maxGroupId = claro_sql_query_fetch_all($sql_getmaxId);
         $sql_reset_autoincrement = "ALTER TABLE `" . $tbl_Groups . "` 
                                     PACK_KEYS =0 
                                     CHECKSUM =0 
                                     DELAY_KEY_WRITE =0 
-                                    AUTO_INCREMENT = " . ($maxGroupId[0]['max']+1) . "";
+                                    AUTO_INCREMENT = " . ($maxGroupId[0]['max']+1) ."
+                                    # ".__FUNCTION__."
+                                    # ".__FILE__."
+                                    # ".__LINE__
+                                    ;
         claro_sql_query($sql_reset_autoincrement);
         
         /**
@@ -131,7 +143,7 @@ function delete_groups($groupIdList = 'ALL')
         // define repository for deleted element
 
         $groupGarbage = $garbageRepositorySys . '/' . $currentCourseRepository . '/group/';
-        if ( ! file_exists($groupGarbage) ) mkdirs($groupGarbage, 0777);
+        if ( ! file_exists($groupGarbage) ) claro_mkdir($groupGarbage, 0777);
 
         foreach ( $groupList['directory'] as $thisDirectory )
         {
@@ -188,37 +200,11 @@ function cidNeeded( $ifNot = 'DIE' )
 }
 
 /**
- * Like in Java, creates the directory named by this abstract pathname,
- * including any necessary but nonexistent parent directories.
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
- *
- * @param  string $path - path to create
- * @param  string $mode - directory permission (default is '777')
- *
- * @return boolean TRUE if succeeds FALSE otherwise
- */
-
-function mkdirs($path, $mode = 0777)
-{
-    if ( file_exists($path) )
-    {
-        return false;
-    }
-    else
-    {
-        mkdirs(dirname($path) , $mode);
-        return mkdir($path, $mode);
-    }
-}
-
-/**
  * Fill in the groups with still unenrolled students.
  * The algorithm takes care to fill first the freest groups
  * with the less enrolled users
  *
- * @author Chrisptophe Gesché <christophe.geshe@claroline.net>,
+ * @author Chrisptophe Gesché <moosh@claroline.net>,
  * @author Hugues Peeters     <hugues.peeters@claroline.net>
  *
  * @return void
@@ -229,21 +215,21 @@ function fill_in_groups($course_id = NULL)
     global $currentCourseId, $nbGroupPerUser;
     $tbl_m_names = claro_sql_get_main_tbl();
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    
+        
     $tbl_CoursUsers       = $tbl_m_names['rel_course_user'    ];
     $tbl_Groups           = $tbl_c_names['group_team'         ];
     $tbl_GroupsUsers      = $tbl_c_names['group_rel_team_user'];
    
     // check if nbGroupPerUser is a positive integer else return false
-    if( !settype($nbGroupPerUser, "integer") || $nbGroupPerUser < 0 )
+    if( !settype($nbGroupPerUser, 'integer') || $nbGroupPerUser < 0 )
         return FALSE;
     /*
      * Retrieve all the groups where enrollment is still allowed
      * (reverse) ordered by the number of place available
      */
 
-    $sql = "SELECT g.id gid, g.maxStudent-count(ug.user) nbPlaces
-            FROM `" . $tbl_Groups . "` g
+    $sql = "SELECT g.id gid, g.maxStudent-count(ug.user) nbPlaces # ".__LINE__." 
+            FROM `" . $tbl_Groups . "` g                          # ".__FILE__." 
             LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
             ON    `g`.`id` = `ug`.`team`
             GROUP BY (`g`.`id`)
@@ -263,8 +249,8 @@ function fill_in_groups($course_id = NULL)
      * of group they are already enrolled
      */
     
-    $sql = "SELECT cu.user_id uid,  (" . $nbGroupPerUser . "-count(ug.team)) nbTicket
-             FROM `" . $tbl_CoursUsers . "` cu
+    $sql = "SELECT cu.user_id uid,  (" . $nbGroupPerUser . "-count(ug.team)) nbTicket # ".__LINE__." 
+            FROM `" . $tbl_CoursUsers . "` cu                    # ".__FILE__." 
             LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
             ON    `ug`.`user`      = `cu`.`user_id`
             WHERE `cu`.`code_cours`='" . $currentCourseId . "'
@@ -358,10 +344,46 @@ function fill_in_groups($course_id = NULL)
     {
             $sql = "INSERT INTO `" . $tbl_GroupsUsers . "`
                     (`user`, `team`)
-                    VALUES " . implode(" , ", $prepareQuery);
+                    VALUES " . implode(" , ", $prepareQuery) . "
+                                    # ".__FUNCTION__."
+                                    # ".__FILE__."
+                                    # ".__LINE__;
 
             claro_sql_query($sql);
     }
     // else : no student without groups
 }
+
+
+/**
+ * count user in course.
+ * @param course_id
+ * @return user qty in the given course
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+function group_count_students_in_course($course_id)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'    ];
+    claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $sql              = "SELECT COUNT(user_id) qty FROM `" . $tbl_rel_course_user . "`
+                         WHERE  code_cours =' " . $course_id . "'
+                         AND    statut = 5 AND tutor = 0";
+    return claro_sql_query_get_single_value($sql);
+	
+}
+/**
+ * Count user in one group.
+ * @param interger (optional) course_id
+ * @return interger user quantity
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+function group_count_students_in_groups($course_id=null)
+{
+    $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+    $sql = "SELECT COUNT(user) FROM `" . $tbl_rel_team_user . "`";
+	return (int) claro_sql_query_get_single_value($sql);
+}
+
 ?>

@@ -18,7 +18,7 @@
  * - remove (all) groups
  * complete listing of  groups member is not aivailable. the  unsorted info is in user tool
  *
- * @version 1.6
+ * @version 1.7
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -42,11 +42,11 @@ claro_unquote_gpc();
 if ( ! $_cid) claro_disp_select_course();
 $nameTools     = $langGroups;
 
-@include($includePath.'/lib/debug.lib.inc.php');
-include($includePath.'/lib/group.lib.inc.php');
-include($includePath.'/lib/fileManage.lib.php');
+@include($includePath . '/lib/debug.lib.inc.php');
+include($includePath . '/lib/group.lib.inc.php');
+include($includePath . '/lib/fileManage.lib.php');
 
-include($includePath.'/lib/events.lib.inc.php');
+include($includePath . '/lib/events.lib.inc.php');
 
 //stats
 event_access_tool($_tid, $_courseTool['label']);
@@ -55,14 +55,14 @@ $htmlHeadXtra[] =
 '<script>
 function confirmationEmpty ()
 {
-        if (confirm(" '.clean_str_for_javascript($langConfirmEmptyGroups) .' "))
+        if (confirm(\'' . clean_str_for_javascript($langConfirmEmptyGroups)  . '\'))
                 {return true;}
         else
                 {return false;}
 };
 function confirmationDelete ()
 {
-        if (confirm(" '.clean_str_for_javascript($langConfirmDeleteGroups).' "))
+        if (confirm(\'' . clean_str_for_javascript($langConfirmDeleteGroups) . '\'))
                 {return true;}
         else
                 {return false;}
@@ -153,8 +153,8 @@ if ( $is_allowedToManage )
              * Insert a new group in the course group table and keep its ID
              */
 
-            $sql = "INSERT INTO `".$tbl_Groups."`
-                    (maxStudent) VALUES ('".$group_max."')";
+            $sql = "INSERT INTO `" . $tbl_Groups . "`
+                    (maxStudent) VALUES ('" . $group_max . "')";
 
             claro_sql_query($sql);
 
@@ -171,7 +171,7 @@ if ( $is_allowedToManage )
             {
                 // select max order in the forum cat only (cat_id = 1)
                 $sql = "SELECT MAX(`forum_order`)
-                        FROM `".$tbl_Forums."`
+                        FROM `" . $tbl_Forums . "`
                         WHERE `cat_id` = 1"; 
                 $result = claro_sql_query($sql);
                 $tmp = mysql_fetch_array($result);
@@ -179,9 +179,9 @@ if ( $is_allowedToManage )
             }
             $lastOrder += 1;
         
-            $sql = "INSERT INTO `".$tbl_Forums."`
+            $sql = "INSERT INTO `" . $tbl_Forums . "`
                     SET forum_id           = '',
-                        forum_name         = '".$langForumGroup." ".$lastId."',
+                        forum_name         = '" . $langForumGroup . " " . $lastId . "',
                         forum_desc         = '',
                         forum_access       = 2,
                         forum_moderator    = 1,
@@ -190,8 +190,8 @@ if ( $is_allowedToManage )
                         forum_last_post_id = '0',
                         cat_id             = '1',
                         forum_type         = '0',
-                        md5                = '".md5(time())."',
-                        forum_order        = '".$lastOrder."'";
+                        md5                = '" . md5(time()) . "',
+                        forum_order        = '" . $lastOrder . "'";
             claro_sql_query($sql);
 
             $forumInsertId = mysql_insert_id();
@@ -202,28 +202,28 @@ if ( $is_allowedToManage )
 
             /*  Create a Unique ID path preventing other enter */
 
-            $secretDirectory = uniqid("")."_team_".$lastId;
+            $groupRepository = uniqid('') . '_team_' . $lastId;
 
-            while ( check_name_exist($coursesRepositorySys.$currentCourseRepository."/group/$secretDirectory") )
+            while ( check_name_exist($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository) )
             {
-                $secretDirectory = uniqid("") . "_team_" . $lastId;
+                $groupRepository = uniqid('') . '_team_' . $lastId;
             }
 
-            mkdirs($coursesRepositorySys.$currentCourseRepository."/group/".$secretDirectory, 0777);
+            claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, 0777);
 
             /* Stores the directory path into the group table */
 
-            $sql = "UPDATE `".$tbl_Groups."`
-                    SET   name            = '".$langGroup." ".$lastId."',
-                          forumId         = '".$forumInsertId."',
-                          secretDirectory = '".$secretDirectory."'
-                    WHERE id ='".$lastId."'";
+            $sql = "UPDATE `" . $tbl_Groups . "`
+                    SET   name            = '" . $langGroup . ' ' . $lastId . "',
+                          forumId         = '" . (int) $forumInsertId . "',
+                          secretDirectory = '" . $groupRepository . "'
+                    WHERE id ='" . $lastId . "'";
 
-            mysql_query($sql);
+            claro_sql_query($sql);
 
         }    // end for ($i = 1; $i <= $group_quantity; $i++)
 
-        $message= $group_quantity.' '.$langGroupsAdded;
+        $message= $group_quantity . ' ' . $langGroupsAdded;
         event_default('GROUPMANAGING',array ('CREATE_GROUP' => $group_quantity));
 
     }    // end if $submit
@@ -238,9 +238,9 @@ if ( $is_allowedToManage )
 
     if ( isset($_REQUEST['properties']) )
     {
-        if ( $_REQUEST['limitNbGroupPerUser'] == "ALL")
+        if ( $_REQUEST['limitNbGroupPerUser'] == 'ALL')
         {
-            $sqlLimitNbGroupPerUser = "NULL";
+            $sqlLimitNbGroupPerUser = 'NULL';
         }
         else
         {
@@ -248,7 +248,7 @@ if ( $is_allowedToManage )
 
             if ( $limitNbGroupPerUser < 1 ) $limitNbGroupPerUser = 1;
 
-            $sqlLimitNbGroupPerUser = "'".$limitNbGroupPerUser."'";
+            $sqlLimitNbGroupPerUser = "'" . $limitNbGroupPerUser . "'";
             $nbGroupPerUser         = $limitNbGroupPerUser;
         }
 
@@ -336,7 +336,7 @@ if ( $is_allowedToManage )
         $nbGroupDeleted = deleteAllGroups();
 
         if ($nbGroupDeleted>0) $message = $langGroupsDeleted;
-        else                   $message = "!!!! no group deleted";
+        else                   $message = $langNoGroupsDeleted;
         event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
 
     }
@@ -350,9 +350,9 @@ if ( $is_allowedToManage )
         $id = (int) $_REQUEST['id'];
         $nbGroupDeleted = delete_groups($id);
 
-        if     ( $nbGroupDeleted==1 ) $message = $langGroupDel ;
-        elseif ( $nbGroupDeleted>1 )  $message = $nbGroupDeleted . " " . $langGroupDel;
-        else                          $message = "No group deleted !";
+        if     ( $nbGroupDeleted == 1 ) $message = $langGroupDel ;
+        elseif ( $nbGroupDeleted >  1 ) $message = $nbGroupDeleted . ' ' . $langGroupDel;
+        else                            $message = $langNoGroupsDeleted . ' !';
     }
 
     /*-------------------
@@ -364,7 +364,7 @@ if ( $is_allowedToManage )
         $sql = "DELETE FROM `" . $tbl_GroupsUsers . "`";
         $result  = claro_sql_query($sql);
 
-        $sql = 'UPDATE `' . $tbl_Groups . '` SET tutor="0"';
+        $sql = "UPDATE `" . $tbl_Groups . "` SET tutor='0'";
         $result2 = claro_sql_query($sql);
 
         event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
@@ -397,7 +397,7 @@ if ( $is_allowedToManage )
         aivailable for the current user.
 */
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 
 claro_disp_tool_title($nameTools);
 
@@ -420,33 +420,33 @@ if ( $display_groupadmin_manager )
        COMMANDS BUTTONS
       --------------------*/
 
-echo '<p>'."\n"
-    .'<a class="claroCmd" href="group_creation.php">'
-    .'<img src="'.$imgRepositoryWeb.'group.gif">'
+echo '<p>' . "\n"
+     . '<a class="claroCmd" href="group_creation.php">'
+     . '<img src="' . $imgRepositoryWeb . 'group.gif">'
     .$langNewGroupCreate
-    .'</a> |'."\n"
-    .'&nbsp;'
-    .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?delete=yes" onClick="return confirmationDelete();">'
-    .'<img src="'.$imgRepositoryWeb.'delete.gif">'
+     . '</a> |' . "\n"
+     . '&nbsp;'
+     . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
+     . '<img src="' . $imgRepositoryWeb . 'delete.gif">'
     .$langDeleteGroups
-    .'</a> |'."\n"
-    .'&nbsp;'
-    .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?fill=yes"  >'
-    .'<img src="'.$imgRepositoryWeb.'fill.gif">'
+     . '</a> |' . "\n"
+     . '&nbsp;'
+     . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes"  >'
+     . '<img src="' . $imgRepositoryWeb . 'fill.gif">'
     .$langFillGroups
-    .'</a> |'."\n"
-    .'&nbsp;'
-    .'<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?empty=yes"  onClick="return confirmationEmpty();">'
-    .'<img src="'.$imgRepositoryWeb.'sweep.gif">'
+     . '</a> |' . "\n"
+     . '&nbsp;'
+     . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
+     . '<img src="' . $imgRepositoryWeb . 'sweep.gif">'
     .$langEmtpyGroups
-    .'</a> |'."\n"
-    .'&nbsp;'
-    .'<a class="claroCmd" href="group_properties.php">'
-    .'<img src="'.$imgRepositoryWeb.'settings.gif">'
-    .'Modify Group Settings'
-    .'</a>'."\n"
-    .'&nbsp;'
-    .'</p>'."\n"
+     . '</a> |' . "\n"
+     . '&nbsp;'
+     . '<a class="claroCmd" href="group_properties.php">'
+     . '<img src="' . $imgRepositoryWeb . 'settings.gif">'
+     . $langModifyGroupSettings 
+     . '</a>' . "\n"
+     . '&nbsp;'
+     . '</p>' . "\n"
     ;
 
 }    // end course admin only
@@ -494,7 +494,8 @@ echo '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpaddi
    -------------*/
 
 echo '<tr class="headerX" align="center">'
-   . '<th align="left">' . '&nbsp; ' . $langExistingGroups . '</th>' ;
+.    '<th align="left">' . '&nbsp; ' . $langExistingGroups . '</th>' 
+;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
@@ -502,12 +503,14 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 }
 
 echo '<th>' . $langRegistered . '</th>'
-   . '<th>' . $langMax . '</th>' ;
+.    '<th>' . $langMax . '</th>' 
+;
 
 if ( $is_allowedToManage ) // only for course administrator
 {
     echo '<th>' . $langEdit . '</th>'
-       . '<th>' . $langDelete . '</th>' ;
+    .    '<th>' . $langDelete . '</th>' 
+    ;
 }
 
 echo '</tr><tbody>';
@@ -570,18 +573,18 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
              ||   $thisGroup['is_member']
              || ! $_groupProperties['private'])
         {
-            echo '<img src="'.$imgRepositoryWeb.'group.gif"> '
-               . '<a href="group_space.php?gidReq='.$thisGroup['id'].'">'
+            echo '<img src="' . $imgRepositoryWeb . 'group.gif"> '
+               . '<a href="group_space.php?gidReq=' . $thisGroup['id'] . '">'
                . $thisGroup['name']
                . '</a>'
                ;
             
-            if     ($_uid && $_uid == $thisGroup['id_tutor']) echo ' ('.$langOneMyGroups.')';
-            elseif ($thisGroup['is_member'])                  echo ' ('.$langMyGroup.')';
+            if     ($_uid && $_uid == $thisGroup['id_tutor']) echo ' (' . $langOneMyGroups . ')';
+            elseif ($thisGroup['is_member'])                  echo ' (' . $langMyGroup . ')';
         }
         else
         {
-            echo '<img src="'.$imgRepositoryWeb.'group.gif"> ' 
+            echo '<img src="' . $imgRepositoryWeb . 'group.gif"> ' 
                . $thisGroup['name']
                ;
         }
@@ -609,7 +612,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
             else
             {
                 echo '&nbsp;'
-                   . '<a href="group_space.php?selfReg=1&amp;gidReq='.$thisGroup['id'].'">'
+                   . '<a href="group_space.php?selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
                    . $langGroupSelfRegInf
                    . '</a>'
                    ;
@@ -622,41 +625,41 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
         MEMBER NUMBER
       ------------------*/
 
-    echo    '<td>'.$thisGroup['nbMember'].'</td>';
+    echo    '<td>' . $thisGroup['nbMember'] . '</td>';
 
     /*------------------
       MAX MEMBER NUMBER
       ------------------*/
 
-    if ($thisGroup['maxStudent'] == 0)   echo "<td> - </td>";
-    else                               echo "<td>",$thisGroup['maxStudent'],"</td>";
+    if ($thisGroup['maxStudent'] == 0) echo '<td> - </td>';
+    else                               echo '<td>' . $thisGroup['maxStudent'] . '</td>';
 
     if ($is_allowedToManage)
     {
         echo '<td>'
-           . '<a href="group_edit.php?gidReq='.$thisGroup['id'].'">'
-           . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
+           . '<a href="group_edit.php?gidReq=' . $thisGroup['id'] . '">'
+           . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '">'
            . '</a>'
            . '</td>'
            . '<td>'
-           . '<a href="'.$_SERVER['PHP_SELF'].'?delete_one=yes&amp;id='.$thisGroup['id'].'">'
-           . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'">'
+           . '<a href="' . $_SERVER['PHP_SELF'] . '?delete_one=yes&amp;id=' . $thisGroup['id'] . '">'
+           . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '">'
            . '</a>'
            . '</td>'
            ;
     }
 
-    echo '</tr>'."\n";
+    echo '</tr>' . "\n";
 
     if (   ! is_null($thisGroup['description']) 
         && trim($thisGroup['description']) != '' )
     {
         echo '<tr><td colspan="5">'
-           . '<div class="comment">'
-           . $thisGroup['description']
-           . '</div>'
-           . '</td></tr>'."\n"
-           ;
+        .    '<div class="comment">'
+        .    $thisGroup['description']
+        .    '</div>'
+        .    '</td></tr>' . "\n"
+        ;
     }
     
 
@@ -672,20 +675,9 @@ if ( $is_allowedToManage )
 {
     
     // COUNT STUDENTS REGISTERED TO THE COURSE
-
-    $sql              = "SELECT COUNT(user_id) FROM `".$tbl_CoursUsers."`
-                         WHERE  code_cours =' ".$currentCourseId."'
-                         AND    statut = 5 AND tutor = 0";
-
-    $countUsers       = mysql_fetch_array(mysql_query($sql));
-    $countUsers       = $countUsers[0];
-    
+    $countUsers = group_count_students_in_course($currentCourseId);
     // COUNT STUDENTS REGISTERED TO A GROUPS
-    
-    $sql              = "SELECT COUNT(user) FROM `".$tbl_GroupsUsers."`GROUP by user";
-    $usersWithGroups  =  mysql_fetch_array(mysql_query($sql));
-    $usersWithGroups  =  $usersWithGroups[0];
-    
+    $usersWithGroups  = group_count_students_in_groups();
     // COUNT STUDENTS UNREGISTERED TO A GROUP
     
     $countNoGroup     =  $countUsers - $usersWithGroups;
@@ -697,7 +689,7 @@ if ( $is_allowedToManage )
     unset($nbUser  );
     
     $sql = "SELECT COUNT(user_id) nbUser, statut, tutor
-            FROM `".$tbl_CoursUsers."`
+            FROM `" . $tbl_CoursUsers . "`
             WHERE code_cours='".$currentCourseId."'
             GROUP BY statut, tutor;";
 
@@ -748,10 +740,10 @@ if ( $is_allowedToManage )
             echo '<tr>'
                . '<td></td>'
                . '<td align="right">'
-               . '<b>'.$tutors[1].'</b>'
+               . '<b>' . $tutors[1] . '</b>'
                . '</td>'
                . '<td></td>'
-               .' <td>'
+                . ' <td>'
                ;
         
             if ($tutors[1] == 1) echo $langGroupTutor;  // singular form
