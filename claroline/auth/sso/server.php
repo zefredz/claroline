@@ -259,7 +259,8 @@ function generate_cookie()
 
 function record_sso_cookie($userId, $ssoCookie)
 {
-    $tbl_sso = 'icampus.sso';
+    $mainTblList = claro_sql_get_main_tbl();
+    $tbl_sso     = $mainTblList['sso' ];
 
     $sql = "UPDATE ".$tbl_sso." 
             SET cookie    = '".$ssoCookie."',
