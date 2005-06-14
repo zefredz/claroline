@@ -1,14 +1,27 @@
-<?php
-
+<?php //$Id$
 /**
  * Declaration of needed CLASSES for the EventManager pattern
+ *
+ * @version 1.7 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package CLEVENT
+ *
+ * @author Claro Team <cvs@claroline.net> 
+ * @author Guillaume Lederer <guim@claroline.net> 
+ *
  */
  
 //Main classes needed for the EventManager pattern
 
-require_once($includePath."/lib/event/class.event.php");
+require_once($includePath . '/lib/event/class.event.php');
 
-require_once($includePath."/lib/event/notifier.php");
+require_once($includePath . '/lib/event/notifier.php');
   
 /**
  * Declaration of needed INSTANCES for the EventManager pattern in Claroline
