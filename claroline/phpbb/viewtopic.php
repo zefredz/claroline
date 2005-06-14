@@ -114,11 +114,11 @@ if ($topicSettingList)
 		    switch ($cmd)
 		    {
 		        case 'exNotify' :
-		            request_topic_notification($_uid, $topic_id);
+		            request_topic_notification($topic_id, $_uid);
 		            break;
 		
 		        case 'exdoNotNotify' :
-		            cancel_topic_notification($_uid, $topic_id);
+		            cancel_topic_notification($topic_id, $_uid);
 		            break;
 		    }
 		
@@ -138,7 +138,7 @@ if ($topicSettingList)
 		    $notification_bloc = '<div style="float: right;">' . "\n"
 		                        . '<small>';
 		
-		    if (is_topic_notification_requested($_uid, $topic_id))   // display link NOT to be notified
+		    if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
 		    {
 		        $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif">'
 		                            . $l_notify
