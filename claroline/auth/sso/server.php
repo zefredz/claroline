@@ -292,9 +292,9 @@ function record_sso_cookie($userId, $ssoCookie)
 
 function is_allowed_to_recieve_user_info($auth)
 {
-    if ( in_array($auth, $_GLOBALS['ssoAuthenticationKeyList']) )
+    if ( in_array($auth, $GLOBALS['ssoAuthenticationKeyList']) )
     {
-        return true;    	
+        return true;
     }
     else
     {
