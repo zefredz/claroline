@@ -98,7 +98,7 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 
     $mainTblList = claro_sql_get_main_tbl();
     $tbl_user    = $mainTblList['user'];
-    $tbl_sso     = 'icampus`.`sso';
+    $tbl_sso     = $mainTblList['sso' ];
 
     $sql = "SELECT user.nom          lastname, 
                    user.prenom       firstname, 
