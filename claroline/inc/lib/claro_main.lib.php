@@ -904,7 +904,6 @@ function claro_disp_auth_form()
 
     if ( ! $is_courseAllowed )
     {
-
         if( ! $_uid && ! $_course['visibility'])
         {
             echo '<p align="center>">'
@@ -928,7 +927,8 @@ function claro_disp_auth_form()
                 .'<input type="submit" >'."\n"
 
                 .'</fieldset>'."\n"
-
+                . (isset($_REQUEST['cidReq']) ? '<input type="hidden" name="cidReq" id="cidReq" value="'.$_REQUEST['cidReq'].'" ><br>'
+                : '' )
                 .'</form>'."\n"
                 .'</td>'
                 .'</tr>'
@@ -942,13 +942,13 @@ function claro_disp_auth_form()
             if ( $allowSelfReg || !isset($allowSelfReg) )
             {
 
-                echo '<p>'."\n"
-                .    $lang_if_you_dont_have_a_user_account_profile_on . ' ' . $siteName
-                .    '&nbsp;' . '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
-                .    $lang_click_here
-                .    '</a>' . "\n"
-                .    '</p>' . "\n"
-                ;
+                echo '<p>' . "\n"
+                    . $lang_if_you_dont_have_a_user_account_profile_on . ' ' . $siteName
+                    . '&nbsp;' . '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
+                    . $lang_click_here
+                    . '</a>' . "\n"
+                    . '</p>' . "\n"
+                    ;
             }
         } // end if ! $uid && ! $course['visibility']
 
@@ -968,13 +968,13 @@ function claro_disp_auth_form()
             // if  I'm logged but have no access
             // this course is close, right, but the subscribe to this course ?
                 echo '<p>'."\n"
-                    .$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br>'
-                    .$lang_if_you_wish_to_enroll_to_this_course
-                    .'<a href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;keyword='.$_course['officialCode'].'" >'
-                    .$langReg
-                    .'</a>'."\n"
-                    .'</p>'."\n"
-                    ;
+                .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br>'
+                .    $lang_if_you_wish_to_enroll_to_this_course
+                .    '<a href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;keyword='.$_course['officialCode'].'" >'
+                .    $langReg
+                .    '</a>'."\n"
+                .    '</p>'."\n"
+                ;
 
         } // elseif$_uid && $_course['registrationAllowed']
 
