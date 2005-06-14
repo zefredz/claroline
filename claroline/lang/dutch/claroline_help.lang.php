@@ -2,11 +2,12 @@
 $langAddIntro = "Inleiding toevoegen";
 $langAgenda = "Agenda";
 $langAnnouncement = "Ad Valvas";
+$langCancel = "Annuleren";
 $langChat = "Online chat";
 $langClarContent = "<br><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de universiteit, is het wel noodzakelijk om zich voorafgaan te registreren. <b>Registratie > Vul uw persoonlijke gegevens in > Actie: Registreren voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>lesgever</b></p><p><b>Cursussite aanmaken</b></p><p>Zo gaat u te werk: <b>Registratie > Vul alle velden in en kies 'cursussen aanmaken' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer of een faculteit of een vakgroep.  Voer de referentie van de cursus in  > Klik Ok </b>. U komt in uw persoonlijke pagina in Claroline terecht. Hier vindt u de lijst van cursussen waarin u geregistreerd bent.  Klik op de naam van de cursus die u hebt aangemaakt. U komt in een ‘lege’ cursussite terecht.  Leeg in die zin dat er enkel voorbeelditems zijn aangebracht, zodat het angstzweet u niet uitbreekt bij de confrontatie met blanco pagina’s. Bij uw registratie kreeg u een e-mail, waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><p>Als er een problem is, neem contact op met uw Claroline-beheerder. U kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>";
 $langCloseWindow = "Venster sluiten";
+$langConfigMenuContent = "Configuratie Klein";
 $langConfirmYourChoice = "Gelieve uw keuze te bevestigen";
-$langCourseHome = "Cursus thuisbasis";
 $langCourseManager = "Cursusbeheerder";
 $langDay_of_weekNames = "Array";
 $langDelete = "Verwijderen";
@@ -166,6 +167,94 @@ $langHFor = "Hulp forums";
 $langHHome = "Hulp startpagina";
 $langHUser = "Hulp gebruikers";
 $langHelp = "Help";
+$langHelpAssignment = "Help bij taak";
+$langHelpAssignmentContent = "<p>
+Het taak gereedschap is een publicatiegebied voor studenten. 
+De cursusbeheerder maakt een of meerdere taken aan (verschillende publicatie mogelijkheden) waar
+de studenten hun werkjes kunnen publiceren.
+<br /><br />
+
+Elke taak kan meerdere doelen of vereisten hebben:
+Een publicatie moet een bestand en/of tekst zijn, en een publicatie kan in naam van een 
+groep worden aangeboden.
+ <br /><br />
+
+Studenten hebben de mogelijkheid hun werk na het indienen nog wijzigen, en de cursusbeheerder
+kan commentaar leveren op het ingediende werk.
+</p>
+<hr />
+
+<h4>Een taak aanmaken</h4>
+<p>
+Om een nieuwe taak aan te maken moet de cursus beheerder in het 'taak' gereedschap de link \"Nieuwe taak maken\"
+aanklikken.
+<p>Het formulier dat dan getoond wordt vraagt de cursusbeheerder om&nbsp;:
+</p>
+<ul><li> Een titel &nbsp;: De naam van de taak.
+</li><li> Een omschrijving&nbsp;: Wat de taak inhoudt, hetgeen van de studenten verwacht wordt.
+</li><li> Wat dient ingediend:&nbsp;:
+<ul><li> Bestand&nbsp;: elk uploadbaar type bestand. Wees voorzichtig, er is een grens op de grootte van 
+de bestanden die men kan uploaden. Er kan een korte omschrijving van het bestand worden meegegegeven bij 
+het uploaden.
+
+</li><li> Alleen tekst&nbsp;: Een tekst (mogelijk met opmaak).
+</li><li> Tekst met toegevoegd bestand&nbsp;: een tekst (mogelijk met opmaak) en een bestand (optioneel)
+</li></ul>
+</li><li> Een begindatum&nbsp;: Datum vanaf wanneer de gebruikers hun werk mogen indienen.
+</li><li> Een einddatum&nbsp;: Datum tot wanneer de gebruikers hun werk mogen indienen.
+</li><li> Standaard zichtbaarheid van de werken&nbsp;: Duid aan of de werken zichtbaar 
+zullen zijn voor andere gebruikers of niet.
+</li><li> Type taak&nbsp;:
+
+<ul><li> Individueel&nbsp;: Elke gebruiker kan een werk indienen.
+</li><li> Groepswerk&nbsp;: De gebruiker moet lid zijn van minstens een groep in de cursus, het werk wordt ingediend in naam van de groep.
+</li></ul>
+</li><li> Toestemming om werken nog in te dienen na einddatum
+</li></ul>
+<p><br />
+<strong>Automatische commentaar toevoegen</strong>
+</p>
+<p>Een commentaar is een correcte versie van de taak. Om een automatische commentaar toe te voegen, klik
+op de link \"Bewerk automatische commentaar\".
+<p>Dit kan een tekst en/of een bestand zijn.
+De cursus bereerder kan kiezen wanneer deze automatische commentaat aan de gebruikers getoond wordt:
+Na de einddatum van de taak, of nadat het werk werd ingediend.
+</p>
+
+<hr />
+<h4>Werken</h4>
+<p>Werken zijn de publicaties/teksten die de gebruikers uploaden.</p>
+<p>Voor elke taak toont de gereedschapsset een lijst van alle gebruikes in de cursus, en voor elke 
+gebruiker de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werkjes en 
+het aantal commentaren. De lijst van werkjes van een gebruiker kan opgevraagd worden door op de 
+gebruikersnaam te klikken.
+</p>
+<p><strong>Een werk indienen</strong></p>
+<p>Indien de gebruiker het recht heeft een werkje in te dienen, wordt er een link naar een formulier getoond.
+</p>
+<p><strong>Lijst werkjes</strong></p>
+<p>De cursusbeheerder heeft het recht elk van de ingediende werkjes te bewerken, verwijderen of (on)zichtbaar te maken.
+Hij kan ook commentaar leveren op werkjes.
+</p>
+<ul>
+<li> <strong>Wijzigen</strong>&nbsp;: Indien dit pictogram verschijnt kan de gebruiker de inhoud van het werk kan wijzige, 
+dit is het geval voor de cursusbeheerder, of als de gebruiker naar zijn werkjes kijkt, of de werkjes van een groep waar hij in zit.
+
+</li>
+<li> <strong>Verwijderen</strong>&nbsp;: Hiermee kan de cursusbeheerder een werkje verwijderen.
+</li>
+<li> <strong>Zichtbaar</strong>&nbsp;: Dit pictogram duidt aan dat het werkje zichtbaar is voor alle gebruikers.
+(zoals bij de 'Documenten'). Op het pictogram klikken maakt het werkje onzichtbaar.
+</li>
+<li> <strong>Onzichtbaar</strong>&nbsp;: Dit pictogram duidt aan dat het werkje onzichtbaar is voor alle gebruikers.
+(zoals bij de 'Documenten'). Op het pictogram klikken maakt het werkje zichtbaar.
+
+</li>
+<li> <strong>Commentaar toevoegen</strong>&nbsp;: Via deze link kan de cursusbeheerder commentaar toevoegen
+aan een werkje. Dit kan een tekst en/of een bestand zijn, en kan een prive commentaar zijn, zodat enkel 
+de cursusbeheerder de commentaar kan zien.
+</li>
+</ul>";
 $langHelpGroups = "Groepenbeheer";
 $langHomeContent = "
 	U bevindt zich op de startpagina van een cursus. Hier ziet u verschillende ikoontjes
@@ -190,6 +279,7 @@ $langLearningPath = "Leerpad";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
 $langManager = "Platformbeheerder";
+$langMinuteShort = "min.";
 $langModify = "Wijzigen";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
@@ -202,6 +292,7 @@ $langPassword = "Wachtwoord";
 $langPlatformAdministration = "Platform beheer";
 $langPoweredBy = " gebruikt het platform";
 $langReg = "Registratie";
+$langSecondShort = "sec.";
 $langStudent = "student";
 $langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwijderen. Wilt U verdergaan ?";
 $langTextEditorDisable = "Desactiveer tekst bewerking";

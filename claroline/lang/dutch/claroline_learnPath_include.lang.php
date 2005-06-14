@@ -6,6 +6,7 @@ $langExerciseInModule = "Oefening in module";
 $langFileName = "Bestandsnaam";
 $langModify = "Wijzigen";
 $langOk = "Ok";
+$langQuestion = "Vraag";
 $langRawHasBeenChanged = "Ruw minimum om te slagen is veranderd";
 $langSize = "Grootte";
 ?>
