@@ -159,7 +159,8 @@ function sync($forumId, $topicId = null)
             $last_post = claro_sql_query_get_single_value($sql);
 
             $sql = "UPDATE `" . $tbl_topics . "`
-                    SET topic_replies = " . (int) $total_posts . ", # note. topic_replies should be renamed topic_posts' 
+                    SET topic_replies = " . (int) $total_posts . ", 
+                    # note. topic_replies should be renamed topic_posts' 
                         topic_last_post_id = " . (int) $last_post . "
                     WHERE topic_id = " . (int) $topicId;
 
