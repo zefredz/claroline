@@ -709,6 +709,6 @@ foreach ( $eventList as $thisEvent )
 
 echo '</table>';
 
-include($includePath.'/claro_init_footer.inc.php');
+include( $includePath . '/claro_init_footer.inc.php' );
 
 ?>
