@@ -46,10 +46,8 @@ function get_userdata_from_id($userId)
  * Also can return the number of users on the system.
  */
 
-function get_total_posts($id, $type)
+function get_total_posts($id, $type = 'all')
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users = $tbl_mdb_names['user'];
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_posts = $tbl_cdb_names['bb_posts'];
 
@@ -63,9 +61,7 @@ function get_total_posts($id, $type)
             break;
         case 'all'  : $condition = '1'; // forces TRUE in all cases ...
             break;
-
-        // Old, we should never get this.
-        default     : $condition = false;
+        default     : $condition = false; // normally, we should never get this.
     }
 
     if ( $condition !== false )
@@ -81,6 +77,8 @@ function get_total_posts($id, $type)
     	return false;
     }
 }
+
+
 
 /**
  * Check if this is the first post in a topic. Used in editpost.php
@@ -118,94 +116,85 @@ function error_die($msg)
 }
 
 /** 
- * Update summary info in forum table
+ * Update summary info in forum and topic table
+ * @param int forumId
+ * @param int topicId (optionnal)
+ * @return boolean true if succeeds, false otherwise 
  */
-function sync($id, $type)
+
+function sync($forumId, $topicId = null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forums  = $tbl_cdb_names['bb_forums'];
-    $tbl_topics  = $tbl_cdb_names['bb_topics'];
-    $tbl_posts   = $tbl_cdb_names['bb_posts'];
+    $tbl_forums    = $tbl_cdb_names['bb_forums'];
+    $tbl_topics    = $tbl_cdb_names['bb_topics'];
+    $tbl_posts     = $tbl_cdb_names['bb_posts'];
 
-    switch ( $type )
+    // TOPIC SYNC PART
+
+    if ($topicId)
     {
-        case 'forum':
-            $sql = "SELECT MAX(post_id) AS last_post 
-                    FROM `" . $tbl_posts . "` 
-                    WHERE forum_id = '" .  (int) $id . "'";
-
-            $last_post = claro_sql_query_get_single_value($sql);
-
-            $sql = "SELECT COUNT(post_id) AS total 
-                    FROM `" . $tbl_posts . "` 
-                    WHERE forum_id = '" . (int) $id . "'";
-
-            $total_posts = claro_sql_query_get_single_value($sql);
-
-            $sql = "SELECT COUNT(topic_id) AS total 
-                    FROM `" . $tbl_topics."` 
-                    WHERE forum_id = '" . (int) $id . "'";
-
-            $total_topics = claro_sql_query_get_single_value($sql);
-
-            $sql = "UPDATE `" . $tbl_forums."`
-                    SET forum_last_post_id = '" . (int) $last_post . "',
-                        forum_posts = '" . (int) $total_posts . "',
-                        forum_topics = '" . (int) $total_topics . "'
-                    WHERE forum_id = '" . (int) $id . "'";
-
-            $result = claro_sql_query($sql);
-
-        break;
-
-    case 'topic':
-
-        $sql = "SELECT MAX(post_id) AS last_post 
-                FROM `" . $tbl_posts . "` 
-                WHERE topic_id = '" . (int) $id . "'";
-
-        $last_post = claro_sql_query_get_single_value($sql);
-
         $sql = "SELECT COUNT(post_id) AS total 
                 FROM `" . $tbl_posts . "` 
-                WHERE topic_id = '" . (int) $id . "'";
+                WHERE topic_id = '" . (int) $topicId . "'";
 
         $total_posts = claro_sql_query_get_single_value($sql);
 
-        $sql = "UPDATE `" . $tbl_topics . "`
-                SET topic_replies = '" . (int) $total_posts . " #topic_replies should be renamed topic_posts', 
-                topic_last_post_id = '" . (int) $last_post . "'
-                WHERE topic_id = '" . (int) $id . "'";
-
-        claro_sql_query($sql);
-
-    break;
-
-    case 'all forums':
-        $sql = "SELECT forum_id FROM `" . $tbl_forums . "`";
-        $forumList = claro_sql_query_fetch_all($sql);
-
-        foreach($forumList as $thisForum)
+        if ($total_posts < 1)
         {
-            $id = $thisForum['forum_id'];
-            sync($id, 'forum');
+            // no post anymore in the topic --> delete topic
+
+            $sql = "DELETE FROM `" . $tbl_topics . "` 
+                    WHERE topic_id = '" . (int) $topicId . "'";
+
+            if (claro_sql_query($sql) == false) return false;
+
+            if (! cancel_topic_notification($topicId) ) return false; 
         }
-        
-    break;
-
-    case 'all topics':
-        $sql = "SELECT topic_id FROM `" . $tbl_topics . "`";
-        $topicList = claro_sql_query_fetch_all($sql);
-
-        foreach($topicList as $thisTopic)
+        else
         {
-            $id = $thisTopic['topic_id'];
-            sync($id, "topic");
-        }
-        
-    break;
+            $sql = "SELECT MAX(post_id) AS last_post 
+                    FROM `" . $tbl_posts . "` 
+                    WHERE topic_id = '" . (int) $topicId . "'";
 
-    } // end switch
+            $last_post = claro_sql_query_get_single_value($sql);
+
+            $sql = "UPDATE `" . $tbl_topics . "`
+                    SET topic_replies = " . (int) $total_posts . ", # note. topic_replies should be renamed topic_posts' 
+                        topic_last_post_id = " . (int) $last_post . "
+                    WHERE topic_id = " . (int) $topicId;
+
+            if ( claro_sql_query($sql) == false ) return false;
+        }
+    }
+    // else noop
+
+    // FORUM SYNC PART
+
+    $sql = "SELECT COUNT(post_id) AS total 
+            FROM `" . $tbl_posts . "` 
+            WHERE forum_id = '" . (int) $forumId . "'";
+
+    $total_posts = claro_sql_query_get_single_value($sql);
+
+    $sql = "SELECT MAX(post_id) AS last_post 
+            FROM `" . $tbl_posts . "` 
+            WHERE forum_id = '" .  (int) $forumId . "'";
+
+    $last_post = claro_sql_query_get_single_value($sql);
+
+    $sql = "SELECT COUNT(topic_id) AS total 
+            FROM `" . $tbl_topics."` 
+            WHERE forum_id = '" . (int) $forumId . "'";
+
+    $total_topics = claro_sql_query_get_single_value($sql);
+
+    $sql = "UPDATE `" . $tbl_forums."`
+            SET forum_last_post_id = '" . (int) $last_post . "',
+                forum_posts = '" . (int) $total_posts . "',
+                forum_topics = '" . (int) $total_topics . "'
+            WHERE forum_id = '" . (int) $forumId . "'";
+
+    if ( claro_sql_query($sql) == false) return false;
 
     return true;
 }
@@ -486,64 +475,30 @@ function update_post($post_id, $topic_id, $message, $subject = '')
  * 
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param
- * @return 
+ * @param int $postId
+ * @param int $topciId
+ * @param int $forumId
+ * @return boolean true if succeeds, false otherwise
  */
 
-function delete_post($postId, $topicId, $forumId, $userId)
+function delete_post($postId, $topicId, $forumId)
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
-    $tbl_topics     = $tbl_cdb_names['bb_topics'    ];
     $tbl_posts      = $tbl_cdb_names['bb_posts'     ];
     $tbl_posts_text = $tbl_cdb_names['bb_posts_text'];
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users       = $tbl_mdb_names['user'];
 
     $sql = "DELETE FROM `" . $tbl_posts . "` 
             WHERE post_id = '" . (int) $postId . "'";
 
-    $result = claro_sql_query($sql);
+    if (claro_sql_query($sql) == false) return false;
 
     $sql = "DELETE FROM `" . $tbl_posts_text . "` 
             WHERE post_id = '" . (int) $postId . "'";
 
-    $result = claro_sql_query($sql);
+    if (claro_sql_query($sql) == false) return false;
 
-
-    if( get_total_posts($topicId, 'topic') == 0 ) # warning $db poses 
-                                                  # problems, we have to 
-                                                  # remove it.
-    {
-        $sql = "DELETE FROM `" . $tbl_topics . "` 
-                WHERE topic_id = '" . (int) $topicId . "'";
-
-        $result = claro_sql_query($sql);
-        $topic_removed = true;
-    }
-    else
-    {
-        $sql = "UPDATE `" . $tbl_topics . "` 
-                SET topic_time = '" . get_last_post($topicId, 'topic') . "' 
-                WHERE topic_id = '" . (int) $topicId . "'";
-
-        $result = claro_sql_query($sql);
-        $topic_removed = false;
-    }
-
-//    if($userId != -1)
-//    {
-//        $sql = "UPDATE `" . $tbl_users."` 
-//                SET user_posts = user_posts - 1 
-//                WHERE user_id = '" . (int) $userId . "'";
-//
-//        $result = claro_sql_query($sql);
-//    }
-
-    // don't understand these two lines below
-    sync($forumId, 'forum');
-    if (!$topic_removed) sync($topicId, 'topic');
-
+    if ( sync($forumId, $topicId) ) return true;
+    else                            return false;
 }
 
 
@@ -555,13 +510,13 @@ function delete_post($postId, $topicId, $forumId, $userId)
  * @return void
  */
 
-function request_topic_notification($userId, $topicId)
+function request_topic_notification($topicId, $userId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
     // check first if user is not regisitered for topic notification yet
-    if (! is_topic_notification_requested($userId, $topicId) )
+    if (! is_topic_notification_requested($topicId, $userId) )
     {   
         $sql = "INSERT INTO `" . $tbl_user_notify . "`
                 SET `user_id`  = '" . (int) $userId . "',
@@ -575,22 +530,26 @@ function request_topic_notification($userId, $topicId)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param int $userId
- * @param int $topicId
+ * @param int $topicId (optionnal)
  * @return void
  */
 
-function cancel_topic_notification($userId, $topicId)
+function cancel_topic_notification($topicId = null, $userId = null)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names   = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
+    $conditionList = array();
+    if ($userId ) $conditionList[]  = "`user_id`  = '" . (int) $userId;
+    if ($topicId) $conditionList[]  = "`topic_id` = '" . (int) $topicId;
 
-    $sql = "DELETE FROM `" . $tbl_user_notify . "`
-            WHERE `user_id`  = '" . (int) $userId . "'
-              AND `topic_id` = '" . (int) $topicId . "'";
+    $sql = "DELETE FROM `" . $tbl_user_notify . "`"
+          . (count($conditionList) > 0) ? "WHERE ".implode('AND ', $conditionList) : '';
 
-    claro_sql_query($sql);
+    if (claro_sql_query($sql) == false) return false;
+    else                                return true;
 }
+
 
 /**
  *
@@ -600,7 +559,7 @@ function cancel_topic_notification($userId, $topicId)
  * @return bool
  */
 
-function is_topic_notification_requested($userId, $topicId)
+function is_topic_notification_requested($topicId, $userId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
@@ -915,7 +874,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         if ( $cat_id > 0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $cat_id;
         else               $toAdd = '';
 
-        $toolBar[] = '<a class="claroCmd" href="../forum_admin/forum_admin.php' . $toAdd . '">'
+        $toolBar[] = '<a class="claroCmd" href="admin.php' . $toAdd . '">'
                   . '<img src="' . $imgRepositoryWeb . 'settings.gif"> '
                   . $langAdm . '</a>' . "\n"
                   ;
@@ -935,7 +894,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     
     	case 'viewforum':
     
-    		$toolBar [] =	'<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+            $toolBar [] =   '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                            .'<img src="' . $imgRepositoryWeb . 'topic.gif"> '
                            . $langNewTopic
                            .'</a>';
