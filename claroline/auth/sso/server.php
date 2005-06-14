@@ -188,8 +188,6 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 
     if ($uid && $cid && $gid)
     {
-        global $courseTablePrefix, $dbGlu; // from config.
-
         $courseTblList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid));
 
         $tbl_group_team          = $courseTblList['group_team'         ];
@@ -205,8 +203,8 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
                        gtu.`team`, 
                        gtu.`status`, 
                        gtu.`role`
-                FROM `".$tbl_group_team."`            AS g, 
-                     `".$tbl_group_property."`       AS gp, 
+                FROM `".$tbl_group_team."`          AS g, 
+                     `".$tbl_group_property."`      AS gp, 
                      `".$tbl_group_rel_team_user."` AS gtu
                 WHERE gtu.`user` = '".$uid."'
                   AND gtu.`team` = '".$gid."'
