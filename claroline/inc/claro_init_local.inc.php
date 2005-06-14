@@ -463,7 +463,7 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
                 }
 
                $boolCookie = setcookie($ssoCookieName, $ssoCookieValue, 
-                                       time()+$ssoCookieExpireTime, 
+                                       time() + $ssoCookiePeriodValidity, 
                                        $ssoCookiePath, $ssoCookieDomain);
                // Note. $ssoCookieName, $ssoCookieValussoCookieExpireTime,
                //       $soCookiePath and $ssoCookieDomain are coming from 
