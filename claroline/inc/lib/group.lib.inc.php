@@ -352,6 +352,8 @@ function fill_in_groups($course_id = NULL)
             claro_sql_query($sql);
     }
     // else : no student without groups
+    
+    return true;
 }
 
 
@@ -365,7 +367,7 @@ function group_count_students_in_course($course_id)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'    ];
-    claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+
     $sql              = "SELECT COUNT(user_id) qty FROM `" . $tbl_rel_course_user . "`
                          WHERE  code_cours =' " . $course_id . "'
                          AND    statut = 5 AND tutor = 0";
@@ -385,5 +387,24 @@ function group_count_students_in_groups($course_id=null)
     $sql = "SELECT COUNT(user) FROM `" . $tbl_rel_team_user . "`";
 	return (int) claro_sql_query_get_single_value($sql);
 }
+
+/**
+ * Count groups where a user is ennrolled in a given course
+ * @param $user_id
+ * @param interger (optional) course_id
+ * @return 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function group_count_group_of_a_user($user_id, $course_id=null)
+{
+    $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+    $sql = "SELECT COUNT(`team`) nbGroups
+            FROM `" . $tbl_rel_team_user . "` WHERE user='" . (int) $user_id . "'";
+
+	return claro_sql_query_get_single_value($sql);
+}
+
 
 ?>

@@ -42,7 +42,6 @@ claro_unquote_gpc();
 if ( ! $_cid) claro_disp_select_course();
 $nameTools     = $langGroups;
 
-@include($includePath . '/lib/debug.lib.inc.php');
 include($includePath . '/lib/group.lib.inc.php');
 include($includePath . '/lib/fileManage.lib.php');
 
@@ -143,7 +142,7 @@ if ( $is_allowedToManage )
         $group_max = (int) $_REQUEST['group_max'];
         $group_quantity = (int) $_REQUEST['group_quantity'];
 
-        if ( $group_quantity<1 ) $group_quantity = 1;
+        if ( $group_quantity <1 ) $group_quantity = 1;
 
         $lastOrder = 0;
 
@@ -156,9 +155,9 @@ if ( $is_allowedToManage )
             $sql = "INSERT INTO `" . $tbl_Groups . "`
                     (maxStudent) VALUES ('" . $group_max . "')";
 
-            claro_sql_query($sql);
+            $lastId = claro_sql_query_insert_id($sql);
 
-            $lastId = mysql_insert_id();
+            
 
             /*
              * Create a forum for the group in the forum table
@@ -420,33 +419,33 @@ if ( $display_groupadmin_manager )
        COMMANDS BUTTONS
       --------------------*/
 
-echo '<p>' . "\n"
-     . '<a class="claroCmd" href="group_creation.php">'
-     . '<img src="' . $imgRepositoryWeb . 'group.gif">'
-    .$langNewGroupCreate
-     . '</a> |' . "\n"
-     . '&nbsp;'
-     . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
-     . '<img src="' . $imgRepositoryWeb . 'delete.gif">'
-    .$langDeleteGroups
-     . '</a> |' . "\n"
-     . '&nbsp;'
-     . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes"  >'
-     . '<img src="' . $imgRepositoryWeb . 'fill.gif">'
-    .$langFillGroups
-     . '</a> |' . "\n"
-     . '&nbsp;'
-     . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
-     . '<img src="' . $imgRepositoryWeb . 'sweep.gif">'
-    .$langEmtpyGroups
-     . '</a> |' . "\n"
-     . '&nbsp;'
-     . '<a class="claroCmd" href="group_properties.php">'
-     . '<img src="' . $imgRepositoryWeb . 'settings.gif">'
-     . $langModifyGroupSettings 
-     . '</a>' . "\n"
-     . '&nbsp;'
-     . '</p>' . "\n"
+    echo '<p>' . "\n"
+    .    '<a class="claroCmd" href="group_creation.php">'
+    .    '<img src="' . $imgRepositoryWeb . 'group.gif">'
+    .    $langNewGroupCreate
+    .    '</a> |' . "\n"
+    .    '&nbsp;'
+    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif">'
+    .    $langDeleteGroups
+    .    '</a> |' . "\n"
+    .    '&nbsp;'
+    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes"  >'
+    .    '<img src="' . $imgRepositoryWeb . 'fill.gif">'
+    .    $langFillGroups
+    .    '</a> |' . "\n"
+    .    '&nbsp;'
+    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
+    .    '<img src="' . $imgRepositoryWeb . 'sweep.gif">'
+    .    $langEmtpyGroups
+    .    '</a> |' . "\n"
+    .    '&nbsp;'
+    .    '<a class="claroCmd" href="group_properties.php">'
+    .    '<img src="' . $imgRepositoryWeb . 'settings.gif">'
+    .    $langModifyGroupSettings 
+    .    '</a>' . "\n"
+    .    '&nbsp;'
+    .    '</p>' . "\n"
     ;
 
 }    // end course admin only
@@ -478,12 +477,7 @@ if ( ! is_null($nbGroupPerUser) ) $nbGroupPerUser = (int) $nbGroupPerUser;
 
 if ( is_integer($nbGroupPerUser) )
 {
-    $sql = "SELECT COUNT(`team`) nbGroups
-            FROM `".$tbl_GroupsUsers."` WHERE user='".$_uid."'";
-
-    $countTeamUser = mysql_fetch_array( mysql_query($sql) );
-    $countTeamUser = $countTeamUser['nbGroups'];
-
+    $countTeamUser = group_count_group_of_a_user($_uid);
     if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
 }
 
@@ -669,17 +663,13 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
 
 echo '</tbody></table>';
 
-//////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////
+// This part is disabled  in multi group  beacause values  have no sense
 if ( $is_allowedToManage )
 {
     
-    // COUNT STUDENTS REGISTERED TO THE COURSE
-    $countUsers = group_count_students_in_course($currentCourseId);
-    // COUNT STUDENTS REGISTERED TO A GROUPS
+    $countUsers       = group_count_students_in_course($currentCourseId);
     $usersWithGroups  = group_count_students_in_groups();
-    // COUNT STUDENTS UNREGISTERED TO A GROUP
-    
     $countNoGroup     =  $countUsers - $usersWithGroups;
     
     // COUNT ALL REGISTERED USER AND GROUP BY STATUS
