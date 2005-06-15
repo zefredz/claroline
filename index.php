@@ -27,15 +27,15 @@ $tidReset = TRUE;
  */
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
-if (file_exists($includePath.'/conf/CLHOME.conf.php'))
+if (file_exists($includePath . '/conf/CLHOME.conf.php'))
 {
-    require $includePath.'/conf/CLHOME.conf.php'; // conf file
+    require $includePath . '/conf/CLHOME.conf.php'; // conf file
 }
 else 
 {
     // Perhapas  it's better to add here a die("Upgrade your campus");
 }
-require $includePath.'/lib/events.lib.inc.php'; // stats
+require $includePath . '/lib/events.lib.inc.php'; // stats
 
 // logout request : delete session data
 
@@ -57,7 +57,7 @@ $tbl_trackLogin        = $tbl_mdb_names['track_e_login'    ];
  * CLAROLINE HEADER AND BANNER
  */
 
-require $includePath.'/claro_init_header.inc.php';
+require $includePath . '/claro_init_header.inc.php';
 
 if ( isset($_uid) )
 {
@@ -66,7 +66,7 @@ if ( isset($_uid) )
      */
 
     if(isset($_REQUEST['submitAuth'])) event_login();
-    require $includePath.'/index_authenticated.inc.php';
+    require $includePath . '/index_authenticated.inc.php';
 }
 else
 {
@@ -75,13 +75,13 @@ else
      */
 
     event_open();
-    require $includePath.'/index_anonymous.inc.php';
+    require $includePath . '/index_anonymous.inc.php';
 }
 
 /*
  * CLAROLINE FOOTER
  */
 
-require $includePath.'/claro_init_footer.inc.php';
+require $includePath . '/claro_init_footer.inc.php';
 
 ?>
