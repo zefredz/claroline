@@ -103,7 +103,7 @@ function user_insert ($data)
 {
     global $userPasswordCrypted, $_uid;
 
-    $password = $userPasswordCrypted?md5($date['password']):$data['password'];
+    $password = $userPasswordCrypted?md5($data['password']):$data['password'];
     
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
