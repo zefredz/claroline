@@ -1,11 +1,10 @@
 <?php // $Id$
-
 /** 
  * CLAROLINE 
  *
  * User lib contains function to manage users on the platform 
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -159,7 +158,7 @@ function user_update ($user_id, $data)
 
     if ( !empty($data['password']) ) 
     {
-        $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
+        $password = $userPasswordCrypted ? md5($date['password']) : $data['password'];
         $sql .= ", `password`   = '" . addslashes($data['password']) . "' " ;
     }
 
@@ -403,7 +402,6 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
     $sql = "SELECT `statut` `status` 
             FROM `" . $tbl_user . "`
             WHERE user_id = '" . (int)$user_id . "'";
-
     $handle = claro_sql_query($sql);
 
     if ( mysql_num_rows($handle) == 0 )
@@ -817,7 +815,6 @@ function user_validate_form_profile($data,$user_id)
  * @return boolean true if not too much easy to find
  *
  */
-
 function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 {
     global $langPassTooEasy;
@@ -832,7 +829,6 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 
     return true;
 }
-
 /**
  * Check if the email is valid
  *
