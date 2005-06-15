@@ -54,7 +54,7 @@ function user_initialise()
  *
  * @param $user_id integer
  *
- * @return  array with user data
+ * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`, `picture`, `officialCode`, `phone`, `status` ) with user data
  *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
@@ -87,7 +87,7 @@ function user_get_data($user_id)
     }
     else
     {
-        return false;
+        return claro_failure::set_failure('USER_NOT_FOUND');
     }
 }
 
@@ -157,8 +157,8 @@ function user_update ($user_id, $data)
 
     if ( !empty($data['password']) ) 
     {
-        $password = $userPasswordCrypted?md5($date['password']):$data['password'];
-        $sql .= ", `password`   = '" . addslashes($password) . "' " ;
+        $password = $userPasswordCrypted ? md5($date['password']) : $data['password'];
+        $sql .= ", `password`   = '" . addslashes($data['password']) . "' " ;
     }
 
     if ( !empty($data['picture']) )
@@ -401,19 +401,18 @@ function user_add_to_course($user_id, $couse_code, $force_it=false)
     $sql = "SELECT `statut` `status` 
             FROM `" . $tbl_user . "`
             WHERE user_id = '" . (int)$user_id . "'";
-
     $handle = claro_sql_query($sql);
 
     if ( mysql_num_rows($handle) == 0 )
     {
-        return false; // the user isn't registered to the platform
+        return claro_failure::set_failure('USER_NOT_FOUND'); // the user isn't registered to the platform
     }
     else
     {
         // previously check if the user isn't already subscribed to the course
         $sql = "SELECT * 
                 FROM `" . $tbl_rel_course_user . "`
-                WHERE `user_id` = '" . (int)$userId . "'
+                WHERE `user_id` = '" . (int) $userId . "'
                 AND `code_cours` ='" . addslashes($course_id) . "'";
 
         $handle = claro_sql_query($sql);
@@ -440,7 +439,7 @@ function user_add_to_course($user_id, $couse_code, $force_it=false)
             {
                 $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                         SET `code_cours` = '" . addslashes($course_id) . "',
-                            `user_id`    = '" . (int)$user_id . "',
+                            `user_id`    = '" . (int) $user_id . "',
                             `statut`     = '5' ";
 
                 if ( claro_sql_query($sql) )
