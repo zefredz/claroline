@@ -53,14 +53,14 @@ if (!isset($includePath)) trigger_error('init not run',E_USER_ERROR);
 if (!isset($_uid)) trigger_error('you need to be logged',E_USER_ERROR);
 
 //// Config tool
-include($includePath.'/conf/course_main.conf.php');
+include($includePath . '/conf/course_main.conf.php');
 //// LIBS
 
-include($includePath.'/lib/add_course.lib.inc.php');
-include($includePath.'/lib/group.lib.inc.php');
-include($includePath.'/lib/debug.lib.inc.php');
-include($includePath.'/lib/fileManage.lib.php');
-include($includePath.'/conf/course_main.conf.php');
+include($includePath . '/lib/add_course.lib.inc.php');
+include($includePath . '/lib/group.lib.inc.php');
+include($includePath . '/lib/debug.lib.inc.php');
+include($includePath . '/lib/fileManage.lib.php');
+include($includePath . '/conf/course_main.conf.php');
 
 $nameTools = $langCreateSite;
 $interbredcrump[]= array ('url' => '../index.php', 'name'=> $langAdministration);
@@ -150,7 +150,9 @@ if ($cmd == 'exFill')
         $aivailableLang = get_lang_list();
     }
 
-    $sqlCat = "SELECT `code` `code` FROM `".$TABLECOURSDOMAIN."` WHERE canHaveCoursesChild  = 'TRUE'";
+    $sqlCat = "SELECT `code` `code` 
+               FROM `" . $TABLECOURSDOMAIN . "` 
+               WHERE canHaveCoursesChild  = 'TRUE'";
 
     $aivailableFaculty = claro_sql_query_fetch_all($sqlCat);
     if (is_array($aivailableFaculty))
@@ -159,26 +161,26 @@ if ($cmd == 'exFill')
         $aivailableFaculty[] = $fac['code'];
     }
 
-    $sqlTeachers = "SELECT `user_id` `uid` FROM `".$TABLEUSER."` WHERE statut = 1";
+    $sqlTeachers = "SELECT `user_id` `uid` FROM `" . $TABLEUSER . "` WHERE statut = 1";
     $resTeachers = claro_sql_query($sqlTeachers);
     while ($teacher = mysql_fetch_array($resTeachers,MYSQL_ASSOC))
     {
         $teachersUid[] = $teacher['uid'];
     }
 
-    $sqlUsers = "SELECT `user_id` `uid` FROM `".$TABLEUSER."`";
+    $sqlUsers = "SELECT `user_id` `uid` FROM `" . $TABLEUSER . "`";
     if (!CONF_COURSE_ADMIN_CAN_BE_STUDENT)
-    $sqlUsers .= " WHERE statut = '".CONF_VAL_STUDENT_STATUS."'";
+    $sqlUsers .= " WHERE statut = '" . CONF_VAL_STUDENT_STATUS . "'";
     $resUsers = claro_sql_query($sqlUsers);
     while ($users = mysql_fetch_array($resUsers,MYSQL_ASSOC))
     {
         $usersUid[] = $users['uid'];
     }
 
-    $strWork = "<OL>";
+    $strWork = '<OL>';
     for($noCourse=1;$noCourse<=$nc;$noCourse++)
     {
-        $wantedCode     = substr($pfCode." ".field_rand($nameOfCourses)." (".substr(md5(uniqid("")),0,3).")",0,12);
+        $wantedCode        = substr($pfCode . ' ' . field_rand($nameOfCourses) . ' (' . substr(md5(uniqid('')),0,3) . ')',0,12);
         $faculte           = field_rand($aivailableFaculty);
         $language_course   = field_rand($aivailableLang);
         $uidCourse         = field_rand($teachersUid);
@@ -252,7 +254,7 @@ if ($cmd == 'exFill')
         INSERT IGNORE INTO `".$TABLECOURSUSER."`
         (`code_cours`, `user_id`, `statut`)
         VALUES
-            ".implode(", ",$userSqlSegment);
+            " . implode(', ', $userSqlSegment);
             $resAddUsers = claro_sql_query($sqlAddUserToCourse);
             $addedUsers = mysql_affected_rows();
         }
@@ -263,11 +265,10 @@ if ($cmd == 'exFill')
         $group_max        = $emax; //maximum of student for a group
 
 
-        $tbl_cdb_names   = claro_sql_get_course_tbl($courseTablePrefix . $currentCourseDbName. $dbGlu);
+        $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseId));
         $tbl_Groups      = $tbl_cdb_names['group_team'];
         $tbl_GroupsUsers = $tbl_cdb_names['group_rel_team_user'];
         $tbl_Forums      = $tbl_cdb_names['bb_forums'];
-
         /*
         // For all Group forums, cat_id=2
         */
@@ -324,30 +325,36 @@ if ($cmd == 'exFill')
 
         }    // end for ($i = 1; $i <= $group_quantity; $i++)
 
-        $nbGroupPerUser = rand($gpumin,$gpumax);
+        $nbGroupPerUser = rand($gpumin, $gpumax);
         $tbl_CoursUsers = $TABLECOURSUSER;
         $tbl_Users      = $TABLEUSER;
 
-        if ($group_quantity>0)
-        fill_in_groups();
+        if ($group_quantity > 0)
+        fill_in_groups($currentCourseId);
 
         //-----------------------------------------------------------
 
-        $strWork .= "
-        <LI>    <strong>[wantedCode:".$wantedCode ."]</strong><br>
-                [Code:".    $currentCourseCode."]
-                [Id:".$currentCourseId."]
-                [Db:".$currentCourseDbName     ."]
-                [Path:".$currentCourseRepository ."]<br>
-                [language_course:".$language_course ."]
-                [faculte:".$faculte ."]
-                [uidCourse:".$uidCourse."]<br>
-                [nb users added:".$addedUsers."]
-                [nb group:".$group_quantity."]
-                [maximum student per group:".$group_max."]
-        </LI>        ";
+        $strWork .= '<LI>'
+        .           '<strong>'
+        .           '[wantedCode:           ' . $wantedCode              . ']'
+        .           '</strong>'
+        .           '<br>'
+        .           '[Code:                 ' . $currentCourseCode       . ']'
+        .           '[Id:                   ' . $currentCourseId         . ']'
+        .           '[Db:                   ' . $currentCourseDbName     . ']'
+        .           '[Path:                 ' . $currentCourseRepository . ']'
+        .           '<br>'
+        .           '[language_course:      ' . $language_course         . ']'
+        .           '[faculte:              ' . $faculte                 . ']'
+        .           '[uidCourse:            ' . $uidCourse               . ']'
+        .           '<br>'
+        .           '[nb users added:       ' . $addedUsers              . ']'
+        .           '[nb group:             ' . $group_quantity          . ']'
+        .           '[max student per group:' . $group_max               . ']'
+        .           '</LI>'
+        ;
     }
-    $strWork .= "</OL>";
+    $strWork .= '</OL>';
     $display = DISP_RESULT_INSERT;
 }
 
