@@ -102,7 +102,7 @@ function user_get_data($user_id)
 
 function user_insert ($data)
 {
-    global $userPasswordCrypted;
+    global $userPasswordCrypted, $_uid;
 
     $password = $userPasswordCrypted?md5($date['password']):$data['password'];
     
@@ -118,6 +118,8 @@ function user_insert ($data)
                 `statut`       = '". (int) $data['status'] ."',
                 `officialCode` = '". addslashes($data['officialCode']) ."',
                 `phoneNumber`  = '". addslashes($data['phone']) ."'";
+
+    if ( !empty($_uid) ) $sql .= ", `creatorId` = '". (int)$_uid ."'";
 
     return claro_sql_query_insert_id($sql);
 }
@@ -157,7 +159,7 @@ function user_update ($user_id, $data)
 
     if ( !empty($data['password']) ) 
     {
-        $password = $userPasswordCrypted ? md5($date['password']) : $data['password'];
+        $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
         $sql .= ", `password`   = '" . addslashes($data['password']) . "' " ;
     }
 
@@ -390,7 +392,7 @@ function user_delete_admin($user_id)
  *         boolean FALSE otherwise.
  */
 
-function user_add_to_course($user_id, $couse_code, $force_it=false)
+function user_add_to_course($user_id, $course_id, $force_it=false)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
@@ -401,6 +403,7 @@ function user_add_to_course($user_id, $couse_code, $force_it=false)
     $sql = "SELECT `statut` `status` 
             FROM `" . $tbl_user . "`
             WHERE user_id = '" . (int)$user_id . "'";
+
     $handle = claro_sql_query($sql);
 
     if ( mysql_num_rows($handle) == 0 )
@@ -410,9 +413,9 @@ function user_add_to_course($user_id, $couse_code, $force_it=false)
     else
     {
         // previously check if the user isn't already subscribed to the course
-        $sql = "SELECT * 
+        $sql = "SELECT `user_id` 
                 FROM `" . $tbl_rel_course_user . "`
-                WHERE `user_id` = '" . (int) $userId . "'
+                WHERE `user_id` = '" . (int) $user_id . "'
                 AND `code_cours` ='" . addslashes($course_id) . "'";
 
         $handle = claro_sql_query($sql);
@@ -453,6 +456,62 @@ function user_add_to_course($user_id, $couse_code, $force_it=false)
             }
         } // end else user not subscribed in the course
     } // end else user register in the platform
+}
+
+/**
+ * update course manager status of the user in a course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_id course code from the cours table
+ * @param string status course code from the cours table
+ *
+ * @return boolean TRUE  if update succeed
+ *         boolean FALSE otherwise.
+ */
+
+function user_update_course_manager_status($user_id, $course_id, $status)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+
+    $sql = "UPDATE `" . $tbl_rel_course_user . "`
+            SET statut = '" . (int)$status . "' 
+            WHERE `user_id` = '" . (int)$user_id . "'
+            AND `code_cours` ='" . addslashes($course_id) . "'";
+
+    if ( claro_sql_query($sql) ) return true;
+    else                         return false;
+
+}
+
+/**
+ * update course tutor status of the user in a course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ * @param boolean $force_it if true  : it means we must'nt check if subcription is the course is set to allowed or not
+ *                          if false : (default value) it means we must take account of the subscription setting
+ *
+ * @return boolean TRUE  if subscribtion succeed
+ *         boolean FALSE otherwise.
+ */
+
+function user_update_course_tutor_status($user_id, $course_id, $status)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+
+    $sql = "UPDATE `" . $tbl_rel_course_user . "`
+            SET tutor = '" . (int)$status . "' 
+            WHERE `user_id` = '" . (int)$user_id . "'
+            AND `code_cours` ='" . addslashes($course_id) . "'";
+
+    if ( claro_sql_query($sql) ) return true;
+    else                         return false;
 }
 
 /**
@@ -1081,9 +1140,9 @@ function user_display_form($data, $form_type='registration')
         echo '<tr valign="top">'
             . '<td align="right">' . $langGroupTutor .' : </td>'
             . '<td>'
-            . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_admin']?'checked':'') . ' >'
+            . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_tutor']?'checked':'') . ' >'
             . '<label for="tutor_form_yes">' . $langYes . '</label>'
-            . '<input type="radio" name="is_tutor" value="0"  id="tutor_form_no" ' . (!$data['is_admin']?'checked':'') . ' >'
+            . '<input type="radio" name="is_tutor" value="0"  id="tutor_form_no" ' . (!$data['is_tutor']?'checked':'') . ' >'
             . '<label for="tutor_form_no">' . $langNo . '</label>'
             . '</td>'
             . '</tr>';
@@ -1095,9 +1154,9 @@ function user_display_form($data, $form_type='registration')
         echo ' <tr>' . "\n"
             . '  <td align="right">' . $langManager . '&nbsp;:</label></td>' . "\n"
             . '<td>'
-            . '<input type="radio" name="is_coursemanager" value="' . STUDENT . '" id="coursemanager_form_yes" ' . ($data['is_coursemanager']==STUDENT?'checked':'') . ' >'
+            . '<input type="radio" name="is_coursemanager" value="' . COURSEMANAGER . '" id="coursemanager_form_yes" ' . ($data['is_coursemanager']==COURSEMANAGER?'checked':'') . ' >'
             . '<label for="coursemanager_form_yes">' . $langYes . '</label>'
-            . '<input type="radio" name="is_coursemanager" value="' . COURSEMANAGER . '" id="coursemanager_form_no" ' . (!$data['is_coursemanager']==COURSEMANAGER?'checked':'') . ' >'
+            . '<input type="radio" name="is_coursemanager" value="' . STUDENT . '" id="coursemanager_form_no" ' . ($data['is_coursemanager']==STUDENT?'checked':'') . ' >'
             . '<label for="coursemanager_form_no">' . $langNo . '</label>'
             . '</td>'
             . ' </tr>' . "\n";
