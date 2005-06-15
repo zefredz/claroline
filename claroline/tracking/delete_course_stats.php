@@ -32,11 +32,12 @@ require '../inc/claro_init_global.inc.php';
 
 // regroup table names for maintenance purpose
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$TABLETRACK_ACCESS      = $tbl_cdb_names['track_e_access'];
-$TABLETRACK_DOWNLOADS   = $tbl_cdb_names['track_e_downloads'];
-$TABLETRACK_UPLOADS     = $tbl_cdb_names['track_e_uploads'];
-$TABLETRACK_EXERCISES   = $tbl_cdb_names['track_e_exercices'];
-
+$tbl_track_e_access    		= $tbl_cdb_names['track_e_access'];
+$tbl_track_e_downloads  	= $tbl_cdb_names['track_e_downloads'];
+$tbl_track_e_uploads     	= $tbl_cdb_names['track_e_uploads'];
+$tbl_track_e_exercices 		= $tbl_cdb_names['track_e_exercices'];
+$tbl_track_e_exe_details 	= $tbl_cdb_names['track_e_exe_details'];
+$tbl_track_e_exe_answers 	= $tbl_cdb_names['track_e_exe_answers'];
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
 
@@ -53,16 +54,22 @@ if( $isAllowedToDelete )
     if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     {
         // do delete
-        $sql = "TRUNCATE TABLE `".$TABLETRACK_ACCESS."`" ;
+        $sql = "TRUNCATE TABLE `".$tbl_track_e_access."`";
         claro_sql_query($sql);
         
-        $sql = "TRUNCATE TABLE `".$TABLETRACK_DOWNLOADS."`" ;
+        $sql = "TRUNCATE TABLE `".$tbl_track_e_downloads."`";
         claro_sql_query($sql);
         
-        $sql = "TRUNCATE TABLE `".$TABLETRACK_UPLOADS."`" ;
+        $sql = "TRUNCATE TABLE `".$tbl_track_e_uploads."`";
         claro_sql_query($sql);
         
-        $sql = "TRUNCATE TABLE `".$TABLETRACK_EXERCISES."`" ;
+        $sql = "TRUNCATE TABLE `".$tbl_track_e_exercices."`";
+        claro_sql_query($sql);
+        
+    	$sql = "TRUNCATE TABLE `".$tbl_track_e_exe_details."`";
+        claro_sql_query($sql);
+        
+        $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_answers."`";
         claro_sql_query($sql);
         
         // display confirm msg and back link
