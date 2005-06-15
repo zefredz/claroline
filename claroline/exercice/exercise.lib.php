@@ -101,8 +101,8 @@ function showQuestion($questionId, $onlyAnswers=false)
             $fillType = (!empty($explodedAnswer[2]))?$explodedAnswer[2]:1;
             // default value if value is invalid
             if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
-            $wrongAnswers = (isset($explodedAnswer[3]))?explode('[',$explodedAnswer[3]):array();
-            
+            $wrongAnswers = (!empty($explodedAnswer[3]))?explode('[',$explodedAnswer[3]):array();
+
             // according to the help type replace blanks by input or select box
             if( $fillType == LISTBOX_FILL )// listbox
 			{
