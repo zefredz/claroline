@@ -32,6 +32,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 
 include($includePath . '/lib/debug.lib.inc.php');
 include($includePath . '/lib/admin.lib.inc.php');
+include($includePath . '/lib/user.lib.php');
 
 $parentCategoryCode = '';
 $userSettingMode    = FALSE;
@@ -158,6 +159,21 @@ if ( !empty($fromAdmin) )
  ---------------------------------------------------------------------*/
 
 $userInfo = user_get_data($userId);
+if(!$userInfo)
+{
+    $cmd='';
+    switch (claro_failure::get_last_failure()) 
+    {
+    	case 'USER_NOT_FOUND':
+    	    $msg = 'User not found';
+    		break;
+    
+    	default:
+    	    $msg = 'user invalid';
+    		break;
+    }
+}
+
 
 /*----------------------------------------------------------------------------
   Unsubscribe from a course
@@ -425,6 +441,7 @@ $backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&lt
 
 include($includePath . '/claro_init_header.inc.php');
 
+if (isset($msg)) claro_disp_message_box($msg);
 echo $backLink;
 
 switch ( $displayMode )
