@@ -1,9 +1,9 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>
+      |          Christophe Gesché <moosh@claroline.net>
       |          Sebastien Piraux  <piraux_seb@hotmail.com>
       +----------------------------------------------------------------------+
  */
