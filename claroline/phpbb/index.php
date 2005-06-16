@@ -184,12 +184,12 @@ foreach ( $categories as $this_category )
                     .    '</a>' 
                     ;
 
-                    if ( in_array($group_id, $tutorGroupList) )
+                    if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
                     {
                         echo '&nbsp;<small>(' . $langOneMyGroups . ')</small>';
                     }
 
-                    if ( in_array($group_id, $userGroupList) )
+                    if ( is_array($userGroupList) && in_array($group_id, $userGroupList) )
                     {
                         echo '&nbsp;<small>(' . $langMyGroup . ')</small>';
                     }
@@ -202,8 +202,9 @@ foreach ( $categories as $this_category )
             else
             {
                 echo '<a href="viewforum.php?forum=' . $forum_id . '">'
-                    . $forum_name
-                    . '</a> ';
+                .    $forum_name
+                .    '</a> '
+                ;
             }
 
             echo '<br><small>' . $forum_desc . '</small>' . "\n"
