@@ -4,7 +4,7 @@
  *
  * Script for forum tool
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
@@ -36,7 +36,7 @@ claro_set_display_mode_available(true); // view mode
   Stats
  -----------------------------------------------------------------*/
 
-include $includePath.'/lib/events.lib.inc.php';
+include $includePath . '/lib/events.lib.inc.php';
 event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------
@@ -63,7 +63,7 @@ $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 if ( $is_allowedToEdit )
 {
 
-    $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:'';
+    $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
     
     if ( $cmd = 'emptyForum' && isset($_REQUEST['id']) )
     {
@@ -128,14 +128,15 @@ foreach ( $categories as $this_category )
     // Category banner
 
     echo '<tr align="left" valign="top">' . "\n"
-        .' <th colspan="7" class="superHeader">' . $title . '</th>' . "\n"
-        .'</tr>' . "\n"
-        .' <tr class="headerX" align="center">' . "\n"
-        .' <th align="left">' . $langForum . '</th>' . "\n"
-        .' <th>' . $l_topics . '</th>' . "\n"
-        .' <th>' . $l_posts  . '</th>' . "\n"
-        .' <th>' . $l_lastpost . '</th>' . "\n"
-        .'</tr>' . "\n";
+    .    ' <th colspan="7" class="superHeader">' . $title . '</th>' . "\n"
+    .    '</tr>' . "\n"
+    .    ' <tr class="headerX" align="center">' . "\n"
+    .    ' <th align="left">' . $langForum . '</th>' . "\n"
+    .    ' <th>' . $l_topics . '</th>' . "\n"
+    .    ' <th>' . $l_posts  . '</th>' . "\n"
+    .    ' <th>' . $l_lastpost . '</th>' . "\n"
+    .    '</tr>' . "\n"
+    ;
 
     foreach ( $forum_list as $this_forum )
     {
@@ -161,8 +162,9 @@ foreach ( $categories as $this_category )
             }
 
             echo '<td>'                                               . "\n"
-                .'<img src="' . $imgRepositoryWeb . $forum_img . '">' . "\n"
-                .'&nbsp;'                                             . "\n";
+            .    '<img src="' . $imgRepositoryWeb . $forum_img . '">' . "\n"
+            .    '&nbsp;'                                             . "\n"
+            ;
 
             // Visit only my group forum if not admin or tutor.
             // If tutor, see all groups but indicate my groups.
@@ -170,16 +172,17 @@ foreach ( $categories as $this_category )
 
             if ( $this_category['cat_id'] == 1 )
             {
-                if (   in_array($group_id, $userGroupList ) 
-                    || in_array($group_id, $tutorGroupList)
+                if (   (is_array($userGroupList) && in_array($group_id, $userGroupList ) )
+                    || (is_array($tutorGroupList) &&in_array($group_id, $tutorGroupList) )
                     || $is_forumAdmin
                     || ( isset($is_groupPrivate) && ! $is_groupPrivate)
                    )
                 {
                     echo '<a href="viewforum.php?gidReq=' . $this_forum['gid']
-                        .'&amp;forum=' . $forum_id . '">'
-                        .$forum_name
-                        .'</a>' ;
+                    .    '&amp;forum=' . $forum_id . '">'
+                    .    $forum_name
+                    .    '</a>' 
+                    ;
 
                     if ( in_array($group_id, $tutorGroupList) )
                     {
@@ -204,41 +207,47 @@ foreach ( $categories as $this_category )
             }
 
             echo '<br><small>' . $forum_desc . '</small>' . "\n"
-                .'</td>' . "\n"
+            .    '</td>' . "\n"
 
-                .'<td width="5%" align="center" valign="middle">' . "\n"
-                .'<small>' . $total_topics . '</small>' . "\n"
-                .'</td>' . "\n"
+            .    '<td width="5%" align="center" valign="middle">' . "\n"
+            .    '<small>' . $total_topics . '</small>' . "\n"
+            .    '</td>' . "\n"
 
-                .'<td width="5%" align="center" valign="middle">' . "\n"
-                .'<small>' . $total_posts . '<small>' . "\n"
-                .'</td>' . "\n";
+            .    '<td width="5%" align="center" valign="middle">' . "\n"
+            .    '<small>' . $total_posts . '<small>' . "\n"
+            .    '</td>' . "\n"
+            ;
 
             if ( !empty($last_post) )
             {
                 echo '<td width="15%" align="center" valign="middle">' . "\n"
-                    . '<small>' . $last_post . '</small>'
-                    . '</td>' . "\n";
+                .    '<small>' . $last_post . '</small>'
+                .    '</td>' . "\n"
+                ;
             } 
             else
             {
                 echo '<td width="15%" align="center" valign="middle">' . "\n"
-                    . '<small>' . $langNoPost . '</small>'
-                    . '</td>' . "\n";
+                .    '<small>' . $langNoPost . '</small>'
+                .    '</td>' . "\n"
+                ;
             }
             echo '</tr>' . "\n";
         }
     }
 }
 
-echo '</table>' . "\n";
+echo '</table>' . "\n"
 
 // Display Forum Footer
 
-echo  '<br />
-<center>
-<small>Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a></small>
-</center>';
+.     '<br>'
+.     '<center>'
+.     '<small>'
+.     'Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a>'
+.     '</small>'
+.     '</center>'
+;
 
 include($includePath.'/claro_init_footer.inc.php');
 
