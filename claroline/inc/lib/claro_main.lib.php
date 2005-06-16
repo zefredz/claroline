@@ -34,23 +34,23 @@ function claro_sql_get_main_tbl()
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'config_property'           => $mainDbName.'`.`'.$mainTblPrefix.'config_property',
-        'config_file'               => $mainDbName.'`.`'.$mainTblPrefix.'config_file',
-        'admin'                     => $mainDbName.'`.`'.$mainTblPrefix.'admin',
-        'course'                    => $mainDbName.'`.`'.$mainTblPrefix.'cours',
-        'rel_course_user'           => $mainDbName.'`.`'.$mainTblPrefix.'cours_user',
-        'category'                  => $mainDbName.'`.`'.$mainTblPrefix.'faculte',
-        'user'                      => $mainDbName.'`.`'.$mainTblPrefix.'user',
-        'tool'                      => $mainDbName.'`.`'.$mainTblPrefix.'course_tool',
-        'user_category'             => $mainDbName.'`.`'.$mainTblPrefix.'class',
-        'user_rel_profile_category' => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
-        'class'                     => $mainDbName.'`.`'.$mainTblPrefix.'class',
-        'rel_class_user'            => $mainDbName.'`.`'.$mainTblPrefix.'rel_class_user',
-        'sso'                       => $mainDbName.'`.`'.$mainTblPrefix.'sso',
-        'notify'                    => $mainDbName.'`.`'.$mainTblPrefix.'notify',
-        'track_e_default'           => $statsDbName.'`.`'.$statsTblPrefix.'track_e_default',
-        'track_e_login'             => $statsDbName.'`.`'.$statsTblPrefix.'track_e_login',
-        'track_e_open'              => $statsDbName.'`.`'.$statsTblPrefix.'track_e_open'
+        'config_property'           => $mainDbName . '`.`'.$mainTblPrefix.'config_property',
+        'config_file'               => $mainDbName . '`.`'.$mainTblPrefix.'config_file',
+        'admin'                     => $mainDbName . '`.`'.$mainTblPrefix.'admin',
+        'course'                    => $mainDbName . '`.`'.$mainTblPrefix.'cours',
+        'rel_course_user'           => $mainDbName . '`.`'.$mainTblPrefix.'cours_user',
+        'category'                  => $mainDbName . '`.`'.$mainTblPrefix.'faculte',
+        'user'                      => $mainDbName . '`.`'.$mainTblPrefix.'user',
+        'tool'                      => $mainDbName . '`.`'.$mainTblPrefix.'course_tool',
+        'user_category'             => $mainDbName . '`.`'.$mainTblPrefix.'class',
+        'user_rel_profile_category' => $mainDbName . '`.`'.$mainTblPrefix.'rel_class_user',
+        'class'                     => $mainDbName . '`.`'.$mainTblPrefix.'class',
+        'rel_class_user'            => $mainDbName . '`.`'.$mainTblPrefix.'rel_class_user',
+        'sso'                       => $mainDbName . '`.`'.$mainTblPrefix.'sso',
+        'notify'                    => $mainDbName . '`.`'.$mainTblPrefix.'notify',
+        'track_e_default'           => $statsDbName . '`.`'.$statsTblPrefix.'track_e_default',
+        'track_e_login'             => $statsDbName . '`.`'.$statsTblPrefix.'track_e_login',
+        'track_e_open'              => $statsDbName . '`.`'.$statsTblPrefix.'track_e_open'
         );
     }
 
@@ -910,29 +910,31 @@ function claro_disp_auth_form()
             .    $lang_this_course_is_protected.'<br>'
             .    $lang_enter_your_user_name_and_password
             .    '</p>'
-            .   '<table align="center">'."\n"
-            .   '<tr>'
-            .   '<td>'
-            .   '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-
-            .   '<fieldset>'."\n"
-
-            .   '<legend>' . $langLogin . '</legend>'."\n"
-
-            .   '<label for="username">' . $langUserName . ' : </label><br>' . "\n"
-            .   '<input type="text" name="login" id="username"><br>' . "\n"
-
-                .'<label for="password">'.$langPassword.' : </label><br>'."\n"
-                .'<input type="password" name="password" id="password"><br>'."\n"
-                .'<input type="submit" >'."\n"
-
-                .'</fieldset>'."\n"
-                . (isset($_REQUEST['cidReq']) ? '<input type="hidden" name="cidReq" id="cidReq" value="'.$_REQUEST['cidReq'].'" ><br>'
-                : '' )
-                .'</form>'."\n"
-                .'</td>'
-                .'</tr>'
-                .'</table>';
+            .    '<table align="center">' . "\n"
+            .    '<tr>'
+            .    '<td>'
+            .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+            .    '<fieldset>' . "\n"
+            .    '<legend>' . $langLogin . '</legend>' . "\n"
+            .    '<label for="username">' . $langUserName . ' : </label><br>' . "\n"
+            .    '<input type="text" name="login" id="username"><br>' . "\n"
+            .    '<label for="password">' . $langPassword . ' : </label><br>' . "\n"
+            .    '<input type="password" name="password" id="password"><br>' . "\n"
+            .    '<input type="submit" >' . "\n"
+            .    '</fieldset>' . "\n"
+            ;
+            if  (isset($_REQUEST['cidReq']) )
+            {
+                echo '<input type="hidden" name="cidReq" id="cidReq" value="' 
+                .    $_REQUEST['cidReq']
+                .    '" ><br>'
+                ;
+            }
+            echo '</form>' . "\n"
+            .    '</td>'
+            .    '</tr>'
+            .    '</table>'
+            ;
 
             /**
              * If users are allowed to register themselves to the platform
@@ -952,7 +954,7 @@ function claro_disp_auth_form()
             }
         } // end if ! $uid && ! $course['visibility']
 
-        /*
+        /**
          * If the user is logged (authenticated) on the platform
          * and the course settings still allows user self enrollment,
          * redirect him to the course enrollment pages
@@ -970,20 +972,21 @@ function claro_disp_auth_form()
                 echo '<p>'."\n"
                 .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br>'
                 .    $lang_if_you_wish_to_enroll_to_this_course
-                .    '<a href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;keyword='.$_course['officialCode'].'" >'
+                .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php'
+                .    '?cmd=rqReg&amp;keyword=' . $_course['officialCode'] . '" >'
                 .    $langReg
-                .    '</a>'."\n"
-                .    '</p>'."\n"
+                .    '</a>' . "\n"
+                .    '</p>' . "\n"
                 ;
 
-        } // elseif$_uid && $_course['registrationAllowed']
+        } // elseif $_uid && $_course['registrationAllowed']
 
         else
         {
             echo '<p>' . $langNotAllowed . '</p>';
         }
 
-        include($includePath . '/claro_init_footer.inc.php');
+        include( $includePath . '/claro_init_footer.inc.php' );
 
         die('');
     }
@@ -1049,13 +1052,11 @@ function claro_disp_select_course()
 </form>
         <?php
         }
-        include($includePath."/claro_init_footer.inc.php");
+        include($includePath . '/claro_init_footer.inc.php');
 
         die('');
     }
 }
-
-
 
 /**
     Display    intro of tool
@@ -1139,9 +1140,10 @@ function claro_disp_button($url, $text, $confirmMessage = '')
             $onClickCommand = "document.location='".$url."';return false";
         }
 
-        echo "<button class=\"claroButton\" onclick=\"".$onClickCommand."\">"
-            .$text
-            ."</button>&nbsp;\n";
+        echo '<button class="claroButton" onclick="' . $onClickCommand . '">'
+        .    $text
+        .    '</button>&nbsp;' . "\n"
+        ;
     }
     else
     {
@@ -1167,19 +1169,19 @@ function claro_disp_progress_bar ($progress, $factor)
 
     // display progress bar
     // origin of the bar
-    $progressBar = "<img src=\"".$imgRepositoryWeb."bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+    $progressBar = '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="">';
 
     if($progress != 0)
-            $progressBar .= "<img src=\"".$imgRepositoryWeb."bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
+            $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="">';
     // display 100% bar
 
     if($progress!= 100 && $progress != 0)
-            $progressBar .= "<img src=\"".$imgRepositoryWeb."bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
+            $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1m.gif" width="1" height="12" alt="">';
 
     if($progress != 100)
-            $progressBar .= "<img src=\"".$imgRepositoryWeb."bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
+            $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="">';
     // end of the bar
-    $progressBar .=  "<img src=\"".$imgRepositoryWeb."bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+    $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="">';
 
     return $progressBar;
 }
