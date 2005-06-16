@@ -41,7 +41,7 @@ array ( 'jpspanAllowed'
 $conf_def_property_list['jpspanAllowed'] =
 array ('label'         => 'Activate Jpspan'
  //     ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -51,7 +51,7 @@ array ('label'         => 'Activate Jpspan'
 $conf_def_property_list['otherCoursesAllowed'] =
 array ('label'         => 'Show the link of the other course '
     //  ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -61,7 +61,7 @@ array ('label'         => 'Show the link of the other course '
 $conf_def_property_list['publicCoursesAllowed'] =
 array ('label'         => 'Show the link of the public course '
   //    ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -71,7 +71,7 @@ array ('label'         => 'Show the link of the public course '
 $conf_def_property_list['externalLinkAllowed'] =
 array ('label'         => 'Show the link of the external link '
  //     ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -81,7 +81,7 @@ array ('label'         => 'Show the link of the external link '
 $conf_def_property_list['groupAllowed'] =
 array ('label'         => 'Explore the group'
  //     ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -91,7 +91,7 @@ array ('label'         => 'Explore the group'
 $conf_def_property_list['toolGroupAllowed'] =
 array ('label'         => 'Explore the tool of a group'
   //    ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'

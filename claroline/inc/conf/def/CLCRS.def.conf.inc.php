@@ -70,7 +70,7 @@ array ('label'       => 'Default course access'
 $conf_def_property_list['human_code_needed'] = 
 array ('label'       => 'Course code is'
       ,'description' => 'User can leave course code (officialCode) field empty or not'
-      ,'default'     => TRUE
+      ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Required'
                                 ,'FALSE'=> 'Optional'
@@ -80,7 +80,7 @@ array ('label'       => 'Course code is'
 $conf_def_property_list['human_label_needed'] = 
 array ('label'       => 'Course Title is'
       ,'description' => 'User can leave course title field empty or not'
-      ,'default'     => TRUE
+      ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
@@ -102,7 +102,7 @@ array ('label'       => 'Course email email is'
 $conf_def_property_list['extLinkNameNeeded'] = 
 array ('label'       => 'External label'
       ,'description' => 'This name is shown on the top right of course banner'
-      ,'default'     => FALSE
+      ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -113,7 +113,7 @@ array ('label'       => 'External label'
 $conf_def_property_list['extLinkUrlNeeded'] = 
 array ('label'       => 'External Label (url)'
       ,'description' => 'URL anchored into the external label above'
-      ,'default'     => FALSE
+      ,'default'     => 'FALSE'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -155,7 +155,7 @@ array ('label'       => 'Lenght of course code suffix'
 $conf_def_property_list['showLinkToDeleteThisCourse']
 = array ('label'     => 'Course removal allowed'
         ,'description' => 'Allow course manager to delete their own courses'
-        ,'default'   => TRUE
+        ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'

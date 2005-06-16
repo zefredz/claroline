@@ -39,7 +39,7 @@ array ( 'userOfficialCodeCanBeEmpty'
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
 array ( 'label'         => 'Official Code is'
-      , 'default'       => TRUE
+      , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Optional'
                                  ,'FALSE' => 'Required'
@@ -48,7 +48,7 @@ array ( 'label'         => 'Official Code is'
 $conf_def_property_list['userMailCanBeEmpty'] =
 array ( 'label'         => 'Email is'
       , 'description'   => 'Accept email as valid (best choice)'
-      , 'default'       => TRUE
+      , 'default'       => 'TRUE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('FALSE' => 'Required'
                                  ,'TRUE'  => 'Optional'
@@ -67,7 +67,7 @@ array (
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
 array ('label'         => 'Check password strength'
       ,'description'   => 'Check if the password is not too easy to find'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'

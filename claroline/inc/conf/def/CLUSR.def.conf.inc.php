@@ -39,7 +39,7 @@ array ( 'linkToUserInfo'
 $conf_def_property_list['linkToUserInfo'] =
 array ('label'         => 'Show user profile'
       ,'description'   => 'Allow user to see detail informations of other users'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -56,7 +56,7 @@ array ( 'label'   => 'Number of user per page'
 
 $conf_def_property_list['is_coursemanager_allowed_to_add_user'] =
 array('label'         => 'Teacher can add user in his course'
-     ,'default'       => TRUE
+     ,'default'       => 'TRUE'
      ,'type'          => 'boolean'
      ,'display'       => TRUE
      ,'readonly'      => FALSE
