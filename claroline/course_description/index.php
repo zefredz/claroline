@@ -60,18 +60,10 @@ if ( $is_allowedToEdit )
 
     /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
 
-    $cmd         = isset($_REQUEST['cmd'])         
-                 ? $_REQUEST['cmd'] 
-                 : NULL;
-    $descTitle   = isset($_REQUEST['descTitle'])   
-                 ? trim($_REQUEST['descTitle'])
-                 : '';
-    $descContent = isset($_REQUEST['descContent']) 
-                 ? trim($_REQUEST['descContent'])
-                 : '';
-    $descId      = isset($_REQUEST['id'])          
-                 ? (int) $_REQUEST['id'] 
-                 : 0 ;
+    $cmd         = isset($_REQUEST['cmd'])         ? $_REQUEST['cmd']               : NULL;
+    $descTitle   = isset($_REQUEST['descTitle'])   ? trim($_REQUEST['descTitle'])   : '';
+    $descContent = isset($_REQUEST['descContent']) ? trim($_REQUEST['descContent']) : '';
+    $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : 0 ;
 
     if ( $cmd == 'exEdit' )
     {
@@ -80,7 +72,7 @@ if ( $is_allowedToEdit )
             // Update description
             if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
             {
-                $eventNotifier->notifyCourseEvent("course_description_modified",$_cid, $_tid, $descId, $_gid, "0");
+                $eventNotifier->notifyCourseEvent("course_description_modified", $_cid, $_tid, $descId, $_gid, "0");
                     $dialogBox .= '<p>' . $langDescUpdated . '</p>';
             }
             else
@@ -274,16 +266,17 @@ if ( $is_allowedToEdit )
          ADD FORM DISPLAY
          **************************************************************************/
 
-        echo "\n\n".'<form method="get" action="'.$_SERVER['PHP_SELF'].'?edIdBloc=add">'."\n"
-            .'<input type="hidden" name="cmd" value="rqEdit">'."\n"
-            .'<select name="numBloc">'."\n";
+        echo "\n\n"
+        .    '<form method="get" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
+        .    '<input type="hidden" name="cmd" value="rqEdit">' . "\n"
+        .    '<select name="numBloc">' . "\n"
+        ;
 
         foreach ( $titreBloc as $key => $thisBlocTitle )
         {
             foreach ( $descList as $thisDesc )
             {
-              if ( $thisDesc['title'] == $thisBlocTitle ) $alreadyUsed = true;
-              else                                       $alreadyUsed = false;
+                $alreadyUsed =  ( $thisDesc['title'] == $thisBlocTitle ) ;
             }
             
             if ( !isset($alreadyUsed) || !$alreadyUsed )
@@ -322,14 +315,16 @@ if ( count($descList) )
     
         if ( $is_allowedToEdit )
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id='.$thisDesc['id'].'">'
-                .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'">'
-                .'</a>'."\n"
-                .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;id='.$thisDesc['id'].'"'
-                .' onClick="if(!confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).' '.$thisDesc['title'].' ?\')){ return false}">'
-                .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'">'
-                .'</a>'."\n\n";
-           if ($thisDesc['visibility']=='SHOW')
+            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
+            .    '<img src="' . $imgRepositoryWeb.'edit.gif" alt="' . $langModify . '">'
+            .    '</a>'."\n"
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
+            .    ' onClick="if(!confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete) 
+            .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'">'
+            .    '</a>' . "\n\n"
+            ;
+           if ($thisDesc['visibility'] == 'SHOW')
            {
                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=mkHide&amp;id='.$thisDesc['id'].'">'
                 .'<img src="'.$imgRepositoryWeb.'visible.gif" alt="'.$langInvisible.'">'
