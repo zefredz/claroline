@@ -86,7 +86,7 @@ function commentBox($type, $mode)
     global $is_AllowedToEdit;
     global $langModify, $langOk, $langErrorNameAlreadyExists, $langAddComment, $langConfirmYourChoice;
     global $langDefaultLearningPathComment, $langDefaultModuleComment;
-	global $langDefaultModuleAddedComment, $imgRepositoryWeb, $langDelete;
+    global $langDefaultModuleAddedComment, $imgRepositoryWeb, $langDelete;
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -152,7 +152,7 @@ function commentBox($type, $mode)
             
             claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55);
 
-			echo '<br>' . "\n"
+            echo '<br>' . "\n"
             .    '<input type="hidden" name="cmd" value="update' . $col_name . '">'
             .    '<input type="submit" value="' . $langOk . '">' . "\n"
             .    '<br>' . "\n"
@@ -943,8 +943,8 @@ function display_my_documents($dialogBox)
  * Recursive Function used to find the deep of a module in a learning path
  * DEPRECATED : no more since the display has been reorganised
  *
- * @param $id id_of_module that we are looking for deep
- * @param $searchInarray of parents of modules in a learning path $searchIn[id_of_module] = parent_of_this_module
+ * @param integer $id id_of_module that we are looking for deep
+ * @param array $searchInarray of parents of modules in a learning path $searchIn[id_of_module] = parent_of_this_module
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  */
@@ -1108,16 +1108,16 @@ function delete_module_tree($module_tree)
             case CTSCORM_ :
                 // delete asset if scorm
                 $delAssetSql = "DELETE
-				                    FROM `".$tbl_lp_asset."`
-				                    WHERE `module_id` =  ".$module['module_id']."
-				                    ";
+                                    FROM `".$tbl_lp_asset."`
+                                    WHERE `module_id` =  ".$module['module_id']."
+                                    ";
                 claro_sql_query($delAssetSql);
-				// no break; because we need to delete modul
+                // no break; because we need to delete modul
             case CTLABEL_ : // delete module if scorm && if label
                 $delModSql = "DELETE FROM `" . $tbl_lp_module . "`
                                      WHERE `module_id` =  ".$module['module_id'];
                 claro_sql_query($delModSql);
-				// no break; because we need to delete LMP and UMP
+                // no break; because we need to delete LMP and UMP
             default : // always delete LPM and UMP
                 claro_sql_query("DELETE FROM `" . $tbl_lp_rel_learnPath_module . "`
                                         WHERE `learnPath_module_id` = " . $module['learnPath_module_id']);
@@ -1169,23 +1169,23 @@ function get_module_tree( $lpModules , $id, $field = 'module_id')
  */
 function seconds_to_scorm_time($time)
 {
-	$hours 	= floor( $time / 3600 );
-	if( $hours < 10 )
-	{
-		$hours = "0".$hours;
-	}
-	$min 	= floor( ( $time -($hours * 3600) ) / 60 );
-	if( $min < 10)
-	{
-		$min = '0' . $min;
-	}
-	$sec	= $time - ($hours * 3600) - ($min * 60);
-	if($sec < 10)
-	{
-		$sec = '0' . $sec;
-	}
+    $hours     = floor( $time / 3600 );
+    if( $hours < 10 )
+    {
+        $hours = "0".$hours;
+    }
+    $min     = floor( ( $time -($hours * 3600) ) / 60 );
+    if( $min < 10)
+    {
+        $min = '0' . $min;
+    }
+    $sec    = $time - ($hours * 3600) - ($min * 60);
+    if($sec < 10)
+    {
+        $sec = '0' . $sec;
+    }
 
-	return 	$hours . ':' . $min . ':' . $sec;
+    return     $hours . ':' . $min . ':' . $sec;
 } 
 /**
   * This function allow to see if a time string is the SCORM requested format : hhhh:mm:ss.cc
@@ -1216,86 +1216,86 @@ function isScormTime($time)
   */
 function addScormTime($time1, $time2)
 {
-   	if (isScormTime($time2))
-	{
-      	//extract hours, minutes, secondes, ... from time1 and time2
+       if (isScormTime($time2))
+    {
+          //extract hours, minutes, secondes, ... from time1 and time2
 
-      	$mask = "/^([0-9]{2,4}):([0-9]{2}):([0-9]{2}).?([0-9]?[0-9]?)$/";
+          $mask = "/^([0-9]{2,4}):([0-9]{2}):([0-9]{2}).?([0-9]?[0-9]?)$/";
         
-      	preg_match($mask,$time1, $matches);
-      	$hours1 = $matches[1];
-      	$minutes1 = $matches[2];
-      	$secondes1 = $matches[3];
-      	$primes1 = $matches[4];
+          preg_match($mask,$time1, $matches);
+          $hours1 = $matches[1];
+          $minutes1 = $matches[2];
+          $secondes1 = $matches[3];
+          $primes1 = $matches[4];
 
-      	preg_match($mask,$time2, $matches);
-      	$hours2 = $matches[1];
-      	$minutes2 = $matches[2];
-      	$secondes2 = $matches[3];
-      	$primes2 = $matches[4];
+          preg_match($mask,$time2, $matches);
+          $hours2 = $matches[1];
+          $minutes2 = $matches[2];
+          $secondes2 = $matches[3];
+          $primes2 = $matches[4];
 
-      	// calculate the resulting added hours, secondes, ... for result
+          // calculate the resulting added hours, secondes, ... for result
 
-      	$primesReport = FALSE;
-      	$secondesReport = FALSE;
-      	$minutesReport = FALSE;
-      	$hoursReport = FALSE;
+          $primesReport = FALSE;
+          $secondesReport = FALSE;
+          $minutesReport = FALSE;
+          $hoursReport = FALSE;
 
         //calculate primes
 
-      	if ($primes1 < 10) {$primes1 = $primes1*10;}
-      	if ($primes2 < 10) {$primes2 = $primes2*10;}
-      	$total_primes = $primes1 + $primes2;
-      	if ($total_primes >= 100)
-      	{
-        	$total_primes -= 100;
-        	$primesReport = TRUE;
-      	}
+          if ($primes1 < 10) {$primes1 = $primes1*10;}
+          if ($primes2 < 10) {$primes2 = $primes2*10;}
+          $total_primes = $primes1 + $primes2;
+          if ($total_primes >= 100)
+          {
+            $total_primes -= 100;
+            $primesReport = TRUE;
+          }
 
         //calculate secondes
 
-      	$total_secondes = $secondes1 + $secondes2;
-      	if ($primesReport) {$total_secondes ++;}
-      	if ($total_secondes >= 60)
-      	{
-        	$total_secondes -= 60;
-        	$secondesReport = TRUE;
-      	}
+          $total_secondes = $secondes1 + $secondes2;
+          if ($primesReport) {$total_secondes ++;}
+          if ($total_secondes >= 60)
+          {
+            $total_secondes -= 60;
+            $secondesReport = TRUE;
+          }
 
         //calculate minutes
 
-      	$total_minutes = $minutes1 + $minutes2;
-      	if ($secondesReport) {$total_minutes ++;}
-      	if ($total_minutes >= 60)
-      	{
-        	$total_minutes -= 60;
-        	$minutesReport = TRUE;
-      	}
+          $total_minutes = $minutes1 + $minutes2;
+          if ($secondesReport) {$total_minutes ++;}
+          if ($total_minutes >= 60)
+          {
+            $total_minutes -= 60;
+            $minutesReport = TRUE;
+          }
 
         //calculate hours
 
-      	$total_hours = $hours1 + $hours2;
-      	if ($minutesReport) {$total_hours ++;}
-      	if ($total_hours >= 10000)
-      	{
-        	$total_hours -= 10000;
-        	$hoursReport = TRUE;
-      	}
+          $total_hours = $hours1 + $hours2;
+          if ($minutesReport) {$total_hours ++;}
+          if ($total_hours >= 10000)
+          {
+            $total_hours -= 10000;
+            $hoursReport = TRUE;
+          }
 
         // construct and return result string
 
-      	if ($total_hours < 10) {$total_hours = "0" . $total_hours;}
-      	if ($total_minutes < 10) {$total_minutes = "0" . $total_minutes;}
-      	if ($total_secondes < 10) {$total_secondes = "0" . $total_secondes;}
-      	
-		$total_time = $total_hours . ":" . $total_minutes . ":" . $total_secondes;
-		// add primes only if != 0
-		if ($total_primes != 0) {$total_time .= "." . $total_primes;}
-    	return $total_time;
-   	}
-   	else
-   	{
-    	return $time1;
-	}
+          if ($total_hours < 10) {$total_hours = "0" . $total_hours;}
+          if ($total_minutes < 10) {$total_minutes = "0" . $total_minutes;}
+          if ($total_secondes < 10) {$total_secondes = "0" . $total_secondes;}
+          
+        $total_time = $total_hours . ":" . $total_minutes . ":" . $total_secondes;
+        // add primes only if != 0
+        if ($total_primes != 0) {$total_time .= "." . $total_primes;}
+        return $total_time;
+       }
+       else
+       {
+        return $time1;
+    }
 }
 ?>
