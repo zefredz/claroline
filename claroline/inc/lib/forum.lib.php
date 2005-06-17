@@ -307,7 +307,7 @@ function get_topic_settings($topicId)
  * @param int $userId
  * @param string $userFirstname
  * @param string $userLastname
- * @return 
+ * @return integer id of the new topic
  */
 
 function create_new_topic($subject, $time, $forumId
@@ -372,8 +372,7 @@ function get_post_settings($postId)
 
 /**
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param
- * @return 
+ * @return  integer id of the new post
  */
 
 
@@ -444,8 +443,6 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
  * 
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param
- * @return 
  */
 
 
@@ -678,7 +675,7 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
  * @param string $offsetParam - param to introduce to call the pager offset
  * @param int    $total - total number of items
  * @param int    $step  - step between each offset
- * @parm  int    $pageMax (optionnal) - If the number of page exceeds this param
+ * @param  int    $pageMax (optionnal) - If the number of page exceeds this param
  *               the remaining pages are replaced by a '...' except the last one.
  * @return void 
  */
@@ -726,6 +723,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @see    claro_sql_pager class
+ * @package CLFRM
  */
 
 class topicLister
@@ -795,6 +793,7 @@ class topicLister
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @see    claro_sql_pager class
+ * @package CLFRM
  */
 
 class postLister
@@ -1359,7 +1358,7 @@ function get_user_group_list($uid)
             FROM `" . $tbl_student_group . "` `g`,
                  `" . $tbl_user_group    . "` `gu`
             WHERE `g`.`id`    = `gu`.`team`
-              AND `gu`.`user` = '".(int)$uid."'";
+              AND `gu`.`user` = '" . (int) $uid . "'";
 
     $groupList = claro_sql_query_fetch_all_cols($sql);
     $groupList = $groupList['group_id'];
