@@ -14,8 +14,10 @@
     require_once dirname(__FILE__) . '/navigator.lib.php';
 
     /**
-    * Class LearnPathNavigator  
+    * Class Learning Path Navigator  
     *
+    * @package CLLNP
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud
     */
@@ -47,8 +49,8 @@
         *
         * @param  $node string of current node (crl)
         * @return ClaroContainer who contains the objects current node
-        * @throw  E_USER_ERROR if the node is not intended for the tool learnPath
-        * @throw  E_USER_ERROR if the node is empty
+        * @throws  E_USER_ERROR if the node is not intended for the tool learnPath
+        * @throws  E_USER_ERROR if the node is empty
         */
         function getResource($node = null)
         {

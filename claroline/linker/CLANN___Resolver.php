@@ -15,9 +15,10 @@
     require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
 
     /**
-    * Class AnnouncementResolver 
+    * Class Announcement CRL Resolver 
     *
-    *  
+    * @package CLANN 
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud
     */
@@ -48,9 +49,9 @@
         *
         * @param  $CRL string a crl
         * @return string a url valide who corresponds to the crl
-        * @throw E_USER_ERROR if tool_name is empty
-        * @throw E_USER_ERROR if it isn't for tool announcement
-        * @throw E_USER_ERROR if the crl is empty     
+        * @throws E_USER_ERROR if tool_name is empty
+        * @throws E_USER_ERROR if it isn't for tool announcement
+        * @throws E_USER_ERROR if the crl is empty     
         */
         function resolve($crl)
         {
@@ -89,9 +90,9 @@
         *        
         * @global $insert_id  integer of an identifier of annoucement. This east creates after the insertion of the dB 
         * @global $thisAnnouncement integer of an identifier of annoucement when the announcement are posted 
-        * @param  $tool_name the Tlabel of a tool 
+        * @param  Tlabel $tool_name the Tlabel of a tool 
         * @return string who contains the resouce id
-        * @throw  E_USER_ERROR if tool_name is empty
+        * @throws  E_USER_ERROR if tool_name is empty
         */
         function getResourceId($tool_name)
         {
@@ -130,7 +131,7 @@
         *
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
-        * @throw  E_USER_ERROR if it isn't for tool announcement
+        * @throws  E_USER_ERROR if it isn't for tool announcement
         **/
         function getResourceName($crl)
         {

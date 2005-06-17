@@ -15,8 +15,10 @@
     require_once (dirname(__FILE__) . '/CLANN___Resolver.php');
 
    /**
-    * Class announcementNavigator  
+    * Class announcement Navigator  
     *
+    * @package CLANN 
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud
     */
@@ -35,7 +37,6 @@
         * Constructor
         *
         * @param   $basePath string path root directory of courses  
-        * @global  $_course
         */
         function CLANN___Navigator($basePath = null)
         {
@@ -48,8 +49,8 @@
         *
         * @param  $node string of current node (crl)
         * @return ClaroContainer who contains the objects current node
-        * @throw  E_USER_ERROR if the node is not intended for the tool forum
-        * @throw  E_USER_ERROR if the node is empty
+        * @throws E_USER_ERROR if the node is not intended for the tool forum
+        * @throws E_USER_ERROR if the node is empty
         * @global rootWeb
         */
         function getResource($node = null)

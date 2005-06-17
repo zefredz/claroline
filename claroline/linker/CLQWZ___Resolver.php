@@ -14,9 +14,10 @@
     require_once dirname(__FILE__) . '/resolver.lib.php';
 
    /**
-    * Class ExerciceResolver 
+    * Class Quizz CRL Resolver 
     *
-    *  
+    * @package CLQWZ
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud
     **/
@@ -47,9 +48,9 @@
         *
         * @param  $CRL string a crl
         * @return string a url valide who corresponds to the crl
-        * @throw E_USER_ERROR if tool_name is empty
-        * @throw E_USER_ERROR if it isn't for tool exercice
-        * @throw E_USER_ERROR if the crl is empty     
+        * @throws E_USER_ERROR if tool_name is empty
+        * @throws E_USER_ERROR if it isn't for tool exercice
+        * @throws E_USER_ERROR if the crl is empty     
         */
         function resolve($crl)
         {
@@ -87,7 +88,7 @@
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
         * @global $_courseToolList
-        * @throw  E_USER_ERROR if it isn't for tool exercice
+        * @throws  E_USER_ERROR if it isn't for tool exercice
         **/
         function getResourceName($crl)
         {

@@ -14,9 +14,10 @@
     require_once dirname(__FILE__) . '/resolver.lib.php';
 
     /**
-    * Class ExtResolver 
+    * Class External ressource Resolver 
     *
-    *  
+    * @package CLEXT
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud
     */
@@ -40,9 +41,9 @@
         *
         * @param  $CRL string a crl
         * @return string a url valide who corresponds to the crl
-        * @throw E_USER_ERROR if tool_name is empty
-        * @throw E_USER_ERROR if it isn't for tool extern tool
-        * @throw E_USER_ERROR if the crl is empty     
+        * @throws E_USER_ERROR if tool_name is empty
+        * @throws E_USER_ERROR if it isn't for tool extern tool
+        * @throws E_USER_ERROR if the crl is empty     
         */
         function resolve($crl)
         {
@@ -78,7 +79,7 @@
         *
         * @param $crl a string who cotains the crl
         * @return string who contains the name of the resource
-        * @throw  E_USER_ERROR if it isn't for extern tool 
+        * @throws  E_USER_ERROR if it isn't for extern tool 
         **/
         function getResourceName($crl)
         {
