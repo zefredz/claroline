@@ -309,6 +309,8 @@ function display_attached_file($attachedFile)
   global $attachedFilePathSys;
   global $langDownloadAttachedFile;
   
+  if( !file_exists($attachedFilePathSys.'/'.$attachedFile) )return false;
+  
   // get extension
   $extension = strtolower(substr(strrchr($attachedFile, '.'), 1));
   
