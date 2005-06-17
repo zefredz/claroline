@@ -310,9 +310,9 @@ function display_attached_file($attachedFile)
   global $langDownloadAttachedFile;
   
   // get extension
-  $extension = substr(strrchr($attachedFile, '.'), 1);
+  $extension = strtolower(substr(strrchr($attachedFile, '.'), 1));
   
-  $returnedString = "<p>";
+  $returnedString = '<p>'."\n";
   switch($extension)
   {
     case 'jpg' :
@@ -320,7 +320,7 @@ function display_attached_file($attachedFile)
     case 'gif' :
     case 'png' :
     case 'bmp' :
-        $returnedString .= "<img src=\"".$attachedFilePathWeb."/".$attachedFile."\" border=\"0\" alt=\"$attachedFile\" />";
+        $returnedString .= '<img src="'.$attachedFilePathWeb.'/'.$attachedFile.'" border="0" alt="'.$attachedFile.'" />'."\n";
         break;
     /*    
     case 'mov' :
@@ -342,15 +342,15 @@ function display_attached_file($attachedFile)
         break;
     */
     case 'swf' :
-        $returnedString .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" 
-                        codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\"  
-                        id=\"".$attachedFile."\"> 
-                      <param name=\"movie\" value=\"".$attachedFilePathWeb."/".$attachedFile."\">
-                      <param name=\"quality\" value=\"high\"> 
-                      <param name=\"bgcolor\" value=\"#FFFFFF\"> 
-                      <embed src=\"".$attachedFilePathWeb."/".$attachedFile."\"  quality=\"high\" bgcolor=\"#FFFFFF\" name=\"".$attachedFile."\" type=\"application/x-shockwave-flash\"  pluginspage=\"http://www.macromedia.com/go/getflashplayer\">
-                      </embed>
-                      </object>";
+        $returnedString .= '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'
+                    .' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'
+                    .' id="'.$attachedFile.'">'."\n"
+                    .'<param name="movie" value="'.$attachedFilePathWeb.'/'.$attachedFile.'">'."\n"
+					.'<param name="quality" value="high">'."\n"
+                    .'<param name="bgcolor" value="#FFFFFF">'."\n"
+                    .'<embed src="'.$attachedFilePathWeb.'/'.$attachedFile.'"  quality="high" bgcolor="#FFFFFF" name="'.$attachedFile.'" type="application/x-shockwave-flash"  pluginspage="http://www.macromedia.com/go/getflashplayer">'."\n"
+                    .'</embed>'."\n"
+                    .'</object>'."\n";
         break;
     
     case 'mp3' :
@@ -383,33 +383,33 @@ function display_attached_file($attachedFile)
 					if( isset($id3['title']) ) $mp3Title .= $id3['title'];
 				}
 			}
-			$playerParams = "?file=".$attachedFilePathWeb."/".$attachedFile
-							."&amp;autolaunch=false"
-							."&amp;my_bitrate=".$bitrate
-							."&amp;my_BackgroundColor=0xffffff"
-							."&amp;fakeVar=".time();
+			$playerParams = '?file='.$attachedFilePathWeb.'/'.$attachedFile
+							.'&amp;autolaunch=false'
+							.'&amp;my_bitrate='.$bitrate
+							.'&amp;my_BackgroundColor=0xffffff'
+							.'&amp;fakeVar='.time();
 
 			$returnedString .=
-					"<object id=\"mp3player\" type=\"application/x-shockwave-flash\" data=\"claroPlayer.swf".$playerParams."\" width=\"220\" height=\"30\" style=\"vertical-align: bottom;\">\n"
-					."<!-- MP3 Flash player. Credits, license, contact & examples: http://pyg.keonox.com/flashmp3player/ -->\n"
-					."<param name=\"type\" value=\"application/x-shockwave-flash\" />\n"
-					."<param name=\"codebase\" value=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0\" />\n"
-					."<param name=\"movie\" value=\"claroPlayer.swf".$playerParams."\" />\n"
-					."</object>\n"
-					."<p><small>"
+					'<object id="mp3player" type="application/x-shockwave-flash" data="claroPlayer.swf'.$playerParams.'" width="220" height="30" style="vertical-align: bottom;">'."\n"
+					.'<!-- MP3 Flash player. Credits, license, contact & examples: http://pyg.keonox.com/flashmp3player/ -->'."\n"
+					.'<param name="type" value="application/x-shockwave-flash" />'."\n"
+					.'<param name="codebase" value="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" />'."\n"
+					.'<param name="movie" value="claroPlayer.swf'.$playerParams.'" />'."\n"
+					.'</object>'."\n"
+					.'<p>'."\n".'<small>'."\n"
 					.$mp3Title
-	                ."<br /><a href=\"".$attachedFilePathWeb."/".$attachedFile."\">".$langDownloadAttachedFile." (".$attachedFile.")</a>"
-					."</small></p>\n\n"
+	                .'<br /><a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.$langDownloadAttachedFile.' ('.$attachedFile.')</a>'."\n"
+					.'</small>'."\n\n"
 					;
 						  
         break;
     
     default :
-        $returnedString .= "<a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langDownloadAttachedFile."</a>";
+        $returnedString .= '<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'" target="_blank">'.$langDownloadAttachedFile.'</a>'."\n";
         break;        
   
   }
-  $returnedString .= "</p>";
+  $returnedString .= '</p>'."\n";
   return $returnedString;
 }
 
