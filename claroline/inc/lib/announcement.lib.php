@@ -43,7 +43,7 @@ function announcement_get_item_list($order='DESC', $course_id=NULL)
     
     $sql = "SELECT id, title, contenu content, temps `time`, visibility, ordre rank
             FROM `" . $tbl_announcement . "`
-            ORDER BY ordre ".($order=='DESC'?'DESC':'ASC');
+            ORDER BY ordre " . ($order == 'DESC' ? 'DESC' : 'ASC');
     
      return claro_sql_query_fetch_all($sql);
 }
@@ -136,21 +136,21 @@ function announcement_add_item($title='',$content='', $visibility='SHOW', $time=
  * @since  1.7
  */
 
-function announcement_update_item($announcement_id, $title=NULL,$content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL) 
+function announcement_update_item($announcement_id, $title=NULL, $content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
     $sqlSet = array();
     if(!is_null($title))      $sqlSet[] = " title = '" . addslashes(trim($title)) . "' ";
-    if(!is_null($content))    $sqlSet[] = " contenu = '".addslashes(trim($content))."' ";
+    if(!is_null($content))    $sqlSet[] = " contenu = '" . addslashes(trim($content)) . "' ";
     if(!is_null($visibility)) $sqlSet[] = " visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
     if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".$time."') ";
     
     if (count($sqlSet)>0)
     {
-        $sql = "UPDATE  `".$tbl_announcement."`
-                SET " . implode(', ',$sqlSet)
-            ."  WHERE id='" . (int) $announcement_id . "'";
+        $sql = "UPDATE  `" . $tbl_announcement . "`
+                SET " . implode(', ',$sqlSet) . "  
+                WHERE id='" . (int) $announcement_id . "'";
         return claro_sql_query($sql);
     }
     else return NULL;
@@ -159,8 +159,8 @@ function announcement_update_item($announcement_id, $title=NULL,$content=NULL, $
 /**
  * return data for the announcement  of the given id of the given or current course
  *
- * @param $announcement_id integer:id the requested announcement
- * @param $course_id       string :sysCode of the course (leaveblank for current course) 
+ * @param integer $announcement_id id the requested announcement
+ * @param string  $course_id       sysCode of the course (leaveblank for current course) 
  * @return array(id, title, content, visibility, rank) of the announcement
  * @since  1.7
  */
