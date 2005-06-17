@@ -80,7 +80,7 @@ $coursesRepositories = $coursesRepositorySys;
 
 // Prefield values for the form to create a course :
 
-if ( isset($_REQUEST['titulaires']) ) $valueTitular = $_REQUEST['titulaires'] ; 
+if ( isset($_REQUEST['titulaires']) ) $valueTitular = $_REQUEST['titulaires'] ;
 else                                  $valueTitular = $_user['firstName']." ".$_user['lastName'];
 
 if ( isset($_REQUEST['email']) ) $valueEmail = $_REQUEST['email'];
@@ -102,7 +102,7 @@ else                                $valueIntitule = '';
 
 $displayNotForU = FALSE;
 
-if (!$can_create_courses) 
+if (!$can_create_courses)
 {
     $displayNotForU = TRUE; // (!$can_create_courses)
 }
@@ -110,124 +110,143 @@ else
 {
     $displayCoursePropertiesForm = TRUE;
     if ( isset($_REQUEST['submitFromCoursProperties']) )
-	{
-		$wantedCode 		= strip_tags($_REQUEST['wantedCode'    ]);
-		$newcourse_category	= strip_tags($_REQUEST['faculte'       ]);
-		$newcourse_label	= strip_tags($_REQUEST['intitule'      ]);
-		$newcourse_language = strip_tags($_REQUEST['languageCourse']);
-		$newcourse_titulars	= strip_tags($_REQUEST['titulaires'    ]);
-		$newcourse_email 	= strip_tags($_REQUEST['email'         ]);
-		
-		$okToCreate = TRUE;
+    {
+        $wantedCode 		= strip_tags($_REQUEST['wantedCode'    ]);
+        $newcourse_category	= strip_tags($_REQUEST['faculte'       ]);
+        $newcourse_label	= strip_tags($_REQUEST['intitule'      ]);
+        $newcourse_language = strip_tags($_REQUEST['languageCourse']);
+        $newcourse_titulars	= strip_tags($_REQUEST['titulaires'    ]);
+        $newcourse_email 	= strip_tags($_REQUEST['email'         ]);
 
-		/////CHECK DATA
-		
-		// LABEL (Previously called intitule
-		if ($human_label_needed && empty($newcourse_label)) 
-		{
+        $okToCreate = TRUE;
+
+        /////CHECK DATA
+
+        // LABEL (Previously called intitule
+        if ($human_label_needed && empty($newcourse_label))
+        {
             $okToCreate = FALSE;
-			$controlMsg['error'][] = $langLabelCanBeEmpty;
-		}
-		
-		if ($human_code_needed && empty($wantedCode)) 
-		{
+            $controlMsg['error'][] = $langLabelCanBeEmpty;
+        }
+
+        if ($human_code_needed && empty($wantedCode))
+        {
             $okToCreate = FALSE;
-			$controlMsg['error'][] = $langCodeCanBeEmpty;
-		}
-		
-		if ($course_email_needed && empty($newcourse_email)) 
-		{
+            $controlMsg['error'][] = $langCodeCanBeEmpty;
+        }
+
+        if ($course_email_needed && empty($newcourse_email))
+        {
             $okToCreate = FALSE;
             $controlMsg['error'][] = $langEmailCanBeEmpty;
         }
 
         // if an email is given It would be correct
-        if (    !empty( $newcourse_email) 
-             && ! is_well_formed_email_address( $newcourse_email )
-           )
-		{
-			$okToCreate = FALSE;
-			$controlMsg['error'][] = $langEmailWrong;
-		}
+        if (    !empty( $newcourse_email)
+        && ! is_well_formed_email_address( $newcourse_email )
+        )
+        {
+            $okToCreate = FALSE;
+            $controlMsg['error'][] = $langEmailWrong;
+        }
 
         switch ($forceCodeCase) // defined in config file
         {
-            case 'lower' : 
-                $wantedCode = strtolower($wantedCode); 
-                break;
-            case 'upper' : 
-                $wantedCode = strtoupper($wantedCode);
-                break;
+            case 'lower' :
+            $wantedCode = strtolower($wantedCode);
+            break;
+            case 'upper' :
+            $wantedCode = strtoupper($wantedCode);
+            break;
             default : ;
         }
-        $wantedCode = ereg_replace("[- ]","_",$wantedCode);
-        $wantedCode = ereg_replace("[^A-Za-z0-9_]","",$wantedCode);
+        $wantedCode = ereg_replace('[- ]','_',$wantedCode);
+        $wantedCode = ereg_replace('[^A-Za-z0-9_]', '', $wantedCode);
 
-		$keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
-		$currentCourseCode		 = $keys['currentCourseCode'      ];
-		$currentCourseId		 = $keys['currentCourseId'        ];
-		$currentCourseDbName	 = $keys['currentCourseDbName'    ];
-		$currentCourseRepository = $keys['currentCourseRepository'];
-		$expirationDate 		= 	time();
-	
-		if ($okToCreate)
-		{
-			//function prepare_course_repository($courseRepository, $courseId)
+        $keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
+        $currentCourseCode		 = $keys['currentCourseCode'      ];
+        $currentCourseId		 = $keys['currentCourseId'        ];
+        $currentCourseDbName	 = $keys['currentCourseDbName'    ];
+        $currentCourseRepository = $keys['currentCourseRepository'];
+        $expirationDate 		 = time();
 
-			prepare_course_repository($currentCourseRepository,$currentCourseId);
-			update_db_course($currentCourseDbName);
-			fill_course_repository($currentCourseRepository);
+        if ($okToCreate)
+        {
+            //function prepare_course_repository($courseRepository, $courseId)
+            if (!prepare_course_repository($currentCourseRepository,$currentCourseId))
+            {
+                switch ( claro_failure::get_last_failure() )
+                {
+                    case 'READ_ONLY_SYSTEM_FILE' :
+                    $displayFileSystemIsReadOnly = TRUE;
+                    break;
+                    default: $controlMsg['error'][] = 'error directories creation failed';
 
-			// function 	fill_db_course($courseDbName,$courseRepository)
-            fill_db_course(	$currentCourseDbName
-                          , $currentCourseRepository
-                          , $newcourse_language)
-                          ;
+                }
+            }
+            else
+            {
+                update_db_course($currentCourseDbName);
+                fill_course_repository($currentCourseRepository);
 
-			register_course($currentCourseId
-                            ,$currentCourseCode
-                            ,$currentCourseRepository
-                            ,$currentCourseDbName
-                            ,$newcourse_titulars
-                            ,$newcourse_email
-                            ,$newcourse_category
-                            ,$newcourse_label
-                            ,$newcourse_language 
-                            ,$_uid
-                            ,$expirationDate
-                            );
+                // function 	fill_db_course($courseDbName)
+                fill_db_course(	$currentCourseDbName);
 
-			$displayCourseAddResult       = TRUE;
-			$displayCoursePropertiesForm  = FALSE;
-			$displayWhatAdd               = FALSE;
+                if ( register_course($currentCourseId
+                ,                    $currentCourseCode
+                ,                    $currentCourseRepository
+                ,                    $currentCourseDbName
+                ,                    $newcourse_titulars
+                ,                    $newcourse_email
+                ,                    $newcourse_category
+                ,                    $newcourse_label
+                ,                    $newcourse_language
+                ,                    $_uid
+                ,                    $expirationDate
+                )
+                )
+                {
+                    $displayCourseAddResult       = TRUE;
+                    $displayCoursePropertiesForm  = FALSE;
+                    $displayWhatAdd               = FALSE;
 
-		    // warn platform administrator of the course creation
-			$strCreationMailNotificationSubject = 		    '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
-			$strCreationMailNotificationBody = 
-		    claro_disp_localised_date($dateTimeFormatLong)."\n"
-		    . $langCreationMailNotificationBody.' ' . $siteName . ' '
-		    . $langByUser . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n"
-		    . ' ' . $langCode			. ' : ' . $currentCourseCode."\n"
-		    . ' ' . $langCourseTitle	. ' : ' . $newcourse_label."\n"
-		    . ' ' . $langProfessors	    . ' : ' . $newcourse_titulars."\n"
-		    . ' ' . $langEmail			. ' : ' . $newcourse_email."\n\n"
-		    . ' ' . $langCategory       . ' : ' . $newcourse_category."\n"
-		    . ' ' . $langLanguage       . ' : ' . $newcourse_language."\n"
-		    . "\n " . $coursesRepositoryWeb.$currentCourseRepository."/\n\n";
-		    
-		    // send a email to administrator(s) about the course creation
-		    $sql = "SELECT `idUser` FROM `".$tbl_admin."`";
-		    $adminUserIdsList = claro_sql_query_fetch_all($sql);
-		    foreach( $adminUserIdsList as $adminUserId )
-		    {
-		    	claro_mail_user( $adminUserId['idUser'], $strCreationMailNotificationBody, $strCreationMailNotificationSubject );
-			}
+                    // warn platform administrator of the course creation
+                    $strCreationMailNotificationSubject ='['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
+                    $strCreationMailNotificationBody = claro_disp_localised_date($dateTimeFormatLong)."\n"
+                    .                                  $langCreationMailNotificationBody.' ' . $siteName . ' '
+                    .                                  $langByUser . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n"
+                    .                                  ' ' . $langCode			. ' : ' . $currentCourseCode."\n"
+                    .                                  ' ' . $langCourseTitle	. ' : ' . $newcourse_label."\n"
+                    .                                  ' ' . $langProfessors	    . ' : ' . $newcourse_titulars."\n"
+                    .                                  ' ' . $langEmail			. ' : ' . $newcourse_email."\n\n"
+                    .                                  ' ' . $langCategory       . ' : ' . $newcourse_category."\n"
+                    .                                  ' ' . $langLanguage       . ' : ' . $newcourse_language."\n"
+                    .                                  "\n " . $coursesRepositoryWeb.$currentCourseRepository."/\n\n"
+                    ;
 
-		} // if ($okToCreate)
-	} // elseif ($submitFromCoursProperties)
+                    // send a email to administrator(s) about the course creation
+                    $adminUserIdsList = claro_get_admin_list ();
+                    foreach( $adminUserIdsList as $adminUserId )
+                    {
+                        claro_mail_user( $adminUserId['idUser'], $strCreationMailNotificationBody, $strCreationMailNotificationSubject );
+                    }
+                }
+                else
+                {
+                    $controlMsg['error'][] = 'Error on course registration';
+                    do
+                    {
+                        $sysErrorCode = claro_failure::get_last_failure();
+                        if ($sysErrorCode!='') $controlMsg['error'][] = $sysErrorCode;
+                        // theses code would be transform in a $lang
+                    } while ($sysErrorCode=='');
+                }
+            }
+        } // if ($okToCreate)
+    } // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
 
-if ( isset($REQUEST['fromAdmin']) && $REQUEST['fromAdmin'] == 'yes' )
+if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 {
     $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 }
@@ -242,12 +261,40 @@ if ( is_array($controlMsg) && count($controlMsg) > 0 )
 
 // db connect
 // path for breadcrumb contextual menu in this page
-$chemin='<a href="../../index.php>'.$siteName.'</a>&nbsp;&gt;&nbsp;<b>'.$langCreateSite.'</b>';
+$chemin='<a href="../../index.php>' . $siteName . '</a>&nbsp;&gt;&nbsp;<b>'.$langCreateSite.'</b>';
 
 if($displayNotForU)
 {
-	echo $langNotAllowed;
-} 
+    echo $langNotAllowed;
+}
+elseif($displayFileSystemIsReadOnly)
+{
+    echo '<B>prepare_course_repository</B>'
+    .    ' in<small><I>'.__FILE__.'</I></small>'
+    .    'can\'t create dir,'
+    .    '<br>'
+    .    '<br>'
+    .    'Please contact file system admin :'
+    .    '<big><U>' . $administrator_name . '</U></big>'
+    .    '<ul>'
+    .    '<li>'
+    .    'to phone : ' . $administrator_phone
+    .    '</li>'
+    .    '<li>'
+    .    'or <a href="mailto:' . $administrator_email . '" >'
+    .    $administrator_email . '</A>'
+    .    '</LI>'
+    .    '</ul>'
+    .    'and'
+    .    '<UL>'
+    .    '<LI>request  to php an write access on <U>' . $coursesRepositorySys . '</U></LI>'
+    .    '<LI>or check $rootSys and  $coursesRepositorySys'
+    .    'in <U>/inc/conf/claro_main.conf.php</U></LI>'
+    .    '</UL>'
+    .    '<a href="' . $rootWeb . '" >BACK TO ' . $siteName . '</a>'
+    ;
+
+}
 elseif($displayCoursePropertiesForm)
 {
 ?>
@@ -319,27 +366,27 @@ build_editable_cat_table($facu, ' &gt; ');
 <td>
 <select name="languageCourse" id="languageCourse">";
 <?php
-	$dirname = "../lang/";
-	if($dirname[strlen($dirname)-1]!='/')
-		$dirname.='/';
-	$handle=opendir($dirname);
-	while ($entries = readdir($handle))
-	{
-		if ($entries=='.'||$entries=='..'||$entries=='CVS')
-			continue;
-		if (is_dir($dirname.$entries))
-		{
-			echo '<option value="'.$entries.'"';
-			if ($entries == $valueLanguage) echo ' selected ';
-			echo ">"; 
-					if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-					echo $langNameOfLang[$entries].' - ';
-			echo $entries
-               . '</option>'."\n"
-               ;
-		}
-	}	
-	closedir($handle);
+$dirname = '../lang/';
+if($dirname[strlen($dirname)-1]!='/')
+$dirname.='/';
+$handle=opendir($dirname);
+while ($entries = readdir($handle))
+{
+    if ($entries=='.' || $entries=='..' || $entries=='CVS')
+    continue;
+    if (is_dir($dirname . $entries))
+    {
+        echo '<option value="' . $entries . '"';
+        if ($entries == $valueLanguage) echo ' selected ';
+        echo '>';
+        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
+        echo $langNameOfLang[$entries] . ' - '
+        .    $entries
+        .    '</option>' . "\n"
+        ;
+    }
+}
+closedir($handle);
 ?>
 </select>
 </td>
@@ -365,35 +412,37 @@ build_editable_cat_table($facu, ' &gt; ');
 #### CREATE THE COURSE AND THE DATABASE OF IT #####
 elseif($displayCourseAddResult)
 {
-// Replace HTML special chars by equivalent - cannot use html_specialchars
-// Special for french
+    // Replace HTML special chars by equivalent - cannot use html_specialchars
+    // Special for french
 
-  $dialogBox = "\n"
-       . $langJustCreated
-       . ' : ' 
-       . '<strong>'
-       . $currentCourseCode
-       . '</strong>';
-       
-  if( !empty($dialogBox))
-  {
-      claro_disp_message_box($dialogBox);
-      echo "<br />";
-  }
-       
-	if ($_REQUEST['fromAdmin']!="yes")
-	{
-		echo '<a class="claroCmd" href="../../index.php">'.$langBackToMyCourseList.'</a>'; 
-	}
-	else
-	{
-		echo '<a class="claroCmd" href="add_course.php?fromAdmin=yes">'.$langAnotherCreateSite.'</a> | '
-		   . '<a class="claroCmd" href="../admin/index.php">'.$langBackToAdmin.'</a>'
-		   ;
-	}
+    $dialogBox = "\n"
+    .            $langJustCreated
+    .            ' : '
+    .            '<strong>'
+    .            $currentCourseCode
+    .            '</strong>'
+    ;
+
+    if( !empty($dialogBox))
+    {
+        claro_disp_message_box($dialogBox);
+        echo '<br>';
+    }
+
+    if ($_REQUEST['fromAdmin'] != 'yes')
+    {
+        echo '<a class="claroCmd" href="../../index.php">' . $langBackToMyCourseList . '</a>';
+    }
+    else
+    {
+        echo '<a class="claroCmd" href="add_course.php?fromAdmin=yes">' . $langAnotherCreateSite . '</a> | '
+        .    '<a class="claroCmd" href="../admin/index.php">' . $langBackToAdmin . '</a>'
+        ;
+    }
 
 
 } // if all fields fulfilled
 
 include($includePath . '/claro_init_footer.inc.php');
+
 ?>

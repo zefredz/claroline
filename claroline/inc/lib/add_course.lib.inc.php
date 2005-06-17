@@ -199,12 +199,12 @@ function define_course_keys ($wantedCode,
  *
  * @param  $courseRepository     string path from $coursesRepositorySys to root of course
  * @param  $courseId             string sysId of course
- * @GLOBAL $coursesRepositorySys string path to root of courses
  *
  * @author  Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  *
  */
+
 function prepare_course_repository($courseRepository, $courseId)
 {
     GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath;
@@ -212,12 +212,14 @@ function prepare_course_repository($courseRepository, $courseId)
     {
         claro_mkdir($coursesRepositorySys, 0777, TRUE);
     }
+    
     if (is_writable($coursesRepositorySys))
     {
         /*
             here would come new section of code to
             read in tools table witch directories to create
         */
+        
         claro_mkdir($coursesRepositorySys . $courseRepository, 0777);
         claro_mkdir($coursesRepositorySys . $courseRepository . '/exercise', 0777);
         claro_mkdir($coursesRepositorySys . $courseRepository . '/document', 0777);
@@ -243,43 +245,15 @@ function prepare_course_repository($courseRepository, $courseId)
   \$claroGlobalPath = '$includePath';
     include(\"".$clarolineRepositorySys."course_home/course_home.php\");
     ?>");
-        fwrite($fd, "$string");
+        fwrite($fd, '$string');
         $fd=fopen($coursesRepositorySys.$courseRepository."/group/index.php", "w");
-        $string="<"."?"."php"." session_start"."()"."; ?>";
-        fwrite($fd, "$string");
-        return 0;
+        $string='<' . '?' . 'php' . ' session_start' . '()' .'; ?>';
+        fwrite($fd, $string);
+        return true;
     }
     else
     {
-        GLOBAL $rootWeb,
-        $siteName,
-        $administrator;
-        die('
-        <B>prepare_course_repository</B> in
-        <small><I>'.__FILE__.'</I></small>
-        can\'t create dir,
-        <br>
-        <br>
-        Please contact file system admin :
-        <big><U>'.$administrator_name.'</U></big>
-        <ul>
-            <li>
-                to phone : '.$administrator_phone.'
-            </li>
-            <li>
-                or <a href="mailto:'.$administrator_email.'" >'.$administrator_email.'</A>
-            </LI>
-        </ul>
-        and
-        <UL>
-        <LI>request  to php an write access on <U>' . $coursesRepositorySys . '</U></LI>
-        <LI>or check $rootSys and  $coursesRepositorySys
-            in <U>/inc/conf/claro_main.conf.php</U></LI>
-        </UL>
-
-        <a href="' . $rootWeb . '" >BACK TO ' . $siteName . '</a>
-        ');
-        return 1;
+        return claro_failure::set_failure('READ_ONLY_SYSTEM_FILE');
     }
 
 };
@@ -287,10 +261,10 @@ function prepare_course_repository($courseRepository, $courseId)
 /**
  * Add starting files in course
  *
- * @param  $courseDbName      string partial dbName form course table tu build real DbName
- * @GLOBAL $singleDbEnabled   boolean whether all campus use only one DB
- * @GLOBAL $courseTablePrefix string   common prefix for all table of courses
- * @GLOBAL $dbGlu             string    glu between logical name of DB and  logical name of table *
+ * @param   string  $courseDbName partial dbName form course table tu build real DbName
+ * @global  boolean singleDbEnabled   whether all campus use only one DB
+ * @global  string  courseTablePrefix common prefix for all table of courses
+ * @global  string  dbGlu glu between logical name of DB and logical name of table 267
  *
  * @author    Christophe Gesché <moosh@claroline.net>
  * @version 1.0
@@ -298,7 +272,9 @@ function prepare_course_repository($courseRepository, $courseId)
 
 function update_db_course($courseDbName)
 {
-    global $singleDbEnabled, $courseTablePrefix, $dbGlu;
+    global $singleDbEnabled;
+    global $courseTablePrefix;
+    global $dbGlu;
 
     if(!$singleDbEnabled)
     {
@@ -307,7 +283,7 @@ function update_db_course($courseDbName)
             return CLARO_ERROR_CANT_CREATE_DB;
     }
 
-    $courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
+    $courseDbName = $courseTablePrefix . $courseDbName . $dbGlu;
     /**
         Here function claro_sql_get_course_tbl() from main lib would be
         called to replace the table name assignement
@@ -340,7 +316,6 @@ function update_db_course($courseDbName)
     $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];//  "bb_forums";
     $TABLEPHPBBNOTIFY       = $tbl_cdb_names['bb_rel_topic_userstonotify'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
     $TABLEPHPBBPOSTS        = $tbl_cdb_names['bb_posts'];//  "bb_posts";
-    $TABLEPHPBBPOSTSTEXT    = $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
     $TABLEPHPBBPRIVMSG      = $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
     $TABLEPHPBBTOPICS       = $tbl_cdb_names['bb_topics'];//  "bb_topics";
     $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];//  "bb_users";
@@ -884,8 +859,6 @@ claro_sql_query ("
  * Add starting files in course
  *
  * @param    string    $courseRepository        path from $coursesRepositorySys to root of course
- * @GLOBAL    string    $clarolineRepositorySys    path to claroline scripts
- * @GLOBAL    string    $coursesRepositorySys    path to root of courses
  *
  * @author    Christophe Gesché <moosh@claroline.net>
  * @version 1.0
@@ -905,15 +878,9 @@ function     fill_course_repository($courseRepository)
 /**
  * Insert starting data in db of course.
  *
- * @param    string    $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
- * @param    string    $courseRepository    path from $coursesRepositorySys to root of course
- * @param    string    $language            language request for this course
- *
- * @GLOBAL    boolean    $singleDbEnabled        whether all campus use only one DB
- * @GLOBAL    string    $courseTablePrefix        common prefix for all table of courses
- * @GLOBAL    string    $dbGlu                    glu between logical name of DB and  logical name of table
- * @GLOBAL    string    $clarolineRepositorySys
- * @GLOBAL    integer    $_user                    id of course creator.
+ * @param  string  $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
+ * @param  string  $courseRepository    path from $coursesRepositorySys to root of course
+ * @param  string  $language            language request for this course
  *
  * @author    Christophe Gesché <moosh@claroline.net>
  * @version 1.0
@@ -921,14 +888,14 @@ function     fill_course_repository($courseRepository)
  * note  $language would be removed soon.
  */
 
-function fill_db_course($courseDbName, $courseRepository, $language)
+function fill_db_course($courseDbName)
 {
-    global $singleDbEnabled, $courseTablePrefix, $dbGlu, $clarolineRepositorySys, $_user, $mainDbName;
+    global $singleDbEnabled, $courseTablePrefix, $dbGlu, $clarolineRepositorySys, $_user;
 
     // groups forums
     global $langCatagoryGroup, $langCatagoryMain;
     // forums
-    global $langFormula, $langTestForum, $langDelAdmin,
+    global $langTestForum, $langDelAdmin,
            $langMessage, $langAnonymous;
     // exercises
     global $langRidiculise, $langNoPsychology, $langAdmitError, $langNoSeduction, $langForce,
@@ -944,21 +911,9 @@ function fill_db_course($courseDbName, $courseRepository, $language)
     $courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
     $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
-    $TABLEINTROS            = $tbl_cdb_names['tool_intro'];
 
-    $TABLEGROUPS            = $tbl_cdb_names['group_team'];// $courseDbName."group_team";
-    $TABLEGROUPUSER            = $tbl_cdb_names['group_rel_team_user'];//$courseDbName."group_rel_team_user";
     $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'];// $courseDbName."group_property";
 
-    $TABLETOOLUSERINFOCONTENT    = $tbl_cdb_names['userinfo_content'];// $courseDbName."userinfo_content";
-    $TABLETOOLUSERINFODEF        = $tbl_cdb_names['userinfo_def'];// $courseDbName."userinfo_def";
-
-    $TABLETOOLCOURSEDESC    = $tbl_cdb_names['course_description'];// $courseDbName."course_description";
-    $TABLETOOLAGENDA        = $tbl_cdb_names['calendar_event'];// $courseDbName."calendar_event";
-    $TABLETOOLANNOUNCEMENTS    = $tbl_cdb_names['announcement'];// $courseDbName."announcement";
-    $TABLETOOLDOCUMENT        = $tbl_cdb_names['document'];// $courseDbName."document";
-    $TABLETOOLWRKASSIGNMENT = $tbl_cdb_names['wrk_assignment'];// $courseDbName."wrk_assignment";
-    $TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];// $courseDbName."wrk_submission";
 
     $TABLEQUIZ                = $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
     $TABLEQUIZQUESTION        = $tbl_cdb_names['quiz_rel_test_question'];
@@ -969,22 +924,13 @@ function fill_db_course($courseDbName, $courseRepository, $language)
     $TABLEPHPBBFORUMS        = $tbl_cdb_names['bb_forums'];//  "bb_forums";
     $TABLEPHPBBPOSTS        = $tbl_cdb_names['bb_posts'];//  "bb_posts";
     $TABLEPHPBBPOSTSTEXT    = $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
-    $TABLEPHPBBPRIVMSG        = $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
     $TABLEPHPBBTOPICS        = $tbl_cdb_names['bb_topics'];//  "bb_topics";
     $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];//  "bb_users";
-    $TABLEPHPBBWHOSONLINE    = $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
-    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['wrk_submission'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
 
     $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE            = $tbl_cdb_names['lp_module'];//  "lp_module";
     $TABLELEARNPATHMODULE   = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
     $TABLEASSET             = $tbl_cdb_names['lp_asset'];//  "lp_asset";
-    $TABLEUSERMODULEPROGRESS= $tbl_cdb_names['lp_user_module_progress'];//  "lp_user_module_progress";
-    // stats
-    $TABLETRACKACCESS        = $tbl_cdb_names['track_e_access'];//  "track_e_access";
-    $TABLETRACKDOWNLOADS     = $tbl_cdb_names['track_e_downloads'];//  "track_e_downloads";
-    $TABLETRACKUPLOADS       = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
-    $TABLETRACKEXERCICES     = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
 
     $nom = $_user['lastName'];
     $prenom = $_user['firstName'];
@@ -1064,7 +1010,7 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
             $sql_insert = " INSERT INTO `" . $TABLECOURSEHOMEPAGE . "` "
                         . " (tool_id, rank, access) "
                         . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
-            $intro_id = claro_sql_query_insert_id($sql_insert);
+            claro_sql_query_insert_id($sql_insert);
         }
     }
 
@@ -1108,18 +1054,18 @@ VALUES (NULL, '1', '0', '1', '1', '0', '1')");
  * @param string    $intitule            complete name of course
  * @param string    $languageCourse        lang for this course
  * @param string    $uid                uid of owner
- * @GLOBALS tables names
- * @GLOBALS var lang
- * @GLOBALS $defaultVisibilityForANewCourse
+ * @global tables names
+ * @global var lang
+ * @global boolean defaultVisibilityForANewCourse default Visibility For A New Course
  * @author Christophe Gesché <moosh@claroline.net>
  */
 
 function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse, $uidCreator, $expirationDate="")
 {
-    GLOBAL $TABLECOURSE, $TABLECOURSUSER, $TABLEANNOUNCEMENTS, $DEBUG, $defaultVisibilityForANewCourse,
+    GLOBAL $TABLECOURSE, $TABLECOURSUSER, $DEBUG, $defaultVisibilityForANewCourse,
     $langCourseDescription,
     $langProfessor, $includePath,
-    $error_msg, $courseTablePrefix, $dbGlu,
+    $courseTablePrefix, $dbGlu,
     $versionDb, $clarolineVersion;
   
     $okForRegisterCourse = TRUE;
@@ -1127,43 +1073,42 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     // Check if  I have all
     if ($courseSysCode== '')
     {
-        $error_msg[] = 'courseSysCode is missing';
+        claro_failure::set_failure('courseSysCode is missing');
         $okForRegisterCourse = FALSE;
     }
     if ($courseScreenCode== '')
     {
-        $error_msg[] = 'courseScreenCode is missing';
+        claro_failure::set_failure('courseScreenCode is missing');
         $okForRegisterCourse = FALSE;
     }
     if ($courseDbName== '')
     {
-        $error_msg[] = 'courseDbName is missing';
+        claro_failure::set_failure('courseDbName is missing');
         $okForRegisterCourse = FALSE;
     }
     if ($courseRepository == '')
     {
-        $error_msg[] = 'course Repository is missing';
+        claro_failure::set_failure('course Repository is missing');
         $okForRegisterCourse = FALSE;
     }
     if ($titular == '')
     {
-        $error_msg[] = 'titular is missing';
-        $screen_msg[] = 'langTitularIsMissing';
+        claro_failure::set_failure('titular is missing');
     }
     if ($email == '')
     {
-        $error_msg[] = 'email is missing';
+        claro_failure::set_failure('email is missing');
     }
     if ($faculte=='')
     {
-        $error_msg[] = 'faculte is missing';
+        claro_failure::set_failure('faculte is missing');
         $okForRegisterCourse = FALSE;
     }
     if ($intitule== '')
     {
         if ($courseScreenCode== '')
         {
-            $error_msg[] = 'intitule is missing';
+            claro_failure::set_failure('intitule is missing');
             $okForRegisterCourse = FALSE;
         }
         else 
@@ -1173,12 +1118,12 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     }
     if ($languageCourse == '')
     {
-        $error_msg[] = 'language is missing';
+        claro_failure::set_failure('language is missing');
         $languageCourse = 'english';
     }
     if ($uidCreator== '')
     {
-        $error_msg[] = 'uidCreator is missing';
+        claro_failure::set_failure('uidCreator is missing');
         $okForRegisterCourse = FALSE;
     }
 
@@ -1193,7 +1138,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
     if ($okForRegisterCourse)
     {
-        if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+        if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
         // here we must add 2 fields
         $sql ="INSERT INTO `" . $TABLECOURSE . "` SET
             code           = '" . $courseSysCode . "',
@@ -1220,15 +1165,15 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
                 SET code_cours     = '" . $courseSysCode . "',
                     user_id = '" . (int) $uidCreator."',
                     statut  = '1',
-                    role    = '" . addslashes($langProfessor) . "',
+                    role    = '" . addslashes( $langProfessor ) . "',
                     tutor   = '1'";
         claro_sql_query($sql);
     }
     else //if ($okForRegisterCourse)
     {
-        return 1;
+        return false;
     }
-    return 0;
+    return true;
 };
 
 /**
@@ -1241,24 +1186,59 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
 function read_properties_in_archive($archive, $isCompressed=TRUE)
 {
+    global $_uid;
     include_once (dirname(__FILE__) . '/pclzip/pclzip.lib.php');
-    printVar(dirname($archive), 'Zip : ');
+    
     /*
     string tempnam ( string dir, string prefix)
     tempnam() crée un fichier temporaire unique dans le dossier dir. Si le dossier n'existe pas, tempnam() va générer un nom de fichier dans le dossier temporaire du système.
     Avant PHP 4.0.6, le comportement de tempnam() dépendait de l'OS sous-jacent. Sous Windows, la variable d'environnement TMP remplace le paramètre dir; sous Linux, la variable d'environnement TMPDIR a la priorité, tandis que pour les OS en système V R4, le paramètre dir sera toujours utilisé, si le dossier qu'il représente existe. Consultez votre documentation pour plus de détails.
     tempnam() retourne le nom du fichier temporaire, ou la chaîne NULL en cas d'échec.
     */
+    if ($isCompressed)
+    {
     $zipFile = new pclZip($archive);
-    $tmpDirName = dirname($archive) . '/tmp' . $uid . uniqid($uid);
+    $tmpDirName = dirname($archive) . '/tmp' . $_uid . uniqid($_uid);
     if (claro_mkdir( $tmpDirName, 0777, TRUE ) )
-        $unzippingSate = $zipFile->extract($tmpDirName);
+    {
+        $zipFile->extract($tmpDirName);
+    }
     else
+    {
         die ('claro_mkdir error');
+    }
     $pathToArchiveIni = dirname($tmpDirName) . '/archive.ini';
+    }
+    else
+    {
+        $pathToArchiveIni = dirname($archive) . '/archive.ini';
+    }
+    
 //    echo $pathToArchiveIni;
-    $courseProperties = parse_ini_file( $pathToArchiveIni );
+    if (file_exists($pathToArchiveIni))
+    {
+        $courseProperties = parse_ini_file( $pathToArchiveIni );
+    }
+    else 
+    {
+        claro_failure::set_failure('ARCHI_INI_NOT_FOUND');
+    }
     rmdir($tmpDirName);
     return $courseProperties;
 };
+
+/**
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function claro_get_admin_list()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_admin     = $tbl_mdb_names['admin'];
+
+    $sql = "SELECT `idUser` FROM `" . $tbl_admin . "`";
+    return  claro_sql_query_fetch_all($sql);
+}
+
 ?>
