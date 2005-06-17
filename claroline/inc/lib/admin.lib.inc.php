@@ -466,6 +466,21 @@ function delete_course($code)
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
 
+    // DELETE USER ENROLLMENT INTO THIS COURSE
+
+    $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
+            WHERE code_cours="' . $currentCourseId . '"';
+
+    claro_sql_query($sql);
+
+    // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
+
+    $sql = 'DELETE FROM `' . $tbl_course . '`
+            WHERE code= "' . $currentCourseId . '"';
+
+    claro_sql_query($sql);
+
+
     if ($currentCourseId == $code)
     {
         $currentCourseDbName    = $this_course['dbName'];
@@ -480,7 +495,7 @@ function delete_course($code)
             $tbl_to_delete = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseId));
             foreach($tbl_to_delete as $tbl_name)
             {
-                $sql = 'DROP IGNORE TABLE `' . $tbl_name . '`';
+                $sql = 'DROP TABLE IF EXISTS `' . $tbl_name . '`';
                 claro_sql_query($sql);
             }
             // underscores must be replaced because they are used as wildcards in LIKE sql statement
@@ -512,20 +527,6 @@ function delete_course($code)
             $sql = "DROP DATABASE `" . $currentCourseDbName . "`";
             claro_sql_query($sql);
         }
-
-        // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
-
-        $sql = 'DELETE FROM `' . $tbl_course . '`
-                WHERE code= "' . $currentCourseId . '"';
-
-        claro_sql_query($sql);
-
-        // DELETE USER ENROLLMENT INTO THIS COURSE
-
-        $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
-                WHERE code_cours="' . $currentCourseId . '"';
-
-        claro_sql_query($sql);
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
