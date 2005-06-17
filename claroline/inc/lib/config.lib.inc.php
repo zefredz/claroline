@@ -4,7 +4,7 @@
  *
  * Config lib contain function to manage conf file
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -23,9 +23,9 @@
 /**
  * Proceed to rename conf.php.dist file in unexisting .conf.php files
  *
- * @param $file syspath:complete path to .dist file
+ * @param string $file syspath:complete path to .dist file
  *
- * @return  boolean:wheter succes return true
+ * @return boolean whether succes return true
  *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
@@ -76,7 +76,7 @@ function claro_undist_file ($file)
  *
  * @param $booleanState boolean
  *
- * @return the boolean value as string
+ * @return string boolean value as string
  *
  * @version claroline 1.4
  *
@@ -89,9 +89,9 @@ function trueFalse($booleanState)
 /**
  * Replace value of variable in file
  *
- * @param $varName name of the variable
- * @param $value new value of the variable
- * @param $file string path to file
+ * @param string $varName name of the variable
+ * @param string $value new value of the variable
+ * @param string $file path to file
  *
  * @return whether the success
  *
@@ -196,7 +196,7 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
  * function cleanwritevalue($string) protect befor write it in a file between " ";
  *
  * @param string string:
- * @return string:trimed and without ;
+ * @return string trimed and without ;
  **/
 function cleanvalue($string)
 {
@@ -207,7 +207,7 @@ function cleanvalue($string)
  * Make string ready to output in a html stream
  *
  * @param $string string change
- * @return string:prepare to output in html stream
+ * @return string prepare to output in html stream
  **/
 function cleanoutputvalue($string)
 {
@@ -218,7 +218,7 @@ function cleanoutputvalue($string)
  * Make string ready to output in a php file
  *
  * @param $string
- * @return string:cleaned string
+ * @return string cleaned string
  **/
 function cleanwritevalue($string)
 {
@@ -226,17 +226,17 @@ function cleanwritevalue($string)
 }
 
 /**
+ * return array list of found definition files
  * @return array list of found definition files
- * @global includePath use to access to def repository.
- * @global toolNameList actualy this list is not aivailable from a function.
+ * @global string includePath use to access to def repository.
  */
 
 function get_def_file_list()
 {
-    global $includePath ;
+    GLOBAL $includePath ;
     
     $defConfFileList = array();
-    if (is_dir($includePath.'/conf/def') && $handle = opendir($includePath.'/conf/def'))
+    if (is_dir($includePath . '/conf/def') && $handle = opendir($includePath . '/conf/def'))
     {
         // group of def list
 
@@ -265,9 +265,9 @@ function get_def_file_list()
 /**
  * Return the complete path and name of the config file of a given $config_code
  *
- * @param   $config_code string the config code to process
- * @return  the name of the config file (with complete path)
- * @global includePath use to access to conf repository.
+ * @param  string $config_code the config code to process
+ * @global string includePath use to access to conf repository.
+ * @return string the name of the config file (with complete path)
  *
  */
 
@@ -283,30 +283,29 @@ function get_conf_file($config_code)
     if ( isset($conf_def['config_file']) && !empty($conf_def['config_file']) )
     {
        // get the name of config file in definition file
-       return realpath($includePath.'/conf/').'/'.$conf_def['config_file'];
+       return realpath($includePath . '/conf/').'/'.$conf_def['config_file'];
     }
     else
     {
        // build the filename with the config_code
-       return realpath($includePath.'/conf/').'/'.$config_code.'.conf.php';
+       return realpath($includePath . '/conf/').'/'.$config_code.'.conf.php';
     }
 }
 
 /**
  * Return the complete path and name of the definition file of a given $config_code
  *
- * @param   $config_code string the config code to process
+ * @param  string $config_code the config code to process
+ * @global string includePath use to access to def repository.
+ * @return the name of the config file (with complete path)
  *
- * @return  the name of the config file (with complete path)
- *
- * @global includePath use to access to def repository.
  */
 
 function get_def_file($config_code)
 {
     global $includePath;
 
-    $def_filename = realpath($includePath.'/conf/def/'.$config_code.'.def.conf.inc.php');
+    $def_filename = realpath($includePath . '/conf/def/' . $config_code . '.def.conf.inc.php');
 
     return $def_filename;
 }
@@ -354,9 +353,9 @@ function get_conf_name($config_code)
 /**
  * Return the name (public label) of the Config of a given $config_code
  *
- * @param   $config_code string the config code to process
+ * @param  string $config_code the config code to process
  *
- * @return  the name of the config 
+ * @return the name of the config 
  *
  */
 
@@ -405,7 +404,7 @@ function get_conf_hash($config_code)
 }
 
 /**
- * @param config_code string code of a claroline config.
+ * @param string $config_code code of a claroline config.
  * @return boolean true if the config of the given config_code 
  *         is change since the last build by config tool  
  */
@@ -439,10 +438,10 @@ function is_conf_file_modified($config_code)
 
 /**
  *
- * @param $propertyValue mixed
- * @param $propertyDef
+ * @param mixed $propertyValue
+ * @param array $propertyDef
  * @return boolean whether the value is valide following the rules in $propertyDef
- * @global $controlMsg array pusth a line if the validation failed
+ * @global array controlMsg array push a line if the validation failed
  */
 function validate_property ($propertyValue, $propertyDef)
 {
@@ -490,9 +489,9 @@ function validate_property ($propertyValue, $propertyDef)
                 $acceptedValue=array();
                 while ($entries = readdir($handle))
                 {
-                    if ($entries=='.'||$entries=='..'||$entries=='CVS')
+                    if ($entries=='.' || $entries=='..' || $entries=='CVS')
                         continue;
-                    if (is_dir($dirname.$entries))
+                    if (is_dir($dirname . $entries))
                     {
                         $acceptedValue[$entries] = $entries;
                     }
@@ -520,12 +519,12 @@ function validate_property ($propertyValue, $propertyDef)
                     $controlMsg['error'][] = $propertyName.' would be integer';
                     $is_valid = FALSE;
                 }
-                elseif ( isset($acceptedValue['max']) && $acceptedValue['max']<$propertyValue )
+                elseif ( isset($acceptedValue['max']) && $acceptedValue['max'] < $propertyValue )
                 {
                     $controlMsg['error'][] = $propertyName.' would be integer inferior or equal to '.$acceptedValue['max'];
                     $is_valid = FALSE;
                 }
-                elseif ( isset($acceptedValue['min']) && $acceptedValue['min']>$propertyValue )
+                elseif ( isset($acceptedValue['min']) && $acceptedValue['min'] > $propertyValue )
                 {
                     $controlMsg['error'][] = $propertyName.' would be integer superior or equal to '.$acceptedValue['min'];
                     $is_valid = FALSE;
@@ -545,7 +544,7 @@ function validate_property ($propertyValue, $propertyDef)
                 }
                 else
                 {
-                    trigger_error('propertyDef is not an array, coding error',E_USER_WARNING);
+                    trigger_error('propertyDef is not an array, coding error', E_USER_WARNING);
                 }
                 break;
 
@@ -592,16 +591,16 @@ function save_config_hash_in_db($config_code,$conf_hash)
     $tbl_config_file = $mainTbl['config_file'];
 
     // update config : set hash
-    $sql =' UPDATE `'. $tbl_config_file  .'`'
-         .' SET config_hash = "'.$conf_hash.'"'
-         .' WHERE config_code = "'.$config_code.'" ';
+    $sql =" UPDATE `" . $tbl_config_file  . "`"
+    .     " SET config_hash = '" . $conf_hash . "'"
+    .     " WHERE config_code = '" . $config_code . "'" ;
 
     if ( !claro_sql_query_affected_rows($sql) )
     {
         // insert an entry for config_file
-        $sql =' INSERT IGNORE INTO `'. $tbl_config_file .'`  '
-             .' SET config_hash = "'.$conf_hash.'"     '
-             .' , config_code = "'.$config_code.'" ';
+        $sql ="INSERT IGNORE INTO `" . $tbl_config_file  . "` 
+               SET config_hash = '" . $conf_hash   . "'
+               ,   config_code = '" . $config_code . "'";
         return claro_sql_query($sql);
     }
     else
@@ -612,7 +611,7 @@ function save_config_hash_in_db($config_code,$conf_hash)
 
 function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile,$generatorFile=__FILE__)
 {
-    global $_uid,$_user,$dateTimeFormatLong;
+    global $dateTimeFormatLong;
 
     if ( strlen($generatorFile)>50 )
     {
@@ -769,13 +768,11 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
  *
  * @return  array where key are value name, and content is value
  *
- * @global  $includePath
- * @version  claroline 1.6
+ * @global  string 
  */
 
 function parse_config_file($conf_file)
 {
-    GLOBAL $includePath;
 
     if( file_exists($conf_file) )
     {
@@ -833,7 +830,7 @@ function parse_config_file($conf_file)
 
 function claroconf_disp_editbox_of_a_value($property_def, $property_name, $currentValue=NULL)
 {
-    global $langFirstDefOfThisValue, $langEmpty;
+    global $langEmpty;
 
     if (  isset($property_def['type']) ) $type = $property_def['type'];
     else                                 $type = '';
@@ -1134,22 +1131,23 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 }
 
 // To work
-
+/*
 function claro_create_conf_filename($config_code)
 {
+    return true;
 }
 
 function validate_conf_property ($name, $value, $config_code)
 {
-
+    return true;
 }
 
 function validate_conf_properties ($properties, $config_code)
 {
-
+    return true;
 }
 
-
+*/
 /**
  * return value found in a given file following a given property list
  *
@@ -1189,7 +1187,7 @@ if (!function_exists('md5_file'))
     function md5_file($file_name)
     {
         $fileContent = file($file_name);
-        $fileContent = !$file ? FALSE : implode('', $fileContent);
+        $fileContent = !$fileContent ? FALSE : implode('', $fileContent);
         return md5($fileContent);
     }
 }
