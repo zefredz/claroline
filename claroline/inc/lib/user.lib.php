@@ -10,7 +10,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE   
  *
- * @package USERS
+ * @package CLUSR
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -18,6 +18,11 @@
  *
  */
 
+ 
+ /**
+ * 
+ */
+ 
 if ( !defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') ) define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
 include_once( dirname(__FILE__) . '/auth.lib.inc.php'      );
 

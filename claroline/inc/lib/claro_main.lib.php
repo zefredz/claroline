@@ -6,10 +6,7 @@
  * 
  * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)     
  * 
- * @license GPL
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
  * @author see 'credits' file
  *
@@ -513,6 +510,7 @@ $claro_failureList = array();
  *  
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @package failure
  */
 
 class claro_failure
@@ -532,7 +530,7 @@ class claro_failure
      *
      * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param  string $failureType - the type of failure
-     * @global array  $claro_failureList
+     * @global array  claro_failureList
      * @return boolean false to stay consistent with the main script
      */
 
@@ -694,19 +692,19 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     {
         case 'COURSE_ADMIN' :
 
-            $studentButton     = '<a href="'.$url.'&amp;viewMode=STUDENT">'
-                                 .$langStudent
-                                 .'</a>';
-            $courseAdminButton = '<b>'.$langCourseManager.'</b>';
+            $studentButton     = '<a href="' . $url . '&amp;viewMode=STUDENT">'
+                               . $langStudent
+                               . '</a>';
+            $courseAdminButton = '<b>' . $langCourseManager . '</b>';
 
             break;
 
         case 'STUDENT' :
 
             $studentButton     = '<b>'.$langStudent.'</b>';
-            $courseAdminButton = '<a href="'.$url.'&amp;viewMode=COURSE_ADMIN">'
-                                 .$langCourseManager
-                                 .'</a>';
+            $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
+                               . $langCourseManager
+                               . '</a>';
             break;
     }
 
@@ -726,7 +724,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 /**
  * Set if  the  access level switcher is aivailable
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @global $claro_toolViewOptionEnabled;
+ * @global boolean claro_toolViewOptionEnabled
  * @return true
  */
 
@@ -1252,6 +1250,12 @@ function claro_disp_duration( $duration  )
 
 /**
  * Insert a    sort of    HTML Wysiwyg textarea inside a FORM
+ * the html area currently implemented is HTMLArea 3.0. To work correctly,
+ * the area    needs a    specific stylesheet 
+ * previously loaded in the html header.
+ * For that, use the claroline $htmlHeadXtra[] array at  
+ * the top of the script
+ * just before including claro_init_header.inc.php
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
@@ -1263,17 +1267,12 @@ function claro_disp_duration( $duration  )
  *                                       (wrap, class, ...)
  * @return void
  *
- * @globals    $urlAppend from    claro_main.conf.php
+ * @global strin urlAppend from    claro_main.conf.php
  *
- * @desc the html area currently implemented is    HTMLArea 3.0. To work correctly,
- * the area    needs a    specific stylesheet    previously loaded in the html header.
- * For that, use the claroline $htmlHeadXtra[] array at    the    top    of the script
- * just    before including claro_init_header.inc.php
- *
- * Example : $htmlHeadXtra[] = '<style type="text/css">
- * @import url('.$urlAppend.'/claroline/inc/htmlarea'.'/htmlarea.css);
- *                                </style>';
  */
+// Example : $htmlHeadXtra[] = '<style type="text/css">
+//                               @import url('.$urlAppend.'/claroline/inc/htmlarea'.'/htmlarea.css);
+//                              </style>';
 
 function claro_disp_html_area($name, $content =    '',
                               $rows=20,    $cols=80, $optAttrib='')
@@ -1315,14 +1314,16 @@ function claro_disp_html_area($name, $content =    '',
                   .'+escape('.$areaContent.')';
         
         echo '<div align="right">'
-            .'<small>'
-            .'<b>'
-            .'<a href="" onClick ="'.$confirmCommand.'window.location='.$location.';return(false);">'
-            .$message
-           .'</a>'
-            .'</b>'
-            .'</small>'
-            .'</div>';
+        .    '<small>'
+        .    '<b>'
+        .    '<a href="" onClick ="' . $confirmCommand . 'window.location=' 
+        .    $location . ';return(false);">'
+        .    $message
+        .    '</a>'
+        .    '</b>'
+        .    '</small>'
+        .    '</div>'
+        ;
 
     } // end if claro_is_javascript_enabled()
 
@@ -1406,9 +1407,10 @@ initEditor();
 
 function claro_build_nested_select_menu($name, $elementList)
 {
-    return "<select name=\"".$name."\">\n"
-          .implode("\n", prepare_option_tags($elementList) )
-          ."</select>\n";
+    return '<select name="' . $name . '">' . "\n"
+    .      implode("\n", prepare_option_tags($elementList) )
+    .      '</select>' .  "\n"
+    ;
 }
 
 /**
@@ -1429,8 +1431,9 @@ function prepare_option_tags($elementList, $deepness = 0)
         $tab = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $deepness);
 
         $optionTagList[] = '<option value="'.$thisElement['value'].'">'
-                          .$tab.$thisElement['name']
-                          .'</option>';
+        .                  $tab.$thisElement['name']
+        .                  '</option>'
+        ;
 
         if (   isset( $thisElement['children'] )
             && sizeof($thisElement['children'] ) > 0)
@@ -1543,13 +1546,11 @@ function claro_parse_user_text($userText)
 }
 
 /**
- * function make_clickable($text)
- *
- * @desc   completes url contained in the text with "<a href ...".
- *         However the function simply returns the submitted text without any
- *         transformation if it already contains some "<a href:" or "<img src=".
- * @params string $text text to be converted
- * @return string - text after conversion
+ * Completes url contained in the text with "<a href ...".
+ * However the function simply returns the submitted text without any
+ * transformation if it already contains some "<a href:" or "<img src=".
+ * @param  string $text text to be converted
+ * @return string   text after conversion
  * @author Rewritten by Nathan Codding - Feb 6, 2001.
  *         completed by Hugues Peeters - July 22, 2002
  *
@@ -1620,13 +1621,11 @@ function make_clickable($text)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @return void
- * @desc If the php.ini setting MAGIC_QUOTE_GPC is set to ON, all the variables
- *       content comming frome the browser are automatically quoted by adding
- *       slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
- *       these slashes. It needs to be called just once at the biginning
- *       of the script.
- * @see
- *
+ * If the php.ini setting MAGIC_QUOTE_GPC is set to ON, all the variables
+ * content comming frome the browser are automatically quoted by adding
+ * slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
+ * these slashes. It needs to be called just once at the biginning
+ * of the script.
  */
 
 function claro_unquote_gpc()
@@ -1652,10 +1651,10 @@ function claro_unquote_gpc()
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @return void
  *
- * @desc This function is needed rather a simple stripslashes for two reasons.
- *       First the PHP function array_walk() works only with user functions,
- *       not PHP ones. Second, the submitted array could be an array of arrays,
- *       and all the values has to be treated.
+ * This function is needed rather a simple stripslashes for two reasons.
+ * First the PHP function array_walk() works only with user functions,
+ * not PHP ones. Second, the submitted array could be an array of arrays,
+ * and all the values has to be treated.
  */ 
 
 function claro_stripslashes_for_unquote_gpc( &$var )
@@ -1700,9 +1699,9 @@ function claro_get_tool_name_list()
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  *
- * @desc This function is needed to clean strings used in javascript output
- *		 Newlines are prohibited in the script, specialchar  are prohibited
- *       quotes must be addslashes
+ * This function is needed to clean strings used in javascript output
+ * Newlines are prohibited in the script, specialchar  are prohibited
+ * quotes must be addslashes
  */
 function clean_str_for_javascript( $str )
 {
