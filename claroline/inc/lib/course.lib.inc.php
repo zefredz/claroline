@@ -1,16 +1,21 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: Muret Benoît <muret_ben@hotmail.com>
-//----------------------------------------------------------------------
-
+/**
+ * CLAROLINE
+ *
+ * @version 1.7 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/CLCRS/
+ *
+ * @package COURSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Muret Benoît <muret_ben@hotmail.com>
+ *
+ */
 
 /**
   * Create a backup of a cours
@@ -114,10 +119,10 @@ function backup_database( $link, $sysCode, &$dir )
         $i++;
     }
 
-	global $mainDbName;
-	fwrite($fp, "Use `$mainDbName`;\n");
+    global $mainDbName;
+    fwrite($fp, "Use `$mainDbName`;\n");
 
-	$com = command_create_temporary_table($tbl_courses, 'temp_cours' );
+    $com = command_create_temporary_table($tbl_courses, 'temp_cours' );
     fwrite($fp,$com."\n\n");
 
     $query = "SELECT * FROM `$tbl_courses` where code='" . $sysCode . "'";
@@ -158,7 +163,7 @@ function backup_database( $link, $sysCode, &$dir )
         $i++;
     }
 
-	$com=command_create_temporary_table($tbl_user, 'temp_user');
+    $com=command_create_temporary_table($tbl_user, 'temp_user');
 
     fwrite($fp,$com."\n\n");
 
@@ -173,7 +178,7 @@ function backup_database( $link, $sysCode, &$dir )
     }
 
 
-	$com=command_create_temporary_table($tbl_course_user, 'temp_cours_user');
+    $com=command_create_temporary_table($tbl_course_user, 'temp_cours_user');
 
     fwrite($fp,$com."\n\n");
 
@@ -191,25 +196,22 @@ function backup_database( $link, $sysCode, &$dir )
     fclose($fp);
 
 
-  	$archive = new PclZip($localArchivesRepository."backup_".$db_name."_".date("Y_m_d").".zip");
-  	$v_list = $archive->create($localArchivesRepository."backup_".$db_name."_".date("Y_m_d"),
-							PCLZIP_OPT_REMOVE_PATH,$localArchivesRepository."backup_".$db_name."_".date("Y_m_d"));
+      $archive = new PclZip($localArchivesRepository."backup_".$db_name."_".date("Y_m_d").".zip");
+      $v_list = $archive->create($localArchivesRepository."backup_".$db_name."_".date("Y_m_d"),
+                            PCLZIP_OPT_REMOVE_PATH,$localArchivesRepository."backup_".$db_name."_".date("Y_m_d"));
 
-	delete_directory( $localArchivesRepository . "backup_".$db_name."_".date("Y_m_d"));
+    delete_directory( $localArchivesRepository . "backup_".$db_name."_".date("Y_m_d"));
 }
 
 
 /**
   * Insert to a file a sql order
-  * @author Muret Benoît <muret_ben@hotmail.com>
   *
   * @param handler &$fp        the file
   * @param string  $tablename  the table
   * @param string  $resData    the values
   *
   * @return nothing
-  *
-  * @desc The function delete a directory and his below directoy
   */
 function insert_registry(&$fp,$tablename,$resData)
 {
@@ -373,15 +375,15 @@ function PMA_splitSqlFile(&$ret, $sql)
 
 /**
   * Delete a directory
-  * @author Muret Benoît <muret_ben@hotmail.com>
-  *
   * @param string $dir    the directory deleting
   *
-  * @return nothing
+  * @return boolean whether success true
   *
-  * @desc The function delete a directory and his below directoy
   */
-function delete_directory($dir){
+function delete_directory($dir)
+{
+    $deleteOk = true;
+    
     $current_dir = opendir($dir);
 
       while($entryname = readdir($current_dir))
@@ -398,113 +400,102 @@ function delete_directory($dir){
 
       closedir($current_dir);
       rmdir(${dir}."/");
+      return $deleteOk;
 }
 
 
 /**
   * Create the command to create a temporary table
-  * @author Muret Benoît <muret_ben@hotmail.com>
   *
   * @param string $tbl    the table who exist
-  *		   string $name   the name of the temporary table
+  * @param string $name   the name of the temporary table
   *
   * @return nothing
   *
-  * @desc The function create the command to create a temporary table
   */
 function command_create_temporary_table($tbl, $name )
 {
-	$sql="describe `$tbl`";
-	$res=claro_sql_query_fetch_all($sql);
+    $sql="describe `$tbl`";
+    $res=claro_sql_query_fetch_all($sql);
 
-	global $mainDbName;
-	$com="CREATE TEMPORARY TABLE `$mainDbName`.`$name` (";
-	foreach($res as $one_res)
-	{
-		$com.=$one_res["Field"]." ".$one_res["Type"]." ";
-		if(strcmp($one_res["Null"],"YES"))
-			$com.="NOT NULL ";
+    global $mainDbName;
+    $com="CREATE TEMPORARY TABLE `$mainDbName`.`$name` (";
+    foreach($res as $one_res)
+    {
+        $com.=$one_res["Field"]." ".$one_res["Type"]." ";
+        if(strcmp($one_res["Null"],"YES"))
+            $com.="NOT NULL ";
 
-		if(!strcmp($one_res["Null"],"YES") || $one_res["Default"]!=NULL)
-			$com.="default ".($one_res["Default"]==NULL?"NULL":"'".$one_res["Default"]."'");
+        if(!strcmp($one_res["Null"],"YES") || $one_res["Default"]!=NULL)
+            $com.="default ".($one_res["Default"]==NULL?"NULL":"'".$one_res["Default"]."'");
 
-		$com.=", ";
-	}
-	$com=substr($com,0,strlen($phrase)-2);
-	$com.=");";
+        $com.=", ";
+    }
+    $com=substr($com,0,strlen($phrase)-2);
+    $com.=");";
 
-	return $com;
+    return $com;
 }
 
 /**
   * Create a command to create a selectBox with the language
-  * @author Muret Benoît <muret_ben@hotmail.com>
-  *
   * @param string $selected the language selected
-  *
   * @return the command to create the selectBox
-  *
-  * @desc The function create the command to create a selectBox with the language
   */
+
 function create_select_box_language($selected=NULL)
 {
-	$arrayLanguage = language_exists();
-	foreach($arrayLanguage as $entries)
-	{
-		$selectBox.="<option value=\"$entries\" ";
+    $arrayLanguage = language_exists();
+    foreach($arrayLanguage as $entries)
+    {
+        $selectBox.="<option value=\"$entries\" ";
 
-		if ($entries == $selected)
-			$selectBox.=" selected ";
+        if ($entries == $selected)
+            $selectBox.=" selected ";
 
-		$selectBox.=">".$entries;
+        $selectBox.=">".$entries;
 
-		global $langNameOfLang;
-		if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-			$selectBox.=" - $langNameOfLang[$entries]";
+        global $langNameOfLang;
+        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
+            $selectBox.=" - $langNameOfLang[$entries]";
 
-		$selectBox.="</option>\n";
-	}
+        $selectBox.="</option>\n";
+    }
 
-	return $selectBox;
+    return $selectBox;
 }
 
 /**
   * Return an array with the language
-  * @author Muret Benoît <muret_ben@hotmail.com>
-  *
-  * @param nothing
-  *
   * @return an array with the language
-  *
-  * @desc The function return an array with the language
   */
 function language_exists()
 {
-	global $clarolineRepositorySys;
-	$dirname = $clarolineRepositorySys.'lang/';
+    global $clarolineRepositorySys;
+    $dirname = $clarolineRepositorySys.'lang/';
 
-	if($dirname[strlen($dirname)-1]!='/')
-		$dirname.='/';
+    if($dirname[strlen($dirname)-1]!='/')
+        $dirname.='/';
 
-	//Open the repertoy
-	$handle=opendir($dirname);
+    //Open the repertoy
+    $handle=opendir($dirname);
 
-	//For each reportery in the repertory /lang/
-	while ($entries = readdir($handle))
-	{
-		//If . or .. or CVS continue
-		if ($entries=='.' || $entries=='..' || $entries=='CVS')
-			continue;
+    //For each reportery in the repertory /lang/
+    while ($entries = readdir($handle))
+    {
+        //If . or .. or CVS continue
+        if ($entries=='.' || $entries=='..' || $entries=='CVS')
+            continue;
 
-		//else it is a repertory of a language
-		if (is_dir($dirname.$entries))
-		{
-			$arrayLanguage[]=$entries;
-		}
-	}
-	closedir($handle);
+        //else it is a repertory of a language
+        if (is_dir($dirname.$entries))
+        {
+            $arrayLanguage[]=$entries;
+        }
+    }
+    closedir($handle);
 
-	return $arrayLanguage;
+    return $arrayLanguage;
 }
 
 
@@ -523,83 +514,83 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_category        = $tbl_mdb_names['category'];
 
-	$sql = " SELECT code, code_P, name, canHaveCoursesChild
+    $sql = " SELECT code, code_P, name, canHaveCoursesChild
                FROM `".$tbl_category."`                              
-			   ORDER BY `name`";
-	$result = claro_sql_query($sql);
-	// first we get the categories available in DB from the SQL query result in parameter	
+               ORDER BY `name`";
+    $result = claro_sql_query($sql);
+    // first we get the categories available in DB from the SQL query result in parameter    
 
-	while ($myfac = mysql_fetch_array($result))
-	{
-		$categories[$myfac["code"]]["code"]   = $myfac["code"];
-		$categories[$myfac["code"]]["parent"] = $myfac["code_P"];
-		$categories[$myfac["code"]]["name"]   = $myfac["name"];
-		$categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
-	}
+    while ($myfac = mysql_fetch_array($result))
+    {
+        $categories[$myfac["code"]]["code"]   = $myfac["code"];
+        $categories[$myfac["code"]]["parent"] = $myfac["code_P"];
+        $categories[$myfac["code"]]["name"]   = $myfac["name"];
+        $categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
+    }
 
-	// then we build the table we need : full path of editable cats in an array
-	
-	$tableToDisplay = array();
-	echo '<select name="faculte" id="faculte">' . "\n";	
-	foreach ($categories as $cat)
-	{
-		if ( $cat["childs"] == 'TRUE' ) 
-		{ 
-			
-			echo '<option value="' . $cat['code'] . '"';
-			if ($cat["code"]==$selectedCat) echo ' selected ';
-			echo '>';
-			$tableToDisplay[$cat['code']]= $cat;
-			$parentPath  = get_full_path($categories, $cat['code'], $separator);
+    // then we build the table we need : full path of editable cats in an array
+    
+    $tableToDisplay = array();
+    echo '<select name="faculte" id="faculte">' . "\n";    
+    foreach ($categories as $cat)
+    {
+        if ( $cat["childs"] == 'TRUE' ) 
+        { 
+            
+            echo '<option value="' . $cat['code'] . '"';
+            if ($cat["code"]==$selectedCat) echo ' selected ';
+            echo '>';
+            $tableToDisplay[$cat['code']]= $cat;
+            $parentPath  = get_full_path($categories, $cat['code'], $separator);
 
-			$tableToDisplay[$cat['code']]['fullpath'] = $parentPath;
-			echo '(' . $tableToDisplay[$cat['code']]['fullpath'] . ') ' . $cat['name'];
-			echo '</option>' . "\n";
-		}
-	}
-	echo '</select>' . "\n";
-	
-	return $tableToDisplay;
+            $tableToDisplay[$cat['code']]['fullpath'] = $parentPath;
+            echo '(' . $tableToDisplay[$cat['code']]['fullpath'] . ') ' . $cat['name'];
+            echo '</option>' . "\n";
+        }
+    }
+    echo '</select>' . "\n";
+    
+    return $tableToDisplay;
 }
 
 /**
- * function get_full_path($categories, $catcode = NULL, $separator = ' &gt; ')
  * Recursive function to get the full categories path of a specified categorie
  *
  * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names, 
  *  parent's cat code. 
  * @param $catcode   string the categorie we want to have its full path from root categorie
  * @param $separator string 
+ * @return void
   */
 
  
 function get_full_path($categories, $catcode = NULL, $separator = ' &gt; ')
 {
-	//Find parent code
-	
-	$parent = null;
-	
-	foreach ($categories as $currentCat)
-	{
-		if (( $currentCat['code'] == $catcode))
-		{
-			$parent = $currentCat['parent'];  
-		}
-	}
-	// RECURSION : find parent categorie in table
-	if ($parent == null)
-	{ 
-		return $catcode;
-	}
-	
-	foreach ($categories as $currentCat)
-	{
-		if (($currentCat['code'] == $parent))
-		{
-			return get_full_path($categories, $parent, $separator).$separator.$catcode;
-			break;
-		}
-	}
+    //Find parent code
+    
+    $parent = null;
+    
+    foreach ($categories as $currentCat)
+    {
+        if (( $currentCat['code'] == $catcode))
+        {
+            $parent = $currentCat['parent'];  
+        }
+    }
+    // RECURSION : find parent categorie in table
+    if ($parent == null)
+    { 
+        return $catcode;
+    }
+    
+    foreach ($categories as $currentCat)
+    {
+        if (($currentCat['code'] == $parent))
+        {
+            return get_full_path($categories, $parent, $separator).$separator.$catcode;
+            break;
+        }
+    }
 }
 
 ?>
