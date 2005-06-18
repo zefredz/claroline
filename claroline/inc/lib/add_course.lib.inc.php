@@ -25,16 +25,16 @@
 /**
  * with  the WantedCode we can define the 4 keys  to find courses datas
  *
- * @param $wantedCode initial model
- * @param $prefix4all      string prefix added  for ALL keys 
- * @param $prefix4baseName string prefix added  for basename key (after the $prefix4all)
- * @param $prefix4path     string prefix added  for repository key (after the $prefix4all)
- * @param $addUniquePrefix boolean prefix randomly generated prepend to model
- * @param $useCodeInDepedentKeys boolean  whether not ignore $wantedCode param. If FALSE use an empty model.
- * @param $addUniqueSuffix boolean Suffix randomly generated append to model
- * @param $suffix4baseName string suffix added  for db key (prepend to $suffix4all)
- * @param $suffix4path     string suffix added  for repository key (prepend to $suffix4all)
- * @param $suffix4all      string suffix added  for ALL keys 
+ * @param string $wantedCode initial model
+ * @param string $prefix4all       prefix added  for ALL keys 
+ * @param string $prefix4baseName  prefix added  for basename key (after the $prefix4all)
+ * @param string $prefix4path      prefix added  for repository key (after the $prefix4all)
+ * @param string $addUniquePrefix  prefix randomly generated prepend to model
+ * @param boolean $useCodeInDepedentKeys   whether not ignore $wantedCode param. If FALSE use an empty model.
+ * @param boolean $addUniqueSuffix suffix randomly generated append to model
+ * @param string $suffix4baseName  suffix added  for db key (prepend to $suffix4all)
+ * @param string $suffix4path      suffix added  for repository key (prepend to $suffix4all)
+ * @param string $suffix4all       suffix added  for ALL keys 
  * @return array 
  * - ["currentCourseCode"]             : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
@@ -83,8 +83,8 @@ function define_course_keys ($wantedCode,
 
     //$wantedCode = strtoupper($wantedCode);
     $charToReplaceByUnderscore = '- ';
-    $wantedCode = ereg_replace('['.$charToReplaceByUnderscore.']','_',$wantedCode);
-    $wantedCode = ereg_replace('[^A-Za-z0-9_]','',$wantedCode);
+    $wantedCode = ereg_replace('['.$charToReplaceByUnderscore.']', '_', $wantedCode);
+    $wantedCode = ereg_replace('[^A-Za-z0-9_]', '', $wantedCode);
 
     if ($wantedCode=='') $wantedCode = $prefixAntiEmpty;
 
@@ -197,8 +197,8 @@ function define_course_keys ($wantedCode,
 /**
  * Create directory used by course.
  *
- * @param  $courseRepository     string path from $coursesRepositorySys to root of course
- * @param  $courseId             string sysId of course
+ * @param  string $courseRepository path from $coursesRepositorySys to root of course
+ * @param  string $courseId         sysId of course
  *
  * @author  Christophe Gesché <moosh@claroline.net>
  * @version 1.0
@@ -245,7 +245,7 @@ function prepare_course_repository($courseRepository, $courseId)
   \$claroGlobalPath = '$includePath';
     include(\"".$clarolineRepositorySys."course_home/course_home.php\");
     ?>");
-        fwrite($fd, '$string');
+        fwrite($fd, $string);
         $fd=fopen($coursesRepositorySys.$courseRepository."/group/index.php", "w");
         $string='<' . '?' . 'php' . ' session_start' . '()' .'; ?>';
         fwrite($fd, $string);
