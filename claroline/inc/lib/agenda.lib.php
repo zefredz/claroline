@@ -23,8 +23,8 @@
 /**
  * get list of all agenda item in the given or current course
  *
- * @param $order  'ASC' || 'DESC' : ordering of the list.
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param string $order  'ASC' || 'DESC' : ordering of the list.
+ * @param string $course_id current :sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return array of array(`id`, `titre`, `contenu`, `day`, `hour`, `lasting`, `visibility`)
  * @since  1.7
@@ -45,8 +45,8 @@ function agenda_get_item_list($order='DESC', $course_id=NULL)
 /**
  * Delete an event in the given or current course
  *
- * @param $event_id integer:id the requested event
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param integer $event_id id the requested event
+ * @param string $course_id current :sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return result of deletion query
  * @since  1.7
@@ -65,8 +65,8 @@ function agenda_delete_item($event_id, $course_id=NULL)
 /**
  * Delete an event in the given or current course
  *
- * @param $event_id integer:id the requested event
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param integer $event_id id the requested event
+ * @param string $course_id current :sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return result of deletion query
  * @since  1.7
@@ -83,10 +83,10 @@ function agenda_delete_all_items($course_id=NULL)
 /**
  * add an new event in the given or current course
  *
- * @param $title     string=''      :title of the new item        
- * @param $content   string=''      :content of the new item
- * @param $time      date='now'     :publication dat of the item def:now
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param string   $title   title of the new item        
+ * @param string   $content content of the new item
+ * @param date     $time    publication dat of the item def:now
+ * @param string   $course_id sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return id of the new item
  * @since  1.7
@@ -114,10 +114,10 @@ function agenda_add_item($title='',$content='', $day=NULL, $hour=NULL, $lasting=
 /**
  * Update an announcement in the given or current course
  *
- * @param $title     string=''      :title of the new item        
- * @param $content   string=''      :content of the new item
- * @param $time      date='now'     :publication dat of the item def:now
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param string     $title     title of the new item        
+ * @param string     $content   content of the new item
+ * @param date       $time      publication dat of the item def:now
+ * @param string     $course_id sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return handler of query
  * @since  1.7
@@ -151,8 +151,8 @@ function agenda_update_item($event_id, $title=NULL,$content=NULL, $day=NULL, $ho
 /**
  * return data for the event  of the given id of the given or current course
  *
- * @param $event_id integer:id the requested event
- * @param $course_id       string :sysCode of the course (leaveblank for current course) 
+ * @param integer $event_id id the requested event
+ * @param string  $course_id sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return array(`id`, `title`, `content`, `dayAncient`, `hourAncient`, `lastingAncient`) of the event
  * @since  1.7
@@ -179,9 +179,9 @@ function agenda_get_item($event_id, $course_id=NULL)
 /**
  * return data for the event  of the given id of the given or current course
  *
- * @param $event_id integer:id the requested event
- * @param $visibility 'SHOW' || 'HIDE' : ordering of the list.
- * @param $course_id       string :sysCode of the course (leaveblank for current course) 
+ * @param integer $event_id id the requested event
+ * @param string  $visibility 'SHOW' || 'HIDE'  ordering of the list.
+ * @param string  $course_id  sysCode of the course (leaveblank for current course) 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return result handler
  * @since  1.7

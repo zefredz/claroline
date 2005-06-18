@@ -30,8 +30,8 @@
 /**
  * get list of all announcements in the given or current course
  *
- * @param $order  'ASC' || 'DESC' : ordering of the list.
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param string $order  'ASC' || 'DESC' : ordering of the list.
+ * @param  string $course_id sysCode of the course (leaveblank for current course) 
  * @return array of array(id, title, content, time, visibility, rank)
  * @since  1.7
  */
@@ -51,8 +51,8 @@ function announcement_get_item_list($order='DESC', $course_id=NULL)
 /**
  * Delete an announcement in the given or current course
  *
- * @param $announcement_id integer:id the requested announcement
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param integer $announcement_id id the requested announcement
+ * @param string $course_id  sysCode of the course (leaveblank for current course) 
  * @return result of deletion query
  * @since  1.7
  */
@@ -70,8 +70,8 @@ function announcement_delete_item($id, $course_id=NULL)
 /**
  * Delete an announcement in the given or current course
  *
- * @param $announcement_id integer:id the requested announcement
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param integer $announcement_id id the requested announcement
+ * @param string $course_id        sysCode of the course (leaveblank for current course) 
  * @return result of deletion query
  * @since  1.7
  */
@@ -87,10 +87,10 @@ function announcement_delete_all_items($course_id=NULL)
 /**
  * add an new announcement in the given or current course
  *
- * @param $title     string=''      :title of the new item        
- * @param $content   string=''      :content of the new item
- * @param $time      date='now'     :publication dat of the item def:now
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param string $title title of the new item        
+ * @param string $content   content of the new item
+ * @param date   $time  publication dat of the item def:now
+ * @param course_code $course_id sysCode of the course (leaveblank for current course) 
  * @return id of the new item
  * @since  1.7
  */
@@ -128,10 +128,10 @@ function announcement_add_item($title='',$content='', $visibility='SHOW', $time=
 /**
  * Update an announcement in the given or current course
  *
- * @param $title     string=''      :title of the new item        
- * @param $content   string=''      :content of the new item
- * @param $time      date='now'     :publication dat of the item def:now
- * @param $course_id string=current :sysCode of the course (leaveblank for current course) 
+ * @param string $title     title of the new item        
+ * @param string $content   content of the new item
+ * @param date   $time      publication dat of the item def:now
+ * @param string $course_id sysCode of the course (leaveblank for current course) 
  * @return handler of query
  * @since  1.7
  */
@@ -194,11 +194,11 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
 /**
  * function move_entry($entryId,$cmd)
  *
- * @author Christophe Gesché <moosh@claroline.net>
- * @param $entryId     integer     an valid id of announcement.
- * @param $cmd         string         'UP' or 'DOWN'
+ * @param  integer $entryId  an valid id of announcement.
+ * @param  string $cmd       'UP' or 'DOWN'
  * @return true;
  *
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 function move_entry($item_id, $cmd, $course_id=NULL)
 {

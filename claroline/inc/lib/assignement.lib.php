@@ -19,8 +19,8 @@
 /**
  * Delete an assignment in the given or current course
  *
- * @param $assignment_id integer:id the requested assignment
- * @param $wrkDir path:path to  workRepository 
+ * @param integer  $assignment_id id the requested assignment
+ * @param path $wrkDir path to  workRepository 
  * @return result of deletion query
  * @since  1.7
  */
