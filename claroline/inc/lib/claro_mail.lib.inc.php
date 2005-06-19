@@ -1,4 +1,28 @@
 <?php // $Id$
+/** 
+ * CLAROLINE 
+ *
+ * Build the frameset for chat.
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/Libs-mail
+ *
+ * @package KERNEL
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @todo use better claro_failure
+ * @todo finish function ClaroMailUsers($users_ids, $message, $subject ,$specificFrom="")
+ * @todo finish function ClaroMailAll($message, $subject ,$specificFrom="")
+ * @todo finish function ClaroMailCourse($course_id, $message, $subject ,$specificFrom="")
+ */
+
+
 require_once('class.phpmailer.php');
 include_once( dirname(__FILE__) . '/auth.lib.inc.php');
 
@@ -28,7 +52,7 @@ function claro_mail_spool($mails)
 
     foreach ($mails as $mailToSend)
     {
-        $specificFrom = trim( $mailToSend['from']==""?$administrator_email:$mailToSend['from']);
+        $specificFrom = trim( $mailToSend['from'] == '' ? $administrator_email : $mailToSend['from']);
      //find user email in claro db
        $sql = '    SELECT * 
                        FROM `'.$tbl_user.'` as `claro_user`
@@ -56,14 +80,14 @@ function claro_mail_spool($mails)
        }
        else
        {
-            return claro_failure::set_failure('No user with such an ID !!!');
+            return claro_failure::set_failure('N0_USER_WITH_SUCH_AN_ID');
        }
     
        // create mailer and configure it.
 
        $mail = new PHPMailer();
 
-       if ($specificFrom!="")   //takes from email address if given in parameters
+       if ($specificFrom != '')   //takes from email address if given in parameters
        {
             $mail->From = $specificFrom;
        }
@@ -72,7 +96,7 @@ function claro_mail_spool($mails)
             $mail->From = $administrator_email;
        }
 
-       if ($specificFromName!="") //takes from name if given in parameters
+       if ($specificFromName != '') //takes from name if given in parameters
        {
             $mail->FromName = $specificFromName;
        }
@@ -91,12 +115,12 @@ function claro_mail_spool($mails)
             if (    
                     isset($mailToSend['to']) &&
                     (
-                    (    !is_array($mailToSend['to']) && $mailToSend['to']== $list['user_id']) 
+                    (    !is_array($mailToSend['to']) && $mailToSend['to'] == $list['user_id']) 
                     || 
                     in_array($list['user_id'],$mailToSend['to'])
                 ) )
             {
-                $mail->AddAddress($list['email'], $list['nom']." ".$list['prenom']);
+                $mail->AddAddress($list['email'], $list['nom'] . ' ' . $list['prenom']);
             }
 
             if (    
@@ -110,27 +134,27 @@ function claro_mail_spool($mails)
                     in_array($list['user_id'],$mailToSend['cc']))
                 )
             {
-                   $mail->AddCC($list['email'], $list['nom']." ".$list['prenom']);
+                   $mail->AddCC($list['email'], $list['nom'] . ' ' . $list['prenom']);
             }
 
             if (        
                         isset($mailToSend['bcc']) &&
                         ((    !is_array($mailToSend['bcc']) 
                         && 
-                        $mailToSend['bcc']== $list['user_id'] 
+                        $mailToSend['bcc'] == $list['user_id'] 
                     )
                     || 
                     in_array($list['user_id'],$mailToSend['bcc']))
                 )
             {
-                   $mail->AddBCC($list['email'], $list['nom']." ".$list['prenom']);
+                   $mail->AddBCC($list['email'], $list['nom'] . ' ' . $list['prenom']);
             }
         }    
        //send mail
     
        if (!$mail->Send())
        {
-            return claro_failure::set_failure ('There has been a mail error sending subject was "' .$mailToSend['subject'].'"');
+            return claro_failure::set_failure ('There has been a mail error sending subject was "' .$mailToSend['subject'] . '"');
        }
 
        // Clear all addresses and attachments for next use
@@ -176,14 +200,14 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
         
     if(! is_well_formed_email_address($list['email']) or empty($list['email']) )
     {
-        return claro_failure::set_failure( $list['nom'] . " " . $list['prenom'] ." : wrong or empty email address"."<br>");
+        return claro_failure::set_failure( $list['nom'] . ' ' . $list['prenom'] . ' : wrong or empty email address');
     }
         
     // create mailer and configure it.
         
     $mail = new PHPMailer();
         
-    if ($specificFrom!="")   //takes from email address if given in parameters
+    if ($specificFrom != '')   //takes from email address if given in parameters
     {
         $mail->From = $specificFrom;
     }
