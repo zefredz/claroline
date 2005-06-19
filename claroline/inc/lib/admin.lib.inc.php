@@ -51,8 +51,6 @@ $tbl_courses_nodes      = $tbl_category;
 /**
  * Create a new user in Claroline with the specified informations
  *
- * @author Guillaume Lederer <lederer@cerdecam.be>
- *
  * @param  string  $name name of the new user                 
  * @param  string  $surname surname of the new user              
  * @param  string  $email email of the new user                 
@@ -64,6 +62,7 @@ $tbl_courses_nodes      = $tbl_category;
  *                      FALSE otherwise,              
  * 
  * @return $_UID : id of the new user if creation succeeded, FALSE otherwise
+ * @author Guillaume Lederer <lederer@cerdecam.be>
  * 
  */
 
@@ -76,36 +75,26 @@ function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$t
     if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = false;
     // set the status DB code with the value of $teacher
 
-    if ($teacher==TRUE)
-    {
-        $status = 1;
-    }
-    else
-    {
-        $status = 5;
-    }
-
     $sql = "INSERT INTO `".$tbl_user."`
-            SET `nom`          = \"".$name."\",
-                `prenom`       = \"".$surname."\",
-                `username`     = \"".$username."\",
-                `password`     = \"".($userPasswordCrypted?md5($password):$password)."\",
-                `email`        = \"".$email."\",
-                `statut`       = \"".$status."\",
-                `officialCode` = \"".$admincode."\",
-                `phoneNumber`  = \"".$phone."\"";
-
-    $_uid = claro_sql_query_insert_id($sql);
-    return $_uid;
+            SET `nom`          = '" . $name      . "',
+                `prenom`       = '" . $surname   . "',
+                `username`     = '" . $username  . "',
+                `password`     = '" . ($userPasswordCrypted ? md5($password) : $password) . "',
+                `email`        = '" . $email     . "',
+                `statut`       = '" . ($teacher ? 1 : 5) . "',
+                `officialCode` = '" . $admincode . "',
+                `phoneNumber`  = '" . $phone     . "'";
+    
+    return claro_sql_query_insert_id($sql);
 }
 
 /**
  * Set a user as admin
- * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.6
- * @param $idAdmin Id of user to set as admin
+ * @param integer $idAdmin Id of user to set as admin
  *
  * @return void
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 function set_user_admin($idAdmin)
 {
@@ -113,7 +102,7 @@ function set_user_admin($idAdmin)
     $tbl_admin     = $tbl_mdb_names['admin'];
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = "INSERT INTO `".$tbl_admin."` (idUser) VALUES (".$idAdmin.")";
+    $sql = "INSERT INTO `" . $tbl_admin . "` (idUser) VALUES (" . $idAdmin . ")";
     claro_sql_query($sql);
     //adduser in .htaccess
 }
@@ -122,7 +111,6 @@ function set_user_admin($idAdmin)
 /**
  * subscribe a specific user to a specific course
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  * @param int     $userId     user ID from the course_user table
  * @param string  $courseCode course code from the cours table
@@ -131,6 +119,7 @@ function set_user_admin($idAdmin)
  *
  * @return boolean TRUE        if subscribtion succeed
  *         boolean FALSE       otherwise.
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 function add_user_to_course($userId, $courseCode, $force_it=false)
@@ -200,13 +189,13 @@ function add_user_to_course($userId, $courseCode, $force_it=false)
 /**
  * unsubscribe a specific user from a specific course
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  * @param  int     $userId     user ID from the course_user table
  * @param  string  $courseCode course code from the cours table
  *
  * @return boolean TRUE        if unsubscribtion succeed
  *         boolean FALSE       otherwise.
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 function remove_user_from_course($userId, $courseCode)
@@ -245,13 +234,12 @@ function remove_user_from_course($userId, $courseCode)
 /**
  * remove a specific user from a course groups
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
  * @param  int     $userId     user ID from the course_user table
  * @param  string  $courseCode course code from the cours table
  *
  * @return boolean TRUE        if removing suceed
  *         boolean FALSE       otherwise.
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 function remove_user_from_group($userId, $courseCode)
@@ -278,13 +266,13 @@ function remove_user_from_group($userId, $courseCode)
 /**
  * remove a specific user from a course groups
  *
- * @author Guillaume Lederer <lederer@cerdecam.be>
  *
  * @param  int     $userId     user ID from the course_user table
  * @param  int     $classId    class ID  from the rel_class_user table
  *
  * @return boolean TRUE        if subscribe suceeded
  *         boolean FALSE       otherwise.
+ * @author Guillaume Lederer <lederer@cerdecam.be>
  */
 
 function add_user_to_class($userId, $classId)
@@ -332,7 +320,7 @@ function add_user_to_class($userId, $classId)
 /**
  * delete a user of the plateform
  *
- * @author  Benoit
+ * @author  Benoit 
  *
  * @param the id of the user to delete
  *
@@ -562,7 +550,7 @@ function backup_course($cid)
 /**
  * change the status of a user for a specific course
  *
- * @author Hugues Peeters - peeters@ipm.ucl.ac.be
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  int     $user_id
  * @param  string  $course_id
  * @param  array   $properties - should contain 'role', 'status', 'tutor'
@@ -606,7 +594,7 @@ function update_user_course_properties($user_id, $course_id, $properties)
 /**
  * to know if user is registered to a course or not
  *
- * @author Hugues Peeters - peeters@ipm.ucl.ac.be
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  int     id of user in DB
  * @param  int     id of course in DB
  * @return boolean true if user is enrolled false otherwise
