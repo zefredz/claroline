@@ -407,7 +407,7 @@ $sql = "SELECT `u`.`user_id` ,
         HAVING `BLOCK` = 0
         ".$limitNumOfGroups."
         ORDER BY 
-        #`nbg`, #dislabed because different of  right box
+        #`nbg`, #disabled because different of  right box
         UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
 
 $resultNotMember = claro_sql_query($sql);
