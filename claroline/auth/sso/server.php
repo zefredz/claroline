@@ -260,7 +260,7 @@ function record_sso_cookie($userId, $ssoCookie)
     $mainTblList = claro_sql_get_main_tbl();
     $tbl_sso     = $mainTblList['sso' ];
 
-    $sql = "UPDATE ".$tbl_sso." 
+    $sql = "UPDATE `".$tbl_sso."` 
             SET cookie    = '".$ssoCookie."',
                 rec_time  = NOW()
             WHERE user_id = ". (int) $userId;
@@ -269,7 +269,7 @@ function record_sso_cookie($userId, $ssoCookie)
 
     if ($affectedRowCount < 1)
     {
-        $sql = "INSERT INTO ".$tbl_sso." 
+        $sql = "INSERT INTO `".$tbl_sso."` 
                 SET cookie    = '".$ssoCookie."',
                     rec_time  = NOW(),
                     user_id   = ". (int) $userId;
