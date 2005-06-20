@@ -421,7 +421,7 @@ if ( $displayButtonLine )
     }
     else
     {   
-        echo '<span class="claroCmdDislabed" >'
+        echo '<span class="claroCmdDisabled" >'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" />'
         .    $langEmptyAnn
         .    '</span>' . "\n";

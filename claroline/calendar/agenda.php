@@ -2,7 +2,7 @@
 /**
  * CLAROLINE 
  *
- * - For a Student -> View angeda Content
+ * - For a Student -> View agenda Content
  * - For a Prof    -> - View agenda Content
  *         - Update/delete existing entries
  *         - Add entries
