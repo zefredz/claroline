@@ -28,6 +28,9 @@
  * 
  */
 
+/**
+ * @package DISPLAY
+ */
 class claro_sql_pager
 {
     /**
@@ -267,19 +270,20 @@ class claro_sql_pager
         }
 
         echo '</td>'
-            .'<td align="right" width="20%">';
+        .    '<td align="right" width="20%">'
+        ;
 
         if ($next !== false)
         {
-            echo '<b><a href="'.$url.$next.'"> &gt;</a>&nbsp;&nbsp;</b>'
-                .'<b><a href="'.$url.$end.'"> &gt;&gt;|</a></b>';
+            echo '<b><a href="' . $url.$next . '"> &gt;</a>&nbsp;&nbsp;</b>'
+            .    '<b><a href="' . $url.$end . '"> &gt;&gt;|</a></b>'
+            ;
         }
 
         echo '</td>'
-
-            .'</tr>'
-
-            .'</table>';
+        .    '</tr>'
+        .    '</table>'
+        ;
     }
 
     function set_pager_call_param_name($paramName)
