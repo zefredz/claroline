@@ -1,20 +1,13 @@
 <?php 
 $l_author = "Autor";
-$l_banned = "Sie wurden aus diesem Forum ausgeschlossen. Kontaktieren Sie den Forumadministrator, falls Sie hierzu Fragen haben.";
 $l_body = "Inhalt des Postings";
-$l_by = "von";
 $l_click = "Klicken Sie";
 $l_delete = "Dieses Posting l&ouml;schen";
 $l_deleted = "Ihr Posting wurde gel&ouml;scht.";
 $l_emptymsg = "Sie m&uuml;ssen eine Nachricht eingeben. Sie k&ouml;nnen kein leeres Posting absenden.";
-$l_error = "Fehler";
-$l_go = "Gehe zu";
-$l_guest = "Gast";
 $l_here = "hier";
 $l_indextitle = "Forenindex";
 $l_lastpost = "Letztes Posting";
-$l_nopostlock = "Sie k&ouml;nnen nicht auf dieses Topic antworten, da es geschlossen ist.";
-$l_noposts = "Keine Beitr&auml;ge";
 $l_notify = "Benachrichtigung per e-mail bei Antworten";
 $l_notifybody = "Sie erhalten diese Email, da ein Benutzer auf Ihr
 Posting in einem Forum geantwortet hat und Sie die Emailbenachrichtung aktiviert haben.
@@ -35,13 +28,8 @@ $l_notopics = "In diesem Forum gibt es keine Topics. Sie k&ouml;nnen jedoch eine
 $l_posted = "gepostet am";
 $l_poster = "Poster";
 $l_posts = "Postings";
-$l_quotemsg = "[quote]
-Am %1\ schrieb %2\:
-%3\
-[/quote]";
 $l_returnindex = ", um zum Forenindex zur&uuml;ckzukehren.";
 $l_returntopic = ", um zur Topicauflistung des Forums zur&uuml;ckzukehren.";
-$l_selectforum = "W&auml;hlen Sie ein Forum";
 $l_separator = "» »";
 $l_stored = "Ihr Posting ist in der Datenbank gespeichert worden.";
 $l_subject = "Subject";
@@ -51,6 +39,8 @@ $l_topics = "Topics";
 $l_topictitle = "Topic ansehen";
 $l_viewforum = "View Forum";
 $l_viewmsg = "um Ihr Posting anzusehen.";
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "Im Falle einer Unterbrechung <sup>*</sup> sollte sich das <em>Claroline Upgrade tool</em> automatisch neustarten. 
+Wenn das nicht der Fall ist, klicken Sie bitte den Button unten";
 $langAccess = "Zugang";
 $langAccessExplain = "(Wenn ein Benutzer den Index aufruft)";
 $langAction = "Art";
@@ -79,6 +69,7 @@ $langAddLoginPassForThisUser = "Login-Passwort vom System-Account dieses Benutze
 $langAddModifyComment = "Kommentar hinzuf&uuml;gen oder &auml;ndern f&uuml;r";
 $langAddModule = "Hinzufügen";
 $langAddModulesButton = "Modul(e) hinzufügen";
+$langAddMyCampusOnClarolineNet = "Meinen Campus der Claroline.net Website hinzufügen";
 $langAddNewHeading = "Neue Überschrift hinzufügen";
 $langAddOneModuleButton = "Modul hinzufügen";
 $langAddPage = "Seite hinzufügen";
@@ -91,6 +82,7 @@ $langAddedToCampus = " wurde der Plattform hinzugefügt.";
 $langAddedToCampusAndClass = " wurde der Plattform und der Klasse hinzugefügt.";
 $langAddedToCampusAndCourse = " wurde der Plattform und der KursSite hinzugefügt.";
 $langAddedToCourse = "wurde für Ihren Kurs registriert";
+$langAddedToCreator = "Kurs-Startseite";
 $langAddress = "Die Adresse von ";
 $langAdm = "Foren-Administration";
 $langAdmin = "Administration";
@@ -98,6 +90,7 @@ $langAdminEmail = "Administrator E-Mail";
 $langAdminLogin = "Administrator Username";
 $langAdminName = "Administrator Nachname";
 $langAdminPass = "Administrator Passwort";
+$langAdminSetting = "Administratoreinstellungen";
 $langAdminSurname = "Administrator Vorname";
 $langAdministration = "Administration";
 $langAdministrationClassTools = "Klassen";
@@ -105,7 +98,6 @@ $langAdministrator = "Administrator";
 $langAdminsOfThisCours = "KursSite-Verwaltung";
 $langAdmitError = "Die eigenen Fehler eingestehen, um sein Gegenüber dazu zu bringen, das Gleiche zu tun.";
 $langAdvanced = "erweitert";
-$langAgain = "Versuchen Sie es noch einmal!";
 $langAgenda = "Termine/Ereignisse";
 $langAgendaNextEvents = "Meine nächsten Termine";
 $langAlertBlockingMakedInvisible = "Dieses Modul ist gesperrt. 
@@ -186,13 +178,14 @@ $langAttempt = "Versuch";
 $langAttemptAllowed = "erlaubter Versuch";
 $langAttempts = "Versuche";
 $langAttemptsAllowed = "erlaubte Versuche";
+$langAuthentication = "Authentifizierung";
 $langAvailableFrom = "Verf&uuml;gbar von";
 $langBack = "Zurück";
-$langBackAndForget = "Zurück und vergessen";
 $langBackCat = "zurück zu Kategorien";
 $langBackHomeOf = "Zurück zur Homepage von ";
 $langBackList = "Zurück zur Liste";
 $langBackModule = "Zurück zur Übersicht";
+$langBackTo = "Zurück zu :";
 $langBackToAdmin = "Zurück zur Admin-Seite";
 $langBackToClass = "zurück zur Klasse";
 $langBackToClassList = "Zurück zur Klassenliste";
@@ -205,6 +198,7 @@ $langBackToMyCourseList = "Zur&uumlck zu meiner Kursliste";
 $langBackToUserList = "Zurück zur Benutzer-Übersicht";
 $langBackToUserSettings = "Zurück zu den Benutzer-Einstellungen";
 $langBackToUsersList = "Zurück zur Liste der Teilnehmer";
+$langBlankSpace = "(Leerzeichen)";
 $langBlock = "Sperren/Freischalten";
 $langBrowserCannotSeeFrames = "Ihr Browser kann keine Frames darstellenY.";
 $langBuildCompleteLangFile = "Komplette Language-Files";
@@ -215,6 +209,12 @@ $langBuildProductionLangFile = "Language-Files f&uuml;r den laufenden Betrieb";
 $langByDel = "Wenn die Website des Kurses gelöscht wird, werden auch alle enthaltenen Dokumente und Benutzer-Einschreibungen gelöscht. (Teilnehmer werden jedoch nicht aus anderen Kurs-Websites entfernt).<p>Wollen Sie die Kurs-Website wirklich löschen?";
 $langByUser = "von Benutzer ";
 $langCSVSeeUserList = "Liste der Benutzer ansehen";
+$langCampusAlreadyRegistered = "Sie haben Ihren Campus schon registriert.";
+$langCampusDeleted = "<strong>Deleted</strong><p>Ihre Registrierung wurde deaktiviert, kontaktieren Sie uns (über unsere Website), wenn Sie denken, dass dies ein Fehler ist.</p>";
+$langCampusRegistered = "<strong>Approved</strong><p> Ihre Registrierung wurde vom Claroline.net-Team bestätigt.<br /> Ein Link zu Ihrem Campus wird auf der Worldwide-Seite von Claroline.net angezeigt.</p>";
+$langCampusRegistrationSubmitted = " Ihr Campus wurde übermittelt und wartet auf die Bestätigung des Claroline.net-Teams";
+$langCampusRemoved = "<strong>Gelöscht</strong><p>Ihr Campus wurde von der Worldwide-Seite gelöscht.</p>";
+$langCampusSubmitted = "<strong>Gesendet</strong><p>Warten auf die Bestätigung des Claroline.net-Teams.</p>";
 $langCancel = "abbrechen";
 $langCannotAddForumInGroups = "Gruppen-Foren werden angelegt, wenn eine Gruppe hinzugefügt wird und entfernt, wenn die entsprechende Gruppe gelöscht wird.";
 $langCannotBeBlank = "Sie können den Namen der Klasse nicht leer lassen!";
@@ -239,6 +239,7 @@ $langChooseGoodAnswer = "Wählen Sie eine richtige Antwort";
 $langChooseGoodAnswers = "Wählen sie eine oder mehrere richtige Antworten";
 $langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br>Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br>
 Wenn Sie ein Dozent sind, der eine Kurswebsite anlegen möchte, dann registrieren sie sich als solcher (sofern die Sebstregistrierung als Dozent ermöglicht ist), oder ersuchen um diesen Status bei 'Mein Profil verändern'.</p>";
+$langClarolineNetNews = "Claroline.net News";
 $langClass = "Klassen";
 $langClassMembers = "Klassenmitglieder";
 $langClassMoved = "Die Klasse wurde verschoben.";
@@ -257,8 +258,9 @@ $langCodeUsed = "Dieser Zugriffscode wird bereits von einem anderen Benutzer ver
 $langComMod = "Kommentar verändert";
 $langComment = "Kommentar";
 $langConfTip = "In der Basiseinstellung ist jede Kurs-Website für alle offen. Wenn Sie die Kurs-Website geschlossen halten wollen, aktivieren Sie die Kursanmeldung für eine Woche und bitten Sie die Teilnehmer, sich anzumelden. Im Anschluss sperren Sie die Kursanmeldung und überprüfen Sie die Teilnehmerliste auf 'Trittbrettfahrer'.";
+$langConfigMenuContent = "Konfigurationsmenu";
 $langConfiguration = "Konfiguration";
-$langConfirm = "Passwort absichern";
+$langConfigurationFile = "Konfigurationsdatei";
 $langConfirmDeleteExercise = "Sind Sie sicher, das Sie diesen Test löschen möchten ?";
 $langConfirmDeleteGroups = "Wollen Sie wirklich alle Gruppen löschen?";
 $langConfirmDeleteQuestion = "Sind Sie sicher, das Sie diesen Frage inkl. aller Antworten löschen möchten ?";
@@ -282,6 +284,8 @@ $langCountUsers = "Zahl der eingeschriebenen Teilnehmer";
 $langCountUsersByCourse = "Zahl der Teilnehmer pro KursSite";
 $langCountUsersByFaculte = "Zahl der KursSites in Kategorien";
 $langCountUsersByStatus = "Zahl der Teilnehmer nach Status";
+$langCountry = "Land";
+$langCountryCodeError = "Der Länder-Code ist nicht korrekt.";
 $langCourse = "Kurs";
 $langCourseAccess = "Zugang zu dieser KursSite";
 $langCourseAdministratorOnly = "Nur für die Kursverwaltung";
@@ -292,7 +296,6 @@ $langCourseCreate = "Eine Kurswebsite aufbauen";
 $langCourseCreator = "Tutor/Dozent";
 $langCourseDelete = "Die KursSite wirde erfolgreich gelöscht";
 $langCourseDescription = "Kursbeschreibung";
-$langCourseHome = "Kurs-Startseite";
 $langCourseList = "Kurs-Websites";
 $langCourseManager = "KursSite-Verantwortlicher";
 $langCourseManagerStatusToUser = "Folgender Benutzer erbittet, KursSites erzeugen zu können: %s %s";
@@ -318,10 +321,14 @@ $langCreateNewClass = "Eine neue Klasse erzeugen";
 $langCreateNewLearningPath = "Einen neuen Lernpfad anlegen";
 $langCreateSite = "Kurs-Website erstellen";
 $langCreateUser = "Benutzer anlegen";
+$langCreateUserAccount = "Nutzeraccount anlegen";
 $langCreationMailNotificationBody = "Kurs-Website-Erstellung auf ";
 $langCreationMailNotificationSubject = "Kurs-Website-Erstellung";
 $langCurrentAttachedDoc = "derzeitige angeh&auml;ngte Datei";
+$langCurrentDoc = "Aktuelle Datei";
 $langCurrentFeedbackFile = "Aktuelle Feedback-Datei";
+$langCurrentStatus = "Aktueller Registrierungsstatus : <br /> <br />
+";
 $langCurrentTime = "Aktuelle Zeit";
 $langDBConnectionParameters = "MySQK Connection Parameter";
 $langDBHost = "Datenbank Host";
@@ -454,6 +461,7 @@ $langDocumentAsModule = "Dokument verwenden";
 $langDocumentContent = "Inhalt des Dokuments : ";
 $langDocumentInModule = "Dokument im Modul";
 $langDocumentName = "Name des Dokuments  : ";
+$langDocumentation = "Dokumentation";
 $langDocuments = "Dokumente";
 $langDocumentsAccess = "Dokumente";
 $langDocumentsDetails = "Dokumenten-Download der Teilnehmer";
@@ -467,7 +475,6 @@ $langEG = "z. B.";
 $langEXERCISETypeDesc = "Systeminterner Test";
 $langEdit = "Bearbeiten";
 $langEditAnswers = "Antworten bearbeiten";
-$langEditCourseProgram = "Kursbeschreibung erstellen und bearbeiten";
 $langEditDel = "Ändern/Löschen";
 $langEditEvent = "Termin/Ereignis bearbeiten";
 $langEditExercise = "Antwort-Einstellungen bearbeiten";
@@ -501,9 +508,9 @@ $langEnrollClass = "Klasse eintragen";
 $langEnrollToNewCourse = "In neue KursSite eintragen";
 $langEnrollUser = "Einen Teilnehmer einschreiben";
 $langEnter = "Eintreten";
-$langEnter2passToChange = "Geben Sie das neue Passwort zwei mal ein oder lassen Sie die Felder leer, um das Passwort beizubehalten";
 $langEnterMail = "Geben Sie Ihre Email-Adresse ein, damit wir Ihnen Ihr Passwort zusenden können.";
 $langErrorAssetNotFound = "Asset nicht gefunden : ";
+$langErrorCannotReadRSSFile = "Fehler : kann RSS-Quelle nicht lesen";
 $langErrorCategoryEmpty = "Das Feld 'Kategorie' darf nicht leer sein!";
 $langErrorClassNotEmpty = "Diese Klasse enthält immer noch Unterklassen, löschen Sie diese zuerst.";
 $langErrorCourseCodeEmpty = "Das Feld 'KursNr.' darf nicht leer sein!";
@@ -516,6 +523,7 @@ $langErrorEmailInvalid = "Email ist ungültig";
 $langErrorEmptyName = "Bitte Name eingeben";
 $langErrorFileMustBeZip = "Datei muss ein zip.Archiv sein (.zip)";
 $langErrorFormatCSV = "ERROR: Das eingegebene Format ist nicht mit Claroline kompatibel";
+$langErrorInvalidParms = "Fehler : Ungültiger Parameter (nur Zahlen benutzen)";
 $langErrorLanguageEmpty = "Das Feld 'Sprache' darf nicht leer sein!";
 $langErrorLecturerEmpty = "Das Feld 'Dozent' darf nicht leer sein!";
 $langErrorMove = "Sie können eine Klasse nicht in sich selbst verschieben!";
@@ -530,6 +538,7 @@ $langErrorReadingXMLFile = "Fehler beim Öffnen der zweiten Initalisierungs-Datei
 $langErrorReadingZipFile = "Fehler beim Öffnen der  zip Datei.";
 $langErrorSql = "Fehler in der SQL Abfrage";
 $langErrorUserNotInGroup = "Dieser Teilnehmer ist nicht Mitglied in Ihrer Gruppe";
+$langErrorValuesInDouble = "Fehler : Einer oder mehrere Werte sind doppelt";
 $langErrortExtractingManifest = "Extrahieren der <i>imsmanifest</i> Datei aus dem zip-Archiv nicht möglich  (Datei beschädigt ? ).";
 $langEventAdded = "Termin-/Ereignis dem Kalender hinzugefügt.";
 $langEventDeleted = "Termin-/Ereignis vom Kalender gelöscht.";
@@ -653,7 +662,6 @@ $langFeedbackSubmit = "Feedback senden";
 $langFeedbackText = "Feedback-Text";
 $langFeedbacks = "Feedbacks";
 $langFieldSeparatorUsed = "Feld-Separator";
-$langFields = "Sie haben einige Felder leer gelassen";
 $langFieldsRequ = "Alle Felder müssen ausgefüllt sein";
 $langFileContentModified = "Inhalt der Datei geändert";
 $langFileCreated = "Datei erstellt";
@@ -666,10 +674,16 @@ $langFileNameMissing = "Kein Dateiname vorhanden";
 $langFileNameOrURLMissing = "Dateiname oder URL nicht vorhanden.";
 $langFileOnly = "Datei (Datei erforderlich, Beschreibungstext ist optional)";
 $langFileRequired = "Eine Datei ist erforderlich";
+$langFiles = "Dateiliste";
 $langFillBlanks = "Lücken/Leerstellen ausfüllen";
+$langFillCourses = "Test-Kurs aufbauen";
 $langFillGroups = "Gruppenmitglieder einfügen";
 $langFillLists = "Füllen Sie die Listen aus";
-$langFilled = "Sie haben einige Felder leer gelassen.";
+$langFillTheAreaToExplainTheMotivations = " Füllen Sie diesen Bereich aus, um Ihr Anliegen zu erläutern und senden Sie Ihre Anfrage ab.Eine E-Mail wird an den Plattform-Administrator gesendet.";
+$langFillToolCourses = "Fill tool courses";
+$langFillTree = " Kurskategorien einfügen";
+$langFillUsers = "Nutzer einfügen";
+$langFilling = "Mit Testwerten füllen";
 $langFilter = "Filter";
 $langFindDoubledVariable = "Finde doppelte Variablen";
 $langFindVarWithSameContentAndDifferentName = "Variablen mit gleichem Inhalt und verschiedenen Namen";
@@ -700,6 +714,7 @@ $langForums = "Foren";
 $langFree = "Frei";
 $langFrom = "von";
 $langFullScreen = "Vollbild";
+$langFunctions = "Funktionsliste";
 $langGarbage = "Mülleimer";
 $langGetExistingQuestion = "Frage aus einem anderen Test übernehmen";
 $langGiveAdminRight = "Einen Benutzer als Adminstrator eintragen";
@@ -790,6 +805,80 @@ $langHasBeenEnrolled = "wurde eingetragen";
 $langHasDel = "wurde gelöscht";
 $langHeading = "Überschrift";
 $langHelp = "Hilfe";
+$langHelpAssignment = "Hilfezuordnung";
+$langHelpAssignmentContent = "<p>
+Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können. 
+<br /><br />
+
+Jeder Upload-Bereich kann verschiedene Ziele und Anforderungen haben: die Publikation muss eine Datei, ein Text oder eine Datei und ein Text sein, die Publikation kann für eine Gruppe statt für einen einzelnen Nutzer gemacht werden, ....
+<br /><br />
+
+Lernende haben die Möglichkeit, ihre Arbeiten nach der Veröffentlichung zu verändern und der Kursmanager kann ihnen auf ihre Veröffentlichung Feedback geben.
+</p>
+<hr />
+
+<h4>Einen Upload-Bereich erstellen</h4>
+<p> Um einen neuen Upload-Bereich zu erstellen, muss sich der Kursmanager in das Upload-Tool begeben und auf den Link \"Create a new assignment\" klicken.
+</p>
+<p> Das angezeigte Formular fragt den Kursmanager nach&nbsp;:
+</p>
+<ul><li> einem Titel&nbsp;: dem Namen des Upload-Bereichs
+</li><li> einer Beschreibung&nbsp;: Die Anweisung, was die Lernenden zu tun haben
+</li><li> der Art der Vorlage&nbsp;:
+<ul><li> Datei&nbsp;: Jede Art von Datei kann hochgeladen werden. Denken Sie daran, dass es eine Größenbegrenzung gibt, die von der Plattform abhängt. Ein Text kann hinzugefgt werden, um die Datei zu beschreiben.
+
+
+</li><li> Nur Text&nbsp;: ein formatierter Text, für den der WYSIWYG-Editor benutzt wurde
+</li><li> Text mit angehängter Datei&nbsp;: ein formatierter Text, für den der WYSIWYG-Editor benutzt wurde und eine Datei (Datei nicht erforderlich)
+</li></ul>
+</li><li> Ein Startdatum&nbsp;: Datum ab dem die Nutzer ihre Veröffentlichung hochladen können
+</li><li> Ein Enddatum&nbsp;: Datum bis zu dem die Nutzer ihre Veröfflichung hochladen können
+</li><li> die voreingestelle Sichtbarkeit&nbsp;: Wählen Sie, ob die Veröffentlichungen für andere Nutzer zugänglich sind oder nicht
+</li><li> the assignment type&nbsp;:
+
+<ul><li> Individueller Modus&nbsp;: jeder authentifizierte Nutzer kann eine Veröffentlichung hochladen
+</li><li> Gruppenmodus&nbsp;: Der Nutzer muss wenigestens in einer Gruppe des Kurses Mitglied sein, um etwas hochzuladen, und die Veröffentlichung erfolgt im Namen der Gruppe 
+</li></ul>
+</li><li> Erlaubnis, nach dem Enddatum zu veröffentlichen
+</li></ul>
+<p><br />
+<strong>Ein automatisches Feedback hinzufügen</strong>
+</p>
+<p>Ein Feedback ist die korrekte Version einer Aufgabe. Um ein automatisches Feedback hinzuzufügen, gehen Sie in den Upload-Bereich und klicken Sie auf den \"Edit automatic feedback\" Link.
+</p>
+<p>Es kann ein Text oder eine Datei oder beides sein. Der Kursmanager kann auswählen, wann das automatische Feedback dem Nutzern gezeigt wird (nach Enddatum oder nach der ersten Veröffentlichung des Nutzers in diesem Bereich)
+</p>
+
+<hr />
+<h4>Arbeiten</h4>
+<p>Arbeiten sind die Veröffentlichungen, die vom Nutzer hochgeladen werden. 
+</p>
+<p> Für jede Aufgabe zeigt das Tool eine Liste aller registrierten Nutzer dieses Kurses und für 
+jeden Nutzer den Titel der ersten veröfftlichten Arbeit, die Anzahl der Veröffentlichungen und die Anzahl der Feedbacks.
+Die Liste der Veröffentlichungen ist mit dem Nutzer verbunden und die Arbeiten können durch Anklicken des Nutzernames angesehen werden.</p>
+<p><strong>Eine Arbeit einreichen</strong></p>
+<p>Wenn der Nutzer das Recht hat, eine Arbeit einzureichen, wird ihm ein Link zum Veröffentlichungsformular angezeigt.
+</p>
+<p><strong>Arbeitsliste</strong></p>
+<p> Als Kursmanager haben Sie das Recht, die Arbeiten zu editieren, löschen oder sichtbar/unsichtbar zu machen. Sie können auch ein Feedback zu jeder Arbeit hinzufügen.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: Wenn dieses Symbol erscheint, bedeutet das, dass der Nutzer den Inhalt der Arbeit verändern kann. Es erscheint, wenn der Nutzer Kursmanager ist und wenn der Nutzer seine oder die Arbeiten seiner Gruppe ansieht.
+</li>
+<li> <strong>Löschen</strong>&nbsp;: Dieser Befehl ermöglicht es dem Kursmanager, eine Arbeit zu löschen.
+</li>
+<li> <strong>Sichtbar</strong>&nbsp;: Wenn dieses Symbol erscheint, bedeutet das, dass die Arbeit für die Lernenden sichtbar ist. Genau wie im Dokumente-Tool von Claroline. Sie können diese Einstellung verändern, indem Sie auf das Symbol klicken.
+</li>
+<li> <strong>Unsichtbar</strong>&nbsp;: Wenn dieses Symbol erscheint, bedeutet das, dass die Arbeit für die Lernenden unsichtbar ist. Genau wie im Dokumente-Tool von Claroline. Sie können diese Einstellung verändern, indem Sie auf das Symbol klicken.
+
+</li>
+<li> <strong>Feedback hinzufügen</strong>&nbsp;: erlaubt dem Kursmanager, Feedback zu den Arbeiten der Lernenden zu veröffentlichen. Das Feedback kann eine Datei oder ein Text oder beides sein, jeweils mit einem persönlichen Kommentar, den Kursmanager sehen können sowie einer Bewertung in Prozent.
+</li>
+</ul>
+
+
+
+";
 $langHelpGroups = "Hilfe für Gruppenverwaltung";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Hier können Sie den Inhalt der Textzonen ändern, die auf der Startseite des Systems angezeigt werden.";
 $langHigh_resources = "hohe Ressourcen";
@@ -804,6 +893,7 @@ $langHour = "Uhr";
 $langHumanAndPhysicalResourcesComment1 = "Was sind die verf&uuml;gbaren Personal- und Materialresourcen? Wie wird die Einteilung aussehen? Was k&ouml;nnen die Teilnehmer vom Organisationsteam oder von der Organisation der Lehrperson erwarten?";
 $langHumanAndPhysicalResourcesComment2 = "Pr&auml;sentation der anderen Lehrpersonen, die den Kurs mitorganisieren (Assistenten, Forscher, Tutoren...), der Verf&uuml;gbarkeit dieser Personen, der Geb&auml;ude und der (Computer-)Ausstattung.";
 $langHumanAndPhysicalRessources = "Personal- und Materialresourcen";
+$langIfNotRedirect = "Wenn nicht umgeleitet ";
 $langImport = "Import";
 $langImpossible = "Vorgang nicht möglich";
 $langIn = "in";
@@ -819,6 +909,8 @@ $langInsertMyModuleToolName = "Modul einfügen";
 $langInsertMyModulesTitle = "Der KursSite ein Modul hinzufügen";
 $langInsertNewModuleName = "Neuen Namen einfügen";
 $langInstalled = "Der Lernpfad wurde erfolgreich importiert.";
+$langInstitution = "Institution";
+$langInstitutionUrl = "Institutions-URL";
 $langIntroCourse = "Sie sind auf der Kurs-Startseite. <br><br> Auf dieser Seite können Sie <li class=HelpText>Tools sperren oder freischalten (Auf den ' Tool-Liste bearbeiten'-Button unten links klicken).</li> <li class=HelpText>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li> <BR><BR>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
 $langIntroEditToolList = "Wählen Sie die Tools, die für Ihre Teilnehmer sichtbar sein sollen. Unsichtbare Tools erscheinen zu Ihrer Information in Ihrer Ansicht grau.";
 $langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br><br>
@@ -853,7 +945,6 @@ $langLastActiveTopics = "Zuletzt aktive Topics";
 $langLastAttempt = "Letzter Versuch";
 $langLastCheck = "Letzte Übersicht vor der Installation";
 $langLastEditDate = "Zuletzt bearbeitet";
-$langLastLogin = "Letztes Login";
 $langLastMsg = "Letztes Posting";
 $langLastMsgs = "Letzte Postings";
 $langLastName = "Nachname";
@@ -861,6 +952,7 @@ $langLastSessionTimeSpent = "Zeit der letzten Sitzung";
 $langLasting = "Dauer";
 $langLastname = "Nachname";
 $langLateUpload = "Versp&auml;tetes Hochladen";
+$langLaunchRestoreCourseRepository = "Starten der Wiederherstellung des Kurses aus dem Speicher";
 $langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
 $langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
 $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
@@ -903,6 +995,7 @@ $langLoginsTitleMonthColumn = "Monat";
 $langLogout = "Logout";
 $langLostPassword = "Passwort vergessen";
 $langMailAppearAlready = "Diese Email-Adresse ist bereits in einer vorangehenden Zeile der CSV-Datei vorhanden.";
+$langMailSynthaxError = "Mailsynthaxfehler";
 $langMailTo = "Mail an : ";
 $langMailUsed = "Diese Email-Adresse wird schon von einem anderen Benutzer verwendet.";
 $langMainDB = "Haupt-Claroline DB";
@@ -941,6 +1034,7 @@ $langManager = "KursSite-Verantwortlicher";
 $langManyAnswers = "(es kann mehr als eine Antwort korrekt sein)";
 $langMatching = "Zuordnen";
 $langMax = "max.";
+$langMaxAllowedTime = "Maximal erlaubte Zeit";
 $langMaxFileSize = "Max. Dateigröße ist ";
 $langMaxSizeCourseCode = "max. 12 Zeichen, z.B. <em>ROM2121</em>";
 $langMaxStudentGroup = "Max. Anzahl von Teilnehmern p. Gruppe";
@@ -957,14 +1051,17 @@ $langMethodsOfEvaluation = "Methoden der Beurteilung";
 $langMethodsOfEvaluationComment1 = "Genaue Details zur Evaluierungsmethode (schriftliche und m&uuml;ndliche Pr&uuml;fungen, Projekte, abzugebende Arbeiten...), Datum der einleitenden Evaluierung oder Eingangs&uuml;berpr&uuml;fung. Abgabetermine der Arbeiten, mit Beurteilungskriterien. Fallweise die Gewichtung der Kriterien oder die Kategorien der Kriterien.";
 $langMin = "Minimal : ";
 $langMinute = "Minuten";
+$langMinuteShort = "min.";
 $langMissing = "fehlt";
 $langMissingImagesDetected = "Fehlende Bilder entdeckt";
 $langMissingValue = "Fehlender Wert";
 $langModCatName = "Name der Kategorie ändern";
+$langModeVerbose = "ausführlicher Modus";
 $langModifAnn = "Diese Ankündigung verändern";
 $langModifDone = "Die Informatioen wurde geändert";
 $langModifUserCourseSettings = "KursSite-Einstellungen des Benutzers";
 $langModify = "ändern";
+$langModifyFormat = "Format ändern";
 $langModifyInAllExercises = "in allen Tests";
 $langModifyInThisExercise = "nur in diesem Test";
 $langModifyProfile = "Mein Profil verändern";
@@ -984,6 +1081,7 @@ $langMove = "verschieben";
 $langMoveDown = "nach unten";
 $langMoveUp = "nach oben";
 $langMsgSent = "Die Nachricht wurde an die gewählten Benutzer versendet";
+$langMultipleAnswers = "Mehrfache Antworten";
 $langMultipleEmails = "Anmeldungen mit der gleichen <i>E-Mail-Adresse</i>";
 $langMultipleLogins = "Anmeldungen mit dem gleichen <i>Benutzernamen</i>";
 $langMultipleSelect = "Multiple Choice (mehrere Antworten je Frage)";
@@ -995,15 +1093,18 @@ $langMyCourses = "Meine Kurse";
 $langMyGroup = "meine Gruppe";
 $langMyResults = "Meine Ergebnisse";
 $langMyStats = "Meine Statistik anzeigen";
+$langMysqlNames = "MySQL Datenbank- und Tabellennamen";
 $langMysql_Repository = "MySQL Katalog";
 $langNULLValue = "Leer (oder NULL)";
 $langName = "Name";
 $langNameCat = "Name der Kategorie wurde erfolgreich geändert.";
 $langNameChanged = "Der Name der Klasse wurde geändert.";
 $langNameDir = "Name des neuen Verzeichnisses";
+$langNameOfLang = "Feld";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNbLines = "Sparten";
 $langNbrAccess = "Zugriffszahl";
+$langNever = "Niemals";
 $langNeverBrowsed = "Noch nicht durchgesehen";
 $langNeverConnectedStudents = "Nie eingeloggte Teilnehmer : ";
 $langNeverUsed = "Nie benutzt";
@@ -1022,7 +1123,6 @@ $langNewUsersIn = "neue Benutzer in der Plattform : ";
 $langNext = "weiter";
 $langNextDay = "Nächster Tag";
 $langNextMonth = "Nächster Monat";
-$langNextPage = "Nächste Seite";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
 $langNextWeek = "Nächste Woche";
 $langNextYear = "Nächstes Jahr";
@@ -1035,6 +1135,8 @@ $langNoEmail = "Keine E-Mail Adresse eingetragen";
 $langNoEndDate = "Kein Enddatum";
 $langNoEventInTheAgenda = "Kein Termin/Ereignis im Kalender";
 $langNoEx = "Es gibt zur Zeit keine Tests";
+$langNoFile = "- none -";
+$langNoFunctionInThisSection = "Keine Funktion in diesem Bereich";
 $langNoGroupStudents = "nicht aufgenommene Benutzer";
 $langNoImage = "Keine Bilder zum Anzeigen";
 $langNoLearningPath = "Kein Lernpfad vorhanden";
@@ -1054,9 +1156,11 @@ $langNoSpace = "Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzei
 $langNoStartAsset = "Es ist kein Start asset für dieses Modul definiert.";
 $langNoTimeLimit = "Kein Zeitlimit";
 $langNoUserResult = "Keinen Benutzer gefunden";
+$langNoVisibleAssignment = "Es gibt im Moment keine sichtbaren Aufgabe zum Upload.";
 $langNoVisibleSubmission = "Keine sichtbare Abgabe";
 $langNomPageAddHtPass = "Benutzerverwaltung";
 $langNone = "keine";
+$langNormalUser = "Normal";
 $langNotAllowed = "Sie haben hier keinen Zugriff.";
 $langNotFalse = "Die Antwort ist nicht falsch. Es ist wahr, dass das Aufzeigen der Unwissenheit des Gegners bedeuten kann, dass seine gegensätzlichen Rückschlüsse darauf begründet waren.";
 $langNotGroupMember = "Diese Gruppe hat keine Erlaubnis zu chatten.";
@@ -1069,6 +1173,7 @@ $langNowGoChooseYourCourses = "Sie können nun innerhalb der Liste die Kurs-Websi
 $langNowGoCreateYourCourse = "Sie können jetzt Ihre Kurs-Website erstellen";
 $langNumGroup = "Anzahl von Gruppen pro Kurs";
 $langNumGroupStudent = "Teamgröße in welche sich eingeschriebene Teilnehmer innerhalb des Kurses eintragen können";
+$langNumero = "No.";
 $langOfficialCode = "ZugriffsCode";
 $langOk = "Ok";
 $langOkChapterHeadAdded = "Title hinzugefügt : ";
@@ -1094,11 +1199,9 @@ $langOtherCourses = "Kurs Angebot";
 $langOtherWorks = "andere Funktionen";
 $langPassTooEasy = "dieses Passwort ist zu einfach. Benutzen Sie ein Passwort wie dieses ";
 $langPassTwice = "Sie haben zwei verschiedene Passwörter eingetragen. Gehen Sie zurück und versuchen Sie es noch einmal.";
-$langPassTwo = "Sie haben zwei verschiedene Passwörter eingetragen.";
 $langPassword = "Passwort";
 $langPasswordHasBeenEmailed = "Das Passwort wurde per Email gesendet an ";
 $langPasswordSimple = "Das angegebene Passwort ist zu einfach oder dem Benutzernamen zu &auml;hnlich.";
-$langPasswordWrong = "Die Passwörter müssen identische sein, um sie zu ändern";
 $langPathContentTitle = "Inhalt des Lernpfads";
 $langPathsInCourseProg = "Kurs-Fortschritt ";
 $langPerhaps_with_others_directory = "u.U. mit anderen Verzeichnissen";
@@ -1116,10 +1219,12 @@ $langPlaces = "Plätze je Gruppe (optional)";
 $langPlatform = "System";
 $langPlatformAccess = "Zugrif auf das System";
 $langPlatformAdministration = "System-Administration";
+$langPlatformAdministrator = "Plattform Administrator";
 $langPlatformCoursesAccess = "Zugriff auf die KursSites";
 $langPlatformStats = "System-Statistik";
 $langPleaseEnterMessage = "Sie müssen den Nachrichten-Text eingeben.";
 $langPleaseSelectUsers = "Sie müssen mindestens einen Benutzer eingeben.";
+$langPopulateTools = "Populate tools in courses";
 $langPoweredBy = "Powered by";
 $langPrefix = "Präfix  : ";
 $langPreventLateUpload = "Nein, Abgabe von Arbeiten nach dem Enddatum verhindern";
@@ -1128,7 +1233,6 @@ $langPrevious = "zurück";
 $langPreviousDay = "Vorheriger Tag";
 $langPreviousLevel = "Eine Ebene höher";
 $langPreviousMonth = "Vorheriger Monat";
-$langPreviousPage = "Vorherige Seite";
 $langPreviousWeek = "Vorherige Woche";
 $langPreviousYear = "Vorheriges Jahr";
 $langPrintVers = "Druckversion";
@@ -1143,6 +1247,7 @@ $langProfessors = "Dozenten/Tutoren";
 $langProfileReg = "Ihr neues Profil wurde gespeichert";
 $langProgInModuleTitle = "Ihr Fortschritt in der Bearbeitung dieses Moduls";
 $langProgress = "Fortschritt";
+$langPropertiesNotIncludeInSections = "Eigenschaften nicht in diesem Bereich verfügbar";
 $langPubl = "Veröffentlicht am";
 $langPublic = "Öffentlich";
 $langPublicAccess = "Öffentlicher Zugriff auf die Kursseiten auch ohne Anmeldung";
@@ -1177,19 +1282,26 @@ $langRegUser = "registrierte Benutzer";
 $langRegYou = "hat Sie in diese KursSite eingetragen";
 $langRegister = "registrieren";
 $langRegisterClass = " Eine Klasse eintragen";
+$langRegisterLocalUrl = "Ihre KursSite URL scheint eine lokale URL zu sein. Ein vom Web erreichbare URL ist notwendig, um Ihre Site bei Claroline.net zu registrieren.
+<br /><br /> Überprüfen Sie den Wert 'Web base' in Ihrer Claroline Konfiguration.";
+$langRegisterMyCampus = "Meine KursSite registrieren.";
 $langRegisterTheNewUser = "Diesen Benutzer in eine KursSite eintragen";
 $langRegisterUser = "In eine KursSite eintragen";
 $langRegisterUserToClass = "Einen Benutzer in die Klasse einfügen";
 $langRegistered = "Registriert";
 $langRegistration = "Registrierung";
+$langRemainingSteps = "Verbleibende Schritte";
 $langRemove = "Remove";
 $langRemoveAdminLevel = "Nicht länger Admin";
 $langRename = "Umbenennen";
 $langReplaceAttachedFile = "angeh&auml;ngte Datei ersetzen";
 $langReply = "Antwort";
+$langRequestOfCourseCreatorStatus = "Statusabfrage des Kurserstellers";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "erforderlich";
 $langRequirements = "Anforderungen";
 $langResetChat = "Zurücksetzen";
+$langRestoreCourseRepository = "Kursspeicher (Repository) wiederherstellen";
 $langResult = "Ergebnis";
 $langReuse = "Wiederholung";
 $langRevoquationOfUser = "Folgender Benutzer erbittet, seinen Account zu löschen: %s %s";
@@ -1197,6 +1309,7 @@ $langRidiculise = "Das Gegenüber lächerlich machen, um es dazu zu bringen, einzu
 $langRole = "Rolle";
 $langRoot = "root";
 $langSCORMTypeDesc = "SCORM 1.2 konformer Inhalr";
+$langSDK = "SDK";
 $langSampleDocument = "muster_dokument";
 $langSampleDocumentDesc = "Für diesen Kurs können Sie jedes Dokument aus dem Dokumenten-Tool verwenden.";
 $langSampleExerciseDesc = "Für diesen Kurs können Sie jeden Test aus dem Test-Tool verwenden.";
@@ -1214,8 +1327,10 @@ $langSearchAgain = "Erneute Suche (erweitert)";
 $langSearchCourse = "KursSites suchen";
 $langSearchCourseAdvanced = "Erweiterte KursSite-Suche";
 $langSearchOn = "Suche nach";
+$langSearchResult = "Suchergebnis";
 $langSearchUser = "Benutzer suchen";
 $langSearchUserAdvanced = "Erweiterte Benutzer-Suche";
+$langSecondShort = "sec.";
 $langSeeAgenda = "Meine Termine ansehen";
 $langSeeUserSettings = "Benutzer-Einstellungen ansehen";
 $langSeebelowthefilesyoucaneditfromthistool = "Die unten aufgeführten Dateien können Sie mit diesem Tool bearbeiten.";
@@ -1234,12 +1349,14 @@ $langShowAnswers = "Antworten anzeigen";
 $langShowAnswersAfterLastTry = "nach dem letzten Versuch";
 $langShowNone = "keine Details";
 $langSimpleExercise = "Auf einer einzigen Seite";
+$langSiteName = "Site Name";
 $langSize = "Größe";
 $langSize_of_claroline_scripts = " Größe der Claroline Scripts";
 $langSize_of_course_repository = "!!!! Größe des Kurs-Katalogs (incl. Claroline und Mülleimer alter Installationen)";
 $langSize_of_selected_courses = "Größe der gewählten KursSites";
 $langSocraticIrony = "Sokratische Ironie bedeutet...";
 $langSpecifyFormat = "Beschreiben Sie das Format Ihrer CSV-Datei (Comma Separated Values) Datei";
+$langStartAgain = "Neustart";
 $langStartDate = "Startdatum";
 $langStartModule = "Lernmodul starten";
 $langStatDB = "Tracking über Datenbank (Nur sinnvoll in der Multidatenbankinstallation)";
@@ -1251,6 +1368,7 @@ $langStatsOfLearnPath = "Statistiken";
 $langStatsOfUser = "Teilnehmer-Statistik";
 $langStatus = "Status";
 $langStatusChangeNotMade = "Keine Änerungen durchgeführt";
+$langStepNOfN = "Schritt %d von %d";
 $langStoreChat = "Chat-Sitzung speichern";
 $langStudent = "Teilnehmer";
 $langStudents = "Teilnehmer";
@@ -1274,12 +1392,13 @@ $langSubscribed = "registrierte Benutzer in diesem Kurs";
 $langSubscription = "Zustimmung";
 $langSubscriptionAllowedOnly = "Eintragen nur erlaubt für ";
 $langSubscriptionDeniedOnly = "Nur Eintragen verboten";
+$langSucceeded = "Erfolgreich";
+$langSupportForum = "Unterstützungsforum";
 $langSupports = "Unterst&uuml;tzung";
 $langSupportsComment1 = "Existiert Unterst&uuml;tzung f&uuml;r den Kurs? Welche Art von Unterst&uuml;tzung gebe ich? Offen? Pers&ouml;nlich?";
 $langSupportsComment2 = "Pr&auml;sentation des Supports f&uuml;r den Kurs. Pr&auml;sentation der Literatur, der Unterlagen und der erg&auml;nzenden Literatur.";
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
 $langTake = "nehmen";
-$langTaken = "ist bereits belegt. Bitte wählen Sie einen anderen.";
 $langTargetFac = "Dies ist der Bereich/die Abteilung, der/die den Kurs anbietet";
 $langTeachers = "Teachers";
 $langTeachingTrainingActivities = "Lehrmethoden";
@@ -1295,6 +1414,7 @@ $langTextOnly = "Nur Text (Text erforderlich, ohne Datei)";
 $langTheFields = "Die Felder";
 $langTheU = "Der Benutzer";
 $langThisCourseDescriptionIsEmpty = "Für diesen Kurs liegt noch keine Beschreibung vor.";
+$langThisIsAnErrorInDefinitionFile = "Fehler in der Definitionsdatei.";
 $langThisday = "heute";
 $langThumbnails = "Thumbnails";
 $langTimeInLearnPath = "Zeit im Lernpfad";
@@ -1309,7 +1429,6 @@ $langToday = "Heute";
 $langTodo = "To-do-Liste";
 $langTooBig = "Sie haben keine Datei ausgewählt, oder sie ist zu groß.";
 $langTool = "Tool : ";
-$langToolList = "Liste aller Tools";
 $langToolTitleCountColumn = "Gesamt-Klicks";
 $langToolTitleToolnameColumn = "Name des Tools";
 $langToolTitleUsersColumn = "Anz. der Benutzer,<br>die das das Tool<br>ge&ouml;ffnet haben";
@@ -1321,6 +1440,8 @@ $langTotal = "Gesamt";
 $langTotalPlatformAccess = "Gesamt";
 $langTotalPlatformLogin = "Gesamt";
 $langTotalTimeSpent = "Gesamtzeit";
+$langTrackAllPath = "Learning paths tracking";
+$langTrackAllPathExplanation = "Fortschritt der Nutzer in allen Lernpfaden";
 $langTrackForumUsage = "Nutzung der Foren";
 $langTrackTotalPosts = "Postings";
 $langTrackTotalTopics = "gestartete Topics";
@@ -1337,6 +1458,7 @@ $langURL = "URL : ";
 $langUnableAddExternalTool = "Hinzufügen von externem Tool nicht möglich";
 $langUnableChangedTool = "Änderung auf Tool-Zugriff nicht möglich";
 $langUnableDeleteExternalTool = "Löschen von externem Tool nicht möglich";
+$langUnableDescToAdd = "Beschreibung kann nicht hinzugefügt werden";
 $langUnableToAdd = "Hinzufügen des Termins/Ereignisses in den Kalender nicht möglich.";
 $langUnableToDelete = "Löschen des Termins/Ereignisses vom Kalender nicht möglich.";
 $langUnableToUpdate = "Aktualisieren des Termins/Ereignisses im Kalender nicht möglich.";
@@ -1345,7 +1467,10 @@ $langUnamedModule = "Modul ohne Bezeichnung";
 $langUnamedPath = "Lernpfad ohne Bezeichnung";
 $langUncompress = "komprimierte (.zip -) Dateien auf dem Server dekomprimieren";
 $langUncompulsory = "(optional)";
+$langUndist = "Undist";
+$langUniqueAnswer = "Eindeutige Antwort";
 $langUniqueSelect = "Multiple Choice (eine Antwort je Frage)";
+$langUnkownSOAPError = " Beim Kontakt zu Claroline.net ist ein Fehler aufgetreten";
 $langUnlimitedAttempts = "Versuche nicht limitiert";
 $langUnreg = "Austragen";
 $langUnsubscribe = "Benutzer austragen";
@@ -1357,10 +1482,13 @@ $langUpdateImage = "Bild ändern";
 $langUpdated = "Updated";
 $langUpdatedExternalTool = "Externes Tool erfolgreich geändert";
 $langUpgrade = "Upgrade Claroline";
+$langUpgradeCourseFailed = "Upgrade fehlgeschlagen";
+$langUpgradeCourseSucceed = "Upgrade erfolgreich";
 $langUpgradeStep0 = "Backup confirm";
 $langUpgradeStep1 = "Step 1 of 3: platform main settings";
 $langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
 $langUpgradeStep3 = "Step 3 of 3: courses upgrade";
+$langUpgradeSucceed = "Das <em>Claroline Upgrade Tool</em> hat Ihre Plattform vollständig upgegraded.";
 $langUpload = "hochladen";
 $langUploadAndZipEnd = " Zip-Dateien hochgeladen und ausgepackt";
 $langUploadDoc = "Datei hochladen";
@@ -1379,7 +1507,6 @@ $langUsedInSeveralPath = "Dieser Test wird in einem oder mehreren Lernpfaden ver
 $langUser = "Benutzer";
 $langUserAccessDetails = "Details Benutzer-Zugriff";
 $langUserAlreadyInClass = "Der Benutzer ist bereits in dieser Klasse";
-$langUserCanCreateCourse = "Kann KursSites erstellen";
 $langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr>
 <b>KursSite-Verantwortlicher</b>
 <p>Andererseits haben KursSite-Verantwortliche die technische Möglichkeit, Inhalte und Strukturen einer KursSite zu verändern. Zur Zeit wird nur in 'komplette Freigabe' bzw. 'keine' unterschieden.</P>
@@ -1395,8 +1522,6 @@ $langUserIsNowCourseManager = "Der Teilnehmer ist nun KursSite-Verantwortlicher"
 $langUserIsNowStudent = "Der Benutzer ist nun Teilnehmer in diesem Kurs";
 $langUserIsPlaformAdmin = "Ist Administrator";
 $langUserName = "Benutzername";
-$langUserNameTaken = "Dieser Benutzername ist bereits vergeben. - Wählen Sie bitte einen anderen";
-$langUserNo = "Der Benutzername  ";
 $langUserNoCourseToDisplay = "Keine KursSite gefunden";
 $langUserNotInClass = "Der Benutzer ist nicht in dieser Klasse";
 $langUserNotUnsubscribed = "Austragen gescheitert!!! <br> Dieser Benutzer kann nicht ausgetragen werden.<br>Sie können keinen Kurs-Verantwortlichen austragen. Ändern Sie bitte zuerst die entsprechenden Einstellungen.";
@@ -1404,12 +1529,12 @@ $langUserNotUnsubscribedFromCourse = "Error!! Sie können einen KursSite-Verantwo
 $langUserNumber = "Anzahl";
 $langUserOneByOneExplanation = "Der Benutzer erhält eine Bestätigung durch E-Mail mit Login-Daten und Passwort.";
 $langUserRegisteredClass = "Der Benutzer wurde erfolgreich in die Klasse eingetragen.";
+$langUserSettings = "Nutzereinstellungen";
 $langUserStatus = "Status";
 $langUserSubscribed = "Der Benutzer wurde erfolgreich registriert";
 $langUserTaken = "Dieser Benutzername ist leider schon vergeben";
 $langUserUnregistered = "nicht registrierte Benutzer";
 $langUserUnregisteredFromClass = "Der Benutzer wurde erfolgreich aus der Klasse ausgetragen.";
-$langUserUnregisteredFromCourse = "Der Teilnehmer wurde aus der KursSite ausgetragen";
 $langUserUnsubscribed = "Der Benutzer wurde erfolgreich ausgetragen";
 $langUserUnsubscribedFromCourse = "Der Benutzer wurde erfolgreich aus der KursSite ausgetragen";
 $langUserid = "Benutzer-ID";
@@ -1418,7 +1543,6 @@ $langUsernameAppearAlready = "Dieser Benutzername ist bereits in einer vorangehe
 $langUsernameUsed = "Dieser Benutzername wird bereits von einem anderen Benutzer verwendet.";
 $langUsers = "Benutzer";
 $langUsersMin = "Benutzer";
-$langValid = "gültig";
 $langValvas = "Neueste Bekannmachungen";
 $langViMod = "Sichtbarkeit geändert";
 $langView = "Ansehen";
@@ -1432,6 +1556,7 @@ $langVisible = "sichtbar";
 $langVisits = "Besuche";
 $langWeighting = "Gewichtung";
 $langWeightingForEachBlank = "Bitte setzen Sie einen Wert für jede Lücke ein";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langWorkAuthors = "Tutor/Dozent";
 $langWorkTitle = "Titel";
@@ -1460,14 +1585,19 @@ $langYourRequestToRemoveYourAccountIsSent = "Ihre Bitte, Ihren Account zu l&ouml
 $langYourTime = "Ihre Zeit ist";
 $langYourTotalScore = "Gesamtpunktezahl";
 $langZipNoPhp = "Die zip-Datei darf keine .PHP-Dateien enthalten";
-$lang_EditFile_AdministrationTools = "Administrations - Tools";
+$lang_CourseHasNoRepository_s_NotFound = "<strong> Kurs hat keinen Speicher (repository).</strong>
+<br><small>%s</small> Nicht gefunden. ";
 $lang_EditFile_ModifyOk = "Änderung erfolgreich";
+$lang_RetryWithMoreDetails = "Erneut versuchen mit mehr Angaben";
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Die Claroline-Haupt-Tabellen wurden erfolgreich upgegraded";
+$lang_UpgradeFailedForCourses = "Upgrade Tool kann die folgenden Kurse nicht updaten :";
 $lang_add_user_list = "Benutzer hinzuf&uuml;gen";
 $lang_already_enrolled = "immer eingeschrieben";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Sind Sie sicher, dass Sie diese KursSite aus Ihrer Übersicht entfernen wollen ?";
 $lang_back_to_my_personnal_course_list = "Zurück zur persönlichen Kursübersicht";
 $lang_back_to_parent_category = "Zurück zur übergeordneten Kategorie";
 $lang_click_here = " hier klicken";
+$lang_continueCoursesDataUpgrade = "Kursdatenupgrade fortsetzen";
 $lang_course_enrollment = "KursSite des Benutzers";
 $lang_do_you_want_to_continue = "Wollen Sie fortfahren?";
 $lang_enroll = "Anmeldung";
@@ -1494,24 +1624,58 @@ $lang_faculty_NoMove_1 = "Sie können  ";
 $lang_faculty_NoMove_2 = " nicht in die gleiche Kategorie verschieben !";
 $lang_faculty_imgDown = "nach unten";
 $lang_fields_enclosed_by = "Text ist begrenzt durch";
+$lang_fileUpgrade = "Datei Upgrade :";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
+$lang_htAccessIncPath_added = "Ordner <em>inc</em> zugriffsbeschränkt";
+$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Wenn Sie fortfahren, werden Zeilen mit Fehlern einfach ignoriert.";
 $lang_if_you_dont_have_a_user_account_profile_on = "Wenn Sie keine Zugangsbrechtigung haben zu";
 $lang_if_you_wish_to_enroll_to_this_course = "Wenn Sie sich in diese KursSite eintragen möchten";
-$lang_main_categories_list = "Kategoriene-Übersicht";
 $lang_my_personnal_course_list = "Persönliche Kursübersicht";
 $lang_no_access_here = "Keinen Zugriff ";
 $lang_no_course_available_fitting_this_keyword = "Keine KursSite verfügbar der zum Schlagwort passt";
+$lang_no_error_in_file_found = "Kein Fehler in der Datei gefunden.";
+$lang_oldFileBackup = "Old file backup :";
 $lang_or_search_from_keyword = "Suche nach Schlagwort";
+$lang_p_CannotCreate_s = "Kann nicht erstellt werden %s";
+$lang_p_CannotRename_s_s = "Kann nicht von  %s nach %s umbenannt werden";
+$lang_p_ErrorOnBuild_S_for_S = "Fehler beim Erstellen von <em>%s</em> für <B>%s</B>";
+$lang_p_PropForConfigCommited = "Eigenschaften für %s (%s) sind jetzt auf dem Server aktiv.";
+$lang_p_UpgradeMainClarolineDatabase_s = "Upgrading Claroline Hauptdatenbank (<em>%s</em>)";
+$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading Kursdatenbank <strong>%2\$s</strong><br><small>
+DB Name : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Beheben Sie zuerst das technische Problem und <a href=\"%s\">relaunch the upgrade tool</a>.";
+$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_d_affected_rows = "%d betroffene Zeilen";
+$lang_p_d_course = "%2d Kurs";
+$lang_p_d_course_manager = "%2d prof ";
+$lang_p_d_course_managers = "%2d profs ";
+$lang_p_d_course_member = "%2d Mitglied";
+$lang_p_d_course_members = "%2d Mitglieder";
+$lang_p_d_courses = "%2d Kurse";
+$lang_p_d_coursesToUpgrade = "%s Kurs(e) upzugraden";
+$lang_p_d_errorFound = " %d Fehler gefunden";
+$lang_p_d_student = "%2d Studierender";
+$lang_p_d_students = "%2d Studierende";
+$lang_p_expectedRemainingTime = " <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.";
+$lang_p_nothing_to_edit_in_S = "Nichts zu bearbeiten in %s";
 $lang_p_platformManager = "Administrator von %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> wurde erfolgreich in den Kurs eingetragen";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> wurde nicht in den Kurs eingetragen";
+$lang_p_s_s_isInvalid = "%s : %s ist ungültig";
 $lang_php_info = "PHP System-Info";
 $lang_remove_course_enrollment = "Aus einer KursSite austragen";
 $lang_remove_course_from_your_personnal_course_list = "KursSite aus Ihrer perönlichen Kurs-Übersicht entfernen";
+$lang_rules_s_in_s = "Regel : %s in %s";
+$lang_seeInTheStatusBarOfYourBrowser = "(*) Schauen Sie in die Statusleiste Ihres Browsers.";
 $lang_select_course_in = "Wählen Sie Ihren Kurs in ";
 $lang_select_course_in_search_results = "Kursauswahl in den Suchergebnissen";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Der Claroline Upgrade Prozess ist abgeschlossen";
+$lang_the_following_errors_were_found = "Die folgenden Fehler wurden gefunden: ";
 $lang_this_course_is_protected = "Diese KursSite ist zugriffsbeschränkt";
 $lang_unsubscribe = "austragen";
+$lang_upgradeToolCannotUpgradeThisCourse = "Das Upgrade Tool kann diesen Kurs nicht upgraden.  <br>
+Beheben Sie zuerst das technische Problem und starten Sie das Upgrade-Tool neu.";
 $lang_user_has_been_enrolled_to_the_course = "Der Benutzer hat sich bei der KursSite angemeldet";
 $lang_you_had_request = "You ask";
 $lang_you_have_been_enrolled_to_the_course = "Sie wurden in die KursSite eingetragen";

@@ -2,12 +2,13 @@
 $langAddIntro = "Einführungstext hinzufügen";
 $langAgenda = "Termine/Ereignisse";
 $langAnnouncement = "Ankündigungen";
+$langCancel = "abbrechen";
 $langChat = "Chat";
 $langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br>Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br>
 Wenn Sie ein Dozent sind, der eine Kurswebsite anlegen möchte, dann registrieren sie sich als solcher (sofern die Sebstregistrierung als Dozent ermöglicht ist), oder ersuchen um diesen Status bei 'Mein Profil verändern'.</p>";
 $langCloseWindow = "Fenster schlie&szlig;en";
+$langConfigMenuContent = "Konfigurationsmenu";
 $langConfirmYourChoice = "Bitte bestätigen Sie Ihre Auswahl";
-$langCourseHome = "Kurs-Startseite";
 $langCourseManager = "KursSite-Verantwortlicher";
 $langDay_of_weekNames = "Array";
 $langDelete = "Löschen";
@@ -182,6 +183,80 @@ $langHFor = "Hilfe für die Foren";
 $langHHome = "Hilfe für die Homepage";
 $langHUser = "Benutzerhilfe";
 $langHelp = "Hilfe";
+$langHelpAssignment = "Hilfezuordnung";
+$langHelpAssignmentContent = "<p>
+Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können. 
+<br /><br />
+
+Jeder Upload-Bereich kann verschiedene Ziele und Anforderungen haben: die Publikation muss eine Datei, ein Text oder eine Datei und ein Text sein, die Publikation kann für eine Gruppe statt für einen einzelnen Nutzer gemacht werden, ....
+<br /><br />
+
+Lernende haben die Möglichkeit, ihre Arbeiten nach der Veröffentlichung zu verändern und der Kursmanager kann ihnen auf ihre Veröffentlichung Feedback geben.
+</p>
+<hr />
+
+<h4>Einen Upload-Bereich erstellen</h4>
+<p> Um einen neuen Upload-Bereich zu erstellen, muss sich der Kursmanager in das Upload-Tool begeben und auf den Link \"Create a new assignment\" klicken.
+</p>
+<p> Das angezeigte Formular fragt den Kursmanager nach&nbsp;:
+</p>
+<ul><li> einem Titel&nbsp;: dem Namen des Upload-Bereichs
+</li><li> einer Beschreibung&nbsp;: Die Anweisung, was die Lernenden zu tun haben
+</li><li> der Art der Vorlage&nbsp;:
+<ul><li> Datei&nbsp;: Jede Art von Datei kann hochgeladen werden. Denken Sie daran, dass es eine Größenbegrenzung gibt, die von der Plattform abhängt. Ein Text kann hinzugefgt werden, um die Datei zu beschreiben.
+
+
+</li><li> Nur Text&nbsp;: ein formatierter Text, für den der WYSIWYG-Editor benutzt wurde
+</li><li> Text mit angehängter Datei&nbsp;: ein formatierter Text, für den der WYSIWYG-Editor benutzt wurde und eine Datei (Datei nicht erforderlich)
+</li></ul>
+</li><li> Ein Startdatum&nbsp;: Datum ab dem die Nutzer ihre Veröffentlichung hochladen können
+</li><li> Ein Enddatum&nbsp;: Datum bis zu dem die Nutzer ihre Veröfflichung hochladen können
+</li><li> die voreingestelle Sichtbarkeit&nbsp;: Wählen Sie, ob die Veröffentlichungen für andere Nutzer zugänglich sind oder nicht
+</li><li> the assignment type&nbsp;:
+
+<ul><li> Individueller Modus&nbsp;: jeder authentifizierte Nutzer kann eine Veröffentlichung hochladen
+</li><li> Gruppenmodus&nbsp;: Der Nutzer muss wenigestens in einer Gruppe des Kurses Mitglied sein, um etwas hochzuladen, und die Veröffentlichung erfolgt im Namen der Gruppe 
+</li></ul>
+</li><li> Erlaubnis, nach dem Enddatum zu veröffentlichen
+</li></ul>
+<p><br />
+<strong>Ein automatisches Feedback hinzufügen</strong>
+</p>
+<p>Ein Feedback ist die korrekte Version einer Aufgabe. Um ein automatisches Feedback hinzuzufügen, gehen Sie in den Upload-Bereich und klicken Sie auf den \"Edit automatic feedback\" Link.
+</p>
+<p>Es kann ein Text oder eine Datei oder beides sein. Der Kursmanager kann auswählen, wann das automatische Feedback dem Nutzern gezeigt wird (nach Enddatum oder nach der ersten Veröffentlichung des Nutzers in diesem Bereich)
+</p>
+
+<hr />
+<h4>Arbeiten</h4>
+<p>Arbeiten sind die Veröffentlichungen, die vom Nutzer hochgeladen werden. 
+</p>
+<p> Für jede Aufgabe zeigt das Tool eine Liste aller registrierten Nutzer dieses Kurses und für 
+jeden Nutzer den Titel der ersten veröfftlichten Arbeit, die Anzahl der Veröffentlichungen und die Anzahl der Feedbacks.
+Die Liste der Veröffentlichungen ist mit dem Nutzer verbunden und die Arbeiten können durch Anklicken des Nutzernames angesehen werden.</p>
+<p><strong>Eine Arbeit einreichen</strong></p>
+<p>Wenn der Nutzer das Recht hat, eine Arbeit einzureichen, wird ihm ein Link zum Veröffentlichungsformular angezeigt.
+</p>
+<p><strong>Arbeitsliste</strong></p>
+<p> Als Kursmanager haben Sie das Recht, die Arbeiten zu editieren, löschen oder sichtbar/unsichtbar zu machen. Sie können auch ein Feedback zu jeder Arbeit hinzufügen.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: Wenn dieses Symbol erscheint, bedeutet das, dass der Nutzer den Inhalt der Arbeit verändern kann. Es erscheint, wenn der Nutzer Kursmanager ist und wenn der Nutzer seine oder die Arbeiten seiner Gruppe ansieht.
+</li>
+<li> <strong>Löschen</strong>&nbsp;: Dieser Befehl ermöglicht es dem Kursmanager, eine Arbeit zu löschen.
+</li>
+<li> <strong>Sichtbar</strong>&nbsp;: Wenn dieses Symbol erscheint, bedeutet das, dass die Arbeit für die Lernenden sichtbar ist. Genau wie im Dokumente-Tool von Claroline. Sie können diese Einstellung verändern, indem Sie auf das Symbol klicken.
+</li>
+<li> <strong>Unsichtbar</strong>&nbsp;: Wenn dieses Symbol erscheint, bedeutet das, dass die Arbeit für die Lernenden unsichtbar ist. Genau wie im Dokumente-Tool von Claroline. Sie können diese Einstellung verändern, indem Sie auf das Symbol klicken.
+
+</li>
+<li> <strong>Feedback hinzufügen</strong>&nbsp;: erlaubt dem Kursmanager, Feedback zu den Arbeiten der Lernenden zu veröffentlichen. Das Feedback kann eine Datei oder ein Text oder beides sein, jeweils mit einem persönlichen Kommentar, den Kursmanager sehen können sowie einer Bewertung in Prozent.
+</li>
+</ul>
+
+
+
+";
 $langHelpGroups = "Hilfe für Gruppenverwaltung";
 $langHomeContent = "Zur Vereinfachung sind die Tools nicht leer. Es gibt ein kleines Beispiel zu jedem Tool, um die Funktionsweise zu verdeutlichen. Sie können die Beispiele ändern oder löschen.</p><p>Auf der Homepage der Kurswebsite befindet sich ein kurzer Einführungstext, mit folgendem Text 'Dies ist der Einführungstext Ihres Kurses. Ersetzen Sie ihn mit Ihrem eigenen Text. Klicken Sie unten auf ändern.' Auf Ändern klicken, verändern und bestätigen. So einfach ist das. Jedes Tool hat die gleiche Logik: hinzufügen, löschen, ändern.</p><p>Zu Beginn der Websiteerstellung sind die meisten Tools aktiv. Sie können diejenigen deaktivieren, die Sie nicht benötigen. Es wird dann in den grauen unteren Bereich Ihrer Homepage verschoben. Es ist dann nicht mehr für Ihre Teilnehmer sichtbar, aber Sie können es jederzeit reaktivieren.</p>
 <p>Sie können auch eigene Seiten zu Ihrer Homepage hinzufügen.
@@ -191,6 +266,7 @@ $langLearningPath = "Lernpfad";
 $langLogin = "login";
 $langLogout = "Logout";
 $langManager = "KursSite-Verantwortlicher";
+$langMinuteShort = "min.";
 $langModify = "ändern";
 $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
@@ -203,6 +279,7 @@ $langPassword = "Passwort";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registrierung";
+$langSecondShort = "sec.";
 $langStudent = "Teilnehmer";
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
 $langTextEditorDisable = "HTML-Editor ausschalten";
