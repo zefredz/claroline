@@ -239,14 +239,20 @@ $exercisesList = $myPager->get_result_list();
 
 
 // commands
+echo '<p>'."\n";
+// if tracking is enabled && user is not anomymous
+if($is_trackingEnabled && $_uid)
+{
+   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&view=0100000">'.$langMyResults.'</a>';
+   if( $is_allowedToEdit ) echo ' | ';
+   echo "\n";
+}
 if($is_allowedToEdit)
 {
-	echo '<p>'."\n"
-		.'<a class="claroCmd" href="admin.php">'.$langNewEx.'</a> | '."\n"
-		.'<a class="claroCmd" href="question_pool.php">'.$langQuestionPool.'</a>'."\n"
-		.'</p>'."\n\n";
+	echo '<a class="claroCmd" href="admin.php">'.$langNewEx.'</a> | '."\n"
+		.'<a class="claroCmd" href="question_pool.php">'.$langQuestionPool.'</a>'."\n";
 }
-
+echo '</p>'."\n\n";
 //pager display
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
@@ -401,71 +407,6 @@ foreach( $exercisesList as $exercise )
 </table>
 
 <?php
-/*****************************************/
-/* Exercise Results (uses tracking tool) */
-/*****************************************/
-
-// if tracking is enabled && user is not anomymous
-if($is_trackingEnabled && $_uid):
-?>
-
-<br /><br />
-<h3><?php echo $langMyResults; ?></h3>
-<table class="claroTable emphaseLine" cellpadding="2" cellspacing="2" border="0" width="80%">
-<thead>
-<tr class="headerX">
-  <th><?php echo $langExercice; ?></th>
-  <th><?php echo $langDate; ?></th>
-  <th><?php echo $langResult; ?></th>
-  <th><?php echo $langExeTime; ?></th>	
-</tr>
-</thead>
-
-<?php
-$sql="SELECT `ce`.`titre`, `te`.`exe_id`, `te`.`exe_result` ,
-			 `te`.`exe_weighting`, UNIX_TIMESTAMP(`te`.`exe_date`) AS `exeDate`,
-			 `te`.`exe_time`
-      FROM `".$tbl_quiz_test."` AS ce , `".$tbl_track_e_exercises."` AS te
-      WHERE `te`.`exe_user_id` = '".$_uid."'
-      AND `te`.`exe_exo_id` = `ce`.`id`
-      ORDER BY `ce`.`titre` ASC, `te`.`exe_date` ASC";
-
-$results = claro_sql_query_fetch_all($sql);
-
-echo "<tbody>";
-
-foreach($results as $row)
-{
-
-?>
-<tr>
-  <td><?php echo $row['titre']; ?></td>
-  <td><small><a href="../tracking/user_exercise_details.php?track_id=<?php echo $row['exe_id'] ?>"><?php echo claro_disp_localised_date($dateTimeFormatLong,$row['exeDate']); ?></a></small></td>
-  <td><?php echo $row['exe_result']; ?> / <?php echo $row['exe_weighting']; ?></td>
-  <td><?php echo claro_disp_duration($row['exe_time']); ?></td>
-</tr>
-
-<?php
-
-}
-
-
-if( !is_array($results) || sizeof($results) == 0 )
-{
-?>
-
-<tr>
-  <td colspan="4"><?php echo $langNoResultYet; ?></td>
-</tr>
-
-<?php
-}
-?>
-</tbody>
-</table>
-
-<?php
-endif; // end if tracking is enabled
 
 include($includePath.'/claro_init_footer.inc.php');
 ?>
