@@ -632,7 +632,7 @@ if( isset($modifyAnswers) )
 <thead>
 <tr class="headerX">
   <th>N°</th>
-  <th><?php echo $langTrue; ?></th>
+  <th><?php echo $langExpectedChoice; ?></th>
   <th><?php echo $langAnswer; ?></th>
   <th><?php echo $langComment; ?></th>
   <th><?php echo $langQuestionWeighting; ?></th>
@@ -652,7 +652,7 @@ if( isset($modifyAnswers) )
 				{
 ?>
 
-  <td valign="top"><input type="radio" value="<?php echo $i; ?>" name="correct" <?php if($correct == $i) echo 'checked="checked"'; ?>></td>
+  <td align="center" valign="top"><input type="radio" value="<?php echo $i; ?>" name="correct" <?php if($correct == $i) echo 'checked="checked"'; ?>></td>
 
 <?php
 				}
@@ -664,13 +664,25 @@ if( isset($modifyAnswers) )
 
 <?php
 				}
-				if(!empty($reponse[$i])) $displayedResponse = htmlentities($reponse[$i]);
-				elseif( $answerType == TRUEFALSE && $i == 1 ) $displayedResponse = $langTrue;
-				elseif( $answerType == TRUEFALSE && $i == 2 ) $displayedResponse = $langFalse;
-				else $displayedResponse = "";
+?>
+  <td align="left" valign="top">
+<?php
+				if(!empty($reponse[$i]) && $answerType != TRUEFALSE)
+				{
+					echo '<textarea wrap="virtual" rows="7" cols="25" name="reponse['.$i.']">'.htmlentities($reponse[$i]).'</textarea>';
+				}
+				elseif( $answerType == TRUEFALSE )
+				{
+					if( $i == 1 ) echo $langTrue;
+					elseif( $i == 2 ) echo $langFalse;
+				}
+				else
+				{
+					echo '&nbsp;';
+				}
 ?>
 
-  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="reponse[<?php echo $i; ?>]"><?php echo $displayedResponse; ?></textarea></td>
+  </td>
   <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="comment[<?php echo $i; ?>]"><?php if(isset($comment[$i])) echo htmlentities($comment[$i]); ?></textarea></td>
   <td valign="top"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo isset($weighting[$i])?$weighting[$i]:0; ?>"></td>
 </tr>
