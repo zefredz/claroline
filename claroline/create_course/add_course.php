@@ -141,14 +141,14 @@ else
             $controlMsg['error'][] = $langEmailCanBeEmpty;
         }
 
-        // if an email is given It would be correct
-        if (    !empty( $newcourse_email)
+        if ( !empty( $newcourse_email )
         && ! is_well_formed_email_address( $newcourse_email )
         )
         {
             $okToCreate = FALSE;
             $controlMsg['error'][] = $langEmailWrong;
         }
+
 
         switch ($forceCodeCase) // defined in config file
         {
@@ -164,11 +164,11 @@ else
         $wantedCode = ereg_replace('[^A-Za-z0-9_]', '', $wantedCode);
 
         $keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
-        $currentCourseCode		 = $keys['currentCourseCode'      ];
-        $currentCourseId		 = $keys['currentCourseId'        ];
-        $currentCourseDbName	 = $keys['currentCourseDbName'    ];
-        $currentCourseRepository = $keys['currentCourseRepository'];
-        $expirationDate 		 = time();
+        $currentCourseCode       = $keys[ 'currentCourseCode'       ];
+        $currentCourseId         = $keys[ 'currentCourseId'         ];
+        $currentCourseDbName     = $keys[ 'currentCourseDbName'     ];
+        $currentCourseRepository = $keys[ 'currentCourseRepository' ];
+        $expirationDate          = time();
 
         if ($okToCreate)
         {
