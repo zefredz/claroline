@@ -50,12 +50,12 @@ foreach($personnalCourseList as $thisCourse)
 
     $tableAnn = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'announcement';
 
-    $sql = "SELECT '".$thisCourse['sysCode'     ]."'  `courseSysCode`,
-                   '".$thisCourse['officialCode']."'  `courseOfficialCode`,
-                   'CLANN___'                         `toolLabel`,
-                   CONCAT(`temps`, ' ', '00:00:00')   `date`, 
-                   CONCAT(`title`,' - ',`contenu`)    `content`
-            FROM `".$tableAnn."`
+    $sql = "SELECT '". addslashes($thisCourse['sysCode']) ."' AS `courseSysCode`,
+                   '". addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+                   'CLANN___' AS `toolLabel`,
+                   CONCAT(`temps`, ' ', '00:00:00') AS `date`, 
+                   CONCAT(`title`,' - ',`contenu`) AS `content`
+            FROM `" . $tableAnn . "`
             WHERE    CONCAT(`title`, `contenu`) != ''
               AND    DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', $_user['lastLogin'])."'
             ORDER BY `date` DESC
@@ -75,12 +75,12 @@ foreach($personnalCourseList as $thisCourse)
     
     $tableCal = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'calendar_event';
 
-    $sql = "SELECT '".$thisCourse['sysCode'     ]."'  `courseSysCode`,
-                   '".$thisCourse['officialCode']."'  `courseOfficialCode`,
-                   'CLCAL___'               `toolLabel`,
-            CONCAT(`day`, ' ',`hour`)       `date`,
-            CONCAT(`titre`,' - ',`contenu`)  `content`
-            FROM `".$tableCal."`
+    $sql = "SELECT '". addslashes($thisCourse['sysCode']) ."' AS `courseSysCode`,
+                   '". addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+                   'CLCAL___' AS `toolLabel`,
+            CONCAT(`day`, ' ',`hour`) AS `date`,
+            CONCAT(`titre`,' - ',`contenu`) AS `content`
+            FROM `" . $tableCal . "`
             WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
               AND CONCAT(`titre`, `contenu`) != ''
             ORDER BY `date`
