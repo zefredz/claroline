@@ -29,15 +29,25 @@ $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] = 
 array ( 'rssRepositoryCacheSys'
+      , 'use_rss_cache'
       );
 
 //PROPERTIES
 
 $conf_def_property_list['rssRepositoryCacheSys'] =
 array ('label'         => 'Where place rss files.'
-      , 'description'  => 'Note :  this repository would be protect with an .htaccess or be out the web' 
+      , 'description'  => 'Note :  this repository should be protected with a .htaccess or
+       be placed outside the web. Because there contain data of private courses.' 
       ,'default'       => $rootSys . 'cache/rss/'
       ,'type'          => 'syspath'
+      );
+$conf_def_property_list['use_rss_cache'] =
+array ('label'         => 'Use the cache'
+      , 'description'  => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.' 
+      ,'default'       => 'FALSE'
+      ,'type'          => 'boolean'
+      , 'readonly'      => TRUE
+      
       );
 
 ?>
