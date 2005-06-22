@@ -89,8 +89,8 @@ function build_course_feed($forceBuild= false, $_cid=null)
 
         if ($serializer->serialize($data))
         {
-            $fprss = fopen($rssRepositoryCacheSys . $_cid . '.xml','w');
-            fwrite($fprss,$serializer->getSerializedData());
+            $fprss = fopen($rssFilePath, 'w');
+            fwrite($fprss, $serializer->getSerializedData());
             fclose($fprss);
         }
 
@@ -106,10 +106,10 @@ function agenda_get_rss_item_list( $course_id=NULL)
     foreach ($eventList as $eventItem)
     {
         $eventRssList[] = array( 'title' => $eventItem['title']
-        , 'category' => $toolNameList[str_pad('CLCAL',8,'_')]
+        , 'category' => trim($toolNameList[str_pad('CLCAL',8,'_')])
         , 'guid' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
         , 'link' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
-        , 'description' => str_replace('<!-- content: html -->','',$eventItem['content'])
+        , 'description' => trim(str_replace('<!-- content: html -->','',$eventItem['content']))
         , 'pubDate' => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
         //, 'author' => $_course['email']
         );
@@ -127,11 +127,11 @@ function announcement_get_rss_item_list( $course_id=NULL)
     $toolNameList = claro_get_tool_name_list();
     foreach ($announcementList as $announcementItem)
     {
-        $rssList[] = array( 'title' => $announcementItem['title']
-        , 'category' => $toolNameList[str_pad('CLANN',8,'_')]
+        $rssList[] = array( 'title' => trim($announcementItem['title'])
+        , 'category' => trim($toolNameList[str_pad('CLANN',8,'_')])
         , 'guid' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
         , 'link' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
-        , 'description' => str_replace('<!-- content: html -->','',$announcementItem['content'])
+        , 'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
         , 'pubDate' => date('r', stripslashes(strtotime($announcementItem['time'])))
         //, 'author' => $_course['email']
         );
