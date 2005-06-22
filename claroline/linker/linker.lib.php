@@ -1,15 +1,20 @@
-<?php
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+<?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author claroline Team <cvs@claroline.net>
+ * @author Renaud Fallier <captren@gmail.com>
+ * @author Frédéric Minne <minne@ipm.ucl.ac.be>
+ *
+ * @package CLLINKER
+ *
+ */
 	
 	//include the file of config 
 	require_once dirname(__FILE__) . "/../inc/conf/linker.conf.php";
@@ -41,10 +46,10 @@
         /**
         * Constructor
         *
-        * @param $name string name of a claroObject      
-        * @param $CRL string crl of a claroObject   
-        * @param $isLinkable boolean default TRUE
-        * @param $isContainer boolean defautl FALSE
+        * @param string $name name of a claroObject      
+        * @param string $CRL crl of a claroObject   
+        * @param boolean  $isLinkable default TRUE
+        * @param boolean $isContainer default FALSE
         */
         function ClaroObject($name, $CRL, $isLinkable = TRUE, $isContainer = FALSE , $isVisible = TRUE)
         {
@@ -101,7 +106,7 @@
         /**
         * return the name of the claroObject
         *
-        * @return 
+        * @return string name of the claroObject
         */  
         function getName()
         {
@@ -109,12 +114,13 @@
         }
     }
 
-//--------------------------------------------------------------------------------------------------------   
+//-----------------------------------------------------------------------------   
     
     /**
     * Class ClaroContainer
     *
     * extend the ClaroObject class 
+    * @package LINKER
     *
     * @author Fallier Renaud
     */  
@@ -132,10 +138,10 @@
         /**
         * Constructor a ClaroContainer and initialise a ClaroObject
         *
-        * @param $name string name of a claroObject      
-        * @param $CRL string crl of a claroObject   
-        * @param $elementList array contains a list of element
-        * @param $isLinkable boolean default TRUE
+        * @param string  $name        name of a claroObject      
+        * @param string  $CRL         crl of a claroObject   
+        * @param array   $elementList contains a list of element
+        * @param boolean $isLinkable  default TRUE
         */
         function ClaroContainer($name, $CRL, $elementList = FALSE, $isLinkable = TRUE , $isVisible = TRUE)
         {
