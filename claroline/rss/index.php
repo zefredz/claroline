@@ -32,12 +32,13 @@ if (!$_course['visibility'] && !$is_courseAllowed)
             }
     }
 }
+
+// OK TO SEND FEED
+
 include_once $includePath . '/conf/rss.conf.php';
 include( $includePath . '/lib/rss/write/gencourse_rss.inc.php');
 
-build_course_feed(true, $_cid);
 header('Content-type: text/xml;'); 
-readfile ($rssRepositoryCacheSys . $_cid . '.xml');
-
+readfile (build_course_feed(!$use_rss_cache, $_cid));
 
 ?>
