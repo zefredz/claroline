@@ -19,82 +19,100 @@
  * @see http://rss.scripting.com/
  *
  */
-if ((bool) stristr($_SERVER['PHP_SELF'],'course_rss.pear.inc.php'))
-die("---");
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 define('RSS_FILE_EXT', 'xml');
 
-require_once 'XML/Serializer.php';
-
-include_once $includePath . '/conf/rss.conf.inc.php'; 
-require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/announcement.lib.php';
-require_once $includePath . '/lib/agenda.lib.php';
-if (!isset($rssRepository))
+function build_course_feed($forceBuild= false, $_cid=null)
 {
-    $rssRepositorySys = $rootSys . 'rss/';
-    echo '<Hr><H1>Message for Devel </H1>goto <a href="'.$clarolineRepositoryWeb.'/admin/tool/config_edit.php?config_code=CLRSS">config</a> to build RSS conf file.<HR>'; 
-}
-else 
-{
-    $rssRepositorySys = $rootSys . $rssRepository;
-}
+    global $rootSys,
+        $siteName ,
+        $_course ,
+        $coursesRepositoryWeb ,
+        $clarolineRepositoryWeb ,
+        $administrator_email ,
+        $iso639_1_code ;
+        
+    require_once 'XML/Serializer.php';
+    include dirname(__FILE__) . '/../../../conf/rss.conf.php';
+    require_once dirname(__FILE__) . '/../../fileManage.lib.php';
+    require_once dirname(__FILE__) . '/../../announcement.lib.php';
+    require_once dirname(__FILE__) . '/../../agenda.lib.php';
 
-claro_mkdir($rssRepositorySys);
+    if (!isset($rssRepositoryCacheSys))
+    {
+        $rssRepositoryCacheSys = $rootSys . 'cache/rss/';
+        echo '<hr>'
+        .    '<H1>'
+        .    'Message for Devel'
+        .    '</H1>'
+        .    'goto <a href="' . $clarolineRepositoryWeb . '/admin/tool/config_edit.php?config_code=CLRSS">config</a> to build RSS conf file.'
+        .    '<HR>';
+    }
 
+    if (!file_exists($rssRepositoryCacheSys) ) claro_mkdir($rssRepositoryCacheSys, '0777', true);
 
-$toolNameList = claro_get_tool_name_list();
+    $rssFilePath = $rssRepositoryCacheSys . $_cid . '.xml';
 
-$options = array(
-                    'indent'    => '    ',
-                    'linebreak' => "\n",
-                    'typeHints' => FALSE,
-                    'addDecl'   => TRUE,
-                    'encoding'  => $charset,
-                    'rootName'  => 'rss',
-                    'defaultTagName' => 'item',
-                    'rootAttributes' => array('version' => '2.0')
-                );
+    if ($forceBuild || !file_exists($rssFilePath))
+    {
 
-$data['channel'] = array(
-            'title'          => '['.$siteName.'] '.$_course['officialCode'],
-            'description'    => $_course['name'],
-            'link'           => $coursesRepositoryWeb.$_course['path'],
-            'generator'      => 'Claroline-PEARSerializer',
-            'webMaster'      => $administrator_email,
-            'managingEditor' => $_course['email'],
-            'language'       => $iso639_1_code,
-            'docs'           => 'http://blogs.law.harvard.edu/tech/rss',
-            'pubDate'        => date("r")
-    );
+        
+        $options = array(
+        'indent'    => '    ',
+        'linebreak' => "\n",
+        'typeHints' => FALSE,
+        'addDecl'   => TRUE,
+        'encoding'  => $charset,
+        'rootName'  => 'rss',
+        'defaultTagName' => 'item',
+        'rootAttributes' => array('version' => '2.0')
+        );
 
-$eventRssList = agenda_get_rss_item_list();
-$announcementRssList = announcement_get_rss_item_list();
-$data['channel'] = array_merge($data['channel'], $eventRssList, $announcementRssList );
+        $data['channel'] = array(
+        'title'          => '['.$siteName.'] '.$_course['officialCode'],
+        'description'    => $_course['name'],
+        'link'           => $coursesRepositoryWeb.$_course['path'],
+        'generator'      => 'Claroline-PEARSerializer',
+        'webMaster'      => $administrator_email,
+        'managingEditor' => $_course['email'],
+        'language'       => $iso639_1_code,
+        'docs'           => 'http://blogs.law.harvard.edu/tech/rss',
+        'pubDate'        => date("r")
+        );
 
-$serializer = new XML_Serializer($options);
+        $eventRssList = agenda_get_rss_item_list();
+        $announcementRssList = announcement_get_rss_item_list();
+        $data['channel'] = array_merge($data['channel'], $eventRssList, $announcementRssList );
 
-if ($serializer->serialize($data)) 
-{
-    $fprss = fopen($rssRepositorySys . $_cid . '.xml','w');
-    fwrite($fprss,$serializer->getSerializedData());
-    fclose($fprss);
+        $serializer = new XML_Serializer($options);
+
+        if ($serializer->serialize($data))
+        {
+            $fprss = fopen($rssRepositoryCacheSys . $_cid . '.xml','w');
+            fwrite($fprss,$serializer->getSerializedData());
+            fclose($fprss);
+        }
+
+    }
+    return $rssFilePath;
 }
 
 function agenda_get_rss_item_list( $course_id=NULL)
 {
     GLOBAL $platform_id, $clarolineRepositoryWeb, $_cid, $_course;
     $eventList        = agenda_get_item_list('ASC', $course_id);
-    foreach ($eventList as $eventItem) 
-    {   
+    $toolNameList = claro_get_tool_name_list();
+    foreach ($eventList as $eventItem)
+    {
         $eventRssList[] = array( 'title' => $eventItem['title']
-                          , 'category' => $toolNameList[str_pad('CLCAL',8,'_')]
-                          , 'guid' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
-                          , 'link' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
-                          , 'description' => str_replace('<!-- content: html -->','',$eventItem['content'])
-                          , 'pubDate' => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
-                          //, 'author' => $_course['email']
-                          );
+        , 'category' => $toolNameList[str_pad('CLCAL',8,'_')]
+        , 'guid' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
+        , 'link' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
+        , 'description' => str_replace('<!-- content: html -->','',$eventItem['content'])
+        , 'pubDate' => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
+        //, 'author' => $_course['email']
+        );
     }
     return $eventRssList;
 }
@@ -106,16 +124,17 @@ function announcement_get_rss_item_list( $course_id=NULL)
 {
     GLOBAL $platform_id, $clarolineRepositoryWeb, $_cid, $_course;
     $announcementList = announcement_get_item_list('DESC', $course_id);
-    foreach ($announcementList as $announcementItem) 
-    {   
+    $toolNameList = claro_get_tool_name_list();
+    foreach ($announcementList as $announcementItem)
+    {
         $rssList[] = array( 'title' => $announcementItem['title']
-                      , 'category' => $item->category = $toolNameList[str_pad('CLANN',8,'_')]
-                      , 'guid' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
-                      , 'link' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
-                      , 'description' => str_replace('<!-- content: html -->','',$announcementItem['content'])
-                      , 'pubDate' => date("r", stripslashes(strtotime($announcementItem['time'])))
-                      //, 'author' => $_course['email']
-                        );
+        , 'category' => $toolNameList[str_pad('CLANN',8,'_')]
+        , 'guid' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
+        , 'link' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
+        , 'description' => str_replace('<!-- content: html -->','',$announcementItem['content'])
+        , 'pubDate' => date('r', stripslashes(strtotime($announcementItem['time'])))
+        //, 'author' => $_course['email']
+        );
     }
     return $rssList;
 }
