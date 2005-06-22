@@ -39,17 +39,17 @@ else
 // its path to the PEAR_LIB_PATH constant.
 
 define('PEAR_LIB_PATH', $includePath.'/lib/pear');
-$clarolineRepositorySys = $rootSys.$clarolineRepositoryAppend;
-$clarolineRepositoryWeb = $rootWeb.$clarolineRepositoryAppend;
-$userImageRepositorySys = $rootSys.$userImageRepositoryAppend;
-$userImageRepositoryWeb = $rootWeb.$userImageRepositoryAppend;
-$coursesRepositorySys   = $rootSys.$coursesRepositoryAppend;
-$coursesRepositoryWeb   = $rootWeb.$coursesRepositoryAppend;
-$rootAdminSys           = $clarolineRepositorySys.$rootAdminAppend;
-$rootAdminWeb           = $clarolineRepositoryWeb.$rootAdminAppend;
+$clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
+$clarolineRepositoryWeb = $rootWeb . $clarolineRepositoryAppend;
+$userImageRepositorySys = $rootSys . $userImageRepositoryAppend;
+$userImageRepositoryWeb = $rootWeb . $userImageRepositoryAppend;
+$coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
+$coursesRepositoryWeb   = $rootWeb . $coursesRepositoryAppend;
+$rootAdminSys           = $clarolineRepositorySys . $rootAdminAppend;
+$rootAdminWeb           = $clarolineRepositoryWeb . $rootAdminAppend;
 $imgRepositoryAppend    = 'img/'; // <-this line would be editable in claroline 1.7
-$imgRepositorySys       = $clarolineRepositorySys.$imgRepositoryAppend;
-$imgRepositoryWeb       = $clarolineRepositoryWeb.$imgRepositoryAppend;
+$imgRepositorySys       = $clarolineRepositorySys . $imgRepositoryAppend;
+$imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
 
 // Add the Claroline PEAR path to the php.ini include path
 // This action is mandatory because PEAR inner include() statements 
@@ -73,7 +73,7 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-include($includePath.'/lib/claro_main.lib.php');
+include( $includePath . '/lib/claro_main.lib.php' );
 
 /*----------------------------------------------------------------------
   Connect to the server database and select the main claroline DB
@@ -104,7 +104,7 @@ include($includePath."/claro_init_local.inc.php");
   Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
   
-include($includePath."/lib/event/init_event_manager.inc.php");
+include($includePath . '/lib/event/init_event_manager.inc.php');
 
 /*----------------------------------------------------------------------
   Load language files
@@ -129,11 +129,11 @@ if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION' )
  
     // include the language file with all language variables
 
-    include($includePath.'/../lang/english/complete.lang.php');
+    include($includePath . '/../lang/english/complete.lang.php');
 
     if ($languageInterface  != 'english') // Avoid useless include as English lang is preloaded
     {
-        include($includePath.'/../lang/'.$languageInterface.'/complete.lang.php');
+        include($includePath.'/../lang/' . $languageInterface . '/complete.lang.php');
     }
     
 }
@@ -153,7 +153,7 @@ else
 	    // build lang file of the tool    
         $languageFilename = preg_replace('|^'.preg_quote($urlAppend).'/|', '', $_SERVER['PHP_SELF']);
 
-        $pos = strpos($languageFilename,'claroline/');
+        $pos = strpos($languageFilename, 'claroline/');
 
         if ($pos === FALSE || $pos != 0)
         {
@@ -169,15 +169,15 @@ else
     }
     
     // add extension to file
-    $languageFile = $languageFilename.'.lang.php'; 
+    $languageFile = $languageFilename . '.lang.php'; 
 
-    if ( ! file_exists($includePath.'/../lang/english/'.$languageFile) )
+    if ( ! file_exists($includePath . '/../lang/english/' . $languageFile) )
     {
-        include($includePath.'/../lang/english/complete.lang.php');
+        include($includePath . '/../lang/english/complete.lang.php');
     }
     else
     {   
-        include($includePath.'/../lang/english/'.$languageFile);
+        include($includePath . '/../lang/english/' . $languageFile);
     }
 	
     // load previously english file to be sure every $lang variable
@@ -185,7 +185,7 @@ else
 
     if ( $languageInterface != 'english' )
     {
-        @include($includePath.'/../lang/'.$languageInterface.'/'.$languageFile);
+        @include($includePath . '/../lang/' . $languageInterface . '/' . $languageFile);
     }
     
 }
