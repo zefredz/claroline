@@ -1,0 +1,43 @@
+<?php // $Id$
+$_course = array();
+$siteName ='';
+
+$is_courseAllowed = false;
+require '../inc/claro_init_global.inc.php';
+if(!$_cid) die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
+if (!$_course['visibility'] && !$is_courseAllowed)
+{
+    if (!isset($_SERVER['PHP_AUTH_USER'])) 
+    {
+       header('WWW-Authenticate: Basic realm="'.sprintf($lang_p_FeedOf_s, $_course['name']).'"');
+       header('HTTP/1.0 401 Unauthorized');
+       echo '<h2>' . sprintf($lang_p_youNeedToBeAuthenticatedWithYour_s_account, $siteName) . '</h2>'
+       .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . 'retry</a>'
+       ;
+       exit;
+    } 
+    else 
+    {
+            $login    = $_SERVER['PHP_AUTH_USER'];
+            $password = $_SERVER['PHP_AUTH_PW'];
+            require '../inc/claro_init_local.inc.php';
+            if (!$_course['visibility'] && !$is_courseAllowed)
+            {
+                   header('WWW-Authenticate: Basic realm="'.sprintf($lang_p_FeedOf_s, $_course['name']).'"');
+                   header('HTTP/1.0 401 Unauthorized');
+                   echo '<h2>' . sprintf($lang_p_youNeedToBeAuthenticatedWithYour_s_account, $siteName) . '</h2>'
+                   .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . 'retry</a>'
+                   ;
+                   exit;
+            }
+    }
+}
+include_once $includePath . '/conf/rss.conf.php';
+include( $includePath . '/lib/rss/write/gencourse_rss.inc.php');
+
+build_course_feed(true, $_cid);
+header('Content-type: text/xml;'); 
+readfile ($rssRepositoryCacheSys . $_cid . '.xml');
+
+
+?>
