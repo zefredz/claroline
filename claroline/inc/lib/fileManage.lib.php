@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * Declaration of needed CLASSES for the EventManager pattern
+ * CLAROLINE
  *
  * @version 1.7 $Revision$
  * 
@@ -12,10 +12,11 @@
  *
  * @package KERNEL
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @author Claro Team <cvs@claroline.net> 
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
+
 /**
  * Checks a file or a directory actually exist at this location
  *
@@ -179,7 +180,7 @@ function claro_copy_file($sourcePath, $targetPath)
 
     if ( is_file($sourcePath) )
     {
-        return copy($sourcePath , $targetPath.'/'.$fileName);
+        return copy($sourcePath , $targetPath . '/' . $fileName);
     }
     elseif ( is_dir($sourcePath) )
     {
