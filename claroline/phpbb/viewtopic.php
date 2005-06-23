@@ -44,14 +44,6 @@ event_access_tool($_tid, $_courseTool['label']);
  -----------------------------------------------------------------*/
 
 include $includePath . '/lib/forum.lib.php';
-
-/*-----------------------------------------------------------------
-  DB table names
- -----------------------------------------------------------------*/
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_topics           = $tbl_cdb_names['bb_topics'];
-
 /*-----------------------------------------------------------------
   Initialise variables
  -----------------------------------------------------------------*/
@@ -167,6 +159,8 @@ else
     $error_message = $langNotAllowed;
 }
 
+if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
+
 /*=================================================================
   Display Section
  =================================================================*/
@@ -257,15 +251,6 @@ else
 	            ' </tr>' . "\n";
 	
 	} // end for each
-	
-	if ( $increaseTopicView )
-	{
-	    $sql = "UPDATE `".$tbl_topics."`
-	            SET   topic_views = topic_views + 1
-	            WHERE topic_id    = '" . $topic_id . "'";
-	
-	    claro_sql_query($sql);
-	}
 	
 	echo '</table>' . "\n";
 	
