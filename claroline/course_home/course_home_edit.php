@@ -356,9 +356,9 @@ foreach($toolList as $thisTool)
 
 echo '</tbody>'."\n"
 .    '</table>'."\n\n"
-.    '<input class="claroButton" type="submit" value="' . $langOk . '" >'."\n";
-claro_disp_button($coursesRepositoryWeb . $_course['path'], $langCancel);
-echo '</form>'."\n"
+.    '<input class="claroButton" type="submit" value="' . $langOk . '" >'."\n"
+.    claro_disp_button($coursesRepositoryWeb . $_course['path'], $langCancel)
+.    '</form>'."\n"
 .    '</blockquote>' . "\n"
 .    '<hr size="1" noshade="noshade" >' . "\n\n"
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . $langAddExternalTool . '</a>' . "\n"

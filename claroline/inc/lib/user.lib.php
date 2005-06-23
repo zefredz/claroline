@@ -1214,9 +1214,9 @@ function user_display_form($data, $form_type='registration')
         echo '<tr>' . "\n"
             . ' <td align="right"><label for="applyChange">' . $langSaveChanges . ' : </label></td>' . "\n"
             . ' <td>'
-            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'; 
-        claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel);
-        echo ' </td>' . "\n"
+            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'
+            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            .' </td>' . "\n"
             . '</tr>';
     }
 

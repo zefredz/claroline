@@ -397,7 +397,7 @@ closedir($handle);
 </td>
 <td>
 <input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo $langOk?>"> 
-<?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+<?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
 </td>
 </tr>
 </table>

@@ -1138,14 +1138,13 @@ function claro_disp_button($url, $text, $confirmMessage = '')
             $onClickCommand = "document.location='".$url."';return false";
         }
 
-        echo '<button class="claroButton" onclick="' . $onClickCommand . '">'
-        .    $text
-        .    '</button>&nbsp;' . "\n"
-        ;
+        return '<button class="claroButton" onclick="' . $onClickCommand . '">'
+              .$text
+              .'</button>&nbsp;' . "\n";
     }
     else
     {
-        echo '<nobr>[ <a  href="'.$url.'">'.$text.'</a> ]</nobr>';
+        return '<nobr>[ <a  href="'.$url.'">'.$text.'</a> ]</nobr>';
     }
 }
 

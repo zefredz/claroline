@@ -125,10 +125,10 @@ if ($intro_dispForm)
     claro_disp_html_area('intro_content', $intro_content);
 
     echo	'<br />'."\n"
-			.'<input class="claroButton" type="submit" value="'.$langOk.'" name="intro_cmdUpdate" />'."\n";
-    claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
-	echo	'<br />'."\n"
-			.'</form>'."\n\n";
+            .'<input class="claroButton" type="submit" value="'.$langOk.'" name="intro_cmdUpdate" />'."\n"  
+            .claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+            .'<br />'."\n"
+            .'</form>'."\n\n";
 }
 
 if ($intro_dispDefault)

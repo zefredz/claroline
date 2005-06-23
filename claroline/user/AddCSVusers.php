@@ -380,11 +380,10 @@ case "stepone" :
     }
     echo '<br>'
     .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
-    ;
+    .   claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+    .   "<input type=\"submit\" value=\"".$langContinue."\">\n "
+    .   "</form>\n";
 
-        claro_disp_button($_SERVER['PHP_SELF'], $langCancel); 
-        echo "<input type=\"submit\" value=\"".$langContinue."\">\n "
-            ."</form>\n";
     break;
 
 // STEP TWO DISPLAY : display what happened, confirm users added (LOG)     

@@ -155,7 +155,7 @@ claro_disp_html_area('textContent', $textContent);
             <br><br> &nbsp;&nbsp;
             <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
             <input type="submit" class="claroButton" name="modify" value=" <?php echo $langOk; ?>">
-            <?php   claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
+            <?php   echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
         </form>
     <?php
 }

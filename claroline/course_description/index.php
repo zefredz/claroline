@@ -230,15 +230,13 @@ if ( $is_allowedToEdit )
 
             claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
 
-            echo '<input type="submit" name="save" value="' . $langOk . '">' . "\n";
+            echo '<input type="submit" name="save" value="' . $langOk . '">' . "\n"
+                 .claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+                 .'</form>'."\n"
 
-            claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
+                 .'</td>'  ."\n"
 
-            echo '</form>'."\n"
-            
-            .'</td>'  ."\n"
-
-            .'<td valign="top">'."\n";
+                 .'<td valign="top">'."\n";
             
             if ( $descPresetQuestion )
             {

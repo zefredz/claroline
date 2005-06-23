@@ -52,7 +52,7 @@ claro_disp_tool_title(array('mainTitle' => $langGroup,
 		</td>
 		<td>
 			<input type="submit" value=<?php echo $langOk ?> name="creation" id="creation"> 
-            <?php claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+            <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
 		</td>
 	</tr>
 </table>

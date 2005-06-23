@@ -487,7 +487,7 @@ if ( $displayForm )
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . $langOk . '">'."\n";
     }
 
-    claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
+    echo claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
 
     echo '</td>'
     .    '<tr>' . "\n"

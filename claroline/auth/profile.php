@@ -197,8 +197,8 @@ switch ( $display )
                 . '<tr valign="top">' 
                 . '<td>' . $langSubmit . ': </td>'
                 . '<td><input type="submit" value="' . $langOk . '"> ';
-            claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
-            echo '</td></tr>'
+                . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+                . '</td></tr>'
                 . '</table>'
                 . '</form>';
         }
@@ -226,9 +226,9 @@ switch ( $display )
                 . '</tr>'
                 . '<tr valign="top">' 
                 . '<td>' . $langSubmit . ': </td>'
-                . '<td><input type="submit" value="' . $langDeleteMyAccount . '"> ';
-            claro_disp_button($_SERVER['PHP_SELF'], $langCancel);
-            echo '</td></tr>'
+                . '<td><input type="submit" value="' . $langDeleteMyAccount . '"> '
+                . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+                . '</td></tr>'
                 . '</table>'
                 . '</form>';
         }

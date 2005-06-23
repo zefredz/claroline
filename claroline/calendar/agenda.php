@@ -509,7 +509,7 @@ else // popup mode
 
 // linker
 //---------------------
-claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
+echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
 
 ?>
 </td>

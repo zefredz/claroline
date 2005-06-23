@@ -202,7 +202,7 @@ echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_
 
 if (isset($cfrom) && ($cfrom=="clist"))
 {
-    claro_disp_button("admincourses.php", $langBackToCourseList);
+    echo claro_disp_button("admincourses.php", $langBackToCourseList);
 }
 
 //Pager

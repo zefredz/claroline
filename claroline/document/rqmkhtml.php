@@ -55,7 +55,7 @@ if ($cmd ==  'rqMkHtml' )
     // (eg forgot to give a file name)
     ?> 
     <input type="submit" value="<?php echo $langOk; ?>">
-    <?php claro_disp_button('./document.php?cmd=exChDir&file='.$cwd, $langCancel); ?>
+    <?php echo claro_disp_button('./document.php?cmd=exChDir&file='.$cwd, $langCancel); ?>
     </form>
     <?php
 }
@@ -75,7 +75,7 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     claro_disp_html_area('htmlContent', implode("\n", $fileContentList));
     ?>
     <input type="submit" value="<?php echo $langOk; ?>">
-    <?php claro_disp_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], $langCancel); ?>
+    <?php echo claro_disp_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], $langCancel); ?>
     </form>
     <?php
 }

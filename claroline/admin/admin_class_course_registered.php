@@ -89,9 +89,9 @@ if($display==DISP_RESULT)
 // display TOOL links :
 
 
-claro_disp_button("index.php",$langBackToAdmin);
-claro_disp_button($clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id'], $langBackToClassMembers);
-claro_disp_button($clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=", $langClassRegisterWholeClassAgain);
+echo claro_disp_button("index.php",$langBackToAdmin);
+echo claro_disp_button($clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id'], $langBackToClassMembers);
+echo claro_disp_button($clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=", $langClassRegisterWholeClassAgain);
 
 // display footer
 
