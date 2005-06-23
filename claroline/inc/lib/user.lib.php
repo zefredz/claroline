@@ -17,13 +17,7 @@
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
-
  
- /**
- * 
- */
- 
-if ( !defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') ) define('CONFVAL_ASK_FOR_OFFICIAL_CODE',TRUE);
 include_once( dirname(__FILE__) . '/auth.lib.inc.php'      );
 
 /**
@@ -104,7 +98,7 @@ function user_get_data($user_id)
  *
  */
 
-function user_insert ($data)
+function user_add ($data)
 {
     global $userPasswordCrypted, $_uid;
 
@@ -112,6 +106,8 @@ function user_insert ($data)
     
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
+
+    if ( empty($data['status']) ) $data['status'] = STUDENT;
 
     $sql = "INSERT INTO `".$tbl_user."`
             SET `nom`          = '". addslashes($data['lastname']) ."' ,
@@ -1017,7 +1013,8 @@ function user_display_form($data, $form_type='registration')
            $langRegStudent, $langRegAdmin, $langUserid, 
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langChangePwdexp,
            $langGroupTutor,$langManager,
-           $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin;
+           $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin,
+           $ask_for_official_code;
 
     global $allowSelfRegProf;
 
@@ -1055,7 +1052,7 @@ function user_display_form($data, $form_type='registration')
         . ' </tr>' . "\n" ;
 
     // official code
-    if ( defined('CONFVAL_ASK_FOR_OFFICIAL_CODE') && CONFVAL_ASK_FOR_OFFICIAL_CODE )
+    if ( isset($ask_for_official_code) && $ask_for_official_code == TRUE )
     {
         echo ' <tr>'  . "\n"
             . '  <td align="right"><label for="officialCode">' . $langOfficialCode . '&nbsp;:</label></td>'  . "\n"
