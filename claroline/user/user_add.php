@@ -206,7 +206,7 @@ echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => $lang
 
 if ( count($messageList) > 0 ) 
 {
-    claro_disp_message_box( implode('<br />', $messageList) );
+    echo claro_disp_message_box( implode('<br />', $messageList) );
 }
 
 if ( $platformRegSucceed ) 

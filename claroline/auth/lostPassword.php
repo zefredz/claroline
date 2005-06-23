@@ -161,7 +161,7 @@ echo claro_disp_tool_title($nameTools);
 
 // display message box
 
-if ( ! empty($msg)) claro_disp_message_box($msg);
+if ( ! empty($msg)) echo claro_disp_message_box($msg);
 
 // display form
 

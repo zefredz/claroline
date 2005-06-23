@@ -176,13 +176,13 @@ switch( $cmd )
 			}
 			else
 			{
-			   claro_disp_message_box($langErrorNameAlreadyExists);
+			   echo claro_disp_message_box($langErrorNameAlreadyExists);
 			   echo "<br />";
 			}
 		}
 		else
 		{
-			claro_disp_message_box($langErrorEmptyName);
+			echo claro_disp_message_box($langErrorEmptyName);
 			echo "<br />";
 		}
 		break;

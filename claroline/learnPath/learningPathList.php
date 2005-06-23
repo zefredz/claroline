@@ -413,7 +413,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
   if(isset($dialogBox))
   {
-    claro_disp_message_box($dialogBox);
+    echo claro_disp_message_box($dialogBox);
   }
 
    if($is_AllowedToEdit)

@@ -278,7 +278,7 @@ if ( $is_allowedToEdit )
 include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-if ( !empty($dialogBox) ) claro_disp_message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 
 if ($display_form)

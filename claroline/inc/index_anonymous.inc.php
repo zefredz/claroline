@@ -204,11 +204,11 @@ echo '</td>';
     {
         if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
         {
-    		claro_disp_message_box($langInvalidId);
+    		echo claro_disp_message_box($langInvalidId);
         }
         else
         {
-        	claro_disp_message_box($langInvalidIdSelfReg);
+        	echo claro_disp_message_box($langInvalidIdSelfReg);
         }
         
     }

@@ -116,7 +116,7 @@ else
 
     if ( count($messageList) > 0 ) 
     {
-        claro_disp_message_box( implode('<br />', $messageList) );
+        echo claro_disp_message_box( implode('<br />', $messageList) );
     }
     
     echo $langAddUserOneByOne;

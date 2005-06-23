@@ -167,7 +167,7 @@ echo claro_disp_tool_title($nameTools);
 
 if ( !empty($message) )
 {
-    claro_disp_message_box($message);
+    echo claro_disp_message_box($message);
 }
 
 ?>

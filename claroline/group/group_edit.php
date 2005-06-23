@@ -205,7 +205,7 @@ echo claro_disp_tool_title($nameTools);
 
 if ( isset($messageGroupEdited) )
 {
-    claro_disp_message_box($messageGroupEdited);
+    echo claro_disp_message_box($messageGroupEdited);
 }
 
 ?>

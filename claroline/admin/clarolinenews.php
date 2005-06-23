@@ -83,7 +83,7 @@ if ($rs = $rss->get($urlNewsClaroline))
 }
 else
 {	
-	claro_disp_message_box($langErrorCannotReadRSSFile);
+	echo claro_disp_message_box($langErrorCannotReadRSSFile);
 }
 
 include($includePath."/claro_init_footer.inc.php");

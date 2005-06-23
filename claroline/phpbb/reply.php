@@ -165,7 +165,7 @@ echo claro_disp_tool_title($langForums,
 if ( !$allowed )
 {
     // not allowed
-    claro_disp_message_box($error_message);
+    echo claro_disp_message_box($error_message);
 }
 else
 {
@@ -179,7 +179,7 @@ else
 	{
 	    if ( $error )
 	    {
-	        claro_disp_message_box($error_message);
+	        echo claro_disp_message_box($error_message);
 	    }
 
         disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id);

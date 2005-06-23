@@ -131,11 +131,11 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        claro_disp_message_box($langTrackingDisabled);
+        echo claro_disp_message_box($langTrackingDisabled);
     }
     else
     {
-        claro_disp_message_box($langNotAllowed);
+        echo claro_disp_message_box($langNotAllowed);
     }
 }
 

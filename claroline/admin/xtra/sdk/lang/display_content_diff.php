@@ -103,7 +103,7 @@ $form .= "</select></p>";
 $form .= "<p><input type=\"submit\" value=\"OK\" /></p>";
 $form .= "</form>";
 
-claro_disp_message_box($form);
+echo claro_disp_message_box($form);
 
 // select variables with same content
 

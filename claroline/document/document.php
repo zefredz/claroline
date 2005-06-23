@@ -1208,7 +1208,7 @@ echo claro_disp_tool_title($titleElement,
 
     if (isset($dialogBox) && $dialogBox != "")
     {
-                claro_disp_message_box($dialogBox);
+                echo claro_disp_message_box($dialogBox);
     }
 
     $is_allowedToEdit ? $colspan = 7 : $colspan = 3;

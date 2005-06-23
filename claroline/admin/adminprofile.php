@@ -151,7 +151,7 @@ echo claro_disp_tool_title($nameTools);
 // Display Forms or dialog box(if needed)
 if ( count($messageList) > 0 )
 {
-    claro_disp_message_box(implode('<br />', $messageList));
+    echo claro_disp_message_box(implode('<br />', $messageList));
 }
 
 // Display "form and info" about the user

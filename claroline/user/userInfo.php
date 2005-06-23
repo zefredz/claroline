@@ -233,7 +233,7 @@ echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></s
 
    if(isset($dialogBox) && $dialogBox!="")
    {
-       claro_disp_message_box($dialogBox);
+       echo claro_disp_message_box($dialogBox);
    }
    
 if ($displayMode == "viewDefEdit")

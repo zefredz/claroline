@@ -77,7 +77,7 @@ echo claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
 
 if($dialogBox)
 {
-    claro_disp_message_box($dialogBox);
+    echo claro_disp_message_box($dialogBox);
 }
 
 if($display==DISP_RESULT)

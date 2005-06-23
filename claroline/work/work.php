@@ -458,7 +458,7 @@ if($is_allowedToEdit)
     
     if ( isset($dialogBox) && !empty($dialogBox) )
     {
-        claro_disp_message_box($dialogBox);
+        echo claro_disp_message_box($dialogBox);
     }
 
     /*--------------------------------------------------------------------

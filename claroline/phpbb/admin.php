@@ -31,7 +31,7 @@ $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 if ( ! $is_allowedToEdit )
 {
     include($includePath . '/claro_init_header.inc.php');
-    claro_disp_message_box($langNotAllowed);
+    echo claro_disp_message_box($langNotAllowed);
     include($includePath . '/claro_init_footer.inc.php');
     die();
 }
@@ -608,12 +608,12 @@ switch ($display)
 
         if ($display_error_mess)
         {
-            claro_disp_message_box($langemptycatname);
+            echo claro_disp_message_box($langemptycatname);
             echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumcatedit=yes&amp;cat_id=".$cat_id."\">$langBack</a></p>";
         }
         else
         {
-            claro_disp_message_box($langNameCat);
+            echo claro_disp_message_box($langNameCat);
             echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">$langBack</a></p>";
         }
         break;
@@ -626,12 +626,12 @@ switch ($display)
 
         if ($display_error_mess)
         {
-           claro_disp_message_box($langemptyforumname);
+           echo claro_disp_message_box($langemptyforumname);
            echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumgoedit=yes&amp;forum_id=" . $forum_id . "&amp;cat_id=" . $cat_id ."\">".$langBack."</a></p>";
         }
         else
         {
-            claro_disp_message_box($langForumModified);
+            echo claro_disp_message_box($langForumModified);
             echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=" . $cat_id . "\">".$langBack."</a></p>";
         }
         break;
@@ -644,11 +644,11 @@ switch ($display)
 
         if ($display_error_mess)
         {
-            claro_disp_message_box($langemptycatname);
+            echo claro_disp_message_box($langemptycatname);
         }
         else
         {
-            claro_disp_message_box($langcatcreated);
+            echo claro_disp_message_box($langcatcreated);
         }
         echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">".$langBack."</a></p>";
         break;
@@ -661,11 +661,11 @@ switch ($display)
 
         if ($display_error_mess)
         {
-            claro_disp_message_box($langemptyforumname);
+            echo claro_disp_message_box($langemptyforumname);
         }
         else
         {
-            claro_disp_message_box($langforumcreated);
+            echo claro_disp_message_box($langforumcreated);
         }
         echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=" . $cat_id . "\">" . $langBack . "</a></p>\n";
         break;
@@ -676,7 +676,7 @@ switch ($display)
 
     case DISP_FORUM_CAT_DEL:
 
-        claro_disp_message_box($msg_can_del_cat_1);
+        echo claro_disp_message_box($msg_can_del_cat_1);
         echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumadmin=yes\">$langBack</a></p>";
         break;
 
@@ -686,7 +686,7 @@ switch ($display)
 
     case DISP_FORUM_GO_DEL:
         
-        claro_disp_message_box($langForumDeleted);
+        echo claro_disp_message_box($langForumDeleted);
         echo "<p><a href=\"".$_SERVER['PHP_SELF']."?forumgo=yes&amp;cat_id=$cat_id\">",$langBack,"</a></p>";
         break;
 

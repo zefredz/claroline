@@ -288,7 +288,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 
 if( isset( $dialogBox ) )
 {
-    claro_disp_message_box($dialogBox);
+    echo claro_disp_message_box($dialogBox);
     echo '<br>';
 }
 

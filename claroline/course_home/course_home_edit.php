@@ -270,7 +270,7 @@ echo $backLink;
 
 echo claro_disp_tool_title($langEditToolList);
 
-if ($msg) claro_disp_message_box($msg);
+if ($msg) echo claro_disp_message_box($msg);
 
 echo '<p>' . $langIntroEditToolList . '</p>' . "\n"
 .    '<blockquote>'."\n"

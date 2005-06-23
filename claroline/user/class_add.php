@@ -111,7 +111,7 @@ echo claro_disp_tool_title($langAddAClassToCourse);
 
 if(isset($dialogBox)&& $dialogBox!="")
 {
-    claro_disp_message_box($dialogBox);
+    echo claro_disp_message_box($dialogBox);
 }
 
 switch ($display)

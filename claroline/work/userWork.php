@@ -927,7 +927,7 @@ if( $is_allowedToSubmit )
 {
 	if ($dialogBox)
 	{
-		claro_disp_message_box($dialogBox);
+		echo claro_disp_message_box($dialogBox);
 	}
 	
 	if( $dispWrkForm )

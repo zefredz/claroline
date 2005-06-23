@@ -150,7 +150,7 @@
             {
 	    	    $res = new Resolver("");
 		    $title = $res->getResourceName($crl);
-		   claro_disp_message_box("[".$title."]".$langLinkerAlreadyInAttachementList);
+		   echo claro_disp_message_box("[".$title."]".$langLinkerAlreadyInAttachementList);
             }
 
 			if($current_crl != $crl)

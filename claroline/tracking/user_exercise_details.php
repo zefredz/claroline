@@ -515,7 +515,7 @@ else
         $dialogBox = $langTrackingDisabled;
     }
 
-	claro_disp_message_box($dialogBox);
+	echo claro_disp_message_box($dialogBox);
 }
 
 include($includePath."/claro_init_footer.inc.php");

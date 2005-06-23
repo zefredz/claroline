@@ -160,7 +160,7 @@
 		/*
 		if ( !$atleastOne )
 		{
-			claro_disp_message_box("No module selected !!");
+			echo claro_disp_message_box("No module selected !!");
 		}
 		*/
    } //end if ADD command

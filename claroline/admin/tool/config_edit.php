@@ -405,7 +405,7 @@ if ( $display_form )
     else
     {
         $controlMsg['info'][] = sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code));
-        claro_disp_message_box($controlMsg);
+        echo claro_disp_message_box($controlMsg);
     }
 }
 

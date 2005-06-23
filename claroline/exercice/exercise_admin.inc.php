@@ -175,7 +175,7 @@ if( isset($modifyExercise) )
 <tr>
   <td colspan="2">
 <?php
-	claro_disp_message_box($msgErr);
+	echo claro_disp_message_box($msgErr);
 ?>
   </td>
 </tr>

@@ -287,7 +287,7 @@ if( $is_allowedToUse )	// check teacher status
 
 	if ( !empty($message) )
 	{
-        claro_disp_message_box($message);
+        echo claro_disp_message_box($message);
 
         echo '<br>'
             .'<a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt;&nbsp;'.$langBackList.'</a>'

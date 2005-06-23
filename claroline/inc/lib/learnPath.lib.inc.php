@@ -658,7 +658,7 @@ function display_my_exercises($dialogBox)
     $colspan = 4;
     if ($dialogBox)
     {
-        claro_disp_message_box($dialogBox);
+        echo claro_disp_message_box($dialogBox);
     }
     echo '<table class="claroTable" width="100%" border="0" cellspacing="">'
     .    '<tr class="headerX" align="center" valign="top">'
@@ -785,7 +785,7 @@ function display_my_documents($dialogBox)
     $colspan = 4;
     if (isset($dialogBox) && $dialogBox !="")
     {
-        claro_disp_message_box($dialogBox);
+        echo claro_disp_message_box($dialogBox);
     }
     /*--------------------------------------
     CURRENT DIRECTORY LINE

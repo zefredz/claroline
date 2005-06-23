@@ -850,7 +850,7 @@ function claro_set_display_mode_available($mode)
 
     !!! DEPRECATED !!!
 
-    USE claro_disp_message_box($message) INSTEAD
+    USE echo claro_disp_message_box($message) INSTEAD
 
     @param $msgArrBody array of    messages
     @author    Christophe gesché <moosh@claroline.net>
@@ -872,7 +872,7 @@ function claro_disp_msg_arr($msgArrBody)
             foreach ($thisMsgArr as $anotherThis)
                 $messageList[] = $anotherThis;
 
-        claro_disp_message_box( '<p>'.implode('<p></p>', $messageList).'</p>' );
+        echo claro_disp_message_box( '<p>'.implode('<p></p>', $messageList).'</p>' );
     }
 }
 
@@ -1097,15 +1097,14 @@ function claro_disp_intro($idTools)
 
 function claro_disp_message_box($message)
 {
-?>
-<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">
-<tr>
-<td>
-<?php echo $message; ?>
-</td>
-</tr>
-</table>
-<?php
+    return 
+    '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
+    .'<tr>'
+    .'<td>'
+    .$message
+    .'</td>'
+    .'</tr>'
+    .'</table>'."\n";
 }
 
 /**

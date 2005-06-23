@@ -188,7 +188,7 @@ echo claro_disp_tool_title($langForums, $is_allowedToEdit ? 'help_forum.php' : f
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      claro_disp_message_box($error_message); 
+      echo claro_disp_message_box($error_message); 
 }
 else
 {
@@ -209,7 +209,7 @@ else
 
         if ( $error )
         {
-            claro_disp_message_box($error_message);
+            echo claro_disp_message_box($error_message);
         }
 
         disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0);

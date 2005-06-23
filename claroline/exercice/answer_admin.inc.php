@@ -624,7 +624,7 @@ if( isset($modifyAnswers) )
 			// if there is an error message
 			if(!empty($msgErr))
 			{
-				claro_disp_message_box($msgErr);
+				echo claro_disp_message_box($msgErr);
 			}
 ?>
 
@@ -731,7 +731,7 @@ if( isset($modifyAnswers) )
 				// if there is an error message
 				if(!empty($msgErr))
 				{
-					claro_disp_message_box($msgErr);
+					echo claro_disp_message_box($msgErr);
 				}
 ?>
 <p>
@@ -772,7 +772,7 @@ if( isset($modifyAnswers) )
 				// if there is an error message
 				if(!empty($msgErr))
 				{
-					claro_disp_message_box($msgErr);
+					echo claro_disp_message_box($msgErr);
 				}
 ?>
 <p>
@@ -831,7 +831,7 @@ if( isset($modifyAnswers) )
 			// if there is an error message
 			if(!empty($msgErr))
 			{
-				claro_disp_message_box($msgErr);
+				echo claro_disp_message_box($msgErr);
 			}
 
 			$listeOptions=Array();

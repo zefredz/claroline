@@ -441,7 +441,7 @@ $backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&lt
 
 include($includePath . '/claro_init_header.inc.php');
 
-if (isset($msg)) claro_disp_message_box($msg);
+if (isset($msg)) echo claro_disp_message_box($msg);
 echo $backLink;
 
 switch ( $displayMode )
@@ -486,7 +486,7 @@ switch ( $displayMode )
 	
         if ( !empty($message) )
 		{
-			claro_disp_message_box($message);
+			echo claro_disp_message_box($message);
 		}
 
 		// Display categories
@@ -657,7 +657,7 @@ switch ( $displayMode )
 
         if ( !empty($message) )
         {
-            claro_disp_message_box( '<p>'.$message.'</p>' . "\n"
+            echo claro_disp_message_box( '<p>'.$message.'</p>' . "\n"
                                    .'<p align="center"><a href="' . $backUrl . '">' .$backLabel . '</a></p>'  . "\n");
         }
         echo '</blockquote>' . "\n";
