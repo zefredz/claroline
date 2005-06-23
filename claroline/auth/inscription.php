@@ -69,7 +69,7 @@ if ( $cmd == 'registration' )
     {
         // register the new user in the claroline platform
 
-        $_uid = user_insert($user_data);
+        $_uid = user_add($user_data);
 
         if ( $_uid )
         {

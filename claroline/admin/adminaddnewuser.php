@@ -73,7 +73,7 @@ if ( $cmd == 'registration' )
     if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
-        $inserted_uid = user_insert($user_data);
+        $inserted_uid = user_add($user_data);
         
         // send a mail to the user
         user_send_registration_mail($inserted_uid,$user_data);

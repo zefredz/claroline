@@ -82,7 +82,7 @@ switch ( $cmd )
         if ( count($messageList) == 0 )
         {
             // register the new user in the claroline platform
-            $user_id = user_insert($user_data);
+            $user_id = user_add($user_data);
         
             if ( $user_id ) $platformRegSucceed = true;
             

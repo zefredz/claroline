@@ -388,7 +388,7 @@ $user_data['status'] = 1; // COURSEMANAGER constant
 $user_data['officialCode'] = '';
 $user_data['phone'] = $adminPhoneForm;
 
-$id_admin = user_insert ($user_data);
+$id_admin = user_add($user_data);
 
 user_add_admin($id_admin);
 
