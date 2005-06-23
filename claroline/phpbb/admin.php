@@ -476,7 +476,7 @@ switch ($display)
 
                if ( $iteratorInCat>1 )
                {
-                   echo "<td align=\"center\"><a href=\"".$HP_SELF."?cmd=exMoveup&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
+                   echo "<td align=\"center\"><a href=\"".$_SERVER['PHP_SELF']."?cmd=exMoveup&amp;forum_id=".$thisForum['id']."&amp;cat_id=".$cat_id."&amp;forumgo=yes\">
                    <img src=\"".$imgRepositoryWeb."up.gif\"></a>
                </td>";
                }
@@ -723,7 +723,7 @@ switch ($display)
                      ."</td>"
     
                      ."<td align=\"center\">"
-                     ."<a href=\"".$_PHP_SELF."?forumcatedit=yes&amp;cat_id=".$thisCategory['id']."\">"
+                     ."<a href=\"".$_SERVER['PHP_SELF']."?forumcatedit=yes&amp;cat_id=".$thisCategory['id']."\">"
                      ."<img src=\"".$imgRepositoryWeb."edit.gif\" alt=\"".$langModify."\" border=\"0\">"
                      ."</a>"
                      ."</td>\n"
