@@ -72,7 +72,7 @@
 
    // display title
 
-  claro_disp_tool_title($nameTools);
+  echo claro_disp_tool_title($nameTools);
 
     // see checked exercises to add
 
@@ -206,7 +206,7 @@
 
    //STEP TWO : display learning path content
 
-   claro_disp_tool_title($langPathContentTitle);
+   echo claro_disp_tool_title($langPathContentTitle);
    echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
    
    // display list of modules used by this learning path

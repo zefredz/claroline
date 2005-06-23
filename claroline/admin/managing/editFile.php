@@ -98,7 +98,7 @@ include($includePath . '/claro_init_header.inc.php');
 $titles = array('mainTitle'=>$nameTools);
 if (isset($subtitle)) $titles['subTitle'] = $subtitle;
 
-claro_disp_tool_title($titles);
+echo claro_disp_tool_title($titles);
 
 if ( count($controlMsg) > 0 )
 {

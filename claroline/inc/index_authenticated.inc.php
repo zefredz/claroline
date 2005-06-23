@@ -127,7 +127,7 @@ if ($is_platformAdmin)
 
 
 
-claro_disp_tool_title($langMyCourses);
+echo claro_disp_tool_title($langMyCourses);
 
 /*
  * Commands line

@@ -163,7 +163,7 @@ $forumId = $_group['forumId'];
 // CLAROLINE HEADER AND BANNER
 include($includePath.'/claro_init_header.inc.php');
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 if ( !empty($message) )
 {

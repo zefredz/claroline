@@ -173,7 +173,7 @@ else
                         // && !$is_courseAdmin)
                         // is added  to let course admin, tutor of current group, use student mode
 
-    claro_disp_tool_title($langForums, 
+    echo claro_disp_tool_title($langForums, 
                           $is_allowedToEdit ? 'help_forum.php' : false);
 
     // Show Group Documents and Group Space

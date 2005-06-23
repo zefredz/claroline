@@ -464,7 +464,7 @@ switch ( $displayMode )
     	if ( $fromAdmin != 'class' )
 	    { 
 
-            claro_disp_tool_title( array( 'mainTitle' => $lang_course_enrollment 
+            echo claro_disp_tool_title( array( 'mainTitle' => $lang_course_enrollment 
                                         .                ' : ' 
                                         .                $userInfo['firstname'] . ' ' 
                                         .                $userInfo['lastname']
@@ -476,7 +476,7 @@ switch ( $displayMode )
 	    }
 	    else
 	    {
-		    claro_disp_tool_title( array( 'mainTitle' => $langEnrollClass . ' : ' . $classinfo['name']
+		    echo claro_disp_tool_title( array( 'mainTitle' => $langEnrollClass . ' : ' . $classinfo['name']
                                         , 'subTitle'  => $lang_select_course_in . ' ' . $currentCategoryName
                                         )
                                  );
@@ -649,9 +649,9 @@ switch ( $displayMode )
 
     case DISPLAY_MESSAGE_SCREEN :
 
-        // claro_disp_tool_title( $lang_course_enrollment);
+        // echo claro_disp_tool_title( $lang_course_enrollment);
 
-        claro_disp_tool_title($lang_course_enrollment . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
+        echo claro_disp_tool_title($lang_course_enrollment . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
 
         echo '<blockquote>' . "\n";	
 
@@ -670,7 +670,7 @@ switch ( $displayMode )
 
 	case DISPLAY_USER_COURSES :
 
-        claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['firstname'] . ' ' . $userInfo['lastname'],
+        echo claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['firstname'] . ' ' . $userInfo['lastname'],
                                      'subTitle' => $lang_remove_course_from_your_personnal_course_list));
 
         if ( count($courseList) > 0 )

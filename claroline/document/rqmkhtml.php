@@ -28,7 +28,7 @@ else                            $cwd = '';
 $nameTools = $langCreateModifyDocument;
 include('../inc/claro_init_header.inc.php');
 
-claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
+echo claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
 
 /*========================================================================
                              CREATE DOCUMENT

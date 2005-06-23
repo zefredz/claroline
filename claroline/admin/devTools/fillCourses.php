@@ -363,7 +363,7 @@ if ($cmd == 'exFill')
 //////////////// //////////////// //////////////// ////////////////
 
 include( $includePath . '/claro_init_header.inc.php');
-claro_disp_tool_title( $nameTools);
+echo claro_disp_tool_title( $nameTools);
 if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 
 switch ($display)

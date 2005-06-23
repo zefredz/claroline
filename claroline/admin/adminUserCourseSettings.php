@@ -161,7 +161,7 @@ if(isset($user_id))
 
 // Display tool title
 
-claro_disp_tool_title($nameTools." : ".$courseList['intitule']);
+echo claro_disp_tool_title($nameTools." : ".$courseList['intitule']);
 
   //subtitle
 ?>

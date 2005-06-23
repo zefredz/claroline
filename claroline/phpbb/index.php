@@ -107,7 +107,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit()
                      
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
-claro_disp_tool_title($langForums, 
+echo claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 // Forum toolbar

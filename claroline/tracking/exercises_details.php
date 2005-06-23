@@ -43,7 +43,7 @@ include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $langStatsOfExercise." : ".$exo_details['title'];
-claro_disp_tool_title($titleTab);
+echo claro_disp_tool_title($titleTab);
 
 if($is_allowedToTrack && $is_trackingEnabled) 
 {

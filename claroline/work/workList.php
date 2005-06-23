@@ -174,7 +174,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 $pageTitle['mainTitle'  ] = $nameTools;
 $pageTitle['subTitle'   ] = $assignment['title'];
-claro_disp_tool_title($pageTitle);
+echo claro_disp_tool_title($pageTitle);
 
 /*--------------------------------------------------------------------
                           ASSIGNMENT INFOS

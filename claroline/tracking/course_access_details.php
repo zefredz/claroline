@@ -23,7 +23,7 @@ $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
 $is_allowedToTrack = $is_platformAdmin || $is_courseAdmin;
 
-claro_disp_tool_title(
+echo claro_disp_tool_title(
 	array(
 	'mainTitle'=>$nameTools,
 	)

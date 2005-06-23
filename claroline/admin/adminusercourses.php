@@ -195,7 +195,7 @@ $resultList = $myPager->get_result_list();
 
 $nameTools .= " : ".$resultTitle[0]['prenom']." ".$resultTitle[0]['nom'];
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 

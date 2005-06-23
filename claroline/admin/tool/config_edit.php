@@ -311,7 +311,7 @@ $interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'nam
 include($includePath . '/claro_init_header.inc.php');
 
 // display tool title
-claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
+echo claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
 
 // display message
 if ( isset($controlMsg['debug']) ) unset($controlMsg['debug']);

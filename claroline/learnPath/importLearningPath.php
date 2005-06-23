@@ -479,7 +479,7 @@ function utf8_decode_if_is_utf8($str) {
 
    // main page
 
-  claro_disp_tool_title($langimportLearningPath);
+  echo claro_disp_tool_title($langimportLearningPath);
     
    // init msg arays
   $okMsgs   = array();

@@ -1186,7 +1186,7 @@ $cmdParentDir  = rawurlencode($parentDir);
 $titleElement['mainTitle'] = $langDocument;
 if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
 
-claro_disp_tool_title($titleElement, 
+echo claro_disp_tool_title($titleElement, 
                       $is_allowedToEdit ? 'help_document.php' : false);
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 

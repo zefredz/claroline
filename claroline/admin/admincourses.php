@@ -281,7 +281,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 //display title
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 

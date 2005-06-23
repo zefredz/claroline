@@ -87,7 +87,7 @@ include($includePath."/claro_init_header.inc.php");
 
 $toolTitle['mainTitle'] = $nameTools;
 $toolTitle['subTitle'] = $langStatsOfUser;
-claro_disp_tool_title($toolTitle);
+echo claro_disp_tool_title($toolTitle);
 
 if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackingEnabled )
 {

@@ -33,7 +33,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 {
  	if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
 	{
-		    // set the subtitle for the claro_disp_tool_title function
+		    // set the subtitle for the echo claro_disp_tool_title function
 		    $sql = "SELECT `access_tlabel` as `label`
 			        FROM `".$TABLETRACK_ACCESS."`
 			        WHERE `access_tid` = ".$_REQUEST['id']."
@@ -57,7 +57,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	}
 	elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
 	{
-		    // set the subtitle for the claro_disp_tool_title function
+		    // set the subtitle for the echo claro_disp_tool_title function
 			$toolTitle['subTitle'] = $langDocument." : ".$_REQUEST['path'];
 			// prepare SQL query
 			$sql = "SELECT `nom` as `lastName`, `prenom` as `firstName`, MAX(UNIX_TIMESTAMP(`down_date`)) AS `data`, COUNT(`down_date`) AS `nbr`
@@ -73,7 +73,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 		$dialogBox = $langWrongOperation;
 	}
 
-	claro_disp_tool_title($toolTitle);
+	echo claro_disp_tool_title($toolTitle);
 
 	if( isset($dialogBox) ) claro_disp_message_box($dialogBox);
 

@@ -31,7 +31,7 @@ $interbredcrump[]  = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 include($includePath."/claro_init_header.inc.php");
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 ?>
 
 <p><img src="<?php echo 'lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="translation_index.php"><?php echo $langTranslationTools?></a></p>

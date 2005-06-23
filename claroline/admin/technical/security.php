@@ -89,7 +89,7 @@ if ($doProtectInstall)
 
 ////////////DISPLAY/////////////
 include($includePath."/claro_init_header.inc.php");
-claro_disp_tool_title(
+echo claro_disp_tool_title(
     array(
     'mainTitle'=>$nameTools
     )

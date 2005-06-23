@@ -199,7 +199,7 @@ if ( $platformRegSucceed || $courseRegSucceed ) // why course Reg Failed ?
 // display header
 include($includePath.'/claro_init_header.inc.php');
 
-claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => $langUsers),
+echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => $langUsers),
 				'help_user.php');
 
 // message box

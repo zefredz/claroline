@@ -371,7 +371,7 @@ include($includePath."/claro_init_header.inc.php");
 
 $title['mainTitle'] = $nameTools;
 $title['subTitle'] = $langAddMyCampusOnClarolineNet;
-claro_disp_tool_title($title);
+echo claro_disp_tool_title($title);
 
 if( isset($dialogBox) && $dialogBox != '' ) claro_disp_message_box($dialogBox);
 

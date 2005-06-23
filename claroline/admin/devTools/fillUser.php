@@ -194,7 +194,7 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 
 include($includePath.'/claro_init_header.inc.php');
 
-claro_disp_tool_title( array('mainTitle'=>$nameTools));
+echo claro_disp_tool_title( array('mainTitle'=>$nameTools));
 
 if ( count($controlMsg) )
 {

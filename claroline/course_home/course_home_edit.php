@@ -268,7 +268,7 @@ DISPLAY
 
 echo $backLink;
 
-claro_disp_tool_title($langEditToolList);
+echo claro_disp_tool_title($langEditToolList);
 
 if ($msg) claro_disp_message_box($msg);
 

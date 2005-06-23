@@ -58,7 +58,7 @@ $is_allowedToTrack = $is_courseAdmin;
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $langTrackAllPathExplanation;
 
-claro_disp_tool_title($titleTab);
+echo claro_disp_tool_title($titleTab);
 
 if($is_allowedToTrack && $is_trackingEnabled) 
 {

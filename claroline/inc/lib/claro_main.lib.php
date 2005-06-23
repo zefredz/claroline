@@ -585,50 +585,55 @@ class claro_failure
  * @return void
  */
 
-function claro_disp_tool_title($titleElement, $helpUrl = false)
+function claro_disp_tool_title($titlePart, $helpUrl = false)
 {
     // if titleElement is simply a string transform it into an array
 
-    if (is_string($titleElement))
+    if ( is_array($titlePart) )
     {
-        $tit = $titleElement;
-        unset($titleElement);
-        $titleElement['mainTitle'] = $tit;
+        $titleElement = $titlePart;
     }
+    else
+    {
+        $titleElement['mainTitle'] = $titlePart;
+    }
+    
 
-    echo '<h3 class="claroToolTitle">';
+    $string = '<h3 class="claroToolTitle">';
 
     if ($helpUrl)
     {
         global $clarolineRepositoryWeb, $imgRepositoryWeb,$langHelp;
 
-?><a href="#" onClick="MyWindow=window.open('<?php echo $clarolineRepositoryWeb ?>help/<?php echo $helpUrl ?>','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;"><?php
+    $string .= "<a href='#' onClick=\"MyWindow=window.open('". $clarolineRepositoryWeb . "help/" .$helpUrl      
+            ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
-
-        echo '<img src="'.$imgRepositoryWeb.'/help.gif" '
-                .' alt ="'.$langHelp.'"'
-                .' align="right"'
-                .' hspace="30">'
+            .'<img src="'.$imgRepositoryWeb.'/help.gif" '
+            .' alt ="'.$langHelp.'"'
+            .' align="right"'
+            .' hspace="30">'
             .'</a>';
     }
 
 
-    if (isset($titleElement['supraTitle']))
+    if ( isset($titleElement['supraTitle']) )
     {
-        echo '<small>'.$titleElement['supraTitle'].'</small><br>';
+        $string .= '<small>'.$titleElement['supraTitle'].'</small><br />';
     }
 
-    if (isset($titleElement['mainTitle']))
+    if ( isset($titleElement['mainTitle']) )
     {
-        echo $titleElement['mainTitle'];
+        $string .= $titleElement['mainTitle'];
     }
 
-    if (isset($titleElement['subTitle']))
+    if ( isset($titleElement['subTitle']) )
     {
-        echo '<br><small>'.$titleElement['subTitle'].'</small>';
+        $string .= '<br /><small>'.$titleElement['subTitle'].'</small>';
     }
 
-    echo '</h3>';
+    $string .='</h3>';
+
+    return $string;
 }
 
 
@@ -1036,7 +1041,7 @@ function claro_disp_select_course()
         }
         if (is_array($courses))
         {
-            claro_disp_tool_title("This tools need a course");
+            echo claro_disp_tool_title("This tools need a course");
         ?>
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
     <label for="selectCourse">Course</label> :
@@ -1131,7 +1136,7 @@ function claro_disp_button($url, $text, $confirmMessage = '')
     {
         if ($confirmMessage != '')
         {
-            $onClickCommand =" if(confirm('".clean_str_for_javascript($confirmMessage)."')){document.location='".$url."';return false}";
+            $onClickCommand = "if(confirm('".clean_str_for_javascript($confirmMessage)."')){document.location='".$url."';return false}";
         }
         else
         {

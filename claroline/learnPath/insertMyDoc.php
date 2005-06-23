@@ -140,7 +140,7 @@ require '../inc/claro_init_global.inc.php';
 
    // display title
 
-  claro_disp_tool_title($nameTools);
+  echo claro_disp_tool_title($nameTools);
 
        // FORM SENT
        /*
@@ -476,7 +476,7 @@ require '../inc/claro_init_global.inc.php';
    //####################################################################################\\
 
 
-   claro_disp_tool_title($langPathContentTitle);
+   echo claro_disp_tool_title($langPathContentTitle);
   echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
    // display list of modules used by this learning path
    display_path_content();

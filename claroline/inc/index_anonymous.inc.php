@@ -98,7 +98,7 @@ else
 
 echo $backCommandLine;
 
-claro_disp_tool_title($pageTitle);
+echo claro_disp_tool_title($pageTitle);
 
 if ( ( count($categoryList) - 1 )  >= 0 )
 {

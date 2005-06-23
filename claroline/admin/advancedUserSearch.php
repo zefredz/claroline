@@ -69,7 +69,7 @@ include($includePath."/claro_init_header.inc.php");
 
 //tool title
 
-claro_disp_tool_title($nameTools." : ");
+echo claro_disp_tool_title($nameTools." : ");
 
 ?>
 

@@ -392,7 +392,7 @@ include('../inc/claro_init_header.inc.php');
     Display Title
  ---------------------------------------------------------------------*/
 
-claro_disp_tool_title(
+echo claro_disp_tool_title(
     array(
         'mainTitle'=>$nameTools,
          'subTitle'=>$subTitle

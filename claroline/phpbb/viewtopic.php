@@ -180,7 +180,7 @@ else
 	$is_allowedToEdit = claro_is_allowed_to_edit() 
 	                    || ( $is_groupTutor && !$is_courseAdmin);
 	
-	claro_disp_tool_title($langForums, 
+	echo claro_disp_tool_title($langForums, 
 	                      $is_allowedToEdit ? 'help_forum.php' : false);
 		
 	disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);

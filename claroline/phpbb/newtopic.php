@@ -177,7 +177,7 @@ else
 include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
-claro_disp_tool_title($langForums, $is_allowedToEdit ? 'help_forum.php' : false);
+echo claro_disp_tool_title($langForums, $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )
 {

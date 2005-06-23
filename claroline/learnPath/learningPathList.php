@@ -111,7 +111,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
   // title
-  claro_disp_tool_title($nameTools);
+  echo claro_disp_tool_title($nameTools);
 
   // main page
   $is_AllowedToEdit = claro_is_allowed_to_edit();

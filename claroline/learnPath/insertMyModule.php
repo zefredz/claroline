@@ -117,7 +117,7 @@
 
    // display title
 
-  claro_disp_tool_title($langInsertMyModulesTitle);
+  echo claro_disp_tool_title($langInsertMyModulesTitle);
 
 
 
@@ -249,7 +249,7 @@
    //####################################################################################\\
 
  // display subtitle
- claro_disp_tool_title($langPathContentTitle);
+ echo claro_disp_tool_title($langPathContentTitle);
  // display back link to return to the LP administration
  echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
  // display list of modules used by this learning path

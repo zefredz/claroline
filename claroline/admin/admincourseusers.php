@@ -209,7 +209,7 @@ $resultList = $myPager->get_result_list();
 
 $nameTools .= " : ".$resultCourse['intitule'];
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 // Display Forms or dialog box(if needed)
 

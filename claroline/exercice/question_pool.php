@@ -113,7 +113,7 @@ include($includePath.'/claro_init_header.inc.php');
 // if admin of course
 if($is_allowedToEdit)
 {
-	claro_disp_tool_title($nameTools);
+	echo claro_disp_tool_title($nameTools);
 ?>
 
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">

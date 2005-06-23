@@ -122,7 +122,7 @@ include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 
-claro_disp_tool_title($titleTab);
+echo claro_disp_tool_title($titleTab);
 
 echo $backLink;
 

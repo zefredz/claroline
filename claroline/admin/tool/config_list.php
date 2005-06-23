@@ -98,7 +98,7 @@ include($includePath."/claro_init_header.inc.php");
 
 // display tool title
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 if ( is_array($def_class_list) )
 {

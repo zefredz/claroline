@@ -71,7 +71,7 @@ if (isset($cmd) && $is_platformAdmin)
 
 // Display tool title
 
-claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
+echo claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
 
 //Display Forms or dialog box(if needed)
 

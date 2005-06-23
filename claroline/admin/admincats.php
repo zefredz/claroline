@@ -743,7 +743,7 @@ else
 
 if($CREATE)
 {
-    claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langSubTitleCreate));
+    echo claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langSubTitleCreate));
     if ( isset($controlMsg) && count($controlMsg)>0 ) 
     {
         claro_disp_msg_arr($controlMsg);
@@ -848,7 +848,7 @@ elseif($EDIT)
      * Display information to edit a category and the bom of categories
      */
 
-    claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleEdit));
+    echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleEdit));
     
     if ( isset($controlMsg) && count($controlMsg) > 0 )
     {
@@ -924,7 +924,7 @@ elseif($MOVE)
      * Display information to change root of the category
      */
 
-    claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent.$EditCode));
+    echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent.$EditCode));
     if ( isset($controlMsg) && count($controlMsg) > 0 )
     {
         claro_disp_msg_arr($controlMsg);
@@ -969,7 +969,7 @@ elseif($MOVE)
 }
 else
 {
-    claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langManageCourseCategories));
+    echo claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langManageCourseCategories));
     
     if ( isset($controlMsg) && count($controlMsg) > 0 )
     {

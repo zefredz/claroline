@@ -209,7 +209,7 @@ $nameTools = $langUsers;
 
 include($includePath.'/claro_init_header.inc.php');
 
-claro_disp_tool_title($nameTools.' ('.$langUserNumber.' : '.$userTotalNb.')',
+echo claro_disp_tool_title($nameTools.' ('.$langUserNumber.' : '.$userTotalNb.')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)

@@ -187,7 +187,7 @@ $resultList = $myPager->get_result_list();
 
 // Display tool title
 
-claro_disp_tool_title($nameTools." : ".$classinfo['name']);
+echo claro_disp_tool_title($nameTools." : ".$classinfo['name']);
 
 // Display Forms or dialog box(if needed)
 

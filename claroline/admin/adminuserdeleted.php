@@ -67,7 +67,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 // Display tool title
 
-claro_disp_tool_title($langDeleteUser);
+echo claro_disp_tool_title($langDeleteUser);
 
 //Display Forms or dialog box(if needed)
 

@@ -252,7 +252,7 @@ if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 }
 include $includePath.'/claro_init_header.inc.php';
 
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 if ( is_array($controlMsg) && count($controlMsg) > 0 )
 {

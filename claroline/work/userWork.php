@@ -918,7 +918,7 @@ include($includePath.'/claro_init_header.inc.php');
 $pageTitle['mainTitle'  ] = $langAssignment." : ".$assignment['title'];
 
 $pageTitle['subTitle'   ] = $langUser." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";
-claro_disp_tool_title($pageTitle);
+echo claro_disp_tool_title($pageTitle);
 
 /*--------------------------------------------------------------------
                           FORMS

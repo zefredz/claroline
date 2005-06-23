@@ -98,7 +98,7 @@ include($includePath."/claro_init_header.inc.php");
 
 // Display title
 
-claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
+echo claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
 
 if ( $cmd == 'registration' && $error == false )
 {

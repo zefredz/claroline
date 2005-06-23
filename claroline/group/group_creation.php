@@ -19,7 +19,7 @@ $nameTools = $langGroupCreation;
 $interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);
 include($includePath."/claro_init_header.inc.php");
 
-claro_disp_tool_title(array('mainTitle' => $langGroup, 
+echo claro_disp_tool_title(array('mainTitle' => $langGroup, 
                             'subTitle' => $nameTools));
 
 ?>

@@ -49,7 +49,7 @@ $isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
 
 if( $isAllowedToDelete )
 {
-    claro_disp_tool_title($nameTools);
+    echo claro_disp_tool_title($nameTools);
     
     if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     {

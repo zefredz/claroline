@@ -336,7 +336,7 @@ if (!isset($addToURL)) $addToURL ="";
 include($includePath."/claro_init_header.inc.php");
 
 // Display tool title
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 

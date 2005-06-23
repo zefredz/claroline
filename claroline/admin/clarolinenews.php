@@ -53,7 +53,7 @@ $rss->cache_time = 1200;
 //----------------------------------
 // title variable
 include($includePath."/claro_init_header.inc.php");	
-claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 if ($rs = $rss->get($urlNewsClaroline))
 {
