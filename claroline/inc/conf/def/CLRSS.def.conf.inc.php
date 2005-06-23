@@ -23,26 +23,21 @@ $conf_def['config_file']  = 'rss.conf.php';
 $conf_def['config_name']  = 'Rss (read and write) tool';
 $conf_def['config_class'] ='kernel';
 
-if ( file_exists($includePath . '/conf/claro_main.conf.php') )
-{
-    include($includePath . '/conf/claro_main.conf.php');
-} 
-
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] = 
-array ( 'rssRepositoryCacheSys'
+array ( 'rssRepositoryCache'
       , 'use_rss_cache'
       );
 
 //PROPERTIES
 
-$conf_def_property_list['rssRepositoryCacheSys'] =
+$conf_def_property_list['rssRepositoryCache'] =
 array ('label'         => 'Where place rss files.'
       , 'description'  => 'Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.' 
-      ,'default'       => $rootSys . 'cache/rss/'
+      ,'default'       => 'cache/rss/'
       ,'type'          => 'syspath'
       );
 $conf_def_property_list['use_rss_cache'] =

@@ -39,9 +39,9 @@ function build_course_feed($forceBuild= false, $_cid=null)
     require_once dirname(__FILE__) . '/../../announcement.lib.php';
     require_once dirname(__FILE__) . '/../../agenda.lib.php';
 
-    if (!isset($rssRepositoryCacheSys))
+    if (!isset($rssRepositoryCache))
     {
-        $rssRepositoryCacheSys = $rootSys . 'cache/rss/';
+        $rssRepositoryCache = 'cache/rss/';
         echo '<hr>'
         .    '<H1>'
         .    'Message for Devel'
@@ -49,7 +49,7 @@ function build_course_feed($forceBuild= false, $_cid=null)
         .    'goto <a href="' . $clarolineRepositoryWeb . '/admin/tool/config_edit.php?config_code=CLRSS">config</a> to build RSS conf file.'
         .    '<HR>';
     }
-
+    $rssRepositoryCacheSys = $rootSys . $rssRepositoryCache;
     if (!file_exists($rssRepositoryCacheSys) ) claro_mkdir($rssRepositoryCacheSys, '0777', true);
 
     $rssFilePath = $rssRepositoryCacheSys . $_cid . '.xml';
