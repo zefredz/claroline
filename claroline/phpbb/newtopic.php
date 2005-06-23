@@ -219,11 +219,9 @@ else
         if ( !empty($message) ) $content = htmlspecialchars($message);
         else                    $content = '';
         
-        echo '<td>';
-	    
-		claro_disp_html_area('message',$content);
-
-        echo '</td>'
+        echo '<td>'
+            .claro_disp_html_area('message',$content)
+            .'</td>'
             . '</tr>'
             . '<tr  valign="top"><td>&nbsp;</td>'
             . '<td><input type="submit" name="submit" value="' . $langOk . '" />' 

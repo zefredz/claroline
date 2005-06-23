@@ -1282,7 +1282,7 @@ function claro_disp_html_area($name, $content =    '',
 {
     global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable,$langSwitchEditorToTextConfirm;
     $incPath = $urlAppend.'/claroline/inc/htmlarea';
-    
+
     if( ! isset( $_SESSION['htmlArea'] ) )
     {
         // TODO use a config variable instead of hardcoded value
@@ -1315,7 +1315,9 @@ function claro_disp_html_area($name, $content =    '',
                    .'&areaContent='
                    .'\''
                   .'+escape('.$areaContent.')';
-        
+
+        ob_start();
+
         echo '<div align="right">'
         .    '<small>'
         .    '<b>'
@@ -1377,6 +1379,10 @@ initEditor();
     {
         // noop
     }
+
+    $returnString = ob_get_contents();
+    ob_end_clean();
+    return $returnString;
 }
 
 /**

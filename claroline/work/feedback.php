@@ -273,7 +273,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         <td valign="top"><label for="prefillText"><?php echo $langFeedbackText; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
-		claro_disp_html_area('prefillText', $form['prefillText']);
+		echo claro_disp_html_area('prefillText', $form['prefillText']);
 ?> 
         </td>
       </tr>

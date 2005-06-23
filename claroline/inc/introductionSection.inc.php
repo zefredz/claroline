@@ -122,7 +122,7 @@ if ($intro_dispForm)
 {
     echo	'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n";
 
-    claro_disp_html_area('intro_content', $intro_content);
+    echo claro_disp_html_area('intro_content', $intro_content);
 
     echo	'<br />'."\n"
             .'<input class="claroButton" type="submit" value="'.$langOk.'" name="intro_cmdUpdate" />'."\n"  

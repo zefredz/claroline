@@ -200,16 +200,14 @@ switch( $cmd )
 			
 			if( isset($comment['comment']) )
 			{
-				echo  "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n";
-
-				claro_disp_html_area('comment', $comment['comment'], 15, 55);
-
-				echo "<br />\n"
-						."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
-						."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"
-						."<input type=\"submit\" value=\"".$langOk."\">\n"
-						."<br /><br />\n"
-						."</form>\n";
+				echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+                    .claro_disp_html_area('comment', $comment['comment'], 15, 55)
+                    ."<br />\n"
+                    ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
+                    ."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"
+                    ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                    ."<br /><br />\n"
+                    ."</form>\n";
 			}
 		} // else no module_id
 		break;

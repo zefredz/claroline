@@ -472,7 +472,7 @@ $content = $editedEvent['content'];
 </td>
 
 <td colspan="6"> 
-<?php claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
+<?php echo claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br>
 
 </td></tr>

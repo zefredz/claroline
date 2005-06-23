@@ -238,11 +238,9 @@ else
 
         echo '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . $l_body . ' : </td>' . "\n"
-            . '<td>' . "\n";
-        
-        claro_disp_html_area('message', htmlspecialchars($message));
-        
-        echo '</td>' . "\n"
+            . '<td>' . "\n"
+            .claro_disp_html_area('message', htmlspecialchars($message))
+            .'</td>' . "\n"
             . '</tr>' . "\n"
 
             . '<tr valign="top">' . "\n"

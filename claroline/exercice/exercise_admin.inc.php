@@ -196,7 +196,7 @@ if( isset($modifyExercise) )
   </td>
   <td>
   <!--<textarea wrap="virtual" name="exerciseDescription" cols="50" rows="4"><?php //echo htmlentities($exerciseDescription); ?></textarea></td>-->
-  <?php claro_disp_html_area('exerciseDescription', $exerciseDescription,15) ?>
+  <?php echo claro_disp_html_area('exerciseDescription', $exerciseDescription,15) ?>
 </tr>
 <tr>
   <td valign="top"><?php echo $langExerciseType; ?>&nbsp;:</td>

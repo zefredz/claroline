@@ -1105,9 +1105,9 @@ if( $is_allowedToSubmit )
                         ."<label for=\"wrkTxt\">"
                         .$langAnswer
                         ."&nbsp;*&nbsp;:</label></td>\n"
-                        ."<td>";
-                  claro_disp_html_area('wrkTxt', $form['wrkTxt']);
-                  echo "</td>\n"
+                        ."<td>"
+                        .claro_disp_html_area('wrkTxt', $form['wrkTxt'])
+                        ."</td>\n"
                         ."</tr>\n\n";
             }
             

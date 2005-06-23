@@ -218,7 +218,7 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
 <tr>
   <td valign="top"><label for="questionDescription"><?php echo $langQuestionDescription; ?> :</label></td>
   <td>
-  <?php claro_disp_html_area('questionDescription', $questionDescription,15) ?>
+  <?php echo claro_disp_html_area('questionDescription', $questionDescription,15) ?>
   </td>
 </tr>
 <tr>

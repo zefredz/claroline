@@ -460,9 +460,9 @@ if ( $displayForm )
     .    ' : '
     .    '</label>'
     .    '</td>'
-    .    '<td>';
-    claro_disp_html_area('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"');
-    echo '</td>'
+    .    '<td>'
+    .     claro_disp_html_area('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"')
+    .    '</td>'
     .    '</tr>' . "\n"
     .    '<tr>' 
     .    '<td></td>'

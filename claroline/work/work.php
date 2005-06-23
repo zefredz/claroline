@@ -487,7 +487,7 @@ if($is_allowedToEdit)
         <td valign="top"><label for="assigDesc"><?php echo $langAssignmentDescription; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
-    claro_disp_html_area('assigDesc', $form['assigDesc']);
+    echo claro_disp_html_area('assigDesc', $form['assigDesc']);
 ?> 
         </td>
       </tr>

@@ -226,11 +226,10 @@ if ( $is_allowedToEdit )
                                 :
                                 '<input type="text" name="descTitle" id="descTitle" size="50" value="'. htmlspecialchars($descItem['title']) .'">'."\n")
 
-            .'<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n";
+            .'<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n"
+            .claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
-            claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n";
-
-            echo '<input type="submit" name="save" value="' . $langOk . '">' . "\n"
+            .'<input type="submit" name="save" value="' . $langOk . '">' . "\n"
                  .claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
                  .'</form>'."\n"
 
