@@ -49,66 +49,6 @@ $tbl_courses_nodes      = $tbl_category;
 // End of List of alias  to track an set at original name
 
 /**
- * Create a new user in Claroline with the specified informations
- *
- * @param  string  $name name of the new user                 
- * @param  string  $surname surname of the new user              
- * @param  string  $email email of the new user                 
- * @param  string  $admincode official code of the new user           
- * @param  string  $name of the new user               
- * @param  string  $password password of the new user               
- * @param  boolean $teacher :                                     
- *                      TRUE  if new user must be a teacher,
- *                      FALSE otherwise,              
- * 
- * @return $_UID : id of the new user if creation succeeded, FALSE otherwise
- * @author Guillaume Lederer <lederer@cerdecam.be>
- * 
- */
-
-function add_user($name,$surname,$email,$phone,$admincode,$username,$password,$teacher)
-{
-    // see if password must be stored crypted or not
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user      = $tbl_mdb_names['user'];
-    global $userPasswordCrypted;
-    if (!isset($userPasswordCrypted))  $userPasswordCrypted	 = false;
-    // set the status DB code with the value of $teacher
-
-    $sql = "INSERT INTO `".$tbl_user."`
-            SET `nom`          = '" . $name      . "',
-                `prenom`       = '" . $surname   . "',
-                `username`     = '" . $username  . "',
-                `password`     = '" . ($userPasswordCrypted ? md5($password) : $password) . "',
-                `email`        = '" . $email     . "',
-                `statut`       = '" . ($teacher ? 1 : 5) . "',
-                `officialCode` = '" . $admincode . "',
-                `phoneNumber`  = '" . $phone     . "'";
-    
-    return claro_sql_query_insert_id($sql);
-}
-
-/**
- * Set a user as admin
- * @version 1.6
- * @param integer $idAdmin Id of user to set as admin
- *
- * @return void
- * @author Christophe Gesché <moosh@claroline.net>
- */
-function set_user_admin($idAdmin)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin     = $tbl_mdb_names['admin'];
-    $tbl_user      = $tbl_mdb_names['user'];
-
-    $sql = "INSERT INTO `" . $tbl_admin . "` (idUser) VALUES (" . $idAdmin . ")";
-    claro_sql_query($sql);
-    //adduser in .htaccess
-}
-
-
-/**
  * subscribe a specific user to a specific course
  *
  *
@@ -229,7 +169,6 @@ function remove_user_from_course($userId, $courseCode)
     }
     return true;
 }
-
 
 /**
  * remove a specific user from a course groups
