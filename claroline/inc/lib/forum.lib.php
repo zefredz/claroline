@@ -371,8 +371,11 @@ function get_post_settings($postId)
 
 
 /**
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @author Hugues Peeters <peeters@ipm.cl.ac.be>
+ * @param
  * @return  integer id of the new post
+ *
  */
 
 
@@ -1413,6 +1416,19 @@ function get_category_list()
     // Note. The query return category only if there is forums inside
 
     return claro_sql_query_fetch_all($sql);
+}
+
+function increase_topic_view_count($topicId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_topics =  $tbl_cdb_names['bb_topics'];
+    
+    $sql = "UPDATE `".$tbl_topics."`
+	        SET   topic_views = topic_views + 1
+	        WHERE topic_id    = " . (int) $topicId;
+	
+    if ( claro_sql_query($sql) == false) return false;
+    else                                 return true;
 }
 
 
