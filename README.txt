@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.6 Release Candidate - README
+CLAROLINE 1.7 - ALPHA README
 ******************************************
 
 TABLE OF CONTENT :
