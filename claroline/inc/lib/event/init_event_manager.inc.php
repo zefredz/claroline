@@ -50,48 +50,48 @@ $claro_notifier = new Notifier( $claro_event_manager); //listener used for NOTIF
 // "document_visible" is the name of the event that you want to track
 // $notif_listen1 is the listener created for this survey
 
-$notif_listen1  = $claro_notifier->addListener( 'update', "document_visible");
-$notif_listen2  = $claro_notifier->addListener( 'update', "document_file_added");
-$notif_listen3  = $claro_notifier->addListener( 'update', "document_file_modified");
-$notif_listen4  = $claro_notifier->addListener( 'update', "document_htmlfile_created");
-$notif_listen5  = $claro_notifier->addListener( 'update', "document_htmlfile_edited");
-$notif_listen6  = $claro_notifier->addListener( 'delete_notif', "document_file_deleted");
-$notif_listen7  = $claro_notifier->addListener( 'delete_notif', "document_invisible");
+$claro_notifier->addListener( 'update', "document_visible");
+$claro_notifier->addListener( 'update', "document_file_added");
+$claro_notifier->addListener( 'update', "document_file_modified");
+$claro_notifier->addListener( 'update', "document_htmlfile_created");
+$claro_notifier->addListener( 'update', "document_htmlfile_edited");
+$claro_notifier->addListener( 'delete_notif', "document_file_deleted");
+$claro_notifier->addListener( 'delete_notif', "document_invisible");
 
-$notif_listen7  = $claro_notifier->addListener( 'update', "agenda_event_visible");
-$notif_listen8  = $claro_notifier->addListener( 'update', "agenda_event_added");
-$notif_listen9  = $claro_notifier->addListener( 'update', "agenda_event_modified");
-$notif_listen10  = $claro_notifier->addListener( 'delete_notif', "agenda_event_deleted");
-$notif_listen11  = $claro_notifier->addListener( 'delete_notif', "agenda_event_invisible");
+$claro_notifier->addListener( 'update', "agenda_event_visible");
+$claro_notifier->addListener( 'update', "agenda_event_added");
+$claro_notifier->addListener( 'update', "agenda_event_modified");
+$claro_notifier->addListener( 'delete_notif', "agenda_event_deleted");
+$claro_notifier->addListener( 'delete_notif', "agenda_event_invisible");
 
-$notif_listen12  = $claro_notifier->addListener( 'update', "anouncement_visible");
-$notif_listen13  = $claro_notifier->addListener( 'update', "anouncement_added");
-$notif_listen14  = $claro_notifier->addListener( 'update', "anouncement_modified");
-$notif_listen15  = $claro_notifier->addListener( 'delete_notif', "anouncement_deleted");
-$notif_listen16  = $claro_notifier->addListener( 'delete_notif', "anouncement_invisible");
+$claro_notifier->addListener( 'update', "anouncement_visible");
+$claro_notifier->addListener( 'update', "anouncement_added");
+$claro_notifier->addListener( 'update', "anouncement_modified");
+$claro_notifier->addListener( 'delete_notif', "anouncement_deleted");
+$claro_notifier->addListener( 'delete_notif', "anouncement_invisible");
 
 
-$notif_listen17 = $claro_notifier->addListener( 'update', "course_description_added");
-$notif_listen18 = $claro_notifier->addListener( 'update', "course_description_modified");
-$notif_listen19 = $claro_notifier->addListener( 'update', "course_description_visible");
+$claro_notifier->addListener( 'update', "course_description_added");
+$claro_notifier->addListener( 'update', "course_description_modified");
+$claro_notifier->addListener( 'update', "course_description_visible");
 
-$notif_listen20 = $claro_notifier->addListener( 'update', "exercise_visible");
-$notif_listen21 = $claro_notifier->addListener( 'delete_notif', "exercise_invisible");
-$notif_listen22 = $claro_notifier->addListener( 'delete_notif', "exercise_deleted");
+$claro_notifier->addListener( 'update', "exercise_visible");
+$claro_notifier->addListener( 'delete_notif', "exercise_invisible");
+$claro_notifier->addListener( 'delete_notif', "exercise_deleted");
 
-$notif_listen23 = $claro_notifier->addListener( 'update', "learningpath_created");
-$notif_listen24 = $claro_notifier->addListener( 'update', "learningpath_visible");
-$notif_listen25 = $claro_notifier->addListener( 'delete_notif', "learningpath_invisible");
-$notif_listen26 = $claro_notifier->addListener( 'delete_notif', "learningpath_deleted");
+$claro_notifier->addListener( 'update', "learningpath_created");
+$claro_notifier->addListener( 'update', "learningpath_visible");
+$claro_notifier->addListener( 'delete_notif', "learningpath_invisible");
+$claro_notifier->addListener( 'delete_notif', "learningpath_deleted");
 
-$notif_listen27 = $claro_notifier->addListener( 'update', "work_added");
-$notif_listen28 = $claro_notifier->addListener( 'update', "work_visible");
-$notif_listen29 = $claro_notifier->addListener( 'delete_notif', "work_invisible");
-$notif_listen30 = $claro_notifier->addListener( 'delete_notif', "work_deleted");
-$notif_listen31 = $claro_notifier->addListener( 'update', "work_submission_posted");
-$notif_listen32 = $claro_notifier->addListener( 'update', "work_correction_posted");
+$claro_notifier->addListener( 'update', "work_added");
+$claro_notifier->addListener( 'update', "work_visible");
+$claro_notifier->addListener( 'delete_notif', "work_invisible");
+$claro_notifier->addListener( 'delete_notif', "work_deleted");
+$claro_notifier->addListener( 'update', "work_submission_posted");
+$claro_notifier->addListener( 'update', "work_correction_posted");
 
-$notif_listen33 = $claro_notifier->addListener( 'update', "forum_new_topic");
-$notif_listen34 = $claro_notifier->addListener( 'update', "introsection_modified");
-$notif_listen35 = $claro_notifier->addListener( 'update', "toollist_changed");
+$claro_notifier->addListener( 'update', "forum_new_topic");
+$claro_notifier->addListener( 'update', "introsection_modified");
+$claro_notifier->addListener( 'update', "toollist_changed");
 ?>
