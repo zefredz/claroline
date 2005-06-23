@@ -43,9 +43,9 @@ array ('label'         => 'Where place rss files.'
 $conf_def_property_list['use_rss_cache'] =
 array ('label'         => 'Use the cache'
       , 'description'  => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.' 
-      ,'default'       => 'FALSE'
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
-      , 'readonly'      => TRUE
+      , 'readonly'      => FALSE 
       
       );
 
