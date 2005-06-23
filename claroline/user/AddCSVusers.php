@@ -18,6 +18,8 @@
 require '../inc/claro_init_global.inc.php';
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/conf/user_profile.conf.php");
+include($includePath."/lib/user.lib.php");
 include($includePath."/lib/import_csv.lib.php");
 
 /*
@@ -44,7 +46,7 @@ if (isset($_REQUEST['cmd']) && (($_REQUEST['cmd']=="exImpSec"  || $_REQUEST['cmd
 
 //Set format, fields separator and enclosion used for CSV files
 
-$defaultFormat = "surname;name;email;phone;username;password;officialCode";
+$defaultFormat = "firstname;lastname;email;phone;username;password;officialCode";
 
 if (empty($_SESSION['claro_usedFormat'])) 
 {
@@ -98,7 +100,7 @@ if (isset($NewAddType))
         
         case 'userTool':
             if (!$is_courseAdmin) claro_disp_auth_form();
-        $_SESSION['AddType'] = $_REQUEST['AddType'];
+            $_SESSION['AddType'] = $_REQUEST['AddType'];
         break;
     }
 }
@@ -169,51 +171,53 @@ switch ($cmd)
     $usersToAdd = array();
     
     for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
-        {
+    {
         // user must be added only if we encountered exactly no error
         
-        if ((isset($_SESSION['claro_mail_synthax_error'][$i])           && !($_SESSION['claro_mail_synthax_error'][$i])) &&
-            (isset($_SESSION['claro_mail_used_error'][$i])              && !($_SESSION['claro_mail_used_error'][$i])) &&
-        (isset($_SESSION['claro_username_used_error'][$i])          && !($_SESSION['claro_username_used_error'][$i])) &&                
-            (isset($_SESSION['claro_officialcode_used_error'][$i])      && !($_SESSION['claro_officialcode_used_error'][$i])) &&         
-            (isset($_SESSION['claro_password_error'][$i])               && !($_SESSION['claro_password_error'][$i])) &&                  
-            (isset($_SESSION['claro_mail_duplicate_error'][$i])         && !($_SESSION['claro_mail_duplicate_error'][$i])) &&               
-            (isset($_SESSION['claro_username_duplicate_error'][$i])     && !($_SESSION['claro_username_duplicate_error'][$i])) &&         
-            (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && !($_SESSION['claro_officialcode_duplicate_error'][$i])))
+        if ( (!isset($_SESSION['claro_mail_synthax_error'][$i])           || $_SESSION['claro_mail_synthax_error'][$i] ) &&
+             (!isset($_SESSION['claro_mail_used_error'][$i])              || $_SESSION['claro_mail_used_error'][$i] ) &&
+             (!isset($_SESSION['claro_username_used_error'][$i])          || $_SESSION['claro_username_used_error'][$i] ) &&                
+             (!isset($_SESSION['claro_officialcode_used_error'][$i])      || $_SESSION['claro_officialcode_used_error'][$i] ) &&         
+             (!isset($_SESSION['claro_password_error'][$i])               || $_SESSION['claro_password_error'][$i] ) &&                  
+             (!isset($_SESSION['claro_mail_duplicate_error'][$i])         || $_SESSION['claro_mail_duplicate_error'][$i] ) &&               
+             (!isset($_SESSION['claro_username_duplicate_error'][$i])     || $_SESSION['claro_username_duplicate_error'][$i] ) &&         
+             (!isset($_SESSION['claro_officialcode_duplicate_error'][$i]) || $_SESSION['claro_officialcode_duplicate_error'][$i] )
+           )
         {
             $usersToAdd[] = $_SESSION['claro_csv_userlist'][$i];
-            }
-
         }
+        
+    }
     
     // perform subscriptions of users with 'no error' found.  
         
     foreach ($usersToAdd as $user)
-        {
-          $uid=add_user($user['name'], $user['surname'], $user['email'], $user['phone'], $user['officialCode'], $user['username'], $user['password'],FALSE);
+    {
+
+        $uid = user_add($user);
       
-      // for each use case alos perform thze other needed action :
+        // for each use case alos perform thze other needed action :
     
-      switch ($AddType)
-          {
-              case 'adminTool':              
-                 //its all done in this case
-              break;
+        switch ($AddType)
+        {
+            case 'adminTool':              
+                    //its all done in this case
+                    break;
               
               case 'adminClassTool':
-                  add_user_to_class($uid, $_SESSION['admin_user_class_id']);
+                    add_user_to_class($uid, $_SESSION['admin_user_class_id']);
           
               break;
         
               case 'userTool':
                   
-          add_user_to_course($uid, $_cid);
+                    add_user_to_course($uid, $_cid);
               break;
           }  
         }
      
     
-    //notify in session that action was done (to prevent double action if user uses back button of browser
+    // notify in session that action was done (to prevent double action if user uses back button of browser
     
     $_SESSION['claro_CSV_done'] = TRUE;
     
@@ -271,7 +275,7 @@ claro_disp_tool_title($nameTools);
 if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
     $dialogBox = $langModifyFormat .' :<br><br>'
-    .            $langTheFields . ' "<b>surname;</b>", "<b>name;</b>", "<b>username;</b>" and "<b>password;</b>" ' . $langAreCompulsory . '<br><br>'
+    .            $langTheFields . ' "<b>firstname;</b>", "<b>lastname;</b>", "<b>username;</b>" and "<b>password;</b>" ' . $langAreCompulsory . '<br><br>'
     .            '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">"'
     .            '<input type="text" name="usedFormat" value="' . $usedFormat . '" size="55">'
     .            '<input type="submit" value="' . $langOk . '"'
@@ -346,28 +350,31 @@ case 'default' :
     break;
     
 // STEP ONE DISPLAY : display the possible error with uploaded file and ask for continue or cancel
-        
+
 case "stepone" :
    
     if (!(empty($_SESSION['claro_mail_synthax_error']))       ||
         !(empty($_SESSION['claro_mail_used_error']))          ||
-    !(empty($_SESSION['claro_username_used_error']))      ||
-    !(empty($_SESSION['claro_officialcode_used_error']))  ||
-    !(empty($_SESSION['claro_password_error']))           ||
-    !(empty($_SESSION['claro_mail_duplicate_error']))     ||
-    !(empty($_SESSION['claro_username_duplicate_error'])) ||
-    !(empty($_SESSION['claro_officialcode_duplicate_error'])))
+        !(empty($_SESSION['claro_username_used_error']))      ||
+        !(empty($_SESSION['claro_officialcode_used_error']))  ||
+        !(empty($_SESSION['claro_password_error']))           ||
+        !(empty($_SESSION['claro_mail_duplicate_error']))     ||
+        !(empty($_SESSION['claro_username_duplicate_error'])) ||
+        !(empty($_SESSION['claro_officialcode_duplicate_error'])))
     {
         echo '<b>' . $lang_the_following_errors_were_found . ' :</b><br><br>' . "\n";
  
+
         //display errors encountered while trying to add users
     
         claro_disp_CSV_error_backlog();
+
         $noerror = FALSE;
     }
     else 
     {
         echo $lang_no_error_in_file_found."<br>";
+
         $noerror = TRUE;
     }
     echo '<br>'
@@ -400,15 +407,15 @@ case "steptwo" :
        switch ($AddType)
        {
           case "adminTool":
-              echo $user['surname']." ".$user['name']." $langAddedToCampus <br>";
+              echo $user['firstname']." ".$user['lastname']." $langAddedToCampus <br>";
           break;
         
           case "adminClassTool":
-              echo $user['surname']." ".$user['name']." $langAddedToCampusAndClass <br>";
+              echo $user['firstname']." ".$user['lastname']." $langAddedToCampusAndClass <br>";
           break;
         
           case "userTool":
-              echo $user['surname']." ".$user['name']." $langAddedToCampusAndCourse <br>";
+              echo $user['firstname']." ".$user['lastname']." $langAddedToCampusAndCourse <br>";
           break;
        } 
     }
