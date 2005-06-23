@@ -33,6 +33,7 @@ $conf_def['section']['required']['label'] = 'Data checkin';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] = 
 array ( 'userOfficialCodeCanBeEmpty'
+      , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
       , 'SECURE_PASSWORD_REQUIRED'
       );
@@ -45,6 +46,7 @@ array ( 'label'         => 'Official Code is'
                                  ,'FALSE' => 'Required'
                                  )
       );
+
 $conf_def_property_list['userMailCanBeEmpty'] =
 array ( 'label'         => 'Email is'
       , 'description'   => 'Accept email as valid (best choice)'
@@ -52,6 +54,16 @@ array ( 'label'         => 'Email is'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('FALSE' => 'Required'
                                  ,'TRUE'  => 'Optional'
+                                 )
+      );
+
+$conf_def_property_list['ask_for_official_code'] =
+array ( 'label'         => 'Ask the official code'
+      , 'description'   => 'Display the field official code in form'
+      , 'default'       => 'TRUE'
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE' => 'Yes'
+                                 ,'FALSE'  => 'No'
                                  )
       );
 
