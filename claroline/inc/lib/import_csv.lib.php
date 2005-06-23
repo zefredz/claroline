@@ -73,18 +73,18 @@ function claro_CSV_format_ok($format)
     
     $username_found = FALSE;
     $password_found = FALSE;
-    $surname_found  = FALSE;
-    $name_found     = FALSE;
+    $firstname_found  = FALSE;
+    $lastname_found     = FALSE;
     
     foreach ($fieldarray as $field)
     {
-        if ( trim($field) == 'surname' )
+        if ( trim($field) == 'firstname' )
     	{
-    	    $surname_found = TRUE;
+    	    $firstname_found = TRUE;
     	}
-    	if (trim($field)=="name")
+    	if (trim($field)=="lastname")
     	{
-    	    $name_found = TRUE;
+    	    $lastname_found = TRUE;
     	}
     	if (trim($field)=="username")
     	{
@@ -96,7 +96,7 @@ function claro_CSV_format_ok($format)
     	}
     } 
     
-    return ($username_found && $password_found && $surname_found && $name_found);
+    return ($username_found && $password_found && $firstname_found && $lastname_found);
 }
  
 /**
@@ -176,8 +176,8 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	   //first, we inverse the 2D array containing the lines of CSV file just parsed 
 	   //because it is much easier and faster to have line numbers of the CSV file as second indice in the array
 	
-	$cols[] = "surname";
-	$cols[] = "name";
+	$cols[] = "firstname";
+	$cols[] = "lastname";
 	$cols[] = "email";
 	$cols[] = "phone";
 	$cols[] = "username";
@@ -246,7 +246,7 @@ function claro_disp_CSV_error_backlog()
     global $langUsernameAppearAlready;
     global $langCodeAppearAlready;
     
-    for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<=$size; $i++)
+    for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
     {
         $line=$i+1;
 
@@ -311,10 +311,6 @@ function check_email_synthax_userlist($userlist)
       	{
 	    	$errors[$i] = TRUE;
         }
-	else
-	{
-	        $errors[$i] = FALSE;
-	}
     }
     return $errors;
 }
@@ -341,11 +337,6 @@ function check_username_used_userlist($userlist)
     
     $errors = array();
     
-    for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
-    {
-        $errors[$i] = FALSE;
-    }
-    
     //CHECK : check if usernames are not already token by someone else
     
     $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
@@ -369,11 +360,8 @@ function check_username_used_userlist($userlist)
 		{
 	    	$errors[$found] = TRUE; 
 		}
-		else
-		{
-	        $errors[$found] = FALSE;
-		}
     }
+
     return $errors;
 }
  
@@ -400,11 +388,6 @@ function check_officialcode_used_userlist($userlist)
     
     $errors = array();
     
-    for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++)
-    {
-        $errors[$i] = FALSE;
-    }
-    
     //CHECK : check if admincode (officialCode) is not already taken by someone else
     $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
     
@@ -428,10 +411,6 @@ function check_officialcode_used_userlist($userlist)
 		if (!($found===FALSE)) 
 		{
 	    	$errors[$found] = TRUE; 
-		}
-		else
-		{
-	        $errors[$found] = FALSE;
 		}
     }   
     return $errors;
@@ -462,10 +441,6 @@ function check_password_userlist($userlist)
 		{
 	    	$errors[$i] = TRUE; 
 		}
-		else
-		{
-	        $errors[$i] = FALSE;
-		}
     }
 	return $errors;
 }   
@@ -493,11 +468,6 @@ function check_mail_used_userlist($userlist)
     
     $errors = array();
     
-    for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
-    {
-        $errors[$i] = FALSE;
-    }
-    
     //create SQL query to search in Claroline DB
     
     $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
@@ -518,10 +488,6 @@ function check_mail_used_userlist($userlist)
 		if (!($found===FALSE)) 
 		{
 		    $errors[$found] = TRUE; 
-		}
-		else
-		{
-	            $errors[$found] = FALSE;
 		}
     }
     
@@ -551,7 +517,7 @@ function check_duplicate_mail_userlist($userlist)
 	$tbl_mdb_names = claro_sql_get_main_tbl();
 	$tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
-    for ($i=0, $size=sizeof($userlist['name']); $i<$size; $i++)
+    for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {       
         //check email duplicata in the array
 
@@ -596,13 +562,9 @@ function check_duplicate_username_userlist($userlist)
         //check username duplicata in the array
 		$found = array_search($userlist['username'][$i],$userlist['username']);
 		if (!($found===FALSE) && ($i!=$found))
-	        {
+	    {
 		    $errors[$i] = TRUE;
-                }
-		else
-	        {
-	            $errors[$i] = FALSE;
-	        }
+        }
     }
 
     return $errors;
@@ -633,16 +595,12 @@ function check_duplicate_officialcode_userlist($userlist)
     {       
         //check username duplicata in the array
     
-	$found = array_search($userlist['username'][$i],$userlist['username']);
+    	$found = array_search($userlist['username'][$i],$userlist['username']);
 	
-	if (!($found===FALSE) && ($i!=$found))
+	    if (!($found===FALSE) && ($i!=$found))
         {
-	    $errors[$i] = TRUE;
+	        $errors[$i] = TRUE;
         }
-	else
-	{
-	    $errors[$i] = FALSE;
-	}
     }
        
     return $errors;
@@ -759,9 +717,7 @@ class CSV
                 foreach($temp AS $field_index=>$field_value)
                 {
                 	// Remove enclose characters
-                    echo $field_value."111";
                     $this->stripENCLOSED($field_value,$enclosed_by);
-                    echo $field_value."222";
                     $data_set[$this->mapping[$field_index]] = $field_value;
 				}
                 if(count($data_set)>0)
