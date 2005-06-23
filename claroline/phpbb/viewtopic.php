@@ -1,10 +1,10 @@
-<?php // $ Id: $
+<?php // $Id$
 /**
  * CLAROLINE
  *
  * Script view topic for forum tool
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL) 
  * @copyright (C) 2001 The phpBB Group
@@ -70,6 +70,7 @@ else                              $start = 0;
 
 $topicSettingList = get_topic_settings($topic_id);
 
+$increaseTopicView = true;
 if ($topicSettingList)
 {
     $topic_subject    = $topicSettingList['topic_title' ];
@@ -117,10 +118,6 @@ if ($topicSettingList)
 		    $increaseTopicView = false; // the notification change command doesn't 
 		                                // have to be considered as a new topic 
 		                                // consult
-		}
-		else
-		{
-		    $increaseTopicView = true;
 		}
 		
 		// Allow user to be have notification for this topic or disable it
@@ -193,8 +190,8 @@ else
 	$postLister->disp_pager_tool_bar($pagerUrl);
 	
 	echo '<table class="claroTable" width="100%">' . "\n"
-	    .' <tr align="left">' . "\n"
-	    .'  <th class="superHeader">';
+	.    ' <tr align="left">' . "\n"
+	.    '  <th class="superHeader">';
 	
 	// display notification link
 	
