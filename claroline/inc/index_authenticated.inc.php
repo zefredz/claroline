@@ -174,7 +174,7 @@ $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
 
 //display list
  
-echo "<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
+echo "<ul style=\"list-style-image:url(claroline/img/course.gif);list-style-position:inside\">\n";
 
 foreach($personnalCourseList as $thisCourse)
 {
@@ -183,20 +183,18 @@ foreach($personnalCourseList as $thisCourse)
     
     if (in_array ($thisCourse['sysCode'], $modified_course)) 
     {
-        $span_open="<span class=\"hotItem\">";
-        $span_close="</span>";
+        $classItem=" hot";
     }
     else // otherwise just display its name normally
     {
-        $span_open="";
-        $span_close="";
+        $classItem="";
     }
        
-    echo "<li>$span_open\n"
+    echo "<li class=\"item".$classItem."\">\n"
         ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
         .$thisCourse['officialCode']." - "
         .$thisCourse['title']
-        ."</a>$span_close"
+        ."</a>"
         ."<br>"
         ."<small>"
         .$thisCourse['titular']

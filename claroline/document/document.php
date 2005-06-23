@@ -1730,7 +1730,7 @@ claro_disp_tool_title($titleElement,
                 {
                     if ($is_allowedToEdit)
                     {
-                        $style=' class="invisible"';
+                        $style='invisible ';
                     }
                     else
                     {
@@ -1748,13 +1748,11 @@ claro_disp_tool_title($titleElement,
 
                                 if (in_array($fileName, $modified_documents))
                                 {
-                                    $span_open='<span class="hotItem">';
-                                    $span_close='</span>';
+                                    $classItem=" hot";
                                 }
                                 else // otherwise just display its name normally
                                 {
-                                    $span_open='';
-                                    $span_close='';
+                                    $classItem="";
                                 }
                                 
                                 
@@ -1783,17 +1781,17 @@ claro_disp_tool_title($titleElement,
                         
                 if( is_image( $fileName ) )
                 {
-                    echo $span_open."<a href=\"". $_SERVER['PHP_SELF'],
+                    echo "<a class=\"".$style." item".$classItem."\" href=\"". $_SERVER['PHP_SELF'],
                         "?docView=image&amp;file=" . urlencode($fileName) . "&cwd="
                         . $curDirPath . $searchCmdUrl ."\"". $style . ">";
                 }
                 else
                 {
-                        echo $span_open."<a href=\"".$urlFileName."\"".$style.">";
+                        echo "<a class=\"".$style." item".$classItem."\" href=\"".$urlFileName."\"".$style.">";
                 } // end if is_image
                 
                 echo "<img src=\"".$imgRepositoryWeb."",
-                        $image,"\" border=\"0\" hspace=\"5\" alt=\"\">".$dspFileName."</a>".$span_close;
+                        $image,"\" border=\"0\" hspace=\"5\" alt=\"\">".$dspFileName."</a>";
                 
                 echo "</td>\n"
                         

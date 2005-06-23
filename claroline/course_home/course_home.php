@@ -127,7 +127,7 @@ foreach($toolList as $thisTool)
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
     {
-        $style = ' class ="invisible" ';
+        $style = 'invisible ';
     }
     else
     {
@@ -138,22 +138,19 @@ foreach($toolList as $thisTool)
 
     if (in_array($thisTool['id'], $modified_tools))
     {
-        $span_open='<span class="hotItem">';
-        $span_close='</span>';
+        $classItem = " hot";
     }
     else // otherwise just display its name normally
     {
-        $span_open='';
-        $span_close='';
+        $classItem = "";
     }
 
     if ( ! empty($url) )
     {
-        echo $span_open . ' <a ' . $style . ' href="' . $url . '">'
+        echo ' <a class="' . $style . ' item'.$classItem.'" href="' . $url . '">'
         .    '<img src="' . $icon . '" hspace="5" alt="">'
         .    $toolName
         .    '</a>'
-        .    $span_close
         .    '<br>' . "\n"
         ;
     }
