@@ -92,6 +92,7 @@ $claro_notifier->addListener( 'update', "work_submission_posted");
 $claro_notifier->addListener( 'update', "work_correction_posted");
 
 $claro_notifier->addListener( 'update', "forum_new_topic");
+$claro_notifier->addListener( 'update', "forum_answer_topic");
 $claro_notifier->addListener( 'update', "introsection_modified");
 $claro_notifier->addListener( 'update', "toollist_changed");
 ?>

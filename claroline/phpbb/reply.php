@@ -127,6 +127,11 @@ elseif ( $topicSettingList )
             $time       = date('Y-m-d H:i');
 
             create_new_post($topic_id, $forum_id, $_uid, $time, $poster_ip, $lastName, $firstName, $message);
+
+            // notify eventmanager that a new message has been posted
+
+            $eventNotifier->notifyCourseEvent("forum_answer_topic",$_cid, $_tid, $topic_id, $_gid, "0");
+
             trig_topic_notification($topic_id); 
         }
         else
