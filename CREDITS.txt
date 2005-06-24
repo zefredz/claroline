@@ -71,12 +71,15 @@ French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-ro
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
 Galician translation:           Maria Jose Rodriges Malmierca
+                                Gerardo Albela Gonzalez (galbela@uvigo.es)
 
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
                                 Markus Petz
+                                Angela Büchler (buechler@gp.tu-berlin.de)
 
 Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                 Yannis Exidaridis (jexi@noc.uoa.gr)
+                                Spiros Ktenas (claroline@claroline.gr, unofficial greek community website : www.claroline.gr)
 
 Hungarian translation :         Janos Foldessy & Peter Fuchs
 
