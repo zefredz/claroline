@@ -22,7 +22,6 @@ $langContradiction = "Emprega-lo principio de non contradicci&oacute;n para leva
 							sen sa&iacute;da.";
 $langCopy = "Copiar";
 $langCourseDescription = "Escriba aqu&iacute; a descrici&oacute;n que aparece na lista de cursos";
-$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCourseTitle = "T&iacute;tulo do curso";
 $langCreate = "crear";
@@ -48,7 +47,6 @@ $langExplanation = "Unha vez que vostede prema <i>validar</i>, crearase unha web
 $langFieldsRequ = "T&oacute;dolos campos son obrigatorios";
 $langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oacute;ns e subcuesti&oacute;ns, a que 
 							reco&ntilde;eza que non sabe o que di saber.";
-$langFormula = "Atentamente, o seu profesor";
 $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
@@ -62,7 +60,9 @@ $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langManager = "Xestor";
 $langManyAnswers = "(varias respostas correctas son posibles)";
+$langMaxSizeCourseCode = "máx. 12 caracteres, p.ex.<em>ROM2121</em>";
 $langMessage = "Cando vostede elimina o foro de exemplo, elimina tam&eacute;n as mensaxes que hai nese foro.";
+$langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
@@ -92,6 +92,7 @@ $langSampleLearnPath = "Exemplo de secuencia de aprendizaxe";
 $langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemplo. Emprega o exercicio de exemplo e o 
 								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b> 
 								para mudar este texto.";
+$langSecondShort = "seg.";
 $langSocraticIrony = "A iron&iacute;a Socr&aacute;tica consiste en...";
 $langStudent = "Estudante";
 $langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";

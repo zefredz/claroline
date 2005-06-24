@@ -4,7 +4,6 @@ $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
 $langAreYouSureToDelete = "Est&aacute; vostede seguro de que desexa eliminar";
-$langBackAndForget = "Descartar e volver";
 $langCancel = "Cancelar";
 $langChat = "Chat";
 $langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
@@ -15,7 +14,6 @@ no marco do curso? Cal &eacute; o nivel de dificultades destes contidos? Como es
 unidade? Cal ser&aacute; a secuencia dos contidos? ";
 $langCourseContentComment2 = "Presentaci&oacute;n do contido do curso, a estructura do contido, a s&uacute;a 
 progresi&oacute;n e o seu calendario";
-$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCourseProgram = "Programa do curso";
 $langDay_of_weekNames = "Array";
@@ -31,7 +29,6 @@ Que outros cursos se consideran prerrequisitos para este? Que relaci&oacute;n te
 $langDescriptionComment2 = "";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocument = "Documentos e Ligaz&oacute;ns";
-$langEditCourseProgram = "Crear e editar con formularios";
 $langExercises = "Exercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
@@ -43,6 +40,7 @@ investigadores, monitores-estudantes...), da dispo&ntilde;ibilidade do persoal, 
 inform&aacute;tico) dispo&ntilde;ible.";
 $langHumanAndPhysicalRessources = "Recursos humanos e materiais";
 $langInfo2Say = "Informaci&oacute;n para os estudantes";
+$langInvisible = "Invisible";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
@@ -52,6 +50,7 @@ $langMethodsOfEvaluationComment1 = "&Eacute; precisa informaci&oacute;n como o x
 (exame escrito, oral, proxectos, traballos a entregar...), datas das probas formativas, datas de entrega 
 dos traballos, cales son os criteiros de avaliaci&oacute;n, o posible peso de cada criterio ou as 
 categor&iacute;as dos criterios.";
+$langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
@@ -71,6 +70,7 @@ $langQualificationsAndGoalsComment2 = "Presentaci&oacute;n dos obxectivos xerais
 curso, das capacidades a adquirir que se te&ntilde;en como obxectivo.";
 $langQuestionPlan = "Pregunta &oacute; profesor";
 $langReg = "Inscrici&oacute;n";
+$langSecondShort = "seg.";
 $langStudent = "Estudante";
 $langSupports = " Soporte ";
 $langSupportsComment1 = "Existe soporte para o curso? Que tipo de soporte terei? Aberto? Pechado?";
@@ -90,8 +90,9 @@ $langTitle = "T&iacute;tulo";
 $langUnableDescToAdd = "Habilitado para engadir descrici&oacute;n";
 $langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
-$langValid = "Validar";
+$langViMod = "Visibilidade modificada";
 $langViewMode = "Ver modo";
+$langVisible = "Visible";
 $langWork = "Traballos";
 $lang_click_here = "prema aqu&iacute;";
 $lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";

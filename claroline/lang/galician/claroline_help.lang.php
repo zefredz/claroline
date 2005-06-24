@@ -2,6 +2,7 @@
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
+$langCancel = "Cancelar";
 $langChat = "Chat";
 $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos. 
 						Os estudantes len (documentos, axenda, informaci&oacute;ns varias) e, outras veces, 
@@ -41,8 +42,8 @@ $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e adminis
 						Nas s&uacute;as pr&oacute;ximas visitas, escriba o nome de usuario e contrasinal e prema en 
 						ENTRAR para acceder &oacute;s seus cursos. A URL do sitio &eacute;";
 $langCloseWindow = "Pechar fiestra";
+$langConfigMenuContent = "Men&uacute; de configuraci&oacute;n";
 $langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
-$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langDay_of_weekNames = "Array";
 $langDelete = "Eliminar";
@@ -329,6 +330,109 @@ $langHFor = "Axuda foros";
 $langHHome = "Axuda p&aacute;xina principal";
 $langHUser = "Axuda usuarios";
 $langHelp = "Axuda";
+$langHelpAssignment = "Axuda para Tarefas";
+$langHelpAssignmentContent = "<p>
+A ferramenta de tarefas &eacute; unha &aacute;rea de publicaci&oacute;n para estudantes. O xestor do curso 
+crea unha ou varias tarefas (diferentes zonas de publicaci&oacute;n) onde os estudantes poden publica-los
+seus traballos.<br/><br/>
+
+Cada tarefa pode ter diferentes obxectivos ou requisitos: o publicado pode ser un arquivo, ou un texto, ou
+un texto e un arquivo, a publicaci&oacute;n pode ser realizada por un grupo ou por un &uacute;nico usuario...<br/><br/>
+
+Os estudantes ter&aacute;n a posibilidade de modifica-lo seu traballo despois do env&iacute;o e o xestor do
+curso poderalles entregar unha correcci&oacute;n despois dos seus env&iacute;os.</p>
+
+<hr />
+
+<h4>Crear unha tarefa</h4>
+<p>Para crear unha nova tarefa, o xestor do curso deber&aacute; de acceder &aacute; ferramenta de tarefas e
+premer na ligaz&oacute;n \"Crear unha nova tarefa\".</p>
+
+<p>O formulario que se amosa requirir&aacute; que o xestor do curso introduza&nbsp;:</p>
+
+<ul>
+	<li> un t&iacute;tulo&nbsp;: o nome da tarefa</li>
+	<li> unha descrici&oacute;n&nbsp;: a presentaci&oacute;n da tarefa, o que os estudantes te&ntilde;en
+	que facer</li>
+	<li> un tipo de env&iacute;o&nbsp;:
+		<ul>
+			<li> Ficheiro&nbsp;: calquera tipo de ficheiro que poida ser cargado, tendo en conta que hai un 
+			tama&ntilde;o l&iacute;mite que depende da plataforma. Pode ser adxuntado un texto para describi-lo
+			ficheiro</li>
+			<li> S&oacute; texto&nbsp;: un texto formatado empregando o editor <em>wysiwyg</em></li>
+			<li> Texto con un arquivo adxunto&nbsp;: un texto formatado empregando o editor <em>wysiwyg</em>
+			e un ficheiro (o ficheiro non &eacute; imprescindible)</li>
+		</ul>
+	</li>
+	<li> unha data de inicio&nbsp;: a data desde a cal os usuarios poder&aacute;n realizar unha publicaci&oacute;n
+	para a tarefa</li>
+	<li> unha data de remate&nbsp;: a data ata a cal os usuarios poder&aacute;n realiza-las publicaci&oacute;ns
+	para a tarefa</li>
+	<li> a visibilidade por defecto das publicaci&oacute;ns&nbsp;: permite escoller se as publicaci&oacute;ns 
+	ser&aacute;n ou non visibles para outros usuarios</li>
+	<li> o tipo de tarefa&nbsp;:
+		<ul>
+			<li> individual&nbsp;: s&oacute; os usuarios autentificados poder&aacute;n realizar publicaci&oacute;ns</li>
+			<li> en grupo&nbsp;: o usuario deber&aacute; de ser membro de, polo menos, un grupo do curso para publicar
+			un traballo e o traballo ser&aacute; enviado no nome do grupo</li>
+		</ul>
+	</li>
+	<li> permiso para publicar depois da data de remate</li>
+</ul>
+
+<p><br/>
+<strong>Engadir unha correcci&oacute;n autom&aacute;tica</strong>
+</p>
+
+<p>P&oacute;dese inclu&iacute;r unha versi&oacute;n correcta da tarefa. Para facelo, entre na ferramenta de tarefas e
+prema na ligaz&oacute;n \"Editar correcci&oacute;n autom&aacute;tica\".</p>
+
+
+<p>Pode ser un texto, ou un ficheiro, ou ambos. O xestor do curso pode escoller cando debe de lle ser enviada &oacute;s 
+usuarios esta correcci&oacute;n autom&aacute;tica (despois da data final de entrega da tarefa ou logo do primeiro
+envio de cada usuario nesta tarefa)</p>
+
+
+<hr />
+<h4>Traballos</h4>
+<p>Os traballos son as publicaci&oacute;ns cargadas polos usuarios.</p>
+<p>Para cada tarefa, a ferramenta amosa unha lista de t&oacute;dolos usuarios rexistrados no curso e para cada usuario, 
+o t&iacute;tulo do primeiro traballo que publicou, o n&uacute;mero de envios e o n&uacute;mero de correccións.
+A lista de publicaci&oacute;ns relaccionadas co usuario e as tarefas poden ser vistas premendo no nome do usuario.</p>
+
+<p><strong>Enviar un traballo</strong></p>
+<p>Se os usuarios te&ntilde;en permisos para enviar traballos, ser&aacute; amosada unha ligaz&oacute;n a un formulario.</p>
+
+<p><strong>Lista de traballos</strong></p>
+<p>Como xestor de curso, vostede ter&aacute; permiso para editar, borrar e facer visibles ou invisibles calquera dos 
+traballos. Poder&aacute; vostede tam&eacute;n engadirlle unha correcci&oacute;n a cada traballo.</p>
+
+<ul>
+	<li> <strong>Modificar</strong>&nbsp;: 
+		Se aparece este icono, quere dicir que o usuario pode modifica-lo contido do traballo. Aparece tam&eacute;n cando 
+		o usuario &eacute; o xestor do curso e cando o usuario est&aacute; a mira-los seus traballos ou os traballos do
+		seu grupo.
+	</li>
+	<li> <strong>Borrar</strong>&nbsp;: 
+		Este comando perm&iacute;telle borrar un traballo &oacute; xestor de curso.
+	</li>
+	<li> <strong>Visible</strong>&nbsp;: 
+		Se aparece este icono, quere dicir que o traballo &eacute; visible para os estudantes. Funciona do mesmo
+		xeito que na ferramenta 'Documentos' de Claroline. Pode vostede mudar a s&uacute;a configuraci&oacute;n 
+		premendo sobre o icono.
+	</li>
+	<li> <strong>Invisible</strong>&nbsp;: 
+		Se aparece este icono, quere dicir que o traballo non &eacute; visible para os estudantes. Funciona do mesmo
+		xeito que na ferramenta 'Documentos' de Claroline. Pode vostede mudar a s&uacute;a configuraci&oacute;n 
+		premendo sobre o icono.
+	</li>
+	<li> <strong>Engadir correcci&oacute;n</strong>&nbsp;: 
+		Permite que o xestor do curso publique unha correcci&oacute;n para o traballo do usuario. A correcci&oacute;n
+		pode ser un ficheiro, un texto ou ambos, cun comentario privado que s&oacute; ser&aacute; visible para o(s)
+		xestor(es) do curso e unha puntuaci&oacute;n en porcentaxe.
+	</li>
+</ul>
+";
 $langHelpGroups = "Axuda grupos";
 $langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en un curto texto, ou 
 						unha ligaz&oacute;n, ou un exemplo dados por defecto. A vostede lle corresp&oacute;nde 
@@ -354,6 +458,7 @@ $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langManager = "Xestor";
+$langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
@@ -366,6 +471,7 @@ $langPassword = "contrasinal";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
 $langReg = "Inscrici&oacute;n";
+$langSecondShort = "seg.";
 $langStudent = "Estudante";
 $langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
 $langTextEditorDisable = "Deshabilitar editor de texto";
