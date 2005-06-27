@@ -673,8 +673,8 @@ if( isset($modifyAnswers) )
 				}
 				elseif( $answerType == TRUEFALSE )
 				{
-					if( $i == 1 ) echo $langTrue;
-					elseif( $i == 2 ) echo $langFalse;
+					if( $i == 1 ) echo $langTrue.'<input type="hidden" name="reponse['.$i.']" value="'.$langTrue.'" />' ;
+					elseif( $i == 2 ) echo $langFalse.'<input type="hidden" name="reponse['.$i.']" value="'.$langFalse.'" />';
 				}
 				else
 				{
