@@ -19,5 +19,4 @@ if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 include( dirname(__FILE__) . '/../inc/lib/rss/write/gencourse_rss.inc.php');
 build_course_feed(true, $_cid);
 
-
 ?>
