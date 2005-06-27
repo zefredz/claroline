@@ -31,7 +31,8 @@ function build_course_feed($forceBuild= false, $_cid=null)
         $coursesRepositoryWeb ,
         $clarolineRepositoryWeb ,
         $administrator_email ,
-        $iso639_1_code ;
+        $iso639_1_code,
+        $charset ;
         
     require_once 'XML/Serializer.php';
     include dirname(__FILE__) . '/../../../conf/rss.conf.php';
@@ -100,8 +101,8 @@ function build_course_feed($forceBuild= false, $_cid=null)
 
 function agenda_get_rss_item_list( $course_id=NULL)
 {
-    GLOBAL $platform_id, $clarolineRepositoryWeb, $_cid, $_course;
-    $eventList        = agenda_get_item_list('ASC', $course_id);
+    GLOBAL $clarolineRepositoryWeb, $_cid, $_course;
+    $eventList    = agenda_get_item_list('ASC', $course_id);
     $toolNameList = claro_get_tool_name_list();
     foreach ($eventList as $eventItem)
     {
@@ -122,7 +123,7 @@ function agenda_get_rss_item_list( $course_id=NULL)
  */
 function announcement_get_rss_item_list( $course_id=NULL)
 {
-    GLOBAL $platform_id, $clarolineRepositoryWeb, $_cid, $_course;
+    GLOBAL $clarolineRepositoryWeb, $_cid, $_course;
     $announcementList = announcement_get_item_list('DESC', $course_id);
     $toolNameList = claro_get_tool_name_list();
     foreach ($announcementList as $announcementItem)
