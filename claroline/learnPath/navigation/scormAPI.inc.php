@@ -457,14 +457,21 @@ $TABLEUSERS              = $tbl_user;
                                       // regexp to check format
                                       // hhhh:mm:ss.ss
                                       var re = /^[0-9]{2,4}:[0-9]{2}:[0-9]{2}(.)?[0-9]?[0-9]?$/;
-                                      // check that minuts and second are 0 <= x < 60
-                                      var splitted_val = val.split(":");
 
-                                      if ( !re.test(val) || splitted_val[1] < 0 || splitted_val[1] >= 60 || splitted_val[2] < 0 || splitted_val[2] >= 60)
+                                      if ( !re.test(val) )
                                       {
                                            APIError("405");
                                            return "false";
                                       }
+
+									  // check that minuts and second are 0 <= x < 60
+                                      var splitted_val = val.split(":");
+                                      if( splitted_val[1] < 0 || splitted_val[1] >= 60 || splitted_val[2] < 0 || splitted_val[2] >= 60 )
+                                      {
+                                           APIError("405");
+                                           return "false";
+									  }
+									  
                                       values[i] = val;
                                       APIError("0");
                                       return "true";
