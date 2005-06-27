@@ -144,10 +144,10 @@ foreach ( $categories as $this_category )
         {
             $forum_name   = htmlspecialchars($this_forum['forum_name']);
             $forum_desc   = htmlspecialchars($this_forum['forum_desc']);
-            $forum_id     = $this_forum['forum_id'    ];
-            $group_id     = $this_forum['group_id'    ];
-            $total_topics = $this_forum['forum_topics'];
-            $total_posts  = $this_forum['forum_posts' ];
+            $forum_id     = (int) $this_forum['forum_id'    ];
+            $group_id     = (int) $this_forum['group_id'    ];
+            $total_topics = (int) $this_forum['forum_topics'];
+            $total_posts  = (int) $this_forum['forum_posts' ];
             $last_post    = $this_forum['post_time'   ];
 
             echo '<tr align="left" valign="top">' . "\n";
@@ -178,7 +178,7 @@ foreach ( $categories as $this_category )
                     || ( isset($is_groupPrivate) && ! $is_groupPrivate)
                    )
                 {
-                    echo '<a href="viewforum.php?gidReq=' . $this_forum['gid']
+                    echo '<a href="viewforum.php?gidReq=' . $group_id
                     .    '&amp;forum=' . $forum_id . '">'
                     .    $forum_name
                     .    '</a>' 
@@ -250,6 +250,6 @@ echo '</table>' . "\n"
 .     '</center>'
 ;
 
-include($includePath.'/claro_init_footer.inc.php');
+include($includePath . '/claro_init_footer.inc.php');
 
 ?>
