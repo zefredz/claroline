@@ -101,6 +101,8 @@ else                                $valueIntitule = '';
 //// Starting script
 
 $displayNotForU = FALSE;
+$displayFileSystemIsReadOnly = FALSE;
+$displayCoursePropertiesForm = FALSE;
 
 if (!$can_create_courses)
 {
@@ -172,6 +174,7 @@ else
 
         if ($okToCreate)
         {
+            
             //function prepare_course_repository($courseRepository, $courseId)
             if (!prepare_course_repository($currentCourseRepository,$currentCourseId))
             {
@@ -179,6 +182,7 @@ else
                 {
                     case 'READ_ONLY_SYSTEM_FILE' :
                     $displayFileSystemIsReadOnly = TRUE;
+                    
                     break;
                     default: $controlMsg['error'][] = 'error directories creation failed';
 
