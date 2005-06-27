@@ -38,7 +38,7 @@ array ('label'         => 'Where place rss files.'
       , 'description'  => 'Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.' 
       ,'default'       => 'cache/rss/'
-      ,'type'          => 'syspath'
+      ,'type'          => 'relpath'
       );
 $conf_def_property_list['use_rss_cache'] =
 array ('label'         => 'Use the cache'
@@ -46,6 +46,7 @@ array ('label'         => 'Use the cache'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       , 'readonly'      => FALSE 
+      , 'acceptedValue' => array('TRUE'=>'Use it, and build  on change', 'FALSE' => 'rebuild file on each request')
       
       );
 
