@@ -250,6 +250,27 @@ else
     } // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
 
+if ($displayCoursePropertiesForm)
+{
+    $lang_list = claro_get_lang_list();
+    if(is_array($lang_list))
+    foreach ($lang_list as $lang_code => $this_lang)
+    {
+        $langLabel = '';
+        if (!empty($this_lang['langNameCurrentLang']) && $this_lang['langNameCurrentLang']!="" && $this_lang['langNameCurrentLang']!=$this_lang['langNameLocaleLang'])
+            $langLabel  .=  $this_lang['langNameCurrentLang'] . ' - ';
+        $langLabel .=  $this_lang['langNameLocaleLang'];
+        
+        $optionLang_list[] = array( 'value' =>$lang_code
+                                  , 'name' => $langLabel);
+        
+    
+                                  
+    }
+    $optionLang_list_html = implode("\n",prepare_option_tags($optionLang_list));
+}
+
+
 if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 {
     $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
@@ -368,29 +389,9 @@ build_editable_cat_table($facu, ' &gt; ');
 <label for="languageCourse"><?php echo $langLanguage ?></label> :
 </td>
 <td>
-<select name="languageCourse" id="languageCourse">";
+<select name="languageCourse" id="languageCourse">
 <?php
-$dirname = '../lang/';
-if($dirname[strlen($dirname)-1]!='/')
-$dirname.='/';
-$handle=opendir($dirname);
-while ($entries = readdir($handle))
-{
-    if ($entries=='.' || $entries=='..' || $entries=='CVS')
-    continue;
-    if (is_dir($dirname . $entries))
-    {
-        echo '<option value="' . $entries . '"';
-        if ($entries == $valueLanguage) echo ' selected ';
-        echo '>';
-        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-        echo $langNameOfLang[$entries] . ' - '
-        .    $entries
-        .    '</option>' . "\n"
-        ;
-    }
-}
-closedir($handle);
+echo $optionLang_list_html;
 ?>
 </select>
 </td>
