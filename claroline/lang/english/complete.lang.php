@@ -2191,4 +2191,5 @@ $langemptycatname = "You must give a name to your new category!";
 $langemptyforumname = "You must give a name to your new forum!";
 $langforumcreated = "The new forum has been created.";
 $langimportLearningPath = "Import a learning path";
+$langLegendRequiredFields = "<span class=\"required\">*</span> denotes required field";
 ?>

@@ -2044,4 +2044,5 @@ $langemptycatname = "Vous devez choisir un nom pour votre nouvelle catégorie !";
 $langemptyforumname = "Vous devez choisir un nom pour votre forum !";
 $langforumcreated = "Nouveau forum créé";
 $langimportLearningPath = "Importer un parcours";
+$langLegendRequiredFields = "Les champs précédés d'une <span class=\"required\">*</span> sont obligatoires.";
 ?>

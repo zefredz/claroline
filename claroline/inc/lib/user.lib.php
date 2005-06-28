@@ -1014,7 +1014,7 @@ function user_display_form($data, $form_type='registration')
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langChangePwdexp,
            $langGroupTutor,$langManager,
            $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin, $langEnter2passToChange, 
-           $ask_for_official_code;
+           $ask_for_official_code, $langLegendRequiredFields;
 
     global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
 
@@ -1220,6 +1220,11 @@ function user_display_form($data, $form_type='registration')
             .' </td>' . "\n"
             . '</tr>';
     }
+    
+    echo '<tr>' . "\n" 
+         . '<td>&nbsp;</td>' . "\n" 
+         . '<td>' . $langLegendRequiredFields . '</td>' . "\n" 
+         . '</tr>' . "\n" ;
 
     echo '</table>' . "\n"
         . '</form>' . "\n";
