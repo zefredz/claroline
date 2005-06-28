@@ -1130,14 +1130,13 @@ function claro_disp_message_box($message)
 
 function claro_disp_button($url, $text, $confirmMessage = '')
 {
-    global $HTTP_USER_AGENT;
 
     if (   claro_is_javascript_enabled()
-        && ! preg_match('~^Mozilla/4\.[1234567]~', $HTTP_USER_AGENT))
+        && ! preg_match('~^Mozilla/4\.[1234567]~', $_SERVER['HTTP_USER_AGENT']))
     {
         if ($confirmMessage != '')
         {
-            $onClickCommand = "if(confirm('".clean_str_for_javascript($confirmMessage)."')){document.location='".$url."';return false}";
+            $onClickCommand = "if(confirm('" . clean_str_for_javascript($confirmMessage) . "')){document.location='" . $url . "';return false}";
         }
         else
         {
@@ -1145,12 +1144,13 @@ function claro_disp_button($url, $text, $confirmMessage = '')
         }
 
         return '<button class="claroButton" onclick="' . $onClickCommand . '">'
-              .$text
-              .'</button>&nbsp;' . "\n";
+        .      $text
+        .      '</button>&nbsp;' . "\n"
+        ;
     }
     else
     {
-        return '<nobr>[ <a  href="'.$url.'">'.$text.'</a> ]</nobr>';
+        return '<nobr>[ <a href="' . $url . '">' . $text . '</a> ]</nobr>';
     }
 }
 
@@ -1750,7 +1750,7 @@ function claro_get_lang_list()
         continue;
         if (is_dir($dirname . $entries))
         {
-            $lang_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
+            if (isset($langNameOfLang[$entries])) $lang_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
             $lang_list[$entries]['langNameLocaleLang']  = $entries;
         }
     }
