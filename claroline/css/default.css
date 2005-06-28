@@ -505,6 +505,12 @@ a:visited.invisible
  font-weight: bold;
 }
 
+/* 'required' is used to set the color of the asterisk displayed before the required form field
+*/
+.required {
+ color: red;
+}
+
 /* 'hotItem' is used when something needs to be notified as new on the platform since the last login
     to the user
 */
