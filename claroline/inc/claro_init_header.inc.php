@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 
 /*----------------------------------------
               HEADERS SECTION
@@ -7,15 +7,14 @@
 /*
  * HTTP HEADER
  */
-
-header('Content-Type: text/html; charset='. $charset);
+if (isset($charset)) header('Content-Type: text/html; charset='. $charset);
 
 if (!empty($httpHeadXtra) && is_array($httpHeadXtra) )
 {
-	foreach($httpHeadXtra as $thisHttpHead)
-	{
-		header($thisHttpHead);
-	}
+    foreach($httpHeadXtra as $thisHttpHead)
+    {
+        header($thisHttpHead);
+    }
 }
 
 /*
@@ -28,16 +27,16 @@ if (!empty($httpHeadXtra) && is_array($httpHeadXtra) )
 <head>
 <?php
 
-$titlePage = "";
+$titlePage = '';
 
 if(!empty($nameTools))
 {
-	$titlePage .= $nameTools.' - ';
+    $titlePage .= $nameTools . ' - ';
 }
 
 if(!empty($_course['officialCode']))
 {
-	$titlePage .= $_course['officialCode'].' - ';
+    $titlePage .= $_course['officialCode'] . ' - ';
 }
 
 $titlePage .= $siteName; 
@@ -66,10 +65,10 @@ $titlePage .= $siteName;
 <?php
 if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 {
-	foreach($htmlHeadXtra as $thisHtmlHead)
-	{
-		echo($thisHtmlHead);
-	}
+    foreach($htmlHeadXtra as $thisHtmlHead)
+    {
+        echo($thisHtmlHead);
+    }
 }
 ?>
 </head>
@@ -79,9 +78,9 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 //add onload javascript function calls to body
 if( isset($claroBodyOnload) && is_array($claroBodyOnload) && count($claroBodyOnload) > 0 )
 {
-	$onload = " onload=\"";
-	$onload .= implode('', $claroBodyOnload );
-	$onload .= "\"";
+    $onload = ' onload="';
+    $onload .= implode('', $claroBodyOnload );
+    $onload .= '"';
 } 
 else
 {
@@ -99,8 +98,10 @@ if (!isset($hide_banner) || $hide_banner == false)
 
 if (!isset($hide_body) || $hide_body == false)
 {
-	// need body div
-	echo "\n\n\n<!-- - - - - - - - - - - Claroline Body - - - - - - - - - - - -->\n"
-        ."<div id=\"claroBody\">\n\n";
+    // need body div
+    echo "\n\n\n" 
+    .    '<!-- - - - - - - - - - - Claroline Body - - - - - - - - - -->' . "\n"
+    .    '<div id="claroBody">' . "\n\n"
+    ;
 }
 ?>
