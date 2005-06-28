@@ -31,20 +31,18 @@
     define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
      
     /**
-    * Class description
+    * Wiki2xhtml rendering engine
     *
-    * @access public
+    * @see wiki2xhtml
     */
     class Wiki2xhtmlRenderer extends wiki2xhtml
     {
         var /*% Wiki*/ $wiki;
          
         /**
-        * Constructor
-        *
-        * @access public
-        * @param Wiki wiki
-        */
+         * Constructor
+         * @param Wiki wiki
+         */
         function Wiki2xhtmlRenderer( &$wiki )
         {
             wiki2xhtml::wiki2xhtml();
@@ -71,12 +69,12 @@
         }
          
         /**
-        * Parse WikiWords and create hypertext reference to wiki page
-        *
-        * @access private
-        * @see class.wiki2xhtml.php
-        * @return (string) hypertext reference to wiki page
-        */
+         * Parse WikiWords and create hypertext reference to wiki page
+         *
+         * @access private
+         * @see class.wiki2xhtml.php
+         * @return string hypertext reference to wiki page
+         */
         function parseWikiWord( $str, $tag, $attr, $type )
         {
             $tag = 'a';
@@ -104,10 +102,10 @@
         }
          
         /**
-        * Parse links in pages
-        *
-        * @see class.wiki2xhtml.php#__parseLink($str, &$tag, &$attr, &$type)
-        */
+         * Parse links in pages
+         *
+         * @see class.wiki2xhtml.php#__parseLink($str, &$tag, &$attr, &$type)
+         */
         function __parseLink($str, &$tag, &$attr, &$type )
         {
             $n_str = $this->__inlineWalk($str, array('acronym', 'img' ) );
@@ -205,12 +203,24 @@
                 return $content;
             }
         }
-         
+
+        /**
+         * Render the given string using the wiki2xhtml renderer
+         * @param string txt wiki syntax string
+         * @return string xhtml-rendered string
+         */
         function render( $txt )
         {
             return $this->transform($txt );
         }
-         
+
+        /**
+         * Parse page names in URLS and create hypertext reference to wiki page
+         *
+         * @access private
+         * @param string pageName name of the page
+         * @return string hypertext reference to wiki page
+         */
         function _getWikiPageLink( $pageName )
         {
             // allow links to use wikiwords for wiki page locations
