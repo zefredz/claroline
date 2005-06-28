@@ -252,22 +252,33 @@ else
 
 if ($displayCoursePropertiesForm)
 {
-    $lang_list = claro_get_lang_list();
-    if(is_array($lang_list))
-    foreach ($lang_list as $lang_code => $this_lang)
+    $language_array = claro_get_lang_list();
+    if(is_array($language_array))
+    foreach ($language_array as $languageCode => $this_language)
     {
-        $langLabel = '';
-        if (!empty($this_lang['langNameCurrentLang']) && $this_lang['langNameCurrentLang']!="" && $this_lang['langNameCurrentLang']!=$this_lang['langNameLocaleLang'])
-            $langLabel  .=  $this_lang['langNameCurrentLang'] . ' - ';
-        $langLabel .=  $this_lang['langNameLocaleLang'];
+        $languageLabel = '';
+        if (   !empty($this_language['langNameCurrentLang']) 
+            && $this_language['langNameCurrentLang'] != '' 
+            && $this_language['langNameCurrentLang'] != $this_language['langNameLocaleLang'])
+            $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
+        $languageLabel .=  $this_language['langNameLocaleLang'];
         
-        $optionLang_list[] = array( 'value' =>$lang_code
-                                  , 'name' => $langLabel);
-        
-    
-                                  
+        $language_list[$languageCode] = $languageLabel;
     }
-    $optionLang_list_html = implode("\n",prepare_option_tags($optionLang_list));
+    
+    // the foreach above build the  array of selectable  items
+    // the foreach following convert the array of selectable  items in  option list
+    
+    $optionLang_list_html ='';
+    foreach($language_list as $languageCode => $languageLabel)
+    {
+        $optionLang_list_html .= '<option value="' . $languageCode . '"'
+        .                        ($languageCode ==  $valueLanguage ?' selected="selected" ':'') . '>'
+        .                        htmlspecialchars($languageLabel) 
+        .                        '</option>'
+        ;
+    }
+     
 }
 
 
@@ -275,6 +286,7 @@ if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 {
     $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 }
+
 include $includePath.'/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
