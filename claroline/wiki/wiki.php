@@ -318,20 +318,18 @@
     
     // Breadcrumps
     
-    // $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> "Wiki");
-    
     switch( $action )
     {
         case "show":
         {
-            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> "Wiki");
+            $interbredcrump[]= array ( "url"=>"wiki.php", 'name'=> $langWiki );
             $nameTools = $wikiTitle;
             $noPHP_SELF = true;
             break;
         }
         case "rqEdit":
         {
-            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> "Wiki");
+            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
             $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=".$wikiId
                 , 'name'=> $wikiTitle);
             $nameTools = 'Properties';
@@ -340,10 +338,10 @@
         }
         case "rqDelete":
         {
-            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> "Wiki");
+            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
             $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=".$wikiId
                 , 'name'=> $wikiTitle);
-            $nameTools = 'Delete';
+            $nameTools = $langDelete;
             $noPHP_SELF = true;
             break;
         }
@@ -465,8 +463,8 @@
                 
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
-                . '<input type="submit" name="action[exDelete]" value="Continue" />' . "\n"
-                . claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel')
+                . '<input type="submit" name="action[exDelete]" value="' . $langContinue . '" />' . "\n"
+                . claro_disp_button ($_SERVER['PHP_SELF'], $langCancel )
                 . '</div>'
                 ;
 
@@ -493,9 +491,9 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th style="width: 55%">Title</th>' . "\n"
-                    . '<th style="width: 15%">Edit</th>' . "\n"
-                    . '<th style="width: 15%">Delete</th>' . "\n"
+                    . '<th style="width: 55%">'.$langTitle.'</th>' . "\n"
+                    . '<th style="width: 15%">'.$langEdit.'</th>' . "\n"
+                    . '<th style="width: 15%">'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -505,7 +503,7 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th style="width: 100%">Title</th>' . "\n"
+                    . '<th style="width: 100%">'.$langTitle.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;

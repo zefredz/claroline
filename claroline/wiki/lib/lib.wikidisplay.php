@@ -31,7 +31,7 @@
         , $content, $script = null, $showWikiToolBar = true
         , $forcePreview = true )
     {
-        global $langWikiPreview, $langWikiCancel, $langWikiSave, $langWikiMainPage;
+        global $langPreview, $langCancel, $langSave, $langWikiMainPage;
         
         // create script
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
@@ -73,20 +73,20 @@
             ;
         
         $out .= '<input type="submit" name="action[preview]" value="'
-            .$langWikiPreview.'" />' . "\n"
+            .$langPreview.'" />' . "\n"
             ;
         
         if( ! $forcePreview )
         {
             $out .= '<input type="submit" name="action[save]" value="'
-                .$langWikiSave.'" />' . "\n"
+                .$langSave.'" />' . "\n"
                 ;
         }
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $script, "action", "show" );
 
-        $out .= claro_disp_button ( $location, $langWikiCancel );
+        $out .= claro_disp_button ( $location, $langCancel );
         
         $out .= '</div>' . "\n";
 
@@ -133,7 +133,8 @@
 
     function claro_disp_wiki_preview( &$wikiRenderer, $title, $content = '' )
     {
-        global $langWikiContentEmpty,$langWikiPreviewTitle,$langWikiPreviewWarning,$langWikiMainPage;
+        global $langWikiContentEmpty,$langWikiPreviewTitle
+            ,$langWikiPreviewWarning,$langWikiMainPage;
 
         $out = "<div id=\"preview\" class=\"wikiTitle\">\n";
         
@@ -168,7 +169,7 @@
 
     function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = null )
     {
-        global $langWikiSave,$langWikiEdit,$langWikiCancel;
+        global $langSave,$langEdit,$langCancel;
 
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
         
@@ -192,16 +193,16 @@
             ;
         
         $out .= '<input type="submit" name="action[save]" value="'
-            . $langWikiSave.'" />' . "\n"
+            . $langSave.'" />' . "\n"
             ;
         $out .= '<input type="submit" name="action[edit]" value="'
-            . $langWikiEdit . '"/>' . "\n"
+            . $langEdit . '"/>' . "\n"
             ;
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $script, "action", "show" );
         
-        $out .= claro_disp_button ( $location, $langWikiCancel );
+        $out .= claro_disp_button ( $location, $langCancel );
         
         $out .= "</form>\n";
         
