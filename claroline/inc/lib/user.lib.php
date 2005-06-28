@@ -1013,10 +1013,10 @@ function user_display_form($data, $form_type='registration')
            $langRegStudent, $langRegAdmin, $langUserid, 
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langChangePwdexp,
            $langGroupTutor,$langManager,
-           $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin,
+           $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin, $langEnter2passToChange, 
            $ask_for_official_code;
 
-    global $allowSelfRegProf;
+    global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
 
     // display registration form
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
@@ -1041,13 +1041,13 @@ function user_display_form($data, $form_type='registration')
 
     // lastname
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="lastname">' . $langLastname . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="lastname">' . required_field($langLastname) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" name="lastname" id="lastname" value="' . htmlspecialchars($data['lastname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
 
     // firstname
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="firstname">' . $langFirstname . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="firstname">' . required_field($langFirstname) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="firstname" name="firstname" value="' . htmlspecialchars($data['firstname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n" ;
 
@@ -1055,7 +1055,7 @@ function user_display_form($data, $form_type='registration')
     if ( isset($ask_for_official_code) && $ask_for_official_code == TRUE )
     {
         echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . $langOfficialCode . '&nbsp;:</label></td>'  . "\n"
+            . '  <td align="right"><label for="officialCode">' . ($userOfficialCodeCanBeEmpty?$langOfficialCode:required_field($langOfficialCode)) . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }
@@ -1096,10 +1096,14 @@ function user_display_form($data, $form_type='registration')
             . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n" 
             . '</tr>' . "\n" ;
     }
+    else
+    {
+        $langPassword = required_field($langPassword);
+    }
 
     // username
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="username">' . $langUserName . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="username">' . required_field($langUserName) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
 
@@ -1123,7 +1127,7 @@ function user_display_form($data, $form_type='registration')
 
     // email
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="email">' . $langEmail . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="email">' . ($userMailCanBeEmpty?$langEmail:required_field($langEmail)) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
         . ' </tr>' . "\n"
 
@@ -1220,6 +1224,11 @@ function user_display_form($data, $form_type='registration')
     echo '</table>' . "\n"
         . '</form>' . "\n";
 
+}
+
+function required_field($field)
+{
+    return '<span class="required">*</span>&nbsp;' . $field;
 }
 
 ?>
