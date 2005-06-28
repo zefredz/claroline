@@ -208,7 +208,7 @@ function makeTheBackup($exportedCourseId, $verboseBackup="FALSE", $ignore="", $f
         
 $archiveRepositorySys, $archiveRepositoryWeb,         // from configs files
 $appendCourse, $appendMainDb,                        //
-$archiveName, $mainDbName, $HTTP_SESSION_VARS,
+$archiveName, $mainDbName, 
 $clarolineRepositorySys,$_course,$coursesRepositorySys,
 $TABLEUSER, $TABLECOURSUSER, $TABLECOURS, $TABLEANNOUNCEMENT,
 $langArchiveName, 
@@ -385,7 +385,7 @@ build config file
       +----------------------------------------------------------------------+
       CLAROLINE version ".$clarolineVersion." 
       +----------------------------------------------------------------------+
-      This file was generate by script $PHP_SELF
+      This file was generate by script " . $_SERVER['PHP_SELF'] . "
       ".date("r")."                  |
       +----------------------------------------------------------------------+
       |   This program is free software; you can redistribute it and/or      |
@@ -777,8 +777,8 @@ INSERT INTO users SET ";
 
 function setValueIfNotInSession($varname,$value)
 {
-    GLOBAL $$varname,$HTTP_SESSION_VARS;
-    if (!isset($HTTP_SESSION_VARS["$varname"]))
+    GLOBAL $$varname,$_SESSION;
+    if (!isset($_SESSION["$varname"]))
     {
         $$varname = $value;
         session_register("$varname");
