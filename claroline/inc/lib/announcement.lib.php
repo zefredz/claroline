@@ -44,8 +44,7 @@ function announcement_get_item_list($order='DESC', $course_id=NULL)
     $sql = "SELECT id, title, contenu content, temps `time`, visibility, ordre rank
             FROM `" . $tbl_announcement . "`
             ORDER BY ordre " . ($order == 'DESC' ? 'DESC' : 'ASC');
-    
-     return claro_sql_query_fetch_all($sql);
+    return claro_sql_query_fetch_all($sql);
 }
 
 /**
@@ -174,20 +173,20 @@ function announcement_get_item($announcement_id, $course_id=NULL)
     $sql = "SELECT id, title, contenu content, visibility, ordre rank
             FROM  `" . $tbl_announcement . "`
             WHERE id='" . (int) $announcement_id . "'";
-    
-    $announcement =  claro_sql_query_fetch_all($sql);
-    return  $announcement[0];
+    $announcement = claro_sql_query_fetch_all($sql);
+
+    if (isset($announcement[0])) return $announcement[0];
+    else                         return claro_failure::set_failure('ANNOUNCEMENT_UNKNOW');
 }
 
 function announcement_set_item_visibility($announcement_id, $visibility, $course_id=NULL) 
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
-
+    if (!in_array($visibility, array ('HIDE','SHOW'))) return claro_failure::set_failure('ANNOUNCEMENT_VISIBILITY_UNKNOW');
     $sql = "UPDATE `" . $tbl_announcement . "`
             SET   visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "'
                   WHERE id =  '" . (int) $announcement_id . "'";
-
     return  claro_sql_query($sql);
 }
 
