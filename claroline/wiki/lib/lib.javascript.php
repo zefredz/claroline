@@ -23,11 +23,17 @@
      * @package Wiki
      */
 
+    /**
+     * returns the current document web path
+     */
     function document_web_path()
     {
         return "http://" . $_SERVER['HTTP_HOST'] . dirname( $_SERVER['SCRIPT_NAME'] );
     }
-    
+
+    /**
+     * returns the current document system path
+     */
     function document_sys_path()
     {
         return realpath( str_replace( '\\', '/', $_SERVER['DOCUMENT_ROOT'] ) . dirname( $_SERVER['SCRIPT_NAME'] ) );
