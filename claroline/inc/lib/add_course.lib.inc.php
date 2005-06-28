@@ -881,7 +881,7 @@ claro_sql_query ("
             `id` int(11) unsigned NOT NULL auto_increment,
             `wiki_id` int(11) unsigned NOT NULL default '0',
             `owner_id` int(11) unsigned NOT NULL default '0',
-            `title` varchar(255) character set latin1 collate latin1_bin NOT NULL default '',
+            `title` varchar(255) NOT NULL default '',
             `ctime` timestamp NOT NULL default '0000-00-00 00:00:00',
             `last_version` int(11) unsigned NOT NULL default '0',
             `last_mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
