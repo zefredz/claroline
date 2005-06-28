@@ -17,18 +17,18 @@ ob_start();
 
 if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
 {
-	echo ' / ';
-	if ($_course['extLink']['url'] != '')
-	{
-		echo '<a href="'.$_course['extLink']['url'].'" target="_top">';
-	}
+    echo ' / ';
+    if ($_course['extLink']['url'] != '')
+    {
+        echo '<a href="' . $_course['extLink']['url'] . '" target="_top">';
+    }
 
-	echo $_course['extLink']['name'];
-	
-	if ($_course['extLink']['url'] != '')
-	{
-	        echo '</a>'                                     ."\n";
-	}
+    echo $_course['extLink']['name'];
+    
+    if ($_course['extLink']['url'] != '')
+    {
+            echo '</a>'                                     ."\n";
+    }
 }
 ?>
 </span>
@@ -49,7 +49,7 @@ if($_uid)
 ?>
 
 <div id="userBanner">
-<span id="userName"><?php echo $_user ['firstName'].' '.$_user ['lastName'] ?> : </span>
+<span id="userName"><?php echo $_user ['firstName'] . ' ' . $_user ['lastName'] ?> : </span>
 <a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a> | 
 <a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a> | 
 <?php 
@@ -83,8 +83,8 @@ if (isset($_cid))
 
 
 <div id="course">
-<h2 id="courseName"><a href="<?php echo $coursesRepositoryWeb.$_course['path'] ?>/index.php" target="_top"><?php echo $_course['name'] ?></a></h2>
-<span id="courseCode"><?php echo $_course['officialCode']," - ", $_course['titular'] ?></span>
+<h2 id="courseName"><a href="<?php echo $coursesRepositoryWeb . $_course['path'] ?>/index.php" target="_top"><?php echo $_course['name'] ?></a></h2>
+<span id="courseCode"><?php echo $_course['officialCode'] . ' - ' . $_course['titular']; ?></span>
 </div>
 
 <div id="courseToolList">
@@ -99,18 +99,18 @@ if (isset($_cid))
  */
 if (is_array($_courseToolList))
 {
-	$toolNameList = claro_get_tool_name_list();
-	
-	foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
-	{
-	    if (is_null($_courseToolDatas['name']))
-	        $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
-	
-	    // now recheck to be sure the value is really filled before going further
-	    if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
-	        $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
-	
-	}
+    $toolNameList = claro_get_tool_name_list();
+    
+    foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
+    {
+        if (is_null($_courseToolDatas['name']))
+            $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
+    
+        // now recheck to be sure the value is really filled before going further
+        if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
+            $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
+    
+    }
 
 ?>
 
@@ -120,7 +120,7 @@ if (is_array($_courseToolList))
 <select name="url" size="1" 
         onchange="top.location=redirector.url.options[selectedIndex].value" >
 
-<option value="<?php echo $coursesRepositoryWeb.$_course['path'] ?>/index.php">
+<option value="<?php echo $coursesRepositoryWeb . $_course['path'] ?>/index.php">
 <?php echo $langCourseHome; ?>
 </option>
 <?php 
@@ -129,9 +129,10 @@ if (is_array($_courseToolList))
         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
             echo '<option value="'.$_courseToolData['url'].'" '
-                .( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '').'>'
-                .$_courseToolData['name']
-                .'</option>'."\n";
+            .    ( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '') . '>'
+            .    $_courseToolData['name']
+            .    '</option>'."\n"
+            ;
         }
     } // end if is_array _courseToolList
 ?>
@@ -149,7 +150,7 @@ if (is_array($_courseToolList))
 
 
 <?php
-	}
+    }
 } // end if _cid
 ?>
 
@@ -166,20 +167,21 @@ if (is_array($_courseToolList))
 <?php
 if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
-    echo '<hr />'                                           ."\n"
-
-        .'<div id="breadcrumbTrail">'                       ."\n"
-        .'<a href="'.$rootWeb.'index.php" target="_top">'
-        .'<img src="'.$imgRepositoryWeb.'home.gif" alt="">'
-        .$siteName
-        .'</a>'                                             ."\n";
+    echo '<hr />' . "\n"
+    .    '<div id="breadcrumbTrail">' . "\n"
+    .    '<a href="' . $rootWeb . 'index.php" target="_top">'
+    .    '<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
+    .    $siteName
+    .    '</a>' . "\n"
+    ;
 
     if ( isset($_cid) )
     {
         echo '&gt;&nbsp;'
-            .'<a href="'.$coursesRepositoryWeb.$_course['path'].'/index.php" target="_top">'
-            .((isset($course_homepage) && $course_homepage == true) ? '<b>'.$_course['officialCode'].'</b>' : $_course['officialCode'])
-            .'</a>'."\n";
+        .    '<a href="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" target="_top">'
+        .    ((isset($course_homepage) && $course_homepage == true) ? '<b>' . $_course['officialCode'].'</b>' : $_course['officialCode'])
+        .    '</a>' . "\n"
+        ;
     }
 
     if (isset($interbredcrump) && is_array($interbredcrump) )
@@ -187,9 +189,10 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
         while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
         {
             echo '&gt;&nbsp;'
-                .'<a href="',$bredcrumpStep['url'].'" target="_top">'
-                .$bredcrumpStep['name']
-                .'</a>'                                     ."\n";
+            .    '<a href="' . $bredcrumpStep['url'] . '" target="_top">'
+            .    $bredcrumpStep['name']
+            .    '</a>' . "\n"
+            ;
         }
     }
 
@@ -197,46 +200,50 @@ if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($in
     {
         if (isset($noPHP_SELF) && $noPHP_SELF)
         {
-            echo '&gt;&nbsp;<b>'.$nameTools.'</b>'          ."\n";
+            echo '&gt;&nbsp;<b>' . $nameTools . '</b>' . "\n";
         }
         elseif (isset($noQUERY_STRING) && $noQUERY_STRING)
         {
+            
             echo '&gt;&nbsp;'
-                .'<a href="'.$_SERVER['PHP_SELF'].'" target="_top">'
-                .'<b>'.$nameTools.'</b>'
-                .'</a>'                                     ."\n";
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '" target="_top">'
+            .    '<b>' . $nameTools . '</b>'
+            .    '</a>' . "\n"
+            ;
         }
         else
         {
             
             // set Query string to empty if not exists
-            if (!isset($QUERY_STRING)) $QUERY_STRING = ""; 
+            if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = ''; 
 
             echo '&gt;&nbsp;'
-                .'<a href="'.$_SERVER['PHP_SELF'].'?'.$QUERY_STRING.'" target="_top">'
-                .'<b>'.$nameTools.'</b>'
-                .'</a>'                                     ."\n";
+            .    '<a href="' . $_SERVER['PHP_SELF'] 
+            .     '?' . $_SERVER['QUERY_STRING'] . '" target="_top">'
+            .    '<b>' . $nameTools . '</b>'
+            .    '</a>'."\n"
+            ;
         }
     }
-	echo '</div>'                                           ."\n";
+    echo '</div>'                                           ."\n";
 
     if ( claro_is_display_mode_available() )
     {
-  	    echo '<div id="toolViewOption">'                    ."\n";
+          echo '<div id="toolViewOption">'                    ."\n";
 
-    	if ( isset($_REQUEST['viewMode']) )
-	    {
-    		claro_disp_tool_view_option($_REQUEST['viewMode']);
-	    }
-    	else
-	    {
-    		claro_disp_tool_view_option();
-    	}
-	    echo "\n".'</div>'                                       ."\n";
+        if ( isset($_REQUEST['viewMode']) )
+        {
+            claro_disp_tool_view_option($_REQUEST['viewMode']);
+        }
+        else
+        {
+            claro_disp_tool_view_option();
+        }
+        echo "\n".'</div>'                                       ."\n";
     }
 
     echo '<div class="spacer"></div>'                       ."\n"
-        .'<hr />'                                           ."\n";
+    .    '<hr />'                                           ."\n";
 
 } // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
 else
