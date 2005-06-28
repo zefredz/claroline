@@ -25,6 +25,7 @@
     $tlabelReq = 'CLWIKI__';
 
     require_once "../inc/claro_init_global.inc.php";
+    require_once $includePath . "/conf/CLWIKI.conf.php";
     
     // check and set user access level for the tool
     
@@ -501,9 +502,9 @@
             {
                 $script = $_SERVER['PHP_SELF'];
                 // TODO move to config
-                $showWikiEditorToolbar = true;
+                // $showWikiEditorToolbar = true;
                 // TODO move to config
-                $forcePreviewBeforeSaving = true;
+                // $forcePreviewBeforeSaving = true;
 
                 echo claro_disp_wiki_editor( $wikiId, $title, $content, $script
                     , $showWikiEditorToolbar, $forcePreviewBeforeSaving );
