@@ -177,7 +177,7 @@
         {
             if ( ! $wikiStore->wikiIdExists( $wikiId ) )
             {
-                die ( "Invalid wiki Id" );
+                die ( $langWikiInvalidWikiId );
             }
             else
             {
@@ -196,7 +196,7 @@
             }
             else
             {
-                die( "Invalid Wiki Id" );
+                die( $langWikiInvalidWikiId );
             }
 
             if ( $groupId == 0 )
@@ -208,7 +208,7 @@
                 $wikiList = $wikiStore->getWikiListByGroup( $groupId );
             }
 
-            $message = 'Wiki deleted successfully';
+            $message = $langWikiDeletionSucceed;
 
             $action = 'list';
 
@@ -225,7 +225,7 @@
             }
             else
             {
-                die( "Invalid Wiki Id" );
+                die( $langWikiInvalidWikiId );
             }
             break;
         }
@@ -248,7 +248,7 @@
             }
             else
             {
-                die( "Invalid Wiki Id" );
+                die( $langWikiInvalidWikiId );
             }
             break;
         }
@@ -268,7 +268,7 @@
                 $wikiPage->create( $creatorId, '__MainPage__'
                     , $langWikiMainPageContent, date( "Y-m-d H:i:s" ), true );
             
-                $message = "Wiki creation succeed";
+                $message = $langWikiCreationSucceed;
             }
             elseif ( $wikiStore->wikiIdExists( $wikiId ) )
             {
@@ -279,11 +279,11 @@
                 $wiki->setGroupId( $groupId );
                 $wikiId = $wiki->save();
             
-                $message = "Wiki edition succeed";
+                $message = $langWikiEditionSucceed;
             }
             else
             {
-                die( "Invalid Wiki Id" );
+                die( $langWikiInvalidWikiId );
             }
             
             $action = 'list';
@@ -373,11 +373,11 @@
             
             if ( $wikiId == 0 )
             {
-                $toolTitle['mainTitle'] = 'Wiki : New';
+                $toolTitle['mainTitle'] = $langWikiTitleNew;
             }
             else
             {
-                $toolTitle['mainTitle'] = 'Wiki : Edit';
+                $toolTitle['mainTitle'] = $langWikiTitleEdit;
             }
 
             echo claro_disp_tool_title( $toolTitle, false );
@@ -395,7 +395,7 @@
             // tool title
             
             $toolTitle = array();
-            $toolTitle['mainTitle'] = 'Wiki : ' . $wikiTitle;
+            $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wikiTitle);
 
             echo claro_disp_tool_title( $toolTitle, false );
             
@@ -403,7 +403,7 @@
 
             echo '<a href="page.php?wikiId='
                 . $wikiId
-                . '" class="claroCmd">Enter wiki</a>'
+                . '" class="claroCmd">'.$langWikiEnterWiki.'</a>'
                 . "\n"
                 ;
 
@@ -416,7 +416,7 @@
                     . '&amp;action=rqEdit'
                     . '" class="claroCmd">'
                     . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
-                    . 'Edit properties</a>'
+                    . $langWikiEditProperties . '</a>'
                     . "\n"
                     ;
 
@@ -426,7 +426,7 @@
                     . '&amp;action=rqDelete'
                     . '" class="claroCmd">'
                     . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="edit" />'
-                    . 'Delete Wiki</a>'
+                    . $langWikiDeleteWiki . '</a>'
                     . "\n"
                     ;
             }
@@ -444,7 +444,7 @@
         {
             // list wiki
             $toolTitle = array();
-            $toolTitle['mainTitle'] = 'Delete Wiki';
+            $toolTitle['mainTitle'] = $langWikiDeleteWiki;
 
             echo claro_disp_tool_title( $toolTitle, false ) . "\n";
             
@@ -454,12 +454,7 @@
                 . "\n"
                 ;
                 
-            echo '<p>'
-                . 'WARNING : you are going to delete this wiki and all its pages. '
-                . 'Are you sure to want to continue ?'
-                . '</p>'
-                . "\n"
-                ;
+            echo $langWikiDeleteWikiWarning;
                 
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"

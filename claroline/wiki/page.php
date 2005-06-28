@@ -327,7 +327,7 @@
     $htmlHeadXtra[] = "<script type=\"text/javascript\">"
         . "\nvar sLangWikiShowHelp = '".$langWikiShowHelp . "'"
         . "\nvar sLangWikiHideHelp = '".$langWikiHideHelp . "'"
-        . "\nvar sLangWikiExampleWarning = '".$langWikiViewExampleWarning . "'"
+        . "\nvar sLangWikiExampleWarning = '".$langWikiExampleWarning . "'"
         . "\nvar sLangWikiFullDemoText = '".get_demo_text() . "'"
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
         . "\n</script>\n"
