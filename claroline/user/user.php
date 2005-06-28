@@ -36,10 +36,10 @@ claro_set_display_mode_available(true);
    Include Library
   ----------------------------------------------------------------------*/
 
-include($includePath.'/lib/admin.lib.inc.php');
-include($includePath."/lib/pager.lib.php");
-include($includePath.'/lib/events.lib.inc.php');
-@include($includePath.'/lib/debug.lib.inc.php');
+include($includePath  . '/lib/admin.lib.inc.php');
+include($includePath  . '/lib/pager.lib.php');
+include($includePath  . '/lib/events.lib.inc.php');
+@include($includePath . '/lib/debug.lib.inc.php');
 
 /*----------------------------------------------------------------------
   Stats
@@ -56,7 +56,7 @@ $htmlHeadXtra[] =
 <script type="text/javascript" language="JavaScript" >
 function confirmation (name)
 {
-    if (confirm(" '.clean_str_for_javascript($langAreYouSureToDelete).' "+ name + " ?"))
+    if (confirm(" ' . clean_str_for_javascript($langAreYouSureToDelete) . ' "+ name + " ?"))
         {return true;}
     else
         {return false;}
@@ -163,7 +163,7 @@ $sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`,
 
 if ( !isset($_REQUEST['offset']) )
 {
-    $offset = "0";
+    $offset = '0';
 }
 else
 {
@@ -207,7 +207,7 @@ $nameTools = $langUsers;
 
 // Display header
 
-include($includePath.'/claro_init_header.inc.php');
+include($includePath . '/claro_init_header.inc.php');
 
 echo claro_disp_tool_title($nameTools.' ('.$langUserNumber.' : '.$userTotalNb.')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
@@ -223,7 +223,7 @@ if ( !empty($dialogBox) )
 
 if ( $disp_tool_link )
 {
-    echo "<p>";
+    echo '<p>';
     if ($can_add_user)
     { 
        //add a user link
@@ -243,7 +243,7 @@ if ( $disp_tool_link )
     ?>
     <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a> |
 
-    <a class="claroCmd" href="<?php echo $PHP_SELF; ?>?cmd=unregister&user_id=allStudent"
+    <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=unregister&amp;user_id=allStudent"
        onClick="return confirmation('<?php echo clean_str_for_javascript(' all students '); ?>')">
     <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif">
     Unregister all students
@@ -263,10 +263,10 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
   ----------------------------------------------------------------------*/
 
 echo '<table class="claroTable emphaseLine" '
-   . 'width="100%" cellpadding="2" cellspacing="1" '
-   . 'border="0" summary="'.$langListCourseUsers.'">'."\n"
-   . '<colgroup span="3" align="left"></colgroup>'."\n"
-   ;
+.    ' width="100%" cellpadding="2" cellspacing="1" '
+.    ' border="0" summary="' . $langListCourseUsers . '">' . "\n"
+.    '<colgroup span="3" align="left"></colgroup>' . "\n"
+;
 
     if($is_allowedToEdit)
     {
