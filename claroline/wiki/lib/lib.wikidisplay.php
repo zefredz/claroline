@@ -250,7 +250,7 @@
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
             . '<legend>'.$langWikiDescriptionForm.'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
-            . '<p style="font-style: italic;">' . $langWikiDescriptionText . '</p>' . "\n"
+            . '<p style="font-style: italic;">' . $langWikiDescriptionFormText . '</p>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
             . '<!-- groupId = 0 if course wiki, != 0 if group_wiki  -->' . "\n"
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
