@@ -158,10 +158,8 @@ class Textarea
 
 function use_rich_text()
 {
-    global $HTTP_USER_AGENT;
-
-    if (strstr ($HTTP_USER_AGENT,"MSIE 6.0")) return true;
-    else                                      return false;
+    if (strstr ($_SERVER['HTTP_USER_AGENT'], 'MSIE 6.0')) return true;
+    else                                                 return false;
 }
 
 ?>
