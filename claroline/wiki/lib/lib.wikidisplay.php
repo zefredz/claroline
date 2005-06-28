@@ -214,11 +214,12 @@
         , $script = null )
     {
         global $langWikiDescriptionForm, $langWikiDescriptionFormText,  $langWikiTitle
-            , $langWikiDescription, $langWikiAccessControl
-            , $langWikiAccessControlText, $langWikiCourseMembers, $langWikiGroupMembers
-            , $langWikiOtherUsers, $langWikiOtherUsersText, $langWikiReadPrivilege
-            , $langWikiEditPrivilege, $langWikiCreatePrivilege, $langCancel
-            , $langSave, $langWikiDefaultTitle, $langWikiDefaultDescription;
+            , $langWikiDescription, $langWikiAccessControl, $langWikiAccessControlText
+            , $langWikiCourseMembers, $langWikiGroupMembers, $langWikiOtherUsers
+            , $langWikiOtherUsersText, $langWikiReadPrivilege, $langWikiEditPrivilege
+            , $langWikiCreatePrivilege, $langCancel, $langSave, $langWikiDefaultTitle
+            , $langWikiDefaultDescription
+            ;
         
         $title = ( $title != '' ) ? $title : $langWikiDefaultTitle;
         
