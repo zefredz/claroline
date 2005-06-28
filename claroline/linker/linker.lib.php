@@ -9,16 +9,16 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
  * @author claroline Team <cvs@claroline.net>
- * @author Renaud Fallier <captren@gmail.com>
+ * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
  *
  * @package CLLINKER
  *
  */
-	
-	//include the file of config 
-	require_once dirname(__FILE__) . "/../inc/conf/linker.conf.php";
-	require_once dirname(__FILE__) . "/../inc/lib/course_utils.lib.php";
+    
+    //include the file of config 
+    require_once dirname(__FILE__) . "/../inc/conf/linker.conf.php";
+    require_once dirname(__FILE__) . "/../inc/lib/course_utils.lib.php";
 
     /**
     * Class ClaroObject
@@ -120,9 +120,8 @@
     * Class ClaroContainer
     *
     * extend the ClaroObject class 
-    * @package LINKER
+    * @package CLLINKER
     *
-    * @author Fallier Renaud
     */  
     class ClaroContainer extends ClaroObject 
     {
@@ -334,10 +333,10 @@
         $baseServUrl = $rootWeb;
         $course_sys_code = $_course["sysCode"];
         $tool_name = $_courseTool["label"];
-		
+        
         $res = new Resolver($baseServUrl);
         $resource_id = $res->getResourceId($tool_name);
-		
+        
         if ( isset( $_gid ) )
         {
             $group = $_gid;
@@ -356,138 +355,137 @@
     
     /**
     * These functions are common to the
-	* linker jpspan and popup.   
+    * linker jpspan and popup.   
     *
-    * @author Fallier Renaud
     **/
     
-	
+    
    /**
     * initialize the variables of session
     *
-    */	
-	function linker_init_session(  )
-	{
-		$_SESSION['AttachmentList'] = array();
-    	$_SESSION['servAdd'] = array();
-    	$_SESSION['servDel'] = array();
-	}
-	
+    */    
+    function linker_init_session(  )
+    {
+        $_SESSION['AttachmentList'] = array();
+        $_SESSION['servAdd'] = array();
+        $_SESSION['servDel'] = array();
+    }
+    
    /**
     * record the crl in the data base and erases the variables of sessions
     *
     * @return string an error message if the operation did not proceed suitably or
-    * 		a empty string if all it passed well 
-    */	
-	function linker_update()
-	{
-		$crlSource = getSourceCrl();
-		$message = linker_update_attachament_list( $crlSource , $_SESSION['servAdd'] , $_SESSION['servDel'] );
-		
-		if( isset($_SESSION['servAdd'] ) )
-		{
-			$_SESSION['servAdd'] = array();
-		}
-		if( isset($_SESSION['servDel']) )
-		{
-			$_SESSION['servDel'] = array();
-		}
-		if( isset($_SESSION['AttachmentList']) )
-		{
-			$_SESSION['AttachmentList'] = array();
-		}
-		
-		return $message;	
-	}
+    *         a empty string if all it passed well 
+    */    
+    function linker_update()
+    {
+        $crlSource = getSourceCrl();
+        $message = linker_update_attachament_list( $crlSource , $_SESSION['servAdd'] , $_SESSION['servDel'] );
+        
+        if( isset($_SESSION['servAdd'] ) )
+        {
+            $_SESSION['servAdd'] = array();
+        }
+        if( isset($_SESSION['servDel']) )
+        {
+            $_SESSION['servDel'] = array();
+        }
+        if( isset($_SESSION['AttachmentList']) )
+        {
+            $_SESSION['AttachmentList'] = array();
+        }
+        
+        return $message;    
+    }
 
    /**
     * display the list of the resources which are related to a resource 
     *
     * @global $rootWeb
-    */	
-	function linker_display_resource()
-	{
-		global $rootWeb;
-		
-		$crlSource = getSourceCrl();
-		$linkList = linker_get_link_list($crlSource);
-		$baseServUrl = $rootWeb;
-			
-		if ( is_array($linkList) && count($linkList) > 0 )
-		{
-			//style=\"margin-top:1em;\"
-			echo "<hr>\n";
-			echo "<div  style=\"margin-bottom:2em;\">\n"; 
-			
-			foreach ( $linkList as $link )
-			{
-				$res = new Resolver($baseServUrl);
-       			$url = $res->resolve($link["crl"]);
-        		$name = $link["title"];
-        		
-        		echo "<a href=\"".htmlspecialchars($url)."\">".htmlspecialchars($name)."</a><br>\n";
-			}
-			echo "</div>\n";
-		}
-	}
-	
-	/**
+    */    
+    function linker_display_resource()
+    {
+        global $rootWeb;
+        
+        $crlSource = getSourceCrl();
+        $linkList = linker_get_link_list($crlSource);
+        $baseServUrl = $rootWeb;
+            
+        if ( is_array($linkList) && count($linkList) > 0 )
+        {
+            //style=\"margin-top:1em;\"
+            echo "<hr>\n";
+            echo "<div  style=\"margin-bottom:2em;\">\n"; 
+            
+            foreach ( $linkList as $link )
+            {
+                $res = new Resolver($baseServUrl);
+                   $url = $res->resolve($link["crl"]);
+                $name = $link["title"];
+                
+                echo "<a href=\"".htmlspecialchars($url)."\">".htmlspecialchars($name)."</a><br>\n";
+            }
+            echo "</div>\n";
+        }
+    }
+    
+    /**
     *  
     *
     * @global $rootWeb
-    */	
-	function linker_email_resource()
-	{
-		global $rootWeb;
-		
-		$crlSource = getSourceCrl();
-		$linkList = linker_get_link_list($crlSource);
-		$baseServUrl = $rootWeb;
-		
-		$attachement = "";
-		//$handle = fopen("/home/renaud/public_html/mail.txt", "a+");
-			
-		if ( is_array($linkList) && count($linkList) > 0 )
-		{
-			$attachement .= "\nAttachements : \n";
-			
-			foreach ( $linkList as $link )
-			{
-				$res = new Resolver($baseServUrl);
-       			$url = $res->resolve($link["crl"]);
-        		$name = $link["title"];
-        		
-        		$attachement .= " < ".$name." > ".$url."\n";
-			}
-		}
-		
-		//fwrite($handle, $attachement);
-		//fclose($handle);
-		
-		return $attachement;
-	}
-	
+    */    
+    function linker_email_resource()
+    {
+        global $rootWeb;
+        
+        $crlSource = getSourceCrl();
+        $linkList = linker_get_link_list($crlSource);
+        $baseServUrl = $rootWeb;
+        
+        $attachement = "";
+        //$handle = fopen("/home/renaud/public_html/mail.txt", "a+");
+            
+        if ( is_array($linkList) && count($linkList) > 0 )
+        {
+            $attachement .= "\nAttachements : \n";
+            
+            foreach ( $linkList as $link )
+            {
+                $res = new Resolver($baseServUrl);
+                   $url = $res->resolve($link["crl"]);
+                $name = $link["title"];
+                
+                $attachement .= " < ".$name." > ".$url."\n";
+            }
+        }
+        
+        //fwrite($handle, $attachement);
+        //fclose($handle);
+        
+        return $attachement;
+    }
+    
    /**
    * return the index of a tool
    *
    * @param $label the TLabel of a tool
    * @return  integer if the tlabel is found in the list of a tool or false
    */
-	function get_tool_index($label)
+    function get_tool_index($label)
     {
-   		global $_courseToolList;
+           global $_courseToolList;
 
-   		$indexTool = 0;
-   		foreach($_courseToolList as $toolTbl)
-   		{
-   			if($toolTbl["label"] == $label)
-   			{
-   				return $indexTool;
-   			}
-   			$indexTool++;
-   		}
+           $indexTool = 0;
+           foreach($_courseToolList as $toolTbl)
+           {
+               if($toolTbl["label"] == $label)
+               {
+                   return $indexTool;
+               }
+               $indexTool++;
+           }
 
-   		return FALSE;
+           return FALSE;
     }
 
    /**
@@ -523,32 +521,32 @@
     * @return string (string) the title of a tool
     * @global $_courseToolList
     */
-	function get_toolname_title($elementCRLArray)
-	{
-		global $_courseToolList;
+    function get_toolname_title($elementCRLArray)
+    {
+        global $_courseToolList;
 
-		$toolIndex = false;
-		if( isset($elementCRLArray["tool_name"]) )
-		{
-			$toolIndex = get_tool_index($elementCRLArray["tool_name"]);
-		}
-
-		$title  = get_course_title($elementCRLArray["course_sys_code"]);
-
-		if( isset($elementCRLArray["tool_name"]) && $elementCRLArray["tool_name"] == "CLEXT___")
+        $toolIndex = false;
+        if( isset($elementCRLArray["tool_name"]) )
         {
-        	$title .= " > ".$elementCRLArray["resource_id"];
+            $toolIndex = get_tool_index($elementCRLArray["tool_name"]);
+        }
+
+        $title  = get_course_title($elementCRLArray["course_sys_code"]);
+
+        if( isset($elementCRLArray["tool_name"]) && $elementCRLArray["tool_name"] == "CLEXT___")
+        {
+            $title .= " > ".$elementCRLArray["resource_id"];
         }
         else if( $toolIndex !== FALSE && $elementCRLArray["tool_name"] )
-		{
-			if( isset ($elementCRLArray["team"]) )
-			{
-				require_once('CLGRP___Resolver.php');
-				$resolver = new CLGRP___Resolver("");
+        {
+            if( isset ($elementCRLArray["team"]) )
+            {
+                require_once('CLGRP___Resolver.php');
+                $resolver = new CLGRP___Resolver("");
                 $crl = CRLTool::createCRL($elementCRLArray['platform_id'],$elementCRLArray['course_sys_code'],'','',$elementCRLArray['team']);
                      
                 $title = $resolver->getResourceName($crl); 
-			}
+            }
 
             $name =  get_tool_name($elementCRLArray['course_sys_code'],$elementCRLArray["tool_name"]);
            // $name = $_courseToolList[$toolIndex]["name"];
@@ -556,16 +554,16 @@
         }
 
         return $title;
-	}
-	
-	/**
+    }
+    
+    /**
     * return the complete Web address
     *
     * @return a string 
-    */	
-	function path()
+    */    
+    function path()
     {
-    	return 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) 
-    		. "/../linker";
+        return 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) 
+            . "/../linker";
     }
 ?>
