@@ -213,9 +213,16 @@
         , $title ='', $desc = '', $groupId = 0, $acl = null
         , $script = null )
     {
-        $title = ( $title != '' ) ? $title : 'new wiki';
+        global $langWikiDescriptionForm, $langWikiDescriptionFormText,  $langWikiTitle
+            , $langWikiDescription, $langWikiAccessControl
+            , $langWikiAccessControlText, $langWikiCourseMembers, $langWikiGroupMembers
+            , $langWikiOtherUsers, $langWikiOtherUsersText, $langWikiReadPrivilege
+            , $langWikiEditPrivilege, $langWikiCreatePrivilege, $langCancel
+            , $langSave, $langWikiDefaultTitle, $langWikiDefaultDescription;
         
-        $desc = ( $desc != '' ) ? $desc : 'Enter the description of your wiki here';
+        $title = ( $title != '' ) ? $title : $langWikiDefaultTitle;
+        
+        $desc = ( $desc != '' ) ? $desc : $langWikiDefaultDescription;
         
         if ( is_null ( $acl ) && $groupId == 0 )
         {
@@ -241,33 +248,33 @@
         
         $form = '<form method="POST" id="wikiProperties" action="'.$script.'">' . "\n"
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
-            . '<legend>Wiki description</legend>' . "\n"
+            . '<legend>'.$langWikiDescriptionForm.'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
-            . '<p style="font-style: italic;">You can choose a title an a description for the wiki : </p>' . "\n"
+            . '<p style="font-style: italic;">' . $langWikiDescriptionText . '</p>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
             . '<!-- groupId = 0 if course wiki, != 0 if group_wiki  -->' . "\n"
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
             . '<div style="padding: 5px">' . "\n"
-            . '<label for="wikiTitle">Title of the wiki : </label><br />' . "\n"
+            . '<label for="wikiTitle">' . $langWikiTitle . '</label><br />' . "\n"
             . '<input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.$title.'" />' . "\n"
             . '</div>' . "\n"
             . '<div style="padding: 5px">' . "\n"
-            . '<label for="wikiDesc">Description of the Wiki : </label><br />' . "\n"
+            . '<label for="wikiDesc">'.$langWikiDescription.'</label><br />' . "\n"
             . '<textarea id="wikiDesc" name="desc" cols="80" rows="10">'.$desc.'</textarea>' . "\n"
             . '</div>' . "\n"
             . '</fieldset>' . "\n"
             . '<fieldset id="acl" style="padding: 10px;margin: 10px;">' . "\n"
-            . '<legend>Access control management</legend>' . "\n"
-            . '<p style="font-style: italic;">You can set access rights for users using the following grid : </p>' . "\n"
+            . '<legend>' . $langWikiAccessControl . '</legend>' . "\n"
+            . '<p style="font-style: italic;">'.$langWikiAccessControlText.'</p>' . "\n"
             . '<table style="text-align: center; padding: 5px;" id="wikiACL">' . "\n"
             . '<tr class="matrixAbs">' . "\n"
             . '<td><!-- empty --></td>' . "\n"
-            . '<td>Read Pages</td>' . "\n"
-            . '<td>Edit Pages</td>' . "\n"
-            . '<td>Create Pages</td>' . "\n"
+            . '<td>'.$langWikiReadPrivilege.'</td>' . "\n"
+            . '<td>'.$langWikiEditPrivilege.'</td>' . "\n"
+            . '<td>'.$langWikiCreatePrivilege.'</td>' . "\n"
             . '</tr>' . "\n"
             . '<tr>' . "\n"
-            . '<td class="matrixOrd">Course members</td>' . "\n"
+            . '<td class="matrixOrd">'.$langWikiCourseMembers.'Course members</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'read\');" id="course_read" name="acl[course_read]"'.$course_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'edit\');" id="course_edit" name="acl[course_edit]"'.$course_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'create\');" id="course_create" name="acl[course_create]"'.$course_create_checked.' /></td>' . "\n"
@@ -278,7 +285,7 @@
         {
             $form .= '<!-- group acl row hidden if groupId == 0, set all to false -->' . "\n"
                 . '<tr>' . "\n"
-                . '<td class="matrixOrd">Group members</td>' . "\n"
+                . '<td class="matrixOrd">'.$langWikiGroupMembers.'</td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'read\');" id="group_read" name="acl[group_read]"'.$group_read_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'edit\');" id="group_edit" name="acl[group_edit]"'.$group_edit_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'create\');" id="group_create" name="acl[group_create]"'.$group_create_checked.' /></td>' . "\n"
@@ -287,13 +294,13 @@
         }
         
         $form .= '<tr>' . "\n"
-            . '<td class="matrixOrd">Others (*)</td>' . "\n"
+            . '<td class="matrixOrd">'.$langWikiOtherUsers.'</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'read\');" id="other_read" name="acl[other_read]"'.$other_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'edit\');" id="other_edit" name="acl[other_edit]"'.$other_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'create\');" id="other_create" name="acl[other_create]"'.$other_create_checked.' /></td>' . "\n"
             . '</tr>' . "\n"
             . '</table>' . "\n"
-            . '<p style="font-style: italic;">(*) anonymous users, users who are not members of this course...</p>' . "\n"
+            . '<p style="font-style: italic;">'.$langWikiOtherUsersText.'</p>' . "\n"
             . '</fieldset>' . "\n"
             ;
         
@@ -304,8 +311,8 @@
             $form .= '<input type="hidden" name="gidReq" value="' . $groupId  . '" />' . "\n";
         }
         
-        $form .= '<input type="submit" name="action[exEdit]" value="Ok" />' . "\n"
-            . claro_disp_button ($_SERVER['PHP_SELF'] . '?action=list', 'Cancel') . "\n"
+        $form .= '<input type="submit" name="action[exEdit]" value="' . $langSave . '" />' . "\n"
+            . claro_disp_button ($_SERVER['PHP_SELF'] . '?action=list', $langCancel ) . "\n"
             ;
             
         $form .= '</div>' . "\n"
