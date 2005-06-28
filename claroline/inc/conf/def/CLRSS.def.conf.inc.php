@@ -21,7 +21,7 @@
 $conf_def['config_code']  = 'CLRSS';
 $conf_def['config_file']  = 'rss.conf.php';
 $conf_def['config_name']  = 'Rss (read and write) tool';
-$conf_def['config_class'] ='kernel';
+$conf_def['config_class'] = 'kernel';
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';

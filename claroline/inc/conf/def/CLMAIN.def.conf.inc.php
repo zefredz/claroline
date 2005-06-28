@@ -3,7 +3,7 @@
  * CLAROLINE
  * This file describe the parameter for Claroline main config file
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
