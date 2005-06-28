@@ -9,7 +9,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
  * @author claroline Team <cvs@claroline.net>
- * @author Renaud Fallier <captren@gmail.com>
+ * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
  *
  * @package CLLINKER
@@ -23,7 +23,7 @@
     * @package CLFRM
     * @subpackage CLLINKER 
     *
-    * @author Fallier Renaud
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
     */
     class CLFRM___Resolver extends Resolver 
     {

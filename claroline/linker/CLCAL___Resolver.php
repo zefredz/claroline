@@ -9,208 +9,252 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
  * @author claroline Team <cvs@claroline.net>
- * @author Renaud Fallier <captren@gmail.com>
+ * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
  *
  * @package CLLINKER
  *
  */
-    require_once dirname(__FILE__) . '/resolver.lib.php';
-    require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
-
-    /**
-    * Class Agenda/calendar CRL Resolver 
-    *
-    * @package CLCAL 
-    * @subpackage CLLINKER 
-    *
-    * @author Fallier Renaud
-    */
-    class CLCAL___Resolver extends Resolver 
+    //-----------------------------------------------------------------------------------
+    // include for JPSPAN 
+    //-----------------------------------------------------------------------------------
+    
+    require_once ("../inc/claro_init_global.inc.php");
+     
+    if ( !defined('JPSPAN') )
     {
-        /*-------------------------
-                 variable
-         ------------------------*/
-        var $_basePath;
+        define('JPSPAN', '../inc/lib/JPSpan/JPSpan/' );
+    }
+     
+    define ('JPSPAN_ERROR_DEBUG', TRUE);
+     
+    require_once ('../inc/lib/JPSpan/JPSpan.php');
+    require_once JPSPAN.'Server/PostOffice.php';
+    
+    //-----------------------------------------------------------------------------------
 
-        /*----------------------------
-                public method
-        ---------------------------*/
-
-        /**
-        * Constructor
+    require_once ("CRLTool.php");
+    require_once ("navigator.lib.php");
+    require_once ("resolver.lib.php");
+    require_once ("linker_sql.lib.php");
+    
+   /**
+    * Class NavigatorJSP
+    *    
+    *
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
+    **/
+    class NavigatorJPSPAN
+    {
+       /**
+        * get the resource for a crl
         *
-        * @param  $basePath string path root directory of courses 
-        */
-        function CLCAL___Resolver($basePath)
+        * @param string $crl a crl
+        * @return array a array with the resource
+        * @global $coursesRepositorySys
+        * @global $rootWeb
+        **/ 
+        function getResource($crl = false)
         {
-            $basePath = preg_replace( '~/$~', "", $basePath );
-            $this->_basePath = $basePath; 
-        }
-
-        /**
-        * translated a crl into valid URL for the forum tool
-        *
-        * @param  $CRL string a crl
-        * @return string a url valide who corresponds to the crl
-        * @throws E_USER_ERROR if tool_name is empty
-        * @throws E_USER_ERROR if it isn't for tool calendar
-        * @throws E_USER_ERROR if the crl is empty     
-        */
-        function resolve($crl)
-        {
-           if($crl)
-           {
-               if(CRLTool::isForThisTool($crl,'CLCAL___'))
-               {    
-                   $elementCRLArray = CRLTool::parseCRL($crl);
-                   $url = $this->_basePath . "/claroline/calendar/";
-                   $url .= "agenda.php?cidReq={$elementCRLArray['course_sys_code']}";
-                   
-                   if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
-                   {
-                       $url .= "#event{$elementCRLArray['resource_id']}";   
-                        
-                       return $url;    
-                   }
-                   else
-                   {
-                       trigger_error('ERROR: tool_name required',E_USER_ERROR);
-                   }
-               }
-               else
-               {
-                   trigger_error("ERROR: isn't for calendar tool",E_USER_ERROR);
-               }
-           }
-           else
-           {
-               trigger_error("ERROR: crl is required",E_USER_ERROR);
-           }     
-        }
-
-        /**
-        * get the resource identifier of an event 
-        *
-        * @global $insert_id  integer of an identifier of event. This east creates after the insertion of the dB 
-        * @global $thisAnnouncement integer of an identifier of event when the announcement are posted 
-        * @param  $tool_name the Tlabel of a tool 
-        * @return string who contains the resouce id
-        * @throws  E_USER_ERROR if tool_name is empty
-        */
-        function getResourceId($tool_name)
-        {
-            global $insert_id;
-            global $thisEvent;
-              
-            if( isset( $tool_name ) )
-            { 
-               if( isset( $thisEvent['id'] ) )
-               {
-                       $resource_id = $thisEvent['id'];
-               }
-                   
-               else if( $insert_id != FALSE ) 
-               {
-                       $resource_id = $insert_id;
-               }
-               
-               else if( isset($_REQUEST['id']) )
-               {
-                       $resource_id = $_REQUEST['id'];            
-               } 
-               else
-               {    
-                       return FALSE;
-               }
+            global $coursesRepositorySys;
+            global $rootWeb;
              
-               return $resource_id;    
-            } 
-            else
-            {
-                trigger_error("Error: missing tool name ",E_USER_ERROR);
+            if($crl)
+            {    
+                $crl = urldecode($crl);
             }
+             
+            $baseServDir = $coursesRepositorySys;
+            $baseServUrl = $rootWeb;
+             
+            $nav = new Navigator($baseServDir, $crl);
+            $tab = $nav->getArrayRessource();
+             
+            return $tab;
+        }
+       
+       /**
+        * get navigator toolbar
+        *
+        * @param string $crl a crl
+        * @return array a array with the navigator toolbar
+        **/   
+        function getToolBar($crl = false)
+        {            
+            if($crl)
+            {    
+                $crl = urldecode($crl);
+            }
+            
+            $tab = array();
+             
+            $tab["title"]["name"] = htmlentities($this->_getCourseTitle($crl));
+            $tab["parent"] = $this->_getParent($crl);
+             
+            return $tab;
+        }
+        
+       /**
+        * get the list of the other courses of the teacher
+        *
+        * @param string $crl a crl
+        * @return array a array with the resource of the other courses of the teacher
+        * @global $coursesRepositorySys        
+        * @global $platform_id
+        * @global $_course
+        **/  
+        function getOtherCourse()
+        {
+            global $coursesRepositorySys;
+            global $platform_id;
+            global $_course;
+             
+            $baseServDir = $coursesRepositorySys;
+             
+            $crl = CRLTool::createCRL($platform_id, $_course['sysCode']);
+            $nav = new Navigator($baseServDir, $crl);
+            $tab = $nav->getOtherCoursesArray();
+             
+            return $tab;
         }
 
+        /**
+        * get the list of the other courses of the teacher
+        *
+        * @param string $crl a crl
+        * @return array a array with the resource of the other courses of the teacher
+        * @global $coursesRepositorySys        
+        * @global $platform_id
+        * @global $_course
+        **/  
+        function getPublicCourses()
+        {
+            global $coursesRepositorySys;
+            global $platform_id;
+            global $_course;
+             
+            $baseServDir = $coursesRepositorySys;
+             
+            $crl = CRLTool::createCRL($platform_id, $_course['sysCode']);
+            $nav = new Navigator($baseServDir, $crl);
+            $tab = $nav->getPublicCoursesArray();
+             
+            return $tab;
+        }
+       /**
+        * give the parent of a crl
+        *
+        * @param string $crl a crl
+        * @return array a array with the crl and the name of the button
+        * @global $coursesRepositorySys
+        **/   
+        function _getParent($crl = false)
+        {
+            global $coursesRepositorySys;  
+            $tab = array();
+             
+            if ($crl)
+            {
+                $baseServDir = $coursesRepositorySys;
+                 
+                $nav = new Navigator($baseServDir, $crl);
+                 
+                $tab["crl"] = $nav->getParent();
+            }
+             
+            return $tab;
+        }
+        
+       /**
+        * get the title of a course
+        *
+        * @param string $crl a crl
+        * @return string the title of a course
+        * @global $coursesRepositorySys        
+        * @global $platform_id
+        * @global $_course
+        **/   
+        function _getCourseTitle($crl = false)
+        {
+            global $coursesRepositorySys;
+            global $platform_id;
+            global $_course;
+             
+            $baseServDir = $coursesRepositorySys;
+             
+            $nav = new Navigator($baseServDir, $crl);
+            $courseTitle = $nav->getCourseTitle();
+             
+            return $courseTitle;
+        }
         
         /**
-        * the name of the resource which will be posted
+        * register array with the crl that one must add and delete in session
         *
-        * @param $crl a string who cotains the crl
-        * @return string who contains the name of the resource
-        */
-        function getResourceName($crl)
+        * @param array $servAdd array with the crl that one must add
+        * @param array $servDel array with the crl that one must delete
+        **/   
+        function registerAttachementList( $servAdd , $servDel )
         {
-            if(CRLTool::isForThisTool($crl,'CLCAL___'))
-            {    
-                $elementCRLArray = CRLTool::parseCRL($crl);
-                $title = "";
-                
-                if( isset($elementCRLArray['resource_id']) )
-                {
-                    $title  = get_toolname_title( $elementCRLArray );
-                    $title .= " > ".$this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']);    
-                }
-
-                return $title;
-            }
-            else
-            {
-                trigger_error("Error: missing resource id for calendar",E_USER_ERROR);    
-            }                      
-        }
-
-        /**
-        * $FIXME use same field name for title in DB tables
-        *
-        * @param  $course_sys_code identifies a course in data base
-        * @param  $id integer who identifies the event
-        * @return the title of a annoncement
-        */
-        function _getInfo( $course_sys_code , $id )
-        {
-            $courseInfoArray = get_info_course($course_sys_code); 
-            $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
-            $tbl_agenda = $tbl_cdb_names['calendar_event'];
-
-            $sql = 'SELECT `titre`,`day`,`contenu` FROM `'.$tbl_agenda.'` WHERE `id`='.$id;
-            $agendaInfo = claro_sql_query_fetch_all($sql);
+            $_SESSION['servAdd'] = array();
+            $_SESSION['servDel'] = array();
             
-            return $agendaInfo;
-        }   
-
-        /**
-        *
-        * @param  $course_sys_code identifies a course in data base
-        * @param  $id integer who identifies the event
-        * @return the title of a annoncement
-        */ 
-        function getTitle( $course_sys_code , $id )
-        {           
-            global $langLinkerUntitled;
-            $agendaInfo = $this->_getInfo( $course_sys_code , $id );
-
-            $content = trim( stripslashes(strip_tags($agendaInfo[0]["contenu"])));     
-                
-            if( strlen($agendaInfo[0]["titre"]) > 0)
-            {
-                $titreEvent = stripslashes($agendaInfo[0]["titre"]);
-                $title = cutstring( $titreEvent, 15 , FALSE ) ." {". $agendaInfo[0]["day"]."}";  
+            if( is_array($servAdd) && count($servAdd) != 0 )
+            { 
+                $_SESSION['servAdd'] = array_map("urldecode",$servAdd);    
             }
-            else if( !empty($content) )
-            {    
-                $titreEvent = $content;
-                $title = cutstring( $titreEvent, 15 , FALSE , 3) ." {". $agendaInfo[0]["day"]."}";      
-            }
-            else 
+            
+            if( is_array($servDel) && count($servDel) != 0 ) 
             {
-                  /*------------------------------
-                   *   todo : no name of event   -
-                   *-----------------------------*/
-                   $title = $langLinkerUntitled." {" . $agendaInfo[0]["day"]."}";      
+                   $_SESSION['servDel'] = array_map("urldecode",$servDel);
                }
-               
-               return $title; 
+
+               return true;
         }
+        
+       /**
+        * give crl which are stored in dB
+        *
+        * @param string $crl a crl
+        * @return array  a array witch the crl and title of the crl
+        * @global $baseServUrl
+        * @global $rootWeb
+        **/ 
+        function getResourceDB($crl)
+        {    
+            global $baseServUrl,$rootWeb;
+            
+            $baseServUrl = $rootWeb;
+               $crlListe = linker_get_link_list($crl);
+               $resourceListe = array();
+               
+               foreach($crlListe as $crlElement)
+               {
+                   $infoResource = array();
+                
+                $infoResource["crl"] = urlencode($crlElement["crl"]); 
+                $infoResource["title"] = htmlentities($crlElement["title"]); 
+                
+                $resourceListe[] = $infoResource;                  
+            }
+            
+            return $resourceListe;
+        }
+    }
+
+    $jpspan = & new JPSpan_Server_PostOffice();
+    $jpspan->addHandler(new NavigatorJPSPAN());
+    
+    //-----------------------------------------------------------------------------------
+     
+    if (isset($_SERVER['QUERY_STRING']) && strcasecmp($_SERVER['QUERY_STRING'], 'client') == 0)
+    {
+        //define('JPSPAN_INCLUDE_COMPRESS',true);
+        $jpspan->displayClient();
+    }
+    else
+    {
+        require_once JPSPAN . 'ErrorHandler.php';
+        $jpspan->serve();  
     }
 ?>

@@ -1,15 +1,20 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author claroline Team <cvs@claroline.net>
+ * @author Renaud Fallier <renaud.claroline@gmail.com>
+ * @author Frédéric Minne <minne@ipm.ucl.ac.be>
+ *
+ * @package CLLINKER
+ *
+ */
 
     require_once (dirname(__FILE__) . '/navigator.lib.php');
     require_once (dirname(__FILE__) . '/CLANN___Resolver.php');
@@ -20,7 +25,7 @@
     * @package CLANN 
     * @subpackage CLLINKER 
     *
-    * @author Fallier Renaud
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
     */
     class CLANN___Navigator extends Navigator  
     {
@@ -51,7 +56,7 @@
         * @return ClaroContainer who contains the objects current node
         * @throws E_USER_ERROR if the node is not intended for the tool forum
         * @throws E_USER_ERROR if the node is empty
-        * @global rootWeb
+        * @global path rootWeb
         */
         function getResource($node = null)
         {
