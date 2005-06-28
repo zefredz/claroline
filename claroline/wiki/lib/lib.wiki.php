@@ -28,7 +28,11 @@
     {
         $file = file( dirname(__FILE__) . '/wiki2xhtml/texte-demo.txt' );
 
-        return str_replace( "\n", "", implode( '\n', array_map( 'addslashes', $file ) ));
+        $text = str_replace( "\r\n", "", implode( '\n', array_map( 'addslashes', $file ) ));
+        $text = str_replace( "\n", "", $text );
+        $text = str_replace( "\r", "", $text );
+
+        return $text;
     }
     
     // ------------ ClaroWiki Diff functions ---------
