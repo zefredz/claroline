@@ -73,7 +73,7 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 switch ( $cmd )
 {
     case 'sub' : //execute subscription command...
-        
+        $done =false;
         if ( !is_registered_to($user_id, $cidToEdit) )
         {
             $done = add_user_to_course($user_id, $cidToEdit,true);
