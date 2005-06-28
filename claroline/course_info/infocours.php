@@ -230,7 +230,7 @@ if( $is_allowedToEdit )
             $sql = "UPDATE `" . $tbl_course . "`
                         SET " . implode(',', $fieldsToUpdate) . "
                         WHERE code='" . addslashes($current_cid) . "'";
-            echo '<p>$sql = <pre>'.var_export( $sql,1).'</pre>';
+            
             claro_sql_query($sql);
 
             $dialogBox = $langModifDone;
