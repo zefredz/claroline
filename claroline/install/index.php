@@ -136,8 +136,6 @@ else
     $campusForm  = $_REQUEST['campusForm'];
 }
 
-if ($PHP_SELF == '') $PHP_SELF = $_SERVER['PHP_SELF'];
-
 
 // This script is a big form.
 // all value are in HIDDEN FIELD,
