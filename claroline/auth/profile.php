@@ -196,7 +196,7 @@ switch ( $display )
                 . '</tr>'
                 . '<tr valign="top">' 
                 . '<td>' . $langSubmit . ': </td>'
-                . '<td><input type="submit" value="' . $langOk . '"> ';
+                . '<td><input type="submit" value="' . $langOk . '"> '
                 . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
                 . '</td></tr>'
                 . '</table>'
