@@ -392,7 +392,7 @@
         
     // Breadcrumps
     
-    $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> "Wiki");
+    $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki);
     $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=" . $wikiId
         , 'name'=> $wiki->getTitle() );
         
@@ -404,7 +404,7 @@
             $interbredcrump[]= array ("url"=>"page.php?action=show&amp;wikiId="
                 . $wikiId . "&amp;title=" . $title
                 , 'name'=> $dispTitle );
-            $nameTools = 'Edit';
+            $nameTools = $langEdit;
             $noPHP_SELF = true;
             break;
         }
@@ -424,7 +424,7 @@
         echo claro_disp_message_box($message);
     }
     
-    echo claro_disp_tool_title( "Wiki : " . $wiki->getTitle(), false );
+    echo claro_disp_tool_title( sprintf( $langWikiTitlePattern, $wiki->getTitle() ), false );
     
     // Check javascript
     
@@ -476,15 +476,15 @@
     }
     
     echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-        . 'Page history</span>'
+        . $langWikiPageHistory . '</span>'
         ;
         
     echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-        . 'Recent changes</span>'
+        . $langWikiRecentChanges . '</span>'
         ;
         
     echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-        . 'All pages</span>'
+        . $langWikiAllPages . '</span>'
         ;
 
     echo '</p>' . "\n";

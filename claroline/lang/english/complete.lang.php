@@ -2038,6 +2038,7 @@ $langVisits = "visits";
 $langWeighting = "Weighting";
 $langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWiki = "Wiki";
+$langWikiAllPages = "All pages";
 $langWikiCreationSucceed = "Wiki creation succeed";
 $langWikiDeletionSucceed = "Wiki deletion succeed";
 $langWikiDeleteWiki = "Delete Wiki";
@@ -2059,6 +2060,7 @@ $langWikiPreviewTitle = "Preview : ";
 $langWikiPreviewWarning = "WARNING : this page is a preview. Your modifications
 to the wiki has not been saved yet ! To save them do not forget to click on the 'save'
 button at the bottom of the page.";
+$langWikiRecentChanges = "Recent changes";
 $langWikiShowHelp = "Show help";
 $langWikiTitleEdit = "Wiki : Edit poperties";
 $langWikiTitleNew = "Wiki : Create new Wiki";
