@@ -23,7 +23,11 @@
      * @package Wiki
      */
 
-    // for upgrade and/or devel mode
+    /**
+     * create wiki tables in devel/upgrade mode
+     * @param DatabaseConnection con database connection
+     * @param boolean drop_tables drop existing tables
+     */
     function init_wiki_tables( &$con, $drop_tables = false )
     {
         // get claro db names using claro_get_course_tbl_name()
@@ -102,6 +106,13 @@
         $con->executeQuery( $sql );
     }
     
+    /**
+     * create wiki MainPage
+     * @param DatabaseConnection con database connection
+     * @param int wikiId ID of the Wiki the page belongs to
+     * @param int creatorId ID of the user who creates the page
+     * @return boolean true if the creation succeeds, false if it fails
+     */
     function init_wiki_main_page( &$con, $wikiId, $creatorId )
     {
         global $langWikiMainPageContent;
@@ -121,6 +132,14 @@
         return (! ( $wikiPage->hasError() ));
     }
     
+    /**
+     * Create a sample wiki in a given course or group
+     * Not used at this time
+     * @param DatabaseConnection con database connection
+     * @param int creatorId ID of the user who creates the page
+     * @param int groupId ID of the group, if course wiki set it to Zero
+     * @return boolean true if the creation succeeds, false if it fails
+     */
     function create_sample_wiki( &$con, $creatorId, $groupId = 0 )
     {
         global $langWikiSampleTitle, $langWikiSampleDescription;
@@ -171,6 +190,6 @@
         $wiki->setACL( $acl );
         $wikiId = $wiki->save();
         
-        init_wiki_main_page( $con, $wikiId, $creatorId );
+        return init_wiki_main_page( $con, $wikiId, $creatorId );
     }
 ?>

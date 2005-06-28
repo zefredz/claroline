@@ -30,6 +30,14 @@
         var $content;
         var $attributeList;
         
+        /**
+         * Constructor
+         * @param string content of the area
+         * @param string name name of the area
+         * @param int cols number of cols
+         * @param int rows number of rows
+         * @param array extraAttributes extra html attributes for the area
+         */
         function Wiki2xhtmlArea(
             $content = ''
             , $name = 'content'
@@ -51,17 +59,28 @@
                 ;
         }
         
+        /**
+         * Set area content
+         * @param string content
+         */
         function setContent( $content )
         {
             $this->content = $content;
         }
         
+        /**
+         * Get area content
+         * @return string area content
+         */
         function getContent()
         {
             return $this->content;
         }
         
-        
+        /**
+         * Get area wiki syntax toolbar
+         * @return string toolbar javascript code
+         */
         function getToolbar()
         {
             $toolbar = '';
@@ -72,8 +91,8 @@
                 . "\n"
                 ;
             $toolbar .= "<script type=\"text/javascript\">if (document.getElementById) {
-		var tb = new dcToolBar(document.getElementById('content'),
-		'wiki','".document_web_path()."/img/toolbar/');
+		var tb = new dcToolBar(document.getElementById('".$this->attributeList['id']."'),
+		'wiki','".document_web_path()."/toolbar/');
 
 		tb.btStrong('Forte emphase');
 		tb.btEm('Emphase');
@@ -102,11 +121,18 @@
             return $toolbar;
         }
         
+        /**
+         * paint (ie echo) area
+         */
         function paint()
         {
             echo $this->toHTML();
         }
         
+        /**
+         * get area html code for string inclusion
+         * @return string area html code
+         */
         function toHTML()
         {
             $wikiarea = '';
