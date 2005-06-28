@@ -51,7 +51,7 @@ function generate_passwd()
     $prec     = 1;
     $precprec = -1;
 
-    srand((double)microtime()*20001107);
+    srand((double)microtime() * 20001107);
 
     while(strlen($retour) < $nb)
     {
@@ -60,7 +60,7 @@ function generate_passwd()
         // (consonnace) - (2) If letters are from different type, we choose a
         // letter from the alphabet.
 
-        $type     = ($precprec + $prec)/2;
+        $type     = ($precprec + $prec) / 2;
         $r        = $lettre[$type][array_rand($lettre[$type], 1)];
         $retour  .= $r;
         $precprec = $prec;
