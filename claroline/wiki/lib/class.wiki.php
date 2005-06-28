@@ -35,7 +35,10 @@
     !defined( "WIKI_CANNOT_BE_UPDATED_ERRNO" ) && define( "WIKI_CANNOT_BE_UPDATED_ERRNO", 3 );
     !defined( "WIKI_NOT_FOUND_ERROR" ) && define( "WIKI_NOT_FOUND_ERROR", "Wiki not found" );
     !defined( "WIKI_NOT_FOUND_ERRNO" ) && define( "WIKI_NOT_FOUND_ERRNO", 4 );
-     
+
+    /**
+     * This class represents a Wiki
+     */
     class Wiki
     {
         var $wikiId;
@@ -58,6 +61,11 @@
         var $error = '';
         var $errno = 0;
         
+        /**
+         * Constructor
+         * @param DatabaseConnection con connection to the database
+         * @param array config associative array containing tables name
+         */
         function Wiki( &$con, $config = null )
         {
             if ( is_array( $config ) )
@@ -71,51 +79,91 @@
         
         // accessors
 
+        /**
+         * Set Wiki title
+         * @param string wikiTitle
+         */
         function setTitle( $wikiTitle )
         {
             $this->title = $wikiTitle;
         }
 
+        /**
+         * Get the Wiki title
+         * @return string title of the wiki
+         */
         function getTitle()
         {
             return $this->title;
         }
 
+        /**
+         * Set the description of the Wiki
+         * @param string wikiDesc description of the wiki
+         */
         function setDescription( $wikiDesc = '' )
         {
             $this->desc = $wikiDesc;
         }
 
+        /**
+         * Get the description of the Wiki
+         * @param string description of the wiki
+         */
         function getDescription()
         {
             return $this->desc;
         }
 
+        /**
+         * Set the access control list of the Wiki
+         * @param array accessControlList wiki access control list
+         */
         function setACL( $accessControlList )
         {
             $this->accessControlList = $accessControlList;
         }
 
+        /**
+         * Get the access control list of the Wiki
+         * @return array wiki access control list
+         */
         function getACL()
         {
             return $this->accessControlList;
         }
 
+        /**
+         * Set the group ID of the Wiki
+         * @param int groupId group ID
+         */
         function setGroupId( $groupId )
         {
             $this->groupId = $groupId;
         }
 
+        /**
+         * Get the group ID of the Wiki
+         * @return int group ID
+         */
         function getGroupId()
         {
             return $this->groupId;
         }
 
+        /**
+         * Set the ID of the Wiki
+         * @param int wikiId ID of the Wiki
+         */
         function setWikiId( $wikiId )
         {
             $this->wikiId = $wikiId;
         }
         
+        /**
+         * Set the ID of the Wiki
+         * @return int ID of the Wiki
+         */
         function getWikiId()
         {
             return $this->wikiId;
@@ -123,6 +171,10 @@
         
         // load and save
 
+        /**
+         * Load a Wiki
+         * @param int ID of the Wiki
+         */
         function load( $wikiId )
         {
             if( $this->wikiIdExists($wikiId) )
@@ -136,6 +188,10 @@
             }
         }
         
+        /**
+         * Load the properties of the Wiki
+         * @param int ID of the Wiki
+         */
         function loadProperties( $wikiId )
         {
             if ( ! $this->con->isConnected() )
@@ -156,6 +212,10 @@
             $this->setGroupId($result['group_id']);
         }
         
+        /**
+         * Load the access control list of the Wiki
+         * @param int ID of the Wiki
+         */
         function loadACL( $wikiId )
         {
             if ( ! $this->con->isConnected() )
@@ -184,6 +244,9 @@
             $this->setACL( $acl );
         }
 
+        /**
+         * Save the Wiki
+         */
         function save()
         {
             $this->saveProperties();
@@ -200,6 +263,9 @@
             }
         }
         
+        /**
+         * Save the access control list of the Wiki
+         */
         function saveACL()
         {
             // reconnect if needed
@@ -213,7 +279,8 @@
                 . $this->config['tbl_wiki_acls']."` "
                 . "WHERE `wiki_id` = " . $this->getWikiId()
                 ;
-                    
+
+            // wiki already exists
             if ( $this->con->queryReturnsResult( $sql ) )
             {
                 $acl = $this->getACL();
@@ -231,6 +298,7 @@
                     $this->con->executeQuery( $sql );
                 }
             }
+            // new wiki
             else
             {
                 $acl = $this->getACL();
@@ -256,6 +324,9 @@
             }
         }
         
+        /**
+         * Save the properties of the Wiki
+         */
         function saveProperties()
         {
             // reconnect if needed
@@ -264,17 +335,9 @@
                 $this->con->connect();
             }
             
+            // new wiki
             if ( $this->getWikiId() === 0 )
             {
-                /* if ($this->wikiExists($this->getTitle()))
-                {
-                    $this->setError(
-                        WIKI_ALREADY_EXISTS_ERROR
-                        , WIKI_ALREADY_EXISTS_ERRNO
-                        );
-
-                    return;
-                } */
                 // INSERT PROPERTIES
                 $sql = "INSERT INTO `"
                     . $this->config['tbl_wiki_properties']
@@ -297,6 +360,7 @@
                     $this->setWikiId( $wikiId );
                 }
             }
+            // Wiki already exists
             else
             {
                 // UPDATE PROPERTIES
@@ -314,6 +378,11 @@
         
         // Page methods
 
+        /**
+         * Check if a page exists in the wiki
+         * @param string title page title
+         * @return boolean
+         */
         function pageExists( $title )
         {
             // reconnect if needed
@@ -331,6 +400,11 @@
             return $this->con->queryReturnsResult( $sql );
         }
         
+        /**
+         * Check if a wiki exists using its title
+         * @param string title wiki title
+         * @return boolean
+         */
         function wikiExists( $title )
         {
             // reconnect if needed
@@ -347,6 +421,11 @@
             return $this->con->queryReturnsResult( $sql );
         }
         
+        /**
+         * Check if a wiki exists usind its ID
+         * @param int id wiki ID
+         * @return boolean
+         */
         function wikiIdExists( $id )
         {
             // reconnect if needed

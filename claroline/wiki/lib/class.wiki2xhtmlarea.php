@@ -25,6 +25,9 @@
      
     require_once dirname(__FILE__) . "/lib.javascript.php";
     
+    /**
+     * Wiki2xhtml editor textarea
+     */
     class Wiki2xhtmlArea
     {
         var $content;
