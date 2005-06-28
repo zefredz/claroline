@@ -20,7 +20,7 @@
 // TOOL
 $conf_def['config_code'] = 'CLWIKI';
 $conf_def['config_file'] = 'CLWIKI.conf.php';
-$conf_def['config_name'] = 'Wiki';
+$conf_def['config_name'] = 'Wiki tool';
 $conf_def['config_class']='tool';
 
 
