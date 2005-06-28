@@ -1,0 +1,42 @@
+!!! Test du chimpanzé
+!! Test du chimpanzé
+! Test du chimpanzé
+
+Titre
+=====
+
+Titre qui tue
+-------------
+
+Titre
+
+Ceci est le test wiki du chimpanzé. Il consiste à voir si le moteur __''wiki__'' fait du code valide.
+> Coler des blocs est génant, va savoir
+* et une liste ?
+
+** et encore pire ?
+
+Un MotWiki  et un [lien \|test|MotWiki]
+
+{{{toto}}}
+
+J'ai vraiment rien compris aux listes ...
+* Ca marche
+# comme ça ?
+ou alors
+* comme
+* ah oui
+*# comme ça
+** et zut
+
+* liste
+* liste
+*# liste
+
+J'aime bien les ??acronym|rien compris?? et je veux en mettre partout comme [??XHTML??|test]
+
+!!! [hop|http://www.google.com]
+
+et là une citation {{[??XHTML??|http://www.w3.org] c'est vraiment la classe __internationnale ---- ??XHTML|Super!??__|fr|http://www.google.com}}
+
+ bloc __pre__

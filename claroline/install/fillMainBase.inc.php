@@ -106,4 +106,12 @@ VALUES
 ";
 claro_sql_query($sql);
 
+// WIKI
+$sql = " INSERT INTO `".$mainTblPrefixForm."course_tool`
+(`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
+VALUES
+('CLWIKI__', 'wiki/wiki.php', 'wiki.gif', 'ALL', 12, 'AUTOMATIC', 'COURSE_ADMIN')
+";
+claro_sql_query($sql);
+
 ?>

@@ -244,10 +244,10 @@ function prepare_course_repository($courseRepository, $courseId)
     \$cidReq = \"$courseId\";
   \$claroGlobalPath = '$includePath';
     include(\"".$clarolineRepositorySys."course_home/course_home.php\");
-    ?>");
+    ?".">");
         fwrite($fd, $string);
         $fd=fopen($coursesRepositorySys.$courseRepository."/group/index.php", "w");
-        $string='<' . '?' . 'php' . ' session_start' . '()' .'; ?>';
+        $string='<' . '?' . 'php' . ' session_start' . '()' .'; ?'.'>';
         fwrite($fd, $string);
         return true;
     }
@@ -337,6 +337,12 @@ function update_db_course($courseDbName)
     $TABLETRACKEXERCICES  = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
     $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details']; //"track_e_exe_details"
     $TABLETRACKEXEANSWERS = $tbl_cdb_names['track_e_exe_answers']; //"track_e_exe_details"
+    
+    //wiki
+    $TABLEWIKIPROPERTIES = $tbl_cdb_names['wiki_properties']; // "wiki_properties"
+    $TABLEWIKIACLS = $tbl_cdb_names['wiki_acls']; // "wiki_acls"
+    $TABLEWIKIPAGES = $tbl_cdb_names['wiki_pages']; // "wiki_pages"
+    $TABLEWIKIPAGESCONTENT = $tbl_cdb_names['wiki_pages_content']; // "wiki_pages_content"
 
     $sql ="
 CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
@@ -848,6 +854,53 @@ claro_sql_query ("
                   PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM";
         claro_sql_query($sql);
+        
+######################## wiki ##################################
+
+    $sql = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPROPERTIES."`(
+            `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+            `title` VARCHAR(255) NOT NULL DEFAULT '',
+            `description` TEXT NULL,
+            `group_id` INT(11) NOT NULL DEFAULT 0,
+            PRIMARY KEY(`id`)
+            )"
+            ;
+
+    claro_sql_query($sql);
+
+    $sql = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIACLS."` (
+            `wiki_id` INT(11) UNSIGNED NOT NULL,
+            `flag` VARCHAR(255) NOT NULL,
+            `value` ENUM('false','true') NOT NULL DEFAULT 'false'
+            )"
+            ;
+
+     claro_sql_query($sql);
+
+    $sql = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGES."` (
+            `id` int(11) unsigned NOT NULL auto_increment,
+            `wiki_id` int(11) unsigned NOT NULL default '0',
+            `owner_id` int(11) unsigned NOT NULL default '0',
+            `title` varchar(255) character set latin1 collate latin1_bin NOT NULL default '',
+            `ctime` timestamp NOT NULL default '0000-00-00 00:00:00',
+            `last_version` int(11) unsigned NOT NULL default '0',
+            `last_mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
+            PRIMARY KEY  (`id`)
+            )"
+            ;
+    claro_sql_query($sql);
+    
+    $sql = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGESCONTENT."` (
+            `id` int(11) unsigned NOT NULL auto_increment,
+            `pid` int(11) unsigned NOT NULL default '0',
+            `editor_id` int(11) NOT NULL default '0',
+            `mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
+            `content` text NOT NULL,
+            PRIMARY KEY  (`id`)
+            )"
+            ;
+            
+    claro_sql_query($sql);
 
     return 0;
 };

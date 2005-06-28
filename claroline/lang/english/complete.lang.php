@@ -2038,6 +2038,24 @@ $langVisits = "visits";
 $langWeighting = "Weighting";
 $langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWiki = "Wiki";
+$langWikiCancel = "Cancel";
+$langWikiEdit = "Edit";
+$langWikiEditPage = "Edit this page";
+$langWikiExample = "Edit an example";
+$langWikiViewExampleWarning = "Warning example will overwrite current content";
+$langWikiHideHelp = "Hide help";
+$langWikiMainPage = "Main page";
+$langWikiMainPageContent = "This is the main page of this Wiki. Click on edit to modify the content.";
+$langWikiNoContent = "No content";
+$langWikiPageHistory = "Page history";
+$langWikiPageSaved = "Page saved";
+$langWikiPreview = "Preview";
+$langWikiPreviewTitle = "Preview : ";
+$langWikiPreviewWarning = "WARNING : this page is a preview. Your modifications
+to the wiki has not been saved yet ! To save them do not forget to click on the 'save'
+button at the bottom of the page.";
+$langWikiSave = "Save";
+$langWikiShowHelp = "Show help";
 $langWork = "Assignments";
 $langWorkAuthors = "Authors";
 $langWorkTitle = "Work title";

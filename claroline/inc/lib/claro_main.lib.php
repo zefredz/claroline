@@ -126,7 +126,11 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
               'wrk_submission'         => $courseDbInCache . 'wrk_submission',
               'links'                  => $courseDbInCache . 'lnk_links',
-              'resources'              => $courseDbInCache . 'lnk_resources' 
+              'resources'              => $courseDbInCache . 'lnk_resources',
+              'wiki_properties'        => $courseDbInCache . 'wiki_properties',
+              'wiki_pages'             => $courseDbInCache . 'wiki_pages',
+              'wiki_pages_content'     => $courseDbInCache . 'wiki_pages_content',
+              'wiki_acls'              => $courseDbInCache . 'wiki_acls'
               ); // end array
 
     } // end if ( count($course_tbl) == 0 )
@@ -1696,6 +1700,7 @@ function claro_get_tool_name_list()
         ,                      'CLQWZ___' => $langExercises
         ,                      'CLWRK___' => $langWork
         ,                      'CLUSR___' => $langUsers
+        ,                      'CLWIKI__' => 'Wiki'
         );
     }
     return $toolNameList;
