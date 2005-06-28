@@ -9,24 +9,6 @@ $l_here = "aqu&iacute;";
 $l_indextitle = "&Iacute;ndice do foro";
 $l_lastpost = "&Uacute;ltimo \$1_post";
 $l_notify = "Enviar notificaci&oacute;n por correo electr&oacute;nico cando env&iacute;en mensaxes de resposta";
-$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque 
-					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e 
-					vostede solicitara previamente que se lle notificase este feito.
-
-					Pode vostede ve-lo tema de conversa en:
-
-					http://\$SERVER_NAME\$url_phpbb/viewtopic.\$phpEx?topic=\$topic&forum=\$forum
-
-
-					Ou ve-lo &iacute;ndice do foro de \$sitename en:
-
-					http://\$SERVER_NAME\$url_phpbb
-
-					Grazas por emprega-los foros de \$sitename.
-
-					Que te&ntilde;a un bo d&iacute;a.
-
-					\$email_sig";
 $l_notifysubj = "Foi enviada unha resposta &oacute; seu tema de conversa";
 $l_notopics = "Non hai temas de conversa para este foro. Pode vostede propo&ntilde;er un.";
 $l_posted = "Enviado";
