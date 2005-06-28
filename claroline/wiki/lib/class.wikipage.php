@@ -37,6 +37,9 @@
     
     // TODO rewrite WikiPage as a subclass of DatabaseConnection ?
 
+    /**
+     * This class represents page of a Wiki
+     */
     class WikiPage
     {
         // public fields
@@ -66,8 +69,11 @@
         var $error = '';
         var $errno = 0;
         
-        // public constructor
-        
+        /**
+         * Constructor
+         * @param DatabaseConnection con connection to the database
+         * @param array config associative array containing tables name
+         */
         function WikiPage( /*% DatabaseConnection*/ &$con, $config = null, $wikiId = 0 )
         {
             if ( is_array( $config ) )
@@ -80,6 +86,15 @@
         
         // public methods
         
+        /**
+         * Edit an existing page
+         * @param int editorId ID of the user who edits the page
+         * @param string content page content
+         * @param string mtime modification time YYYY-MM-DD hh:mm:ss
+         * @param boolean auto_save save automaticaly the modification
+         *      to database if set to true (default false)
+         * @return boolean true on success, false on failure
+         */
         function edit( $editorId, $content = '', $mtime = '', $auto_save = false )
         {
             if ( ( $auto_save === true ) && ( ! $this->pageExists( $this->getTitle() ) ) )
@@ -108,6 +123,16 @@
             }
         }
         
+        /**
+         * Create a new page
+         * @param int ownerId ID of the user who creates the page
+         * @param string title title of the page
+         * @param string content page content
+         * @param string ctime creation time YYYY-MM-DD hh:mm:ss
+         * @param boolean auto_save save automaticaly the page
+         *      to database if set to true (default false)
+         * @return boolean true on success, false on failure
+         */
         function create( $ownerId, $title, $content = '', $ctime = '', $auto_save = false )
         {
             if ( ! $title )
@@ -143,6 +168,10 @@
             }
         }
         
+        /**
+         * Delete the page
+         * @return boolean true on success, false on failure
+         */
         function delete()
         {
             // reconnect if needed
@@ -179,6 +208,10 @@
             }
         }
         
+        /**
+         * Save the page
+         * @return boolean true on success, false on failure
+         */
         function save()
         {
             // reconnect if needed
@@ -235,6 +268,10 @@
             }
         }
         
+        /**
+         * Get page version history
+         * @return array page history on success, null on failure
+         */
         function history( $limit = 0, $order = 'ASC' )
         {
             // reconnect if needed
@@ -267,6 +304,11 @@
             }
         }
 
+        /**
+         * Check if a page exists in the wiki
+         * @param string title page title
+         * @return boolean true on success, false on failure
+         */
         function pageExists( $title )
         {
             // reconnect if needed
@@ -286,6 +328,11 @@
         
         // public factory methods
         
+        /**
+         * Load a page using its title
+         * @param string title title of the page
+         * @return boolean true on success, false on failure
+         */
         function  loadPage( $title )
         {
             // reconnect if needed
@@ -308,6 +355,11 @@
             return $this->_updatePageFields( $sql );
         }
 
+        /**
+         * Load a given version of a page using its title
+         * @param int versionId ID of the version
+         * @return boolean true on success, false on failure
+         */
         function loadPageVersion( $versionId )
         {
             // reconnect if needed
@@ -337,6 +389,10 @@
             }
         }
 
+        /**
+         * Load a page using its ID
+         * @param int pageId ID of the page
+         */
         function loadPageById( $pageId )
         {
             // reconnect if needed
@@ -358,6 +414,11 @@
             return $this->_updatePageFields( $sql );
         }
         
+        /**
+         * Restore a given version of the page
+         * @param int editorId ID of the user who restores the page
+         * @param int versionId ID of the version to restore
+         */
         function restoreVersion( $editorId, $versionId )
         {
             $this->loadPageVersion( $versionId );
@@ -366,6 +427,11 @@
         
         // private methods
         
+        /**
+         * Update a page
+         * @access private
+         * @return boolean true on success, false on failure
+         */
         function _updateVersion()
         {
             // 1st insert page content
@@ -399,6 +465,12 @@
             return ! $this->hasError();
         }
         
+        /**
+         * Update the fields of the page
+         * @access private
+         * @param string sql SQL query
+         * @return boolean true on success, false on failure
+         */
         function _updatePageFields( $sql )
         {
             $page = $this->con->getRowFromQuery( $sql );

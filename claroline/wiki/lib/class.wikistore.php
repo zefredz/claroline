@@ -37,10 +37,8 @@
     !defined( "WIKI_NOT_FOUND_ERRNO") && define( "WIKI_NOT_FOUND_ERRNO", 4 );
     
     /**
-     * Class description
-     *
-     * @abstract
-     * @access
+     * Class representing the WikiStore
+     * (ie the place where the wiki are stored)
      */
     class WikiStore
     {
@@ -59,6 +57,11 @@
         var $error = '';
         var $errno = 0;
         
+        /**
+         * Constructor
+         * @param DatabaseConnection con connection to the database
+         * @param array config associative array containing tables name
+         */
         function WikiStore( &$con, $config = null )
         {
             if ( is_array( $config ) )
@@ -69,7 +72,11 @@
         }
         
         // load and save
-
+        /**
+         * Load a Wiki
+         * @param int wikiId ID of the Wiki
+         * @return Wiki the loaded Wiki
+         */
         function loadWiki( $wikiId )
         {
             $wiki = new Wiki( $this->con, $this->config );
@@ -84,8 +91,12 @@
             return $wiki;
         }
         
-        // Page methods
-        
+        /**
+         * Check if a page exists in a given wiki
+         * @param int wikiId ID of the Wiki
+         * @param string title page title
+         * @return boolean
+         */
         function pageExists( $wikiId, $title )
         {
             // reconnect if needed
@@ -103,6 +114,11 @@
             return $this->con->queryReturnsResult( $sql );
         }
         
+        /**
+         * Check if a wiki exists usind its ID
+         * @param int id wiki ID
+         * @return boolean
+         */
         function wikiIdExists( $wikiId )
         {
             // reconnect if needed
@@ -121,6 +137,11 @@
         
         // Wiki methods
 
+        /**
+         * Get the list of the wiki's for a given group
+         * @param int groupId ID of the group, Zero for a course
+         * @return array list of the wiki's for the given group
+         */
         function getWikiListByGroup( $groupId )
         {
             if ( ! $this->con->isConnected() )
@@ -137,11 +158,20 @@
             return $this->con->getAllRowsFromQuery( $sql );
         }
         
+        /**
+         * Get the list of the wiki's in a course
+         * @return array list of the wiki's in the course
+         * @see WikiStore::getWikiListByGroup( $groupId )
+         */
         function getCourseWikiList( )
         {
             return $this->getWikiListByGroup( 0 );
         }
         
+        /**
+         * Get the list of the wiki's in all groups (exept course wiki's)
+         * @return array list of all the group wiki's
+         */
         function getGroupWikiList()
         {
             if ( ! $this->con->isConnected() )
@@ -158,6 +188,11 @@
             return $this->con->getAllRowsFromQuery( $sql );
         }
         
+        /**
+         * Delete a Wiki from the store
+         * @param int wikiId ID of the wiki
+         * @return boolean true on success, false on failure
+         */
         function deleteWiki( $wikiId )
         {
             if ( ! $this->con->isConnected() )

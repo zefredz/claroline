@@ -173,7 +173,7 @@
 
         /**
          * Load a Wiki
-         * @param int ID of the Wiki
+         * @param int wikiId ID of the Wiki
          */
         function load( $wikiId )
         {
@@ -190,7 +190,7 @@
         
         /**
          * Load the properties of the Wiki
-         * @param int ID of the Wiki
+         * @param int wikiId ID of the Wiki
          */
         function loadProperties( $wikiId )
         {
@@ -214,7 +214,7 @@
         
         /**
          * Load the access control list of the Wiki
-         * @param int ID of the Wiki
+         * @param int wikiId ID of the Wiki
          */
         function loadACL( $wikiId )
         {
@@ -376,7 +376,7 @@
             }
         }
         
-        // Page methods
+        // utility methods
 
         /**
          * Check if a page exists in the wiki
