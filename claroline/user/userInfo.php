@@ -58,7 +58,7 @@ $TBL_USERINFO_CONTENT    = $tbl_crs_names['userinfo_content'];
 
 
 $userIdViewer = $_uid; // id fo the user currently online
-//$userIdViewed = $HTTP_GET_VARS['userIdViewed']; // Id of the user we want to view
+//$userIdViewed = $_GET['userIdViewed']; // Id of the user we want to view
 
 $allowedToEditContent     = ($userIdViewer == $userIdViewed) || claro_is_allowed_to_edit();
 $allowedToEditDef         = claro_is_allowed_to_edit();
