@@ -68,6 +68,8 @@ include('answer.class.php');
 include('exercise.lib.php');
 
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
   
 // answer types
 define('UNIQUE_ANSWER',  1);
@@ -113,27 +115,6 @@ if (!empty($_REQUEST['exerciseId']))     $exerciseId      = $_REQUEST['exerciseI
 if(!$is_allowedToEdit)
 {
 	die($langNotAllowed);
-}
-/****************************/
-/*  stripslashes POST data  */
-/****************************/
-
-if($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-	foreach($_REQUEST as $key=>$val)
-	{
-		if(is_string($val))
-		{
-			$_REQUEST[$key] = stripslashes($val);
-		}
-		elseif(is_array($val))
-		{
-			foreach($val as $key2=>$val2)
-			{
-				$_REQUEST[$key][$key2] = stripslashes($val2);
-			}
-		}
-	}
 }
 
 // intializes the Exercise object
