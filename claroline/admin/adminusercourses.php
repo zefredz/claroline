@@ -96,7 +96,7 @@ else $cmd = null;
 switch ($cmd)
 {
 	case "unsubscribe" :
-        $done = remove_user_from_course($uidToEdit, $code);
+        $done = remove_user_from_course($uidToEdit, $_REQUEST['code']);
         if ($done)
         {
             $dialogBox = $langUserUnsubscribed;
