@@ -24,11 +24,11 @@
  * @param boolean $selectedDate 
  * 
  */ 
- 
+
 function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0 )
 {
     global $langMonthNames;
-    
+
     if( $selectedDate == 0)
     {
         // if not date in parameters us 'today'
@@ -36,7 +36,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     }
     // split selectedDate
     list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
-    
+
     // day field
     $dayField = '<select name="' . $dayFieldName . '" id="' . $dayFieldName . '">' ."\n";
     for ($dayCounter=1;$dayCounter <=31; $dayCounter++)
@@ -49,7 +49,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
         $dayField .= '>' . $dayCounter . '</option>' . "\n";
     }
     $dayField .= '</select>' . "\n";
-    
+
     // month field
     $monthField = '<select name="' . $monthFieldName . '" id="' . $monthFieldName . '">' . "\n";
     for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
@@ -59,11 +59,11 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
         {
             $monthField .= ' selected="selected" ';
         }
-    
+
         $monthField .= '>' . $langMonthNames['long'][$monthCounter-1] . '</option>' ."\n";
     }
     $monthField .= '</select>' . "\n";
-    
+
     // year field
     $yearField = '<select name="' . $yearFieldName . '" id="' . $yearFieldName . '">' . "\n";
     $thisYear = date('Y');
@@ -77,7 +77,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
         $yearField .= '>' . $yearCounter . '</option>' . "\n";
     }
     $yearField .='</select>';
-    
+
     return $dayField . '&nbsp;' . $monthField . '&nbsp;' . $yearField;
 }
 
@@ -88,10 +88,10 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
     {
         $selectedTime = date("H:i");
     }
-    
-    //split selectedTime 
+
+    //split selectedTime
     list($selHour, $selMinute) = split(":",$selectedTime);
-    
+
     if ($hourFieldName != '')
     {
         $hourField = '<select name="' . $hourFieldName . '" id="' . $hourFieldName . '">' . "\n";
@@ -106,7 +106,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
         }
         $hourField .= '</select>';
     }
-    
+
     if($minuteFieldName != "")
     {
         $minuteField = '<select name="' . $minuteFieldName . '" id="' . $minuteFieldName . '">' . "\n";
@@ -123,7 +123,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
         }
         $minuteField .= '</select>';
     }
-    
+
     return '&nbsp;' . $hourField . '&nbsp;' . $minuteField;
 }
 
@@ -140,12 +140,12 @@ function claro_html_form_select($select_name,$list_option,$preselect,$attr)
 {
     $html_select = '<select name="' . $select_name . '" ';
     foreach($attr as $attr_name=>$attr_value)
-       $html_select .=' ' . $attr_name . '="' . $attr_value . '" ';
+    $html_select .=' ' . $attr_name . '="' . $attr_value . '" ';
     $html_select .= '>' . "\n"
     .                claro_html_option_list($list_option,$preselect)
-    .               '</select>' . "\n" 
+    .               '</select>' . "\n"
     ;
-       
+
     return $html_select;
 }
 
@@ -164,12 +164,12 @@ function claro_html_option_list($list_option, $preselect)
     foreach($list_option as $option_value => $option_label)
     {
         $html_option_list .= '<option value="' . $option_value . '"'
-        .                        ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-        .                        htmlspecialchars($option_label) 
-        .                        '</option>' . "\n"
+        .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
+        .                    htmlspecialchars($option_label)
+        .                    '</option>' . "\n"
         ;
     }
-       
+
     return $html_option_list;
 }
 
