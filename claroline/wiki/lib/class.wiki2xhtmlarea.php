@@ -90,7 +90,7 @@
             
 
             $toolbar .= '<script type="text/javascript" src="'
-                .document_web_path().'./lib/javascript/toolbar.js"></script>'
+                .document_web_path().'/lib/javascript/toolbar.js"></script>'
                 . "\n"
                 ;
             $toolbar .= "<script type=\"text/javascript\">if (document.getElementById) {
