@@ -232,8 +232,11 @@
             if( $wikiStore->pageExists( $wikiId, $title ) )
             {
                 $wikiPage->loadPage( $title );
-
-                $content = $wikiPage->getContent();
+                
+                if ( $content == '' )
+                {
+                    $content = $wikiPage->getContent();
+                }
 
                 $title = $wikiPage->getTitle();
             }
