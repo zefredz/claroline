@@ -594,6 +594,7 @@ function claro_get_cat_flat_list($separator = ' > ')
     // then we build the table we need : full path of editable cats in an array
     
     $tableToDisplay = array();
+    if (is_array($categories ))
     foreach ($categories as $cat)
     {
         if ( $cat['childs'] == 'TRUE' ) 
