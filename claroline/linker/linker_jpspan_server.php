@@ -1,16 +1,20 @@
-<?php
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
+<?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author claroline Team <cvs@claroline.net>
+ * @author Renaud Fallier <captren@gmail.com>
+ * @author Frédéric Minne <minne@ipm.ucl.ac.be>
+ *
+ * @package CLLINKER
+ *
+ */
     //-----------------------------------------------------------------------------------
     // include for JPSPAN 
     //-----------------------------------------------------------------------------------
@@ -38,7 +42,6 @@
     * Class NavigatorJSP
     *    
     *
-    * @author Fallier Renaud
     **/
     class NavigatorJPSPAN
     {
@@ -46,8 +49,8 @@
         * get the resource for a crl
         *
         * @param string $crl a crl
-		* @return array a array with the resource
-		* @global $coursesRepositorySys
+        * @return array a array with the resource
+        * @global $coursesRepositorySys
         * @global $rootWeb
         **/ 
         function getResource($crl = false)
@@ -56,8 +59,8 @@
             global $rootWeb;
              
             if($crl)
-            {	
-            	$crl = urldecode($crl);
+            {    
+                $crl = urldecode($crl);
             }
              
             $baseServDir = $coursesRepositorySys;
@@ -73,13 +76,13 @@
         * get navigator toolbar
         *
         * @param string $crl a crl
-		* @return array a array with the navigator toolbar
+        * @return array a array with the navigator toolbar
         **/   
         function getToolBar($crl = false)
-        {        	
+        {            
             if($crl)
-            {	
-            	$crl = urldecode($crl);
+            {    
+                $crl = urldecode($crl);
             }
             
             $tab = array();
@@ -94,9 +97,9 @@
         * get the list of the other courses of the teacher
         *
         * @param string $crl a crl
-		* @return array a array with the resource of the other courses of the teacher
-		* @global $coursesRepositorySys		
-		* @global $platform_id
+        * @return array a array with the resource of the other courses of the teacher
+        * @global $coursesRepositorySys        
+        * @global $platform_id
         * @global $_course
         **/  
         function getOtherCourse()
@@ -118,9 +121,9 @@
         * get the list of the other courses of the teacher
         *
         * @param string $crl a crl
-		* @return array a array with the resource of the other courses of the teacher
-		* @global $coursesRepositorySys		
-		* @global $platform_id
+        * @return array a array with the resource of the other courses of the teacher
+        * @global $coursesRepositorySys        
+        * @global $platform_id
         * @global $_course
         **/  
         function getPublicCourses()
@@ -141,8 +144,8 @@
         * give the parent of a crl
         *
         * @param string $crl a crl
-		* @return array a array with the crl and the name of the button
-		* @global $coursesRepositorySys
+        * @return array a array with the crl and the name of the button
+        * @global $coursesRepositorySys
         **/   
         function _getParent($crl = false)
         {
@@ -165,9 +168,9 @@
         * get the title of a course
         *
         * @param string $crl a crl
-		* @return string the title of a course
-		* @global $coursesRepositorySys		
-		* @global $platform_id
+        * @return string the title of a course
+        * @global $coursesRepositorySys        
+        * @global $platform_id
         * @global $_course
         **/   
         function _getCourseTitle($crl = false)
@@ -192,46 +195,46 @@
         **/   
         function registerAttachementList( $servAdd , $servDel )
         {
-        	$_SESSION['servAdd'] = array();
-        	$_SESSION['servDel'] = array();
-        	
-        	if( is_array($servAdd) && count($servAdd) != 0 )
-        	{ 
-        		$_SESSION['servAdd'] = array_map("urldecode",$servAdd);	
-        	}
-        	
-			if( is_array($servDel) && count($servDel) != 0 ) 
-			{
-       			$_SESSION['servDel'] = array_map("urldecode",$servDel);
-       		}
+            $_SESSION['servAdd'] = array();
+            $_SESSION['servDel'] = array();
+            
+            if( is_array($servAdd) && count($servAdd) != 0 )
+            { 
+                $_SESSION['servAdd'] = array_map("urldecode",$servAdd);    
+            }
+            
+            if( is_array($servDel) && count($servDel) != 0 ) 
+            {
+                   $_SESSION['servDel'] = array_map("urldecode",$servDel);
+               }
 
-       		return true;
+               return true;
         }
         
        /**
         * give crl which are stored in dB
         *
         * @param string $crl a crl
-		* @return array  a array witch the crl and title of the crl
-		* @global $baseServUrl
+        * @return array  a array witch the crl and title of the crl
+        * @global $baseServUrl
         * @global $rootWeb
         **/ 
         function getResourceDB($crl)
-        {	
-        	global $baseServUrl,$rootWeb;
-        	
-        	$baseServUrl = $rootWeb;
-           	$crlListe = linker_get_link_list($crl);
-           	$resourceListe = array();
-           	
-           	foreach($crlListe as $crlElement)
-           	{
-           		$infoResource = array();
-            	
-            	$infoResource["crl"] = urlencode($crlElement["crl"]); 
-            	$infoResource["title"] = htmlentities($crlElement["title"]); 
-            	
-	            $resourceListe[] = $infoResource;          		
+        {    
+            global $baseServUrl,$rootWeb;
+            
+            $baseServUrl = $rootWeb;
+               $crlListe = linker_get_link_list($crl);
+               $resourceListe = array();
+               
+               foreach($crlListe as $crlElement)
+               {
+                   $infoResource = array();
+                
+                $infoResource["crl"] = urlencode($crlElement["crl"]); 
+                $infoResource["title"] = htmlentities($crlElement["title"]); 
+                
+                $resourceListe[] = $infoResource;                  
             }
             
             return $resourceListe;
@@ -240,9 +243,9 @@
 
     $jpspan = & new JPSpan_Server_PostOffice();
     $jpspan->addHandler(new NavigatorJPSPAN());
-    
+
     //-----------------------------------------------------------------------------------
-     
+
     if (isset($_SERVER['QUERY_STRING']) && strcasecmp($_SERVER['QUERY_STRING'], 'client') == 0)
     {
         //define('JPSPAN_INCLUDE_COMPRESS',true);
