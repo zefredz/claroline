@@ -100,9 +100,10 @@ echo $backCommandLine;
 
 echo claro_disp_tool_title($pageTitle);
 
-if ( ( count($categoryList) - 1 )  >= 0 )
-{
-    echo "<h4>".$langCategories."</h4>\n";
+    if ( ( count($categoryList) - 1 )  > 0 && $category!=null) // don't display subtitle of categories if we are at root or if there is only one categorie
+    {
+        echo "<h4>".$langCategories."</h4>\n";
+    }
     echo "<ul>\n";
 
     foreach($categoryList as $thisCategory)
@@ -129,7 +130,6 @@ if ( ( count($categoryList) - 1 )  >= 0 )
 	}
 
 	echo "</ul>\n";
-}
 
 if ( count($courseList) > 0 )
 {
