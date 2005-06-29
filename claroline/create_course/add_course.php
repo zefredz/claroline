@@ -41,6 +41,7 @@
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
+
 require '../inc/claro_init_global.inc.php';
 claro_unquote_gpc();
 //// Config tool
@@ -50,6 +51,7 @@ include($includePath . '/conf/course_main.conf.php');
 include($includePath . '/lib/add_course.lib.inc.php');
 include($includePath . '/lib/course.lib.inc.php');
 include($includePath . '/lib/fileManage.lib.php');
+include($includePath . '/lib/form.lib.php');
 include($includePath . '/lib/claro_mail.lib.inc.php');
 
 $nameTools = $langCreateSite;
@@ -89,8 +91,8 @@ else                             $valueEmail = $_user['mail'];
 if ( isset($_REQUEST['languageCourse']) ) $valueLanguage = $_REQUEST['languageCourse'];
 else                                      $valueLanguage = $platformLanguage;
 
-if ( isset($_REQUEST['faculte']) ) $facu = $_REQUEST['faculte'];
-else                               $facu = '';
+if ( isset($_REQUEST['category']) ) $category = $_REQUEST['category'];
+else                                $category = '';
 
 if ( isset($_REQUEST['wantedCode']) ) $wantedCode = $_REQUEST['wantedCode'];
 else                                  $wantedCode = '';
@@ -113,12 +115,12 @@ else
     $displayCoursePropertiesForm = TRUE;
     if ( isset($_REQUEST['submitFromCoursProperties']) )
     {
-        $wantedCode 		= strip_tags($_REQUEST['wantedCode'    ]);
-        $newcourse_category	= strip_tags($_REQUEST['faculte'       ]);
-        $newcourse_label	= strip_tags($_REQUEST['intitule'      ]);
-        $newcourse_language = strip_tags($_REQUEST['languageCourse']);
-        $newcourse_titulars	= strip_tags($_REQUEST['titulaires'    ]);
-        $newcourse_email 	= strip_tags($_REQUEST['email'         ]);
+        $wantedCode         = strip_tags($wantedCode);
+        $newcourse_category = strip_tags($category);
+        $newcourse_label    = strip_tags($valueIntitule);
+        $newcourse_language = strip_tags($valueLanguage);
+        $newcourse_titulars = strip_tags($valueTitular);
+        $newcourse_email    = strip_tags($valueEmail);
 
         $okToCreate = TRUE;
 
@@ -135,6 +137,12 @@ else
         {
             $okToCreate = FALSE;
             $controlMsg['error'][] = $langCodeCanBeEmpty;
+        }
+
+        if (empty($newcourse_category) || $newcourse_category == 'choose_one')
+        {
+            $okToCreate = FALSE;
+            $controlMsg['error'][] = sprintf($lang_p_aCategoryWouldBeSelected,$administrator_email);
         }
 
         if ($course_email_needed && empty($newcourse_email))
@@ -165,7 +173,7 @@ else
         $wantedCode = ereg_replace('[- ]','_',$wantedCode);
         $wantedCode = ereg_replace('[^A-Za-z0-9_]', '', $wantedCode);
 
-        $keys = define_course_keys ($wantedCode,"",$dbNamePrefix);
+        $keys = define_course_keys ($wantedCode,'',$dbNamePrefix);
         $currentCourseCode       = $keys[ 'currentCourseCode'       ];
         $currentCourseId         = $keys[ 'currentCourseId'         ];
         $currentCourseDbName     = $keys[ 'currentCourseDbName'     ];
@@ -193,8 +201,8 @@ else
                 update_db_course($currentCourseDbName);
                 fill_course_repository($currentCourseRepository);
 
-                // function 	fill_db_course($courseDbName)
-                fill_db_course(	$currentCourseDbName);
+                // function fill_db_course($courseDbName)
+                fill_db_course( $currentCourseDbName );
 
                 if ( register_course($currentCourseId
                 ,                    $currentCourseCode
@@ -253,6 +261,8 @@ else
 if ($displayCoursePropertiesForm)
 {
     $language_array = claro_get_lang_list();
+    
+    // following foreach  build the array of selectable  items
     if(is_array($language_array))
     foreach ($language_array as $languageCode => $this_language)
     {
@@ -266,19 +276,17 @@ if ($displayCoursePropertiesForm)
         $language_list[$languageCode] = $languageLabel;
     }
     
-    // the foreach above build the  array of selectable  items
-    // the foreach following convert the array of selectable  items in  option list
     
-    $optionLang_list_html ='';
-    foreach($language_list as $languageCode => $languageLabel)
-    {
-        $optionLang_list_html .= '<option value="' . $languageCode . '"'
-        .                        ($languageCode ==  $valueLanguage ?' selected="selected" ':'') . '>'
-        .                        htmlspecialchars($languageLabel) 
-        .                        '</option>'
-        ;
+    $category_array = claro_get_cat_flat_list();
+    if ( array_key_exists($category,$category_array))
+    { 
+        $cat_preselect = $category;
     }
-     
+    else 
+    {
+        $cat_preselect = 'choose_one';
+        $category_array = array_merge(array('choose_one'=>'--'),$category_array);
+    }
 }
 
 
@@ -298,7 +306,7 @@ if ( is_array($controlMsg) && count($controlMsg) > 0 )
 
 // db connect
 // path for breadcrumb contextual menu in this page
-$chemin='<a href="../../index.php>' . $siteName . '</a>&nbsp;&gt;&nbsp;<b>'.$langCreateSite.'</b>';
+$chemin='<a href="../../index.php>' . $siteName . '</a>&nbsp;&gt;&nbsp;<b>' . $langCreateSite . '</b>';
 
 if($displayNotForU)
 {
@@ -386,12 +394,14 @@ elseif($displayCoursePropertiesForm)
 
 <tr valign="top">
 <td align="right">
-<label for="faculte"><?php echo $langCategory ?></label> : 
+<label for="category"><?php echo $langCategory ?></label> : 
 </td>
 <td>
-<?php
-build_editable_cat_table($facu, ' &gt; ');
-?>
+<?php echo claro_html_form_select( 'category'
+                                 , $category_array
+                                 , $cat_preselect
+                                 , array('id'=>'category'))
+                                 ; ?>
 <br><small><?php echo $langTargetFac ?></small>
 </td>
 </tr>
@@ -401,11 +411,11 @@ build_editable_cat_table($facu, ' &gt; ');
 <label for="languageCourse"><?php echo $langLanguage ?></label> :
 </td>
 <td>
-<select name="languageCourse" id="languageCourse">
-<?php
-echo $optionLang_list_html;
-?>
-</select>
+<?php echo claro_html_form_select( 'languageCourse'
+                                 , $language_list
+                                 , $valueLanguage
+                                 , array('id'=>'languageCourse'))
+                                 ; ?>
 </td>
 </tr>
 <tr valign="top">
@@ -446,19 +456,10 @@ elseif($displayCourseAddResult)
         echo '<br>';
     }
 
-    if ($_REQUEST['fromAdmin'] != 'yes')
-    {
-        echo '<a class="claroCmd" href="../../index.php">' . $langBackToMyCourseList . '</a>';
-    }
-    else
-    {
-        echo '<a class="claroCmd" href="add_course.php?fromAdmin=yes">' . $langAnotherCreateSite . '</a> | '
-        .    '<a class="claroCmd" href="../admin/index.php">' . $langBackToAdmin . '</a>'
-        ;
-    }
+    echo '<a class="claroCmd" href="../../index.php">' . $langBackToMyCourseList . '</a>';
 
 
-} // if all fields fulfilled
+} // if all fields fullfilled
 
 include($includePath . '/claro_init_footer.inc.php');
 

@@ -2163,6 +2163,7 @@ $lang_no_course_available_fitting_this_keyword = "No course available fitting th
 $lang_no_error_in_file_found = "No error in file found.";
 $lang_oldFileBackup = "Old file backup :";
 $lang_or_search_from_keyword = "Search from keyword";
+$lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_CannotCreate_s = "Cannot create %s";
 $lang_p_CannotRename_s_s = "Cannot rename %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
