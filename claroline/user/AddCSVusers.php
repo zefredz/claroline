@@ -140,14 +140,23 @@ switch ($cmd)
     }
     
     //check if a file was actually posted and that the mimetype is good
-
+    
+   $mimetypes = array(); //array used with supported mimetype for CSV files
+   $mimetypes[] = "text/comma-separated-values";
+   $mimetypes[] = "text/csv";
+   $mimetypes[] = "text/plain";
+   $mimetypes[] = "application/csv";
+   $mimetypes[] = "application/excel";
+   $mimetypes[] = "application/vnd.ms-excel";
+   $mimetypes[] = "application/vnd.msexcel";
+   $mimetypes[] = "text/anytext";
     
     if ( $_FILES['CSVfile']['size'] == 0 )
     {
         $display   = 'default';
         $dialogBox = $langMustSelectAFile;
     }
-    elseif (strpos($_FILES['CSVfile']['type'],'text') !== 0)
+    elseif (!in_array($_FILES["CSVfile"]['type'],$mimetypes))
     {
         $display   = 'default';
         $dialogBox = $langMustSelectATxtFile;
