@@ -275,7 +275,7 @@
             . '<td>'.$langWikiCreatePrivilege.'</td>' . "\n"
             . '</tr>' . "\n"
             . '<tr>' . "\n"
-            . '<td class="matrixOrd">'.$langWikiCourseMembers.'Course members</td>' . "\n"
+            . '<td class="matrixOrd">'.$langWikiCourseMembers.'</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'read\');" id="course_read" name="acl[course_read]"'.$course_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'edit\');" id="course_edit" name="acl[course_edit]"'.$course_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'create\');" id="course_create" name="acl[course_create]"'.$course_create_checked.' /></td>' . "\n"
