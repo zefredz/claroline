@@ -226,21 +226,48 @@
                     return false;
                 }
                 
-                // delete wiki pages
-                $sql = "DELETE `content`.* "
-                    . "FROM `"
-                    . $this->config['tbl_wiki_pages_content']."` `content`, `"
-                    . $this->config['tbl_wiki_pages'] . "` `pages`"
-                    . "WHERE `pages`.`wiki_id` = " . $wikiId . " "
-                    . "AND `content`.`pid` = `pages`.`id`"
+                $sql = "SELECT `id` "
+                    . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
+                    . "WHERE `wiki_id` = " . $wikiId
                     ;
-
-                $numrows = $this->con->executeQuery( $sql );
+                    
+                $pageIds = $this->con->getAllRowsFromQuery( $sql );
                 
                 if ( $this->hasError() )
                 {
                     return false;
                 }
+                
+                foreach ( $pageIds as $pageId )
+                {
+                    $sql = "DELETE "
+                        . "FROM `".$this->config['tbl_wiki_pages_content']."` "
+                        . "WHERE `pid` = " . $pageId['id']
+                        ;
+                        
+                    $this->con->executeQuery( $sql );
+                    
+                    if ( $this->hasError() )
+                    {
+                        return false;
+                    }
+                }
+                
+#                // delete wiki pages
+#                $sql = "DELETE `content`.* "
+#                    . "FROM `"
+#                    . $this->config['tbl_wiki_pages_content']."` `content`, `"
+#                    . $this->config['tbl_wiki_pages'] . "` `pages`"
+#                    . "WHERE `pages`.`wiki_id` = " . $wikiId . " "
+#                    . "AND `content`.`pid` = `pages`.`id`"
+#                    ;
+#
+#                $numrows = $this->con->executeQuery( $sql );
+#                
+#                if ( $this->hasError() )
+#                {
+#                    return false;
+#                }
                 
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
                     . "WHERE `wiki_id` = " . $wikiId
