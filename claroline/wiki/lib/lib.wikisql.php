@@ -113,11 +113,13 @@
      * @param int creatorId ID of the user who creates the page
      * @return boolean true if the creation succeeds, false if it fails
      */
-    function init_wiki_main_page( &$con, $wikiId, $creatorId )
+    function init_wiki_main_page( &$con, $wikiId, $creatorId, $wikiTitle )
     {
         global $langWikiMainPageContent;
         
         $tblList = claro_sql_get_course_tbl();
+
+        $mainPageContent = sprintf( $langWikiMainPageContent, $wikiTitle = '' );
         
         $config = array();
         // use claro functions
@@ -127,7 +129,7 @@
         $wikiPage = new WikiPage( $con, $config, $wikiId );
         
         $wikiPage->create( $creatorId, '__MainPage__'
-            , $langWikiMainPageContent, date( "Y-m-d H:i:s" ), true );
+            , $mainPageContent, date( "Y-m-d H:i:s" ), true );
             
         return (! ( $wikiPage->hasError() ));
     }

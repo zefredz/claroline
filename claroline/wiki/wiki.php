@@ -264,9 +264,11 @@
                 $wiki->setGroupId( $groupId );
                 $wikiId = $wiki->save();
                 
+                $mainPageContent = sprintf( $langWikiMainPageContent, $wikiTitle );
+                
                 $wikiPage = new WikiPage( $con, $config, $wikiId );
                 $wikiPage->create( $creatorId, '__MainPage__'
-                    , $langWikiMainPageContent, date( "Y-m-d H:i:s" ), true );
+                    , $mainPageContent, date( "Y-m-d H:i:s" ), true );
             
                 $message = $langWikiCreationSucceed;
             }

@@ -172,8 +172,6 @@
         global $langSave,$langEdit,$langCancel;
 
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
-        
-        $script = add_request_variable_to_url( $script, "title", urlencode($title) );
 
         $out = "<form method=\"POST\" action=\"" . $script
             . "\" name=\"previewform\" id=\"previewform\">\n"
@@ -183,7 +181,7 @@
             ;
             
         $out .= "<input type=\"hidden\" name=\"title\" value=\""
-            . urlencode($title)
+            . htmlspecialchars($title)
             . "\" />\n"
             ;
             

@@ -325,9 +325,9 @@
     $jspath = document_web_path() . '/lib/javascript';
 
     $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-        . "\nvar sLangWikiShowHelp = '".$langWikiShowHelp . "'"
-        . "\nvar sLangWikiHideHelp = '".$langWikiHideHelp . "'"
-        . "\nvar sLangWikiExampleWarning = '".$langWikiExampleWarning . "'"
+        . "\nvar sLangWikiShowHelp = '".addslashes($langWikiShowHelp) . "'"
+        . "\nvar sLangWikiHideHelp = '".addslashes($langWikiHideHelp) . "'"
+        . "\nvar sLangWikiExampleWarning = '".addslashes($langWikiExampleWarning) . "'"
         . "\nvar sLangWikiFullDemoText = '".get_demo_text() . "'"
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
         . "\n</script>\n"
