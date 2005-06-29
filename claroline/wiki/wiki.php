@@ -332,7 +332,7 @@
             $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
             $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=".$wikiId
                 , 'name'=> $wikiTitle);
-            $nameTools = 'Properties';
+            $nameTools = $langWikiProperties;
             $noPHP_SELF = true;
             break;
         }
@@ -454,7 +454,7 @@
                 . "\n"
                 ;
                 
-            echo $langWikiDeleteWikiWarning;
+            echo '<p>' . $langWikiDeleteWikiWarning . '</p>' . "\n";
                 
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
@@ -473,7 +473,7 @@
             // tool title
             
             $toolTitle = array();
-            $toolTitle['mainTitle'] = 'List of Wiki';
+            $toolTitle['mainTitle'] = $langWikiList;
             
             echo claro_disp_tool_title( $toolTitle, false ) . "\n" . "\n";
             
@@ -557,7 +557,7 @@
             // wiki list empty
             else
             {
-                echo '<tr><td colspan="3">No wiki</td></tr>' . "\n";
+                echo '<tr><td colspan="3">'.$langWikiNoWiki.'</td></tr>' . "\n";
             }
             
             echo '</tbody>' . "\n";
@@ -569,7 +569,7 @@
                 echo '<p><a href="'
                     . $_SERVER['PHP_SELF']
                     . '?action=rqEdit'
-                    . '" class="claroCmd">Create a new Wiki</a></p>'
+                    . '" class="claroCmd">'.$langWikiCreateNewWiki.'</a></p>'
                     . "\n"
                     ;
             }
