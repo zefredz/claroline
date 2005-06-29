@@ -7,6 +7,7 @@ require '../inc/claro_init_global.inc.php';
 if (!($_cid)) 	claro_disp_select_course();
 
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/user.lib.php");
 include($includePath."/lib/class.lib.php");
 
 // javascript confirm pop up declaration for header
@@ -62,19 +63,26 @@ switch ($cmd)
       $sql = "SELECT * FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='".$_REQUEST['class']."'  ORDER BY U.`nom`";
       $user_list = claro_sql_query_fetch_all($sql);
       
-      foreach ($user_list as $user)
-      {        
-          if (add_user_to_course($user['user_id'], $_cid))
-	  {     
-	      $dialogBox .= $user['prenom']." ".$user['nom']." $langIsNowRegistered<br>";
-	  }
-	  else
-	  {
-	      $dialogBox .= $user['prenom']." ".$user['nom']." $langIsAlreadyRegistered<br>";
-	  }
-      }
+    foreach ($user_list as $user)
+    {        
+        if ( user_add_to_course($user['user_id'], $_cid,true) )
+    	{     
+	        $dialogBox .= $user['prenom']." ".$user['nom']." $langIsNowRegistered<br>";
+        }
+    	else
+	    {
+            switch (claro_failure::get_last_failure())
+            {
+                case 'already_enrolled_in_course' : 
+	                $dialogBox .= $user['prenom']." ".$user['nom']." $langIsAlreadyRegistered<br>";
+                    break;
+        	    default: 
+	                $dialogBox .= $user['prenom']." ".$user['nom']." $langUnableToEnrollInCourse<br>";
+            }            
+        }
+    }
       
-      break;   
+    break;   
 }
 
 /*---------------------------------------------------------------------*/

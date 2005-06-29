@@ -209,9 +209,8 @@ switch ($cmd)
           
               break;
         
-              case 'userTool':
-                  
-                    add_user_to_course($uid, $_cid);
+              case 'userTool':                 
+                    user_add_to_course($uid, $_cid);
               break;
           }  
         }

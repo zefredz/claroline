@@ -164,7 +164,7 @@ if(!$userInfo)
     $cmd='';
     switch (claro_failure::get_last_failure()) 
     {
-    	case 'USER_NOT_FOUND':
+    	case 'user_not_found':
     	    $msg = 'User not found';
     		break;
     
@@ -230,11 +230,12 @@ if ( $cmd == 'exReg' )
     {
         switch (claro_failure::get_last_failure())
         {
-           case 'already_enrolled_in_course' : 
-            $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
-            break;
-    	   default: $message = $langUnableToEnrollInCourse;
-        }
+            case 'already_enrolled_in_course' : 
+                $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
+                break;
+    	   default: 
+                $message = $langUnableToEnrollInCourse;
+        }        
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;

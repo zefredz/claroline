@@ -21,10 +21,10 @@
 $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
 // initialisation of global variables and used libraries
-unset($includePath);
 require '../inc/claro_init_global.inc.php';
 include($includePath . '/lib/pager.lib.php');
 include($includePath . '/lib/admin.lib.inc.php');
+include($includePath . '/lib/user.lib.php');
 $canEditSubscription = $is_platformAdmin;
 
 //SECURITY CHECK
@@ -76,7 +76,7 @@ switch ( $cmd )
         $done =false;
         if ( !is_registered_to($user_id, $cidToEdit) )
         {
-            $done = add_user_to_course($user_id, $cidToEdit,true);
+            $done = user_add_to_course($user_id, $cidToEdit,true);
             // The user is add as student (default value in  add_user_to_course)
         }
         

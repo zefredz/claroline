@@ -85,7 +85,7 @@ function user_get_data($user_id)
     }
     else
     {
-        return claro_failure::set_failure('USER_NOT_FOUND');
+        return claro_failure::set_failure('user_not_found');
     }
 }
 
@@ -407,7 +407,7 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
 
     if ( mysql_num_rows($handle) == 0 )
     {
-        return claro_failure::set_failure('USER_NOT_FOUND'); // the user isn't registered to the platform
+        return claro_failure::set_failure('user_not_found'); // the user isn't registered to the platform
     }
     else
     {
@@ -421,7 +421,7 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
 
         if ( mysql_num_rows($handle) > 0 )
         {
-            return true; // the user is already subscribed to the course
+            return claro_failure::set_failure('already_enrolled_in_course'); // the user is already enrolled in the course
         }
         else
         {
