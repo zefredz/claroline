@@ -1,18 +1,24 @@
 <?php // $Id$
-/*
-    	+-------------------------------------------------------------------+
-    	| CLAROLINE version 1.6.*
-    	+-------------------------------------------------------------------+
-    	| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)   |
-    	+-------------------------------------------------------------------+
 
-    	+-------------------------------------------------------------------+
-    	|   Functions of this library are used to record informations when  |
-    	|   some kind of event occur.                                       |
-    	|   Each event has his own types of informations then each event    |
-    	|   use its own function.                                           |
-    	+-------------------------------------------------------------------+
-*/
+<?php // $Id$
+/** 
+ * CLAROLINE 
+ *
+ * @version 1.7
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLGRP
+ *
+ * @package CLGRP
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <piraux@claroline.net>
+ *
+ */
+
 /**
 
  * @author Sebastien Piraux <piraux_seb@hotmail.com>
