@@ -1,22 +1,28 @@
-<?php
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+<?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author claroline Team <cvs@claroline.net>
+ * @author Renaud Fallier <renaud.claroline@gmail.com>
+ * @author Frédéric Minne <minne@ipm.ucl.ac.be>
+ *
+ * @package CLLINKER
+ *
+ */
 
     /**
     * Class CRLTool
     *
     * tools for the management of the crl
+    * @p@package CLLINKER
     * @static public class
-    * @author Fallier Renaud
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
     */
      
     class CRLTool 
@@ -26,40 +32,40 @@
         *
         * @param $crl string a valid claroline resource locator
         * @return array an array containing the parts of the crl
-        * @throw E_USER_ERROR : the crl are required 
-        * @throw E_USER_ERROR : if the crl is not valid 
+        * @throws E_USER_ERROR : the crl are required 
+        * @throws E_USER_ERROR : if the crl is not valid 
         */
         function explode( $crl )
         {
             if( $crl != FALSE)
             {
-           		$temp = explode(":", $crl);
-           		
-           		if( is_array($temp) && count($temp) > 1 )
-           		{
-            		$scheme = $temp[0];
-            		$queryElementList = explode("/", $temp[1]);
+                   $temp = explode(":", $crl);
+                   
+                   if( is_array($temp) && count($temp) > 1 )
+                   {
+                    $scheme = $temp[0];
+                    $queryElementList = explode("/", $temp[1]);
 
-	            	$crlArray = array();
-	            	$crlArray[] = ( $scheme );
+                    $crlArray = array();
+                    $crlArray[] = ( $scheme );
             
-	            	foreach ( $queryElementList as $queryElement )
-	            	{
-	                	if ( $queryElement != FALSE )
-	                	{
-	                	    $crlArray[] = $queryElement;
-	                	}
-	            	}
-	            	return $crlArray;
-	            }
-	            else
-	            {
-	            	trigger_error("Error: the crl is not valid",E_USER_ERROR);	
-	            }
-	        }    
+                    foreach ( $queryElementList as $queryElement )
+                    {
+                        if ( $queryElement != FALSE )
+                        {
+                            $crlArray[] = $queryElement;
+                        }
+                    }
+                    return $crlArray;
+                }
+                else
+                {
+                    trigger_error("Error: the crl is not valid",E_USER_ERROR);    
+                }
+            }    
             else
             {
-            	trigger_error("Error: the crl are required",E_USER_ERROR);
+                trigger_error("Error: the crl are required",E_USER_ERROR);
             }
         }
         
@@ -68,24 +74,24 @@
         *
         * @param $crlArray array array containing the crl parts
         * @return string claroline resource locator
-        * @throw E_USER_ERROR : if the array is not valid 
+        * @throws E_USER_ERROR : if the array is not valid 
         */ 
         function implode( $crlArray )
         {
             if ( is_array($crlArray) && count($crlArray) >= 1)
             {
-            	$crl = $crlArray[0].":/";
-            	
-            	for($i = 1 ; $i < count($crlArray) ; $i++)
-            	{
-               		$crl = $crl."/".$crlArray[$i];
-            	}
-            	
-            	return $crl;
+                $crl = $crlArray[0].":/";
+                
+                for($i = 1 ; $i < count($crlArray) ; $i++)
+                {
+                       $crl = $crl."/".$crlArray[$i];
+                }
+                
+                return $crl;
             }
             else
             {
-            	trigger_error("Error: if the array is not valid",E_USER_ERROR);	
+                trigger_error("Error: if the array is not valid",E_USER_ERROR);    
             }
         }
         
@@ -95,8 +101,8 @@
         * @param $crl string a valid crl
         * @return an associative array containing any of the various 
         *      components of the URL that are present
-        * @throw E_USER_ERROR : the group_id is required when one has a group
-        * @throw E_USER_ERROR : the course_sys_code is required
+        * @throws E_USER_ERROR : the group_id is required when one has a group
+        * @throws E_USER_ERROR : the course_sys_code is required
         */ 
         function parseCRL( $crl )
         {
@@ -104,7 +110,7 @@
             
             if( !(isset($crlArray["scheme"]) && $crlArray["scheme"] == "crl")  )
             {
-            	trigger_error("Error: invalid crl",E_USER_ERROR);	
+                trigger_error("Error: invalid crl",E_USER_ERROR);    
             }
             
             if( isset($crlArray["path"]) )
@@ -188,8 +194,8 @@
         * @param $resource_id string the way of the resource
         * @param $group numeric the id of a group
         * @return string a valid claroline resource locator
-        * @throw E_USER_ERROR: resource_id without tool_name
-        * @throw E_USER_ERROR : the platform_id and the course_sys_code is required
+        * @throws E_USER_ERROR: resource_id without tool_name
+        * @throws E_USER_ERROR : the platform_id and the course_sys_code is required
         */ 
         function createCRL($platform_id , $course_sys_code , $tool_name ='' , $resource_id = '' , $group = NULL )
         {
@@ -238,7 +244,7 @@
         function isForThisTool( $crl , $tool_name )
         {
             $array = CRLTool::parseCRL($crl);
-			
+            
             if( isset($array["tool_name"]))
             {
                 return ($array["tool_name"] == $tool_name);
