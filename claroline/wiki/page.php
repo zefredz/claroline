@@ -86,12 +86,6 @@
     
     $wikiId = ( isset( $_REQUEST['wikiId'] ) ) ? (int) $_REQUEST['wikiId'] : 0;
     
-    $creatorId = $_uid; // $_uid
-
-    $content = ( isset( $_REQUEST['content'] ) ) ? strip_tags( $_REQUEST['content'] ) : '';
-
-    $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
-    
     // Database nitialisation
     
     $tblList = claro_sql_get_course_tbl();
@@ -196,6 +190,28 @@
     
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'show';
     
+    // set request variables
+    
+    $creatorId = $_uid; // $_uid
+
+    $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
+    
+    if ( $action == "edit" )
+    {
+        if ( isset( $_REQUEST['content'] ) )
+        {
+            $content = ( $_REQUEST['content'] == '' ) ? "__CONTENT__EMPTY__" : $_REQUEST['content'];
+        }
+        else
+        {
+            $content = '';
+        }
+    }
+    else
+    {
+        $content = ( isset( $_REQUEST['content'] ) ) ? strip_tags( $_REQUEST['content'] ) : '';
+    }
+    
     // use __MainPage__ if empty title
 
     if ( $title === '' )
@@ -236,6 +252,11 @@
                 if ( $content == '' )
                 {
                     $content = $wikiPage->getContent();
+                }
+                
+                if  ( $content == "__CONTENT__EMPTY__" )
+                {
+                    $content = '';
                 }
 
                 $title = $wikiPage->getTitle();
