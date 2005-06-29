@@ -1755,7 +1755,7 @@ $langUploadEnd = "Le t&eacute;l&eacute;chargement est termin&eacute;";
 $langUploadFile = "T&eacute;l&eacute;charger";
 $langUploadedFile = "Fichier envoyé";
 $langUseFollowingFormat = "Utiliser le format suivant: ";
-$langUseFormatDefined = "Utiliser le format définit à la première ligne du fichier";
+$langUseFormatDefined = "Utiliser le format défini à la première ligne du fichier";
 $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
                      Tous les exercices ou document qui ont été ajoutés dans un parcours apparaîtront aussi dans cette liste.";
 $langUseTagForBlank = "utilisez des crochets [...] pour créer un ou des blancs";
