@@ -206,7 +206,7 @@ if ( $cmd == 'exReg' )
     
     // try to register user
     
-    if ( add_user_to_course($userId, $course, $forceReg) )
+    if ( user_add_to_course($userId, $course, $forceReg) )
     {
         if ( $_uid != $uidToEdit )
         {
