@@ -10,11 +10,11 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @see http://www.claroline.net/wiki/CLNEWS/
+ * @see http://www.claroline.net/wiki/COURSE/
  *
  * @author Claro Team <cvs@claroline.net>
  *
- * @package CLADMIN
+ * @package COURSE
  * 
  */
 
@@ -38,16 +38,16 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
 // javascript confirm pop up declaration
 
-  $htmlHeadXtra[] =
-            '<script>
-            function confirmation (name)
-            {
-                if (confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete) . ' \'+ name + \'"? \'))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>';
+$htmlHeadXtra[] =
+'<script>
+function confirmation (name)
+{
+    if (confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete) . ' \'+ name + \'"? \'))
+        {return true;}
+    else
+        {return false;}
+}
+</script>';
 
 // Deal with interbredcrumps
 
@@ -60,9 +60,9 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 $is_allowedToAdmin = $is_platformAdmin;
 
-//------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
@@ -138,12 +138,12 @@ switch ($cmd)
   case 'delete' :
         $delCode = $_REQUEST['delCode'];
         $the_course = claro_get_course_data($delCode);
-	
+
         if ($the_course) 
-    	{
-    	    delete_course($delCode);
-    	    $dialogBox = $langCourseDelete;
-    	    $noQUERY_STRING = true;
+        {
+            delete_course($delCode);
+            $dialogBox = $langCourseDelete;
+            $noQUERY_STRING = true;
         }
         else 
         {
@@ -171,19 +171,19 @@ switch ($cmd)
    // main query to know what must be displayed in the list
 
 $sql = "SELECT  C.*,
-				C.`fake_code` `officialCode`, 
-				C.`code`      `sysCode`, 
-				C.`directory` `repository`, 
-				count(IF(`CU`.`statut`=5,1,null)) `qty_stu` , 
-				#count only lines where statut of user is 5
-				
-				count(IF(`CU`.`statut`=1,1,null)) `qty_cm` 
-				#count only lines where statut of user is 1
+                C.`fake_code` `officialCode`, 
+                C.`code`      `sysCode`, 
+                C.`directory` `repository`, 
+                count(IF(`CU`.`statut`=5,1,null)) `qty_stu` , 
+                #count only lines where statut of user is 5
+                
+                count(IF(`CU`.`statut`=1,1,null)) `qty_cm` 
+                #count only lines where statut of user is 1
 
         FROM `".$tbl_course."` AS C 
         LEFT JOIN `".$tbl_rel_course_user."` AS CU
-			ON `CU`.`code_cours` = `C`.`code` 
-		WHERE 1=1 ";
+            ON `CU`.`code_cours` = `C`.`code` 
+        WHERE 1=1 ";
 
 //deal with LETTER classification call
 
@@ -270,16 +270,16 @@ if (isset($_SESSION['admin_course_subscription']))   // type of subscription all
 // deal with REORDER
 if (isset($_SESSION['admin_course_order_crit']))
 {
-	switch ($_SESSION['admin_course_order_crit'])
-	{
-		case 'code'    : $fieldSort = 'fake_code'; break;
-		case 'label'   : $fieldSort = 'intitule';  break;
-		case 'cat'     : $fieldSort = 'faculte';   break;
-		case 'titular' : $fieldSort = 'titulaire'; break;
-		case 'email'   : $fieldSort = 'email';
-	}
+    switch ($_SESSION['admin_course_order_crit'])
+    {
+        case 'code'    : $fieldSort = 'fake_code'; break;
+        case 'label'   : $fieldSort = 'intitule';  break;
+        case 'cat'     : $fieldSort = 'faculte';   break;
+        case 'titular' : $fieldSort = 'titulaire'; break;
+        case 'email'   : $fieldSort = 'email';
+    }
     $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_course_dir'];
-	$order[$_SESSION['admin_course_order_crit']] = ($_SESSION['admin_course_dir']=='ASC'?'DESC':'ASC');
+    $order[$_SESSION['admin_course_order_crit']] = ($_SESSION['admin_course_dir']=='ASC'?'DESC':'ASC');
     $sql.=$toAdd;
 }
 
@@ -515,7 +515,7 @@ foreach($resultList as $courseLine)
     .     sprintf( ( $courseLine['qty_stu'] > 1 ? $lang_p_d_students : $lang_p_d_student)
                  , $courseLine['qty_stu']) . "\n"
     .     '</small></small>'
-	.     '</td>' . "\n"
+    .     '</td>' . "\n"
 
     // Modify course settings
 
