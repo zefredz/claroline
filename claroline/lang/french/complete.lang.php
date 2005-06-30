@@ -343,6 +343,7 @@ $langCourseWithoutAccess = "Cours inutilisés";
 $langCourseWithoutProf = "Cours sans gestionnaire";
 $langCourseWithoutStudents = "Cours sans étudiants";
 $langCourse_Repository = "Dossier du cours";
+$langCourseNotFound = "Ce cours n'existe pas/plus";
 $langCourses = "Cours";
 $langCreate = "créer";
 $langCreateAnotherUser = "Créer un autre utilisateur";

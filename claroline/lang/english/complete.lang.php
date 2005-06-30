@@ -370,6 +370,7 @@ $langCourseHome = "Course Home";
 $langCourseList = "Course list";
 $langCourseManager = "Course manager";
 $langCourseManagerStatusToUser = "Course creator status to %s %s";
+$langCourseNotFound = "Course not found";
 $langCourseProgram = "Course description";
 $langCourseSettings = "Course settings";
 $langCourseTitle = "Course title";

@@ -184,6 +184,9 @@ function claro_get_course_data($course_id = NULL)
              ON `c`.`faculte` =  `cat`.`code`
              WHERE `c`.`code` = '" . $course_id . "'";
             $_courseDatas = claro_sql_query_fetch_all($sql);
+            if (!is_array($_courseDatas) || count($_courseDatas) == 0)
+                return claro_failure::set_failure('course_not_found');
+            ;
             $_courseDatas = $_courseDatas[0];
             $courseDataInCache = $course_id;
             $_courseDatas['visibility'  ]         = (bool) ($_courseDatas['visible'] == 2 || $_courseDatas['visible'] == 3);
