@@ -107,6 +107,12 @@
     // Objects instantiation
     
     $wikiStore = new WikiStore( $con, $config );
+    
+    if ( ! $wikiStore->wikiIdExists( $wikiId ) )
+    {
+        die ( $langWikiInvalidWikiId );
+    }
+    
     $wiki = $wikiStore->loadWiki( $wikiId );
     $wikiPage = new WikiPage( $con, $config, $wikiId );
     $wikiRenderer = new Wiki2xhtmlRenderer( $wiki );

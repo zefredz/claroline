@@ -177,7 +177,9 @@
         {
             if ( ! $wikiStore->wikiIdExists( $wikiId ) )
             {
-                die ( $langWikiInvalidWikiId );
+                // die( $langWikiInvalidWikiId );
+                $message = $langWikiInvalidWikiId;
+                $action = "error";
             }
             else
             {
@@ -196,7 +198,9 @@
             }
             else
             {
-                die( $langWikiInvalidWikiId );
+                // die( $langWikiInvalidWikiId );
+                $message = $langWikiInvalidWikiId;
+                $action = "error";
             }
 
             if ( $groupId == 0 )
@@ -225,7 +229,9 @@
             }
             else
             {
-                die( $langWikiInvalidWikiId );
+                // die( $langWikiInvalidWikiId );
+                $message = $langWikiInvalidWikiId;
+                $action = "error";
             }
             break;
         }
@@ -248,7 +254,9 @@
             }
             else
             {
-                die( $langWikiInvalidWikiId );
+                // die( $langWikiInvalidWikiId );
+                $message = $langWikiInvalidWikiId;
+                $action = "error";
             }
             break;
         }
@@ -285,7 +293,9 @@
             }
             else
             {
-                die( $langWikiInvalidWikiId );
+                // die( $langWikiInvalidWikiId );
+                $message = $langWikiInvalidWikiId;
+                $action = "error";
             }
             
             $action = 'list';
@@ -367,6 +377,11 @@
 
     switch( $action )
     {
+        // an error occurs
+        case "error":
+        {
+            break;
+        }
         // edit form
         case "rqEdit":
         {
