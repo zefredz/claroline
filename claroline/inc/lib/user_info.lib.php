@@ -2,18 +2,20 @@
 /**
  * CLAROLINE
  *
+ * Provide function to work on  personnal editable info  of each user.
+ *
  * @version   version 1.7 $Revision$
  *
  * @copyright  2001 - 2005 Universite catholique de Louvain (UCL)
  *
- * @license GPL
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claroline Team <info@claroline.net>
  *
- * @package CLUSER
+ * @package CLUSR
  *
- * @author - Christophe Gesché <moosh@claroline.net>
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 
