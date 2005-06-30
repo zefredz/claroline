@@ -404,7 +404,7 @@ echo '<table width="100%">'
 .    '<td align="right">'
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">'
 .    '<label for="search">' . $langMakeNewSearch . '</label>'
-.    '<input type="text" value="' . $search . '" name="search\" id=\"search\"\">'
+.    '<input type="text" value="' . $search . '" name="search" id="search">'
 .    '<input type="submit" value=" ' . $langOk . ' ">'
 .    '<input type="hidden" name="newsearch" value="yes">'
 .    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">' 
@@ -544,7 +544,7 @@ foreach($resultList as $courseLine)
 if (!isset($atleastOneResult))
 {
    echo '<tr>'
-   .    '<td colspan=\"6\" align=\"center\">'
+   .    '<td colspan="6" align="center">'
    .    $langNoCourseResult . '<br>'
    .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . $langSearchAgain . '</a>'
    .    '</td>'
