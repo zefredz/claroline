@@ -593,7 +593,6 @@ function claro_get_cat_flat_list($separator = ' > ')
 
     // then we build the table we need : full path of editable cats in an array
     
-    $tableToDisplay = array();
     if (is_array($categories ))
     foreach ($categories as $cat)
     {
@@ -648,6 +647,28 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
             break;
         }
     }
+}
+
+
+function claro_get_lang_flat_list()
+{
+    $language_array = claro_get_lang_list();
+    
+    // following foreach  build the array of selectable  items
+    if(is_array($language_array))
+    foreach ($language_array as $languageCode => $this_language)
+    {
+        $languageLabel = '';
+        if (   !empty($this_language['langNameCurrentLang']) 
+            && $this_language['langNameCurrentLang'] != '' 
+            && $this_language['langNameCurrentLang'] != $this_language['langNameLocaleLang'])
+            $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
+        $languageLabel .=  $this_language['langNameLocaleLang'];
+        
+        $language_flat_list[$languageCode] = $languageLabel;
+    }
+    asort($language_flat_list);
+    return $language_flat_list; 
 }
 
 ?>
