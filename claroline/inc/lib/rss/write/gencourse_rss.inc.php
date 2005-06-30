@@ -127,7 +127,7 @@ function announcement_get_rss_item_list( $course_id=NULL)
     GLOBAL $clarolineRepositoryWeb, $_cid, $_course;
     $announcementList = announcement_get_item_list('DESC', $course_id);
     $toolNameList = claro_get_tool_name_list();
-    $announcementList = array();
+    $rssList = array();
     foreach ($announcementList as $announcementItem)
     {
         $rssList[] = array( 'title' => trim($announcementItem['title'])
