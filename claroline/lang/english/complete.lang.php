@@ -13,6 +13,9 @@ $lang_p_forum_s_created = 'Forum %s created';
 $lang_p_topic_s_created = 'Topic %s created';
 $lang_p_post_s_created = 'Post %s created';
 $l_here = "here";
+$langCourseWouldBeCreated = 'Your course would be created';
+$lang_p_IfNothingHappendClickHere = '<small>If after 30 seconds nothing change, please click <a href="%s">here</a> and wait again</small>';
+
 $l_indextitle = "Forum Index";
 $l_lastpost = "Last Post";
 $l_noposts = "No Posts";

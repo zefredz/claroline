@@ -42,7 +42,16 @@
  *
  */
 
+define('DISP_FORM',__LINE__);
+define('DISP_WHAT_ADD',__LINE__);
+define('DISP_WAIT',__LINE__);
+define('DISP_RESULT',__LINE__);
+define('DISP_NOT_ALLOWED',__LINE__);
+define('DISP_READONLY_FS',__LINE__);
+
 require '../inc/claro_init_global.inc.php';
+if ( ! $is_courseAllowed) claro_disp_auth_form();
+
 claro_unquote_gpc();
 //// Config tool
 include($includePath . '/conf/course_main.conf.php');
@@ -99,20 +108,18 @@ else                                  $wantedCode = '';
 
 if ( isset($_REQUEST['intitule']) ) $valueIntitule = $_REQUEST['intitule'];
 else                                $valueIntitule = '';
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = '';
 
 //// Starting script
 
-$displayNotForU = FALSE;
-$displayFileSystemIsReadOnly = FALSE;
-$displayCoursePropertiesForm = FALSE;
-
 if (!$can_create_courses)
 {
-    $displayNotForU = TRUE; // (!$can_create_courses)
+    $display = DISP_NOT_ALLOWED;
 }
 else
 {
-    $displayCoursePropertiesForm = TRUE;
+    $display = DISP_FORM;
     if ( isset($_REQUEST['submitFromCoursProperties']) )
     {
         $wantedCode         = strip_tags($wantedCode);
@@ -163,10 +170,10 @@ else
         switch ($forceCodeCase) // defined in config file
         {
             case 'lower' :
-            $wantedCode = strtolower($wantedCode);
+                $wantedCode = strtolower($wantedCode);
             break;
             case 'upper' :
-            $wantedCode = strtoupper($wantedCode);
+                $wantedCode = strtoupper($wantedCode);
             break;
             default : ;
         }
@@ -182,111 +189,131 @@ else
 
         if ($okToCreate)
         {
-            
-            //function prepare_course_repository($courseRepository, $courseId)
-            if (!prepare_course_repository($currentCourseRepository,$currentCourseId))
+            $showWaitPanel = TRUE;
+            if ($cmd=='exCreate')
             {
-                switch ( claro_failure::get_last_failure() )
-                {
-                    case 'READ_ONLY_SYSTEM_FILE' :
-                    $displayFileSystemIsReadOnly = TRUE;
-                    
-                    break;
-                    default: $controlMsg['error'][] = 'error directories creation failed';
+                $showWaitPanel = FALSE;
 
-                }
             }
-            else
+
+            $noQUERY_STRING = true;          
+            
+            if($showWaitPanel)
+            {            
+                $display=DISP_WAIT;
+        
+                $param = $_SERVER['PHP_SELF'].'?cmd=exCreate';     
+                foreach ($_REQUEST as $k => $v)
+                   $param .=            '&amp;' . rawurlencode($k) . '=' . rawurlencode($v);     
+                $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $param . '">';
+            }
+            else 
             {
-                update_db_course($currentCourseDbName);
-                fill_course_repository($currentCourseRepository);
-
-                // function fill_db_course($courseDbName)
-                fill_db_course( $currentCourseDbName );
-
-                if ( register_course($currentCourseId
-                ,                    $currentCourseCode
-                ,                    $currentCourseRepository
-                ,                    $currentCourseDbName
-                ,                    $newcourse_titulars
-                ,                    $newcourse_email
-                ,                    $newcourse_category
-                ,                    $newcourse_label
-                ,                    $newcourse_language
-                ,                    $_uid
-                ,                    $expirationDate
-                )
-                )
+                $display = DISP_RESULT;
+                //function prepare_course_repository($courseRepository, $courseId)
+                if (!prepare_course_repository($currentCourseRepository,$currentCourseId))
                 {
-                    $displayCourseAddResult       = TRUE;
-                    $displayCoursePropertiesForm  = FALSE;
-                    $displayWhatAdd               = FALSE;
-
-                    // warn platform administrator of the course creation
-                    $strCreationMailNotificationSubject ='['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
-                    $strCreationMailNotificationBody = claro_disp_localised_date($dateTimeFormatLong)."\n"
-                    .                                  $langCreationMailNotificationBody.' ' . $siteName . ' '
-                    .                                  $langByUser . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n"
-                    .                                  ' ' . $langCode			. ' : ' . $currentCourseCode."\n"
-                    .                                  ' ' . $langCourseTitle	. ' : ' . $newcourse_label."\n"
-                    .                                  ' ' . $langProfessors	    . ' : ' . $newcourse_titulars."\n"
-                    .                                  ' ' . $langEmail			. ' : ' . $newcourse_email."\n\n"
-                    .                                  ' ' . $langCategory       . ' : ' . $newcourse_category."\n"
-                    .                                  ' ' . $langLanguage       . ' : ' . $newcourse_language."\n"
-                    .                                  "\n " . $coursesRepositoryWeb.$currentCourseRepository."/\n\n"
-                    ;
-
-                    // send a email to administrator(s) about the course creation
-                    $adminUserIdsList = claro_get_admin_list ();
-                    foreach( $adminUserIdsList as $adminUserId )
+                    switch ( claro_failure::get_last_failure() )
                     {
-                        claro_mail_user( $adminUserId['idUser'], $strCreationMailNotificationBody, $strCreationMailNotificationSubject );
+                        case 'READ_ONLY_SYSTEM_FILE' :
+                        $display = DISP_READONLY_FS;                    
+                        break;
+                        default: $controlMsg['error'][] = 'error directories creation failed';
+    
                     }
                 }
                 else
                 {
-                    $controlMsg['error'][] = 'Error on course registration';
-                    do
+                    
+                    update_db_course($currentCourseDbName);
+                    fill_course_repository($currentCourseRepository);
+    
+                    // function fill_db_course($courseDbName)
+                    fill_db_course( $currentCourseDbName );
+    
+                    if ( register_course($currentCourseId
+                    ,                    $currentCourseCode
+                    ,                    $currentCourseRepository
+                    ,                    $currentCourseDbName
+                    ,                    $newcourse_titulars
+                    ,                    $newcourse_email
+                    ,                    $newcourse_category
+                    ,                    $newcourse_label
+                    ,                    $newcourse_language
+                    ,                    $_uid
+                    ,                    $expirationDate
+                    )
+                    )
                     {
-                        $sysErrorCode = claro_failure::get_last_failure();
-                        if ($sysErrorCode!='') $controlMsg['error'][] = $sysErrorCode;
-                        // theses code would be transform in a $lang
-                    } while ($sysErrorCode=='');
+                        $display = DISP_RESULT;
+                        // warn platform administrator of the course creation
+                        $strCreationMailNotificationSubject ='['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
+                        $strCreationMailNotificationBody = claro_disp_localised_date($dateTimeFormatLong)."\n"
+                        .                                  $langCreationMailNotificationBody.' ' . $siteName . ' '
+                        .                                  $langByUser . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n"
+                        .                                  ' ' . $langCode			. ' : ' . $currentCourseCode."\n"
+                        .                                  ' ' . $langCourseTitle	. ' : ' . $newcourse_label."\n"
+                        .                                  ' ' . $langProfessors	    . ' : ' . $newcourse_titulars."\n"
+                        .                                  ' ' . $langEmail			. ' : ' . $newcourse_email."\n\n"
+                        .                                  ' ' . $langCategory       . ' : ' . $newcourse_category."\n"
+                        .                                  ' ' . $langLanguage       . ' : ' . $newcourse_language."\n"
+                        .                                  "\n " . $coursesRepositoryWeb.$currentCourseRepository."/\n\n"
+                        ;
+    
+                        // send a email to administrator(s) about the course creation
+                        $adminUserIdsList = claro_get_admin_list ();
+                        foreach( $adminUserIdsList as $adminUserId )
+                        {
+                            claro_mail_user( $adminUserId['idUser'], $strCreationMailNotificationBody, $strCreationMailNotificationSubject );
+                        }
+                    }
+                    else
+                    {
+                        $controlMsg['error'][] = 'Error on course registration';
+                        do
+                        {
+                            $sysErrorCode = claro_failure::get_last_failure();
+                            if ($sysErrorCode!='') $controlMsg['error'][] = $sysErrorCode;
+                            // theses code would be transform in a $lang
+                        } while ($sysErrorCode=='');
+                    }
                 }
-            }
+            } 
         } // if ($okToCreate)
     } // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
 
-if ($displayCoursePropertiesForm)
+
+
+
+
+
+///////////////////////
+// PREPARE OUTPUT
+
+switch ($display)
 {
-    $language_array = claro_get_lang_list();
-    
-    // following foreach  build the array of selectable  items
-    if(is_array($language_array))
-    foreach ($language_array as $languageCode => $this_language)
+    case DISP_FORM :
     {
-        $languageLabel = '';
-        if (   !empty($this_language['langNameCurrentLang']) 
-            && $this_language['langNameCurrentLang'] != '' 
-            && $this_language['langNameCurrentLang'] != $this_language['langNameLocaleLang'])
-            $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
-        $languageLabel .=  $this_language['langNameLocaleLang'];
+        $language_list = claro_get_lang_flat_list();
         
-        $language_list[$languageCode] = $languageLabel;
+        $category_array = claro_get_cat_flat_list();
+        // If there is no current $category, add a fake option 
+        // to prevent auto select the first in list
+        // to prevent auto select the first in list
+        if ( array_key_exists($category,$category_array))
+        { 
+            $cat_preselect = $category;
+        }
+        else 
+        {
+            $cat_preselect = 'choose_one';
+            $category_array = array_merge(array('choose_one'=>'--'),$category_array);
+        }
     }
-    
-    
-    $category_array = claro_get_cat_flat_list();
-    if ( array_key_exists($category,$category_array))
-    { 
-        $cat_preselect = $category;
-    }
-    else 
-    {
-        $cat_preselect = 'choose_one';
-        $category_array = array_merge(array('choose_one'=>'--'),$category_array);
-    }
+    break;
+    default : 
+    break;
 }
 
 
@@ -295,7 +322,14 @@ if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
     $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 }
 
-include $includePath.'/claro_init_header.inc.php';
+
+////////////////////////////////////////////////////////
+// OUTPUT
+
+
+
+
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
 
@@ -308,14 +342,14 @@ if ( is_array($controlMsg) && count($controlMsg) > 0 )
 // path for breadcrumb contextual menu in this page
 $chemin='<a href="../../index.php>' . $siteName . '</a>&nbsp;&gt;&nbsp;<b>' . $langCreateSite . '</b>';
 
-if($displayNotForU)
+if($display == DISP_NOT_ALLOWED)
 {
     echo $langNotAllowed;
 }
-elseif($displayFileSystemIsReadOnly)
+elseif($display == DISP_READONLY_FS)
 {
     echo '<B>prepare_course_repository</B>'
-    .    ' in<small><I>'.__FILE__.'</I></small>'
+    .    ' in<small><I>' . __FILE__ . '</I></small>'
     .    'can\'t create dir,'
     .    '<br>'
     .    '<br>'
@@ -340,7 +374,7 @@ elseif($displayFileSystemIsReadOnly)
     ;
 
 }
-elseif($displayCoursePropertiesForm)
+elseif($display ==  DISP_FORM)
 {
 ?>
 <b><?php echo $langFieldsRequ ?></b>
@@ -437,7 +471,7 @@ elseif($displayCoursePropertiesForm)
 #################SORT THE FORM ####################
 # 1. CHECK IF DIRECTORY/COURSE_CODE ALREADY TAKEN #
 #### CREATE THE COURSE AND THE DATABASE OF IT #####
-elseif($displayCourseAddResult)
+elseif($display == DISP_RESULT)
 {
     // Replace HTML special chars by equivalent - cannot use html_specialchars
     // Special for french
@@ -460,7 +494,11 @@ elseif($displayCourseAddResult)
 
 
 } // if all fields fullfilled
-
+elseif ($display==DISP_WAIT)
+{
+    
+    echo claro_disp_message_box(sprintf($langCourseWouldBeCreated.'<BR><small>'.$lang_p_IfNothingHappendClickHere,$param));
+}
 include($includePath . '/claro_init_footer.inc.php');
 
 ?>

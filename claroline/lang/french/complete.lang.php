@@ -14,6 +14,9 @@ $lang_p_topic_s_created = "Sujet %s créé";
 $lang_p_post_s_created = "Message %s créé";
 $l_here = "ici";
 $l_indextitle = "Index du forum";
+$langCourseWouldBeCreated = 'Votre cours va être créé';
+$lang_p_IfNothingHappendClickHere = '<small>Si <u>après 30 secondes</u> rien ne se passe cliquez sur <a href="%s">ce lien</a> et patientez quelques secondes</small>';
+
 $l_lastpost = "Dernier Message";
 $l_noposts = "Pas de Messages";
 $l_notify = "Notifier par e-mail quand des réponses sont postées";
