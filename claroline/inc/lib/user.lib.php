@@ -392,7 +392,7 @@ function user_delete_admin($user_id)
  *         boolean FALSE otherwise.
  */
 
-function user_add_to_course($user_id, $course_id, $force_it=false)
+function user_add_to_course($user_id, $course_code, $force_it=false)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
@@ -415,7 +415,7 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
         $sql = "SELECT `user_id` 
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE `user_id` = '" . (int) $user_id . "'
-                AND `code_cours` ='" . addslashes($course_id) . "'";
+                AND `code_cours` ='" . addslashes($course_code) . "'";
 
         $handle = claro_sql_query($sql);
 
@@ -428,7 +428,7 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
             // previously check if subscribtion is allowed for this course
             $sql = " SELECT `code`, `visible` 
                      FROM `" . $tbl_course . "`
-                     WHERE  `code` = '" . addslashes($course_id) . "'
+                     WHERE  `code` = '" . addslashes($course_code) . "'
                      AND    (`visible` = 0 OR `visible` = 3)" ;
 
             $handle = claro_sql_query($sql);
@@ -440,7 +440,7 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
             else
             {
                 $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                        SET `code_cours` = '" . addslashes($course_id) . "',
+                        SET `code_cours` = '" . addslashes($course_code) . "',
                             `user_id`    = '" . (int) $user_id . "',
                             `statut`     = '5' ";
 
@@ -463,14 +463,14 @@ function user_add_to_course($user_id, $course_id, $force_it=false)
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  * @param int $user_id user ID from the course_user table
- * @param string $course_id course code from the cours table
+ * @param string $course_code course code from the cours table
  * @param string status course code from the cours table
  *
  * @return boolean TRUE  if update succeed
  *         boolean FALSE otherwise.
  */
 
-function user_update_course_manager_status($user_id, $course_id, $status)
+function user_update_course_manager_status($user_id, $course_code, $status)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
@@ -478,7 +478,7 @@ function user_update_course_manager_status($user_id, $course_id, $status)
     $sql = "UPDATE `" . $tbl_rel_course_user . "`
             SET statut = '" . (int)$status . "' 
             WHERE `user_id` = '" . (int)$user_id . "'
-            AND `code_cours` ='" . addslashes($course_id) . "'";
+            AND `code_cours` ='" . addslashes($course_code) . "'";
 
     if ( claro_sql_query($sql) ) return true;
     else                         return false;
@@ -499,7 +499,7 @@ function user_update_course_manager_status($user_id, $course_id, $status)
  *         boolean FALSE otherwise.
  */
 
-function user_update_course_tutor_status($user_id, $course_id, $status)
+function user_update_course_tutor_status($user_id, $course_code, $status)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
@@ -507,7 +507,7 @@ function user_update_course_tutor_status($user_id, $course_id, $status)
     $sql = "UPDATE `" . $tbl_rel_course_user . "`
             SET tutor = '" . (int)$status . "' 
             WHERE `user_id` = '" . (int)$user_id . "'
-            AND `code_cours` ='" . addslashes($course_id) . "'";
+            AND `code_cours` ='" . addslashes($course_code) . "'";
 
     if ( claro_sql_query($sql) ) return true;
     else                         return false;
@@ -518,40 +518,58 @@ function user_update_course_tutor_status($user_id, $course_id, $status)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @param  int     $userId     user ID from the course_user table
- * @param  string  $courseCode course code from the cours table
+ * @param  int     $user_id     user ID from the course_user table
+ * @param  string  $course_code course code from the cours table
+ * @param boolean $force_it if true  : a course manager can unsubscribe it himself 
+ *                          if false : (default value)
  *
  * @return boolean TRUE        if unsubscribtion succeed
  *         boolean FALSE       otherwise.
  */
 
-function user_remove_from_course($user_id, $course_id)
+function user_remove_from_course($user_id, $course_code,$force_it=false)
 {
+    global $_uid;
+
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
 
-    // previously check if the user is not administrator of the course
-    // a course administrator can not unsubscribe himself from a course
-    $sql = "SELECT *
+    // select courses manager of the course
+    $sql = "SELECT user_id
             FROM `" . $tbl_rel_course_user . "`
-            WHERE user_id  = '" . (int)$user_id . "'
-             AND code_cours = '" . addslashes($course_id) . "'
-             AND statut = '1' ";
+            WHERE code_cours = '" . addslashes($course_code) . "'
+              AND statut = '" . COURSEMANAGER . "' ";
 
-    $handle = claro_sql_query($sql);
+    $course_manager = claro_sql_query_fetch_all_cols($sql);
 
-    if ( mysql_num_rows($handle) > 0 )
-    {
-        return false; // the user is administrator of the course
+    if ( $course_manager !== false ) 
+    {   
+        // user to unsubscribe is course manager   
+        if ( in_array($user_id,$course_manager['user_id']) )
+        {
+            // cannot unsubscribe the last course manager
+            // it's a priority case
+            if ( count($course_manager['user_id']) == 1 )
+            {
+                return claro_failure::set_failure('cannot_unsubscribe_the_last_course_manager');
+            }            
+            
+            // a course manager cannot unsubscribe himself from a course
+            if ( $_uid == $user_id && !$force_it )
+            {
+                return claro_failure::set_failure('course_manager_cannot_unsubscribe_himself');
+            }
+
+        }
     }
 
     $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
             WHERE user_id = '" . (int)$user_id . "'
-              AND code_cours = '" . addslashes($course_id) . "'";
+              AND code_cours = '" . addslashes($course_code) . "'";
 
     if ( claro_sql_query($sql) )
     {
-        user_remove_from_group($user_id, $course_id);
+        user_remove_from_group($user_id, $course_code);
     }
 
     return true;
@@ -562,16 +580,16 @@ function user_remove_from_course($user_id, $course_id)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @param  int     $userId     user ID from the course_user table
- * @param  string  $courseCode course code from the cours table
+ * @param  int     $user_id     user ID from the course_user table
+ * @param  string  $course_code course code from the cours table
  *
  * @return boolean TRUE        if removing suceed
  *         boolean FALSE       otherwise.
  */
 
-function user_remove_from_group($user_id, $course_id)
+function user_remove_from_group($user_id, $course_code)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_code));
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
 
     $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`

@@ -103,11 +103,6 @@ switch ( $cmd )
         }
         break;
 
-  case 'unsubscribe' :
-        $done = remove_user_from_course($user_id, $cidToEdit);
-        $dialogBox = ( $done ? $langUserUnsubscribed : $langUserNotUnsubscribed );
-        
-        break;
 }
 
 //build and call DB to get info about current course (for title) if needed :

@@ -14,8 +14,11 @@
 $coursePerPage= 20;
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/user.lib.php");
+include($includePath."/conf/user_profile.conf.php");
 
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
@@ -43,9 +46,15 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
 // See SESSION variables used for reorder criteria :
 
-if (isset($_REQUEST['order_crit']))   
-                                 {$_SESSION['admin_user_course_order_crit']   = trim($_REQUEST['order_crit']) ;}
-if (isset($_REQUEST['dir']))     {$_SESSION['admin_user_course_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
+if ( isset($_REQUEST['order_crit']) )   
+{
+    $_SESSION['admin_user_course_order_crit'] = trim($_REQUEST['order_crit']) ;
+}
+
+if ( isset($_REQUEST['dir']) )
+{
+    $_SESSION['admin_user_course_dir'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+}
 
 //set the reorder parameters for colomuns titles
 
@@ -61,10 +70,12 @@ unset($_cid);
 
 //find which user is concerned in URL parameters
 
+$dialogBox = '';
+
 if ((isset($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit']=="") || !isset($_REQUEST['uidToEdit']))
 {
     unset($_REQUEST['uidToEdit']);
-    $dialogBox ="ERROR : NO USER SET!!!";
+    $dialogBox .= 'ERROR : NO USER SET!!!';
     
 }
 else
@@ -78,13 +89,12 @@ else
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langUserCourseList;
 
-
 // initialisation of global variables and used libraries
 
 include($includePath.'/claro_init_header.inc.php');
 include($includePath."/lib/pager.lib.php");
 
-if ($uidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
+if ( empty($uidToEdit) ) $dialogBox .= 'ERROR : NO USER SET!!!';
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
@@ -96,14 +106,23 @@ else $cmd = null;
 switch ($cmd)
 {
 	case "unsubscribe" :
-        $done = remove_user_from_course($uidToEdit, $_REQUEST['code']);
-        if ($done)
+
+        if ( user_remove_from_course($uidToEdit,$_REQUEST['code'],true) )
         {
-            $dialogBox = $langUserUnsubscribed;
+            $dialogBox .= $langUserUnsubscribed;
         }
         else
         {
-            $dialogBox = $langUserNotUnsubscribed;
+            switch ( claro_failure::get_last_failure() )
+            {
+                case 'cannot_unsubscribe_the_last_course_manager' :
+                    $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                    break;
+                case 'course_manager_cannot_unsubscribe_himself' :
+                    $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                    break;
+                default :       
+            }
         }
         break;
 }
@@ -199,7 +218,7 @@ echo claro_disp_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if(isset($dialogBox))
+if ( !empty($dialogBox) )
 {
     echo claro_disp_message_box($dialogBox);
 }

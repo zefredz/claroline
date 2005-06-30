@@ -37,6 +37,8 @@ claro_set_display_mode_available(true);
   ----------------------------------------------------------------------*/
 
 include($includePath  . '/lib/admin.lib.inc.php');
+include($includePath  . '/lib/user.lib.php');
+include($includePath  . '/conf/user_profile.conf.php');
 include($includePath  . '/lib/pager.lib.php');
 include($includePath  . '/lib/events.lib.inc.php');
 @include($includePath . '/lib/debug.lib.inc.php');
@@ -79,6 +81,8 @@ $can_add_user     = (bool) (   $is_courseAdmin
 
 $currentCourse = $currentCourseID  = $_course['sysCode'];
 
+$dialogBox = '';
+
 /*----------------------------------------------------------------------
   DB tables definition
   ----------------------------------------------------------------------*/
@@ -116,18 +120,28 @@ if ( $is_allowedToEdit )
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
-            $dialogBox = $unregisterdUserCount . " student(s) unregistered from this course";
+            $dialogBox .= $unregisterdUserCount . " student(s) unregistered from this course";
         }
         elseif ( 0 < (int)$_REQUEST['user_id'] )
         {
             // delete user from course user list
-            if ( remove_user_from_course( $_REQUEST['user_id'], $_cid) )
+            if ( user_remove_from_course( $_REQUEST['user_id'], $_cid) )
             {
-               $dialogBox = $langUserUnsubscribedFromCourse;
+               $dialogBox .= $langUserUnsubscribedFromCourse;
             }
             else
             {
-               $dialogBox = $langUserNotUnsubscribedFromCourse;
+                switch ( claro_failure::get_last_failure() )
+                {
+                    case 'cannot_unsubscribe_the_last_course_manager' :
+                        $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                        break;
+                    case 'course_manager_cannot_unsubscribe_himself' :
+                        $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                        break;
+                    default :       
+                        $dialogBox .= $langUserNotUnsubscribedFromCourse;
+                }
             }
         }
     } // end if isset $_REQUEST['cmd']

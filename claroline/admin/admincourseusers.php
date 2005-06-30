@@ -41,6 +41,8 @@ $iconForCuStatus['COURSE_MANAGER'] = "manager.gif";
 
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/user.lib.php");
+include($includePath."/conf/user_profile.conf.php");
 
 //find which course is concerned in URL parameters
 
@@ -85,7 +87,7 @@ if (!isset($order['cu_status']))        $order['cu_status']    = "";
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $nameTools = $langAllUsersOfThisCourse;
-
+$dialogBox = '';
 //Header
 
 include($includePath."/claro_init_header.inc.php");
@@ -102,39 +104,42 @@ $tbl_track_default = $tbl_mdb_names['track_e_default' ];
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
 
-
-switch ($cmd)
+if ( $cmd == 'unsub' )
 {
-  case "unsub" :
-        $done = remove_user_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit']);
-        if ($done)
+    if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true) )
+    {
+        $dialogBox .= $langUserUnsubscribed;
+    }
+    else
+    {
+        switch ( claro_failure::get_last_failure() )
         {
-           $dialogBox =$langUserUnsubscribed;
+            case 'cannot_unsubscribe_the_last_course_manager' :
+                $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                break;
+            case 'course_manager_cannot_unsubscribe_himself' :
+                $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                break;
+            default :       
         }
-        else
-        {
-           $dialogBox =$langUserNotUnsubscribed;
-        }
-        break;
+    }    
 }
 
-//build and call DB to get info about current course (for title) if needed :
+// build and call DB to get info about current course (for title) if needed :
 
 $sql = "SELECT *
-        FROM  `".$tbl_courses."`
-        WHERE `code`='".$cidToEdit."'
-        ";
+        FROM  `". $tbl_courses ."`
+        WHERE `code`='".$cidToEdit."' ";
+
 $queryCourse =  claro_sql_query($sql);
 $resultCourse = mysql_fetch_array($queryCourse);
 
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
-
 
 $sql = "SELECT *, IF(CU.statut=1,'COURSE_MANAGER','STUDENT') `stat`
         FROM  `".$tbl_user."` AS U

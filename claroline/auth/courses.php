@@ -33,6 +33,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 include($includePath . '/lib/debug.lib.inc.php');
 include($includePath . '/lib/admin.lib.inc.php');
 include($includePath . '/lib/user.lib.php');
+include($includePath . '/conf/user_profile.conf.php');
 
 $parentCategoryCode = '';
 $userSettingMode    = FALSE;
@@ -181,13 +182,23 @@ if(!$userInfo)
 
 if ( $cmd == 'exUnreg' )
 {
-    if ( remove_user_from_course($userId, $course) )
+    if ( user_remove_from_course($userId, $course) )
     {
     	$message = $lang_your_enrollment_to_the_course_has_been_removed;
     }
     else
     {
-    	$message = $langUnableToRemoveCourseRegistration;
+        switch ( claro_failure::get_last_failure() )
+        {
+            case 'cannot_unsubscribe_the_last_course_manager' :
+                $message = $langCannotUnsubscribeLastCourseManager;
+                break;
+            case 'course_manager_cannot_unsubscribe_himself' :
+                $message = $langCourseManagerCannotUnsubscribeHimself;
+                break;
+            default :       
+    	        $message = $langUnableToRemoveCourseRegistration;
+        }        
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;

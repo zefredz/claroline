@@ -1,5 +1,4 @@
-<?php
-// $Id$
+<?php // $Id$
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -13,15 +12,18 @@
 //----------------------------------------------------------------------
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
+
 include $includePath."/lib/admin.lib.inc.php";
-include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
+include $includePath."/lib/user.lib.php";
+include $includePath.'/conf/user_profile.conf.php';
 
-
-//SECURITY CHECK
-if (!$is_platformAdmin) claro_disp_auth_form();
+// SECURITY CHECK
+if ( !$is_platformAdmin ) claro_disp_auth_form();
 
 $nameTools=$langUserSettings;
+$dialogBox = '';
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
@@ -32,9 +34,6 @@ $tbl_course           = $tbl_mdb_names['course'           ];
 $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 $tbl_course_nodes     = $tbl_mdb_names['category'         ];
 $tbl_user             = $tbl_mdb_names['user'             ];
-//$tbl_class            = $tbl_mdb_names['class'            ];
-//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
-
 
 // see which user we are working with ...
 
@@ -44,27 +43,35 @@ $user_id = $_REQUEST['uidToEdit'];
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($_REQUEST['cmd']) && $is_platformAdmin)
+if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
 {
-    if ($_REQUEST['cmd']=="UnReg")
+    if ( $_REQUEST['cmd'] == 'UnReg' )
     {
-        $done = remove_user_from_course($user_id, $_REQUEST['cidToEdit']);
-        if ($done)
+        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true) )
         {
-           $dialogBox =$langUserUnsubscribed;
+            $dialogBox .= $langUserUnsubscribed;
         }
         else
         {
-           $dialogBox =$langUserNotUnsubscribed;
+            switch ( claro_failure::get_last_failure() )
+            {
+                case 'cannot_unsubscribe_the_last_course_manager' :
+                    $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                    break;
+                case 'course_manager_cannot_unsubscribe_himself' :
+                    $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                    break;
+                default :       
+            }       
         }
     }
-
 }
 
 //------------------------------------
 // DISPLAY
 //------------------------------------
 
+// Display header
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -72,20 +79,20 @@ include($includePath.'/claro_init_header.inc.php');
 
 echo claro_disp_tool_title($langUserUnregistered);
 
-//Display Forms or dialog box(if needed)
+// Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
-  {
+if ( !empty($dialogBox) )
+{
     echo claro_disp_message_box($dialogBox);
-  }
+}
 
-
-// display TOOL links :
+// Display TOOL links :
 
 echo "<a class=\"claroCmd\" href=\"index.php\">".$langBackToAdmin."</a> | ";
 echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\">".$langBackToCourseList."</a>";
 
-// display footer
+// Display footer
 
 include($includePath."/claro_init_footer.inc.php");
+
 ?>
