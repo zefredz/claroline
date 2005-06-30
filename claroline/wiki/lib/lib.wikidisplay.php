@@ -27,6 +27,17 @@
     require_once dirname(__FILE__) . "/class.wikiaccesscontrol.php";
     require_once dirname(__FILE__) . "/lib.url.php";
 
+    /**
+     * Generate wiki editor html code
+     * @param int wikiId ID of the Wiki
+     * @param string title page title
+     * @param string content page content
+     * @param string script callback script url
+     * @param boolean showWikiToolbar use Wiki toolbar if true
+     * @param boolean forcePreview force preview before saving
+     *      (ie disable save button)
+     * @return string HTML code of the wiki editor
+     */
     function claro_disp_wiki_editor( $wikiId, $title
         , $content, $script = null, $showWikiToolBar = true
         , $forcePreview = true )
@@ -95,6 +106,13 @@
         return $out;
     }
 
+    /**
+     * Generate Wiki help div HTML code
+     * @param string help help message
+     * @param boolean javascriptEnabled use javascript to hide/show help
+     *      if set to true
+     * @return html code of the help div
+     */
     function claro_disp_wiki_help( $help, $javascriptEnabled = true )
     {
         global $langWikiShowHelp,$langWikiExample;
@@ -131,6 +149,13 @@
         return $out;
     }
 
+    /**
+     * Generate html code of the wiki page preview
+     * @param Wiki2xhtmlRenderer wikiRenderer rendering engine
+     * @param string title page title
+     * @param string content page content
+     * @return string html code of the preview pannel
+     */
     function claro_disp_wiki_preview( &$wikiRenderer, $title, $content = '' )
     {
         global $langWikiContentEmpty,$langWikiPreviewTitle
@@ -167,6 +192,14 @@
         return $out;
     }
 
+    /**
+     * Generate html code ofthe preview panel button bar
+     * @param int wikiId ID of the Wiki
+     * @param string title page title
+     * @param string content page content
+     * @param string script callback script url
+     * @return string html code of the preview pannel button bar
+     */
     function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = null )
     {
         global $langSave,$langEdit,$langCancel;
@@ -207,6 +240,17 @@
         return $out;
     }
     
+    /**
+     * Generate html code of Wiki properties edit form
+     * @param int wikiId ID of the wiki
+     * @param string title wiki tile
+     * @param string desc wiki description
+     * @param int groupId id of the group the wiki belongs to
+     *      (0 for a course wiki)
+     * @param array acl wiki access control list
+     * @param string script callback script url
+     * @return string html code of the wiki properties form
+     */
     function claro_disp_wiki_properties_form( $wikiId = 0
         , $title ='', $desc = '', $groupId = 0, $acl = null
         , $script = null )

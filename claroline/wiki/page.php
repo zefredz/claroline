@@ -1,11 +1,6 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
-    /*
-        TODO get wikiID from $_GET
-        TODO set creatorId and editorId using userId
-     */
 
     /**
      * @version CLAROLINE 1.7
