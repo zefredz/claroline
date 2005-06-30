@@ -7,11 +7,11 @@
  * DB Table structure:
  * ---
  *
- * id         : announcement id
- * contenu    : announcement content
- * temps      : date of the announcement introduction / modification
- * title      : optionnal title for an announcement
- * ordre      : order of the announcement display
+ * * id         : announcement id
+ * * contenu    : announcement content
+ * * temps      : date of the announcement introduction / modification
+ * * title      : optionnal title for an announcement
+ * * ordre      : order of the announcement display
  *              (the announcements are display in desc order)
  *
  * @version 1.7 $Revision$
@@ -183,7 +183,8 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_announcement = $tbl_c_names['announcement'];
-    if (!in_array($visibility, array ('HIDE','SHOW'))) return claro_failure::set_failure('ANNOUNCEMENT_VISIBILITY_UNKNOW');
+    if (!in_array($visibility, array ('HIDE','SHOW'))) 
+     trigger_error('ANNOUNCEMENT_VISIBILITY_UNKNOW', E_USER_NOTICE);
     $sql = "UPDATE `" . $tbl_announcement . "`
             SET   visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "'
                   WHERE id =  '" . (int) $announcement_id . "'";
