@@ -457,7 +457,8 @@
             
             $sql = "SELECT `title` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `wiki_id` = " . $this->getWikiId()
+                . "WHERE `wiki_id` = " . $this->getWikiId() . " "
+                . "ORDER BY `title` DESC"
                 ;
                 
             return $this->con->getAllRowsFromQuery( $sql );

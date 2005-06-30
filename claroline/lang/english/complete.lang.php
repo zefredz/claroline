@@ -2045,6 +2045,7 @@ $langWiki = "Wiki";
 $langWikiAccessControl = "Access control management";
 $langWikiAccessControlText = "You can set access rights for users using the following grid : ";
 $langWikiAllPages = "All pages";
+$langWikiAllPagesPattern = "Pages in wiki %s : ";
 $langWikiCourseMembers = "Course members";
 $langWikiCreateNewWiki = "Create a new Wiki";
 $langWikiCreatePrivilege = "Create Pages";

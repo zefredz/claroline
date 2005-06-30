@@ -179,12 +179,12 @@
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         $valid_actions = array( "edit", "preview", "save"
-            , "show", "restore", "diff", "history"
+            , "show", "restore", "diff", "history", "all"
             );
     }
     else
     {
-        $valid_actions = array( "show", "history", "diff" );
+        $valid_actions = array( "show", "history", "diff", "all" );
     }
 
     $_CLEAN = filter_by_key( 'action', $valid_actions, "R", true );
@@ -243,6 +243,12 @@
     
     switch( $action )
     {
+        // all pages
+        case "all":
+        {
+            $allPages = $wiki->allPages();
+            break;
+        }
         // edit page content
         case "edit":
         {
@@ -433,6 +439,12 @@
             $noPHP_SELF = true;
             break;
         }
+        case "all":
+        {
+            $nameTools = $langWikiAllPages;
+            $noPHP_SELF = true;
+            break;
+        }
         default:
         {
             $nameTools = ( $title == "__MainPage__" ) ? $langWikiMainPage : $title ;
@@ -507,14 +519,43 @@
         . $langWikiRecentChanges . '</span>'
         ;
         
-    echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-        . $langWikiAllPages . '</span>'
+    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+        . $_SERVER['PHP_SELF']
+        . '?wikiId=' . $wiki->getWikiId()
+        . '&amp;action=all'
+        . '">'.$langWikiAllPages.'</a>'
         ;
 
     echo '</p>' . "\n";
     
     switch( $action )
     {
+        case "all":
+        {
+            echo '<h3>'.sprintf( $langWikiAllPagesPattern, $wiki->getTitle() ).'</h3>';
+            
+            if ( is_array( $allPages ) )
+            {
+                echo '<ul>' . "\n";
+                
+                foreach ( $allPages as $page )
+                {
+                    $pgtitle = ( $page['title'] == "__MainPage__" )
+                        ? $langWikiMainPage
+                        : $page['title']
+                        ;
+
+                    $link = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
+                        . $wikiId . '&amp;title=' . $page['title'] . '&amp;action=show"'
+                        . '>'.$pgtitle.'</a>'
+                        ;
+                        
+                    echo '<li>' . $link. '</li>' . "\n";
+                }
+                echo '</ul>' . "\n";
+            }
+            break;
+        }
         // edit page
         case "edit":
         {
@@ -580,23 +621,6 @@
                 echo '</div>' . "\n";
             }
 
-            break;
-        }
-        // show differences
-        case "diff":
-        {
-            break;
-        }
-        // restore page
-        case "restore":
-        {
-            break;
-        }
-        // page history
-        case "history":
-        {
-            // page title
-            // list{date, " by " + user} in $history + link to show using wiki.title and version.id
             break;
         }
         default:
