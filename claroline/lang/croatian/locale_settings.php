@@ -16,22 +16,22 @@ $iso639_1_code = "hr";
 $iso639_2_code = "scr";
 
 
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[croatian]="croatian";
-$langNameOfLang[dutch]="dutch";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
-$langNameOfLang[arabic]="arabian";
-$langNameOfLang[turkish]="turkish";
+$langNameOfLang['brazilian']="brazilian";
+$langNameOfLang['croatian']="croatian";
+$langNameOfLang['dutch']="dutch";
+$langNameOfLang['english']="english";
+$langNameOfLang['finnish']="finnish";
+$langNameOfLang['french']="french";
+$langNameOfLang['german']="german";
+$langNameOfLang['italian']="italian";
+$langNameOfLang['japanese']="japanese";
+$langNameOfLang['polish']="polish";
+$langNameOfLang['simpl_chinese']="simplified chinese";
+$langNameOfLang['spanish']="spanish";
+$langNameOfLang['swedish']="swedish";
+$langNameOfLang['thai']="thai";
+$langNameOfLang['arabic']="arabian";
+$langNameOfLang['turkish']="turkish";
 
 
 $charset = 'iso-1250';

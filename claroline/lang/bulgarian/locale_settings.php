@@ -1,15 +1,7 @@
 <?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
       |   Bulgarian Translation 
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
       +----------------------------------------------------------------------+
  */
 
@@ -19,24 +11,7 @@ $iso639_2_code = "bul";
 $englishLangName = "bulgarian";
 $localLangName = "български";
 
-//$langNameOfLang[arabic]="arabian";
-//$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang['bulgarian'			] = "български";
-//$langNameOfLang[croatian]="croatian";
-//$langNameOfLang[dutch]="dutch";
-//$langNameOfLang[english]="english";
-//$langNameOfLang[finnish]="finnish";
-//$langNameOfLang[french]="french";
-//$langNameOfLang[german]="german";
-//$langNameOfLang[greek]="greek";
-//$langNameOfLang[italian]="italian";
-//$langNameOfLang[japanese]="japanese";
-//$langNameOfLang[polish]="polish";
-//$langNameOfLang[simpl_chinese]="simplified chinese";
-//$langNameOfLang[spanish]="spanish";
-//$langNameOfLang[swedish]="swedish";
-//$langNameOfLang[thai]="thai";
-//$langNameOfLang[turkish]="turkish";
+$langNameOfLang['bulgarian'            ] = "български";
 
 $charset = 'CP1251';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

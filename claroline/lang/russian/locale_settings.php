@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -16,24 +16,24 @@ $localLangName = "русский";
 $iso639_1_code = "ru";
 $iso639_2_code = "rus";
 
-$langNameOfLang[arabic]		= "арабский";
-$langNameOfLang[brazilian]	= "бразильский";
-$langNameOfLang[croatian]	= "хорватский";
-$langNameOfLang[catalan]	= "каталнаский";
-$langNameOfLang[dutch]		= "нидерландский";
-$langNameOfLang[english]	= "английский";
-$langNameOfLang[finnish]	= "финский";
-$langNameOfLang[french]		= "французский";
-$langNameOfLang[german]		= "немецкий";
-$langNameOfLang[greek]		= "греческий";
-$langNameOfLang[italian]	= "итальянский";
-$langNameOfLang[japanese]	= "японский";
-$langNameOfLang[polish]		= "польский";
-$langNameOfLang[simpl_chinese]="упрощенный китайский";
-$langNameOfLang[spanish]	= "испанский";
-$langNameOfLang[swedish]	= "шведский";
-$langNameOfLang[thai]		= "тайский";
-$langNameOfLang[turkish]	= "турецкий";
+$langNameOfLang['arabic']        = "арабский";
+$langNameOfLang['brazilian']    = "бразильский";
+$langNameOfLang['croatian']    = "хорватский";
+$langNameOfLang['catalan']    = "каталнаский";
+$langNameOfLang['dutch']        = "нидерландский";
+$langNameOfLang['english']    = "английский";
+$langNameOfLang['finnish']    = "финский";
+$langNameOfLang['french']        = "французский";
+$langNameOfLang['german']        = "немецкий";
+$langNameOfLang['greek']        = "греческий";
+$langNameOfLang['italian']    = "итальянский";
+$langNameOfLang['japanese']    = "японский";
+$langNameOfLang['polish']        = "польский";
+$langNameOfLang['simpl_chinese']="упрощенный китайский";
+$langNameOfLang['spanish']    = "испанский";
+$langNameOfLang['swedish']    = "шведский";
+$langNameOfLang['thai']        = "тайский";
+$langNameOfLang['turkish']    = "турецкий";
 
 $charset = 'KOI8-R';
 $text_dir = 'ltr';

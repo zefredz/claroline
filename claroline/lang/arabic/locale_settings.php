@@ -1,42 +1,43 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0 
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-	  |   Arab Translation                                                   |
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-AR
+ *
+ * @author Yassine Jelmam 8 oct 2002 <yjelmam@myrealbox.com>
+ * @author Christophe Gesch� <moosh@claroline.net>
+ */
 
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Yassine Jelmam 8 oct 2002 <yjelmam@myrealbox.com>           |
-      +----------------------------------------------------------------------+
-*/
 $englishLangName = " �?رنسية ";
 $localLangName = " �?رنسية ";
 
 $iso639_1_code = "ar";
 $iso639_2_code = "ara";
 
-$langNameOfLang['arabic'		] = "arabian";
-$langNameOfLang['brazilian'		] = "brazilian";
-$langNameOfLang['croatian'		] = "croatian";
-$langNameOfLang['dutch'			] = "dutch";
-$langNameOfLang['english'		] = "english";
-$langNameOfLang['finnish'		] = "finnish";
-$langNameOfLang['french'		] = "french";
-$langNameOfLang['german'		] = "german";
-$langNameOfLang['greek'			] = "greek";
-$langNameOfLang['italian'		] = "italian";
-$langNameOfLang['japanese'		] = "japanese";
-$langNameOfLang['polish'		] = "polish";
-$langNameOfLang['simpl_chinese'	] = "simplified chinese";
-$langNameOfLang['spanish'		] = "spanish";
-$langNameOfLang['swedish'		] = "swedish";
-$langNameOfLang['thai'			] = "thai";
-$langNameOfLang['turkish'		] = "turkish";
-$langNameOfLang['vietnamese'	] = "vietnamese";
+$langNameOfLang['arabic'        ] = "arabian";
+$langNameOfLang['brazilian'        ] = "brazilian";
+$langNameOfLang['croatian'        ] = "croatian";
+$langNameOfLang['dutch'            ] = "dutch";
+$langNameOfLang['english'        ] = "english";
+$langNameOfLang['finnish'        ] = "finnish";
+$langNameOfLang['french'        ] = "french";
+$langNameOfLang['german'        ] = "german";
+$langNameOfLang['greek'            ] = "greek";
+$langNameOfLang['italian'        ] = "italian";
+$langNameOfLang['japanese'        ] = "japanese";
+$langNameOfLang['polish'        ] = "polish";
+$langNameOfLang['simpl_chinese'    ] = "simplified chinese";
+$langNameOfLang['spanish'        ] = "spanish";
+$langNameOfLang['swedish'        ] = "swedish";
+$langNameOfLang['thai'            ] = "thai";
+$langNameOfLang['turkish'        ] = "turkish";
+$langNameOfLang['vietnamese'    ] = "vietnamese";
 
 $charset = 'utf-8';
 $text_dir = 'rtl';

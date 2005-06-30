@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -14,25 +14,25 @@
 $iso639_1_code = "id";
 $iso639_2_code = "ind";
 
-$langNameOfLang[arabic]="arabian";
-$langNameOfLang[brazilian]="brazilian";
-$langNameOfLang[bulgarian]="bulgarian";
-$langNameOfLang[croatian]="croatian";
-$langNameOfLang[dutch]="dutch";
-$langNameOfLang[english]="english";
-$langNameOfLang[finnish]="finnish";
-$langNameOfLang[french]="french";
-$langNameOfLang[german]="german";
-$langNameOfLang[greek]="greek";
-$langNameOfLang[italian]="italian";
-$langNameOfLang[japanese]="japanese";
-$langNameOfLang[polish]="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]="spanish";
-$langNameOfLang[swedish]="swedish";
-$langNameOfLang[thai]="thai";
-$langNameOfLang[turkish]="turkish";
-$langNameOfLang[indonesian]="indonesian";
+$langNameOfLang['arabic']="arabian";
+$langNameOfLang['brazilian']="brazilian";
+$langNameOfLang['bulgarian']="bulgarian";
+$langNameOfLang['croatian']="croatian";
+$langNameOfLang['dutch']="dutch";
+$langNameOfLang['english']="english";
+$langNameOfLang['finnish']="finnish";
+$langNameOfLang['french']="french";
+$langNameOfLang['german']="german";
+$langNameOfLang['greek']="greek";
+$langNameOfLang['italian']="italian";
+$langNameOfLang['japanese']="japanese";
+$langNameOfLang['polish']="polish";
+$langNameOfLang['simpl_chinese']="simplified chinese";
+$langNameOfLang['spanish']="spanish";
+$langNameOfLang['swedish']="swedish";
+$langNameOfLang['thai']="thai";
+$langNameOfLang['turkish']="turkish";
+$langNameOfLang['indonesian']="indonesian";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

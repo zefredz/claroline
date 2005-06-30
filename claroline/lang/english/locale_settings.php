@@ -17,7 +17,6 @@
       | Translator :                                                         |
       |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
       |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
       +----------------------------------------------------------------------+
 */
 
@@ -29,24 +28,24 @@ unset($langDay_of_weekNames);
 unset($langMonthNames);
 unset($byteUnits);
 
-$langNameOfLang['arabic'		]="arabian";
-$langNameOfLang['brazilian'		]="brazilian";
-$langNameOfLang['bulgarian'		]="bulgarian";
-$langNameOfLang['croatian'		]="croatian";
-$langNameOfLang['dutch'			]="dutch";
-$langNameOfLang['english'		]="english";
-$langNameOfLang['finnish'		]="finnish";
-$langNameOfLang['french'		]="french";
-$langNameOfLang['german'		]="german";
-$langNameOfLang['greek'			]="greek";
-$langNameOfLang['italian'		]="italian";
-$langNameOfLang['japanese'		]="japanese";
-$langNameOfLang['polish'		]="polish";
-$langNameOfLang['simpl_chinese'	]="simplified chinese";
-$langNameOfLang['spanish'		]="spanish";
-$langNameOfLang['swedish'		]="swedish";
-$langNameOfLang['thai'			]="thai";
-$langNameOfLang['turkish'		]="turkish";
+$langNameOfLang['arabic'        ]="arabian";
+$langNameOfLang['brazilian'        ]="brazilian";
+$langNameOfLang['bulgarian'        ]="bulgarian";
+$langNameOfLang['croatian'        ]="croatian";
+$langNameOfLang['dutch'            ]="dutch";
+$langNameOfLang['english'        ]="english";
+$langNameOfLang['finnish'        ]="finnish";
+$langNameOfLang['french'        ]="french";
+$langNameOfLang['german'        ]="german";
+$langNameOfLang['greek'            ]="greek";
+$langNameOfLang['italian'        ]="italian";
+$langNameOfLang['japanese'        ]="japanese";
+$langNameOfLang['polish'        ]="polish";
+$langNameOfLang['simpl_chinese'    ]="simplified chinese";
+$langNameOfLang['spanish'        ]="spanish";
+$langNameOfLang['swedish'        ]="swedish";
+$langNameOfLang['thai'            ]="thai";
+$langNameOfLang['turkish'        ]="turkish";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
