@@ -20,6 +20,7 @@ DEFINE('COURSE_CREATOR',1);
 require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/user.lib.php");
 
 //SECURITY CHECK
 
@@ -106,29 +107,27 @@ if (isset($_REQUEST['cmd']))
      $cmd = $_REQUEST['cmd'];
 else $cmd = null;
 
-switch ($cmd)
+switch ( $cmd )
 {
-  case "delete" :
-        if (isset($_REQUEST['user_id']))
-	        $user_id = $_REQUEST['user_id'];
-	else    $user_id = null;
+  case 'delete' :
+
+        if  (isset($_REQUEST['user_id']) ) $user_id = $_REQUEST['user_id'];
+    	else                               $user_id = null;
 	
-	if ($_uid != $user_id)
-	{
-	    delete_user($user_id);
-	    $dialogBox = $langUserDelete;
-	}
-	else
-	{
-	    $dialogBox = $langNotUnregYourself;
-	}
+    	if ( user_delete($user_id) )
+        {
+	        $dialogBox = $langUserDelete;
+    	}
+	    else
+    	{
+	        $dialogBox = $langNotUnregYourself;
+    	}
         break;
 }
 
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
-
 
 $sql = "SELECT 
        `U`.`user_id`     ,

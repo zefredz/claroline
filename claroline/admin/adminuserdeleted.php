@@ -25,6 +25,7 @@ require '../inc/claro_init_global.inc.php';
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 include $includePath.'/lib/admin.lib.inc.php';
+include $includePath.'/lib/user.lib.php';
 include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 
 $nameTools=$langUserSettings;
@@ -48,15 +49,21 @@ if (isset($_REQUEST['cmd']))
      $cmd = $_REQUEST['cmd'];
 else $cmd = null;
 
-if (isset($cmd) && $is_platformAdmin)
+if ( isset($cmd) && $is_platformAdmin )
 {
-    if ($cmd=="delete")
+    if ( $cmd=='delete' )
     {
         $user_id = $_REQUEST['uidToEdit'];
-	delete_user($user_id);
-        $dialogBox = $langUserDelete;
+        
+        if ( user_delete($user_id) )
+        {
+            $dialogBox = $langUserDelete;
+        }
+        else
+        {
+            $dialogBox = $langNotUnregYourself;
+        }
     }
-
 }
 
 //------------------------------------
@@ -71,12 +78,10 @@ echo claro_disp_tool_title($langDeleteUser);
 
 //Display Forms or dialog box(if needed)
 
-
-if(isset($dialogBox))
-  {
+if ( isset($dialogBox) )
+{
     echo claro_disp_message_box($dialogBox);
-  }
-
+}
 
 // display TOOL links :
 
@@ -86,4 +91,5 @@ echo "<a class=\"claroCmd\" href=\"adminusers.php\" >".$langBackToUserList."</a>
 
 // display footer
 include($includePath."/claro_init_footer.inc.php");
+
 ?>
