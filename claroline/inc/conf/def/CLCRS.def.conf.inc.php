@@ -15,7 +15,7 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  *
- * @package COURSES
+ * @package COURSE
  */
 
 $conf_def['config_code']='CLCRS';
