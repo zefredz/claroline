@@ -1956,6 +1956,7 @@ $langWikiMainPage = "Page principale";
 $langWikiMainPageContent = "Ceci est la page principale du Wiki %s. Cliquez sur éditer pour en modifier le contenu.";
 $langWikiNoContent = "Vide";
 $langWikiNoWiki = "Aucun Wiki";
+$langWikiNotAllowedToRead = "Vous n'êtes pas autorisé à lire cette page";
 $langWikiOtherUsers = "Autres utilisateurs (*)";
 $langWikiOtherUsersText = "(*) utilisateurs anonymes, non membres du cours...";
 $langWikiPageHistory = "Historique de cette page";

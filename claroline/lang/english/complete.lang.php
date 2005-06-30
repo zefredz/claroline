@@ -2068,6 +2068,7 @@ $langWikiMainPage = "Main page";
 $langWikiMainPageContent = "This is the main page of this Wiki %s. Click on edit to modify the content.";
 $langWikiNoContent = "No content";
 $langWikiNoWiki = "No Wiki";
+$langWikiNotAllowedToRead = "You are not allowed to read this page";
 $langWikiOtherUsers = "Others (*)";
 $langWikiOtherUsersText = "(*) anonymous users, users who are not members of this course...";
 $langWikiPageHistory = "Page history";

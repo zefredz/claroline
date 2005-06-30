@@ -466,7 +466,7 @@
     
     if ( ! $is_allowedToRead )
     {
-        echo "You are not allowed here !!!";
+        echo $langWikiNotAllowedToRead;
         
         require_once "../inc/claro_init_footer.inc.php";
         
