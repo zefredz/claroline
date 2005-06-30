@@ -22,8 +22,12 @@
      *
      * @package Wiki
      */
-
-    // temporary functions should be replaced by a lang var/file
+     
+    /**
+     * Get wiki2xhtml demo text
+     * @return string wiki2xhtml demo text
+     * @todo move to a lang file
+     */
     function get_demo_text()
     {
         $file = file( dirname(__FILE__) . '/wiki2xhtml/texte-demo.txt' );
