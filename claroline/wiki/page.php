@@ -179,12 +179,14 @@
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         $valid_actions = array( "edit", "preview", "save"
-            , "show", "restore", "diff", "history", "all"
+            , "show", "recent", "all", "history"
             );
     }
     else
     {
-        $valid_actions = array( "show", "history", "diff", "all" );
+        $valid_actions = array( "show", "recent", "diff", "all"
+            , "history"
+            );
     }
 
     $_CLEAN = filter_by_key( 'action', $valid_actions, "R", true );
@@ -243,6 +245,12 @@
     
     switch( $action )
     {
+        // recent changes
+        case "recent":
+        {
+            $recentChanges = $wiki->recentChanges();
+            break;
+        }
         // all pages
         case "all":
         {
@@ -445,6 +453,12 @@
             $noPHP_SELF = true;
             break;
         }
+        case "recent":
+        {
+            $nameTools = $langWikiRecentChanges;
+            $noPHP_SELF = true;
+            break;
+        }
         default:
         {
             $nameTools = ( $title == "__MainPage__" ) ? $langWikiMainPage : $title ;
@@ -515,8 +529,11 @@
         . $langWikiPageHistory . '</span>'
         ;
         
-    echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-        . $langWikiRecentChanges . '</span>'
+    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+        . $_SERVER['PHP_SELF']
+        . '?wikiId=' . $wiki->getWikiId()
+        . '&amp;action=recent'
+        . '">'.$langWikiRecentChanges.'</a>'
         ;
         
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
@@ -530,9 +547,45 @@
     
     switch( $action )
     {
+        case "recent":
+        {
+            if ( is_array( $recentChanges ) )
+            {
+                echo '<ul>' . "\n";
+                
+                foreach ( $recentChanges as $recentChange )
+                {
+                    $pgtitle = ( $recentChange['title'] == "__MainPage__" )
+                        ? $langWikiMainPage
+                        : $recentChange['title']
+                        ;
+                        
+                    $entry = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
+                        . $wikiId . '&amp;title=' . urlencode( $recentChange['title'] )
+                        . '&amp;action=show"'
+                        . '>'.$pgtitle.'</a>&nbsp;' . $recentChange['last_mtime']
+                        ;
+                        
+                    echo '<li>' . $entry. '</li>' . "\n";
+                }
+
+                echo '</ul>' . "\n";
+            }
+            break;
+        }
         case "all":
         {
             echo '<h3>'.sprintf( $langWikiAllPagesPattern, $wiki->getTitle() ).'</h3>';
+            
+            // handle main page
+            
+            echo '<ul><li><a href="'.$_SERVER['PHP_SELF']
+                . '?wikiId=' . $wikiId
+                . '&amp;title=' . urlencode("__MainPage__")
+                . '&amp;action=show">'
+                . $langWikiMainPage
+                . '</a></li></ul>' . "\n"
+                ;
             
             if ( is_array( $allPages ) )
             {
@@ -540,10 +593,13 @@
                 
                 foreach ( $allPages as $page )
                 {
-                    $pgtitle = ( $page['title'] == "__MainPage__" )
-                        ? $langWikiMainPage
-                        : $page['title']
-                        ;
+                    if ( $page['title'] == "__MainPage__" )
+                    {
+                        // skip main page
+                        continue;
+                    }
+
+                    $pgtitle = urlencode( $page['title'] );
 
                     $link = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $wikiId . '&amp;title=' . $page['title'] . '&amp;action=show"'
