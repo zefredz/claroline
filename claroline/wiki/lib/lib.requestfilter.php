@@ -20,7 +20,7 @@
      *
      * @author Frederic Minne <zefredz@gmail.com>
      *
-     * @package Request Variable Filter
+     * @package Wiki
      */
     
     /**

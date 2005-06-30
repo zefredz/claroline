@@ -20,7 +20,7 @@
      *
      * @author Frederic Minne <zefredz@gmail.com>
      *
-     * @package libURL
+     * @package Wiki
      */
 
      /**
