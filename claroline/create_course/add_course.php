@@ -108,8 +108,12 @@ else                                  $wantedCode = '';
 
 if ( isset($_REQUEST['intitule']) ) $valueIntitule = $_REQUEST['intitule'];
 else                                $valueIntitule = '';
+
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
+
+if ( isset($_REQUEST['cmd']) ) $fromAdmin = $_REQUEST['fromAdmin'];
+else                           $fromAdmin = '';
 
 //// Starting script
 
@@ -204,7 +208,9 @@ else
         
                 $param = $_SERVER['PHP_SELF'].'?cmd=exCreate';     
                 foreach ($_REQUEST as $k => $v)
+                {
                    $param .=            '&amp;' . rawurlencode($k) . '=' . rawurlencode($v);     
+                }
                 $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $param . '">';
             }
             else 
