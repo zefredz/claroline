@@ -198,7 +198,6 @@
             }
             else
             {
-                // die( $langWikiInvalidWikiId );
                 $message = $langWikiInvalidWikiId;
                 $action = "error";
             }
@@ -229,7 +228,6 @@
             }
             else
             {
-                // die( $langWikiInvalidWikiId );
                 $message = $langWikiInvalidWikiId;
                 $action = "error";
             }
@@ -254,7 +252,6 @@
             }
             else
             {
-                // die( $langWikiInvalidWikiId );
                 $message = $langWikiInvalidWikiId;
                 $action = "error";
             }
@@ -293,7 +290,6 @@
             }
             else
             {
-                // die( $langWikiInvalidWikiId );
                 $message = $langWikiInvalidWikiId;
                 $action = "error";
             }

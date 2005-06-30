@@ -477,7 +477,6 @@
     
     echo '<p>';
 
-
     echo '<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
@@ -526,15 +525,15 @@
         {
             if ( ! $wiki->pageExists( $title ) && ! $is_allowedToCreate )
             {
-                echo "You are not allowed to create wiki pages";
+                echo $langWikiNotAllowedToCreate;
+            }
+            elseif ( $wiki->pageExists( $title ) && ! $is_allowedToEdit )
+            {
+                echo $langWikiNotAllowedToEdit;
             }
             else
             {
                 $script = $_SERVER['PHP_SELF'];
-                // TODO move to config
-                // $showWikiEditorToolbar = true;
-                // TODO move to config
-                // $forcePreviewBeforeSaving = true;
 
                 echo claro_disp_wiki_editor( $wikiId, $title, $content, $script
                     , $showWikiEditorToolbar, $forcePreviewBeforeSaving );
