@@ -442,6 +442,27 @@
             return $this->con->queryReturnsResult( $sql );
         }
         
+        /**
+         * Get all the pages of this wiki (at this time the method returns
+         * only the titles of the pages...)
+         * @return array containing thes pages
+         */
+        function allPages()
+        {
+            // reconnect if needed
+            if ( ! $this->con->isConnected() )
+            {
+                $this->con->connect();
+            }
+            
+            $sql = "SELECT `title` "
+                . "FROM `".$this->config['tbl_wiki_pages']."` "
+                . "WHERE `wiki_id` = " . $this->getWikiId()
+                ;
+                
+            return $this->con->getAllRowsFromQuery( $sql );
+        }
+        
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )
