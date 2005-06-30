@@ -2,7 +2,7 @@
 /** 
  * CLAROLINE 
  *
- * @version 1.6
+ * @version 1.7
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -22,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 claro_unquote_gpc();
 
 if ( ! $_cid ) claro_disp_select_course();
-@include($includePath.'/lib/debug.lib.inc.php');
+@include($includePath . '/lib/debug.lib.inc.php');
 
 $nameTools = $langEditGroup;
 $interbredcrump[]= array ('url' => 'group.php', 'name'=> $langGroups);
@@ -148,29 +148,29 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
             WHERE `id`        = '" . (int)$_gid . "'";
 
     // Update main group settings
-	$updateStudentGroup = claro_sql_query($sql);
+    $updateStudentGroup = claro_sql_query($sql);
 
     // UPDATE FORUM NAME
     $sql = 'UPDATE `' . $tbl_bb_forum . '`
             SET `forum_name` ="' . addslashes($name).'"
             WHERE `forum_id` ="' . $myStudentGroup['forumId'] . '"';
 
-	claro_sql_query($sql);
+    claro_sql_query($sql);
 
-	// Count number of members
-	$numberMembers = count($ingroup);
+    // Count number of members
+    $numberMembers = count($ingroup);
 
-	// every letter introduced in field drives to 0
-	settype($maxMember, 'integer');
+    // every letter introduced in field drives to 0
+    settype($maxMember, 'integer');
 
-	// Insert new list of members
-	if ( $maxMember < $numberMembers AND $maxMember != '0' )
-	{
-		// Too much members compared to max members allowed
-		$messageGroupEdited = $langGroupTooMuchMembers;
-	}
-	else
-	{
+    // Insert new list of members
+    if ( $maxMember < $numberMembers AND $maxMember != '0' )
+    {
+        // Too much members compared to max members allowed
+        $messageGroupEdited = $langGroupTooMuchMembers;
+    }
+    else
+    {
         // Delete all members of this group
         $sql = 'DELETE FROM `' . $tbl_group_rel_team_user . '` WHERE `team` = "' . (int)$_gid . '"';
 
@@ -180,26 +180,26 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
         for ($i = 0; $i <= $numberMembers; $i++)
         {
             $sql = 'INSERT INTO `' . $tbl_group_rel_team_user . '`
-                    SET user = "' . $ingroup[$i] . '",
-                        team = "' . (int)$_gid . '"';
+                    SET user = "' . (int) $ingroup[$i] . '",
+                        team = "' . (int) $_gid . '"';
 
             $registerUserGroup = claro_sql_query($sql);
         }
 
-		$messageGroupEdited = $langGroupSettingsModified;
+        $messageGroupEdited = $langGroupSettingsModified;
 
-	}	// else
+    }    // else
 
-	$gidReset = TRUE;
-	$gidReq   = $_gid;
+    $gidReset = TRUE;
+    $gidReq   = $_gid;
 
-    include($includePath.'/claro_init_local.inc.php');
+    include($includePath . '/claro_init_local.inc.php');
 
-	$myStudentGroup = $_group;
+    $myStudentGroup = $_group;
 
-}	// end if $modify
+}    // end if $modify
 
-include($includePath.'/claro_init_header.inc.php');
+include($includePath . '/claro_init_header.inc.php');
 
 echo claro_disp_tool_title($nameTools);
 
@@ -214,7 +214,9 @@ if ( isset($messageGroupEdited) )
 <table border="0" cellspacing="3" cellpadding="5">
 
 <tr valign="top">
-<td align="right"><label for="name" ><?php echo $langGroupName; ?></label> : </td>
+<td align="right">
+<label for="name" ><?php echo $langGroupName; ?></label> : 
+</td>
 <td colspan="2">
 <input type="text" name="name" id="name" size="40" value="<?php echo htmlspecialchars($myStudentGroup['name']); ?>">
 </td>
@@ -238,7 +240,7 @@ if ( isset($messageGroupEdited) )
 <select name="tutor" id="tutor" >
 <?php
 
-	// SELECT TUTORS
+    // SELECT TUTORS
 
     $sql = 'SELECT `user`.`user_id` `user_id` ,
                    `user`.`nom`     `nom`,
@@ -249,24 +251,24 @@ if ( isset($messageGroupEdited) )
             AND   `cours_user`.`tutor`      = 1
             AND   `cours_user`.`code_cours` = "' . $currentCourseId . '"';
 
-	$resultTutor = claro_sql_query($sql);
+    $resultTutor = claro_sql_query($sql);
 
-    // AND student_group.id='$_gid'	// This statement is DEACTIVATED
+    // AND student_group.id='$_gid'    // This statement is DEACTIVATED
 
-	$tutorExists = FALSE;
+    $tutorExists = FALSE;
 
-	while ( $myTutor = mysql_fetch_array($resultTutor) )
-	{
-		//  Present tutor appears first in select box
+    while ( $myTutor = mysql_fetch_array($resultTutor) )
+    {
+        //  Present tutor appears first in select box
 
-		if ( $myStudentGroup['tutorId'] == $myTutor['user_id'] )
-		{
-			$tutorExists   = TRUE;
+        if ( $myStudentGroup['tutorId'] == $myTutor['user_id'] )
+        {
+            $tutorExists   = TRUE;
             $selectedState = 'selected="selected"';
         }
         else
         {
-        	$selectedState = '';
+            $selectedState = '';
         }
 
         echo '<option value = "'.$myTutor['user_id'].'" '.$selectedState.'>'
@@ -284,47 +286,35 @@ if ( isset($messageGroupEdited) )
         $selectedState = 'selected="selected"';
     }
 
-    echo '<option value="0" '.$selectedState.'>'
-       . $langGroupNoTutor
-       . '</option>'
-       ;
-?>
-</select>
-&nbsp;&nbsp;
-<small><a href="../user/user.php"><?php echo $langAddTutors ?></a></small>
-<td>
-<label for="maxMember">
-<?php
+    echo '<option value="0" ' . $selectedState . '>'
+    .    $langGroupNoTutor
+    .    '</option>'
+    .    '</select>'
+    .    '&nbsp;&nbsp;'
+    .    '<small><a href="../user/user.php">' . $langAddTutors . '</a></small>'
+    .    '<td>'
+    .    '<label for="maxMember">' . $langMax . '</label>';
 
-    echo $langMax.'</label>';
-
-    if ( $myStudentGroup['maxMember']==0 )
+    if ( $myStudentGroup['maxMember'] == 0 )
     {
-        echo '<input type="text" name="maxMember" id="maxMember" size="2" value = "-">'."\n";
+        echo '<input type="text" name="maxMember" id="maxMember" size="2" value = "-">' . "\n";
     }
     else
     {
         echo '<input type="text" name="maxMember" id="maxMember" size="2" '
-           . ' value="'. htmlspecialchars($myStudentGroup['maxMember']) .'">'."\n"
-           ;
+        .    ' value="' . htmlspecialchars($myStudentGroup['maxMember']) . '">' . "\n"
+        ;
     }
 
-    echo $langGroupPlacesThis;
-?>
-</td>
-
-</tr>
-
-<?php
+    echo $langGroupPlacesThis
+    .    '</td>'
+    .    '</tr>'
 ################### STUDENTS IN AND OUT GROUPS #######################
-?>
-
-<tr valign="top">
-
-<td align="right"><Label for="inGroup"><?php echo $langGroupMembers ?></Label> : </td>
-<td>
-<select id="ingroup" name="ingroup[]" size="8" multiple>
-<?php
+    .    '<tr valign="top">'
+    .    '<td align="right"><Label for="inGroup">' . $langGroupMembers . '</Label> : </td>'
+    .    '<td>'
+    .    '<select id="ingroup" name="ingroup[]" size="8" multiple>'
+    ;
 
 $sql = 'SELECT `ug`.`id`,
                `u`.`user_id`,
@@ -375,17 +365,17 @@ because select name contains "[]" causing a javascript element name problem
 
 if (is_null($nbMaxGroupPerUser))
 {
-	$limitNumOfGroups = '';
+    $limitNumOfGroups = '';
 }
 else
 {
-	$limitNumOfGroups = "and nbg < '" . (int)$nbMaxGroupPerUser . "'";
+    $limitNumOfGroups = "and nbg < '" . (int)$nbMaxGroupPerUser . "'";
 }
 
 
 $sql = "SELECT `u`.`user_id` ,
-               `u`.`nom`,
-               `u`.`prenom`,
+               `u`.`nom` `lastName`,
+               `u`.`prenom` `firstName`,
                COUNT(`ug`.`id`) AS `nbg`,
                COUNT(`ugbloc`.`id`) AS `BLOCK`
 
@@ -414,16 +404,12 @@ $resultNotMember = claro_sql_query($sql);
 
 while ( $myNotMember = mysql_fetch_array($resultNotMember) )
 {
-    echo '<option value="'.$myNotMember['user_id'].'">'
-       . htmlspecialchars($myNotMember['nom'].' '.$myNotMember['prenom']) ;
-
-    if ( $nbMaxGroupPerUser > 1 )
-    {
-        echo ' ('.$myNotMember['nbg'].')';
-    }
-
-    echo '</option>'."\n";
-}	// while loop
+    echo '<option value="' . $myNotMember['user_id'] . '">'
+    .    htmlspecialchars($myNotMember['lastName'] . ' ' . $myNotMember['firstName']) 
+    .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
+    .    '</option>' . "\n"
+    ;
+}    // while loop
 
 ?>
 </select>
