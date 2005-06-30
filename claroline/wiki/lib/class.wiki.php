@@ -463,6 +463,32 @@
             return $this->con->getAllRowsFromQuery( $sql );
         }
         
+        /**
+         * Get recently modified wiki pages
+         * @param int offset start at given offset
+         * @param int count number of record to return starting at offset
+         * @return array recently modified pages (title, last_mtime, editor_id)
+         */
+        function recentChanges( $offset = 0, $count = 50 )
+        {
+            // reconnect if needed
+            if ( ! $this->con->isConnected() )
+            {
+                $this->con->connect();
+            }
+            
+            $sql = "SELECT `page`.`title`, `page`.`last_mtime`, `content`.`editor_id` "
+                . "FROM `".$this->config['tbl_wiki_pages']."` `page`, "
+                . "`".$this->config['tbl_wiki_pages_content']."` `content` "
+                . "WHERE `page`.`wiki_id` = " . $this->getWikiId() . " "
+                . "AND `page`.`last_version` = `content`.`id` "
+                . "ORDER BY `page`.`last_mtime` DESC "
+                . "LIMIT " . $offset . ", " . $count
+                ;
+                
+            return $this->con->getAllRowsFromQuery( $sql );
+        }
+        
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )
