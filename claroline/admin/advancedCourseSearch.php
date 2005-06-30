@@ -2,13 +2,16 @@
 /**
  * CLAROLINE 
  *
+ * prupose an multifield search in courses
+ *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @package CLADMIN
+ * @package COURSE
+ * @subpackage CLADMIN
  *
  * @author Claro Team <cvs@claroline.net>
  */
@@ -18,11 +21,13 @@ require '../inc/claro_init_global.inc.php';
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
 if (file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
+include($includePath . '/lib/admin.lib.inc.php');
+include_once($includePath . '/lib/course.lib.inc.php');
+include_once($includePath . '/lib/form.lib.php');
 
 //declare needed tables
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+$tbl_mdb_names    = claro_sql_get_main_tbl();
+$tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
@@ -55,6 +60,11 @@ if (isset($_REQUEST['language']))      $language      = $_REQUEST['language'];  
 
 // Search needed info in db to create the right formulaire
 $arrayFaculty = course_category_get_list();
+$category_array = claro_get_cat_flat_list();
+$category_array = array_merge(array('' => $langAll),$category_array);
+$language_list = claro_get_lang_flat_list();
+$language_list = array_merge(array('' => $langAll),$language_list);
+
 //----------------------------------
 // DISPLAY
 //----------------------------------
@@ -94,14 +104,11 @@ echo claro_disp_tool_title($nameTools . ' : ');
    <label for="category"><?php echo $langCategory?></label> : <br>
   </td>
   <td colspan="3">
-    <select name="category" id="category">
-    <option value="" ></option>
-    <?php
-
-        //Display each option value for categories in the select
-        build_select_faculty($arrayFaculty, NULL, $category, '');
-    ?>
-    </select>
+  <?php echo claro_html_form_select( 'category'
+                                 , $category_array
+                                 , ''
+                                 , array('id'=>'category'))
+                                 ; ?>
   </td>
 </tr>
 
@@ -110,13 +117,12 @@ echo claro_disp_tool_title($nameTools . ' : ');
    <label for="language"><?php echo $langLanguage?></label> : <br>
   </td>
   <td colspan="3">
-    <select name="language" id="language" >
-    <option  value=""></option>
-    <?php
-      echo create_select_box_language($language);
-    ?>
-    </select>
-  </td>
+    <?php echo claro_html_form_select( 'language'
+                                 , $language_list
+                                 , ''
+                                 , array('id'=>'language'))
+                                 ; ?>
+    </td>
 </tr>
 
 <tr>
@@ -206,58 +212,6 @@ function build_select_faculty($elem,$father,$editFather,$space)
     }
 }
 
-function create_select_box_language($selected=NULL)
-{
-    $arrayLanguage = language_exists();
-    foreach($arrayLanguage as $entries)
-    {
-        $selectBox .= '<option value="' . $entries . '" ';
-
-        if ($entries == $selected)
-            $selectBox .= ' selected ';
-
-        $selectBox.= '>' . $entries;
-
-        global $langNameOfLang;
-        if (    !empty($langNameOfLang[$entries]) 
-             && $langNameOfLang[$entries]!='' 
-             && $langNameOfLang[$entries]!=$entries )
-            $selectBox .= ' - ' . $langNameOfLang[$entries];
-
-        $selectBox .= '</option>' . "\n";
-    }
-
-    return $selectBox;
-}
-
-function language_exists()
-{
-    global $clarolineRepositorySys;
-    $dirname = $clarolineRepositorySys . 'lang/';
-
-    if( $dirname[ strlen($dirname) - 1] != '/' )
-        $dirname.='/';
-
-    //Open the repertoy
-    $handle = opendir($dirname);
-
-    //For each reportery in the repertory /lang/
-    while ($entries = readdir($handle))
-    {
-        //If . or .. or CVS continue
-        if ( $entries=='.' || $entries=='..' || $entries=='CVS' )
-            continue;
-
-        //else it is a repertory of a language
-        if (is_dir($dirname.$entries))
-        {
-            $arrayLanguage[] = $entries;
-        }
-    }
-    closedir($handle);
-
-    return $arrayLanguage;
-}
 
 /**
  * return all courses category order by treepos
