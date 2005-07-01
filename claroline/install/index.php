@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * GOAL : install claroline 1.6 on server
+ * GOAL : install claroline 1.7 on server
  *
  * @version 1.7 $Revision$
  *
@@ -59,6 +59,8 @@ include ('../lang/english/locale_settings.php');
 include ($newIncludePath . 'lib/auth.lib.inc.php'); // to generate pass and to cryto it if needed
 include ('./install.lib.inc.php');
 include ($newIncludePath . 'lib/config.lib.inc.php');
+include ($newIncludePath . 'lib/form.lib.php');
+include ($newIncludePath . 'lib/course.lib.inc.php');
 include ($newIncludePath . 'lib/claro_main.lib.php');
 
 $panelSequence  = array(
@@ -428,6 +430,8 @@ if ($canRunCmd)
     }
     elseif($_REQUEST['cmdPlatformSetting'])
     {
+        $includePath = $newIncludePath;
+        $language_list = claro_get_lang_flat_list();
         $display = DISP_PLATFORM_SETTING;
     }
     elseif($_REQUEST['cmdAdministrativeSetting'])
@@ -1360,28 +1364,12 @@ elseif($display==DISP_PLATFORM_SETTING)
                             <label for="languageForm">Main language</label>
                         </td>
                         <td colspan="2">
-                            <select id="languageForm" name="languageForm">    ';
-    $dirname = '../lang/';
-    if($dirname[strlen($dirname)-1]!='/')
-        $dirname.='/';
-    $handle=opendir($dirname);
-    while ($entries = readdir($handle))
-    {
-        if ($entries=='.'||$entries=='..'||$entries=='CVS')
-            continue;
-        if (is_dir($dirname.$entries))
-        {
-            echo '
-                            <option value="'.$entries.'"';
-            if ($entries == $languageForm)
-                echo ' selected ';
-            echo '>
-                        '.$entries.'
-                                    </option>';
-        }
-    }
-    closedir($handle);
-echo '
+                            <select id="languageForm" name="languageForm">'.
+                            claro_html_form_select( 'languageForm'
+                                 , $language_list
+                                 , $languageForm
+                                 , array('id'=>'languageForm'))
+                                . '
                                 </select>
                             </font>
                         </td>
