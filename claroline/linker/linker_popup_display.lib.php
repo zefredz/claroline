@@ -429,7 +429,7 @@
             echo "<h2>".$container->getName()." </h2>\n";
         }
     }
-    
+
    /**
     * display the general title 
     * 
@@ -441,7 +441,7 @@
             
         echo '<h1>' . $langLinkerResourceAttachment . '</h1>';
     }
-    
+
     /**
     * display the link of the external link
     *
@@ -462,15 +462,14 @@
         }
         
     }
-    
-    
+
     function displayLinkerButtons()
     {
         global $langLinkerClosePopup;
         
         echo '<input type="submit" '
         .    'onclick="linker_confirm();return false;" '
-        .    'value="' . $langLinkerClosePopup . '" >"'
+        .    'value="' . $langLinkerClosePopup . '" >'
         ;
     }
 ?>
