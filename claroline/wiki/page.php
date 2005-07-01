@@ -533,7 +533,7 @@
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         // Page context
-        if ( isset( $_REQUEST['title'] ) )
+        if ( isset( $_REQUEST['title'] ) || $title == "__MainPage__" )
         {
             echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
                 . $_SERVER['PHP_SELF']
