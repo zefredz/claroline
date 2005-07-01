@@ -1,9 +1,9 @@
 <?php # -$Id$
 
-if( (bool) stristr($_SERVER['PHP_SELF'], basename(FILE) ) ) die();
+if( (bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__) ) ) die();
 if( ! $is_allowedToEdit) die();
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'] else $cmd = null;
 
 if ($cmd == 'exMkCat')
 {
