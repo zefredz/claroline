@@ -670,8 +670,8 @@
                     $pgtitle = urlencode( $page['title'] );
 
                     $link = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
-                        . $wikiId . '&amp;title=' . $page['title'] . '&amp;action=show"'
-                        . '>'.$pgtitle.'</a>'
+                        . $wikiId . '&amp;title=' . $pgtitle . '&amp;action=show"'
+                        . '>' . $page['title'] . '</a>'
                         ;
                         
                     echo '<li>' . $link. '</li>' . "\n";
