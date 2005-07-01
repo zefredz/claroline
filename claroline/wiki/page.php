@@ -496,6 +496,9 @@
         }
         default:
         {
+            // FIXME patchy : place holder to prevent wiki nav bar from moving...
+            $toolTitle['subTitle'] = '&nbsp;';
+            break;
         }
     }
     
