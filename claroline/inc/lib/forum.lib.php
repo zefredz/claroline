@@ -250,9 +250,11 @@ function get_forum_settings($forumId)
 
     $sql = "SELECT `f`.`forum_id`     `forum_id`,
                    `f`.`forum_name`   `forum_name`,
+                   `f`.`forum_desc`   `forum_desc`,
                    `f`.`forum_access` `forum_access`,
                    `f`.`forum_type`   `forum_type`,
                    `f`.`cat_id`       `cat_id`,
+                   `f`.`forum_order`  `forum_rank`,
                    `g`.`id`           `idGroup`
 
             FROM `" . $tbl_forums."` `f`
@@ -872,17 +874,6 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
            $imgRepositoryWeb, 
            $langAdm, $langBackTo, $langNewTopic, $langReply;
 
-    if ( claro_is_allowed_to_edit() )
-    {
-        if ( $cat_id > 0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $cat_id;
-        else               $toAdd = '';
-
-        $toolBar[] = '<a class="claroCmd" href="admin.php' . $toAdd . '">'
-                  . '<img src="' . $imgRepositoryWeb . 'settings.gif"> '
-                  . $langAdm . '</a>' . "\n"
-                  ;
-    }
-
     switch ( $pagetype )
     {
     	// 'index' is covered by default
@@ -921,6 +912,20 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     	// 'Register' is covered by default
     
     	default:
+    	
+            if ( claro_is_allowed_to_edit() )
+            {
+                if ( $cat_id > 0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $cat_id;
+                else               $toAdd = '';
+                          
+                $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
+                          .  'Create Catgeory'
+                          .  '</a>';
+                          
+                $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
+                          .  'Create Forum'
+                          .  '</a>';
+            }
     		break;
     }
 
@@ -1046,7 +1051,7 @@ function delete_all_post_in_forum($forumId)
                  forum_posts  = 0
             WHERE forum_id = ".(int)$forumId;
 
-    if (claro_sql_query($sql) == false) return false;
+    if ( claro_sql_query($sql) == false ) return false;
 
     return true;
 }
@@ -1060,7 +1065,7 @@ function update_category_title( $catId, $catTitle )
     {
         $sql = "UPDATE `".$tbl_forum_categories."`
             SET   cat_title = '". addslashes($catTitle) ."'
-            WHERE cat_id    = '".(int)$catId."'";
+            WHERE cat_id    = ".(int) $catId;
         
         if (claro_sql_query($sql) != false) return true;
     }
@@ -1115,23 +1120,25 @@ function delete_category($cat_id)
     $sql = 'SELECT `forum_id` 
             FROM `'.$tbl_forum_forums.'` 
             WHERE `cat_id` = "'.$cat_id.'"';
+    
     $result = claro_sql_query($sql);
 
     while( list($forum_id) = mysql_fetch_row($result) )
     {
         $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
                 WHERE `forum_id` = "'.$forum_id.'"';
-
+        
         claro_sql_query($sql);
     }
 
     $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
             WHERE `cat_id` = "'. (int) $cat_id.'"';
-
+    
     claro_sql_query($sql);
 
     $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
             WHERE `cat_id` = "'.(int) $cat_id.'"';
+        
     claro_sql_query($sql);
 }
 
@@ -1141,10 +1148,6 @@ function delete_forum($forum_id)
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
     $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
-
-//    $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
-//            WHERE `forum_id` = "'.$forum_id.'"';
-//    if ( claro_sql_query($sql) == false ) return false;
 
     delete_all_post_in_forum($forum_id);
 
@@ -1192,12 +1195,14 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
     else                                 return false;
 }
 
-function move_up_forum($forum_id, $cat_id)
+function move_up_forum($forum_id)
 {
     $tbl_cdb_names    = claro_sql_get_course_tbl();
     $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
-    $forum_rank = get_forum_rank($forum_id);
+    $forumSettingList = get_forum_settings($forum_id);
+    $cat_id           = $forumSettingList['cat_id'];
+    $forum_rank       = $forumSettingList['forum_rank'];
 
     if ($forum_rank > 1 )
     {
@@ -1221,12 +1226,14 @@ function move_up_forum($forum_id, $cat_id)
     }
 }
 
-function move_down_forum($forum_id, $cat_id)
+function move_down_forum($forum_id)
 {
     $tbl_cdb_names    = claro_sql_get_course_tbl();
     $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
-    $forum_rank = get_forum_rank($forum_id);
+    $forumSettingList = get_forum_settings($forum_id);
+    $cat_id           = $forumSettingList['cat_id'];
+    $forum_rank       = $forumSettingList['forum_rank'];
 
     $sql = 'SELECT MAX(f.`forum_order`) AS `max_order`
             FROM  `'.$tbl_forum_forums.'` f
@@ -1254,45 +1261,25 @@ function move_down_forum($forum_id, $cat_id)
     }
 }
 
-
-/**
- * return the rank (order) of a forum into a category
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  int fourm id
- * @return int forum rank (order)
- */
-
-function get_forum_rank($forum_id)
-{
-    $tbl_cdb_names    = claro_sql_get_course_tbl();
-    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
-
-    $sql = 'SELECT f.`forum_order` 
-            FROM `'.$tbl_forum_forums.'` f
-            WHERE `forum_id` = ' . (int) $forum_id ;
-
-    $forum_rank = claro_sql_query_get_single_value($sql);
-
-    return $forum_rank;
-}
-
-function get_category_rank($cat_id)
+function get_category_settings($cat_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
-    $sql = 'SELECT f.`cat_order` 
-    FROM `'.$tbl_forum_categories.'` f
-    WHERE f.`cat_id` = ' . (int) $cat_id;
+    $sql = 'SELECT `cat_id`, `cat_title`, `cat_order`
+            FROM `'.$tbl_forum_categories.'` f
+            WHERE f.`cat_id` = ' . (int) $cat_id;
 
-    $category_rank = claro_sql_query_get_single_value($sql);
-    return $category_rank;
+    $resultList = claro_sql_query_fetch_all($sql);
+
+    if (count($resultList) == 1) return $resultList[0];
+    else                         return false;
 }
 
 function move_up_category($cat_id)
 {
-	$order = get_category_rank($cat_id);
+	$categorySettingList = get_category_settings($cat_id);
+	$order = $categorySettingList['cat_order'];
 
     if ($order > 1 )
     {
@@ -1322,7 +1309,8 @@ function move_down_category($cat_id)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
-    $order = get_category_rank($cat_id);
+    $categorySettingList = get_category_settings($cat_id);
+    $order = $categorySettingList['cat_order'];
 
     $sql = 'SELECT max(f.`cat_order`) as `cat_order`
          FROM `'.$tbl_forum_categories.'` f';
@@ -1407,9 +1395,13 @@ function get_category_list()
     $tbl_categories = $tbl_cdb_names['bb_categories'      ];
     $tbl_forums     = $tbl_cdb_names['bb_forums'          ];
 
-    $sql = "SELECT `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
-           FROM   `" . $tbl_categories . "` c, `" . $tbl_forums . "` f
-           WHERE `f`.`cat_id` = `c`.`cat_id`
+    $sql = "SELECT `c`.`cat_id`, 
+                   `c`.`cat_title`, 
+                   `c`.`cat_order`, 
+                   COUNT(`f`.`forum_id`) AS forum_count
+           FROM   `" . $tbl_categories . "` c  
+           LEFT JOIN `" . $tbl_forums . "` f
+           ON `f`.`cat_id` = `c`.`cat_id`
            GROUP BY `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
            ORDER BY `c`.`cat_order` ASC";
 
