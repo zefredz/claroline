@@ -31,41 +31,21 @@ $dateNow = claro_disp_localised_date($dateTimeFormatLong);
 
 $disp_form = true;
 
-if (isset( $_REQUEST['disp_clarolineRepository']))
-{
-    $disp_clarolineRepository =  $_REQUEST['disp_clarolineRepository'];
-}
-else
-{
-    $disp_clarolineRepository =  false;
-}
+if (isset( $_REQUEST['disp_claro'])) $disp_claro = $_REQUEST['disp_claro'];
+else                                 $disp_claro =  false;
 
+if (isset( $_REQUEST['disp_selCrs'])) $disp_selCrs = $_REQUEST['disp_selCrs'];
+else                                  $disp_selCrs =  false;
 
-if (isset( $_REQUEST['disp_selected_courses']))
-{
-    $disp_selected_courses =  $_REQUEST['disp_selected_courses'];
-}
-else
-{
-    $disp_selected_courses =  false;
-}
-
-
-if (isset( $_REQUEST['disp_courseRepository']))
-{
-    $disp_courseRepository =  $_REQUEST['disp_courseRepository'];
-}
-else
-{
-    $disp_courseRepository =  false;
-}
+if (isset( $_REQUEST['disp_allcrs'])) $disp_allcrs = $_REQUEST['disp_allcrs'];
+else                                  $disp_allcrs =  false;
 
 if (isset( $_REQUEST['disp_garbage']))
 {
     $disp_garbage =  $_REQUEST['disp_garbage'];
     $garbagedisk_usage = disk_usage($garbageRepositorySys,'','m');
 }
-else
+else 
 {
     $disp_garbage =  false;
 }
@@ -73,11 +53,9 @@ else
 if (isset( $_REQUEST['coursesToCheck'])) $coursesToCheck =  $_REQUEST['coursesToCheck'];
 else                                     $coursesToCheck =  false;
 
-
-
-
 if ($disp_form)
 {
+    
     $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
     $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
     
@@ -111,18 +89,17 @@ echo $langCourse_Repository . ' : ' . $coursesRepositorySys . '<br>' . $langMysq
 
 if ($disp_form)
 {
-
 ?>
 <ul>
 <?php
-if ($disp_clarolineRepository )
+if ($disp_claro )
     echo '<li>'
     .    'Claroline : ' 
     .    sprintf('%01.2f', disk_usage($clarolineRepositorySys,'','m')) . ' ' . $byteUnits[2]
     .    '</li>'
     ;
 
-if ($disp_courseRepository)
+if ($disp_allcrs)
     echo '<li>'
     .    $langCourses . ' : '
     .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
@@ -140,18 +117,18 @@ if ($disp_garbage )
 <li>
 <hr>
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_clarolineRepository" name="disp_clarolineRepository" value="true" > 
-<label for="disp_clarolineRepository"><?php echo $langSize_of_claroline_scripts ?></label>
+<input type="checkbox" id="disp_claro" name="disp_claro" value="true" > 
+<label for="disp_claro"><?php echo $langSize_of_claroline_scripts ?></label>
 <br>
-<input type="checkbox" id="disp_courseRepository" name="disp_courseRepository" value="true" >
-<label for="disp_courseRepository"><?php echo $langSize_of_course_repository ?></label>
+<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
+<label for="disp_allcrs"><?php echo $langSize_of_course_repository ?></label>
 <br>
 <input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
 <label for="disp_garbage">size of garbage</label>
 <br>
 
-<input type="checkbox" name="disp_selected_courses" id="disp_selected_courses" value="true" >
-<label for="disp_selected_courses"><?php echo $langSize_of_selected_courses ?></label><br>
+<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
+<label for="disp_selCrs"><?php echo $langSize_of_selected_courses ?></label><br>
 
 <?php
 echo claro_html_form_select( 'coursesToCheck[]'
@@ -169,7 +146,7 @@ echo claro_html_form_select( 'coursesToCheck[]'
 }
 
 
-if ($disp_selected_courses && $coursesToCheck)
+if ($disp_selCrs && $coursesToCheck)
 {
     echo '<li><ol>';
     $sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_course."` ";
