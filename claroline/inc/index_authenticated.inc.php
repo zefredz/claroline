@@ -1,17 +1,25 @@
 <?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * this  is  the  home page  of a campus  for an authenticated user
+ * this  page  list of users subscribed courses
+ * when the user is anonymous, index anonymous.inc.php 
+ * is load instead of this code.
+ *
+ * @version 1.7
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author claroline Team <cvs@claroline.net>
+ *
+ * @package CLINDEX
+ *
+ */
 
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 if ( ! isset($_uid) ) claro_disp_auth_form();
 
 $sql = "SELECT course.code           `sysCode`, 
@@ -23,11 +31,11 @@ $sql = "SELECT course.code           `sysCode`,
                course.languageCourse `language`,
                course_user.statut    `userSatus`
 
-               FROM `".$tbl_courses."`           course,
-                    `".$tbl_link_user_courses."` course_user
+               FROM `" . $tbl_courses . "`           course,
+                    `" . $tbl_link_user_courses . "` course_user
                                  
                WHERE course.code         = course_user.code_cours
-                 AND course_user.user_id = '".$_uid."'
+                 AND course_user.user_id = '" . $_uid . "'
                ORDER BY UPPER(fake_code)";
 
 $personnalCourseList = claro_sql_query_fetch_all($sql);
@@ -50,8 +58,8 @@ foreach($personnalCourseList as $thisCourse)
 
     $tableAnn = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'announcement';
 
-    $sql = "SELECT '". addslashes($thisCourse['sysCode']) ."' AS `courseSysCode`,
-                   '". addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+    $sql = "SELECT '" . addslashes($thisCourse['sysCode']) ."' AS `courseSysCode`,
+                   '" . addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
                    'CLANN___' AS `toolLabel`,
                    CONCAT(`temps`, ' ', '00:00:00') AS `date`, 
                    CONCAT(`title`,' - ',`contenu`) AS `content`
@@ -111,21 +119,21 @@ array_multisort( $courseDigestList['toolLabel'         ],
 
           /*> > > > > > > > > > > > DISPLAY < < < < < < < < < < < < */
 
-echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
-    ."<tr valign=\"top\">\n"
-    ."<td><!-- LEFT COLUMN -->\n";
+echo '<table width="100%" border="0" cellpadding="4" >' . "\n\n"
+.    '<tr valign="top">' . "\n"
+.    '<td><!-- LEFT COLUMN -->' . "\n"
+;
 
 @include './textzone_top.inc.html'; // Introduction message if needed
 
 if ($is_platformAdmin)
 {
     echo '&nbsp;'
-        .'<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&file=0">'
-        .'<img src="claroline/img/edit.gif"> Edit text zone'
-        .'</a>'."\n";
+    .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
+    .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
+    .    '</a>' . "\n"
+    ;
 }
-
-
 
 echo claro_disp_tool_title($langMyCourses);
 
@@ -141,25 +149,27 @@ echo "<p>"
                                      Only available for teacher. */
     {
         echo '<a href="claroline/create_course/add_course.php">'
-            .'<img src="'.$imgRepositoryWeb.'course.gif"> '
-            .$langCourseCreate
-            .'</a>'
-            .'&nbsp;|&nbsp;';
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif"> '
+        .    $langCourseCreate
+        .    '</a>'
+        .    '&nbsp;|&nbsp;'
+        ;
     }
 
     echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=">'
-        .'<img src="'.$imgRepositoryWeb.'enroll.gif"> '
-        .$lang_enroll_to_a_new_course
-        .'</a>'
-        .'&nbsp;|&nbsp;'
+    .    '<img src="'.$imgRepositoryWeb.'enroll.gif"> '
+    .    $lang_enroll_to_a_new_course
+    .    '</a>'
+    .    '&nbsp;|&nbsp;'
 
-        .'<a href="claroline/auth/courses.php?cmd=rqUnreg">'
-        .'<img src="'.$imgRepositoryWeb.'unenroll.gif"> '
-        .$lang_remove_course_enrollment
-        .'</a>'
-        ."</b>"
-        ."</small>\n"
-        ."</p>\n";
+    .    '<a href="claroline/auth/courses.php?cmd=rqUnreg">'
+    .    '<img src="'.$imgRepositoryWeb.'unenroll.gif"> '
+    .    $lang_remove_course_enrollment
+    .    '</a>'
+    .    '</b>'
+    .    '</small>' . "\n"
+    .    '</p>' . "\n"
+    ;
 
 /*
  * Course List
@@ -187,28 +197,28 @@ foreach($personnalCourseList as $thisCourse)
     }
     else // otherwise just display its name normally
     {
-        $classItem="";
+        $classItem='';
     }
        
-    echo "<li class=\"item".$classItem."\">\n"
-        ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
-        .$thisCourse['officialCode']." - "
-        .$thisCourse['title']
-        ."</a>"
-        ."<br>"
-        ."<small>"
-        .$thisCourse['titular']
-        ."</small>\n"
-        ."</li>\n";
+    echo '<li class="item' . $classItem . '">' ."\n"
+    .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">'
+    .    $thisCourse['officialCode'] . ' - '
+    .    $thisCourse['title']
+    .    '</a>'
+    .    '<br>'
+    .    '<small>'
+    .    $thisCourse['titular']
+    .    '</small>' . "\n"
+    .    '</li>' ."\n"
+    ;
 
 } // end foreach($personnalCourseList as $thisCourse)
 
-echo "</ul>\n"
+echo '</ul>' . "\n"
 
-    ."</td>\n"
+.    '</td>' . "\n"
 
-
-    ."<td width=\"200\" class=\"claroRightMenu\"><!-- RIGHT COLUMN -->\n";
+.    '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
 
     $title = '';
 
@@ -219,7 +229,7 @@ echo "</ul>\n"
             case 'CLANN___': 
                 $itemIcon = 'announcement.gif';
                 $url = 'claroline/announcements/announcements.php?cidReq='
-                       .$courseDigestList['courseSysCode'][$i]; 
+                     . $courseDigestList['courseSysCode'][$i]; 
                 $name = $langValvas;
                 break;
 
@@ -227,8 +237,8 @@ echo "</ul>\n"
             case 'CLCAL___': 
                 $itemIcon = 'agenda.gif';
                 $url = 'claroline/calendar/agenda.php?cidReq='
-                       .$courseDigestList['courseSysCode'][$i];
-                $name =  $langAgendaNextEvents;
+                     . $courseDigestList['courseSysCode'][$i];
+                $name = $langAgendaNextEvents;
                 break;
         }
         
@@ -238,25 +248,26 @@ echo "</ul>\n"
             echo "<h4>".$title."</h4>\n";
         }
 
-        $courseDigestList['content'][$i] = preg_replace('/<br( \/)?>/'," ",$courseDigestList['content'][$i]);
+        $courseDigestList['content'][$i] = preg_replace('/<br( \/)?>/', ' ', $courseDigestList['content'][$i]);
         $courseDigestList['content'][$i] = strip_tags($courseDigestList['content'][$i]);
         $courseDigestList['content'][$i] = substr($courseDigestList['content'][$i],0, $max_char_from_content);
 
-        echo "<p>\n"
-            ."<small>"
-            ."<a href=\"".$url."\">"
-            ."<img src=\"".$imgRepositoryWeb.$itemIcon."\">"
-            ."</a>"
+        echo '<p>' . "\n"
+        .    '<small>'
+        .    '<a href="' . $url . '">'
+        .    '<img src="' . $imgRepositoryWeb . $itemIcon . '">'
+        .    '</a>'
 
-            .  claro_disp_localised_date( $dateFormatLong,
+        .    claro_disp_localised_date( $dateFormatLong,
                                      strtotime($courseDigestList['date'][$i]) )
-            ."<br>\n"
-            ."<a href=\"".$url."\">"
-            .  $courseDigestList['courseOfficialCode'][$i]
-            ."</a> : \n"
-            ." <small>".$courseDigestList['content'][$i]."</small>"
-            ."</small>"
-            ."</p>\n";
+        .    '<br>' . "\n"
+        .    '<a href="' . $url . '">'
+        .    $courseDigestList['courseOfficialCode'][$i]
+        .    '</a> : ' . "\n"
+        .    '<small>' . $courseDigestList['content'][$i] . '</small>'
+        .    '</small>'
+        .    '</p>' . "\n"
+        ;
     } // end for( $i=0, ... $i < $itemCount; $i++)
 
 ?>
@@ -280,17 +291,16 @@ echo "</ul>\n"
 <?php
 	} // end if is_platformAdmin
 
-?>
-<?php 
 
-@include './textzone_right.inc.html'; 
+if (file_exists('./textzone_right.inc.html')) include './textzone_right.inc.html'; 
 
 if ($is_platformAdmin)
 {
     echo '&nbsp;'
-        .'<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&file=1">'
-        .'<img src="claroline/img/edit.gif"> Edit text zone'
-        .'</a>'."\n";
+    .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
+    .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
+    .    '</a>' . "\n"
+    ;
 }
 
 

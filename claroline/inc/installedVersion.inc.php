@@ -20,6 +20,8 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
+ if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
+
 $stable = FALSE;
 $clarolinePhase = 'alpha';
 $is_upgrade_available = FALSE;

@@ -1,22 +1,32 @@
 <?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * this  is  the  home page  of a campus  for an anonymous user
+ * this  page  prupose a directory of open courses of the campus
+ * when the user is authenticated, index°authenticated.inc.php 
+ * is load instead of this code.
+ *
+ * @version 1.7
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @author claroline Team <cvs@claroline.net>
+ *
+ * @package CLINDEX
+ *
+ */
 
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+echo '<table width="100%" border="0" cellpadding="4" >' . "\n\n"
+.    '<tr>'
+.    '<td valign="top">' . "\n"
+;
 
-echo "<table width=\"100%\" border=\"0\" cellpadding=\"4\" >\n\n"
-    ."<tr>\n"
-    ."<td valign=\"top\">\n";
 
-@include './textzone_top.inc.html'; // Introduction message if needed
+if (file_exists('./textzone_top.inc.html'))
+include './textzone_top.inc.html'; // Introduction message if needed
 
 
 /*==================================
@@ -80,19 +90,20 @@ list( , $parentCategory) = each($categoryList);
 
 if ( trim($category) != '' ) // means that we are not on the root level of the category tree
 {
-    $backCommandLine = "<p>"
-                      ."<small>"
-                      ."<a href=\"".$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P']."\">"
-                      ."&lt;&lt; ".$langPreviousLevel
-                      ."</a>"
-                      ."</small>"
-                      ."</p>";
+    $backCommandLine = '<p>'
+                      .'<small>'
+                      .'<a href="' . $_SERVER['PHP_SELF'] . '?category=' . $parentCategory['code_P'] . '">'
+                      .'&lt;&lt; ' . $langPreviousLevel
+                      .'</a>'
+                      .'</small>'
+                      .'</p>'
+                      ;
 
     $pageTitle      = $parentCategory['name'];
 }
 else
 {
-	$backCommandLine = "<p>&nbsp;</p>";
+	$backCommandLine = '<p>&nbsp;</p>';
     $pageTitle       = $langCategories;
 }
 
@@ -100,24 +111,25 @@ echo $backCommandLine;
 
 echo claro_disp_tool_title($pageTitle);
 
-    if ( ( count($categoryList) - 1 )  > 0 && $category!=null) // don't display subtitle of categories if we are at root or if there is only one categorie
+    if ( ( count($categoryList) - 1 )  > 0 && $category != null) // don't display subtitle of categories if we are at root or if there is only one categorie
     {
-        echo "<h4>".$langCategories."</h4>\n";
+        echo '<h4>' . $langCategories . '</h4>' . "\n";
     }
-    echo "<ul>\n";
+    echo '<ul>' . "\n";
 
     foreach($categoryList as $thisCategory)
     {
         if ($thisCategory['code'] != $category) // jump the parent category
         {
-            echo "<li>\n";
+            echo '<li>' . "\n";
 
             if ( $thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0 )
             {
-                echo "<a href=\"".$_SERVER['PHP_SELF']."?category=".$thisCategory['code']."\">\n"
-                     .$thisCategory['name']."\n"
-                     ."</a>\n"
-                     ." <small>(".$thisCategory['nbCourse'].")</small>";
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?category=' . $thisCategory['code'] . '">' . "\n"                     
+                .    $thisCategory['name'] . "\n"
+                .    '</a>' . "\n"
+                .    '<small>(' . $thisCategory['nbCourse'] . ')</small>'
+                ;
 
             }
             else
@@ -125,37 +137,39 @@ echo claro_disp_tool_title($pageTitle);
                 echo $thisCategory['name'];
             }
 
-            echo "</li>\n";
+            echo '</li>' . "\n";
 		}
 	}
 
-	echo "</ul>\n";
+	echo '</ul>' . "\n";
 
 if ( count($courseList) > 0 )
 {
    if ( ( count($categoryList) - 1 )  > 0 )
    {
-       echo "<hr size=\"1\" noshade=\"noshade\">\n";
+       echo '<hr size="1" noshade="noshade">' . "\n";
    }
 
-    echo "<h4>".$langCourseList."</h4>\n"
-        ."<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
+    echo '<h4>' . $langCourseList . '</h4>' . "\n"
+    .    '<ul style="list-style-image:url(claroline/img/course.gif);">' . "\n"
+    ;
 
     foreach($courseList as $thisCourse)
     {
-        echo "<li>\n"
+        echo '<li>' . "\n"
 
-            ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
-            .$thisCourse['officialCode']." - "
-            .$thisCourse['title']
-            ."</a>"
-            ."<br>"
-            ."<small>".$thisCourse['titular']."</small>\n"
+        .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '\">'
+        .    $thisCourse['officialCode'] . ' - '
+        .    $thisCourse['title']
+        .    '</a>'
+        .    '<br>'
+        .    '<small>' . $thisCourse['titular'] . '</small>' . "\n"
 
-            ."</li>\n";
+        .    '</li>' . "\n"
+        ;
     }
 
-	echo "</ul>\n";
+	echo '</ul>' . "\n";
 
 }
 else
@@ -216,6 +230,7 @@ echo '</td>';
 <p>
 <a href="claroline/auth/lostPassword.php"><?php echo $langLostPassword ?></a>
 </p>
+
 <?php
     if( $allowSelfReg || ! isset($allowSelfReg) )
     {
@@ -223,12 +238,11 @@ echo '</td>';
         <p>
         <a href="claroline/auth/inscription.php"><?php echo $langCreateUserAccount ?></a>
         </p>
+
         <?php
     }
 
-?>
-
-<?php @include './textzone_right.inc.html'; ?>
+if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.html'; ?>
 
 </td>
 </tr>
