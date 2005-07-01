@@ -2097,6 +2097,7 @@ $lang_completeUserInfoOfUser = "Complète les infos de l\'utilisateur";
 $lang_p_FillCourses = "Remplissage de %s avec %s";
 $lang_this_course_is_protected = "Ce cours est protégé";
 $lang_unsubscribe = "Radiation";
+$langEditTextZone = "Zone de texte éditable";
 $lang_upgradeToolCannotUpgradeThisCourse = "
 L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  <br>
 Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";

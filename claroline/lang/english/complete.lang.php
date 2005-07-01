@@ -2202,6 +2202,7 @@ $lang_p_s_s_isInvalid = "%s : %s is invalid";
 $lang_php_info = "PHP system information";
 $lang_remove_course_enrollment = "Remove course enrolment";
 $lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
+$langEditTextZone = "Edit text zone";
 $lang_rules_s_in_s = "Rules : %s in %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browser.";
 $lang_select_course_in = "Select course in ";
