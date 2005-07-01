@@ -95,7 +95,7 @@
         }
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
-        $location = add_request_variable_to_url( $script, "action", "show" );
+        $location = add_request_variable_to_url( $location, "action", "show" );
 
         $out .= claro_disp_button ( $location, $langCancel );
         
@@ -231,7 +231,8 @@
             ;
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
-        $location = add_request_variable_to_url( $script, "action", "show" );
+        $location = add_request_variable_to_url( $location, "title", $title );
+        $location = add_request_variable_to_url( $location, "action", "show" );
         
         $out .= claro_disp_button ( $location, $langCancel );
         
