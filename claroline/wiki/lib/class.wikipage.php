@@ -455,8 +455,9 @@
             
             // 2nd update page info
             $sql = "UPDATE `".$this->config['tbl_wiki_pages']."` "
-                    . "SET `last_version`="
-                    . $this->getLastVersionId() . " "
+                    . "SET `last_version` = "
+                    . $this->getLastVersionId() . ", "
+                    . "`last_mtime` = '" . $this->getLastEditTime() . "' "
                     . "WHERE `id` = " . $this->getPageId()
                     ;
                     
