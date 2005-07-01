@@ -10,16 +10,17 @@
  *
  */
 
-require '../../inc/claro_init_global.inc.php';
+require_once '../../inc/claro_init_global.inc.php';
 
 $is_allowedToAdmin = $is_platformAdmin;
 if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 
-include($includePath . '/lib/debug.lib.inc.php');
-include($includePath . '/lib/fileManage.lib.php');
+require_once($includePath . '/lib/debug.lib.inc.php');
+require_once($includePath . '/lib/fileManage.lib.php');
+require_once($includePath . '/lib/form.lib.php');
 
-$tbl_cdb_names = claro_sql_get_main_tbl();
-$tbl_course = $tbl_cdb_names['course'];
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_course = $tbl_mdb_names['course'];
 
 $nameTools = $langDiskUsage;
 
@@ -30,61 +31,64 @@ $dateNow = claro_disp_localised_date($dateTimeFormatLong);
 
 $disp_form = true;
 
-if (isset( $_REQUEST['display_all_size_of_clarolineRepositorySys']))
+if (isset( $_REQUEST['disp_clarolineRepository']))
 {
-    $display_all_size_of_clarolineRepositorySys =  $_REQUEST['display_all_size_of_clarolineRepositorySys'];
+    $disp_clarolineRepository =  $_REQUEST['disp_clarolineRepository'];
 }
 else
 {
-    $display_all_size_of_clarolineRepositorySys =  false;
+    $disp_clarolineRepository =  false;
 }
 
 
-if (isset( $_REQUEST['display_all_size_of_selected_courses']))
+if (isset( $_REQUEST['disp_selected_courses']))
 {
-    $display_all_size_of_selected_courses =  $_REQUEST['display_all_size_of_selected_courses'];
-}
-else
-{
-    $display_all_size_of_selected_courses =  false;
-}
-
-
-if (isset( $_REQUEST['display_all_size_of_Total_Courses']))
-{
-    $display_all_size_of_Total_Courses =  $_REQUEST['display_all_size_of_Total_Courses'];
+    $disp_selected_courses =  $_REQUEST['disp_selected_courses'];
 }
 else
 {
-    $display_all_size_of_Total_Courses =  false;
+    $disp_selected_courses =  false;
 }
 
-if (isset( $_REQUEST['display_all_size_of_garbageRepositorySys']))
+
+if (isset( $_REQUEST['disp_courseRepository']))
 {
-    $display_all_size_of_garbageRepositorySys =  $_REQUEST['display_all_size_of_garbageRepositorySys'];
+    $disp_courseRepository =  $_REQUEST['disp_courseRepository'];
+}
+else
+{
+    $disp_courseRepository =  false;
+}
+
+if (isset( $_REQUEST['disp_garbage']))
+{
+    $disp_garbage =  $_REQUEST['disp_garbage'];
     $garbagedisk_usage = disk_usage($garbageRepositorySys,'','m');
 }
 else
 {
-    $display_all_size_of_garbageRepositorySys =  false;
-    
+    $disp_garbage =  false;
 }
 
-if (isset( $_REQUEST['coursesToCheck']))
-{
-    $coursesToCheck =  $_REQUEST['coursesToCheck'];
-}
-else
-{
-    $coursesToCheck =  false;
-}
+if (isset( $_REQUEST['coursesToCheck'])) $coursesToCheck =  $_REQUEST['coursesToCheck'];
+else                                     $coursesToCheck =  false;
+
 
 
 
 if ($disp_form)
 {
     $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
-    $courseList = claro_sql_query_fetch_all($sqlListCoursesSel);
+    $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
+    
+    if (is_array($course_list))
+    {
+        $coursesToCheck_list[' all ']= '** ' . $langAll . ' ** !!! ' . $langHigh_resources ;
+        foreach ($course_list as $courseSel)
+        {
+            $coursesToCheck_list[ $courseSel['sysCode'] ]=$courseSel['officialCode'];
+        }
+    }
 }
 
 
@@ -111,21 +115,21 @@ if ($disp_form)
 ?>
 <ul>
 <?php
-if ($display_all_size_of_clarolineRepositorySys )
+if ($disp_clarolineRepository )
     echo '<li>'
     .    'Claroline : ' 
     .    sprintf('%01.2f', disk_usage($clarolineRepositorySys,'','m')) . ' ' . $byteUnits[2]
     .    '</li>'
     ;
 
-if ($display_all_size_of_Total_Courses)
+if ($disp_courseRepository)
     echo '<li>'
     .    $langCourses . ' : '
     .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
     .    '(' . $langPerhaps_with_others_directory . ')</li>'
     ;
 
-if ($display_all_size_of_garbageRepositorySys )
+if ($disp_garbage )
     echo '<li>'
     .    $langGarbage
     .    ' :  '
@@ -136,28 +140,27 @@ if ($display_all_size_of_garbageRepositorySys )
 <li>
 <hr>
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" name="display_all_size_of_clarolineRepositorySys" value="true" > <?php echo $langSize_of_claroline_scripts ?>
+<input type="checkbox" id="disp_clarolineRepository" name="disp_clarolineRepository" value="true" > 
+<label for="disp_clarolineRepository"><?php echo $langSize_of_claroline_scripts ?></label>
 <br>
-<input type="checkbox" name="display_all_size_of_Total_Courses" value="true" >
-<?php echo $langSize_of_course_repository ?>
+<input type="checkbox" id="disp_courseRepository" name="disp_courseRepository" value="true" >
+<label for="disp_courseRepository"><?php echo $langSize_of_course_repository ?></label>
 <br>
-<input type="checkbox" name="display_all_size_of_garbageRepositorySys" value="true" > size of garbage
+<input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
+<label for="disp_garbage">size of garbage</label>
 <br>
-<input type="checkbox" name="display_all_size_of_selected_courses" value="true" >
-<?php echo $langSize_of_selected_courses ?><br>
 
-<select name="coursesToCheck[]" size="" multiple>
-        <option value=" all " >** <?php echo $langAll ?> ** !!! <?php echo $langHigh_resources ?></option>
-        <?php
-            foreach ($courseList as $courseSel)
-            {
-                echo '<option value="' . $courseSel['sysCode'] . '" >'
-                .    $courseSel['officialCode']
-                .    '</option>' . "\n";
-            }
+<input type="checkbox" name="disp_selected_courses" id="disp_selected_courses" value="true" >
+<label for="disp_selected_courses"><?php echo $langSize_of_selected_courses ?></label><br>
 
-        ?>
-</select>
+<?php
+echo claro_html_form_select( 'coursesToCheck[]'
+                           , $coursesToCheck_list
+                           , ''
+                           , array( 'multiple'=>'multiple'
+                                  , 'size'=>'' ))
+                           ; ?>
+
 <input type="submit">
 </form>
 <hr>
@@ -166,7 +169,7 @@ if ($display_all_size_of_garbageRepositorySys )
 }
 
 
-if ($display_all_size_of_selected_courses && $coursesToCheck)
+if ($disp_selected_courses && $coursesToCheck)
 {
     echo '<li><ol>';
     $sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_course."` ";
@@ -186,13 +189,22 @@ if ($display_all_size_of_selected_courses && $coursesToCheck)
     if (isset($sqlListCourses))
     {
         $resCourses= claro_sql_query($sqlListCourses);
-        while ($course = mysql_fetch_array($resCourses,MYSQL_ASSOC))
+        while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
-            $duFiles = disk_usage($coursesRepositorySys.$course["dir"]."/","","k");
-            $duBase  = disk_usage($mysqlRepositorySys.$course["db"]."/","","k");
+            $duFiles = disk_usage($coursesRepositorySys . $course['dir'] . '/','','k');
+            $duBase  = disk_usage($mysqlRepositorySys . $course['db'] . '/','','k');
+            
+            
 //            $duBase  = get_db_size($course["db"],k);
             
             $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
+            echo '<p>' . $coursesRepositorySys . $course["dir"] . '/' 
+            .    ' = '
+            .    '<pre>' 
+            .    var_export( $coursesRepositorySys . $course["dir"] . '/',1)
+            .    '</pre>'
+            ;
+           
             $quota   = $course['diskQuota'] * 1; 
             echo '<li>'
             .    $course['code'] . ' : ' 
@@ -245,11 +257,13 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
             $usedspace += claro_get_file_size($dirBase);
             switch ($precision)
             {
-                case 'm' : $usedspace /= 1024;
-                case 'k' : $usedspace /= 1024;
+                case 'm' : $usedspace /= 1024; 
+                case 'k' : $usedspace /= 1024; 
             }
+            
             break;
     }
+    
     return $usedspace;
 }
 
@@ -266,7 +280,7 @@ function get_db_size($tdb)
     if($result)
     {
         $size = 0;
-        while ($data = mysql_fetch_array($result))
+        while (($data = mysql_fetch_array($result)))
         {
             $size = $size + $data['Data_length'] + $data['Index_length'];
         }
