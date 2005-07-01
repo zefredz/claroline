@@ -23,8 +23,8 @@
  */
 
 
-DEFINE('CONF_COURSE_ADMIN_CAN_BE_STUDENT',True);
-DEFINE('CONF_PLATFORM_ADMIN_CAN_BE_COURSE_ADMIN',True);
+DEFINE('CONF_COURSE_ADMIN_CAN_BE_STUDENT',true);
+DEFINE('CONF_PLATFORM_ADMIN_CAN_BE_COURSE_ADMIN',true);
 DEFINE('DEFAULT_NUMBER_CREATED_COURSE',25);
 DEFINE('DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE',5);
 DEFINE('DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE',50);
@@ -40,10 +40,10 @@ DEFINE('DEFAULT_PREFIX','TEST');
 
 
 /////////////////////DON'T EDIT /////////////
-DEFINE("DISP_RESULT_INSERT"     ,__LINE__); //
-DEFINE("DISP_FORM_SET_OPTION"   ,__LINE__); ///
-DEFINE("CONF_VAL_STUDENT_STATUS",5);        ///
-DEFINE("CONF_VAL_TEACHER_STATUS",1);        //
+DEFINE('DISP_RESULT_INSERT'     ,__LINE__); //
+DEFINE('DISP_FORM_SET_OPTION'   ,__LINE__); ///
+DEFINE('CONF_VAL_STUDENT_STATUS',5);        ///
+DEFINE('CONF_VAL_TEACHER_STATUS',1);        //
 /////////////////////DON'T EDIT /////////////
 
 
@@ -145,15 +145,15 @@ if ($cmd == 'exFill')
     );
 
     $aivailableLang[]= $platformLanguage;
-    if (isset($_REQUEST['random_lang']))
+    if (isset($_REQUEST['random_lang']) && $_REQUEST['random_lang'] == 'random_lang')
     {
-        $aivailableLang = get_lang_list();
+        $aivailableLang = array_keys(claro_get_lang_list());
     }
 
     $sqlCat = "SELECT `code` `code` 
                FROM `" . $TABLECOURSDOMAIN . "` 
                WHERE canHaveCoursesChild  = 'TRUE'";
-
+    
     $aivailableFaculty = claro_sql_query_fetch_all($sqlCat);
     if (is_array($aivailableFaculty))
     foreach ($aivailableFaculty as $fac)
@@ -185,14 +185,14 @@ if ($cmd == 'exFill')
         $language_course   = field_rand($aivailableLang);
         $uidCourse         = field_rand($teachersUid);
         //  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="",     $prefix4path="", $addUniquePrefix =false,    $useCodeInDepedentKeys = TRUE    )
-        $keys             = define_course_keys ($wantedCode,"",$dbNamePrefix);
-        $currentCourseCode       = $keys["currentCourseCode"];
-        $currentCourseId         = $keys["currentCourseId"];
-        $currentCourseDbName     = $keys["currentCourseDbName"];
-        $currentCourseRepository = $keys["currentCourseRepository"];
+        $keys             = define_course_keys ($wantedCode,'',$dbNamePrefix);
+        $currentCourseCode       = $keys['currentCourseCode'];
+        $currentCourseId         = $keys['currentCourseId'];
+        $currentCourseDbName     = $keys['currentCourseDbName'];
+        $currentCourseRepository = $keys['currentCourseRepository'];
         $expirationDate          = time() + 3600*12*24*30;
 
-        if ($DEBUG) echo "[Code:",    $currentCourseCode,"][Id:",$currentCourseId,"][Db:",$currentCourseDbName     ,"][Path:",$coursesRepositorySys, " - ",$coursesRepositories," - ",$currentCourseRepository ,"]";
+        if ($DEBUG) echo '[Code:',    $currentCourseCode,'][Id:',$currentCourseId,'][Db:',$currentCourseDbName     ,'][Path:',$coursesRepositorySys, ' - ',$coursesRepositories,' - ',$currentCourseRepository ,']';
 
         //function prepare_course_repository($courseRepository, $courseId)
         prepare_course_repository(
@@ -217,7 +217,7 @@ if ($cmd == 'exFill')
         $currentCourseCode,
         $currentCourseRepository,
         $currentCourseDbName,
-        "test team",
+        'test team',
         (isset($_user['email'])?$_user['email']:$administrator_email),
         $faculte,
         $wantedCode,
@@ -251,7 +251,7 @@ if ($cmd == 'exFill')
         if (is_array($userSqlSegment))
         {
             $sqlAddUserToCourse = "
-        INSERT IGNORE INTO `".$TABLECOURSUSER."`
+        INSERT IGNORE INTO `" . $TABLECOURSUSER . "`
         (`code_cours`, `user_id`, `statut`)
         VALUES
             " . implode(', ', $userSqlSegment);
@@ -294,7 +294,7 @@ if ($cmd == 'exFill')
                     forum_type, md5)
                     VALUES ('','" . $langForumGroup . " " . $lastId . "','', 2, 1, 0, 0,
                             1, 1, 0,'" . md5(time()) . "')";
-
+            
             
             $forumInsertId = claro_sql_query_insert_id($sql);
 
@@ -407,8 +407,14 @@ switch ($display)
     <input align="right" id="pmax"  type="text" name="pmax" value="<?php echo $pmax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
-    <Label for="noLangRand"><input type="radio" id="noLangRand" name="random_lang" value="" checked="checked">    <?php echo $langOnly . " " . $langNameOfLang[$platformLanguage] ?></label>
-    <Label for="langRand"><input type="radio" id="langRand"   name="random_lang" value="random_lang"><?php echo $langRandomLanguage ?></label>
+    <Label for="noLangRand">
+    <input type="radio" id="noLangRand" name="random_lang" value="no" checked="checked">
+    <?php echo $langOnly . " " . $langNameOfLang[$platformLanguage] ?>
+    </label>
+    <Label for="langRand">
+    <input type="radio" id="langRand" name="random_lang" value="random_lang">
+    <?php echo $langRandomLanguage ?>
+    </label>
     </fieldset>
     <fieldset>
     <legend ><?php echo $langNumGroup; ?> </legend>
@@ -446,31 +452,4 @@ function field_rand($arr)
     return $arr[$rand_keys];
 }
 
-/**
- * Get list aivailable lang in this claroline.
- * This function suppose that all lang directory found are complete.
- * @global $includePath 
- * @author Christophe Gesché <moosh@claroline.net>
- */
-
-function get_lang_list()
-{
-    GLOBAL $includePath;
-
-    $dirname = $includePath.'/../lang/';
-    if($dirname[strlen($dirname)-1]!='/')
-    $dirname.='/';
-    $handle=opendir($dirname);
-    while ($entries = readdir($handle))
-    {
-        if ($entries=='.'||$entries=='..'||$entries=='CVS')
-        continue;
-        if (is_dir($dirname.$entries))
-        {
-            $aivailableLang[]=$entries;
-        }
-    }
-    closedir($handle);
-    return $aivailableLang;
-}
 ?>
