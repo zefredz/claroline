@@ -532,8 +532,8 @@
         
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
-        // Page context
-        if ( isset( $_REQUEST['title'] ) || $title == "__MainPage__" )
+        // Show context
+        if ( $action == "show" )
         {
             echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
                 . $_SERVER['PHP_SELF']
@@ -545,7 +545,7 @@
                 . $langWikiEditPage.'</a>'
                 ;
         }
-        // Wiki context
+        // Other contexts
         else
         {
             echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
