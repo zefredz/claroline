@@ -96,26 +96,22 @@
 		var tb = new dcToolBar(document.getElementById('".$this->attributeList['id']."'),
 		'wiki','".document_web_path()."/toolbar/');
 
-		tb.btStrong('Forte emphase');
-		tb.btEm('Emphase');
-		tb.btIns('Inséré');
-		tb.btDel('Supprimé');
-		tb.btQ('Citation en ligne');
+        tb.btStrong('Strong emphasis');
+		tb.btEm('Emphasis');
+		tb.btIns('Inserted');
+		tb.btDel('Deleted');
+		tb.btQ('Inline quote');
 		tb.btCode('Code');
 		tb.addSpace(10);
-		tb.btBr('Saut de ligne');
+		tb.btBr('Line break');
 		tb.addSpace(10);
-		tb.btBquote('Bloc de citation');
-		tb.btPre('Texte préformaté');
-		tb.btList('Liste non ordonnée','ul');
-		tb.btList('Liste ordonnée','ol');
+		tb.btBquote('Blockquote');
+		tb.btPre('Preformated text');
+		tb.btList('Unordered list');
+		tb.btList('Ordered list');
 		tb.addSpace(10);
-		tb.btLink('Lien',
-			'URL ?',
-			'Langue ?',
-			'fr');
-		tb.btImgLink('Image externe',
-			'URL ?');
+        tb.btLink('Link','URL?','Language?','fr');
+        tb.btImgLink('External image','URL?');
 		tb.draw('');
 	}
 	</script>\n";
