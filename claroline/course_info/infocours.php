@@ -2,6 +2,8 @@
 /**
  * CLAROLINE 
  *
+ * This tool manage properties of an exiting course
+ *
  * @version 1.7
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
@@ -23,9 +25,10 @@ $dialogBox = '';
 if ( ! $_cid ) claro_disp_select_course();
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
-include_once( $includePath . '/lib/auth.lib.inc.php'      );
-include_once( $includePath . '/lib/course.lib.inc.php'    );
-include_once( $includePath . '/conf/course_main.conf.php' );
+include_once( $includePath . '/lib/auth.lib.inc.php');
+include_once( $includePath . '/lib/course.lib.inc.php');
+include_once( $includePath . '/lib/form.lib.php');
+include_once( $includePath . '/conf/course_main.conf.php');
 
 /*
  * Configuration array , define here which field can be left empty or not
@@ -58,7 +61,7 @@ $tbl_category         = $tbl_mdb_names['category'       ];
 $thisCourse = claro_get_course_data($_cid);
 
 $int               = $thisCourse['name'];
-$facu              = $thisCourse['categoryName'];
+$category          = $thisCourse['categoryCode'];
 $currentCourseCode = $thisCourse['officialCode'];
 $titulary          = $thisCourse['titular'];
 $languageCourse    = $thisCourse['language'];
@@ -67,7 +70,7 @@ $extLinkUrl        = $thisCourse['extLink']['url'];
 $email             = $thisCourse['email'];
 $directory         = $thisCourse['path'];
 $currentCourseID         = $_course['sysCode'];
-$currentCourseRepository = $_course["path"];
+$currentCourseRepository = $_course['path'];
 
 
 //if values were posted, we overwrite DB info with values previously set by user
@@ -100,9 +103,9 @@ if (isset($_REQUEST['lanCourseForm']))
 {
     $languageCourse = $_REQUEST['lanCourseForm'];
 }
-if (isset($_REQUEST['faculte']))
+if (isset($_REQUEST['category']))
 {
-    $facu = $_REQUEST['faculte'];
+    $category = $_REQUEST['category'];
 }
 if (isset($_REQUEST['visible']))
 {
@@ -156,7 +159,7 @@ if( $is_allowedToEdit )
         
         if ((!$canBeEmpty['intitule']) && $_REQUEST['int'] == '')
             $dialogBox .= $langErrorCourseTitleEmpty . '<br>';
-        if ((!$canBeEmpty['category']) && $_REQUEST['faculte'] == '')
+        if ((!$canBeEmpty['category']) && $_REQUEST['category'] == '')
             $dialogBox .= $langErrorCategoryEmpty . '<br>';
         if ((!$canBeEmpty['lecturer']) && $_REQUEST['titulary'] == '')
             $dialogBox .= $langErrorLecturerEmpty . '<br>';
@@ -193,28 +196,28 @@ if( $is_allowedToEdit )
             
             //build query to update course table in DB
         
-            if ($_REQUEST['int'] != ''          || $canBeEmpty['int'])
+            if ($_REQUEST['int'] != '' || $canBeEmpty['int'])
                 $fieldsToUpdate[]= "`intitule`='" . addslashes( trim(  $_REQUEST['int'] ) ) . "'";
                 
-            if ($_REQUEST['faculte'] != ''      || $canBeEmpty['facu'])
-                $fieldsToUpdate[]= "`faculte`='" . addslashes( trim(   $_REQUEST['faculte'] ) ) . "'";
+            if ($_REQUEST['category'] != '' || $canBeEmpty['category'])
+                $fieldsToUpdate[]= "`faculte`='" . addslashes( trim(   $_REQUEST['category'] ) ) . "'";
                 
-            if ( $_REQUEST["titulary"] !=""     || $canBeEmpty['titulary'])
+            if ( $_REQUEST["titulary"] != '' || $canBeEmpty['titulary'])
                 $fieldsToUpdate[]= "`titulaires`='" . addslashes( trim(  $_REQUEST['titulary'] ) ) . "'";
                 
-            if ($_REQUEST['screenCode']!=""     || $canBeEmpty["screenCode"])
+            if ($_REQUEST['screenCode'] != '' || $canBeEmpty['screenCode'])
                 $fieldsToUpdate[]= "`fake_code`='" . addslashes( trim( $_REQUEST['screenCode'] ) ) . "'";
                 
-            if ($_REQUEST['lanCourseForm'] !="" || $canBeEmpty["lanCourseForm"])
+            if ($_REQUEST['lanCourseForm'] != '' || $canBeEmpty['lanCourseForm'])
                 $fieldsToUpdate[]= "`languageCourse`='" . addslashes( trim(    $_REQUEST['lanCourseForm'] ) ) . "'";
                 
-            if ($_REQUEST['extLinkName']!=""    || $canBeEmpty['extLinkName'])
+            if ($_REQUEST['extLinkName'] != '' || $canBeEmpty['extLinkName'])
                 $fieldsToUpdate[]= "`departmentUrlName`='" . addslashes( trim( $_REQUEST['extLinkName'] ) ) . "'";    
                 
-            if ($_REQUEST['extLinkUrl'] !=""    || $canBeEmpty["extLinkUrl"])
+            if ($_REQUEST['extLinkUrl'] !='' || $canBeEmpty['extLinkUrl'])
                 $fieldsToUpdate[]= "`departmentUrl`='" . addslashes( trim(   $_REQUEST['extLinkUrl'] ) ) . "'";
                 
-            if($_REQUEST['email']!=""           || $canBeEmpty["email"])
+            if($_REQUEST['email'] != '' || $canBeEmpty['email'])
                 $fieldsToUpdate[]= "`email`='" . addslashes( trim( $_REQUEST['email'] ) ) . "'";
                 
             if ($_REQUEST['visible'] == 'false'     && $_REQUEST['allowedToSubscribe']=='false')
@@ -239,16 +242,51 @@ if( $is_allowedToEdit )
     
     $cidReset = true;
     $cidReq = $current_cid;
-    include($includePath."/claro_init_local.inc.php");
-
-    
-
+    include($includePath . '/claro_init_local.inc.php');
 
 /**
  * FORM
  */
+    
+}
 
-    }
+//////////////////////PREPARE DISPLAY
+
+$language_list = claro_get_lang_flat_list();
+
+$category_array = claro_get_cat_flat_list();
+// If there is no current $category, add a fake option 
+// to prevent auto select the first in list
+// to prevent auto select the first in list
+if ( array_key_exists($category,$category_array))
+{ 
+    $cat_preselect = $category;
+}
+else 
+{
+    $cat_preselect = 'choose_one';
+    $category_array = array_merge(array('choose_one'=>'--'),$category_array);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////
+/////////////////////// OUTPUT
 
 include($includePath . '/claro_init_header.inc.php' );
 
@@ -286,13 +324,13 @@ if (!empty ($dialogBox))
 </tr>
 
 <tr>
-<td align="right"><label for="faculte"><?php echo $langCategory ?></label> :</td>
+<td align="right"><label for="category"><?php echo $langCategory ?></label> :</td>
 <td>
-
-<?php
-build_editable_cat_table($facu, ' &gt; ');      
-?>
-
+<?php echo claro_html_form_select( 'category'
+                                 , $category_array
+                                 , $cat_preselect
+                                 , array('id'=>'category'))
+                                 ; ?>
 </td>
 </tr>
 
@@ -309,29 +347,12 @@ build_editable_cat_table($facu, ' &gt; ');
 <tr>
 <td valign="top" align="right"><label for="lanCourseForm"><?php echo $langLanguage ?></label> : </td>
 <td>
-<select name="lanCourseForm" id="lanCourseForm">
-<?php    // determine past language of the course
-$dirname = '../lang/';
-if($dirname[strlen($dirname)-1]!='/') $dirname.='/';
-$handle=opendir($dirname);
+<?php echo claro_html_form_select( 'lanCourseForm'
+                                 , $language_list
+                                 , $languageCourse
+                                 , array('id'=>'lanCourseForm'))
+                                 ; ?>
 
-while ($entries = readdir($handle))
-{
-    if ($entries=='.'||$entries=='..'||$entries=='CVS') continue;
-
-    if (is_dir($dirname.$entries))
-    {
-        echo '<option value="' . $entries . '"';
-        if ($entries == $languageCourse) echo ' selected ';
-        echo '>' . $entries;
-                if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-                echo ' - ' . $langNameOfLang[$entries];
-        echo '</option>'. "\n";
-    }
-}
-closedir($handle);
-?>
-</select>
 <br><small><font color="gray"><?php echo $langTipLang ?></font></small>
 </td>
 </td>
