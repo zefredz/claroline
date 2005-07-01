@@ -1743,8 +1743,12 @@ function claro_get_lang_list()
 {
     global $includePath, $langNameOfLang;
     $dirname = $includePath . '/../lang/';
+    
     if($dirname[strlen($dirname)-1]!='/')
     $dirname.='/';
+    
+    if (!file_exists($dirname)) trigger_error('lang repository not found',E_USER_WARNING);
+    
     $handle=opendir($dirname);
     
     while ($entries = readdir($handle))
