@@ -99,6 +99,8 @@ $is_forumAdmin    = claro_is_allowed_to_edit();
 
 echo claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
+                      
+if ( isset($dialogBox) && $dialogBox != '') echo claro_disp_message_box($dialogBox);                    
 
 // Forum toolbar
 

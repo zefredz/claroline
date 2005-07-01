@@ -291,6 +291,4 @@ if( $cmd == 'exMvDownForum' )
 	move_down_forum($_REQUEST['forumId']);
 }
 
-if(isset($dialogBox)) echo claro_disp_message_box($dialogBox);
-
 ?>
