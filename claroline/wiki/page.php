@@ -20,7 +20,13 @@
     $tlabelReq = 'CLWIKI__';
 
     require_once "../inc/claro_init_global.inc.php";
+    
+    // config file
     require_once $includePath . "/conf/CLWIKI.conf.php";
+    
+    // unquote GPC if magic quote gpc enabled
+
+    claro_unquote_gpc();
     
     // check and set user access level for the tool
     
@@ -59,10 +65,6 @@
 
         $is_allowedToAdmin = $is_courseAdmin || $is_platformAdmin;
     }
-    
-    // unquote GPC if magic quote gpc enabled
-    
-    claro_unquote_gpc();
     
     // classes and libraries
     
@@ -142,7 +144,6 @@
                 || ( $is_courseMember && WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'course' ) )
                 || WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'other' );
         }
-
     }
     else
     {
@@ -432,18 +433,18 @@
         
     // Breadcrumps
     
-    $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki);
-    $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=" . $wikiId
-        , 'name'=> $wiki->getTitle() );
+    $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => $langWiki);
+    $interbredcrump[]= array ( 'url' => 'wiki.php?action=show&amp;wikiId=' . $wikiId
+        , 'name' => $wiki->getTitle() );
         
     switch( $action )
     {
         case "edit":
         {
             $dispTitle = ( $title == "__MainPage__" ) ? $langWikiMainPage : $title;
-            $interbredcrump[]= array ("url"=>"page.php?action=show&amp;wikiId="
-                . $wikiId . "&amp;title=" . $title
-                , 'name'=> $dispTitle );
+            $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
+                . $wikiId . '&amp;title=' . $title
+                , 'name' => $dispTitle );
             $nameTools = $langEdit;
             $noPHP_SELF = true;
             break;
@@ -531,19 +532,32 @@
         
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
-        echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
-        . $_SERVER['PHP_SELF']
-        . '?wikiId=' . $wiki->getWikiId()
-        . '&amp;action=edit'
-        . '&amp;title=' . urlencode( $title )
-        . '">'
-        . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
-        . $langWikiEditPage.'</a>'
-        ;
+        // Page context
+        if ( isset( $_REQUEST['title'] ) )
+        {
+            echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+                . $_SERVER['PHP_SELF']
+                . '?wikiId=' . $wiki->getWikiId()
+                . '&amp;action=edit'
+                . '&amp;title=' . urlencode( $title )
+                . '">'
+                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+                . $langWikiEditPage.'</a>'
+                ;
+        }
+        // Wiki context
+        else
+        {
+            echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
+                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+                . $langWikiEditPage . '</span>'
+                ;
+        }
     }
     else
     {
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
+            . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
             . $langWikiEditPage . '</span>'
             ;
     }
