@@ -2,8 +2,7 @@
      
     // vim: expandtab sw=4 ts=4 sts=4:
      
-    if (strtolower(basename($_SERVER['PHP_SELF'] ) )
-        == strtolower(basename(__FILE__ ) ) )
+    if( (bool) stristr( $_SERVER['PHP_SELF'], basename(__FILE__) ) )
     {
         die("This file cannot be accessed directly! Include it in your script instead!");
     }
