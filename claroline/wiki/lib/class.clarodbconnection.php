@@ -80,7 +80,7 @@
             {
                 $ret= array();
 
-                while( $item = @mysql_fetch_object( $result ) )
+                while( ( $item = @mysql_fetch_object( $result ) ) != false )
                 {
                     $ret[] = $item;
                 }
@@ -103,7 +103,7 @@
         {
             $result = claro_sql_query( $sql );
 
-            if ( $item = @mysql_fetch_object( $result ) )
+            if ( ( $item = @mysql_fetch_object( $result ) ) != false )
             {
                 @mysql_free_result( $result );
 
@@ -126,7 +126,7 @@
             {
                 $ret= array();
 
-                while ( $item = @mysql_fetch_array( $result ) )
+                while ( ( $item = @mysql_fetch_array( $result ) ) != false )
                 {
                     $ret[] = $item;
                 }
@@ -149,7 +149,7 @@
         {
             $result = claro_sql_query( $sql );
 
-            if ( $item = @mysql_fetch_array( $result ) )
+            if ( ( $item = @mysql_fetch_array( $result ) ) != false )
             {
                 @mysql_free_result( $result );
 

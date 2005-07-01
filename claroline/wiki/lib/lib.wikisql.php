@@ -148,6 +148,7 @@
         
         $config = array();
         // use claro functions
+        $tblList = claro_sql_get_course_tbl();
         $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
         $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
         $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
