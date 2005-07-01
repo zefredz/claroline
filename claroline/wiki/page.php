@@ -248,6 +248,7 @@
         // recent changes
         case "recent":
         {
+            require_once $includePath . '/lib/user.lib.php';
             $recentChanges = $wiki->recentChanges();
             break;
         }
@@ -475,7 +476,29 @@
         echo claro_disp_message_box($message);
     }
     
-    echo claro_disp_tool_title( sprintf( $langWikiTitlePattern, $wiki->getTitle() ), false );
+    // tool title
+    
+    $toolTitle = array();
+    $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wiki->getTitle() );
+
+    switch( $action )
+    {
+        case "all":
+        {
+            $toolTitle['subTitle'] = $langWikiAllPages;
+            break;
+        }
+        case "recent":
+        {
+            $toolTitle['subTitle'] = $langWikiRecentChanges;
+            break;
+        }
+        default:
+        {
+        }
+    }
+    
+    echo claro_disp_tool_title( $toolTitle, false );
     
     // Check javascript
     
@@ -525,9 +548,20 @@
             ;
     }
     
-    echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-        . $langWikiPageHistory . '</span>'
-        ;
+    if ( $action == "show" )
+    {
+        // active
+        echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
+            . $langWikiPageHistory . '</span>'
+            ;
+    }
+    else
+    {
+        // inactive
+        echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
+            . $langWikiPageHistory . '</span>'
+            ;
+    }
         
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
@@ -560,13 +594,30 @@
                         : $recentChange['title']
                         ;
                         
-                    $entry = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
+                    $entry = '<strong><a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $wikiId . '&amp;title=' . urlencode( $recentChange['title'] )
                         . '&amp;action=show"'
-                        . '>'.$pgtitle.'</a>&nbsp;' . $recentChange['last_mtime']
+                        . '>'.$pgtitle.'</a></strong>&nbsp;-&nbsp;' . $recentChange['last_mtime']
                         ;
                         
-                    echo '<li>' . $entry. '</li>' . "\n";
+                    $userInfo = user_get_data( $recentChange['editor_id'] );
+                    
+                    $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+                    
+                    if ( $is_courseMember )
+                    {
+                        $userUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
+                            . '/user/userInfo.php?uInfo='
+                            . $recentChange['editor_id'].'">'
+                            .$userStr.'</a>'
+                            ;
+                    }
+                    else
+                    {
+                        $userUrl = '&nbsp;-&nbsp;' . $userStr;
+                    }
+                        
+                    echo '<li>' . $entry. $userUrl . '</li>' . "\n";
                 }
 
                 echo '</ul>' . "\n";
@@ -575,8 +626,6 @@
         }
         case "all":
         {
-            echo '<h3>'.sprintf( $langWikiAllPagesPattern, $wiki->getTitle() ).'</h3>';
-            
             // handle main page
             
             echo '<ul><li><a href="'.$_SERVER['PHP_SELF']
@@ -586,6 +635,8 @@
                 . $langWikiMainPage
                 . '</a></li></ul>' . "\n"
                 ;
+            
+            // other pages
             
             if ( is_array( $allPages ) )
             {
