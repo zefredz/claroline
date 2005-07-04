@@ -1,4 +1,5 @@
 <?php // $Id$
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 /*----------------------------------------
               HEADERS SECTION

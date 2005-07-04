@@ -1,9 +1,11 @@
-<?php # $Id$
+<?php // $Id$
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 if (!isset($hide_body) || $hide_body == false)
 {
-	echo "\n</div>\n"
-			."<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->\n\n\n";
+    echo "\n" . '</div>' . "\n"
+    .    '<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->' . "\n\n\n"
+   ;
 }
 
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
@@ -11,7 +13,7 @@ if (!isset($hide_body) || $hide_body == false)
 // depends on $claro_brailleViewMode
 if ( isset($claro_banner) ) 
 {
-	echo $claro_banner;
+    echo $claro_banner;
 }
 
 // don't display the footer text if requested, only display minimal html closing tags
