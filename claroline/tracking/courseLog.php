@@ -522,6 +522,12 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	    echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langTrackForumUsage."</a>";
 	}
 	echo "<br /></p>\n\n";
+	
+	// display link to delete all course stats
+	echo '<hr />'."\n"
+		.'<a class="claroButton" href="delete_course_stats.php">'
+		.'<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'.$langDelCourseStats
+		.'</a>'."\n";
 }
 // not allowed
 else
@@ -536,14 +542,5 @@ else
     }
 }
 
-
-
-?>
-<hr />
-<a class="claroButton" href="delete_course_stats.php">
-<img src="<?php echo $imgRepositoryWeb ?>delete.gif" alt="">
-<?php echo $langDelCourseStats; ?>
-</a>
-<?php
 include($includePath."/claro_init_footer.inc.php");
 ?>
