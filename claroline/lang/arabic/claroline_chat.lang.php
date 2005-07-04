@@ -2,7 +2,9 @@
 $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
+$langAnonymous = " مجهول ";
 $langArchive = " أرشيف ";
+$langCancel = " إلغاء ";
 $langDay_of_weekNames = "Array";
 $langDelete = " إلغاء ";
 $langDocument = " وثائق ";
@@ -18,6 +20,7 @@ $langModify = " تعديل ";
 $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
 $langOk = " تأكيد ";
 $langOtherCourses = " دروس أخرى ";

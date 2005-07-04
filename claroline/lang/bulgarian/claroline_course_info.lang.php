@@ -40,7 +40,7 @@ $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Частен достъп - курсът е достъпен само за вече регистрирани потребители <a href=../user/user.php>Списък с потребителите</a>)";
-$langProfessor = "Преподавател";
+$langProfessors = "Преподаватели";
 $langPublicAccess = "Публичен достъп - всеки може да чете курса";
 $langReg = "Регистрация";
 $langStatistics = "Статистики";

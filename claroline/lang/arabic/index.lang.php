@@ -2,6 +2,7 @@
 $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
+$langCancel = " إلغاء ";
 $langCategories = " فئات ";
 $langCourseCreate = " خلق موقع للدروس ";
 $langDay_of_weekNames = "Array";
@@ -19,6 +20,7 @@ $langModify = " تعديل ";
 $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
 $langOk = " تأكيد ";
 $langOtherCourses = " دروس أخرى ";

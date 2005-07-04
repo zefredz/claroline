@@ -2,6 +2,7 @@
 $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
+$langCancel = " إلغاء ";
 $langClarContent = "<br><p><b> طالب </b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
@@ -202,6 +203,7 @@ $langModify = " تعديل ";
 $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
 $langOk = " تأكيد ";
 $langOtherCourses = " دروس أخرى ";

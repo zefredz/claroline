@@ -50,6 +50,7 @@ $langModule = "Módulo";
 $langMonthNames = "Array";
 $langMyAgenda = "Minha agenda";
 $langMyCourses = "Minha lista de cursos";
+$langNameOfLang = "Array";
 $langNoMoreModuleToAdd = "Todos os módulos desse curso já estão sendo usados nessa rota de aprendizagem.";
 $langNotAllowed = "Você não é permitido aqui";
 $langNotGroupMember = "Você não tem permissão para esse bate-papo.";

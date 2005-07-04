@@ -30,7 +30,6 @@ $langExercises = "Упражнения";
 $langExplanation = "Страницата трябва да е в HTML формат (например \"my_page.htm\"). Ако искаш да изпратиш не  HTML документи (PDF, Word, Power Point, Video, и т.н.) използвай <a href=../document/document.php>Инструмента за документи</a>";
 $langFieldsRequ = "Всички задължителни полета";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Искрено ваш,";
 $langForums = "Форуми";
 $langGroups = "Групи";
 $langHelp = "Помощ";

@@ -2,6 +2,7 @@
 $langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
+$langCancel = "Cancel·la";
 $langChat = "Xat";
 $langCopy = "Copia";
 $langCourses = "cursos.";
@@ -18,6 +19,7 @@ $langModify = "modifica";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
+$langNameOfLang = "Array";
 $langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
 $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";

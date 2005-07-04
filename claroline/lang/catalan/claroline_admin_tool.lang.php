@@ -2,6 +2,7 @@
 $langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
+$langCancel = "Cancel·la";
 $langChat = "Xat";
 $langDay_of_weekNames = "Array";
 $langDelete = "Esborra";

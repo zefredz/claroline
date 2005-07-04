@@ -3,6 +3,7 @@ $langAddIntro = "Adicionar texto introdutório";
 $langAdministration = "Administração";
 $langAgenda = "Próximos eventos da agenda";
 $langAnnouncement = "Avisos";
+$langCancel = "Cancelar";
 $langChat = "Chat";
 $langConfiguration = "Configuração";
 $langConfirmYourChoice = "Por favor confirme a sua escolha";

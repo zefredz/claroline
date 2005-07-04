@@ -62,6 +62,7 @@ $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
 $langMyGroup = " مجموعتي ";
+$langNameOfLang = "Array";
 $langNewGroupCreate = " خلق مجموعات جديدة ";
 $langNewGroups = " مجموعات جديدة ";
 $langNoGroupStudents = " طلبة بدون مجموعة ";

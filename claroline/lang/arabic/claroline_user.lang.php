@@ -8,6 +8,7 @@ $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
 $langCancel = " إلغاء ";
 $langComment = " تعليق ";
+$langConfirmation = "confirmation";
 $langDay_of_weekNames = "Array";
 $langDear = "Cher(ère)";
 $langDelete = " إلغاء ";
@@ -16,8 +17,9 @@ $langEdit = " نشر ";
 $langEmail = "Email";
 $langEmailWrong = "L'adresse email que vous avez introduite n'est pas complète
 ou contient certains caractères non valides";
+$langEmptyFields = "Vous n'avez pas rempli tous les champs.
+Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";
 $langExercises = " تمارين ";
-$langFilled = "Vous n'avez pas rempli tous les champs.";
 $langFormula = "Cordialement";
 $langForums = "منتديات";
 $langGroup = "Groupe";
@@ -32,6 +34,7 @@ $langModify = " تعديل ";
 $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNo = "non";
 $langNone = "non";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
@@ -39,7 +42,9 @@ $langOk = " تأكيد ";
 $langOneByOne = "Ajouter manuellement un utilisateur";
 $langOneResp = "L'un des responsables du cours";
 $langOtherCourses = " دروس أخرى ";
-$langPassTwo = "Vous n'avez pas tapé deux fois le même mot de passe";
+$langPassTwice = "Vous n'avez pas tapé deux fois le même mot de passe.
+Utilisez le bouton de retour en arrière de votre navigateur
+et recommencez.";
 $langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
 $langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langReg = " ترسيم ";
@@ -51,13 +56,12 @@ $langRole = "Rôle";
 $langSettings = "avec les paramètre suivants:
 Nom d'utilisateur:";
 $langStudent = "étudiant";
-$langTaken = "est déjà pris. Choisissez-en un autre.";
 $langTheU = "L'utilisateur";
 $langUnreg = "Désinscrire";
 $langUserName = "Nom d'utilisateur";
-$langUserNo = "Le nom d'utilisateur que vous avez choisi";
 $langUserNumber = "nombre";
 $langUserOneByOneExplanation = "Il recevra par courriel nom d'utilisateur et mot de passe";
+$langUserTaken = "Le nom d'utilisateur que vous avez choisi est déjà pris";
 $langUsers = "مستعملو الموقع";
 $langWork = " أشغال ";
 $langYes = "oui";

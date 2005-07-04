@@ -2,7 +2,9 @@
 $langAddIntro = "Adicionar texto introdutório";
 $langAgenda = "Próximos eventos da agenda";
 $langAnnouncement = "Avisos";
+$langAnonymous = "Anônimo";
 $langArchive = "arquivo";
+$langCancel = "Cancelar";
 $langChat = "Chat";
 $langChatResetBy = "Bate-papo redefinido por";
 $langConfirmYourChoice = "Por favor confirme a sua escolha";
@@ -30,6 +32,7 @@ $langModifyProfile = "Modificar meu perfíl";
 $langMonthNames = "Array";
 $langMyAgenda = "Minha agenda";
 $langMyCourses = "Minha lista de cursos";
+$langNameOfLang = "Array";
 $langNewChat = "Novo bate-papo";
 $langNotAllowed = "Você não é permitido aqui";
 $langNotGroupMember = "Você não tem permissão para esse bate-papo.";

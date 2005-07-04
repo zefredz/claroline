@@ -40,7 +40,7 @@ $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";
 $langPoweredBy = "Potenciat per ";
 $langPrivateAccess = "Accés privat, enregistrament tancat (lloc accessible només a gent a la <a href=../user/user.php>Llista d'usuaris</a>)";
-$langProfessor = "Professor";
+$langProfessors = "Professors";
 $langPublicAccess = "Accés públic des de la plana principal del campus fins i tot sense iniciar sessió";
 $langReg = "Enregistrament";
 $langStatistics = "Estadístiques";

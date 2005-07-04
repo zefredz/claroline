@@ -29,7 +29,6 @@ $langExercises = "Exercicis";
 $langExplanation = "Un cop punxis sobre D'acord, un lloc amb Fòrum, Agenda, Gestor de documents etc. serà creat. En connectar-te, com a creador del lloc, podràs modificar-lo segons els teus requeriments.";
 $langFieldsRequ = "Tots els camps requerits";
 $langForce = "Convèncer al teu interlocutor, a través d'una sèrie de preguntes i sub-preguntes, a admetre que no sap el que diu que sap.";
-$langFormula = "Atentament, el teu profesor";
 $langForums = "Fòrums";
 $langGroups = "Grups";
 $langHelp = "Ajuda";

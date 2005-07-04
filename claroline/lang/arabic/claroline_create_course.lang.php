@@ -30,7 +30,6 @@ $langExplanation = ">         يجب أن تكون هذه الصفحة على \"
  شكل  HTML (p. ex. \"ma_page.htm\"). HTML سوف تكون مرتبطة بصفحة الانطلاق، إذا أردتم إرسال وثيقة على شكل مخالف لـ استعملو الأداة <a href=../document/document.php> Documents</a>";
 $langFieldsRequ = " يجب الإدلاء بكلّ المعلومات   ";
 $langForce = " حمل المخاطب - عن طريق جملة من الأسئلة والأسئلة الفرعيّة - على الاعتراف بأنه لا يعرف ما يدعي معرفته.  ";
-$langFormula = "Cordialement";
 $langForums = "منتديات";
 $langGroups = " مجموعات ";
 $langHelp = " إعانة ";

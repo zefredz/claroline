@@ -3,6 +3,7 @@ $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAddPage = " إضافة صفحة";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
+$langCancel = " إلغاء ";
 $langCouldNot = " لم نتمكن من إرسال الجذاذيّة ";
 $langDay_of_weekNames = "Array";
 $langDelete = " إلغاء ";
@@ -23,6 +24,7 @@ $langModify = " تعديل ";
 $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
 $langOk = " تأكيد ";
 $langOkSent = " تمّ إرسال هذه الصفحة <p> يمكن الإطّلاع عليها انطلاقا من <a href=../..//index.php>صفحة استقبال </a> درسكم";

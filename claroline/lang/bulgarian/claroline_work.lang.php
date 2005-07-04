@@ -26,6 +26,7 @@ $langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
+$langNameOfLang = "Array";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";

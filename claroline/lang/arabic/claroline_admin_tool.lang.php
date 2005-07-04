@@ -2,6 +2,7 @@
 $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
+$langCancel = " إلغاء ";
 $langDay_of_weekNames = "Array";
 $langDelete = " إلغاء ";
 $langDocument = " وثائق ";

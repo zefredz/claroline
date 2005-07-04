@@ -60,7 +60,7 @@ $langPassword = "senha";
 $langPlatformAdministration = "Administração da Plataforma";
 $langPoweredBy = "Movido por";
 $langPrivateAccess = "Acesso privado, inscrições fechadas (site acessível somente para pessoas na <a href=../user/user.php>Lista de usuários</a>)";
-$langProfessor = "Professor";
+$langProfessors = "Professores";
 $langPublicAccess = "Acesso público na home page do campus sem login";
 $langReg = "Inscrição";
 $langStatistics = "Estatísticas";
@@ -70,7 +70,6 @@ $langTipLang = "Essa lingua será válida para todos os visitantes do website do s
 $langTo = "para";
 $langUserName = "User name";
 $langUsers = "Utilizadores";
-$langViewCourse = "Visualizar curso";
 $langWork = "Trabalhos";
 $langYes = "Sim";
 $lang_click_here = "clique aqui";

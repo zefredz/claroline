@@ -2,6 +2,7 @@
 $langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
+$langCancel = "Анулирай";
 $langChat = "Чат";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and, 
@@ -209,6 +210,7 @@ $langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
+$langNameOfLang = "Array";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";

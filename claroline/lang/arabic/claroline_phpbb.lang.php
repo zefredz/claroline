@@ -1,13 +1,14 @@
 <?php
 $l_separator = "» »";
+$langAddCategory = " إضافة فئة ";
 $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
-$langBack = " رجوع ";
 $langCancel = " إلغاء ";
 $langDay_of_weekNames = "Array";
 $langDear = "Cher(ère)";
 $langDelete = " إلغاء ";
+$langDescription = " الوصف ";
 $langDocument = " وثائق ";
 $langEditDel = " ???/??? ";
 $langExercises = " تمارين ";
@@ -24,6 +25,7 @@ $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
 $langMyGroup = " مجموعتي ";
+$langNameOfLang = "Array";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
 $langOk = " تأكيد ";
 $langOneMyGroups = " أحد مجموعاتي ";

@@ -2,6 +2,7 @@
 $langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
+$langCancel = "Анулирай";
 $langChat = "Чат";
 $langDay_of_weekNames = "Array";
 $langDelete = "Изтрий";
@@ -18,6 +19,7 @@ $langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
+$langNameOfLang = "Array";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";

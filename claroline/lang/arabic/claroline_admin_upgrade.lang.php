@@ -19,6 +19,7 @@ $langModify = " تعديل ";
 $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNext = " التالي ";
 $langNo = "non";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";

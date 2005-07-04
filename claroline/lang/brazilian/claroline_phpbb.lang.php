@@ -1,20 +1,13 @@
 <?php
 $l_author = "Autor";
-$l_banned = "Você foi banido deste fórum. Contacte o administrador do sistema se você tiver alguma pergunta.";
 $l_body = "Corpo da Menssagem";
-$l_by = "por";
 $l_click = "Clique";
 $l_delete = "Apagar esta Postagem";
 $l_deleted = "Sua Postagem foi apagada.";
 $l_emptymsg = "Você precisa ter uma Menssagem para postar. Você não pode postar uma Menssagem vazia.";
-$l_error = "Erro";
-$l_go = "Vá";
-$l_guest = "Convidado";
 $l_here = "aqui";
 $l_indextitle = "Índice do Fórum";
 $l_lastpost = "Ultima Postagem";
-$l_nopostlock = "Você não pode postar uma resposta para este tópico, ele está bloqueado.";
-$l_noposts = "Postagens negados";
 $l_notify = "Notificar por e-mail quando respostas forem postadas";
 $l_notifybody = "Você está recebendo este e-mail porque uma mensagem
 que você postou no fórum foi respondida e você selecionou a opção para que
@@ -36,13 +29,8 @@ $l_notopics = "Não existem tópicos neste fórum. Você pode postar um.";
 $l_posted = "Postado";
 $l_poster = "Postador";
 $l_posts = "Postagens";
-$l_quotemsg = "[quote]
-On %1\$s, %2\$s wrote:
-%3\$s
-[/quote]";
 $l_returnindex = "para voltar para o início do fórum";
 $l_returntopic = "para voltar para a lista de tópicos do fórum.";
-$l_selectforum = "Selecione um Fórum";
 $l_separator = " > ";
 $l_stored = "Sua Menssagem foi armazenada no banco de dados.";
 $l_subject = "Assunto";
@@ -52,12 +40,13 @@ $l_topics = "Tópicos";
 $l_topictitle = "Ver Tópico";
 $l_viewforum = "Ver Fórum";
 $l_viewmsg = "para visualizar sua Menssagem.";
+$langAddCategory = "Adicionar uma categoria";
 $langAddIntro = "Adicionar texto introdutório";
 $langAdm = "Administração do fórum";
 $langAgenda = "Próximos eventos da agenda";
 $langAnnouncement = "Avisos";
-$langBack = "Voltar";
 $langCancel = "Cancelar";
+$langCategory = "Categoria";
 $langChat = "Chat";
 $langConfirmYourChoice = "Por favor confirme a sua escolha";
 $langCourseHome = "Site do Curso";
@@ -65,6 +54,7 @@ $langCourseManager = "Gerente de curso";
 $langDay_of_weekNames = "Array";
 $langDear = "Caro";
 $langDelete = "excluir";
+$langDescription = "Descrição do Trabalho";
 $langDescriptionCours = "Descrição do Curso";
 $langDocument = "Documentos e Links";
 $langEditDel = "Editar/apagar";
@@ -89,6 +79,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Minha agenda";
 $langMyCourses = "Minha lista de cursos";
 $langMyGroup = "meu grupo";
+$langNameOfLang = "Array";
 $langNewTopic = "Novo tópico";
 $langNotAllowed = "Você não é permitido aqui";
 $langOk = "validar";
@@ -111,4 +102,5 @@ $lang_if_you_dont_have_a_user_account_profile_on = "Se você não tem uma conta de
 $lang_if_you_wish_to_enroll_to_this_course = "Se você deseja se inscrever nesse curso";
 $lang_this_course_is_protected = "Esse curso está protegido";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Seu perfil de usuário não parece estar inscrito para esse curso";
+$langcatcreated = "A nova categoria foi criada.";
 ?>

@@ -2,6 +2,7 @@
 $langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
+$langCancel = "Анулирай";
 $langChat = "Чат";
 $langDay_of_weekNames = "Array";
 $langDelete = "Изтрий";

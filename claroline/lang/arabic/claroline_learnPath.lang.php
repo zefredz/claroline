@@ -4,6 +4,7 @@ $langAddIntro = " إضا�?ة نصّ تقديمي ";
 $langAgenda = "أجنده";
 $langAnnouncement = " إعلانات ";
 $langBack = " رجوع ";
+$langCancel = " إلغاء ";
 $langComment = " تعليق ";
 $langCopy = " نسخ ";
 $langDate = " تاريخ ";
@@ -21,11 +22,13 @@ $langModifyProfile = " تغيير ملامحي ";
 $langMonthNames = "Array";
 $langMove = "تحويل";
 $langMyCourses = " دروسي ";
+$langNameOfLang = "Array";
 $langNoSpace = " تحميل غير ناجح، لا يوجد مكان في ملفّكم     ";
 $langNotAllowed = " لستم مسؤولا عن هذا الدرس";
 $langOk = " تأكيد ";
 $langOtherCourses = " دروس أخرى ";
 $langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
+$langQuestion = " سؤال ";
 $langReg = " ترسيم ";
 $langRemove = " إزالة ";
 $langRename = " إعادة تسمية ";

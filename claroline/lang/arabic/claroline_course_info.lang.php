@@ -38,7 +38,7 @@ $langOk = " تأكيد ";
 $langOtherCourses = " دروس أخرى ";
 $langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
 $langPrivateAccess = " دخول خاص, ترسيم مغلق(/(موقع مخصص للأشخاص الموجودين على القائمة<a href=../user/user.php> مستعملو الموقع </a>)";
-$langProfessor = " أستاذ ";
+$langProfessors = " أصحاب الدرس  ";
 $langPublicAccess = " دخول للعامة ";
 $langReg = " ترسيم ";
 $langStatistics = " إحصاءات ";
