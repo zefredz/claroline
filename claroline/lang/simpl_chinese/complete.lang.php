@@ -34,6 +34,7 @@ $l_notopics = "Õâ¸öÂÛÌ³Ã»ÓĞ»°Ìâ,Äú¿ÉÒÔÕÅÌùÒ»¸öĞÂ»°Ìâ.";
 $l_posted = "ÕÅÌù";
 $l_poster = "ÕÅÌùÕß";
 $l_posts = "ÎÄÕÂ";
+$l_privnotify = "<br>ÄãÓĞ %1\$s <a href=\"%2\$s\">ÌõĞÂÏûÏ¢</a>.";
 $l_quotemsg = "[ÒıÓÃ]
 ÔÚ %1i\$s, %2\$s Ğ´µ½:
 %3\$s
@@ -50,307 +51,30 @@ $l_topics = "»°Ìâ";
 $l_topictitle = "ÔÄ¶Á »°Ìâ";
 $l_viewforum = "ÔÄ¶ÁÂÛÌ³.";
 $l_viewmsg = "ÔÄ¶ÁÄúµÄ ÏûÏ¢.";
-$langActivate = "¼¤»î";
-$langAdd = "Ôö¼Ó";
-$langAddAU = "Ôö¼ÓÒ»¸öÓÃ»§";
-$langAddAnn = "ĞÂÍ¨Öª:";
-$langAddCategory = "Ôö¼ÓÒ»¸öĞÂÀà±ğ";
-$langAddComment = "Ìí¼Ó/¸üĞÂÕªÒª:";
-$langAddEvent = "Ôö¼ÓÒ»¸öÊÂ¼ş";
-$langAddForCat = "Ôö¼ÓÂÛÌ³µ½Àà±ğ";
-$langAddForums = "Ìí¼ÓĞÂÂÛÌ³,ÇëÔÚÂÛÌ³ËùÊô·ÖÀàÖĞµã»÷\"ÂÛÌ³\". ¶ÔÑ§ÉúÀ´Ëµ,¿ÕÀà±ğ(²»º¬ÓĞÂÛÌ³)ÊÇ²»¿É¼ûµÄ.";
-$langAddIntro = "Ôö¼Ó¿Î³Ì½éÉÜ";
-$langAddPage = "Ìí¼ÓÍøÒ³";
-$langAddress = "µØÖ· ";
-$langAdm = "¹ÜÀí";
-$langAdmin = "ÍøÕ¾¹ÜÀí";
-$langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
-$langAgain = "ÖØÊÔ!";
-$langAgenda = "¼Æ»®°²ÅÅ";
-$langAnd = "ºÍ";
-$langAnnAdd = "Í¨ÖªÒÑÔö¼Ó";
-$langAnnDel = "Í¨ÖªÒÑÉ¾³ı";
-$langAnnEmpty = "Í¨ÖªÁĞ±íÒÑÇå³ı";
-$langAnnModify = "Í¨ÖªÁĞ±íÒÑ¸üĞÂ";
-$langAnnouncement = "¹«¸æÍ¨Öª";
-$langAnonymous = "ÄäÃûÓÃ»§";
-$langAnswer = "Ñ¡Ïî";
-$langAntique = "¹Å´úÕÜÑ§Ê·";
-$langArchive = "µµ°¸";
-$langBack = "·µ»Ø¿Î³ÌĞÅÏ¢";
-$langBackCat = "·µ»Ø ÂÛÌ³·ÖÀà";
-$langBackHomeOf = "·µ»ØÖ÷Ò³";
-$langBackList = "·µ»ØÁĞ±í";
-$langByDel = "ÒÆ³ı¿Î³Ì,½«ÓÀ¾ÃÉ¾³ıÕâÃÅ¿Î³Ì°üº¬µÄËùÓĞÎÄµµ,É¾³ıËùÓĞÑ§Éú×¢²áĞÅÏ¢(²»»áÒÆ³ıÑ§Éú¹ØÓÚÆäËû¿Î³ÌµÄ×¢²áĞÅÏ¢).<p>È·¶¨ÒªÒÆ³ı¿Î³ÌÂğ?";
-$langCancel = "È¡Ïû";
-$langCategories = "Àà±ğ";
-$langChangeCat = "¸Ä±äËùÊôÀà±ğ";
-$langChoice = "Ñ¡Ïî";
-$langClose = "¹Ø±Õ´°¿Ú";
-$langCode = "¿Î³ÌºÅ";
-$langComMod = "¼ò½éÒÑ¸üĞÂ";
-$langComment = "ÆÀ¼Û";
-$langConfTip = "È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÖ»¶Ô×¢²áÓÃ»§¿É¼û,ÒÔÀûÓÚÄúÈ·¶¨·ÃÎÊÏŞÖ¹²ßÂÔ,¼òµ¥µÄ·½·¨ÊÇÒªÇóÔÚÒ»ÖÜÖ®ÄÚ×¢²á,ÇëÑ§ÉúÃÇ×Ô¼ºÌîĞ´×¢²áĞÅÏ¢,Í£Ö¹×¢²áºó,¼ì²éÓÃ»§ÁĞ±í,É¾³ı²»·ûºÏÌõ¼şµÄ×¢²áÈËÔ±.";
-$langConfirmation = "È·ÈÏ";
-$langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
-$langCopy = "¸´ÖÆ";
-$langCouldNot = "ÎÄ¼ş·¢ËÍÊ§°Ü";
-$langCourse = "ÍøÕ¾";
-$langCourseCreate = "ĞÂ½¨¿Î³Ì";
-$langCourseDescription = "ÇëÔÚÕâÀïĞ´ÏÂ¿Î³Ì¼ò½é,Õâ»áÏÔÊ¾ÔÚ¿Î³ÌÁĞ±íÖĞ.";
-$langCourseTitle = "¿Î³Ì±êÌâ";
-$langCreateDir = "´´½¨Ä¿Â¼";
-$langCreateSite = "´´½¨¿Î³Ì";
-$langDate = "ÈÕÆÚ";
-$langDay = "ÈÕ";
-$langDay_of_weekNames = "Array";
-$langDear = "×ğ¾´µÄ";
-$langDelAdmin = "Ó¦ÓÃÂÛÌ³¹ÜÀí¹¤¾ßÒÆ³ıÕâ¸öÂÛÌ³.";
-$langDelCourse = "ÒÆ³ıÕû¸ö¿Î³ÌÍøÕ¾";
-$langDelete = "É¾³ı";
-$langDescription = "¼ò½é";
-$langDetail = "ÄÚÈİ";
-$langDirCr = "Ä¿Â¼ÒÑ´´½¨";
-$langDirMv = "Ä¿Â¼ÒÑÒÆ¶¯";
-$langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖĞµÄÎÄ¼ş¹ÜÀíÆ÷.</p><p>Äú¿ÉÒÔÉÏ´«¸÷ÖÖ¸ñÊ½(HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime,µÈµÈ)µÄÎÄ¼ş,ĞèÒª×¢ÒâµÄÊÇÑ§Éú±ØĞëÓĞÏàÓ¦µÄÈí¼ş¶ÁÈ¡ÕâĞ©²ÄÁÏ.¶øÇÒ,ÓĞĞ©ÎÄ¼ş¿ÉÄÜ»áĞ¯´ø²¡¶¾, ²»ÒªÉÏ´«ÕâÑùµÄÎÄ¼şÒ²ÊÇÄúµÄÔğÈÎ.½¨ÒéÔ¤ÏÈÓÃÉ±¶¾Èí¼ş¼ì²éºóÔÚÉÏ´«.</p>
-<p>ÎÄ¼şÒÔ×ÖÄ¸Ë³ĞòÅÅÁĞ.<br><b>ÌáÊ¾ : </b>Èç¹ûÄúĞèÒªÒÔ²»Í¬µÄË³ĞòÏÔÊ¾,ÔÚÎÄ¼şÃûÖĞÌí¼ÓÊı×Ö: 01, 02, 03...</p>
-<p>Äú¿ÉÒÔÕâÃ´×ö :</p>
-<h4>ÉÏ´«ÎÄ¼ş</h4>
-<ul>
-  <li>Ñ¡ÔñÄúµçÄÔÉÏµÄÎÄ¼ş,µã»÷<input type=submit value=Browse name=submit2>
-	ÔÚÄúÆÁÄ»µÄÓÒ²à.</li>
-  <li>¿ªÊ¼ÉÏ´«,µã»÷ÉÏ´«°´Å¥<input type=submit value=Upload name=submit2>
-	.</li>
-</ul>
-<h4>ÎªÎÄ¼ş(»òÕßÄ¿Â¼)¸üÃû</h4>
-<ul>
-  <li>µã»÷<img src=../document/img/edit.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ'¸üÃû'À¸)</li>
-  <li>ÔÚ×óÉÏ½ÇÇøÓòÌîĞ´ĞÂµÄÎÄ¼şÃû</li>
-  <li>È·ÈÏ,µã»÷<input type=submit value=Ok name=submit24>
-	. 
-</ul>
-	<h4>É¾³ıÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-	  
-  <li>µã»÷ <img src=../document/img/delete.gif width=20 height=20> 
-	(Î»ÓÚ 'É¾³ı'À¸).</li>
-	</ul>
-	<h4>ÏÔÊ¾/Òş²ØÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-	  
-  <li>µã»÷ <img src=../document/img/visible.gif width=20 height=20>Î»ÓÚ'ÏÔÊ¾/Òş²Ø'À¸.</li>
-	  <li>Òş²ØÎÄ¼ş(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>	  
-  <li>ÒªÊ¹µÃÆä¶ÔÑ§Éú¿É¼û, µã»÷ <img src=../img/invisible.gif width=24 height=20> 
-	(Î»ÓÚ'ÏÔÊ¾/Òş²Ø'À¸)</li>
-	</ul>
-	<h4>ÎªÎÄ¼ş(»òÄ¿Â¼)Ìí¼Ó»ò¸üĞÂÕªÒª</h4>
-	<ul>	  
-  <li>µã»÷ <img src=../img/comment.gif width=20 height=20> 
-	(Î»ÓÚ'ÕªÒª'À¸)</li>
-	  <li>ÔÚÓÒÉÏ½ÇÏàÓ¦ÇøÓòÌîĞ´ĞÂµÄÕªÒª.</li>
-	  <li>È·ÈÏ,µã»÷<input type=submit value=OK name=submit2>
-		.</li>
-	</ul> 
-	<p>É¾³ıÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>, 
-	  É¾³ıÏàÓ¦ÇøÓò¾ÉµÄÕªÒª <input type=submit value=OK name=submit22>
-	  . 
-	<hr>
-	<p>Í¨¹ı ·ÖÀà ÕûÀíÀ´×éÖ¯ÄÚÈİ. ÈçÏÂËùÊ¾:</p>
-	<h4><b>´´½¨Ò»¸öÄ¿Â¼</b></h4>
-	<ul>
-	  <li>µã»÷ <img src=../img/folder.gif> '´´½¨Ä¿Â¼'(×óÉÏ½Ç)</li>
-	  <li>ÔÚÏàÓ¦ÇøÓò¼üÈëĞÂÄ¿Â¼µÄÃû³Æ(×óÉÏ½Ç)</li>
-	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit23>.</li>
-	</ul>
-	<h4>ÒÆ¶¯ÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-	  <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16> 
-		Î»ÓÚ'ÒÆ¶¯'À¸</li>
-	  <li>ÔÚÏàÓ¦ÏÂÀ­²Ëµ¥(×óÉÏ)Ñ¡ÔñÄ¿±êÎÄ¼ş(»òÄ¿Â¼).(ÌáÊ¾: 'root' ÒâË¼ÊÇÒÑ¾­Î»ÓÚÎÄ¼şÄ¿Â¼Ê÷µÄ¶¥²ãÁË,·şÎñÆ÷ÉÏµÄÏàÓ¦ÉÏ²ãÄ¿Â¼²»ÄÜÉÏ´«ÎÄ¼ş.</li>
-	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit232>.</li>
-	</ul>
-	<center>
-	  <p>";
-$langDocDeleted = "ÎÄ¼şÒÑÉ¾³ı";
-$langDocument = "½²Òå²ÄÁÏ";
-$langEditDel = "±à¼­/É¾³ı";
-$langElRen = "Ä¿Â¼»òÎÄ¼şÒÑ¸üÃû";
-$langEmail = "ÓÊ¼ş";
-$langEmailWrong = "ÓÊ¼şµØÖ·²»ÕıÈ·,´æÔÚ·Ç·¨×Ö·û";
-$langEmpty = "ÓĞĞ©ÏîÄ¿Ã»ÓĞÌîĞ´.<br>·µ»ØÖØÊÔ.<br>Èç¹û²»Çå³ı¿Î³Ì´úÂë,Çë²Î¿¼¿Î³Ì´ó¸Ù";
-$langEmptyAnn = "Çå³ıÍ¨ÖªÁĞ±í";
-$langEmptyFields = "ÓĞĞ©ÏîÎ´ÌîĞ´!·µ»ØÖØÊÔ.";
-$langEnter = "½øÈë";
-$langEx = "e.g. <i>ÎÄÑ§ÀúÊ·</i>";
-$langExMessage = "ÏûÏ¢Ê¾Àı";
-$langExercice = "¿Î³ÌÁ·Ï°";
-$langExerciceEx = "Á·Ï°Ê¾Àı";
-$langExercices = "¿Î³ÌÁ·Ï°";
-$langExercise = "¿Î³ÌÁ·Ï°";
-$langExplanation = "µã»÷È·ÈÏºó,ÄúµÄÓµÓĞ ¿Î³ÌÂÛÌ³,¼Æ»®°²ÅÅ,½²Òå²ÄÁÏµÈ¹ÜÀí¹¦ÄÜµÄĞÂÍøÕ¾¾Í½¨³ÉÁË.µÇÂ¼ºó,Äú¿ÉÒÔ°´ÕÕĞèÒªÌí¼Ó¿Î³ÌÄÚÈİ.";
-$langFields = "ÄúÓĞĞ©Ñ¡ÏîÎ´ÌîĞ´.";
-$langFieldsRequ = "ËùÓĞÏîÄ¿¶¼ĞèÌîĞ´.";
-$langFileExists = "²Ù×÷Ê§°Ü.<br>Í¬ÃûÎÄ¼şÒÑ´æÔÚ.";
-$langFilled = "ÄúÓĞĞ©Ñ¡ÏîÃ»ÓĞÌîĞ´.";
-$langFinish = "Íê³É";
-$langForCat = "ÂÛÌ³·ÖÀà";
-$langForCategories = "ÂÛÌ³·ÖÀà";
-$langForContent = "ÂÛÌ³,ÊÇÒì²½ÌÖÂÛ¹¤¾ß.µç×ÓÓÊ¼şÊ¹ÓÃÒ»¶ÔÒ»µÄ¶Ô»°·½Ê½,ÂÛÌ³ÔòÊ¹µÃ¹«¹²¶Ô»°»òÕß°ë¹«¹²µÄ¶Ô»°³ÉÎª¿ÉÄÜ.</p><p>´Ó¼¼ÊõÉÏ½²,Ê¹ÓÃclarolineÂÛÌ³Ö»ĞèÒªÊ¹ÓÃä¯ÀÀÆ÷¾Í¿ÉÒÔ.</P><p>×éÖ¯ÂÛÌ³,Çëµã»÷'¹ÜÀí'.ÂÛÌ³°´ÕÕÀàºÍ×ÓÀà×éÖ¯ÆğÀ´,ÈçÏÂ:</p><p><b>·ÖÀà > ÂÛÌ³ > ÂÛÌâ > »Ø¸´ </b></p>ÎªÊ¹Ñ§ÉúµÄÌÖÂÛÓĞÒ»¸öÇåÎúµÄ½á¹¹,Ô¤ÏÈ×éÖ¯·ÖÀàºÍÂÛÌ³ÊÇ±ØÒªµÄ.ÈÃÑ§ÉúÀ´ÕÅÌù»°ÌâºÍ»Ø¸´.Ä¬ÈÏÉèÖÃ,clarolineÂÛÌ³Ö»°üº¬'Public'·ÖÀà -- Ê¾ÀıĞÔµÄÂÛÌ³ºÍ»°Ìâ.</p><p>ËùÒÔÊ×ÏÈÒª×öµÄÊÂ,É¾³ı»°ÌâÊ¾Àı,¸üĞÂµÚÒ»¸öÂÛÌ³µÄÃû³Æ.½ÓÏÂÀ´,¿ÉÒÔÔÚ'public'·ÖÀàÖĞ°´ÕÕĞ¡×é»òÖ÷Ìâ´´½¨ĞÂµÄÂÛÌ³À´Âú×ã¿Î³ÌÑ§Ï°»·¾³µÄĞèÒª.</p><p>²»Òª»ìÏı·ÖÀàºÍÂÛÌ³, Ò²²»ÒªÍü¼Ç¿ÕµÄÀà±ğ(²»º¬ÓĞÂÛÌ³)¶ÔÑ§ÉúÊÇ²»¿É¼ûµÄ.</p><p>ÂÛÌ³µÄ¼ò½é¿ÉÒÔÊÇËüµÄÓÃ»§ÁĞ±í,Ä¿±ê,ÈÎÎñ,Ö÷ÌâµÈµÈ";
-$langForName = "ÂÛÌ³Ãû³Æ";
-$langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "½ÌÊÚ";
-$langForum = "Ñ§Ï°ÂÛÌ³";
-$langForums = "Ñ§Ï°ÂÛÌ³";
-$langHClar = "ÉÏÊÖ°ïÖú";
-$langHDoc = "½²Òå°ïÖú";
-$langHFor = "ÂÛÌ³°ïÖú";
-$langHHome = "ÍøÕ¾°ïÖú";
-$langHUser = "ÓÃ»§ÁĞ±í °ïÖú";
-$langHasDel = "ÒÑ¾­ÒÆ³ı";
-$langHelp = "°ïÖú";
-$langHome = "·µ»Ø¿Î³ÌÖ÷Ò³";
-$langHomeContent = "Îª·½±ãÕÆÎÕÊ¹ÓÃ·½·¨,ËùÓĞclaroline¹¤¾ß¶¼²»ÊÇ¿ÕµÄ.Ã¿¸ö¹¤¾ß¶¼ÓĞÒ»¸ö¼ò¶ÌµÄÀı×Ó°ïÖúÄú¿ìËÙÕÆÎÕËüµÄÊ¹ÓÃ·½·¨.¸üĞÂ»¹ÊÇÉ¾³ıÕâ¸öÀı×ÓÈ¡¾öÓÚÄã.</p><p>¾ÙÀıÀ´Ëµ, ÔÚÄúµÄ¿Î³ÌÖ÷Ò³ÉÏÓĞÒ»¶ÎÎÄ×Ö,'ÕâÊÇÄúµÄ¿Î³Ì¼ò½é.ÒªÌæ»»ÎªÄú×Ô¼ºµÄÎÄ×Ö,µã»÷ÏÂÃæ'¸üĞÂ'. ¾ÍÊÇÕâÃ´¼òµ¥!! ²¢ÇÒÃ¿¸ö¹¤¾ß¶¼ÓĞÏàÍ¬ÏàËÆµÄÂß¼­¹¦ÄÜ: Ôö¼Ó, É¾³ı, ¸üĞÂ, ÕâĞ©¹¦ÄÜÕıÊÇ¶¯Ì¬ÍøÒ³µÄ¹¦ÄÜ.</p><p>µ±ÄúĞÂ½¨¿Î³ÌÍøÕ¾Ê±, ´ó²¿·Ö¹¤¾ßÊÇ¼¤»îµÄ. Çë¼Ç×¡, Ê¹ÄÇĞ©²»ĞèÒªµÄ¹¦ÄÜÒş²ØÆğÀ´È¡¾öÓÚÄú,Ö»Ğèµã»÷'Òş²Ø'¼´¿ÉÊµÏÖ. ½ÓÏÂÀ´,½âÊÍÒ»ÏÂÖ÷Ò³ÉÏ»ÒÉ«²¿·ÖµÄ¹¦ÄÜ. Õâ²¿·Ö¹¦ÄÜ¶ÔÄúµÄÑ§ÉúÊÇ²»¿É¼ûµÄ, µ±È»Äú¿ÉÒÔÔÚÈÎºÎÊ±ºò¼¤»îËüÃÇ.</p><p>Äú¿ÉÒÔÌí¼ÓÄú×Ô¼ºµÄÍøÒ³. µ±È»ÕâĞ©ÍøÒ³±ØĞèÊÇHTML¸ñÊ½µÄ(ÍøÒ³¿ÉÒÔÓÃWord´¦ÀíÆ÷»òÕßWeb±à¼­Æ÷Éú³É). Ê¹ÓÃ 'ÉÏ´«ÍøÒ³'À´ÊµÏÖ. ±ê×¼µÄÎÄ¼şÍ·»á×Ô¶¯ÓëÄúµÄÎÄ¼şÈÚºÍÔÚÒ»Æğ,ÄúÖ»ĞèÒª°Ñ¾«Á¦·ÅÔÚÎÄ¼şÄÚÈİÉÏ¾ÍĞĞÁË. Èç¹ûÄúĞèÒªÔÚÖ÷Ò³ÉÏÌí¼Óµ½WebÉÏÒÑ´æÔÚÍøÒ³µÄÁ´½Ó,(µ±È»Ò²¿ÉÒÔÊÇÔÚÖ÷Ò³ÄÚµÄÎÄ¼ş), ÇëÊ¹ÓÃ 'Ìí¼ÓÁ´½Ó', Äú×Ô¼ºÌí¼ÓµÄÍøÒ³¿ÉÒÔÒş²ØÉõÖÁÉ¾³ı,µ«±ê×¼¹¤¾ßÖ»ÄÜÒş²Ø,²»ÄÜÉ¾³ı.</p><p>¿Î³ÌÍøÕ¾ÖÆ×÷Íê±Ïºó,Çëµ½'¿Î³ÌĞÅÏ¢',Ö¸¶¨ÄúµÄÍøÕ¾·ÃÎÊÏŞÖÆ²ßÂÔ. È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÊÇÎ´¿ª·ÅµÄ,(ÒòÎªÄ¬ÈÏ¼ÙÉèÄúµÄÍøÕ¾ÕıÔÚÖÆ×÷Ö®ÖĞ).</p>";
-$langHour = "Ê±";
-$langImpossible = "²Ù×÷Ê§°Ü";
-$langIn = "Àï";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
-$langInvalidId = "µÇÂ¼Ê§°Ü. Èç¹ûÄú»¹Ã»ÓĞ×¢²á, ÇëÏÈÌî <a href='claroline/auth/inscription.php'>×¢²á±íµ¥</a></font color>";
-$langIs = "ÊÇ";
-$langJustCreated = "Äú¸Õ¸Õ´´½¨ÁËĞÂµÄ¿Î³ÌÍøÕ¾.";
-$langLanguage = "ÓïÑÔ";
-$langLast7Days = "¹ıÈ¥Ò»ÖÜ";
-$langLastMsg = "×î½üÒ»Æª";
-$langLasting = "³ÖĞøÊ±¼ä";
-$langLink = "Ïà¹ØÁ´½Ó";
-$langLinkSite = "Ìí¼ÓÁ´½Ó";
-$langLinks = "Ïà¹ØÁ´½Ó";
-$langLoginBeforePost1 = "ÒªÔÚÂÛÌ³ÕÅÌùÎÄÕÂ, ";
-$langLoginBeforePost2 = "Ö®Ç°Çë";
-$langLoginBeforePost3 = "ÔÚĞéÄâĞ£Ô°µÇÂ¼.";
-$langLogout = "ÍË³öÏµÍ³";
-$langManager = "¹ÜÀíÔ±";
-$langManyAnswers = "(¿ÉÄÜÓĞ¶à¸öÑ¡ÏîÊÇÕıÈ·µÄ)";
-$langMaxSizeCourseCode = "×î¶à12¸ö×ÖÄ¸,±ÈÈç<i>ROM2121</i>";
-$langMessage = "µ±ÄúÒÆ³ıÁËÂÛÌ³Ê¾Àı,Í¬Ê±Ò²½«ÒÆ³ıÕâÌõÏûÏ¢.";
-$langMinute = "·Ö";
-$langMissing = "È±Ê§";
-$langModCatName = "¸ü¸ÄÀà±ğÃû³Æ";
-$langModifDone = "¿Î³ÌĞÅÏ¢ÒÑ¸üĞÂ";
-$langModify = "¸üĞÂ";
-$langModifyProfile = "¸öÈË×ÊÁÏ";
-$langMonth = "ÔÂ";
-$langMonthNames = "Array";
-$langMove = "ÒÆ¶¯";
-$langMyCourses = "ÎÒµÄ¿Î³Ì";
-$langNameCat = "Àà±ğÃû³ÆÒÑ¸üĞÂ";
-$langNameDir = "ĞÂ½¨Ä¿Â¼Ãû³Æ";
-$langNameOfLang = "Array";
-$langNewEx = "ĞÂ½¨Á·Ï°";
-$langNewQu = "ĞÂ½¨ÎÊÌâ";
-$langNewToOld = "ÄæĞòÅÅÁĞ";
-$langNewTopic = "ĞÂ»°Ìâ";
-$langNo = "È¡Ïû";
-$langNoEx = "ÏÖÔÚ»¹Ã»ÓĞ¿Î³ÌÁ·Ï°.";
-$langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
-$langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
-$langNoSpace = "ÉÏ´«Ê§°Ü!Ä¿Â¼¿Õ¼ä²»×ã.";
-$langNone = "ÎŞ";
-$langNotAllowed = "²Ù×÷½ûÖ¹";
-$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
-$langNow = "ÏÖÔÚ";
-$langOk = "È·ÈÏ";
-$langOkSent = "ÍøÒ³ÒÑ·¢ËÍ.<p>ÏÖÔÚÍ¨¹ıÁ´½Ó,»Øµ½<a href=../..//index.php>Ö÷Ò³</a>";
-$langOldToNew = "ÄæĞòÅÅÁĞ";
-$langOneResp = "¿Î³Ì¹ÜÀíÔ±Ö®Ò»";
-$langOrganisation = "ÂÛÌ³¹ÜÀí";
-$langPassTwice = "ÃÜÂëÁ½´ÎÊäÈë²»Ò»ÖÂ!·µ»ØÖØÊÔ.";
-$langPassTwo = "Äú¼üÈëÁËÁ½¸ö²»Í¬µÄÃÜÂë.";
-$langPgTitle = "ÍøÒ³±êÌâ";
-$langPoweredBy = "¼¼ÊõÖ§³Ö";
-$langPrivateAccess = "ÄÚ²¿·ÃÎÊ,×¢²áºóÈ·ÈÏ·½¿É,¼´Ö»¶Ô<a href=../user/user.php>ÓÃ»§ÁĞ±í</a>ÖĞµÄÈË¿É¼û";
-$langProblem = "Óöµ½ÎÊÌâ,ÇëÁªÏµÎÒÃÇ.";
-$langProfessor = "½ÌÊÚ";
-$langProfessors = "½ÌÊÚ";
-$langProfileReg = "ÄúµÄ¸öÈËĞÅÏ¢ÒÑ¾­±£´æ.";
-$langPubl = "·¢²¼";
-$langPublicAccess = "¹«¹²·ÃÎÊ,ÓÃ»§²»´ÓĞ£Ô°Ö÷Ò³µÇÂ¼Ò²¿É·ÃÎÊ.";
-$langQuestion = "ÎÊÌâ";
-$langQuestions = "ÎÊÌâ";
-$langReg = "×¢²á";
-$langRegAdmin = "´´½¨¿Î³Ì";
-$langRegStudent = "Ñ¡ĞŞ¿Î³Ì";
-$langRegYou = "ÒÑ¾­Ê¹ÄúÔÚ±¾¿Î³Ì×¢²á";
-$langRegistration = "×¢²á";
-$langRemove = "ÒÆ³ı";
-$langRename = "¸üÃû";
-$langReply = "»Ø¸´";
-$langResult = "·ÖÊı";
-$langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
-$langRole = "½ÇÉ«";
-$langSave = "±£´æ";
-$langSeen = "ä¯ÀÀ";
-$langSendPage = "Òª·¢ËÍµÄÍøÒ³";
-$langSettings = "ÏÂÃæÊÇÄúµÄ×¢²áĞÅÏ¢:
-ÓÃ»§Ãû:";
-$langSize = "´óĞ¡";
-$langSocraticIrony = "Socratic irony is...";
-$langStatistics = "Í³¼ÆĞÅÏ¢";
-$langStatus = "²Ù×÷Ñ¡Ïî";
-$langStudent = "Ñ§Éú";
-$langSubTitle = "Îª¿Î³ÌÖ÷Ò³²Ëµ¥Ôö¼Óµ½ÍøÕ¾,ÍøÒ³»òÕßÈÎºÎµÄÍøÖ·µÄÁ´½Ó. ÌáÊ¾:Èç¹ûÄúĞèÒªÔö¼ÓÒ»¸öµ½Ä³Ò»ÍøÒ³µÄÁ´½Ó,¿ÉÒÔÏÈ·ÃÎÊÄÇ¸öÍøÒ³,¸´ÖÆä¯ÀÀÆ÷ÉÏ²¿µØÖ·À¸ÀïµÄµØÖ·,È»ºóÌí¼Óµ½ÏÂÃæµÄ\"Á´½Ó\"À¸.";
-$langTaken = "ÒÑ±»Õ¼ÓÃ,ÇëÑ¡ÔñÆäËûµÄÓÃ»§Ãû.";
-$langTargetFac = "ÉÏÃæÑ¡ÏîÊÇ±¾ÃÅ¿Î³ÌÄÚÈİÓ¦ÊôÔºÏµ.";
-$langTestForum = "ÂÛÌ³Ê¾Àı";
-$langTheU = "ÓÃ»§";
-$langTipLang = "·ÃÎÊÄúµÄ¿Î³ÌÍøÕ¾µÄÕıÊ½ÓïÑÔ:";
-$langTitle = "Ö÷Ìâ";
-$langTitular = "±ØÑ¡";
-$langTo = "µ½";
-$langToday = "½ñÌì";
-$langTodo = "ÄúµÄ½¨Òé";
-$langTooBig = "Ã»ÓĞÑ¡ÔñÈÎºÎÎÄ¼ş»òÕßÎÄ¼ş¹ı´ó";
-$langTools = "¹ÜÀí¹¤¾ß";
-$langTrue = "´ğ°¸";
-$langUnreg = "Î´×¢²áÓÃ»§";
-$langUp = "ÏòÉÏ";
-$langUpload = "ÉÏ´«";
-$langUploadEnd = "ÉÏ´«½áÊø.";
-$langUploadFile = "ÉÏ´«±¾µØÎÄ¼ş";
-$langUser = "ÓÃ»§ÁĞ±í";
-$langUserContent = "<b>½ÇÉ«</b><p>½ÇÉ«Ã»ÓĞ¼ÆËã»ú¹ÜÀíÏà¹ØµÄ¹¦ÄÜ. Õâ²¢²»¸³ÓèË­ÏµÍ³²Ù×÷µÄÈ¨Á¦. ÕâÖ»ÊÇ¸æËßÎÒÃÇ,Ã¿¸öÈËÔÚ½ÌÑ§¹ı³ÌÖĞ°çÑİµÄ½ÇÉ«.Äú¿ÉÒÔµã»÷'½ÇÉ«'ÏÂÃæµÄ'¸üĞÂ'À´¸üĞÂ, ¿ÉÒÔ¼üÈëÈÎºÎÄúÈÏÎªµÄ½ÇÉ«:½ÌÊÚ, Öú½Ì, Ñ§Éú, ¹ı¿Í, ×¨¼Ò...</P><hr>
-<b>¹ÜÀíÈ¨Á¦</b>
-<p>¹ÜÀíÈ¨Àû,ÁíÒ»·½Ãæ,¶ÔÓ¦ÓÚÏµÍ³²Ù×÷È¨Á¦,¸üĞÂÄÚÈİ,×éÖ¯¿Î³ÌÍøÕ¾µÈ. Ä¿Ç°ÎªÖ®, ÄúÖ»ÄÜÑ¡Ôñ¸³ÓèËùÓĞÈ¨Á¦,»òÕßÏà·´,²»¸³ÓèÈÎºÎÈ¨Á¦.</P>
-<p>¾ÙÀıÀ´Ëµ,Ê¹Ò»Î»Öú½ÌÀ´¹²Í¬¹ÜÀíÍøÕ¾,ÄúĞèÒªÈ·±£ËûÒÑÔÚ±¾¿Î³Ì×¢²á,µã»÷ '¹ÜÀíÈ¨Á¦'ÏÂµÄ'¸üĞÂ',È»ºóÑ¡Ôñ'ËùÓĞ', 'È·ÈÏ'¼´¿É.</P><hr>
-<b>ÁªºÏÖ÷½²</b>
-<p>ÎªÔÚ¿Î³ÌÍøÕ¾ÏÔÊ¾ÁªºÏÖ÷½²µÄÃû×Ö,ÇëÊ¹ÓÃ'¸üĞÂ¿Î³ÌĞÅÏ¢'¹¤¾ß(½Û»ÆÉ«). ÕâÏî¸üĞÂ²¢²»ÎªÁªºÏÖ÷½²ÔÚ±¾¿Î³Ì×¢²á.'½ÌÊÚ'ÓòºÍÓÃ»§ÁĞ±íÊÇÏà»¥¶ÀÁ¢µÄ.</p><hr>
-<b>Ôö¼ÓÓÃ»§</b>
-<p>Îª±¾¿Î³ÌÔö¼ÓÒ»¸öÓÃ»§,Ê×ÏÈ¼ì²é¸ÃÓÃ»§ÊÇ·ñÒÑÔÚĞéÄâĞ£Ô°×¢²á.Èç¹ûÒÑ¾­×¢²á, Ñ¡ÔñËûÃû×ÖÅÔ±ßµÄÑ¡Ïî¸ñ,È»ºó'È·ÈÏ'. Èç¹û»¹Ã»ÓĞ×¢²á, ¿ÉÒÔÊÖ¹¤Ìí¼Ó. ÈÎºÎÒ»ÖÖÇé¿ö, Ëû¶¼»áÊÕµ½Ò»·âº¬ÓÃ»§ÃûºÍÃÜÂëµÄÈ·ÈÏÓÊ¼ş.</p>";
-$langUserName = "ÓÃ»§Ãû";
-$langUserNo = "ÄúÑ¡ÔñµÄÓÃ»§Ãû ";
-$langUserTaken = "ÓÃ»§ÃûÒÑ±»Õ¼ÓÃ";
-$langUsers = "ÓÃ»§ÁĞ±í";
-$langViMod = "'ÏÔÊ¾/Òş²Ø' ÊôĞÔÒÑ¸üĞÂ";
-$langVisibility = "ÏÔÊ¾/Òş²Ø";
-$langWork = "×÷ÒµÂÛÎÄ";
-$langYear = "Äê";
-$langYes = "È·ÈÏ";
-$langYouAreReg = "ÄúÒÑ×¢²á";
-$langYourReg = "ÄúµÄ×¢²á";
-$l_privnotify = "<br>ÄãÓĞ %1\$s <a href=\"%2\$s\">ÌõĞÂÏûÏ¢</a>.";
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "ÔÚÖĞ¶ÏµÄÇé¿öÏÂ <sup>*</sup>£¬ <em>ClarolineÉı¼¶¹¤¾ß</em> ½«×Ô¶¯ÖØÆô¡£
 Èç¹û²»ÊÇÕâÑù£¬Çëµã»÷ÏÂÃæµÄ°´Å¥¡£";
 $langAccess = "Í¨µÀ";
 $langAccessExplain = "(µ±ÓÃ»§´ò¿ªĞéÄâĞ£Ô°µÄÊ±ºò)";
 $langAction = "¶¯×÷";
+$langActivate = "¼¤»î";
+$langAdd = "Ôö¼Ó";
 $langAddAClassToCourse = "Ò»¸öĞéÄâ°à¼¶¶©ÔÄ¿Î³Ì";
+$langAddAU = "Ôö¼ÓÒ»¸öÓÃ»§";
+$langAddAnn = "ĞÂÍ¨Öª:";
 $langAddCSVUsers = "Ìí¼ÓÒ»¸öÓÃ»§ÁĞ±í";
 $langAddCSVUsersInClass = "Ìí¼ÓÒ»¸öÓÃ»§ÁĞ±íµ½ĞéÄâ°à¼¶";
 $langAddCSVUsersInCourse = "Ìí¼ÓÒ»¸öÓÃ»§ÁĞ±íµ½¿Î³Ì";
+$langAddCategory = "Ôö¼ÓÒ»¸öĞÂÀà±ğ";
 $langAddClass = "¶©ÔÄÒ»¸ö°à";
+$langAddComment = "Ìí¼Ó/¸üĞÂÕªÒª:";
 $langAddCommentOptionnal = "Ìí¼ÓÒ»¸öÆÀÂÛ(¿ÉÑ¡) :";
+$langAddEvent = "Ôö¼ÓÒ»¸öÊÂ¼ş";
 $langAddExternalTool = "Ìí¼ÓÍâ²¿Á´½Ó";
 $langAddFeedback = "Ìí¼Ó·´À¡ĞÅÏ¢";
+$langAddForCat = "Ôö¼ÓÂÛÌ³µ½Àà±ğ";
+$langAddForums = "Ìí¼ÓĞÂÂÛÌ³,ÇëÔÚÂÛÌ³ËùÊô·ÖÀàÖĞµã»÷\"ÂÛÌ³\". ¶ÔÑ§ÉúÀ´Ëµ,¿ÕÀà±ğ(²»º¬ÓĞÂÛÌ³)ÊÇ²»¿É¼ûµÄ.";
 $langAddImage = "°üÀ¨Í¼Æ¬";
+$langAddIntro = "Ôö¼Ó¿Î³Ì½éÉÜ";
 $langAddListUser = "Ìí¼ÓÒ»ÁĞÓÃ»§";
 $langAddLoginPass = "Ìí¼ÓÓÃ»§Ãû/ÃÜÂëµ½¼ÓÃÜÎÄ¼şÖĞ</a><br>";
 $langAddLoginPassForThisUser = "Ìí¼Ó¸ÃÓÃ»§ĞéÄâĞ£Ô°ÓÃ»§Ãû/ÃÜÂëµ½¼ÓÃÜÎÄ¼şÖĞ";
@@ -360,6 +84,7 @@ $langAddModulesButton = "Ìí¼Ó×é¼ş";
 $langAddMyCampusOnClarolineNet = "Ìí¼ÓÎÒµÄĞéÄâĞ£Ô°µ½Claroline.net";
 $langAddNewHeading = "Ìí¼ÓĞÂµÄ±êÌâ";
 $langAddOneModuleButton = "Ìí¼Ó×é¼ş";
+$langAddPage = "Ìí¼ÓÍøÒ³";
 $langAddTutors = "¹ÜÀíÓÃ»§ÁĞ±í";
 $langAddUser = "½¨Á¢Ò»¸öĞÂÓÃ»§";
 $langAddUserOneByOne = "ĞÂÓÃ»§½«ÊÕµ½Ò»·â¸½ÓĞÓÃ»§ÃûºÍÃÜÂëµÄµç×ÓÓÊ¼ş";
@@ -370,6 +95,9 @@ $langAddedToCampusAndClass = " ÒÑ¾­±»Ìí¼Óµ½ĞéÄâĞ£Ô°ºÍĞéÄâ°à¼¶";
 $langAddedToCampusAndCourse = " ÒÑ¾­±»Ìí¼Óµ½ĞéÄâĞ£Ô°ºÍÍøÂç¿Î³Ì";
 $langAddedToCourse = "±»×¢²áµ½ÄúµÄ¿Î³Ì";
 $langAddedToCreator = "¿Î³ÌÖ÷Ò³";
+$langAddress = "µØÖ· ";
+$langAdm = "¹ÜÀí";
+$langAdmin = "ÍøÕ¾¹ÜÀí";
 $langAdminEmail = "µç×ÓÓÊ¼ş";
 $langAdminLogin = "µÇÂ½";
 $langAdminName = "Ãû×Ö";
@@ -380,7 +108,10 @@ $langAdministration = "¹ÜÀí";
 $langAdministrationClassTools = "ĞéÄâ°à¼¶";
 $langAdministrator = "¹ÜÀíÔ±";
 $langAdminsOfThisCours = "¿Î³Ì¹ÜÀíÕß";
+$langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAdvanced = "¸ß¼¶";
+$langAgain = "ÖØÊÔ!";
+$langAgenda = "¼Æ»®°²ÅÅ";
 $langAgendaNextEvents = "ÈÕ³Ì±íÏÂÃæµÄÊÂ¼ş";
 $langAlertBlockingMakedInvisible = "¸ÃÄ£¿é±»Ëø¶¨¡£
 Òş²ØËü½«Ê¹Ñ§Éú½øÈëÏÂÒ»¸öÄ£¿é£¬¶ø²»ÓÃÒ»¶¨Íê³É¸ÃÄ£¿é¡£
@@ -409,13 +140,23 @@ $langAltMoveUp = "ÏòÉÏ";
 $langAltScorm = "SCORM±ê×¼";
 $langAlways = "×ÜÊÇ";
 $langAmong = "µ±ÖĞ";
+$langAnd = "ºÍ";
+$langAnnAdd = "Í¨ÖªÒÑÔö¼Ó";
+$langAnnDel = "Í¨ÖªÒÑÉ¾³ı";
+$langAnnEmpty = "Í¨ÖªÁĞ±íÒÑÇå³ı";
+$langAnnModify = "Í¨ÖªÁĞ±íÒÑ¸üĞÂ";
+$langAnnouncement = "¹«¸æÍ¨Öª";
+$langAnonymous = "ÄäÃûÓÃ»§";
 $langAnonymousAttemptsAllowed = "ÔÊĞí£º×·×ÙÖĞ²»¼ÇÂ¼ÓÃ»§Ãû£¬ÄäÃûµÄÓÃ»§ÄÜ×öÁ·Ï°¡£";
 $langAnonymousAttemptsNotAllowed = "²»ÔÊĞí£º×·×ÙÖĞ¼ÇÂ¼ÓÃ»§Ãû£¬ÄäÃûµÄÓÃ»§²»ÄÜ×öÁ·Ï°¡£";
 $langAnonymousUserAccessCount = "ÄäÃûÓÃ»§½øÈë¼ÆÊı£º ";
 $langAnotherCreateSite = "½¨Á¢ÁíÒ»¸ö¿Î³ÌÖ÷Ò³";
+$langAnswer = "Ñ¡Ïî";
 $langAnswerRequired = "ĞèÒª»Ø´ğ";
 $langAnswerType = "´ğ°¸ÀàĞÍ";
+$langAntique = "¹Å´úÕÜÑ§Ê·";
 $langAppliedChange = "ÓÃ»§ÉèÖÃÒÑ¾­±»Ó¦ÓÃ";
+$langArchive = "µµ°¸";
 $langAreCompulsory = "ÊÇ±ØĞŞµÄ";
 $langAreYouSureDeleteModule = "ÄãÈ·ÈÏÒ»ÆğÉ¾³ı¸ÃÄ£¿é£¿Ëü½«´Ó·şÎñÆ÷ÉÏºÍÑ§Ï°Â·ÏßÖĞÍêÈ«É¾³ı¡£Äã½«²»ÄÜÔÚÈÎºÎÑ§Ï°Â·ÏßÖĞÊ¹ÓÃËü¡£
 È·ĞÅÉ¾³ı£º ";
@@ -444,7 +185,11 @@ $langAttempts = "³¢ÊÔ";
 $langAttemptsAllowed = "³¢ÊÔÔÊĞí";
 $langAuthentication = "Éí·İ¼ø¶¨";
 $langAvailableFrom = "¿ÉµÃµ½µÄµØ·½";
+$langBack = "·µ»Ø¿Î³ÌĞÅÏ¢";
 $langBackAndForget = "È¡ÏûºÍ·µ»Ø";
+$langBackCat = "·µ»Ø ÂÛÌ³·ÖÀà";
+$langBackHomeOf = "·µ»ØÖ÷Ò³";
+$langBackList = "·µ»ØÁĞ±í";
 $langBackModule = "·µ»ØÁĞ±í";
 $langBackTo = "·µ»Ø£º";
 $langBackToAdmin = "·µ»Ø¹ÜÀíÒ³Ãæ";
@@ -467,6 +212,7 @@ $langBuildEmptyLangFile = "¿Õ°×µÄÓïÑÔÎÄ¼ş";
 $langBuildLangFile = "½¨Á¢ÓïÑÔÎÄ¼ş";
 $langBuildMissingLangFile = "È±ÉÙÓïÑÔÎÄ¼ş";
 $langBuildProductionLangFile = "Éú³ÉÓïÑÔÎÄ¼ş";
+$langByDel = "ÒÆ³ı¿Î³Ì,½«ÓÀ¾ÃÉ¾³ıÕâÃÅ¿Î³Ì°üº¬µÄËùÓĞÎÄµµ,É¾³ıËùÓĞÑ§Éú×¢²áĞÅÏ¢(²»»áÒÆ³ıÑ§Éú¹ØÓÚÆäËû¿Î³ÌµÄ×¢²áĞÅÏ¢).<p>È·¶¨ÒªÒÆ³ı¿Î³ÌÂğ?";
 $langByUser = "ÓÃ»§";
 $langCSVSeeUserList = "ä¯ÀÀÓÃ»§ÁĞ±í";
 $langCampusAlreadyRegistered = "ËÆºõÄãÒÑ¾­×¢²áÁËĞéÄâĞ£Ô°";
@@ -475,6 +221,7 @@ $langCampusRegistered = "<strong>Åú×¼</strong><p>ÄãµÄĞéÄâĞ£Ô°×¢²áÒÑ¾­±»Claroline
 $langCampusRegistrationSubmitted = "ÄãµÄµç×ÓĞ£Ô°ÒÑ¾­Ìá½»£¬ÇëµÈ´ıclarolineÅú×¼ÉúĞ§¡£";
 $langCampusRemoved = "<strong>ÒÆ³ı</strong><p>Äãµç×ÓĞ£Ô°ÒÑ¾­±»Claroline¹ú¼ÊÍøÒ³ÒÆ³ı¡£</p>";
 $langCampusSubmitted = "<strong>Ìá½»</strong><p>µÈ´ıClarolineÍÅ¶ÓÅú×¼ÉúĞ§¡£</p>";
+$langCancel = "È¡Ïû";
 $langCannotAddForumInGroups = "µ±Ò»¸öÑ§Ï°Ğ¡×é½¨Á¢µÄÊ±ºò£¬ÂÛÌ³¾Í±»¼ÓÈë£»¶øµ±Ò»¸öÑ§Ï°Ğ¡×é±»É¾³ıµÄÊ±ºò£¬ÏàÓ¦µÄÂÛÌ³¾Í±»É¾³ı¡£";
 $langCannotBeBlank = "Äã²»ÄÜ¸øÒ»¸öĞéÄâ°à¼¶Æğ¿ÕµÄÃû³Æ";
 $langCannotBeDeleted = "²»ÄÜ±»É¾³ı";
@@ -483,13 +230,16 @@ $langCannotInitChat = "´íÎó£º²»ÄÜ³õÊ¼»¯ÁÄÌì³ÌĞò";
 $langCannotMoveGroupForum = "Ñ§Ï°Ğ¡×éÂÛÌ³²»ÄÜ±»ÒÆ³ı";
 $langCatagoryGroup = "Ğ¡×éÂÛÌ³";
 $langCatagoryMain = "Ö÷¸É";
+$langCategories = "Àà±ğ";
 $langCategory = "·ÖÀà";
 $langCfgSetting = "Æ½Ì¨ÉèÖÃ";
+$langChangeCat = "¸Ä±äËùÊôÀà±ğ";
 $langChangePwdexp = "ĞŞ¸ÄÃÜÂëÒªÊäÈëÁ½´ÎĞÂÃÜÂë£¬²»ĞŞ¸ÄÃÜÂëÇëÁô¿Õ";
 $langChangeRaw = "ĞŞ¸Ä×îµÍµÄÔ­Ê¼·ÖÒÔÍ¨¹ı¸ÃÄ£¿é£¨°Ù·Ö±È£©: ";
 $langChangedTool = "¹¤¾ßÍ¨µÀ¸Ä±ä";
 $langChat = "ÁÄÌì´ğÒÉ";
 $langChatResetBy = "ÁÄÌìÖØÖÃ£º";
+$langChoice = "Ñ¡Ïî";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "ÇëÑ¡ÔñÒ»¸öÕıÈ·´ğ°¸";
 $langChooseGoodAnswers = "ÇëÑ¡ÔñÒ»¸öÕıÈ·µÄÒ»¸ö»ò¶à¸ö´ğ°¸";
@@ -535,10 +285,15 @@ $langClassRegisterWholeClass = "×¢²á¿Î³ÌµÄĞéÄâ°à¼¶";
 $langClassRegisterWholeClassAgain = "×¢²áÁíÒ»¸ö¿Î³ÌµÄĞéÄâ°à¼¶";
 $langClassRegistered = "°à¼¶×¢²á";
 $langClearList = "Çå³ıÊÂ¼şÁĞ±í";
+$langClose = "¹Ø±Õ´°¿Ú";
 $langCloseWindow = "¹Ø±Õ´°¿Ú";
+$langCode = "¿Î³ÌºÅ";
 $langCodeAppearAlready = "ÕıÊ½´úÂëÒÑ¾­ÔÚCSVÎÄ¼şµÄÊ×ĞĞÏÔÊ¾ÁË¡£";
 $langCodeCanBeEmpty = "¿Î³Ì´úÂë¸ñĞèÒªÍêÕûÌîĞ´";
 $langCodeUsed = "ÕıÊ½´úÂëÒÑ¾­±»ÈËÊ¹ÓÃ";
+$langComMod = "¼ò½éÒÑ¸üĞÂ";
+$langComment = "ÆÀ¼Û";
+$langConfTip = "È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÖ»¶Ô×¢²áÓÃ»§¿É¼û,ÒÔÀûÓÚÄúÈ·¶¨·ÃÎÊÏŞÖ¹²ßÂÔ,¼òµ¥µÄ·½·¨ÊÇÒªÇóÔÚÒ»ÖÜÖ®ÄÚ×¢²á,ÇëÑ§ÉúÃÇ×Ô¼ºÌîĞ´×¢²áĞÅÏ¢,Í£Ö¹×¢²áºó,¼ì²éÓÃ»§ÁĞ±í,É¾³ı²»·ûºÏÌõ¼şµÄ×¢²áÈËÔ±.";
 $langConfigMenuContent = "ÅäÖÃ²Ëµ¥";
 $langConfiguration = "ÅäÖÃ";
 $langConfigurationFile = "ÅäÖÃÎÄ¼ş";
@@ -551,9 +306,13 @@ $langConfirmDeleteStats = "¿Î³ÌÍ³¼ÆÊı×Ö±»É¾³ıÖ®ºó£¬ÊÇ²»ÄÜ»Ö¸´µÄ£¡
 $langConfirmEmptyGroups = "ÄãÈ·ĞÅÄãÒªÇå¿ÕËùÓĞµÄÑ§Ï°Ğ¡×éÂğ£¿";
 $langConfirmEnrollClassToCourse = "ÄãÈ·ĞÅÄãÒª°ÑÕû¸öĞéÄâ°à¼¶¶¼µÇ¼Çµ½¸Ã¿Î³Ì£¿";
 $langConfirmYourChoice = "ÇëÈ·ÈÏÄãµÄÑ¡Ôñ";
+$langConfirmation = "È·ÈÏ";
 $langContent = "ÄÚÈİ";
+$langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
+$langCopy = "¸´ÖÆ";
 $langCopyFailed = "´òÓ¡Ê§°Ü";
 $langCorrespondsTo = "¶ÔÓ¦";
+$langCouldNot = "ÎÄ¼ş·¢ËÍÊ§°Ü";
 $langCountCours = "¿Î³ÌÊı";
 $langCountCourseByFaculte = "´ÓÊ¦×Ê½Ç¶ÈÍ³¼ÆµÄ¿Î³ÌÊı";
 $langCountCourseByLanguage = "´ÓÓïÑÔ½Ç¶ÈÍ³¼ÆµÄ¿Î³ÌÊı";
@@ -565,20 +324,24 @@ $langCountUsersByFaculte = "´ÓÊ¦×Ê½Ç¶ÈÍ³¼ÆµÄÓÃ»§Êı";
 $langCountUsersByStatus = "´Ó×´¿ö½Ç¶ÈÍ³¼ÆµÄÓÃ»§Êı";
 $langCountry = "¹ú¼Ò";
 $langCountryCodeError = "¹ú¼Ò´úÂëËÆºõ²»¶Ô¡£";
+$langCourse = "ÍøÕ¾";
 $langCourseAccess = "¿Î³ÌÍ¨µÀ";
 $langCourseAdministratorOnly = "½ö¹©¿Î³Ì¹ÜÀíÊ¹ÓÃ";
 $langCourseContent = "¿Î³ÌÄÚÈİ";
 $langCourseContentComment1 = "ÔÚÒ»¸ö¿Î³Ì¿ò¼ÜÖĞ£¬ÄÄĞ©ÖØÒªµÄĞèÒª½Ì£¿
 ¸ÃÄÚÈİµÄÄÑ¶ÈË®Æ½ÊÇÊ²Ã´£¿¸Ãµ¥ÔªÈçºÎ±»½¨¹¹µÄ£¿ÕâĞ©ÄÚÈİµÄĞòÁĞÊÇÊ²Ã´£¿µ¼ÏòÊ²Ã´£¿";
 $langCourseContentComment2 = "¿Î³ÌÄÚÈİ¡¢½á¹¹¡¢½øÕ¹¡¢ÈÕ³ÌµÄ³ÊÏÖ¡£";
+$langCourseCreate = "ĞÂ½¨¿Î³Ì";
 $langCourseCreator = "¿Î³Ì´´½¨Õß";
 $langCourseDelete = "¿Î³ÌÒÑ¾­±»³É¹¦É¾³ı";
+$langCourseDescription = "ÇëÔÚÕâÀïĞ´ÏÂ¿Î³Ì¼ò½é,Õâ»áÏÔÊ¾ÔÚ¿Î³ÌÁĞ±íÖĞ.";
 $langCourseHome = "¿Î³ÌÖ÷Ò³";
 $langCourseList = "¿Î³ÌÁĞ±í";
 $langCourseManager = "¿Î³Ì¸ºÔğÈË";
 $langCourseManagerStatusToUser = "¿Î³Ì¸ºÔğÈËÉí·İ %s %s";
 $langCourseProgram = "¿Î³Ì¼ò½é";
 $langCourseSettings = "¿Î³ÌÉèÖÃ";
+$langCourseTitle = "¿Î³Ì±êÌâ";
 $langCourseWithoutAccess = "¿Î³ÌÎ´Ê¹ÓÃ";
 $langCourseWithoutProf = "¿Î³ÌÃ»ÓĞ½²Ê¦";
 $langCourseWithoutStudents = "¿Î³ÌÃ»ÓĞÑ§Éú";
@@ -589,12 +352,14 @@ $langCreateAnotherUser = "½¨Á¢ÁíÒ»¸öĞÂÓÃ»§";
 $langCreateAssignment = "½¨Á¢Ò»¸öĞÂ×÷Òµ";
 $langCreateCourse = "½¨Á¢¿Î³Ì";
 $langCreateCourses = "½¨Á¢¿Î³Ì";
+$langCreateDir = "´´½¨Ä¿Â¼";
 $langCreateDocument = "½¨Á¢½²Òå²ÄÁÏ";
 $langCreateHyperlink = "½¨Á¢³¬Á´½Ó";
 $langCreateLabel = "½¨Á¢±êÇ©";
 $langCreateModifyDocument = "½¨Á¢/±à¼­½²Òå²ÄÁÏ";
 $langCreateNewClass = "½¨Á¢Ò»¸öĞÂµÄĞéÄâ°à¼¶";
 $langCreateNewLearningPath = "½¨Á¢Ò»¸öĞÂµÄÑ§Ï°Â·Ïß";
+$langCreateSite = "´´½¨¿Î³Ì";
 $langCreateUser = "½¨Á¢ÓÃ»§";
 $langCreateUserAccount = "½¨Á¢ÓÃ»§ÕÊ»§";
 $langCreationMailNotificationBody = "¿Î³Ì½¨Á¢";
@@ -618,9 +383,13 @@ $langDBSettingNamesIntro = "
 ";
 $langDBUse = "Êı¾İ¿âÊ¹ÓÃ";
 $langDOCUMENTTypeDesc = "½²Òå²ÄÁÏ";
+$langDate = "ÈÕÆÚ";
 $langDateLastWrite = "×îºóÒ»ÌõÏûÏ¢ÊÇÔÚ£º ";
+$langDay = "ÈÕ";
+$langDay_of_weekNames = "Array";
 $langDbName = "Êı¾İ¿âÃû";
 $langDbPrefixForm = "¿Î³ÌÊı¾İ¿âÃûµÄÇ°×º";
+$langDear = "×ğ¾´µÄ";
 $langDefSubVisibility = "Ä¬ÈÏ×÷ÒµÃ÷ÏÔĞÔ";
 $langDefaultLearningPathComment = "ÕâÊÇÑ§Ï°Â·ÏßµÄ½éÉÜÎÄ×Ö¡£¿ÉÒÔÓÃÄã×Ô¼ºµÄÎÄ×ÖÀ´´úÌæËü£¬µã»÷ÏÂÃæµÄ
 <b>ĞŞ¸Ä</b>.";
@@ -632,9 +401,12 @@ $langDefcon = "àŞ£¬ ·¢ÏÖÆæ¹ÖµÄÇé¿ö£¡£¡";
 $langDefineBlanks = "ÇëÖÁÉÙÓÃÀ¨ºÅ[...]¶¨ÒåÒ»¸ö¿Õ¸ñ ";
 $langDefineHeadings = "¶¨Òå±êÌâ";
 $langDefineOptions = "Çë¶¨ÒåÑ¡Ïî";
+$langDelAdmin = "Ó¦ÓÃÂÛÌ³¹ÜÀí¹¤¾ßÒÆ³ıÕâ¸öÂÛÌ³.";
+$langDelCourse = "ÒÆ³ıÕû¸ö¿Î³ÌÍøÕ¾";
 $langDelCourseStats = "É¾³ı¿Î³ÌËùÓĞµÄÍ³¼ÆÊı×Ö";
 $langDelCourseStatsDone = "¿Î³ÌÍ³¼ÆÊı×ÖÉ¾³ı";
 $langDelImage = "ÒÆ³ıÍ¼Æ¬";
+$langDelete = "É¾³ı";
 $langDeleteAttachedFile = "É¾³ı¸½¼ş";
 $langDeleteCaution = "£¡ÕâÒ²»áÉ¾³ı¹¦¿ÎÖĞËùÓĞ×÷Æ·£¡";
 $langDeleteGroups = "É¾³ıËùÓĞÑ§Ï°Ğ¡×é";
@@ -649,19 +421,84 @@ $langDescDeleted = "½éÉÜÉ¾³ı¡£";
 $langDescUnableToDelete = "²»ÄÜÉ¾³ı";
 $langDescUnableToUpdate = "²»ÄÜÉı¼¶";
 $langDescUpdated = "½éÉÜÉı¼¶¡£";
+$langDescription = "¼ò½é";
 $langDescriptionComment1 = "³ÌĞòÖĞ¸Ã¿Î³ÌµÄµØÎ»ºÍÌØÕ÷ÊÇÊ²Ã´£¿
 ´æÔÚ±ØĞŞ¿ÎÇ°µÄ¿Î³ÌÂğ£¿ÆäËû¿Î³ÌµÄ¹ØÏµÊÇÊ²Ã´£¿";
 $langDescriptionComment2 = "ÔÊĞíÈ·ÈÏ¿Î³ÌµÄĞÅÏ¢(ÆğÊ¼, ±êÌâ, Ñ§Ê±£¬²å¼ş...)
 ºÍ¿Î³Ì½ÌÑ§µÄĞÅÏ¢ (Ãû£¬ĞÕ£¬»ú¹¹£¬µç»°£¬µçÓÊ£¬¿ÉÄÜÀûÓÃµÄ¶«Î÷£©¡£
 ¼Æ»®ÖĞµÄ¿Î³Ì¶¼³ÊÏÖµÄ¡£";
 $langDescriptionCours = "¿Î³Ì¼ò½é";
+$langDetail = "ÄÚÈİ";
 $langDetailView = "²é¿´Õß";
 $langDetails = "Ï¸½Ú";
 $langDevTools = "Devel¹¤¾ß";
+$langDirCr = "Ä¿Â¼ÒÑ´´½¨";
+$langDirMv = "Ä¿Â¼ÒÑÒÆ¶¯";
 $langDisable = "Ê¹Ê§Ğ§";
 $langDiskUsage = "´ÅÅÌÊ¹ÓÃÁ¿";
 $langDispClassAdded = "ÏÔÊ¾¼ÓÈëµÄĞéÄâ°à¼¶";
+$langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖĞµÄÎÄ¼ş¹ÜÀíÆ÷.</p><p>Äú¿ÉÒÔÉÏ´«¸÷ÖÖ¸ñÊ½(HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime,µÈµÈ)µÄÎÄ¼ş,ĞèÒª×¢ÒâµÄÊÇÑ§Éú±ØĞëÓĞÏàÓ¦µÄÈí¼ş¶ÁÈ¡ÕâĞ©²ÄÁÏ.¶øÇÒ,ÓĞĞ©ÎÄ¼ş¿ÉÄÜ»áĞ¯´ø²¡¶¾, ²»ÒªÉÏ´«ÕâÑùµÄÎÄ¼şÒ²ÊÇÄúµÄÔğÈÎ.½¨ÒéÔ¤ÏÈÓÃÉ±¶¾Èí¼ş¼ì²éºóÔÚÉÏ´«.</p>
+<p>ÎÄ¼şÒÔ×ÖÄ¸Ë³ĞòÅÅÁĞ.<br><b>ÌáÊ¾ : </b>Èç¹ûÄúĞèÒªÒÔ²»Í¬µÄË³ĞòÏÔÊ¾,ÔÚÎÄ¼şÃûÖĞÌí¼ÓÊı×Ö: 01, 02, 03...</p>
+<p>Äú¿ÉÒÔÕâÃ´×ö :</p>
+<h4>ÉÏ´«ÎÄ¼ş</h4>
+<ul>
+  <li>Ñ¡ÔñÄúµçÄÔÉÏµÄÎÄ¼ş,µã»÷<input type=submit value=Browse name=submit2>
+	ÔÚÄúÆÁÄ»µÄÓÒ²à.</li>
+  <li>¿ªÊ¼ÉÏ´«,µã»÷ÉÏ´«°´Å¥<input type=submit value=Upload name=submit2>
+	.</li>
+</ul>
+<h4>ÎªÎÄ¼ş(»òÕßÄ¿Â¼)¸üÃû</h4>
+<ul>
+  <li>µã»÷<img src=../document/img/edit.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ'¸üÃû'À¸)</li>
+  <li>ÔÚ×óÉÏ½ÇÇøÓòÌîĞ´ĞÂµÄÎÄ¼şÃû</li>
+  <li>È·ÈÏ,µã»÷<input type=submit value=Ok name=submit24>
+	.
+</ul>
+	<h4>É¾³ıÎÄ¼ş(»òÄ¿Â¼)</h4>
+	<ul>
+
+  <li>µã»÷ <img src=../document/img/delete.gif width=20 height=20>
+	(Î»ÓÚ 'É¾³ı'À¸).</li>
+	</ul>
+	<h4>ÏÔÊ¾/Òş²ØÎÄ¼ş(»òÄ¿Â¼)</h4>
+	<ul>
+
+  <li>µã»÷ <img src=../document/img/visible.gif width=20 height=20>Î»ÓÚ'ÏÔÊ¾/Òş²Ø'À¸.</li>
+	  <li>Òş²ØÎÄ¼ş(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>
+  <li>ÒªÊ¹µÃÆä¶ÔÑ§Éú¿É¼û, µã»÷ <img src=../img/invisible.gif width=24 height=20>
+	(Î»ÓÚ'ÏÔÊ¾/Òş²Ø'À¸)</li>
+	</ul>
+	<h4>ÎªÎÄ¼ş(»òÄ¿Â¼)Ìí¼Ó»ò¸üĞÂÕªÒª</h4>
+	<ul>
+  <li>µã»÷ <img src=../img/comment.gif width=20 height=20>
+	(Î»ÓÚ'ÕªÒª'À¸)</li>
+	  <li>ÔÚÓÒÉÏ½ÇÏàÓ¦ÇøÓòÌîĞ´ĞÂµÄÕªÒª.</li>
+	  <li>È·ÈÏ,µã»÷<input type=submit value=OK name=submit2>
+		.</li>
+	</ul>
+	<p>É¾³ıÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>,
+	  É¾³ıÏàÓ¦ÇøÓò¾ÉµÄÕªÒª <input type=submit value=OK name=submit22>
+	  .
+	<hr>
+	<p>Í¨¹ı ·ÖÀà ÕûÀíÀ´×éÖ¯ÄÚÈİ. ÈçÏÂËùÊ¾:</p>
+	<h4><b>´´½¨Ò»¸öÄ¿Â¼</b></h4>
+	<ul>
+	  <li>µã»÷ <img src=../img/folder.gif> '´´½¨Ä¿Â¼'(×óÉÏ½Ç)</li>
+	  <li>ÔÚÏàÓ¦ÇøÓò¼üÈëĞÂÄ¿Â¼µÄÃû³Æ(×óÉÏ½Ç)</li>
+	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit23>.</li>
+	</ul>
+	<h4>ÒÆ¶¯ÎÄ¼ş(»òÄ¿Â¼)</h4>
+	<ul>
+	  <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16>
+		Î»ÓÚ'ÒÆ¶¯'À¸</li>
+	  <li>ÔÚÏàÓ¦ÏÂÀ­²Ëµ¥(×óÉÏ)Ñ¡ÔñÄ¿±êÎÄ¼ş(»òÄ¿Â¼).(ÌáÊ¾: 'root' ÒâË¼ÊÇÒÑ¾­Î»ÓÚÎÄ¼şÄ¿Â¼Ê÷µÄ¶¥²ãÁË,·şÎñÆ÷ÉÏµÄÏàÓ¦ÉÏ²ãÄ¿Â¼²»ÄÜÉÏ´«ÎÄ¼ş.</li>
+	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit232>.</li>
+	</ul>
+	<center>
+	  <p>";
+$langDocDeleted = "ÎÄ¼şÒÑÉ¾³ı";
 $langDocInsertedAsModule = "ÒÑ¾­×÷ÎªÄ£¿é¼ÓÈë";
+$langDocument = "½²Òå²ÄÁÏ";
 $langDocumentAlreadyUsed = "¸ÃÑ§Ï°Â·ÏßÖĞ¸ÃÎÄ¼şÒÑ¾­±»ÓÃ×÷Ä£¿é";
 $langDocumentAsModule = "Ê¹ÓÃÒ»¸öÎÄ¼ş";
 $langDocumentContent = "ÎÄ¼şÄÚÈİ£º";
@@ -682,6 +519,7 @@ $langEXERCISETypeDesc = "ClarolineÁ·Ï°";
 $langEdit = "±à¼­";
 $langEditAnswers = "±à¼­´ğ°¸";
 $langEditCourseProgram = "½¨Á¢ºÍ±à¼­";
+$langEditDel = "±à¼­/É¾³ı";
 $langEditEvent = "±à¼­ÊÂ¼ş";
 $langEditExercise = "±à¼­Á·Ï°ÉèÖÃ";
 $langEditFeedback = "±à¼­×Ô¶¯·´À¡";
@@ -692,12 +530,18 @@ $langEditQuestion = "±à¼­ÎÊÌâ";
 $langEditSettings = "±à¼­ÉèÖÃ";
 $langEditToolList = "±à¼­¹¤¾ßÁĞ±í";
 $langEditWork = "ĞŞ¸ÄÒ»¸ö×÷Òµ";
+$langElRen = "Ä¿Â¼»òÎÄ¼şÒÑ¸üÃû";
 $langElementList = "³É·ÖÁĞ±í";
+$langEmail = "ÓÊ¼ş";
 $langEmailAddressNotFound = "ÕÒ²»µ½ÓĞ¸ÃµçÓÊµÄÓÃ»§ÕÊ»§¡£";
 $langEmailCanBeEmpty = "µç×ÓÓÊ¼şµØÖ·±ØÌî";
 $langEmailNotSent = "ÏµÍ³²»ÄÜ·¢µç×ÓÓÊ¼ş¡£<br>ÇëÁªÂç";
 $langEmailOption = "Í¨¹ıµç×ÓÓÊ¼ş½«¸Ã¹«¸æ·¢¸ø×¢²áÑ§Éú";
 $langEmailSent = " ·¢µç×ÓÓÊ¼ş¸ø×¢²áÑ§Éú";
+$langEmailWrong = "ÓÊ¼şµØÖ·²»ÕıÈ·,´æÔÚ·Ç·¨×Ö·û";
+$langEmpty = "ÓĞĞ©ÏîÄ¿Ã»ÓĞÌîĞ´.<br>·µ»ØÖØÊÔ.<br>Èç¹û²»Çå³ı¿Î³Ì´úÂë,Çë²Î¿¼¿Î³Ì´ó¸Ù";
+$langEmptyAnn = "Çå³ıÍ¨ÖªÁĞ±í";
+$langEmptyFields = "ÓĞĞ©ÏîÎ´ÌîĞ´!·µ»ØÖØÊÔ.";
 $langEmtpyGroups = "Çå¿ÕËùÓĞÑ§Ï°Ğ¡×é";
 $langEnable = "Ê¹ÉúĞ§";
 $langEndDate = "½ØÖ¹ÈÕÆÚ";
@@ -707,6 +551,7 @@ $langEnrollAsTeacher = "×÷Îª½ÌÊ¦µÇ¼Ç";
 $langEnrollClass = "µÇ¼ÇĞéÄâ°à¼¶";
 $langEnrollToNewCourse = "µÇ¼Çµ½Ò»¸öĞÂ¿Î³Ì";
 $langEnrollUser = "µÇ¼ÇÒ»¸öÓÃ»§";
+$langEnter = "½øÈë";
 $langEnter2passToChange = "ĞŞ¸ÄÃÜÂëÒªÊäÈëÁ½´ÎĞÂÃÜÂë£¬²»ĞŞ¸ÄÃÜÂëÇëÁô¿Õ";
 $langEnterMail = "ÊäÈëÄãµÄµç×ÓÓÊ¼ş£¬ÎÒÃÇ²ÅÄÜ·¢¸øÄãÃÜÂë¡£";
 $langErrorAssetNotFound = "Ã»ÓĞ·¢ÏÖÏîÄ¿£º";
@@ -744,10 +589,16 @@ $langErrortExtractingManifest = "´ÓzipÎÄ¼şÖĞ²»ÄÜÒıÓÃÇåµ¥(ÎÄ¼şËğ»µ£¿)¡£";
 $langEventAdded = "ÊÂ¼ş¼ÓÈëµ½ÈÕ³Ì±í¡£";
 $langEventDeleted = "ÊÂ¼ş´ÓÈÕ³Ì±íÖĞÉ¾³ı¡£";
 $langEventUpdated = "ÊÂ¼şÉı¼¶µ½ÈÕ³Ì±í¡£";
+$langEx = "e.g. <i>ÎÄÑ§ÀúÊ·</i>";
 $langExAlreadyUsed = "¸ÃÁ·Ï°×÷ÎªÄ£¿é£¬ÒÑ¾­ÔÚÑ§Ğ£Â·ÏßÖĞ±»Ê¹ÓÃ";
 $langExInsertedAsModule = "×÷Îª¿Î³ÌºÍÑ§Ï°Â·ÏßµÄÒ»¸öÄ£¿éÒÑ¾­±»¼ÓÈë";
+$langExMessage = "ÏûÏ¢Ê¾Àı";
 $langExeAvgTime = "Æ½¾ùÊ±¼ä(Ãë)";
 $langExeTime = "Ê±¼ä (Ãë)";
+$langExercice = "¿Î³ÌÁ·Ï°";
+$langExerciceEx = "Á·Ï°Ê¾Àı";
+$langExercices = "¿Î³ÌÁ·Ï°";
+$langExercise = "¿Î³ÌÁ·Ï°";
 $langExerciseAsModule = "Ê¹ÓÃÒ»¸öÁ·Ï°";
 $langExerciseCancelled = "Á·Ï°È¡Ïû£¬Ñ¡ÔñÁĞ±íÖĞµÄÒ»¸öÄ£¿éºó¼ÌĞø¡£";
 $langExerciseClosing = "Á·Ï°½áÊø";
@@ -879,6 +730,7 @@ $langExistingGroups = "Ñ§Ï°Ğ¡×é";
 $langExpectedChoice = "ÆÚÍûµÄÑ¡Ïî";
 $langExplainDeleteFile = "¼ì²éÕâ¸ö¸ñÉ¾³ı¸½¼ş¡£";
 $langExplainReplaceFile = "ÉÏÔØĞÂÎÄ¼ş´úÌæÔ­ÓĞÎÄ¼ş¡£";
+$langExplanation = "µã»÷È·ÈÏºó,ÄúµÄÓµÓĞ ¿Î³ÌÂÛÌ³,¼Æ»®°²ÅÅ,½²Òå²ÄÁÏµÈ¹ÜÀí¹¦ÄÜµÄĞÂÍøÕ¾¾Í½¨³ÉÁË.µÇÂ¼ºó,Äú¿ÉÒÔ°´ÕÕĞèÒªÌí¼Ó¿Î³ÌÄÚÈİ.";
 $langExternalToolName = "Ãû³ÆÁ´½Ó";
 $langExternalToolUrl = "ÍøÖ·Á´½Ó";
 $langExtractFromLangFile = "À´Ô´ÓÚÓïÑÔÎÄ¼ş";
@@ -895,10 +747,13 @@ $langFeedbackSubmit = "Ìá½»·´À¡";
 $langFeedbackText = "·´À¡ÎÄ±¾";
 $langFeedbacks = "·´À¡";
 $langFieldSeparatorUsed = "×Ö¶Î·Ö¸î·ûÊ¹ÓÃ";
+$langFields = "ÄúÓĞĞ©Ñ¡ÏîÎ´ÌîĞ´.";
+$langFieldsRequ = "ËùÓĞÏîÄ¿¶¼ĞèÌîĞ´.";
 $langFileContentModified = "ÎÄ¼şÄÚÈİĞŞ¸Ä";
 $langFileCreated = "ÎÄ¼ş½¨Á¢";
 $langFileDesc = "ÎÄ¼ş¼ò½é";
 $langFileError = "ÉÏÔØÎÄ¼şÎŞĞ§";
+$langFileExists = "²Ù×÷Ê§°Ü.<br>Í¬ÃûÎÄ¼şÒÑ´æÔÚ.";
 $langFileForCSVUpload = "´øÓĞÓÃ»§ÁĞ±íµÄCSVÎÄ¼ş£º";
 $langFileName = "ÎÄ¼şÃû";
 $langFileNameMissing = "ÎÄ¼şÃû¶ªÊ§";
@@ -914,19 +769,29 @@ $langFillTheAreaToExplainTheMotivations = "ÔÚÕâ¸öµØ·½ÌîĞ´ÄãµÄ¶¯»úºÍÌá½»ÄãµÄÇëÇó¡
 $langFillToolCourses = "ÌîĞ´¹¤¾ß¿Î³Ì";
 $langFillTree = "²åÈë¿Î³Ì·ÖÀà";
 $langFillUsers = "²åÈëÓÃ»§";
+$langFilled = "ÄúÓĞĞ©Ñ¡ÏîÃ»ÓĞÌîĞ´.";
 $langFilling = "ÓÃ²âÊÔÖµÌî¿Õ";
 $langFilter = "¹ıÂË";
 $langFindDoubledVariable = "·¢ÏÖÔö¼ÓÒ»±¶µÄ±äÁ¿";
 $langFindVarWithSameContentAndDifferentName = "ÏàÍ¬ÄÚÈİºÍ²»Í¬Ãû³ÆµÄ±äÁ¿";
 $langFindVarWithSameNameAndDifferentContent = "ÏàÍ¬Ãû³ÆºÍ²»Í¬ÄÚÈİµÄ±äÁ¿";
+$langFinish = "Íê³É";
 $langFirstDefOfThisValue = "£¡£¡£¡ Ê×ÏÈ¶¨Òå¸ÃÖµ £¡£¡£¡";
 $langFirstName = "Ãû";
 $langFirstSubmission = "µÚÒ»´ÎÌá½»";
 $langFirstname = "Ãû";
+$langForCat = "ÂÛÌ³·ÖÀà";
+$langForCategories = "ÂÛÌ³·ÖÀà";
+$langForContent = "ÂÛÌ³,ÊÇÒì²½ÌÖÂÛ¹¤¾ß.µç×ÓÓÊ¼şÊ¹ÓÃÒ»¶ÔÒ»µÄ¶Ô»°·½Ê½,ÂÛÌ³ÔòÊ¹µÃ¹«¹²¶Ô»°»òÕß°ë¹«¹²µÄ¶Ô»°³ÉÎª¿ÉÄÜ.</p><p>´Ó¼¼ÊõÉÏ½²,Ê¹ÓÃclarolineÂÛÌ³Ö»ĞèÒªÊ¹ÓÃä¯ÀÀÆ÷¾Í¿ÉÒÔ.</P><p>×éÖ¯ÂÛÌ³,Çëµã»÷'¹ÜÀí'.ÂÛÌ³°´ÕÕÀàºÍ×ÓÀà×éÖ¯ÆğÀ´,ÈçÏÂ:</p><p><b>·ÖÀà > ÂÛÌ³ > ÂÛÌâ > »Ø¸´ </b></p>ÎªÊ¹Ñ§ÉúµÄÌÖÂÛÓĞÒ»¸öÇåÎúµÄ½á¹¹,Ô¤ÏÈ×éÖ¯·ÖÀàºÍÂÛÌ³ÊÇ±ØÒªµÄ.ÈÃÑ§ÉúÀ´ÕÅÌù»°ÌâºÍ»Ø¸´.Ä¬ÈÏÉèÖÃ,clarolineÂÛÌ³Ö»°üº¬'Public'·ÖÀà -- Ê¾ÀıĞÔµÄÂÛÌ³ºÍ»°Ìâ.</p><p>ËùÒÔÊ×ÏÈÒª×öµÄÊÂ,É¾³ı»°ÌâÊ¾Àı,¸üĞÂµÚÒ»¸öÂÛÌ³µÄÃû³Æ.½ÓÏÂÀ´,¿ÉÒÔÔÚ'public'·ÖÀàÖĞ°´ÕÕĞ¡×é»òÖ÷Ìâ´´½¨ĞÂµÄÂÛÌ³À´Âú×ã¿Î³ÌÑ§Ï°»·¾³µÄĞèÒª.</p><p>²»Òª»ìÏı·ÖÀàºÍÂÛÌ³, Ò²²»ÒªÍü¼Ç¿ÕµÄÀà±ğ(²»º¬ÓĞÂÛÌ³)¶ÔÑ§ÉúÊÇ²»¿É¼ûµÄ.</p><p>ÂÛÌ³µÄ¼ò½é¿ÉÒÔÊÇËüµÄÓÃ»§ÁĞ±í,Ä¿±ê,ÈÎÎñ,Ö÷ÌâµÈµÈ";
+$langForName = "ÂÛÌ³Ãû³Æ";
+$langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
+$langFormula = "½ÌÊÚ";
+$langForum = "Ñ§Ï°ÂÛÌ³";
 $langForumCategoryDeleted = "ÂÛÌ³·ÖÀàÉ¾³ı";
 $langForumDeleted = "ÂÛÌ³É¾³ı";
 $langForumGroup = "Ñ§Ï°Ğ¡×éµÄÂÛÌ³";
 $langForumModified = "ÂÛÌ³ÒÑ¾­±»ĞŞ¸Ä";
+$langForums = "Ñ§Ï°ÂÛÌ³";
 $langFree = "Ãâ·Ñ";
 $langFrom = "À´×Ô";
 $langFullScreen = "È«ÆÁ";
@@ -1059,9 +924,16 @@ $langGroups = "Ñ§Ï°Ğ¡×é";
 $langGroupsAdded = "Ñ§Ï°Ğ¡×éÒÑ¾­¼ÓÈë";
 $langGroupsDeleted = "ËùÓĞµÄÑ§Ï°Ğ¡×éÒÑ¾­±»É¾³ı";
 $langGroupsEmptied = "ÏÖÔÚËùÓĞµÄÑ§Ï°Ğ¡×é¶¼ÊÇ¿ÕµÄ";
+$langHClar = "ÉÏÊÖ°ïÖú";
+$langHDoc = "½²Òå°ïÖú";
 $langHExercise = "Á·Ï°°ïÖú";
+$langHFor = "ÂÛÌ³°ïÖú";
+$langHHome = "ÍøÕ¾°ïÖú";
+$langHUser = "ÓÃ»§ÁĞ±í °ïÖú";
 $langHasBeenEnrolled = "ÒÑ¾­µÇ¼Ç";
+$langHasDel = "ÒÑ¾­ÒÆ³ı";
 $langHeading = "±êÌâ";
+$langHelp = "°ïÖú";
 $langHelpAssignment = "¹¦¿Î°ïÖú";
 $langHelpAssignmentContent = "<p>
 ¹¦¿Î¹¤¾ßÊÇÑ§Éú·¢±íÇø¡£¿Î³Ì¸ºÔğÈË½¨Á¢Ò»¸ö»ò¼¸¸ö¹¦¿Î£¨²»Í¬µÄ·¢±íÇø£©¡£
@@ -1152,7 +1024,10 @@ $langHelpGroups = "Ñ§Ï°Ğ¡×é°ïÖú";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "ÕâÀïÄã¿ÉÒÔĞŞ¸ÄÔÚÆ½Ì¨Ö÷Ò³ÏÔÊ¾µÄÎÄ±¾ÇøÄÚÈİ¡£";
 $langHigh_resources = "¸ß¼¶×ÊÔ´";
 $langHits = "µã»÷";
+$langHome = "·µ»Ø¿Î³ÌÖ÷Ò³";
+$langHomeContent = "Îª·½±ãÕÆÎÕÊ¹ÓÃ·½·¨,ËùÓĞclaroline¹¤¾ß¶¼²»ÊÇ¿ÕµÄ.Ã¿¸ö¹¤¾ß¶¼ÓĞÒ»¸ö¼ò¶ÌµÄÀı×Ó°ïÖúÄú¿ìËÙÕÆÎÕËüµÄÊ¹ÓÃ·½·¨.¸üĞÂ»¹ÊÇÉ¾³ıÕâ¸öÀı×ÓÈ¡¾öÓÚÄã.</p><p>¾ÙÀıÀ´Ëµ, ÔÚÄúµÄ¿Î³ÌÖ÷Ò³ÉÏÓĞÒ»¶ÎÎÄ×Ö,'ÕâÊÇÄúµÄ¿Î³Ì¼ò½é.ÒªÌæ»»ÎªÄú×Ô¼ºµÄÎÄ×Ö,µã»÷ÏÂÃæ'¸üĞÂ'. ¾ÍÊÇÕâÃ´¼òµ¥!! ²¢ÇÒÃ¿¸ö¹¤¾ß¶¼ÓĞÏàÍ¬ÏàËÆµÄÂß¼­¹¦ÄÜ: Ôö¼Ó, É¾³ı, ¸üĞÂ, ÕâĞ©¹¦ÄÜÕıÊÇ¶¯Ì¬ÍøÒ³µÄ¹¦ÄÜ.</p><p>µ±ÄúĞÂ½¨¿Î³ÌÍøÕ¾Ê±, ´ó²¿·Ö¹¤¾ßÊÇ¼¤»îµÄ. Çë¼Ç×¡, Ê¹ÄÇĞ©²»ĞèÒªµÄ¹¦ÄÜÒş²ØÆğÀ´È¡¾öÓÚÄú,Ö»Ğèµã»÷'Òş²Ø'¼´¿ÉÊµÏÖ. ½ÓÏÂÀ´,½âÊÍÒ»ÏÂÖ÷Ò³ÉÏ»ÒÉ«²¿·ÖµÄ¹¦ÄÜ. Õâ²¿·Ö¹¦ÄÜ¶ÔÄúµÄÑ§ÉúÊÇ²»¿É¼ûµÄ, µ±È»Äú¿ÉÒÔÔÚÈÎºÎÊ±ºò¼¤»îËüÃÇ.</p><p>Äú¿ÉÒÔÌí¼ÓÄú×Ô¼ºµÄÍøÒ³. µ±È»ÕâĞ©ÍøÒ³±ØĞèÊÇHTML¸ñÊ½µÄ(ÍøÒ³¿ÉÒÔÓÃWord´¦ÀíÆ÷»òÕßWeb±à¼­Æ÷Éú³É). Ê¹ÓÃ 'ÉÏ´«ÍøÒ³'À´ÊµÏÖ. ±ê×¼µÄÎÄ¼şÍ·»á×Ô¶¯ÓëÄúµÄÎÄ¼şÈÚºÍÔÚÒ»Æğ,ÄúÖ»ĞèÒª°Ñ¾«Á¦·ÅÔÚÎÄ¼şÄÚÈİÉÏ¾ÍĞĞÁË. Èç¹ûÄúĞèÒªÔÚÖ÷Ò³ÉÏÌí¼Óµ½WebÉÏÒÑ´æÔÚÍøÒ³µÄÁ´½Ó,(µ±È»Ò²¿ÉÒÔÊÇÔÚÖ÷Ò³ÄÚµÄÎÄ¼ş), ÇëÊ¹ÓÃ 'Ìí¼ÓÁ´½Ó', Äú×Ô¼ºÌí¼ÓµÄÍøÒ³¿ÉÒÔÒş²ØÉõÖÁÉ¾³ı,µ«±ê×¼¹¤¾ßÖ»ÄÜÒş²Ø,²»ÄÜÉ¾³ı.</p><p>¿Î³ÌÍøÕ¾ÖÆ×÷Íê±Ïºó,Çëµ½'¿Î³ÌĞÅÏ¢',Ö¸¶¨ÄúµÄÍøÕ¾·ÃÎÊÏŞÖÆ²ßÂÔ. È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÊÇÎ´¿ª·ÅµÄ,(ÒòÎªÄ¬ÈÏ¼ÙÉèÄúµÄÍøÕ¾ÕıÔÚÖÆ×÷Ö®ÖĞ).</p>";
 $langHomePageTextZone = "ÎÄ±¾ÇøÖ÷Ò³";
+$langHour = "Ê±";
 $langHumanAndPhysicalResourcesComment1 = "¿ÉÒÔÀûÓÃµÄÈËÁ¦×ÊÔ´ºÍÎïÁ¦×ÊÔ´ÓĞÄÄĞ©£¿
 ¼Æ»®µÄ±¾ÖÊ½«ÊÇÊ²Ã´£¿
 Ñ§ÉúÏ£Íû´Ó×éÖ¯ÍÅ¶Ó»ò½ÌÊ¦×éÖ¯ÄÇÀï»ñµÃÊ²Ã´£¿";
@@ -1161,8 +1036,11 @@ $langHumanAndPhysicalResourcesComment2 = "ÏÖÓĞµÄ£º×éÖ¯¿Î³ÌµÄÆäËûÀÏÊ¦(Öú½Ì¡¢ÑĞ¾¿Õ
 $langHumanAndPhysicalRessources = "ÈËÁ¦×ÊÔ´ºÍÎïÁ¦×ÊÔ´";
 $langIfNotRedirect = "Èç¹û²»ÖØĞÂ¶¨Ïò";
 $langImport = "ÊäÈë";
+$langImpossible = "²Ù×÷Ê§°Ü";
+$langIn = "Àï";
 $langInFrames = "ÔÚ¿ò¼ÜÖĞ";
 $langIncorrectDate = "ÆğÊ¼ÈÕÆÚ±ØĞëÔÚ½áÊøÈÕÆÚÖ®Ç°...";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langIndividual = "µ¥¸öµÄ";
 $langInfo2Say = "Ìá¹©¸øÑ§ÉúµÄĞÅÏ¢";
 $langInfoProgNameTitle = "ĞÅÏ¢";
@@ -1206,21 +1084,28 @@ $langIntroWork = "¸Ã¹¤¾ßÔÊĞí½ÌÊ¦½¨Á¢¹¦¿Î£¬ÈÎºÎÑ§Éú(°´ÕÕÃ¿¸ö¹¦¿ÎµÄÉèÖÃ)¿ÉÒÔÔÚ¿Î³Ì
 <br />Äã½«¿ÉÒÔÌí¼ÓÒ»¸öÆÀÂÛ»ò¸øÃ¿¸ö×÷ÒµÉı¼¶¡£
 
 <br /><br />Èç¹ûÄãÏëÌá¹©Õâ¸ö¹¤¾ß»ò¸øÑ§ÉúÒ»Ğ©ÖÒ¸æ£¬µã»÷ÏÂÃæµÄ°´Å¥¡£<br>";
+$langInvalidId = "µÇÂ¼Ê§°Ü. Èç¹ûÄú»¹Ã»ÓĞ×¢²á, ÇëÏÈÌî <a href='claroline/auth/inscription.php'>×¢²á±íµ¥</a></font color>";
 $langInvisible = "Òş²Ø";
+$langIs = "ÊÇ";
 $langIsAlreadyRegistered = "ÒÑ¾­×¢²áÁË¿Î³Ì";
 $langIsNowInYourDocDir = "ÏÖÔÚÔÚÄãµÄÎÄ¼ş¹¤¾ßÖĞ¡£<br><B>¸ÃÎÄ¼şÊÇ¿É¼ûµÄ</B>";
 $langIsNowRegistered = "ÏÖÔÚ×¢²á¿Î³Ì";
+$langJustCreated = "Äú¸Õ¸Õ´´½¨ÁËĞÂµÄ¿Î³ÌÍøÕ¾.";
 $langLabelCanBeEmpty = "¿Î³Ì±êÌâ±ØĞè";
+$langLanguage = "ÓïÑÔ";
 $langLast31days = "×îºóµÄ31Ìì";
+$langLast7Days = "¹ıÈ¥Ò»ÖÜ";
 $langLastAccess = "ÉÏÒ»´Î½øÈë";
 $langLastActiveTopics = "ÉÏÒ»¸ö»îÔ¾µÄÖ÷Ìâ";
 $langLastAttempt = "ÉÏÒ»´Î³¢ÊÔ";
 $langLastCheck = "°²×°Ç°×îºóµÄ¼ì²é";
 $langLastEditDate = "ÉÏÒ»´Î±à¼­Ê±¼ä";
 $langLastLogin = "ÉÏÒ»´ÎµÇÂ¼";
+$langLastMsg = "×î½üÒ»Æª";
 $langLastMsgs = "×îĞÂÏûÏ¢";
 $langLastName = "Ãû";
 $langLastSessionTimeSpent = "ÉÏ¸öÑ§ÆÚÊ±¼ä";
+$langLasting = "³ÖĞøÊ±¼ä";
 $langLastname = "Ãû";
 $langLateUpload = "×îĞÂÉÏÔØ";
 $langLaunchRestoreCourseRepository = "Æô¶¯¿Î³Ì´¢´æ¿âµÄ»Ö¸´";
@@ -1240,6 +1125,9 @@ $langLine = "ĞĞ";
 $langLineNumber = "ĞĞÊı";
 $langLineOrLines = "ĞĞ";
 $langLines = "ĞĞ";
+$langLink = "Ïà¹ØÁ´½Ó";
+$langLinkSite = "Ìí¼ÓÁ´½Ó";
+$langLinks = "Ïà¹ØÁ´½Ó";
 $langListAdmin = "¹ÜÀíÔ±ÓÃ»§ÁĞ±í";
 $langListAllUsers = "ÁĞ³öËùÓĞÓÃ»§";
 $langListClassUser = "¿Î³ÌÓÃ»§";
@@ -1250,6 +1138,9 @@ $langListUsers = "ÓÃ»§ÁĞ±í";
 $langLoadDefaultFormat = "ÔØÈëÄ¬ÈÏ¸ñÊ½";
 $langLocation = "Î»ÖÃ";
 $langLogin = "µÇÂ¼";
+$langLoginBeforePost1 = "ÒªÔÚÂÛÌ³ÕÅÌùÎÄÕÂ, ";
+$langLoginBeforePost2 = "Ö®Ç°Çë";
+$langLoginBeforePost3 = "ÔÚĞéÄâĞ£Ô°µÇÂ¼.";
 $langLoginRequest = "µÇÂ¼ÉêÇë";
 $langLoginWithoutAccess = "Logins not used";
 $langLogins = "µÇÂ¼";
@@ -1257,6 +1148,7 @@ $langLoginsAndAccessTools = "µÇÂ¼²¢½øÈë¹¤¾ß";
 $langLoginsDetails = "µã»÷ÔÂ·İµÃµ½¸ü¶àÏ¸½Ú";
 $langLoginsTitleCountColumn = "µÇÂ¼´ÎÊı";
 $langLoginsTitleMonthColumn = "ÔÂ";
+$langLogout = "ÍË³öÏµÍ³";
 $langLostPassword = "ÃÜÂëÒÅÊ§";
 $langMailAppearAlready = "¸Ãµç×ÓÓÊ¼şÒÑ¾­ÏÔÊ¾ÔÚCSVÎÄ¼ş¿ªÍ·µÄ¼¸ĞĞ¡£";
 $langMailSynthaxError = "µç×ÓÓÊ¼şĞ´·¨´íÎó¡£";
@@ -1301,37 +1193,50 @@ $langMakeVisible = "Ê¹Ö®ÏÔÊ¾";
 $langManage = "¹ÜÀíĞéÄâĞ£Ô°";
 $langManageClasses = "¹ÜÀíĞéÄâ°à¼¶";
 $langManageCourseCategories = "¹ÜÀí¿Î³Ì·ÖÀà";
+$langManager = "¹ÜÀíÔ±";
+$langManyAnswers = "(¿ÉÄÜÓĞ¶à¸öÑ¡ÏîÊÇÕıÈ·µÄ)";
 $langMatching = "Æ¥Åä";
 $langMax = "×î´óÊı";
 $langMaxAllowedTime = "ÔÊĞí×î³¤Ê±¼ä";
 $langMaxFileSize = "ÎÄ¼ş×î´ó³ß´ç£º ";
+$langMaxSizeCourseCode = "×î¶à12¸ö×ÖÄ¸,±ÈÈç<i>ROM2121</i>";
 $langMaxStudentGroup = "Ã¿¸öÑ§Ï°Ğ¡×é×î¶àÈËÊı";
 $langMaximum = "×î´óÊı£º";
+$langMessage = "µ±ÄúÒÆ³ıÁËÂÛÌ³Ê¾Àı,Í¬Ê±Ò²½«ÒÆ³ıÕâÌõÏûÏ¢.";
 $langMessageSubscribeDone_p_firstname_lastname = "Äê %s, %s¡£ ÄãµÄ¸öÈËÉè¶¨ÒÑ¾­×¢²á£¬²¢ÇÒ¸øÄã·¢È¥Ò»·â°ïÖúÄã¼Ç×¡ÓÃ»§ÃûºÍÃÜÂëµÄµçÓÊ¡£";
 $langMessageToSelectedUsers = "¸øÑ¡¶¨ÓÃ»§µÄ¶ÌĞÅ";
 $langMessages = "¶ÌĞÅ";
 $langMethodsOfEvaluation = "ÆÀ¼Û·½·¨";
 $langMethodsOfEvaluationComment1 = "¹ØÓÚÆÀ¼Û·½Ê½µÄ¾«È·Ï¸½Ú (²âÑé£¬ÊéÃæ·½Ê½£¬¿ÚÍ··½Ê½£¬¿ÎÌâ£¬¸ø³öµÄ×÷Òµ...)£¬ĞÎ³ÉĞÔÆÀ¼ÛÔ¤ÑİÈÕÆÚ£¬×÷ÒµÌá½»¹ıÆÚµÈ£¬ÓĞÆÀ¼Û±ê×¼£¬¿ÉÄÜ»¹ÓĞ±ê×¼»ò±ê×¼·ÖÀàµÄÈ¨ÖØ¡£";
 $langMin = "Minimum : ";
+$langMinute = "·Ö";
 $langMinuteShort = "min.";
+$langMissing = "È±Ê§";
 $langMissingImagesDetected = "ÒÅÊ§Í¼Æ¬¼ì²é";
 $langMissingValue = "ÒÅÊ§µÄÊıÖµ";
+$langModCatName = "¸ü¸ÄÀà±ğÃû³Æ";
 $langModeVerbose = "´úÂëÈß³¤";
 $langModifAnn = "ĞŞ¸Ä¸ÃÍ¨¸æ";
+$langModifDone = "¿Î³ÌĞÅÏ¢ÒÑ¸üĞÂ";
 $langModifUserCourseSettings = "ÓÃ»§¿Î³ÌÉèÖÃ";
+$langModify = "¸üĞÂ";
 $langModifyFormat = "ĞŞ¸Ä¸ñÊ½";
 $langModifyInAllExercises = "ÔÚËùÓĞµÄÁ·Ï°ÖĞ";
 $langModifyInThisExercise = "½öÔÚµ±Ç°µÄÁ·Ï°ÖĞ";
+$langModifyProfile = "¸öÈË×ÊÁÏ";
 $langModule = "Ä£¿é";
 $langModuleMoved = "Ä£¿éÒÆ¶¯";
 $langModuleOfMyCourse = "Ê¹ÓÃ¸Ã¿Î³ÌµÄÒ»¸öÄ£¿é";
 $langModuleStillInPool = "¸ÃÂ·ÏßµÄÄ£¿éÈÔÈ»¿ÉÒÔÔÚÄ£¿é³ØÖĞÕÒµ½";
 $langModules = "Ä£¿é";
 $langModulesPoolToolName = "Ä£¿é³Ø";
+$langMonth = "ÔÂ";
+$langMonthNames = "Array";
 $langMoreAnswers = "Ìí¼Ó answ.";
 $langMoreElements = "Ìí¼Ó elem.";
 $langMoreRepliedTopics = "¸ü¶à»Ø¸´µÄÖ÷Ìâ";
 $langMoreSeenTopics = "¸ü¶à¿´µ½µÄÖ÷Ìâ";
+$langMove = "ÒÆ¶¯";
 $langMoveDown = "ÏòÏÂ";
 $langMoveUp = "ÏòÉÏ";
 $langMsgSent = "¶ÌĞÅÒÑ¾­·¢¸øÑ¡ÖĞµÄÑ§Éú";
@@ -1343,6 +1248,7 @@ $langMultipleUsernameAndPassword = "ÓĞÏàÍ¬<i>ÓÃ»§Ãû</i> AND same <i>ÃÜÂëµÄÕÊ»§ <
 $langMustSelectAFile = "Äã±ØĞëÑ¡ÔñÒ»¸öÎÄ¼ş";
 $langMustSelectATxtFile = "Äã±ØĞëÑ¡ÔñÒ»¸öÎÄ±¾ÎÄ¼ş";
 $langMyAgenda = "ÎÒµÄÈÕÀú";
+$langMyCourses = "ÎÒµÄ¿Î³Ì";
 $langMyGroup = "ÎÒµÄÑ§Ï°Ğ¡×é";
 $langMyResults = "ÎÒµÄ½á¹û";
 $langMyStats = "²é¿´ÎÒµÄÍ³¼ÆÊı×Ö";
@@ -1350,7 +1256,10 @@ $langMysqlNames = "MySQLÊı¾İ¿âºÍ±íÃû";
 $langMysql_Repository = "Mysql´æ´¢";
 $langNULLValue = "¿Õ°× (»ò ÎŞ)";
 $langName = "Ãû³Æ";
+$langNameCat = "Àà±ğÃû³ÆÒÑ¸üĞÂ";
 $langNameChanged = "ĞéÄâ°à¼¶Ãû³ÆÒÑ¾­ĞŞ¸Ä";
+$langNameDir = "ĞÂ½¨Ä¿Â¼Ãû³Æ";
+$langNameOfLang = "Array";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong> ÔÚ %s ÉÏµÄ %s ¿Î³ÌÒÑ¾­Éı¼¶</strong><br /></p>";
 $langNbLines = "ÁĞÊı";
 $langNbrAccess = "½øÈë´ÎÊı";
@@ -1362,9 +1271,13 @@ $langNewBloc = "ÆäËû";
 $langNewChat = "ĞÂµÄÁÄÌì´ğÒÉ";
 $langNewClassCreated = "ĞÂµÄĞéÄâ°à¼¶ÒÑ¾­½¨Á¢";
 $langNewClassName = "ĞÂĞéÄâ°à¼¶Ãû³Æ";
+$langNewEx = "ĞÂ½¨Á·Ï°";
 $langNewGroupCreate = "½¨Á¢ĞÂÑ§Ï°Ğ¡×é";
 $langNewGroups = "ĞÂÑ§Ï°Ğ¡×é";
 $langNewLabel = "ÔÚÑ§Ï°Â·ÏßÖĞ½¨Á¢Ò»¸öĞÂ±êÇ©/±êÌâ ";
+$langNewQu = "ĞÂ½¨ÎÊÌâ";
+$langNewToOld = "ÄæĞòÅÅÁĞ";
+$langNewTopic = "ĞÂ»°Ìâ";
 $langNewUsersIn = "Æ½Ì¨ÉÏµÄĞÂÓÃ»§£º";
 $langNext = "ÏÂÒ»¸ö";
 $langNextDay = "ÏÂÒ»ÈÕ";
@@ -1373,6 +1286,7 @@ $langNextPage = "ÏÂÒ»Ò³";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">ÏÂÒ»¸ö ></button></p>";
 $langNextWeek = "ÏÂÒ»ÖÜ";
 $langNextYear = "ÏÂÒ»Äê";
+$langNo = "È¡Ïû";
 $langNoAnnouncement = "Ã»ÓĞÍ¨¸æ¡£";
 $langNoAnswer = "´Ë¿ÌÃ»ÓĞ´ğ°¸";
 $langNoContent = "Ã»ÓĞÄÚÈİ";
@@ -1380,6 +1294,7 @@ $langNoCourseResult = "Ã»ÓĞ·ûºÏÕâÑù±ê×¼µÄ¿Î³Ì";
 $langNoEmail = "Ã»ÓĞÖ¸¶¨µÄµç×ÓÓÊ¼şµØÖ·";
 $langNoEndDate = "Ã»ÓĞ½áÊøÈÕÆÚ";
 $langNoEventInTheAgenda = "ÈÕ³Ì±íÖĞÃ»ÓĞÊÂ¼ş";
+$langNoEx = "ÏÖÔÚ»¹Ã»ÓĞ¿Î³ÌÁ·Ï°.";
 $langNoFile = "- ÎŞ -";
 $langNoFunctionInThisSection = "¸ÃÀ©Õ¹ÇøÃ»ÓĞ¹¦ÄÜ";
 $langNoGroupStudents = "Î´Ö¸¶¨µÄÑ§Éú";
@@ -1389,30 +1304,38 @@ $langNoModule = "Ã»ÓĞÄ£¿é";
 $langNoMoreAttemptsAvailable = "ÄãÒÑ¾­´ïµ½ÔÊĞí³¢ÊÔ´ÎÊıµÄ×î¸ßÖµ¡£";
 $langNoMoreModuleToAdd = "¸Ã¿Î³ÌµÄËùÓĞÄ£¿é¶¼ÒÑÓÃÔÚÑ§Ï°Â·ÏßÖĞ¡£";
 $langNoPost = "Ã»ÓĞÌû×Ó";
+$langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
 $langNoQuestion = "´Ë¿ÌÃ»ÓĞÎÊÌâ";
 $langNoQuota = "Ã»ÓĞ¶¨¶î";
 $langNoRegisteredCourses = "Ã»ÓĞÏÔÊ¾Í³¼ÆÊı×Ö¡£ÄãÃ»ÓĞ×¢²áÈÎºÎ¿Î³Ì¡£";
 $langNoResult = "Ã»ÓĞ½á¹û";
 $langNoResultYet = "»¹Ã»ÓĞ½á¹û";
 $langNoScore = "Ã»ÓĞ·ÖÊı";
+$langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
+$langNoSpace = "ÉÏ´«Ê§°Ü!Ä¿Â¼¿Õ¼ä²»×ã.";
 $langNoStartAsset = "Ã»ÓĞÎª¸ÃÄ£¿é¶¨ÒåÓĞÓÃµÄ¿ªÊ¼²¿·Ö¡£";
 $langNoTimeLimit = "Ã»ÓĞÊ±¼äÏŞÖÆ";
 $langNoUserResult = "Ã»ÓĞÏÔÊ¾ÓÃ»§";
 $langNoVisibleAssignment = "´Ë¿ÌÃ»ÓĞ¿É¼ûµÄ¹¦¿Î¡£";
 $langNoVisibleSubmission = "Ã»ÓĞ¿É¼ûµÄÌá½»";
 $langNomPageAddHtPass = "¹ÜÀíÔ±ÓÃ»§¹ÜÀíAdmin users management";
+$langNone = "ÎŞ";
 $langNormalUser = "Õı³£";
+$langNotAllowed = "²Ù×÷½ûÖ¹";
+$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
 $langNotGroupMember = "Äã²»ÊÇÕâ¸öÑ§Ï°Ğ¡×éµÄ³ÉÔ±";
 $langNotInstalled = "·¢ÉúÒ»¸ö´íÎó¡£Ñ§Ï°Â·ÏßÊäÈëÊ§°Ü¡£";
 $langNotRecentlyConnectedStudents = "×î½üÃ»ÓĞÁªÏµµÄÑ§Éú£º";
 $langNotUnregYourself = "Äã²»¿ÉĞŞ¸ÄÄã×Ô¼ºµÄÉèÖÃ£¡";
 $langNotice = "×¢Òâ";
+$langNow = "ÏÖÔÚ";
 $langNowGoChooseYourCourses = "ÄãÏÖÔÚ¿ÉÒÔÔÚÁĞ±íÖĞÑ¡ÔñÄãÏë½øÈëµÄ¿Î³Ì¡£";
 $langNowGoCreateYourCourse = "ÄãÏÖÔÚ¿ÉÒÔ½¨Á¢ÄãµÄ¿Î³Ì";
 $langNumGroup = "Ã¿¸ö¿Î³ÌÖĞÑ§Ï°Ğ¡×éºÅÂë";
 $langNumGroupStudent = "¿Î³ÌÖĞÑ§Éú¿ÉÒÔ¶©ÔÄµÄÍÅ¶ÓºÅÂë";
 $langNumero = "No.";
 $langOfficialCode = "¹ÜÀí´úÂë";
+$langOk = "È·ÈÏ";
 $langOkChapterHeadAdded = "±êÌâÌí¼Ó£º ";
 $langOkDefaultCommentUsed = "¾¯¸æ£º°²×°³ÌĞòÃ»ÓĞ·¢ÏÖÑ§Ï°Â·ÏßµÄ¼ò½é£¬ÓÚÊÇÉèÖÃÁËÒ»¸öÄ¬ÈÏµÄËµÃ÷¡£ÄãÒªĞŞ¸ÄËü¡£";
 $langOkDefaultTitleUsed = "¾¯¸æ£º °²×°³ÌĞòÃ»ÓĞ·¢ÏÖÑ§Ï°Â·ÏßµÄÃû³Æ£¬ÓÚÊÇÉèÖÃÁËÒ»¸öÄ¬ÈÏµÄËµÃ÷¡£ÄãÒªĞŞ¸ÄËü¡£";
@@ -1420,17 +1343,23 @@ $langOkFileReceived = "½ÓÊÜµÄÎÄ¼ş£º ";
 $langOkManifestFound = "zipÎÄ¼şÖĞÃ»ÓĞ·¢ÏÖÇåµ¥£º";
 $langOkManifestRead = "ÔÄ¶ÁÇåµ¥";
 $langOkModuleAdded = "Ä£¿éÌí¼Ó£º ";
+$langOkSent = "ÍøÒ³ÒÑ·¢ËÍ.<p>ÏÖÔÚÍ¨¹ıÁ´½Ó,»Øµ½<a href=../..//index.php>Ö÷Ò³</a>";
+$langOldToNew = "ÄæĞòÅÅÁĞ";
 $langOn = "ÔÚ";
 $langOneByOne = "ÊÖ¹¤Ìí¼ÓÓÃ»§";
 $langOneMyGroups = "ÎÒµÄ¹ÜÀí";
+$langOneResp = "¿Î³Ì¹ÜÀíÔ±Ö®Ò»";
 $langOnly = "½ö";
 $langOptional = "¿ÉÑ¡";
 $langOrder = "Ë³Ğò";
 $langOrderUp = "ÏòÉÏ";
+$langOrganisation = "ÂÛÌ³¹ÜÀí";
 $langOrphanQuestions = "µ¥Ò»ÎÊÌâ";
 $langOtherCourses = "¿Î³ÌÁĞ±í";
 $langOtherWorks = "ÆäËû¹¦ÄÜ";
 $langPassTooEasy = "Õâ¸öÃÜÂëÌ«¼òµ¥¡£Ê¹ÓÃµÄÃÜÂëÒªÏñ£º";
+$langPassTwice = "ÃÜÂëÁ½´ÎÊäÈë²»Ò»ÖÂ!·µ»ØÖØÊÔ.";
+$langPassTwo = "Äú¼üÈëÁËÁ½¸ö²»Í¬µÄÃÜÂë.";
 $langPassword = "ÃÜÂë";
 $langPasswordHasBeenEmailed = "ÄãµÄÃÜÂëÒÑ¾­·¢³öµ½";
 $langPasswordSimple = "ÉèÖÃµÄÃÜÂëÌ«¼òµ¥»òÌ«½Ó½üÓÃ»§Ãû¡£";
@@ -1446,6 +1375,7 @@ $langPeriodWeek = "ÖÜ";
 $langPeriodYear = "Äê";
 $langPersoValue = "Öµ";
 $langPersonalCourseList = "¸öÈË¿Î³ÌÁĞ±í";
+$langPgTitle = "ÍøÒ³±êÌâ";
 $langPhone = "µç»°";
 $langPlaces = "°´Ñ§Ï°Ğ¡×é¾Í×ù (¿ÉÑ¡)";
 $langPlatform = "Æ½Ì¨";
@@ -1457,6 +1387,7 @@ $langPlatformStats = "Æ½Ì¨Í³¼ÆÊı×Ö";
 $langPleaseEnterMessage = "Äã±ØĞë½éÉÜ¶ÌĞÅÎÄ±¾¡£";
 $langPleaseSelectUsers = "Äã±ØĞëÑ¡ÔñÒ»Ğ©ÓÃ»§¡£";
 $langPopulateTools = "¿Î³ÌµÄ¾Ó×¡¹¤¾ß";
+$langPoweredBy = "¼¼ÊõÖ§³Ö";
 $langPrefix = "Ç°×º£º ";
 $langPreventLateUpload = "²»£¬·ÀÖ¹ÓÃ»§ÔÚ½ØÖ¹ÈÕÆÚÖ®ºóÌá½»";
 $langPreview = "Ô¤ÀÀ";
@@ -1469,13 +1400,20 @@ $langPreviousWeek = "ÉÏÒ»ÖÜ";
 $langPreviousYear = "ÉÏÒ»Äê";
 $langPrintVers = "´òÓ¡°æ";
 $langPrivate = "Ë½ÃÜµÄ";
+$langPrivateAccess = "ÄÚ²¿·ÃÎÊ,×¢²áºóÈ·ÈÏ·½¿É,¼´Ö»¶Ô<a href=../user/user.php>ÓÃ»§ÁĞ±í</a>ÖĞµÄÈË¿É¼û";
 $langPrivateFeedback = "Ë½ÃÜ·´À¡";
 $langPrivateOnly = "½ö¹©Ë½ÃÜ¿Î³Ì";
+$langProblem = "Óöµ½ÎÊÌâ,ÇëÁªÏµÎÒÃÇ.";
+$langProfessor = "½ÌÊÚ";
 $langProfessorMessage = "À´×Ô½²Ê¦µÄ¶ÌĞÅ";
+$langProfessors = "½ÌÊÚ";
+$langProfileReg = "ÄúµÄ¸öÈËĞÅÏ¢ÒÑ¾­±£´æ.";
 $langProgInModuleTitle = "ÄãÔÚ¸ÃÄ£¿éµÄ½øÕ¹";
 $langProgress = "½øÕ¹×´¿ö";
 $langPropertiesNotIncludeInSections = "²»ËãÆ¬¶ÏµÄÌØĞÔ";
+$langPubl = "·¢²¼";
 $langPublic = "¹«¿ª";
+$langPublicAccess = "¹«¹²·ÃÎÊ,ÓÃ»§²»´ÓĞ£Ô°Ö÷Ò³µÇÂ¼Ò²¿É·ÃÎÊ.";
 $langPublicOnly = "½ö·¢²¼¿Î³Ì";
 $langPublish = "·¢²¼";
 $langQantity = "ÊıÁ¿  : ";
@@ -1484,6 +1422,7 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "Ò»¸öÓÃ»§¿ÉÒÔ³ÉÎª¸ß¼¶»áÔ± ";
 $langQualificationsAndGoals = "Ìõ¼şºÍÄ¿±ê";
 $langQualificationsAndGoalsComment1 = "½ÌÑ§Ä¿±êÊÇÊ²Ã´£¿¿Î³Ì½áÊøÊ±£¬Ñ§ÉúÄÜ¹»ÕÆÎÕ¼¤·¢µ÷¶¯Ê²Ã´ÑùµÄËØÖÊ¡¢ÄÜÁ¦¡¢ÖªÊ¶£¿";
 $langQualificationsAndGoalsComment2 = "³ÊÏÖ¿Î³ÌµÄÒ»°ãºÍÌØÊâÄ¿±ê£¬ÒÔ¼°Ä¿±êÖ¸ÏòµÄÄÜÁ¦ËØÖÊ¡£";
+$langQuestion = "ÎÊÌâ";
 $langQuestionAnswers = "ÎÊÌâµÄ´ğ°¸";
 $langQuestionDescription = "±íÊö";
 $langQuestionList = "Á·Ï°µÄÎÊÌâÁĞ±í";
@@ -1493,12 +1432,17 @@ $langQuestionPlan = "½²Ê¦µÄÎÊÌâ";
 $langQuestionPool = "ÎÊÌâ³Ø";
 $langQuestionTitle = "ÎÊÌâ±êÌâ";
 $langQuestionWeighting = "¸³·Ö";
+$langQuestions = "ÎÊÌâ";
 $langQuitViewer = "·µ»ØÁĞ±í";
 $langRandomLanguage = "ÓÃÏÖÓĞÓïÑÔËæ»úÑ¡Ôñ";
 $langRandomQuestions = "Ëæ»úÎÊÌâ";
 $langRawHasBeenChanged = "Í¨¹ıµÄ×îµÍ·ÖÊıÒÑ¾­¸Ä±ä";
+$langReg = "×¢²á";
+$langRegAdmin = "´´½¨¿Î³Ì";
 $langRegIntoGroup = "°ÑÎÒÌí¼Óµ½Õâ¸öÑ§Ï°Ğ¡×é";
+$langRegStudent = "Ñ¡ĞŞ¿Î³Ì";
 $langRegUser = "ÍøÕ¾µÄ×¢²áÓÃ»§";
+$langRegYou = "ÒÑ¾­Ê¹ÄúÔÚ±¾¿Î³Ì×¢²á";
 $langRegister = "×¢²á";
 $langRegisterClass = " ×¢²áÒ»¸öĞéÄâ°à¼¶";
 $langRegisterLocalUrl = "ÄãµÄĞéÄâĞ£Ô°µÄÍøÖ·ÊÇÒ»¸ö±¾µØÍøÖ·¡£
@@ -1509,17 +1453,24 @@ $langRegisterTheNewUser = "ÓÃ»§×¢²áÒ»¸ö¿Î³Ì";
 $langRegisterUser = "µÇ¼ÇÒ»¸öĞÂ¿Î³Ì";
 $langRegisterUserToClass = "ÓÃ»§×¢²á¿Î³Ì";
 $langRegistered = "×¢²á";
+$langRegistration = "×¢²á";
 $langRemainingSteps = "ÓàÏÂ²½Öè";
+$langRemove = "ÒÆ³ı";
 $langRemoveAdminLevel = "²»ÔÙ¹ÜÀí";
+$langRename = "¸üÃû";
 $langReplaceAttachedFile = "Ìæ´ú¸½¼ş";
+$langReply = "»Ø¸´";
 $langRequestOfCourseCreatorStatus = "¿Î³Ì½¨ÉèÕßÉí·İÉêÇë";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "ÉêÇë°ÑÅäÖÃ´úÂëÌí¼Óµ½Ö¸¶¨ÎÄ¼şÖĞµÄÒ»¸ö²¿·Ö¡£";
 $langRequired = "±ØĞè";
 $langRequirements = "Ìõ¼ş";
 $langResetChat = "ÖØÖÃ";
 $langRestoreCourseRepository = "ĞŞ¸´¿Î³Ì´¢´æ";
+$langResult = "·ÖÊı";
 $langReuse = "ÖØĞÂÊ¹ÓÃ";
 $langRevoquationOfUser = " %s %s³·»Ø";
+$langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
+$langRole = "½ÇÉ«";
 $langRoot = "¸ùÄ¿Â¼";
 $langSCORMTypeDesc = "SCORM 1.2 ±ê×¼ÄÚÈİ";
 $langSDK = "SDK";
@@ -1530,6 +1481,7 @@ $langSampleLearnPath = "Ñ§Ï°Â·ÏßÊµÀı";
 $langSampleLearnPathDesc = "ÕâÊÇÒ»¸öÑ§Ï°Â·ÏßÊµÀı£¬ËüÊ¹ÓÃÊµÀıÁ·Ï°£¬ÒÔ¼°Á·Ï°¹¤¾ßºÍÎÄ¼ş¹¤¾ßµÄÊµÀıÎÄ¼ş¡£µã»÷
 
                             <b>ĞŞ¸Ä</b> Õâ¸öÎÄ±¾¡£";
+$langSave = "±£´æ";
 $langSaveChanges = "±£´æĞŞ¸Ä";
 $langScore = "µÃ·Ö";
 $langScoreAvg = "Æ½¾ù";
@@ -1548,36 +1500,46 @@ $langSecondShort = "sec.";
 $langSeeAgenda = "²é¿´ÎÒµÄÈÕÀú";
 $langSeeUserSettings = "²é¿´ÓÃ»§ÉèÖÃ";
 $langSeebelowthefilesyoucaneditfromthistool = "¿´ÏÂÃæÎÄ¼ş£¬Äã¿ÉÒÔÓÃ¸Ã¹¤¾ß±à¼­¡£";
+$langSeen = "ä¯ÀÀ";
 $langSelUser = "Ñ¡ÖĞµÄÍøÕ¾ÓÃ»§";
 $langSelectAUser = "Ñ¡ÔñÓÃ»§";
 $langSelectedUsers = "Ñ¡ÖĞµÄÓÃ»§";
+$langSendPage = "Òª·¢ËÍµÄÍøÒ³";
 $langSendToUserAccountInfoByMail = "ÓÃµç×ÓÓÊ¼ş·¢³öÕÊ»§ĞÅÏ¢";
 $langSequentialExercise = "Ò»Ò³Ò»¸öÎÊÌâ (Á¬Ğø)";
 $langSetAdmin = "ÉèÖÃ¹ÜÀí";
+$langSettings = "ÏÂÃæÊÇÄúµÄ×¢²áĞÅÏ¢:
+ÓÃ»§Ãû:";
 $langShowAll = "ÏÔÊ¾ËùÓĞ";
 $langShowAnswers = "ÏÔÊ¾´ğ°¸";
 $langShowAnswersAfterLastTry = "ÔÚ×îºóÒ»´Î³¢ÊÔÖ®ºó";
 $langShowNone = "Òş²ØËùÓĞ";
 $langSimpleExercise = "ÓÃÒ»¸öµ¥Ò³";
 $langSiteName = "ÍøÕ¾Ãû³Æ";
+$langSize = "´óĞ¡";
 $langSize_of_claroline_scripts = " claroline½Å±¾´óĞ¡";
 $langSize_of_course_repository = "£¡£¡£¡£¡¿Î³Ì´¢´æµÄ´óĞ¡ (°üº¬¾ÉÏµÍ³ÖĞµÄclarolineºÍÀ¬»ø)";
 $langSize_of_selected_courses = "Ñ¡ÖĞ¿Î³ÌµÄ´óĞ¡";
+$langSocraticIrony = "Socratic irony is...";
 $langSpecifyFormat = "Äã±ØĞèÔÚÄãµÄÎÄ¼şÀïÖ¸¶¨CSV¸ñÊ½";
 $langStartAgain = "ÔÙÒ»´Î¿ªÊ¼";
 $langStartDate = "¿ªÊ¼ÈÕÆÚ";
 $langStartModule = "¿ªÊ¼Ä£¿é";
 $langStatDB = "×·×ÙÊı¾İ¿â";
+$langStatistics = "Í³¼ÆĞÅÏ¢";
 $langStatsOfCampus = "ĞéÄâĞ£Ô°Í³¼ÆÊı×Ö";
 $langStatsOfCourse = "¿Î³ÌÍ³¼ÆÊı×Ö";
 $langStatsOfExercise = "Á·Ï°Í³¼ÆÊı×Ö";
 $langStatsOfLearnPath = "Í³¼ÆÊı×Ö";
 $langStatsOfUser = "ÓÃ»§Í³¼ÆÊı×Ö";
+$langStatus = "²Ù×÷Ñ¡Ïî";
 $langStatusChangeNotMade = "No change applied";
 $langStepNOfN = "²½Öè %d of %d";
 $langStoreChat = "ÁÄÌì¼ÇÂ¼";
+$langStudent = "Ñ§Éú";
 $langStudents = "Ñ§Éú";
 $langStudentsNotInThisGroups = "ÓÃ»§²»ÔÚ¸ÃÑ§Ï°Ğ¡×é";
+$langSubTitle = "Îª¿Î³ÌÖ÷Ò³²Ëµ¥Ôö¼Óµ½ÍøÕ¾,ÍøÒ³»òÕßÈÎºÎµÄÍøÖ·µÄÁ´½Ó. ÌáÊ¾:Èç¹ûÄúĞèÒªÔö¼ÓÒ»¸öµ½Ä³Ò»ÍøÒ³µÄÁ´½Ó,¿ÉÒÔÏÈ·ÃÎÊÄÇ¸öÍøÒ³,¸´ÖÆä¯ÀÀÆ÷ÉÏ²¿µØÖ·À¸ÀïµÄµØÖ·,È»ºóÌí¼Óµ½ÏÂÃæµÄ\"Á´½Ó\"À¸.";
 $langSubTitleChangeParent = "¸Ä±ä¸¸¼¶·ÖÀà";
 $langSubTitleCreate = "½¨Á¢Ò»¸ö·ÖÀà";
 $langSubTitleEdit = "±à¼­Ò»¸ö·ÖÀà";
@@ -1604,6 +1566,8 @@ $langSupportsComment1 = "¿Î³ÌÖ§³Ö´æÔÚÂğ£¿ÎÒ¸øÊ²Ã´ÀàĞÍµÄÖ§³Ö£¿¿ª·ÅµÄ£¿·â±ÕµÄ£¿";
 $langSupportsComment2 = "¿Î³ÌÖ§³ÖµÄ³ÊÏÖ¡£ ²Î¿¼ÎÄÏ×£¬ÕâÌ×ÎÄ¼ş£¬²¹³ä²Î¿¼ÎÄÏ×µÄ³ÊÏÖ¡£";
 $langSwitchEditorToTextConfirm = "¸ÃÃüÁî½«ÒÆ³öµ±Ç°ÎÄ±¾¡£ÄãÏë¼ÌĞøÂğ£¿";
 $langTake = "´ø×ß";
+$langTaken = "ÒÑ±»Õ¼ÓÃ,ÇëÑ¡ÔñÆäËûµÄÓÃ»§Ãû.";
+$langTargetFac = "ÉÏÃæÑ¡ÏîÊÇ±¾ÃÅ¿Î³ÌÄÚÈİÓ¦ÊôÔºÏµ.";
 $langTeachers = "½ÌÊ¦";
 $langTeachingTrainingActivities = "½ÌÑ§Á·Ï°»î¶¯";
 $langTeachingTrainingActivitiesComment1 = "Ê²Ã´·½·¨ºÍÄÄĞ©»î¶¯½«ÓĞÖúÓÚ¿Î³ÌÄ¿±êµÄÊµÏÖ£¿»î¶¯ÈÕÀúÊÇÊ²Ã´£¿";
@@ -1611,24 +1575,34 @@ $langTeachingTrainingActivitiesComment2 = "¿ªÕ¹ÉèÏëµÄ»î¶¯ (È¨ÍşÆÀ¼Û£¬ÆÚ´ıÑ§Éú²ÎÓ
 ÊÕ¼¯µØÃæĞÅÏ¢...)¡£";
 $langTechAdmin = "¹ÜÀí¼¼Êõ";
 $langTechnical = "¼¼Êõ¹¤¾ß";
+$langTestForum = "ÂÛÌ³Ê¾Àı";
 $langTextEditorDisable = "ÒÆ³ıÎÄ±¾±à¼­Æ÷";
 $langTextEditorEnable = "ÏÔÊ¾ÎÄ±¾±à¼­Æ÷";
 $langTextFile = "´ø¸½¼şµÄÎÄ±¾(ÎÄ±¾±ØĞè£¬¸½¼ş¿ÉÑ¡)";
 $langTextOnly = "½öÎÄ±¾ (ÎÄ±¾±ØĞè£¬²»Òª¸½¼ş)";
 $langTheFields = "Óò";
+$langTheU = "ÓÃ»§";
 $langThisCourseDescriptionIsEmpty = "¸Ã¿Î³Ìµ±Ç°Ã»ÓĞ±»½éÉÜ";
 $langThisIsAnErrorInDefinitionFile = "ÕâÊÇÒ»¸ö¹æ¶¨ÎÄ¼şÖĞµÄ´íÎó¡£";
 $langThisday = "ÕâÒ»Ìì";
 $langThumbnails = "ËõÂÔÍ¼";
 $langTimeInLearnPath = "ÔÚÑ§Ï°Â·ÏßÖĞ»¨µÄÊ±¼ä";
 $langTimeOver = "Ê±¼äµ½ÁË£¬½á¹ûÃ»ÓĞÌá½»¡£";
+$langTipLang = "·ÃÎÊÄúµÄ¿Î³ÌÍøÕ¾µÄÕıÊ½ÓïÑÔ:";
+$langTitle = "Ö÷Ìâ";
 $langTitleUpgrade = "<h2>ClarolineÉı¼¶¹¤¾ß<br />´Ó %s µ½ %s </h2>";
+$langTitular = "±ØÑ¡";
+$langTo = "µ½";
 $langToDate = "µ½";
+$langToday = "½ñÌì";
+$langTodo = "ÄúµÄ½¨Òé";
+$langTooBig = "Ã»ÓĞÑ¡ÔñÈÎºÎÎÄ¼ş»òÕßÎÄ¼ş¹ı´ó";
 $langTool = "¹¤¾ß";
 $langToolList = "ËùÓĞ¹¤¾ßÁĞ±í";
 $langToolTitleCountColumn = "×Üµã»÷Êı";
 $langToolTitleToolnameColumn = "¹¤¾ßÃû³Æ";
 $langToolTitleUsersColumn = "ÓÃ»§µã»÷";
+$langTools = "¹ÜÀí¹¤¾ß";
 $langToolsAccess = "µ½´ï¹¤¾ß";
 $langTopLevel = "×î¸ßË®Æ½";
 $langTopicReplies = "»Ø¸´";
@@ -1647,6 +1621,7 @@ $langTrafficDetails = "Á÷Á¿Ã÷Ï¸";
 $langTranslationStatistics = "·­Òë½ø³Ì";
 $langTranslationTools = "·­Òë¹¤¾ß";
 $langTranslations = "·­Òë";
+$langTrue = "´ğ°¸";
 $langTypeOfModule = "Ä£¿éÀàĞÍ";
 $langTypeTextBelow = "ÇëÔÚÏÂÃæÊäÈëÄãµÄÎÄ±¾";
 $langURL = "ÍøÖ·: ";
@@ -1667,10 +1642,12 @@ $langUniqueAnswer = "´ğ°¸Î¨Ò»";
 $langUniqueSelect = "¶àÑ¡Ìâ (´ğ°¸Î¨Ò»)";
 $langUnkownSOAPError = "ÁªÏµClaroline.netµÄÊ±ºò·¢ÉúÒ»¸ö´íÎó";
 $langUnlimitedAttempts = "Î´ÏŞÖÆ³¢ÊÔ´ÎÊı";
+$langUnreg = "Î´×¢²áÓÃ»§";
 $langUnsubscribe = "Î´×¢²áÓÃ»§";
 $langUnsubscribeClass = "×¢ÏúĞéÄâ°à¼¶";
 $langUntil = "µ½";
 $langUnvalid = "ÎŞĞ§µç×ÓÓÊ¼şµØÖ·»òÎ´Ìîµç×ÓÓÊ¼şµØÖ·";
+$langUp = "ÏòÉÏ";
 $langUpdateImage = "¸Ä±äÍ¼Æ¬";
 $langUpdated = "Éı¼¶";
 $langUpdatedExternalTool = "Íâ²¿¹¤¾ßÉı¼¶";
@@ -1682,9 +1659,12 @@ $langUpgradeStep1 = "µÚÒ»²½£ºÆ½Ì¨Ö÷ÒªÉèÖÃ";
 $langUpgradeStep2 = "µÚ¶ş²½£ºÖ÷ÒªÊı¾İ±íÉı¼¶";
 $langUpgradeStep3 = "µÚÈı²½£º¿Î³ÌÉı¼¶";
 $langUpgradeSucceed = " <em>ClarolineÉı¼¶¹¤¾ß</em> ÒÑ¾­ÍêÕûÉı¼¶ÁËÄãÆ½Ì¨¡£";
+$langUpload = "ÉÏ´«";
 $langUploadAndZipEnd = " ZipÎÄ¼şÉÏÔØ²¢ÇÒ½âÑ¹Ëõ";
 $langUploadDoc = "ÉÏÔØÎÄ¼ş";
-$langUploadedFile = "ÉÏÔØµÄÎÄ¼ş;
+$langUploadEnd = "ÉÏ´«½áÊø.";
+$langUploadFile = "ÉÏ´«±¾µØÎÄ¼ş";
+$langUploadedFile = "ÉÏÔØµÄÎÄ¼ş";
 $langUseFollowingFormat = " Ê¹ÓÃÏÂÁĞ¸ñÊ½£º";
 $langUseFormatDefined = "Ê¹ÓÃÎÄ¼şÊ×ĞĞ¶¨ÒåµÄ¸ñÊ½";
 $langUseOfPool = "¸ÃÒ³ÔÊĞíÄã²é¿´¿Î³ÌÖĞËùÓĞ¿ÉÓÃµÄÄ£¿é¡£<br>
@@ -1694,16 +1674,27 @@ $langUseTagForBlank = "Ê¹ÓÃÀ¨ºÅ [...] ¶¨ÒåÒ»¸ö»ò¸ü¶àµÄ¿Õ";
 $langUsedInLearningPaths = " Ê¹ÓÃ¸ÃÄ£¿éµÄÑ§Ï°Â·ÏßÊı£º";
 $langUsedInSeveralExercises = "¾¯¸æ£¡Õâ¸öÎÊÌâºÍËüµÄ´ğ°¸ÒÑ¾­ÓÃÔÚºÃ¼¸¸öÁ·Ï°ÖĞ£¬ÄãÏëĞŞ¸ÄËüÃÇÂğ£¿";
 $langUsedInSeveralPath = "¸ÃÁ·Ï°ÒÑ¾­ÓÃÔÚÒ»¸ö»ò¸ü¶àµÄÑ§Ï°Â·ÏßÖĞ¡£Èç¹ûÄãÉ¾ÁËËü£¬Ñ§Ï°Â·ÏßÖĞµÄÁ·Ï°¾Í²»ÄÜÓÃÁË¡£";
+$langUser = "ÓÃ»§ÁĞ±í";
 $langUserAccessDetails = "ÓÃ»§½øÈëµÄÏêÏ¸×ÊÁÏ";
 $langUserAlreadyInClass = "ÓÃ»§ÒÑ¾­ÔÚĞéÄâ°à¼¶";
 $langUserCanCreateCourse = "¿ÉÒÔ½¨Á¢¿Î³Ì";
+$langUserContent = "<b>½ÇÉ«</b><p>½ÇÉ«Ã»ÓĞ¼ÆËã»ú¹ÜÀíÏà¹ØµÄ¹¦ÄÜ. Õâ²¢²»¸³ÓèË­ÏµÍ³²Ù×÷µÄÈ¨Á¦. ÕâÖ»ÊÇ¸æËßÎÒÃÇ,Ã¿¸öÈËÔÚ½ÌÑ§¹ı³ÌÖĞ°çÑİµÄ½ÇÉ«.Äú¿ÉÒÔµã»÷'½ÇÉ«'ÏÂÃæµÄ'¸üĞÂ'À´¸üĞÂ, ¿ÉÒÔ¼üÈëÈÎºÎÄúÈÏÎªµÄ½ÇÉ«:½ÌÊÚ, Öú½Ì, Ñ§Éú, ¹ı¿Í, ×¨¼Ò...</P><hr>
+<b>¹ÜÀíÈ¨Á¦</b>
+<p>¹ÜÀíÈ¨Àû,ÁíÒ»·½Ãæ,¶ÔÓ¦ÓÚÏµÍ³²Ù×÷È¨Á¦,¸üĞÂÄÚÈİ,×éÖ¯¿Î³ÌÍøÕ¾µÈ. Ä¿Ç°ÎªÖ®, ÄúÖ»ÄÜÑ¡Ôñ¸³ÓèËùÓĞÈ¨Á¦,»òÕßÏà·´,²»¸³ÓèÈÎºÎÈ¨Á¦.</P>
+<p>¾ÙÀıÀ´Ëµ,Ê¹Ò»Î»Öú½ÌÀ´¹²Í¬¹ÜÀíÍøÕ¾,ÄúĞèÒªÈ·±£ËûÒÑÔÚ±¾¿Î³Ì×¢²á,µã»÷ '¹ÜÀíÈ¨Á¦'ÏÂµÄ'¸üĞÂ',È»ºóÑ¡Ôñ'ËùÓĞ', 'È·ÈÏ'¼´¿É.</P><hr>
+<b>ÁªºÏÖ÷½²</b>
+<p>ÎªÔÚ¿Î³ÌÍøÕ¾ÏÔÊ¾ÁªºÏÖ÷½²µÄÃû×Ö,ÇëÊ¹ÓÃ'¸üĞÂ¿Î³ÌĞÅÏ¢'¹¤¾ß(½Û»ÆÉ«). ÕâÏî¸üĞÂ²¢²»ÎªÁªºÏÖ÷½²ÔÚ±¾¿Î³Ì×¢²á.'½ÌÊÚ'ÓòºÍÓÃ»§ÁĞ±íÊÇÏà»¥¶ÀÁ¢µÄ.</p><hr>
+<b>Ôö¼ÓÓÃ»§</b>
+<p>Îª±¾¿Î³ÌÔö¼ÓÒ»¸öÓÃ»§,Ê×ÏÈ¼ì²é¸ÃÓÃ»§ÊÇ·ñÒÑÔÚĞéÄâĞ£Ô°×¢²á.Èç¹ûÒÑ¾­×¢²á, Ñ¡ÔñËûÃû×ÖÅÔ±ßµÄÑ¡Ïî¸ñ,È»ºó'È·ÈÏ'. Èç¹û»¹Ã»ÓĞ×¢²á, ¿ÉÒÔÊÖ¹¤Ìí¼Ó. ÈÎºÎÒ»ÖÖÇé¿ö, Ëû¶¼»áÊÕµ½Ò»·âº¬ÓÃ»§ÃûºÍÃÜÂëµÄÈ·ÈÏÓÊ¼ş.</p>";
 $langUserCourseList = "ÓÃ»§¿Î³ÌÁĞ±í";
 $langUserCreated = "³É¹¦½¨Á¢ĞÂÓÃ»§";
 $langUserDelete = "³É¹¦É¾³ıÓÃ»§";
 $langUserIsNowCourseManager = "ÓÃ»§ÏÖÔÚÊÇ¿Î³Ì¸ºÔğÈË";
 $langUserIsNowStudent = "ÓÃ»§ÊÇ¸Ã¿Î³ÌµÄÑ§Éú";
 $langUserIsPlaformAdmin = "ÊÇÆ½Ì¨¹ÜÀíÔ±";
+$langUserName = "ÓÃ»§Ãû";
 $langUserNameTaken = "¸ÃÓÃ»§ÃûÒÑ¾­±»Ê¹ÓÃ£¬Çë»»Ò»¸öÓÃ»§Ãû×¢²á";
+$langUserNo = "ÄúÑ¡ÔñµÄÓÃ»§Ãû ";
 $langUserNoCourseToDisplay = "Ã»ÓĞÏÔÊ¾¿Î³Ì";
 $langUserNotInClass = "ÓÃ»§²»ÔÚ¸ÃĞéÄâ°à¼¶";
 $langUserNotUnsubscribed = "×¢ÏúÊ§°Ü£¡£¡£¡ <br> ¸ÃÓÃ»§²»ÄÜ±»×¢Ïú<br>
@@ -1716,6 +1707,7 @@ $langUserRegisteredClass = "ÓÃ»§ÒÑ¾­³É¹¦×¢²áÁË¸ÃĞéÄâ°à¼¶";
 $langUserSettings = "ÓÃ»§ÉèÖÃ";
 $langUserStatus = "Éí·İ";
 $langUserSubscribed = "ÓÃ»§ÒÑ¾­³É¹¦×¢²á";
+$langUserTaken = "ÓÃ»§ÃûÒÑ±»Õ¼ÓÃ";
 $langUserUnregistered = "ÓÃ»§×¢Ïú";
 $langUserUnregisteredFromClass = "ÓÃ»§ÒÑ¾­³É¹¦×¢ÏúÁË¸ÃĞéÄâ°à¼¶";
 $langUserUnregisteredFromCourse = "ÓÃ»§ÒÑ¾­×¢ÏúÁË¸Ã¿Î³Ì";
@@ -1725,20 +1717,24 @@ $langUserid = "ÓÃ»§Id";
 $langUserlist = "ÓÃ»§ÁĞ±í";
 $langUsernameAppearAlready = "¸ÃÓÃ»§ÃûÒÑ¾­ÔÚCSVÎÄ¼şµÄÊ×ĞĞ³öÏÖ¡£";
 $langUsernameUsed = "¸ÃÓÃ»§ÃûÒÑ¾­±»ËûÈËÊ¹ÓÃÁË¡£";
+$langUsers = "ÓÃ»§ÁĞ±í";
 $langUsersMin = "ÓÃ»§";
 $langValid = "OK";
 $langValvas = "×îĞÂÍ¨¸æ";
+$langViMod = "'ÏÔÊ¾/Òş²Ø' ÊôĞÔÒÑ¸üĞÂ";
 $langView = "²é¿´";
 $langViewCourse = "²é¿´¿Î³Ì";
 $langViewMode = "²é¿´Ä£Ê½";
 $langViewPlatFormError = "É¨Ãè¼¼Êõ´íÎó";
 $langViewPlatFormStatistics = "Æ½Ì¨Í³¼Æ";
 $langViewToolList = "²é¿´ËùÓĞ¹¤¾ßÁĞ±í";
+$langVisibility = "ÏÔÊ¾/Òş²Ø";
 $langVisible = "¿É¼ûµÄ";
 $langVisits = "·ÃÎÊ";
 $langWeighting = "·ÖÖµ";
 $langWeightingForEachBlank = "Çë¸øÃ¿Ò»¸ö¿Õ¸³·Ö";
 $langWiki = "Wiki";
+$langWork = "×÷ÒµÂÛÎÄ";
 $langWorkAuthors = "×÷Õß";
 $langWorkTitle = "×÷Òµ±êÌâ";
 $langWorkUploads = "×÷ÒµÉÏÔØ";
@@ -1751,13 +1747,17 @@ $langWrkScoreRequired = "·ÖÊı±ØĞè";
 $langWrkTitle = "±êÌâ";
 $langWrkTitleRequired = "×÷Òµ±êÌâ±ØĞè";
 $langWrongOperation = "´íÎóµÄ²Ù×÷";
+$langYear = "Äê";
+$langYes = "È·ÈÏ";
 $langYesterday = "×òÌì";
+$langYouAreReg = "ÄúÒÑ×¢²á";
 $langYouCannotDelCatOfGroupsForums = "Äã²»ÄÜÉ¾³ıÑ§Ï°Ğ¡×éÂÛÌ³·ÖÀà¡£
 
 
 Èç¹ûÄãÒªÒÆ³ıÑ§Ï°Ğ¡×éÂÛÌ³£¬ÄãÓ¦É¾³ı¸ÃÑ§Ï°Ğ¡×é";
 $langYourAccountParam = "ÕâÊÇÄãµÄÕÊ»§£ºµÇÂ¼Ãû/ÃÜÂë";
 $langYourBestScore = "Äã×îºÃµÄ±íÏÖ";
+$langYourReg = "ÄúµÄ×¢²á";
 $langYourRequestToBeCourseManagerIsSent = "ÄãÒª³ÉÎª¿Î³Ì¸ºÔğÈËµÄÉêÇëĞÅÏ¢ÒÑ¾­·¢µ½Æ½Ì¨¹ÜÀíÔ±";
 $langYourRequestToRemoveYourAccountIsSent = "ÄãÒªÉ¾³ıÓÃ»§ÃûµÄÇëÇóÒÑ¾­·¢³ö";
 $langYourTime = "ÄãµÄÃû×ÖÊÇ";
@@ -1871,341 +1871,4 @@ $langpday = "%d&nbsp;Ìì";
 $langphours = "%d&nbsp;Ğ¡Ê±";
 $langpweek = "%d&nbsp;ÖÜ";
 $langpyear = "%d&nbsp;Äê";
-$l_author = "×÷Õß";
-$l_banned = "ÄãµÄÕÊºÅÒÑ¾­±»±¾ÂÛÌ³·â½ô,ÓĞÈÎºÎÎÊÌâÇëÁªÏµ¹ÜÀíÔ±.";
-$l_body = "ÏûÏ¢ ÄÚÈİ";
-$l_by = "Õß";
-$l_click = "µã»÷";
-$l_delete = "É¾³ıÕâÆªÎÄÕÂ";
-$l_deleted = "ÄúµÄ ÎÄÕÂ ÒÑÉ¾³ı.";
-$l_emptymsg = "²»ÄÜÕÅÌù¿ÕÏûÏ¢.";
-$l_error = "´íÎó";
-$l_go = "×ªµ½";
-$l_guest = "¹ı¿Í";
-$l_here = "ÕâÀï";
-$l_indextitle = "ÂÛÌ³Ë÷Òı";
-$l_lastpost = "×î½üÎÄÕÂ";
-$l_nopostlock = "Äú²»ÄÜ»Ø¸´Õâ¸ö»°Ìâ,ÒÑ¾­±»Ëø¶¨ÁË.";
-$l_noposts = "½ûÖ¹ ÎÄÕÂ";
-$l_notify = "ÓĞ»Ø¸´ÎÄÕÂ,ÓÃÓÊ¼şÍ¨ÖªÎÒ.";
-$l_notifybody = "ÄúÊÕµ½Õâ·âÓÊ¼ş,ÊÇÒòÎªÔÚÂÛÌ³ÖĞÓĞÎÄÕÂ»Ø¸´ÁËÔÚ,ÄúµÄÉèÖÃÖĞÑ¡ÔñÓĞ»Ø¸´ÎÄÕÂÊ±·¢ĞÅÍ¨ÖªÄú.
-
-ÔÄ¶ÁÕâ¸ö»°ÌâÇëµ½:
-
-%1\$s
-
-ÔÄ¶Á:
-
-%2\$s
-
-·Ç³£¸ĞĞ»Ê¹ÓÃ.
-
-×£ĞÄÇéÓä¿ì.";
-$l_notifysubj = "ÓĞÎÄÕÂ»Ø¸´ÄúµÄ»°Ìâ.";
-$l_notopics = "Õâ¸öÂÛÌ³Ã»ÓĞ»°Ìâ,Äú¿ÉÒÔÕÅÌùÒ»¸öĞÂ»°Ìâ.";
-$l_posted = "ÕÅÌù";
-$l_poster = "ÕÅÌùÕß";
-$l_posts = "ÎÄÕÂ";
-$l_quotemsg = "[ÒıÓÃ]
-ÔÚ %1i\$s, %2\$s Ğ´µ½:
-%3\$s
-[/ÒıÓÃ]";
-$l_returnindex = "·µ»Ø ×ªµ½ÂÛÌ³Ë÷Òı.";
-$l_returntopic = "·µ»Ø ×ªµ½ÂÛÌ³»°ÌâÁĞ±í.";
-$l_selectforum = "Ñ¡Ôñ ÂÛÌ³";
-$l_separator = ">>";
-$l_stored = " ÏûÏ¢ ÒÑ±»±£´æµ½Êı¾İ¿âÖĞ.";
-$l_subject = "Ö÷Ìâ";
-$l_topic = "»°Ìâ";
-$l_topicreview = "»°ÌâÆÀÂÛ";
-$l_topics = "»°Ìâ";
-$l_topictitle = "ÔÄ¶Á »°Ìâ";
-$l_viewforum = "ÔÄ¶ÁÂÛÌ³.";
-$l_viewmsg = "ÔÄ¶ÁÄúµÄ ÏûÏ¢.";
-$langActivate = "¼¤»î";
-$langAdd = "Ôö¼Ó";
-$langAddAU = "Ôö¼ÓÒ»¸öÓÃ»§";
-$langAddAnn = "ĞÂÍ¨Öª:";
-$langAddCategory = "Ôö¼ÓÒ»¸öĞÂÀà±ğ";
-$langAddComment = "Ìí¼Ó/¸üĞÂÕªÒª:";
-$langAddEvent = "Ôö¼ÓÒ»¸öÊÂ¼ş";
-$langAddForCat = "Ôö¼ÓÂÛÌ³µ½Àà±ğ";
-$langAddForums = "Ìí¼ÓĞÂÂÛÌ³,ÇëÔÚÂÛÌ³ËùÊô·ÖÀàÖĞµã»÷\"ÂÛÌ³\". ¶ÔÑ§ÉúÀ´Ëµ,¿ÕÀà±ğ(²»º¬ÓĞÂÛÌ³)ÊÇ²»¿É¼ûµÄ.";
-$langAddIntro = "Ôö¼Ó¿Î³Ì½éÉÜ";
-$langAddPage = "Ìí¼ÓÍøÒ³";
-$langAddress = "µØÖ· ";
-$langAdm = "¹ÜÀí";
-$langAdmin = "ÍøÕ¾¹ÜÀí";
-$langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
-$langAgain = "ÖØÊÔ!";
-$langAgenda = "¼Æ»®°²ÅÅ";
-$langAnd = "ºÍ";
-$langAnnAdd = "Í¨ÖªÒÑÔö¼Ó";
-$langAnnDel = "Í¨ÖªÒÑÉ¾³ı";
-$langAnnEmpty = "Í¨ÖªÁĞ±íÒÑÇå³ı";
-$langAnnModify = "Í¨ÖªÁĞ±íÒÑ¸üĞÂ";
-$langAnnouncement = "¹«¸æÍ¨Öª";
-$langAnonymous = "ÄäÃûÓÃ»§";
-$langAnswer = "Ñ¡Ïî";
-$langAntique = "¹Å´úÕÜÑ§Ê·";
-$langArchive = "µµ°¸";
-$langBack = "·µ»Ø¿Î³ÌĞÅÏ¢";
-$langBackCat = "·µ»Ø ÂÛÌ³·ÖÀà";
-$langBackHomeOf = "·µ»ØÖ÷Ò³";
-$langBackList = "·µ»ØÁĞ±í";
-$langByDel = "ÒÆ³ı¿Î³Ì,½«ÓÀ¾ÃÉ¾³ıÕâÃÅ¿Î³Ì°üº¬µÄËùÓĞÎÄµµ,É¾³ıËùÓĞÑ§Éú×¢²áĞÅÏ¢(²»»áÒÆ³ıÑ§Éú¹ØÓÚÆäËû¿Î³ÌµÄ×¢²áĞÅÏ¢).<p>È·¶¨ÒªÒÆ³ı¿Î³ÌÂğ?";
-$langCancel = "È¡Ïû";
-$langCategories = "Àà±ğ";
-$langChangeCat = "¸Ä±äËùÊôÀà±ğ";
-$langChoice = "Ñ¡Ïî";
-$langClose = "¹Ø±Õ´°¿Ú";
-$langCode = "¿Î³ÌºÅ";
-$langComMod = "¼ò½éÒÑ¸üĞÂ";
-$langComment = "ÆÀ¼Û";
-$langConfTip = "È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÖ»¶Ô×¢²áÓÃ»§¿É¼û,ÒÔÀûÓÚÄúÈ·¶¨·ÃÎÊÏŞÖ¹²ßÂÔ,¼òµ¥µÄ·½·¨ÊÇÒªÇóÔÚÒ»ÖÜÖ®ÄÚ×¢²á,ÇëÑ§ÉúÃÇ×Ô¼ºÌîĞ´×¢²áĞÅÏ¢,Í£Ö¹×¢²áºó,¼ì²éÓÃ»§ÁĞ±í,É¾³ı²»·ûºÏÌõ¼şµÄ×¢²áÈËÔ±.";
-$langConfirmation = "È·ÈÏ";
-$langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
-$langCopy = "¸´ÖÆ";
-$langCouldNot = "ÎÄ¼ş·¢ËÍÊ§°Ü";
-$langCourse = "ÍøÕ¾";
-$langCourseCreate = "ĞÂ½¨¿Î³Ì";
-$langCourseDescription = "ÇëÔÚÕâÀïĞ´ÏÂ¿Î³Ì¼ò½é,Õâ»áÏÔÊ¾ÔÚ¿Î³ÌÁĞ±íÖĞ.";
-$langCourseTitle = "¿Î³Ì±êÌâ";
-$langCreateDir = "´´½¨Ä¿Â¼";
-$langCreateSite = "´´½¨¿Î³Ì";
-$langDate = "ÈÕÆÚ";
-$langDay = "ÈÕ";
-$langDay_of_weekNames = "Array";
-$langDear = "×ğ¾´µÄ";
-$langDelAdmin = "Ó¦ÓÃÂÛÌ³¹ÜÀí¹¤¾ßÒÆ³ıÕâ¸öÂÛÌ³.";
-$langDelCourse = "ÒÆ³ıÕû¸ö¿Î³ÌÍøÕ¾";
-$langDelete = "É¾³ı";
-$langDescription = "¼ò½é";
-$langDetail = "ÄÚÈİ";
-$langDirCr = "Ä¿Â¼ÒÑ´´½¨";
-$langDirMv = "Ä¿Â¼ÒÑÒÆ¶¯";
-$langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖĞµÄÎÄ¼ş¹ÜÀíÆ÷.</p><p>Äú¿ÉÒÔÉÏ´«¸÷ÖÖ¸ñÊ½(HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime,µÈµÈ)µÄÎÄ¼ş,ĞèÒª×¢ÒâµÄÊÇÑ§Éú±ØĞëÓĞÏàÓ¦µÄÈí¼ş¶ÁÈ¡ÕâĞ©²ÄÁÏ.¶øÇÒ,ÓĞĞ©ÎÄ¼ş¿ÉÄÜ»áĞ¯´ø²¡¶¾, ²»ÒªÉÏ´«ÕâÑùµÄÎÄ¼şÒ²ÊÇÄúµÄÔğÈÎ.½¨ÒéÔ¤ÏÈÓÃÉ±¶¾Èí¼ş¼ì²éºóÔÚÉÏ´«.</p>
-<p>ÎÄ¼şÒÔ×ÖÄ¸Ë³ĞòÅÅÁĞ.<br><b>ÌáÊ¾ : </b>Èç¹ûÄúĞèÒªÒÔ²»Í¬µÄË³ĞòÏÔÊ¾,ÔÚÎÄ¼şÃûÖĞÌí¼ÓÊı×Ö: 01, 02, 03...</p>
-<p>Äú¿ÉÒÔÕâÃ´×ö :</p>
-<h4>ÉÏ´«ÎÄ¼ş</h4>
-<ul>
-  <li>Ñ¡ÔñÄúµçÄÔÉÏµÄÎÄ¼ş,µã»÷<input type=submit value=Browse name=submit2>
-	ÔÚÄúÆÁÄ»µÄÓÒ²à.</li>
-  <li>¿ªÊ¼ÉÏ´«,µã»÷ÉÏ´«°´Å¥<input type=submit value=Upload name=submit2>
-	.</li>
-</ul>
-<h4>ÎªÎÄ¼ş(»òÕßÄ¿Â¼)¸üÃû</h4>
-<ul>
-  <li>µã»÷<img src=../document/img/edit.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ'¸üÃû'À¸)</li>
-  <li>ÔÚ×óÉÏ½ÇÇøÓòÌîĞ´ĞÂµÄÎÄ¼şÃû</li>
-  <li>È·ÈÏ,µã»÷<input type=submit value=Ok name=submit24>
-	.
-</ul>
-	<h4>É¾³ıÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-
-  <li>µã»÷ <img src=../document/img/delete.gif width=20 height=20>
-	(Î»ÓÚ 'É¾³ı'À¸).</li>
-	</ul>
-	<h4>ÏÔÊ¾/Òş²ØÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-
-  <li>µã»÷ <img src=../document/img/visible.gif width=20 height=20>Î»ÓÚ'ÏÔÊ¾/Òş²Ø'À¸.</li>
-	  <li>Òş²ØÎÄ¼ş(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>
-  <li>ÒªÊ¹µÃÆä¶ÔÑ§Éú¿É¼û, µã»÷ <img src=../img/invisible.gif width=24 height=20>
-	(Î»ÓÚ'ÏÔÊ¾/Òş²Ø'À¸)</li>
-	</ul>
-	<h4>ÎªÎÄ¼ş(»òÄ¿Â¼)Ìí¼Ó»ò¸üĞÂÕªÒª</h4>
-	<ul>
-  <li>µã»÷ <img src=../img/comment.gif width=20 height=20>
-	(Î»ÓÚ'ÕªÒª'À¸)</li>
-	  <li>ÔÚÓÒÉÏ½ÇÏàÓ¦ÇøÓòÌîĞ´ĞÂµÄÕªÒª.</li>
-	  <li>È·ÈÏ,µã»÷<input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>É¾³ıÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>,
-	  É¾³ıÏàÓ¦ÇøÓò¾ÉµÄÕªÒª <input type=submit value=OK name=submit22>
-	  .
-	<hr>
-	<p>Í¨¹ı ·ÖÀà ÕûÀíÀ´×éÖ¯ÄÚÈİ. ÈçÏÂËùÊ¾:</p>
-	<h4><b>´´½¨Ò»¸öÄ¿Â¼</b></h4>
-	<ul>
-	  <li>µã»÷ <img src=../img/folder.gif> '´´½¨Ä¿Â¼'(×óÉÏ½Ç)</li>
-	  <li>ÔÚÏàÓ¦ÇøÓò¼üÈëĞÂÄ¿Â¼µÄÃû³Æ(×óÉÏ½Ç)</li>
-	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit23>.</li>
-	</ul>
-	<h4>ÒÆ¶¯ÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-	  <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16>
-		Î»ÓÚ'ÒÆ¶¯'À¸</li>
-	  <li>ÔÚÏàÓ¦ÏÂÀ­²Ëµ¥(×óÉÏ)Ñ¡ÔñÄ¿±êÎÄ¼ş(»òÄ¿Â¼).(ÌáÊ¾: 'root' ÒâË¼ÊÇÒÑ¾­Î»ÓÚÎÄ¼şÄ¿Â¼Ê÷µÄ¶¥²ãÁË,·şÎñÆ÷ÉÏµÄÏàÓ¦ÉÏ²ãÄ¿Â¼²»ÄÜÉÏ´«ÎÄ¼ş.</li>
-	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit232>.</li>
-	</ul>
-	<center>
-	  <p>";
-$langDocDeleted = "ÎÄ¼şÒÑÉ¾³ı";
-$langDocument = "½²Òå²ÄÁÏ";
-$langEditDel = "±à¼­/É¾³ı";
-$langElRen = "Ä¿Â¼»òÎÄ¼şÒÑ¸üÃû";
-$langEmail = "ÓÊ¼ş";
-$langEmailWrong = "ÓÊ¼şµØÖ·²»ÕıÈ·,´æÔÚ·Ç·¨×Ö·û";
-$langEmpty = "ÓĞĞ©ÏîÄ¿Ã»ÓĞÌîĞ´.<br>·µ»ØÖØÊÔ.<br>Èç¹û²»Çå³ı¿Î³Ì´úÂë,Çë²Î¿¼¿Î³Ì´ó¸Ù";
-$langEmptyAnn = "Çå³ıÍ¨ÖªÁĞ±í";
-$langEmptyFields = "ÓĞĞ©ÏîÎ´ÌîĞ´!·µ»ØÖØÊÔ.";
-$langEnter = "½øÈë";
-$langEx = "e.g. <i>ÎÄÑ§ÀúÊ·</i>";
-$langExMessage = "ÏûÏ¢Ê¾Àı";
-$langExercice = "¿Î³ÌÁ·Ï°";
-$langExerciceEx = "Á·Ï°Ê¾Àı";
-$langExercices = "¿Î³ÌÁ·Ï°";
-$langExercise = "¿Î³ÌÁ·Ï°";
-$langExplanation = "µã»÷È·ÈÏºó,ÄúµÄÓµÓĞ ¿Î³ÌÂÛÌ³,¼Æ»®°²ÅÅ,½²Òå²ÄÁÏµÈ¹ÜÀí¹¦ÄÜµÄĞÂÍøÕ¾¾Í½¨³ÉÁË.µÇÂ¼ºó,Äú¿ÉÒÔ°´ÕÕĞèÒªÌí¼Ó¿Î³ÌÄÚÈİ.";
-$langFields = "ÄúÓĞĞ©Ñ¡ÏîÎ´ÌîĞ´.";
-$langFieldsRequ = "ËùÓĞÏîÄ¿¶¼ĞèÌîĞ´.";
-$langFileExists = "²Ù×÷Ê§°Ü.<br>Í¬ÃûÎÄ¼şÒÑ´æÔÚ.";
-$langFilled = "ÄúÓĞĞ©Ñ¡ÏîÃ»ÓĞÌîĞ´.";
-$langFinish = "Íê³É";
-$langForCat = "ÂÛÌ³·ÖÀà";
-$langForCategories = "ÂÛÌ³·ÖÀà";
-$langForContent = "ÂÛÌ³,ÊÇÒì²½ÌÖÂÛ¹¤¾ß.µç×ÓÓÊ¼şÊ¹ÓÃÒ»¶ÔÒ»µÄ¶Ô»°·½Ê½,ÂÛÌ³ÔòÊ¹µÃ¹«¹²¶Ô»°»òÕß°ë¹«¹²µÄ¶Ô»°³ÉÎª¿ÉÄÜ.</p><p>´Ó¼¼ÊõÉÏ½²,Ê¹ÓÃclarolineÂÛÌ³Ö»ĞèÒªÊ¹ÓÃä¯ÀÀÆ÷¾Í¿ÉÒÔ.</P><p>×éÖ¯ÂÛÌ³,Çëµã»÷'¹ÜÀí'.ÂÛÌ³°´ÕÕÀàºÍ×ÓÀà×éÖ¯ÆğÀ´,ÈçÏÂ:</p><p><b>·ÖÀà > ÂÛÌ³ > ÂÛÌâ > »Ø¸´ </b></p>ÎªÊ¹Ñ§ÉúµÄÌÖÂÛÓĞÒ»¸öÇåÎúµÄ½á¹¹,Ô¤ÏÈ×éÖ¯·ÖÀàºÍÂÛÌ³ÊÇ±ØÒªµÄ.ÈÃÑ§ÉúÀ´ÕÅÌù»°ÌâºÍ»Ø¸´.Ä¬ÈÏÉèÖÃ,clarolineÂÛÌ³Ö»°üº¬'Public'·ÖÀà -- Ê¾ÀıĞÔµÄÂÛÌ³ºÍ»°Ìâ.</p><p>ËùÒÔÊ×ÏÈÒª×öµÄÊÂ,É¾³ı»°ÌâÊ¾Àı,¸üĞÂµÚÒ»¸öÂÛÌ³µÄÃû³Æ.½ÓÏÂÀ´,¿ÉÒÔÔÚ'public'·ÖÀàÖĞ°´ÕÕĞ¡×é»òÖ÷Ìâ´´½¨ĞÂµÄÂÛÌ³À´Âú×ã¿Î³ÌÑ§Ï°»·¾³µÄĞèÒª.</p><p>²»Òª»ìÏı·ÖÀàºÍÂÛÌ³, Ò²²»ÒªÍü¼Ç¿ÕµÄÀà±ğ(²»º¬ÓĞÂÛÌ³)¶ÔÑ§ÉúÊÇ²»¿É¼ûµÄ.</p><p>ÂÛÌ³µÄ¼ò½é¿ÉÒÔÊÇËüµÄÓÃ»§ÁĞ±í,Ä¿±ê,ÈÎÎñ,Ö÷ÌâµÈµÈ";
-$langForName = "ÂÛÌ³Ãû³Æ";
-$langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "½ÌÊÚ";
-$langForum = "Ñ§Ï°ÂÛÌ³";
-$langForums = "Ñ§Ï°ÂÛÌ³";
-$langHClar = "ÉÏÊÖ°ïÖú";
-$langHDoc = "½²Òå°ïÖú";
-$langHFor = "ÂÛÌ³°ïÖú";
-$langHHome = "ÍøÕ¾°ïÖú";
-$langHUser = "ÓÃ»§ÁĞ±í °ïÖú";
-$langHasDel = "ÒÑ¾­ÒÆ³ı";
-$langHelp = "°ïÖú";
-$langHome = "·µ»Ø¿Î³ÌÖ÷Ò³";
-$langHomeContent = "Îª·½±ãÕÆÎÕÊ¹ÓÃ·½·¨,ËùÓĞclaroline¹¤¾ß¶¼²»ÊÇ¿ÕµÄ.Ã¿¸ö¹¤¾ß¶¼ÓĞÒ»¸ö¼ò¶ÌµÄÀı×Ó°ïÖúÄú¿ìËÙÕÆÎÕËüµÄÊ¹ÓÃ·½·¨.¸üĞÂ»¹ÊÇÉ¾³ıÕâ¸öÀı×ÓÈ¡¾öÓÚÄã.</p><p>¾ÙÀıÀ´Ëµ, ÔÚÄúµÄ¿Î³ÌÖ÷Ò³ÉÏÓĞÒ»¶ÎÎÄ×Ö,'ÕâÊÇÄúµÄ¿Î³Ì¼ò½é.ÒªÌæ»»ÎªÄú×Ô¼ºµÄÎÄ×Ö,µã»÷ÏÂÃæ'¸üĞÂ'. ¾ÍÊÇÕâÃ´¼òµ¥!! ²¢ÇÒÃ¿¸ö¹¤¾ß¶¼ÓĞÏàÍ¬ÏàËÆµÄÂß¼­¹¦ÄÜ: Ôö¼Ó, É¾³ı, ¸üĞÂ, ÕâĞ©¹¦ÄÜÕıÊÇ¶¯Ì¬ÍøÒ³µÄ¹¦ÄÜ.</p><p>µ±ÄúĞÂ½¨¿Î³ÌÍøÕ¾Ê±, ´ó²¿·Ö¹¤¾ßÊÇ¼¤»îµÄ. Çë¼Ç×¡, Ê¹ÄÇĞ©²»ĞèÒªµÄ¹¦ÄÜÒş²ØÆğÀ´È¡¾öÓÚÄú,Ö»Ğèµã»÷'Òş²Ø'¼´¿ÉÊµÏÖ. ½ÓÏÂÀ´,½âÊÍÒ»ÏÂÖ÷Ò³ÉÏ»ÒÉ«²¿·ÖµÄ¹¦ÄÜ. Õâ²¿·Ö¹¦ÄÜ¶ÔÄúµÄÑ§ÉúÊÇ²»¿É¼ûµÄ, µ±È»Äú¿ÉÒÔÔÚÈÎºÎÊ±ºò¼¤»îËüÃÇ.</p><p>Äú¿ÉÒÔÌí¼ÓÄú×Ô¼ºµÄÍøÒ³. µ±È»ÕâĞ©ÍøÒ³±ØĞèÊÇHTML¸ñÊ½µÄ(ÍøÒ³¿ÉÒÔÓÃWord´¦ÀíÆ÷»òÕßWeb±à¼­Æ÷Éú³É). Ê¹ÓÃ 'ÉÏ´«ÍøÒ³'À´ÊµÏÖ. ±ê×¼µÄÎÄ¼şÍ·»á×Ô¶¯ÓëÄúµÄÎÄ¼şÈÚºÍÔÚÒ»Æğ,ÄúÖ»ĞèÒª°Ñ¾«Á¦·ÅÔÚÎÄ¼şÄÚÈİÉÏ¾ÍĞĞÁË. Èç¹ûÄúĞèÒªÔÚÖ÷Ò³ÉÏÌí¼Óµ½WebÉÏÒÑ´æÔÚÍøÒ³µÄÁ´½Ó,(µ±È»Ò²¿ÉÒÔÊÇÔÚÖ÷Ò³ÄÚµÄÎÄ¼ş), ÇëÊ¹ÓÃ 'Ìí¼ÓÁ´½Ó', Äú×Ô¼ºÌí¼ÓµÄÍøÒ³¿ÉÒÔÒş²ØÉõÖÁÉ¾³ı,µ«±ê×¼¹¤¾ßÖ»ÄÜÒş²Ø,²»ÄÜÉ¾³ı.</p><p>¿Î³ÌÍøÕ¾ÖÆ×÷Íê±Ïºó,Çëµ½'¿Î³ÌĞÅÏ¢',Ö¸¶¨ÄúµÄÍøÕ¾·ÃÎÊÏŞÖÆ²ßÂÔ. È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÊÇÎ´¿ª·ÅµÄ,(ÒòÎªÄ¬ÈÏ¼ÙÉèÄúµÄÍøÕ¾ÕıÔÚÖÆ×÷Ö®ÖĞ).</p>";
-$langHour = "Ê±";
-$langImpossible = "²Ù×÷Ê§°Ü";
-$langIn = "Àï";
-$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
-$langInvalidId = "µÇÂ¼Ê§°Ü. Èç¹ûÄú»¹Ã»ÓĞ×¢²á, ÇëÏÈÌî <a href='claroline/auth/inscription.php'>×¢²á±íµ¥</a></font color>";
-$langIs = "ÊÇ";
-$langJustCreated = "Äú¸Õ¸Õ´´½¨ÁËĞÂµÄ¿Î³ÌÍøÕ¾.";
-$langLanguage = "ÓïÑÔ";
-$langLast7Days = "¹ıÈ¥Ò»ÖÜ";
-$langLastMsg = "×î½üÒ»Æª";
-$langLasting = "³ÖĞøÊ±¼ä";
-$langLink = "Ïà¹ØÁ´½Ó";
-$langLinkSite = "Ìí¼ÓÁ´½Ó";
-$langLinks = "Ïà¹ØÁ´½Ó";
-$langLoginBeforePost1 = "ÒªÔÚÂÛÌ³ÕÅÌùÎÄÕÂ, ";
-$langLoginBeforePost2 = "Ö®Ç°Çë";
-$langLoginBeforePost3 = "ÔÚĞéÄâĞ£Ô°µÇÂ¼.";
-$langLogout = "ÍË³öÏµÍ³";
-$langManager = "¹ÜÀíÔ±";
-$langManyAnswers = "(¿ÉÄÜÓĞ¶à¸öÑ¡ÏîÊÇÕıÈ·µÄ)";
-$langMaxSizeCourseCode = "×î¶à12¸ö×ÖÄ¸,±ÈÈç<i>ROM2121</i>";
-$langMessage = "µ±ÄúÒÆ³ıÁËÂÛÌ³Ê¾Àı,Í¬Ê±Ò²½«ÒÆ³ıÕâÌõÏûÏ¢.";
-$langMinute = "·Ö";
-$langMissing = "È±Ê§";
-$langModCatName = "¸ü¸ÄÀà±ğÃû³Æ";
-$langModifDone = "¿Î³ÌĞÅÏ¢ÒÑ¸üĞÂ";
-$langModify = "¸üĞÂ";
-$langModifyProfile = "¸öÈË×ÊÁÏ";
-$langMonth = "ÔÂ";
-$langMonthNames = "Array";
-$langMove = "ÒÆ¶¯";
-$langMyCourses = "ÎÒµÄ¿Î³Ì";
-$langNameCat = "Àà±ğÃû³ÆÒÑ¸üĞÂ";
-$langNameDir = "ĞÂ½¨Ä¿Â¼Ãû³Æ";
-$langNameOfLang = "Array";
-$langNewEx = "ĞÂ½¨Á·Ï°";
-$langNewQu = "ĞÂ½¨ÎÊÌâ";
-$langNewToOld = "ÄæĞòÅÅÁĞ";
-$langNewTopic = "ĞÂ»°Ìâ";
-$langNo = "È¡Ïû";
-$langNoEx = "ÏÖÔÚ»¹Ã»ÓĞ¿Î³ÌÁ·Ï°.";
-$langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
-$langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
-$langNoSpace = "ÉÏ´«Ê§°Ü!Ä¿Â¼¿Õ¼ä²»×ã.";
-$langNone = "ÎŞ";
-$langNotAllowed = "²Ù×÷½ûÖ¹";
-$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
-$langNow = "ÏÖÔÚ";
-$langOk = "È·ÈÏ";
-$langOkSent = "ÍøÒ³ÒÑ·¢ËÍ.<p>ÏÖÔÚÍ¨¹ıÁ´½Ó,»Øµ½<a href=../..//index.php>Ö÷Ò³</a>";
-$langOldToNew = "ÄæĞòÅÅÁĞ";
-$langOneResp = "¿Î³Ì¹ÜÀíÔ±Ö®Ò»";
-$langOrganisation = "ÂÛÌ³¹ÜÀí";
-$langPassTwice = "ÃÜÂëÁ½´ÎÊäÈë²»Ò»ÖÂ!·µ»ØÖØÊÔ.";
-$langPassTwo = "Äú¼üÈëÁËÁ½¸ö²»Í¬µÄÃÜÂë.";
-$langPgTitle = "ÍøÒ³±êÌâ";
-$langPoweredBy = "¼¼ÊõÖ§³Ö";
-$langPrivateAccess = "ÄÚ²¿·ÃÎÊ,×¢²áºóÈ·ÈÏ·½¿É,¼´Ö»¶Ô<a href=../user/user.php>ÓÃ»§ÁĞ±í</a>ÖĞµÄÈË¿É¼û";
-$langProblem = "Óöµ½ÎÊÌâ,ÇëÁªÏµÎÒÃÇ.";
-$langProfessor = "½ÌÊÚ";
-$langProfessors = "½ÌÊÚ";
-$langProfileReg = "ÄúµÄ¸öÈËĞÅÏ¢ÒÑ¾­±£´æ.";
-$langPubl = "·¢²¼";
-$langPublicAccess = "¹«¹²·ÃÎÊ,ÓÃ»§²»´ÓĞ£Ô°Ö÷Ò³µÇÂ¼Ò²¿É·ÃÎÊ.";
-$langQuestion = "ÎÊÌâ";
-$langQuestions = "ÎÊÌâ";
-$langReg = "×¢²á";
-$langRegAdmin = "´´½¨¿Î³Ì";
-$langRegStudent = "Ñ¡ĞŞ¿Î³Ì";
-$langRegYou = "ÒÑ¾­Ê¹ÄúÔÚ±¾¿Î³Ì×¢²á";
-$langRegistration = "×¢²á";
-$langRemove = "ÒÆ³ı";
-$langRename = "¸üÃû";
-$langReply = "»Ø¸´";
-$langResult = "·ÖÊı";
-$langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
-$langRole = "½ÇÉ«";
-$langSave = "±£´æ";
-$langSeen = "ä¯ÀÀ";
-$langSendPage = "Òª·¢ËÍµÄÍøÒ³";
-$langSettings = "ÏÂÃæÊÇÄúµÄ×¢²áĞÅÏ¢:
-ÓÃ»§Ãû:";
-$langSize = "´óĞ¡";
-$langSocraticIrony = "Socratic irony is...";
-$langStatistics = "Í³¼ÆĞÅÏ¢";
-$langStatus = "²Ù×÷Ñ¡Ïî";
-$langStudent = "Ñ§Éú";
-$langSubTitle = "Îª¿Î³ÌÖ÷Ò³²Ëµ¥Ôö¼Óµ½ÍøÕ¾,ÍøÒ³»òÕßÈÎºÎµÄÍøÖ·µÄÁ´½Ó. ÌáÊ¾:Èç¹ûÄúĞèÒªÔö¼ÓÒ»¸öµ½Ä³Ò»ÍøÒ³µÄÁ´½Ó,¿ÉÒÔÏÈ·ÃÎÊÄÇ¸öÍøÒ³,¸´ÖÆä¯ÀÀÆ÷ÉÏ²¿µØÖ·À¸ÀïµÄµØÖ·,È»ºóÌí¼Óµ½ÏÂÃæµÄ\"Á´½Ó\"À¸.";
-$langTaken = "ÒÑ±»Õ¼ÓÃ,ÇëÑ¡ÔñÆäËûµÄÓÃ»§Ãû.";
-$langTargetFac = "ÉÏÃæÑ¡ÏîÊÇ±¾ÃÅ¿Î³ÌÄÚÈİÓ¦ÊôÔºÏµ.";
-$langTestForum = "ÂÛÌ³Ê¾Àı";
-$langTheU = "ÓÃ»§";
-$langTipLang = "·ÃÎÊÄúµÄ¿Î³ÌÍøÕ¾µÄÕıÊ½ÓïÑÔ:";
-$langTitle = "Ö÷Ìâ";
-$langTitular = "±ØÑ¡";
-$langTo = "µ½";
-$langToday = "½ñÌì";
-$langTodo = "ÄúµÄ½¨Òé";
-$langTooBig = "Ã»ÓĞÑ¡ÔñÈÎºÎÎÄ¼ş»òÕßÎÄ¼ş¹ı´ó";
-$langTools = "¹ÜÀí¹¤¾ß";
-$langTrue = "´ğ°¸";
-$langUnreg = "Î´×¢²áÓÃ»§";
-$langUp = "ÏòÉÏ";
-$langUpload = "ÉÏ´«";
-$langUploadEnd = "ÉÏ´«½áÊø.";
-$langUploadFile = "ÉÏ´«±¾µØÎÄ¼ş";
-$langUser = "ÓÃ»§ÁĞ±í";
-$langUserContent = "<b>½ÇÉ«</b><p>½ÇÉ«Ã»ÓĞ¼ÆËã»ú¹ÜÀíÏà¹ØµÄ¹¦ÄÜ. Õâ²¢²»¸³ÓèË­ÏµÍ³²Ù×÷µÄÈ¨Á¦. ÕâÖ»ÊÇ¸æËßÎÒÃÇ,Ã¿¸öÈËÔÚ½ÌÑ§¹ı³ÌÖĞ°çÑİµÄ½ÇÉ«.Äú¿ÉÒÔµã»÷'½ÇÉ«'ÏÂÃæµÄ'¸üĞÂ'À´¸üĞÂ, ¿ÉÒÔ¼üÈëÈÎºÎÄúÈÏÎªµÄ½ÇÉ«:½ÌÊÚ, Öú½Ì, Ñ§Éú, ¹ı¿Í, ×¨¼Ò...</P><hr>
-<b>¹ÜÀíÈ¨Á¦</b>
-<p>¹ÜÀíÈ¨Àû,ÁíÒ»·½Ãæ,¶ÔÓ¦ÓÚÏµÍ³²Ù×÷È¨Á¦,¸üĞÂÄÚÈİ,×éÖ¯¿Î³ÌÍøÕ¾µÈ. Ä¿Ç°ÎªÖ®, ÄúÖ»ÄÜÑ¡Ôñ¸³ÓèËùÓĞÈ¨Á¦,»òÕßÏà·´,²»¸³ÓèÈÎºÎÈ¨Á¦.</P>
-<p>¾ÙÀıÀ´Ëµ,Ê¹Ò»Î»Öú½ÌÀ´¹²Í¬¹ÜÀíÍøÕ¾,ÄúĞèÒªÈ·±£ËûÒÑÔÚ±¾¿Î³Ì×¢²á,µã»÷ '¹ÜÀíÈ¨Á¦'ÏÂµÄ'¸üĞÂ',È»ºóÑ¡Ôñ'ËùÓĞ', 'È·ÈÏ'¼´¿É.</P><hr>
-<b>ÁªºÏÖ÷½²</b>
-<p>ÎªÔÚ¿Î³ÌÍøÕ¾ÏÔÊ¾ÁªºÏÖ÷½²µÄÃû×Ö,ÇëÊ¹ÓÃ'¸üĞÂ¿Î³ÌĞÅÏ¢'¹¤¾ß(½Û»ÆÉ«). ÕâÏî¸üĞÂ²¢²»ÎªÁªºÏÖ÷½²ÔÚ±¾¿Î³Ì×¢²á.'½ÌÊÚ'ÓòºÍÓÃ»§ÁĞ±íÊÇÏà»¥¶ÀÁ¢µÄ.</p><hr>
-<b>Ôö¼ÓÓÃ»§</b>
-<p>Îª±¾¿Î³ÌÔö¼ÓÒ»¸öÓÃ»§,Ê×ÏÈ¼ì²é¸ÃÓÃ»§ÊÇ·ñÒÑÔÚĞéÄâĞ£Ô°×¢²á.Èç¹ûÒÑ¾­×¢²á, Ñ¡ÔñËûÃû×ÖÅÔ±ßµÄÑ¡Ïî¸ñ,È»ºó'È·ÈÏ'. Èç¹û»¹Ã»ÓĞ×¢²á, ¿ÉÒÔÊÖ¹¤Ìí¼Ó. ÈÎºÎÒ»ÖÖÇé¿ö, Ëû¶¼»áÊÕµ½Ò»·âº¬ÓÃ»§ÃûºÍÃÜÂëµÄÈ·ÈÏÓÊ¼ş.</p>";
-$langUserName = "ÓÃ»§Ãû";
-$langUserNo = "ÄúÑ¡ÔñµÄÓÃ»§Ãû ";
-$langUserTaken = "ÓÃ»§ÃûÒÑ±»Õ¼ÓÃ";
-$langUsers = "ÓÃ»§ÁĞ±í";
-$langViMod = "'ÏÔÊ¾/Òş²Ø' ÊôĞÔÒÑ¸üĞÂ";
-$langVisibility = "ÏÔÊ¾/Òş²Ø";
-$langWork = "×÷ÒµÂÛÎÄ";
-$langYear = "Äê";
-$langYes = "È·ÈÏ";
-$langYouAreReg = "ÄúÒÑ×¢²á";
-$langYourReg = "ÄúµÄ×¢²á";
 ?>
