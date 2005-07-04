@@ -272,7 +272,6 @@ $langUserIsPlaformAdmin = "Ist Administrator";
 $langUserName = "Benutzername";
 $langUserNoCourseToDisplay = "Keine KursSite gefunden";
 $langUserNotInClass = "Der Benutzer ist nicht in dieser Klasse";
-$langUserNotUnsubscribed = "Austragen gescheitert!!! <br> Dieser Benutzer kann nicht ausgetragen werden.<br>Sie können keinen Kurs-Verantwortlichen austragen. Ändern Sie bitte zuerst die entsprechenden Einstellungen.";
 $langUserRegisteredClass = "Der Benutzer wurde erfolgreich in die Klasse eingetragen.";
 $langUserSettings = "Nutzereinstellungen";
 $langUserStatus = "Status";

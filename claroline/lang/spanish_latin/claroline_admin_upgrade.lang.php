@@ -25,6 +25,7 @@ $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
 $langNext = "Siguiente";
 $langNo = "No";
 $langNotAllowed = "No tienes acceso";

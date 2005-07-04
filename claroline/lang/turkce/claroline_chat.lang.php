@@ -2,7 +2,9 @@
 $langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
+$langAnonymous = "Anonymous";
 $langArchive = "archive";
+$langCancel = "Ýptal";
 $langChat = "Tartýþma";
 $langCopyFailed = "Yazdýrma baþarýsýz";
 $langDay_of_weekNames = "Array";
@@ -22,6 +24,7 @@ $langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";

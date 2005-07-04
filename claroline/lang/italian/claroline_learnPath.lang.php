@@ -125,6 +125,7 @@ $langMoveDown = "Sposta giù";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNeverBrowsed = "Non visualizzato";
 $langNewLabel = "Crea nuova etichetta / titolo in questo learning path";
 $langNoLearningPath = "Nessun learning path";

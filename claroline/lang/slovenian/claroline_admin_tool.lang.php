@@ -2,6 +2,7 @@
 $langAddIntro = "Dodaj uvodno besedilo";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
+$langCancel = "Prekini";
 $langChat = "Razprava";
 $langConfirmYourChoice = "Potrdi izbiro";
 $langCourseManager = "Upravnik tecaja";

@@ -49,7 +49,7 @@ $langOtherCourses = "Senarai Subjek";
 $langPassword = "katalaluan";
 $langPoweredBy = "Oleh : ";
 $langPrivateAccess = "Capaian terhad (Subjek hanya boleh dicapai oleh pengguna berikut sahaja <a href=../user/user.php>Senarai Pengguna</a>)";
-$langProfessor = "Pensyarah";
+$langProfessors = "Pensyarah";
 $langPublicAccess = "Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)";
 $langReg = "Daftar";
 $langStatistics = "Statistik";

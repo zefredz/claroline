@@ -55,6 +55,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNext = "Seguinte";
 $langNoMoreModuleToAdd = "T&oacute;dolos m&oacute;dulos deste curso est&aacute;n a ser empregados nesta 
    									secuencia de aprendizaxe.";

@@ -120,6 +120,7 @@ $langMoveDown = "Κίνηση προς τα κάτω";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langName = "Όνομα";
+$langNameOfLang = "Διάταξη";
 $langNeverBrowsed = "browsed ποτέ";
 $langNewLabel = "Δημιουργία νέου επιπέδου / τίτλος αυτής της διαδρομής μάθησης";
 $langNoLearningPath = "Καμία διαδρομή μάθησης";

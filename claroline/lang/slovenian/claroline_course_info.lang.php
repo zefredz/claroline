@@ -48,7 +48,7 @@ $langOtherCourses = "Seznam tecajev";
 $langPassword = "geslo";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Privatni dostop (dostop le ljudem iz <a href=../user/user.php>seznama uporabnikov</a>)";
-$langProfessor = "Ucitelj";
+$langProfessors = "Ucitelji";
 $langPublicAccess = "Javni dostop z domace strani kampusa celo brez vstopa";
 $langReg = "Registracija";
 $langStatistics = "Statistike";

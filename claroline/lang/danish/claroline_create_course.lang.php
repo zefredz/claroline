@@ -32,7 +32,6 @@ $langExercises = "Øvelser";
 $langExplanation = "Teksten skal være i HTML format (f.eks. \"min_tekst.htm\"). Den vil blive linket til fra hjemmesiden. Ønsker du at lægge ikke-HTML tekster ud (PDF, Word, Power Point, Video, etc.) brug <a href=../document/document.php>Værktøjet til håndtering af dokumenter</a>";
 $langFieldsRequ = "Udfyld alle felter";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Med venlig hilsen, underviseren";
 $langForums = "Diskussionsforum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";

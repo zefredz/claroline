@@ -2,6 +2,7 @@
 $langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
+$langCancel = "Odustanite";
 $langCategories = "Kategorije";
 $langChat = "Razgovor - chat";
 $langCourseCreate = "Unesi novi predmet";
@@ -20,6 +21,7 @@ $langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
+$langNameOfLang = "Array";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";

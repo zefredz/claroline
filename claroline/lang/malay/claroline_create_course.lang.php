@@ -31,7 +31,6 @@ $langExerciceEx = "Contoh Latihan";
 $langExplanation = "Apabila anda klik pada butang <b>Proses</b>,satu Laman Subjek yang mempunyai Forum, Agenda, Pengumuman dan sebagainya akan dibina. Anda boleh mengubahsuai Laman Subjek tersebut mengikut keperluan anda";
 $langFieldsRequ = "Semua Ruang Kosong Perlu Diisi";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Yours sincerely, your professor";
 $langForums = "Forum";
 $langGroups = "Kumpulan";
 $langHelp = "Bantuan";

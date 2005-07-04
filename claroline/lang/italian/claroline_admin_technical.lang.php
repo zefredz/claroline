@@ -37,6 +37,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langMysql_Repository = "Repository - MySql";
+$langNameOfLang = "Array";
 $langNoFunctionInThisSection = "Nessuna funzione in questa estensione";
 $langNoQuota = "No Quota";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";

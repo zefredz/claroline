@@ -105,6 +105,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langName = "Όνομα";
+$langNameOfLang = "Διάταξη";
 $langNoFile = "- κανένα -";
 $langNoMoreModuleToAdd = "Όλες οι ενότητες αυτού του μαθήματος ήδη χρησιμοποιήθηκαν σε αυτή τη διαδρομή μάθησης.";
 $langNoScore = "Καμία βαθμολογία";

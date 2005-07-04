@@ -88,7 +88,6 @@ $langTipLang = "Este idioma ser&aacute; v&aacute;lido para t&oacute;dolos visita
 $langTo = "en";
 $langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
-$langViewCourse = "Ver curso";
 $langViewMode = "Ver modo";
 $langWork = "Traballos";
 $langYes = "Si";

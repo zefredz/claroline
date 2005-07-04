@@ -2,7 +2,9 @@
 $langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
+$langAnonymous = "Neimenovan";
 $langArchive = "arhiva ( pohranjeno)";
+$langCancel = "Odustanite";
 $langChat = "Razgovor - chat";
 $langCopyFailed = "Tiskanje nije uspjelo";
 $langDay_of_weekNames = "Array";
@@ -21,6 +23,7 @@ $langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
+$langNameOfLang = "Array";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";

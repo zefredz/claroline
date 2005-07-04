@@ -47,7 +47,7 @@ $langOtherCourses = "Lista de cursos";
 $langPassword = "Senha";
 $langPoweredBy = "Utiliza a Plataforma";
 $langPrivateAccess = "Acesso privado (web reservada &agrave;s pessoas que aparecem na lista de <a href=../user/user.php>utilizadores</a>)";
-$langProfessor = "Professor";
+$langProfessors = "Professores";
 $langPublicAccess = "Acesso p&uacute;blico (a partir da p&aacute;gina principal do Campus) sem identifica&ccedil;&atilde;o";
 $langReg = "Inscri&ccedil;&atilde;o";
 $langStatistics = "Estat&iacute;sticas";

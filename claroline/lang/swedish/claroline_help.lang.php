@@ -2,6 +2,7 @@
 $langAddIntro = "Lägg till introduktionstext";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
+$langCancel = "Avbryt";
 $langChat = "Diskussion";
 $langClarContent = "Här kan, lärare och assistenter skapa och administrera kurswebbsajter. Studenter kan läsa (dokument, agendor och annan information) och ibland göra övningar, publicera arbeten samt delta i forumdiskusioner...</p><b>Registrering</b><p>Följande instruktioner gäller bara om din version av Claroline tillåter självregistrering (vissa sajter registrerar dig automatiskt). Om du är elev, behöver du bara registrera dig på kursen genom att välja 'Följ kurser (elev)', därefter väljer du de kurser du vill delta i.</p><p>Om du är lärare eller assistent, registrera dig också, välj 'Skapa kurswebbsajter(lärare)'. Du kommer sedan att få fylla i Kurskod, Fakultet och Kurstitel. När allt godkänts tas du till den sajt som du nyss har skapat för att modifiera dess innehåll och organisation efter dina önskemål. </p><p>Om denna portal inte passar för dina ändamål, kontakta oss genom länken 'Att göra' som finns på campusens hemsida (när du loggat in).</p><p>Länken till Registrering hittar du på Campusens hemsida (överst till höger).</p><b>Login</b><p>När beöker sajten nästa gång, skriv in inloggnngsnamn/lösenord och godkänn för att få åtkomst till dina kurser. URL:en för sajten är";
 $langConfirmYourChoice = "Var snäll och bekräfta ditt val";
@@ -188,6 +189,7 @@ $langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
+$langNameOfLang = "Array";
 $langNotAllowed = "Inte tillåtet";
 $langOk = "validate";
 $langOtherCourses = "Kurslista";

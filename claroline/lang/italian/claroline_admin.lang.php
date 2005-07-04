@@ -277,8 +277,6 @@ $langUserIsPlaformAdmin = "E' l'amministratore della piattaforma";
 $langUserName = "Username";
 $langUserNoCourseToDisplay = "Nessun corso da visualizzare";
 $langUserNotInClass = "Utente non presente nella classe";
-$langUserNotUnsubscribed = "Eliminazione della registrazione fallita! <br> Questo utente non può esser eliminato,<br>
-                            non potete eliminare un Manager del corso, variare le impostazioni";
 $langUserRegisteredClass = "Utente iscritto con successo alla classe";
 $langUserSettings = "Impostazioni Utente";
 $langUserStatus = "Stato";

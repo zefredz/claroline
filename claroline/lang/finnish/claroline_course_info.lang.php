@@ -33,7 +33,7 @@ $langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
 $langPrivateAccess = "Yksityinen pääsy, reisteröityminen suljettu (sisäänpääsy vain <a href=../user/user.php>käyttäjien listalta</a>)";
-$langProfessor = "Opettaja";
+$langProfessors = "Opettajat";
 $langPublicAccess = "Avoin pääsy sivuston omalta sivulta ilman sisäänkirjautumista";
 $langReg = "Rekisteröinti";
 $langStatistics = "Statistiikka";

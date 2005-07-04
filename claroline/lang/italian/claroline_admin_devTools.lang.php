@@ -38,7 +38,6 @@ $langFillUsers = "Inserisci utente";
 $langFilling = "Compila con valori di prova";
 $langFirstName = "Nome";
 $langForce = "Contraddire l'interlocutore tramite una serie di domande e sotto-domande, il modo da far riconoscere che egli non conosce affatto quanto pretende di conoscere.";
-$langFormula = "Cordialmente, il Vostro docente";
 $langForumGroup = "Forum del gruppo ";
 $langForums = "Forum";
 $langFree = "Libero";

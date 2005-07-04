@@ -71,6 +71,7 @@ $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langMyGroup = "моя группа";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "уПЪДБФШ ОПЧХА(ЩЕ) ЗТХРРХ(Щ)";
 $langNewGroups = "ОПЧБС(ЩЕ) ЗТХРРБ(Щ)";
 $langNoGroupStudents = "уФХДЕОФЩ ВЕЪ ЗТХРРЩ";

@@ -100,6 +100,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNoFile = "- nessuno -";
 $langNoMoreModuleToAdd = "Tutti i moduli di questo corso sono già utilizzati in questo learning path.";
 $langNoScore = "Nessun punteggio";

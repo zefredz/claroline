@@ -7,8 +7,6 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
 $langCancel = "Cancel";
 $langChat = "Chat";
-$langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
-$langCodeUsed = "This official code is already used by another user.";
 $langConfigurationFile = "Configuration file";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCopy = "Copy";
@@ -22,7 +20,6 @@ $langDone = "Steps done";
 $langEmpty = "empty";
 $langExercises = "Exercises";
 $langFailed = "<span style=\"color: red\">Failed</span>";
-$langFirstDefOfThisValue = "!!! First Definition of this value !!!";
 $langForums = "Forums";
 $langGroups = "Groups";
 $langHelp = "Help";
@@ -38,9 +35,6 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course
 $langLearningPath = "Learning Path";
 $langLogin = "Login";
 $langLogout = "Logout";
-$langMailAppearAlready = "This mail appears already in a previous line of the CSV file.";
-$langMailSynthaxError = "Mail synthax error.";
-$langMailUsed = "Mail is already used by another user.";
 $langMakeABackupBefore = "
 <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
 installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
@@ -75,12 +69,14 @@ is not able to start if you do not confirm that the data has been done.</p>
 
 ";
 $langManager = "Manager";
+$langMinuteShort = "min.";
 $langModeVerbose = "Mode Verbose";
 $langModify = "Modify";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
 $langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
+$langNameOfLang = "Array";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNext = "Next";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
@@ -89,13 +85,15 @@ $langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
 $langPassword = "Password";
-$langPasswordSimple = "Password given is too simple or too close to the username.";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAccess = "Access to campus";
 $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
 $langReg = "Registration";
 $langRemainingSteps = "Remaining steps";
 $langRestoreCourseRepository = "Restore course repository";
+$langSecondShort = "sec.";
 $langStartAgain = "Start again";
 $langStudent = "Student";
 $langSucceeded = "Succeeded";
@@ -115,8 +113,6 @@ $langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
 $langUpgradeStep3 = "Step 3 of 3: courses upgrade";
 $langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
 $langUserName = "User name";
-$langUsernameAppearAlready = "This username appears already in a previous line of the CSV file.";
-$langUsernameUsed = "This username is already used by another user.";
 $langUsers = "Users";
 $langViewMode = "View mode";
 $langWork = "Assignments";

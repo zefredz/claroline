@@ -70,6 +70,7 @@ $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
 $langMyGroup = "min gruppe";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "Opret ny gruppe(r)";
 $langNewGroups = "ny gruppe(r)";
 $langNoGroupStudents = "ikke-anviste studerende";

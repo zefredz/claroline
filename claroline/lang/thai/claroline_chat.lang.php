@@ -1,7 +1,9 @@
 <?php
 $langAddIntro = "เพิ่มคำนำ";
 $langAgenda = "กำหนดการ";
+$langAnonymous = "ผู้ไม่ประสงค์ออกนาม";
 $langArchive = "Archive";
+$langCancel = "ยกเลิก";
 $langChat = "Chat";
 $langDay_of_weekNames = "Array";
 $langDelete = "ลบ";
@@ -16,6 +18,7 @@ $langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
+$langNameOfLang = "Array";
 $langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";

@@ -33,6 +33,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langName = "Όνομα";
+$langNameOfLang = "Διάταξη";
 $langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOkSent = "Η σελίδα σας στάλθηκε.<p>Θα δημιουργηθεί σύνδεσμος σε αυτήν στη <a href=../..//index.php>εισαγωγική σελίδα</a>";

@@ -2,6 +2,7 @@
 $langAddIntro = "Tambah pengenalan";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
+$langCancel = "Batal";
 $langChat = "Perbincangan";
 $langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
 $langCopy = "Pindah";
@@ -22,6 +23,7 @@ $langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
+$langNameOfLang = "Array";
 $langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
 $langOptional = "Pilihan";

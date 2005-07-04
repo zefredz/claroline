@@ -50,6 +50,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNext = "Successivo";
 $langNoMoreModuleToAdd = "Tutti i moduli di questo corso sono già utilizzati in questo learning path.";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";

@@ -1,20 +1,13 @@
 <?php
 $l_author = "Autor";
-$l_banned = "Foi proibido de aceder a este foro. Se tem d&uacute;vidas, por favor, contacte o administrador do sistema.";
 $l_body = "Mensagem";
-$l_by = "por";
 $l_click = "Carregar";
 $l_delete = "Apagar a mensagem";
 $l_deleted = "A sua Enviar mensagem foi apagada.";
 $l_emptymsg = "Deve escrever uma Mensagem para a sua publica&ccedil;&atilde;o no foro. N&atilde;o pode enviar uma Mensagem vazia.";
-$l_error = "Erro";
-$l_go = "Ir a";
-$l_guest = "Convidado";
 $l_here = "aqui";
 $l_indextitle = "&Iacute;ndice do foro";
 $l_lastpost = "&Uacute;ltima mensagem";
-$l_nopostlock = "N&atilde;o pode responder a este tema, este tema est&aacute; fechado.";
-$l_noposts = "N&atilde; h&aacute; Mensagens enviadas";
 $l_notify = "Avisar por correio electr&oacute;nico quando forem recebidas mensagens de resposta";
 $l_notifybody = "Esta mensagem de correio electr&oacute;nico informa-o do envio de uma resposta &agrave; mensagem que enviou para o foro, pois escolheu ser informado das respostas recebidas.
 
@@ -34,13 +27,8 @@ $l_notopics = "N&atilde;o h&aacute; t&oacute;picos para este foro. Pode propor u
 $l_posted = "Enviado em";
 $l_poster = "Iniciador";
 $l_posts = "Mensagens enviadas";
-$l_quotemsg = "[quote]
-Em %1\$s, %2\$s escreveu:
-%3\$s
-[/quote]";
 $l_returnindex = "para voltar ao &iacute;ndice do foro";
 $l_returntopic = "para voltar &agrave; lista de temas do foro.";
-$l_selectforum = "Escolha um Foro";
 $l_separator = "» »";
 $l_stored = "A sua Mensagem foi arquivada.";
 $l_subject = "Tema";
@@ -50,11 +38,11 @@ $l_topics = "T&oacute;picos";
 $l_topictitle = "Ver T&oacute;pico";
 $l_viewforum = "Ver Foro";
 $l_viewmsg = "para ver a sua Mensagem.";
+$langAddCategory = "Acrescentar uma categoria";
 $langAddIntro = "Acrescentar um texto de apresenta&ccedil;&atilde;o";
 $langAdm = "administrar";
 $langAgenda = "Agenda";
 $langAnnouncement = "An&uacute;ncios";
-$langBack = "Voltar aos par&aacute;metros do curso";
 $langCancel = "Cancelar";
 $langChat = "Debate";
 $langConfirmYourChoice = "Confirme a sua escolha";
@@ -62,6 +50,7 @@ $langCourseManager = "Respons&aacute;vel pelo curso";
 $langDay_of_weekNames = "Array";
 $langDear = "Caro(a)";
 $langDelete = "apagar";
+$langDescription = "Descri&ccedil;&atilde;o";
 $langDescriptionCours = "Descri&ccedil;&atilde;o do Curso";
 $langDocument = "Documentos";
 $langEditDel = "editar/apagar";
@@ -83,6 +72,7 @@ $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
 $langMyGroup = "o meu grupo";
+$langNameOfLang = "Nome da l&iacute;ngua";
 $langNewTopic = "Come&ccedil;ar um tema novo";
 $langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";

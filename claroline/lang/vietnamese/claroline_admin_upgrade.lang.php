@@ -23,6 +23,7 @@ $langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
+$langNameOfLang = "Array";
 $langNext = "Tiếp";
 $langNo = "No";
 $langNotAllowed = "Not allowed";

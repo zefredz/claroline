@@ -2,6 +2,7 @@
 $langAddIntro = "Añadir texto introductorio";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
+$langCancel = "Cancelar";
 $langChat = "Debate";
 $langClarContent = "Aqu&iacute;, los profesores y ayudantes pueden crear y administrar
 webs de cursos. Los estudiantes leen (documentos, agenda, informaciones varias) y,
@@ -303,11 +304,13 @@ $langLearningPath = "Seguimiento de aprendizaje";
 $langLogin = "login";
 $langLogout = "Salir";
 $langManager = "Responsable";
+$langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
 $langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
@@ -315,6 +318,7 @@ $langPassword = "password";
 $langPlatformAdministration = "Administración de la plataforma";
 $langPoweredBy = "Generado con";
 $langReg = "Inscripci&oacute;n";
+$langSecondShort = "seg.";
 $langStudent = "Estudiantes";
 $langUserContent = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ninguna funci&oacute;n inform&aacute;tica. No otorgan ning&uacute;n derecho sobre el sistema. Usted puede modificarlos haciendo click sobre 'modificar' debajo de  'rol/papel' y despu&eacute;s introduciendo todas las letras de la descripci&oacute;n de la funci&oacute;n conveniente: profesor, asistente, tutor, visitante, documentalista, experto, moderador... Est&oacute; servir&aacute; solamente para indicar p&uacute;blicamente que rol (papel) que desempe&ntilde;a en el curso.</P><hr>
 <b>Derechos de administraci&oacute;n</b>

@@ -22,6 +22,7 @@ $langModify = "Ubah";
 $langModifyProfile = "Ubah profil Ku";
 $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
+$langNameOfLang = "Array";
 $langNext = "Berikutnya";
 $langNo = "Tidak";
 $langNotAllowed = "Tidak diijinkan";

@@ -2,6 +2,7 @@
 $langAddIntro = "Dodaj tekst wprowadzenia";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
+$langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
 $langConfirmYourChoice = "Potwierd¼ swój wybór";
 $langCourseManager = "Administrator";

@@ -47,7 +47,7 @@ $langOtherCourses = "Daftar pelajaran";
 $langPassword = "password";
 $langPoweredBy = "Diperkuat oleh";
 $langPrivateAccess = "Akses privat (situs hanya dapat diakses oleh user dalam <a href=../user/user.php>Daftar User</a>)";
-$langProfessor = "Pengajar";
+$langProfessors = "Pengajar-Pengajar";
 $langPublicAccess = "Akses umum dari situs kampus tanpa login";
 $langReg = "Pendaftaran";
 $langStatistics = "Statistik";

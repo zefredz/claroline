@@ -69,6 +69,7 @@ $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
 $langMyGroup = "o meu grupo";
+$langNameOfLang = "Nome da l&iacute;ngua";
 $langNewGroupCreate = "Criar novo(s) grupo(s)";
 $langNewGroups = "novo(s) grupo(s)";
 $langNoGroupStudents = "Estudantes sem grupo atribu&iacute;do";

@@ -22,6 +22,7 @@ $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
+$langNameOfLang = "Array";
 $langNext = "Naprej";
 $langNo = "Ne";
 $langNotAllowed = "Tu nimas dovoljenja";

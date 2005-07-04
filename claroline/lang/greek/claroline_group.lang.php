@@ -79,6 +79,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langMyGroup = "η ομάδα μου";
+$langNameOfLang = "Διάταξη";
 $langNewGroupCreate = "Δημιουργία καινούριας ομάδας χρηστών";
 $langNewGroups = "ομάδα(ες) χρηστών";
 $langNoGroupStudents = "Μη εγγεγραμμένοι φοιτητές";

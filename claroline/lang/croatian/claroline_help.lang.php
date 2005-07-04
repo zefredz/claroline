@@ -2,6 +2,7 @@
 $langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
+$langCancel = "Odustanite";
 $langChat = "Razgovor - chat";
 $langClarContent = "Ovdje, profesori i asistenti mogu kreirati i nadzirati predmetnu web stranicu. Studenti èitaju (dokumente,   informacije) i, 
  ponekad, rade vježbe, publiciraju radove, sudjeluju u forumskim diskusijama...</p><b>Prijava</b><p>Sljedeæe upute odnose se samo ukoliko imate verziju claroline koja dozvoljava samostalnu prijavu (neke stranice registriraj korisnika automatski). <br>Ukoliko ste student za prijavu potrebno je odabrati 'Prati predmete (student)', i onda odaberite predmete koje \elite pratiti.</p><p> Ukoliko ste profesor ili asistent, za prijavu odaberite 
@@ -178,6 +179,7 @@ $langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
+$langNameOfLang = "Array";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";

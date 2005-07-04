@@ -46,7 +46,7 @@ $langOk = "Ok";
 $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Dostêp autoryzowany, rejestracja zamkniêta (Kurs dostêpny dla zarejestrowanych <a href=../user/user.php>U¿ytkowników</a>)";
-$langProfessor = "Prowadz±cy";
+$langProfessors = "Prowadz±cy";
 $langPublicAccess = "Publiczny dostêp ze strony g³ównej bez logowania";
 $langReg = "Rejestracja";
 $langStatistics = "Statystyki";

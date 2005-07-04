@@ -2,6 +2,7 @@
 $langAddIntro = "Lời giới thiệu";
 $langAgenda = "Agenda (Lịch công tác)";
 $langAnnouncement = "Thông báo";
+$langCancel = "Cancel";
 $langChat = "Thảo luận";
 $langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
 $langCourseManager = "Quản lý khoá họcr";
@@ -20,6 +21,7 @@ $langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
+$langNameOfLang = "Array";
 $langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";

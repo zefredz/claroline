@@ -2,6 +2,7 @@
 $langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
+$langCancel = "Ýptal";
 $langChat = "Tartýþma";
 $langDay_of_weekNames = "Array";
 $langDelete = "Sil";

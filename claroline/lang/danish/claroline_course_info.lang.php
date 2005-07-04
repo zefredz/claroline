@@ -51,7 +51,7 @@ $langOtherCourses = "Kursusoversigt";
 $langPassword = "adgangskode";
 $langPoweredBy = "Udviklet af";
 $langPrivateAccess = "Fortrolig adgang, tilmeldingen er lukket (kursushjemmesiden er dermed kun åben for deltagere på <a href=../user/user.php>Deltagerlisten</a>)";
-$langProfessor = "Underviseren";
+$langProfessors = "Undervisere";
 $langPublicAccess = "Offentlig adgang til kurset fra E-learning's forside selv uden login.";
 $langReg = "Registrering";
 $langStatistics = "Statistikker";

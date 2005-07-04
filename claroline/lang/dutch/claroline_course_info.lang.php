@@ -82,7 +82,6 @@ $langTipLang = "Deze taal zal gelden voor alle bezoekers van uw cursussite.";
 $langTo = "naar";
 $langUserName = "Gebruikersnaam ('login')";
 $langUsers = "Gebruikers";
-$langViewCourse = "Bekijk cursus";
 $langViewMode = "Scherm modus";
 $langWork = "Studenten Box";
 $langYes = "Ja";

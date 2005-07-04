@@ -52,7 +52,7 @@ $langOtherCourses = "Список курсов";
 $langPassword = "пароль";
 $langPoweredBy = "использует оболочку";
 $langPrivateAccess = "Закрытый доступ (сайт доступен только пользователям, указанным в списке <a href=../user/user.php>пользователи</a>)";
-$langProfessor = "Преподаватель";
+$langProfessors = "рТЕРПДБЧБФЕМШ(Й)";
 $langPublicAccess = "вободный доступ (со страницы Кампуса баз пароля)";
 $langReg = "Регистрация";
 $langStatistics = "Статистика";

@@ -6,6 +6,7 @@ $langExerciseInModule = "Ejercicios en módulos";
 $langFileName = "Nombre de archivo";
 $langModify = "Modificar";
 $langOk = "validar";
+$langQuestion = "Pregunta";
 $langRawHasBeenChanged = "Los requisitos mínimos para pasar han sido cambiados";
 $langSize = "Tamaño";
 ?>

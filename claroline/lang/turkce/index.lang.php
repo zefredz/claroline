@@ -2,6 +2,7 @@
 $langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
+$langCancel = "Ýptal";
 $langCategories = "Kategoriler";
 $langChat = "Tartýþma";
 $langCourseCreate = "Web dersi yarat";
@@ -21,6 +22,7 @@ $langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";

@@ -37,6 +37,7 @@ $langMonth = "Monat";
 $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
+$langNameOfLang = "Feld";
 $langNewToOld = "Neueste zuerst";
 $langNoEventInTheAgenda = "Kein Termin/Ereignis im Kalender";
 $langNotAllowed = "Sie haben hier keinen Zugriff.";

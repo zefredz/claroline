@@ -21,6 +21,7 @@ $langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langOkSent = "Sivu on lähetetty.<p>Se on linkitetty kurssin <a href=../..//index.php>kotisivulta</a>";

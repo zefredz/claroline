@@ -47,6 +47,7 @@ $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
+$langNameOfLang = "Διάταξη";
 $langNewBloc = "Αλλοr";
 $langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";

@@ -1,0 +1,5 @@
+<?php
+$langCancel = "ïÔÍÅÎÉÔØ";
+$langEdit = "Ôåäâìæêôðþâæû";
+$langSave = "óÏÈÒÁÎÉÔØ";
+?>

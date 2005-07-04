@@ -98,6 +98,7 @@ $langMustSelectATxtFile = "Debe vostede de seleccionar un ficheiro de texto";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNewUsersIn = "novos usuarios na plataforma : ";
 $langNo = "Non";
 $langNone = "Ning&uacute;n";

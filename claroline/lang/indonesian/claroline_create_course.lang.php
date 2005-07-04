@@ -31,7 +31,6 @@ $langExerciceEx = "Latihan Contoh";
 $langExplanation = "Halaman musti dalam format HTML(misal \"my_page.htm\"). Halaman tsb akan di-link-kan ke  Homepage. Jika anda ingin mengirim dokumen non HTML (PDF, Word, Power Point, Video, dll.) gunakan <a href=../document/document.php>Tool Dokumen</a>";
 $langFieldsRequ = "Semua field wajib diisi";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Hormat kami";
 $langForums = "Forum-forum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Pertolongan";

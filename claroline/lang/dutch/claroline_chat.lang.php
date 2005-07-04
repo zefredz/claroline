@@ -33,6 +33,7 @@ $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
+$langNameOfLang = "Array";
 $langNewChat = "Nieuwe chat";
 $langNotAllowed = "U bent hier niet toegelaten";
 $langNotGroupMember = "U bent geen lid van deze groepen";

@@ -1,20 +1,13 @@
 <?php
 $l_author = "Author";
-$l_banned = "You have been banned from this forum. Contact the system administrator if you have any questions.";
 $l_body = "Message Body";
-$l_by = "by";
 $l_click = "Click";
 $l_delete = "Delete this Post";
 $l_deleted = "Your Post has been deleted.";
 $l_emptymsg = "You must type a Message to post. You cannot post an empty Message.";
-$l_error = "Error";
-$l_go = "Go";
-$l_guest = "Guest";
 $l_here = "here";
 $l_indextitle = "Forum Index";
 $l_lastpost = "Last Post";
-$l_nopostlock = "You cannot post a reply to this topic, it has been locked.";
-$l_noposts = "No Posts";
 $l_notify = "Notify by email when replies are posted";
 $l_notifybody = "You are receiving this Email because a message
 you posted on forums has been replied to, and
@@ -36,13 +29,8 @@ $l_notopics = "There are no topics for this forum. You can post one.";
 $l_posted = "Posted";
 $l_poster = "Poster";
 $l_posts = "Posts";
-$l_quotemsg = "[quote]
-On %1\$s, %2\$s wrote:
-%3\$s
-[/quote]";
 $l_returnindex = "to return to the forum index";
 $l_returntopic = "to return to the forum topic list.";
-$l_selectforum = "Select a Forum";
 $l_separator = " > ";
 $l_stored = "Your Message has been stored in the database.";
 $l_subject = "Subject";
@@ -52,11 +40,11 @@ $l_topics = "Topics";
 $l_topictitle = "View Topic";
 $l_viewforum = "View Forum";
 $l_viewmsg = "to view your Message.";
+$langAddCategory = "Dodaj kategorijo";
 $langAddIntro = "Dodaj uvodno besedilo";
 $langAdm = "Forum administration";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
-$langBack = "Povratek";
 $langCancel = "Prekini";
 $langChat = "Razprava";
 $langConfirmYourChoice = "Potrdi izbiro";
@@ -64,6 +52,7 @@ $langCourseManager = "Upravnik tecaja";
 $langDay_of_weekNames = "Array";
 $langDear = "Dragi";
 $langDelete = "Brisi";
+$langDescription = "Opis dokumenta";
 $langDescriptionCours = "Opis tecaja";
 $langDocument = "Dokumenti";
 $langEditDel = "Edit/delete";
@@ -85,6 +74,7 @@ $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langMyGroup = "my group";
+$langNameOfLang = "Array";
 $langNewTopic = "New topic";
 $langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";

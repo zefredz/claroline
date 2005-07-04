@@ -1,0 +1,36 @@
+<?php
+$langCancel = "Cancel";
+$langContinue = "Continue";
+$langDelete = "Delete";
+$langEdit = "Edit";
+$langTitle = "Title";
+$langWiki = "Wiki";
+$langWikiAllPages = "All pages";
+$langWikiCreateNewWiki = "Create a new Wiki";
+$langWikiCreationSucceed = "Wiki creation succeed";
+$langWikiDeleteWiki = "Delete Wiki";
+$langWikiDeleteWikiWarning = "WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?";
+$langWikiDeletionSucceed = "Wiki deletion succeed";
+$langWikiEditPage = "Edit this page";
+$langWikiEditProperties = "Edit properties";
+$langWikiEditionSucceed = "Wiki edition succeed";
+$langWikiEnterWiki = "Enter wiki";
+$langWikiExampleWarning = "Warning example will overwrite current content";
+$langWikiHideHelp = "Hide help";
+$langWikiInvalidWikiId = "Invalid Wiki Id";
+$langWikiList = "List of Wiki";
+$langWikiMainPage = "Main page";
+$langWikiMainPageContent = "This is the main page of this Wiki %s. Click on edit to modify the content.";
+$langWikiNoWiki = "No Wiki";
+$langWikiNotAllowedToCreate = "You are not allowed to create pages";
+$langWikiNotAllowedToEdit = "You are not allowed to edit this page";
+$langWikiNotAllowedToRead = "You are not allowed to read this page";
+$langWikiPageHistory = "Page history";
+$langWikiPageSaved = "Page saved";
+$langWikiProperties = "Properties";
+$langWikiRecentChanges = "Recent changes";
+$langWikiShowHelp = "Show help";
+$langWikiTitleEdit = "Wiki : Edit poperties";
+$langWikiTitleNew = "Wiki : Create new Wiki";
+$langWikiTitlePattern = "Wiki : %s";
+?>

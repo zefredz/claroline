@@ -2,7 +2,9 @@
 $langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langAgenda = "Календарь";
 $langAnnouncement = "Объявления";
+$langAnonymous = "Аноним";
 $langArchive = "архив";
+$langCancel = "Отменить";
 $langChat = "Чат";
 $langConfirmYourChoice = "Подтвердите ваш выбор";
 $langCopyFailed = "Коппирование данного файла не удалось...";
@@ -24,6 +26,7 @@ $langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
+$langNameOfLang = "Array";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";

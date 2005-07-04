@@ -64,6 +64,7 @@ $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langMyGroup = "moje grupe";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "Kreirajte novu grupu(e)";
 $langNewGroups = "Nova grupa(e)";
 $langNoGroupStudents = "Neprijavljeni studenti";

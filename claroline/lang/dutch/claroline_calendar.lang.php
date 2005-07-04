@@ -37,6 +37,7 @@ $langMonth = "Maand";
 $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
+$langNameOfLang = "Array";
 $langNewToOld = "Meest recente eerst";
 $langNoEventInTheAgenda = "Geen gebeurtenissen in de agenda";
 $langNotAllowed = "U bent hier niet toegelaten";

@@ -70,6 +70,7 @@ $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langMyGroup = "nhóm c?a tôi";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "Create new group(s)";
 $langNewGroups = "new group(s)";
 $langNoGroupStudents = "Unassigned students";

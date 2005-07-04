@@ -26,7 +26,6 @@ $langExerciceEx = "ตัวอย่างแบบฝึกหัด";
 $langExplanation = "เอกสารต้องอยุ่ในรูปแบบ HTML format (เช่น \"my_page.htm\")  จึงจะสามารถ link จากหน้าแรกได้  หากท่านต้องการส่งเอกสารที่ไม่เป็น HTML  (เช่น PDF, Word, Power Point, Video, etc.) เลือกใช้ <a href=../document/document.php>เครื่องมือจัดการเอกสาร</a>";
 $langFieldsRequ = "ต้องกรอกข้อมูลทุกช่อง";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "ด้วยความปรารถนาดี, อาจารย์";
 $langForums = "กระดานข่าว";
 $langGroups = "กลุ่ม";
 $langHelp = "ช่วยเหลือ";

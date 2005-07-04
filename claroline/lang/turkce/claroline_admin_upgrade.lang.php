@@ -20,6 +20,7 @@ $langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
+$langNameOfLang = "Array";
 $langNo = "Hayýr";
 $langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";

@@ -97,6 +97,7 @@ $langMustSelectATxtFile = "Sie müssen einen Textdatei auswählen";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
 $langName = "Name";
+$langNameOfLang = "Feld";
 $langNewUsersIn = "neue Benutzer in der Plattform : ";
 $langNo = "nein";
 $langNone = "keine";

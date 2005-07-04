@@ -2,6 +2,7 @@
 $langAddIntro = "Lis‰‰ johdantoteksti";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
+$langAnonymous = "Tuntematon";
 $langDay_of_weekNames = "Array";
 $langDelete = "Poista";
 $langDocument = "Dokumentit";
@@ -14,6 +15,7 @@ $langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";

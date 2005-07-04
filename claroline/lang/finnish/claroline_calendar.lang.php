@@ -21,6 +21,7 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonth = "Kuukausi";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
+$langNameOfLang = "Array";
 $langNewToOld = "Invert";
 $langNotAllowed = "Ei sallittu";
 $langNow = "Nyt";
@@ -32,6 +33,7 @@ $langStudent = "Opiskelija";
 $langTitle = "Otsikko";
 $langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
+$langViMod = "Näkyvyyttä on muutettu";
 $langWork = "Opiskelijoiden tehtävät";
 $langYear = "Vuosi";
 ?>

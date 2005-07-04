@@ -25,6 +25,7 @@ $langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
+$langNameOfLang = "Array";
 $langNext = "Дальше";
 $langNo = "Нет";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";

@@ -32,6 +32,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langName = "Naam";
+$langNameOfLang = "Array";
 $langNotAllowed = "U bent hier niet toegelaten";
 $langOk = "Ok";
 $langOkSent = "Uw pagina werd opgestuurd.<p>Die is toegankelijk vanaf de <a href=../..//index.php>Homepage</a> van uw cursussite.";

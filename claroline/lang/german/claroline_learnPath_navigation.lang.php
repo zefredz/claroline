@@ -50,6 +50,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
 $langName = "Name";
+$langNameOfLang = "Feld";
 $langNext = "weiter";
 $langNoMoreModuleToAdd = "Alle Module dieser KursSite werden bereits in diesem Lernpfad verwendet.";
 $langNotAllowed = "Sie haben hier keinen Zugriff.";

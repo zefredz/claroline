@@ -2,6 +2,7 @@
 $langAddIntro = "Tilføj introduktionstekst";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
+$langCancel = "Fortryd";
 $langChat = "Chat";
 $langClarContent = "Her kan undervisere og assistenter oprette og administrere
 kursushjemmesider. De studerende læser (dokumenter, kalender, informationer) og sommetider 
@@ -303,6 +304,7 @@ $langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ikke tilladt";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";

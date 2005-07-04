@@ -275,8 +275,6 @@ $langUserIsPlaformAdmin = "&Eacute; o administrador da plataforma";
 $langUserName = "Nome de usuario";
 $langUserNoCourseToDisplay = "Non hai cursos para amosar";
 $langUserNotInClass = "O usuarios non est&aacute; na clase";
-$langUserNotUnsubscribed = "Fallou desinscrici&oacute;n!!! <br> Este usuario non pode ser desinscrito,<br>
-									vostede non pode desinscribir a un xestor de curso, mude primeiro a configuraci&oacute;n";
 $langUserRegisteredClass = "O usuario foi satisfactoriamente rexistrado na clase";
 $langUserSettings = "Configuraci&oacute;n de usuario";
 $langUserStatus = "Estatus";

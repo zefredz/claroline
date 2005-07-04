@@ -31,7 +31,6 @@ $langExerciceEx = "Sample exercise";
 $langExplanation = "The page must be in HTML format (e.g. \"my_page.htm\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
 $langFieldsRequ = "Vsa polja so potrebna";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "S spostovanjem, tvoj ucitelj";
 $langForums = "Forumi";
 $langGroups = "Skupine";
 $langHelp = "Pomoc";

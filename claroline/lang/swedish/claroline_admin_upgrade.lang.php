@@ -23,6 +23,7 @@ $langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
+$langNameOfLang = "Array";
 $langNext = "Nästa";
 $langNo = "Nej";
 $langNotAllowed = "Inte tillåtet";

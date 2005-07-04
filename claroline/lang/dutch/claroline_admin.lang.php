@@ -271,9 +271,6 @@ $langUserIsPlaformAdmin = "Is platform beheerder";
 $langUserName = "Gebruikersnaam ('login')";
 $langUserNoCourseToDisplay = "Geen cursus om te tonen";
 $langUserNotInClass = "Gebruiker zit niet in de klas";
-$langUserNotUnsubscribed = "Uitschrijven mislukt!!! <br> Deze gebruiker kan niet uitgeschreven worden,<br>
-
-                            U kan een cursus beheerder niet uitschrijven, verander de instellingen eerst";
 $langUserRegisteredClass = "Gebruiker met succes ingeschreven in de klas";
 $langUserSettings = "Voorkeurinstellingen gebruiker";
 $langUserStatus = "Status";

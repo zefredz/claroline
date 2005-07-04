@@ -102,6 +102,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
 $langName = "Name";
+$langNameOfLang = "Feld";
 $langNoFile = "- none -";
 $langNoMoreModuleToAdd = "Alle Module dieser KursSite werden bereits in diesem Lernpfad verwendet.";
 $langNoScore = "Keine Punkte";

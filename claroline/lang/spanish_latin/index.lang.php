@@ -2,6 +2,7 @@
 $langAddIntro = "Añadir texto introductorio";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
+$langCancel = "Cancelar";
 $langCategories = "Departamentos";
 $langChat = "Chat";
 $langConfirmYourChoice = "Por favor confirma tú elección";
@@ -28,6 +29,7 @@ $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
 $langNotAllowed = "No tienes acceso";
 $langOk = "Aceptar";
 $langOtherCourses = "Lista de cursos";

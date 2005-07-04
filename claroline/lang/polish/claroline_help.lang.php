@@ -2,6 +2,7 @@
 $langAddIntro = "Dodaj tekst wprowadzenia";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
+$langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
 $langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,
@@ -196,6 +197,7 @@ $langModify = "Modyfikuj";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
+$langNameOfLang = "Array";
 $langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
 $langOtherCourses = "Lista kursów";

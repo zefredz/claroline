@@ -32,7 +32,6 @@ $langExercises = "Övningar";
 $langExplanation = "Sidan måste vara i HTML-format (eg. \"my_page.html\"). Den kommer att länka till från Hemsidan. Om du vill sända icke HTML-dokument (PDF, Word, Power Point, Video, etc.) använd <a href=../document/document.php>Dokumentverkyget</a>";
 $langFieldsRequ = "Alla fält krävs";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Önskar dig, din lärare";
 $langForums = "Forum";
 $langGroups = "instruktion för gruppanvändarna";
 $langHelp = "hjälp";

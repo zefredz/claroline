@@ -2,7 +2,9 @@
 $langAddIntro = "Dodaj uvodno besedilo";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
+$langAnonymous = "Anonymous";
 $langArchive = "Arhiviraj";
+$langCancel = "Prekini";
 $langChat = "Razprava";
 $langConfirmYourChoice = "Potrdi izbiro";
 $langCopyFailed = "Tiskanje ni uspelo";
@@ -24,6 +26,7 @@ $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
+$langNameOfLang = "Array";
 $langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";

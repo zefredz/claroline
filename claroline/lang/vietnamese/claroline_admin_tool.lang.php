@@ -2,6 +2,7 @@
 $langAddIntro = "Lời giới thiệu";
 $langAgenda = "Agenda (Lịch công tác)";
 $langAnnouncement = "Thông báo";
+$langCancel = "Cancel";
 $langChat = "Thảo luận";
 $langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
 $langCourseManager = "Quản lý khoá họcr";

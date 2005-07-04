@@ -66,6 +66,7 @@ $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langMyGroup = "my group";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "Yeni grup(lar) yarat";
 $langNewGroups = "Yeni grup(lar)";
 $langNoGroupStudents = "Görevlendirilmemiþ öðrenciler";

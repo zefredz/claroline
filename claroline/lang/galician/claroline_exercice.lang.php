@@ -128,6 +128,7 @@ $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langMyResults = "Os meus resultados";
 $langNULLValue = "Baleiro (ou NULL)";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNbLines = "Cantidade de li&ntilde;as";
 $langNever = "Nunca";
 $langNewEx = "Novo exercicio";

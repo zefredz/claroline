@@ -2,6 +2,7 @@
 $langAddIntro = "Dodaj uvodno besedilo";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
+$langCancel = "Prekini";
 $langChat = "Razprava";
 $langClarContent = "Tu lahko ucitelji in njihovi asistenti tvorijo in upravljajo
  spletne strani tecajev. Studentje berejo (dokumente, agende, informacije) in vcasih
@@ -303,6 +304,7 @@ $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
+$langNameOfLang = "Array";
 $langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";

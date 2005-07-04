@@ -42,6 +42,7 @@ $langMonthNames = "Array";
 $langMsgSent = "Het bericht is verzonden.";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
+$langNameOfLang = "Array";
 $langNoAnnouncement = "Geen aankondigingen.";
 $langNotAllowed = "U bent hier niet toegelaten";
 $langOk = "Ok";

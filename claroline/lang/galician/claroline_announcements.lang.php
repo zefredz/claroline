@@ -41,6 +41,7 @@ $langMonthNames = "Array";
 $langMsgSent = "A mensaxe foi enviada &oacute;s estudantes seleccionados";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
+$langNameOfLang = "Array";
 $langNoAnnouncement = "Non hai anuncios";
 $langNotAllowed = "Acci&oacute;n non permitida";
 $langOk = "Validar";

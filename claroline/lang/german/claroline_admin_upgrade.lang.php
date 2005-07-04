@@ -70,6 +70,7 @@ $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
+$langNameOfLang = "Feld";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNext = "weiter";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";

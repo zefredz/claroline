@@ -22,6 +22,7 @@ $langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
+$langNameOfLang = "Array";
 $langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";

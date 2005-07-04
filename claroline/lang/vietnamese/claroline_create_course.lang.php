@@ -32,7 +32,6 @@ $langExercises = "Bài tập";
 $langExplanation = "Trang này phải có dạng HTML (e.g. \"my_page.htm\"). Nó sẽ được liên kết vào trang chủ. Nếu bạn muốn gửi các tệp không phải HTML (PDF, Word, Power Point, Video, etc.) hãy dùng  <a href=../document/document.php>Công cụ tài liệu</a>";
 $langFieldsRequ = "Xin điền đầy đủ các mục";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Yours sincerely";
 $langForums = "Diễn đàn";
 $langGroups = "Nhóm";
 $langHelp = "Help";

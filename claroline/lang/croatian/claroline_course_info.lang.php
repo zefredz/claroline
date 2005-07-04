@@ -41,7 +41,7 @@ $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
 $langPrivateAccess = "Ogranièen pristup, prijava ogranièena na osobe iz   <a href=../user/user.php>Users list</a>)";
-$langProfessor = "Profesor";
+$langProfessors = "Nastavnici";
 $langPublicAccess = "Javni pristup bez zaporke ";
 $langReg = "Prijava";
 $langStatistics = "Statistika";

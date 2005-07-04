@@ -2,6 +2,7 @@
 $langAddIntro = "เพิ่มคำนำ";
 $langAddPage = "เพิ่มเติมรายวิชา";
 $langAgenda = "กำหนดการ";
+$langCancel = "ยกเลิก";
 $langChat = "Chat";
 $langCouldNot = "ไม่สามารถส่งข้อมูลได้";
 $langDay_of_weekNames = "Array";
@@ -21,6 +22,7 @@ $langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
+$langNameOfLang = "Array";
 $langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOkSent = "ส่งข้อมูลเสร็จสิ้น<p> ทำการเพิ่ม link ที่รายวิชา <a href=../..//index.php>หน้าแรก</a> เรียบร้อย";

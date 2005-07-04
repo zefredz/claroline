@@ -30,7 +30,6 @@ $langExercises = "Alýþtýrmalar";
 $langExplanation = "Sayfa HTML formatýnda olmalýdýr (örnek: \"felsefe_odevi.htm\"). Eðer HTML olmayan bir dosya göndermek istiyorsanýz (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Belge Araçlarýný kullanýnýz</a>";
 $langFieldsRequ = "Tüm alanlar zorunludur";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$langFormula = "Selamlar, Öðretim Üyesi";
 $langForums = "Forumlar";
 $langGroups = "Gruplar";
 $langHelp = "Yardým";

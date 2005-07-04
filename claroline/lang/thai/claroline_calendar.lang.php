@@ -2,6 +2,7 @@
 $langAddEvent = "เพิ่มกำหนดการ";
 $langAddIntro = "เพิ่มคำนำ";
 $langAgenda = "กำหนดการ";
+$langCancel = "ยกเลิก";
 $langChat = "Chat";
 $langDay = "วัน";
 $langDay_of_weekNames = "Array";
@@ -21,6 +22,7 @@ $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonth = "เดือน";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
+$langNameOfLang = "Array";
 $langNewToOld = "ใหม่ไปเก่า";
 $langNotAllowed = "ไม่อนุญาต";
 $langNow = "เดี๋ยวนี้";
@@ -34,5 +36,6 @@ $langTitle = "ชื่อวิชา";
 $langToday = "วันนี้";
 $langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
+$langViMod = "ปรับปรุงการให้เห็นเอกสารแล้ว";
 $langYear = "ปี";
 ?>

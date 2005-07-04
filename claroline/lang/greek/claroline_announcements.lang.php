@@ -43,6 +43,7 @@ $langMonthNames = "Array";
 $langMsgSent = "Το μήνυμα έχει σταλεί στους επιλεγμένους μαθητές";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
+$langNameOfLang = "Διάταξη";
 $langNoAnnouncement = "Καμία ανακοίνωση.";
 $langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";

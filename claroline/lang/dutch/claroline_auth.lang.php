@@ -66,6 +66,7 @@ $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langMyStats = "Toon mijn statistieken";
 $langName = "Naam";
+$langNameOfLang = "Array";
 $langNext = "Volgende";
 $langNo = "Nee";
 $langNotAllowed = "U bent hier niet toegelaten";

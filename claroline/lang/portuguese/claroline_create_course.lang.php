@@ -31,7 +31,6 @@ $langExerciceEx = "Exemplo de exerc&iacute;cio";
 $langExplanation = "Depois de carregar em OK, ser&aacute; criada uma web que incluir&aacute; Foro, Lista de liga&ccedil;&otilde;es, Exerc&iacute;cios, Agenda, Lista de documentos... Por meio do seu c&oacute;digo de identifica&ccedil;&atilde;o, poder&aacute; alterar o seu conte&uacute;do";
 $langFieldsRequ = "Todos os campos s&atilde;o obrigat&oacute;rios";
 $langForce = "For&ccedil;ar o interlocutor, por meio duma s&eacute;rie de perguntas, a reconhecer que n&atilde;o sabe o que afirma saber.";
-$langFormula = "Com os melhores cumprimentos";
 $langForums = "Foros";
 $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";

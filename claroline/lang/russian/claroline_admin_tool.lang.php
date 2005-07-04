@@ -2,6 +2,7 @@
 $langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langAgenda = "Календарь";
 $langAnnouncement = "Объявления";
+$langCancel = "Отменить";
 $langChat = "Чат";
 $langConfirmYourChoice = "Подтвердите ваш выбор";
 $langCourseManager = "Менеджер курса";

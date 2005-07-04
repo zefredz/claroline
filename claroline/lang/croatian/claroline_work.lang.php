@@ -26,6 +26,7 @@ $langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
+$langNameOfLang = "Array";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";

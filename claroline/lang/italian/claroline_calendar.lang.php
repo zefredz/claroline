@@ -37,6 +37,7 @@ $langMonth = "Mese";
 $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
+$langNameOfLang = "Array";
 $langNewToOld = "Nuovi prima";
 $langNoEventInTheAgenda = "Nessun evento in agenda";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";

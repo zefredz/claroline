@@ -22,6 +22,7 @@ $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
+$langNameOfLang = "Nome da l&iacute;ngua";
 $langNext = "Seguinte";
 $langNo = "N&atilde;o";
 $langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";

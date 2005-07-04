@@ -31,7 +31,6 @@ $langExerciceEx = "Przyk³adowe æwiczenie";
 $langExplanation = "Strona musi byæ w formacie HTML (np. \"my_page.htm\"). Odno¶nik do strony umieszczone zostanie na Stronie g³ównej. Je¶li chcesz wys³aæ dokument inny i¿ HTML (PDF, Word, Power Point, Video, etc.) u¿yj <a href=../document/document.php>narzêdzia Dokumenty</a>";
 $langFieldsRequ = "Wymagane wype³nienie wszystkich pól";
 $langForce = "Doprowadzenie rozmówcy przez seriê pytañ do przyznania, ¿e nie wie czego¶, o czym my¶la³, ¿e wie.";
-$langFormula = "Z powa¿aniem";
 $langForums = "Forum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Pomoc";

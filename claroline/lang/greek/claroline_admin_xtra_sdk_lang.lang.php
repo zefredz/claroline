@@ -27,6 +27,7 @@ $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
+$langNameOfLang = "Διάταξη";
 $langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOtherCourses = "Λίστα Μαθημάτων";

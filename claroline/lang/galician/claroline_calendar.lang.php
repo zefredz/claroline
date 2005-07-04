@@ -37,6 +37,7 @@ $langMonth = "Mes";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
+$langNameOfLang = "Array";
 $langNewToOld = "Os m&aacute;is recentes primeiro";
 $langNoEventInTheAgenda = "Non hai eventos na axenda";
 $langNotAllowed = "Acci&oacute;n non permitida";

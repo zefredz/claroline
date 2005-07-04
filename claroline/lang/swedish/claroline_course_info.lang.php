@@ -49,7 +49,7 @@ $langOk = "validate";
 $langOtherCourses = "Kurslista";
 $langPoweredBy = "Med kraft från";
 $langPrivateAccess = "Privat åtkomst, registrering stängd (sajt tillgänglig bara för personer på <a href=../user/user.php>Användarlistan</a>)";
-$langProfessor = "Professor";
+$langProfessors = "Lärare";
 $langPublicAccess = "Publik åtkomst från campus hemsida även utan inloggning";
 $langReg = "Registrering";
 $langStatistics = "Statistik";

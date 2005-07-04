@@ -36,6 +36,7 @@ $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
+$langNameOfLang = "Array";
 $langNoContent = "Geen inhoud";
 $langNomPageAddHtPass = "Admin gebruikersbeheer";
 $langNotAllowed = "U bent hier niet toegelaten";

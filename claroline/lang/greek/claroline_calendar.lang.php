@@ -38,6 +38,7 @@ $langMonth = "Μήνας";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
+$langNameOfLang = "Διάταξη";
 $langNewToOld = "Αντιστροφή σειράς παρουσίασης";
 $langNoEventInTheAgenda = "Δεν υπάρχουν γεγονότα στην ημερήσια Ατζέντα";
 $langNotAllowed = "Δεν επιτρέπεται";

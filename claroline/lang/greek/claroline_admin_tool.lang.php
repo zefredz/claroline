@@ -15,7 +15,6 @@ $langDescriptionCours = "Περιγραφή μαθήματος";
 $langDocument = "Εγγραφα";
 $langEmpty = "Αφήσατε μερικά πεδία κενά.<br>Πατήστε το πλήκτρο «Επιστροφή» του browser και ξαναδοκιμάστε.";
 $langExercises = "Ασκήσεις";
-$langFirstDefOfThisValue = "!!! Πρώτος ορισμός αυτής της εκτίμησης !!!";
 $langForums = "Περιοχή συζητήσεων";
 $langGroups = "Ομάδες Χρηστών";
 $langHelp = "Βοήθεια";

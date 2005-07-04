@@ -2,6 +2,7 @@
 $langAddIntro = "Tilføj introduktionstekst";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
+$langCancel = "Fortryd";
 $langCategories = "Kursuskategorier";
 $langChat = "Chat";
 $langConfirmYourChoice = "Venligst bekræft dit valg";
@@ -25,6 +26,7 @@ $langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ikke tilladt";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";

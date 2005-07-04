@@ -2,5 +2,6 @@
 $langDate = "äÁÔÁ";
 $langModify = "Êÿîåïêæû";
 $langOk = "Ok";
+$langQuestion = "÷ÏÐÒÏÓ";
 $langSize = "òÁÚÍÅÒ";
 ?>

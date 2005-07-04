@@ -14,7 +14,6 @@ $langDescriptionCours = "Cursus omschrijving";
 $langDocument = "Documenten";
 $langEmpty = "U hebt niet alle velden ingevuld.<br>Gebruik de TERUG-toets en herbegin.<br>Als U Uw cursuscode niet kent, kunt U de cursussenlijst raadplegen";
 $langExercises = "Oefeningen";
-$langFirstDefOfThisValue = "!!! Eerste definitie van deze waarde !!!";
 $langForums = "Forums";
 $langGroups = "Groepen";
 $langHelp = "Help";

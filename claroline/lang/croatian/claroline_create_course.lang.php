@@ -29,7 +29,6 @@ $langExerciceEx = "Jednostavna vježba";
 $langExplanation = "Stranica mora biti u HTML formatu (e.g. \"my_page.htm\"). Bit æe link na poèetnoj stranici. Ako želite poslati u nekom drugom formatu (PDF, Word, Power Point, Video, itd.) koristite <a href=../document/document.php>Alati dokumenata</a>";
 $langFieldsRequ = "Potrebno je ispuniti sve podatke";
 $langForce = "Prinudite sugovornika, nizom pitanja i podpitanja, da ne zna ono što tvrdi da zna";
-$langFormula = "Sa štovanjem, Vaš profesor";
 $langForums = "Forumi";
 $langGroups = "Grupe";
 $langHelp = "Pomoæ";

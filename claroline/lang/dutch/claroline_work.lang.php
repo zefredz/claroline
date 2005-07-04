@@ -104,6 +104,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langName = "Naam";
+$langNameOfLang = "Array";
 $langNoFile = "- geen -";
 $langNoMoreModuleToAdd = "Alle modules van deze cursus zijn reeds gebruikt in dit leerpad.";
 $langNoScore = "Geen score";

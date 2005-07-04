@@ -153,6 +153,7 @@ $langMoveDown = "Mover cara abaixo";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNeverBrowsed = "Nunca visitado";
 $langNewLabel = "Crear nova etiqueta / t&iacute;tulo nesta secuencia de aprendizaxe";
 $langNoLearningPath = "Non hai secuencias de aprendizaxe";

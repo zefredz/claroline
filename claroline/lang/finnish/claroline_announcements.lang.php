@@ -23,6 +23,7 @@ $langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
+$langNameOfLang = "Array";
 $langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langOn = "On";
@@ -35,5 +36,6 @@ $langTitle = "Otsikko";
 $langUnvalid = "have unvalid or no email address";
 $langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
+$langViMod = "Näkyvyyttä on muutettu";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

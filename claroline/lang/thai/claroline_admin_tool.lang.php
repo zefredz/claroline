@@ -1,6 +1,7 @@
 <?php
 $langAddIntro = "เพิ่มคำนำ";
 $langAgenda = "กำหนดการ";
+$langCancel = "ยกเลิก";
 $langChat = "Chat";
 $langDay_of_weekNames = "Array";
 $langDelete = "ลบ";

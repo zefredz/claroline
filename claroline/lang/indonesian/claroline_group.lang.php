@@ -69,6 +69,7 @@ $langModifyProfile = "Ubah profil Ku";
 $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
 $langMyGroup = "group-ku";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "Buat group baru";
 $langNewGroups = "Group baru";
 $langNoGroupStudents = "Siswa tak ber-group";

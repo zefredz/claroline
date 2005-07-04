@@ -50,7 +50,7 @@ $langOtherCourses = "Danh mục khoá học";
 $langPassword = "password";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Truy cập chỉ với <a href=../user/user.php>danh sách user</a>)";
-$langProfessor = "Giáo viên";
+$langProfessors = "Giáo viên";
 $langPublicAccess = "Truy cập không cần login";
 $langReg = "Đăng ký";
 $langStatistics = "Thống kê";

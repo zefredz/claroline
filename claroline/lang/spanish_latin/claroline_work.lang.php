@@ -35,6 +35,7 @@ $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
 $langNotAllowed = "No tienes acceso";
 $langOk = "Aceptar";
 $langOtherCourses = "Lista de cursos";

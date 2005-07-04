@@ -16,6 +16,7 @@ $langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
+$langNameOfLang = "Array";
 $langNo = "No";
 $langNotAllowed = "Ei sallittu";
 $langOk = "Ok";

@@ -2,8 +2,48 @@
 $langAddIntro = "Ôö¼Ó¿Î³Ì½éÉÜ";
 $langAgenda = "¼Æ»®°²ÅÅ";
 $langAnnouncement = "¹«¸æÍ¨Öª";
+$langCancel = "È¡Ïû";
+$langChat = "ÁÄÌì´ðÒÉ";
+$langClarContent = "ÕâÀïÊÇ½²Ê¦ºÍÖú½Ì½¨Á¢ºÍ¹ÜÀí¿Î³ÌÍøÒ³µÄµØ·½¡£
+
+Ñ§ÉúÔÄ¶Á(½²Òå²ÄÁÏ£¬¼Æ»®°²ÅÅ£¬¹«¸æÍ¨Öª)£¬ÓÐÊ±ºò£¬
+
+×öÁ·Ï°£¬½»×÷Òµ£¬²ÎÓëÂÛÌ³ÌÖÂÛ...</p>
+
+<b>×¢²á</b><p>Èç¹ûClaroline°æ±¾ÔÊÐí×ÔÖú×¢²á£¨Ò»Ð©ÍøÕ¾×Ô¶¯ÎªÄã×¢²á£©
+
+ÏÂÃæµÄËµÃ÷½öÊÊºÏÉêÇë£¬Èç¹ûÄãÊÇÒ»¸öÑ§Éú£¬ÄãÖ»Òª×¢²á¡°Ñ¡ÐÞ¿Î³Ì£¨Ñ§Éú£©¡±£¬
+
+È»ºóÑ¡ÔñÄãÏ²»¶Ñ§Ï°µÄ¿Î³Ì£»Èç¹ûÄãÊÇÒ»Î»½²Ê¦»òÒ»¸öÖú½Ì£¬ÄãÒª×¢²á¡°½¨Á¢
+
+¿Î³Ì£¨½²Ê¦£©¡±¡£È»ºóÄã±ØÐëÌîÐ´¿Î³Ì´úÂë¿Î³ÌÊ¦×ÊºÍ¿Î³ÌÃû³Æ¡£
+
+Ò»µ©×¢²á±»¼¤»î£¬Äã½«±»Òýµ¼µ½Äã¸Õ½¨Á¢µÄ¿Î³ÌÍøÒ³£¬²¢ÔÊÐíÄã°´ÐèÒªÐÞ¸Ä
+
+¿Î³ÌÍøÒ³µÄÄÚÈÝºÍ×éÖ¯¡£
+
+¿ÉÑ¡Ïî¡°×ö¡±ÊÇÔÊÐíÏòClarolineÍøÕ¾¹ÜÀíÕß·´À¡¡£
+
+ÄãÔÚÕâÀï·¢²¼µÄÄÚÈÝ°üÀ¨£º±¨´í¡¢½¨Òé¡¢¸Ä½ø¡£¡°×ö¡±µÄÁÐ±íÁ´½Óµ½ÐéÄâÐ£Ô°µÄÖ÷Ò³£¨Ò»µ©µÇÈë£©¡£</p>
+
+<p>Ö§³ÖÂÛÌ³ÊÇ²»Í¬µÄ¡£ËüÁªÏµËùÓÐµÄClaroline¹ú¼ÊÓÃ»§¡£
+
+Èç¹ûÄãµÄÐéÄâÐ£Ô°³öÁËÎÊÌâ£¬¶øÕÒ²»µ½´ð°¸µÄ»°£¬ÔÚÄÇÀï·¢Ò»¸öÐÅÏ¢¡£
+</p>
+
+<p>×¢²áÁ´½Ó£¨Èç¹ûÌá¹©£©ÔÚÐéÄâÐ£Ô°µÄÖ÷Ò³£¨ÓÒÉÏ·½£©</p><b>µÇÂ¼</b>
+
+<p>ÏÂÒ»´Î·ÃÎÊÊ±£¬ÊäÈëµÇÂ¼ÃûºÍÃÜÂë£¬È»ºóË³Àûµ½´ïÄãµÄ¿Î³ÌÖ÷Ò³¡£
+
+¿Î³ÌµÄÍøÖ·ÊÇ£º";
+$langCloseWindow = "¹Ø±Õ´°¿Ú";
+$langConfigMenuContent = "ÅäÖÃ²Ëµ¥";
+$langConfirmYourChoice = "ÇëÈ·ÈÏÄãµÄÑ¡Ôñ";
+$langCourseHome = "¿Î³ÌÖ÷Ò³";
+$langCourseManager = "¿Î³Ì¸ºÔðÈË";
 $langDay_of_weekNames = "Array";
 $langDelete = "É¾³ý";
+$langDescriptionCours = "¿Î³Ì¼ò½é";
 $langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖÐµÄÎÄ¼þ¹ÜÀíÆ÷.</p><p>Äú¿ÉÒÔÉÏ´«¸÷ÖÖ¸ñÊ½(HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime,µÈµÈ)µÄÎÄ¼þ,ÐèÒª×¢ÒâµÄÊÇÑ§Éú±ØÐëÓÐÏàÓ¦µÄÈí¼þ¶ÁÈ¡ÕâÐ©²ÄÁÏ.¶øÇÒ,ÓÐÐ©ÎÄ¼þ¿ÉÄÜ»áÐ¯´ø²¡¶¾, ²»ÒªÉÏ´«ÕâÑùµÄÎÄ¼þÒ²ÊÇÄúµÄÔðÈÎ.½¨ÒéÔ¤ÏÈÓÃÉ±¶¾Èí¼þ¼ì²éºóÔÚÉÏ´«.</p>
 <p>ÎÄ¼þÒÔ×ÖÄ¸Ë³ÐòÅÅÁÐ.<br><b>ÌáÊ¾ : </b>Èç¹ûÄúÐèÒªÒÔ²»Í¬µÄË³ÐòÏÔÊ¾,ÔÚÎÄ¼þÃûÖÐÌí¼ÓÊý×Ö: 01, 02, 03...</p>
 <p>Äú¿ÉÒÔÕâÃ´×ö :</p>
@@ -19,33 +59,33 @@ $langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖÐµÄÎÄ¼þ¹ÜÀíÆ÷.</p><p>Äú¿
   <li>µã»÷<img src=../document/img/edit.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ'¸üÃû'À¸)</li>
   <li>ÔÚ×óÉÏ½ÇÇøÓòÌîÐ´ÐÂµÄÎÄ¼þÃû</li>
   <li>È·ÈÏ,µã»÷<input type=submit value=Ok name=submit24>
-	. 
+	.
 </ul>
 	<h4>É¾³ýÎÄ¼þ(»òÄ¿Â¼)</h4>
 	<ul>
-	  
-  <li>µã»÷ <img src=../document/img/delete.gif width=20 height=20> 
+
+  <li>µã»÷ <img src=../document/img/delete.gif width=20 height=20>
 	(Î»ÓÚ 'É¾³ý'À¸).</li>
 	</ul>
 	<h4>ÏÔÊ¾/Òþ²ØÎÄ¼þ(»òÄ¿Â¼)</h4>
 	<ul>
-	  
+
   <li>µã»÷ <img src=../document/img/visible.gif width=20 height=20>Î»ÓÚ'ÏÔÊ¾/Òþ²Ø'À¸.</li>
-	  <li>Òþ²ØÎÄ¼þ(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>	  
-  <li>ÒªÊ¹µÃÆä¶ÔÑ§Éú¿É¼û, µã»÷ <img src=../img/invisible.gif width=24 height=20> 
+	  <li>Òþ²ØÎÄ¼þ(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>
+  <li>ÒªÊ¹µÃÆä¶ÔÑ§Éú¿É¼û, µã»÷ <img src=../img/invisible.gif width=24 height=20>
 	(Î»ÓÚ'ÏÔÊ¾/Òþ²Ø'À¸)</li>
 	</ul>
 	<h4>ÎªÎÄ¼þ(»òÄ¿Â¼)Ìí¼Ó»ò¸üÐÂÕªÒª</h4>
-	<ul>	  
-  <li>µã»÷ <img src=../img/comment.gif width=20 height=20> 
+	<ul>
+  <li>µã»÷ <img src=../img/comment.gif width=20 height=20>
 	(Î»ÓÚ'ÕªÒª'À¸)</li>
 	  <li>ÔÚÓÒÉÏ½ÇÏàÓ¦ÇøÓòÌîÐ´ÐÂµÄÕªÒª.</li>
 	  <li>È·ÈÏ,µã»÷<input type=submit value=OK name=submit2>
 		.</li>
-	</ul> 
-	<p>É¾³ýÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>, 
+	</ul>
+	<p>É¾³ýÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>,
 	  É¾³ýÏàÓ¦ÇøÓò¾ÉµÄÕªÒª <input type=submit value=OK name=submit22>
-	  . 
+	  .
 	<hr>
 	<p>Í¨¹ý ·ÖÀà ÕûÀíÀ´×éÖ¯ÄÚÈÝ. ÈçÏÂËùÊ¾:</p>
 	<h4><b>´´½¨Ò»¸öÄ¿Â¼</b></h4>
@@ -56,7 +96,7 @@ $langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖÐµÄÎÄ¼þ¹ÜÀíÆ÷.</p><p>Äú¿
 	</ul>
 	<h4>ÒÆ¶¯ÎÄ¼þ(»òÄ¿Â¼)</h4>
 	<ul>
-	  <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16> 
+	  <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16>
 		Î»ÓÚ'ÒÆ¶¯'À¸</li>
 	  <li>ÔÚÏàÓ¦ÏÂÀ­²Ëµ¥(×óÉÏ)Ñ¡ÔñÄ¿±êÎÄ¼þ(»òÄ¿Â¼).(ÌáÊ¾: 'root' ÒâË¼ÊÇÒÑ¾­Î»ÓÚÎÄ¼þÄ¿Â¼Ê÷µÄ¶¥²ãÁË,·þÎñÆ÷ÉÏµÄÏàÓ¦ÉÏ²ãÄ¿Â¼²»ÄÜÉÏ´«ÎÄ¼þ.</li>
 	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit232>.</li>
@@ -64,26 +104,308 @@ $langDocContent = "<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖÐµÄÎÄ¼þ¹ÜÀíÆ÷.</p><p>Äú¿
 	<center>
 	  <p>";
 $langDocument = "½²Òå²ÄÁÏ";
+$langExerciseContent = "<h4>Á·Ï°¹¤¾ßÊÇÊ²Ã´£¿</h4>
+¸Ã¹¤¾ßÔÊÐíÄã½¨Á¢°üº¬Ò»¸öÎÊÌâÁÐ±íµÄÔÚÏßÁ·Ï°¡£
+ÎÊÌâ¿ÉÒÔÊÇ¶àÖÖ¶àÑù£¬Ñ§Éú¿ÉÒÔ×öÁ·Ï°£¬Èç¹ûËûÃÇ×¢²áÁËÄãµÄ¿Î³Ì£¬ÄÇÃ´
+ËûÃÇµÄ·ÖÊý½«±»¼ÇÂ¼£¬²¢ÔÚ¿Î³ÌÍ³¼ÆÊý×ÖÀïÏÔÊ¾¡£
+<hr />
+
+<h4>¹ÜÀíÁ·Ï°</h4>
+<p>½¨Á¢Ò»¸öÁ·Ï°</p>
+<ul>
+<li> µã»÷ \"ÐÂÁ·Ï°\"£¬ÔÚ¸Ã¹¤¾ßµÄ¿ªÊ¼Ò³Ãæ(È·ÐÅÄãÊÇÒÔ¿Î³Ì½ÌÊ¦»ò¹ÜÀíµÄÉí·ÝµÇÂ¼)</li>
+<li> ÔÚ¸ñÖÐÊäÈëÁ·Ï°Ãû³Æ</li>
+<li> ÊäÈë¼ò½é</li>
+<li> ÓÃ»§Ñ¡ÔñÔÚµ¥Ò³ÉÏÏÔÊ¾ËùÓÐÎÊÌâ£¬»¹ÊÇÒ»Ò³ÏÔÊ¾Ò»¸öÎÊÌâ</li>
+<li> ÐÞ¸Ä¸ß¼¶ÉèÖÃ£¨·Ç±ØÐë£©
+<ul>
+<li> Ñ¡ÔñÒ»¸ö¿ªÊ¼ÈÕÆÚ</li>
+<li> Ñ¡ÔñÒ»¸ö½áÊøÈÕÆÚ</li>
+<li> Éè¶¨Ò»¸öÊ±¼äÏÞÖÆ</li>
+<li> Ñ¡ÔñÔÊÐí³¢ÊÔµÄ´ÎÊý</li>
+<li> Ñ¡ÔñÔÊÐíÄäÃû³¢ÊÔ(Èç¹û²»ÔÊÐíÔò²»»á½øÐÐ×·×Ù)</li>
+<li> Ñ¡ÔñÏÔÊ¾·´À¡µÄÊ±¼ä</li>
+</ul>
+</li>
+<li> µã»÷Ok</li>
+</ul>
+<p>ÄúÏÖÔÚ¿ÉÒÔÊ¹ÓÃÐÂÎÊÌâ»òÎÊÌâ³ØÖÐµÄÎÊÌâÀ´×öÁ·Ï°¡£</p>
+
+<hr />
+<h4>ÎÊÌâ</h4>
+<h4>¶àÏîÑ¡ÔñÌâ</h4>
+<p>ÓÐÁ½ÖÖ¶àÑ¡Ìâ&nbsp;£º
+</p>
+<ul>
+<li> µ¥Ò»´ð°¸µÄÎÊÌâ</li>
+<li> ¶à¸ö´ð°¸µÄÎÊÌâ</li>
+</ul>
+<p>ÔÚÁ½ÖÖÇé¿öÏÂ£¬µ±Äã¿ªÊ¼½¨Á¢Ò»¸öÐÂÎÊÌâµÄÊ±ºò£¬½öÏÔÊ¾Á½¸ö¿ÉÄÜµÄ´ð°¸¡£
+Èç¹ûÄãÏ£ÍûÓÐ¶à¸ö¿ÉÄÜµÄ´ð°¸£¬ÄÇÃ´Äã</p>
+<ul>
+<li> Ã¿Ôö¼ÓÒ»¸ö´ð°¸£¬ÐèÒª°´Ò»ÏÂ+Answ</li>
+</ul>
+<p>Èç¹ûÄãÏ£Íû¼õÉÙ¿ÉÄÜ´ð°¸µÄÊýÁ¿£¬ÄÇÃ´ </p>
+<ul>
+<li> Ã¿¼õÉÙÒ»¸ö´ð°¸£¬ÐèÒª°´Ò»ÏÂ-Answ</li>
+</ul>
+<p>½Ó×Å&nbsp;£º</p>
+<ul>
+<li> ÔÚÕýÈ·´ð°¸Ç°µÄ¸´Ñ¡¿ò´ò¹´¡£</li>
+<li> ÔÚ´ð°¸À¸ÖÐÊäÈë¿ÉÄÜ´ð°¸µÄÎÄ±¾</li>
+<li> ÔÚÆÀ¼ÛÀ¸ÖÐÊäÈë¸Ã´ð°¸µÄ·´À¡ÐÅÏ¢¡£</li>
+<li> µ÷Õû·ÖÖµ¡£¸Ã¼Æ·Ö±íµÄÔ­ÔòÊÇ¸øÕýÈ·´ð°¸¶¨ÒåÊÊ
+µ±µÄ·ÖÖµ¡£ÀýÈç£¬Èç¹ûÎÊÌâÓÐ4¸ö´ð°¸£¨¿ÉÄÜÕýÈ·µÄ²»Ö¹
+Ò»¸ö£©¶øÑ§Éú¶ÔºÍ´í¸÷Á½¸ö£¬Äã¾Í¿ÉÒÔ¸øËûÒ»°ë·ÖÊý£»
+µ«ÊÇÄãÒ²¿ÉÈÏ¶¨ÕâÊÇÁîÈË²»ÂúÒâµÄ£¬ÀýÈç¿ÉÒÔÉèÖÃÍêÈ«
+×ö¶ÔÁËµÃ×î¸ß·Ö£¨20·Ö£©£¬¶ø±ðµÄÇé¿öÔòµÃÁã·Ö¡£
+</li>
+</ul>
+
+<h4>Æ¥ÅäÌâ</h4>
+<p>×öÕâÖÖÌâÄ¿£¬Ñ§ÉúÒª·¢ÏÖ²»Í¬ÁÐÔªËØÖ®¼ä¶ÔÓ¦¡£</p>
+<p>µ±Äã¿ªÊ¼½¨Á¢ÄÇÖÖÐÂÎÊÌâÊ±¡£ÔÚÏÔÊ¾µÄÁ½ÁÐÖÐ½öÓÐÁ½¸öÔªËØ¡£
+Èç¹ûÄãÏ£ÍûÓÐ¸ü¶àµÄÔªËØ¶ÔÓ¦µÄ»°£¬ÄÇÃ´Äã
+</p>
+<ul>
+<li> Ã¿Ôö¼ÓÒ»×éÔªËØ£¬ÐèÒª°´Ò»ÏÂ+elem </li>
+</ul>
+<p>Èç¹ûÄãÏ£Íû¼õÉÙÔªËØµÄÊýÁ¿µÄ»°£¬ÄÇÃ´Äã </p>
+<ul>
+<li> Ã¿¼õÉÙÒ»×éÔªËØ£¬ÐèÒª°´Ò»ÏÂ-elem</li>
+</ul>
+
+<p>ÄãÒ²ÒªÎªÃ¿¸ö´ð°¸¶¨Òå·ÖÖµ£¬ËüÃÇ²»ÄÜÊÇ¸º·ÖÖµ¡£²»ÒªÍü¼Çµã»÷  \"ok\" ¼¤»îÄãµÄÐÂÎÊÌâ¡£</p>
+
+<h4>'Ìî¿Õ'Ìâ</h4>
+<p>ÕâÖÖÌâÄ¿ÊÇÒ»ÖÖ¿ÕÈ±ÁËÄ³Ð©²¿·ÖÐèÒªÑ§ÉúÌî³äµÄÎÄ±¾¡£
+µ±Äã½¨Á¢Ò»¸öÌî¿ÕÌâµÄÊ±ºò&nbsp;£º
+</p>
+<ul>
+<li> Ê×ÏÈ½éÉÜÎÊÌâÎÄ±¾¡£</li>
+<li> Ê¹ÓÃÀ¨ºÅ [...] ¶¨ÒåÎÄ±¾ÖÐÒ»¸ö»ò¶à¸ö¿Õ¸ñ£¬ÔÚÀ¨ºÅÖÐÌîÕýÈ·´ð°¸¡£
+<ul>
+<li> <em>Ê¾Àý£º</em> [Ó¢¹úÈË] ¾Ó×¡ÔÚ [Ó¢¹ú]¡£</li>
+</ul>
+</li>
+<li> ×öÍêºó£¬µã»÷ \"ÏÂÒ»²½\" </li>
+<li> ÎªÃ¿¸ö´ð°¸¶¨Òå·ÖÖµ</li>
+<li> µã»÷ \"Ok\" ¼¤»îÄãµÄÎÊÌâ</li>
+</ul>
+
+<hr />
+
+<h4>ÎÊÌâ³Ø</h4>
+<p>ÎÊÌâ³Ø´æÓÐ¿Î³ÌµÄÒ»ÏµÁÐÎÊÌâ¡£  ÁÐ±íÖØ×éÒÑ¾­Ê¹ÓÃÔÚÒ»¸ö»ò¶à¸öÁ·Ï°ÖÐµÄÎÊ£¬ÒÔ¼°ÎÞÈËÓÃµÄÎÊÌâ¡£</p>
+<p>µ±ÄãÉ¾³ýÒ»¸öÁ·Ï°Ê±£¬Ëüº¬ÓÐµÄÎÊÌâ²»ÄÜ´ÓÊý¾Ý¿âÖÐÒÆ³ý£¬
+¶øÇÒÕâÐ©ÎÊÌâÍ¨¹ýÎÊÌâ³Ø¿ÉÒÔÔÚÐÂÁ·Ï°ÖÐÊ¹ÓÃ¡£</p>
+<p>ÎÊÌâ³ØÒ²ÔÊÐíÄãÖØÐÂÊ¹ÓÃ¼¸¸öÁ·Ï°µÄÏàÍ¬ÎÊÌâ¡£</p>
+<p>Ä¬ÈÏÇé¿öÏÂ£¬
+Äã¿Î³ÌµÄËùÓÐÎÊÌâ¶¼»áÏÔÊ¾³öÀ´¡£
+Í¨¹ýÑ¡ÔñÏÂ½µ²Ëµ¥ÖÐµÄ \"Filter\"£¬
+À´ÏÔÊ¾ÓëÒ»¸öÁ·Ï°ÓÐ¹ØµÄÎÊÌâ£¬
+</p>
+
+<hr />
+
+<h4>ÔõÃ´¿´ÎÒÏÈÇ°µÄ·ÖÊý£¿</h4>
+<p>Ã¿¸öÓÃ»§¶¼¿ÉÒÔÔÚÁ·Ï°ÁÐ±íÏÂÃæ¿´µ½Ëû×Ô¼ºµÄ·ÖÊý¡£
+×÷ÎªÒ»ÃÅ¿Î³ÌµÄ¹ÜÀíÕßÄã¿ÉÒÔµã»÷Á·Ï°ÁÐ±íÖÐ¿´µ½µÄ×·
+×ÙÁ´½ÓÀ´½øÈëÑ§Éú¿Î³ÌÑ§Ï°µÄÏêÏ¸·ÖÊý¡£</p>";
+$langExercises = "Á·Ï°";
 $langForContent = "ÂÛÌ³,ÊÇÒì²½ÌÖÂÛ¹¤¾ß.µç×ÓÓÊ¼þÊ¹ÓÃÒ»¶ÔÒ»µÄ¶Ô»°·½Ê½,ÂÛÌ³ÔòÊ¹µÃ¹«¹²¶Ô»°»òÕß°ë¹«¹²µÄ¶Ô»°³ÉÎª¿ÉÄÜ.</p><p>´Ó¼¼ÊõÉÏ½²,Ê¹ÓÃclarolineÂÛÌ³Ö»ÐèÒªÊ¹ÓÃä¯ÀÀÆ÷¾Í¿ÉÒÔ.</P><p>×éÖ¯ÂÛÌ³,Çëµã»÷'¹ÜÀí'.ÂÛÌ³°´ÕÕÀàºÍ×ÓÀà×éÖ¯ÆðÀ´,ÈçÏÂ:</p><p><b>·ÖÀà > ÂÛÌ³ > ÂÛÌâ > »Ø¸´ </b></p>ÎªÊ¹Ñ§ÉúµÄÌÖÂÛÓÐÒ»¸öÇåÎúµÄ½á¹¹,Ô¤ÏÈ×éÖ¯·ÖÀàºÍÂÛÌ³ÊÇ±ØÒªµÄ.ÈÃÑ§ÉúÀ´ÕÅÌù»°ÌâºÍ»Ø¸´.Ä¬ÈÏÉèÖÃ,clarolineÂÛÌ³Ö»°üº¬'Public'·ÖÀà -- Ê¾ÀýÐÔµÄÂÛÌ³ºÍ»°Ìâ.</p><p>ËùÒÔÊ×ÏÈÒª×öµÄÊÂ,É¾³ý»°ÌâÊ¾Àý,¸üÐÂµÚÒ»¸öÂÛÌ³µÄÃû³Æ.½ÓÏÂÀ´,¿ÉÒÔÔÚ'public'·ÖÀàÖÐ°´ÕÕÐ¡×é»òÖ÷Ìâ´´½¨ÐÂµÄÂÛÌ³À´Âú×ã¿Î³ÌÑ§Ï°»·¾³µÄÐèÒª.</p><p>²»Òª»ìÏý·ÖÀàºÍÂÛÌ³, Ò²²»ÒªÍü¼Ç¿ÕµÄÀà±ð(²»º¬ÓÐÂÛÌ³)¶ÔÑ§ÉúÊÇ²»¿É¼ûµÄ.</p><p>ÂÛÌ³µÄ¼ò½é¿ÉÒÔÊÇËüµÄÓÃ»§ÁÐ±í,Ä¿±ê,ÈÎÎñ,Ö÷ÌâµÈµÈ";
 $langForums = "Ñ§Ï°ÂÛÌ³";
+$langGroupContent = "<p><b>½éÉÜ</b></p>
+
+<p>¸Ã¹¤¾ßÔÊÐí½¨Á¢ºÍ¹ÜÀí¹¤×÷Ð¡×é¡£
+
+½¨Á¢µÄÊ±ºò(½¨Á¢Ñ§Ï°Ð¡×é)£¬Ñ§Ï°Ð¡×éÊÇ¿ÕµÄ¡£
+
+ÓÐÐí¶àµØ·½ÐèÒªÌî¿Õ£º
+
+<ul><li>×Ô¶¯ ('ÌîÐ´Ñ§Ï°Ð¡×é')£¬</li>
+
+<li>ÊÖ¹¤('±à¼­')£¬</li>
+
+<li>ÓÉÑ§Éú×ÔÖú×¢²á(Ñ§Ï°Ð¡×éÉèÖÃ£º'ÔÊÐí×ÔÖú×¢²á...')¡£</li>
+
+</ul>
+
+ÕâÈý¸öµØ·½ÊÇÄÜ×éºÏµÄ¡£ÀýÈç£ºÄã¿ÉÒÔÏÈÒªÇóÑ§Éú×ÔÖú×¢²á¡£
+
+È»ºó£¬·¢ÏÖÒ»Ð©Ñ§Éú²¢Ã»ÓÐ×ÔÖú×¢²á£¬½Ó×ÅÎªÁËÍê³ÉËüÃÇ£¬¾ö¶¨×Ô¶¯ÌîÐ´Ñ§Ï°Ð¡×é¡£
+
+ÄãÒ²¿ÉÒÔ±à¼­Ã¿¸öÑ§Ï°Ð¡×é£¬Ä¿µÄÊÇÔÚ×ÔÖú×¢²á£¨»ò×Ô¶¯ÌîÐ´£©Ö®ºó»òÖ®Ç°µÄÒ»¸ö
+
+Ê±¼ä¸³ÓèÒ»¸öÑ§ÉúÒÔ³ÉÔ±Éí·Ý¡£</p>
+
+<p>²»ÂÛ×Ô¶¯»òÊÖ¹¤£¬Ñ§Ï°Ð¡×éÌîÐ´¹¤×÷Ö»ÓÐÔÚÑ§Éú×¢²áÁËÕâ¸ö¿Î³Ì
+
+(²»Òª»ìÏýÁË×¢²á¿Î³ÌºÍ×¢²áÑ§Ï°Ð¡×éÁ½¸ö¸ÅÄî)µÄÇ°ÌáÏÂ²ÅÄÜ½øÐÐ¡£
+
+Ñ§ÉúÁÐ±í½«ÏÔÊ¾ÔÚ<b>ÓÃ»§</b> ¹¤¾ßÖÐ¡£ </p><hr noshade size=1>
+
+<p><b>½¨Á¢Ñ§Ï°Ð¡×é</b></p>
+
+<p>½¨Á¢ÐÂµÄÑ§Ï°Ð¡×é²½Öè£ºµã»÷'½¨Á¢ÐÂµÄÑ§Ï°Ð¡×é' £¬¾ö¶¨Ñ§Ï°Ð¡×é³ÉÔ±Êý£¬È·¶¨½¨Á¢¡£
+
+Ð¡×é³ÉÔ±µÄ×î´óÊýÊÇ¿ÉÑ¡µÄ£¬µ«ÊÇÎÒÃÇ½¨ÒéÄãÑ¡ÔñÒ»¸ö¡£
+
+Èç¹ûÄã²»ÀíÕâÏî£¬Ð¡×éµÄ´óÐ¡½«¿ÉÄÜÊÇ²»ÊÊÒËµÄ¡£
+
+</p><hr noshade size=1>
+
+<p><b>Ñ§Ï°Ð¡×éÉèÖÃ</b></p>
+
+<p>ÄãÄÜ¹»×ÜÌåÉÏÈ·¶¨Ð¡×éÉèÖÃ(¶ÔËùÓÐÐ¡×é¶øÑÔ).
+
+<b>ÔÚÑ§Ï°Ð¡×éÖÐÔÊÐíÑ§Éú×ÔÖú×¢²á</b>:
+
+<p>Äã½¨Á¢¿ÕµÄÑ§Ï°Ð¡×é£¬Ñ§Éú×ÔÖú×¢²á¡£
+
+Èç¹ûÄã¶¨ÒåÁË×î´óÖµ£¬³ÉÔ±´ïµ½×î´óÖµµÄÑ§Ï°Ð¡×é²»ÄÜ½ÓÊÜÐÂ³ÉÔ±¡£
+
+¸Ã·½·¨¶ÔÓÚÒª½¨Á¢Ñ§Ï°Ð¡×éÈ´²»ÖªµÀÑ§ÉúÁÐ±íµÄ½ÌÊ¦À´ËµÊÇÓÐÀûµÄ¡£</p>
+
+<b>¹¤¾ß</b>:</p>
+
+<p>Ã¿Ò»¸öÑ§Ï°Ð¡×éÓµÓÐÒ»¸öÂÛÌ³(Ë½ÃÜ»ò¹«¿ª)£¬Ò»¸ö½²Òå²ÄÁÏÇø(Ë½ÃÜ»ò¹«¿ª)
+
+
+(Ò»¸ö¹²ÏíÎÄ¼þ¹ÜÀíÆ÷) »òÕß (´ó¶àÊýÇé¿öÏÂ) Á½¸ö¶¼ÓÐ¡£</p>
+
+<hr noshade size=1>
+
+<p><b>ÊÖ¹¤±à¼­</b></p>
+
+<p>Ò»µ©Ñ§Ï°Ð¡×é½¨Á¢ÆðÀ´£¬ÄãÔÚÒ³Ãæµ×¶Ë¿´µ½Ñ§Ï°Ð¡×éµÄÁÐ±í£¬
+
+±íÉÏÓÐÒ»ÏµÁÐµÄÐÅÏ¢ºÍ¹¦ÄÜ
+
+<ul><li><b>±à¼­</b> ÊÖ¹¤ÐÞ¸ÄÐ¡×éÃû³Æ£¬¼ò½é£¬Öú½Ì£¬³ÉÔ±ÁÐ±í</li>
+
+<li><b>É¾³ý</b> É¾³ýÒ»¸öÑ§Ï°Ð¡×é</li></ul>
+
+<hr noshade size=1>";
+$langGroups = "Ñ§Ï°Ð¡×é";
 $langHClar = "ÉÏÊÖ°ïÖú";
 $langHDoc = "½²Òå°ïÖú";
+$langHExercise = "Á·Ï°°ïÖú";
 $langHFor = "ÂÛÌ³°ïÖú";
 $langHHome = "ÍøÕ¾°ïÖú";
 $langHUser = "ÓÃ»§ÁÐ±í °ïÖú";
 $langHelp = "°ïÖú";
+$langHelpAssignment = "¹¦¿Î°ïÖú";
+$langHelpAssignmentContent = "<p>
+¹¦¿Î¹¤¾ßÊÇÑ§Éú·¢±íÇø¡£¿Î³Ì¸ºÔðÈË½¨Á¢Ò»¸ö»ò¼¸¸ö¹¦¿Î£¨²»Í¬µÄ·¢±íÇø£©¡£
+
+Ñ§ÉúÔÚÄÇÀïÌá½»×Ô¼ºµÄ×÷Òµ¡£<br /><br />
+
+Ã¿¸ö¹¦¿ÎÓÐ²»Í¬µÄÄ¿±ê»òÒªÇó£ºÌá½»µÄ×÷ÒµÒªÇóÊÇÎÄ¼þ£¬»òÒ»¸öÎÄ±¾£¬»òÒ»¸öÎÄ±¾ºÍÎÄ¼þ£¬
+
+Ìá½»µÄ×÷Òµ»òÕßÊÇÑ§Ï°Ð¡×éµÄ£¬»òÕßÊÇ¸öÈËÓÃ»§µÄ£¬...<br /><br />
+
+Ìá½»×÷ÒµÖ®ºó£¬Ñ§ÉúÓÐÄÜÁ¦ÐÞ¸Ä×Ô¼ºµÄ×÷Òµ£»¿Î³Ì¸ºÔðÈËÄÜ¹»¸øÌá½»×÷ÒµµÄÍ¬Ñ§Ò»¸ö·´À¡¡£
+
+</p>
+<hr />
+
+<h4>½¨Á¢Ò»¸ö¹¦¿Î</h4>
+<p>ÎªÁË½¨Á¢Ò»¸öÐÂ¹¦¿Î£¬¿Î³Ì¸ºÔðÈË±ØÐë½øÈë¹¦¿Î¹¤¾ß¡£
+
+µã»÷Á´½Ó \"½¨Á¢Ò»¸öÐÂ¹¦¿Î\".
+</p>
+<p>ÏÔÊ¾µÄ±í¸ñÒªÇó¿Î³Ì¸ºÔðÈËÌîÐ´&nbsp;:
+</p>
+<ul><li> ±êÌâ&nbsp;£º ¹¦¿ÎµÄÃû³Æ
+</li><li> ¼ò½é&nbsp;£º ¹¦¿ÎµÄÃèÊö£¬Ñ§Ï°ÕßÐèÒª×öÊ²Ã´
+</li><li> Ìá½»ÀàÐÍ&nbsp;£º
+<ul><li> ÎÄ¼þ&nbsp;£º ÈÎºÎ¿ÉÒÔÉÏÔØµÄÎÄ¼þ£¬¼Ç×¡Æ½Ì¨¶ÔÉÏÔØÎÄ¼þµÄ´óÐ¡ÏÞÖÆ£¬
+
+¼ÓÈëÒ»¶ÎÃèÊöÎÄ¼þµÄÎÄ×Ö
+
+</li><li> ½öÎÄ±¾&nbsp;£º Ò»¸öwysiwyg±à¼­Æ÷¸ñÊ½µÄÎÄ±¾
+</li><li> ´øÓÐÒ»¸ö¸½¼þµÄÎÄ±¾&nbsp;£º Ò»¸öwysiwyg±à¼­Æ÷¸ñÊ½µÄÎÄ±¾ºÍÒ»¸ö¸½¼þ(¸½¼þ²»ÊÇ±ØÐèµÄ)
+</li></ul>
+</li><li> ¿ªÊ¼Ê±¼ä&nbsp;£º ´ÓÓÃ»§¿ÉÒÔ·¢±í×÷ÒµµÄÈÕÆÚ¿ªÊ¼
+</li><li> ½áÊøÊ±¼ä&nbsp;£º ÓÃ»§·¢²¼×÷ÒµµÄ½ØÖ¹ÈÕÆÚ
+</li><li> ·¢²¼ÊÇ·ñ¿É¼û&nbsp;: Ñ¡ÔñÊÇ·ñÈÃ±ðµÄÓÃ»§¿´µ½×Ô¼ºµÄ×÷Òµ
+</li><li> ¹¦¿ÎÀàÐÍ&nbsp;£º
+
+<ul><li> ¸öÈËÄ£Ê½&nbsp;£ºÈÎºÎÈÏÖ¤ÓÃ»§¾ù¿É·¢±í
+</li><li> Ð¡×éÄ£Ê½&nbsp;£ºÓÃ»§±ØÐëÊÇÖÁÉÙÒ»¸ö¿Î³ÌÑ§Ï°Ð¡×éµÄ³ÉÔ±£¬·¢²¼×÷Òµ£¬¶øÇÒ×÷Òµ½«ÒÔÑ§Ï°Ð¡×éµÄÃû×Ö·¢±í
+</li></ul>
+</li><li> ½ØÖ¹ÈÕÆÚÖ®ºóµÄÉÏÔØÐí¿É
+</li></ul>
+<p><br />
+<strong>Ìí¼ÓÒ»¸ö×Ô¶¯·´À¡</strong>
+</p>
+<p>×Ô¶¯·´À¡ÊÇÒ»¸ö¹¦¿ÎÇ¡µ±µÄÐÎÊ½¡£Ìí¼ÓÒ»¸ö×Ô¶¯·´À¡µ½¹¦¿Î£º
+
+½øÈë¹¦¿Î£¬µã»÷\"±à¼­×Ô¶¯·´À¡\" Á´½Ó¡£  </p>
+<p>Ëü¿ÉÒÔÊÇÒ»¸öÎÄ±¾»òÒ»¸öÎÄ¼þ£¬»òÕßÎÄ±¾ºÍÎÄ¼þ¡£¿Î³Ì¸ºÔðÈËÄÜ¹»Ñ¡Ôñ½«ÔÚÊ²Ã´Ê±ºòÏÔÊ¾¸øÓÃ»§ (ÔÚ¹¦¿Î½ØÖ¹ÈÕÆÚÖ®ºó»òµÚÒ»¸öÓÃ»§Ìá½»×÷ÒµÖ®ºó)
+</p>
+
+<hr />
+<h4>×÷Òµ</h4>
+<p>×÷ÒµÊÇÓÃ»§ÉÏÔØµÄÎÄ¼þ»òÎÄ±¾¡£</p>
+<p>¶ÔÓÚÃ¿¸ö¹¦¿Î¶øÑÔ£¬¹¤¾ßÏÔÊ¾Ò»¸öËùÓÐ¿Î³Ì×¢²áÓÃ»§µÄÁÐ±í£»¶ø¶ÔÓÚÃ¿¸öÓÃ»§À´Ëµ£¬¹¤¾ßÏÔÊ¾Ëû·¢²¼µÚÒ»·Ý×÷ÒµµÄ±êÌâ£¬ÓëÓÃ»§ÓÐ¹ØµÄÌá½»ÊýºÍ·´À¡Êý£¬¹¦¿Î¿ÉÒÔÍ¨¹ýµã»÷ÓÃ»§Ãû×ÖÀ´²é¿´¡£</p>
+<p><strong>Ìá½»Ò»·Ý×÷Òµ</strong></p>
+<p>Èç¹ûÓÃ»§ÓÐÈ¨Ìá½»Ò»·Ý×÷Òµ£¬ÄÇÃ´¹¤¾ß½«ÏÔÊ¾Ò»¸öÓÃ»§À´Ô´µÄÁ´½Ó¡£</p>
+<p><strong>×÷ÒµÁÐ±í</strong></p>
+<p>×÷ÎªÒ»¸ö¿Î³Ì¸ºÔðÈË£¬ÄãÓÐÈ¨±à¼­£¬É¾³ý£¬ÉèÖÃÏÔÊ¾/Òþ²ØÈÎºÎ×÷Òµ
+Äã»¹ÄÜ¸øÃ¿·Ý×÷ÒµÌí¼ÓÒ»¸ö·´À¡¡£
+</p>
+<ul>
+<li> <strong>ÐÞ¸Ä</strong>&nbsp;£ºÈç¹û¸ÃÍ¼±êÏÔÊ¾£¬¾ÍÒâÎ¶×ÅÓÃ»§¿ÉÒÔÐÞ¸Ä×÷ÒµµÄÄÚÈÝ£¬
+µ±¿Î³Ì¸ºÔðÈËÕýÔÚ¿´ËûµÄ×÷Òµ»ò¿´Ð¡×é×÷ÒµµÄÊ±ºò£¬Í¼±ê¾ÍÏÔÊ¾³öÀ´¡£
+
+
+</li>
+<li> <strong>É¾³ý</strong>&nbsp;£º¸ÃÃüÁîÔÊÐí¿Î³Ì¸ºÔðÈËÉ¾³ýÒ»·Ý×÷Òµ¡£
+</li>
+<li> <strong>ÏÔÊ¾</strong>&nbsp;£ºÈç¹û¸ÃÍ¼±ê³öÏÖ£¬¾ÍÒâÎ¶×Å
+Ñ§Ï°Õß¾Í¿ÉÒÔ¿´µ½Õâ·Ý×÷Òµ¡£Õâ¾ÍÏñClarolineÎÄ¼þ¹¤¾ßÒ»Ñù¡£Äã¿ÉÒÔµã»÷Í¼±êÐÞ¸ÄËüµÄÉèÖÃ¡£
+
+</li>
+<li> <strong>Òþ²Ø</strong>&nbsp;£ºÈç¹û¸ÃÍ¼±ê³öÏÖ£¬¾ÍÒâÎ¶×Å
+
+Ñ§Ï°Õß¿´²»µ½Õâ·Ý×÷Òµ¡£Õâ¾ÍÏñClarolineÎÄ¼þ¹¤¾ßÒ»Ñù¡£Äã¿ÉÒÔµã»÷Í¼±êÐÞ¸ÄËüµÄÉèÖÃ¡£
+
+
+</li>
+<li> <strong>Ìí¼Ó·´À¡</strong>&nbsp;£ºÔÊÐí¿Î³Ì¸ºÔðÈË¶ÔÓÃ»§µÄ×÷Òµ·¢²¼·´À¡¡£·´À¡¿ÉÒÔÊÇÒ»¸ö´øË½ÃÜÒâ¼ûµÄÎÄ¼þ»òÒ»¸öÎÄ±¾»òÎÄ±¾¡¢ÎÄ¼þ£¬ÒÔ¼°¼ÇÂ¼µÄ·ÖÊý£¬Ö»ÓÐ¿Î³Ì¸ºÔðÈË¿ÉÒÔ¿´µÃ¼û¡£
+</li>
+</ul>
+
+
+
+";
+$langHelpGroups = "Ñ§Ï°Ð¡×é°ïÖú";
 $langHomeContent = "Îª·½±ãÕÆÎÕÊ¹ÓÃ·½·¨,ËùÓÐclaroline¹¤¾ß¶¼²»ÊÇ¿ÕµÄ.Ã¿¸ö¹¤¾ß¶¼ÓÐÒ»¸ö¼ò¶ÌµÄÀý×Ó°ïÖúÄú¿ìËÙÕÆÎÕËüµÄÊ¹ÓÃ·½·¨.¸üÐÂ»¹ÊÇÉ¾³ýÕâ¸öÀý×ÓÈ¡¾öÓÚÄã.</p><p>¾ÙÀýÀ´Ëµ, ÔÚÄúµÄ¿Î³ÌÖ÷Ò³ÉÏÓÐÒ»¶ÎÎÄ×Ö,'ÕâÊÇÄúµÄ¿Î³Ì¼ò½é.ÒªÌæ»»ÎªÄú×Ô¼ºµÄÎÄ×Ö,µã»÷ÏÂÃæ'¸üÐÂ'. ¾ÍÊÇÕâÃ´¼òµ¥!! ²¢ÇÒÃ¿¸ö¹¤¾ß¶¼ÓÐÏàÍ¬ÏàËÆµÄÂß¼­¹¦ÄÜ: Ôö¼Ó, É¾³ý, ¸üÐÂ, ÕâÐ©¹¦ÄÜÕýÊÇ¶¯Ì¬ÍøÒ³µÄ¹¦ÄÜ.</p><p>µ±ÄúÐÂ½¨¿Î³ÌÍøÕ¾Ê±, ´ó²¿·Ö¹¤¾ßÊÇ¼¤»îµÄ. Çë¼Ç×¡, Ê¹ÄÇÐ©²»ÐèÒªµÄ¹¦ÄÜÒþ²ØÆðÀ´È¡¾öÓÚÄú,Ö»Ðèµã»÷'Òþ²Ø'¼´¿ÉÊµÏÖ. ½ÓÏÂÀ´,½âÊÍÒ»ÏÂÖ÷Ò³ÉÏ»ÒÉ«²¿·ÖµÄ¹¦ÄÜ. Õâ²¿·Ö¹¦ÄÜ¶ÔÄúµÄÑ§ÉúÊÇ²»¿É¼ûµÄ, µ±È»Äú¿ÉÒÔÔÚÈÎºÎÊ±ºò¼¤»îËüÃÇ.</p><p>Äú¿ÉÒÔÌí¼ÓÄú×Ô¼ºµÄÍøÒ³. µ±È»ÕâÐ©ÍøÒ³±ØÐèÊÇHTML¸ñÊ½µÄ(ÍøÒ³¿ÉÒÔÓÃWord´¦ÀíÆ÷»òÕßWeb±à¼­Æ÷Éú³É). Ê¹ÓÃ 'ÉÏ´«ÍøÒ³'À´ÊµÏÖ. ±ê×¼µÄÎÄ¼þÍ·»á×Ô¶¯ÓëÄúµÄÎÄ¼þÈÚºÍÔÚÒ»Æð,ÄúÖ»ÐèÒª°Ñ¾«Á¦·ÅÔÚÎÄ¼þÄÚÈÝÉÏ¾ÍÐÐÁË. Èç¹ûÄúÐèÒªÔÚÖ÷Ò³ÉÏÌí¼Óµ½WebÉÏÒÑ´æÔÚÍøÒ³µÄÁ´½Ó,(µ±È»Ò²¿ÉÒÔÊÇÔÚÖ÷Ò³ÄÚµÄÎÄ¼þ), ÇëÊ¹ÓÃ 'Ìí¼ÓÁ´½Ó', Äú×Ô¼ºÌí¼ÓµÄÍøÒ³¿ÉÒÔÒþ²ØÉõÖÁÉ¾³ý,µ«±ê×¼¹¤¾ßÖ»ÄÜÒþ²Ø,²»ÄÜÉ¾³ý.</p><p>¿Î³ÌÍøÕ¾ÖÆ×÷Íê±Ïºó,Çëµ½'¿Î³ÌÐÅÏ¢',Ö¸¶¨ÄúµÄÍøÕ¾·ÃÎÊÏÞÖÆ²ßÂÔ. È±Ê¡ÉèÖÃ,ÄúµÄ¿Î³ÌÊÇÎ´¿ª·ÅµÄ,(ÒòÎªÄ¬ÈÏ¼ÙÉèÄúµÄÍøÕ¾ÕýÔÚÖÆ×÷Ö®ÖÐ).</p>";
+$langLearningPath = "Ñ§Ï°Â·Ïß";
+$langLogin = "µÇÂ¼";
 $langLogout = "ÍË³öÏµÍ³";
 $langManager = "¹ÜÀíÔ±";
+$langMinuteShort = "min.";
 $langModify = "¸üÐÂ";
 $langModifyProfile = "¸öÈË×ÊÁÏ";
 $langMonthNames = "Array";
+$langMyAgenda = "ÎÒµÄÈÕÀú";
 $langMyCourses = "ÎÒµÄ¿Î³Ì";
+$langNameOfLang = "Array";
 $langNotAllowed = "²Ù×÷½ûÖ¹";
 $langOk = "È·ÈÏ";
+$langOtherCourses = "¿Î³ÌÁÐ±í";
+$langPassword = "ÃÜÂë";
+$langPlatformAdministration = "Æ½Ì¨¹ÜÀí";
 $langPoweredBy = "¼¼ÊõÖ§³Ö";
 $langReg = "×¢²á";
+$langSecondShort = "sec.";
 $langStudent = "Ñ§Éú";
+$langSwitchEditorToTextConfirm = "¸ÃÃüÁî½«ÒÆ³öµ±Ç°ÎÄ±¾¡£ÄãÏë¼ÌÐøÂð£¿";
+$langTextEditorDisable = "ÒÆ³ýÎÄ±¾±à¼­Æ÷";
+$langTextEditorEnable = "ÏÔÊ¾ÎÄ±¾±à¼­Æ÷";
 $langUserContent = "<b>½ÇÉ«</b><p>½ÇÉ«Ã»ÓÐ¼ÆËã»ú¹ÜÀíÏà¹ØµÄ¹¦ÄÜ. Õâ²¢²»¸³ÓèË­ÏµÍ³²Ù×÷µÄÈ¨Á¦. ÕâÖ»ÊÇ¸æËßÎÒÃÇ,Ã¿¸öÈËÔÚ½ÌÑ§¹ý³ÌÖÐ°çÑÝµÄ½ÇÉ«.Äú¿ÉÒÔµã»÷'½ÇÉ«'ÏÂÃæµÄ'¸üÐÂ'À´¸üÐÂ, ¿ÉÒÔ¼üÈëÈÎºÎÄúÈÏÎªµÄ½ÇÉ«:½ÌÊÚ, Öú½Ì, Ñ§Éú, ¹ý¿Í, ×¨¼Ò...</P><hr>
 <b>¹ÜÀíÈ¨Á¦</b>
 <p>¹ÜÀíÈ¨Àû,ÁíÒ»·½Ãæ,¶ÔÓ¦ÓÚÏµÍ³²Ù×÷È¨Á¦,¸üÐÂÄÚÈÝ,×éÖ¯¿Î³ÌÍøÕ¾µÈ. Ä¿Ç°ÎªÖ®, ÄúÖ»ÄÜÑ¡Ôñ¸³ÓèËùÓÐÈ¨Á¦,»òÕßÏà·´,²»¸³ÓèÈÎºÎÈ¨Á¦.</P>
@@ -94,5 +416,14 @@ $langUserContent = "<b>½ÇÉ«</b><p>½ÇÉ«Ã»ÓÐ¼ÆËã»ú¹ÜÀíÏà¹ØµÄ¹¦ÄÜ. Õâ²¢²»¸³ÓèË­ÏµÍ³
 <p>Îª±¾¿Î³ÌÔö¼ÓÒ»¸öÓÃ»§,Ê×ÏÈ¼ì²é¸ÃÓÃ»§ÊÇ·ñÒÑÔÚÐéÄâÐ£Ô°×¢²á.Èç¹ûÒÑ¾­×¢²á, Ñ¡ÔñËûÃû×ÖÅÔ±ßµÄÑ¡Ïî¸ñ,È»ºó'È·ÈÏ'. Èç¹û»¹Ã»ÓÐ×¢²á, ¿ÉÒÔÊÖ¹¤Ìí¼Ó. ÈÎºÎÒ»ÖÖÇé¿ö, Ëû¶¼»áÊÕµ½Ò»·âº¬ÓÃ»§ÃûºÍÃÜÂëµÄÈ·ÈÏÓÊ¼þ.</p>";
 $langUserName = "ÓÃ»§Ãû";
 $langUsers = "ÓÃ»§ÁÐ±í";
+$langViewMode = "²é¿´Ä£Ê½";
 $langWork = "×÷ÒµÂÛÎÄ";
+$lang_click_here = "µãÕâÀï";
+$lang_enter_your_user_name_and_password = "ÊäÈëÄãµÄÓÃ»§ÃûºÍÃÜÂë";
+$lang_footer_p_CourseManager = "%sµÄ¿Î³Ì¸ºÔðÈË ";
+$lang_if_you_dont_have_a_user_account_profile_on = "Èç¹ûÄãÃ»ÓÐÒ»¸öÓÃ»§ÃûÔÚ";
+$lang_if_you_wish_to_enroll_to_this_course = "Èç¹ûÄãÏ£Íû¼ÓÈë¸Ã¿Î³Ì";
+$lang_p_platformManager = "%s µÄÆ½Ì¨¸ºÔðÈË";
+$lang_this_course_is_protected = "¸Ã¿Î³Ì±»±£»¤";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "ÄãµÄÓÃ»§×ÊÁÏËÆºõÃ»ÓÐÔÚ¸Ã¿Î³ÌµÇ¼Ç";
 ?>

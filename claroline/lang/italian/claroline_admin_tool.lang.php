@@ -14,7 +14,6 @@ $langDescriptionCours = "Programma";
 $langDocument = "Documento : ";
 $langEmpty = "Vuoto";
 $langExercises = "Esercizi";
-$langFirstDefOfThisValue = "!!! Prima definizione di questo valore !!!";
 $langForums = "Forum";
 $langGroups = "iscrizione degli utilizzatori nei gruppi";
 $langHelp = "Aiuto";

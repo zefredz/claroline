@@ -33,6 +33,7 @@ $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
+$langNameOfLang = "Array";
 $langNewChat = "Novo chat";
 $langNotAllowed = "Acci&oacute;n non permitida";
 $langNotGroupMember = "Vostede non ten permitido o acceso a este chat";

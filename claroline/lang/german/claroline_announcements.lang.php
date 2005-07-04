@@ -40,6 +40,7 @@ $langMonthNames = "Array";
 $langMsgSent = "Die Nachricht wurde an die gewählten Benutzer versendet";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
+$langNameOfLang = "Feld";
 $langNoAnnouncement = "Keine Ankündigungen.";
 $langNotAllowed = "Sie haben hier keinen Zugriff.";
 $langOk = "Ok";

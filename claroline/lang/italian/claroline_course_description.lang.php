@@ -46,6 +46,7 @@ $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
+$langNameOfLang = "Array";
 $langNewBloc = "Altro";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOk = "Ok";

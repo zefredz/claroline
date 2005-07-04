@@ -71,6 +71,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langMyGroup = "mi grupo";
+$langNameOfLang = "Array";
 $langNewGroupCreate = "Cerar nuevos grupos";
 $langNewGroups = "grupo nuevo";
 $langNoGroupStudents = "Estudiantes no asignados";

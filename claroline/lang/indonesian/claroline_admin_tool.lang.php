@@ -2,6 +2,7 @@
 $langAddIntro = "Tambah teks pendahuluan";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
+$langCancel = "Batal";
 $langChat = "Diskusi";
 $langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
 $langCourseManager = "Penanggung jawab pelajaran";

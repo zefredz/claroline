@@ -2,7 +2,9 @@
 $langAddIntro = "Acrescentar um texto de apresenta&ccedil;&atilde;o";
 $langAgenda = "Agenda";
 $langAnnouncement = "An&uacute;ncios";
+$langAnonymous = "An&oacute;nimo";
 $langArchive = "ficheiro";
+$langCancel = "Cancelar";
 $langChat = "Debate";
 $langConfirmYourChoice = "Confirme a sua escolha";
 $langCopyFailed = "Falhou a impress&atilde;o";
@@ -24,6 +26,7 @@ $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
+$langNameOfLang = "Nome da l&iacute;ngua";
 $langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";

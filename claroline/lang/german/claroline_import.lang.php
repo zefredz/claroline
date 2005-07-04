@@ -32,6 +32,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
 $langName = "Name";
+$langNameOfLang = "Feld";
 $langNotAllowed = "Sie haben hier keinen Zugriff.";
 $langOk = "Ok";
 $langOkSent = "Ihre Seite wurde gesendet.<p>Sie ist nun mit der <a href=../..//index.php>Kurshomepage</a> verknüpft";

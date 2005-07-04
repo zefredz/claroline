@@ -33,6 +33,7 @@ $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
+$langNameOfLang = "Array";
 $langNewChat = "Nuova Chat";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langNotGroupMember = "Non sei autorizzato in questo Gruppo di Chat.";

@@ -34,6 +34,7 @@ $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
+$langNameOfLang = "Διάταξη";
 $langNewChat = "Νέο chat";
 $langNotAllowed = "Δεν επιτρέπεται";
 $langNotGroupMember = "Δεν είσαι μέλος αυτής της ομάδας";

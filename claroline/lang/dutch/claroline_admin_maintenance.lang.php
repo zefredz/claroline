@@ -25,6 +25,7 @@ $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
+$langNameOfLang = "Array";
 $langNotAllowed = "U bent hier niet toegelaten";
 $langOk = "Ok";
 $langOtherCourses = "Cursusoverzicht";

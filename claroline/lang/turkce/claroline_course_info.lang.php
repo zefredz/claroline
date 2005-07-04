@@ -42,7 +42,7 @@ $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Özel giriþ, kayýtlar kapalýdýr (bu dersin sitesine sadece <a href=../user/user.php>bu listedeki kullanýcýlar girebilir</a>)";
-$langProfessor = "Hoca";
+$langProfessors = "Hocalar";
 $langPublicAccess = "Kayýtlý olmadan da Ana Sayfadan giriþ yapýlabilir";
 $langReg = "Kayýt";
 $langStatistics = "Ýstatistikler";

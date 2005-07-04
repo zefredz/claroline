@@ -38,7 +38,6 @@ $langFillUsers = "Gebruikers invoegen";
 $langFilling = "OPvullen met testwaarden";
 $langFirstName = "Voornaam";
 $langForce = "Zijn gesprekspartner dwingen, door een reeks vragen en bijvragen, te erkennen dat hij niet kent wat hij denkt te kennen.";
-$langFormula = "Vriendelijke groeten, Uw lesgever";
 $langForumGroup = "Groepsforum";
 $langForums = "Forums";
 $langFree = "Vrij";

@@ -66,6 +66,7 @@ $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langMyStats = "Vedi le mie statistiche";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNext = "Successivo";
 $langNo = "No";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";

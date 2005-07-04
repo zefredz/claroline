@@ -50,6 +50,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langName = "Naam";
+$langNameOfLang = "Array";
 $langNext = "Volgende";
 $langNoMoreModuleToAdd = "Alle modules van deze cursus zijn reeds gebruikt in dit leerpad.";
 $langNotAllowed = "U bent hier niet toegelaten";

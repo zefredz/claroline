@@ -37,6 +37,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langMysql_Repository = "Repositorio de MySQL";
+$langNameOfLang = "Array";
 $langNoFunctionInThisSection = "Non hai funci&oacute;ns dispo&ntilde;ibles nesta secci&oacute;n";
 $langNoQuota = "Excede a cota";
 $langNotAllowed = "Acci&oacute;n non permitida";

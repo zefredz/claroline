@@ -112,6 +112,7 @@ $langMoveDown = "Omlaag";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langName = "Naam";
+$langNameOfLang = "Array";
 $langNeverBrowsed = "Nooit bezocht";
 $langNewLabel = "Maak een nieuw label / titel aan in dit leerpad";
 $langNoLearningPath = "Geen leerpad";

@@ -18,6 +18,7 @@ $langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
+$langNameOfLang = "Array";
 $langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
@@ -27,4 +28,5 @@ $langStudent = "นักศึกษา";
 $langTitle = "ชื่อวิชา";
 $langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
+$langViMod = "ปรับปรุงการให้เห็นเอกสารแล้ว";
 ?>

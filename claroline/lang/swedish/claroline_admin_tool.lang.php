@@ -2,6 +2,7 @@
 $langAddIntro = "Lägg till introduktionstext";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
+$langCancel = "Avbryt";
 $langChat = "Diskussion";
 $langConfirmYourChoice = "Var snäll och bekräfta ditt val";
 $langCourseManager = "Kursansvarig";

@@ -4,7 +4,6 @@ $langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Êtes vous sûr de vouloir supprimer";
-$langBackAndForget = "Abandonner";
 $langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
@@ -38,7 +37,6 @@ et l&acute;enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuel
 Présentation générale de l&acute;espace.";
 $langDescriptionCours = "Description de l&acute;espace";
 $langDocument = "Documents et liens";
-$langEditCourseProgram = "Cr&eacute;er et &eacute;diter &agrave; l&acute;aide des formulaires une description de l&acute;espace";
 $langExercises = "Exercices";
 $langForums = "Forums";
 $langGroups = "Groupes";
@@ -53,6 +51,7 @@ enseignants qui vont encadrer le cours (assistants, chercheurs,
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
 $langInfo2Say = "Informations &agrave; communiquer <BR>à l'utilisateur";
+$langInvisible = "Invisible";
 $langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
@@ -62,11 +61,13 @@ $langMethodsOfEvaluationComment1 = "Précisions quant aux moyens d'évaluation (ex
 travaux à remettre, ...), quant au(x) moment(s) d'évaluation formative prévu(s),
 échéances pour la remise des travaux, aux critères d'évaluation, éventuellement
 la pondération des critères ou des catégories de critères.";
+$langMinuteShort = "min.";
 $langModify = "modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes espaces";
+$langNameOfLang = "Array";
 $langNewBloc = "Autre";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
@@ -81,6 +82,7 @@ $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l
 Au terme de l&acute;espace, quelles sont les compétences, les capacités et les connaissances que les participants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestionPlan = "Question de planification <BR>pour le modérateur";
 $langReg = "Inscription";
+$langSecondShort = "sec.";
 $langStudent = "participant";
 $langSupports = "Supports";
 $langSupportsComment1 = "Existe-t-il un support de l&acute;espace ? Quel type de support vais-je privilégier ?
@@ -104,8 +106,9 @@ $langTitle = "Titre";
 $langUnableDescToAdd = "Impossible d'ajouter la description";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
-$langValid = "Enregistrer";
+$langViMod = "Visibilit&eacute; modifi&eacute;e";
 $langViewMode = "Mode de vue";
+$langVisible = "Visible";
 $langWork = "Contributions";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";

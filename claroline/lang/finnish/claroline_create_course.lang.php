@@ -24,7 +24,6 @@ $langExercises = "Harjoitukset";
 $langExplanation = "Sivun t‰ytyy olla HTML-muodossa. Jos haluat l‰hett‰‰ sivun ei-HTML-muodossa (PDF, DOC, SWD, jne.), niin k‰yt‰<a href=../document/document.php>Dokumentti-sivua</a>";
 $langFieldsRequ = "T‰yt‰ kaikki kent‰t";
 $langForce = "Pakottaa puhekumppani kysymyksill‰ ja lis‰kysymyksill‰ myˆnt‰m‰‰n, ett‰ h‰n ei tied‰, mit‰ h‰n v‰itt‰‰ tiet‰v‰ns‰.";
-$langFormula = "Terveisin:";
 $langForums = "Foorumit";
 $langHelp = "Apua";
 $langIndeed = "Todellakin. Sokraattinen ironia on kyselyyn perustuva menetelm‰. Kreikan sana \"eirotao\" merkitsee \"tehd‰ kysymys\".";

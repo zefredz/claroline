@@ -6,8 +6,6 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langCancel = "Annuler";
 $langChat = "Discussion";
-$langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
-$langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
 $langConfigurationFile = "Fichier de configuration";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
@@ -21,7 +19,6 @@ $langDone = "Etapes terminées";
 $langEmpty = "vide";
 $langExercises = "Exercices";
 $langFailed = "<span style=\"color: red\">Echec</span>";
-$langFirstDefOfThisValue = "!!! Première définition de cette valeur !!!";
 $langForums = "Forums";
 $langGroups = "Groupes";
 $langHelp = "aide";
@@ -40,9 +37,6 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Lancer les mi
 $langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langMailAppearAlready = "Cet e-mail apparait déjà dans une ligne précédente du fichier CSV.";
-$langMailSynthaxError = "Erreur de synthaxe dans l&acute;e-mail.";
-$langMailUsed = "l&acute;e-mail est déjà utilisée par un autre utilisateur.";
 $langMakeABackupBefore = "<p>l&acute;outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
 <ol>
 <li>Récupère les paramètres de la plateforme et génère les nouveaux fichiers de configuration.</li>
@@ -59,12 +53,14 @@ $langMakeABackupBefore = "<p>l&acute;outil de <em>mise à jour de Claroline</em> 
 <p>La mise à jour ne peut pas démarrer tant que cette étape n'est pas marquée comme 'faite'.</p>
 ";
 $langManager = "Gestionnaire";
+$langMinuteShort = "min.";
 $langModeVerbose = "Mode détaillé";
 $langModify = "modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes espaces";
+$langNameOfLang = "Array";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s espaces sur %s déjà mis à jour</strong><br /></p>";
 $langNext = "Suivant";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Suivant ></button></p>";
@@ -73,13 +69,13 @@ $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des espaces";
 $langPassword = "mot de passe";
-$langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du nom d'utilisateur.";
 $langPlatformAccess = "Acc&egrave;s au campus";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langRemainingSteps = "Etapes restantes";
 $langRestoreCourseRepository = "Restaurer le dossier du cours";
+$langSecondShort = "sec.";
 $langStartAgain = "Recommencer";
 $langStudent = "participant";
 $langSucceeded = "Réussi";
@@ -100,8 +96,6 @@ $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
 $langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
 $langUpgradeSucceed = "L'<em>upgrade de claroline</em> est termin&eacute;e.";
 $langUserName = "Nom d'utilisateur";
-$langUsernameAppearAlready = "Ce nom d'utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
-$langUsernameUsed = "Ce nom d'utilisateur est déjà utilisé.";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Contributions";

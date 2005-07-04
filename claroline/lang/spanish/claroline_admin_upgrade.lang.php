@@ -60,11 +60,13 @@ y los hará compatibles con la nueva versión de Claroline. Esta actualización se 
 <p>A usted no se le permitirá comenzar con el proceso de actualización mientras no haya marcado este punto como 'Echo'.</p>
 ";
 $langManager = "Responsable";
+$langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cursos de %s han sido actualizados.</strong><br /></p>";
 $langNext = "Siguiente";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Siguiente ></button></p>";
@@ -77,6 +79,7 @@ $langPlatformAccess = "Acceso al Campus";
 $langPlatformAdministration = "Administración de la plataforma";
 $langPoweredBy = "Generado con";
 $langReg = "Inscripci&oacute;n";
+$langSecondShort = "seg.";
 $langStudent = "Estudiantes";
 $langTitleUpgrade = "<h2>Herramienta de Actualización de Claroline<br />
 

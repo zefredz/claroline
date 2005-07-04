@@ -37,6 +37,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langMysql_Repository = "Mysql backup";
+$langNameOfLang = "Array";
 $langNoFunctionInThisSection = "Geen functies in deze sectie";
 $langNoQuota = "Geen quota";
 $langNotAllowed = "U bent hier niet toegelaten";

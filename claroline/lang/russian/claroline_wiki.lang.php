@@ -1,0 +1,6 @@
+<?php
+$langCancel = "ïÔÍÅÎÉÔØ";
+$langDelete = "ÕÄÁÌÉÔØ";
+$langEdit = "Ôåäâìæêôðþâæû";
+$langTitle = "úÁÇÏÌÏ×ÏË";
+?>

@@ -68,6 +68,7 @@ $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langMyStats = "Ve-las mi&ntilde;as estat&iacute;sticas";
 $langName = "Nome";
+$langNameOfLang = "Array";
 $langNext = "Seguinte";
 $langNo = "Non";
 $langNotAllowed = "Acci&oacute;n non permitida";

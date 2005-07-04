@@ -58,6 +58,7 @@ $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langName = "Nome";
 $langNameDir = "Nome do novo directorio";
+$langNameOfLang = "Array";
 $langNoImage = "Non hai imaxe que amosar";
 $langNoSpace = "A carga do ficheiro fallou. Non hai espazo abondo no seu directorio.";
 $langNotAllowed = "Acci&oacute;n non permitida";
