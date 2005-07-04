@@ -1,24 +1,11 @@
 <?php // $Id$
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6
-+----------------------------------------------------------------------+
-| Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-      | Authors: Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      | Changed by Guillaume Lederer <lederer@cerdecam.be>                   |
-      |            Sébastien Piraux <piraux@cerdecam.be>                     |
-      +----------------------------------------------------------------------+
-*/
-
-		/*>>>>>>>>>>>>>>>>>>>> EXERCISE SUBMISSION <<<<<<<<<<<<<<<<<<<<*/
-
 /**
+ * @version CLAROLINE version 1.6
+ * ----------------------------------------------------------------------
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
+ * @license GPL
+ * @author claro team <info@claroline.net>
+ *
  * This script allows to run an exercise. According to the exercise type, questions
  * can be on an unique page, or one per page with a Next button.
  *
@@ -57,9 +44,8 @@ require '../inc/claro_init_global.inc.php';
 $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
-
-
-$is_allowedToEdit = $is_courseAdmin;
+claro_set_display_mode_available(true);
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
@@ -68,8 +54,8 @@ $tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 
-// if the object is not in the session
-if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']) )
+// if the object is not in the session or if an exercise id is specified in url
+if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']) )
 {
 	// construction of Exercise
 	$objExercise = new Exercise();
@@ -84,6 +70,13 @@ if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']) )
 
 	// saves the object into the session
     $_SESSION['objExercise'] = $objExercise;
+    // clear the session, the values are probably those of another exercise
+	unset($_SESSION['objQuestion'	]);
+	unset($_SESSION['objAnswer'		]);
+	unset($_SESSION['questionList'	]);
+	unset($_SESSION['exerciseResult']);
+	unset($_SESSION['exeStartTime'	]);
+
 } // else session recorded objExercise
 
 // if questionNum comes from POST and not from GET
@@ -295,7 +288,7 @@ elseif( ($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59") && (
 $statusMsg .= "<br /><b>".$errMsg."</b>";
 echo claro_disp_tool_title($langExercise." : ".$exerciseTitle);
 
-if( $showExerciseForm || $is_courseAdmin )
+if( $showExerciseForm || $is_allowedToEdit )
 {
 ?>
   <p>
@@ -305,7 +298,7 @@ if( $showExerciseForm || $is_courseAdmin )
   </small>
   </p>
 <?php
-	if( $is_courseAdmin && $_SESSION['inPathMode'] != true )
+	if( $is_allowedToEdit && $_SESSION['inPathMode'] != true )
 	{
 		echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.$langModifyExercise.'</a>';
 	}	
@@ -321,7 +314,7 @@ if( $showExerciseForm || $is_courseAdmin )
   <?php
   $i=0;
   
-  foreach( $_SESSION['questionList'] as $questionId)
+  foreach( $_SESSION['questionList'] as $questionId )
   {
     $i++;
   
