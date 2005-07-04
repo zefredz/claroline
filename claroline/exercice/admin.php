@@ -118,7 +118,7 @@ if(!$is_allowedToEdit)
 }
 
 // intializes the Exercise object
-if(!isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']))
+if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_object($_SESSION['objExercise']))
 {
 	// construction of the Exercise object
 	$objExercise = new Exercise();
