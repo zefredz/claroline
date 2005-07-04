@@ -1,18 +1,25 @@
 <?php // $Id$
 /**
- * @version CLAROLINE version 1.6
- * ----------------------------------------------------------------------
- * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
- * @license GPL
- * @author claro team <info@claroline.net>
- * 
- * This page display global information about 
+ * CLAROLINE
+ *
+ * @version 1.7
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLTRACK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <piraux@claroline.net>
+ *
  */
 require '../inc/claro_init_global.inc.php';
 
 // exo_id is required
 if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
 
+include('../exercice/exercise.class.php');
 /**
  * DB tables definition
  */
@@ -28,17 +35,12 @@ $tbl_track_e_exercices 	= $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-include($includePath."/lib/statsUtils.lib.inc.php");
 
 $is_allowedToTrack = $is_courseAdmin;
 
-// get infos about the exercise
-$sql = "SELECT `id`, `titre` `title`
-        FROM `".$tbl_quiz_test."`
-       WHERE `id` = ". (int) $_REQUEST['exo_id'];
-$result = claro_sql_query($sql);
-$exo_details = @mysql_fetch_array($result);
-
+// get exercise details
+$exercise = new Exercise();
+$exercise->read($_REQUEST['exo_id']);
 
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
@@ -47,7 +49,7 @@ $nameTools = $langStatsOfExercise;
 include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $langStatsOfExercise." : ".$exo_details['title'];
+$titleTab['subTitle'] = $exercise->selectTitle();
 echo claro_disp_tool_title($titleTab);
 
 if($is_allowedToTrack && $is_trackingEnabled) 
@@ -62,7 +64,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                 COUNT(TEX.`exe_user_id`) AS `tusers`,
 				AVG(`TEX`.`exe_time`) AS `avgTime`
         FROM `".$tbl_track_e_exercices."` AS TEX
-        WHERE TEX.`exe_exo_id` = ".$exo_details['id']."
+        WHERE TEX.`exe_exo_id` = ".$exercise->selectId()."
                 AND TEX.`exe_user_id` IS NOT NULL";
   
   $result = claro_sql_query($sql);
@@ -82,7 +84,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
         }
         else
         {
-            // round average number for a beautifuler display :p
+            // round average number for a beautifuler display
             $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
         }
   ?>
@@ -112,7 +114,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	WHERE `CU`.`user_id` = `U`.`user_id`
 	  AND `CU`.`code_cours` = '".$_cid."'
 	  AND (
-	        `TE`.`exe_exo_id` = ".$exo_details['id']."
+	        `TE`.`exe_exo_id` = ".$exercise->selectId()."
 	        OR
 	        `TE`.`exe_exo_id` IS NULL
 	      )
@@ -144,7 +146,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			$exo_users_detail['maximum'] = 0;
 		}
 		echo 	 '<tr>'."\n"
-		  		.'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exo_details['id'].'">'."\n"
+		  		.'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->selectId().'">'."\n"
 				.$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
 		  		.'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
 		  		.'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
@@ -157,7 +159,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	echo '</tbody>'."\n".'</table>'."\n\n";
 
 	// display details : QUESTIONS VIEW
-	$sql = "SELECT `Q`.`question`, `Q`.`type`, `Q`.`ponderation`,
+	$sql = "SELECT `Q`.`id`, `Q`.`question`, `Q`.`type`, `Q`.`ponderation`,
           		MIN(TED.`result`) AS `minimum`,
 				MAX(TED.`result`) AS `maximum`,
 				AVG(TED.`result`) AS `average`
@@ -168,7 +170,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
       		ON `TED`.`exercise_track_id` = `TE`.`exe_id`
 			AND `TED`.`question_id` = `Q`.`id`
 		WHERE `Q`.`id` = `RTQ`.`question_id`
-			AND `RTQ`.`exercice_id` = ".$exo_details['id']."
+			AND `RTQ`.`exercice_id` = ".$exercise->selectId()."
 		GROUP BY `TED`.`question_id`
 		ORDER BY `Q`.`question` ASC";
 
@@ -215,10 +217,5 @@ else
     }
 }
 
-
-?>
-</table>
-
-<?php
 include($includePath."/claro_init_footer.inc.php");
 ?>
