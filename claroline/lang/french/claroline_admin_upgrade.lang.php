@@ -7,8 +7,6 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langCancel = "Annuler";
 $langChat = "Discussion";
-$langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
-$langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
 $langConfigurationFile = "Fichier de configuration";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
@@ -22,7 +20,6 @@ $langDone = "Etapes terminées";
 $langEmpty = "vide";
 $langExercises = "Exercices";
 $langFailed = "<span style=\"color: red\">Echec</span>";
-$langFirstDefOfThisValue = "!!! Première définition de cette valeur !!!";
 $langForums = "Forums";
 $langGroups = "Groupes";
 $langHelp = "Aide";
@@ -41,9 +38,6 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Lancer les mi
 $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langMailAppearAlready = "Cet e-mail apparait déjà dans une ligne précédente du fichier CSV.";
-$langMailSynthaxError = "Erreur de synthaxe dans l'e-mail.";
-$langMailUsed = "L'e-mail est déjà utilisée par un autre utilisateur.";
 $langMakeABackupBefore = "
 <p>L'outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
 <ol>
@@ -70,12 +64,14 @@ La <em>mise à jour de Claroline</em> ne peut pas démarrer tant que
 vous ne confirmez pas que la sauvegarde est réalisée.</p>
 ";
 $langManager = "Gestionnaire";
+$langMinuteShort = "min.";
 $langModeVerbose = "Mode détaillé";
 $langModify = "Modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
+$langNameOfLang = "Array";
 $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cours sur %s déjà mis à jour</strong><br /></p>";
 $langNext = "Suivant";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Suivant ></button></p>";
@@ -84,13 +80,15 @@ $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
-$langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du nom d'utilisateur.";
+$langPeriodDayShort = "j.";
+$langPeriodHourShort = "h.";
 $langPlatformAccess = "Accès au campus";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
 $langRemainingSteps = "Etapes restantes";
 $langRestoreCourseRepository = "Restaurer le dossier du cours";
+$langSecondShort = "sec.";
 $langStartAgain = "Recommencer";
 $langStudent = "Etudiant";
 $langSucceeded = "Réussi";
@@ -111,8 +109,6 @@ $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
 $langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
 $langUpgradeSucceed = "L'<em>upgrade de claroline</em> est termin&eacute;e.";
 $langUserName = "Nom d'utilisateur";
-$langUsernameAppearAlready = "Ce nom d'utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
-$langUsernameUsed = "Ce nom d'utilisateur est déjà utilisé.";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Travaux";
@@ -139,7 +135,7 @@ $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Réglez d'abord ce problème techn
 $lang_p_d_affected_rows = "%d enregistrements modifiés";
 $lang_p_d_coursesToUpgrade = "%s cours à mettre à jour";
 $lang_p_d_errorFound = " %d erreurs trouvées";
-$lang_p_expectedRemainingTime = "<!-- Temps d\'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.";
+$lang_p_expectedRemainingTime = "<!-- Temps d'éxécution pour ce cours [%01.2f s] - moyenne [%01.2f s] - total [%s] - cours restants [%d]. -->Temps restant estimé : %s.";
 $lang_p_platformManager = "Administrateur %s";
 $lang_p_s_s_isInvalid = "%s : %s est invalide";
 $lang_rules_s_in_s = "Règle : %s dans %s";

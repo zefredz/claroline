@@ -2,6 +2,7 @@
 $langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
+$langCancel = "Annuler";
 $langChat = "Discussion";
 $langClarContent = "<br><p><b>Etudiant</b></p>
 <p>
@@ -234,12 +235,12 @@ L'outil Exercices permet de créer des exercices en ligne sous la forme d'une lis
 </p><p><br />
 Nous allons commencer par créer un nouvel exercice. Pour ce faire, cliquez sur le lien « Nouvel exercice ».
 </p><p><br />
-Il vous faut commencer par donner un intitulé à votre exercice, ainsi quune éventuelle description.
+Il vous faut commencer par donner un intitulé à votre exercice, ainsi qu.une éventuelle description.
 </p><p>Définissez ensuite les options souhaitées pour cet exercice&nbsp;:
 </p>
 <ul><li> Type d'exercice
-<ul><li> Questions sur une seule page&nbsp;: Lorsque létudiant exécutera lexercice, toutes les questions lui seront présentées en une seule fois.
-</li><li> Une question par page&nbsp;: Les questions sont réparties sur plusieurs pages. Une fois que létudiant à répondu à une question, il passe à la suivante, et il ne peut plus revenir en arrière.
+<ul><li> Questions sur une seule page&nbsp;: Lorsque l.étudiant exécutera l.exercice, toutes les questions lui seront présentées en une seule fois.
+</li><li> Une question par page&nbsp;: Les questions sont réparties sur plusieurs pages. Une fois que l.étudiant à répondu à une question, il passe à la suivante, et il ne peut plus revenir en arrière.
 
 </li></ul>
 </li></ul>
@@ -259,17 +260,17 @@ Il vous faut commencer par donner un intitulé à votre exercice, ainsi quune éve
 </li></ul>
 <p>Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur « Valider » pour enregistrer votre exercice.
 </p><p><br />
-</p><p>Vous arrivez alors à la liste des questions de lexercice. Comme il sagit dun nouvel exercice, cette liste est vide.
+</p><p>Vous arrivez alors à la liste des questions de l.exercice. Comme il s.agit d.un nouvel exercice, cette liste est vide.
 
 </p><p>Pour ajouter une nouvelle question, cliquez sur le lien « Nouvelle question ».
-</p><p>Dans le formulaire qui apparaît, introduisez votre question, ainsi quun éventuel commentaire.
+</p><p>Dans le formulaire qui apparaît, introduisez votre question, ainsi qu.un éventuel commentaire.
 </p><p>Vous pouvez également joindre un fichier se trouvant sur votre disque dur en cliquant sur le bouton « Parcourir& »
 </p><p>Il vous faut à présent choisir le type de réponse pour votre question&nbsp;:
 </p>
-<ul><li> Choix multiple (Réponse unique)&nbsp;: Il sagit du classique QCM, où létudiant ne peut choisir quune seule réponse.
+<ul><li> Choix multiple (Réponse unique)&nbsp;: Il s.agit du classique QCM, où l.étudiant ne peut choisir qu.une seule réponse.
 </li><li> Choix multiple (Réponses multiples)&nbsp;: Dans ce cas-ci, plusieurs réponses peuvent être correctes.
-</li><li> Correspondance&nbsp;: Létudiant devra faire correspondre les éléments dune liste avec ceux dune autre liste.
-</li><li> Remplissage de blancs&nbsp;: Il sagit du texte à trous&nbsp;; létudiant devra compléter un texte en trouvant les mots manquants.
+</li><li> Correspondance&nbsp;: L.étudiant devra faire correspondre les éléments d.une liste avec ceux d.une autre liste.
+</li><li> Remplissage de blancs&nbsp;: Il s.agit du texte à trous&nbsp;; l.étudiant devra compléter un texte en trouvant les mots manquants.
 
 </li></ul>
 <p><br />
@@ -284,11 +285,11 @@ Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur le « V
 </p><p>Deux possibilités pour ajouter une question&nbsp;:
 </p>
 <ul><li> Créer une nouvelle question&nbsp;:
-<ul><li> Choix multiple (Réponse unique)&nbsp;: Il sagit du classique QCM, où létudiant ne peut choisir quune seule réponse.
+<ul><li> Choix multiple (Réponse unique)&nbsp;: Il s.agit du classique QCM, où l.étudiant ne peut choisir qu.une seule réponse.
 </li><li> Choix multiple (Réponses multiples)&nbsp;: Dans ce cas-ci, plusieurs réponses peuvent être correctes.
-</li><li> Correspondance&nbsp;: Létudiant devra faire correspondre les éléments dune liste avec ceux dune autre liste.
+</li><li> Correspondance&nbsp;: L.étudiant devra faire correspondre les éléments d.une liste avec ceux d.une autre liste.
 
-</li><li> Remplissage de blancs&nbsp;: Il sagit du texte à trous&nbsp;; létudiant devra compléter un texte en trouvant les mots manquants.
+</li><li> Remplissage de blancs&nbsp;: Il s.agit du texte à trous&nbsp;; l.étudiant devra compléter un texte en trouvant les mots manquants.
 </li></ul>
 </li></ul>
 <ul><li> Ajouter une question de la Banque de questions
@@ -296,20 +297,20 @@ Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur le « V
 
 <h4>Questions à choix multiples</h4>
 <p>Commencez par fournir les différents choix de réponses. Vous pouvez ajouter ou retirer des réponses grâce aux boutons « Supprmier rép. » et « Ajouter rép. ».
-</p><p>Vous avez ensuite la possibilité de donner un commentaire (ou feedback) qui sera affiché à létudiant lorsquil aura validé la question. Le feedback napparaît que pour les réponses que létudiant a choisies, quelles soient bonnes ou mauvaises.
+</p><p>Vous avez ensuite la possibilité de donner un commentaire (ou feedback) qui sera affiché à l.étudiant lorsqu.il aura validé la question. Le feedback n.apparaît que pour les réponses que l.étudiant a choisies, qu.elles soient bonnes ou mauvaises.
 </p><p>Enfin, sélectionnez la ou les bonnes réponses via les cases à cocher de gauche et donnez une pondération à chacune des réponses. La pondération peut être positive, négative ou nulle.
 Une fois terminé, cliquez sur le bouton « Valider » pour enregistrer les réponses de votre question.
 </p>
 
 <h4>Correspondance</h4>
-<p>Ici, vous devez remplir 2 listes avec des éléments complémentaires, que létudiant devra faire correspondre.
+<p>Ici, vous devez remplir 2 listes avec des éléments complémentaires, que l.étudiant devra faire correspondre.
 </p><p>Vous pouvez ajouter ou supprimer des éléments grâce aux boutons « -élem » et « +élem ».
-</p><p>Donnez ensuite une pondération à chaque correspondance correctement établie par létudiant, et enregistrez votre question en cliquant sur le bouton « Valider ».
+</p><p>Donnez ensuite une pondération à chaque correspondance correctement établie par l.étudiant, et enregistrez votre question en cliquant sur le bouton « Valider ».
 </p><p>Les pondérations ne peuvent pas être négatives.
 </p>
 
 <h4>Remplissage de blancs</h4>
-<p>Introduisez tout dabord votre texte dans le champ prévu à cet effet.<br />
+<p>Introduisez tout d.abord votre texte dans le champ prévu à cet effet.<br />
 Une fois le texte introduit, définissez les différents blancs en entourant les mots à retirer du texte par des crochets. </p>
 
 <hr />
@@ -478,18 +479,23 @@ $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
+$langMinuteShort = "min.";
 $langModify = "Modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
+$langNameOfLang = "Array";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
+$langPeriodDayShort = "j.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langReg = "Inscription";
+$langSecondShort = "sec.";
 $langStudent = "Etudiant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";

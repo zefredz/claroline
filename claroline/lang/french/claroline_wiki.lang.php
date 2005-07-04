@@ -1,0 +1,36 @@
+<?php
+$langCancel = "Annuler";
+$langContinue = "Continuer";
+$langDelete = "Effacer";
+$langEdit = "Editer";
+$langTitle = "Titre";
+$langWiki = "Wiki";
+$langWikiAllPages = "Toutes les pages";
+$langWikiCreateNewWiki = "Créer un nouveau Wiki";
+$langWikiCreationSucceed = "Le Wiki a été créé avec succès";
+$langWikiDeleteWiki = "Supprimer le wiki";
+$langWikiDeleteWikiWarning = "Attention : vous aller supprimer ce wiki ainsi que toutes ses pages. Voulez-vous continuer ?";
+$langWikiDeletionSucceed = "Le Wiki a été supprimé avec succès";
+$langWikiEditPage = "Éditer cette page";
+$langWikiEditProperties = "Éditer les propriétés";
+$langWikiEditionSucceed = "Le Wiki a été édité avec succès";
+$langWikiEnterWiki = "Accéder au Wiki";
+$langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
+$langWikiHideHelp = "Cacher l'aide";
+$langWikiInvalidWikiId = "Wiki Id non valide";
+$langWikiList = "Liste des Wiki";
+$langWikiMainPage = "Page principale";
+$langWikiMainPageContent = "Ceci est la page principale du Wiki %s. Cliquez sur éditer pour en modifier le contenu.";
+$langWikiNoWiki = "Aucun Wiki";
+$langWikiNotAllowedToCreate = "Vous n'êtes pas autorisé à créer des pages";
+$langWikiNotAllowedToEdit = "Vous n'êtes pas autorisé à éditer cette page";
+$langWikiNotAllowedToRead = "Vous n'êtes pas autorisé à lire cette page";
+$langWikiPageHistory = "Historique de cette page";
+$langWikiPageSaved = "Page sauvée";
+$langWikiProperties = "Propriétés";
+$langWikiRecentChanges = "Modifications récentes";
+$langWikiShowHelp = "Voir l'aide";
+$langWikiTitleEdit = "Wiki : Éditer les propriétés";
+$langWikiTitleNew = "Wiki : Créer un nouveau Wiki";
+$langWikiTitlePattern = "Wiki : %s";
+?>

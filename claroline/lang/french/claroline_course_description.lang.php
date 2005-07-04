@@ -4,7 +4,6 @@ $langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
-$langBackAndForget = "Abandonner";
 $langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfirmYourChoice = "Veuillez confirmer votre choix";
@@ -26,7 +25,7 @@ $langDescAdded = "Description ajoutée.";
 $langDescDeleted = "Description supprimée.";
 $langDescUnableToDelete = "Impossible de supprimer";
 $langDescUnableToUpdate = "Impossible de mettre à jour";
-$langDescUpdated = "Description mise à jour..";
+$langDescUpdated = "Description mise à jour.";
 $langDescription = "Description";
 $langDescriptionComment1 = "Quelle est la place et la spécificité du cours dans le programme&nbsp;?
 Existe-t-il des cours pré-requis&nbsp;?
@@ -39,7 +38,6 @@ et l'enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
 Présentation générale du cours dans le programme.";
 $langDescriptionCours = "Description du cours";
 $langDocument = "Documents et liens";
-$langEditCourseProgram = "Création et édition";
 $langExercises = "Exercices";
 $langForums = "Forums";
 $langGroups = "Groupes";
@@ -54,6 +52,7 @@ enseignants qui vont encadrer le cours (assistants, chercheurs,
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
 $langInfo2Say = "Informations à communiquer <BR>à l'étudiant";
+$langInvisible = "Invisible";
 $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
@@ -63,16 +62,20 @@ $langMethodsOfEvaluationComment1 = "Précisions quant aux moyens d'évaluation (ex
 travaux à remettre, ...), quant au(x) moment(s) d'évaluation formative prévu(s), 
 échéances pour la remise des travaux, aux critères d'évaluation, éventuellement 
 la pondération des critères ou des catégories de critères.";
+$langMinuteShort = "min.";
 $langModify = "Modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
+$langNameOfLang = "Array";
 $langNewBloc = "Autre";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPassword = "mot de passe";
+$langPeriodDayShort = "j.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et Objectifs";
@@ -82,6 +85,7 @@ $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l
 Au terme du cours, quelles sont les compétences, les capacités et les connaissances que les étudiants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestionPlan = "<BR>Question de planification pour le gestionnaire de cours";
 $langReg = "Inscription";
+$langSecondShort = "sec.";
 $langStudent = "Etudiant";
 $langSupports = "Supports";
 $langSupportsComment1 = "Existe-t-il un support de cours ? Quel type de support vais-je privilégier ? 
@@ -105,8 +109,9 @@ $langTitle = "Titre";
 $langUnableDescToAdd = "Impossible d'ajouter la description";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
-$langValid = "Enregistrer";
+$langViMod = "Visibilité modifiée";
 $langViewMode = "Mode de vue";
+$langVisible = "Visible";
 $langWork = "Travaux";
 $lang_click_here = "cliquez ici";
 $lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
