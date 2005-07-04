@@ -312,6 +312,31 @@ th .claroCmdDisabled{
 }
 
 /******************************************************************************
+                             CLAROLINE ITEM
+ ******************************************************************************/
+
+/*
+ * Classes family to emphase some item in the tool interface.
+ * These two classes has to be used together to work correctly.
+ *
+ * SOME EXAMPLES :
+ *
+ *  <a href="0" class="item"><img src="icon.gif" />lorem ipsum</a><br />
+ *  <a href="0" class="item hot"><img src="icon.gif" />lorem ipsum</a><br />
+ *
+ *  <span class="item"><img src="icon.gif" />lorem ipsum</span><br>
+ *  <span class="item hot"><img src="icon.gif" />lorem ipsum<br>
+ *
+ *  <ul style="list-style-image:url(icon.gif);list-style-position:inside">
+ *   <li class="item">lorem ipsum</li>
+ *   <li class="item hot">lorem ipsum</li>
+ *  </ul>
+ */
+
+.item {padding-left:16px}
+.hot {background:url(../img/hot.gif) no-repeat}
+
+/******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
 .claroTable td, th {
@@ -437,16 +462,6 @@ a:visited.invisible{
 /* 'highlight' */
 .highlight {
 	color: #FFB848;
-}
-
-/* 'hotItem' is used when something needs to be notified as new on the platform since the last login
-    to the user
-*/
-.hotItem,
-.hotItem a
-{
- color: #FF00CC;
- font-weight: bold;
 }
 
 /*
