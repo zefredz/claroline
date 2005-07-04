@@ -1,8 +1,8 @@
 *********************************************
-CLAROLINE 1.6.0 - INSTALL
+CLAROLINE 1.7.0 ALPHA - INSTALL
 *********************************************
 
-Thank you for downloading Claroline 1.6.0 . This text will guide you 
+Thank you for downloading Claroline 1.7.0 . This text will guide you 
 through the basics of installation and operation of Claroline 1.6. Please 
 ensure you read this fully BEFORE proceeding with the installation.
 
@@ -20,7 +20,7 @@ TABLE OF CONTENT :
 REQUIREMENTS
 ============
 
-To install Claroline 1.6.0 on a computer, whether locally or remotely, 
+To install Claroline 1.7.0 on a computer, whether locally or remotely, 
 you need the following on your machine :
 
 1. One of the following Operating systems :
@@ -153,8 +153,10 @@ NEW CLAROLINE INSTALLATION
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
-The upgrade works only from Claroline 1.5.x. Older Claroline versions 
-should upgrade first to Claroline 1.5.3 before upgrade to Claroline 1.6.
+!! Do not use ALPHA versions in production !!
+
+The upgrade works only from Claroline 1.6.x. Older Claroline versions 
+should upgrade first to Claroline 1.6.x before upgrade to Claroline 1.7.x
 
 Before upgrading we heavily recommend you do a full backup of the previous 
 Claroline directories and databases. If you are unsure how to achieve this 
@@ -211,5 +213,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - April 21 2004
+                Europe, Belgium, Louvain-la-Neuve - July 4 2005
 ================================== END ===================================
