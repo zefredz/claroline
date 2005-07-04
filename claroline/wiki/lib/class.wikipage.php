@@ -271,7 +271,7 @@
          * Get page version history
          * @return array page history on success, null on failure
          */
-        function history( $limit = 0, $order = 'ASC' )
+        function history( $offset = 0, $limit = 50, $order = 'DESC' )
         {
             // reconnect if needed
             if ( ! $this->con->isConnected() )
@@ -279,16 +279,17 @@
                 $this->con->connect();
             }
             
-            $limit = ($limit === 0) ? "" : " LIMIT " . $limit;
-            $order = ($order === 'ASC') ? " ORDER BY `id` ASC" : " ORDER BY `id` DESC";
+            $limit = ( $limit == 0 ) ? "" : "LIMIT " . $offset . "," . $limit . " ";
+            
+            $order = ($order === 'ASC') ? " ORDER BY `id` ASC " : " ORDER BY `id` DESC ";
             // retreive versionId and editorId and mtime for each version
             // of the page
             
             $sql = "SELECT `id`, `editor_id`, `mtime` "
                 . "FROM `" . $this->config['tbl_wiki_pages_content'] . "` "
                 . "WHERE `pid` = " . $this->getPageId()
-                . $limit
                 . $order
+                . $limit
                 ;
                 
             $result =  $this->con->getAllRowsFromQuery( $sql );
