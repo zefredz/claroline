@@ -470,7 +470,7 @@
     
     // Claroline Header and Banner
 
-    require_once "../inc/claro_init_header.inc.php";
+    require_once $includePath . "/claro_init_header.inc.php";
     
     if ( !empty($message) )
     {
@@ -764,5 +764,5 @@
 
     // Claroline footer
     
-    require_once "../inc/claro_init_footer.inc.php";
+    require_once $includePath . "/claro_init_footer.inc.php";
 ?>

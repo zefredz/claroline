@@ -362,7 +362,7 @@
     
     // Claro header and banner
 
-    require_once "../inc/claro_init_header.inc.php";
+    require_once $includePath . "/claro_init_header.inc.php";
 
     // --------- Start of display ----------------
     
@@ -601,5 +601,5 @@
 
     // Claroline footer
 
-    require_once "../inc/claro_init_footer.inc.php";
+    require_once $includePath . "/claro_init_footer.inc.php";
 ?>
