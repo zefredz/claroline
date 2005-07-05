@@ -513,9 +513,9 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th style="width: 55%">'.$langTitle.'</th>' . "\n"
-                    . '<th style="width: 15%">'.$langEdit.'</th>' . "\n"
-                    . '<th style="width: 15%">'.$langDelete.'</th>' . "\n"
+                    . '<th style="width: 55%;">'.$langTitle.'</th>' . "\n"
+                    . '<th style="width: 15%; text-align: center;">'.$langEdit.'</th>' . "\n"
+                    . '<th style="width: 15%; text-align: center;">'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -557,7 +557,7 @@
                     {
                         // edit link
                         
-                        echo '<td>';
+                        echo '<td style="text-align:center;">';
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
                             . '">'
@@ -568,7 +568,7 @@
                 
                         // delete link
                         
-                        echo '<td>';
+                        echo '<td style="text-align:center;">';
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
