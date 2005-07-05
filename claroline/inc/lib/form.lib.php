@@ -90,21 +90,18 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
     }
 
     //split selectedTime
-    list($selHour, $selMinute) = split(":",$selectedTime);
+    list($selHour, $selMinute) = split(':',$selectedTime);
+
 
     if ($hourFieldName != '')
     {
-        $hourField = '<select name="' . $hourFieldName . '" id="' . $hourFieldName . '">' . "\n";
-        for($hour=0;$hour < 24; $hour++)
-        {
-            $hourField .= '<option value="' . $hour . '"';
-            if($hour == $selHour)
-            {
-                $hourField .= ' selected="selected"';
-            }
-            $hourField .= '>' . $hour . '</option>' . "\n";
-        }
-        $hourField .= '</select>';
+        for($hour=0;$hour < 24; $aivailable_hours[] = ++$hour) ;
+        $hourField = claro_html_form_select( $hourFieldName
+                                           , $aivailable_hours
+                                           , $selHour
+                                           , array('id'=> $hourFieldName)
+                                           );
+
     }
 
     if($minuteFieldName != "")
