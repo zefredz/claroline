@@ -206,8 +206,8 @@
             $result = $this->con->getRowFromQuery( $sql );
 
             $this->setWikiId( $result['id'] );
-            $this->setTitle( $result['title'] );
-            $this->setDescription($result['description']);
+            $this->setTitle( stripslashes( $result['title'] ) );
+            $this->setDescription( stripslashes( $result['description'] ) );
             $this->setGroupId($result['group_id']);
         }
         
@@ -344,8 +344,8 @@
                     . "`title`,`description`,`group_id`"
                     . ") "
                     . "VALUES("
-                    . "'".$this->getTitle()."', "
-                    . "'" . $this->getDescription() . "', "
+                    . "'". addslashes( $this->getTitle() ) ."', "
+                    . "'" . addslashes( $this->getDescription() ) . "', "
                     . "'" . $this->getGroupId() . "'"
                     . ")"
                     ;
@@ -365,8 +365,8 @@
                 // UPDATE PROPERTIES
                 $sql = "UPDATE `" . $this->config['tbl_wiki_properties'] . "` "
                     . "SET "
-                    . "`title`='".$this->getTitle()."', "
-                    . "`description`='".$this->getDescription()."', "
+                    . "`title`='".addslashes($this->getTitle())."', "
+                    . "`description`='".addslashes($this->getDescription())."', "
                     . "`group_id`='".$this->getGroupId()."' "
                     . "WHERE `id`=" . $this->getWikiId()
                     ;
@@ -392,7 +392,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `title` = '".$title."' "
+                . "WHERE `title` = '".addslashes($title)."' "
                 . "AND `wiki_id` = " . $this->wikiId
                 ;
 
@@ -414,7 +414,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `title` = '".$title."'"
+                . "WHERE `title` = '".addslashes($title)."'"
                 ;
 
             return $this->con->queryReturnsResult( $sql );

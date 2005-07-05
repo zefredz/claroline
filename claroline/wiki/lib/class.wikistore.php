@@ -106,7 +106,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `title` = '".$title."' "
+                . "WHERE `title` = '".addslashes( $title )."' "
                 . "AND `wiki_id` = " . $wikiId
                 ;
 

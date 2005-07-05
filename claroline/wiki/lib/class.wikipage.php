@@ -245,7 +245,7 @@
                         . "VALUES("
                         . $this->getWikiId() . ", "
                         . $this->getOwnerId() . ", "
-                        . "'" . $this->getTitle() . "', "
+                        . "'" . addslashes( $this->getTitle() ) . "', "
                         . "'" . $this->getCreationTime() . "', "
                         . "'" . $this->getLastEditTime() . "'"
                         . ")"
@@ -319,7 +319,7 @@
             
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `title` = '".$title."' "
+                . "WHERE `title` = '". addslashes( $title )."' "
                 . "AND `wiki_id` = " . $this->getWikiId();
                 ;
 
@@ -347,7 +347,7 @@
                 . "c.`editor_id`, c.`content` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p"
                 . ", `".$this->config['tbl_wiki_pages_content']."` c "
-                . "WHERE BINARY p.`title` = '".$title."' "
+                . "WHERE BINARY p.`title` = '".addslashes( $title )."' "
                 . "AND c.`id` = p.`last_version` "
                 . "AND `wiki_id` = " . $this->getWikiId();
                 ;
@@ -441,7 +441,7 @@
                     . $this->getPageId() . ", "
                     . "'" . $this->getEditorId() . "', "
                     . "'" . $this->getLastEditTime() . "', "
-                    . "'" . $this->getContent() . "'"
+                    . "'" . addslashes( $this->getContent() ) . "'"
                     . ")"
                     ;
                     
@@ -480,13 +480,13 @@
             {
                 $this->_setPageId( $page['id'] );
                 $this->setOwnerId( $page['owner_id'] );
-                $this->setTitle( $page['title'] );
+                $this->setTitle( stripslashes( $page['title'] ) );
                 $this->_setLastVersionId( $page['last_version'] );
                 $this->_setCurrentVersionId( $page['last_version'] );
                 $this->setCreationTime( $page['ctime'] );
                 $this->setLastEditTime( $page['last_mtime'] );
                 $this->setEditorId( $page['editor_id'] );
-                $this->setContent( $page['content'] );
+                $this->setContent( stripslashes( $page['content'] ) );
 
                 return $this;
             }
