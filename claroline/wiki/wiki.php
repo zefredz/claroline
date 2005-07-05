@@ -21,6 +21,10 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
+    // display mode
+
+    claro_set_display_mode_available(TRUE);
+    
     // check and set user access level for the tool
     
     if ( is_null( $_cid ) )
@@ -39,14 +43,14 @@
     
     // set admin mode and groupId
     
-    $is_allowedToAdmin = false;
+    $is_allowedToAdmin = claro_is_allowed_to_edit();;
 
     if ( $_gid && $is_groupAllowed )
     {
         // group context
         $groupId = (int) $_gid;
 
-        $is_allowedToAdmin = $is_groupTutor || $is_courseAdmin || $is_platformAdmin;
+        // $is_allowedToAdmin = claro_is_allowed_to_edit(); // $is_groupTutor || $is_courseAdmin || $is_platformAdmin;
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -57,7 +61,7 @@
         // course context
         $groupId = 0;
 
-        $is_allowedToAdmin = $is_courseAdmin || $is_platformAdmin;
+        // $is_allowedToAdmin = claro_is_allowed_to_edit(); // $is_courseAdmin || $is_platformAdmin;
     }
 
     // unquote GPC if magic quote gpc enabled
