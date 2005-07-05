@@ -642,7 +642,9 @@
                     $entry = '<strong><a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $wikiId . '&amp;title=' . urlencode( $recentChange['title'] )
                         . '&amp;action=show"'
-                        . '>'.$pgtitle.'</a></strong>&nbsp;-&nbsp;' . $recentChange['last_mtime']
+                        . '>'.$pgtitle.'</a></strong>&nbsp;-&nbsp;'
+                        . claro_disp_localised_date( $dateTimeFormatLong
+                            , strtotime($recentChange['last_mtime']) )
                         ;
                         
                     $userInfo = user_get_data( $recentChange['editor_id'] );
@@ -816,7 +818,11 @@
                     $versionUrl = '<a href="' . $_SERVER['PHP_SELF'] . '?wikiId='
                         . $wikiId . '&amp;title=' . urlencode( $title )
                         . '&amp;action=showVersion&amp;versionId=' . $version['id']
-                        . '">'.$version['mtime'].'</a>';
+                        . '">'
+                        . claro_disp_localised_date( $dateTimeFormatLong
+                            , strtotime($version['mtime']) )
+                        . '</a>'
+                        ;
                     
                     echo '<li>' . $versionUrl . $userUrl . '</li>' . "\n";
                 }
