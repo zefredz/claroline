@@ -1,5 +1,5 @@
-<?php
-$langSelectAll = "Select all";
+<?php 
+$langSelectAll="Select all";
 $l_author = "Author";
 $l_body = "Message Body";
 $l_by = "by";
@@ -1313,12 +1313,12 @@ $langIntroWork = "This tool allows the teacher to create assignments in which an
 <br />You will be able to add a comment or a grade to each work.
 
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
-$langInvalidId = "Login failed.<br />Contact your administrator.";
-$langInvalidIdSelfReg = "Login failed.<br />If you are not registered, use <a href=claroline/auth/inscription.php>registration form</a>";
+$langInvalidId = "Login failed.<BR>Contact your administrator.";
+$langInvalidIdSelfReg = "Login failed.<BR>If you are not registered, use <a href=claroline/auth/inscription.php>registration form</a></font color>";
 $langInvisible = "Invisible";
 $langIs = "is";
 $langIsAlreadyRegistered = "is already registered to course";
-$langIsNowInYourDocDir = "is now in  your document tool. <br /><b>This  file  is  visible</b>";
+$langIsNowInYourDocDir = "is now in  your document tool. <br><B>This file is visible</B>";
 $langIsNowRegistered = "is now registered to course";
 $langJustCreated = "You have just created the course website";
 $langLabelCanBeEmpty = "Course title needed";
@@ -1699,7 +1699,7 @@ $langRegister = "Register";
 $langRegisterClass = " Register a class";
 $langRegisterLocalUrl = "Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
-Check the platform url  in your Claroline configuration.";
+Check the value of 'Web base' in your Claroline configuration.";
 $langRegisterMyCampus = "Register my campus";
 $langRegisterTheNewUser = "Register this user to a course";
 $langRegisterUser = "Enrol to a new course";
@@ -1719,6 +1719,7 @@ $langRequirements = "Requirements";
 $langResetChat = "Reset";
 $langRestoreCourseRepository = "Restore course repository";
 $langResult = "Result";
+$langRetry = "retry";
 $langReuse = "Reuse";
 $langRevoquationOfUser = "Revocation of %s %s";
 $langRidiculise = "Ridiculise one's interlocutor in order to have him concede he is wrong.";
@@ -2182,6 +2183,7 @@ Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";
 $lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
 $lang_p_d_affected_rows = "%d affected rows";
+$lang_p_FeedOf_s = 'Rss feed for %s';
 $lang_p_d_course = "%2d course";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
@@ -2208,6 +2210,7 @@ $lang_select_course_in = "Select course in ";
 $lang_select_course_in_search_results = "Select course in search results";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
 $lang_the_following_errors_were_found = "The following errors were found ";
+$langPopulateTools = 'Populate tools in courses';
 $lang_toolsToFill = "Tools to populate";
 $lang_p_youNeedToBeAuthenticatedWithYour_s_account = "You need to be authenticated with your %s account";
 $lang_completeUserInfoOfUser = "Complete userInfo of user";
