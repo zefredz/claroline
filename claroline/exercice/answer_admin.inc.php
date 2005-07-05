@@ -667,9 +667,11 @@ if( isset($modifyAnswers) )
 ?>
   <td align="left" valign="top">
 <?php
-				if(!empty($reponse[$i]) && $answerType != TRUEFALSE)
+				if( $answerType != TRUEFALSE )
 				{
-					echo '<textarea wrap="virtual" rows="7" cols="25" name="reponse['.$i.']">'.htmlentities($reponse[$i]).'</textarea>';
+					echo '<textarea wrap="virtual" rows="7" cols="25" name="reponse['.$i.']">';
+					if( isset($reponse[$i]) ) echo htmlentities($reponse[$i]);
+					echo '</textarea>';
 				}
 				elseif( $answerType == TRUEFALSE )
 				{
