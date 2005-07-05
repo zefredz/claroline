@@ -139,7 +139,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
 function claro_html_form_select($select_name,$list_option,$preselect,$attr)
 {
     $html_select = '<select name="' . $select_name . '" ';
-    foreach($attr as $attr_name=>$attr_value)
+    if (is_array($attr)) foreach($attr as $attr_name=>$attr_value)
     $html_select .=' ' . $attr_name . '="' . $attr_value . '" ';
     $html_select .= '>' . "\n"
     .                claro_html_option_list($list_option,$preselect)
@@ -161,17 +161,26 @@ function claro_html_form_select($select_name,$list_option,$preselect,$attr)
 function claro_html_option_list($list_option, $preselect)
 {
     $html_option_list ='';
-    foreach($list_option as $option_value => $option_label)
+    if(is_array($list_option))
     {
-        if(empty($option_label))  $option_label = $option_value;
-        $html_option_list .= '<option value="' . $option_value . '"'
-        .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-        .                    htmlspecialchars($option_label)
-        .                    '</option>' . "\n"
-        ;
+        foreach($list_option as $option_value => $option_label)
+        {
+            if(empty($option_label)) $option_label = $option_value;
+            if(empty($option_label)) $option_label = '-';
+            $html_option_list .= '<option value="' . $option_value . '"'
+            .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
+            .                    htmlspecialchars($option_label)
+            .                    '</option>' . "\n"
+            ;
+        }
+        return $html_option_list;
     }
-
-    return $html_option_list;
+    else 
+    {
+        trigger_error('$list_option would be array()', E_USER_NOTICE);
+        return false;
+    }
+    
 }
 
 ?>
