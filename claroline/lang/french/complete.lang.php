@@ -1,5 +1,5 @@
 <?php
-$langSelectAll = "";
+$langSelectAll = "Sélectionner tout";
 $l_author = "Auteur";
 $l_body = "Message";
 $l_by = "par";
@@ -695,16 +695,16 @@ $langErrorAssetNotFound = "Ressource non trouvée : ";
 $langErrorCannotReadRSSFile = "Erreur : le fil RSS ne peut être trouvé.";
 $langErrorCategoryEmpty = "Le champs \"catégorie\" ne peut pas être vide";
 $langErrorClassNotEmpty = "Cette classe contient toujours d'autres classes, supprimez d'abord son contenu";
-$langErrorCopyAttachedFile = "";
-$langErrorCopyScormFiles = "";
-$langErrorCopyingScorm = "";
+$langErrorCopyAttachedFile = "Impossible de copier le fichier :";
+$langErrorCopyScormFiles = "Erreur lors de la copie des fichiers SCORM requis";
+$langErrorCopyingScorm = "Erreur lors de la copie du contenu SCORM existant";
 $langErrorCourseCodeEmpty = "Le champ \"code du cours\" ne peut pas être vide";
 $langErrorCourseTitleEmpty = "Le champ \"titre du cours\" ne peut pas être vide";
-$langErrorCreatingDirectory = "";
-$langErrorCreatingFile = "";
-$langErrorCreatingFrame = "";
-$langErrorCreatingManifest = "";
-$langErrorCreatingScormArchive = "";
+$langErrorCreatingDirectory = "Impossible de créer le répertoire : ";
+$langErrorCreatingFile = "Impossible de créer le fichier : ";
+$langErrorCreatingFrame = "Impossible de créer le fichier de cadres";
+$langErrorCreatingManifest = "Impossible de créer le manifeste SCORM (imsmanifest.xml)";
+$langErrorCreatingScormArchive = "Impossible de créer l'archive SCORM";
 $langErrorDepartmentEmpty = "Le champs \"département\" ne peut pas être vide";
 $langErrorDepartmentURLEmpty = "Le champs \"URL du département\" ne peut pas être vide";
 $langErrorDepartmentURLWrong = "L'URL du département est invalide";
@@ -716,8 +716,8 @@ $langErrorFormatCSV = "ERREUR: Le format donné n'est pas compatible avec Claroli
 $langErrorInvalidParms = "Erreur : Paramètre invalide (utilisé des nombres uniquement)";
 $langErrorLanguageEmpty = "Le champ \"langue\" ne doit pas être vide";
 $langErrorLecturerEmpty = "Le champ \"gestionnaire de cours\" ne peut pas être vide";
-$langErrorLoadingExercise = "";
-$langErrorLoadingQuestion = "";
+$langErrorLoadingExercise = "Impossible de charger l'exercice";
+$langErrorLoadingQuestion = "Impossible de charger la question";
 $langErrorMove = "Vous ne pouvez pas déplacer une classe vers elle-même!";
 $langErrorMyOwnSettings = "Vous ne pouvez pas changer votre propre statut";
 $langErrorNameAlreadyExists = "Erreur : Le nom existe déjà dans le parcours ou dans la banque de module";
@@ -1164,7 +1164,7 @@ $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
 $langIfNotRedirect = "Si la redirection ne fonctionne pas ";
 $langImport = "Importer";
 $langImpossible = "Impossible d'effectuer cette opération";
-$langImpossibleToPromote = "";
+$langImpossibleToPromote = "Impossible de promouvoir un étudiant membre d'un groupe en tant que tuteur de ce groupe";
 $langIn = "en";
 $langInFrames = "En cadres";
 $langIncorrectDate = "La date de début doit être antérieure à la date de fin";
@@ -1204,7 +1204,7 @@ $langIntroWork = "Cet outil est un espace de publication.
 <br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";
 $langInvalidId = "Cet identifiant n'est pas valide. Si vous n'êtes pas encore inscrit,
 remplissez le <a href='claroline/auth/inscription.php'>formulaire d'inscription</a></font color>";
-$langInvalidIdSelfReg = "";
+$langInvalidIdSelfReg = "L'authentification a échoué.<br />Si vous n'êtes pas enregistré utilisez le <a href=claroline/auth/inscription.php>formulaire d'inscription</a>";
 $langInvisible = "Invisible";
 $langIs = "est";
 $langIsAlreadyRegistered = "est déjà inscrit au cours";
@@ -1234,10 +1234,10 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Lancer les mi
 $langLearnPathDetails = "Progression dans les parcours pédagogiques";
 $langLearningPath = "Parcours pédagogique";
 $langLearningPathAdmin = "Administration du parcours";
-$langLearningPathEmpty = "";
+$langLearningPathEmpty = "Le parcours pédagogique est vide";
 $langLearningPathList = "Liste des parcours pédagogiques";
 $langLearningPathName = "Nom du nouveau parcours : ";
-$langLearningPathNotFound = "";
+$langLearningPathNotFound = "Parcours pédagogique non trouvé";
 $langLessAnswers = "Supprimer rép.";
 $langLessElements = "Supprimer élém.";
 $langLessonStatus = "Statut du module";
@@ -1589,7 +1589,7 @@ $langRegister = "S'inscrire";
 $langRegisterClass = "Inscrire une classe";
 $langRegisterLocalUrl = "L'URL de votre campus semble être locale.
 Une URL accessible est nécessaire pour enregistrer votre campus.<br /><br />
-Veuillez vérifier la valeur de 'Web base' dans la configuration de votre campus.";
+Veuillez vérifier l'url du campus dans votre configuration de Claroline.";
 $langRegisterMyCampus = "Enregistrer mon campus";
 $langRegisterTheNewUser = "Inscrire cet utilisateur à un cours";
 $langRegisterUser = "Inscrire à un nouveau cours";
@@ -2085,6 +2085,7 @@ $lang_p_s_s_isInvalid = "%s : %s est invalide";
 $lang_php_info = "Information sur le système PHP";
 $lang_remove_course_enrollment = "Se radier d'un cours";
 $lang_remove_course_from_your_personnal_course_list = "Supprimer le cours de votre liste de personnelle de cours";
+$langEditTextZone = "Zone de texte éditable";
 $lang_rules_s_in_s = "Règle : %s dans %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) Regardez dans la barre de d'état de votre navigateur.";
 $lang_select_course_in = "Sélectionnez un cours dans ";
@@ -2097,7 +2098,6 @@ $lang_completeUserInfoOfUser = "Complète les infos de l\'utilisateur";
 $lang_p_FillCourses = "Remplissage de %s avec %s";
 $lang_this_course_is_protected = "Ce cours est protégé";
 $lang_unsubscribe = "Radiation";
-$langEditTextZone = "Zone de texte éditable";
 $lang_upgradeToolCannotUpgradeThisCourse = "
 L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  <br>
 Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
@@ -2112,6 +2112,6 @@ $langemptyforumname = "Vous devez choisir un nom pour votre forum !";
 $langforumcreated = "Nouveau forum créé";
 $langimportLearningPath = "Importer un parcours";
 $langLegendRequiredFields = "Les champs précédés d'une <span class=\"required\">*</span> sont obligatoires.";
-$langCannotUnsubscribeLastCourseManager = "";
-$langCourseManagerCannotUnsubscribeHimself = "";
+$langCannotUnsubscribeLastCourseManager = "Vous ne pouvez pas désinscrire d'un cours le dernier responsable de ce cours ";
+$langCourseManagerCannotUnsubscribeHimself = "Les responsables de cours ne peuvent se désinscrire eux même";
 ?>
