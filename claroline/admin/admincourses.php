@@ -60,9 +60,9 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 $is_allowedToAdmin = $is_platformAdmin;
 
-//----------------------------------------------------------------------------------------------------
+//------------------------
 //  USED SESSION VARIABLES
-//----------------------------------------------------------------------------------------------------
+//------------------------
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
@@ -429,15 +429,24 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 
 
 //add titles for the table
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">' 
+.    '<th>'
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">' 
 .    $langCode 
-.    '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">' 
+.    '</a>'
+.    '</th>'
+
+.    '<th>'
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">' 
 .    $langCourseTitle
-.    '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">' 
+.    '</a>'
+.    '</th>'
+
+.    '<th>'
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">' 
 .    $langCategory 
-.    '</a></th>'
+.    '</a>'
+.    '</th>'
+
 .    '<th>' . $langAllUsersOfThisCourse . '</th>'
 .    '<th>' . $langCourseSettings . '</th>'
 .    '<th>' . $langDelete . '</th>'
@@ -491,7 +500,8 @@ foreach($resultList as $courseLine)
         .    '<td align="left">'
         .    '<a href="' . $coursesRepositoryWeb . $courseLine['directory'] . '">'
         .    $courseLine['intitule']
-        .    '</a></td>'
+        .    '</a>'
+        .    '</td>'
 
         //  Category
 
