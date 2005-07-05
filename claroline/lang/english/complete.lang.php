@@ -1,5 +1,5 @@
-<?php 
-$langSelectAll="Select all";
+<?php
+$langSelectAll = "Select all";
 $l_author = "Author";
 $l_body = "Message Body";
 $l_by = "by";
@@ -8,14 +8,13 @@ $l_delete = "Delete this Post";
 $l_deleted = "Your Post has been deleted.";
 $l_emptymsg = "You must type a Message to post. You cannot post an empty Message.";
 $l_error = "Error";
-$lang_p_category_s_created = 'Category %s created';
-$lang_p_forum_s_created = 'Forum %s created';
-$lang_p_topic_s_created = 'Topic %s created';
-$lang_p_post_s_created = 'Post %s created';
+$lang_p_category_s_created = "Category %s created";
+$lang_p_forum_s_created = "Forum %s created";
+$lang_p_topic_s_created = "Topic %s created";
+$lang_p_post_s_created = "Post %s created";
 $l_here = "here";
-$langCourseWouldBeCreated = 'Your course would be created';
-$lang_p_IfNothingHappendClickHere = '<small>If after 30 seconds nothing change, please click <a href="%s">here</a> and wait again</small>';
-
+$langCourseWouldBeCreated = "Your course would be created";
+$lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
 $l_indextitle = "Forum Index";
 $l_lastpost = "Last Post";
 $l_noposts = "No Posts";
@@ -173,7 +172,7 @@ $langAntique = "History of Ancient Philosophy";
 $langAppliedChange = "Changes have been applied to the user settings";
 $langArchive = "archive";
 $langAreCompulsory = "are compulsory";
-$lang_TheUserIsAlreadyEnrolledInTheCourse = 'The user is already enrolled in this course';
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "The user is already enrolled in this course";
 $langAreYouSureDeleteModule = "Are you sure to totally delete this module ?
 
 It will be completely deleted from the server and from any learning path it is in.
@@ -1314,12 +1313,12 @@ $langIntroWork = "This tool allows the teacher to create assignments in which an
 <br />You will be able to add a comment or a grade to each work.
 
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
-$langInvalidId = "Login failed.<BR>Contact your administrator.";
-$langInvalidIdSelfReg = "Login failed.<BR>If you are not registered, use <a href=claroline/auth/inscription.php>registration form</a></font color>";
+$langInvalidId = "Login failed.<br />Contact your administrator.";
+$langInvalidIdSelfReg = "Login failed.<br />If you are not registered, use <a href=claroline/auth/inscription.php>registration form</a>";
 $langInvisible = "Invisible";
 $langIs = "is";
 $langIsAlreadyRegistered = "is already registered to course";
-$langIsNowInYourDocDir = "is now in  your document tool. <br><B>This  file  is  visible</B>";
+$langIsNowInYourDocDir = "is now in  your document tool. <br /><b>This  file  is  visible</b>";
 $langIsNowRegistered = "is now registered to course";
 $langJustCreated = "You have just created the course website";
 $langLabelCanBeEmpty = "Course title needed";
@@ -1566,7 +1565,7 @@ $langNoSeduction = "No. Socratic irony is not a seduction strategy nor a method 
 $langNoSpace = "The upload has failed. There is not enough space in your directory";
 $langNoStartAsset = "There is no start asset defined for this module.";
 $langNoTimeLimit = "No time limitation";
-$langModifyGroupSettings ='Modify Group Settings';
+$langModifyGroupSettings = "Modify Group Settings";
 $langNoUserResult = "No user to display";
 $langNoVisibleAssignment = "There is no visible assignment at the moment.";
 $langNoVisibleSubmission = "No visible submission";
@@ -1700,7 +1699,7 @@ $langRegister = "Register";
 $langRegisterClass = " Register a class";
 $langRegisterLocalUrl = "Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
-Check the value of 'Web base' in your Claroline configuration.";
+Check the platform url  in your Claroline configuration.";
 $langRegisterMyCampus = "Register my campus";
 $langRegisterTheNewUser = "Register this user to a course";
 $langRegisterUser = "Enrol to a new course";
@@ -2209,12 +2208,10 @@ $lang_select_course_in = "Select course in ";
 $lang_select_course_in_search_results = "Select course in search results";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
 $lang_the_following_errors_were_found = "The following errors were found ";
-$langPopulateTools = 'Populate tools in courses';
-$lang_toolsToFill = 'Tools to populate'; 
-$lang_p_youNeedToBeAuthenticatedWithYour_s_account = 'You need to be authenticated with your %s account';
-
-$lang_completeUserInfoOfUser  = 'Complete userInfo of user';
-$lang_p_FillCourses = 'Fill %s with %s';
+$lang_toolsToFill = "Tools to populate";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "You need to be authenticated with your %s account";
+$lang_completeUserInfoOfUser = "Complete userInfo of user";
+$lang_p_FillCourses = "Fill %s with %s";
 $lang_this_course_is_protected = "This course is protected";
 $lang_unsubscribe = "Unsubscribe";
 $lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
