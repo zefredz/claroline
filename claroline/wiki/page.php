@@ -280,8 +280,10 @@
             }
             else
             {
-                $content = '';
-                $message = "This page is empty, use the editor to add content.";
+                if ( $content == '' )
+                {
+                    $message = "This page is empty, use the editor to add content.";
+                }
             }
             break;
         }
@@ -309,7 +311,7 @@
             {
                 $time = date( "Y-m-d H:i:s" );
 
-                $contentpg = addslashes( $content );
+                $contentpg = $content;
 
                 if ( $wikiPage->pageExists( $title ) )
                 {
@@ -338,9 +340,10 @@
         // page history
         case "history":
         {
+            require_once $includePath . '/lib/user.lib.php';
             $wikiPage->loadPage( $title );
             $title = $wikiPage->getTitle();
-            $history = $wikiPage->history();
+            $history = $wikiPage->history( 0, 0, 'DESC' );
             break;
         }
         default:
@@ -461,6 +464,16 @@
             $noPHP_SELF = true;
             break;
         }
+        case "history":
+        {
+            $dispTitle = ( $title == "__MainPage__" ) ? $langWikiMainPage : $title;
+            $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
+                . $wikiId . '&amp;title=' . $title
+                , 'name' => $dispTitle );
+            $nameTools = $langWikiPageHistory;
+            $noPHP_SELF = true;
+            break;
+        }
         default:
         {
             $nameTools = ( $title == "__MainPage__" ) ? $langWikiMainPage : $title ;
@@ -492,6 +505,11 @@
         case "recent":
         {
             $toolTitle['subTitle'] = $langWikiRecentChanges;
+            break;
+        }
+        case "history":
+        {
+            $toolTitle['subTitle'] = $langWikiPageHistory;
             break;
         }
         default:
@@ -573,9 +591,14 @@
     if ( $action == "show" )
     {
         // active
-        echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-            . $langWikiPageHistory . '</span>'
-            ;
+        echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+                . $_SERVER['PHP_SELF']
+                . '?wikiId=' . $wiki->getWikiId()
+                . '&amp;action=history'
+                . '&amp;title=' . urlencode( $title )
+                . '">'
+                . $langWikiPageHistory.'</a>'
+                ;
     }
     else
     {
@@ -629,7 +652,7 @@
                     if ( $is_courseMember )
                     {
                         $userUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
-                            . '/user/userInfo.php?uInfo='
+                            . 'user/userInfo.php?uInfo='
                             . $recentChange['editor_id'].'">'
                             .$userStr.'</a>'
                             ;
@@ -750,6 +773,57 @@
                 echo '</div>' . "\n";
             }
 
+            break;
+        }
+        case "history":
+        {
+            if( $title === '__MainPage__' )
+            {
+                $displaytitle = $langWikiMainPage;
+            }
+            else
+            {
+                $displaytitle = $title;
+            }
+
+            echo '<div class="wikiTitle">' . "\n";
+            echo '<h1>'.$displaytitle.'</h1>' . "\n";
+            echo '</div>' . "\n";
+            
+            echo '<ul>' . "\n";
+            
+            if ( is_array( $history ) )
+            {
+                foreach ( $history as $version )
+                {
+                    $userInfo = user_get_data( $version['editor_id'] );
+
+                    $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+                    
+                    if ( $is_courseMember )
+                    {
+                        $userUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
+                            . 'user/userInfo.php?uInfo='
+                            . $version['editor_id'].'">'
+                            .$userStr.'</a>'
+                            ;
+                    }
+                    else
+                    {
+                        $userUrl = '&nbsp;-&nbsp;' . $userStr;
+                    }
+                    
+                    $versionUrl = '<a href="' . $_SERVER['PHP_SELF'] . '?wikiId='
+                        . $wikiId . '&amp;title=' . urlencode( $title )
+                        . '&amp;action=showVersion&amp;versionId=' . $version['id']
+                        . '">'.$version['mtime'].'</a>';
+                    
+                    echo '<li>' . $versionUrl . $userUrl . '</li>' . "\n";
+                }
+            }
+            
+            echo '</ul>' . "\n";
+            
             break;
         }
         default:
