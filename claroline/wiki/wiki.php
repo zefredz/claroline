@@ -517,9 +517,9 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th style="width: 55%;">'.$langTitle.'</th>' . "\n"
-                    . '<th style="width: 15%; text-align: center;">'.$langEdit.'</th>' . "\n"
-                    . '<th style="width: 15%; text-align: center;">'.$langDelete.'</th>' . "\n"
+                    . '<th>'.$langTitle.'</th>' . "\n"
+                    . '<th>'.$langEdit.'</th>' . "\n"
+                    . '<th>'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -529,7 +529,8 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th style="width: 100%">'.$langTitle.'</th>' . "\n"
+                    . '<th style="width: 100%">'
+                    . $langTitle.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -551,6 +552,7 @@
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
                     echo '</td>' . "\n";
