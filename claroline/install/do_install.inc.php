@@ -172,7 +172,7 @@ $coursesRepositorySys = $rootSys.$courseRepositoryForm;
 @mkdir($coursesRepositorySys,0777);
 $clarolineRepositoryAppend  = 'claroline/';
 $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
-$garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)."/claroline_garbage");
+$garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys) . '/claroline_garbage');
 @mkdir($garbageRepositorySys,0777);
 
 ########################## WRITE claro_main.conf.php ##################################
