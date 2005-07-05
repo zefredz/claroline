@@ -493,6 +493,17 @@
             
             echo claro_disp_tool_title( $toolTitle, false ) . "\n" . "\n";
             
+            // if admin, display add new wiki link
+            if ( $is_allowedToAdmin )
+            {
+                echo '<p><a href="'
+                    . $_SERVER['PHP_SELF']
+                    . '?action=rqEdit'
+                    . '" class="claroCmd">'.$langWikiCreateNewWiki.'</a></p>'
+                    . "\n"
+                    ;
+            }
+            
             // display list in a table
             
             echo '<table class="claroTable emphaseLine" style="width: 100%">' . "\n";
@@ -578,17 +589,6 @@
             
             echo '</tbody>' . "\n";
             echo '</table>' . "\n" . "\n";
-            
-            // if admin, display add new wiki link
-            if ( $is_allowedToAdmin )
-            {
-                echo '<p><a href="'
-                    . $_SERVER['PHP_SELF']
-                    . '?action=rqEdit'
-                    . '" class="claroCmd">'.$langWikiCreateNewWiki.'</a></p>'
-                    . "\n"
-                    ;
-            }
             
             break;
         }
