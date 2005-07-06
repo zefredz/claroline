@@ -101,6 +101,7 @@ if ( $is_allowedToEdit )
 
     $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
 
+    $ex_rss_refresh = FALSE;
     if ( $cmd == 'exAdd' )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
@@ -121,6 +122,7 @@ if ( $is_allowedToEdit )
             // notify that a new agenda event has been posted
 
             $eventNotifier->notifyCourseEvent('agenda_event_added', $_cid, $_tid, $insert_id, $_gid, '0');
+            $ex_rss_refresh = TRUE;
 
         }
         else
@@ -145,6 +147,7 @@ if ( $is_allowedToEdit )
 {
                 $dialogBox .= linker_update(); //return textual error msg
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+                $ex_rss_refresh = TRUE;
                 $dialogBox .= '<p>' . $langEventUpdated . '</p>';
             }
             else
@@ -166,7 +169,7 @@ if ( $is_allowedToEdit )
             $dialogBox .= '<p>' . $langEventDeleted . '</p>';
             
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
-            
+            $ex_rss_refresh = TRUE;
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
                 event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
@@ -210,12 +213,14 @@ if ( $is_allowedToEdit )
         {
             $visibility = 'SHOW';
             $eventNotifier->notifyCourseEvent('agenda_event_visible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+            $ex_rss_refresh = TRUE;
         }
         
         if ($cmd == 'mkHide')  
         {
             $visibility = 'HIDE';
             $eventNotifier->notifyCourseEvent('agenda_event_invisible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+            $ex_rss_refresh = TRUE;
         }
 
         if ( agenda_set_item_visibility($id, $visibility)  )
@@ -260,6 +265,12 @@ if ( $is_allowedToEdit )
     {
         $display_command = TRUE;
     } // end if diplayMainCommands
+    
+    // rss update
+    if ($ex_rss_refresh && file_exists('./agenda.rssgen.inc.php'))
+    {
+        include('./agenda.rssgen.inc.php');
+    }
 
 } // end id is_allowed to edit
 
