@@ -1,7 +1,7 @@
 <?php // $Id$
 $_course = array();
 $siteName ='';
-
+$langRetry = 'retry';
 $is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
 if(!$_cid) die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
@@ -12,7 +12,7 @@ if (!$_course['visibility'] && !$is_courseAllowed)
        header('WWW-Authenticate: Basic realm="'.sprintf($lang_p_FeedOf_s, $_course['name']).'"');
        header('HTTP/1.0 401 Unauthorized');
        echo '<h2>' . sprintf($lang_p_youNeedToBeAuthenticatedWithYour_s_account, $siteName) . '</h2>'
-       .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . 'retry</a>'
+       .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . '</a>'
        ;
        exit;
     } 
@@ -26,7 +26,7 @@ if (!$_course['visibility'] && !$is_courseAllowed)
                    header('WWW-Authenticate: Basic realm="'.sprintf($lang_p_FeedOf_s, $_course['name']).'"');
                    header('HTTP/1.0 401 Unauthorized');
                    echo '<h2>' . sprintf($lang_p_youNeedToBeAuthenticatedWithYour_s_account, $siteName) . '</h2>'
-                   .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . 'retry</a>'
+                   .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . '</a>'
                    ;
                    exit;
             }
