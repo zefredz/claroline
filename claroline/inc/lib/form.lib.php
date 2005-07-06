@@ -55,6 +55,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
                                    , array('id'=> $monthFieldName)
                                    );
     // year field
+    $thisYear = date('Y');
     for ($yearCounter= $thisYear - 2; $yearCounter <= $thisYear+5; $yearCounter++)
         $available_years[$yearCounter] = $yearCounter;
     $yearField = claro_html_form_select( $yearFieldName
@@ -80,7 +81,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
 
     if ($hourFieldName != '')
     {
-        for($hour=0;$hour < 24; $hour++)  $aivailable_hours[$hour] =$hour;
+        for($hour=0;$hour < 24; $hour++)  $aivailable_hours[$hour] = $hour;
         $hourField = claro_html_form_select( $hourFieldName
                                            , $aivailable_hours
                                            , $selHour
@@ -92,6 +93,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
     {
         for($minuteCounter=0;$minuteCounter < 60; $minuteCounter++)  
             $available_minutes[$minuteCounter] = $minuteCounter;
+        
         $minuteField = claro_html_form_select( $minuteFieldName
                                            , $available_minutes
                                            , $selMinute
@@ -141,11 +143,12 @@ function claro_html_option_list($list_option, $preselect)
         foreach($list_option as $option_value => $option_label)
         {
             if(empty($option_label)) $option_label = $option_value;
-            if(empty($option_label)) $option_label = '-';
+            //if(empty($option_label)) $option_label = '-';
+            // stupid empty consider empty(0) as true
             $html_option_list .= '<option value="' . $option_value . '"'
             .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
             .                    htmlspecialchars($option_label)
-            .                    '</option>' . "\n"
+            .                    '</option >' . "\n"
             ;
         }
         return $html_option_list;
