@@ -4178,6 +4178,10 @@ $langWikiTitleNew = "Wiki : Create new Wiki";
 
 $langWikiTitlePattern = "Wiki : %s";
 
+$langWikiVersionInfoPattern = "(version of %s modified by %s)";
+
+$langWikiVersionPattern = "%s by %s";
+
 $langWork = "Assignments";
 
 $langWorkAuthors = "Authors";

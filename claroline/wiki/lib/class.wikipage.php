@@ -50,8 +50,10 @@
         var $lastEditorId = 0;      // attr_accessor:
         var $lastEditTime = '';     // attr_reader:
         var $lastVersionId = 0;     // attr_reader:
-        var $currentVersionId = 0;  // attr_reader:
         var $wikiId = 0;            // attr_reader:
+        
+        var $currentVersionMtime = '0000-00-00 00:00:00'; // attr_reader:
+        var $currentVersionEditorId = 0; // attr_reader:
         
         // private fields
         var $con = null;            // private
@@ -371,7 +373,7 @@
             // retreive page (given version)
             $sql = "SELECT p.`id`, p.`owner_id`, p.`title`, "
                 . "p.`ctime`, p.`last_version`, p.`last_mtime`, "
-                . "c.`editor_id`, c.`content` "
+                . "c.`editor_id`, c.`content`, c.`mtime` AS `current_mtime`, c.`id` AS `current_version` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p, "
                 . "`".$this->config['tbl_wiki_pages_content']."` c "
                 . "WHERE c.`id` = '".$versionId."' "
@@ -487,6 +489,16 @@
                 $this->setLastEditTime( $page['last_mtime'] );
                 $this->setEditorId( $page['editor_id'] );
                 $this->setContent( stripslashes( $page['content'] ) );
+                
+                $this->currentVersionId = ( isset ( $page['current_version'] ) )
+                    ? $page['current_version']
+                    : $page['last_version']
+                    ;
+                    
+                $this->currentVersionMtime = ( isset ( $page['current_mtime'] ) )
+                    ? $page['current_mtime']
+                    : $page['last_mtime']
+                    ;
 
                 return $this;
             }
@@ -608,6 +620,11 @@
         function getCurrentVersionId()
         {
             return $this->currentVersionId;
+        }
+        
+        function getCurrentVersionMtime()
+        {
+            return $this->currentVersionMtime;
         }
 
         function getPageId()

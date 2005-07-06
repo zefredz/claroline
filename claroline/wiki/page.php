@@ -68,6 +68,8 @@
     
     // classes and libraries
     
+    // Wiki specifics
+    
     require_once "lib/class.clarodbconnection.php";
     require_once "lib/class.wiki2xhtmlrenderer.php";
     require_once "lib/class.wikipage.php";
@@ -78,6 +80,10 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.wikidisplay.php";
     require_once "lib/lib.javascript.php";
+    
+    // Claroline libraries
+    
+    require_once $includePath . '/lib/user.lib.php';
     
     // set request variables
     
@@ -197,6 +203,8 @@
     // set request variables
     
     $creatorId = $_uid; // $_uid
+    
+    $versionId = ( isset( $_REQUEST['versionId'] ) ) ? $_REQUEST['versionId'] : 0;
 
     $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
     
@@ -236,7 +244,7 @@
         else
         {
             // something weird's happened
-            die ( "Missing page title" );
+            die ( "Wrong page title" );
         }
     }
     
@@ -264,7 +272,14 @@
         {
             if( $wikiStore->pageExists( $wikiId, $title ) )
             {
-                $wikiPage->loadPage( $title );
+                if ( $versionId == 0 )
+                {
+                    $wikiPage->loadPage( $title );
+                }
+                else
+                {
+                    $wikiPage->loadPageVersion( $versionId );
+                }
                 
                 if ( $content == '' )
                 {
@@ -290,9 +305,16 @@
         // view page
         case "show":
         {
-            if( $wikiStore->pageExists( $wikiId, $title ) )
+            if ( $wikiStore->pageExists( $wikiId, $title ) )
             {
-                $wikiPage->loadPage( $title );
+                if ( $versionId == 0 )
+                {
+                    $wikiPage->loadPage( $title );
+                }
+                else
+                {
+                    $wikiPage->loadPageVersion( $versionId );
+                }
 
                 $content = $wikiPage->getContent();
 
@@ -340,7 +362,6 @@
         // page history
         case "history":
         {
-            require_once $includePath . '/lib/user.lib.php';
             $wikiPage->loadPage( $title );
             $title = $wikiPage->getTitle();
             $history = $wikiPage->history( 0, 0, 'DESC' );
@@ -516,10 +537,13 @@
         {
             // FIXME patchy : place holder to prevent wiki nav bar from moving...
             // $toolTitle['subTitle'] = '&nbsp;';
-            $toolTitle['subTitle'] = ( $title == "__MainPage__" )
+            
+            $subTitle = ( $title == "__MainPage__" )
                 ? $langWikiMainPage
                 : $title
                 ;
+                
+            $toolTitle['subTitle'] = $subTitle;
                 
             break;
         }
@@ -566,6 +590,7 @@
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&amp;action=edit'
                 . '&amp;title=' . urlencode( $title )
+                . '&amp;versionId=' . $versionId
                 . '">'
                 . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
                 . $langWikiEditPage.'</a>'
@@ -725,7 +750,7 @@
             {
                 $script = $_SERVER['PHP_SELF'];
 
-                echo claro_disp_wiki_editor( $wikiId, $title, $content, $script
+                echo claro_disp_wiki_editor( $wikiId, $title, $versionId, $content, $script
                     , $showWikiEditorToolbar, $forcePreviewBeforeSaving );
                     
                 echo claro_disp_wiki_help( $help, $javascriptEnabled );
@@ -766,8 +791,46 @@
                     $displaytitle = $title;
                 }
                 
+                if ( $versionId != 0 )
+                {
+                    $editorInfo = user_get_data( $wikiPage->getEditorId() );
+
+                    $editorStr = $editorInfo['firstname'] . "&nbsp;" . $editorInfo['lastname'];
+
+                    if ( $is_courseMember )
+                    {
+                        $editorUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
+                            . 'user/userInfo.php?uInfo='
+                            . $wikiPage->getEditorId() .'">'
+                            . $editorStr.'</a>'
+                            ;
+                    }
+                    else
+                    {
+                        $editorUrl = '&nbsp;-&nbsp;' . $editorStr;
+                    }
+                    
+                    $mtime = claro_disp_localised_date( $dateTimeFormatLong
+                        , strtotime($wikiPage->getCurrentVersionMtime()) )
+                        ;
+                        
+                    $versionInfo = sprintf( $langWikiVersionInfoPattern, $mtime, $editorUrl );
+                        
+                    $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
+                        . $versionInfo . '</span>'
+                        ;
+                }
+                else
+                {
+                    $versionInfo = '';
+                }
+                
                 echo '<div class="wikiTitle">' . "\n";
-                echo '<h1>'.$displaytitle.'</h1>' . "\n";
+                echo '<h1>'.$displaytitle
+                    . $versionInfo
+                    . '</h1>'
+                    . "\n"
+                    ;
                 echo '</div>' . "\n";
                 
                 echo '<div class="wiki2xhtml">' . "\n";
@@ -804,7 +867,7 @@
                     
                     if ( $is_courseMember )
                     {
-                        $userUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
+                        $userUrl = '<a href="'. $clarolineRepositoryWeb
                             . 'user/userInfo.php?uInfo='
                             . $version['editor_id'].'">'
                             .$userStr.'</a>'
@@ -812,19 +875,23 @@
                     }
                     else
                     {
-                        $userUrl = '&nbsp;-&nbsp;' . $userStr;
+                        $userUrl = $userStr;
                     }
                     
                     $versionUrl = '<a href="' . $_SERVER['PHP_SELF'] . '?wikiId='
                         . $wikiId . '&amp;title=' . urlencode( $title )
-                        . '&amp;action=showVersion&amp;versionId=' . $version['id']
+                        . '&amp;action=show&amp;versionId=' . $version['id']
                         . '">'
                         . claro_disp_localised_date( $dateTimeFormatLong
                             , strtotime($version['mtime']) )
                         . '</a>'
                         ;
                     
-                    echo '<li>' . $versionUrl . $userUrl . '</li>' . "\n";
+                    echo '<li>'
+                        . sprintf( $langWikiVersionPattern, $versionUrl, $userUrl )
+                        . '</li>'
+                        . "\n"
+                        ;
                 }
             }
             

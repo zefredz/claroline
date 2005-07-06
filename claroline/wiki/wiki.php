@@ -43,7 +43,7 @@
     
     // set admin mode and groupId
     
-    $is_allowedToAdmin = claro_is_allowed_to_edit();;
+    $is_allowedToAdmin = claro_is_allowed_to_edit();
 
     if ( $_gid && $is_groupAllowed )
     {

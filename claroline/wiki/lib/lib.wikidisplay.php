@@ -37,7 +37,7 @@
      *      (ie disable save button)
      * @return string HTML code of the wiki editor
      */
-    function claro_disp_wiki_editor( $wikiId, $title
+    function claro_disp_wiki_editor( $wikiId, $title, $versionId
         , $content, $script = null, $showWikiToolBar = true
         , $forcePreview = true )
     {
@@ -79,6 +79,11 @@
             
         $out .= '<input type="hidden" name="wikiId" value="'
             . $wikiId
+            . '" />' . "\n"
+            ;
+            
+        $out .= '<input type="hidden" name="versionId" value="'
+            . $versionId
             . '" />' . "\n"
             ;
         
