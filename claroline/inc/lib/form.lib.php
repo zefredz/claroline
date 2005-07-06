@@ -38,45 +38,30 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
 
     // day field
-    $dayField = '<select name="' . $dayFieldName . '" id="' . $dayFieldName . '">' ."\n";
     for ($dayCounter=1;$dayCounter <=31; $dayCounter++)
-    {
-        $dayField .= '<option value="' . $dayCounter . '"';
-        if($dayCounter == $selDay)
-        {
-            $dayField .= ' selected="selected"';
-        }
-        $dayField .= '>' . $dayCounter . '</option>' . "\n";
-    }
-    $dayField .= '</select>' . "\n";
+      $available_months[$dayCounter] = $dayCounter;
+    $dayField = claro_html_form_select( $dayFieldName
+                                   , $available_months
+                                   , $selDay
+                                   , array('id'=> $dayFieldName)
+                                   );
 
     // month field
-    $monthField = '<select name="' . $monthFieldName . '" id="' . $monthFieldName . '">' . "\n";
     for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-    {
-        $monthField .= '<option value="' . $monthCounter . '"';
-        if($monthCounter == $selMonth)
-        {
-            $monthField .= ' selected="selected" ';
-        }
-
-        $monthField .= '>' . $langMonthNames['long'][$monthCounter-1] . '</option>' ."\n";
-    }
-    $monthField .= '</select>' . "\n";
-
+      $available_months[$monthCounter] = $monthCounter;
+    $monthField = claro_html_form_select( $monthFieldName
+                                   , $available_months
+                                   , $selMonth
+                                   , array('id'=> $monthFieldName)
+                                   );
     // year field
-    $yearField = '<select name="' . $yearFieldName . '" id="' . $yearFieldName . '">' . "\n";
-    $thisYear = date('Y');
     for ($yearCounter= $thisYear - 2; $yearCounter <= $thisYear+5; $yearCounter++)
-    {
-        $yearField .= '<option value="' . $yearCounter . '"';
-        if($yearCounter == $selYear)
-        {
-            $yearField .= ' selected="selected"';
-        }
-        $yearField .= '>' . $yearCounter . '</option>' . "\n";
-    }
-    $yearField .='</select>';
+        $available_years[$yearCounter] = $yearCounter;
+    $yearField = claro_html_form_select( $yearFieldName
+                                   , $available_years
+                                   , $selYear
+                                   , array('id'=> $yearFieldName)
+                                   );
 
     return $dayField . '&nbsp;' . $monthField . '&nbsp;' . $yearField;
 }
@@ -95,30 +80,23 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
 
     if ($hourFieldName != '')
     {
-        for($hour=0;$hour < 24; $aivailable_hours[] = ++$hour) ;
+        for($hour=0;$hour < 24; $hour++)  $aivailable_hours[$hour] =$hour;
         $hourField = claro_html_form_select( $hourFieldName
                                            , $aivailable_hours
                                            , $selHour
                                            , array('id'=> $hourFieldName)
                                            );
-
     }
 
     if($minuteFieldName != "")
     {
-        $minuteField = '<select name="' . $minuteFieldName . '" id="' . $minuteFieldName . '">' . "\n";
-        $minuteCounter = 0;
-        while($minuteCounter < 60)
-        {
-            $minuteField .= '<option value="' . $minuteCounter . '"';
-            if($minuteCounter == $selMinute)
-            {
-                $minuteField .= ' selected="selected"';
-            }
-            $minuteField .= '>' . $minuteCounter . '</option>' . "\n";
-            $minuteCounter++;
-        }
-        $minuteField .= '</select>';
+        for($minuteCounter=0;$minuteCounter < 60; $minuteCounter++)  
+            $available_minutes[$minuteCounter] = $minuteCounter;
+        $minuteField = claro_html_form_select( $minuteFieldName
+                                           , $available_minutes
+                                           , $selMinute
+                                           , array('id'=> $minuteFieldName)
+                                           );
     }
 
     return '&nbsp;' . $hourField . '&nbsp;' . $minuteField;
