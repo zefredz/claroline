@@ -1912,7 +1912,7 @@ button at the bottom of the page.";
 $langWikiProperties = "Properties";
 $langWikiReadPrivilege = "Read Pages";
 $langWikiRecentChanges = "Recent changes";
-$langWikiRecentChangesPattern = "%1\$s - %2\$s - %3\$s";
+$langWikiRecentChangesPattern = "%1\$s modified on %2\$s by %3\$s";
 $langWikiShowHelp = "Show help";
 $langWikiTitle = "Title of the wiki : ";
 $langWikiTitleEdit = "Wiki : Edit poperties";
