@@ -667,9 +667,11 @@
                     $entry = '<strong><a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $wikiId . '&amp;title=' . urlencode( $recentChange['title'] )
                         . '&amp;action=show"'
-                        . '>'.$pgtitle.'</a></strong>&nbsp;-&nbsp;'
-                        . claro_disp_localised_date( $dateTimeFormatLong
-                            , strtotime($recentChange['last_mtime']) )
+                        . '>'.$pgtitle.'</a></strong>'
+                        ;
+                        
+                    $time = claro_disp_localised_date( $dateTimeFormatLong
+                        , strtotime($recentChange['last_mtime']) )
                         ;
                         
                     $userInfo = user_get_data( $recentChange['editor_id'] );
@@ -678,7 +680,7 @@
                     
                     if ( $is_courseMember )
                     {
-                        $userUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
+                        $userUrl = '<a href="'. $clarolineRepositoryWeb
                             . 'user/userInfo.php?uInfo='
                             . $recentChange['editor_id'].'">'
                             .$userStr.'</a>'
@@ -686,10 +688,14 @@
                     }
                     else
                     {
-                        $userUrl = '&nbsp;-&nbsp;' . $userStr;
+                        $userUrl = $userStr;
                     }
                         
-                    echo '<li>' . $entry. $userUrl . '</li>' . "\n";
+                    echo '<li>'
+                        . sprintf( $langWikiRecentChangesPattern, $entry, $time, $userUrl )
+                        . '</li>'
+                        . "\n"
+                        ;
                 }
 
                 echo '</ul>' . "\n";
