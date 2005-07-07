@@ -49,7 +49,7 @@ $tbl_course_tool       = $tbl_mdb_names['tool'];
   Mysql Handling
  ---------------------------------------------------------------------*/
 
-if (!function_exists(mysql_info)) 
+if (!function_exists('mysql_info')) 
 {
     function mysql_info() {return '';} // mysql_info is used in verbose mode
 }
@@ -81,7 +81,22 @@ DEFINE ('DISPLAY_RESULT_PANEL', __LINE__);
   Statements Section
  =====================================================================*/
 
-if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'run')
+
+if ( isset($_REQUEST['verbose']) ) $verbose = (bool) $_REQUEST['verbose'];
+else                               $verbose = FALSE;
+
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = FALSE;
+
+if ( isset($_REQUEST['forceUpgrade']) ) $forceUpgrade = $_REQUEST['forceUpgrade'];
+else                           $forceUpgrade = FALSE;
+
+$upgradeCoursesError = isset($_REQUEST['upgradeCoursesError']) 
+                     ? $_REQUEST['upgradeCoursesError']
+                     : FALSE;
+
+
+if ( $cmd == 'run')
 {
     $display = DISPLAY_RESULT_PANEL;
 }
@@ -94,11 +109,11 @@ else
 $mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // force upgrade for debug
-if ( isset($_REQUEST['forceUpgrade']) ) $versionDb = md5 (uniqid (rand())); // for debug
+if ( $forceUpgrade ) $version_db_cvs = md5 (uniqid (rand())); // for debug
 
 $count_error_total = 0;
 
-$count_course_upgraded = count_course_upgraded($versionDb, $clarolineVersion);
+$count_course_upgraded = count_course_upgraded($version_db_cvs, $clarolineVersion);
 
 $count_course = $count_course_upgraded['total'];
 $count_course_error = $count_course_upgraded['error'];
@@ -218,14 +233,14 @@ switch ($display)
         if ( $_REQUEST['upgradeCoursesError'] == 1)
         {
             // retry to upgrade course where upgrade failed
-            $sql_course_to_upgrade .= " WHERE c.versionDb != '".$versionDb."'
+            $sql_course_to_upgrade .= " WHERE c.versionDb != '".$version_db_cvs."'
                                         or c.versionClaro != '".$clarolineVersion."'
                                         ORDER BY c.dbName";
         }
         else
         {
             // not upgrade course where upgrade failed ( versionDb == error)
-            $sql_course_to_upgrade .= " WHERE ( c.versionDb != '".$versionDb."' 
+            $sql_course_to_upgrade .= " WHERE ( c.versionDb != '".$version_db_cvs."' 
                                                 or  c.versionClaro != '".$clarolineVersion."' )
                                               and c.versionDb != 'error' 
                                               and c.versionClaro != 'error' 
@@ -299,7 +314,7 @@ switch ($display)
                   Upgrade Course Table
                  ---------------------------------------------------------------------*/ 
 
-                if ( $currentCourseVersionDb != $versionDb)
+                if ( $currentCourseVersionDb != $version_db_cvs)
                 {
 
                     // get work intro
@@ -363,7 +378,7 @@ switch ($display)
                     while ( list($key,$sqlTodo) = each($sqlForUpdate) )
                     {
                         $res = mysql_query($sqlTodo);
-                        if ($_REQUEST['verbose']) // verbose is set when user retry upgrade
+                        if ($verbose) // verbose is set when user retry upgrade
                         {
                             $errorMsgs .= '<li>' . "\n";
                             $errorMsgs .= '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
@@ -415,7 +430,7 @@ switch ($display)
                          * Success: set versionDB of course to new version
                          */
                         $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionDb='".$versionDb."'
+                                            SET versionDb='".$version_db_cvs."'
                                             WHERE code = '".$currentCourseIDsys."'";                
                         $res = @mysql_query($sqlFlagUpgrade);
     
