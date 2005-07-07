@@ -45,14 +45,12 @@
     
     // set admin mode and groupId
     
-    $is_allowedToAdmin = false;
+    $is_allowedToAdmin = claro_is_allowed_to_edit();
 
     if ( $_gid && $is_groupAllowed )
     {
         // group context
         $grouId = $_gid;
-
-        $is_allowedToAdmin = $is_groupTutor || $is_courseAdmin || $is_platformAdmin;
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -62,13 +60,9 @@
     {
         // course context
         $groupId = 0;
-
-        $is_allowedToAdmin = $is_courseAdmin || $is_platformAdmin;
     }
     
-    // classes and libraries
-    
-    // Wiki specifics
+    // Wiki specific classes and libraries
     
     require_once "lib/class.clarodbconnection.php";
     require_once "lib/class.wiki2xhtmlrenderer.php";
@@ -92,6 +86,7 @@
     // Database nitialisation
     
     $tblList = claro_sql_get_course_tbl();
+    
     $config = array();
     $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
     $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
@@ -200,13 +195,15 @@
     
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'show';
     
-    // set request variables
+    // get request variables
     
-    $creatorId = $_uid; // $_uid
+    $creatorId = $_uid;
     
     $versionId = ( isset( $_REQUEST['versionId'] ) ) ? $_REQUEST['versionId'] : 0;
 
     $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
+    
+    // get content
     
     if ( $action == "edit" )
     {
@@ -333,16 +330,14 @@
             {
                 $time = date( "Y-m-d H:i:s" );
 
-                $contentpg = $content;
-
                 if ( $wikiPage->pageExists( $title ) )
                 {
                     $wikiPage->loadPage( $title );
-                    $wikiPage->edit( $creatorId, $contentpg, $time, true );
+                    $wikiPage->edit( $creatorId, $content, $time, true );
                 }
                 else
                 {
-                    $wikiPage->create( $creatorId, $title, $contentpg, $time, true );
+                    $wikiPage->create( $creatorId, $title, $content, $time, true );
                 }
 
                 if ( $wikiPage->hasError() )
@@ -365,6 +360,7 @@
             $wikiPage->loadPage( $title );
             $title = $wikiPage->getTitle();
             $history = $wikiPage->history( 0, 0, 'DESC' );
+            
             break;
         }
         default:

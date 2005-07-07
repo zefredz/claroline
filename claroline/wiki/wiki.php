@@ -49,8 +49,6 @@
     {
         // group context
         $groupId = (int) $_gid;
-
-        // $is_allowedToAdmin = claro_is_allowed_to_edit(); // $is_groupTutor || $is_courseAdmin || $is_platformAdmin;
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -60,8 +58,6 @@
     {
         // course context
         $groupId = 0;
-
-        // $is_allowedToAdmin = claro_is_allowed_to_edit(); // $is_courseAdmin || $is_platformAdmin;
     }
 
     // unquote GPC if magic quote gpc enabled
@@ -503,7 +499,10 @@
                 echo '<p><a href="'
                     . $_SERVER['PHP_SELF']
                     . '?action=rqEdit'
-                    . '" class="claroCmd">'.$langWikiCreateNewWiki.'</a></p>'
+                    . '" class="claroCmd">'
+                    . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWikiCreateNewWiki.'" />&nbsp;'
+                    . $langWikiCreateNewWiki
+                    . '</a></p>'
                     . "\n"
                     ;
             }
