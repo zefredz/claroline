@@ -419,7 +419,10 @@
 
             echo '<a href="page.php?wikiId='
                 . $wikiId
-                . '" class="claroCmd">'.$langWikiEnterWiki.'</a>'
+                . '" class="claroCmd">'
+                . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
+                . $langWikiEnterWiki
+                . '</a>'
                 . "\n"
                 ;
 
