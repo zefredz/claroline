@@ -1,22 +1,26 @@
 <?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * @version 1.7 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/CLWRK/
+ *
+ * @package CLWRK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-$tlabelReq = "CLWRK___";
+$tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
-include($includePath.'/lib/events.lib.inc.php');
-include($includePath.'/lib/fileManage.lib.php');
+include_once($includePath . '/lib/events.lib.inc.php');
+include_once($includePath . '/lib/fileManage.lib.php');
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'];
@@ -55,8 +59,8 @@ $currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
 $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
 
 $fileAllowedSize = $max_file_size_per_works ;    //file size in bytes
-$wrkDirSys          = $currentCourseRepositorySys."work/"; // systeme work directory
-$wrkDirWeb          = $currentCourseRepositoryWeb."work/"; // web work directory
+$wrkDirSys          = $currentCourseRepositorySys . 'work/'; // systeme work directory
+$wrkDirWeb          = $currentCourseRepositoryWeb . 'work/'; // web work directory
 $maxFilledSpace 	= 100000000;
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
