@@ -2117,4 +2117,6 @@ $langimportLearningPath = "Importer un parcours";
 $langLegendRequiredFields = "Les champs précédés d'une <span class=\"required\">*</span> sont obligatoires.";
 $langCannotUnsubscribeLastCourseManager = "Vous ne pouvez pas désinscrire d'un cours le dernier responsable de ce cours ";
 $langCourseManagerCannotUnsubscribeHimself = "Les responsables de cours ne peuvent se désinscrire eux même";
+$lang_p_d_StudentUnregistredFormCours=  "%d étudiant(e)(s) désinscrit(e)(s) de ce cours";
+
 ?>

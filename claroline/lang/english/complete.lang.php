@@ -2059,4 +2059,6 @@ $langimportLearningPath = "Import a learning path";
 $langLegendRequiredFields = "<span class=\"required\">*</span> denotes required field";
 $langCannotUnsubscribeLastCourseManager = "You cannot unsubscribe the last course manager of the course";
 $langCourseManagerCannotUnsubscribeHimself = "Course manager cannot unsubscribe himself";
+$lang_p_d_StudentUnregistredFormCours=  "%d student(s) unregistered from this course";
+
 ?>

@@ -21,13 +21,11 @@
 /*=====================================================================
    Initialisation
   =====================================================================*/
+$lang_p_d_StudentUnregistredFormCours=  "%d student(s) unregistered from this course";
 
 $tlabelReq = 'CLUSR___';
-
 require '../inc/claro_init_global.inc.php';
-
 if ( ! isset($_cid) ) claro_disp_select_course();
-
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 claro_set_display_mode_available(true);
@@ -70,7 +68,7 @@ function confirmation (name)
    Variables
   ----------------------------------------------------------------------*/
 
-$userPerPage = isset($nbUsersPerPage)?$nbUsersPerPage:50;
+$userPerPage = isset($nbUsersPerPage) ? $nbUsersPerPage : 50;
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -103,24 +101,26 @@ $tbl_groups          = $tbl_cdb_names['group_team'             ];
     
 $disp_tool_link = FALSE;
 
+$cmd = ( isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '');
+
 if ( $is_allowedToEdit )
 {
     $disp_tool_link = TRUE;
 
-    if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'unregister')
+    if ( $cmd == 'unregister')
     {
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
     
     if ($_REQUEST['user_id'] == 'allStudent')
         {
-            $sql = "DELETE FROM `".$tbl_rel_course_user."`
-                    WHERE `code_cours` = '".$currentCourseID."'
+            $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
+                    WHERE `code_cours` = '" . $currentCourseID . "'
                      AND `statut` = 5";
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
-            $dialogBox .= $unregisterdUserCount . " student(s) unregistered from this course";
+            $dialogBox .= sprintf($lang_p_d_StudentUnregistredFormCours,$unregisterdUserCount);
         }
         elseif ( 0 < (int)$_REQUEST['user_id'] )
         {
@@ -148,14 +148,16 @@ if ( $is_allowedToEdit )
 
 }    // end if allowed to edit
 
+
+
 /*----------------------------------------------------------------------
    Get total user
   ----------------------------------------------------------------------*/
 
 $sqlNbUser = 'SELECT count(user.user_id) `nb_users`
-              FROM `'.$tbl_rel_course_user.'` `cours_user`,
-                   `'.$tbl_users.'` `user`
-              WHERE `cours_user`.`code_cours` = "'.$currentCourseID.'"
+              FROM `' . $tbl_rel_course_user . '` `cours_user`,
+                   `' . $tbl_users . '` `user`
+              WHERE `cours_user`.`code_cours` = "' . $currentCourseID . '"
                 AND `cours_user`.`user_id` = `user`.user_id';
 
 $userTotalNb = claro_sql_query_fetch_all($sqlNbUser);
