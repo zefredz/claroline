@@ -55,7 +55,7 @@ if ( !empty($_REQUEST['uidToEdit']) )
 }
 else
 {
-    header("Location: adminusers.php");
+    header('Location: adminusers.php');
 }
 
 $user_data = user_initialise();
@@ -91,21 +91,15 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         if ( $user_id == $_uid )
         {
             $uidReset = true;
-            include($includePath.'/claro_init_local.inc.php');
+            include($includePath . '/claro_init_local.inc.php');
         }
 
         $classMsg = 'success';
         $dialogBox = $langAppliedChange;
 
         // set user admin parameter
-        if ( $user_data['is_admin'] )
-        {
-            user_add_admin($user_id);
-        }
-        else
-        {
-            user_delete_admin($user_id);
-        }
+        if ( $user_data['is_admin'] ) user_add_admin($user_id);
+        else                          user_delete_admin($user_id);
 
         $messageList[] = $langAppliedChange;
     }
