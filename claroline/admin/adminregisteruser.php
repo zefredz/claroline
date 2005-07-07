@@ -107,12 +107,7 @@ switch ( $cmd )
 
 //build and call DB to get info about current course (for title) if needed :
 
-$sql = "SELECT *
-        FROM  `" . $tbl_courses . "`
-        WHERE `code`='" . $cidToEdit . "'
-        ";
-$queryCourse =  claro_sql_query($sql);
-$resultCourse = mysql_fetch_array($queryCourse);
+$courseData = claro_get_course_data($cidToEdit);
 
 //----------------------------------
 // Build query and find info in db
@@ -211,7 +206,7 @@ else
 
 if ( !isset($addToURL) ) $addToURL = '';
 
-$nameTools .= " : ".$resultCourse['intitule'];
+$nameTools .= ' : ' . $courseData['name'];
 
 //------------------------------------
 // DISPLAY
@@ -249,7 +244,7 @@ echo '<table width="100%" >'
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . $langMakeSearch . '</label> :' . "\n"
 .    '<input type="text" value="' . $search . '" name="search" id="search" >' . "\n"
-.    '<input type="submit" value=" ' . $langOk . ' \">' . "\n"
+.    '<input type="submit" value=" ' . $langOk . ' ">' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes">' . "\n"
 .    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '">' . "\n"
 .    '</form>' . "\n"
@@ -281,9 +276,29 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">' . "\n"
 .    '<th>' 
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' . $langUserid . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' . $langLastName . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' . $langFirstName . '</a></th>' . "\n"
+
+.    '<a href="' . $_SERVER['PHP_SELF'] 
+.    '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' 
+.    $langUserid 
+.    '</a>'
+.    '</th>' . "\n"
+
+.    '<th>'
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom'
+.    '&amp;chdir=yes&amp;search=' . $search 
+.    '&amp;cidToEdit=' . $cidToEdit . '">' . $langLastName . '</a>'
+.    '</th>' . "\n"
+
+.    '<th>'
+.    '<a href="' . $_SERVER['PHP_SELF'] 
+.    '?order_crit=prenom'
+.    '&amp;chdir=yes'
+.    '&amp;search=' . $search 
+.    '&amp;cidToEdit=' . $cidToEdit . '">' 
+.    $langFirstName 
+.    '</a>'
+.    '</th>' . "\n"
+
 .    '<th>' . $langEnrollAsStudent . '</th>' . "\n"
 .    '<th>' . $langEnrollAsManager . '</th>' . "\n"
 .    '</tr>' . "\n"
@@ -295,21 +310,21 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 
 if (isset($order_crit))
 {
-    $addToURL = '&amp;order_crit='.$order_crit;
+    $addToURL = '&amp;order_crit=' . $order_crit;
 }
 if (isset($offset))
 {
-    $addToURL = '&amp;offset='.$offset;
+    $addToURL = '&amp;offset=' . $offset;
 }
 foreach($userList as $user)
 {
-    if (isset($_GET['search'])&& ($_GET['search']!="")) 
+    if (isset($_REQUEST['search'])&& ($_REQUEST['search']!="")) 
     {
-        $user['nom'] = eregi_replace("^(".$_GET['search'].")",'<b>\\1</b>', $user['nom']);
-        $user['prenom'] = eregi_replace("^(".$_GET['search'].")","<b>\\1</b>", $user['prenom']);
+        $user['nom'] = eregi_replace("^(".$_REQUEST['search'].")",'<b>\\1</b>', $user['nom']);
+        $user['prenom'] = eregi_replace("^(".$_REQUEST['search'].")","<b>\\1</b>", $user['prenom']);
     }
     
-    echo '<tr>'."\n"
+    echo '<tr>' . "\n"
     //  Id
         .'<td align="center">'
         .$user['ID']
@@ -326,14 +341,14 @@ foreach($userList as $user)
     if ($user['statut'] != "5")  // user is already enrolled but as student
     {
         // Register as user
-        echo '<td align="center">'."\n"
-            .'<a href="'.$_SERVER['PHP_SELF']
-            .'?cidToEdit='.$cidToEdit
+        echo '<td align="center">' . "\n"
+            .'<a href="' . $_SERVER['PHP_SELF']
+            .'?cidToEdit=' . $cidToEdit
             .'&amp;cmd=sub&amp;search='.$search
-            .'&amp;user_id='.$user['ID']
-            .'&amp;subas=stud'.$addToURL.'">'."\n"
-            .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'."\n"
-            .'</a>'."\n"
+            .'&amp;user_id=' . $user['ID']
+            .'&amp;subas=stud' . $addToURL.'">'
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'."\n"
+            .'</a>' 
             .'</td>'."\n"
             ;
     }
@@ -350,15 +365,15 @@ foreach($userList as $user)
     if ($user['statut'] != "1")  // user is not enrolled
     {
             //register as teacher
-        echo '<td align="center">'."\n"
-            .'<a href="'.$_SERVER['PHP_SELF']
-            .'?cidToEdit='.$cidToEdit
+        echo '<td align="center">' . "\n"
+            .'<a href="' . $_SERVER['PHP_SELF']
+            .'?cidToEdit=' . $cidToEdit
             .'&amp;cmd=sub&amp;search='.$search
-            .'&amp;user_id='.$user['ID']
-            .'&amp;subas=teach'.$addToURL.'">'
-            .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'
-            .'</a>'."\n"
-            .'</td>'."\n"
+            .'&amp;user_id=' . $user['ID']
+            .'&amp;subas=teach' . $addToURL.'">'
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langSubscribeUser . '" />'
+            .'</a>' . "\n"
+            .'</td>' . "\n"
             ;
     }
     else
@@ -376,6 +391,6 @@ foreach($userList as $user)
 // end display users table
 echo '</tbody></table>';
 //Pager
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?cidToEdit=".$cidToEdit.$addToURL);
-include($includePath."/claro_init_footer.inc.php");
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
+include($includePath . '/claro_init_footer.inc.php');
 ?>
