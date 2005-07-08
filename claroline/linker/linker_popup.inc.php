@@ -68,8 +68,8 @@ $isToolAllowed = claro_is_allowed_to_edit();
 if ($isToolAllowed)
 {
     /*-------------------------------------------------*
-    * TO FIX issue in Calendar and Announcement tools *
-    *-------------------------------------------------*/
+     * TO FIX issue in Calendar and Announcement tools *
+     *-------------------------------------------------*/
     if ( !isset ($_REQUEST['cmd']) )
     {
         $crlSource = getSourceCrl();
