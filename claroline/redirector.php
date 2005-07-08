@@ -1,9 +1,9 @@
 <?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.6
+// CLAROLINE 1.7
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
@@ -14,11 +14,11 @@
 
 if ( isset($_REQUEST['url']) )
 {
-    header("location:".$_REQUEST['url']);
+    header('location:' . $_REQUEST['url']);
 }
 else
 {
-    header("Location:../");
+    header('Location:../');
 }
 
 ?>
