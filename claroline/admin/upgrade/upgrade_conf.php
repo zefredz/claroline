@@ -7,13 +7,13 @@
  * Build new conf file content with these settings
  * write it.
  *
- * @version 1.6
+ * @version 1.7
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
  *
  * @package UPGRADE
  *
@@ -51,8 +51,8 @@ include ($includePath.'/lib/fileManage.lib.php');
 $thisClarolineVersion = $version_file_cvs;
 
 $error = FALSE;
-
-if ($_REQUEST['cmd'] == 'run')
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : ''; 
+if ($cmd == 'run')
 {
     // Prepare repository to backup files
     $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
@@ -91,7 +91,7 @@ if ($_REQUEST['cmd'] == 'run')
             {
                 foreach ($conf_def['old_config_file'] as $old_file_name) 
                 {
-                    $current_value_list =array_merge($current_value_list,get_values_from_confFile($includePath.'/conf/'.$old_file_name,$conf_def_property_list));
+                    $current_value_list = array_merge($current_value_list,get_values_from_confFile($includePath . '/conf/' . $old_file_name,$conf_def_property_list));
                 }
             }
 
@@ -143,14 +143,14 @@ if ($_REQUEST['cmd'] == 'run')
                     {
                         $okToSave = FALSE;
                         $error = TRUE;
-                        $output .= '<span class="warning">'.sprintf($lang_p_s_s_isInvalid, $propName, $propValue).'</span>' . '<br>' . "\n"
+                        $output .= '<span class="warning">'.sprintf($lang_p_s_s_isInvalid, $propName, $propValue) . '</span>' . '<br>' . "\n"
                                 . sprintf( $lang_rules_s_in_s,$propDef['type'] ,basename($def_file)).' <br>' . "\n"
                                 . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
                     }
                     else
                     {
-                        $propertyList[] = array('propName'=>$propName
-                                               ,'propValue'=>$propValue);
+                        $propertyList[] = array('propName'  => $propName
+                                               ,'propValue' => $propValue);
                     }
                 }
             }
@@ -169,7 +169,7 @@ if ($_REQUEST['cmd'] == 'run')
 
                     // backup old file 
                     $output .= '<li>' . $lang_oldFileBackup . ' ' ;
-                    $fileBackup = $backupRepositorySys.basename($conf_file);
+                    $fileBackup = $backupRepositorySys . basename($conf_file);
                     if (!@copy($conf_file, $fileBackup) )
                     {
                         $output .= '<span class="warning">' . $langFailed . '</span>';
@@ -240,7 +240,7 @@ if ($_REQUEST['cmd'] == 'run')
        $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
        $currentVersionStr = '<?php 
 $clarolineVersion = "'.$version_file_cvs.'";
-$versionDb = "'.$versionDb.'";
+$versionDb = "' . $version_db_cvs . '";
 ?>';
        fwrite($fp_currentVersion, $currentVersionStr);
        fclose($fp_currentVersion);
