@@ -129,23 +129,23 @@ foreach ( $categories as $this_category )
     if($is_allowedToEdit)
     {
         echo '<div style="float:right">'
-        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdCat&catId='.$this_category['cat_id'].'">'
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdCat&amp;catId='.$this_category['cat_id'].'">'
         .    '<img src="'.$imgRepositoryWeb.'edit.gif" alt="Edit">'
         .    '</a>'
         .    '&nbsp;'
-        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&catId='.$this_category['cat_id'].'">'
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'">'
         .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="Edit">'
         .    '</a>'
         .    '&nbsp;'
         ;
 
         if ( $categoryIterator > 1)
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&catId='.$this_category['cat_id'].'">'
+        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
         .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="Edit">'
         .    '</a>';
         
         if ( $categoryIterator < $total_categories)
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownCat&catId='.$this_category['cat_id'].'">'
+        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownCat&amp;catId='.$this_category['cat_id'].'">'
         .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="Edit">'
         .    '</a>';
         
@@ -162,7 +162,7 @@ foreach ( $categories as $this_category )
     
     if ($this_category['forum_count'] == 0)
     {
-        echo '<td  colspan="'.$colspan.'" align="center">No Forum</td>'."\n";
+        echo '<td  colspan="' . $colspan . '" align="center">No Forum<!-- HardCode --></td>' . "\n";
     }
     else
     {
@@ -277,29 +277,29 @@ foreach ( $categories as $this_category )
             if( $is_allowedToEdit)
             {
                 echo '<td>'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&forumId='.$forum_id.'">'
+                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="edit">'
                 .    '</a>'
                 .    '</td>'
                 .    '<td>'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&forumId='.$forum_id.'">'
+                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="Empty">'
                 .    '</a>'
                 .    '</td>'
                 .    '<td>'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&forumId='.$forum_id.'">'
+                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="delete">'
                 .    '</a>'
                 .    '</td>'
                 .    '<td>';
                 
                 if ($forumIterator > 1)
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&forumId='.$forum_id.'">'
+                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="delete">'
                 .    '</a>';
                 
                 if ( $forumIterator < $this_category['forum_count'] )
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&forumId='.$forum_id.'">'
+                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="delete">'
                 .    '</a>';
                 
