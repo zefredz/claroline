@@ -1,15 +1,21 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6.*
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: Muret Benoît && claroline Team.
-//----------------------------------------------------------------------
+/** 
+ * CLAROLINE 
+ *
+ *
+ * @version 1.7
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLTREE
+ *
+ * @package CLCOURSES
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -22,14 +28,15 @@ require '../inc/claro_init_global.inc.php';
 $is_allowedToAdmin = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 
-include($includePath."/lib/debug.lib.inc.php");
+include_once ($includePath . '/lib/debug.lib.inc.php');
+include_once ($includePath . '/lib/course.lib.inc.php');
 
 // build bredcrump
 $nameTools        = $langCategories;
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
 // display claroline header
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 
 // get table name
 $tbl_mdb_names   = claro_sql_get_main_tbl();
@@ -40,30 +47,22 @@ $controlMsg = array();
 
 // Display variables
 $CREATE = FALSE;
-$EDIT	= FALSE;
-$MOVE	= FALSE;
+$EDIT    = FALSE;
+$MOVE    = FALSE;
 
 //Get Parameters from URL or post
 
-if (isset($_REQUEST['cmd']))
-{
-    $cmd = $_REQUEST['cmd'];
-}
-else 
-{
-    $cmd = "";
-    $_REQUEST['cmd']= "";
-}
+$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : '');
 
 /**
  * Show or hide sub categories
  */
 
-if ( isset($_REQUEST['id']) && 
-    !isset($_REQUEST['cmd'])   )
+if ( isset($_REQUEST['id']) 
+   && empty($cmd)   )
 {
-    $id=$_REQUEST['id'];
-    $categories=$_SESSION['categories'];
+    $id = $_REQUEST['id'];
+    $categories = $_SESSION['categories'];
 
     // Change the parameter 'visible'
 
@@ -71,7 +70,7 @@ if ( isset($_REQUEST['id']) &&
     {
         foreach($categories as $key=>$category)
         {
-            if($category['id']==$id)
+            if($category['id'] == $id)
             {
                 if($categories[$key]['visible'])
                     $categories[$key]['visible']=FALSE;
@@ -82,14 +81,14 @@ if ( isset($_REQUEST['id']) &&
     }
 
     // Save in session
-    $_SESSION['categories']=$categories;
+    $_SESSION['categories'] = $categories;
 }
 else
 {
     // Get value from session variables
-    if ( isset($_SESSION["categories"]) )
+    if ( isset($_SESSION['categories']) )
     {
-        $categories = $_SESSION["categories"];
+        $categories = $_SESSION['categories'];
     }
     else
     {
@@ -100,78 +99,78 @@ else
      * Create a category
      */
 
-    if($_REQUEST['cmd'] == 'exCreate' )
+    if($cmd == 'exCreate' )
     {
         // If the new category have a name, a code and she can have child (categories or courses)
-        if( !empty($_REQUEST["nameCat"]) && !empty($_REQUEST["codeCat"]) )
+        if( !empty($_REQUEST['nameCat']) && !empty($_REQUEST['codeCat']) )
         {
             
-	        // If a category with the same code already exists we only display an error message
-	        $sql_SearchSameCode=" SELECT code 
-                                  FROM `" . $tbl_course_node . "` 
-                                  WHERE code='".$_REQUEST["nameCat"]."'";
+            // If a category with the same code already exists we only display an error message
+            $sql_SearchSameCode="SELECT code 
+                                 FROM `" . $tbl_course_node . "` 
+                                 WHERE code='" . $_REQUEST['nameCat'] . "'";
             $array=claro_sql_query_fetch_all($sql_SearchSameCode);
 
-	        if (isset($array[0]["code"])) 
-	        {	
-		        // Error message for attempt to create a duplicate
-		        $controlMsg['info'][]=$lang_faculty_CreateNotOk;
-	        }
-	        else
-	        {	    
-		        $nameCat=$_REQUEST["nameCat"];
-		        $codeCat=$_REQUEST["codeCat"];
-		        $fatherCat=$_REQUEST["fatherCat"];
-		        $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
-	
-		        // If the category don't have as parent NULL (root), all parent of this category have a child more
-		        $fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
-	
-		        addNbChildFather($fatherChangeChild,1);
-	
-		        // If the parent of the new category isn't root
-		        if(strcmp($fatherCat,"NULL"))
-		        {
-			        $sql_SearchFather=" SELECT treePos,nb_childs 
+            if (isset($array[0]['code'])) 
+            {    
+                // Error message for attempt to create a duplicate
+                $controlMsg['info'][] = $lang_faculty_CreateNotOk;
+            }
+            else
+            {        
+                $nameCat   = $_REQUEST['nameCat'];
+                $codeCat   = $_REQUEST['codeCat'];
+                $fatherCat = $_REQUEST['fatherCat'];
+                $canHaveCoursesChild = ($_REQUEST['canHaveCoursesChild'] == 1?'TRUE':'FALSE');
+    
+                // If the category don't have as parent NULL (root), all parent of this category have a child more
+                $fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
+    
+                addNbChildFather($fatherChangeChild,1);
+    
+                // If the parent of the new category isn't root
+                if(strcmp($fatherCat,"NULL"))
+                {
+                    $sql_SearchFather=" SELECT treePos,nb_childs 
                                         FROM `" . $tbl_course_node . "` 
                                         WHERE code='".$fatherCat."'";
-			        $array=claro_sql_query_fetch_all($sql_SearchFather);
-	
-			        // The treePos from the new category (treePos from this father + nb_childs from this father)
-			        $treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
-	
-			        // Add 1 to all category who have treePos >= of the treePos of the new category
-			        $sql_ChangeTree=" UPDATE `" . $tbl_course_node . "` 
+                    $array=claro_sql_query_fetch_all($sql_SearchFather);
+    
+                    // The treePos from the new category (treePos from this father + nb_childs from this father)
+                    $treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
+    
+                    // Add 1 to all category who have treePos >= of the treePos of the new category
+                    $sql_ChangeTree=" UPDATE `" . $tbl_course_node . "` 
                                       SET treePos=treePos+1 
                                       WHERE treePos>='".$treePosCat."'";
-			        claro_sql_query($sql_ChangeTree);
-		        }
-		        else    // The parent of the new category is root
-		        {
-			        // Search the maximum treePos
-			        $treePosCat=search_max_tree_pos()+1;
-		        }
-	
-		        // Insert the new category to the table
-		        
+                    claro_sql_query($sql_ChangeTree);
+                }
+                else    // The parent of the new category is root
+                {
+                    // Search the maximum treePos
+                    $treePosCat=search_max_tree_pos()+1;
+                }
+    
+                // Insert the new category to the table
+                
                 $sql_InsertCat=" INSERT INTO `". $tbl_course_node ."` 
                                  (name, code, bc , nb_childs, canHaveCoursesChild, canHaveCatChild,
                                   treePos ,code_P )
-						         VALUES ('".$nameCat."','".$codeCat."',NULL,'0','".$canHaveCoursesChild."','TRUE',
+                                 VALUES ('".$nameCat."','".$codeCat."',NULL,'0','".$canHaveCoursesChild."','TRUE',
                                   '".$treePosCat."'";
-				if ($fatherCat == "NULL")
-				{
-				    $sql_InsertCat .= ",NULL)";
-				}
-				else
-				{
-				    $sql_InsertCat .= ",'".$fatherCat."')";
-				}
-	
-		        claro_sql_query($sql_InsertCat);
-	
-		        // Confirm creating
-		        $controlMsg['info'][]=$lang_faculty_CreateOk;
+                if ($fatherCat == "NULL")
+                {
+                    $sql_InsertCat .= ",NULL)";
+                }
+                else
+                {
+                    $sql_InsertCat .= ",'".$fatherCat."')";
+                }
+    
+                claro_sql_query($sql_InsertCat);
+    
+                // Confirm creating
+                $controlMsg['info'][]=$lang_faculty_CreateOk;
 
             }
         }
@@ -189,30 +188,30 @@ else
      * If you move the category in the same father of the bom
      */
     
-    if($_REQUEST['cmd']=='exUp' || $_REQUEST['cmd']=='exDown')
+    if($cmd == 'exUp' || $cmd == 'exDown')
     {
         // Search the minimum and the maximum
         $sql_InfoTree=" SELECT min(treePos) minimum, max(treePos) maximum 
                         FROM `" . $tbl_course_node . "`";
         $array=claro_sql_query_fetch_all($sql_InfoTree);
 
-        $TreeMin=$array[0]["minimum"];
-        $TreeMax=$array[0]["maximum"];
+        $TreeMin=$array[0]['minimum'];
+        $TreeMax=$array[0]['maximum'];
 
         // Search the category who move in the bom
         $i=0;
-        while($i<count($categories) && $categories[$i]["id"]!=$_REQUEST["id"])
+        while( $i < count($categories) && $categories[$i]['id'] != $_REQUEST['id'])
             $i++;
 
         /**
          * If Up the category and the treePos of this category isn't the first category
          */
 
-        if($_REQUEST['cmd']=='exUp' && $i>=$TreeMin )
+        if($cmd=='exUp' && $i >= $TreeMin )
         {
             // Search the previous brother of this category
             $j=$i-1;
-            while($j>0 && strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]))
+            while($j>0 && strcmp($categories[$j]['code_P'], $categories[$i]['code_P']))
                 $j--;
 
             // If they are a brother
@@ -225,7 +224,7 @@ else
                     $newTree=$categories[$j]["treePos"]+$categories[$i]["nb_childs"]+1+$k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
-                                    SET treePos='".$newTree."' 
+                                    SET treePos='" . $newTree . "' 
                                     WHERE id='".$searchId."'";
                     claro_sql_query($sql_Update) ;
                 }
@@ -251,7 +250,7 @@ else
          * If Up the category and the treePos of this category isn't the last category
          */
 
-        if ($_REQUEST['cmd']=='exDown' && $i<$TreeMax-1 )
+        if ($cmd=='exDown' && $i<$TreeMax-1 )
         {
             // Search the next brother
             $j=$i+1;
@@ -296,7 +295,7 @@ else
      * If you delete a category
      */
 
-    if($_REQUEST['cmd'] == 'exDelete')
+    if($cmd == 'exDelete')
     {
 
         // Search information about category
@@ -307,22 +306,22 @@ else
 
         if ($res_SearchDelete != FALSE)
         {
-	        // we delete if we do not encounter any problem...default is that there is no problem, then we check
-	        $delok = TRUE;
+            // we delete if we do not encounter any problem...default is that there is no problem, then we check
+            $delok = TRUE;
 
             $code_parent  = $res_SearchDelete[0]['code_P'];
             $code_cat     = $res_SearchDelete[0]['code'];
             $nb_childs    = $res_SearchDelete[0]['nb_childs'];
             $treePos      = $res_SearchDelete[0]['treePos'];
-	    
-	        // Look if there isn't any subcategory in this category first	    
-	        if($nb_childs > 0) 
-	        {
-	    	    $controlMsg['error'][]=$lang_faculty_CatHaveCat;
-        		$delok = FALSE;
-	        }
-	    
-	        // Look if they aren't courses in this category
+        
+            // Look if there isn't any subcategory in this category first        
+            if($nb_childs > 0) 
+            {
+                $controlMsg['error'][]=$lang_faculty_CatHaveCat;
+                $delok = FALSE;
+            }
+        
+            // Look if they aren't courses in this category
             $sql_SearchCourses= "SELECT count(cours_id) num 
                                  FROM `" . $tbl_course . "` 
                                  WHERE faculte='".$code_cat."'";
@@ -331,7 +330,7 @@ else
             if ($res_SearchCourses[0]["num"]>0) 
             {
                 $controlMsg['error'][]=$lang_faculty_CatHaveCourses;
-        		$delok = FALSE;
+                $delok = FALSE;
             }
             
             if ($delok==TRUE) 
@@ -367,7 +366,7 @@ else
      * Create a category : display form
      */
 
-    if($_REQUEST['cmd'] == 'rqCreate')
+    if($cmd == 'rqCreate')
     {
         $CREATE=TRUE;
     }
@@ -376,7 +375,7 @@ else
      * Edit a category : display form
      */
 
-    if($_REQUEST['cmd'] == 'rqEdit')
+    if($cmd == 'rqEdit')
     {
         $EDIT=TRUE;
 
@@ -391,14 +390,14 @@ else
         $editFather=$array[0]["code_P"];
         $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
         $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
-	
+    
     }
     
     /**
      * Move a category : display form
      */
         
-    if($_REQUEST['cmd'] == 'rqMove')
+    if($cmd == 'rqMove')
     {
         // Search information of the category edit
         $sql_SearchInfoTreeFaculty = " SELECT * FROM `" . $tbl_course_node . "` 
@@ -419,31 +418,31 @@ else
      * Change information of category : do change in db
      */
 
-    if($_REQUEST['cmd'] == 'exChange' )
+    if($cmd == 'exChange' )
     {
         // Search information
         $sql_FacultyEdit = " SELECT * FROM `" . $tbl_course_node . "` 
                              WHERE id='".$_REQUEST["id"]."'";
         $arrayfacultyEdit=claro_sql_query_fetch_all($sql_FacultyEdit);
         $facultyEdit=$arrayfacultyEdit[0];
-    	$doChange = TRUE;
-	
-    	// See if we try to set the categorie as a cat that can not have course 
+        $doChange = TRUE;
+    
+        // See if we try to set the categorie as a cat that can not have course 
         // and that the cat already contain courses
-	    if (isset($_REQUEST['canHaveCoursesChild']) && $_REQUEST['canHaveCoursesChild']==0)
-    	{
-	    	$sql_SearchCourses= " SELECT count(cours_id) num 
+        if (isset($_REQUEST['canHaveCoursesChild']) && $_REQUEST['canHaveCoursesChild']==0)
+        {
+            $sql_SearchCourses= " SELECT count(cours_id) num 
                                   FROM `" . $tbl_course . "` 
                                   WHERE faculte='".$treePosDelete["code"]."'";
-        	$res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
+            $res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
 
             if($res_SearchCourses[0]["num"]>0)
-		    {
-			    $controlMsg['warning'][]=$lang_faculty_HaveCourses;
-			    $doChange = false;
-		    }
-	    }
-	
+            {
+                $controlMsg['warning'][]=$lang_faculty_HaveCourses;
+                $doChange = false;
+            }
+        }
+    
         // Edit a category (don't move the category)
         if(!isset($_REQUEST["fatherCat"]) && $doChange)
         {
@@ -478,7 +477,7 @@ else
                                                       canHaveCoursesChild='".$canHaveCoursesChild."' 
                                                   WHERE id='".$_REQUEST["id"]."'";
                         claro_sql_query($sql_ChangeInfoFaculty);
-            		    $controlMsg['warning'][]=$lang_faculty_EditOk;
+                        $controlMsg['warning'][]=$lang_faculty_EditOk;
                     }
                 }
                 else
@@ -733,6 +732,27 @@ else
     }
 }
 
+
+/**
+ * Display
+ */
+
+$category_array = claro_get_cat_flat_list();
+// If there is no current $category, add a fake option 
+// to prevent auto select the first in list
+// to prevent auto select the first in list
+if ( isset($category['id']) && is_array($category_array) 
+   && array_key_exists($category['id'] ,$category_array))
+{ 
+    $cat_preselect = $category['id'];
+}
+else 
+{
+    $cat_preselect = 'choose_one';
+    $category_array = array_merge(array('choose_one'=>'--'),$category_array);
+}
+
+
 /**
  * Display
  */
@@ -751,9 +771,9 @@ if($CREATE)
     
     // try to retrieve previsiously posted parameters for the new category
     
-    if (isset($_REQUEST['nameCat'])) $EditName = $_REQUEST['nameCat']; else $EditName = "";
-    if (isset($_REQUEST['codeCat'])) $EditCode = $_REQUEST['codeCat']; else $EditCode = "";
-    if (isset($_REQUEST['canHaveCoursesChild'])) $canHaveCoursesChild = $_REQUEST['canHaveCoursesChild'];
+    $EditName = isset($_REQUEST['nameCat']) ? $_REQUEST['nameCat'] : '';
+    $EditCode = isset($_REQUEST['codeCat']) ? $_REQUEST['codeCat'] : '';
+    $canHaveCoursesChild = isset($_REQUEST['canHaveCoursesChild']) ? $_REQUEST['canHaveCoursesChild'] : '';
     
 ?>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
@@ -774,7 +794,7 @@ if($CREATE)
         </td>
 
         <td>
-     	   <input type="texte" name="codeCat" id="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
+            <input type="texte" name="codeCat" id="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
         </td>
     </tr>
     <tr>
@@ -784,10 +804,9 @@ if($CREATE)
 
         <td>
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_1"
-            <?php    if(isset($EditCanHaveCoursesChild))
-                        echo (!strcmp($EditCanHaveCoursesChild,"TRUE")?"checked":"");
-                    else
-                        echo "checked";
+            <?php   echo (isset($EditCanHaveCoursesChild))
+                    ?    (!strcmp($EditCanHaveCoursesChild,"TRUE")?"checked":"")
+                    :    'checked';
             ?>
          value="1"> <label for="canHaveCoursesChild_1"><?php echo $langYes; ?></label>
 
@@ -816,6 +835,7 @@ if($CREATE)
         </td>
 
         <td>
+        
         <select name="fatherCat" id="fatherCat">
         <option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
@@ -939,18 +959,18 @@ elseif($MOVE)
         </td>
 
         <td align="RIGHT">
-			<select name="fatherCat">
-				<option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
+            <select name="fatherCat">
+                <option value="NULL" > &nbsp;&nbsp;&nbsp;<?php echo $siteName;?> </option>
         <?php
         //Display each category in the select
         build_select_faculty($categories,NULL,$editFather,"");
         ?>
-			</select>
+            </select>
         </td>
     </tr>
     <tr>
         <td>
-			<br>
+            <br>
         </td>
     </tr>
     <tr>
@@ -958,7 +978,7 @@ elseif($MOVE)
         </td>
         <td>
             <input type="hidden" name="id" value="<?php echo $EditId ?>">
-			<input type="submit" value="Ok">
+            <input type="submit" value="Ok">
         </td>
     </tr>
     </table>
@@ -985,7 +1005,7 @@ echo "<p><a class=\"claroCmd\" href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\
 
 ?>
 
-	<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
+    <table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
     <thead>
        <tr class="headerX" align="center" valign="top">
 
