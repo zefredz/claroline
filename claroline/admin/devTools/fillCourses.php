@@ -48,6 +48,10 @@ DEFINE('CONF_VAL_TEACHER_STATUS',1);        //
 
 
 unset($includePath);
+$cidReset=true;
+$gidReset=true;
+unset($cidReq);
+
 require '../../inc/claro_init_global.inc.php';
 if (!isset($includePath)) trigger_error('init not run',E_USER_ERROR);
 if (!isset($_uid)) trigger_error('you need to be logged',E_USER_ERROR);
@@ -57,6 +61,7 @@ include($includePath . '/conf/course_main.conf.php');
 //// LIBS
 
 include($includePath . '/lib/add_course.lib.inc.php');
+include($includePath . '/lib/course.lib.inc.php');
 include($includePath . '/lib/group.lib.inc.php');
 include($includePath . '/lib/debug.lib.inc.php');
 include($includePath . '/lib/fileManage.lib.php');
@@ -80,7 +85,7 @@ $TABLEANNOUNCEMENTS = $tbl_cdb_names['announcement'          ];
 $can_create_courses   = (bool) ($is_allowedCreateCourse);
 $coursesRepositories  = $coursesRepositorySys;
 
-$nc     = isset($_REQUEST['nc'])    ? (int) $_REQUEST['nc']    : DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
+$nc     = isset($_REQUEST['nc'])    ? (int) $_REQUEST['nc']    : DEFAULT_NUMBER_CREATED_COURSE;
 $smin   = isset($_REQUEST['smin'])  ? (int) $_REQUEST['smin']  : DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
 $smax   = isset($_REQUEST['smax'])  ? (int) $_REQUEST['smax']  : DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
 $pmin   = isset($_REQUEST['pmin'])  ? (int) $_REQUEST['pmin']  : DEFAULT_MIN_QTY_TEACHER_REGISTRED_IN_COURSE;
@@ -150,17 +155,8 @@ if ($cmd == 'exFill')
         $aivailableLang = array_keys(claro_get_lang_list());
     }
 
-    $sqlCat = "SELECT `code` `code` 
-               FROM `" . $TABLECOURSDOMAIN . "` 
-               WHERE canHaveCoursesChild  = 'TRUE'";
-    
-    $aivailableFaculty = claro_sql_query_fetch_all($sqlCat);
-    if (is_array($aivailableFaculty))
-    foreach ($aivailableFaculty as $fac)
-    {
-        $aivailableFaculty[] = $fac['code'];
-    }
-
+    $aivailableFaculty = array_keys(claro_get_cat_flat_list());
+  
     $sqlTeachers = "SELECT `user_id` `uid` FROM `" . $TABLEUSER . "` WHERE statut = 1";
     $resTeachers = claro_sql_query($sqlTeachers);
     while ($teacher = mysql_fetch_array($resTeachers,MYSQL_ASSOC))
@@ -178,10 +174,11 @@ if ($cmd == 'exFill')
     }
 
     $strWork = '<OL>';
-    for($noCourse=1;$noCourse<=$nc;$noCourse++)
+    for($noCourse=1; $noCourse<=$nc; $noCourse++)
     {
         $wantedCode        = substr($pfCode . ' ' . field_rand($nameOfCourses) . ' (' . substr(md5(uniqid('')),0,3) . ')',0,12);
         $faculte           = field_rand($aivailableFaculty);
+        
         $language_course   = field_rand($aivailableLang);
         $uidCourse         = field_rand($teachersUid);
         //  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="",     $prefix4path="", $addUniquePrefix =false,    $useCodeInDepedentKeys = TRUE    )
@@ -387,7 +384,7 @@ switch ($display)
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
     <legend > <?php echo $langCreateCourses ?> </legend>
-    <label for="nc"> <?php echo $langQantity ?> </label>
+    <label for="nc"> <?php echo $langQuantity ?> </label>
     <input align="right" type="text" id="nc" name="nc" value="<?php echo $nc ?>" size="5" maxlength="3"><br>
     <label for="pfCode"> <?php echo $langPrefix ?> </label>
     <input align="right" type="text" id="pfCode" name="pfCode" value="<?php echo $pfCode ?>" size="5" maxlength="5">
@@ -442,7 +439,7 @@ switch ($display)
 </form>
         <?php
         break;
-        default : "hum erreur de display";
+        default : "hum DISPLAY ERROR";
 
 }
 
