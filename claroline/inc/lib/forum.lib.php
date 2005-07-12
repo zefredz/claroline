@@ -919,7 +919,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                 else               $toAdd = '';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
-                          .  'Create Catgeory'
+                          .  'Create Category'
                           .  '</a>';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
