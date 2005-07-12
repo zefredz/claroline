@@ -316,7 +316,9 @@ function detect_included_files(&$tokenList)
     for ($i = 0, $tokenCount =  count($tokenList); $i < $tokenCount ; $i++)
     {
         if (   $tokenList[$i][0] === T_INCLUDE 
-            || $tokenList[$i][0] === T_REQUIRE)
+            || $tokenList[$i][0] === T_REQUIRE
+            || $tokenList[$i][0] === T_INCLUDE_ONCE
+            || $tokenList[$i][0] === T_REQUIRE_ONCE )
         {
             $includeFile = '';
             $bracketPile = 0;
@@ -344,6 +346,7 @@ function detect_included_files(&$tokenList)
                 $includeFile .= $token;
                 $i++;
             }
+            $includeFile = str_replace('dirname(__FILE__).','',$includeFile);
             $includeFileList[] = $includeFile;
         }
     } // end loop for
