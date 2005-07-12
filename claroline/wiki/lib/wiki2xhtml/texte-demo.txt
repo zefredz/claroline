@@ -65,7 +65,7 @@ Voici les types de formatage de texte :
 * Insertion : @@\++texte\++@@
 * Suppression : @@\--texte\--@@
 * Acronymes : @@\??Mot|définition\??@@ (la définition est optionnelle, un dictionnaire se trouve dans le fichier acronyms.txt)
-* Note de bas de page : @@\§§Texte de la note\§§@@
+* Note de bas de page : @@\$$Texte de la note\$$@@
 * Saut de ligne : @@\%%%@@
 
 ! Images et liens
