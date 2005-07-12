@@ -653,9 +653,12 @@
          
          function stripSlashesForWiki( $str )
          {
+#            return str_replace( '\\', "\\",
+#                    str_replace( '\"', '"',
+#                    str_replace( "\'", "'", $str ) ) );
+                    
             return str_replace( '\\', "\\",
-                    str_replace( '\"', '"',
-                    str_replace( "\'", "'", $str ) ) );
+                    str_replace( '\"', '"', $str ) );
          }
     }
 ?>
