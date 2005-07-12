@@ -77,7 +77,7 @@ On fait un lien simplement en utilisant \[ et \], par exemple :
 
 Historiquement les liens reconnaissent les images, toute URL finissant par jpg, jpeg, gif ou png était vu comme une image et affichait l'image. Il est possible de désactiver cette option en utilisant un drapeaux (O ou 1) dans le lien en dernier argument. Par exemple :
 
- \[une image|http://www.example.com/image.gif]\ affiche une image
+ \[une image|http://www.example.com/image.gif\] affiche une image
  \[une image|http://www.example.com/image.gif|||0\] fait un lien vers l'image
 
 Syntaxe : 
