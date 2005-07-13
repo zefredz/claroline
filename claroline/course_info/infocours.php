@@ -403,7 +403,7 @@ if (isset($cidToEdit))
 <td></td>
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo $langOk ?> ">
-<?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+<?php $url = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : $rootWeb; echo claro_disp_button( $url, $langCancel); ?>
 </td>
 </tr>
 
