@@ -429,7 +429,7 @@ function build_answers_select_box($answerList, $questionId)
 	
 	foreach($answerList as $answer)
 	{
-		$selectBox .= '<option value="'.$answer.'">'.$answer.'</option>'."\n";
+		$selectBox .= '<option value="'.htmlentities($answer).'">'.$answer.'</option>'."\n";
 	}
 
 	$selectBox .= '</select>'."\n";
