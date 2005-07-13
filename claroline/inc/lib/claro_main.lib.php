@@ -1123,7 +1123,7 @@ function claro_disp_message_box($message)
  * @return string the build breadcrumb trail
  */
 
-function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ')
+function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
 {
     // trail of only one element has no sense ...
     if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
@@ -1156,6 +1156,7 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ')
                                                .'</strong>';
 
     return '<div class="breadcrumbTrail">'
+          .(is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ')
           .implode($separator, $breadCrumbList)
           .'</div>';
 }
