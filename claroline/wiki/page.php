@@ -482,6 +482,9 @@
             margin: 5px;
         }
         .diffEqual{
+            background-color: white;
+        }
+        .diffMoved{
             background-color: #00CCFF;
         }
         .diffAdded{
@@ -745,6 +748,7 @@
             echo '= <span class="diffEqual" >Unchanged line</span><br />';
             echo '+ <span class="diffAdded" >Added line</span><br />';
             echo '- <span class="diffDeleted" >Deleted line</span><br />';
+            echo 'M <span class="diffMoved" >Moved line</span><br />';
             echo '</div>' . "\n";
             
             echo '<strong>'.$langWikiDifferenceTitle.'</strong>';

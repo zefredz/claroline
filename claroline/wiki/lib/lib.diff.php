@@ -10,6 +10,7 @@
     define( "DIFF_EQUAL", "=" );
     define( "DIFF_ADDED", "+" );
     define( "DIFF_DELETED", "-" );
+    define( "DIFF_MOVED", "M" );
     
     /**
      * @version CLAROLINE 1.7
@@ -40,6 +41,22 @@
         
         $deleted = array_diff_assoc( $oldArr, $newArr );
         $added = array_diff_assoc( $newArr, $oldArr );
+
+        $moved = array();
+
+        foreach ( $added as $key => $candidate )
+        {
+            foreach ( $deleted as $index => $content )
+            {
+                if ( $candidate == $content )
+                {
+                    $moved[$key] = $candidate;
+                    unset( $added[$key] );
+                    unset( $deleted[$index] );
+                    break;
+                }
+            }
+        }
         
         $output = '';
         
@@ -60,6 +77,11 @@
             elseif ( isset ( $added[$i] ) && ! isset ( $deleted[$i] ) )
             {
                 $output .= format_line( $i, DIFF_ADDED, $added[$i] );
+            }
+            // line moved
+            elseif ( isset ( $moved[$i] ) )
+            {
+                $output .= format_line( $i, DIFF_MOVED, $newArr[$i] );
             }
             // line unchanged
             elseif ( $show_equals == true )
@@ -116,6 +138,16 @@
             {
                 return $line. ' : '
                     . ' = <span class="diffEqual" >'
+                    . $value
+                    . '</span><br />' . "\n"
+                    ;
+
+                break;
+            }
+            case DIFF_MOVED:
+            {
+                return $line. ' : '
+                    . ' M <span class="diffMoved" >'
                     . $value
                     . '</span><br />' . "\n"
                     ;
