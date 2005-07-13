@@ -298,8 +298,8 @@ $soapclient = new soapclient('http://www.claroline.net/worldwide/worldwide_soap.
 if( isset($_REQUEST['register']) )
 {
 	$country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
-	$parameters = array('campusName' => $siteName, 'campusUrl' => $rootWeb,
-						'institutionName' => $institution_name, 'institutionUrl' => $institution_url,
+	$parameters = array('campusName' => addslashes($siteName), 'campusUrl' => $rootWeb,
+						'institutionName' => addslashes($institution_name), 'institutionUrl' => $institution_url,
 						'country' => $country, 'adminEmail' => $administrator_email
 						);
 
