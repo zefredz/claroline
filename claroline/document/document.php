@@ -1554,8 +1554,8 @@ echo claro_disp_tool_title($titleElement,
         /*------------------------------------------------------------------------
                                  CURRENT DIRECTORY LINE
           ------------------------------------------------------------------------*/
-          
-        $searchCmdUrl = "";
+
+        $searchCmdUrl = '';
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
@@ -1594,7 +1594,7 @@ echo claro_disp_tool_title($titleElement,
         if ($is_allowedToEdit)
         {
             /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
-            
+
             echo " | "
                 ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">"
@@ -1618,7 +1618,9 @@ echo claro_disp_tool_title($titleElement,
         }
     
         echo "</p>\n";
-    
+
+        echo claro_disp_document_breadcrumb($curDirPath);
+
         echo "<table class=\"claroTable emphaseLine\" width=\"100%\">\n";
     
         /* CURRENT DIRECTORY LINE */
@@ -1631,7 +1633,7 @@ echo claro_disp_tool_title($titleElement,
         {
             $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
                 ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-                .$dspCurDirPath."\n";
+                .$dspCurDirName."\n";
         }
         else
         {
@@ -1696,9 +1698,6 @@ echo claro_disp_tool_title($titleElement,
         echo "</tr>\n"
             ."<tbody>";
 
-
-        echo "<tr><td colspan=\"".$colspan."\"><b>".$curDirName."</b></td></tr>\n";
-
         /*------------------------------------------------------------------------
                                    DISPLAY FILE LIST
           ------------------------------------------------------------------------*/
@@ -1743,7 +1742,6 @@ echo claro_disp_tool_title($titleElement,
                 }
                 
                                 //modify style if the file is recently added since last login
-                                
                                 // see if tool name must be displayed in bold text or not
 
                                 if (in_array($fileName, $modified_documents))
