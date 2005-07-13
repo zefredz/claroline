@@ -178,7 +178,6 @@ h3{	font-size: 110%; }
 {
     color: #4171b5;
 	border: none;
-	font-size: 80%;
 	padding-bottom: 5px;
 }
 
@@ -187,15 +186,21 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumbLine #breadcrumbTrail
+#breadcrumbLine .breadcrumbTrail
 {
 	float: left;
 }
 
 #breadcrumbLine #toolViewOption
 {
+	font-size: 80%;
 	float: right;
 	text-align: right;
+}
+
+.breadcrumbTrail
+{
+	font-size: 80%;
 }
 
 /******************************************************************************

@@ -197,7 +197,6 @@ h3{	font-size: 110%; }
 #breadcrumbLine
 {
 	border: none;
-	font-size: 90%;
 	padding-bottom: 5px;
 }
 
@@ -219,17 +218,22 @@ h3{	font-size: 110%; }
 	display: none;
 }
 
-#breadcrumbTrail
+#breadcrumbLine .breadcrumbTrail
 {
 	float: left;
 }
 
 #toolViewOption
 {
+	font-size: 90%;
 	float: right;
 	text-align: right;
 }
 
+.breadcrumbTrail
+{
+	font-size:90%
+}
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/

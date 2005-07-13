@@ -169,7 +169,7 @@ if (is_array($_courseToolList))
 if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
 {
     echo '<hr />' . "\n"
-    .    '<div id="breadcrumbTrail">' . "\n"
+    .    '<div class="breadcrumbTrail">' . "\n"
     .    '<a href="' . $rootWeb . 'index.php" target="_top">'
     .    '<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
     .    $siteName

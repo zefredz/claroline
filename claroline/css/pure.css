@@ -200,15 +200,21 @@ h3{
 	display: none;
 }
 
-#breadcrumbLine #breadcrumbTrail
+#breadcrumbLine .breadcrumbTrail
 {
 	float: left;
 }
 
 #breadcrumbLine #toolViewOption
 {
+	font-size: 80%;
 	float: right;
 	text-align: right;
+}
+
+.breadcrumbTrail
+{
+	font-size: 80%;
 }
 
 /******************************************************************************
