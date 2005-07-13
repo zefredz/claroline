@@ -572,7 +572,7 @@ echo claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 // if tracking is enabled
 if($is_trackingEnabled && $displayScore)
 {
-    @include($includePath.'/lib/events.lib.inc.php');
+    include($includePath.'/lib/events.lib.inc.php');
     // if anonymousAttemps is true : record anonymous user stats, record authentified user stats without uid
     if ( $_SESSION['objExercise']->anonymous_attempts()  )
     {
