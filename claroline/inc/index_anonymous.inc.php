@@ -158,7 +158,7 @@ if ( count($courseList) > 0 )
     {
         echo '<li>' . "\n"
 
-        .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '\">'
+        .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">'
         .    $thisCourse['officialCode'] . ' - '
         .    $thisCourse['title']
         .    '</a>'
