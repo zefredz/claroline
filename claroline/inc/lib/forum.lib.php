@@ -939,39 +939,26 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name='')
 {
+    global $l_separator, $_gid;
 
-    global $sitename, $l_separator, $_gid, $topic_subject;
+    $breadCrumbNameList   = array ('Forum Index');
+    $breadCrumbUrlList    = array ('index.php');
 
-    switch ($pagetype) 
+    if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply') ) )
     {
-    	case 'index' :
-            // noop ...
-    		break;
+        $breadCrumbNameList[] = $forum_name;
+        $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
 
-    	case 'viewforum' :
-    	case 'viewtopic' :
-        case 'editpost' :
-        case 'reply' :
-
-	    	echo '<small>' . "\n";
-    
-	    	echo '<a href="index.php">' . $sitename . ' Forum Index</a> '
-    			. $l_separator
-	    		. ' <a href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-		    	. htmlspecialchars($forum_name)
-			    . '</a>' 
-                ;
-
-    		if ( $pagetype != "viewforum" ) echo ' ' . $l_separator . ' ';
-
-		    echo htmlspecialchars($topic_name);
-
-        	echo '</small>' . "\n";
-
-		break;
+        if ($pagetype != 'viewforum')
+        {
+            $breadCrumbNameList[] = $topic_name;
+            $breadCrumbUrlList[]  = null;
+        }
     }
 
+    echo claro_disp_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, $l_separator);
 }
+
 
 function disp_forum_group_toolbar($gid)
 {
