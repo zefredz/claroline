@@ -1112,13 +1112,61 @@ function claro_disp_message_box($message)
     .'</table>'."\n";
 }
 
+
+/**
+ * Allows to easily display a breadcrumb trail
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param array $nameList name of each breadcrumb
+ * @param array $urlList url corrsponding to the breadcrumb name above
+ * @param string $separator (optionnal) element which segregate the breadcrumbs 
+ * @return string the build breadcrumb trail
+ */
+
+function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ')
+{
+    // trail of only one element has no sense ...
+    if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
+
+    $breadCrumbList = array();
+
+    foreach($nameList as $thisKey => $thisName)
+    {
+        if (   array_key_exists($thisKey, $urlList) 
+            && ! is_null($urlList[$thisKey])       )
+        {
+            $startAnchorTag = '<a href="'.$urlList[$thisKey].'" target="_top">';
+            $endAnchorTag   = '</a>';
+        }
+        else
+        {
+            $startAnchorTag = '';
+            $endAnchorTag   = '';
+        }
+
+        $breadCrumbList [] = $startAnchorTag 
+                           . htmlspecialchars($thisName)
+                           . $endAnchorTag;
+    }
+
+    // Embed the last bread crumb entry of the list.
+
+    $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
+                                               .end($breadCrumbList)
+                                               .'</strong>';
+
+    return '<div class="breadcrumbTrail">'
+          .implode($separator, $breadCrumbList)
+          .'</div>';
+}
+
 /**
  * displays an anchor tag (<a ...>) which, thanks to style sheet (css),
  * looks like a button.
  *
  * This function is needed, because Netscap 4 family browsers renders CSS
  * so badly that it makes the button unusable. The function prevents the problem
- * to occur by removing class style  if the browser is from the Netscape 4
+ * to occur by removing class style if the browser is from the Netscape 4
  * familiy.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
@@ -1129,7 +1177,6 @@ function claro_disp_message_box($message)
  * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
  * @return void
  */
-
 
 function claro_disp_button($url, $text, $confirmMessage = '')
 {
@@ -1280,7 +1327,7 @@ function claro_disp_duration( $duration  )
 //                               @import url('.$urlAppend.'/claroline/inc/htmlarea'.'/htmlarea.css);
 //                              </style>';
 
-function claro_disp_html_area($name, $content =    '',
+function claro_disp_html_area($name, $content = '',
                               $rows=20,    $cols=80, $optAttrib='')
 {
     global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable,$langSwitchEditorToTextConfirm;
