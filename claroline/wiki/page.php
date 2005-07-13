@@ -181,7 +181,7 @@
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         $valid_actions = array( "edit", "preview", "save"
-            , "show", "recent", "all", "history"
+            , "show", "recent", "diff", "all", "history"
             );
     }
     else
@@ -202,6 +202,12 @@
     $versionId = ( isset( $_REQUEST['versionId'] ) ) ? $_REQUEST['versionId'] : 0;
 
     $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
+    
+    if ( $action == "diff" )
+    {
+        $old = ( isset( $_REQUEST['old'] ) ) ? (int) $_REQUEST['old'] : 0;
+        $new = ( isset( $_REQUEST['new'] ) ) ? (int) $_REQUEST['new'] : 0;
+    }
     
     // get content
     
@@ -251,6 +257,32 @@
     
     switch( $action )
     {
+        case "diff":
+        {
+            require_once "lib/lib.diff.php";
+            
+            if ( $wikiStore->pageExists( $wikiId, $title ) )
+            {
+                // older version
+                $wikiPage->loadPageVersion( $old );
+                // $old = $wikiRenderer->render( $wikiPage->getContent() );
+                $old = $wikiPage->getContent();
+                $oldTime = $wikiPage->getCurrentVersionMtime();
+                $oldEditor = $wikiPage->getEditorId();
+                
+                // newer version
+                $wikiPage->loadPageVersion( $new );
+                // $new = $wikiRenderer->render( $wikiPage->getContent() );
+                $new = $wikiPage->getContent();
+                $newTime = $wikiPage->getCurrentVersionMtime();
+                $newEditor = $wikiPage->getEditorId();
+                
+                // get differences
+                $diff = diff( $old, $new, true );
+            }
+            
+            break;
+        }
         // recent changes
         case "recent":
         {
@@ -360,11 +392,7 @@
             $wikiPage->loadPage( $title );
             $title = $wikiPage->getTitle();
             $history = $wikiPage->history( 0, 0, 'DESC' );
-            
             break;
-        }
-        default:
-        {
         }
     }
     
@@ -447,6 +475,20 @@
         
         .wiki2xhtml a.wikiEdit{
             color: red;
+        }
+        .diff{
+            font-family: monospace;
+            padding: 5px;
+            margin: 5px;
+        }
+        .diffEqual{
+            background-color: #00CCFF;
+        }
+        .diffAdded{
+            background-color: lime;
+        }
+        .diffDeleted{
+            background-color: #FF00AA;
         }
         </style>"
         ;
@@ -573,13 +615,15 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=show'
         . '&amp;title=__MainPage__'
-        . '">'.$langWikiMainPage.'</a>'
+        . '">'
+        . '<img src="'.$imgRepositoryWeb.'wiki.gif" border="0" alt="edit" />&nbsp;'
+        . $langWikiMainPage.'</a>'
         ;
         
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         // Show context
-        if ( $action == "show" )
+        if ( $action == "show" || $action == "history" || $action == "diff" )
         {
             echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
                 . $_SERVER['PHP_SELF']
@@ -588,7 +632,7 @@
                 . '&amp;title=' . urlencode( $title )
                 . '&amp;versionId=' . $versionId
                 . '">'
-                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
                 . $langWikiEditPage.'</a>'
                 ;
         }
@@ -596,7 +640,7 @@
         else
         {
             echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
                 . $langWikiEditPage . '</span>'
                 ;
         }
@@ -604,12 +648,12 @@
     else
     {
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-            . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+            . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
             . $langWikiEditPage . '</span>'
             ;
     }
     
-    if ( $action == "show" )
+    if ( $action == "show" || $action == "edit" || $action == "history" || $action == "diff" )
     {
         // active
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
@@ -618,6 +662,7 @@
                 . '&amp;action=history'
                 . '&amp;title=' . urlencode( $title )
                 . '">'
+                // . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="history" />&nbsp;'
                 . $langWikiPageHistory.'</a>'
                 ;
     }
@@ -625,6 +670,7 @@
     {
         // inactive
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
+            // . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="history" />&nbsp;'
             . $langWikiPageHistory . '</span>'
             ;
     }
@@ -633,20 +679,82 @@
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=recent'
-        . '">'.$langWikiRecentChanges.'</a>'
+        . '">'
+        // . '<img src="'.$imgRepositoryWeb.'recent.gif" border="0" alt="recent changes" />&nbsp;'
+        . $langWikiRecentChanges.'</a>'
         ;
         
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=all'
-        . '">'.$langWikiAllPages.'</a>'
+        . '">'
+        // . '<img src="'.$imgRepositoryWeb.'allpages.gif" border="0" alt="all pages" />&nbsp;'
+        . $langWikiAllPages.'</a>'
         ;
 
     echo '</p>' . "\n";
     
     switch( $action )
     {
+        case "diff":
+        {
+            if( $title === '__MainPage__' )
+            {
+                $displaytitle = $langWikiMainPage;
+            }
+            else
+            {
+                $displaytitle = $title;
+            }
+            
+            $oldTime = claro_disp_localised_date( $dateTimeFormatLong
+                        , strtotime($oldTime) )
+                        ;
+                        
+            $userInfo = user_get_data( $oldEditor );
+            $oldEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+
+            $newTime = claro_disp_localised_date( $dateTimeFormatLong
+                        , strtotime($newTime) )
+                        ;
+                        
+            $userInfo = user_get_data( $newEditor );
+            $newEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+
+            $versionInfo = '('
+                . sprintf( $langWikiDifferencePattern, $oldTime, $oldEditorStr, $newTime, $newEditorStr )
+                . ')'
+                ;
+                
+            $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
+                        . $versionInfo . '</span>'
+                        ;
+
+            echo '<div class="wikiTitle">' . "\n";
+            echo '<h1>'.$displaytitle
+                . $versionInfo
+                . '</h1>'
+                . "\n"
+                ;
+            echo '</div>' . "\n";
+            
+            echo '<strong>'.$langWikiDifferenceKeys.'</strong>';
+
+            echo '<div class="diff">' . "\n";
+            echo '= <span class="diffEqual" >Unchanged line</span><br />';
+            echo '+ <span class="diffAdded" >Added line</span><br />';
+            echo '- <span class="diffDeleted" >Deleted line</span><br />';
+            echo '</div>' . "\n";
+            
+            echo '<strong>'.$langWikiDifferenceTitle.'</strong>';
+
+            echo '<div class="diff">' . "\n";
+            echo $diff;
+            echo '</div>' . "\n";
+            
+            break;
+        }
         case "recent":
         {
             if ( is_array( $recentChanges ) )
@@ -857,12 +965,39 @@
             echo '<h1>'.$displaytitle.'</h1>' . "\n";
             echo '</div>' . "\n";
             
-            echo '<ul>' . "\n";
+            echo '<form id="differences" method="GET" action="'
+                . $_SERVER['PHP_SELF']
+                . '">'
+                . "\n"
+                ;
+                
+            echo '<div>' . "\n"
+                . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
+                . '<input type="hidden" name="title" value="'.$title.'" />' . "\n"
+                . '<input type="submit" name="action[diff]" value="'.$langWikiShowDifferences.'" />' . "\n"
+                . '</div>' . "\n"
+                ;
+            
+            echo '<table style="border: 0px;">' . "\n";
             
             if ( is_array( $history ) )
             {
                 foreach ( $history as $version )
                 {
+                    echo '<tr>' . "\n";
+                    
+                    echo '<td>'
+                        . '<input type="radio" name="old" value="'.$version['id'].'" />' . "\n"
+                        . '</td>'
+                        . "\n"
+                        ;
+                        
+                    echo '<td>'
+                        . '<input type="radio" name="new" value="'.$version['id'].'" />' . "\n"
+                        . '</td>'
+                        . "\n"
+                        ;
+
                     $userInfo = user_get_data( $version['editor_id'] );
 
                     $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
@@ -889,15 +1024,19 @@
                         . '</a>'
                         ;
                     
-                    echo '<li>'
+                    echo '<td>'
                         . sprintf( $langWikiVersionPattern, $versionUrl, $userUrl )
-                        . '</li>'
+                        . '</td>'
                         . "\n"
                         ;
+                        
+                    echo '</tr>' . "\n";
                 }
             }
             
-            echo '</ul>' . "\n";
+            echo '</table>' . "\n";
+            
+            echo '</form>';
             
             break;
         }
