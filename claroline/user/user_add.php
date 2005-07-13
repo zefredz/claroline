@@ -108,6 +108,8 @@ switch ( $cmd )
             $error = true;
         }
 
+        break;
+
     case 'applySearch':
 
         // search on username, official_code, ...
