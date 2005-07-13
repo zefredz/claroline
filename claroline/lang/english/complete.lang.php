@@ -2064,5 +2064,8 @@ $langLegendRequiredFields = "<span class=\"required\">*</span> denotes required 
 $langCannotUnsubscribeLastCourseManager = "You cannot unsubscribe the last course manager of the course";
 $langCourseManagerCannotUnsubscribeHimself = "Course manager cannot unsubscribe himself";
 $lang_p_d_StudentUnregistredFormCours=  "%d student(s) unregistered from this course";
+$langUserRegisteredToCourse= "User registered to the course";
+$langUserFound = "User(s) found :";
+$langNoUserFound = "No user found";
 
 ?>

@@ -107,11 +107,23 @@ if ( $is_allowedToEdit )
 {
     $disp_tool_link = TRUE;
 
+    if ( $cmd == 'register')
+    {
+        $user_id   = $_REQUEST['user_id']; 
+        $done = user_add_to_course($user_id, $_cid,true);
+        if ($done)
+        {
+            $dialogBox = $langUserRegisteredToCourse;
+        }
+    }
+
     if ( $cmd == 'unregister')
     {
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
     
+
+
     if ($_REQUEST['user_id'] == 'allStudent')
         {
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`

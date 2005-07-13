@@ -1032,9 +1032,7 @@ function user_display_form_admin_user_profile($data)
  * Display form to edit or add user to the platform
  *
  * @param $data array to fill the form
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
 function user_display_form($data, $form_type='registration')
@@ -1043,7 +1041,7 @@ function user_display_form($data, $form_type='registration')
     global $langLastname, $langFirstname, $langOfficialCode, $langUserName, $langPassword,
            $langConfirmation, $langEmail, $langPhone, $langAction, $langRegister,
            $langRegStudent, $langRegAdmin, $langUserid, 
-           $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langChangePwdexp,
+           $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langSearch, $langChangePwdexp,
            $langGroupTutor,$langManager,
            $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin, $langEnter2passToChange, 
            $ask_for_official_code, $langLegendRequiredFields;
@@ -1242,6 +1240,17 @@ function user_display_form($data, $form_type='registration')
             . '     <td><input type="submit" value="' . $langRegister . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }
+    elseif ($form_type == 'add_new_user')
+    {
+       echo '<tr>' . "\n"
+            . ' <td align="right"><label for="applyChange">' . $langSaveChanges . ' : </label></td>' . "\n"
+            . ' <td>'
+            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'
+            . ' <input type="submit" name="applySearch" id="applySearch" value="' . $langSearch . '" />&nbsp;'
+            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            .' </td>' . "\n"
+            . '</tr>';
+    }
     else
     {
         echo '<tr>' . "\n"
@@ -1266,6 +1275,59 @@ function user_display_form($data, $form_type='registration')
 function required_field($field)
 {
     return '<span class="required">*</span>&nbsp;' . $field;
+}
+
+/**
+ * Returns an array containing the users'informations who meets the search criteria given in parameters 
+ *
+ * @param $name    the name as a search criteria, leave empty is not needed
+ * @param $mail    the mail as a search criteria, leave empty is not needed
+ * @param $code    the code as a search criteria, leave empty is not needed
+ * 
+ * @author guillaume Lederer
+ * 
+ */
+
+function user_search($name, $mail, $code, $course_id="")
+{
+    global $allowSearchInAddUser;
+
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_user        = $tbl_mdb_names['user'];
+    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
+
+    if (!empty($course_id))
+    { 
+        $toAdd = ",CU.`user_id` AS registered";
+    }
+    else
+    {
+        $toAdd = "";
+    }
+
+    $sql =  "SELECT nom,prenom,email,officialCode,U.`user_id` AS user ".$toAdd." FROM `" . $tbl_user . "` AS U"; 
+
+    if (!empty($course_id)) $sql.= " LEFT JOIN `" . $tbl_course_user . "` AS CU 
+                                            ON  CU.`user_id`=U.`user_id` 
+                                            AND CU.`code_cours` = '" . $course_id . "'
+                                            ";
+    $sql .= " WHERE (1=0) ";
+
+    if ($allowSearchInAddUser)
+    {
+        $like_search = "%";
+    }
+    else
+    {
+        $like_search = "";
+    }
+
+    if (!empty($name)) $sql .= " OR (U.`nom` LIKE '".$name.$like_search."')";
+    if (!empty($mail)) $sql .= " OR (U.`email` LIKE '".$mail.$like_search."')";
+    if (!empty($code)) $sql .= " OR (U.`officialCode` = '".$code."')";
+
+    $result = claro_sql_query_fetch_all($sql);
+    return $result;
 }
 
 ?>

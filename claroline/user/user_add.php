@@ -54,6 +54,11 @@ $user_data['is_tutor'] = 0;
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
+if ((isset($_REQUEST['applySearch']) && ($_REQUEST['applySearch'] != ""))) 
+{
+    $cmd = "applySearch"; 
+}
+
 if ( !empty($cmd) )
 {
     // get params from the form
@@ -72,6 +77,8 @@ if ( !empty($cmd) )
     if ( isset($_REQUEST['is_tutor']))         $user_data['is_tutor'] = (int) $_REQUEST['is_tutor'];
 }
 
+$displayResultTable = FALSE;
+
 switch ( $cmd )
 {
     case 'registration':
@@ -83,9 +90,9 @@ switch ( $cmd )
         {
             // register the new user in the claroline platform
             $user_id = user_add($user_data);
-        
+
             if ( $user_id ) $platformRegSucceed = true;
-            
+
             // add user to course
             if ( user_add_to_course($user_id, $_cid, true) ) 
             {
@@ -101,11 +108,12 @@ switch ( $cmd )
             $error = true;
         }
 
-    case 'search':
+    case 'applySearch':
+
         // search on username, official_code, ...
 
-        // build result box with subscribe button        
-
+        $displayResultTable = TRUE; 
+        $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
         break;
 
     case 'subscribe_to_course':
@@ -215,8 +223,66 @@ if ( $platformRegSucceed )
 }
 else 
 {
+    //display result of search (if any)
 
-    echo $langOneByOne; 
+    if ($displayResultTable)
+    {
+        echo "<table class=\"claroTable emphaseLine\" border=\"0\" cellspacing=\"2\">
+                <thead>
+                  <tr class=\"headerX\" align=\"center\" valign=\"top\">
+                    <th>".$langLastName."</th>
+                    <th>".$langFirstName."</th>
+                    <th>".$langEmail."</th>
+                    <th>".$langOfficialCode."</th>
+                    <th>".$langRegister."</th> 
+                  </tr>
+                </thead>
+                <tbody>
+              ";
+
+        foreach ($users as $user)
+        {
+           echo "<tr>"
+               ."  <td>"
+               ."    ".$user['nom']
+               ."  </td>"
+               ."  <td>"
+               ."    ".$user['prenom']
+               ."  </td>"
+               ."  <td>"
+               ."    ".$user['email']
+               ."  </td>"
+               ."  <td>"
+               ."    ".$user['officialCode']
+               ."  </td>"
+               ."  <td align=\"center\" valign=\"top\">";
+
+                // deal with already registered users found in result
+
+                if (empty($user['registered']))
+                {
+                   echo "<a href=\"user.php?cmd=register&user_id=".$user['user']."\"><img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\"/>";
+                }
+                else
+                {
+                    echo "<small><span class=\"highlight\">".$lang_already_enrolled."</span></small>";
+                }
+
+                echo "  </td>"
+                    ."</tr>";
+        }
+
+        if (sizeof($users)==0)
+        {
+            echo "<td align=\"center\" colspan=\"5\">".$langNoUserFound."</td>";
+        }
+        echo "</body>
+            </table><br>";
+    }
+
+    //display form to add a user
+
+    echo $langOneByOne." :";
     echo '<p>' . $langUserOneByOneExplanation . '</p>' . "\n";
 
     user_display_form_add_new_user($user_data);
