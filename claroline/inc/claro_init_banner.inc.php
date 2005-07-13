@@ -166,67 +166,54 @@ if (is_array($_courseToolList))
 ?>
 <div id="breadcrumbLine">
 <?php
-if( isset($_cid) || isset($nameTools) || (isset($interbredcrump) && is_array($interbredcrump)) )
-{
-    echo '<hr />' . "\n"
-    .    '<div class="breadcrumbTrail">' . "\n"
-    .    '<a href="' . $rootWeb . 'index.php" target="_top">'
-    .    '<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
-    .    $siteName
-    .    '</a>' . "\n"
-    ;
-
-    if ( isset($_cid) )
+if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
     {
-        echo '&gt;&nbsp;'
-        .    '<a href="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" target="_top">'
-        .    ((isset($course_homepage) && $course_homepage == true) ? '<b>' . $_course['officialCode'].'</b>' : $_course['officialCode'])
-        .    '</a>' . "\n"
-        ;
-    }
+        echo '<hr />' . "\n";
+            //'<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
 
-    if (isset($interbredcrump) && is_array($interbredcrump) )
-    {
-        while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
-        {
-            echo '&gt;&nbsp;'
-            .    '<a href="' . $bredcrumpStep['url'] . '" target="_top">'
-            .    $bredcrumpStep['name']
-            .    '</a>' . "\n"
-            ;
-        }
-    }
+        $breadcrumbUrlList = array();
+        $breadcrumbNameList = array();
 
-    if (isset($nameTools) && !(isset($course_homepage) && $course_homepage == TRUE))
-    {
-        if (isset($noPHP_SELF) && $noPHP_SELF)
-        {
-            echo '&gt;&nbsp;<b>' . $nameTools . '</b>' . "\n";
-        }
-        elseif (isset($noQUERY_STRING) && $noQUERY_STRING)
-        {
-            
-            echo '&gt;&nbsp;'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '" target="_top">'
-            .    '<b>' . $nameTools . '</b>'
-            .    '</a>' . "\n"
-            ;
-        }
-        else
-        {
-            
-            // set Query string to empty if not exists
-            if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = ''; 
+        $breadcrumbUrlList[]  = $rootWeb . 'index.php';
+        $breadcrumbNameList[] = $siteName;
 
-            echo '&gt;&nbsp;'
-            .    '<a href="' . $_SERVER['PHP_SELF'] 
-            .     '?' . $_SERVER['QUERY_STRING'] . '" target="_top">'
-            .    '<b>' . $nameTools . '</b>'
-            .    '</a>'."\n"
-            ;
+        if ( isset($_cid) )
+        {
+            $breadcrumbUrlList[]  = $coursesRepositoryWeb . $_course['path'] . '/index.php';
+            $breadcrumbNameList[] = $_course['officialCode'];
         }
-    }
-    echo '</div>'                                           ."\n";
+
+        if (isset($interbredcrump) && is_array($interbredcrump) )
+        {
+            while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
+            {
+                $breadcrumbUrlList[] = $bredcrumpStep['url'];
+                $breadcrumbNameList[] = $bredcrumpStep['name'];
+            }
+        }
+
+        if (isset($nameTools) && !(isset($course_homepage) && $course_homepage == TRUE))
+        {
+            $breadcrumbNameList[] = $nameTools;
+
+            if (isset($noPHP_SELF) && $noPHP_SELF)
+            {
+                $breadcrumbUrlList[] = null;
+            }
+            elseif ( isset($noQUERY_STRING) && $noQUERY_STRING) 
+            {
+                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'];
+            }
+            else
+            {
+                // set Query string to empty if not exists
+                if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = ''; 
+                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+            }
+        }
+        
+        echo claro_disp_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
+                                        ' &gt; ', $imgRepositoryWeb . 'home.gif');
 
     if ( claro_is_display_mode_available() )
     {
