@@ -160,6 +160,7 @@ function format_file_size($fileSize)
 	return $fileSize;
 }
 
+
 //------------------------------------------------------------------------------
 
 
@@ -172,7 +173,7 @@ function format_file_size($fileSize)
 
 function format_date($fileDate)
 {
-	return date("d.m.Y", $fileDate);
+	return date('d.m.Y', $fileDate);
 }
 
 //------------------------------------------------------------------------------
@@ -187,7 +188,7 @@ function format_date($fileDate)
 
 function format_url($filePath)
 {
-	$stringArray = explode("/", $filePath);
+	$stringArray = explode('/', $filePath);
 
 	for ($i = 0; $i < sizeof($stringArray); $i++)
 	{
@@ -195,6 +196,48 @@ function format_url($filePath)
 	}
 
 	return implode("/",$stringArray);
+}
+
+//------------------------------------------------------------------------------
+
+
+/**
+ * 
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $curDirPath current path in the documents tree navugation
+ * @return string breadcrumb trail
+ */
+
+function claro_disp_document_breadcrumb($curDirPath)
+{
+    $curDirPathList = explode('/', $curDirPath);
+
+    $urlTrail = '';
+
+    $breadcrumbNameList = array();
+    $breadcrumbUrlList  = array();
+
+    foreach($curDirPathList as $thisDir)
+    {
+        if ( empty($thisDir) )
+        {
+            $breadcrumbNameList[] = 'Root';
+            $breadcrumbUrlList[]  = '?cmd=exChDir&amp;file=';
+        }
+        else
+        {
+            $breadcrumbNameList[] = $thisDir;
+            $urlTrail .= '/'.$thisDir;
+            $breadcrumbUrlList[] = $_SERVER['PHP_SELF']
+                                 . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail);
+        }
+    }
+
+    // remove the url on the last (current) element
+    $breadcrumbUrlList[ count($breadcrumbUrlList) - 1] = null;
+
+    return claro_disp_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
 }
 
 
