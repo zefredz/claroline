@@ -306,7 +306,10 @@ if( $showExerciseForm || $is_allowedToEdit )
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
   <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo SID ?>" autocomplete="off">
   <input type="hidden" name="formSent" value="1">
-  <input type="hidden" name="questionNum" value="<?php echo $questionNum; ?>">
+<?php
+	if($_SESSION['objExercise']->selectType() == 2)
+		echo '<input type="hidden" name="questionNum" value="'.$questionNum.'">';
+?>
   <input type="hidden" name="nbrQuestions" value="<?php echo $nbrQuestions; ?>">
   <tr>
     <td>
