@@ -986,18 +986,30 @@
             
             if ( is_array( $history ) )
             {
+                $firstPass = true;
+                
                 foreach ( $history as $version )
                 {
                     echo '<tr>' . "\n";
                     
+                    if ( $firstPass == true )
+                    {
+                        $checked = ' checked="checked"';
+                        $firstPass = false;
+                    }
+                    else
+                    {
+                        $checked = '';
+                    }
+                    
                     echo '<td>'
-                        . '<input type="radio" name="old" value="'.$version['id'].'" />' . "\n"
+                        . '<input type="radio" name="old" value="'.$version['id'].'"'.$checked.' />' . "\n"
                         . '</td>'
                         . "\n"
                         ;
                         
                     echo '<td>'
-                        . '<input type="radio" name="new" value="'.$version['id'].'" />' . "\n"
+                        . '<input type="radio" name="new" value="'.$version['id'].'"'.$checked.' />' . "\n"
                         . '</td>'
                         . "\n"
                         ;
