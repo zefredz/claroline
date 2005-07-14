@@ -33,59 +33,6 @@ include_once( dirname(__FILE__) . '/fileManage.lib.php');
 include_once( dirname(__FILE__) . '/auth.lib.inc.php');
 
 /**
- * remove a specific user from a course groups
- *
- * @param  int     $userId     user ID from the course_user table
- * @param  int     $classId    class ID  from the rel_class_user table
- *
- * @return boolean TRUE        if subscribe suceeded
- *         boolean FALSE       otherwise.
- * @author Guillaume Lederer <lederer@cerdecam.be>
- */
-
-function add_user_to_class($userId, $classId)
-{
-    $tbl_mdb_names                  = claro_sql_get_main_tbl();
-    $tbl_user                       = $tbl_mdb_names['user'];
-    $tbl_rel_class_user             = $tbl_mdb_names['rel_class_user'];
-    $tbl_class                      = $tbl_mdb_names['class'];
-
-    //1. See if there is a user with such ID in the main DB (not implemented)
-    $user_data = user_get_data($userId);
-    if (!$user_data)
-    {
-        return claro_failure::get_last_failure();
-    }
-    //2. See if there is a class with such ID in the main DB
-
-    $sql = "SELECT * FROM `" . $tbl_class . "` WHERE `id` = '" . $classId . "' ";
-    $handle = claro_sql_query($sql);
-
-    if (mysql_num_rows($handle) == 0)
-    {
-        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class does not exist
-    }
-
-    //3. See if user is not already in class
-
-    $sql = "SELECT * FROM `".$tbl_rel_class_user."` WHERE `user_id` = '".$userId."' ";
-    $handle = claro_sql_query($sql);
-
-    if (mysql_num_rows($handle) > 0)
-    {
-        return false; // the user is already subscrided to the class
-    }
-
-    //4. Add user to class in the rel_class_user table
-
-    $sql = "INSERT INTO `".$tbl_rel_class_user."`
-	       SET `user_id` = '".$userId."',
-	           `class_id` = '".$classId."' "; 
-    claro_sql_query($sql);
-    return true;
-}
-
-/**
  * delete a course of the plateform
  *
  * @author
@@ -186,50 +133,6 @@ function delete_course($code)
     else
     {
         die('WRONG CID');
-    }
-}
-
-/**
- * change the status of a user for a specific course
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  int     $user_id
- * @param  string  $course_id
- * @param  array   $properties - should contain 'role', 'status', 'tutor'
- * @return boolean true if succeed false otherwise
- */
-
-function update_user_course_properties($user_id, $course_id, $properties)
-{
-    global $_uid;
-
-    //declare needed tables
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-
-    $sqlChangeStatus = "";
-    if (($properties['status']=="1" or $properties['status']=="5"))
-    {
-        $sqlChangeStatus = "`statut` = \"".$properties['status']."\",";
-    }
-
-    $sql = "UPDATE `".$tbl_rel_course_user."`
-            SET     `role`       = \"".$properties['role']."\",
-           ".$sqlChangeStatus."
-           `tutor`      = \"".$properties['tutor']."\"
-           WHERE   `user_id`    = \"".$user_id."\"
-           AND     `code_cours` = \"".$course_id."\"";
-
-    claro_sql_query($sql) or die ("CANNOT UPDATE DB !");
-
-    if (mysql_affected_rows() > 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }
 
