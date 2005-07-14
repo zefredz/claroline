@@ -437,7 +437,7 @@
                     . '?wikiId=' . $wikiId
                     . '&amp;action=rqEdit'
                     . '" class="claroCmd">'
-                    . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+                    . '<img src="'.$imgRepositoryWeb.'Settings.gif" border="0" alt="edit" />'
                     . $langWikiEditProperties . '</a>'
                     . "\n"
                     ;
@@ -523,7 +523,7 @@
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.$langTitle.'</th>' . "\n"
-                    . '<th>'.$langEdit.'</th>' . "\n"
+                    . '<th>'.$langWikiEditProperties.'</th>' . "\n"
                     . '<th>'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
@@ -572,7 +572,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
                             . '">'
-                            . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />'
+                            . '<img src="'.$imgRepositoryWeb.'settings.gif" border="0" alt="'.$langWikiEditProperties.'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
@@ -583,7 +583,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
-                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="delete" />'
+                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
