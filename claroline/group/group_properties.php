@@ -61,8 +61,6 @@ session_register("_groupProperties");
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'            ];
 
-$wikiInGroup = TRUE;
-
 if ($multiGroupAllowed)
 {
     if ($_groupProperties ['nbGroupPerUser'] == 1)
@@ -172,10 +170,7 @@ echo claro_disp_tool_title( array('mainTitle' => $nameTools,
                 <?php echo $langGroupAlwaysPrivate; ?></label>
         </td>
     </tr>
-<?php 
-if ($wikiInGroup)
-{
-?>
+
     <tr>
         <td valign="top">
             <input type="checkbox" name="wiki" id="wiki" value="1"
@@ -187,9 +182,7 @@ if ($wikiInGroup)
                 </label>
         </td>
     </tr>
-<?php 
-}
-?>
+
     <tr>
         <td valign="top">
             <input type="submit" name="properties" value="<?php echo $langOk ?>"> 
