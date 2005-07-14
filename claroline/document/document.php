@@ -1681,9 +1681,9 @@ echo claro_disp_tool_title($titleElement,
                 
         if ($is_allowedToEdit)          
         {
-            echo "<th>".$langDelete."</th>\n"
-                ."<th>".$langMove."</th>\n"
-                ."<th>".$langModify."</th>\n";
+            echo  "<th>".$langModify."</th>\n"
+                . "<th>".$langDelete."</th>\n"
+                . "<th>".$langMove."</th>\n";
     
                     if ($courseContext)
                     {
@@ -1802,6 +1802,14 @@ echo claro_disp_tool_title($titleElement,
     
                 if($is_allowedToEdit)
                 {
+                    /* EDIT COMMAND */
+    
+                    echo "<td>"
+                        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&amp;file=".$cmdFileName."\">"
+                        ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\">"
+                        ."</a>"
+                        ."</td>\n";
+
                     /* DELETE COMMAND */
     
                     echo "<td>"
@@ -1811,21 +1819,13 @@ echo claro_disp_tool_title($titleElement,
                         ."</a>"
                         ."</td>\n";
                     
-                    /* COPY COMMAND */
-    
+                    /* MOVE COMMAND */
                     echo "<td>"
                         ."<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqMv&amp;file=",$cmdFileName,"\">"
                         ."<img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" alt=\"$langMove\">"
                         ."</a>"
                         ."</td>\n";
                             
-                    /* EDIT COMMAND */
-    
-                    echo "<td>"
-                        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&amp;file=".$cmdFileName."\">"
-                        ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\">"
-                        ."</a>"
-                        ."</td>\n";
     
                     echo "<td>";
     
