@@ -214,7 +214,7 @@ switch ($cmd)
                     break;
               
               case 'adminClassTool':
-                    add_user_to_class($uid, $_SESSION['admin_user_class_id']);
+                    user_add_to_class($uid, $_SESSION['admin_user_class_id']);
           
               break;
         
