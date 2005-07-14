@@ -38,6 +38,7 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 $userPerPage = 20; // numbers of user to display on the same page
+$dialogBox = '';
 // initialisation of global variables and used libraries
 $iconForCuStatus['STUDENT']        = "user.gif";
 $iconForCuStatus['COURSE_MANAGER'] = "manager.gif";
@@ -49,7 +50,7 @@ include_once( $includePath . '/conf/user_profile.conf.php');
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
-    $dialogBox ="ERROR : NO COURSE SET!!!";
+    $dialogBox .= 'ERROR : NO COURSE SET!!!';
     
 }
 else
@@ -191,18 +192,18 @@ $nameTools = $langAllUsersOfThisCourse;
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$dialogBox = '';
 
 //Header
 include($includePath . '/claro_init_header.inc.php');
 
 echo claro_disp_tool_title($nameTools);
+
 // Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
-  {
+if ( !empty($dialogBox) )
+{
     echo claro_disp_message_box($dialogBox);
-  }
+}
   
 //Display selectbox, alphabetic choice, and advanced search link search
 echo '<a class="claroCmd" href="adminregisteruser.php'
