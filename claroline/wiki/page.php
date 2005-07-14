@@ -748,10 +748,10 @@
             echo '<strong>'.$langWikiDifferenceKeys.'</strong>';
 
             echo '<div class="diff">' . "\n";
-            echo '= <span class="diffEqual" >Unchanged line</span><br />';
-            echo '+ <span class="diffAdded" >Added line</span><br />';
-            echo '- <span class="diffDeleted" >Deleted line</span><br />';
-            echo 'M <span class="diffMoved" >Moved line</span><br />';
+            echo '= <span class="diffEqual" >'.$langWikiDiffUnchangedLine.'</span><br />';
+            echo '+ <span class="diffAdded" >'.$langWikiDiffAddedLine.'</span><br />';
+            echo '- <span class="diffDeleted" >'.$langWikiDiffDeletedLine.'</span><br />';
+            echo 'M <span class="diffMoved" >'.$langWikiDiffMovedLine.'</span><br />';
             echo '</div>' . "\n";
             
             echo '<strong>'.$langWikiDifferenceTitle.'</strong>';
