@@ -61,7 +61,7 @@ session_register("_groupProperties");
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'            ];
 
-$wikiInGroup = FALSE;
+$wikiInGroup = TRUE;
 
 if ($multiGroupAllowed)
 {
@@ -184,7 +184,7 @@ if ($wikiInGroup)
                     echo "checked" ?> >
                 <label for="chat">
                 <?php echo $langWiki; ?>
-                <?php echo $langGroupAlwaysPrivate; ?></label>
+                </label>
         </td>
     </tr>
 <?php 

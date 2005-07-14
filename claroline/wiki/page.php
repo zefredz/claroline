@@ -51,6 +51,9 @@
     {
         // group context
         $grouId = $_gid;
+        
+        $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
+        $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
