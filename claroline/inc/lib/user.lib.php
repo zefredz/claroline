@@ -143,7 +143,6 @@ function user_update ($user_id, $data)
     $tbl_user      = $tbl_mdb_names['user'];
     
     $sql = "UPDATE  `" . $tbl_user . "`
-
             SET `nom`         = '" . addslashes($data['lastname']) . "',
                 `prenom`      = '" . addslashes($data['firstname']) . "',
                 `username`    = '" . addslashes($data['username']) . "',
@@ -498,7 +497,7 @@ function user_update_course_manager_status($user_id, $course_code, $status)
 }
 
 /**
- * update course tutor status of the user in a course
+ * subscribe a specific user to a class
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
@@ -511,6 +510,73 @@ function user_update_course_manager_status($user_id, $course_code, $status)
  *         boolean FALSE otherwise.
  */
 
+function user_add_to_class($user_id,$class_id)
+{
+    $user_id  = (int)$user_id;
+    $class_id = (int)$class_id;
+
+    // get database information
+
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_user            = $tbl_mdb_names['user'];
+    $tbl_rel_class_user  = $tbl_mdb_names['rel_class_user'];
+    $tbl_class           = $tbl_mdb_names['class'];
+
+    // 1. See if there is a user with such ID in the main database
+
+    $user_data = user_get_data($user_id);
+
+    if ( !$user_data )
+    {
+        return claro_failure::get_last_failure('USER_NOT_FOUND');
+    }
+
+    // 2. See if there is a class with such ID in the main DB
+
+    $sql = "SELECT `id`
+            FROM `" . $tbl_class . "` 
+            WHERE `id` = '" . $class_id . "' ";
+    $handle = claro_sql_query($sql);
+
+    if ( mysql_num_rows($handle) == 0 )
+    {
+        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+    }
+
+    // 3. See if user is not already in class
+
+    $sql = "SELECT `user_id` 
+            FROM `" . $tbl_rel_class_user . "` 
+            WHERE `user_id` = '" . $user_id . "' ";
+    $handle = claro_sql_query($sql);
+
+    if ( mysql_num_rows($handle) > 0 )
+    {
+        return claro_failure::set_failure('USER_ALREADY_IN_CLASS'); // the user is already subscrided to the class
+    }
+
+    // 4. Add user to class in the rel_class_user table
+
+    $sql = "INSERT INTO `" . $tbl_rel_class_user . "`
+	        SET `user_id` = '" . $user_id . "',
+	           `class_id` = '" . $class_id . "' "; 
+
+    return claro_sql_query($sql);
+}
+
+/**
+ * update course tutor status of the user in a course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ * @param int tutor status
+ *
+ * @return boolean TRUE  if update succeed
+ *         boolean FALSE otherwise.
+ */
+
 function user_update_course_tutor_status($user_id, $course_code, $status)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -520,6 +586,41 @@ function user_update_course_tutor_status($user_id, $course_code, $status)
             SET tutor = '" . (int)$status . "' 
             WHERE `user_id` = '" . (int)$user_id . "'
             AND `code_cours` ='" . addslashes($course_code) . "'";
+
+    if ( claro_sql_query($sql) ) return true;
+    else                         return false;
+}
+
+/**
+ * change the status of the user in a course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ * @param array $properties - should contain 'role', 'status', 'tutor'
+ *
+ * @return boolean TRUE if update succeed, FALSE otherwise.
+ */
+
+function user_update_course_properties($user_id, $course_code, $properties)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+
+    $sqlChangeStatus = '';
+
+    if ( ( $properties['status'] == 1 or $properties['status'] ==  5 ) )
+    {
+        $sqlChangeStatus = "`statut` = \"" . $properties['status'] . "\",";
+    }
+
+    $sql = "UPDATE `" . $tbl_rel_course_user . "`
+            SET     `role`       = \"" . addslashes($properties['role']) . "\",
+           " . $sqlChangeStatus . "
+           `tutor`      = \"" . (int)$properties['tutor'] . "\"
+           WHERE   `user_id`    = \"" . (int)$user_id . "\"
+           AND     `code_cours` = \"" . addslashes($course_code) . "\"";
 
     if ( claro_sql_query($sql) ) return true;
     else                         return false;
@@ -1226,7 +1327,7 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'admin_user_profile' )
     {
         echo '<tr>'
-            . '<td>' . $langPersonalCourseList . ' :</td>'
+            . '<td align="right">' . $langPersonalCourseList . ' :</td>'
             . '<td><a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">' . $lang_click_here . '</a></td>'
             . '</tr>';
 
