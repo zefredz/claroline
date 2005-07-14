@@ -189,7 +189,7 @@ echo "<ul style=\"list-style-image:url(claroline/img/course.gif);list-style-posi
 foreach($personnalCourseList as $thisCourse)
 {
 
-    //if the course contains new things to see since last login, its name will be displayed in bold text in the list
+    // if the course contains new things to see since last login, its name will be displayed in bold text in the list
     
     if (in_array ($thisCourse['sysCode'], $modified_course)) 
     {
@@ -199,6 +199,23 @@ foreach($personnalCourseList as $thisCourse)
     {
         $classItem='';
     }
+
+    // show course language if not the same of the platform
+    if ( $platformLanguage!=$thisCourse['language'] ) 
+    {
+        if ( !empty($langNameOfLang[$thisCourse['language']]) )
+        {
+            $course_language_txt = ' - ' . ucfirst($langNameOfLang[$thisCourse['language']]);
+        }
+        else
+        {
+            $course_language_txt = ' - ' . ucfirst($thisCourse['language']);
+        }
+    }
+    else
+    {
+        $course_language_txt = '';
+    }    
        
     echo '<li class="item' . $classItem . '">' ."\n"
     .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">'
@@ -206,9 +223,7 @@ foreach($personnalCourseList as $thisCourse)
     .    $thisCourse['title']
     .    '</a>'
     .    '<br>'
-    .    '<small>'
-    .    $thisCourse['titular']
-    .    '</small>' . "\n"
+    .    '<small>' . $thisCourse['titular'] . $course_language_txt . '</small>' . "\n"
     .    '</li>' ."\n"
     ;
 

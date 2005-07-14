@@ -46,7 +46,8 @@ $sql = "SELECT `intitule`   `title`,
                `titulaires` `titular`,
                `code`       `sysCode`,
                `fake_code`  `officialCode`,
-               `directory` 
+               `directory` ,
+               `languageCourse` `language`
         FROM `".$tbl_courses."` 
         WHERE `faculte` = '".$category."'
         ORDER BY UPPER(fake_code)";
@@ -156,15 +157,30 @@ if ( count($courseList) > 0 )
 
     foreach($courseList as $thisCourse)
     {
-        echo '<li>' . "\n"
+        // show course language if not the same of the platform
+        if ( $platformLanguage!=$thisCourse['language'] ) 
+        {
+            if ( !empty($langNameOfLang[$thisCourse['language']]) )
+            {
+                $course_language_txt = ' - ' . ucfirst($langNameOfLang[$thisCourse['language']]);
+            }
+            else
+            {
+                $course_language_txt = ' - ' . ucfirst($thisCourse['language']);
+            }
+        }
+        else
+        {
+            $course_language_txt = '';
+        }
 
+        echo '<li>' . "\n"
         .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">'
         .    $thisCourse['officialCode'] . ' - '
         .    $thisCourse['title']
         .    '</a>'
         .    '<br>'
-        .    '<small>' . $thisCourse['titular'] . '</small>' . "\n"
-
+        .    '<small>' . $thisCourse['titular'] . $course_language_txt . '</small>'
         .    '</li>' . "\n"
         ;
     }
@@ -177,12 +193,9 @@ else
 	// echo "<blockquote>",$lang_No_course_publicly_available,"</blockquote>\n";
 }
 
-
 echo $backCommandLine;
 
-
 echo '</td>';
-
 
 /*=================================
   RIGHT MENU MENU (IDENTIFICATION)
