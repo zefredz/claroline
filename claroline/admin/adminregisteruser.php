@@ -73,12 +73,8 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 switch ( $cmd )
 {
     case 'sub' : //execute subscription command...
-        $done =false;
-        if ( !is_registered_to($user_id, $cidToEdit) )
-        {
-            $done = user_add_to_course($user_id, $cidToEdit,true);
-            // The user is add as student (default value in  add_user_to_course)
-        }
+
+        $done = user_add_to_course($user_id, $cidToEdit,true);
         
         // Set status requested
         if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher
