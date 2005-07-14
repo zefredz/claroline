@@ -234,7 +234,7 @@ if ( $cmd == 'exReg' )
             $properties['status'] = 1;
             $properties['role'] = $langCourseManager;
             $properties['tutor'] = 1;
-            update_user_course_properties($userId, $course, $properties);
+            user_update_course_properties($userId, $course, $properties);
         }
     }
     else

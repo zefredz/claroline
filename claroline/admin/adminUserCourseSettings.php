@@ -29,6 +29,7 @@ require '../inc/claro_init_global.inc.php';
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 include($includePath . '/lib/admin.lib.inc.php');
+include($includePath . '/lib/user.lib.php');
 include($includePath . '/conf/user_profile.conf.php'); // find this file to modify values.
 
 // used tables
@@ -68,12 +69,12 @@ switch ($cmd)
 {
     case 'changeStatus' :
     {
-        if ($_REQUEST['status_form'] == 'teacher')
+        if ( $_REQUEST['status_form'] == 'teacher' )
         {
             $properties['status'] = 1;
             $properties['role']   = 'Professor';
             $properties['tutor']  = 1;
-            $done = update_user_course_properties($uidToEdit, $cidToEdit, $properties);
+            $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
                 $dialogBox = $langUserIsNowCourseManager;
@@ -83,12 +84,12 @@ switch ($cmd)
                 $dialogBox = $langStatusChangeNotMade;
             }
         }
-        elseif ($_REQUEST['status_form'] == 'student')
+        elseif ( $_REQUEST['status_form'] == 'student' )
         {
             $properties['status'] = 5;
             $properties['role']   = 'Student';
             $properties['tutor']  = 0;
-            $done = update_user_course_properties($uidToEdit, $cidToEdit, $properties);
+            $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
                 $dialogBox = $langUserIsNowStudent;

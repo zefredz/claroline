@@ -28,6 +28,7 @@ $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 
 
 require '../inc/claro_init_global.inc.php';
 include($includePath.'/lib/admin.lib.inc.php');
+include($includePath.'/lib/user.lib.php');
 include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/user_info.lib.php');
 @include($includePath.'/lib/debug.lib.inc.php');
@@ -190,7 +191,7 @@ if ($allowedToEditDef)
         }
         else
         {
-            update_user_course_properties($userIdViewed, $courseCode, $userProperties);
+            user_update_course_properties($userIdViewed, $courseCode, $userProperties);
             $displayMode = "viewContentList";
         }
     }
