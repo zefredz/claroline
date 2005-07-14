@@ -5,13 +5,13 @@ if( ! $is_allowedToEdit) die();
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd']; else $cmd = null;
 
-if ($cmd == 'exMkCat')
+if ( $cmd == 'exMkCat' )
 {
 	if ( trim($_REQUEST['catName']) != '')
 	{
         if ( create_category( trim($_REQUEST['catName']) ) )
     	{
-    	   $dialogBox = $langcatcreated . "\n";
+    	   $dialogBox .= $langcatcreated . "\n";
     	}
     	else
     	{
@@ -26,22 +26,25 @@ if ($cmd == 'exMkCat')
 	}
 }
 
-if($cmd == 'rqMkCat')
+if ( $cmd == 'rqMkCat' )
 {
+    if ( isset($_REQUEST['catName']) ) $catName = $_REQUEST['catName'];
+    else                               $catName = '';
+
     $dialogBox .= '<h4>'.$langAddCategory.'</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid().'">'
+               .  '<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
                .  '<input type="hidden" name="cmd" value="exMkCat">'
                .  '<label for="catName">'.$langName.' : </label><br />'
                .  '<input type="text" name="catName" id="catName"'
-               .  ' value="'.$_REQUEST['catName'].'"><br />'
+               .  ' value="' . $catName . '"><br />'
                .  '<input type="submit" value="'.$langOk.'"> '
                .  claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
                .  '</form>'
                .  "\n";
 }
 
-if($cmd == 'exMkForum')
+if ( $cmd == 'exMkForum' )
 {
     if (   ( ( trim($_REQUEST['forumName']) != '') )
 	    && (   0 < (int) $_REQUEST['forumCatId']   )  )
@@ -67,7 +70,7 @@ if($cmd == 'exMkForum')
 	}
 }
 
-if($cmd == 'rqMkForum')
+if ( $cmd == 'rqMkForum' )
 {
     $formCategoryList = get_category_list();
 
@@ -93,7 +96,7 @@ if($cmd == 'rqMkForum')
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum">'
-               .'<input type="hidden" name="claroFormId" value="'.uniqid().'">'
+               .'<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
                .'<label for="forumName">'.$langName.': </label><br />'
                .'<input type="text" name="forumName" id="forumName"'
                .' value="'.$_REQUEST['forumName'].'"><br />'
@@ -108,9 +111,9 @@ if($cmd == 'rqMkForum')
                .'</form>';
 }
 
-if($cmd == 'exEdCat')
+if ( $cmd == 'exEdCat' )
 {
-    if (trim($_REQUEST['catName']) != '')
+    if ( trim($_REQUEST['catName']) != '' )
     {
         if ( update_category_title( $_REQUEST['catId'], $_REQUEST['catName'] ) )
         {
@@ -128,15 +131,15 @@ if($cmd == 'exEdCat')
     }
 }
 
-if($cmd == 'rqEdCat')
+if ( $cmd == 'rqEdCat' )
 {
     $categorySettingList = get_category_settings($_REQUEST['catId']);
 
-    if ($categorySettingList)
+    if ( $categorySettingList )
     {
         $dialogBox .= '<h4>Edit Category</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid().'">'
+               .  '<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
                .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'">'
                .  '<input type="hidden" name="cmd" value="exEdCat">'
                .  '<label for="catName">'.$langName.' : </label><br />'
@@ -149,7 +152,7 @@ if($cmd == 'rqEdCat')
     }   
 }
 
-if($cmd == 'exEdForum')
+if ( $cmd == 'exEdForum' )
 {
     if ( trim($_REQUEST['forumName'] != '') )
     {   
@@ -171,20 +174,20 @@ if($cmd == 'exEdForum')
     }
 }
 
-if($cmd == 'rqEdForum')
+if ( $cmd == 'rqEdForum' )
 {
 	$forumSettingList = get_forum_settings($_REQUEST['forumId']);
 	
 	$formCategoryList = get_category_list();
 
-    if (count($formCategoryList) > 0 )
+    if ( count($formCategoryList) > 0 )
     {
         $catSelectBox = $langCategory . ' : <br />'
                        .'<select name="forumCatId">';
 
-        foreach($formCategoryList as $thisFormCategory)
+        foreach( $formCategoryList as $thisFormCategory )
         {
-            if ($forumSettingList['cat_id'] == $thisFormCategory['cat_id'] )
+            if ( $forumSettingList['cat_id'] == $thisFormCategory['cat_id'] )
             {
                 $selectedState = ' selected="selected" ';
             }
@@ -214,7 +217,7 @@ if($cmd == 'rqEdForum')
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum">'
-               .'<input type="hidden" name="claroFormId" value="'.uniqid().'">'
+               .'<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
                .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'">'
                .'<label for="forumName">'.htmlspecialchars($langName).': </label><br />'
                .'<input type="text" name="forumName" id="forumName"'
@@ -230,12 +233,12 @@ if($cmd == 'rqEdForum')
                .'</form>';
 }
 
-if($cmd == 'exDelCat')
+if ( $cmd == 'exDelCat' )
 {
     delete_category($_REQUEST['catId']);
 }
 
-if($cmd == 'exDelForum')
+if ( $cmd == 'exDelForum' )
 {
     $forumSettingList = get_forum_settings($_REQUEST['forumId']);
     
@@ -259,7 +262,7 @@ if($cmd == 'exDelForum')
     }
 }
 
-if ($cmd == 'exEmptyForum')
+if ( $cmd == 'exEmptyForum' )
 {
 	if ( delete_all_post_in_forum($_REQUEST['forumId']) )
 	{
@@ -271,12 +274,12 @@ if ($cmd == 'exEmptyForum')
 	}
 }
 
-if( $cmd == 'exMvUpCat' )
+if ( $cmd == 'exMvUpCat' )
 {
     move_up_category($_REQUEST['catId']);
 }
 
-if ($cmd == 'exMvDownCat')
+if ( $cmd == 'exMvDownCat')
 {
 	move_down_category($_REQUEST['catId']);
 }
@@ -286,7 +289,7 @@ if ( $cmd == 'exMvUpForum' )
 	move_up_forum($_REQUEST['forumId']);
 }
 
-if( $cmd == 'exMvDownForum' )
+if ( $cmd == 'exMvDownForum' )
 {
 	move_down_forum($_REQUEST['forumId']);
 }

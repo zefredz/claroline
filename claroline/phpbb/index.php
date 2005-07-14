@@ -51,6 +51,7 @@ include $includePath . '/lib/forum.lib.php';
 
 $last_visit = $_user['lastLogin'];
 $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
+$dialogBox = '';
 
 /*=================================================================
   Main Section
@@ -100,7 +101,7 @@ $is_forumAdmin    = claro_is_allowed_to_edit();
 echo claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
                       
-if ( isset($dialogBox) && $dialogBox != '') echo claro_disp_message_box($dialogBox);                    
+if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);                    
 
 // Forum toolbar
 
