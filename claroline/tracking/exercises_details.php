@@ -69,37 +69,36 @@ if($is_allowedToTrack && $is_trackingEnabled)
   
   $result = claro_sql_query($sql);
   $exo_scores_details = mysql_fetch_array($result);
-?>
-
-<ul>
-  <?php 
-        if (isset($exo_score_details['weighting']) || $exo_scores_details['weighting'] != '')
-            echo "<li>".$langWeighting." : ".$exo_scores_details['weighting']."</li>";
-
-        if ( ! isset($exo_scores_details['minimum']) )
-        {
-          $exo_scores_details['minimum'] = 0;
-          $exo_scores_details['maximum'] = 0;
-          $exo_scores_details['average'] = 0;
-        }
-        else
-        {
-            // round average number for a beautifuler display
-            $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
-        }
-  ?>
-  <li><?php echo $langScoreMin; ?> : <?php echo $exo_scores_details['minimum']; ?></li>
-  <li><?php echo $langScoreMax; ?> : <?php echo $exo_scores_details['maximum']; ?></li>
-  <li><?php echo $langScoreAvg; ?> : <?php echo $exo_scores_details['average']; ?></li>
-  <li><?php echo $langExeAvgTime; ?> : <?php echo claro_disp_duration(floor($exo_scores_details['avgTime'])); ?></li>
-</ul>
-<ul>
-  <li><?php echo $langExerciseUsersAttempts; ?> : <?php echo $exo_scores_details['users']; ?></li>
-  <li><?php echo $langExerciseTotalAttempts; ?> : <?php echo $exo_scores_details['tusers']; ?></li>
-</ul>  
 
 
-<?php
+	if ( ! isset($exo_scores_details['minimum']) )
+	{
+		$exo_scores_details['minimum'] = 0;
+		$exo_scores_details['maximum'] = 0;
+		$exo_scores_details['average'] = 0;
+	}
+	else
+	{
+		// round average number for a beautifuler display
+		$exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
+	}
+
+    if (isset($exo_score_details['weighting']) || $exo_scores_details['weighting'] != '')
+		$displayedWeighting = '/'.$exo_scores_details['weighting'];
+	else
+    	$displayedWeighting = '';
+		
+  	echo '<ul>'."\n"
+    .'<li>'.$langScoreMin.' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
+    .'<li>'.$langScoreMax.' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
+    .'<li>'.$langScoreAvg.' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
+	.'<li>'.$langExeAvgTime.' : '.claro_disp_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
+	.'</ul>'."\n\n"
+	.'<ul>'."\n"
+	.'<li>'.$langExerciseUsersAttempts.' : '.$exo_scores_details['users'].'</li>'."\n"
+	.'<li>'.$langExerciseTotalAttempts.' : '.$exo_scores_details['tusers'].'</li>'."\n"
+	.'</ul>'."\n\n";
+
 	//-- display details : USERS VIEW
 	$sql = "SELECT `U`.`nom`, `U`.`prenom`, `U`.`user_id`,
 	        MIN(TE.`exe_result`) AS `minimum`,
@@ -124,7 +123,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     
 	$exo_users_details = claro_sql_query_fetch_all($sql);
 
-	echo '<p><b>By users</b></p>'."\n";
+	echo '<p><b>'.$langStatsByUser.'</b></p>'."\n";
 	// display tab header
 	echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
 		.'<tr class="headerX" align="center" valign="top">'."\n"
@@ -171,16 +170,16 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			AND `TED`.`question_id` = `Q`.`id`
 		WHERE `Q`.`id` = `RTQ`.`question_id`
 			AND `RTQ`.`exercice_id` = ".$exercise->selectId()."
-		GROUP BY `TED`.`question_id`
-		ORDER BY `Q`.`question` ASC";
+		GROUP BY `Q`.`id`
+		ORDER BY `Q`.`q_position` ASC";
 
 	$exo_questions_details = claro_sql_query_fetch_all($sql);
 
-	echo '<p><b>By questions</b></p>'."\n";
+	echo '<p><b>'.$langStatsByQuestion.'</b></p>'."\n";
 	// display tab header
 	echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
 		.'<tr class="headerX" align="center" valign="top">'."\n"
-	    .'<th>'.$langTitle.'</th>'."\n"
+	    .'<th>'.$langQuestionTitle.'</th>'."\n"
 	    .'<th>'.$langScoreMin.'</th>'."\n"
 	    .'<th>'.$langScoreMax.'</th>'."\n"
 	    .'<th>'.$langScoreAvg.'</th>'."\n"
@@ -195,7 +194,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			$exo_questions_detail['maximum'] = 0;
 		}
 		echo 	 '<tr>'."\n"
-		  		.'<td>'.$exo_questions_detail['question'].'</td>'."\n"
+		  		.'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exo_id='.$_REQUEST['exo_id'].'">'.$exo_questions_detail['question'].'</a></td>'."\n"
 		  		.'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
 		  		.'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
 		  		.'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
