@@ -73,29 +73,27 @@ if( $isAllowedToDelete )
         claro_sql_query($sql);
         
         // display confirm msg and back link
-        echo $langDelCourseStatsDone 
-              ."<br /><br />"
-              ."<a href=\"courseLog.php\">"
-              .$langBack
-              ."</a>";
+        echo $langDelCourseStatsDone."\n"
+             .'<br /><br />'."\n"
+             .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n";
         
     }					// end if $delete
     else
     {
       // ASK DELETE CONFIRMATION TO THE USER
     
-      echo "\n<p>\n"
-		.$langConfirmDeleteStats
-		."\n</p>\n"
-        ."<p>\n"
-	  	."<a href=\"".$_SERVER['PHP_SELF']."?delete=yes\">"
+      echo "\n".'<p>'."\n"
+		.$langConfirmDeleteStats."\n"
+		.'</p>'."\n"
+        .'<p>'."\n"
+	  	.'<a href="'.$_SERVER['PHP_SELF'].'?delete=yes">'
 		.$langYes
-        ."</a>"
-		."&nbsp;|&nbsp;"
-		."<a href=\"courseLog.php\">"
+        .'</a>'
+		.'&nbsp;|&nbsp;'
+		.'<a href="courseLog.php">'
 		.$langNo
-		."</a>\n"
-    	."</p>\n";
+		.'</a>'."\n"
+    	.'</p>'."\n";
     
     }		// end else if $delete
 } //end if isAllowedToDelete
