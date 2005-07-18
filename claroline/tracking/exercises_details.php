@@ -42,8 +42,17 @@ $is_allowedToTrack = $is_courseAdmin;
 $exercise = new Exercise();
 $exercise->read($_REQUEST['exo_id']);
 
-
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
+{
+	$interbredcrump[]= array ("url"=>"../exercice/exercice.php", "name"=> $langExercices);
+	$src = '&src=ex';
+}
+else
+{
+	$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+	$src = '';
+}
+	
 $nameTools = $langStatsOfExercise;
 
 include($includePath."/claro_init_header.inc.php");
@@ -194,7 +203,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			$exo_questions_detail['maximum'] = 0;
 		}
 		echo 	 '<tr>'."\n"
-		  		.'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exo_id='.$_REQUEST['exo_id'].'">'.$exo_questions_detail['question'].'</a></td>'."\n"
+		  		.'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exo_id='.$_REQUEST['exo_id'].$src.'">'.$exo_questions_detail['question'].'</a></td>'."\n"
 		  		.'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
 		  		.'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
 		  		.'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['ponderation'].'</td>'."\n"

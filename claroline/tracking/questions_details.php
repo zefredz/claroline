@@ -25,7 +25,9 @@ define('MATCHING',	 4);
 define('TRUEFALSE',	 5);
 
 // exo_id is required
-if( empty($_REQUEST['question_id']) ) header("Location: ../exercice/exercice.php");
+if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
+// question_id is required
+if( empty($_REQUEST['question_id']) ) header("Location: exercises_details.php?exo_id=".$_REQUEST['exo_id']);
 
 include('../exercice/question.class.php');
 include('../exercice/answer.class.php');
@@ -53,8 +55,17 @@ $is_allowedToTrack = $is_courseAdmin;
 $question = new Question();
 $question->read($_REQUEST['question_id']);
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
-$interbredcrump[]= array ("url"=>"exercises_details.php", "name"=> $langStatsOfExercise);
+if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
+{
+	$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> $langExercices);
+	$src = '&src=ex';
+}
+else
+{
+ $interbredcrump[]= array ('url'=>'courseLog.php', 'name'=> $langStatistics);
+	$src = '';
+}
+$interbredcrump[]= array ('url'=>'exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src, 'name'=> $langStatsOfExercise);
 $nameTools = $langStatsOfQuestion;
 
 include($includePath."/claro_init_header.inc.php");
@@ -265,7 +276,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 
 	//-- DISPLAY (common)
 	// build back link
-	$backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].'">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n\n";
+	$backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src.'">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n\n";
 	echo $backLink;
 	//-- display a resume of the selected question
     echo '<p><b>'.$question->selectTitle().'</b></p>'."\n"
@@ -321,7 +332,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	  		echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
 			  	.'<tr class="headerX">'."\n"
 				.'<th>'.$blank.'</th>'."\n"
-				.'<th colspan="2">#</th>'."\n"
+				.'<th width="20%" colspan="2">#</th>'."\n"
 			  	.'</tr>'."\n";
 
 			if( isset($results[$i]) )
