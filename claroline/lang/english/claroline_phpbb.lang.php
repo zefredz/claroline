@@ -10,29 +10,12 @@ $l_indextitle = "Forum Index";
 $l_lastpost = "Last Post";
 $l_notify = "Notify by email when replies are posted";
 $l_notifybody = "You are receiving this Email because a new message in one of your favourite topics
-
  on our forums has been added, and
-
 you selected to be notified on this event.
-
-
-
 You may view the topic at:
-
-
-
 %1\$s
-
-
-
 Or view the forum index at
-
-
-
 %2\$s
-
-
-
 Thank you for using our forums.";
 $l_notifysubj = "A reply to your topic has been posted.";
 $l_notopics = "There are no topics for this forum. You can post one.";

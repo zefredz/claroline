@@ -83,7 +83,6 @@ $langSampleDocumentDesc = "You can use any document existing in the documents to
 $langSampleExerciseDesc = "You can use any exercise of the exercises tool of your course.";
 $langSampleLearnPath = "Sample learning path";
 $langSampleLearnPathDesc = "This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on
-
                             <b>Modify</b> to change this text.";
 $langSecondShort = "sec.";
 $langSocraticIrony = "Socratic irony is...";

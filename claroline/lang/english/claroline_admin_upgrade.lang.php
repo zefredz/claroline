@@ -66,7 +66,6 @@ The data backup has been done</td>
 <p>
 The <em>Claroline Upgrade Tool</em>
 is not able to start if you do not confirm that the data has been done.</p>
-
 ";
 $langManager = "Manager";
 $langMinuteShort = "min.";

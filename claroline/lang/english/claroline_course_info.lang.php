@@ -14,9 +14,7 @@ $langCategory = "Category";
 $langChat = "Chat";
 $langCode = "Course code";
 $langConfTip = "By default, your course is accessible to everybody. If you want some confidentiality,
-
 the simplest way is to open registration during
-
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
 $langConfirmYourChoice = "Please confirm your choice";
 $langCopy = "Copy";

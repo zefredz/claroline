@@ -8,12 +8,10 @@ $langAgenda = "Agenda";
 $langAlertBlockingMakedInvisible = "This module is blocked.
 Making it invisible will allow students to access
  the next module without having to complete this one.
-
 Confirm ?";
 $langAlertBlockingPathMadeInvisible = "This path is blocking.
 Making it invisible will allow students to access
  the next path without having to complete this one.
-
 Confirm ?";
 $langAlreadyBrowsed = "Already browsed";
 $langAltClarodoc = "Clarodoc";
@@ -26,10 +24,8 @@ $langAltMoveUp = "Order up";
 $langAltScorm = "Scorm";
 $langAnnouncement = "Announcements";
 $langAreYouSureDeleteModule = "Are you sure to totally delete this module ?
-
 It will be completely deleted from the server and from any learning path it is in.
 You won't be able to use it in any learning path.
-
 Confirm delete of : ";
 $langAreYouSureToDelete = "Are you sure to delete";
 $langAreYouSureToDeleteScorm = "This learning path is part of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
@@ -194,7 +190,6 @@ $langUnamedModule = "Unamed module";
 $langUnamedPath = "Unamed path";
 $langUp = "Up";
 $langUseOfPool = "This page allows you to view all the modules available in this course. <br>
-
                      Any exercise or document that has been added in a learning path will also appear in this list.";
 $langUsedInLearningPaths = "
 Number of learning paths using this module : ";

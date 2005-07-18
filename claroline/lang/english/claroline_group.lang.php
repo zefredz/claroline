@@ -57,7 +57,6 @@ $langGroupStudentsInGroup = "students registered in groups";
 $langGroupStudentsRegistered = "students registered to this course";
 $langGroupThisSpace = "Area for this group";
 $langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you can modify it below).
-
                 Group composition has not been modified";
 $langGroupTools = "Tools";
 $langGroupTutor = "Group Tutor";

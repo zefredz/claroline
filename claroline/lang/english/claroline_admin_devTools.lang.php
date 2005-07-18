@@ -1,7 +1,23 @@
 <?php
+$l_click = "Click";
+$l_here = "here";
+$l_notifybody = "You are receiving this Email because a new message in one of your favourite topics
+ on our forums has been added, and
+you selected to be notified on this event.
+You may view the topic at:
+%1\$s
+Or view the forum index at
+%2\$s
+Thank you for using our forums.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_returnindex = "to return to the forum index";
+$l_returntopic = "to return to the forum topic list.";
+$l_separator = " > ";
+$l_viewmsg = "to view your message.";
 $langAddIntro = "Add introduction text";
 $langAdd_users = "Add users";
 $langAddedToCreator = "Course Home";
+$langAdm = "Forum administration";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
 $langAdmitError = "Admit one's own errors to invite one's interlocutor to do the same.";
@@ -9,6 +25,7 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
 $langAnonymous = "Anonymous";
 $langAntique = "History of Ancient Philosophy";
+$langBackTo = "Back to :";
 $langCancel = "Cancel";
 $langCatagoryGroup = "Group forums";
 $langCatagoryMain = "Main";
@@ -23,6 +40,7 @@ $langCreate = "Create";
 $langCreateCourses = "Create course";
 $langCreateSite = "Create a course website";
 $langDay_of_weekNames = "Array";
+$langDear = "Dear";
 $langDelAdmin = "Remove this through the forum admin tool";
 $langDelete = "Delete";
 $langDescriptionCours = "Course description";
@@ -43,6 +61,8 @@ $langForumGroup = "Forum of the group";
 $langForums = "Forums";
 $langFree = "Free";
 $langGroup = "Group";
+$langGroupDocumentsLink = "Documents of the group ";
+$langGroupSpaceLink = "Group area";
 $langGroups = "Groups";
 $langHelp = "Help";
 $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
@@ -63,6 +83,7 @@ $langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langName = "Name";
 $langNameOfLang = "Array";
+$langNewTopic = "New topic";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argument.";
 $langNoSeduction = "No. Socratic irony is not a seduction strategy nor a method based on the example.";
 $langNotAllowed = "Not allowed";
@@ -80,16 +101,15 @@ $langPopulateTools = "Populate tools in courses";
 $langPoweredBy = "Powered by";
 $langPrefix = "Prefix  : ";
 $langProfessor = "Lecturer";
-$langQantity = "Quantity  : ";
 $langRandomLanguage = "Shuffle selection in available languages";
 $langReg = "Registration";
+$langReply = "Answer";
 $langRidiculise = "Ridiculise one's interlocutor in order to have him concede he is wrong.";
 $langSampleDocument = "example_document";
 $langSampleDocumentDesc = "You can use any document existing in the documents tool of this course.";
 $langSampleExerciseDesc = "You can use any exercise of the exercises tool of your course.";
 $langSampleLearnPath = "Sample learning path";
 $langSampleLearnPathDesc = "This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on
-
                             <b>Modify</b> to change this text.";
 $langSecondShort = "sec.";
 $langSocraticIrony = "Socratic irony is...";
@@ -101,6 +121,7 @@ $langTestForum = "Test forum";
 $langTextEditorDisable = "Disable text editor";
 $langTextEditorEnable = "Enable text editor";
 $langTo = "to";
+$langToday = "Today";
 $langTranslations = "Translations";
 $langUserName = "User name";
 $langUsers = "Users";

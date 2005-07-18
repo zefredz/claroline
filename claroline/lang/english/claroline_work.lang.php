@@ -83,9 +83,7 @@ $langHelp = "Help";
 $langIncorrectDate = "Start date must be before end date ...";
 $langIndividual = "Individual";
 $langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
-
 <br />You will be able to add a comment or a grade to each work.
-
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
 $langInvisible = "Invisible";
 $langLastEditDate = "Last edit date";

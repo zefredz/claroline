@@ -103,7 +103,6 @@ $langSaveChanges = "Save changes";
 $langSearch = "Search";
 $langSecondShort = "sec.";
 $langSettings = "with the following settings:
-
 User name:";
 $langStudent = "Student";
 $langSubmit = "Submit";
