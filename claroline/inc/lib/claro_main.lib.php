@@ -1787,7 +1787,7 @@ function clean_str_for_javascript( $str )
     return $output;
 }
 
-function claro_get_lang_list()
+function claro_get_language_list()
 {
     global $includePath, $langNameOfLang;
     $dirname = $includePath . '/../lang/';
@@ -1805,11 +1805,11 @@ function claro_get_lang_list()
         continue;
         if (is_dir($dirname . $entries))
         {
-            if (isset($langNameOfLang[$entries])) $lang_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
-            $lang_list[$entries]['langNameLocaleLang']  = $entries;
+            if (isset($langNameOfLang[$entries])) $language_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
+            $language_list[$entries]['langNameLocaleLang']  = $entries;
         }
     }
     closedir($handle);
-    return $lang_list;
+    return $language_list;
 }
 ?>
