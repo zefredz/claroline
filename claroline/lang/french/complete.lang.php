@@ -1936,6 +1936,7 @@ $langWikiAccessControl = "Gestion du contrôle d'accès";
 $langWikiAccessControlText = "Vous pouvez choisir les droits d'accès au wiki pour chaque type d'utilisateurs :";
 $langWikiAllPages = "Toutes les pages";
 $langWikiAllPagesPattern = "Pages du wiki %s :";
+$langWikiContentEmpty = "Cette page est vide, cliquez sur '$langWikiEditPage' pour ajouter du contenu";
 $langWikiCourseMembers = "Membres du cours";
 $langWikiCreateNewWiki = "Créer un nouveau Wiki";
 $langWikiCreatePrivilege = "Créer des  page";

@@ -133,65 +133,65 @@
         return (! ( $wikiPage->hasError() ));
     }
     
-    /**
-     * Create a sample wiki in a given course or group
-     * Not used at this time
-     * @param DatabaseConnection con database connection
-     * @param int creatorId ID of the user who creates the page
-     * @param int groupId ID of the group, if course wiki set it to Zero
-     * @return boolean true if the creation succeeds, false if it fails
-     */
-    function create_sample_wiki( &$con, $creatorId, $groupId = 0 )
-    {
-        global $langWikiSampleTitle, $langWikiSampleDescription;
-        
-        $config = array();
-        // use claro functions
-        $tblList = claro_sql_get_course_tbl();
-        $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
-        $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
-        $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
-        $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
-        
-        $wiki = new Wiki( $con, $config );
-        
-        $wiki->setTitle( $langWikiSampleTitle );
-        $wiki->setDescription( $langWikiSampleDescription );
-        $wiki->setGroupId( $groupId );
-        
-        if ( $groupId != 0 )
-        {
-            $acl = array(
-                'course_read' => true,
-                'course_edit' => true,
-                'course_create' => true,
-                'group_read' => false,
-                'group_edit' => false,
-                'group_create' => false,
-                'other_read' => true,
-                'other_edit' => false,
-                'other_create' => false
-            );
-            
-        }
-        else
-        {
-            $acl = array(
-                'course_read' => true,
-                'course_edit' => false,
-                'course_create' => false,
-                'group_read' => true,
-                'group_edit' => true,
-                'group_create' => true,
-                'other_read' => false,
-                'other_edit' => false,
-                'other_create' => false
-            );
-        }
-        
-        $wiki->setACL( $acl );
-        $wikiId = $wiki->save();
-        
-        return init_wiki_main_page( $con, $wikiId, $creatorId );
-    }
+#    /**
+#     * Create a sample wiki in a given course or group
+#     * Not used at this time
+#     * @param DatabaseConnection con database connection
+#     * @param int creatorId ID of the user who creates the page
+#     * @param int groupId ID of the group, if course wiki set it to Zero
+#     * @return boolean true if the creation succeeds, false if it fails
+#     */
+#    function create_sample_wiki( &$con, $creatorId, $groupId = 0 )
+#    {
+#        global $langWikiSampleTitle, $langWikiSampleDescription;
+#        
+#        $config = array();
+#        // use claro functions
+#        $tblList = claro_sql_get_course_tbl();
+#        $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
+#        $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
+#        $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
+#        $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
+#        
+#        $wiki = new Wiki( $con, $config );
+#        
+#        $wiki->setTitle( $langWikiSampleTitle );
+#        $wiki->setDescription( $langWikiSampleDescription );
+#        $wiki->setGroupId( $groupId );
+#        
+#        if ( $groupId != 0 )
+#        {
+#            $acl = array(
+#                'course_read' => true,
+#                'course_edit' => true,
+#                'course_create' => true,
+#                'group_read' => false,
+#                'group_edit' => false,
+#                'group_create' => false,
+#                'other_read' => true,
+#                'other_edit' => false,
+#                'other_create' => false
+#            );
+#            
+#        }
+#        else
+#        {
+#            $acl = array(
+#                'course_read' => true,
+#                'course_edit' => false,
+#                'course_create' => false,
+#                'group_read' => true,
+#                'group_edit' => true,
+#                'group_create' => true,
+#                'other_read' => false,
+#                'other_edit' => false,
+#                'other_create' => false
+#            );
+#        }
+#        
+#        $wiki->setACL( $acl );
+#        $wikiId = $wiki->save();
+#        
+#        return init_wiki_main_page( $con, $wikiId, $creatorId );
+#    }
 ?>
