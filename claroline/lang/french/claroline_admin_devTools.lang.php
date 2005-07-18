@@ -1,7 +1,30 @@
 <?php
+$l_click = "Cliquez";
+$l_here = "ici";
+$l_notifybody = "Vous recevez cet e-mail parce qu'un message
+que vous avez posté sur nos forums a reçu une réponse, et que
+vous avez choisi d'en être informé.
+
+Vous pouvez voir le sujet à:
+
+%1\$s
+
+Ou voir l'index du forum  à
+
+%2\$s
+
+Merci d'utiliser les forums .
+
+Bonne journée.";
+$l_notifysubj = "Une réponse à votre sujet a été posté.";
+$l_returnindex = "pour retourner à l'index du forum";
+$l_returntopic = "pour retourner à la liste des sujets du forum.";
+$l_separator = " > ";
+$l_viewmsg = "pour voir votre Message.";
 $langAddIntro = "Ajouter un texte d'introduction";
 $langAdd_users = "Ajouter une série d'utilisateurs";
 $langAddedToCreator = "Page d'accueil du cours";
+$langAdm = "Administrer";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
 $langAdmitError = "Reconnaître ses erreurs pour inviter son interlocuteur à faire de même.";
@@ -9,6 +32,7 @@ $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langAnonymous = "Anonyme";
 $langAntique = "Histoire de la philosophie antique";
+$langBackTo = "Retourner dans : ";
 $langCancel = "Annuler";
 $langCatagoryGroup = "Forums des Groupes";
 $langCatagoryMain = "Général";
@@ -23,6 +47,7 @@ $langCreate = "créer";
 $langCreateCourses = "Cours à créer";
 $langCreateSite = "Créer un site de cours";
 $langDay_of_weekNames = "Array";
+$langDear = "Cher(ère)";
 $langDelAdmin = "A supprimer via l'administration des forums";
 $langDelete = "Effacer";
 $langDescriptionCours = "Description du cours";
@@ -43,6 +68,8 @@ $langForumGroup = "Forum du groupe";
 $langForums = "Forums";
 $langFree = "Libre";
 $langGroup = "Groupe";
+$langGroupDocumentsLink = "Documents du groupe";
+$langGroupSpaceLink = "Espace du groupe";
 $langGroups = "Groupes";
 $langHelp = "Aide";
 $langIndeed = "En effet. L'ironie socratique est une méthode interrogative. Le grec &quot;eirotao&quot; signifie d'ailleurs &quot;interroger&quot;.";
@@ -63,6 +90,7 @@ $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
 $langName = "Nom";
 $langNameOfLang = "Array";
+$langNewTopic = "Lancer un nouveau sujet";
 $langNoPsychology = "Non. L'ironie socratique ne se joue pas sur le terrain de la psychologie, mais sur celui de l'argumentation.";
 $langNoSeduction = "Non. Il ne s'agit pas d'une stratégie de séduction ou d'une méthode par l'exemple.";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
@@ -80,9 +108,10 @@ $langPopulateTools = "Remplir les outils";
 $langPoweredBy = "Utilise la plate-forme";
 $langPrefix = "Préfixe  : ";
 $langProfessor = "Gestionnaire de cours";
-$langQantity = "Quantité  : ";
+$langQuantity = "Quantité";
 $langRandomLanguage = "Sélection aléatoire parmi toutes les langues";
 $langReg = "Inscription";
+$langReply = "Répondre";
 $langRidiculise = "Ridiculiser son interlocuteur pour lui faire admettre son erreur.";
 $langSampleDocument = "document_exemple";
 $langSampleDocumentDesc = "Vous pouvez utiliser n'importe quel document de l'outil de documents de ce cours.";
@@ -99,6 +128,7 @@ $langTestForum = "Forum d'essais";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTo = "vers";
+$langToday = "Aujourd'hui";
 $langTranslations = "Traductions";
 $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";

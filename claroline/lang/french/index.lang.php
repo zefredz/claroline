@@ -26,7 +26,7 @@ $langGroups = "Groupes";
 $langHelp = "Aide";
 $langInvalidId = "Cet identifiant n'est pas valide. Si vous n'êtes pas encore inscrit,
 remplissez le <a href='claroline/auth/inscription.php'>formulaire d'inscription</a></font color>";
-$langInvalidIdSelfReg = "";
+$langInvalidIdSelfReg = "L'authentification a échoué.<br />Si vous n'êtes pas enregistré utilisez le <a href=claroline/auth/inscription.php>formulaire d'inscription</a>";
 $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
