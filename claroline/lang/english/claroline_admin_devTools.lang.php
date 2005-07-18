@@ -101,6 +101,7 @@ $langPopulateTools = "Populate tools in courses";
 $langPoweredBy = "Powered by";
 $langPrefix = "Prefix  : ";
 $langProfessor = "Lecturer";
+$langQuantity = "Quantity";
 $langRandomLanguage = "Shuffle selection in available languages";
 $langReg = "Registration";
 $langReply = "Answer";

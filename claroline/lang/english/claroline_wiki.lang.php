@@ -89,6 +89,7 @@ $langWiki = "Wiki";
 $langWikiAccessControl = "Access control management";
 $langWikiAccessControlText = "You can set access rights for users using the following grid : ";
 $langWikiAllPages = "All pages";
+$langWikiContentEmpty = "This page is empty, click on 'Edit this page' to add a content";
 $langWikiCourseMembers = "Course members";
 $langWikiCreateNewWiki = "Create a new Wiki";
 $langWikiCreatePrivilege = "Create Pages";
