@@ -652,7 +652,7 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
 
 function claro_get_lang_flat_list()
 {
-    $language_array = claro_get_lang_list();
+    $language_array = claro_get_language_list();
     
     // following foreach  build the array of selectable  items
     if(is_array($language_array))

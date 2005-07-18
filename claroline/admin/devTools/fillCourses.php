@@ -152,7 +152,7 @@ if ($cmd == 'exFill')
     $aivailableLang[]= $platformLanguage;
     if (isset($_REQUEST['random_lang']) && $_REQUEST['random_lang'] == 'random_lang')
     {
-        $aivailableLang = array_keys(claro_get_lang_list());
+        $aivailableLang = array_keys(claro_get_language_list());
     }
 
     $aivailableFaculty = array_keys(claro_get_cat_flat_list());
