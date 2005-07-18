@@ -338,7 +338,7 @@
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'edit\');" id="group_edit" name="acl[group_edit]"'.$group_edit_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'create\');" id="group_create" name="acl[group_create]"'.$group_create_checked.' /></td>' . "\n"
                 . '</tr>' . "\n"
-            ;
+                ;
         }
         
         $form .= '<tr>' . "\n"
@@ -360,7 +360,7 @@
         }
         
         $form .= '<input type="submit" name="action[exEdit]" value="' . $langSave . '" />' . "\n"
-            . claro_disp_button ($_SERVER['PHP_SELF'] . '?action=list', $langCancel ) . "\n"
+            . claro_disp_button ( $_SERVER['PHP_SELF'] . '?action=list', $langCancel ) . "\n"
             ;
             
         $form .= '</div>' . "\n"

@@ -380,6 +380,25 @@
     function linker_update()
     {
         $crlSource = getSourceCrl();
+        
+        if ( isset( $_REQUEST['servAdd'] ) )
+        {
+            $_SESSION['servAdd'] = array_map( 'urldecode', $_REQUEST['servAdd'] );
+        }
+        elseif ( ! isset( $_SESSION['servAdd'] ) )
+        {
+            $_SESSION['servAdd'] = array();
+        }
+        
+        if ( isset( $_REQUEST['servDel'] ) )
+        {
+            $_SESSION['servDel'] = array_map( 'urldecode', $_REQUEST['servDel'] );
+        }
+        elseif ( ! isset( $_SESSION['servDel'] ) )
+        {
+            $_SESSION['servDel'] = array();
+        }
+        
         $message = linker_update_attachament_list( $crlSource , $_SESSION['servAdd'] , $_SESSION['servDel'] );
         
         if( isset($_SESSION['servAdd'] ) )

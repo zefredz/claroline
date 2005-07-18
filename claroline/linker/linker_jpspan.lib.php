@@ -219,6 +219,7 @@
         .    '<div id="nav">' . "\n"
         .    '</div>' . "\n"
         .    '</div>' . "\n"
+        .    '<div id="hiddenFields" style="display:none;"></div>'
         ;
     }    
     

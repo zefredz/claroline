@@ -25,6 +25,9 @@
         var shopping_cart = new Array();
         var serv_add = new Array();
         var serv_del = new Array();
+        
+        var servAdd = 0;
+        var servDel = 0;
        
        
        /*----------------------------
@@ -112,6 +115,12 @@
                 print('shoppingCart', '&lt;&lt; '+lang_empty+' &gt;&gt;<br>\n');
             }
         }
+        
+        function addHiddenInputToForm( formid, name, value, index )
+        {
+            var oForm = document.getElementById( formid );
+            oForm.innerHTML += '<input type="hidden" name="'+name+'['+index+']" value="'+value+'" />\n';
+        }
        
       
        /**
@@ -124,6 +133,10 @@
         {        	
             if( (in_shopping_cart(crl)) == false )
             {
+                addHiddenInputToForm( 'hiddenFields', 'servAdd', crl, servAdd );
+                
+                servAdd++;
+            
             	var item = new Array();
             	item["crl"] = crl;
             	item["title"] = title;
@@ -151,7 +164,11 @@
         * @param title 
         **/    
         function detach( crl )
-        {        	
+        {
+            addHiddenInputToForm( 'hiddenFields', 'servDel', crl, servDel );
+
+            servDel++;
+                
             if( shopping_cart.length > 0 )
             {
                 shopping_cart = shopping_cart_delete( crl );
@@ -175,12 +192,12 @@
         **/ 
         function linker_confirm()
         {
-        	if( linklistallreadysubmitted == false )
+        	/* if( linklistallreadysubmitted == false )
         	{
             	var nav = new navigatorjpspan(set_shopping_cart_handler);
             	nav.registerattachementlist(serv_add , serv_del );
             	linklistallreadysubmitted = true;
-            }
+            } */
         }
         
         /**
