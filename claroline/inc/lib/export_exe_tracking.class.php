@@ -65,6 +65,7 @@ class csvTrackSingle extends csv
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
 					AND `TEA`.`answer` = `A`.`id`
+					AND `TED`.`question_id` = `Q`.`id`
 					AND `Q`.`id` = ".$this->question->selectId()."
 				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 				
@@ -120,6 +121,7 @@ class csvTrackMulti extends csv
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
 					AND `TEA`.`answer` = `A`.`id`
+					AND `TED`.`question_id` = `Q`.`id`
 					AND `Q`.`id` = ".$this->question->selectId()."
 				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
@@ -144,7 +146,7 @@ class csvTrackMulti extends csv
 			
 			$previousKey = $key;
 		}
-		
+
   		if( isset($recordList) && is_array($recordList) )
   		{
   		    $this->recordList = $recordList;
@@ -199,6 +201,7 @@ class csvTrackFIB extends csv
 					AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
+					AND `TED`.`question_id` = `Q`.`id`
 					AND `Q`.`id` = ".$this->question->selectId()."
 				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
@@ -245,7 +248,6 @@ class csvTrackMatching extends csv
 	{
         parent::csv(); // call constructor of parent class
 		$this->question = $question;
-		$this->answer = new Answer($this->question->selectId());
 	}
 
    	// create record list
