@@ -503,7 +503,7 @@ elseif($display == DISP_RESULT)
 elseif ($display==DISP_WAIT)
 {
     
-    echo claro_disp_message_box(sprintf($langCourseWouldBeCreated.'<BR><small>'.$lang_p_IfNothingHappendClickHere,$param));
+    echo claro_disp_message_box(sprintf($langCourseWouldBeCreated.'<BR>'.$lang_p_IfNothingHappendClickHere,$param));
 }
 include($includePath . '/claro_init_footer.inc.php');
 
