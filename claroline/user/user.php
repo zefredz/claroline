@@ -273,8 +273,7 @@ if ( $disp_tool_link )
 
     <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=unregister&amp;user_id=allStudent"
        onClick="return confirmation('<?php echo clean_str_for_javascript(' all students '); ?>')">
-    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif">
-    Unregister all students
+    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif"><?php echo $langUnregisterAllStudents ?>
     </a>
     </p>
 <?php

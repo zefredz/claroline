@@ -155,6 +155,7 @@ $langTopLevel = "top level";
 $langTracking = "Tracking";
 $langUnableToEnrollInCourse = "Unable to enroll you to the course";
 $langUnreg = "Unregister";
+$langUnregisterAllStudents = "Unregister all students";
 $langUpdateImage = "Change picture";
 $langUseFollowingFormat = " Use the following format : ";
 $langUseFormatDefined = "Use format defined in first line of file";

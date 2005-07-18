@@ -175,6 +175,7 @@ $langNoUserResult = "No user to display";
 $langNormalUser = "Normal";
 $langNotAllowed = "Not allowed";
 $langNotUnregYourself = "You can not change your own settings!";
+$langNoticeInstallFolderBrowsable = "<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server";
 $langNumero = "No.";
 $langOfficialCode = "Administrative code";
 $langOk = "Ok";

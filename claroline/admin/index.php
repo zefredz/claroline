@@ -66,14 +66,12 @@ include($includePath."/lib/debug.lib.inc.php");
 $dateNow             = claro_disp_localised_date($dateTimeFormatLong);
 $is_allowedToAdmin     = $is_platformAdmin;
 
-
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-     $controlMsg = '<p class="highlight"><b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server</p>';
+     $controlMsg = '<p class="highlight">' . $langNoticeInstallFolderBrowsable . '</p>';
 }
 // ----- is install visible ----- end
-
 
 include($includePath.'/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
