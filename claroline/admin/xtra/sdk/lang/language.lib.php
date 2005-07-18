@@ -172,7 +172,9 @@ function scan_dir($dirname,$recurse=FALSE)
 
     while (false !== ($element = readdir($handle)))
     {
-        if( is_scannable($dirname.$element, array('claroline/inc') ) )
+        if ( is_scannable($dirname.$element, array('claroline/inc',
+                                                   'claroline/wiki/lib') ) 
+           )
         {
             if(is_dir($dirname.$element))
             {
@@ -320,6 +322,15 @@ function detect_included_files(&$tokenList)
             || $tokenList[$i][0] === T_INCLUDE_ONCE
             || $tokenList[$i][0] === T_REQUIRE_ONCE )
         {
+            if ( $tokenList[$i][0] === T_INCLUDE || $tokenList[$i][0] === T_REQUIRE )
+            {
+                $include_type = 'normal';
+            }
+            else
+            {
+                $include_type = 'once';
+            }
+
             $includeFile = '';
             $bracketPile = 0;
             $i++;
@@ -346,7 +357,18 @@ function detect_included_files(&$tokenList)
                 $includeFile .= $token;
                 $i++;
             }
-            $includeFile = str_replace('dirname(__FILE__).','',$includeFile);
+            
+            // replace dirname(__FILE__) by nothing
+            $includeFile = ereg_replace("dirname\(__FILE__\) *\. *(['\"])","\\1",$includeFile);
+            // replace $includePath by $includePath
+            $includeFile = ereg_replace('\$includePath *\. *([\'\"])',"\\1" . $GLOBALS['includePath'],$includeFile); 
+            // replace $rootSys by $rootSys
+            $includeFile = ereg_replace('\$rootSys *\. *([\'\"])',"\\1" . $GLOBALS['rootSys'],$includeFile); 
+            // replace $rootAdminSys by $rootAdminSys
+            $includeFile = ereg_replace('\$rootAdminSys *\. *([\'\"])',"\\1" . $GLOBALS['rootAdminSys'],$includeFile); 
+            // replace $clarolineRepositorySys by $clarolineRepositorySys 
+            $includeFile = ereg_replace('\$clarolineRepositorySys  *\. *([\'\"])',"\\1" . $GLOBALS['clarolineRepositorySys'],$includeFile); 
+
             $includeFileList[] = $includeFile;
         }
     } // end loop for
@@ -364,10 +386,19 @@ function detect_included_files(&$tokenList)
 function get_lang_vars_from_file($file)
 {
     global $scannedFileList;
+    global $parsingFileList;
+
+//    var_dump($GLOBALS['scannedFileList']);
+
+    if ( ! isset($scannedFileList) ) $scannedFileList = array();
+
+    // add file in parsing list
+    $parsingFileList[] = $file;
 
     // *** OPTIMISATION : start *** //
     if ( isset($GLOBALS[$file]) )
     {
+        array_pop($parsingFileList);
         return $GLOBALS[$file];
     }
     // *** OPTIMISATION : end *** //
@@ -384,29 +415,29 @@ function get_lang_vars_from_file($file)
         $languageVarList      = detect_lang_var($tokenList);
         $includeStatementList = detect_included_files($tokenList);
 
-        foreach($includeStatementList as $thisIncludeStatement)
+        foreach ( $includeStatementList as $thisIncludeStatement )
         {
-             $includeRealPath= get_real_path_from_statement($thisIncludeStatement, $file);
+            $includeRealPath= get_real_path_from_statement($thisIncludeStatement, $file);
 
-            if ($includeRealPath && is_file($includeRealPath) ) 
+            if ( $includeRealPath && is_file($includeRealPath) )
             {
                  $includedFileList[] = $includeRealPath;
             }
         }
 
-        if (count($includedFileList) > 0)
+        if ( count($includedFileList) > 0 )
         {
             foreach($includedFileList as $thisIncludedFile)
             {
-                if (! in_array( $thisIncludedFile, $scannedFileList) )
+                if ( ! in_array( $thisIncludedFile, $scannedFileList) && ! in_array( $thisIncludedFile, $parsingFileList) )
                 {
                     $includedLangVarList = get_lang_vars_from_file($thisIncludedFile);
                     $scannedFileList[]   = $thisIncludedFile;
-                }
-
-                if (is_array($includedLangVarList) )
-                {
-                    $languageVarList =  array_merge($languageVarList, $includedLangVarList);
+                
+                    if ( is_array($includedLangVarList)  )
+                    {
+                        $languageVarList =  array_merge($languageVarList, $includedLangVarList);
+                    }
                 }
             }
         }
@@ -415,15 +446,20 @@ function get_lang_vars_from_file($file)
 
         // *** OPTIMISATION : start *** //
         $GLOBALS[$file] = $languageVarList;
-        // *** OPTIMISATION : end *** //
+        // *** OPTIMISATION : end *** //       
+
+        // remove file from parsing list    
+        array_pop($parsingFileList);
 
         return $languageVarList;
 
     } // end if scannable
     else
     {
+        array_pop($parsingFileList);
     	return false;
     }
+    
 }
 
 /**
@@ -490,6 +526,7 @@ function is_a_lang_varname($var)
     // variable is not a lang variable
     if (   ( $pos1 === FALSE || $pos1 != 0 )
         && ( $pos2 === FALSE || $pos2 != 0 ) 
+        || ( $var == 'lang' )
        )
     {
         return false;
