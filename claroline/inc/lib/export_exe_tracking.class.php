@@ -14,6 +14,13 @@
 +----------------------------------------------------------------------+
 */
 
+/*
+
+TODO
+  - handle problem of 'no answer given' in QCM and matching
+  - display of answers is not human readable in matching export
+  - Delete this todo list
+*/
 include_once($rootSys.$clarolineRepositoryAppend.'exercice/question.class.php');
 include_once($rootSys.$clarolineRepositoryAppend.'exercice/answer.class.php');
 include_once( dirname(__FILE__) . '/csv.class.php');
@@ -50,7 +57,10 @@ class csvTrackSingle extends csv
 		$tbl_track_e_exe_answers	= $tbl_cdb_names['track_e_exe_answers'	];
 		
 		// this query doesn't show attempts without any answer
-		$sql = "SELECT `TE`.`exe_date`, CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`, `Q`.`question`, `A`.`reponse`
+		$sql = "SELECT `TE`.`exe_date`,
+						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+						`Q`.`question`,
+						`A`.`reponse`
 				FROM `".$tbl_quiz_question."` AS `Q`,
 					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
 					`".$tbl_quiz_answer."` AS `A`,
@@ -103,7 +113,8 @@ class csvTrackMulti extends csv
 		$tbl_track_e_exe_answers	= $tbl_cdb_names['track_e_exe_answers'	];
 		
         // this query doesn't show attempts without any answer
-		$sql = "SELECT `TE`.`exe_date` AS `date`,
+		$sql = "SELECT  `TE`.`exe_id`,
+						`TE`.`exe_date` AS `date`,
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
 						`A`.`reponse`
@@ -133,7 +144,7 @@ class csvTrackMulti extends csv
 		{
 			// build a unique key for each line of the csv
 			// different answer of a same attempt have same date and name
-			$key = $tmpRecord['date'].$tmpRecord['name'];
+			$key = $tmpRecord['exe_id'];
 			if( $key != $previousKey )
 			{
 				// add infos in record list
@@ -184,7 +195,8 @@ class csvTrackFIB extends csv
 		$tbl_track_e_exe_details	= $tbl_cdb_names['track_e_exe_details'	];
 		$tbl_track_e_exe_answers	= $tbl_cdb_names['track_e_exe_answers'	];
 
-		$sql = "SELECT `TE`.`exe_date` as `date`,
+		$sql = "SELECT  `TE`.`exe_id`,
+						`TE`.`exe_date` as `date`,
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
 						`TEA`.`answer`
@@ -213,7 +225,7 @@ class csvTrackFIB extends csv
 		{
 			// build a unique key for each line of the csv
 			// different answer of a same attempt have same date and name
-			$key = $tmpRecord['date'].$tmpRecord['name'];
+			$key = $tmpRecord['exe_id'];
 			if( $key != $previousKey )
 			{
 				// add infos in record list
@@ -253,7 +265,69 @@ class csvTrackMatching extends csv
    	// create record list
    	function buildRecords()
    	{
+		$tbl_mdb_names = claro_sql_get_main_tbl();
+		$tbl_user 					= $tbl_mdb_names['user'					];
 
+      	$tbl_cdb_names = claro_sql_get_course_tbl();
+  		$tbl_quiz_answer			= $tbl_cdb_names['quiz_answer'			];
+		$tbl_quiz_question			= $tbl_cdb_names['quiz_question'		];
+		$tbl_quiz_rel_test_question	= $tbl_cdb_names['quiz_rel_test_question'];
+  		$tbl_track_e_exercises		= $tbl_cdb_names['track_e_exercices'	];
+		$tbl_track_e_exe_details	= $tbl_cdb_names['track_e_exe_details'	];
+		$tbl_track_e_exe_answers	= $tbl_cdb_names['track_e_exe_answers'	];
+
+		$sql = "SELECT  `TE`.`exe_id`,
+						`TE`.`exe_date` as `date`,
+						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+						`Q`.`question`,
+						`TEA`.`answer`
+				FROM `".$tbl_quiz_question."` AS `Q`,
+					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
+					`".$tbl_track_e_exercises."` AS `TE`,
+					`".$tbl_track_e_exe_details."` AS `TED`,
+					`".$tbl_user."` AS `U`
+				LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+				    ON `TEA`.`details_id` = `TED`.`id`
+    			WHERE `RTQ`.`question_id` = `Q`.`id`
+					AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
+					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
+					AND `U`.`user_id` = `TE`.`exe_user_id`
+					AND `TED`.`question_id` = `Q`.`id`
+					AND `Q`.`id` = ".$this->question->selectId()."
+				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+
+		// we need to compile all answers of one attempt on the same line
+		$tmpRecordList = claro_sql_query_fetch_all($sql);
+
+		$previousKey = '';
+		foreach( $tmpRecordList as $tmpRecord )
+		{
+			// build a unique key for each line of the csv
+			// different answer of a same attempt have same date and name
+			$key = $tmpRecord['exe_id'];
+			if( $key != $previousKey )
+			{
+				// add infos in record list
+				$recordList[$key]['date'] = $tmpRecord['date'];
+				$recordList[$key]['name'] = $tmpRecord['name'];
+				$recordList[$key]['question'] = $tmpRecord['question'];
+			}
+			// add answer one by one
+			$recordList[$key][] = $tmpRecord['answer'];
+
+			$previousKey = $key;
+		}
+
+		if( isset($recordList) && is_array($recordList) )
+  		{
+  		    $this->recordList = $recordList;
+			return true;
+		}
+		else
+		{
+		    return false;
+		}
+		
 	}
 }
 
@@ -293,5 +367,24 @@ function export_question_tracking($questionId)
 	{
 		return "";
 	}
+}
+
+function export_exercise_tracking($exerciseId)
+{
+	$objExercise = new Exercise();
+	if( !$objExercise->read($exerciseId) )
+	{
+		return "";
+	}
+
+	$questionList = $objExercise->selectQuestionList();
+	
+	$exerciseCsv = '';
+	foreach( $questionList as $questionId )
+    {
+        $exerciseCsv .= export_question_tracking($questionId);
+    }
+
+	return $exerciseCsv;
 }
 ?>
