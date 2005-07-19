@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.7 - ALPHA README
+CLAROLINE 1.7 - BETA README
 ******************************************
 
 TABLE OF CONTENT :
@@ -340,5 +340,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - December 15 2004
+                Europe, Belgium, Louvain-la-Neuve - July 19 2005
 ================================== END ===================================

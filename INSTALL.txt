@@ -1,5 +1,5 @@
 *********************************************
-CLAROLINE 1.7.0 ALPHA - INSTALL
+CLAROLINE 1.7.0 BETA - INSTALL
 *********************************************
 
 Thank you for downloading Claroline 1.7.0 . This text will guide you 
@@ -213,5 +213,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - July 4 2005
+                Europe, Belgium, Louvain-la-Neuve - July 19 2005
 ================================== END ===================================
