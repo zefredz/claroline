@@ -104,6 +104,8 @@ $is_allowedToEdit = claro_is_allowed_to_edit()
                      
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
+$is_groupPrivate   = $_groupProperties ['private'];
+
 echo claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
                       
@@ -233,8 +235,7 @@ foreach ( $categories as $this_category )
             {
                 if (   in_array($group_id, $userGroupList )
                     || in_array($group_id, $tutorGroupList) 
-                    || $is_forumAdmin
-                    || ( isset($is_groupPrivate) && ! $is_groupPrivate)
+                    || ! $is_groupPrivate || $is_forumAdmin 
                    )
                 {
                     echo '<a href="viewforum.php?gidReq=' . $group_id
