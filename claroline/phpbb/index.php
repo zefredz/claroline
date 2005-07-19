@@ -72,11 +72,17 @@ $total_categories = count($categories);
 
 $forum_list = get_forum_list();
 
-if ( !empty($_uid) )
+if ( ! empty($_uid) )
 {
     $userGroupList  = get_user_group_list($_uid);
     $tutorGroupList = get_tutor_group_list($_uid);
 }
+else
+{
+    $userGroupList = array();
+    $tutorGroupList = array();
+}
+
 
 /*=================================================================
   Display Section
@@ -225,8 +231,8 @@ foreach ( $categories as $this_category )
 
             if ( $this_category['cat_id'] == 1 )
             {
-                if (   (isset($userGroupList) && is_array($userGroupList) && in_array($group_id, $userGroupList ) )
-                    || (isset($tutorGroupList) && is_array($tutorGroupList) &&in_array($group_id, $tutorGroupList) )
+                if (   in_array($group_id, $userGroupList )
+                    || in_array($group_id, $tutorGroupList) 
                     || $is_forumAdmin
                     || ( isset($is_groupPrivate) && ! $is_groupPrivate)
                    )
