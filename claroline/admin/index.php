@@ -76,8 +76,7 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 include($includePath.'/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
 
-if (isset($controlMsg)) echo '<blockquote>'.$controlMsg.'</blockquote>';
-
+if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 
 ?>
 <h4><?php echo $langUsers?></h4>
