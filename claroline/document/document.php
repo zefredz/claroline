@@ -41,6 +41,7 @@
 $tlabelReq = 'CLDOC___';
 require '../inc/claro_init_global.inc.php';
 if ( ! $is_courseAllowed) claro_disp_auth_form();
+if ( ! isset( $_cid ) ) claro_disp_select_course();
 
 /*
  * Library for images
