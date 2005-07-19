@@ -897,8 +897,7 @@ function claro_disp_auth_form()
             $lang_enter_your_user_name_and_password, $lang_click_here,
             $lang_if_you_dont_have_a_user_account_profile_on,
             $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course,
-            $lang_if_you_wish_to_enroll_to_this_course
-            ;
+            $lang_if_you_wish_to_enroll_to_this_course, $is_platformAdmin;
 
     // var used in claro_init_header, banner and footer
     global  $charset, $rootWeb, $clarolineRepositoryWeb, $siteName,
