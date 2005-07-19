@@ -28,7 +28,7 @@ $is_allowedToAdmin     = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
 // initialisation of global variables and used libraries
 include($includePath . '/lib/admin.lib.inc.php');
-include($includePath . '/lib/events.lib.php');
+include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/pager.lib.php');
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
