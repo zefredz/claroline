@@ -165,7 +165,7 @@ switch ($cmd)
     {
        //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
     
-       claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);    
+       claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);        
        $display = 'stepone';
     }
     
@@ -361,7 +361,8 @@ case 'default' :
 
 case "stepone" :
    
-    if (!(empty($_SESSION['claro_mail_synthax_error']))       ||
+    if (!(empty($_SESSION['claro_invalid_format_error']))     ||
+        !(empty($_SESSION['claro_mail_synthax_error']))       ||
         !(empty($_SESSION['claro_mail_used_error']))          ||
         !(empty($_SESSION['claro_username_used_error']))      ||
         !(empty($_SESSION['claro_officialcode_used_error']))  ||
@@ -385,20 +386,31 @@ case "stepone" :
 
         $noerror = TRUE;
     }
-    echo '<br>'
-    .    $lang_do_you_want_to_continue
-    .    '<br>'
-    ;
-    if (!$noerror) 
-    {
-        echo '(' . $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored . ')<br>';
+    
+    
+    if (!(isset($_SESSION['claro_invalid_format_error'])) || ($_SESSION['claro_invalid_format_error'] == false))
+    {        
+        echo '<br>'
+        .    $lang_do_you_want_to_continue
+        .    '<br>'
+        ;
+        if (!$noerror) 
+        {
+            echo '(' . $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored . ')<br>';
+        }
+        echo '<br>'
+        .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+        .   claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+        .   "<input type=\"submit\" value=\"".$langContinue."\">\n "
+        .   "</form>\n";
+        
     }
-    echo '<br>'
-    .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
-    .   claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
-    .   "<input type=\"submit\" value=\"".$langContinue."\">\n "
-    .   "</form>\n";
+    else
+    {
+        echo "<br>".claro_disp_button($_SERVER['PHP_SELF'], $langCancel)."<br>";
+    }
 
+    
     break;
 
 // STEP TWO DISPLAY : display what happened, confirm users added (LOG)     

@@ -165,6 +165,15 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	}
 
 	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
+	if ($CSVParser->validFormat==false)
+	{
+	    $_SESSION['claro_invalid_format_error']               =  true;
+	    return;
+	}
+	else
+	{
+	    $_SESSION['claro_invalid_format_error']               =  false;
+	}
 	$userlist = $CSVParser->results;
 
 	//save this 2D array userlist in session
@@ -245,6 +254,13 @@ function claro_disp_CSV_error_backlog()
     global $langMailAppearAlready;
     global $langUsernameAppearAlready;
     global $langCodeAppearAlready;
+    global $langErrorFormatCSV;
+    
+    if (isset($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error'] == true)
+    {
+       echo $langErrorFormatCSV."<br>";
+       return;
+    }
     
     for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
     {
@@ -619,6 +635,7 @@ class CSV
     var $mapping;
     var $results = array();
     var $errors = array();
+    var $validFormat; //boolean variable set to true if the format useed in the file is usable in Claroline user database
 
     function CRLFclean()
     {
@@ -684,8 +701,9 @@ class CSV
 		// create data keys with the line definition given in params, 
 	        // if linedef is not define, take first line of file to define it
 		if ($linedef=="FIRSTLINE") 
-	        {
-	    	    $linedef = $this->new_data[0];		
+	    {
+	    	$linedef = $this->new_data[0];
+	    	$this->validFormat = claro_CSV_format_ok($linedef);		
 		    $skipFirstLine = TRUE; 
 		}
 		else
