@@ -268,7 +268,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			if( !is_null($answer_details['answer']) )
 			{
 				list($leftAnswerId,$rightAnswerId) = explode('-',$answer_details['answer']);
-				$results[$rowTitlePosition[$leftAnswerId]][$columnTitlePosition[$rightAnswerId]] = $answer_details['nbr'];
+				if( !empty($leftAnswerId) && !empty($rightAnswerId) )
+					$results[$rowTitlePosition[$leftAnswerId]][$columnTitlePosition[$rightAnswerId]] = $answer_details['nbr'];
    			}
 		}
 	}
