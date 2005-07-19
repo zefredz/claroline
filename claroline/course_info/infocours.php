@@ -23,7 +23,7 @@ $nameTools = $langCourseSettings;
 $dialogBox = '';
 
 if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed ) claro_disp_auth_form();
+if ( ! $_uid ) claro_disp_auth_form();
 
 include_once( $includePath . '/lib/auth.lib.inc.php');
 include_once( $includePath . '/lib/course.lib.inc.php');
@@ -75,41 +75,41 @@ $currentCourseRepository = $_course['path'];
 
 //if values were posted, we overwrite DB info with values previously set by user
 
-if (isset($_REQUEST['screenCode']))
+if ( isset($_REQUEST['screenCode']) )
 {
     $currentCourseCode = $_REQUEST['screenCode'];
 }
-if (isset($_REQUEST['titulary']))
+if ( isset($_REQUEST['titulary']) )
 {
     $titulary = $_REQUEST['titulary'];
 }
-if (isset($_REQUEST['email']))  
+if ( isset($_REQUEST['email']) )  
 {
     $email = $_REQUEST['email'];
 }
-if (isset($_REQUEST['int']))
+if ( isset($_REQUEST['int']) )
 {
     $int = $_REQUEST['int'];
 }
-if (isset($_REQUEST['extLinkName']))
+if ( isset($_REQUEST['extLinkName']) )
 {
     $extLinkName = $_REQUEST['extLinkName'];
 }
-if (isset($_REQUEST['extLinkUrl']))
+if ( isset($_REQUEST['extLinkUrl']) )
 {
     $extLinkUrl = $_REQUEST['extLinkUrl'];
 }
-if (isset($_REQUEST['lanCourseForm']))
+if ( isset($_REQUEST['lanCourseForm']) )
 {
     $languageCourse = $_REQUEST['lanCourseForm'];
 }
-if (isset($_REQUEST['category']))
+if ( isset($_REQUEST['category']) )
 {
     $category = $_REQUEST['category'];
 }
-if (isset($_REQUEST['visible']))
+if ( isset($_REQUEST['visible']) )
 {
-    if ($_REQUEST['visible']=="true")
+    if ( $_REQUEST['visible']=='true' )
     {    
         $thisCourse['visibility'] = TRUE;
     }
@@ -133,7 +133,7 @@ if ( isset($_REQUEST['allowedToSubscribe']) )
 // in case of admin access (from admin tool) to the script, 
 // we must determine which course we are working with
 
-if (isset($_REQUEST['cidToEdit']) && ($is_platformAdmin))
+if ( isset($_REQUEST['cidToEdit']) && ($is_platformAdmin) )
 {
     $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration); 
     // bred crump different in admin access
@@ -150,7 +150,7 @@ else
 
 $is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
-if( $is_allowedToEdit )
+if ( $is_allowedToEdit )
 {
     // check if form submitted
     if ( isset($_REQUEST['changeProperties']) )
@@ -267,23 +267,6 @@ else
     $cat_preselect = 'choose_one';
     $category_array = array_merge(array('choose_one'=>'--'),$category_array);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //////////////////////////////////////////////////////////////
 /////////////////////// OUTPUT
@@ -414,68 +397,71 @@ if (isset($cidToEdit))
 
 $toAdd='';
 
-if($showLinkToDeleteThisCourse)
-{
-    if (isset($cidToEdit))
+    if($showLinkToDeleteThisCourse)
     {
-        $toAdd ='?cidToEdit=' . $current_cid;
-        $toAdd.='&amp;cfrom=' . $cfrom;
-    }
-
-    echo '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif">'
-    .    $langDelCourse
-    .    '</a>'
-    
-    .    ' | '
-    .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'edit.gif">'
-    .    $langEditToolList 
-    .    '</a>';
-
-    if( $is_trackingEnabled )
-    {
-        echo ' | <a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="">'
-        .    $langStatistics
-        .    '</a>'
-        ;
-    }
-
-    echo ' | '
-    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
-    .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="">'
-    .    $langHome 
-    .    '</a>'
-    ;
-
-
-    if( $is_platformAdmin && isset($_REQUEST['adminContext']) )
-    {
-        echo ' | '
-        .    '<a class="claroCmd" href="../admin/index.php">' 
-        .    $langBackToAdmin 
-        .    '</a>'
-        ;
-    }
-
-    if (isset($cfrom) && ($is_platformAdmin))
-      {
-        if ($cfrom=="clist")  //in case we come from the course list in admintool
+        if (isset($cidToEdit))
         {
-           echo ' | <a class="claroCmd" href="../admin/admincourses.php'
-           .    $toAdd 
-           .    '">' . $langBackToList . '</a>'
-           ;
-           
+            $toAdd ='?cidToEdit=' . $current_cid;
+            $toAdd.='&amp;cfrom=' . $cfrom;
         }
-      }
-}
+
+        echo '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif">'
+        .    $langDelCourse
+        .    '</a>'
+    
+        .    ' | '
+        .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif">'
+        .    $langEditToolList 
+        .    '</a>';
+
+        if ( $is_trackingEnabled )
+        {
+            echo ' | <a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
+            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="">'
+            .    $langStatistics
+            .    '</a>'
+            ;
+        }
+
+        echo ' | '
+        .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="">'
+        .    $langHome 
+        .    '</a>'
+        ;
+
+
+        if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
+        {
+            echo ' | '
+            .    '<a class="claroCmd" href="../admin/index.php">' 
+            .    $langBackToAdmin 
+            .    '</a>'
+            ;
+        }
+
+        if ( isset($cfrom) && ($is_platformAdmin) )
+        {
+            if ($cfrom=="clist")  //in case we come from the course list in admintool
+            {
+               echo ' | <a class="claroCmd" href="../admin/admincourses.php'
+               .    $toAdd 
+               .    '">' . $langBackToList . '</a>'
+               ;           
+            }
+        }
+    }
+    include( $includePath . '/claro_init_footer.inc.php');
 }   // if uid==prof_id
 ####################STUDENT VIEW ##################################
 else
-{
-    echo $langNotAllowed;
-}   // else
-include( $includePath . '/claro_init_footer.inc.php');
+{ 
+    // you are not allowed to edit
+    include( $includePath . '/claro_init_header.inc.php');
+    echo claro_disp_message_box($langNotAllowed);
+    include( $includePath . '/claro_init_footer.inc.php');
+}
+
 ?>
