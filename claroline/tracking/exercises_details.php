@@ -30,6 +30,7 @@ $tbl_user            = $tbl_mdb_names['user'             ];
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_quiz_test      	= $tbl_cdb_names['quiz_test'              ];
 $tbl_quiz_question      = $tbl_cdb_names['quiz_question'          ];
+$tbl_quiz_answer		= $tbl_cdb_names['quiz_answer'			  ];
 $tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
 $tbl_track_e_exercices 	= $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
@@ -55,6 +56,23 @@ else
 	
 $nameTools = $langStatsOfExercise;
 
+// get the tracking of a question as a csv file
+if( $is_allowedToTrack && $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
+{
+	include($includePath.'/lib/export_exe_tracking.class.php');
+
+	// contruction of XML flow
+	$csv = export_exercise_tracking($_REQUEST['exo_id']);
+
+	if (!empty($csv))
+	{
+		header("Content-type: application/csv");
+		header('Content-Disposition: attachment; filename="exercise_'. $_REQUEST['exo_id'] . '.csv"');
+		echo $csv;
+		exit;
+	}
+}
+
 include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
@@ -63,21 +81,20 @@ echo claro_disp_tool_title($titleTab);
 
 if($is_allowedToTrack && $is_trackingEnabled) 
 {
-
-  // get global infos about scores in the exercise
-  $sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`, 
-                MAX(TEX.`exe_result`) AS `maximum`, 
-                AVG(TEX.`exe_result`) AS `average`,
-                MAX(TEX.`exe_weighting`) AS `weighting` ,
-                COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
-                COUNT(TEX.`exe_user_id`) AS `tusers`,
+	// get global infos about scores in the exercise
+	$sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`,
+	            MAX(TEX.`exe_result`) AS `maximum`,
+	            AVG(TEX.`exe_result`) AS `average`,
+	            MAX(TEX.`exe_weighting`) AS `weighting` ,
+	            COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
+	            COUNT(TEX.`exe_user_id`) AS `tusers`,
 				AVG(`TEX`.`exe_time`) AS `avgTime`
-        FROM `".$tbl_track_e_exercices."` AS TEX
-        WHERE TEX.`exe_exo_id` = ".$exercise->selectId()."
-                AND TEX.`exe_user_id` IS NOT NULL";
-  
-  $result = claro_sql_query($sql);
-  $exo_scores_details = mysql_fetch_array($result);
+	    FROM `".$tbl_track_e_exercices."` AS TEX
+	    WHERE TEX.`exe_exo_id` = ".$exercise->selectId()."
+	            AND TEX.`exe_user_id` IS NOT NULL";
+
+	$result = claro_sql_query($sql);
+	$exo_scores_details = mysql_fetch_array($result);
 
 
 	if ( ! isset($exo_scores_details['minimum']) )
@@ -106,6 +123,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	.'<ul>'."\n"
 	.'<li>'.$langExerciseUsersAttempts.' : '.$exo_scores_details['users'].'</li>'."\n"
 	.'<li>'.$langExerciseTotalAttempts.' : '.$exo_scores_details['tusers'].'</li>'."\n"
+	.'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exo_id='.$_REQUEST['exo_id'].'"><img src="'.$clarolineRepositoryWeb.'img/tracking_export.gif" border="0" alt="'.htmlentities($langTracking).'"></a></li>'."\n"
 	.'</ul>'."\n\n";
 
 	//-- display details : USERS VIEW
