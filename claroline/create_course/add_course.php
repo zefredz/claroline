@@ -51,7 +51,7 @@ define('DISP_READONLY_FS',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $is_allowedCreateCourse ) echo claro_disp_auth_form();
+if ( ! $is_allowedCreateCourse ) claro_disp_auth_form();
 
 claro_unquote_gpc();
 
