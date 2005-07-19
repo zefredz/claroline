@@ -189,13 +189,13 @@ if($is_allowedToEdit)
 				case 'enable':  // enables an exercise
 								$objExerciseTmp->enable();
 								$objExerciseTmp->save();
-                                                                $eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
+								$eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
 
 								break;
 				case 'disable': // disables an exercise
 								$objExerciseTmp->disable();
 								$objExerciseTmp->save();
-                                                                $eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
+								$eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $objExerciseTmp->selectId(), $_gid, "0");
 
 								break;
 			}
@@ -383,7 +383,7 @@ foreach( $exercisesList as $exercise )
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
      
    <?php
     }
