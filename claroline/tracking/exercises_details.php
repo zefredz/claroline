@@ -123,6 +123,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	.'<ul>'."\n"
 	.'<li>'.$langExerciseUsersAttempts.' : '.$exo_scores_details['users'].'</li>'."\n"
 	.'<li>'.$langExerciseTotalAttempts.' : '.$exo_scores_details['tusers'].'</li>'."\n"
+	.'</ul>'."\n\n";
+	
+	echo '<ul>'."\n"
 	.'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exo_id='.$_REQUEST['exo_id'].'">'.$langExportTrackingCsv.'</a></li>'."\n"
 	.'</ul>'."\n\n";
 
