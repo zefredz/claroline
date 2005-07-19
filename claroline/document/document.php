@@ -1726,7 +1726,7 @@ echo claro_disp_tool_title($titleElement,
                 $dspFileName = htmlspecialchars( basename($fileName) );
                 $cmdFileName = rawurlencode($fileName);
     
-                if ($fileList['visibility'][$fileKey] == 'i')
+                if (isset($fileList['visibility']) && $fileList['visibility'][$fileKey] == 'i')
                 {
                     if ($is_allowedToEdit)
                     {
@@ -1868,7 +1868,7 @@ echo claro_disp_tool_title($titleElement,
                 
                 /* COMMENTS */
                 
-                if ($fileList['comment'][$fileKey] != '' )
+                if (isset($fileList['comment']) && $fileList['comment'][$fileKey] != '' )
                 {
                     $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
                     $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
