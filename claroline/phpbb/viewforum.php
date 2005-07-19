@@ -43,36 +43,16 @@ event_access_tool($_tid, $_courseTool['label']);
   Library
  -----------------------------------------------------------------*/
 
-include $includePath . '/lib/forum.lib.php';
 require $includePath . '/lib/pager.lib.php';
-
-/*-----------------------------------------------------------------
-  DB table names
- -----------------------------------------------------------------*/
-
-$tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_course_user = $tbl_mdb_names['rel_course_user'];
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-
-$tbl_forums           = $tbl_cdb_names['bb_forums'];
-$tbl_topics           = $tbl_cdb_names['bb_topics'];
-
-$tbl_posts            = $tbl_cdb_names['bb_posts'];
-$tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
-
-$tbl_group_properties = $tbl_cdb_names['group_property'];
-$tbl_student_group	  = $tbl_cdb_names['group_team'];
-$tbl_user_group       = $tbl_cdb_names['group_rel_team_user'];
-$tbl_group_properties = $tbl_cdb_names['group_property'];
+include $includePath . '/lib/forum.lib.php';
 
 /*-----------------------------------------------------------------
   Initialise variables
  -----------------------------------------------------------------*/
 
-$last_visit = $_user['lastLogin'];
-$error = FALSE;
-$allowed = TRUE;
+$last_visit    = $_user['lastLogin'];
+$error         = false;
+$forumAllowed  = true;
 $error_message = '';
 
 /*=================================================================
@@ -92,58 +72,35 @@ $forumSettingList = get_forum_settings($forum_id);
 
 if ( $forumSettingList )
 {
-    $forum_name   =$forumSettingList['forum_name'];
-    $forum_cat_id = $forumSettingList['cat_id'];
-    
+    $forum_name   = $forumSettingList['forum_name'];
+    $forum_cat_id = $forumSettingList['cat_id'    ];
+
     /* 
      * Check if the forum isn't attached to a group,  or -- if it is attached --, 
      * check the user is allowed to see the current group forum.
      */
-    
+
     if (   ! is_null($forumSettingList['idGroup']) 
         && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
     {
         // user are not allowed to see topics of this group
-        $allowed       = false;
+        $forumAllowed       = false;
         $error_message = $langNotAllowed;
-    } 
+    }
 
-    if ( $allowed )
+    if ( $forumAllowed )
     {  
         // Get topics list
 
         $topicLister = new topicLister($forum_id, $start, $topics_per_page);
         $topicList   = $topicLister->get_topic_list();
-
         $pagerUrl = 'viewforum.php?forum=' . $forum_id . '&gidReq='.$_gid;
-
-        /*================================================
-          RELATE TO GROUP DOCUMENT AND SPACE FOR CLAROLINE
-          ================================================*/
-    
-        // Check which group and which forum user is a member of
-    
-        $sqlFindTeamUser = "SELECT team, forumId, tutor, secretDirectory
-                         FROM  `".$tbl_student_group."` s, `".$tbl_user_group."` u
-                         WHERE u.user=\"".$_uid."\"
-                         AND   s.id = u.team";
-
-        $findTeamUser = claro_sql_query($sqlFindTeamUser);
-
-        $myTeam = $myGroupForum = $myTutor = $secretDirectory = '';
-    
-        while ($myTeamUser = mysql_fetch_array($findTeamUser))
-        {
-    	    $myTeam          = $myTeamUser['team'   ];
-        	$myGroupForum    = $myTeamUser['forumId'];
-    	    $myTutor         = $myTeamUser['tutor'  ];
-        }
     }
 }
 else
 {
     // No forum
-    $allowed       = false;
+    $forumAllowed  = false;
     $error_message = $langNotAllowed;
 }
 
@@ -153,7 +110,7 @@ else
 
 include $includePath . '/claro_init_header.inc.php';
 
-if ( !$allowed )
+if ( ! $forumAllowed )
 {
     echo claro_disp_message_box($error_message);
 }
@@ -179,14 +136,9 @@ else
     // Show Group Documents and Group Space
     // only if in Category 2 = Group Forums Category
     
-    if ( $forum_cat_id == 1 && $forum_id == $myGroupForum )
-    {
-        // group space links
-        disp_forum_group_toolbar($_gid);
-    }
-    
+    if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) ) disp_forum_group_toolbar($_gid);
+
     disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
-    
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
     
     $topicLister->disp_pager_tool_bar($pagerUrl);
