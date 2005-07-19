@@ -907,10 +907,10 @@ function claro_disp_auth_form()
             $lang_footer_p_CourseManager,  $lang_p_platformManager, $administrator_name,
             $langPoweredBy, $claro_banner, $text_dir, $allowSelfReg;
 
-    include($includePath . '/claro_init_header.inc.php');
-
     if ( ! $is_courseAllowed )
     {
+        include($includePath . '/claro_init_header.inc.php');
+
         if( ! $_uid && ! $_course['visibility'])
         {
             echo '<p align="center>">'
@@ -987,7 +987,6 @@ function claro_disp_auth_form()
                 ;
 
         } // elseif $_uid && $_course['registrationAllowed']
-
         else
         {
             echo '<p>' . $langNotAllowed . '</p>';
