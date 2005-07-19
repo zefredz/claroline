@@ -287,7 +287,7 @@ echo '</ul>' . "\n"
 
 ?>
 <div align="center">
-<a href="claroline/calendar/myagenda.php"><?php echo $langSeeAgenda ?></a>
+<a href="claroline/calendar/myagenda.php"><?php echo $langMyAgenda ?></a>
 </div>
 
 <hr noshade size="1">
