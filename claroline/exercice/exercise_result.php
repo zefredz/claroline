@@ -411,24 +411,27 @@ echo claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 				// for matching
 				case MATCHING :         // in matching when $answerCorrect is true ( != 0 )
 										// it means that the answer is a LEFT column proposal
-										if($answerCorrect)
+          								if($answerCorrect)
 										{
-											if( isset($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
+											if( !empty($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
 											{
+												// answer is correct
             									// add answer in the value used for question tracking
             						            $valueToTrack[] = $answerId.'-'.$choice[$answerId];
 												$questionScore += $answerWeighting;
 												$totalScore += $answerWeighting;
 												$choice[$answerId] = $matching[$choice[$answerId]];
             								}
-											elseif(!isset($choice[$answerId]))
+											elseif(empty($choice[$answerId]))
 											{
+												// no answer given
 												$choice[$answerId] = '&nbsp;&nbsp;&nbsp;';
 												// add answer in the value used for question tracking
 												$valueToTrack[] = $answerId.'-';
 											}
-											elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
+											elseif( !empty($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
 											{
+												// answer is incorrect
                                                 // add answer in the value used for question tracking
                                                 $valueToTrack[] = $answerId.'-'.$choice[$answerId];
 												$choice[$answerId] = "<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
