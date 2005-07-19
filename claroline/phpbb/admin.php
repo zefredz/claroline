@@ -93,16 +93,19 @@ if ( $cmd == 'rqMkForum' )
     	$catSelectBox = '';
     }
 
+    $reqForumName = isset($_REQUEST['forumName']) ? $_REQUEST['forumName'] : '';
+    $reqForumDesc = isset($_REQUEST['forumDesc']) ? $_REQUEST['forumDesc'] : '';
+
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum">'
                .'<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
                .'<label for="forumName">'.$langName.': </label><br />'
                .'<input type="text" name="forumName" id="forumName"'
-               .' value="'.$_REQUEST['forumName'].'"><br />'
+               .' value="'.$reqForumName.'"><br />'
                .'<label for="forumDesc">' . $langDescription . ' : </label><br />'
                .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'
-               .$_REQUEST['forumDesc']
+               .$reqForumDesc
                .'</textarea><br />'
                .$catSelectBox
                .'<br />'
