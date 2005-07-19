@@ -83,12 +83,15 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 <ul>
 <li>
 <form name="searchUser" action="adminusers.php" method="GET" >
-<label for="search_user"><?php echo $langSearchUser?></label> 
+<label for="search_user"><?php echo $langUser?></label> 
 : 
 <input name="search" id="search_user"> 
-<input type="submit" value=" Ok ">
+<input type="submit" value="<?php echo $langSearch?>">
 &nbsp;&nbsp;[<a class="claroCmd" href="advancedUserSearch.php"><?php echo $langAdvanced?></a>]
 </form>
+<li>
+<a href="adminusers.php"><?php echo $langListUsers?></a>
+</li>
 </li>
 <li>
 <a href="adminaddnewuser.php"><?php echo $langCreateUser?></a>
@@ -105,9 +108,12 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 <ul>
 <li>
 <form name="searchCourse" action="admincourses.php" method="GET" >
-<label for="search_course"><?php echo $langSearchCourse?></label> : <input name="search" id="search_course"> <input type="submit" value=" Ok ">
+<label for="search_course"><?php echo $langCourse?></label> : <input name="search" id="search_course"> <input type="submit" value="<?php echo $langSearch?>">
 &nbsp; &nbsp;[<a class="claroCmd" href="advancedCourseSearch.php"><?php echo $langAdvanced?></a>]
 </form>
+</li>
+<li>
+<a href="admincourses.php"><?php echo $langCourseList?></a>
 </li>
 <li>
 <a href="../create_course/add_course.php?fromAdmin=yes"><?php echo $langCreateCourse?></a><br>
@@ -172,6 +178,8 @@ if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
     <li><a href="technical/"><?php echo $langTechnical ?></a></li>
 <?php
 }
-
+?>
+</ul>
+<?php
 include($includePath.'/claro_init_footer.inc.php');
 ?>
