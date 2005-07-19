@@ -119,7 +119,7 @@ disp_forum_toolbar($pagetype, 0, 0, 0);
 
 echo '<table width="100%" class="claroTable emphaseLine">' . "\n";
 
-$colspan = $is_allowedToEdit ? 8 : 4;
+$colspan = $is_allowedToEdit ? 9 : 4;
 
 $categoryIterator = 0;
 
@@ -185,7 +185,7 @@ foreach ( $categories as $this_category )
             echo '<th>Edit</th>'
             .    '<th>Empty</th>'
             .    '<th>Delete</th>'
-            .    '<th>Move</th>'
+            .    '<th colspan="2">Move</th>'
             ;
         }
     }
@@ -283,32 +283,41 @@ foreach ( $categories as $this_category )
             
             if( $is_allowedToEdit)
             {
-                echo '<td>'
+                echo '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="edit">'
                 .    '</a>'
                 .    '</td>'
-                .    '<td>'
+                .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="Empty">'
                 .    '</a>'
                 .    '</td>'
-                .    '<td>'
+                .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'">'
                 .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="delete">'
                 .    '</a>'
-                .    '</td>'
-                .    '<td>';
+                .    '</td>';
                 
-                if ($forumIterator > 1)
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="delete">'
-                .    '</a>';
+                echo '<td align="center">';
                 
+                if ($forumIterator > 1) 
+                {
+                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
+                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="delete">'
+                    .    '</a>';
+                }
+                             
+                echo '</td>';
+                
+                echo '<td align="center">';   
+                           
                 if ( $forumIterator < $this_category['forum_count'] )
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="delete">'
-                .    '</a>';
+                {
+                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
+                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="delete">'
+                    .    '</a>';
+                }
                 
                 echo   '</td>';
             }
