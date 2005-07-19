@@ -860,6 +860,7 @@ $langExplainDeleteFile = "Cochez cette case pour effacer le fichier attaché.";
 $langExplainReplaceFile = "Envoyez un nouveau fichier pour remplacer le fichier actuel";
 $langExplanation = "Une fois que vous aurez cliqué sur OK, un site contenant Forum, Liste de liens, Exercices, Agenda, Liste de documents... sera créé. Grâce à votre identifiant, vous pourrez en modifier le contenu";
 $langExport = "Exporter";
+$langExportTrackingCsv = "Exporter en CSV";
 $langExternalToolName = "Nom du  lien";
 $langExternalToolUrl = "URL du lien";
 $langExtractFromLangFile = "Extraire des fichiers de traductions";

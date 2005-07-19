@@ -820,6 +820,7 @@ $langExplainDeleteFile = "Check this box to delete the attached file.";
 $langExplainReplaceFile = "Upload a new file to replace the file.";
 $langExplanation = "Once you click OK, a site with Forum, Agenda, Document manager etc. will be created. Your login, as creator of the site, allows you to modify it along your own requirements.";
 $langExport = "Export";
+$langExportTrackingCsv = "Get tracking data in a CSV file";
 $langExternalToolName = "Name link";
 $langExternalToolUrl = "URL link";
 $langExtractFromLangFile = "From language files";
