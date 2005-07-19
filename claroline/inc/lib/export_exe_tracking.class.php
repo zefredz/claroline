@@ -34,13 +34,14 @@ if(!defined('TRUEFALSE')) 		define('TRUEFALSE',	 	  5);
 
 class csvTrackSingle extends csv
 {
-    var $exercise;
 	var $question;
+	var $exerciseId;
 
-	function csvTrackSingle($question)
+	function csvTrackSingle($objQuestion, $exerciseId = '')
 	{
    		parent::csv(); // call constructor of parent class
-		$this->question = $question;
+		$this->question = $objQuestion;
+		$this->exerciseId = $exerciseId;
   	}
 	// build : date;username;statement;answer
    	function buildRecords()
@@ -56,7 +57,7 @@ class csvTrackSingle extends csv
 		$tbl_track_e_exe_details	= $tbl_cdb_names['track_e_exe_details'	];
 		$tbl_track_e_exe_answers	= $tbl_cdb_names['track_e_exe_answers'	];
 		
-		// this query doesn't show attempts without any answer
+  		// this query doesn't show attempts without any answer
 		$sql = "SELECT `TE`.`exe_date`,
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
@@ -76,8 +77,11 @@ class csvTrackSingle extends csv
 					AND `U`.`user_id` = `TE`.`exe_user_id`
 					AND `TEA`.`answer` = `A`.`id`
 					AND `TED`.`question_id` = `Q`.`id`
-					AND `Q`.`id` = ".$this->question->selectId()."
-				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+					AND `Q`.`id` = ".$this->question->selectId();
+					
+        if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
+        
+		$sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 				
   		if( $this->recordList = claro_sql_query_fetch_all($sql) )
 			return true;
@@ -88,14 +92,14 @@ class csvTrackSingle extends csv
 
 class csvTrackMulti extends csv
 {
-    var $exercise;
 	var $question;
+	var $exerciseId;
 
-	function csvTrackMulti($question)
+	function csvTrackMulti($objQuestion, $exerciseId)
 	{
         parent::csv(); // call constructor of parent class
-		$this->question = $question;
-		$this->answer = new Answer($this->question->selectId());
+		$this->question = $objQuestion;
+    	$this->exerciseId = $exerciseId;
 	}
 
 	// build : date,username,statement,answer
@@ -133,8 +137,11 @@ class csvTrackMulti extends csv
 					AND `U`.`user_id` = `TE`.`exe_user_id`
 					AND `TEA`.`answer` = `A`.`id`
 					AND `TED`.`question_id` = `Q`.`id`
-					AND `Q`.`id` = ".$this->question->selectId()."
-				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+					AND `Q`.`id` = ".$this->question->selectId();
+
+        if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
+
+		$sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
 		// we need to compile all answers of one attempt on the same line
 		$tmpRecordList = claro_sql_query_fetch_all($sql);
@@ -172,13 +179,14 @@ class csvTrackMulti extends csv
 
 class csvTrackFIB extends csv
 {
-    var $exercise;
 	var $question;
+	var $exerciseId;
 
-	function csvTrackFIB($question)
+	function csvTrackFIB($objQuestion, $exerciseId)
 	{
         parent::csv(); // call constructor of parent class
-		$this->question = $question;
+		$this->question = $objQuestion;
+		$this->exerciseId = $exerciseId;
   	}
 
    	// create record list
@@ -214,8 +222,11 @@ class csvTrackFIB extends csv
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
 					AND `TED`.`question_id` = `Q`.`id`
-					AND `Q`.`id` = ".$this->question->selectId()."
-				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+					AND `Q`.`id` = ".$this->question->selectId();
+
+        if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
+
+		$sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
 		// we need to compile all answers of one attempt on the same line
 		$tmpRecordList = claro_sql_query_fetch_all($sql);
@@ -253,13 +264,14 @@ class csvTrackFIB extends csv
 
 class csvTrackMatching extends csv
 {
-    var $exercise;
 	var $question;
+	var $exerciseId;
 
-	function csvTrackMatching($question)
+	function csvTrackMatching($objQuestion, $exerciseId)
 	{
         parent::csv(); // call constructor of parent class
-		$this->question = $question;
+		$this->question = $objQuestion;
+		$this->exerciseId = $exerciseId;
 	}
 
    	// create record list
@@ -293,8 +305,11 @@ class csvTrackMatching extends csv
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
 					AND `TED`.`question_id` = `Q`.`id`
-					AND `Q`.`id` = ".$this->question->selectId()."
-				ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+					AND `Q`.`id` = ".$this->question->selectId();
+
+        if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
+
+		$sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
 		// we need to compile all answers of one attempt on the same line
 		$tmpRecordList = claro_sql_query_fetch_all($sql);
@@ -331,7 +346,7 @@ class csvTrackMatching extends csv
 	}
 }
 
-function export_question_tracking($questionId)
+function export_question_tracking($questionId, $exerciseId = '')
 {
 	$objQuestion = new Question();
 	if( !$objQuestion->read($questionId) )
@@ -343,16 +358,16 @@ function export_question_tracking($questionId)
     {
   		case TRUEFALSE: // do the same as unique answer
         case UNIQUE_ANSWER:
-            $cvsTrack = new csvTrackSingle($objQuestion);
+            $cvsTrack = new csvTrackSingle($objQuestion, $exerciseId);
             break;
         case MULTIPLE_ANSWER:
-            $cvsTrack = new csvTrackMulti($objQuestion);
+            $cvsTrack = new csvTrackMulti($objQuestion, $exerciseId);
             break;
         case FILL_IN_BLANKS:
-            $cvsTrack = new csvTrackFIB($objQuestion);
+            $cvsTrack = new csvTrackFIB($objQuestion, $exerciseId);
             break;
         case MATCHING:
-            $cvsTrack = new csvTrackMatching($objQuestion);
+            $cvsTrack = new csvTrackMatching($objQuestion, $exerciseId);
             break;
         /*default:
             break;*/
@@ -382,7 +397,7 @@ function export_exercise_tracking($exerciseId)
 	$exerciseCsv = '';
 	foreach( $questionList as $questionId )
     {
-        $exerciseCsv .= export_question_tracking($questionId);
+        $exerciseCsv .= export_question_tracking($questionId, $exerciseId);
     }
 
 	return $exerciseCsv;
