@@ -172,7 +172,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
 	    
             if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && ($_SESSION['admin_visible_class'][$cur_class['id']]=="open"))
             {
-	            display_tree_admin($class_list, $cur_class['id'], $deep+1);
+	            display_tree_class_in_admin($class_list, $cur_class['id'], $deep+1);
             }	    
 	    }
     }    
@@ -282,7 +282,7 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
 	    
 	    if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open"))
 	    {
-	        display_tree_user($class_list, $cur_class['id'], $deep+1);
+	        display_tree_class_in_user($class_list, $cur_class['id'], $deep+1);
 	    }	    
 	}
     }    
