@@ -314,6 +314,24 @@ class csvTrackMatching extends csv
 		// we need to compile all answers of one attempt on the same line
 		$tmpRecordList = claro_sql_query_fetch_all($sql);
 
+		// get the list of right propositions (letters)
+		// we need id and order to get the correct letters
+		$objAnswer = new Answer($this->question->selectId());
+		$nbrAnswers = $objAnswer->selectNbrAnswers();
+		$letter = 'A';
+		for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
+		{
+			$answer = $objAnswer->selectAnswer($answerId);
+			$answerCorrect = $objAnswer->isCorrect($answerId);
+
+			if(!$answerCorrect)
+			{
+				// so we can associate id of answer in tracking with letter in question display
+				$rightAnswer[$answerId] = $letter;
+				$letter++;
+			}
+		}
+		
 		$previousKey = '';
 		foreach( $tmpRecordList as $tmpRecord )
 		{
@@ -328,7 +346,12 @@ class csvTrackMatching extends csv
 				$recordList[$key]['question'] = $tmpRecord['question'];
 			}
 			// add answer one by one
-			$recordList[$key][] = $tmpRecord['answer'];
+   			$splittedAnswer = explode('-',$tmpRecord['answer']);
+
+			if( isset($rightAnswer[$splittedAnswer[1]]) )
+				$recordList[$key][] = $rightAnswer[$splittedAnswer[1]];
+			else
+			    $recordList[$key][] = '';
 
 			$previousKey = $key;
 		}
