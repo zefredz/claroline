@@ -27,14 +27,6 @@ require '../../inc/claro_init_global.inc.php';
 if (!$is_platformAdmin) claro_disp_auth_form();
 
 // lang variables
-$langScriptMissing = 'Script missing';
-$langScriptMissingComment = 'You must install these scripts to run correctly claroline';
-$langScriptNotInArchive = 'Script not in claroline';
-$langScriptNotInArchiveComment = 'You can delete these scripts from you server';
-$langNoScript = 'No scripts';
-$langMaintenance = 'Maintenance'; 
-$langFileStructureChecker = 'File structure checker';
-
 $urlMaintenance = $rootAdminWeb . 'maintenance/';
 
 // Include version file
