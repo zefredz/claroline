@@ -241,11 +241,11 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<label for="toolName">' . $langExternalToolName . '</label><br />' . "\n"
-    .       '<input type="text" name="toolName" name="toolName" value="' . $toolName . '"><br />' . "\n"
+    .       '<input type="text" name="toolName" id="toolName" value="' . $toolName . '"><br />' . "\n"
     .       '<label for="toolUrl">' . $langExternalToolUrl . '</label><br />' . "\n"
-    .       '<input type="text" name="toolUrl" name="toolUrl" value="' . $toolUrl . '"><br />' . "\n"
+    .       '<input type="text" name="toolUrl" id="toolUrl" value="' . $toolUrl . '"><br /><br />' . "\n"
     .       '<input class="claroButton" type="submit" value="' . $langOk . '">&nbsp;' . "\n"
-    .       '<a class="claroButton" href="' . $_SERVER['PHP_SELF'] . '">' . $langCancel . '</a>' . "\n"
+    .       claro_disp_button($_SERVER['PHP_SELF'], $langCancel). "\n"
     .       '</form>' . "\n"
     ;
 }
