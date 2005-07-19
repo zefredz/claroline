@@ -225,8 +225,8 @@ foreach ( $categories as $this_category )
 
             if ( $this_category['cat_id'] == 1 )
             {
-                if (   (is_array($userGroupList) && in_array($group_id, $userGroupList ) )
-                    || (is_array($tutorGroupList) &&in_array($group_id, $tutorGroupList) )
+                if (   (isset($userGroupList) && is_array($userGroupList) && in_array($group_id, $userGroupList ) )
+                    || (isset($tutorGroupList) && is_array($tutorGroupList) &&in_array($group_id, $tutorGroupList) )
                     || $is_forumAdmin
                     || ( isset($is_groupPrivate) && ! $is_groupPrivate)
                    )
