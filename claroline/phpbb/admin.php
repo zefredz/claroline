@@ -1,5 +1,26 @@
 <?php # -$Id$
 
+// Confirm javascript code
+
+$htmlHeadXtra[] =
+          "<script>
+           function confirm_delete(name)
+           {
+               if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . "' + name + ' ?'))
+               {return true;}
+               else
+               {return false;}
+           }
+
+           function confirm_empty(name)
+           {
+               if (confirm('". clean_str_for_javascript('Delete all messages of ') . "' + name + ' ?'))
+               {return true;}
+               else
+               {return false;}
+           }
+           </script>";
+
 if( (bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__) ) ) die();
 if( ! $is_allowedToEdit) die();
 
