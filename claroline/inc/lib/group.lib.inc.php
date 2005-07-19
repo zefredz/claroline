@@ -143,7 +143,7 @@ function delete_groups($groupIdList = 'ALL')
         // define repository for deleted element
 
         $groupGarbage = $garbageRepositorySys . '/' . $currentCourseRepository . '/group/';
-        if ( ! file_exists($groupGarbage) ) claro_mkdir($groupGarbage, 0777);
+        if ( ! file_exists($groupGarbage) ) claro_mkdir($groupGarbage, 0777, true);
 
         foreach ( $groupList['directory'] as $thisDirectory )
         {
