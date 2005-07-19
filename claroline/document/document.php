@@ -513,14 +513,19 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                      ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".$langURL."</label><br />\n"
                      ."<input type=\"text\" id=\"url\" name=\"url\" value=\"\">\n"
-                     ."<br><br>\n"
-                     ."<label for=\"comment\">\n"
-                     ."Add a comment (optionnal) :\n"
-                     ."</label>\n"
-                     ."<br>\n"
-                     ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
-                     ."<br>\n"
-                     ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                     ."<br><br>\n";
+
+        if ($courseContext)
+        {
+        	$dialogBox .= "<label for=\"comment\">\n"
+                        ."Add a comment (optionnal) :\n"
+                        ."</label>\n"
+                        ."<br>\n"
+                        ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
+                        ."<br>\n";
+        }
+
+        $dialogBox .= "<input type=\"submit\" value=\"".$langOk."\">\n"
                      ."</form>\n";
 
     }
