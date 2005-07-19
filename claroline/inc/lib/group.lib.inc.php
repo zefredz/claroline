@@ -288,7 +288,7 @@ function fill_in_groups($course_id = NULL)
     $prepareQuery = array();
 
     while    (   is_array($groupAvailPlace) && !empty($groupAvailPlace)
-             && is_array($userToken      ) && !empty($userToken      ) )
+              && !empty($userToken) && is_array($userToken))
     {
 
         /*
