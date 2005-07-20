@@ -23,13 +23,13 @@
  if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 $stable = FALSE;
-$clarolinePhase = 'alpha';
+$clarolinePhase = 'beta';
 $is_upgrade_available = FALSE;
 
 // var version_db  max. 10 chars
 
-$version_file_cvs = '1.7.alpha';
-$version_db_cvs   = '1.7.alpha';
+$version_file_cvs = '1.7.beta';
+$version_db_cvs   = '1.7.beta';
 
 if (!$is_upgrade_available)
 {
