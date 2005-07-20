@@ -443,6 +443,9 @@ switch ($display)
 
 }
 
+include( $includePath . '/claro_init_footer.inc.php');
+
+/* ...functions... */
 function field_rand($arr)
 {
     $rand_keys = array_rand ($arr);
