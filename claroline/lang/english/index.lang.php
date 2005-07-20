@@ -49,7 +49,6 @@ $langPoweredBy = "Powered by";
 $langPreviousLevel = "previous level";
 $langReg = "Registration";
 $langSecondShort = "sec.";
-$langSeeAgenda = "See my calendar";
 $langStudent = "Student";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "Disable text editor";

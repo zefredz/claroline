@@ -50,7 +50,6 @@ $langPoweredBy = "Utilise la plate-forme";
 $langPreviousLevel = "catégorie supérieure";
 $langReg = "Inscription";
 $langSecondShort = "sec.";
-$langSeeAgenda = "Voir mon agenda";
 $langStudent = "Etudiant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";

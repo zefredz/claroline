@@ -45,6 +45,7 @@ $langAddIntro = "Ajouter un texte d'introduction";
 $langAdm = "Administrer";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
+$langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langBackTo = "Retourner dans : ";
 $langCancel = "Annuler";
 $langCategory = "Catégorie";

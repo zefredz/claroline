@@ -69,6 +69,7 @@ $langExercisesDetails = "Scores of exercises done";
 $langExercisesResults = "Results of the exercises done";
 $langExercisesTitleExerciseColumn = "Exercise";
 $langExpectedChoice = "Expected choice";
+$langExportTrackingCsv = "Get tracking data in a CSV file";
 $langFirstName = "First Name";
 $langForums = "Forums";
 $langFrom = "From";

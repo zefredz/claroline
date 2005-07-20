@@ -1617,7 +1617,6 @@ $langSearchResult = "Résultat de recherche";
 $langSearchUser = "Rechercher un utilisateur";
 $langSearchUserAdvanced = "Recherche avancée d'un utilisateur";
 $langSecondShort = "sec.";
-$langSeeAgenda = "Voir mon agenda";
 $langSeeUserSettings = "Voir les paramètres de l'utilisateur";
 $langSeebelowthefilesyoucaneditfromthistool = "Ci-dessous la liste des fichiers éditables.";
 $langSeen = "Vu";

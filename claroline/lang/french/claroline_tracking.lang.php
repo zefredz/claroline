@@ -69,6 +69,7 @@ $langExercisesDetails = "Résultats des exercices effectués";
 $langExercisesResults = "Résultats des exercices effectués";
 $langExercisesTitleExerciseColumn = "Exercice";
 $langExpectedChoice = "Choix attendu";
+$langExportTrackingCsv = "Exporter en CSV";
 $langFirstName = "Prénom";
 $langForums = "Forums";
 $langFrom = "Du";

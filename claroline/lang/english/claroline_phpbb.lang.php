@@ -38,6 +38,7 @@ $langAddIntro = "Add introduction text";
 $langAdm = "Forum administration";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
+$langAreYouSureToDelete = "Are you sure to delete";
 $langBackTo = "Back to :";
 $langCancel = "Cancel";
 $langCategory = "Category";
