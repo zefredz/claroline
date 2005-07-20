@@ -2099,4 +2099,5 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Votre inscription au cou
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
+$langNewLegend = "Nouveautés";
 ?>

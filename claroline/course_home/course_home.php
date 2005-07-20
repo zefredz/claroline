@@ -187,6 +187,8 @@ if ($disp_edit_command)
     ;
 }
 
+echo "<br><small>( <span class=\"item hot\"> : ".$langNewLegend."</span> )</small>";
+
 ?>
 </td>
 <td width="20">

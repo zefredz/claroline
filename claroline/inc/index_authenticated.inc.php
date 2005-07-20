@@ -229,11 +229,17 @@ foreach($personnalCourseList as $thisCourse)
 
 } // end foreach($personnalCourseList as $thisCourse)
 
-echo '</ul>' . "\n"
+echo '</ul>' . "\n";
 
-.    '</td>' . "\n"
+//display legend
 
-.    '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
+echo "<br><small>( <span class=\"item hot\"> : ".$langNewLegend."</span> )</small>";
+echo '</td>' . "\n";
+
+
+//display right menu
+
+echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
 
     $title = '';
 
