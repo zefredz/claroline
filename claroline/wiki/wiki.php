@@ -523,6 +523,7 @@
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.$langTitle.'</th>' . "\n"
+                    . '<th>'.$langWikiMainPage.'</th>' . "\n"
                     . '<th>'.$langWikiEditProperties.'</th>' . "\n"
                     . '<th>'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
@@ -559,6 +560,18 @@
                         . '">'
                         . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
                         . $entry['title'] . '</a>'
+                        ;
+                    echo '</td>' . "\n";
+                    
+                    echo '<td style="text-align: center;">';
+                    
+                    // display direct link to main page
+                    
+                    echo '<a href="page.php?wikiId='
+                        . $entry['id'].'&amp;action=show'
+                        . '">'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWikiMainPage.'" />'
+                        . '</a>'
                         ;
                     echo '</td>' . "\n";
                     
