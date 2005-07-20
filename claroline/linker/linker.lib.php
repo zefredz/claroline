@@ -383,20 +383,49 @@
         
         if ( isset( $_REQUEST['servAdd'] ) )
         {
-            $_SESSION['servAdd'] = array_map( 'urldecode', $_REQUEST['servAdd'] );
+            $tmpServAdd = array_map( 'urldecode', $_REQUEST['servAdd'] );
+            $tmpServAdd = ( is_array( $tmpServAdd ) ) ? $tmpServAdd : array();
         }
         elseif ( ! isset( $_SESSION['servAdd'] ) )
         {
-            $_SESSION['servAdd'] = array();
+            $tmpServAdd = array();
         }
         
         if ( isset( $_REQUEST['servDel'] ) )
         {
-            $_SESSION['servDel'] = array_map( 'urldecode', $_REQUEST['servDel'] );
+            $tmpServDel = array_map( 'urldecode', $_REQUEST['servDel'] );
+            $tmpServDel = ( is_array( $tmpServDel ) ) ? $tmpServDel : array();
         }
         elseif ( ! isset( $_SESSION['servDel'] ) )
         {
-            $_SESSION['servDel'] = array();
+            $tmpServDel = array();
+        }
+        
+        // to avoid links added after deletion to be ignored (bug #264)
+        
+        if ( isset( $tmpServAdd ) || isset( $tmpServDel ) )
+        {
+            if ( count( $tmpServAdd ) > 0 || count( $tmpServDel ) > 0 )
+            {
+                foreach( $tmpServAdd as $addIndex => $addValue )
+                {
+                    foreach( $tmpServDel as $delIndex => $delValue )
+                    {
+                        if ( $delValue == $addValue )
+                        {
+                            unset( $tmpServAdd[$addIndex] );
+                            unset( $tmpServDel[$delIndex] );
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+            
+            $_SESSION['servAdd'] = $tmpServAdd;
+            $_SESSION['servDel'] = $tmpServDel;
         }
         
         $message = linker_update_attachament_list( $crlSource , $_SESSION['servAdd'] , $_SESSION['servDel'] );
