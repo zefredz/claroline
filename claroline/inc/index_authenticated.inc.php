@@ -233,7 +233,7 @@ echo '</ul>' . "\n";
 
 //display legend
 
-echo "<br><small>( <span class=\"item hot\"> : ".$langNewLegend."</span> )</small>";
+echo "<br><small><span class=\"item hot\"> : ".$langNewLegend."</span></small>";
 echo '</td>' . "\n";
 
 
