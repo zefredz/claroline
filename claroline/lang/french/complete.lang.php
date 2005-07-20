@@ -1945,6 +1945,7 @@ $langWikiNoWiki = "Aucun Wiki";
 $langWikiNotAllowedToCreate = "Vous n'êtes pas autorisé à créer des pages";
 $langWikiNotAllowedToEdit = "Vous n'êtes pas autorisé à éditer cette page";
 $langWikiNotAllowedToRead = "Vous n'êtes pas autorisé à lire cette page";
+$langWikiNumberOfPages = "Nombre de pages";
 $langWikiOtherUsers = "Autres utilisateurs (*)";
 $langWikiOtherUsersText = "(*) utilisateurs anonymes, non membres du cours...";
 $langWikiPageHistory = "Historique de cette page";

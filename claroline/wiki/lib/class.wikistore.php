@@ -187,6 +187,31 @@
             return $this->con->getAllRowsFromQuery( $sql );
         }
         
+        function getNumberOfPagesInWiki( $wikiId )
+        {
+            if ( ! $this->con->isConnected() )
+            {
+                $this->con->connect();
+            }
+
+            if ( $this->wikiIdExists( $wikiId ) )
+            {
+                $sql = "SELECT count( `id` ) as `pages` "
+                    . "FROM `".$this->config['tbl_wiki_pages']."` "
+                    . "WHERE `wiki_id` = " . $wikiId
+                    ;
+                    
+                $result = $this->con->getRowFromQuery( $sql );
+                
+                return $result['pages'];
+            }
+            else
+            {
+                $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
+                return false;
+            }
+        }
+        
         /**
          * Delete a Wiki from the store
          * @param int wikiId ID of the wiki
