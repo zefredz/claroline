@@ -270,14 +270,14 @@ class Notifier extends EventDriven
                     AND (N.`group_id` = '0' OR N.`group_id` = '".$gid."')
                     AND (N.`tool_id` = '7')      
                     ";
-        }
         $documentList = claro_sql_query_fetch_all($sql);
-            if (is_array($documentList))
+        if (is_array($documentList))
             foreach ($documentList as $document)
             {
                 $documents[] = $document['ressource_id'];
-            }
-       
+            }            
+        }
+             
         // 2- return an array with the documents paths with recent unknow event until the date '$date' in the course and for 
 
         return $documents;     
