@@ -248,15 +248,15 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     global $langTotal,
 	$clarolineRepositoryWeb;
 
-    echo "<table class=\"claroTable\" width=\"100%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\">";
+    echo '<table class="claroTable" width="100%" cellpadding="0" cellspacing="1" align="center">'."\n";
     // titles
-    echo "<tr class=\"headerX\">\n"
-              ."<th width=\"15%\">".$periodTitle."</th>\n"
-              ."<th width=\"60%\">&nbsp;</th>\n"
-              ."<th width=\"10%\">".$langHits."</th>\n"
-              ."<th width=\"15%\"> % </th>\n"
-              ."</tr>\n\n"
-              ."<tbody>";
+    echo '<tr class="headerX">'."\n"
+		.'<th width="15%">'.$periodTitle.'</th>'."\n"
+		.'<th width="60%">&nbsp;</th>'."\n"
+		.'<th width="10%">'.$langHits.'</th>'."\n"
+		.'<th width="15%"> % </th>'."\n"
+		.'</tr>'."\n\n"
+		.'<tbody>'."\n\n";
     $factor = 4;
     $maxSize = $factor * 100; //pixels
     while(list($periodPiece,$cpt) = each($period_array))
@@ -273,26 +273,26 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             }
             
             $barwidth = $factor * $pourcent ;
-            echo "<tr>\n"
-                    ."<td align=\"center\" width=\"15%\">".$periodPiece."</td>\n"
-                    ."<td width=\"60%\" align=\"center\">".claro_disp_progress_bar ( $pourcent, 4)."</td>\n"
-                    ."<td align=\"center\" width=\"10%\">".$cpt."</td>\n"
-                    ."<td align=\"center\" width=\"15%\">".$pourcent." %</td>\n"
-                    ."</tr>\n\n";
+            echo '<tr>'."\n"
+				.'<td align="center" width="15%">'.$periodPiece.'</td>'."\n"
+				.'<td width="60%" align="center">'.claro_disp_progress_bar($pourcent, 4).'</td>'."\n"
+				.'<td align="center" width="10%">'.$cpt.'</td>'."\n"
+				.'<td align="center" width="15%">'.$pourcent.' %</td>'."\n"
+				.'</tr>'."\n\n";
         }
     }
     
     // footer 
-    echo "</tbody>\n\n"
-              ."<tfoot>\n"
-              ."<tr>\n"
-              ."<td width=\"15%\" align=\"center\">".$langTotal."</td>\n"
-              ."<td align=\"right\" width=\"60%\">&nbsp;</td>\n"
-              ."<td align=\"center\" width=\"10%\">".$period_array["total"]."</td>\n"
-              ."<td width=\"15%\">&nbsp;</td>\n"
-              ."</tr>\n"
-              ."</tfoot>\n\n"
-              ."</table>\n\n";
+    echo '</tbody>'."\n\n"
+          .'<tfoot>'."\n"
+          .'<tr>'."\n"
+          .'<td width="15%" align="center">'.$langTotal.'</td>'."\n"
+          .'<td align="right" width="60%">&nbsp;</td>'."\n"
+          .'<td align="center" width="10%">'.$period_array["total"].'</td>'."\n"
+          .'<td width="15%">&nbsp;</td>'."\n"
+          .'</tr>'."\n"
+          .'</tfoot>'."\n\n"
+          .'</table>'."\n\n";
 }
 /**
 
@@ -308,38 +308,38 @@ function buildTab2Col($array_of_results, $leftTitle = "", $rightTitle = "")
     global $langNoResult;
     global $langNbLines;
     
-    echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" align=\"center\">";
+    echo '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">';
     
     if($leftTitle != "" || $rightTitle != "")
     {
-        echo "<tr class=\"headerX\">\n"
-                ."<th>&nbsp;".$leftTitle."</th>\n"
-                ."<th>&nbsp;".$rightTitle."</th>\n"
-                ."</tr>\n";
+        echo '<tr class="headerX">'."\n"
+                .'<th>&nbsp;'.$leftTitle.'</th>'."\n"
+                .'<th>&nbsp;'.$rightTitle.'</th>'."\n"
+                .'</tr>'."\n";
     }
     
-    echo "<tr class=\"headerX\">\n"
-            ."<th colspan=\"2\">".$langNbLines." : ".count($array_of_results)." </th>\n"
-            ."</tr>\n\n"
-            ."<tbody>";
+    echo '<tr class="headerX">'."\n"
+		.'<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>'."\n"
+		.'</tr>'."\n\n"
+		.'<tbody>'."\n\n";
     if (is_array($array_of_results))
     {
         for($j = 0 ; $j < count($array_of_results) ; $j++)
         {
-            echo "<tr>\n" 
-                      ."<td>".$array_of_results[$j][0]."</td>\n"
-                      ."<td align=\"right\">".$array_of_results[$j][1]."</td>\n"
-                      ."</tr>\n\n";
+            echo '<tr>'."\n"
+				.'<td>'.$array_of_results[$j][0].'</td>'."\n"
+				.'<td align="right">'.$array_of_results[$j][1].'</td>'."\n"
+				.'</tr>'."\n\n";
         }
 
     }
     else
     {
-        echo "<tr>\n" 
-              ."<td colspan=\"2\"><center>".$langNoResult."</center></td>\n"
-              ."</tr>\n\n";
+        echo '<tr>'."\n"
+			.'<td colspan="2"><center>'.$langNoResult.'</center></td>'."\n"
+			.'</tr>'."\n\n";
     }
-    echo "</tbody>\n</table>\n\n";
+    echo '</tbody>'."\n".'</table>'."\n\n";
 
 }
 
@@ -359,16 +359,16 @@ function buildTabDefcon($array_of_results)
     global $langNULLValue;
     global $langNbLines;
     
-    echo "<table class=\"claroTable\" width=\"60%\" cellpadding=\"2\" cellspacing=\"1\" align=\"center\">\n";
+    echo '<table class="claroTable" width="60%" cellpadding="2" cellspacing="1" align="center">'."\n";
     if (is_array($array_of_results))
     { 
         // there is some strange cases ... 
-        echo "<tr class=\"headerX\">\n"
-                ."<th colspan=\"2\" align=\"center\"><span class=\"error\">".$langDefcon."</span></th>\n"
-                ."</tr>\n"
-                ."<tr class=\"headerX\">\n" 
-                ."<th colspan=\"2\">".$langNbLines." : ".count($array_of_results)." </th>\n"
-                ."</tr>\n";
+        echo '<tr class="headerX">'."\n"
+                .'<th colspan="2" align="center"><span class="error">'.$langDefcon.'</span></th>'."\n"
+                .'</tr>'."\n"
+                .'<tr class="headerX">'."\n"
+                .'<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>'."\n"
+                .'</tr>'."\n";
                 
         for($j = 0 ; $j < count($array_of_results) ; $j++)
         { 
@@ -380,21 +380,24 @@ function buildTabDefcon($array_of_results)
             {
                 $key = $array_of_results[$j][0];
             }
-            echo "<tr>\n"
-                    ."<td width=\"70%\">".$key."</td>\n"
-                    ."<td width=\"30%\" align=\"right\">".$array_of_results[$j][1]."</td>"
-                    ."</tr>\n\n";
+            echo '<tr>'."\n"
+				.'<td width="70%">'.$key.'</td>'."\n"
+				.'<td width="30%" align="right">';
+			if( isset($array_of_results[$j][1]) ) echo $array_of_results[$j][1];
+			else echo '&nbsp;';
+			echo '</td>'
+				.'</tr>'."\n\n";
         }
     
     }
     else
     {
         // all right
-        echo "<tr>\n"
-                ."<td colspan=\"2\" align=\"center\"><span class=\"correct\">".$langAllRight."</span></td>\n"
-                ."</tr>\n";
+        echo '<tr>'."\n"
+                .'<td colspan="2" align="center"><span class="correct">'.$langAllRight.'</span></td>'."\n"
+                .'</tr>'."\n";
     }
-    echo "</table>\n\n";
+    echo '</table>'."\n\n";
 }
 
 /**
@@ -406,10 +409,10 @@ function buildTabDefcon($array_of_results)
 function changeResultOfVisibility($array_of_results)
 {
     global $langNoResult;
-	$visibilityLabel[0]="closed - hide";
-	$visibilityLabel[1]="open - hide";
-	$visibilityLabel[2]="open - visible";
-	$visibilityLabel[3]="closed - visible";
+	$visibilityLabel[0] = "closed - hide";
+	$visibilityLabel[1] = "open - hide";
+	$visibilityLabel[2] = "open - visible";
+	$visibilityLabel[3] = "closed - visible";
 
     if (is_array($array_of_results))
     {
