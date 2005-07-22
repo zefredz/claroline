@@ -173,33 +173,6 @@ function deleteAllGroups()
 }
 
 /**
- * is $_cid set. 
- * @param $ifNot default 'DIE' 
- * @return boolean Whether is set $_cid
- */
-
-function cidNeeded( $ifNot = 'DIE' )
-{
-    global $_cid;
-
-    if( ! isset($_cid) )
-    {
-        switch ( $ifNot )
-        {
-            case 'DIE'  :
-                die ('$_cid missing');
-            case 'echo' :
-                echo ('$_cid missing');
-                break;
-            case 'rtnFals' :
-                return false;
-        }
-    }
-
-    return TRUE;
-}
-
-/**
  * Fill in the groups with still unenrolled students.
  * The algorithm takes care to fill first the freest groups
  * with the less enrolled users
