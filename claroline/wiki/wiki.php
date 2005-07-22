@@ -536,8 +536,9 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th style="width: 100%">'
-                    . $langTitle.'</th>' . "\n"
+                    . '<th>'. $langTitle.'</th>' . "\n"
+                    . '<th>'.$langWikiEnterWiki.'</th>' . "\n"
+                    . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
