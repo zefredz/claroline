@@ -1936,7 +1936,8 @@ $langWikiEnterWiki = "Accéder au Wiki";
 $langWikiExample = "Éditer un exemple";
 $langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
 $langWikiGroupMembers = "Membres du groupe";
-$langWikiHelpContent = "<dl class=\"wikiHelp\"><dt>Blocs</dt><dd><ul><li>Laisser une ligne vide entre chaque bloc <em>de même nature</em>.&nbsp;;</li>
+$langWikiHelpContent = "<h3>Syntaxe wiki2xhtml</h3>
+<dl class=\"wikiHelp\"><dt>Blocs</dt><dd><ul><li>Laisser une ligne vide entre chaque bloc <em>de même nature</em>.&nbsp;;</li>
 <li><strong>Paragraphe</strong> : du texte et une ligne vide&nbsp;;</li>
 <li><strong>Titre</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> pour des titres plus ou moins importants&nbsp;;</li>
 <li><strong>Trait horizontal</strong> : <code>----</code>&nbsp;;</li>
@@ -1949,8 +1950,8 @@ tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
 <li><strong>Emphase</strong> : deux apostrophes <code>''texte''</code>&nbsp;;</li>
 <li><strong>Forte emphase</strong> : deux soulignés <code>__texte__</code>&nbsp;;</li>
 <li><strong>Retour forcé à la ligne</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Insertion</strong> : deux plus <code>++texte++</code>&nbsp;;</li>
-<li><strong>Suppression</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
+<li><strong>Souligné</strong> : deux plus <code>++texte++</code>&nbsp;;</li>
+<li><strong>Barré</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
 <li><strong>Lien</strong> : <code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</li>
 <li><strong>Image</strong> : comme un lien mais avec une extension d'image.<br>Pour désactiver la reconnaissance d'image mettez 0 dans un dernier argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher.<br>Il est conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</li>
 <li><strong>Image</strong> (nouvelle syntaxe) : <code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</li>
