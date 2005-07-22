@@ -19,7 +19,8 @@
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-
+$langTeacherQty = "Quantité de prof";
+$langStudentQty = "Quantité d'étudiants";
 require '../../inc/claro_init_global.inc.php';
 
 // Security check
@@ -40,9 +41,9 @@ DEFINE('DEFAULT_MAX_QTY_TEACHER_REGISTRED_IN_COURSE',5);
 DEFINE('DEFAULT_SUFFIX_MAIL','@example.com');
 DEFINE('DEFAULT_QTY_TEACHER',5);
 DEFINE('DEFAULT_QTY_STUDENT',20);
-DEFINE('ADD_FIRSTNAMES_FROM_BASE',TRUE);
-DEFINE('ADD_NAMES_FROM_BASE',TRUE);
-DEFINE('ADD_USERNAMES_FROM_BASE',TRUE);
+DEFINE('ADD_FIRSTNAMES_FROM_BASE',FALSE);
+DEFINE('ADD_NAMES_FROM_BASE',FALSE);
+DEFINE('ADD_USERNAMES_FROM_BASE',FALSE);
 DEFINE('USE_FIRSTNAMES_AS_LASTNAMES',FALSE);
 DEFINE('CONFVAL_LIST_USER_ADDED',TRUE);
 
@@ -50,10 +51,10 @@ DEFINE('CONFVAL_LIST_USER_ADDED',TRUE);
 include($includePath.'/conf/course_main.conf.php');
 
 // LIBS
-include($includePath.'/lib/add_course.lib.inc.php');
-include($includePath.'/lib/debug.lib.inc.php');
-include($includePath.'/lib/fileManage.lib.php');
-include($includePath.'/conf/course_main.conf.php');
+include($includePath . '/lib/add_course.lib.inc.php');
+include($includePath . '/lib/debug.lib.inc.php');
+include($includePath . '/lib/fileManage.lib.php');
+include($includePath . '/conf/course_main.conf.php');
 
 $nameTools = $langAdd_users;
 
@@ -100,7 +101,6 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 {
     /* fillUSER */
 
-	srand ((double) microtime() * 685435100);
 	$firstnames = array (
 		'jean', 'marc', 'françois', 'laurent', 'mathieu', 'matthieu',
 		'simon', 'pol', 'paul', 'greg', 'gregoire', 'gregory', 'albert', 'alfred',
@@ -122,20 +122,20 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 		'sambegou', 'björn', 'jinks', 'Gonzague', 'Onder', 'kris', 'ivan',
 		'cheikh', 'taner', 'Moussa', 'Louis', 'amadou', 'arnaud', 'rosario',
 		'tilio', 'julio', 'jules', 'julos', 'liviu', 'celia', 'magda', 'youssef',
-		'essam', 'boumedian', 'walit', 'thierry','zeev','jamal','ali');
+		'essam', 'boumedian', 'walit', 'thierry','zeev','jamal','ali', 'mathieu', 'fred', 'renaud');
 
 		$voyel		= array( 'a','e','i','o','u');
 		$consonne	= array('','b','c','d','f','j','k','l','m','n','p','r','s','t','v','z');
 
-	$sqlUsers = "Select * from `".$tbl_user."`";
+	$sqlUsers = "Select * from `" . $tbl_user . "`";
 
 	$resUsers = claro_sql_query($sqlUsers);
 
-	while ( $users = mysql_fetch_array($resUsers,MYSQL_ASSOC) )
+	while (( $users = mysql_fetch_array($resUsers, MYSQL_ASSOC) ))
 	{
 		if ( ADD_FIRSTNAMES_FROM_BASE )	$firstnames[] 	= $users['prenom'];
-		if ( ADD_NAMES_FROM_BASE )			$names[] 		= $users['nom'];
-		if ( ADD_USERNAMES_FROM_BASE )		$usernames[] 	= $users['username'];
+		if ( ADD_NAMES_FROM_BASE )		$names[] 		= $users['nom'];
+		if ( ADD_USERNAMES_FROM_BASE )	$usernames[] 	= $users['username'];
 	}
 
 	if (USE_FIRSTNAMES_AS_LASTNAMES)	$names 	= array_merge ( $names,$firstnames);
@@ -165,12 +165,13 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 		$prenom   = ucfirst(strToLower(field_rand($firstnames)));
 		$username = strToLower($nom);
 		$password = strToLower($nom.$prenom);
-		$email    = strToLower($prenom.'.'.$noUser).$sfMail;
+		$email    = strToLower($prenom . '.' . $noUser) . $sfMail;
 
 		$sqlInsertUser = "
         	INSERT INTO `".$tbl_user."`
             	(
-        	    `nom`, `prenom`,
+        	    `nom`, 
+        	    `prenom`,
             	`username`, `password`,
             	`email`, `statut`,
             	`creatorId`)
@@ -183,7 +184,7 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 		claro_sql_query($sqlInsertUser);
 
 		$nbssAdded += mysql_affected_rows();
-		$users[] = $prenom." ".$nom.", L/P ".$username." / ".$password;
+		$users[] = $prenom . ' ' . $nom . ', L/P ' . $username . ' / ' . $password;
 
         $nbp_created++;
 	}
@@ -192,7 +193,7 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 
 // OUTPUT
 
-include($includePath.'/claro_init_header.inc.php');
+include($includePath . '/claro_init_header.inc.php');
 
 echo claro_disp_tool_title( array('mainTitle'=>$nameTools));
 
@@ -207,9 +208,9 @@ switch ($display)
         echo $lang_you_had_request; ?> :
 		<UL>
 			<LI>
-				<?php echo $nbp ." " . $langTeachers; ?></LI>
+				<?php echo $nbp . ' ' . $langTeachers; ?></LI>
 			<LI>
-				<?php echo $nbs ." " . $langStudents; ?>
+				<?php echo $nbs . ' ' . $langStudents; ?>
 			</LI>
 		</UL>
 <?php
@@ -226,10 +227,10 @@ switch ($display)
 ?>
 			<UL class="menu">
 				<LI>
-					<a href="<?php echo $_SERVER['PHP_SELF'] ?>" >Again</a>
+					<a href="<?php echo $_SERVER['PHP_SELF'] ?>" ><?php echo $langAgain; ?></a>
 				</LI>
 				<LI>
-					<a href="<?php echo $rootAdminWeb ?>" >Admin</a>
+					<a href="<?php echo $rootAdminWeb ?>" ><?php echo $langAdmin; ?></a>
 				</LI>
 			</UL>
 		<?php
@@ -242,7 +243,7 @@ switch ($display)
 		<table class="claroTable" >
 			<tr>
 				<th >
-					<label for="nbp">Quantité de prof  : </label>
+					<label for="nbp"><?php echo $langTeacherQty ?>  : </label>
 				</th>
 				<td>
 					<input align="right" type="text" id="nbp" name="nbp" value="<?php echo $nbp ?>" size="5" maxlength="3">
@@ -250,7 +251,7 @@ switch ($display)
 			</tr>
 			<tr>
 				<th>				
-					<label for="nbs">Quantité d'étudiants  : </label>
+					<label for="nbs"><?php echo $langStudentQty ?> : </label>
 				</th>
 				<td>
 					<input align="right" type="text" id="nbs" name="nbs" value="<?php echo $nbs ?>" size="5" maxlength="4">
@@ -325,7 +326,7 @@ switch ($display)
 				</td>
 			</tr>
 		</table>
-	</fieldset>
+	</fieldset>29
 	<input type="submit" name="create" value="create">
 </form>
 		<?php
@@ -334,12 +335,12 @@ switch ($display)
 
 }
 
-include($includePath.'/claro_init_footer.inc.php');
+include($includePath . '/claro_init_footer.inc.php');
 
 function field_rand($arr)
 {
-	$rand_keys	= array_rand ($arr);
-	return $arr[$rand_keys];
+    $keys = array_rand($arr);
+	return $arr[$keys] ;
 }
 
 ?>
