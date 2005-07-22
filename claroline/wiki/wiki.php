@@ -523,7 +523,7 @@
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.$langTitle.'</th>' . "\n"
-                    . '<th>'.$langWikiMainPage.'</th>' . "\n"
+                    . '<th>'.$langWikiEnterWiki.'</th>' . "\n"
                     . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
                     . '<th>'.$langWikiEditProperties.'</th>' . "\n"
                     . '<th>'.$langDelete.'</th>' . "\n"
@@ -571,7 +571,7 @@
                     echo '<a href="page.php?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWikiMainPage.'" />'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWikiEnterWiki.'" />'
                         . '</a>'
                         ;
                     echo '</td>' . "\n";
