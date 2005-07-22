@@ -457,7 +457,7 @@
             
             // wiki desc
             
-            echo '<blockquote>'.$wikiDesc.'</blockquote>' . "\n";
+            echo '<blockquote>'.nl2br($wikiDesc).'</blockquote>' . "\n";
             
             break;
         }
