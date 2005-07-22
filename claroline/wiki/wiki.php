@@ -571,7 +571,7 @@
                     echo '<a href="page.php?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWikiEnterWiki.'" />'
+                        . '<img src="' . $imgRepositoryWeb . '/enter.gif" alt="'.$langWikiEnterWiki.'" />'
                         . '</a>'
                         ;
                     echo '</td>' . "\n";
