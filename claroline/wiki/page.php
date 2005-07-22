@@ -668,7 +668,7 @@
                 . '&amp;action=history'
                 . '&amp;title=' . urlencode( $title )
                 . '">'
-                // . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="history" />&nbsp;'
+                . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
                 . $langWikiPageHistory.'</a>'
                 ;
     }
@@ -676,7 +676,7 @@
     {
         // inactive
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-            // . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="history" />&nbsp;'
+            . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
             . $langWikiPageHistory . '</span>'
             ;
     }
@@ -686,7 +686,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=recent'
         . '">'
-        // . '<img src="'.$imgRepositoryWeb.'recent.gif" border="0" alt="recent changes" />&nbsp;'
+        . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="recent changes" />&nbsp;'
         . $langWikiRecentChanges.'</a>'
         ;
         
@@ -695,7 +695,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=all'
         . '">'
-        // . '<img src="'.$imgRepositoryWeb.'allpages.gif" border="0" alt="all pages" />&nbsp;'
+        . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
         . $langWikiAllPages.'</a>'
         ;
 
