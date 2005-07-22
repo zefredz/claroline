@@ -407,18 +407,12 @@
     {
         $content = '';
     }
-
-    // FIXME get help string use an help file instead
-    $help = $wikiRenderer->help();
-    $help = preg_replace( '~<li>(.*?)</li>~', '<li>\1</li>' . "\n", $help );
     
     // set xtra head
     
     $jspath = document_web_path() . '/lib/javascript';
 
     $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-        . "\nvar sLangWikiShowHelp = '".addslashes($langWikiShowHelp) . "'"
-        . "\nvar sLangWikiHideHelp = '".addslashes($langWikiHideHelp) . "'"
         . "\nvar sLangWikiExampleWarning = '".addslashes($langWikiExampleWarning) . "'"
         . "\nvar sLangWikiFullDemoText = '".get_demo_text() . "'"
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
@@ -698,6 +692,23 @@
         . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
         . $langWikiAllPages.'</a>'
         ;
+        
+    if ( $action == "edit" )
+    {
+        echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" '
+            . 'onclick="addExample(sLangWikiFullDemoText, \'content\'); return false;">'
+            . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
+            . $langWikiExample . '</a>'
+            ;
+            
+        echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
+            . 'help_wiki.php'
+            . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
+            . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
+            . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
+            . $langWikiHelpSyntax . '</a>'
+            ;
+    }
 
     echo '</p>' . "\n";
     
@@ -868,9 +879,8 @@
                 $script = $_SERVER['PHP_SELF'];
 
                 echo claro_disp_wiki_editor( $wikiId, $title, $versionId, $content, $script
-                    , $showWikiEditorToolbar, $forcePreviewBeforeSaving );
-                    
-                echo claro_disp_wiki_help( $help, $javascriptEnabled );
+                    , $showWikiEditorToolbar, $forcePreviewBeforeSaving )
+                    ;
             }
 
             break;

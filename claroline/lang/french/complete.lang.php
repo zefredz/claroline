@@ -1936,7 +1936,31 @@ $langWikiEnterWiki = "Accéder au Wiki";
 $langWikiExample = "Éditer un exemple";
 $langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
 $langWikiGroupMembers = "Membres du groupe";
-$langWikiHideHelp = "Cacher l'aide";
+$langWikiHelpContent = "<dl class=\"wikiHelp\"><dt>Blocs</dt><dd><ul><li>Laisser une ligne vide entre chaque bloc <em>de même nature</em>.&nbsp;;</li>
+<li><strong>Paragraphe</strong> : du texte et une ligne vide&nbsp;;</li>
+<li><strong>Titre</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> pour des titres plus ou moins importants&nbsp;;</li>
+<li><strong>Trait horizontal</strong> : <code>----</code>&nbsp;;</li>
+<li><strong>Liste</strong> : ligne débutant par <code>*</code> ou <code>#</code>. Il est possible de mélanger les listes (<code>*#*</code>) pour faire des listes de plusieurs niveaux. Respecter le style de chaque niveau&nbsp;;</li>
+<li><strong>Texte préformaté</strong> : espace devant chaque ligne de texte&nbsp;;</li>
+<li><strong>Bloc de citation</strong> : <code>&gt;</code> ou <code>;:</code> devant chaque ligne de texte.</li>
+</ul></dd><dt>Éléments en ligne</dt><dd><ul><li>La correction de
+ponctuation est active. Un espace insécable remplacera automatiquement
+tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
+<li><strong>Emphase</strong> : deux apostrophes <code>''texte''</code>&nbsp;;</li>
+<li><strong>Forte emphase</strong> : deux soulignés <code>__texte__</code>&nbsp;;</li>
+<li><strong>Retour forcé à la ligne</strong> : <code>%%%</code>&nbsp;;</li>
+<li><strong>Insertion</strong> : deux plus <code>++texte++</code>&nbsp;;</li>
+<li><strong>Suppression</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
+<li><strong>Lien</strong> : <code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</li>
+<li><strong>Image</strong> : comme un lien mais avec une extension d'image.<br>Pour désactiver la reconnaissance d'image mettez 0 dans un dernier argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher.<br>Il est conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</li>
+<li><strong>Image</strong> (nouvelle syntaxe) : <code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</li>
+<li><strong>Ancre</strong> : <code>~ancre~</code>&nbsp;;</li>
+<li><strong>Acronyme</strong> : <code>??acronyme??</code> ou <code>??acronyme|definition??</code>&nbsp;;</li>
+<li><strong>Citation</strong> : <code>{{citation}}</code>, <code>{{citation|langue}}</code> ou <code>{{citation|langue|url}}</code>&nbsp;;</li>
+<li><strong>Code</strong> : <code>@@code ici@@</code>&nbsp;;</li>
+<li><strong>Note de bas de page</strong> : <code>\$\$Corps de la note\$\$</code>.</li>
+</ul></dd></dl>";
+$langWikiHelpSyntax = "Syntaxe Wiki";
 $langWikiInvalidWikiId = "Wiki Id non valide";
 $langWikiList = "Liste des Wiki";
 $langWikiMainPage = "Page principale";
@@ -1957,7 +1981,6 @@ $langWikiReadPrivilege = "Lire les pages";
 $langWikiRecentChanges = "Modifications récentes";
 $langWikiRecentChangesPattern = "%1\$s modifié par %2\$s le %3\$s";
 $langWikiShowDifferences = "Voir les différences";
-$langWikiShowHelp = "Voir l'aide";
 $langWikiTitle = "Titre du Wiki : ";
 $langWikiTitleEdit = "Wiki : Éditer les propriétés";
 $langWikiTitleNew = "Wiki : Créer un nouveau Wiki";

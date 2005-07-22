@@ -1873,7 +1873,32 @@ $langWikiEnterWiki = "Enter wiki";
 $langWikiExample = "Edit an example";
 $langWikiExampleWarning = "Warning example will overwrite current content";
 $langWikiGroupMembers = "Group members";
-$langWikiHideHelp = "Hide help";
+$langWikiHelpContent = "<dl class=\"wikiHelp\"><dt>Block elements</dt>
+<dd><ul><li>Add a new line between each line <em>of the same type</em>.&nbsp;;</li>
+<li><strong>Paragraph</strong> : type some text and a new line&nbsp;;</li>
+<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
+<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
+<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
+<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
+<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
+</ul></dd>
+<dt>Inline elements</dt>
+<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
+<li><strong>Emphasis</strong> : surround your text wit two simple quotes <code>''text''</code>&nbsp;;</li>
+<li><strong>Strong emphasis</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
+<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
+<li><strong>Insertion</strong> : surround your text with two plus symbols <code>++text++</code>&nbsp;;</li>
+<li><strong>Deletion</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
+<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
+<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
+<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
+<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
+<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
+</ul></dd></dl>";
+$langWikiHelpSyntax = "Wiki syntax";
 $langWikiInvalidWikiId = "Invalid Wiki Id";
 $langWikiList = "List of Wiki";
 $langWikiMainPage = "Main page";
@@ -1896,7 +1921,6 @@ $langWikiReadPrivilege = "Read Pages";
 $langWikiRecentChanges = "Recent changes";
 $langWikiRecentChangesPattern = "%1\$s modified on %2\$s by %3\$s";
 $langWikiShowDifferences = "Show differences";
-$langWikiShowHelp = "Show help";
 $langWikiTitle = "Title of the wiki : ";
 $langWikiTitleEdit = "Wiki : Edit poperties";
 $langWikiTitleNew = "Wiki : Create new Wiki";

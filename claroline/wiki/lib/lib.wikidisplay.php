@@ -111,49 +111,6 @@
     }
 
     /**
-     * Generate Wiki help div HTML code
-     * @param string help help message
-     * @param boolean javascriptEnabled use javascript to hide/show help
-     *      if set to true
-     * @return html code of the help div
-     */
-    function claro_disp_wiki_help( $help, $javascriptEnabled = true )
-    {
-        global $langWikiShowHelp,$langWikiExample;
-        global $imgRepositoryWeb;
-        
-        $out = '';
-
-        if ( $javascriptEnabled )
-        {
-            $out .= '<span class="claroCmd" id="helpbtn">' . "\n"
-                . '<a name="helpStart"></a>' . "\n"
-                . '<a href="#helpStart" onclick="showHelp();">'
-                . '<img src="'.$imgRepositoryWeb.'plus.gif" style="border:0;" />&nbsp;'
-                . $langWikiShowHelp
-                .'</a>' . "\n"
-                . '</span>' . "\n"
-                ;
-
-            $out .= '&nbsp;|&nbsp;<a class="claroCmd" href="#" '
-                . 'onclick="addExample(sLangWikiFullDemoText, \'content\'); return false;">'
-                . $langWikiExample . '</a>' . "\n"
-                ;
-                
-            $out .= '<div id="help" style="display:none">' . "\n"
-                . $help
-                . '</div>' . "\n"
-                ;
-        }
-        else
-        {
-            $out .= $help;
-        }
-        
-        return $out;
-    }
-
-    /**
      * Generate html code of the wiki page preview
      * @param Wiki2xhtmlRenderer wikiRenderer rendering engine
      * @param string title page title
