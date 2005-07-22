@@ -47,7 +47,7 @@ array ('label'         => 'Show wiki syntax toolbar in wiki editor'
 $conf_def_property_list['forcePreviewBeforeSaving'] =
 array ('label'         => 'Force preview before saving in wiki editor'
     //  ,'description'   => '...'
-      ,'default'       => 'TRUE'
+      ,'default'       => 'FALSE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
