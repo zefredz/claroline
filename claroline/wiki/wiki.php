@@ -536,7 +536,7 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th>'. $langTitle.'</th>' . "\n"
+                    . '<th>'.$langTitle.'</th>' . "\n"
                     . '<th>'.$langWikiEnterWiki.'</th>' . "\n"
                     . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
                     . '</tr>' . "\n"
@@ -616,7 +616,7 @@
             // wiki list empty
             else
             {
-                echo '<tr><td colspan="3">'.$langWikiNoWiki.'</td></tr>' . "\n";
+                echo '<tr><td colspan="5" style="text-align: center;">'.$langWikiNoWiki.'</td></tr>' . "\n";
             }
             
             echo '</tbody>' . "\n";
