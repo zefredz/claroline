@@ -177,19 +177,19 @@
         }
     }
     
-    /**
- * Replace array_diff_assoc()
- *
- * @category    PHP
- * @package     PHP_Compat
- * @link        http://php.net/function.array_diff_assoc
- * @author      Aidan Lister <aidan@php.net>
- * @version     $Revision$
- * @since       PHP 4.3.0
- * @require     PHP 4.0.0 (user_error)
- */
 if ( ! function_exists('array_diff_assoc') )
 {
+    /**
+     * Replace array_diff_assoc()
+     *
+     * @category    PHP
+     * @package     PHP_Compat
+     * @link        http://php.net/function.array_diff_assoc
+     * @author      Aidan Lister <aidan@php.net>
+     * @version     $Revision$
+     * @since       PHP 4.3.0
+     * @require     PHP 4.0.0 (user_error)
+     */
     function array_diff_assoc()
     {
         // Check we have enough arguments
