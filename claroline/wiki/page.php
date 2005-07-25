@@ -63,10 +63,14 @@
     {
         die( "<center>You are not allowed to see this group's wiki !!!</center>" );
     }
-    else
+    elseif ( $is_courseAllowed )
     {
         // course context
         $groupId = 0;
+    }
+    else
+    {
+        die( "<center>You are not allowed to access this course !!!</center>" );
     }
     
     // Wiki specific classes and libraries
