@@ -2,7 +2,13 @@
 
 include_once('../../../inc/claro_init_global.inc.php');
 
-if( isset($_FILES['imgFile']) )
+// initialiase variables
+
+$imgUrl = null;
+$width = null; 
+$height = null;
+
+if ( isset($_FILES['imgFile']) )
 {
     include_once('../../../inc/lib/fileUpload.lib.php');
     include_once('../../../inc/lib/fileManage.lib.php');
