@@ -322,6 +322,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 		if (move_uploaded_file($uploadedFile['tmp_name'], 
             $baseWorkDir.$uploadPath.'/'.$fileName) )
 		{
+            chmod($baseWorkDir.$uploadPath.'/'.$fileName,0777);
 			return $fileName;
 		}
 	}
