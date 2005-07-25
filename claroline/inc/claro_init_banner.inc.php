@@ -217,9 +217,19 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         echo claro_disp_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
                                         ' &gt; ', $imgRepositoryWeb . 'home.gif');
 
-    if ( claro_is_display_mode_available() )
+    if ( is_null($_uid) )
     {
-          echo '<div id="toolViewOption">'                    ."\n";
+
+        echo '<div id="toolViewOption" style="padding-right:10px">'
+            .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
+            .'?sourceUrl='.urlencode($_SERVER['REQUEST_URI']).'">'
+            .$langLogin
+            .'</a>'
+            .'</div>';
+    }
+    elseif ( claro_is_display_mode_available() )
+    {
+        echo '<div id="toolViewOption">'                    ."\n";
 
         if ( isset($_REQUEST['viewMode']) )
         {
