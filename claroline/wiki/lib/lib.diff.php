@@ -26,8 +26,18 @@
     *
     * @package Wiki
     */
-     
-    function diff( $old, $new, $show_equals = false )
+
+    /**
+     * Get difference between two strings
+     * @param string old first string
+     * @param string new second string
+     * @param boolean show_equals set to true to see line that are equal between
+     *      the two strings (default true)
+     * @param string format_line_function callback function to format line
+     *      (default 'format_line')
+     * @return string formated diff output
+     */
+    function diff( $old, $new, $show_equals = false, $format_line_function = 'format_line' )
     {
         $oldArr = str_split_on_new_line( $old );
         $newArr = str_split_on_new_line( $new );
@@ -51,8 +61,8 @@
                 if ( $candidate == $content )
                 {
                     $moved[$key] = $candidate;
-                    unset($added[$key] );
-                    unset($deleted[$index] );
+                    unset( $added[$key] );
+                    unset( $deleted[$index] );
                     break;
                 }
             }
@@ -65,28 +75,28 @@
             // line changed
             if ( isset ( $deleted[$i] ) && isset( $added[$i] ) )
             {
-                $output .= format_line($i, DIFF_DELETED, $deleted[$i] );
-                $output .= format_line($i, DIFF_ADDED, $added[$i] );
+                $output .= $format_line_function( $i, DIFF_DELETED, $deleted[$i] );
+                $output .= $format_line_function( $i, DIFF_ADDED, $added[$i] );
             }
             // line deleted
             elseif ( isset ( $deleted[$i] ) && ! isset ( $added[$i] ) )
             {
-                $output .= format_line($i, DIFF_DELETED, $deleted[$i] );
+                $output .= $format_line_function( $i, DIFF_DELETED, $deleted[$i] );
             }
             // line added
             elseif ( isset ( $added[$i] ) && ! isset ( $deleted[$i] ) )
             {
-                $output .= format_line($i, DIFF_ADDED, $added[$i] );
+                $output .= $format_line_function( $i, DIFF_ADDED, $added[$i] );
             }
             // line moved
             elseif ( isset ( $moved[$i] ) )
             {
-                $output .= format_line( $i, DIFF_MOVED, $newArr[$i] );
+                $output .= $format_line_function( $i, DIFF_MOVED, $newArr[$i] );
             }
             // line unchanged
             elseif ( $show_equals == true )
             {
-                $output .= format_line($i, DIFF_EQUAL, $newArr[$i] );
+                $output .= $format_line_function( $i, DIFF_EQUAL, $newArr[$i] );
             }
             else
             {
@@ -96,8 +106,11 @@
          
         return $output;
     }
-     
-    function str_split_on_new_line($str )
+
+    /**
+     * Split strings on new line
+     */
+    function str_split_on_new_line( $str )
     {
         $content = array();
          
@@ -120,8 +133,61 @@
          
         return $content;
     }
-     
+    
+    /**
+     * Default and prototype format line function
+     * @param int line line number
+     * @param mixed type line type, must be one of the following :
+     *      DIFF_EQUAL, DIFF_MOVED, DIFF_ADDED, DIFF_DELETED
+     * @param string value line content
+     * @param boolean skip_empty skip empty lines (default false)
+     * @return string formated diff line
+     */
     function format_line( $line, $type, $value, $skip_empty = false )
+    {
+        if ( trim( $value ) == "" && $skip_empty )
+        {
+            return "";
+        }
+        elseif ( trim( $value ) == "" )
+        {
+            $value = '&nbsp;';
+        }
+
+        switch ( $type )
+        {
+            case DIFF_EQUAL:
+            {
+                return $line. ' : ' . ' = <span class="diffEqual" >' . $value . '</span><br />' . "\n" ;
+
+                break;
+            }
+            case DIFF_MOVED:
+            {
+                return $line. ' : ' . ' M <span class="diffMoved" >' . $value . '</span><br />' . "\n" ;
+
+                break;
+            }
+            case DIFF_ADDED:
+            {
+                return $line . ' : ' . ' + <span class="diffAdded" >' . $value . '</span><br />' . "\n" ;
+
+                break;
+            }
+            case DIFF_DELETED:
+            {
+                return $line . ' : ' . ' - <span class="diffDeleted" >' . $value . '</span><br />' . "\n" ;
+
+                break;
+            }
+        }
+    }
+
+    /**
+     * Table format line function
+     * @see format_line
+     */
+    function format_table_line( $line, $type, $value, $skip_empty = false )
     {
         if ( trim( $value ) == "" && $skip_empty )
         {
@@ -136,26 +202,34 @@
         {
             case DIFF_EQUAL:
             {
-                return $line. ' : ' . ' = <span class="diffEqual" >' . $value . '</span><br />' . "\n" ;
+                return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;=</td><td><span class="diffEqual" >'
+                    . $value . '</span></td></tr>' . "\n"
+                    ;
                  
                 break;
             }
             case DIFF_MOVED:
             {
-                return $line. ' : ' . ' M <span class="diffMoved" >' . $value . '</span><br />' . "\n" ;
+                return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;M</td><td><span class="diffMoved" >'
+                    . $value . '</span></td></tr>' . "\n"
+                    ;
                  
                 break;
             }
             case DIFF_ADDED:
             {
-                return $line . ' : ' . ' + <span class="diffAdded" >' . $value . '</span><br />' . "\n" ;
+                return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;+</td><td><span class="diffAdded" >'
+                    . $value . '</span></td></tr>' . "\n"
+                    ;
                  
                 break;
             }
             case DIFF_DELETED:
             {
-                return $line . ' : ' . ' - <span class="diffDeleted" >' . $value . '</span><br />' . "\n" ;
-                 
+                return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;-</td><td><span class="diffDeleted" >'
+                    . $value . '</span></td></tr>' . "\n"
+                    ;
+                    
                 break;
             }
         }
