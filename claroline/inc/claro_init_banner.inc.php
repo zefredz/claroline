@@ -98,7 +98,7 @@ if (isset($_cid))
 /*
  * Language initialisation of the tool names
  */
-if (is_array($_courseToolList))
+if (is_array($_courseToolList) && $is_courseAllowed)
 {
     $toolNameList = claro_get_tool_name_list();
     
@@ -144,6 +144,9 @@ if (is_array($_courseToolList))
 </noscript>
 
 </form>
+<?php 
+    } // end if is_array($courseTooList) && $isCouseAllowed
+?>
 </div>
 <div class="spacer"></div>
 </div>
@@ -151,7 +154,6 @@ if (is_array($_courseToolList))
 
 
 <?php
-    }
 } // end if _cid
 ?>
 
