@@ -891,113 +891,32 @@ function claro_disp_msg_arr($msgArrBody)
 
 function claro_disp_auth_form()
 {
-    global  $includePath, $_uid, $_user, $is_courseAllowed, $_course,
-            $langPassword , $langUserName, $langLogin, $langReg,
-            $langNotAllowed, $lang_this_course_is_protected,
-            $lang_enter_your_user_name_and_password, $lang_click_here,
-            $lang_if_you_dont_have_a_user_account_profile_on,
-            $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course,
-            $lang_if_you_wish_to_enroll_to_this_course, $is_platformAdmin;
+    global $rootWeb, $includePath;
 
-    // var used in claro_init_header, banner and footer
-    global  $charset, $rootWeb, $clarolineRepositoryWeb, $siteName,
-            $claro_stylesheet, $langOtherCourses, $langModifyProfile,
-            $institution_url, $institution_name, $langMyCourses, $langMyAgenda,
-            $langLogout, $claro_brailleViewMode,
-            $lang_footer_p_CourseManager,  $lang_p_platformManager, $administrator_name,
-            $langPoweredBy, $claro_banner, $text_dir, $allowSelfReg;
+    $sourceUrl = $_SERVER['REQUEST_URI'];
+    // note : somme people say that REQUEST_URI isn't available on IIS.
+    // It has to be checked  ...
 
-    if ( ! $is_courseAllowed )
+    if ( ! headers_sent () ) // in this case it is impossible to relocate
     {
-        include($includePath . '/claro_init_header.inc.php');
-
-        if( ! $_uid && ! $_course['visibility'])
-        {
-            echo '<p align="center>">'
-            .    $lang_this_course_is_protected.'<br>'
-            .    $lang_enter_your_user_name_and_password
-            .    '</p>'
-            .    '<table align="center">' . "\n"
-            .    '<tr>'
-            .    '<td>'
-            .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
-            .    '<fieldset>' . "\n"
-            .    '<legend>' . $langLogin . '</legend>' . "\n"
-            .    '<label for="username">' . $langUserName . ' : </label><br>' . "\n"
-            .    '<input type="text" name="login" id="username"><br>' . "\n"
-            .    '<label for="password">' . $langPassword . ' : </label><br>' . "\n"
-            .    '<input type="password" name="password" id="password"><br>' . "\n"
-            .    '<input type="submit" >' . "\n"
-            .    '</fieldset>' . "\n"
-            ;
-            if  (isset($_REQUEST['cidReq']) )
-            {
-                echo '<input type="hidden" name="cidReq" id="cidReq" value="' 
-                .    $_REQUEST['cidReq']
-                .    '" ><br>'
-                ;
-            }
-            echo '</form>' . "\n"
-            .    '</td>'
-            .    '</tr>'
-            .    '</table>'
-            ;
-
-            /**
-             * If users are allowed to register themselves to the platform
-             * redirect this user to the platform registration page
-             */
-
-            if ( $allowSelfReg || !isset($allowSelfReg) )
-            {
-
-                echo '<p>' . "\n"
-                    . $lang_if_you_dont_have_a_user_account_profile_on . ' ' . $siteName
-                    . '&nbsp;' . '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
-                    . $lang_click_here
-                    . '</a>' . "\n"
-                    . '</p>' . "\n"
-                    ;
-            }
-        } // end if ! $uid && ! $course['visibility']
-
-        /**
-         * If the user is logged (authenticated) on the platform
-         * and the course settings still allows user self enrollment,
-         * redirect him to the course enrollment pages
-         */
-
-        elseif( $_uid && $_course['registrationAllowed'] )
-        {
-            echo '<p align="center>">'
-                 .$lang_this_course_is_protected.'<br>'
-                 .$lang_enter_your_user_name_and_password
-                 .'</p>';
-
-            // if  I'm logged but have no access
-            // this course is close, right, but the subscribe to this course ?
-                echo '<p>'."\n"
-                .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br>'
-                .    $lang_if_you_wish_to_enroll_to_this_course
-                .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php'
-                .    '?cmd=rqReg&amp;keyword=' . $_course['officialCode'] . '" >'
-                .    $langReg
-                .    '</a>' . "\n"
-                .    '</p>' . "\n"
-                ;
-
-        } // elseif $_uid && $_course['registrationAllowed']
-        else
-        {
-            echo '<p>' . $langNotAllowed . '</p>';
-        }
-
-        include( $includePath . '/claro_init_footer.inc.php' );
-
-        die('');
+        header('Location:'.$rootWeb.'claroline/auth/login.php?sourceUrl='.urlencode($sourceUrl) );
     }
-}
+    else
+    {
+        echo ( '<p align="center">'
+            .'WARNING ! Login Required <br />'
+            .'Click '
+            .'<a href="'.$rootWeb.'claroline/auth/login.php'
+            .'?sourceUrl='.urlencode($sourceUrl).'">'
+            .'here'
+            .'</a>'
+            .'</p>');
 
+        require $includePath.'/claro_init_footer.inc.php';
+    }
+
+    die(); // this instruction is necessary to prevent any continuation of the application
+}
 
 /**
  *  Display selectbox for select a course
