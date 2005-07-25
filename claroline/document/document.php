@@ -920,6 +920,8 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
      */
 }
 
+if ( empty($curDirPath) ) $curDirPath = '/' ; // set defaut value of curDirPath to '/' fix bug 259
+
 $curDirName = basename($curDirPath);
 $parentDir  = dirname($curDirPath);
 
