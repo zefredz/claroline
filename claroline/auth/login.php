@@ -33,6 +33,23 @@ else
     $sourceUrlFormField = '';
 }
 
+if ($_cid) 
+{
+    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="'.htmlspecialchars($_cid).'">';
+}
+else
+{
+	$sourceCidFormField = '';
+}
+
+if ($_gid)
+{
+	$sourceGidFormField = '<input type="hidden" name="sourceGid" value="'.htmlspecialchars($_gid).'">';
+}
+else
+{
+	$sourceGidFormField = '';
+}
 
 $cidRequired = isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false;
 
@@ -47,6 +64,8 @@ if ( is_null($_uid) )
         .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'     ."\n"
         .'<fieldset>'                                                 ."\n"
         .$sourceUrlFormField                                          ."\n"
+        .$sourceCidFormField                                          ."\n"
+        .$sourceGidFormField                                          ."\n"
         .'<legend>'.$langAuthentication.'</legend>'                         ."\n"
         
         .'<label for="username">'.$langUserName.' : </label><br />'   ."\n"
@@ -135,6 +154,18 @@ else
     }
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
+        if (isset($_REQUEST['sourceCid']) )
+        {
+        	$sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?') 
+                       .  'cidReq='.$_REQUEST['sourceCid'];
+        }
+        
+        if (isset($_REQUEST['sourceGid']))
+        {
+        	$sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
+                       .  'gidReq='.$_REQUEST['sourceGid'];
+        }
+        
         header('Location: '.$sourceUrl);
     }
     elseif ( $_cid )
