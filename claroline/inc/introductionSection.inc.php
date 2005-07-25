@@ -137,7 +137,7 @@ if ($intro_dispDefault)
 {
 	$intro_content = claro_parse_user_text($intro_content);
 	
-	if( trim(strip_tags($intro_content)) != '' ) // no need to display a div for an empty string
+	if( trim(strip_tags($intro_content,'<img>')) != '' ) // no need to display a div for an empty string
 	{
 		echo '<div class="claroIntroSection">' . "\n"
 		.    $intro_content . "\n"
@@ -148,7 +148,7 @@ if ($intro_dispDefault)
 
 if ($intro_dispCommand)
 {
-    if( trim(strip_tags($intro_content)) == '' ) // displays "Add intro" Commands
+    if( trim(strip_tags($intro_content,'<img>')) == '' ) // displays "Add intro" Commands
     {
         echo '<div class="HelpText">' . "\n"
 		.    $helpAddIntroText
