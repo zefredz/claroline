@@ -29,8 +29,8 @@
      
     function diff( $old, $new, $show_equals = false )
     {
-        $oldArr = str_split( $old );
-        $newArr = str_split( $new );
+        $oldArr = str_split_on_new_line( $old );
+        $newArr = str_split_on_new_line( $new );
          
         $oldCount = count ( $oldArr );
         $newCount = count ( $newArr );
@@ -97,7 +97,7 @@
         return $output;
     }
      
-    function str_split($str )
+    function str_split_on_new_line($str )
     {
         $content = array();
          
