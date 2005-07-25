@@ -38,9 +38,13 @@
         }
         else
         {
-
             claro_disp_select_course();
         }
+    }
+    
+    if ( ! isset( $_REQUEST['wikiId'] ) )
+    {
+        header( "Location: wiki.php" );
     }
     
     // set admin mode and groupId
