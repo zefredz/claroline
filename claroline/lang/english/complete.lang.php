@@ -1874,7 +1874,13 @@ $langWikiExample = "Edit an example";
 $langWikiExampleWarning = "Warning example will overwrite current content";
 $langWikiGroupMembers = "Group members";
 $langWikiHelpContent = "<h3>Wiki2xhtml syntax</h3>
-<dl class=\"wikiHelp\"><dt>Block elements</dt>
+<dl class=\"wikiHelp\">
+<dt>Creating wiki pages and links between them</dt>
+<dd><ul>
+<li><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</li>
+<li><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[page title|link text]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[WikiWord|text]</code>.</li>
+</ul></dd>
+<dt>Block elements</dt>
 <dd><ul><li>Add a new line between each line <em>of the same type</em>.&nbsp;;</li>
 <li><strong>Paragraph</strong> : type some text and a new line&nbsp;;</li>
 <li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
@@ -1898,7 +1904,8 @@ $langWikiHelpContent = "<h3>Wiki2xhtml syntax</h3>
 <li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
 <li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
 <li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
-</ul></dd></dl>";
+</ul></dd>
+</dl>";
 $langWikiHelpSyntax = "Wiki syntax";
 $langWikiInvalidWikiId = "Invalid Wiki Id";
 $langWikiList = "List of Wiki";

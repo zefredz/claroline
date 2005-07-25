@@ -1937,7 +1937,13 @@ $langWikiExample = "Éditer un exemple";
 $langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
 $langWikiGroupMembers = "Membres du groupe";
 $langWikiHelpContent = "<h3>Syntaxe wiki2xhtml</h3>
-<dl class=\"wikiHelp\"><dt>Blocs</dt><dd><ul><li>Laisser une ligne vide entre chaque bloc <em>de même nature</em>.&nbsp;;</li>
+<dl class=\"wikiHelp\">
+<dt>Création de pages et liens vers des pages du Wiki</dt>
+<dd><ul>
+<li><strong>Mots Wiki</strong> : les mots Wiki sont des mots du type <em>MotWiki</em>. Wiki2xhtml les reconnait automatiquement comme étant des liens vers de pages du Wiki. Pour créer une page ou créer un lien vers cette page, ajoutez son titre en mot Wiki, par example <em>MaPage</em>, au contenu d'une page déjà existante et enregistrez vos modifications. Le titre en mot Wiki <em>MaPage</em> sera transformé automatiquement en lien vers la page de Wiki <em>MaPage</em> par wiki2xhtml&nbsp;;</li>
+<li><strong>Liens Wiki</strong> : les liens Wiki sont des hyperliens normaux (voir plus loin) mais ne contiennent pas de schéma de protocole web (comme <em>http:://</em> or <em>ftp:://</em>). Pour créer une page ou créer un lien vers cette page avec un lien Wiki, ajoutez <code>[titre de la page]</code> or <code>[titre de la page|texte du lien]</code> au contenu d'une page déjà existante. Vous pouvez également utiliser cette syntaxe pour changer le texte du lien d'un mot Wiki : <code>[MotWiki|texte du lien]</code>.</li>
+</ul></dd>
+<dt>Blocs</dt><dd><ul><li>Laisser une ligne vide entre chaque bloc <em>de même nature</em>.&nbsp;;</li>
 <li><strong>Paragraphe</strong> : du texte et une ligne vide&nbsp;;</li>
 <li><strong>Titre</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> pour des titres plus ou moins importants&nbsp;;</li>
 <li><strong>Trait horizontal</strong> : <code>----</code>&nbsp;;</li>
@@ -1950,9 +1956,9 @@ tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
 <li><strong>Emphase</strong> : deux apostrophes <code>''texte''</code>&nbsp;;</li>
 <li><strong>Forte emphase</strong> : deux soulignés <code>__texte__</code>&nbsp;;</li>
 <li><strong>Retour forcé à la ligne</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Souligné</strong> : deux plus <code>++texte++</code>&nbsp;;</li>
-<li><strong>Barré</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
-<li><strong>Lien</strong> : <code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</li>
+<li><strong>Texte souligné</strong> : deux plus <code>++texte++</code>&nbsp;;</li>
+<li><strong>Texte barré</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
+<li><strong>Hyperlien</strong> : <code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</li>
 <li><strong>Image</strong> : comme un lien mais avec une extension d'image.<br>Pour désactiver la reconnaissance d'image mettez 0 dans un dernier argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher.<br>Il est conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</li>
 <li><strong>Image</strong> (nouvelle syntaxe) : <code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</li>
 <li><strong>Ancre</strong> : <code>~ancre~</code>&nbsp;;</li>
@@ -1960,7 +1966,8 @@ tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
 <li><strong>Citation</strong> : <code>{{citation}}</code>, <code>{{citation|langue}}</code> ou <code>{{citation|langue|url}}</code>&nbsp;;</li>
 <li><strong>Code</strong> : <code>@@code ici@@</code>&nbsp;;</li>
 <li><strong>Note de bas de page</strong> : <code>\$\$Corps de la note\$\$</code>.</li>
-</ul></dd></dl>";
+</ul></dd>
+</dl>";
 $langWikiHelpSyntax = "Syntaxe Wiki";
 $langWikiInvalidWikiId = "Wiki Id non valide";
 $langWikiList = "Liste des Wiki";
