@@ -64,7 +64,7 @@
     }
     else
     {
-        die( "<center>You are not allowed to access this course !!!</center>" );
+        claro_disp_auth_form();
     }
 
     // unquote GPC if magic quote gpc enabled

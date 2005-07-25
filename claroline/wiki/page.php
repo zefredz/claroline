@@ -70,7 +70,7 @@
     }
     else
     {
-        die( "<center>You are not allowed to access this course !!!</center>" );
+        claro_disp_auth_form();
     }
     
     // Wiki specific classes and libraries
