@@ -413,8 +413,8 @@
     $jspath = document_web_path() . '/lib/javascript';
 
     $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-        . "\nvar sLangWikiExampleWarning = '".addslashes($langWikiExampleWarning) . "'"
-        . "\nvar sLangWikiFullDemoText = '".get_demo_text() . "'"
+#        . "\nvar sLangWikiExampleWarning = '".addslashes($langWikiExampleWarning) . "'"
+#        . "\nvar sLangWikiFullDemoText = '".get_demo_text() . "'"
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
         . "\n</script>\n"
         ;
@@ -695,11 +695,14 @@
         
     if ( $action == "edit" )
     {
-        echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" '
-            . 'onclick="addExample(sLangWikiFullDemoText, \'content\'); return false;">'
-            . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
-            . $langWikiExample . '</a>'
-            ;
+#        if ( defined( "DEVEL_MODE" ) && DEVEL_MODE === true )
+#        {
+#            echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" '
+#                . 'onclick="addExample(sLangWikiFullDemoText, \'content\'); return false;">'
+#                . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
+#                . $langWikiExample . '</a>'
+#                ;
+#        }
             
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
             . 'help_wiki.php'
