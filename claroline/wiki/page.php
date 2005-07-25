@@ -418,7 +418,7 @@
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
         . "\n</script>\n"
         ;
-    $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"".$jspath."/wiki_help.js\"></script>\n";
+#    $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"".$jspath."/wiki_help.js\"></script>\n";
     
     // TODO : MOVE to CSS
     $htmlHeadXtra[] =
