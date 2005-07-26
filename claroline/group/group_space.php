@@ -163,83 +163,31 @@ $forumId = $_group['forumId'];
 // CLAROLINE HEADER AND BANNER
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title(array('mainTitle' => $_group['name'],
+'subTitle' => '<img src="'.$imgRepositoryWeb.'group.gif" />' . $nameTools,
+'supraTitle' => $langGroups));
 
 if ( !empty($message) )
 {
     echo claro_disp_message_box($message);
 }
 
+if($is_allowedToSelfRegInGroup)
+{
+    echo '<p>'
+        . '<a href="'.$_SERVER['PHP_SELF'].'?registration=1" class="claroCmd">'
+        .'<img src="'.$imgRepositoryWeb.'enroll.gif" alt="'.$langRegIntoGroup.'" />'
+        .$langRegIntoGroup
+        .'</a>'
+        . '</p>'
+        ;
+}
+
 ?>
 
 <table cellpadding="5" cellspacing="0" border="0">
-
-<tr valign="top">
-
-<td align="right"><?php echo $langGroupName ?> : </td>
-<td><b><?php echo $_group['name'] ?></b><td>
-
-</tr>
-
-<tr valign="top">
-
-<td align="right"><?php echo $langGroupDescription ?> : </td>
-<td>
-<?php
-
- /*----------------------------------------------------------------------------
-                           DISPLAY GROUP DESCRIPTION
- ----------------------------------------------------------------------------*/
-
-if( strlen($_group['description']) > 0)
-{
-	echo $_group['description'];
-}
-else // Show 'none' if no description
-{
-	echo $langGroupNone;
-}
-
-?>
-</td>
-
-</tr>
-
-
-<tr valign="top">
-
-<td align="right"><?php echo $langGroupTutor ?> : </td>
-<td>
-<?php
-
-/*----------------------------------------------------------------------------
-                        DISPLAY GROUP TUTOR INFORMATION
-  ----------------------------------------------------------------------------*/
-
-if (count($tutorDataList) > 0)
-{
-    foreach($tutorDataList as $thisTutor)
-    {
-        echo $thisTutor['lastName'].' '.$thisTutor['firstName']
-            .' <a class="email" href="mailto:'.$thisTutor['email'].'">'
-            .$thisTutor['email']
-            .'</a>'
-            .'<br>';
-	}
-}
-else
-{
-	echo $langGroupNoTutor;
-}
-?>
-</td>
-
-</tr>
-
-<tr valign="top">
-
-<td align="right"><?php echo $langTools ?> : </td>
-<td>
+<tr>
+<td style="border-right: 1px solid gray;" valign="top" width="220">
 <?php
 
  /*----------------------------------------------------------------------------
@@ -257,35 +205,111 @@ else
  */
 if($_groupProperties['tools']['forum'])
 {
-    echo "<a href=\"../phpbb/viewforum.php?forum=".$forumId."\">"
-        .$langForum
+    echo "<a href=\"../phpbb/viewforum.php?forum=".$forumId."\" class=\"item\">"
+        .'<img src="'.$imgRepositoryWeb.'forum.gif" />'
+        .'&nbsp;' .$langForum
         ."</a>"
-        ."<br>";
+        ."<br>"
+        ;
 }
 
 // Drive members into their own File Manager
 if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
 {
-    echo "<a href=\"../document/document.php\">".$langDocuments."</a><br>";
+    echo "<a href=\"../document/document.php\" class=\"item\">"
+        .'<img src="'.$imgRepositoryWeb.'document.gif" />'
+        .'&nbsp;' .$langDocuments
+        ."</a><br>"
+        ;
 }
 
 if($_groupProperties['tools']['wiki'])
 {
-    echo "<a href=\"../wiki/wiki.php\">".$langWiki."</a><br>";
+    echo "<a href=\"../wiki/wiki.php\" class=\"item\">"
+        .'<img src="'.$imgRepositoryWeb.'wiki.gif" />'
+        .'&nbsp;' . $langWiki
+        ."</a><br>"
+        ;
 }
 
 if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
 {
-  echo "<a href=\"../chat/chat.php?gidReq=".$_gid."\">".$langChat."</a><br>";
+  echo "<a href=\"../chat/chat.php?gidReq=".$_gid."\" class=\"item\">"
+    .'<img src="'.$imgRepositoryWeb.'chat.gif" />'
+    .'&nbsp;' .$langChat
+    ."</a><br>"
+    ;
+}
+
+echo '<br /><br />';
+
+if ($is_allowedToManage)
+{
+    echo '<a href="group_edit.php" class="claroCmd">'
+        .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langEditGroup.'" />'
+        .$langEditGroup
+        .'</a>'
+        ;
 }
 
 
 ?>
 </td>
-</tr>
-<tr valign="top">
-<td align="right"><?php echo  $langGroupMembers ?> : </td>
-<td>
+<td width="20">
+&nbsp;
+</td>
+<td valign="top">
+<b><?php echo $langGroupDescription ?></b> :
+<?php
+
+ /*----------------------------------------------------------------------------
+                           DISPLAY GROUP DESCRIPTION
+ ----------------------------------------------------------------------------*/
+
+if( strlen($_group['description']) > 0)
+{
+    echo '<br /><br />';
+	echo $_group['description'];
+}
+else // Show 'none' if no description
+{
+    echo $langGroupNone;
+}
+
+?>
+
+<br /><br />
+
+
+<b><?php echo $langGroupTutor ?></b> :
+<?php
+
+/*----------------------------------------------------------------------------
+                        DISPLAY GROUP TUTOR INFORMATION
+  ----------------------------------------------------------------------------*/
+
+if (count($tutorDataList) > 0)
+{
+    echo '<br /><br />';
+    foreach($tutorDataList as $thisTutor)
+    {
+        echo '<span class="item">'
+            . $thisTutor['lastName'].' '.$thisTutor['firstName']
+            .' - <a class="email" href="mailto:'.$thisTutor['email'].'">'
+            .$thisTutor['email']
+            .'</a>'
+            .'</span>'
+            .'<br>';
+	}
+}
+else
+{
+	echo $langGroupNoTutor;
+}
+?>
+<br /><br />
+
+<b><?php echo  $langGroupMembers ?></b> :
 <?php
 
 
@@ -295,11 +319,12 @@ if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
 
 if(count($groupMemberList) > 0)
 {
+    echo '<br /><br />';
     foreach($groupMemberList as $thisGroupMember)
     {
-        echo "<a href=\"../tracking/userLog.php?uInfo=".$thisGroupMember['id']."\">"
+        echo "<a href=\"../tracking/userLog.php?uInfo=".$thisGroupMember['id']."\" class=\"item\">"
             .$thisGroupMember['lastName'].' '.$thisGroupMember['firstName']
-            ."</a> -"
+            ."</a> - "
             ."<a href=\"mailto:".$thisGroupMember['email']."\">"
             .$thisGroupMember['email']
             ."</a>"
@@ -312,30 +337,7 @@ else
 }
 
 ?>
-</td>
-</tr>
-<?php
-if ($is_allowedToManage)
-{ 
-    echo '<tr valign="top">'
-        .'<td>&nbsp;</td>'
-        .'<td>'
-        .'<form method="get" action="group_edit.php">'
-        .'<input type="submit" value="'.$langEditGroup.'">'
-        .'</form>'
-        .'</td>'
-        .'</tr>';
-}
-
-if($is_allowedToSelfRegInGroup)
-{
-    echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?\">"
-        ."<input type=\"hidden\" name=\"registration\" value=\"1\">"
-        ."<input type=\"submit\" value=\"".$langRegIntoGroup."\">"
-        ."</form>";
-}
-
-?>
+</td></tr>
 </table>
 <?php
 include($includePath.'/claro_init_footer.inc.php');

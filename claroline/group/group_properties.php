@@ -78,8 +78,8 @@ if ($multiGroupAllowed)
 }
 
 include($includePath.'/claro_init_header.inc.php');
-echo claro_disp_tool_title( array('mainTitle' => $nameTools,
-'subTitle' => $nameTools));
+echo claro_disp_tool_title( array('supraTitle' => $langGroups,
+'mainTitle' => $nameTools));
 
 ?>
 
@@ -87,10 +87,15 @@ echo claro_disp_tool_title( array('mainTitle' => $nameTools,
 <table border="0" width="100%" cellspacing="0" cellpadding="4">
     <tr>
         <td valign="top">
-                <input type="checkbox" name="self_registration" id="self_registration" value="1" <?php if($registrationAllowedInGroup) echo "checked";    ?> >
-                <label for="self_registration" >
-                    <?php echo $langGroupAllowStudentRegistration; ?>
-                </label>
+        <b><?php echo $langGroupSelfRegistration ?></b>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <span class="item">
+            <input type="checkbox" name="self_registration" id="self_registration" value="1" <?php if($registrationAllowedInGroup) echo "checked";    ?> >
+            <label for="self_registration" ><?php echo $langGroupAllowStudentRegistration; ?></label>
+            </span>
         </td>
     </tr>
 <?php
@@ -99,7 +104,12 @@ echo claro_disp_tool_title( array('mainTitle' => $nameTools,
 ?>
     <tr>
         <td valign="top">
-        <b><?php echo $langGroupLimit ?></b><br>
+        <b><?php echo $langGroupLimit ?></b>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <span class="item">
             <?php echo $langQtyOfUserCanSubscribe_PartBeforeNumber;
 
             if (is_null($_groupProperties ['nbGroupPerUser']))
@@ -125,7 +135,7 @@ echo claro_disp_tool_title( array('mainTitle' => $nameTools,
             ?>
             </select>
             <?php echo $langQtyOfUserCanSubscribe_PartAfterNumber ?>
-            </fieldset>
+            </span>
         </td>
     </tr>
 
@@ -134,59 +144,59 @@ echo claro_disp_tool_title( array('mainTitle' => $nameTools,
 ?>
     <tr>
         <td valign="top">
-            <p>
-                <b>
-                    <?php echo $langGroupTools ?>
-                </b>
-            </p>
+            <b><?php echo $langGroupTools ?></b>
         </td>
     </tr>
     <tr>
         <td valign="top">
-                <?php echo $langGroupForum; ?>
+            <span class="item">
+            <?php echo $langGroupForum; ?>
             <input type="radio" name="private" id="private_1" value="1" <?php
                 if(!$groupPrivate)
                     echo "checked"?> >
-                <label for="private_1"><?php echo $langPrivate; ?></label>
+            <label for="private_1"><?php echo $langPrivate; ?></label>
             <input type="radio" name="private" id="private_0" value="0" <?php
                 if($groupPrivate)
                     echo "checked"?> >
-                <label for="private_0"><?php echo $langPublic; ?></label>
+            <label for="private_0"><?php echo $langPublic; ?></label>
+            </span>
         </td>
     </tr>
     <tr>
         <td>
-                <?php echo $langGroupDocument.' '.$langGroupDocumentAlwaysPrivate; ?>
+            <span class="item">
+            <?php echo $langGroupDocument . ' ' . $langGroupDocumentAlwaysPrivate; ?>
+            </span>
         </td>
     </tr>
     <tr>
         <td valign="top">
+            <span class="item">
             <input type="checkbox" name="chat" id="chat" value="1"
             <?php
                 if($_groupProperties['tools'] ['chat'])
                     echo "checked" ?> >
-                <label for="chat">
-                <?php echo $langChat; ?>
-                <?php echo $langGroupAlwaysPrivate; ?></label>
+            <label for="chat"><?php echo $langChat; ?><?php echo $langGroupAlwaysPrivate; ?></label>
+            </span>
         </td>
     </tr>
 
     <tr>
         <td valign="top">
+            <span class="item">
             <input type="checkbox" name="wiki" id="wiki" value="1"
             <?php
                 if($_groupProperties['tools'] ['wiki'])
                     echo "checked" ?> >
-                <label for="chat">
-                <?php echo $langWiki; ?>
-                </label>
+            <label for="chat"><?php echo $langWiki; ?></label>
+            </span>
         </td>
     </tr>
 
     <tr>
         <td valign="top">
             <input type="submit" name="properties" value="<?php echo $langOk ?>"> 
-             <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+            <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
         </td>
     </tr>
 </table>

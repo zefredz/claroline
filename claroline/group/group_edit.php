@@ -201,7 +201,8 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title(array('supraTitle' => $langGroups,
+'mainTitle' => $nameTools));
 
 if ( isset($messageGroupEdited) )
 {
@@ -222,7 +223,7 @@ if ( isset($messageGroupEdited) )
 </td>
 
 <td>
-<a href="group_space.php?gidReq=<?php echo $_gid ?>"><?php echo $langGroupThisSpace ?></a>
+<a href="group_space.php?gidReq=<?php echo $_gid ?>"><?php echo '<img src="'.$imgRepositoryWeb.'group.gif" />&nbsp;' . $langGroupThisSpace ?></a>
 </td>
 </tr>
 
