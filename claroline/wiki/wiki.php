@@ -108,6 +108,12 @@
     {
         $wikiTitle = ( isset( $_POST['title'] ) ) ? strip_tags( $_POST['title'] ) : '';
         $wikiDesc = ( isset( $_POST['desc'] ) ) ? strip_tags( $_POST['desc'] ) : '';
+        
+        if ( $wikiDesc == $langWikiDefaultDescription )
+        {
+            $wikiDesc = '';
+        }
+        
         $acl = ( isset( $_POST['acl'] ) ) ? $_POST['acl'] : null;
         
         // initialise access control list
@@ -442,7 +448,7 @@
                     . '&amp;action=rqEdit'
                     . '" class="claroCmd">'
                     . '<img src="'.$imgRepositoryWeb.'Settings.gif" border="0" alt="edit" />'
-                    . $langWikiEditProperties . '</a>'
+                    . $langWikiProperties . '</a>'
                     . "\n"
                     ;
 
@@ -461,7 +467,16 @@
             
             // wiki desc
             
+            echo '<p><b>'.$langWikiDescription.'</b> : </p>';
+            
+            $wikiDesc = ($wikiDesc == '' ) ? $langWikiNoDescription : $wikiDesc;
+            
             echo '<blockquote>'.nl2br($wikiDesc).'</blockquote>' . "\n";
+            
+            echo '<p><b>'.$langWikiNumberOfPages.'</b> : '
+                . $wikiStore->getNumberOfPagesInWiki( $wikiId )
+                . '</p>'
+                ;
             
             break;
         }
@@ -529,7 +544,7 @@
                     . '<th>'.$langTitle.'</th>' . "\n"
                     . '<th>'.$langWikiEnterWiki.'</th>' . "\n"
                     . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
-                    . '<th>'.$langWikiEditProperties.'</th>' . "\n"
+                    . '<th>'.$langWikiProperties.'</th>' . "\n"
                     . '<th>'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
