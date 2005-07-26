@@ -26,7 +26,7 @@ function insert_course_tool($tool_label)
                     add_in_course, access_manager  
 
             FROM `".$tbl_tool_list."` `course_tool`
-            WHERE claro_label = \"".$tool_label."\"";
+            WHERE claro_label = \"". addslashes($tool_label) ."\"";
 
     list($defaultToolSettingList) = claro_sql_query_fetch_all($sql);
 
@@ -40,9 +40,9 @@ function insert_course_tool($tool_label)
 
 
     $sql = "INSERT INTO `".$tbl_course_tool_list."`
-            SET tool_id  = \"".$defaultToolSettingList['id'        ]."\",
-                access = \""  .$defaultToolSettingList['def_access']."\",
-                rank     = \"".$defaultToolSettingList['rank'      ]."\"";
+            SET tool_id  = \"".(int)$defaultToolSettingList['id'        ]."\",
+                access = \""  .addslashes($defaultToolSettingList['def_access'])."\",
+                rank     = \"".(int)$defaultToolSettingList['rank'      ]."\"";
 
     claro_sql_query($sql);
 }
@@ -145,7 +145,7 @@ function get_course_tool_settings ($toolId)
 
             ON        ct.id = tl.tool_id
 
-            WHERE tl.id = \"" . $toolId . "\"";
+            WHERE tl.id = \"" . (int)$toolId . "\"";
             
     $toolList = claro_sql_query_fetch_all($sql);
        
@@ -197,7 +197,7 @@ function set_course_tool_access_level($toolIdList, $level)
     if (! is_array ($toolIdList) ) $toolIdList = array($toolId);
 
     $sql = "UPDATE `".$tbl_course_tool_list."`
-            SET   access = \"".$level."\"
+            SET   access = \"". addslashes($level)."\"
             WHERE id IN (\"". implode('", "',$toolIdList) ."\")";
 
     return claro_sql_query($sql);
@@ -233,9 +233,9 @@ function set_local_course_tool($toolId, $name, $url)
     {
 
         $sql = "UPDATE `".$tbl_course_tool_list."`
-                SET script_name = \"".$name."\",
-                    script_url  = \"".$url."\"
-                WHERE id        = \"".intval($toolId)."\"
+                SET script_name = \"".addslashes($name)."\",
+                    script_url  = \"".addslashes($url)."\"
+                WHERE id        = \"".(int)$toolId."\"
                 AND   tool_id IS NULL";
                 
         if (claro_sql_query_affected_rows($sql) > 0)
@@ -280,10 +280,10 @@ function insert_local_course_tool($name, $url, $accessLevel = 'ALL')
 
         $sql = "INSERT INTO `".$tbl_course_tool_list."`
                 SET 
-                script_name = \"".$name."\",
-                script_url  = \"".$url."\",
-                access    = \"".$accessLevel."\",
-                rank        = \"".$nextRank."\"";
+                script_name = \"".addslashes($name)."\",
+                script_url  = \"".addslashes($url)."\",
+                access    = \"".addslashes($accessLevel)."\",
+                rank        = \"".(int)$nextRank."\"";
 
     return claro_sql_query($sql);    
 }
@@ -307,7 +307,7 @@ function delete_course_tool($toolId)
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
     $sql = "DELETE FROM `".$tbl_course_tool_list."`
-            WHERE id = \"".$toolId."\"";
+            WHERE id = \"".(int)$toolId."\"";
 
     return claro_sql_query($sql);
 }
@@ -398,7 +398,7 @@ function move_course_tool($reqToolId, $moveDirection)
 	{
 		$sql = "SELECT id, rank
                 FROM `".$tbl_tool_list."`
-		        ORDER BY rank ".$sortDirection;
+		        ORDER BY rank ". $sortDirection;
 
         $toolList = claro_sql_query_fetch_all($sql);
 

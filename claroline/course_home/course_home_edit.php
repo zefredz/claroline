@@ -21,6 +21,8 @@ $gidReset = true; // If user is here. It means he isn't in any group space now.
 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 if ($is_courseAdmin)    $is_allowedToEdit = TRUE;
 if (!$is_allowedToEdit) claro_disp_auth_form();
 
@@ -241,9 +243,9 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<label for="toolName">' . $langExternalToolName . '</label><br />' . "\n"
-    .       '<input type="text" name="toolName" id="toolName" value="' . $toolName . '"><br />' . "\n"
+    .       '<input type="text" name="toolName" id="toolName" value="' . htmlspecialchars($toolName) . '"><br />' . "\n"
     .       '<label for="toolUrl">' . $langExternalToolUrl . '</label><br />' . "\n"
-    .       '<input type="text" name="toolUrl" id="toolUrl" value="' . $toolUrl . '"><br /><br />' . "\n"
+    .       '<input type="text" name="toolUrl" id="toolUrl" value="' . htmlspecialchars($toolUrl) . '"><br /><br />' . "\n"
     .       '<input class="claroButton" type="submit" value="' . $langOk . '">&nbsp;' . "\n"
     .       claro_disp_button($_SERVER['PHP_SELF'], $langCancel). "\n"
     .       '</form>' . "\n"
