@@ -1220,6 +1220,7 @@ $langMailSynthaxError = "Mail synthax error.";
 $langMailTo = "Mail to : ";
 $langMailUsed = "Mail is already used by another user.";
 $langMainDB = "Main database";
+$langMainGroupSettings = "Main Group Settings";
 $langMaintenance = "Maintenance";
 $langMakeABackupBefore = "
 <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
@@ -1289,7 +1290,6 @@ $langModifUserCourseSettings = "User course settings";
 $langModify = "Modify";
 $langModifyExercise = "Modify exercise";
 $langModifyFormat = "Modify the format";
-$langModifyGroupSettings = "Modify Group Settings";
 $langModifyInAllExercises = "in all exercises";
 $langModifyInThisExercise = "only in the current exercise";
 $langModifyProfile = "Modify my profile";

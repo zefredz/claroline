@@ -442,7 +442,7 @@ if ( $display_groupadmin_manager )
     .    '&nbsp;'
     .    '<a class="claroCmd" href="group_properties.php">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif">'
-    .    $langModifyGroupSettings 
+    .    $langMainGroupSettings
     .    '</a>' . "\n"
     .    '&nbsp;'
     .    '</p>' . "\n"

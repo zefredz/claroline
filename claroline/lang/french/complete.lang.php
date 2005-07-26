@@ -1270,6 +1270,7 @@ $langMailSynthaxError = "Erreur de synthaxe dans l'e-mail.";
 $langMailTo = "Pour: ";
 $langMailUsed = "L'e-mail est déjà utilisée par un autre utilisateur.";
 $langMainDB = "Base principale de Claroline";
+$langMainGroupSettings = "Propriétés des groupes";
 $langMaintenance = "Maintenance";
 $langMakeABackupBefore = "
 <p>L'outil de <em>mise à jour de Claroline</em> récupère les données de la précédente installation et les rend compatible avec la nouvelle version de Claroline. Cette mise à jour se déroule en trois étapes:</p>
@@ -1336,7 +1337,6 @@ $langModifUserCourseSettings = "Paramètres de cours de cet utilisateur";
 $langModify = "Modifier";
 $langModifyExercise = "Modifier l'exercice";
 $langModifyFormat = "Modifier le format";
-$langModifyGroupSettings = "Modifier les propréiétés générales des groupes";
 $langModifyInAllExercises = "pour l'ensemble des exercices";
 $langModifyInThisExercise = "uniquement pour l'exercice courant";
 $langModifyProfile = "Modifier mon profil";
