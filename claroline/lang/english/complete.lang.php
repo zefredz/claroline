@@ -913,6 +913,7 @@ $langGroup = "Group";
 $langGroupAllowStudentRegistration = "Students are allowed to self-register in groups";
 $langGroupAlwaysPrivate = "(always private)";
 $langGroupAssignment = "Groups (from groups tool, only group members can post)";
+$langGroupChatLink = "Chat of the group";
 $langGroupContent = "<p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups.
 At creation (Create groups), groups are emtpy. There are
@@ -988,6 +989,7 @@ $langGroups = "Groups";
 $langGroupsAdded = "group(s) has (have) been added";
 $langGroupsDeleted = "All groups have been deleted";
 $langGroupsEmptied = "All groups are now empty";
+$langGroupWikiLink = "Wiki of the group";
 $langHClar = "Start Help";
 $langHDoc = "Help Documents";
 $langHExercise = "Help exercises";

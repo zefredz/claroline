@@ -962,20 +962,57 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
 
 function disp_forum_group_toolbar($gid)
 {
-    global $langGroupSpaceLink, $langGroupDocumentsLink;
+    global $langGroupSpaceLink, $langGroupDocumentsLink, $langGroupChatLink, $langGroupWikiLink;
+    global $imgRepositoryWeb, $_groupProperties, $is_courseAdmin, $is_groupTutor, $is_groupMember;
+    
+    $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
+                                      || $is_groupMember
+                                      || $is_groupTutor);
+
+    $is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
+					                   || $is_groupMember
+					                   || $is_groupTutor );
 
 	// group space links
 
 	echo  '<p>'
-        . '<a href="../group/group_space.php?gidReq=' .(int) $gid . '">'
+        . '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
+        . '<img src="' . $imgRepositoryWeb.'group.gif">&nbsp;'
         . $langGroupSpaceLink
         . '</a>' 
-        . '&nbsp;&nbsp' 
-		. '<a href="../document/document.php?gidReq='
-        . (int) $gid . '">'
-        . $langGroupDocumentsLink
-        . '</a>'
-        . '</p>' . "\n";
+        ;
+
+    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
+    {
+        echo '&nbsp;|&nbsp'
+            ."<a href=\"../document/document.php\" class=\"claroCmd\">"
+            .'<img src="'.$imgRepositoryWeb.'document.gif" />'
+            .'&nbsp;' .$langGroupDocumentsLink
+            ."</a>"
+            ;
+    }
+
+    if($_groupProperties['tools']['wiki'])
+    {
+        echo '&nbsp;|&nbsp'
+            ."<a href=\"../wiki/wiki.php\" class=\"claroCmd\">"
+            .'<img src="'.$imgRepositoryWeb.'wiki.gif" />'
+            .'&nbsp;' . $langGroupWikiLink
+            ."</a>"
+            ;
+    }
+
+    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
+    {
+        echo '&nbsp;|&nbsp'
+            ."<a href=\"../chat/chat.php?gidReq=".$gid."\" class=\"claroCmd\">"
+            .'<img src="'.$imgRepositoryWeb.'chat.gif" />'
+            .'&nbsp;' . $langGroupChatLink
+            ."</a>"
+            ;
+    }
+    
+    echo '</p>' . "\n";
 
 }
 

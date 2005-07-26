@@ -962,6 +962,7 @@ $langGroup = "Groupe";
 $langGroupAllowStudentRegistration = "Etudiants autorisés à s'inscrire eux-mêmes dans les groupes";
 $langGroupAlwaysPrivate = "(Toujours privé)";
 $langGroupAssignment = "De groupe (de l'outil de groupes, seuls les utilisateurs membres de groupes peuvent poster)";
+$langGroupChatLink = "Discussion du groupe";
 $langGroupContent = "<p><b>Introduction</b></p>
 	<p>Cet outil permet de créer et de gérer des groupes de travail.
 	A la création, les groupes sont vides. Le gestionnaire de cours dispose de
@@ -1038,6 +1039,7 @@ $langGroups = "Groupes";
 $langGroupsAdded = "groupe(s) a (ont) été ajouté(s)";
 $langGroupsDeleted = "Tous les groupes ont été supprimés";
 $langGroupsEmptied = "Tous les groupes sont maintenant vides";
+$langGroupWikiLink = "Wiki du groupe";
 $langHClar = "Aide au démarrage";
 $langHDoc = "Aide documents";
 $langHExercise = "Aide exercices";
