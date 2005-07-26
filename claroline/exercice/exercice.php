@@ -30,6 +30,8 @@ $tlabelReq = 'CLQWZ___';
 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 include($includePath."/lib/pager.lib.php");
 
 /*******************************/
@@ -142,7 +144,7 @@ if($is_allowedToEdit)
                                     //get module_id concerned (by the asset)...
                                     $sql = "SELECT `module_id`
 											FROM `".$tbl_lp_asset."`
-											WHERE `path` = '".$_REQUEST['exerciseId']."'";
+											WHERE `path` = '". addslashes($_REQUEST['exerciseId']) ."'";
                                     $aResult = claro_sql_query($sql);
                                     $aList = mysql_fetch_array($aResult);
                                     $idOfModule = $aList['module_id'];
@@ -150,19 +152,19 @@ if($is_allowedToEdit)
                                     // delete the asset
                                     $sql = "DELETE
 											FROM `".$tbl_lp_asset."`
-											WHERE `path` = '".$_REQUEST['exerciseId']."'";
+											WHERE `path` = '". addslashes($_REQUEST['exerciseId']) ."'";
                                     claro_sql_query($sql);
 
                                     // delete the module
                                     $sql = "DELETE
 											FROM `".$tbl_lp_module."`
-											WHERE `module_id` = ".$idOfModule."";
+											WHERE `module_id` = ". (int)$idOfModule ."";
                                     claro_sql_query($sql);
 
                                     // find the learning path module(s) concerned
                                     $sql = "SELECT *
 											FROM `".$tbl_lp_rel_learnPath_module."`
-											WHERE `module_id` = ".$idOfModule."";
+											WHERE `module_id` = ". (int)$idOfModule ."";
 
                                     $lpmResult = claro_sql_query($sql);
 
@@ -173,7 +175,7 @@ if($is_allowedToEdit)
                                           ";
                                      while ($lpmList = mysql_fetch_array($lpmResult))
                                      {
-                                        $sql.="`learnPath_module_id` = '".$lpmList['learnPath_module_id']."' OR ";
+                                        $sql.="`learnPath_module_id` = '". (int)$lpmList['learnPath_module_id']."' OR ";
                                      }
                                      $sql.=" 0=1 ";
                                      claro_sql_query($sql);
@@ -181,7 +183,7 @@ if($is_allowedToEdit)
                                      // delete the learning path module(s)
                                     $sql = "DELETE
 											FROM `".$tbl_lp_rel_learnPath_module."`
-											WHERE `module_id`=".$idOfModule."";
+											WHERE `module_id`=" . (int)$idOfModule . "";
                                     claro_sql_query($sql);
 
                                 } //end if at least in one learning path

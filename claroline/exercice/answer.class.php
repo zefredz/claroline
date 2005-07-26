@@ -97,7 +97,10 @@ class Answer
 
 		$questionId = $this->questionId;
 
-		$sql = "SELECT reponse,correct,comment,ponderation,r_position FROM `".$tbl_quiz_answer."` WHERE question_id = '".$questionId."' ORDER BY r_position";
+		$sql = "SELECT reponse,correct,comment,ponderation,r_position 
+                FROM `".$tbl_quiz_answer."` 
+                WHERE question_id = '". (int)$questionId."' 
+                ORDER BY r_position";
 		$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		$i = 1;
@@ -237,11 +240,13 @@ class Answer
 		$questionId = $this->questionId;
 
 		// removes old answers before inserting of new ones
-		$sql = "DELETE FROM `".$tbl_quiz_answer."` WHERE question_id = '".$questionId."'";
+		$sql = "DELETE FROM `".$tbl_quiz_answer."` 
+                WHERE question_id = '".$questionId."'";
 		claro_sql_query($sql);
 
 		// inserts new answers into data base
-		$sql = "INSERT INTO `".$tbl_quiz_answer."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
+		$sql = "INSERT INTO `".$tbl_quiz_answer."`(id,question_id,reponse,correct,comment,ponderation,r_position)
+                VALUES ";
 
 		for($i=1;$i <= $this->new_nbrAnswers;$i++)
 		{
@@ -284,7 +289,8 @@ class Answer
 		if($this->nbrAnswers)
 		{
 			// inserts new answers into data base
-			$sql="INSERT INTO `".$tbl_quiz_answer."`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
+			$sql="INSERT INTO `".$tbl_quiz_answer."`(id,question_id,reponse,correct,comment,ponderation,r_position) 
+                  VALUES ";
 
 			for($i = 1; $i <= $this->nbrAnswers; $i++)
 			{

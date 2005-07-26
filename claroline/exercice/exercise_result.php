@@ -43,6 +43,9 @@ define('TEXTFIELD_FILL', 1);
 define('LISTBOX_FILL',	2);
 
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
+
 /*
  * paths definition
  */
@@ -109,7 +112,7 @@ else                                        // normal exercise mode
 }
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
+echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult );
 
     if($_SESSION['inPathMode']!= true) // exercise mode
     {
@@ -139,8 +142,8 @@ echo claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 		// count number of attempts of the user 
 		$sql="SELECT count(`exe_result`) AS `tryQty`
 		        FROM `".$tbl_track_e_exercises."`
-		       WHERE `exe_user_id` = '".$_uid."'
-		         AND `exe_exo_id` = ".$_SESSION['objExercise']->selectId()."
+		       WHERE `exe_user_id` = '".(int)$_uid."'
+		         AND `exe_exo_id` = ".(int)$_SESSION['objExercise']->selectId()."
 		       GROUP BY `exe_user_id`";
 		$result = claro_sql_query_fetch_all($sql);
 
@@ -366,7 +369,7 @@ echo claro_disp_tool_title( stripslashes($exerciseTitle)." : ".$langResult );
 											$charsToAvoid = array("[","]");
 
 		   									if( isset($choice[$j]) )
-												$choice[$j] = trim(stripslashes(str_replace($charsToAvoid, "", $choice[$j])));
+												$choice[$j] = trim(htmlspecialchars(str_replace($charsToAvoid, "", $choice[$j])));
 											else
 											    $choice[$j] = '';
 
@@ -619,10 +622,10 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
         // need learningPath_module_id and raw_to_pass value
         $sql = "SELECT LPM.`raw_to_pass`, LPM.`learnPath_module_id`, UMP.`total_time`, UMP.`raw`
                   FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$tbl_lp_user_module_progress."` AS UMP
-                 WHERE LPM.`learnPath_id` = '".$_SESSION['path_id']."'
-                   AND LPM.`module_id` = '".$_SESSION['module_id']."'
+                 WHERE LPM.`learnPath_id` = '".(int)$_SESSION['path_id']."'
+                   AND LPM.`module_id` = '".(int)$_SESSION['module_id']."'
 				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
-				   AND UMP.`user_id` = ".$_uid;
+				   AND UMP.`user_id` = ".(int)$_uid;
         $query = claro_sql_query($sql);
         $row = mysql_fetch_array($query);
 
@@ -650,12 +653,12 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 		}// else don't change raw, credit and lesson_status
 
 		// default query statements
-		$sql .= "	`scoreMin` 		= $scoreMin,
-					`scoreMax` 		= $scoreMax,
+		$sql .= "	`scoreMin` 		= " . (int)$scoreMin . ",
+					`scoreMax` 		= " . (int)$scoreMax . ",
 					`total_time`	= '".addScormTime($row['total_time'], $scormSessionTime)."',
 					`session_time`	= '".$scormSessionTime."'
-                 WHERE `learnPath_module_id` = ".$row['learnPath_module_id']."
-                   AND `user_id` = $_uid";
+                 WHERE `learnPath_module_id` = ". (int)$row['learnPath_module_id']."
+                   AND `user_id` = " . (int)$_uid . "";
 	    claro_sql_query($sql);
     }
 

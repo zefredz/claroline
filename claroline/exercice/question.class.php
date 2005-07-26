@@ -419,13 +419,21 @@ class Question
 		// question already exists
 		if($id)
 		{
-			$sql = "UPDATE `".$tbl_quiz_question."` SET question='".$question."',description='".$description."',ponderation='".$weighting."',q_position='".$position."',type='".$type."',attached_file='".$attachedFile."' WHERE id='".$id."'";
+			$sql = "UPDATE `".$tbl_quiz_question."` 
+                    SET question='".$question."',
+                        description='".$description."',
+                        ponderation='".$weighting."',
+                        q_position='".$position."',
+                        type='".$type."',
+                        attached_file='".$attachedFile."' 
+                    WHERE id='".$id."'";
 			claro_sql_query($sql);
 		}
 		// creates a new question
 		else
 		{
-			$sql = "INSERT INTO `".$tbl_quiz_question."`(question,description,ponderation,q_position,type,attached_file) VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."','".$attachedFile."')";
+			$sql = "INSERT INTO `".$tbl_quiz_question."`(question,description,ponderation,q_position,type,attached_file) 
+                    VALUES ('".$question."','".$description."','".$weighting."','".$position."','".$type."','".$attachedFile."')";
 			claro_sql_query($sql);
 
 			$this->id = mysql_insert_id();
@@ -487,7 +495,8 @@ class Question
 			// deletes the position in the array containing the wanted exercise ID
 			unset($this->exerciseList[$pos]);
 
-			$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE question_id = '".$id."' AND exercice_id = '".$exerciseId."'";
+			$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` 
+                    WHERE question_id = '".$id."' AND exercice_id = '".$exerciseId."'";
 			claro_sql_query($sql);
 
 			return true;
@@ -511,13 +520,16 @@ class Question
 		// if the question must be removed from all exercises
 		if(!$deleteFromEx)
 		{
-			$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE `question_id` = '".$id."'";
+			$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` 
+                    WHERE `question_id` = '".$id."'";
 			claro_sql_query($sql);
 
-			$sql = "DELETE FROM `".$tbl_quiz_question."` WHERE `id` = '".$id."'";
+			$sql = "DELETE FROM `".$tbl_quiz_question."` 
+                    WHERE `id` = '".$id."'";
 			claro_sql_query($sql);
 
-			$sql = "DELETE FROM `".$tbl_quiz_answer."` WHERE `question_id` = '".$id."'";
+			$sql = "DELETE FROM `".$tbl_quiz_answer."` 
+                    WHERE `question_id` = '".$id."'";
 			claro_sql_query($sql);
 
 			$this->removeAttachedFile();
@@ -548,9 +560,8 @@ class Question
 		$position = $this->position;
 		$type = $this->type;
 
-		$sql = "INSERT INTO `".$tbl_quiz_question."`
-			(question,description,ponderation,q_position,type)
-			VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."')";
+		$sql = "INSERT INTO `".$tbl_quiz_question."` (question,description,ponderation,q_position,type)
+			    VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."')";
 			
 		$id = claro_sql_query_insert_id($sql);
 

@@ -84,7 +84,7 @@ class Exercise
 				`max_time`,`max_attempt`,`show_answer`,`anonymous_attempts`,
 				`start_date` , `end_date` 
 			FROM `".$tbl_quiz_test."`
-			WHERE `id` = '$id'";
+			WHERE `id` = '" . (int)$id . "'";
 		$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
 		// if the exercise has been found
@@ -106,7 +106,7 @@ class Exercise
 			
 			$sql = "	SELECT 	`question_id`,`q_position` 
 				FROM `".$tbl_quiz_rel_test_question."`,`".$tbl_quiz_question."`
-				WHERE `question_id` = `id` AND `exercice_id` = '$id' 
+				WHERE `question_id` = `id` AND `exercice_id` = '" . (int)$id . "' 
 				ORDER BY `q_position`";
 			$result = claro_sql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 
@@ -511,8 +511,8 @@ class Exercise
 		global $tbl_quiz_test, $tbl_quiz_question;
 
 		$id				= $this->id;
-		$exercise		= addslashes($this->exercise);
-		$description	= addslashes($this->description);
+		$exercise		= $this->exercise;
+		$description	= $this->description;
 		$type			= $this->type;
 		$random			= $this->random;
 		$active			= $this->active;
@@ -528,18 +528,18 @@ class Exercise
 		if($id)
 		{
 			$sql = "UPDATE `".$tbl_quiz_test."`
-					SET `titre` = '".$exercise."',
-						`description` = '".$description."',
-						`type` = '".$type."',
- 						`random` = '".$random."',
-						`active` = '".$active."',
-						`start_date` = '".$startDate."',
-						`end_date` ='".$endDate."',
-						`max_time` = ".$maxTime.",
-						`max_attempt` = ".$maxAttempt.",
-						`show_answer` = '".$showAnswer."',
-						`anonymous_attempts` = '".$anonymousAttempts."'
-					WHERE `id` = '".$id."'";
+					SET `titre` = '". addslashes($exercise) ."',
+						`description` = '". addslashes($description) ."',
+						`type` = '". (int)$type."',
+ 						`random` = '". (int)$random."',
+						`active` = '". (int)$active."',
+						`start_date` = '". addslashes($startDate)."',
+						`end_date` ='". addslashes($endDate) ."',
+						`max_time` = ". (int)$maxTime.",
+						`max_attempt` = ". (int)$maxAttempt.",
+						`show_answer` = '". addslashes($showAnswer) ."',
+						`anonymous_attempts` = '". addslashes($anonymousAttempts)."'
+					WHERE `id` = '". (int)$id ."'";
 			claro_sql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 		// creates a new exercise
@@ -549,9 +549,10 @@ class Exercise
 					(`titre`,`description`,`type`,`random`,`active`,
 					 `start_date`, `end_date`,
 					 `max_time`, `max_attempt`, `show_answer`,`anonymous_attempts`) 
-					VALUES('".$exercise."','".$description."','".$type."','".$random."','".$active."',
-							'".$startDate."', '".$endDate."',
-							".$maxTime.",".$maxAttempt.",'".$showAnswer."','".$anonymousAttempts."')";
+					VALUES('". addslashes($exercise) ."','". addslashes($description) ."','". (int)$type ."',
+                            '" . (int)$random."','". (int)$active."',
+							'". addslashes($startDate)."', '".addslashes($endDate)."',
+							 ".(int)$maxTime.",".(int)$maxAttempt.",'".addslashes($showAnswer)."','".addslashes($anonymousAttempts)."')";
 			claro_sql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 
 			$this->id = mysql_insert_id();
@@ -560,7 +561,7 @@ class Exercise
 		// updates the question position
 		foreach($this->questionList as $position=>$questionId)
 		{
-			$sql = "UPDATE `".$tbl_quiz_question."` SET `q_position` = '".$position."' WHERE `id` = '".$questionId."'";
+			$sql = "UPDATE `".$tbl_quiz_question."` SET `q_position` = '".(int)$position."' WHERE `id` = '".(int)$questionId."'";
 			claro_sql_query($sql) or die("Error : UPDATE in file ".__FILE__." at line ".__LINE__);
 		}
 	}
@@ -719,10 +720,10 @@ class Exercise
 
 		$id = $this->id;
 
-		$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE exercice_id = '".$id."'";
+		$sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` WHERE exercice_id = '".(int)$id."'";
 		claro_sql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 
-		$sql = "DELETE FROM `".$tbl_quiz_test."` WHERE id = '".$id."'";
+		$sql = "DELETE FROM `".$tbl_quiz_test."` WHERE id = '".(int)$id."'";
 		claro_sql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 	}
 }

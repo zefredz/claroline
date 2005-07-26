@@ -29,6 +29,8 @@ include('answer.class.php');
 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 include($includePath."/lib/pager.lib.php");
 
 $is_allowedToEdit = $is_courseAdmin;
@@ -131,7 +133,7 @@ if($is_allowedToEdit)
 			
 	if(isset($_REQUEST['fromExercise']))
     {
-		$sql .= " WHERE `id` <> '".$_REQUEST['fromExercise']."'";
+		$sql .= " WHERE `id` <> '". (int)$_REQUEST['fromExercise']."'";
 	}
 	$sql .= " ORDER BY `id`";
 			
@@ -160,7 +162,7 @@ if($is_allowedToEdit)
 		$sql = "SELECT `id`, `question`, `type`
 				FROM `".$tbl_quiz_rel_test_question."`,`".$tbl_quiz_question."`
 				WHERE `question_id` = `id`
-				AND `exercice_id`= '".$_REQUEST['exerciseId']."'
+				AND `exercice_id`= '". (int)$_REQUEST['exerciseId']."'
 				ORDER BY `q_position`";
 	}
 	// if we have selected the option 'Orphan questions' in the list-box 'Filter'
@@ -184,7 +186,7 @@ if($is_allowedToEdit)
 		if(isset($_REQUEST['fromExercise']))
         {
 			$sql .= " WHERE `exercice_id` IS NULL
-					OR `exercice_id` <> '".$_REQUEST['fromExercise']."'";
+					OR `exercice_id` <> '". (int)$_REQUEST['fromExercise']."'";
 		}
 		$sql .=	" GROUP BY `id`
 				ORDER BY `question`";

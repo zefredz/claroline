@@ -40,6 +40,10 @@ define('LISTBOX_FILL',	2);
 
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
+if ( ! $_cid ) claro_disp_select_course();
+if ( ! $is_courseAllowed )    claro_disp_auth_form();
 
 $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
@@ -65,7 +69,10 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
 			|| (!$objExercise->selectStatus() && !$is_allowedToEdit && !$_SESSION['inPathMode'])
    	)
 	{
-		die($langExerciseNotFound);
+        include ($includePath.'/claro_init_header.inc.php');
+		echo claro_disp_message_box($langExerciseNotFound);
+        include ($includePath.'/claro_init_footer.inc.php');
+        die(); 
 	}
 
 	// saves the object into the session
@@ -169,8 +176,8 @@ $exerciseMaxAttempt	= $_SESSION['objExercise']->get_max_attempt();
 // count number of attempts of the user 
 $sql="SELECT count(`exe_result`) AS `tryQty`
         FROM `".$tbl_track_e_exercises."`
-       WHERE `exe_user_id` = '".$_uid."'
-         AND `exe_exo_id` = ".$_SESSION['objExercise']->selectId()."
+       WHERE `exe_user_id` = '". (int)$_uid."'
+         AND `exe_exo_id` = ". (int)$_SESSION['objExercise']->selectId()."
        GROUP BY `exe_user_id`";
 $result = claro_sql_query_fetch_all($sql);
 
