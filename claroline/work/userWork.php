@@ -19,6 +19,8 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 include_once($includePath . '/lib/events.lib.inc.php');
 include_once($includePath . '/lib/fileManage.lib.php');
 
@@ -77,8 +79,6 @@ $dispFbkFields = false;
 /*============================================================================
                      CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
-stripSubmitValue($_REQUEST);
-
 $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
 /*============================================================================
@@ -95,7 +95,7 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 				UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
 				UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
 				FROM `".$tbl_wrk_assignment."`
-				WHERE `id` = ".$_REQUEST['assigId'];
+				WHERE `id` = ". (int)$_REQUEST['assigId'];
 	
 	list($assignment) = claro_sql_query_fetch_all($sql);
 	
@@ -112,15 +112,15 @@ if( isset($assignment) && isset($_REQUEST['authId']) && !empty($_REQUEST['authId
 	{
 		$sql = "SELECT `name`
 				FROM `".$tbl_group_team."`
-				WHERE `id` = ".$_REQUEST['authId'];
-		$authField = "group_id";
+				WHERE `id` = ". (int)$_REQUEST['authId'];
+		$authField = 'group_id';
 	}
 	else
 	{
 		$sql = "SELECT CONCAT(`nom`,\" \",`prenom`) as `authName`
 				FROM `".$tbl_user."`
-				WHERE `user_id` = ".$_REQUEST['authId'];
-		$authField = "user_id";
+				WHERE `user_id` = ". (int)$_REQUEST['authId'];
+		$authField = 'user_id';
 	}
 	$authName = claro_sql_query_get_single_value($sql);
 }
@@ -151,7 +151,7 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
                   FROM `".$tbl_wrk_submission."` AS ws
                   LEFT JOIN `".$tbl_group_team."` AS gt
                         ON `ws`.`group_id`  = `gt`.`id`
-                  WHERE `ws`.`id` = ".$_REQUEST['wrkId'];
+                  WHERE `ws`.`id` = ". (int)$_REQUEST['wrkId'];
       }
       else
       {
@@ -159,7 +159,7 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
                   UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
                   UNIX_TIMESTAMP(`last_edit_date`) AS `unix_last_edit_date`                  
                   FROM `".$tbl_wrk_submission."`
-                  WHERE `id` = ".$_REQUEST['wrkId'];
+                  WHERE `id` = ". (int)$_REQUEST['wrkId'];
       }
       list($wrk) = claro_sql_query_fetch_all($sql);
 }
@@ -211,7 +211,7 @@ if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 		// get the list of group the user is in
 		$sql = "SELECT `tu`.`team`, `t`.`name`
 			FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
-			WHERE `tu`.`user` = ".$_uid."
+			WHERE `tu`.`user` = ". (int)$_uid."
 			AND `tu`.`team` = `t`.`id`";
 	}
 
@@ -331,7 +331,7 @@ if( isset($_REQUEST['submitWrk']) )
 	    }
 	    else
 	    {
-			$wrkForm['wrkTxt'] = trim(addslashes( $_REQUEST['wrkTxt'] ));
+			$wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
 	    }
 	}
 	elseif( $assignmentContent == "FILE" )
@@ -344,12 +344,12 @@ if( isset($_REQUEST['submitWrk']) )
 	    }
 	    else
 	    {
-	    	$wrkForm['wrkTxt'] = trim(addslashes( $_REQUEST['wrkTxt'] ));
+	    	$wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
 	    }
 	}
 
 	// check if a title has been given
-	if( ! isset($_REQUEST['wrkTitle']) || trim(claro_addslashes($_REQUEST['wrkTitle'])) == "" )
+	if( ! isset($_REQUEST['wrkTitle']) || trim($_REQUEST['wrkTitle']) == "" )
 	{
 		$dialogBox .= $langWrkTitleRequired."<br />";
 		$formCorrectlySent = false;
@@ -561,7 +561,7 @@ if($is_allowedToEditAll)
 
 			$sql = "UPDATE `".$tbl_wrk_submission."`
 			         SET `visibility` = '".$visibility."'
-			       WHERE `id` = ".$_REQUEST['wrkId']."
+			       WHERE `id` = ". (int)$_REQUEST['wrkId']."
 			         AND `visibility` != '".$visibility."'";
 			claro_sql_query ($sql);
 		}
@@ -574,8 +574,8 @@ if($is_allowedToEditAll)
 		// get name of file to delete AND name of file of the feedback of this work
 		$sql = "SELECT `id`, `submitted_doc_path`
 		          FROM `".$tbl_wrk_submission."`
-		          WHERE `id` = ".$_REQUEST['wrkId']."
-		             OR `parent_id` = ".$_REQUEST['wrkId'];
+		          WHERE `id` = ". (int)$_REQUEST['wrkId']."
+		             OR `parent_id` = ". (int)$_REQUEST['wrkId'];
 
 		$filesToDelete = claro_sql_query_fetch_all($sql);
 
@@ -586,7 +586,7 @@ if($is_allowedToEditAll)
 
 		    // delete the database data of this work
 		    $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
-		                      WHERE `id` = ".$fileToDelete['id'];
+		                      WHERE `id` = ". (int)$fileToDelete['id'];
 		    claro_sql_query($sqlDelete);
 		}
 	}
@@ -601,17 +601,17 @@ if($is_allowedToEditAll)
 		if( isset($formCorrectlySent) && $formCorrectlySent )
 		{
 			$sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
-						SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-							`assignment_id` = ".$_REQUEST['assigId'].",
-							`parent_id` = ".$_REQUEST['wrkId'].","
-							."`user_id`= ".$_uid.","
-							."`visibility` = \"".$assignment['def_submission_visibility']."\",
-							`title`       = \"".trim(claro_addslashes( $wrkForm['wrkTitle'] ))."\",
-							`submitted_text` = \"".trim(claro_addslashes( $wrkForm['wrkTxt'] ))."\",
-							`private_feedback` = \"".trim(claro_addslashes( $wrkForm['wrkPrivFbk'] ))."\",
-							`authors`     = \"".trim(claro_addslashes( $wrkForm['wrkAuthors'] ))."\",
-							`original_id` = ".$_REQUEST['authId'].",
-							`score` = \"".$wrkForm['wrkScore']."\",
+						SET `submitted_doc_path` = \"". addslashes($wrkForm['fileName'])."\",
+							`assignment_id` = ". (int)$_REQUEST['assigId'].",
+							`parent_id` = ". (int)$_REQUEST['wrkId'].",
+                            `user_id`= ". (int)$_uid.",
+							`visibility` = \"". addslashes($assignment['def_submission_visibility'])."\",
+							`title`       = \"".trim(addslashes($wrkForm['wrkTitle']))."\",
+							`submitted_text` = \"".trim(addslashes($wrkForm['wrkTxt']))."\",
+							`private_feedback` = \"".trim(addslashes($wrkForm['wrkPrivFbk']))."\",
+							`authors`     = \"".trim(addslashes($wrkForm['wrkAuthors']))."\",
+							`original_id` = ". (int)$_REQUEST['authId'].",
+							`score` = \"". (int)$wrkForm['wrkScore']."\",
 							`creation_date` = NOW(),
 							`last_edit_date` = NOW()";
 
@@ -619,9 +619,8 @@ if($is_allowedToEditAll)
 
 			$dialogBox .= $langFeedbackAdded;
                         
-                        // notify eventmanager that a new submission has been posted
-        
-                        $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], $_gid, $_REQUEST['authId']);
+            // notify eventmanager that a new submission has been posted
+            $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], $_gid, $_REQUEST['authId']);
 
 			// display flags
 			$dispWrkLst = true;
@@ -673,7 +672,7 @@ if($is_allowedToEditAll)
 /*============================================================================
                         ADMIN AND AUTHED USER COMMANDS
   =============================================================================*/  
-if( $is_allowedToEdit )
+if ( $is_allowedToEdit )
 {
 	/*--------------------------------------------------------------------
 	                    EDIT A WORK
@@ -681,15 +680,15 @@ if( $is_allowedToEdit )
 	/*-----------------------------------
 	        STEP 2 : check & query
 	-------------------------------------*/
-	if( $cmd == "exEditWrk" && isset($_REQUEST['wrkId']) )
+	if ( $cmd == "exEditWrk" && isset($_REQUEST['wrkId']) )
 	{
 		// if there is no error update database
-		if( isset($formCorrectlySent) && $formCorrectlySent )
+		if ( isset($formCorrectlySent) && $formCorrectlySent )
 		{
 		    // for corrections
-		    if( isset($wrkForm['wrkScore']) )
+		    if ( isset($wrkForm['wrkScore']) )
 		    {
-		          $sqlScore = " `score` = \"".$wrkForm['wrkScore']."\",";
+		          $sqlScore = " `score` = \"". (int)$wrkForm['wrkScore']."\",";
 		    }
 		    else
 		    {
@@ -698,7 +697,7 @@ if( $is_allowedToEdit )
 		    // for groups works
 		    if( $assignment['assignment_type'] == 'GROUP' && isset($wrkForm['wrkGroup']) )
 		    {
-		          $groupString .= "`group_id` = ".$wrkForm['wrkGroup'].",";
+		          $groupString .= "`group_id` = ". (int)$wrkForm['wrkGroup'].",";
 		    }
 		    else
 		    {
@@ -706,11 +705,11 @@ if( $is_allowedToEdit )
 		    }
 
 		    $sqlEditWork = "UPDATE `".$tbl_wrk_submission."`
-		                   SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-		                      `title`       = \"".trim(claro_addslashes( $wrkForm['wrkTitle'] ))."\",
-		                      `submitted_text` = \"".$wrkForm['wrkTxt']."\",
-							  `private_feedback` = \"".trim(claro_addslashes( $wrkForm['wrkPrivFbk'] ))."\",
-		                      `authors`     = \"".trim(claro_addslashes( $wrkForm['wrkAuthors'] ))."\","
+		                   SET `submitted_doc_path` = \"". addslashes($wrkForm['fileName'])."\",
+		                      `title`       = \"". trim(addslashes($wrkForm['wrkTitle'])) ."\",
+		                      `submitted_text` = \"". addslashes($wrkForm['wrkTxt'])."\",
+							  `private_feedback` = \"". trim(addslashes($wrkForm['wrkPrivFbk'])) ."\",
+		                      `authors`     = \"". trim(addslashes( $wrkForm['wrkAuthors'])) ."\","
 		                      .$sqlScore
 		                      .$groupString
 		                      ."`last_edit_date` = NOW()
@@ -788,19 +787,17 @@ if( $is_allowedToSubmit )
 			if( $assignment['assignment_type'] == 'GROUP' && isset($_REQUEST['wrkGroup']) )
 				$groupString = "`group_id` = ".$wrkForm['wrkGroup'].",";
 			else
-				$groupString = "";
-
-            
+				$groupString = "";    
             
             $sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
-                           SET `submitted_doc_path` = \"".$wrkForm['fileName']."\",
-                              `assignment_id` = ".$_REQUEST['assigId'].","
+                           SET `submitted_doc_path` = \"". addslashes($wrkForm['fileName']) ."\",
+                              `assignment_id` = ". (int)$_REQUEST['assigId'] .","
                               .$groupString
-							  ."`user_id` = ".$_uid.",
-                              `visibility` = \"".$assignment['def_submission_visibility']."\",
-                              `title`       = \"".trim(claro_addslashes( $wrkForm['wrkTitle'] ))."\",
-                              `submitted_text` = \"".trim(claro_addslashes( $wrkForm['wrkTxt'] ))."\",
-                              `authors`     = \"".trim(claro_addslashes( $wrkForm['wrkAuthors'] ))."\",
+							  ."`user_id` = ". (int)$_uid.",
+                              `visibility` = \"". addslashes($assignment['def_submission_visibility'])."\",
+                              `title`       = \"". trim(addslashes($wrkForm['wrkTitle'])) ."\",
+                              `submitted_text` = \"". trim(addslashes($wrkForm['wrkTxt'])) ."\",
+                              `authors`     = \"". trim(addslashes($wrkForm['wrkAuthors'])) ."\",
                               `creation_date` = NOW(),
                               `last_edit_date` = NOW()";
 
@@ -809,7 +806,6 @@ if( $is_allowedToSubmit )
             $dialogBox .= $langWrkAdded;
             
             // notify eventmanager that a new submission has been posted
-        
             $eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], $_gid, $_uid);
             
             // display flags
@@ -1181,9 +1177,9 @@ if( $dispWrkLst )
 				UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
 				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
 			FROM `".$tbl_wrk_submission."`
-			WHERE `".$authField."` = ".$_REQUEST['authId']."
+			WHERE `".$authField."` = ". (int)$_REQUEST['authId']."
 				AND `original_id` IS NULL
-				AND `assignment_id` = ".$_REQUEST['assigId']."
+				AND `assignment_id` = ". (int)$_REQUEST['assigId']."
 			ORDER BY `last_edit_date` ASC";
 
 	$wrkLst = claro_sql_query_fetch_all($sql);
@@ -1191,7 +1187,7 @@ if( $dispWrkLst )
 	$parentCondition = ' ';
 	foreach( $wrkLst as $thisWrk )
 	{
-		$parentCondition .= " OR `parent_id` = '".$thisWrk['id']."' ";
+		$parentCondition .= " OR `parent_id` = '". (int)$thisWrk['id']."' ";
 	}
 	// select all feedback relating to the user submission in this assignment
 	$sql = "SELECT *,
@@ -1199,7 +1195,7 @@ if( $dispWrkLst )
 				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
 			FROM `".$tbl_wrk_submission."`
 			WHERE 0 = 1
-				AND `assignment_id` = ".$_REQUEST['assigId']."
+				AND `assignment_id` = ". (int)$_REQUEST['assigId']."
 				".$parentCondition;
 	
 	$feedbackLst = claro_sql_query_fetch_all($sql);

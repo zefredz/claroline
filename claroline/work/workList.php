@@ -19,6 +19,8 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 include_once($includePath . '/lib/events.lib.inc.php');
 include_once($includePath . '/lib/fileManage.lib.php');
 include_once($includePath . '/lib/pager.lib.php');
@@ -50,6 +52,7 @@ claro_set_display_mode_available(true);
 /*============================================================================
                      BASIC VARIABLES DEFINITION
   =============================================================================*/
+
 $currentCourseRepositorySys = $coursesRepositorySys.$_course['path'] . '/';
 $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course['path'] . '/';
 
@@ -60,6 +63,7 @@ $maxFilledSpace     = 100000000;
 
 // initialise dialog box to an empty string, all dialog will be concat to it
 $dialogBox = '';
+
 /*============================================================================
                      CLEAN INFORMATIONS SEND BY USER
   =============================================================================*/
@@ -73,14 +77,15 @@ $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 /*--------------------------------------------------------------------
                 ASSIGNMENT INFORMATIONS
   --------------------------------------------------------------------*/
-if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
+
+if ( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 {
       // we need to know the assignment settings
       $sql = "SELECT *,
                 UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
                 UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
                 FROM `" . $tbl_wrk_assignment . "`
-                WHERE `id` = " . (int) $_REQUEST['assigId'];
+                WHERE `id` = " . (int)$_REQUEST['assigId'];
       
       list($assignment) = claro_sql_query_fetch_all($sql);
       
@@ -89,7 +94,7 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 }
 
 // assignment not requested or not found
-if( !isset($assignment) || is_null($assignment) )
+if ( !isset($assignment) || is_null($assignment) )
 {
       // we NEED to know in which assignment we are, so if assigId is not set
       // relocate the user to the previous page
@@ -100,7 +105,7 @@ if( !isset($assignment) || is_null($assignment) )
                           GROUP 'publish' option
   =============================================================================*/
 // redirect to the submission form prefilled with a .url document targetting the published document
-if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid))
+if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid) )
 {
     header( 'Location: userWork.php?authId=' 
           . $_gid 
@@ -113,7 +118,7 @@ if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkU
                         USER GROUP INFORMATIONS
   --------------------------------------------------------------------*/
 // if this is a group assignement we will need some group infos about the user
-if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
+if ( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 {
       // get the list of group the user is in
       $sql = "SELECT `tu`.`team`, `t`.`name`
@@ -232,8 +237,8 @@ else
 {
     $sql = "SELECT count(`id`)
                  FROM `".$tbl_wrk_submission."`
-                WHERE `user_id` = ".$_uid."
-                  AND `assignment_id` = ".$_REQUEST['assigId'];
+                WHERE `user_id` = ". (int)$_uid."
+                  AND `assignment_id` = ". (int)$_REQUEST['assigId'];
       $nbrWorksOfUser = claro_sql_query_get_single_value($sql);
       
       $showAfterPost = (bool) (  $assignment['prefill_submit'] == 'AFTERPOST' 
@@ -287,7 +292,7 @@ if( $assignment['assignment_type'] == 'GROUP' )
         $checkVisible = " AND (`S`.`visibility` = 'VISIBLE' ";
         foreach( $userGroupList as $userGroup )
         {
-            $checkVisible .= " OR `group_id` = ".$userGroup['id'];
+            $checkVisible .= " OR `group_id` = ". (int)$userGroup['id'];
         }
         $checkVisible .= ") ";
     }
@@ -315,7 +320,7 @@ else // INDIVIDUAL
     if( $is_allowedToEditAll ) 
         $checkVisible = " ";
     elseif( isset($_uid) )
-        $checkVisible = " AND (`S`.`visibility` = 'VISIBLE' OR `S`.`user_id` = ".$_uid.") ";
+        $checkVisible = " AND (`S`.`visibility` = 'VISIBLE' OR `S`.`user_id` = ". (int)$_uid.") ";
     else
         $checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
         
@@ -325,13 +330,13 @@ else // INDIVIDUAL
         LEFT JOIN `".$tbl_wrk_submission."` as `S`
             ON `S`.`user_id` = `U`.`user_id`
                 AND ( 
-                    `S`.`assignment_id` = ".$_REQUEST['assigId']."
+                    `S`.`assignment_id` = ". (int)$_REQUEST['assigId']."
                     OR `S`.`assignment_id` IS NULL 
                     )
                 AND `S`.`original_id` IS NULL
                 ".$checkVisible."
         WHERE `U`.`user_id` = `CU`.`user_id`
-            AND `CU`.`code_cours` = '".$_cid."'
+            AND `CU`.`code_cours` = '". addslashes($_cid)."'
         GROUP BY `U`.`user_id`
         ORDER BY `CU`.`statut` ASC, `CU`.`tutor` DESC,
                 `U`.`nom` ASC, `U`.`prenom` ASC
@@ -357,7 +362,7 @@ elseif( isset($_uid) && !isset($userGroupList) )
 {
     $checkVisible = " AND `S`.`visibility` = 'VISIBLE' 
                     AND ( `S2`.`visibility` = 'VISIBLE' 
-                    OR `S2`.`user_id` = ".$_uid.") ";
+                    OR `S2`.`user_id` = ". (int)$_uid.") ";
 }
 elseif( isset($userGroupList) )
 {
@@ -366,7 +371,7 @@ elseif( isset($userGroupList) )
                     AND `S2`.`visibility` = 'VISIBLE') ";
     foreach( $userGroupList as $userGroup )
     {
-        $checkVisible .= " OR `S2`.`group_id` = ".$userGroup['id'];
+        $checkVisible .= " OR `S2`.`group_id` = ". (int)$userGroup['id'];
     }
     $checkVisible .= ") ";
 }
@@ -380,7 +385,7 @@ $sql = "SELECT `S`.`original_id`, count(`S`.`id`) as `nbrFeedback`
         FROM `".$tbl_wrk_submission."` as `S`
         LEFT JOIN `".$tbl_wrk_submission."` as `S2`
             ON `S`.`parent_id` = `S2`.`id`
-        WHERE `S`.`assignment_id` = ".$_REQUEST['assigId']
+        WHERE `S`.`assignment_id` = ". (int)$_REQUEST['assigId']
             .$checkVisible
             ." AND ( 0 = 1 "
             .$parentCondition
@@ -396,7 +401,7 @@ foreach( $feedbackCounter as $counter )
                       ADMIN LINKS
   --------------------------------------------------------------------*/
 echo '<p>';
-if( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
+if ( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
 {
     // link to create a new assignment
     echo '<a class="claroCmd" href="userWork.php'
@@ -410,7 +415,7 @@ if( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
     if( $is_allowedToEditAll ) echo ' | ';
 }
 
-if( $is_allowedToEditAll )
+if ( $is_allowedToEditAll )
 {
     echo '<a class="claroCmd" href="feedback.php'
     .    '?cmd=rqEditFeedback'
@@ -436,7 +441,7 @@ echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<tbody>'
 ;
 
-foreach( $workList as $thisWrk )
+foreach ( $workList as $thisWrk )
 {
     echo '<tr align="center">' . "\n"
     .    '<td align="left">'

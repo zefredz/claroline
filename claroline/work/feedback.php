@@ -19,6 +19,8 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 include_once($includePath . '/lib/events.lib.inc.php');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -60,7 +62,6 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
                      CLEAN INFORMATIONS SEND BY USER
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-stripSubmitValue($_REQUEST);
 
 $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
@@ -82,7 +83,7 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
     }
     else
     {
-      $prefillText = addslashes( trim($_REQUEST['prefillText']) );
+      $prefillText = trim($_REQUEST['prefillText']);
     }
     // uploaded file come from the feedback form
     if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
@@ -173,11 +174,12 @@ if($is_allowedToEdit)
         if( isset($_REQUEST['assigId']) && $formCorrectlySent )
         {
             $sql = "UPDATE `".$tbl_wrk_assignment."`
-                SET `prefill_text` = '" . $prefillText . "',
-                    `prefill_doc_path` = '" . $prefillDocPath . "',
-                    `prefill_submit` = '" . $prefillSubmit . "'
-                WHERE `id` = ".$_REQUEST['assigId'];
+                SET `prefill_text` = '" . addslashes($prefillText) . "',
+                    `prefill_doc_path` = '" . addslashes($prefillDocPath) . "',
+                    `prefill_submit` = '" . addslashes($prefillSubmit) . "'
+                WHERE `id` = ". (int)$_REQUEST['assigId'];
             claro_sql_query($sql);
+
             $dialogBox .= $langFeedbackEdited . '<br /><br />'
                        .  '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">' 
                        . $langBack 
@@ -207,7 +209,7 @@ if($is_allowedToEdit)
             $sql = "SELECT `prefill_text` , `prefill_doc_path`, `prefill_submit`,
                           UNIX_TIMESTAMP(`end_date`) as `unix_end_date`
                     FROM `".$tbl_wrk_assignment."`
-                    WHERE `id` = ".$_REQUEST['assigId'];
+                    WHERE `id` = ". (int)$_REQUEST['assigId'];
             list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
         
             // feedback
