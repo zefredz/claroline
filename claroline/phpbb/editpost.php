@@ -162,6 +162,7 @@ if ( $postSettingList && $is_allowedToEdit )
                 // Special handling for </textarea> tags in the message, 
                 // which can break the editing form.
 
+            $forum_id = $postSettingList['forum_id' ];
             $topic_id = $postSettingList['topic_id'];
 
             $topicSettingList = get_topic_settings($topic_id);
@@ -231,7 +232,7 @@ else
                 . '<label for="subject">' . $l_subject . '</label> : '
                 . '</td>' . "\n"
                 . '<td>' . "\n"
-                . '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($myrow['topic_title']) . '" />'
+                . '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
                 . '</td>' . "\n"
                 . '</tr>' . "\n";
         }
