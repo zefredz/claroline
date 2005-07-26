@@ -44,8 +44,8 @@ if ($intro_editAllowed)
 		if ( ! empty($intro_content) )
 		{
 			$sql = "REPLACE `" . $TBL_INTRODUCTION . "` 
-                    SET `id` = '" . $moduleId . "',
-                        `texte_intro` = '" . claro_addslashes($intro_content) . "'";
+                    SET `id` = '" . (int)$moduleId . "',
+                        `texte_intro` = '" . addslashes($intro_content) . "'";
 
                     claro_sql_query($sql);
             
@@ -64,7 +64,7 @@ if ($intro_editAllowed)
 	if(isset($_REQUEST['intro_cmdDel']) || $intro_exDel)
 	{
 		$sql = "DELETE FROM `" . $TBL_INTRODUCTION . "` 
-                WHERE `id` = '" . $moduleId . "'";
+                WHERE `id` = '" . (int)$moduleId . "'";
 
         claro_sql_query($sql);
 	}
@@ -79,7 +79,7 @@ if ($intro_editAllowed)
 
 $sql = "SELECT `texte_intro`
         FROM `" . $TBL_INTRODUCTION . "` 
-        WHERE `id` = '" . $moduleId . "'";
+        WHERE `id` = '" . (int)$moduleId . "'";
 
 $text_intro_result = claro_sql_query_fetch_all($sql);
 
