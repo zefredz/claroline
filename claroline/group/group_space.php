@@ -218,7 +218,7 @@ if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
 {
     echo "<a href=\"../document/document.php\" class=\"item\">"
         .'<img src="'.$imgRepositoryWeb.'document.gif" />'
-        .'&nbsp;' .$langDocuments
+        .'&nbsp;' .$langDocument
         ."</a><br>"
         ;
 }
