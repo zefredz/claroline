@@ -998,7 +998,7 @@ function fill_db_course($courseDbName)
 ############################## GROUPS ###########################################
     claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
-VALUES (NULL, '1', '0', '1', '1', '0', '1')");
+VALUES (NULL, '1', '0', '1', '1', '1', '1')");
     claro_sql_query("INSERT 
                         INTO `".$TABLEPHPBBFORUMS."` 
                         VALUES ( 1
