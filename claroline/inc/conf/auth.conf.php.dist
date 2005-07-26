@@ -35,59 +35,67 @@
 
 /* LDAP */
 
-// $extAuthSource['ldap']['login'  ] = "./claroline/auth/extauth/drivers/ldap.inc.php";
-// $extAuthSource['ldap']['newUser'] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+// $extAuthSource['ldap']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/ldap.inc.php';
+// $extAuthSource['ldap']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/ldap.inc.php';
 
 /* DB GENERIC */
 
-// $extAuthSource['db-generic']['login'  ] = "./claroline/auth/extauth/drivers/ldap.inc.php";
-// $extAuthSource['db-generic']['newUser'] = "./claroline/auth/extauth/drivers/ldap.inc.php";
+// $extAuthSource['db-generic']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/ldap.inc.php';
+// $extAuthSource['db-generic']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/ldap.inc.php';
 
 /* SPIP */
 
-// $extAuthSource['spip']['login'  ] = "./claroline/auth/extauth/drivers/spip.inc.php";
-// $extAuthSource['spip']['newUser'] = "./claroline/auth/extauth/drivers/spip.inc.php";
+// $extAuthSource['spip']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/spip.inc.php';
+// $extAuthSource['spip']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/spip.inc.php';
 
 /* POSTNUKE */
 
-// $extAuthSource['postnuke']['login'  ] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
-// $extAuthSource['postnuke']['newUser'] = "./claroline/auth/extauth/drivers/postnuke.inc.php";
+// $extAuthSource['postnuke']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/postnuke.inc.php';
+// $extAuthSource['postnuke']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/postnuke.inc.php';
 
 /* PHPNUKE */
 
-// $extAuthSource['phpnuke']['login'  ] = "./claroline/auth/extauth/drivers/phpnuke.inc.php";
-// $extAuthSource['phpnuke']['newUser'] = "./claroline/auth/extauth/drivers/phpnukev.php";
+// $extAuthSource['phpnuke']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/phpnuke.inc.php';
+// $extAuthSource['phpnuke']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/phpnukev.php';
 
 /* MOODLE */
 
-// $extAuthSource['moodle']['login'  ] = "./claroline/auth/extauth/drivers/moodle.inc.php";
-// $extAuthSource['moodle']['newUser'] = "./claroline/auth/extauth/drivers/moodle.inc.php";
+// $extAuthSource['moodle']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/moodle.inc.php';
+// $extAuthSource['moodle']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/moodle.inc.php';
 
 /* DOKEOS */
 
-// $extAuthSource['dokeos']['login'  ] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
-// $extAuthSource['dokeos']['newUser'] = "./claroline/auth/extauth/drivers/dokeos.inc.php";
+// $extAuthSource['dokeos']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.inc.php';
+// $extAuthSource['dokeos']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.inc.php';
 
 /* GANESHA */
 
-// $extAuthSource['ganesha']['login'  ] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
-// $extAuthSource['ganesha']['newUser'] = "./claroline/auth/extauth/drivers/ganesha.inc.php";
+// $extAuthSource['ganesha']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/ganesha.inc.php';
+// $extAuthSource['ganesha']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/ganesha.inc.php';
 
 /* DOCEBO */
 
-// $extAuthSource['docebo']['login'  ] = "./claroline/auth/extauth/drivers/docebo.inc.php";
-// $extAuthSource['docebo']['newUser'] = "./claroline/auth/extauth/drivers/docebo.inc.php";
+// $extAuthSource['docebo']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/docebo.inc.php';
+// $extAuthSource['docebo']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/docebo.inc.php';
 
 /* A TUTOR */
 
-// $extAuthSource['atutor']['login'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
-// $extAuthSource['atutor']['login'  ] = "./claroline/auth/extauth/drivers/atutor.inc.php";
+// $extAuthSource['atutor']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/atutor.inc.php';
+// $extAuthSource['atutor']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/atutor.inc.php';
 
 
+// --------------------------------------------
+// CENTRAL AUTHENTICATION SERVICE (CAS) SECTION
+// --------------------------------------------
 
+$claro_CasEnabled       = false;
+$claro_CasSeverHostUrl  = 'my.cas.server.domain.com';
+$claro_CasSeverHostPort = 443;
+$claro_CasLibPath       = $includePath.'/lib/cas/CAS.php';
+$claro_CasProcessPath   = clarolineRepositorySys.'/auth/extauth/casProcess.inc.php';
 
 // ---------------------------------------
-// SINGLE SIGN OUT (SSO) SECTION
+// CLAROLINE SINGLE SIGN OUT (SSO) SECTION
 // ---------------------------------------
 
 /**
