@@ -25,6 +25,9 @@ $lang_p_d_StudentUnregistredFormCours=  "%d student(s) unregistered from this co
 
 $tlabelReq = 'CLUSR___';
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
+
 if ( ! isset($_cid) ) claro_disp_select_course();
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
@@ -124,10 +127,10 @@ if ( $is_allowedToEdit )
     
 
 
-    if ($_REQUEST['user_id'] == 'allStudent')
+        if ($_REQUEST['user_id'] == 'allStudent')
         {
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-                    WHERE `code_cours` = '" . $currentCourseID . "'
+                    WHERE `code_cours` = '" . addslashes($currentCourseID) . "'
                      AND `statut` = 5";
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
@@ -169,7 +172,7 @@ if ( $is_allowedToEdit )
 $sqlNbUser = 'SELECT count(user.user_id) `nb_users`
               FROM `' . $tbl_rel_course_user . '` `cours_user`,
                    `' . $tbl_users . '` `user`
-              WHERE `cours_user`.`code_cours` = "' . $currentCourseID . '"
+              WHERE `cours_user`.`code_cours` = "' . addslashes($currentCourseID) . '"
                 AND `cours_user`.`user_id` = `user`.user_id';
 
 $userTotalNb = claro_sql_query_fetch_all($sqlNbUser);
@@ -185,7 +188,7 @@ $sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`,
                       `cours_user`.`tutor`, `cours_user`.`role`
                FROM `'.$tbl_users.'` `user`, `'.$tbl_rel_course_user.'` `cours_user`
                WHERE `user`.`user_id`=`cours_user`.`user_id`
-               AND `cours_user`.`code_cours`="'.$currentCourseID.'"
+               AND `cours_user`.`code_cours`="'. addslashes($currentCourseID) .'"
                ORDER BY `cours_user`.`statut` ASC, `cours_user`.`tutor` DESC,
                         UPPER(`user`.`nom`), UPPER(`user`.`prenom`) ';
 
@@ -205,26 +208,31 @@ $userList = $myPager->get_result_list();
   Get groups
   ----------------------------------------------------------------------*/
 
+$usersId = array();
+
 foreach ( $userList as $thisUser )
 {
     $users[$thisUser['user_id']]    = $thisUser;
     $usersId[]    = $thisUser['user_id'];
 }
 
-$sqlGroupOfUsers = "SELECT `ug`.`user` uid, `ug`.`team` team, 
-                    `sg`.`name` nameTeam
-                    FROM `".$tbl_rel_users_groups."` `ug`
-                    LEFT JOIN `".$tbl_groups."` `sg`
-                    ON `ug`.`team` = `sg`.`id`
-                    WHERE `ug`.`user` IN (".implode(",",$usersId).")";
-
-$resultUserGroup = claro_sql_query($sqlGroupOfUsers);
-
-$usersGroup = array();
-
-while ($thisAffiliation = mysql_fetch_array($resultUserGroup,MYSQL_ASSOC))
+if ( count($usersId)> 0 )
 {
-    $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
+    $sqlGroupOfUsers = "SELECT `ug`.`user` uid, `ug`.`team` team, 
+                        `sg`.`name` nameTeam
+                        FROM `".$tbl_rel_users_groups."` `ug`
+                        LEFT JOIN `".$tbl_groups."` `sg`
+                        ON `ug`.`team` = `sg`.`id`
+                        WHERE `ug`.`user` IN (".implode(",",$usersId).")";
+
+    $resultUserGroup = claro_sql_query($sqlGroupOfUsers);
+
+    $usersGroup = array();
+
+    while ($thisAffiliation = mysql_fetch_array($resultUserGroup,MYSQL_ASSOC))
+    {
+        $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
+    }
 }
 
 /*=====================================================================

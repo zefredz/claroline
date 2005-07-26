@@ -4,6 +4,8 @@
 $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 if (!($_cid)) 	claro_disp_select_course();
 
 include($includePath."/lib/admin.lib.inc.php");
@@ -49,19 +51,22 @@ switch ($cmd)
 {  
   //Open a class in the tree
   case "exOpen" : 
-      $_SESSION['class_add_visible_class'][$_REQUEST['class']]="open";      
-      break;
+    $_SESSION['class_add_visible_class'][$_REQUEST['class']]="open";      
+    break;
       
   //Close a class in the tree
   case "exClose" : 
-      $_SESSION['class_add_visible_class'][$_REQUEST['class']]="close";      
-      break;
+    $_SESSION['class_add_visible_class'][$_REQUEST['class']]="close";      
+    break;
       
   // subscribe a class to the course    
   case "subscribe" :           
-      $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br>";
-      $sql = "SELECT * FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='".$_REQUEST['class']."'  ORDER BY U.`nom`";
-      $user_list = claro_sql_query_fetch_all($sql);
+    $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br>";
+    $sql = " SELECT * 
+               FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U 
+               WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='". (int)$_REQUEST['class']."'  
+               ORDER BY U.`nom`";
+    $user_list = claro_sql_query_fetch_all($sql);
       
     foreach ($user_list as $user)
     {        
@@ -89,9 +94,10 @@ switch ($cmd)
 /*----------------------FIND information SECTION-----------------------*/
 /*---------------------------------------------------------------------*/
 
-$sql = "SELECT * FROM `".$tbl_class."` ORDER BY `name`";
+$sql = "SELECT * 
+        FROM `".$tbl_class."` 
+        ORDER BY `name`";
 $class_list = claro_sql_query_fetch_all($sql);
-
 
 /*---------------------------------------------------------------------*/
 /*----------------------DISPLAY SECTION--------------------------------*/

@@ -16,6 +16,9 @@
 
 //used libraries
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
+
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/user_profile.conf.php");
@@ -26,10 +29,10 @@ include($includePath."/lib/import_csv.lib.php");
  * DB tables definition
  */
 
-$tbl_mdb_names             = claro_sql_get_main_tbl();
-$tbl_user                  = $tbl_mdb_names['user'];
-$tbl_class                 = $tbl_mdb_names['user_category'];
-$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
+$tbl_mdb_names  = claro_sql_get_main_tbl();
+$tbl_user       = $tbl_mdb_names['user'];
+$tbl_class      = $tbl_mdb_names['user_category'];
+$tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
 //declare temporary upload directory
 
@@ -48,7 +51,7 @@ if (isset($_REQUEST['cmd']) && (($_REQUEST['cmd']=="exImpSec"  || $_REQUEST['cmd
 
 $defaultFormat = "firstname;lastname;email;phone;username;password;officialCode";
 
-if (empty($_SESSION['claro_usedFormat'])) 
+if ( empty($_SESSION['claro_usedFormat']) ) 
 {
     $_SESSION['claro_usedFormat'] = $defaultFormat;
 }
