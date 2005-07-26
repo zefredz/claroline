@@ -447,7 +447,7 @@
                     . '?wikiId=' . $wikiId
                     . '&amp;action=rqEdit'
                     . '" class="claroCmd">'
-                    . '<img src="'.$imgRepositoryWeb.'Settings.gif" border="0" alt="edit" />'
+                    . '<img src="'.$imgRepositoryWeb.'settings.gif" border="0" alt="edit" />'
                     . $langWikiProperties . '</a>'
                     . "\n"
                     ;
