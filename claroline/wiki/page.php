@@ -459,6 +459,9 @@
             background-color: red;
             border: 0;
         }
+        .wiki2xhtml{
+            margin-left: 5px;
+        }
         .wiki2xhtml h2,h3,h4{
             color: Black;
             background: none;
