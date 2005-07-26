@@ -204,6 +204,16 @@ echo '</td>';
 
 <td width="200" valign="top" class="claroRightMenu">
 
+<?php
+if ($claro_CasEnabled)
+{
+?>
+<div align="center"><a href="claroline/auth/login.php">Login</a></div>
+<?php
+}
+else
+{
+?>
 <form action ="<?php echo $rootWeb,basename($_SERVER['PHP_SELF']); ?>" method="post">
 <fieldset style="border: 1px solid gray; padding: 7px;">
 <legend><?php echo $langAuthentication ?> : </legend>
@@ -254,6 +264,7 @@ echo '</td>';
 
         <?php
     }
+} // end else if claro_CasEnabled
 
 if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.html'; ?>
 
