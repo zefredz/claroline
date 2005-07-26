@@ -296,8 +296,8 @@ function event_upload($doc_id)
 
             VALUES
             (
-             ".$user_id.", 
-             '".$doc_id."', 
+             ". (int)$user_id.", 
+             '".(int)$doc_id."', 
              FROM_UNIXTIME(".$reallyNow.")
             )";
                 
@@ -399,7 +399,7 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
 				)
 				VALUES
 				(
-				    ".$details_id.",
+				    ". (int)$details_id.",
 				    '".addslashes($answer)."'
 				)";
 		    claro_sql_query($sql);
@@ -430,20 +430,22 @@ function event_default($type_event,$values)
 
     if($_uid)
     {
-        $user_id = "\"".$_uid."\"";
+        $user_id = "\"".(int)$_uid."\"";
     }
     else // anonymous
     {
         $user_id = "NULL";
     }
+
     if($_uid)
     {
-        $cours_id = "\"".$_cid."\"";
+        $cours_id = "\"".addslashes($_cid)."\"";
     }
     else // anonymous
     {
         $cours_id = "NULL";
     }
+
     $sqlValues = "";
 
     foreach($values as $type_value => $event_value)

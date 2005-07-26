@@ -26,7 +26,7 @@ function register_class_to_course($class_id, $course_code)
     //get the list of users in this class 
     
     $sql = "SELECT * FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u` 
-                    WHERE `class_id`='".$class_id."' 
+                    WHERE `class_id`='". (int)$class_id."' 
                AND `rel_c_u`.`user_id` = `u`.`user_id`";
     $result = claro_sql_query_fetch_all($sql);
     
@@ -130,7 +130,9 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
 
             //Users
 	    
-    	    $sqlcount="SELECT COUNT(`user_id`) AS qty_user FROM `".$tbl_class_user ."` WHERE `class_id`='".$cur_class['id']."'";  
+    	    $sqlcount = " SELECT COUNT(`user_id`) AS qty_user 
+                          FROM `".$tbl_class_user ."` 
+                          WHERE `class_id`='" . (int)$cur_class['id'] . "'";  
 	        $resultcount = claro_sql_query_fetch_all($sqlcount);	   
 	        $qty_user = $resultcount[0]['qty_user'];
 	    
@@ -260,7 +262,9 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
 
 	      //Users
 	    
-	    $sqlcount="SELECT COUNT(`user_id`) AS qty_user FROM `".$tbl_class_user ."` WHERE `class_id`='".$cur_class['id']."'";
+	    $sqlcount=" SELECT COUNT(`user_id`) AS qty_user 
+                    FROM `".$tbl_class_user ."` 
+                    WHERE `class_id`='". (int)$cur_class['id']."'";
 	    $resultcount = claro_sql_query_fetch_all($sqlcount);   
 	    $qty_user = $resultcount[0]['qty_user'];
 	    
@@ -303,7 +307,9 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 	global $tbl_class;
 	global $langTopLevel;
 	
-	$sql ="SELECT * FROM `".$tbl_class."`  ORDER BY `name`";
+	$sql = " SELECT * 
+             FROM `".$tbl_class."`
+             ORDER BY `name`";
 	$classes = claro_sql_query_fetch_all($sql);
 	
 	$result = "<select name=\"theclass\">\n"
