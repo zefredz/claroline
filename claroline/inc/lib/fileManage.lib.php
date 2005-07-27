@@ -90,6 +90,7 @@ function claro_delete_file($filePath)
 
 function claro_rename_file($oldFilePath, $newFilePath)
 {
+    if (realpath($oldFilePath) == realpath($newFilePath) ) return true;
 
     /* CHECK IF THE NEW NAME HAS AN EXTENSION */
 
@@ -141,6 +142,8 @@ function claro_rename_file($oldFilePath, $newFilePath)
 
 function claro_move_file($sourcePath, $targetPath)
 {
+    if (realpath($sourcePath) == realpath($targetPath) ) return true;
+
     // check to not copy a directory inside itself
     if (   is_dir($sourcePath) 
         && ereg('^' . $sourcePath . '/', $targetPath . '/') ) 
@@ -570,79 +573,78 @@ function get_link_file_url($file)
  *
  */
 
-function update_db_info($action, $filePath, $newParam = array())
+function update_db_info($action, $filePath, $newParamList = array())
 {
     global $dbTable; // table 'document'
+
+    $newComment    = (isset($newParamList['comment'   ]) ? trim($newParamList['comment'   ]) : null);
+    $newVisibility = (isset($newParamList['visibility']) ? trim($newParamList['visibility']) : null);
+    $newPath       = (isset($newParamList['path'      ]) ? trim($newParamList['path'      ]) : null);
 
     if ($action == 'delete') // case for a delete
     {
         $theQuery = "DELETE FROM `".$dbTable."`
-                     WHERE path=\"".$filePath."\"
+                     WHERE path=\"".addslashes($filePath)."\"
                      OR    path LIKE \"".addslashes($filePath)."/%\"";
+
+        claro_sql_query($theQuery);
     }
     elseif ($action == 'update')
     {
+        // GET OLD PARAMETERS IF THEY EXIST
+
         $sql = "SELECT path, comment, visibility
                 FROM `".$dbTable."`
                 WHERE path=\"".addslashes($filePath)."\"";
 
-        
-    $result = claro_sql_query_fetch_all($sql);
-
-    if (isset($result[0])) list($attribute) = $result;
+        $result = claro_sql_query_fetch_all($sql);
+        if ( count($result) > 0 ) list($oldAttributeList) = $result;
+        else                      $oldAttributeList = null;
     
-    if (!isset($attribute)) // case where there isn't any record in the db
-        {                        // concerning this file yet ...
-            if (   ( isset($newParam['comment'])    && ! empty($newParam['comment']) )
-                || ( isset($newParam['visibility']) && $newParam['visibility'] != 'v') )
-            {
-                (isset($newParam['visibility']) && $newParam['visibility'] != 'i') ? $newParam['visibility'] = 'v' : '';               
-        $insertedPath = ( (isset($newParam['path']))&& (trim($newParam['path']) != '') ? $newParam['path'] : $filePath);
-        
-                $theQuery = "INSERT INTO `".$dbTable."`
-                             SET path       = \"".addslashes($insertedPath)."\"";
-                 
-        if (isset($newParam['comment'   ]))  $theQuery .= ",comment    = \"".addslashes($newParam['comment'   ])."\"";
-        if (isset($newParam['visibility']))  $theQuery .= ",visibility = \"".addslashes($newParam['visibility'])."\"";           
-            }
-            // else noop
-        }
-        else // case there is already a record in the db concerning this file
+        if ( ! $oldAttributeList ) // NO RECORD CONCERNING THIS FILE YET ...
         {
-            if ( ! isset($newParam['visibility']) )
+            if ( $newComment || $newVisibility == 'i' )
             {
-                $newParam['visibility'] = $attribute['visibility'];
-            }
+                if ( $newVisibility != 'i' ) $newVisibility = 'v';
+                $insertedPath = ( $newPath ? $newPath : $filePath);
 
-            if ( ! isset($newParam['comment']) )
+                $theQuery = "INSERT INTO `".$dbTable."`
+                             SET path       = \"".addslashes($insertedPath)."\",
+                                 comment    = \"".addslashes($newComment)."\",
+                                 visibility = \"".addslashes($newVisibility)."\"";
+            } // else noop
+            
+        }
+        else // ALREADY A RECORD CONCERNING THIS FILE
+        {
+            if ( is_null($newVisibility ) ) $newVisibility = $oldAttributeList['visibility'];
+            if ( is_null($newComment    ) ) $newComment    = $oldAttributeList['comment'   ];
+
+            if ( empty($newComment) && $newVisibility == 'v')
             {
-                $newParam['comment'] = $attribute['comment'];
-            }
-
-
-            if (empty($newParam['comment']) && $newParam['visibility'] == 'v')
-            {
+                // NO RELEVANT PARAMETERS ANYMORE => DELETE THE RECORD
                 $theQuery = "DELETE FROM `".$dbTable."`
                              WHERE path=\"".$filePath."\"";
             }
             else
             {
                 $theQuery = "UPDATE `" . $dbTable . "`
-                             SET comment    = '" . addslashes($newParam['comment'   ]) . "',
-                                 visibility = '" . addslashes($newParam['visibility']) . "'
-                             WHERE path = '" . addslashes($filePath) . "'";
+                             SET   comment    = '" . addslashes($newComment) . "',
+                                   visibility = '" . addslashes($newVisibility) . "'
+                             WHERE path     = '" . addslashes($filePath) . "'";
             }
-        }
+        } // end else if ! $oldAttributeList
 
-        if (isset($theQuery)) claro_sql_query($theQuery);
+        if( isset($theQuery ) ) claro_sql_query($theQuery);
 
-        if ( ! empty($newParam['path']) )
+        if ( $newPath )
         {
             $theQuery = "UPDATE `" . $dbTable . "`
-            SET path = CONCAT('" . addslashes($newParam['path']) . "', 
-                               SUBSTRING(path, LENGTH('" . addslashes($filePath) . "')+1) )
-            WHERE path = '" . addslashes($filePath) . "' 
-               OR path LIKE '" . addslashes($filePath) . "/%'";
+                        SET path = CONCAT('" . addslashes($newPath) . "', 
+                                   SUBSTRING(path, LENGTH('" . addslashes($filePath) . "')+1) )
+                        WHERE path = '" . addslashes($filePath) . "' 
+                        OR path LIKE '" . addslashes($filePath) . "/%'";
+
             claro_sql_query($theQuery);
         }
     } // end else if action == update
