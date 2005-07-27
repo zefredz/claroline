@@ -281,12 +281,15 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                  ."</tr>\n";
                 }
 
-                $dialogBox .= "</table>\n"
-
-                             ."<div align=\"right\">"
-                             ."<input type=\"submit\" name=\"cancelSubmitImage\" value=\"".$langCancel."\">\n"
-                             ."<input type=\"submit\" name=\"submitImage\" value=\"".$langOk."\"><br>"
-                             ."</div>\n"
+                $dialogBox .=  "<tr>"
+                             . "<td></td>"
+                             . "<td>"
+                             ."<input type=\"submit\" name=\"submitImage\" value=\"".$langOk."\"> "
+                             .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.$_REQUEST['cwd'], 
+                                                $langCancel)
+                             ."</td>"
+                             ."</tr>"
+                             ."</table>\n"
                              ."</form>\n";
             }                            // end if ($imgFileNb > 0)
         }                                // end if (strrchr($fileName) == "htm"
