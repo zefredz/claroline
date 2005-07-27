@@ -319,14 +319,16 @@ function index_and_sort_dir($path)
 
 function form_dir_list($file, $baseWorkDir)
 {
-    global $_SERVER, $langCopy, $langTo;
+    global $_SERVER, $langCopy, $langTo, $langCancel, $langOk;
 
     $dirList = index_and_sort_dir($baseWorkDir);
 
     $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                  ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\">\n"
                  ."<input type=\"hidden\" name=\"file\" value=\"".$file."\">\n"    
-                 .$langCopy.' <i>'.basename($file).'</i> '.$langTo." :\n"
+                 ."<label for=\"destiantion\">"
+                 . $langCopy.' <i>'.basename($file).'</i> '.$langTo." : "
+                 ."</label><br />\n"
                  ."<select name=\"destination\">\n";
 
     if ( dirname($file) == '/' || dirname($file) == '\\')
@@ -372,9 +374,11 @@ function form_dir_list($file, $baseWorkDir)
         }
     }
 
-    $dialogBox .= '</select>' . "\n";
-    $dialogBox .= '<input type="submit" value="Ok">';
-    $dialogBox .= '</form>' . "\n";
+    $dialogBox .= '</select>' . "\n"
+               .  '<br /><br />'
+               .  '<input type="submit" value="'.$langOk.'"> '
+               .  claro_disp_button($_SERVER['PHP_SELF'].'?cmd=exChDir&file='.htmlspecialchars(claro_dirname($file)), $langCancel)
+               .  '</form>' . "\n";
 
     return $dialogBox;
 }
