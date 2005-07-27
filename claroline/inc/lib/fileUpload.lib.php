@@ -508,7 +508,7 @@ function move_uploaded_file_collection_into_directory($uploadedFileCollection, $
             if ( move_uploaded_file($uploadedFileCollection['tmp_name'][$i],
                                     $destPath.'/'.php2phps($uploadedFileCollection['name'][$i])) )
 			{
-				$newFileList[] = basename($destPath).'/'.$uploadedFileCollection['name'][$i];
+				$newFileList[$i] = basename($destPath).'/'.$uploadedFileCollection['name'][$i];
 			}
             else
             {
@@ -528,18 +528,23 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 
 	$fp = fopen($htmlFile, 'r') or die ('<center>cannot open file</center>');
 
+    $newHtmlFileContent = '';
+
 	while ( !feof($fp) )
 	{
 		$buffer = fgets($fp, 4096);
 
 		for ($i = 0, $fileNb = count($originalImgPath); $i < $fileNb ; $i++)
 		{
-			$buffer = str_replace(	$originalImgPath[$i],
-									'./'.$newImgPath[$i],
-									$buffer);
-		}
+            if ( array_key_exists($i, $newImgPath) )
+            {
+                $buffer = str_replace(	$originalImgPath[$i],
+                                        './'.$newImgPath[$i],
+                                        $buffer);
+    		}
 
-		$newHtmlFileContent .= $buffer;
+		    $newHtmlFileContent .= $buffer;
+        }
 	}
 
 	fclose ($fp) or die ('<center>cannot close file</center>');;
