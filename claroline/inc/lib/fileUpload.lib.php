@@ -542,10 +542,11 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
                                         './'.$newImgPath[$i],
                                         $buffer);
     		}
-
-		    $newHtmlFileContent .= $buffer;
         }
-	}
+
+        $newHtmlFileContent .= $buffer;
+
+	} // end while !feof
 
 	fclose ($fp) or die ('<center>cannot close file</center>');;
 
