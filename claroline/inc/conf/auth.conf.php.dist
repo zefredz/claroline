@@ -92,7 +92,7 @@ $claro_CasEnabled       = false;
 $claro_CasSeverHostUrl  = 'my.cas.server.domain.com';
 $claro_CasSeverHostPort = 443;
 $claro_CasLibPath       = $includePath.'/lib/cas/CAS.php';
-$claro_CasProcessPath   = clarolineRepositorySys.'/auth/extauth/casProcess.inc.php';
+$claro_CasProcessPath   = $clarolineRepositorySys.'/auth/extauth/casProcess.inc.php';
 
 // ---------------------------------------
 // CLAROLINE SINGLE SIGN OUT (SSO) SECTION
