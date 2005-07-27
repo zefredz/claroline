@@ -1978,6 +1978,7 @@ tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
 </ul></dd>
 </dl>";
 $langWikiHelpSyntax = "Syntaxe Wiki";
+$langWikiIdenticalContent = "Contenu identique<br />aucune modification sauvée";
 $langWikiInvalidWikiId = "Wiki Id non valide";
 $langWikiList = "Liste des Wiki";
 $langWikiMainPage = "Page principale";

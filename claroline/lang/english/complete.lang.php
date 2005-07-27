@@ -1917,6 +1917,7 @@ $langWikiHelpContent = "<h3>Wiki2xhtml syntax</h3>
 </ul></dd>
 </dl>";
 $langWikiHelpSyntax = "Wiki syntax";
+$langWikiIdenticalContent = "Identical content<br />no modification saved";
 $langWikiInvalidWikiId = "Invalid Wiki Id";
 $langWikiList = "List of Wiki";
 $langWikiMainPage = "Main page";
