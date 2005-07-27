@@ -129,11 +129,14 @@
             $title = $langWikiMainPage;
         }
         
-        $title = "<h1 class=\"wikiPreview\">$langWikiPreviewTitle$title</h1>\n";
+        $title = "<h1 class=\"wikiTitle\">$langWikiPreviewTitle$title</h1>\n";
         
         $out .= $title;
         
-        $out .= "<p class=\"wikiPreview\">$langWikiPreviewWarning</p>\n<hr />\n";
+        $out .= '</div>' . "\n";
+        
+        $out .= claro_disp_message_box( '<small>'.$langWikiPreviewWarning.'</small>' )
+            . "\n";
 
         $out .= '<div class="wiki2xhtml">' . "\n";
         

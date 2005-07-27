@@ -106,8 +106,7 @@
 
     $con = new ClarolineDatabaseConnection();
     
-    // DEVEL_MODE database initialisation
-    // DO NOT FORGET TO REMOVE FOR PROD !!!
+    // auto create wiki in devel mode
     if( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
     {
         init_wiki_tables( $con, false );
@@ -249,7 +248,7 @@
         {
             // do nothing
         }
-        // TODO : remove
+        // auto create wiki in devl mode
         elseif ( ( ! $wikiStore->pageExists( $wikiId, $title ) )
             && ( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) ) )
         {
@@ -264,10 +263,12 @@
     
     // --------- Start of wiki command processing ----------
     
+    // init message
     $message = '';
     
     switch( $action )
     {
+        // show differences
         case "diff":
         {
             require_once "lib/lib.diff.php";
@@ -332,6 +333,8 @@
                 }
 
                 $title = $wikiPage->getTitle();
+                
+                $_SESSION['wikiLastVersion'] = $wikiPage->getLastVersionId();
             }
             else
             {
@@ -345,6 +348,8 @@
         // view page
         case "show":
         {
+            unset( $_SESSION['wikiLastVersion'] );
+            
             if ( $wikiStore->pageExists( $wikiId, $title ) )
             {
                 if ( $versionId == 0 )
@@ -376,24 +381,59 @@
                 if ( $wikiPage->pageExists( $title ) )
                 {
                     $wikiPage->loadPage( $title );
-                    $wikiPage->edit( $creatorId, $content, $time, true );
+                    
+                    if ( $content == $wikiPage->getContent() )
+                    {
+                        unset( $_SESSION['wikiLastVersion'] );
+
+                        $message = "Identical content<br />no modification saved";
+                        
+                        $action = 'show';
+                    }
+                    else
+                    {
+                        if ( isset( $_SESSION['wikiLastVersion'] )
+                            && $wikiPage->getLastVersionId() != $_SESSION['wikiLastVersion'] )
+                        {
+                            $action = 'conflict';
+                        }
+                        else
+                        {
+                            $wikiPage->edit( $creatorId, $content, $time, true );
+                        
+                            unset( $_SESSION['wikiLastVersion'] );
+                        
+                            if ( $wikiPage->hasError() )
+                            {
+                                $message = "Database error : " . $wikiPage->getError();
+                            }
+                            else
+                            {
+                                $message = $langWikiPageSaved;
+                            }
+                            
+                            $action = 'show';
+                        }
+                    }
                 }
                 else
                 {
                     $wikiPage->create( $creatorId, $title, $content, $time, true );
+                    
+                    if ( $wikiPage->hasError() )
+                    {
+                        $message = "Database error : " . $wikiPage->getError();
+                    }
+                    else
+                    {
+                        $message = $langWikiPageSaved;
+                    }
+                    
+                    $action = 'show';
                 }
 
-                if ( $wikiPage->hasError() )
-                {
-                    die ( "Database error : " . $wikiPage->getError() );
-                }
-                else
-                {
-                    $message = $langWikiPageSaved;
-                }
+
             }
-            
-            $action = 'show';
             
             break;
         }
@@ -407,8 +447,6 @@
         }
     }
     
-    // --------- End of wiki command processing -----------
-    
     // change to use empty page content
     
     if ( ! isset( $content ) )
@@ -416,19 +454,21 @@
         $content = '';
     }
     
+    // --------- End of wiki command processing -----------
+    
+    // --------- Start of wiki display --------------------
+    
     // set xtra head
     
     $jspath = document_web_path() . '/lib/javascript';
 
+    // set image repository
     $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-#        . "\nvar sLangWikiExampleWarning = '".addslashes($langWikiExampleWarning) . "'"
-#        . "\nvar sLangWikiFullDemoText = '".get_demo_text() . "'"
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
         . "\n</script>\n"
         ;
-#    $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"".$jspath."/wiki_help.js\"></script>\n";
     
-    // TODO : MOVE to CSS
+    // set style
     $htmlHeadXtra[] =
         "<style type=\"text/css\">
         .wikiTitle h1{
@@ -438,26 +478,6 @@
             font-weight: bold;
             /*font-weight: normal;*/
             border-bottom: 2px solid #aaaaaa;
-        }
-        .wikiTitle p.wikiPreview{
-            padding: 2px 2px 2px 2px;
-            width: 50%;
-            background-color: red;
-        }
-        .wikiTitle h1.wikiPreview
-        {
-            background-color: red;
-            border: 0;
-        }
-        .wikiTitle p.wikiPreview{
-            padding: 2px 2px 2px 2px;
-            width: 50%;
-            background-color: red;
-        }
-        .wikiTitle h1.wikiPreview
-        {
-            background-color: red;
-            border: 0;
         }
         .wiki2xhtml{
             margin-left: 5px;
@@ -584,9 +604,6 @@
         }
         default:
         {
-            // FIXME patchy : place holder to prevent wiki nav bar from moving...
-            // $toolTitle['subTitle'] = '&nbsp;';
-            
             $subTitle = ( $title == "__MainPage__" )
                 ? $langWikiMainPage
                 : $title
@@ -603,8 +620,6 @@
     // Check javascript
     
     $javascriptEnabled = claro_is_javascript_enabled();
-    
-    // --------- Start of wiki display ---------------
     
     // user is not allowed to read this page
     
@@ -706,15 +721,6 @@
         
     if ( $action == "edit" )
     {
-#        if ( defined( "DEVEL_MODE" ) && DEVEL_MODE === true )
-#        {
-#            echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" '
-#                . 'onclick="addExample(sLangWikiFullDemoText, \'content\'); return false;">'
-#                . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
-#                . $langWikiExample . '</a>'
-#                ;
-#        }
-            
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
             . 'help_wiki.php'
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
@@ -728,6 +734,49 @@
     
     switch( $action )
     {
+        case "conflict":
+        {
+            if( $title === '__MainPage__' )
+            {
+                $displaytitle = $langWikiMainPage;
+            }
+            else
+            {
+                $displaytitle = $title;
+            }
+            
+            echo '<div class="wikiTitle">' . "\n";
+            echo '<h1>'.$displaytitle
+                . ' : ' . $langWikiEditConflict
+                . '</h1>'
+                . "\n"
+                ;
+            echo '</div>' . "\n";
+            
+            $message = $langWikiConflictHowTo;
+                
+            echo claro_disp_message_box ( $message ) . '<br />' . "\n";
+            
+            echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
+            echo '<textarea name="conflictContent" id="content"'
+                 . ' cols="80" rows="15" wrap="virtual">'
+                 ;
+            echo $content;
+            echo '</textarea><br /><br />' . "\n";
+            echo '<div>' . "\n";
+            echo '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n";
+            echo '<input type="hidden" name="title" value="'.$title.'" />' . "\n";
+            echo '<input type="submit" name="action[edit]" value="'.$langWikiEditLastVersion.'" />' . "\n";
+            $url = $_SERVER['PHP_SELF']
+                . '?wikiId=' . $wikiId
+                . '&amp;title=' . $title
+                . '&amp;action=show'
+                ;
+            echo claro_disp_button( $url, $langCancel ) . "\n";
+            echo '</div>' . "\n";
+            echo '</form>';
+            break;
+        }
         case "diff":
         {
             if( $title === '__MainPage__' )

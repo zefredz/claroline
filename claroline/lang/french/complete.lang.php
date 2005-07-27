@@ -1910,6 +1910,11 @@ $langWiki = "Wiki";
 $langWikiAccessControl = "Gestion du contrôle d'accès";
 $langWikiAccessControlText = "Vous pouvez choisir les droits d'accès au wiki pour chaque type d'utilisateurs :";
 $langWikiAllPages = "Toutes les pages";
+$langWikiConflictHowTo = "<p><strong>Conflit d'édition</strong> : La page que vous tenté de sauver semble avoir été modifiée par un autre utilisateur entre temps.<br /><br />
+Que faire ?<ul>
+<li>Vous pouvez copier/coller vos modifications contenue dans le cadre ci-dessous dans un éditeur de texte et cliquer sur 'Editer la dernière version' pour tenter d'ajouter vos modifications à la dernière version de la page.</li>
+<li>Vous pouvez cliquer sur 'Annuler' pour annuler vos modifications.</li>
+</ul></p>";
 $langWikiContentEmpty = "Cette page est vide, cliquez sur 'Éditer cette page' pour ajouter du contenu";
 $langWikiCourseMembers = "Membres du cours";
 $langWikiCreateNewWiki = "Créer un nouveau Wiki";
@@ -1930,6 +1935,8 @@ $langWikiDiffUnchangedLine = "Ligne inchangée";
 $langWikiDifferenceKeys = "Légende :";
 $langWikiDifferencePattern = "différences entre la version du %1\$s modifiée par %2\$s et la version du %3\$s modifiée par %4\$s";
 $langWikiDifferenceTitle = "Différences :";
+$langWikiEditConflict = "Conflict d'édition";
+$langWikiEditLastVersion = "Editer la dernière version";
 $langWikiEditPage = "Éditer cette page";
 $langWikiEditPrivilege = "Éditer les pages";
 $langWikiEditProperties = "Éditer les propriétés";

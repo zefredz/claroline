@@ -1848,6 +1848,11 @@ $langWiki = "Wiki";
 $langWikiAccessControl = "Access control management";
 $langWikiAccessControlText = "You can set access rights for users using the following grid : ";
 $langWikiAllPages = "All pages";
+$langWikiConflictHowTo = "<p><strong>Edit conflict</strong> : The page you try to save seems to have been changed since you modify it.<br /><br />
+What to do now ?<ul>
+<li>You can copy/paste your modification to a text editor (like notepad) and click on 'edit last version' to try to add your modification to the new version of the page.</li>
+<li>You can also click on cancel to cancel your changes.</li>
+</ul></p>";
 $langWikiContentEmpty = "This page is empty, click on 'Edit this page' to add a content";
 $langWikiCourseMembers = "Course members";
 $langWikiCreateNewWiki = "Create a new Wiki";
@@ -1868,6 +1873,8 @@ $langWikiDiffUnchangedLine = "Unchanged line";
 $langWikiDifferenceKeys = "Keys :";
 $langWikiDifferencePattern = "differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s";
 $langWikiDifferenceTitle = "Differences :";
+$langWikiEditConflict = "Edit conflict";
+$langWikiEditLastVersion = "Edit last version";
 $langWikiEditPage = "Edit this page";
 $langWikiEditPrivilege = "Edit Pages";
 $langWikiEditProperties = "Edit properties";
@@ -1925,9 +1932,7 @@ $langWikiOtherUsersText = "(*) anonymous users, users who are not members of thi
 $langWikiPageHistory = "Page history";
 $langWikiPageSaved = "Page saved";
 $langWikiPreviewTitle = "Preview : ";
-$langWikiPreviewWarning = "WARNING : this page is a preview. Your modifications
-to the wiki has not been saved yet ! To save them do not forget to click on the 'save'
-button at the bottom of the page.";
+$langWikiPreviewWarning = "WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.";
 $langWikiProperties = "Properties";
 $langWikiReadPrivilege = "Read Pages";
 $langWikiRecentChanges = "Recent changes";
