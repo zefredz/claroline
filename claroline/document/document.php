@@ -285,7 +285,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                              . "<td></td>"
                              . "<td>"
                              ."<input type=\"submit\" name=\"submitImage\" value=\"".$langOk."\"> "
-                             .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.$_REQUEST['cwd'], 
+                             .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']), 
                                                 $langCancel)
                              ."</td>"
                              ."</tr>"
@@ -307,9 +307,8 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
-                     ."<label for=\"userFile\">".$langUploadFile." : </label>"
+                     ."<label for=\"userFile\">".$langUploadFile." : </label><br />"
                      ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
-                     ."<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langUpload."\">"
                      ."<table border='0'>"
                      ."<tr>"
                      ."<td><small>".$langMaxFileSize."</small></td>"
@@ -338,7 +337,10 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ."</p>\n";
         }
 
-        $dialogBox .= "</form>";
+        $dialogBox .= "<input style=\"font-weight: bold\" type=\"submit\" value=\"".$langOk."\"> "
+                   .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']), 
+                                      $langCancel)
+                   ."</form>";
     }
 
 
