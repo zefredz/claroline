@@ -21,25 +21,30 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
+    if ( ! $is_toolAllowed )
+    {
+        if ( is_null( $_cid ) )
+        {
+            if ( is_null( $_uid ) )
+            {
+                claro_disp_auth_form();
+            }
+            else
+            {
+                claro_disp_select_course();
+            }
+        }
+        else
+        {
+            die( 'Not allowed' );
+        }
+    }
+    
     // display mode
 
     claro_set_display_mode_available(TRUE);
     
     // check and set user access level for the tool
-    
-    if ( is_null( $_cid ) )
-    {
-        // user not logged in
-        if ( is_null( $_uid ) )
-        {
-            claro_disp_auth_form();
-        }
-        // user logged in with no course selected
-        else
-        {
-            claro_disp_select_course();
-        }
-    }
     
     // set admin mode and groupId
     
@@ -390,7 +395,6 @@
         // edit form
         case "rqEdit":
         {
-            // display title
             $toolTitle = array();
 
             if ( $wikiId == 0 )
@@ -407,8 +411,6 @@
         // show properties
         case "show":
         {
-            // tool title
-
             $toolTitle = array();
             $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wikiTitle);
 
@@ -417,7 +419,6 @@
         // delete form
         case "rqDelete":
         {
-            // list wiki
             $toolTitle = array();
             $toolTitle['mainTitle'] = $langWikiDeleteWiki;
 
@@ -426,8 +427,6 @@
         // list wiki
         case "list":
         {
-            // tool title
-
             $toolTitle = array();
             $toolTitle['mainTitle'] = $langWikiList;
 

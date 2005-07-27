@@ -21,6 +21,25 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
+    if ( ! $is_toolAllowed )
+    {
+        if ( is_null( $_cid ) )
+        {
+            if ( is_null( $_uid ) )
+            {
+                claro_disp_auth_form();
+            }
+            else
+            {
+                claro_disp_select_course();
+            }
+        }
+        else
+        {
+            die( 'Not allowed' );
+        }
+    }
+    
     // config file
     require_once $includePath . "/conf/CLWIKI.conf.php";
     
@@ -29,18 +48,6 @@
     claro_unquote_gpc();
     
     // check and set user access level for the tool
-    
-    if ( is_null( $_cid ) )
-    {
-        if ( is_null( $_uid ) )
-        {
-            claro_disp_auth_form();
-        }
-        else
-        {
-            claro_disp_select_course();
-        }
-    }
     
     if ( ! isset( $_REQUEST['wikiId'] ) )
     {
