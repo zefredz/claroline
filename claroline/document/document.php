@@ -920,8 +920,6 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
      */
 }
 
-if ( empty($curDirPath) ) $curDirPath = '/' ; // set defaut value of curDirPath to '/' fix bug 259
-
 $curDirName = basename($curDirPath);
 $parentDir  = dirname($curDirPath);
 
@@ -1111,7 +1109,7 @@ if (isset($courseContext) && ($courseContext != false) && isset($fileList))
     if ( count($attributeList['path']) > 0 )
     {
         $sql = "DELETE FROM `".$dbTable."` 
-                WHERE `path` IN ( \"".implode("\" , \"" , $attribute['path'])."\" )";
+                WHERE `path` IN ( \"".implode("\" , \"" , $attributeList['path'])."\" )";
 
         claro_sql_query($sql);
 
