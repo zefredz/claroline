@@ -201,6 +201,7 @@
             {
                 $wiki = $wikiStore->loadWiki( $wikiId );
                 $wikiTitle = $wiki->getTitle();
+                $message = $langWikiDeleteWikiWarning;
             }
             
             break;
@@ -382,9 +383,63 @@
 
     // --------- Start of display ----------------
     
+    // toolTitle
+    
+    switch( $action )
+    {
+        // edit form
+        case "rqEdit":
+        {
+            // display title
+            $toolTitle = array();
+
+            if ( $wikiId == 0 )
+            {
+                $toolTitle['mainTitle'] = $langWikiTitleNew;
+            }
+            else
+            {
+                $toolTitle['mainTitle'] = $langWikiTitleEdit;
+            }
+
+            break;
+        }
+        // show properties
+        case "show":
+        {
+            // tool title
+
+            $toolTitle = array();
+            $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wikiTitle);
+
+            break;
+        }
+        // delete form
+        case "rqDelete":
+        {
+            // list wiki
+            $toolTitle = array();
+            $toolTitle['mainTitle'] = $langWikiDeleteWiki;
+
+            break;
+        }
+        // list wiki
+        case "list":
+        {
+            // tool title
+
+            $toolTitle = array();
+            $toolTitle['mainTitle'] = $langWikiList;
+
+            break;
+        }
+    }
+    
+    echo claro_disp_tool_title( $toolTitle, false ) . "\n";
+
     if ( ! empty( $message ) )
     {
-        echo claro_disp_message_box( $message );
+        echo claro_disp_message_box( $message ) . "\n";
     }
 
     switch( $action )
@@ -397,22 +452,6 @@
         // edit form
         case "rqEdit":
         {
-            // display title
-            $toolTitle = array();
-            
-            if ( $wikiId == 0 )
-            {
-                $toolTitle['mainTitle'] = $langWikiTitleNew;
-            }
-            else
-            {
-                $toolTitle['mainTitle'] = $langWikiTitleEdit;
-            }
-
-            echo claro_disp_tool_title( $toolTitle, false );
-            
-            // display form
-            
             echo claro_disp_wiki_properties_form( $wikiId, $wikiTitle
                 , $wikiDesc, $groupId, $wikiACL );
             
@@ -421,13 +460,6 @@
         // show properties
         case "show":
         {
-            // tool title
-            
-            $toolTitle = array();
-            $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wikiTitle);
-
-            echo claro_disp_tool_title( $toolTitle, false );
-            
             echo '<p>' . "\n";
 
             echo '<a href="page.php?wikiId='
@@ -483,19 +515,11 @@
         // delete form
         case "rqDelete":
         {
-            // list wiki
-            $toolTitle = array();
-            $toolTitle['mainTitle'] = $langWikiDeleteWiki;
-
-            echo claro_disp_tool_title( $toolTitle, false ) . "\n";
-            
             echo '<form method="POST" action="'
                 . $_SERVER['PHP_SELF']
                 . '" id="rqDelete">'
                 . "\n"
                 ;
-                
-            echo '<p>' . $langWikiDeleteWikiWarning . '</p>' . "\n";
                 
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
@@ -511,13 +535,6 @@
         // list wiki
         case "list":
         {
-            // tool title
-            
-            $toolTitle = array();
-            $toolTitle['mainTitle'] = $langWikiList;
-            
-            echo claro_disp_tool_title( $toolTitle, false ) . "\n" . "\n";
-            
             // if admin, display add new wiki link
             if ( $is_allowedToAdmin )
             {

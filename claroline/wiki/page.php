@@ -386,7 +386,7 @@
                     {
                         unset( $_SESSION['wikiLastVersion'] );
 
-                        $message = "Identical content<br />no modification saved";
+                        $message = $langWikiIdenticalContent;
                         
                         $action = 'show';
                     }
@@ -431,8 +431,6 @@
                     
                     $action = 'show';
                 }
-
-
             }
             
             break;
@@ -575,11 +573,6 @@
 
     require_once $includePath . "/claro_init_header.inc.php";
     
-    if ( !empty($message) )
-    {
-        echo claro_disp_message_box($message);
-    }
-    
     // tool title
     
     $toolTitle = array();
@@ -616,6 +609,11 @@
     }
     
     echo claro_disp_tool_title( $toolTitle, false );
+    
+    if ( !empty($message) )
+    {
+        echo claro_disp_message_box($message) . "\n";
+    }
     
     // Check javascript
     
