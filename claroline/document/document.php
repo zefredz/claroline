@@ -529,6 +529,8 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<input type=\"submit\" value=\"".$langOk."\">\n"
+                     .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']), 
+                                       $langCancel)
                      ."</form>\n";
 
     }
@@ -773,6 +775,8 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<br /><input type=\"submit\" value=\"".$langOk."\">\n"
+                      .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars(claro_dirname($_REQUEST['file'])), 
+                                         $langCancel)
                      ."</form>\n";
 
     } // end if cmd == rqEdit
@@ -829,9 +833,9 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= "<form>\n"
                       ."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"                 
                       ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
-                      ."<label for=\"newName\">".$langNameDir." : </label>\n"
+                      ."<label for=\"newName\">".$langNameDir." : </label><br />\n"
                       ."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
-                      ."<br /><br />"
+                      ."<br />"
                       ."<label for=\"comment\">\n"
                       ."Add a comment (optionnal) :\n"
                       ."</label>\n"
@@ -839,6 +843,8 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                       ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
                       ."<br>\n"
                       ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                      .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']), 
+                                                $langCancel)
                       ."</form>\n";
     }
 
@@ -874,10 +880,13 @@ if ($cmd == 'rqSearch')
     $searchMsg = empty($_REQUEST['cwd']) ? $langSearch." :" : "Search in ".$_REQUEST['cwd']." :" ;
     $dialogBox .=     "<form>\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
-                    ."<label for=\"searchPattern\">".$searchMsg."<br /></label>\n"
+                    ."<label for=\"searchPattern\">".$searchMsg."</label><br />\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
-                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
+                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\"><br />\n"
                     ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                    .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']), 
+                                       $langCancel)
+
                     ."</form>\n";
 }
 
