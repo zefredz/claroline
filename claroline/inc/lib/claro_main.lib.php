@@ -889,17 +889,19 @@ function claro_disp_msg_arr($msgArrBody)
     @version 0.1
 */
 
-function claro_disp_auth_form()
+function claro_disp_auth_form($cidRequired = false)
 {
     global $rootWeb, $includePath;
 
     $sourceUrl = $_SERVER['REQUEST_URI'];
+    
     // note : somme people say that REQUEST_URI isn't available on IIS.
     // It has to be checked  ...
 
     if ( ! headers_sent () ) // in this case it is impossible to relocate
     {
-        header('Location:'.$rootWeb.'claroline/auth/login.php?sourceUrl='.urlencode($sourceUrl) );
+        $urlCmd = ($cidRequired ? '&cidRequired=true' : '');
+        header('Location:'.$rootWeb.'claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
     }
     else
     {
@@ -927,43 +929,40 @@ function claro_disp_auth_form()
 
 function claro_disp_select_course()
 {
-    global  $_uid, $_cid,
+    global  $_uid, $_cid, $siteName,$includePath,
+            $langManager, $administrator, $lang_p_platformManager, $langPoweredBy, $administrator_name;
 
-            $siteName,$includePath,
-            $langManager, $administrator, $lang_p_platformManager, $langPoweredBy, $administrator_name
-            ;
-
-    $mainTbl = claro_sql_get_main_tbl();
+    $mainTbl              = claro_sql_get_main_tbl();
     $tbl_courses          = $mainTbl['course'];
     $tbl_rel_user_courses = $mainTbl['rel_course_user'];
+
+    $courses = array();
+
     if ( ! $_cid)
     {
         /**
-            This function is called when a $_cid is request
-        */
+          *  This function is called when a $_cid is request
+          */
 
         if($_uid)
         {
-            $sql_get_course_list =
-            "select c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name`
-             from `".$tbl_courses."` c ,  `".$tbl_rel_user_courses."` cu
-             WHERE c.code= cu.code_cours and cu.user_id = '".$_uid."'" ;
+            $sql = "SELECT c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name`
+                    FROM `".$tbl_courses."` c ,  `".$tbl_rel_user_courses."` cu
+                    WHERE c.code= cu.code_cours 
+                      AND cu.user_id = '".$_uid."'" ;
         } // end if $uid
         else
         {
-            $sql_get_course_list =
-            "select c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name`
-            from `".$tbl_courses."` c";
+            $sql = "SELECT c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name`
+                    FROM `".$tbl_courses."` c";
         }
 
-        $resCourses = claro_sql_query($sql_get_course_list);
-        while($course = mysql_fetch_array($resCourses))
+        $courses = claro_sql_query_fetch_all($sql);
+
+        echo claro_disp_tool_title('This tool need a course');
+
+        if ( count($courses) > 0 )
         {
-                $courses[]=$course;
-        }
-        if (is_array($courses))
-        {
-            echo claro_disp_tool_title("This tools need a course");
         ?>
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
     <label for="selectCourse">Course</label> :

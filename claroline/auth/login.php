@@ -51,7 +51,8 @@ else
 	$sourceGidFormField = '';
 }
 
-$cidRequired = isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false;
+$cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
+$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : 'false');
 
 
 if ( is_null($_uid) )
@@ -64,6 +65,7 @@ if ( is_null($_uid) )
         .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'     ."\n"
         .'<fieldset>'                                                 ."\n"
         .$sourceUrlFormField                                          ."\n"
+        .$cidRequiredFormField
         .$sourceCidFormField                                          ."\n"
         .$sourceGidFormField                                          ."\n"
         .'<legend>'.$langAuthentication.'</legend>'                         ."\n"
@@ -114,13 +116,17 @@ elseif ( is_null($_cid) && $cidRequired )
 
     claro_disp_tool_title('This tools need a course');
 
-    echo  '<form action="'.$_SERVER['PHP_SELF'].' method="post">'."\n"
-         .'<label for="selectCourse">Course</label> : '          ."\n" 
-         .'<select name="cidReq" id="selectCourse">'             ."\n"
-         .implode("\n", prepare_option_tags($courseList) )       ."\n"
-         .'</select>'                                            ."\n"
-         .'<input type="submit">'                                ."\n"
-         .'</form>'                                              ."\n";
+    echo  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+         .$sourceUrlFormField                                     ."\n"
+         .$cidRequiredFormField                                   ."\n"
+         .$sourceCidFormField                                     ."\n"
+         .$sourceGidFormField                                     ."\n"
+         .'<label for="selectCourse">Course</label> : '           ."\n" 
+         .'<select name="cidReq" id="selectCourse">'              ."\n"
+         .implode("\n", prepare_option_tags($courseList) )        ."\n"
+         .'</select>'                                             ."\n"
+         .'<input type="submit">'                                 ."\n"
+         .'</form>'                                               ."\n";
 
         include($includePath.'/claro_init_footer.inc.php');
 }
