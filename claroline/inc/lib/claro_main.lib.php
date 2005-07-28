@@ -1061,7 +1061,7 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
         }
 
         $breadCrumbList [] = $startAnchorTag 
-                           . htmlspecialchars($thisName)
+                           . $thisName
                            . $endAnchorTag;
     }
 
