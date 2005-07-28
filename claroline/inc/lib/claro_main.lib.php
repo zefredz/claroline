@@ -1049,12 +1049,10 @@ function is_htmlspecialcharized($string)
  * @param array $urlList url corresponding to the breadcrumb name above
  * @param string $separator (optionnal) element which segregate the breadcrumbs
  * @param string $homeImg (optionnal) source url for a home icon at the trail start
- * @param boolean htmlSpecialChars (optionnal) enable htmlSepcialChars - default is true
  * @return string the build breadcrumb trail
  */
 
-function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
-                                    $homeImg = null, $htmlSpecialChars = true)
+function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
 {
     // trail of only one element has no sense ...
     if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
