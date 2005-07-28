@@ -25,13 +25,13 @@ if ( !$is_platformAdmin ) claro_disp_auth_form();
 
 // Execute command
 
-if ( $_REQUEST['cmd'] == 'exRestore' )
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     
     $tbl_course = $tbl_mdb_names['course'];
     
-    $sqlListCourses = " SELECT cours.code sysCode, directory coursePath ".
+    $sqlListCourses = " SELECT code sysCode, directory coursePath ".
                       " FROM `". $tbl_course . "` " .
                       " ORDER BY sysCode";
     
