@@ -69,16 +69,21 @@ $is_allowedToAdmin     = $is_platformAdmin;
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-     $controlMsg = '<p class="highlight">' . $langNoticeInstallFolderBrowsable . '</p>';
+     $controlMsg = $langNoticeInstallFolderBrowsable;
 }
 // ----- is install visible ----- end
 
 include($includePath.'/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
 
-if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
+if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg . '</blockquote>';
 
 ?>
+<table cellspacing="5" >
+
+<tr valign="top">
+
+<td>
 <h4><img src="<?php echo $imgRepositoryWeb; ?>user.gif" /> <?php echo $langUsers?></h4>
 <ul>
 <li>
@@ -103,7 +108,9 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 <a href="../user/AddCSVusers.php?AddType=adminTool"><?php echo $langAddCSVUsers?></a>
 </li>
 </ul>
+</td>
 
+<td>
 <h4><img src="<?php echo $imgRepositoryWeb; ?>course.gif" /> <?php echo $langCourses?></h4>
 <ul>
 <li>
@@ -122,7 +129,12 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 <a href="admincats.php"><?php echo $langManageCourseCategories?></a>
 </li>
 </ul>
+</td>
 
+</tr>
+<tr valign="top">
+
+<td>
 <h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" /> <?php echo $langPlatform?></h4>
 <ul>
 <li>
@@ -141,7 +153,9 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 <a href="upgrade/index.php"><?php echo $langUpgrade?></a>
 </li>
 </ul>
+</td>
 
+<td>
 <h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" />&nbsp;Claroline.net</h4>
 <ul>
 <li>
@@ -154,6 +168,11 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 <a href="clarolinenews.php"><?php echo $langClarolineNetNews; ?></a>
 </li>
 </ul>
+</td>
+
+</tr>
+
+</table>
 
 <?php
 if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
