@@ -109,7 +109,7 @@ if ( $cmd == 'registration' )
   Display Section
  =====================================================================*/ 
 
-$interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langRegistration);
+$interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langCreateUserAccount);
 
 // Display Header
 
@@ -117,7 +117,7 @@ include($includePath . '/claro_init_header.inc.php');
 
 // Display Title
 
-echo claro_disp_tool_title($langRegistration);
+echo claro_disp_tool_title($langCreateUserAccount);
 
 if ( $cmd == 'registration' && $error == false )
 {
