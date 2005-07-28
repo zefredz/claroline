@@ -17,7 +17,7 @@
 $course_homepage = TRUE;
 
 $gidReset = true; // If user is here. It means he isn't in any group space now.
-// So it's careful to to reset the group setting
+                  // So it's careful to to reset the group setting
 
 require '../inc/claro_init_global.inc.php';
 
@@ -44,23 +44,22 @@ $currentCourseRepository = $_course['path'];
 include($includePath . '/claro_init_header.inc.php');
 include($includePath . '/lib/course_home.lib.php');
 
-
 /*
-* set access level of the user
-*/
+ * set access level of the user
+ */
 
 if     ($is_platformAdmin)   $reqAccessLevel = 'PLATFORM_ADMIN';
 elseif ($is_courseAdmin  )   $reqAccessLevel = 'COURSE_ADMIN';
 
 /*
-* Language initialisation of the tool names
-*/
+ * Language initialisation of the tool names
+ */
 
 $toolNameList = claro_get_tool_name_list();
 
 /*
-* Initialisation for the access level types
-*/
+ * Initialisation for the access level types
+ */
 
 $accessLevelList = array( 'ALL'            => 0
                         , 'COURSE_MEMBER'  => 1
@@ -70,9 +69,8 @@ $accessLevelList = array( 'ALL'            => 0
                         );
 
 /*============================================================================
-COMMAND SECTION
+ COMMAND SECTION
 ============================================================================*/
-
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
@@ -80,7 +78,7 @@ else                           $cmd = '';
 $msg = '';
 
 /*----------------------------------------------------------------------------
-SET THE TOOL ACCESSES
+ SET THE TOOL ACCESSES
 ----------------------------------------------------------------------------*/
 
 if ($cmd == 'exSetToolAccess')
@@ -93,7 +91,9 @@ if ($cmd == 'exSetToolAccess')
     foreach($currentToolStateList as $thisCurrentToolState)
     {
 
-        if ( isset($_REQUEST['toolAccessList']) && is_array($_REQUEST['toolAccessList']) && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList']))
+        if ( isset($_REQUEST['toolAccessList']) && is_array($_REQUEST['toolAccessList']) 
+             && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList'])
+            )
         {
             $enablableToolList[] = $thisCurrentToolState['id'];
         }
@@ -121,9 +121,8 @@ if ($cmd == 'exSetToolAccess')
 }
 
 /*----------------------------------------------------------------------------
-ADD AN EXTERNAL TOOL
+ ADD AN EXTERNAL TOOL
 ----------------------------------------------------------------------------*/
-
 
 if ($cmd == 'exAdd')
 {
@@ -180,7 +179,7 @@ if ($cmd == 'exEdit')
 }
 
 /*----------------------------------------------------------------------------
-DELETE EXTERNAL TOOL
+ DELETE EXTERNAL TOOL
 ----------------------------------------------------------------------------*/
 
 if ($cmd == 'exDelete')
@@ -201,11 +200,10 @@ if ($cmd == 'exDelete')
         $msg .= $langUnableDeleteExternalTool;
     }
 
-
 }
 
 /*----------------------------------------------------------------------------
-REQUEST AN EXTERNAL TOOL CHANGE OR ADD
+ REQUEST AN EXTERNAL TOOL CHANGE OR ADD
 ----------------------------------------------------------------------------*/
 
 if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
@@ -216,8 +214,8 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
         if ( isset ($_REQUEST['toolName']) && isset ($_REQUEST['toolUrl']))
         {
-            $toolName = stripslashes($_REQUEST['toolName']);
-            $toolUrl  = stripslashes($_REQUEST['toolUrl']);
+            $toolName = $_REQUEST['toolName'];
+            $toolUrl  = $_REQUEST['toolUrl'];
         }
         else
         {
@@ -235,7 +233,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-    .       '<input type="hidden" name="cmd" value="' . ($externalToolId ? 'exEdit' : 'exAdd') . '">' . "\n";
+          . '<input type="hidden" name="cmd" value="' . ($externalToolId ? 'exEdit' : 'exAdd') . '">' . "\n";
 
     if ($externalToolId)
     {
@@ -243,30 +241,24 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<label for="toolName">' . $langExternalToolName . '</label><br />' . "\n"
-    .       '<input type="text" name="toolName" id="toolName" value="' . htmlspecialchars($toolName) . '"><br />' . "\n"
-    .       '<label for="toolUrl">' . $langExternalToolUrl . '</label><br />' . "\n"
-    .       '<input type="text" name="toolUrl" id="toolUrl" value="' . htmlspecialchars($toolUrl) . '"><br /><br />' . "\n"
-    .       '<input class="claroButton" type="submit" value="' . $langOk . '">&nbsp;' . "\n"
-    .       claro_disp_button($_SERVER['PHP_SELF'], $langCancel). "\n"
-    .       '</form>' . "\n"
-    ;
+          . '<input type="text" name="toolName" id="toolName" value="' . htmlspecialchars($toolName) . '"><br />' . "\n"
+          . '<label for="toolUrl">' . $langExternalToolUrl . '</label><br />' . "\n"
+          . '<input type="text" name="toolUrl" id="toolUrl" value="' . htmlspecialchars($toolUrl) . '"><br /><br />' . "\n"
+          . '<input class="claroButton" type="submit" value="' . $langOk . '">&nbsp;' . "\n"
+          . claro_disp_button($_SERVER['PHP_SELF'], $langCancel). "\n"
+          . '</form>' . "\n" ;
 }
 
-
-
-
-
 $backLink = '<p>'
-.           '<small>'
-.           '<a href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php?cidReset=true&amp;cidReq=' . $_cid . '">'
-.           '&lt;&lt;&nbsp;' . $langHome. '</a>'
-.           '</small>'
-.           '</p>' . "\n\n"
-;
+            . '<small>'
+            . '<a href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php?cidReset=true&amp;cidReq=' . $_cid . '">'
+            . '&lt;&lt;&nbsp;' . $langHome. '</a>'
+            . '</small>'
+            . '</p>' . "\n\n" ;
 
 /*============================================================================
-DISPLAY
-============================================================================*/
+    DISPLAY
+ ============================================================================*/
 
 echo $backLink;
 
@@ -275,22 +267,22 @@ echo claro_disp_tool_title($langEditToolList);
 if ($msg) echo claro_disp_message_box($msg);
 
 echo '<p>' . $langIntroEditToolList . '</p>' . "\n"
-.    '<blockquote>'."\n"
-.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-.    '<input type="hidden" name="cmd" value="exSetToolAccess" >' . "\n"
-;
+    . '<blockquote>'."\n"
+    . '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+    . '<input type="hidden" name="cmd" value="exSetToolAccess" >' . "\n"
+    ;
 
 $toolList = get_course_tool_list($reqAccessLevel);
 
 echo '<table class="claroTable" >' . "\n\n"
-.    '<thead>' . "\n"
-.    '<tr class="headerX">' . "\n"
-.    '<th>' . $langTools . '</th>' . "\n"
-.    '<th>' . $langActivate . '</th>' . "\n"
-.    '</tr>' . "\n"
-.    '</thead>' ."\n\n"
-.    '<tbody>' . "\n"
-;
+    . '<thead>' . "\n"
+    . '<tr class="headerX">' . "\n"
+    . '<th>' . $langTools . '</th>' . "\n"
+    . '<th>' . $langActivate . '</th>' . "\n"
+    . '</tr>' . "\n"
+    . '</thead>' ."\n\n"
+    . '<tbody>' . "\n"
+    ;
 
 foreach($toolList as $thisTool)
 {
@@ -357,14 +349,14 @@ foreach($toolList as $thisTool)
 }
 
 echo '</tbody>'."\n"
-.    '</table>'."\n\n"
-.    '<input class="claroButton" type="submit" value="' . $langOk . '" >'."\n"
-.    claro_disp_button($coursesRepositoryWeb . $_course['path'], $langCancel)
-.    '</form>'."\n"
-.    '</blockquote>' . "\n"
-.    '<hr size="1" noshade="noshade" >' . "\n\n"
-.    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . $langAddExternalTool . '</a>' . "\n"
-.    $backLink;
+    . '</table>'."\n\n"
+    . '<input class="claroButton" type="submit" value="' . $langOk . '" >'."\n"
+    . claro_disp_button($coursesRepositoryWeb . $_course['path'], $langCancel)
+    . '</form>'."\n"
+    . '</blockquote>' . "\n"
+    . '<hr size="1" noshade="noshade" >' . "\n\n"
+    . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . $langAddExternalTool . '</a>' . "\n"
+    . $backLink;
 
 include $includePath . '/claro_init_footer.inc.php';
 
