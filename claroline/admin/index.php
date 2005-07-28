@@ -79,7 +79,7 @@ echo claro_disp_tool_title($nameTools);
 if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 
 ?>
-<h4><?php echo $langUsers?></h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>user.gif" /> <?php echo $langUsers?></h4>
 <ul>
 <li>
 <form name="searchUser" action="adminusers.php" method="GET" >
@@ -104,7 +104,7 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 </li>
 </ul>
 
-<h4><?php echo $langCourses?></h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>course.gif" /> <?php echo $langCourses?></h4>
 <ul>
 <li>
 <form name="searchCourse" action="admincourses.php" method="GET" >
@@ -123,7 +123,7 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 </li>
 </ul>
 
-<h4><?php echo $langPlatform?></h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" /> <?php echo $langPlatform?></h4>
 <ul>
 <li>
 <a href="tool/config_list.php"><?php echo $langConfiguration?></a>
@@ -142,7 +142,7 @@ if ( !empty($controlMsg) ) echo '<blockquote>' . $controlMsg . '</blockquote>';
 </li>
 </ul>
 
-<h4>Claroline.net</h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" />&nbsp;Claroline.net</h4>
 <ul>
 <li>
 <a href="registerCampus.php"><?php echo $langRegisterMyCampus; ?></a>
