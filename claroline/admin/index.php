@@ -83,7 +83,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 
 <tr valign="top">
 
-<td>
+<td nowrap="nowrap">
 <h4><img src="<?php echo $imgRepositoryWeb; ?>user.gif" /> <?php echo $langUsers?></h4>
 <ul>
 <li>
@@ -110,7 +110,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 </ul>
 </td>
 
-<td>
+<td nowrap="nowrap">
 <h4><img src="<?php echo $imgRepositoryWeb; ?>course.gif" /> <?php echo $langCourses?></h4>
 <ul>
 <li>
@@ -134,7 +134,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 </tr>
 <tr valign="top">
 
-<td>
+<td nowrap="nowrap">
 <h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" /> <?php echo $langPlatform?></h4>
 <ul>
 <li>
@@ -155,7 +155,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 </ul>
 </td>
 
-<td>
+<td nowrap="nowrap">
 <h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" />&nbsp;Claroline.net</h4>
 <ul>
 <li>
