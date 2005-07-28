@@ -1028,6 +1028,18 @@ function claro_disp_message_box($message)
     .'</table>'."\n";
 }
 
+/**
+ * Cheks if the string has been written html style (ie &eacute; etc)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $string
+ * @return boolean true if the string is written in html style, false otherwise
+ */
+
+function is_htmlspecialcharized($string)
+{
+    return preg_match('/&[a-z0-1]+;/', $string);
+}
+
 
 /**
  * Allows to easily display a breadcrumb trail
@@ -1063,9 +1075,12 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ',
             $endAnchorTag   = '';
         }
 
+        $htmlizedName = is_htmlspecialcharized($thisName) ? 
+                          htmlspecialchars($thisName)
+                        : $thisName;
+
         $breadCrumbList [] = $startAnchorTag 
-                           . ($htmlSpecialChars ? htmlspecialchars($thisName) : $thisName)
-                           . $thisName
+                           . $htmlizedName
                            . $endAnchorTag;
     }
 
