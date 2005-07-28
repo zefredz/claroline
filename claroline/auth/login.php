@@ -52,7 +52,7 @@ else
 }
 
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
-$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : 'false');
+$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : '');
 
 
 if ( is_null($_uid) )
@@ -62,25 +62,26 @@ if ( is_null($_uid) )
     echo '<table align="center">'                                     ."\n"
         .'<tr>'                                                       ."\n"
         .'<td>'                                                       ."\n"
+        . claro_disp_tool_title('Autentication required.')
         .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'     ."\n"
         .'<fieldset>'                                                 ."\n"
         .$sourceUrlFormField                                          ."\n"
         .$cidRequiredFormField
         .$sourceCidFormField                                          ."\n"
         .$sourceGidFormField                                          ."\n"
-        .'<legend>'.$langAuthentication.'</legend>'                         ."\n"
+        .'<legend>'.$langAuthentication.'</legend>'                   ."\n"
         
         .'<label for="username">'.$langUserName.' : </label><br />'   ."\n"
         .'<input type="text" name="login" id="username"><br />'       ."\n"
         
-        .'<label for="password">'.$langPassword.' : </label><br />'  ."\n"
+        .'<label for="password">'.$langPassword.' : </label><br />'   ."\n"
         .'<input type="password" name="password" id="password"><br />'."\n"
         .'<br />'
         .'<input type="submit" value="'.$langOk.'"> '                 ."\n"
         .claro_disp_button($clarolineRepositoryWeb, $langCancel)
         
-        .'</fieldset>'                                              ."\n"
-        .'</form>'                                                  ."\n";
+        .'</fieldset>'                                                ."\n"
+        .'</form>'                                                    ."\n";
 
     if ($loginFailed) // var comming from claro_init_local.inc.php
     {
@@ -114,18 +115,35 @@ elseif ( is_null($_cid) && $cidRequired )
 
     require $includePath.'/claro_init_header.inc.php';
 
-    claro_disp_tool_title('This tools need a course');
 
-    echo  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">' ."\n"
+         .'<table align="center">'                                ."\n"
+         .'<tr>'                                                  ."\n"
+         .'<td colspan="2">'                                      ."\n"
+         . claro_disp_tool_title('Choose a course to access this page.')
          .$sourceUrlFormField                                     ."\n"
          .$cidRequiredFormField                                   ."\n"
          .$sourceCidFormField                                     ."\n"
          .$sourceGidFormField                                     ."\n"
-         .'<label for="selectCourse">Course</label> : '           ."\n" 
+         .'<tr>'                                                  ."\n"
+         .'<td>'                                                  ."\n"
+         .'<label for="selectCourse">Course</label> : '           ."\n"
+         .'</td>'                                                 ."\n"
+         .'<td>'                                                  ."\n"
          .'<select name="cidReq" id="selectCourse">'              ."\n"
          .implode("\n", prepare_option_tags($courseList) )        ."\n"
          .'</select>'                                             ."\n"
-         .'<input type="submit">'                                 ."\n"
+         .'</td>'                                                 ."\n"
+         .'</tr>'                                                 ."\n"
+         .'<tr>'                                                  ."\n"
+         .'<td>'                                                  ."\n"
+         .'</td>'                                                 ."\n"
+         .'<td>'                                                  ."\n"
+         .'<input type="submit" value="'.$langOk.'">'             ."\n"
+         .claro_disp_button($rootWeb, $langCancel)
+         .'</td>'                                                 ."\n"
+         .'</tr>'                                                  ."\n"
+         .'</table>'                                              ."\n"
          .'</form>'                                               ."\n";
 
         include($includePath.'/claro_init_footer.inc.php');
