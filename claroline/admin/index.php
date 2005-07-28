@@ -79,7 +79,7 @@ echo claro_disp_tool_title($nameTools);
 if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg . '</blockquote>';
 
 ?>
-<table cellspacing="5" >
+<table cellspacing="5" align="center">
 
 <tr valign="top">
 
