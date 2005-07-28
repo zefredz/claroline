@@ -26,6 +26,10 @@
 $cidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
+
+// check access
+if ( ! $_uid ) claro_disp_auth_form();
+
 require_once($includePath . '/lib/agenda.lib.php');
 
 $nameTools = $langMyAgenda;
@@ -35,56 +39,40 @@ $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_course          = $tbl_mdb_names['course'];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-if ( isset( $_uid ) )
-{
-    $sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
-                   cours.intitule title, cours.titulaires t, 
-                   cours.dbName db, cours.directory dir
-            FROM    `" . $tbl_course . "`     cours,
-                    `" . $tbl_rel_course_user . "` cours_user
-            WHERE cours.code         = cours_user.code_cours
-            AND   cours_user.user_id = '" . (int) $_uid . "'";
+// Main
 
-    $userCourseList = claro_sql_query_fetch_all($sql);
+$sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
+               cours.intitule title, cours.titulaires t, 
+               cours.dbName db, cours.directory dir
+        FROM    `" . $tbl_course . "`     cours,
+                `" . $tbl_rel_course_user . "` cours_user
+        WHERE cours.code         = cours_user.code_cours
+        AND   cours_user.user_id = '" . (int) $_uid . "'";
 
-    $today = getdate();
+$userCourseList = claro_sql_query_fetch_all($sql);
 
-    if( isset($_REQUEST['year']) )
-    {
-        $year  = $_REQUEST['year' ];
-    }
-    else
-    {
-        $year = $today['year'];
-    }
+$today = getdate();
 
-    if( isset($_REQUEST['month']) )
-    {
-        $month = $_REQUEST['month'];
-    }
-    else
-    {
-        $month = $today['mon' ];
-    }
+if ( isset($_REQUEST['year']) ) $year  = $_REQUEST['year' ];
+else                            $year = $today['year'];
 
-    $agendaItemList = get_agenda_items($userCourseList, $month, $year);
+if( isset($_REQUEST['month']) ) $month = $_REQUEST['month'];
+else                            $month = $today['mon' ];
 
-    $monthName   = $langMonthNames['long'][$month-1];
-    $diplay_monthly_calendar = TRUE;
-}
-else
-{
-    $diplay_monthly_calendar = FALSE;
-}
+$agendaItemList = get_agenda_items($userCourseList, $month, $year);
 
+$monthName = $langMonthNames['long'][$month-1];
+
+// Display
+
+// Header
 include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
 
-if ($diplay_monthly_calendar)
-{
-    claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
-}
+// Display Calendar
+claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
 
+// Footer
 include($includePath . '/claro_init_footer.inc.php');
 
 ?>

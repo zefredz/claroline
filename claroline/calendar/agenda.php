@@ -31,8 +31,7 @@ define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
 define('CONFVAL_LOG_CALENDAR_UPDATE', FALSE);
 
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed ) claro_disp_auth_form();
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
 $nameTools = $langAgenda;
 
