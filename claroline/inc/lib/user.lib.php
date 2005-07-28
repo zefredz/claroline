@@ -1145,7 +1145,7 @@ function user_display_form($data, $form_type='registration')
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langSearch, $langChangePwdexp,
            $langGroupTutor,$langManager,
            $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin, $langEnter2passToChange, 
-           $ask_for_official_code, $langLegendRequiredFields;
+           $ask_for_official_code, $langLegendRequiredFields, $langCreate;
 
     global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
 
@@ -1337,9 +1337,12 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'registration' || $form_type == 'admin_add_new_user' )
     {
         echo ' <tr>' . "\n"
-            . '  <td>&nbsp;</td>' . "\n"
-            . '     <td><input type="submit" value="' . $langRegister . '" /></td>' . "\n"
-            . ' </tr>' . "\n";
+            . '  <td align="right">' . ucfirst($langCreate) . ' : </td>' . "\n"
+            . '  <td>' . "\n"
+            . '  <input type="submit" value="' . $langOk . '" />&nbsp;'
+            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            . ' </td>' . "\n"
+            . '</tr>' . "\n";
     }
     elseif ($form_type == 'add_new_user')
     {
@@ -1349,8 +1352,8 @@ function user_display_form($data, $form_type='registration')
             . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'
             . ' <input type="submit" name="applySearch" id="applySearch" value="' . $langSearch . '" />&nbsp;'
             . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
-            .' </td>' . "\n"
-            . '</tr>';
+            . ' </td>' . "\n"
+            . '</tr>' . "\n";
     }
     else
     {
@@ -1359,8 +1362,8 @@ function user_display_form($data, $form_type='registration')
             . ' <td>'
             . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'
             . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
-            .' </td>' . "\n"
-            . '</tr>';
+            . ' </td>' . "\n"
+            . '</tr>' . "\n";
     }
     
     echo '<tr>' . "\n" 
