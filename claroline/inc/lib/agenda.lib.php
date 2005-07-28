@@ -218,8 +218,8 @@ function get_agenda_items($userCourseList, $month, $year)
 
         $sql = "SELECT `id`, `titre` as `title`, `day`, `hour`, `lasting`
                 FROM `" . $courseAgendaTable . "`
-                WHERE month(`day`) = '" . $month . "'
-                AND   year(`day`)  ='" . $year . "'" ;
+                WHERE month(`day`) = '" . (int)$month . "'
+                AND   year(`day`)  ='" . (int)$year . "'" ;
         
         $courseEventList = claro_sql_query_fetch_all($sql);
         if (is_array($courseEventList))

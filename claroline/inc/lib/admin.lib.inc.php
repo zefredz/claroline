@@ -152,7 +152,7 @@ function is_registered_to($user_id, $course_id)
 
     $sql = "SELECT count(*) `user_reg`
                  FROM `" . $tbl_rel_course_user . "`
-                 WHERE `code_cours` = '" . $course_id . "' AND `user_id` = '".$user_id."'";
+                 WHERE `code_cours` = '" . addslashes($course_id) . "' AND `user_id` = '" . (int)$user_id . "'";
     $res = claro_sql_query_fetch_all($sql);
     return (bool) ($res[0]['user_reg']>0);
 }
