@@ -20,6 +20,7 @@ define('DISP_VIEW_FILE', __LINE__);
 
 $cidReset=TRUE;
 require '../../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $is_allowedToAdmin     = $is_platformAdmin;
 if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
@@ -35,14 +36,9 @@ $filePathList = array($rootSys . $filenameList[0], $rootSys . $filenameList[1]);
 $display = DISP_FILE_LIST;
 //If choose a file to modify
 //Modify a file
-if( isset($_REQUEST['modify']) )
+if ( isset($_REQUEST['modify']) )
 {
     $text = $_REQUEST['textContent'];
-
-    if (get_magic_quotes_gpc())
-    {
-        $text = stripslashes($text);
-    }
 
     $fp = fopen($filePathList[$_REQUEST['file']], 'w+');
     fwrite($fp,$text);
@@ -153,9 +149,9 @@ if( $display == DISP_EDIT_FILE )
 echo claro_disp_html_area('textContent', $textContent);
 ?>
             <br><br> &nbsp;&nbsp;
-            <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
+            <input type="hidden" name="file" value="<?php echo htmlspecialchars($_REQUEST['file']); ?>">
             <input type="submit" class="claroButton" name="modify" value=" <?php echo $langOk; ?>">
-            <?php   echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel'); ?>
+            <?php   echo claro_disp_button($_SERVER['PHP_SELF'], $langCancel); ?>
         </form>
     <?php
 }
