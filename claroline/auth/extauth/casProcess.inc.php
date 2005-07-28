@@ -2,42 +2,46 @@
 
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || $logout 
-    || basename($_SERVER['SCRIPT_NAME']) == 'login.php')
+    || basename($_SERVER['SCRIPT_NAME']) == 'login.php'
+    || isset($_REQUEST['fromCasServer']) )
 {
     include_once $claro_CasLibPath;
     phpCAS::client(CAS_VERSION_2_0, $claro_CasSeverHostUrl, $claro_CasSeverHostPort, '');
 
-    // set the call back url
-
-    $casCallBackUrl = $_SERVER['HTTP_REFERER'];
-
-    if ( $_SESSION['_cid'] )
-    {
-        $casCallBackUrl .= ( strstr( $_SERVER['HTTP_REFERER'], '?' ) ? '&' : '?') 
-                     .  'cidReq='.urlencode($_SESSION['_cid']);
-    }
-
-    if ( $_SESSION['_gid'] )
-    {
-        $casCallBackUrl .= ( strstr( $_SERVER['HTTP_REFERER'], '?' ) ? '&' : '?') 
-                     .  'gidReq='.urlencode($_SESSION['_gid']);
-    }
-
-    // phpCAS::setFixedServiceURL ($casCallBackUrl);
-
     if ($logout)
     {
-        phpCAS::logout($rootWeb.'index.php');
         $userLoggedOnCas = false;
+        phpCAS::logout($rootWeb.'index.php');
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
+        // set the call back url
+
+        $casCallBackUrl = (is_null($_SERVER['HTTP_REFERER'])?$rootWeb:$_SERVER['HTTP_REFERER']);      
+        $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
+                        .  'fromCasServer=true';
+
+        if ( $_SESSION['_cid'] )
+        {
+            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
+                            .  'cidReq='.urlencode($_SESSION['_cid']);
+        }
+
+        if ( $_SESSION['_gid'] )
+        {
+            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
+                         .  'gidReq='.urlencode($_SESSION['_gid']);
+        }
+
+        phpCAS::setFixedServiceURL($casCallBackUrl);
         phpCAS::forceAuthentication();
+
         $userLoggedOnCas              = true;
-        $_SESSION['init_CasChecking'] = true;
+        $_SESSION['init_CasCheckingDone'] = true;
     }
-    elseif( ! isset($_SESSION['init_CasCheckinDone']) )
+    elseif( ! isset($_SESSION['init_CasCheckinDone']) || $_REQUEST['fromCasServer'] == true )
     {
+
         if ( phpCAS::checkAuthentication() ) $userLoggedOnCas = true;
         else                                 $userLoggedOnCas = false;
 
@@ -65,8 +69,8 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
             $loginFailed = true;
         }
     } // end if userLoggedOnCas
+    
 
 } // end if init_CasCheckinDone' || logout _SERVER['SCRIPT_NAME']) == 'login.php'
-
 
 ?>
