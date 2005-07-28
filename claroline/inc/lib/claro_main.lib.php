@@ -1033,13 +1033,16 @@ function claro_disp_message_box($message)
  * Allows to easily display a breadcrumb trail
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param array $nameList name of each breadcrumb
- * @param array $urlList url corrsponding to the breadcrumb name above
- * @param string $separator (optionnal) element which segregate the breadcrumbs 
+ * @param array $nameList bame of each breadcrumb
+ * @param array $urlList url corresponding to the breadcrumb name above
+ * @param string $separator (optionnal) element which segregate the breadcrumbs
+ * @param string $homeImg (optionnal) source url for a home icon at the trail start
+ * @param boolean htmlSpecialChars (optionnal) enable htmlSepcialChars - default is true
  * @return string the build breadcrumb trail
  */
 
-function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
+function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
+                                    $homeImg = null, $htmlSpecialChars = true)
 {
     // trail of only one element has no sense ...
     if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
@@ -1061,6 +1064,7 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
         }
 
         $breadCrumbList [] = $startAnchorTag 
+                           . ($htmlSpecialChars ? htmlspecialchars($thisName) : $thisName)
                            . $thisName
                            . $endAnchorTag;
     }
