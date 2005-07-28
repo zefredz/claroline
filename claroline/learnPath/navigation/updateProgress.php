@@ -13,8 +13,12 @@
  * @subpackage navigation
  *
  */
+
 require '../../inc/claro_init_global.inc.php'; 
+claro_unquote_gpc();
+
 include($includePath."/lib/learnPath.lib.inc.php");
+
 /**
  * DB tables definition
  */
@@ -74,17 +78,17 @@ if($_POST['ump_id'])
   
   $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."` 
             SET 
-                `lesson_location` = '".$_POST['lesson_location']."',
-                `lesson_status` = '".$lesson_status_value."',
-                `entry` = '".$entry_value."',
-                `raw` = '".$_POST['raw']."',
-                `scoreMin` = '".$_POST['scoreMin']."',
-                `scoreMax` = '".$_POST['scoreMax']."',
-                `total_time` = '".$total_time_value."',
-                `session_time` = '".$_POST['session_time']."',
-                `suspend_data` = '".$_POST['suspend_data']."',
-                `credit` = '".$credit_value."'
-          WHERE `user_module_progress_id` = ".$_POST['ump_id'];
+                `lesson_location` = '". addslashes($_POST['lesson_location'])."',
+                `lesson_status` = '". addslashes($lesson_status_value) ."',
+                `entry` = '". addslashes($entry_value) ."',
+                `raw` = '". (int)$_POST['raw']."',
+                `scoreMin` = '".(int)$_POST['scoreMin']."',
+                `scoreMax` = '". (int)$_POST['scoreMax']."',
+                `total_time` = '". addslashes($total_time_value) ."',
+                `session_time` = '". addslashes($_POST['session_time']) ."',
+                `suspend_data` = '". addslashes($_POST['suspend_data'])."',
+                `credit` = '". addslashes($credit_value) ."'
+          WHERE `user_module_progress_id` = ". (int)$_POST['ump_id'];
   claro_sql_query($sql);
 }
 

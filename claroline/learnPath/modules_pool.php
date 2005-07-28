@@ -23,6 +23,8 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 $is_AllowedToEdit = $is_courseAdmin;
 if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();
 
@@ -93,24 +95,24 @@ switch( $cmd )
         // delete all assets of this module
         $sql = "DELETE
                 FROM `".$TABLEASSET."`
-                WHERE `module_id` = ".$_REQUEST['cmdid'];
+                WHERE `module_id` = ". (int)$_REQUEST['cmdid'];
         claro_sql_query($sql);
 
         // delete from all learning path of this course but keep there id before
         $sql = "SELECT *
                 FROM `".$TABLELEARNPATHMODULE."`
-                WHERE `module_id` = ".$_REQUEST['cmdid'];
+                WHERE `module_id` = ". (int)$_REQUEST['cmdid'];
         $result = claro_sql_query($sql);
 
         $sql = "DELETE
                 FROM `".$TABLELEARNPATHMODULE."`
-                WHERE `module_id` = ".$_REQUEST['cmdid'];
+                WHERE `module_id` = ". (int)$_REQUEST['cmdid'];
         claro_sql_query($sql);
 
         // delete the module in modules table
         $sql = "DELETE
                 FROM `".$TABLEMODULE."`
-                WHERE `module_id` = ".$_REQUEST['cmdid'];
+                WHERE `module_id` = ". (int)$_REQUEST['cmdid'];
         claro_sql_query($sql);
 
         //delete all user progression concerning this module
@@ -120,7 +122,7 @@ switch( $cmd )
 
         while ($list = mysql_fetch_array($result))
         {
-            $sql.=" OR `learnPath_module_id`=".$list['learnPath_module_id'];
+            $sql.=" OR `learnPath_module_id`=". (int)$list['learnPath_module_id'];
         }
         claro_sql_query($sql);
 
@@ -133,7 +135,7 @@ switch( $cmd )
         */
 
         // delete directory and it content
-        claro_delete_file($moduleWorkDir."/module_".$_REQUEST['cmdid']);
+        claro_delete_file($moduleWorkDir."/module_".(int)$_REQUEST['cmdid']);
         break;
 
     // COMMAND RENAME :
@@ -142,7 +144,7 @@ switch( $cmd )
         //get current name from DB
         $query= "SELECT `name`
                  FROM `".$TABLEMODULE."`
-                 WHERE `module_id` = '".$_REQUEST['module_id']."'";
+                 WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
         $result = claro_sql_query($query);
         $list = mysql_fetch_array($result);
         echo "
@@ -164,8 +166,8 @@ switch( $cmd )
             //check if newname is not already used in another module of the same course
             $sql="SELECT `name`
                   FROM `".$TABLEMODULE."`
-                  WHERE `name` = '".claro_addslashes($_POST['newName'])."'
-                    AND `module_id` != '".$_REQUEST['module_id']."'";
+                  WHERE `name` = '". addslashes($_POST['newName'])."'
+                    AND `module_id` != '". (int)$_REQUEST['module_id']."'";
 
             $query = claro_sql_query($sql);
             $num = mysql_numrows($query);
@@ -173,8 +175,8 @@ switch( $cmd )
             {
                 // if no error occurred, update module's name in the database
                 $query="UPDATE `".$TABLEMODULE."`
-                        SET `name`= '".claro_addslashes($_POST['newName'])."'
-                        WHERE `module_id` = '".$_REQUEST['module_id']."'";
+                        SET `name`= '". addslashes($_POST['newName'])."'
+                        WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
 
                 $result = claro_sql_query($query);
             }
@@ -198,7 +200,7 @@ switch( $cmd )
             //get current comment from DB
             $query="SELECT `comment`
                     FROM `".$TABLEMODULE."`
-                    WHERE `module_id` = '".$_REQUEST['module_id']."'";
+                    WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
             $result = claro_sql_query($query);
             $comment = mysql_fetch_array($result);
             
@@ -221,8 +223,8 @@ switch( $cmd )
         if( isset($_REQUEST['module_id']) && isset($_REQUEST['comment']) )
         {
             $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = \"".claro_addslashes($_REQUEST['comment'])."\"
-                    WHERE `module_id` = '".$_REQUEST['module_id']."'";
+                    SET `comment` = \"". addslashes($_REQUEST['comment']) ."\"
+                    WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
             claro_sql_query($sql);
         }
         break;

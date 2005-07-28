@@ -34,8 +34,9 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
   
-if ( ! $is_courseAllowed) claro_disp_auth_form();
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 /*
  * DB tables definition
@@ -150,7 +151,7 @@ switch ( $cmd )
                 $findsql = "SELECT M.`module_id`
                             FROM  `".$TABLELEARNPATHMODULE."` AS LPM,
                                       `".$TABLEMODULE."` AS M
-                            WHERE LPM.`learnPath_id` = ".$_GET['del_path_id']."
+                            WHERE LPM.`learnPath_id` = ". (int)$_GET['del_path_id']."
                               AND 
                                     ( M.`contentType` = '".CTSCORM_."'
                                       OR
@@ -169,7 +170,7 @@ switch ( $cmd )
 
                 while ($delList = mysql_fetch_array($findResult))
                 {
-                    $delAssetSql .= " OR `module_id`=".$delList['module_id'];
+                    $delAssetSql .= " OR `module_id`=". (int)$delList['module_id'];
                 }
 
                 claro_sql_query($delAssetSql);
@@ -191,7 +192,7 @@ switch ( $cmd )
 
                 while ($delList = mysql_fetch_array($findResult))
                 {
-                    $delModuleSql .= " OR `module_id`=".$delList['module_id'];
+                    $delModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
                 }
                 $delModuleSql .= ")";
 
@@ -209,7 +210,7 @@ switch ( $cmd )
                 $findsql = "SELECT M.`module_id`
                                  FROM  `".$TABLELEARNPATHMODULE."` AS LPM,
                                       `".$TABLEMODULE."` AS M
-                                 WHERE LPM.`learnPath_id` = ".$_GET['del_path_id']."
+                                 WHERE LPM.`learnPath_id` = ". (int)$_GET['del_path_id']."
                                  AND M.`contentType` = '".CTLABEL_."'
                                  AND LPM.`module_id` = M.`module_id`
                                  ";
@@ -223,7 +224,7 @@ switch ( $cmd )
                   
                 while ($delList = mysql_fetch_array($findResult))
                 {
-                    $delLabelModuleSql .= " OR `module_id`=".$delList['module_id'];
+                    $delLabelModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
                 }
                 //echo $delLabelModuleSql;
                 $query = claro_sql_query($delLabelModuleSql);
@@ -234,19 +235,19 @@ switch ( $cmd )
             // delete all user progression
             $sql1 = "DELETE
                        FROM `".$TABLEUSERMODULEPROGRESS."`
-                       WHERE `learnPath_id` = ".$_GET['del_path_id'];
+                       WHERE `learnPath_id` = ". (int)$_GET['del_path_id'];
             $query = claro_sql_query($sql1);
 
             // delete all relation between modules and the deleted learning path
             $sql2 = "DELETE
                        FROM `".$TABLELEARNPATHMODULE."`
-                       WHERE `learnPath_id` = ".$_GET['del_path_id'];
+                       WHERE `learnPath_id` = ". (int)$_GET['del_path_id'];
             $query = claro_sql_query($sql2);
 
             // delete the learning path
             $sql3 = "DELETE
                           FROM `".$TABLELEARNPATH."`
-                          WHERE `learnPath_id` = ".$_GET['del_path_id'] ;
+                          WHERE `learnPath_id` = ". (int)$_GET['del_path_id'] ;
 
             $query = claro_sql_query($sql3);
             
@@ -260,7 +261,7 @@ switch ( $cmd )
             $cmd == "mkBlock" ? $blocking = 'CLOSE' : $blocking = 'OPEN';
             $sql = "UPDATE `".$TABLELEARNPATH."`
                     SET `lock` = '$blocking'
-                    WHERE `learnPath_id` = ".$_GET['cmdid']."
+                    WHERE `learnPath_id` = ". (int)$_GET['cmdid']."
                       AND `lock` != '$blocking'";
             $query = claro_sql_query ($sql);
             break;
@@ -271,7 +272,7 @@ switch ( $cmd )
             $cmd == "mkVisibl" ? $visibility = 'SHOW' : $visibility = 'HIDE';
             $sql = "UPDATE `".$TABLELEARNPATH."`
                        SET `visibility` = '$visibility'
-                     WHERE `learnPath_id` = ".$_GET['visibility_path_id']."
+                     WHERE `learnPath_id` = ". (int)$_GET['visibility_path_id']."
                        AND `visibility` != '$visibility'";
             $query = claro_sql_query ($sql);
             
@@ -309,7 +310,7 @@ switch ( $cmd )
                     // `order` is set to $order+1 only for display later
                     $sql = "UPDATE `".$TABLELEARNPATH."`
                                SET `rank` = ".($order+1)."
-                             WHERE `learnPath_id` = ".$LP_id;
+                             WHERE `learnPath_id` = ". (int)$LP_id;
                     claro_sql_query($sql);
                }
             }
@@ -324,7 +325,7 @@ switch ( $cmd )
                 // check if name already exists
                 $sql = "SELECT `name`
                          FROM `".$TABLELEARNPATH."`
-                        WHERE `name` = '".claro_addslashes($_POST['newPathName'])."'";
+                        WHERE `name` = '". addslashes($_POST['newPathName']) ."'";
                 $query = claro_sql_query($sql);
                 $num = mysql_numrows($query);
                 if($num == 0 ) // "name" doesn't already exist
@@ -340,7 +341,7 @@ switch ( $cmd )
                     $sql = "INSERT
                               INTO `".$TABLELEARNPATH."`
                                      (`name`, `comment`, `rank`)
-                              VALUES ('".claro_addslashes($_POST['newPathName'])."','".claro_addslashes(trim($_POST['newComment']))."',".$order.")";
+                              VALUES ('". addslashes($_POST['newPathName']) ."','" . addslashes(trim($_POST['newComment']))."',".(int)$order.")";
                     //echo $sql;
                     $lp_id = claro_sql_query_insert_id($sql);
                       
@@ -391,19 +392,19 @@ if (isset($sortDirection) && $sortDirection)
             // move 1 to a temporary rank
             $sql = "UPDATE `".$TABLELEARNPATH."`
                     SET `rank` = \"-1337\"
-                    WHERE `learnPath_id` =  \"$thisLearningPathId\"";
+                    WHERE `learnPath_id` =  \"" . (int)$thisLearningPathId . "\"";
             claro_sql_query($sql);
 
              // move 2 to the previous rank of 1
              $sql = "UPDATE `".$TABLELEARNPATH."`
-                     SET `rank` = \"$thisLPOrder\"
-                     WHERE `learnPath_id` =  \"$nextLPId\"";
+                     SET `rank` = \"" . (int)$thisLPOrder . "\"
+                     WHERE `learnPath_id` =  \"" . (int)$nextLPId . "\"";
              claro_sql_query($sql);
 
              // move 1 to previous rank of 2
              $sql = "UPDATE `".$TABLELEARNPATH."`
-                             SET `rank` = \"$nextLPOrder\"
-                           WHERE `learnPath_id` =  \"$thisLearningPathId\"";
+                             SET `rank` = \"" . (int)$nextLPOrder . "\"
+                           WHERE `learnPath_id` =  \"" . (int)$thisLearningPathId . "\"";
              claro_sql_query($sql);
 
              break;
@@ -500,7 +501,7 @@ else
 // check if user is anonymous
 if($lpUid)
 {
-    $uidCheckString = "AND UMP.`user_id` = ".$lpUid;
+    $uidCheckString = "AND UMP.`user_id` = ". (int)$lpUid;
 }
 else // anonymous
 {
@@ -578,7 +579,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         $blocksql = "SELECT `learnPath_module_id`
                      FROM `".$TABLELEARNPATHMODULE."`
-                     WHERE `learnPath_id`=".$list['learnPath_id']."
+                     WHERE `learnPath_id`=". (int)$list['learnPath_id']."
                      AND `visibility` = \"SHOW\"
                      ORDER BY `rank` DESC
                      LIMIT 1
@@ -596,8 +597,8 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             $listblock = mysql_fetch_array($resultblock);
             $blocksql2 = "SELECT `credit`
                           FROM `".$TABLEUSERMODULEPROGRESS."`
-                          WHERE `learnPath_module_id`=".$listblock['learnPath_module_id']."
-                          AND `user_id`='".$lpUid."'
+                          WHERE `learnPath_module_id`=". (int)$listblock['learnPath_module_id']."
+                          AND `user_id`='". (int)$lpUid."'
                          ";
 
             $resultblock2 = claro_sql_query($blocksql2);

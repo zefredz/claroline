@@ -18,6 +18,7 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 if (! $is_courseAllowed) claro_disp_auth_form();
 
@@ -86,7 +87,7 @@ $sql = "SELECT LPM.* ,
      LEFT JOIN `".$TABLEASSET."` AS A
             ON M.`startAsset_id` = A.`asset_id`
           WHERE LPM.`module_id` = M.`module_id`
-            AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+            AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
             AND LPM.`visibility` = 'SHOW'
             AND LPM.`module_id` = M.`module_id`
        GROUP BY LPM.`module_id`

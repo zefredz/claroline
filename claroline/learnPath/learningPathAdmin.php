@@ -37,6 +37,7 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $htmlHeadXtra[] =
             "<script>
@@ -86,7 +87,18 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0 )
 }
 
 // get user out of here if he is not allowed to edit
-if( !$is_AllowedToEdit ) header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
+if ( !$is_AllowedToEdit ) 
+{
+    if ( isset($_SESSION['path_id']) ) 
+    {
+        header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
+    }
+    else
+    {
+        header("Location: ./learningPathList.php");
+    }
+    die();
+}
 
 // main page
 
@@ -104,7 +116,7 @@ switch($cmd)
         $sql = "SELECT M.*, LPM.*
                 FROM `".$TABLEMODULE."` AS M, `".$TABLELEARNPATHMODULE."` AS LPM
                 WHERE M.`module_id` = LPM.`module_id`
-                AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+                AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
                 ORDER BY LPM.`rank` ASC";
         $result = claro_sql_query($sql);
            
@@ -130,7 +142,7 @@ switch($cmd)
         $sql = "SELECT M.*, LPM.*
                 FROM `".$TABLEMODULE."` AS M, `".$TABLELEARNPATHMODULE."` AS LPM
                 WHERE M.`module_id` = LPM.`module_id`
-                AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+                AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'] ."
                 ORDER BY LPM.`rank` ASC";
         $result = claro_sql_query($sql);
         
@@ -154,7 +166,7 @@ switch($cmd)
         $cmd == "mkBlock" ? $blocking = 'CLOSE' : $blocking = 'OPEN';
         $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
                 SET `lock` = '$blocking'
-                WHERE `learnPath_module_id` = ".$_REQUEST['cmdid']."
+                WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid']."
                 AND `lock` != '$blocking'";
         $query = claro_sql_query ($sql);
         break;
@@ -165,7 +177,10 @@ switch($cmd)
         if( isset($_POST["newPos"]) && $_POST["newPos"] != "")
         {
             // get order of parent module            
-            $temp = claro_sql_query_fetch_all("SELECT * FROM `".$TABLELEARNPATHMODULE."` WHERE `learnPath_module_id` = ".$_REQUEST['cmdid']);
+            $sql = "SELECT * 
+                    FROM `".$TABLELEARNPATHMODULE."` 
+                    WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
+            $temp = claro_sql_query_fetch_all($sql);
             $movedModule = $temp[0];
                
             // if origin and target are the same ... cancel operation
@@ -180,7 +195,7 @@ switch($cmd)
                 // get the max rank of the children of the new parent of this module
                 $sql = "SELECT MAX(`rank`)
                         FROM `".$TABLELEARNPATHMODULE."`
-                        WHERE `parent` = ".$_POST['newPos'];
+                        WHERE `parent` = ". (int)$_POST['newPos'];
 
                 $result = claro_sql_query($sql);
 
@@ -189,9 +204,9 @@ switch($cmd)
                 
                 // change parent module reference in the moved module and set order (added to the end of target group)
                 $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
-                        SET `parent` = ".$_POST['newPos'].",
-                            `rank` = $order
-                        WHERE `learnPath_module_id` = ".$_REQUEST['cmdid'];
+                        SET `parent` = ". (int)$_POST['newPos'].",
+                            `rank` = " . (int)$order . "
+                        WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
                 $query = claro_sql_query($sql);  
                 $dialogBox .= $langModuleMoved;
             }
@@ -203,7 +218,7 @@ switch($cmd)
             $sql = "SELECT M.*, LPM.*
                     FROM `".$TABLEMODULE."` AS M, `".$TABLELEARNPATHMODULE."` AS LPM
                     WHERE M.`module_id` = LPM.`module_id`
-                      AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+                      AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
                       AND M.`contentType` = \"".CTLABEL_."\"
                     ORDER BY LPM.`rank` ASC";
             $result = claro_sql_query($sql);
@@ -231,7 +246,7 @@ switch($cmd)
                     FROM `".$TABLELEARNPATHMODULE."` AS LPM, 
                          `".$TABLEMODULE."` AS M
                     WHERE LPM.`module_id` = M.`module_id`
-                      AND LPM.`learnPath_module_id` = ".$_REQUEST['cmdid'];
+                      AND LPM.`learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
             $temp = claro_sql_query_fetch_all($sql);
             $moduleInfos = $temp[0];
             
@@ -265,7 +280,7 @@ switch($cmd)
             // create new module
             $sql = "INSERT INTO `".$TABLEMODULE."`
                    (`name`, `comment`, `contentType`)
-                   VALUES ('".claro_addslashes($_POST['newLabel'])."','', '".CTLABEL_."')";
+                   VALUES ('". addslashes($_POST['newLabel']) ."','', '".CTLABEL_."')";
             $query = claro_sql_query($sql);
 
             // request ID of the last inserted row (module_id in $TABLEMODULE) to add it in $TABLELEARNPATHMODULE
@@ -274,7 +289,7 @@ switch($cmd)
             // create new learning path module
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                    (`learnPath_id`, `module_id`, `specificComment`, `rank`, `parent`)
-                   VALUES ('".$_SESSION['path_id']."', '".$thisInsertedModuleId."','', $order, 0)";
+                   VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisInsertedModuleId."','', " . (int)$order . ", 0)";
             $query = claro_sql_query($sql);
         }
         else  // create form requested
@@ -298,9 +313,9 @@ if (isset($sortDirection) && $sortDirection)
     $sql = "SELECT LPM.`learnPath_module_id`, LPM.`rank`
             FROM `".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLELEARNPATH."` AS LP
               LEFT JOIN `".$TABLELEARNPATHMODULE."` AS LPM2 ON LPM2.`parent` = LPM.`parent`
-            WHERE LPM2.`learnPath_module_id` = ".$thisLPMId."
+            WHERE LPM2.`learnPath_module_id` = ". (int)$thisLPMId."
               AND LPM.`learnPath_id` = LP.`learnPath_id`
-              AND LP.`learnPath_id` = ".$_SESSION['path_id']."
+              AND LP.`learnPath_id` = ". (int)$_SESSION['path_id']."
             ORDER BY LPM.`rank` $sortDirection";
                           
     $listModules  = claro_sql_query_fetch_all($sql);
@@ -318,13 +333,13 @@ if (isset($sortDirection) && $sortDirection)
             $nextLPMOrder =  $module['rank'];
 
             $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
-                    SET `rank` = \"$nextLPMOrder\"
-                    WHERE `learnPath_module_id` =  \"$thisLPMId\"";
+                    SET `rank` = \"" . (int)$nextLPMOrder . "\"
+                    WHERE `learnPath_module_id` =  \"" . (int)$thisLPMId . "\"";
             claro_sql_query($sql);
 
             $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
-                    SET `rank` = \"$thisLPMOrder\"
-                    WHERE `learnPath_module_id` =  \"$nextLPMId\"";
+                    SET `rank` = \"" . (int)$thisLPMOrder . "\"
+                    WHERE `learnPath_module_id` =  \"" . (int)$nextLPMId . "\"";
             claro_sql_query($sql);
 
             break;
@@ -342,7 +357,7 @@ if (isset($sortDirection) && $sortDirection)
 
 $sql = "SELECT *
         FROM `".$TABLELEARNPATH."`
-        WHERE `learnPath_id` = ".$_SESSION['path_id'];
+        WHERE `learnPath_id` = ". (int)$_SESSION['path_id'];
 $query = claro_sql_query($sql);
 $LPDetails = mysql_fetch_array($query);
 
@@ -444,7 +459,7 @@ $sql = "SELECT M.*, LPM.*, A.`path`
              `".$TABLELEARNPATHMODULE."` AS LPM
         LEFT JOIN `".$TABLEASSET."` AS A ON M.`startAsset_id` = A.`asset_id`
         WHERE M.`module_id` = LPM.`module_id`
-          AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+          AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
         ORDER BY LPM.`rank` ASC";
 $result = claro_sql_query($sql);
 

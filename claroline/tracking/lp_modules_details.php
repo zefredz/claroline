@@ -25,7 +25,9 @@
       +----------------------------------------------------------------------+
 
  */
+
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 if( empty($_REQUEST['uInfo']) )	header("Location: ./userLog.php");
 	
@@ -69,13 +71,13 @@ if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($
 // get infos about the user
 $sql = "SELECT `nom`, `prenom`, `email` 
         FROM `".$TABLEUSER."`
-       WHERE `user_id` = ".$_REQUEST['uInfo'];
+       WHERE `user_id` = ". (int)$_REQUEST['uInfo'];
 $uDetails = claro_sql_query_fetch_all($sql);
 
 // get infos about the learningPath
 $sql = "SELECT `name` 
         FROM `".$TABLELEARNPATH."`
-       WHERE `learnPath_id` = ".$_REQUEST['path_id'];
+       WHERE `learnPath_id` = ". (int)$_REQUEST['path_id'];
 $lpDetails = claro_sql_query_fetch_all($sql);
 
 ////////////////////
@@ -110,11 +112,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
                   `".$TABLEMODULE."` AS M
        LEFT JOIN `".$TABLEUSERMODULEPROGRESS."` AS UMP
                ON UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-               AND UMP.`user_id` = ".$_REQUEST['uInfo']."
+               AND UMP.`user_id` = ". (int)$_REQUEST['uInfo']."
        LEFT JOIN `".$TABLEASSET."` AS A
               ON M.`startAsset_id` = A.`asset_id`
             WHERE LPM.`module_id` = M.`module_id`
-              AND LPM.`learnPath_id` = ".$_REQUEST['path_id']."
+              AND LPM.`learnPath_id` = ". (int)$_REQUEST['path_id']."
               AND LPM.`visibility` = 'SHOW'
               AND LPM.`module_id` = M.`module_id`
          GROUP BY LPM.`module_id`

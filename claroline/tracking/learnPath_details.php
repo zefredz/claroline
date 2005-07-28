@@ -29,6 +29,7 @@
  */
  
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) ) header("Location: ../learnPath/learningPathList.php");
@@ -79,7 +80,7 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
         // get infos about the learningPath
         $sql = "SELECT `name` 
                 FROM `".$TABLELEARNPATH."`
-                WHERE `learnPath_id` = ".$path_id;
+                WHERE `learnPath_id` = ". (int)$path_id;
 
         $result = claro_sql_query($sql);
     
@@ -97,7 +98,7 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
                     FROM `".$TABLEUSER."` AS U, 
                          `".$TABLECOURSUSER."` AS CU
                     WHERE U.`user_id`= CU.`user_id`
-                    AND CU.`code_cours` = '".$_cid."'";
+                    AND CU.`code_cours` = '". addslashes($_cid) ."'";
 
             $usersList = claro_sql_query_fetch_all($sql);
 

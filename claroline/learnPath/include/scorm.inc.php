@@ -18,9 +18,9 @@
               if (isset($_POST['newRaw']) && is_num($_POST['newRaw']) && $_POST['newRaw'] <= 100 && $_POST['newRaw'] >= 0 )
               {
                         $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
-                                   SET `raw_to_pass` = ".$_POST['newRaw']."
-                                 WHERE `module_id` = ".$_SESSION['module_id']."
-                                   AND `learnPath_id` = ".$_SESSION['path_id'];
+                                   SET `raw_to_pass` = ". (int)$_POST['newRaw']."
+                                 WHERE `module_id` = ". (int)$_SESSION['module_id']."
+                                   AND `learnPath_id` = ". (int)$_SESSION['path_id'];
                         claro_sql_query($sql);
 
                         $dialogBox .= $langRawHasBeenChanged;
@@ -38,8 +38,8 @@
   // form to change raw needed to pass the exercise
   $sql = "SELECT *
             FROM `".$TABLELEARNPATHMODULE."` AS LPM
-           WHERE LPM.`module_id` = ".$_SESSION['module_id']."
-             AND LPM.`learnPath_id` = ".$_SESSION['path_id'];
+           WHERE LPM.`module_id` = ". (int)$_SESSION['module_id']."
+             AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
 
   $query = claro_sql_query($sql);
   $learningPath_module = mysql_fetch_array($query);

@@ -50,12 +50,12 @@ $TABLEUSERS              = $tbl_user;
                        `".$TABLELEARNPATHMODULE."` AS LPM,
                        `".$TABLEUSERS."` AS U,
                        `".$TABLEMODULE."` AS M
-                 WHERE UMP.`user_id` = ".$_uid."
+                 WHERE UMP.`user_id` = ". (int)$_uid."
                    AND UMP.`user_id` = U.`user_id`
                    AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
                    AND M.`module_id` = LPM.`module_id`
-                   AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
-                   AND LPM.`module_id` = ".$_SESSION['module_id'];
+                   AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
+                   AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
 
         $query = claro_sql_query($sql);
         if ( ! ($userProgressionDetails = mysql_fetch_array($query) ) )

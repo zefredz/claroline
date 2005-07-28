@@ -36,12 +36,12 @@
    // Update infos about asset
    $sql = "SELECT *
              FROM `".$TABLEMODULE."`
-            WHERE `module_id` = ".$_SESSION['module_id'];
+            WHERE `module_id` = ". (int)$_SESSION['module_id'];
    $query = claro_sql_query($sql);
    $module = mysql_fetch_array($query);
    $sql = "SELECT *
              FROM `".$TABLEASSET."`
-            WHERE `module_id` = ".$_SESSION['module_id'];
+            WHERE `module_id` = ". (int)$_SESSION['module_id'];
    $query = claro_sql_query($sql);
    $asset = mysql_fetch_array($query);
 

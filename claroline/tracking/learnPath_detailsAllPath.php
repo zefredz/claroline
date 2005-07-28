@@ -20,6 +20,7 @@
  */
  
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
@@ -67,7 +68,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
           FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."`	 AS CU
           WHERE U.`user_id`= CU.`user_id`
-           AND CU.`code_cours` = '$_cid'";
+           AND CU.`code_cours` = '". addslashes($_cid) ."'";
     $usersList = claro_sql_query_fetch_all($sql);
     // display tab header
     echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
@@ -87,7 +88,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 		$lpUid = $user['user_id'];
 		if($lpUid)
 		{
-			$uidCheckString = "AND UMP.`user_id` = ".$lpUid;
+			$uidCheckString = "AND UMP.`user_id` = ". (int)$lpUid;
 		}
 		else // anonymous
 		{

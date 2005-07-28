@@ -24,6 +24,7 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
@@ -51,11 +52,9 @@ if ( !isset($_SESSION['path_id']) )
     die ("<center> Not allowed ! (path_id not set :@ )</center>");
 }
 
-
 /*======================================
        CLAROLINE MAIN
  ======================================*/
-
 
 // main page
 
@@ -76,7 +75,7 @@ function buildRequestModules()
 
  $firstSql = "SELECT LPM.`module_id`
               FROM `".$TABLELEARNPATHMODULE."` AS LPM
-              WHERE LPM.`learnPath_id` = ".$_SESSION['path_id'];
+              WHERE LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
 
  $firstResult = claro_sql_query($firstSql);
 
@@ -90,7 +89,7 @@ function buildRequestModules()
 
  while ($list=mysql_fetch_array($firstResult))
  {
-    $sql .=" AND M.`module_id` != ".$list['module_id'];
+    $sql .=" AND M.`module_id` != ". (int)$list['module_id'];
  }
  
  //$sql .= " AND M.`contentType` != \"".CTSCORM_."\"";
@@ -132,7 +131,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
             // find the order place where the module has to be put in the learning path
             $sql = "SELECT MAX(`rank`)
                     FROM `".$TABLELEARNPATHMODULE."`
-                    WHERE learnPath_id = ".$_SESSION['path_id'];
+                    WHERE learnPath_id = " . (int)$_SESSION['path_id'];
             $result2 = claro_sql_query($sql);
 
             list($orderMax) = mysql_fetch_row($result2);
@@ -142,7 +141,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
 
             $insertquery="INSERT INTO `".$TABLELEARNPATHMODULE."`
                           (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock` )
-                          VALUES (".$_SESSION['path_id'].", ".$list['module_id'].", '',".$order.", 'OPEN')";
+                          VALUES (". (int)$_SESSION['path_id'].", ". (int)$list['module_id'].", '',".$order.", 'OPEN')";
             claro_sql_query($insertquery);
 
             $atleastOne = TRUE;

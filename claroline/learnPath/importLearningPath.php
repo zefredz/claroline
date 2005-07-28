@@ -17,6 +17,7 @@
   ======================================*/
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
    
 $is_AllowedToEdit = $is_courseAdmin;
 if (! $is_AllowedToEdit or !$is_courseAllowed ) claro_disp_auth_form();
@@ -507,7 +508,7 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
 
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
             (`name`,`visibility`,`rank`)
-            VALUES ('".$lpName."','HIDE',".($rankMax+1).")";
+            VALUES ('". addslashes($lpName) ."','HIDE',".($rankMax+1).")";
     claro_sql_query($sql);
     
     $tempPathId = mysql_insert_id();
@@ -970,7 +971,7 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
                 // create new asset
                 $sql = "INSERT INTO `".$TABLEASSET."`
                         (`path` , `module_id` , `comment`)
-                        VALUES ('".$assetPath."', ".$insertedModule_id[$i]." , '')";
+                        VALUES ('". addslashes($assetPath) ."', ".$insertedModule_id[$i]." , '')";
 
                 $query = claro_sql_query($sql);
                 if ( mysql_error() )
@@ -984,8 +985,8 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
 
                 // update of module with correct start asset id
                 $sql = "UPDATE `".$TABLEMODULE."`
-                        SET `startAsset_id` = ".$insertedAsset_id[$i]."
-                        WHERE `module_id` = ".$insertedModule_id[$i];
+                        SET `startAsset_id` = ". (int)$insertedAsset_id[$i]."
+                        WHERE `module_id` = ". (int)$insertedModule_id[$i];
                 $query = claro_sql_query($sql);
 
                 if ( mysql_error() )
@@ -1059,10 +1060,9 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
         // delete assets
         $sqlDelAssets = "DELETE FROM `".$TABLEASSET."`
                         WHERE 1 = 0";
-
         foreach ( $insertedAsset_id as $insertedAsset )
         {
-            $sqlDelAssets .= " OR `asset_id` = ".$insertedAsset;
+            $sqlDelAssets .= " OR `asset_id` = ". (int)$insertedAsset;
         }
         claro_sql_query($sqlDelAssets);
 
@@ -1071,18 +1071,18 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
                           WHERE 1 = 0";
         foreach ( $insertedModule_id as $insertedModule )
         {
-             $sqlDelModules .= " OR `module_id` = ".$insertedModule;
+             $sqlDelModules .= " OR `module_id` = ". (int)$insertedModule;
         }
         claro_sql_query($sqlDelModules);
 
         // delete learningPath_module
         $sqlDelLPM = "DELETE FROM `".$TABLELEARNPATHMODULE."`
-                      WHERE `learnPath_id` = ".$tempPathId;
+                      WHERE `learnPath_id` = ". (int)$tempPathId;
         claro_sql_query($sqlDelLPM);
 
         // delete learning path
         $sqlDelLP = "DELETE FROM `".$TABLELEARNPATH."`
-                     WHERE `learnPath_id` = ".$tempPathId;
+                     WHERE `learnPath_id` = ". (int)$tempPathId;
         claro_sql_query($sqlDelLP);
 
         // delete the directory (and files) of this learning path and all its content
@@ -1122,7 +1122,7 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
                     `name` = '".addslashes($lpName)."',
                     `comment` = '".addslashes($lpComment)."',
                     `visibility` = 'SHOW'
-                WHERE `learnPath_id` = ".$tempPathId;
+                WHERE `learnPath_id` = ". (int)$tempPathId;
         claro_sql_query($sql);
 
     }
@@ -1131,7 +1131,7 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
       status messages
      --------------------------------------*/
 
-    echo            "\n<!-- Messages -->\n";
+    echo "\n<!-- Messages -->\n";
     foreach ( $okMsgs as $msg)
     {
         echo "\n<b>[</b><span class=\"correct\">ok</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
@@ -1142,7 +1142,7 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
         echo "\n<b>[</b><span class=\"error\">ko</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
     
-    echo            "\n<!-- End messages -->\n";  
+    echo "\n<!-- End messages -->\n";  
       
     // installation completed or not message
     if ( !$errorFound )

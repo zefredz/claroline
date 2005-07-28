@@ -18,7 +18,9 @@
   ======================================*/
 
 $tlabelReq = 'CLLNP___';
+
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 if ( ! $is_courseAllowed)
 claro_disp_auth_form();
@@ -89,8 +91,8 @@ if(session_is_registered('exerciseResult'))     { session_unregister('exerciseRe
 // check in the DB if there is a comment set for this module in general
 
 $sql = "SELECT *
-          FROM `".$TABLEMODULE."`
-         WHERE `module_id` = ".$_SESSION['module_id'];
+        FROM `".$TABLEMODULE."`
+        WHERE `module_id` = ". (int)$_SESSION['module_id'];
 
 $query = claro_sql_query($sql);
 $module = @mysql_fetch_array($query);
@@ -116,7 +118,7 @@ else
 
 $sql = "SELECT *
         FROM `".$TABLELEARNPATHMODULE."`
-        WHERE `module_id` = ".$_SESSION['module_id'];
+        WHERE `module_id` = ". (int)$_SESSION['module_id'];
 $query = claro_sql_query($sql);
 $learnpath_module = @mysql_fetch_array($query);
 
@@ -131,11 +133,13 @@ else
 // check in DB if user has already browsed this module
 
 $sql = "SELECT *
-        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, `".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLEMODULE."` AS M
+        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, 
+             `".$TABLELEARNPATHMODULE."` AS LPM, 
+             `".$TABLEMODULE."` AS M
         WHERE UMP.`user_id` = '$_uid'
           AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-          AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
-          AND LPM.`module_id` = ".$_SESSION['module_id']."
+          AND LPM.`learnPath_id` = ".(int)$_SESSION['path_id']."
+          AND LPM.`module_id` = ". (int)$_SESSION['module_id']."
           AND LPM.`module_id` = M.`module_id`
              ";
 $resultBrowsed = claro_sql_query($sql);
@@ -368,8 +372,8 @@ if($module['contentType'] != CTLABEL_) //
     // asset_id exists ?  for the good module  ?
     $sql = "SELECT *
               FROM `".$TABLEASSET."`
-             WHERE `asset_id` = ".$module['startAsset_id']."
-               AND `module_id` = ".$_SESSION['module_id'];
+             WHERE `asset_id` = ". (int)$module['startAsset_id']."
+               AND `module_id` = ". (int)$_SESSION['module_id'];
     $result = claro_sql_query($sql);
     $asset = @mysql_fetch_array($result);
 

@@ -15,6 +15,8 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 if (! $is_courseAllowed) claro_disp_auth_form();
 
 /*
@@ -48,13 +50,13 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   include($includePath.'/claro_init_header.inc.php');
   
   if($lpUid)
-   {
-       $uidCheckString = "AND UMP.`user_id` = ".$lpUid;
-   }
-   else // anonymous
-   {
+  {
+    $uidCheckString = "AND UMP.`user_id` = ". (int)$lpUid;
+  }
+  else // anonymous
+  {
        $uidCheckString = "AND UMP.`user_id` IS NULL ";
-   }
+  }
   
   // get the list of available modules
   $sql = "SELECT LPM.* , 
@@ -70,7 +72,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
        LEFT JOIN `".$TABLEASSET."` AS A
               ON M.`startAsset_id` = A.`asset_id`       
             WHERE LPM.`module_id` = M.`module_id`
-              AND LPM.`learnPath_id` = '".$_SESSION['path_id']."'
+              AND LPM.`learnPath_id` = '" . (int)$_SESSION['path_id'] ."'
               AND LPM.`visibility` = 'SHOW'
               AND LPM.`module_id` = M.`module_id`
          GROUP BY LPM.`module_id`
@@ -102,11 +104,13 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
   $moduleNameLength = 25; // size of 'name' to display in the list, the string will be partially displayed if it is more than $moduleNameLength letters long
 
   // get the name of the learning path
-  $lpName = claro_sql_query_fetch_all("SELECT `name` 
-                                      FROM `".$TABLELEARNPATH."` 
-                                      WHERE `learnPath_id` = '".$_SESSION['path_id']."'");
+  $sql = "SELECT `name` 
+          FROM `".$TABLELEARNPATH."` 
+          WHERE `learnPath_id` = '". (int)$_SESSION['path_id']."'";
+
+  $lpName = claro_sql_query_fetch_all($sql);
                                       
-echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\n"
+  echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\n"
    . '<p>'."\n"
    . '<small>'
    . $langView.' : '

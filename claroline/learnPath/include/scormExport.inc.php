@@ -94,7 +94,7 @@ class ScormExport
     function ScormExport($learnPathId)
     {
         /* Default values */
-        $this->id = $learnPathId;
+        $this->id = (int)$learnPathId;
         $this->fromScorm = false;
         $this->mp3Found = false;
         $this->resourceMap = array();
@@ -128,7 +128,7 @@ class ScormExport
         /* Get general infos about the learning path */
         $sql = 'SELECT `name`, `comment`
                 FROM `'.$TABLELEARNPATH.'`
-                WHERE `learnPath_id` = '.$this->id;
+                WHERE `learnPath_id` = '. $this->id;
                 
         $result = claro_sql_query($sql);
         if ( empty($result) )
@@ -165,7 +165,7 @@ class ScormExport
                        ON LPM.`module_id` = M.`module_id`
                 LEFT JOIN `'.$TABLEASSET.'` AS A
                        ON M.`startAsset_id` = A.`asset_id`
-                WHERE LPM.`learnPath_id` = '.$this->id.'
+                WHERE LPM.`learnPath_id` = '. $this->id.'
                 ORDER BY LPM.`parent`, LPM.`rank`
                ';
 
