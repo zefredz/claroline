@@ -1037,7 +1037,7 @@ function claro_disp_message_box($message)
 
 function is_htmlspecialcharized($string)
 {
-    return preg_match('/&[a-z0-1]+;/', $string);
+    return preg_match('/(&[a-z]+;)|(&#[0-9]+;)/', $string);
 }
 
 
