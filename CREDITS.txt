@@ -13,7 +13,6 @@ center of ECAM (Engineering higher school - Belgium).
 Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
                                 Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
                                 Frédéric Minne     (minne@ipm.ucl.ac.be)
-                                Thomas De Praetere 
                                 
 Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
 http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
