@@ -1,6 +1,14 @@
-*******************************************
-CLAROLINE 1.7 - CREDITS
-*******************************************
+*******************************************************************************
+                            CLAROLINE 1.7 - CREDITS
+*******************************************************************************
+
+The Claroline project was initiated in 2000 at the Catholic University of 
+Louvain (Belgium - http://www.ucl.ac.be/) by Thomas De Praetere and was 
+financially supported by the Louvain Foundation 
+(http://www.fondation-louvain.ucl.ac.be/)
+
+Since 2004, the main code of Claroline is co-developed with CERDECAM, research 
+center of ECAM (Engineering higher school - Belgium).
 
 Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
                                 Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
@@ -12,28 +20,38 @@ http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
                                 Nicolas Leblanc (leblanc@cerdecam.be)
                                 Guillaume Lederer (lederer@cerdecam.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
-				                Amand Tihon (amand@alrj.org)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
+
+
+
+------------------------------------------------------------------------------
+                          SPECIFIC CODE CONTRIBUTIONS
+------------------------------------------------------------------------------
+
+Linker feature :                Renaud Fallier (captren@gmail.com)
+
+SCORM and IMS-QTI export :      Amand Tihon (amand@alrj.org)
 
 Administration section :        Benoit Muret (muret_ben@hotmail.com)
                                 Guillaume Lederer (lederer@cerdecam.be)
 
 Announcement tool improvement:  Pablo Rey (prey@cesga.es)
 
-LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
-                                and Hugues Peeters(peeters@ipm.ucl.ac.be)
-
-Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
-
-Learning Path Tool :            Guillaume Lederer and Sebastien Piraux (Cerdecam)
+Password Encryption :           Fabio Spelta (fabio.spelta@tiscali.it)
 
 Personnal Agenda :              Eric Remy (eremy@rmwc.edu),
                                 Toon Van Hoecke (Toon.VanHoecke@UGent.be)
 
+LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
+
+Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
+                                Guillaume Lederer
+
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
-Password Encryption :           Fabio Spelta (fabio.spelta@tiscali.it)
+Learning Path Tool :            Guillaume Lederer
+                                Sebastien Piraux (Cerdecam)
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 
@@ -49,6 +67,17 @@ Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
 
 Zip / unzipping option  :       PclZip library - Vincent Blavet
                                 (http://www.phpconcept.net)
+
+CAS system :                    based on phpCas library from ESUP-Portail project
+                                (http://esup-phpcas.sourceforge.net/)
+
+
+
+
+------------------------------------------------------------------------------
+                                  TRANSLATIONS
+------------------------------------------------------------------------------
+
 
 Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)  
 
@@ -81,7 +110,9 @@ German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
 
 Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                 Yannis Exidaridis (jexi@noc.uoa.gr)
-                                Spiros Ktenas (claroline@claroline.gr, unofficial greek community website : www.claroline.gr)
+                                Spiros Ktenas (claroline@claroline.gr, 
+                                unofficial greek community website : 
+                                http://www.claroline.gr)
 
 Hungarian translation :         Janos Foldessy & Peter Fuchs
 
@@ -108,6 +139,9 @@ Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
 
 Turkish translation :           Cuneyt Birkok (cbirkok@insanbilimleri.com)
+
+
+
 
 Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Emmanuel Pecquet (emmanuel.pecquet@wanadoo.fr)
