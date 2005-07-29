@@ -4,8 +4,7 @@
 
 The Claroline project was initiated in 2000 at the Catholic University of 
 Louvain (Belgium - http://www.ucl.ac.be/) by Thomas De Praetere and was 
-financially supported by the Louvain Foundation 
-(http://www.fondation-louvain.ucl.ac.be/)
+financially supported by the Louvain Foundation.
 
 Since 2004, the main code of Claroline is co-developed with CERDECAM, research 
 center of ECAM (Engineering higher school - Belgium).
