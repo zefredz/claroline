@@ -386,7 +386,7 @@
             $tmpServAdd = array_map( 'urldecode', $_REQUEST['servAdd'] );
             $tmpServAdd = ( is_array( $tmpServAdd ) ) ? $tmpServAdd : array();
         }
-        elseif ( ! isset( $_SESSION['servAdd'] ) )
+        else // if ( ! isset( $_SESSION['servAdd'] ) )
         {
             $tmpServAdd = array();
         }
@@ -396,7 +396,7 @@
             $tmpServDel = array_map( 'urldecode', $_REQUEST['servDel'] );
             $tmpServDel = ( is_array( $tmpServDel ) ) ? $tmpServDel : array();
         }
-        elseif ( ! isset( $_SESSION['servDel'] ) )
+        else // if ( ! isset( $_SESSION['servDel'] ) )
         {
             $tmpServDel = array();
         }
