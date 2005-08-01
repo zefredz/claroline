@@ -403,7 +403,8 @@
         
         // to avoid links added after deletion to be ignored (bug #264)
         
-        if ( isset( $tmpServAdd ) || isset( $tmpServDel ) )
+        if ( ( isset( $tmpServAdd ) && is_array( $tmpServAdd ) )
+            || ( isset( $tmpServDel ) && is_array( $tmpServDel ) ) )
         {
             if ( count( $tmpServAdd ) > 0 || count( $tmpServDel ) > 0 )
             {
