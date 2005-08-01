@@ -128,8 +128,9 @@ $categoryIterator = 0;
 foreach ( $categories as $this_category )
 {
     ++$categoryIterator;
-    
-    // Category banner
+
+    // Pass category for sumple user if no forum inside
+    if ($this_category['forum_count'] == 0 && ! $is_allowedToEdit) continue;
 
     echo '<tr class="superHeader" align="left" valign="top">' . "\n"
     
