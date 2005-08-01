@@ -259,7 +259,19 @@ if ( $cmd == 'rqEdForum' )
 
 if ( $cmd == 'exDelCat' )
 {
-    delete_category($_REQUEST['catId']);
+    if ( delete_category($_REQUEST['catId']) )
+    {
+    	$dialogBox .= '<p>Category deleted.</p>';
+    }
+    else
+    {
+    	$dialogBox .= '<p>Unable to delete category.</p>';
+
+        if ( claro_failure::get_last_failure() == 'GROUP_FORUMS_CATEGORY_REMOVALE_FORBIDDEN' )
+        {
+            $dialogBox .= '<p>Group forums category can not be deleted.</p>';
+        }
+    }
 }
 
 if ( $cmd == 'exDelForum' )
