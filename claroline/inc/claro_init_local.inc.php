@@ -255,7 +255,7 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    if ($claro_CasEnabled) // CAS is a special cas of external authentication
+    if (isset($claro_CasEnabled) && $claro_CasEnabled) // CAS is a special cas of external authentication
     {
         require($claro_CasProcessPath);
     }
