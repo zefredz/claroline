@@ -540,7 +540,7 @@
                  
                 // display image description using title attribute
                 $title = "";
-		if ($fileList['comment'][$num] )
+                if ($fileList['comment'][$num] )
                 {
                     $text = $fileList['comment'][$num];
                      
@@ -564,7 +564,12 @@
                 echo "</a>\n";
 
                 // display image name
-                echo "<p " . $style . ">" . basename( $fileList['path'][$num] ) . "</p>";
+                $imgName = ( strlen( basename( $fileList['path'][$num] ) ) > 25 )
+                    ? substr( basename( $fileList['path'][$num] ), 0, 25 ) .  "..."
+                    : basename( $fileList['path'][$num] )
+                    ;
+                
+                echo "<p " . $style . ">" . $imgName  . "</p>";
 
                 echo "</td>\n";
 

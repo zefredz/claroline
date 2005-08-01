@@ -1189,6 +1189,84 @@ function confirmation (name)
 }
 </script>";
 
+if ( $docView == 'image' )
+{
+    $noQUERY_STRING = true;
+    $htmlHeadXtra[] =
+"<script>
+var nOriginalHeight;
+var nOriginalWidth;
+
+function zoomIn ()
+{
+    var oImage = document.getElementById('mainImage');
+    oImage.width = nOriginalWidth;
+    oImage.height = nOriginalHeight;
+    oImage.onclick = function(){zoomOut();};
+    oImage.setAttribute( 'title', '".clean_str_for_javascript($langClickToZoomOut)."' );
+    // oImage.style.cursor = '-moz-zoom-in';
+}
+
+function zoomOut ()
+{
+    var oImage = document.getElementById('mainImage');
+    
+    nOriginalHeight = oImage.height;
+    nOriginalWidth = oImage.width;
+    
+    var nNewWidth = getWindowWidth() - 30;
+    
+    if ( nNewWidth < nOriginalWidth )
+    {
+        var nNewHeight = computeHeight ( nNewWidth );
+    
+        oImage.width = nNewWidth;
+        oImage.height = nNewHeight;
+    
+        oImage.onclick = function(){zoomIn();};
+        oImage.setAttribute( 'title', '".clean_str_for_javascript($langClickToZoomIn)."' );
+        // oImage.style.cursor = '-moz-zoom-out';
+    }
+}
+
+function computeHeight( nWidth )
+{
+    var nScaleFactor = nWidth / nOriginalWidth;
+    var nNewHeight = nOriginalHeight * nScaleFactor;
+    return Math.floor( nNewHeight );
+}
+
+function getWindowWidth ()
+{
+    var ww = 0;
+    
+    if ( typeof window.innerWidth != 'undefined' )
+    {
+        ww = window.innerWidth;  // NN and Opera version
+    }
+    else
+    {
+        if ( document.documentElement
+            && typeof document.documentElement.clientWidth!='undefined'
+            && document.documentElement.clientWidth != 0 )
+        {
+            ww = document.documentElement.clientWidth;
+        }
+        else
+        {
+            if ( document.body
+                && typeof document.body.clientWidth != 'undefined' )
+            {
+                ww = document.body.clientWidth;
+            }
+        }
+   }
+   return ww;
+}
+</script>";
+    $claroBodyOnload[] = "zoomOut();";
+}
+
 $nameTools = $langDocument;
 
 $QUERY_STRING=''; // used for the breadcrumb 
@@ -1392,8 +1470,8 @@ echo claro_disp_tool_title($titleElement,
         $depth = get_image_color_depth( $imgPath );    
         
         // display image
-        echo "<p><center><img src=\"" . $doc_url . "\" " . $attr . " alt=\"" 
-            . $fileName . "\" /></center></p>\n"
+        echo "<p><center><a href=\"#\"><img id=\"mainImage\" src=\"" . $doc_url . "\" alt=\""
+            . $fileName . "\" /></a></center></p>\n"
             ;
             
         // display image info
