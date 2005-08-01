@@ -45,7 +45,7 @@ include ($includePath.'/installedVersion.inc.php');
 include ($includePath.'/lib/config.lib.inc.php');
 
 
-if ( !function_exists(mysql_info) )
+if ( !function_exists('mysql_info') )
 {
 
     /**
