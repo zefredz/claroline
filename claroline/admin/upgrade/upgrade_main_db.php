@@ -160,7 +160,7 @@ switch ($display)
             .'</h3>' . "\n"
             ;
 
-        if ($_REQUEST['verbose']) 
+        if ($verbose) 
         {
         	echo '<p class="info">' . $langModeVerbose . ':</p>' . "\n";
         }
@@ -182,7 +182,7 @@ switch ($display)
         	else
         	{
         		$res = @mysql_query($sqlTodo);
-        		if ($_REQUEST['verbose'])
+        		if ($verbose)
         		{
         			echo  '<li>' . "\n"
         			    . '<p class="tt">' . $sqlTodo . '</p>' . "\n"
@@ -221,7 +221,7 @@ switch ($display)
         $def_file_list = get_def_file_list();
     	foreach ( $def_file_list as $def_file_bloc)
     	{
-    	    if (is_array($def_file_bloc['conf']))
+    	    if (isset($def_file_bloc['conf']) && is_array($def_file_bloc['conf']))
     	    {   // blocs are use in visual config tool to list 
     	        // in special order thes detected config files.
     	        foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
