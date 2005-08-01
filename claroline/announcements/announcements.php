@@ -517,6 +517,8 @@ if ($displayList)
     {
         if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
         {
+            $style = $thisAnnouncement['visibility']=='HIDE' ?'invisible' : $style='';
+            
             if ($thisAnnouncement['visibility']=='HIDE') $style="invisible";  else $style='';
             $title   = $thisAnnouncement['title'];
             
@@ -553,10 +555,12 @@ if ($displayList)
             .    '</tr>' . "\n"
             .    '<tr>' . "\n"
             .    '<td>' . "\n"
-            .    ($title ? '<p><strong>' . $title . '</strong></p>' . "\n"
+            .    '<div class="content ' . $style . '">' . "\n"
+            .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
                  : ''
                  )
-            .    $content . "\n"
+            .    claro_parse_user_text($content) . "\n"
+            .    '</div>' . "\n"
             ;
 
             linker_display_resource();
