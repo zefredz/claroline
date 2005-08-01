@@ -214,7 +214,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                 {
                     $dialogBox .= $langUploadEnd;
 
-                    if (trim($_REQUEST['comment']) != '') // insert additional comment
+                    if ( isset( $_REQUEST['comment'] ) && trim($_REQUEST['comment']) != '') // insert additional comment
                     {
                         update_db_info('update', $_REQUEST['cwd'].'/'.$uploadedFileName,
                                         array('comment' => trim($_REQUEST['comment']) ) );
@@ -1415,7 +1415,7 @@ echo claro_disp_tool_title($titleElement,
         $titleStyle ='title';
         
         // if image invisible set style to invisible
-        if ( $fileList['visibility'][$imgKey] == 'i')
+        if ( isset( $fileList['visibility'] ) &&  $fileList['visibility'][$imgKey] == 'i')
         {
             $titleStyle = 'title invisible';
         } // if invisible
@@ -1442,7 +1442,7 @@ echo claro_disp_tool_title($titleElement,
         
         // ---------------------- display comment about  requested image ----------
         
-        if ($fileList['comment'][$imgKey])
+        if ( isset ( $fileList['comment'] ) && $fileList['comment'][$imgKey])
         {                
             echo "<hr />\n"
                 . "<blockquote>" . $fileList['comment'][$imgKey] . "</blockquote>\n"

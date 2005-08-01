@@ -114,7 +114,7 @@
             foreach($fileList['path'] as $num => $value)
             {
                 if (is_image($value )
-                    && ($fileList['visibility'][$num] != 'i' || $allowed))
+                    && ( ( isset($fileList['visibility']) && $fileList['visibility'][$num] != 'i' ) || $allowed))
                 {
                     $imageList[] = $num;
                 }
@@ -306,7 +306,7 @@
              
             $prevName = $fileList['path'][$prev];
              
-            if ($fileList['visibility'][$prev] == 'i')
+            if (isset( $fileList['visibility'] ) && $fileList['visibility'][$prev] == 'i')
             {
                 $prevStyle = 'prev invisible';
             }
@@ -366,7 +366,7 @@
              
             $nextName = $fileList['path'][$next];
              
-            if ($fileList['visibility'][$next] == 'i')
+            if ( isset( $fileList['visibility'] ) && $fileList['visibility'][$next] == 'i')
             {
                 $nextStyle = 'next invisible';
             }
@@ -519,7 +519,7 @@
                 $fileName = $fileList['path'][$num];
                  
                 // visibility style
-                if ($fileList['visibility'][$num] == 'i')
+                if (isset( $fileList['visibility'] ) && $fileList['visibility'][$num] == 'i')
                 {
                     $style = "style=\"font-style: italic; color: silver;\"";
                 }
@@ -540,7 +540,7 @@
                  
                 // display image description using title attribute
                 $title = "";
-                if ($fileList['comment'][$num] )
+                if ( isset( $fileList['comment'] ) && $fileList['comment'][$num] )
                 {
                     $text = $fileList['comment'][$num];
                      
