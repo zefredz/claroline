@@ -23,6 +23,8 @@
  * @return array user data if it succeeds, boolean false otherwise
  */
 
+define ('GROUP_FORUMS_CATEGORY', 1);
+
 function get_userdata_from_id($userId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -1136,6 +1138,9 @@ function create_category($cat_title)
 
 function delete_category($cat_id)
 {
+    if ($cat_id == GROUP_FORUMS_CATEGORY) 
+        return claro_failure::set_failure('DELETE_FORBIDDEN');
+
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
