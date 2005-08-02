@@ -26,7 +26,7 @@ $conf_def['config_class']='platform';
 $conf_def['section']['rightmenu']['label']='Right menu settings';
 $conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
 $conf_def['section']['rightmenu']['properties'] =
-array ( 'max_char_from_content'
+array ( 'max_char_from_content', 'allowed_to_register'
       );
 
 //PROPERTIES
@@ -41,4 +41,15 @@ $conf_def_property_list['max_char_from_content']
         ,'acceptedValue' => array ( 'min'=> '0' )
         );
 
+
+$conf_def_property_list['allowed_to_register']
+= array ('label'     => 'Personnal course list modification'
+        ,'description' => 'Set if the users are allowed to modify their personnal courses list or not'
+        ,'default'   => TRUE
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'allowed', 'FALSE'=>'not allowed' )
+        );
+                
 ?>
