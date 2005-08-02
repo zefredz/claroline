@@ -1139,7 +1139,7 @@ function create_category($cat_title)
 function delete_category($cat_id)
 {
     if ($cat_id == GROUP_FORUMS_CATEGORY) 
-        return claro_failure::set_failure('DELETE_FORBIDDEN');
+        return claro_failure::set_failure('GROUP_FORUMS_CATEGORY_REMOVALE_FORBIDDEN');
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
