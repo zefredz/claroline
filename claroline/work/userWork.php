@@ -932,75 +932,75 @@ if( $is_allowedToSubmit )
 	
 	if( $dispWrkForm )
 	{
-			echo "<br />\n";
+			echo '<br />'."\n";
 			// description of assignment
 			if( !empty($assignment['description']) )
 			{
-				echo "\n<div>\n"
-					."<b>".$langAssignmentDescription."</b><br />"
+				echo "\n".'<div>'."\n"
+					.'<b>'.$langAssignmentDescription.'</b><br />'
 					.claro_parse_user_text($assignment['description'])
-					."\n</div>\n<br />\n";
+					."\n".'</div>'."\n".'<br />'."\n";
 			}
 			
-            echo "<h4>".$txtForFormTitle."</h4>\n"
-				  ."<p><small><a href=\"".$_SERVER['SCRIPT_NAME']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."\">&lt;&lt;&nbsp;".$langBack."</a></small></p>\n"
-                  ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']."&amp;authId=".$_REQUEST['authId']."\" enctype=\"multipart/form-data\">\n"
-                  ."<input type=\"hidden\" name=\"cmd\" value=\"".$cmdToSend."\">\n";
+            echo '<h4>'.$txtForFormTitle.'</h4>'."\n"
+				  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.$langBack.'</a></small></p>'."\n"
+                  .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$_REQUEST['assigId'].'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
+                  .'<input type="hidden" name="cmd" value="'.$cmdToSend.'">'."\n";
 
             if( isset($_REQUEST['wrkId']) )
             {
-                  echo "<input type=\"hidden\" name=\"wrkId\" value=\"".$_REQUEST['wrkId']."\">";
+                  echo '<input type="hidden" name="wrkId" value="'.$_REQUEST['wrkId'].'">'."\n";
             }
             
-            echo  "<table width=\"100%\">\n"
-                  ."<tr>\n"
-                  ."<td valign=\"top\"><label for=\"wrkTitle\">".$langWrkTitle."&nbsp;*&nbsp;:</label></td>\n"
-                  ."<td><input type=\"text\" name=\"wrkTitle\" id=\"wrkTitle\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkTitle'])."\"></td>\n"
-                  ."</tr>\n\n"
-                  ."<tr>\n"
-                  ."<td valign=\"top\"><label for=\"wrkAuthors\">".$langWrkAuthors."&nbsp;*&nbsp;:</label></td>\n"
-                  ."<td><input type=\"text\" name=\"wrkAuthors\" id=\"wrkAuthors\" size=\"50\" maxlength=\"200\" value=\"".htmlentities($form['wrkAuthors'])."\"></td>\n"
-                  ."</tr>\n\n";
+            echo  '<table width="100%">'."\n"
+                  .'<tr>'."\n"
+                  .'<td valign="top"><label for="wrkTitle">'.$langWrkTitle.'&nbsp;*&nbsp;:</label></td>'."\n"
+                  .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlentities($form['wrkTitle']).'"></td>'."\n"
+                  .'</tr>'."\n\n"
+                  .'<tr>'."\n"
+                  .'<td valign="top"><label for="wrkAuthors">'.$langWrkAuthors.'&nbsp;*&nbsp;:</label></td>'."\n"
+                  .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlentities($form['wrkAuthors']).'"></td>'."\n"
+                  .'</tr>'."\n\n";
 
             // display the list of groups of the user
             if( $assignment['assignment_type'] == "GROUP" && 
 					(isset($userGroupList) && count($userGroupList) > 0) || ($is_courseAdmin && isset($_gid) )
 				)
             {
-				echo "<tr>\n"
-				      ."<td valign=\"top\"><label for=\"wrkGroup\">".$langGroup."&nbsp;:</label></td>\n";
+				echo '<tr>'."\n"
+				      .'<td valign="top"><label for="wrkGroup">'.$langGroup.'&nbsp;:</label></td>'."\n";
 				
 				if( isset($_gid) )
 				{
-					echo "<td>\n"
-					      ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_gid."\" />"
+					echo '<td>'."\n"
+					      .'<input type="hidden" name="wrkGroup" value="'.$_gid.'" />'
 					      .$_group['name']
-					      ."</td>\n";
+					      .'</td>'."\n";
 				}
 				elseif(isset($_REQUEST['authId']) )
 				{
-					echo "<td>\n"
-					      ."<input type=\"hidden\" name=\"wrkGroup\" value=\"".$_REQUEST['authId']."\" />"
+					echo '<td>'."\n"
+					      .'<input type="hidden" name="wrkGroup" value="'.$_REQUEST['authId'].'" />'
 					      .$userGroupList[$_REQUEST['authId']]['name']
-					      ."</td>\n";
+					      .'</td>'."\n";
 				}
 				else
 				{
 					// this part is mainly for courseadmin as he have a link in the workList to submit a work
-					echo "<td>\n<select name=\"wrkGroup\" id=\"wrkGroup\">\n";
+					echo '<td>'."\n".'<select name="wrkGroup" id="wrkGroup">'."\n";
 					foreach( $userGroupList as $group )
 					{
-					      echo "<option value=\"".$group['id']."\"";
+					      echo '<option value="'.$group['id'].'"';
 					      if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] || $_REQUEST['authId'] == $group['id'] )
 					      {
-					            echo "selected=\"selected\"";
+					            echo 'selected="selected"';
 					      }
-					      echo ">".$group['name']."</option>\n";
+					      echo '>'.$group['name'].'</option>'."\n";
 					}
-					echo "</select>\n"
-					      ."</td>\n";
+					echo '</select>'."\n"
+					      .'</td>'."\n";
 				}
-				echo "</tr>\n\n";
+				echo '</tr>'."\n\n";
             }
             
             // display file box
@@ -1009,8 +1009,8 @@ if( $is_allowedToSubmit )
                   // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
                   if( isset($form['wrkUrl']) )
                   {
-                        echo "<tr>\n"
-                              ."<td valign=\"top\">";
+                        echo '<tr>'."\n"
+                              .'<td valign="top">';
                         // display a different text according to the context
                         if( $assignment['authorized_content'] == "TEXT"  )
                         {
@@ -1026,33 +1026,33 @@ if( $is_allowedToSubmit )
                         {
                               // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
                               $completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
-                              echo "&nbsp;:<input type=\"hidden\" name=\"currentWrkUrl\" value=\"".$form['wrkUrl']."\">"
-                                    ."</td>\n"
-                                    ."<td>"
-                                    ."<a href=\"".$completeWrkUrl."\">".$form['wrkUrl']."</a>"
-                                    ."<br />";
+                              echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'">'
+                                    .'</td>'."\n"
+                                    .'<td>'
+                                    .'<a href="'.$completeWrkUrl.'">'.$form['wrkUrl'].'</a>'
+                                    .'<br />';
                               if( $assignmentContent == "TEXTFILE" )
                               {
                                     // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
-                                    echo "<input type=\"checkBox\" name=\"delAttacheDFile\" id=\"delAttachedFile\">"
-                                    ."<label for=\"delAttachedFile\">".$langExplainDeleteFile."</label> ";
+                                    echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile">'
+                                    .'<label for="delAttachedFile">'.$langExplainDeleteFile.'</label>';
                               }
-                              echo $langExplainReplaceFile."</td>\n"
-                                    ."</tr>\n\n";
+                              echo $langExplainReplaceFile.'</td>'."\n"
+                                    .'</tr>'."\n\n";
                         }
                         else
                         {
-                              echo "&nbsp;:"
-                                    ."</td>\n"
-                                    ."<td>"
+                              echo '&nbsp;:'
+                                    .'</td>'."\n"
+                                    .'<td>'
                                     .$langNoFile
-                                    ."</td>\n"
-                                    ."</tr>\n\n";
+                                    .'</td>'."\n"
+                                    .'</tr>'."\n\n";
                         }
                   }
                   
-    			echo "<tr>\n"
-					."<td valign=\"top\"><label for=\"wrkFile\">";
+    			echo '<tr>'."\n"
+					.'<td valign="top"><label for="wrkFile">';
 					
 				// display a different text according to the context
 				if( $assignmentContent == "TEXTFILE" )
@@ -1063,23 +1063,23 @@ if( $is_allowedToSubmit )
 				else
 				{
 					// if the file is required and the text is only a description of the file
-					echo $langUploadDoc."&nbsp;*";
+					echo $langUploadDoc.'&nbsp;*';
 				}
-				echo "&nbsp;:</label></td>\n";
+				echo '&nbsp;:</label></td>'."\n";
 				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
 				{
-					echo "<td>"
-						."<input type=\"hidden\" name=\"submitGroupWorkUrl\" value=\"".$submitGroupWorkUrl."\">"
-						."<a href=\"".$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl."\">".basename($submitGroupWorkUrl)."</a>"
-						."</td>\n";				
+					echo '<td>'
+						.'<input type="hidden" name="submitGroupWorkUrl" value="'.$submitGroupWorkUrl.'">'
+						.'<a href="'.$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl.'">'.basename($submitGroupWorkUrl).'</a>'
+						.'</td>'."\n";
 				}
 				else
 				{
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$wrkDirSys), $fileAllowedSize);
 
-                  echo "<td><input type=\"file\" name=\"wrkFile\" id=\"wrkFile\" size=\"30\"><br />"
-						."<small>".$langMaxFileSize." ".format_file_size($maxFileSize)."</small></td>\n"
-                        ."</tr>\n\n";
+                  echo '<td><input type="file" name="wrkFile" id="wrkFile" size="30"><br />'
+						.'<small>'.$langMaxFileSize.' '.format_file_size($maxFileSize).'</small></td>'."\n"
+                        .'</tr>'."\n\n";
 				}
             }
             
@@ -1087,80 +1087,80 @@ if( $is_allowedToSubmit )
             {
                   // display standard html textarea
                   // used for description of an uploaded file
-                  echo "<tr>\n"
-                        ."<td valign=\"top\">"
-                        ."<label for=\"wrkTxt\">"
+                  echo '<tr>'."\n"
+                        .'<td valign="top">'
+                        .'<label for="wrkTxt">'
                         .$langFileDesc
-                        ."&nbsp;:<br /></label></td>"
-                        ."<td>\n"
-                        ."<textarea name=\"wrkTxt\" cols=\"40\" rows=\"10\">".$form['wrkTxt']."</textarea>"
-                        ."</td>\n"
-                        ."</tr>\n\n";
+                        .'&nbsp;:<br /></label></td>'
+                        .'<td>'."\n"
+                        .'<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
+                        .'</td>'."\n"
+                        .'</tr>'."\n\n";
             }
             elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
             {
                   // display enhanced textarea using claro_disp_html_area
-                  echo "<tr>\n"
-                        ."<td valign=\"top\">"
-                        ."<label for=\"wrkTxt\">"
+                  echo '<tr>'."\n"
+                        .'<td valign="top">'
+                        .'<label for="wrkTxt">'
                         .$langAnswer
-                        ."&nbsp;*&nbsp;:</label></td>\n"
-                        ."<td>"
+                        .'&nbsp;*&nbsp;:</label></td>'."\n"
+                        .'<td>'
                         .claro_disp_html_area('wrkTxt', $form['wrkTxt'])
-                        ."</td>\n"
-                        ."</tr>\n\n";
+                        .'</td>'."\n"
+                        .'</tr>'."\n\n";
             }
             
             if( $dispFbkFields )
             {
-				echo "<tr>\n"
-                        ."<td valign=\"top\">"
-                        ."<label for=\"wrkPrivFbk\">"
+				echo '<tr>'."\n"
+                        .'<td valign="top">'
+                        .'<label for="wrkPrivFbk">'
                         .$langPrivateFeedback
-                        ."&nbsp;:<br />"
-						."<small>".$langCourseAdministratorOnly."</small>"
-						."</label></td>"
-                        ."<td>\n"
-                        ."<textarea name=\"wrkPrivFbk\" cols=\"40\" rows=\"10\">".$form['wrkPrivFbk']."</textarea>"
-                        ."</td>\n"
-                        ."</tr>\n\n";
+                        .'&nbsp;:<br />'
+						.'<small>'.$langCourseAdministratorOnly.'</small>'
+						.'</label></td>'
+                        .'<td>'."\n"
+                        .'<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
+                        .'</td>'."\n"
+                        .'</tr>'."\n\n";
                   // if this is a correction we have to add an input for the score/grade/results/points
-                  $wrkScoreField = "<select name=\"wrkScore\" id=\"wrkScore\">\n"
-                                    ."<option value=\"-1\"";
+                  $wrkScoreField = '<select name="wrkScore" id="wrkScore">'."\n"
+                                    .'<option value="-1"';
                   // add selected attribute if needed
                   if( $form['wrkScore'] == -1 )
                   {
-                        $wrkScoreField .= " selected=\"selected\"";
+                        $wrkScoreField .= ' selected="selected"';
                   }                  
-                  $wrkScoreField .= ">".$langNoScore."</option>\n";
+                  $wrkScoreField .= '>'.$langNoScore.'</option>'."\n";
                   
                   for($i=0;$i <= 100; $i++)
                   {
-                        $wrkScoreField .= "<option value=\"".$i."\"";
+                        $wrkScoreField .= '<option value="'.$i.'"';
                         if($i == $form['wrkScore'])
                         {
-                        	$wrkScoreField .= " selected=\"selected\"";
+                        	$wrkScoreField .= ' selected="selected"';
                         }
-                        $wrkScoreField .= ">".$i."</option>\n";
+                        $wrkScoreField .= '>'.$i.'</option>'."\n";
                   }
-                  $wrkScoreField .= "</select> %";
-                  echo "<tr>\n"
-                        ."<td valign=\"top\"><label for=\"wrkScore\">".$langScore."&nbsp;&nbsp;:</label></td>\n"
-                        ."<td>"
+                  $wrkScoreField .= '</select> %';
+                  echo '<tr>'."\n"
+                        .'<td valign="top"><label for="wrkScore">'.$langScore.'&nbsp;&nbsp;:</label></td>'."\n"
+                        .'<td>'
                         .$wrkScoreField
-                        ."</td>"
-                        ."</tr>\n\n";
+                        .'</td>'
+                        .'</tr>'."\n\n";
             }
             
-            echo "<tr>\n"
-					."<td>&nbsp;</td>\n"
-					."<td>"
-					."<input type=\"submit\" name=\"submitWrk\" value=\"".$langOk."\">\n"
-					."</td>\n"
-					."</tr>\n\n"
-					."</table>\n\n"
-					."</form>"
-					."<small>* : ".$langRequired."</small>";
+            echo '<tr>'."\n"
+					.'<td>&nbsp;</td>'."\n"
+					.'<td>'
+					.'<input type="submit" name="submitWrk" value="'.$langOk.'">'."\n"
+					.'</td>'."\n"
+					.'</tr>'."\n\n"
+					.'</table>'."\n\n"
+					.'</form>'
+					.'<small>* : '.$langRequired.'</small>';
       }
 }
   
@@ -1224,12 +1224,12 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new assignment
-		echo "<p><a class=\"claroCmd\" href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."&amp;cmd=rqSubWrk\">".$langSubmitWork."</a></p>\n";
+		echo '<p><a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.$langSubmitWork.'</a></p>'."\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
 	{
-		echo "<table class=\"claroTable\" width=\"100%\">\n";
+		echo '<table class="claroTable" width="100%">'."\n";
 		foreach ( $wrkAndFeedbackLst as $thisWrk )
 		{
 			$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
@@ -1262,30 +1262,30 @@ if( $dispWrkLst )
 			}
 			
 			// title (and edit links)
-			echo "<tr>\n"
-		  		."<th class=\"headerX\">\n"
+			echo '<tr>'."\n"
+		  		.'<th class="headerX">'."\n"
 				.$thisWrk['title']
-				."\n</th>\n"
-				."</tr>\n";
+				."\n".'</th>'."\n"
+				.'</tr>'."\n";
 				
 			if( $is_feedback )
 			{
-				echo "<tr".$style.">\n"
-					."<td style=\"padding-left: 35px;\">\n";
+				echo '<tr'.$style.'>'."\n"
+					.'<td style="padding-left: 35px;">'."\n";
 			}
 			else
 			{
-				echo "<tr".$style.">\n"
-					."<td>\n";
+				echo '<tr'.$style.'>'."\n"
+					.'<td>'."\n";
 			}
 				
 			// author
-			echo "<b>".$langWrkAuthors."</b>&nbsp;: ".$thisWrk['authors']."<br />";
+			echo '<b>'.$langWrkAuthors.'</b>&nbsp;: '.$thisWrk['authors'].'<br />';
 	
 			if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
 			{ 
 				 // display group if this is a group assignment and if this is not a correction
-				 echo "<b>".$langGroup."</b>&nbsp;: ".$userGroupList[$thisWrk['group_id']]['name']."<br />";
+				 echo '<b>'.$langGroup.'</b>&nbsp;: '.$userGroupList[$thisWrk['group_id']]['name'].'<br />';
 			}
 	
 			if( $assignmentContent != "TEXT" )
@@ -1294,88 +1294,91 @@ if( $dispWrkLst )
 				{
 					$completeWrkUrl = $assigDirWeb.$thisWrk['submitted_doc_path'];
 					// show file if this is not a TEXT only work
-					echo "<b>".$txtForFile."</b>&nbsp;: "
-						."<a href=\"".$completeWrkUrl."\">".$thisWrk['submitted_doc_path']."</a>"
-						."<br />\n";
+					echo '<b>'.$txtForFile.'</b>&nbsp;: '
+						.'<a href="'.$completeWrkUrl.'">'.$thisWrk['submitted_doc_path'].'</a>'
+						.'<br />'."\n";
 				}
 				else
 				{
-				     echo "<b>".$txtForFile."</b>&nbsp;: ".$langNoFile."<br />\n";
+				     echo '<b>'.$txtForFile.'</b>&nbsp;: '.$langNoFile.'<br />'."\n";
 				}
 			}
 	      
-			echo "<br /><div><b>".$txtForText."</b>&nbsp;: <br />\n"
-				.$thisWrk['submitted_text']."</div>\n";
+			echo '<br /><div><b>'.$txtForText.'</b>&nbsp;: <br />'."\n"
+				.$thisWrk['submitted_text'].'</div>'."\n";
 			
 			if( $is_feedback )
 			{
-				echo "<br /><div><b>".$langPrivateFeedback."</b>&nbsp;: <br />\n"
-					.$thisWrk['private_feedback']."</div><br />";
-				echo "<b>".$langScore."</b>&nbsp;: ";
-				echo ( $thisWrk['score'] == -1 ) ? $langNoScore : $thisWrk['score']." %" ;
-				echo "<br />\n";
+				if( $is_courseAdmin )
+				{
+					echo '<br /><div><b>'.$langPrivateFeedback.'</b>&nbsp;: <br />'."\n"
+						.$thisWrk['private_feedback'].'</div>'."\n";
+				}
+				echo '<br /><b>'.$langScore.'</b>&nbsp;: ';
+				echo ( $thisWrk['score'] == -1 ) ? $langNoScore : $thisWrk['score'].' %' ;
+				echo '<br />'."\n";
 			}
-			echo "<p><b>".$langSubmissionDate."</b>&nbsp;: "
+			echo '<p><b>'.$langSubmissionDate.'</b>&nbsp;: '
 				.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date']);
 			
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
 			{
-			      echo " <img src=\"".$imgRepositoryWeb."caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'">';
 			}
-			echo "<br />\n";
+			echo '<br />'."\n";
 	            
 			if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
 			{
-				echo "<b>".$langLastEditDate."</b>&nbsp;: "
+				echo '<b>'.$langLastEditDate.'</b>&nbsp;: '
 					.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
 				// display an alert if work was submitted after end date and work is not a correction !
 				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
 				{
-					echo " <img src=\"".$imgRepositoryWeb."caution.gif\" border=\"0\" alt=\"".$langLateUpload."\">";
+					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'">';
 				}			
 			}
-			echo "</p>\n";
+			echo '</p>'."\n";
 			// if user is allowed to edit, display the link to edit it
 			if( $is_allowedToEditThisWrk )
 			{
 				// the work can be edited 
-				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."&amp;cmd=rqEditWrk&amp;wrkId=".$thisWrk['id']."\">"
-					."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>";
+				echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqEditWrk&amp;wrkId='.$thisWrk['id'].'">'
+					.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'"></a>';
 			}
 			
 			if( $is_allowedToEditAll )
 			{
-				echo "<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exRmWrk&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($thisWrk['title']),"');\">"
-				    ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>";
+				echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exRmWrk&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'" onClick="return confirmation(\''.clean_str_for_javascript($thisWrk['title']).'\');">'
+				    .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'"></a>';
 				
 				if ($thisWrk['visibility'] == "INVISIBLE")
 				{
-				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exChVis&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."&amp;vis=v\">"
-				          ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+				    echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'&amp;vis=v">'
+				          .'<img src="'.$imgRepositoryWeb.'invisible.gif" border="0" alt="'.$langMakeVisible.'">'
 				          ."</a>";
 				}
 				else
 				{
-				    echo	"<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;cmd=exChVis&amp;assigId=".$_REQUEST['assigId']."&amp;wrkId=".$thisWrk['id']."&amp;vis=i\">"
-				          ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
-				          ."</a>";
+				    echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'&amp;vis=i">'
+				          .'<img src="'.$imgRepositoryWeb.'visible.gif" border="0" alt="'.$langMakeInvisible.'">'
+				          .'</a>';
 				}  
 				if( !$is_feedback )
 				{
 					// if there is no correction yet show the link to add a correction if user is course admin
-					echo "&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId']."&amp;cmd=rqGradeWrk&amp;wrkId=".$thisWrk['id']."\">".$langAddFeedback."</a>";
+					echo '&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqGradeWrk&amp;wrkId='.$thisWrk['id'].'">'.$langAddFeedback.'</a>';
 				}
 			}
 			
-			echo "</td>\n"
-				."</tr>\n";
+			echo '</td>'."\n"
+				.'</tr>'."\n";
 		}
-		echo "</table>";
+		echo '</table>';
 	}
 	else
 	{
-		echo "\n<p>\n<blockquote>".$langNoVisibleSubmission."</blockquote>\n</p>\n";
+		echo "\n".'<p>'."\n".'<blockquote>'.$langNoVisibleSubmission.'</blockquote>'."\n".'</p>'."\n";
 	}
 }
 // FOOTER
