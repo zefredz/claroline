@@ -329,14 +329,22 @@
         global $_courseTool;
         global $_gid;
         global $rootWeb;
-            
+
         $baseServUrl = $rootWeb;
         $course_sys_code = $_course["sysCode"];
-        $tool_name = $_courseTool["label"];
-        
-        $res = new Resolver($baseServUrl);
-        $resource_id = $res->getResourceId($tool_name);
-        
+
+        if ( isset( $_courseTool ) && isset( $_courseTool['label'] ) )
+        {
+            $tool_name = $_courseTool["label"];
+            $res = new Resolver($baseServUrl);
+            $resource_id = $res->getResourceId($tool_name);
+        }
+        else
+        {
+            $tool_name = '';
+            $resource_id = '';
+        }
+
         if ( isset( $_gid ) )
         {
             $group = $_gid;
@@ -345,9 +353,9 @@
         {
             $group = NULL;
         }
-             
+
         $crl_source = CRLTool::createCRL($platform_id , $course_sys_code , $tool_name  , $resource_id , $group  );
-            
+
         return $crl_source;
     }
 
