@@ -211,7 +211,7 @@ if(isset($_REQUEST['cancelQuestion']))
 	else
 	{
 		// goes back to the question viewing
-		$editQuestion = $_REQUEST['modifyQuestion'];
+		if( isset($_REQUEST['modifyQuestion']) ) $editQuestion = $_REQUEST['modifyQuestion'];
 
 		unset($newQuestion,$modifyQuestion);
 	}
