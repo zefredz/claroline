@@ -891,7 +891,7 @@ function claro_disp_msg_arr($msgArrBody)
 
 function claro_disp_auth_form($cidRequired = false)
 {
-    global $rootWeb, $includePath;
+    global $rootWeb, $includePath, $_cid;
 
     $sourceUrl = $_SERVER['REQUEST_URI'];
     
@@ -900,7 +900,7 @@ function claro_disp_auth_form($cidRequired = false)
 
     if ( ! headers_sent () ) // in this case it is impossible to relocate
     {
-        $urlCmd = ($cidRequired ? '&cidRequired=true' : '');
+        $urlCmd = ($cidRequired && ! $_cid ? '&cidRequired=true' : '');
         header('Location:'.$rootWeb.'claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
     }
     else
