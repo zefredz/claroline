@@ -177,21 +177,4 @@ array ('label'         => 'Database value for student status'
       , 'container'     => 'CONST'
       );
 
-$conf_def['section']['add_user']['label'] = 'Add user';
-$conf_def['section']['add_user']['description'] = '';
-$conf_def['section']['add_user']['properties'] = 
-array ( 'allowSearchInAddUser' );
-
-$conf_def_property_list['allowSearchInAddUser'] =
-array ('label'         => 'Allow search in the add user option'
-      ,'description'   => 'User search in the user tool is allowed'
-      ,'display'       => TRUE
-      ,'readonly'      => FALSE
-      ,'default'       => 'TRUE'
-      ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Allowed'
-                                ,'FALSE' => 'Denied'
-                                )
-      );
-
 ?>
