@@ -137,6 +137,9 @@ if ( $is_allowedToManage )
 {
     if ( isset($_REQUEST['creation']) )
     {   
+        // require the forum library to create the related forums
+        require $includePath . '/lib/forum.lib.php';
+
         // For all Group forums, cat_id=1
 
         $group_max = (int) $_REQUEST['group_max'];
@@ -148,58 +151,11 @@ if ( $is_allowedToManage )
 
         for ( $i = 1; $i <= $group_quantity; $i++ )
         {
-            /**
-             * Insert a new group in the course group table and keep its ID
-             */
-
-            $sql = "INSERT INTO `" . $tbl_Groups . "`
-                    (maxStudent) VALUES ('" . $group_max . "')";
-
-            $lastId = claro_sql_query_insert_id($sql);
-
-            
-
-            /*
-             * Create a forum for the group in the forum table
-             */
-
-            // we need to know what is the max forum_order only if lastOrder 
-            // is not already set
-
-            if ( !$lastOrder )
-            {
-                // select max order in the forum cat only (cat_id = 1)
-                $sql = "SELECT MAX(`forum_order`)
-                        FROM `" . $tbl_Forums . "`
-                        WHERE `cat_id` = 1"; 
-                $result = claro_sql_query($sql);
-                $tmp = mysql_fetch_array($result);
-                $lastOrder = $tmp[0];
-            }
-            $lastOrder += 1;
-        
-            $sql = "INSERT INTO `" . $tbl_Forums . "`
-                    SET forum_id           = '',
-                        forum_name         = '" . $langForumGroup . " " . $lastId . "',
-                        forum_desc         = '',
-                        forum_access       = 2,
-                        forum_moderator    = 1,
-                        forum_topics       = 0,
-                        forum_posts        = 0,
-                        forum_last_post_id = '0',
-                        cat_id             = '1',
-                        forum_type         = '0',
-                        md5                = '" . md5(time()) . "',
-                        forum_order        = '" . $lastOrder . "'";
-            claro_sql_query($sql);
-
-            $forumInsertId = mysql_insert_id();
-
             /*
              * Create a directory for to allow group student to upload documents
              */
 
-            /*  Create a Unique ID path preventing other enter */
+            //  Create a Unique ID path preventing other enter
 
             $groupRepository = uniqid('') . '_team_' . $lastId;
 
@@ -209,6 +165,24 @@ if ( $is_allowedToManage )
             }
 
             claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, 0777);
+
+            /*
+             * Insert a new group in the course group table and keep its ID
+             */
+
+            $sql = "INSERT INTO `" . $tbl_Groups . "`
+                    SET maxStudent = '" . (int) $group_max . "'";
+
+            $lastId = claro_sql_query_insert_id($sql);
+
+            /*
+             * Create a forum for the group in the forum table
+             */
+
+            $forumInsertId = create_forum($langForumGroup.' '.$lastId, 
+                                          '', // forum description
+                                          0,  // forum_type ... int he phpBB structure
+                                          (int) GROUP_FORUMS_CATEGORY);
 
             /* Stores the directory path into the group table */
 
@@ -223,6 +197,7 @@ if ( $is_allowedToManage )
         }    // end for ($i = 1; $i <= $group_quantity; $i++)
 
         $message= $group_quantity . ' ' . $langGroupsAdded;
+
         event_default('GROUPMANAGING',array ('CREATE_GROUP' => $group_quantity));
 
     }    // end if $submit
