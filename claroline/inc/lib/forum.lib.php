@@ -1216,8 +1216,7 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
             forum_access    = 2,
             forum_moderator = 1, 
             cat_id          = "'. (int) $cat_id .'", 
-            forum_type      = "'. (int) $forum_type  . '",
-            md5             ="'.md5(time()).'", 
+            forum_type      = "'. (int) $forum_type  . '", 
             forum_order    ="'. (int) $order.'"';
 
     if ( claro_sql_query($sql) != false) return true;
