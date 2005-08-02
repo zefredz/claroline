@@ -67,6 +67,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'exEdit' )
     {
+    	
         if ( !empty($descId) )
         {
             // Update description
@@ -103,6 +104,8 @@ if ( $is_allowedToEdit )
     
     if ( $cmd == 'rqEdit' )
     {
+    	claro_set_display_mode_available(false);
+    	
         if ( !empty($descId) )
         {
             $descItem = course_description_get_item($descId);

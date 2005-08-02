@@ -105,7 +105,6 @@ if ( $is_allowedToEdit )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
-        
 
         $insert_id = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $insert_id != false )
@@ -238,6 +237,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'rqEdit' || $cmd == 'rqAdd' )
     {
+    	claro_set_display_mode_available(false);
         
         if ( $cmd == 'rqEdit' && !empty($id) )
         {

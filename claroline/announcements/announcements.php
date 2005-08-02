@@ -99,6 +99,7 @@ $subTitle = '';
 $id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
 $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
 
+
 if($is_allowedToEdit) // check teacher status
 {
 	//------------------------
@@ -184,6 +185,7 @@ if($is_allowedToEdit) // check teacher status
         if ( $cmd == 'rqEdit' )
         {
             $subTitle = $langModifAnn;
+            claro_set_display_mode_available(false);
 
             // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
             $announcementToEdit = announcement_get_item($id);
@@ -223,6 +225,7 @@ if($is_allowedToEdit) // check teacher status
         if ( $cmd == 'rqCreate')
         {
             $subTitle = $langAddAnn;
+            claro_set_display_mode_available(false);
             $displayForm = TRUE;
             $nextCommand = 'exCreate';
             $announcementToEdit=array();
