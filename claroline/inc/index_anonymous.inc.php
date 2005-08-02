@@ -205,7 +205,7 @@ echo '</td>';
 <td width="200" valign="top" class="claroRightMenu">
 
 <?php
-if ($claro_CasEnabled)
+if( isset($claro_CasEnabled) && $claro_CasEnabled )
 {
 ?>
 <div align="center"><a href="claroline/auth/login.php">Login</a></div>
