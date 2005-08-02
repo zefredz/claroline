@@ -63,12 +63,9 @@ if ( $is_allowedToEdit )
     $cmd         = isset($_REQUEST['cmd'])         ? $_REQUEST['cmd']               : NULL;
     $descTitle   = isset($_REQUEST['descTitle'])   ? trim($_REQUEST['descTitle'])   : '';
     $descContent = isset($_REQUEST['descContent']) ? trim($_REQUEST['descContent']) : '';
-    $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : 0 ;
-
-    if ( $cmd == 'exEdit' )
-    {
+    $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : NULL ;
     	
-        if ( !empty($descId) )
+        if ( $cmd == 'exEdit' )
         {
             // Update description
             if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
@@ -81,11 +78,12 @@ if ( $is_allowedToEdit )
                 $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
             }
         }
-        else
+        
+        if ( $cmd == 'exAdd' )
         {
             // Add new description
                 
-                $descId = course_description_add_item($descTitle,$descContent);
+                $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
             if ($descId != FALSE )
             {
                 $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
@@ -96,7 +94,6 @@ if ( $is_allowedToEdit )
                 $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
             }
         }    
-    }
     
     /******************************************************************************
                             REQUEST DESCRIPTION ITEM EDITION
@@ -106,7 +103,7 @@ if ( $is_allowedToEdit )
     {
     	claro_set_display_mode_available(false);
     	
-        if ( !empty($descId) )
+        if ( isset($descId) && $descId >=0 )
         {
             $descItem = course_description_get_item($descId);
             $descPresetKey = array_search($descItem['title'] , $titreBloc);
@@ -116,22 +113,24 @@ if ( $is_allowedToEdit )
             $descItem['id'     ] = NULL;
             $descItem['title'  ] = '';
             $descItem['content'] = '';
-    
-            if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
-            {
-                $descPresetKey = $_REQUEST['numBloc'];
-            }
+        }     
+        
+        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
+        {
+        	 $descPresetKey = $_REQUEST['numBloc'];
         }
     
         if ( !empty($descPresetKey) )
         {
              $descPresetTitle    = $titreBloc[$descPresetKey];
+             $descNotEditable    = $titreBlocNotEditable[$descPresetKey];
              $descPresetQuestion = $questionPlan[$descPresetKey];
              $descPresetTip      = $info2Say[$descPresetKey];
         }
         else
         {
              $descPresetTitle    = NULL;
+             $descNotEditable    = false;
              $descPresetQuestion = NULL;
              $descPresetTip      = NULL;
         }
@@ -144,7 +143,7 @@ if ( $is_allowedToEdit )
      ******************************************************************************/
     
     
-    if ( $cmd == 'exDelete' && !empty($descId) )
+    if ( $cmd == 'exDelete' && $descId >=0 )
     {
         if ( course_description_delete_item($descId) ) 
         {
@@ -163,7 +162,7 @@ if ( $is_allowedToEdit )
      ******************************************************************************/
     
     
-    if ( ($cmd == 'mkShow'|| $cmd == 'mkHide') && !empty($descId) )
+    if ( ($cmd == 'mkShow'|| $cmd == 'mkHide') && ($descId >= 0) )
     {
         if ( course_description_visibility_item($descId , $cmd) ) 
         {
@@ -218,13 +217,13 @@ if ( $is_allowedToEdit )
 
             .'<form  method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
 
-            .'<input type="hidden" name="cmd" value="exEdit">'
+            .($descItem['content'] ? '<input type="hidden" name="cmd" value="exEdit">' : '<input type="hidden" name="cmd" value="exAdd">')
 
-            .($descItem['id'] ? '<input type="hidden" name="id" value="'.$descItem['id'].'">' : '')
+            .(isset($descItem['id']) || ($numBloc>=0) ? '<input type="hidden" name="id" value="'.$descItem['id'].$numBloc.'">' : '')
 
             .'<p><label for="descTitle"><b>'.$langTitle.' : </b></label><br /></p>'."\n"
 
-            .($descPresetTitle ? htmlspecialchars($descPresetTitle)
+            .($descNotEditable==true ? htmlspecialchars($descPresetTitle)
                                 .'<input type="hidden" name="descTitle" value="'. htmlspecialchars($descPresetTitle) .'">'
                                 :
                                 '<input type="text" name="descTitle" id="descTitle" size="50" value="'. htmlspecialchars($descItem['title']) .'">'."\n")
@@ -272,20 +271,22 @@ if ( $is_allowedToEdit )
         .    '<select name="numBloc">' . "\n"
         ;
 
+
         foreach ( $titreBloc as $key => $thisBlocTitle )
         {
+        	$alreadyUsed = false;
             foreach ( $descList as $thisDesc )
             {
-                $alreadyUsed =  ( $thisDesc['title'] == $thisBlocTitle ) ;
+                if ( $thisDesc['title'] == $thisBlocTitle ) $alreadyUsed = true ;
             }
             
-            if ( !isset($alreadyUsed) || !$alreadyUsed )
+            if ( ($alreadyUsed)==false)
             {
                 echo '<option value="' . $key . '">' . $thisBlocTitle . '</option>' . "\n";
             }
         }
             
-        echo '<option value="">' . $langNewBloc . '</option>' . "\n"
+        echo '<option value="-1">' . $langNewBloc . '</option>' . "\n"
             .'</select>' . "\n"
             .'<input type="submit" name="add" value="' . $langAdd . '">' . "\n"
             .'</form>' . "\n\n";
@@ -299,20 +300,20 @@ $hasDisplayedItems = false;
 
 if ( count($descList) )
 {
+	echo '<Table class="claroTable" width="100%">';
     foreach ( $descList as $thisDesc )
     {
         if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
         {  
             if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
-            echo "\n".'<div'.$style.'><h4>' . htmlspecialchars($thisDesc['title']) . '</h4>'."\n"
-                  .'<blockquote>'."\n"
-                  . claro_parse_user_text($thisDesc['content'])."\n"
-                  .'<br></div>'."\n"
-                  .'</blockquote>'."\n";
+        //    echo "\n".''.
+            echo 	'<tr  class="superHeader"><th><div'.$style.'>' . htmlspecialchars($thisDesc['title']) . '</div></th></tr>'."\n"
+                	.'<tr><td><div'.$style.'>'. claro_parse_user_text($thisDesc['content']).'</div></td></tr>'."\n"
+                  	."\n";
 
             $hasDisplayedItems = true;
         }
-    
+    	echo '<tr><td>';
         if ( $is_allowedToEdit )
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
@@ -337,8 +338,10 @@ if ( count($descList) )
                 .'</a>'."\n";           
            }
         }
+        echo '</td></tr>';
         
     }
+    echo '</Table>';
 }
 
 if( !$hasDisplayedItems )
@@ -392,7 +395,7 @@ function course_description_get_item($descId, $course_id=Null)
     
     $sql = 'SELECT `id`, `title`, `content`, `visibility`
             FROM `'.$tbl_course_description.'`
-            WHERE id = ' . (int) $descId;
+            WHERE id = ' . (int) $descId ;
 
     list($descItem) = claro_sql_query_fetch_all($sql);
     return $descItem;
@@ -463,20 +466,23 @@ function course_description_set_item($descId , $descTitle , $descContent, $cours
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function course_description_add_item($descTitle,$descContent, $course_id=Null)
+function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$course_id=Null)
 {
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
+	if (is_null($descId))
+	{
     $sql = "SELECT MAX(id)
                 FROM `".$tbl_course_description."` ";
-
     $maxId = claro_sql_query_get_single_value($sql);
+    $descId = max($maxBloc,$maxId+1);
+	}    
 
     $sql ="INSERT INTO `".$tbl_course_description."`
                SET   `title`   = '". addslashes($descTitle  ) . "',
                      `content` = '". addslashes($descContent) . "',
                      `upDate`  = NOW(),
-                     `id` = ". (int) ($maxId + 1);
+                     `id` = ". (int) ($descId);
                      
     if (claro_sql_query($sql)) 
     {
