@@ -64,7 +64,7 @@ if( $is_allowedToTrack && $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
 	// contruction of XML flow
 	$csv = export_exercise_tracking($_REQUEST['exo_id']);
 
-	if (!empty($csv))
+	if( isset($csv) )
 	{
 		header("Content-type: application/csv");
 		header('Content-Disposition: attachment; filename="exercise_'. $_REQUEST['exo_id'] . '.csv"');
