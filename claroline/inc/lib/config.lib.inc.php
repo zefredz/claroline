@@ -387,7 +387,7 @@ function get_conf_hash($config_code)
 
    $sql = ' SELECT `config_hash` `config_hash`
             FROM `'.$tbl_config_file.'`
-            WHERE `config_code` = "'.$config_code.'"';
+            WHERE `config_code` = "'. addslashes($config_code) .'"';
 
    $result = claro_sql_query($sql);
 
@@ -592,15 +592,15 @@ function save_config_hash_in_db($config_code,$conf_hash)
 
     // update config : set hash
     $sql =" UPDATE `" . $tbl_config_file  . "`"
-    .     " SET config_hash = '" . $conf_hash . "'"
-    .     " WHERE config_code = '" . $config_code . "'" ;
+    .     " SET config_hash = '" . addslashes($conf_hash) . "'"
+    .     " WHERE config_code = '" . addslashes($config_code) . "'" ;
 
     if ( !claro_sql_query_affected_rows($sql) )
     {
         // insert an entry for config_file
         $sql ="INSERT IGNORE INTO `" . $tbl_config_file  . "` 
-               SET config_hash = '" . $conf_hash   . "'
-               ,   config_code = '" . $config_code . "'";
+               SET config_hash = '" . addslashes($conf_hash) . "'
+               ,   config_code = '" . addslashes($config_code) . "'";
         return claro_sql_query($sql);
     }
     else
@@ -699,7 +699,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
                     $valueToWrite = $propertyValue;
                     break;
                 default:
-                    $valueToWrite = "'". $propertyValue . "'";
+                    $valueToWrite = "'". str_replace("'","\'",$propertyValue) . "'";
                     break;
             }
 
@@ -934,14 +934,14 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
     if ( isset($property_def['display']) && !$property_def['display'] )
     {
-        echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+        echo '<input type="hidden" value="'. htmlspecialchars($htmlPropValue).'" name="'.$htmlPropName.'">'."\n";
     }
     elseif ( isset($property_def['readonly']) && $property_def['readonly'] )
     {
         echo '<tr style="vertical-align: top">' .
              '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n";
 
-        echo '<input type="hidden" value="'.$htmlPropValue.'" name="'.$htmlPropName.'">'."\n";
+        echo '<input type="hidden" value="'. htmlspecialchars($htmlPropValue).'" name="'.$htmlPropName.'">'."\n";
 
         echo '<td nowrap="nowrap">' . "\n";
 
@@ -1096,7 +1096,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
 
                 echo '<td nowrap="nowrap">' . "\n";
 
-                echo '<input size="'.$size.'"  align="right" id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '."\n"
+                echo '<input size="'.$size.'"  align="right" id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'. htmlspecialchars($htmlPropValue) .'"> '."\n"
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'
                 ."\n" ;
@@ -1108,7 +1108,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                     '<td style="text-align: right" width="250"><label for="'.$property_name.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
 
                 echo '<td nowrap="nowrap">' . "\n";
-                echo '<input size="'.$size.'"  id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'.$htmlPropValue.'"> '
+                echo '<input size="'.$size.'"  id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'. htmlspecialchars($htmlPropValue) .'"> '
                 .'<span class="propUnit">'.$htmlUnit.'</span>'
                 .'<span class="propType">'.$htmlPropType.'</span>'."\n";
 
