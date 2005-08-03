@@ -65,36 +65,35 @@ if ( $is_allowedToEdit )
     $descContent = isset($_REQUEST['descContent']) ? trim($_REQUEST['descContent']) : '';
     $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : -1 ;
     	
-        if ( $cmd == 'exEdit' )
+    if ( $cmd == 'exEdit' )
+    {
+        // Update description
+        if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
         {
-            // Update description
-            if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
-            {
-                $eventNotifier->notifyCourseEvent("course_description_modified", $_cid, $_tid, $descId, $_gid, "0");
-                $dialogBox .= '<p>' . $langDescUpdated . '</p>';
-            }
-            else
-            {
-                $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
-            }
+            $eventNotifier->notifyCourseEvent("course_description_modified", $_cid, $_tid, $descId, $_gid, "0");
+            $dialogBox .= '<p>' . $langDescUpdated . '</p>';
         }
-        
-        if ( $cmd == 'exAdd' )
+        else
         {
-            // Add new description
-                
-            $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
+            $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
+        }
+    }
+    
+    if ( $cmd == 'exAdd' )
+    {
+        // Add new description        
+        $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
 
-            if ($descId != FALSE )
-            {
-                $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
-                    $dialogBox .= '<p>' . $langDescAdded . '</p>';
-            }
-            else
-            {
-                $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
-            }
-        }    
+        if ($descId != FALSE )
+        {
+            $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
+            $dialogBox .= '<p>' . $langDescAdded . '</p>';
+        }
+        else
+        {
+            $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
+        }
+    }    
     
     /******************************************************************************
                             REQUEST DESCRIPTION ITEM EDITION
@@ -103,18 +102,20 @@ if ( $is_allowedToEdit )
     if ( $cmd == 'rqEdit' )
     {
     	claro_set_display_mode_available(false);
-
-        $tipsId = -1; // initialise tipsId
         
-        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
+        if ( isset($_REQUEST['tipsId']) && $_REQUEST['tipsId'] >= 0 )
         {
-        	 $tipsId = $_REQUEST['numBloc'];
+        	 $tipsId = $_REQUEST['tipsId'];
+        }
+        else
+        {
+            $tipsId = -1; // initialise tipsId
         }
     	
         if ( isset($descId) && $descId >=0 )
         {
             $descItem = course_description_get_item($descId);
-            $tipsId = array_search($descItem['title'] , $titreBloc); // retrieve tips Id with desc title
+            $tipsId = course_description_get_tips_id($descId); // retrieve tips Id with desc title
         }
         else
         {
@@ -123,7 +124,6 @@ if ( $is_allowedToEdit )
             $descItem['content'] = '';
         }     
         
-
         // From tiplist.inc.php
     
         if ( $tipsId >= 0 && isset($titreBloc[$tipsId]) )
@@ -274,7 +274,7 @@ if ( $is_allowedToEdit )
         echo "\n\n"
         .    '<form method="get" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
         .    '<input type="hidden" name="cmd" value="rqEdit">' . "\n"
-        .    '<select name="numBloc">' . "\n"
+        .    '<select name="tipsId">' . "\n"
         ;
 
 
@@ -283,7 +283,7 @@ if ( $is_allowedToEdit )
         	$alreadyUsed = false;
             foreach ( $descList as $thisDesc )
             {
-                if ( $thisDesc['title'] == $thisBlocTitle ) $alreadyUsed = true ;
+                if ( $thisDesc['id'] == $key ) $alreadyUsed = true ;
             }
             
             if ( ($alreadyUsed)==false)
@@ -526,6 +526,25 @@ function course_description_visibility_item($descId, $cmd, $dbnameGlu=Null)
                WHERE `id` = '". $descId ."' ";
 
     return claro_sql_query($sql);
+}
+
+/**
+ * return tips id of a new item 
+ * 
+ * @param $id integer id of the item
+ *
+ * @return integer tips id of the new item
+ * 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+
+function course_description_get_tips_id($id)
+{
+    global $titreBloc;
+
+    if ( $id >=0 && $id < sizeof($titreBloc) ) return $id;
+    else                                       return -1;
 }
 
 ?>
