@@ -1266,6 +1266,8 @@ function claro_disp_html_area($name, $content = '',
 {
     global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable,$langSwitchEditorToTextConfirm;
     $incPath = $urlAppend.'/claroline/inc/htmlarea';
+        
+    ob_start();
 
     if( ! isset( $_SESSION['htmlArea'] ) )
     {
@@ -1302,7 +1304,6 @@ function claro_disp_html_area($name, $content = '',
         ;
         
 
-        ob_start();
 
         echo '<div align="right">'
         .    '<small>'
