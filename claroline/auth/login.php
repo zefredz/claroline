@@ -1,9 +1,9 @@
-<?php # -$Id$
+<?php # $Id$
 
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -11,7 +11,6 @@
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
-
 
 require '../inc/claro_init_global.inc.php';
 
@@ -60,37 +59,38 @@ if ( is_null($_uid) )
     require $includePath.'/claro_init_header.inc.php';
 
     echo '<table align="center">'                                     ."\n"
-        .'<tr>'                                                       ."\n"
-        .'<td>'                                                       ."\n"
-        . claro_disp_tool_title('Autentication required.')
-        .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'     ."\n"
-        .'<fieldset>'                                                 ."\n"
-        .$sourceUrlFormField                                          ."\n"
-        .$cidRequiredFormField
-        .$sourceCidFormField                                          ."\n"
-        .$sourceGidFormField                                          ."\n"
-        .'<legend>'.$langAuthentication.'</legend>'                   ."\n"
-        
-        .'<label for="username">'.$langUserName.' : </label><br />'   ."\n"
-        .'<input type="text" name="login" id="username"><br />'       ."\n"
-        
-        .'<label for="password">'.$langPassword.' : </label><br />'   ."\n"
-        .'<input type="password" name="password" id="password"><br />'."\n"
-        .'<br />'
-        .'<input type="submit" value="'.$langOk.'"> '                 ."\n"
-        .claro_disp_button($clarolineRepositoryWeb, $langCancel)
-        
-        .'</fieldset>'                                                ."\n"
-        .'</form>'                                                    ."\n";
+    .    '<tr>'                                                       ."\n"
+    .    '<td>'                                                       ."\n"
+    .    claro_disp_tool_title('Autentication required.')
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+    .    '<fieldset>'                                                 ."\n"
+    .    $sourceUrlFormField                                          ."\n"
+    .    $cidRequiredFormField
+    .    $sourceCidFormField                                          ."\n"
+    .    $sourceGidFormField                                          ."\n"
+    .    '<legend>' . $langAuthentication . '</legend>'               ."\n"
+
+    .    '<label for="username">'.$langUserName.' : </label><br />'   ."\n"
+    .    '<input type="text" name="login" id="username"><br />'       ."\n"
+
+    .    '<label for="password">'.$langPassword.' : </label><br />'   ."\n"
+    .    '<input type="password" name="password" id="password"><br />'."\n"
+    .    '<br />'
+    .    '<input type="submit" value="'.$langOk.'"> '                 ."\n"
+    .    claro_disp_button($clarolineRepositoryWeb, $langCancel)
+    .    '</fieldset>'                                                ."\n"
+    .    '</form>'                                                    ."\n"
+    ;
 
     if ($loginFailed) // var comming from claro_init_local.inc.php
     {
-        echo '<p>'.$langInvalidIdSelfReg.'</p>';
+        echo '<p>' . $langInvalidIdSelfReg . '</p>';
     }
 
     echo '</td>'                                                    ."\n"
-        .'</tr>'                                                    ."\n"
-        .'</table>'                                                 ."\n";
+    .    '</tr>'                                                    ."\n"
+    .    '</table>'                                                 ."\n"
+    ;
 }
 elseif ( is_null($_cid) && $cidRequired )
 {
@@ -106,47 +106,50 @@ elseif ( is_null($_cid) && $cidRequired )
 
     $sql = "SELECT c.code                                  `value`, 
                    CONCAT(c.intitule,' (',c.fake_code,')') `name` 
-            FROM `".$tbl_courses."`          c ,  
-                 `".$tbl_rel_user_courses."` cu
+            FROM `" . $tbl_courses."`          c ,  
+                 `" . $tbl_rel_user_courses . "` cu
             WHERE c.code= cu.code_cours 
-              AND cu.user_id = '".$_uid."'" ;
+              AND cu.user_id = '" . (int) $_uid . "'" ;
 
     $courseList = claro_sql_query_fetch_all($sql);
 
-    require $includePath.'/claro_init_header.inc.php';
+    require $includePath . '/claro_init_header.inc.php';
 
 
-    echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">' ."\n"
-         .'<table align="center">'                                ."\n"
-         .'<tr>'                                                  ."\n"
-         .'<td colspan="2">'                                      ."\n"
-         . claro_disp_tool_title('Choose a course to access this page.')
-         .$sourceUrlFormField                                     ."\n"
-         .$cidRequiredFormField                                   ."\n"
-         .$sourceCidFormField                                     ."\n"
-         .$sourceGidFormField                                     ."\n"
-         .'<tr>'                                                  ."\n"
-         .'<td>'                                                  ."\n"
-         .'<label for="selectCourse">Course</label> : '           ."\n"
-         .'</td>'                                                 ."\n"
-         .'<td>'                                                  ."\n"
-         .'<select name="cidReq" id="selectCourse">'              ."\n"
-         .implode("\n", prepare_option_tags($courseList) )        ."\n"
-         .'</select>'                                             ."\n"
-         .'</td>'                                                 ."\n"
-         .'</tr>'                                                 ."\n"
-         .'<tr>'                                                  ."\n"
-         .'<td>'                                                  ."\n"
-         .'</td>'                                                 ."\n"
-         .'<td>'                                                  ."\n"
-         .'<input type="submit" value="'.$langOk.'">'             ."\n"
-         .claro_disp_button($rootWeb, $langCancel)
-         .'</td>'                                                 ."\n"
-         .'</tr>'                                                  ."\n"
-         .'</table>'                                              ."\n"
-         .'</form>'                                               ."\n";
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+    .    '<table align="center">'                                ."\n"
+    .    '<tr>'                                                  ."\n"
+    .    '<td colspan="2">'                                      ."\n"
+    .    claro_disp_tool_title($langChooseACourseToAccessThisPage)
+    .    $sourceUrlFormField                                     ."\n"
+    .    $cidRequiredFormField                                   ."\n"
+    .    $sourceCidFormField                                     ."\n"
+    .    $sourceGidFormField                                     ."\n"
+    .    '<tr>'                                                  ."\n"
+    .    '<td>'                                                  ."\n"
+    .    '<label for="selectCourse">' 
+    .    $langCourse 
+    .    '</label> : '                                           ."\n"
+    .    '</td>'                                                 ."\n"
+    .    '<td>'                                                  ."\n"
+    .    '<select name="cidReq" id="selectCourse">'              ."\n"
+    .    implode("\n", prepare_option_tags($courseList) )        ."\n"
+    .    '</select>'                                             ."\n"
+    .    '</td>'                                                 ."\n"
+    .    '</tr>'                                                 ."\n"
+    .    '<tr>'                                                  ."\n"
+    .    '<td>'                                                  ."\n"
+    .    '</td>'                                                 ."\n"
+    .    '<td>'                                                  ."\n"
+    .    '<input type="submit" value="' . $langOk . '">'         ."\n"
+    .    claro_disp_button($rootWeb, $langCancel)
+    .    '</td>'                                                 ."\n"
+    .    '</tr>'                                                 ."\n"
+    .    '</table>'                                              ."\n"
+    .    '</form>'                                               ."\n"
+    ;
 
-        include($includePath.'/claro_init_footer.inc.php');
+        require $includePath . '/claro_init_footer.inc.php';
 }
 else
 {
@@ -156,23 +159,23 @@ else
         {
             if ( $_uid )
             {
-                require $includePath.'/claro_init_header.inc.php';
+                require $includePath . '/claro_init_header.inc.php';
 
                 echo '<p align="center">'           ."\n"
-                    .$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br />'
-                    .$lang_if_you_wish_to_enroll_to_this_course
-                    .'<a href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&keyword='.urlencode($_course['officialCode']).'">'
-                    .$langReg.'</a>' ."\n"
-                    .'</p>'          ."\n";
+                .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br />'
+                .    $lang_if_you_wish_to_enroll_to_this_course
+                .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
+                .    $langReg.'</a>' ."\n"
+                .    '</p>'          ."\n";
             }
             elseif( $allowSelfReg )
             {
                 echo '<p align="center">'                           ."\n"
-                    .'Create first a user account on this platform' ."\n"
-                    .'<a href"'.$clarolineRepositoryWeb.'auth/inscription.php">'
-                    .'Go to the account creation page'
-                    .'</a>'                                         ."\n"
-                    .'</p>'                                         ."\n";
+                .    $langCreate1stAccountOnPlatform ."\n"
+                .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
+                .    $langGo2accountCreationPage
+                .    '</a>'                                         ."\n"
+                .    '</p>'                                         ."\n";
             }
         }
     }
@@ -180,26 +183,25 @@ else
     {
         if (isset($_REQUEST['sourceCid']) )
         {
-        	$sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?') 
-                       .  'cidReq='.$_REQUEST['sourceCid'];
+            $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?') 
+                       .  'cidReq=' . $_REQUEST['sourceCid'];
         }
         
         if (isset($_REQUEST['sourceGid']))
         {
         	$sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
-                       .  'gidReq='.$_REQUEST['sourceGid'];
+                       .  'gidReq=' . $_REQUEST['sourceGid'];
         }
         
-        header('Location: '.$sourceUrl);
+        header('Location: ' . $sourceUrl);
     }
     elseif ( $_cid )
     {
-        header('Location: '.$coursesRepositoryWeb.'/'.$_course['path']);
+        header('Location: ' . $coursesRepositoryWeb . '/' . $_course['path']);
     }
     else
     {
-        header('Location: '.$clarolineRepositoryWeb);
+        header('Location: ' . $clarolineRepositoryWeb);
     }
 }
-
 ?>

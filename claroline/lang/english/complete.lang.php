@@ -2084,4 +2084,8 @@ $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user p
 $langcatcreated = "The new category has been created.";
 $langimportLearningPath = "Import a learning path";
 $langNewLegend = "contains new items";
+$langGo2accountCreationPage = 'Go to the account creation page';
+$langCreate1stAccountOnPlatform  = 'Create first a user account on this platform';
+$langChooseACourseToAccessThisPage = 'Choose a course to access this page.';
+
 ?>
