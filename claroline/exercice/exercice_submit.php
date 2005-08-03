@@ -66,11 +66,13 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
 
 	// if the specified exercise doesn't exist or is disabled
 	if( empty($_REQUEST['exerciseId']) || !$objExercise->read($_REQUEST['exerciseId'])
-			|| (!$objExercise->selectStatus() && !$is_allowedToEdit && !$_SESSION['inPathMode'])
+			|| (!$objExercise->selectStatus() && !$is_allowedToEdit
+			&& ( isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] )
+			)
    	)
 	{
         include ($includePath.'/claro_init_header.inc.php');
-		echo claro_disp_message_box($langExerciseNotFound);
+		echo '<br />'.claro_disp_message_box($langExerciseNotFound).'<br />';
         include ($includePath.'/claro_init_footer.inc.php');
         die(); 
 	}
@@ -97,7 +99,7 @@ if($_SESSION['objExercise']->selectType() == 2)  // sequential exercise
 }
 
 // deal with the learning path mode
-if ($_SESSION['inPathMode'] == true)
+if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {
      $is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
 
@@ -216,7 +218,7 @@ if( isset($questionNum) )
 	$QUERY_STRING = "questionNum=$questionNum";
 }
 
-if ($_SESSION['inPathMode'] == true) 
+if ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {
 	$hide_banner = true;
 }
@@ -305,7 +307,7 @@ if( $showExerciseForm || $is_allowedToEdit )
   </small>
   </p>
 <?php
-	if( $is_allowedToEdit && $_SESSION['inPathMode'] != true )
+	if( $is_allowedToEdit && ( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) )
 	{
 		echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.$langModifyExercise.'</a>';
 	}	
@@ -399,7 +401,7 @@ else
   echo "<small>".$statusMsg."</small>";
 }
 
-if ($_SESSION['inPathMode'] == true) 
+if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {	
 	// echo minimal html footer so that the page is valid
 	$hide_footer = true;
