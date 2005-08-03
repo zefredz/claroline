@@ -32,7 +32,7 @@ if ( ! $is_courseAllowed) claro_disp_auth_form();
 claro_set_display_mode_available(TRUE);
 $nameTools = $langCourseProgram;
 
-$noQUERY_STRING = TRUE; // to remove parameters in the last bredcrumb link
+$noQUERY_STRING = TRUE; // to remove parameters in the last breadcrumb link
 
 /*
  * DB tables definition
@@ -63,7 +63,7 @@ if ( $is_allowedToEdit )
     $cmd         = isset($_REQUEST['cmd'])         ? $_REQUEST['cmd']               : NULL;
     $descTitle   = isset($_REQUEST['descTitle'])   ? trim($_REQUEST['descTitle'])   : '';
     $descContent = isset($_REQUEST['descContent']) ? trim($_REQUEST['descContent']) : '';
-    $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : NULL ;
+    $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : -1 ;
     	
         if ( $cmd == 'exEdit' )
         {
@@ -71,7 +71,7 @@ if ( $is_allowedToEdit )
             if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
             {
                 $eventNotifier->notifyCourseEvent("course_description_modified", $_cid, $_tid, $descId, $_gid, "0");
-                    $dialogBox .= '<p>' . $langDescUpdated . '</p>';
+                $dialogBox .= '<p>' . $langDescUpdated . '</p>';
             }
             else
             {
@@ -83,7 +83,8 @@ if ( $is_allowedToEdit )
         {
             // Add new description
                 
-                $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
+            $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
+
             if ($descId != FALSE )
             {
                 $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
@@ -102,30 +103,35 @@ if ( $is_allowedToEdit )
     if ( $cmd == 'rqEdit' )
     {
     	claro_set_display_mode_available(false);
+
+        $tipsId = -1; // initialise tipsId
+        
+        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
+        {
+        	 $tipsId = $_REQUEST['numBloc'];
+        }
     	
         if ( isset($descId) && $descId >=0 )
         {
             $descItem = course_description_get_item($descId);
-            $descPresetKey = array_search($descItem['title'] , $titreBloc);
+            $tipsId = array_search($descItem['title'] , $titreBloc); // retrieve tips Id with desc title
         }
         else
         {
-            $descItem['id'     ] = NULL;
+            $descItem['id'     ] = $tipsId;
             $descItem['title'  ] = '';
             $descItem['content'] = '';
         }     
         
-        if ( isset($_REQUEST['numBloc']) && $_REQUEST['numBloc'] >= 0 )
-        {
-        	 $descPresetKey = $_REQUEST['numBloc'];
-        }
+
+        // From tiplist.inc.php
     
-        if ( !empty($descPresetKey) )
+        if ( $tipsId >= 0 && isset($titreBloc[$tipsId]) )
         {
-             $descPresetTitle    = $titreBloc[$descPresetKey];
-             $descNotEditable    = $titreBlocNotEditable[$descPresetKey];
-             $descPresetQuestion = $questionPlan[$descPresetKey];
-             $descPresetTip      = $info2Say[$descPresetKey];
+             $descPresetTitle    = $titreBloc[$tipsId];
+             $descNotEditable    = $titreBlocNotEditable[$tipsId];
+             $descPresetQuestion = $questionPlan[$tipsId];
+             $descPresetTip      = $info2Say[$tipsId];
         }
         else
         {
@@ -219,7 +225,7 @@ if ( $is_allowedToEdit )
 
             .($descItem['content'] ? '<input type="hidden" name="cmd" value="exEdit">' : '<input type="hidden" name="cmd" value="exAdd">')
 
-            .(isset($descItem['id']) || ($numBloc>=0) ? '<input type="hidden" name="id" value="'.$descItem['id'].$numBloc.'">' : '')
+            .(isset($descItem['id']) ? '<input type="hidden" name="id" value="'.$descItem['id'].'">' : '')
 
             .'<p><label for="descTitle"><b>'.$langTitle.' : </b></label><br /></p>'."\n"
 
@@ -470,12 +476,13 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
 {
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
-	if (is_null($descId))
+
+	if ( $descId < 0 )
 	{
-    $sql = "SELECT MAX(id)
+        $sql = "SELECT MAX(id)
                 FROM `".$tbl_course_description."` ";
-    $maxId = claro_sql_query_get_single_value($sql);
-    $descId = max($maxBloc,$maxId+1);
+        $maxId = claro_sql_query_get_single_value($sql);
+        $descId = max($maxBloc,$maxId+1);
 	}    
 
     $sql ="INSERT INTO `".$tbl_course_description."`
@@ -486,7 +493,7 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
                      
     if (claro_sql_query($sql)) 
     {
-        return ($maxId + 1); 
+        return TRUE; 
     }
     else 
     {
