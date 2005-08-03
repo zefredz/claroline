@@ -96,7 +96,7 @@ if (isset($_SESSION['exeStartTime']))
 
 // deal with the learning path mode
 
-if ($_SESSION['inPathMode']== true)          // learning path mode
+if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )          // learning path mode
 {
 	include($includePath."/lib/learnPath.lib.inc.php");
 	$is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
@@ -114,7 +114,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult );
 
-    if($_SESSION['inPathMode']!= true) // exercise mode
+    if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) // exercise mode
     {
             echo "<form method=\"get\" action=\"exercice.php\">";
     }
@@ -599,7 +599,7 @@ if($is_trackingEnabled && $displayScore)
 }
 
 // record progression 
-if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
+if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && $displayScore ) // learning path mode
 {
     // update raw in DB to keep the best one, so update only if new raw is better  AND if user NOT anonymous
 
@@ -664,7 +664,7 @@ if($_SESSION['inPathMode'] == true && $displayScore ) // learning path mode
 
 }
 
-if ($_SESSION['inPathMode'] == true) 
+if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {
 	// display minimal html footer
 	$hide_footer = true;
