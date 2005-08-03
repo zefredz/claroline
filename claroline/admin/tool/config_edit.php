@@ -62,6 +62,8 @@ $gidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 /* ************************************************************************** */
 /*  Security Check
 /* ************************************************************************** */
@@ -300,7 +302,7 @@ else
 {
     // tool name and url to edit config file
     $nameTools = $config_name; // the name of the configuration page
-    $QUERY_STRING = 'config_code=' . $config_code;
+    $_SERVER['QUERY_STRING'] = 'config_code=' . $config_code;
 }
 
 // define bredcrumb
@@ -334,7 +336,7 @@ if ( $display_form )
         }
 
         // start edition form
-        echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" name="editConfClass" >' . "\n";
+        echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $config_code . '" name="editConfClass" >' . "\n";
         echo '<input type="hidden" name="config_code" value="' . $config_code . '" >' . "\n";
         echo '<input type="hidden" name="cmd" value="save" >' . "\n";
 
