@@ -56,6 +56,7 @@ function delete_course($code)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'           ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+    $tbl_notify           = $tbl_mdb_names['notify'  ];
 
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
@@ -71,6 +72,13 @@ function delete_course($code)
 
     $sql = 'DELETE FROM `' . $tbl_course . '`
             WHERE code= "' . $currentCourseId . '"';
+
+    claro_sql_query($sql);
+    
+    // DELETE NOTIFICATION INFO 
+
+    $sql = 'DELETE FROM `' . $tbl_notify . '`
+            WHERE course_code= "' . $currentCourseId . '"';
 
     claro_sql_query($sql);
 
