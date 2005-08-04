@@ -196,7 +196,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
                     {
                       $nextModule = $module['module_id'];
                     }
-                    echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlentities($module['name']).'">'
+                    echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
                         .'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0">'.$displayedName.'</a>';
                 }
                 // a module ALLOW access to the following modules if
