@@ -671,7 +671,20 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         if ( strlen($anAssignment['description']) > 500 )
         {
-            echo "<div>".substr($anAssignment['description'],0,455)." ... "."</div><br />\n";
+            $desc = $anAssignment['description'];
+			// add spaces before and after tags so that stripped text will have some air
+   			$desc = preg_replace('/</',' <',$desc);
+			$desc = preg_replace('/>/','> ',$desc);
+			// remove html and/or php tags
+			$desc = strip_tags($desc);
+			$desc = preg_replace('/[\n\r\t]/',' ',$desc);
+			$desc = preg_replace('/  /',' ',$desc);
+			// keep the 455 first chars of the text
+			$desc = substr($desc,0,455);
+			// remove last splitted word
+			$desc = substr($desc,0,strrpos($desc, " "));
+
+            echo "<div>".$desc." ... "."</div><br />\n";
         }
         else
         {
