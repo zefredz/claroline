@@ -30,7 +30,6 @@ if (!$is_allowedToAdmin) claro_disp_auth_form();
 include($includePath . '/lib/admin.lib.inc.php');
 include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/pager.lib.php');
-
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'  ];
 $tbl_course          = $tbl_mdb_names['course'];
