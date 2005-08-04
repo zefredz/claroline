@@ -16,6 +16,8 @@
  */
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 // exo_id is required
 if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
 
@@ -90,7 +92,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	            COUNT(TEX.`exe_user_id`) AS `tusers`,
 				AVG(`TEX`.`exe_time`) AS `avgTime`
 	    FROM `".$tbl_track_e_exercices."` AS TEX
-	    WHERE TEX.`exe_exo_id` = ".$exercise->selectId()."
+	    WHERE TEX.`exe_exo_id` = ". (int)$exercise->selectId()."
 	            AND TEX.`exe_user_id` IS NOT NULL";
 
 	$result = claro_sql_query($sql);
@@ -143,7 +145,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	WHERE `CU`.`user_id` = `U`.`user_id`
 	  AND `CU`.`code_cours` = '".$_cid."'
 	  AND (
-	        `TE`.`exe_exo_id` = ".$exercise->selectId()."
+	        `TE`.`exe_exo_id` = ". (int)$exercise->selectId()."
 	        OR
 	        `TE`.`exe_exo_id` IS NULL
 	      )
@@ -199,7 +201,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
       		ON `TED`.`exercise_track_id` = `TE`.`exe_id`
 			AND `TED`.`question_id` = `Q`.`id`
 		WHERE `Q`.`id` = `RTQ`.`question_id`
-			AND `RTQ`.`exercice_id` = ".$exercise->selectId()."
+			AND `RTQ`.`exercice_id` = ". (int)$exercise->selectId()."
 		GROUP BY `Q`.`id`
 		ORDER BY `Q`.`q_position` ASC";
 

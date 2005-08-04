@@ -19,8 +19,11 @@
 */
 
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+
+if ( !$_uid || !$_cid) claro_disp_auth_form(true);
 
 $nameTools = $langDetails;
 
@@ -45,13 +48,21 @@ else
 if( $is_allowedToTrack && $is_trackingEnabled )
 {
 	// toolId is required, go to the tool list if it is missing
-    if( empty($_REQUEST['toolId']) ) header("Location: ./courseLog.php?view=0010000");
+    if( empty($_REQUEST['toolId']) ) 
+    {
+        header("Location: ./courseLog.php?view=0010000");
+        die();
+    }
+    else
+    {
+        $toolId = (int)$_REQUEST['toolId'];
+    }
     
 
   	if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
     	$reqdate = time();  // default value
 	else
-	    $reqdate = $_REQUEST['reqdate'];
+	    $reqdate = (int)$_REQUEST['reqdate'];
 
     if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
     else                                $period = "day"; // default value
@@ -59,7 +70,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
     $sql = "SELECT `access_tlabel` as `label`
             FROM `".$TABLETRACK_ACCESS."`
-            WHERE `access_tid` = ".$_REQUEST['toolId']."
+            WHERE `access_tid` = ". (int)$toolId ."
 			GROUP BY `access_tid`" ;
 
     $result = claro_sql_query_fetch_all($sql);
@@ -103,9 +114,9 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     echo "<tr>
             <td>
             <small>
-            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=day&amp;reqdate=".$reqdate."'>".$langPeriodDay."</a>]
-            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=week&amp;reqdate=".$reqdate."'>".$langPeriodWeek."</a>]
-            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=month&amp;reqdate=".$reqdate."'>".$langPeriodMonth."</a>]
+            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$toolId."&amp;period=day&amp;reqdate=".$reqdate."'>".$langPeriodDay."</a>]
+            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$toolId."&amp;period=week&amp;reqdate=".$reqdate."'>".$langPeriodWeek."</a>]
+            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$toolId."&amp;period=month&amp;reqdate=".$reqdate."'>".$langPeriodMonth."</a>]
             &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
             
             ";
@@ -117,8 +128,8 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
             echo   "
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=month&amp;reqdate=".$previousReqDate."'>".$langPreviousMonth."</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=month&amp;reqdate=".$nextReqDate."'>".$langNextMonth."</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=month&amp;reqdate=".$previousReqDate."'>".$langPreviousMonth."</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=month&amp;reqdate=".$nextReqDate."'>".$langNextMonth."</a>]
             ";
             break;
         case "week" :
@@ -126,8 +137,8 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             $previousReqDate = $reqdate - 7*86400;
             $nextReqDate = $reqdate + 7*86400;
             echo   "
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=week&amp;reqdate=".$previousReqDate."'>".$langPreviousWeek."</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=week&amp;reqdate=".$nextReqDate."'>".$langNextWeek."</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=week&amp;reqdate=".$previousReqDate."'>".$langPreviousWeek."</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=week&amp;reqdate=".$nextReqDate."'>".$langNextWeek."</a>]
             ";
             break;
         case "day" :
@@ -135,8 +146,8 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             $previousReqDate = $reqdate - 86400;
             $nextReqDate = $reqdate + 86400;
             echo   "
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=day&amp;reqdate=".$previousReqDate."'>".$langPreviousDay."</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=".$_REQUEST['toolId']."&amp;period=day&amp;reqdate=".$nextReqDate."'>".$langNextDay."</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=day&amp;reqdate=".$previousReqDate."'>".$langPreviousDay."</a>]
+                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=day&amp;reqdate=".$nextReqDate."'>".$langNextDay."</a>]
             ";
             break;
     }
@@ -154,7 +165,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         case "month" :
             $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                     FROM `$TABLETRACK_ACCESS`
-                    WHERE `access_tid` = '".$_REQUEST['toolId']."'
+                    WHERE `access_tid` = '". (int)$toolId ."'
                         AND MONTH(`access_date`) = MONTH(FROM_UNIXTIME($reqdate))
                         AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                         ORDER BY `access_date` ASC";
@@ -166,7 +177,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         case "week" :
             $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                     FROM `$TABLETRACK_ACCESS`
-                    WHERE `access_tid` = '".$_REQUEST['toolId']."'
+                    WHERE `access_tid` = '". (int)$toolId ."'
                         AND WEEK(`access_date`) = WEEK(FROM_UNIXTIME($reqdate))
                         AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                         ORDER BY `access_date` ASC";
@@ -178,7 +189,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         case "day"  :
             $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
                         FROM `$TABLETRACK_ACCESS`
-                        WHERE `access_tid` = '".$_REQUEST['toolId']."'
+                        WHERE `access_tid` = '". $toolId ."'
                             AND DAYOFYEAR(`access_date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
                             AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                         ORDER BY `access_date` ASC";

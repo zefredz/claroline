@@ -8,14 +8,15 @@
  *
  * This page display global information about
  */
+require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 include('../exercice/question.class.php');
 include('../exercice/answer.class.php');
 include('../exercice/exercise.lib.php');
-require '../inc/claro_init_global.inc.php';
 
 // all I need from REQUEST is the track_id and it is required
 if( !isset($_REQUEST['track_id']) )  header("Location: ../exercice/exercice.php");
-
 
 // answer types
 define('UNIQUE_ANSWER',	 1);
@@ -65,6 +66,7 @@ else
 {
 	// sql error, let's get out of here !
 	header("Location: ../exercice/exercice.php");
+    die();
 }
 
 //-- permissions
@@ -255,7 +257,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 		// get the answers the user has gaven for this question
 		$sql = "SELECT `answer`
 		        FROM `".$tbl_track_e_exe_answers."`
-		        WHERE `details_id` = ".$question['id'];
+		        WHERE `details_id` = ". (int)$question['id'];
 
 		$answers = claro_sql_query_fetch_all($sql);
 		

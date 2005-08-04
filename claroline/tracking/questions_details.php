@@ -16,6 +16,10 @@
  */
  
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
+// check if no anonymous
+if ( !$_cid || !$_uid ) claro_disp_auth_form(true);
 
 // answer types
 define('UNIQUE_ANSWER',  1);
@@ -26,6 +30,7 @@ define('TRUEFALSE',	 5);
 
 // exo_id is required
 if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
+
 // question_id is required
 if( empty($_REQUEST['question_id']) ) header("Location: exercises_details.php?exo_id=".$_REQUEST['exo_id']);
 
@@ -35,6 +40,7 @@ include('../exercice/answer.class.php');
 /**
  * DB tables definition
  */
+
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
@@ -95,7 +101,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 					AND `TEA`.`answer` = `A`.`id`
 				WHERE `Q`.`id` = `RTQ`.`question_id`
 					AND `Q`.`id` = `A`.`question_id`
-					AND `Q`.`id` = ".$question->selectId()."
+					AND `Q`.`id` = ".(int)$question->selectId()."
 					AND `RTQ`.`exercice_id` = ".(int)$_REQUEST['exo_id']."
 					AND (`TEA`.`answer` = `A`.`id`
 					OR `TEA`.`answer` IS NULL)
@@ -133,7 +139,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 					AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
-					AND `Q`.`id` = ".$question->selectId()."
+					AND `Q`.`id` = ".(int)$question->selectId()."
 					AND `RTQ`.`exercice_id` = '".(int)$_REQUEST['exo_id']."'
 				ORDER BY `TED`.`id` ASC, `TEA`.`id` ASC";
 
@@ -254,7 +260,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 					ON `TEA`.`details_id` = `TED`.`id`
 				WHERE `Q`.`id` = `RTQ`.`question_id`
 					AND `Q`.`id` = `A`.`question_id`
-					AND `Q`.`id` = ".$question->selectId()."
+					AND `Q`.`id` = ".(int)$question->selectId()."
 					AND `RTQ`.`exercice_id` = ".(int)$_REQUEST['exo_id']."
 					AND (`TEA`.`answer` = `A`.`id`
 					OR `TEA`.`answer` IS NULL)

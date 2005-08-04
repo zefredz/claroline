@@ -29,6 +29,7 @@
  */
  
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $interbredcrump[]= array ("url"=>"../user/user.php", "name"=> $langUsers);
 
@@ -109,7 +110,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
                         FROM `".$tbl_rel_course_user."` cu , `".$tbl_user."` u 
                         WHERE `cu`.`user_id` = `u`.`user_id`
-                            AND `cu`.`code_cours` = '".$_cid."'";
+                            AND `cu`.`code_cours` = '". addslashes($_cid)."'";
         }
         else
         {
@@ -117,7 +118,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
                         FROM `".$tbl_group_rel_team_user."` gu , `".$tbl_user."` u 
                         WHERE `gu`.`user` = `u`.`user_id`
-                            AND `gu`.`team` = '".$_gid."'";
+                            AND `gu`.`team` = '". (int)$_gid."'";
         }
 
         /*----------------------------------------------------------------------
@@ -169,8 +170,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $sql = "SELECT `u`.`nom`,`u`.`prenom`, `u`.`email`
                         FROM `".$tbl_rel_course_user."` as `cu` , `".$tbl_user."` as `u`
                         WHERE `cu`.`user_id` = `u`.`user_id`
-                            AND `cu`.`code_cours` = '".$_cid."'
-                            AND `u`.`user_id` = '".$_REQUEST['uInfo']."'";
+                            AND `cu`.`code_cours` = '". addslashes($_cid) ."'
+                            AND `u`.`user_id` = '". (int)$_REQUEST['uInfo']."'";
         }
         else
         {
@@ -178,8 +179,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             $sql = "SELECT `u`.`nom`,`u`.`prenom`, `u`.`email`
                         FROM `".$tbl_group_rel_team_user."` as `gu` , `".$tbl_user."` as `u`
                         WHERE `gu`.`user` = `u`.`user_id`
-                            AND `gu`.`team` = '".$_gid."'
-                            AND `u`.`user_id` = '".$_REQUEST['uInfo']."'";
+                            AND `gu`.`team` = '". (int)$_gid."'
+                            AND `u`.`user_id` = '". (int)$_REQUEST['uInfo']."'";
         }
         $query = claro_sql_query($sql);
         $res = mysql_fetch_array($query);
@@ -222,11 +223,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`), count(`login_date`)
                             FROM `".$tbl_track_e_login."`
-                            WHERE `login_user_id` = '".$_REQUEST['uInfo']."'
+                            WHERE `login_user_id` = '". (int)$_REQUEST['uInfo']."'
                             GROUP BY MONTH(`login_date`), YEAR(`login_date`)
                             ORDER BY `login_date` ASC";
-
                 $results = getManyResults2Col($sql);
+
                 echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
                 echo "<tr class=\"headerX\">\n"
                         ."<th>$langLoginsTitleMonthColumn</th>\n"
@@ -289,7 +290,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         MAX(`TEX`.`exe_date`) AS `lastAttempt`,
                         AVG(`TEX`.`exe_time`) AS `avgTime`
                     FROM `$tbl_quiz_test` AS `E` , `$tbl_track_e_exercises` AS `TEX`
-                    WHERE `TEX`.`exe_user_id` = '".$_GET['uInfo']."'
+                    WHERE `TEX`.`exe_user_id` = '". (int)$_GET['uInfo']."'
                         AND `TEX`.`exe_exo_id` = `E`.`id`
                     GROUP BY `TEX`.`exe_exo_id`
                     ORDER BY `E`.`titre` ASC";
@@ -332,8 +333,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                               {
                                 $sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
                                 FROM `".$tbl_track_e_exercises."`
-                                WHERE `exe_exo_id` = ".$exo_details['id']."
-                                AND `exe_user_id` = ".$_GET['uInfo']."
+                                WHERE `exe_exo_id` = ". (int)$exo_details['id']."
+                                AND `exe_user_id` = ". (int)$_GET['uInfo']."
                                 ORDER BY `exe_date` ASC";
                                 $resListAttempts = claro_sql_query($sql);
                                 
@@ -464,7 +465,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             LEFT JOIN `".$tbl_group_team."` as `G`
                                 ON `G`.`id` = `S`.`group_id`
                             WHERE `A`.`id` = `S`.`assignment_id`
-                                AND ( `S`.`user_id` = ".$_REQUEST['uInfo']."
+                                AND ( `S`.`user_id` = ". (int)$_REQUEST['uInfo']."
                                         OR ( `S`.`parent_id` IS NOT NULL AND `S`.`parent_id` ) )
                                 AND `A`.`visibility` = 'VISIBLE'
                             ORDER BY `A`.`title` ASC, `S`.`last_edit_date` ASC";
@@ -590,7 +591,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         
                 $sql = "SELECT `down_doc_path`
                             FROM `".$tbl_track_e_downloads."`
-                            WHERE `down_user_id` = '".$_REQUEST['uInfo']."'
+                            WHERE `down_user_id` = '". (int)$_REQUEST['uInfo']."'
                             GROUP BY `down_doc_path`";
 
                 $results = getManyResults1Col($sql);
@@ -644,14 +645,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 // total number of messages posted by user
                 $sql = "SELECT count(`post_id`)
                             FROM `".$tbl_bb_posts."`
-                            WHERE `poster_id` = '".$_REQUEST['uInfo']."'
+                            WHERE `poster_id` = '". (int)$_REQUEST['uInfo']."'
                             ";
                 $totalPosts = claro_sql_query_get_single_value($sql);
                 
                 // total number of threads started by user
                 $sql = "SELECT count(`topic_title`)
                             FROM `".$tbl_bb_topics."`
-                            WHERE `topic_poster` = '".$_REQUEST['uInfo']."'
+                            WHERE `topic_poster` = '". (int)$_REQUEST['uInfo']."'
                             ";
                 $totalTopics = claro_sql_query_get_single_value($sql);
 
@@ -664,7 +665,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 `bb_t`.`topic_title`, 
                                 max(`bb_t`.`topic_time`) as `last_message`
                             FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
-                            WHERE `bb_p`.`poster_id` = '".$_REQUEST['uInfo']."'
+                            WHERE `bb_p`.`poster_id` = '". (int)$_REQUEST['uInfo']."'
                             AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
                             GROUP BY `bb_t`.`topic_title`
                             ORDER BY `bb_p`.`post_time` DESC

@@ -11,6 +11,8 @@
  
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> "$langStatistics");
 
 $nameTools = $langTrafficDetails;
@@ -36,7 +38,7 @@ echo claro_disp_tool_title(
         if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
         	$reqdate = time();  // default value
 		else
-		    $reqdate = $_REQUEST['reqdate'];
+		    $reqdate = (int)$_REQUEST['reqdate'];
 
         if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
         else                                $period = "day"; // default value

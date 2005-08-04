@@ -10,6 +10,7 @@
  *
  */ 
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 $nameTools = $langUserAccessDetails;
 
@@ -36,7 +37,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 		    // set the subtitle for the echo claro_disp_tool_title function
 		    $sql = "SELECT `access_tlabel` as `label`
 			        FROM `".$TABLETRACK_ACCESS."`
-			        WHERE `access_tid` = ".$_REQUEST['id']."
+			        WHERE `access_tid` = ". (int)$_REQUEST['id']."
 					GROUP BY `access_tid`" ;
 
 			$result = claro_sql_query_fetch_all($sql);
@@ -51,7 +52,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 				FROM `".$TABLETRACK_ACCESS."`
 				LEFT JOIN `".$TABLEUSER."`
 				ON `access_user_id` = `user_id`
-				WHERE `access_tid` = '".$_REQUEST['id']."'
+				WHERE `access_tid` = '". (int)$_REQUEST['id']."'
 				GROUP BY `nom`, `prenom`
 				ORDER BY `nom`, `prenom`";
 	}
@@ -64,7 +65,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 				FROM `".$TABLETRACK_DOWNLOADS."`
 				LEFT JOIN `".$TABLEUSER."`
 				ON `down_user_id` = `user_id`
-				WHERE `down_doc_path` = '".$_REQUEST['path']."'
+				WHERE `down_doc_path` = '". addslashes($_REQUEST['path']) ."'
 				GROUP BY `nom`, `prenom`
 				ORDER BY `nom`, `prenom`";
 	}
