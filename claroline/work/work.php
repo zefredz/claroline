@@ -21,8 +21,6 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/assignement.lib.php');
 

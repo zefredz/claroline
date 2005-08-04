@@ -21,8 +21,6 @@ $tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 // Security Check
 $is_allowedToAdmin     = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();

@@ -24,7 +24,6 @@
 $tlabelReq = 'CLFRM___';
 
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 $nameTools = $langForums;
 

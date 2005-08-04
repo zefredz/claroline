@@ -29,7 +29,6 @@
  */
  
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) ) header("Location: ../learnPath/learningPathList.php");

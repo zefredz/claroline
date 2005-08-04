@@ -34,8 +34,6 @@
 
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
 
-claro_unquote_gpc();
-
 if ( ! $_cid ) claro_disp_select_course();
 
 include($includePath.'/lib/claro_mail.lib.inc.php');

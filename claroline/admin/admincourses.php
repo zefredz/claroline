@@ -23,7 +23,6 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 $coursePerPage= 20;
 
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 //SECURITY CHECK
 $is_allowedToAdmin     = $is_platformAdmin;

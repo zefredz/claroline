@@ -9,7 +9,6 @@
  * This page display global information about
  */
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 include('../exercice/question.class.php');
 include('../exercice/answer.class.php');

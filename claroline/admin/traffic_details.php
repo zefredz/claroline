@@ -8,7 +8,6 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 include($includePath."/lib/statsUtils.lib.inc.php");
 $tbl_mdb_names 			= claro_sql_get_main_tbl();

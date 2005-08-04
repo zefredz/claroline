@@ -15,7 +15,6 @@
  */
 
 require '../../inc/claro_init_global.inc.php'; 
-claro_unquote_gpc();
 
 include($includePath."/lib/learnPath.lib.inc.php");
 

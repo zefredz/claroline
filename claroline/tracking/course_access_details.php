@@ -11,8 +11,6 @@
  
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> "$langStatistics");
 
 $nameTools = $langTrafficDetails;

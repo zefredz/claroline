@@ -24,7 +24,6 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);

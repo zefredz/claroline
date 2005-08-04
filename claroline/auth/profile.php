@@ -29,8 +29,6 @@ $gidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 $messageList = array();
 $display = '';
 $error = false;

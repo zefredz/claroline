@@ -156,8 +156,6 @@ if($is_allowedToEdit) // for teacher only
 
 // clean information submited by the user from antislash
 
-claro_unquote_gpc();
-
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 

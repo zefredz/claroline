@@ -55,7 +55,7 @@
 $tlabelReq = 'CLANN___';
 
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
+
 define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);

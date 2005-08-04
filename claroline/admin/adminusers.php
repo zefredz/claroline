@@ -19,8 +19,6 @@ $delayToConsiderAsSleeper = 3600*24*50; //delay in second to be mark as sleeper 
 DEFINE('COURSE_CREATOR',1);
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/user.lib.php");

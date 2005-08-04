@@ -19,8 +19,6 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 include_once($includePath . '/lib/events.lib.inc.php');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();

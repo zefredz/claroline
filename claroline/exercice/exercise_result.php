@@ -44,8 +44,6 @@ define('LISTBOX_FILL',	2);
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 /*
  * paths definition
  */

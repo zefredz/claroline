@@ -23,7 +23,6 @@ $gidReset=TRUE;
 $tidReset=TRUE;
 
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 // clean session if we come from a course
 unset($_SESSION['_cid']);

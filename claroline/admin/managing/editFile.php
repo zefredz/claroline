@@ -20,7 +20,6 @@ define('DISP_VIEW_FILE', __LINE__);
 
 $cidReset=TRUE;
 require '../../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 $is_allowedToAdmin     = $is_platformAdmin;
 if ( ! $is_allowedToAdmin ) claro_disp_auth_form();

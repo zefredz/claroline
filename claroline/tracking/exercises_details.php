@@ -16,8 +16,6 @@
  */
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 // exo_id is required
 if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
 

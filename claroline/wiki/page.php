@@ -43,10 +43,6 @@
     // config file
     require_once $includePath . "/conf/CLWIKI.conf.php";
     
-    // unquote GPC if magic quote gpc enabled
-
-    claro_unquote_gpc();
-    
     // check and set user access level for the tool
     
     if ( ! isset( $_REQUEST['wikiId'] ) )

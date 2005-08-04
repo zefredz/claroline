@@ -30,8 +30,6 @@
  
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 // regroup table names for maintenance purpose
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_track_e_access    		= $tbl_cdb_names['track_e_access'];

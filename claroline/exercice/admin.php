@@ -68,8 +68,6 @@ include('answer.class.php');
 include('exercise.lib.php');
 
 require '../inc/claro_init_global.inc.php';
-
-claro_unquote_gpc();
   
 // answer types
 define('UNIQUE_ANSWER',  1);

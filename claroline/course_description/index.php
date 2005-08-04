@@ -24,8 +24,6 @@ $tlabelReq = 'CLDSC___';
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 if ( ! $_cid)             claro_disp_select_course();
 if ( ! $is_courseAllowed) claro_disp_auth_form();
 

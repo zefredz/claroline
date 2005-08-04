@@ -8,7 +8,6 @@
  */
  
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 // uInfo is required, back to user list if there is none
 if( empty($_REQUEST['uInfo']) ) 

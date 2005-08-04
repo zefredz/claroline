@@ -17,7 +17,6 @@
   ======================================*/
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
    
 $is_AllowedToEdit = $is_courseAdmin;
 if (! $is_AllowedToEdit or !$is_courseAllowed ) claro_disp_auth_form();

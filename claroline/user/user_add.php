@@ -20,8 +20,6 @@ $tlabelReq = 'CLUSR___';
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 // Security check
 if ( ! ($is_courseAdmin || $is_platformAdmin) ) claro_disp_auth_form();
 

@@ -17,8 +17,6 @@
 //used libraries
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 @include ($includePath."/installedVersion.inc.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/user_profile.conf.php");

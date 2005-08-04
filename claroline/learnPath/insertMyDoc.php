@@ -23,7 +23,6 @@
   ======================================*/
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 // if there is an auth information missing redirect to the first page of lp tool 
 // this page will do the necessary to auth the user, 

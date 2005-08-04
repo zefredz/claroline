@@ -27,7 +27,6 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 if( empty($_REQUEST['uInfo']) )	header("Location: ./userLog.php");
 	

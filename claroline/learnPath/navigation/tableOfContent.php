@@ -15,7 +15,6 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 if (! $is_courseAllowed) claro_disp_auth_form();
 

@@ -15,8 +15,6 @@
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 // Redirect before first output
 if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
 {

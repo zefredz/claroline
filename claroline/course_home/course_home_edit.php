@@ -21,8 +21,6 @@ $gidReset = true; // If user is here. It means he isn't in any group space now.
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 if ($is_courseAdmin)    $is_allowedToEdit = TRUE;
 if (!$is_allowedToEdit) claro_disp_auth_form();
 

@@ -72,10 +72,6 @@
         claro_disp_auth_form();
     }
 
-    // unquote GPC if magic quote gpc enabled
-    
-    claro_unquote_gpc();
-
     // require wiki files
     
     require_once "lib/class.clarodbconnection.php";

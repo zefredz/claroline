@@ -25,8 +25,6 @@ require '../inc/claro_init_global.inc.php';
 require_once($clarolineRepositorySys . '/linker/linker.inc.php');
 require_once($includePath . '/lib/agenda.lib.php');
 
-claro_unquote_gpc();
-
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
 define('CONFVAL_LOG_CALENDAR_UPDATE', FALSE);

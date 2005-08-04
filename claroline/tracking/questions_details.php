@@ -16,7 +16,6 @@
  */
  
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 // check if no anonymous
 if ( !$_cid || !$_uid ) claro_disp_auth_form(true);

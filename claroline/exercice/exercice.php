@@ -30,8 +30,6 @@ $tlabelReq = 'CLQWZ___';
 
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
-
 include($includePath."/lib/pager.lib.php");
 
 /*******************************/

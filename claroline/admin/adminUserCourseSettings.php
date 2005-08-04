@@ -25,7 +25,6 @@ define ('USER_DATA_FORM', 2);
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
-claro_unquote_gpc();
 
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
