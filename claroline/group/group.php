@@ -145,13 +145,13 @@ if ( $is_allowedToManage )
         $group_max = (int) $_REQUEST['group_max'];
         $group_quantity = (int) $_REQUEST['group_quantity'];
 
-        if ( $group_quantity <1 ) $group_quantity = 1;
+        if ( $group_quantity < 1 ) $group_quantity = 1;
 
-        $lastOrder = 0;
+        $lastId = 0;
 
         for ( $i = 1; $i <= $group_quantity; $i++ )
         {
-            /*
+            /**
              * Create a directory for to allow group student to upload documents
              */
 
@@ -179,10 +179,11 @@ if ( $is_allowedToManage )
              * Create a forum for the group in the forum table
              */
 
-            $forumInsertId = create_forum($langForumGroup.' '.$lastId, 
-                                          '', // forum description
-                                          0,  // forum_type ... int he phpBB structure
-                                          (int) GROUP_FORUMS_CATEGORY);
+            $forumInsertId = create_forum( $langForumGroup . ' ' . $lastId
+                                         , '' // forum description
+                                         , 0  // forum_type ... int he phpBB structure
+                                         , (int) GROUP_FORUMS_CATEGORY
+                                         );
 
             /* Stores the directory path into the group table */
 
@@ -198,7 +199,9 @@ if ( $is_allowedToManage )
 
         $message= $group_quantity . ' ' . $langGroupsAdded;
 
-        event_default('GROUPMANAGING',array ('CREATE_GROUP' => $group_quantity));
+        event_default( 'GROUPMANAGING'
+                     , array ('CREATE_GROUP' => $group_quantity)
+                     );
 
     }    // end if $submit
 
