@@ -162,21 +162,21 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
 
 $result = claro_sql_query(buildRequestModules());
 
-echo "<table class=\"claroTable\" width=\"100%\">\n"
-       ."<thead>\n"
-       ."<tr class=\"headerX\">\n"
-       ."<th width=\"10%\">"
+echo '<table class="claroTable" width="100%">'."\n"
+       .'<thead>'."\n"
+       .'<tr class="headerX">'."\n"
+       .'<th width="10%">'
        .$langAddModule
-       ."</th>\n"
-       ."<th>"
+       .'</th>'."\n"
+       .'<th>'
        .$langModule
-       ."</th>\n"
-       ."</tr>\n"
-       ."</thead>\n\n"
-       ."<tbody>\n\n";
+       .'</th>'."\n"
+       .'</tr>'."\n"
+       .'</thead>'."\n\n"
+       .'<tbody>'."\n\n";
 
 // Display available modules
-echo "<form name=\"addmodule\" action=\"",$_SERVER['PHP_SELF'],"?cmdglobal=add\">\n";
+echo '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n";
 
 $atleastOne = FALSE;
 
@@ -190,58 +190,57 @@ while ($list=mysql_fetch_array($result))
         
     $contentType_alt = selectAlt($list['contentType']);
     
-    echo "<tr>\n"
-        ."<td align=\"center\">\n"
-        ."<input type=\"checkbox\" name=\"check_"
-        .$list['module_id']."\"  id=\"check_".$list['module_id']."\">\n"
-        ."</td>\n"
-        ."<td align=\"left\">\n"
-        ."<label for=\"check_".$list['module_id']."\" ><img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" />".$list['name']."</label>\n"
-        ."</td>\n"
-        ."</tr>\n\n";
+    echo '<tr>'."\n"
+        .'<td align="center">'."\n"
+        .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'">'."\n"
+        .'</td>'."\n"
+        .'<td align="left">'."\n"
+        .'<label for="check_'.$list['module_id'].'" ><img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" />'.$list['name'].'</label>'."\n"
+        .'</td>'."\n"
+        .'</tr>'."\n\n";
 
     // COMMENT
 
     if ($list['comment'] != null)
     {
-        echo "<tr>\n"
-            ."<td>&nbsp;</td>\n"
-            ."<td>\n"
-            ."<small>".$list['comment']."</small>\n"
-            ."</td>\n"
-            ."</tr>\n\n";
+        echo '<tr>'."\n"
+            .'<td>&nbsp;</td>'."\n"
+            .'<td>'."\n"
+            .'<small>'.$list['comment'].'</small>'."\n"
+            .'</td>'."\n"
+            .'</tr>'."\n\n";
     }
     $atleastOne = TRUE;
 
 }//end while another module to display
 
-echo "\n</tbody>\n\n<tfoot>\n\n";
+echo "\n".'</tbody>'."\n\n".'<tfoot>'."\n\n";
 
 if ( !$atleastOne )
 {
-    echo "<tr>\n"
-        ."<td colspan=\"6\" align=\"center\">"
+    echo '<tr>'."\n"
+        .'<td colspan="2" align="center">'
         .$langNoMoreModuleToAdd
-        ."</td>\n"
-        ."</tr>\n";
+        .'</td>'."\n"
+        .'</tr>'."\n";
 }
-
+echo '<tr>'
+	.'<td colspan="6"><hr noshade size="1"></td>'
+	.'</tr>'."\n"
+	;
 // Display button to add selected modules
 
 if ( $atleastOne )
 {
-    echo "<tr>\n"
-        ."<td colspan=\"2\"><hr size=\"1\" /></td>\n"
-        ."</tr>\n"
-        ."<tr>\n"
-        ."<td colspan=\"2\">\n"
-        ."<input type=\"submit\" value=\"".$langAddModulesButton."\" />\n"
-        ."<input type=\"hidden\" name=\"cmdglobal\" value=\"add\">\n"
-        ."</td>\n"
-        ."</tr>\n";
+    echo '<tr>'."\n"
+        .'<td colspan="2">'."\n"
+        .'<input type="submit" value="'.$langAddModulesButton.'" />'."\n"
+        .'<input type="hidden" name="cmdglobal" value="add">'."\n"
+        .'</td>'."\n"
+        .'</tr>'."\n";
 }
 
-echo "\n</tfoot>\n\n</form>\n</table>";
+echo "\n".'</tfoot>'."\n\n".'</form>'."\n".'</table>';
 
 //####################################################################################\\
 //################################## MODULES LIST ####################################\\
