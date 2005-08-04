@@ -42,7 +42,8 @@ function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $co
         return FALSE;
     }
 
-    $sql = "SELECT MAX(`rank`) maxRank FROM `" . $tbl_userinfo_def . "`";
+    $sql = "SELECT MAX(`rank`) maxRank 
+            FROM `" . $tbl_userinfo_def . "`";
     $result = claro_sql_query($sql);
     if ($result) $maxRank = mysql_fetch_array($result);
 
@@ -127,7 +128,8 @@ function claro_user_info_remove_cat_def($id, $force = false, $course_id=NULL)
 
     if ($force == FALSE)
     {
-        $sql = "SELECT * FROM `" . $tbl_userinfo_content . "`  
+        $sql = "SELECT * 
+                FROM `" . $tbl_userinfo_content . "`  
                ".$sqlCondition;
         $result = claro_sql_query($sql);
 

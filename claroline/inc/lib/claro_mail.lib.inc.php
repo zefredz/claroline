@@ -60,18 +60,18 @@ function claro_mail_spool($mails)
         if (isset($mailToSend['to']))
         $sql.=    (is_array($mailToSend['to']) 
                 ? ' OR `claro_user`.`user_id` IN ("'.implode($mailToSend['to'],'","').'") '
-                : ' OR `claro_user`.`user_id` = "'.$mailToSend['to'].'" ');
+                : ' OR `claro_user`.`user_id` = "'. (int)$mailToSend['to'] .'" ');
         
         if (isset($mailToSend['cc']))
         $sql.=    (is_array($mailToSend['cc']) 
                 ? ' OR `claro_user`.`user_id` IN ("'.implode($mailToSend['cc'],'","').'") '
-                : ' OR `claro_user`.`user_id` = "'.$mailToSend['cc'].'" ')        ;
+                : ' OR `claro_user`.`user_id` = "'. (int)$mailToSend['cc'].'" ')        ;
         
         if (isset($mailToSend['bcc']))
         $sql.=    (
                 is_array($mailToSend['bcc']) 
                 ? ' OR `claro_user`.`user_id` IN ("'.implode($mailToSend['bcc'],'","').'") '
-                : ' OR `claro_user`.`user_id` = "'.$mailToSend['bcc'].'" '
+                : ' OR `claro_user`.`user_id` = "'. (int)$mailToSend['bcc'].'" '
                 );
        $result = claro_sql_query($sql);
        if (mysql_num_rows($result))
@@ -163,10 +163,6 @@ function claro_mail_spool($mails)
        return 1;
      }
  }
-
-
-
- 
  
  /*
   * Send an e-mail to a user of Claroline
@@ -186,9 +182,10 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
     //find user email in claro db
 
     $sql = 'SELECT * FROM `'.$tbl_user.'` as `claro_user`
-                    WHERE `claro_user`.`user_id` = "'.$user_id.'"';
+            WHERE `claro_user`.`user_id` = "'. (int)$user_id . '"';
 
     $result = mysql_query($sql);
+
     if (mysql_num_rows($result))
     {
         $list = mysql_fetch_array($result);

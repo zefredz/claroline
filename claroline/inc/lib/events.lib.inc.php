@@ -117,8 +117,8 @@ function event_login()
              `login_date`)
 
              VALUES
-                ('".$_uid."', 
-                '".$_SERVER['REMOTE_ADDR']."',
+                ('". (int)$_uid."', 
+                '". addslashes($_SERVER['REMOTE_ADDR']) ."',
                 FROM_UNIXTIME(".$reallyNow."))";
 
     $res = claro_sql_query($sql);
@@ -155,7 +155,7 @@ function event_access_course()
             (`access_user_id`,  
              `access_date`)
             VALUES
-            (".$user_id.", 
+            (". $user_id.", 
             FROM_UNIXTIME(".$reallyNow."))";
 
         $res = claro_sql_query($sql);
@@ -202,9 +202,9 @@ function event_access_tool($tid, $tlabel)
 
              VALUES
 
-             (".$user_id.",
-              ".$tid.",
-              '".$tlabel."',
+             (". $user_id.",
+              ". (int)$tid.",
+              '".addslashes($tlabel)."',
               FROM_UNIXTIME(".$reallyNow."))";
               
         $res = claro_sql_query($sql);
@@ -296,7 +296,7 @@ function event_upload($doc_id)
 
             VALUES
             (
-             ". (int)$user_id.", 
+             ". $user_id.", 
              '".(int)$doc_id."', 
              FROM_UNIXTIME(".$reallyNow.")
             )";
@@ -343,12 +343,10 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
           VALUES
           (
           ".$user_id.",
-           '".$exo_id."',
-           '".$score."',
-           '".$weighting."',
-           FROM_UNIXTIME(".$reallyNow."),
-	   $time
-          )";
+           '".(int)$exo_id."',
+           '".(float)$score."',
+           '".(float)$weighting."',
+           FROM_UNIXTIME(".$reallyNow.")," . (int)$time . ")";
 
     return claro_sql_query_insert_id($sql);
 }

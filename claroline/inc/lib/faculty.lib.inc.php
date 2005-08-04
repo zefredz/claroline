@@ -25,7 +25,8 @@ function search_max_tree_pos()
 {
 	GLOBAL $tbl_faculty;
 
-	$sql_MaxTreePos="select max(treePos) maximum from `$tbl_faculty`";
+	$sql_MaxTreePos="SELECT max(treePos) maximum 
+                     FROM `$tbl_faculty`";
 	$array=claro_sql_query_fetch_all($sql_MaxTreePos);
 
 	return $array[0]["maximum"];
@@ -221,11 +222,15 @@ function delete_qty_child_father($fatherChangeChild,$newNbChild)
 	while(!is_null($fatherChangeChild))
 	{
 		$sql_DeleteNbChildFather=
-			"update `$tbl_faculty` set nb_childs=nb_childs-".$newNbChild." where code='".$fatherChangeChild."'";
+			"UPDATE `$tbl_faculty` 
+             SET nb_childs=nb_childs-". (int)$newNbChild." 
+             WHERE code='". addslashes($fatherChangeChild) ."'";
 
 		claro_sql_query($sql_DeleteNbChildFather);
 
-		$sql_SelectCodeP="select code_P from `$tbl_faculty` where code='".$fatherChangeChild."'";
+		$sql_SelectCodeP="SELECT code_P 
+                          FROM `$tbl_faculty`
+                          WHERE code='". addslashes($fatherChangeChild)."'";
 		$array=claro_sql_query_fetch_all($sql_SelectCodeP);
 
 		$fatherChangeChild=$array[0]["code_P"];
@@ -249,11 +254,15 @@ function addNbChildFather($fatherChangeChild,$newNbChild)
 	while(!is_null($fatherChangeChild))
 	{
 		$sql_DeleteNbChildFather=
-			"update `$tbl_faculty` set nb_childs=nb_childs+".$newNbChild." where code='".$fatherChangeChild."'";
+			"UPDATE `$tbl_faculty` 
+             SET nb_childs=nb_childs+". (int)$newNbChild."
+             WHERE code='". addslashes($fatherChangeChild)."'";
 
 		claro_sql_query($sql_DeleteNbChildFather);
 
-		$sql_SelectCodeP="select code_P from `$tbl_faculty` where code='".$fatherChangeChild."'";
+		$sql_SelectCodeP="SELECT code_P 
+                          FROM `$tbl_faculty` 
+                          WHERE code='". addslashes($fatherChangeChild) ."'";
 		$array=claro_sql_query_fetch_all($sql_SelectCodeP);
 
 		$fatherChangeChild=$array[0]["code_P"];

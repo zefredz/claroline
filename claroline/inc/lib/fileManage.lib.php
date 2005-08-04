@@ -669,9 +669,9 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                   // Find and update assets that are concerned by this move
 
                   $sql = "UPDATE `" . $TABLEASSET . "`
-                          SET `path` = CONCAT('" . $newPath . "',
-                                              SUBSTRING(`path`, LENGTH('" . $oldPath . "')+1) )
-                          WHERE `path` LIKE '" . $oldPath . "%'";
+                          SET `path` = CONCAT('" . addslashes($newPath) . "',
+                                              SUBSTRING(`path`, LENGTH('" . addslashes($oldPath) . "')+1) )
+                          WHERE `path` LIKE '" . addslashes($oldPath) . "%'";
 
                   claro_sql_query($sql);
 
@@ -685,7 +685,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
                   $sql ="SELECT *
                          FROM `" . $TABLEASSET . "`
-                         WHERE `path` LIKE '" . $oldPath . "%' 
+                         WHERE `path` LIKE '" . addslashes($oldPath) . "%' 
                          ";
 
                   $result = claro_sql_query($sql);
@@ -702,7 +702,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
                         while ($list=mysql_fetch_array($result))
                         {
-                           $sqllpm.= " OR `module_id` = '" . $list['module_id'] . "' ";
+                           $sqllpm.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
                         }
                         
                         $result2 = claro_sql_query($sqllpm);
@@ -724,8 +724,8 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
                         while ($list=mysql_fetch_array($result))
                         {
-                           $sql1.= " OR `module_id` = '" . $list['module_id'] . "' ";
-                           $sql2.= " OR `module_id` = '" . $list['module_id'] . "' ";
+                           $sql1.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
+                           $sql2.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
                         }
 
                         claro_sql_query($sql1);
@@ -739,7 +739,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                                ";
                         while ($list=mysql_fetch_array($result2))
                         {
-                           $sql.= " OR `learnPath_module_id` = '" . $list['learnPath_module_id'] . "' ";
+                           $sql.= " OR `learnPath_module_id` = '" . (int)$list['learnPath_module_id'] . "' ";
                         }
 
                         claro_sql_query($sql);
@@ -749,7 +749,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                         $sql ="DELETE
                                FROM `" . $TABLEASSET . "`
                                WHERE
-                               `path` LIKE '" . $oldPath . "%'
+                               `path` LIKE '" . addslashes($oldPath) . "%'
                                ";
 
                         claro_sql_query($sql);

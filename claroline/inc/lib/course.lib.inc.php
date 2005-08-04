@@ -32,11 +32,12 @@
 function backup_database( $link, $sysCode, &$dir )
 {
     global $tbl_courses, $coursesRepositorySys;
-
-    $sql_searchCourse = "select * from `$tbl_courses` where code='" . $sysCode . "'";
-    $arrayCourse=claro_sql_query_fetch_all($sql_searchCourse);
-
     global $courseTablePrefix,$dbGlu;
+
+    $sql_searchCourse = "SELECT * 
+                         FROM `$tbl_courses` 
+                         WHERE code='" . addslashes($sysCode) . "'";
+    $arrayCourse=claro_sql_query_fetch_all($sql_searchCourse);
 
     $db_name=$arrayCourse[0]['dbName'];
 
@@ -84,14 +85,16 @@ function backup_database( $link, $sysCode, &$dir )
     }
     else
     {
-        $sql="select dbName from `$tbl_courses` where code='".$sysCode."'";
+        $sql="SELECT dbName 
+              FROM `$tbl_courses` 
+              WHERE code='". addslashes($sysCode) ."'";
         $res=claro_sql_query_fetch_all($sql);
 
         global $courseTablePrefix,$dbGlu;
         $currentCourseDbNameGlu=$courseTablePrefix.$res[0]["dbName"].$dbGlu;
 
         // Search all tables of this course
-        $sql = "SHOW TABLES LIKE \"".$currentCourseDbNameGlu."%\"";
+        $sql = "SHOW TABLES LIKE \"". addslashes($currentCourseDbNameGlu) ."%\"";
         $res=claro_sql_query($sql);
         $num_rows= mysql_num_rows($res);
     }
@@ -111,7 +114,8 @@ function backup_database( $link, $sysCode, &$dir )
         fwrite($fp, "$schema\n\n");
 
         // data of the table
-        $query = "SELECT * FROM $tablename";
+        $query = "SELECT * 
+                  FROM $tablename";
         $resData = claro_sql_query($query);
 
         insert_registry($fp,$tablename,$resData);
@@ -125,7 +129,9 @@ function backup_database( $link, $sysCode, &$dir )
     $com = command_create_temporary_table($tbl_courses, 'temp_cours' );
     fwrite($fp,$com."\n\n");
 
-    $query = "SELECT * FROM `$tbl_courses` where code='" . $sysCode . "'";
+    $query = "SELECT * 
+              FROM `$tbl_courses` 
+              WHERE code='" . addslashes($sysCode) . "'";
     $resData = claro_sql_query($query);
     $tablename = "temp_cours";
 
@@ -137,7 +143,7 @@ function backup_database( $link, $sysCode, &$dir )
                                 LEFT JOIN `$tbl_rel_usergroup` ug
                                     ON `cu`.user_id = `ug`.`user`
                                 where
-                                    cu.code_cours='".$sysCode."'
+                                    cu.code_cours='". addslashes($sysCode) ."'
                                 AND `cu`.user_id = `u`.`user_id`";
 
     $resData = claro_sql_query($sql_searchUserCourse);
@@ -176,7 +182,6 @@ function backup_database( $link, $sysCode, &$dir )
 
         insert_registry($fp,$tablename,$resData);
     }
-
 
     $com=command_create_temporary_table($tbl_course_user, 'temp_cours_user');
 

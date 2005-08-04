@@ -71,14 +71,14 @@ function delete_course($code)
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 
     $sql = 'DELETE FROM `' . $tbl_course . '`
-            WHERE code= "' . $currentCourseId . '"';
+            WHERE code= "' . addslashes($currentCourseId) . '"';
 
     claro_sql_query($sql);
     
     // DELETE NOTIFICATION INFO 
 
     $sql = 'DELETE FROM `' . $tbl_notify . '`
-            WHERE course_code= "' . $currentCourseId . '"';
+            WHERE course_code= "' . addslashes($currentCourseId) . '"';
 
     claro_sql_query($sql);
 

@@ -105,7 +105,7 @@ function announcement_add_item($title='',$content='', $visibility='SHOW', $time=
     }
     else
     {
-        $sqlTime = " temps = from_unixtime('".$time."'), ";
+        $sqlTime = " temps = from_unixtime('". (int)$time ."'), ";
     }
     
     // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
@@ -143,7 +143,7 @@ function announcement_update_item($announcement_id, $title=NULL, $content=NULL, 
     if(!is_null($title))      $sqlSet[] = " title = '" . addslashes(trim($title)) . "' ";
     if(!is_null($content))    $sqlSet[] = " contenu = '" . addslashes(trim($content)) . "' ";
     if(!is_null($visibility)) $sqlSet[] = " visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
-    if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".$time."') ";
+    if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".(int)$time."') ";
     
     if (count($sqlSet)>0)
     {

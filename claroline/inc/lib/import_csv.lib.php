@@ -355,7 +355,9 @@ function check_username_used_userlist($userlist)
     
     //CHECK : check if usernames are not already token by someone else
     
-    $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
+    $sql = 'SELECT * 
+            FROM `'.$tbl_user.'` 
+            WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
@@ -405,7 +407,9 @@ function check_officialcode_used_userlist($userlist)
     $errors = array();
     
     //CHECK : check if admincode (officialCode) is not already taken by someone else
-    $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
+    $sql = 'SELECT * 
+            FROM `'.$tbl_user.'`
+            WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++) 
     {
@@ -486,7 +490,9 @@ function check_mail_used_userlist($userlist)
     
     //create SQL query to search in Claroline DB
     
-    $sql = 'SELECT * FROM `'.$tbl_user.'` WHERE 1=0 ';
+    $sql = 'SELECT * 
+            FROM `'.$tbl_user.'` 
+            WHERE 1=0 ';
     
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++) 
     {

@@ -59,7 +59,7 @@ function delete_groups($groupIdList = 'ALL')
     {
         if ( settype($groupIdList, 'integer') )
         {
-            $sql_condition = '  WHERE id = ' . $groupIdList ;
+            $sql_condition = '  WHERE id = ' . (int)$groupIdList ;
         }
         else
         {
@@ -226,7 +226,7 @@ function fill_in_groups($course_id = NULL)
             FROM `" . $tbl_CoursUsers . "` cu                    # ".__FILE__." 
             LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
             ON    `ug`.`user`      = `cu`.`user_id`
-            WHERE `cu`.`code_cours`='" . $currentCourseId . "'
+            WHERE `cu`.`code_cours`='" . addslashes($currentCourseId) . "'
             AND   `cu`.`statut`    = 5 #no teacher
             AND   `cu`.`tutor`     = 0 #no tutor
             GROUP BY (cu.user_id)
@@ -342,7 +342,7 @@ function group_count_students_in_course($course_id)
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'    ];
 
     $sql              = "SELECT COUNT(user_id) qty FROM `" . $tbl_rel_course_user . "`
-                         WHERE  code_cours =' " . $course_id . "'
+                         WHERE  code_cours =' " . addslashes($course_id) . "'
                          AND    statut = 5 AND tutor = 0";
     return claro_sql_query_get_single_value($sql);
 	

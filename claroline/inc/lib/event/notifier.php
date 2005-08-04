@@ -67,11 +67,11 @@ class Notifier extends EventDriven
         $eventType  = $event->getEventType();
         
         $sql = "DELETE FROM `".$tbl_notify."`
-                      WHERE `course_code`='".$course."'
-                        AND `tool_id`='".$tool."'
-                        AND `ressource_id`='".$ressource."'
-                        AND `group_id` = '".$gid."'
-                        AND `user_id` = '".$uid."'
+                      WHERE `course_code`='". addslashes($course) ."'
+                        AND `tool_id`='". (int)$tool."'
+                        AND `ressource_id`='". addslashes($ressource) ."'
+                        AND `group_id` = '". (int)$gid."'
+                        AND `user_id` = '". (int)$uid."'
                         ";
                         
         claro_sql_query($sql);                   
@@ -104,10 +104,10 @@ class Notifier extends EventDriven
         $sql = "SELECT * 
                   FROM `".$tbl_notify."` 
              WHERE `course_code`='".$course_id."'
-               AND `tool_id`='".$tool_id."'
-               AND `ressource_id`='".$ressource_id."'
-               AND `group_id` = '".$gid."'
-               AND `user_id` = '".$uid."'
+               AND `tool_id`='". (int)$tool_id."'
+               AND `ressource_id`='". addslashes($ressource_id) ."'
+               AND `group_id` = '". (int)$gid."'
+               AND `user_id` = '". (int)$uid."'
                ";
         
         $notificationTable = claro_sql_query_fetch_all($sql);
@@ -130,11 +130,11 @@ class Notifier extends EventDriven
         {
             $sql = "UPDATE `".$tbl_notify."` 
                        SET `date`= NOW() 
-                 WHERE `course_code`='".$course_id."' 
-                   AND `tool_id`='".$tool_id."'
-                   AND `ressource_id`='".$ressource_id."'
-                   AND `group_id` = '".$gid."'
-                   AND `user_id` = '".$uid."'
+                 WHERE `course_code`='". addslashes($course_id) ."' 
+                   AND `tool_id`='". (int)$tool_id."'
+                   AND `ressource_id`='". addslashes($ressource_id)."'
+                   AND `group_id` = '". (int)$gid."'
+                   AND `user_id` = '". (int)$uid."'
                        ";
             claro_sql_query($sql);
         }
@@ -142,12 +142,12 @@ class Notifier extends EventDriven
         {
             
                 $sql = "INSERT INTO `".$tbl_notify."` 
-                        SET   `course_code`   = '".$course_id."',
-                              `tool_id` = '".$tool_id."',
+                        SET   `course_code`   = '". addslashes($course_id) ."',
+                              `tool_id` = '". (int)$tool_id."',
                   `date` = NOW(),
-                  `ressource_id` = '".$ressource_id."',
-                  `group_id` = '".$gid."',
-                  `user_id` = '".$uid."'
+                  `ressource_id` = '". addslashes($ressource_id) ."',
+                  `group_id` = '". (int)$gid."',
+                  `user_id` = '". (int)$uid."'
                   ";
             claro_sql_query($sql);
         }
@@ -181,9 +181,9 @@ class Notifier extends EventDriven
         if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
             $sql="SELECT `code_cours` FROM `".$tbl_cours_user."` AS CU, `".$tbl_notify."` AS N 
                 WHERE CU.`code_cours` = N.`course_code`
-                    AND CU.`user_id` = '".$user_id."'
+                    AND CU.`user_id` = '". (int)$user_id."'
                     AND N.`date` > '".$date."'
-                    AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')
+                    AND (N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."')
                     ";
             
             $courseList = claro_sql_query_fetch_all($sql);
@@ -223,11 +223,11 @@ class Notifier extends EventDriven
         if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
             $sql = "SELECT `tool_id`, MAX(`date`)
                     FROM `".$tbl_notify."` AS N, `".$tbl_cours_user."` AS CU
-                    WHERE N.`course_code` = '".$course_id."'
-                    AND CU.`user_id` = '".$user_id."'
-                    AND CU.`code_cours` = N.`course_code`
-                    AND N.`date` > '".$date."'
-                    AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."')
+                    WHERE N.`course_code` = '". addslashes($course_id) ."'
+                      AND CU.`user_id` = '". (int)$user_id."'
+                      AND CU.`code_cours` = N.`course_code`
+                      AND N.`date` > '".$date."'
+                      AND (N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."')
                     GROUP BY `tool_id`
                     ";
             $toolList = claro_sql_query_fetch_all($sql);
@@ -261,21 +261,24 @@ class Notifier extends EventDriven
         
         $documents = array();
         
-        if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
-        $sql = "SELECT `ressource_id`
+        if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) 
+        {
+            $sql = "SELECT `ressource_id`
                     FROM `".$tbl_notify."` AS N
-                    WHERE N.`course_code` = '".$course_id."'
-                    AND N.`date` > '".$date."'
-                    AND (N.`user_id` = '0' OR N.`user_id` = '".$user_id."') 
-                    AND (N.`group_id` = '0' OR N.`group_id` = '".$gid."')
-                    AND (N.`tool_id` = '7')      
+                    WHERE N.`course_code` = '". addslashes($course_id)."'
+                      AND N.`date` > '".$date."'
+                      AND (N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."') 
+                      AND (N.`group_id` = '0' OR N.`group_id` = '". (int)$gid."')
+                      AND (N.`tool_id` = '7')      
                     ";
-        $documentList = claro_sql_query_fetch_all($sql);
-        if (is_array($documentList))
-            foreach ($documentList as $document)
+            $documentList = claro_sql_query_fetch_all($sql);
+            if (is_array($documentList))
             {
-                $documents[] = $document['ressource_id'];
-            }            
+                foreach ($documentList as $document)
+                {
+                    $documents[] = $document['ressource_id'];
+                }            
+            }
         }
              
         // 2- return an array with the documents paths with recent unknow event until the date '$date' in the course and for 
@@ -302,7 +305,7 @@ class Notifier extends EventDriven
         
         $sql = "SELECT MAX(`login_date`) AS THEDAY
                   FROM `".$tbl_track_e_login."` AS N
-                 WHERE N.`login_user_id` = '".$user_id."'
+                 WHERE N.`login_user_id` = '". (int)$user_id."'
                    AND N.`login_date` < '".$today."'
                ";
         

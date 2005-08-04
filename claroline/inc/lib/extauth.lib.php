@@ -163,7 +163,7 @@ class ExternalAuthentication
 
         $sql = ($uid ? 'UPDATE' : 'INSERT INTO') . " `".$userTbl['user']."` "
               ."SET ".implode(', ', $sqlPrepareList)
-              .($uid ? 'WHERE user_id = '.$uid : '');
+              .($uid ? 'WHERE user_id = '.(int)$uid : '');
 
         $res  = mysql_query($sql) 
                 or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');   

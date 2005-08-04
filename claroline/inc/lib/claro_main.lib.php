@@ -182,7 +182,7 @@ function claro_get_course_data($course_id = NULL)
              FROM `" . $tbl_mdb_names['course'] . "` `c`
              LEFT JOIN `" . $tbl_mdb_names['category'] . "` `cat`
              ON `c`.`faculte` =  `cat`.`code`
-             WHERE `c`.`code` = '" . $course_id . "'";
+             WHERE `c`.`code` = '" . addslashes($course_id) . "'";
             $_courseDatas = claro_sql_query_fetch_all($sql);
             if (!is_array($_courseDatas) || count($_courseDatas) == 0)
                 return claro_failure::set_failure('course_not_found');
@@ -211,7 +211,7 @@ function claro_get_course_data($course_id = NULL)
  */
 function claro_get_course_db_name($cid=NULL) 
 {
-    $k =claro_get_course_data($cid); 
+    $k = claro_get_course_data($cid); 
     
     if (isset($k['dbName'])) return $k['dbName'];
     else                     return NULL;
@@ -949,7 +949,7 @@ function claro_disp_select_course()
             $sql = "SELECT c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name`
                     FROM `".$tbl_courses."` c ,  `".$tbl_rel_user_courses."` cu
                     WHERE c.code= cu.code_cours 
-                      AND cu.user_id = '".$_uid."'" ;
+                      AND cu.user_id = '". (int)$_uid."'" ;
         } // end if $uid
         else
         {

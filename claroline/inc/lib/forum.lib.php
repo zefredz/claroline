@@ -402,7 +402,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                 forum_id  = '" . (int) $forumId . "', 
                 poster_id = '" . (int) $userId . "', 
                 post_time = '" . addslashes($time) . "', 
-                poster_ip = '" . $posterIp . "', 
+                poster_ip = '" . addslashes($posterIp) . "', 
                 nom       = '" . addslashes($userLastname) . "', 
                 prenom    = '" . addslashes($userFirstname) . "'";
 
@@ -1109,7 +1109,7 @@ function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_type,
                 `forum_access`   = 2,
                 `forum_moderator`= 1,
                 `cat_id`         = "' . (int)$cat_id     . '",
-                `forum_type`     = "' . $forum_type .'"
+                `forum_type`     = "' . (int)$forum_type .'"
             WHERE `forum_id` = ' . (int)$forum_id;
 
     if (claro_sql_query($sql) != false) return true;
@@ -1155,7 +1155,7 @@ function delete_category($cat_id)
     while( list($forum_id) = mysql_fetch_row($result) )
     {
         $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
-                WHERE `forum_id` = "'.$forum_id.'"';
+                WHERE `forum_id` = "'. (int)$forum_id.'"';
         
         claro_sql_query($sql);
     }
