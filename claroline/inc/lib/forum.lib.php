@@ -1406,7 +1406,11 @@ function get_forum_list()
     $tbl_posts            = $tbl_cdb_names['bb_posts'  ];
     $tbl_student_group    = $tbl_cdb_names['group_team'];
 
-    $sql = "SELECT f.*, p.poster_id, p.post_time, g.id group_id
+    $sql = "SELECT f.forum_id, f.forum_name, f.forum_desc, 
+                   f.forum_access, f.forum_moderator, 
+                   f.forum_topics, f.forum_posts, f.forum_last_post_id, 
+                   f.cat_id, f.forum_type, f.forum_order,
+            p.poster_id, p.post_time, g.id group_id
             FROM `" . $tbl_forums . "` f
             LEFT JOIN `" . $tbl_posts . "` p 
                    ON p.post_id = f.forum_last_post_id
