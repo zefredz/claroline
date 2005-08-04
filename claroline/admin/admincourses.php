@@ -314,67 +314,76 @@ if (isset($dialogBox))
 
 
   //see passed search parameters :
-  
-$addtoAdvanced ='?';
+
+$advanced_search_query_string = array();  
 $isSearched ='';
       
-if (isset($_REQUEST['search'])   && $_REQUEST['search']!='')              
+if ( !empty($_REQUEST['search']) )              
 {
     $isSearched .= trim($_REQUEST['search']) . ' ';
 }
 
-if (isset($_REQUEST['code'])     && $_REQUEST['code']!='')                   
+if ( !empty($_REQUEST['code']) )                   
 {
     $isSearched .= $langCode . ' = ' . $_REQUEST['code'] . ' ';
-    $addtoAdvanced .= 'code=' . $_REQUEST['code'];
+    $advanced_search_query_string[] = 'code=' . $_REQUEST['code'];
 }
 
-if (isset($_REQUEST['intitule']) && $_REQUEST['intitule']!='')           
+if ( !empty($_REQUEST['intitule']) )           
 {
     $isSearched .= $langCourseTitle . ' = ' . $_REQUEST['intitule'] . ' ';
-    $addtoAdvanced .= '&amp;intitule=' . $_REQUEST['intitule'];
+    $advanced_search_query_string[] = 'intitule=' . $_REQUEST['intitule'];
 }
 
-if (isset($_REQUEST['category']) && $_REQUEST['category']!='')           
+if ( !empty($_REQUEST['category']) )           
 {
     $isSearched .= $langCategory . ' = ' . $_REQUEST['category'] . ' ';
-    $addtoAdvanced .='&amp;category=' . $_REQUEST['category'];
+    $advanced_search_query_string[] = 'category=' . $_REQUEST['category'];
 }
-if (isset($_REQUEST['language']) &&$_REQUEST['language']!='')           
+if ( !empty($_REQUEST['language']) )           
 {
     $isSearched .= $langLanguage . ' : ' . $_REQUEST['language'] . ' ';
-    $addtoAdvanced .='&amp;language=' . $_REQUEST['language'];
+    $advanced_search_query_string[] = 'language=' . $_REQUEST['language'];
 }
-if (isset($_REQUEST['access'])   &&$_REQUEST['access'] == 'public')         
+if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')         
 {
     $isSearched .= ' <b><br>' . $langPublicOnly . ' </b> ';
     
 }
-if (isset($_REQUEST['access'])   &&$_REQUEST['access'] == 'private')        
+if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')        
 {
     $isSearched .= ' <b><br>' . $langPrivateOnly . ' </b>  ';
 }
-if (isset($_REQUEST['subscription']) &&$_REQUEST['subscription'] == 'allowed') 
+if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed') 
 {
     $isSearched .= ' <b><br>' . $langSubscriptionAllowedOnly . ' </b>  ';
 }
-if (isset($_REQUEST['subscription']) &&$_REQUEST['subscription'] == 'denied')  
+if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')  
 {
     $isSearched .= ' <b><br>' . $langSubscriptionDeniedOnly . ' </b>  ';
 }
 
-     //see what must be kept for advanced links
+//see what must be kept for advanced links
 
+if ( !empty($_REQUEST['access']) )
+{
+   $advanced_search_query_string[] ='access=' . $_REQUEST['access'];
+}
+if ( !empty($_REQUEST['subscription']) )
+{
+   $advanced_search_query_string[] ='subscription=' . $_REQUEST['subscription'];
+}
 
-if (isset($_REQUEST['access']))
+if ( count($advanced_search_query_string) > 0 )
 {
-   $addtoAdvanced .='&amp;access=' . $_REQUEST['access'];
+    $addtoAdvanced = '?' . implode('&amp;',$advanced_search_query_string);
 }
-if (isset($_REQUEST['subscription']))
+else
 {
-   $addtoAdvanced .='&amp;subscription=' . $_REQUEST['subscription'];
+    $addtoAdvanced = '';
 }
-    //finaly, form itself
+
+//finaly, form itself
 
 if (!isset($isSearched) || ($isSearched=='')) 
 {
@@ -399,7 +408,7 @@ echo '<table width="100%">'
 .    '<td align="right">'
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">'
 .    '<label for="search">' . $langMakeNewSearch . '</label>'
-.    '<input type="text" value="' . $search . '" name="search" id="search">'
+.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search">'
 .    '<input type="submit" value=" ' . $langOk . ' ">'
 .    '<input type="hidden" name="newsearch" value="yes">'
 .    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">' 
