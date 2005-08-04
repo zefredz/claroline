@@ -1219,8 +1219,7 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
             forum_type      = "'. (int) $forum_type  . '", 
             forum_order    ="'. (int) $order.'"';
 
-    if ( claro_sql_query($sql) != false) return true;
-    else                                 return false;
+    return claro_sql_query_insert_id($sql);
 }
 
 function move_up_forum($forum_id)
