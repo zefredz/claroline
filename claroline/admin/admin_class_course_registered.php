@@ -42,7 +42,9 @@ include($includePath.'/claro_init_header.inc.php');
 
 //find info about the class
 
-$sqlclass = "SELECT * FROM `".$tbl_class."` WHERE `id`='".$_SESSION['admin_user_class_id']."'";
+$sqlclass = "SELECT * 
+             FROM `".$tbl_class."` 
+             WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 //------------------------------------
@@ -56,11 +58,20 @@ if (isset($cmd) && $is_platformAdmin)
         $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
         $display=DISP_RESULT;
         if (is_array($resultLog['OK']))
+        {
             foreach($resultLog['OK'] as $userSubscribed)
+            {
                 $outputResultLog .= '[<font color="green">OK</font>] '.sprintf($lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribed['prenom'],$userSubscribed['nom']).'<br>';
+            }
+        }
+
         if (is_array($resultLog['KO']))
+        {
             foreach($resultLog['KO'] as $userSubscribedKo)
+            {
                 $outputResultLog .= '[<font color="green">OK</font>] '.sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribedKo['prenom'],$userSubscribedKo['nom']).'<br>';
+            }
+        }
     }
 }
 
@@ -87,7 +98,6 @@ if($display==DISP_RESULT)
 }
 
 // display TOOL links :
-
 
 echo claro_disp_button("index.php",$langBackToAdmin);
 echo claro_disp_button($clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id'], $langBackToClassMembers);

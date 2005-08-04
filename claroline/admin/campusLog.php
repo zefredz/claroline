@@ -272,7 +272,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $tempView[2] = '0';
         echo "-&nbsp;&nbsp;<b>".$langPlatformCoursesAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";  
         // display list of course of the student with links to the corresponding userLog
-        $sql = "SELECT `fake_code`, `dbName` FROM    `".$tbl_course."` ORDER BY code ASC";
+        $sql = "SELECT `fake_code`, `dbName` 
+                FROM    `".$tbl_course."` 
+                ORDER BY code ASC";
         $resCourseList = claro_sql_query($sql);
         $i=0;                               
         while ( $course = mysql_fetch_array($resCourseList) )
@@ -314,9 +316,11 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $tempView[3] = '0';
          echo "-&nbsp;&nbsp;<b>".$langToolsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small><br />\n";   
       // display list of course of the student with links to the corresponding userLog
-      $resCourseList = claro_sql_query("SELECT code, dbName
-                                       FROM    `".$tbl_course."`
-                                     ORDER BY code ASC");
+      $sql = "SELECT code, dbName
+              FROM    `".$tbl_course."`
+              ORDER BY code ASC";
+
+      $resCourseList = claro_sql_query($sql);
     
       while ( $course = mysql_fetch_array($resCourseList) )
       {

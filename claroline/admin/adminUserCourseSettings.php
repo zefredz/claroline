@@ -25,6 +25,8 @@ define ('USER_DATA_FORM', 2);
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
 
@@ -114,7 +116,7 @@ if(isset($user_id))
     $sqlGetInfoUser ="
     SELECT *
         FROM  `".$tbl_user."`
-        WHERE user_id='".$user_id."'";
+        WHERE user_id='". (int)$user_id . "'";
     $result=claro_sql_query($sqlGetInfoUser);
     
     //echo $sqlGetInfoUser;
@@ -137,8 +139,8 @@ if(isset($user_id))
     // claro_get_course_user_data
     // find course user settings, must see if the user is teacher for the course
     $sql = 'SELECT * FROM `' . $tbl_rel_course_user . '`
-            WHERE user_id="' . $uidToEdit . '"
-            AND code_cours="' . $cidToEdit . '"';
+            WHERE user_id="' . (int)$uidToEdit . '"
+            AND code_cours="' . addslashes($cidToEdit) . '"';
     $resultCourseUser = claro_sql_query($sql);
     $list = mysql_fetch_array($resultCourseUser);
 

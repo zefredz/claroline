@@ -8,6 +8,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 include($includePath."/lib/statsUtils.lib.inc.php");
 $tbl_mdb_names 			= claro_sql_get_main_tbl();
@@ -34,7 +35,7 @@ echo claro_disp_tool_title(
         if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
         	$reqdate = time();  // default value
 		else
-		    $reqdate = $_REQUEST['reqdate'];
+		    $reqdate = (int)$_REQUEST['reqdate'];
 		    
         if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
         else                                $period = "day"; // default value
@@ -132,7 +133,7 @@ echo claro_disp_tool_title(
             case "year" :
                 $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
                             FROM `".$tbl_track_e_open."`
-                            WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( ".$reqdate." ) ) ";
+                            WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( ".(int)$reqdate." ) ) ";
                 if( $displayType == "month" )
                 {
                     $sql .= "ORDER BY UNIX_TIMESTAMP( `open_date`)";

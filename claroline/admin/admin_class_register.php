@@ -14,6 +14,8 @@
 // initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/class.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
@@ -38,7 +40,10 @@ $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
 //find info about the class
 
-$sqlclass = "SELECT * FROM `".$tbl_class."` WHERE `id`='".$_SESSION['admin_user_class_id']."'";
+$sqlclass = "SELECT * 
+             FROM `".$tbl_class."` 
+             WHERE `id`='".$_SESSION['admin_user_class_id']."'";
+
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 // See SESSION variables used for reorder criteria :
@@ -64,33 +69,33 @@ switch ($cmd)
 {
   case "subscribe" :
         
-        // 1- test if user is not already registered to class
+    // 1- test if user is not already registered to class
 	
 	$sql = "SELECT `user_id` 
-	          FROM `".$tbl_class_user."`
-		 WHERE `user_id` = '".$_REQUEST['user_id']."'
-		   AND `class_id` = '".$classinfo['id']."'";
-        $result = claro_sql_query($sql);
+	        FROM `".$tbl_class_user."`
+	        WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
+		      AND `class_id` = '".(int)$classinfo['id']."'";
+    $result = claro_sql_query($sql);
 
 	if (!(mysql_num_rows($result) > 0))
 	{
 	
-	// 2- process the registration of user in the class
+    	// 2- process the registration of user in the class
 	
 	    $sql ="INSERT INTO `".$tbl_class_user."` 
-	              SET `user_id` = '".$_REQUEST['user_id']."',
-		          `class_id` = '".$classinfo['id']."' "; 
+	           SET `user_id` = '". (int)$_REQUEST['user_id'] ."',
+	               `class_id` = '". (int)$classinfo['id'] ."' "; 
 	    claro_sql_query($sql); 	
 	    $dialogBox = $langUserRegisteredClass;
 	}     
-        break;
+    break;
 
   case "unsubscribe" :
-  	$sql ="DELETE FROM `".$tbl_class_user."` 
-	       WHERE `user_id` = '".$_REQUEST['user_id']."'
-	         AND `class_id` = '".$classinfo['id']."'
-	       ";
+    $sql ="DELETE FROM `".$tbl_class_user."` 
+	       WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
+	         AND `class_id` = '". (int)$classinfo['id']."'";
 	claro_sql_query($sql);
+
 	$dialogBox = $langUserUnregisteredFromClass; 
 	break;
 	
@@ -107,7 +112,7 @@ $sql = "SELECT *, U.`user_id`
         FROM  `".$tbl_user."` AS U
         LEFT JOIN `".$tbl_class_user."` AS CU
                ON  CU.`user_id` = U.`user_id`
-              AND CU.`class_id` = '".$classinfo['id']."'";
+              AND CU.`class_id` = '". (int)$classinfo['id']."'";
 
 // deal with REORDER
 

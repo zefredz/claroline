@@ -23,6 +23,8 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 $coursePerPage= 20;
 
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 //SECURITY CHECK
 $is_allowedToAdmin     = $is_platformAdmin;
 if (!$is_allowedToAdmin) claro_disp_auth_form();
@@ -189,16 +191,16 @@ $sql = "SELECT  C.*,
 
 if (isset($_SESSION['admin_course_letter']))
 {
-    $toAdd = " AND C.`intitule` LIKE '".$_SESSION['admin_course_letter']."%' ";
+    $toAdd = " AND C.`intitule` LIKE '". addslashes($_SESSION['admin_course_letter']) ."%' ";
     $sql.=$toAdd;
 }
 
 //deal with KEY WORDS classification call
 if (isset($_SESSION['admin_course_search']))
 {
-    $toAdd = " AND (      C.`intitule`  LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
-                       OR C.`fake_code` LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
-                       OR C.`faculte`   LIKE '%".pr_star_replace($_SESSION['admin_course_search'])."%' 
+    $toAdd = " AND (      C.`intitule`  LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%' 
+                       OR C.`fake_code` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%' 
+                       OR C.`faculte`   LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%' 
                )";
     $sql.=$toAdd;
 
@@ -208,28 +210,28 @@ if (isset($_SESSION['admin_course_search']))
 
 if (isset($_SESSION['admin_course_intitule']))    // title of the course keyword is used
 {
-    $toAdd = " AND (C.`intitule` LIKE '%".pr_star_replace($_SESSION['admin_course_intitule'])."%') ";
+    $toAdd = " AND (C.`intitule` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_intitule'])) ."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_course_code']))        // code keyword is used
 {
-    $toAdd = " AND (C.`fake_code` LIKE '%".pr_star_replace($_SESSION['admin_course_code'])."%') ";
+    $toAdd = " AND (C.`fake_code` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_code'])) ."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_course_category']))     // course category keyword is used
 {
-    $toAdd = " AND (C.`faculte` LIKE '%".pr_star_replace($_SESSION['admin_course_category'])."%') ";
+    $toAdd = " AND (C.`faculte` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_category'])) ."%') ";
     $sql.=$toAdd;
 
 }
 
 if (isset($_SESSION['admin_course_language']))    // language filter is used
 {
-    $toAdd = " AND (C.`languageCourse` LIKE '%".$_SESSION['admin_course_language']."%') ";
+    $toAdd = " AND (C.`languageCourse` LIKE '%". addslashes($_SESSION['admin_course_language']) ."%') ";
     $sql.=$toAdd;
 
 }
@@ -290,13 +292,6 @@ if (isset($_SESSION['admin_course_order_crit']))
 $myPager = new claro_sql_pager($sql, $offsetC, $coursePerPage);
 $myPager->set_pager_call_param_name('offsetC');
 $resultList = $myPager->get_result_list();
-
-
-
-
-
-
-
 
 //----------------------------------
 // DISPLAY

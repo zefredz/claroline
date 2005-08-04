@@ -177,38 +177,38 @@ if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="p
 
 if (isset($_SESSION['admin_user_letter']))
 {
-    $sql .= 'AND U.`nom` LIKE "'.$_SESSION['admin_user_letter'].'%" ';
+    $sql .= 'AND U.`nom` LIKE "'. addslashes($_SESSION['admin_user_letter']) .'%" ';
 }
 
 //deal with KEY WORDS classification call
 
 if (isset($_SESSION['admin_user_search']))
 {
-    $sql .= " AND (U.`nom` LIKE '%".pr_star_replace($_SESSION['admin_user_search'])."%'
-              OR U.`prenom` LIKE '%".pr_star_replace($_SESSION['admin_user_search'])."%' ";
-    $sql .= " OR U.`email` LIKE '%".pr_star_replace($_SESSION['admin_user_search'])."%')";
+    $sql .= " AND (U.`nom` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
+              OR U.`prenom` LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
+    $sql .= " OR U.`email` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%')";
 }
 
 //deal with ADVANCED SEARCH parameters call
 
 if (isset($_SESSION['admin_user_firstName']))
 {
-    $sql .= " AND (U.`prenom` LIKE '".pr_star_replace($_SESSION['admin_user_firstName'])."%') ";
+    $sql .= " AND (U.`prenom` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
 }
 
 if (isset($_SESSION['admin_user_lastName']))
 {
-	$sql .= " AND (U.`nom` LIKE '".pr_star_replace($_SESSION['admin_user_lastName'])."%') ";
+	$sql .= " AND (U.`nom` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
 }
 
 if (isset($_SESSION['admin_user_userName']))
 {
-    $sql.= " AND (U.`username` LIKE '".pr_star_replace($_SESSION['admin_user_userName'])."%') ";
+    $sql.= " AND (U.`username` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
 }
 
 if (isset($_SESSION['admin_user_mail']))
 {
-    $sql.= " AND (U.`email` LIKE '".pr_star_replace($_SESSION['admin_user_mail'])."%') ";
+    $sql.= " AND (U.`email` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
 }
 
 if (   isset($_SESSION['admin_user_action']) 
@@ -560,7 +560,8 @@ function isAdminUser($user_id)
     if ( count($admin_list) == 0 )
 
     {
-		$sql = "SELECT `idUser` `admin_id` FROM `".$tbl_admin."` ";
+		$sql = "SELECT `idUser` `admin_id` 
+                FROM `".$tbl_admin."` ";
     	$result = claro_sql_query_fetch_all($sql);
 		foreach($result as $admin_id)
 		{

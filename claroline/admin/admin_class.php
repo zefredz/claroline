@@ -19,8 +19,11 @@
  * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
 //used libraries
+
 require '../inc/claro_init_global.inc.php';
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+
+claro_unquote_gpc();
+
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/class.lib.php");
 
@@ -76,7 +79,8 @@ switch ($cmd)
   
         //check if class contains some children
 
-	$sql = "SELECT * FROM `".$tbl_class."`";
+	$sql = "SELECT * 
+            FROM `".$tbl_class."`";
 	$class_list = claro_sql_query_fetch_all($sql);
 	$has_children = FALSE;
 	foreach ($class_list as $search_parent)
@@ -91,8 +95,9 @@ switch ($cmd)
 	// delete the class itself	
 	if (!$has_children) 
 	{  
-	    $sql = "DELETE FROM `".$tbl_class."` WHERE id='".$_REQUEST['class']."'";      
-            claro_sql_query($sql);
+	    $sql = "DELETE FROM `".$tbl_class."` 
+                WHERE id='". (int)$_REQUEST['class']."'";      
+        claro_sql_query($sql);
 	}
 	else
 	{
@@ -133,14 +138,18 @@ switch ($cmd)
 	else
 	{
 	    $dialogBox = $langNewClassCreated;
-	    $sql = "INSERT INTO `".$tbl_class."` SET `name`='".$_REQUEST['classname']."'";
+	    $sql = "INSERT INTO `".$tbl_class."` 
+                SET `name`='". addslashes($_REQUEST['classname']) ."'";
+
 	    if ($_REQUEST['theclass'] && ($_REQUEST['theclass']!="") && ($_REQUEST['theclass']!="root"))
 	    {
-	        $sql.=", `class_parent_id`='".$_REQUEST['theclass']."'"; 
-            }       
-            claro_sql_query($sql);
-	}
-        break;
+	        $sql.=", `class_parent_id`='". (int)$_REQUEST['theclass']."'"; 
+        }       
+
+        claro_sql_query($sql);
+	
+    }
+    break;
 
   //Edit class properties with posted form	
   case "exEdit" :
@@ -151,17 +160,22 @@ switch ($cmd)
 	}
 	else
 	{
-	    $sql_update = "UPDATE `".$tbl_class."` set name='".$_REQUEST['classname']."' WHERE id='".$_REQUEST['class']."'";
+	    $sql_update = "UPDATE `".$tbl_class."` 
+                       SET name='". addslashes($_REQUEST['classname']) ."' 
+                       WHERE id='". (int)$_REQUEST['class']."'";
 	    claro_sql_query($sql_update);
 	    $dialogBox = $langNameChanged;
 	
 	}
-        break;
+    break;
   
   //Show form to edit class properties (display form)	
   case "edit" :
         
-        $sql = "SELECT name FROM `".$tbl_class."` WHERE `id`= '".$_REQUEST['class']."'";
+        $sql = "SELECT name 
+                FROM `".$tbl_class."` 
+                WHERE `id`= '". (int)$_REQUEST['class']."'";
+
     	$result =  claro_sql_query_fetch_all($sql);
         $class_name = $result[0]['name'];
 	
@@ -196,25 +210,28 @@ switch ($cmd)
   //Move a class in the tree (do it from posted info)
   case "exMove" : 
       
-      if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId']) 
-      {
-          $dialogBox = $langErrorMove;
-      }
-      else
-      {
-          if ($_REQUEST['theclass']=="root")
-	  {
-	     $parent="null"; 
-	  }
-	  else
-	  {
-	     $parent = $_REQUEST['theclass'];
-	  }
-	  $sql_update="UPDATE `".$tbl_class."` set class_parent_id=".$parent." WHERE id='".$_REQUEST['movedClassId']."'";
-          claro_sql_query($sql_update);
-          $dialogBox = $langClassMoved;
-      }
-      break;
+    if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId']) 
+    {
+        $dialogBox = $langErrorMove;
+    }
+    else
+    {
+        if ($_REQUEST['theclass']=="root")
+        {
+            $parent="null"; 
+        }
+        else
+        { 
+            $parent = $_REQUEST['theclass'];
+        }
+
+	    $sql_update="UPDATE `".$tbl_class."` 
+                     SET class_parent_id=". (int)$parent." 
+                     WHERE id='". (int)$_REQUEST['movedClassId']."'";
+        claro_sql_query($sql_update);
+        $dialogBox = $langClassMoved;
+    }
+    break;
       
   //Move a class in the tree (display form)
   case "move" : 
@@ -243,7 +260,9 @@ switch ($cmd)
 /*	Get information 	             */
 /*-----------------------------------*/
 
-$sql = "SELECT * FROM `".$tbl_class."` ORDER BY `name`";
+$sql = "SELECT * 
+        FROM `".$tbl_class."` 
+        ORDER BY `name`";
 $class_list = claro_sql_query_fetch_all($sql);
 
 /*-----------------------------------*/

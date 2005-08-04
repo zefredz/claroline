@@ -136,7 +136,7 @@ switch ($cmd)
 $uidToEdit = (int) $_REQUEST['uidToEdit'];
 $sqlTitle = "SELECT *
              FROM `".$tbl_user."`
-             WHERE `user_id` = '".$uidToEdit."'
+             WHERE `user_id` = '". (int)$uidToEdit."'
              ";
 
 $resultTitle = claro_sql_query_fetch_all($sqlTitle);
@@ -147,7 +147,7 @@ $sql = "SELECT  * , IF(CU.statut=1,'COURSE_MANAGER','STUDENT') cu_statut
         FROM `".$tbl_course."` AS C ";
 
 $toAdd = ", `".$tbl_rel_course_user."` AS CU ";
-$toAdd .=" WHERE CU.`code_cours` = C.`code`  AND CU.`user_id` = ".$uidToEdit;
+$toAdd .=" WHERE CU.`code_cours` = C.`code`  AND CU.`user_id` = ". (int)$uidToEdit;
 
 $sql.=$toAdd;
 
@@ -156,7 +156,7 @@ $sql.=$toAdd;
 
 if (isset($_REQUEST['letter']))
 {
-    $toAdd = " AND C.`intitule` LIKE '%".$_REQUEST['letter']."%' ";
+    $toAdd = " AND C.`intitule` LIKE '%". addslashes($_REQUEST['letter']) ."%' ";
     $sql.=$toAdd;
 }
 
@@ -164,8 +164,8 @@ if (isset($_REQUEST['letter']))
 
 if (isset($_REQUEST['search']))
 {
-    $toAdd = " AND (    C.`intitule` LIKE '%".$_REQUEST['search']."%' 
-	                 OR C.`code` LIKE '%".$_REQUEST['search']."%'
+    $toAdd = " AND (    C.`intitule` LIKE '%". addslashes($_REQUEST['search']) ."%' 
+	                 OR C.`code` LIKE '%". addslashes($_REQUEST['search']) ."%'
 				   )";
     $sql.=$toAdd;
 }

@@ -13,6 +13,8 @@
 
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 include($includePath.'/lib/pager.lib.php');
 include($includePath.'/lib/class.lib.php');
 include($includePath.'/lib/admin.lib.inc.php');
@@ -87,10 +89,12 @@ switch ($cmd)
 {
 
     case 'unsubscribe' :
-        $sql = "DELETE FROM `".$tbl_class_user."` WHERE `user_id`='".$_REQUEST['userid']."'";
+        $sql = "DELETE FROM `".$tbl_class_user."` 
+                WHERE `user_id`='". (int)$_REQUEST['userid']."'";
         claro_sql_query($sql);
         $dialogBox = $langUserUnregisteredFromClass;
         break;
+
     default :
         // No command
    
@@ -102,16 +106,18 @@ switch ($cmd)
 
 //find info about the class
 
-$sqlclass = "SELECT * FROM `".$tbl_class."` WHERE `id`='".$_SESSION['admin_user_class_id']."'";
+$sqlclass = "SELECT * 
+             FROM `".$tbl_class."`
+             WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 //find this current content
 
 $sql = "SELECT *
         FROM `".$tbl_user."` AS U 
-	LEFT JOIN `".$tbl_class_user."` AS CU
-	ON U.`user_id`= CU.`user_id`
-	WHERE `class_id`='".$_SESSION['admin_user_class_id']."'
+        	LEFT JOIN `".$tbl_class_user."` AS CU
+	        ON U.`user_id`= CU.`user_id`
+	    WHERE `class_id`='". (int)$_SESSION['admin_user_class_id']."'
         ";
 
 
@@ -126,7 +132,6 @@ elseif (!isset($_SESSION['admin_user_class_dir']))
 {
     $_SESSION['admin_user_class_dir'] = 'DESC';
 }
-
 
 // deal with REORDER
 
@@ -158,10 +163,8 @@ else
     $offset = $_REQUEST['offset'];
 }
 
-
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
-
 
 //------------------------------------
 // DISPLAY

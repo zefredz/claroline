@@ -23,6 +23,7 @@ $gidReset=TRUE;
 $tidReset=TRUE;
 
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
 
 // clean session if we come from a course
 unset($_SESSION['_cid']);
@@ -128,8 +129,9 @@ $courseData = claro_get_course_data($cidToEdit);
 $sql = "SELECT *, IF(CU.statut=1,'COURSE_MANAGER','STUDENT') `stat`
         FROM  `" . $tbl_user . "` AS U
         ";
-$toAdd = ", `" . $tbl_course_user . "` AS CU WHERE CU.`user_id` = U.`user_id`
-          AND CU.`code_cours` = '" . $cidToEdit . "'
+$toAdd = ", `" . $tbl_course_user . "` AS CU 
+          WHERE CU.`user_id` = U.`user_id`
+            AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'
         ";
 $sql.=$toAdd;
 
@@ -137,16 +139,16 @@ $sql.=$toAdd;
 if (isset($_REQUEST['letter']))
 {
     $toAdd = "
-             AND U.`nom` LIKE '" . $_REQUEST['letter'] . "%'
+             AND U.`nom` LIKE '" . addslashes($_REQUEST['letter']) . "%'
              ";
     $sql.=$toAdd;
 }
 //deal with KEY WORDS classification call
 if (isset($_REQUEST['search']))
 {
-    $toAdd = " AND ((U.`nom` LIKE '%" . $_REQUEST['search'] . "%'
-              OR U.`username` LIKE '%" . $_REQUEST['search'] . "%'
-              OR U.`prenom` LIKE '%" . $_REQUEST['search'] . "%')) ";
+    $toAdd = " AND ((U.`nom` LIKE '%" . addslashes($_REQUEST['search']) . "%'
+              OR U.`username` LIKE '%" . addslashes($_REQUEST['search']) . "%'
+              OR U.`prenom` LIKE '%" . addslashes($_REQUEST['search']) . "%')) ";
     $sql.=$toAdd;
 }
 // deal with REORDER

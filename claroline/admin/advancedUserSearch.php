@@ -12,6 +12,8 @@
 //----------------------------------------------------------------------
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
+claro_unquote_gpc();
+
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
 
@@ -52,7 +54,9 @@ $nameTools = $langSearchUserAdvanced;
 
 // Search needed info in db to creat the right formulaire
 
-$sql_searchfaculty = 'select * FROM `'.$tbl_course_nodes.'` order by `treePos`';
+$sql_searchfaculty = 'SELECT * 
+                      FROM `'.$tbl_course_nodes.'`
+                      ORDER BY `treePos`';
 $arrayFaculty=claro_sql_query_fetch_all($sql_searchfaculty);
 
 //retrieve needed parameters from URL to prefill search form
