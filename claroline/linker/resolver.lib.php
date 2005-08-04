@@ -203,7 +203,9 @@ class Resolver
                 $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray['dbNameGlu']);
                 $tbl_group = $tbl_cdb_names['group_team'];
 
-                $sql = 'SELECT `forumId` FROM `' . $tbl_group . '` WHERE `id` =' . $elementCRLArray['team'];
+                $sql = 'SELECT `forumId` 
+                        FROM `' . $tbl_group . '` 
+                        WHERE `id` =' . (int)$elementCRLArray['team'];
                 $forumId = claro_sql_query_get_single_value($sql);
 
                 $url = $this->_basePath . '/claroline/phpbb/viewforum.php'
@@ -233,7 +235,9 @@ class Resolver
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl = $tbl_mdb_names['tool'];
 
-        $sql = "SELECT `script_url` FROM `" . $tbl . "` WHERE `claro_label`= '" . $toolName . "'";
+        $sql = "SELECT `script_url` 
+                FROM `" . $tbl . "` 
+                WHERE `claro_label`= '" . addslashes($toolName) . "'";
         $toolPath = claro_sql_query_get_single_value($sql);
 
         return $toolPath;

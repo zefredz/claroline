@@ -65,8 +65,9 @@ class CourseResolver extends Resolver
         !isset( $elementCRLArray['resource_id']) )
         {
 
-            $sql = "SELECT `directory` FROM `" . $tbl_course . "` "
-            .      "WHERE `code`= '" . addslashes($elementCRLArray['course_sys_code']) . "'";
+            $sql = "SELECT `directory` 
+                    FROM `" . $tbl_course . "`
+                    WHERE `code`= '" . addslashes($elementCRLArray['course_sys_code']) . "'";
             $directory = claro_sql_query_get_single_value($sql);
             $url = $this->_basePath . $directory . '/';
 

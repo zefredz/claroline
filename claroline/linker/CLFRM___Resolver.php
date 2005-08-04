@@ -178,7 +178,9 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_forums = $tbl_cdb_names['bb_forums'];
             
-            $sql = 'SELECT `forum_name` FROM `'.$tbl_forums.'` WHERE `forum_id` = '.$idForum.'';
+            $sql = 'SELECT `forum_name` 
+                    FROM `'.$tbl_forums.'` 
+                    WHERE `forum_id` = '. (int)$idForum.'';
             $forum = claro_sql_query_get_single_value($sql);
 
             return $forum;
@@ -197,7 +199,9 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_topics = $tbl_cdb_names['bb_topics'];
             
-            $sql = 'SELECT `topic_title`  FROM `'.$tbl_topics.'` WHERE `topic_id` = '.$idTopic.'';
+            $sql = 'SELECT `topic_title`  
+                    FROM `'.$tbl_topics.'` 
+                    WHERE `topic_id` = '. (int)$idTopic.'';
             $topic = claro_sql_query_get_single_value($sql);
 
             return $topic;

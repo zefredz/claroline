@@ -165,7 +165,7 @@
             $sql = 'SELECT `code` , `intitule` , `fake_code`
                     FROM `'.$mainTbl['rel_course_user'].'`, `'.$mainTbl["course"].'`
                     WHERE `'.$mainTbl["course"].'`.`code` =`'.$mainTbl['rel_course_user'].'`.`code_cours`
-                    AND `'.$mainTbl['rel_course_user'].'`.`user_id` = '.$_uid;
+                    AND `'.$mainTbl['rel_course_user'].'`.`user_id` = '. (int)$_uid;
 
 
             $otherCourseInfo = claro_sql_query_fetch_all($sql);
@@ -186,7 +186,9 @@
 
             $mainTbl = claro_sql_get_main_tbl();
 
-            $sql = "SELECT `code` , `intitule` , `fake_code` FROM `".$mainTbl["course"]."` WHERE  `visible` = 2 or `visible` = 3";
+            $sql = "SELECT `code` , `intitule` , `fake_code` 
+                    FROM `".$mainTbl["course"]."` 
+                    WHERE  `visible` = 2 or `visible` = 3";
             $publicCoursesInfo = claro_sql_query_fetch_all($sql);
 
 	    	return $publicCoursesInfo;
@@ -493,7 +495,8 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_groups = $tbl_cdb_names['group_property'];
             
-        	$sql = 'SELECT `id`,`forum`,`document`,`wiki`,`chat` FROM `'.$tbl_groups.'`';
+        	$sql = 'SELECT `id`,`forum`,`document`,`wiki`,`chat` 
+                    FROM `'.$tbl_groups.'`';
         	$groups = claro_sql_query_fetch_all($sql);
         	
         	return $groups;

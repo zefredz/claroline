@@ -128,7 +128,7 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_description = $tbl_cdb_names['course_description'];
 
-            $sql = 'SELECT `id`,`title`,`content` FROM `'.$tbl_description.'` WHERE `id`='.$id;
+            $sql = 'SELECT `id`,`title`,`content` FROM `'.$tbl_description.'` WHERE `id`='. (int)$id;
             $descriptionInfo = claro_sql_query_fetch_all($sql);
                        
             return $descriptionInfo;

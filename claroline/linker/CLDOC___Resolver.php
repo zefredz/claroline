@@ -177,7 +177,7 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_group = $tbl_cdb_names['group_team'];
                        
-            $sql = 'SELECT `secretDirectory` FROM `'.$tbl_group.'` WHERE `id` ='.$elementCRLArray["team"];
+            $sql = 'SELECT `secretDirectory` FROM `'.$tbl_group.'` WHERE `id` ='. (int)$elementCRLArray["team"];
             $secretDirectory = claro_sql_query_get_single_value($sql);
             
             return $secretDirectory;

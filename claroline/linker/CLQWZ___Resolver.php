@@ -126,7 +126,9 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_exercice = $tbl_cdb_names['quiz_test'];
 
-            $sql = 'SELECT `titre` FROM '.$tbl_exercice.' WHERE `id`='.$id;
+            $sql = 'SELECT `titre` 
+                    FROM '.$tbl_exercice.' 
+                    WHERE `id`='. (int)$id;
             $exerciceTitle = claro_sql_query_get_single_value($sql);
             
             return $exerciceTitle;

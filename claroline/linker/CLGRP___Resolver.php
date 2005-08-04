@@ -109,7 +109,9 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_groups = $tbl_cdb_names['group_team'];
             
-            $sql = 'SELECT `name`,`description` FROM `'.$tbl_groups.'`WHERE `id`='.$id;
+            $sql = 'SELECT `name`,`description` 
+                    FROM `'.$tbl_groups.'`
+                    WHERE `id`='. (int)$id;
             $annonceInfo = claro_sql_query_fetch_all($sql);
 
             return $annonceInfo;

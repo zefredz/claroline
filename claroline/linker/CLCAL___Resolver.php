@@ -173,7 +173,7 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_agenda = $tbl_cdb_names['calendar_event'];
 
-            $sql = 'SELECT `titre`,`day`,`contenu` FROM `'.$tbl_agenda.'` WHERE `id`='.$id;
+            $sql = 'SELECT `titre`,`day`,`contenu` FROM `'.$tbl_agenda.'` WHERE `id`='. (int)$id;
             $agendaInfo = claro_sql_query_fetch_all($sql);
             
             return $agendaInfo;

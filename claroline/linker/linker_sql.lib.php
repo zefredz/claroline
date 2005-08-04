@@ -126,7 +126,10 @@
         $destination_id = linker_insert_resource($crlDestination);
        
         //check if the link already exist
-        $sql = "SELECT `id` FROM `" . $tbl_links . "` WHERE `src_id` = " . $source_id . " AND `dest_id` = " . $destination_id ;
+        $sql = "SELECT `id` 
+                FROM `" . $tbl_links . "` 
+                WHERE `src_id` = " . (int)$source_id . "
+                  AND `dest_id` = " . (int)$destination_id ;
         $result = claro_sql_query_fetch_all($sql); 
         
         if( isset($result[0]) )
@@ -137,7 +140,7 @@
         if( !isset($isLink) )
         {
            $sql = "INSERT INTO `" . $tbl_links . "` (`id`, `src_id` , `dest_id` ) "
-           .      "VALUES ('', '" . $source_id . "', '" . $destination_id . "')";
+           .      "VALUES ('', '" . (int)$source_id . "', '" . (int)$destination_id . "')";
            if ( claro_sql_query_affected_rows($sql) == 1  )
            {
                    return 1;
@@ -178,12 +181,16 @@
             $destination_id = linker_insert_course_in_main_db( $elementCrlDestination['course_sys_code'] );
             
             //check if the link already exist
-               $sql = 'SELECT `id` FROM `'.$tbl_links.'` WHERE `src_id` = '.$source_id.' AND `dest_id` = '.$destination_id ;
+            $sql = 'SELECT `id` 
+                    FROM `'.$tbl_links.'` 
+                    WHERE `src_id` = '. (int)$source_id.' 
+                      AND `dest_id` = '. (int)$destination_id ;
             $isExist = claro_sql_query_get_single_value($sql);
              
             if( $isExist == FALSE )
             {
-                $sql = "INSERT INTO `".$tbl_links."` (`id`, `src_id` , `dest_id` ) VALUES ('', '$source_id', '$destination_id')";
+                $sql = "INSERT INTO `".$tbl_links."` (`id`, `src_id` , `dest_id` ) 
+                        VALUES ('', '" . (int)$source_id . "', '" . (int)$destination_id . "')";
                 $id = claro_sql_query_insert_id($sql);
             }   
             else
@@ -208,7 +215,9 @@
         $tbl_links = $tbl_cdb_names['links'];
         $tbl_resources = $tbl_cdb_names['resources'];
         
-        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` = "'.addslashes($crlSource).'"';
+        $sql = 'SELECT `id` 
+                FROM `'.$tbl_resources.'` 
+                WHERE `crl` = "'.addslashes($crlSource).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -216,7 +225,9 @@
             $sourceId = $result[0]['id'];
         }    
         
-        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` = "'.addslashes($crlDestination).'"';
+        $sql = 'SELECT `id` 
+                FROM `'.$tbl_resources.'` 
+                WHERE `crl` = "'.addslashes($crlDestination).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -226,8 +237,9 @@
         
         if( isset($sourceId) && isset($destId) )
         {
-            $sql = "DELETE FROM `".$tbl_links."` WHERE `dest_id` = ".$destId." AND `src_id` = ".$sourceId;
-             
+            $sql = "DELETE FROM `".$tbl_links."` 
+                    WHERE `dest_id` = ". (int)$destId." 
+                      AND `src_id` = ". (int)$sourceId;             
         
             if ( claro_sql_query_affected_rows($sql) == 1  )
             {
@@ -255,7 +267,8 @@
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_resources = $tbl_cdb_names['resources'];
         
-        $sql = "SELECT `id` FROM `" . $tbl_resources . "` WHERE `crl` = '".addslashes($resource) . "'";
+        $sql = "SELECT `id` FROM `" . $tbl_resources . "`
+                WHERE `crl` = '".addslashes($resource) . "'";
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -269,7 +282,8 @@
             $res = new Resolver("");
             $title = $res->getResourceName($resource);
             
-            $sql = "INSERT INTO `".$tbl_resources."` (`id`, `crl`, `title`) VALUES ('', '".addslashes($resource)."' , '".addslashes($title)."')";
+            $sql = "INSERT INTO `".$tbl_resources."` (`id`, `crl`, `title`) 
+                    VALUES ('', '".addslashes($resource)."' , '".addslashes($title)."')";
             $resource_id = claro_sql_query_insert_id($sql);
         }
         else
@@ -316,12 +330,15 @@
         $tbl_cdb_names = claro_sql_get_main_tbl();
         $tbl_resources = $tbl_cdb_names['resources'];            
 
-        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `course` = "'.$course_sys_code.'"';
+        $sql = 'SELECT `id` 
+                FROM `'.$tbl_resources.'` 
+                WHERE `course` = "'. addslashes($course_sys_code).'"';
         $result = claro_sql_query_get_single_value($sql);
          
         if( $result == FALSE )
         {
-            $sql = "INSERT INTO `".$tbl_resources."` (`id`, `course`) VALUES ('', '$course_sys_code')";
+            $sql = "INSERT INTO `".$tbl_resources."` (`id`, `course`) 
+                    VALUES ('', '" . addslashes($course_sys_code) . "')";
             $resource_id = claro_sql_query_insert_id($sql);        
             
             return $resource_id;
@@ -345,7 +362,11 @@
         $tbl_links = $tbl_cdb_names['links'];
         $tbl_resources = $tbl_cdb_names['resources'];
 
-        $sql = "SELECT `dest`.`crl`,`dest`.`title` FROM `".$tbl_links."` as `l`,`".$tbl_resources."` as `dest`,`".$tbl_resources."` as `src` WHERE `src`.`crl` = '".$crl_source."' and `dest`.`id` = `l`.`dest_id` and  `src`.`id` = `l`.`src_id`";
+        $sql = "SELECT `dest`.`crl`,`dest`.`title` 
+                FROM `".$tbl_links."` as `l`,`".$tbl_resources."` as `dest`,`".$tbl_resources."` as `src` 
+                WHERE `src`.`crl` = '". addslashes($crl_source) ."' 
+                  AND `dest`.`id` = `l`.`dest_id` 
+                  AND `src`.`id` = `l`.`src_id`";
         $linkList = claro_sql_query_fetch_all($sql); 
          
         return $linkList;

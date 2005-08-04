@@ -82,10 +82,14 @@
                         $tbl_group = $this->_tbl_cdb_names['group_team'];
                         $tbl_topics = $this->_tbl_cdb_names['bb_topics'];
                         
-                        $sql = 'SELECT `forumId` FROM `'.$tbl_group.'` WHERE `id` ='.$elementCRLArray["team"];
+                        $sql = 'SELECT `forumId` 
+                                FROM `'.$tbl_group.'` 
+                                WHERE `id` ='. (int)$elementCRLArray["team"];
                         $forumId = claro_sql_query_get_single_value($sql);
                         
-                        $sql = 'SELECT `topic_id`,`topic_title` FROM `'.$tbl_topics.'` WHERE `forum_id` ='.$forumId;
+                        $sql = 'SELECT `topic_id`,`topic_title` 
+                                FROM `'.$tbl_topics.'` 
+                                WHERE `forum_id` ='. (int)$forumId;
                         $groupTopicList = claro_sql_query_fetch_all($sql);
                         $elementList = array();
                         $name = "";
@@ -171,7 +175,9 @@
         function _listCat()
         {
             $tbl_categories = $this->_tbl_cdb_names['bb_categories'];
-            $sql = 'SELECT `cat_id` ,`cat_title` FROM `'.$tbl_categories.'`WHERE `cat_id` !=1';
+            $sql = 'SELECT `cat_id` ,`cat_title` 
+                    FROM `'.$tbl_categories.'`
+                    WHERE `cat_id` !=1';
 
             $categories = claro_sql_query_fetch_all($sql);
             
@@ -187,7 +193,9 @@
         function _listForum($idCat)
         {
             $tbl_forums = $this->_tbl_cdb_names['bb_forums'];
-            $sql = 'SELECT `forum_id` , `forum_name` FROM `'.$tbl_forums.'` WHERE `cat_id` = '.$idCat.'';
+            $sql = 'SELECT `forum_id` , `forum_name` 
+                    FROM `'.$tbl_forums.'` 
+                    WHERE `cat_id` = '. (int)$idCat.'';
             $forum = claro_sql_query_fetch_all($sql);
 
             return $forum;
@@ -202,7 +210,9 @@
         function _listTopic($idForum)
         {
             $tbl_topics = $this->_tbl_cdb_names['bb_topics'];
-            $sql = 'SELECT `topic_id` , `topic_title`  FROM `'.$tbl_topics.'` WHERE `forum_id` = '.$idForum.'';
+            $sql = 'SELECT `topic_id` , `topic_title`  
+                    FROM `'.$tbl_topics.'` 
+                    WHERE `forum_id` = '. (int)$idForum.'';
             $topic = claro_sql_query_fetch_all($sql);
 
             return $topic;

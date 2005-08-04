@@ -129,7 +129,9 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_work = $tbl_cdb_names['wrk_assignment'];
             
-            $sql = 'SELECT `title` FROM `'.$tbl_work.'` WHERE `id`='.$id; 
+            $sql = 'SELECT `title` 
+                    FROM `'.$tbl_work.'` 
+                    WHERE `id`='. (int)$id; 
             $workTitle = claro_sql_query_get_single_value($sql);
             
             return $workTitle;

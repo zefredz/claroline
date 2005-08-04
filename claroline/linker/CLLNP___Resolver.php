@@ -129,7 +129,9 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_learnPath = $tbl_cdb_names['lp_learnPath'];
             
-            $sql = 'SELECT `name` FROM `'.$tbl_learnPath.'` WHERE `learnPath_id` ='.$id; 
+            $sql = 'SELECT `name` 
+                    FROM `'.$tbl_learnPath.'` 
+                    WHERE `learnPath_id` ='. (int)$id; 
             $lpTitle = claro_sql_query_get_single_value($sql);
             
             return $lpTitle;

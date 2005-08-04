@@ -123,7 +123,8 @@
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_learnPath = $tbl_cdb_names['lp_learnPath'];
 
-            $sql = 'SELECT `learnPath_id`,`name`,`visibility` FROM `'.$tbl_learnPath.'`';
+            $sql = 'SELECT `learnPath_id`,`name`,`visibility` 
+                    FROM `'.$tbl_learnPath.'`';
             $learnPath = claro_sql_query_fetch_all($sql);
             
             return $learnPath;
