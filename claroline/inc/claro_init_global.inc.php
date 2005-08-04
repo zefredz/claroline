@@ -75,6 +75,7 @@ session_start();
 
 include( $includePath . '/lib/claro_main.lib.php' );
 
+// unquote GPC if magic quote gpc enabled
 claro_unquote_gpc();
 
 /*----------------------------------------------------------------------
