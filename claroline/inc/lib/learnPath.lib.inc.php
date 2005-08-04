@@ -284,7 +284,7 @@ function nameBox($type, $mode)
             }
             else
             {
-                echo '<font color="red">' . $langErrorNameAlreadyExists . '</font><br>';
+                echo $langErrorNameAlreadyExists . '<br />';
                 $dsp = TRUE;
             }
         }
@@ -297,7 +297,7 @@ function nameBox($type, $mode)
             $query = claro_sql_query($sql);
             $oldName = @mysql_fetch_array($query);
             echo '<form method="POST" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
-            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlentities($oldName['name']).'">'
+            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName['name']).'">'
             .    '<br />' . "\n"
             .    '<input type="hidden" name="cmd" value="updateName">' ."\n"
             .    '<input type="submit" value="' . $langOk . '">' . "\n"
@@ -644,7 +644,7 @@ function display_my_exercises($dialogBox)
     global $langAddModule;
     global $langAddModulesButton;
     global $langExercise;
-    global $langNoMoreModuleToAdd;
+    global $langNoEx;
     global $langAddOneModuleButton;
     global $imgRepositoryWeb;
 
@@ -653,9 +653,9 @@ function display_my_exercises($dialogBox)
     DIALOG BOX SECTION
     --------------------------------------*/
     $colspan = 4;
-    if ($dialogBox)
+    if( !empty($dialogBox) )
     {
-        echo claro_disp_message_box($dialogBox);
+        echo claro_disp_message_box($dialogBox).'<br />';
     }
     echo '<table class="claroTable" width="100%" border="0" cellspacing="">'
     .    '<tr class="headerX" align="center" valign="top">'
@@ -696,7 +696,7 @@ function display_my_exercises($dialogBox)
         {
             echo '<tr>'
             .    '<td>&nbsp;</td>'
-            .    '<td colspan="5">'
+            .    '<td>'
             .    '<small>' . $exercise['description'] . '</small>'
             .    '</td>'
             .    '</tr>'
@@ -705,25 +705,24 @@ function display_my_exercises($dialogBox)
         $atleastOne = true;
     }//end while another module to display
     echo '</tbody><tfoot>';
-    if ($atleastOne == false) 
+    if( !$atleastOne )
     {
-        echo '<tr><td colspan="6">'
-        .    '<font color="red">'
-        .    $langNoMoreModuleToAdd
-        .    '</font></td></tr>'
+        echo '<tr><td colspan="2" align="center">'
+        .    $langNoEx
+        .    '</td></tr>'
         ;
     }
 
     // Display button to add selected modules
 
     echo '<tr>'
-    .    '<td colspan="6">'
+    .    '<td colspan="2">'
     .    '<hr noshade size="1">'
     .    '</td></tr>'
     ;
-    if ($atleastOne == TRUE) 
+    if( $atleastOne )
     {
-        echo '<tr><td colspan="6">'
+        echo '<tr><td colspan="2">'
         .    '<input type="submit" name="insertExercise" value="'.$langAddModulesButton.'">'
         .    '</td></tr>'
         ;
@@ -753,6 +752,7 @@ function display_my_documents($dialogBox)
     global $curDirPath;
     global $parentDir;
 
+	global $langAddModule;
     global $langUp;
     global $langName;
     global $langSize;
@@ -762,14 +762,13 @@ function display_my_documents($dialogBox)
 
     global $fileList;
     global $imgRepositoryWeb;
-    global $color2;
 
     /**
      * DISPLAY
      */
     echo '<!-- display_my_documents output -->' . "\n";
 
-    $dspCurDirName = htmlentities($curDirName);
+    $dspCurDirName = htmlspecialchars($curDirName);
     $cmdCurDirPath = rawurlencode($curDirPath);
     $cmdParentDir  = rawurlencode($parentDir);
 
@@ -780,7 +779,7 @@ function display_my_documents($dialogBox)
     DIALOG BOX SECTION
     --------------------------------------*/
     $colspan = 4;
-    if (isset($dialogBox) && $dialogBox !="")
+    if( !empty($dialogBox) )
     {
         echo claro_disp_message_box($dialogBox);
     }
@@ -814,7 +813,7 @@ function display_my_documents($dialogBox)
     }
 
     echo '<tr class="headerX" align="center" valign="top">'
-    .    '<th>&nbsp;</th>' . "\n"
+    .    '<th>' . $langAddModule . '</th>' . "\n"
     .    '<th>' . $langName . '</th>' . "\n"
     .    '<th>' . $langSize . '</th>' . "\n"
     .    '<th>' . $langDate . '</th>' . "\n"
@@ -833,7 +832,7 @@ function display_my_documents($dialogBox)
         while ( list( $fileKey, $fileName ) = each ( $fileList['name'] ) )
         {
 
-            $dspFileName = htmlentities($fileName);
+            $dspFileName = htmlspecialchars($fileName);
             $cmdFileName = rawurlencode($curDirPath."/".$fileName);
 
             if ($fileList['visibility'][$fileKey] == "i")
@@ -904,35 +903,39 @@ function display_my_documents($dialogBox)
 
             if ($fileList['comment'][$fileKey] != "" )
             {
-                $fileList['comment'][$fileKey] = htmlentities($fileList['comment'][$fileKey]);
+                $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
                 $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
 
-                echo        "<tr align=\"left\">\n",
-                "<td>&nbsp;</td>",
-                "<td colspan=\"$colspan\">",
-                "<div class=\"comment\">",
-                $fileList['comment'][$fileKey],
-                "</div>",
-                "</td>\n",
-                "</tr>\n";
+                echo '<tr align="left">'."\n"
+                	.'<td>&nbsp;</td>'."\n"
+                	.'<td colspan="'.$colspan.'">'."\n"
+                	.'<div class="comment">'
+                	.$fileList['comment'][$fileKey]
+	                .'</div>'."\n"
+	                .'</td>'."\n"
+	                .'</tr>'."\n";
             }
-        }                                // end each ($fileList)
+        }  // end each ($fileList)
         // form button
-        echo "</tbody><tfoot>";
-        echo "<tr><td colspan=\"6\"><hr noshade size=\"1\"></td></tr>";
+        echo '</tbody><tfoot>'
+        	.'<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
 
-        echo "<tr>
-                            <td colspan=\"$colspan\" align=\"left\">
-                             <input type=\"hidden\" name=\"openDir\" value =\"$curDirPath\" />
-                             <input type=\"hidden\" name=\"maxDocForm\" value =\"$iterator\" />
-                             <input type=\"submit\" name=\"submitInsertedDocument\" value=\"$langAddModulesButton\" />
-                             </td>
-                            </tr>";
-    }                                        // end if ( $fileList)
+        echo '<tr>'."\n"
+			.'<td colspan="'.$colspan.'" align="left">'."\n"
+			.'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
+			.'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
+			.'<input type="submit" name="submitInsertedDocument" value="'.$langAddModulesButton.'" />'."\n"
+			.'</td>'."\n"
+			.'</tr>'."\n";
+    } // end if ( $fileList)
+	else
+	{
+		echo '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
+    }
 
-    echo        "</tfoot></table>\n",
-    "</form>\n";
-    echo        "<!-- end of display_my_documents output -->\n";
+	echo '</tfoot></table>'."\n"
+    	.'</form>'."\n"
+    	.'<!-- end of display_my_documents output -->'."\n";
 
 }
 
