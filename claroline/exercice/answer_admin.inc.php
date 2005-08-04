@@ -670,7 +670,7 @@ if( isset($modifyAnswers) )
 				if( $answerType != TRUEFALSE )
 				{
 					echo '<textarea wrap="virtual" rows="7" cols="25" name="reponse['.$i.']">';
-					if( isset($reponse[$i]) ) echo htmlentities($reponse[$i]);
+					if( isset($reponse[$i]) ) echo htmlspecialchars($reponse[$i]);
 					echo '</textarea>';
 				}
 				elseif( $answerType == TRUEFALSE )
@@ -685,7 +685,7 @@ if( isset($modifyAnswers) )
 ?>
 
   </td>
-  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="comment[<?php echo $i; ?>]"><?php if(isset($comment[$i])) echo htmlentities($comment[$i]); ?></textarea></td>
+  <td align="left"><textarea wrap="virtual" rows="7" cols="25" name="comment[<?php echo $i; ?>]"><?php if(isset($comment[$i])) echo htmlspecialchars($comment[$i]); ?></textarea></td>
   <td valign="top"><input type="text" name="weighting[<?php echo $i; ?>]" size="5" value="<?php echo isset($weighting[$i])?$weighting[$i]:0; ?>"></td>
 </tr>
 
@@ -727,7 +727,7 @@ if( isset($modifyAnswers) )
 			{
 ?>
 
-<input type="hidden" name="weighting" value="<?php echo isset($_REQUEST['submitAnswers'])?htmlentities($weighting):htmlentities(serialize($weighting)); ?>">
+<input type="hidden" name="weighting" value="<?php echo isset($_REQUEST['submitAnswers'])?htmlspecialchars($weighting):htmlspecialchars(serialize($weighting)); ?>">
 
 <?php
 				// if there is an error message
@@ -740,7 +740,7 @@ if( isset($modifyAnswers) )
 	<?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?>&nbsp;:
 </p>
 
-<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlentities($reponse); ?></textarea>
+<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlspecialchars($reponse); ?></textarea>
 
 <p>
 	<?php echo $langFillType; ?>&nbsp;:
@@ -765,10 +765,10 @@ if( isset($modifyAnswers) )
 			{
 ?>
 
-<input type="hidden" name="blanks" value="<?php echo htmlentities(serialize($blanks)); ?>">
-<input type="hidden" name="reponse" value="<?php echo htmlentities($reponse); ?>">
+<input type="hidden" name="blanks" value="<?php echo htmlspecialchars(serialize($blanks)); ?>">
+<input type="hidden" name="reponse" value="<?php echo htmlspecialchars($reponse); ?>">
 <input type="hidden" name="fillType" value="<?php if(isset($fillType)) echo $fillType; ?>">
-<input type="hidden" name="wrongAnswers" value="<?php if(isset($wrongAnswers)) echo htmlentities($wrongAnswers); ?>">
+<input type="hidden" name="wrongAnswers" value="<?php if(isset($wrongAnswers)) echo htmlspecialchars($wrongAnswers); ?>">
 
 <?php
 				// if there is an error message
@@ -861,7 +861,7 @@ if( isset($modifyAnswers) )
 				}
 				else
 				{
-					 if( isset($match[$i]) ) $inputValue = htmlentities($match[$i]);
+					 if( isset($match[$i]) ) $inputValue = htmlspecialchars($match[$i]);
 				}
 ?>
 
@@ -910,7 +910,7 @@ if( isset($modifyAnswers) )
 				}
 				else
 				{
-					 if( isset($option[$key]) ) $inputValue = htmlentities($option[$key]);
+					 if( isset($option[$key]) ) $inputValue = htmlspecialchars($option[$key]);
 				}
 ?>
 

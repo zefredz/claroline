@@ -213,7 +213,7 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
 
 <tr>
   <td><label for="questionName"><?php echo $langQuestionTitle; ?> :</label></td>
-  <td><input type="text" name="questionName" id="questionName" size="50" maxlength="200" value="<?php echo htmlentities($questionName); ?>" style="width:400px;"></td>
+  <td><input type="text" name="questionName" id="questionName" size="50" maxlength="200" value="<?php echo htmlspecialchars($questionName); ?>" style="width:400px;"></td>
 </tr>
 <tr>
   <td valign="top"><label for="questionDescription"><?php echo $langQuestionDescription; ?> :</label></td>

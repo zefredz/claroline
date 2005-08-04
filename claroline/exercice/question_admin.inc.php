@@ -51,12 +51,12 @@ if( isset($usedInSeveralExercises) )
 	{
 ?>
 
-    <input type="hidden" name="questionName" value="<?php echo htmlentities($questionName); ?>">
-    <input type="hidden" name="questionDescription" value="<?php echo htmlentities($questionDescription); ?>">
+    <input type="hidden" name="questionName" value="<?php echo htmlspecialchars($questionName); ?>">
+    <input type="hidden" name="questionDescription" value="<?php echo htmlspecialchars($questionDescription); ?>">
     <input type="hidden" name="fileUpload_size" value="<?php echo $fileUpload_size; ?>">
     <input type="hidden" name="deleteAttachedFile" value="<?php echo $deletePicture; ?>">
     
-    <input type="hidden" name="attachedFile" value="<?php echo htmlentities($attachedFile); ?>">
+    <input type="hidden" name="attachedFile" value="<?php echo htmlspecialchars($attachedFile); ?>">
     <input type="hidden" name="hasTempAttachedFile" value="<?php echo $hasTempAttachedFile; ?>">
 
 <?php
@@ -68,10 +68,10 @@ if( isset($usedInSeveralExercises) )
 		{
 ?>
 
-	<input type="hidden" name="correct" value="<?php echo htmlentities(serialize($correct)); ?>">
-	<input type="hidden" name="reponse" value="<?php echo htmlentities(serialize($reponse)); ?>">
-	<input type="hidden" name="comment" value="<?php echo htmlentities(serialize($comment)); ?>">
-	<input type="hidden" name="weighting" value="<?php echo htmlentities(serialize($weighting)); ?>">
+	<input type="hidden" name="correct" value="<?php echo htmlspecialchars(serialize($correct)); ?>">
+	<input type="hidden" name="reponse" value="<?php echo htmlspecialchars(serialize($reponse)); ?>">
+	<input type="hidden" name="comment" value="<?php echo htmlspecialchars(serialize($comment)); ?>">
+	<input type="hidden" name="weighting" value="<?php echo htmlspecialchars(serialize($weighting)); ?>">
 	<input type="hidden" name="nbrAnswers" value="<?php echo $nbrAnswers; ?>">
 
 <?php
@@ -80,10 +80,10 @@ if( isset($usedInSeveralExercises) )
 		{
 ?>
 
-	<input type="hidden" name="option" value="<?php echo htmlentities(serialize($option)); ?>">
-	<input type="hidden" name="match" value="<?php echo htmlentities(serialize($match)); ?>">
-	<input type="hidden" name="sel" value="<?php echo htmlentities(serialize($sel)); ?>">
-	<input type="hidden" name="weighting" value="<?php echo htmlentities(serialize($weighting)); ?>">
+	<input type="hidden" name="option" value="<?php echo htmlspecialchars(serialize($option)); ?>">
+	<input type="hidden" name="match" value="<?php echo htmlspecialchars(serialize($match)); ?>">
+	<input type="hidden" name="sel" value="<?php echo htmlspecialchars(serialize($sel)); ?>">
+	<input type="hidden" name="weighting" value="<?php echo htmlspecialchars(serialize($weighting)); ?>">
 	<input type="hidden" name="nbrOptions" value="<?php echo $nbrOptions; ?>">
 	<input type="hidden" name="nbrMatches" value="<?php echo $nbrMatches; ?>">
 
@@ -93,10 +93,10 @@ if( isset($usedInSeveralExercises) )
 		{
 ?>
 
-	<input type="hidden" name="reponse" value="<?php echo htmlentities(serialize($reponse)); ?>">
-	<input type="hidden" name="comment" value="<?php echo htmlentities(serialize($comment)); ?>">
-	<input type="hidden" name="blanks" value="<?php echo htmlentities(serialize($blanks)); ?>">
-	<input type="hidden" name="weighting" value="<?php echo htmlentities(serialize($weighting)); ?>">
+	<input type="hidden" name="reponse" value="<?php echo htmlspecialchars(serialize($reponse)); ?>">
+	<input type="hidden" name="comment" value="<?php echo htmlspecialchars(serialize($comment)); ?>">
+	<input type="hidden" name="blanks" value="<?php echo htmlspecialchars(serialize($blanks)); ?>">
+	<input type="hidden" name="weighting" value="<?php echo htmlspecialchars(serialize($weighting)); ?>">
 	<input type="hidden" name="setWeighting" value="1">
 
 <?php

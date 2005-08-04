@@ -305,7 +305,7 @@ if( !is_array($exercisesList) || count($exercisesList) == 0 )
 ?>
 <tbody>
 <tr>
-  <td <?php if($is_allowedToEdit) echo 'colspan="5"'; ?>><?php echo $langNoEx; ?></td>
+  <td <?php if($is_allowedToEdit) echo 'colspan="6"'; ?>><?php echo $langNoEx; ?></td>
 </tr>
 </tbody>
 <?php
@@ -354,9 +354,9 @@ foreach( $exercisesList as $exercise )
     &nbsp;
     <a href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>" <?php if(!$exercise['active']) echo 'class="invisible"'; ?>><?php echo $exercise['titre']; ?></a>
   </td>
-  <td align="center"><a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlentities($langModify); ?>"></a></td>
+  <td align="center"><a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlspecialchars($langModify); ?>"></a></td>
   <td align="center">
-  	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $exercise['id']; if (isset($actionsForDelete[$exercise['id']])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$exercise['id']])) { echo $actionsForDelete[$exercise['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlentities($langDelete); ?>"></a>
+  	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $exercise['id']; if (isset($actionsForDelete[$exercise['id']])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$exercise['id']])) { echo $actionsForDelete[$exercise['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlspecialchars($langDelete); ?>"></a>
   </td>
 <?php
 		// if active
@@ -364,7 +364,7 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlentities($langDisable); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlspecialchars($langDisable); ?>"></a></td>
 
 <?php
 		}
@@ -373,7 +373,7 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
 
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlentities($langEnable); ?>"></a></td>
+  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlspecialchars($langEnable); ?>"></a></td>
 
 <?php
 		}
@@ -385,7 +385,7 @@ foreach( $exercisesList as $exercise )
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlentities($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlspecialchars($langTracking); ?>"></a></td>
      
    <?php
     }

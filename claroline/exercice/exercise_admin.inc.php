@@ -188,15 +188,14 @@ if( isset($modifyExercise) )
   <td>
   <label for="exerciseTitle"><?php echo $langExerciseName; ?>&nbsp;:<br /><small>(<?php echo $langRequired; ?>)</small></label>
   </td>
-  <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlentities($exerciseTitle); ?>"></td>
+  <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlspecialchars($exerciseTitle); ?>"></td>
 </tr>
 <tr>
   <td valign="top">
   <label for="exerciseDescription"><?php echo $langExerciseDescription; ?>&nbsp;:</label>
   </td>
   <td>
-  <!--<textarea wrap="virtual" name="exerciseDescription" cols="50" rows="4"><?php //echo htmlentities($exerciseDescription); ?></textarea></td>-->
-  <?php echo claro_disp_html_area('exerciseDescription', $exerciseDescription,15) ?>
+  <?php echo claro_disp_html_area('exerciseDescription', htmlspecialchars($exerciseDescription),15) ?>
 </tr>
 <tr>
   <td valign="top"><?php echo $langExerciseType; ?>&nbsp;:</td>
