@@ -278,31 +278,31 @@ $userList = $myPager->get_result_list();
 $advanced_search_query_string = array();
 $isSearched ="";
 
-if (isset($_SESSION['admin_user_search']) && $_SESSION['admin_user_search']!="") 
+if ( !empty($_SESSION['admin_user_search']) ) 
 {
     $isSearched .= $_SESSION['admin_user_search']."* ";
 }
-if (isset($_SESSION['admin_user_firstName']) && ($_SESSION['admin_user_firstName']!=""))
+if ( !empty($_SESSION['admin_user_firstName']) )
 {
     $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";
-    $advanced_search_query_string [] = "firstName=".$_SESSION['admin_user_firstName'];
+    $advanced_search_query_string [] = "firstName=". urlencode($_SESSION['admin_user_firstName']);
 }
-if (isset($_SESSION['admin_user_lastName']) && ($_SESSION['admin_user_lastName']!=""))
+if ( !empty($_SESSION['admin_user_lastName']) )
 {
     $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";
-    $advanced_search_query_string[] = "lastName=".$_SESSION['admin_user_lastName'];
+    $advanced_search_query_string[] = "lastName=".urlencode($_SESSION['admin_user_lastName']);
 }
-if (isset($_SESSION['admin_user_userName']) && ($_SESSION['admin_user_userName']!="")) 
+if ( !empty($_SESSION['admin_user_userName']) ) 
 {
     $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";
-    $advanced_search_query_string[] = "userName=".$_SESSION['admin_user_userName'];
+    $advanced_search_query_string[] = "userName=".urlencode($_SESSION['admin_user_userName']);
 }
-if (isset($_SESSION['admin_user_mail']) && ($_SESSION['admin_user_mail']!="")) 
+if ( !empty($_SESSION['admin_user_mail']) ) 
 {
     $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";
-    $advanced_search_query_string[] = "mail=".$_SESSION['admin_user_mail'];
+    $advanced_search_query_string[] = "mail=".urlencode($_SESSION['admin_user_mail']);
 }
-if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
+if ( !empty($_SESSION['admin_user_action']) ) 
 {
     $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";
 }
@@ -315,7 +315,7 @@ if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="p
 
 if (isset($_SESSION['admin_user_action']))
 {
-    $advanced_search_query_string[] = "action=".$_SESSION['admin_user_action'];
+    $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 
 if ( count($advanced_search_query_string) > 0 )

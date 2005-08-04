@@ -326,24 +326,24 @@ if ( !empty($_REQUEST['search']) )
 if ( !empty($_REQUEST['code']) )                   
 {
     $isSearched .= $langCode . ' = ' . $_REQUEST['code'] . ' ';
-    $advanced_search_query_string[] = 'code=' . $_REQUEST['code'];
+    $advanced_search_query_string[] = 'code=' . urlencode($_REQUEST['code']);
 }
 
 if ( !empty($_REQUEST['intitule']) )           
 {
     $isSearched .= $langCourseTitle . ' = ' . $_REQUEST['intitule'] . ' ';
-    $advanced_search_query_string[] = 'intitule=' . $_REQUEST['intitule'];
+    $advanced_search_query_string[] = 'intitule=' . urlencode($_REQUEST['intitule']);
 }
 
 if ( !empty($_REQUEST['category']) )           
 {
     $isSearched .= $langCategory . ' = ' . $_REQUEST['category'] . ' ';
-    $advanced_search_query_string[] = 'category=' . $_REQUEST['category'];
+    $advanced_search_query_string[] = 'category=' . urlencode($_REQUEST['category']);
 }
 if ( !empty($_REQUEST['language']) )           
 {
     $isSearched .= $langLanguage . ' : ' . $_REQUEST['language'] . ' ';
-    $advanced_search_query_string[] = 'language=' . $_REQUEST['language'];
+    $advanced_search_query_string[] = 'language=' . urlencode($_REQUEST['language']);
 }
 if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')         
 {
@@ -367,16 +367,16 @@ if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')
 
 if ( !empty($_REQUEST['access']) )
 {
-   $advanced_search_query_string[] ='access=' . $_REQUEST['access'];
+   $advanced_search_query_string[] ='access=' . urlencode($_REQUEST['access']);
 }
 if ( !empty($_REQUEST['subscription']) )
 {
-   $advanced_search_query_string[] ='subscription=' . $_REQUEST['subscription'];
+   $advanced_search_query_string[] ='subscription=' . urlencode($_REQUEST['subscription']);
 }
 
 if ( count($advanced_search_query_string) > 0 )
 {
-    $addtoAdvanced = '?' . implode('&amp;',$advanced_search_query_string);
+    $addtoAdvanced = '?' . implode('&',$advanced_search_query_string);
 }
 else
 {
