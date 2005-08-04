@@ -271,7 +271,7 @@ if ($displayMode == "viewDefEdit")
 <label for="title" ><?php echo $langHeading?></label> :
 </td>
 <td>
-<input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo $catToEdit['title']?>" >
+<input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo htmlspecialchars($catToEdit['title']); ?>" >
 </td>
 </tr>
 
@@ -389,7 +389,7 @@ elseif ($displayMode == "viewContentEdit")
 <p><i><?php echo htmlize($catToEdit['comment'])?></i></p>
 <?php if ($catToEdit['nbline']==1)
     {
-?><input  type="text" name="content" id="content" size="80" value="<?php echo $catToEdit['content']?>" >
+?><input  type="text" name="content" id="content" size="80" value="<?php echo htmlspecialchars($catToEdit['content']); ?>" >
 <?php
     }
     else
@@ -429,7 +429,7 @@ elseif ($displayMode =="viewMainInfoEdit")
             .'<td align="left"><b>'
             .htmlize(ucfirst(strtolower($mainUserInfo['firstName']))).' '
             .htmlize(ucfirst(strtolower($mainUserInfo['lastName']))).'</b></td>'."\n"
-            .'<td align="left"><input type="text" name="role" id="role" value="'.$mainUserInfo['role'].'" maxlength="40"></td>'."\n"
+            .'<td align="left"><input type="text" name="role" id="role" value="'.htmlspecialchars($mainUserInfo['role']).'" maxlength="40"></td>'."\n"
             .'<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" '.$tutorChecked.'></td>';
 
 

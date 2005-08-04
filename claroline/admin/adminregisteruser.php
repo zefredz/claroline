@@ -241,7 +241,7 @@ echo '<table width="100%" >'
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . $langMakeSearch . '</label> :' . "\n"
-.    '<input type="text" value="' . $search . '" name="search" id="search" >' . "\n"
+.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" >' . "\n"
 .    '<input type="submit" value=" ' . $langOk . ' ">' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes">' . "\n"
 .    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '">' . "\n"

@@ -188,7 +188,7 @@ switch ($cmd)
         		   .'<td>'."\n"
         		   .'<input type="hidden" name="cmd" value="exEdit">'."\n"
         		   .'<input type="hidden" name="class" value="'.$_REQUEST['class'].'">'."\n"
-        		   .'<input type="text" name="classname" value="'.$class_name.'">'."\n"
+        		   .'<input type="text" name="classname" value="'. htmlspecialchars($class_name) .'">'."\n"
         		   .'<input type="submit" value=" Ok ">'."\n"
         		   .'</td>'."\n"
         		   .'</tr>'."\n"

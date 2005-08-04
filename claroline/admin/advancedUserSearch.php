@@ -85,7 +85,7 @@ echo claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="lastName" id="lastName" value="<?php echo $lastName ?>"/>
+			<input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($lastName); ?>"/>
 		</td>
 	</tr>
 
@@ -95,7 +95,7 @@ echo claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="firstName" id="firstName" value="<?php echo $firstName ?>"/>
+			<input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($firstName) ?>"/>
 		</td>
 	</tr>
 	
@@ -105,7 +105,7 @@ echo claro_disp_tool_title($nameTools." : ");
 			:  <br>
 		</td>
 		<td>
-			<input type="text" name="userName" id="userName" value="<?php echo $userName ?>"/>
+			<input type="text" name="userName" id="userName" value="<?php echo htmlspecialchars($userName); ?>"/>
 		</td>
 	</tr>
 
@@ -115,7 +115,7 @@ echo claro_disp_tool_title($nameTools." : ");
 			: <br>
 		</td>
 		<td>
-			<input type="text" name="mail" id="mail" value="<?php echo $mail ?>"/>
+			<input type="text" name="mail" id="mail" value="<?php echo htmlspecialchars($mail); ?>"/>
 		</td>
 	</tr>
 

@@ -199,7 +199,7 @@ Insert Image
 <form name="imgSettings" action="" method="get">
 
 <div class="fl">Image URL:</div>
-<input type="text" name="url" id="f_url" value="<?php echo $imgUrl; ?>" title="Enter the image URL here" style="width:18em" />
+<input type="text" name="url" id="f_url" value="<?php echo htmlspecialchars($imgUrl); ?>" title="Enter the image URL here" style="width:18em" />
 <button name="preview" onclick="return onPreview();" title="Preview the image in a new window">Preview</button>
 <div class="space"></div>
 <div class="fl">Alternate text:</div>
@@ -210,12 +210,12 @@ Insert Image
 <div style="float: left;">
 
 <div class="fl">Width:</div>
-<input type="text" name="width" id="f_width" size="5" value="<?php echo $width; ?>" />
+<input type="text" name="width" id="f_width" size="5" value="<?php echo htmlspecialchars($width); ?>" />
 
 <div class="space"></div>
 
 <div class="fl">Height:</div>
-<input type="text" name="height" id="f_height" size="5" value="<?php echo $height; ?>" />
+<input type="text" name="height" id="f_height" size="5" value="<?php echo htmlspecialchars($height); ?>" />
 
 <div class="space"></div>
 

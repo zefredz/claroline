@@ -410,7 +410,7 @@ elseif($display ==  DISP_FORM)
 	<label for="wantedCode"><?php echo $langCode ?></label> : 
 </td>
 <td >
-	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo $wantedCode ?>">
+	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo htmlspecialchars($wantedCode) ?>">
 	<br>
 	<small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
@@ -430,7 +430,7 @@ elseif($display ==  DISP_FORM)
 <label for="email"><?php echo $langEmail ?></label>&nbsp;:
 </td>
 <td>
-<input type="text" name="email" id="email" value="<?php echo $valueEmail; ?>" size="30" maxlength="255">
+<input type="text" name="email" id="email" value="<?php echo htmlspecialchars($valueEmail); ?>" size="30" maxlength="255">
 </td>
 </tr>
 

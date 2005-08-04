@@ -264,7 +264,7 @@
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
             . '<div style="padding: 5px">' . "\n"
             . '<label for="wikiTitle">' . $langWikiTitle . ' :</label><br />' . "\n"
-            . '<input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.$title.'" />' . "\n"
+            . '<input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.htmlspecialchars($title).'" />' . "\n"
             . '</div>' . "\n"
             . '<div style="padding: 5px">' . "\n"
             . '<label for="wikiDesc">'.$langWikiDescription.' :</label><br />' . "\n"

@@ -785,7 +785,7 @@ if($CREATE)
         </td>
 
         <td>
-        <input type="texte" name="nameCat" id="nameCat" value="<?php echo $EditName; ?>" size="20" maxlength="100">
+        <input type="texte" name="nameCat" id="nameCat" value="<?php echo htmlspecialchars($EditName); ?>" size="20" maxlength="100">
         </td>
     </tr>
     <tr>
@@ -794,7 +794,7 @@ if($CREATE)
         </td>
 
         <td>
-            <input type="texte" name="codeCat" id="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
+            <input type="texte" name="codeCat" id="codeCat" value="<?php echo htmlspecialchars($EditCode); ?>" size="20" maxlength="40">
         </td>
     </tr>
     <tr>
@@ -884,7 +884,7 @@ elseif($EDIT)
         </td>
 
         <td>
-        <input type="texte" name="nameCat" id="nameCat" value="<?php echo $EditName; ?>" size="20" maxlength="100">
+        <input type="texte" name="nameCat" id="nameCat" value="<?php echo htmlspecialchars($EditName); ?>" size="20" maxlength="100">
         </td>
     </tr>
     <tr>
@@ -893,7 +893,7 @@ elseif($EDIT)
         </td>
 
         <td>
-        <input type="texte" name="codeCat" id="codeCat" value="<?php echo $EditCode; ?>" size="20" maxlength="40">
+        <input type="texte" name="codeCat" id="codeCat" value="<?php echo htmlspecialchars($EditCode); ?>" size="20" maxlength="40">
         </td>
     </tr>
     <tr>

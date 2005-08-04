@@ -288,7 +288,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     $dialogBox = $langModifyFormat .' :<br><br>'
     .            $langTheFields . ' "<b>firstname;</b>", "<b>lastname;</b>", "<b>username;</b>" and "<b>password;</b>" ' . $langAreCompulsory . '<br><br>'
     .            '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">"'
-    .            '<input type="text" name="usedFormat" value="' . $usedFormat . '" size="55">'
+    .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55">'
     .            '<input type="submit" value="' . $langOk . '"'
     .            '</form>'
     ;

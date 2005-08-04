@@ -88,7 +88,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
    <label for="code"><?php echo $langOfficialCode?></label> : <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="code" id="code" value="<?php echo $code?>"/>
+    <input type="text" size="40" name="code" id="code" value="<?php echo htmlspecialchars($code); ?>"/>
   </td>
 </tr>
 
@@ -97,7 +97,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
    <label for="intitule"><?php echo $langCourseTitle?></label> :  <br>
   </td>
   <td colspan="3">
-    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo $intitule?>"/>
+    <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo htmlspecialchars($intitule);?>"/>
   </td>
 </tr>
 

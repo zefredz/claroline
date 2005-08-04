@@ -461,7 +461,7 @@ $content = $editedEvent['content'];
 </td>
 
 <td>
-    <input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="<?php echo $editedEvent['lastingAncient']; ?>">
+    <input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="<?php echo htmlspecialchars($editedEvent['lastingAncient']); ?>">
 </td>
 
 </tr>

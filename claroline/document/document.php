@@ -726,7 +726,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ."<p>\n"
                         ."<label for=\"newName\">".$langRename." ".htmlspecialchars($fileName)
                         ." ".$langIn." : </Label>\n"
-                        ."<br><input type=\"text\" id=\"newName\" name=\"newName\" value=\"".$fileName."\">\n"
+                        ."<br><input type=\"text\" id=\"newName\" name=\"newName\" value=\"". htmlspecialchars($fileName) ."\">\n"
                         ."</p>\n";
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
@@ -734,7 +734,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
 
             $dialogBox .= "<p><label for=\"url\">".$langURL."</label><br />\n"
-                         ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".$url."\">\n"
+                         ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($url)."\">\n"
                          ."</p>\n";
         }
 
