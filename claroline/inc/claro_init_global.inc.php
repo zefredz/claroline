@@ -75,6 +75,8 @@ session_start();
 
 include( $includePath . '/lib/claro_main.lib.php' );
 
+claro_unquote_gpc();
+
 /*----------------------------------------------------------------------
   Connect to the server database and select the main claroline DB
   ----------------------------------------------------------------------*/

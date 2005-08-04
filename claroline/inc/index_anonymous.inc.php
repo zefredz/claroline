@@ -49,7 +49,7 @@ $sql = "SELECT `intitule`   `title`,
                `directory` ,
                `languageCourse` `language`
         FROM `".$tbl_courses."` 
-        WHERE `faculte` = '".$category."'
+        WHERE `faculte` = '". addslashes($category) ."'
         ORDER BY UPPER(fake_code)";
 
 $courseList = claro_sql_query_fetch_all($sql);
@@ -72,8 +72,8 @@ $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
 
 if ($category)
 {
-    $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER(\"".$category."\")
-                OR UPPER(`faculte`.`code`)   = UPPER(\"".$category."\") \n";
+    $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER(\"". addslashes($category) ."\")
+                OR UPPER(`faculte`.`code`)   = UPPER(\"". addslashes($category) ."\") \n";
 }
 else
 {

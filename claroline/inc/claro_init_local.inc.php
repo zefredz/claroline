@@ -273,7 +273,7 @@ else
 
             $sql = "SELECT user_id, username, password, authSource, creatorId
                     FROM `".$tbl_user."` `user`
-                    WHERE BINARY username = \"". $login ."\"";
+                    WHERE BINARY username = \"". addslashes($login) ."\"";
 
             $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -312,7 +312,7 @@ else
                         // do nothing (code may be added later)
                         $sql = "UPDATE `".$tbl_user."`
                                 SET   creatorId = user_id
-                                WHERE user_id='".$_uid."'";
+                                WHERE user_id='" . (int)$_uid . "'";
 
                         claro_sql_query($sql);
                         $_SESSION['firstLogin'] = true;
@@ -413,7 +413,7 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
                      ON `user`.`user_id` = `a`.`idUser`
                      LEFT JOIN `". $tbl_track_e_login ."` `login`
                      ON `user`.`user_id`  = `login`.`login_user_id`
-                     WHERE `user`.`user_id` = '".$_uid."'
+                     WHERE `user`.`user_id` = '". (int) $_uid."'
                      ORDER BY `login`.`login_date` DESC LIMIT 1";
         }
         else
@@ -428,7 +428,7 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
                     FROM `". $tbl_user ."` `user`
                     LEFT JOIN `". $tbl_admin  ."` `a`
                     ON `user`.`user_id` = `a`.`idUser`
-                    WHERE `user`.`user_id` = '".$_uid."'";
+                    WHERE `user`.`user_id` = '". (int) $_uid."'";
         }
 
         $result = claro_sql_query($sql);
@@ -535,7 +535,7 @@ if ( $cidReset ) // course session data refresh requested
                  FROM     `".$tbl_course."`    `c`
                  LEFT JOIN `".$tbl_category."` `cat`
                  ON `c`.`faculte` =  `cat`.`code`
-                 WHERE `c`.`code` = '".$cidReq."'";
+                 WHERE `c`.`code` = '". addslashes($cidReq) ."'";
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -632,8 +632,8 @@ if ( $uidReset || $cidReset ) // session data refresh requested
                        tutor, 
                        role 
                 FROM `".$tbl_rel_course_user."` `cours_user`
-                WHERE `user_id`  = '".$_uid."'
-                AND `code_cours` = '".$cidReq."'";
+                WHERE `user_id`  = '". (int) $_uid."'
+                AND `code_cours` = '". addslashes($cidReq) ."'";
 
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -720,8 +720,8 @@ if ( $tidReset || $cidReset ) // session data refresh requested
                     `".$tbl_tool."`  pct
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
-                 AND (`ctl`.`id`      = '".$tidReq."'
-                       OR   (".(int) is_null($tidReq)." AND pct.claro_label = '".$tlabelReq."')
+                 AND (`ctl`.`id`      = '". (int) $tidReq."'
+                       OR   (".(int) is_null($tidReq)." AND pct.claro_label = '". addslashes($tlabelReq) ."')
                      )";
 
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'
@@ -786,7 +786,7 @@ if ( $gidReset || $cidReset ) // session data refresh requested
                        secretDirectory, 
                        maxStudent
                 FROM `".$_course['dbNameGlu']."group_team`
-                WHERE `id` = '".$gidReq."'";
+                WHERE `id` = '". (int) $gidReq."'";
 
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
@@ -834,8 +834,8 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
         $sql = "SELECT status, 
                        role 
                 FROM `".$_course['dbNameGlu']."group_rel_team_user`
-                WHERE `user` = '".$_uid."'
-                AND `team`   = '".$gidReq."'";
+                WHERE `user` = '". (int) $_uid."'
+                AND `team`   = '". (int) $gidReq."'";
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 

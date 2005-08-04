@@ -35,7 +35,7 @@ $sql = "SELECT course.code           `sysCode`,
                     `" . $tbl_link_user_courses . "` course_user
                                  
                WHERE course.code         = course_user.code_cours
-                 AND course_user.user_id = '" . $_uid . "'
+                 AND course_user.user_id = '" . (int) $_uid . "'
                ORDER BY UPPER(fake_code)";
 
 $personnalCourseList = claro_sql_query_fetch_all($sql);
