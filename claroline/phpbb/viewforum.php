@@ -72,8 +72,9 @@ $forumSettingList = get_forum_settings($forum_id);
 
 if ( $forumSettingList )
 {
-    $forum_name   = $forumSettingList['forum_name'];
-    $forum_cat_id = $forumSettingList['cat_id'    ];
+    $forum_name         = $forumSettingList['forum_name'];
+    $forum_cat_id       = $forumSettingList['cat_id'    ];
+    $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
 
     /* 
      * Check if the forum isn't attached to a group,  or -- if it is attached --, 
@@ -144,7 +145,11 @@ else
     
     if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) ) disp_forum_group_toolbar($_gid);
 
-    disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
+    if ($forum_post_allowed)
+    {
+        disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
+    }
+
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
     
     $topicLister->disp_pager_tool_bar($pagerUrl);

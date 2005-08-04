@@ -213,6 +213,8 @@ foreach ( $categories as $this_category )
             $total_posts  = (int) $this_forum['forum_posts' ];
             $last_post    = $this_forum['post_time'   ];
 
+            $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
+
             echo '<tr align="left" valign="top">' . "\n";
 
             if ( ! is_null($last_post) && datetime_to_timestamp($last_post) > $last_visit )
@@ -222,6 +224,15 @@ foreach ( $categories as $this_category )
             else
             {
                 $forum_img = 'forum.gif';
+            }
+
+            if ( $forum_post_allowed)
+            {
+                $locked_string = '';
+            }
+            else
+            {
+                $locked_string = '&nbsp;LOCKED <small>(No new post allowed)</small>';
             }
 
             echo '<td>'                                               . "\n"
@@ -255,6 +266,8 @@ foreach ( $categories as $this_category )
                     {
                         echo '&nbsp;<small>(' . $langMyGroup . ')</small>';
                     }
+
+
                 }
                 else
                 {
@@ -267,6 +280,8 @@ foreach ( $categories as $this_category )
                 .    $forum_name
                 .    '</a> ';
             }
+
+            echo $locked_string;
 
             echo '<br><small>' . $forum_desc . '</small>' . "\n"
             .    '</td>' . "\n"

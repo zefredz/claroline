@@ -92,10 +92,10 @@ if ( ! isset($_uid) )    // exclude anonymous users
 } 
 elseif ( $forumSettingList )
 {
-	$forum_name 		= stripslashes($forumSettingList['forum_name']);
-	$forum_access 		= $forumSettingList['forum_access'];
-	$forum_type 		= $forumSettingList['forum_type'  ];
-	$forum_groupId 		= $forumSettingList['idGroup'     ];
+    $forum_name         = stripslashes($forumSettingList['forum_name']);
+    $forum_post_allowed = ($forumSettingList['forum_access'] != 0) ? true : false;
+    $forum_type         = $forumSettingList['forum_type'  ];
+    $forum_groupId      = $forumSettingList['idGroup'     ];
     $forum_cat_id       = $forumSettingList['cat_id'      ];
 	
 	/* 
@@ -103,8 +103,9 @@ elseif ( $forumSettingList )
 	 * check the user is allowed to see the current group forum.
 	 */
 	
-	if (   ! is_null($forumSettingList['idGroup']) 
-	    && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
+	if ( ! $forum_post_allowed
+        || (    ! is_null($forumSettingList['idGroup']) 
+	        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) ) )
 	{
 	    // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
 	    // attempt like rewriting the request without $cidReq. If we are in group 
@@ -115,7 +116,6 @@ elseif ( $forumSettingList )
 	}
     else
     {
-	
 		if ( isset($_REQUEST['submit']) )
 		{
 		    // Either valid user/pass, or valid session. continue with post.. but first:
@@ -177,7 +177,7 @@ else
 if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
+    $interbredcrump[]  = array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
 }
 
 include $includePath . '/claro_init_header.inc.php';

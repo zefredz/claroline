@@ -77,76 +77,77 @@ if ($topicSettingList)
     $lock_state       = $topicSettingList['topic_status'];
     $forum_id         = $topicSettingList['forum_id'    ];
 
-	$forumSettingList = get_forum_settings($forum_id);
-	$forum_name       = $forumSettingList['forum_name'];
-    $forum_cat_id     = $forumSettingList['cat_id'    ];
-	
-	/* 
-	 * Check if the topic isn't attached to a group,  or -- if it is attached --, 
-	 * check the user is allowed to see the current group forum.
-	 */
-	
-	if (   ! is_null($forumSettingList['idGroup']) 
-	    && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
-	{	
-	    $allowed = FALSE;
+    $forumSettingList   = get_forum_settings($forum_id);
+    $forum_name         = $forumSettingList['forum_name'];
+    $forum_cat_id       = $forumSettingList['cat_id'    ];
+    $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
+    
+    /* 
+     * Check if the topic isn't attached to a group,  or -- if it is attached --, 
+     * check the user is allowed to see the current group forum.
+     */
+    
+    if (   ! is_null($forumSettingList['idGroup']) 
+        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
+    {   
+        $allowed = FALSE;
         $error_message = $langNotAllowed;
 	}
     else
     {
         // get post and use pager	
-		$postLister = new postLister($topic_id, $start, $posts_per_page);
-		$postList   = $postLister->get_post_list();		
-		$pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
-		
-		// EMAIL NOTIFICATION COMMANDS
-		// Execute notification preference change if the command was called
-		
-		if ( $cmd && isset($_uid) )
-		{
-		    switch ($cmd)
-		    {
-		        case 'exNotify' :
-		            request_topic_notification($topic_id, $_uid);
-		            break;
-		
-		        case 'exdoNotNotify' :
-		            cancel_topic_notification($topic_id, $_uid);
-		            break;
-		    }
-		
-		    $increaseTopicView = false; // the notification change command doesn't 
-		                                // have to be considered as a new topic 
-		                                // consult
-		}
-		
-		// Allow user to be have notification for this topic or disable it
-		 
-		if ( isset($_uid) )  //anonymous user do not have this function
-		{
-		    $notification_bloc = '<div style="float: right;">' . "\n"
-		                        . '<small>';
-		
-		    if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
-		    {
-		        $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif">'
-		                            . $l_notify
-		                            . ' [<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exdoNotNotify">'
-		                            .$langDisable
-		                            . '</a>]';
-		    }
-		    else   //display link to be notified for this topic
-		    {
-		        $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
+        $postLister = new postLister($topic_id, $start, $posts_per_page);
+        $postList   = $postLister->get_post_list();     
+        $pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
+        
+        // EMAIL NOTIFICATION COMMANDS
+        // Execute notification preference change if the command was called
+        
+        if ( $cmd && isset($_uid) )
+        {
+            switch ($cmd)
+            {
+                case 'exNotify' :
+                    request_topic_notification($topic_id, $_uid);
+                    break;
+        
+                case 'exdoNotNotify' :
+                    cancel_topic_notification($topic_id, $_uid);
+                    break;
+            }
+        
+            $increaseTopicView = false; // the notification change command doesn't 
+                                        // have to be considered as a new topic 
+                                        // consult
+        }
+        
+        // Allow user to be have notification for this topic or disable it
+         
+        if ( isset($_uid) )  //anonymous user do not have this function
+        {
+            $notification_bloc = '<div style="float: right;">' . "\n"
+                                . '<small>';
+        
+            if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
+            {
+                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif">'
+                                    . $l_notify
+                                    . ' [<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exdoNotNotify">'
+                                    .$langDisable
+                                    . '</a>]';
+            }
+            else   //display link to be notified for this topic
+            {
+                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
                                     . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
-		                            . '<img src="' . $imgRepositoryWeb . 'email.gif"> '
-		                            . $l_notify 
-		                            . '</a>';
-		    }
-		
-		    $notification_bloc .= '</small>' . "\n"
-		                        . '</div>' . "\n";
-		} //end not anonymous user
+                                    . '<img src="' . $imgRepositoryWeb . 'email.gif"> '
+                                    . $l_notify 
+                                    . '</a>';
+            }
+        
+            $notification_bloc .= '</small>' . "\n"
+                                . '</div>' . "\n";
+        } //end not anonymous user
     }
 }
 else
@@ -189,7 +190,10 @@ else
 	echo claro_disp_tool_title($langForums, 
 	                      $is_allowedToEdit ? 'help_forum.php' : false);
 		
-	disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
+    if ($forum_post_allowed)
+    {
+        disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
+    }
 	
 	disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_subject);
 	

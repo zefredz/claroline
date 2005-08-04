@@ -92,19 +92,20 @@ elseif ( $topicSettingList )
 
     $forumSettingList = get_forum_settings($forum_id);
     
-    $forum_name    = $forumSettingList['forum_name'  ];
-    $forum_access  = $forumSettingList['forum_access'];
-    $forum_type    = $forumSettingList['forum_type'  ];
-    $forum_groupId = $forumSettingList['idGroup'     ];
-    $forum_cat_id  = $forumSettingList['cat_id'      ];
+    $forum_name         = $forumSettingList['forum_name'  ];
+    $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
+    $forum_type         = $forumSettingList['forum_type'  ];
+    $forum_groupId      = $forumSettingList['idGroup'     ];
+    $forum_cat_id       = $forumSettingList['cat_id'      ];
 
     /**
      * Check if the topic isn't attached to a group,  or -- if it is attached --, 
      * check the user is allowed to see the current group forum.
      */
 
-    if (   ! is_null($forumSettingList['idGroup']) 
-        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
+    if ( ! $forum_post_allowed
+        || ( ! is_null($forumSettingList['idGroup']) 
+            && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) ) )
     {
         // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
         // attempt like rewriting the request without $cidReq. If we are in group 

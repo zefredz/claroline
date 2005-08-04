@@ -1100,17 +1100,17 @@ function update_category_title( $catId, $catTitle )
     return false;
 }
 
-function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_type, $cat_id)
+function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_allowed, $cat_id)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
     $sql = 'UPDATE `'.$tbl_forum_forums.'`
             SET `forum_name`     = "'. addslashes($forum_name) .'",
                 `forum_desc`     = "'. addslashes($forum_desc) .'",
-                `forum_access`   = 2,
+                `forum_access`   = "'.($forum_post_allowed ? 2 : 0).'",
                 `forum_moderator`= 1,
                 `cat_id`         = "' . (int)$cat_id     . '",
-                `forum_type`     = "' . (int)$forum_type .'"
+                `forum_type`     = 0
             WHERE `forum_id` = ' . (int)$forum_id;
 
     if (claro_sql_query($sql) != false) return true;
@@ -1193,7 +1193,7 @@ function delete_forum($forum_id)
 
 
 
-function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
+function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id)
 {
      $tbl_cdb_names    = claro_sql_get_course_tbl();
      $tbl_forum_forums = $tbl_cdb_names['bb_forums'             ];
@@ -1214,10 +1214,10 @@ function create_forum($forum_name, $forum_desc, $forum_type, $cat_id)
     $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
             SET forum_name  = "'. addslashes($forum_name) .'", 
             forum_desc      = "'. addslashes($forum_desc) .'", 
-            forum_access    = 2,
+            forum_access    = "'.($forum_post_allowed ? 2 : 0).'",
             forum_moderator = 1, 
             cat_id          = "'. (int) $cat_id .'", 
-            forum_type      = "'. (int) $forum_type  . '", 
+            forum_type      = 0, 
             forum_order    ="'. (int) $order.'"';
 
     return claro_sql_query_insert_id($sql);

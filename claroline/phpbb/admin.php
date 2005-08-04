@@ -67,13 +67,14 @@ if ( $cmd == 'rqMkCat' )
 
 if ( $cmd == 'exMkForum' )
 {
+    $forumPostAllowed = ( isset($_REQUEST['forumPostUnallowed']) ) ? false : true;
+
     if (   ( ( trim($_REQUEST['forumName']) != '') )
 	    && (   0 < (int) $_REQUEST['forumCatId']   )  )
 	{
-	 
             if ( create_forum(trim($_REQUEST['forumName']), 
 	                          trim($_REQUEST['forumDesc']), 
-	                            0,  // forum_type ... int he phpBB structure
+	                          $forumPostAllowed,
 	                          (int) $_REQUEST['forumCatId'] ) )
 	        {
 	           $dialogBox .= 'Forum created';   
@@ -111,11 +112,15 @@ if ( $cmd == 'rqMkForum' )
     }
     else
     {
-    	$catSelectBox = '';
+        $catSelectBox = '';
     }
 
     $reqForumName = isset($_REQUEST['forumName']) ? $_REQUEST['forumName'] : '';
     $reqForumDesc = isset($_REQUEST['forumDesc']) ? $_REQUEST['forumDesc'] : '';
+
+    $reqForumPostUnallowedState = isset($_REQUEST['forumPostUnallowed']) ?
+                                  ' checked ' : '';
+
 
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
@@ -129,6 +134,13 @@ if ( $cmd == 'rqMkForum' )
                .$reqForumDesc
                .'</textarea><br />'
                .$catSelectBox
+               .'<br />'
+               .'<input type="checkbox" name="forumPostUnallowed" '.$reqForumPostUnallowedState.'>'
+               .'Locked <small>(No new post allowed)</small><br />'
+   // Technical Note : It seems impossible to add an ID to a 
+   // checkbox tag. Adding this ID seems to prevent the checkbox 
+   // state to be sent frim the browser(at least in Mozilla/Firefox).
+   // So no <label> for the tag above for the moment ...
                .'<br />'
                .'<input type="submit" value="'.$langOk.'">     '
                . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
@@ -178,10 +190,12 @@ if ( $cmd == 'rqEdCat' )
 
 if ( $cmd == 'exEdForum' )
 {
+    $forumPostAllowed = ( isset($_REQUEST['forumPostUnallowed']) ) ? false : true;
+
     if ( trim($_REQUEST['forumName'] != '') )
     {   
         if ( update_forum_settings($_REQUEST['forumId'   ], $_REQUEST['forumName'], 
-                                   $_REQUEST['forumDesc' ], 0, 
+                                   $_REQUEST['forumDesc' ], $forumPostAllowed, 
                                    $_REQUEST['forumCatId']) )
         {
             $dialogBox .= '<p>Forum data updated.</p>';
@@ -200,9 +214,9 @@ if ( $cmd == 'exEdForum' )
 
 if ( $cmd == 'rqEdForum' )
 {
-	$forumSettingList = get_forum_settings($_REQUEST['forumId']);
-	
-	$formCategoryList = get_category_list();
+    $forumSettingList = get_forum_settings($_REQUEST['forumId']);
+
+    $formCategoryList = get_category_list();
 
     if ( count($formCategoryList) > 0 )
     {
@@ -237,24 +251,36 @@ if ( $cmd == 'rqEdForum' )
     
     $formForumDescriptionValue = isset($_REQUEST['forumDesc']) ?
                                  $_REQUEST['forumDesc'] : $forumSettingList['forum_desc'];
-                                 
+
+    $formForumPostUnallowedState = $_REQUEST['cmd'] == 'exEdForum' ?
+                                    ( isset($_REQUEST['forumPostUnallowed']) ? ' checked ' : '' )
+                                   :
+                                    ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
+
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum">'
                .'<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
                .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'">'
-               .'<label for="forumName">'.htmlspecialchars($langName).': </label><br />'
+               .'<label for="forumName">'.$langName.': </label><br />'
                .'<input type="text" name="forumName" id="forumName"'
-               .' value="'.$formForumNameValue.'"><br />'
-               .'<label for="forumDesc">' . htmlspecialchars($langDescription) . ' : </label><br />'
+               .' value="'.htmlspecialchars($formForumNameValue).'"><br />'
+               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'
                .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'
-               .$formForumDescriptionValue
+               .htmlspecialchars($formForumDescriptionValue)
                .'</textarea><br />'
                .$catSelectBox
+               .'<input type="checkbox" name="forumPostUnallowed" '.$formForumPostUnallowedState.'>'
+               .'Locked <small>(No new post allowed)</small><br />'
+   // Technical Note : It seems impossible to add an ID to a 
+   // checkbox tag. Adding this ID seems to prevent the checkbox 
+   // state to be sent frim the browser(at least in Mozilla/Firefox).
+   // So no <label> for the tag above for the moment ...
                .'<br />'
-               .'<input type="submit" value="'.$langOk.'">     '
+               .'<input type="submit" value="'.$langOk.'"> '
                . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
                .'</form>';
+
 }
 
 if ( $cmd == 'exDelCat' )
