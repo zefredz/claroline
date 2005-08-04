@@ -93,7 +93,7 @@ function is_first_post($topic_id, $post_id)
     $tbl_posts     = $tbl_cdb_names['bb_posts'];
 
     $sql = "SELECT post_id FROM `" . $tbl_posts . "`
-            WHERE topic_id = '" . (int) $topic_id . "'
+            WHERE topic_id = " . (int) $topic_id . "
             ORDER BY post_id LIMIT 1";
 
     $id_found = claro_sql_query_get_single_value($sql);
@@ -137,7 +137,7 @@ function sync($forumId, $topicId = null)
     {
         $sql = "SELECT COUNT(post_id) AS total 
                 FROM `" . $tbl_posts . "` 
-                WHERE topic_id = '" . (int) $topicId . "'";
+                WHERE topic_id = " . (int) $topicId;
 
         $total_posts = claro_sql_query_get_single_value($sql);
 
@@ -146,7 +146,7 @@ function sync($forumId, $topicId = null)
             // no post anymore in the topic --> delete topic
 
             $sql = "DELETE FROM `" . $tbl_topics . "` 
-                    WHERE topic_id = '" . (int) $topicId . "'";
+                    WHERE topic_id = " . (int) $topicId;
 
             if (claro_sql_query($sql) == false) return false;
 
@@ -156,7 +156,7 @@ function sync($forumId, $topicId = null)
         {
             $sql = "SELECT MAX(post_id) AS last_post 
                     FROM `" . $tbl_posts . "` 
-                    WHERE topic_id = '" . (int) $topicId . "'";
+                    WHERE topic_id = " . (int) $topicId;
 
             $last_post = claro_sql_query_get_single_value($sql);
 
@@ -175,7 +175,7 @@ function sync($forumId, $topicId = null)
 
     $sql = "SELECT COUNT(post_id) AS total 
             FROM `" . $tbl_posts . "` 
-            WHERE forum_id = '" . (int) $forumId . "'";
+            WHERE forum_id = " . (int) $forumId;
 
     $total_posts = claro_sql_query_get_single_value($sql);
 
@@ -545,11 +545,11 @@ function cancel_topic_notification($topicId = null, $userId = null)
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
     $conditionList = array();
-    if ($userId ) $conditionList[]  = "`user_id`  = '" . (int) $userId;
-    if ($topicId) $conditionList[]  = "`topic_id` = '" . (int) $topicId;
+    if ($userId ) $conditionList[]  = "`user_id`  = " . (int) $userId;
+    if ($topicId) $conditionList[]  = "`topic_id` = " . (int) $topicId;
 
     $sql = "DELETE FROM `" . $tbl_user_notify . "`"
-          . (count($conditionList) > 0) ? "WHERE ".implode('AND ', $conditionList) : '';
+          . ( ( count($conditionList) > 0) ? "WHERE ".implode('AND ', $conditionList) : '' );
 
     if (claro_sql_query($sql) == false) return false;
     else                                return true;
@@ -871,50 +871,51 @@ class postLister
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
 
-    global $_gid,
-           $forum_name, 
+    global $_gid, $forum_name,
            $imgRepositoryWeb, 
            $langAdm, $langBackTo, $langNewTopic, $langReply;
 
+    $toolBar = array();
+
     switch ( $pagetype )
     {
-    	// 'index' is covered by default
+        // 'index' is covered by default
     
-    	case 'newtopic':
+        case 'newtopic':
     
-    		$toolBar [] = $langBackTo
-    					. '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-    					. $forum_name
-    					. '</a>'."\n";
-    		break;
+            $toolBar [] = $langBackTo
+                        . '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                        . $forum_name
+                        . '</a>'."\n";
+            break;
     
-    	case 'viewforum':
+        case 'viewforum':
     
             $toolBar [] =   '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                            .'<img src="' . $imgRepositoryWeb . 'topic.gif"> '
                            . $langNewTopic
                            .'</a>';
     
-    		break;
+            break;
     
-    	case 'viewtopic':
+        case 'viewtopic':
     
-    		$toolBar [] =	'<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+            $toolBar [] =   '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                            .'<img src="' . $imgRepositoryWeb . 'topic.gif"> '
                            . $langNewTopic
                            . '</a>';  
     
-    		$toolBar [] =	'<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
+            $toolBar [] =   '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
                             ."<img src=\"" . $imgRepositoryWeb."reply.gif\"> "
-    					    . $langReply
-    						. '</a>' ."\n";
+                            . $langReply
+                            . '</a>' ."\n";
     
-    		break;
+            break;
     
-    	// 'Register' is covered by default
+        // 'Register' is covered by default
     
-    	default:
-    	
+        default:
+        
             if ( claro_is_allowed_to_edit() )
             {
                 if ( $cat_id > 0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $cat_id;
@@ -928,7 +929,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                           .  'Create Forum'
                           .  '</a>';
             }
-    		break;
+            break;
     }
 
     if ( isset($toolBar) && is_array($toolBar)) 
