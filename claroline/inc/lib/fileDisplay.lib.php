@@ -52,20 +52,6 @@ if ( ! function_exists('array_search') )
 
 
 /*****************************************
-   GENERIC FUNCTION :STRIP SUBMIT VALUE
-*****************************************/
-
-function stripSubmitValue(&$submitArray)
-{
-	while($array_element = each($submitArray))
-	{
-		$name = $array_element['key'] ;
-		$submitArray[$name] = stripslashes ( $submitArray [$name] ) ;
-		$submitArray[$name] = str_replace ("\"", "'", $submitArray [$name] ) ;
-	}
-  
-}
-
 
 /**
  * Define the image to display for each file extension
