@@ -18,6 +18,9 @@ $delayToConsiderAsSleeper = 3600*24*50; //delay in second to be mark as sleeper 
 // initialisation of global variables and used libraries
 DEFINE('COURSE_CREATOR',1);
 require '../inc/claro_init_global.inc.php';
+
+claro_unquote_gpc();
+
 include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/user.lib.php");
@@ -272,7 +275,7 @@ $userList = $myPager->get_result_list();
 //Display search form
 //see passed search parameters :
 
-$addtoAdvanced ="";
+$advanced_search_query_string = array();
 $isSearched ="";
 
 if (isset($_SESSION['admin_user_search']) && $_SESSION['admin_user_search']!="") 
@@ -282,22 +285,22 @@ if (isset($_SESSION['admin_user_search']) && $_SESSION['admin_user_search']!="")
 if (isset($_SESSION['admin_user_firstName']) && ($_SESSION['admin_user_firstName']!=""))
 {
     $isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";
-    $addtoAdvanced  .= "?firstName=".$_SESSION['admin_user_firstName'];
+    $advanced_search_query_string [] = "firstName=".$_SESSION['admin_user_firstName'];
 }
 if (isset($_SESSION['admin_user_lastName']) && ($_SESSION['admin_user_lastName']!=""))
 {
     $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";
-    $addtoAdvanced .= "&amp;lastName=".$_SESSION['admin_user_lastName'];
+    $advanced_search_query_string[] = "lastName=".$_SESSION['admin_user_lastName'];
 }
 if (isset($_SESSION['admin_user_userName']) && ($_SESSION['admin_user_userName']!="")) 
 {
     $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";
-    $addtoAdvanced .= "&amp;userName=".$_SESSION['admin_user_userName'];
+    $advanced_search_query_string[] = "userName=".$_SESSION['admin_user_userName'];
 }
 if (isset($_SESSION['admin_user_mail']) && ($_SESSION['admin_user_mail']!="")) 
 {
     $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";
-    $addtoAdvanced .= "&amp;mail=".$_SESSION['admin_user_mail'];
+    $advanced_search_query_string[] = "mail=".$_SESSION['admin_user_mail'];
 }
 if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
 {
@@ -312,7 +315,16 @@ if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="p
 
 if (isset($_SESSION['admin_user_action']))
 {
-    $addtoAdvanced .= "&amp;action=".$_SESSION['admin_user_action'];
+    $advanced_search_query_string[] = "action=".$_SESSION['admin_user_action'];
+}
+
+if ( count($advanced_search_query_string) > 0 )
+{
+   $addtoAdvanced = '?' . implode('&amp;',$advanced_search_query_string);
+}
+else
+{
+    $addtoAdvanced = '';
 }
 
 if (!isset($isSearched) || ($isSearched=="")) 
@@ -372,7 +384,7 @@ echo '<table width="100%">
           <td align="right">
             <form action="'.$_SERVER['PHP_SELF'].'">
             <label for="search">'.$langMakeNewSearch.'</label>
-            <input type="text" value="'.$search.'" name="search" id="search" >
+            <input type="text" value="'.htmlspecialchars($search).'" name="search" id="search" >
             <input type="submit" value=" '.$langOk.' ">
             <input type="hidden" name="newsearch" value="yes">
             [<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >'.$langAdvanced.'</a>]
