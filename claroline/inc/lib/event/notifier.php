@@ -223,11 +223,12 @@ class Notifier extends EventDriven
         if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
             $sql = "SELECT `tool_id`, MAX(`date`)
                     FROM `".$tbl_notify."` AS N, `".$tbl_cours_user."` AS CU
-                    WHERE N.`course_code` = '". addslashes($course_id) ."'
-                      AND CU.`user_id` = '". (int)$user_id."'
-                      AND CU.`code_cours` = N.`course_code`
-                      AND N.`date` > '".$date."'
-                      AND (N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."')
+                    WHERE N.`course_code` = '".addslashes($course_id)."'
+                    AND CU.`user_id` = '".(int)$user_id."'
+                    AND CU.`code_cours` = N.`course_code`
+                    AND N.`date` > '".$date."'
+                    AND (N.`user_id` = '0' OR N.`user_id` = '".(int)$user_id."')
+                    AND (N.`group_id` = '0')
                     GROUP BY `tool_id`
                     ";
             $toolList = claro_sql_query_fetch_all($sql);
@@ -241,6 +242,41 @@ class Notifier extends EventDriven
         // 2- return an array with the tools id with recent unknow event until the date '$date'
 
         return $tools;
+
+    }
+    
+    /**
+     *  Function to know which group contain new item in a given course
+     * 
+     *  @return an array with the groups id with recent unknow event until the date '$date'
+     */
+     
+    function get_notified_groups($course_id, $date)
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_notify    = $tbl_mdb_names['notify'];   
+       
+        $groups = array();
+        
+        if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
+            $sql = "SELECT `group_id`, MAX(`date`)
+                    FROM `".$tbl_notify."` AS N
+                    WHERE N.`course_code` = '".$course_id."'
+                    AND N.`date` > '".$date."'
+                    AND (N.`group_id` != '0')
+                    GROUP BY `group_id`
+                    ";
+            $groupList = claro_sql_query_fetch_all($sql);
+            if (is_array($groupList))
+            foreach ($groupList as $group)
+            {
+                $groups[] = $group['group_id'];
+            }
+        }
+        
+        // 2- return an array with the group id with recent unknow event until the date '$date'
+
+        return $groups;
 
     }
     
