@@ -96,5 +96,18 @@ $conf_def_property_list['numberOfCols']
         ,'container' => 'VAR'
         ,'acceptedValue' => array('min' => '1')
         );
-        
+
+$conf_def_property_list['openNewWindowForDoc'] =
+array ( 'description' => 'When users click on a document, it opens a new window'
+      , 'label'       => 'New window for documents'
+      , 'default'     => 'FALSE'
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                               ,'FALSE'=>'No'
+                               )
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
+      );
+
+
 ?>

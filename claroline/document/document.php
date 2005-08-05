@@ -1861,6 +1861,8 @@ echo claro_disp_tool_title($titleElement,
                     
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
+
+                    $target = ($openNewWindowForDoc ? 'target="_blank"' : '');
                 }
                 elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
                 {
@@ -1868,6 +1870,8 @@ echo claro_disp_tool_title($titleElement,
                     $size        = '&nbsp;';
                     $date        = '&nbsp;';
                     $urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdFileName;
+
+                    $target = '';
                 }
     
                 echo "<tr align=\"center\"",$style,">\n"
@@ -1881,7 +1885,7 @@ echo claro_disp_tool_title($titleElement,
                 }
                 else
                 {
-                        echo "<a class=\"".$style." item".$classItem."\" href=\"".$urlFileName."\"".$style.">";
+                        echo "<a class=\"".$style." item".$classItem."\" href=\"".$urlFileName."\"".$style." ".$target." >";
                 } // end if is_image
                 
                 echo "<img src=\"".$imgRepositoryWeb."",
