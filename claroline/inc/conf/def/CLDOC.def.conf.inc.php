@@ -28,6 +28,13 @@ $conf_def['config_name'] = 'Documents and Links tool';
 $conf_def['config_class']= 'tool';
 
 // CONFIG SECTIONS
+$conf_def['section']['main']['label']='Main';
+$conf_def['section']['main']['description']='';
+$conf_def['section']['main']['properties'] = 
+array ( 'openNewWindowForDoc' );
+
+
+// CONFIG SECTIONS
 $conf_def['section']['quota']['label']='Quota';
 $conf_def['section']['quota']['description']='Disk space allowed for documents';
 $conf_def['section']['quota']['properties'] = 
