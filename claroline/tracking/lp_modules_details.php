@@ -88,7 +88,7 @@ $interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_REQUEST['pat
 
 $nameTools = $langModules;
 
-$QUERY_STRING = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['path_id'];
+$_SERVER['QUERY_STRING'] = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['path_id'];
 
 include($includePath."/claro_init_header.inc.php");
 // display title

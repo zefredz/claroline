@@ -437,7 +437,7 @@ else
 {
     $nameTools = $langWork;
     // to prevent parameters to be added in the breadcrumb
-    //$QUERY_STRING='';
+    //$_SERVER['QUERY_STRING'] ='';
 }
 
 include( $includePath . '/claro_init_header.inc.php' );

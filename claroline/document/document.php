@@ -1267,8 +1267,8 @@ function getWindowWidth ()
 
 $nameTools = $langDocument;
 
-$QUERY_STRING=''; // used for the breadcrumb 
-                  // when one need to add a parameter after the filename
+$_SERVER['QUERY_STRING'] = ''; // used for the breadcrumb 
+                              // when one need to add a parameter after the filename
 
 include($includePath.'/claro_init_header.inc.php');
 

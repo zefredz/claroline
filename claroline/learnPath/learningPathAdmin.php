@@ -52,8 +52,8 @@ $htmlHeadXtra[] =
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
 $nameTools = $langLearningPath;
-$QUERY_STRING=''; // used forthe breadcrumb 
-                // when one need to add a parameter after the filename
+$_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
+                              // when one need to add a parameter after the filename
   
 // use viewMode
 claro_set_display_mode_available(true);

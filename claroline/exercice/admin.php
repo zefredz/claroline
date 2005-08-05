@@ -244,7 +244,7 @@ if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || is
 		$interbredcrump[] = array("url" => "admin.php?fromExercise=".$addFrom,"name" => $_SESSION['objExercise']->selectTitle());
 	}
 	
-	$QUERY_STRING = $questionId?'editQuestion='.$questionId.'&'.$addFrom:'newQuestion=yes';
+	$_SERVER['QUERY_STRING'] = $questionId?'editQuestion='.$questionId.'&'.$addFrom:'newQuestion=yes';
 }
 else
 {
@@ -256,7 +256,7 @@ else
 	{
 		$nameTools = $langExerciseManagement;
 	}
-	$QUERY_STRING = '';
+	$_SERVER['QUERY_STRING'] = '';
 }
 
 // if the question is duplicated, disable the link of tool name

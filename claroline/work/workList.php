@@ -175,7 +175,7 @@ $interbredcrump[]= array ('url' => '../work/work.php', 'name' => $langWork);
 
 $nameTools = $langAssignment;
 // to prevent parameters to be added in the breadcrumb
-$QUERY_STRING = 'assigId='.$_REQUEST['assigId']; 
+$_SERVER['QUERY_STRING'] = 'assigId='.$_REQUEST['assigId']; 
 
 include($includePath . '/claro_init_header.inc.php');
   

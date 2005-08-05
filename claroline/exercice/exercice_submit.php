@@ -213,7 +213,7 @@ $nameTools = $_SESSION['objExercise']->exercise;
 
 if( isset($questionNum) )
 {
-	$QUERY_STRING = "questionNum=$questionNum";
+	$_SERVER['QUERY_STRING'] = "questionNum=$questionNum";
 }
 
 if ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )

@@ -32,7 +32,7 @@ require '../inc/claro_init_global.inc.php';
 
 $nameTools = ""; // title of the page (comes from the language file) 
 
-$QUERY_STRING=''; // used for the breadcrumb 
+$_SERVER['QUERY_STRING'] =''; // used for the breadcrumb 
 				  // when one needs to add a parameter after the filename 
 
 include($includePath.'claro_init_header.inc.php'); 

@@ -885,25 +885,25 @@ $interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
 
 $interbredcrump[]= array ("url"=>"../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
 // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-$QUERY_STRING = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
-$QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
-$QUERY_STRING .= "&amp;cmd=".$cmd;
+$_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
+$_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
+$_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
 
 if( $dispWrkDet || $dispWrkForm )
 {
       // bredcrump to return to the list when in a form
       $interbredcrump[]= array ("url"=>"../work/userWork.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name" => $authName);
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-	  $QUERY_STRING = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
-	  $QUERY_STRING .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
-      $QUERY_STRING .= "&amp;cmd=".$cmd;
+	  $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
+	  $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
+      $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
       $nameTools = $langSubmittedWork;
 }
 else
 {
       $nameTools = $authName;
       // to prevent parameters to be added in the breadcrumb
-      $QUERY_STRING = 'authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId']; 
+      $_SERVER['QUERY_STRING'] = 'authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId']; 
 }
 
 include($includePath.'/claro_init_header.inc.php');
