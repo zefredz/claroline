@@ -524,6 +524,21 @@ $groupList = mysql_query($sql);
 
 $totalRegistered = 0;
 
+// get group id where new events have been recorded since last login of the user
+
+if (isset($_uid))
+{
+    $date = $claro_notifier->get_last_login_before_today($_uid);
+    $modified_groups = $claro_notifier->get_notified_groups($_cid, $date);
+}
+else $modified_groups = array();
+
+echo "blah : ".var_export($modified_groups,true);
+
+ /*-------------
+      DISPLAY
+   -------------*/
+
 while ( $thisGroup = mysql_fetch_array($groupList) )
 {
 
@@ -543,10 +558,21 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
              ||   $thisGroup['is_member']
              || ! $_groupProperties['private'])
         {
-            echo '<img src="' . $imgRepositoryWeb . 'group.gif"> '
+            // see if group name must be displayed as "containing new item" or not
+
+            if (in_array($thisGroup['id'], $modified_groups))
+            {
+                $classItem = "<div class=\"item hot\">";
+            }
+            else // otherwise just display its name normally
+            {
+               $classItem = "<div class=\"item \">";;
+            }
+                     
+            echo $classItem . '<img src="' . $imgRepositoryWeb . 'group.gif"> '
                . '<a href="group_space.php?gidReq=' . $thisGroup['id'] . '">'
                . $thisGroup['name']
-               . '</a>'
+               . '</a></div>'
                ;
             
             if     ($_uid && $_uid == $thisGroup['id_tutor']) echo ' (' . $langOneMyGroups . ')';
