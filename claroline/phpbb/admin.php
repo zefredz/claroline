@@ -54,7 +54,7 @@ if ( $cmd == 'rqMkCat' )
 
     $dialogBox .= '<h4>'.$langAddCategory.'</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
+               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
                .  '<input type="hidden" name="cmd" value="exMkCat">'
                .  '<label for="catName">'.$langName.' : </label><br />'
                .  '<input type="text" name="catName" id="catName"'
@@ -125,7 +125,7 @@ if ( $cmd == 'rqMkForum' )
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum">'
-               .'<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
+               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
                .'<label for="forumName">'.$langName.': </label><br />'
                .'<input type="text" name="forumName" id="forumName"'
                .' value="'.$reqForumName.'"><br />'
@@ -175,7 +175,7 @@ if ( $cmd == 'rqEdCat' )
     {
         $dialogBox .= '<h4>Edit Category</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
+               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
                .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'">'
                .  '<input type="hidden" name="cmd" value="exEdCat">'
                .  '<label for="catName">'.$langName.' : </label><br />'
@@ -260,7 +260,7 @@ if ( $cmd == 'rqEdForum' )
     $dialogBox .= '<h4>Add Forum</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum">'
-               .'<input type="hidden" name="claroFormId" value="'.uniqid(rand()).'">'
+               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
                .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'">'
                .'<label for="forumName">'.$langName.': </label><br />'
                .'<input type="text" name="forumName" id="forumName"'

@@ -94,10 +94,10 @@ function define_course_keys ($wantedCode,
 
     // $keys['currentCourseId'] would Became $cid in normal using.
 
-    if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid (rand())),0,10);
+    if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid('')),0,10);
     else                  $uniquePrefix = '';
     
-    if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid (rand())),0,10);
+    if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid('')),0,10);
 
     else                  $uniqueSuffix = '';
 
@@ -129,7 +129,7 @@ function define_course_keys ($wantedCode,
         {
             $keysAreUnique = FALSE;
             $tryNewFSCId++;
-            $finalSuffix['CourseId'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseId'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
         };
 
         if ($singleDbEnabled)
@@ -149,20 +149,20 @@ function define_course_keys ($wantedCode,
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDb++;
-            $finalSuffix['CourseDb'] = substr('_'.md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseDb'] = substr('_'.md5 (uniqid('')), 0, $nbCharFinalSuffix);
         };
 
         if (file_exists($coursesRepositories . '/' . $keysCourseRepository))
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
-            $finalSuffix['CourseDir'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseDir'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
             if ($DEBUG) echo '[dir'.$coursesRepositories . '/' . $keysCourseRepository.']<br>';
         };
         
         if(!$keysAreUnique && $forceSameSuffix)
         {
-            $finalSuffix['CourseDir'] = substr(md5 (uniqid (rand())), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseDir'] = substr(md5 (uniqid ('')), 0, $nbCharFinalSuffix);
             $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
             $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }

@@ -1154,7 +1154,7 @@ function user_display_form($data, $form_type='registration')
 
     // hidden fields
     echo '<input type="hidden" name="cmd" value="registration" />' . "\n"
-        . '<input type="hidden" name="claroFormId" value="' . uniqid(rand()) . '" />' . "\n";
+        . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
     
     // table begin 
     echo '<table cellpadding="3" cellspacing="0" border="0">' . "\n";

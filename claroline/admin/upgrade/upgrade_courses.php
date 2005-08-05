@@ -109,7 +109,7 @@ else
 $mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // force upgrade for debug
-if ( $forceUpgrade ) $version_db_cvs = md5 (uniqid (rand())); // for debug
+if ( $forceUpgrade ) $version_db_cvs = md5(uniqid('')); // for debug
 
 $count_error_total = 0;
 
