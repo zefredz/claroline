@@ -37,6 +37,8 @@
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 
+claro_unquote_gpc();
+
 if ( ! $_cid) claro_disp_select_course();
 $nameTools     = $langGroups;
 
@@ -532,8 +534,6 @@ if (isset($_uid))
     $modified_groups = $claro_notifier->get_notified_groups($_cid, $date);
 }
 else $modified_groups = array();
-
-echo "blah : ".var_export($modified_groups,true);
 
  /*-------------
       DISPLAY
