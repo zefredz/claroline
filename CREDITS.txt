@@ -78,6 +78,8 @@ CAS system :                    based on phpCas library from ESUP-Portail projec
 
 
 Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)  
+                                Eng.Ali Ismaeel (ali@parmaja.com,a-s-is@scs-net.org)
+                                (http://www.arabeyes.org, http://www.parmaja.com/)
 
 Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
 
