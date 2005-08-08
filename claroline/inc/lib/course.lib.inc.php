@@ -53,8 +53,8 @@ function backup_database( $link, $sysCode, &$dir )
     global $localArchivesRepository;
 
     //Create the repertory who content the file sql
-    if(!is_dir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d") ))
-        mkdir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d"));
+    if(!is_dir($localArchivesRepository . 'backup_' . $db_name . '_' . date('Y_m_d') ))
+        claro_mkdir($localArchivesRepository . 'backup_' . $db_name . '_' . date('Y_m_d'));
 
     if(!is_dir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/cours/" ))
         mkdir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/cours/");
