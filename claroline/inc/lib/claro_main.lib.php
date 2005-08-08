@@ -561,7 +561,10 @@ class claro_failure
     {
         global $claro_failureList;
 
-        return $claro_failureList[ count($claro_failureList) - 1 ];
+		if( isset( $claro_failureList[ count($claro_failureList) - 1 ] ) )
+        	return $claro_failureList[ count($claro_failureList) - 1 ];
+		else
+		    return '';
     }
 }
 
