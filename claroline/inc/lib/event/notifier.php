@@ -206,7 +206,7 @@ class Notifier extends EventDriven
      *  @return an array with the tools id with recent unknow event until the date '$date'
      */
      
-    function get_notified_tools($course_id, $date, $user_id)
+    function get_notified_tools($course_id, $date, $user_id,$group_id = '0')
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_cours_user = $tbl_mdb_names['rel_course_user'];
@@ -221,6 +221,7 @@ class Notifier extends EventDriven
 
         
         if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) {
+            
             $sql = "SELECT `tool_id`, MAX(`date`)
                     FROM `".$tbl_notify."` AS N, `".$tbl_cours_user."` AS CU
                     WHERE N.`course_code` = '".addslashes($course_id)."'
@@ -228,7 +229,7 @@ class Notifier extends EventDriven
                     AND CU.`code_cours` = N.`course_code`
                     AND N.`date` > '".$date."'
                     AND (N.`user_id` = '0' OR N.`user_id` = '".(int)$user_id."')
-                    AND (N.`group_id` = '0')
+                    AND (N.`group_id` = '".$group_id."')
                     GROUP BY `tool_id`
                     ";
             $toolList = claro_sql_query_fetch_all($sql);
