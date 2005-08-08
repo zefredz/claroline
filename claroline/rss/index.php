@@ -1,10 +1,34 @@
 <?php // $Id$
+/** 
+ * CLAROLINE 
+ *
+ * Build the frameset for chat.
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLRSS
+ *
+ * @package CLRSS
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+
 $_course = array();
 $siteName ='';
 $langRetry = 'retry';
 $is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
-if(!$_cid) die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
+if(!$_cid) 
+{
+    
+    die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
+}
+
 if (!$_course['visibility'] && !$is_courseAllowed)
 {
     if (!isset($_SERVER['PHP_AUTH_USER'])) 
