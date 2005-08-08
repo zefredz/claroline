@@ -32,10 +32,21 @@ $conf_def['config_class']='user';
 $conf_def['section']['required']['label'] = 'Data checkin';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] = 
-array ( 'userOfficialCodeCanBeEmpty'
+array ( 'show_agreement_panel'
+      , 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
       , 'SECURE_PASSWORD_REQUIRED'
+      );
+
+$conf_def_property_list['show_agreement_panel'] =
+array ( 'label'         => 'Show the agreement panel before to create a new account'
+      ,'description'   => 'The content of this panel is editable in administration '
+      , 'default'       => 'TRUE'
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE'  => 'Show'
+                                 ,'FALSE' => 'Hide'
+                                 )
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
