@@ -229,7 +229,8 @@ function add_ext_on_mime($fileName)
 
 		static $mimeType = array();
 
-		$mimeType[] = 'application/msword';             $extension[] ='.doc';
+        $mimeType[] = 'text/plain';                     $extension[] ='.txt';
+        $mimeType[] = 'application/msword';             $extension[] ='.doc';
 		$mimeType[] = 'application/rtf';                $extension[] ='.rtf';
 		$mimeType[] = 'application/vnd.ms-powerpoint';  $extension[] ='.ppt';
 		$mimeType[] = 'application/vnd.ms-excel';       $extension[] ='.xls';
