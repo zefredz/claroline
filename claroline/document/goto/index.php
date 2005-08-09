@@ -52,6 +52,8 @@ if ($secureDocumentDownload)
     {
         if (file_exists($pathInfo) && ! is_dir($pathInfo) )
         {
+            $mimeType = get_mime_on_ext( basename($pathInfo) );
+            if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
             readfile($pathInfo);
         }
     }
@@ -84,6 +86,72 @@ function get_slashed_argument($completePath, $baseFile)
     return $pahtElementList[1];
 }
 
+
+
+function get_mime_on_ext($fileName)
+{
+    $mimeType = null;
+
+    /*
+	 * Check if the file has an extension AND if the browser has send a MIME Type
+	 */
+
+	if( preg_match('|.[[:alnum:]]+$|', $fileName, $match) )
+	{
+        $fileExtension = $match[0];
+
+        /*
+         * Build a "MIME-types / extensions" connection table
+         */
+
+        $mimeTypeList = array(); $extension = array();
+
+        $mimeTypeList[] = 'text/plain';                     $extensionList[] ='.txt';
+        $mimeTypeList[] = 'application/msword';             $extensionList[] ='.doc';
+        $mimeTypeList[] = 'application/rtf';                $extensionList[] ='.rtf';
+        $mimeTypeList[] = 'application/vnd.ms-powerpoint';  $extensionList[] ='.ppt';
+        $mimeTypeList[] = 'application/vnd.ms-excel';       $extensionList[] ='.xls';
+        $mimeTypeList[] = 'application/pdf';                $extensionList[] ='.pdf';
+        $mimeTypeList[] = 'application/postscript';         $extensionList[] ='.ps';
+        $mimeTypeList[] = 'application/mac-binhex40';       $extensionList[] ='.hqx';
+        $mimeTypeList[] = 'application/x-gzip';             $extensionList[] ='tar.gz';
+        $mimeTypeList[] = 'application/x-shockwave-flash';  $extensionList[] ='.swf';
+        $mimeTypeList[] = 'application/x-stuffit';          $extensionList[] ='.sit';
+        $mimeTypeList[] = 'application/x-tar';              $extensionList[] ='.tar';
+        $mimeTypeList[] = 'application/zip';                $extensionList[] ='.zip';
+        $mimeTypeList[] = 'application/x-tar';              $extensionList[] ='.tar';
+        $mimeTypeList[] = 'text/html';                      $extensionList[] ='.htm';
+        $mimeTypeList[] = 'text/plain';                     $extensionList[] ='.txt';
+        $mimeTypeList[] = 'text/rtf';                       $extensionList[] ='.rtf';
+        $mimeTypeList[] = 'img/gif';                        $extensionList[] ='.gif';
+        $mimeTypeList[] = 'img/jpeg';                       $extensionList[] ='.jpg';
+        $mimeTypeList[] = 'img/png';                        $extensionList[] ='.png';
+        $mimeTypeList[] = 'audio/midi';                     $extensionList[] ='.mid';
+        $mimeTypeList[] = 'audio/mpeg';                     $extensionList[] ='.mp3';
+        $mimeTypeList[] = 'audio/x-aiff';                   $extensionList[] ='.aif';
+        $mimeTypeList[] = 'audio/x-pn-realaudio';           $extensionList[] ='.rm';
+        $mimeTypeList[] = 'audio/x-pn-realaudio-plugin';    $extensionList[] ='.rpm';
+        $mimeTypeList[] = 'audio/x-wav';                    $extensionList[] ='.wav';
+        $mimeTypeList[] = 'video/mpeg';                     $extensionList[] ='.mpg';
+        $mimeTypeList[] = 'video/quicktime';                $extensionList[] ='.mov';
+        $mimeTypeList[] = 'video/x-msvideo';                $extensionList[] ='.avi';
+
+		/*
+		 * Check if the MIME type send by the browser is in the table
+		 */
+
+		foreach($extensionList as $key => $extension)
+		{
+			if ($extension == $fileExtension)
+			{
+				$mimeType = $mimeTypeList[$key];
+				break;
+			}
+		}
+	}
+
+	return $mimeType;
+}
 
 
 ?>
