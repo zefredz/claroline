@@ -61,29 +61,52 @@ class csvTrackSingle extends csv
 		$sql = "SELECT `TE`.`exe_date`,
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
-						`A`.`reponse`
+						`TEA`.`answer`
 				FROM `".$tbl_quiz_question."` AS `Q`,
 					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
-					`".$tbl_quiz_answer."` AS `A`,
 					`".$tbl_track_e_exercises."` AS `TE`,
 					`".$tbl_track_e_exe_details."` AS `TED`,
 					`".$tbl_user."` AS `U`
 				LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
 				    ON `TEA`.`details_id` = `TED`.`id`
     			WHERE `RTQ`.`question_id` = `Q`.`id`
-					AND `Q`.`id` = `A`.`question_id`
 					AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
 					AND `TE`.`exe_id` = `TED`.`exercise_track_id`
 					AND `U`.`user_id` = `TE`.`exe_user_id`
-					AND `TEA`.`answer` = `A`.`id`
 					AND `TED`.`question_id` = `Q`.`id`
 					AND `Q`.`id` = ".$this->question->selectId();
-					
+
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
         
 		$sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
-				
-  		if( $this->recordList = claro_sql_query_fetch_all($sql) )
+
+		$attempts = claro_sql_query_fetch_all($sql);
+
+		// get the list of possible answers and their ids
+		$sql = "SELECT `A`.`id`, `A`.`reponse`
+		        FROM `".$tbl_quiz_answer."` AS `A`
+		        WHERE `A`.`question_id` = ".$this->question->selectId();
+		$answers = claro_sql_query_fetch_all($sql);
+
+		// order the answer list to have the id as the key
+		foreach( $answers as $answer )	$orderedAnswers[$answer['id']] = $answer['reponse'];
+
+		// build recordlist with good values for answers
+		$i = 0;
+		foreach( $attempts as $attempt )
+		{
+			$this->recordList[$i] = $attempt;
+			
+			if( isset($orderedAnswers[$attempt['answer']]) )
+				$this->recordList[$i]['answer'] = $orderedAnswers[$attempt['answer']];
+			else
+			    $this->recordList[$i]['answer'] = '';
+			    
+			$i++;
+		}
+
+		
+  		if( isset($this->recordList) && is_array($this->recordList) )
 			return true;
 		else
 		    return false;
