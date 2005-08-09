@@ -434,7 +434,7 @@ LEFT JOIN `" . $tbl_tool . "` `ct`
 ON        ct.id = tl.tool_id";
 
     $tool_list = claro_sql_query_fetch_all($sql);
-
+    
     foreach($tool_list as $tool)
     {
         if (in_array(trim($tool['label'],'_'),$aivailable_tool_in_group))
@@ -453,7 +453,7 @@ ON        ct.id = tl.tool_id";
                 {
                     if($_groupProperties['tools']['forum'])
                     {
-                        $tool['url'].= '?forum=' . $forumId ;
+                        $tool['url'] = 'phpbb/viewforum.php?forum=' . $forumId ;
                         $group_tool_list[] = $tool;
                     }
 
