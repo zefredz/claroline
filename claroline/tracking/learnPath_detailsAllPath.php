@@ -70,12 +70,12 @@ if($is_allowedToTrack && $is_trackingEnabled)
            AND CU.`code_cours` = '". addslashes($_cid) ."'";
     $usersList = claro_sql_query_fetch_all($sql);
     // display tab header
-    echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
-        <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
-          <th>$langStudent</th>\n
-          <th colspan=\"2\">$langProgress</th>\n
-        </tr>\n
-        <tbody>";
+    echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+    	.'<tr class="headerX" align="center" valign="top">'."\n"
+		.'<th>'.$langStudent.'</th>'."\n"
+		.'<th colspan="2">'.$langProgress.'</th>'."\n"
+        .'</tr>'."\n"
+        .'<tbody>'."\n";
     
     
     // display tab content
@@ -128,24 +128,24 @@ if($is_allowedToTrack && $is_trackingEnabled)
 
 		if( $iterator == 1 )
 		{
-			echo "<tr><td align=\"center\" colspan=\"8\">".$langNoLearningPath."</td></tr>";
+			echo '<tr><td align="center" colspan="8">'.$langNoLearningPath.'</td></tr>'."\n";
 		}
 		else
 		{
 			$total = round($globalprog/($iterator-1));
-			echo "<tr>
-			  <td><a href=\"".$clarolineRepositoryWeb."tracking/userLog.php?uInfo=".$user['user_id']."&view=0010000\">".$user['nom']." ".$user['prenom']."</a></td>\n
-			  <td align=\"right\">".
-			claro_disp_progress_bar($total, 1).
-			" </td>
-			   <td align=\"left\"><small>".$total."%</small></td>
-			</tr>";
+			echo '<tr>'
+				.'<td><a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$user['user_id'].'&view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+				.'<td align="right">'
+                .claro_disp_progress_bar($total, 1)
+				.'</td>'
+			   	.'<td align="left"><small>'.$total.'%</small></td>'
+				.'</tr>';
 		}
 
     }
     
     // foot of table
-    echo "</tbody>\n</table>";
+    echo '</tbody>'."\n".'</table>';
     
 }
 // not allowed
