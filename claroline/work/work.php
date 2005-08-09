@@ -22,7 +22,7 @@ $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
 include($includePath . '/lib/events.lib.inc.php');
-include($includePath . '/lib/assignement.lib.php');
+include($includePath . '/lib/assignment.lib.php');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
