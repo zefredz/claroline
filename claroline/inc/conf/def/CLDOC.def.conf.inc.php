@@ -31,7 +31,7 @@ $conf_def['config_class']= 'tool';
 $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] = 
-array ( 'openNewWindowForDoc' );
+array ( 'openNewWindowForDoc', 'secureDocumentDownload' );
 
 
 // CONFIG SECTIONS
@@ -116,5 +116,16 @@ array ( 'description' => 'When users click on a document, it opens a new window'
       , 'readonly'    => FALSE
       );
 
+$conf_def_property_list['secureDocumentDownload'] =
+array ( 'description' => 'Increase the security download'
+      , 'label'       => 'Secure document download'
+      , 'default'     => 'FALSE'
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
+                               )
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
+      );
 
 ?>
