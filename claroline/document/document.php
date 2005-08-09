@@ -1842,11 +1842,11 @@ echo claro_disp_tool_title($titleElement,
 
                                 if (in_array($fileName, $modified_documents))
                                 {
-                                    $classItem=" hot";
+                                    $classItem=' hot';
                                 }
                                 else // otherwise just display its name normally
                                 {
-                                    $classItem="";
+                                    $classItem='';
                                 }
                                 
                                 
@@ -1856,8 +1856,8 @@ echo claro_disp_tool_title($titleElement,
                     $size        = format_file_size($fileList['size'][$fileKey]);
                     $date        = format_date($fileList['date'][$fileKey]);
     
-                    $urlFileName = 'goto/?doc_url='.urlencode($cmdFileName);
-                    //$urlFileName = "goto/index.php".str_replace('%2F', '/', $cmdFileName);
+                    //$urlFileName = 'goto/?doc_url='.urlencode($cmdFileName);
+                    $urlFileName = "goto/index.php".str_replace('%2F', '/', $cmdFileName);
                     
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
