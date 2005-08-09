@@ -102,27 +102,27 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
             $usersList = claro_sql_query_fetch_all($sql);
 
             // display tab header
-            echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
-                <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
-                  <th>".$langStudent."</th>\n
-                  <th colspan=\"2\">".$langProgress."</th>\n
-                </tr>\n
-                <tbody>";
+            echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+           		.'<tr class="headerX" align="center" valign="top">'."\n"
+				.'<th>'.$langStudent.'</th>'."\n"
+				.'<th colspan="2">'.$langProgress.'</th>'."\n"
+				.'</tr>'."\n"
+                .'<tbody>'."\n";
 
             // display tab content
             foreach ( $usersList as $user )
             {
                 $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
-                echo "<tr>
-                     <td><a href=\"lp_modules_details.php?uInfo=".$user['user_id']."&path_id=".$path_id."\">".$user['nom']." ".$user['prenom']."</a></td>\n
-                     <td align=\"right\">".
-                    claro_disp_progress_bar($lpProgress, 1).
-              	    " </td>
-                    <td align=\"left\"><small>".$lpProgress."%</small></td>
-                    </tr>";
+                echo '<tr>'."\n"
+					.'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+                    .'<td align="right">'
+                    .claro_disp_progress_bar($lpProgress, 1)
+              	    .'</td>'
+                    .'<td align="left"><small>'.$lpProgress.'%</small></td>'
+                    .'</tr>';
             }
             // foot of table
-            echo "</tbody>\n</table>";
+            echo '</tbody>'."\n".'</table>';
         }
     }
 }
