@@ -18,8 +18,8 @@ $nameTools = $langTrafficDetails;
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
-@include($includePath."/claro_init_header.inc.php");
-@include($includePath."/lib/statsUtils.lib.inc.php");
+include($includePath."/claro_init_header.inc.php");
+include($includePath."/lib/statsUtils.lib.inc.php");
 
 $is_allowedToTrack = $is_platformAdmin || $is_courseAdmin;
 
@@ -39,92 +39,80 @@ echo claro_disp_tool_title(
 		    $reqdate = (int)$_REQUEST['reqdate'];
 
         if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
-        else                                $period = "day"; // default value
+        else                                $period = 'day'; // default value
 
         if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
         else                                	$displayType = ''; // default value
         
         //** dislayed period
-        echo "<tr><td><b>";
+        echo '<tr>'."\n".'<td><b>';
             switch($period)
             {
-                case "year" : 
-                    echo date(" Y", $reqdate);
+                case 'year' :
+                    echo date(' Y', $reqdate);
                     break;
-                case "month" : 
-                    echo $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
+                case 'month' :
+                    echo $langMonthNames['long'][date('n', $reqdate)-1].date(' Y', $reqdate);
                     break;
                 // default == day
                 default :
-                    $period = "day";            
-                case "day" : 
-                    echo $langDay_of_weekNames['long'][date("w" , $reqdate)].date(" d " , $reqdate).$langMonthNames['long'][date("n", $reqdate)-1].date(" Y" , $reqdate);
+                    $period = 'day';
+                case 'day' :
+                    echo $langDay_of_weekNames['long'][date('w' , $reqdate)].date(' d ' , $reqdate).$langMonthNames['long'][date('n', $reqdate)-1].date(' Y' , $reqdate);
                     break;
             }
-        echo "</b></tr></td>";
+        echo '</b></td>'."\n".'</tr>'."\n\n";
         //** menu
-        echo "<tr>
-                <td>
-                <small>
-        ";
-        echo "  $langPeriodToDisplay : [<a href='".$_SERVER['PHP_SELF']."?period=year&reqdate=$reqdate&displayType=month'>$langPeriodYear</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?period=month&reqdate=$reqdate&displayType=day'>$langPeriodMonth</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?period=day&reqdate=$reqdate'>$langPeriodDay</a>]
-                &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
-                $langDetailView :
-        ";
+        echo '<tr>'."\n".'<td><small>'."\n";
+        echo $langPeriodToDisplay.' : [<a href="'.$_SERVER['PHP_SELF'].'?period=year&reqdate='.$reqdate.'&displayType=month">'.$langPeriodYear.'</a>]'."\n"
+            .'[<a href="'.$_SERVER['PHP_SELF'].'?period=month&reqdate='.$reqdate.'&displayType=day">'.$langPeriodMonth.'</a>]'."\n"
+            .'[<a href="'.$_SERVER['PHP_SELF'].'?period=day&reqdate='.$reqdate.'">'.$langPeriodDay.'</a>]'."\n"
+            .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
+            .$langDetailView.' : ';
+
         switch($period)
         {
-            case "year" : 
+            case 'year' :
                     //-- if period is "year" display can be by month, day or hour
-                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=month'>$langPeriodMonth</a>]";
-            case "month" : 
+                    echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=month">'.$langPeriodMonth.'</a>]'."\n";
+            case 'month' :
                     //-- if period is "month" display can be by day or hour
-                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=day'>$langPeriodDay</a>]";
-            case "day" : 
+                    echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=day">'.$langPeriodDay.'</a>]'."\n";
+            case 'day' :
                     //-- if period is "day" display can only be by hour
-                    echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=hour'>$langPeriodHour</a>]";
+                    echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=hour">'.$langPeriodHour.'</a>]'."\n";
                     break;
         }
         
-        echo "&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;";
+        echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
         
         switch($period)
         {
-            case "year" :
+            case 'year' :
                 // previous and next date must be evaluated
                 // 30 days should be a good approximation
-                $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
-                $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
-                echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType'>$langPreviousYear</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType'>$langNextYear</a>]
-                ";
+                $previousReqDate = mktime(1,1,1,1,1,date('Y',$reqdate)-1);
+                $nextReqDate = mktime(1,1,1,1,1,date('Y',$reqdate)+1);
+                echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.$langPreviousYear.'</a>]'."\n"
+                    .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.$langNextYear.'</a>]'."\n";
                 break;
-            case "month" :
+            case 'month' :
                 // previous and next date must be evaluated
                 // 30 days should be a good approximation
                 $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
                 $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-                echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType'>$langPreviousMonth</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType'>$langNextMonth</a>]
-                ";
+                echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.$langPreviousMonth.'</a>]'."\n"
+                    .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.$langNextMonth.'</a>]'."\n";
                 break;
-            case "day" :
+            case 'day' :
                 // previous and next date must be evaluated
                 $previousReqDate = $reqdate - 86400;
                 $nextReqDate = $reqdate + 86400;
-                echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$previousReqDate&displayType=$displayType'>$langPreviousDay</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$nextReqDate&displayType=$displayType'>$langNextDay</a>]
-                ";
+                echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.$langPreviousDay.'</a>]'."\n"
+                    .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.$langNextDay.'</a>]'."\n";
                 break;
         }
-        echo "  </small>
-                </td>
-              </tr>
-        ";
+        echo '</small>'."\n".'</td>'."\n".'</tr>'."\n\n";
         //**
         // display information about this period
         switch($period)
