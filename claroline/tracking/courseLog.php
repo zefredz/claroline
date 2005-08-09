@@ -65,7 +65,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
     
     $tempView = $view;
 	$viewLevel++;
-    echo "<p>\n";
+    echo '<p>'."\n";
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
@@ -76,7 +76,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_rel_course_user."`
                     WHERE code_cours = '".$_cid."'";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langCountUsers." : ".$count."<br />\n";
+        echo '&nbsp;&nbsp;&nbsp;'.$langCountUsers.' : '.$count.'<br />'."\n";
         
         //--  student never connected
         $sql = "SELECT  U.`user_id`, U.`nom`, U.`prenom`
@@ -87,7 +87,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
             AND CU.`code_cours` = '".$_cid."'
             AND A.`access_user_id` IS NULL
             "; 
-        echo "&nbsp;&nbsp;&nbsp;".$langNeverConnectedStudents;
+        echo '&nbsp;&nbsp;&nbsp;'.$langNeverConnectedStudents;
     
         $results = getManyResults3Col($sql);
         if (is_array($results))
@@ -151,17 +151,17 @@ if($is_allowedToTrack && $is_trackingEnabled)
      ***************************************************************************/
     $tempView = $view;
 	$viewLevel++;
-    echo "<p>\n";
+    echo '<p>'."\n";
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
-        echo "-&nbsp;&nbsp;<b>".$langCourseAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>".$langClose."</a>]</small><br />\n";
+        echo '-&nbsp;&nbsp;<b>'.$langCourseAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
         
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_access."`
                     WHERE access_tid IS NULL";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langCountToolAccess." : ".$count."<br />\n";
+        echo '&nbsp;&nbsp;&nbsp;'.$langCountToolAccess.' : '.$count.'<br />'."\n";
         
         // last 31 days
         $sql = "SELECT count(*) 
@@ -169,7 +169,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))
                         AND access_tid IS NULL";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langLast31days." : ".$count."<br />\n";
+        echo '&nbsp;&nbsp;&nbsp;'.$langLast31days.' : '.$count.'<br />'."\n";
         
         // last 7 days
         $sql = "SELECT count(*) 
@@ -177,7 +177,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
                         AND access_tid IS NULL";
         $count = getOneResult($sql);
-        echo "&nbsp;&nbsp;&nbsp;".$langLast7Days." : ".$count."<br />\n";
+        echo '&nbsp;&nbsp;&nbsp;'.$langLast7Days.' : '.$count.'<br />'."\n";
         
         // today
         $sql = "SELECT count(*) 
@@ -237,11 +237,11 @@ if($is_allowedToTrack && $is_trackingEnabled)
         { 
             for($j = 0 ; $j < count($results) ; $j++)
             {                 
-                echo "<tr>\n"
-                    ."<td><a href=\"toolaccess_details.php?toolId=".$results[$j][0]."\">".$toolNameList[$results[$j][3]]."</a></td>\n"
-                    ."<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&amp;id=".$results[$j][0]."\">".$results[$j][1]."</a></td>\n"
-                    ."<td align=\"right\">".$results[$j][2]."</td>\n"
-                    ."</tr>\n\n";
+                echo '<tr>'."\n"
+                    .'<td><a href="toolaccess_details.php?toolId='.$results[$j][0].'">'.$toolNameList[$results[$j][3]].'</a></td>'."\n"
+                    .'<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$results[$j][0].'">'.$results[$j][1].'</a></td>'."\n"
+                    .'<td align="right">'.$results[$j][2].'</td>'."\n"
+                    .'</tr>'."\n\n";
             }
         
         }
@@ -259,9 +259,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$viewLevel] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langToolsAccess</a>";
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langToolsAccess.'</a>';
     }
-    echo "</p>\n\n";
+    echo '</p>'."\n\n";
 
     /***************************************************************************
      *              
@@ -270,7 +270,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
      ***************************************************************************/
     $tempView = $view;
 	$viewLevel++;
-    echo "<p>\n";
+    echo '<p>'."\n";
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
@@ -316,16 +316,16 @@ if($is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$viewLevel] = '1';
-        echo "+&nbsp;&nbsp;&nbsp;<a href='".$_SERVER['PHP_SELF']."?view=".$tempView."'>$langDocumentsAccess</a>";
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langDocumentsAccess.'</a>';
     }
-    echo "</p>\n\n";
+    echo '</p>'."\n\n";
     
     /***************************************************************************
      *		Exercises
      ***************************************************************************/
     $tempView = $view;
 	$viewLevel++;
-    echo "<p>\n";
+    echo '<p>'."\n";
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
@@ -383,13 +383,13 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	 ***************************************************************************/
 	$tempView = $view;
 	$viewLevel++;
-	echo "<p>\n";
+	echo '<p>'."\n";
 	if($view[$viewLevel] == '1')
 	{
 	    $tempView[$viewLevel] = '0';
 	
-	    echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langClose."</a>]</small>"
-	            ."<br />\n";
+	    echo '-&nbsp;&nbsp;<b>'.$langTrackForumUsage.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+
 		// total number of posts
 		$sql = "SELECT count(`post_id`)
 		                FROM `".$tbl_bb_posts."`";
@@ -401,9 +401,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
 		$totalTopics = claro_sql_query_get_single_value($sql);
 
 		// display total of posts and threads		
-		echo "<ul>\n"
-			."<li>".$langTrackTotalPosts." : ".$totalPosts."</li>"
-			."<li>".$langTrackTotalTopics." : ".$totalTopics."</li>";
+		echo '<ul>'."\n"
+			.'<li>'.$langTrackTotalPosts.' : '.$totalPosts.'</li>'."\n"
+			.'<li>'.$langTrackTotalTopics.' : '.$totalTopics.'</li>'."\n";
 		// top 10 topics more active (more responses)
 		$sql = "SELECT `topic_id`, `topic_title`, `topic_replies`
 					FROM `".$tbl_bb_topics."`
@@ -411,33 +411,33 @@ if($is_allowedToTrack && $is_trackingEnabled)
 					LIMIT 10
 					";
 		$results = getManyResults3Col($sql);
-        echo "<li>".$langMoreRepliedTopics."<br />"
-			."<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-			."<tr class=\"headerX\">\n"
-			."<th>".$l_topic."</th>\n"
-			."<th>".$langTopicReplies."</th>\n"						
-			."</tr>\n";
+        echo '<li>'.$langMoreRepliedTopics.'<br />'
+			.'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+			.'<tr class="headerX">'."\n"
+			.'<th>'.$l_topic.'</th>'."\n"
+			.'<th>'.$langTopicReplies.'</th>'."\n"
+			.'</tr>'."\n";
 		if (is_array($results))
 		{
-		    echo "<tbody>\n";
+		    echo '<tbody>'."\n";
 		    for($j = 0 ; $j < count($results) ; $j++)
 		    {
-		            echo "<tr>\n"
-		                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
-		                    ."<td>".$results[$j][2]."</td>\n"									
-		                    ."</tr>\n";
+		            echo '<tr>'."\n"
+		                    .'<td><a href="../phpbb/viewtopic.php?topic='.$results[$j][0].'">'.$results[$j][1].'</a></td>'."\n"
+		                    .'<td>'.$results[$j][2].'</td>'."\n"
+		                    .'</tr>'."\n";
 		    }
-		    echo "</tbody>\n";
+		    echo '</tbody>'."\n";
 		
 		}
 		else
 		{
-		    echo "<tfoot>\n<tr>\n"
-		            ."<td align=\"center\">".$langNoResult."</td>\n"
-		            ."</tr>\n</tfoot>\n";
+		    echo '<tfoot>'."\n".'<tr>'."\n"
+		            .'<td align="center">'.$langNoResult.'</td>'."\n"
+		            .'</tr>'."\n".'</tfoot>'."\n";
 		}
-		echo "</table>\n"
-			."</li>\n";
+		echo '</table>'."\n"
+			.'</li>'."\n";
 		
 		
 		// top 10 topics more seen
@@ -447,33 +447,33 @@ if($is_allowedToTrack && $is_trackingEnabled)
 					LIMIT 10
 					";
 		$results = getManyResults3Col($sql);
-		echo "<li>".$langMoreSeenTopics."<br />"
-			."<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-			."<tr class=\"headerX\">\n"
-			."<th>".$l_topic."</th>\n"
-			."<th>".$langSeen."</th>\n"						
-			."</tr>\n";
+		echo '<li>'.$langMoreSeenTopics.'<br />'
+			.'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+			.'<tr class="headerX">'."\n"
+			.'<th>'.$l_topic.'</th>'."\n"
+			.'<th>'.$langSeen.'</th>'."\n"
+			.'</tr>'."\n";
 		if (is_array($results))
 		{
-		    echo "<tbody>\n";
+		    echo '<tbody>'."\n";
 		    for($j = 0 ; $j < count($results) ; $j++)
 		    {
-		            echo "<tr>\n"
-		                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
-		                    ."<td>".$results[$j][2]."</td>\n"									
-		                    ."</tr>\n";
+		            echo '<tr>'."\n"
+		                    .'<td><a href="../phpbb/viewtopic.php?topic='.$results[$j][0].'">'.$results[$j][1].'</a></td>'."\n"
+		                    .'<td>'.$results[$j][2].'</td>'."\n"
+		                    .'</tr>'."\n";
 		    }
-		    echo "</tbody>\n";
+		    echo '</tbody>'."\n";
 		
 		}
 		else
 		{
-		    echo "<tfoot>\n<tr>\n"
-		            ."<td align=\"center\">".$langNoResult."</td>\n"
-		            ."</tr>\n</tfoot>\n";
+		    echo '<tfoot>'."\n".'<tr>'."\n"
+		            .'<td align="center">'.$langNoResult.'</td>'."\n"
+		            .'</tr>'."\n".'</tfoot>'."\n";
 		}
-		echo "</table>\n"
-			."</li>\n";
+		echo '</table>'."\n"
+			.'</li>'."\n";
 		
 		// last 10 distinct messages posted
 		$sql = "SELECT `bb_t`.`topic_id`,
@@ -487,42 +487,42 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			
 		$results = getManyResults3Col($sql);
 		
-		echo "<li>".$langLastActiveTopics."<br />"
-			."<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-				."<tr class=\"headerX\">\n"
-		        ."<th>".$l_topic."</th>\n"
-		        ."<th>".$langLastMsg."</th>\n"						
-		        ."</tr>\n";
+		echo '<li>'.$langLastActiveTopics.'<br />'
+			.'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+				.'<tr class="headerX">'."\n"
+		        .'<th>'.$l_topic.'</th>'."\n"
+		        .'<th>'.$langLastMsg.'</th>'."\n"
+		        .'</tr>'."\n";
 		if (is_array($results))
 		{
-		    echo "<tbody>\n";
+		    echo '<tbody>'."\n";
 		    for($j = 0 ; $j < count($results) ; $j++)
 		    {
-		            echo "<tr>\n"
-		                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
-		                    ."<td>".$results[$j][2]."</td>\n"									
-		                    ."</tr>\n";
+		            echo '<tr>'."\n"
+		                    .'<td><a href="../phpbb/viewtopic.php?topic='.$results[$j][0].'">'.$results[$j][1].'</a></td>'."\n"
+		                    .'<td>'.$results[$j][2].'</td>'."\n"
+		                    .'</tr>'."\n";
 		    }
-		    echo "</tbody>\n";
+		    echo '</tbody>'."\n";
 		
 		}
 		else
 		{
-		    echo "<tfoot>\n<tr>\n"
-		            ."<td align=\"center\">".$langNoResult."</td>\n"
-		            ."</tr>\n</tfoot>\n";
+		    echo '<tfoot>'."\n".'<tr>'."\n"
+		            .'<td align="center">'.$langNoResult.'</td>'."\n"
+		            .'</tr>'."\n".'</tfoot>'."\n";
 		}
-		echo "</table>\n"
-			."</li>";
+		echo '</table>'."\n"
+			.'</li>';
 			
-		echo "</ul>";
+		echo '</ul>';
 	}
 	else
 	{
 	    $tempView[$viewLevel] = '1';
-	    echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?view=".$tempView."\">".$langTrackForumUsage."</a>";
+	    echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langTrackForumUsage.'</a>';
 	}
-	echo "<br /></p>\n\n";
+	echo '<br /></p>'."\n\n";
 	
 	// display link to delete all course stats
 	echo '<hr />'."\n"
