@@ -556,8 +556,8 @@
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.$langTitle.'</th>' . "\n"
-                    . '<th>'.$langWikiEnterWiki.'</th>' . "\n"
                     . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
+                    . '<th>'.$langWikiRecentChanges.'</th>'
                     . '<th>'.$langWikiProperties.'</th>' . "\n"
                     . '<th>'.$langDelete.'</th>' . "\n"
                     . '</tr>' . "\n"
@@ -570,8 +570,8 @@
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.$langTitle.'</th>' . "\n"
-                    . '<th>'.$langWikiEnterWiki.'</th>' . "\n"
                     . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
+                    . '<th>'.$langWikiRecentChanges.'</th>'
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -589,31 +589,49 @@
                 
                     // display title for all users
                     
-                    echo '<td>';
+                    /*echo '<td>';
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
                         . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
-                    echo '</td>' . "\n";
+                    echo '</td>' . "\n";*/
                     
-                    echo '<td style="text-align: center;">';
+                    echo '<td style="text-align: left;">';
                     
                     // display direct link to main page
                     
                     echo '<a href="page.php?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/enter.gif" alt="'.$langWikiEnterWiki.'" />'
-                        . '</a>'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
+                        . $entry['title'] . '</a>'
+                        ;
                         ;
                     echo '</td>' . "\n";
                     
                     echo '<td style="text-align: center;">';
                     
+                    echo '<a href="page.php?wikiId=' . $entry['id'] . '&amp;action=all">';
+                    
                     echo $wikiStore->getNumberOfPagesInWiki( $entry['id'] );
                     
+                    echo '</a>';
+                    
+                    echo '</td>' . "\n";
+                    
+                    echo '<td style="text-align: center;">';
+
+                    // display direct link to main page
+
+                    echo '<a href="page.php?wikiId='
+                        . $entry['id'].'&amp;action=recent'
+                        . '">'
+                        . '<img src="' . $imgRepositoryWeb . '/history.gif" alt="'.$langWikiRecentChanges.'" />'
+                        . '</a>'
+                        ;
+                        ;
                     echo '</td>' . "\n";
                     
                     // if admin, display edit and delete links
@@ -642,8 +660,17 @@
                             ;
                         echo '</td>' . "\n";
                     }
-
+                    
                     echo '</tr>' . "\n";
+                    
+                    echo '<tr>' . "\n";
+                    
+                    $colspan = ( $is_allowedToAdmin ) ? 5 : 3;
+                    
+                    echo '<td colspan="'.$colspan.'" class="comment">'.$entry['description'].'</td>' . "\n";
+                    
+                    echo '</tr>' . "\n";
+
                 }
             }
             // wiki list empty

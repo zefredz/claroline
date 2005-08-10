@@ -150,7 +150,7 @@
                 $this->con->connect();
             }
             
-            $sql = "SELECT `id`, `title` "
+            $sql = "SELECT `id`, `title`, `description` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
                 . "WHERE `group_id` = ".$groupId . " "
                 . "ORDER BY `id` ASC"
@@ -180,7 +180,7 @@
                 $this->con->connect();
             }
             
-            $sql = "SELECT `id`, `title` "
+            $sql = "SELECT `id`, `title`, `description` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
                 . "WHERE `group_id` != 0 "
                 . "ORDER BY `group_id` ASC"
