@@ -239,7 +239,7 @@
     }
     else
     {
-        $content = ( isset( $_REQUEST['content'] ) ) ? strip_tags( $_REQUEST['content'] ) : '';
+        $content = ( isset( $_REQUEST['content'] ) ) ? $_REQUEST['content'] : '';
     }
     
     // use __MainPage__ if empty title
@@ -638,7 +638,7 @@
     // Wiki navigation bar
     
     echo '<p>';
-
+    
     echo '<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
@@ -648,13 +648,45 @@
         . '<img src="'.$imgRepositoryWeb.'wiki.gif" border="0" alt="edit" />&nbsp;'
         . $langWikiMainPage.'</a>'
         ;
+    
+    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+        . $_SERVER['PHP_SELF']
+        . '?wikiId=' . $wiki->getWikiId()
+        . '&amp;action=recent'
+        . '">'
+        . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="recent changes" />&nbsp;'
+        . $langWikiRecentChanges.'</a>'
+        ;
+
+    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+        . $_SERVER['PHP_SELF']
+        . '?wikiId=' . $wiki->getWikiId()
+        . '&amp;action=all'
+        . '">'
+        . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
+        . $langWikiAllPages.'</a>'
+        ;
+        
+    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+        . 'wiki.php'
+        . '">'
+        . '<img src="'.$imgRepositoryWeb.'info.gif" border="0" alt="all pages" />&nbsp;'
+        . $langWikiList .'</a>'
+        ;
+    
+    echo '</p>';
+    
+    if ( $action != 'recent' && $action != 'all' )
+    {
+    
+    echo '<p>';
         
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         // Show context
         if ( $action == "show" || $action == "history" || $action == "diff" )
         {
-            echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+            echo '<a class="claroCmd" href="'
                 . $_SERVER['PHP_SELF']
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&amp;action=edit'
@@ -704,24 +736,6 @@
             ;
     }
         
-    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
-        . $_SERVER['PHP_SELF']
-        . '?wikiId=' . $wiki->getWikiId()
-        . '&amp;action=recent'
-        . '">'
-        . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="recent changes" />&nbsp;'
-        . $langWikiRecentChanges.'</a>'
-        ;
-        
-    echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
-        . $_SERVER['PHP_SELF']
-        . '?wikiId=' . $wiki->getWikiId()
-        . '&amp;action=all'
-        . '">'
-        . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
-        . $langWikiAllPages.'</a>'
-        ;
-        
     if ( $action == "edit" )
     {
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
@@ -734,6 +748,8 @@
     }
 
     echo '</p>' . "\n";
+    
+    }
     
     switch( $action )
     {
