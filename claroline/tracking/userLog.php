@@ -96,9 +96,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         /***************************************************************************
          *        Display list of user of this group
          ***************************************************************************/
-        echo '<h4>'
-            .$langListStudents
-            .'</h4>';
+        echo '<h4>'.$langListStudents.'</h4>'."\n";
 
         $userPerPage = 25; // number of student per page
 
@@ -141,14 +139,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
         foreach( $userList as $thisUser )
         {
-            echo    "<tr valign=\"top\" align=\"center\">\n"
-                    ."<td align=\"left\">"
-                    ."<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$thisUser['user_id']."\">"
-                    .$thisUser['nom']." ".$thisUser['prenom']
-                    ."</a>".
-                    "</td>\n";
+            echo '<tr valign="top" align="center">'."\n"
+				.'<td align="left">'
+				.'<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$thisUser['user_id'].'">'
+				.$thisUser['nom'].' '.$thisUser['prenom']
+				.'</a>'
+				.'</td>'."\n";
         }
-        echo        "</table>\n";
+        echo '</table>'."\n";
 
     }
     else // if $_REQUEST['uInfo'] is set
@@ -187,20 +185,20 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             $res[2] == "" ? $res2 = $langNoEmail : $res2 = $res[2];
                 
-            echo "<p>"
-                ."<ul>\n"
-                ."<li>".$langLastName." : ".$res[0]."</li>\n"
-                ."<li>".$langFirstName." : ".$res[1]."</li>\n"
-                ."<li>".$langEmail." : ".$res2."</li>\n"
-                ."</ul>"
-                ."</p>";
+            echo '<p>'."\n"
+                .'<ul>'."\n"
+                .'<li>'.$langLastName.' : '.$res[0].'</li>'."\n"
+                .'<li>'.$langFirstName.' : '.$res[1].'</li>'."\n"
+                .'<li>'.$langEmail.' : '.$res2.'</li>'."\n"
+                .'</ul>'."\n"
+                .'</p>'."\n";
             
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
-            echo "\n<small>"
-                ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=1111111\">".$langShowAll."</a>]&nbsp;"
-                ."[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=0000000\">".$langShowNone."</a>]"
-                ."</small>\n\n";        
+            echo "\n".'<small>'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=1111111">'.$langShowAll.'</a>]&nbsp;'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=0000000">'.$langShowNone.'</a>]'."\n"
+                .'</small>'."\n\n";
 
             $viewLevel = -1; //  position of the flag of the view in the $view array/string
             
@@ -212,13 +210,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
              ***************************************************************************/
             $tempView = $view;
             $viewLevel++;
-            echo "<p>\n";
+            echo '<p>'."\n";
             if($view[$viewLevel] == '1')
             {
                 $tempView[$viewLevel] = '0';
 
-              echo "-&nbsp;&nbsp;<b>".$langLoginsAndAccessTools."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">".$langClose."</a>]</small>"
-                        ."<br />\n&nbsp;&nbsp;&nbsp;".$langLoginsDetails."<br />\n";
+              echo '-&nbsp;&nbsp;<b>'.$langLoginsAndAccessTools.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
+                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langLoginsDetails.'<br />'."\n";
                 
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`), count(`login_date`)
                             FROM `".$tbl_track_e_login."`
@@ -227,44 +225,44 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             ORDER BY `login_date` ASC";
                 $results = getManyResults2Col($sql);
 
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
-                echo "<tr class=\"headerX\">\n"
-                        ."<th>$langLoginsTitleMonthColumn</th>\n"
-                        ."<th>$langLoginsTitleCountColumn</th>\n"
-                        ."</tr>\n"
-                        ."<tbody>\n";
+                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                	.'<tr class="headerX">'."\n"
+                    .'<th>'.$langLoginsTitleMonthColumn.'</th>'."\n"
+                    .'<th>'.$langLoginsTitleCountColumn.'</th>'."\n"
+                    .'</tr>'."\n"
+                    .'<tbody>'."\n";
                         
                 $total = 0;
                 if (is_array($results))
                 { 
-                    for($j = 0 ; $j < count($results) ; $j++)
-                    { 
-                        echo "<tr>\n" 
-                              ."<td><a href=\"logins_details.php?uInfo=".$_REQUEST['uInfo']."&reqdate=".$results[$j][0]."\">".$langMonthNames['long'][date("n", $results[$j][0])-1]." ".date("Y", $results[$j][0])."</a></td>\n"
-                              ."<td valign=\"top\" align=\"right\">".$results[$j][1]."</td>\n"
-                              ."</tr>\n";
-                        $total = $total + $results[$j][1];
-                    }
-                    echo "</tbody>\n<tfoot><tr>\n" 
-                            ."<td>".$langTotal."</td>\n"
-                            ."<td align=\"right\">".$total."</td>\n"
-                            ."</tr></tfoot>\n";
+	                for($j = 0 ; $j < count($results) ; $j++)
+	                {
+						echo '<tr>'."\n"
+							.'<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$results[$j][0].'">'.$langMonthNames['long'][date('n', $results[$j][0])-1].' '.date('Y', $results[$j][0]).'</a></td>'."\n"
+							.'<td valign="top" align="right">'.$results[$j][1].'</td>'."\n"
+							.'</tr>'."\n";
+	                    $total = $total + $results[$j][1];
+	                }
+	                echo '</tbody>'."\n".'<tfoot>'."\n".'<tr>'."\n"
+	                    .'<td>'.$langTotal.'</td>'."\n"
+	                    .'<td align="right">'.$total.'</td>'."\n"
+	                    .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
                 {
-                    echo "<tfoot><tr>\n" 
-                            ."<td colspan=\"2\"><center>".$langNoResult."</center></td>\n"
-                            ."</tr>\n</tfoot>\n";
+                    echo '<tfoot>'."\n".'<tr>'."\n"
+                        .'<td colspan="2"><center>'.$langNoResult.'</center></td>'."\n"
+                        .'</tr>'."\n".'</tfoot>'."\n";
                 }
-                echo "</table>\n"
-                        ."</td></tr>\n";   
+                echo '</table>'."\n"
+					.'</td></tr>'."\n";
             }
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">$langLoginsAndAccessTools</a>";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langLoginsAndAccessTools.'</a>'."\n";
             }
-            echo "<br /></p>\n\n";
+            echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
              *              
              *        Exercises
@@ -272,13 +270,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
              ***************************************************************************/
             $tempView = $view;
             $viewLevel++;
-            echo "<p>\n";
+            echo '<p>'."\n";
             if($view[$viewLevel] == '1')
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langExercisesResults."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">".$langClose."</a>]</small>\n"
-                        ."<br />&nbsp;&nbsp;&nbsp;".$langExercisesDetails."<br />\n";
+                echo '-&nbsp;&nbsp;<b>'.$langExercisesResults.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'."\n"
+                        .'<br />&nbsp;&nbsp;&nbsp;'.$langExercisesDetails.'<br />'."\n";
                         
                 $sql = "SELECT `E`.`titre`, `E`.`id`,
                         MIN(`TEX`.`exe_result`) AS `minimum`,
@@ -296,36 +294,37 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 $result = claro_sql_query($sql);
                 
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
-                echo "<tr class=\"headerX\">\n"
-                        ."<th>$langExercisesTitleExerciseColumn</th>\n"
-                        ."<th>$langScoreMin</th>\n"
-                        ."<th>$langScoreMax</th>\n"
-                        ."<th>$langScoreAvg</th>\n"
-                        ."<th>$langExeAvgTime</th>\n"
-                        ."<th>$langAttempts</th>\n"
-                        ."<th>$langLastAttempt</th>\n"
-                        ."</tr>";
+                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                	.'<tr class="headerX">'."\n"
+                    .'<th>'.$langExercisesTitleExerciseColumn.'</th>'."\n"
+                    .'<th>'.$langScoreMin.'</th>'."\n"
+                    .'<th>'.$langScoreMax.'</th>'."\n"
+                    .'<th>'.$langScoreAvg.'</th>'."\n"
+                    .'<th>'.$langExeAvgTime.'</th>'."\n"
+                    .'<th>'.$langAttempts.'</th>'."\n"
+                    .'<th>'.$langLastAttempt.'</th>'."\n"
+                    .'</tr>';
+                    
                 if( mysql_num_rows($result) == 0)
                 {
-                    echo "<tfoot>\n<tr>\n"
-                          ."<td colspan=\"7\" align=\"center\">".$langNoResult."</td>\n"
-                          ."</tr>\n</tfoot>\n";
+                    echo '<tfoot>'."\n".'<tr>'."\n"
+                          .'<td colspan="7" align="center">'.$langNoResult.'</td>'."\n"
+                          .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
                 {
-                      echo "<tbody>\n";
-                      while( $exo_details = mysql_fetch_array($result) )
-                      { 
-                          echo "<tr>\n"
-                                 ."<td><a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>\n"
-                              ."<td>".$exo_details['minimum']."</td>\n"
-                                 ."<td>".$exo_details['maximum']."</td>\n"
-                                 ."<td>".(round($exo_details['average']*10)/10)."</td>\n"
-                              ."<td>".claro_disp_duration(floor($exo_details['avgTime']))."</td>\n"
-                              ."<td>".$exo_details['attempts']."</td>\n"
-                              ."<td>".$exo_details['lastAttempt']."</td>\n"
-                              ."</tr>\n";
+                	echo '<tbody>'."\n";
+					while( $exo_details = mysql_fetch_array($result) )
+					{
+						echo '<tr>'."\n"
+							.'<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['titre'].'</td>'."\n"
+							.'<td>'.$exo_details['minimum'].'</td>'."\n"
+							.'<td>'.$exo_details['maximum'].'</td>'."\n"
+							.'<td>'.(round($exo_details['average']*10)/10).'</td>'."\n"
+							.'<td>'.claro_disp_duration(floor($exo_details['avgTime'])).'</td>'."\n"
+							.'<td>'.$exo_details['attempts'].'</td>'."\n"
+							.'<td>'.$exo_details['lastAttempt'].'</td>'."\n"
+							.'</tr>'."\n";
                               
                               // display details of the exercise, all attempts
                               if ( isset($_GET['exoDet']) && $_GET['exoDet'] == $exo_details['id'])
@@ -356,25 +355,25 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 											.'<td><small>'.claro_disp_duration($exo_attempt['exe_time']).'</small></td>'."\n"
 											.'</tr>'."\n";
                                 }
-                                echo  "</tbody>\n</table>\n\n"
-                                    ."</td>\n"
-                                    ."</tr>\n";
+                                echo '</tbody>'."\n".'</table>'."\n\n"
+                                    .'</td>'."\n"
+                                    .'</tr>'."\n";
                                 
                               }
                       
                       }
-                      echo "</tbody>\n";
+                      echo '</tbody>'."\n";
                 }
-                echo "</table>\n\n";
-                echo "</td>\n</tr>\n";
+                echo '</table>'."\n\n"
+                	.'</td>'."\n".'</tr>'."\n";
 
             }
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">$langExercisesResults</a>";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langExercisesResults.'</a>';
             }
-            echo "<br /></p>\n\n";
+            echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
              *              
              *        Learning paths // doesn't use the tracking table but the lp_user_module_progress learnPath table
@@ -382,33 +381,33 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
              ***************************************************************************/
             $tempView = $view;
             $viewLevel++;
-            echo "<p>\n";
+            echo '<p>'."\n";
             if($view[$viewLevel] == '1')
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langLearningPath."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">".$langClose."</a>]</small>"
-                        ."<br />\n&nbsp;&nbsp;&nbsp;".$langLearnPathDetails."<br />\n";
+                echo '-&nbsp;&nbsp;<b>'.$langLearningPath.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
+                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langLearnPathDetails.'<br />'."\n";
                 
                 // get list of learning paths of this course
                 // list available learning paths
                 $sql = "SELECT LP.`name`, LP.`learnPath_id`
-                       FROM `".$TABLELEARNPATH."` AS LP
-                  ORDER BY LP.`rank`";
+						 FROM `".$TABLELEARNPATH."` AS LP
+						 ORDER BY LP.`rank`";
               
                 $lpList = claro_sql_query_fetch_all($sql);
 
                 // table header
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-                        ."<tr class=\"headerX\">\n"
-                        ."<th>$langLearningPath</th>\n"
-                        ."<th colspan=\"2\">$langProgress</th>\n"
-                        ."</tr>";
+                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                    .'<tr class="headerX">'."\n"
+                    .'<th>'.$langLearningPath.'</th>'."\n"
+                    .'<th colspan="2">'.$langProgress.'</th>'."\n"
+                    .'</tr>';
                 if(sizeof($lpList) == 0)
                 {
-                    echo "<tfoot>\n<tr>\n"
-                              ."<td colspan=\"3\" align=\"center\">".$langNoLearningPath."</td>\n"
-                              ."</tr>\n</tfoot>\n";
+                    echo '<tfoot>'."\n".'<tr>'."\n"
+						.'<td colspan="3" align="center">'.$langNoLearningPath.'</td>'."\n"
+						.'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
                 {
@@ -420,26 +419,24 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                   {
                       
                       $lpProgress = get_learnPath_progress($lpDetails['learnPath_id'],$_GET['uInfo']);
-                      echo "\n<tr>\n"
-                              ."<td><a href=\"lp_modules_details.php?uInfo=".$_GET['uInfo']."&path_id=".$lpDetails['learnPath_id']."\">".htmlspecialchars($lpDetails['name'])."</a></td>\n"
-                              ."<td align=\"right\">\n"
-                              .claro_disp_progress_bar($lpProgress, 1)
-                              ."</td>\n"
-                              ."<td align=\"left\"><small>".$lpProgress."%</small></td>\n"
-                              ."</tr>\n";
+                      echo "\n".'<tr>'."\n"
+	                      .'<td><a href="lp_modules_details.php?uInfo='.$_GET['uInfo'].'&path_id='.$lpDetails['learnPath_id'].'">'.htmlspecialchars($lpDetails['name']).'</a></td>'."\n"
+	                      .'<td align="right">'."\n"
+	                      .claro_disp_progress_bar($lpProgress, 1)
+	                      .'</td>'."\n"
+	                      .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
+	                      .'</tr>'."\n";
                   }
                 }
-                echo "</table>\n"
-                        ."</td>\n</tr>\n";
-                
-                
+                echo '</table>'."\n"
+                	.'</td>'."\n".'</tr>'."\n";
             }
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">$langLearningPath</a>";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langLearningPath.'</a>';
             }
-            echo "<br /></p>\n\n";
+            echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
              *              
              *        Works
@@ -447,13 +444,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
              ***************************************************************************/
             $tempView = $view;
             $viewLevel++;
-            echo "<p>\n";
+            echo '<p>'."\n";
             if($view[$viewLevel] == '1')
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langWorkUploads."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">".$langClose."</a>]</small>"
-                        ."<br />\n&nbsp;&nbsp;&nbsp;".$langWorksDetails."<br />\n";
+                echo '-&nbsp;&nbsp;<b>'.$langWorkUploads.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
+                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langWorksDetails.'<br />'."\n";
                         
                 $sql = "SELECT `A`.`title` as `a_title`, `A`.`assignment_type`,
                                 `S`.`id`, `S`.`title` as `s_title`,
@@ -504,16 +501,16 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         $i++;
                 }
                 
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-                        ."<tr class=\"headerX\">\n"
-                        ."<th>".$langAssignment."</th>\n"
-                        ."<th>".$langWorkTitle."</th>\n"
-                        ."<th>".$langWorkAuthors."</th>\n"
-                        ."<th>".$langScore."</th>\n"
-                        ."<th>".$langDate."</th>\n"
-                        ."</tr>\n";
+                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                        .'<tr class="headerX">'."\n"
+                        .'<th>'.$langAssignment.'</th>'."\n"
+                        .'<th>'.$langWorkTitle.'</th>'."\n"
+                        .'<th>'.$langWorkAuthors.'</th>'."\n"
+                        .'<th>'.$langScore.'</th>'."\n"
+                        .'<th>'.$langDate.'</th>'."\n"
+                        .'</tr>'."\n";
                 // third pass to finally display
-                if (is_array($results))
+                if (is_array($results) && count($results) > 0)
                 { 
                     echo '<tbody>'."\n";
                     $prevATitle = "";
@@ -549,21 +546,21 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 $displayedAuthors = $work['authors'];
                         }
                         
-                        echo "<tr>\n"
-                            ."<td>".$displayedATitle."</td>\n"
-                            ."<td>".$work['s_title']."</td>\n"
-                            ."<td>".$displayedAuthors."</td>\n"
-                            ."<td>".$displayedScore."</td>\n"
-                            ."<td><small>".$beautifulDate."</small></td>\n"
-                            ."</tr>\n";
+                        echo '<tr>'."\n"
+                            .'<td>'.$displayedATitle.'</td>'."\n"
+                            .'<td>'.$work['s_title'].'</td>'."\n"
+                            .'<td>'.$displayedAuthors.'</td>'."\n"
+                            .'<td>'.$displayedScore.'</td>'."\n"
+                            .'<td><small>'.$beautifulDate.'</small></td>'."\n"
+                            .'</tr>'."\n";
                     }
-                    echo "</tbody>\n";
+                    echo '</tbody>'."\n";
                 
                 }
                 else
                 {
                     echo '<tfoot><tr>'."\n"
-                        .'<td colspan="3" align="center">'.$langNoResult.'</td>'."\n"
+                        .'<td colspan="5" align="center">'.$langNoResult.'</td>'."\n"
                         .'</tr></tfoot>'."\n";
                 }
                 echo '</table>'."\n"
@@ -572,21 +569,21 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=".$tempView."\">".$langWorkUploads."</a>";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langWorkUploads.'</a>';
             }
-            echo "<br /></p>\n\n";
+            echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
              *        Access to documents
              ***************************************************************************/
             $tempView = $view;
             $viewLevel++;
-            echo "<p>\n";
+            echo '<p>'."\n";
             if($view[$viewLevel] == '1')
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=".$tempView."\">".$langClose."</a>]</small>"
-                    ."<br />\n&nbsp;&nbsp;&nbsp;".$langDocumentsDetails."<br />\n";       
+                echo '-&nbsp;&nbsp;<b>'.$langDocumentsAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langClose.'</a>]</small>'
+                    .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langDocumentsDetails.'<br />'."\n";
                         
                 $sql = "SELECT `down_doc_path`
                             FROM `".$tbl_track_e_downloads."`
@@ -594,27 +591,27 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             GROUP BY `down_doc_path`";
 
                 $results = getManyResults1Col($sql);
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n";
-                echo "<tr class=\"headerX\">\n"
-                        ."<th>".$langDocumentsTitleDocumentColumn."</th>\n"
-                        ."</tr>\n";
+                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                	.'<tr class="headerX">'."\n"
+					.'<th>'.$langDocumentsTitleDocumentColumn.'</th>'."\n"
+					.'</tr>'."\n";
                 if (is_array($results))
                 { 
-                    echo "<tbody>\n"; 
+                    echo '<tbody>'."\n";
                     for($j = 0 ; $j < count($results) ; $j++)
                     { 
-                            echo "<tr>\n"
-                                    ."<td>".$results[$j]."</td>\n"
-                                    ."</tr>\n";
+                            echo '<tr>'."\n"
+                                    .'<td>'.$results[$j].'</td>'."\n"
+                                    .'</tr>'."\n";
                     }
-                    echo "</tbody>\n";
+                    echo '</tbody>'."\n";
                 
                 }
                 else
                 {
-                    echo "<tfoot>\n<tr>\n"
-                            ."<td align=\"center\">".$langNoResult."</td>\n"
-                            ."</tr>\n</tfoot>\n";
+                    echo '<tfoot>'."\n".'<tr>'."\n"
+                            .'<td align="center">'.$langNoResult.'</td>'."\n"
+                            .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n"
                     .'</td>'."\n"
@@ -623,10 +620,9 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=".$tempView."\">".$langDocumentsAccess."</a>";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langDocumentsAccess.'</a>';
             }
-            echo "<br /></p>\n\n";
-            
+            echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
              *
              *        Forum posts
@@ -634,13 +630,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
              ***************************************************************************/
             $tempView = $view;
             $viewLevel++;
-            echo "<p>\n";
+            echo '<p>'."\n";
             if($view[$viewLevel] == '1')
             {
                 $tempView[$viewLevel] = '0';
 
-                echo "-&nbsp;&nbsp;<b>".$langTrackForumUsage."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&view=".$tempView."\">".$langClose."</a>]</small>"
-                        ."<br />\n";
+                echo '-&nbsp;&nbsp;<b>'.$langTrackForumUsage.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
+                        .'<br />'."\n";
                 // total number of messages posted by user
                 $sql = "SELECT count(`post_id`)
                             FROM `".$tbl_bb_posts."`
@@ -655,10 +651,10 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             ";
                 $totalTopics = claro_sql_query_get_single_value($sql);
 
-                echo "<ul>\n"
-                    ."<li>".$langTrackTotalPosts." : ".$totalPosts."</li>"
-                    ."<li>".$langTrackTotalTopics." : ".$totalTopics."</li>"
-                    ."<li>".$langLastMsgs."\n";
+                echo '<ul>'."\n"
+                    .'<li>'.$langTrackTotalPosts.' : '.$totalPosts.'</li>'
+                    .'<li>'.$langTrackTotalTopics.' : '.$totalTopics.'</li>'
+                    .'<li>'.$langLastMsgs."\n";
                 // last 10 distinct messages posted
                 $sql = "SELECT `bb_t`.`topic_id`,
                                 `bb_t`.`topic_title`, 
@@ -672,40 +668,40 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 $results = getManyResults3Col($sql);
 
-                echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">\n"
-                        ."<tr class=\"headerX\">\n"
-                        ."<th>".$l_topic."</th>\n"
-                        ."<th>".$langLastMsg."</th>\n"                        
-                        ."</tr>\n";
+                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+					.'<tr class="headerX">'."\n"
+					.'<th>'.$l_topic.'</th>'."\n"
+					.'<th>'.$langLastMsg.'</th>'."\n"
+					.'</tr>'."\n";
                 if (is_array($results))
                 {
-                    echo "<tbody>\n";
+                    echo '<tbody>'."\n";
                     for($j = 0 ; $j < count($results) ; $j++)
                     {
-                            echo "<tr>\n"
-                                    ."<td><a href=\"../phpbb/viewtopic.php?topic=".$results[$j][0]."\"\">".$results[$j][1]."</a></td>\n"
-                                    ."<td>".$results[$j][2]."</td>\n"                                    
-                                    ."</tr>\n";
+						echo '<tr>'."\n"
+							.'<td><a href="../phpbb/viewtopic.php?topic='.$results[$j][0].'">'.$results[$j][1].'</a></td>'."\n"
+							.'<td>'.$results[$j][2].'</td>'."\n"
+							.'</tr>'."\n";
                     }
-                    echo "</tbody>\n";
+                    echo '</tbody>'."\n";
 
                 }
                 else
                 {
-                    echo "<tfoot>\n<tr>\n"
-                            ."<td align=\"center\">".$langNoResult."</td>\n"
-                            ."</tr>\n</tfoot>\n";
+                    echo '<tfoot>'."\n".'<tr>'."\n"
+	                    .'<td align="center">'.$langNoResult.'</td>'."\n"
+	                    .'</tr>'."\n".'</tfoot>'."\n";
                 }
-                echo "</table>\n"
-                    ."</li>\n</ul>";
+                echo '</table>'."\n"
+                    .'</li>'."\n".'</ul>';
                 
             }
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo "+&nbsp;&nbsp;&nbsp;<a href=\"".$_SERVER['PHP_SELF']."?uInfo=".$_REQUEST['uInfo']."&amp;view=".$tempView."\">".$langTrackForumUsage."</a>";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langTrackForumUsage.'</a>';
             }
-            echo "<br /></p>\n\n";
+            echo '<br />'."\n".'</p>'."\n\n";
         }
         else
         {
