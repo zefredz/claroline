@@ -170,21 +170,21 @@
 
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $out = "<form method=\"POST\" action=\"" . $script
-            . "\" name=\"previewform\" id=\"previewform\">\n"
+        $out = '<form method="POST" action="' . $script
+            . '" name="previewform" id="previewform">' . "\n"
             ;
-        $out .= "<input type=\"hidden\" name=\"content\" value=\""
-            . htmlspecialchars($content) . "\" />\n"
+        $out .= '<input type="hidden" name="content" value="'
+            . htmlspecialchars($content) . '" />' . "\n"
             ;
             
-        $out .= "<input type=\"hidden\" name=\"title\" value=\""
+        $out .= '<input type="hidden" name="title" value="'
             . htmlspecialchars($title)
-            . "\" />\n"
+            . '" />' . "\n"
             ;
             
-        $out .= "<input type=\"hidden\" name=\"wikiId\" value=\""
+        $out .= '<input type="hidden" name="wikiId" value="'
             . $wikiId
-            . "\" />\n"
+            . '" />' . "\n"
             ;
         
         $out .= '<input type="submit" name="action[save]" value="'
