@@ -83,13 +83,12 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
 	echo claro_disp_tool_title( $title );
 
-?>
-<table width="100%" cellpadding="2" cellspacing="0" border="0">
-<?php
+	echo '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n";
+
 
     /* ------ display ------ */
     // displayed period
-    echo "<tr><td>";
+    echo '<tr>'."\n".'<td>'."\n";
     switch($period)
     {
         case "month" : 
@@ -98,27 +97,27 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         case "week" : 
             $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
             $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
-            echo "<b>".$langFrom."</b> ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate);
-            echo " <b>".$langToDate."</b> ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
+            echo '<b>'.$langFrom.'</b> '.date('d ' , $weeklowreqdate).$langMonthNames['long'][date('n', $weeklowreqdate)-1].date(' Y' , $weeklowreqdate)."\n";
+            echo ' <b>'.$langToDate.'</b> '.date('d ' , $weekhighreqdate ).$langMonthNames['long'][date('n', $weekhighreqdate)-1].date(' Y' , $weekhighreqdate)."\n";
             break;
         // default == day
         default :
             $period = "day";            
         case "day" : 
-            echo $langDay_of_weekNames['long'][date("w" , $reqdate)].date(" d " , $reqdate).$langMonthNames['long'][date("n", $reqdate)-1].date(" Y" , $reqdate);
+            echo $langDay_of_weekNames['long'][date('w' , $reqdate)].date(' d ' , $reqdate).$langMonthNames['long'][date('n', $reqdate)-1].date(' Y' , $reqdate)."\n";
             break;
     }
-    echo "</tr></td>";
+
+    echo '</td>'."\n".'</tr>'."\n";
     // periode choice
-    echo "<tr>
-            <td>
-            <small>
-            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$toolId."&amp;period=day&amp;reqdate=".$reqdate."'>".$langPeriodDay."</a>]
-            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$toolId."&amp;period=week&amp;reqdate=".$reqdate."'>".$langPeriodWeek."</a>]
-            [<a href='".$_SERVER['PHP_SELF']."?toolId=".$toolId."&amp;period=month&amp;reqdate=".$reqdate."'>".$langPeriodMonth."</a>]
-            &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
-            
-            ";
+    echo '<tr>'."\n"
+		.'<td>'."\n"
+		.'<small>'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.$langPeriodDay.'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.$langPeriodWeek.'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.$langPeriodMonth.'</a>]'."\n"
+		.'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
+
     switch($period)
     {
         case "month" :
@@ -126,37 +125,30 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-            echo   "
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=month&amp;reqdate=".$previousReqDate."'>".$langPreviousMonth."</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=month&amp;reqdate=".$nextReqDate."'>".$langNextMonth."</a>]
-            ";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.$langPreviousMonth.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.$langNextMonth.'</a>]'."\n";
             break;
         case "week" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 7*86400;
             $nextReqDate = $reqdate + 7*86400;
-            echo   "
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=week&amp;reqdate=".$previousReqDate."'>".$langPreviousWeek."</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=week&amp;reqdate=".$nextReqDate."'>".$langNextWeek."</a>]
-            ";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.$langPreviousWeek.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.$langNextWeek.'</a>]'."\n";
             break;
         case "day" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 86400;
             $nextReqDate = $reqdate + 86400;
-            echo   "
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=day&amp;reqdate=".$previousReqDate."'>".$langPreviousDay."</a>]
-                [<a href='".$_SERVER['PHP_SELF']."?toolId=". $toolId ."&amp;period=day&amp;reqdate=".$nextReqDate."'>".$langNextDay."</a>]
-            ";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.$langPreviousDay.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.$langNextDay.'</a>]'."\n";
             break;
     }
     
-    echo"   &nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;
-            [<a href='./courseLog.php?view=0010000'>".$langViewToolList."</a>]
-            </small>
-            </td>
-        </tr>
-    ";
+    echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
+		.'[<a href="./courseLog.php?view=0010000">'.$langViewToolList.'</a>]'."\n"
+		.'</small>'."\n"
+		.'</td>'."\n"
+		.'</tr>'."\n"."\n";
     // display information about this period
     switch($period)
     {
@@ -211,9 +203,7 @@ else // not allowed to track
 }
     
     
-?>
-</table>
-<?php
+echo "\n".'</table>'."\n\n";
 // footer
 include($includePath."/claro_init_footer.inc.php");
 ?>
