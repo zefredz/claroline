@@ -109,8 +109,8 @@
 		tb.addSpace(10);
 		tb.btBquote('Blockquote');
 		tb.btPre('Preformated text');
-		tb.btList('Unordered list');
-		tb.btList('Ordered list');
+		tb.btList('Unordered list','ul');
+		tb.btList('Ordered list','ol');
 		tb.addSpace(10);
         tb.btLink('Link','URL?','Language?','fr');
         tb.btImgLink('External image','URL?');
