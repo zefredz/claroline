@@ -91,11 +91,11 @@
     // filter allowed actions using user status
     if ( $is_allowedToAdmin )
     {
-        $valid_actions = array( "show", "list", "rqEdit", "exEdit", "rqDelete", "exDelete" );
+        $valid_actions = array( "list", "rqEdit", "exEdit", "rqDelete", "exDelete" );
     }
     else
     {
-        $valid_actions = array( "show", "list" );
+        $valid_actions = array( "list" );
     }
 
     $_CLEAN = filter_by_key( 'action', $valid_actions, "R", false );
@@ -237,22 +237,6 @@
 
             break;
         }
-        // show wiki properties
-        case "show":
-        {
-            if ( $wikiStore->wikiIdExists( $wikiId ) )
-            {
-                $wiki = $wikiStore->loadWiki( $wikiId );
-                $wikiTitle = $wiki->getTitle();
-                $wikiDesc = $wiki->getDescription();
-            }
-            else
-            {
-                $message = $langWikiInvalidWikiId;
-                $action = "error";
-            }
-            break;
-        }
         // request edit
         case "rqEdit":
         {
@@ -348,17 +332,10 @@
     
     switch( $action )
     {
-        case "show":
-        {
-            $interbredcrump[]= array ( "url"=>"wiki.php", 'name'=> $langWiki );
-            $nameTools = $wikiTitle;
-            $noPHP_SELF = true;
-            break;
-        }
         case "rqEdit":
         {
             $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
-            $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=".$wikiId
+            $interbredcrump[]= array ("url"=>NULL
                 , 'name'=> $wikiTitle);
             $nameTools = $langWikiProperties;
             $noPHP_SELF = true;
@@ -367,7 +344,7 @@
         case "rqDelete":
         {
             $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
-            $interbredcrump[]= array ("url"=>"wiki.php?action=show&amp;wikiId=".$wikiId
+            $interbredcrump[]= array ("url"=>NULL
                 , 'name'=> $wikiTitle);
             $nameTools = $langDelete;
             $noPHP_SELF = true;
@@ -403,14 +380,6 @@
             {
                 $toolTitle['mainTitle'] = $langWikiTitleEdit;
             }
-
-            break;
-        }
-        // show properties
-        case "show":
-        {
-            $toolTitle = array();
-            $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wikiTitle);
 
             break;
         }
@@ -451,61 +420,6 @@
         {
             echo claro_disp_wiki_properties_form( $wikiId, $wikiTitle
                 , $wikiDesc, $groupId, $wikiACL );
-            
-            break;
-        }
-        // show properties
-        case "show":
-        {
-            echo '<p>' . "\n";
-
-            echo '<a href="page.php?wikiId='
-                . $wikiId
-                . '" class="claroCmd">'
-                . '<img src="' . $imgRepositoryWeb . '/enter.gif" alt="'.$langWiki.'" />&nbsp;'
-                . $langWikiEnterWiki
-                . '</a>'
-                . "\n"
-                ;
-
-            if ( $is_allowedToAdmin )
-            {
-
-                echo '&nbsp;|&nbsp;<a href="'
-                    . $_SERVER['PHP_SELF']
-                    . '?wikiId=' . $wikiId
-                    . '&amp;action=rqEdit'
-                    . '" class="claroCmd">'
-                    . '<img src="'.$imgRepositoryWeb.'settings.gif" border="0" alt="edit" />'
-                    . $langWikiProperties . '</a>'
-                    . "\n"
-                    ;
-
-                echo '&nbsp;|&nbsp;<a href="'
-                    . $_SERVER['PHP_SELF']
-                    . '?wikiId=' . $wikiId
-                    . '&amp;action=rqDelete'
-                    . '" class="claroCmd">'
-                    . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="edit" />'
-                    . $langWikiDeleteWiki . '</a>'
-                    . "\n"
-                    ;
-            }
-
-            echo '</p>' . "\n";
-            
-            // wiki desc
-            
-            echo '<p><b>'.$langWikiDescription.'</b> : </p>';
-            
-            $wikiDesc = ($wikiDesc == '' ) ? $langWikiNoDescription : $wikiDesc;
-            
-            echo '<blockquote>'.nl2br($wikiDesc).'</blockquote>' . "\n";
-            
-            echo '<p><b>'.$langWikiNumberOfPages.'</b> : '
-                . $wikiStore->getNumberOfPagesInWiki( $wikiId )
-                . '</p>'
-                ;
             
             break;
         }
@@ -589,15 +503,6 @@
                 
                     // display title for all users
                     
-                    /*echo '<td>';
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
-                        . $entry['id'].'&amp;action=show'
-                        . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
-                        . $entry['title'] . '</a>'
-                        ;
-                    echo '</td>' . "\n";*/
-                    
                     echo '<td style="text-align: left;">';
                     
                     // display direct link to main page
@@ -632,6 +537,7 @@
                         . '</a>'
                         ;
                         ;
+                        
                     echo '</td>' . "\n";
                     
                     // if admin, display edit and delete links

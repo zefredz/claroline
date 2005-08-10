@@ -530,7 +530,7 @@
     // Breadcrumps
     
     $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => $langWiki);
-    $interbredcrump[]= array ( 'url' => 'wiki.php?action=show&amp;wikiId=' . $wikiId
+    $interbredcrump[]= array ( 'url' => NULL
         , 'name' => $wiki->getTitle() );
         
     switch( $action )
