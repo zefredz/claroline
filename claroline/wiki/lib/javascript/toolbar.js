@@ -176,7 +176,7 @@ function dcToolBar(textarea,format,img_path)
 	
 	function btStrong(label) {
 		addButton(img_path+'bt_strong.png',label,
-		function() { singleTag('__','strong'); });
+		function() { singleTag("'''",'strong'); });
 	}
 	
 	function btEm(label) {
@@ -186,12 +186,12 @@ function dcToolBar(textarea,format,img_path)
 	
 	function btIns(label) {
 		addButton(img_path+'bt_ins.png',label,
-		function() { singleTag('++','ins'); });
+		function() { singleTag('__','u'); });
 	}
 	
 	function btDel(label) {
 		addButton(img_path+'bt_del.png',label,
-		function() { singleTag('--','del'); });
+		function() { singleTag('--','stroke'); });
 	}
 	
 	function btQ(label) {
