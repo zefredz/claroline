@@ -3,7 +3,9 @@
     // vim: expandtab sw=4 ts=4 sts=4:
 
     /**
-     * @version CLAROLINE 1.7
+     * CLAROLINE
+     *
+     * @version 1.7 $Revision$
      *
      * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
