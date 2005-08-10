@@ -1965,9 +1965,9 @@ $langWikiHelpContent = "<h3>Syntaxe wiki2xhtml</h3>
 ponctuation est active. Un espace insécable remplacera automatiquement
 tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
 <li><strong>Emphase</strong> : deux apostrophes <code>''texte''</code>&nbsp;;</li>
-<li><strong>Forte emphase</strong> : deux soulignés <code>__texte__</code>&nbsp;;</li>
+<li><strong>Forte emphase</strong> : trois apostrophes <code>'''texte'''</code>&nbsp;;</li>
 <li><strong>Retour forcé à la ligne</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Texte souligné</strong> : deux plus <code>++texte++</code>&nbsp;;</li>
+<li><strong>Texte souligné</strong> : deux soulignés <code>__texte__</code>&nbsp;;</li>
 <li><strong>Texte barré</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
 <li><strong>Hyperlien</strong> : <code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</li>
 <li><strong>Image</strong> : comme un lien mais avec une extension d'image.<br>Pour désactiver la reconnaissance d'image mettez 0 dans un dernier argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher.<br>Il est conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</li>

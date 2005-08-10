@@ -1904,9 +1904,9 @@ $langWikiHelpContent = "<h3>Wiki2xhtml syntax</h3>
 <dt>Inline elements</dt>
 <dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
 <li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
+<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
 <li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two plus symbols <code>++text++</code>&nbsp;;</li>
+<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
 <li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
 <li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
