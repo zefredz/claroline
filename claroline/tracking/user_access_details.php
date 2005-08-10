@@ -77,17 +77,15 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
 	if( isset($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
-?>
-		<br />
-        <table class="claroTable" border="0" cellpadding="5" cellspacing="1">
-              	<tr class="headerX">
-                  <th><?php echo $langUserName;?></th>
-                  <th><?php echo $langLastAccess;?></th>
-                  <th><?php echo $langNbrAccess;?></th>                  
-              	</tr>
-		<tbody>	
-            
-<?php
+
+	echo '<br />'."\n\n"
+		.'<table class="claroTable" border="0" cellpadding="5" cellspacing="1">'."\n"
+		.'<tr class="headerX">'."\n"
+		.'<th>'.$langUserName.'</th>'."\n"
+		.'<th>'.$langLastAccess.'</th>'."\n"
+		.'<th>'.$langNbrAccess.'</th>'."\n"
+		.'</tr>'."\n"
+		.'<tbody>'."\n\n";
 
 	$i = 0;
 	$anonymousCount = 0;
@@ -104,23 +102,20 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 				continue;
 			}
 			$i++;
-			echo "<tr>";
-
-	    	echo "<td>".$userName."</td>\n"
-				."<td>".claro_disp_localised_date($dateTimeFormatLong, $userAccess['data'])."</td>"
-				."<td>".$userAccess['nbr']."</td>";
-
-	    	echo "</tr>";
+			echo '<tr>'."\n"
+				.'<td>'.$userName.'</td>'."\n"
+				.'<td>'.claro_disp_localised_date($dateTimeFormatLong, $userAccess['data']).'</td>'."\n"
+				.'<td>'.$userAccess['nbr'].'</td>'."\n"
+	    		.'</tr>'."\n\n";
 	    }
 	}
     // in case of error or no results to display
-    if( $i == 0 || !isset($sql) )
-	echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
+    if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.$langNoResult.'</center></td>'."\n\n";
  
-    echo "</tbody>\n</table>";         
+    echo '</tbody>'."\n".'</table>';
 	
     if( $anonymousCount != 0 )
-		echo "<p>".$langAnonymousUserAccessCount.$anonymousCount."</p>";
+		echo '<p>'.$langAnonymousUserAccessCount.' '.$anonymousCount.'</p>';
  
 }
 // not allowed
