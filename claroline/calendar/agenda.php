@@ -337,7 +337,7 @@ $content = $editedEvent['content'];
 ?>
 <tr>
 
-<td>&nbsp</td>
+<td>&nbsp;</td>
 
 <td>
 <select name="fday" id="fday">
