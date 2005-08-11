@@ -43,7 +43,7 @@ else
 	$intermediatePath = $_course['path']. '/document'; 
 }
 
-if ($secureDocumentDownload)
+if ( isset($secureDocumentDownload) && $secureDocumentDownload )
 {
     $pathInfo = realpath($coursesRepositorySys . $intermediatePath . '/' . $requestUrl);
     $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
