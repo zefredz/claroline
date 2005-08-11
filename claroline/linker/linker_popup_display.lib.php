@@ -52,33 +52,35 @@
    {
        global $caddy;
        global $langLinkerDelete,$langEmpty,$langLinkerAttachements;
+       global $imgRepositoryWeb;
 
        $content = $caddy->getAttachmentList();
 
        if( is_array($content) && isset($content['crl']) && count( $content['crl'] ) > 0 )
        {
-           echo '<hr><b>' . $langLinkerAttachements . '</b><br>' . "\n";
+           echo '<hr><b>' . $langLinkerAttachements . '</b>' . "\n";
+           
+           echo '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n";
 
            for($i = 0 ; $i<(count($content["crl"])) ; $i++)
            {
-               echo $content['title'][$i]
-               .    '&nbsp;'
+               echo '<tr><td>' . $content['title'][$i]
+               .    '</td><td>'
                .    '<a href="' . $_SERVER['PHP_SELF']
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    $langLinkerDelete
-               .    '</a><br>' . "\n"
+               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.$langLinkerDelete.'" />'
+               .    '</a></td></tr>' . "\n"
                ;
            }
+           
+           echo '</table>' . "\n";
 
        }
        else
        {
            // AttachmentList is empty
-           echo '<hr><b>' . $langLinkerAttachements . '</b><br>' . "\n"
-           .    '&lt;&lt;&nbsp;' . $langEmpty . '&nbsp;&gt;&gt;<br>' . "\n"
-           ;
        }
    }
 

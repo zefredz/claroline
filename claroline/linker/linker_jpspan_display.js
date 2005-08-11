@@ -98,21 +98,26 @@
             {
                 clear('shoppingCart');    
     
-                print('shoppingCart','<b>'+lang_attachements+'</b><br />\n');          
+                print('shoppingCart','<b>'+lang_attachements+'</b>\n');
+
+                var line = '<table style=\"border: 0px; width: 100%; font-size: 80%\" >\n';
 				
                 for( var i = 0; i < shopping_cart.length; i++)
                 {
                     var crl = shopping_cart[i]["crl"];
                     var title = shopping_cart[i]["title"];
-                    
-					print('shoppingCart', title + '&nbsp;&nbsp;<a href=\"http://claroline.net\" class=\"claroCmd\"  onclick=\"detach(\''+crl+'\');return false;\">'+lang_delete+'</a><br>\n'); 
+                    line += '<tr><td>' + title + '</td><td>';
+                    line += '&nbsp;<a href=\"http://claroline.net\" class=\"claroCmd\"  onclick=\"detach(\''+crl+'\');return false;\">';
+                    line += '<img src=\"'+img_repository_web+'delete.gif\" border=\"0\" alt=\"'+lang_delete+'\" /></a>&nbsp;\n'+'</td></tr>\n';
                 }
+                
+                line += '</table>\n';
+                
+                print('shoppingCart', line )
             }
             else
             {
                 clear('shoppingCart');
-                print('shoppingCart', '<b>'+lang_attachements+'</b><br />\n');
-                print('shoppingCart', '&lt;&lt; '+lang_empty+' &gt;&gt;<br>\n');
             }
         }
         
