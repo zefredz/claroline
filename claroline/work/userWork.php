@@ -939,10 +939,11 @@ if( $is_allowedToSubmit )
 					.claro_parse_user_text($assignment['description'])
 					."\n".'</div>'."\n".'<br />'."\n";
 			}
-			
+
             echo '<h4>'.$txtForFormTitle.'</h4>'."\n"
 				  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.$langBack.'</a></small></p>'."\n"
                   .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$_REQUEST['assigId'].'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
+                  .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
                   .'<input type="hidden" name="cmd" value="'.$cmdToSend.'">'."\n";
 
             if( isset($_REQUEST['wrkId']) )
