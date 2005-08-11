@@ -32,6 +32,49 @@ require $includePath.'/lib/events.lib.inc.php';
 $requestUrl = stripslashes( urldecode (get_slashed_argument( $_SERVER['REQUEST_URI'], 
                                        'document/goto/index.php' ) ) );
 
+if ( ! $_cid) claro_disp_auth_form(true);
+
+if ($_gid)
+{
+    $groupContext  = true;
+    $courseContext = false;
+    $is_allowedToEdit = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
+}
+else
+{
+    $groupContext  = false;
+    $courseContext = true;
+    $is_allowedToEdit = $is_courseAdmin;
+}
+
+if ( empty($requestUrl) )
+{ 
+    header('HTTP/1.1 404 Not Found'); exit; 
+}
+else
+{
+
+    if ($courseContext)
+    {
+        $courseTblList = claro_sql_get_course_tbl();
+        $tbl_document =  $courseTblList['document'];
+
+        $sql = 'SELECT visibility FROM `'.$tbl_document.'`
+                WHERE path = "'.addslashes($requestUrl).'"';
+
+        $docVisibilityStatus = claro_sql_query_get_single_value($sql);
+
+        if (    ( ! is_null($docVisibilityStatus) ) // hidden document can only be viewed by course manager
+             && $docVisibilityStatus == 'i'
+             && ( ! $is_allowedToEdit ) )
+        {
+           // header('Status: 404 Not Found'); exit; 
+           header('HTTP/1.1 404 Not Found'); exit; 
+        }
+    }
+}
+
+
 event_download($requestUrl);
 
 if ($_gid && $is_groupAllowed)
@@ -40,7 +83,7 @@ if ($_gid && $is_groupAllowed)
 }
 else
 {
-	$intermediatePath = $_course['path']. '/document'; 
+	$intermediatePath = $_course['path']. '/document';
 }
 
 if ( isset($secureDocumentDownload) && $secureDocumentDownload )
@@ -56,6 +99,10 @@ if ( isset($secureDocumentDownload) && $secureDocumentDownload )
             if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
             readfile($pathInfo);
         }
+    }
+    else
+    {
+    	header('HTTP/1.1 404 Not Found'); exit;
     }
 }
 else
@@ -83,7 +130,15 @@ else
 function get_slashed_argument($completePath, $baseFile)
 {
     $pahtElementList = explode($baseFile, $completePath);
-    return $pahtElementList[1];
+
+    if ( isset($pahtElementList[1]) || ! is_null($pahtElementList[1]) )
+    {
+    	return $pahtElementList[1];
+    }
+    else
+    {
+        return '';
+    }
 }
 
 
