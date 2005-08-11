@@ -34,7 +34,7 @@
         // 1. get resource id
         
         $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
-            . "WHERE `crl` = '" . $resourceCRL . "'"
+            . "WHERE `crl` = '" . addslashes( $resourceCRL ) . "'"
             ;
             
         $resourceId = claro_sql_query_get_single_value( $get_resourceId );
@@ -42,7 +42,7 @@
         // 2. delete resource itself
         
         $remove_resource = "DELETE FROM `".$tbl_resources."` "
-            . "WHERE `crl` = '" . $resourceCRL . "' "
+            . "WHERE `crl` = '" . addslashes( $resourceCRL ) . "' "
             ;
             
         claro_sql_query( $remove_resource );
@@ -67,10 +67,10 @@
         $tbl_links = $tbl_cdb_names['links'];
         $tbl_resources = $tbl_cdb_names['resources'];
         
-        // 1. get resource id
+        // 1. get resource id for the tool expect the tool itself
 
         $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
-            . "WHERE `crl` LIKE '%" . $toolCRL . "%'"
+            . "WHERE `crl` LIKE '%" . addslashes( $toolCRL ) . "/%'"
             ;
 
         $resourceIdList = claro_sql_query_fetch_all( $get_resourceId );
@@ -88,10 +88,10 @@
             claro_sql_query( $remove_links );
         }
 
-        // 3. delete resources themselves
+        // 3. delete resources themselves but not the tool resource itself
 
         $remove_resources = "DELETE FROM `".$tbl_resources."` "
-            . "WHERE `crl` LIKE '%" . $toolCRL . "%' "
+            . "WHERE `crl` LIKE '%" . addslashes( $toolCRL ) . "/%' "
             ;
 
         claro_sql_query( $remove_resources );
