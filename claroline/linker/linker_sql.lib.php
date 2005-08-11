@@ -20,6 +20,82 @@
     
     // link allready exists return value 
     define( 'LINK_ALLREADY_EXISTS', -1);
+    
+    /**
+     * Remove a resource and all its links
+     * @param string resourceCRL CRL of the resource
+     */
+    function linker_remove_ressource( $resourceCRL )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_links = $tbl_cdb_names['links'];
+        $tbl_resources = $tbl_cdb_names['resources'];
+        
+        // 1. get resource id
+        
+        $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
+            . "WHERE `crl` = '" . $resourceCRL . "'"
+            ;
+            
+        $resourceId = claro_sql_query_get_single_value( $get_resourceId );
+        
+        // 2. delete resource itself
+        
+        $remove_resource = "DELETE FROM `".$tbl_resources."` "
+            . "WHERE `crl` = '" . $resourceCRL . "' "
+            ;
+            
+        claro_sql_query( $remove_resource );
+        
+         // 3. delete links where $sourceCRL is destination or source
+
+        $remove_links = "DELETE FROM `".$tbl_links."` "
+            . "WHERE `src_id` = " . (int)$resourceId . " "
+            . "OR `dest_id` = " . (int)$resourceId
+            ;
+
+        claro_sql_query( $remove_links );
+    }
+    
+    /**
+     * Remove all resources and all their links for a tool
+     * @param string toolCRL CRL of the tool
+     */
+    function linker_remove_all_tool_resources( $toolCRL )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_links = $tbl_cdb_names['links'];
+        $tbl_resources = $tbl_cdb_names['resources'];
+        
+        // 1. get resource id
+
+        $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
+            . "WHERE `crl` LIKE '%" . $toolCRL . "%'"
+            ;
+
+        $resourceIdList = claro_sql_query_fetch_all( $get_resourceId );
+
+        // 2. delete links where $resourceCRL is destination or source
+        
+        foreach( $resourceIdList as $resource )
+        {
+
+            $remove_links = "DELETE FROM `".$tbl_links."` "
+                . "WHERE `src_id` = " . $resource['id'] . " "
+                . "OR `dest_id` = " . $resource['id']
+                ;
+
+            claro_sql_query( $remove_links );
+        }
+
+        // 3. delete resources themselves
+
+        $remove_resources = "DELETE FROM `".$tbl_resources."` "
+            . "WHERE `crl` LIKE '%" . $toolCRL . "%' "
+            ;
+
+        claro_sql_query( $remove_resources );
+    }
      
     /**
      * update of the dB of links 

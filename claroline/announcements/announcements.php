@@ -151,6 +151,8 @@ if($is_allowedToEdit) // check teacher status
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default("ANNOUNCEMENT",array("DELETE_ENTRY"=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
                 $ex_rss_refresh = TRUE;
+                
+                linker_delete_resource();
             }
 //            else
 //            {
@@ -170,6 +172,8 @@ if($is_allowedToEdit) // check teacher status
                 $message = $langAnnEmpty;
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $ex_rss_refresh = TRUE;
+                
+                linker_delete_all_tool_resources();
             }
 //            else
 //            {
@@ -377,6 +381,7 @@ event_access_tool($_tid, $_courseTool['label']);
 
 
 $nameTools = $langAnnouncement;
+$noQUERY_STRING = true;
 
 include($includePath . '/claro_init_header.inc.php');
 

@@ -345,7 +345,7 @@
             $resource_id = '';
         }
 
-        if ( isset( $_gid ) )
+        if ( $_gid )
         {
             $group = $_gid;
         }
@@ -453,6 +453,28 @@
         }
         
         return $message;    
+    }
+    
+    function linker_delete_resource()
+    {
+        $crlSource = getSourceCrl();
+        
+        linker_remove_ressource( $crlSource );
+    }
+    
+    function linker_delete_all_tool_resources()
+    {
+        global $platform_id;
+        global $_course;
+        global $_courseTool;
+        global $_gid;
+        global $rootWeb;
+        
+        $group = ( $_gid ) ? $_gid : NULL;
+
+        $toolCRL = CRLTool::createCRL($platform_id , $_course['sysCode'] , $_courseTool['label'] , '' , $group  );;
+        
+        linker_remove_all_tool_resources( $toolCRL );
     }
 
    /**

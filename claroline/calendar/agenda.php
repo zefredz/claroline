@@ -176,6 +176,7 @@ if ( $is_allowedToEdit )
             $dialogBox = '<p>' . $langUnableToDelete . '</p>';
         }
 
+        linker_delete_resource();
     }
 
     /*----------------------------------------------------------------------------
@@ -197,6 +198,8 @@ if ( $is_allowedToEdit )
         {
             $dialogBox = '<p>' . $langUnableToDelete . '</p>';
         }
+        
+        linker_delete_all_tool_resources();
     }
     /*-------------------------------------------------------------------------
     EDIT EVENT VISIBILITY
@@ -283,6 +286,7 @@ if ( $is_allowedToEdit )
  *     DISPLAY SECTION
  *                    
  */
+$noQUERY_STRING = true;
 include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
