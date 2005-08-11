@@ -833,7 +833,7 @@ function display_my_documents($dialogBox)
         {
 
             $dspFileName = htmlspecialchars($fileName);
-            $cmdFileName = rawurlencode($curDirPath."/".$fileName);
+            $cmdFileName = str_replace("%2F","/",rawurlencode($curDirPath."/".$fileName));
 
             if ($fileList['visibility'][$fileKey] == "i")
             {
@@ -857,9 +857,7 @@ function display_my_documents($dialogBox)
                 $image       = choose_image($fileName);
                 $size        = format_file_size($fileList['size'][$fileKey]);
                 $date        = format_date($fileList['date'][$fileKey]);
-                $urlFileName = '../document/goto/?doc_url='.urlencode($cmdFileName);
-                //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
-                //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
+                $urlFileName = '../document/goto/index.php'.$cmdFileName;
             }
             elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
             {
