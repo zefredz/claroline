@@ -122,7 +122,7 @@ switch ($module['contentType'])
 		$startAssetPage = $asset['path'];
 
 		// str_replace("%2F","/",urlencode($startAssetPage)) is useed to avoid problems with accents in filename.
-		$moduleStartAssetPage = $clarolineRepositoryWeb."/document/goto/index.php/".str_replace("%2F","/",urlencode($startAssetPage));
+		$moduleStartAssetPage = $clarolineRepositoryWeb."/document/goto/index.php".str_replace("%2F","/",urlencode($startAssetPage));
 		$withFrames = true;
 		break;
 
