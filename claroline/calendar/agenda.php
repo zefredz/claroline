@@ -74,7 +74,7 @@ $dialogBox = '';
 
 if     ( $cmd == 'rqAdd' ) $subTitle = $langAddEvent;
 elseif ( $cmd == 'rqEdit') $subTitle = $langEditEvent;
-else                       $subTitle = '';
+else                       $subTitle = '&nbsp;';
 
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -107,7 +107,7 @@ if ( $is_allowedToEdit )
         $insert_id = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $insert_id != false )
         {
-            $dialogBox .= '<p>' . $langEventAdded . '</p>';
+            $dialogBox .= '<p>' . $langEventAdded . '</p>' . "\n";
             $dialogBox .= linker_update(); //return textual error msg
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
@@ -123,7 +123,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox .= '<p>' . $langUnableToAdd . '</p>';
+            $dialogBox .= '<p>' . $langUnableToAdd . '</p>' . "\n";
         }
     }
 
@@ -144,11 +144,11 @@ if ( $is_allowedToEdit )
                 $dialogBox .= linker_update(); //return textual error msg
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
                 $ex_rss_refresh = TRUE;
-                $dialogBox .= '<p>' . $langEventUpdated . '</p>';
+                $dialogBox .= '<p>' . $langEventUpdated . '</p>' . "\n";
             }
             else
             {
-                $dialogBox .= '<p>' . $langUnableToUpdate . '</p>';
+                $dialogBox .= '<p>' . $langUnableToUpdate . '</p>' . "\n";
             }
         }
     }
@@ -162,7 +162,7 @@ if ( $is_allowedToEdit )
 
         if ( agenda_delete_item($id) )
         {
-            $dialogBox .= '<p>' . $langEventDeleted . '</p>';
+            $dialogBox .= '<p>' . $langEventDeleted . '</p>' . "\n";
             
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
             $ex_rss_refresh = TRUE;
@@ -173,7 +173,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox = '<p>' . $langUnableToDelete . '</p>';
+            $dialogBox = '<p>' . $langUnableToDelete . '</p>' . "\n";
         }
 
         linker_delete_resource();
@@ -187,7 +187,7 @@ if ( $is_allowedToEdit )
     {
         if ( agenda_delete_all_items())
         {
-            $dialogBox .= '<p>' . $langEventDeleted . '</p>';
+            $dialogBox .= '<p>' . $langEventDeleted . '</p>' . "\n";
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
@@ -196,7 +196,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox = '<p>' . $langUnableToDelete . '</p>';
+            $dialogBox = '<p>' . $langUnableToDelete . '</p>' . "\n";
         }
         
         linker_delete_all_tool_resources();
@@ -297,7 +297,7 @@ if ($display_form)
 {
 ?>
 <form onSubmit="linker_confirm();delay(500);return true;" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 <input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
 <input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
 
@@ -485,7 +485,7 @@ $content = $editedEvent['content'];
 
 <td colspan="6"> 
 <?php echo claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
-<br>
+<br />
 
 </td></tr>
 <tr>
@@ -536,7 +536,7 @@ echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
 
 if ($display_command)
 {
-        echo '<p>'
+        echo "\n\n" . '<p>'
 
         /*
         * Add event button
@@ -557,12 +557,11 @@ if ($display_command)
         .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
         .    $langClearList
         .    '</a>'
-        .    '</p>'
+        .    '</p>' . "\n"
         ;
 
 }
 
-echo '<table class="claroTable" width="100%">' . "\n";
 
 if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' )
 {
@@ -579,7 +578,7 @@ $monthBar     = '';
 
 if ( count($eventList) < 1 )
 {
-    echo '<br><blockquote>' . $langNoEventInTheAgenda . '</blockquote>';
+    echo "\n" . '<br /><blockquote>' . $langNoEventInTheAgenda . '</blockquote>' . "\n";
 }
 else
 {
@@ -591,6 +590,8 @@ else
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . $langNewToOld . '</a>' . "\n";
     }
+
+	echo "\n" . '<table class="claroTable" width="100%">' . "\n";
 }
 
 $nowBarAlreadyShowed = FALSE;
@@ -719,7 +720,7 @@ foreach ( $eventList as $thisEvent )
 
 }   // end while
 
-echo '</table>';
+if ( count($eventList) > 0 ) echo '</table>';
 
 include( $includePath . '/claro_init_footer.inc.php' );
 
