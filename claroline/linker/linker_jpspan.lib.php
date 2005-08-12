@@ -177,13 +177,13 @@
     * @param $isSetResouceId integer of the resource 
     * @global array htmlHeadXtra 
     */    
-    function linker_set_local_crl( $isSetResouceId )
+    function linker_set_local_crl( $isSetResouceId, $tLabel = NULL )
     {
         global $htmlHeadXtra;
         
         if( $isSetResouceId )
         {
-            $crlSource =  getSourceCrl();
+            $crlSource =  getSourceCrl( $tLabel );
         
             $htmlHeadXtra[] = "<script type=\"text/javascript\">
                 var localcrl = '".$crlSource."';</script>\n";

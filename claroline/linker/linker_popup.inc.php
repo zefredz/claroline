@@ -72,7 +72,8 @@ if ($isToolAllowed)
      *-------------------------------------------------*/
     if ( !isset ($_REQUEST['cmd']) )
     {
-        $crlSource = getSourceCrl();
+        $linkerTLabel = ( isset( $linkerTLabel ) ) ? $linkerTLabel : NULL;
+        $crlSource = getSourceCrl( $linkerTLabel );
         if( isset($_SESSION['claro_linker_current']) )
         {
             if(    $crlSource != $_SESSION['claro_linker_current'] )

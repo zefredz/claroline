@@ -319,10 +319,11 @@
    /**
     *  get the crl for a resource 
     *
+    * @param string tLable tool label if different form current tool
     * @return  string a valid crl 
     * @global $platform_id,$_course,$_courseTool,$_gid,$rootWeb
     */
-    function getSourceCrl()
+    function getSourceCrl( $tLabel = NULL )
     {
         global $platform_id;
         global $_course;
@@ -333,7 +334,13 @@
         $baseServUrl = $rootWeb;
         $course_sys_code = $_course["sysCode"];
 
-        if ( isset( $_courseTool ) && isset( $_courseTool['label'] ) )
+        if ( ! is_null( $tLabel ) )
+        {
+            $tool_name = $tLabel;
+            $res = new Resolver($baseServUrl);
+            $resource_id = $res->getResourceId($tool_name);
+        }
+        elseif ( isset( $_courseTool ) && isset( $_courseTool['label'] ) )
         {
             $tool_name = $_courseTool["label"];
             $res = new Resolver($baseServUrl);
@@ -382,59 +389,65 @@
    /**
     * record the crl in the data base and erases the variables of sessions
     *
+    * @param string tLable tool label if different form current tool
     * @return string an error message if the operation did not proceed suitably or
     *         a empty string if all it passed well 
     */    
-    function linker_update()
+    function linker_update( $tLabel = NULL )
     {
-        $crlSource = getSourceCrl();
+        global $jpspanEnabled;
         
-        if ( isset( $_REQUEST['servAdd'] ) )
-        {
-            $tmpServAdd = array_map( 'urldecode', $_REQUEST['servAdd'] );
-            $tmpServAdd = ( is_array( $tmpServAdd ) ) ? $tmpServAdd : array();
-        }
-        else // if ( ! isset( $_SESSION['servAdd'] ) )
-        {
-            $tmpServAdd = array();
-        }
+        $crlSource = getSourceCrl( $tLabel );
         
-        if ( isset( $_REQUEST['servDel'] ) )
+        if ( $jpspanEnabled )
         {
-            $tmpServDel = array_map( 'urldecode', $_REQUEST['servDel'] );
-            $tmpServDel = ( is_array( $tmpServDel ) ) ? $tmpServDel : array();
-        }
-        else // if ( ! isset( $_SESSION['servDel'] ) )
-        {
-            $tmpServDel = array();
-        }
-        
-        // to avoid links added after deletion to be ignored (bug #264)
-        
-        if ( ( isset( $tmpServAdd ) && is_array( $tmpServAdd ) )
-            || ( isset( $tmpServDel ) && is_array( $tmpServDel ) ) )
-        {
-            if ( count( $tmpServAdd ) > 0 || count( $tmpServDel ) > 0 )
+            if ( isset( $_REQUEST['servAdd'] ) )
             {
-                foreach( $tmpServAdd as $addIndex => $addValue )
+                $tmpServAdd = array_map( 'urldecode', $_REQUEST['servAdd'] );
+                $tmpServAdd = ( is_array( $tmpServAdd ) ) ? $tmpServAdd : array();
+            }
+            else // if ( ! isset( $_SESSION['servAdd'] ) )
+            {
+                $tmpServAdd = array();
+            }
+        
+            if ( isset( $_REQUEST['servDel'] ) )
+            {
+                $tmpServDel = array_map( 'urldecode', $_REQUEST['servDel'] );
+                $tmpServDel = ( is_array( $tmpServDel ) ) ? $tmpServDel : array();
+            }
+            else // if ( ! isset( $_SESSION['servDel'] ) )
+            {
+                $tmpServDel = array();
+            }
+        
+            // to avoid links added after deletion to be ignored (bug #264)
+        
+            if ( ( isset( $tmpServAdd ) && is_array( $tmpServAdd ) )
+                || ( isset( $tmpServDel ) && is_array( $tmpServDel ) ) )
+            {
+                if ( count( $tmpServAdd ) > 0 || count( $tmpServDel ) > 0 )
                 {
-                    foreach( $tmpServDel as $delIndex => $delValue )
+                    foreach( $tmpServAdd as $addIndex => $addValue )
                     {
-                        if ( $delValue == $addValue )
+                        foreach( $tmpServDel as $delIndex => $delValue )
                         {
-                            unset( $tmpServAdd[$addIndex] );
-                            unset( $tmpServDel[$delIndex] );
-                        }
-                        else
-                        {
-                            continue;
+                            if ( $delValue == $addValue )
+                            {
+                                unset( $tmpServAdd[$addIndex] );
+                                unset( $tmpServDel[$delIndex] );
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
                 }
-            }
             
-            $_SESSION['servAdd'] = $tmpServAdd;
-            $_SESSION['servDel'] = $tmpServDel;
+                $_SESSION['servAdd'] = $tmpServAdd;
+                $_SESSION['servDel'] = $tmpServDel;
+            }
         }
         
         $message = linker_update_attachament_list( $crlSource , $_SESSION['servAdd'] , $_SESSION['servDel'] );
@@ -455,9 +468,9 @@
         return $message;    
     }
     
-    function linker_delete_resource()
+    function linker_delete_resource( $tLabel = NULL )
     {
-        $crlSource = getSourceCrl();
+        $crlSource = getSourceCrl( $tLabel );
         
         linker_remove_ressource( $crlSource );
     }
@@ -481,12 +494,13 @@
     * display the list of the resources which are related to a resource 
     *
     * @global $rootWeb
+    * @param string tLable tool label if different form current tool
     */    
-    function linker_display_resource()
+    function linker_display_resource( $tLabel = NULL )
     {
         global $rootWeb;
         
-        $crlSource = getSourceCrl();
+        $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
         $baseServUrl = $rootWeb;
             
@@ -512,12 +526,13 @@
     *  
     *
     * @global $rootWeb
+    * @param string tLable tool label if different form current tool
     */    
-    function linker_email_resource()
+    function linker_email_resource( $tLabel = NULL )
     {
         global $rootWeb;
         
-        $crlSource = getSourceCrl();
+        $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
         $baseServUrl = $rootWeb;
         
