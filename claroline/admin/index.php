@@ -76,7 +76,7 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 include($includePath.'/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
 
-if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg . '</blockquote>';
+if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $controlMsg . '</blockquote>'."\n\n";
 
 ?>
 <table cellspacing="5" align="center">
@@ -84,7 +84,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 <tr valign="top">
 
 <td nowrap="nowrap">
-<h4><img src="<?php echo $imgRepositoryWeb; ?>user.gif" /> <?php echo $langUsers?></h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /> <?php echo $langUsers?></h4>
 <ul>
 <li>
 <form name="searchUser" action="adminusers.php" method="GET" >
@@ -96,7 +96,6 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 </form>
 <li>
 <a href="adminusers.php"><?php echo $langListUsers?></a>
-</li>
 </li>
 <li>
 <a href="adminaddnewuser.php"><?php echo $langCreateUser?></a>
@@ -111,7 +110,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 </td>
 
 <td nowrap="nowrap">
-<h4><img src="<?php echo $imgRepositoryWeb; ?>course.gif" /> <?php echo $langCourses?></h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>course.gif" alt="" /> <?php echo $langCourses?></h4>
 <ul>
 <li>
 <form name="searchCourse" action="admincourses.php" method="GET" >
@@ -135,7 +134,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 <tr valign="top">
 
 <td nowrap="nowrap">
-<h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" /> <?php echo $langPlatform?></h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" alt="" /> <?php echo $langPlatform?></h4>
 <ul>
 <li>
 <a href="tool/config_list.php"><?php echo $langConfiguration?></a>
@@ -156,7 +155,7 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 </td>
 
 <td nowrap="nowrap">
-<h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" />&nbsp;Claroline.net</h4>
+<h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" alt="" />&nbsp;Claroline.net</h4>
 <ul>
 <li>
 <a href="registerCampus.php"><?php echo $langRegisterMyCampus; ?></a>
@@ -172,33 +171,46 @@ if ( !empty($controlMsg) ) echo '<blockquote class="highlight">' . $controlMsg .
 
 </tr>
 
-</table>
-
 <?php
 if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 || ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
 ?>
-    <h4><?php echo $langSDK?></h4>
-    <ul>
+<tr valign="top">
+
+<td nowrap="nowrap">
+<h4><?php echo $langSDK?></h4>
+<ul>
 <?php
 }
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
 {
 ?>
-    <li><a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></li>
+<li><a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></li>
 <?php
 }
 if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 {
 ?>
-    <li><a href="devTools/"><?php echo $langDevTools ?></a></li>
-    <li><a href="technical/"><?php echo $langTechnical ?></a></li>
+<li><a href="devTools/"><?php echo $langDevTools ?></a></li>
+<li><a href="technical/"><?php echo $langTechnical ?></a></li>
+<?php
+}
+
+if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
+{
+	// close opened tag if needed
+?>
+</ul>
+</td>
+<td nowrap="nowrap">&nbsp;</td>
+</tr>
 <?php
 }
 ?>
-</ul>
+</table>
 <?php
 include($includePath.'/claro_init_footer.inc.php');
 ?>
