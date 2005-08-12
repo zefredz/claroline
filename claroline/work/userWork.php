@@ -865,15 +865,15 @@ if( !$dispWrkForm && !$dispWrkDet )
     --------------------------------------------------------------------*/
 
 $htmlHeadXtra[] =
-"<script>
+'<script type="text/javascript">
 function confirmation (name)
 {
-	if (confirm(\" ".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \" ?  \" ))
+	if (confirm(" '.clean_str_for_javascript($langAreYouSureToDelete).' "+ name + " ?  " ))
 		{return true;}
 	else
 		{return false;}
 }
-</script>";
+</script>';
 
 if(isset($_gid))
 {
@@ -1308,7 +1308,7 @@ if( $dispWrkLst )
 			
 			if( $is_feedback )
 			{
-				if( $is_courseAdmin )
+				if( $is_allowedToEditAll )
 				{
 					echo '<br /><div><b>'.$langPrivateFeedback.'</b>&nbsp;: <br />'."\n"
 						.$thisWrk['private_feedback'].'</div>'."\n";
