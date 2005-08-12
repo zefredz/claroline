@@ -343,7 +343,7 @@ if($is_allowedToEdit) // check teacher status
                     }
                 }
                 $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
-                $message .= ' '.$langEmailSent.'<br><b>'.$messageUnvalid.'</b><br />';
+                $message .= ' '.$langEmailSent.'<br /><b>'.$messageUnvalid.'</b><br />';
                 $message .= $messageFailed;
 
             }   // end if $emailOption==1
@@ -410,12 +410,12 @@ if ( $displayButtonLine )
 {
     echo '<p>' . "\n"
     .    '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
-    .    '<img src="'.$imgRepositoryWeb.'announcement.gif">'
+    .    '<img src="'.$imgRepositoryWeb.'announcement.gif" alt="" />'
     .    $langAddAnn
     .    '</a>' . "\n"
     .    ' | ' . "\n"
     .    '<a class="claroCmd" href="messages.php">'
-    .    '<img src="'.$imgRepositoryWeb.'email.gif">'
+    .    '<img src="'.$imgRepositoryWeb.'email.gif" alt="" />'
     .    $langMessageToSelectedUsers
     .    '</a>' . "\n"
     .    ' | ' . "\n";
@@ -423,14 +423,14 @@ if ( $displayButtonLine )
     {   
         echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
         .    ' onclick="if (confirm(\'' . clean_str_for_javascript($langEmptyAnn) . ' ?\')){return true;}else{return false;}">'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" />'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .    $langEmptyAnn
         .    '</a>' . "\n";
     }
     else
     {   
         echo '<span class="claroCmdDisabled" >'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" />'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .    $langEmptyAnn
         .    '</span>' . "\n";
     }
@@ -449,6 +449,7 @@ if ( $displayForm )
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'."\n"
+   	.	 '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '">'
     .    (isset( $announcementToEdit['id'] ) 
          ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '">' . "\n"
@@ -516,7 +517,7 @@ if ($displayList)
 
     if ($announcementQty < 1)
     {
-        echo '<br><blockquote><p>' . $langNoAnnouncement . '<p></blockquote>' . "\n";
+        echo '<br /><blockquote>' . $langNoAnnouncement . '</blockquote>' . "\n";
     }
 
     echo '<table class="claroTable" width="100%">';
