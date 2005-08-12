@@ -49,21 +49,36 @@
     * the dislay of the linker 
     *
     * @param $extraGetVar integer who is id of a resource
+    * @param $tLabel tlabel of a tool
     * @global $langLinkerResourceAttachment
     */    
-    function linker_set_display( $extraGetVar = false )
+    function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {
         global $langLinkerResourceAttachment;
         
-        echo "<br>\n";
-        echo "<A href=\"javascript:popup('../linker/linker_popup.inc.php"; 
+        $url = "../linker/linker_popup.inc.php";
         
         if( $extraGetVar !== false )
-        {    
-            echo "?id=".$extraGetVar;
+        {
+            $url .= "?id=".$extraGetVar;
         }
         
-        echo "')\">".$langLinkerResourceAttachment."</A><br><br>\n";
+        if ( ! is_null( $tLabel ) )
+        {
+            if ( strstr( $url, "?" ) != false )
+            {
+                $url .= "&amp;linkerTLabel=$tLabel";
+            }
+            else
+            {
+                $url .= "?linkerTLabel=$tLabel";
+            }
+        }
+        
+        echo "<br>\n";
+        echo "<A href=\"javascript:popup('"
+            . $url."')\">".$langLinkerResourceAttachment
+            ."</A><br><br>\n";
     }
 
 //--------------------------------------------------------------------------------------------------------

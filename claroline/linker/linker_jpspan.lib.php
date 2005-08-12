@@ -174,7 +174,8 @@
     * set the id of resource in the sript 
     * what makes it possible jpspan to recover this id     
     *
-    * @param $isSetResouceId integer of the resource 
+    * @param $isSetResouceId integer of the resource
+    * @param $tLabel tlabel of a tool
     * @global array htmlHeadXtra 
     */    
     function linker_set_local_crl( $isSetResouceId, $tLabel = NULL )
@@ -199,9 +200,11 @@
     * the dislay of the linker 
     *
     * @param $extraGetVar not use in jpspan 
-    *    but left in respect to the linker api 
+    *    but left in respect to the linker api
+    * @param $tLabel not use in jpspan
+    *    but left in respect to the linker api
     */    
-    function linker_set_display( $extraGetVar = false )
+    function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {   
         global $langLinkerAddNewAttachment;
          
