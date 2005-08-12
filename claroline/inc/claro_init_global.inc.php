@@ -212,7 +212,7 @@ if ( isset($_POST['claroFormId']) )
 {
     if ( ! isset($_SESSION['claroFormIdList']) )
     {
-        $_SESSION['claroFormIdList'] = array();
+        $_SESSION['claroFormIdList'] = array( $_POST['claroFormId'] );
     }
     elseif ( in_array($_POST['claroFormId'], $_SESSION['claroFormIdList']) )
     {
