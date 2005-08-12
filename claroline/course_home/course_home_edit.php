@@ -84,7 +84,7 @@ if ($cmd == 'exSetToolAccess')
     $enablableToolList  = array();
     $disablableToolList = array();
 
-    $currentToolStateList=get_course_tool_list($reqAccessLevel);
+    $currentToolStateList = get_course_home_tool_list($reqAccessLevel);
 
     foreach($currentToolStateList as $thisCurrentToolState)
     {
@@ -270,7 +270,7 @@ echo '<p>' . $langIntroEditToolList . '</p>' . "\n"
     . '<input type="hidden" name="cmd" value="exSetToolAccess" >' . "\n"
     ;
 
-$toolList = get_course_tool_list($reqAccessLevel);
+$toolList = get_course_home_tool_list($reqAccessLevel);
 
 echo '<table class="claroTable" >' . "\n\n"
     . '<thead>' . "\n"

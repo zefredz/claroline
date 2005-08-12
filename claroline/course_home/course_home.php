@@ -80,7 +80,7 @@ if     ($is_platformAdmin 	&& $is_allowedToEdit)   $reqAccessLevel   = 'PLATFORM
 elseif ($is_allowedToEdit)   $reqAccessLevel   = 'COURSE_ADMIN';
 else                         $reqAccessLevel   = 'ALL';
 
-$toolList = get_course_tool_list($reqAccessLevel);
+$toolList = get_course_home_tool_list($reqAccessLevel);
 
 // get tool id where new events have been recorded since last login
 

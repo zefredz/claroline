@@ -60,7 +60,7 @@ function insert_course_tool($tool_label)
  */
 
 
-function get_course_tool_list($reqAccessLevel = 'ALL')
+function get_course_home_tool_list($reqAccessLevel = 'ALL')
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_tool_list        = $tbl_mdb_names['tool'  ];
