@@ -534,6 +534,17 @@ echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
 <?php
 }
 
+if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' )
+{
+    $orderDirection = 'DESC';
+}
+else
+{
+    $orderDirection = 'ASC';
+}
+
+$eventList = agenda_get_item_list($orderDirection);
+
 if ($display_command)
 {
         echo "\n\n" . '<p>'
@@ -546,33 +557,31 @@ if ($display_command)
         .    '<img src="'.$imgRepositoryWeb.'agenda.gif" alt="">'
         .    $langAddEvent
         .    '</a>'
-        .    ' | '
+        .    ' | ';
 
         /*
         * remove all event button
         */
-
-        .    '<a class= "claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll" '
-        .    ' onclick="if (confirm(\''.clean_str_for_javascript($langClearList).' ? \')){return true;}else{return false;}">'
-        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
-        .    $langClearList
-        .    '</a>'
-        .    '</p>' . "\n"
-        ;
+        if ( count($eventList) > 0 )
+        {
+	        echo '<a class= "claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll" '
+	        .    ' onclick="if (confirm(\''.clean_str_for_javascript($langClearList).' ? \')){return true;}else{return false;}">'
+	        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
+	        .    $langClearList
+	        .    '</a>'
+	        ;
+		}
+		else
+		{
+	        echo '<span class="claroCmdDisabled" >'
+	        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
+	        .    $langClearList
+	        .    '</span>'
+	        ;
+		}
+		echo '</p>' . "\n";
 
 }
-
-
-if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' )
-{
-    $orderDirection = 'DESC';
-}
-else
-{
-    $orderDirection = 'ASC';
-}
-
-$eventList = agenda_get_item_list($orderDirection);
 
 $monthBar     = '';
 
