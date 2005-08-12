@@ -262,13 +262,14 @@ else
     $x = 1;
 }
 
-echo '<html>'."\n"
-    . '<head>'."\n"
-       . '<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
-       . '<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
-       . '</head>'."\n"
-       . '<body>'."\n"."\n"
-       ;
+echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
+	.'<html>'."\n"
+    .'<head>'."\n"
+	.'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
+	.'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
+	.'</head>'."\n"
+	.'<body>'."\n"."\n"
+	;
 
 if( isset($cmdMsg) )
 {
@@ -276,10 +277,11 @@ if( isset($cmdMsg) )
 }
 
 echo implode("\n", $curDisplayLineList) // LAST LINES
+	."\n"
     .'<p align="right"><small>'
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
-    .'</small></p>'
-    .'<a name="final">'."\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE
+    .'</small></p>'."\n\n"
+    .'<a name="final"></a>'."\n\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE
     .'</body>'."\n\n"
     .'</html>'."\n"
     ;
@@ -297,7 +299,7 @@ if ($activeLineCount > $max_line_in_file)
 
     buffer(implode('',$excessLineList), $onflySaveFile);
 
-    // REFLESH THE ACTIVE CHAT FILE TO KEEP ONLY NON SAVED TAIL
+    // REFRESH THE ACTIVE CHAT FILE TO KEEP ONLY NON SAVED TAIL
 
     $fp = fopen($activeChatFile, 'w');
     fwrite($fp, implode("\n", $curDisplayLineList));
