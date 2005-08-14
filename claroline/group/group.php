@@ -39,12 +39,10 @@ require '../inc/claro_init_global.inc.php';
 
 claro_unquote_gpc();
 
-if ( ! $_cid) claro_disp_select_course();
+if ( ! $_cid ) claro_disp_auth_form(true);
 $nameTools     = $langGroups;
 
 include($includePath . '/lib/group.lib.inc.php');
-include($includePath . '/lib/fileManage.lib.php');
-
 include($includePath . '/lib/events.lib.inc.php');
 
 //stats
@@ -111,13 +109,11 @@ $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
 $groupPrivate   = $_groupProperties ['private'            ];
 $nbGroupPerUser = $_groupProperties ['nbGroupPerUser'     ];
 
-if ( !$nbGroupPerUser )
+if ( ! $nbGroupPerUser )
 {
     $sql = "SELECT COUNT(*)
             FROM `" . $tbl_Groups . "`";
-    $result = claro_sql_query($sql);
-    $tmp = mysql_fetch_array($result);
-    $nbGroupPerUser = $tmp[0];
+    $nbGroupPerUser = claro_sql_query_get_single_value($sql);
 }
 
 $tools['forum'   ] = $_groupProperties['tools']['forum'    ];
@@ -138,69 +134,31 @@ if ( $is_allowedToManage )
     if ( isset($_REQUEST['creation']) )
     {   
         // require the forum library to create the related forums
-        require $includePath . '/lib/forum.lib.php';
+        require_once $includePath . '/lib/forum.lib.php';
 
         // For all Group forums, cat_id=1
 
-        $group_max = (int) $_REQUEST['group_max'];
-        $group_quantity = (int) $_REQUEST['group_quantity'];
+        $groupMax      = (int) $_REQUEST['group_max'];
+        $groupQuantity = (int) $_REQUEST['group_quantity'];
 
-        if ( $group_quantity < 1 ) $group_quantity = 1;
+        if ( $groupQuantity < 1 ) $groupQuantity = 1;
 
-        $lastId = 0;
+        $sql = 'SELECT MAX(id) 
+                FROM `'.$tbl_Groups.'`';
+        $startNum = claro_sql_query_get_single_value($sql);
 
-        for ( $i = 1; $i <= $group_quantity; $i++ )
+        $groupCreatedList = array();
+
+        for ( $i = 1, $groupNum = $startNum + 1 ; $i <= $groupQuantity; $i++, $groupNum++ )
         {
-            /**
-             * Create a directory for to allow group student to upload documents
-             */
+            $groupId = create_group($langGroup.' '.$groupNum, $groupMax);
+            $groupCreatedList[] = $groupId;
+        }
 
-            //  Create a Unique ID path preventing other enter
-
-            $groupRepository = uniqid('') . '_team_' . $lastId;
-
-            while ( check_name_exist($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository) )
-            {
-                $groupRepository = uniqid('') . '_team_' . $lastId;
-            }
-
-            claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, 0777);
-
-            /*
-             * Insert a new group in the course group table and keep its ID
-             */
-
-            $sql = "INSERT INTO `" . $tbl_Groups . "`
-                    SET maxStudent = '" . (int) $group_max . "'";
-
-            $lastId = claro_sql_query_insert_id($sql);
-
-            /*
-             * Create a forum for the group in the forum table
-             */
-
-            $forumInsertId = create_forum( $langForumGroup . ' ' . $lastId
-                                         , '' // forum description
-                                         , 0  // forum_type ... int he phpBB structure
-                                         , (int) GROUP_FORUMS_CATEGORY
-                                         );
-
-            /* Stores the directory path into the group table */
-
-            $sql = "UPDATE `" . $tbl_Groups . "`
-                    SET   name            = '" . $langGroup . ' ' . $lastId . "',
-                          forumId         = '" . (int) $forumInsertId . "',
-                          secretDirectory = '" . $groupRepository . "'
-                    WHERE id ='" . $lastId . "'";
-
-            claro_sql_query($sql);
-
-        }    // end for ($i = 1; $i <= $group_quantity; $i++)
-
-        $message= $group_quantity . ' ' . $langGroupsAdded;
+        $message= count($groupCreatedList) . ' ' . $langGroupsAdded;
 
         event_default( 'GROUPMANAGING'
-                     , array ('CREATE_GROUP' => $group_quantity)
+                     , array ('CREATE_GROUP' => $groupQuantity)
                      );
 
     }    // end if $submit
@@ -499,13 +457,13 @@ $sql = "SELECT `g`.`id` id, `g`.`name` name,
                `tutor`.`username`, `tutor`.`email`,
 
                `ug`.`user` is_member,
-               COUNT(`ug2`.`id`) nbMember,
+                COUNT(`ug2`.`id`) nbMember,
 
                `tutor`.user_id user_id,
                `tutor`.`nom` nom, `tutor`.`prenom` prenom,
                `tutor`.`username` username, `tutor`.`email` email
 
-         FROM `" . $tbl_Groups . "` `g`
+          FROM `" . $tbl_Groups . "` `g`
 
           # retrieve the tutor id
           LEFT JOIN  `" . $tbl_user . "` `tutor`

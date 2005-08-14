@@ -395,6 +395,7 @@ claro_sql_query($sql);
 $sql = "
     CREATE TABLE `".$TABLEPHPBBFORUMS."`(
         forum_id int(10) NOT NULL auto_increment,
+        group_id int(11) default NULL,
         forum_name varchar(150),
         forum_desc text,
         forum_access int(10) DEFAULT '1',
@@ -404,7 +405,6 @@ $sql = "
         forum_last_post_id int(10) DEFAULT '0' NOT NULL,
         cat_id int(10),
         forum_type int(10) DEFAULT '0',
-        md5 varchar(32) NOT NULL,
     PRIMARY KEY (forum_id),
         KEY forum_last_post_id (forum_last_post_id),
         forum_order int(10) DEFAULT '0'
@@ -680,7 +680,6 @@ claro_sql_query("
         name varchar(100) default NULL,
         description text,
         tutor int(11) default NULL,
-        forumId int(11) default NULL,
         maxStudent int(11) NOT NULL default '0',
         secretDirectory varchar(30) NOT NULL default '0',
     PRIMARY KEY  (id)
@@ -989,12 +988,13 @@ function fill_db_course($courseDbName)
     $prenom = $_user['firstName'];
     $email = $_user['mail'];
 
-    mysql_select_db("$courseDbName");
+    mysql_select_db($courseDbName);
 
-// Create a hidden catagory for group forums
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".addslashes($langCatagoryGroup)."',1)");
-// Create an example catagory
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'".addslashes($langCatagoryMain)."',2)");
+// Create an example category
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'".addslashes($langCatagoryMain)."',1)");
+
+// Create a hidden category for group forums
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".addslashes($langCatagoryGroup)."',2)");
 ############################## GROUPS ###########################################
     claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
@@ -1002,9 +1002,10 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
     claro_sql_query("INSERT 
                         INTO `".$TABLEPHPBBFORUMS."` 
                         VALUES ( 1
+                               , NULL
                                , '".addslashes($langTestForum)."'
                                , '".addslashes($langDelAdmin)."'
-                               ,2,1,1,1,1,2,0,'c4ca4238a0b923820dcc509a6f75849b',1)");
+                               ,2,1,1,1,1,2,0,1)");
     claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"".addslashes($nom)."\",\"".addslashes($prenom)."\")");
     claro_sql_query("CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
         post_id int(10) DEFAULT '0' NOT NULL,

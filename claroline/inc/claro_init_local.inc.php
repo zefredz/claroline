@@ -778,15 +778,19 @@ if ( $gidReset || $cidReset ) // session data refresh requested
 {
     if ( $gidReq && $_cid ) // have keys to search data
     {
-        $sql = "SELECT id, 
-                       name, 
-                       description, 
-                       tutor, 
-                       forumId, 
-                       secretDirectory, 
-                       maxStudent
-                FROM `".$_course['dbNameGlu']."group_team`
-                WHERE `id` = '". (int) $gidReq."'";
+        $sql = "SELECT g.id, 
+                       g.name, 
+                       g.description, 
+                       g.tutor, 
+                       f.forum_id         forumId, 
+                       g.secretDirectory, 
+                       g.maxStudent
+
+                FROM `".$_course['dbNameGlu']."group_team`      g
+                LEFT JOIN `".$_course['dbNameGlu']."bb_forums`   f
+
+                   ON    g.id = f.group_id
+                WHERE    `id` = '". (int) $gidReq."'";
 
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 

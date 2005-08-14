@@ -257,15 +257,9 @@ function get_forum_settings($forumId)
                    `f`.`forum_type`   `forum_type`,
                    `f`.`cat_id`       `cat_id`,
                    `f`.`forum_order`  `forum_rank`,
-                   `g`.`id`           `idGroup`
-
+                   `f`.`group_id`      `idGroup`
             FROM `" . $tbl_forums."` `f`
-
-            # Check possible attached group ...
-             LEFT JOIN `" . $tbl_student_group."` `g`
-                    ON `f`.`forum_id` = `g`.`forumId`
-
-             WHERE `f`.`forum_id` = '" . (int) $forumId."'" ;
+            WHERE `f`.`forum_id` = '" . (int) $forumId."'" ;
 
     $result = claro_sql_query_fetch_all($sql);
 
@@ -1150,7 +1144,7 @@ function delete_category($cat_id)
     $sql = 'SELECT `forum_id` 
             FROM `'.$tbl_forum_forums.'` 
             WHERE `cat_id` = "'.$cat_id.'"';
-    
+
     $result = claro_sql_query($sql);
 
     while( list($forum_id) = mysql_fetch_row($result) )
@@ -1193,7 +1187,7 @@ function delete_forum($forum_id)
 
 
 
-function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id)
+function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null)
 {
      $tbl_cdb_names    = claro_sql_get_course_tbl();
      $tbl_forum_forums = $tbl_cdb_names['bb_forums'             ];
@@ -1212,13 +1206,14 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id)
     // add new forum in DB
 
     $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
-            SET forum_name  = "'. addslashes($forum_name) .'", 
-            forum_desc      = "'. addslashes($forum_desc) .'", 
-            forum_access    = "'.($forum_post_allowed ? 2 : 0).'",
-            forum_moderator = 1, 
-            cat_id          = "'. (int) $cat_id .'", 
-            forum_type      = 0, 
-            forum_order    ="'. (int) $order.'"';
+            SET forum_name      = "'. addslashes($forum_name) .'", 
+                group_id        = '.(is_null($group_id) ? 'NULL' : (int) $group_id).',
+                forum_desc      = "'. addslashes($forum_desc) .'", 
+                forum_access    = "'.($forum_post_allowed ? 2 : 0).'",
+                forum_moderator = 1, 
+                cat_id          = "'. (int) $cat_id .'", 
+                forum_type      = 0, 
+                forum_order     ="'. (int) $order.'"';
 
     return claro_sql_query_insert_id($sql);
 }
@@ -1410,12 +1405,10 @@ function get_forum_list()
                    f.forum_access, f.forum_moderator, 
                    f.forum_topics, f.forum_posts, f.forum_last_post_id, 
                    f.cat_id, f.forum_type, f.forum_order,
-            p.poster_id, p.post_time, g.id group_id
+            p.poster_id, p.post_time, f.group_id
             FROM `" . $tbl_forums . "` f
             LEFT JOIN `" . $tbl_posts . "` p 
                    ON p.post_id = f.forum_last_post_id
-            LEFT JOIN `" . $tbl_student_group . "` g 
-                   ON g.forumId = f.forum_id
             ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
      return claro_sql_query_fetch_all($sql);

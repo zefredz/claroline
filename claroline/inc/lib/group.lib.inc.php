@@ -36,8 +36,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_Groups           = $tbl_c_names['group_team'         ];
     $tbl_GroupsUsers      = $tbl_c_names['group_rel_team_user'];
     $tbl_Forums           = $tbl_c_names['bb_forums'          ];
-    
-    
+
     /*
      * Check the data
      */
@@ -71,50 +70,40 @@ function delete_groups($groupIdList = 'ALL')
      * Search the groups data necessary to delete them
      */
 
-    $sql_searchGroup = "SELECT `id` `gid`, `secretDirectory` `groupRepository`, `forumId`
+    $sql_searchGroup = "SELECT `id`               `id`, 
+                               `secretDirectory`  `directory`
                         FROM `" . $tbl_Groups . "`".
                         $sql_condition;
 
-    $res_searchGroup = claro_sql_query($sql_searchGroup);
+    $groupList = claro_sql_query_fetch_all_cols($sql_searchGroup);
 
-    if ( $res_searchGroup )
-    {
-        while ( $gpData = mysql_fetch_array($res_searchGroup) )
-        {
-            $groupList['id'       ][] = $gpData['gid'            ];
-            $groupList['directory'][] = $gpData['groupRepository'];
-            $groupList['forumId'  ][] = $gpData['forumId'        ];
-        }
-    }
-
-    if ( is_array($groupList) && count($groupList) > 0 )
+    if ( count($groupList) > 0 )
     {
         /*
          * Remove users, group(s) and group forum(s) from the course tables
          */
 
         $sql_deleteGroup        = "DELETE FROM `" . $tbl_Groups . "`
-                                   WHERE id IN (" . implode(" , ",$groupList['id']) . ")
+                                   WHERE id IN (" . implode(' , ', $groupList['id']) . ")
                                     # ".__FUNCTION__."
                                     # ".__FILE__."
                                     # ".__LINE__;
 
         $sql_cleanOutGroupUsers = "DELETE FROM `" . $tbl_GroupsUsers . "`
-                                   WHERE team IN (" . implode(" , ",$groupList['id']) . ")
+                                   WHERE team IN (" . implode(' , ', $groupList['id']) . ")
                                     # ".__FUNCTION__."
                                     # ".__FILE__."
                                     # ".__LINE__;
 
         $sql_deleteGroupForums  = "DELETE FROM `" . $tbl_Forums . "`
                                    WHERE cat_id='1'
-                                   AND forum_id IN (" . implode(" , ",$groupList['forumId']) . ")
+                                   AND group_id IN (" . implode(' , ', $groupList['id']) . ")
                                     # ".__FUNCTION__."
                                     # ".__FILE__."
                                     # ".__LINE__;
 
         // Deleting group record in table
-        claro_sql_query($sql_deleteGroup);
-        $deletedGroupNumber = mysql_affected_rows();
+        $deletedGroupNumber = claro_sql_query_affected_rows($sql_deleteGroup);
 
         // Delete all members of deleted group(s)
         claro_sql_query($sql_cleanOutGroupUsers);
@@ -164,7 +153,7 @@ function delete_groups($groupIdList = 'ALL')
 }
 
 /** 
- * alias of delete_groups() called without parameters
+ * Alias of delete_groups() called without parameters
  */
 
 function deleteAllGroups()
@@ -355,10 +344,11 @@ function group_count_students_in_course($course_id)
  */
 function group_count_students_in_groups($course_id=null)
 {
-    $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-    $sql = "SELECT COUNT(user) FROM `" . $tbl_rel_team_user . "`";
-	return (int) claro_sql_query_get_single_value($sql);
+    $sql = "SELECT COUNT(user) 
+            FROM `" . $tbl_rel_team_user . "`";
+    return (int) claro_sql_query_get_single_value($sql);
 }
 
 /**
@@ -374,10 +364,69 @@ function group_count_group_of_a_user($user_id, $course_id=null)
     $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
     $sql = "SELECT COUNT(`team`) nbGroups
-            FROM `" . $tbl_rel_team_user . "` WHERE user='" . (int) $user_id . "'";
+            FROM `" . $tbl_rel_team_user . "` 
+            WHERE user='" . (int) $user_id . "'";
 
-	return claro_sql_query_get_single_value($sql);
+    return claro_sql_query_get_single_value($sql);
 }
 
+/**
+ * Create a new group
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  string $groupName - name of the group
+ * @param  int $maxUser  - max user allowed for this group
+ * @return int group id
+ */
 
+function create_group($groupName, $maxUser)
+{
+    global $coursesRepositorySys, $currentCourseRepository, $includePath, $langGroup, $langForum;
+
+    require_once $includePath . '/lib/forum.lib.php';
+    require_once $includePath . '/lib/fileManage.lib.php';
+
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_Groups    = $tbl_cdb_names['group_team'];
+
+    /**
+     * Create a directory allowing group student to upload documents
+     */
+
+    //  Create a Unique ID path preventing other enter
+
+    do
+    {
+        $groupRepository = uniqid($groupName . '_');
+    } 
+    while ( check_name_exist(  $coursesRepositorySys 
+                             . $currentCourseRepository 
+                             . '/group/' . $groupRepository) );
+
+    claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, 0777);
+
+    /*
+     * Insert a new group in the course group table and keep its ID
+     */
+
+    $sql = "INSERT INTO `" . $tbl_Groups . "`
+            SET name = '" . $groupName . "',
+                maxStudent = " . (int) $maxUser .",
+                secretDirectory = '" . addslashes($groupRepository) . "'";
+
+    $createdGroupId = claro_sql_query_insert_id($sql);
+
+    /*
+     * Create a forum for the group in the forum table
+     */
+
+    $forumInsertId = create_forum( $groupName. ' - '. strtolower($langForum)
+                                 , '' // forum description
+                                 , 2  // means forum post allowed,
+                                 , (int) GROUP_FORUMS_CATEGORY
+                                 , $createdGroupId
+                                 );
+
+     return $createdGroupId;
+}
 ?>
