@@ -988,15 +988,15 @@ function claro_disp_select_course()
 }
 
 /**
- * diplays the message box appearing on    the    top    of the window,
- * just    below the tool title. It is    recommended    to use this    function
- * to display any confirmation or error    messages, or to    ask    to the user
- * to enter    simple parameters.
+ * Prepare display of the message box appearing on the top of the window,
+ * just    below the tool title. It is recommended to use this function
+ * to display any confirmation or error messages, or to ask to the user
+ * to enter simple parameters.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $message -    include    your self any additionnal html
- *                            tag    if you need    them
- * @return void
+ * @param string $message - include your self any additionnal html
+ *                          tag if you need them
+ * @return $string - the
  */
 
 function claro_disp_message_box($message)
@@ -1013,6 +1013,7 @@ function claro_disp_message_box($message)
 
 /**
  * Cheks if the string has been written html style (ie &eacute; etc)
+ *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $string
  * @return boolean true if the string is written in html style, false otherwise
@@ -1071,20 +1072,18 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
                                                .end($breadCrumbList)
                                                .'</strong>';
 
-    return '<div class="breadcrumbTrail">'
-          .(is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ')
-          .implode($separator, $breadCrumbList)
-          .'</div>';
+    return  '<div class="breadcrumbTrail">'
+          . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
+          . implode($separator, $breadCrumbList)
+          . '</div>';
 }
 
 /**
- * displays an anchor tag (<a ...>) which, thanks to style sheet (css),
- * looks like a button.
+ * Prepare the display of a clikcable button
  *
- * This function is needed, because Netscap 4 family browsers renders CSS
- * so badly that it makes the button unusable. The function prevents the problem
- * to occur by removing class style if the browser is from the Netscape 4
- * familiy.
+ * This function is needed because claroline buttons rely on javascript.
+ * The function return an optionnal behavior fo browser where javascript 
+ * isn't  available.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
@@ -1092,7 +1091,7 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
  * @param string $text text inserted between the two <a>...</a> tags (note : it
  *        could also be an image ...)
  * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
- * @return void
+ * @return string the button
  */
 
 function claro_disp_button($url, $text, $confirmMessage = '')
@@ -1157,7 +1156,7 @@ function claro_disp_progress_bar ($progress, $factor)
 }
 
 /**
- * display a date at localized format
+ * Display a date at localized format
  * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
@@ -1168,22 +1167,18 @@ function claro_disp_progress_bar ($progress, $factor)
 
 function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
 {
-    global $langMonthNames;
-    global $langDay_of_weekNames;
+    global $langMonthNames, $langDay_of_weekNames;
 
-    if ($timestamp == -1)
-    {
-        $timestamp = time();
-    }
+    if ($timestamp == -1) $timestamp = time();
+
     // avec un ereg on fait nous même le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
-
-    $date = ereg_replace('%[A]', $langDay_of_weekNames["long"][(int)strftime('%w', $timestamp)], $formatOfDate);
-    $date = ereg_replace('%[a]', $langDay_of_weekNames["short"][(int)strftime('%w', $timestamp)], $date);
-    $date = ereg_replace('%[B]', $langMonthNames["long"][(int)strftime('%m', $timestamp)-1], $date);
-    $date = ereg_replace('%[b]', $langMonthNames["short"][(int)strftime('%m', $timestamp)-1], $date);
+    $date = ereg_replace('%[A]', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $date = ereg_replace('%[a]', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $date);
+    $date = ereg_replace('%[B]', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $date);
+    $date = ereg_replace('%[b]', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $date);
     return strftime($date, $timestamp);
 }
 
@@ -1192,6 +1187,7 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
  * @author Sébastien Piraux <pir@cerdecam.be>
  * @param integer duration time in seconds to convert to a human readable duration
  */
+
 function claro_disp_duration( $duration  )
 {
     global $langPeriodDayShort, $langPeriodHourShort,
@@ -1426,32 +1422,8 @@ function prepare_option_tags($elementList, $deepness = 0)
 }
 //////////////////////////////////////////////////////////////////////////////
 //                              INPUT HANDLING
-//                            addslashes,...
+//
 //////////////////////////////////////////////////////////////////////////////
-
-/**
- * Add slashes to $text if it has not be automatically done by magic_quotes
- * Use this function _ONLY_ for vars that are affected by magic_quote_gpc
- *
- * Use this only for get/post/cookies vars, not for lang vars,...
- *
- * @param string text to add slashes in
- * @return string $text without change if magi_quote_gpc is on, addslahed $text else
- * @author Piraux Sébastien <pir@cerdecam.be>
- */
-function claro_addslashes($text)
-{
-  if( get_magic_quotes_gpc() && !defined('CL_GPC_UNQUOTED') )
-  {
-    // magic_quote_gpc is on : do not addslashes
-    return $text;
-  }
-  else
-  {
-    // magic_quote_gpc is off : addslashes
-    return addslashes($text);
-  }
-}
 
 /**
  * checks if the javascript is enabled on the client browser
