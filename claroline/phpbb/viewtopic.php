@@ -88,7 +88,7 @@ if ($topicSettingList)
      */
     
     if (   ! is_null($forumSettingList['idGroup']) 
-        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
+        && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
     {   
         $allowed = FALSE;
         $error_message = $langNotAllowed;
