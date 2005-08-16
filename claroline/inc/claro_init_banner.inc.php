@@ -140,7 +140,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 </select>
 
 <noscript>
-<input type="submit" name="gotool" validationmsg="ok" value="go">
+<input type="submit" name="gotool" value="go">
 </noscript>
 
 </form>
@@ -220,16 +220,16 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
     if ( is_null($_uid) )
     {
 
-        echo '<div id="toolViewOption" style="padding-right:10px">'
+        echo "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
             .'?sourceUrl='.urlencode($_SERVER['REQUEST_URI']).'">'
             .$langLogin
             .'</a>'
-            .'</div>';
+            .'</div>'."\n";
     }
     elseif ( claro_is_display_mode_available() )
     {
-        echo '<div id="toolViewOption">'                    ."\n";
+        echo "\n".'<div id="toolViewOption">'                    ."\n";
 
         if ( isset($_REQUEST['viewMode']) )
         {
