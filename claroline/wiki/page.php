@@ -420,6 +420,16 @@
                             $action = 'show';
                         }
                     }
+                    
+                    //notify modification of the page
+                
+                    $eventNotifier->notifyCourseEvent('wiki_page_modified'
+                                         , $_cid
+                                         , $_tid
+                                         , $wikiId
+                                         , $_gid
+                                         , '0');
+                    
                 }
                 else
                 {
@@ -435,7 +445,19 @@
                     }
                     
                     $action = 'show';
+                    
+                    //notify creation of the page
+                
+                    $eventNotifier->notifyCourseEvent('wiki_page_added'
+                                         , $_cid
+                                         , $_tid
+                                         , $wikiId
+                                         , $_gid
+                                         , '0');
                 }
+                
+                
+                
             }
             
             break;
