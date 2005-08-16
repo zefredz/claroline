@@ -25,15 +25,15 @@ if ($is_courseAdmin)    $is_allowedToEdit = TRUE;
 if (!$is_allowedToEdit) claro_disp_auth_form();
 
 $htmlHeadXtra[] =
-"<script>
+'<script type="text/javascript">
 function confirmation (name)
 {
-	if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+ name + \" ?\"))
+	if (confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).'\'+ name + \' ?\'))
 		{return true;}
 	else
 		{return false;}
 }
-</script>";
+</script>';
 
 $toolRepository = '../';
 
@@ -230,29 +230,30 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $toolUrl  = '';
     }
 
-    $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-          . '<input type="hidden" name="cmd" value="' . ($externalToolId ? 'exEdit' : 'exAdd') . '">' . "\n";
+    $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+            .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
+          	.'<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
 
     if ($externalToolId)
     {
         $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '">' . "\n";
     }
 
-    $msg .= '<label for="toolName">' . $langExternalToolName . '</label><br />' . "\n"
-          . '<input type="text" name="toolName" id="toolName" value="' . htmlspecialchars($toolName) . '"><br />' . "\n"
-          . '<label for="toolUrl">' . $langExternalToolUrl . '</label><br />' . "\n"
-          . '<input type="text" name="toolUrl" id="toolUrl" value="' . htmlspecialchars($toolUrl) . '"><br /><br />' . "\n"
-          . '<input class="claroButton" type="submit" value="' . $langOk . '">&nbsp;' . "\n"
-          . claro_disp_button($_SERVER['PHP_SELF'], $langCancel). "\n"
-          . '</form>' . "\n" ;
+    $msg .= '<label for="toolName">'.$langExternalToolName.'</label><br />'."\n"
+			.'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
+			.'<label for="toolUrl">'.$langExternalToolUrl.'</label><br />'."\n"
+			.'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
+			.'<input class="claroButton" type="submit" value="'.$langOk.'">&nbsp;'."\n"
+			.claro_disp_button($_SERVER['PHP_SELF'], $langCancel)."\n"
+			.'</form>'."\n" ;
 }
 
 $backLink = '<p>'
-            . '<small>'
-            . '<a href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php?cidReset=true&amp;cidReq=' . $_cid . '">'
-            . '&lt;&lt;&nbsp;' . $langHome. '</a>'
-            . '</small>'
-            . '</p>' . "\n\n" ;
+            .'<small>'
+            .'<a href="'.$coursesRepositoryWeb . $currentCourseRepository.'/index.php?cidReset=true&amp;cidReq='.$_cid.'">'
+            .'&lt;&lt;&nbsp;'.$langHome.'</a>'
+            .'</small>'
+            .'</p>'."\n\n" ;
 
 /*============================================================================
     DISPLAY
@@ -264,22 +265,22 @@ echo claro_disp_tool_title($langEditToolList);
 
 if ($msg) echo claro_disp_message_box($msg);
 
-echo '<p>' . $langIntroEditToolList . '</p>' . "\n"
-    . '<blockquote>'."\n"
-    . '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-    . '<input type="hidden" name="cmd" value="exSetToolAccess" >' . "\n"
+echo '<p>'.$langIntroEditToolList.'</p>'."\n"
+    .'<blockquote>'."\n"
+    .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    .'<input type="hidden" name="cmd" value="exSetToolAccess" >'."\n"
     ;
 
 $toolList = get_course_home_tool_list($reqAccessLevel);
 
-echo '<table class="claroTable" >' . "\n\n"
-    . '<thead>' . "\n"
-    . '<tr class="headerX">' . "\n"
-    . '<th>' . $langTools . '</th>' . "\n"
-    . '<th>' . $langActivate . '</th>' . "\n"
-    . '</tr>' . "\n"
-    . '</thead>' ."\n\n"
-    . '<tbody>' . "\n"
+echo '<table class="claroTable" >'."\n\n"
+    . '<thead>'."\n"
+    . '<tr class="headerX">'."\n"
+    . '<th>'.$langTools.'</th>'."\n"
+    . '<th>'.$langActivate.'</th>'."\n"
+    . '</tr>'."\n"
+    . '</thead>'."\n\n"
+    . '<tbody>'."\n"
     ;
 
 foreach($toolList as $thisTool)
@@ -323,27 +324,29 @@ foreach($toolList as $thisTool)
         $checkState = ' checked';
     }
 
-    echo "<tr>\n";
+    echo '<tr>'."\n";
 
-    echo "<td >\n"
-    ."<label for=\"toolAccessList".$thisTool['id']."\">"
-    ."<img src=\"".$icon."\">"
-    .$toolName . "</label>\n</td>\n"
-    ."<td>\n<input type=\"checkbox\" name=\"toolAccessList[]\" id=\"toolAccessList".$thisTool['id']."\" value=\"".$thisTool['id']."\"".$checkState.">\n";
+    echo '<td >'."\n"
+	    .'<label for="toolAccessList'.$thisTool['id'].'">'
+	    .'<img src="'.$icon.'" alt="" />'
+	    .$toolName.'</label>'."\n"
+		.'</td>'."\n"
+	    .'<td>'."\n"
+		.'<input type="checkbox" name="toolAccessList[]" id="toolAccessList'.$thisTool['id'].'" value="'.$thisTool['id'].'"'.$checkState.'>'."\n";
 
     if ($removableTool)
     {
-        echo "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=rqEdit&amp;externalToolId=".$thisTool['id']."\">"
-        ."<img src=\"" . $imgRepositoryWeb. "edit.gif\" alt=\"".$langModify."\" />"
-        ."</a>\n"
-        . "<a href=\"". $_SERVER['PHP_SELF'] ."?cmd=exDelete&amp;externalToolId=". $thisTool['id'] . "\""
-        . " onClick=\"return confirmation('" . clean_str_for_javascript($toolName) . "');\">"
-        ."<img src=\"" . $imgRepositoryWeb. "delete.gif\" alt=\"".$langDelete."\" />"
-        ."</a>\n";
+        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$thisTool['id'].'">'
+	        .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'" />'
+	        .'</a>'."\n"
+	        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$thisTool['id'].'"'
+	        .' onClick="return confirmation(\''.clean_str_for_javascript($toolName).'\');">'
+	        .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" />'
+	        .'</a>'."\n";
 
     }
 
-    echo "</td>\n</tr>\n\n";
+    echo '</td>'."\n".'</tr>'."\n\n";
 }
 
 echo '</tbody>'."\n"
