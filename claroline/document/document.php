@@ -230,7 +230,8 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                     $dialogBox .= $langZipNoPhp;
                 }
             }
-    //notify that a new document has been uploaded
+            
+        //notify that a new document has been uploaded
         
         $eventNotifier->notifyCourseEvent('document_file_added'
                                          , $_cid
@@ -1803,7 +1804,7 @@ echo claro_disp_tool_title($titleElement,
                 if (isset($_uid))
                 {    
                     $date = $claro_notifier->get_last_login_before_today($_uid);
-                    $modified_documents = $claro_notifier->get_notified_documents($_cid, $date, $_uid, $_gid);
+                    $modified_documents = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid, 7);
                 }
                 else
                 {
@@ -1838,7 +1839,6 @@ echo claro_disp_tool_title($titleElement,
                 }
                 
                                 //modify style if the file is recently added since last login
-                                // see if tool name must be displayed in bold text or not
 
                                 if (in_array($fileName, $modified_documents))
                                 {
