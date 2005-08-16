@@ -130,7 +130,7 @@ if ($is_platformAdmin)
 {
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
-    .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
+    .    '<img src="claroline/img/edit.gif" alt="" />' . $langEditTextZone
     .    '</a>' . "\n"
     ;
 }
@@ -149,7 +149,7 @@ echo "<p>"
                                      Only available for teacher. */
     {
         echo '<a href="claroline/create_course/add_course.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif"> '
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
         .    $langCourseCreate
         .    '</a>'
         .    '&nbsp;|&nbsp;'
@@ -157,13 +157,13 @@ echo "<p>"
     }
 
     echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=">'
-    .    '<img src="'.$imgRepositoryWeb.'enroll.gif"> '
+    .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
     .    $lang_enroll_to_a_new_course
     .    '</a>'
     .    '&nbsp;|&nbsp;'
 
     .    '<a href="claroline/auth/courses.php?cmd=rqUnreg">'
-    .    '<img src="'.$imgRepositoryWeb.'unenroll.gif"> '
+    .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" alt="" /> '
     .    $lang_remove_course_enrollment
     .    '</a>'
     .    '</b>'
@@ -276,7 +276,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
         echo '<p>' . "\n"
         .    '<small>'
         .    '<a href="' . $url . '">'
-        .    '<img src="' . $imgRepositoryWeb . $itemIcon . '">'
+        .    '<img src="' . $imgRepositoryWeb . $itemIcon . '" alt="" />'
         .    '</a>'
 
         .    claro_disp_localised_date( $dateFormatLong,
@@ -319,7 +319,7 @@ if ($is_platformAdmin)
 {
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
-    .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
+    .    '<img src="claroline/img/edit.gif" alt="" />' . $langEditTextZone
     .    '</a>' . "\n"
     ;
 }
