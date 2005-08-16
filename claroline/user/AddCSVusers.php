@@ -308,6 +308,21 @@ switch ( $display )
 
 case 'default' :
 
+    $backButtonUrl = "";
+    
+    if ($_cid) 
+    {
+        $backButtonUrl = $clarolineRepositoryWeb."user/user.php";
+    }
+    elseif (isset($addType) && $addType =="adminClassTool") //tricky fix, the use of addtype should be avoided
+    {
+        $backButtonUrl = $clarolineRepositoryWeb."admin/admin_class_user.php?class=".$_SESSION['admin_user_class_id'];
+    }
+    elseif ($is_platformAdmin)
+    {
+        $backButtonUrl = $clarolineRepositoryWeb."admin/";
+    }
+    
     $_SESSION['claro_CSV_done'] = FALSE;
     
     echo $langSpecifyFormat;
@@ -352,6 +367,7 @@ case 'default' :
     <?php echo $langFileForCSVUpload; ?><input type="file" name="CSVfile">
     <br><br>
     <input type="submit" name="submitCSV" value="<?php echo $lang_add_user_list; ?>">
+    <?php echo claro_disp_button($backButtonUrl,$langCancel); ?>
     <input type="hidden" name="cmd" value="exImp">
 </form>
 
