@@ -1284,38 +1284,40 @@ function claro_disp_html_area($name, $content = '',
         
 
 
-        echo '<div align="right">'
+        echo "\n".'<div align="right">'
         .    '<small>'
         .    '<b>'
-        .    '<a href="" onClick ="' . $confirmCommand . 'window.location=' 
+        .    '<a href="/" onClick ="' . $confirmCommand . 'window.location='
         .    $location . ';return(false);">'
         .    $message
         .    '</a>'
         .    '</b>'
         .    '</small>'
-        .    '</div>'
+        .    '</div>'."\n"
         ;
 
     } // end if claro_is_javascript_enabled()
 
-?>
-<textarea id    = "<?php echo $name; ?>"
-          name  = "<?php echo $name; ?>"
-          style = "width:100%"
-          rows  = "<?php echo $rows; ?>"
-          cols  = "<?php echo $cols; ?>"
-          <?php echo $optAttrib; ?> ><?php echo $content; ?></textarea>
-<?php
+
+echo '<textarea '
+		.'id="'.$name.'" '
+		.'name="'.$name.'" '
+		.'style="width:100%" '
+		.'rows="'.$rows.'" '
+		.'cols="'.$cols.'" '
+		.$optAttrib.' >'
+		."\n".$content."\n"
+		.'</textarea>'."\n";
 
     if ( isset($_SESSION['htmlArea']) && $_SESSION['htmlArea'] != 'disabled' )
     {
 
 ?>
 
-<script>_editor_url    = "<?php echo  $incPath?>";</script>
-<script    type="text/javascript" src="<?php echo $incPath; ?>/htmlarea.js"></script>
-<script    type="text/javascript" src="<?php echo $incPath; ?>/lang/<?php echo $iso639_1_code; ?>.js"></script>
-<script    type="text/javascript" src="<?php echo $incPath; ?>/dialog.js"></script>
+<script type="text/javascript">_editor_url = "<?php echo  $incPath?>";</script>
+<script type="text/javascript" src="<?php echo $incPath; ?>/htmlarea.js"></script>
+<script type="text/javascript" src="<?php echo $incPath; ?>/lang/<?php echo $iso639_1_code; ?>.js"></script>
+<script type="text/javascript" src="<?php echo $incPath; ?>/dialog.js"></script>
 
 <script    type="text/javascript">
 var    editor = null;
@@ -1336,7 +1338,7 @@ function highlight() {
 }
 </script>
 
-<script>
+<script type="text/javascript">
 initEditor();
 </script>
 <?php
