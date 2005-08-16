@@ -282,21 +282,21 @@ class Notifier extends EventDriven
     }
     
     /**
-     *  Function to know which documents in a course of a user is new since a given date
+     *  Function to know which ressources in a course of a user is new since a given date
      *  @param course_id the course code of the course concerned 
      *  @param date the given date
      *  @param user_id the user concerned
      *  @param gid the group ID from which the tool is concerned
      * 
-     *  @return an array with the documents (paths) with recent unknow event until the date '$date' for the user_id and course_id concerned
+     *  @return an array with the ressources (paths in case of document tool) with recent unknow event until the date '$date' for the user_id and course_id concerned
      */
      
-    function get_notified_documents($course_id, $date, $user_id, $gid = "0")
+    function get_notified_ressources($course_id, $date, $user_id, $gid = "0", $tid)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_notify    = $tbl_mdb_names['notify'];
         
-        $documents = array();
+        $ressources = array();
         
         if ( !isset($_SESSION['firstLogin']) || !$_SESSION['firstLogin'] ) 
         {
@@ -306,21 +306,21 @@ class Notifier extends EventDriven
                       AND N.`date` > '".$date."'
                       AND (N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."') 
                       AND (N.`group_id` = '0' OR N.`group_id` = '". (int)$gid."')
-                      AND (N.`tool_id` = '7')      
+                      AND (N.`tool_id` = '".$tid."')      
                     ";
-            $documentList = claro_sql_query_fetch_all($sql);
-            if (is_array($documentList))
+            $ressourceList = claro_sql_query_fetch_all($sql);
+            if (is_array($ressourceList))
             {
-                foreach ($documentList as $document)
+                foreach ($ressourceList as $ressource)
                 {
-                    $documents[] = $document['ressource_id'];
+                    $ressources[] = $ressource['ressource_id'];
                 }            
             }
         }
              
-        // 2- return an array with the documents paths with recent unknow event until the date '$date' in the course and for 
+        // 2- return an array with the ressources ID with recent unknow event until the date '$date' in the course and for 
 
-        return $documents;     
+        return $ressources;     
              
     }
     

@@ -233,6 +233,15 @@
 
             $message = $langWikiDeletionSucceed;
 
+            //notify that the wiki was deleted
+            
+            $eventNotifier->notifyCourseEvent('wiki_deleted'
+                                         , $_cid
+                                         , $_tid
+                                         , $wikiId
+                                         , $groupId
+                                         , '0');
+
             $action = 'list';
 
             break;
@@ -253,6 +262,7 @@
                 $wikiDesc = $wiki->getDescription();
                 $wikiACL = $wiki->getACL();
                 $groupId = $wiki->getGroupId();
+                
             }
             else
             {
@@ -273,6 +283,15 @@
                 $wiki->setGroupId( $groupId );
                 $wikiId = $wiki->save();
                 
+                //notify wiki modification
+                
+                $eventNotifier->notifyCourseEvent('wiki_modified'
+                                         , $_cid
+                                         , $_tid
+                                         , $wikiId
+                                         , $_gid
+                                         , '0');
+                
                 $mainPageContent = sprintf( $langWikiMainPageContent, $wikiTitle );
                 
                 $wikiPage = new WikiPage( $con, $config, $wikiId );
@@ -289,7 +308,16 @@
                 $wiki->setACL( $wikiACL );
                 $wiki->setGroupId( $groupId );
                 $wikiId = $wiki->save();
-            
+                
+                //notify wiki creation
+                
+                $eventNotifier->notifyCourseEvent('wiki_added'
+                                         , $_cid
+                                         , $_tid
+                                         , $wikiId
+                                         , $_gid
+                                         , '0');
+                
                 $message = $langWikiEditionSucceed;
             }
             else
@@ -446,7 +474,20 @@
         // list wiki
         case "list":
         {
+            //find the wiki with recent modification from the notification system   
+                
+                if (isset($_uid))
+                {    
+                    $date = $claro_notifier->get_last_login_before_today($_uid);
+                    $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid,12);
+                }
+                else
+                {
+                    $modified_wikis = array();
+                }
+
             // if admin, display add new wiki link
+            
             if ( $is_allowedToAdmin )
             {
                 echo '<p><a href="'
@@ -502,12 +543,24 @@
                     echo '<tr>' . "\n";
                 
                     // display title for all users
+                                 
+                    //modify style if the wiki is recently added or modified since last login
+
+                    if (in_array($entry['id'], $modified_wikis))
+                    {
+                        $classItem=" hot";
+                    }
+                    else // otherwise just display its title normally
+                    {
+                        $classItem="";
+                    }
                     
+
                     echo '<td style="text-align: left;">';
                     
                     // display direct link to main page
                     
-                    echo '<a href="page.php?wikiId='
+                    echo '<a class="item'.$classItem.'" href="page.php?wikiId='  
                         . $entry['id'].'&amp;action=show'
                         . '">'
                         . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'

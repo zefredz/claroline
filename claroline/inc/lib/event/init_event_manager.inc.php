@@ -95,4 +95,10 @@ $claro_notifier->addListener( 'update', "forum_new_topic");
 $claro_notifier->addListener( 'update', "forum_answer_topic");
 $claro_notifier->addListener( 'update', "introsection_modified");
 $claro_notifier->addListener( 'update', "toollist_changed");
+
+$claro_notifier->addListener( 'update', "wiki_added");
+$claro_notifier->addListener( 'update', "wiki_modified");
+$claro_notifier->addListener( 'delete_notif', "wiki_deleted");
+$claro_notifier->addListener( 'update', "wiki_page_modified");
+$claro_notifier->addListener( 'update', "wiki_page_added");
 ?>
