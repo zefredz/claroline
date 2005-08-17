@@ -931,7 +931,6 @@ function     fill_course_repository($courseRepository)
  * Insert starting data in db of course.
  *
  * @param  string  $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
- * @param  string  $courseRepository    path from $coursesRepositorySys to root of course
  * @param  string  $language            language request for this course
  *
  * @author    Christophe Gesché <moosh@claroline.net>
@@ -940,25 +939,18 @@ function     fill_course_repository($courseRepository)
  * note  $language would be removed soon.
  */
 
-function fill_db_course($courseDbName)
+function fill_db_course($courseDbName,$language)
 {
-    global $singleDbEnabled, $courseTablePrefix, $dbGlu, $clarolineRepositorySys, $_user;
+    global $singleDbEnabled, $courseTablePrefix, $dbGlu, 
+           $clarolineRepositorySys, $_user, $includePath;
 
-    // groups forums
-    global $langCatagoryGroup, $langCatagoryMain;
-    // forums
-    global $langTestForum, $langDelAdmin,
-           $langMessage, $langAnonymous;
-    // exercises
-    global $langRidiculise, $langNoPsychology, $langAdmitError, $langNoSeduction, $langForce,
-           $langIndeed, $langContradiction, $langNotFalse, $langExerciceEx,
-           $langAntique, $langSocraticIrony, $langManyAnswers;
-    // learning path
-    global $langSampleLearnPath, $langSampleLearnPathDesc, $langSampleDocument,
-           $langSampleDocumentDesc, $langExerciceEx, $langSampleExerciseDesc ;
-    // forums
-    global $langExMessage;
+    // include the language file with all language variables
+    include ($includePath.'/../lang/english/complete.lang.php');
 
+    if ($language != 'english') // Avoid useless include as English lang is preloaded
+    {
+        include($includePath.'/../lang/'.$language.'/complete.lang.php');
+    }
 
     $courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
