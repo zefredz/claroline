@@ -313,12 +313,12 @@ if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']==
     $isSearched .= "<b> <br>".$langRegStudent."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
-if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
+elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
 {
     $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
-if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin")) 
+elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin")) 
 {
     $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
@@ -326,13 +326,6 @@ if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="p
 else
 {
     $advanced_search_query_string[] = "action=all";
-}
-
-//see what must be kept for advanced links
-
-if (isset($_SESSION['admin_user_action']))
-{
-    $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 
 if ( count($advanced_search_query_string) > 0 )
