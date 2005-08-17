@@ -61,6 +61,9 @@ define('FILL_IN_BLANKS',  3);
 define('MATCHING',        4);
 define('TRUEFALSE',	 	  5);
 
+// for fill in blanks questions
+define('TEXTFIELD_FILL', 1);
+define('LISTBOX_FILL',	2);
 /**
  * Exports a Learning Path to a SCORM package.
  *
@@ -375,11 +378,48 @@ class ScormExport
                     // We must split the text, to be able to treat each input independently
                     
                     // separate the text and the scorings
-                    list($phrase, $weighting) = explode('::', $answerText);
+                    $explodedAnswer = explode( '::',$answerText);
+		            $phrase = (isset($explodedAnswer[0]))?$explodedAnswer[0]:'';
+		            $weighting = (isset($explodedAnswer[1]))?$explodedAnswer[1]:'';
+		            $fillType = (!empty($explodedAnswer[2]))?$explodedAnswer[2]:1;
+		            // default value if value is invalid
+            		if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
+            		$wrongAnswers = (!empty($explodedAnswer[3]))?explode('[',$explodedAnswer[3]):array();
                     // get the scorings as a list
                     $fillScoreList = explode(',', $weighting);
                     $fillScoreCounter = 0;
                     
+                    if( $fillType == LISTBOX_FILL )// listbox
+					{
+			            // get the list of propositions (good and wrong) to display in lists
+						// add wrongAnswers in the list
+						$answerList = $wrongAnswers;
+						// add good answers in the list
+
+						// we save the answer because it will be modified
+						$temp = $phrase;
+						while(1)
+						{
+							// quits the loop if there are no more blanks
+							if(($pos = strpos($temp,'[')) === false)
+							{
+								break;
+							}
+							// removes characters till '['
+							$temp = substr($temp,$pos+1);
+							// quits the loop if there are no more blanks
+							if(($pos = strpos($temp,']')) === false)
+							{
+								break;
+							}
+							// stores the found blank into the array
+							$answerList[] = substr($temp,0,$pos);
+			                // removes the character ']'
+							$temp = substr($temp,$pos+1);
+						}
+						// alphabetical sort of the array
+						natcasesort($answerList);
+					}
                     // Split after each blank
                     $responsePart = explode(']', $phrase);
                     $acount = 0;
@@ -405,9 +445,22 @@ class ScormExport
                             $name = 'fill_' . $questionCount . '_' . $acount;
                             // Keep track of the correspondance between element's name and correct value + scoring
                             $fillAnswerList[$name] = array($blankText, $fillScoreList[$fillScoreCounter]);
-                            $pageBody .= '<input type="text" name="' . $name . '" 
-                            size="10" id="scorm_' . $idCounter . '">';
-                            
+                            if( $fillType == LISTBOX_FILL )// listbox
+                            {
+                              	$pageBody .= '<select name="' . $name . '" id="scorm_' . $idCounter . '">'."\n"
+								            .'<option value="">&nbsp</option>';
+
+								foreach($answerList as $answer)
+								{
+									$pageBody .= '<option value="'.htmlspecialchars($answer).'">'.$answer.'</option>'."\n";
+								}
+
+								$pageBody .= '</select>'."\n";
+							}
+							else
+							{
+                            	$pageBody .= '<input type="text" name="' . $name . '" size="10" id="scorm_' . $idCounter . '">';
+							}
                             $fillScoreCounter++;
                             $idCounter++;
                         }
