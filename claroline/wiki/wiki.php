@@ -81,7 +81,6 @@
     require_once "lib/class.wikistore.php";
     require_once "lib/class.wikipage.php";
     require_once "lib/lib.requestfilter.php";
-    require_once "lib/lib.wiki.php";
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
     require_once "lib/lib.wikidisplay.php";

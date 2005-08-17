@@ -86,7 +86,6 @@
     require_once "lib/class.wikistore.php";
     require_once "lib/class.wiki.php";
     require_once "lib/lib.requestfilter.php";
-    require_once "lib/lib.wiki.php";
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.wikidisplay.php";
     require_once "lib/lib.javascript.php";
@@ -282,14 +281,12 @@
             {
                 // older version
                 $wikiPage->loadPageVersion( $old );
-                // $old = $wikiRenderer->render( $wikiPage->getContent() );
                 $old = $wikiPage->getContent();
                 $oldTime = $wikiPage->getCurrentVersionMtime();
                 $oldEditor = $wikiPage->getEditorId();
                 
                 // newer version
                 $wikiPage->loadPageVersion( $new );
-                // $new = $wikiRenderer->render( $wikiPage->getContent() );
                 $new = $wikiPage->getContent();
                 $newTime = $wikiPage->getCurrentVersionMtime();
                 $newEditor = $wikiPage->getEditorId();
@@ -429,7 +426,6 @@
                                          , $wikiId
                                          , $_gid
                                          , '0');
-                    
                 }
                 else
                 {
@@ -699,13 +695,33 @@
     {
     
     echo '<p>';
+    
+    if ( $action == "edit" || $action == "diff" || $action == "history" )
+    {
+        echo '<a class="claroCmd" href="'
+            . $_SERVER['PHP_SELF']
+            . '?wikiId=' . $wiki->getWikiId()
+            . '&amp;action=show'
+            . '&amp;title=__MainPage__'
+            . '">'
+            . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
+            . $langWikiBackToPage.'</a>'
+            ;
+    }
+    else
+    {
+        echo '<span class="claroCmdDisabled">'
+            . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
+            . $langWikiBackToPage.'</span>'
+            ;
+    }
         
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         // Show context
         if ( $action == "show" || $action == "history" || $action == "diff" )
         {
-            echo '<a class="claroCmd" href="'
+            echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
                 . $_SERVER['PHP_SELF']
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&amp;action=edit'
@@ -755,7 +771,7 @@
             ;
     }
         
-    if ( $action == "edit" )
+    if ( $action == "edit" || $action == "diff" )
     {
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
             . 'help_wiki.php'
