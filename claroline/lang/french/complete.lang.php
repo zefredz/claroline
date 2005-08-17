@@ -1912,6 +1912,7 @@ $langWiki = "Wiki";
 $langWikiAccessControl = "Gestion du contrôle d'accès";
 $langWikiAccessControlText = "Vous pouvez choisir les droits d'accès au wiki pour chaque type d'utilisateurs :";
 $langWikiAllPages = "Toutes les pages";
+$langWikiBackToPage = "Retour à la page";
 $langWikiConflictHowTo = "<p><strong>Conflit d'édition</strong> : La page que vous tenté de sauver semble avoir été modifiée par un autre utilisateur entre temps.<br /><br />
 Que faire ?<ul>
 <li>Vous pouvez copier/coller vos modifications contenue dans le cadre ci-dessous dans un éditeur de texte et cliquer sur 'Editer la dernière version' pour tenter d'ajouter vos modifications à la dernière version de la page.</li>

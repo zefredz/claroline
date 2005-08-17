@@ -1850,6 +1850,7 @@ $langWiki = "Wiki";
 $langWikiAccessControl = "Access control management";
 $langWikiAccessControlText = "You can set access rights for users using the following grid : ";
 $langWikiAllPages = "All pages";
+$langWikiBackToPage = "Back to page";
 $langWikiConflictHowTo = "<p><strong>Edit conflict</strong> : The page you try to save seems to have been changed since you modify it.<br /><br />
 What to do now ?<ul>
 <li>You can copy/paste your modification to a text editor (like notepad) and click on 'edit last version' to try to add your modification to the new version of the page.</li>
