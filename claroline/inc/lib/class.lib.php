@@ -116,7 +116,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
 	        }
 	        else
 	        {
-	            $open_close_link ="°"; 
+	            $open_close_link =" ° "; 
 	        }
 	    
     	    //DISPLAY CURRENT ELEMENT (CLASS)
