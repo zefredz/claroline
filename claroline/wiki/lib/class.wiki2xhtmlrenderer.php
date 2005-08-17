@@ -83,7 +83,7 @@
             if ( $this->wiki->pageExists( $str ) )
                 {
                 return "<a href=\"".$_SERVER['PHP_SELF']
-                    ."?action=show&amp;title=".urlencode($str )
+                    ."?action=show&amp;title=".rawurlencode($str )
                     . "&amp;wikiId=" . $this->wiki->getWikiId()
                     . "\" class=\"wikiShow\">"
                     . $str
@@ -93,7 +93,7 @@
             else
             {
                 return "<a href=\"".$_SERVER['PHP_SELF']
-                    . "?action=edit&amp;title=" . urlencode($str )
+                    . "?action=edit&amp;title=" . rawurlencode($str )
                     . "&amp;wikiId=" . $this->wiki->getWikiId()
                     . "\" class=\"wikiEdit\">"
                     . $str
@@ -233,7 +233,7 @@
             if ($this->wiki->pageExists( $pageName ) )
             {
                 return ' href="' . $_SERVER['PHP_SELF']
-                    . '?action=show&amp;title=' . urlencode($pageName )
+                    . '?action=show&amp;title=' . rawurlencode($pageName )
                     . '&amp;wikiId=' . $this->wiki->getWikiId()
                     . '" class="wikiShow"'
                     ;
@@ -241,7 +241,7 @@
             else
             {
                 return ' href="' . $_SERVER['PHP_SELF']
-                    . '?action=edit&amp;title=' . urlencode($pageName )
+                    . '?action=edit&amp;title=' . rawurlencode($pageName )
                     . '&amp;wikiId=' . $this->wiki->getWikiId()
                     . '" class="wikiEdit"'
                     ;

@@ -702,7 +702,7 @@
             . $_SERVER['PHP_SELF']
             . '?wikiId=' . $wiki->getWikiId()
             . '&amp;action=show'
-            . '&amp;title=__MainPage__'
+            . '&amp;title=' . rawurlencode($title)
             . '">'
             . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
             . $langWikiBackToPage.'</a>'
@@ -725,7 +725,7 @@
                 . $_SERVER['PHP_SELF']
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&amp;action=edit'
-                . '&amp;title=' . urlencode( $title )
+                . '&amp;title=' . rawurlencode( $title )
                 . '&amp;versionId=' . $versionId
                 . '">'
                 . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
@@ -756,7 +756,7 @@
                 . $_SERVER['PHP_SELF']
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&amp;action=history'
-                . '&amp;title=' . urlencode( $title )
+                . '&amp;title=' . rawurlencode( $title )
                 . '">'
                 . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
                 . $langWikiPageHistory.'</a>'
@@ -904,7 +904,7 @@
                         ;
                         
                     $entry = '<strong><a href="'.$_SERVER['PHP_SELF'].'?wikiId='
-                        . $wikiId . '&amp;title=' . urlencode( $recentChange['title'] )
+                        . $wikiId . '&amp;title=' . rawurlencode( $recentChange['title'] )
                         . '&amp;action=show"'
                         . '>'.$pgtitle.'</a></strong>'
                         ;
@@ -947,7 +947,7 @@
             
             echo '<ul><li><a href="'.$_SERVER['PHP_SELF']
                 . '?wikiId=' . $wikiId
-                . '&amp;title=' . urlencode("__MainPage__")
+                . '&amp;title=' . rawurlencode("__MainPage__")
                 . '&amp;action=show">'
                 . $langWikiMainPage
                 . '</a></li></ul>' . "\n"
@@ -967,7 +967,7 @@
                         continue;
                     }
 
-                    $pgtitle = urlencode( $page['title'] );
+                    $pgtitle = rawurlencode( $page['title'] );
 
                     $link = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $wikiId . '&amp;title=' . $pgtitle . '&amp;action=show"'
@@ -1080,6 +1080,8 @@
                 echo '<div class="wiki2xhtml">' . "\n";
                 echo $wikiRenderer->render( $content );
                 echo '</div>' . "\n";
+                
+                echo '<div style="clear:both;"><!-- spacer --></div>' . "\n";
             }
 
             break;
@@ -1162,7 +1164,7 @@
                     }
                     
                     $versionUrl = '<a href="' . $_SERVER['PHP_SELF'] . '?wikiId='
-                        . $wikiId . '&amp;title=' . urlencode( $title )
+                        . $wikiId . '&amp;title=' . rawurlencode( $title )
                         . '&amp;action=show&amp;versionId=' . $version['id']
                         . '">'
                         . claro_disp_localised_date( $dateTimeFormatLong

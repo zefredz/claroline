@@ -47,7 +47,7 @@
         
         // create script
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
-        $script = add_request_variable_to_url( $script, "title", urlencode($title) );
+        $script = add_request_variable_to_url( $script, "title", rawurlencode($title) );
         
         // set display title
         $localtitle = ( $title === '__MainPage__' ) ? $langWikiMainPage : $title;
@@ -153,7 +153,7 @@
         
         $out .= "</div>\n";
 
-        $out .= "</div>\n";
+        // $out .= "</div>\n";
         
         return $out;
     }
@@ -172,7 +172,7 @@
 
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $out = '<form method="POST" action="' . $script
+        $out = '<div style="clear:both;"><form method="POST" action="' . $script
             . '" name="previewform" id="previewform">' . "\n"
             ;
         $out .= '<input type="hidden" name="content" value="'
@@ -202,7 +202,7 @@
         
         $out .= claro_disp_button ( $location, $langCancel );
         
-        $out .= "</form>\n";
+        $out .= "</form></div>\n";
         
         return $out;
     }
