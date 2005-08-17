@@ -134,7 +134,7 @@ foreach($toolList as $thisTool)
         $style = '';
     }
 
-    // see if tool name must be displayed in bold text or not
+    // see if tool name must be displayed as "containing new item" or not
 
     if (in_array($thisTool['id'], $modified_tools))
     {
