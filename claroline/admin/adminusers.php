@@ -17,6 +17,7 @@ $delayToConsiderAsSleeper = 3600*24*50; //delay in second to be mark as sleeper 
 
 // initialisation of global variables and used libraries
 DEFINE('COURSE_CREATOR',1);
+DEFINE('COURSE_STUDENT',5);
 require '../inc/claro_init_global.inc.php';
 
 include($includePath."/lib/pager.lib.php");
@@ -220,6 +221,12 @@ if (   isset($_SESSION['admin_user_action'])
     $sql.=' AND (U.`statut`='.COURSE_CREATOR.')';
 }
 
+if (   isset($_SESSION['admin_user_action']) 
+         && (    $_SESSION['admin_user_action']=="followcourse"))
+{
+    $sql.=' AND (U.`statut`='.COURSE_STUDENT.')';
+}
+
 $sql.=" GROUP BY U.`user_id` ";
 
 // deal with REORDER
@@ -300,13 +307,25 @@ if ( !empty($_SESSION['admin_user_mail']) )
     $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";
     $advanced_search_query_string[] = "mail=".urlencode($_SESSION['admin_user_mail']);
 }
-if ( !empty($_SESSION['admin_user_action']) ) 
+
+if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="followcourse")) 
+{
+    $isSearched .= "<b> <br>".$langRegStudent."  </b> ";
+    $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
+}
+if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
 {
     $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";
+    $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin")) 
 {
     $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";
+    $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
+}
+else
+{
+    $advanced_search_query_string[] = "action=all";
 }
 
 //see what must be kept for advanced links

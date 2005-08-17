@@ -126,6 +126,7 @@ echo claro_disp_tool_title($nameTools." : ");
         <option value="followcourse" <?php if ($action=="followcourse") echo "selected";?>><?php echo $langRegStudent?></option>
         <option value="createcourse" <?php if ($action=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
         <option value="plateformadmin" <?php if ($action=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdministrator?></option>
+        <option value="all" <?php if ($action=="" || $action=="all") echo "selected";?>><?php echo $langAll?></option>
     </select>
   </td>
 </tr>
