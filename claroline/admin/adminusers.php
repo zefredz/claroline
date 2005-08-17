@@ -278,7 +278,7 @@ $isSearched ="";
 
 if ( !empty($_SESSION['admin_user_search']) ) 
 {
-    $isSearched .= $_SESSION['admin_user_search']."* ";
+    $isSearched .= "*".$_SESSION['admin_user_search']."* ";
 }
 if ( !empty($_SESSION['admin_user_firstName']) )
 {

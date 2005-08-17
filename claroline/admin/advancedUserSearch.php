@@ -25,15 +25,14 @@ include($includePath."/lib/admin.lib.inc.php");
 // deal with session variables clean session variables from previous search
 
 
-unset($_REQUEST['admin_user_letter']);
-unset($_REQUEST['admin_user_search']);
-unset($_REQUEST['admin_user_firstName']);
-unset($_REQUEST['admin_user_lastName']);
-unset($_REQUEST['admin_user_userName']);
-unset($_REQUEST['admin_user_mail']);
-unset($_REQUEST['admin_user_action']);
-unset($_REQUEST['admin_order_crit']);
-
+unset($_SESSION['admin_user_letter']);
+unset($_SESSION['admin_user_search']);
+unset($_SESSION['admin_user_firstName']);
+unset($_SESSION['admin_user_lastName']);
+unset($_SESSION['admin_user_userName']);
+unset($_SESSION['admin_user_mail']);
+unset($_SESSION['admin_user_action']);
+unset($_SESSION['admin_order_crit']);
 
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();

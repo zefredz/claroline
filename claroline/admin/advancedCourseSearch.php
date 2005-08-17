@@ -40,15 +40,15 @@ $nameTools = $langSearchCourseAdvanced;
 //--------------------------------------------------------------------------------------------
 // clean session of possible previous search information.
 
-unset($_REQUEST['admin_course_code'        ]);
-unset($_REQUEST['admin_course_letter'      ]);
-unset($_REQUEST['admin_course_search'      ]);
-unset($_REQUEST['admin_course_intitule'    ]);
-unset($_REQUEST['admin_course_category'    ]);
-unset($_REQUEST['admin_course_language'    ]);
-unset($_REQUEST['admin_course_access'      ]);
-unset($_REQUEST['admin_course_subscription']);
-unset($_REQUEST['admin_course_order_crit']);
+unset($_SESSION['admin_course_code'        ]);
+unset($_SESSION['admin_course_letter'      ]);
+unset($_SESSION['admin_course_search'      ]);
+unset($_SESSION['admin_course_intitule'    ]);
+unset($_SESSION['admin_course_category'    ]);
+unset($_SESSION['admin_course_language'    ]);
+unset($_SESSION['admin_course_access'      ]);
+unset($_SESSION['admin_course_subscription']);
+unset($_SESSION['admin_course_order_crit']);
 
 //retrieve needed parameters from URL to prefill search form
 
