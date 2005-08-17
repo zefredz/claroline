@@ -235,7 +235,7 @@ else
                     fill_course_repository($currentCourseRepository);
     
                     // function fill_db_course($courseDbName)
-                    fill_db_course( $currentCourseDbName );
+                    fill_db_course( $currentCourseDbName, $newcourse_language );
     
                     if ( register_course($currentCourseId
                     ,                    $currentCourseCode
