@@ -205,7 +205,7 @@ switch ($cmd)
       $_SESSION['admin_visible_class'][$_REQUEST['class']]="close";      
       break;
   
-  //Move a class in the tree (do it from posted info)
+  //Move a class in the tree (do it from posted info) 
   case "exMove" : 
       
     if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId']) 
@@ -222,9 +222,11 @@ switch ($cmd)
         { 
             $parent = $_REQUEST['theclass'];
         }
-
+        
+        if (!is_null($parent)) $parent = (int) $parent;
+        
 	    $sql_update="UPDATE `".$tbl_class."` 
-                     SET class_parent_id=". (int)$parent." 
+                     SET class_parent_id=". $parent." 
                      WHERE id='". (int)$_REQUEST['movedClassId']."'";
         claro_sql_query($sql_update);
         $dialogBox = $langClassMoved;
@@ -234,21 +236,21 @@ switch ($cmd)
   //Move a class in the tree (display form)
   case "move" : 
       
-      $dialogBox = '<table>'
+      $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'">'
+                 . '<table>'
                  . '<tr>'."\n"
-		         . '<td >'."\n"
-		         . $langMove . $_REQUEST['classname'].' : '
-		         . '</td>'."\n"
 		         . '<td>'."\n"
-                 . '<form action="'.$_SERVER['PHP_SELF'].'">'
+		         . $langMove ." ". $_REQUEST['classname'].' : '
+		         . '</td>'."\n"
+		         . '<td>'."\n"             
                  . '<input type="hidden" name="cmd" value="exMove">'."\n"
 		         . '<input type="hidden" name="movedClassId" value="'.$_REQUEST['class'].'">'."\n"
                  . displaySelectBox() 
                  . '<input type="submit" value=" Ok ">'."\n"
-                 . '</form>'
 		         . '</td>'."\n"
 		         . '</tr>'."\n"
 		         . '</table>'
+		         . '</form>'
                  ;
       break;
 	
