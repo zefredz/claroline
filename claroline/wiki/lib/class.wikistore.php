@@ -86,7 +86,7 @@
             
             if ( $wiki->hasError() )
             {
-                $this->setError( $wiki->error, $wikiId->errno );
+                $this->setError( $wiki->error, $wiki->errno );
             }
             
             return $wiki;
