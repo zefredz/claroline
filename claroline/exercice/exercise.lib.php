@@ -133,7 +133,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 					$temp = substr($temp,$pos+1);
 				}
 				// alphabetical sort of the array
-    			sort($answerList);
+    			natcasesort($answerList);
 				// replace all [blank] by a select box with all answers
 				$selectBox = build_answers_select_box($answerList,$questionId);
                 $answer = ereg_replace('\[[^]]+\]',$selectBox,claro_parse_user_text($answer));
