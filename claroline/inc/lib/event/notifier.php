@@ -183,9 +183,9 @@ class Notifier extends EventDriven
                 WHERE CU.`code_cours` = N.`course_code`
                     AND CU.`user_id` = '". (int)$user_id."'
                     AND N.`date` > '".$date."'
-                    AND (N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."')
+                    AND ((N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."') OR CU.`statut`='1')
                     ";
-            
+
             $courseList = claro_sql_query_fetch_all($sql);
                     
             if (is_array($courseList))
@@ -208,9 +208,22 @@ class Notifier extends EventDriven
      
     function get_notified_tools($course_id, $date, $user_id,$group_id = '0')
     {
+        global $is_courseAdmin;
+                     
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_cours_user = $tbl_mdb_names['rel_course_user'];
         $tbl_notify    = $tbl_mdb_names['notify'];
+        
+        //if user is course admin, he is notified of event concerning all user in the course
+        
+        if ($is_courseAdmin)
+        {
+           $toadd = "";
+        } // otherwise he must only know about what concerns evrybody or himself
+        else
+        {
+           $toadd = "AND (N.`user_id` = '0' OR N.`user_id` = '".(int)$user_id."')";
+        }
         
         
         $tools = array();
@@ -227,11 +240,12 @@ class Notifier extends EventDriven
                     WHERE N.`course_code` = '".addslashes($course_id)."'
                     AND CU.`user_id` = '".(int)$user_id."'
                     AND CU.`code_cours` = N.`course_code`
-                    AND N.`date` > '".$date."'
-                    AND (N.`user_id` = '0' OR N.`user_id` = '".(int)$user_id."')
+                    AND N.`date` > '".$date."' 
+                    ".$toadd." 
                     AND (N.`group_id` = '".$group_id."')
                     GROUP BY `tool_id`
                     ";
+                          
             $toolList = claro_sql_query_fetch_all($sql);
             if (is_array($toolList))
             foreach ($toolList as $tool)
