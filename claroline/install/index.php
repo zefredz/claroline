@@ -270,7 +270,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 // CHECK DATA OF DB NAMES Form
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
-    $regexpPatternForDbName = '^[a-z][a-z0-9_]*$';
+    $regexpPatternForDbName = '^[a-z0-9][a-z0-9_]*$';
     // Now mysql connect param are ok, try  to use given DBNames
     // 1° check given string
     // 2° check if db exists
@@ -292,7 +292,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
         $databaseNameValid = FALSE;
         $msgErrorDbMain_dbNameToolLong = (strlen($dbNameForm)>64);
         $msgErrorDbMain_dbNameInvalid = !eregi($regexpPatternForDbName,$dbNameForm);
-        $msgErrorDbMain_dbNameBadStart = !eregi('^[a-z]',$dbNameForm);
+        $msgErrorDbMain_dbNameBadStart = !eregi('^[a-z0-9]',$dbNameForm);
         
         if (!$singleDbForm)
         {
@@ -302,7 +302,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
         
             $msgErrorDbStat_dbNameInvalid = !eregi($regexpPatternForDbName,$dbStatsForm);
             $msgErrorDbStat_dbNameToolLong = (strlen($dbStatsForm)>64);
-            $msgErrorDbStat_dbNameBadStart = !eregi('^[a-z]',$dbStatsForm);
+            $msgErrorDbStat_dbNameBadStart = !eregi('^[a-z0-9]',$dbStatsForm);
         }
         
     }
