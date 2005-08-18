@@ -1016,17 +1016,20 @@ echo "<p><a class=\"claroCmd\" href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\
 
 // Add titles for the table
 
-echo "<th>".$lang_faculty_CodeCat."</td>"
-     ."<th>".$langEdit."</th>"
-     ."<th>".$langMove."</th>"
-     ."<th>".$langDelete."</th>"
-     ."<th colspan=2>".$langOrder."</th>";
+echo '<th>'.$lang_faculty_CodeCat.'</th>'."\n"
+     .'<th>'.$langEdit.'</th>'."\n"
+     .'<th>'.$langMove.'</th>'."\n"
+     .'<th>'.$langDelete.'</th>'."\n"
+     .'<th colspan="2">'.$langOrder.'</th>'."\n";
 
-echo "</tr></thead>";
+echo '</tr>'."\n"
+	.'</thead>'."\n"
+	.'<tbody>'."\n";
 
 display_tree($categories,NULL,"");
 
-echo "</table>";
+echo '</tbody>'."\n"
+	.'</table>'."\n";
 
 include($includePath."/claro_init_footer.inc.php");
 
@@ -1073,13 +1076,14 @@ include($includePath."/claro_init_footer.inc.php");
 
     function display_tree($elem,$father,$space)
     {
-        GLOBAL $lang_faculty_ConfirmDelete, $imgRepositoryWeb;
+        GLOBAL $imgRepositoryWeb;
+        GLOBAL $lang_faculty_ConfirmDelete, $langEdit, $langMove, $langDelete, $langUp, $lang_faculty_imgDown;
+        
 
         if($elem)
         {
             $space.="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             $num=0;
-            echo "<tbody>";
             foreach($elem as $one_faculty)
             {
 
@@ -1152,7 +1156,7 @@ include($includePath."/claro_init_footer.inc.php");
                             $nbChild++;
 
                     //If the number of child is >0, display the arrow up and down
-                    if($nb>1)
+                    if($nb > 1)
                     {
                         ?>
                         <td align="center">
@@ -1165,9 +1169,14 @@ include($includePath."/claro_init_footer.inc.php");
                             ?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
                             <img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo $langUp ?>"></a>
                         <?php
-                        }
+						}
+                    	else
+                        {
+							echo '&nbsp;';
+						}
                         ?>
-                         </td><td align="center">
+                         </td>
+						 <td align="center">
                         <?php
 
                         //If isn't the last child, you can down
@@ -1179,12 +1188,22 @@ include($includePath."/claro_init_footer.inc.php");
                             <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
                     <?php
                         }
+                        else
+                        {
+							echo '&nbsp;';
+						}
                         ?>
                         </td>
                         
 
                         <?php
                     }
+                    else
+                    {
+                        echo '<td>&nbsp;</td>'."\n"
+                        	.'<td>&nbsp;</td>'."\n";
+					}
+                    
 ?>
                     </tr>
 <?php
@@ -1194,7 +1213,6 @@ include($includePath."/claro_init_footer.inc.php");
                         display_tree($elem, $one_faculty['code'], $space);
                 }
             }
-            echo '</tbody>';
         }
     }
 
