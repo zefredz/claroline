@@ -146,7 +146,8 @@ function startElement($parser,$name,$attributes)
             break;
         
         case "ORGANIZATIONS" :
-            $manifestData['defaultOrganization'] = $attributes['DEFAULT'];
+            if( isset($attributes['DEFAULT']) ) $manifestData['defaultOrganization'] = $attributes['DEFAULT'];
+			else                                $manifestData['defaultOrganization'] = '';
             break;
         case "ORGANIZATION" :
             $flagTag['type'] = "organization";
@@ -477,7 +478,7 @@ function utf8_decode_if_is_utf8($str) {
 // main page
 
 echo claro_disp_tool_title($langimportLearningPath);
-    
+
 // init msg arays
 $okMsgs   = array();
 $errorMsgs = array();
@@ -487,7 +488,9 @@ $maxFilledSpace = 100000000;
 $courseDir   = $_course['path']."/scormPackages/";
 $baseWorkDir = $coursesRepositorySys.$courseDir; // path_id
 // handle upload
-if ($_SERVER['REQUEST_METHOD']== 'POST')
+// if the post is done a second time, the claroformid mecanism
+// will set $_POST to NULL, so we need to check it
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 {
 
     // arrays used to store inserted ids in case
@@ -521,10 +524,10 @@ if ($_SERVER['REQUEST_METHOD']== 'POST')
     /*
      * Check if the file is valide (not to big and exists)
      */
-    if(!is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
+    if( !isset($_FILES['uploadedPackage']) || !is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
     {
         $errorFound = true;
-        array_push ($errorMsgs, $langFileError.'<br>'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize') );
+        array_push ($errorMsgs, $langFileError.'<br />'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize') );
     }
 
     /*
@@ -1163,14 +1166,20 @@ else // if method == 'post'
     /*--------------------------------------
       UPLOAD FORM
      --------------------------------------*/
-    echo $langScormIntroTextForDummies;
+    echo "\n\n".$langScormIntroTextForDummies;
     ?>
-        <br /><br />
-        <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-              <input type="file" name="uploadedPackage">
-              <input type="submit" value="<?php echo $langImport ?>"><br />
-              <small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
-        </form>
+<br /><br />
+
+<form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
+<input type="file" name="uploadedPackage">
+<input type="submit" value="<?php echo $langImport ?>"><br />
+
+<small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+
+</form>
+
      <?php
 } // else if method == 'post'
 // footer
