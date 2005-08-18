@@ -1886,7 +1886,7 @@ $langWikiEnterWiki = "Enter wiki";
 $langWikiExample = "Edit an example";
 $langWikiExampleWarning = "Warning example will overwrite current content";
 $langWikiGroupMembers = "Group members";
-$langWikiHelpAdmin = "<h3>Wiki administration help</h3>
+$langWikiHelpAdminContent = "<h3>Wiki administration help</h3>
 <dl class=\"wikiHelp\">
 <dt>How to create a new Wiki ?</dt>
 <dd>Click on the link 'Create a new Wiki'. Then enter the properties of the Wiki :
@@ -1896,6 +1896,8 @@ $langWikiHelpAdmin = "<h3>Wiki administration help</h3>
 <li><b>Access control management</b> : set the access ontrol of the Wiki by checking/uncheking the box (see below)</li>
 </ul>
 </dd>
+<dt>How to enter a Wiki ?</dt>
+<dd>Click on the title of the Wiki in the list.</dd>
 <dt>How to change the properties of a Wiki ?</dt>
 <dd>Click on the icon in the 'Properties' column in the Wiki list to go to the Wiki properties form.</dd>
 <dt>How to use the Access control management options ?</dt>
@@ -1916,7 +1918,7 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dt>How to get the list of the last modified pages in a Wiki ?</dt>
 <dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
 </dl>";
-$langWikiHelpContent = "<h3>Wiki2xhtml syntax</h3>
+$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
 <dl class=\"wikiHelp\">
 <dt>Creating wiki pages and links between them</dt>
 <dd><ul>

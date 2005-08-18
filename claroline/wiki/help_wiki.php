@@ -37,12 +37,12 @@
     {
         case 'syntax':
         {
-            echo $langWikiHelpContent;
+            echo $langWikiHelpSyntaxContent;
             break;
         }
         case 'admin':
         {
-            echo $langWikiHelpAdmin;
+            echo $langWikiHelpAdminContent;
             break;
         }
         default:

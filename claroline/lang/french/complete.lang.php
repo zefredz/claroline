@@ -1948,7 +1948,7 @@ $langWikiEnterWiki = "Accéder au Wiki";
 $langWikiExample = "Éditer un exemple";
 $langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
 $langWikiGroupMembers = "Membres du groupe";
-$langWikiHelpAdmin = "<h3>Aide pour l'administration des Wikis</h3>
+$langWikiHelpAdminContent = "<h3>Aide pour l'administration des Wikis</h3>
 <dl class=\"wikiHelp\">
 <dt>comment créer un nouveau Wiki ?</dt>
 <dd>Cliquez sur le lien 'Créer un nouveau Wiki' et choisissez les différentes options pour votre Wiki :
@@ -1958,6 +1958,8 @@ $langWikiHelpAdmin = "<h3>Aide pour l'administration des Wikis</h3>
 <li><b>Gestion du contrôle d'accès</b> : choisissez les options d'accès au Wiki en cochant/décochant les cases (voir plus loin)</li>
 </ul>
 </dd>
+<dt>Comment accéder à un Wiki ?</dt>
+<dd>Cliquez sur le titre du Wiki dans la liste.</dd>
 <dt>Comment modifier les propriétés d'un Wiki ?</dt>
 <dd>Cliquez sur l'icône située dans la collonne 'Propriétés' de la liste des Wiki pour accéder au formulaire des propriétés du Wiki.</dd>
 <dt>Comment choisir les options de contrôle d'accès ?</dt>
@@ -1978,7 +1980,7 @@ Pour chaque type d'utilisateur vous pouvez activer/désactiver trois types de dro
 <dt>Comment voir les pages modifiées récemment dans un Wiki ?</dt>
 <dd>Cliquez sur l'icône située dans la collonne 'Changements récents' dans la liste des Wiki.</dd>
 </dl>";
-$langWikiHelpContent = "<h3>Syntaxe wiki2xhtml</h3>
+$langWikiHelpSyntaxContent = "<h3>Syntaxe wiki2xhtml</h3>
 <dl class=\"wikiHelp\">
 <dt>Création de pages et liens vers des pages du Wiki</dt>
 <dd><ul>
