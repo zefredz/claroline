@@ -1948,6 +1948,36 @@ $langWikiEnterWiki = "Accéder au Wiki";
 $langWikiExample = "Éditer un exemple";
 $langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
 $langWikiGroupMembers = "Membres du groupe";
+$langWikiHelpAdmin = "<h3>Aide pour l'administration des Wikis</h3>
+<dl class=\"wikiHelp\">
+<dt>comment créer un nouveau Wiki ?</dt>
+<dd>Cliquez sur le lien 'Créer un nouveau Wiki' et choisissez les différentes options pour votre Wiki :
+<ul>
+<li><b>Titre du Wiki</b> : choisissez un titre pour le Wiki</li>
+<li><b>Description du Wiki</b> : entrez une description pour le Wiki</li>
+<li><b>Gestion du contrôle d'accès</b> : choisissez les options d'accès au Wiki en cochant/décochant les cases (voir plus loin)</li>
+</ul>
+</dd>
+<dt>Comment modifier les propriétés d'un Wiki ?</dt>
+<dd>Cliquez sur l'icône située dans la collonne 'Propriétés' de la liste des Wiki pour accéder au formulaire des propriétés du Wiki.</dd>
+<dt>Comment choisir les options de contrôle d'accès ?</dt>
+<dd>Vous pouvez sélectionner les droits d'accès aux pages d'un Wiki en cochant/décochant les cases dans la section 'Gestion du contrôle d'accès' des propriétés du Wiki..
+ Vous pouvez autoriser/interdire les droits d'accès pour trois types d'utilisateurs :<ul>
+<li><b>Membres du cours</b> : utilisateurs inscrits au cours (à l'exception des gestionnaires de cours)</li>
+<li><b>Membres du groupe</b> (uniquement dans un Wiki de groupe) : utilisateur inscrits dans le groupe (à l'exception des tuteurs)</li>
+<li><b>Autres utilisateurs</b> : utilisateurs anonymes ou non inscrits au cours</li></ul>
+Pour chaque type d'utilisateur vous pouvez activer/désactiver trois types de droits d'accés(*) :<ul>
+<li><b>Lire les pages</b> : les utilisateurs de ce type peuvent lire les pages du Wiki</li>
+<li><b>Editer les pages</b> : les utilisateurs de ce type peuvent modifier le contenu des pages du Wiki</li>
+<li><b>Créer des pages pages</b> : les utilisateurs de ce type peuvent créer des nouvelles pages dans le Wiki</li>
+</ul><small><em>(*) un utilisateur qui ne peut pas lire les pages du Wiki ne peut ni les éditer ni en créer de nouvelles. Un utilisateur qui ne peut pas éditer les pages du Wiki ne peut pas non plus en créer de nouvelles. </em></small></dd>
+<dt>Comment supprimer un Wiki ?</dt>
+<dd>Cliquez sur l'icône située dans la collonne 'Effacer' pour supprimer un Wiki et toutes ses pages.</dd>
+<dt>Comment obtenir la liste des pages d'un Wiki ?</dt>
+<dd>Cliquez sur le nombre de page de ce Wiki dans la liste des Wiki.</dd>
+<dt>Comment voir les pages modifiées récemment dans un Wiki ?</dt>
+<dd>Cliquez sur l'icône située dans la collonne 'Changements récents' dans la liste des Wiki.</dd>
+</dl>";
 $langWikiHelpContent = "<h3>Syntaxe wiki2xhtml</h3>
 <dl class=\"wikiHelp\">
 <dt>Création de pages et liens vers des pages du Wiki</dt>

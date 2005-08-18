@@ -24,9 +24,32 @@
     $nameTools = $langWiki;
     $hide_banner=TRUE;
     
+    $htmlHeadXtra[] =
+        '<style type="text/css">
+            dt{font-weight:bold;margin-top:5px;}
+        </style>';
+    
     require_once $includePath."/claro_init_header.inc.php";
     
-    echo $langWikiHelpContent;
+    $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
+    
+    switch( $help )
+    {
+        case 'syntax':
+        {
+            echo $langWikiHelpContent;
+            break;
+        }
+        case 'admin':
+        {
+            echo $langWikiHelpAdmin;
+            break;
+        }
+        default:
+        {
+            echo '<center><h1>Missing help request</h1></center>';
+        }
+    }
     
     $hide_footer = true;
     require_once $includePath."/claro_init_footer.inc.php";

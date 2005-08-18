@@ -428,7 +428,7 @@
         }
     }
     
-    echo claro_disp_tool_title( $toolTitle, false ) . "\n";
+    echo claro_disp_tool_title( $toolTitle, "../wiki/help_wiki.php?help=admin" ) . "\n";
 
     if ( ! empty( $message ) )
     {
