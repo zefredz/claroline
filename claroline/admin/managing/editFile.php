@@ -43,7 +43,7 @@ if ( isset($_REQUEST['modify']) )
     fwrite($fp,$text);
 
     $controlMsg['info'][] = $lang_EditFile_ModifyOk
-    .                       ' <br>'
+    .                       ' <br />'
     .                       '<strong>' 
     .                       basename($filePathList[$_REQUEST['file']])
     .                       '</strong>'
@@ -71,10 +71,10 @@ if( isset($_REQUEST['file']) )
     else
     {
         if ( trim( strip_tags( $textContent ) ) == '' )
-        $textContent = '<blockquote>'
-        .              '<font color="#808080">- <em>'
-        .              $langNoContent
-        .              '</em> -</font><br></blockquote>'
+        $textContent = '<blockquote>'."\n"
+        .              '<font color="#808080">- <em>'."\n"
+        .              $langNoContent."\n"
+        .              '</em> -</font><br />'."\n".'</blockquote>'."\n"
         ;
         $subtitle = 'Preview : '.basename($filenameList[$_REQUEST['file']]);
         $display = DISP_VIEW_FILE;
@@ -106,14 +106,14 @@ if($display==DISP_FILE_LIST
 || $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE // remove this  whe  display edit  prupose a link to back to list
 )
 {
-    ?>
-        <p>
-        <?php echo $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage ?>
-        <br>
-        <?php echo $langSeebelowthefilesyoucaneditfromthistool ?>
-        </p>
+?>
+<p>
+<?php echo $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage ?>
+<br />
+<?php echo $langSeebelowthefilesyoucaneditfromthistool ?>
+</p>
 
-        <table cellspacing="2" cellpadding="2" border="0" class="claroTable">
+<table cellspacing="2" cellpadding="2" border="0" class="claroTable">
 <tr class="headerX">
     <th ><?php echo $langFileName ?></th>
     <th ><?php echo $langEdit ?></th>
@@ -125,14 +125,14 @@ if($display==DISP_FILE_LIST
     {
     ?>
 <tr>
-    <td ><TT><?php echo basename($fileName); ?></TT> </td>
+    <td ><?php echo basename($fileName); ?></td>
     <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a></td>
     <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a></td>
 </tr>
     <?php
     }
     ?>
-        </table><br>
+</table><br />
         
     <?php
 }
@@ -147,7 +147,7 @@ if( $display == DISP_EDIT_FILE )
 <?php
 echo claro_disp_html_area('textContent', $textContent);
 ?>
-            <br><br> &nbsp;&nbsp;
+            <br /><br /> &nbsp;&nbsp;
             <input type="hidden" name="file" value="<?php echo htmlspecialchars($_REQUEST['file']); ?>">
             <input type="submit" class="claroButton" name="modify" value=" <?php echo $langOk; ?>">
             <?php   echo claro_disp_button($_SERVER['PHP_SELF'], $langCancel); ?>
@@ -156,10 +156,10 @@ echo claro_disp_html_area('textContent', $textContent);
 }
 elseif( $display == DISP_VIEW_FILE )
 {
-    echo '<br>'
+    echo '<br />'
     .    '<h4>' . basename($filenameList[$_REQUEST['file']]) . '</h4>'
     .    $textContent
-    .    '<br>'
+    .    '<br />'
     ;
 
 }
