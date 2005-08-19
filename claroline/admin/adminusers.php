@@ -85,15 +85,15 @@ $tbl_track_login      = $tbl_mdb_names['track_e_login'  ];
 
 // javascript confirm pop up declaration
   $htmlHeadXtra[] =
-            "<script>
-            function confirmation (name)
-            {
-		if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+ name + \"? \"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
+    '<script type="text/javascript">
+		function confirmation (name)
+		{
+			if (confirm("'.clean_str_for_javascript($langAreYouSureToDelete).'" + name + "? "))
+				{return true;}
+			else
+				{return false;}
+		}'
+        ."\n".'</script>'."\n";
 
 // Deal with interbredcrumps
 
@@ -259,7 +259,7 @@ if (!isset($order['email']))            $order['email']        = "";
 if (!isset($order['status']))           $order['status']       = "";
 if (!isset($order['courseqty']))        $order['courseqty']    = "";
 
-//$dialogBox = '<pre>'.$sql."</pre><br>"; //debug
+//$dialogBox = '<pre>'.$sql."</pre><br />"; //debug
 
 //Build pager with SQL request
 
@@ -275,7 +275,7 @@ else
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 
-//$dialogBox .= '<pre>'.var_export($userList,1)."</pre><br>"; //debug
+//$dialogBox .= '<pre>'.var_export($userList,1)."</pre><br />"; //debug
 
 //Display search form
 //see passed search parameters :
@@ -310,17 +310,17 @@ if ( !empty($_SESSION['admin_user_mail']) )
 
 if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="followcourse")) 
 {
-    $isSearched .= "<b> <br>".$langRegStudent."  </b> ";
+    $isSearched .= "<b> <br />".$langRegStudent."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
 {
-    $isSearched .= "<b> <br>".$langCourseCreator."  </b> ";
+    $isSearched .= "<b> <br />".$langCourseCreator."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin")) 
 {
-    $isSearched .= "<b> <br>".$langPlatformAdministrator."  </b> ";
+    $isSearched .= "<b> <br />".$langPlatformAdministrator."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 else
@@ -337,10 +337,10 @@ else
     $addtoAdvanced = '';
 }
 
-if (!isset($isSearched) || ($isSearched=="")) 
+if( empty($isSearched) )
 {
-   $title = "";
-   $isSearched = "";
+   $title = "&nbsp;";
+   $isSearched = "&nbsp;";
 } 
 else 
 {
@@ -357,7 +357,7 @@ if (!isset($addToURL)) $addToURL ="";
 include($includePath."/claro_init_header.inc.php");
 
 // Display tool title
-echo claro_disp_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools)."\n\n";
 
 //Display Forms or dialog box(if needed)
 
@@ -419,7 +419,7 @@ echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellsp
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=name&amp;dir=".$order['name']."\">".$langLastName."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=firstname&amp;dir=".$order['firstname']."\">".$langFirstName."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=officialCode&amp;dir=".$order['officialCode']."\">".$langOfficialCode."</a></th>
-          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&dir=".$order['email']."\">".$langEmail."</a></th>
+          <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&amp;dir=".$order['email']."\">".$langEmail."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&amp;dir=".$order['status']."\">".$langUserStatus."</a></th>
           <th>".$langUserSettings."</th>"
         #."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=activity&amp;dir=".$order['activity']."\">".$langLastLogin."</a></th>"
@@ -559,7 +559,7 @@ if (!isset($atLeastOne))
 {
    echo '<tr>
           <td colspan="9" align="center">
-            '.$langNoUserResult.'<br>
+            '.$langNoUserResult.'<br />
             <a href="advancedUserSearch.php'.$addtoAdvanced.'">'.$langSearchAgain.'</a>
           </td>
          </tr>';
