@@ -336,7 +336,7 @@ if( !isset($_REQUEST['register']) )
 
 	if( $soapResponse )
 	{
-	    $dialogBox = $langCurrentStatus."<br />\n";
+	    $dialogBox = $langCurrentStatus.'<br />'."\n";
 
 		switch($soapResponse)
 		{
@@ -377,30 +377,30 @@ if( isset($dialogBox) && $dialogBox != '' ) echo claro_disp_message_box($dialogB
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {
-	echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
-	    ."<ul>\n"
-		."<li>".$langSiteName." : ".stripslashes($siteName)."</li>\n"
-		."<li>".$langURL."<a href=\"".$rootWeb."\">".$rootWeb."</a></li>\n"
-		."<li>".$langInstitution." : ".stripslashes($institution_name)."</li>\n"
-		."<li>".$langInstitutionUrl." : <a href=\"".$institution_url."\">".$institution_url."</a></li>\n"
-		."<li>".$langEmail." : ".$administrator_email."</li>"
-		."<li>"
-		."<label for=\"country\">".$langCountry." : </label>\n"
-		."<select name=\"country\" id=\"country\" />\n";
+	echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+	    .'<ul>'."\n"
+		.'<li>'.$langSiteName.' : '.stripslashes($siteName).'</li>'."\n"
+		.'<li>'.$langURL.'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
+		.'<li>'.$langInstitution.' : '.stripslashes($institution_name).'</li>'."\n"
+		.'<li>'.$langInstitutionUrl.' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
+		.'<li>'.$langEmail.' : '.$administrator_email.'</li>'."\n"
+		.'<li>'
+		.'<label for="country">'.$langCountry.' : </label>'."\n"
+		.'<select name="country" id="country" />'."\n";
 
 	$optionString = "";
 	foreach( $isoCode as $code => $country)	
 	{
-		$optionString .= "<option value=\"".$code."\">".$country."</option>\n";
+		$optionString .= '<option value="'.$code.'">'.$country.'</option>'."\n";
 	}
 	
 	echo $optionString
-		."</select>"
-		."</li>\n"
-	    ."</ul>\n"
-	    ."<br />\n"
-		."<input type=\"submit\" name=\"register\" value=\"".$langRegisterMyCampus."\" />"
-		."</form>\n";
+		.'</select>'."\n"
+		.'</li>'."\n"
+	    .'</ul>'."\n"
+	    .'<br />'."\n"
+		.'<input type="submit" name="register" value="'.$langRegisterMyCampus.'" />'."\n"
+		.'</form>'."\n";
 }
 
 include($includePath."/claro_init_footer.inc.php");
