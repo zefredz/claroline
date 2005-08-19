@@ -40,10 +40,10 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 // javascript confirm pop up declaration
 
 $htmlHeadXtra[] =
-'<script>
+'<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete) . ' \'+ name + \'"? \'))
+    if (confirm("' . clean_str_for_javascript($langAreYouSureToDelete) . '" + name + \'"? \'))
         {return true;}
     else
         {return false;}
@@ -284,7 +284,7 @@ if (isset($_SESSION['admin_course_order_crit']))
     $sql.=$toAdd;
 }
 
-//echo $sql."<br>";
+//echo $sql."<br />";
 
 //USE PAGER
 
@@ -346,20 +346,20 @@ if ( !empty($_REQUEST['language']) )
 }
 if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')         
 {
-    $isSearched .= ' <b><br>' . $langPublicOnly . ' </b> ';
+    $isSearched .= ' <b><br />' . $langPublicOnly . ' </b> ';
     
 }
 if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')        
 {
-    $isSearched .= ' <b><br>' . $langPrivateOnly . ' </b>  ';
+    $isSearched .= ' <b><br />' . $langPrivateOnly . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed') 
 {
-    $isSearched .= ' <b><br>' . $langSubscriptionAllowedOnly . ' </b>  ';
+    $isSearched .= ' <b><br />' . $langSubscriptionAllowedOnly . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')  
 {
-    $isSearched .= ' <b><br>' . $langSubscriptionDeniedOnly . ' </b>  ';
+    $isSearched .= ' <b><br />' . $langSubscriptionDeniedOnly . ' </b>  ';
 }
 
 //see what must be kept for advanced links
@@ -384,39 +384,39 @@ else
 
 //finaly, form itself
 
-if (!isset($isSearched) || ($isSearched=='')) 
+if( empty($isSearched) )
 {
-    $title = '';
-    $isSearched = '';
+    $title = '&nbsp;';
+    $isSearched = '&nbsp;';
 } 
 else 
 {
     $title = $langSearchOn . ' : ';
 }
 
-echo '<table width="100%">'
-.    '<tr>'
-.    '<td align="left">'
+echo "\n".'<table width="100%">'."\n\n"
+.    '<tr>'."\n"
+.    '<td align="left">'."\n"
 .    '<b>' 
 .    $title 
 .    '</b>'
 .    '<small>'
 .    $isSearched 
 .    '</small>'
-.    '</td>'
-.    '<td align="right">'
-.    '<form action="' . $_SERVER['PHP_SELF'] . '">'
-.    '<label for="search">' . $langMakeNewSearch . '</label>'
-.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search">'
-.    '<input type="submit" value=" ' . $langOk . ' ">'
-.    '<input type="hidden" name="newsearch" value="yes">'
+.    '</td>'."\n"
+.    '<td align="right">'."\n\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '">'."\n"
+.    '<label for="search">' . $langMakeNewSearch . '</label>'."\n"
+.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search">'."\n"
+.    '<input type="submit" value=" ' . $langOk . ' ">'."\n"
+.    '<input type="hidden" name="newsearch" value="yes">'."\n"
 .    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">' 
 .    $langAdvanced
-.    '</a>]'
-.    '</form>'
-.    '</td>'
-.    '</tr>'
-.    '</table>'
+.    '</a>]'."\n"
+.    '</form>'."\n\n"
+.    '</td>'."\n"
+.    '</tr>'."\n\n"
+.    '</table>'."\n\n"
 ;
 
 
@@ -426,44 +426,44 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display list
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-.    '<thead>'
-.    '<tr class="headerX" align="center" valign="top">'
+echo "\n\n".'<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
+.    '<thead>'."\n"
+.    '<tr class="headerX" align="center" valign="top">'."\n"
 
 
 //add titles for the table
 .    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">' 
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">'
 .    $langCode 
 .    '</a>'
-.    '</th>'
+.    '</th>'."\n"
 
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">' 
 .    $langCourseTitle
 .    '</a>'
-.    '</th>'
+.    '</th>'."\n"
 
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">' 
 .    $langCategory 
 .    '</a>'
-.    '</th>'
+.    '</th>'."\n"
 
-.    '<th>' . $langAllUsersOfThisCourse . '</th>'
-.    '<th>' . $langCourseSettings . '</th>'
-.    '<th>' . $langDelete . '</th>'
-.    '</tr>'
-.    '</thead>' . "\n"
+.    '<th>' . $langAllUsersOfThisCourse . '</th>'."\n"
+.    '<th>' . $langCourseSettings . '</th>'."\n"
+.    '<th>' . $langDelete . '</th>'."\n"
+.    '</tr>'."\n"
+.    '</thead>' . "\n\n"
 
 // Display list of the course of the user :
 
-.    '<tbody>' ."\n"
+.    '<tbody>' ."\n\n"
 ;
 
 foreach($resultList as $courseLine)
 {
-    echo '<tr>';
+    echo '<tr>'."\n";
 
 
     if (    isset($_SESSION['admin_course_search']) 
@@ -476,19 +476,19 @@ foreach($resultList as $courseLine)
 
         echo '<td >'
         .    eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['officialCode'])
-        .    '</td>'
+        .    '</td>'."\n"
 
         // title
 
         .    '<td align="left">'
         .    '<a href="' . $coursesRepositoryWeb . $courseLine['directory'] . '">'
         .    eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['intitule'])
-        .    '</a></td>'
+        .    '</a></td>'."\n"
 
         //  Category
         .    '<td align="left">'
         .    eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['faculte'])
-        .    '</td>';
+        .    '</td>'."\n";
     }
     else
     {
@@ -496,7 +496,7 @@ foreach($resultList as $courseLine)
 
         echo '<td >'
         .    $courseLine['officialCode']
-        .    '</td>'
+        .    '</td>'."\n"
 
         // title
 
@@ -504,11 +504,11 @@ foreach($resultList as $courseLine)
         .    '<a href="' . $coursesRepositoryWeb . $courseLine['directory'] . '">'
         .    $courseLine['intitule']
         .    '</a>'
-        .    '</td>'
+        .    '</td>'."\n"
 
         //  Category
 
-        .    '<td align="left">' . $courseLine['faculte'] . '</td>'
+        .    '<td align="left">' . $courseLine['faculte'] . '</td>'."\n"
         ;
     }
 
@@ -522,12 +522,12 @@ foreach($resultList as $courseLine)
     .     sprintf( ( $courseLine['qty_cm'] + $courseLine['qty_stu'] > 1 ? $lang_p_d_course_members : $lang_p_d_course_member)
                  , ( $courseLine['qty_stu'] + $courseLine['qty_cm'] ) )
     .     '</a>'
-    .     '<br><small><small>'
+    .     '<br />'."\n".'<small><small>'."\n"
     .     sprintf( ( $courseLine['qty_cm'] > 1 ? $lang_p_d_course_managers : $lang_p_d_course_manager)
                  , $courseLine['qty_cm']) . "\n"
     .     sprintf( ( $courseLine['qty_stu'] > 1 ? $lang_p_d_students : $lang_p_d_student)
                  , $courseLine['qty_stu']) . "\n"
-    .     '</small></small>'
+    .     '</small></small>' . "\n"
     .     '</td>' . "\n"
 
     // Modify course settings
@@ -549,23 +549,23 @@ foreach($resultList as $courseLine)
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '" />' . "\n"
     .    '</a>' . "\n"
     .    '</td>' . "\n"
-    .    '</tr>'
+    .    '</tr>' . "\n\n"
     ;
     $atleastOneResult = TRUE;
 }
 
 if (!isset($atleastOneResult))
 {
-   echo '<tr>'
+   echo '<tr>'."\n"
    .    '<td colspan="6" align="center">'
-   .    $langNoCourseResult . '<br>'
+   .    $langNoCourseResult . '<br />'
    .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . $langSearchAgain . '</a>'
-   .    '</td>'
-   .    '</tr>'
+   .    '</td>'."\n"
+   .    '</tr>'."\n\n"
    ;
 }
-echo '</tbody>'
-.    '</table>'
+echo '</tbody>'."\n\n"
+.    '</table>'."\n\n"
 ;
 
 //Pager
