@@ -299,7 +299,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
     .    '</center>'
     .    '</th>' . "\n"
     .    '<th width="13%"><center>'
-    .    '<a href="' . $forewardsURL . '">&gt;&gt;</center></a>'
+    .    '<a href="' . $forewardsURL . '">&gt;&gt;</a></center>'
     .    '</th>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr class="headerX">' ."\n"
@@ -310,7 +310,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
         echo  '<th width="13%">' . $weekdaynames[$iterator%7] . '</th>' . "\n";
     }
 
-    echo '</tr>' . "\n";
+    echo '</tr>' . "\n\n";
 
     $curday = -1;
 
@@ -362,7 +362,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
                 echo '<td width="12%">&nbsp;</td>' . "\n";
             }
         }
-        echo '</tr>' . "\n";
+        echo '</tr>' . "\n\n";
     }
     echo  '</table>';
 }
