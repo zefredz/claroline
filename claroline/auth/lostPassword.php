@@ -159,7 +159,7 @@ echo claro_disp_tool_title($nameTools);
 
 // display message box
 
-if ( ! empty($msg)) echo claro_disp_message_box($msg);
+if ( ! empty($msg) ) echo claro_disp_message_box($msg);
 
 // display form
 
@@ -170,23 +170,28 @@ if ( ! $passwordFound )
 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 <input type="hidden" name="searchPassword" value="1">
 <fieldset>
+
 <table>
-	<tr>
-		<td>
-			<label for="Femail"><?php echo $langEmail ?> : </label>
-		</td>
-		<td>
-			<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo htmlspecialchars($Femail) ?>">
-		</td>
-	</tr>
-	<tr>
-		<td>
-		</td>
-		<td>
-			<input type="submit" name="retrieve" value="Submit">
-		</td>
-	</tr>
+
+<tr>
+<td>
+<label for="Femail"><?php echo $langEmail ?> : </label>
+</td>
+<td>
+<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo htmlspecialchars($Femail) ?>">
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+<td>
+<input type="submit" name="retrieve" value="Submit">
+</td>
+</tr>
+
 </table>
+
 </fieldset>
 </form>
 <?php
