@@ -3,7 +3,7 @@
  * CLAROLINE 
  *
  * Initialize conf settings
- * Try to read  old values in old conf files
+ * Try to read  current values in current conf files
  * Build new conf file content with these settings
  * write it.
  *
@@ -23,124 +23,169 @@
  *
  */
 
-$platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
+/*=====================================================================
+  Init Section
+ =====================================================================*/ 
+
+if ( ! file_exists('../../currentVersion.inc.php') )
+{
+    // if this file doesn't exist, the current version is < claroline 1.6
+    // in 1.6 we need a $platform_id for session handling
+    $platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
+}
+
+// Initialise Claroline
 require '../../inc/claro_init_global.inc.php';
 
+// Security Check
 if (!$is_platformAdmin) claro_disp_auth_form();
 
+// Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
 DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
 DEFINE ('DISPLAY_RESULT_SUCCESS_PANEL', __LINE__);
-
 DEFINE ('ERROR_WRITE_FAILED', __LINE__);
-
 $display = DISPLAY_WELCOME_PANEL;
 
-/**
- * include file
- */
-    
-include ($includePath.'/installedVersion.inc.php');
-if(file_exists($includePath.'/currentVersion.inc.php'))
-{
-    include ($includePath.'/currentVersion.inc.php');
-}
+// Include library
 include ($includePath.'/lib/config.lib.inc.php');
 include ($includePath.'/lib/fileManage.lib.php');
-    
-$thisClarolineVersion = $version_file_cvs;
+include ('upgrade.lib.php');
+
+// Initialise Upgrade
+upgrade_init_global();
+
+/**
+
+if ( preg_match('/^1.7/', $currentClarolineVersion) )
+{
+    // already upgraded
+}
+elseif ( preg_match('/^1.6/',$currentClarolineVersion) )
+{
+    // upgrade from 1.6
+}
+elseif ( preg_match('/^1.5/',$currentClarolineVersion) )
+{
+    // upgrade from 1.5
+}
+else
+{
+    // no upgrade available, check the value of clarolineVersion
+    // in inc/currentVersion.inc.php or inc/conf/claro_main.conf.php
+}
+
+*/
+
+/*=====================================================================
+  Main Section
+ =====================================================================*/ 
 
 $error = FALSE;
+
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : ''; 
-if ($cmd == 'run')
+
+if ( $cmd == 'run' )
 {
     // Prepare repository to backup files
     $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
     claro_mkdir($backupRepositorySys);
 
-    $output = '<h3>' . $langConfigurationFile . '</h3>' . "\n" ;
-    
+    $output = '<h3>' . $langConfigurationFile . '</h3>' . "\n" ;  
     $output.= '<ol>' . "\n" ;
     
-    // Gen conf file from def       
+    // Generate configuration file from definition file
     $def_file_list = get_def_file_list();
 
-    if(is_array($def_file_list))
-    {
-        
-        /**
-         Build table with old values in conf
-         */
-        
+    if ( is_array($def_file_list) )
+    {        
+        // Build table with current values in configuration files       
         $current_value_list = array();
         
         foreach ( array_keys($def_file_list) as $config_code )
         {
             unset($conf_def, $conf_def_property_list);
         
-            $def_file  = get_def_file($config_code);
+            $def_file = get_def_file($config_code);
         
             if ( file_exists($def_file) ) 
             {
                 require($def_file);
             }
 
-            // load old conf file content
+            // Add current config file to old config file list
             $conf_def['old_config_file'][] = $conf_def['config_file'];
-            if (is_array($conf_def['old_config_file']))
+
+            if ( is_array($conf_def['old_config_file']) )
             {
-                foreach ($conf_def['old_config_file'] as $old_file_name) 
+                // Browse configuration files
+                foreach ( $conf_def['old_config_file'] as $current_file_name ) 
                 {
-                    $current_value_list = array_merge($current_value_list,get_values_from_confFile($includePath . '/conf/' . $old_file_name,$conf_def_property_list));
+                    // Add config name an value in array current value list
+                    $current_value_list = array_merge( $current_value_list,
+                                                       get_values_from_confFile($includePath . '/conf/' . $current_file_name,$conf_def_property_list)
+                                                      );
                 }
             }
 
-            // set platform_id if not set in old claroline version
+        }
+
+        // Set platform_id if not set in current claroline version (new in 1.6)
+        if ( ! isset($current_value_list['platform_id']) )
+        {
             $current_value_list['platform_id'] = $platform_id;
         }
        
+        // Browse definition file and build them
+        
         reset( $def_file_list );
         
         foreach ( $def_file_list as $config_code => $def)
         {
+            // read configuration file
             $conf_file = get_conf_file($config_code);
 
-            $output .= '<li>'.basename($conf_file)
+            $output .= '<li>'. basename($conf_file)
                     .  '<ul >' . "\n";
 
             $okToSave = TRUE;
             
             unset($conf_def, $conf_def_property_list);
     
-            $def_file  = get_def_file($config_code);
+            // read definition file
+            $def_file = get_def_file($config_code);
     
-            if ( file_exists($def_file) )
-                require($def_file);
+            if ( file_exists($def_file) ) require($def_file);
             
-            if ( is_array($conf_def_property_list) )
+            if ( isset($conf_def_property_list) && is_array($conf_def_property_list) )
             {
                 
                 $propertyList = array();
                 
-                foreach($conf_def_property_list as $propName => $propDef )
+                // Browse each property of the definition files
+
+                foreach ( $conf_def_property_list as $propName => $propDef )
                 {
-                    
-                    if(isset($current_value_list[$propName]))
+
+                    // Get current property value if exists 
+                    // else get its default value
+
+                    if ( isset($current_value_list[$propName]) )
                     {  
                         $propValue = $current_value_list[$propName];
-                        // get old value
                     }
                     else 
                     {
                         $propValue = $propDef['default'];                                 
-                        // value never set, use default from .def
                     }
 
                     /**
+                     * Validate property value
                      * @todo user can be better informed how to react to this error.
                      */
                     if ( !validate_property($propValue, $propDef) )
                     {
+                        // Validation failed - Alert users
                         $okToSave = FALSE;
                         $error = TRUE;
                         $output .= '<span class="warning">'.sprintf($lang_p_s_s_isInvalid, $propName, $propValue) . '</span>' . '<br>' . "\n"
@@ -149,6 +194,7 @@ if ($cmd == 'run')
                     }
                     else
                     {
+                        // Validation succeed 
                         $propertyList[] = array('propName'  => $propName
                                                ,'propValue' => $propValue);
                     }
@@ -160,15 +206,20 @@ if ($cmd == 'run')
                 $error = TRUE;
             }
     
+            // We save the upgraded configuration file
+
             if ($okToSave)
             {
-                if ( !file_exists($conf_file) ) touch($conf_file);
-    
-                if ( is_array($propertyList) && count($propertyList)>0 )
+                if ( !file_exists($conf_file) )
                 {
-
-                    // backup old file 
+                    // Create a file empty if not exists
+                    touch($conf_file);
+                }
+                else
+                {
+                    // Backup current file 
                     $output .= '<li>' . $lang_oldFileBackup . ' ' ;
+
                     $fileBackup = $backupRepositorySys . basename($conf_file);
                     if (!@copy($conf_file, $fileBackup) )
                     {
@@ -178,12 +229,20 @@ if ($cmd == 'run')
                     {
                         $output .= '<span class="success">'. $langSucceeded . '</span>';
                     }
-
                     $output .= '</li>' . "\n" ;
-                    // change permission
-                    @chmod( $fileBackup, 600 );
-                    @chmod( $fileBackup, 0600 );
+
+                    // Change permission of the backup file
+                    @chmod( $fileBackup, 0777 );
+                    @chmod( $fileBackup, 0777 );
+                }
+
+    
+                if ( is_array($propertyList) && count($propertyList)>0 )
+                {
+                    // Save the new configuration file 
+
                     $output .= '<li>' . $lang_fileUpgrade . ' ';
+
                     if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                     {
                         $output .= '<span class="success">'. $langSucceeded . '</span>';
@@ -198,23 +257,26 @@ if ($cmd == 'run')
             }
             $output .= '</ul>' . "\n" 
                      . '</li>' . "\n";
-        }
+
+        } // End browse definition file and build them
+
     }
     
     /**
-    * Config file to undist
-    */
+     * Config file to undist
+     */
     
     $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html',
-                                  $includePath.'/../../textzone_right.inc.html',
-                                  $includePath.'/conf/auth.conf.php'
+                                 $includePath.'/../../textzone_right.inc.html',
+                                 $includePath.'/conf/auth.conf.php'
                                 );
 
-    foreach ($arr_file_to_undist As $undist_this)
+    foreach ( $arr_file_to_undist as $undist_this )
     {
         $output .= '<li>'. basename ($undist_this) . "\n"
                 . '<ul><li>'.$langUndist.' : ' . "\n" ;
-        if (claro_undist_file($undist_this))
+
+        if ( claro_undist_file($undist_this) )
         {
             $output .= '<span class="success">'. $langSucceeded . '</span>';
         }
@@ -226,24 +288,15 @@ if ($cmd == 'run')
         $output .= '</li>' . "\n" . '</ul>' . "\n"
                  . '</li>' . "\n";
     }
+
     $output .= '</ol>' . "\n";
     
-    if (!$error)
+    if ( !$error )
     {
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
-        
-        /**
-         * Update config file
-         * Set version db
-         */
 
-       $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
-       $currentVersionStr = '<?php 
-$clarolineVersion = "'.$version_file_cvs.'";
-$versionDb = "' . $version_db_cvs . '";
-?>';
-       fwrite($fp_currentVersion, $currentVersionStr);
-       fclose($fp_currentVersion);
+        // Update current version file
+        save_current_version_file($newClarolineVersion,$currentDbVersion);
     }
     else
     {
@@ -252,42 +305,14 @@ $versionDb = "' . $version_db_cvs . '";
     
 } // end if run 
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+/*=====================================================================
+  Display Section
+ =====================================================================*/ 
 
-<head>
-  <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
-  <title>-- Claroline upgrade -- version <?php echo $clarolineVersion ?></title>  
-  <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
-  <style media="print" >
-    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
-  </style>
-</head>
+// Display Header
+echo upgrade_disp_header();
 
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
-
-<center>
-
-<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
-<tbody>
-<tr bgcolor="navy">
-<td valign="top" align="left">
-<div id="header">
-<?php
-    echo sprintf ("<h1>Claroline (%s) - upgrade</h1>",$thisClarolineVersion);
-?>
-</div>
-</td>
-</tr>
-
-<tr valign="top" align="left">
-<td>
-
-<div id="content">    
-
-<?php
+// Display Content
 
 switch ($display)
 {
@@ -309,13 +334,8 @@ switch ($display)
         break;
     
 }
+
+// Display footer
+echo upgrade_disp_footer();
+
 ?>
-
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-
-</body>
-</html>

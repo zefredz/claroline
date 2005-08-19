@@ -26,122 +26,65 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-/*---------------------------------------------------------------------
-  Security Check
- ---------------------------------------------------------------------*/ 
+// Security Check
 
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-/*---------------------------------------------------------------------
-  Include version file and initialize variables
- ---------------------------------------------------------------------*/
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-include ($includePath.'/installedVersion.inc.php');
-
-/*---------------------------------------------------------------------
-  Include library
- ---------------------------------------------------------------------*/
+// Include library
 
 include ($includePath.'/lib/config.lib.inc.php');
+include ('upgrade.lib.php');
 
+// Define display 
 
-if ( !function_exists('mysql_info') )
-{
-
-    /**
-     * This is a fake function declared if mysql_info don't exist
-     * The output is use for additional info.
-     * @return string empty.
-     */
-    function mysql_info() {return '';} // mysql_info is used in verbose mode
-}
-
-/**#@+
- * Steps of Display 
- */
 DEFINE('DISPLAY_WELCOME_PANEL', 1);
 DEFINE('DISPLAY_RESULT_PANEL',  2);
-/**#@-*/
+
+// Initialise Upgrade
+upgrade_init_global();
 
 /*=====================================================================
-  Statements Section
+  Main Section
  =====================================================================*/
-
-/**
- * Initialise variables
- */
 
 if ( isset($_REQUEST['verbose']) ) $verbose = TRUE;
 else                               $verbose = FALSE;
 
 $display = DISPLAY_WELCOME_PANEL;
 
-/**
- * Define display
- */
-
-if (isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run')
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd']=='run' )
 {
-
-    /**
-     * Upgrade Main Database
-     */
+    // include sql to upgrade the main Database
 
     include('./sql_statement_main_db.php');
 
-    /**
-     * Upgrade Tracking
-     */    
+    /** TODO
 
-    if ($is_trackingEnabled)
+    // include sql to upgrade tracking
+
+    if ( $is_trackingEnabled )
     {
 		include('./sql_statement_tracking.php');
 	}
-
-    $accepted_error_list = array(1060,1062,1091,1054);
+    
+    */
 
     $display = DISPLAY_RESULT_PANEL;
 
 } // if ($cmd=="run")
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+/*=====================================================================
+  Display Section
+ =====================================================================*/
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+// Display Header
+echo upgrade_disp_header();
 
-<head>
-  <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
-  <title>-- Claroline upgrade -- version <?php echo $clarolineVersion ?></title>
-  <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
-  <style media="print" >
-    .notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
-  </style>
-</head>
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
-
-<center>
-
-<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
-<tbody>
-<tr bgcolor="navy">
-<td valign="top" align="left">
-
-<div id="header">
-<?php
-    printf("<h1>Claroline (%s) - " . $langUpgrade . "</h1>",$clarolineVersion);
-?>
-</div>
-</td>
-</tr>
-<tr valign="top" align="left">
-<td>
-<div id="content">
-
-<?php
-
-switch ($display)
+switch ( $display )
 {
     case DISPLAY_WELCOME_PANEL:
+
+        // Display welcome message
 
         echo  sprintf("<h2>%s</h2>",$langUpgradeStep2)
             . '<p>' . $langIntroStep2 . '</p>' . "\n"
@@ -153,134 +96,101 @@ switch ($display)
         break;
         
     case DISPLAY_RESULT_PANEL :
+
+        // Initialise
+        $nbError = 0;
     
+        // Display upgrade result
+        
         echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
             . '<h3>' 
             . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName) 
             .'</h3>' . "\n"
             ;
 
-        if ($verbose) 
+        /*---------------------------------------------------------------------
+          Upgrade 1.5 to 1.6
+         ---------------------------------------------------------------------*/
+
+        if ( preg_match('/^1.5/',$currentDbVersion) )
         {
-        	echo '<p class="info">' . $langModeVerbose . ':</p>' . "\n";
-        }
+            // Apply sql query from $sqlForUpdate16 to main dataabse
+            $sqlForUpdate16 = query_to_upgrade_main_database_to_16();
+            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate16,$verbose);
+            
+            // For each configuration file add a hash code in the new table config_list (new in 1.6)
 
-        echo '<ol>' . "\n";
-
-        $nbError = 0;
-
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        while (list($key,$sqlTodo) = each($sqlForUpdate))
-        {
-        	if ($sqlTodo[0] == "#")
-        	{
-        		if ($verbose)
-        		{
-        			echo '<p class="comment">' . 'Comment:' . $sqlTodo . '</p>' . "\n";
-        		}
-        	}
-        	else
-        	{
-        		$res = @mysql_query($sqlTodo);
-        		if ($verbose)
-        		{
-        			echo  '<li>' . "\n"
-        			    . '<p class="tt">' . $sqlTodo . '</p>' . "\n"
-        			    . '<p>' 
-        			    . sprintf($lang_p_d_affected_rows,mysql_affected_rows()) . '<br />' 
-        			    . mysql_info() 
-        			    . '</p>' . "\n";
-        		}
-        		if (mysql_errno() > 0)
-        		{
-                    if ( in_array(mysql_errno(),$accepted_error_list) )
-        			{
-        				if ($verbose)
-        				{
-        					echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
-        				}
-        			}
-        			else
-        			{
-        				echo '<p class="error">' . "\n"
-                            . (++$nbError) . '<strong>' . 'n°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
-        				    . '<code>' . $sqlTodo . '</code>' . "\n"
-        				    . '</p>' . "\n";
-        			}
-        		}
-        		if ($verbose) {
-        			echo '</li>' . "\n";
-				flush();
-        		}
-        	}
-        }
-        
-        echo '</ol>' . "\n";
-	
-    	// For Each def file add a hash code in  the new table config_list
-        $def_file_list = get_def_file_list();
-    	foreach ( $def_file_list as $def_file_bloc)
-    	{
-    	    if (isset($def_file_bloc['conf']) && is_array($def_file_bloc['conf']))
-    	    {   // blocs are use in visual config tool to list 
-    	        // in special order thes detected config files.
-    	        foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+            $def_file_list = get_def_file_list();
+        	foreach ( $def_file_list as $def_file_bloc)
+            {
+        	    if ( isset($def_file_bloc['conf']) && is_array($def_file_bloc['conf']) )
     	        {
-    	            $conf_file = get_conf_file($config_code);
-                    // The Hash compute and store is differed after creation table use for this storage
-    	            // calculate hash of the config file
-    	            $conf_hash = md5_file($conf_file); 
-    	            save_config_hash_in_db($config_code,$conf_hash);
-    	        }
+                    // blocs are use in visual config tool to list 
+    	            // in special order thes detected config files.
+    	            foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+        	        {
+        	            $conf_file = get_conf_file($config_code);
+                        // The Hash compute and store is differed after creation table use for this storage
+    	                // calculate hash of the config file
+    	                $conf_hash = md5_file($conf_file); 
+    	                save_config_hash_in_db($config_code,$conf_hash);
+        	        }
+        	    }
     	    }
-    	}
-    	
-    	mysql_close();
 
-        if ($nbError > 0 )
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.5 to 1.6 Succeed
+                echo '<p class="success">'  .$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded. '</p>' . "\n";
+                
+                // Database version is 1.6.0
+                $currentDbVersion = '1.6.0';
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $currentDbVersion) ;
+            }
+        } // end upgrade 1.5 to 1.6
+
+        /*---------------------------------------------------------------------
+          Upgrade 1.6 to 1.7
+         ---------------------------------------------------------------------*/
+
+        if ( preg_match('/^1.6/',$currentDbVersion) )
+        {
+            // Apply sql query from $sqlForUpdate17 to main database
+            $sqlForUpdate17 = query_to_upgrade_main_database_to_17();
+            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate17,$verbose);
+
+            // Add wiki tool (new in 1.7) 
+            register_tool_in_main_database('CLWIKI__','wiki/wiki.php','wiki.gif');
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.6 to 1.7 Succeed
+                echo '<p class="success">'  .$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded. '</p>' . "\n";
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $newDbVersion); 
+            }    
+        } // End of upgrade 1.6 to 1.7
+
+        if ( $nbError > 0 )
         {
         	echo '<p class="error">' . sprintf($lang_p_d_errorFound,$nbError) . '</p>' . "\n";
     		echo sprintf('<p><button onclick="document.location=\'%s\';" >'.$lang_RetryWithMoreDetails.'</button></p>', $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true');
         }
         else
         {
-           /**
-            * Update config file
-            * Set version db
-            */
-
-           echo '<p class="success">'  .$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded. '</p>' . "\n";
-
-           // store in currentVarsion the version of central DB.
-           $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
-           if($fp_currentVersion)
-           {
-               $currentVersionStr = '<?php
-$clarolineVersion = "'.$version_file_cvs.'";
-$versionDb = "'.$version_db_cvs.'";
-?>';
-               fwrite($fp_currentVersion, $currentVersionStr);
-               fclose($fp_currentVersion);
-               echo '<div align="right">' . sprintf($langNextStep,'upgrade_courses.php') . '</div>';
-           }
-           else
-           {
-               echo '<p class="error">' . 'Can\'t save success in <span class="filename">currentVersion.inc.php</span>' . '</p>'  . "\n";
-           }
+            echo '<div align="right">' . sprintf($langNextStep,'upgrade_courses.php') . '</div>';
         }
+
         break;
         
     default : 
         die('display unknow');
 }
 
+// Display footer
+echo upgrade_disp_footer();
+
 ?>
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-
-</body>
-</html>

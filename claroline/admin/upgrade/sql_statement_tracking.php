@@ -20,13 +20,13 @@
  *
  */
 
-$sqlForUpdate[] = "# Start for tracking TABLES Queries";
+$sqlForUpdate16[] = "# Start for tracking TABLES Queries";
 
 // Update table track_e_default
-$sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_default']  . "` CHANGE `default_user_id` `default_user_id` int(11) NOT NULL default '0'" ;
+$sqlForUpdate16[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_default']  . "` CHANGE `default_user_id` `default_user_id` int(11) NOT NULL default '0'" ;
 
 // Update table login_user_id
-$sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_login']  . "` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
+$sqlForUpdate16[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_login']  . "` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
 
 
 ?>

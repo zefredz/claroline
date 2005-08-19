@@ -16,59 +16,27 @@
  *
  */
 
-/**
- * Init Section
- */ 
+/*=====================================================================
+  Init Section
+ =====================================================================*/ 
 
+// Initialise Claroline
 require '../../inc/claro_init_global.inc.php';
 
-/*---------------------------------------------------------------------
-  Security Check
- ---------------------------------------------------------------------*/ 
-
+// Security Check
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-/*---------------------------------------------------------------------
-  Include version file and initialize variables
- ---------------------------------------------------------------------*/
+// Include Libraries
+include ('upgrade.lib.php');
 
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-require ($includePath.'/installedVersion.inc.php');
-require_once($includePath.'/lib/claro_main.lib.php');
+// Initialise Upgrade
+upgrade_init_global();
 
-/**
- * DB tables definition
- * @var $tbl_mdb_names array table name for the central database
- */
+// DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
 $tbl_rel_course_user   = $tbl_mdb_names['rel_course_user'];
 $tbl_course_tool       = $tbl_mdb_names['tool'];
-
-/*---------------------------------------------------------------------
-  Mysql Handling
- ---------------------------------------------------------------------*/
-
-if (!function_exists('mysql_info')) 
-{
-    function mysql_info() {return '';} // mysql_info is used in verbose mode
-}
-                
-/**
- * List of accepted error - See MySQL error codes : 
- *
- * Error: 1017 SQLSTATE: HY000 (ER_FILE_NOT_FOUND) : already upgraded
- * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
- * Error: 1054 SQLSTATE: 42S22 (ER_BAD_FIELD_ERROR) : already upgraded
- * Error: 1060 SQLSTATE: 42S21 (ER_DUP_FIELDNAME)  : already upgraded
- * Error: 1062 SQLSTATE: 23000  ( ER_DUP_ENTRY  )Message: Duplicate entry '%s' for key %d
- * Error: 1065 SQLSTATE: 42000 (ER_EMPTY_QUERY) : when  sql contain only a comment
- * Error: 1146 SQLSTATE: 42S02 (ER_NO_SUCH_TABLE) : already upgraded
- * 
- * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
- */
-
-$accepted_error_list = array(1017,1050,1054,1060,1062,1065,1146);
 
 /**
  * Displays flags
@@ -80,7 +48,6 @@ DEFINE ('DISPLAY_RESULT_PANEL', __LINE__);
 /*=====================================================================
   Statements Section
  =====================================================================*/
-
 
 if ( isset($_REQUEST['verbose']) ) $verbose = (bool) $_REQUEST['verbose'];
 else                               $verbose = FALSE;
@@ -95,10 +62,14 @@ $upgradeCoursesError = isset($_REQUEST['upgradeCoursesError'])
                      ? $_REQUEST['upgradeCoursesError']
                      : FALSE;
 
-
 if ( $cmd == 'run')
 {
     $display = DISPLAY_RESULT_PANEL;
+    include('./sql_statement_course.php');
+
+    /** TODO
+    include('./repair_tables.php');
+    */
 }
 else 
 {
@@ -109,11 +80,11 @@ else
 $mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // force upgrade for debug
-if ( $forceUpgrade ) $version_db_cvs = md5(uniqid('')); // for debug
+if ( $forceUpgrade ) $newDbVersion = md5(uniqid('')); // for debug
 
 $count_error_total = 0;
 
-$count_course_upgraded = count_course_upgraded($version_db_cvs, $clarolineVersion);
+$count_course_upgraded = count_course_upgraded($newDbVersion, $newClarolineVersion);
 
 $count_course = $count_course_upgraded['total'];
 $count_course_error = $count_course_upgraded['error'];
@@ -129,52 +100,16 @@ $count_course_upgraded_at_start =  $count_course_upgraded;
   Steps of Display 
  ---------------------------------------------------------------------*/
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-<head>
-  <title>-- Claroline upgrade -- version <?php echo $clarolineVersion ?></title>  
-
-<?php
-
 // auto refresh
 
 if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_error ) < $count_course )
 {
     $refresh_time = 20;
-    echo '<meta http-equiv="refresh" content="'. $refresh_time  .'" />'."\n";
+    $htmlHeadXtra[] = '<meta http-equiv="refresh" content="'. $refresh_time  .'" />'."\n";
 }
 
-?>
-
-  <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
-  <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
-  <style media="print" >
-    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
-  </style>
-</head>
-
-<body bgcolor="white" dir="<?php echo $text_dir ?>">
-
-<center>
-
-<table cellpadding="10" cellspacing="0" border="0" width='650' bgcolor='#E6E6E6'>
-<tbody>
-<tr bgcolor='navy'>
-<td valign='top' align='left'>
-<div id='header'>
-<?php
-    echo sprintf('<h1>Claroline (%s) - ' . $langUpgrade . '</h1>', $clarolineVersion);
-?>
-</div>
-</td>
-</tr>
-<tr valign='top' align='left'>
-<td>
-<div id='content'>
-<?php 
+// Display Header
+echo upgrade_disp_header();
 
 /*---------------------------------------------------------------------
   Main
@@ -230,18 +165,18 @@ switch ($display)
                                           c.versionClaro "
                                . " FROM `" . $tbl_course . "` `c` ";
         
-        if ( $_REQUEST['upgradeCoursesError'] == 1)
+        if ( isset($_REQUEST['upgradeCoursesError']) )
         {
             // retry to upgrade course where upgrade failed
-            $sql_course_to_upgrade .= " WHERE c.versionDb != '".$version_db_cvs."'
-                                        or c.versionClaro != '".$clarolineVersion."'
+            $sql_course_to_upgrade .= " WHERE c.versionDb != '". $newDbVersion ."'
+                                        or c.versionClaro != '". $newClarolineVersion."'
                                         ORDER BY c.dbName";
         }
         else
         {
             // not upgrade course where upgrade failed ( versionDb == error)
-            $sql_course_to_upgrade .= " WHERE ( c.versionDb != '".$version_db_cvs."' 
-                                                or  c.versionClaro != '".$clarolineVersion."' )
+            $sql_course_to_upgrade .= " WHERE ( c.versionDb != '". $newDbVersion ."' 
+                                                or  c.versionClaro != '". $newClarolineVersion."' )
                                               and c.versionDb != 'error' 
                                               and c.versionClaro != 'error' 
                                         ORDER BY c.dbName ";
@@ -263,8 +198,8 @@ switch ($display)
             $currentCourseIDsys     = $course['sysCode'];
             $currentCourseCode      = $course['officialCode'];
             $currentCourseCreationDate = $course['creationDate'];
-            $currentCourseVersionDb = $course['versionDb'];
-            $currentCourseVersionClaro = $course['versionClaro'];
+            $currentCourseDbVersion = $course['versionDb'];
+            $currentCourseClarolineVersion = $course['versionClaro'];
             $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
 
             $count_course_upgraded++;
@@ -279,7 +214,7 @@ switch ($display)
             
             /**
              * Make some check.
-             * For next versions these test would be set in separate process and aivailable  out of upgrade
+             * For next versions these test would be set in separate process and available out of upgrade
              */
                 
             // course repository doesn't exists
@@ -314,48 +249,10 @@ switch ($display)
                   Upgrade Course Table
                  ---------------------------------------------------------------------*/ 
 
-                if ( $currentCourseVersionDb != $version_db_cvs)
+                if ( $currentCourseDbVersion != $newDbVersion)
                 {
-
-                    // get work intro
-    
-                    $sql_work_intro = "SELECT ti.texte_intro
-                                        FROM `" . $currentCourseDbNameGlu . "tool_list` tl,
-                                             `" . $currentCourseDbNameGlu . "tool_intro` ti,
-                                             `" . $tbl_course_tool . "` ct
-                                        WHERE ti.id = tl.id
-                                            AND tl.tool_id =  ct.id
-                                            AND ct.claro_label = 'CLWRK___'";
-    
-                    $work_intro = claro_sql_query_get_single_value($sql_work_intro);
-    
-                    if ( $work_intro === FALSE ) $work_intro = '';
-    
-                    // get course manager of the course
-                
-                    $sql_get_id_of_one_teacher = "SELECT `user_id` `uid` FROM `". $tbl_rel_course_user . "` "
-                                       . " WHERE `code_cours` = '".$currentCourseIDsys."' LIMIT 1";
-                    
-                    $res_id_of_one_teacher = claro_sql_query($sql_get_id_of_one_teacher);
-                    
-                    $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
-        
-                    $teacher_uid = $teacher[0]['uid'];
-    
-                    // if no course manager, you are enrolled in as
-    
-                    if ( !is_numeric($teacher_uid) )
-                    {
-                        $teacher_uid = $_uid;
-                        if ( !is_numeric($teacher_uid) )
-                        $teacher_uid = 0;
-                        $sql_set_teacher = "INSERT INTO `". $tbl_rel_course_user . "`  
-                                            SET `user_id` = '".$teacher_uid."'
-                                                 , `code_cours` = '".$currentCourseIDsys."'
-                                                 , `role` = 'Course missing manager';";
-                        claro_sql_query($sql_set_teacher);
-                        $errorMsgs .= '<p class="error">Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager. </p>' . "\n";
-                    }
+                    // TODO
+                    upgrade_assignments_to_16();
     
                     $errorMsgs .= '<ol>' . "\n";
                     
@@ -363,19 +260,19 @@ switch ($display)
                      * Upgrade course table
                      */
         
-                    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseIDsys));
+                    // NOT USED 
+                    //$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseIDsys));
     
                     // Include array with sql statement ($sqlForUpdate)
-                    unset($sqlForUpdate);
-                    include('./sql_statement_course.php');
-                    include('./repair_tables.php');
-                    reset($sqlForUpdate);
+                    
+                    $sqlForUpdate = query_to_upgrade_course_database_to_16();
+                    // TODO $sqlForUpdate = query_to_upgrade_course_database_to_17();
         
                     /*
                      * Process sql statement
                      */
         
-                    while ( list($key,$sqlTodo) = each($sqlForUpdate) )
+                    foreach ( $sqlForUpdate as $key => $sqlTodo )
                     {
                         $res = mysql_query($sqlTodo);
                         if ($verbose) // verbose is set when user retry upgrade
@@ -409,6 +306,8 @@ switch ($display)
         
                         $count_error_total += $db_error_counter;
                         
+                        // TODO : function to update version in course table
+
                         /*
                          * Error: set versionDB of course to error
                          */
@@ -430,7 +329,7 @@ switch ($display)
                          * Success: set versionDB of course to new version
                          */
                         $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionDb='".$version_db_cvs."'
+                                            SET versionDb='". $newDbVersion ."'
                                             WHERE code = '".$currentCourseIDsys."'";                
                         $res = @mysql_query($sqlFlagUpgrade);
     
@@ -448,7 +347,7 @@ switch ($display)
                   Upgrade Course Files
                  ---------------------------------------------------------------------*/ 
 
-                if ( $currentCourseVersionClaro != $clarolineVersion)
+                if ( $currentCourseClarolineVersion != $newClarolineVersion)
                 {
                 
                     // rename folder image in course folder to exercise 
@@ -536,7 +435,7 @@ switch ($display)
                          * Success: set versionClaro of course to new version
                          */
                         $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionClaro='".$clarolineVersion."'
+                                            SET versionClaro='".$newClarolineVersion."'
                                             WHERE code = '".$currentCourseIDsys."'";                
                         
                         $res = @mysql_query($sqlFlagUpgrade);
@@ -640,67 +539,7 @@ switch ($display)
   Display Footer
  ---------------------------------------------------------------------*/
 
-?>
-
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-
-</body>
-</html>
-
-<?php
-
-/*---------------------------------------------------------------------
-  Functions
- ---------------------------------------------------------------------*/
-
-/**
- * count courses, courses upgraded and upgrade failed
- *
- * In cours table, versionDb & versionClaro 
- * contain 
- *  - 'error' if upgrade already tried but failed
- * or
- *  - version of last upgrade succeed (so previous or current)
- */
-
-function count_course_upgraded($version_db, $version_file)
-{
-    global $tbl_course;
-
-    $count_course = array( 'upgraded'=>0 , 
-                           'error'=>0 , 
-                           'total'=>0 );
-
-    $sql = "SELECT versionDb, versionClaro, count(*) as count_course 
-            FROM `" . $tbl_course . "`
-            GROUP BY versionDb , versionClaro";
-
-    $result = claro_sql_query($sql);
-
-    while ( $row = mysql_fetch_array($result) )
-    {
-        // Count courses upgraded and upgrade failed    
-        if ($row['versionDb'] == $version_db && $row['versionClaro'] == $version_file) 
-        {
-            // upgrade succeed
-            $count_course['upgraded'] += $row['count_course'];
-        }
-        elseif ($row['versionDb'] == 'error' || $row['versionClaro'] == 'error') 
-        {
-            // upgrade failed
-            $count_course['error'] += $row['count_course'];
-        }
-
-        // Count courses
-        $count_course['total'] += $row['count_course'];
-    }
-
-    return $count_course;
-}
+// Display footer
+echo upgrade_disp_footer();
 
 ?>
