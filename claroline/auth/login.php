@@ -91,6 +91,8 @@ if ( is_null($_uid) )
     .    '</tr>'                                                    ."\n"
     .    '</table>'                                                 ."\n"
     ;
+    
+    require $includePath . '/claro_init_footer.inc.php';
 }
 elseif ( is_null($_cid) && $cidRequired )
 {
