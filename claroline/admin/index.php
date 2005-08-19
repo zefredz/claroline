@@ -194,7 +194,6 @@ if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 {
 ?>
 <li><a href="devTools/"><?php echo $langDevTools ?></a></li>
-<li><a href="technical/"><?php echo $langTechnical ?></a></li>
 <?php
 }
 
