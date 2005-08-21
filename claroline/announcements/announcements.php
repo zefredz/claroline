@@ -148,7 +148,7 @@ if($is_allowedToEdit) // check teacher status
             if ( announcement_delete_item($id) )
             {
                 $message = $langAnnDel;
-                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default("ANNOUNCEMENT",array("DELETE_ENTRY"=>$id));
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
                 $ex_rss_refresh = TRUE;
                 
@@ -298,12 +298,12 @@ if($is_allowedToEdit) // check teacher status
                 $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
 
                 // email subject
-                $emailSubject = "[" . $siteName. " - " . $_course['officialCode'] . "] ";
+                $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ';
                 if ( !empty($title) ) $emailSubject .= $title ;
                 else                  $emailSubject .= $langProfessorMessage;
 
                 // email message
-                $msgContent = $newContent;
+                $msgContent = $content;
                 $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
                 $msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
                 $msgContent = preg_replace('/  /',' ',$msgContent);
@@ -353,7 +353,6 @@ if($is_allowedToEdit) // check teacher status
         if ($ex_rss_refresh && file_exists('./announcements.rssgen.inc.php'))
         {
             include('./announcements.rssgen.inc.php');
-
         }
 
     } // end if isset $_REQUEST['cmd']
@@ -363,7 +362,7 @@ if($is_allowedToEdit) // check teacher status
 
 if ($displayForm && HIDE_LIST_WHEN_DISP_FORM) $displayList = FALSE;
             
-if($displayList)
+if ($displayList)
 {
     // list
     $announcementList = announcement_get_item_list();
@@ -409,13 +408,13 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 if ( $displayButtonLine )
 {
     echo '<p>' . "\n"
-    .    '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqCreate">'
-    .    '<img src="'.$imgRepositoryWeb.'announcement.gif" alt="" />'
+    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
+    .    '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
     .    $langAddAnn
     .    '</a>' . "\n"
     .    ' | ' . "\n"
     .    '<a class="claroCmd" href="messages.php">'
-    .    '<img src="'.$imgRepositoryWeb.'email.gif" alt="" />'
+    .    '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .    $langMessageToSelectedUsers
     .    '</a>' . "\n"
     .    ' | ' . "\n";
@@ -526,15 +525,13 @@ if ($displayList)
     {
         if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
         {
-            $style = $thisAnnouncement['visibility']=='HIDE' ?'invisible' : $style='';
-            
-            if ($thisAnnouncement['visibility']=='HIDE') $style="invisible";  else $style='';
-            $title   = $thisAnnouncement['title'];
+            $style = ($thisAnnouncement['visibility'] == 'HIDE') ? 'invisible' :'';
+            $title = $thisAnnouncement['title'];
             
             $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
-            $last_post_date = $thisAnnouncement['time'];// post time format date de mysql
+            $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
             list($year, $month, $day) = explode('-', $last_post_date);
-            if (checkdate($month,$day,$year))
+            if (checkdate($month, $day, $year))
             {
                 $announceDate = mktime(0, 0, 0, $month, $day, $year);
             }
@@ -554,9 +551,9 @@ if ($displayList)
                 $altImg    = '';
             }
 
-            echo '<tr>'."\n"
-            .    '<th class="headerX"  >'."\n"
-            .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
+            echo '<tr>' . "\n"
+            .    '<th class="headerX"  >' . "\n"
+            .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>' . "\n"
             .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '">' . "\n"
             .    $langPubl
             .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))
@@ -590,7 +587,7 @@ if ($displayList)
 
             // DISPLAY MOVE UP COMMAND only if it is not the top announcement
 
-            if($iterator != 1)
+            if( $iterator != 1 )
             {
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
@@ -617,7 +614,7 @@ if ($displayList)
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
                 .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . $langInvisible.'">'
-                .    '</a>'."\n"
+                .    '</a>' . "\n"
                 ;
             }
             else
@@ -631,8 +628,8 @@ if ($displayList)
 
         } // end if is_AllowedToEdit
 
-        echo '</td>'."\n"
-        .    '</tr>'."\n"
+        echo '</td>' . "\n"
+        .    '</tr>' . "\n"
         ;
 
         $iterator ++;
@@ -643,5 +640,4 @@ if ($displayList)
 } // end if displayList
 
 include($includePath . '/claro_init_footer.inc.php');
-
 ?>
