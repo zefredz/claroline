@@ -11,7 +11,7 @@
  * @author see 'credits' file
  *
  * @package KERNEL
- * 
+ *
  */
 //////////////////////////////////////////////////////////////////////////////
 //                   CLAROLINE DB    QUERY WRAPPRER MODULE
@@ -244,7 +244,7 @@ function claro_get_course_db_name_glued($cid=NULL)
  */
 function claro_get_course_path($cid=NULL) 
 {
-    $k =claro_get_course_data($cid); 
+    $k = claro_get_course_data($cid);
     if (isset($k['path'])) return $k['path'];
     else                   return NULL;
 }
@@ -511,7 +511,7 @@ $claro_failureList = array();
  *  }
  *  else 
  *  {
- *      $failure_type = claro_failure::set_last_failure()
+ *      $failure_type = claro_failure::get_last_failure()
  *  }
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
@@ -606,7 +606,7 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
     }
     
 
-    $string = '<h3 class="claroToolTitle">';
+    $string = "\n".'<h3 class="claroToolTitle">'."\n";
 
     if ($helpUrl)
     {
@@ -619,26 +619,26 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
             .' alt ="'.$langHelp.'"'
             .' align="right"'
             .' hspace="30">'
-            .'</a>';
+            .'</a>'."\n";
     }
 
 
     if ( isset($titleElement['supraTitle']) )
     {
-        $string .= '<small>'.$titleElement['supraTitle'].'</small><br />';
+        $string .= '<small>'.$titleElement['supraTitle'].'</small><br />'."\n";
     }
 
     if ( isset($titleElement['mainTitle']) )
     {
-        $string .= $titleElement['mainTitle'];
+        $string .= $titleElement['mainTitle']."\n";
     }
 
     if ( isset($titleElement['subTitle']) )
     {
-        $string .= '<br /><small>'.$titleElement['subTitle'].'</small>';
+        $string .= '<br /><small>'.$titleElement['subTitle'].'</small>'."\n";
     }
 
-    $string .='</h3>';
+    $string .= '</h3>'."\n\n";
 
     return $string;
 }
@@ -900,7 +900,7 @@ function claro_disp_auth_form($cidRequired = false)
 
     $sourceUrl = $_SERVER['REQUEST_URI'];
     
-    // note : somme people say that REQUEST_URI isn't available on IIS.
+    // note : some people say that REQUEST_URI isn't available on IIS.
     // It has to be checked  ...
 
     if ( ! headers_sent () )
@@ -1002,13 +1002,13 @@ function claro_disp_select_course()
 function claro_disp_message_box($message)
 {
     return 
-    '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
+    "\n".'<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
     .'<tr>'
     .'<td>'
     .$message
     .'</td>'
     .'</tr>'
-    .'</table>'."\n";
+    .'</table>'."\n\n";
 }
 
 /**
@@ -1319,7 +1319,7 @@ echo '<textarea '
 <script type="text/javascript" src="<?php echo $incPath; ?>/lang/<?php echo $iso639_1_code; ?>.js"></script>
 <script type="text/javascript" src="<?php echo $incPath; ?>/dialog.js"></script>
 
-<script    type="text/javascript">
+<script type="text/javascript">
 var    editor = null;
 function initEditor() {
   editor = new HTMLArea("<?php echo    $name ?>");
@@ -1684,15 +1684,15 @@ function claro_get_language_list()
     $dirname = $includePath . '/../lang/';
     
     if($dirname[strlen($dirname)-1]!='/')
-    $dirname.='/';
+    $dirname .= '/';
     
     if (!file_exists($dirname)) trigger_error('lang repository not found',E_USER_WARNING);
     
-    $handle=opendir($dirname);
+    $handle = opendir($dirname);
     
     while ($entries = readdir($handle))
     {
-        if ($entries=='.' || $entries=='..' || $entries=='CVS')
+        if ($entries == '.' || $entries == '..' || $entries == 'CVS')
         continue;
         if (is_dir($dirname . $entries))
         {
