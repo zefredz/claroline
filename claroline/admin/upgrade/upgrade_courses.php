@@ -311,11 +311,9 @@ switch ($display)
                         /*
                          * Error: set versionDB of course to error
                          */
-                        $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionDb='error'
-                                            WHERE code = '".$currentCourseIDsys."'";
+                        
+                        save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,'error');
         
-                        $res = claro_sql_query($sqlFlagUpgrade);
                         if (mysql_errno() > 0)
                         {
                             $error = true;
@@ -328,10 +326,8 @@ switch ($display)
                         /*
                          * Success: set versionDB of course to new version
                          */
-                        $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionDb='". $newDbVersion ."'
-                                            WHERE code = '".$currentCourseIDsys."'";                
-                        $res = @mysql_query($sqlFlagUpgrade);
+
+                        save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,$newDbVersion);
     
                         if (mysql_errno() > 0)
                         {
@@ -417,10 +413,8 @@ switch ($display)
                     if ( $fs_error_counter > 0 )
                     {
                         $count_error_total += $fs_error_counter;
-                        $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionClaro='error'
-                                            WHERE code = '".$currentCourseIDsys."'";                
-                        $res = @mysql_query($sqlFlagUpgrade);
+
+                        save_course_current_version($currentCourseIDsys,'error',$currentCourseDbVersion);
                         
                         if (mysql_errno() > 0)
                         {   
@@ -434,11 +428,8 @@ switch ($display)
                         /*
                          * Success: set versionClaro of course to new version
                          */
-                        $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                            SET versionClaro='".$newClarolineVersion."'
-                                            WHERE code = '".$currentCourseIDsys."'";                
-                        
-                        $res = @mysql_query($sqlFlagUpgrade);
+
+                        save_course_current_version($currentCourseIDsys,$newClarolineVersion,$currentCourseDbVersion);
 
                         if (mysql_errno() > 0)
                         {

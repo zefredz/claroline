@@ -75,6 +75,7 @@ function upgrade_init_global()
     // New Version
     $new_version = get_new_version();
     $newClarolineVersion = $new_version['claroline'];
+    $newDbVersion = $new_version['db'];
 
 }
 
@@ -399,9 +400,9 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
         $sql = "SELECT MAX(def_rank) AS `max_rank`
                 FROM `" . $tbl_tool . "`";
     
-        $max_rank =  claro_sql_query_get_single_value($sql);
-    
-        $default_rank = $max_rank + 1 ;
+        $default_rank =  claro_sql_query_get_single_value($sql);
+        
+        $default_rank++ ;
     
         // add tool in course_tool table
         $sql = "INSERT INTO `" . $tbl_tool . "`
@@ -421,6 +422,29 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
     
 }
 
+/**
+ * Save the file currentVersion.inc.php
+ *
+ * @param string course code
+ * @param string claroline version
+ * @param string database version
+ *
+ * @since  1.7
+ */
 
+function save_course_current_version ( $course_code, $fileVersion, $databaseVersion )
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    // query to update version of course
+
+    $sql = " UPDATE `" . $tbl_mdb_names['course'] . "`
+             SET versionDb = '" . addslashes($databaseVersion) . "',
+                 versionClaro = '" . addslashes($fileVersion) . "'
+             WHERE code = '". $course_code ."'";
+
+    $res = claro_sql_query($sql);
+
+}
 
 ?>
