@@ -50,55 +50,76 @@ $claro_notifier = new Notifier( $claro_event_manager); //listener used for NOTIF
 // "document_visible" is the name of the event that you want to track
 // $notif_listen1 is the listener created for this survey
 
-$claro_notifier->addListener( 'update', "document_visible");
-$claro_notifier->addListener( 'update', "document_file_added");
-$claro_notifier->addListener( 'update', "document_file_modified");
-$claro_notifier->addListener( 'update', "document_htmlfile_created");
-$claro_notifier->addListener( 'update', "document_htmlfile_edited");
+//global events
+
+$claro_notifier->addListener( 'delete_notif', "course_deleted");
+
+//document tool events
+
+$claro_notifier->addListener( 'update',       "document_visible");
+$claro_notifier->addListener( 'update',       "document_file_added");
+$claro_notifier->addListener( 'update',       "document_file_modified");
+$claro_notifier->addListener( 'update',       "document_htmlfile_created");
+$claro_notifier->addListener( 'update',       "document_htmlfile_edited");
 $claro_notifier->addListener( 'delete_notif', "document_file_deleted");
 $claro_notifier->addListener( 'delete_notif', "document_invisible");
 
-$claro_notifier->addListener( 'update', "agenda_event_visible");
-$claro_notifier->addListener( 'update', "agenda_event_added");
-$claro_notifier->addListener( 'update', "agenda_event_modified");
+//agenda events
+
+$claro_notifier->addListener( 'update',       "agenda_event_visible");
+$claro_notifier->addListener( 'update',       "agenda_event_added");
+$claro_notifier->addListener( 'update',       "agenda_event_modified");
 $claro_notifier->addListener( 'delete_notif', "agenda_event_deleted");
 $claro_notifier->addListener( 'delete_notif', "agenda_event_invisible");
 
-$claro_notifier->addListener( 'update', "anouncement_visible");
-$claro_notifier->addListener( 'update', "anouncement_added");
-$claro_notifier->addListener( 'update', "anouncement_modified");
+//announcement tool events
+
+$claro_notifier->addListener( 'update',       "anouncement_visible");
+$claro_notifier->addListener( 'update',       "anouncement_added");
+$claro_notifier->addListener( 'update',       "anouncement_modified");
 $claro_notifier->addListener( 'delete_notif', "anouncement_deleted");
 $claro_notifier->addListener( 'delete_notif', "anouncement_invisible");
 
+//course description tool events
 
-$claro_notifier->addListener( 'update', "course_description_added");
-$claro_notifier->addListener( 'update', "course_description_modified");
-$claro_notifier->addListener( 'update', "course_description_visible");
+$claro_notifier->addListener( 'update',       "course_description_added");
+$claro_notifier->addListener( 'update',       "course_description_modified");
+$claro_notifier->addListener( 'update',       "course_description_visible");
 
-$claro_notifier->addListener( 'update', "exercise_visible");
+//exercise tool events
+
+$claro_notifier->addListener( 'update',       "exercise_visible");
 $claro_notifier->addListener( 'delete_notif', "exercise_invisible");
 $claro_notifier->addListener( 'delete_notif', "exercise_deleted");
 
-$claro_notifier->addListener( 'update', "learningpath_created");
-$claro_notifier->addListener( 'update', "learningpath_visible");
+//learning path tool events
+
+$claro_notifier->addListener( 'update',       "learningpath_created");
+$claro_notifier->addListener( 'update',       "learningpath_visible");
 $claro_notifier->addListener( 'delete_notif', "learningpath_invisible");
 $claro_notifier->addListener( 'delete_notif', "learningpath_deleted");
 
-$claro_notifier->addListener( 'update', "work_added");
-$claro_notifier->addListener( 'update', "work_visible");
+//assignment tool events
+
+$claro_notifier->addListener( 'update',       "work_added");
+$claro_notifier->addListener( 'update',       "work_visible");
 $claro_notifier->addListener( 'delete_notif', "work_invisible");
 $claro_notifier->addListener( 'delete_notif', "work_deleted");
-$claro_notifier->addListener( 'update', "work_submission_posted");
-$claro_notifier->addListener( 'update', "work_correction_posted");
+$claro_notifier->addListener( 'update',       "work_submission_posted");
+$claro_notifier->addListener( 'update',       "work_correction_posted");
+
+//forum tool events
 
 $claro_notifier->addListener( 'update', "forum_new_topic");
 $claro_notifier->addListener( 'update', "forum_answer_topic");
 $claro_notifier->addListener( 'update', "introsection_modified");
 $claro_notifier->addListener( 'update', "toollist_changed");
 
-$claro_notifier->addListener( 'update', "wiki_added");
-$claro_notifier->addListener( 'update', "wiki_modified");
+//wiki tool events
+
+$claro_notifier->addListener( 'update',       "wiki_added");
+$claro_notifier->addListener( 'update',       "wiki_modified");
 $claro_notifier->addListener( 'delete_notif', "wiki_deleted");
-$claro_notifier->addListener( 'update', "wiki_page_modified");
-$claro_notifier->addListener( 'update', "wiki_page_added");
+$claro_notifier->addListener( 'update',       "wiki_page_modified");
+$claro_notifier->addListener( 'update',       "wiki_page_added");
 ?>

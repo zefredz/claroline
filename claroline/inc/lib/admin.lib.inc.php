@@ -51,6 +51,7 @@ function delete_course($code)
     global $dbGlu;
     global $coursesRepositorySys;
     global $garbageRepositorySys;
+    global $eventNotifier;
 
     //declare needed tables
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -81,7 +82,10 @@ function delete_course($code)
             WHERE course_code= "' . addslashes($currentCourseId) . '"';
 
     claro_sql_query($sql);
-
+    
+    //notify the course deletion event
+    
+    $eventNotifier->notifyCourseEvent('course_deleted', $code, 0, 0, 0,'0');
 
     if ($currentCourseId == $code)
     {
