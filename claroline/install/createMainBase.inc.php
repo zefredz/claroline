@@ -37,6 +37,7 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
   `description` text,
   `faculte` varchar(12) default NULL,
   `visible` tinyint(4) default NULL,
+  `enrollment_key` varchar(255) default NULL,
   `cahier_charges` varchar(250) default NULL,
   `scoreShow` int(11) NOT NULL default '1',
   `titulaires` varchar(255) default NULL,
