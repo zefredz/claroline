@@ -122,8 +122,6 @@ if ( $is_allowedToEdit )
     {
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
-    
-
 
         if ($_REQUEST['user_id'] == 'allStudent')
         {
@@ -167,11 +165,9 @@ if ( $is_allowedToEdit )
    Get total user
   ----------------------------------------------------------------------*/
 
-$sqlNbUser = 'SELECT count(user.user_id) `nb_users`
-              FROM `' . $tbl_rel_course_user . '` `cours_user`,
-                   `' . $tbl_users . '` `user`
-              WHERE `cours_user`.`code_cours` = "' . addslashes($currentCourseID) . '"
-                AND `cours_user`.`user_id` = `user`.user_id';
+$sqlNbUser = "SELECT count(user.user_id) `nb_users`
+              FROM `" . $tbl_rel_course_user . "` `cours_user`
+              WHERE `cours_user`.`code_cours` = '" . addslashes($currentCourseID) . "'";
 
 $userTotalNb = claro_sql_query_fetch_all($sqlNbUser);
 
