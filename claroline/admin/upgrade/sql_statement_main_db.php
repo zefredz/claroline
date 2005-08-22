@@ -107,6 +107,9 @@ function query_to_upgrade_main_database_to_17 ()
       KEY `course_id` (`course_code`)
     ) TYPE=MyISAM";
 
+    // add enrollment key
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `enrollment_key` varchar(255) default NULL";
+
     return $sqlForUpdate;
 }
 
