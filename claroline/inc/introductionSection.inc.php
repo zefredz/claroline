@@ -68,6 +68,15 @@ if ($intro_editAllowed)
                         `content` = '" . addslashes($intro_content) . "'";
 
            $introId = claro_sql_query_insert_id($sql);
+
+           if ( $introId )
+           {
+                $eventNotifier->notifyCourseEvent('introsection_modified', $_cid, $_tid, $moduleId, $_gid, '0');
+           }
+           else
+           {
+             // unsucceed ...
+           }
     }
 
     if( $introCmd == 'exEd')
