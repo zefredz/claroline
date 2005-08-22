@@ -165,7 +165,7 @@ if ( $is_allowedToEdit )
    Get total user
   ----------------------------------------------------------------------*/
 
-$sqlNbUser = "SELECT count(user.user_id) `nb_users`
+$sqlNbUser = "SELECT count(user_id) `nb_users`
               FROM `" . $tbl_rel_course_user . "` `cours_user`
               WHERE `cours_user`.`code_cours` = '" . addslashes($currentCourseID) . "'";
 
