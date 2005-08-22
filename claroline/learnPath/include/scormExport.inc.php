@@ -230,7 +230,7 @@ class ScormExport
     */
     function prepareQuiz($quizId, $raw_to_pass=50)
     {
-        global $langQuestion, $langOk,  $claro_stylesheet, $clarolineRepositorySys;
+        global $langQuestion, $langOk, $langScore, $claro_stylesheet, $clarolineRepositorySys;
         
         // those two variables are needed by display_attached_file()
         global $attachedFilePathWeb;
@@ -562,6 +562,7 @@ class ScormExport
     var weighting = ' . array_sum($questionPonderationList) . ';
     var rawScore;
     var scoreCommited = false;
+    var showScore = true;
     var fillAnswerList = new Array();' . "\n";
     
         // Add the data for fillAnswerList
@@ -608,6 +609,7 @@ class ScormExport
 	        doLMSCommit();
 	        doLMSFinish();
 	        scoreCommited = true;
+	        if(showScore) alert(\''.clean_str_for_javascript($langScore).' :\n\' + rawScore + \'/\' + weighting );
 		}
     }
 
