@@ -561,6 +561,7 @@ class ScormExport
     var raw_to_pass = ' . $raw_to_pass . ';
     var weighting = ' . array_sum($questionPonderationList) . ';
     var rawScore;
+    var scoreCommited = false;
     var fillAnswerList = new Array();' . "\n";
     
         // Add the data for fillAnswerList
@@ -574,37 +575,40 @@ class ScormExport
         
     function calcScore()
     {
-        rawScore = CalculateRawScore(document, ' . $idCounter . ', fillAnswerList);
-        var score = Math.max(Math.round(rawScore * 100 / weighting), 0);
-        var oldScore = doLMSGetValue("cmi.core.score.raw");
-        
-        doLMSSetValue("cmi.core.score.max", weighting);
-        doLMSSetValue("cmi.core.score.min", 0);
-        
-        computeTime();
-        
-        if (score > oldScore) // Update only if score is better than the previous time.
-        {
-            doLMSSetValue("cmi.core.score.raw", rawScore);
-        }
-        
-        var mode = doLMSGetValue( "cmi.core.lesson_mode" );
-        if ( mode != "review"  &&  mode != "browse" )
-        {
-            var oldStatus = doLMSGetValue( "cmi.core.lesson_status" )
-            if (score >= raw_to_pass)
-            {
-                doLMSSetValue("cmi.core.lesson_status", "passed");
-            }
-            else if (oldStatus != "passed" ) // If passed once, never mark it as failed.
-            {
-                doLMSSetValue("cmi.core.lesson_status", "failed");
-            }
-        }
-        
-        doLMSCommit();
-        doLMSFinish();
-            
+		if( !scoreCommited )
+		{
+	        rawScore = CalculateRawScore(document, ' . $idCounter . ', fillAnswerList);
+	        var score = Math.max(Math.round(rawScore * 100 / weighting), 0);
+	        var oldScore = doLMSGetValue("cmi.core.score.raw");
+
+	        doLMSSetValue("cmi.core.score.max", weighting);
+	        doLMSSetValue("cmi.core.score.min", 0);
+
+	        computeTime();
+
+	        if (score > oldScore) // Update only if score is better than the previous time.
+	        {
+	            doLMSSetValue("cmi.core.score.raw", rawScore);
+	        }
+
+	        var mode = doLMSGetValue( "cmi.core.lesson_mode" );
+	        if ( mode != "review"  &&  mode != "browse" )
+	        {
+	            var oldStatus = doLMSGetValue( "cmi.core.lesson_status" )
+	            if (score >= raw_to_pass)
+	            {
+	                doLMSSetValue("cmi.core.lesson_status", "passed");
+	            }
+	            else if (oldStatus != "passed" ) // If passed once, never mark it as failed.
+	            {
+	                doLMSSetValue("cmi.core.lesson_status", "failed");
+	            }
+	        }
+
+	        doLMSCommit();
+	        doLMSFinish();
+	        scoreCommited = true;
+		}
     }
 
 </script>
