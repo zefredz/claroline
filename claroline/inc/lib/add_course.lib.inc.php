@@ -707,11 +707,18 @@ claro_sql_query("
     )");
 
 ############################## INTRODUCTION #######################################
-claro_sql_query("
-    CREATE TABLE `".$TABLEINTROS."` (
-    id int(11) NOT NULL default '1',
-        texte_intro text,
-    PRIMARY KEY (id))");
+
+claro_sql_query("CREATE TABLE `".$TABLEINTROS."` (
+  `id` int(11) NOT NULL auto_increment,
+  `tool_id` int(11) NOT NULL default '0',
+  `title` varchar(255) default NULL,
+  `display_date` datetime default NULL,
+  `content` text,
+  `rank` int(11) default '1',
+  `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
+  PRIMARY KEY  (`id`)
+)");
+
 
 ############################# LEARNING PATHS ######################################
 claro_sql_query     ("
