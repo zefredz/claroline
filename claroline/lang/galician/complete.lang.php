@@ -9,6 +9,24 @@ $l_here = "aqu&iacute;";
 $l_indextitle = "&Iacute;ndice do foro";
 $l_lastpost = "&Uacute;ltimo \$1_post";
 $l_notify = "Enviar notificaci&oacute;n por correo electr&oacute;nico cando env&iacute;en mensaxes de resposta";
+$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque 
+					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e 
+					vostede solicitara previamente que se lle notificase este feito.
+
+					Pode vostede ve-lo tema de conversa en:
+
+					http://\$SERVER_NAME\$url_phpbb/viewtopic.\$phpEx?topic=\$topic&forum=\$forum
+
+
+					Ou ve-lo &iacute;ndice do foro de \$sitename en:
+
+					http://\$SERVER_NAME\$url_phpbb
+
+					Grazas por emprega-los foros de \$sitename.
+
+					Que te&ntilde;a un bo d&iacute;a.
+
+					\$email_sig";
 $l_notifysubj = "Foi enviada unha resposta &oacute; seu tema de conversa";
 $l_notopics = "Non hai temas de conversa para este foro. Pode vostede propo&ntilde;er un.";
 $l_posted = "Enviado";
@@ -45,9 +63,6 @@ $langAddCommentOptionnal = "Engadir un comentario (opcional) :";
 $langAddEvent = "Engadir un evento";
 $langAddExternalTool = "Engadir ligaz&oacute;n externa";
 $langAddFeedback = "Engadir observaci&oacute;n";
-$langAddForCat = "Engadir foro nunha categor&iacute;a";
-$langAddForums = "Para engadir foros, prema en \"Foros\" na categor&iacute;a que elixa. Unha categor&iacute;a 
-								baleira (sen foros) non ser&aacute; visible para os estudantes";
 $langAddImage = "Engadir imaxe";
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAddListUser = "Engadir unha lista de usuarios";
@@ -85,6 +100,7 @@ $langAdministrator = "Administrador";
 $langAdminsOfThisCours = "xesti&oacute;n do curso";
 $langAdmitError = "Reco&ntilde;ece-los propios erros para invitar &oacute; interlocutor a face-lo mesmo.";
 $langAdvanced = "Avanzado";
+$langAgain = "Int&eacute;nteo de novo!";
 $langAgenda = "Axenda";
 $langAgendaNextEvents = "Pr&oacute;ximos eventos na axenda";
 $langAlertBlockingMakedInvisible = "Este m&oacute;dulo est&aacute; bloqueado. 
@@ -132,7 +148,6 @@ $langAnonymousAttemptsAllowed = "Permitido : non grava-los nomes de usuario no r
 $langAnonymousAttemptsNotAllowed = "Non permitido : grava-los nomes de usuario no rexistro de estat&iacute;sticas, os 
 									usuarios an&oacute;nimos non poder&aacute;n face-lo exercicio.";
 $langAnonymousUserAccessCount = "Conta de accesos an&oacute;nimos : ";
-$langAnotherCreateSite = "Crear outra web para o curso";
 $langAnswer = "Resposta";
 $langAnswerRequired = "&Eacute; preciso dar unha resposta";
 $langAnswerType = "Tipo de resposta";
@@ -183,7 +198,6 @@ $langAttemptsAllowed = "intentos permitidos";
 $langAuthentication = "Autentificaci&oacute;n";
 $langAvailableFrom = "Dispo&ntilde;ible desde";
 $langBack = "Volver";
-$langBackCat = "Volver a categor&iacute;as";
 $langBackHomeOf = "Voltar &aacute; P&aacute;xina de Inicio de ";
 $langBackList = "Volver &aacute; lista";
 $langBackModule = "Volver &aacute; lista";
@@ -223,19 +237,14 @@ $langCampusRegistrationSubmitted = "O seu campus foi enviado e estase agardando 
 $langCampusRemoved = "<strong>Eliminado</strong><p>O seu campus foi eliminado da p&aacute;xina de Claroline.net.</p>";
 $langCampusSubmitted = "<strong>Enviado</strong><p>Agardando a validaci&oacute;n por parte do equipo de Claroline.net.</p>";
 $langCancel = "Cancelar";
-$langCannotAddForumInGroups = "Os foros de grupos son engadidos cando se crea un grupo e eliminados 
-								cando se elimina o grupo correspondente.";
 $langCannotBeBlank = "Non lle pode deixa-lo nome dunha clase en branco";
-$langCannotBeDeleted = "non pode ser eliminado";
 $langCannotCopyFile = "Non se pode copia-lo ficheiro";
 $langCannotInitChat = "Erro : non se pode inicializa-lo chat";
-$langCannotMoveGroupForum = "Os foros de grupos non pode ser movidos";
 $langCatagoryGroup = "Foros de grupos";
 $langCatagoryMain = "Principal";
 $langCategories = "Categor&iacute;as de curso";
 $langCategory = "Categor&iacute;a";
 $langCfgSetting = "Configuraci&oacute;n da plataforma";
-$langChangeCat = "Mudar de categor&iacute;a";
 $langChangePwdexp = "Escriba o novo contrasinal d&uacute;as veces para mudalo. Deixe os campos baleiros para conserva-lo existente.";
 $langChangeRaw = "Muda-la porcentaxe m&iacute;nima de acertos para superar este m&oacute;dulo : ";
 $langChangedTool = "Acceso &aacute;s ferramentas mudado";
@@ -347,6 +356,7 @@ $langCourseCreate = "Crea-la p&aacute;xina web dun curso";
 $langCourseCreator = "Creador do curso";
 $langCourseDelete = "O curso foi borrado con &eacute;xito";
 $langCourseDescription = "Escriba aqu&iacute; a descrici&oacute;n que aparece na lista de cursos";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Xestor do curso";
 $langCourseManagerStatusToUser = "Creador do curso estatus a %s %s";
@@ -545,7 +555,6 @@ $langDocumentContent = "Contido do documento : ";
 $langDocumentInModule = "Documento no m&oacute;dulo";
 $langDocumentName = "Nome do documento : ";
 $langDocumentation = "Documentaci&oacute;n";
-$langDocuments = "Documentos";
 $langDocumentsAccess = "Documentos &oacute;s que se accedeu";
 $langDocumentsDetails = "Documentos descargados polo estudante";
 $langDocumentsTitleCountColumn = "Descargas totais";
@@ -592,6 +601,7 @@ $langEnrollClass = "Matricularse nunha clase";
 $langEnrollToNewCourse = "Matricularse nun novo curso";
 $langEnrollUser = "Matricular un usuario";
 $langEnter = "Entrar";
+$langEnter2passToChange = "Escribi-lo novo contrasinal d&uacute;as veces para mudalo e deixar baleiro para mantelo";
 $langEnterMail = "Escriba o seu enderezo de correo electr&oacute;nico e enviar&eacute;moslle o seu contrasinal.";
 $langErrorAssetNotFound = "Recurso non atopado : ";
 $langErrorCannotReadRSSFile = "Erro : non se pode le-la alimentaci&oacute;n RSS";
@@ -834,8 +844,6 @@ $langFinish = "Finalizar";
 $langFirstName = "Nome";
 $langFirstSubmission = "Primeira presentaci&oacute;n";
 $langFirstname = "Nome";
-$langForCat = "Foros da categor&iacute;a";
-$langForCategories = "Categor&iacute;as de foros";
 $langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute;ncrona e escrita. A diferencia do 
 						correo electr&oacute;nico, o foro coloca a discusi&oacute;n nun espazo p&uacute;blico ou 
 						semi-p&uacute;blico.</p><p>Para emprega-la ferramenta do foro, os estudantes s&oacute; 
@@ -857,15 +865,11 @@ $langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute
 						discutir no mesmo, pero tam&eacute;n pode ser unha explicaci&oacute;n sobre a s&uacute; raz&oacute;n de ser. 
 						Se vostede crea, por calquera raz&oacute;n, un foro 'Chamadas de axuda', poder&aacute; vostede  engadir como 
 						descrici&oacute;n: 'Sinalar dificultades en relaci&oacute;n co contido ou en relaci&oacute;n co dispositivo'.";
-$langForName = "Nome do foro";
 $langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oacute;ns e subcuesti&oacute;ns, a que 
 							reco&ntilde;eza que non sabe o que di saber.";
 $langFormula = "Atentamente, o seu profesor";
 $langForum = "Foros";
-$langForumCategoryDeleted = "Categor&iacute;a de foro eliminada";
-$langForumDeleted = "Foro eliminado";
 $langForumGroup = "Foro do grupo";
-$langForumModified = "O foro foi modificado";
 $langForums = "Foros";
 $langFree = "Libre";
 $langFrom = "desde";
@@ -1331,7 +1335,6 @@ $langMinuteShort = "min.";
 $langMissing = "perdido";
 $langMissingImagesDetected = "Detect&aacute;ronse imaxes perdidas";
 $langMissingValue = "Valor perdido";
-$langModCatName = "Modificar nome de categor&iacute;a";
 $langModeVerbose = "Modo extendido";
 $langModifAnn = "Modificar este anuncio";
 $langModifDone = "A informaci&oacute;n foi modificada";
@@ -1374,7 +1377,6 @@ $langMysqlNames = "Nomes da Base de Datos MySQL e das t&aacute;boas";
 $langMysql_Repository = "Repositorio de MySQL";
 $langNULLValue = "Baleiro (ou NULL)";
 $langName = "Nome";
-$langNameCat = "O nome da categor&iacute;a foi modificado";
 $langNameChanged = "O nome da clase foi mudado";
 $langNameDir = "Nome do novo directorio";
 $langNameOfLang = "Array";
@@ -1476,7 +1478,6 @@ $langOnly = "S&oacute;";
 $langOptional = "Opcional";
 $langOrder = "Ordear";
 $langOrderUp = "Ordear";
-$langOrganisation = "Administraci&oacute;n do foro";
 $langOrphanQuestions = "Cuesti&oacute;ns orfas";
 $langOtherCourses = "Lista de cursos";
 $langOtherWorks = "outras funci&oacute;ns";
@@ -1536,7 +1537,6 @@ $langPublic = "P&uacute;blico";
 $langPublicAccess = "Acceso p&uacute;blico desde a p&aacute;xina de inicio incluso sen estar rexistrado";
 $langPublicOnly = "S&oacute; cursos p&uacute;blicos";
 $langPublish = "Publicar";
-$langQantity = "Cantidade : ";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grupos";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un usuario pode ser membro de, como m&aacute;ximo, ";
 $langQualificationsAndGoals = "Cualificaci&oacute;ns e metas";
@@ -1575,7 +1575,6 @@ $langRegisterTheNewUser = "Rexistrar este usuario nun curso";
 $langRegisterUser = "Matricularse nun novo curso";
 $langRegisterUserToClass = "Rexistrar usuario na clase";
 $langRegistered = "Rexistrado";
-$langRegistration = "Inscrici&oacute;n";
 $langRemainingSteps = "Pasos finais";
 $langRemove = "Eliminar";
 $langRemoveAdminLevel = "Eliminado como administrador";
@@ -1621,7 +1620,6 @@ $langSearchResult = "Resultados da procura";
 $langSearchUser = "Procurar usuario";
 $langSearchUserAdvanced = "Procura de usuario avanzada";
 $langSecondShort = "seg.";
-$langSeeAgenda = "Ve-la mi&ntilde;a axenda";
 $langSeeUserSettings = "Ver configuraci&oacute;n de usuario";
 $langSeebelowthefilesyoucaneditfromthistool = "Vexa abaixo os ficheiros que pode vostede editar desde esta ferramenta";
 $langSeen = "Visto";
@@ -1792,7 +1790,6 @@ $langUpgradeStep2 = "Paso 2 de 3: actualizaci&oacute;n das t&aacute;boas princip
 $langUpgradeStep3 = "Paso 3 de 3: actualizaci&oacute;n dos cursos";
 $langUpgradeSucceed = "A <em>Ferramenta de Actualizaci&oacute;n de Claroline</em> actualizou completamente 
 										a s&uacute;a plataforma";
-$langUpload = "Cargar";
 $langUploadAndZipEnd = "Arquivo zip cargado e descomprimido";
 $langUploadDoc = "Cargar documento";
 $langUploadEnd = "Rematou a carga";
@@ -1850,8 +1847,6 @@ $langUserIsPlaformAdmin = "&Eacute; o administrador da plataforma";
 $langUserName = "Nome de usuario";
 $langUserNoCourseToDisplay = "Non hai cursos para amosar";
 $langUserNotInClass = "O usuarios non est&aacute; na clase";
-$langUserNotUnsubscribed = "Fallou desinscrici&oacute;n!!! <br> Este usuario non pode ser desinscrito,<br>
-									vostede non pode desinscribir a un xestor de curso, mude primeiro a configuraci&oacute;n";
 $langUserNotUnsubscribedFromCourse = "Erro!. Non pode vostede dar de baixa a un xestor de curso";
 $langUserNumber = "n&uacute;mero";
 $langUserOneByOneExplanation = "El (ela) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n 
@@ -1874,7 +1869,6 @@ $langUsersMin = "usuarios";
 $langValvas = "&Uacute;ltimos anuncios";
 $langViMod = "Visibilidade modificada";
 $langView = "Ver";
-$langViewCourse = "Ver curso";
 $langViewMode = "Ver modo";
 $langViewPlatFormError = "Escanar faios t&eacute;nicos";
 $langViewPlatFormStatistics = "Estat&iacute;sticas da plataforma";
@@ -1882,7 +1876,6 @@ $langViewToolList = "Ve-la lista de t&oacute;dalas ferramentas";
 $langVisibility = "Visibilidade";
 $langVisible = "Visible";
 $langVisits = "visitas";
-$langWeighting = "Prima";
 $langWeightingForEachBlank = "Especifique un peso para cada branco";
 $langWiki = "Wiki";
 $langWork = "Traballos";
@@ -1902,8 +1895,6 @@ $langYear = "Ano";
 $langYes = "Si";
 $langYesterday = "Onte";
 $langYouAreReg = "Est&aacute; vostede inscrito en";
-$langYouCannotDelCatOfGroupsForums = "Non pode vostede elimina-la categor&iacute;a de foro de grupo. 
-Se precisa vostede eliminar foros de grupo, debe vostede de elimina-lo grupo";
 $langYourAccountParam = "Estes son o seu nome de usuario e contrasinal";
 $langYourBestScore = "O seu mellor resultado";
 $langYourReg = "A s&uacute;a inscrici&oacute;n en";
@@ -1931,7 +1922,6 @@ $lang_course_enrollment = "Cursos do usuario";
 $lang_do_you_want_to_continue = "Desexa continuar?";
 $lang_enroll = "Matricularse";
 $lang_enroll_to_a_new_course = "Matricularse nun novo curso";
-$lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
 $lang_faculty_CanHaveCatCourse = "Pode ter cursos : ";
 $lang_faculty_CatHaveCat = "Esta categor&iacute;a cont&eacute;n outras categor&iacute;as, debe vostede 
 											de eliminalas antes!";
@@ -1959,7 +1949,6 @@ $lang_fileUpgrade = "Actualizaci&oacute;n de ficheiro :";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_htAccessIncPath_added = "Directorio <em>inc</em> protexido";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "se escolle vostede continuar, as li&ntilde;as con erros ser&aacute;n simplemente ignoradas";
-$lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
 $lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
 $lang_my_personnal_course_list = "Lista de cursos persoal";
 $lang_no_access_here = "Acceso denegado";
@@ -2012,7 +2001,6 @@ $lang_select_course_in = "Seleccionar curso en ";
 $lang_select_course_in_search_results = "Seleccionar curso nos resultados da procura";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Completouse o proceso de actualizaci&oacute;n de Claroline";
 $lang_the_following_errors_were_found = "Atop&aacute;ronse os seguintes erros";
-$lang_this_course_is_protected = "Este curso est&aacute; protexido";
 $lang_unsubscribe = "Desinscribirse";
 $lang_upgradeToolCannotUpgradeThisCourse = "A ferramenta de actualizaci&oacute;n non &eacute; capaz de actualizar este curso.<br>
 											Solucione en primeiro lugar o problema t&eacute;cnico e relance logo a ferramenta
@@ -2024,8 +2012,5 @@ $lang_your_enrollment_to_the_course_has_been_removed = "A s&uacute;a subscrici&o
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
 														matriculado neste curso";
 $langcatcreated = "A nova categor&iacute;a foi creada.";
-$langemptycatname = "Debe vostede de lle dar un nome &aacute; s&uacute;a nova categor&iacute;a!";
-$langemptyforumname = "Debe vostede de lle dar un nome &oacute; seu novo foro!";
-$langforumcreated = "O novo foro foi creado.";
 $langimportLearningPath = "Importar unha secuencia de aprendizaxe";
 ?>

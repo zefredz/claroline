@@ -1,20 +1,13 @@
 <?php 
 $l_author = "Tekijä";
-$l_banned = "Sinut on poistettu tältä foorumilta. Ota yhteyttä ylläpitäjiin.";
 $l_body = "Viesti teksti";
-$l_by = "Lähettäjältä";
 $l_click = "Klikkaa";
 $l_delete = "Poista tämä viesti";
 $l_deleted = "Sinun Lähettäjä on poistettu.";
 $l_emptymsg = "Sinun täytyy kirjoittaa Viesti viestiin. Et voi lähettää tyhjää Viesti.";
-$l_error = "Virhe";
-$l_go = "Mene";
-$l_guest = "Vieras";
 $l_here = "Tästä";
 $l_indextitle = "Foorumien lista";
 $l_lastpost = "Viimeinen Lähettäjä";
-$l_nopostlock = "Et voi lähettää viestiä vastaukseksi tähän aiheeseen, se on lukittu.";
-$l_noposts = "Ei Lähettäjät";
 $l_notify = "Huomauta minua sähköpostilla, kun viestiin on vastattu.";
 $l_notifybody = "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun  foorumeihin on vastattu.
 
@@ -36,7 +29,6 @@ $l_poster = "Juliste";
 $l_posts = "Lähettäjät";
 $l_returnindex = "Palaa foorumien listaan";
 $l_returntopic = "Palaa foorumien aiheiden listaan.";
-$l_selectforum = "Valitse Foorumi";
 $l_separator = "» »";
 $l_stored = "Sinun Viesti on tallennettu tietokantaan.";
 $l_subject = "Viestin aihe";
@@ -53,8 +45,6 @@ $langAddAnn = "Lisää ilmoitus";
 $langAddCategory = "Lisää kategoria";
 $langAddComment = "Lisää kommentti:";
 $langAddEvent = "Lisää tapahtuma";
-$langAddForCat = "Lisää foorumi kategoriaan";
-$langAddForums = "Lisää keskusteluryhmä, klikkaa 'Foorumit' kategoriassa. Tyhjä kategoria ilman foorumeita ei näy opiskelijoille";
 $langAddIntro = "Lisää johdantoteksti";
 $langAddPage = "Lisää sivu";
 $langAddress = "Osoite ";
@@ -72,12 +62,10 @@ $langAnonymous = "Tuntematon";
 $langAnswer = "Vastaus";
 $langAntique = "Antiikin filosofian hitoria";
 $langBack = "Takaisin kurssin tietoihin";
-$langBackCat = "Takaisin kategorioihin";
 $langBackHomeOf = "Takaisin oamlle sivulle: ";
 $langBackList = "Takaisin listaan";
 $langByDel = "Tämän kurssin sivuston poistaminen poistaa lopullisesti kaikki dokumentit sekä poistaa opiskelijoiden rekisteröinnit, ei kuitenkaan muilta kursseilta.<p>Haluatko varmasti poistaa kurssin";
 $langCategories = "Kategoriat";
-$langChangeCat = "Vaihda kategoriaa";
 $langChoice = "Valintasi";
 $langClose = "Sulje ikkuna";
 $langCode = "Kurssin koodi";
@@ -168,17 +156,12 @@ $langEmptyFields = "Jätit jotkut kentistä tyhjiksi. Mene takaisin ja yritä uudes
 $langEnter = "Sisään.";
 $langEx = "Esimerkki: <i>Kirjallisuuden historia</i>";
 $langExMessage = "Testiviesti";
-$langExercice = "Harjoitus";
 $langExerciceEx = "Testitehtävä";
 $langExercices = "harjoitukset";
 $langExercises = "Harjoitukset";
 $langExplanation = "Sivun täytyy olla HTML-muodossa. Jos haluat lähettää sivun ei-HTML-muodossa (PDF, DOC, SWD, jne.), niin käytä<a href=../document/document.php>Dokumentti-sivua</a>";
-$langFields = "Jotkut kentät ovat tyhjiä";
 $langFieldsRequ = "Täytä kaikki kentät";
 $langFileExists = "Toiminto on mahdoton.<br>Samanniminen tiedosto on olemassa.";
-$langFilled = "Jätit jotkut kentistä tyhjiksi.";
-$langForCat = "Foorumien kategoriat";
-$langForCategories = "Foorumien kategoriat";
 $langForContent = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja ajasta riippumatonta. Sähköposti on kahden henkilön välistä keskustelua, sitä vastoin foorumi mahdollistaa julkisen tai puolijulkisen keskustelun.</p>
 <p>Teknisestä näkökulmasta katsoen oppilaat tarvitsevat vain selaimen osallistuakseen Clarolinen foorumeihin.<p>
 <p>Voit organisoida foorumin, klikkaa ylläpito-työkalua. Keskustelut on organisoitu sarjaksi seuraavalla tavalla:</p>
@@ -188,7 +171,6 @@ $langForContent = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja aja
 <p>Sinun täytyy ensiksi poistaa esimerkkiaihe ja muokata ensimmäisen foorumin nimeä. Sitten voit luoda 'julkiseen' kategoriaan muita foorumeita, ryhmittäin tai teemoittain. Tämä riippuu omista näkemyksistäsi opetuksen suhteen.</p>
 <p>Älä sekoita kategorioita ja foorumeita. Tyhjä kategoria ilman foorumeita ei näy opiskelijoille.</p>
 <p>Kuvaus foorumista voi olla lista sen jäsenistä, määritys tavoitteista kurssilla, tehtävä, teema ja niin edelleen.</p>";
-$langForName = "Foorumin nimi";
 $langForce = "Pakottaa puhekumppani kysymyksillä ja lisäkysymyksillä myöntämään, että hän ei tiedä, mitä hän väittää tietävänsä.";
 $langFormula = "Terveisin:";
 $langForums = "Foorumit";
@@ -229,7 +211,6 @@ Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa
 on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
 Valitse listasta kurssit, joihin haluat pääsyn.";
 $langMinute = "Minuutti";
-$langModCatName = "Muokkaa kategorian nimeä";
 $langModifDone = "Tietoja on muutettu";
 $langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
@@ -237,7 +218,6 @@ $langMonth = "Kuukausi";
 $langMonthNames = "Array";
 $langMove = "Siirrä";
 $langMyCourses = "Kurssini";
-$langNameCat = "Kategorian nimi on muutettu";
 $langNameDir = "Uuden hakemiston nimi";
 $langNameOfLang = "Array";
 $langNewEx = "Uusi harjoitus";
@@ -258,9 +238,7 @@ $langOkSent = "Sivu on lähetetty.<p>Se on linkitetty kurssin <a href=../..//inde
 $langOldToNew = "Invert";
 $langOn = "On";
 $langOneResp = "Eräs kurssin ylläpitäjistä";
-$langOrganisation = "Foorumien ylläpito";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";
-$langPassTwo = "Kaksi eri salasanaa!";
 $langPgTitle = "Sivun otsikko";
 $langPoweredBy = "Alusta";
 $langPrivateAccess = "Yksityinen pääsy, reisteröityminen suljettu (sisäänpääsy vain <a href=../user/user.php>käyttäjien listalta</a>)";
@@ -276,7 +254,6 @@ $langRegAdmin = "Luo kurssien sivustot (opettaja)";
 $langRegStudent = "Valitse kursseja (opiskelija)";
 $langRegUser = "registered users of the site";
 $langRegYou = "on rekisteröinyt sinut tälle kurssille";
-$langRegistration = "Rekisteröinti";
 $langRemove = "poista";
 $langRename = "Nimeä uudelleen";
 $langReply = "vastaus";
@@ -294,7 +271,6 @@ $langStatistics = "Statistiikka";
 $langStatus = "Tilanne";
 $langStudent = "Opiskelija";
 $langSubTitle = "Lisää linkki kurssin kotisivulle.";
-$langTaken = "on jo käytössä. valitse uusi.";
 $langTargetFac = "Kurssista vastaava koulutusala: ";
 $langTestForum = "testifoorumi";
 $langTheU = "Käyttäjä";
@@ -307,7 +283,6 @@ $langTrue = "Tosi";
 $langUnreg = "Reksiteröi pois";
 $langUnvalid = "have unvalid or no email address";
 $langUp = "Ylös";
-$langUpload = "Lisää";
 $langUploadEnd = "Lataus on päättynyt";
 $langUploadFile = "Lisää tiedostot palvelimelle.";
 $langUserContent = "<p><b>Roolit</b></p>
@@ -325,7 +300,6 @@ ja sitten vielä 'ok'.</p>
 <p><b>Lisää käyttäjä</b></p>
 <p>Jos haluat lisätä oppilaita kurssillesi, niin tarkista että ovatko he rekisteröityneet. Jos oppilas on jo rekisteröitynyt, niin tarkista laatikko hänen nimensä vieressä ja klikkaa 'Ok'. Jos hän ei ole rekisteröitynyt, niin lisää hänet käsin. Kummassakin tapauksessa, henkilö saa sähköpostiviestin, jossa kerrotaan, että olet rekisteröinyt hänet. Lisäksi hän saa tai hänelle muistutetaan tunnuksesta ja salasanasta.</p>";
 $langUserName = "Käyttäjänimi";
-$langUserNo = "Valitsemasi käyttäjänimi ";
 $langUserTaken = "Tämä käyttäjänimi on jo käytössä";
 $langUsers = "Käyttäjät";
 $langViMod = "Näkyvyyttä on muutettu";

@@ -626,7 +626,6 @@ $langDocumentContent = "Contenu du document : ";
 $langDocumentInModule = "Document dans le module";
 $langDocumentName = "Nom du document : ";
 $langDocumentation = "Documentation";
-$langDocuments = "Documents";
 $langDocumentsAccess = "Documents";
 $langDocumentsDetails = "Documents téléchargés par l'étudiant";
 $langDocumentsTitleCountColumn = "Total des téléchargements";
@@ -1037,11 +1036,11 @@ $langGroupTutor = "Tuteur";
 $langGroupTutors = "Tuteurs";
 $langGroupUserManagement = "Gestion des groupes";
 $langGroupUsersList = "Cf. liste des <a href=../user/user.php>utilisateurs</a>";
+$langGroupWikiLink = "Wiki du groupe";
 $langGroups = "Groupes";
 $langGroupsAdded = "groupe(s) a (ont) été ajouté(s)";
 $langGroupsDeleted = "Tous les groupes ont été supprimés";
 $langGroupsEmptied = "Tous les groupes sont maintenant vides";
-$langGroupWikiLink = "Wiki du groupe";
 $langHClar = "Aide au démarrage";
 $langHDoc = "Aide documents";
 $langHExercise = "Aide exercices";
@@ -1392,6 +1391,7 @@ $langNewEx = "Nouvel exercice";
 $langNewGroupCreate = "Créer nouveau(x) groupe(s)";
 $langNewGroups = "nouveau(x) groupe(s)";
 $langNewLabel = "Créer un titre dans ce parcours pédagogique";
+$langNewLegend = "Nouveautés";
 $langNewQu = "Nouvelle question";
 $langNewToOld = "Inverser";
 $langNewTopic = "Lancer un nouveau sujet";
@@ -1574,7 +1574,6 @@ $langRegisterTheNewUser = "Inscrire cet utilisateur à un cours";
 $langRegisterUser = "Inscrire à un nouveau cours";
 $langRegisterUserToClass = "Inscrire l'utilisateur à la classe";
 $langRegistered = "Inscrits";
-$langRegistration = "Inscription";
 $langRemainingSteps = "Etapes restantes";
 $langRemove = "supprimer";
 $langRemoveAdminLevel = "Droits d'administrateur supprimés";
@@ -1797,7 +1796,6 @@ $langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
 $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
 $langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
 $langUpgradeSucceed = "L'<em>upgrade de claroline</em> est termin&eacute;e.";
-$langUpload = "Ajouter";
 $langUploadAndZipEnd = " Le fichier .zip a été envoyé et décompressé";
 $langUploadDoc = "Envoyer un fichier";
 $langUploadEnd = "Le téléchargement est terminé";
@@ -1944,9 +1942,6 @@ $langWikiEditPage = "Éditer cette page";
 $langWikiEditPrivilege = "Éditer les pages";
 $langWikiEditProperties = "Éditer les propriétés";
 $langWikiEditionSucceed = "Le Wiki a été édité avec succès";
-$langWikiEnterWiki = "Accéder au Wiki";
-$langWikiExample = "Éditer un exemple";
-$langWikiExampleWarning = "Attention, le texte de l'exemple va écraser le contenu courant";
 $langWikiGroupMembers = "Membres du groupe";
 $langWikiHelpAdminContent = "<h3>Aide pour l'administration des Wikis</h3>
 <dl class=\"wikiHelp\">
@@ -1980,6 +1975,7 @@ Pour chaque type d'utilisateur vous pouvez activer/désactiver trois types de dro
 <dt>Comment voir les pages modifiées récemment dans un Wiki ?</dt>
 <dd>Cliquez sur l'icône située dans la collonne 'Changements récents' dans la liste des Wiki.</dd>
 </dl>";
+$langWikiHelpSyntax = "Syntaxe Wiki";
 $langWikiHelpSyntaxContent = "<h3>Syntaxe wiki2xhtml</h3>
 <dl class=\"wikiHelp\">
 <dt>Création de pages et liens vers des pages du Wiki</dt>
@@ -2012,13 +2008,11 @@ tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
 <li><strong>Note de bas de page</strong> : <code>\$\$Corps de la note\$\$</code>.</li>
 </ul></dd>
 </dl>";
-$langWikiHelpSyntax = "Syntaxe Wiki";
 $langWikiIdenticalContent = "Contenu identique<br />aucune modification sauvée";
 $langWikiInvalidWikiId = "Wiki Id non valide";
 $langWikiList = "Liste des Wiki";
 $langWikiMainPage = "Page principale";
 $langWikiMainPageContent = "Ceci est la page principale du Wiki %s. Cliquez sur éditer pour en modifier le contenu.";
-$langWikiNoDescription = "(pas de description)";
 $langWikiNoWiki = "Aucun Wiki";
 $langWikiNotAllowedToCreate = "Vous n'êtes pas autorisé à créer des pages";
 $langWikiNotAllowedToEdit = "Vous n'êtes pas autorisé à éditer cette page";
@@ -2084,7 +2078,6 @@ $lang_course_enrollment = "Inscription aux cours";
 $lang_do_you_want_to_continue = "Voulez-vous continuer ?";
 $lang_enroll = "Inscription";
 $lang_enroll_to_a_new_course = "S'inscrire à un cours";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_faculty_CanHaveCatCourse = "Peut-elle avoir des cours ? ";
 $lang_faculty_CatHaveCat = "Cette catégorie contient d'autres catégories, supprimez-les avant celle ci!";
 $lang_faculty_CatHaveCourses = "Cette catégorie contient des cours, vous ne pouvez pas la supprimer!";
@@ -2110,7 +2103,6 @@ $lang_fileUpgrade = "Mise à jour du fichier :";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_htAccessIncPath_added = "Répertoire <em>inc</em> protégé";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Si vous choisissez de continuer, les lignes avec des erreurs seront ignorées";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
 $lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_my_personnal_course_list = "Ma liste de cours personnelle";
 $lang_no_access_here = "Pas d'accès ";
@@ -2164,7 +2156,6 @@ $lang_select_course_in = "Sélectionnez un cours dans ";
 $lang_select_course_in_search_results = "Sélectionnez un cours dans les résultats de recherche";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
 $lang_the_following_errors_were_found = "Les erreurs suivantes ont été trouvées ";
-$lang_this_course_is_protected = "Ce cours est protégé";
 $lang_toolsToFill = "Outils à remplir";
 $lang_unsubscribe = "Radiation";
 $lang_upgradeToolCannotUpgradeThisCourse = "
@@ -2177,5 +2168,4 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Votre inscription au cou
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
-$langNewLegend = "Nouveautés";
 ?>
