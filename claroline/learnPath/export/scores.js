@@ -3,7 +3,6 @@
  * Check the answers of a scorm quiz.
  *
  */
-var DEBUG = false;
 
 function CalculateRawScore(objDoc, idCount, fillin)
 {
@@ -58,7 +57,6 @@ function CalculateRawScore(objDoc, idCount, fillin)
         }
     }
     
-    if (DEBUG) alert('Score:\n' + score + ' points');
     return score;
         
 
