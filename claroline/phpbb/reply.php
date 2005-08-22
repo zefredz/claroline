@@ -52,7 +52,7 @@ include $includePath . '/lib/claro_mail.lib.inc.php';
 $error = FALSE;
 $error_message = '';
 $allowed = TRUE;
-$pagetitle = 'Post Reply';
+$pagetitle = $langPostReply;
 $pagetype  = 'reply';
 
 /*=================================================================
@@ -191,8 +191,8 @@ else
         disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_title);
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
-            . '<input type="hidden" name="forum" value="' . $forum_id . '">' . "\n"
-            . '<input type="hidden" name="topic" value="' . $topic_id . '">' . "\n";
+            . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
+            . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
         
         echo '<table border="0">' . "\n"
             . '<tr valign="top">' . "\n"
@@ -203,8 +203,8 @@ else
             . '</tr>'
             . '<tr valign="top"><td>&nbsp;</td>'
             . '<td>'
-            . '<input type="submit" name="submit" value="' . $langOk . '">&nbsp;'
-            . '<input type="submit" name="cancel" value="' . $langCancel . '">'
+            . '<input type="submit" name="submit" value="' . $langOk . '" />&nbsp;'
+            . '<input type="submit" name="cancel" value="' . $langCancel . '" />'
             . '</tr>'
             . '</table>'
             . '</form>' ;

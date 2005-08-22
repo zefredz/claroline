@@ -210,7 +210,7 @@ else
             if($thisTopic['topic_status'] == 1) $image = $locked_image;
     
             echo '<td>'
-                .'<img src="' . $image . '" alt="' . $alt . '">';
+                .'<img src="' . $image . '" alt="' . $alt . '" />';
     
             $topic_title = $thisTopic['topic_title'];
             $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id'];

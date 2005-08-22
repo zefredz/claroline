@@ -130,7 +130,7 @@ if ($topicSettingList)
         
             if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
             {
-                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif">'
+                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
                                     . $l_notify
                                     . ' [<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exdoNotNotify">'
                                     .$langDisable
@@ -140,7 +140,7 @@ if ($topicSettingList)
             {
                 $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
                                     . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
-                                    . '<img src="' . $imgRepositoryWeb . 'email.gif"> '
+                                    . '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> '
                                     . $l_notify 
                                     . '</a>';
             }
@@ -227,7 +227,7 @@ else
 	    echo ' <tr>' . "\n"
 	
 	        .'  <th class="headerX">' . "\n"
-	        .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="">'
+	        .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
 	        . $l_author . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
 	        .'<small>' . $l_posted . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
 	        .'  </th>' . "\n"
@@ -244,11 +244,11 @@ else
 	        echo '<p>' . "\n"
 	
 	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEditDel . '">'
+	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '" />'
 	            . '</a>' . "\n"
 	
 	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit">'
-	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langEditDel . '">'
+	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '" />'
 	            . '</a>' . "\n"
 	
 	            . '</p>' . "\n";

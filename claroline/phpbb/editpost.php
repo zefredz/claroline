@@ -54,7 +54,7 @@ $error = FALSE;
 $allowed = TRUE;
 $error_message = '';
 
-$pagetitle = 'Edit Post';
+$pagetitle = $langEditPost;
 $pagetype  = 'editpost';
 
 /*=================================================================
@@ -251,19 +251,19 @@ else
             . '<tr valign="top">' . "\n"
             . '<td align="right"><label for="delete" >' . $l_delete . '</label> : </td>' . "\n"
             . '<td>' . "\n"
-            . '<input type="checkbox" name="delete" id="delete">' . "\n"
+            . '<input type="checkbox" name="delete" id="delete" />' . "\n"
             . '</td>' . "\n"
             . '</tr>' . "\n"
 
             . '<tr>'
             . '<td>&nbsp;</td>' ."\n"
             . '<td>'
-            . '<input type="submit" name="submit" value="' . $langSubmit . '">' . "\n"
+            . '<input type="submit" name="submit" value="' . $langSubmit . '" />' . "\n"
             . '</td>' . "\n"
             . '</tr>' . "\n"
             . '</table>'. "\n"
 
-            . '<br>' . "\n"
+            . '<br />' . "\n"
             . '<center>'
             . '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
             . $l_topicreview

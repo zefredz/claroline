@@ -51,7 +51,7 @@ $allowed = TRUE;
 $error = FALSE;
 
 $error_message = '';
-$pagetitle = 'New Topic';
+$pagetitle = $langNewTopic;
 $pagetype =  'newtopic';
 
 /*=================================================================

@@ -140,24 +140,24 @@ foreach ( $categories as $this_category )
     {
         echo '<div style="float:right">'
         .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'edit.gif" alt="Edit">'
+        .    '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langEdit.'" />'
         .    '</a>'
         .    '&nbsp;'
         .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
         .    'onClick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
-        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="Edit">'
+        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" />'
         .    '</a>'
         .    '&nbsp;'
         ;
 
         if ( $categoryIterator > 1)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="Edit">'
+        .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.$langMoveUp.'" />'
         .    '</a>';
         
         if ( $categoryIterator < $total_categories)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="Edit">'
+        .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.$langMoveDown.'" />'
         .    '</a>';
         
         echo '</div>'
@@ -167,13 +167,15 @@ foreach ( $categories as $this_category )
     echo htmlspecialchars($this_category['cat_title']);    
     
     echo '</th>' . "\n"
-    .    '</tr>' . "\n"
+    .    '</tr>' . "\n";
     
-    .    '<tr>';
+
     
     if ($this_category['forum_count'] == 0)
     {
-        echo '<td  colspan="' . $colspan . '" align="center">No Forum<!-- HardCode --></td>' . "\n";
+        echo '<tr>' . "\n"
+        .	 '<td  colspan="' . $colspan . '" align="center">' . $langNoForum . '</td>' . "\n"
+        .	 '</tr>' . "\n";
     }
     else
     {
@@ -186,17 +188,15 @@ foreach ( $categories as $this_category )
 
         if ($is_allowedToEdit)
         {
-            echo '<th>Edit</th>'
-            .    '<th>Empty</th>'
-            .    '<th>Delete</th>'
-            .    '<th colspan="2">Move</th>'
+            echo '<th>'.$langEdit.'</th>'
+            .    '<th>'.$langEmpty.'</th>'
+            .    '<th>'.$langDelete.'</th>'
+            .    '<th colspan="2">'.$langMove.'</th>'
             ;
         }
+        echo '</tr>' . "\n";
     }
     
-    echo    '</tr>' . "\n";
-    
-
     $forumIterator = 0;
 
     foreach ( $forum_list as $this_forum )
@@ -232,11 +232,11 @@ foreach ( $categories as $this_category )
             }
             else
             {
-                $locked_string = '<img src="'.$imgRepositoryWeb.'locked.gif" alt="Locked" title="Locked"/> <small>(No new post allowed)</small>';
+                $locked_string = '<img src="'.$imgRepositoryWeb.'locked.gif" alt="'.$langLocked.'" title="'.$langLocked.'" /> <small>('.$langNoPostAllowed.')</small>';
             }
 
             echo '<td>'                                               . "\n"
-            .    '<img src="' . $imgRepositoryWeb . $forum_img . '">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . $forum_img . '" alt="" />' . "\n"
             .    '&nbsp;'                                             . "\n"
             ;
 
@@ -283,7 +283,7 @@ foreach ( $categories as $this_category )
 
             echo $locked_string;
 
-            echo '<br><small>' . $forum_desc . '</small>' . "\n"
+            echo '<br /><small>' . $forum_desc . '</small>' . "\n"
             .    '</td>' . "\n"
 
             .    '<td align="center" valign="middle">' . "\n"
@@ -291,7 +291,7 @@ foreach ( $categories as $this_category )
             .    '</td>' . "\n"
 
             .    '<td align="center" valign="middle">' . "\n"
-            .    '<small>' . $total_posts . '<small>' . "\n"
+            .    '<small>' . $total_posts . '</small>' . "\n"
             .    '</td>' . "\n"
             .    '<td align="center" valign="middle">' . "\n"
             .    '<small>' . (($last_post > 0) ? $last_post : $langNoPost) . '</small>'
@@ -303,19 +303,19 @@ foreach ( $categories as $this_category )
             {
                 echo '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="edit">'
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="'.$langEdit.'" />'
                 .    '</a>'
                 .    '</td>'
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
                 .    'onClick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
-                .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="Empty">'
+                .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="'.$langEmpty.'" />'
                 .    '</a>'
                 .    '</td>'
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
                 .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="delete">'
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'" />'
                 .    '</a>'
                 .    '</td>';
                 
@@ -324,7 +324,7 @@ foreach ( $categories as $this_category )
                 if ($forumIterator > 1) 
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="delete">'
+                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.$langMoveUp.'" />'
                     .    '</a>';
                 }
                              
@@ -335,7 +335,7 @@ foreach ( $categories as $this_category )
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="delete">'
+                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.$langMoveDown.'" />'
                     .    '</a>';
                 }
                 
@@ -351,7 +351,7 @@ echo '</table>' . "\n"
 
 // Display Forum Footer
 
-.     '<br>'
+.     '<br />'
 .     '<center>'
 .     '<small>'
 .     'Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a>'
