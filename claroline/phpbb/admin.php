@@ -3,7 +3,7 @@
 // Confirm javascript code
 
 $htmlHeadXtra[] =
-          "<script>
+          "<script type=\"text/javascript\">
            function confirm_delete(name)
            {
                if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . "' + name + ' ?'))
@@ -14,7 +14,7 @@ $htmlHeadXtra[] =
 
            function confirm_empty(name)
            {
-               if (confirm('". clean_str_for_javascript('Delete all messages of ') . "' + name + ' ?'))
+               if (confirm('". clean_str_for_javascript($langConfirmEmptyForum) . "' + name + ' ?'))
                {return true;}
                else
                {return false;}
@@ -36,13 +36,13 @@ if ( $cmd == 'exMkCat' )
     	}
     	else
     	{
-    	    $dialogBox .= '<p>Unable to create category</p>' . "\n";
+    	    $dialogBox .= '<p>'.$langUnableCreateCategory.'</p>' . "\n";
     	    $cmd = 'rqMkCat';
     	}
 	}
 	else
 	{
-	     $dialogBox .= '<p>Missing field(s)</p>' . "\n";
+	     $dialogBox .= '<p>'.$langMissingFields.'</p>' . "\n";
     	 $cmd = 'rqMkCat';
 	}
 }
@@ -54,12 +54,12 @@ if ( $cmd == 'rqMkCat' )
 
     $dialogBox .= '<h4>'.$langAddCategory.'</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
-               .  '<input type="hidden" name="cmd" value="exMkCat">'
+               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'
+               .  '<input type="hidden" name="cmd" value="exMkCat" />'
                .  '<label for="catName">'.$langName.' : </label><br />'
                .  '<input type="text" name="catName" id="catName"'
-               .  ' value="' . $catName . '"><br />'
-               .  '<input type="submit" value="'.$langOk.'"> '
+               .  ' value="' . $catName . '" /><br />'
+               .  '<input type="submit" value="'.$langOk.'" /> '
                .  claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
                .  '</form>'
                .  "\n";
@@ -77,17 +77,17 @@ if ( $cmd == 'exMkForum' )
 	                          $forumPostAllowed,
 	                          (int) $_REQUEST['forumCatId'] ) )
 	        {
-	           $dialogBox .= 'Forum created';   
+	           $dialogBox .= $langForumCreated;
 	        }
 	        else
 	        {                   
-	           $dialogBox .= 'Unable to create forum';
+	           $dialogBox .= $langUnableCreateForum;
 	           $cmd        = 'rqMkForum';
 	        }
     }
 	else 
 	{
-        $dialogBox .= 'Missing field(s)';
+        $dialogBox .= $langMissingFields;
 	    $cmd        = 'rqMkForum';
 	}
 }
@@ -122,29 +122,25 @@ if ( $cmd == 'rqMkForum' )
                                   ' checked ' : '';
 
 
-    $dialogBox .= '<h4>Add Forum</h4>'
+    $dialogBox .= '<h4>'.$langAddForum.'</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .'<input type="hidden" name="cmd" value="exMkForum">'
-               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
-               .'<label for="forumName">'.$langName.': </label><br />'
+               .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
+               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+               .'<label for="forumName">'.$langName.': </label><br />'."\n"
                .'<input type="text" name="forumName" id="forumName"'
-               .' value="'.$reqForumName.'"><br />'
-               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'
-               .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'
+               .' value="'.$reqForumName.'" /><br />'."\n"
+               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'."\n"
+               .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
                .$reqForumDesc
-               .'</textarea><br />'
-               .$catSelectBox
-               .'<br />'
-               .'<input type="checkbox" name="forumPostUnallowed" '.$reqForumPostUnallowedState.'>'
-               .'Locked <small>(No new post allowed)</small><br />'
-   // Technical Note : It seems impossible to add an ID to a 
-   // checkbox tag. Adding this ID seems to prevent the checkbox 
-   // state to be sent frim the browser(at least in Mozilla/Firefox).
-   // So no <label> for the tag above for the moment ...
-               .'<br />'
-               .'<input type="submit" value="'.$langOk.'">     '
+               .'</textarea><br />'."\n"
+               .$catSelectBox."\n"
+               .'<br />'."\n"
+               .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$reqForumPostUnallowedState.' />'."\n"
+               .'<label for="forumPostUnallowed">'.$langLocked.' <small>('.$langNoPostAllowed.')</small></label><br />'."\n"
+               .'<br />'."\n"
+               .'<input type="submit" value="'.$langOk.'" />'."\n"
                . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
-               .'</form>';
+               .'</form>'."\n\n";
 }
 
 if ( $cmd == 'exEdCat' )
@@ -153,16 +149,16 @@ if ( $cmd == 'exEdCat' )
     {
         if ( update_category_title( $_REQUEST['catId'], $_REQUEST['catName'] ) )
         {
-            $dialogBox .= '<p>Category updated.</p>';
+            $dialogBox .= '<p>'.$langCategoryUpdated.'.</p>';
         }
         else
         {
-            $dialogBox .= '<p>Unable to update category.</p>';
+            $dialogBox .= '<p>'.$langUnableToUpdateCategory.'.</p>';
         }
     }
     else
     {
-        $dialogBox .= '<p>Missing field</p>';
+        $dialogBox .= '<p>'.$langMissingFields.'</p>';
         $cmd        = 'rqEdCat';
     }
 }
@@ -173,15 +169,15 @@ if ( $cmd == 'rqEdCat' )
 
     if ( $categorySettingList )
     {
-        $dialogBox .= '<h4>Edit Category</h4>'
+        $dialogBox .= '<h4>'.$langEditCategory.'</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
-               .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'">'
-               .  '<input type="hidden" name="cmd" value="exEdCat">'
+               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'
+               .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'
+               .  '<input type="hidden" name="cmd" value="exEdCat" />'
                .  '<label for="catName">'.$langName.' : </label><br />'
                .  '<input type="text" name="catName" id="catName"'
-               .  ' value="'.$categorySettingList['cat_title'].'"><br />'
-               .  '<input type="submit" value="'.$langOk.'"> '
+               .  ' value="'.$categorySettingList['cat_title'].'" /><br />'
+               .  '<input type="submit" value="'.$langOk.'" /> '
                .  claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
                .  '</form>'
                .  "\n";
@@ -257,29 +253,26 @@ if ( $cmd == 'rqEdForum' )
                                    :
                                     ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
 
-    $dialogBox .= '<h4>Add Forum</h4>'
+    $dialogBox .= '<h4>Add Forum</h4>'."\n"
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
-               .'<input type="hidden" name="cmd" value="exEdForum">'
-               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
-               .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'">'
-               .'<label for="forumName">'.$langName.': </label><br />'
+               .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
+               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+               .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'" />'."\n"
+               .'<label for="forumName">'.$langName.': </label><br />'."\n"
                .'<input type="text" name="forumName" id="forumName"'
-               .' value="'.htmlspecialchars($formForumNameValue).'"><br />'
-               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'
-               .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'
+               .' value="'.htmlspecialchars($formForumNameValue).'" /><br />'."\n"
+               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'."\n"
+               .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
                .htmlspecialchars($formForumDescriptionValue)
-               .'</textarea><br />'
-               .$catSelectBox
-               .'<input type="checkbox" name="forumPostUnallowed" '.$formForumPostUnallowedState.'>'
-               .'Locked <small>(No new post allowed)</small><br />'
-   // Technical Note : It seems impossible to add an ID to a 
-   // checkbox tag. Adding this ID seems to prevent the checkbox 
-   // state to be sent frim the browser(at least in Mozilla/Firefox).
-   // So no <label> for the tag above for the moment ...
-               .'<br />'
-               .'<input type="submit" value="'.$langOk.'"> '
+               .'</textarea><br />'."\n"
+               .$catSelectBox."\n"
+               .'<br />'."\n"
+               .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$formForumPostUnallowedState.' />'."\n"
+               .'<label for="forumPostUnallowed">Locked <small>(No new post allowed)</small></label><br />'."\n"
+               .'<br />'."\n"
+               .'<input type="submit" value="'.$langOk.'" /> '."\n"
                . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
-               .'</form>';
+               .'</form>'."\n\n";
 
 }
 
