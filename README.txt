@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.7 - BETA README
+CLAROLINE 1.7 RELEASE CANDIDATE - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -340,5 +340,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - July 19 2005
+                Europe, Belgium, Louvain-la-Neuve - August 23 2005
 ================================== END ===================================

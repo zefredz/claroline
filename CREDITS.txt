@@ -11,7 +11,7 @@ center of ECAM (Engineering higher school - Belgium).
 
 Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
                                 Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
-                                Frédéric Minne     (minne@ipm.ucl.ac.be)
+                                Frédéric Minne     (minne@ipm.ucl.ac.be) aka ZeFredz
                                 
 Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
 http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
@@ -154,5 +154,5 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Maria Jose Rodriges Malmierca
                                 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - April 26 2005
+                Europe, Belgium, Louvain-la-Neuve - August 23 2005
 ================================== END ===================================

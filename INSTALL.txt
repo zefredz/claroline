@@ -1,8 +1,8 @@
 *********************************************
-CLAROLINE 1.7.0 BETA - INSTALL
+CLAROLINE 1.7 RELEASE CANDIDATE - INSTALL
 *********************************************
 
-Thank you for downloading Claroline 1.7.0 . This text will guide you 
+Thank you for downloading Claroline 1.7 . This text will guide you 
 through the basics of installation and operation of Claroline 1.6. Please 
 ensure you read this fully BEFORE proceeding with the installation.
 
@@ -20,7 +20,7 @@ TABLE OF CONTENT :
 REQUIREMENTS
 ============
 
-To install Claroline 1.7.0 on a computer, whether locally or remotely, 
+To install Claroline 1.7 on a computer, whether locally or remotely, 
 you need the following on your machine :
 
 1. One of the following Operating systems :
@@ -37,7 +37,7 @@ you need the following on your machine :
 
 1. A web server (We recommend Apache, but others should work too),
 
-2. PHP scripting language (version 4.1 or later), configured with the 
+2. PHP scripting language (version 4.3 or later), configured with the 
    following modules : mysql, zlib, preg. Most of the PHP4 compiled 
    distributions are provided with these modules. Anyway, their presence 
    is checked by the Claroline install script.
@@ -45,24 +45,8 @@ you need the following on your machine :
    Some users could meet problems if their PHP setting doesn't fit 
    these ones:
 
-        short_open_tag       = On
-        register_globals     = On
         safe_mode            = Off
-        magic_quotes_gpc     = On
         magic_quotes_runtime = Off
-        error_reporting      = E_ALL & ~E_NOTICE (*)
-
-   For example, users with PHP 4.2 or superior should set the parameter 
-   
-                 register_globals = on
-
-   and users with PHP 4.3 or superior should also set the parameter 
-   
-                 magic_quotes_gpc = On
-
-   (*) It is possible to set the error_reporting to a lower level 
-       but not a higher one.
-
 
 3. The MySQL databases server plus a login/password allowing to 
    administrate and create at least one database.
@@ -93,7 +77,6 @@ you need the following on your machine :
 			"Client does not support authentication protocol"
 			http://dev.mysql.com/doc/mysql/en/Old_client.html
 
-
 4. Web Write access to web directory where Claroline has been moved 
    or unzipped to. On a Windows machine locally, this
    is not a problem. Remotely, you need to be allowed to CHMOD
@@ -115,17 +98,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline170b.tar.gz' 
+1. Download 'claroline170rc1.tar.gz' 
 
-   Windows : download 'claroline170b.zip'.
+   Windows : download 'claroline170rc1.zip'.
 
 
 2. Open a shell, go to download directory and type 
 
-	tar -zxvf claroline170b.tar.gz
+	tar -zxvf claroline170rc1.tar.gz
 
-   Windows : unzip 'claroline170b.zip'.
-
+   Windows : unzip 'claroline170rc1.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory). 
@@ -169,9 +151,9 @@ please ask your hosting provider for advice.
 
 2. Open a shell, go to download directory and type
 
-	tar -zxvf claroline170b.tar.gz
+	tar -zxvf claroline170rc1.tar.gz
 
-   Windows : unzip 'claroline170b.zip'.
+   Windows : unzip 'claroline170rc1.zip'.
 
 
 3. Replace your previous Claroline directory and index.php by the new one.
@@ -212,6 +194,6 @@ ADMINISTRATION SECTION
 To access the Claroline administration section, open browser 
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
-=========================================================================
-                Europe, Belgium, Louvain-la-Neuve - July 19 2005
+==========================================================================
+            Europe, Belgium, Louvain-la-Neuve - August 23 2005
 ================================== END ===================================
