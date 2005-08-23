@@ -232,7 +232,7 @@ foreach ( $categories as $this_category )
             }
             else
             {
-                $locked_string = '<img src="'.$imgRepositoryWeb.'locked.gif" alt="'.$langLocked.'" title="'.$langLocked.'" /> <small>('.$langNoPostAllowed.')</small>';
+                $locked_string = ' <img src="'.$imgRepositoryWeb.'locked.gif" alt="'.$langLocked.'" title="'.$langLocked.'" /> <small>('.$langNoPostAllowed.')</small>';
             }
 
             echo '<td>'                                               . "\n"
