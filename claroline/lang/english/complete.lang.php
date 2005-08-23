@@ -1536,6 +1536,7 @@ $langRegStudent = "Follow courses";
 $langRegUser = "registered users of the site";
 $langRegYou = "has registered you on this course";
 $langRegister = "Register";
+$langRegisterCampusAdvice = "Please check that your campus URL is reachable from the internet.";
 $langRegisterClass = " Register a class";
 $langRegisterLocalUrl = "Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
