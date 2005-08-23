@@ -281,7 +281,7 @@ function introtext_upgrade_to_17()
     if ( preg_match('/^1.6/',$currentCourseDbVersion) )
     {
         $sqlForUpdate[] = "RENAME TABLE `".$currentCourseDbNameGlu."tool_intro` TO `".$currentCourseDbNameGlu."old_tool_intro`";       
-        $sqlForUpdate[] = "DROP IF EXISTS TABLE `".$currentCourseDbNameGlu."tool_intro`";
+        $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."tool_intro`";
         $sqlForUpdate[] = "CREATE TABLE `".$currentCourseDbNameGlu."tool_intro` (
                               `id` int(11) NOT NULL auto_increment,
                               `tool_id` int(11) NOT NULL default '0',
