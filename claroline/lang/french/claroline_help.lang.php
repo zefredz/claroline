@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
-$langCancel = "Annuler";
 $langChat = "Discussion";
 $langClarContent = "<br><p><b>Etudiant</b></p>
 <p>
@@ -21,11 +19,9 @@ pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de 
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
 $langConfigMenuContent = "Menu de configuration";
-$langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
-$langDelete = "Effacer";
 $langDescriptionCours = "Description du cours";
 $langDocContent = "<p>Le module de gestion de document fonctionne de
  manière semblable à la gestion de vos documents sur un
@@ -480,21 +476,16 @@ $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
 $langMinuteShort = "min.";
-$langModify = "Modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
 $langNameOfLang = "Array";
-$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
-$langOk = "Valider";
 $langOtherCourses = "Liste des cours";
-$langPassword = "mot de passe";
 $langPeriodDayShort = "j.";
 $langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
-$langReg = "Inscription";
 $langSecondShort = "sec.";
 $langStudent = "Etudiant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
@@ -554,16 +545,9 @@ Pour permettre à un assistant, par exemple, de co-gérer le site, vous devez l'in
 <p>
 Pour mentionner dans l'entête du site du cours le nom d'un co-gestionnaire, utilisez l'outil 'Paramètres de cours'. Cette modification n'inscrit pas la personne comme gestionnaire, le champs 'Gestionnaire(s) de cours' de ce formulaire est totalement indépendant de la liste des utilisateurs.
 </p>";
-$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Travaux";
-$lang_click_here = "cliquez ici";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
-$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_p_platformManager = "Administrateur %s";
-$lang_this_course_is_protected = "Ce cours est protégé";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>

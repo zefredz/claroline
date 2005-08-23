@@ -20,5 +20,6 @@ $langModify = "Modifier";
 $langOk = "Valider";
 $langQuestion = "Question";
 $langRawHasBeenChanged = "Le score minimum pour réussir le module a été changé";
+$langScore = "Résultat";
 $langSize = "Taille";
 ?>

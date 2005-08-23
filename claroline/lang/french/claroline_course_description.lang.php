@@ -1,12 +1,10 @@
 <?php
 $langAdd = "Ajouter";
-$langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
 $langCancel = "Annuler";
 $langChat = "Discussion";
-$langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langContent = "Contenu";
 $langCourseContent = "Contenu du cours";
 $langCourseContentComment1 = "Quelle est l'importance des différents contenus à traiter dans le cadre du cours&nbsp;?
@@ -70,10 +68,8 @@ $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
 $langNameOfLang = "Array";
 $langNewBloc = "Autre";
-$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
-$langPassword = "mot de passe";
 $langPeriodDayShort = "j.";
 $langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administration";
@@ -84,7 +80,6 @@ $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l
 <br>
 Au terme du cours, quelles sont les compétences, les capacités et les connaissances que les étudiants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestionPlan = "<BR>Question de planification pour le gestionnaire de cours";
-$langReg = "Inscription";
 $langSecondShort = "sec.";
 $langStudent = "Etudiant";
 $langSupports = "Supports";
@@ -107,18 +102,11 @@ $langTextEditorEnable = "Activer l'éditeur de texte";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 $langTitle = "Titre";
 $langUnableDescToAdd = "Impossible d'ajouter la description";
-$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViMod = "Visibilité modifiée";
 $langViewMode = "Mode de vue";
 $langVisible = "Visible";
 $langWork = "Travaux";
-$lang_click_here = "cliquez ici";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
-$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_p_platformManager = "Administrateur %s";
-$lang_this_course_is_protected = "Ce cours est protégé";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>

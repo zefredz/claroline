@@ -1,19 +1,16 @@
 <?php
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "En cas d'interruption <sup>*</sup>, l'outil <em>de mise à jour</em> devrait redémarrer automatiquement
  après quelques secondes. Si ce n'est pas le cas, cliquez sur le bouton ci-dessous.";
-$langAddIntro = "Ajouter un texte d'introduction";
 $langAdministration = "Administration";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langCancel = "Annuler";
 $langChat = "Discussion";
 $langConfigurationFile = "Fichier de configuration";
-$langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
 $langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langDay_of_weekNames = "Array";
-$langDelete = "Effacer";
 $langDescriptionCours = "Description du cours";
 $langDocument = "Documents et liens";
 $langDone = "Etapes terminées";
@@ -66,7 +63,6 @@ vous ne confirmez pas que la sauvegarde est réalisée.</p>
 $langManager = "Gestionnaire";
 $langMinuteShort = "min.";
 $langModeVerbose = "Mode détaillé";
-$langModify = "Modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
@@ -76,16 +72,13 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cours sur %
 $langNext = "Suivant";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Suivant ></button></p>";
 $langNo = "Non";
-$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
-$langPassword = "mot de passe";
 $langPeriodDayShort = "j.";
 $langPeriodHourShort = "h.";
 $langPlatformAccess = "Accès au campus";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
-$langReg = "Inscription";
 $langRemainingSteps = "Etapes restantes";
 $langRestoreCourseRepository = "Restaurer le dossier du cours";
 $langSecondShort = "sec.";
@@ -108,7 +101,6 @@ $langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
 $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
 $langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
 $langUpgradeSucceed = "L'<em>upgrade de claroline</em> est termin&eacute;e.";
-$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Travaux";
@@ -117,13 +109,9 @@ $lang_CourseHasNoRepository_s_NotFound = "<strong>Le cours n'a pas de répertoire
 $lang_RetryWithMoreDetails = "Réessayer avec plus de détails";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Les tables principales de Claroline ont été mises à jour avec succès";
 $lang_UpgradeFailedForCourses = "L'outil de mise à jour n'est pas en mesure de mettre à jour les cours suivants  :";
-$lang_click_here = "cliquez ici";
 $lang_continueCoursesDataUpgrade = "Continuer la mise à jour des cours";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_fileUpgrade = "Mise à jour du fichier :";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
-$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_oldFileBackup = "Sauvegarde de l'ancien fichier de configuration :";
 $lang_p_CannotCreate_s = "Création de %s impossible";
 $lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
@@ -141,9 +129,7 @@ $lang_p_s_s_isInvalid = "%s : %s est invalide";
 $lang_rules_s_in_s = "Règle : %s dans %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) Regardez dans la barre de d'état de votre navigateur.";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "La mise à jour de Claroline est terminée";
-$lang_this_course_is_protected = "Ce cours est protégé";
 $lang_upgradeToolCannotUpgradeThisCourse = "
 L'outil de mise à jour n'est pas en mesure de mettre à jour ce cours.  <br>
 Reglez d'abord ce problème technique et relancez la procédure de mise à jour.";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>
