@@ -45,6 +45,7 @@ function claro_sql_get_main_tbl()
         'rel_class_user'            => $mainDbName . '`.`'.$mainTblPrefix.'rel_class_user',
         'sso'                       => $mainDbName . '`.`'.$mainTblPrefix.'sso',
         'notify'                    => $mainDbName . '`.`'.$mainTblPrefix.'notify',
+        'upgrade_status'            => $mainDbName . '`.`'.$mainTblPrefix.'upgrade_status',
         'track_e_default'           => $statsDbName . '`.`'.$statsTblPrefix.'track_e_default',
         'track_e_login'             => $statsDbName . '`.`'.$statsTblPrefix.'track_e_login',
         'track_e_open'              => $statsDbName . '`.`'.$statsTblPrefix.'track_e_open'

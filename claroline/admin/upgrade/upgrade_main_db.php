@@ -47,6 +47,22 @@ upgrade_init_global();
 Main Section
 =====================================================================*/
 
+/**
+ * Create Upgrade Status table
+ */
+
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
+
+$sql = "CREATE TABLE IF NOT EXISTS `" . $tbl_upgrade_status . "` (
+`id` INT NOT NULL ,
+`cid` VARCHAR( 40 ) NOT NULL ,
+`claro_label` VARCHAR( 8 ) ,
+`status` TINYINT NOT NULL ,
+PRIMARY KEY ( `id` )
+)";
+
+claro_sql_query($sql);
 
 /**
  * Initialise variables
