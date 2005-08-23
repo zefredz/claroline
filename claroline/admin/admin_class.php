@@ -75,7 +75,7 @@ switch ($cmd)
   //Delete an existing class
   case "del" :
   
-        //check if class contains some children
+    //check if class contains some children
 
 	$sql = "SELECT * 
             FROM `".$tbl_class."`";
@@ -106,7 +106,7 @@ switch ($cmd)
   
   //Display form to create a new class
   case "formNew" :
-  	$dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" >'."\n"
+  	$dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >'."\n"
                . '<table>'."\n"
                . '<tr>'."\n"
                . '<td>'. $langNewClassName.' : ' . '</td>'."\n"
@@ -120,6 +120,7 @@ switch ($cmd)
                . '<td>'."\n"
                . displaySelectBox()   
 	           . '<input type="submit" value=" Ok ">'."\n"
+	           . '<input type="hidden" name="claroFormId" value=\"'.uniqid('').'\">'
 		       . '</td>'."\n"
                . '</tr>'."\n"
 	           . '</table>'."\n"
@@ -177,7 +178,7 @@ switch ($cmd)
     	$result =  claro_sql_query_fetch_all($sql);
         $class_name = $result[0]['name'];
 	
-        $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" >'."\n"
+        $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >'."\n"
         		   .'<table>'."\n"
         		   .'<tr>'."\n"
         		   .'<td>'."\n"
