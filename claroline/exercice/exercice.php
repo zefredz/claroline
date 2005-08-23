@@ -243,7 +243,7 @@ echo '<p>'."\n";
 // if tracking is enabled && user is not anomymous
 if($is_trackingEnabled && $_uid)
 {
-   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&view=0100000">'.$langMyResults.'</a>';
+   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.$langMyResults.'</a>';
    if( $is_allowedToEdit ) echo ' | ';
    echo "\n";
 }
@@ -263,34 +263,22 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 <thead>
 <tr class="headerX">
-  <th>
-	<?php echo $langExerciseName; ?>
-  </th>
+  <th><?php echo $langExerciseName; ?></th>
 <?php
 	if($is_allowedToEdit)
 	{
 ?>
-  <th>
-	<?php echo $langModify; ?>
-  </th>
-  <th>
-	<?php echo $langDelete; ?>
-  </th>
-  <th>
-	<?php echo $langEnable.' / '.$langDisable; ?>
-  </th>
-  <th>
-    <?php echo $langExport; ?>
-  </th>
+  <th><?php echo $langModify; ?></th>
+  <th><?php echo $langDelete; ?></th>
+  <th><?php echo $langEnable.' / '.$langDisable; ?></th>
+  <th><?php echo $langExport; ?></th>
 <?php
 	}
 	
   	if($is_allowedToTrack)
   	{
 ?>
-  <th>
-	<?php echo $langTracking; ?>
-  </th>
+  <th><?php echo $langTracking; ?></th>
 <?php
   	}
 ?>
@@ -346,13 +334,14 @@ foreach( $exercisesList as $exercise )
 	if($is_allowedToEdit)
 	{
 ?>
-
   <td>
     <?php echo ( $i + $offset ).'.'; ?>
     &nbsp;
     <a href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>" <?php if(!$exercise['active']) echo 'class="invisible"'; ?>><?php echo $exercise['titre']; ?></a>
   </td>
-  <td align="center"><a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlspecialchars($langModify); ?>"></a></td>
+  <td align="center">
+  	<a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlspecialchars($langModify); ?>"></a>
+  </td>
   <td align="center">
   	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $exercise['id']; if (isset($actionsForDelete[$exercise['id']])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$exercise['id']])) { echo $actionsForDelete[$exercise['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlspecialchars($langDelete); ?>"></a>
   </td>
@@ -361,29 +350,30 @@ foreach( $exercisesList as $exercise )
 		if($exercise['active'])
 		{
 ?>
-
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlspecialchars($langDisable); ?>"></a></td>
-
+  <td align="center">
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlspecialchars($langDisable); ?>"></a>
+  </td>
 <?php
 		}
 		// else if not active
 		else
 		{
 ?>
-
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlspecialchars($langEnable); ?>"></a></td>
-
+  <td align="center">
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlspecialchars($langEnable); ?>"></a>
+  </td>
 <?php
 		}
 ?>
-  <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif"
-  border="0" alt="<?php echo $langExport; ?>"></a></td>
-  
+  <td align="center">
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0" alt="<?php echo $langExport; ?>"></a>
+  </td>
+
 <?php
     if($is_allowedToTrack)
     {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlspecialchars($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&amp;src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlspecialchars($langTracking); ?>"></a></td>
      
    <?php
     }
