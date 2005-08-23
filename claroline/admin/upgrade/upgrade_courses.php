@@ -281,7 +281,7 @@ switch ($display)
                     // function to upgrade tool to 1.7
                     agenda_upgrade_to_17();
                     announcement_upgrade_to_17();
-                    course_despcription_upgrade_to_17;
+                    course_despcription_upgrade_to_17();
                     forum_upgrade_to_17();
                     introtext_upgrade_to_17();
                     linker_upgrade_to_17();

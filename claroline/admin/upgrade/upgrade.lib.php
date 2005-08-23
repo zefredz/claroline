@@ -424,7 +424,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
    
     $result = claro_sql_query($sql);
 
-    if ( $num_rows($sql) == 0 )
+    if ( mysql_num_rows($result) == 0 )
     {
         // tool not registered
 
@@ -486,7 +486,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
    
     $result = claro_sql_query($sql);
 
-    if ( $num_rows($result) )
+    if ( mysql_num_rows($result) )
     {
         $row = mysql_fetch_array($result);        
 

@@ -52,7 +52,8 @@ Main Section
  * Initialise variables
  */
 
-if ( isset($_REQUEST['verbose']) ) $verbose = (bool) $_REQUEST['verbose'];
+if ( isset($_REQUEST['verbose']) ) $verbose = true;
+else                               $verbose = false;
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = FALSE;

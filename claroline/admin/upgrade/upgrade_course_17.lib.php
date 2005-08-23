@@ -248,9 +248,9 @@ function forum_upgrade_to_17()
 
         $sql = "SELECT `id`,`forumId`
                 FROM `" . $currentCourseDbNameGlu."group_team`";
-        $result = claro_sql_query();
+        $result = claro_sql_query($sql);
 
-        while ( $row = mysql_fetch_array() )
+        while ( $row = mysql_fetch_array($result) )
         {
             $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
                      SET group_id = " . $row['id'] . "
@@ -303,7 +303,7 @@ function introtext_upgrade_to_17()
 
         $result = claro_sql_query($sql);
 
-        while ( $row = mysql_fetch_array() )
+        while ( $row = mysql_fetch_array($result) )
         {
             $sql = "INSERT INTO `".$currentCourseDbNameGlu."tool_intro`
                     (`tool_id`,`content`)
