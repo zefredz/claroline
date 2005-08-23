@@ -28,6 +28,8 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 
 // Include Libraries
 include ('upgrade.lib.php');
+include ('upgrade_course_16.lib.php');
+include ('upgrade_course_17.lib.php');
 
 // Initialise Upgrade
 upgrade_init_global();
@@ -66,10 +68,6 @@ if ( $cmd == 'run')
 {
     $display = DISPLAY_RESULT_PANEL;
     include('./sql_statement_course.php');
-
-    /** TODO
-    include('./repair_tables.php');
-    */
 }
 else 
 {
@@ -216,232 +214,111 @@ switch ($display)
              * Make some check.
              * For next versions these test would be set in separate process and available out of upgrade
              */
+
+            // repair tables
+            sql_repair_course_database($currentCourseDbNameGlu);
                 
             // course repository doesn't exists
 
             if ( !file_exists($currentcoursePathSys) )
             {            
-
                 $error = true;
                 $count_error_total++;
 
-                $errorMsgs .=  '<p class="help">'.sprintf($lang_CourseHasNoRepository_s_NotFound , $currentcoursePathSys).'</p>' . "\n";
-                
-                $sqlFlagUpgrade = " UPDATE `" . $tbl_course . "`
-                                    SET versionClaro='error'
-                                        versionDb='error';
-                                    WHERE code = '".$currentCourseIDsys."'";                
-
-                $res = @mysql_query($sqlFlagUpgrade);
-                
-                if (mysql_errno() > 0)
-                {
-                    $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>'.'<p>' . $sqlFlagUpgrade . '</p>';
-                }
-
+                $errorMsgs .= '<p class="help">'.sprintf($lang_CourseHasNoRepository_s_NotFound , $currentcoursePathSys).'</p>' . "\n";
                 $errorMsgs .= '<p class="comment">'.$lang_upgradeToolCannotUpgradeThisCourse.'</p>';
             }
 
             if ( ! $error ) 
             {
-                            
                 /*---------------------------------------------------------------------
-                  Upgrade Course Table
-                 ---------------------------------------------------------------------*/ 
+                  Upgrade 1.6 to 1.7
+                 ---------------------------------------------------------------------*/                
 
-                if ( $currentCourseDbVersion != $newDbVersion)
+                if ( preg_match('/^1.5/',$currentCourseDbVersion) )
                 {
-                    // TODO
-                    upgrade_assignments_to_16();
-    
-                    $errorMsgs .= '<ol>' . "\n";
-                    
-                    /*
-                     * Upgrade course table
-                     */
-        
-                    // NOT USED 
-                    //$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseIDsys));
-    
-                    // Include array with sql statement ($sqlForUpdate)
-                    
-                    $sqlForUpdate = query_to_upgrade_course_database_to_16();
-                    // TODO $sqlForUpdate = query_to_upgrade_course_database_to_17();
-        
-                    /*
-                     * Process sql statement
-                     */
-        
-                    foreach ( $sqlForUpdate as $key => $sqlTodo )
-                    {
-                        $res = mysql_query($sqlTodo);
-                        if ($verbose) // verbose is set when user retry upgrade
-                        {
-                            $errorMsgs .= '<li>' . "\n";
-                            $errorMsgs .= '<p class="tt"><strong>' . $currentCourseDbName. ':</strong>' . $sqlTodo .  '</p>' . "\n";
-                            $errorMsgs .= '<p>' . mysql_affected_rows() . ' affected rows <br />' . "\n" .mysql_info() . '</p>' . "\n";
-                            if (mysql_errno() > 0 )
-                            {
-                                $errorMsgs .= '<p class="error">n° <strong>' . mysql_errno() . ': </strong> ' . mysql_error() . '</p>' . "\n";
-                            }
-                            $errorMsgs .= '</li>' . "\n";
-                        }             
-                        
-                        if ( mysql_errno() > 0 && !in_array(mysql_errno(),$accepted_error_list) )
-                        {
-                            $error = true;
-                            $db_error_counter++;
-                            $errorMsgs .= '<p class="error">'
-                               . '<strong>' . $db_error_counter . '</strong> '
-                               . '<strong>n°: ' . mysql_errno() . '</strong> : ' . mysql_error() . ' ' . $currentCourseDbName . ':' . $sqlTodo
-                               . '</p>';
-                        }
-                    }
-                    $errorMsgs .= '</ol>';
-        
-                
+                    // function to upgrade tool to 1.6
+
+                    assignment_upgrade_to_16();
+                    forum_upgrade_to_16();
+                    group_upgrade_to_16();
+                    quizz_upgrade_to_16();
+                    tracking_upgrade_to_16();
+
                     if ( $db_error_counter > 0 )
                     {
+                        $error = true;
                         $errorMsgs .= '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
-        
                         $count_error_total += $db_error_counter;
-                        
-                        // TODO : function to update version in course table
-
-                        /*
-                         * Error: set versionDB of course to error
-                         */
-                        
-                        save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,'error');
-        
-                        if (mysql_errno() > 0)
-                        {
-                            $error = true;
-                            $errorMsgs .= '<p class="error">n° <strong>' . mysql_errno() . '</strong>: ' . mysql_error() . '</p>';
-                            $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
-                        }
+                        $currentCourseDbVersion = 'error-1.5';
                     }
                     else
                     {
-                        /*
-                         * Success: set versionDB of course to new version
-                         */
-
-                        save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,$newDbVersion);
-    
-                        if (mysql_errno() > 0)
-                        {
-                            $error = true;
-                            $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                            $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
-                        }
+                        $currentCourseDbVersion = '1.6';
                     }
+
+                    if ( $fs_error_counter > 0 )
+                    {
+                        $error = true;
+                        $errorMsgs .= '<p class="error"><strong>' . $fs_error_counter . ' errors found</strong></p>';
+                        $count_error_total += $fs_error_counter;
+                        $currentCourseClarolineVersion = 'error-1.5';
+                    }
+                    else
+                    {
+                        $currentCourseClarolineVersion = '1.6';
+                    }
+
+                    save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,$currentCourseDbVersion);
     
                 }
                 
                 /*---------------------------------------------------------------------
-                  Upgrade Course Files
-                 ---------------------------------------------------------------------*/ 
+                  Upgrade 1.6 to 1.7
+                 ---------------------------------------------------------------------*/                
 
-                if ( $currentCourseClarolineVersion != $newClarolineVersion)
+                if ( preg_match('/^1.6/',$currentCourseDbVersion) )
                 {
-                
-                    // rename folder image in course folder to exercise 
-                    if ( is_dir($currentcoursePathSys.'image') ) 
-                    {   
-                        if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
-                        {
-                            $error = true;
-                            $fs_error_counter++;
-                            $errorMsgs .= '<p class="error">'
-                               . '<strong>' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise') . '</strong> '
-                               . '</p>';
-                        } 
-                    }
-                    elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
-                    {
-                        if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
-                        {
-                            $error = true;
-                            $fs_error_counter++;
-                            $errorMsgs .= '<p class="error">'
-                               . '<strong>' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise') . '</strong> '
-                               . '</p>';
-                        }
-                    }
-    
-                    // create work assig_1 folder    
-                    $work_dirname = $currentcoursePathSys.'work/';
-                    $assignment_dirname = $work_dirname . 'assig_1/';
-    
-                    if ( !is_dir($assignment_dirname) )
-                    {
-                        if ( !@mkdir($assignment_dirname, 0777) )
-                        {
-                            $error = true;
-                            $fs_error_counter++;
-                            $errorMsgs .= '<p class="error">'
-                               . '<strong>' . sprintf($lang_p_CannotCreate_s,$assignment_dirname) . '</strong> '
-                               . '</p>';
-                        }
-                    }
+                    // function to upgrade tool to 1.7
+                    agenda_upgrade_to_17();
+                    announcement_upgrade_to_17();
+                    course_despcription_upgrade_to_17;
+                    forum_upgrade_to_17();
+                    introtext_upgrade_to_17();
+                    linker_upgrade_to_17();
+                    tracking_upgrade_to_17();
+                    wiki_upgrade_to_17();
                     
-                    // move assignment from work to work/assig_1    
-                    if ( is_dir($work_dirname) )
+                    if ( $db_error_counter > 0 )
                     {
-                        if ( $handle=opendir($work_dirname) )
-                        {   
-                            while ( FALSE !== ($file = readdir($handle)) )
-                            {
-                                if ( is_dir($work_dirname.$file) ) continue;
-    
-                                if ( @rename($work_dirname.$file,$assignment_dirname.$file) === FALSE )
-                                {
-                                    $error = true;
-                                    $fs_error_counter++;
-                                    $errorMsgs .= '<p class="error">'
-                                   . '<strong>' . sprintf($lang_p_CannotRename_s_s,$work_dirname.$file,$assignment_dirname.$file) . '</strong> '
-                                   . '</p>';
-    
-                                }
-    
-                            }
-                            closedir($handle);
-                        }                    
-                    }                
-                    
-                    if ( $fs_error_counter > 0 )
-                    {
-                        $count_error_total += $fs_error_counter;
-
-                        save_course_current_version($currentCourseIDsys,'error',$currentCourseDbVersion);
-                        
-                        if (mysql_errno() > 0)
-                        {   
-                            $error = true;
-                            $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                            $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
-                        }
+                        $error = true;
+                        $errorMsgs .= '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
+                        $count_error_total += $db_error_counter;
+                        $currentCourseDbVersion = 'error-1.6';
                     }
                     else
                     {
-                        /*
-                         * Success: set versionClaro of course to new version
-                         */
-
-                        save_course_current_version($currentCourseIDsys,$newClarolineVersion,$currentCourseDbVersion);
-
-                        if (mysql_errno() > 0)
-                        {
-                            $error = true;
-                            $errorMsgs .= '<p class="error">n° <strong>'.mysql_errno().'</strong>: '.mysql_error().'</p>';
-                            $errorMsgs .= '<p>' . $sqlFlagUpgrade . '</p>';
-                        }
+                        $currentCourseDbVersion = '1.7';
                     }
 
+                    if ( $fs_error_counter > 0 )
+                    {
+                        $error = true;
+                        $errorMsgs .= '<p class="error"><strong>' . $fs_error_counter . ' errors found</strong></p>';
+                        $count_error_total += $fs_error_counter;
+                        $currentCourseClarolineVersion = 'error-1.6';
+                    }
+                    else
+                    {
+                        $currentCourseClarolineVersion = '1.7';
+                    }
+
+                    save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,$currentCourseDbVersion);
+                
                 }
 
-            }        
+            }
+
             $mtime = microtime(); $mtime = explode(' ',$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
             $totaltime = ($endtime - $starttime);
             $stepDuration = ($endtime - $steptime);
