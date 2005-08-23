@@ -110,6 +110,11 @@ function query_to_upgrade_main_database_to_17 ()
     // add enrollment key
     $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `enrollment_key` varchar(255) default NULL";
 
+    // remove old columns : cahier_charges, scoreShow, description
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `cahier_charges`";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `scoreShow`";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `description`";
+
     return $sqlForUpdate;
 }
 
