@@ -130,7 +130,6 @@ else
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION' )
 {
- 
     // include the language file with all language variables
 
     include($includePath . '/../lang/english/complete.lang.php');
@@ -150,11 +149,11 @@ else
     } 
     else
     {
-	    /*
-	     * tool specific language translation
-	     */
-	
-	    // build lang file of the tool    
+        /*
+         * tool specific language translation
+         */
+    
+        // build lang file of the tool    
         $languageFilename = preg_replace('|^'.preg_quote($urlAppend).'/|', '', $_SERVER['PHP_SELF']);
 
         $pos = strpos($languageFilename, 'claroline/');
@@ -206,6 +205,25 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
 /*----------------------------------------------------------------------
   Prevent duplicate form submission
   ----------------------------------------------------------------------*/
+
+// The code below is a routine to prevent duplicate form submission, for 
+// example if the user clicks on the 'Refresh' or 'Back' button of his 
+// browser. It will nullify all the variables posted to the server by the 
+// form, provided this form complies to 2 points :
+// 
+// 1. The form is submitted by POST method (<form method="POST">). GET 
+// method is not taken into account.
+// 
+// 2. A unique ID value is provided at form submission that way 
+// 
+//    <input type="hidden" name="claroFormId" value="<?php echo uniqid(); >">
+// 
+// The routine records in PHP session all the the ID of the submitted 
+// forms. Once a form is submitted, its ID is compared to recorded ID, to 
+// check if the form hasn't be posted before. 
+// 
+// One can set a limit to the stored ID in session by adapting the 
+// CLARO_MAX_REGISTERED_FORM_ID constant.
 
 define('CLARO_MAX_REGISTERED_FORM_ID', 50);
 
