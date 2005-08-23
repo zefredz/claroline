@@ -1,23 +1,20 @@
 <?php
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
 If it's not the case, click on the button below.";
-$langAddIntro = "Add introduction text";
 $langAdministration = "Administration";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
 $langCancel = "Cancel";
 $langChat = "Chat";
 $langConfigurationFile = "Configuration file";
-$langConfirmYourChoice = "Please confirm your choice";
 $langCopy = "Copy";
 $langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
-$langDelete = "Delete";
 $langDescriptionCours = "Course description";
 $langDocument = "Documents and Links";
 $langDone = "Steps done";
-$langEmpty = "empty";
+$langEmpty = "Empty";
 $langExercises = "Exercises";
 $langFailed = "<span style=\"color: red\">Failed</span>";
 $langForums = "Forums";
@@ -70,7 +67,6 @@ is not able to start if you do not confirm that the data has been done.</p>
 $langManager = "Manager";
 $langMinuteShort = "min.";
 $langModeVerbose = "Mode Verbose";
-$langModify = "Modify";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
 $langMyAgenda = "My calendar";
@@ -80,16 +76,13 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on 
 $langNext = "Next";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
 $langNo = "No";
-$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
-$langPassword = "Password";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";
 $langPlatformAccess = "Access to campus";
 $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
-$langReg = "Registration";
 $langRemainingSteps = "Remaining steps";
 $langRestoreCourseRepository = "Restore course repository";
 $langSecondShort = "sec.";
@@ -111,7 +104,6 @@ $langUpgradeStep1 = "Step 1 of 3: platform main settings";
 $langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
 $langUpgradeStep3 = "Step 3 of 3: courses upgrade";
 $langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
-$langUserName = "User name";
 $langUsers = "Users";
 $langViewMode = "View mode";
 $langWork = "Assignments";
@@ -121,13 +113,9 @@ $lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</str
 $lang_RetryWithMoreDetails = "Retry with more details";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
 $lang_UpgradeFailedForCourses = "Upgrade tool is not able to upgrade the following courses :";
-$lang_click_here = "click here";
 $lang_continueCoursesDataUpgrade = "Continue courses data upgrade";
-$lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_fileUpgrade = "File upgrade :";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
 $lang_oldFileBackup = "Old file backup :";
 $lang_p_CannotCreate_s = "Cannot create %s";
 $lang_p_CannotRename_s_s = "Cannot rename %s to %s";
@@ -145,8 +133,6 @@ $lang_p_s_s_isInvalid = "%s : %s is invalid";
 $lang_rules_s_in_s = "Rules : %s in %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browser.";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
-$lang_this_course_is_protected = "This course is protected";
 $lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
 Fix, first, the technical problem and relaunch the upgrade tool.";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 ?>

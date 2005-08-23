@@ -20,5 +20,6 @@ $langModify = "Modify";
 $langOk = "Ok";
 $langQuestion = "Question";
 $langRawHasBeenChanged = "Minimum raw to pass has been changed";
+$langScore = "Score";
 $langSize = "Size";
 ?>

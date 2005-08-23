@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Add introduction text";
 $langAgenda = "Agenda";
 $langAnnouncement = "Announcements";
-$langCancel = "Cancel";
 $langChat = "Chat";
 $langClarContent = "Here, lecturers and assistants create and administer
  courses websites. Students read (documents, agenda, information) and,
@@ -28,11 +26,9 @@ post a message there.</p>
  and Ok to access your courses. The URL of the site is";
 $langCloseWindow = "Close window";
 $langConfigMenuContent = "Configuration Menu";
-$langConfirmYourChoice = "Please confirm your choice";
 $langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langDay_of_weekNames = "Array";
-$langDelete = "Delete";
 $langDescriptionCours = "Course description";
 $langDocContent = "<p>The Documents tool is similar to the File Manager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
@@ -462,21 +458,16 @@ $langLogin = "Login";
 $langLogout = "Logout";
 $langManager = "Manager";
 $langMinuteShort = "min.";
-$langModify = "Modify";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
 $langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langNameOfLang = "Array";
-$langNotAllowed = "Not allowed";
-$langOk = "Ok";
 $langOtherCourses = "Course list";
-$langPassword = "Password";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";
 $langPlatformAdministration = "Platform Administration";
 $langPoweredBy = "Powered by";
-$langReg = "Registration";
 $langSecondShort = "sec.";
 $langStudent = "Student";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
@@ -533,16 +524,9 @@ To allow an assistant, for instance, to co-admin the site, you need to register 
 To mention in the header of the course web site the name of a co-chairman, use the tool 'Modify course information' (orange tools). This modification does not register your co-chairman as a user of the course. The field 'Lecturers' is completely independent of the Users list.
 Add a user
 </p>";
-$langUserName = "User name";
 $langUsers = "Users";
 $langViewMode = "View mode";
 $langWork = "Assignments";
-$lang_click_here = "click here";
-$lang_enter_your_user_name_and_password = "Enter your user name and password";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
 $lang_p_platformManager = "Administrator for %s";
-$lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 ?>
