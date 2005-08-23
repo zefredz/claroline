@@ -1,6 +1,6 @@
 <?php // $Id$
 
-require_once(dirname(__FILE__) . '/../../../inc/lib/extauth.lib.php');
+require_once(dirname(__FILE__) . '/../../inc/lib/extauth.lib.php');
 
 $extAuth = new ExternalAuthentication($authSourceType, $extAuthOptionList);
 $extAuth->setAuthSourceName($authSourceName);
