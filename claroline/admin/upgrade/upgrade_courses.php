@@ -67,7 +67,6 @@ $upgradeCoursesError = isset($_REQUEST['upgradeCoursesError'])
 if ( $cmd == 'run')
 {
     $display = DISPLAY_RESULT_PANEL;
-    include('./sql_statement_course.php');
 }
 else 
 {
