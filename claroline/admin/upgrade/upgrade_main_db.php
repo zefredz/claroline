@@ -69,24 +69,12 @@ if ($cmd == 'run')
 
     include('./upgrade_main_db.lib.php');
 
-    /** TODO
-
-    // include sql to upgrade tracking
-
-    if ( $is_trackingEnabled )
-    {
-        include('./sql_statement_tracking.php');
-    }
-}
-    
-    */
-
     $display = DISPLAY_RESULT_PANEL;
 
 } // if ($cmd=="run")
 
 /*=====================================================================
-Display Section
+ Display Section
 =====================================================================*/
 
 // Display Header

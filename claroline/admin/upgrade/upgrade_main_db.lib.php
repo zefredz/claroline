@@ -82,8 +82,13 @@ function query_to_upgrade_main_database_to_16 ()
     $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` SET `icon` = 'learnpath.gif' WHERE `claro_label` = 'CLLNP___'";
     $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` SET `icon` = 'user.gif' WHERE `claro_label` = 'CLUSR___'";
 
-    return $sqlForUpdate;
+    // Update table track_e_default
+    $sqlForUpdate16[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_default']  . "` CHANGE `default_user_id` `default_user_id` int(11) NOT NULL default '0'" ;
 
+    // Update table login_user_id
+    $sqlForUpdate16[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_login']  . "` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
+
+    return $sqlForUpdate;
 }
 
 /*===========================================================================
