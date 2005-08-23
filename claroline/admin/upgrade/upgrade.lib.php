@@ -248,6 +248,38 @@ function get_new_version ()
 
 function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
 {
+    return upgrade_apply_sql ( $array_query , $verbose );
+}
+
+/**
+ * Apply sql queries to upgrade main database
+ *
+ * @param array sql queries
+ * @param boolean verbose mode
+ *
+ * @return integer number of errors
+ *
+ * @since  1.7
+ */
+
+function upgrade_apply_sql_to_course_database ( $array_query , $verbose = false )
+{
+    return upgrade_apply_sql ( $array_query , $verbose );
+}
+
+/**
+ * Apply sql queries to upgrade
+ *
+ * @param array sql queries
+ * @param boolean verbose mode
+ *
+ * @return integer number of errors
+ *
+ * @since  1.7
+ */
+
+function upgrade_apply_sql ( $array_query , $verbose = false )
+{
     global $lang_p_d_affected_rows;
     global $accepted_error_list;
 
@@ -445,6 +477,36 @@ function save_course_current_version ( $course_code, $fileVersion, $databaseVers
 
     $res = claro_sql_query($sql);
 
+}
+
+/**
+ * Execute repair query on main table
+ *
+ * @since  1.7
+ */
+
+function sql_repair_main_database()
+{
+    $tbl_names = claro_sql_get_main_tbl();
+
+    $sql = "REPAIR TABLE `" . implode($tbl_names,'`, `') . "`";
+
+    claro_sql_query($sql);
+}
+
+/**
+ * Execute repair query on course table
+ *
+ * @since  1.7
+ */
+
+function sql_repair_course_database($courseDbNameGlu)
+{
+    $tbl_names = claro_sql_get_course_tbl($courseDbNameGlu);
+
+    $sql = "REPAIR TABLE `" . implode($tbl_names,'`, `') . "`";
+
+    claro_sql_query($sql);
 }
 
 ?>
