@@ -386,7 +386,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 		.'<li>'.$langEmail.' : '.$administrator_email.'</li>'."\n"
 		.'<li>'
 		.'<label for="country">'.$langCountry.' : </label>'."\n"
-		.'<select name="country" id="country" />'."\n";
+		.'<select name="country" id="country">'."\n";
 
 	$optionString = "";
 	foreach( $isoCode as $code => $country)	
@@ -400,6 +400,9 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 	    .'</ul>'."\n"
 	    .'<br />'."\n"
 		.'<input type="submit" name="register" value="'.$langRegisterMyCampus.'" />'."\n"
+		.'<p>'
+	    .'<small>'.$langRegisterCampusAdvice.'</small>'
+	    .'</p>'."\n"
 		.'</form>'."\n";
 }
 
