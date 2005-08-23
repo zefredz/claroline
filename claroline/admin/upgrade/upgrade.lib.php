@@ -563,4 +563,112 @@ function sql_repair_course_database($courseDbNameGlu)
     claro_sql_query($sql);
 }
 
+/**
+ * Get upgrade status of a tool
+ *
+ * @param string claro_label
+ * @param string course_code
+ *
+ * @return integer status value
+ *
+ * @since  1.7
+ */
+
+function get_upgrade_status($claro_label,$course_code=null)
+{
+    // get table name
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
+    
+    // course_code empty 
+    if ( is_null($course_code) ) $course_code = '';
+
+    // query to find status
+    $sql = "SELECT `status`
+            FROM `" . $tbl_upgrade_status . "`
+            WHERE cid = '" . $course_code . "' 
+              AND claro_label = '" . $claro_label . "' ";
+
+    $result = claro_sql_query($sql);
+    
+    if ( mysql_num_rows($result) > 0 )
+    {
+        // get status
+        $row = mysql_fetch_array($result);       
+        $status = $row['status'];
+    }
+    else
+    {
+        // initialise status to 1
+        $status = 1;
+        // insert status
+        $sql = "INSERT INTO `" . $tbl_upgrade_status . "`
+                (`cid`,`claro_label`,`status`)
+                VALUES
+                ('" . $course_code .  "','" . $claro_label . "','" . $status ."')";
+        claro_sql_query($sql);
+    }
+
+    return $status;
+}
+
+/**
+ * Get upgrade status of a tool
+ *
+ * @param string claro_label
+ * @param int status value
+ * @param string course_code
+ *
+ * @return integer status value
+ *
+ * @since  1.7
+ */
+
+function set_upgrade_status($claro_label,$status,$course_code=null)
+{
+    // get table name
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
+
+    // course_code empty 
+    if ( is_null($course_code) ) $course_code = '';
+
+    // update status
+    $sql = " UPDATE `" . $tbl_upgrade_status . "`
+             SET `status` = '" . $status . "'
+             WHERE cid = '" . $course_code . "' 
+               AND claro_label = '" . $claro_label . "' ";
+
+    return claro_sql_query($sql);      
+
+}
+
+/**
+ * Get upgrade status of a tool
+ *
+ * @param string claro_label
+ * @param int status value
+ * @param string course_code
+ *
+ * @return integer status value
+ *
+ * @since  1.7
+ */
+
+function clean_upgrade_status($course_code=null)
+{
+    // get table name
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
+
+    // course_code empty 
+    if ( is_null($course_code) ) $course_code = '';
+
+    // delete all status for this course
+    $sql = " DELETE FROM `" . $tbl_upgrade_status . "`
+             WHERE cid = '" . $course_code . "' ";
+
+    return claro_sql_query($sql);
+}
+
 ?>
