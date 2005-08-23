@@ -40,9 +40,9 @@ array ( 'show_agreement_panel'
       );
 
 $conf_def_property_list['show_agreement_panel'] =
-array ( 'label'         => 'Show the agreement panel before to create a new account'
+array ( 'label'         => 'Show the agreement panel before creating a new account'
       ,'description'   => 'The content of this panel is editable in administration '
-      , 'default'       => 'TRUE'
+      , 'default'       => 'FALSE'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Show'
                                  ,'FALSE' => 'Hide'
