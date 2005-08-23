@@ -458,13 +458,13 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
  * Add a new tool in tool_list table of a course
  *
  * @param string claro_label
- * @param string access
+ * @param string access level to tools if null get the default value from main table
  * @param string course db name glued
  *
  * @return boolean
  */
 
-function add_tool_in_course_tool_list ( $claro_label, $access, $courseDbNameGlu )
+function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDbNameGlu = null )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbNameGlu);

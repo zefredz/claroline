@@ -217,6 +217,10 @@ function wiki_upgrade_to_17()
             // upgrade db failed
             $db_error_counter++;
         }
+        
+        // add wiki in course tool list
+        add_tool_in_course_tool_list('CLWIKI__','COURSE_ADMIN',$currentCourseDbNameGlu);
+
     }
 }
 
