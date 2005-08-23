@@ -33,6 +33,8 @@ $conf_def['section']['required']['label'] = 'Data checkin';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] = 
 array ( 'show_agreement_panel'
+	  , 'agreement_next_step_message'
+	  , 'agreement_cancel_message'
       , 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
@@ -47,6 +49,18 @@ array ( 'label'         => 'Show the agreement panel before creating a new accou
       , 'acceptedValue' => array ('TRUE'  => 'Show'
                                  ,'FALSE' => 'Hide'
                                  )
+      );
+      
+$conf_def_property_list['agreement_next_step_message'] =
+array ( 'label'         => 'Text of the button to access next step in the agreement panel'
+      , 'default'       => 'I Agree'
+      , 'type'          => 'string'
+      );
+      
+$conf_def_property_list['agreement_cancel_message'] =
+array ( 'label'         => 'Text of the button to cancel the agreement'
+      , 'default'       => 'I Disagree'
+      , 'type'          => 'string'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =

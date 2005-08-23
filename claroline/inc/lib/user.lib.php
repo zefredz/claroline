@@ -1148,6 +1148,8 @@ function user_display_form($data, $form_type='registration')
            $ask_for_official_code, $langLegendRequiredFields, $langCreate;
 
     global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
+    
+    global $rootWeb;
 
     // display registration form
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
@@ -1334,7 +1336,17 @@ function user_display_form($data, $form_type='registration')
     }
 
     // Submit
-    if ( $form_type == 'registration' || $form_type == 'admin_add_new_user' )
+    if ( $form_type == 'registration' )
+    {
+		echo ' <tr>' . "\n"
+            . '  <td align="right">' . ucfirst($langCreate) . ' : </td>' . "\n"
+            . '  <td>' . "\n"
+            . '  <input type="submit" value="' . $langOk . '" />&nbsp;'
+            . claro_disp_button($rootWeb, $langCancel)
+            . ' </td>' . "\n"
+            . '</tr>' . "\n";
+    }
+    elseif (  $form_type == 'admin_add_new_user' )
     {
         echo ' <tr>' . "\n"
             . '  <td align="right">' . ucfirst($langCreate) . ' : </td>' . "\n"

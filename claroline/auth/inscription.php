@@ -172,13 +172,14 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
         .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=2">'
         .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
         .    '</a>' . "\n"
-        .    '<br/>' . "\n"
+        .    '<br />' . "\n"
         ;
     }
 
-    echo '<form action="' . $_SERVER['PHP_SELF'] . '" >'
+    echo '<br /><form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" >' . "\n"
-    .    '<input type="submit" name="next" value="' . $langNext . '" >' . "\n"
+    .    '<input type="submit" name="next" value="' . $agreement_next_step_message . '" >' . "\n"
+    .    claro_disp_button( $rootWeb, $agreement_cancel_message )
     .    '</form>' . "\n" 
     ;
 }
