@@ -1,27 +1,34 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
+ * @package CLUSR
+ *
+ * @author claro team <cvs@claroline.net>
+ * @author Guillaume Lederer <lederer@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 if (!$is_platformAdmin) claro_disp_auth_form();
 
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-include($includePath."/lib/admin.lib.inc.php");
+if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
+include_once($includePath . '/lib/admin.lib.inc.php');
+include_once($includePath . '/lib/form.lib.php');
 
-//------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 // deal with session variables clean session variables from previous search
 
 
@@ -35,27 +42,13 @@ unset($_SESSION['admin_user_action']);
 unset($_SESSION['admin_order_crit']);
 
 //declare needed tables
-$tbl_mdb_names = claro_sql_get_main_tbl();
-//$tbl_course           = $tbl_mdb_names['course'           ];
-//$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-$tbl_course_nodes     = $tbl_mdb_names['category'         ];
-//$tbl_user             = $tbl_mdb_names['user'             ];
-//$tbl_class            = $tbl_mdb_names['class'            ];
-//$tbl_rel_class_user   = $tbl_mdb_names['rel_class_user'   ];
-
-$tbl_course_nodes      = $tbl_course_nodes;
+$tbl_mdb_names    = claro_sql_get_main_tbl();
+$tbl_course_nodes = $tbl_mdb_names['category'         ];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 $nameTools = $langSearchUserAdvanced;
-
-// Search needed info in db to creat the right formulaire
-
-$sql_searchfaculty = 'SELECT * 
-                      FROM `'.$tbl_course_nodes.'`
-                      ORDER BY `treePos`';
-$arrayFaculty=claro_sql_query_fetch_all($sql_searchfaculty);
 
 //retrieve needed parameters from URL to prefill search form
 
@@ -67,14 +60,20 @@ if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $ma
 
 //header and bredcrump display
 
-include($includePath."/claro_init_header.inc.php");
 
-//tool title
 
-echo claro_disp_tool_title($nameTools." : ");
 
+
+
+
+
+
+/////////////
+// OUTPUT
+
+include($includePath . '/claro_init_header.inc.php');
+echo claro_disp_tool_title($nameTools . ' : ');
 ?>
-
 <form action="adminusers.php" method="GET" >
 <table border="0">
 	<tr>
@@ -119,21 +118,26 @@ echo claro_disp_tool_title($nameTools." : ");
 
 <tr>
   <td align="right">
-   <label for="action"><?php echo $langAction?></label> : <br>
+   <label for="action"><?php echo $langStatus ?></label> : <br>
   </td>
   <td>
-    <select name="action" id="action">
-        <option value="followcourse" <?php if ($action=="followcourse") echo "selected";?>><?php echo $langRegStudent?></option>
-        <option value="createcourse" <?php if ($action=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
-        <option value="plateformadmin" <?php if ($action=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdministrator?></option>
-        <option value="all" <?php if ($action=="" || $action=="all") echo "selected";?>><?php echo $langAll?></option>
-    </select>
-  </td>
-</tr>
+<?php 
 
+        $action_list['followcourse'] = $langStudent;
+        $action_list['createcourse'] =  $langCourseCreator;
+        $action_list['plateformadmin'] = $langPlatformAdministrator;
+        $action_list['all'] = $langAll;
+
+        echo claro_html_form_select( 'action'
+                                         , $action_list
+                                         , $action
+                                         , array('id'=>'action'))
+                                         ; ?>
+
+    </td>
+</tr>
 <tr>
     <td>
-
     </td>
     <td>
         <input type="submit" class="claroButton" value="<?php echo $langSearchUser?>" >
@@ -142,6 +146,5 @@ echo claro_disp_tool_title($nameTools." : ");
 </table>
 </form>
 <?php
-include($includePath."/claro_init_footer.inc.php");
-
+include($includePath . '/claro_init_footer.inc.php');
 ?>
