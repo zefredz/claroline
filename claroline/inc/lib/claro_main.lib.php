@@ -1057,9 +1057,9 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
             $endAnchorTag   = '';
         }
 
-        $htmlizedName = is_htmlspecialcharized($thisName) ? 
-                          htmlspecialchars($thisName)
-                        : $thisName;
+        $htmlizedName = is_htmlspecialcharized($thisName) 
+						? $thisName
+                        : htmlspecialchars($thisName);
 
         $breadCrumbList [] = $startAnchorTag 
                            . $htmlizedName
