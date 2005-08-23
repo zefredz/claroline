@@ -60,7 +60,7 @@ $imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
   Start session
   ----------------------------------------------------------------------*/
 
-if (isset($platform_id))
+if ( isset($platform_id) )
 {
     session_name($platform_id);
 }
@@ -71,9 +71,12 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-include( $includePath . '/lib/claro_main.lib.php' );
+require $includePath . '/lib/claro_main.lib.php';
 
-// unquote GPC if magic quote gpc enabled
+/*----------------------------------------------------------------------
+  Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
+  ----------------------------------------------------------------------*/
+
 claro_unquote_gpc();
 
 /*----------------------------------------------------------------------
@@ -99,13 +102,13 @@ if ($statsDbName == '')
   Include the local (contextual) parameters of this course or section
   ----------------------------------------------------------------------*/
 
-include($includePath."/claro_init_local.inc.php");
+require $includePath . '/claro_init_local.inc.php';
 
 /*----------------------------------------------------------------------
   Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
   
-include($includePath . '/lib/event/init_event_manager.inc.php');
+require $includePath . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
   Load language files
