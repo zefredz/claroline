@@ -92,6 +92,7 @@ function announcement_delete_all_items($course_id=NULL)
  * @param course_code $course_id sysCode of the course (leaveblank for current course) 
  * @return id of the new item
  * @since  1.7
+ * @todo convert to param date  timestamp
  */
 
 function announcement_add_item($title='',$content='', $visibility='SHOW', $time=NULL, $course_id=NULL) 
@@ -133,6 +134,7 @@ function announcement_add_item($title='',$content='', $visibility='SHOW', $time=
  * @param string $course_id sysCode of the course (leaveblank for current course) 
  * @return handler of query
  * @since  1.7
+ * @todo convert to param date  timestamp
  */
 
 function announcement_update_item($announcement_id, $title=NULL, $content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL) 
