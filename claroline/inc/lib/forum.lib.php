@@ -108,13 +108,15 @@ function is_first_post($topic_id, $post_id)
 
 function error_die($msg)
 {
-    echo "<table border=\"0\" align=\"center\" width=\"100%\">\n"
-        ."<tr>\n"
-        ."<td>\n"
-        ."<blockquote>\n" . $msg."\n</blockquote>\n"
-        ."</td>\n"
-        ."</tr>\n"
-        ."</table>\n";
+    echo '<table border="0" align="center" width="100%">'."\n"
+        .'<tr>'."\n"
+        .'<td>'."\n"
+        .'<blockquote>'."\n"
+		.$msg."\n"
+		.'</blockquote>'."\n"
+        .'</td>'."\n"
+        .'</tr>'."\n"
+        .'</table>'."\n";
 }
 
 /** 
@@ -867,7 +869,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     global $_gid, $forum_name,
            $imgRepositoryWeb, 
-           $langAdm, $langBackTo, $langNewTopic, $langReply;
+           $langAdm, $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum;
 
     $toolBar = array();
 
@@ -916,11 +918,11 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                 else               $toAdd = '';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
-                          .  'Create Category'
+                          .  $langCreateCategory
                           .  '</a>';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
-                          .  'Create Forum'
+                          .  $langCreateForum
                           .  '</a>';
             }
             break;
