@@ -1583,6 +1583,7 @@ $langRawHasBeenChanged = "Le score minimum pour réussir le module a été changé";
 $langReg = "Inscription";
 $langRegAdmin = "Créer des sites de cours";
 $langRegIntoGroup = "M'ajouter à ce groupe";
+$langRegisterCampusAdvice = "Merci de vérifier que votre campus est accessible depuis internet avant de nous le soumettre.";
 $langRegStudent = "M'inscrire à des cours";
 $langRegUser = "utilisateurs inscrits";
 $langRegYou = "vous a inscrit sur";
