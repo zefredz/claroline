@@ -34,13 +34,13 @@ $display = '';
 $error = false;
 
 // include configuration files
-include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
+include $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
 // include library files
-include $includePath.'/lib/user.lib.php';
-include $includePath.'/lib/profile.lib.php';
-include $includePath.'/lib/claro_mail.lib.inc.php';
-include $includePath.'/lib/fileManage.lib.php';
+include $includePath . '/lib/user.lib.php';
+include $includePath . '/lib/profile.lib.php';
+include $includePath . '/lib/claro_mail.lib.inc.php';
+include $includePath . '/lib/fileManage.lib.php';
 //include $includePath.'/lib/auth.lib.inc.php';
 
 $nameTools = $langModifyProfile;
@@ -121,15 +121,15 @@ elseif ( $can_request_revoquation && $cmd == 'exRevoquation' )
 elseif ( $can_request_course_creator_status  && $cmd == 'reqCCstatus' )
 {
     // display course creator status form
-	$noQueryString = TRUE;
-	$display = DISP_REQUEST_COURSE_CREATOR_STATUS;
-	$nameTools = $langRequestOfCourseCreatorStatus;
+    $noQueryString = TRUE;
+    $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
+    $nameTools = $langRequestOfCourseCreatorStatus;
 } 
 elseif ( $can_request_revoquation && $cmd == 'reqRevoquation' )
 {
     // display revoquation form
-	$noQueryString = TRUE;
-	$display = DISP_REQUEST_REVOQUATION;
+    $noQueryString = TRUE;
+    $display = DISP_REQUEST_REVOQUATION;
 }
 
 // Initialise
@@ -163,14 +163,14 @@ switch ( $display )
             . '</a>';
 
         // display request course creator status
-       	if ( $can_request_course_creator_status )
+        if ( $can_request_course_creator_status )
         {
             echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . $langRequestOfCourseCreatorStatus . '</a>';
-	    }
+        }
         
         // display user revoquation
         if ( $can_request_revoquation )
-    	{
+        {
             echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . $langDeleteMyAccount . '</a>' ;
         }
         
@@ -181,7 +181,7 @@ switch ( $display )
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
 
         if ( $can_request_course_creator_status )
-		{
+        {
             echo '<p>' . $langFillTheAreaToExplainTheMotivations . '</p>';
 
             // display request course creator form
@@ -204,8 +204,8 @@ switch ( $display )
 
     case DISP_REQUEST_REVOQUATION :
     
-    	if ( $can_request_revoquation )
-	    {
+        if ( $can_request_revoquation )
+        {
 
             echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
                 . '<input type="hidden" name="cmd" value="exRevoquation" />'
