@@ -4,10 +4,6 @@
 // The line below set the error reporting to the most fitting one for Claroline
 // error_reporting(error_reporting() & ~ E_NOTICE);
 
-// a shorter reference to $_SERVER['PHP_SELF']. Useful to lighten the HTML code.
-
-$_SELF = basename($_SERVER['PHP_SELF']);
-
 // include the main Claroline platform configuration file
 
 // Determine the directory path where this current file lies
@@ -39,6 +35,15 @@ else
 // its path to the PEAR_LIB_PATH constant.
 
 define('PEAR_LIB_PATH', $includePath.'/lib/pear');
+
+// Add the Claroline PEAR path to the php.ini include path
+// This action is mandatory because PEAR inner include() statements 
+// rely on the php.ini include_path settings
+
+ini_set('include_path', 
+        ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
+
+
 $clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
 $clarolineRepositoryWeb = $rootWeb . $clarolineRepositoryAppend;
 $userImageRepositorySys = $rootSys . $userImageRepositoryAppend;
@@ -50,13 +55,6 @@ $rootAdminWeb           = $clarolineRepositoryWeb . $rootAdminAppend;
 $imgRepositoryAppend    = 'img/'; // <-this line would be editable in claroline 1.7
 $imgRepositorySys       = $clarolineRepositorySys . $imgRepositoryAppend;
 $imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
-
-// Add the Claroline PEAR path to the php.ini include path
-// This action is mandatory because PEAR inner include() statements 
-// rely on the php.ini include_path settings= 
-
-ini_set('include_path', 
-        ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
 
 /*----------------------------------------------------------------------
   Start session
