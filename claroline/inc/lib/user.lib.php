@@ -1427,7 +1427,7 @@ function user_search($name, $mail, $code, $course_id="")
                                             ON  CU.`user_id`=U.`user_id` 
                                             AND CU.`code_cours` = '" . $course_id . "'
                                             ";
-    $sql .= " WHERE (1=0) ";
+    $sql .= " WHERE (0=0) ";
 
     if ($allowSearchInAddUser)
     {
@@ -1438,10 +1438,10 @@ function user_search($name, $mail, $code, $course_id="")
         $like_search = "";
     }
 
-    if (!empty($name)) $sql .= " OR (U.`nom` LIKE '".$name.$like_search."')";
-    if (!empty($mail)) $sql .= " OR (U.`email` LIKE '".$mail.$like_search."')";
-    if (!empty($code)) $sql .= " OR (U.`officialCode` = '".$code."')";
-
+    if (!empty($name)) $sql .= " AND (U.`nom` LIKE '".$name.$like_search."')";
+    if (!empty($mail)) $sql .= " AND (U.`email` LIKE '".$mail.$like_search."')";
+    if (!empty($code)) $sql .= " AND (U.`officialCode` = '".$code."')";
+    
     $result = claro_sql_query_fetch_all($sql);
     return $result;
 }
