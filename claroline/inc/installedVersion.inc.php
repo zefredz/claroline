@@ -24,12 +24,12 @@
 
 $stable = FALSE;
 $clarolinePhase = 'beta';
-$is_upgrade_available = FALSE;
+$is_upgrade_available = TRUE;
 
 // var version_db  max. 10 chars
 
-$version_file_cvs = '1.7.beta';
-$version_db_cvs   = '1.7.beta';
+$version_file_cvs = '1.7.rc1';
+$version_db_cvs   = '1.7.rc1';
 
 if (!$is_upgrade_available)
 {
