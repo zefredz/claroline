@@ -455,6 +455,60 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
 }
 
 /**
+ * Add a new tool in tool_list table of a course
+ *
+ * @param string claro_label
+ * @param string access
+ * @param string course db name glued
+ *
+ * @return boolean
+ */
+
+function add_tool_in_course_tool_list ( $claro_label, $access, $courseDbNameGlu )
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_cdb_names = claro_sql_get_course_tbl($courseDbNameGlu);
+
+    $tbl_course_tool = $tbl_mdb_names['tool'];
+    $tbl_tool_list = $tbl_cdb_names['tool'];
+    
+    // get rank of tool in course table    
+    $sql = "SELECT MAX(`rank`)  as `max_rank`
+            FROM `" . $tbl_tool_list . "`";       
+
+    $rank =  claro_sql_query_get_single_value($sql);
+    $rank++;
+    
+    // get id of tool on the platform and default access    
+    $sql = "SELECT `id`, `def_access`
+            FROM `" . $tbl_course_tool . "`
+            WHERE `claro_label` = '" . addslashes($claro_label) . "'";
+   
+    $result = claro_sql_query($sql);
+
+    if ( $num_rows($result) )
+    {
+        $row = mysql_fetch_array($result);        
+
+        // if $access emtpy get default access
+        if ( empty($access) ) $access = $row['access'];
+
+        // add tool in course_tool table
+        $sql = "INSERT INTO `" . $tbl_tool_list . "`
+               (`tool_id`,`rank`,`access`)
+               VALUES
+               ('" . $row['id'] . "," . $rank . "," . $access . "')";
+
+        return claro_sql_query_insert_id($sql);
+    }
+    else
+    {
+        return FALSE;
+    }
+    
+}
+
+/**
  * Save the file currentVersion.inc.php
  *
  * @param string course code
