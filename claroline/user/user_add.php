@@ -227,6 +227,34 @@ else
 
     if ($displayResultTable)
     {
+        //displkay a search legend first
+        
+        
+        if ($allowSearchInAddUser)
+        {
+            $enclose_field = "*";    
+        }   
+        else
+        {
+            $enclose_field = "";    
+        }
+        
+        echo $langSearchOn." : ";
+        
+        if ($user_data['lastname']!="")
+        {  
+            echo $langLastName."=".$user_data['lastname'].$enclose_field." ";
+        }
+        if ($user_data['email']!="")
+        {
+            echo $langEmail."=".$user_data['email'].$enclose_field." ";
+        }
+        if ($user_data['officialCode']!="")
+        {
+            echo $langOfficialCode."=".$user_data['officialCode']." ";
+        }
+        echo "<br /><br />";
+        
         echo "<table class=\"claroTable emphaseLine\" border=\"0\" cellspacing=\"2\">
                 <thead>
                   <tr class=\"headerX\" align=\"center\" valign=\"top\">
