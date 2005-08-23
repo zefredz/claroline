@@ -109,20 +109,27 @@ switch ( $display )
 
     case DISPLAY_RESULT_PANEL :
 
-    // Initialise
-    $nbError = 0;
+        // Initialise
+        $nbError = 0;
+    
+        // Display upgrade result
+        
+        echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
+            . '<h3>' 
+            . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName) 
+            .'</h3>' . "\n"
+            ;
 
-    // Display upgrade result
+        
+        if ( ! preg_match('/^1.7/',$currentDbVersion) )
+        {
+            // repair tables
+            sql_repair_main_database();
+        }
 
-    echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
-    . '<h3>'
-    . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName)
-    .'</h3>' . "\n"
-    ;
-
-    /*---------------------------------------------------------------------
-    Upgrade 1.5 to 1.6
-    ---------------------------------------------------------------------*/
+        /*---------------------------------------------------------------------
+          Upgrade 1.5 to 1.6
+         ---------------------------------------------------------------------*/
 
     if ( preg_match('/^1.5/',$currentDbVersion) )
     {
