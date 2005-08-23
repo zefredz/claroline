@@ -1,4 +1,4 @@
-<?php
+<?php 
 $l_author = "Auteur";
 $l_body = "Message";
 $l_click = "Cliquez";
@@ -649,7 +649,6 @@ $langEXERCISETypeDesc = "Exercice Claroline";
 $langEdit = "Editer";
 $langEditAnswers = "Editer les réponses";
 $langEditCategory = "Editer la catégorie";
-$langEditDel = "Editer/Effacer";
 $langEditEvent = "Editer l'événement";
 $langEditExercise = "Editer les propriétés de l'exercice";
 $langEditFeedback = "Editer la correction automatique";
@@ -955,8 +954,8 @@ $langForum = "Forum";
 $langForumCreated = "Forum créé.";
 $langForumDeleted = "Forum effacé.";
 $langForumEmptied = "Forum vidé.";
-$langForumUpdated = "Forum mis à jour.";
 $langForumGroup = "Forum du groupe";
+$langForumUpdated = "Forum mis à jour.";
 $langForums = "Forums";
 $langFree = "Libre";
 $langFrom = "Du";
@@ -1583,11 +1582,11 @@ $langRawHasBeenChanged = "Le score minimum pour réussir le module a été changé";
 $langReg = "Inscription";
 $langRegAdmin = "Créer des sites de cours";
 $langRegIntoGroup = "M'ajouter à ce groupe";
-$langRegisterCampusAdvice = "Merci de vérifier que votre campus est accessible depuis internet avant de nous le soumettre.";
 $langRegStudent = "M'inscrire à des cours";
 $langRegUser = "utilisateurs inscrits";
 $langRegYou = "vous a inscrit sur";
 $langRegister = "S'inscrire";
+$langRegisterCampusAdvice = "Merci de vérifier que votre campus est accessible depuis internet avant de nous le soumettre.";
 $langRegisterClass = "Inscrire une classe";
 $langRegisterLocalUrl = "L'URL de votre campus semble être locale.
 Une URL accessible est nécessaire pour enregistrer votre campus.<br /><br />
@@ -1795,8 +1794,8 @@ $langUnableDeleteGroupCategoryForum = "La catégorie des forums de groupe ne peut
 $langUnableDescToAdd = "Impossible d'ajouter la description";
 $langUnableToAdd = "Impossible d'ajouter l'événement dans l'agenda.";
 $langUnableToDelete = "Impossible de supprimer l'événement de l'agenda.";
-$langUnableToEnrollInCourse = "Impossible de vous inscrire à ce cours.";
 $langUnableToEmptyForum = "Impossible de vider le forum.";
+$langUnableToEnrollInCourse = "Impossible de vous inscrire à ce cours.";
 $langUnableToRemoveCourseRegistration = "Impossible de vous désinscrire du cours.";
 $langUnableToUpdate = "Impossible de mettre à jour l'événement dans l'agenda.";
 $langUnableToUpdateCategory = "Impossible de mettre à jour la catégorie.";
