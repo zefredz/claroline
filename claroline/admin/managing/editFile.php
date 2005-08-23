@@ -11,6 +11,8 @@
  * @package CLMANAGE
  *
  * @author Claro Team <cvs@claroline.net>
+ *
+ * @todo use modifiy is use in a cmd request
  */
 
 define('DISP_FILE_LIST', __LINE__);
@@ -28,20 +30,26 @@ include($includePath . '/lib/debug.lib.inc.php');
 
 $controlMsg = array();
 //The name of the files
-$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html');
+$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html');
 //The path of the files
-$filePathList = array($rootSys . $filenameList[0], $rootSys . $filenameList[1]);
+$filePathList = array($rootSys . $filenameList[0], $rootSys . $filenameList[1], $clarolineRepositorySys . '/auth/' . $filenameList[2]);
 
 $display = DISP_FILE_LIST;
 //If choose a file to modify
 //Modify a file
+
 if ( isset($_REQUEST['modify']) )
 {
-    $text = $_REQUEST['textContent'];
-
-    $fp = fopen($filePathList[$_REQUEST['file']], 'w+');
-    fwrite($fp,$text);
-
+    $text = trim($_REQUEST['textContent']);
+    if ( trim( strip_tags( $text ) ) != '' )
+    {
+        $fp = fopen($filePathList[$_REQUEST['file']], 'w+');
+        fwrite($fp,$text);
+    }
+    else  // remove file if empty
+    {
+        unlink($filePathList[$_REQUEST['file']]);
+    }
     $controlMsg['info'][] = $lang_EditFile_ModifyOk
     .                       ' <br />'
     .                       '<strong>' 
