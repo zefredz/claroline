@@ -8,10 +8,14 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @package AUTH
+ * @package CLAUTH
  *
  * @author Claro Team <cvs@claroline.net>
  */
+
+define('DISP_REGISTRATION_FORM',__LINE__);
+define('DISP_REGISTRATION_SUCCEED',__LINE__);
+define('DISP_REGISTRATION_AGREEMENT',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
@@ -103,11 +107,26 @@ if ( $cmd == 'registration' )
 
 }
 
+
+if ( $cmd == 'registration' && $error == false )
+{
+        $display = DISP_REGISTRATION_SUCCEED;
+}
+elseif ( $cmd == 'agree' || !$show_agreement_panel || $cmd == 'registration' )
+{
+        $display = DISP_REGISTRATION_FORM;
+}
+else
+{
+        $display = DISP_REGISTRATION_AGREEMENT;
+}
+
+
 /*=====================================================================
   Display Section
  =====================================================================*/ 
 
-$interbredcrump[]= array ("url"=>"inscription.php", "name"=> $langCreateUserAccount);
+$interbredcrump[]= array ('url' => 'inscription.php', 'name' => $langCreateUserAccount);
 
 // Display Header
 
@@ -117,7 +136,7 @@ include($includePath . '/claro_init_header.inc.php');
 
 echo claro_disp_tool_title($langCreateUserAccount);
 
-if ( $cmd == 'registration' && $error == false )
+if ( $display == DISP_REGISTRATION_SUCCEED )
 {
         // registration succeeded
 
@@ -133,10 +152,37 @@ if ( $cmd == 'registration' && $error == false )
         }
 
         echo '<form action="../../index.php?cidReset=1" >'
-        .    '<input type="submit" name="next" value="' . $langNext . '" validationmsg=" ' . $langNext . ' ">' . "\n"
-        .    '</form>'."\n" ;
+        .    '<input type="submit" name="next" value="' . $langNext . '" >' . "\n"
+        .    '</form>'."\n" 
+        ;
 }
-else
+elseif ( $display == DISP_REGISTRATION_AGREEMENT )
+{
+    
+    if (file_exists('./textzone_inscription.inc.html'))
+    {
+        echo '<div class="info">';
+        include './textzone_inscription.inc.html'; // Introduction message if needed
+        echo '</div>';
+    }
+
+    if ($is_platformAdmin)
+    {
+        echo '&nbsp;'
+        .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=2">'
+        .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
+        .    '</a>' . "\n"
+        .    '<br/>' . "\n"
+        ;
+    }
+
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" >'
+    .    '<input type="hidden" name="cmd" value="agree" >' . "\n"
+    .    '<input type="submit" name="next" value="' . $langNext . '" >' . "\n"
+    .    '</form>' . "\n" 
+    ;
+}
+elseif ( $display == DISP_REGISTRATION_FORM )
 {
     //  if registration failed display error message
 
@@ -146,7 +192,10 @@ else
     }
 
     user_display_form_registration($user_data);
-
+}
+else
+{
+    // DISPLAY ERROR
 }
 
 // Display Footer
