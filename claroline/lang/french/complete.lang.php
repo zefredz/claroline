@@ -2003,9 +2003,9 @@ Pour chaque type d'utilisateur vous pouvez activer/désactiver trois types de dro
 <dt>Comment supprimer un Wiki ?</dt>
 <dd>Cliquez sur l'icône située dans la collonne 'Effacer' pour supprimer un Wiki et toutes ses pages.</dd>
 <dt>Comment obtenir la liste des pages d'un Wiki ?</dt>
-<dd>Cliquez sur le nombre de page de ce Wiki dans la liste des Wiki.</dd>
+<dd>Cliquez sur le nombre de page de ce Wiki dans la liste des Wikis.</dd>
 <dt>Comment voir les pages modifiées récemment dans un Wiki ?</dt>
-<dd>Cliquez sur l'icône située dans la collonne 'Changements récents' dans la liste des Wiki.</dd>
+<dd>Cliquez sur l'icône située dans la collonne 'Modifications récentes' dans la liste des Wikis.</dd>
 </dl>";
 $langWikiHelpSyntax = "Syntaxe Wiki";
 $langWikiHelpSyntaxContent = "<h3>Syntaxe wiki2xhtml</h3>
