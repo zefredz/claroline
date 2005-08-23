@@ -178,7 +178,7 @@ echo "<p>"
 
 // get the list of personnal courses marked as contening new events 
 
-$date = $claro_notifier->get_last_login_before_today($_uid);
+$date = $claro_notifier->get_notification_date($_uid);
 
 $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
 
@@ -233,7 +233,7 @@ echo '</ul>' . "\n";
 
 //display legend
 
-echo "<br><small><span class=\"item hot\"> : ".$langNewLegend."</span></small>";
+echo "<br><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
 echo '</td>' . "\n";
 
 
