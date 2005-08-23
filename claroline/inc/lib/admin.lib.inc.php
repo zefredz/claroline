@@ -74,15 +74,8 @@ function delete_course($code)
     $sql = 'DELETE FROM `' . $tbl_course . '`
             WHERE code= "' . addslashes($currentCourseId) . '"';
 
-    claro_sql_query($sql);
-    
-    // DELETE NOTIFICATION INFO 
-
-    $sql = 'DELETE FROM `' . $tbl_notify . '`
-            WHERE course_code= "' . addslashes($currentCourseId) . '"';
-
-    claro_sql_query($sql);
-    
+    claro_sql_query($sql);  
+   
     //notify the course deletion event
     
     $eventNotifier->notifyCourseEvent('course_deleted', $code, 0, 0, 0,'0');

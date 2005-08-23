@@ -66,14 +66,22 @@ class Notifier extends EventDriven
         $uid        = $event_args['uid'];
         $eventType  = $event->getEventType();
         
-        $sql = "DELETE FROM `".$tbl_notify."`
+        // in case of a complete deletion of the course, all event regarding this course must be deleted
+        if ($eventType == 'course_deleted') 
+        {
+            $sql = "DELETE FROM `".$tbl_notify."`
+                      WHERE `course_code`='". addslashes($course)."'";
+        }
+        else // otherwise, just delete vent concerning the tool or the ressource in the course
+        {        
+            $sql = "DELETE FROM `".$tbl_notify."`
                       WHERE `course_code`='". addslashes($course) ."'
                         AND `tool_id`='". (int)$tool."'
                         AND `ressource_id`='". addslashes($ressource) ."'
                         AND `group_id` = '". (int)$gid."'
                         AND `user_id` = '". (int)$uid."'
                         ";
-                        
+        }               
         claro_sql_query($sql);                   
     }
     
@@ -368,6 +376,18 @@ class Notifier extends EventDriven
         
         return $login_date;
     }
+    /**
+    * Function returning the date (depending the behaviour we want) for a specific user 
+    * (from which every event will be considered as new).
+    * In case we want different behaviours available in config, this should be coded HERE
+    *
+    */
+    
+    function get_notification_date($user_id)
+    {
+        return $this->get_last_login_before_today($user_id);
+    }
+    
         
 } // CLASS Notifier extends EventDriven 
 
