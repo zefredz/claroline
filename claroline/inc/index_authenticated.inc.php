@@ -184,7 +184,7 @@ $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
 
 //display list
  
-echo "<ul style=\"list-style-image:url(claroline/img/course.gif);list-style-position:inside\">\n";
+echo '<ul style="list-style-image:url(claroline/img/course.gif);list-style-position:inside">'."\n";
 
 foreach($personnalCourseList as $thisCourse)
 {
@@ -193,11 +193,11 @@ foreach($personnalCourseList as $thisCourse)
     
     if (in_array ($thisCourse['sysCode'], $modified_course)) 
     {
-        $classItem=" hot";
+        $classItem = " hot";
     }
     else // otherwise just display its name normally
     {
-        $classItem='';
+        $classItem = '';
     }
 
     // show course language if not the same of the platform
@@ -222,7 +222,7 @@ foreach($personnalCourseList as $thisCourse)
     .    $thisCourse['officialCode'] . ' - '
     .    $thisCourse['title']
     .    '</a>'
-    .    '<br>'
+    .    '<br />'
     .    '<small>' . $thisCourse['titular'] . $course_language_txt . '</small>' . "\n"
     .    '</li>' ."\n"
     ;
@@ -233,7 +233,7 @@ echo '</ul>' . "\n";
 
 //display legend
 
-echo "<br><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
+echo "<br /><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
 echo '</td>' . "\n";
 
 
@@ -281,7 +281,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
 
         .    claro_disp_localised_date( $dateFormatLong,
                                      strtotime($courseDigestList['date'][$i]) )
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         .    '<a href="' . $url . '">'
         .    $courseDigestList['courseOfficialCode'][$i]
         .    '</a> : ' . "\n"
