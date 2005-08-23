@@ -67,7 +67,7 @@ if ($cmd == 'run')
 {
     // include sql to upgrade the main Database
 
-    include('./sql_statement_main_db.php');
+    include('./upgrade_main_db.lib.php');
 
     /** TODO
 
