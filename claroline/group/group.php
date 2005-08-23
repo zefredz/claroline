@@ -488,7 +488,7 @@ $totalRegistered = 0;
 
 if (isset($_uid))
 {
-    $date = $claro_notifier->get_last_login_before_today($_uid);
+    $date = $claro_notifier->get_notification_date($_uid);
     $modified_groups = $claro_notifier->get_notified_groups($_cid, $date);
 }
 else $modified_groups = array();

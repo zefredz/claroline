@@ -1803,7 +1803,7 @@ echo claro_disp_tool_title($titleElement,
                 
                 if (isset($_uid))
                 {    
-                    $date = $claro_notifier->get_last_login_before_today($_uid);
+                    $date = $claro_notifier->get_notification_date($_uid);
                     $modified_documents = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid, 7);
                 }
                 else

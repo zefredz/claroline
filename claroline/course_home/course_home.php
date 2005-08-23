@@ -86,7 +86,7 @@ $toolList = get_course_home_tool_list($reqAccessLevel);
 
 if (isset($_uid))
 {
-    $date = $claro_notifier->get_last_login_before_today($_uid);
+    $date = $claro_notifier->get_notification_date($_uid);
     $modified_tools = $claro_notifier->get_notified_tools($_cid, $date, $_uid);
 }
 else $modified_tools = array();
@@ -187,7 +187,7 @@ if ($disp_edit_command)
     ;
 }
 
-echo "<br><small><span class=\"item hot\"> : ".$langNewLegend."</span></small>";
+echo "<br><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
 
 ?>
 </td>

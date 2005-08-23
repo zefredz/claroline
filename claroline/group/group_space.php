@@ -210,7 +210,7 @@ DISPLAY AVAILABLE TOOL LIST
 $toolList = get_group_tool_list();
 if (isset($_uid))
 {
-    $date = $claro_notifier->get_last_login_before_today($_uid);
+    $date = $claro_notifier->get_notification_date($_uid);
     $modified_tools = $claro_notifier->get_notified_tools($_cid, $date, $_uid, $_gid);
 }
 else $modified_tools = array();
