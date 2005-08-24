@@ -353,18 +353,18 @@ function upgrade_sql_query($sql, $verbose = false)
             // error accepted
             if ( $verbose )
             {
-                echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
+                $message  = 'Accepted error: ' . mysql_errno() . '-message- ' . mysql_error() . "\n";
+                $message .= $sql;
+                log_message($sql);
             }
             return true;
         }
         else
         {
-            echo '<p class="error">' . "\n"
-                . '<strong>' . 'N°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
-                . '<code>' . $sql . '</code>' . "\n"
-                . '</p>' . "\n";
-
             // error not accepted
+            $message  = 'Error: ' . mysql_errno() . ' -message- '. mysql_error() . "\n"
+            $message .= $sql . "\n"
+            log_message($sql);
             return false;
         }
     }
