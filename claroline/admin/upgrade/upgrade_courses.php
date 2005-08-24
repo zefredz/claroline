@@ -57,9 +57,6 @@ else                               $verbose = FALSE;
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = FALSE;
 
-if ( isset($_REQUEST['forceUpgrade']) ) $forceUpgrade = $_REQUEST['forceUpgrade'];
-else                           $forceUpgrade = FALSE;
-
 $upgradeCoursesError = isset($_REQUEST['upgradeCoursesError']) 
                      ? $_REQUEST['upgradeCoursesError']
                      : FALSE;
@@ -76,9 +73,7 @@ else
 // Get start time
 $mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
-// force upgrade for debug
-if ( $forceUpgrade ) $newDbVersion = md5(uniqid('')); // for debug
-
+// count course to upgrade
 $count_error_total = 0;
 
 $count_course_upgraded = count_course_upgraded($newDbVersion, $newClarolineVersion);
@@ -98,7 +93,6 @@ $count_course_upgraded_at_start =  $count_course_upgraded;
  ---------------------------------------------------------------------*/
 
 // auto refresh
-
 if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_error ) < $count_course )
 {
     $refresh_time = 20;
@@ -153,6 +147,15 @@ switch ($display)
          * Build query to select course to upgrade
          */
 
+        if ( isset($_REQUEST['upgradeCoursesError']) )
+        {
+            // retry to upgrade course where upgrade failed
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.5' WHERE `versionClaro` = 'error-1.5'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionDb` = '1.5' WHERE `versionDb` = 'error-1.5'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionDb` = '1.6' WHERE `versionDb` = 'error-1.6'");
+        }
+
         $sql_course_to_upgrade = " SELECT c.dbName dbName, 
                                           c.code sysCode, 
                                           c.fake_code officialCode, 
@@ -166,7 +169,7 @@ switch ($display)
         {
             // retry to upgrade course where upgrade failed
             $sql_course_to_upgrade .= " WHERE c.versionDb != '". $newDbVersion ."'
-                                        or c.versionClaro != '". $newClarolineVersion."'
+                                        OR c.versionClaro != '". $newClarolineVersion."'
                                         ORDER BY c.dbName";
         }
         else
@@ -174,8 +177,8 @@ switch ($display)
             // not upgrade course where upgrade failed ( versionDb == error)
             $sql_course_to_upgrade .= " WHERE ( c.versionDb != '". $newDbVersion ."' 
                                                 or  c.versionClaro != '". $newClarolineVersion."' )
-                                              and c.versionDb != 'error' 
-                                              and c.versionClaro != 'error' 
+                                              and c.versionDb not like 'error%' 
+                                              and c.versionClaro not like 'error%' 
                                         ORDER BY c.dbName ";
         }
         
@@ -354,7 +357,6 @@ switch ($display)
         
         if ( $count_error_total > 0 )
         {
-//            echo '<p class="error">' . sprintf($lang_p_d_coursesNotUpgraded,  $count_course_error);
             echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true&cmd=run&upgradeCoursesError=1">'.$lang_RetryWithMoreDetails.'</a></p>';
         }
         else
@@ -370,7 +372,7 @@ switch ($display)
 
         $sql = "SELECT code 
                 FROM `" . $tbl_course . "` 
-                WHERE versionDb = 'error' or versionClaro = 'error' ";
+                WHERE versionDb like 'error-%' or versionClaro like 'error-%' ";
 
         $result = claro_sql_query($sql);
 
