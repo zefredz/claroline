@@ -74,8 +74,6 @@ else
 $mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // count course to upgrade
-$count_error_total = 0;
-
 $count_course_upgraded = count_course_upgraded($newDbVersion, $newClarolineVersion);
 
 $count_course = $count_course_upgraded['total'];
@@ -157,8 +155,8 @@ switch ($display)
         }
 
         $sql_course_to_upgrade = " SELECT c.dbName dbName, 
-                                          c.code sysCode, 
-                                          c.fake_code officialCode, 
+                                          c.code , 
+                                          c.fake_code , 
                                           c.directory coursePath,
                                           c.creationDate,
                                           c.versionDb,
@@ -181,7 +179,8 @@ switch ($display)
                                               and c.versionClaro not like 'error%' 
                                         ORDER BY c.dbName ";
         }
-        
+
+              
         $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
         
         /*
@@ -192,25 +191,24 @@ switch ($display)
         {   
             // initialise variables
 
-            $currentCourseDbName    = $course['dbName'];
-            $currentcoursePathSys   = $coursesRepositorySys.$course['coursePath'].'/';
-            $currentcoursePathWeb   = $coursesRepositoryWeb.$course['coursePath'].'/';
-            $currentCourseIDsys     = $course['sysCode'];
-            $currentCourseCode      = $course['officialCode'];
+            $currentCourseDbName       = $course['dbName'];
+            $currentcoursePathSys      = $coursesRepositorySys.$course['coursePath'].'/';
+            $currentcoursePathWeb      = $coursesRepositoryWeb.$course['coursePath'].'/';
+            $currentCourseCode         = $course['code'];
+            $currentCourseFakeCode     = $course['fakecode'];
             $currentCourseCreationDate = $course['creationDate'];
-            $currentCourseDbVersion = $course['versionDb'];
-            $currentCourseClarolineVersion = $course['versionClaro'];
-            $currentCourseDbNameGlu = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
+            $currentCourseVersion      = $course['versionClaro'];
+            $currentCourseDbNameGlu    = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
 
+            // course upgraded
             $count_course_upgraded++;
-            $db_error_counter = 0;
-            $fs_error_counter = 0;
 
+            // initialise
             $error = false;
-            $errorMsgs ='';
+            $message = '';
             
             printf($lang_p_UpgradingDatabaseOfCourse, 
-            $count_course_upgraded, $currentCourseCode, $currentCourseDbName, $currentCourseIDsys);
+            $count_course_upgraded, $currentCourseFakeCode, $currentCourseDbName, $currentCourseCode);
             
             /**
              * Make some check.
@@ -225,10 +223,8 @@ switch ($display)
             if ( !file_exists($currentcoursePathSys) )
             {            
                 $error = true;
-                $count_error_total++;
-
-                $errorMsgs .= '<p class="help">'.sprintf($lang_CourseHasNoRepository_s_NotFound , $currentcoursePathSys).'</p>' . "\n";
-                $errorMsgs .= '<p class="comment">'.$lang_upgradeToolCannotUpgradeThisCourse.'</p>';
+                $message .= '<p class="help">'.sprintf($lang_CourseHasNoRepository_s_NotFound , $currentcoursePathSys).'</p>' . "\n";
+                $message .= '<p class="comment">'.$lang_upgradeToolCannotUpgradeThisCourse.'</p>';
             }
 
             if ( ! $error ) 
@@ -237,90 +233,65 @@ switch ($display)
                   Upgrade 1.6 to 1.7
                  ---------------------------------------------------------------------*/                
 
-                if ( preg_match('/^1.5/',$currentCourseDbVersion) )
+                if ( preg_match('/^1.5/',$currentCourseVersion) )
                 {
-                    // function to upgrade tool to 1.6
-
-                    assignment_upgrade_to_16();
-                    forum_upgrade_to_16();
-                    group_upgrade_to_16();
-                    quizz_upgrade_to_16();
-                    tracking_upgrade_to_16();
-
-                    if ( $db_error_counter > 0 )
+                    // Function to upgrade tool to 1.6
+                    if ( assignment_upgrade_to_16($currentCourseCode) &&
+                         forum_upgrade_to_16($currentCourseCode) &&
+                         group_upgrade_to_16($currentCourseCode) &&
+                         quizz_upgrade_to_16($currentCourseCode) &&
+                         tracking_upgrade_to_16($currentCourseCode) 
+                       )
                     {
-                        $error = true;
-                        $errorMsgs .= '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
-                        $count_error_total += $db_error_counter;
-                        $currentCourseDbVersion = 'error-1.5';
+                        // Upgrade succeeded
+                        clean_upgrade_status($currentCourseCode);
+                        $currentVersion = '1.6';
                     }
                     else
                     {
-                        $currentCourseDbVersion = '1.6';
-                    }
-
-                    if ( $fs_error_counter > 0 )
-                    {
+                        // Upgrade failed
                         $error = true;
-                        $errorMsgs .= '<p class="error"><strong>' . $fs_error_counter . ' errors found</strong></p>';
-                        $count_error_total += $fs_error_counter;
-                        $currentCourseClarolineVersion = 'error-1.5';
+                        $currentVersion = 'error-1.5';
                     }
-                    else
-                    {
-                        $currentCourseClarolineVersion = '1.6';
-                    }
-
-                    save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,$currentCourseDbVersion);
-    
+                    // Save version
+                    save_course_current_version($currentCourseCode,$currentVersion,$currentVersion);
                 }
                 
                 /*---------------------------------------------------------------------
                   Upgrade 1.6 to 1.7
                  ---------------------------------------------------------------------*/                
 
-                if ( preg_match('/^1.6/',$currentCourseDbVersion) )
+                if ( preg_match('/^1.6/',$currentCourseVersion) )
                 {
-                    // function to upgrade tool to 1.7
-                    agenda_upgrade_to_17();
-                    announcement_upgrade_to_17();
-                    course_despcription_upgrade_to_17();
-                    forum_upgrade_to_17();
-                    introtext_upgrade_to_17();
-                    linker_upgrade_to_17();
-                    tracking_upgrade_to_17();
-                    wiki_upgrade_to_17();
-                    
-                    if ( $db_error_counter > 0 )
+                    // Function to upgrade tool to 1.7
+                    if ( agenda_upgrade_to_17($currentCourseCode) &&
+                         announcement_upgrade_to_17($currentCourseCode) &&
+                         course_despcription_upgrade_to_17($currentCourseCode) &&
+                         forum_upgrade_to_17($currentCourseCode) &&
+                         introtext_upgrade_to_17($currentCourseCode) &&
+                         linker_upgrade_to_17($currentCourseCode) &&
+                         tracking_upgrade_to_17($currentCourseCode) &&
+                         wiki_upgrade_to_17($currentCourseCode)
+                       )
                     {
-                        $error = true;
-                        $errorMsgs .= '<p class="error"><strong>' . $db_error_counter . ' errors found</strong></p>';
-                        $count_error_total += $db_error_counter;
-                        $currentCourseDbVersion = 'error-1.6';
+                        // Upgrade succeeded
+                        clean_upgrade_status($currentCourseCode);
+                        $currentVersion = '1.7';
                     }
                     else
                     {
-                        $currentCourseDbVersion = '1.7';
-                    }
-
-                    if ( $fs_error_counter > 0 )
-                    {
+                        // Upgrade failed
                         $error = true;
-                        $errorMsgs .= '<p class="error"><strong>' . $fs_error_counter . ' errors found</strong></p>';
-                        $count_error_total += $fs_error_counter;
-                        $currentCourseClarolineVersion = 'error-1.6';
+                        $currentVersion = 'error-1.6';
                     }
-                    else
-                    {
-                        $currentCourseClarolineVersion = '1.7';
-                    }
-
-                    save_course_current_version($currentCourseIDsys,$currentCourseClarolineVersion,$currentCourseDbVersion);
+                    // Save version
+                    save_course_current_version($currentCourseCode,$currentVersion,$currentVersion);
                 
                 }
 
             }
 
+            // Calculate time            
             $mtime = microtime(); $mtime = explode(' ',$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
             $totaltime = ($endtime - $starttime);
             $stepDuration = ($endtime - $steptime);
@@ -339,15 +310,15 @@ switch ($display)
             
             if ( ! $error )
             {
-                echo '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
+                $message .= '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
             }
             else 
             {
-                echo '<p class="error">'.$langUpgradeCourseFailed.' - ' . $str_execution_time . '</p>';
+                $count_course_error++;
+                $message .= '<p class="error">'.$langUpgradeCourseFailed.' - ' . $str_execution_time . '</p>';
             }
             
-            echo $errorMsgs;
-            unset($errorMsgs);
+            echo $message;
             echo '<hr noshade="noshade" />';           
             flush();
 
@@ -355,50 +326,46 @@ switch ($display)
                 
         $mtime = microtime(); $mtime = explode(" ",$mtime);    $mtime = $mtime[1] + $mtime[0];    $endtime = $mtime; $totaltime = ($endtime - $starttime);
         
-        if ( $count_error_total > 0 )
+        if ( $count_course_error > 0 )
         {
-            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?verbose=true&cmd=run&upgradeCoursesError=1">'.$lang_RetryWithMoreDetails.'</a></p>';
+            /*
+             * display block with list of course where upgrade failed
+             * add a link to retry upgrade of this course
+             */
+    
+            $sql = "SELECT code 
+                    FROM `" . $tbl_course . "` 
+                    WHERE versionDb like 'error-%' or versionClaro like 'error-%' ";
+    
+            $result = claro_sql_query($sql);
+    
+            if ( mysql_num_rows($result) )
+            {
+                echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
+                while ($course = mysql_fetch_array($result))
+                {
+                    echo $course['code'] . ' ; ';    
+                }
+                echo  '</p>' 
+                    . '<p class="comment">'
+                    . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
+                    . '</p>';
+            }
         }
         else
         {
+            // display next step
             echo '<p class="success">'.$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses.'</p>' . "\n";
             echo '<div align="right">' . sprintf($langNextStep,"upgrade.php") . '</div>';
         }
 
         /*
-         * display block with list of course where upgrade failed
-         * add a link to retry upgrade of this course
-         */
-
-        $sql = "SELECT code 
-                FROM `" . $tbl_course . "` 
-                WHERE versionDb like 'error-%' or versionClaro like 'error-%' ";
-
-        $result = claro_sql_query($sql);
-
-        if (mysql_num_rows($result))
-        {
-            echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
-            while ($course = mysql_fetch_array($result))
-            {
-                echo $course['code'] . ' ; ';    
-            }
-            echo  '</p>' 
-                . '<p class="comment">'
-                . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
-                . '</p>';
-            
-        }
-            
-        mysql_close();
-
-        /*
          * Hide Refresh Block
          */
                        
-        echo "<script type=\"text/javascript\">\n";
-        echo "document.getElementById('refreshIfBlock').style.visibility = \"hidden\"";
-        echo "</script>";
+        echo '<script type="text/javascript">' . "\n";
+        echo 'document.getElementById(\'refreshIfBlock\').style.visibility = "hidden"';
+        echo '</script>';
                 
         break;
 
