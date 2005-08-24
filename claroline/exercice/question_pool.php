@@ -83,7 +83,7 @@ if($is_allowedToEdit)
 		// adds the question ID represented by $_REQUEST['recup'] into the list of questions for the current exercise
 		$_SESSION['objExercise']->addToList($_REQUEST['recup']);
 
-		header("Location: admin.php?editQuestion=".$_REQUEST['recup']);
+		header("Location: admin.php?editQuestion=".http_response_splitting_workaround($_REQUEST['recup']));
 		exit();
 	}
 	// Export a question in IMS/QTI
@@ -97,7 +97,7 @@ if($is_allowedToEdit)
 		if (!empty($xml))
 		{
 			header("Content-type: application/xml");
-			header('Content-Disposition: attachment; filename="question_'. $_REQUEST['export'] . '.xml"');
+			header('Content-Disposition: attachment; filename="question_'. http_response_splitting_workaround($_REQUEST['export']) . '.xml"');
 			echo $xml;
 			exit;
 		}

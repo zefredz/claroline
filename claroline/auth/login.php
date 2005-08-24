@@ -195,7 +195,7 @@ else
                        .  'gidReq=' . $_REQUEST['sourceGid'];
         }
         
-        header('Location: ' . $sourceUrl);
+        header('Location: ' . http_response_splitting_workaround( $sourceUrl ) );
     }
     elseif ( $_cid )
     {

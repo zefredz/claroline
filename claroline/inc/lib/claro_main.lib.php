@@ -1704,4 +1704,15 @@ function claro_get_language_list()
     closedir($handle);
     return $language_list;
 }
+
+/**
+ * HTTP response splitting security flaw workaround
+ * @author Frederic Minne <zefredz@gmail.com>
+ */
+function http_response_splitting_workaround( $str )
+{
+    $dangerousCharactersPattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
+    return preg_replace( $dangerousCharactersPattern, '', $str );
+}
+
 ?>

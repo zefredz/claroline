@@ -89,7 +89,7 @@ if( isset($_REQUEST['export']) )
     if(!empty($xml))
     {
         header("Content-type: application/xml");
-        header('Content-Disposition: attachment; filename="quiz_'. $_REQUEST['export'] . '.xml"');
+        header('Content-Disposition: attachment; filename="quiz_'. http_response_splitting_workaround( $_REQUEST['export'] ) . '.xml"');
         echo $xml;
         exit;
     }

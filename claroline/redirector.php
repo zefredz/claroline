@@ -12,13 +12,18 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-if ( isset($_REQUEST['url']) )
+// duplicated from claro_main.lib.php to avoid loading unwanted functions.
+function http_response_splitting_workaround( $str )
 {
-    header('location:' . $_REQUEST['url']);
+    $pattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
+    return preg_replace( $pattern, '', $str );
 }
-else
-{
-    header('Location:../');
-}
+
+$url = isset( $_REQUEST['url'] )
+    ? http_response_splitting_workaround( $_REQUEST['url'] )
+    : '../'
+    ;
+
+header( 'Location: ' . $url );
 
 ?>

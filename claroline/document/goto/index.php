@@ -115,7 +115,7 @@ else
                 . implode ( '/',   
                             array_map('rawurlencode', explode('/',$requestUrl)));
 
-    header('Location: ' . $doc_dl_url);
+    header('Location: ' . http_response_splitting_workaround( $doc_dl_url ) );
     //header("Content-Location: $doc_dl_url");
 
     // if the browser doesn't support the location header

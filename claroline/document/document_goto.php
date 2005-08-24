@@ -49,7 +49,7 @@ $doc_dl_url = $coursesRepositoryWeb . $_course['path']
 .             implode ( '/', array_map('rawurlencode', explode('/',$doc_url)))
 ;
 
-header('Location: ' . $doc_dl_url);
+header('Location: ' . http_response_splitting_workaround( $doc_dl_url ) );
 // if the browser doesn't support the location header
 echo 'If you are not redirected click <a href="' . $doc_dl_url . '">here</a> .';
 // to be sure the script stop running
