@@ -28,8 +28,9 @@ $is_upgrade_available = TRUE;
 
 // var version_db  max. 10 chars
 
+
 $version_file_cvs = '1.7.rc1';
-$version_db_cvs   = '1.7.rc1';
+$version_db_cvs   = '1.7'; // only major version
 
 if (!$is_upgrade_available)
 {
