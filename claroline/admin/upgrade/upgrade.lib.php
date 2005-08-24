@@ -391,7 +391,7 @@ function count_course_upgraded($version_db, $version_file)
     $tbl_course = $tbl_mdb_names['course'];
  
     /**
-     * In cours table, versionDb & versionClaro contain :
+     * In cours table, versionClaro contain :
      * - 'error' if upgrade already tried but failed
      * - version of last upgrade succeed (so previous or current)
      */
@@ -400,21 +400,21 @@ function count_course_upgraded($version_db, $version_file)
                            'error'=>0 , 
                            'total'=>0 );
 
-    $sql = "SELECT versionDb, versionClaro, count(*) as count_course 
+    $sql = "SELECT versionClaro, count(*) as count_course 
             FROM `" . $tbl_course . "`
-            GROUP BY versionDb , versionClaro";
+            GROUP BY versionClaro";
 
     $result = claro_sql_query($sql);
 
     while ( $row = mysql_fetch_array($result) )
     {
         // Count courses upgraded and upgrade failed    
-        if ( preg_match('/^1.7/',$row['versionDb']) && preg_match('/^1.7/',$row['versionClaro']) ) 
+        if ( preg_match('/^1.7/',$row['versionClaro']) ) 
         {
             // upgrade succeed
             $count_course['upgraded'] += $row['count_course'];
         }
-        elseif ( preg_match('/^error/',$row['versionDb']) || preg_match('/^error/',$row['versionClaro']) ) 
+        elseif ( preg_match('/^error/',$row['versionClaro']) ) 
         {
             // upgrade failed
             $count_course['error'] += $row['count_course'];
@@ -547,15 +547,14 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
  * @since  1.7
  */
 
-function save_course_current_version ( $course_code, $fileVersion, $databaseVersion )
+function save_course_current_version ( $course_code, $fileVersion )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
     // query to update version of course
 
     $sql = " UPDATE `" . $tbl_mdb_names['course'] . "`
-             SET versionDb = '" . addslashes($databaseVersion) . "',
-                 versionClaro = '" . addslashes($fileVersion) . "'
+             SET versionClaro = '" . addslashes($fileVersion) . "'
              WHERE code = '". $course_code ."'";
 
     $res = claro_sql_query($sql);

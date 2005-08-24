@@ -149,9 +149,7 @@ switch ($display)
         {
             // retry to upgrade course where upgrade failed
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.5' WHERE `versionClaro` = 'error-1.5'");
-            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionDb` = '1.5' WHERE `versionDb` = 'error-1.5'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
-            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionDb` = '1.6' WHERE `versionDb` = 'error-1.6'");
         }
 
         $sql_course_to_upgrade = " SELECT c.dbName dbName, 
@@ -159,23 +157,19 @@ switch ($display)
                                           c.fake_code , 
                                           c.directory coursePath,
                                           c.creationDate,
-                                          c.versionDb,
                                           c.versionClaro "
                                . " FROM `" . $tbl_course . "` `c` ";
         
         if ( isset($_REQUEST['upgradeCoursesError']) )
         {
             // retry to upgrade course where upgrade failed
-            $sql_course_to_upgrade .= " WHERE c.versionDb != '". $newDbVersion ."'
-                                        OR c.versionClaro != '". $newClarolineVersion."'
+            $sql_course_to_upgrade .= " WHERE c.versionClaro != '". $newClarolineVersion."'
                                         ORDER BY c.dbName";
         }
         else
         {
-            // not upgrade course where upgrade failed ( versionDb == error)
-            $sql_course_to_upgrade .= " WHERE ( c.versionDb != '". $newDbVersion ."' 
-                                                or  c.versionClaro != '". $newClarolineVersion."' )
-                                              and c.versionDb not like 'error%' 
+            // not upgrade course where upgrade failed ( versionClaro == error* )
+            $sql_course_to_upgrade .= " WHERE ( c.versionClaro != '". $newClarolineVersion."' )
                                               and c.versionClaro not like 'error%' 
                                         ORDER BY c.dbName ";
         }
@@ -195,7 +189,7 @@ switch ($display)
             $currentcoursePathSys      = $coursesRepositorySys.$course['coursePath'].'/';
             $currentcoursePathWeb      = $coursesRepositoryWeb.$course['coursePath'].'/';
             $currentCourseCode         = $course['code'];
-            $currentCourseFakeCode     = $course['fakecode'];
+            $currentCourseFakeCode     = $course['fake_code'];
             $currentCourseCreationDate = $course['creationDate'];
             $currentCourseVersion      = $course['versionClaro'];
             $currentCourseDbNameGlu    = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
@@ -254,7 +248,7 @@ switch ($display)
                         $currentVersion = 'error-1.5';
                     }
                     // Save version
-                    save_course_current_version($currentCourseCode,$currentVersion,$currentVersion);
+                    save_course_current_version($currentCourseCode,$currentVersion);
                 }
                 
                 /*---------------------------------------------------------------------
@@ -285,7 +279,7 @@ switch ($display)
                         $currentVersion = 'error-1.6';
                     }
                     // Save version
-                    save_course_current_version($currentCourseCode,$currentVersion,$currentVersion);
+                    save_course_current_version($currentCourseCode,$currentVersion);
                 
                 }
 
@@ -335,7 +329,7 @@ switch ($display)
     
             $sql = "SELECT code 
                     FROM `" . $tbl_course . "` 
-                    WHERE versionDb like 'error-%' or versionClaro like 'error-%' ";
+                    WHERE versionClaro like 'error-%' ";
     
             $result = claro_sql_query($sql);
     
@@ -355,7 +349,7 @@ switch ($display)
         else
         {
             // display next step
-            echo '<p class="success">'.$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses.'</p>' . "\n";
+            echo '<p class="success">'. $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses . '</p>' . "\n";
             echo '<div align="right">' . sprintf($langNextStep,"upgrade.php") . '</div>';
         }
 
