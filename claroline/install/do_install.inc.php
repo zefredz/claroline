@@ -331,8 +331,8 @@ else
 
 $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
 $currentVersionStr = '<?php
-$clarolineVersion = "'.$version_file_cvs.'";
-$versionDb = "'.$version_db_cvs.'";
+$clarolineVersion = "'.$new_version.'";
+$versionDb = "'.$new_version.'";
 ?>';
 fwrite($fp_currentVersion, $currentVersionStr);
 fclose($fp_currentVersion);

@@ -511,7 +511,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 <head>
 
 <title>
--- Claroline installation -- version <?php echo $version_file_cvs ?>
+-- Claroline installation -- version <?php echo $new_version ?>
 </title>
 
 <link rel="stylesheet" href="../css/default.css" type="text/css" >
@@ -531,7 +531,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
         <tr  bgcolor="#000066" >
             <th valign="top">
                <FONT color="White">
-                    Claroline 1.7 (<?php echo $version_file_cvs ?>) - installation
+                    Claroline 1.7 (<?php echo $new_version ?>) - installation
                 </font>
             </th>
         </TR>
