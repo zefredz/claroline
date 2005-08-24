@@ -173,7 +173,7 @@ claro_sql_query($sql);
 // table used for upgrading tools
 
 $sql = "CREATE TABLE `".$mainTblPrefixForm."upgrade_status` (
-`id` INT NOT NULL ,
+`id` INT NOT NULL auto_increment,
 `cid` VARCHAR( 40 ) NOT NULL ,
 `claro_label` VARCHAR( 8 ) ,
 `status` TINYINT NOT NULL ,

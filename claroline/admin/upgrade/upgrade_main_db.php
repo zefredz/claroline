@@ -55,7 +55,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
 
 $sql = "CREATE TABLE IF NOT EXISTS `" . $tbl_upgrade_status . "` (
-`id` INT NOT NULL ,
+`id` INT NOT NULL auto_increment ,
 `cid` VARCHAR( 40 ) NOT NULL ,
 `claro_label` VARCHAR( 8 ) ,
 `status` TINYINT NOT NULL ,
