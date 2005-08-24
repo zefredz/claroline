@@ -324,45 +324,45 @@ function forum_upgrade_to_17($course_code)
     switch( get_upgrade_status($tool,$course_code) )
     {
         // groups of forums 
-        case 0 :  // STEP1 create new field to keep group_id
+        case 1 :  // STEP1 create new field to keep group_id
             $sql[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "bb_forums` ADD group_id int(11) default NULL";
             if ( ! upgrade_apply_sql($sql) ) 
-        {
-            return false;
-        }
+            {
+                return false;
+            }
             set_upgrade_status($tool, 1, $course_code);
-        case 1 :  // STEP2 set a value in groups link to a forum
+        case 0 :  // STEP2 set a value in groups link to a forum
             $sql = "SELECT `id`,`forumId`
                     FROM `" . $currentCourseDbNameGlu . "group_team`";
             $result = claro_sql_query($sql);
             if (! $result) 
-        {
-            return false;
-        }
+            {
+                return false;
+            }
             while ( ($row = mysql_fetch_array($result)) )
             {
                 $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
                          SET group_id = " . $row['id'] . "
                          WHERE `forum_id` = " . $row['forumId'] . "";
                 if(! claro_sql_query($sql)) 
-        {
-            return false;
-        }
+                {
+                return false;
+                }
             }
             set_upgrade_status($tool, 2, $course_code);
-        case 2 : // STEP3 remove old value in groups
+        case 1 : // STEP3 remove old value in groups
             $sql_step2[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "group_team` DROP COLUMN forumId";
             if ( ! upgrade_apply_sql($sql_step2) ) 
-        {
-            return false;
-        }
+            {
+                return false;
+            }
             set_upgrade_status($tool, 3, $course_code);
-        case 3 :    // STEP4 remove a deprecated field
+        case 2 :    // STEP4 remove a deprecated field
             $sql_step3[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."bb_forums` DROP COLUMN md5";
             if ( ! upgrade_apply_sql($sql_step3) ) 
-        {
-            return false;
-        }
+            {
+                return false;
+            }
             set_upgrade_status($tool, 0, $course_code);
         default : 
             return true;
