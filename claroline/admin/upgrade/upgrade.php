@@ -132,15 +132,11 @@ elseif ( !preg_match($patternVarVersion, $currentDbVersion) )
 }
 else
 {
-    // check course table to view wich courses aren't upgraded
-    $sqlNbCourses = "SELECT count(*) as nb 
-                     FROM `".$mainDbName."`.`".$mainTblPrefix."cours`
-                     WHERE not ( versionDb like '" . $patternSqlVersion . "' )";
-
-    $res_NbCourses = mysql_query($sqlNbCourses);
-    $nbCourses = mysql_fetch_array($res_NbCourses);
+    // count course to upgrade
+    $count_course_upgraded = count_course_upgraded($newDbVersion, $newClarolineVersion);
+    $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
     
-    if ($nbCourses['nb'] > 0)
+    if ( $count_course_to_upgrade > 0 )
     {
         // upgrade of main conf needed.
         $display = DISPVAL_upgrade_courses_needed;
@@ -227,7 +223,7 @@ switch ($display)
             . '</ul>' . "\n"
             . '<h2>' . $langRemainingSteps . ':</h2>' . "\n"
             . '<ul>' . "\n"
-            . sprintf('<li><a href="upgrade_courses.php">%s</a> - '.$lang_p_d_coursesToUpgrade.'</li>',$langUpgradeStep3,$nbCourses['nb']) . "\n"
+            . sprintf('<li><a href="upgrade_courses.php">%s</a> - '.$lang_p_d_coursesToUpgrade.'</li>',$langUpgradeStep3,$count_course_to_upgrade) . "\n"
             . '</ul>' . "\n"
             ;
 

@@ -380,12 +380,12 @@ function count_course_upgraded($version_db, $version_file)
     while ( $row = mysql_fetch_array($result) )
     {
         // Count courses upgraded and upgrade failed    
-        if ($row['versionDb'] == $version_db && $row['versionClaro'] == $version_file) 
+        if ( preg_match('/^1.7/',$row['versionDb']) && preg_match('/^1.7/',$row['versionClaro']) ) 
         {
             // upgrade succeed
             $count_course['upgraded'] += $row['count_course'];
         }
-        elseif ($row['versionDb'] == 'error' || $row['versionClaro'] == 'error') 
+        elseif ( preg_match('/^error/',$row['versionDb']) || preg_match('/^error/',$row['versionClaro']) ) 
         {
             // upgrade failed
             $count_course['error'] += $row['count_course'];
