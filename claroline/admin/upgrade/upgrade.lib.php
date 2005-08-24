@@ -574,7 +574,7 @@ function sql_repair_main_database()
     foreach ( $tbl_names as $tbl )
     {
         $sql = "REPAIR TABLE `" . $tbl . "`";
-        mysql_sql_query($sql);
+        mysql_query($sql);
     }
 }
 
@@ -591,7 +591,7 @@ function sql_repair_course_database($courseDbNameGlu)
     foreach ( $tbl_names as $tbl )
     {
         $sql = "REPAIR TABLE `" . $tbl . "`";
-        mysql_sql_query($sql);
+        mysql_query($sql);
     }
 }
 
