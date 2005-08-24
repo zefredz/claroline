@@ -4,7 +4,7 @@
  *
  * Function to update course tool 1.6 to 1.7
  *
- * @version  1.6 $Revision$
+ * @version  1.7 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
@@ -30,122 +30,171 @@ $sqlkeys['user'] = "int(11) default NULL";
  * Upgrade announcement tool to 1.7
  */
 
-function announcement_upgrade_to_17()
+function announcement_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLANN';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
-    {
-        // add visibility fields in announcement, calendar and course_description
-        $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."announcement` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
+    // An new field is use in in 1.7
 
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
+    // Job for this upgrade 
+    // STEP 1 add visibility fields in announcement, calendar and course_description
+
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
+    {
+        case 1 :  // STEP 1 CREATE TABLES
+    
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."announcement` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
+
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
+    return false;
 }
 
 /**
  * Upgrade agenda tool to 1.7
  */
 
-function agenda_upgrade_to_17()
+function agenda_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLDSC';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    // An new field is use in in 1.7
 
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
+    // Job for this upgrade 
+    // STEP 1  add visibility fields in announcement, calendar and course_description
+   
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
     {
-        // add visibility fields in announcement, calendar and course_description
-        $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."calendar_event` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
+        case 1 :  // add visibility fields in announcement, calendar and course_description
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."calendar_event` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
+    
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
-
+    return false;
 }
+
 
 /**
  * Upgrade course description tool to 1.7
  */
 
-function course_despcription_upgrade_to_17()
+function course_despcription_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLDSC';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    // An new field is use in in 1.7
 
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
+    // Job for this upgrade 
+    // STEP 1 CREATE TABLES 
+   
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
     {
+        case 1 :  // STEP 1 CREATE TABLES
+    
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."course_description` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
 
-        // add visibility fields in announcement, calendar and course_description
-        $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."course_description` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
-
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
+    return false;
 }
 
 /**
  * Upgrade tracking tool to 1.7
  */
 
-function tracking_upgrade_to_17()
+function tracking_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
-
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
-    {
-        // tracking improvement
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLTRK';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
-        $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "track_e_exe_details` (
-                            `id` int(11) NOT NULL auto_increment,
-                            `exercise_track_id` int(11) NOT NULL default '0',
-                            `question_id` int(11) NOT NULL default '0',
-                            `result` float NOT NULL default '0',
-                            PRIMARY KEY  (`id`)
-                            ) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
-        
-        $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "track_e_exe_answers` (
-                            `id` int(11) NOT NULL auto_increment,
-                            `details_id` int(11) NOT NULL default '0',
-                            `answer` text NOT NULL,
-                            PRIMARY KEY  (`id`)
-                            ) TYPE=MyISAM COMMENT=''";
+    // Tracking need two new tables for quizzes is new in 1.7
 
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
+    // Job for this upgrade 
+    // STEP 1 CREATE TABLES 
+   
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
+    {
+        case 1 :  // STEP 1 CREATE TABLES
+    
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "track_e_exe_details` (
+                                `id` int(11) NOT NULL auto_increment,
+                                `exercise_track_id` int(11) NOT NULL default '0',
+                                `question_id` int(11) NOT NULL default '0',
+                                `result` float NOT NULL default '0',
+                                PRIMARY KEY  (`id`)
+                                ) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
+            
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "track_e_exe_answers` (
+                                `id` int(11) NOT NULL auto_increment,
+                                `details_id` int(11) NOT NULL default '0',
+                                `answer` text NOT NULL,
+                                PRIMARY KEY  (`id`)
+                                ) TYPE=MyISAM COMMENT=''";
+        
+
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
+    return false;
 }
 
 /**
  * Upgrade linker tool to 1.7
  */
 
-function linker_upgrade_to_17()
+function linker_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLLNK';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    // LINKER is new in 1.7
 
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
+    // Job for this upgrade 
+    // STEP 1 CREATE TABLES 
+   
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
     {
-        $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."lnk_links` (
+        case 1 :  // STEP 1 CREATE TABLES
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."lnk_links` (
                             `id` int(11) NOT NULL auto_increment,
                             `src_id` int(11) NOT NULL default '0',
                             `dest_id` int(11) NOT NULL default '0',
@@ -153,33 +202,44 @@ function linker_upgrade_to_17()
                             PRIMARY KEY  (`id`)
                             ) TYPE=MyISAM";
                        
-        $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."lnk_resources` (
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."lnk_resources` (
                             `id` int(11) NOT NULL auto_increment,
                             `crl` text NOT NULL,
                             `title` text NOT NULL,
                             PRIMARY KEY  (`id`)
                             ) TYPE=MyISAM";
 
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
+    return false;
 }
 
 /**
- * Upgrade wiki tool to 1.6
+ * Upgrade wiki tool to 1.7
  */
 
-function wiki_upgrade_to_17()
+function wiki_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLWIKI';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
+    // WIKI is new in 1.7
+
+    // Job for this upgrade 
+    // STEP 1 CREATE TABLES 
+    // STEP 2 register tool in the course
+    
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
     {
+        case 1 :  // STEP 1 CREATE TABLES
         $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."wiki_properties`(
                             `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                             `title` VARCHAR(255) NOT NULL DEFAULT '',
@@ -212,77 +272,104 @@ function wiki_upgrade_to_17()
                             `content` text NOT NULL,
                             PRIMARY KEY  (`id`) )";
 
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
-        
-        // add wiki in course tool list
-        add_tool_in_course_tool_list('CLWIKI__','COURSE_ADMIN',$currentCourseDbNameGlu);
-
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 2, $course_code);
+            
+        case 2 : // STEP 2 register tool in the course
+            add_tool_in_course_tool_list('CLWIKI__','COURSE_ADMIN',$currentCourseDbNameGlu);
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
+    return false;
 }
 
 /**
  * Upgrade forum tool to 1.7
  */
 
-function forum_upgrade_to_17()
+function forum_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
-   
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
-    {
-        // groups of forums
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLFRM';
     
-        $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."bb_forums` ADD group_id int(11) default NULL";
-        $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."bb_forums` DROP COLUMN md5";
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
-
-        $sql = "SELECT `id`,`forumId`
-                FROM `" . $currentCourseDbNameGlu."group_team`";
-        $result = claro_sql_query($sql);
-
-        while ( $row = mysql_fetch_array($result) )
-        {
-            $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
-                     SET group_id = " . $row['id'] . "
-                     WHERE `forum_id` = " . $row['forumId'] . "";
-            claro_sql_query($sql);
-        }
-
-        $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."group_team` DROP COLUMN forumId";
-
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    // IN 1.7 forum's can be link to a group. 
+    // Before 1.7 It' was groups which was linked to a forum
+    // Job for this upgrade 
+    // STEP1 create new field to keep group_id
+    // STEP2 set a value in groups link to a forum
+    // STEP3 remove old value in groups
+    // STEP4 remove a deprecated field
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
+    {
+        // groups of forums 
+        case 0 :  // STEP1 create new field to keep group_id
+            $sql[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "bb_forums` ADD group_id int(11) default NULL";
+            if ( ! upgrade_apply_sql($sql) ) return false;
+            set_upgrade_status($tool, 1, $course_code);
+        case 1 :  // STEP2 set a value in groups link to a forum
+            $sql = "SELECT `id`,`forumId`
+                    FROM `" . $currentCourseDbNameGlu . "group_team`";
+            $result = claro_sql_query($sql);
+            if (! $result) return false;
+            while ( ($row = mysql_fetch_array($result)) )
+            {
+                $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
+                         SET group_id = " . $row['id'] . "
+                         WHERE `forum_id` = " . $row['forumId'] . "";
+                if(! claro_sql_query($sql)) return false;
+            }
+            set_upgrade_status($tool, 2, $course_code);
+        case 2 : // STEP3 remove old value in groups
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "group_team` DROP COLUMN forumId";
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 3, $course_code);
+        case 3 :    // STEP4 remove a deprecated field
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."bb_forums` DROP COLUMN md5";
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
+    return false;
 }
 
 /**
  * Upgrade introduction text table to 1.7
  */
 
-function introtext_upgrade_to_17()
+function introtext_upgrade_to_17($course_code)
 {
-    global $db_error_counter, $fs_error_counter;
-    global $currentCourseDbVersion, $currentCourseClarolineVersion;
-    global $currentCourseDbNameGlu;
+    $versionRequiredToProceed = '/^1.6/';
+    $tool = 'CLINTRO';
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    // IN 1.7 intro table has new column to prepare multi-intro orderable
 
-    if ( preg_match('/^1.6/',$currentCourseDbVersion) )
+    // Job for this upgrade 
+    // STEP 1 BAcKUP OLD TABLE Before creat the new
+    // STEP 2 Create The new table
+    // STEP 3 FILL The new table with value from the old
+    // STEP 4 Delete backuped table
+    
+    ////////////////////////////////////
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    switch( get_upgrade_status($tool,$course_code) )
     {
-        $sqlForUpdate[] = "RENAME TABLE `".$currentCourseDbNameGlu."tool_intro` TO `".$currentCourseDbNameGlu."old_tool_intro`";       
-        $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."tool_intro`";
-        $sqlForUpdate[] = "CREATE TABLE `".$currentCourseDbNameGlu."tool_intro` (
+        // groups of forums 
+        case 1 :  // STEP 1 BAcKUP OLD TABLE Before creat the new
+            $sqlForUpdate[] = "RENAME TABLE `".$currentCourseDbNameGlu."tool_intro` TO `".$currentCourseDbNameGlu."tool_intro_prev17`";       
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 2, $course_code);
+            
+        case 2 : // STEP 2 Create The new table
+            $sqlForUpdate[] = "CREATE TABLE `".$currentCourseDbNameGlu."tool_intro` (
                               `id` int(11) NOT NULL auto_increment,
                               `tool_id` int(11) NOT NULL default '0',
                               `title` varchar(255) default NULL,
@@ -291,29 +378,33 @@ function introtext_upgrade_to_17()
                               `rank` int(11) default '1',
                               `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
                            PRIMARY KEY  (`id`) ) ";
-
-        if ( ! upgrade_apply_sql($sqlForUpdate) )
-        {
-            // upgrade db failed
-            $db_error_counter++;
-        }
-
-        $sql = " SELECT `id`, `texte_intro` 
-                 FROM `".$currentCourseDbNameGlu."old_tool_intro` ";
-
-        $result = claro_sql_query($sql);
-
-        while ( $row = mysql_fetch_array($result) )
-        {
-            $sql = "INSERT INTO `".$currentCourseDbNameGlu."tool_intro`
-                    (`tool_id`,`content`)
-                    VALUES
-                    (`" . $row['id'] . "`,`" . $row['texte_intro'] . "`)";
-            claro_sql_query($sql);
-        }
-
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 3, $course_code);
+        case 3 : // STEP 3 FILL The new table with value from the old
+            $sql = " SELECT `id`, `texte_intro` 
+                     FROM `".$currentCourseDbNameGlu."tool_intro_prev17` ";
+    
+            $result = claro_sql_query($sql);
+            if ( ! $result ) return false;
+            while ( ( $row = mysql_fetch_array($result) ) )
+            {
+                $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tool_intro`
+                        (`tool_id`,`content`)
+                        VALUES
+                        (`" . $row['id'] . "`,`" . $row['texte_intro'] . "`)";
+                if ( ! claro_sql_query($sql) )  return false;
+            }
+            set_upgrade_status($tool, 4, $course_code);
+            
+        case 4 :   // STEP 4 Delete OLD
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."tool_intro`";
+            if ( ! upgrade_apply_sql($sqlForUpdate) ) return false;
+            set_upgrade_status($tool, 0, $course_code);
+        default : 
+            return true;
     }
-
+    return false;
 }
+
 
 ?>
