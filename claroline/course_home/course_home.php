@@ -147,11 +147,11 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        echo ' <a class="' . $style . ' item'.$classItem.'" href="' . $url . '">'
+        echo ' <a class="' . $style . 'item'.$classItem.'" href="' . $url . '">'
         .    '<img src="' . $icon . '" hspace="5" alt="">'
         .    $toolName
         .    '</a>'
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         ;
     }
     else
@@ -159,7 +159,7 @@ foreach($toolList as $thisTool)
         echo '<span ' . $style . '>'
         .    '<img src="' . $icon . '" alt="">'
         .    $toolName
-        .    '</span><br>' . "\n"
+        .    '</span><br />' . "\n"
         ;
     }
 }
@@ -187,7 +187,7 @@ if ($disp_edit_command)
     ;
 }
 
-echo "<br><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
+echo "<br /><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
 
 ?>
 </td>
