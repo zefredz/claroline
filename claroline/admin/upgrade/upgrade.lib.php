@@ -526,7 +526,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
         $sql = "INSERT INTO `" . $tbl_tool_list . "`
                (`tool_id`,`rank`,`access`)
                VALUES
-               ('" . $row['id'] . "," . $rank . "," . $access . "')";
+               ('" . $row['id'] . "','" . $rank . "','" . $access . "')";
 
         return claro_sql_query_insert_id($sql);
     }
