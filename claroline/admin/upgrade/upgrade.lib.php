@@ -703,4 +703,71 @@ function clean_upgrade_status($course_code=null)
     return claro_sql_query($sql);
 }
 
+/**
+ * Write in log file
+ *
+ * @param string claroline version
+ * @param string database version
+ *
+ * @since  1.7
+ */
+
+function log_message($message)
+{
+    global $fp_upgrade_log;
+
+    if ( is_null($fp_upgrade_log) )
+    {
+        if ( ! open_upgrade_log() ) return false;
+    }
+
+    // write content in file
+    $log_message = $message . "\n"
+                 . '--------------------------------------------------------' . "\n";
+
+    if ( fwrite($fp_upgrade_log, $log_message) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/**
+ * Open log file
+ *
+ * @param string claroline version
+ * @param string database version
+ *
+ * @since  1.7
+ */
+
+function open_upgrade_log()
+{
+    global $includePath, $dateTimeFormatLong;
+    global $new_version, $currentClarolineVersion, $currentDbVersion;
+    global $fp_upgrade_log;
+
+    // open file in write mode
+    if ( $fp_upgrade_log = fopen('upgrade_log.txt','a+') )
+    {
+	    $upgradeHeader = '========================================================' . "\n"
+	                   . ' * Upgrade to ' . $new_version . "\n"
+	                   . ' * Current File Version : ' . $currentClarolineVersion . "\n"
+	                   . ' * Current Database Version : ' . $currentDbVersion . "\n"
+	                   . ' * Date :'. claro_disp_localised_date($dateTimeFormatLong) . "\n"
+	                   . '========================================================'. "\n" ;
+	
+	    // write content in file
+	    fwrite($fp_upgrade_log, $upgradeHeader);
+	    return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 ?>
