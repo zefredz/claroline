@@ -1,21 +1,31 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * Try to create main database of claroline without remove existing content
+ * 
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @since 1.6
+ *
+ */
 
 // Include library file
 
 require '../../inc/claro_init_global.inc.php';
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/admin.lib.inc.php");
+include_once($includePath . '/lib/debug.lib.inc.php');
+include_once($includePath . '/lib/admin.lib.inc.php');
 
 $nameTools = $langRestoreCourseRepository;
 
@@ -39,27 +49,27 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
     
     if (mysql_num_rows($res_listCourses))
     {
-        $restored_courses =  "<ol>\n";
+        $restored_courses =  '<ol>' . "\n";
         
-        while ($course = mysql_fetch_array($res_listCourses))
+        while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
-            $currentcoursePathSys   = $coursesRepositorySys.$course["coursePath"]."/";
-            $currentCourseIDsys = $course["sysCode"];
+            $currentcoursePathSys = $coursesRepositorySys . $course['coursePath'] . '/';
+            $currentCourseIDsys = $course['sysCode'];
             
             if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
             {
-                $restored_courses .= "<li>" . sprintf("Course repository '%s' updated",$currentcoursePathSys) . "</li>\n";       
+                $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";       
             }
         
         }
-        $restored_courses .= "</ol>\n";
+        $restored_courses .= '</ol>' . "\n";
     }
 }
 
 // Display
 
 // Deal with interbredcrumps  and title variable
-$interbredcrump[]  = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
 include($includePath . '/claro_init_header.inc.php');
 
@@ -75,9 +85,13 @@ echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . $langLaunchRes
 
 include($includePath . '/claro_init_footer.inc.php');
 
-// Functions
 
-function restore_course_repository($courseID,$courseRepository)
+/**
+ * @global $includePath
+ * @global $clarolineRepositorySys
+ */
+
+function restore_course_repository($courseID, $courseRepository)
 {
 
     global $clarolineRepositorySys, $includePath;
@@ -86,7 +100,7 @@ function restore_course_repository($courseID,$courseRepository)
     {
         umask(0);
 
-        /*
+        /**
             create directory for new tools of claroline 1.5 
         */
     
