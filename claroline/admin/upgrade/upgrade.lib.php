@@ -248,39 +248,7 @@ function get_new_version ()
 
 function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
 {
-    return upgrade_apply_sql ( $array_query , $verbose );
-}
-
-/**
- * Apply sql queries to upgrade main database
- *
- * @param array sql queries
- * @param boolean verbose mode
- *
- * @return integer number of errors
- *
- * @since  1.7
- */
-
-function upgrade_apply_sql_to_course_database ( $array_query , $verbose = false )
-{
-    return upgrade_apply_sql ( $array_query , $verbose );
-}
-
-/**
- * Apply sql queries to upgrade
- *
- * @param array sql queries
- * @param boolean verbose mode
- *
- * @return integer number of errors
- *
- * @since  1.7
- */
-
-function upgrade_apply_sql ( $array_query , $verbose = false )
-{
-    global $lang_p_d_affected_rows;
+    global $lang_p_d_affected_rows, $langVerbose;
     global $accepted_error_list;
 
     $nb_error = 0;
@@ -343,7 +311,68 @@ function upgrade_apply_sql ( $array_query , $verbose = false )
     echo '</ol>' . "\n";
 
     return $nb_error;
+}
 
+/**
+ * Apply sql queries to upgrade
+ *
+ * @param array sql queries
+ * @param boolean verbose mode
+ *
+ * @return integer number of errors
+ *
+ * @since  1.7
+ */
+
+function upgrade_apply_sql ( $array_query , $verbose = false )
+{
+    $nb_error = 0;
+
+    foreach ( $array_query as $key => $sql )
+    {
+        if ( !upgrade_sql_query($sql, $verbose) ) $nb_error++;
+    }
+
+    if ( $nb_error == 0 ) return true;
+    else                  return false;
+
+}
+
+function upgrade_sql_query($sql, $verbose = false)
+{
+    global $accepted_error_list;
+        
+    // Sql query
+	$res = mysql_query($sql);
+        
+    // Sql error
+	if ( mysql_errno() > 0 )
+    {
+        if ( in_array(mysql_errno(),$accepted_error_list) )
+    	{
+            // error accepted
+    		if ( $verbose )
+    		{
+    			echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
+    		}
+            return true;
+    	}
+    	else
+    	{
+    		echo '<p class="error">' . "\n"
+                . '<strong>' . 'N°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
+    		    . '<code>' . $sql . '</code>' . "\n"
+    		    . '</p>' . "\n";
+
+            // error not accepted
+            return false;
+    	}
+    }
+    else
+    {
+        // no error
+        return true;
+    }
 }
 
 /**
