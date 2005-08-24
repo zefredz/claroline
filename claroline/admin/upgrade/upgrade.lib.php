@@ -571,9 +571,11 @@ function sql_repair_main_database()
 {
     $tbl_names = claro_sql_get_main_tbl();
 
-    $sql = "REPAIR TABLE `" . implode($tbl_names,'`, `') . "`";
-
-    claro_sql_query($sql);
+    foreach ( $tbl_names as $tbl )
+    {
+        $sql = "REPAIR TABLE `" . $tbl . "`";
+        mysql_sql_query($sql);
+    }
 }
 
 /**
@@ -586,9 +588,11 @@ function sql_repair_course_database($courseDbNameGlu)
 {
     $tbl_names = claro_sql_get_course_tbl($courseDbNameGlu);
 
-    $sql = "REPAIR TABLE `" . implode($tbl_names,'`, `') . "`";
-
-    claro_sql_query($sql);
+    foreach ( $tbl_names as $tbl )
+    {
+        $sql = "REPAIR TABLE `" . $tbl . "`";
+        mysql_sql_query($sql);
+    }
 }
 
 /**
