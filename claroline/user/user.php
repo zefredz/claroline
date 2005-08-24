@@ -21,8 +21,6 @@
 /*=====================================================================
    Initialisation
   =====================================================================*/
-$lang_p_d_StudentUnregistredFormCours=  "%d student(s) unregistered from this course";
-
 $tlabelReq = 'CLUSR___';
 require '../inc/claro_init_global.inc.php';
 
@@ -54,7 +52,7 @@ event_access_tool($_tid, $_courseTool['label']);
 
 $htmlHeadXtra[] =
 '
-<script type="text/javascript" language="JavaScript" >
+<script type="text/javascript">
 function confirmation (name)
 {
     if (confirm(" ' . clean_str_for_javascript($langAreYouSureToDelete) . ' "+ name + " ?"))
@@ -258,24 +256,24 @@ if ( $disp_tool_link )
     { 
        //add a user link
     ?>
-    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif"><?php echo $langAddAU; ?></a> |
+    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo $langAddAU; ?></a> |
     <?php
        //add CSV file of user link
     ?>
-    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif"> <?php echo $langAddListUser; ?></a> |
+    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo $langAddListUser; ?></a> |
     <?php 
        //add a class link
     ?>
-    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif"> <?php echo $langAddClass; ?></a> |
+    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo $langAddClass; ?></a> |
     <?php
     
     }
     ?>
-    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif"><?php echo $langGroupUserManagement; ?></a> |
+    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif" alt="" /><?php echo $langGroupUserManagement; ?></a> |
 
     <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=unregister&amp;user_id=allStudent"
        onClick="return confirmation('<?php echo clean_str_for_javascript(' all students '); ?>')">
-    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif"><?php echo $langUnregisterAllStudents ?>
+    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif" alt="" /><?php echo $langUnregisterAllStudents ?>
     </a>
     </p>
 <?php
@@ -340,7 +338,7 @@ foreach ( $userList as $thisUser )
     $i++;
     echo '<tr align="center" valign="top">'."\n"
        . '<td id="u'.$i.'" headers="name" align="left">'
-       . '<img src="'.$imgRepositoryWeb.'user.gif">'."\n"
+       . '<img src="'.$imgRepositoryWeb.'user.gif" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;'
        . '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
@@ -400,7 +398,7 @@ foreach ( $userList as $thisUser )
         // Edit user column
         echo '<td headers="edit u'.$i.'">'
            . '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
-           . '<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif">'
+           . '<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif" />'
            . '</a>'
            . '</td>'."\n"
         // Unregister user column
@@ -410,7 +408,7 @@ foreach ( $userList as $thisUser )
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
                . 'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-               . '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif">'
+               . '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
                . '</a>'
                ;
         }
