@@ -2150,7 +2150,7 @@ $lang_p_FillCourses = "Remplissage de %s avec %s";
 $lang_p_IfNothingHappendClickHere = "<small>Si <u>après 30 secondes</u> rien ne se passe cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes</small>";
 $lang_p_PropForConfigCommited = "Les propriétés  %s (%s) sont effectives sur le serveur.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
+$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour du cours <strong>%2\$s</strong><br><small>
 Nom de la base : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Réglez d'abord ce problème technique et <a href=\"%s\">relancez la procédure</a> de mise à jour";

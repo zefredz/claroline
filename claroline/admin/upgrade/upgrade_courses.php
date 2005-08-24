@@ -182,8 +182,8 @@ switch ($display)
             // initialise variables
 
             $currentCourseDbName       = $course['dbName'];
-            $currentcoursePathSys      = $coursesRepositorySys.$course['coursePath'].'/';
-            $currentcoursePathWeb      = $coursesRepositoryWeb.$course['coursePath'].'/';
+            $currentcoursePathSys      = $coursesRepositorySys . $course['coursePath'].'/';
+            $currentcoursePathWeb      = $coursesRepositoryWeb . $course['coursePath'].'/';
             $currentCourseCode         = $course['code'];
             $currentCourseFakeCode     = $course['fake_code'];
             $currentCourseCreationDate = $course['creationDate'];
@@ -197,7 +197,7 @@ switch ($display)
             $error = false;
             $message = '';
             
-            printf($lang_p_UpgradingDatabaseOfCourse, 
+            printf($lang_p_UpgradingOfCourse, 
             $count_course_upgraded, $currentCourseFakeCode, $currentCourseDbName, $currentCourseCode);
             
             /**

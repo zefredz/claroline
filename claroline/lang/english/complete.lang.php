@@ -2090,7 +2090,7 @@ $lang_p_FillCourses = "Fill %s with %s";
 $lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading database of course <strong>%2\$s</strong><br><small>
+$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading course <strong>%2\$s</strong><br><small>
 DB Name : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";
