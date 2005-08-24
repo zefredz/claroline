@@ -30,7 +30,7 @@ function upgrade_init_global()
 
     global $accepted_error_list;
     global $currentClarolineVersion, $currentDbVersion;
-    global $newClarolineVersion, $newDbVersion;
+    global $new_version, $new_version_branch;
 
     /**
      * misc: define function mysql_info if not exists
@@ -73,9 +73,9 @@ function upgrade_init_global()
     $currentDbVersion = $current_version['db'];
 
     // New Version
-    $new_version = get_new_version();
-    $newClarolineVersion = $new_version['claroline'];
-    $newDbVersion = $new_version['db'];
+    $this_new_version = get_new_version();
+    $new_version = $this_new_version['complete'];
+    $new_version_branch = $this_new_version['branch'];
 
 }
 
@@ -91,7 +91,7 @@ function upgrade_init_global()
 function upgrade_disp_header()
 {
     global $htmlHeadXtra, $text_dir;
-    global $newClarolineVersion, $langUpgrade;
+    global $new_version, $langUpgrade;
 
     $output = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -100,7 +100,7 @@ function upgrade_disp_header()
 
 <head>
   <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
-  <title>-- Claroline upgrade -- version ' . $newClarolineVersion . '</title>
+  <title>-- Claroline upgrade -- version ' . $new_version . '</title>
   <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
   <style media="print" >
     .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
@@ -124,7 +124,7 @@ $output .='</head>
 <tr bgcolor="navy">
 <td valign="top" align="left">
 
-<div id="header">' . sprintf('<h1>Claroline (%s) - ' . $langUpgrade . '</h1>',$newClarolineVersion) . '
+<div id="header">' . sprintf('<h1>Claroline (%s) - ' . $langUpgrade . '</h1>',$new_version) . '
 </div>
 </td>
 </tr>
@@ -229,8 +229,8 @@ function get_new_version ()
 
     include ( $includePath . '/installedVersion.inc.php' ) ;
     
-    $new_version['claroline'] = $version_file_cvs;
-    $new_version['db'] = $version_db_cvs;
+    $new_version = array( 'complete' => $new_version,
+                          'branch' => $new_version_branch );
 
     return $new_version;
 }

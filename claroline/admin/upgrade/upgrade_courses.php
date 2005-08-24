@@ -71,7 +71,7 @@ else
 $mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // count course to upgrade
-$count_course_upgraded = count_course_upgraded($newDbVersion, $newClarolineVersion);
+$count_course_upgraded = count_course_upgraded($new_version_branch);
 
 $count_course = $count_course_upgraded['total'];
 $count_course_error = $count_course_upgraded['error'];
@@ -160,17 +160,16 @@ switch ($display)
         if ( isset($_REQUEST['upgradeCoursesError']) )
         {
             // retry to upgrade course where upgrade failed
-            $sql_course_to_upgrade .= " WHERE c.versionClaro != '". $newClarolineVersion."'
+            $sql_course_to_upgrade .= " WHERE c.versionClaro not like '". $new_version_branch ."%'
                                         ORDER BY c.dbName";
         }
         else
         {
             // not upgrade course where upgrade failed ( versionClaro == error* )
-            $sql_course_to_upgrade .= " WHERE ( c.versionClaro != '". $newClarolineVersion."' )
+            $sql_course_to_upgrade .= " WHERE ( c.versionClaro not like '". $new_version_branch . "%' )
                                               and c.versionClaro not like 'error%' 
                                         ORDER BY c.dbName ";
         }
-
               
         $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
         

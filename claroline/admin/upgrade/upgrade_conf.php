@@ -55,28 +55,6 @@ include ('upgrade.lib.php');
 // Initialise Upgrade
 upgrade_init_global();
 
-/**
-
-if ( preg_match('/^1.7/', $currentClarolineVersion) )
-{
-    // already upgraded
-}
-elseif ( preg_match('/^1.6/',$currentClarolineVersion) )
-{
-    // upgrade from 1.6
-}
-elseif ( preg_match('/^1.5/',$currentClarolineVersion) )
-{
-    // upgrade from 1.5
-}
-else
-{
-    // no upgrade available, check the value of clarolineVersion
-    // in inc/currentVersion.inc.php or inc/conf/claro_main.conf.php
-}
-
-*/
-
 /*=====================================================================
   Main Section
  =====================================================================*/ 
@@ -296,7 +274,7 @@ if ( $cmd == 'run' )
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
 
         // Update current version file
-        save_current_version_file($newClarolineVersion,$currentDbVersion);
+        save_current_version_file($new_version,$currentDbVersion);
     }
     else
     {

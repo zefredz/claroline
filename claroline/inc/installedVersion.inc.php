@@ -23,19 +23,16 @@
  if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 $stable = FALSE;
-$clarolinePhase = 'beta';
 $is_upgrade_available = TRUE;
 
 // var version_db  max. 10 chars
 
-
-$version_file_cvs = '1.7.rc1';
-$version_db_cvs   = '1.7'; // only major version
+$new_version = '1.7.rc1';
+$new_version_branch = '1.7';
 
 if (!$is_upgrade_available)
 {
-    $version_file_cvs = $version_file_cvs . '.[unstable:' . date('yzBs') . ']';
-    $version_db_cvs   = $version_db_cvs . '.[unstable:' . date('yzBs') . ']';
+    $new_version = $new_version . '.[unstable:' . date('yzBs') . ']';
 }
 
 ?>

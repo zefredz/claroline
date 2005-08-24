@@ -60,7 +60,6 @@ $patternSqlVersion = '1.7%';
 define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
 define('DISPVAL_upgrade_main_db_needed' ,__LINE__);
 define('DISPVAL_upgrade_courses_needed' ,__LINE__);
-define('DISPVAL_claroVersionNotFound'   ,__LINE__);
 define('DISPVAL_upgrade_done'           ,__LINE__);
 
 // Library 
@@ -133,7 +132,7 @@ elseif ( !preg_match($patternVarVersion, $currentDbVersion) )
 else
 {
     // count course to upgrade
-    $count_course_upgraded = count_course_upgraded('1.7');
+    $count_course_upgraded = count_course_upgraded($new_version_branch);
     $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
     
     if ( $count_course_to_upgrade > 0 )
@@ -158,19 +157,6 @@ echo upgrade_disp_header();
 
 switch ($display)
 {
-    case DISPVAL_claroVersionNotFound :
-    {
-        echo 'le système ne trouve pas la valeur de la version du claroline acutellement installé sur votre ordinateur.<br>'
-        .    '<H3>scripts version</H3>'
-        .    'Files : ' . $newClarolineVersion . '<br>'
-        .    'DB : ' . $newDbVersion . '<br>'
-        .    'Data repository : unknow <br>' 
-        .    'Central Db : unknow<br>' 
-        ;
-    
-        
-    }
-    break;
     
     case DISPVAL_upgrade_backup_needed :
 
@@ -180,7 +166,7 @@ switch ($display)
                             . '<label for="confirm_backup_no">' . $langNo . '</label><br>'
                             ;
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$newClarolineVersion) . "\n"
+        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
             . '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
             . '<p>' . sprintf($langMakeABackupBefore,$str_confirm_backup) . '</p>' . "\n"
             . '<div align="right"><input type="submit" value="' . $langNext . ' > " /></div>' . "\n"
@@ -191,7 +177,7 @@ switch ($display)
 
     case DISPVAL_upgrade_main_db_needed :
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$newClarolineVersion) . "\n"
+        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
            . '<h2>' . $langDone . ':</h2>' . "\n"
            . '<ul>' . "\n"
            . '<li>'
@@ -214,7 +200,7 @@ switch ($display)
 
     case DISPVAL_upgrade_courses_needed :
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$newClarolineVersion) . "\n"
+        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
             . '<h2>' . $langDone . ':</h2>' . "\n"
             . '<ul>' . "\n"
             . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">'. $langCancel . '</a>)</li>',$langUpgradeStep0) . "\n"
@@ -231,7 +217,7 @@ switch ($display)
 
     case DISPVAL_upgrade_done :
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$newClarolineVersion) . "\n"
+        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
             . '<p>' . $langUpgradeSucceed . '</p>' . "\n"
             . '<ul>' . "\n"
             . '<li><a href="../../..">' . $langPlatformAccess . '</a></li>' . "\n"
