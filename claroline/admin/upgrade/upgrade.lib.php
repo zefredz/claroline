@@ -353,18 +353,18 @@ function upgrade_sql_query($sql, $verbose = false)
             // error accepted
             if ( $verbose )
             {
-                $message  = 'Accepted error: ' . mysql_errno() . '-message- ' . mysql_error() . "\n";
+                $message  = 'Warning (error sql):' . mysql_errno() . '-message- ' . mysql_error() . "\n";
                 $message .= $sql;
-                log_message($sql);
+                log_message($message);
             }
             return true;
         }
         else
         {
             // error not accepted
-            $message  = 'Error: ' . mysql_errno() . ' -message- '. mysql_error() . "\n"
-            $message .= $sql . "\n"
-            log_message($sql);
+            $message  = 'Error sql: ' . mysql_errno() . ' -message- '. mysql_error() . "\n";
+            $message .= $sql . "\n";
+            log_message($message);
             return false;
         }
     }
@@ -451,7 +451,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
             FROM `" . $tbl_tool . "`
             WHERE `claro_label` = '" . addslashes($claro_label) . "'";
    
-    $result = claro_sql_query($sql);
+    $result = upgrade_sql_query($sql);
 
     if ( mysql_num_rows($result) == 0 )
     {
@@ -461,7 +461,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
         $sql = "SELECT MAX(def_rank) AS `max_rank`
                 FROM `" . $tbl_tool . "`";
     
-        $default_rank =  claro_sql_query_get_single_value($sql);
+        $default_rank = claro_sql_query_get_single_value($sql);
         
         $default_rank++ ;
     
@@ -645,7 +645,7 @@ function get_upgrade_status($claro_label,$course_code=null)
 }
 
 /**
- * Get upgrade status of a tool
+ * Set status of a tool
  *
  * @param string claro_label
  * @param int status value
@@ -676,10 +676,8 @@ function set_upgrade_status($claro_label,$status,$course_code=null)
 }
 
 /**
- * Get upgrade status of a tool
+ * Clean status of a tool
  *
- * @param string claro_label
- * @param int status value
  * @param string course_code
  *
  * @return integer status value
