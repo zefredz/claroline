@@ -240,19 +240,23 @@ class claro_sql_pager
 
 
 
-        echo '<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">'
-            .'<tr valign="top">'
-            .'<td align="left" width="20%">';
+        echo "\n\n".'<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">'."\n"
+            .'<tr valign="top">'."\n"
+            .'<td align="left" width="20%">'."\n";
 
         if ($previous !== false)
         {
             echo '<b><a href="'.$url.$start.'">|&lt;&lt;</a>&nbsp;&nbsp;</b>'
                 .'<b><a href="'.$url.$previous.'">&lt; </a></b>';
         }
+        else
+        {
+			echo '&nbsp;';
+		}
 
-        echo '</td>'
+        echo "\n".'</td>'."\n"
         
-            .'<td align="center" width="60%">';
+            .'<td align="center" width="60%">'."\n";
 
         if ( $this->offsetCount > 1) 
         {
@@ -269,8 +273,8 @@ class claro_sql_pager
             }
         }
 
-        echo '</td>'
-        .    '<td align="right" width="20%">'
+        echo "\n".'</td>'."\n"
+        .    '<td align="right" width="20%">'."\n"
         ;
 
         if ($next !== false)
@@ -279,10 +283,14 @@ class claro_sql_pager
             .    '<b><a href="' . $url.$end . '"> &gt;&gt;|</a></b>'
             ;
         }
+		else
+        {
+			echo '&nbsp;';
+		}
 
-        echo '</td>'
-        .    '</tr>'
-        .    '</table>'
+        echo "\n".'</td>'."\n"
+        .    '</tr>'."\n"
+        .    '</table>'."\n\n"
         ;
     }
 
