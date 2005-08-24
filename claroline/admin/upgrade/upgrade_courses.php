@@ -4,7 +4,7 @@
  * 
  * This script Upgrade course database and course space.
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -16,11 +16,8 @@
  *
  */
 
-/*=====================================================================
-  Init Section
- =====================================================================*/ 
-
 // Initialise Claroline
+
 require '../../inc/claro_init_global.inc.php';
 
 // Security Check
@@ -181,7 +178,7 @@ switch ($display)
          * Upgrade course
          */
 
-        while ( $course = mysql_fetch_array($res_course_to_upgrade) )
+        while ( ($course = mysql_fetch_array($res_course_to_upgrade) ) )
         {   
             // initialise variables
 
@@ -336,7 +333,7 @@ switch ($display)
             if ( mysql_num_rows($result) )
             {
                 echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
-                while ($course = mysql_fetch_array($result))
+                while ( ( $course = mysql_fetch_array($result)) )
                 {
                     echo $course['code'] . ' ; ';    
                 }
