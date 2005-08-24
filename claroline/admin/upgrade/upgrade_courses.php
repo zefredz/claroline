@@ -17,7 +17,6 @@
  */
 
 // Initialise Claroline
-
 require '../../inc/claro_init_global.inc.php';
 
 // Security Check
@@ -226,12 +225,13 @@ switch ($display)
                 if ( preg_match('/^1.5/',$currentCourseVersion) )
                 {
                     // Function to upgrade tool to 1.6
-                    if ( assignment_upgrade_to_16($currentCourseCode) &&
-                         forum_upgrade_to_16($currentCourseCode) &&
-                         group_upgrade_to_16($currentCourseCode) &&
-                         quizz_upgrade_to_16($currentCourseCode) &&
-                         tracking_upgrade_to_16($currentCourseCode) 
-                       )
+                    if ( !assignment_upgrade_to_16($currentCourseCode) ) $error = true;
+                    if ( !forum_upgrade_to_16($currentCourseCode) )      $error = true;
+                    if ( !group_upgrade_to_16($currentCourseCode) )      $error = true;
+                    if ( !quizz_upgrade_to_16($currentCourseCode) )      $error = true;
+                    if ( !tracking_upgrade_to_16($currentCourseCode) )   $error = true;
+                   
+                    if ( ! $error )
                     {
                         // Upgrade succeeded
                         clean_upgrade_status($currentCourseCode);
@@ -240,7 +240,6 @@ switch ($display)
                     else
                     {
                         // Upgrade failed
-                        $error = true;
                         $currentVersion = 'error-1.5';
                     }
                     // Save version
@@ -254,15 +253,16 @@ switch ($display)
                 if ( preg_match('/^1.6/',$currentCourseVersion) )
                 {
                     // Function to upgrade tool to 1.7
-                    if ( agenda_upgrade_to_17($currentCourseCode) &&
-                         announcement_upgrade_to_17($currentCourseCode) &&
-                         course_despcription_upgrade_to_17($currentCourseCode) &&
-                         forum_upgrade_to_17($currentCourseCode) &&
-                         introtext_upgrade_to_17($currentCourseCode) &&
-                         linker_upgrade_to_17($currentCourseCode) &&
-                         tracking_upgrade_to_17($currentCourseCode) &&
-                         wiki_upgrade_to_17($currentCourseCode)
-                       )
+                    if ( !agenda_upgrade_to_17($currentCourseCode) )                $error = true;
+                    if ( !announcement_upgrade_to_17($currentCourseCode) )          $error = true;
+                    if ( !course_despcription_upgrade_to_17($currentCourseCode) )   $error = true;
+                    if ( !forum_upgrade_to_17($currentCourseCode) )                 $error = true;
+                    if ( !introtext_upgrade_to_17($currentCourseCode) )             $error = true;
+                    if ( !linker_upgrade_to_17($currentCourseCode) )                $error = true;
+                    if ( !tracking_upgrade_to_17($currentCourseCode) )              $error = true;
+                    if ( !wiki_upgrade_to_17($currentCourseCode) )                  $error = true;
+                    
+                    if ( ! $error )
                     {
                         // Upgrade succeeded
                         clean_upgrade_status($currentCourseCode);
@@ -271,7 +271,6 @@ switch ($display)
                     else
                     {
                         // Upgrade failed
-                        $error = true;
                         $currentVersion = 'error-1.6';
                     }
                     // Save version
