@@ -28,6 +28,10 @@ $sqlkeys['user'] = "int(11) default NULL";
 
 /**
  * Upgrade announcement tool to 1.7
+ * add visibility fields in announcement
+ *
+ * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function announcement_upgrade_to_17($course_code)
@@ -36,21 +40,13 @@ function announcement_upgrade_to_17($course_code)
     $tool = 'CLANN';
     global $currentCourseVersion;
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-    
-    // An new field is use in in 1.7
 
-    // Job for this upgrade 
-    // STEP 1 add visibility fields in announcement, calendar and course_description
-
-    ////////////////////////////////////
-    
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     switch( get_upgrade_status($tool,$course_code) )
     {
         case 1 :  // STEP 1 CREATE TABLES
     
             $sql_step1[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."announcement` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
-
             if ( ! upgrade_apply_sql($sql_step1) ) return false;
             set_upgrade_status($tool, 0, $course_code);
         default : 
@@ -61,6 +57,10 @@ function announcement_upgrade_to_17($course_code)
 
 /**
  * Upgrade agenda tool to 1.7
+ * add visibility fields in calendar
+ *  
+ * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function agenda_upgrade_to_17($course_code)
@@ -70,17 +70,10 @@ function agenda_upgrade_to_17($course_code)
     global $currentCourseVersion;
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
-    // An new field is use in in 1.7
-
-    // Job for this upgrade 
-    // STEP 1  add visibility fields in announcement, calendar and course_description
-   
-    ////////////////////////////////////
-    
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     switch( get_upgrade_status($tool,$course_code) )
     {
-        case 1 :  // add visibility fields in announcement, calendar and course_description
+        case 1 :  // add visibility fields in calendar
             $sql_step1[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."calendar_event` ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
     
             if ( ! upgrade_apply_sql($sql_step1) ) return false;
@@ -94,6 +87,8 @@ function agenda_upgrade_to_17($course_code)
 
 /**
  * Upgrade course description tool to 1.7
+ * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function course_despcription_upgrade_to_17($course_code)
@@ -127,6 +122,8 @@ function course_despcription_upgrade_to_17($course_code)
 
 /**
  * Upgrade tracking tool to 1.7
+ * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function tracking_upgrade_to_17($course_code)
@@ -174,6 +171,8 @@ function tracking_upgrade_to_17($course_code)
 
 /**
  * Upgrade linker tool to 1.7
+ * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function linker_upgrade_to_17($course_code)
@@ -219,6 +218,8 @@ function linker_upgrade_to_17($course_code)
 
 /**
  * Upgrade wiki tool to 1.7
+  * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function wiki_upgrade_to_17($course_code)
@@ -286,6 +287,8 @@ function wiki_upgrade_to_17($course_code)
 
 /**
  * Upgrade forum tool to 1.7
+  * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function forum_upgrade_to_17($course_code)
@@ -340,6 +343,8 @@ function forum_upgrade_to_17($course_code)
 
 /**
  * Upgrade introduction text table to 1.7
+  * @param $course_code string
+ * @return boolean whether tru if succeed
  */
 
 function introtext_upgrade_to_17($course_code)
