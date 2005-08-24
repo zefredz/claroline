@@ -133,7 +133,7 @@ elseif ( !preg_match($patternVarVersion, $currentDbVersion) )
 else
 {
     // count course to upgrade
-    $count_course_upgraded = count_course_upgraded($newDbVersion, $newClarolineVersion);
+    $count_course_upgraded = count_course_upgraded('1.7');
     $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
     
     if ( $count_course_to_upgrade > 0 )

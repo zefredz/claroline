@@ -1,4 +1,4 @@
-<?php // $Id $
+<?php // $Id$
 /**
  * CLAROLINE 
  *
@@ -103,7 +103,7 @@ function upgrade_disp_header()
   <title>-- Claroline upgrade -- version ' . $newClarolineVersion . '</title>
   <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
   <style media="print" >
-    .notethis {	border: thin double Black;	margin-left: 15px;	margin-right: 15px;}
+    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
   </style>';
 
 if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
@@ -248,7 +248,7 @@ function get_new_version ()
 
 function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
 {
-    global $lang_p_d_affected_rows, $langVerbose;
+    global $lang_p_d_affected_rows, $langModeVerbose;
     global $accepted_error_list;
 
     $nb_error = 0;
@@ -257,55 +257,55 @@ function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
 
     echo '<ol>' . "\n";
 
-    foreach ( $array_query as $key => $sql )
+    foreach ( $array_query as $sql )
     {
-    	if ( $sql[0] == "#" && $verbose )
-    	{
+        if ( $sql[0] == "#" && $verbose )
+        {
             // Upgrade comment displayed in verbose mode
-    	    echo '<p class="comment">' . 'Comment:' . $sql . '</p>' . "\n";
-    	}
-    	else
-    	{
+            echo '<p class="comment">' . 'Comment:' . $sql . '</p>' . "\n";
+        }
+        else
+        {
             // Sql query
-    		$res = claro_sql_query($sql);
+            claro_sql_query($sql);
 
             // Start Verbose Bloc
-    		if ( $verbose )
-    		{
-    			echo  '<li>' . "\n"
-    			    . '<p class="tt">' . $sql . '</p>' . "\n"
-    			    . '<p>' 
-    			    . sprintf($lang_p_d_affected_rows,mysql_affected_rows()) . '<br />' 
-    			    . mysql_info() 
-    			    . '</p>' . "\n";
-    		}
+            if ( $verbose )
+            {
+                echo  '<li>' . "\n"
+                    . '<p class="tt">' . $sql . '</p>' . "\n"
+                    . '<p>' 
+                    . sprintf($lang_p_d_affected_rows,mysql_affected_rows()) . '<br />' 
+                    . mysql_info() 
+                    . '</p>' . "\n";
+            }
 
             // Sql error
-    		if ( mysql_errno() > 0 )
-    		{
+            if ( mysql_errno() > 0 )
+            {
                 if ( in_array(mysql_errno(),$accepted_error_list) )
-    			{
+                {
                     // Sql error is accepted
-    				if ( $verbose )
-    				{
-    					echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
-    				}
-    			}
-    			else
-    			{
-    				echo '<p class="error">' . "\n"
+                    if ( $verbose )
+                    {
+                        echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
+                    }
+                }
+                else
+                {
+                    echo '<p class="error">' . "\n"
                         . (++$nb_error) . '<strong>' . 'n°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
-    				    . '<code>' . $sql . '</code>' . "\n"
-    				    . '</p>' . "\n";
-    			}
-    		}
+                        . '<code>' . $sql . '</code>' . "\n"
+                        . '</p>' . "\n";
+                }
+            }
 
             // End Verbose Bloc
-    		if ( $verbose ) {
-    			echo '</li>' . "\n";
-				flush();
-    		}
-    	}
+            if ( $verbose ) {
+                echo '</li>' . "\n";
+                flush();
+            }
+        }
     } // end foreach $array_query
     
     echo '</ol>' . "\n";
@@ -328,7 +328,7 @@ function upgrade_apply_sql ( $array_query , $verbose = false )
 {
     $nb_error = 0;
 
-    foreach ( $array_query as $key => $sql )
+    foreach ( $array_query as $sql )
     {
         if ( !upgrade_sql_query($sql, $verbose) ) $nb_error++;
     }
@@ -343,30 +343,30 @@ function upgrade_sql_query($sql, $verbose = false)
     global $accepted_error_list;
         
     // Sql query
-	$res = mysql_query($sql);
+    mysql_query($sql);
         
     // Sql error
-	if ( mysql_errno() > 0 )
+    if ( mysql_errno() > 0 )
     {
         if ( in_array(mysql_errno(),$accepted_error_list) )
-    	{
+        {
             // error accepted
-    		if ( $verbose )
-    		{
-    			echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
-    		}
+            if ( $verbose )
+            {
+                echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
+            }
             return true;
-    	}
-    	else
-    	{
-    		echo '<p class="error">' . "\n"
+        }
+        else
+        {
+            echo '<p class="error">' . "\n"
                 . '<strong>' . 'N°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
-    		    . '<code>' . $sql . '</code>' . "\n"
-    		    . '</p>' . "\n";
+                . '<code>' . $sql . '</code>' . "\n"
+                . '</p>' . "\n";
 
             // error not accepted
             return false;
-    	}
+        }
     }
     else
     {
@@ -384,7 +384,7 @@ function upgrade_sql_query($sql, $verbose = false)
  * @return array 
  */
 
-function count_course_upgraded($version_db, $version_file)
+function count_course_upgraded($version)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
@@ -406,10 +406,10 @@ function count_course_upgraded($version_db, $version_file)
 
     $result = claro_sql_query($sql);
 
-    while ( $row = mysql_fetch_array($result) )
+    while ( ( $row = mysql_fetch_array($result) ) )
     {
         // Count courses upgraded and upgrade failed    
-        if ( preg_match('/^1.7/',$row['versionClaro']) ) 
+        if ( preg_match('/^' . $version . '/',$row['versionClaro']) ) 
         {
             // upgrade succeed
             $count_course['upgraded'] += $row['count_course'];
@@ -557,7 +557,7 @@ function save_course_current_version ( $course_code, $fileVersion )
              SET versionClaro = '" . addslashes($fileVersion) . "'
              WHERE code = '". $course_code ."'";
 
-    $res = claro_sql_query($sql);
+    return claro_sql_query($sql);
 
 }
 
