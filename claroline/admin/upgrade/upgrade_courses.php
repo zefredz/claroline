@@ -225,11 +225,19 @@ switch ($display)
                 if ( preg_match('/^1.5/',$currentCourseVersion) )
                 {
                     // Function to upgrade tool to 1.6
-                    if ( !assignment_upgrade_to_16($currentCourseCode) ) $error = true;
-                    if ( !forum_upgrade_to_16($currentCourseCode) )      $error = true;
-                    if ( !group_upgrade_to_16($currentCourseCode) )      $error = true;
-                    if ( !quizz_upgrade_to_16($currentCourseCode) )      $error = true;
-                    if ( !tracking_upgrade_to_16($currentCourseCode) )   $error = true;
+                    $function_list = array('assignment_upgrade_to_16',
+                                           'forum_upgrade_to_16',
+                                           'quizz_upgrade_to_16',
+                                           'tracking_upgrade_to_16' );
+
+                    foreach ( $function_list as $function )
+                    {
+                        if ( ! $function($currentCourseCode) )
+                        {
+                            echo 'Error : ' . $function ;
+                            $error = true;
+                        }
+                    }
                    
                     if ( ! $error )
                     {
@@ -253,14 +261,23 @@ switch ($display)
                 if ( preg_match('/^1.6/',$currentCourseVersion) )
                 {
                     // Function to upgrade tool to 1.7
-                    if ( !agenda_upgrade_to_17($currentCourseCode) )                $error = true;
-                    if ( !announcement_upgrade_to_17($currentCourseCode) )          $error = true;
-                    if ( !course_description_upgrade_to_17($currentCourseCode) )    $error = true;
-                    if ( !forum_upgrade_to_17($currentCourseCode) )                 $error = true;
-                    if ( !introtext_upgrade_to_17($currentCourseCode) )             $error = true;
-                    if ( !linker_upgrade_to_17($currentCourseCode) )                $error = true;
-                    if ( !tracking_upgrade_to_17($currentCourseCode) )              $error = true;
-                    if ( !wiki_upgrade_to_17($currentCourseCode) )                  $error = true;
+                    $function_list = array( 'agenda_upgrade_to_17',
+                                            'announcement_upgrade_to_17',
+                                            'course_description_upgrade_to_17',
+                                            'forum_upgrade_to_17',
+                                            'introtext_upgrade_to_17',
+                                            'linker_upgrade_to_17',
+                                            'tracking_upgrade_to_17',
+                                            'wiki_upgrade_to_17');
+
+                    foreach ( $function_list as $function )
+                    {
+                        if ( ! $function($currentCourseCode) )
+                        {
+                            echo 'Error : ' . $function ;
+                            $error = true;
+                        }
+                    }
                     
                     if ( ! $error )
                     {
