@@ -255,7 +255,7 @@ switch ($display)
                     // Function to upgrade tool to 1.7
                     if ( !agenda_upgrade_to_17($currentCourseCode) )                $error = true;
                     if ( !announcement_upgrade_to_17($currentCourseCode) )          $error = true;
-                    if ( !course_despcription_upgrade_to_17($currentCourseCode) )   $error = true;
+                    if ( !course_description_upgrade_to_17($currentCourseCode) )    $error = true;
                     if ( !forum_upgrade_to_17($currentCourseCode) )                 $error = true;
                     if ( !introtext_upgrade_to_17($currentCourseCode) )             $error = true;
                     if ( !linker_upgrade_to_17($currentCourseCode) )                $error = true;

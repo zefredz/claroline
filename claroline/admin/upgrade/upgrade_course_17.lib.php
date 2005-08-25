@@ -97,7 +97,7 @@ function agenda_upgrade_to_17($course_code)
  * @return boolean whether tru if succeed
  */
 
-function course_despcription_upgrade_to_17($course_code)
+function course_description_upgrade_to_17($course_code)
 {
     global $currentCourseVersion;
 
@@ -281,7 +281,7 @@ function wiki_upgrade_to_17($course_code)
             
             case 2 : // STEP 2 register tool in the course
 
-                if ( add_tool_in_course_tool_list('CLWIKI__','COURSE_ADMIN',$currentCourseDbNameGlu) )
+                if ( !add_tool_in_course_tool_list('CLWIKI__','COURSE_ADMIN',$currentCourseDbNameGlu) )
                 {
                     log_message('Error: Add wiki failed in course ' . $course_code);
                     return false;
@@ -346,7 +346,7 @@ function forum_upgrade_to_17($course_code)
                     $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
                              SET group_id = " . $row['id'] . "
                              WHERE `forum_id` = " . $row['forumId'] . "";
-                    if (! ugrade_sql_query($sql)) 
+                    if (! upgrade_sql_query($sql)) 
                     {
                         return false;
                     }
@@ -424,7 +424,9 @@ function introtext_upgrade_to_17($course_code)
             case 3 : // STEP 3 FILL The new table with value from the old
                 $sql = " SELECT `id`, `texte_intro` 
                          FROM `".$currentCourseDbNameGlu."tool_intro_prev17` ";
+
                 $result = upgrade_sql_query($sql);
+
                 if ( ! $result ) return false;
 
                 while ( ( $row = mysql_fetch_array($result) ) )
@@ -432,7 +434,8 @@ function introtext_upgrade_to_17($course_code)
                     $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tool_intro`
                             (`tool_id`,`content`)
                             VALUES
-                            (`" . $row['id'] . "`,`" . $row['texte_intro'] . "`)";
+                            ('" . $row['id'] . "','" . $row['texte_intro'] . "')";
+
                     if ( ! upgrade_sql_query($sql) )  
                     {
                         return false;
@@ -442,7 +445,7 @@ function introtext_upgrade_to_17($course_code)
             
             case 4 :   // STEP 4 Delete OLD
 
-                $sql_step4[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."tool_intro`";
+                $sql_step4[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."tool_intro_prev17`";
                 if ( ! upgrade_apply_sql($sql_step4) ) return false;
                 set_upgrade_status($tool, 0, $course_code);
 
