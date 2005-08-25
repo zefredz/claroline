@@ -69,7 +69,7 @@ function agenda_upgrade_to_17($course_code)
     global $currentCourseVersion;
 
     $versionRequiredToProceed = '/^1.6/';
-    $tool = 'CLDSC';
+    $tool = 'CLCAL';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
