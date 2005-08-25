@@ -36,7 +36,7 @@
 $cidReset = TRUE;
 $gidReset = TRUE;
 
-if ( ! file_exists('../../currentVersion.inc.php') )
+if ( ! file_exists('../../inc/currentVersion.inc.php') )
 {
     // if this file doesn't exist, the current version is < claroline 1.6
     $platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
@@ -44,11 +44,17 @@ if ( ! file_exists('../../currentVersion.inc.php') )
 
 // Initialise
 
-require '../../inc/claro_init_global.inc.php';
+require 'upgrade_init_global.inc.php';
+
+// Library 
+include ('upgrade.lib.php');
+
+// Initialise Upgrade
+upgrade_init_global();
 
 // Security Check
 
-if (!$is_platformAdmin) claro_disp_auth_form();
+if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
@@ -61,12 +67,6 @@ define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
 define('DISPVAL_upgrade_main_db_needed' ,__LINE__);
 define('DISPVAL_upgrade_courses_needed' ,__LINE__);
 define('DISPVAL_upgrade_done'           ,__LINE__);
-
-// Library 
-include ('upgrade.lib.php');
-
-// Initialise Upgrade
-upgrade_init_global();
 
 /*=====================================================================
   Main Section

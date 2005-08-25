@@ -35,17 +35,7 @@ if ( ! file_exists('../../currentVersion.inc.php') )
 }
 
 // Initialise Claroline
-require '../../inc/claro_init_global.inc.php';
-
-// Security Check
-if (!$is_platformAdmin) claro_disp_auth_form();
-
-// Define display
-DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
-DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
-DEFINE ('DISPLAY_RESULT_SUCCESS_PANEL', __LINE__);
-DEFINE ('ERROR_WRITE_FAILED', __LINE__);
-$display = DISPLAY_WELCOME_PANEL;
+require 'upgrade_init_global.inc.php';
 
 // Include library
 include ($includePath.'/lib/config.lib.inc.php');
@@ -54,6 +44,16 @@ include ('upgrade.lib.php');
 
 // Initialise Upgrade
 upgrade_init_global();
+
+// Security Check
+if (!$is_platformAdmin) upgrade_disp_auth_form();
+
+// Define display
+DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
+DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
+DEFINE ('DISPLAY_RESULT_SUCCESS_PANEL', __LINE__);
+DEFINE ('ERROR_WRITE_FAILED', __LINE__);
+$display = DISPLAY_WELCOME_PANEL;
 
 /*=====================================================================
   Main Section

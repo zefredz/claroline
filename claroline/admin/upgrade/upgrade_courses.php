@@ -17,10 +17,7 @@
  */
 
 // Initialise Claroline
-require '../../inc/claro_init_global.inc.php';
-
-// Security Check
-if (!$is_platformAdmin) claro_disp_auth_form();
+require 'upgrade_init_global.inc.php';
 
 // Include Libraries
 include ('upgrade.lib.php');
@@ -29,6 +26,9 @@ include ('upgrade_course_17.lib.php');
 
 // Initialise Upgrade
 upgrade_init_global();
+
+// Security Check
+if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
