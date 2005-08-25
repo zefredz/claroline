@@ -11,20 +11,25 @@
 
 $includePath = dirname(__FILE__);
 
-// YOU CAN REMOVE THE @ of the following line after install.
-
 if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
-    include($includePath . '/conf/claro_main.conf.php');
+    require $includePath . '/conf/claro_main.conf.php';
 } 
 else
 {
-    die ( "<center>"
-       ."WARNING ! SYSTEM UNABLE TO FIND CONFIGURATION SETTINGS"
-       ."<br>If it is your first connection to your Claroline Platform, "
-       ."read <code>INSTALL.txt</code>."
-       ."</center>");
+    die ('<center>'
+       .'WARNING ! SYSTEM UNABLE TO FIND CONFIGURATION SETTINGS.'
+       .'<p>'
+       .'If it is your first connection to your Claroline platform, '
+       .'read thoroughly INSTALL.txt file provided in the Claroline package.'
+       .'</p>'
+       .'</center>');
 }
+
+/*----------------------------------------------------------------------
+  Various Path Init
+  ----------------------------------------------------------------------*/
+
 
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application
 // Repository". It is a framework and distribution system for reusable PHP
@@ -56,6 +61,10 @@ $imgRepositoryAppend    = 'img/'; // <-this line would be editable in claroline 
 $imgRepositorySys       = $clarolineRepositorySys . $imgRepositoryAppend;
 $imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
 
+// Unix file permission access ...
+
+define('CLARO_FILE_PERMISSIONS', 0777);
+
 /*----------------------------------------------------------------------
   Start session
   ----------------------------------------------------------------------*/
@@ -84,14 +93,14 @@ claro_unquote_gpc();
   ----------------------------------------------------------------------*/
 
 $db = @mysql_connect($dbHost, $dbLogin, $dbPass)
-or die ( "<center>"
-	   ."WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER"
-	   ."</center>");
+or die ('<center>'
+	   .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
+	   .'</center>');
 
 $selectResult = mysql_select_db($mainDbName,$db)
-or die ( "<center>"
-		."WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE"
-		."</center>");
+or die ( '<center>'
+		.'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
+		.'</center>');
 
 if ($statsDbName == '')
 {
