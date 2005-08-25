@@ -275,20 +275,19 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $sql = "SELECT `fake_code`, `dbName` 
                 FROM    `".$tbl_course."` 
                 ORDER BY code ASC";
-        $resCourseList = claro_sql_query($sql);
+        $resCourseList = claro_sql_query_fetch_all($sql);
         $i=0;                               
-        while ( $course = mysql_fetch_array($resCourseList) )
+        foreach( $resCourseList as $course )
         {
             $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
             $sql = "SELECT count( `access_id` ) AS nb
                       FROM `".$TABLEACCESSCOURSE."`
                       WHERE `access_tid` IS NULL
                       ORDER BY nb DESC";
-            $result = claro_sql_query($sql);
-            $count = mysql_fetch_array($result);
+            $count = claro_sql_query_get_single_value($sql);
 
             $resultsArray[$i][0] = $course['fake_code'];
-            $resultsArray[$i][1] = $count['nb'];
+            $resultsArray[$i][1] = $count;
             $i++;
         }
 
