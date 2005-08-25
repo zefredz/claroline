@@ -119,6 +119,15 @@ if ($languageInterface  != 'english') // Avoid useless include as English lang i
     include($includePath.'/../lang/' . $languageInterface . '/complete.lang.php');
 }
 
+// include the locale settings language
+
+include($includePath.'/../lang/english/locale_settings.php');
+    
+if ( $languageInterface  != 'english' ) // // Avoid useless include as English lang is preloaded
+{
+   include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
+}
+
 /*----------------------------------------------------------------------
   Authentification as platform administrator
   ----------------------------------------------------------------------*/
