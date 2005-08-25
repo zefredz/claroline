@@ -52,7 +52,6 @@ function upgrade_init_global()
      *
      * Error: 1017 SQLSTATE: HY000 (ER_FILE_NOT_FOUND) : already upgraded
      * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
-     * Error: 1054 SQLSTATE: 42S22 (ER_BAD_FIELD_ERROR) : Unknown column '%s' in '%s'
      * Error: 1060 SQLSTATE: 42S21 (ER_DUP_FIELDNAME)  : already upgraded
      * Error: 1062 SQLSTATE: 23000 (ER_DUP_ENTRY) : duplicate entry '%s' for key %d
      * Error: 1065 SQLSTATE: 42000 (ER_EMPTY_QUERY) : when  sql contain only a comment
@@ -61,7 +60,8 @@ function upgrade_init_global()
      * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
      */
 
-    $accepted_error_list = array(1017,1050,1054,1060,1062,1065,1091,1146);
+    $accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
+    $accepted_error_list = array();
 
     /*
      * Initialize version variables
@@ -343,7 +343,7 @@ function upgrade_sql_query($sql, $verbose = false)
     global $accepted_error_list;
         
     // Sql query
-    mysql_query($sql);
+    $handler = mysql_query($sql);
         
     // Sql error
     if ( mysql_errno() > 0 )
@@ -357,7 +357,7 @@ function upgrade_sql_query($sql, $verbose = false)
                 $message .= $sql;
                 log_message($message);
             }
-            return true;
+            return $handler;
         }
         else
         {
@@ -365,13 +365,13 @@ function upgrade_sql_query($sql, $verbose = false)
             $message  = 'Error sql: ' . mysql_errno() . ' -message- '. mysql_error() . "\n";
             $message .= $sql . "\n";
             log_message($message);
-            return false;
+            return $handler;
         }
     }
     else
     {
         // no error
-        return true;
+        return $handler;
     }
 }
 
@@ -512,8 +512,8 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
     $sql = "SELECT `id`, `def_access`
             FROM `" . $tbl_course_tool . "`
             WHERE `claro_label` = '" . addslashes($claro_label) . "'";
-   
-    $result = claro_sql_query($sql);
+
+    $result = upgrade_sql_query($sql);
 
     if ( mysql_num_rows($result) )
     {
@@ -528,7 +528,8 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
                VALUES
                ('" . $row['id'] . "','" . $rank . "','" . $access . "')";
 
-        return claro_sql_query_insert_id($sql);
+        $result = upgrade_sql_query($sql);
+        return mysql_insert_id();
     }
     else
     {
@@ -766,6 +767,42 @@ function open_upgrade_log()
     {
         return false;
     }
+}
+
+function upgrade_disp_auth_form()
+{
+    global $langLogin, $langUserName, $langPassword;
+
+    // Display Header
+    echo upgrade_disp_header();
+
+    // Display login form
+    echo '<table align="center">'."\n"
+        .'<tr>'
+        .'<td>'
+        .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+
+        .'<fieldset>'."\n"
+
+        .'<legend>'.$langLogin.'</legend>'."\n"
+
+        .'<label for="username">'.$langUserName.' : </label><br>'."\n"
+        .'<input type="text" name="login" id="username"><br>'."\n"
+
+        .'<label for="password">'.$langPassword.' : </label><br>'."\n"
+        .'<input type="password" name="password" id="password"><br>'."\n"
+        .'<input type="submit" >'."\n"
+
+        .'</fieldset>'."\n"
+
+        .'</form>'."\n"
+        .'</td>'
+        .'</tr>'
+        .'</table>';
+
+    // Display footer
+    echo upgrade_disp_footer();
+    die();
 }
 
 ?>
