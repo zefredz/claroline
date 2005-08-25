@@ -39,10 +39,6 @@ $tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers  = $tbl_cdb_names['track_e_exe_answers'];
 
-
-define("CONFVAL_LOG_DIRECT_IN_TABLE",true); //unstable with false
-define("CONFVAL_INSERT_IS_DELAYED", true);
-
 /**
  * Function found on php.net to replace the html_entity_decode (that only works in php 4.3.0 and upper)
  *
@@ -88,7 +84,6 @@ function event_open()
                         (FROM_UNIXTIME($reallyNow))";
 
         $res = claro_sql_query($sql);
-        //$mysql_query($sql);
     }
     return 1;
 }
@@ -151,14 +146,15 @@ function event_access_course()
     {
         $user_id = "NULL";
     }
-    $sql = "INSERT INTO `".$tbl_track_e_access."`
+
+	$sql = "INSERT INTO `".$tbl_track_e_access."`
             (`access_user_id`,  
              `access_date`)
             VALUES
             (". $user_id.", 
             FROM_UNIXTIME(".$reallyNow."))";
 
-        $res = claro_sql_query($sql);
+	$res = claro_sql_query($sql);
 
     return 1;
 
@@ -215,7 +211,7 @@ function event_access_tool($tid, $tlabel)
 
 /**
 
- * @param doc_id id of document (id in mainDb.document table)
+ * @param doc_url url of document
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record information for download event
      (when an user click to d/l a document)
@@ -228,7 +224,6 @@ function event_download($doc_url)
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-
     global $tbl_track_e_downloads;
 
     $reallyNow = time();
@@ -260,7 +255,7 @@ function event_download($doc_url)
 }
 
 /**
-
+ * No more used in 1.7
  * @param doc_id id of document (id in mainDb.document table)
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @desc Record information for upload event
@@ -353,7 +348,7 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 
 /**
  * @param exerciseTrackId id in track_e_exercices table
- * @param questionId
+ * @param questionId id of the question
  * @param values array with user answers
  * @param questionResult result of this question
  * @author Sebastien Piraux <pir@cerdecam.be>
@@ -428,7 +423,7 @@ function event_default($type_event,$values)
 
     if($_uid)
     {
-        $user_id = "\"".(int)$_uid."\"";
+        $user_id = "'".(int)$_uid."'";
     }
     else // anonymous
     {
@@ -437,7 +432,7 @@ function event_default($type_event,$values)
 
     if($_uid)
     {
-        $cours_id = "\"".addslashes($_cid)."\"";
+        $cours_id = "'".addslashes($_cid)."'";
     }
     else // anonymous
     {
@@ -450,11 +445,11 @@ function event_default($type_event,$values)
     {
         if($sqlValues == "")
         {
-            $sqlValues .= "('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
+            $sqlValues .= "('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),'".addslashes($type_event)."','".addslashes($type_value)."','".addslashes($event_value)."')";
         }
         else
         {
-            $sqlValues .= ",('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),\"".addslashes($type_event)."\",\"".addslashes($type_value)."\",\"".addslashes($event_value)."\")";
+            $sqlValues .= ",('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),'".addslashes($type_event)."','".addslashes($type_value)."','".addslashes($event_value)."')";
         }
     }
     $sql = "INSERT INTO `".$tbl_track_e_default."`
