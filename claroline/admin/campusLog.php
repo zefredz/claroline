@@ -78,31 +78,31 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo '&nbsp;&nbsp;&nbsp;'.$langCountCours.' : '.$count.'<br />'."\n";
         
         //--  number of courses by faculte
-        $sql = "SELECT `faculte`, count( * )
+        $sql = "SELECT `faculte`, count( * ) AS `nbr`
                     FROM `".$tbl_course."`
                     WHERE `faculte` IS NOT NULL
                     GROUP BY `faculte`";
-        $results = getManyResults2Col($sql);
+        $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountCourseByFaculte.' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
 
         //--  number of courses by language
-        $sql = "SELECT `languageCourse`, count( * )
+        $sql = "SELECT `languageCourse`, count( * ) AS `nbr`
                     FROM `".$tbl_course."`
                     WHERE `languageCourse` IS NOT NULL
                     GROUP BY `languageCourse`";
-        $results = getManyResults2Col($sql);
+        $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountCourseByLanguage.' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
         //--  number of courses by visibility
-        $sql = "SELECT `visible`, count( * )
+        $sql = "SELECT `visible`, count( * ) AS `nbr`
                     FROM `".$tbl_course."`
                     WHERE `visible` IS NOT NULL
                     GROUP BY `visible`";
         
-        $results = getManyResults2Col($sql);
+        $results = claro_sql_query_fetch_all($sql);
         $results = changeResultOfVisibility($results);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountCourseByVisibility.' : <br />'."\n";
         buildTab2Col($results);
@@ -118,34 +118,34 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo '&nbsp;&nbsp;&nbsp;'.$langCountUsers.' : '.$count.'<br />'."\n";
 
         //--  number of users by course
-        $sql = "SELECT C.`code`, count( CU.user_id ) as nb
+        $sql = "SELECT C.`code`, count( CU.user_id ) as `nb`
                     FROM `".$tbl_course."` C, `".$tbl_rel_course_user."` CU
                     WHERE CU.`code_cours` = C.`code`
                         AND `code` IS NOT NULL
                     GROUP BY C.`code`
                     ORDER BY nb DESC";
-        $results = getManyResults2Col($sql);
+        $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountUsersByCourse.' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
 
         //--  number of users by faculte
-        $sql = "SELECT C.`faculte`, count( CU.user_id )
+        $sql = "SELECT C.`faculte`, count( CU.`user_id` ) AS `nbr`
                     FROM `".$tbl_course."` C, `".$tbl_rel_course_user."` CU
                     WHERE CU.`code_cours` = C.`code`
                         AND C.`faculte` IS NOT NULL
                     GROUP BY C.`faculte`";
-        $results = getManyResults2Col($sql);
+        $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountUsersByFaculte.' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
 
         //--  number of users by status
-        $sql = "SELECT `statut`, count( `user_id` )
+        $sql = "SELECT `statut`, count( `user_id` ) AS `nbr`
                     FROM `".$tbl_user."`
                     WHERE `statut` IS NOT NULL
                     GROUP BY `statut`";
-        $results = getManyResults2Col($sql);
+        $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountUsersByStatus.' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";

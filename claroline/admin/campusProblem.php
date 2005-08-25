@@ -93,7 +93,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     HAVING nb > 1
                     ORDER BY nb DESC";
 
-        buildTabDefcon(getManyResults2Col($sql));
+        buildTabDefcon(claro_sql_query_fetch_all($sql));
 
 
         echo '<br />'."\n";
@@ -125,7 +125,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     HAVING nb > 1  
                     ORDER BY nb DESC";
 
-        buildTabDefcon(getManyResults2Col($sql));
+        buildTabDefcon(claro_sql_query_fetch_all($sql));
 
 
     }
@@ -155,7 +155,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     HAVING nbu = 0
                     ORDER BY code_cours";
 
-        buildTabDefcon(getManyResults2Col($sql));
+        buildTabDefcon(claro_sql_query_fetch_all($sql));
 
     }
     else
@@ -183,7 +183,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     HAVING nbu = 0
                     ORDER BY code_cours";
 
-        buildTabDefcon(getManyResults2Col($sql));
+        buildTabDefcon(claro_sql_query_fetch_all($sql));
 
     }
     else
@@ -211,7 +211,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     HAVING ( MAX(`lo`.`login_date`) < (NOW() - ".$limitBeforeUnused." ) ) OR MAX(`lo`.`login_date`) IS NULL";
 
 
-        $loginWithoutAccessResults = getManyResults2Col($sql);
+        $loginWithoutAccessResults = claro_sql_query_fetch_all($sql);
         for($i = 0; $i < sizeof($loginWithoutAccessResults); $i++)
         {
             if ( !isset($loginWithoutAccessResults[$i][1]) )
@@ -244,7 +244,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     HAVING nb > 1
                     ORDER BY nb DESC";
 
-        buildTabDefcon(getManyResults2Col($sql));
+        buildTabDefcon(claro_sql_query_fetch_all($sql));
     }
     else
     {

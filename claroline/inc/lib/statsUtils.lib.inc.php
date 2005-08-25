@@ -297,18 +297,18 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 /**
 
  * @author Sebastien Piraux <piraux_seb@hotmail.com>
- * @param tableau : a 2 columns array
+ * @param results : a 2 columns array
  * @param leftTitle : string, title of the left column
  * @param rightTitle : string, title of the ... right column
  * @desc        display a 2 column tab from an array
                 this tab has no title
  */
-function buildTab2Col($array_of_results, $leftTitle = "", $rightTitle = "")
+function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 {
     global $langNoResult;
     global $langNbLines;
     
-    echo '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">';
+    echo '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">'."\n";
     
     if($leftTitle != "" || $rightTitle != "")
     {
@@ -319,16 +319,17 @@ function buildTab2Col($array_of_results, $leftTitle = "", $rightTitle = "")
     }
     
     echo '<tr class="headerX">'."\n"
-		.'<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>'."\n"
+		.'<th colspan="2">'.$langNbLines.' : '.count($results).' </th>'."\n"
 		.'</tr>'."\n\n"
 		.'<tbody>'."\n\n";
-    if (is_array($array_of_results))
+    if( !empty($results) && is_array($results) )
     {
-        for($j = 0 ; $j < count($array_of_results) ; $j++)
+        foreach( $results as $result )
         {
+          	$keys = array_keys($result);
             echo '<tr>'."\n"
-				.'<td>'.$array_of_results[$j][0].'</td>'."\n"
-				.'<td align="right">'.$array_of_results[$j][1].'</td>'."\n"
+				.'<td>'.$result[$keys[0]].'</td>'."\n"
+				.'<td align="right">'.$result[$keys[1]].'</td>'."\n"
 				.'</tr>'."\n\n";
         }
 
@@ -349,10 +350,10 @@ function buildTab2Col($array_of_results, $leftTitle = "", $rightTitle = "")
  * @param tableau : a 2 columns array
  * @desc        this function is used to display
                 integrity errors in the platform
-                if array_of_results is not an array there is 
+                if results is not an array there is
                 no error, else errors are displayed
  */
-function buildTabDefcon($array_of_results)
+function buildTabDefcon($results)
 {
     global $langDefcon;
     global $langAllRight;
@@ -360,30 +361,33 @@ function buildTabDefcon($array_of_results)
     global $langNbLines;
     
     echo '<table class="claroTable" width="60%" cellpadding="2" cellspacing="1" align="center">'."\n";
-    if (is_array($array_of_results))
+
+    if( !empty($results) && is_array($results) )
     { 
         // there is some strange cases ... 
         echo '<tr class="headerX">'."\n"
                 .'<th colspan="2" align="center"><span class="error">'.$langDefcon.'</span></th>'."\n"
                 .'</tr>'."\n"
                 .'<tr class="headerX">'."\n"
-                .'<th colspan="2">'.$langNbLines.' : '.count($array_of_results).' </th>'."\n"
+                .'<th colspan="2">'.$langNbLines.' : '.count($results).' </th>'."\n"
                 .'</tr>'."\n";
                 
-        for($j = 0 ; $j < count($array_of_results) ; $j++)
+        foreach( $results as $result )
         { 
-            if( !isset($array_of_results[$j][0]) || $array_of_results[$j][0] == "")
+            $keys = array_keys($result);
+            
+            if( !isset($result[$keys[0]]) || $result[$keys[0]] == "")
             {
                 $key = $langNULLValue;
             }
             else
             {
-                $key = $array_of_results[$j][0];
+                $key = $result[$keys[0]];
             }
             echo '<tr>'."\n"
 				.'<td width="70%">'.$key.'</td>'."\n"
 				.'<td width="30%" align="right">';
-			if( isset($array_of_results[$j][1]) ) echo $array_of_results[$j][1];
+			if( isset($result[$keys[1]]) ) echo $result[$keys[1]];
 			else echo '&nbsp;';
 			echo '</td>'
 				.'</tr>'."\n\n";
@@ -401,12 +405,12 @@ function buildTabDefcon($array_of_results)
 }
 
 /**
- * changeResultOfVisibility($array_of_results)
+ * changeResultOfVisibility($results)
  * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
- * @param array_of_results
+ * @param results
  * @desc        complete the content of visibility column a with the litteral meaning
  */
-function changeResultOfVisibility($array_of_results)
+function changeResultOfVisibility($results)
 {
     global $langNoResult;
 	$visibilityLabel[0] = "closed - hide";
@@ -414,16 +418,19 @@ function changeResultOfVisibility($array_of_results)
 	$visibilityLabel[2] = "open - visible";
 	$visibilityLabel[3] = "closed - visible";
 
-    if (is_array($array_of_results))
+    if( !empty($results) && is_array($results) )
     {
-        for($j = 0 ; $j < count($array_of_results) ; $j++)
+		$i = 0;
+        foreach( $results as $result )
         {
-			$array_of_results[$j][0] = $array_of_results[$j][0]." <small>(".$visibilityLabel[$array_of_results[$j][0]].")</small>";
-			$array_of_results[$j][1] = $array_of_results[$j][1];
+            $keys = array_keys($result);
+
+			$resultsChanged[$i][$keys[0]] = $result[$keys[0]]." <small>(".$visibilityLabel[$result[$keys[0]]].")</small>";
+			$resultsChanged[$i][$keys[1]] = $result[$keys[1]];
+			$i++;
         }
     }
-
-	return $array_of_results;
+	return $resultsChanged;
 }
 
 /**
