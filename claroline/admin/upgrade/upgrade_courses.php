@@ -243,15 +243,15 @@ switch ($display)
                     {
                         // Upgrade succeeded
                         clean_upgrade_status($currentCourseCode);
-                        $currentVersion = '1.6';
+                        $currentCourseVersion = '1.6';
                     }
                     else
                     {
                         // Upgrade failed
-                        $currentVersion = 'error-1.5';
+                        $currentCourseVersion = 'error-1.5';
                     }
                     // Save version
-                    save_course_current_version($currentCourseCode,$currentVersion);
+                    save_course_current_version($currentCourseCode,$currentCourseVersion);
                 }
                 
                 /*---------------------------------------------------------------------
@@ -283,15 +283,15 @@ switch ($display)
                     {
                         // Upgrade succeeded
                         clean_upgrade_status($currentCourseCode);
-                        $currentVersion = '1.7';
+                        $currentCourseVersion = '1.7';
                     }
                     else
                     {
                         // Upgrade failed
-                        $currentVersion = 'error-1.6';
+                        $currentCourseVersion = 'error-1.6';
                     }
                     // Save version
-                    save_course_current_version($currentCourseCode,$currentVersion);
+                    save_course_current_version($currentCourseCode,$currentCourseVersion);
                 
                 }
 
