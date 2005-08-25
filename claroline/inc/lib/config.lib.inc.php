@@ -451,7 +451,7 @@ function validate_property ($propertyValue, $propertyDef)
 
     // get validation value from property definition
     if ( isset($propertyDef['acceptedValue']) ) $acceptedValue = $propertyDef['acceptedValue'];
-    else                                        $acceptedValue = '';
+    else                                        $acceptedValue = array();
     if ( isset($propertyDef['label']) ) $propertyName  = $propertyDef['label'];
     else                                $propertyName  = '';
     if ( isset($propertyDef['type']) )  $type = $propertyDef['type'];
