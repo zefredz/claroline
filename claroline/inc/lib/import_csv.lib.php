@@ -132,7 +132,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	
 	if (!file_exists($uploadTempDir))
 	{
-	    mkdir($uploadTempDir,0777);
+	    mkdir($uploadTempDir,CLARO_FILE_PERMISSIONS);
 	}
 
 	//check if the uploaded fie path exists, otherwise 

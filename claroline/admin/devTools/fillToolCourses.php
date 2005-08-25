@@ -224,7 +224,7 @@ function fill_tool_in_course($course_code,$tool_label)
             
             if ( ! is_dir($curChatRep) ) 
             {
-                claro_mkdir($curChatRep, 0777);
+                claro_mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
                 if ( ! is_dir($curChatRep) ) 
                 {
                     echo '<br> <b>création '.$curChatRep.' impossible</b>';

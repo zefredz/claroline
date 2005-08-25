@@ -169,11 +169,11 @@ if ($runfillMainDb && $runfillStatsDb)
 $rootSys                    = str_replace("\\","/",realpath($pathForm)."/") ;
 $coursesRepositoryAppend    = '';
 $coursesRepositorySys = $rootSys.$courseRepositoryForm;
-@mkdir($coursesRepositorySys,0777);
+@mkdir($coursesRepositorySys,CLARO_FILE_PERMISSIONS);
 $clarolineRepositoryAppend  = 'claroline/';
 $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
 $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys) . '/claroline_garbage');
-@mkdir($garbageRepositorySys,0777);
+@mkdir($garbageRepositorySys,CLARO_FILE_PERMISSIONS);
 
 ########################## WRITE claro_main.conf.php ##################################
 // extract the path to append to the url

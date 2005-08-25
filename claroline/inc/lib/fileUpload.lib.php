@@ -323,7 +323,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 		if (move_uploaded_file($uploadedFile['tmp_name'], 
             $baseWorkDir.$uploadPath.'/'.$fileName) )
 		{
-            chmod($baseWorkDir.$uploadPath.'/'.$fileName,0777);
+            chmod($baseWorkDir.$uploadPath.'/'.$fileName,CLARO_FILE_PERMISSIONS);
 			return $fileName;
 		}
 	}
@@ -459,8 +459,8 @@ function create_unexisting_directory($desiredDirName)
 
     $finalName = get_unexisting_file_name($desiredDirName);
 	
-	if ( mkdir($finalName, 0777) ) return $finalName;
-	else                           return false;
+	if ( mkdir($finalName, CLARO_FILE_PERMISSIONS) ) return $finalName;
+	else                                             return false;
 }
 
 /**

@@ -74,7 +74,7 @@ $curChatRep = $coursePath.'/chat/';
 // IN CASE OF AN UPGRADE THE DIRECTORY MAY NOT EXIST
 // A PREVIOUS CHECK (AND CREATE IF NEEDED) IS THUS NECESSARY
 
-if ( ! is_dir($curChatRep) ) mkdir($curChatRep, 0777);
+if ( ! is_dir($curChatRep) ) mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
 
 // DETERMINE IF THE CHAT SYSTEM WILL WORK
 // EITHER AT THE COURSE LEVEL OR THE GROUP LEVEL

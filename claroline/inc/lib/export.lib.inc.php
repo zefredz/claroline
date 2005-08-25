@@ -351,21 +351,21 @@ if ($verboseBackup)
             echo "<u>".$langDisk_free_space."</u> : <strong>".diskfreespace("/")."</strong> bytes";
         echo "<hr>" ;
     }
-    claro_mkdir($archiveDirOriginalDocs.$appendMainDb    ,0777, true);
-    claro_mkdir($archiveDirHtml.$appendMainDb            ,0777, true);
-    claro_mkdir($archiveDirCsv.$appendMainDb            ,0777, true);
-    claro_mkdir($archiveDirXml.$appendMainDb             ,0777, true);
-    claro_mkdir($archiveDirPhp.$appendMainDb             ,0777, true);
-    claro_mkdir($archiveDirLog.$appendMainDb             ,0777, true);
-    claro_mkdir($archiveDirSql.$appendMainDb             ,0777, true);
+    claro_mkdir($archiveDirOriginalDocs.$appendMainDb    ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirHtml.$appendMainDb            ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirCsv.$appendMainDb            ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirXml.$appendMainDb             ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirPhp.$appendMainDb             ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirLog.$appendMainDb             ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirSql.$appendMainDb             ,CLARO_FILE_PERMISSIONS, true);
 
-    claro_mkdir($archiveDirOriginalDocs.$appendCourse    ,0777, true);
-    claro_mkdir($archiveDirHtml.$appendCourse            ,0777, true);
-    claro_mkdir($archiveDirCsv.$appendCourse            ,0777, true);
-    claro_mkdir($archiveDirXml.$appendCourse             ,0777, true);
-    claro_mkdir($archiveDirPhp.$appendCourse             ,0777, true);
-    claro_mkdir($archiveDirLog.$appendCourse             ,0777, true);
-    claro_mkdir($archiveDirSql.$appendCourse            ,0777, true);
+    claro_mkdir($archiveDirOriginalDocs.$appendCourse    ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirHtml.$appendCourse            ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirCsv.$appendCourse            ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirXml.$appendCourse             ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirPhp.$appendCourse             ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirLog.$appendCourse             ,CLARO_FILE_PERMISSIONS, true);
+    claro_mkdir($archiveDirSql.$appendCourse            ,CLARO_FILE_PERMISSIONS, true);
 
     $dirCourBase = $archiveDirSqlCourse;
     $dirMainBase = $archiveDirSqlMainDb;

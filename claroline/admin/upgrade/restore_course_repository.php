@@ -104,10 +104,10 @@ function restore_course_repository($courseID, $courseRepository)
             create directory for new tools of claroline 1.5 
         */
     
-        if ( !is_dir($courseRepository) ) mkdir($courseRepository, 0777);
-        if ( !is_dir($courseRepository . '/chat'          ) ) mkdir($courseRepository . '/chat'          , 0777);
-        if ( !is_dir($courseRepository . '/modules'       ) ) mkdir($courseRepository . '/modules'       , 0777);
-        if ( !is_dir($courseRepository . '/scormPackages' ) ) mkdir($courseRepository . '/scormPackages' , 0777);
+        if ( !is_dir($courseRepository) ) mkdir($courseRepository, CLARO_FILE_PERMISSIONS);
+        if ( !is_dir($courseRepository . '/chat'          ) ) mkdir($courseRepository . '/chat'          , CLARO_FILE_PERMISSIONS);
+        if ( !is_dir($courseRepository . '/modules'       ) ) mkdir($courseRepository . '/modules'       , CLARO_FILE_PERMISSIONS);
+        if ( !is_dir($courseRepository . '/scormPackages' ) ) mkdir($courseRepository . '/scormPackages' , CLARO_FILE_PERMISSIONS);
 
         /**
          *    add $cidReq in index.php (Missing var in claroline 1.3)

@@ -147,7 +147,7 @@ function assignment_insert($data, $wrkDir)
 	   	// create the assignment directory if query was successfull and dir not already exists
 		$wrkAssigDir = $wrkDir."assig_".$lastAssigId;
 		
-		if( !is_dir( $wrkAssigDir ) ) mkdir( $wrkAssigDir , 0777 );
+		if( !is_dir( $wrkAssigDir ) ) mkdir( $wrkAssigDir , CLARO_FILE_PERMISSIONS );
 		return $lastAssigId;
 	}
 	else

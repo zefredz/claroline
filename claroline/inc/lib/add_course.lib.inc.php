@@ -210,7 +210,7 @@ function prepare_course_repository($courseRepository, $courseId)
     GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath;
     if( !is_dir($coursesRepositorySys) )
     {
-        claro_mkdir($coursesRepositorySys, 0777, TRUE);
+        claro_mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS, TRUE);
     }
     
     if (is_writable($coursesRepositorySys))
@@ -220,18 +220,18 @@ function prepare_course_repository($courseRepository, $courseId)
             read in tools table witch directories to create
         */
         
-        claro_mkdir($coursesRepositorySys . $courseRepository, 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/exercise', 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/document', 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/page', 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/work', 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/group', 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/chat', 0777);
+        claro_mkdir($coursesRepositorySys . $courseRepository, CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/exercise', CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/document', CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/page', CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/work', CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/group', CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/chat', CLARO_FILE_PERMISSIONS);
  
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/modules', 0777);
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/scormPackages', 0777);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/modules', CLARO_FILE_PERMISSIONS);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/scormPackages', CLARO_FILE_PERMISSIONS);
 
-        claro_mkdir($coursesRepositorySys . $courseRepository . '/modules/module_1', 0777);
+        claro_mkdir($coursesRepositorySys . $courseRepository . '/modules/module_1', CLARO_FILE_PERMISSIONS);
         // for sample learning path <- probably to delete .
 
 
@@ -1250,7 +1250,7 @@ function read_properties_in_archive($archive, $isCompressed=TRUE)
     {
     $zipFile = new pclZip($archive);
     $tmpDirName = dirname($archive) . '/tmp' . $_uid . uniqid($_uid);
-    if (claro_mkdir( $tmpDirName, 0777, TRUE ) )
+    if (claro_mkdir( $tmpDirName, CLARO_FILE_PERMISSIONS, TRUE ) )
     {
         $zipFile->extract($tmpDirName);
     }

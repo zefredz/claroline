@@ -155,7 +155,7 @@ function quizz_upgrade_to_16_step_2()
     }
     elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
     {
-        if ( !@mkdir($currentcoursePathSys.'exercise', 0777) )
+        if ( !@mkdir($currentcoursePathSys.'exercise', CLARO_FILE_PERMISSIONS) )
         {
             $error = true;
             log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise'));            
@@ -321,7 +321,7 @@ function assignment_upgrade_to_16($course_code)
             $assignment_dirname = $work_dirname . 'assig_1/';
             if ( !is_dir($assignment_dirname) )
             {
-                if ( !@mkdir($assignment_dirname, 0777) )
+                if ( !@mkdir($assignment_dirname, CLARO_FILE_PERMISSIONS) )
                 {
                     log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$assignment_dirname));
                     return false;

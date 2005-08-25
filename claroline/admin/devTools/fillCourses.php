@@ -308,7 +308,7 @@ if ($cmd == 'exFill')
                 $secretDirectory = uniqid($platform_id) . '_team_' . $lastId;
             }
 
-            claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $secretDirectory, 0777);
+            claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $secretDirectory, CLARO_FILE_PERMISSIONS);
 
             /* Stores the directory path into the group table */
 

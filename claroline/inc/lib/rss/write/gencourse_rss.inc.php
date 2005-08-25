@@ -51,7 +51,7 @@ function build_course_feed($forceBuild= false, $_cid=null)
         .    '<HR>';
     }
     $rssRepositoryCacheSys = $rootSys . $rssRepositoryCache;
-    if (!file_exists($rssRepositoryCacheSys) ) claro_mkdir($rssRepositoryCacheSys, 0777, true);
+    if (!file_exists($rssRepositoryCacheSys) ) claro_mkdir($rssRepositoryCacheSys, CLARO_FILE_PERMISSIONS, true);
 
     $rssFilePath = $rssRepositoryCacheSys . $_cid . '.xml';
 

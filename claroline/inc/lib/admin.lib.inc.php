@@ -129,7 +129,7 @@ function delete_course($code)
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
-        claro_mkdir($garbageRepositorySys, 0777, true);
+        claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS, true);
 
         rename($coursesRepositorySys . $currentCoursePath . '/',
         $garbageRepositorySys . '/' . $currentCoursePath . '_' . date('YmdHis')

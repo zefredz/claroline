@@ -210,8 +210,8 @@ if ( $cmd == 'run' )
                     $output .= '</li>' . "\n" ;
 
                     // Change permission of the backup file
-                    @chmod( $fileBackup, 0777 );
-                    @chmod( $fileBackup, 0777 );
+                    @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
+                    @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
                 }
 
     

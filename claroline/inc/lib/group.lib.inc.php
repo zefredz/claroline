@@ -132,7 +132,7 @@ function delete_groups($groupIdList = 'ALL')
         // define repository for deleted element
 
         $groupGarbage = $garbageRepositorySys . '/' . $currentCourseRepository . '/group/';
-        if ( ! file_exists($groupGarbage) ) claro_mkdir($groupGarbage, 0777, true);
+        if ( ! file_exists($groupGarbage) ) claro_mkdir($groupGarbage, CLARO_FILE_PERMISSIONS, true);
 
         foreach ( $groupList['directory'] as $thisDirectory )
         {
@@ -403,7 +403,7 @@ function create_group($groupName, $maxUser)
                              . $currentCourseRepository 
                              . '/group/' . $groupRepository) );
 
-    claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, 0777);
+    claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, CLARO_FILE_PERMISSIONS);
 
     /*
      * Insert a new group in the course group table and keep its ID
