@@ -45,6 +45,10 @@ ini_set('include_path',
 
 define('CLARO_FILE_PERMISSIONS', 0777);
 
+// conf variables
+
+$coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
+
 /*----------------------------------------------------------------------
   Start session
   ----------------------------------------------------------------------*/
