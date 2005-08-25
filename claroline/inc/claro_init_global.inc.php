@@ -163,8 +163,7 @@ else
          */
     
         // build lang file of the tool    
-        $languageFilename = preg_replace('|^'.preg_quote($urlAppend).'/|', '', $_SERVER['PHP_SELF']);
-
+        $languageFilename = preg_replace('|^'.preg_quote($rootSys).'|', '',  $_SERVER['SCRIPT_FILENAME'] );
         $pos = strpos($languageFilename, 'claroline/');
 
         if ($pos === FALSE || $pos != 0)
@@ -262,6 +261,5 @@ if ( isset($_POST['claroFormId']) )
          }
     }
 }
-
 
 ?>
