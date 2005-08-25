@@ -161,7 +161,8 @@ function quizz_upgrade_to_16_step_2()
             log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise'));            
         }
     }
-    return $error;
+    if ( !$error ) return true;
+    else           return false;
 }
 
 /**
@@ -361,34 +362,6 @@ function assignment_upgrade_to_16($course_code)
     }
     return false;
 }
-
-/**
- * Upgrade group tool to 1.6
- */
-
-function group_upgrade_to_16($course_code)
-{
-    global $currentCourseVersion;
-
-    $versionRequiredToProceed = '/^1.5/';
-    $tool = 'CLGRP';
-    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-    
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
-    {
-        switch( get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :  // STEP 1 BAcKUP OLD TABLE Before creat the new
-                $sql_step1[] = "RENAME TABLE `".$currentCourseDbNameGlu."properties` TO `".$currentCourseDbNameGlu."property`";
-                if ( ! upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
-            default : 
-                return true;
-        }
-    }
-    return false;
-}
-
 
 /**
  * Upgrade tracking tool to 1.6
