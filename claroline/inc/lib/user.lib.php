@@ -159,8 +159,8 @@ function user_update ($user_id, $data)
 
     if ( !empty($data['password']) ) 
     {
-        $password = $userPasswordCrypted ? md5($date['password']) : $data['password'];
-        $sql .= ", `password`   = '" . addslashes($data['password']) . "' " ;
+        $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
+        $sql .= ", `password`   = '" . addslashes($password) . "' " ;
     }
 
     if ( !empty($data['picture']) )
