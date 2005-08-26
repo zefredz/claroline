@@ -82,7 +82,7 @@ if ( $is_allowedToEdit )
         // Add new description        
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
 
-        if ($descId != FALSE )
+        if ($descId !== FALSE )
         {
             $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
             $dialogBox .= '<p>' . $langDescAdded . '</p>';
@@ -491,7 +491,7 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
                      
     if (claro_sql_query($sql)) 
     {
-        return TRUE; 
+        return (int)$descId; 
     }
     else 
     {
