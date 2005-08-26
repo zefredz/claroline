@@ -253,8 +253,8 @@
     }
     else
     {
-		// DEVEL_MODE and PHP 4.4.0 bug 34009 workaround
-        if ( defined("DEVEL_MODE") && DEVEL_MODE == true )
+		// DEBUG_MODE
+        if ( defined("DEBUG_MODE") && DEBUG_MODE == true )
 		{
 			require_once JPSPAN . 'ErrorHandler.php';
 		}
