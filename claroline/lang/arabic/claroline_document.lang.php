@@ -1,53 +1,95 @@
 <?php
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langCancel = " إلغاء ";
-$langComMod = "تعليق معدل;";
-$langCreateDir = " خلق ملف";
-$langDate = " تاريخ ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDirCr = "r&eacute;pertoire cr&eacute;&eacute;";
-$langDirMv = "ملف محول;";
-$langDocDeleted = " عنصر ملغى;";
-$langDocument = " وثائق ";
-$langElRen = " عنصر أعيد تسميته;";
-$langExercises = " تمارين ";
-$langFileExists = " عملية مستحيلة
-<br> توجد جذاذيّة أخرى بنفس    الاسم;.";
-$langForums = "منتديات";
-$langGroupSpace = " فضاء المجموعة ";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langImpossible = " عملية مستحيلة  ";
-$langIn = "فى";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMove = "تحويل";
-$langMyCourses = " دروسي ";
-$langNameDir = " اسم الملف الجديد";
-$langNameOfLang = "Array";
-$langNoSpace = " تحميل غير ناجح، لا يوجد مكان في ملفّكم     ";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOtherCourses = " دروس أخرى ";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langReg = " ترسيم ";
-$langRename = " إعادة تسمية ";
-$langSize = " حجم ";
-$langStudent = "étudiant";
-$langUncompress = "Décompresser fichier zipé (.zip)";
-$langUpload = " تحميل";
-$langUploadAndZipEnd = " إرسال الجذاذيّة المضغوطةّ تم";
-$langUploadEnd = " تمّ التشحين   ;";
-$langUploadFile = " تحميل الجذاذية";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langViMod = "Visibilit&eacute; modifi&eacute;e";
-$langWork = " أشغال ";
-$langZipNoPhp = "  phpلا يمكن للجذاذيّة  المضغوطةالاحتواء على جذاذية من نوع ";
+$langAddCommentOptionnal = "إضافة ملاحظة ( إختياري) :";
+$langAddModifyComment = "إضافة/تعديل الملاحظة ل";
+$langAgenda = "جدول الأعمال";
+$langAnnouncement = "الإعلانات";
+$langAreYouSureToDelete = "سيتم الحذف هل أنت متأكد؟";
+$langBackToEditor = "العودة لمحرر النصوص";
+$langCancel = "إلغاء";
+$langChat = "دردشة";
+$langComMod = "تم تعديل الملاحظة";
+$langCopy = "نسخ";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langCreateDir = "إنشاء مجلد";
+$langCreateDocument = "إنشاء وثيقة";
+$langCreateHyperlink = "إنشاء وصلة";
+$langCreateModifyDocument = "إنشاء/تعديل  وثيقة";
+$langDate = "التاريخ";
+$langDay_of_weekNames = "مصفوفة";
+$langDelete = "حذف";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDirCr = "تم إنشاء المجلد";
+$langDirMv = "تم نقل العنصر";
+$langDocDeleted = "تم حذف الوثيقة";
+$langDocument = "وثائق و وصلات";
+$langDocumentContent = "مضمون الوثيقة : ";
+$langDocumentName = "اسم الوثيقة : ";
+$langEditFileContent = "تحرير مضمون الملف";
+$langElRen = "تمت إعادة تسميةالعنصر";
+$langExercises = "التمارين";
+$langFileContentModified = "تم تعديل مضمون الملف";
+$langFileCreated = "تم إنشاء الملف";
+$langFileError = "الملف الذي تحاول تحميله غير صحيح";
+$langFileExists = "العملية غير ممكنة<br>يوجد ملف له نفس اسم الملف";
+$langFileNameMissing = "ادخل اسم الملف";
+$langFileNameOrURLMissing = "يجب ادخل اسم الملف او عنوان الوصلة URL";
+$langFiles = "قائمة الملفات";
+$langForums = "المنتديات";
+$langGroupSpace = "منطقة المجموعة";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langImpossible = "العملية غير ممكنة";
+$langIn = "في";
+$langLearningPath = "مسار التعليم";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langMakeInvisible = "إخفاء";
+$langMakeVisible = "إظهار";
+$langManager = "المدير";
+$langMaxFileSize = "الحجم الأعظم المسموح للملف : ";
+$langMinuteShort = "دقيقة";
+$langMissingImagesDetected = "يوجد صور مفقودة";
+$langModify = "تعديل";
+$langModifyProfile = "تعديل معلوماتي";
+$langMonthNames = "مصفوفة";
+$langMove = "نقل";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langName = "الاسم";
+$langNameDir = "اسم المجلد الجديد";
+$langNameOfLang = "مصفوفة";
+$langNoImage = "لايوجد ملفات صور";
+$langNoSpace = "فشلت عملية التحميل, لا يوجد مساحة كافية ضمن المجلد الخاص بك";
+$langNotice = "ملاحظة";
+$langOk = "موافق";
+$langOtherCourses = "قائمة المقررات";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langPublish = "نشر";
+$langRename = "تغيير اسم";
+$langSearch = "بحث";
+$langSearchResult = "نتيجة البحث";
+$langSecondShort = "ثانية";
+$langSize = "الحجم";
+$langStudent = "طالب";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langThumbnails = "صور مصغرة";
+$langTo = "إلى";
+$langURL = "URL : ";
+$langUncompress = "فك ضغط الملف على السيرفر (zip)";
+$langUp = "للأعلى";
+$langUploadAndZipEnd = " تم تحميل الملف المضغوط و فك ضغطه";
+$langUploadEnd = "انتهت عملية التحميل";
+$langUploadFile = "تحميل ملف";
+$langUsers = "المستخدمون";
+$langViMod = "تم تعديل حالة الظهور/ الإخفاء";
+$langViewMode = "نمط العرض";
+$langVisibility = "مرئي/مخفي";
+$langWork = "واجبات و مهام";
+$langZipNoPhp = "لا يسمح لك بان تحمل ملف مضغوط يحوي ضمنه ملف من نوع PHP";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

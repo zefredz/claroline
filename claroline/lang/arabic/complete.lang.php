@@ -519,7 +519,6 @@ $langEG = "مثال:";
 $langEXERCISETypeDesc = "Claroline تمرين";
 $langEdit = "تعديل";
 $langEditAnswers = "تحرير الأجوبة";
-$langEditDel = "تحرير/حذف";
 $langEditEvent = "تحرير حدث";
 $langEditExercise = "تحرير إعدادات التمرين";
 $langEditFeedback = "تحرير المراجعة التلقائية";
@@ -1716,9 +1715,6 @@ $lang_p_CannotRename_s_s = "فشل في تغير اسم  %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "خطأ في بناء ال <em>%s</em> من اجل <B>%s</B>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_UpgradeMainClarolineDatabase_s = "ترقية قاعدة البيانات الأساسية لنظام Claroline (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td> ترقية قاعدة بيانات المقرر <strong>%2\$s</strong><br><small>
-اسم قاعدة البيانات : %3\$s <br>
-رقم المقرر :%4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "قم بإصلاح الأخطاء التقنية اولاً و <a href=\"%s\"> أعد تشغيل أداة الترقية</a>.";
 $lang_p_config_file_creation = "إنشاء ملف الإعدادات:<BR> %s";
 $lang_p_d_affected_rows = "%d السجلات المتأثرة";

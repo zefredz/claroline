@@ -282,7 +282,6 @@ $langDocumentsTitleDocumentColumn = "Dokumen";
 $langDocumentsTitleUsersColumn = "Pengguna Muat turun";
 $langEG = "e. g.";
 $langEdit = "Ubahsuai";
-$langEditDel = "Ubahsuai/Padam";
 $langEditGroup = "Ubahsuai kumpulan ini";
 $langElRen = "Dokumen telah ditukar namanya";
 $langElementList = "Element list";

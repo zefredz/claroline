@@ -1,6 +1,5 @@
 <?php
 $langAction = "Tindakan";
-$langAddIntro = "Tambah pengenalan";
 $langAddress = "Alamat ";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
@@ -8,13 +7,13 @@ $langCancel = "Batal";
 $langCategories = "Pusat Pengajian";
 $langChat = "Perbincangan";
 $langComment = "Komen";
-$langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
 $langConfirmation = "Taip Semula";
 $langCopy = "Pindah";
+$langCourse = "Subjek";
 $langCourseManager = "Pentadbir Subjek (Pensyarah)";
+$langCreate = "Bina";
 $langDay_of_weekNames = "Array";
 $langDear = "Terima kasih";
-$langDelete = "Padam";
 $langDescriptionCours = "Penerangan Subjek";
 $langDocument = "Dokumen";
 $langEmail = "Email";
@@ -41,7 +40,6 @@ Terima kasih %s, %s.
 Proses pendaftaran anda berjaya dilaksanakan. 
 Maklumat Login (ID Pengguna &amp; Katalaluan) 
 akan dihantar kepada anda melalui e-mail";
-$langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
@@ -49,7 +47,6 @@ $langMyStats = "Paparkan Statistik Pengguna";
 $langNameOfLang = "Array";
 $langNext = "Seterusnya";
 $langNo = "Tidak";
-$langNotAllowed = "Tidak dibenarkan";
 $langNowGoChooseYourCourses = "Sekarang anda boleh memilih Subjek yang anda ingin ikuti.";
 $langNowGoCreateYourCourse = "Sekarang anda boleh membina Laman Subjek";
 $langOk = "Proses";
@@ -63,7 +60,6 @@ $langProfileReg = "Butir Peribadi anda telah disimpan";
 $langReg = "Daftar";
 $langRegAdmin = "Pensyarah";
 $langRegStudent = "Pelajar";
-$langRegistration = "Pendaftaran Pengguna Baru";
 $langSettings = "dengan maklumat seperti beriku:
 Username:";
 $langStudent = "Pelajar";

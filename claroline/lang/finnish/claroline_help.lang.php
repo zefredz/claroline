@@ -1,9 +1,7 @@
 <?php
-$langAddIntro = "Lisää johdantoteksti";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
 $langDay_of_weekNames = "Array";
-$langDelete = "Poista";
 $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietokoneen tiedostonhallinta.</p>
 <p>Voit lisätä minkälaisia tiedostoja tahansa (.html, .doc, .sxw, .pdf, .swf, .mov ja niin edelleen). Sinun pitää vain huolehtia, että opiskelijoilla on oikeat ohjelmat, joilla he voivat käsitellä tiedostoja. Sinun pitää huolehtia myös mahdollisesta virus-vaarasta.</p>
 <p>Dokumentit näyttään aakkosjärjestyksessä.<br>
@@ -78,15 +76,11 @@ $langHomeContent = "<p>Mukavuuden vuoksi Claroline-työkalut eivät ilmesty tyhjin
 <p>Kun kurssin sivusto on valmis, käytä 'Muokkaa kurssin tietoja'-toimintaa ja päätä minkä tasoista luottamuksellisuutta haluat. Oletuksena kurssi on piilossa (koska työskentelet siinä).</p>";
 $langLogout = "Logout";
 $langManager = "Ylläpitäjä";
-$langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ei sallittu";
-$langOk = "Ok";
 $langPoweredBy = "Alusta";
-$langReg = "Rekisteröinti";
 $langStudent = "Opiskelija";
 $langUserContent = "<p><b>Roolit</b></p>
 <p>Rooleilla ei ole mitään tekemistä tietokoneiden kanssa. Ne eivät anna oikeuksia järjestelmän suhteen. Ne tarkoittavat vain ihmisiä, kuka kukin on. Voit muokata niitä klikkamalla 'Muokkaa' 'roolin' alla. Voit kirjoittaa mitä tahansa rooliksi: opettaja, assistentti, vierailija, asiantuntija ja niin edelleen.</p>
@@ -102,7 +96,6 @@ ja sitten vielä 'ok'.</p>
 <hr>
 <p><b>Lisää käyttäjä</b></p>
 <p>Jos haluat lisätä oppilaita kurssillesi, niin tarkista että ovatko he rekisteröityneet. Jos oppilas on jo rekisteröitynyt, niin tarkista laatikko hänen nimensä vieressä ja klikkaa 'Ok'. Jos hän ei ole rekisteröitynyt, niin lisää hänet käsin. Kummassakin tapauksessa, henkilö saa sähköpostiviestin, jossa kerrotaan, että olet rekisteröinyt hänet. Lisäksi hän saa tai hänelle muistutetaan tunnuksesta ja salasanasta.</p>";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

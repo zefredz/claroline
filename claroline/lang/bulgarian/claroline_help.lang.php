@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
-$langCancel = "Анулирай";
 $langChat = "Чат";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and, 
@@ -27,7 +25,6 @@ post a message there.</p>
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is";
 $langDay_of_weekNames = "Array";
-$langDelete = "Изтрий";
 $langDescriptionCours = "Описание на курса";
 $langDocContent = "<p>The Documents tool is similar to the FileManager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
@@ -206,16 +203,12 @@ $langHomeContent = "За по-голямо удобство, claroline инструменти съдържат готови
  По подразбиране курса ви е скрит (тъй като работите върху него).</p>";
 $langLogout = "Изход";
 $langManager = "Администратор";
-$langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
-$langNotAllowed = "Не разрешено";
-$langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
-$langReg = "Регистрация";
 $langStudent = "студент";
 $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
@@ -240,7 +233,6 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 ?>

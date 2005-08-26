@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Довави/промени коментар за";
-$langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langBack = "Назад";
-$langCancel = "Анулирай";
 $langChat = "Чат";
 $langDate = "Дата";
 $langDay_of_weekNames = "Array";
@@ -22,15 +20,13 @@ $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
-$langNotAllowed = "Не разрешено";
+$langNoEx = "В момента няма упражнения";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
-$langReg = "Регистрация";
 $langSize = "Размер";
 $langStudent = "студент";
 $langUp = "Нагоре";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 ?>

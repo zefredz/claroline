@@ -1,16 +1,13 @@
 <?php
-$langAddIntro = "Inleiding toevoegen";
 $langAgenda = "Agenda";
 $langAnnouncement = "Ad Valvas";
-$langCancel = "Annuleren";
 $langChat = "Online chat";
 $langClarContent = "<br><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de universiteit, is het wel noodzakelijk om zich voorafgaan te registreren. <b>Registratie > Vul uw persoonlijke gegevens in > Actie: Registreren voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>lesgever</b></p><p><b>Cursussite aanmaken</b></p><p>Zo gaat u te werk: <b>Registratie > Vul alle velden in en kies 'cursussen aanmaken' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer of een faculteit of een vakgroep.  Voer de referentie van de cursus in  > Klik Ok </b>. U komt in uw persoonlijke pagina in Claroline terecht. Hier vindt u de lijst van cursussen waarin u geregistreerd bent.  Klik op de naam van de cursus die u hebt aangemaakt. U komt in een ‘lege’ cursussite terecht.  Leeg in die zin dat er enkel voorbeelditems zijn aangebracht, zodat het angstzweet u niet uitbreekt bij de confrontatie met blanco pagina’s. Bij uw registratie kreeg u een e-mail, waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><p>Als er een problem is, neem contact op met uw Claroline-beheerder. U kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>";
 $langCloseWindow = "Venster sluiten";
 $langConfigMenuContent = "Configuratie Klein";
-$langConfirmYourChoice = "Gelieve uw keuze te bevestigen";
+$langCourseHome = "Cursus thuisbasis";
 $langCourseManager = "Cursusbeheerder";
 $langDay_of_weekNames = "Array";
-$langDelete = "Verwijderen";
 $langDescriptionCours = "Cursus omschrijving";
 $langDocContent = "<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br>  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in folders organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets 'Browse'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets 'Uploaden'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of folder)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
  height=20 align=baseline> in de kolom 'nieuwe naam';.</li>
@@ -280,19 +277,14 @@ $langLogin = "Inloggen";
 $langLogout = "Afmelden";
 $langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
-$langModify = "Wijzigen";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langNameOfLang = "Array";
-$langNotAllowed = "U bent hier niet toegelaten";
-$langOk = "Ok";
 $langOtherCourses = "Cursusoverzicht";
-$langPassword = "Wachtwoord";
 $langPlatformAdministration = "Platform beheer";
 $langPoweredBy = " gebruikt het platform";
-$langReg = "Registratie";
 $langSecondShort = "sec.";
 $langStudent = "student";
 $langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwijderen. Wilt U verdergaan ?";
@@ -304,16 +296,9 @@ $langUserContent = "<b>Beheersrechten</b>
 <p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina 'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr>
 <b>Gebruiker toevoegen</b>
 <p>Om een gebruiker toe te voegen aan uw cursus, vul de velden in en klik op ‘Ok’. De persoon zal zijn gebruikersnaam en wachtwoord krijgen via e-mail, met de bevestiging van zijn registratie, behalve als u geen e-mailadres hebt ingegeven.</p>";
-$langUserName = "Gebruikersnaam ('login')";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langWork = "Studenten Box";
-$lang_click_here = "Klik hier";
-$lang_enter_your_user_name_and_password = "Geef gebruikersnaam en wachtwoord";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Indien U geen account hebt op";
-$lang_if_you_wish_to_enroll_to_this_course = "Indien U wil inschrijven in deze cursus";
 $lang_p_platformManager = "Beheerder voor %s";
-$lang_this_course_is_protected = "Deze cursus is beschermd";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 ?>

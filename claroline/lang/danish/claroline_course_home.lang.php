@@ -25,16 +25,12 @@ $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ikke tilladt";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";
-$langPassword = "adgangskode";
 $langPoweredBy = "Udviklet af";
-$langReg = "Registrering";
 $langStatistics = "Statistikker";
 $langStudent = "studerende";
 $langTools = "Værktøjer";
-$langUserName = "Brugernavn";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
 ?>

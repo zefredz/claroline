@@ -22,15 +22,12 @@ $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
-$langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
-$langReg = "Регистрация";
 $langStatistics = "Статистики";
 $langStudent = "студент";
 $langTools = "Инструменти";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 ?>

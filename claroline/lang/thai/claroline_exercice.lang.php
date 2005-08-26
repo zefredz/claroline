@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "เพิ่ม/ปรับปรุงหมายเหตุที่";
-$langAddIntro = "เพิ่มคำนำ";
 $langAgenda = "กำหนดการ";
 $langAnd = "และ";
 $langAnswer = "คำตอบ";
@@ -36,13 +35,11 @@ $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
 $langQuestion = "คำถาม";
 $langQuestions = "คำถาม";
-$langReg = "ลงทะเบียน";
 $langResult = "คะแนน";
 $langSize = "ขนาด";
 $langStudent = "นักศึกษา";
 $langTrue = "จริง";
 $langUp = "ขึ้น";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 $langYes = "ใช่";
 ?>

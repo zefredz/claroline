@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Dodaj/modyfikuj komentarz do";
-$langAddIntro = "Dodaj tekst wprowadzenia";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langBack = "Wstecz";
-$langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
 $langConfirmYourChoice = "Potwierd¼ swój wybór";
 $langCourseManager = "Administrator";
@@ -26,15 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
 $langNext = "Dalej";
-$langNotAllowed = "You are not allowed here";
+$langNoEx = "Jeszcze nie ma ¿adnych æwiczeñ";
 $langOk = "Ok";
 $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
-$langReg = "Rejestracja";
 $langSize = "Rozmiar";
 $langStudent = "student";
 $langUp = "Do góry";
-$langUserName = "Nazwa u¿ytkownika";
 $langUsers = "U¿ytkownicy";
 $langWork = "Works";
 ?>

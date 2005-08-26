@@ -1,33 +1,48 @@
 <?php
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langAnonymous = " مجهول ";
-$langArchive = " أرشيف ";
-$langCancel = " إلغاء ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDocument = " وثائق ";
-$langExercises = " تمارين ";
-$langForums = "منتديات";
-$langGroup = "Groupe";
-$langGroupSpace = " فضاء المجموعة ";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langNameOfLang = "Array";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOtherCourses = " دروس أخرى ";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langReg = " ترسيم ";
-$langStudent = "étudiant";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langWork = " أشغال ";
+$langAgenda = "جدول الأعمال";
+$langAnnouncement = "الإعلانات";
+$langAnonymous = "شخص مجهول";
+$langArchive = "الأرشيف";
+$langCannotInitChat = "خطأ:فشل في تجهيز ملفات الدردشة";
+$langChat = "دردشة";
+$langChatResetBy = "تم إعادة تشغيل الدردشة من قبل";
+$langCopyFailed = "فشل في الطباعة";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langDateLastWrite = "اخر رسالة كانت بتاريخ: ";
+$langDay_of_weekNames = "مصفوفة";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langExercises = "التمارين";
+$langForums = "المنتديات";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langIsNowInYourDocDir = "موجود الأن ضمن أداة الوثائق و المستندات <br><b> هذا الملف مرئي </b>";
+$langLearningPath = "مسار التعليم";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langManager = "المدير";
+$langMinuteShort = "دقيقة";
+$langModifyProfile = "تعديل معلوماتي";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langNameOfLang = "مصفوفة";
+$langNewChat = "دردشة جديدة";
+$langNotGroupMember = "انت لست عضواً في هذه المجموعة";
+$langOtherCourses = "قائمة المقررات";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langResetChat = "البدء من جديد";
+$langSecondShort = "ثانية";
+$langStoreChat = "حفظ الدردشة";
+$langStudent = "طالب";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langUsers = "المستخدمون";
+$langViewMode = "نمط العرض";
+$langWork = "واجبات و مهام";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

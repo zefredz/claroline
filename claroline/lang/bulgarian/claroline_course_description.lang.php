@@ -1,6 +1,5 @@
 <?php
 $langAdd = "Добави";
-$langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langAreYouSureToDelete = "Сигурен ли сте, че искате да изтриете ";
@@ -25,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNewBloc = "Други";
-$langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
 $langQuestionPlan = "Въпрос към преподавателя";
-$langReg = "Регистрация";
 $langStudent = "студент";
 $langThisCourseDescriptionIsEmpty = "Няма описание за този курс";
 $langTitle = "Заглавие";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langViMod = "Видимостта променена";
 $langWork = "Студентски материали";

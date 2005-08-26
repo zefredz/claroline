@@ -1,13 +1,11 @@
 <?php
 $l_topic = "Тема";
 $langAddComment = "добавить/изменить комментарий к";
-$langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langAgenda = "Календарь";
 $langAllRight = "Все хорошо.";
 $langAnnouncement = "Объявления";
 $langAnswer = "Ответ";
 $langBack = "Назад";
-$langCancel = "Отменить";
 $langChat = "Чат";
 $langChoice = "Ваш выбор";
 $langClose = "Закрыть окно";
@@ -34,6 +32,10 @@ $langDocumentsTitleDocumentColumn = "Учебные материалы";
 $langDocumentsTitleUsersColumn = "Скачиваний зарегистрированными пользователями";
 $langElementList = "Список элементов";
 $langEmail = "Email";
+$langEmpty = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
+<br>
+ йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
+<br>еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
 $langErrorUserNotInGroup = "Этот пользователь не в вашей группе.";
 $langExercices = "Тесты";
 $langExercise = "Тесты";
@@ -70,11 +72,11 @@ $langNextWeek = "Следующая неделя";
 $langNextYear = "Следующий год";
 $langNo = "Нет";
 $langNoEmail = "нет email";
+$langNoEx = "В данный момент тестов нет";
 $langNoResult = "Нет результата";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";
-$langPassword = "пароль";
 $langPeriodDay = "День";
 $langPeriodHour = "Час";
 $langPeriodMonth = "Месяц";
@@ -87,7 +89,6 @@ $langPreviousMonth = "Предыдущий месяц";
 $langPreviousWeek = "Предыдущая неделя";
 $langPreviousYear = "Предыдущий год";
 $langQuestion = "Вопрос";
-$langReg = "Регистрация";
 $langScore = "баллы";
 $langSeen = "Прочитанные";
 $langShowAll = "Показать все";
@@ -98,7 +99,6 @@ $langStatsOfCourse = "Статистика по курсу";
 $langStatsOfUser = "Статистика по пользователю";
 $langStudent = "студент";
 $langThisday = "Сегодня";
-$langTitle = "Заголовок";
 $langToDate = "по";
 $langToolTitleCountColumn = "Общее количество переходов";
 $langToolTitleToolnameColumn = "Название средства";

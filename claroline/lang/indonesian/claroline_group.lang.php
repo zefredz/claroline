@@ -1,28 +1,44 @@
 <?php
-$langAddIntro = "Tambah teks pendahuluan";
+$l_click = "klik";
+$l_here = "di sini";
+$l_notifybody = "Anda menerima Email ini karena pesan yang anda kirimkan ke forum telah ditanggapi, dan anda memilih untuk diberitahu.
+
+Anda dapat melihat topik tsb pada:
+
+%1\$s
+
+Atau lihat index forum pada  
+
+%2\$s
+
+Terima kasih telah menggunakan forum.";
+$l_notifysubj = "Tanggapan terhadap topik anda telah masuk.";
+$l_returnindex = "untuk kembali ke index forum";
+$l_returntopic = "untuk kembali ke daftar topik forum.";
+$l_separator = " > ";
+$l_viewmsg = "untuk melihat Pesan anda.";
 $langAddTutors = "Daftar user-user admin";
+$langAdm = "Administrasi Forum";
 $langAdminsOfThisCours = "pengelola pelajaran";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
 $langCancel = "Batal";
 $langChat = "Diskusi";
-$langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
 $langCopy = "Copy";
 $langCourseManager = "Penanggung jawab pelajaran";
 $langCreate = "buat";
 $langDay_of_weekNames = "Array";
+$langDear = "Yth.";
 $langDelete = "Hapus";
 $langDeleteGroups = "Hapus semua group";
 $langDescriptionCours = "Deskripsi pelajaran";
 $langDocument = "Dokumen";
-$langDocuments = "Dokumen";
 $langEdit = "Edit";
 $langEditGroup = "Edit group ini";
 $langEmtpyGroups = "Kosongkan semua group";
 $langExistingGroups = "Group-group";
 $langFillGroups = "Isikan group";
 $langForum = "Forum";
-$langForumGroup = "Forum group";
 $langForums = "Forum-forum";
 $langGroup = "Group";
 $langGroupAllowStudentRegistration = "Siswa diijinkan untuk mendaftar sendiri dalam group";
@@ -31,6 +47,7 @@ $langGroupDel = "Group dihapus";
 $langGroupDescription = "Deskripsi";
 $langGroupDocument = "Dokumen";
 $langGroupDocumentAlwaysPrivate = "(selalu privat)";
+$langGroupDocumentsLink = "Dokumen-dokumen milik group ";
 $langGroupFilledGroups = "Groups telah diisi (atau dilengkapi) oleh siswa yang ada dalam daftar 'User'.";
 $langGroupForum = "Forum Group";
 $langGroupMembers = "Anggota Group";
@@ -46,7 +63,7 @@ $langGroupPropertiesModified = "Seting Group telah diubah";
 $langGroupSelfRegInf = "daftar";
 $langGroupSelfRegistration = "Pendaftaran";
 $langGroupSettingsModified = "Seting Group diubah";
-$langGroupSpace = "ArealGroup";
+$langGroupSpaceLink = "ArealGroup";
 $langGroupStudentsInGroup = "siswa terdaftar dalam group-group";
 $langGroupStudentsRegistered = "siswa terdaftar dalam pelajaran ini";
 $langGroupThisSpace = "Areal untuk group ini";
@@ -64,7 +81,6 @@ $langLogin = "login";
 $langLogout = "Logout";
 $langManager = "Pengelola";
 $langMax = "max.";
-$langModify = "Ubah";
 $langModifyProfile = "Ubah profil Ku";
 $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
@@ -72,28 +88,25 @@ $langMyGroup = "group-ku";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Buat group baru";
 $langNewGroups = "Group baru";
+$langNewTopic = "Topik baru";
 $langNoGroupStudents = "Siswa tak ber-group";
-$langNotAllowed = "Tidak diijinkan";
 $langOk = "Ok";
 $langOneMyGroups = "supervisi-ku";
 $langOtherCourses = "Daftar pelajaran";
-$langPassword = "password";
 $langPlaces = "tempat menurut group (optional)";
 $langPoweredBy = "Diperkuat oleh";
 $langPrivate = "privat";
 $langPublic = "publik";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;group";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Seorang user dapat menjadi anggota maksimum ";
-$langReg = "Pendaftaran";
 $langRegIntoGroup = "Masukkan saya ke group ini";
 $langRegistered = "Terdaftar";
+$langReply = "Tanggapan";
 $langStudent = "siswa";
 $langStudentsNotInThisGroups = "User tidak dalam group ini";
 $langSubscribed = "orang terdaftar dalam pelajaran ini";
 $langTo = "ke";
-$langTools = "Tool-tool";
 $langUncompulsory = "(optional)";
-$langUserName = "Nama user";
 $langUsers = "Users";
 $langWork = "Tugad";
 ?>

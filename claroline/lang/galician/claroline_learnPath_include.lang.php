@@ -8,5 +8,6 @@ $langModify = "Modificar";
 $langOk = "Validar";
 $langQuestion = "Cuesti&oacute;n";
 $langRawHasBeenChanged = "Foi ";
+$langScore = "Puntuaci&oacute;n";
 $langSize = "Tama&ntilde;o";
 ?>

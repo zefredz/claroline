@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Önsöz metni ekle";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
@@ -18,7 +17,6 @@ $langCreate = "yarat";
 $langCreateSite = "Ders websitesi yarat";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Remove this through the forum admin tool";
-$langDelete = "Sil";
 $langDescriptionCours = "Ders açýklamasý";
 $langDocument = "Belgeler";
 $langEmail = "Epostanýz";
@@ -41,7 +39,6 @@ $langManager = "Yönetici";
 $langManyAnswers = "(more than one answer can be true)";
 $langMaxSizeCourseCode = "en çok 12 harf olmalýdýr, ara verilmez ve (þ,Þ,ð,Ð,Ý,ý,Ç,ç,Ö,ö,Ü,ü) Türkçe harfler kullanýlmaz. Örnek: <i>FIZIK601</i>";
 $langMessage = "When you remove the test forum, it will remove all messages in that forum too.";
-$langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
@@ -55,14 +52,12 @@ $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
 $langProfessor = "Hoca";
 $langProfessors = "Hocalar";
-$langReg = "Kayýt";
 $langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
 $langSocraticIrony = "Socratic irony is...";
 $langStudent = "öðrenci";
 $langTargetFac = "Dersin verildiði fakülte, bölüm veya okul";
 $langTestForum = "Test forum";
 $langTo = "buraya";
-$langUserName = "Kullanýcý adýnýz";
 $langUsers = "Kullanýcýlar";
 $langWork = "Öðrenci Yazýlarý";
 ?>

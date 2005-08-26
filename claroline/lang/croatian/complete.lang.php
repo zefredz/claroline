@@ -246,7 +246,6 @@ $langDocDeleted = "Dokument izbrisan";
 $langDocument = "Dokumenti";
 $langEG = "e. g..";
 $langEdit = "Ureðivanje";
-$langEditDel = "Uredi/Izbriši";
 $langEditGroup = "Dodaj ovu grupu";
 $langElRen = "Element preimenovan";
 $langEmail = "Email";

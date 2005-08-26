@@ -494,7 +494,6 @@ $langEG = "e. g.";
 $langEXERCISETypeDesc = "Claroline练习";
 $langEdit = "编辑";
 $langEditAnswers = "编辑答案";
-$langEditDel = "编辑/删除";
 $langEditEvent = "编辑事件";
 $langEditExercise = "编辑练习设置";
 $langEditFeedback = "编辑自动反馈";
@@ -1752,9 +1751,6 @@ $lang_p_CannotRename_s_s = "不能将 %s 命名为 %s";
 $lang_p_ErrorOnBuild_S_for_S = "<B>%s</B> <em>%s</em> 的建设出错";
 $lang_p_PropForConfigCommited = "%s (%s)属性现在生效。";
 $lang_p_UpgradeMainClarolineDatabase_s = "升级Claroline主要数据库(<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>正在升级<strong>%2\$s</strong>课程数据库<br><small>
-数据库名：%3\$s <br>
-课程代号: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "首先修复技术问题，再 <a href=\"%s\">启动升级工具</a>.";
 $lang_p_config_file_creation = "参数文件产生：<BR> %s";
 $lang_p_d_affected_rows = "%d 受影响的列";

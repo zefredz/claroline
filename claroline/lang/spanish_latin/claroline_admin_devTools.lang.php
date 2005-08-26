@@ -1,7 +1,29 @@
 <?php
-$langAddIntro = "Añadir texto introductorio";
+$l_click = "Hacer click";
+$l_here = "aquí;";
+$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
+que ha enviado al foro, ya que usted ha elegido ser informado.
+
+Usted puede ver el tema en:
+
+%1\$s
+
+O ver el &iacute;ndice del foro en
+
+%2\$s
+
+Gracias por utilizar los foros.
+
+Que tenga un buen d&iacute;a.";
+$l_notifysubj = "Se ha enviado un mensaje de respuesta sobre su tema.";
+$l_returnindex = "para regresar al &iacute;ndice del foro";
+$l_returntopic = "para regresar a la lista de temas del foro.";
+$l_separator = "» »";
+$l_viewmsg = "para ver su Mensaje.";
+$langAdm = "Administración de Foros";
 $langAdmin = "Administrador";
 $langAdmitError = "Reconocer los propios errores para invitar al interlocutor a hacer lo mismo.";
+$langAgain = "Intente de nuevo!";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
 $langAnonymous = "Anónimo";
@@ -10,7 +32,6 @@ $langCancel = "Cancelar";
 $langCatagoryGroup = "Foros de grupos";
 $langCatagoryMain = "Principal";
 $langChat = "Chat";
-$langConfirmYourChoice = "Por favor confirma tú elección";
 $langContradiction = "Utilizar el principio de no contradicción para llevar al interlocutor a un callejón sin salida.";
 $langCopy = "Copiar";
 $langCourseDescription = "Escriba aquí la descripción que aparecerá en la lista de los cursos";
@@ -19,8 +40,8 @@ $langCourseManager = "Coordinador de curso";
 $langCreate = "crear";
 $langCreateSite = "Crear un sitio web de un curso";
 $langDay_of_weekNames = "Array";
+$langDear = "Estimado(a)";
 $langDelAdmin = "A eliminar vía la administración de los foros";
-$langDelete = "Eliminar";
 $langDescriptionCours = "Descripción del curso";
 $langDocument = "Documentos";
 $langEmail = "Email";
@@ -29,9 +50,12 @@ $langExerciceEx = "Ejemplo de ejercicio";
 $langExercises = "Ejercicios";
 $langFirstName = "Nombre";
 $langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, para que reconozca que no sabe lo que pretende saber.";
+$langForum = "Foro";
 $langForumGroup = "Foro del grupo";
 $langForums = "Foros";
 $langGroup = "Grupo";
+$langGroupDocumentsLink = "Documentos del grupo ";
+$langGroupSpaceLink = "Area del grupo";
 $langGroups = "Grupos";
 $langHelp = "Ayuda";
 $langIndeed = "Correcto. La ironía socrática es un metódo interrogativo. El término griego \"eirotao\" significa , por otro lado, \"interrogar\".";
@@ -40,35 +64,26 @@ $langLogout = "Salir";
 $langManager = "Responsable";
 $langManyAnswers = "(varias respuestas correctas son posibles)";
 $langMessage = "En el momento que usted suprima el foro \"Foro de pruebas\", igualmente se suprimirá el presente tema que no contiene más que este mensaje";
-$langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langNameOfLang = "Array";
+$langNewTopic = "Tema Nuevo";
 $langNoPsychology = "No. La ironía socrática no se aplica al terreno de la psicología, sino en el de la argumentación.";
 $langNoSeduction = "No. No se trata de una estrategia de seducción o de un método por ejemplo.";
-$langNotAllowed = "No tienes acceso";
 $langNotFalse = "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor se realiza poniendo en evidencia las contradicciones en que desembocan sus tesis.";
 $langOk = "Aceptar";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "Contraseña";
 $langPlatformAdministration = "Administración de la plataforma";
 $langPoweredBy = "Generado con";
 $langProfessor = "Profesor";
-$langReg = "Inscribirse";
+$langReply = "Responder";
 $langRidiculise = "Ridiculizar al interlocutor para hacerle admitir su error.";
 $langSocraticIrony = "La ironía socrática consiste en...";
 $langStudent = "Estudiante";
 $langTestForum = "Foro de pruebas ";
 $langTo = "a";
-$langUserName = "Usuario";
 $langUsers = "Usuarios";
 $langWork = "Trabajos";
-$lang_click_here = "click here";
-$lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
-$lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
 ?>

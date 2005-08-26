@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "เพิ่มคำนำ";
 $langAddress = "ที่อยู่ ";
 $langAgenda = "กำหนดการ";
 $langCancel = "ยกเลิก";
@@ -10,7 +9,6 @@ $langConfirmation = "ยืนยันรหัสผ่าน";
 $langCopy = "ย้าย";
 $langDay_of_weekNames = "Array";
 $langDear = "สวัสดี คุณ";
-$langDelete = "ลบ";
 $langDocument = "เอกสาร";
 $langEmail = "Email";
 $langEmailWrong = "อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน";
@@ -24,13 +22,11 @@ $langIs = "คือ";
 $langLink = "Link";
 $langLogout = "Logout";
 $langManager = "ผู้จัดการ";
-$langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
 $langNo = "ไม่";
-$langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPassTwice = "คุณพิมพ์รหัสผ่านไม่เหมือนกันสองครั้ง คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง";
@@ -40,7 +36,6 @@ $langProfileReg = "ข้อมูลส่วนตัวใหม่ถูกบันทึกเรียบร้อย";
 $langReg = "ลงทะเบียน";
 $langRegAdmin = "สร้างรายวิชา";
 $langRegStudent = "เข้าสู่บทเรียน";
-$langRegistration = "ลงทะเบียน";
 $langSettings = "ตามข้อมูล:
 Username:";
 $langStudent = "นักศึกษา";

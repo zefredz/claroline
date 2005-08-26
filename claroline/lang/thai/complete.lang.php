@@ -160,7 +160,6 @@ $langDocContent = "<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager
 	  <p>";
 $langDocDeleted = "ลบเอกสารแล้ว";
 $langDocument = "เอกสาร";
-$langEditDel = "แก้ไข/ลบ";
 $langElRen = "เปลี่ยนชื่อแล้ว";
 $langEmail = "Email";
 $langEmailOption = "ส่งประกาศนี้ทางอีเมล์ไปยังนักศึกษาที่ลงทะเบียน";

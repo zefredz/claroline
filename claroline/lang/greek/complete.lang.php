@@ -497,7 +497,6 @@ $langEG = "π.χ.";
 $langEXERCISETypeDesc = "’σκηση Claroline";
 $langEdit = "Διόρθωση";
 $langEditAnswers = "Σύνταξη/επιμέλεια απαντήσεων ";
-$langEditDel = "αλλαγή/διαγραφή";
 $langEditEvent = "Σύνταξη γεγονότων";
 $langEditExercise = "Σύνταξη/επιμέλεια ρυθμίσεων άσκησης";
 $langEditFeedback = "Σύνταξη/επιμέλεια αυτόματης επικοινωνίας";
@@ -1783,9 +1782,6 @@ $lang_p_CannotRename_s_s = "Δεν μπορεί να ονομάστει ξανα %s σε %s";
 $lang_p_ErrorOnBuild_S_for_S = "Σφάλμα κατασκευής απο <em>%s</em> για <B>%s</B>";
 $lang_p_PropForConfigCommited = "Ιδιοκτησίες για %s (%s) είναι τώρα αποτελεσματικά στο server.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Αναβάθμιση κυρίας βάσης δεδομένων του Claroline (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Αναβάθμιση βάσης δεδομένων του μαθήματος <strong>%2\$s</strong><br><small>
-DB Name : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Διόρθωσε πρώτα το τεχνικό πρόβλημα και <a href=\"%s\"> προσπάθησε πάλι για αναβάθμισης</a>.";
 $lang_p_config_file_creation = "Ρυθμίσεις δημιουργίας αρχείου:<BR> %s";
 $lang_p_d_affected_rows = "%d Επηρεασμένες σειρές";

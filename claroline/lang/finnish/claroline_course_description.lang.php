@@ -1,6 +1,5 @@
 <?php
 $langAdd = "Lisää";
-$langAddIntro = "Lisää johdantoteksti";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
 $langDay_of_weekNames = "Array";
@@ -17,13 +16,10 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
-$langReg = "Rekisteröinti";
 $langStudent = "Opiskelija";
 $langTitle = "Otsikko";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langViMod = "Näkyvyyttä on muutettu";
 $langWork = "Opiskelijoiden tehtävät";

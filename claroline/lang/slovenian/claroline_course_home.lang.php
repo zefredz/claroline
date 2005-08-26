@@ -24,16 +24,12 @@ $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
-$langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";
-$langPassword = "geslo";
 $langPoweredBy = "Powered by";
-$langReg = "Registracija";
 $langStatistics = "Statistike";
 $langStudent = "student";
 $langTools = "Orodja";
-$langUserName = "User name";
 $langUsers = "Uporabniki";
 $langWork = "Works";
 ?>

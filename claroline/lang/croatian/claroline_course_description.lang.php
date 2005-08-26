@@ -1,6 +1,5 @@
 <?php
 $langAdd = "Dodajte";
-$langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
 $langAreYouSureToDelete = "Želite li pobrisati";
@@ -24,16 +23,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
 $langNewBloc = "Ostalo";
-$langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
 $langQuestionPlan = "Pitanje nastavniku";
-$langReg = "Prijava";
 $langStudent = "student";
 $langThisCourseDescriptionIsEmpty = "Ovaj kolegij nije opisan";
 $langTitle = "Naslov";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langViMod = "Vidljivost izmjenjena";
 $langWork = "Studentski Radovi";

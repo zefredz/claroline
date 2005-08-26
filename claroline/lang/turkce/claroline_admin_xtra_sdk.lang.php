@@ -1,11 +1,10 @@
 <?php
-$langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
 $langCancel = "Ýptal";
 $langChat = "Tartýþma";
+$langCopy = "Kopyala";
 $langDay_of_weekNames = "Array";
-$langDelete = "Sil";
 $langDescriptionCours = "Ders açýklamasý";
 $langDocument = "Belgeler";
 $langExercises = "Alýþtýrmalar";
@@ -14,18 +13,15 @@ $langGroups = "Gruplar";
 $langHelp = "Yardým";
 $langLogout = "Çýkýþ";
 $langManager = "Yönetici";
-$langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
-$langReg = "Kayýt";
 $langStudent = "öðrenci";
-$langUserName = "Kullanýcý adýnýz";
+$langTo = "buraya";
 $langUsers = "Kullanýcýlar";
 $langWork = "Öðrenci Yazýlarý";
 ?>

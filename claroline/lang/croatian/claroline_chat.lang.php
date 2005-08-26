@@ -1,36 +1,26 @@
 <?php
-$langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
 $langAnonymous = "Neimenovan";
 $langArchive = "arhiva ( pohranjeno)";
-$langCancel = "Odustanite";
 $langChat = "Razgovor - chat";
 $langCopyFailed = "Tiskanje nije uspjelo";
 $langDay_of_weekNames = "Array";
-$langDelete = "Izbriši";
 $langDescriptionCours = "Opis kolegija";
 $langDocument = "Dokumenti";
 $langForums = "Forumi";
-$langGroup = "Grupa";
-$langGroupSpace = "Podruèje grupa";
 $langGroups = "Grupe";
 $langHelp = "Pomoæ";
 $langIsNowInYourDocDir = " se nalazi  u vašim dokumentima. <br><B>Datoteka je vidljiva</B>";
 $langLogout = "Odjava";
 $langManager = "Manager";
-$langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
-$langNotAllowed = "Nije dozvoljeno";
-$langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
-$langReg = "Prijava";
 $langStudent = "student";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 ?>

@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "afegir/modoficar un comentari a";
-$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAgenda = "Agenda";
 $langAnd = "i";
 $langAnnouncement = "Anuncis";
@@ -37,13 +36,11 @@ $langOtherCourses = "Llista de cursos";
 $langPoweredBy = "Potenciat per ";
 $langQuestion = "Pregunta";
 $langQuestions = "Preguntes";
-$langReg = "Enregistrament";
 $langResult = "Puntuació";
 $langSize = "Mida";
 $langStudent = "estudiant";
 $langTrue = "Veritat";
 $langUp = "tornar a carregar";
-$langUserName = "Nom d'usuari";
 $langUsers = "Usuaris";
 $langWork = "Treballs dels estudiants";
 $langYes = "Si";

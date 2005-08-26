@@ -1,87 +1,137 @@
 <?php
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAddTutors = " التصرف في قائمة الأوصياء ";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langCancel = " إلغاء ";
-$langCopy = " نسخ ";
-$langCreate = " خلق ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDeleteGroups = " إلغاء كلّ المجموعات ";
-$langDocument = " وثائق ";
-$langDocuments = " وثائق ";
-$langEdit = " نشر ";
-$langEditGroup = " إظهار هذه المجموعة    ";
-$langEmtpyGroups = " إفراغ كلّ المجموعات ";
-$langExercises = " تمارين ";
-$langExistingGroups = " مجموعات ";
-$langFillGroups = " ملأ المجموعات";
-$langForum = " منتدى ";
-$langForumGroup = " منتدى المجموعة ";
-$langForums = "منتديات";
-$langGroup = "Groupe";
-$langGroupAllowStudentRegistration = " طلبة مرخصون للترسيم بالمجموعات";
-$langGroupCreation = " خلق مجموعات ";
-$langGroupDel = " مجموعة ملغاة ";
-$langGroupDescription = " وصف ";
-$langGroupDocument = " وثائق ";
-$langGroupFilledGroups = " تمّ ملئ كلّ المجموعات من طرف الطلبة على قائمة مستخدمي الموقع   ";
-$langGroupForum = " منتدى ";
-$langGroupMembers = " أعضاء المجموعة ";
-$langGroupName = " اسم المجموعة ";
-$langGroupNoGroup = " طلبة بدون مجموعة ";
-$langGroupNoTutor = "( لا أحد)";
-$langGroupNone = "( لا أحد)";
-$langGroupNoneMasc = "( لا أحد)";
-$langGroupNowMember = " أنتم الآن عضو في هذه المجموعة ";
-$langGroupPlacesThis = ") عدد الأماكن (غير إلزامي";
-$langGroupProperties = " خاصيّات المجموعات ";
-$langGroupPropertiesModified = " تمّ تغيير خاصيّات المجموعات ";
-$langGroupSelfRegInf = " أرسّم نفسي ";
-$langGroupSelfRegistration = " ترسيم ";
-$langGroupSettingsModified = " تمّ تعديل ثوابت هذه المجموعة";
-$langGroupSpace = " فضاء المجموعة ";
-$langGroupStudentsInGroup = " الطلبة المرسمون في هذه المجموعة   ";
-$langGroupStudentsRegistered = " الطلبة المرسمون في هذا الدرس ";
-$langGroupThisSpace = " فضاء هذه المجموعة ";
-$langGroupTooMuchMembers = " يفوق عدد الأعضاء المقترح العدد الأقصى الذي حدّدتم لم يتمّ تعديل تشكيلة المجموعة يمكنكم تغيير العدد الأقصى في الأسفل";
-$langGroupTools = " أدوات ";
-$langGroupTutor = " وصيّ ";
-$langGroupUsersList = "Cf. liste des <a href=../user/user.php>utilisateurs</a>";
-$langGroups = " مجموعات ";
-$langGroupsAdded = " تمّت إضافة كلّ المجموعات";
-$langGroupsDeleted = " تمّ إلغاء كلّ المجموعات ";
-$langGroupsEmptied = " كلّ المجموعات خاوية الآن ";
-$langHelp = " إعانة ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langMax = " أعلى درجة ";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langMyGroup = " مجموعتي ";
-$langNameOfLang = "Array";
-$langNewGroupCreate = " خلق مجموعات جديدة ";
-$langNewGroups = " مجموعات جديدة ";
-$langNoGroupStudents = " طلبة بدون مجموعة ";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOneMyGroups = " أحد مجموعاتي ";
-$langOtherCourses = " دروس أخرى ";
-$langPlaces = "(  عدد الأماكن لكلّ مجموعة(غير إلزامي ";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langPrivate = " خاصّ ";
-$langPublic = " عامّ ";
-$langReg = " ترسيم ";
-$langRegIntoGroup = " إضافتي لهذه المجموعة ";
-$langRegistered = " مرسمون ";
-$langStudent = "étudiant";
-$langTo = " إلى ";
-$langTools = " أدوات ";
-$langUncompulsory = "( غير إجباري)";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langWork = " أشغال ";
+$l_click = "انقر";
+$l_here = "هنا";
+$l_notifybody = "
+وصلتك هذه الرسالة لان احدهم قام بالرد على إحدى المواضيع المفضلة عندك ضمن المنتدى و انت طلبت ان
+يتم تنبيهك من خلال البريد الالكتروني
+
+
+
+تستطيع مشاهدة المشاركة من خلال :
+
+%1\$s
+
+او استعراض فهرس المنتدى من خلال
+
+%2\$s
+
+
+
+شكرأً لاستخدامك المنتدى الخاص بنا";
+$l_notifysubj = "تم إرسال رد على أحد المشاركات الخاصة بك في المنتدى";
+$l_returnindex = "العودة لفهرس المنتدى";
+$l_returntopic = "العودة لقائمة مواضيع المنتدى";
+$l_separator = " > ";
+$l_viewmsg = "لمشاهدة رسالتك";
+$langAddTutors = "قائمة المدراء";
+$langAdm = "إدارة المنتدى";
+$langAdminsOfThisCours = "مدير المقرر";
+$langAgenda = "جدول الأعمال";
+$langAnnouncement = "الإعلانات";
+$langBackTo = "عودة إلى:";
+$langCancel = "إلغاء";
+$langChat = "دردشة";
+$langConfirmDeleteGroups = "هل انت متاكد انك تريد حذف جميع المجموعات ?";
+$langConfirmEmptyGroups = "هل أنت متأكد انك تريد إفراغ جميع المجموعات ?";
+$langCopy = "نسخ";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langCreate = "إنشاء";
+$langDay_of_weekNames = "مصفوفة";
+$langDear = "عزيزي";
+$langDelete = "حذف";
+$langDeleteGroups = "حذف الكل";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langEdit = "تعديل";
+$langEditGroup = "تحرير هذه المجموعة";
+$langEmtpyGroups = "تفريغ الكل";
+$langExercises = "التمارين";
+$langExistingGroups = "المجموعات";
+$langFillGroups = "ملء تلقائي ";
+$langForum = "المنتدى";
+$langForums = "المنتديات";
+$langGroup = "مجموعة";
+$langGroupAllowStudentRegistration = "السماح للطلاب بالتسجيل ضمن المجموعات";
+$langGroupAlwaysPrivate = "(خاص دوماً)";
+$langGroupCreation = "إنشاء مجموعات جديدة";
+$langGroupDel = "تم حذف المجموعة";
+$langGroupDescription = "الوصف";
+$langGroupDocument = "الوثائق";
+$langGroupDocumentAlwaysPrivate = "(خاص دوماً)";
+$langGroupDocumentsLink = "الوثائق الخاصة بالمجموعة ";
+$langGroupFilledGroups = "تم ملء المجموعات ( أو إكمالها) من خلال الطلاب الموجودون في قائمة المستخدمين";
+$langGroupForum = "منتدى";
+$langGroupLimit = "الحد الأقصى";
+$langGroupMembers = "أعضاء المجموعة";
+$langGroupName = "اسم المجموعة";
+$langGroupNoGroup = "طلاب غير مخصصين";
+$langGroupNoTutor = "(لا يوجد)";
+$langGroupNone = "(لا يوجد)";
+$langGroupNoneMasc = "(لا يوجد)";
+$langGroupNowMember = "انت الأن عضو في هذه المجموعة";
+$langGroupPlacesThis = "المقاعد(اختياري)";
+$langGroupProperties = "إعدادات المجموعات";
+$langGroupPropertiesModified = "تم تعديل إعدادات المجموعة";
+$langGroupSelfRegInf = "تسجيل";
+$langGroupSelfRegistration = "التسجيل";
+$langGroupSettingsModified = "تم تعديل بيانات المجموعة";
+$langGroupSpaceLink = "منطقة المجموعة";
+$langGroupStudentsInGroup = "الطلاب المسجلون في مجموعات";
+$langGroupStudentsRegistered = "الطلاب المسجلون في هذا المقرر";
+$langGroupThisSpace = "منطقة خاصة بالمجموعة";
+$langGroupTooMuchMembers = "الرقم المقترح يزيد عن العدد الأعظمي المسموح ) يمكنك تغيير الرقم المسموح ( لم يتم تعديل بنية المجموعة";
+$langGroupTools = "ادوات";
+$langGroupTutor = "مشرف المجموعة";
+$langGroupTutors = "المشرفين على المجموعة";
+$langGroupUsersList = "استعراض <a href=../user/user.php>المستخدمين</a>";
+$langGroups = "المجموعات";
+$langGroupsAdded = "تم إضافة المجموعة ( المجموعات)";
+$langGroupsDeleted = "تم حذف جميع المجموعات";
+$langGroupsEmptied = "جميع المجموعات أصبحت فارغة الآن";
+$langHelp = "المساعدة";
+$langLearningPath = "مسار التعليم";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langManager = "المدير";
+$langMax = "على الأكثر";
+$langMinuteShort = "دقيقة";
+$langModifyProfile = "تعديل معلوماتي";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langMyGroup = "مجموعتي";
+$langNameOfLang = "مصفوفة";
+$langNewGroupCreate = "إنشاء مجموعة جديدة";
+$langNewGroups = "مجموعة جديدة";
+$langNewTopic = "مشاركة جديدة";
+$langNoGroupStudents = "طلاب غير مخصصين";
+$langOk = "موافق";
+$langOneMyGroups = "بإشرافي";
+$langOtherCourses = "قائمة المقررات";
+$langPlaces = "عدد المقاعد في كل مجموعة (اختياري)";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langPrivate = "خاص";
+$langPublic = "عام";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;مجموعات";
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "يمكن للمستخدم ان يكون على الأكثر عضواً في";
+$langRegIntoGroup = "أضفني لهذه المجموعة";
+$langRegistered = "مسجل";
+$langReply = "إرسال رد";
+$langSecondShort = "ثانية";
+$langStudent = "طالب";
+$langStudentsNotInThisGroups = "المستخدمون الذين لا ينتمون لهذه المجموعة";
+$langSubscribed = "المسجلون في هذا المقرر";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langTo = "إلى";
+$langUncompulsory = "(اختياري)";
+$langUsers = "المستخدمون";
+$langViewMode = "نمط العرض";
+$langWiki = "Wiki";
+$langWork = "واجبات و مهام";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

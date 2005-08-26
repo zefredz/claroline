@@ -1,11 +1,9 @@
 <?php
-$langAddIntro = "紹介文を加える";
 $langAddPage = "ページを加える";
 $langAgenda = "予定";
 $langAnnouncement = "お知らせ";
 $langCouldNot = "ファイルが送れませんでした。";
 $langDay_of_weekNames = "Array";
-$langDelete = "削除";
 $langDocument = "文書たち";
 $langExplanation = "一回OKをクリックすると、会議室や予定、文書マネージャー付のサイトが出来ます。サイト作成者としてログインすると、サイトを修正することが出来ます。";
 $langForums = "会議室";
@@ -16,7 +14,6 @@ $langLinkSite = "サイトをリンク";
 $langLinks = "リンク";
 $langLogout = "ログアウト";
 $langManager = "運用者";
-$langModify = "修正";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
@@ -26,12 +23,10 @@ $langOk = "オッケー";
 $langOkSent = "送付しました。<p>現在、次のリンクが張られています <a href";
 $langPgTitle = "ページタイトル";
 $langPoweredBy = "Powered by Claroline";
-$langReg = "登録";
 $langSendPage = "ページを送る";
 $langStudent = "student";
 $langSubTitle = "コースのホームページメインメニュに、サイト、ページ、URLののリンクを加えます。:ヒント:もしページにリンクを加えたいときは、そのページに行って、URLをコピーして、\"リンク\" 欄に張りつける。";
 $langTooBig = "ファイルが大きすぎるので、選択できません。";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langWork = "学生の文書たち";
 ?>

@@ -1,33 +1,24 @@
 <?php
-$langAddIntro = "Dodaj tekst wprowadzenia";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
-$langConfirmYourChoice = "Potwierd¼ swój wybór";
+$langCopy = "Kopiuj";
 $langCourseManager = "Administrator";
 $langDay_of_weekNames = "Array";
-$langDelete = "Usuñ";
 $langDescriptionCours = "Opis kursu";
 $langDocument = "Dokumenty";
 $langForums = "Forum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Pomoc";
-$langLogin = "Logowanie";
-$langLogout = "Wylogowanie";
 $langManager = "Administrator";
-$langModify = "Modyfikuj";
-$langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
-$langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
-$langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
-$langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
-$langReg = "Rejestracja";
 $langStudent = "student";
-$langUserName = "Nazwa u¿ytkownika";
+$langTo = "do";
+$langToday = "Dzisiaj";
 $langUsers = "U¿ytkownicy";
 $langWork = "Works";
 ?>

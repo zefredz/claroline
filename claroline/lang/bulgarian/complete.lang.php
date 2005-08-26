@@ -266,7 +266,6 @@ $langDocDeleted = "Документът е изтрит";
 $langDocument = "Документи";
 $langEG = "например";
 $langEdit = "Редактирай";
-$langEditDel = "Редактирай/изтрий";
 $langEditGroup = "Редактирай тази група";
 $langElRen = "Името на елемента е променено";
 $langEmail = "Емейл";

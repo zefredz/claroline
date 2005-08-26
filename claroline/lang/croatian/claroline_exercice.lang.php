@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Dodaj/izmjeni primjedbu za";
-$langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnd = "i";
 $langAnnouncement = "Najave- Priopæenja";
@@ -39,13 +38,11 @@ $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
 $langQuestion = "Pitanje";
 $langQuestions = "Pitanja";
-$langReg = "Prijava";
 $langResult = "Rezultat";
 $langSize = "Velièina";
 $langStudent = "student";
 $langTrue = "Toèno";
 $langUp = "Gore";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 $langYes = "Da";

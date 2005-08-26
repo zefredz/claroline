@@ -1,13 +1,10 @@
 <?php
-$langAddIntro = "Добави увод";
 $langAddPage = "Добави страница";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
-$langCancel = "Анулирай";
 $langChat = "Чат";
 $langCouldNot = "Файлът не може да бъде изпратен";
 $langDay_of_weekNames = "Array";
-$langDelete = "Изтрий";
 $langDescriptionCours = "Описание на курса";
 $langDocument = "Документи";
 $langExercises = "Упражнения";
@@ -21,7 +18,6 @@ $langLinkSite = "Добави хипервръзка към Началната страница";
 $langLinks = "Връзки";
 $langLogout = "Изход";
 $langManager = "Администратор";
-$langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
@@ -32,12 +28,10 @@ $langOkSent = "Твоята страница е изпратена.<p>Сега е свързана към курса <a href=
 $langOtherCourses = "Списък на курсовете";
 $langPgTitle = "Заглавие на страницата";
 $langPoweredBy = "Powered by";
-$langReg = "Регистрация";
 $langSendPage = "Страница за изпращане";
 $langStudent = "студент";
 $langSubTitle = "Добавя към главната страница на курса хипервръзка към друг сайт, страница или URL.";
 $langTooBig = "Не сте избрали файл или файлът е прекалено голям";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 ?>

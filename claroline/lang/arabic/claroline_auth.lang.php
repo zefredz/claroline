@@ -1,62 +1,142 @@
 <?php
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAddress = "L'adresse de";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langCancel = " إلغاء ";
-$langCategories = " فئات ";
-$langComment = " تعليق ";
-$langConfirmation = "confirmation";
-$langCopy = " نسخ ";
-$langDay_of_weekNames = "Array";
-$langDear = "Cher(ère)";
-$langDelete = " إلغاء ";
-$langDocument = " وثائق ";
-$langEmail = "Email";
-$langEmailWrong = "L'adresse email que vous avez introduite n'est pas complète
-ou contient certains caractères non valides";
-$langEmptyFields = "Vous n'avez pas rempli tous les champs.
-Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";
-$langExercises = " تمارين ";
-$langFormula = "Cordialement";
-$langForums = "منتديات";
-$langGroupTutor = " وصيّ ";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langHome = "Retourner à l'accueil";
-$langIs = "est";
-$langLink = " رابط ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langNameOfLang = "Array";
-$langNext = " التالي ";
-$langNo = "non";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOtherCourses = " دروس أخرى ";
-$langPassTwice = "Vous n'avez pas tapé deux fois le même mot de passe.
-Utilisez le bouton de retour en arrière de votre navigateur
-et recommencez.";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
-$langProfileReg = "Votre nouveau profil a été enregistré";
-$langReg = " ترسيم ";
-$langRegAdmin = "créer des sites de cours";
-$langRegStudent = "M'inscrire à des cours";
-$langRegistration = "Inscription";
-$langSettings = "avec les paramètre suivants:
-Nom d'utilisateur:";
-$langStudent = "étudiant";
-$langTo = " إلى ";
-$langUserName = "Nom d'utilisateur";
-$langUserTaken = "Le nom d'utilisateur que vous avez choisi est déjà pris";
-$langUsers = "مستعملو الموقع";
-$langWork = " أشغال ";
-$langYes = "oui";
-$langYouAreReg = "Vous êtes inscrit(e) sur";
-$langYourReg = "Votre inscription sur";
+$langAction = "عمل";
+$langAddImage = "تضمين صورة";
+$langAddress = "عنوان ال ";
+$langAdministration = "المدير";
+$langAgenda = "جدول الأعمال";
+$langAnnouncement = "الإعلانات";
+$langAuthentication = "تسجيل الدخول للأعضاء";
+$langBackToClass = "العودة للمقرر";
+$langBackToCourseList = "العودة لقائمة المقرر";
+$langBackToUserSettings = "العودة لإعدادات المستخدم";
+$langCancel = "إلغاء";
+$langCategories = "التصنيفات";
+$langChangePwdexp = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
+$langChat = "دردشة";
+$langCodeUsed = "هذا الرمز الإداري مستخدم من قبل طالب أخر";
+$langComment = "ملاحظة";
+$langConfirmation = "تأكيد كلمة السر";
+$langCopy = "نسخ";
+$langCourse = "المقرر";
+$langCourseHome = "صفحة المقرر";
+$langCourseList = "قائمة المقررات";
+$langCourseManager = "مدير المقرر";
+$langCourseManagerStatusToUser = "حالة من أنشأ المقرر ل %s %s";
+$langCreate = "إنشاء";
+$langCreateUserAccount = "تسجيل حساب جديد";
+$langDay_of_weekNames = "مصفوفة";
+$langDear = "عزيزي";
+$langDelImage = "إزالة الصورة";
+$langDeleteMyAccount = "حذف الحساب الخاص بي";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langEmail = "البريد الالكتروني";
+$langEmailAddressNotFound = "لا يوجد حساب مستخدم مطابق لعنوان البريد الالكتروني ";
+$langEmailNotSent = "لم يتمكن النظام من إرسال بريد إلكتروني إليك.<br>رجاء اتصل بـ";
+$langEmailWrong = "عنوان البريد الإلكتروني غير صحيح";
+$langEmptyFields = "تركت بعض الحقول اللازمة فارغة";
+$langEnrollAsStudent = "التسجيل كطالب";
+$langEnrollAsTeacher = "التسجيل كمدرس";
+$langEnrollClass = "تسجيل صف";
+$langEnter2passToChange = "أدخل كلمة السر الجديدة مرتين أول اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
+$langEnterMail = "أدخل عنوان البريد الاكتروني الخاص بك لنقوم بإرسال كلمة المرور ";
+$langExercises = "التمارين";
+$langFillTheAreaToExplainTheMotivations = "اكتب شرحاً عما يحثك و يشجعك و أرسل طلبك , سيتم إرسال بريد الكتروني لمدير الموقع";
+$langFirstname = "الاسم";
+$langFormula = "مع أطيب التمنيات";
+$langForums = "المنتديات";
+$langGroupTutor = "مشرف المجموعة";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langHome = "العودة للصفحة الأساسية";
+$langIs = "is";
+$langLastname = "الكنية";
+$langLearningPath = "مسار التعليم";
+$langLink = "وصلة";
+$langLogin = "تسجيل الدخول";
+$langLoginRequest = "طلب تسجيل دخول";
+$langLogout = "خروج";
+$langLostPassword = "هل نسيت كلمة السر؟";
+$langManager = "المدير";
+$langMessageSubscribeDone_p_firstname_lastname = "حضرة السيد  %s, %s المحترم <br> تم تسجيل  بياناتك الشخصية و تم إرسال بريد الكتروني لك ليساعدك على تذكر الاسم الخاص بك مع كلمة السر";
+$langMinuteShort = "دقيقة";
+$langModifyProfile = "تعديل معلوماتي";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langMyStats = "استعراض الإحصائيات الخاصة بي";
+$langName = "الاسم";
+$langNameOfLang = "مصفوفة";
+$langNext = "التالي";
+$langNo = "لا";
+$langNowGoChooseYourCourses = "يمكنك الآن اختيار المقررات التي تغرب بالوصول إليها من خلال قائمة المقررات";
+$langNowGoCreateYourCourse = "تستطيع الآن إنشاء المقرر الخاص بك";
+$langOfficialCode = "الرقم  او الرمز الإداري";
+$langOk = "موافق";
+$langOtherCourses = "قائمة المقررات";
+$langPassTooEasy = "كلمة السر هذه بسيطة جداً, استخدم كلمة سر مثل ";
+$langPassTwice = "لقد ادخلت كلمتي سر مختلفتين";
+$langPassword = "كلمة السر";
+$langPasswordHasBeenEmailed = "تم إرسال كلمة السر الخاصة بك إلى ";
+$langPersonalCourseList = "قائمة المقررات الشخصية";
+$langPhone = "رقم الهاتف";
+$langPlatformAdministration = "الإدارة";
+$langPlatformAdministrator = "إدارة الموقع";
+$langPoweredBy = "مطورة باستخدام";
+$langProblem = "عند حدوث مشاكل اتصل بنا";
+$langProfileReg = "تم حفظ المعلومات الخاصة بك";
+$langReg = "التسجيل";
+$langRegAdmin = "إنشاء مواقع للمقررات";
+$langRegStudent = "التسجيل في مقرر";
+$langRegister = "تسجيل";
+$langRegisterClass = " تسجيل مقرر تعليمي";
+$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
+$langRevoquationOfUser = "إلغاء ال %s %s";
+$langSaveChanges = "حفظ التعديلات";
+$langSearch = "بحث";
+$langSecondShort = "ثانية";
+$langSettings = "وفق الإعدادات التالية:
+اسم المستخدم:";
+$langStudent = "طالب";
+$langSubmit = "إرسال";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langTo = "إلى";
+$langUpdateImage = "تغيير الصورة";
+$langUser = "مستخدم";
+$langUserIsPlaformAdmin = "هو مدير الموقع";
+$langUserName = "اسم المستخدم";
+$langUserTaken = "هذا الاسم محجوز من قبل شخص آخر";
+$langUserid = "رقم المستخدم";
+$langUsers = "المستخدمون";
+$langViewMode = "نمط العرض";
+$langWork = "واجبات و مهام";
+$langYes = "نعم";
+$langYouAreReg = "قمت بالتسجيل بتاريخ";
+$langYourAccountParam = "كلمة السر الخاصة بك لتسجيل الدخول هي ";
+$langYourReg = "تم تسجيلك في اليوم الموافق ل ";
+$langYourRequestToBeCourseManagerIsSent = "طلبك بان تصبح قادراً على إنشاء مواقع المقررات تم إرساله لمدير النظام";
+$langYourRequestToRemoveYourAccountIsSent = "تم إرسال طلبك بإزالة حسابك";
+$lang_already_enrolled = "مسجل مسبقاً";
+$lang_are_you_sure_to_remove_the_course_from_your_list = "هل أنت متاكد انك ترغب بإزالة هذا المقرر من  القائمة الخاصة بك؟";
+$lang_back_to_my_personnal_course_list = "العودة لقائمة المقررات الخاصة بي";
+$lang_back_to_parent_category = "العودة للتصنيف الأب";
+$lang_click_here = "انقر هنا";
+$lang_course_enrollment = "المقررات الخاصة بالطالب";
+$lang_enroll = "تسجيل";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_if_you_wish_to_enroll_to_this_course = "إذا كان لديك رغبة بالالتحاق بهذا المقرر";
+$lang_my_personnal_course_list = "قائمة المقررات الخاصة بي";
+$lang_no_course_available_fitting_this_keyword = "لا يوجد أي مقرر موافق لكلمة البحث التي أدخلتها";
+$lang_or_search_from_keyword = "البحث عن";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
+$lang_remove_course_from_your_personnal_course_list = "إزالة المقرر من قائمة المقررات الخاصة بك";
+$lang_select_course_in = "اختر مقرر تعليمي في ";
+$lang_select_course_in_search_results = "اختر المقرر من نتيجة البحث";
+$lang_unsubscribe = "إلغاء الاشتراك";
+$lang_user_has_been_enrolled_to_the_course = "تم تسجيل المستخدم في المقرر";
+$lang_you_have_been_enrolled_to_the_course = "تمت عملية تسجيلك في المقرر";
+$lang_your_enrollment_to_the_course_has_been_removed = "تمت  عملية إزالة تسجيلك في المقرر";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "ملفك الشخصي يظهر أنك غير مسجل في هذا المقرر التعليمي";
 ?>

@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAddress = "L'adreça de ";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
@@ -8,9 +7,10 @@ $langChat = "Xat";
 $langComment = "Comentari";
 $langConfirmation = "Confirmació";
 $langCopy = "Copia";
+$langCourse = "El lloc web ";
+$langCreate = "crea";
 $langDay_of_weekNames = "Array";
 $langDear = "Estimat/da";
-$langDelete = "Esborra";
 $langDocument = "Documents";
 $langEmail = "Correu-e";
 $langEmailWrong = "L'adreça de correu-e no és completa o conté alguns caracters invàlids";
@@ -31,13 +31,11 @@ Els teus detalls personals han estat enregistrats i
 se t’ha enviat un correu-e per ajudar-te a recordar 
 el teu nom d’uauari i paraula de pas.
 Selecciona ara a la llista els cursos que vols atendre.";
-$langModify = "modifica";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
 $langNameOfLang = "Array";
 $langNo = "No";
-$langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
 $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";
 $langPassTooEasy = "aquest password és massa simple. Utilitza un password com aquest ";
@@ -48,7 +46,6 @@ $langProfileReg = "El teu nou perfil ha estat guardat";
 $langReg = "Enregistrament";
 $langRegAdmin = "Crea llocs web de cursos";
 $langRegStudent = "Apunta't a cursos";
-$langRegistration = "Enregistrament";
 $langSettings = "amb els següents detalls:
 Nom d'usuari:";
 $langStudent = "estudiant";

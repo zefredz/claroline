@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Dodaj/modyfikuj komentarz do";
-$langAddIntro = "Dodaj tekst wprowadzenia";
 $langAgenda = "Terminarz";
 $langAllExercises = "Wszystkie æwiczenia";
 $langAllRight = "There is no strange case here";
@@ -100,7 +99,6 @@ $langQuestionPool = "Pula pytañ";
 $langQuestionWeighting = "Weighting";
 $langQuestions = "Pytania";
 $langRandomQuestions = "Losowe pytania";
-$langReg = "Rejestracja";
 $langResult = "Resultat";
 $langReuse = "U¿yj ponownie";
 $langScore = "Wynik";
@@ -117,7 +115,6 @@ $langUniqueSelect = "Wielokrotny wybór (jedna odpowied¼ poprawna)";
 $langUp = "Do góry";
 $langUseTagForBlank = "use brackets [...] to define one or more blanks";
 $langUsedInSeveralExercises = "Uwaga ! To pytanie i odpowied¼ s± u¿ywane w kilku æwiczeniach. By³oby lepiej zmodyfikowaæ je";
-$langUserName = "Nazwa u¿ytkownika";
 $langUsers = "U¿ytkownicy";
 $langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWork = "Works";

@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Yorum ekle/deðiþtir";
-$langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
 $langBack = "Geri";
-$langCancel = "Ýptal";
 $langChat = "Tartýþma";
 $langDate = "Tarih";
 $langDay_of_weekNames = "Array";
@@ -22,15 +20,13 @@ $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ýzin verilmiyor";
+$langNoEx = "Þu anda alýþtýrma yok";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
-$langReg = "Kayýt";
 $langSize = "Boyut";
 $langStudent = "öðrenci";
 $langUp = "Yukarý";
-$langUserName = "Kullanýcý adýnýz";
 $langUsers = "Kullanýcýlar";
 $langWork = "Öðrenci Yazýlarý";
 ?>

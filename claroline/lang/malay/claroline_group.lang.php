@@ -1,28 +1,46 @@
 <?php
-$langAddIntro = "Tambah pengenalan";
+$l_click = "Klik";
+$l_here = "di sini";
+$l_notifybody = "Anda menerima Email ini kerana mesej yang anda hantar di forum telah dibalas, dan anda terpilih untuk diberitahu.
+
+Anda boleh melihat topik ini di:
+
+%1\$s
+
+Atau lihat indeks forum di
+
+%2\$s
+
+Terima Kasih kerana menggunakan forum.
+
+Semoga Ceria Selalu.";
+$l_notifysubj = "Mesej yang hendak dibalas telah dihantar.";
+$l_returnindex = "untuk kembali ke indeks forum.";
+$l_returntopic = "untuk kembali ke senarai topik forum.";
+$l_separator = " > ";
+$l_viewmsg = "untuk memaparkan Mesej anda";
 $langAddTutors = "Senarai Pengguna (Pentadbir Laman Subjek)";
+$langAdm = "Alat Bantu Forum";
 $langAdminsOfThisCours = "Pensyarah untuk subjek ini";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
 $langCancel = "Batal";
 $langChat = "Perbincangan";
-$langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
 $langCopy = "Pindah";
 $langCourseManager = "Pentadbir Subjek (Pensyarah)";
 $langCreate = "Bina";
 $langDay_of_weekNames = "Array";
+$langDear = "Terima kasih";
 $langDelete = "Padam";
 $langDeleteGroups = "Padam semua kumpulan";
 $langDescriptionCours = "Penerangan Subjek";
 $langDocument = "Dokumen";
-$langDocuments = "Dokumen";
 $langEdit = "Ubahsuai";
 $langEditGroup = "Ubahsuai kumpulan ini";
 $langEmtpyGroups = "Kosongkan semua kumpulan";
 $langExistingGroups = "Nama Kumpulan";
 $langFillGroups = "Penuhkan kumpulan";
 $langForum = "Forum";
-$langForumGroup = "Forum Kumpulan";
 $langForums = "Forum";
 $langGroup = "Kumpulan";
 $langGroupAllowStudentRegistration = "Pelajar dibenarkan untuk mendaftar sendiri ke kumpulan";
@@ -31,6 +49,7 @@ $langGroupDel = "Satu kumpulan dipadam";
 $langGroupDescription = "Penerangan";
 $langGroupDocument = "Dokumen";
 $langGroupDocumentAlwaysPrivate = "(sentiasa khusus)";
+$langGroupDocumentsLink = "Dokumen untuk Kumpulan ";
 $langGroupFilledGroups = "Kumpulan ini telah dipenuhkan oleh Pelajar yang berada dalam senarai Pelajar Berdaftar.";
 $langGroupForum = "Forum Berkumpulan";
 $langGroupMembers = "Ahli Kumpulan";
@@ -46,7 +65,7 @@ $langGroupPropertiesModified = "<i>Setting</i> kumpulan telah diubahsuai";
 $langGroupSelfRegInf = "daftar";
 $langGroupSelfRegistration = "Pendaftaran";
 $langGroupSettingsModified = "<i>Setting</i> kumpulan diubahsuai";
-$langGroupSpace = "Ruangan Kumpulan";
+$langGroupSpaceLink = "Ruangan Kumpulan";
 $langGroupStudentsInGroup = "Pelajar berdaftar untuk kumpulan ini";
 $langGroupStudentsRegistered = "Pelajar berdaftar untuk subjek ini";
 $langGroupThisSpace = "Maklumat untuk kumpulan ini";
@@ -64,7 +83,6 @@ $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
 $langManager = "Pentadbir Sistem";
 $langMax = "Keahlian Maksimum ";
-$langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
@@ -72,28 +90,25 @@ $langMyGroup = "kumpulan saya";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Bina kumpulan baru";
 $langNewGroups = "kumpulan baru";
+$langNewTopic = "Topik Baru";
 $langNoGroupStudents = "Pelajar tiada kumpulan";
-$langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
 $langOneMyGroups = "Visi Utama";
 $langOtherCourses = "Senarai Subjek";
-$langPassword = "katalaluan";
 $langPlaces = "orang pelajar";
 $langPoweredBy = "Oleh : ";
 $langPrivate = "Khusus";
 $langPublic = "Umum";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;kumpulan";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Pelajar boleh menjadi ahli kepada maksimum ";
-$langReg = "Daftar";
 $langRegIntoGroup = "Tambah saya dalam Kumpulan ini";
 $langRegistered = "Bilangan Ahli Semasa";
+$langReply = "Jawapan";
 $langStudent = "Pelajar";
 $langStudentsNotInThisGroups = "Pelajar bukan dalam kumpulan ini";
 $langSubscribed = "Pelajar berdaftar untuk subjek ini";
 $langTo = "ke";
-$langTools = "Tools";
 $langUncompulsory = "(pilihan)";
-$langUserName = "Nama Pengguna";
 $langUsers = "Users";
 $langWork = "Works";
 ?>

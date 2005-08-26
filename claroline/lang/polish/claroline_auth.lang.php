@@ -1,6 +1,5 @@
 <?php
 $langAction = "Funkcja";
-$langAddIntro = "Dodaj tekst wprowadzenia";
 $langAddress = "Adres ";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
@@ -8,13 +7,13 @@ $langCancel = "Zrezygnuj";
 $langCategories = "Kategorie/Wydzia³y";
 $langChat = "Chat-room";
 $langComment = "Komentarze";
-$langConfirmYourChoice = "Potwierd¼ swój wybór";
 $langConfirmation = "Potwierdzenie";
 $langCopy = "Kopiuj";
+$langCourse = "Strona WWW ";
 $langCourseManager = "Administrator";
+$langCreate = "Utwórz";
 $langDay_of_weekNames = "Array";
 $langDear = "";
-$langDelete = "Usuñ";
 $langDescriptionCours = "Opis kursu";
 $langDocument = "Dokumenty";
 $langEmail = "Email";
@@ -41,7 +40,6 @@ Dear %s, %s.
 Twoje osobiste ustawienia zosta³y zarejestrowane a 
 Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
 Wybierz z listy kursy, do których chcesz mieæ dostêp.";
-$langModify = "Modyfikuj";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
@@ -49,7 +47,6 @@ $langMyStats = "Zobacz statystykê";
 $langNameOfLang = "Array";
 $langNext = "Dalej";
 $langNo = "Nie";
-$langNotAllowed = "You are not allowed here";
 $langNowGoChooseYourCourses = "Teraz mo¿esz wybieraæ z listy, kursy do których chcesz mieæ dostêp.";
 $langNowGoCreateYourCourse = "Teraz mo¿esz tworzyæ swoje kursy";
 $langOk = "Ok";
@@ -62,7 +59,6 @@ $langProfileReg = "Twój nowy profil zosta³ zapisany";
 $langReg = "Rejestracja";
 $langRegAdmin = "Tworzenie kursu";
 $langRegStudent = "Uczestnictwo w kursie";
-$langRegistration = "Rejestracja";
 $langSettings = "z nastêpuj±cymi ustawieniami: 
 Username:";
 $langStudent = "student";

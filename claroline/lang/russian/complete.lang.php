@@ -298,7 +298,6 @@ $langDocumentsTitleDocumentColumn = "Учебные материалы";
 $langDocumentsTitleUsersColumn = "Скачиваний зарегистрированными пользователями";
 $langEG = "например";
 $langEdit = "тЕДБЛФЙТПЧБФШ";
-$langEditDel = "редактировать/удалить";
 $langEditGroup = "тЕДБЛФЙТПЧБФШ ЗТХРРХ";
 $langElRen = "Элемент переименован";
 $langElementList = "Список элементов";

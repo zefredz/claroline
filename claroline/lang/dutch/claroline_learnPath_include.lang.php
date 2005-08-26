@@ -8,5 +8,6 @@ $langModify = "Wijzigen";
 $langOk = "Ok";
 $langQuestion = "Vraag";
 $langRawHasBeenChanged = "Ruw minimum om te slagen is veranderd";
+$langScore = "Score";
 $langSize = "Grootte";
 ?>

@@ -236,7 +236,6 @@ $langDocumentsTitleDocumentColumn = "Dokument";
 $langDocumentsTitleUsersColumn = "Antal användarnedladdningar";
 $langEG = "e.g.";
 $langEdit = "Redigera";
-$langEditDel = "redigera/radera";
 $langEditGroup = "Redigera denna grupp";
 $langElRen = "filen bytte namn";
 $langElementList = "Elementlista";

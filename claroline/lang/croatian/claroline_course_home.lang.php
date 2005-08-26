@@ -21,15 +21,12 @@ $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
-$langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
-$langReg = "Prijava";
 $langStatistics = "Statistika";
 $langStudent = "student";
 $langTools = "Alati";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 ?>

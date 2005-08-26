@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Lời giới thiệu";
 $langAgenda = "Agenda (Lịch công tác)";
 $langAnnouncement = "Thông báo";
-$langCancel = "Cancel";
 $langChat = "Thảo luận";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,
@@ -26,10 +24,8 @@ post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is";
-$langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
 $langCourseManager = "Quản lý khoá họcr";
 $langDay_of_weekNames = "Array";
-$langDelete = "xoá";
 $langDescriptionCours = "Mô tả khoá học";
 $langDocContent = "<p>The Documents tool is similar to the FileManager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
@@ -312,17 +308,12 @@ $langHomeContent = "For more convenience, claroline tools contain default entrie
 $langLogin = "login";
 $langLogout = "Logout";
 $langManager = "Người quản lý";
-$langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
-$langNotAllowed = "Not allowed";
-$langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";
-$langPassword = "password";
 $langPoweredBy = "Powered by";
-$langReg = "Đăng ký";
 $langStudent = "học sinh";
 $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
@@ -347,7 +338,6 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
-$langUserName = "Username";
 $langUsers = "Users";
 $langWork = "Công việc";
 ?>

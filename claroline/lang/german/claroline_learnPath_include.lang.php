@@ -8,5 +8,6 @@ $langModify = "ändern";
 $langOk = "Ok";
 $langQuestion = "Frage";
 $langRawHasBeenChanged = "Mindestanforderung wurde erfolgreich geändert";
+$langScore = "Punkte";
 $langSize = "Größe";
 ?>

@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
-$langCancel = "Annuler";
 $langChat = "Discussion";
 $langClarContent = "<br><p><b>Utilisateur</b></p>
 <p>
@@ -30,11 +28,9 @@ href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
 $langConfigMenuContent = "Menu de configuration";
-$langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCourseHome = "Accueil";
 $langCourseManager = "gestionnaire de l&acute;espace";
 $langDay_of_weekNames = "Array";
-$langDelete = "Effacer";
 $langDescriptionCours = "Description de l&acute;espace";
 $langDocContent = "<p>Le module de gestion de document fonctionne de
  manière semblable à la gestion de vos documents sur un
@@ -484,19 +480,14 @@ $langLogin = "login";
 $langLogout = "Quitter";
 $langManager = "Gestionnaire";
 $langMinuteShort = "min.";
-$langModify = "modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes espaces";
 $langNameOfLang = "Array";
-$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
-$langOk = "Valider";
 $langOtherCourses = "Liste des espaces";
-$langPassword = "mot de passe";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
-$langReg = "Inscription";
 $langSecondShort = "sec.";
 $langStudent = "participant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
@@ -519,16 +510,9 @@ $langUserContent = "<b>Droits d'administration</b>
 et validez. La personne recevra un courriel de confirmation de son
 inscription contenant son nom d'utilisateur et son mot de passe, sauf si
 vous n'avez pas introduit son email.</p>";
-$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Contributions";
-$lang_click_here = "cliquez ici";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
-$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_p_platformManager = "Administrateur %s";
-$lang_this_course_is_protected = "Ce cours est protégé";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>

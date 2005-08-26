@@ -24,16 +24,12 @@ $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
-$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";
-$langPassword = "пароль";
 $langPoweredBy = "использует оболочку";
-$langReg = "Регистрация";
 $langStatistics = "Статистика";
 $langStudent = "студент";
 $langTools = "уТЕДУФЧБ ХРТБЧМЕОЙС";
-$langUserName = "Имя пользователя";
 $langUsers = "Пользователи";
 $langWork = "Задания";
 ?>

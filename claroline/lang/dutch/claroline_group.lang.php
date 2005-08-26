@@ -1,23 +1,45 @@
 <?php
-$langAddIntro = "Inleiding toevoegen";
+$l_click = "Klik";
+$l_here = "hier";
+$l_notifybody = "U krijgt deze e-mail omdat een bericht dat u ingediend had op het forum een antwoord heeft gekregen
+	en u had gevraagd om verwittigd te worden.
+
+U kan het onderwerp zien op:
+
+%1\$s
+
+Of de forumindex bekijken op
+
+%2\$s
+
+Bedankt voor het gebruiken van het forum.
+
+Tot ziens.";
+$l_notifysubj = "Er werd een antwoord op uw onderwerp ingediend.";
+$l_returnindex = "om terug te keren naar de forumindex";
+$l_returntopic = "om terug te keren naar de onderwerpenlijst van het forum.";
+$l_separator = "» »";
+$l_viewmsg = "om uw Bericht te lezen.";
 $langAddTutors = "Lijst van de lesgevers beheren";
+$langAdm = "Beheren";
 $langAdminsOfThisCours = "cursusbeheerder(s)";
 $langAgenda = "Agenda";
 $langAnnouncement = "Ad Valvas";
+$langBackTo = "Terug naar :";
 $langCancel = "Annuleren";
 $langChat = "Online chat";
 $langConfirmDeleteGroups = "Bent U zeker dat U alle groepen wil verwijderen ?";
 $langConfirmEmptyGroups = "Bent U zeker dat U alle groepen wil leegmaken ?";
-$langConfirmYourChoice = "Gelieve uw keuze te bevestigen";
 $langCopy = "Knippen";
+$langCourseHome = "Cursus thuisbasis";
 $langCourseManager = "Cursusbeheerder";
 $langCreate = "aanmaken";
 $langDay_of_weekNames = "Array";
+$langDear = "Beste";
 $langDelete = "Verwijderen";
 $langDeleteGroups = "Alle groepen verwijderen";
 $langDescriptionCours = "Cursus omschrijving";
 $langDocument = "Documenten";
-$langDocuments = "Documenten";
 $langEdit = "Wijzigen";
 $langEditGroup = "Deze groep wijzigen";
 $langEmtpyGroups = "Alle groepen leegmaken";
@@ -25,7 +47,6 @@ $langExercises = "Oefeningen";
 $langExistingGroups = "Groepen";
 $langFillGroups = "Alle groepen invullen";
 $langForum = "Forum";
-$langForumGroup = "Groepsforum";
 $langForums = "Forums";
 $langGroup = "Groep";
 $langGroupAllowStudentRegistration = "De gebruikers mogen zichzelf in de groepen inschrijven";
@@ -35,6 +56,7 @@ $langGroupDel = "Groep verwijderd";
 $langGroupDescription = "Beschrijving";
 $langGroupDocument = "Documenten";
 $langGroupDocumentAlwaysPrivate = "zijn altijd priv&eacute;.";
+$langGroupDocumentsLink = "Groepsdocumenten";
 $langGroupFilledGroups = "De groepen werden aangevuld met de gebruikers uit de lijst 'Gebruikers'.";
 $langGroupForum = "Forum";
 $langGroupLimit = "Begrenzing";
@@ -51,7 +73,7 @@ $langGroupPropertiesModified = "De groepseigenschappen werden gewijzigd";
 $langGroupSelfRegInf = "zich inschrijven";
 $langGroupSelfRegistration = "Inschrijven";
 $langGroupSettingsModified = "Parameters van deze groep zijn gewijzigd.";
-$langGroupSpace = "Groepsruimte";
+$langGroupSpaceLink = "Ruimte van deze groep";
 $langGroupStudentsInGroup = "gebruiker(s) in de groepen ingeschreven";
 $langGroupStudentsRegistered = "gebruiker(s) voor de cursus ingeschreven";
 $langGroupThisSpace = "Ruimte van deze groep";
@@ -72,7 +94,6 @@ $langLogout = "Afmelden";
 $langManager = "Platformbeheerder";
 $langMax = "Maximum";
 $langMinuteShort = "min.";
-$langModify = "Wijzigen";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
@@ -81,12 +102,11 @@ $langMyGroup = "mijn groep";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Nieuwe groep(en) aanmaken";
 $langNewGroups = "nieuwe groepen";
+$langNewTopic = "Nieuw onderwerp";
 $langNoGroupStudents = "Gebruiker(s) zonder groep";
-$langNotAllowed = "U bent hier niet toegelaten";
 $langOk = "Ok";
 $langOneMyGroups = "onder mijn beheer";
 $langOtherCourses = "Cursusoverzicht";
-$langPassword = "Wachtwoord";
 $langPlaces = "plaatsen per groep (facultatief)";
 $langPlatformAdministration = "Platform beheer";
 $langPoweredBy = " gebruikt het platform";
@@ -94,9 +114,9 @@ $langPrivate = "priv&eacute;";
 $langPublic = "publiek";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;groepen";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Een gebruiker kan slechts deelnemer zijn van maximum ";
-$langReg = "Registratie";
 $langRegIntoGroup = "Inschrijven in deze groep";
 $langRegistered = "Ingeschreven";
+$langReply = "Antwoorden";
 $langSecondShort = "sec.";
 $langStudent = "student";
 $langStudentsNotInThisGroups = "Deelnemer(s) niet in deze groep";
@@ -105,19 +125,11 @@ $langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwi
 $langTextEditorDisable = "Desactiveer tekst bewerking";
 $langTextEditorEnable = "Activeer tekst bewerking";
 $langTo = "naar";
-$langTools = "Werkmiddelen";
 $langUncompulsory = "(facultatief)";
-$langUserName = "Gebruikersnaam ('login')";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
-$lang_click_here = "Klik hier";
-$lang_enter_your_user_name_and_password = "Geef gebruikersnaam en wachtwoord";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Indien U geen account hebt op";
-$lang_if_you_wish_to_enroll_to_this_course = "Indien U wil inschrijven in deze cursus";
 $lang_p_platformManager = "Beheerder voor %s";
-$lang_this_course_is_protected = "Deze cursus is beschermd";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 ?>

@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Lời giới thiệu";
 $langAgenda = "Agenda (Lịch công tác)";
 $langAllowed = "Được phép";
 $langAnnouncement = "Thông báo";
@@ -12,7 +11,6 @@ $langCode = "Mã khoá học";
 $langConfTip = "By default, you course is only accessible to you as its only registered user. If you want some confidentiality,
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.";
-$langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
 $langCopy = "Sao chép";
 $langCourse = "Website ";
 $langCourseAccess = "Truy cập vào khoá học này";
@@ -20,7 +18,6 @@ $langCourseManager = "Quản lý khoá họcr";
 $langCourseTitle = "Tên khoá học";
 $langDay_of_weekNames = "Array";
 $langDelCourse = "Xoá toàn bộ website của khoá học";
-$langDelete = "xoá";
 $langDenied = "Bị cấm";
 $langDepartmentUrl = "Địa chỉ URL của trường/khoa";
 $langDepartmentUrlName = "Trường/Khoa";
@@ -38,7 +35,6 @@ $langLogin = "login";
 $langLogout = "Logout";
 $langManager = "Người quản lý";
 $langModifDone = "Thông tin đã được hiệu chỉnh";
-$langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
@@ -47,18 +43,15 @@ $langNo = "No";
 $langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";
-$langPassword = "password";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Truy cập chỉ với <a href=../user/user.php>danh sách user</a>)";
 $langProfessors = "Giáo viên";
 $langPublicAccess = "Truy cập không cần login";
-$langReg = "Đăng ký";
 $langStatistics = "Thống kê";
 $langStudent = "học sinh";
 $langSubscription = "Subscription";
 $langTipLang = "This language will be valid for every visitor of your course's website.";
 $langTo = "đến";
-$langUserName = "Username";
 $langUsers = "Users";
 $langWork = "Công việc";
 $langYes = "Yes";

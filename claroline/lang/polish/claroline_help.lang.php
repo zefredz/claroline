@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Dodaj tekst wprowadzenia";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
-$langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
 $langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,
@@ -10,10 +8,8 @@ $langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kurs
  forum discussions...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
 <p>'Forum u¿ytkowników Claroline' ³aczy osoby korzystaj±ce z oprogramowania Claroline na ca³ym swiecie. Je¶li nie mo¿esz uzyskaæ odpowiedzi na swoje pytanie wewn±trz swojego campusa, wy¶lij tam swoj± wiadomo¶æ.</p>
 <p>Odno¶nik 'Rejestracja' (je¶li istnieje) znajduje siê na stronie g³ównej campusu (u góry, po prawej).</p><b>Logowanie</b><p>Podczas nastêpnych wizyt, wpisuj swoj± nazwê u¿ytkownika i has³o, a nastêpnie 'Wej¶cie', ¿eby uzyskaæ dostêp Twoich kursów. Adres strony: ";
-$langConfirmYourChoice = "Potwierd¼ swój wybór";
 $langCourseManager = "Administrator";
 $langDay_of_weekNames = "Array";
-$langDelete = "Usuñ";
 $langDescriptionCours = "Opis kursu";
 $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w komputerze.</p><p>Mo¿esz ³adowaæ pliki ró¿nego typu (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Musisz tylko zadbaæ, ¿eby studenci mieli programy, które umo¿liwi±  odczytanie umieszczonych plików. Pliki niektórych typów mog± zawieraæ wirusy - do Ciebie nale¿y odpowiedzialno¶æ, ¿eby nie za³adowaæ zawirusowanych plików. Rozs±dnym jest sprawdzanie wszystkich plików programem przeciwwirusowym przed ich za³adowaniem do serwera. </p>
 <p>Dokumenty s± wy¶wietlane w porz±dku alfabetycznym.<br><b>Uwaga : </b>Je¶li chcesz umie¶cic pliki w innej kolejno¶ci, ponumeruj je: 01, 02, 03...</p>
@@ -193,16 +189,12 @@ $langHomeContent = "Dla wiêkszej wygody, narzêdzia Claroline ju¿ na pocz±tku nie
 $langLogin = "Logowanie";
 $langLogout = "Wylogowanie";
 $langManager = "Administrator";
-$langModify = "Modyfikuj";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
-$langNotAllowed = "You are not allowed here";
-$langOk = "Ok";
 $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
-$langReg = "Rejestracja";
 $langStudent = "student";
 $langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie 'modyfikuj' w kolumnie 'Funkcje' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr>
 <b>Uprawnienia administratora</b>
@@ -212,7 +204,6 @@ $langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± ni
 <p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c 'Modyfikuj ustawienia kursu'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole 'Wyk³adowca' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr>
 <b>Dodawanie u¿ytkownika</b>
 <p>¯eby dodaæ u¿ytkownika do kursu, wype³nij odpowiednie pola i zatwierd¼. Do osób, które zarejestujesz zostan± wys³ne listy email z informacj± o ich Nazwie u¿ytkownika i ha¶le.</p>";
-$langUserName = "Nazwa u¿ytkownika";
 $langUsers = "U¿ytkownicy";
 $langWork = "Works";
 ?>

@@ -8,5 +8,6 @@ $langModify = "Διόρθωση";
 $langOk = "Εντάξει";
 $langQuestion = "Ερώτηση";
 $langRawHasBeenChanged = "Ο ελάχιστος βαθμός για να προαγωγή έχει αλλαχθεί";
+$langScore = "Βαθμολογία";
 $langSize = "Μέγεθος";
 ?>

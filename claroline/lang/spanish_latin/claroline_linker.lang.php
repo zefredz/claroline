@@ -1,8 +1,32 @@
 <?php
 $l_topics = "Temas";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncios";
 $langCategories = "Departamentos";
+$langChat = "Chat";
+$langCourseHome = "Descripción del curso";
+$langCourseManager = "Coordinador de curso";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Descripción del curso";
+$langDocument = "Documentos";
 $langEmpty = "Vacío";
+$langExercises = "Ejercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
+$langHelp = "Ayuda";
+$langLogin = "Ingreso";
+$langLogout = "Salir";
+$langManager = "Responsable";
+$langModifyProfile = "Modificar mis datos";
+$langMonthNames = "Array";
+$langMyAgenda = "Mi agenda";
+$langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
+$langOtherCourses = "Lista de cursos";
+$langPlatformAdministration = "Administración de la plataforma";
+$langPoweredBy = "Generado con";
+$langStudent = "Estudiante";
 $langUp = "Arriba";
+$langUsers = "Usuarios";
+$langWork = "Trabajos";
 ?>

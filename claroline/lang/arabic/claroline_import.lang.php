@@ -1,42 +1,52 @@
 <?php
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAddPage = " إضافة صفحة";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langCancel = " إلغاء ";
-$langCouldNot = " لم نتمكن من إرسال الجذاذيّة ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDocument = " وثائق ";
-$langExercises = " تمارين ";
-$langExplanation = ">         يجب أن تكون هذه الصفحة على \"                                                                                                                                                                 
- شكل  HTML (p. ex. \"ma_page.htm\"). HTML سوف تكون مرتبطة بصفحة الانطلاق، إذا أردتم إرسال وثيقة على شكل مخالف لـ استعملو الأداة <a href=../document/document.php> Documents</a>";
-$langForums = "منتديات";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langHome = "Retourner à l'accueil";
-$langLink = " رابط ";
-$langLinkSite = "إضا�?ة رابط نحو ص�?حة الاستقبال ";
-$langLinks = " روابط ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langNameOfLang = "Array";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOkSent = " تمّ إرسال هذه الصفحة <p> يمكن الإطّلاع عليها انطلاقا من <a href=../..//index.php>صفحة استقبال </a> درسكم";
-$langOtherCourses = " دروس أخرى ";
-$langPgTitle = " عنوان الصفحة";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langReg = " ترسيم ";
-$langSendPage = " الصفحة التي سترسل ";
-$langStudent = "étudiant";
-$langSubTitle = " يضاف رابط داخليّا أو خارجيا نحو صفحة انطلاقا من صفحة الاستقبال  ";
-$langTooBig = " لم تختاروا جذاذية بالبعث أو أن الجذاذية كبيرة الحجم";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langWork = " أشغال ";
+$langAddPage = "إضافة صفحة";
+$langAgenda = "جدول الأعمال";
+$langAnnouncement = "الإعلانات";
+$langChat = "دردشة";
+$langCouldNot = "لم تنجح عملية إرسال الملف";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langDay_of_weekNames = "مصفوفة";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langExercises = "التمارين";
+$langExplanation = "بمجرد النقر على زر موافق سيتم إنشاء موقع للمقرر يحوي منتدى و جدول أعمال و مدير للوثائق.. إلخ <p> تستطيع تعديل الموقع وفق رغبتك عندما تقوم بتسجيل الدخول له بالاسم الذي انشأته به";
+$langForums = "المنتديات";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langHome = "العودة للصفحة الأساسية";
+$langLearningPath = "مسار التعليم";
+$langLink = "وصلة";
+$langLinkSite = "إضافة وصلة على الصفحة الرئيسية";
+$langLinks = "وصلات";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langManager = "المدير";
+$langMinuteShort = "دقيقة";
+$langModifyProfile = "تعديل معلوماتي";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langName = "الاسم";
+$langNameOfLang = "مصفوفة";
+$langNotAllowed = "غير مسموح";
+$langOk = "موافق";
+$langOkSent = "تم إرسال صفحتك بنجاح <p>الصفحة الأن مرتبطة  <a href=../..//index.php>بالصفحة الرئيسية</a>";
+$langOtherCourses = "قائمة المقررات";
+$langPgTitle = "عنوان الصفحة";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langSecondShort = "ثانية";
+$langSendPage = "الصفحة التي سيتم إرسالها";
+$langStudent = "طالب";
+$langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langTooBig = "لم تقم باختيار أي ملف لإرساله او ان حجم الملف كبير جداً";
+$langUsers = "المستخدمون";
+$langViewMode = "نمط العرض";
+$langWork = "واجبات و مهام";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
-$langCancel = "Cancelar";
 $langChat = "Chat";
 $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos. 
 						Os estudantes len (documentos, axenda, informaci&oacute;ns varias) e, outras veces, 
@@ -43,10 +41,9 @@ $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e adminis
 						ENTRAR para acceder &oacute;s seus cursos. A URL do sitio &eacute;";
 $langCloseWindow = "Pechar fiestra";
 $langConfigMenuContent = "Men&uacute; de configuraci&oacute;n";
-$langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langDay_of_weekNames = "Array";
-$langDelete = "Eliminar";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona de maneira semellante &aacute; 
 					xesti&oacute;n dos seus documentos nun ordenador. </p>
@@ -459,19 +456,14 @@ $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langManager = "Xestor";
 $langMinuteShort = "min.";
-$langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNameOfLang = "Array";
-$langNotAllowed = "Acci&oacute;n non permitida";
-$langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "contrasinal";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
-$langReg = "Inscrici&oacute;n";
 $langSecondShort = "seg.";
 $langStudent = "Estudante";
 $langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
@@ -505,17 +497,9 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						un correo electr&oacute;nico de confirmaci&oacute;n da s&uacute;a inscrici&oacute;n
 						co seu nome de usuario e contrasinal, excepto no caso de que vostede non introducira 
 						o seu correo electr&oacute;nico.</p>";
-$langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWork = "Traballos";
-$lang_click_here = "prema aqu&iacute;";
-$lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
 $lang_p_platformManager = "Administrador para %s";
-$lang_this_course_is_protected = "Este curso est&aacute; protexido";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
-														matriculado neste curso";
 ?>

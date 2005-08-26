@@ -1,6 +1,5 @@
 <?php
 $langAdd = "เพิ่ม";
-$langAddIntro = "เพิ่มคำนำ";
 $langAgenda = "กำหนดการ";
 $langAreYouSureToDelete = "ท่านแน่ใจหรือว่าต้องการลบ";
 $langCancel = "ยกเลิก";
@@ -19,14 +18,11 @@ $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
-$langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
-$langReg = "ลงทะเบียน";
 $langStudent = "นักศึกษา";
 $langTitle = "ชื่อวิชา";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 $langViMod = "ปรับปรุงการให้เห็นเอกสารแล้ว";
 ?>

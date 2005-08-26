@@ -1,13 +1,10 @@
 <?php
-$langAddIntro = "dodajte uvodni tekst";
 $langAddPage = "Dodajte stranicu";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
-$langCancel = "Odustanite";
 $langChat = "Razgovor - chat";
 $langCouldNot = "Dokument ne može biti poslan";
 $langDay_of_weekNames = "Array";
-$langDelete = "Izbriši";
 $langDescriptionCours = "Opis kolegija";
 $langDocument = "Dokumenti";
 $langExplanation = "Stranica mora biti u HTML formatu (e.g. \"my_page.htm\"). Bit æe link na poèetnoj stranici. Ako želite poslati u nekom drugom formatu (PDF, Word, Power Point, Video, itd.) koristite <a href=../document/document.php>Alati dokumenata</a>";
@@ -20,7 +17,6 @@ $langLinkSite = "Postavi link na poèetnu stranicu";
 $langLinks = "Linkovi";
 $langLogout = "Odjava";
 $langManager = "Manager";
-$langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
@@ -31,12 +27,10 @@ $langOkSent = "Vaša stranica je poslana.<p>Sada je linkom povezana sa predmetom 
 $langOtherCourses = "Popis kolegija";
 $langPgTitle = "Naslov stranice";
 $langPoweredBy = "Upravljano s ";
-$langReg = "Prijava";
 $langSendPage = "Pošalji stranicu";
 $langStudent = "student";
 $langSubTitle = "Dodajte poèetnoj stranici kolegija link, stranicu ili bilo koju URL. Napomena: Ako želite dodati link za stanicu, poðite na tu stranicu uèilajte adresu  s adresne trake na vrhu vašeg preglednika i umetnite je u \"link\" polje.";
 $langTooBig = "Niste izabrali dokument koji želite poslati, ili je on prevelik";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 ?>

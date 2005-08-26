@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
-$langCancel = "Ýptal";
 $langChat = "Tartýþma";
 $langClarContent = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and, 
@@ -27,7 +25,6 @@ post a message there.</p>
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is";
 $langDay_of_weekNames = "Array";
-$langDelete = "Sil";
 $langDescriptionCours = "Ders açýklamasý";
 $langDocContent = "<p>The Documents tool is similar to the FileManager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
@@ -238,16 +235,12 @@ $langHomeContent = "For more convenience, claroline tools contain default entrie
  By default, your course is hidden (because you work on it).</p>";
 $langLogout = "Çýkýþ";
 $langManager = "Yönetici";
-$langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ýzin verilmiyor";
-$langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
-$langReg = "Kayýt";
 $langStudent = "öðrenci";
 $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
@@ -272,7 +265,6 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
-$langUserName = "Kullanýcý adýnýz";
 $langUsers = "Kullanýcýlar";
 $langWork = "Öðrenci Yazýlarý";
 ?>

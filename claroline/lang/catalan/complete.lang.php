@@ -109,7 +109,6 @@ $langDocDeleted = "Document esborrat";
 $langDocument = "Documents";
 $langEG = "e. g.";
 $langEdit = "Edita";
-$langEditDel = "Edita/esborra";
 $langEditGroup = "Edita aquest grup";
 $langElRen = "Element reanomenat";
 $langEmail = "Correu-e";

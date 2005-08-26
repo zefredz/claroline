@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
 $langCancel = "Cancel·la";
@@ -7,7 +6,6 @@ $langChat = "Xat";
 $langCopy = "Copia";
 $langCourses = "cursos.";
 $langDay_of_weekNames = "Array";
-$langDelete = "Esborra";
 $langDocument = "Documents";
 $langExercises = "Exercicis";
 $langForums = "Fòrums";
@@ -15,19 +13,15 @@ $langGroups = "Grups";
 $langHelp = "Ajuda";
 $langManager = "El coordinador";
 $langMissing = "manca";
-$langModify = "modifica";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
 $langNameOfLang = "Array";
-$langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
 $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";
 $langPoweredBy = "Potenciat per ";
-$langReg = "Enregistrament";
 $langStudent = "estudiant";
 $langTo = "cap a";
-$langUserName = "Nom d'usuari";
 $langUsers = "Usuaris";
 $langWork = "Treballs dels estudiants";
 ?>

@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langAgenda = "Календарь";
 $langAllowed = "Разрешен";
 $langAnnouncement = "Объявления";
@@ -15,7 +14,6 @@ $langConfTip = "По умолчанию, курс доступен только вам, так как вы являетесь его
 Если вы хотите минимум конфиденциальности, самым простым решением будет открыть регистрацию в течение недели
 , попросить студентов зарегистрироваться самостоятельно, а затем закрыть регистрацию и проверить список пользователей
 , чтобы исключить возможных посторонних лиц.";
-$langConfirmYourChoice = "Подтвердите ваш выбор";
 $langCopy = "Скопировать";
 $langCourse = "Курс";
 $langCourseAccess = "Доступ к этому курсу";
@@ -23,7 +21,6 @@ $langCourseManager = "Менеджер курса";
 $langCourseTitle = "звание";
 $langDay_of_weekNames = "Array";
 $langDelCourse = "Удалить весь курс целиком";
-$langDelete = "удалить";
 $langDenied = "Запрещен";
 $langDepartmentUrl = "URL кафедры";
 $langDepartmentUrlName = "Кафедра";
@@ -40,7 +37,6 @@ $langLogin = "Вход, логин";
 $langLogout = "Выйти";
 $langManager = "Ответственный";
 $langModifDone = "Информация была изменена";
-$langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
@@ -49,18 +45,15 @@ $langNo = "Нет";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";
-$langPassword = "пароль";
 $langPoweredBy = "использует оболочку";
 $langPrivateAccess = "Закрытый доступ (сайт доступен только пользователям, указанным в списке <a href=../user/user.php>пользователи</a>)";
 $langProfessors = "рТЕРПДБЧБФЕМШ(Й)";
 $langPublicAccess = "вободный доступ (со страницы Кампуса баз пароля)";
-$langReg = "Регистрация";
 $langStatistics = "Статистика";
 $langStudent = "студент";
 $langSubscription = "Регистрация";
 $langTipLang = "Этот язык будет рабочим языком для всех посетителей вашего сайта курса.";
 $langTo = "в";
-$langUserName = "Имя пользователя";
 $langUsers = "Пользователи";
 $langWork = "Задания";
 $langYes = "Да";

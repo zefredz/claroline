@@ -1,6 +1,5 @@
 <?php
 $langAction = "Utför";
-$langAddIntro = "Lägg till introduktionstext";
 $langAddress = "Adressen till ";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
@@ -8,13 +7,13 @@ $langCancel = "Avbryt";
 $langCategories = "Kategorier";
 $langChat = "Diskussion";
 $langComment = "Kommentar";
-$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
 $langConfirmation = "bekräftelse";
 $langCopy = "Kopiera";
+$langCourse = "Webbsajten ";
 $langCourseManager = "Kursansvarig";
+$langCreate = "skapa";
 $langDay_of_weekNames = "Array";
 $langDear = "Kära";
-$langDelete = "Radera";
 $langDescriptionCours = "Kursbeskrivning";
 $langDocument = "Dokument";
 $langEmail = "Emejl";
@@ -42,7 +41,6 @@ Kära %s, %s.
 Dina personliga inställningar har registrerats och emejlats 
 till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br>
 Välj i listan vilka kurser som du vill deltaga i.";
-$langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
@@ -50,7 +48,6 @@ $langMyStats = "Visa min statistik";
 $langNameOfLang = "Array";
 $langNext = "Nästa";
 $langNo = "Nej";
-$langNotAllowed = "Inte tillåtet";
 $langNowGoChooseYourCourses = "Du kan nu välja, i listan, de kurser du vill deltaga i.";
 $langNowGoCreateYourCourse = "Du kan nu skapa din kurs";
 $langOk = "validate";
@@ -63,7 +60,6 @@ $langProfileReg = "Din nya profil har sparats";
 $langReg = "Registrering";
 $langRegAdmin = "Skapa kurswebbsajter (lärare)";
 $langRegStudent = "Följ kurser (elev)";
-$langRegistration = "Registrering";
 $langSettings = "med följande inställningar:
 Användarnamn:";
 $langStudent = "elev";

@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Lisää johdantoteksti";
 $langAdmitError = "Myöntää virheensä, jotta puhetoveri tekisi samoin.";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
@@ -13,7 +12,6 @@ $langCourseTitle = "Otsikko";
 $langCreateSite = "Luo kurssin sivusto";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Poista tämä foorumi hallintatyökalujen avulla.";
-$langDelete = "Poista";
 $langDocument = "Dokumentit";
 $langEmail = "Sähköposti";
 $langEmailWrong = "Sähköpostiosoitteesi on puutteellinen tai virheellinen";
@@ -34,7 +32,6 @@ $langManager = "Ylläpitäjä";
 $langManyAnswers = "(Vastauksia voi olla useampi)";
 $langMaxSizeCourseCode = "Korkeintaan 12 merkkiä, esimerkiksi <i>Luokka2121</i>";
 $langMessage = "Kun poistat testifoorumin, poistat myös kaikki viestit.";
-$langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
@@ -47,14 +44,12 @@ $langOk = "Ok";
 $langPoweredBy = "Alusta";
 $langProfessor = "Opettaja";
 $langProfessors = "Opettajat";
-$langReg = "Rekisteröinti";
 $langRidiculise = "Naurualainen tapa vaikuttaa puhetoveriin, jotta tämä myöntäisi olevansa väärässä.";
 $langSocraticIrony = "Sokraattinen ironia on...";
 $langStudent = "Opiskelija";
 $langTargetFac = "Kurssista vastaava koulutusala: ";
 $langTestForum = "testifoorumi";
 $langTo = "Hakemistoon";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

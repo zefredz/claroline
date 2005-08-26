@@ -1,14 +1,10 @@
 <?php
-$langAddIntro = "Lägg till introduktionstext";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
-$langCancel = "Avbryt";
 $langChat = "Diskussion";
 $langClarContent = "Här kan, lärare och assistenter skapa och administrera kurswebbsajter. Studenter kan läsa (dokument, agendor och annan information) och ibland göra övningar, publicera arbeten samt delta i forumdiskusioner...</p><b>Registrering</b><p>Följande instruktioner gäller bara om din version av Claroline tillåter självregistrering (vissa sajter registrerar dig automatiskt). Om du är elev, behöver du bara registrera dig på kursen genom att välja 'Följ kurser (elev)', därefter väljer du de kurser du vill delta i.</p><p>Om du är lärare eller assistent, registrera dig också, välj 'Skapa kurswebbsajter(lärare)'. Du kommer sedan att få fylla i Kurskod, Fakultet och Kurstitel. När allt godkänts tas du till den sajt som du nyss har skapat för att modifiera dess innehåll och organisation efter dina önskemål. </p><p>Om denna portal inte passar för dina ändamål, kontakta oss genom länken 'Att göra' som finns på campusens hemsida (när du loggat in).</p><p>Länken till Registrering hittar du på Campusens hemsida (överst till höger).</p><b>Login</b><p>När beöker sajten nästa gång, skriv in inloggnngsnamn/lösenord och godkänn för att få åtkomst till dina kurser. URL:en för sajten är";
-$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
 $langCourseManager = "Kursansvarig";
 $langDay_of_weekNames = "Array";
-$langDelete = "Radera";
 $langDescriptionCours = "Kursbeskrivning";
 $langDocContent = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p><p>Du kan ladda upp filer oavsett typ (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, m.fl.). Du behöver bara bry dig om ifall eleverna har motsvarande programvara för att kunna läsa dem. Några filtyper kan vara bärare av datorvirus och det är ditt ansvar att inte ladda upp smittade filer. Det är säkrast att kontrollera dokumentet med en antivirusprogramvara före uppladdning.</p>
 <p>Dokumenten visas i alfabetisk ordning.<br><b>Tips : </b>Om du presentera dem i en viss ordning så kan du numrera dem: 01, 02, 03... före det verkliga dokumentnamnet.</p>
@@ -185,16 +181,12 @@ $langHomeContent = "För större bekvämlighet, så uppträder i verktygen i Clarolin
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langManager = "Ansvarig";
-$langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
-$langNotAllowed = "Inte tillåtet";
-$langOk = "validate";
 $langOtherCourses = "Kurslista";
 $langPoweredBy = "Med kraft från";
-$langReg = "Registrering";
 $langStudent = "elev";
 $langUserContent = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De ger inga rättigheter på operativsystemsnivå. De finns bara för att indikera vem som är vem på mänsklig nivå. Du kan modifiera dem genom klicka på 'modifiera' under 'roll', därefter skriver du in önskad roll, t.ex: lärare, professor, assistent, elev, student, besökare, expert...</P><hr>
 <b>Administrationsrättigheter</b>
@@ -204,7 +196,6 @@ $langUserContent = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De
 <p>För att nämna medlärare i huvudet på kurswebbsajten, använd verktyget 'Modifiera kursinformation' (oranget verktyg). Denna modifikation gör inte medläraren till deltagare i kursen. Fältet 'Lärare' är helt skilt från Användarlistan.</p><hr>
 <b>Lägg till en användare</b>
 <p>För att lägga till en användare på din kurs, kontrollera först att personen inte är registrerad globalt på webbsajten. Om det är så markera i rutan på sidan om hans namn och klicka 'Ok'. Om personen inte är registrerad, lägg till personen manuellt. I båda fallen kommer personen att få ett mejl som talar om att du har registrerat personen och lösenord samt användarnamn skickas till personen som påminnelse.</p>";
-$langUserName = "Namn";
 $langUsers = "Användare";
 $langWork = "Elevarbeten";
 ?>

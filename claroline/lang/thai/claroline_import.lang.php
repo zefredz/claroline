@@ -1,12 +1,9 @@
 <?php
-$langAddIntro = "เพิ่มคำนำ";
 $langAddPage = "เพิ่มเติมรายวิชา";
 $langAgenda = "กำหนดการ";
-$langCancel = "ยกเลิก";
 $langChat = "Chat";
 $langCouldNot = "ไม่สามารถส่งข้อมูลได้";
 $langDay_of_weekNames = "Array";
-$langDelete = "ลบ";
 $langDocument = "เอกสาร";
 $langExplanation = "เอกสารต้องอยุ่ในรูปแบบ HTML format (เช่น \"my_page.htm\")  จึงจะสามารถ link จากหน้าแรกได้  หากท่านต้องการส่งเอกสารที่ไม่เป็น HTML  (เช่น PDF, Word, Power Point, Video, etc.) เลือกใช้ <a href=../document/document.php>เครื่องมือจัดการเอกสาร</a>";
 $langForums = "กระดานข่าว";
@@ -18,7 +15,6 @@ $langLinkSite = "เพิ่ม link ในรายวิชานี้";
 $langLinks = "Link";
 $langLogout = "Logout";
 $langManager = "ผู้จัดการ";
-$langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
@@ -29,11 +25,9 @@ $langOkSent = "ส่งข้อมูลเสร็จสิ้น<p> ทำการเพิ่ม link ที่รายวิชา <a href=../..//i
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPgTitle = "ชื่อเรื่อง";
 $langPoweredBy = "Powered by";
-$langReg = "ลงทะเบียน";
 $langSendPage = "หน้าที่ส่ง";
 $langStudent = "นักศึกษา";
 $langSubTitle = "เพิ่ม link ไปที่เมนูหลักของรายวิชาท่าน. Tip: ถ้าท่านต้องการเพิ่มลิ้งค์ไปที่หน้าใด ให้ไปที่หน้านั้น cut and paste ชื่อลิ้งค์ที่แถบ URL ด้านบนของเบาร์เซอร์ และแทรกลงในช่อง \"Link\" ด้านล่าง";
 $langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 ?>

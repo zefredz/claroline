@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
 $langAgenda = "Ατζέντα";
 $langAnnouncement = "Ανακοινώσεις";
-$langCancel = "Ακύρωση";
 $langChat = "Κουβεντούλα";
 $langClarContent = "Εδώ, καθηγητές και βοηθοί δημιουργούν και διαχειρίζονται
  τους δικτυακούς τόπους των μαθημάτων τους. Οι φοιτητές μπορούν να διαβάσουν
@@ -22,11 +20,9 @@ $langClarContent = "Εδώ, καθηγητές και βοηθοί δημιουργούν και διαχειρίζονται
  ";
 $langCloseWindow = "Κλείστε το παράθυρο";
 $langConfigMenuContent = "Διαμόρφωση του Menu";
-$langConfirmYourChoice = "Παρακαλώ επιβεβαιώστε την επιλογή σας";
 $langCourseHome = "Αρχική σελίδα μαθήματος(Course)";
-$langCourseManager = "Διαχειρηστής μαθήματος (Course)";
+$langCourseManager = "Διαχειριστής Μαθήματος";
 $langDay_of_weekNames = "Array";
-$langDelete = "Διαγραφή";
 $langDescriptionCours = "Περιγραφή μαθήματος";
 $langDocContent = "<p>Το εργαλείο αρχείων είναι όμοιο σε λειτουργία με τον Διαχειριστή Αρχείων
  του προσωπικού σας υπολογιστή.</p><p>Μπορείτε να ανεβάσετε αρχεία οποιουδήποτε τύπου (HTML, Word,
@@ -133,7 +129,7 @@ $langExerciseContent = "<h4>Ποιό είναι το εργαλείο-μέσο ασκησης ?</h4>
 </li>
 <li> κανε κλικ στο Ok</li>
 </ul>
-<p>τώρα μπορείς να συμπληρώσεις τις νεες ασκήσεις με καινούριες ερωτήσεις ή ερωτήσεις απο το σύνολο/πλήθος.</p>
+<p>τώρα μπορείς να συμπληρώσεις τις νεες ασκήσεις με νέες ερωτήσεις ή ερωτήσεις απο το σύνολο/πλήθος.</p>
 
 <hr />
 <h4>Ερωτήσεις</h4>
@@ -412,19 +408,14 @@ $langLogin = "Login";
 $langLogout = "Εξοδος";
 $langManager = "Διαχειριστής";
 $langMinuteShort = "min. (ελαχ.)";
-$langModify = "Διόρθωση";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langNameOfLang = "Διάταξη";
-$langNotAllowed = "Δεν επιτρέπεται";
-$langOk = "Εντάξει";
 $langOtherCourses = "Λίστα Μαθημάτων";
-$langPassword = "Κωδικός";
 $langPlatformAdministration = "Διαχείρηση Πλατφόρμας";
 $langPoweredBy = "Με τη βοήθεια του";
-$langReg = "Εγγραφή";
 $langSecondShort = "sec.";
 $langStudent = "φοιτητής";
 $langSwitchEditorToTextConfirm = "Η εντολή θα αφαιρέσει τη τρέχουσα διάταξη κειμένου. Θέλετε να συμεχίσετε ?";
@@ -452,16 +443,9 @@ $langUserContent = "<b>Ρόλοι</b><p>Οι ρόλοι δεν σχετίζονται καθόλου με τον υπολο
 <p>Για να προσθέσετε ένα χρήστη στο μάθημά σας, συμπληρώστε τα πεδία και επιβεβαιώστε το. Ο χρήστης
 θα λάβει ένα e-mail που θα τον/την ενημερώνει ότι τον/την έχετε εγγράψει και απλά πείτε του/της
 ή θυμήστε του/της το όνομα χρήστη και το συνθηματικό.</p>";
-$langUserName = "Όνομα χρήστη";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langWork = "Εργασίες Φοιτητών";
-$lang_click_here = "Κάνε κλικ εδώ";
-$lang_enter_your_user_name_and_password = "Eισαγωγή ονόματος χρήστη (username) και κωδικού (password)";
-$lang_footer_p_CourseManager = "Διευθυντής-ες για %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Εαν δεν έχετε λογαριασμό χρήστη ανοιχτό";
-$lang_if_you_wish_to_enroll_to_this_course = "Εαν επιθυμείτε να εγγραφείτε στο μάθημα αυτό";
-$lang_p_platformManager = "Διαχειρηστής για %s";
-$lang_this_course_is_protected = "Αυτό το μάθημα προστατεύεται";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα";
+$lang_footer_p_CourseManager = "Υπεύθυνος για %s";
+$lang_p_platformManager = "Διαχειριστής για %s";
 ?>

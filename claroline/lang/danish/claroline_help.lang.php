@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Tilføj introduktionstekst";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
-$langCancel = "Fortryd";
 $langChat = "Chat";
 $langClarContent = "Her kan undervisere og assistenter oprette og administrere
 kursushjemmesider. De studerende læser (dokumenter, kalender, informationer) og sommetider 
@@ -23,10 +21,8 @@ sende dit spørgsmål ind her.</p>
 <p>Linket til registrering finder du på forsiden til Claroline 
 (øverst til højre).</p><b>Login</b><p>Ved dit næste besøg, skriv brugernavn og adgangskode 
 (husk de er <i>case sensitive</i>) og tryk ok for at komme ind på dine kurser.";
-$langConfirmYourChoice = "Venligst bekræft dit valg";
 $langCourseManager = "Kursusadministrator";
 $langDay_of_weekNames = "Array";
-$langDelete = "Slette";
 $langDescriptionCours = "kursusbeskrivelse";
 $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 </p><p>Du kan lægge alle slags filer ud (HTML, Word,
@@ -300,17 +296,12 @@ $langHomeContent = "For at komme i gang, indeholder værktøjerne i claroline stan
 $langLogin = "login";
 $langLogout = "Logud";
 $langManager = "Support";
-$langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ikke tilladt";
-$langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";
-$langPassword = "adgangskode";
 $langPoweredBy = "Udviklet af";
-$langReg = "Registrering";
 $langStudent = "studerende";
 $langUserContent = "<b>Titel</b><p>Titel har ikke noget at gøre med at administrere kurset,
  men har udelukkende til formål at præsentere deltagerne for hinanden.
@@ -331,7 +322,6 @@ $langUserContent = "<b>Titel</b><p>Titel har ikke noget at gøre med at administr
 <p>For at tilføje en deltager på dit kursus, udfyld felterne og udfør ved at klikke 'ok'. Personen
 vil mdotage en e-mail, der fortæller ham/hende, at du har registreret ham/hende og fortæller
 ham/hende eller minder ham/hende om sit login og sin adgangskode.</p>";
-$langUserName = "Brugernavn";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
 ?>

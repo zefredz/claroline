@@ -307,7 +307,6 @@ $langDocumentsTitleDocumentColumn = "Dokument";
 $langDocumentsTitleUsersColumn = "Kopiranja uporabnikov";
 $langEG = "na pr.";
 $langEdit = "Uredi";
-$langEditDel = "Edit/delete";
 $langEditGroup = "Uredi to skupino";
 $langElRen = "Element preimenovan";
 $langElementList = "Seznam elementov";

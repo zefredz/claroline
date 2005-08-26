@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Довави/промени коментар за";
-$langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnd = "и";
 $langAnnouncement = "Обяви";
@@ -39,13 +38,11 @@ $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
 $langQuestion = "Въпрос";
 $langQuestions = "Въпроси";
-$langReg = "Регистрация";
 $langResult = "Оценка";
 $langSize = "Размер";
 $langStudent = "студент";
 $langTrue = "Истина";
 $langUp = "Нагоре";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 $langYes = "Да";

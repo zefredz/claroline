@@ -1,6 +1,5 @@
 <?php
 $langAction = "Action";
-$langAddIntro = "Tambah teks pendahuluan";
 $langAddress = "Alamat dari ";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
@@ -8,13 +7,13 @@ $langCancel = "Batal";
 $langCategories = "Kategori-kategori";
 $langChat = "Diskusi";
 $langComment = "Komentar";
-$langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
 $langConfirmation = "Konfirmasi";
 $langCopy = "Copy";
+$langCourse = "Situs ";
 $langCourseManager = "Penanggung jawab pelajaran";
+$langCreate = "buat";
 $langDay_of_weekNames = "Array";
 $langDear = "Yth.";
-$langDelete = "Hapus";
 $langDescriptionCours = "Deskripsi pelajaran";
 $langDocument = "Dokumen";
 $langEmail = "Email";
@@ -40,7 +39,6 @@ $langMessageSubscribeDone_p_firstname_lastname = "
 Yth. %s, %s. 
 Setting personal anda telah terdaftar dan email telah 
 dikirim untuk membantu anda mengingat nama user dan password anda.";
-$langModify = "Ubah";
 $langModifyProfile = "Ubah profil Ku";
 $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
@@ -48,7 +46,6 @@ $langMyStats = "Lihat statistik-ku";
 $langNameOfLang = "Array";
 $langNext = "Berikutnya";
 $langNo = "Tidak";
-$langNotAllowed = "Tidak diijinkan";
 $langNowGoChooseYourCourses = "Anda kini dapat memilih pelajaran dari daftar untuk diakses.";
 $langNowGoCreateYourCourse = "Anda kini dapat membuat situs pelajaran anda";
 $langOk = "Ok";
@@ -62,7 +59,6 @@ $langProfileReg = "Profil bau anda telah disimpan";
 $langReg = "Pendaftaran";
 $langRegAdmin = "Buat situs pelajaran";
 $langRegStudent = "Ikut pelajaran";
-$langRegistration = "Pendaftaran";
 $langSettings = "dengan setting berikut:
 Nama user:";
 $langStudent = "siswa";

@@ -1,19 +1,16 @@
 <?php
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "Σε περίπτωση διακοπής <sup>*</sup>, το <em>σύστημα Αναβάθμισης Claroline </em> θα πρέπει να κάνει αυτόματη επανεκίνηση.
 Σε διαφορετική περίπτωση, κάντε κλικ στο παρακάτω πλήκτρο.";
-$langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
-$langAdministration = "Διαχείρηση";
+$langAdministration = "Διαχείριση";
 $langAgenda = "Ατζέντα";
 $langAnnouncement = "Ανακοινώσεις";
 $langCancel = "Ακύρωση";
 $langChat = "Κουβεντούλα";
 $langConfigurationFile = "Διαμόρφωση αρχείου";
-$langConfirmYourChoice = "Παρακαλώ επιβεβαιώστε την επιλογή σας";
 $langCopy = "Αντιγραφή";
 $langCourseHome = "Αρχική σελίδα μαθήματος(Course)";
-$langCourseManager = "Διαχειρηστής μαθήματος (Course)";
+$langCourseManager = "Διαχειριστής Μαθήματος";
 $langDay_of_weekNames = "Array";
-$langDelete = "Διαγραφή";
 $langDescriptionCours = "Περιγραφή μαθήματος";
 $langDocument = "Εγγραφα";
 $langDone = "Ολοκλήρωση βηματων";
@@ -71,7 +68,6 @@ is not able to start if you do not confirm that the data has been done.</p>
 $langManager = "Διαχειριστής";
 $langMinuteShort = "min. (ελαχ.)";
 $langModeVerbose = "Τύπος Verbose";
-$langModify = "Διόρθωση";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
@@ -81,14 +77,12 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on 
 $langNext = "Επόμενο";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Επόμενο ></button></p>";
 $langNo = "όχι";
-$langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOtherCourses = "Λίστα Μαθημάτων";
 $langPassword = "Κωδικός";
 $langPlatformAccess = "Είσοδος στο campus";
 $langPlatformAdministration = "Διαχείρηση Πλατφόρμας";
 $langPoweredBy = "Με τη βοήθεια του";
-$langReg = "Εγγραφή";
 $langRemainingSteps = "Βήματα που απέμειναν";
 $langRestoreCourseRepository = "Επαναφορά πηγης πληροφοριών";
 $langSecondShort = "sec.";
@@ -120,32 +114,23 @@ $lang_CourseHasNoRepository_s_NotFound = "<strong>Το μάθημα δεν έχει ύλη.</stron
 $lang_RetryWithMoreDetails = "Ξαναπροσπάθησε με περισσότερες λεπτομέρειες";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Οι κεντρικοί πίνακες του claroline έχουν αναβαθμιστεί με επιτυχία";
 $lang_UpgradeFailedForCourses = "Το Εργαλείο αναβάθμισης δεν μπορεί να αναβαθμίσει τα παρακάτω μαθήματα  :";
-$lang_click_here = "Κάνε κλικ εδώ";
 $lang_continueCoursesDataUpgrade = "Συνέχισε αναβάθμιση δεδομένων μαθημάτων";
-$lang_enter_your_user_name_and_password = "Eισαγωγή ονόματος χρήστη (username) και κωδικού (password)";
 $lang_fileUpgrade = "Αναβάθμιση αρχείου :";
-$lang_footer_p_CourseManager = "Διευθυντής-ες για %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Εαν δεν έχετε λογαριασμό χρήστη ανοιχτό";
-$lang_if_you_wish_to_enroll_to_this_course = "Εαν επιθυμείτε να εγγραφείτε στο μάθημα αυτό";
+$lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_oldFileBackup = "Παλαιού αρχείου backup :";
 $lang_p_CannotCreate_s = "Δεν μπορεί να δημιουργήσει %s";
 $lang_p_CannotRename_s_s = "Δεν μπορεί να ονομάστει ξανα %s σε %s";
 $lang_p_UpgradeMainClarolineDatabase_s = "Αναβάθμιση κυρίας βάσης δεδομένων του Claroline (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Αναβάθμιση βάσης δεδομένων του μαθήματος <strong>%2\$s</strong><br><small>
-DB Name : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Διόρθωσε πρώτα το τεχνικό πρόβλημα και <a href=\"%s\"> προσπάθησε πάλι για αναβάθμισης</a>.";
 $lang_p_d_affected_rows = "%d Επηρεασμένες σειρές";
 $lang_p_d_coursesToUpgrade = "%s μαθήματα για αναβάθμιση";
 $lang_p_d_errorFound = " %d σφάλματα βρέθηκαν";
 $lang_p_expectedRemainingTime = " <!-- Χρόνος εκτέλεσης αυτού του μαθήματος [%01.2f s] - μέσο όρο  [%01.2f s] - σύνολο [%s] - μαθήματα που απομείναν [%d]. --><b>Αναμενόμενος χρόνος που απομένει %s</b>.";
-$lang_p_platformManager = "Διαχειρηστής για %s";
+$lang_p_platformManager = "Διαχειριστής για %s";
 $lang_p_s_s_isInvalid = "%s : %s δεν είναι έγκυρο";
 $lang_rules_s_in_s = "Κανόνες : %s in %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) δες στην γραμμη κατάστασης του browser σου.";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Η διαδικασία αναβάμισης του Claroline ολοκληρώθηκε";
-$lang_this_course_is_protected = "Αυτό το μάθημα προστατεύεται";
 $lang_upgradeToolCannotUpgradeThisCourse = "Το εργαλείο αναβάθμισης δεν μπορεί να αναβαθμίσει αυτό το μάθημα.  <br>
 Διόρθωσε, πρώτα, το τεχνικό πρόβλημα και ξεκίνησε πάλι το εργαλείο αναβάθμισης.";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα";
 ?>

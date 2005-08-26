@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "afegir/modoficar un comentari a";
-$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
 $langBack = "Enrere";
-$langCancel = "Cancel·la";
 $langChat = "Xat";
 $langDate = "Data";
 $langDay_of_weekNames = "Array";
@@ -20,15 +18,13 @@ $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
 $langNameOfLang = "Array";
-$langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
+$langNoEx = "No hi ha exercici pel moment";
 $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";
 $langPoweredBy = "Potenciat per ";
-$langReg = "Enregistrament";
 $langSize = "Mida";
 $langStudent = "estudiant";
 $langUp = "tornar a carregar";
-$langUserName = "Nom d'usuari";
 $langUsers = "Usuaris";
 $langWork = "Treballs dels estudiants";
 ?>

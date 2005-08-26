@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Tilføj/ret kommentar til";
-$langAddIntro = "Tilføj introduktionstekst";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
 $langBack = "Tilbage";
-$langCancel = "Fortryd";
 $langChat = "Chat";
 $langConfirmYourChoice = "Venligst bekræft dit valg";
 $langCourseManager = "Kursusadministrator";
@@ -26,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
 $langNext = "Næste";
-$langNotAllowed = "Ikke tilladt";
+$langNoEx = "Der er ingen øvelser lige nu";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";
-$langPassword = "adgangskode";
 $langPoweredBy = "Udviklet af";
-$langReg = "Registrering";
 $langSize = "Størrelse";
 $langStudent = "studerende";
 $langUp = "op";
-$langUserName = "Brugernavn";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
 ?>

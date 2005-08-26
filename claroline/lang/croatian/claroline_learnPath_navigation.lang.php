@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Dodaj/izmjeni primjedbu za";
-$langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
 $langBack = "Povratak";
-$langCancel = "Odustanite";
 $langChat = "Razgovor - chat";
 $langDate = "Datum";
 $langDay_of_weekNames = "Array";
@@ -22,15 +20,13 @@ $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
-$langNotAllowed = "Nije dozvoljeno";
+$langNoEx = "Trenutno nema vježbi";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
-$langReg = "Prijava";
 $langSize = "Velièina";
 $langStudent = "student";
 $langUp = "Gore";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 ?>

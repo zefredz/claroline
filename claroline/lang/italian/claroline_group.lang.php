@@ -1,23 +1,46 @@
 <?php
-$langAddIntro = "Aggiungi un testo di presentazione";
+$l_click = "Clicca";
+$l_here = "qui";
+$l_notifybody = "Ti e\' stata inviata questa mail perche\' a un messaggio
+che tu hai inviato sui forum e\' stata inviata una risposta, e
+tu avevi richiesto di essere avvertito in questa occasione.
+
+Puoi visionare la risposta all\'indirizzo:
+
+%1\$s
+
+o visualizzare l\'indice dei forum di all\'indirizzo:
+
+%2\$s
+
+Grazie per aver utilizzato i forum di.
+
+Arrivederci.";
+$l_notifysubj = "E' stata inviata una risposta a un tuo messaggio.";
+$l_returnindex = " per tornare  all'indice dei forum";
+$l_returntopic = " per tornare  alla lista degli argomenti del forum.";
+$l_separator = "» »";
+$l_viewmsg = "per vedere il tuo messaggio.";
 $langAddTutors = "Gestione Tutor ";
+$langAdm = "Amministrare";
 $langAdminsOfThisCours = "Amministratore del Corso";
 $langAgenda = "Calendario";
 $langAnnouncement = "Annunci";
+$langBackTo = "Torna a :";
 $langCancel = "Cancella";
 $langChat = "Chat";
 $langConfirmDeleteGroups = "Sei sicuro di voler eliminare tutti i gruppi ?";
 $langConfirmEmptyGroups = "Sei sicuro di voler svuotare tutti i gruppi ?";
-$langConfirmYourChoice = "Conferma la tua scelta";
 $langCopy = "Copia";
+$langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langCreate = "Creare";
 $langDay_of_weekNames = "Array";
+$langDear = "Cara/o";
 $langDelete = "Eliminare";
 $langDeleteGroups = "Eliminare tutti i gruppi";
 $langDescriptionCours = "Programma";
 $langDocument = "Documento : ";
-$langDocuments = "Documenti";
 $langEdit = "Modificare";
 $langEditGroup = "Modificare questo gruppo";
 $langEmtpyGroups = "Svuotare tutti i gruppi";
@@ -25,7 +48,6 @@ $langExercises = "Esercizi";
 $langExistingGroups = "Gruppi";
 $langFillGroups = "Riempire automaticamente i gruppi";
 $langForum = "Forum";
-$langForumGroup = "Forum del gruppo ";
 $langForums = "Forum";
 $langGroup = "Gruppo";
 $langGroupAllowStudentRegistration = "Corsisti autorizzati ad iscriversi autonomamente ai gruppi.";
@@ -35,6 +57,7 @@ $langGroupDel = "Gruppo eliminato";
 $langGroupDescription = "Descrizione";
 $langGroupDocument = "Documenti";
 $langGroupDocumentAlwaysPrivate = "(sempre privato)";
+$langGroupDocumentsLink = "Documenti del gruppo ";
 $langGroupFilledGroups = "I gruppi sono stati riempiti con tutti gli utenti iscritti";
 $langGroupForum = "Gruppi - Forum";
 $langGroupLimit = "Limite";
@@ -51,7 +74,7 @@ $langGroupPropertiesModified = "Le proprietà dei gruppi sono stati modificati";
 $langGroupSelfRegInf = "Iscrivi";
 $langGroupSelfRegistration = "Iscrizione";
 $langGroupSettingsModified = "Parametri del gruppo corrente modificati. Ritornare alla pagina <a href=group.php>gruppi ></a>";
-$langGroupSpace = "Spazio di lavoro di gruppo";
+$langGroupSpaceLink = "Spazio di lavoro del gruppo";
 $langGroupStudentsInGroup = "corsisti iscritti ai gruppi";
 $langGroupStudentsRegistered = "corsisti iscritti";
 $langGroupThisSpace = "Spazio di lavoro per questo gruppo";
@@ -71,7 +94,6 @@ $langLogout = "Uscita";
 $langManager = "Responsabile";
 $langMax = "massimo";
 $langMinuteShort = "min.";
-$langModify = "Modificare";
 $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
@@ -80,12 +102,11 @@ $langMyGroup = "mio gruppo";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Creare nuovi gruppi";
 $langNewGroups = "nuovo/i gruppo/i";
+$langNewTopic = "Lanciare un nuovo argomento";
 $langNoGroupStudents = "Corsisti senza gruppo";
-$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOk = "Ok";
 $langOneMyGroups = "mia supervisione";
 $langOtherCourses = "Elenco dei corsi";
-$langPassword = "password";
 $langPlaces = "partecipanti per gruppo (facoltativo)";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
@@ -93,9 +114,9 @@ $langPrivate = "Privato";
 $langPublic = "Pubblico";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;gruppi";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utente può esser membro al massimo ";
-$langReg = "Iscriviti";
 $langRegIntoGroup = "Aggiungimi al gruppo ";
 $langRegistered = "Iscritto";
+$langReply = "Rispondere";
 $langSecondShort = "sec.";
 $langStudent = "Studenti";
 $langStudentsNotInThisGroups = "Utenti non presenti in questo gruppo";
@@ -104,19 +125,11 @@ $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente l
 $langTextEditorDisable = "Disabilita editor di testo";
 $langTextEditorEnable = "Abilita editor di testo";
 $langTo = "su";
-$langTools = "Utilità";
 $langUncompulsory = "(facoltativo)";
-$langUserName = "Username";
 $langUsers = "Utenti";
 $langViewMode = "Vista";
 $langWiki = "Wiki";
 $langWork = "Lavori";
-$lang_click_here = "Premi Qui";
-$lang_enter_your_user_name_and_password = "Inserisci Nome e Password";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vuoi iscriverti a questo corso";
 $lang_p_platformManager = "Amministratore di %s";
-$lang_this_course_is_protected = "Questo corso è protetto";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
 ?>

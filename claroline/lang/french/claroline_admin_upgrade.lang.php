@@ -74,6 +74,7 @@ $langNextStep = "<p><button onclick=\"document.location='%s';\">Suivant ></butto
 $langNo = "Non";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
+$langPassword = "mot de passe";
 $langPeriodDayShort = "j.";
 $langPeriodHourShort = "h.";
 $langPlatformAccess = "Accès au campus";
@@ -101,6 +102,7 @@ $langUpgradeStep1 = "Etape 1 de 3: paramètres de la plateforme";
 $langUpgradeStep2 = "Etape 2 de 3: mise à jour des tables pricipales";
 $langUpgradeStep3 = "Etape 3 de 3: mise à jour des cours";
 $langUpgradeSucceed = "L'<em>upgrade de claroline</em> est termin&eacute;e.";
+$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Travaux";
@@ -116,7 +118,7 @@ $lang_oldFileBackup = "Sauvegarde de l'ancien fichier de configuration :";
 $lang_p_CannotCreate_s = "Création de %s impossible";
 $lang_p_CannotRename_s_s = "Impossible de renommer %s en %s";
 $lang_p_UpgradeMainClarolineDatabase_s = "Mise à jour de la base de donnée principale (<em>%s</em>) de Claroline en cours.";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour de la base du cours <strong>%2\$s</strong><br><small>
+$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Mise à jour du cours <strong>%2\$s</strong><br><small>
 Nom de la base : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Réglez d'abord ce problème technique et <a href=\"%s\">relancez la procédure</a> de mise à jour";

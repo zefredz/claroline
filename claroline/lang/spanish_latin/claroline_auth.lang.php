@@ -1,6 +1,5 @@
 <?php
 $langAction = "Acción";
-$langAddIntro = "Añadir texto introductorio";
 $langAddress = "La dirección de";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
@@ -10,15 +9,15 @@ $langCategories = "Departamentos";
 $langChangePwdexp = "Escribe la nueva contraseña dos veces para cambiarla, dejala en blanco para conservar la actual";
 $langChat = "Chat";
 $langComment = "Comentario";
-$langConfirmYourChoice = "Por favor confirma tú elección";
 $langConfirmation = "Confirmación";
 $langCopy = "Copiar";
+$langCourse = "El curso ";
 $langCourseHome = "Descripción del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Coordinador de curso";
+$langCreate = "crear";
 $langDay_of_weekNames = "Array";
 $langDear = "Estimado(a)";
-$langDelete = "Eliminar";
 $langDescriptionCours = "Descripción del curso";
 $langDocument = "Documentos";
 $langEmail = "Email";
@@ -48,7 +47,6 @@ Sus datos personales han sido registrados y ha sido enviado
 un correo electrónico a su casilla para recordarle su nombre 
 de usuario y su contraseña.<br>
 Ahora seleccione de la lista los cursos a los que desea tener acceso.";
-$langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
@@ -57,7 +55,6 @@ $langMyStats = "Ver mis estadísticas";
 $langNameOfLang = "Array";
 $langNext = "Siguiente";
 $langNo = "No";
-$langNotAllowed = "No tienes acceso";
 $langNowGoChooseYourCourses = "Ahora Ud. puede seleccionar, en la lista, los cursos a los cuales desea acceder.";
 $langNowGoCreateYourCourse = "Ahora Ud. puede crear su curso";
 $langOfficialCode = "Código Administrativo";
@@ -75,7 +72,6 @@ $langProfileReg = "Su nuevo perfil de usuario ha sido registrado";
 $langReg = "Inscribirse";
 $langRegAdmin = "Crear sitios web de cursos (Profesor)";
 $langRegStudent = "Inscribirme en cursos (estudiante)";
-$langRegistration = "Inscripción";
 $langSaveChanges = "Salvar cambios";
 $langSearch = "Buscar";
 $langSettings = "con los parámetros siguientes:\Nombre de usuario:";
@@ -97,13 +93,10 @@ $lang_back_to_my_personnal_course_list = "Volver a mi lista personal de cursos";
 $lang_click_here = "click here";
 $lang_course_enrollment = "Inscripción a cursos";
 $lang_enroll = "Inscripción";
-$lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
 $lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
 $lang_my_personnal_course_list = "Mi lista personal de cursos";
 $lang_select_course_in = "Seleccionar un curso en ";
 $lang_select_course_in_search_results = "Seleccionar un curso en el resultado de la búsqueda ";
-$lang_this_course_is_protected = "This course is protected";
 $lang_unsubscribe = "Salirse de un curso";
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
 ?>

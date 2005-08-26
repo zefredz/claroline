@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Lisää johdantoteksti";
 $langAddress = "Osoite ";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
@@ -7,9 +6,9 @@ $langCategories = "Kategoriat";
 $langComment = "Kommentti";
 $langConfirmation = "Vahvistus";
 $langCopy = "Kopioi";
+$langCourse = "Sivusto ";
 $langDay_of_weekNames = "Array";
 $langDear = "Hyvä";
-$langDelete = "Poista";
 $langDocument = "Dokumentit";
 $langEmail = "Sähköposti";
 $langEmailWrong = "Sähköpostiosoitteesi on puutteellinen tai virheellinen";
@@ -28,13 +27,11 @@ Hyvä %s, %s.
 Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa 
 on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
 Valitse listasta kurssit, joihin haluat pääsyn.";
-$langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
 $langNo = "No";
-$langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";
 $langPoweredBy = "Alusta";
@@ -43,7 +40,6 @@ $langProfileReg = "Profiili on tallennettu";
 $langReg = "Rekisteröinti";
 $langRegAdmin = "Luo kurssien sivustot (opettaja)";
 $langRegStudent = "Valitse kursseja (opiskelija)";
-$langRegistration = "Rekisteröinti";
 $langSettings = "seuraavilla asetuksilla:
 Käyttäjänimi:";
 $langStudent = "Opiskelija";

@@ -1,13 +1,11 @@
 <?php
-$langAddIntro = "Lägg till introduktionstext";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
 $langCancel = "Avbryt";
 $langChat = "Diskussion";
-$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
+$langCopy = "Kopiera";
 $langCourseManager = "Kursansvarig";
 $langDay_of_weekNames = "Array";
-$langDelete = "Radera";
 $langDescriptionCours = "Kursbeskrivning";
 $langDocument = "Dokument";
 $langExercises = "Övningar";
@@ -17,18 +15,15 @@ $langHelp = "hjälp";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langManager = "Ansvarig";
-$langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
-$langNotAllowed = "Inte tillåtet";
 $langOk = "validate";
 $langOtherCourses = "Kurslista";
 $langPoweredBy = "Med kraft från";
-$langReg = "Registrering";
 $langStudent = "elev";
-$langUserName = "Namn";
+$langTo = "till";
 $langUsers = "Användare";
 $langWork = "Elevarbeten";
 ?>

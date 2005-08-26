@@ -1,28 +1,48 @@
 <?php
-$langAddIntro = "Dodaj tekst wprowadzenia";
+$l_click = "Kliknij";
+$l_here = "tutaj";
+$l_notifybody = "You are receiving this Email because a message
+you posted on forums has been replied to, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%1\$s
+
+Or view the forum index at
+
+%2\$s
+
+Thank you for using forums.
+
+Have a nice day.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_returnindex = "¿eby powróciæ do spisu Forów dyskusyjnych";
+$l_returntopic = "¿eby powróciæ do spisu tematów.";
+$l_separator = "» »";
+$l_viewmsg = "¿eby zobaczyæ wiadomo¶æ.";
 $langAddTutors = "Lista administratorów";
+$langAdm = "Admin";
 $langAdminsOfThisCours = "zarz±dzaj±cy tym kursem";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
-$langConfirmYourChoice = "Potwierd¼ swój wybór";
 $langCopy = "Kopiuj";
 $langCourseManager = "Administrator";
 $langCreate = "Utwórz";
 $langDay_of_weekNames = "Array";
+$langDear = "";
 $langDelete = "Usuñ";
 $langDeleteGroups = "Usuñ wszystkie grupy";
 $langDescriptionCours = "Opis kursu";
 $langDocument = "Dokumenty";
-$langDocuments = "Dokumenty";
 $langEdit = "Edytuj";
 $langEditGroup = "Edytuj tê grupê";
 $langEmtpyGroups = "Wyzeruj wszystkie grupy";
 $langExistingGroups = "Grupy";
 $langFillGroups = "Zapisywanie do grup";
 $langForum = "Forum dyskusyjne";
-$langForumGroup = "Forum dyskusyjne grupy";
 $langForums = "Forum";
 $langGroup = "Grupa";
 $langGroupAllowStudentRegistration = "Studenci mog± samodzielne zapisywaæ siê do grup";
@@ -30,6 +50,7 @@ $langGroupCreation = "Tworzenie nowej grupy";
 $langGroupDel = "Usuwanie grupy";
 $langGroupDescription = "Opis";
 $langGroupDocument = "Dokumenty";
+$langGroupDocumentsLink = "Obszar dokumentów grupy ";
 $langGroupFilledGroups = "Grupy zosta³y wype³nione (skompletowane) przez studentów z listy 'U¿ytkowników'.";
 $langGroupForum = "Groups forums";
 $langGroupMembers = "Cz³onkowie grupy";
@@ -45,7 +66,7 @@ $langGroupPropertiesModified = "Ustawienia grup zosta³y zmodyfikowane";
 $langGroupSelfRegInf = "zarejestruj";
 $langGroupSelfRegistration = "Rejestracja";
 $langGroupSettingsModified = "Ustawienia grup zosta³y zmodyfikowane";
-$langGroupSpace = "Obszar grupy";
+$langGroupSpaceLink = "Obszar grup";
 $langGroupStudentsInGroup = "Studenci zarejestrowani w grupie";
 $langGroupStudentsRegistered = "Studenci zarejestrowani w kursie";
 $langGroupThisSpace = "Obszar dla tej grupy";
@@ -62,7 +83,6 @@ $langLogin = "Logowanie";
 $langLogout = "Wylogowanie";
 $langManager = "Administrator";
 $langMax = "max.";
-$langModify = "Modyfikuj";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
@@ -70,8 +90,8 @@ $langMyGroup = "moja grupa";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Utwórz now± grupê(y)";
 $langNewGroups = "now±(e) grupê(y)";
+$langNewTopic = "Nowy Temat";
 $langNoGroupStudents = "Studenci nie zapisani";
-$langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
 $langOneMyGroups = "moja grupa";
 $langOtherCourses = "Lista kursów";
@@ -81,16 +101,14 @@ $langPrivate = "zamkniête";
 $langPublic = "otwarte";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grup";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "U¿ytkownik mo¿e byæ cz³onkiem maksimum ";
-$langReg = "Rejestracja";
 $langRegIntoGroup = "Dodaj mnie do tej grupy";
 $langRegistered = "Zarejestrowani";
+$langReply = "Odpowiedz";
 $langStudent = "student";
 $langStudentsNotInThisGroups = "Users not in this group";
 $langSubscribed = "osoby zarejestrowane w kursie";
 $langTo = "do";
-$langTools = "Narzêdzia";
 $langUncompulsory = "(opcjonalnie)";
-$langUserName = "Nazwa u¿ytkownika";
 $langUsers = "U¿ytkownicy";
 $langWork = "Works";
 ?>

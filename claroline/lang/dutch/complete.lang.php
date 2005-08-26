@@ -439,7 +439,6 @@ $langEG = "bv.";
 $langEXERCISETypeDesc = "Claroline exercise";
 $langEdit = "Wijzigen";
 $langEditAnswers = "Antwoorden bewerken";
-$langEditDel = "Wijzigen/Verwijderen";
 $langEditEvent = "Gebeurtenis bewerken";
 $langEditExercise = "Instellingen oefening bewerken";
 $langEditFeedback = "Commentaar bestand bewerken";
@@ -1655,9 +1654,6 @@ $lang_p_CannotRename_s_s = "Kan %s niet hernoemen naar %sa";
 $lang_p_ErrorOnBuild_S_for_S = "Fout bij het samenstellen van <em>%s</em> voor <B>%s</B>";
 $lang_p_PropForConfigCommited = "Eigenschappen van %s (%s) zijn nu effectief op de server.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Aanpassen hoofd Claroline databank (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Databank van cursus <strong>%2\$s</strong> aanpassen<br><small>
-DB Naam : %3\$s <br>
-Cursus ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Gelieve eerst het technisch probleem op te lossen en <a href=\"%s\"> de upgrade routine opnieuw op te starten</a>.";
 $lang_p_config_file_creation = "Configuratie bestand creatie:<BR> %s";
 $lang_p_d_affected_rows = "%d rijen aangepast";

@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Dodaj uvodno besedilo";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
-$langCancel = "Prekini";
 $langChat = "Razprava";
 $langClarContent = "Tu lahko ucitelji in njihovi asistenti tvorijo in upravljajo
  spletne strani tecajev. Studentje berejo (dokumente, agende, informacije) in vcasih
@@ -21,10 +19,8 @@ Ce ne najdes odgovora na svoja vprasanja znotraj svojega kampusa, posreduj vpras
 <p>Povezava na registracijo (ce jo imas) je na domaci strani kampusa (desno zgoraj).</p>
 <b>Vstop</b><p>Pri naslednjem obisku vtipkaj svoje uporabnisko ime in geslo ter klikni Vstop, 
 ce zelis dostop do svojih tecajev.";
-$langConfirmYourChoice = "Potrdi izbiro";
 $langCourseManager = "Upravnik tecaja";
 $langDay_of_weekNames = "Array";
-$langDelete = "Brisi";
 $langDescriptionCours = "Opis tecaja";
 $langDocContent = "<p>Orodje dokumenti je podobno upravniku datotek na vasem namizju.</p>
 <p>Prepisete (upload) lahko dateteke kateregakoli tipa (HTML, Word,
@@ -300,17 +296,12 @@ Privzeto je tecaj skrit (vendar lahko na njem delas).</p>";
 $langLogin = "vstop";
 $langLogout = "Izstop";
 $langManager = "Upravnik";
-$langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
-$langNotAllowed = "Tu nimas dovoljenja";
-$langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";
-$langPassword = "geslo";
 $langPoweredBy = "Powered by";
-$langReg = "Registracija";
 $langStudent = "student";
 $langUserContent = "<b>Vloge</b><p>Vloge nimajo nobene funkcijske zveze z racunalnikom.
  Z njimi ne dobimo pravic v operacijskem sistemu. Z njimi le nakazemo, kdo je kdo. 
@@ -329,7 +320,6 @@ Polje 'Ucitelji' je povsem neodvisno od seznama uporabnikov.</p><hr>
 <b>Dodajanje uporabnika</b>
 <p>Uporabnika dodamo v tecaj tako, da izpolnimo polja in to potrdimo. Oseba bo dobila elektronsko posto s sporocilom, 
 da je bila registrirana s podanim uporabniskim imenom in geslom.</p>";
-$langUserName = "User name";
 $langUsers = "Uporabniki";
 $langWork = "Works";
 ?>

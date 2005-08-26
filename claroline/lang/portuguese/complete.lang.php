@@ -171,7 +171,6 @@ $langDocumentsTitleDocumentColumn = "Documento";
 $langDocumentsTitleUsersColumn = "Descargas dos Utilizadores";
 $langEG = "p. e.";
 $langEdit = "Editar";
-$langEditDel = "editar/apagar";
 $langEditGroup = "Alterar este grupo";
 $langElRen = "foi alterado o nome do elemento";
 $langElementList = "Lista de elementos";

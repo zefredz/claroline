@@ -1,35 +1,20 @@
 <?php
-$langAddIntro = "Tilføj introduktionstekst";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
-$langCancel = "Fortryd";
 $langChat = "Chat";
-$langConfirmYourChoice = "Venligst bekræft dit valg";
 $langCourseManager = "Kursusadministrator";
 $langDay_of_weekNames = "Array";
-$langDelete = "Slette";
 $langDescriptionCours = "kursusbeskrivelse";
 $langDocument = "Dokumenter";
 $langExercises = "Øvelser";
 $langForums = "Diskussionsforum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
-$langLogin = "login";
-$langLogout = "Logud";
 $langManager = "Support";
-$langModify = "Ændre";
-$langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
-$langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ikke tilladt";
-$langOk = "Ok";
-$langOtherCourses = "Kursusoversigt";
-$langPassword = "adgangskode";
 $langPoweredBy = "Udviklet af";
-$langReg = "Registrering";
 $langStudent = "studerende";
-$langUserName = "Brugernavn";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
 ?>

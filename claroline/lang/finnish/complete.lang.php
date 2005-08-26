@@ -144,7 +144,6 @@ $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietoko
 <p>";
 $langDocDeleted = "Dokumentti on poistettu";
 $langDocument = "Dokumentit";
-$langEditDel = "Muokkaa/Poista";
 $langElRen = "Elementti on nimetty uudelleen";
 $langEmail = "Sähköposti";
 $langEmailOption = "Send this announcement by email to registered students";

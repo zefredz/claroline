@@ -8,5 +8,6 @@ $langModify = "Modificar";
 $langOk = "validar";
 $langQuestion = "Questão";
 $langRawHasBeenChanged = "O aproveitamento mínimo para passar foi alterado";
+$langScore = "Pontuação";
 $langSize = "Tamanho";
 ?>

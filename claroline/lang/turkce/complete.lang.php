@@ -253,7 +253,6 @@ $langDocDeleted = "Belge silindi";
 $langDocument = "Belgeler";
 $langEG = "e. g.";
 $langEdit = "Düzenle";
-$langEditDel = "Edit/delete";
 $langEditGroup = "Bu grubu düzenle";
 $langElRen = "Dosya yeniden adlandýrýldý";
 $langEmail = "Epostanýz";

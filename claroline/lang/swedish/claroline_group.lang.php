@@ -1,21 +1,42 @@
 <?php
-$langAddIntro = "Lägg till introduktionstext";
+$l_click = "Klicka";
+$l_here = "här";
+$l_notifybody = "Du får detta meddelande eftersom ett inlägg 
+du postade på forumet har besvarats och du har tidigare valt att
+du vill bli informerade när detta händer.
+
+Du kan läsa mer på:
+
+%1\$s		                
+
+Eller läs forum indexet på
+
+%2\$s
+
+Tack för att du använder forum.
+
+Ha en bra dag.";
+$l_notifysubj = "Ett svar på ditt inlägg har postats.";
+$l_returnindex = "för att återgå till forumlistan";
+$l_returntopic = "för att återgå till forumets ämneslista.";
+$l_separator = "» »";
+$l_viewmsg = "för att visa ditt Inlägg.";
 $langAddTutors = "Administrera användarlistan";
+$langAdm = "admin";
 $langAdminsOfThisCours = "Kursansvarig(a)";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
 $langCancel = "Avbryt";
 $langChat = "Diskussion";
-$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
 $langCopy = "Kopiera";
 $langCourseManager = "Kursansvarig";
 $langCreate = "skapa";
 $langDay_of_weekNames = "Array";
+$langDear = "Kära";
 $langDelete = "Radera";
 $langDeleteGroups = "Radera alla grupper";
 $langDescriptionCours = "Kursbeskrivning";
 $langDocument = "Dokument";
-$langDocuments = "Dokument";
 $langEdit = "Redigera";
 $langEditGroup = "Redigera denna grupp";
 $langEmtpyGroups = "Töm alla grupper";
@@ -23,7 +44,6 @@ $langExercises = "Övningar";
 $langExistingGroups = "Grupper";
 $langFillGroups = "Fyll grupper";
 $langForum = "Forum";
-$langForumGroup = "Forum för gruppen";
 $langForums = "Forum";
 $langGroup = "Grupper";
 $langGroupAllowStudentRegistration = "Elever tillåts självregistrera sig i grupper.";
@@ -31,6 +51,7 @@ $langGroupCreation = "Nya grupper att skapa";
 $langGroupDel = "Grupp raderad";
 $langGroupDescription = "Beskrivning";
 $langGroupDocument = "Dokument";
+$langGroupDocumentsLink = "Dokument tillhörande gruppen";
 $langGroupFilledGroups = "Grupper har fyllts (eller kompletterats) med studenter från 'Användarlistan'.";
 $langGroupForum = "Forumgrupper";
 $langGroupMembers = "Gruppmedlemmar";
@@ -46,7 +67,7 @@ $langGroupPropertiesModified = "Gruppinställningar har modifierats";
 $langGroupSelfRegInf = "registrera";
 $langGroupSelfRegistration = "Registrering";
 $langGroupSettingsModified = "Gruppinställningar har modifierats";
-$langGroupSpace = "Grupparea";
+$langGroupSpaceLink = "Grupparea";
 $langGroupStudentsInGroup = "elever registrerade i grupper";
 $langGroupStudentsRegistered = "elever registrerade till denna kurs";
 $langGroupThisSpace = "Area för denna grupp";
@@ -65,7 +86,6 @@ $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langManager = "Ansvarig";
 $langMax = "Max.";
-$langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
@@ -73,8 +93,8 @@ $langMyGroup = "min grupp";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Skapa ny(a) grupp(er)";
 $langNewGroups = "ny(a) grupp(er)";
+$langNewTopic = "Nytt ämne";
 $langNoGroupStudents = "Oplacerade elever";
-$langNotAllowed = "Inte tillåtet";
 $langOk = "validate";
 $langOneMyGroups = "under min tillsyn";
 $langOtherCourses = "Kurslista";
@@ -84,16 +104,14 @@ $langPrivate = "privat";
 $langPublic = "publik";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grupper";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "En användare kan max vara medlem i ";
-$langReg = "Registrering";
 $langRegIntoGroup = "Lägg till mig i denna grupp";
 $langRegistered = "Registrerade";
+$langReply = "Svar";
 $langStudent = "elev";
 $langStudentsNotInThisGroups = "Användarna är ej i denna grupp";
 $langSubscribed = "registrerad(e) deltagare i denna kurs";
 $langTo = "till";
-$langTools = "Verktyg";
 $langUncompulsory = "(frivillig)";
-$langUserName = "Namn";
 $langUsers = "Användare";
 $langWork = "Elevarbeten";
 ?>

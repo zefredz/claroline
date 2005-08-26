@@ -1,28 +1,47 @@
 <?php
-$langAddIntro = "äïâá÷éôø ÷÷ïäîùê ôåëóô";
+$l_click = "ýÅÌËÎÉÔÅ";
+$l_here = "ÚÄÅÓØ";
+$l_notifybody = "÷Ù ÐÏÌÕÞÉÌÉ ÜÔÏ ÐÉÓØÍÏ, ÔÁË ËÁË ÐÏÓÔÕÐÉÌ ÏÔ×ÅÔ ÎÁ ÓÏÏÂÝÅÎÉÅ, ËÏÔÏÒÏÅ ×Ù ÒÁÚÍÅÓÔÉÌÉ ÎÁ
+ÆÏÒÕÍÅ, É ×Ù ÐÒÏÓÉÌÉ ÐÒÏÉÎÆÏÒÍÉÒÏ×ÁÔØ ×ÁÓ ÏÂ ÜÔÏÍ.
+
+÷Ù ÍÏÖÅÔÅ Õ×ÉÄÅÔØ ÔÅÍÕ ÐÏ ÁÄÒÅÓÕ:
+
+%1\$s
+
+éÌÉ ÐÒÏÓÍÏÔÒÅÔØ ÏÇÌÁ×ÌÅÎÉÅ ÆÏÒÕÍÁ ÐÏ ÁÄÒÅÓÕ
+
+%2\$s
+
+óÐÁÓÉÂÏ ÚÁ ÉÓÐÏÌØÚÏ×ÁÎÉÅ ÆÏÒÕÍÁ.
+
+äÏ Ó×ÉÄÁÎÉÑ.";
+$l_notifysubj = "ðÏÓÔÕÐÉÌ ÏÔ×ÅÔ ÎÁ ×ÁÛÕ ÔÅÍÕ.";
+$l_returnindex = "ÞÔÏÂÙ ×ÅÒÎÕÔØÓÑ Ë ÏÇÌÁ×ÌÅÎÉÀ ÆÏÒÕÍÁ";
+$l_returntopic = "ÞÔÏÂÙ ×ÅÒÎÕÔØÓÑ Ë ÓÐÉÓËÕ ÔÅÍ ÆÏÒÕÍÁ.";
+$l_separator = " > ";
+$l_viewmsg = "ÞÔÏÂÙ Õ×ÉÄÅÔØ ×ÁÛÅ óÏÏÂÝÅÎÉÅ.";
 $langAddTutors = "õÐÒÁ×ÌÅÎÉÅ ÓÐÉÓËÏÍ ÔØÀÔÏÒÏ×";
+$langAdm = "áÄÍÉÎÉÓÔÒÉÒÏ×ÁÔØ";
 $langAdminsOfThisCours = "Ðæþåæõæþåïïýë ÿâ ìèôõ";
 $langAgenda = "ëÁÌÅÎÄÁÒØ";
 $langAnnouncement = "ïÂßÑ×ÌÅÎÉÑ";
 $langCancel = "ïÔÍÅÎÉÔØ";
 $langChat = "þÁÔ";
-$langConfirmYourChoice = "ðÏÄÔ×ÅÒÄÉÔÅ ×ÁÛ ×ÙÂÏÒ";
 $langCopy = "óËÏÐÉÒÏ×ÁÔØ";
 $langCourseManager = "íÅÎÅÄÖÅÒ ËÕÒÓÁ";
 $langCreate = "õðÿäâæû";
 $langDay_of_weekNames = "Array";
+$langDear = "õ×ÁÖÁÅÍÙÊ(ÁÑ)";
 $langDelete = "ÕÄÁÌÉÔØ";
 $langDeleteGroups = "Èäâíêæû þõå úôèòòý";
 $langDescriptionCours = "ïÐÉÓÁÎÉÅ ËÕÒÓÁ";
 $langDocument = "äÏËÕÍÅÎÔ";
-$langDocuments = "Èàå÷ïýå îâæåôêâíý";
 $langEdit = "Ôåäâìæêôðþâæû";
 $langEditGroup = "Ôåäâìæêôðþâæû úôèòòè";
 $langEmtpyGroups = "Ðàêõæêæû þõå úôèòòý";
 $langExistingGroups = "Úôèòòý";
 $langFillGroups = "ßâòðíïêæû úôèòòè(ý)";
 $langForum = "Öðôèî";
-$langForumGroup = "æÏÒÕÍ ÇÒÕÐÐÙ";
 $langForums = "æÏÒÕÍÙ";
 $langGroup = "Úôèòòâ";
 $langGroupAllowStudentRegistration = "Õæèäåïæâî ôâÿôåùåïð õâîðõæðóæåíûïð ÿâòêõýþâæûõó þ úôèòòý";
@@ -31,6 +50,7 @@ $langGroupDel = "Úôèòòâ èäâíåïâ";
 $langGroupDescription = "Ðòêõâïêå úôèòòý";
 $langGroupDocument = "Èàå÷ïýå îâæåôêâíý";
 $langGroupDocumentAlwaysPrivate = "(ÄÏËÕÍÅÎÔ ×ÓÅÇÄÁ ÓÅËÒÅÔÅÎ)";
+$langGroupDocumentsLink = "äÏËÕÍÅÎÔÙ ÇÒÕÐÐÙ";
 $langGroupFilledGroups = "çÒÕÐÐÙ ÂÙÌÉ ÚÁÐÏÌÎÅÎÙ (ÉÌÉ ÕËÏÍÐÌÅËÔÏ×ÁÎÙ) ÓÔÕÄÅÎÔÁÍÉ ÉÚ ÓÐÉÓËÁ 
 'ðÏÌØÚÏ×ÁÔÅÌÉ'.";
 $langGroupForum = "Öðôèî";
@@ -47,7 +67,7 @@ $langGroupPropertiesModified = "Õþðëõæþâ úôèòò ÷ýíê êÿîåïåïý";
 $langGroupSelfRegInf = "úÁÐÉÓÁÔØÓÑ";
 $langGroupSelfRegistration = "úÁÐÉÓØ";
 $langGroupSettingsModified = "Õþðëõæþâ úôèòòý êÿîåïåïý.";
-$langGroupSpace = "Òôðõæôâïõæþð úôèòòý";
+$langGroupSpaceLink = "ðÒÏÓÔÒÁÎÓÔ×Ï ÇÒÕÐÐÙ";
 $langGroupStudentsInGroup = "Õæèäåïæý ÿâòêõâïý þ úôèòò";
 $langGroupStudentsRegistered = "óÔÕÄÅÎÔÙ, ÚÁÐÉÓÁÎÎÙÊ ÎÁ ËÕÒÓ";
 $langGroupThisSpace = "Òôðõæôâïõæþð øæðë úôèòòý";
@@ -66,7 +86,6 @@ $langLogin = "÷ÈÏÄ, ÌÏÇÉÎ";
 $langLogout = "÷ÙÊÔÉ";
 $langManager = "ïÔ×ÅÔÓÔ×ÅÎÎÙÊ";
 $langMax = "îâìõêîèî";
-$langModify = "Êÿîåïêæû";
 $langModifyProfile = "éÚÍÅÎÉÔØ ÍÏÉ ÎÁÓÔÒÏÊËÉ";
 $langMonthNames = "Array";
 $langMyCourses = "óÐÉÓÏË ÍÏÉÈ ËÕÒÓÏ×";
@@ -74,28 +93,25 @@ $langMyGroup = "ÍÏÑ ÇÒÕÐÐÁ";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Õðÿäâæû ïðþèá(ýå) úôèòòè(ý)";
 $langNewGroups = "ïðþâó(ýå) úôèòòâ(ý)";
+$langNewTopic = "îÁÞÁÔØ ÎÏ×ÕÀ ÔÅÍÕ";
 $langNoGroupStudents = "Õæèäåïæý ÷åÿ úôèòòý";
-$langNotAllowed = "÷Ù ÎÅ ÚÁÒÅÇÉÓÔÒÉÒÏ×ÁÎÙ ËÁË ÏÔ×ÅÔÓÔ×ÅÎÎÙÊ ÚÁ ËÕÒÓ";
 $langOk = "Ok";
 $langOneMyGroups = "ÏÄÎÁ ÉÚ ÍÏÉÈ ÇÒÕÐÐ";
 $langOtherCourses = "óÐÉÓÏË ËÕÒÓÏ×";
-$langPassword = "ÐÁÒÏÌØ";
 $langPlaces = "îåõæ ïâ úôèòòè (òð ãåíâïêá)";
 $langPoweredBy = "ÉÓÐÏÌØÚÕÅÔ ÏÂÏÌÏÞËÕ";
 $langPrivate = "ÚÁËÒÙÔ";
 $langPublic = "ÏÔËÒÙÔ ×ÓÅÍ";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "ÇÒÕÐÐÕ";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "ðÏÌØÚÏ×ÁÔÅÌØ ÍÏÖÅÔ ÂÙÔØ ÚÁÐÉÓÁÎ ×";
-$langReg = "òÅÇÉÓÔÒÁÃÉÑ";
 $langRegIntoGroup = "äÏÂÁ×ÉÔØ ÍÅÎÑ × ÜÔÕ ÇÒÕÐÐÕ";
 $langRegistered = "ßâòêõâïý";
+$langReply = "ïÔ×ÅÔÉÔØ";
 $langStudent = "ÓÔÕÄÅÎÔ";
 $langStudentsNotInThisGroups = "ðÏÌØÚÏ×ÁÔÅÌÉ, ÎÅ ÚÁÐÉÓÁÎÎÙÅ × ÜÔÕ ÇÒÕÐÐÕ";
 $langSubscribed = "õæèäåïæ(ý), ÿâòêõâïïýë(ýå) ïâ øæðæ ìèôõ";
 $langTo = "×";
-$langTools = "Õôåäõæþâ èòôâþíåïêó";
 $langUncompulsory = "(òð ãåíâïêá)";
-$langUserName = "éÍÑ ÐÏÌØÚÏ×ÁÔÅÌÑ";
 $langUsers = "ðÏÌØÚÏ×ÁÔÅÌÉ";
 $langWork = "úÁÄÁÎÉÑ";
 ?>

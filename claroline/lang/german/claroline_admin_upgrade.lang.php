@@ -1,18 +1,16 @@
 <?php
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "Im Falle einer Unterbrechung <sup>*</sup> sollte sich das <em>Claroline Upgrade tool</em> automatisch neustarten. 
 Wenn das nicht der Fall ist, klicken Sie bitte den Button unten";
-$langAddIntro = "Einführungstext hinzufügen";
 $langAdministration = "Administration";
 $langAgenda = "Termine/Ereignisse";
 $langAnnouncement = "Ankündigungen";
 $langCancel = "abbrechen";
 $langChat = "Chat";
 $langConfigurationFile = "Konfigurationsdatei";
-$langConfirmYourChoice = "Bitte bestätigen Sie Ihre Auswahl";
 $langCopy = "Kopieren";
+$langCourseHome = "Kurs-Startseite";
 $langCourseManager = "KursSite-Verantwortlicher";
 $langDay_of_weekNames = "Array";
-$langDelete = "Löschen";
 $langDescriptionCours = "Kursbeschreibung";
 $langDocument = "Dokumente/Dateien";
 $langDone = "Steps done";
@@ -65,7 +63,6 @@ installation and set them to be compatible with the new Claroline version. This 
 $langManager = "KursSite-Verantwortlicher";
 $langMinuteShort = "min.";
 $langModeVerbose = "ausführlicher Modus";
-$langModify = "ändern";
 $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
@@ -75,14 +72,12 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on 
 $langNext = "weiter";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button></p>";
 $langNo = "nein";
-$langNotAllowed = "Sie haben hier keinen Zugriff.";
 $langOk = "Ok";
 $langOtherCourses = "Kurs Angebot";
 $langPassword = "Passwort";
 $langPlatformAccess = "Zugrif auf das System";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
-$langReg = "Registrierung";
 $langRemainingSteps = "Verbleibende Schritte";
 $langRestoreCourseRepository = "Kursspeicher (Repository) wiederherstellen";
 $langSecondShort = "sec.";
@@ -114,20 +109,13 @@ $lang_CourseHasNoRepository_s_NotFound = "<strong> Kurs hat keinen Speicher (rep
 $lang_RetryWithMoreDetails = "Erneut versuchen mit mehr Angaben";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Die Claroline-Haupt-Tabellen wurden erfolgreich upgegraded";
 $lang_UpgradeFailedForCourses = "Upgrade Tool kann die folgenden Kurse nicht updaten :";
-$lang_click_here = " hier klicken";
 $lang_continueCoursesDataUpgrade = "Kursdatenupgrade fortsetzen";
-$lang_enter_your_user_name_and_password = "Benutzername und Passwort eingeben";
 $lang_fileUpgrade = "Datei Upgrade :";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Wenn Sie keine Zugangsbrechtigung haben zu";
-$lang_if_you_wish_to_enroll_to_this_course = "Wenn Sie sich in diese KursSite eintragen möchten";
 $lang_oldFileBackup = "Old file backup :";
 $lang_p_CannotCreate_s = "Kann nicht erstellt werden %s";
 $lang_p_CannotRename_s_s = "Kann nicht von  %s nach %s umbenannt werden";
 $lang_p_UpgradeMainClarolineDatabase_s = "Upgrading Claroline Hauptdatenbank (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading Kursdatenbank <strong>%2\$s</strong><br><small>
-DB Name : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Beheben Sie zuerst das technische Problem und <a href=\"%s\">relaunch the upgrade tool</a>.";
 $lang_p_d_affected_rows = "%d betroffene Zeilen";
 $lang_p_d_coursesToUpgrade = "%s Kurs(e) upzugraden";
@@ -138,8 +126,6 @@ $lang_p_s_s_isInvalid = "%s : %s ist ungültig";
 $lang_rules_s_in_s = "Regel : %s in %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) Schauen Sie in die Statusleiste Ihres Browsers.";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Der Claroline Upgrade Prozess ist abgeschlossen";
-$lang_this_course_is_protected = "Diese KursSite ist zugriffsbeschränkt";
 $lang_upgradeToolCannotUpgradeThisCourse = "Das Upgrade Tool kann diesen Kurs nicht upgraden.  <br>
 Beheben Sie zuerst das technische Problem und starten Sie das Upgrade-Tool neu.";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Ihr Teilnehmerprofil scheint nicht in diese KursSite eingetragen zu sein";
 ?>

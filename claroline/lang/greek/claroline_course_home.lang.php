@@ -11,7 +11,7 @@ $langChangedTool = "Εργαλείο/μέσο εισόδου άλλαξε";
 $langChat = "Κουβεντούλα";
 $langConfirmYourChoice = "Παρακαλώ επιβεβαιώστε την επιλογή σας";
 $langCourseHome = "Αρχική σελίδα μαθήματος(Course)";
-$langCourseManager = "Διαχειρηστής μαθήματος (Course)";
+$langCourseManager = "Διαχειριστής Μαθήματος";
 $langCourseSettings = "Ρυθμίσεις μαθήματος";
 $langDay_of_weekNames = "Array";
 $langDelete = "Διαγραφή";
@@ -26,20 +26,20 @@ $langForums = "Περιοχή συζητήσεων";
 $langGroups = "Ομάδες Χρηστών";
 $langHelp = "Βοήθεια";
 $langHome = "Επιστροφή στην αρχική σελίδα";
-$langIntroCourse = "Βρίσκεσαι στην αρχική σελίδα μαθήματος.<br /><br />Σε αυτή τη σελίδα, μπορείς :
+$langIntroCourse = "Βρίσκεσαι στην αρχική σελίδα μαθήματος.<br /><br />Σε αυτή τη σελίδα, μπορείτε :
 
 <ul>
 
-<li>να ενεργοποιήσεις ή απενεργοποιήσεις εργαλεία (κάνε κλικ στο 'Edit Tool list'(επιμέλεια λίστα εργαλείων)κουπίκατω αριστερα).</li>
+<li>να ενεργοποιήσετε ή απενεργοποιήσετε εργαλεία (κάντε κλικ στο 'Edit Tool list'(επιμέλεια λίστας εργαλείων) κάτω αριστερά).</li>
 
-<li>να αλλαξεις τις ρυθμίσεις ή να δεις τα στατιστικά (κάνε κλικ στις αντίστοιχες συνδέσεις απο κάτω).</li>
+<li>να αλλάξετε τις ρυθμίσεις ή να δείτε τα στατιστικά (κάντε κλικ στις αντίστοιχες συνδέσεις δεξιά).</li>
 
 </ul>
 
-Τώρα, για να προσθέσεις ένα εισαγωγικό κείμενο παρουσιάζοντας το μάθημα σου στους μαθητές , κανε κλικ σε αυτό το πλήκτρο ";
-$langIntroEditToolList = "Διάλεξε τα εργαλεία ποθ θελεις να φαίνονται στο δικό σου χρήστη.
+Τώρα, για να προσθέσετε ένα εισαγωγικό κείμενο παρουσιάζοντας το μάθημα στους μαθητές , κάντε κλικ παρακάτω ";
+$langIntroEditToolList = "Διαλέξτε τα εργαλεία που θέλετε να φαίνονται στους χρήστες σας.
 
-ένα αόρατο εργαλείο θα (be greyed out???) στο προσωπικό σου επιφάνεια";
+θα εμφανίζεται με γρι χρώμα στη δική σας οθόνη";
 $langLearningPath = "Διαδρομή μάθησης";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
@@ -52,13 +52,10 @@ $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langNameOfLang = "Διάταξη";
-$langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOtherCourses = "Λίστα Μαθημάτων";
-$langPassword = "Κωδικός";
 $langPlatformAdministration = "Διαχείρηση Πλατφόρμας";
 $langPoweredBy = "Με τη βοήθεια του";
-$langReg = "Εγγραφή";
 $langSecondShort = "sec.";
 $langStatistics = "Στατιστικά";
 $langStudent = "φοιτητής";
@@ -71,16 +68,9 @@ $langUnableChangedTool = "Αδυνατεί να αλλάξει εργαλείο/μέσο  πρόσβασης";
 $langUnableDeleteExternalTool = "Αδυνατεί να διαγράψει εξωτερικό εργαλείο";
 $langUnableUpdateExternalTool = "Αδυνατεί να ενημερώσει εξωτερικό μέσο-εργαλείο";
 $langUpdatedExternalTool = "Εξωτερικό εργαλείο ενημερώθηκε";
-$langUserName = "Όνομα χρήστη";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langWork = "Εργασίες Φοιτητών";
-$lang_click_here = "Κάνε κλικ εδώ";
-$lang_enter_your_user_name_and_password = "Eισαγωγή ονόματος χρήστη (username) και κωδικού (password)";
-$lang_footer_p_CourseManager = "Διευθυντής-ες για %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Εαν δεν έχετε λογαριασμό χρήστη ανοιχτό";
-$lang_if_you_wish_to_enroll_to_this_course = "Εαν επιθυμείτε να εγγραφείτε στο μάθημα αυτό";
-$lang_p_platformManager = "Διαχειρηστής για %s";
-$lang_this_course_is_protected = "Αυτό το μάθημα προστατεύεται";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα";
+$lang_footer_p_CourseManager = "Υπεύθυνος για %s";
+$lang_p_platformManager = "Διαχειριστής για %s";
 ?>

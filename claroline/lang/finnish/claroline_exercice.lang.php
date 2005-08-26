@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Lisää kommentti:";
-$langAddIntro = "Lisää johdantoteksti";
 $langAgenda = "Esityslista";
 $langAnd = "ja";
 $langAnnouncement = "Ilmoitukset";
@@ -32,13 +31,11 @@ $langOk = "Ok";
 $langOn = "On";
 $langPoweredBy = "Alusta";
 $langQuestion = "Kysymys";
-$langReg = "Rekisteröinti";
 $langResult = "Pisteet";
 $langSize = "Koko";
 $langStudent = "Opiskelija";
 $langTrue = "Tosi";
 $langUp = "Ylös";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 $langYes = "Yes";

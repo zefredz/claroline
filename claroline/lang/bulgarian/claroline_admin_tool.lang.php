@@ -1,11 +1,8 @@
 <?php
-$langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
-$langCancel = "Анулирай";
 $langChat = "Чат";
 $langDay_of_weekNames = "Array";
-$langDelete = "Изтрий";
 $langDescriptionCours = "Описание на курса";
 $langDocument = "Документи";
 $langEmpty = "Оставили сте някои полета празни.<br>Използвайте <b>Back</b> бутона на вашия браузер и пробвайте отново.<br>Ако игнорирате кода на курса, вижте програмата с всички курсове";
@@ -15,18 +12,13 @@ $langGroups = "Групи";
 $langHelp = "Помощ";
 $langLogout = "Изход";
 $langManager = "Администратор";
-$langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
-$langNotAllowed = "Не разрешено";
-$langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
-$langReg = "Регистрация";
 $langStudent = "студент";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 ?>

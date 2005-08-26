@@ -1,35 +1,74 @@
 <?php
-$langAddComment = " إضافة/تعديل تعليق ";
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langBack = " رجوع ";
-$langCancel = " إلغاء ";
-$langDate = " تاريخ ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDocument = " وثائق ";
-$langExercises = " تمارين ";
-$langForums = "منتديات";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langNameOfLang = "Array";
-$langNext = " التالي ";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOtherCourses = " دروس أخرى ";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langPrevious = " السابق ";
-$langReg = " ترسيم ";
-$langSize = " حجم ";
-$langStudent = "étudiant";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langWork = " أشغال ";
+$langAddComment = "إضافة ملاحظة";
+$langAddModule = "إضافة";
+$langAddModulesButton = "أضف وحدة(وحدات)";
+$langAddOneModuleButton = "أضف وحدة";
+$langAgenda = "جدول الأعمال";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "وثيقة";
+$langAltExercise = "تمرين";
+$langAltScorm = "Scorm ";
+$langAnnouncement = "الإعلانات";
+$langBack = "للخلف";
+$langBrowserCannotSeeFrames = "متصفح الانترنت الخاص بك لا يسمح باستخدام الإطارات المتعددة ضمن الصفحة الواحدة";
+$langChat = "دردشة";
+$langConfirmYourChoice = "قم بتأكيد اختيارك من فضلك";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langDate = "التاريخ";
+$langDay_of_weekNames = "مصفوفة";
+$langDefaultLearningPathComment = "هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>";
+$langDefaultModuleAddedComment = "هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.";
+$langDefaultModuleComment = "هذا هو نص المقدمة لهذه الوحدة، سوف يظهر في كل مسار تعليمي يحوي هذه الوحدة. لاستبداله بنصك الخاص، اضغط بالأسفل على <b>تعديل</b>.";
+$langDelete = "حذف";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langErrorInvalidParms = "خطأ: قيمة وسيطية غير صالحة (استخدم الأرقام فقط)";
+$langErrorNameAlreadyExists = "خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات";
+$langErrorValuesInDouble = "خطأ: يوجد قيمة أو أكثر مكررة";
+$langExercise = "تمرين";
+$langExerciseCancelled = "تم إلغاء التمرين , اختر وحدة من ضمن القائمة للمتابعة";
+$langExerciseDone = "انتهى التمرين , قم باختيار وحدة من القائمة للمتابعة";
+$langExercises = "التمارين";
+$langForums = "المنتديات";
+$langFullScreen = "ملء الشاشة";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langInFrames = "ضمن إطارات";
+$langLearningPath = "مسار التعليم";
+$langLearningPathAdmin = "إدارة مسار التعليم";
+$langLearningPathList = "قائمة مسارات التعلم";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langManager = "المدير";
+$langMinuteShort = "دقيقة";
+$langModify = "تعديل";
+$langModifyProfile = "تعديل معلوماتي";
+$langModule = "وحدة";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langName = "الاسم";
+$langNameOfLang = "مصفوفة";
+$langNext = "التالي";
+$langNoEx = "لا يوجد أيت تمارين حالياً";
+$langOk = "موافق";
+$langOtherCourses = "قائمة المقررات";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langPrevious = "السابق";
+$langQuitViewer = "العودة للقائمة";
+$langSecondShort = "ثانية";
+$langSize = "الحجم";
+$langStudent = "طالب";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langUp = "للأعلى";
+$langUsers = "المستخدمون";
+$langView = "عرض";
+$langViewMode = "نمط العرض";
+$langWork = "واجبات و مهام";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

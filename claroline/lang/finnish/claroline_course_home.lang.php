@@ -17,13 +17,10 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
-$langReg = "Rekisteröinti";
 $langStatistics = "Statistiikka";
 $langStudent = "Opiskelija";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

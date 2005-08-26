@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "dodajte uvodni tekst";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
-$langCancel = "Odustanite";
 $langChat = "Razgovor - chat";
 $langClarContent = "Ovdje, profesori i asistenti mogu kreirati i nadzirati predmetnu web stranicu. Studenti èitaju (dokumente,   informacije) i, 
  ponekad, rade vježbe, publiciraju radove, sudjeluju u forumskim diskusijama...</p><b>Prijava</b><p>Sljedeæe upute odnose se samo ukoliko imate verziju claroline koja dozvoljava samostalnu prijavu (neke stranice registriraj korisnika automatski). <br>Ukoliko ste student za prijavu potrebno je odabrati 'Prati predmete (student)', i onda odaberite predmete koje \elite pratiti.</p><p> Ukoliko ste profesor ili asistent, za prijavu odaberite 
@@ -12,7 +10,6 @@ $langClarContent = "Ovdje, profesori i asistenti mogu kreirati i nadzirati predm
 </p><p>Link za prijavu (if present) je na Poèetnoj stranici campusa
  (gore desno).</p><b>Pristup</b><p>Prilikom vašeg sljedeæeg posjeta, unesite login/zaporku i Ok da bi pristupili svom predmetu. URL stranice je ";
 $langDay_of_weekNames = "Array";
-$langDelete = "Izbriši";
 $langDescriptionCours = "Opis kolegija";
 $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj površini raèunala.</p><p> Možete uèitati dokumente bilo kojeg tipa (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, itd.). Pritom je važno da studenti imaju takoðer odgovarajuæi software kako bi mogli èitati dokumente.
  Neke datoteke mogu sadržavati viruse, a Vaša je odgovornost da ne uèitavate zaražene virusom datoteke. Zbog mjere opreza preporuèa se provjeriti dokumente antivirusnim programom prije nihovog oèitavanja.
@@ -175,16 +172,12 @@ U svakom alatu je jednostavan primjer kako bi brzo shvatili kako radi. Na Vama j
  Prema standardnim postavkama, Vaš predmet je skriven (zato što radite na njemu).</p>";
 $langLogout = "Odjava";
 $langManager = "Manager";
-$langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
-$langNotAllowed = "Nije dozvoljeno";
-$langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
-$langReg = "Prijava";
 $langStudent = "student";
 $langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
  Oni ne daju prava za upravljanje sustavom. Oni samo ukazuju ljudima tko je tko. Možete ih mjenjati klikom na  'promjeni' ispod 'uloge', i tada možete utipkati bilo što: profesor, asistent, student,
@@ -198,7 +191,6 @@ $langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
  Polje 'Nastavnici' je potpuno neovisan od Korisnièke liste.</p><hr>
 <b>Dodaj korisnika</b>
 <p>Kako bi dodali korisnika na vaš predmet, popunite polje i  potvrdite. Osoba 'e primiti obavijest putem emaila o prijavi i svom korisni;kom imenu i zaporki.</p>";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 ?>

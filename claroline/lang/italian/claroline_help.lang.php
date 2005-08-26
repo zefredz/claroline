@@ -1,16 +1,13 @@
 <?php
-$langAddIntro = "Aggiungi un testo di presentazione";
 $langAgenda = "Calendario";
 $langAnnouncement = "Annunci";
-$langCancel = "Cancella";
 $langChat = "Chat";
 $langClarContent = "Qui i docenti e gli assistenti creano e amministrano i siti dei corsi, i corsisti li adoperano (Documenti, Agende, informazioni diverse). Nel caso, i corsisti svolgono degli Esercizi, trasmettono dei Contributi, prendono parte alle discussioni nei Forum...</p><b>Iscrizione</b><p>Se siete un corsista, è sufficiente iscrivervi scegliendo 'Iscrivermi a dei corsi (corsista)' e in seguito marcare il corso che desiderate seguire.</p><p>Se siete un docente o un assistente , iscrivetevi ugualmente, scegliendo però l'opzione 'Creare dei siti di corso (docente)'. A questo punto vi sarà chiesto di riempire un modulo precisando il codice e il titolo del primo corso. Dopo che avrete confermato la scelta, sarete condotti al sito da voi creato e potrete modificarne il contenuto e l'organizzazione, a seconda delle vostre necessità.</P><p>Se questo portale di creazione e amministrazione non vi soddisfa, non esitate a segnalarcelo tramite l'opzione 'Suggerimenti' accessibile dalla pagina principale del campus virtuale, una volta che siate stati identificati.</p><p>Il collegamento verso 'Iscrizione' è posto nella pagina principale in alto a destra.</p><b>Identificazione personale (login)</b><p>Nelle vostre prossime visite, per accedere al vostro corso, immettete il vostro Identificativo utente e la vostra Password nel campo posto in altro a destra dello schermo. L'indirizzo del sito è";
 $langCloseWindow = "Chiudi finestra";
 $langConfigMenuContent = "Menu di Configurazione";
-$langConfirmYourChoice = "Conferma la tua scelta";
+$langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langDay_of_weekNames = "Array";
-$langDelete = "Eliminare";
 $langDescriptionCours = "Programma";
 $langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simile a quella della gestione del file system sul computer. </p><p>Potete depositare documenti di ogni tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Assicuratevi comunque che i corsisti dispongano dei programmi adatti per consultarli. Fate attenzione a non trasmettere documenti contenenti virus: è norma di prudenza verificare il documento con un programmma antivirus presente nell'Istituto.</p>
 <p>I documenti sono elencati in ordine alfabetico.<br>
@@ -271,19 +268,14 @@ $langLogin = "login";
 $langLogout = "Uscita";
 $langManager = "Responsabile";
 $langMinuteShort = "min.";
-$langModify = "Modificare";
 $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langNameOfLang = "Array";
-$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
-$langOk = "Ok";
 $langOtherCourses = "Elenco dei corsi";
-$langPassword = "password";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
-$langReg = "Iscriviti";
 $langSecondShort = "sec.";
 $langStudent = "Studenti";
 $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
@@ -297,16 +289,9 @@ $langUserContent = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano i
 <p>Per far comparire il nome di un contitolare nell'intestazione del corso utilizzate la pagina 'Modificare le informazioni sul corso' (strumenti in arancione).La modifica dell'intestazione non iscrive automaticamente il contitolare come utente del cors: si tratta di due azioni distinte..</p>
 <hr><b>Aggiungere un utente</b>
 <p>Per aggiungere un utente al corso, verificare innanzitutto che sia iscritto sul campus utilizzando il motore di ricerca.  Se lo è, marcate la casella che compare a fianco del suo nome e confermate. Se non è iscritto, aggiungerlo alla pagina principale. In entrambi i casi la persona riceverà una email di conferma dell'avvenuta iscrizione contenente il suo nome e la sua password, a meno che voi non abbiate indicato l'indirizzo email.</p>";
-$langUserName = "Username";
 $langUsers = "Utenti";
 $langViewMode = "Vista";
 $langWork = "Lavori";
-$lang_click_here = "Premi Qui";
-$lang_enter_your_user_name_and_password = "Inserisci Nome e Password";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vuoi iscriverti a questo corso";
 $lang_p_platformManager = "Amministratore di %s";
-$lang_this_course_is_protected = "Questo corso è protetto";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
 ?>

@@ -1,14 +1,10 @@
 <?php
-$langAddIntro = "Añadir texto introductorio";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
-$langCancel = "Cancelar";
 $langChat = "Chat";
-$langConfirmYourChoice = "Por favor confirma tú elección";
 $langCourseHome = "Descripción del curso";
 $langCourseManager = "Coordinador de curso";
 $langDay_of_weekNames = "Array";
-$langDelete = "Eliminar";
 $langDescriptionCours = "Descripción del curso";
 $langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona de manera semejante a la gesti&oacute;n de sus documentos en un ordenador. </p><p>Usted puede introducir documentos de todo tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Tenga en cuenta, sin embargo, el que los estudiantes dispongan de las herramientas apropiadas para poder consultarlos. Tenga tambi&eacute;n cuidado de no enviar 
   documentos infectados con virus. Es conveniente de comprobar primero con un programa antivirus que los documentos
@@ -115,19 +111,14 @@ $langHomeContent = "La mayor&iacute;a de las rúbricas de iCampus est&aacute;n ya
 $langLogin = "Ingreso";
 $langLogout = "Salir";
 $langManager = "Responsable";
-$langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langNameOfLang = "Array";
-$langNotAllowed = "No tienes acceso";
-$langOk = "Aceptar";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "Contraseña";
 $langPlatformAdministration = "Administración de la plataforma";
 $langPoweredBy = "Generado con";
-$langReg = "Inscribirse";
 $langStudent = "Estudiante";
 $langUserContent = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ninguna funci&oacute;n inform&aacute;tica. No otorgan ning&uacute;n derecho sobre el sistema. Usted puede modificarlos haciendo click sobre 'modificar' debajo de  'rol/papel' y despu&eacute;s introduciendo todas las letras de la descripci&oacute;n de la funci&oacute;n conveniente: profesor, asistente, tutor, visitante, documentalista, experto, moderador... Est&oacute; servir&aacute; solamente para indicar p&uacute;blicamente que rol (papel) que desempe&ntilde;a en el curso.</P><hr>
 <b>Derechos de administraci&oacute;n</b>
@@ -137,13 +128,6 @@ $langUserContent = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ningu
 <p>Para hacer que figure el nombre de un co-titular en la cabecera de su curso, utilice la p&aacute;gina 'Modificar la informaci&oacute;n sobre el curso' (en las herramientas de color naranja). Esta modificaci&oacute;n de la cabercera del curso no inscribe autom&aacute;ticamente a este co-titular como usuario del curso. Se trata de dos acciones distintas.</p><hr>
 <b>Ayudar a un usuario</b>
 <p>Para a&ntilde;adir un usuario a su curso, comprobar primero si ya est&aacute; inscrito en iCampus utilizando el motor de b&uacute;squeda. Si ya est&aacute; inscrito, marque la casilla que aparece al lado de su nombre y valide. Si todav&iacute;a no est&aacute; inscrito a&ntilde;adale a mano. En los dos casos, la persona recibir&aacute; un email de confirmaci&oacute;n de su inscripci&oacute;n conteniendo su nombre de usuario y su password, excepto en el caso de que ustede no haya introducido su email.</p>";
-$langUserName = "Usuario";
 $langUsers = "Usuarios";
 $langWork = "Trabajos";
-$lang_click_here = "click here";
-$lang_enter_your_user_name_and_password = "Enter your user name and password";
-$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
-$lang_this_course_is_protected = "This course is protected";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
 ?>

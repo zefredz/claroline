@@ -1,31 +1,47 @@
 <?php
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langCancel = " إلغاء ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDocument = " وثائق ";
-$langEmpty = " لم تملئوا كلّ الحقول
-<br>\ استعملوا زرّ الرجوع إلى الوراء وأعيدوا الكرّة <br> إن كنتم لا تعرفون رمز درسكم عودوا إلى برنامج الدروس";
-$langExercises = " تمارين ";
-$langForums = "منتديات";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langNameOfLang = "Array";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOtherCourses = " دروس أخرى ";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langReg = " ترسيم ";
-$langStudent = "étudiant";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langWork = " أشغال ";
+$langAdministration = "المدير";
+$langAgenda = "جدول الأعمال";
+$langAnnouncement = "الإعلانات";
+$langChat = "دردشة";
+$langConfiguration = "الإعدادات";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langDay_of_weekNames = "مصفوفة";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langEmpty = "فارغ";
+$langExercises = "التمارين";
+$langForums = "المنتديات";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langLearningPath = "مسار التعليم";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langManager = "المدير";
+$langMinuteShort = "دقيقة";
+$langModifyProfile = "تعديل معلوماتي";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langNameOfLang = "مصفوفة";
+$langOtherCourses = "قائمة المقررات";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langPropertiesNotIncludeInSections = "Properties not include in sections";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
+$langSecondShort = "ثانية";
+$langStudent = "طالب";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langThisIsAnErrorInDefinitionFile = "هذا الخطأ نايتج عن ملف التعريف";
+$langUsers = "المستخدمون";
+$langViewMode = "نمط العرض";
+$langWork = "واجبات و مهام";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_ErrorOnBuild_S_for_S = "خطأ في بناء ال <em>%s</em> من اجل <B>%s</B>";
+$lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
+$lang_p_config_file_creation = "إنشاء ملف الإعدادات:<BR> %s";
+$lang_p_nothing_to_edit_in_S = "لا يوجد ما يمكن تعديله في  %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

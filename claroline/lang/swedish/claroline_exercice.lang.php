@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "lägg till/modifiera kommentar till";
-$langAddIntro = "Lägg till introduktionstext";
 $langAgenda = "Agenda";
 $langAllExercises = "Alla övningar";
 $langAllRight = "Det är ett mystiskt fall här";
@@ -100,7 +99,6 @@ $langQuestionPool = "Frågepool";
 $langQuestionWeighting = "Viktning";
 $langQuestions = "Frågor";
 $langRandomQuestions = "Slumpvisa frågor";
-$langReg = "Registrering";
 $langResult = "Resultat";
 $langReuse = "Återanvänd";
 $langScore = "poäng";
@@ -117,7 +115,6 @@ $langUniqueSelect = "Multipla val (Unika svar)";
 $langUp = "Upp";
 $langUseTagForBlank = "använd hakparanteser [...] för att definiera en eller flera blanka";
 $langUsedInSeveralExercises = "Varning ! Denna fråga och dess svar används i flera övningar. Vill du modifiera den";
-$langUserName = "Namn";
 $langUsers = "Användare";
 $langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWork = "Elevarbeten";

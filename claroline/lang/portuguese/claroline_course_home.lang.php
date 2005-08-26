@@ -24,16 +24,12 @@ $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
-$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "Senha";
 $langPoweredBy = "Utiliza a Plataforma";
-$langReg = "Inscri&ccedil;&atilde;o";
 $langStatistics = "Estat&iacute;sticas";
 $langStudent = "estudante";
 $langTools = "Ferramentas";
-$langUserName = "Nome de utilizador";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
 ?>

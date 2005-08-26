@@ -24,16 +24,12 @@ $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
-$langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
 $langOtherCourses = "Senarai Subjek";
-$langPassword = "katalaluan";
 $langPoweredBy = "Oleh : ";
-$langReg = "Daftar";
 $langStatistics = "Statistik";
 $langStudent = "Pelajar";
 $langTools = "Tools";
-$langUserName = "Nama Pengguna";
 $langUsers = "Users";
 $langWork = "Works";
 ?>

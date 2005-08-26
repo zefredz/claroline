@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "acrescentar/alterar um coment&aacute;rio ";
-$langAddIntro = "Acrescentar um texto de apresenta&ccedil;&atilde;o";
 $langAgenda = "Agenda";
 $langAnnouncement = "An&uacute;ncios";
 $langBack = "Voltar aos par&aacute;metros do curso";
-$langCancel = "Cancelar";
 $langChat = "Debate";
 $langConfirmYourChoice = "Confirme a sua escolha";
 $langCourseManager = "Respons&aacute;vel pelo curso";
@@ -26,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNext = "Seguinte";
-$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
+$langNoEx = "Actualmente n&atilde;o h&aacute; exerc&iacute;cios";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "Senha";
 $langPoweredBy = "Utiliza a Plataforma";
-$langReg = "Inscri&ccedil;&atilde;o";
 $langSize = "Tamanho";
 $langStudent = "estudante";
 $langUp = "transferir";
-$langUserName = "Nome de utilizador";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
 ?>

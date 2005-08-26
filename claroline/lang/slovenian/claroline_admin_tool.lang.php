@@ -1,13 +1,9 @@
 <?php
-$langAddIntro = "Dodaj uvodno besedilo";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
-$langCancel = "Prekini";
 $langChat = "Razprava";
-$langConfirmYourChoice = "Potrdi izbiro";
 $langCourseManager = "Upravnik tecaja";
 $langDay_of_weekNames = "Array";
-$langDelete = "Brisi";
 $langDescriptionCours = "Opis tecaja";
 $langDocument = "Dokumenti";
 $langEmpty = "Prazno";
@@ -17,19 +13,13 @@ $langHelp = "Pomoc";
 $langLogin = "vstop";
 $langLogout = "Izstop";
 $langManager = "Upravnik";
-$langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
-$langNotAllowed = "Tu nimas dovoljenja";
-$langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";
-$langPassword = "geslo";
 $langPoweredBy = "Powered by";
-$langReg = "Registracija";
 $langStudent = "student";
-$langUserName = "User name";
 $langUsers = "Uporabniki";
 $langWork = "Works";
 ?>

@@ -1,6 +1,5 @@
 <?php
 $langAdd = "加える";
-$langAddIntro = "紹介文を加える";
 $langAgenda = "予定";
 $langAnnouncement = "お知らせ";
 $langDay_of_weekNames = "Array";
@@ -16,13 +15,10 @@ $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
-$langNotAllowed = "このコース受講が許可されていません";
 $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
-$langReg = "登録";
 $langStudent = "student";
 $langTitle = "タイトル";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langViMod = "可読を修正";
 $langWork = "学生の文書たち";

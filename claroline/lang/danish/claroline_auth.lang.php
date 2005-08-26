@@ -1,6 +1,5 @@
 <?php
 $langAction = "Handling";
-$langAddIntro = "Tilføj introduktionstekst";
 $langAddress = "Adressen på ";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
@@ -8,13 +7,13 @@ $langCancel = "Fortryd";
 $langCategories = "Kursuskategorier";
 $langChat = "Chat";
 $langComment = "Kommentar";
-$langConfirmYourChoice = "Venligst bekræft dit valg";
 $langConfirmation = "Bekræft adgangskode";
 $langCopy = "kopi";
+$langCourse = "Kursushjemmesiden ";
 $langCourseManager = "Kursusadministrator";
+$langCreate = "opret";
 $langDay_of_weekNames = "Array";
 $langDear = "Kære";
-$langDelete = "Slette";
 $langDescriptionCours = "kursusbeskrivelse";
 $langDocument = "Dokumenter";
 $langEmail = "Email";
@@ -43,7 +42,6 @@ Dine personlige oplysninger er registreret og en email er afsendt til din emaila
 så du kan huske dit brugernavn og din adgangskode. 
 <i>Husk at der er forskel på store og små bogstaver (case sensitive)</i>, 
 når du skal logge dig på.";
-$langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -51,7 +49,6 @@ $langMyStats = "Se statistikkerne";
 $langNameOfLang = "Array";
 $langNext = "Næste";
 $langNo = "Nej";
-$langNotAllowed = "Ikke tilladt";
 $langNowGoChooseYourCourses = "Vælg nu de kurser på kursusoversigten som du ønsker adgang til.";
 $langNowGoCreateYourCourse = "Du kan nu oprette dine kurser";
 $langOk = "Ok";
@@ -65,7 +62,6 @@ $langProfileReg = "Din nye brugerprofil er gemt";
 $langReg = "Registrering";
 $langRegAdmin = "Opret kursushjemmeside";
 $langRegStudent = "Følg kursus";
-$langRegistration = "Registrering";
 $langSettings = "med følgende brugernavn:";
 $langStudent = "studerende";
 $langTo = "til";

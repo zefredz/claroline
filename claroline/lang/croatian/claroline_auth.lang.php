@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "dodajte uvodni tekst";
 $langAddress = "Adresa ";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
@@ -9,9 +8,10 @@ $langChat = "Razgovor - chat";
 $langComment = "Primjedba";
 $langConfirmation = "Potvrda";
 $langCopy = "Kopiraj";
+$langCourse = "Website ";
+$langCreate = "stvorite";
 $langDay_of_weekNames = "Array";
 $langDear = "Poštovani";
-$langDelete = "Izbriši";
 $langDescriptionCours = "Opis kolegija";
 $langDocument = "Dokumenti";
 $langEmail = "Email";
@@ -32,13 +32,11 @@ Poštovani %s, %s.
 Vaši osobni podaci su prijavljeni i poslan Vam je e-mail 
 s vašim korisnièkim imenom i zaporkom.<br>
 Izaberite sada sa popisa kojim predmetima želite pristup.";
-$langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
 $langNo = "Ne";
-$langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPassTooEasy = "ova zaporka je prejednostavna. Koristite neku kao na primjer";
@@ -49,7 +47,6 @@ $langProfileReg = "Vaš novi profil je saèuvan";
 $langReg = "Prijava";
 $langRegAdmin = "Kreiraj  website kolegija";
 $langRegStudent = "Prati kolegije";
-$langRegistration = "Prijava";
 $langSettings = "sa sljedeæom postavkom :
 Username::";
 $langStudent = "student";

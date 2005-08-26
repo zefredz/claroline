@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "紹介文を加える";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgenda = "予定";
 $langAnnouncement = "お知らせ";
@@ -13,7 +12,6 @@ $langCourseTitle = "タイトル";
 $langCreateSite = "コースのウエブサイトを作る";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "会議室管理者ツールを用いて削除";
-$langDelete = "削除";
 $langDocument = "文書たち";
 $langEmail = "Email";
 $langEmailWrong = "この email address は不完全か、利用出来ない文字が含まれています";
@@ -32,7 +30,6 @@ $langLogout = "ログアウト";
 $langManager = "運用者";
 $langManyAnswers = "(more than one answer can be true)";
 $langMessage = "テスト会議室を削除するとこのメッセージも削除されます";
-$langModify = "修正";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
@@ -45,14 +42,12 @@ $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
 $langProfessor = "教師";
 $langProfessors = "Professor(s)";
-$langReg = "登録";
 $langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
 $langSocraticIrony = "Socratic irony is...";
 $langStudent = "student";
 $langTargetFac = "このコースの学科、学部";
 $langTestForum = "テスト会議室";
 $langTo = "to";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langWork = "学生の文書たち";
 ?>

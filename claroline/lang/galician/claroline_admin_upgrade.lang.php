@@ -1,18 +1,16 @@
 <?php
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "En caso de interrupci&oacute;n <sup>*</sup>, a <em>Ferramenta de Actualizaci&oacute;n de Claroline</em> 
 	deber&iacute;a de se reiniciar automaticamente. Se non o fai, prema no bot&oacute;n de debaixo.";
-$langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAdministration = "Administraci&oacute;n";
 $langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
 $langCancel = "Cancelar";
 $langChat = "Chat";
 $langConfigurationFile = "Ficheiro de configuraci&oacute;n";
-$langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langDay_of_weekNames = "Array";
-$langDelete = "Eliminar";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocument = "Documentos e Ligaz&oacute;ns";
 $langDone = "Pasos realizados";
@@ -97,7 +95,6 @@ sexan compatibles coa nova estructura de datos.</li>
 $langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModeVerbose = "Modo extendido";
-$langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
@@ -107,14 +104,12 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s os cursos e
 $langNext = "Seguinte";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">Seguinte ></button></p>";
 $langNo = "Non";
-$langNotAllowed = "Acci&oacute;n non permitida";
 $langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
 $langPassword = "contrasinal";
 $langPlatformAccess = "Accesos &oacute; campus";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
-$langReg = "Inscrici&oacute;n";
 $langRemainingSteps = "Pasos finais";
 $langRestoreCourseRepository = "Restaurar repositorio de cursos";
 $langSecondShort = "seg.";
@@ -152,26 +147,13 @@ $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "As t&aacute;boas pri
 																satisfactoriamente actualizadas";
 $lang_UpgradeFailedForCourses = "A ferramenta de actualizaci&oacute;n non &eacute; capaz de 
 											actualiza-los cursos seguintes :";
-$lang_click_here = "prema aqu&iacute;";
 $lang_continueCoursesDataUpgrade = "Continuar actualizaci&oacute;n dos datos dos cursos";
-$lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
 $lang_fileUpgrade = "Actualizaci&oacute;n de ficheiro :";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
 $lang_oldFileBackup = "Copia de seguridade do antigo ficheiro :";
 $lang_p_CannotCreate_s = "Non &eacute; posible crear %s";
 $lang_p_CannotRename_s_s = "Non &eacute; posible renomear %s a %s";
 $lang_p_UpgradeMainClarolineDatabase_s = "Actualizando a base de datos principal de Claroline (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table>
-		<tr valign=\"top\">
-			<td><strong>%1\$s. </strong></td>
-			<td>Actualizando a base de datos do curso <strong>%2\$s</strong><br><small>
-				Nome BD  : %3\$s <br>
-				ID curso : %4\$s</small>
-			</td>
-		</tr>
-	</table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Solucione en primeiro lugar o problema t&eacute;cnico e logo
 													<a href=\"%s\">relance a ferramenta de actualizaci&oacute;n</a>";
 $lang_p_d_affected_rows = "%d filas afectadas";
@@ -185,10 +167,7 @@ $lang_p_s_s_isInvalid = "%s : %s &eacute; inv&aacute;lido";
 $lang_rules_s_in_s = "Regras : %s en %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) ver na barra de estado do seu navegador.";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Completouse o proceso de actualizaci&oacute;n de Claroline";
-$lang_this_course_is_protected = "Este curso est&aacute; protexido";
 $lang_upgradeToolCannotUpgradeThisCourse = "A ferramenta de actualizaci&oacute;n non &eacute; capaz de actualizar este curso.<br>
 											Solucione en primeiro lugar o problema t&eacute;cnico e relance logo a ferramenta
 											de actualizaci&oacute;n";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
-														matriculado neste curso";
 ?>

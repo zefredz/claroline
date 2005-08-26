@@ -78,6 +78,7 @@ $langNextStep = "<p><button onclick=\"document.location='%s';\">Next ></button><
 $langNo = "No";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
+$langPassword = "Password";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";
 $langPlatformAccess = "Access to campus";
@@ -104,6 +105,7 @@ $langUpgradeStep1 = "Step 1 of 3: platform main settings";
 $langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
 $langUpgradeStep3 = "Step 3 of 3: courses upgrade";
 $langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
+$langUserName = "User name";
 $langUsers = "Users";
 $langViewMode = "View mode";
 $langWork = "Assignments";
@@ -120,7 +122,7 @@ $lang_oldFileBackup = "Old file backup :";
 $lang_p_CannotCreate_s = "Cannot create %s";
 $lang_p_CannotRename_s_s = "Cannot rename %s to %s";
 $lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading database of course <strong>%2\$s</strong><br><small>
+$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading course <strong>%2\$s</strong><br><small>
 DB Name : %3\$s <br>
 Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";

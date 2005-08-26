@@ -1,13 +1,10 @@
 <?php
-$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAddPage = "Afegeix una plana";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
-$langCancel = "Cancel·la";
 $langChat = "Xat";
 $langCouldNot = "No s'ha pogut enviar el fitxer";
 $langDay_of_weekNames = "Array";
-$langDelete = "Esborra";
 $langDocument = "Documents";
 $langExercises = "Exercicis";
 $langExplanation = "Un cop punxis sobre D'acord, un lloc amb Fòrum, Agenda, Gestor de documents etc. serà creat. En connectar-te, com a creador del lloc, podràs modificar-lo segons els teus requeriments.";
@@ -19,7 +16,6 @@ $langLink = "Enllaços";
 $langLinkSite = "Enllaç al lloc des de la Plana d'Inici";
 $langLinks = "Enllaços";
 $langManager = "El coordinador";
-$langModify = "modifica";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
@@ -30,12 +26,10 @@ $langOkSent = "La teva pàgina ha estat enviada.<p>Es troba enllaçada des del cur
 $langOtherCourses = "Llista de cursos";
 $langPgTitle = "Títol de la pàgina";
 $langPoweredBy = "Potenciat per ";
-$langReg = "Enregistrament";
 $langSendPage = "Plana a ser enviada";
 $langStudent = "estudiant";
 $langSubTitle = "Afegeix un enllaç a un lloc en el Menú Principal de la Plana d'Inici del teu Curs, a una plana o qualsevol URL. Consell: si vols afegir un enllaç a una plana, ves a aquella plana, copia i enganxa la seva adreça de la barra 'URL' a la part superior del teu navegador i inserta-la en el camp \"enllaç\" de sota.";
 $langTooBig = "No has escollit l'arxiu a enviar o l'arxiu és massa gran.";
-$langUserName = "Nom d'usuari";
 $langUsers = "Usuaris";
 $langWork = "Treballs dels estudiants";
 ?>

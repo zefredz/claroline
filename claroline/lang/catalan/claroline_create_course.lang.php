@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
 $langAdmitError = "Admetre els errors d'un mateix per convidar el teu interlocutor a fer el mateix.";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncis";
@@ -18,7 +17,6 @@ $langCreate = "crea";
 $langCreateSite = "Crea el lloc web d'un curs";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Elimina això a través de l'eina d'administració de fòrums";
-$langDelete = "Esborra";
 $langDocument = "Documents";
 $langEmail = "Correu-e";
 $langEmailWrong = "L'adreça de correu-e no és completa o conté alguns caracters invàlids";
@@ -39,7 +37,6 @@ $langManager = "El coordinador";
 $langManyAnswers = "(pot ser correcta més d'una resposta)";
 $langMaxSizeCourseCode = "màx. 12 caracters, e.g. <i>ONA2121</i>";
 $langMessage = "Quan eliminis el fòrum de prova, s'esborraran també tots els missatges d'aquest fòrum.";
-$langModify = "modifica";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
@@ -53,14 +50,12 @@ $langOtherCourses = "Llista de cursos";
 $langPoweredBy = "Potenciat per ";
 $langProfessor = "Professor";
 $langProfessors = "Professors";
-$langReg = "Enregistrament";
 $langRidiculise = "Ridiculitzar el teu interlocutor per tal de fer-lo reconèixer que es troba errat.";
 $langSocraticIrony = "La ironia socràtica és...";
 $langStudent = "estudiant";
 $langTargetFac = "Aquesta és la facultat, departament o escola on el curs s'imparteix";
 $langTestForum = "Fòrum de prova";
 $langTo = "cap a";
-$langUserName = "Nom d'usuari";
 $langUsers = "Usuaris";
 $langWork = "Treballs dels estudiants";
 ?>

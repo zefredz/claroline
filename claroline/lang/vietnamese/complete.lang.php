@@ -299,7 +299,6 @@ $langDocumentsTitleDocumentColumn = "Tài liệu";
 $langDocumentsTitleUsersColumn = "Số lần  Downloads";
 $langEG = "e. g.";
 $langEdit = "Sửa";
-$langEditDel = "S?a/Xoá";
 $langEditGroup = "Edit this group";
 $langElRen = "Đã đổi tên xong";
 $langElementList = "Liệt kê";

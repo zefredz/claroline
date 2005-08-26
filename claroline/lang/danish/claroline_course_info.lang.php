@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Tilføj introduktionstekst";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAllowed = "Tilladt";
 $langAnnouncement = "Meddelelser";
@@ -13,7 +12,6 @@ $langConfTip = "Som standard er dit kursus kun tilgængeligt for dig som dets ene
 er det letteste, at du åbner for tilmeldinger i f.eks.
 en uge (vælg: Fortrolig adgang, åben tilmelding), og beder de studerende om i første lektion selv at tilmelde sig indenfor denne tid, og derefter lukker for tilmeldinger (vælg: Fortrolig adgang, tilmeldingen er lukket). Du kan nu se de tilmeldte på deltagerlisten, og slette evt. uvelkomne.
 Kurset er nu kun tilgængeligt via login.";
-$langConfirmYourChoice = "Venligst bekræft dit valg";
 $langCopy = "kopi";
 $langCourse = "Kursushjemmesiden ";
 $langCourseAccess = "Kursusadgang";
@@ -21,7 +19,6 @@ $langCourseManager = "Kursusadministrator";
 $langCourseTitle = "Kursustitel";
 $langDay_of_weekNames = "Array";
 $langDelCourse = "Slet hele kursushjemmesiden";
-$langDelete = "Slette";
 $langDenied = "Nægtet";
 $langDepartmentUrl = "Institut/Afdeling URL";
 $langDepartmentUrlName = "Institut/Afdeling";
@@ -39,7 +36,6 @@ $langLogin = "login";
 $langLogout = "Logud";
 $langManager = "Support";
 $langModifDone = "Informationen er blevet ændret";
-$langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -48,18 +44,15 @@ $langNo = "Nej";
 $langNotAllowed = "Ikke tilladt";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";
-$langPassword = "adgangskode";
 $langPoweredBy = "Udviklet af";
 $langPrivateAccess = "Fortrolig adgang, tilmeldingen er lukket (kursushjemmesiden er dermed kun åben for deltagere på <a href=../user/user.php>Deltagerlisten</a>)";
 $langProfessors = "Undervisere";
 $langPublicAccess = "Offentlig adgang til kurset fra E-learning's forside selv uden login.";
-$langReg = "Registrering";
 $langStatistics = "Statistikker";
 $langStudent = "studerende";
 $langSubscription = "Kursustilmelding";
 $langTipLang = "Kursushjemmesidens sprog";
 $langTo = "til";
-$langUserName = "Brugernavn";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
 $langYes = "Ja";

@@ -1,11 +1,9 @@
 <?php
-$langAddIntro = "Lis‰‰ johdantoteksti";
 $langAddPage = "Lis‰‰ sivu";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
 $langCouldNot = "Tiedostoa ei voitu l‰hett‰‰";
 $langDay_of_weekNames = "Array";
-$langDelete = "Poista";
 $langDocument = "Dokumentit";
 $langExercises = "Harjoitukset";
 $langExplanation = "Sivun t‰ytyy olla HTML-muodossa. Jos haluat l‰hett‰‰ sivun ei-HTML-muodossa (PDF, DOC, SWD, jne.), niin k‰yt‰<a href=../document/document.php>Dokumentti-sivua</a>";
@@ -17,7 +15,6 @@ $langLinkSite = "Lis‰‰ linkki sivustoon";
 $langLinks = "Linkit";
 $langLogout = "Logout";
 $langManager = "Yll‰pit‰j‰";
-$langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
@@ -27,12 +24,10 @@ $langOk = "Ok";
 $langOkSent = "Sivu on l‰hetetty.<p>Se on linkitetty kurssin <a href=../..//index.php>kotisivulta</a>";
 $langPgTitle = "Sivun otsikko";
 $langPoweredBy = "Alusta";
-$langReg = "Rekisterˆinti";
 $langSendPage = "Sivu on l‰hetetty";
 $langStudent = "Opiskelija";
 $langSubTitle = "Lis‰‰ linkki kurssin kotisivulle.";
 $langTooBig = "Et valinnut tiedostoa tai tiedosto on liian suuri.";
-$langUserName = "K‰ytt‰j‰nimi";
 $langUsers = "K‰ytt‰j‰t";
 $langWork = "Opiskelijoiden teht‰v‰t";
 ?>

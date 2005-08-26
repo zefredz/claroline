@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Dodaj/spremeni komentar na";
-$langAddIntro = "Dodaj uvodno besedilo";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
 $langBack = "Povratek";
-$langCancel = "Prekini";
 $langChat = "Razprava";
 $langConfirmYourChoice = "Potrdi izbiro";
 $langCourseManager = "Upravnik tecaja";
@@ -26,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langNext = "Naprej";
-$langNotAllowed = "Tu nimas dovoljenja";
+$langNoEx = "Trenutno ni nobene vaje";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";
-$langPassword = "geslo";
 $langPoweredBy = "Powered by";
-$langReg = "Registracija";
 $langSize = "Velikost";
 $langStudent = "student";
 $langUp = "Gor";
-$langUserName = "User name";
 $langUsers = "Uporabniki";
 $langWork = "Works";
 ?>

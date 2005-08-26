@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "добавить/изменить комментарий к";
-$langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langAgenda = "Календарь";
 $langAnnouncement = "Объявления";
 $langBack = "Назад";
-$langCancel = "Отменить";
 $langChat = "Чат";
 $langConfirmYourChoice = "Подтвердите ваш выбор";
 $langCourseManager = "Менеджер курса";
@@ -26,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNext = "Дальше";
-$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
+$langNoEx = "В данный момент тестов нет";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";
-$langPassword = "пароль";
 $langPoweredBy = "использует оболочку";
-$langReg = "Регистрация";
 $langSize = "Размер";
 $langStudent = "студент";
 $langUp = "вверх";
-$langUserName = "Имя пользователя";
 $langUsers = "Пользователи";
 $langWork = "Задания";
 ?>

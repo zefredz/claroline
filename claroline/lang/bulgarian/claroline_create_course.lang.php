@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Добави увод";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
@@ -18,7 +17,6 @@ $langCreate = "създай";
 $langCreateSite = "Създай сайт на курса";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Премахни това чрез администраторските инструменти на форума";
-$langDelete = "Изтрий";
 $langDescriptionCours = "Описание на курса";
 $langDocument = "Документи";
 $langEmail = "Емейл";
@@ -40,7 +38,6 @@ $langLogout = "Изход";
 $langManager = "Администратор";
 $langManyAnswers = "(повече от един отговор може да е верен)";
 $langMessage = "Премахвайки тест форума, ще изтриете и всички съобщения в него.";
-$langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
@@ -54,14 +51,12 @@ $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
 $langProfessor = "Преподавател";
 $langProfessors = "Преподаватели";
-$langReg = "Регистрация";
 $langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
 $langSocraticIrony = "Иронията на Сократ е...";
 $langStudent = "студент";
 $langTargetFac = "Това е факултета , в който се провежда курсът";
 $langTestForum = "Тествайте форума";
 $langTo = "в";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 ?>

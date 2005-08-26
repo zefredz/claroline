@@ -23,16 +23,14 @@ $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
-$langNotAllowed = "ไม่อนุญาต";
+$langNoEx = "ขณะนี้ ไม่มีแบบฝึกหัด";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
-$langReg = "ลงทะเบียน";
 $langSize = "ขนาด";
 $langStudent = "นักศึกษา";
 $langTo = "ไปยัง";
 $langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป";
 $langUp = "ขึ้น";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 ?>

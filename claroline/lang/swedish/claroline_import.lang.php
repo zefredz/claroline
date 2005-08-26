@@ -1,15 +1,11 @@
 <?php
-$langAddIntro = "Lägg till introduktionstext";
 $langAddPage = "Lägg till en sida";
 $langAgenda = "Agenda";
 $langAnnouncement = "Tillkännagivanden";
-$langCancel = "Avbryt";
 $langChat = "Diskussion";
-$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
 $langCouldNot = "Filen kunde inte sändas";
 $langCourseManager = "Kursansvarig";
 $langDay_of_weekNames = "Array";
-$langDelete = "Radera";
 $langDescriptionCours = "Kursbeskrivning";
 $langDocument = "Dokument";
 $langExercises = "Övningar";
@@ -24,7 +20,6 @@ $langLinks = "Länkar";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langManager = "Ansvarig";
-$langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
@@ -35,12 +30,10 @@ $langOkSent = "din sida har skickats.<p>Den är nu länkad till från kursens <a hr
 $langOtherCourses = "Kurslista";
 $langPgTitle = "Sidans titel";
 $langPoweredBy = "Med kraft från";
-$langReg = "Registrering";
 $langSendPage = "Sida att sända";
 $langStudent = "elev";
 $langSubTitle = "Lägger sig till menyn på kursens hemsida som en länk till en sajt, en sida eller valfri URL. Tips: om du vill lägga till en länk till en sida, gå till den sidan, kopiera och klistra sedan in länkens address, som du hittar i URL-fältet högst upp i din webbläsare, i \"länk\"-fältet nedan.";
 $langTooBig = "Du valde ingen fil eller filen du valde är för stor.";
-$langUserName = "Namn";
 $langUsers = "Användare";
 $langWork = "Elevarbeten";
 ?>

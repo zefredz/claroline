@@ -1,23 +1,49 @@
 <?php
-$langAddIntro = "Engadir un texto de introducci&oacute;n";
+$l_click = "Premer co rato";
+$l_here = "aqu&iacute;";
+$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque 
+					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e 
+					vostede solicitara previamente que se lle notificase este feito.
+
+					Pode vostede ve-lo tema de conversa en:
+
+					http://\$SERVER_NAME\$url_phpbb/viewtopic.\$phpEx?topic=\$topic&forum=\$forum
+
+
+					Ou ve-lo &iacute;ndice do foro de \$sitename en:
+
+					http://\$SERVER_NAME\$url_phpbb
+
+					Grazas por emprega-los foros de \$sitename.
+
+					Que te&ntilde;a un bo d&iacute;a.
+
+					\$email_sig";
+$l_notifysubj = "Foi enviada unha resposta &oacute; seu tema de conversa";
+$l_returnindex = "\$1_toreturn &oacute; &iacute;ndice do foro";
+$l_returntopic = "\$1_toreturn &aacute; lista de temas de conversa do foro";
+$l_separator = " > ";
+$l_viewmsg = "para ve-la s&uacute;a Mensaxe";
 $langAddTutors = "Lista de usuarios administradores";
+$langAdm = "Administraci&oacute;n do Foro";
 $langAdminsOfThisCours = "xesti&oacute;n do curso";
 $langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
+$langBackTo = "Volver a:";
 $langCancel = "Cancelar";
 $langChat = "Chat";
 $langConfirmDeleteGroups = "Est&aacute; vostede seguro de que desexa eliminar t&oacute;dolos grupos ?";
 $langConfirmEmptyGroups = "Est&aacute; vostede seguro de que desexa baleirar t&oacute;dolos grupos ?";
-$langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCreate = "crear";
 $langDay_of_weekNames = "Array";
+$langDear = "Estimado/a";
 $langDelete = "Eliminar";
 $langDeleteGroups = "Eliminar t&oacute;dolos grupos";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocument = "Documentos e Ligaz&oacute;ns";
-$langDocuments = "Documentos";
 $langEdit = "Editar conta";
 $langEditGroup = "Editar este grupo";
 $langEmtpyGroups = "Baleirar t&oacute;dolos grupos";
@@ -25,7 +51,6 @@ $langExercises = "Exercicios";
 $langExistingGroups = "Grupos";
 $langFillGroups = "Encher grupos";
 $langForum = "Foros";
-$langForumGroup = "Foro do grupo";
 $langForums = "Foros";
 $langGroup = "Grupo";
 $langGroupAllowStudentRegistration = "Os estudantes te&ntilde;en permiso para se inscribir eles mesmos nos grupos";
@@ -35,6 +60,7 @@ $langGroupDel = "Grupo eliminado";
 $langGroupDescription = "Descrici&oacute;n";
 $langGroupDocument = "Documentos";
 $langGroupDocumentAlwaysPrivate = "(sempre privado)";
+$langGroupDocumentsLink = "Documentos do grupo";
 $langGroupFilledGroups = "A capacidade dos grupos foi completada con estudantes presentes na lista de 'Usuarios'";
 $langGroupForum = "Foro";
 $langGroupLimit = "L&iacute;mite";
@@ -51,7 +77,7 @@ $langGroupPropertiesModified = "A configuraci&oacute;n do grupo foi modificada";
 $langGroupSelfRegInf = "rexistrar";
 $langGroupSelfRegistration = "Rexistro";
 $langGroupSettingsModified = "Configuraci&oacute;n de grupo modificada";
-$langGroupSpace = "&Aacute;rea do grupo";
+$langGroupSpaceLink = "&Aacute;rea do grupo";
 $langGroupStudentsInGroup = "estudantes rexistrados en grupos";
 $langGroupStudentsRegistered = "estudantes rexistrados neste curso";
 $langGroupThisSpace = "&Aacute;rea para este grupo";
@@ -72,7 +98,6 @@ $langLogout = "Sa&iacute;r";
 $langManager = "Xestor";
 $langMax = "máx.";
 $langMinuteShort = "min.";
-$langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
 $langMyAgenda = "A mi&ntilde;a axenda";
@@ -81,12 +106,11 @@ $langMyGroup = "meu grupo";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Crear novo(s) grupo(s)";
 $langNewGroups = "novo(s) grupo(s)";
+$langNewTopic = "Novo tema de conversa";
 $langNoGroupStudents = "Estudantes non asignados";
-$langNotAllowed = "Acci&oacute;n non permitida";
 $langOk = "Validar";
 $langOneMyGroups = "a mi&ntilde;a supervisi&oacute;n";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "contrasinal";
 $langPlaces = "prazas por grupo (opcional)";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
@@ -94,9 +118,9 @@ $langPrivate = "Privado";
 $langPublic = "P&uacute;blico";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grupos";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un usuario pode ser membro de, como m&aacute;ximo, ";
-$langReg = "Inscrici&oacute;n";
 $langRegIntoGroup = "Unirme a este grupo";
 $langRegistered = "Rexistrado";
+$langReply = "Resposta";
 $langSecondShort = "seg.";
 $langStudent = "Estudante";
 $langStudentsNotInThisGroups = "Usuarios non rexistrados neste grupo";
@@ -105,20 +129,11 @@ $langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distrib
 $langTextEditorDisable = "Deshabilitar editor de texto";
 $langTextEditorEnable = "Habilitar editor de texto";
 $langTo = "en";
-$langTools = "Ferramentas";
 $langUncompulsory = "(opcional)";
-$langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
-$lang_click_here = "prema aqu&iacute;";
-$lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
 $lang_p_platformManager = "Administrador para %s";
-$lang_this_course_is_protected = "Este curso est&aacute; protexido";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
-														matriculado neste curso";
 ?>

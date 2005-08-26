@@ -1,13 +1,10 @@
 <?php
-$langAddIntro = "Önsöz metni ekle";
 $langAddPage = "Sayfa ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
-$langCancel = "İptal";
 $langChat = "Tartışma";
 $langCouldNot = "Dosya gönderilemedi";
 $langDay_of_weekNames = "Array";
-$langDelete = "Sil";
 $langDescriptionCours = "Ders açıklaması";
 $langDocument = "Belgeler";
 $langExercises = "Alıştırmalar";
@@ -21,7 +18,6 @@ $langLinkSite = "Bir siteye bağlantı";
 $langLinks = "Bağlantılar";
 $langLogout = "Çıkış";
 $langManager = "Yönetici";
-$langModify = "Değiştir";
 $langModifyProfile = "Profilimi değiştir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
@@ -32,12 +28,10 @@ $langOkSent = "Sayfanız gönderildi.<p>Ve bu dersin <a href=../..//index.php>Ana 
 $langOtherCourses = "Ders listesi";
 $langPgTitle = "Sayfanın başlığı";
 $langPoweredBy = "Powered by";
-$langReg = "Kayıt";
 $langSendPage = "Gönderilecek sayfa";
 $langStudent = "öğrenci";
 $langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langTooBig = "Bir dosya seçmediniz veya çok büyük.";
-$langUserName = "Kullanıcı adınız";
 $langUsers = "Kullanıcılar";
 $langWork = "Öğrenci Yazıları";
 ?>

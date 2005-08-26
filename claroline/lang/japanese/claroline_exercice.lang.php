@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "次のものにコメントに付加あるいはコメント修正する。";
-$langAddIntro = "紹介文を加える";
 $langAgenda = "予定";
 $langAnd = "および";
 $langAnnouncement = "お知らせ";
@@ -32,13 +31,11 @@ $langOk = "オッケー";
 $langOn = "On";
 $langPoweredBy = "Powered by Claroline";
 $langQuestion = "問";
-$langReg = "登録";
 $langResult = "点数";
 $langSize = "サイズ";
 $langStudent = "student";
 $langTrue = "正解";
 $langUp = "Up";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langWork = "学生の文書たち";
 $langYes = "はい";

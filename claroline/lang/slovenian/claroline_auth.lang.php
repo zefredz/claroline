@@ -1,6 +1,5 @@
 <?php
 $langAction = "Akcija";
-$langAddIntro = "Dodaj uvodno besedilo";
 $langAddress = "Naslov ";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
@@ -8,13 +7,13 @@ $langCancel = "Prekini";
 $langCategories = "Kategorije tecajev";
 $langChat = "Razprava";
 $langComment = "Komentar";
-$langConfirmYourChoice = "Potrdi izbiro";
 $langConfirmation = "Ponovi geslo";
 $langCopy = "Kopiraj";
+$langCourse = "Tecaj";
 $langCourseManager = "Upravnik tecaja";
+$langCreate = "tvori";
 $langDay_of_weekNames = "Array";
 $langDear = "Dragi";
-$langDelete = "Brisi";
 $langDescriptionCours = "Opis tecaja";
 $langDocument = "Dokumenti";
 $langEmail = "elektronski naslov";
@@ -40,7 +39,6 @@ $langMessageSubscribeDone_p_firstname_lastname = "
 Dragi %s, %s. 
 Tvoje osebne nastavitve so zapisane in poslana je e-posta, 
 da bi si lahko zapomnil svoje uporabnisko ime in geslo.";
-$langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
@@ -48,7 +46,6 @@ $langMyStats = "Vpogled v mojo statistiko";
 $langNameOfLang = "Array";
 $langNext = "Naprej";
 $langNo = "Ne";
-$langNotAllowed = "Tu nimas dovoljenja";
 $langNowGoChooseYourCourses = "Sedaj lahko gres na izbiro zazelenih tecajev iz ustreznega seznama.";
 $langNowGoCreateYourCourse = "Sedaj lahko tvoris svoj tecaj";
 $langOk = "Ok";
@@ -62,7 +59,6 @@ $langProfileReg = "Tvoj novi profil je shranjen";
 $langReg = "Registracija";
 $langRegAdmin = "Tvori spletne strani tecaja";
 $langRegStudent = "Sledi tecajem";
-$langRegistration = "Registracija";
 $langSettings = "z naslednjimi nastavitvami:
 Ime uporabnika:";
 $langStudent = "student";

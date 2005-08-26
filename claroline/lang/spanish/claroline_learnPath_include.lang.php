@@ -1,12 +1,13 @@
 <?php
-$langChangeRaw = "Cambie los requisitos mínimos para pasar este módulo(en porcentaje) : ";
+$langChangeRaw = "Cambie los requisitos m&iacute;nimos para pasar este m&oacute;dulo (en porcentaje) : ";
 $langDate = "Fecha";
-$langDocumentInModule = "Documento en el módulo";
-$langExerciseInModule = "Ejercicios en módulos";
+$langDocumentInModule = "Documento en el m&oacute;dulo";
+$langExerciseInModule = "Ejercicios en m&oacute;dulos";
 $langFileName = "Nombre de archivo";
 $langModify = "Modificar";
 $langOk = "validar";
 $langQuestion = "Pregunta";
-$langRawHasBeenChanged = "Los requisitos mínimos para pasar han sido cambiados";
-$langSize = "Tamaño";
+$langRawHasBeenChanged = "Los requisitos m&iacute;nimos para pasar han sido cambiados";
+$langScore = "Puntuaci&oacute;n";
+$langSize = "Tama&ntilde;o";
 ?>

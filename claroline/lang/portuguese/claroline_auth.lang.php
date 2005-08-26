@@ -1,6 +1,5 @@
 <?php
 $langAction = "Ac&ccedil;&atilde;o";
-$langAddIntro = "Acrescentar um texto de apresenta&ccedil;&atilde;o";
 $langAddress = "A morada de";
 $langAgenda = "Agenda";
 $langAnnouncement = "An&uacute;ncios";
@@ -8,13 +7,13 @@ $langCancel = "Cancelar";
 $langCategories = "Categorias";
 $langChat = "Debate";
 $langComment = "Coment&aacute;rio";
-$langConfirmYourChoice = "Confirme a sua escolha";
 $langConfirmation = "confirma&ccedil;&atilde;o";
 $langCopy = "deslocar";
+$langCourse = "O curso ";
 $langCourseManager = "Respons&aacute;vel pelo curso";
+$langCreate = "criar";
 $langDay_of_weekNames = "Array";
 $langDear = "Caro(a)";
-$langDelete = "apagar";
 $langDescriptionCours = "Descri&ccedil;&atilde;o do Curso";
 $langDocument = "Documentos";
 $langEmail = "Correio electr&oacute;nico";
@@ -43,7 +42,6 @@ Os seus dados pessoais foram registados e foi enviada
 uma mensagem &agrave; sua caixa de correio electr&oacute;nico 
 para lhe lembrar o seu nome de utilizador e a sua senha.<br>
 Escolha na lista os cursos a que deseja aceder.";
-$langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
@@ -51,7 +49,6 @@ $langMyStats = "Ver as minhas estat&iacute;sticas";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNext = "Seguinte";
 $langNo = "N&atilde;o";
-$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langNowGoChooseYourCourses = "agora pode escolher na lista os cursos a que deseja aceder.";
 $langNowGoCreateYourCourse = "agora pode criar o seu curso";
 $langOk = "validar";
@@ -66,7 +63,6 @@ $langProfileReg = "O seu novo perfil de utilizador foi guardado com sucesso";
 $langReg = "Inscri&ccedil;&atilde;o";
 $langRegAdmin = "Criar cursos (professor)";
 $langRegStudent = "Inscrever-se em cursos (estudante)";
-$langRegistration = "Inscri&ccedil;&atilde;o";
 $langSettings = "com os seguintes par&aacute;metros:
 
 

@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Ajouter un texte d'introduction";
 $langAdministration = "Administration";
 $langAgenda = "Agenda";
 $langAllUsersOfThisCourse = "Membres de l&acute;espace";
@@ -19,7 +18,6 @@ $langConfTip = "Par défaut, votre espace n'est accessible
 qu'à vous qui en êtes le seul utilisateur. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l&acute;inscription pendant une semaine, de demander aux cadres de s'inscrire eux-mêmes
 puis de fermer l&acute;inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";
-$langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langCopy = "Copier";
 $langCourse = "Espace ";
 $langCourseAccess = "Accès à l&acute;espace";
@@ -29,7 +27,6 @@ $langCourseSettings = "Paramètres de l&acute;espace";
 $langCourseTitle = "Intitulé";
 $langDay_of_weekNames = "Array";
 $langDelCourse = "Supprimer cet espace";
-$langDelete = "Effacer";
 $langDenied = "Refusé";
 $langDepartmentUrl = "URL du département";
 $langDepartmentUrlName = "Département";
@@ -60,7 +57,6 @@ $langLogout = "Quitter";
 $langManager = "Gestionnaire";
 $langMinuteShort = "min.";
 $langModifDone = "Les informations ont été modifiées";
-$langModify = "modifier";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
@@ -70,13 +66,11 @@ $langNo = "Non";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des espaces";
-$langPassword = "mot de passe";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langPrivateAccess = "Accès privé, inscription fermée (espace réservé aux personnes figurant dans la liste <a href=../user/user.php>utilisateurs</a>)";
 $langProfessors = "Gestionnaire(s) d'espaces";
 $langPublicAccess = "Accès public (depuis la page d'accueil de l&acute;espace sans identifiant)";
-$langReg = "Inscription";
 $langSecondShort = "sec.";
 $langStatistics = "Statistiques";
 $langStudent = "participant";
@@ -86,17 +80,10 @@ $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTipLang = "Cette langue vaudra pour tous les visiteurs de votre espace.";
 $langTo = "vers";
-$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWork = "Contributions";
 $langYes = "Oui";
-$lang_click_here = "cliquez ici";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
-$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_p_platformManager = "Administrateur %s";
-$lang_this_course_is_protected = "Ce cours est protégé";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>

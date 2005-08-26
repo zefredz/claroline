@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "Tambah teks pendahuluan";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
-$langCancel = "Batal";
 $langChat = "Diskusi";
 $langClarContent = "Disini pengajar dan asisten membuat dan mengelila situs pelajaran. Siswa membaca (dokumen, agenda, informasi) dan,
  kadang, mengerjakan latihan, mem-publis paper, berpartisipasi dalam forum diskusi...</p><b>Pendaftaran</b><p>Instruksi berikut berlaku jika setting claroline mengijinkan pendaftaran sendiri/self-registration (beberapa situs meregister secara otomatis). <br>Jika anda siswa, anda hanya perlu mendaftar dengan memilih 'Ikut Pelajaran (siswa)', kemudian pilih pelajaran yang ingin diikuti.</p><p>Jika anda pengajar atau asisten, mendaftar juga, tetapi pilih 'Buat situs pelajaran (pengajar)'. Anda kemudian diminta untuk mengiisi borang tentang Kode Pelajaran, Fakultas/Jurusan dan Nama Pelajaran. Begitu selesai, anda akan dibawa ke situs yang baru saja anda buat dan disini anda dapat mengubah isi dan organisasinya sesuai kebutuhan. </p><p>Pilihan 'To do' adalah untuk menampung masukan  untuk administrator claroline.
@@ -13,10 +11,8 @@ Jika anda tidak menemukan jawaban dari pertanyaan anda dalam lingkungan kampus a
 posting-kan pesan kesini.</p>
 <p>Link ke Pendaftaran (jika ada) ada pada Home Page (bagian kanan atas).</p><b>Login</b><p>Pada kunjungan berikutnya, ketik login/password
  dan Ok untuk mengakses pelajaran anda. URL situsnya ";
-$langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
 $langCourseManager = "Penanggung jawab pelajaran";
 $langDay_of_weekNames = "Array";
-$langDelete = "Hapus";
 $langDescriptionCours = "Deskripsi pelajaran";
 $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>Anda dapat meng-upload file berbagai type (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, dll.). Yang perlu dipertimbangkan hanyalah apakah siswa anda memiliki software untuk membacanya.
@@ -251,17 +247,12 @@ $langHomeContent = "Untuk kemudahan, tool claroline berisi setting default.
 $langLogin = "login";
 $langLogout = "Logout";
 $langManager = "Pengelola";
-$langModify = "Ubah";
 $langModifyProfile = "Ubah profil Ku";
 $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
 $langNameOfLang = "Array";
-$langNotAllowed = "Tidak diijinkan";
-$langOk = "Ok";
 $langOtherCourses = "Daftar pelajaran";
-$langPassword = "password";
 $langPoweredBy = "Diperkuat oleh";
-$langReg = "Pendaftaran";
 $langStudent = "siswa";
 $langUserContent = "<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
  Peran tidak memberi hak pada sistem operasi, tetapi hanya menunjukkan kepada kita siapa user. Anda dapat mengubahnya dengan meng-klik 'ubah' dalam 
@@ -275,7 +266,6 @@ $langUserContent = "<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
  Field 'Pengajar'  independen terhadap Daftar User.</p><hr>
 <b>Tambah user</b>
 <p>Untuk menambah seorang user ke pelajaran anda, isi field-field dan validasi. User tersebut akan menerima email berisi bahwa user tsb telah terdaftar dan informasi login dan passwordnya.</p>";
-$langUserName = "Nama user";
 $langUsers = "Users";
 $langWork = "Tugad";
 ?>

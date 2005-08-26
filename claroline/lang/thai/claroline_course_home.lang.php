@@ -19,14 +19,11 @@ $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
-$langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
-$langReg = "ลงทะเบียน";
 $langStatistics = "สถิติ";
 $langStudent = "นักศึกษา";
 $langTools = "เครื่องมือ";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 ?>

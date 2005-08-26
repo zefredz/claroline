@@ -1,17 +1,14 @@
 <?php
-$langAddIntro = "Einführungstext hinzufügen";
 $langAgenda = "Termine/Ereignisse";
 $langAnnouncement = "Ankündigungen";
-$langCancel = "abbrechen";
 $langChat = "Chat";
 $langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br>Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br>
 Wenn Sie ein Dozent sind, der eine Kurswebsite anlegen möchte, dann registrieren sie sich als solcher (sofern die Sebstregistrierung als Dozent ermöglicht ist), oder ersuchen um diesen Status bei 'Mein Profil verändern'.</p>";
 $langCloseWindow = "Fenster schlie&szlig;en";
 $langConfigMenuContent = "Konfigurationsmenu";
-$langConfirmYourChoice = "Bitte bestätigen Sie Ihre Auswahl";
+$langCourseHome = "Kurs-Startseite";
 $langCourseManager = "KursSite-Verantwortlicher";
 $langDay_of_weekNames = "Array";
-$langDelete = "Löschen";
 $langDescriptionCours = "Kursbeschreibung";
 $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager Ihres Computers.</p><p>Sie können beliebige Dateien hochladen (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, usw.). Denken Sie daran, dass Ihre Teilnehmer die entprechende Software zum Öffnen benötigen. Manche Dateitypen können Viren enthalten. Sie sind dafür verantwortlich, keine infizierten Dateien hochzuladen. Sie sollten die Dateien mit einem Antivirenprogramm kontrollieren, bevor Sie die Dateien hochladen.</p>
 <p>Die Dokumente sind alphabetisch sortiert.<br><b>Hinweis : </b>Wenn Sie sie in einer anderen Reihenfolge bereitstellen möchten, nummerieren Sie die Dateien: 01, 02, 03...</p>
@@ -267,19 +264,14 @@ $langLogin = "login";
 $langLogout = "Logout";
 $langManager = "KursSite-Verantwortlicher";
 $langMinuteShort = "min.";
-$langModify = "ändern";
 $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
 $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
 $langNameOfLang = "Feld";
-$langNotAllowed = "Sie haben hier keinen Zugriff.";
-$langOk = "Ok";
 $langOtherCourses = "Kurs Angebot";
-$langPassword = "Passwort";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
-$langReg = "Registrierung";
 $langSecondShort = "sec.";
 $langStudent = "Teilnehmer";
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
@@ -293,16 +285,9 @@ $langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion
 <p>Um im Kopf eines Kurses den Namen eines/einer Mitverantwortlichen zu nennen, benutzen Sie 'Kurs-Einstellungen' und ändern den Text im Feld 'Dozent/Tutor'. Das Feld 'Dozent/Tutor' ist völlig unabhängig von der Teilnehmerliste und diese Änderung registriert Ihre Mitverantwortlichen nicht als Benutzer der KursSite.</p><hr>
 <b>Benutzer hinzufügen</b>
 <p>Um einen Benutzer Ihrem Kurs hinzuzufügen, prüfen Sie zuerst, ob er nicht bereits registriert ist. Sollte er bereits registriert sein, können Sie über 'Bearbeiten' Kursinterne Rollen / Rechte vergeben, bzw. ihn austragen. Ansonsten fügen Sie ihn manuell hinzu. In beiden Fällen wird die Person eine E-Mail erhalten, die sie über die Aufnahme und das zugehörige Login und Passwort in Kenntnis setzt.</p>";
-$langUserName = "Benutzername";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
 $langWork = "Upload-Bereich";
-$lang_click_here = " hier klicken";
-$lang_enter_your_user_name_and_password = "Benutzername und Passwort eingeben";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Wenn Sie keine Zugangsbrechtigung haben zu";
-$lang_if_you_wish_to_enroll_to_this_course = "Wenn Sie sich in diese KursSite eintragen möchten";
 $lang_p_platformManager = "Administrator von %s";
-$lang_this_course_is_protected = "Diese KursSite ist zugriffsbeschränkt";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Ihr Teilnehmerprofil scheint nicht in diese KursSite eingetragen zu sein";
 ?>

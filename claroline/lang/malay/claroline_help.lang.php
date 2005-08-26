@@ -1,17 +1,13 @@
 <?php
-$langAddIntro = "Tambah pengenalan";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
-$langCancel = "Batal";
 $langChat = "Perbincangan";
 $langClarContent = "eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br>Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status 'Pelajar', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
 <p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status 'Pensyarah' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
 <p>Pautan 'Aduan dan Cadangan' memberi kemudahan kepada anda untuk membuat aduan atau cadangan kepada pentadbir sistem.</p>
 <b>ID Pengguna</b><p>Pada kunjungan anda yang seterusnya ke eLearning@kukum, sila masukkan ID Pengguna dan katalaluan serta sahkan capaian anda ke laman subjek tersebut.</p><p><b>Teori Pembelajaran</b><p>Untuk pensyarah, menyediakan program di Internet merupakan persoalan kepada teori pembelajaran.";
-$langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
 $langCourseManager = "Pentadbir Subjek (Pensyarah)";
 $langDay_of_weekNames = "Array";
-$langDelete = "Padam";
 $langDescriptionCours = "Penerangan Subjek";
 $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengurusan fail pada <i>desktop</i> komputer anda.</p>.
 <p> Anda boleh memuat naik fail dalam pelbagai jenis format (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, dll) cuma anda perlu memastikan bahawa pelajar anda juga mempunyai aplikasi untuk membolehkan mereka membaca dokumen anda. Sesetengah fail mungkin mengandungi virus, dan ini di bawah tanggungjawab anda untuk tidak memuat naik dokumen tersebut ke <i>server</i>. Sebagai langkah keselamatan, anda dinasihatkan untuk mengimbas dokumen anda terlebih dahulu pada perisian antivirus sebelum anda memuat naik dokumen ke <i>server</i>.</p>
@@ -238,17 +234,12 @@ $langHomeContent = "Untuk kemudahan anda, kami menyediakan pautan ikon yang memp
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
 $langManager = "Pentadbir Sistem";
-$langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
-$langNotAllowed = "Tidak dibenarkan";
-$langOk = "Proses";
 $langOtherCourses = "Senarai Subjek";
-$langPassword = "katalaluan";
 $langPoweredBy = "Oleh : ";
-$langReg = "Daftar";
 $langStudent = "Pelajar";
 $langUserContent = "<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang ditetapkan. Peranan ahli tidak mempunyai kesan kepada sistem pengoperasian. Ia cuma memaparkan pengguna yang sah dalam sistem. Pada bahagian ini, anda dibenarkan untuk menetapkan fungsi ahli bagi subjek anda dengan hanya mengklik <i>Ubahsuai</i> di bawah lajur <i> Peranan</i>, kemudian tetapkan ahli bagi subjek anda sama ada sebagai Professor, Jurutera Pengajar, Pelajar, Pelawat atau Pakar....</P><hr>
 <b>Capaian Pentadbir</b>
@@ -259,7 +250,6 @@ $langUserContent = "<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang 
  Lajur <i>Pensyarah</i> bergantung kepada senarai ahli subjek sepenuhnya</p><hr>
 <b>Tambah Ahli</b>
 <p>Untuk menambah ahli ke laman subjek anda, sila isikan lajur yang terlibat dengan senarai ahli yang ingin ditambah dan sahkan lajur tersebut. Pengguna yang ditambah keahlian ke dalam subjek anda akan menerima email yang memaklumkan keahlian mereka berserta ID Pengguna dan katalaluan.</p>";
-$langUserName = "Nama Pengguna";
 $langUsers = "Users";
 $langWork = "Works";
 ?>

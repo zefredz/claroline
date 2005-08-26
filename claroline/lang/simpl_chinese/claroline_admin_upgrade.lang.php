@@ -1,19 +1,16 @@
 <?php
 $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "在中断的情况下 <sup>*</sup>， <em>Claroline升级工具</em> 将自动重启。
 如果不是这样，请点击下面的按钮。";
-$langAddIntro = "增加课程介绍";
 $langAdministration = "管理";
 $langAgenda = "计划安排";
 $langAnnouncement = "公告通知";
 $langCancel = "取消";
 $langChat = "聊天答疑";
 $langConfigurationFile = "配置文件";
-$langConfirmYourChoice = "请确认你的选择";
 $langCopy = "复制";
 $langCourseHome = "课程主页";
 $langCourseManager = "课程负责人";
 $langDay_of_weekNames = "Array";
-$langDelete = "删除";
 $langDescriptionCours = "课程简介";
 $langDocument = "讲义材料";
 $langDone = "完成的步子";
@@ -71,7 +68,6 @@ $langMakeABackupBefore = "
 $langManager = "管理员";
 $langMinuteShort = "min.";
 $langModeVerbose = "代码冗长";
-$langModify = "更新";
 $langModifyProfile = "个人资料";
 $langMonthNames = "Array";
 $langMyAgenda = "我的日历";
@@ -81,14 +77,12 @@ $langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong> 在 %s 上的 %s
 $langNext = "下一个";
 $langNextStep = "<p><button onclick=\"document.location='%s';\">下一个 ></button></p>";
 $langNo = "取消";
-$langNotAllowed = "操作禁止";
 $langOk = "确认";
 $langOtherCourses = "课程列表";
 $langPassword = "密码";
 $langPlatformAccess = "进入虚拟校园";
 $langPlatformAdministration = "平台管理";
 $langPoweredBy = "技术支持";
-$langReg = "注册";
 $langRemainingSteps = "余下步骤";
 $langRestoreCourseRepository = "修复课程储存";
 $langSecondShort = "sec.";
@@ -120,20 +114,13 @@ $lang_CourseHasNoRepository_s_NotFound = "<strong>课程没有存放处。</strong>
 $lang_RetryWithMoreDetails = "用更多的材料再试";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Claroline表已经成功升级";
 $lang_UpgradeFailedForCourses = "升级工具不能升级以下课程：";
-$lang_click_here = "点这里";
 $lang_continueCoursesDataUpgrade = "继续课程数据升级";
-$lang_enter_your_user_name_and_password = "输入你的用户名和密码";
 $lang_fileUpgrade = "文件升级：";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
-$lang_if_you_dont_have_a_user_account_profile_on = "如果你没有一个用户名在";
-$lang_if_you_wish_to_enroll_to_this_course = "如果你希望加入该课程";
 $lang_oldFileBackup = "旧文件备份：";
 $lang_p_CannotCreate_s = "不能建立 %s";
 $lang_p_CannotRename_s_s = "不能将 %s 命名为 %s";
 $lang_p_UpgradeMainClarolineDatabase_s = "升级Claroline主要数据库(<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>正在升级<strong>%2\$s</strong>课程数据库<br><small>
-数据库名：%3\$s <br>
-课程代号: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "首先修复技术问题，再 <a href=\"%s\">启动升级工具</a>.";
 $lang_p_d_affected_rows = "%d 受影响的列";
 $lang_p_d_coursesToUpgrade = "%s 课程升级";
@@ -144,8 +131,6 @@ $lang_p_s_s_isInvalid = "%s : %s 是有效的";
 $lang_rules_s_in_s = "Rules : %s in %s";
 $lang_seeInTheStatusBarOfYourBrowser = "(*) 在浏览器中的数字条中看。";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Claroline升级进程完成";
-$lang_this_course_is_protected = "该课程被保护";
 $lang_upgradeToolCannotUpgradeThisCourse = "升级工具不能升级该课程。 <br>
 首先修复技术问题和重运行升级工具。";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "你的用户资料似乎没有在该课程登记";
 ?>

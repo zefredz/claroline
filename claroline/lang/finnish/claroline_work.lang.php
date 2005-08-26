@@ -20,16 +20,14 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ei sallittu";
+$langNoEx = "Tällä hetkellä ei ole harjoituksia";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
-$langReg = "Rekisteröinti";
 $langSize = "Koko";
 $langStudent = "Opiskelija";
 $langTo = "Hakemistoon";
 $langTooBig = "Et valinnut tiedostoa tai tiedosto on liian suuri.";
 $langUp = "Ylös";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

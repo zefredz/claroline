@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "次のものにコメントに付加あるいはコメント修正する。";
-$langAddIntro = "紹介文を加える";
 $langAgenda = "予定";
 $langAnnouncement = "お知らせ";
 $langBack = "ここ";
@@ -18,14 +17,12 @@ $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
-$langNotAllowed = "このコース受講が許可されていません";
+$langNoEx = "現在演習問題はありません";
 $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
-$langReg = "登録";
 $langSize = "サイズ";
 $langStudent = "student";
 $langUp = "Up";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langWork = "学生の文書たち";
 ?>

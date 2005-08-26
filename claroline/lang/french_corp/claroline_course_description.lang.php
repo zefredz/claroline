@@ -1,12 +1,10 @@
 <?php
 $langAdd = "Ajouter";
-$langAddIntro = "Ajouter un texte d'introduction";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
 $langAreYouSureToDelete = "Êtes vous sûr de vouloir supprimer";
 $langCancel = "Annuler";
 $langChat = "Discussion";
-$langConfirmYourChoice = "Veuillez confirmer votre choix";
 $langContent = "Contenu";
 $langCourseContent = "Contenu de l&acute;espace";
 $langCourseContentComment1 = "Quelle est l&acute;importance des différents contenus à traiter dans le cadre de l&acute;espace&nbsp;?
@@ -69,10 +67,8 @@ $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes espaces";
 $langNameOfLang = "Array";
 $langNewBloc = "Autre";
-$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des espaces";
-$langPassword = "mot de passe";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et Objectifs";
@@ -81,7 +77,6 @@ $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l
 <br>
 Au terme de l&acute;espace, quelles sont les compétences, les capacités et les connaissances que les participants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestionPlan = "Question de planification <BR>pour le modérateur";
-$langReg = "Inscription";
 $langSecondShort = "sec.";
 $langStudent = "participant";
 $langSupports = "Supports";
@@ -104,18 +99,11 @@ $langTextEditorEnable = "Activer l'éditeur de texte";
 $langThisCourseDescriptionIsEmpty = "La description de cet espace est vide";
 $langTitle = "Titre";
 $langUnableDescToAdd = "Impossible d'ajouter la description";
-$langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langViMod = "Visibilit&eacute; modifi&eacute;e";
 $langViewMode = "Mode de vue";
 $langVisible = "Visible";
 $langWork = "Contributions";
-$lang_click_here = "cliquez ici";
-$lang_enter_your_user_name_and_password = "Tapez votre nom d'utilisateur et votre mot de passe";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Si vous n'avez pas de compte sur";
-$lang_if_you_wish_to_enroll_to_this_course = "Si vous souhaitez vous inscrire à ce cours,";
 $lang_p_platformManager = "Administrateur %s";
-$lang_this_course_is_protected = "Ce cours est protégé";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 ?>

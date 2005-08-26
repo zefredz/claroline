@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "增加课程介绍";
 $langAgenda = "计划安排";
 $langAnnouncement = "公告通知";
-$langCancel = "取消";
 $langChat = "聊天答疑";
 $langClarContent = "这里是讲师和助教建立和管理课程网页的地方。
 
@@ -38,11 +36,9 @@ $langClarContent = "这里是讲师和助教建立和管理课程网页的地方。
 课程的网址是：";
 $langCloseWindow = "关闭窗口";
 $langConfigMenuContent = "配置菜单";
-$langConfirmYourChoice = "请确认你的选择";
 $langCourseHome = "课程主页";
 $langCourseManager = "课程负责人";
 $langDay_of_weekNames = "Array";
-$langDelete = "删除";
 $langDescriptionCours = "课程简介";
 $langDocContent = "<p>讲义材料 管理工具类似桌面电脑应用中的文件管理器.</p><p>您可以上传各种格式(HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime,等等)的文件,需要注意的是学生必须有相应的软件读取这些材料.而且,有些文件可能会携带病毒, 不要上传这样的文件也是您的责任.建议预先用杀毒软件检查后在上传.</p>
 <p>文件以字母顺序排列.<br><b>提示 : </b>如果您需要以不同的顺序显示,在文件名中添加数字: 01, 02, 03...</p>
@@ -388,19 +384,14 @@ $langLogin = "登录";
 $langLogout = "退出系统";
 $langManager = "管理员";
 $langMinuteShort = "min.";
-$langModify = "更新";
 $langModifyProfile = "个人资料";
 $langMonthNames = "Array";
 $langMyAgenda = "我的日历";
 $langMyCourses = "我的课程";
 $langNameOfLang = "Array";
-$langNotAllowed = "操作禁止";
-$langOk = "确认";
 $langOtherCourses = "课程列表";
-$langPassword = "密码";
 $langPlatformAdministration = "平台管理";
 $langPoweredBy = "技术支持";
-$langReg = "注册";
 $langSecondShort = "sec.";
 $langStudent = "学生";
 $langSwitchEditorToTextConfirm = "该命令将移出当前文本。你想继续吗？";
@@ -414,16 +405,9 @@ $langUserContent = "<b>角色</b><p>角色没有计算机管理相关的功能. 这并不赋予谁系统
 <p>为在课程网站显示联合主讲的名字,请使用'更新课程信息'工具(桔黄色). 这项更新并不为联合主讲在本课程注册.'教授'域和用户列表是相互独立的.</p><hr>
 <b>增加用户</b>
 <p>为本课程增加一个用户,首先检查该用户是否已在虚拟校园注册.如果已经注册, 选择他名字旁边的选项格,然后'确认'. 如果还没有注册, 可以手工添加. 任何一种情况, 他都会收到一封含用户名和密码的确认邮件.</p>";
-$langUserName = "用户名";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
 $langWork = "作业论文";
-$lang_click_here = "点这里";
-$lang_enter_your_user_name_and_password = "输入你的用户名和密码";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
-$lang_if_you_dont_have_a_user_account_profile_on = "如果你没有一个用户名在";
-$lang_if_you_wish_to_enroll_to_this_course = "如果你希望加入该课程";
 $lang_p_platformManager = "%s 的平台负责人";
-$lang_this_course_is_protected = "该课程被保护";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "你的用户资料似乎没有在该课程登记";
 ?>

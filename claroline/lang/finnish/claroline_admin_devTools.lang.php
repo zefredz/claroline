@@ -1,6 +1,27 @@
 <?php
-$langAddIntro = "Lisää johdantoteksti";
+$l_click = "Klikkaa";
+$l_here = "Tästä";
+$l_notifybody = "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun  foorumeihin on vastattu.
+
+Voit katsoa aihetta:
+
+%1\$s
+
+tai katsoa foorumien listaa:
+
+%2\$s
+
+Kiitos, että olet käyttänyt foorumeita.
+
+Hyvää päivän jatkoa.";
+$l_notifysubj = "Vastauksesi aiheeseen on lähetetty.";
+$l_returnindex = "Palaa foorumien listaan";
+$l_returntopic = "Palaa foorumien aiheiden listaan.";
+$l_separator = "» »";
+$l_viewmsg = "nähdäksesi Viesti.";
+$langAdm = "Ylläpitäjä";
 $langAdmitError = "Myöntää virheensä, jotta puhetoveri tekisi samoin.";
+$langAgain = "Yritä uudestaan!";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
 $langAnonymous = "Tuntematon";
@@ -10,8 +31,8 @@ $langCopy = "Kopioi";
 $langCourseDescription = "Kirjoita tähän kuvaus kurssista, se näkyy kurssien listassa.";
 $langCreateSite = "Luo kurssin sivusto";
 $langDay_of_weekNames = "Array";
+$langDear = "Hyvä";
 $langDelAdmin = "Poista tämä foorumi hallintatyökalujen avulla.";
-$langDelete = "Poista";
 $langDocument = "Dokumentit";
 $langEmail = "Sähköposti";
 $langExMessage = "Testiviesti";
@@ -25,25 +46,23 @@ $langLogout = "Logout";
 $langManager = "Ylläpitäjä";
 $langManyAnswers = "(Vastauksia voi olla useampi)";
 $langMessage = "Kun poistat testifoorumin, poistat myös kaikki viestit.";
-$langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
+$langNewTopic = "Uusi aihe";
 $langNoPsychology = "Ei. Sokraattinen ironia ei liity psykologiaan, se käsittelee argumentaatiota.";
 $langNoSeduction = "Ei. Sokraattinen ironia ei ole houkutukseen perustuva startegia tai esimerkkiin perustuva menetelmä.";
-$langNotAllowed = "Ei sallittu";
 $langNotFalse = "Tämä vastaus ei ole väärin. On totta, että puhekumppanin tietämättömyys paljastaminen tarkoittaa kieltävien johtopäätelmien näyttämistä, jotka johtuvat hänen lähtökohdistaan.";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
 $langProfessor = "Opettaja";
-$langReg = "Rekisteröinti";
+$langReply = "vastaus";
 $langRidiculise = "Naurualainen tapa vaikuttaa puhetoveriin, jotta tämä myöntäisi olevansa väärässä.";
 $langSocraticIrony = "Sokraattinen ironia on...";
 $langStudent = "Opiskelija";
 $langTestForum = "testifoorumi";
 $langTo = "Hakemistoon";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

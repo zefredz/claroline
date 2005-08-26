@@ -1,15 +1,11 @@
 <?php
-$langAddIntro = "Acrescentar um texto de apresenta&ccedil;&atilde;o";
 $langAddPage = "Acrescentar uma p&aacute;gina";
 $langAgenda = "Agenda";
 $langAnnouncement = "An&uacute;ncios";
-$langCancel = "Cancelar";
 $langChat = "Debate";
-$langConfirmYourChoice = "Confirme a sua escolha";
 $langCouldNot = "O ficheiro n&atilde;o pode ser enviado";
 $langCourseManager = "Respons&aacute;vel pelo curso";
 $langDay_of_weekNames = "Array";
-$langDelete = "apagar";
 $langDescriptionCours = "Descri&ccedil;&atilde;o do Curso";
 $langDocument = "Documentos";
 $langExplanation = "Depois de carregar em OK, ser&aacute; criada uma web que incluir&aacute; Foro, Lista de liga&ccedil;&otilde;es, Exerc&iacute;cios, Agenda, Lista de documentos... Por meio do seu c&oacute;digo de identifica&ccedil;&atilde;o, poder&aacute; alterar o seu conte&uacute;do";
@@ -23,7 +19,6 @@ $langLinks = "Liga&ccedil;&otilde;es";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
 $langManager = "Respons&aacute;vel";
-$langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
@@ -32,15 +27,12 @@ $langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel p
 $langOk = "validar";
 $langOkSent = "A sua p&aacute;gina foi enviada ao servidor.<p>&Eacute; acess&iacute;vel desde a <a href=../..//index.php>p&aacute;gina principal</a> do seu curso";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "Senha";
 $langPgTitle = "T&iacute;tulo da p&aacute;gina";
 $langPoweredBy = "Utiliza a Plataforma";
-$langReg = "Inscri&ccedil;&atilde;o";
 $langSendPage = "P&aacute;gina a enviar";
 $langStudent = "estudante";
 $langSubTitle = "Acrescentar ao menu principal da sua p&aacute;gina principal uma liga&ccedil;&atilde;o a outra p&aacute;gina, no interior ou no exterior da sua web";
 $langTooBig = "N&atilde;o escolheu o ficheiro que pretende enviar, ou ent&atilde;o &eacute; demasiado grande";
-$langUserName = "Nome de utilizador";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
 ?>

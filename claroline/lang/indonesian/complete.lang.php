@@ -290,7 +290,6 @@ $langDocumentsTitleDocumentColumn = "Dokumen";
 $langDocumentsTitleUsersColumn = "User";
 $langEG = "misal";
 $langEdit = "Edit";
-$langEditDel = "Edit/hapus";
 $langEditGroup = "Edit group ini";
 $langElRen = "Elemen diganti nama";
 $langElementList = "Daftar Elemen";

@@ -8,5 +8,6 @@ $langModify = "更新";
 $langOk = "确认";
 $langQuestion = "问题";
 $langRawHasBeenChanged = "通过的最低分数已经改变";
+$langScore = "得分";
 $langSize = "大小";
 ?>

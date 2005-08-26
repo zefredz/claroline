@@ -312,7 +312,6 @@ $langDocumentsTitleDocumentColumn = "Dokument";
 $langDocumentsTitleUsersColumn = "Deltagernes Downloads";
 $langEG = "f.eks.";
 $langEdit = "Rediger";
-$langEditDel = "Rediger/slet";
 $langEditGroup = "Rediger denne gruppe";
 $langElRen = "Elementet er omdøbt";
 $langElementList = "Feltliste";

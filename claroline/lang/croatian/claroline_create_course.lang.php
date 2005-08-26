@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "dodajte uvodni tekst";
 $langAdmitError = "Priznavanje jedne vlastite pogreške poziva sugovornika da uèini isto.";
 $langAgenda = "Program rada";
 $langAnnouncement = "Najave- Priopæenja";
@@ -18,7 +17,6 @@ $langCreate = "stvorite";
 $langCreateSite = "Stvaranje stranica predmeta";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Izbrišite uporabom alata za nadzor foruma";
-$langDelete = "Izbriši";
 $langDescriptionCours = "Opis kolegija";
 $langDocument = "Dokumenti";
 $langEmail = "Email";
@@ -40,7 +38,6 @@ $langManager = "Manager";
 $langManyAnswers = "(toèno je više odgovora)";
 $langMaxSizeCourseCode = "najviše 12 slova, npr. <i>ROM2121</i>";
 $langMessage = "Kod brisanja pokusnog foruma, izbrisati æe se i sve poruke u njemu";
-$langModify = "Ureðivanje";
 $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
@@ -54,14 +51,12 @@ $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
 $langProfessor = "Profesor";
 $langProfessors = "Nastavnici";
-$langReg = "Prijava";
 $langRidiculise = "Smiješno je kad sugovornik treba shvatiti da nije u pravu.";
 $langSocraticIrony = "Sokratova ironija je...";
 $langStudent = "student";
 $langTargetFac = "Naziv fakulteta, odjela ili katedre  ";
 $langTestForum = "Pokusni forum";
 $langTo = "u";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
 ?>

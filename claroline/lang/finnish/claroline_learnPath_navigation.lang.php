@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Lisää kommentti:";
-$langAddIntro = "Lisää johdantoteksti";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
 $langBack = "Takaisin kurssin tietoihin";
@@ -18,14 +17,12 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
-$langNotAllowed = "Ei sallittu";
+$langNoEx = "Tällä hetkellä ei ole harjoituksia";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
-$langReg = "Rekisteröinti";
 $langSize = "Koko";
 $langStudent = "Opiskelija";
 $langUp = "Ylös";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

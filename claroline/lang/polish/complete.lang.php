@@ -242,7 +242,6 @@ $langDocumentsTitleDocumentColumn = "Dokumenty";
 $langDocumentsTitleUsersColumn = "Dokumenty pobrane przez u¿ytkowników";
 $langEG = "np.";
 $langEdit = "Edytuj";
-$langEditDel = "edytuj/usuñ";
 $langEditGroup = "Edytuj tê grupê";
 $langElRen = "Zmieniono nazwê elementu";
 $langElementList = "Lista elementów";

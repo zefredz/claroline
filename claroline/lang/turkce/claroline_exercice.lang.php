@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Yorum ekle/deðiþtir";
-$langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnd = "and";
 $langAnnouncement = "Duyurular";
@@ -39,13 +38,11 @@ $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
 $langQuestion = "Soru";
 $langQuestions = "Sorular";
-$langReg = "Kayýt";
 $langResult = "Puan";
 $langSize = "Boyut";
 $langStudent = "öðrenci";
 $langTrue = "Doðru";
 $langUp = "Yukarý";
-$langUserName = "Kullanýcý adýnýz";
 $langUsers = "Kullanýcýlar";
 $langWork = "Öðrenci Yazýlarý";
 $langYes = "Evet";

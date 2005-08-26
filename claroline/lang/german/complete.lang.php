@@ -468,7 +468,6 @@ $langEG = "z. B.";
 $langEXERCISETypeDesc = "Systeminterner Test";
 $langEdit = "Bearbeiten";
 $langEditAnswers = "Antworten bearbeiten";
-$langEditDel = "Ändern/Löschen";
 $langEditEvent = "Termin/Ereignis bearbeiten";
 $langEditExercise = "Antwort-Einstellungen bearbeiten";
 $langEditFeedback = "Automatisches Feedback bearbeiten";
@@ -1612,9 +1611,6 @@ $lang_p_CannotRename_s_s = "Kann nicht von  %s nach %s umbenannt werden";
 $lang_p_ErrorOnBuild_S_for_S = "Fehler beim Erstellen von <em>%s</em> für <B>%s</B>";
 $lang_p_PropForConfigCommited = "Eigenschaften für %s (%s) sind jetzt auf dem Server aktiv.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Upgrading Claroline Hauptdatenbank (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading Kursdatenbank <strong>%2\$s</strong><br><small>
-DB Name : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Beheben Sie zuerst das technische Problem und <a href=\"%s\">relaunch the upgrade tool</a>.";
 $lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
 $lang_p_d_affected_rows = "%d betroffene Zeilen";

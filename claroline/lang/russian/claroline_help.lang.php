@@ -1,8 +1,6 @@
 <?php
-$langAddIntro = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
 $langAgenda = "Календарь";
 $langAnnouncement = "Объявления";
-$langCancel = "Отменить";
 $langChat = "Чат";
 $langClarContent = "<br><p><b>Студент</b></p>
 <p>
@@ -28,10 +26,8 @@ $langClarContent = "<br><p><b>Студент</b></p>
 за электронный кампус университета. Вы также можете разместить сообщение 
 на форуме поддержки платформы <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
-$langConfirmYourChoice = "Подтвердите ваш выбор";
 $langCourseManager = "Менеджер курса";
 $langDay_of_weekNames = "Array";
-$langDelete = "удалить";
 $langDescriptionCours = "Описание курса";
 $langDocContent = "<p>Раздел Учебные материалы работает подобно 
 менеджеру файлов на компьютере. </p><p>Вы можете размещать документы в разных форматах
@@ -303,17 +299,12 @@ $langHomeContent = "Большинство рубрик платформы уже имеют небольшой текст или с
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
 $langManager = "Ответственный";
-$langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
-$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
-$langOk = "Ok";
 $langOtherCourses = "Список курсов";
-$langPassword = "пароль";
 $langPoweredBy = "использует оболочку";
-$langReg = "Регистрация";
 $langStudent = "студент";
 $langUserContent = "<b>Права администрирования</b>
 <p>Чтобы позволить коллеге, асситенту, тьютору или любому другому лицу 
@@ -330,7 +321,6 @@ $langUserContent = "<b>Права администрирования</b>
 <p>Чтобы добавить пользователя на ваш курс, заполните поля и подвердите. Заинтересованное лицо получит 
 электронное письмо с подтверждением его записи на курс и его именем пользователя и паролем, если вы указали 
 его электронный адрес. </p>";
-$langUserName = "Имя пользователя";
 $langUsers = "Пользователи";
 $langWork = "Задания";
 ?>

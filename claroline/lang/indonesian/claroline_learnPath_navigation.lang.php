@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Tambah/ubah komentar ke";
-$langAddIntro = "Tambah teks pendahuluan";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
 $langBack = "Kembali";
-$langCancel = "Batal";
 $langChat = "Diskusi";
 $langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
 $langCourseManager = "Penanggung jawab pelajaran";
@@ -26,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
 $langNameOfLang = "Array";
 $langNext = "Berikutnya";
-$langNotAllowed = "Tidak diijinkan";
+$langNoEx = "Saat ini belum ada latihan";
 $langOk = "Ok";
 $langOtherCourses = "Daftar pelajaran";
-$langPassword = "password";
 $langPoweredBy = "Diperkuat oleh";
-$langReg = "Pendaftaran";
 $langSize = "Ukuran";
 $langStudent = "siswa";
 $langUp = "Atas";
-$langUserName = "Nama user";
 $langUsers = "Users";
 $langWork = "Tugad";
 ?>

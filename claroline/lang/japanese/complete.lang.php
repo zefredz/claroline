@@ -155,7 +155,6 @@ $langDocContent = "<p>この文書ツールは、コンピュータのファイルマネージャに似てい
 	  <p>";
 $langDocDeleted = "文書を削除しました";
 $langDocument = "文書たち";
-$langEditDel = "edit/delete";
 $langElRen = "element renamed";
 $langEmail = "Email";
 $langEmailOption = "Send this announcement by email to registered students";

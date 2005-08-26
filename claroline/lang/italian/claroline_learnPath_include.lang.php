@@ -8,5 +8,6 @@ $langModify = "Modificare";
 $langOk = "Ok";
 $langQuestion = "Domanda";
 $langRawHasBeenChanged = "Il livello minimo per il superamento del modulo è stato modificato";
+$langScore = "Punteggio";
 $langSize = "Dimensione";
 ?>

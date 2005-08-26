@@ -1,28 +1,48 @@
 <?php
-$langAddIntro = "Dodaj uvodno besedilo";
+$l_click = "Click";
+$l_here = "here";
+$l_notifybody = "You are receiving this Email because a message
+you posted on forums has been replied to, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%1\$s
+
+Or view the forum index at
+
+%2\$s
+
+Thank you for using forums.
+
+Have a nice day.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_returnindex = "to return to the forum index";
+$l_returntopic = "to return to the forum topic list.";
+$l_separator = " > ";
+$l_viewmsg = "to view your Message.";
 $langAddTutors = "Seznam administratorjev";
+$langAdm = "Forum administration";
 $langAdminsOfThisCours = "upravnik tecaja";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
 $langCancel = "Prekini";
 $langChat = "Razprava";
-$langConfirmYourChoice = "Potrdi izbiro";
 $langCopy = "Kopiraj";
 $langCourseManager = "Upravnik tecaja";
 $langCreate = "tvori";
 $langDay_of_weekNames = "Array";
+$langDear = "Dragi";
 $langDelete = "Brisi";
 $langDeleteGroups = "Brisi vse skupine";
 $langDescriptionCours = "Opis tecaja";
 $langDocument = "Dokumenti";
-$langDocuments = "Dokumenti";
 $langEdit = "Uredi";
 $langEditGroup = "Uredi to skupino";
 $langEmtpyGroups = "Izprazni vse skupine";
 $langExistingGroups = "Skupine";
 $langFillGroups = "Polni skupine";
 $langForum = "Forumi";
-$langForumGroup = "Forum skupine";
 $langForums = "Forumi";
 $langGroup = "Skupina";
 $langGroupAllowStudentRegistration = "Studenti se lahko sami vpisejo v skupine";
@@ -31,6 +51,7 @@ $langGroupDel = "Skupina zbrisana";
 $langGroupDescription = "Opis";
 $langGroupDocument = "Dokumenti";
 $langGroupDocumentAlwaysPrivate = "(vedno privatno)";
+$langGroupDocumentsLink = "Documents of the group ";
 $langGroupFilledGroups = "Skupine so napolnili studenti, ki se nahajajo v seznamu uporabnikov.";
 $langGroupForum = "Groups forums";
 $langGroupMembers = "Clani skupine";
@@ -46,7 +67,7 @@ $langGroupPropertiesModified = "Lastnosti skupine so spremenjene";
 $langGroupSelfRegInf = "vpisi";
 $langGroupSelfRegistration = "Registracija";
 $langGroupSettingsModified = "Lastnosti skupine spremenjene";
-$langGroupSpace = "Prostor skupine";
+$langGroupSpaceLink = "Podrocje skupine";
 $langGroupStudentsInGroup = "studenti, vpisani v skupine";
 $langGroupStudentsRegistered = "studenti, vpisani v ta tecaj";
 $langGroupThisSpace = "Prostor za to skupino";
@@ -64,7 +85,6 @@ $langLogin = "vstop";
 $langLogout = "Izstop";
 $langManager = "Upravnik";
 $langMax = "maks.";
-$langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
@@ -72,28 +92,25 @@ $langMyGroup = "my group";
 $langNameOfLang = "Array";
 $langNewGroupCreate = "Tvorba novih skupin";
 $langNewGroups = "nove skupine";
+$langNewTopic = "New topic";
 $langNoGroupStudents = "Nerazporejeni studenti";
-$langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOneMyGroups = "my supervision";
 $langOtherCourses = "Seznam tecajev";
-$langPassword = "geslo";
 $langPlaces = "sedezev na skupino (opcija)";
 $langPoweredBy = "Powered by";
 $langPrivate = "privaten";
 $langPublic = "javen";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;skupin";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Uporabnik je clan najvec ";
-$langReg = "Registracija";
 $langRegIntoGroup = "Dodaj me tej skupini";
 $langRegistered = "Vpisano";
+$langReply = "Answer";
 $langStudent = "student";
 $langStudentsNotInThisGroups = "Uporabniki, ki niso v tej skupini";
 $langSubscribed = "ljudje, vpisani v ta tecaj";
 $langTo = "na";
-$langTools = "Orodja";
 $langUncompulsory = "(opcija)";
-$langUserName = "User name";
 $langUsers = "Uporabniki";
 $langWork = "Works";
 ?>

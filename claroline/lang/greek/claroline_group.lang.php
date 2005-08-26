@@ -1,24 +1,46 @@
 <?php
-$langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
+$l_click = "Πιέστε";
+$l_here = "εδώ";
+$l_notifybody = "Λαμβάνετε αυτό το email γιατί κάποιος απάντησε
+σε ένα μήνυμα που στείλατε στις περιοχές συζητήσεων , και είχατε
+ζητήσει να ειδοποιηθείτε σε αυτή την περίπτωση.
+
+Μπορείτε να δείτε το θέμα στο:
+
+%1\$s
+
+Ή να δείτε το ευρετήρηο των περιοχών συζητήσεων στο:
+
+%2\$s
+
+Σας ευχαριστούμε που χρησιμοποιείτε τις περιοχές συζητήσεων.
+
+Καλή σας μέρα.";
+$l_notifysubj = "Στάλθηκε μια απάντηση στο θέμα σας.";
+$l_returnindex = "για επιστροφή στο ευρετήριο περιοχών συζητήσεων.";
+$l_returntopic = "για επιστροφή στον κατάλογο θεμάτων της περιοχής συζητήσεων.";
+$l_separator = "» »";
+$l_viewmsg = "για να εμφανίσετε το Μήνυμα.";
 $langAddTutors = "Διαχείριση καταλόγου χρηστών";
+$langAdm = "διαχείριση";
 $langAdminsOfThisCours = "Διευθυντής του μαθήματος";
 $langAgenda = "Ατζέντα";
 $langAnnouncement = "Ανακοινώσεις";
+$langBackTo = "Επιστροφή σε:";
 $langCancel = "Ακύρωση";
 $langChat = "Κουβεντούλα";
 $langConfirmDeleteGroups = "Είσαι σίγουρος επιθυμείς να διαγράψεις όλες τις ομάδες ";
 $langConfirmEmptyGroups = "Είσαι σίγουρος οτι επιθυμείς να αδειάσεις/καθαρίσεις όλες τις ομάδες  ?";
-$langConfirmYourChoice = "Παρακαλώ επιβεβαιώστε την επιλογή σας";
 $langCopy = "Αντιγραφή";
 $langCourseHome = "Αρχική σελίδα μαθήματος(Course)";
-$langCourseManager = "Διαχειρηστής μαθήματος (Course)";
+$langCourseManager = "Διαχειριστής Μαθήματος";
 $langCreate = "Δημιουργία";
 $langDay_of_weekNames = "Array";
+$langDear = "Αγαπητέ";
 $langDelete = "Διαγραφή";
 $langDeleteGroups = "Διαγραφή όλων των ομάδων χρηστών";
 $langDescriptionCours = "Περιγραφή μαθήματος";
 $langDocument = "Εγγραφα";
-$langDocuments = "Έγγραφα";
 $langEdit = "Διόρθωση";
 $langEditGroup = "Διόρθωση της ομάδας χρηστών";
 $langEmtpyGroups = "Εκκαθάριση όλων των ομάδων χρηστών";
@@ -26,7 +48,6 @@ $langExercises = "Ασκήσεις";
 $langExistingGroups = "Ομάδες Χρηστών";
 $langFillGroups = "Συμπλήρωμα των ομάδων χρηστών";
 $langForum = "Περιοχή Συζητήσεων";
-$langForumGroup = "Περιοχή συζητήσεων της ομάδας";
 $langForums = "Περιοχή συζητήσεων";
 $langGroup = "ομάδα χρηστών";
 $langGroupAllowStudentRegistration = "Οι φοιτητές επιτρέπονται να εγγραφούν στις ομάδες χρηστών";
@@ -36,6 +57,7 @@ $langGroupDel = "Η ομάδα χρηστών διαγράφτηκε";
 $langGroupDescription = "Περιγραφή";
 $langGroupDocument = "Έγγραφα";
 $langGroupDocumentAlwaysPrivate = "(παντα εμπιστευτικα)";
+$langGroupDocumentsLink = "Έγγραφα της ομάδας ";
 $langGroupFilledGroups = "Οι ομάδες χρηστών έχουν συμπληρωθεί από φοιτητές που βρίσκονται στον κατάλογο «Χρήστες».";
 $langGroupForum = "Περιοχή συζητήσεων";
 $langGroupLimit = "όριο";
@@ -52,7 +74,7 @@ $langGroupPropertiesModified = "Αλλάχτηκαν οι ρυθμίσεις της ομάδας χρηστών";
 $langGroupSelfRegInf = "εγγραφή";
 $langGroupSelfRegistration = "Εγγραφή";
 $langGroupSettingsModified = "Οι ρυθμίσεις της ομάδας χρηστών έχουν αλλάξει";
-$langGroupSpace = "Περιοχή ομάδας χρηστών";
+$langGroupSpaceLink = "Ομάδα χρηστών";
 $langGroupStudentsInGroup = "φοιτητές εγγεγραμμένοι σε ομάδες χρηστών";
 $langGroupStudentsRegistered = "φοιτητές εγγεγραμμένοι στο μάθημα";
 $langGroupThisSpace = "Περιοχή για την ομάδα χρηστών";
@@ -73,7 +95,6 @@ $langLogout = "Εξοδος";
 $langManager = "Διαχειριστής";
 $langMax = "μέγ.";
 $langMinuteShort = "min. (ελαχ.)";
-$langModify = "Διόρθωση";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
@@ -82,12 +103,11 @@ $langMyGroup = "η ομάδα μου";
 $langNameOfLang = "Διάταξη";
 $langNewGroupCreate = "Δημιουργία καινούριας ομάδας χρηστών";
 $langNewGroups = "ομάδα(ες) χρηστών";
+$langNewTopic = "Νέο θέμα";
 $langNoGroupStudents = "Μη εγγεγραμμένοι φοιτητές";
-$langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOneMyGroups = "ο επιβλέπων μου";
 $langOtherCourses = "Λίστα Μαθημάτων";
-$langPassword = "Κωδικός";
 $langPlaces = "συμμετέχοντες στην ομάδα χρηστών (προαιρετικό)";
 $langPlatformAdministration = "Διαχείρηση Πλατφόρμας";
 $langPoweredBy = "Με τη βοήθεια του";
@@ -95,9 +115,9 @@ $langPrivate = "κλειστό";
 $langPublic = "ανοικτό";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;ομάδες";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Ένας χρήστης μπορεί να γίνει μέλος στο μεγιστο";
-$langReg = "Εγγραφή";
 $langRegIntoGroup = "Προσθέστε με στην ομάδα";
 $langRegistered = "Εγγεγραμμένοι";
+$langReply = "Απάντηση";
 $langSecondShort = "sec.";
 $langStudent = "φοιτητής";
 $langStudentsNotInThisGroups = "Χρήστες όχι σε αυτή την ομάδα";
@@ -106,19 +126,11 @@ $langSwitchEditorToTextConfirm = "Η εντολή θα αφαιρέσει τη τρέχουσα διάταξη κειμ
 $langTextEditorDisable = "Απενεργοποίηση επεξεργαστή κειμένου";
 $langTextEditorEnable = "Ενεργοποίηση επεξεργαστή κειμένου";
 $langTo = "στο";
-$langTools = "Εργαλεία";
 $langUncompulsory = "(προαιρετικό)";
-$langUserName = "Όνομα χρήστη";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
-$lang_click_here = "Κάνε κλικ εδώ";
-$lang_enter_your_user_name_and_password = "Eισαγωγή ονόματος χρήστη (username) και κωδικού (password)";
-$lang_footer_p_CourseManager = "Διευθυντής-ες για %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Εαν δεν έχετε λογαριασμό χρήστη ανοιχτό";
-$lang_if_you_wish_to_enroll_to_this_course = "Εαν επιθυμείτε να εγγραφείτε στο μάθημα αυτό";
-$lang_p_platformManager = "Διαχειρηστής για %s";
-$lang_this_course_is_protected = "Αυτό το μάθημα προστατεύεται";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα";
+$lang_footer_p_CourseManager = "Υπεύθυνος για %s";
+$lang_p_platformManager = "Διαχειριστής για %s";
 ?>

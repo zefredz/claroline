@@ -1,12 +1,10 @@
 <?php
 $langAdd = "Engadir";
-$langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAgenda = "Axenda";
 $langAnnouncement = "Anuncios";
 $langAreYouSureToDelete = "Est&aacute; vostede seguro de que desexa eliminar";
 $langCancel = "Cancelar";
 $langChat = "Chat";
-$langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langContent = "Contido";
 $langCourseContent = "Contido do curso";
 $langCourseContentComment1 = "Cal &eacute; a importancia dos diversos contidos que ser&aacute;n abordados 
@@ -14,6 +12,7 @@ no marco do curso? Cal &eacute; o nivel de dificultades destes contidos? Como es
 unidade? Cal ser&aacute; a secuencia dos contidos? ";
 $langCourseContentComment2 = "Presentaci&oacute;n do contido do curso, a estructura do contido, a s&uacute;a 
 progresi&oacute;n e o seu calendario";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCourseProgram = "Programa do curso";
 $langDay_of_weekNames = "Array";
@@ -58,10 +57,8 @@ $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNameOfLang = "Array";
 $langNewBloc = "Outros";
-$langNotAllowed = "Acci&oacute;n non permitida";
 $langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "contrasinal";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
 $langQualificationsAndGoals = "Cualificaci&oacute;ns e metas";
@@ -70,7 +67,6 @@ que capacidades e co&ntilde;ecementos ser&aacute;n capaces de controlar, de movi
 $langQualificationsAndGoalsComment2 = "Presentaci&oacute;n dos obxectivos xerais e espec&iacute;ficos do 
 curso, das capacidades a adquirir que se te&ntilde;en como obxectivo.";
 $langQuestionPlan = "Pregunta &oacute; profesor";
-$langReg = "Inscrici&oacute;n";
 $langSecondShort = "seg.";
 $langStudent = "Estudante";
 $langSupports = " Soporte ";
@@ -89,19 +85,11 @@ $langTextEditorEnable = "Habilitar editor de texto";
 $langThisCourseDescriptionIsEmpty = "Este curso carece actualmente dunha descrici&oacute;n";
 $langTitle = "T&iacute;tulo";
 $langUnableDescToAdd = "Habilitado para engadir descrici&oacute;n";
-$langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
 $langViMod = "Visibilidade modificada";
 $langViewMode = "Ver modo";
 $langVisible = "Visible";
 $langWork = "Traballos";
-$lang_click_here = "prema aqu&iacute;";
-$lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
 $lang_p_platformManager = "Administrador para %s";
-$lang_this_course_is_protected = "Este curso est&aacute; protexido";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
-														matriculado neste curso";
 ?>

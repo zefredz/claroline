@@ -25,16 +25,12 @@ $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
-$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";
-$langPassword = "password";
 $langPoweredBy = "Powered by";
-$langReg = "Đăng ký";
 $langStatistics = "Thống kê";
 $langStudent = "học sinh";
 $langTools = "Tools";
-$langUserName = "Username";
 $langUsers = "Users";
 $langWork = "Công việc";
 ?>

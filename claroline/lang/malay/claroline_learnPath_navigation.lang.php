@@ -1,10 +1,8 @@
 <?php
 $langAddComment = "Tambah/ubahsuai komen ke";
-$langAddIntro = "Tambah pengenalan";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
 $langBack = "Kembali";
-$langCancel = "Batal";
 $langChat = "Perbincangan";
 $langConfirmYourChoice = "Anda pasti untuk memadam pilihan anda ?";
 $langCourseManager = "Pentadbir Subjek (Pensyarah)";
@@ -26,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langNext = "Seterusnya";
-$langNotAllowed = "Tidak dibenarkan";
+$langNoEx = "Tiada Latihan buat masa ini";
 $langOk = "Proses";
 $langOtherCourses = "Senarai Subjek";
-$langPassword = "katalaluan";
 $langPoweredBy = "Oleh : ";
-$langReg = "Daftar";
 $langSize = "Saiz";
 $langStudent = "Pelajar";
 $langUp = "Atas";
-$langUserName = "Nama Pengguna";
 $langUsers = "Users";
 $langWork = "Works";
 ?>

@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "เพิ่มคำนำ";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgenda = "กำหนดการ";
 $langAnonymous = "ผู้ไม่ประสงค์ออกนาม";
@@ -16,7 +15,6 @@ $langCourseTitle = "ชื่อวิชา";
 $langCreateSite = "สร้างรายวิชา";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "ลบออกโดยผ่านทางเครื่องมือควบคุบระบบกระดานข่าว";
-$langDelete = "ลบ";
 $langDocument = "เอกสาร";
 $langEmail = "Email";
 $langEmailWrong = "อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน";
@@ -36,7 +34,6 @@ $langManager = "ผู้จัดการ";
 $langManyAnswers = "(มีคำตอบถูกต้องมากกว่าหนึ่งคำตอบ)";
 $langMaxSizeCourseCode = "สูงสุด 12 ตัวอักษร, เช่น <i>ROM2121</i>";
 $langMessage = "เมื่อท่านลบกระดานข่าวทดสอบออก ข้อมูลภายในทั้งหมดจะถูกลบไปด้วย";
-$langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
@@ -50,13 +47,11 @@ $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
 $langProfessor = "อาจารย์";
 $langProfessors = "อาจารย์";
-$langReg = "ลงทะเบียน";
 $langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
 $langSocraticIrony = "Socratic irony is...";
 $langStudent = "นักศึกษา";
 $langTargetFac = "";
 $langTestForum = "กระดานข่าวทดสอบ";
 $langTo = "ไปยัง";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 ?>

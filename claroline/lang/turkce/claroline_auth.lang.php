@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Önsöz metni ekle";
 $langAddress = "Adres ";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
@@ -9,9 +8,10 @@ $langChat = "Tartýþma";
 $langComment = "Yorum";
 $langConfirmation = "Þifrenizi tekrar yazýnýz";
 $langCopy = "Kopyala";
+$langCourse = "Web sitesi ";
+$langCreate = "yarat";
 $langDay_of_weekNames = "Array";
 $langDear = "Sayýn";
-$langDelete = "Sil";
 $langDescriptionCours = "Ders açýklamasý";
 $langDocument = "Belgeler";
 $langEmail = "Epostanýz";
@@ -35,13 +35,11 @@ kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi.
 Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu 
 adresinize gönderilecektir.<br>
 Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.";
-$langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
 $langNo = "Hayýr";
-$langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPassTooEasy = "bu þifre çok basit. Böyle bir þey önerilir ";
@@ -52,7 +50,6 @@ $langProfileReg = "Yeni profiliniz kaydedildi";
 $langReg = "Kayýt";
 $langRegAdmin = "Hoca";
 $langRegStudent = "Öðrenci";
-$langRegistration = "Kayýt";
 $langSettings = "Kayýt bilgileriniz þunlardýr:
 Username:";
 $langStudent = "öðrenci";

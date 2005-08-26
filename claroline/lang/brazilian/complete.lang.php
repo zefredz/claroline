@@ -514,7 +514,6 @@ $langEG = "ex.";
 $langEXERCISETypeDesc = "Exercício do Claroline";
 $langEdit = "Editar conta";
 $langEditAnswers = "Editar respostas";
-$langEditDel = "Editar/apagar";
 $langEditEvent = "Editar Evento";
 $langEditExercise = "Editar configuração do exercício";
 $langEditFeedback = "Editar comentário de retorno automático";
@@ -1753,9 +1752,6 @@ $lang_p_CannotRename_s_s = "Não pode ser renomeado %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "Erro na produção de <em>%s</em> para <B>%s</B>";
 $lang_p_PropForConfigCommited = "As características para %s (%s) estão ativas no servidor.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Atualizando o banco de dados principal do Claroline (<em>%s</em>)";
-$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Atualizando o banco de dados do curso <strong>%2\$s</strong><br><small>
-DB Nome : %3\$s <br>
-Curso ID: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Corrija os problemas técnicos e <a href=\"%s\">conecte para atualizar</a>.";
 $lang_p_config_file_creation = "Criação do arquivo de configuração:<BR> %s";
 $lang_p_d_affected_rows = "%d linhas afetada";

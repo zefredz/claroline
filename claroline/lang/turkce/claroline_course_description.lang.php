@@ -1,6 +1,5 @@
 <?php
 $langAdd = "Ekle";
-$langAddIntro = "Önsöz metni ekle";
 $langAgenda = "Gündem";
 $langAnnouncement = "Duyurular";
 $langAreYouSureToDelete = "Silmek istediðinizden emin misiniz?";
@@ -25,16 +24,13 @@ $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
 $langNewBloc = "Diðer";
-$langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
 $langQuestionPlan = "Hocaya soru";
-$langReg = "Kayýt";
 $langStudent = "öðrenci";
 $langThisCourseDescriptionIsEmpty = "Bu dersin açýklamalarý yapýlmamýþtýr";
 $langTitle = "Baþlýk";
-$langUserName = "Kullanýcý adýnýz";
 $langUsers = "Kullanýcýlar";
 $langViMod = "Görünürlük deðiþtirildi";
 $langWork = "Öðrenci Yazýlarý";

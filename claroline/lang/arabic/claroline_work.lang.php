@@ -1,40 +1,158 @@
 <?php
-$langAddComment = " إضافة/تعديل تعليق ";
-$langAddIntro = " إضا�?ة نصّ تقديمي ";
-$langAgenda = "أجنده";
-$langAnnouncement = " إعلانات ";
-$langAnswer = " جواب ";
-$langBack = " رجوع ";
-$langCancel = " إلغاء ";
-$langCopy = " نسخ ";
-$langDate = " تاريخ ";
-$langDay_of_weekNames = "Array";
-$langDelete = " إلغاء ";
-$langDocument = " وثائق ";
-$langExercises = " تمارين ";
-$langForums = "منتديات";
-$langGroup = "Groupe";
-$langGroupSpace = " فضاء المجموعة ";
-$langGroups = " مجموعات ";
-$langHelp = " إعانة ";
-$langLogout = " خروج ";
-$langManager = "Gestionnaire";
-$langModify = " تعديل ";
-$langModifyProfile = " تغيير ملامحي ";
-$langMonthNames = "Array";
-$langMyCourses = " دروسي ";
-$langNameOfLang = "Array";
-$langNotAllowed = " لستم مسؤولا عن هذا الدرس";
-$langOk = " تأكيد ";
-$langOtherCourses = " دروس أخرى ";
-$langPoweredBy = "-كمبوس يستعمل هذه المسّطحة ";
-$langReg = " ترسيم ";
-$langSize = " حجم ";
-$langStudent = "étudiant";
-$langTo = " إلى ";
-$langTooBig = " لم تختاروا جذاذية بالبعث أو أن الجذاذية كبيرة الحجم";
-$langUserName = "Nom d'utilisateur";
-$langUsers = "مستعملو الموقع";
-$langVisible = " مرئي/غير مرئي ";
-$langWork = " أشغال ";
+$langAddComment = "إضافة ملاحظة";
+$langAddFeedback = "إضافة مراجعة";
+$langAddIntro = "إضافة مقدمة أو تمهيد";
+$langAddModule = "إضافة";
+$langAddModulesButton = "أضف وحدة(وحدات)";
+$langAddOneModuleButton = "أضف وحدة";
+$langAgenda = "جدول الأعمال";
+$langAllowLateUpload = "نعم, اسمح للمستخدمين بإرسال العمل بعد انقضاء المهلة المحددة";
+$langAllowLateUploadShort = "السماح بتحميل الملفات بعد انتهاء المدة المسموحة";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "وثيقة";
+$langAltExercise = "تمرين";
+$langAltScorm = "Scorm ";
+$langAnnouncement = "الإعلانات";
+$langAnswer = "الجواب";
+$langAnswerRequired = "الجواب مطلوب";
+$langAreYouSureToDelete = "سيتم الحذف هل أنت متأكد؟";
+$langAssignment = "وظيفة/مهمة";
+$langAssignmentAdded = "تم إنشاء وظيفة/ مهمة جديدة";
+$langAssignmentDeleted = "تم حذف الوظيفة / المهمة";
+$langAssignmentDescription = "الوصف";
+$langAssignmentEdited = "تم تعديل الوظيفة / المهمة";
+$langAssignmentTitle = "عنوان الوظيفة";
+$langAssignmentTitleAlreadyExists = "عنوان الوظيفة/المهمة موجود مسبقاً";
+$langAssignmentTitleRequired = "يجب إدخال عنوان للوظيفة/المهمة";
+$langAssignmentType = "نوع الوظيفة/المهمة";
+$langAttachDoc = "إرفاق وثيقة";
+$langAttachedFile = "الملف المرفق";
+$langAvailableFrom = "متوفر من ";
+$langBack = "للخلف";
+$langCancel = "إلغاء";
+$langCannotCopyFile = "لا يمكن نسخ الملف";
+$langChat = "دردشة";
+$langChooseDateHelper = "(d/m/y hh:mm)";
+$langConfirmYourChoice = "قم بتأكيد اختيارك من فضلك";
+$langCopy = "نسخ";
+$langCourseAdministratorOnly = "مدير المقرر فقط";
+$langCourseHome = "صفحة المقرر";
+$langCourseManager = "مدير المقرر";
+$langCreateAssignment = "إنشاء (وظيفة/مهمة) جديدة";
+$langCurrentAttachedDoc = "الملف الحالي المرفق";
+$langCurrentDoc = "الملف الحالي";
+$langCurrentFeedbackFile = "ملف المراجعات الحالي";
+$langDate = "التاريخ";
+$langDay_of_weekNames = "مصفوفة";
+$langDefSubVisibility = "سماحية الرؤية الافتراضية للأعمال";
+$langDefaultLearningPathComment = "هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>";
+$langDefaultModuleAddedComment = "هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.";
+$langDefaultModuleComment = "هذا هو نص المقدمة لهذه الوحدة، سوف يظهر في كل مسار تعليمي يحوي هذه الوحدة. لاستبداله بنصك الخاص، اضغط بالأسفل على <b>تعديل</b>.";
+$langDelete = "حذف";
+$langDeleteCaution = "! سيؤدي هذا أيضاً إلى حذف جميع الأعمال المرسلة لهذه الوظيفة !";
+$langDescriptionCours = "وصف المقرر التعليمي";
+$langDocument = "وثائق و وصلات";
+$langEditFeedback = "تحرير المراجعة التلقائية";
+$langEditWork = "تعديل العمل";
+$langEndDate = "تاريخ الانتهاء";
+$langErrorInvalidParms = "خطأ: قيمة وسيطية غير صالحة (استخدم الأرقام فقط)";
+$langErrorNameAlreadyExists = "خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات";
+$langErrorValuesInDouble = "خطأ: يوجد قيمة أو أكثر مكررة";
+$langExercise = "تمرين";
+$langExercises = "التمارين";
+$langExplainDeleteFile = "قم بالنقر على هذا المربع لحذف الملف المرفق";
+$langExplainReplaceFile = "قم بتحميل ملف جديد لاستبدال الملف";
+$langFeedback = "مراجعة";
+$langFeedbackAdded = "تم إضافة المراجعة";
+$langFeedbackEdited = "تم تحرير المراجعة";
+$langFeedbackFile = "ملف المراجعة";
+$langFeedbackHelp = "المراجعة اختيارية , إذا لم تكن خالية فستظهر للمستخدمين حسب إعدادات 'ارسال مراجعة'";
+$langFeedbackSubmit = "إرسال مراجعة";
+$langFeedbackText = "نص المراجعة";
+$langFeedbacks = "المراجعات";
+$langFileDesc = "وصف الملف";
+$langFileOnly = "ملف (الملف مطلوب  و يمكن إضافة شرح بشكل اختياري)";
+$langFileRequired = "الملف مطلوب";
+$langFirstSubmission = "أول تسليم";
+$langForums = "المنتديات";
+$langGroup = "مجموعة";
+$langGroupAssignment = "جماعي";
+$langGroupSpace = "منطقة المجموعة";
+$langGroups = "المجموعات";
+$langHelp = "المساعدة";
+$langIncorrectDate = "يجب أن يكون تاريخ البدء قبل تاريخ النهاية ...";
+$langIndividual = "شخصي";
+$langIntroWork = "هذه الأداة تسمح للمدرس بإنشاء وظائف أو مهام للطلاب بحيث يكون بمقدور كل طالب ( حسب الإعدادات  الخاصة بكل وظيفة) ان يقوم بتحميل مستند أو كتابة نص على موقع المقرر
+<br />تستطيع ان تضيف ملاحظات أو تضع علامات لكل عمل
+
+<br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على 'إضافة مقدمة او تمهيد'<br>";
+$langInvisible = "مخفي";
+$langLastEditDate = "تاريخ أخر تعديل";
+$langLateUpload = "تحميل متاخر";
+$langLearningPath = "مسار التعليم";
+$langLogin = "تسجيل الدخول";
+$langLogout = "خروج";
+$langMakeInvisible = "إخفاء";
+$langMakeVisible = "إظهار";
+$langManager = "المدير";
+$langMaxFileSize = "الحجم الأعظم المسموح للملف : ";
+$langMinuteShort = "دقيقة";
+$langModify = "تعديل";
+$langModifyProfile = "تعديل معلوماتي";
+$langModule = "وحدة";
+$langMonthNames = "مصفوفة";
+$langMyAgenda = "جدول أعمالي";
+$langMyCourses = "مقرراتي";
+$langName = "الاسم";
+$langNameOfLang = "مصفوفة";
+$langNoEx = "لا يوجد أيت تمارين حالياً";
+$langNoFile = "- لا أحد -";
+$langNoScore = "لا يوجد";
+$langNoVisibleAssignment = "لايوجد حالياً أية مهام او وظائف";
+$langNoVisibleSubmission = "No visible submission";
+$langNotGroupMember = "انت لست عضواً في هذه المجموعة";
+$langOk = "موافق";
+$langOtherCourses = "قائمة المقررات";
+$langPlatformAdministration = "الإدارة";
+$langPoweredBy = "مطورة باستخدام";
+$langPreventLateUpload = "لا , منع المستخدمين من إرسال العمل بعد انقضاء المهلة المحددة للإرسال";
+$langPrivateFeedback = "مراجعة خاصة";
+$langRequired = "مطلوب";
+$langScore = "مجموع النقاط";
+$langSecondShort = "ثانية";
+$langSize = "الحجم";
+$langStartDate = "تاريخ البدء";
+$langStudent = "طالب";
+$langSubmissionDate = "تاريخ&nbsp;الإرسال&nbsp;الأول";
+$langSubmissionType = "نوع الإرسال";
+$langSubmissions = "Submissions";
+$langSubmitFeedbackAfterEndDate = "بشكل تلقائي , بعد تاريخ النهاية";
+$langSubmitFeedbackAfterPost = "بشكل تلقائي,بعد كل إرسال";
+$langSubmitWork = "إرسال العمل";
+$langSubmittedWork = "عمل- وظيفة";
+$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
+$langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
+$langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
+$langTextFile = "نص مع ملف مرفق (النص إجباري و الملف اختياري)";
+$langTextOnly = "نص فقط ( النص مطلوب ولا يوجد ملف)";
+$langTo = "إلى";
+$langTooBig = "لم تقم باختيار أي ملف لإرساله او ان حجم الملف كبير جداً";
+$langUntil = "إلى";
+$langUp = "للأعلى";
+$langUploadDoc = "تحميل وثيقة";
+$langUploadedFile = "الملف الذي تم تحميله";
+$langUser = "مستخدم";
+$langUsers = "المستخدمون";
+$langViewMode = "نمط العرض";
+$langVisible = "مرئي";
+$langWork = "واجبات و مهام";
+$langWrkAdded = "تم إرسال العمل بنجاح";
+$langWrkAuthors = "المؤلف ( المؤلفون)";
+$langWrkAuthorsRequired = "يجب كتابة اسم المؤلف ( المؤلفون)";
+$langWrkEdited = "تم تعديل العمل";
+$langWrkScoreRequired = "المعدل المطلوب";
+$langWrkTitle = "اسم المقرر";
+$langWrkTitleRequired = "عنوان العمل مطلوب";
+$lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

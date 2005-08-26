@@ -16,13 +16,10 @@ $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
-$langNotAllowed = "このコース受講が許可されていません";
 $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
-$langReg = "登録";
 $langStatistics = "統計";
 $langStudent = "student";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langWork = "学生の文書たち";
 ?>

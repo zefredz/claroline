@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "Lägg till introduktionstext";
 $langAgenda = "Agenda";
 $langAllowed = "Tillåten";
 $langAnnouncement = "Tillkännagivanden";
@@ -12,7 +11,6 @@ $langCode = "Kurskod";
 $langConfTip = "Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt, 
 det enklaste är att öppna registrering under
 en vecka, och be studenterna att de registrerar sig själva, därefter stänga registreringen och kontrollera användarlistan efter obehöriga.";
-$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
 $langCopy = "Kopiera";
 $langCourse = "Webbsajten ";
 $langCourseAccess = "Åtkomst till denna kurs";
@@ -20,7 +18,6 @@ $langCourseManager = "Kursansvarig";
 $langCourseTitle = "Kurstitel";
 $langDay_of_weekNames = "Array";
 $langDelCourse = "Radera hela kurswebbsajten";
-$langDelete = "Radera";
 $langDenied = "Nekad";
 $langDepartmentUrl = "URL";
 $langDepartmentUrlName = "Avdelning";
@@ -38,7 +35,6 @@ $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langManager = "Ansvarig";
 $langModifDone = "Informationen har modifierats";
-$langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
@@ -51,13 +47,11 @@ $langPoweredBy = "Med kraft från";
 $langPrivateAccess = "Privat åtkomst, registrering stängd (sajt tillgänglig bara för personer på <a href=../user/user.php>Användarlistan</a>)";
 $langProfessors = "Lärare";
 $langPublicAccess = "Publik åtkomst från campus hemsida även utan inloggning";
-$langReg = "Registrering";
 $langStatistics = "Statistik";
 $langStudent = "elev";
 $langSubscription = "Prenumeration";
 $langTipLang = "Detta språk gäller för all besökare som besöker denna kurswebbsajt.";
 $langTo = "till";
-$langUserName = "Namn";
 $langUsers = "Användare";
 $langWork = "Elevarbeten";
 $langYes = "Yes";

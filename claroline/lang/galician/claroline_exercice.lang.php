@@ -1,6 +1,5 @@
 <?php
 $langAddComment = "Engadir/modificar un comentario a";
-$langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAddModule = "Engadir";
 $langAddModulesButton = "Engadir modulo(s)";
 $langAddOneModuleButton = "Engadir m&oacute;dulo";
@@ -41,6 +40,7 @@ $langConfirmDeleteExercise = "Est&aacute; vostede seguro de que desexa eliminar 
 $langConfirmDeleteQuestion = "Est&aacute; vostede seguro de que desexa eliminar por completo esta cuesti&oacute;n ?";
 $langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langCorrespondsTo = "Corresponde a";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCurrentTime = "Hora actual";
 $langDate = "Data";
@@ -139,8 +139,6 @@ $langNoAnswer = "Polo moment, non hai resposta";
 $langNoEndDate = "Sen data de entrega";
 $langNoEx = "Non hai exercicios polo momento";
 $langNoMoreAttemptsAvailable = "Acadou vostede o n&uacute;mero m&aacute;ximo de intentos permitido.";
-$langNoMoreModuleToAdd = "T&oacute;dolos m&oacute;dulos deste curso est&aacute;n a ser empregados nesta 
-   									secuencia de aprendizaxe.";
 $langNoQuestion = "Non hai cuesti&oacute;ns polo momento";
 $langNoResult = "Non se obtiveron resultados";
 $langNoTimeLimit = "Sen l&iacute;mite de tempo";
@@ -150,7 +148,6 @@ $langOn = "Activo";
 $langOptional = "Opcional";
 $langOrphanQuestions = "Cuesti&oacute;ns orfas";
 $langOtherCourses = "Lista de cursos";
-$langPassword = "contrasinal";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
 $langQuestion = "Cuesti&oacute;n";
@@ -164,7 +161,6 @@ $langQuestionTitle = "T&iacute;tulo da cuesti&oacute;n";
 $langQuestionWeighting = "Peso";
 $langQuestions = "Cuesti&oacute;ns";
 $langRandomQuestions = "Cuesti&oacute;ns aleatorias";
-$langReg = "Inscrici&oacute;n";
 $langReplaceAttachedFile = "Reemprazar";
 $langRequired = "Requirido";
 $langResult = "Resultados";
@@ -196,7 +192,6 @@ $langUsedInSeveralExercises = "Coidado! Esta cuesti&oacute;n e as s&uacute;s res
 								en varios exercicios. Desexa vostede modificalas ";
 $langUsedInSeveralPath = "Este exercicio &eacute; empregado polo menos nunha secuencia de aprendizaxe. Se vostede 
 								o elimina, non poder&aacute; estar xa dispo&ntilde;ible nesa(s) secuencia(s) de aprendizaxe.";
-$langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWeightingForEachBlank = "Especifique un peso para cada branco";
@@ -204,13 +199,6 @@ $langWork = "Traballos";
 $langYes = "Si";
 $langYourTime = "O seu tempo empregado &eacute;";
 $langYourTotalScore = "A s&uacute;a puntuaci&oacute;n total &eacute;";
-$lang_click_here = "prema aqu&iacute;";
-$lang_enter_your_user_name_and_password = "Escriba o seu nome de usuario e contrasinal";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
-$lang_if_you_dont_have_a_user_account_profile_on = "Se vostede non ten unha conta de usuario";
-$lang_if_you_wish_to_enroll_to_this_course = "Se vostede desexa matricularse neste curso";
 $lang_p_platformManager = "Administrador para %s";
-$lang_this_course_is_protected = "Este curso est&aacute; protexido";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
-														matriculado neste curso";
 ?>

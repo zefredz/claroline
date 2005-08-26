@@ -1,5 +1,4 @@
 <?php
-$langAddIntro = "เพิ่มคำนำ";
 $langAgenda = "กำหนดการ";
 $langCancel = "ยกเลิก";
 $langChat = "Chat";
@@ -7,7 +6,6 @@ $langCode = "รหัสวิชา";
 $langCopy = "ย้าย";
 $langCourseTitle = "ชื่อวิชา";
 $langDay_of_weekNames = "Array";
-$langDelete = "ลบ";
 $langDocument = "เอกสาร";
 $langEmail = "Email";
 $langForums = "กระดานข่าว";
@@ -16,7 +14,6 @@ $langHelp = "ช่วยเหลือ";
 $langHome = "กลับหน้าแรก";
 $langLogout = "Logout";
 $langManager = "ผู้จัดการ";
-$langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
@@ -27,11 +24,9 @@ $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
 $langProfessors = "อาจารย์";
-$langReg = "ลงทะเบียน";
 $langStatistics = "สถิติ";
 $langStudent = "นักศึกษา";
 $langTo = "ไปยัง";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
 $langYes = "ใช่";
 ?>

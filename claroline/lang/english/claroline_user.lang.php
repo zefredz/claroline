@@ -134,6 +134,7 @@ $langRemove = "Remove";
 $langRole = "Role";
 $langSaveChanges = "Save changes";
 $langSearch = "Search";
+$langSearchOn = "Search on";
 $langSecondShort = "sec.";
 $langSettings = "with the following settings:
 User name:";
