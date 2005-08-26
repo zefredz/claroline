@@ -594,7 +594,7 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = $l_notifysubj;
 
-    $url_topic = $rootWeb . "claroline/phpbb/viewtopic.php?topic=" .  $topicId . "&amp;cidReq=" . $_course['sysCode'];
+    $url_topic = $rootWeb . "claroline/phpbb/viewtopic.php?topic=" .  $topicId . "&cidReq=" . $_course['sysCode'];
     $url_forum = $rootWeb . "claroline/phpbb/index.php?cidReq=" . $_course['sysCode'];
 
     // send mail to registered user for notification
