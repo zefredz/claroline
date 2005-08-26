@@ -135,7 +135,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                             FROM `".$tbl_track_e_login."`
                             WHERE `login_user_id` = ". (int)$uInfo ."
                                 AND MONTH(`login_date`) = MONTH( FROM_UNIXTIME('".$reqdate."') )
-                                AND YEAR(`login_date`) = YEAR(FROM_UNIXTIME(".$reqdate."))
+                                AND YEAR(`login_date`) = YEAR( FROM_UNIXTIME(".$reqdate.") )
                             ORDER BY `login_date` ASC ";
                 $displayedDate = $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
                 break;
@@ -144,7 +144,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                             FROM `".$tbl_track_e_login."`
                             WHERE `login_user_id` = '". (int)$uInfo ."'
                                 AND WEEK(`login_date`) = WEEK( FROM_UNIXTIME('".$reqdate."') )
-                                AND YEAR(`login_date`) = YEAR(FROM_UNIXTIME(".$reqdate."))
+                                AND YEAR(`login_date`) = YEAR( FROM_UNIXTIME(".$reqdate.") )
                             ORDER BY `login_date` ASC ";
                 $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
                 $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
@@ -152,49 +152,49 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                                 ." ".$langToDate." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
                 break;
         }
-  
-        $results = getManyResults1Col($sql);
+
+        $loginDates = claro_sql_query_fetch_all($sql);
+        
         /*** display of the displayed period  ***/
         echo '<table class="claroTable" width="100%" cellpadding="4" cellspacing="1">';
         echo '<tr class="headerX"><th>'.$displayedDate.'</th></tr><tbody>';
-        if (is_array($results))
-        {             
-            for ($j = 0 ; $j < sizeof($results); $j++)
+        if( !empty($loginDates) && is_array($loginDates) )
+        {
+            $i = 0;
+            while( $i < sizeof($loginDates) )
             {
-                $timestamp = strtotime($results[$j]);
-
-                $beautifulDateTime = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
                 echo '<tr>'."\n"
-                    .'<td><small>'.$beautifulDateTime.'</small></td>'."\n"
+                    .'<td><small>'.claro_disp_localised_date( $dateTimeFormatLong, strtotime($loginDates[$i]['login_date']) ).'</small></td>'."\n"
                     .'</tr>'."\n"
 					;
-                // $limit is used to select only results between $results[$j] (current login) and next one
-                if( $j == ( sizeof($results) - 1 ) )
+                // $limit is used to select only results between current login and next one
+                if( $i == ( sizeof($loginDates) - 1 ) || !isset($loginDates[$i+1]['login_date']) )
                     $limit = date("Y-m-d H:i:s",$nextReqDate);
                 else
-                    $limit = $results[$j+1];
-                // select all access to tool between displayed date and next displayed date or now() if 
-                $sql = "SELECT count(`access_tid`), `access_tlabel`
-                            FROM `".$tbl_track_e_access."`
-                            WHERE `access_user_id` = '". (int)$uInfo."'
-                                AND `access_tid` IS NOT NULL
-                                AND `access_date` > '".$results[$j]."'
-                                AND `access_date` < '".$limit."'
-                            GROUP BY `access_tid`
-                            ORDER BY `access_tid` ASC";
-                $results2 = getManyResults2Col($sql);
-                
-                if (is_array($results2))
+                    $limit = $loginDates[$i+1]['login_date'];
+
+                // select all access in the displayed date range
+	            $sql = "SELECT `access_tlabel`, count(`access_tid`) AS `nbr_access`
+	                        FROM `".$tbl_track_e_access."`
+	                        WHERE `access_user_id` = '". (int)$uInfo."'
+	                            AND `access_tid` IS NOT NULL
+	                            AND `access_date` > '".$loginDates[$i]['login_date']."'
+	                            AND `access_date` < '".$limit."'
+	                        GROUP BY `access_tid`
+	                        ORDER BY `access_tid` ASC";
+	            $toolAccess = claro_sql_query_fetch_all($sql);
+	            
+                if( !empty($toolAccess) && is_array($toolAccess) )
                 { 
                     echo '<tr>'."\n"
 					    .'<td colspan="2">'."\n"
                         .'<table width="50%" cellpadding="0" cellspacing="0" border="0">'."\n"
 						;
-                    for($k = 0 ; $k < count($results2) ; $k++)
+                    foreach( $toolAccess as $aToolAccess )
                     {                     
                         echo '<tr>'."\n"
-                            .'<td width="70%"><small>'.$toolNameList[$results2[$k][1]].'</small></td>'."\n"
-                            .'<td width="30%" align="right"><small>'.$results2[$k][0].' '.$langVisits.'</small></td>'."\n"
+                            .'<td width="70%"><small>'.$toolNameList[$aToolAccess['access_tlabel']].'</small></td>'."\n"
+                            .'<td width="30%" align="right"><small>'.$aToolAccess['nbr_access'].' '.$langVisits.'</small></td>'."\n"
                             .'</tr>'."\n"
 							;
     
@@ -203,6 +203,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                         .'</td></tr>'."\n\n"
 						;
                 }
+                
+                $i++;
             }
         
         }
