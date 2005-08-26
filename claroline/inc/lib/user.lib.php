@@ -114,7 +114,7 @@ function user_add ($data)
             SET `nom`          = '". addslashes($data['lastname']) ."' ,
                 `prenom`       = '". addslashes($data['firstname']) ."',
                 `username`     = '". addslashes($data['username']) ."',
-                `password`     = '". addslashes($data['password']) ."',
+                `password`     = '". addslashes($password) ."',
                 `email`        = '". addslashes($data['email']) ."',
                 `statut`       = '". (int) $data['status'] ."',
                 `officialCode` = '". addslashes($data['officialCode']) ."',
