@@ -299,8 +299,10 @@ th .claroCmdDisabled{
  *  </ul>
  */
 
-.item {padding-left:16px}
-.hot {background:url(../img/hot.gif) no-repeat}
+li.item {padding-left:16px}
+li.hot {background:url(../img/hot.gif) no-repeat}
+.item img {padding-left:16px}
+.hot img {background:url(../img/hot.gif) no-repeat}
 
 /******************************************************************************
                              CLAROLINE TABLE
