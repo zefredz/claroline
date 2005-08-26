@@ -1,9 +1,5 @@
 <?php # $Id$
 
-// Most PHP package has increase the error reporting. 
-// The line below set the error reporting to the most fitting one for Claroline
-// error_reporting(error_reporting() & ~ E_NOTICE);
-
 // include the main Claroline platform configuration file
 
 // Determine the directory path where this current file lies
@@ -26,10 +22,12 @@ else
        .'</center>');
 }
 
+// Most PHP package has increase the error reporting.
+// The line below set the error reporting to the most fitting one for Claroline
+if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
 /*----------------------------------------------------------------------
   Various Path Init
   ----------------------------------------------------------------------*/
-
 
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application
 // Repository". It is a framework and distribution system for reusable PHP
