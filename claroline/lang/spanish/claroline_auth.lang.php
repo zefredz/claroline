@@ -18,6 +18,7 @@ $langComment = "Comentario";
 $langConfirmation = "confirmaci&oacute;n";
 $langCopy = "Copiar";
 $langCourse = "El curso ";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Responsable del curso";
 $langCourseManagerStatusToUser = "El estatus de creador de curso es %s %s";

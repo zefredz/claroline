@@ -10,6 +10,7 @@ $langBuildProductionLangFile = "Archivos de Producci&oacute;n (m&uacute;ltiples 
 $langCancel = "Cancelar";
 $langChat = "Debate";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Descripci&oacute;n del curso";

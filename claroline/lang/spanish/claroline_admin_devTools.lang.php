@@ -39,6 +39,7 @@ $langChat = "Debate";
 $langContradiction = "Utilizar el principio de no contradicci&oacute;n para llevar al interlocutor a un callej&oacute;n sin salida.";
 $langCopy = "Copiar";
 $langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer&aacute; en la lista de los cursos";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCreate = "crear";
 $langCreateCourses = "Crear cursos";

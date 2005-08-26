@@ -38,6 +38,7 @@ $langConfirmEnrollClassToCourse = "¿Est&aacute; seguro de que desea inscribir to
 $langConfirmation = "confirmaci&oacute;n";
 $langCopy = "Copiar";
 $langCourseAdministratorOnly = "S&oacute;lo curos del administrador";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCreate = "crear";
 $langDay_of_weekNames = "Array";

@@ -47,6 +47,7 @@ $langChat = "Debate";
 $langComment = "Comentario";
 $langConfirmYourChoice = "Por favor confirme su elecci&oacute;n";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCreateLabel = "Crear etiqueta";
 $langCreateNewLearningPath = "Crear una nueva secuencia de aprendizaje";

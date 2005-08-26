@@ -326,6 +326,7 @@ $langCourseCreate = "Crear un Curso";
 $langCourseCreator = "Creador de curso";
 $langCourseDelete = "El curso ha sido borrado con &eacute;xito";
 $langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer&aacute; en la lista de los cursos";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Responsable del curso";
 $langCourseManagerStatusToUser = "El estatus de creador de curso es %s %s";
@@ -812,6 +813,7 @@ $langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y su
 			no sabe lo que pretende saber.";
 $langFormula = "Cordialmente, vuestro profesor";
 $langForum = "Foros";
+$langForumDeleted = "Foro borrado";
 $langForumGroup = "Foro del grupo";
 $langForums = "Foros";
 $langFree = "Libre";

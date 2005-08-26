@@ -31,6 +31,7 @@ $langChat = "Debate";
 $langConfirmDeleteGroups = "¿Est&aacute; seguro que desea eliminar todos los grupos?";
 $langConfirmEmptyGroups = "¿Est&aacute; seguro de vaciar todos los grupo ?";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCreate = "crear";
 $langDay_of_weekNames = "Array";

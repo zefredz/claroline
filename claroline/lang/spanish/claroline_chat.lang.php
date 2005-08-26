@@ -7,6 +7,7 @@ $langCannotInitChat = "Error : no se puede inicializar el chat";
 $langChat = "Debate";
 $langChatResetBy = "Chat reseteado por";
 $langCopyFailed = "Fall&oacute; la impresi&oacute;n";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDateLastWrite = "El ultimo mensaje fue enviado en :";
 $langDay_of_weekNames = "Array";

@@ -9,6 +9,7 @@ $langChangePwdexp = "Escribe la nueva contrase&ntilde;a dos veces para cambiarla
 $langChat = "Debate";
 $langCodeUsed = "Este c&oacute;digo oficial ya se le ha asignado a otro usuario.";
 $langConfirmation = "confirmaci&oacute;n";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCreate = "crear";
 $langDay_of_weekNames = "Array";

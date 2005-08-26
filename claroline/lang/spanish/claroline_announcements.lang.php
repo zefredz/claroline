@@ -11,6 +11,7 @@ $langCancel = "Cancelar";
 $langChat = "Debate";
 $langConfirmYourChoice = "Por favor confirme su elecci&oacute;n";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDay_of_weekNames = "Array";
 $langDelete = "Borrar";

@@ -6,6 +6,7 @@ $langCancel = "Cancelar";
 $langChat = "Debate";
 $langClearList = "Borrar la lista de eventos";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDay = "D&iacute;a";
 $langDay_of_weekNames = "Array";

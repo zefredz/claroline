@@ -7,6 +7,7 @@ $langAnnouncement = "Anuncios";
 $langCancel = "Cancelar";
 $langChat = "Debate";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCourse_Repository = "Repositorio de los crusos";
 $langCourses = "Cursos";

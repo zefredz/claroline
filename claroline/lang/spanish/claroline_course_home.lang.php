@@ -10,6 +10,7 @@ $langCancel = "Cancelar";
 $langChangedTool = "El acceso a la herramienta ha cambiado";
 $langChat = "Debate";
 $langConfirmYourChoice = "Por favor confirme su elecci&oacute;n";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCourseSettings = "Configuraci&oacute;n del curso";
 $langDay_of_weekNames = "Array";

@@ -26,6 +26,7 @@ $langCorrespondsTo = "Corresponde con";
 $langCountToolAccess = "N&uacute;mero total de conexiones al curso";
 $langCountUsers = "N&uacute;mero de usuarios";
 $langCourseAccess = "Acceso al curso";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDate = "Fecha";
 $langDay = "D&iacute;a";

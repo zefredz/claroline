@@ -13,6 +13,7 @@ $langBack = "Volver a los par&aacute;metros del curso";
 $langBrowserCannotSeeFrames = "Su navegador no soporta marcos.";
 $langChat = "Debate";
 $langConfirmYourChoice = "Por favor confirme su elecci&oacute;n";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDate = "Fecha";
 $langDay_of_weekNames = "Array";

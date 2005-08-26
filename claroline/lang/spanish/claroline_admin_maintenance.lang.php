@@ -3,6 +3,7 @@ $langAdministration = "Administraci&oacute;n";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
 $langChat = "Debate";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Descripci&oacute;n del curso";

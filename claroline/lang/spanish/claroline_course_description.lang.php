@@ -9,6 +9,7 @@ $langContent = "Contenido";
 $langCourseContent = "Contenido del curso";
 $langCourseContentComment1 = "¿Cu&aacute;l es la importancia de los varios contenidos ense&ntilde;ados en la estructura de este curso?, ¿Cu&aacute;l es el nivel de complejidad del contenido?, ¿C&oacute;mo estan estructuradas sus unidades?, ¿Cu&aacute;l se&aacute; la secuencia del contenido?, ¿A donde planeamos llegar?";
 $langCourseContentComment2 = "Presentaci&oacute;n del contenido del curso, la estructura del contenido, su progreso y el calendario";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCourseProgram = "Descripci&oacute;n del Curso";
 $langDay_of_weekNames = "Array";

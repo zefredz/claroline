@@ -9,6 +9,7 @@ $langCancel = "Cancelar";
 $langChat = "Debate";
 $langComMod = "Comentario modificado";
 $langCopy = "Copiar";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCreateDir = "Crear un directorio";
 $langCreateDocument = "Crear Documento";

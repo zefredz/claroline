@@ -40,6 +40,7 @@ En sus pr&oacute;ximas visitas, escriba el nombre de usuario/clave y pulse
 ENTRAR para acceder a sus cursos. La URL del sitio es";
 $langCloseWindow = "Cerrar ventana";
 $langConfigMenuContent = "Men&uacute; de configuraci&oacute;n";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Descripci&oacute;n del curso";

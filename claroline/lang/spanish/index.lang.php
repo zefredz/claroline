@@ -6,6 +6,7 @@ $langAuthentication = "Autentificaci&oacute;n";
 $langCategories = "Crear categor&iacute;a";
 $langChat = "Debate";
 $langCourseCreate = "Crear un Curso";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Responsable del curso";
 $langCreateUserAccount = "Crear una cuenta de usuario";

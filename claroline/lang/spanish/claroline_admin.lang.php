@@ -69,6 +69,7 @@ $langCourse = "El curso ";
 $langCourseAccess = "Acceso al curso";
 $langCourseCreator = "Creador de curso";
 $langCourseDelete = "El curso ha sido borrado con &eacute;xito";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Responsable del curso";
 $langCourseSettings = "Configuraci&oacute;n del curso";

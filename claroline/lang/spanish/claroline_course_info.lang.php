@@ -19,6 +19,7 @@ despu&eacute;s cerrar la inscripci&oacute;n y verificar en la lista de los usuar
 $langCopy = "Copiar";
 $langCourse = "El curso ";
 $langCourseAccess = "Acceso al curso";
+$langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCourseSettings = "Configuraci&oacute;n del curso";
 $langCourseTitle = "T&iacute;tulo del curso";
