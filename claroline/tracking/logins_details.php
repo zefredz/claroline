@@ -142,7 +142,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
             case "week" : 
                 $sql = "SELECT `login_date`
                             FROM `".$tbl_track_e_login."`
-                            WHERE `login_user_id` = '". (int)uInfo ."'
+                            WHERE `login_user_id` = '". (int)$uInfo ."'
                                 AND WEEK(`login_date`) = WEEK( FROM_UNIXTIME('".$reqdate."') )
                                 AND YEAR(`login_date`) = YEAR(FROM_UNIXTIME(".$reqdate."))
                             ORDER BY `login_date` ASC ";
