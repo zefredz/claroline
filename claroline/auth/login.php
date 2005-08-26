@@ -18,10 +18,19 @@ require '../inc/claro_init_global.inc.php';
  * if the authentication succeeds 
  */
 
-if     ( isset($_REQUEST['sourceUrl'   ]) ) $sourceUrl = $_REQUEST['sourceUrl'   ];
-elseif ( isset($_SERVER ['HTTP_REFERER']) ) $sourceUrl = $_SERVER ['HTTP_REFERER'];
-else                                        $sourceUrl = null;
-
+if ( isset($_REQUEST['sourceUrl']) )
+{
+    $sourceUrl = $_REQUEST['sourceUrl'];
+}
+elseif ( isset($_SERVER ['HTTP_REFERER']) 
+         && basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF']) )
+{
+     $sourceUrl = $_SERVER ['HTTP_REFERER'];
+}
+else
+{
+    $sourceUrl = null;
+}
 
 if ( $sourceUrl )
 {
