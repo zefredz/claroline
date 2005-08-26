@@ -3,14 +3,12 @@
  * CLAROLINE 
  *
  * This part of script is include on run_intall step of  setup tool.
-
  * in this  part. Script try to run Install
  * if  all is right $display still DISP_RUN_INSTALL_COMPLETE set on start
  * if  any problem happend, $display is switch to DISP_RUN_INSTALL_NOT_COMPLETE
  * and a  flag to mark what's happend is set.
  * in DISP_RUN_INSTALL_NOT_COMPLETE the screen show an explanation about problem and
  * prupose to back  to correct or to accept and continue.
-
  * First block is about database
  * Second block is  writing config
  * third block is building paths
@@ -30,6 +28,8 @@
  * @package INSTALL
  *
  */
+ 
+! defined( "CLARO_FILE_PERMISSIONS" ) && define( "CLARO_FILE_PERMISSIONS", 0777 );
 
 $display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
