@@ -245,7 +245,7 @@ function user_delete ($user_id)
 
             // delete user notification in the table bb_rel_topic_userstonotify 
             $sql_deleteUserNotification = " delete from `" . $tbl_bb_rel_topic_userstonotify . "` where `user_id` ='" . $user_id . "'";
-            claro_sql_query($sql_deleteUserFromGroup) ;
+            claro_sql_query($sql_deleteUserNotification) ;
 
             // delete user information in the table userinfo_content
             $sql_deleteUserFromGroup = " delete from `" . $tbl_userinfo_content . "` where `user_id`='" . $user_id . "'";
@@ -343,11 +343,10 @@ function user_add_admin($user_id)
     global $is_platformAdmin;
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user = $tbl_mdb_names['user'];
     $tbl_admin = $tbl_mdb_names['admin'];
 
     $sql = "SELECT `idUser` FROM `" . $tbl_admin . "`
-            WHERE `idUser`='" . (int)$user_id . "'";
+            WHERE `idUser`='" . (int) $user_id . "'";
     $result =  claro_sql_query($sql);
     
     if ( mysql_num_rows($result) > 0 )
