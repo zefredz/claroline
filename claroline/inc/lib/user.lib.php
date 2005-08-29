@@ -220,7 +220,7 @@ function user_delete ($user_id)
 
     if (  mysql_num_rows($res_user_courses) )
     {
-        while ( $user_course = mysql_fetch_array($res_user_courses) )
+        while ( ( $user_course = mysql_fetch_array($res_user_courses) ) )
         {
             // course tables name
             $dbNameGlued = claro_get_course_db_name_glued($user_course['code']);
@@ -379,7 +379,6 @@ function user_delete_admin($user_id)
     global $is_platformAdmin;
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user = $tbl_mdb_names['user'];
     $tbl_admin = $tbl_mdb_names['admin'];
 
     $sql = "DELETE FROM `" . $tbl_admin . "`
@@ -517,7 +516,6 @@ function user_add_to_class($user_id,$class_id)
     // get database information
 
     $tbl_mdb_names       = claro_sql_get_main_tbl();
-    $tbl_user            = $tbl_mdb_names['user'];
     $tbl_rel_class_user  = $tbl_mdb_names['rel_class_user'];
     $tbl_class           = $tbl_mdb_names['class'];
 
@@ -1197,13 +1195,13 @@ function user_display_form($data, $form_type='registration')
     {
         echo '<tr>' . "\n" 
             . '<td align="right">' . "\n" 
-            . ' <label for="picture">' . $user_data['picture']?$langUpdateImage:$langAddImage . ' :<br />' . "\n" 
+            . ' <label for="picture">' . $data['picture']?$langUpdateImage:$langAddImage . ' :<br />' . "\n" 
             . ' <small>(.jpg or .jpeg only)</small></label>'
             . ' </td>' . "\n" 
             . ' <td>' . "\n" 
             . '<input type="file" name="picture" id="picture" >';
 
-        if ( $empty($data['picture']) )
+        if ( empty($data['picture']) )
         {
             echo '<br />' . "\n" . '<label for="del_picture">' . $langDelImage . '</label>'
                 . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">';
