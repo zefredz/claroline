@@ -133,6 +133,7 @@ Spanish translation :           Xavier Casassas ( xcc@mail.ics.co.at)
                                 Javier Picado Ladrón de Guevara (jpicado@eurosur.com)
                                 Oda Begares (begaeres@arch.ucl.ac.be)
                                 Rodrigo Alejandro Parra Soto
+                                Gerardo Albela Gonzalez (galbela@uvigo.es)
 
 Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
 
