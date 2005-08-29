@@ -145,7 +145,7 @@ if ( ! file_exists($activeChatFile))
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
     $fchat = fopen($activeChatFile,'w');
-    fwrite($fchat, "<small>".$timeNow." -------- ".$langChatResetBy." ".$nick." --------</small><br />\n");
+    fwrite($fchat, '<small>'.$timeNow.' -------- '.$langChatResetBy.' '.$nick.' --------</small><br />'."\n");
     fclose($fchat);
 
     @unlink($onflySaveFile);
@@ -265,6 +265,7 @@ else
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
 	.'<html>'."\n"
     .'<head>'."\n"
+    .'<title>'.$langChat.'</title>'
 	.'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
 	.'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
 	.'</head>'."\n"
