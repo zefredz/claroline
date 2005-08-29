@@ -157,34 +157,34 @@ if ( $is_allowedToEdit )
         //create error message(s) if fields are not set properly
         
         if ((!$canBeEmpty['intitule']) && $_REQUEST['int'] == '')
-            $dialogBox .= $langErrorCourseTitleEmpty . '<br>';
+            $dialogBox .= $langErrorCourseTitleEmpty . '<br />';
         if ((!$canBeEmpty['category']) && $_REQUEST['category'] == '')
-            $dialogBox .= $langErrorCategoryEmpty . '<br>';
+            $dialogBox .= $langErrorCategoryEmpty . '<br />';
         if ((!$canBeEmpty['lecturer']) && $_REQUEST['titulary'] == '')
-            $dialogBox .= $langErrorLecturerEmpty . '<br>';
+            $dialogBox .= $langErrorLecturerEmpty . '<br />';
         if ((!$canBeEmpty['screenCode']) && $_REQUEST['screenCode'] == '')
-            $dialogBox .= $langErrorCourseCodeEmpty . '<br>';
+            $dialogBox .= $langErrorCourseCodeEmpty . '<br />';
         if ((!$canBeEmpty['lanCourseForm']) && $_REQUEST['lanCourseForm'] == '')
-            $dialogBox .= $langErrorLanguageEmpty . '<br>';
+            $dialogBox .= $langErrorLanguageEmpty . '<br />';
         if ((!$canBeEmpty['extLinkName']) && $_REQUEST['extLinkName'] == '')
-            $dialogBox .= $langErrorDepartmentEmpty . '<br>';
+            $dialogBox .= $langErrorDepartmentEmpty . '<br />';
         if ((!$canBeEmpty['extLinkUrl']) && $_REQUEST['extLinkUrl'] == '')
-            $dialogBox .= $langErrorDepartmentURLEmpty . '<br>';
+            $dialogBox .= $langErrorDepartmentURLEmpty . '<br />';
         if ((!$canBeEmpty['email']) && $_REQUEST['email'] == '')
-            $dialogBox .= $langErrorEmailEmpty . '<br>';
+            $dialogBox .= $langErrorEmailEmpty . '<br />';
             
         // check if department url is set properly
         
         $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
         
         if ((!empty($_REQUEST['extLinkUrl'])) && !eregi( $regexp, $_REQUEST['extLinkUrl']))            
-            $dialogBox .= $langErrorDepartmentURLWrong . '<br>';
+            $dialogBox .= $langErrorDepartmentURLWrong . '<br />';
         
         //check e-mail validity
 
         if ( !empty($_REQUEST['email']) && ! is_well_formed_email_address( $_REQUEST['email'] ) )
         {
-            $dialogBox .= $langErrorEmailInvalid . '<br>';
+            $dialogBox .= $langErrorEmailInvalid . '<br />';
         }
         
         //if at least one error is found, we cancel update
@@ -335,8 +335,7 @@ if (!empty ($dialogBox))
                                  , array('id'=>'lanCourseForm'))
                                  ; ?>
 
-<br><small><font color="gray"><?php echo $langTipLang ?></font></small>
-</td>
+<br /><small><font color="gray"><?php echo $langTipLang ?></font></small>
 </td>
 </tr>
 
@@ -357,7 +356,7 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <tr>
 <td valign="top" align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
 <td>
-<input type="radio" id="visible_true" name="visible" value="true" <?php echo $thisCourse['visibility']?'checked':'' ?>> <label for="visible_true"><?php echo $langPublicAccess; ?></label><br>
+<input type="radio" id="visible_true" name="visible" value="true" <?php echo $thisCourse['visibility']?'checked':'' ?>> <label for="visible_true"><?php echo $langPublicAccess; ?></label><br />
 <input type="radio" id="visible_false" name="visible" value="false" <?php echo !$thisCourse['visibility']?'checked':''; ?>> <label for="visible_false"><?php echo $langPrivateAccess; ?></label>
 </td>
 </tr>
@@ -365,7 +364,7 @@ if (isset($cidToEdit) && ($is_platformAdmin))
 <tr>
 <td valign="top"align="right"><?php echo $langSubscription; ?> : </td>
 <td>
-<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $thisCourse['registrationAllowed']?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br>
+<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $thisCourse['registrationAllowed']?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br />
 <input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo !$thisCourse['registrationAllowed']?'checked':''; ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
 <?php 
 if (isset($cidToEdit))
@@ -405,20 +404,20 @@ $toAdd='';
         }
 
         echo '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif">'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .    $langDelCourse
         .    '</a>'
     
         .    ' | '
         .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'edit.gif">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
         .    $langEditToolList 
         .    '</a>';
 
         if ( $is_trackingEnabled )
         {
             echo ' | <a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
-            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="">'
+            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
             .    $langStatistics
             .    '</a>'
             ;
@@ -426,7 +425,7 @@ $toAdd='';
 
         echo ' | '
         .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="">'
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
         .    $langHome 
         .    '</a>'
         ;
