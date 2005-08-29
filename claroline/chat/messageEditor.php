@@ -24,7 +24,7 @@ $is_allowedToManage = $is_courseAdmin || (isset($_gid) && $is_groupTutor) ;
 // header
 
 $htmlHeadXtra[] = '
-<script>
+<script type="text/javascript">
 function prepare_message()
 {
     document.chatForm.chatLine.value=document.chatForm.msg.value;
@@ -34,16 +34,12 @@ function prepare_message()
 }
 </script>';
 
-$hide_banner=TRUE;
+$hide_banner = TRUE;
 include($includePath.'/claro_init_header.inc.php');
 
 
 ?>
-<form name     = "chatForm" 
-      action   = "messageList.php#final"
-      method   = "post"
-      target   = "messageList"
-      onSubmit = "return prepare_message();">
+<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">
 
 
 <input type="text"    name="msg" size="80">
