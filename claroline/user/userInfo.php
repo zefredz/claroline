@@ -253,23 +253,24 @@ if ($displayMode == "viewDefEdit")
     if (isset($_REQUEST['editDef'])) $catToEdit = claro_user_info_get_cat_def($_REQUEST['editDef']);
     else
     {
-    $catToEdit = array();
-    $catToEdit['title'] = "";
-    $catToEdit['comment'] = "";
-    $catToEdit['nbline'] = 1;
-    $catToEdit['id'] = "";
+	    $catToEdit = array();
+	    $catToEdit['title'] = "";
+	    $catToEdit['comment'] = "";
+	    $catToEdit['nbline'] = 1;
+	    $catToEdit['id'] = "";
     }
 ?>
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
-<input type="hidden" name="id" value="<?php echo $catToEdit['id']?>">
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
+<input type="hidden" name="id" value="<?php echo $catToEdit['id']?>" />
 <table>
 <tr>
 <td>
 <label for="title" ><?php echo $langHeading?></label> :
 </td>
 <td>
-<input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo htmlspecialchars($catToEdit['title']); ?>" >
+<input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo htmlspecialchars($catToEdit['title']); ?>" />
 </td>
 </tr>
 
@@ -309,7 +310,7 @@ foreach($descSizeToPrupose as $nblines)
 </td>
 <tr>
 <td>&nbsp;</td>
-<td align="center"><input type="submit" name="submitDef" value="<?php echo $langOk?>"></td>
+<td align="center"><input type="submit" name="submitDef" value="<?php echo $langOk?>" /></td>
 </tr>
 </table>
 </form>
@@ -329,48 +330,48 @@ elseif ($displayMode == "viewDefList")
         {
             // displays Title and comments
 
-            echo    "<p>",
-                    "<b>".htmlize($thisCat['title'])."</b><br>\n",
-                    "<i>".htmlize($thisCat['comment'])."</i>\n",
-                    "</p>";
+            echo    '<p>'."\n"
+                    .'<b>'.htmlize($thisCat['title']).'</b><br />'."\n"
+                    .'<i>'.htmlize($thisCat['comment']).'</i>'."\n"
+                    .'</p>'."\n";
 
             // displays lines
 
-            echo    "<blockquote>\n",
-                    "<font color=\"gray\">\n";
+            echo    '<blockquote>'."\n"
+                    .'<font color="gray">'."\n";
 
             for ($i=1;$i<=$thisCat['nbline'];$i++ )
             {
-                echo "<br>__________________________________________\n";
+                echo '<br />__________________________________________'."\n";
             }
 
-            echo    "</font>\n",
-                    "</blockquote>\n";
+            echo    '</font>'."\n"
+                    .'</blockquote>'."\n";
 
             // displays commands
 
-            echo     "<a href=\"".$_SERVER['PHP_SELF']."?removeDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langRemove."\">"
-                    ."</a>"
-                    ."<a href=\"".$_SERVER['PHP_SELF']."?editDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langEdit."\">"
-                    ."</a>"
-                    ."<a href=\"".$_SERVER['PHP_SELF']."?moveUpDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$imgRepositoryWeb."up.gif\" border=\"0\" alt=\"".$langMoveUp."\">"
-                    ."</a>"
-                    ."<a href=\"".$_SERVER['PHP_SELF']."?moveDownDef=".$thisCat['catId']."\">"
-                    ."<img src=\"".$imgRepositoryWeb."down.gif\" border=\"0\" alt=\"".$langMoveDown."\">"
-                    ."</a>\n";
+            echo     '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
+                    .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langRemove.'">'
+                    .'</a>'."\n"
+                    .'<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
+                    .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
+                    .'</a>'."\n"
+                    .'<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'].'">'
+                    .'<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.$langMoveUp.'">'
+                    .'</a>'."\n"
+                    .'<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
+                    .'<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.$langMoveDown.'">'
+                    .'</a>'."\n";
         } // end for each
 
     } // end if ($catList)
 
 
-    echo     '<div align="center">' ."\n"
-            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'
-            .'<input type="submit" name="addDef" value="'.$langAddNewHeading.'">'
-            .'</form>'  ."\n"
-            .'</div>' ."\n";
+    echo     '<div align="center">'."\n"
+            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'."\n"
+            .'<input type="submit" name="addDef" value="'.$langAddNewHeading.'" />'."\n"
+            .'</form>'."\n"
+            .'</div>'."\n";
 
 }
 elseif ($displayMode == "viewContentEdit")
@@ -380,21 +381,22 @@ elseif ($displayMode == "viewContentEdit")
 ?>
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
-<input type="hidden" name="cntId" value="<?php echo $catToEdit['contentId']; ?>">
-<input type="hidden" name="catId" value="<?php echo $catToEdit['catId'    ]; ?>">
-<input type="hidden" name="uInfo"  value="<?php echo $userIdViewed; ?>">
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
+<input type="hidden" name="cntId" value="<?php echo $catToEdit['contentId']; ?>" />
+<input type="hidden" name="catId" value="<?php echo $catToEdit['catId'    ]; ?>" />
+<input type="hidden" name="uInfo"  value="<?php echo $userIdViewed; ?>" />
 <p><label for="content" ><b><?php echo $catToEdit['title']?></b></label></p>
 <p><i><?php echo htmlize($catToEdit['comment'])?></i></p>
 <?php if ($catToEdit['nbline']==1)
     {
-?><input  type="text" name="content" id="content" size="80" value="<?php echo htmlspecialchars($catToEdit['content']); ?>" >
+?><input  type="text" name="content" id="content" size="80" value="<?php echo htmlspecialchars($catToEdit['content']); ?>" />
 <?php
     }
     else
     {
 ?><textarea  cols="80" rows="<?php echo $catToEdit['nbline']?>" name="content" id="content" wrap="VIRTUAL"><?php echo $catToEdit['content']?></textarea>
 <?php }
-?><input type="submit" name="submitContent" value="<?php echo $langOk?>">
+?><input type="submit" name="submitContent" value="<?php echo $langOk?>" />
 </form>
 
 <?php
@@ -412,7 +414,7 @@ elseif ($displayMode =="viewMainInfoEdit")
 
 
         echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">'
-            .'<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'">'."\n"
+            .'<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'" />'."\n"
             .'<table class="claroTable" width="80%" border="0">'
             .'<thead>'."\n"
             .'<tr class="headerX">'."\n"
@@ -423,12 +425,12 @@ elseif ($displayMode =="viewMainInfoEdit")
             .'<th>&nbsp;</th>'."\n"
             .'</tr>'."\n"
             .'</thead>'."\n"
-            .'<tfoot><tr align="center">'."\n"
+            .'<tfoot>'."\n".'<tr align="center">'."\n"
             .'<td align="left"><b>'
             .htmlize(ucfirst(strtolower($mainUserInfo['firstName']))).' '
             .htmlize(ucfirst(strtolower($mainUserInfo['lastName']))).'</b></td>'."\n"
-            .'<td align="left"><input type="text" name="role" id="role" value="'.htmlspecialchars($mainUserInfo['role']).'" maxlength="40"></td>'."\n"
-            .'<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" '.$tutorChecked.'></td>';
+            .'<td align="left"><input type="text" name="role" id="role" value="'.htmlspecialchars($mainUserInfo['role']).'" maxlength="40" /></td>'."\n"
+            .'<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" '.$tutorChecked.' /></td>'."\n";
 
 
         if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
@@ -441,18 +443,18 @@ elseif ($displayMode =="viewMainInfoEdit")
         else
         {
             echo  '<td>'
-                 .'<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.'>'
+                 .'<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.' />'
                  .'</td>'."\n"
                  ;
         }
 
 
-        echo  '<td >'
-             .'<input type="submit" name="submit" value="Ok">'
+        echo  '<td>'
+             .'<input type="submit" name="submit" value="'.$langOk.'" />'
              .'</td>'."\n"
-             .'</tr>'
-             .'</tfoot>'
-             .'</table>'
+             .'</tr>'."\n"
+             .'</tfoot>'."\n"
+             .'</table>'."\n"
              .'</form>'."\n"
              ;
 
@@ -478,7 +480,7 @@ elseif ($displayMode == "viewContentList") // default display
             echo "<img src=\"".$imgRepositoryWeb."users/".$mainUserInfo['picture']."\" border=\"1\">";
         }
 
-        echo '<table class="claroTable" width="80%" border="0">'
+        echo '<table class="claroTable" width="80%" border="0">'."\n"
            . '<thead>'."\n"
            . '<tr class="headerX">'."\n"
            . '<th align="left">'.$langName.'</th>'."\n"
@@ -491,10 +493,8 @@ elseif ($displayMode == "viewContentList") // default display
            . '</thead>'."\n"
            . '<tbody>'."\n"
            . '<tr align="center">'."\n"
-           . '<td  align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>'."\n"
-           . '<td  align="left">'."\n"
-           . htmlize($mainUserInfo['role'])
-           . '</td>'
+           . '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>'."\n"
+           . '<td align="left">'.htmlize($mainUserInfo['role']).'</td>'."\n"
            ;
 
         if ($mainUserInfo['tutor'] == 1)
@@ -508,7 +508,7 @@ elseif ($displayMode == "viewContentList") // default display
         
         if ($mainUserInfo['status'] == 1 )
         {
-            echo '<td>'.$langCourseManager.'</td>';
+            echo '<td>'.$langCourseManager.'</td>'."\n";
         }
         else
         {
@@ -521,7 +521,7 @@ elseif ($displayMode == "viewContentList") // default display
                  .'<a href="'.$_SERVER['PHP_SELF'].'?editMainUserInfo='.$userIdViewed.'">'
                  .'<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif">'
                  .'</a>'
-                 .'</td>'
+                 .'</td>'."\n"
                  ;
         }
         
@@ -531,12 +531,12 @@ elseif ($displayMode == "viewContentList") // default display
                      .'<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
                      .'<img border="0" alt="'.$langTracking.'" src="'.$imgRepositoryWeb.'statistics.gif">'
                      .'</a>'
-                     .'</td>'
+                     .'</td>'."\n"
                      ;
         }
-        echo '</tr>'
-            .'</tbody>'
-            .'</table>'
+        echo '</tr>'."\n"
+            .'</tbody>'."\n"
+            .'</table>'."\n\n"
             .'<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a>'
             .'<p>'."\n"
             .'<hr noshade="noshade" size="1">'."\n"
@@ -549,7 +549,7 @@ elseif ($displayMode == "viewContentList") // default display
             .'<div align="right">'."\n"
             .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'."\n"
             .$langCourseAdministratorOnly.' : '
-            .'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'">'."\n"
+            .'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'" />'."\n"
             .'</form>'."\n"
             .'<hr noshade="noshade" size="1">'."\n"
             .'</div>'
@@ -582,7 +582,7 @@ elseif ($displayMode == "viewContentList") // default display
 
             if ($allowedToEditContent)
             {
-                echo  '<br><br>'."\n"
+                echo  '<br /><br />'."\n"
                      .'<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
                      .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
                      .'</a>'."\n";
