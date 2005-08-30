@@ -60,6 +60,7 @@ $langAddCommentOptionnal = "Aggiungi un commento (optional)";
 $langAddEvent = "Aggiungi evento";
 $langAddExternalTool = "Aggiungi link esterno";
 $langAddFeedback = "Aggiungi valutazione";
+$langAddForum = "Aggiungi forum";
 $langAddImage = "Includi foto";
 $langAddIntro = "Aggiungi un testo di presentazione";
 $langAddListUser = "Aggiungi un elenco di utenti";
@@ -75,6 +76,7 @@ $langAddPage = "Aggiungi una pagina";
 $langAddTutors = "Gestione Tutor ";
 $langAddUser = "Crea un nuovo Utente";
 $langAddUserOneByOne = "I nuovi utenti riceveranno un messaggio email con Username e Password";
+$langAddWrongAnswers = "Aggiungi risposte errate per gli elenchi a cascata <small>(Opzionale. Una risposta errata per linea.)</small>";
 $langAdd_users = "Add users";
 $langAddedExternalTool = "Tool esterno aggiunto.";
 $langAddedToCampus = " è stato aggiunto al campus";
@@ -217,10 +219,15 @@ $langCancel = "Cancella";
 $langCannotBeBlank = "Non puoi assegnare un nome vuoto alla classe";
 $langCannotCopyFile = "Impossibile copiare il file.";
 $langCannotInitChat = "Errore : Impossibile inizializzare la chat";
+$langCannotRemoveGroupForum = "Non puoi eliminare un forum di gruppo. Devi prima rimuovere il gruppo";
+$langCannotSeeExerciseDetails = "Non è permessa la visualizzazione delle risposte dettagliate.";
+$langCannotUnsubscribeLastCourseManager = "Non puoi rimuovere l'ultimo manager del corso";
 $langCatagoryGroup = "Forum di gruppo";
 $langCatagoryMain = "Principale";
 $langCategories = "Corsi - Categorie";
 $langCategory = "Categoria";
+$langCategoryDeleted = "Categoria eliminata.";
+$langCategoryUpdated = "Categoria modificata.";
 $langCfgSetting = "Impostazioni della Piattaforma";
 $langChangePwdexp = "Inserire una nuova password due volte per variarla, lasciare vuota per mantenere la corrente";
 $langChangeRaw = "Cambia il livello minimo per superare il modulo (in percentuale) : ";
@@ -228,6 +235,7 @@ $langChangedTool = "Accessi al Tool variati";
 $langChat = "Chat";
 $langChatResetBy = "Chat resettata da";
 $langChoice = "Scelta";
+$langChooseACourseToAccessThisPage = "Scegli un corso per accedere a questa pagina.";
 $langChooseDateHelper = "(g/m/a hh:mm)";
 $langChooseGoodAnswer = "Scegli una buona risposta";
 $langChooseGoodAnswers = "Scegli una o più risposte";
@@ -242,6 +250,8 @@ $langClassRegisterWholeClass = "Iscrivi la classe ad un corso";
 $langClassRegisterWholeClassAgain = "Iscrivi l'intera classe ad un altro corso";
 $langClassRegistered = "Classe iscritta";
 $langClearList = "Cancella lista eventi";
+$langClickToZoomIn = "clicca per lo zoom in";
+$langClickToZoomOut = "clicca per lo zoom out";
 $langClose = "Chiudi la finestra";
 $langCloseWindow = "Chiudi finestra";
 $langCode = "Codice del corso";
@@ -258,11 +268,13 @@ $langConfirmDeleteExercise = "Confermi eliminazione di questo esercizio";
 $langConfirmDeleteGroups = "Sei sicuro di voler eliminare tutti i gruppi ?";
 $langConfirmDeleteQuestion = "Sicuro di voler cancellare questa domanda ?";
 $langConfirmDeleteStats = "Se elimini le statistiche del corso non sarà più possibile ripristinarle!<br /><br />Sei sicuro di voler eliminare le statistiche ?";
+$langConfirmEmptyForum = "Eliminare tutti i messaggi di ";
 $langConfirmEmptyGroups = "Sei sicuro di voler svuotare tutti i gruppi ?";
 $langConfirmEnrollClassToCourse = "Sei sicuro di voler iscrivere l'intera classe al corso ?";
 $langConfirmYourChoice = "Conferma la tua scelta";
 $langConfirmation = "Conferma";
 $langContent = "Contenuto";
+$langContinue = "Continua";
 $langContradiction = "Utilizzare il principio di non contraddizione per portare l'interlocutore a un impasse.";
 $langCopy = "Copia";
 $langCopyFailed = "Stampa fallita";
@@ -292,22 +304,28 @@ $langCourseDescription = "Scrivete la descrizione che comparirà nell\'elenco dei
 $langCourseHome = "Home del Corso";
 $langCourseList = "Lista Corsi";
 $langCourseManager = "Manager del corso";
+$langCourseManagerCannotUnsubscribeHimself = "Il manager del corso non può eliminare sé stesso";
 $langCourseManagerStatusToUser = "Stato Creatore dei corsi a %s %s";
+$langCourseNotFound = "Corso non trovato";
 $langCourseProgram = "Descrizione del Corso";
 $langCourseSettings = "Impostazione Corso";
 $langCourseTitle = "Titolo Corso";
 $langCourseWithoutAccess = "Corsi non usati";
 $langCourseWithoutProf = "Corsi senza professori";
 $langCourseWithoutStudents = "Corsi senza studenti";
+$langCourseWouldBeCreated = "Il tuo corso dovrebbe essere stato creato";
 $langCourse_Repository = "Repository - Corsi";
 $langCourses = "corsi.";
 $langCreate = "Creare";
+$langCreate1stAccountOnPlatform = "Crea prima un account utente su questa piattaforma";
 $langCreateAnotherUser = "Crea un altro nuovo Utente";
 $langCreateAssignment = "Crea un nuovo compito";
+$langCreateCategory = "Crea categoria";
 $langCreateCourse = "Crea Corso";
 $langCreateCourses = "Crea corsi";
 $langCreateDir = "Creare una cartella";
 $langCreateDocument = "Crea documento (editor)";
+$langCreateForum = "Crea forum";
 $langCreateHyperlink = "Crea Link";
 $langCreateLabel = "Crea etichetta";
 $langCreateModifyDocument = "Crea/modifica documento";
@@ -352,6 +370,10 @@ $langDbPrefixForm = "Prefisso per il database dei Corsi";
 $langDear = "Cara/o";
 $langDefSubVisibility = "Visibilità di default dei lavori";
 $langDefaultLearningPathComment = "Questo è il testo introduttivo di questo learning path. Per cambiare il testo, premere il pulsante <b>modify</b>.";
+$langDefaultMatchingOpt1 = "ricco";
+$langDefaultMatchingOpt2 = "buona fortuna";
+$langDefaultMatchingProp1 = "Tuo padre è";
+$langDefaultMatchingProp2 = "Tuo madre è";
 $langDefaultModuleAddedComment = "Questo è un testo intoduttivo addizionale sulla presenza di questo modulo specially in questo learning path. Per cambiare il testo, premere il pulsante <b>modify</b>.";
 $langDefaultModuleComment = "Questo è il testo introduttivo di questo modulo, apparirà in ogni learning path che contiene questo modulo. Per cambiare il testo, premere il pulsante <b>modify</b>.";
 $langDefaultTextInBlanks = "[British people] live in [United Kingdom].";
@@ -489,14 +511,17 @@ $langEG = "e. g.";
 $langEXERCISETypeDesc = "Claroline exercise";
 $langEdit = "Modificare";
 $langEditAnswers = "Modifica risposte";
+$langEditCategory = "Modifica categoria";
 $langEditEvent = "Modifica evento";
 $langEditExercise = "Modifica impostazioni dell'esercizio";
 $langEditFeedback = "Modifica valutazione automatica";
 $langEditFileContent = "Modifica File";
 $langEditFormat = "Modifica il formato da utilizzare";
 $langEditGroup = "Modificare questo gruppo";
+$langEditPost = "Modifica messaggio";
 $langEditQuestion = "Modifica domanda";
 $langEditSettings = "Modifica impostazioni";
+$langEditTextZone = "Modifica zona di testo";
 $langEditToolList = "Modifica lista Tool";
 $langEditWork = "Modifica un lavoro";
 $langElRen = "Elemento rinominato";
@@ -529,8 +554,16 @@ $langErrorAssetNotFound = "Asset not found : ";
 $langErrorCannotReadRSSFile = "Errore : impossibile leggere i feed RSS";
 $langErrorCategoryEmpty = "La categoria non può essere vuota";
 $langErrorClassNotEmpty = "Questa classe contiene ancora delle sottoclassi, è necessario prima eliminarele";
+$langErrorCopyAttachedFile = "Impossibile copiare il file : ";
+$langErrorCopyScormFiles = "Si è verificato un errore nel copiare i file SCORM necessari";
+$langErrorCopyingScorm = "Si è verificato un errore nel copiare i contenuti SCORM necessari";
 $langErrorCourseCodeEmpty = "Il codice del corso non può essere vuoto";
 $langErrorCourseTitleEmpty = "Il titolo del corso non può essere vuoto";
+$langErrorCreatingDirectory = "Impossibile creare la cartella : ";
+$langErrorCreatingFile = "Impossibile creare il file : ";
+$langErrorCreatingFrame = "Impossibile creare il file frame";
+$langErrorCreatingManifest = "Impossibile creare il manifesto SCORM (imsmanifest.xml)";
+$langErrorCreatingScormArchive = "Impossibile creare l'archivio SCORM";
 $langErrorDepartmentEmpty = "Il dipartimento non può essere vuoto";
 $langErrorDepartmentURLEmpty = "L'URL del dipartimento non può essere vuoto";
 $langErrorDepartmentURLWrong = "L'URL del dipartimento non è valido";
@@ -542,6 +575,8 @@ $langErrorFormatCSV = "ERRORE: Questo formato non è compatibile con il sistema C
 $langErrorInvalidParms = "Errore : Parametro non valido (utilizzare solo numeri)";
 $langErrorLanguageEmpty = "Il campo Lingua non può essere vuoto";
 $langErrorLecturerEmpty = "Il campo Docente non può essere vuoto";
+$langErrorLoadingExercise = "Impossibile caricare l'esercizio";
+$langErrorLoadingQuestion = "Impossibile caricare la domanda dell'esercizio";
 $langErrorMove = "Impossibile spostare una classe all'interno di sé stessa!";
 $langErrorMyOwnSettings = "Non puoi modificare il tuo stato";
 $langErrorNameAlreadyExists = "Errore: nome già esistente";
@@ -662,12 +697,15 @@ $langExpectedChoice = "Scelta attesa";
 $langExplainDeleteFile = "Seleziona questa casella per eliminare il file allegato.";
 $langExplainReplaceFile = "Upload un nuovo file per rimpiazzare il precedente.";
 $langExplanation = "Una volta cliccato su 'Conferma' sarà creato un sito contenente Forum, elenco dei Collegamenti,Esercizi, Calendario elenco dei Documenti... . Potrete modificarne il contenuto accedendo con il vostro identificativo";
+$langExport = "Esporta";
+$langExportTrackingCsv = "Mantieni i dati di tracking in un file CSV";
 $langExternalToolName = "Nome Link";
 $langExternalToolUrl = "URL link";
 $langExtractFromLangFile = "Da files linguaggio";
 $langExtractFromScriptFile = "Da files script";
 $langExtractLangVariable = "Estrai variabili linguaggio";
 $langFailed = "<span style=\"color: red\">Fallito</span>";
+$langFalse = "Falso";
 $langFeedback = "Valutazione";
 $langFeedbackAdded = "Valutazione aggiunta";
 $langFeedbackEdited = "Valutazione modificata";
@@ -689,14 +727,18 @@ $langFileNameMissing = "Il nome del file è stato dimenticato/perso";
 $langFileNameOrURLMissing = "Nome del file o URL persi.";
 $langFileOnly = "File (File obbligatorio, testo di descrizione opzionale)";
 $langFileRequired = "E' necessario un file";
+$langFileStructureChecker = "Controllo struttura file";
 $langFiles = "File elenco";
 $langFillBlanks = "Lascia in bianco";
 $langFillCourses = "Costruisci corsi test";
 $langFillGroups = "Riempire automaticamente i gruppi";
 $langFillLists = "Per cortesia, compila le due liste sottostanti";
+$langFillSelectBox = "Seleziona nel menu a discesa";
+$langFillTextField = "Compila i campi di testo";
 $langFillTheAreaToExplainTheMotivations = "Completa l'area per spiegare la tua motivazione e invia la richiesta. Verrà spedita una e-mail all'amministratore della piattaforma.";
 $langFillToolCourses = "Strumento di riempimento corsi";
 $langFillTree = "Inserisci le categorie dei corsi";
+$langFillType = "Compila il tipo";
 $langFillUsers = "Inserisci utente";
 $langFilling = "Compila con valori di prova";
 $langFilter = "Filtro";
@@ -711,7 +753,11 @@ $langForContent = "Il forum è uno strumento di discussione scritta a tempo diffe
 $langForce = "Contraddire l'interlocutore tramite una serie di domande e sotto-domande, il modo da far riconoscere che egli non conosce affatto quanto pretende di conoscere.";
 $langFormula = "Cordialmente, il Vostro docente";
 $langForum = "Forum";
+$langForumCreated = "Forum creato.";
+$langForumDeleted = "Forum eliminato.";
+$langForumEmptied = "Forum svuotato.";
 $langForumGroup = "Forum del gruppo ";
+$langForumUpdated = "Forum aggiornato.";
 $langForums = "Forum";
 $langFree = "Libero";
 $langFrom = "Da";
@@ -725,6 +771,7 @@ $langGiveExerciseName = "Inserire il nome esercizio per favore";
 $langGiveQuestion = "Fornire la domanda per favore";
 $langGiveText = "Per cortesia scrivi il testo";
 $langGlobalProgress = "Learning path - Progressione : ";
+$langGo2accountCreationPage = "Vai alla pagina di creazione dell'account";
 $langGoBackToEx = "Torna ad esercizio";
 $langGoBackToQuestionList = "Torna alla lista domande";
 $langGoBackToQuestionPool = "Torna alle domande";
@@ -734,6 +781,7 @@ $langGroup = "Gruppo";
 $langGroupAllowStudentRegistration = "Corsisti autorizzati ad iscriversi autonomamente ai gruppi.";
 $langGroupAlwaysPrivate = "(sempre privato)";
 $langGroupAssignment = "Gruppi (dallo strumento gruppi, solo i membri del gruppo possono inserire messaggi)";
+$langGroupChatLink = "Chat del gruppo";
 $langGroupContent = "<p><b>Introduzione</b></p>
 <p>Questo strumento vi permette di creare e gestire gruppi di lavoro.
 Nel momento in cui sono creati i gruppi sono vuoti di partecipanti. Vi sono diversi modi per riempirli:
@@ -793,6 +841,7 @@ $langGroupTutor = "Tutor";
 $langGroupTutors = "Titolari";
 $langGroupUserManagement = "Gestione gruppi";
 $langGroupUsersList = "Vedi elenco degli <a href=../user/user.php>utenti</a>";
+$langGroupWikiLink = "Wiki del gruppo";
 $langGroups = "iscrizione degli utilizzatori nei gruppi";
 $langGroupsAdded = "gruppo(i) è (sono) stato(i) aggiunto(i)";
 $langGroupsDeleted = "Tutti i gruppi sono stati eliminati";
@@ -889,6 +938,7 @@ $langHumanAndPhysicalRessources = "Risorse Umane e Fisiche";
 $langIfNotRedirect = "Se non indirizzato ";
 $langImport = "Importazione";
 $langImpossible = "Non è possibile effettuare l'operazione";
+$langImpossibleToPromote = "Impossibile promuovere a tutor del gruppo uno studente già registrato al gruppo";
 $langIn = "in";
 $langInFrames = "A fotogramma";
 $langIncorrectDate = "La data di inizio deve essere precedente alla data di scadenza ...";
@@ -921,6 +971,8 @@ $langIntroStep3Run = "<p>Lo <em>strumento per l'aggiornamento di Claroline</em> 
 $langIntroText = "Per inviare un messaggio, selezionare il gruppo di utenti (shift + click) o un singolo utente dalla lista a sinistra";
 $langIntroWork = "Questa pagina permette a qualsiasi studente o gruppo di fare l'upload di un documento sul sito del corso. <br>Manda un file HTML solo se non contiene immagini.<br><br>Se vuoi presentare questo strumento o dare alcune raccomandazioni agli studenti, clicca sul bottone qua sotto.<br>";
 $langInvalidId = "Identificativo non valido. Se non è ancora iscritto compili il <a href='claroline/auth/inscription.php'>modulo d'iscrizione</a></font color>";
+$langInvalidIdSelfReg = "<b>Login errato.</b><br />Prego riprova.<br />
+<small>Se non hai ancora un account utente, usa la <a href=claroline/auth/inscription.php>form di registrazione</a></font color></small>";
 $langInvisible = "Invisibile";
 $langIs = "è";
 $langIsAlreadyRegistered = "è già registrato al corso";
@@ -950,8 +1002,11 @@ $langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Procedi con l
 $langLearnPathDetails = "Progresso nel learning paths";
 $langLearningPath = "Learning Path";
 $langLearningPathAdmin = "Learning Path - Amministra";
+$langLearningPathEmpty = "Learning Path vuoto";
 $langLearningPathList = "Lista Learning path";
 $langLearningPathName = "Nuovo nome learning path : ";
+$langLearningPathNotFound = "Learning Path non trovato";
+$langLegendRequiredFields = "<span class=\"required\">*</span> denota campi obbligatori";
 $langLessAnswers = "- risp";
 $langLessElements = "- elem";
 $langLessonStatus = "Stato del Modulo";
@@ -962,6 +1017,21 @@ $langLineOrLines = "linea/e";
 $langLines = "lines";
 $langLink = "Links";
 $langLinkSite = "Collegare un sito";
+$langLinkerAdd = "Allegato";
+$langLinkerAddNewAttachment = "Allega una risorsa esistente";
+$langLinkerAlreadyInAttachementList = " è già allegato";
+$langLinkerAttachements = "Risorse allegate";
+$langLinkerCloseJpspan = "Chiudi";
+$langLinkerClosePopup = "Chiudi popup";
+$langLinkerDelete = "Elimina";
+$langLinkerExternalLink = "Collegamento esterno";
+$langLinkerMyOtherCourses = "Gli altri miei corsi";
+$langLinkerPromptForUrl = "Inserisci l'url del collegamento";
+$langLinkerPromptInvalidEmail = "Indirizzo email non valido";
+$langLinkerPromptInvalidUrl = "URL non valido";
+$langLinkerPublicCourses = "Corsi pubblici";
+$langLinkerResourceAttachment = "Risorse allegate : Aggiungi / Elimina allegato";
+$langLinkerUntitled = "Senza titolo";
 $langLinks = "Collegamenti";
 $langListAdmin = "Vedi gli utenti Admin";
 $langListAllUsers = "Vedi tutti gli utenti";
@@ -972,6 +1042,7 @@ $langListStudents = "Lista degli studenti in questo gruppo";
 $langListUsers = "Lista Utenti";
 $langLoadDefaultFormat = "Carica formato di default";
 $langLocation = "Locazione";
+$langLocked = "Bloccato";
 $langLogin = "login";
 $langLoginBeforePost1 = "Per inserire messaggi sul forum, ";
 $langLoginBeforePost2 = "prima, è necessario ";
@@ -990,6 +1061,8 @@ $langMailSynthaxError = "Errore di sintassi nella mail.";
 $langMailTo = "Scrivi a : ";
 $langMailUsed = "Mail già utilizzata da un altro utente.";
 $langMainDB = "Claroline DB Principale";
+$langMainGroupSettings = "Impostazioni principali del gruppo";
+$langMaintenance = "Manutenzione";
 $langMakeABackupBefore = "<p>Lo <em>strumento per l'aggiornamento di Claroline</em> recupererà i dati dalla tua precedente installazione
 e li renderà compatibili con la nuova versione di Claroline. Questo aggiornamento viene fatto in tre passaggi:</p>
 
@@ -1040,6 +1113,7 @@ $langMin = "Minimo : ";
 $langMinute = "Minuti";
 $langMinuteShort = "min.";
 $langMissing = "perso";
+$langMissingFields = "Campi mancanti";
 $langMissingImagesDetected = "Individuata immagine smarrita";
 $langMissingValue = "Valore dimenticato";
 $langModeVerbose = "Modalità Prolissa";
@@ -1047,6 +1121,7 @@ $langModifAnn = "Modificare l'annuncio";
 $langModifDone = "Le informazioni sono state modificate";
 $langModifUserCourseSettings = "Impostazioni Utente/Corso";
 $langModify = "Modificare";
+$langModifyExercise = "Modifica esercizio";
 $langModifyFormat = "Modifica il formato";
 $langModifyInAllExercises = "in tutti gli esercizi";
 $langModifyInThisExercise = "solo in esercizio corrente";
@@ -1101,6 +1176,7 @@ $langNewEx = "Nuovo esercizio";
 $langNewGroupCreate = "Creare nuovi gruppi";
 $langNewGroups = "nuovo/i gruppo/i";
 $langNewLabel = "Crea nuova etichetta / titolo in questo learning path";
+$langNewLegend = "indica nuovi oggetti";
 $langNewQu = "Nuova domanda";
 $langNewToOld = "Nuovi prima";
 $langNewTopic = "Lanciare un nuovo argomento";
@@ -1121,24 +1197,29 @@ $langNoEndDate = "Nessuna data di scadenza";
 $langNoEventInTheAgenda = "Nessun evento in agenda";
 $langNoEx = "Finora non ci sono esercizi";
 $langNoFile = "- nessuno -";
+$langNoForum = "Nesusn forum";
 $langNoFunctionInThisSection = "Nessuna funzione in questa estensione";
 $langNoGroupStudents = "Corsisti senza gruppo";
+$langNoGroupsDeleted = "Nessun gruppo eliminato";
 $langNoImage = "Nessuna immagine da visualizzare";
 $langNoLearningPath = "Nessun learning path";
 $langNoModule = "Nessun modulo";
 $langNoMoreAttemptsAvailable = "Hai raggiunto il massimo numero di tentativi consentiti.";
 $langNoMoreModuleToAdd = "Tutti i moduli di questo corso sono già utilizzati in questo learning path.";
 $langNoPost = "Nessun messaggio";
+$langNoPostAllowed = "Nessun nuovo messaggio consentito";
 $langNoPsychology = "No, l'ironia socratica non si esplica sul campo della psicologia, bensì su quello dell'argomentazione.";
 $langNoQuestion = "Finora non ci sono domande";
 $langNoQuota = "No Quota";
 $langNoRegisteredCourses = "Nessuna statistica da visualizzare.  Non sei iscritto a nessun corso.";
 $langNoResult = "Nessun risultato";
 $langNoScore = "Nessun punteggio";
+$langNoScript = "Nessun script";
 $langNoSeduction = "Non si tratta di una strategia seduttiva o di una metodica per esempi.";
 $langNoSpace = "Il caricamento del file è fallito. La cartella e/o il disco sono pieni";
 $langNoStartAsset = "Non ci sono proprietà iniziali definite per questo modulo.";
 $langNoTimeLimit = "Nessun limite di tempo";
+$langNoUserFound = "Nessun utente trovato";
 $langNoUserResult = "Non ci sono utenti da visualizzare";
 $langNoVisibleAssignment = "Non ci sono compiti visibili al momento.";
 $langNoVisibleSubmission = "Nessun inserimento ";
@@ -1152,6 +1233,7 @@ $langNotInstalled = "Errore.  Importazione del Learning Path fallita.";
 $langNotRecentlyConnectedStudents = "Nessun studente connesso di recente : ";
 $langNotUnregYourself = "Non puoi variare le tue impostazioni personali";
 $langNotice = "Notazione";
+$langNoticeInstallFolderBrowsable = "<b>Avviso :</b> La cartella contenente l'installazione di Claroline (<code>claroline/install/</code>) è ancora accessibile dal web. Ciò significa che ognuno potrà reinstallare Claroline ed eliminare la tua precedente installazione. E' altamente raccomandato di proteggere questa cartella o di rimuoverla dal server";
 $langNow = "Adesso";
 $langNowGoChooseYourCourses = "Ora potete scegliere, dall'elenco, i corsi che intendete seguire.";
 $langNowGoCreateYourCourse = "Ora potete creare il Vostro corso";
@@ -1191,7 +1273,9 @@ $langPathContentTitle = "Learning path - Contenuto";
 $langPathsInCourseProg = "Corso - Progressione ";
 $langPerhaps_with_others_directory = "anche con altre directory";
 $langPeriodDay = "Giorno";
+$langPeriodDayShort = "g.";
 $langPeriodHour = "Ora";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "Mese";
 $langPeriodToDisplay = "Periodo";
 $langPeriodWeek = "Settimana";
@@ -1210,6 +1294,7 @@ $langPlatformStats = "Statistiche della Piattaforma";
 $langPleaseEnterMessage = "Devi inserire il messaggio per favore";
 $langPleaseSelectUsers = "Devi selezionare uno o più utenti per favore";
 $langPopulateTools = "Strumento per popolare i corsi";
+$langPostReply = "Inserisci replica";
 $langPoweredBy = "Supportato da";
 $langPrefix = "Prefisso  : ";
 $langPreventLateUpload = "No, impedisci agli utenti di inserire i lavori dopo la data di scadenza";
@@ -1243,6 +1328,7 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utente può esser membro al mas
 $langQualificationsAndGoals = "Qualifiche e Obiettivi";
 $langQualificationsAndGoalsComment1 = "Quali sono gli scopi del corso?  Alla fine del corso quali qualifiche, capacità e conoscenza saranno disponibili agli studenti?";
 $langQualificationsAndGoalsComment2 = "Presentazione degli obiettivi generali e specifici del corso, a quali risultati conduce il raggiungimento di tali obiettivi.";
+$langQuantity = "Quantità";
 $langQuestion = "Domanda";
 $langQuestionAnswers = "Risposte alle domande";
 $langQuestionDescription = "Commento (opzionale)";
@@ -1265,6 +1351,7 @@ $langRegStudent = "Iscrivimi come Corsista (segue i corsi)";
 $langRegUser = "utenti registrati sul sito";
 $langRegYou = "vi ha iscritto su";
 $langRegister = "Registra";
+$langRegisterCampusAdvice = "Prego controllare che l'URL del tuo campus sia raggiungibile da Internet.";
 $langRegisterClass = " Iscrivi una classe";
 $langRegisterLocalUrl = "L'url del tuo campus sembra essere una url locale.
 E' necessaria una url accessibile dal web per registrare il tuo sito su Claroline.net.<br /><br />
@@ -1287,6 +1374,7 @@ $langRequirements = "Requisiti";
 $langResetChat = "Reset";
 $langRestoreCourseRepository = "Ripristina repository del corso";
 $langResult = "Risultato";
+$langRetry = "riprova";
 $langReuse = "Riutilizza";
 $langRevoquationOfUser = "Revoca di %s %s";
 $langRidiculise = "Mettere in ridicolo l'interlocutore per fargli ammettere il proprio errore.";
@@ -1307,6 +1395,10 @@ $langScoreAvg = "Medio";
 $langScoreMax = "Max";
 $langScoreMin = "Min";
 $langScormIntroTextForDummies = "Il file importato deve essere in formato ZIP e corrispondente alla sintassi SCORM 1.2";
+$langScriptMissing = "Script mancante";
+$langScriptMissingComment = "Devi installare questi scripts per eseguire correttamente Claroline";
+$langScriptNotInArchive = "Script non presente in claroline";
+$langScriptNotInArchiveComment = "Puoi eliminare questi scripts dal server";
 $langSearch = "Trova";
 $langSearchAgain = "Cerca ancora (Avanzata)";
 $langSearchCourse = "Trova Corso";
@@ -1345,16 +1437,21 @@ $langStartDate = "Data inizio";
 $langStartModule = "Modulo - Start";
 $langStatDB = "DB Tracking";
 $langStatistics = "Statistiche";
+$langStatsByQuestion = "Statistiche per domanda";
+$langStatsByUser = "Statistiche per utente";
 $langStatsOfCampus = "Statistiche del Campus";
 $langStatsOfCourse = "Statistiche del corso";
 $langStatsOfExercise = "Statistiche dell'esercizio";
+$langStatsOfExerciseAttempt = "Statistiche per esercizio tentato";
 $langStatsOfLearnPath = "Statistiche";
+$langStatsOfQuestion = "Statistiche della domanda";
 $langStatsOfUser = "Statistiche degli utenti";
 $langStatus = "Azione";
 $langStatusChangeNotMade = "Nessuna variazione eseguita";
 $langStepNOfN = "Passo %d di %d";
 $langStoreChat = "Store Chat";
 $langStudent = "Studenti";
+$langStudentQty = "Nr. Studenti";
 $langStudents = "Students";
 $langStudentsNotInThisGroups = "Utenti non presenti in questo gruppo";
 $langSubTitle = "Aggiunge al menu principale della pagina di apertura del corso un collegamento verso una pagina, all'interno o all'esterno del vostro sito";
@@ -1384,6 +1481,7 @@ $langSupportsComment2 = "Presentazione del materiale di supporto al corso.  Bibl
 $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
 $langTake = "prendi";
 $langTargetFac = "E' il dipartimento in cui il corso è tenuto";
+$langTeacherQty = "Nr. Docenti";
 $langTeachers = "Teachers";
 $langTeachingTrainingActivities = "Attività didattiche";
 $langTeachingTrainingActivitiesComment1 = "Quali metodi e quali attività saranno utilizzati per il raggiungimento degli scopi del corso?  Qual'è il calendario di tali attività?";
@@ -1429,7 +1527,9 @@ $langTotalPlatformLogin = "Totale";
 $langTotalTimeSpent = "Tempo totale";
 $langTrackAllPath = "Tracking dei Learning paths";
 $langTrackAllPathExplanation = "Progrerssione degli utenti su tutti i learning paths";
+$langTrackExerciseError = "I dettagli potrebbero essere non corretti così come sembra che qualche domanda sia stata modificata tra la prova in questione ed adesso.";
 $langTrackForumUsage = "Utilizzo del forum";
+$langTrackNotEnoughAttempts = "devi raggiungere il numero previsto di tentativi per visualizzare queste statistiche.";
 $langTrackTotalPosts = "Messaggi inseriti";
 $langTrackTotalTopics = "Argomenti iniziati";
 $langTracking = "Tracking";
@@ -1439,16 +1539,27 @@ $langTranslationStatistics = "Progresso della traduzione";
 $langTranslationTools = "Strumenti di traduzione";
 $langTranslations = "Traduzioni";
 $langTrue = "Vero";
+$langTrueFalse = "Vero/Falso";
 $langTypeOfModule = "Tipo modulo";
 $langTypeTextBelow = "Digita il testo qui sotto";
 $langURL = "URL : ";
 $langUnableAddExternalTool = "Impossibile aggiungere tool esterno";
 $langUnableChangedTool = "Impossibile variare gli accessi al tool";
+$langUnableCreateCategory = "Impossibile creare la categoria";
+$langUnableCreateForum = "Impossibile creare il forum";
+$langUnableDeleteCategory = "Impossibile eliminare la categoria.";
 $langUnableDeleteExternalTool = "Impossibile cancellare tool esterno";
+$langUnableDeleteForum = "Impossibile eliminare il Forum.";
+$langUnableDeleteGroupCategoryForum = "La categoria Forum di gruppo non può essere eliminata.";
 $langUnableDescToAdd = "Impossibile aggiungere la descrizione";
 $langUnableToAdd = "Impossibile aggiungere evento in agenda";
 $langUnableToDelete = "Impossibile cancellare evento in agenda";
+$langUnableToEmptyForum = "Impossibile svuotare il forum.";
+$langUnableToEnrollInCourse = "Impossibile iscriverti al corso";
+$langUnableToRemoveCourseRegistration = "Impossibile rimuovere la tua registrazione dal corso";
 $langUnableToUpdate = "Impossibile aggiornare evento in agenda";
+$langUnableToUpdateCategory = "Impossibile modificare la categoria.";
+$langUnableToUpdateForum = "Impossibile aggiornare il forum.";
 $langUnableUpdateExternalTool = "Impossibile aggiornare tool esterno";
 $langUnamedModule = "Modulo senza nome";
 $langUnamedPath = "Path senza nome";
@@ -1460,6 +1571,7 @@ $langUniqueSelect = "Scelta multipla (unica risposta)";
 $langUnkownSOAPError = "Si è verificato un errore nel contattare il sito Claroline.net";
 $langUnlimitedAttempts = "Tentativi illimitati";
 $langUnreg = "Rimuovere";
+$langUnregisterAllStudents = "Elimina tutti gli studenti";
 $langUnsubscribe = "Utente non registrato";
 $langUnsubscribeClass = "Cancellati dalla classe";
 $langUntil = "a";
@@ -1514,6 +1626,7 @@ $langUserNotUnsubscribedFromCourse = "Errore !! Non puoi cancellare un Manager d
 $langUserNumber = "numero";
 $langUserOneByOneExplanation = "Un'email di conferma con 'Nome utente' e 'Password' verrà inviata a:";
 $langUserRegisteredClass = "Utente iscritto con successo alla classe";
+$langUserRegisteredToCourse = "Utente registrato al corso";
 $langUserSettings = "Impostazioni Utente";
 $langUserStatus = "Stato";
 $langUserSubscribed = "L'utente è stato registrato con successo";
@@ -1540,6 +1653,135 @@ $langVisible = "Visibile";
 $langVisits = "visite";
 $langWeightingForEachBlank = "Per cortesia dare un peso ad ogni risposta lasciata in bianco";
 $langWiki = "Wiki";
+$langWikiAccessControl = "Gestione controllo degli accessi";
+$langWikiAccessControlText = "Puoi impostare i diritti di accesso per gli utenti utilizzando la seguente griglia : ";
+$langWikiAllPages = "Tutte le pagine";
+$langWikiBackToPage = "Torna alla pagina";
+$langWikiConflictHowTo = "<p><strong>Modifica conflitto</strong> :La pagina che hai tentato di salvare sembra sia già stata modificata prima di essere salvata.<br /><br />
+Cosa vuoi fare ora ?<ul>
+<li>Puoi copiare/incollare le tue modifiche su un editor di testo(come notepad) e cliccare su 'modifica ultima versione' per tentare di aggiungere le tue modifiche alla nuova versione della pagina.</li>
+<li>Puoi invece cliccare su cancella per annullare le tue modifiche.</li>
+</ul></p>";
+$langWikiContentEmpty = "Questa pagina è vuota, clicca su 'Modifica questa pagina' per aggiungere del contenuto";
+$langWikiCourseMembers = "Membri del corso";
+$langWikiCreateNewWiki = "Crea nuovo Wiki";
+$langWikiCreatePrivilege = "Crea Pagine";
+$langWikiCreationSucceed = "Creazione del Wiki avvenuta con successo";
+$langWikiDefaultDescription = "Inserisci la descrizione del wiki";
+$langWikiDefaultTitle = "Nuovo Wiki";
+$langWikiDeleteWiki = "Elimina Wiki";
+$langWikiDeleteWikiWarning = "ATTENZIONE : stai per eliminare questo wiki e tutte le sue pagine. Sei sicuro di voler continuare ?";
+$langWikiDeletionSucceed = "Eliminazione del wiki avvenuta con successo";
+$langWikiDescription = "Descrizione del Wiki";
+$langWikiDescriptionForm = "Descrizione del Wiki";
+$langWikiDescriptionFormText = "Puoi sceglire un titolo e una descrizione per il wiki : ";
+$langWikiDiffAddedLine = "Line aggiunta";
+$langWikiDiffDeletedLine = "Linea eliminata";
+$langWikiDiffMovedLine = "Linea spostata";
+$langWikiDiffUnchangedLine = "Linea invariata";
+$langWikiDifferenceKeys = "Chiavi :";
+$langWikiDifferencePattern = "differenze tra la versione di %1\$s modificata da %2\$s e la versione di %3\$s modificata da %4\$s";
+$langWikiDifferenceTitle = "Differenza :";
+$langWikiEditConflict = "Modifica conflitto";
+$langWikiEditLastVersion = "Modifica ultima versione";
+$langWikiEditPage = "Modifica questa pagina";
+$langWikiEditPrivilege = "Modifica pagine";
+$langWikiEditProperties = "Modifica proprietà";
+$langWikiEditionSucceed = "Wiki editato con successo";
+$langWikiGroupMembers = "Membri del gruppo";
+$langWikiHelpAdminContent = "<h3>Aiuto sull'Amministrazione del Wiki</h3>
+<dl class=\"wikiHelp\">
+<dt>Come creare un nuovo Wiki ?</dt>
+<dd>Clicca sul link 'Crea nuovo Wiki'. Quindi inserisci le sue proprietà :
+<ul>
+<li><b>Titolo</b> : scegli un titolo per il wiki</li>
+<li><b>Descrizione/b> : scegli una descrizione per il wiki</li>
+<li><b>Gestione degli accessi</b> : imposta gli accessi al wiki con il segno di spunta sulla casella (vedi sotto)</li>
+</ul>
+</dd>
+<dt>Come entrare in un Wiki ?</dt>
+<dd>Clicca sul titolo del Wiki nell'elenco.</dd>
+<dt>Come modificare le proprietà del Wiki ?</dt>
+<dd>Clicca sull'icona nella colonna 'Proprietà' nell'elenco dei Wiki e compila la form seguente.</dd>
+<dt>Come utilizza le opzioni di controllo degli accessi ?</dt>
+<dd>Puoi impostare il diritti di accesso per gli utenti spuntando la casella nella sezione 'Gestione controllo accessi' delle proprietà del wiki.
+ Puoi garantire o meno l'accesso a tre tipi di utenti :<ul>
+<li><b>Membri del corso</b> : utenti iscritti al corso (escluso i manager del corso)</li>
+<li><b>Membri del gruppo</b> (disponibile solo all'interno di un gruppo) : utenti che sono membri di un gruppo (escluso i tutor del gruppo)</li>
+<li><b>Altri utenti</b> : utenti anonimi o utenti non membri del corso</li></ul>
+Per ogni tipo di utente, puoi assegnare tre tipi di privilegi per il Wiki(*) :<ul>
+<li><b>Lettura</b> : l'utente di un dato tipo può leggere le pagine del Wiki</li>
+<li><b>Modifica</b> : l'utente di un dato tipo può modificare il contenuto delle pagine del Wiki</li>
+<li><b>Creazione</b> : l'utente di un dato tipo può creare nuove pagine nel Wiki</li>
+</ul><small><em>(*) Nota che se un utente non può leggere le pagine di un Wiki, non potrà modificarle. Inoltre se un utente non potrà modificare le pagine non potrà crearne di nuove.</em></small></dd>
+<dt>Come eliminare un Wiki ?</dt>
+<dd>Clicca sull'icona nella colonna 'Elimina' per eliminare il Wiki e tutte le sue pagine.</dd>
+<dt>Come ottentere l'elenco delle pagine in un Wiki ?</dt>
+<dd>Clicca sul numero delle pagine del Wiki nell'elenco.</dd>
+<dt>Come ottenere l'elenco delle ultime pagine modifcate in un Wiki ?</dt>
+<dd>Clicca sull'icona nella colonna 'Ultime modifiche' nell'elenco dei Wiki.</dd>
+</dl>";
+$langWikiHelpSyntax = "Sintassi del Wiki";
+$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+<dl class=\"wikiHelp\">
+<dt>Creare pagine Wiki e collegamenti tra esse</dt>
+<dd><ul>
+<li><strong>Parole Wiki</strong> : le parole Wiki sono parole scritte come <em>WikiWord</em>. Wiki2xhtml automaticamente le identifica come links alla pagina Wiki. Per creare pagine wiki o link a pagina wiki, modificane una esistente e aggiungi il titolo della pagina nella sintassi WikiWord, per esempio <em>Miapagina</em>, quindi salva la pagina. Wiki2xhtml automaticamente rimpiazzerà la parola Wiki <em>Miapagina</em> con un link alla pagina Wiki <em>Miapagina</em>&nbsp;;</li>
+<li><strong>Wiki links</strong> : i Wiki links sono come gli Hyperlinks (vedi sotto) soltanto che non contengono nessun schema di protocollo (come ad es. <em>http://</em> o <em>ftp://</em>) e sono automaticamente identificate come links a pagine Wiki. Per creare una nuova pagina o creare un link ad una esistente usando i Wiki links, modifica una pagina e aggiungi il codice <code>[titolo pagina]</code> o <code>[titolo pagina|testo link]</code> al suo contenuto. Puoi utilizzare anche la sintassi per cambiare il testo di un link WikiWord: <code>[WikiWord|testo]</code>.</li>
+</ul></dd>
+<dt>Elemento Blocco</dt>
+<dd><ul><li>Aggiungere una nuova riga tra ogni riga <em>dello stesso tipo</em>.&nbsp;;</li>
+<li><strong>Paragrafo</strong> : inserisci del testo e una nuova linea&nbsp;;</li>
+<li><strong>Titolo</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> rispettivamente per titoli, sotto-titoli e sotto-sotto-titoli&nbsp;;</li>
+<li><strong>Linea orizzontale</strong> : <code>----</code>&nbsp;;</li>
+<li><strong>Elenco</strong> : linea che inizia con <code>*</code> o <code>#</code>. Muoi mixare elenchi (<code>*#*</code>) per creare elenchi multilivello.&nbsp;;</li>
+<li><strong>Testo preformattato</strong> : aggiunge uno spazio prima di ogni linea di testo preformattato&nbsp;;</li>
+<li><strong>Blocco citazione</strong> : <code>&gt;</code> o <code>;:</code> prima di ogni linea.</li>
+</ul></dd>
+<dt>Elementi Inline</dt>
+<dd><ul><li>Correzione punteggiatura automatica attiva : uno spazione che precede ognuno dei simboli seguenti \";\",\"?\",\":\" e \"!\".&nbsp;;</li>
+<li><strong>Emfasi</strong> : racchiudere il testo tra due apici singoli <code>''testo''</code>&nbsp;;</li>
+<li><strong>Enfasi forte</strong> : racchiudere il testo tra tre apici singoli sottolineati <code>'''testo'''</code>&nbsp;;</li>
+<li><strong>A capo forzato</strong> : <code>%%%</code>&nbsp;;</li>
+<li><strong>Sottolineatura</strong> : racchiudere il testo tra due sottolineature <code>__testo__</code>&nbsp;;</li>
+<li><strong>Stroke</strong> : racchiudere il testo tra due simboli meno <code>--testo--</code>&nbsp;;</li>
+<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> o <code>[name|url|language|title]</code>.&nbsp;;</li>
+<li><strong>Immagine</strong> : così come gli Hyperlinks<br>Inserisci uno 0 nell'ultimo argomento per evitare l'identificazione dell'immagine e ottenere il link all'immagine. Ad esempio <code>[immagine|immagine.gif||0]</code> visualizzarà un link ad immagine.gif invece di visualizzare l'immagine stessa.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Immagine</strong> (nuova sintassi) : <code>((url|testo alternativo))</code>, <code>((url|testo alternativo|posizione))</code> o <code>((url|testo alternativo|posizione|descrizione estesa))</code>. <br>L'argomento posizione può assumere i seguenti valori : L (sinistra), R (destra) o C (centro).&nbsp;;</li>
+<li><strong>Ancora con nome</strong> : <code>~anchor~</code>&nbsp;;</li>
+<li><strong>Acronimo</strong> : <code>??acronym??</code> o <code>??acronym|definition??</code>&nbsp;;</li>
+<li><strong>Cita</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> o <code>{{citation|language|url}}</code>&nbsp;;</li>
+<li><strong>Codice</strong> : <code>@@code here@@</code>&nbsp;;</li>
+<li><strong>Nota pié di pagina</strong> : <code>\$\$footnote text\$\$</code>.</li>
+</ul></dd>
+</dl>";
+$langWikiIdenticalContent = "Identico contenuto<br />nessuna modifica salvata";
+$langWikiInvalidWikiId = "Id Wiki non valido";
+$langWikiList = "LElenco dei Wiki";
+$langWikiMainPage = "Pagina principale";
+$langWikiMainPageContent = "Questa è la pagina principale del wiki %s. Clica su modifica per cambiare il contenuto.";
+$langWikiNoWiki = "Nessun Wiki";
+$langWikiNotAllowedToCreate = "Non ti è consentito creare pagine";
+$langWikiNotAllowedToEdit = "Non ti è consentito modificare questa pagina";
+$langWikiNotAllowedToRead = "Non ti è consentito leggere questa pagina";
+$langWikiNumberOfPages = "Numero di pagine";
+$langWikiOtherUsers = "Altre (*)";
+$langWikiOtherUsersText = "(*) utenti anonimi, utenti che non sono membri del corso...";
+$langWikiPageHistory = "Cronologia pagine";
+$langWikiPageSaved = "Pagina salvata";
+$langWikiPreviewTitle = "Anteprima : ";
+$langWikiPreviewWarning = "ATTENZIONE: questa pagina è in anteprima. Le tue modifoche al wiki non sono state ancora salvate ! Per salvarle non dimenticari di cliccare ul bottone 'salva' in fondo alla pagina.";
+$langWikiProperties = "Proprietà";
+$langWikiReadPrivilege = "Leggi Pagine";
+$langWikiRecentChanges = "Modifiche recenti";
+$langWikiRecentChangesPattern = "%1\$s modificato il %2\$s da %3\$s";
+$langWikiShowDifferences = "Mostra differenze";
+$langWikiTitle = "Titolo del wiki";
+$langWikiTitleEdit = "Wiki : Modifica proprietà";
+$langWikiTitleNew = "Wiki : Crea nuovo wiki";
+$langWikiTitlePattern = "Wiki : %s";
+$langWikiVersionInfoPattern = "(versione di %1\$s modificata da %2\$s)";
+$langWikiVersionPattern = "%1\$s da %2\$s";
 $langWork = "Lavori";
 $langWorkAuthors = "Autori";
 $langWorkTitle = "Titolo";
@@ -1570,6 +1812,7 @@ $lang_CourseHasNoRepository_s_NotFound = "<strong>Il corso non possiede la carte
 $lang_EditFile_ModifyOk = "Variazioni eseguite";
 $lang_RetryWithMoreDetails = "Riprova con più dettagli";
 $lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Le tabelle principali di claroline sono state aggiornate con successo";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "L'utente è già iscritto a questo corso";
 $lang_UpgradeFailedForCourses = "Lo strumento di aggiornamento non può aggiornare i seguenti corsi :";
 $lang_add_user_list = "Aggiungi elenco utenti";
 $lang_already_enrolled = "già iscritto";
@@ -1577,6 +1820,7 @@ $lang_are_you_sure_to_remove_the_course_from_your_list = "Sicuro di voler rimuov
 $lang_back_to_my_personnal_course_list = "Torna alla mia lista dei Corsi";
 $lang_back_to_parent_category = "Torna alla Categoria Padre";
 $lang_click_here = "Premi Qui";
+$lang_completeUserInfoOfUser = "Informazioni complete dell'utente";
 $lang_continueCoursesDataUpgrade = "Continua l'aggiornamento dei dati dei corsi";
 $lang_course_enrollment = "Corsi degli Utenti";
 $lang_do_you_want_to_continue = "Vuoi continuare?";
@@ -1617,10 +1861,19 @@ $lang_or_search_from_keyword = "Cerca con parola chiave";
 $lang_p_CannotCreate_s = "Impossibile creare %s";
 $lang_p_CannotRename_s_s = "Impossibile rinominare %s in %s";
 $lang_p_ErrorOnBuild_S_for_S = "Si è verificato un errore nella costruzione di <em>%s</em> per <B>%s</B>";
+$lang_p_FeedOf_s = "Rss feed per %s";
+$lang_p_FillCourses = "Riempi %s con %s";
+$lang_p_IfNothingHappendClickHere = "<small>Se dopo 30 secondi nulla è cambiato, clicca <a href=\"%s\">qui</a> ed attendi ancora</small>";
 $lang_p_PropForConfigCommited = "Le proprietà di %s (%s) sono ora operative sul server.";
 $lang_p_UpgradeMainClarolineDatabase_s = "Aggiornamento delle tabelle principali di Claroline (<em>%s</em>)";
+$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Aggiornamento corso <strong>%2\$s</strong><br><small>
+Nome DB : %3\$s <br>
+ID Corso: %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Risolvi prima il problema tecnico e <a href=\"%s\">riavvia lo strumento di aggiornamento</a>.";
+$lang_p_aCategoryWouldBeSelected = "Devi scegliere una categoria. Se manca prego contattare <a href=\"%s\">l'amministratore della piattaforma</a>";
+$lang_p_category_s_created = "Categoria %s creata";
 $lang_p_config_file_creation = "Creazione del file di configurazione:<BR> %s";
+$lang_p_d_StudentUnregistredFormCours = "%d studente(i) eliminato da questo corso";
 $lang_p_d_affected_rows = "%d righe interesate";
 $lang_p_d_course = "%2d corso";
 $lang_p_d_course_manager = "%2d prof ";
@@ -1633,11 +1886,15 @@ $lang_p_d_errorFound = " %d errori trovati";
 $lang_p_d_student = "%2d studente";
 $lang_p_d_students = "%2d studenti";
 $lang_p_expectedRemainingTime = " <!-- Tempo di esecuzione per questo corso [%01.2f s] - media [%01.2f s] - totale [%s] - corsi rimasti [%d]. --><b>Tempo rimanente previsto %s</b>.";
+$lang_p_forum_s_created = "Forum %s creato";
 $lang_p_nothing_to_edit_in_S = "niente da modificare in in %s";
 $lang_p_platformManager = "Amministratore di %s";
+$lang_p_post_s_created = "Messagio %s creato";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> è stato iscritto con successo al corso";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> non è stato iscritto al corso";
 $lang_p_s_s_isInvalid = "%s : %s non valido";
+$lang_p_topic_s_created = "Argomento %s creato";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "E' necessario autenticarsi con il proprio %s account";
 $lang_php_info = "Info sul sistema PHP";
 $lang_remove_course_enrollment = "Cancellati da un corso";
 $lang_remove_course_from_your_personnal_course_list = "Rimuovi il corso dalla tua lista personale dei corsi";
@@ -1647,6 +1904,7 @@ $lang_select_course_in = "Scegli Corso in ";
 $lang_select_course_in_search_results = "Scegli Corso tra i risultati della ricerca";
 $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Processo di aggiornamento di Claroline completato";
 $lang_the_following_errors_were_found = "Trovati i seguenti errori ";
+$lang_toolsToFill = "Strumenti per popolare la piattaforma";
 $lang_unsubscribe = "Cancellati";
 $lang_upgradeToolCannotUpgradeThisCourse = "Lo strumento di aggiornamento non può aggiornare questo corso.  <br>
 Risolvi, prima, il problema tecnico e riavvia lo strumento di aggiornamento.";

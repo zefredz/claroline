@@ -33,6 +33,8 @@ $langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOk = "Ok";
 $langOkSent = "La pagina è stata trasmessa<p>E' accessibile alla<a href=../..//index.php>pagina principale</a> del vostro corso";
 $langOtherCourses = "Elenco dei corsi";
+$langPeriodDayShort = "g.";
+$langPeriodHourShort = "h.";
 $langPgTitle = "Titolo della pagina";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";

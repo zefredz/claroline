@@ -61,6 +61,8 @@ $langNo = "No";
 $langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOk = "Ok";
 $langOtherCourses = "Elenco dei corsi";
+$langPeriodDayShort = "g.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
 $langPrivateAccess = "Accesso privato, Iscrizione chiusa (sito riservato alle persone che compaiono nell'elenco <a href=../user/user.php>Utenti</a>)";

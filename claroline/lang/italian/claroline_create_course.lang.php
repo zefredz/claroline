@@ -20,6 +20,7 @@ $langCourseDescription = "Scrivete la descrizione che comparirà nell\'elenco dei
 $langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langCourseTitle = "Titolo Corso";
+$langCourseWouldBeCreated = "Il tuo corso dovrebbe essere stato creato";
 $langCreate = "Creare";
 $langCreateSite = "Creare un corso";
 $langCreationMailNotificationBody = "Corso creato in ";
@@ -64,6 +65,8 @@ $langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langNotFalse = "La risposta non è falsa: è vero che mettere in evidenza l'ignoranza dell'interlocutore si ottiene mettendo in evidenza le contraddizioni cui portano le sue tesi.";
 $langOk = "Ok";
 $langOtherCourses = "Elenco dei corsi";
+$langPeriodDayShort = "g.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Amministrazione Claroline";
 $langPoweredBy = "Supportato da";
 $langProfessor = "Titolare";
@@ -88,5 +91,7 @@ $langUsers = "Utenti";
 $langViewMode = "Vista";
 $langWork = "Lavori";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
+$lang_p_IfNothingHappendClickHere = "<small>Se dopo 30 secondi nulla è cambiato, clicca <a href=\"%s\">qui</a> ed attendi ancora</small>";
+$lang_p_aCategoryWouldBeSelected = "Devi scegliere una categoria. Se manca prego contattare <a href=\"%s\">l'amministratore della piattaforma</a>";
 $lang_p_platformManager = "Amministratore di %s";
 ?>
