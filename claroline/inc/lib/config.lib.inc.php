@@ -983,6 +983,8 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
         // display label
         // if Type = css or lang,  acceptedValue would be fill
         // and work after as enum.
+        $invalid_css = array('print.css','compatible.css');
+
         switch ( $type )
         {
             case 'css' :
@@ -994,7 +996,10 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                        $ext = strrchr($file, '.');
                        if ($file != "." && $file != ".." && (strtolower($ext)==".css"))
                        {
-                           $property_def['acceptedValue'][$file] = $file;
+                            if ( ! in_array($file,$invalid_css) )
+                            {
+                                $property_def['acceptedValue'][$file] = $file;
+                            }
                        }
                    }
                    closedir($handle);
