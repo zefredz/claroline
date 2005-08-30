@@ -221,11 +221,11 @@ else
     $form_value_list['rootAdminSys'] = $clarolineRepositorySys.$rootAdminAppend;
     $form_value_list['rootAdminWeb'] = $clarolineRepositoryWeb.$rootAdminAppend;
     $form_value_list['garbageRepositorySys'] = $garbageRepositorySys;
-    $form_value_list['siteName'] = cleanwritevalue($campusForm);
-    $form_value_list['administrator_name'] = cleanwritevalue($contactNameForm);
-    $form_value_list['administrator_phone'] = cleanwritevalue($contactPhoneForm);
-    $form_value_list['administrator_email'] = cleanwritevalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm));
-    $form_value_list['institution_name'] = cleanwritevalue($institutionForm);
+    $form_value_list['siteName'] = $campusForm;
+    $form_value_list['administrator_name'] = $contactNameForm;
+    $form_value_list['administrator_phone'] = $contactPhoneForm;
+    $form_value_list['administrator_email'] = (empty($contactEmailForm)?$adminEmailForm:$contactEmailForm);
+    $form_value_list['institution_name'] = $institutionForm;
     $form_value_list['institution_url'] = $institutionUrlForm;
     $form_value_list['userPasswordCrypted'] = trueFalse($encryptPassForm);
     $form_value_list['allowSelfReg'] = trueFalse($allowSelfReg);

@@ -24,7 +24,6 @@
 
 define ('DISP_WELCOME',__LINE__);
 define ('DISP_LICENCE',__LINE__);
-//define ('DISP_FILE_SYSTEM_SETTING',__LINE__);
 define ('DISP_DB_CONNECT_SETTING',__LINE__);
 define ('DISP_DB_NAMES_SETTING',__LINE__);
 define ('DISP_ADMINISTRATOR_SETTING',__LINE__);
@@ -41,14 +40,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $configFileName = 'claro_main.conf.php';
 $configFilePath = '../inc/conf/'.$configFileName;
 
-
 session_start();
 $_SESSION = array();
 session_destroy();
-
-if (!empty($_GET))      {extract($_GET, EXTR_OVERWRITE);}
-if (!empty($_POST))     {extract($_POST, EXTR_OVERWRITE);}
-if (!empty($_SERVER))     {extract($_SERVER, EXTR_OVERWRITE);}
 
 $newIncludePath ='../inc/';
 include ($newIncludePath . 'installedVersion.inc.php');
@@ -62,6 +56,16 @@ include ($newIncludePath . 'lib/config.lib.inc.php');
 include ($newIncludePath . 'lib/form.lib.php');
 include ($newIncludePath . 'lib/course.lib.inc.php');
 include ($newIncludePath . 'lib/claro_main.lib.php');
+
+/**
+ * Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
+ */
+
+claro_unquote_gpc();
+
+if (!empty($_GET))      {extract($_GET, EXTR_OVERWRITE);}
+if (!empty($_POST))     {extract($_POST, EXTR_OVERWRITE);}
+if (!empty($_SERVER))     {extract($_SERVER, EXTR_OVERWRITE);}
 
 $panelSequence  = array(
 DISP_WELCOME,
@@ -138,7 +142,6 @@ else
     $campusForm  = $_REQUEST['campusForm'];
 }
 
-
 // This script is a big form.
 // all value are in HIDDEN FIELD,
 // and different display show step by step some fields in editable input
@@ -149,7 +152,6 @@ else
 //  * Create  some  directories
 //  * Write the config file
 //  * Protect some  directory with an .htaccess (work only  for apache)
-
 
 $canRunCmd = TRUE;
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
@@ -393,8 +395,6 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
     }
 }
 
-
-
 // ALL Check are done.
 // $canRunCmd has set during checks
 
@@ -444,10 +444,6 @@ if ($canRunCmd)
     }
  }
 
-
-
-
-
 //PREPARE DISPLAY
 
 
@@ -482,26 +478,6 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
         $contactPhoneForm = $adminPhoneForm;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // BEGIN OUTPUT
 
@@ -556,19 +532,19 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
 .    '<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
 .    '<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
 .    '<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
-.    '<input type="hidden" name="adminEmailForm"               value="'.cleanoutputvalue($adminEmailForm).'">'   ."\n"
-.    '<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
-.    '<input type="hidden" name="adminNameForm"                value="'.cleanoutputvalue($adminNameForm).'">'    ."\n"
-.    '<input type="hidden" name="adminSurnameForm"             value="'.cleanoutputvalue($adminSurnameForm).'">' ."\n\n"
-.    '<input type="hidden" name="loginForm"                    value="'.cleanoutputvalue($loginForm).'">'        ."\n"
-.    '<input type="hidden" name="passForm"                     value="'.cleanoutputvalue($passForm).'">'         ."\n\n"
+.    '<input type="hidden" name="adminEmailForm"               value="'.htmlspecialchars($adminEmailForm).'">'   ."\n"
+.    '<input type="hidden" name="adminPhoneForm"               value="'.htmlspecialchars($adminPhoneForm).'">'   ."\n"
+.    '<input type="hidden" name="adminNameForm"                value="'.htmlspecialchars($adminNameForm).'">'    ."\n"
+.    '<input type="hidden" name="adminSurnameForm"             value="'.htmlspecialchars($adminSurnameForm).'">' ."\n\n"
+.    '<input type="hidden" name="loginForm"                    value="'.htmlspecialchars($loginForm).'">'        ."\n"
+.    '<input type="hidden" name="passForm"                     value="'.htmlspecialchars($passForm).'">'         ."\n\n"
 .    '<input type="hidden" name="languageForm"                 value="'.$languageForm.'">'                   ."\n\n"
-.    '<input type="hidden" name="campusForm"                   value="'.cleanoutputvalue($campusForm).'">'       ."\n"
-.    '<input type="hidden" name="adminPhoneForm"               value="'.cleanoutputvalue($adminPhoneForm).'">'   ."\n"
-.    '<input type="hidden" name="contactNameForm"              value="'.cleanoutputvalue($contactNameForm).'">'  ."\n"
-.    '<input type="hidden" name="contactEmailForm"             value="'.cleanoutputvalue($contactEmailForm).'">' ."\n"
-.    '<input type="hidden" name="contactPhoneForm"             value="'.cleanoutputvalue($contactPhoneForm).'">' ."\n"
-.    '<input type="hidden" name="institutionForm"              value="'.cleanoutputvalue($institutionForm).'">'  ."\n"
+.    '<input type="hidden" name="campusForm"                   value="'.htmlspecialchars($campusForm).'">'       ."\n"
+.    '<input type="hidden" name="adminPhoneForm"               value="'.htmlspecialchars($adminPhoneForm).'">'   ."\n"
+.    '<input type="hidden" name="contactNameForm"              value="'.htmlspecialchars($contactNameForm).'">'  ."\n"
+.    '<input type="hidden" name="contactEmailForm"             value="'.htmlspecialchars($contactEmailForm).'">' ."\n"
+.    '<input type="hidden" name="contactPhoneForm"             value="'.htmlspecialchars($contactPhoneForm).'">' ."\n"
+.    '<input type="hidden" name="institutionForm"              value="'.htmlspecialchars($institutionForm).'">'  ."\n"
 .    '<input type="hidden" name="institutionUrlForm"           value="'.$institutionUrlForm.'">'             ."\n\n"
 .    '<!-- BOOLEAN -->'                                                                                      ."\n"
 .    '<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'">'             ."\n"
@@ -577,21 +553,6 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
 .    '<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'">'                ."\n"
 .    '<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'">'       ."\n"
 .    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'">';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  ##### PANNELS  ######
@@ -779,8 +740,6 @@ if ($display==DISP_WELCOME)
 
 }
 
-
-
 ###################################################################
 ############### STEP 2 LICENSE  ###################################
 ###################################################################
@@ -817,10 +776,6 @@ elseif($display==DISP_LICENCE)
     ;
 
 }
-
-
-
-
 
 #########################################################################
 ###### STEP DISP_FILE_SYSTEM_SETTING ####################################
@@ -868,10 +823,6 @@ echo '
 
 */
 
-
-
-
-
 ##########################################################################
 ###### STEP 3 MYSQL DATABASE SETTINGS ####################################
 ##########################################################################
@@ -900,7 +851,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<label for="dbHostForm">' . $langDBHost . '</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.cleanoutputvalue($dbHostForm).'">'
+    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'">'
     .    '</td>'
     .    '<td>'
     .    $langEG . ' localhost'
@@ -911,7 +862,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<label for="dbUsernameForm">'.$langDBLogin.'</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.cleanoutputvalue($dbUsernameForm).'">'
+    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'">'
     .    '</td>'
     .    '<td>'
     .    $langEG.' root'
@@ -922,7 +873,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<label for="dbPassForm">'.$langDBPassword.'</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.cleanoutputvalue($dbPassForm).'">'
+    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'">'
     .    '</td>'
     .    '<td>'
     .    $langEG.' '.generate_passwd(8)
@@ -1054,7 +1005,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.cleanoutputvalue($dbNameForm).'">'  . "\n"
+    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    '&nbsp;'  . "\n"
@@ -1067,7 +1018,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.cleanoutputvalue($mainTblPrefixForm).'">'  . "\n"
+    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    '&nbsp;'  . "\n"
@@ -1105,7 +1056,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '<label for="dbStatsForm">'.$langStatDB.'</label>'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.cleanoutputvalue($dbStatsForm).'">'  . "\n"
+        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
         .    '&nbsp;'  . "\n"
@@ -1118,7 +1069,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '</label>'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.cleanoutputvalue($statsTblPrefixForm).'">'  . "\n"
+        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
         .    '&nbsp;'  . "\n"
@@ -1142,7 +1093,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.cleanoutputvalue($dbPrefixForm).'">'  . "\n"
+    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    'e.g. \''.$dbPrefixForm.'\''  . "\n"
@@ -1204,11 +1155,6 @@ elseif($display == DISP_DB_NAMES_SETTING )
     */
 }     // cmdDB_CONNECT_SETTING
 
-
-
-
-
-
 ##########################################################################
 ###### STEP CONFIG SETTINGS ##############################################
 ##########################################################################
@@ -1232,7 +1178,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<b><label for="loginForm">'.$langAdminLogin.'</label></b>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.cleanoutputvalue($loginForm).'">'  . "\n"
+    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '</td>' . "\n"
@@ -1242,7 +1188,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<b><label for="passForm">'.$langAdminPass.'</label></b>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.cleanoutputvalue($passForm).'">'  . "\n"
+    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    'e.g. ' . generate_passwd(8) . "\n"
@@ -1252,7 +1198,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<label for="adminEmailForm">'.$langAdminEmail.'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.cleanoutputvalue($adminEmailForm).'">'  . "\n"
+    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '</td>' . "\n"
@@ -1261,7 +1207,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<label for="adminPhoneForm">Phone</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.cleanoutputvalue($adminPhoneForm).'">'  . "\n"
+    .    '<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.htmlspecialchars($adminPhoneForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '</td>' . "\n"
@@ -1271,7 +1217,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<label for="adminNameForm">'.$langAdminName.'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.cleanoutputvalue($adminNameForm).'">'  . "\n"
+    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '</td>' . "\n"
@@ -1281,7 +1227,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<label for="adminSurnameForm">'.$langAdminSurname.'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.cleanoutputvalue($adminSurnameForm).'">'  . "\n"
+    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '</td>' . "\n"
@@ -1299,18 +1245,6 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</table>'
     ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 ###################################################################
 ###### STEP CONFIG SETTINGS #######################################
@@ -1336,7 +1270,7 @@ elseif($display==DISP_PLATFORM_SETTING)
                                 <label for="campusForm">Name</label>
                             </td>
                             <td colspan="2">
-                                <input type="text" size="40" id="campusForm" name="campusForm" value="'.cleanoutputvalue($campusForm).'">
+                                <input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'">
                             </td>
                         </tr>
                     <tr>
@@ -1344,7 +1278,7 @@ elseif($display==DISP_PLATFORM_SETTING)
                             <label for="urlForm">Complete URL</label>
                         </td>
                         <td colspan="2">
-                            <input type="text" size="60" id="urlForm" name="urlForm" value="'.cleanoutputvalue($urlForm).'">
+                            <input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'">
                         </td>
                     </tr>
                     <tr>
@@ -1356,7 +1290,7 @@ elseif($display==DISP_PLATFORM_SETTING)
                         <td>
                         </td>
                         <td colspan="2">
-                            <input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.cleanoutputvalue($courseRepositoryForm).'">
+                            <input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'">
                         </td>
                     </tr>
                     <tr>
@@ -1445,7 +1379,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                                 <label for="institutionForm">Name</label>
                             </td>
                             <td colspan="2">
-                                <input type="text" size="40" id="institutionForm" name="institutionForm" value="'.cleanoutputvalue($institutionForm).'">
+                                <input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm).'">
                                 </td>
                         </tr>
                     <tr>
@@ -1453,7 +1387,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                             <label for="institutionUrlForm">URL</label>
                         </td>
                         <td colspan="2">
-                            <input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.cleanoutputvalue($institutionUrlForm).'">
+                            <input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm).'">
                             <br>
                         </td>
                     </tr>
@@ -1469,7 +1403,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                             <label for="contactNameForm">Name</label>
                         </td>
                         <td colspan="2">
-                            <input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.cleanoutputvalue($contactNameForm).'">
+                            <input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm).'">
                         </td>
                     </tr>
                     <tr>
@@ -1477,7 +1411,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                             <label for="contactEmailForm">Email</label>
                         </td>
                         <td colspan="2">
-                            <input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.cleanoutputvalue($contactEmailForm).'">
+                            <input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm).'">
                         </td>
                     </tr>
                     <tr>
@@ -1496,16 +1430,6 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                         </tr>
                 </table>';
 }
-
-
-
-
-
-
-
-
-
-
 
 ###################################################################
 ###### STEP LAST CHECK BEFORE INSTALL #############################
@@ -1531,48 +1455,48 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         <LEGEND>Database</LEGEND>
         <EM>Account</EM>
         <br>
-        Database host : '.cleanoutputvalue($dbHostForm).'<br>
-        Database username : '.cleanoutputvalue($dbUsernameForm).'<br>
-        Database password : '.cleanoutputvalue((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
+        Database host : '.htmlspecialchars($dbHostForm).'<br>
+        Database username : '.htmlspecialchars($dbUsernameForm).'<br>
+        Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
         <EM>Names</EM>
         <br>
-        Main DB name : '.cleanoutputvalue($dbNameForm).'<br>
-        Statistics and tracking DB Name : '.cleanoutputvalue($dbStatsForm).'<br>
+        Main DB name : '.htmlspecialchars($dbNameForm).'<br>
+        Statistics and tracking DB Name : '.htmlspecialchars($dbStatsForm).'<br>
         Enable single DB : '.($singleDbForm?$langYes:$langNo).'<br>
         ';
     if ($mainTblPrefixForm!="" || $statsTblPrefixForm!="" || $dbPrefixForm!="")
         echo '<em>Prefixes</em><br>';
     if ($mainTblPrefixForm!="")
-        echo 'Main tables prefix : '.cleanoutputvalue($mainTblPrefixForm).'<br>';
+        echo 'Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br>';
     if ($statsTblPrefixForm!="")
-        echo 'Tracking tables prefix : '.cleanoutputvalue($statsTblPrefixForm).'<br>';
+        echo 'Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br>';
     if ($dbPrefixForm!="")
-        echo 'Courses DB prefix : '.cleanoutputvalue($dbPrefixForm).'<br>';
+        echo 'Courses DB prefix : '.htmlspecialchars($dbPrefixForm).'<br>';
     echo '
         </FIELDSET>
 
         <FIELDSET>
         <LEGEND>Admin</LEGEND>
-        Administrator email : '.cleanoutputvalue($adminEmailForm).'<br>
-        Administrator phone : '.cleanoutputvalue($adminPhoneForm).'<br>
-        Administrator name : '.cleanoutputvalue($adminNameForm).'<br>
-        Administrator surname : '.cleanoutputvalue($adminSurnameForm).'<br>
+        Administrator email : '.htmlspecialchars($adminEmailForm).'<br>
+        Administrator phone : '.htmlspecialchars($adminPhoneForm).'<br>
+        Administrator name : '.htmlspecialchars($adminNameForm).'<br>
+        Administrator surname : '.htmlspecialchars($adminSurnameForm).'<br>
         <div class="notethis">
-                    Administrator login : '.cleanoutputvalue($loginForm).'<br>
-                    Administrator password : '.cleanoutputvalue((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)).'<br>
+                    Administrator login : '.htmlspecialchars($loginForm).'<br>
+                    Administrator password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)).'<br>
         </div>
         </FIELDSET>
         <FIELDSET>
         <LEGEND>Contact</LEGEND>
 
-        Name : '.cleanoutputvalue((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
-        Email : '.cleanoutputvalue((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
-        Phone : '.cleanoutputvalue((empty($contactPhoneForm)?"--empty--":$contactPhoneForm)).'
+        Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
+        Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
+        Phone : '.htmlspecialchars((empty($contactPhoneForm)?"--empty--":$contactPhoneForm)).'
         </FIELDSET>
         <FIELDSET>
         <LEGEND>Campus</LEGEND>
-        Your campus name : '.cleanoutputvalue($campusForm).'<br>
-        Your organisation : '.cleanoutputvalue($institutionForm).'<br>
+        Your campus name : '.htmlspecialchars($campusForm).'<br>
+        Your organisation : '.htmlspecialchars($institutionForm).'<br>
         URL of this organisation : '.$institutionUrlForm.'<br>
         Language : '.$languageForm.'<br>
         URL of claroline : '.$urlForm.'<br>
@@ -1603,8 +1527,6 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 <?php
 
 }
-
-
 
 ###################################################################
 ###### DB NAME ERROR !#########################################
@@ -1655,14 +1577,6 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
                 </p>';
 
 }
-
-
-
-
-
-
-
-
 
 ###################################################################
 ###### INSTALL INCOMPLETE!#########################################
@@ -1751,16 +1665,6 @@ Your problems can be related on two possible causes :<br>
                 </p>';
 
 }
-
-
-
-
-
-
-
-
-
-
 
 ###################################################################
 ###### STEP RUN_INSTALL_COMPLETE !#################################
