@@ -167,7 +167,7 @@ DISPLAY SECTION
 // CLAROLINE HEADER AND BANNER
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title('<img src="'.$imgRepositoryWeb.'group.gif" />' . $nameTools);
+echo claro_disp_tool_title('<img src="'.$imgRepositoryWeb.'group.gif" alt="" />' . $nameTools);
 
 if ( !empty($message) )
 {
@@ -265,18 +265,18 @@ foreach($toolList as $thisTool)
     if ( ! empty($url) )
     {
         echo ' <a class="' . $style . ' item'.$classItem.'" href="' . $url . '">'
-        .    '<img src="' . $icon . '" hspace="5" alt="">'
+        .    '<img src="' . $icon . '" hspace="5" alt="" />'
         .    $toolName
         .    '</a>'
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         ;
     }
     else
     {
         echo '<span ' . $style . '>'
-        .    '<img src="' . $icon . '" alt="">'
+        .    '<img src="' . $icon . '" alt="" />'
         .    $toolName
-        .    '</span><br>' . "\n"
+        .    '</span><br />' . "\n"
         ;
     }
 }
@@ -285,7 +285,7 @@ foreach($toolList as $thisTool)
 // Drive members into their own File Manager
 
 
-echo '<br /><br />';
+echo '<br /><br />' . "\n";
 
 if ($is_allowedToManage)
 {
@@ -312,7 +312,7 @@ DISPLAY GROUP DESCRIPTION
 
 if( strlen($_group['description']) > 0)
 {
-    echo '<br /><br />';
+    echo '<br /><br />' . "\n";
     echo $_group['description'];
 }
 else // Show 'none' if no description
@@ -324,7 +324,6 @@ else // Show 'none' if no description
 
 <br /><br />
 
-
 <b><?php echo $langGroupTutor ?></b> :
 <?php
 
@@ -334,7 +333,7 @@ DISPLAY GROUP TUTOR INFORMATION
 
 if (count($tutorDataList) > 0)
 {
-    echo '<br /><br />';
+    echo '<br /><br />' . "\n";
     foreach($tutorDataList as $thisTutor)
     {
         echo '<span class="item">'
@@ -343,7 +342,7 @@ if (count($tutorDataList) > 0)
         .    $thisTutor['email']
         .    '</a>'
         .    '</span>'
-        .    '<br>'
+        .    '<br />'
         ;
     }
 }
@@ -352,6 +351,7 @@ else
     echo $langGroupNoTutor;
 }
 ?>
+
 <br /><br />
 
 <b><?php echo  $langGroupMembers ?></b> :
@@ -364,7 +364,7 @@ DISPLAY GROUP MEMBER LIST
 
 if(count($groupMemberList) > 0)
 {
-    echo '<br /><br />';
+    echo '<br /><br />' . "\n";
     foreach($groupMemberList as $thisGroupMember)
     {
         echo '<a href="../tracking/userLog.php?uInfo=' . $thisGroupMember['id'] . '" class="item">'
@@ -373,7 +373,7 @@ if(count($groupMemberList) > 0)
         .    '<a href="mailto:' . $thisGroupMember['email'] . '">'
         .    $thisGroupMember['email']
         .    '</a>'
-        .    '<br>'
+        .    '<br />' . "\n"
         ;
     }
 }
@@ -383,7 +383,10 @@ else
 }
 
 ?>
-</td></tr>
+
+</td>
+</tr>
+
 </table>
 <?php
 include($includePath.'/claro_init_footer.inc.php');
