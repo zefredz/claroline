@@ -1323,13 +1323,15 @@ echo '<textarea '
 <script type="text/javascript">
 var    editor = null;
 function initEditor() {
-  editor = new HTMLArea("<?php echo    $name ?>");
+  editor = new HTMLArea("<?php echo $name ?>");
 
   // comment the following two lines to    see    how    customization works
   editor.generate();
   return false;
 }
-
+<?php
+// there is no link or button to use these functions, so do not output them
+/*
 function insertHTML() {
  var html =    prompt("Enter some HTML    code here");
  if    (html) {editor.insertHTML(html);}
@@ -1337,6 +1339,8 @@ function insertHTML() {
 function highlight() {
   editor.surroundHTML('<span style="background-color: yellow">', '</span>');
 }
+*/
+?>
 </script>
 
 <script type="text/javascript">
