@@ -159,7 +159,7 @@ if ($intro_dispForm)
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-    .    '<input type="hidden" name="claroFormId" value="'.uniqid().'">'
+    .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
     .    '<input type="hidden" name="introCmd" value="'.$introEditorCmdValue.'">'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
     .    claro_disp_html_area('intro_content', trim($introContent))
