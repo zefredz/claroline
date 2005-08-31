@@ -176,7 +176,7 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups,
             <?php
                 if($_groupProperties['tools'] ['chat'])
                     echo "checked" ?> >
-            <label for="chat"><?php echo $langChat; ?><?php echo $langGroupAlwaysPrivate; ?></label>
+            <label for="chat"><?php echo $langChat; ?> <?php echo $langGroupAlwaysPrivate; ?></label>
             </span>
         </td>
     </tr>
@@ -188,7 +188,7 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups,
             <?php
                 if($_groupProperties['tools'] ['wiki'])
                     echo "checked" ?> >
-            <label for="chat"><?php echo $langWiki; ?></label>
+            <label for="wiki"><?php echo $langWiki; ?></label>
             </span>
         </td>
     </tr>
