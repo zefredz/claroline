@@ -12,27 +12,34 @@ ob_start();
 <div id="platformBanner">
 
 <span id="siteName"><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a></span>
-<span id="institution">
-<a href="<?php echo $institution_url ?>" target="_top"><?php echo $institution_name ?></a>
 <?php
+echo '<span id="institution">';
+if( !empty($institution_name) )
+{
+	if( !empty($institution_url) )
+		echo '<a href="'.$institution_url.'" target="_top">'.$institution_name.'</a>';
+	else
+	    echo $institution_name;
+}
 
-if ($_course['extLink']['name'] != '')    /* --- External Link Section --- */
+if( !empty($_course['extLink']['name']) )    /* --- External Link Section --- */
 {
     echo ' / ';
-    if ($_course['extLink']['url'] != '')
+    if( !empty($_course['extLink']['url']) )
     {
         echo '<a href="' . $_course['extLink']['url'] . '" target="_top">';
     }
 
     echo $_course['extLink']['name'];
     
-    if ($_course['extLink']['url'] != '')
+    if( !empty($_course['extLink']['url']) )
     {
-            echo '</a>'                                     ."\n";
+            echo '</a>';
     }
 }
+
+echo '</span>'."\n";
 ?>
-</span>
 
 <div class="spacer"></div>
 </div>
