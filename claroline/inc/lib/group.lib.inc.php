@@ -27,6 +27,8 @@
  * @return integer              - number of groups deleted.
  */
 
+include_once( dirname(__FILE__) . '/fileManage.lib.php');
+
 function delete_groups($groupIdList = 'ALL')
 {
     global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys;
@@ -70,14 +72,14 @@ function delete_groups($groupIdList = 'ALL')
      * Search the groups data necessary to delete them
      */
 
-    $sql_searchGroup = "SELECT `id`               `id`, 
-                               `secretDirectory`  `directory`
+    $sql_searchGroup = "SELECT `id` AS `id`,
+                               `secretDirectory` AS `directory`
                         FROM `" . $tbl_Groups . "`".
                         $sql_condition;
 
     $groupList = claro_sql_query_fetch_all_cols($sql_searchGroup);
 
-    if ( count($groupList) > 0 )
+    if ( count($groupList['id']) > 0 )
     {
         /*
          * Remove users, group(s) and group forum(s) from the course tables
