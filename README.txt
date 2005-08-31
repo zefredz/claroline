@@ -80,6 +80,8 @@ NEW FEATURES IN CLAROLINE 1.7 SINCE CLAROLINE 1.6
 
 See Claroline website, this chapter is still in construction
 
+http://www.claroline.net/newfeatures17.html
+
 NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
 -------------------------------------------------
 
