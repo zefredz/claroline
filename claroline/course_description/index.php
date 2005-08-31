@@ -304,20 +304,25 @@ $hasDisplayedItems = false;
 
 if ( count($descList) )
 {
-	echo '<Table class="claroTable" width="100%">';
+	echo '<table class="claroTable" width="100%">'."\n";
     foreach ( $descList as $thisDesc )
     {
-        if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
+        if(($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
         {  
             if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
-        //    echo "\n".''.
-            echo 	'<tr  class="superHeader"><th><div'.$style.'>' . htmlspecialchars($thisDesc['title']) . '</div></th></tr>'."\n"
-                	.'<tr><td><div'.$style.'>'. claro_parse_user_text($thisDesc['content']).'</div></td></tr>'."\n"
-                  	."\n";
+
+            echo '<tr class="superHeader">'."\n"
+				.'<th><div'.$style.'>'.htmlspecialchars($thisDesc['title']).'</div></th>'."\n"
+				.'</tr>'."\n"
+                .'<tr>'."\n"
+				.'<td><div'.$style.'>'.claro_parse_user_text($thisDesc['content']).'</div></td>'."\n"
+				.'</tr>'."\n"
+				;
 
             $hasDisplayedItems = true;
         }
-    	echo '<tr><td>';
+    	echo '<tr>'."\n"
+			.'<td>'."\n";
         if ( $is_allowedToEdit )
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
@@ -327,7 +332,7 @@ if ( count($descList) )
             .    ' onClick="if(!confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete) 
             .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
             .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'">'
-            .    '</a>' . "\n\n"
+            .    '</a>' . "\n"
             ;
            if ($thisDesc['visibility'] == 'SHOW')
            {
@@ -342,10 +347,11 @@ if ( count($descList) )
                 .'</a>'."\n";           
            }
         }
-        echo '</td></tr>';
+        echo '</td>'."\n"
+			.'</tr>'."\n\n";
         
     }
-    echo '</Table>';
+    echo '</table>'."\n\n";
 }
 
 if( !$hasDisplayedItems )
