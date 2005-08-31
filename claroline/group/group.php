@@ -49,7 +49,7 @@ include($includePath . '/lib/events.lib.inc.php');
 event_access_tool($_tid, $_courseTool['label']);
 
 $htmlHeadXtra[] =
-'<script>
+'<script type="text/javascript">
 function confirmationEmpty ()
 {
         if (confirm(\'' . clean_str_for_javascript($langConfirmEmptyGroups)  . '\'))
@@ -64,14 +64,14 @@ function confirmationDelete ()
         else
                 {return false;}
 };
-</script>';
+</script>'."\n";
 
 $htmlHeadXtra[] =
 '<style type=text/css>
 <!--
 .comment { margin-left: 30px}
 -->
-</style>';
+</style>'."\n";
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -102,7 +102,7 @@ $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
                            && (  !$is_courseTutor
                                || (  $is_courseTutor
                                    && $tutorCanBeSimpleMemberOfOthersGroupsAsStudent
-                                  )
+                         )
                                );
 // Warning $groupRegAllowed is not valable before check of groupPerUserQuota
 
@@ -357,30 +357,30 @@ if ( $display_groupadmin_manager )
 
     echo '<p>' . "\n"
     .    '<a class="claroCmd" href="group_creation.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'group.gif">'
+    .    '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
     .    $langNewGroupCreate
-    .    '</a> |' . "\n"
-    .    '&nbsp;'
+    .    '</a> |'
+    .    '&nbsp;' . "\n"
     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif">'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    $langDeleteGroups
-    .    '</a> |' . "\n"
-    .    '&nbsp;'
+    .    '</a> |'
+    .    '&nbsp;' . "\n"
     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes"  >'
-    .    '<img src="' . $imgRepositoryWeb . 'fill.gif">'
+    .    '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
     .    $langFillGroups
-    .    '</a> |' . "\n"
-    .    '&nbsp;'
+    .    '</a> |'
+    .    '&nbsp;' . "\n"
     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
-    .    '<img src="' . $imgRepositoryWeb . 'sweep.gif">'
+    .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
     .    $langEmtpyGroups
-    .    '</a> |' . "\n"
-    .    '&nbsp;'
+    .    '</a> |'
+    .    '&nbsp;' . "\n"
     .    '<a class="claroCmd" href="group_properties.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'settings.gif">'
+    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
     .    $langMainGroupSettings
-    .    '</a>' . "\n"
-    .    '&nbsp;'
+    .    '</a>'
+    .    '&nbsp;' . "\n"
     .    '</p>' . "\n"
     ;
 
@@ -417,33 +417,34 @@ if ( is_integer($nbGroupPerUser) )
     if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
 }
 
-echo '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpadding="2" width="100%">';
+echo "\n" . '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpadding="2" width="100%">' . "\n";
 
  /*-------------
       HEADINGS
    -------------*/
 
-echo '<tr class="headerX" align="center">'
-.    '<th align="left">' . '&nbsp; ' . $langExistingGroups . '</th>' 
+echo '<tr class="headerX" align="center">' . "\n"
+.    '<th align="left">' . '&nbsp; ' . $langExistingGroups . '</th>' . "\n"
 ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
-    echo '<th align="left">' . $langGroupSelfRegistration . '</th>' ;
+    echo '<th align="left">' . $langGroupSelfRegistration . '</th>' . "\n"  ;
 }
 
-echo '<th>' . $langRegistered . '</th>'
-.    '<th>' . $langMax . '</th>' 
+echo '<th>' . $langRegistered . '</th>' . "\n"
+.    '<th>' . $langMax . '</th>' . "\n"
 ;
 
 if ( $is_allowedToManage ) // only for course administrator
 {
-    echo '<th>' . $langEdit . '</th>'
-    .    '<th>' . $langDelete . '</th>' 
+    echo '<th>' . $langEdit . '</th>' . "\n"
+    .    '<th>' . $langDelete . '</th>' . "\n"
     ;
 }
 
-echo '</tr><tbody>';
+echo '</tr>' . "\n"
+.	 '<tbody>' . "\n";
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -502,7 +503,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
 
     // COLUMN 1 - NAME OF GROUP + If open LINK.
 
-    echo '<tr align="center">'
+    echo '<tr align="center">' . "\n"
        . '<td align="left">'
        ;
         /**
@@ -527,7 +528,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
                $classItem = "<div class=\"item \">";;
             }
                      
-            echo $classItem . '<img src="' . $imgRepositoryWeb . 'group.gif"> '
+            echo $classItem . '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" /> '
                . '<a href="group_space.php?gidReq=' . $thisGroup['id'] . '">'
                . $thisGroup['name']
                . '</a></div>'
@@ -538,12 +539,12 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
         }
         else
         {
-            echo '<img src="' . $imgRepositoryWeb . 'group.gif"> ' 
+            echo '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" /> '
                . $thisGroup['name']
                ;
         }
 
-    echo '</td>';
+    echo '</td>' . "\n";
 
     /*----------------------------
       COLUMN 2 - SELF REGISTRATION
@@ -571,7 +572,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
                    . '</a>'
                    ;
             }
-            echo "</td>";
+            echo '</td>' . "\n";
         }    // end If $isGroupRegAllowed
     }
 
@@ -579,14 +580,14 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
         MEMBER NUMBER
       ------------------*/
 
-    echo    '<td>' . $thisGroup['nbMember'] . '</td>';
+    echo    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
 
     /*------------------
       MAX MEMBER NUMBER
       ------------------*/
 
-    if ($thisGroup['maxStudent'] == 0) echo '<td> - </td>';
-    else                               echo '<td>' . $thisGroup['maxStudent'] . '</td>';
+    if ($thisGroup['maxStudent'] == 0) echo '<td> - </td>' . "\n";
+    else                               echo '<td>' . $thisGroup['maxStudent'] . '</td>' . "\n";
 
     if ($is_allowedToManage)
     {
@@ -594,25 +595,27 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
            . '<a href="group_edit.php?gidReq=' . $thisGroup['id'] . '">'
            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '">'
            . '</a>'
-           . '</td>'
+           . '</td>' . "\n"
            . '<td>'
            . '<a href="' . $_SERVER['PHP_SELF'] . '?delete_one=yes&amp;id=' . $thisGroup['id'] . '">'
            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '">'
            . '</a>'
-           . '</td>'
+           . '</td>' . "\n"
            ;
     }
 
-    echo '</tr>' . "\n";
+    echo '</tr>' . "\n\n";
 
     if (   ! is_null($thisGroup['description']) 
         && trim($thisGroup['description']) != '' )
     {
-        echo '<tr><td colspan="5">'
+        echo '<tr>' . "\n"
+		.	 '<td colspan="5">' . "\n"
         .    '<div class="comment">'
         .    $thisGroup['description']
         .    '</div>'
-        .    '</td></tr>' . "\n"
+        .    '</td>' . "\n"
+		.	 '</tr>' . "\n"
         ;
     }
     
@@ -621,10 +624,11 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
 
 }    // while loop
 
-echo '</tbody></table>';
+echo '</tbody>' . "\n"
+.	 '</table>' . "\n";
 
 ////////////////////////////////////////////////////////////////////////
-// This part is disabled  in multi group  beacause values  have no sense
+// This part is disabled in multi group because values have no sense
 if ( $is_allowedToManage )
 {
     
