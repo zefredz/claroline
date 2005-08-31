@@ -222,7 +222,7 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
 // 
 // 2. A unique ID value is provided at form submission that way 
 // 
-//    <input type="hidden" name="claroFormId" value="<?php echo uniqid(); >">
+//    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); >">
 // 
 // The routine records in PHP session all the the ID of the submitted 
 // forms. Once a form is submitted, its ID is compared to recorded ID, to 
