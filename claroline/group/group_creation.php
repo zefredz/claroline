@@ -25,36 +25,41 @@ echo claro_disp_tool_title(array('supraTitle' => $langGroups,
 ?>
 <form method="post" action="group.php">
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
+
 <table>
-	<tr valign="top">
-		<td>
-			<label for="group_quantity"><?php echo $langCreate?></label>
-		</td>
-		<td>
-			<input type="text" name="group_quantity" id="group_quantity" size="3" value="1">
-			<label for="group_quantity"><?php echo $langNewGroups ?></label>
-		</td>
-	</tr>
-	<tr valign="top">
-		<td>
-			<label for="group_max"><?php echo $langMax ?></label>
-		</td>
-		<td>
-			<input type="text" name="group_max" id="group_max" size="3" value="8">
-			<?php echo $langPlaces ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-        <label for="creation">
-        <?php echo $langCreate ?>
-        </label>
-		</td>
-		<td>
-			<input type="submit" value=<?php echo $langOk ?> name="creation" id="creation"> 
-            <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
-		</td>
-	</tr>
+
+<tr valign="top">
+<td>
+<label for="group_quantity"><?php echo $langCreate?></label>
+</td>
+<td>
+<input type="text" name="group_quantity" id="group_quantity" size="3" value="1">
+<label for="group_quantity"><?php echo $langNewGroups ?></label>
+</td>
+</tr>
+
+<tr valign="top">
+<td>
+<label for="group_max"><?php echo $langMax ?></label>
+</td>
+<td>
+<input type="text" name="group_max" id="group_max" size="3" value="8">
+<?php echo $langPlaces ?>
+</td>
+</tr>
+
+<tr>
+<td>
+<label for="creation">
+<?php echo $langCreate ?>
+</label>
+</td>
+<td>
+<input type="submit" value=<?php echo $langOk ?> name="creation" id="creation"> 
+<?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+</td>
+</tr>
+
 </table>
 </form>
 <?php
