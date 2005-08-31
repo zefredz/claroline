@@ -27,7 +27,7 @@ $is_upgrade_available = TRUE;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.7.rc1';
+$new_version = '1.7.rc2';
 $new_version_branch = '1.7';
 
 if (!$is_upgrade_available)
