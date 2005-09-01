@@ -38,7 +38,6 @@ $TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
 
 $intro_editAllowed = claro_is_allowed_to_edit();
 
-
 if ( isset($_REQUEST['introCmd']) && $intro_editAllowed )
 {
     $introCmd = $_REQUEST['introCmd'];
@@ -149,7 +148,6 @@ else
     $intro_dispCommand = $intro_editAllowed ;
 }
 
-
 /* Executes the display */
 
 if ($intro_dispForm)
@@ -180,7 +178,7 @@ if ($intro_dispDefault)
 
     $textIntroList = claro_sql_query_fetch_all($sql);
 
-    if ( count($textIntroList) == 0 )
+    if ( count($textIntroList) == 0 && $intro_dispCommand )
     {
         echo '<div class="HelpText">' . "\n"
         .    $helpAddIntroText        . "\n" 
