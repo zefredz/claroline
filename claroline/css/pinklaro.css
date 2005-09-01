@@ -517,3 +517,11 @@ claroRightMenu a:hover {
 .HelpText {
     color:gray
 }
+
+/*
+ * 'comment' is used for comment of documents, forum description, ...
+ */
+
+.comment {
+    font-size: smaller;
+}

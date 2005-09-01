@@ -520,3 +520,10 @@ claroRightMenu a:hover {
     color:gray
 }
 
+/*
+ * 'comment' is used for comment of documents, forum description, ...
+ */
+
+.comment {
+    font-size: smaller;
+}

@@ -517,3 +517,11 @@ a:visited.invisible{
 }
 
 .HelpText { color: #ccc; }
+
+/*
+ * 'comment' is used for comment of documents, forum description, ...
+ */
+
+.comment {
+    font-size: smaller;
+}
