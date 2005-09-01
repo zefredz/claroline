@@ -75,7 +75,7 @@ function claro_CSV_format_ok($format)
     $password_found = FALSE;
     $firstname_found  = FALSE;
     $lastname_found     = FALSE;
-    
+
     foreach ($fieldarray as $field)
     {
         if ( trim($field) == 'firstname' )
@@ -95,7 +95,6 @@ function claro_CSV_format_ok($format)
     	    $password_found = TRUE;
     	}
     } 
-    
     return ($username_found && $password_found && $firstname_found && $lastname_found);
 }
  
@@ -708,15 +707,16 @@ class CSV
 	        // if linedef is not define, take first line of file to define it
 		if ($linedef=="FIRSTLINE") 
 	    {
-	    	$linedef = $this->new_data[0];
-	    	$this->validFormat = claro_CSV_format_ok($linedef);		
-		    $skipFirstLine = TRUE; 
+	    	$linedef = $this->new_data[0];		
+		    $skipFirstLine = TRUE;
 		}
 		else
 		{
 		    $skipFirstLine = FALSE; 
 		}
-
+        
+        $this->validFormat = claro_CSV_format_ok($linedef); // see if the used format is ok
+        
 	    $temp = @explode($delim,$linedef);
 
 		foreach($temp AS $field_index=>$field_value)

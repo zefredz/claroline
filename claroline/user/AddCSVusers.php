@@ -15,6 +15,7 @@
 /*--------------------------------------------------------------------------------------------------------------*/
 
 //used libraries
+
 require '../inc/claro_init_global.inc.php';
 
 @include ($includePath."/installedVersion.inc.php");
@@ -184,20 +185,38 @@ switch ($cmd)
     {
         // user must be added only if we encountered exactly no error
         
-        if ( (!isset($_SESSION['claro_mail_synthax_error'][$i])           || $_SESSION['claro_mail_synthax_error'][$i] ) &&
-             (!isset($_SESSION['claro_mail_used_error'][$i])              || $_SESSION['claro_mail_used_error'][$i] ) &&
-             (!isset($_SESSION['claro_username_used_error'][$i])          || $_SESSION['claro_username_used_error'][$i] ) &&                
-             (!isset($_SESSION['claro_officialcode_used_error'][$i])      || $_SESSION['claro_officialcode_used_error'][$i] ) &&         
-             (!isset($_SESSION['claro_password_error'][$i])               || $_SESSION['claro_password_error'][$i] ) &&                  
-             (!isset($_SESSION['claro_mail_duplicate_error'][$i])         || $_SESSION['claro_mail_duplicate_error'][$i] ) &&               
-             (!isset($_SESSION['claro_username_duplicate_error'][$i])     || $_SESSION['claro_username_duplicate_error'][$i] ) &&         
-             (!isset($_SESSION['claro_officialcode_duplicate_error'][$i]) || $_SESSION['claro_officialcode_duplicate_error'][$i] )
+        if ( 
+             (!isset($_SESSION['claro_mail_synthax_error'][$i])      || 
+                     $_SESSION['claro_mail_synthax_error'][$i]==false)       &&
+             
+             (!isset($_SESSION['claro_mail_used_error'][$i])         || 
+                     $_SESSION['claro_mail_used_error'][$i]==false )         &&
+             
+             (!isset($_SESSION['claro_username_used_error'][$i])     || 
+                     $_SESSION['claro_username_used_error'][$i]==false)      &&                
+             
+             (!isset($_SESSION['claro_officialcode_used_error'][$i]) || 
+                     $_SESSION['claro_officialcode_used_error'][$i]==false)  &&         
+             
+             (!isset($_SESSION['claro_password_error'][$i])          || 
+                     $_SESSION['claro_password_error'][$i]==false)           &&                  
+             
+             (!isset($_SESSION['claro_mail_duplicate_error'][$i])    || 
+                     $_SESSION['claro_mail_duplicate_error'][$i]==false )    &&               
+             
+             (!isset($_SESSION['claro_username_duplicate_error'][$i])|| 
+                     $_SESSION['claro_username_duplicate_error'][$i]==false) &&         
+             
+             (!isset($_SESSION['claro_officialcode_duplicate_error'][$i])|| 
+                     $_SESSION['claro_officialcode_duplicate_error'][$i]==false)
            )
         {
             $usersToAdd[] = $_SESSION['claro_csv_userlist'][$i];
         }
-        
+       
     }
+   
+   
     
     // perform subscriptions of users with 'no error' found.  
         
@@ -285,8 +304,8 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
     $dialogBox = $langModifyFormat .' :<br><br>'
     .            $langTheFields . ' "<b>firstname;</b>", "<b>lastname;</b>", "<b>username;</b>" and "<b>password;</b>" ' . $langAreCompulsory . '<br><br>'
-    .            '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">"'
-    .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55">'
+    .            '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+    .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55"><br><br>'
     .            '<input type="submit" value="' . $langOk . '"'
     .            '</form>'
     ;
@@ -309,7 +328,7 @@ switch ( $display )
 case 'default' :
 
     $backButtonUrl = "";
-    
+    unset($_SESSION['claro_csv_userlist']);
     if ($_cid) 
     {
         $backButtonUrl = $clarolineRepositoryWeb."user/user.php";
@@ -378,21 +397,20 @@ case 'default' :
 
 case "stepone" :
    
-    if (!(empty($_SESSION['claro_invalid_format_error']))     ||
-        !(empty($_SESSION['claro_mail_synthax_error']))       ||
-        !(empty($_SESSION['claro_mail_used_error']))          ||
-        !(empty($_SESSION['claro_username_used_error']))      ||
-        !(empty($_SESSION['claro_officialcode_used_error']))  ||
-        !(empty($_SESSION['claro_password_error']))           ||
-        !(empty($_SESSION['claro_mail_duplicate_error']))     ||
-        !(empty($_SESSION['claro_username_duplicate_error'])) ||
-        !(empty($_SESSION['claro_officialcode_duplicate_error'])))
+    if ((!empty($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error']==true) ||
+        !(count($_SESSION['claro_mail_synthax_error'])==0)       ||
+        !(count($_SESSION['claro_mail_used_error'])==0)          ||
+        !(count($_SESSION['claro_username_used_error'])==0)      ||
+        !(count($_SESSION['claro_officialcode_used_error'])==0)  ||
+        !(count($_SESSION['claro_password_error'])==0)           ||
+        !(count($_SESSION['claro_mail_duplicate_error'])==0)     ||
+        !(count($_SESSION['claro_username_duplicate_error'])==0) ||
+        !(count($_SESSION['claro_officialcode_duplicate_error'])==0))
     {
         echo '<b>' . $lang_the_following_errors_were_found . ' :</b><br><br>' . "\n";
- 
-
+                      
         //display errors encountered while trying to add users
-    
+        
         claro_disp_CSV_error_backlog();
 
         $noerror = FALSE;
