@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * prupose list of course to enroll or leave 
+ * prupose list of course to enroll or leave
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package AUTH
  *
@@ -16,6 +16,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+require $includePath . '/conf/CLHOME.conf.php'; // conf file
 
 $nameTools  = $lang_course_enrollment;
 $noPHP_SELF = TRUE;
@@ -53,27 +54,27 @@ $tbl_course_nodes     = $tbl_mdb_names['category'         ];
 $tbl_class            = $tbl_mdb_names['class'            ];
 
 /*---------------------------------------------------------------------
-  Define Display 
+  Define Display
  ---------------------------------------------------------------------*/
 
 define ('DISPLAY_USER_COURSES'  , __LINE__);
 define ('DISPLAY_COURSE_TREE'   , __LINE__);
 define ('DISPLAY_MESSAGE_SCREEN', __LINE__);
-    
+
 $displayMode = DISPLAY_USER_COURSES; // default display
 
 /*---------------------------------------------------------------------
-  Get request variables 
+  Get request variables
  ---------------------------------------------------------------------*/
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
 if ( isset($_REQUEST['uidToEdit']) ) $uidToEdit = (int) $_REQUEST['uidToEdit'];
-else                                 $uidToEdit = 0;   
+else                                 $uidToEdit = 0;
 
 if ( isset($_REQUEST['fromAdmin']) ) $fromAdmin = trim($_REQUEST['fromAdmin']);
-else                                 $fromAdmin = '';   
+else                                 $fromAdmin = '';
 
 if ( isset($_REQUEST['course']) ) $course = trim($_REQUEST['course']);
 else                              $course = '';
@@ -88,27 +89,35 @@ else                                $category = '';
 /*---------------------------------------------------------------------
   Define user we are working with...
  ---------------------------------------------------------------------*/
-    
+
 $inURL = ''; // parameters to add in URL
 
 if ( !$is_platformAdmin )
 {
-    $userId = $_uid; // default use is enroll for itself...
-    $uidToEdit = $_uid;
+    if ($allowed_to_register)
+    {
+        $userId = $_uid; // default use is enroll for itself...
+        $uidToEdit = $_uid;
+    }
+    else
+    {
+        header('location:..');
+    }
+
 }
 else
 {
     // security : only platform admin can edit other user than himself...
 
-    if ( isset($fromAdmin) 
-         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class") 
+    if ( isset($fromAdmin)
+         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class")
          && !empty($uidToEdit)
          )
     {
         $userSettingMode = TRUE;
     }
 
-    if ( !empty($fromAdmin) ) $inURL .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin']; 
+    if ( !empty($fromAdmin) ) $inURL .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
     if ( !empty($uidToEdit) ) $inURL .= '&amp;uidToEdit=' . $_REQUEST['uidToEdit'];
 
     // in admin mode, there 2 possibilities : we might want to enroll themself or either be here from admin tool
@@ -116,8 +125,8 @@ else
     if ( !empty($uidToEdit) )
     {
         $userId = $uidToEdit;
-    } 
-    else 
+    }
+    else
     {
         $userId = $_uid; // default use is enroll for itself...
         $uidToEdit = $_uid;
@@ -135,18 +144,18 @@ if ( isset($_REQUEST['addNewCourse']) )
 }
 
 /*---------------------------------------------------------------------
-  Bredcrumps different if we come from admin tool  
+  Bredcrumps different if we come from admin tool
  ---------------------------------------------------------------------*/
-    
+
 if ( !empty($fromAdmin) )
 {
-    if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' ) 
+    if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' )
     {
         $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
     }
     elseif ( $fromAdmin == 'class' )
     {
-        // bred different if we come from admin tool for a CLASS  
+        // bred different if we come from admin tool for a CLASS
         $nameTools = $langRegisterClass;
         //find info about the class
         $sqlclass = "SELECT * FROM `" . $tbl_class . "` WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
@@ -163,12 +172,12 @@ $userInfo = user_get_data($userId);
 if(!$userInfo)
 {
     $cmd='';
-    switch (claro_failure::get_last_failure()) 
+    switch (claro_failure::get_last_failure())
     {
         case 'user_not_found':
             $msg = 'User not found';
             break;
-    
+
         default:
             $msg = 'user invalid';
             break;
@@ -196,9 +205,9 @@ if ( $cmd == 'exUnreg' )
             case 'course_manager_cannot_unsubscribe_himself' :
                 $message = $langCourseManagerCannotUnsubscribeHimself;
                 break;
-            default :       
+            default :
                 $message = $langUnableToRemoveCourseRegistration;
-        }        
+        }
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -211,12 +220,12 @@ if ( $cmd == 'exUnreg' )
 if ( $cmd == 'exReg' )
 {
     // if user is platform admin, register to private course can be forced. Otherwise not
-    
+
     if ( $is_platformAdmin ) $forceReg = TRUE;
     else                     $forceReg = FALSE;
-    
+
     // try to register user
-    
+
     if ( user_add_to_course($userId, $course, $forceReg) )
     {
         if ( $_uid != $uidToEdit )
@@ -241,12 +250,12 @@ if ( $cmd == 'exReg' )
     {
         switch (claro_failure::get_last_failure())
         {
-            case 'already_enrolled_in_course' : 
+            case 'already_enrolled_in_course' :
                 $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
                 break;
-           default: 
+           default:
                 $message = $langUnableToEnrollInCourse;
-        }        
+        }
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -306,42 +315,42 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
     else
     {
-    
+
         // platform admin can also see private courses so they must be displayed, other users can not.
-    
+
         if ( !$is_platformAdmin ) $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
         else                      $visibility_cond = "1=1";
-    
-        // build the query taking account with the user rights   
-        
+
+        // build the query taking account with the user rights
+
         $sql = "SELECT `c`.`visible`, `c`.`intitule`, `c`.`directory`, `c`.`code`,
                        `c`.`titulaires`, `c`.`languageCourse`, `c`.`fake_code` AS `officialCode`,
                        `cu`.`user_id` AS `enrolled`
-    
+
                 FROM `" . $tbl_course . "` AS `c`
-    
+
                 LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
                 ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
-    
+
                 WHERE `faculte` = '" . $category . "'
                 AND   " . $visibility_cond . "
-    
+
                 ORDER BY UPPER(`fake_code`)";
-    
+
         $courseList = claro_sql_query_fetch_all($sql);
-    
+
         /*
          * Get the subcategories of this category
          */
-    
+
         if ( $category != '' )
         {
             $sqlFilter = "# get the direct children categories
-    
+
                           UPPER(`faculte`.`code_P`) = UPPER('" . $category . "')
-    
+
                           # get the current category
-    
+
                           OR UPPER(`faculte`.`code`  ) = UPPER('" . $category . "')";
         }
         else
@@ -349,39 +358,39 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
             $sqlFilter = "   `faculte`.`code`   IS NULL
                           OR `faculte`.`code_P` IS NULL";
         }
-    
+
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
                        COUNT( c.`cours_id` ) `nbCourse`
-    
+
                 FROM `" . $tbl_course_nodes . "` `faculte`
-    
+
                 # The two left are used for the course count
-    
+
                 LEFT JOIN `" . $tbl_course_nodes . "` `subCat`
                 ON  `subCat`.`treePos` >= `faculte`.`treePos`
                 AND `subCat`.`treePos` <= (`faculte`.`treePos` + `faculte`.`nb_childs`)
-    
+
                 LEFT JOIN `".$tbl_course."` c
                 ON c.`faculte` = `subCat`.`code`
                 AND " . $visibility_cond . "
-    
+
                 # filter to get the current and direct children categories
-    
+
                 WHERE " . $sqlFilter . "
-    
+
                 GROUP  BY  `faculte`.`code`
-                
+
                 # ordered the brother subcategory
-    
+
                 ORDER  BY  `faculte`.`treePos`";
-    
+
         $categoryList = claro_sql_query_fetch_all($sql);
-    
+
         /*
          * Get the current category name and parent code
          */
-    
+
         if ( count($categoryList) > 0 )
         {
             foreach ( $categoryList as $thisKey => $thisCategory )
@@ -390,14 +399,14 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 {
                     $currentCategoryName = $thisCategory['name'  ];
                     $parentCategoryCode  = $thisCategory['code_P'];
-                    
+
                     unset ( $categoryList[$thisKey] );
                     break;
                 }
             } // end foreach
-    
+
         } // end if count($categoryList) > 0
-        
+
         $displayMode = DISPLAY_COURSE_TREE;
     }
 
@@ -421,7 +430,7 @@ else
 
     if ( $userSettingMode == true ) //enroll page accessed by admin tool to set user settings
     {
-        if ( $fromAdmin == 'settings' ) 
+        if ( $fromAdmin == 'settings' )
         {
             $backUrl   = '../admin/adminprofile.php?uidToEdit=' . $userId;
             $backLabel = $langBackToUserSettings;
@@ -470,18 +479,18 @@ switch ( $displayMode )
         //        $siteName comes from claro_main.conf.php
 
         if ( empty($category) ) $currentCategoryName = $siteName;
-    
-        //  Display Title
-        
-        if ( $fromAdmin != 'class' )
-        { 
 
-            echo claro_disp_tool_title( array( 'mainTitle' => $lang_course_enrollment 
-                                        .                ' : ' 
-                                        .                $userInfo['firstname'] . ' ' 
+        //  Display Title
+
+        if ( $fromAdmin != 'class' )
+        {
+
+            echo claro_disp_tool_title( array( 'mainTitle' => $lang_course_enrollment
+                                        .                ' : '
+                                        .                $userInfo['firstname'] . ' '
                                         .                $userInfo['lastname']
                                         , 'subTitle'  => $lang_select_course_in
-                                        .                ' ' 
+                                        .                ' '
                                         .                $currentCategoryName
                                         )
                                  );
@@ -495,7 +504,7 @@ switch ( $displayMode )
         }
 
         // Display message
-    
+
         if ( !empty($message) )
         {
             echo claro_disp_message_box($message);
@@ -507,14 +516,14 @@ switch ( $displayMode )
         {
             echo '<h4>' . $langCategories . '</h4>' . "\n"
                  .'<ul>' . "\n";
-            
+
             foreach ( $categoryList as $thisCategory )
             {
                 if ( $thisCategory['code'] != $category )
                 {
                     echo '<li>' . "\n";
 
-                    if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0) 
+                    if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0)
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqReg&category=' . $thisCategory['code'] . $inURL . '">'
                             . $thisCategory['name']
@@ -550,9 +559,9 @@ switch ( $displayMode )
 
             if ( $userSettingMode ) //display links to enroll as student and also as teacher (but not for a class)
             {
-               
+
                 if ( $fromAdmin != 'class' )
-                {         
+                {
                     echo '<thead>' . "\n"
                         . '<tr class="headerX">' . "\n"
                         . '<th>&nbsp;</th>' . "\n"
@@ -583,7 +592,7 @@ switch ( $displayMode )
 
                 // enroll link
 
-                if ( $userSettingMode ) 
+                if ( $userSettingMode )
                 {
                     if ( $thisCourse['enrolled'] )
                     {
@@ -594,7 +603,7 @@ switch ( $displayMode )
                     else
                     {
                          if ( $fromAdmin != 'class') // class may not be enrolled as teachers
-                         { 
+                         {
                             echo '<td valign="top" align="center">' . "\n"
                                 . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['code'] . $inURL . '">'
                                 . '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . $langEnrollAsStudent . '">'
@@ -604,7 +613,7 @@ switch ( $displayMode )
                                 . '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . $langEnrollAsTeacher . '">'
                                 . '</a></td>' . "\n";
                         }
-                        else 
+                        else
                         {
                             echo '<td valign="top"  align="center">' . "\n"
                                 . '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php?cmd=exReg&course=' . $thisCourse['code'] . '&class=' . $classinfo['id'] . $inURL . '">'
@@ -631,7 +640,7 @@ switch ( $displayMode )
                     echo '</td>' . "\n";
 
                }
-               
+
                 echo '</tr>' . "\n";
 
             } // end foreach courseList
@@ -654,7 +663,7 @@ switch ( $displayMode )
              . '</form>' . "\n"
              . '</blockquote>' . "\n";
         break;
-    
+
     /*---------------------------------------------------------------------
       Display message
      ---------------------------------------------------------------------*/
@@ -665,7 +674,7 @@ switch ( $displayMode )
 
         echo claro_disp_tool_title($lang_course_enrollment . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
 
-        echo '<blockquote>' . "\n"; 
+        echo '<blockquote>' . "\n";
 
         if ( !empty($message) )
         {
@@ -677,7 +686,7 @@ switch ( $displayMode )
         break;
 
     /*---------------------------------------------------------------------
-      Display user courses ( Default display) 
+      Display user courses ( Default display)
      ---------------------------------------------------------------------*/
 
     case DISPLAY_USER_COURSES :
@@ -694,7 +703,7 @@ switch ( $displayMode )
             {
                 echo '<tr>' . "\n"
                     . '<td>' . "\n"
-                    . $thisCourse['intitule'] . '<br>' . "\n" 
+                    . $thisCourse['intitule'] . '<br>' . "\n"
                     . '<small>' . $thisCourse['fake_code'] . ' - ' . $thisCourse['titulaires'] . '</small>'
                     . '</td>' . "\n"
                     . '<td>' . "\n";
@@ -751,14 +760,14 @@ function search_course($keyword)
 {
     global $userId;
     global $is_platformAdmin;
-    
+
     $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'           ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
 
     $keyword = trim($keyword);
-    
-    if (!$is_platformAdmin) 
+
+    if (!$is_platformAdmin)
     {
         $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
     }
@@ -766,16 +775,16 @@ function search_course($keyword)
     {
         $visibility_cond = "1=1";
     }
-    
+
     if (empty($keyword) ) return array();
     $upperKeyword = trim(strtoupper($keyword));
 
     $sql = 'SELECT c.intitule, c.titulaires, c.fake_code officialCode, c.code,
                    cu.user_id enrolled, c.visible
             FROM `'.$tbl_course.'` c
-            
+
             LEFT JOIN `'.$tbl_rel_course_user.'` cu
-            ON  c.code = cu.code_cours 
+            ON  c.code = cu.code_cours
             AND cu.user_id = "'.$userId.'"
 
             WHERE '.$visibility_cond.'
@@ -783,10 +792,10 @@ function search_course($keyword)
             OR    UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
             OR    UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
 
-            
-            
+
+
             ORDER BY officialCode';
-                        
+
     $courseList = claro_sql_query_fetch_all($sql);
 
     if (count($courseList) > 0) return $courseList;
