@@ -254,9 +254,9 @@ else
                         $display = DISP_RESULT;
                         // warn platform administrator of the course creation
                         $strCreationMailNotificationSubject ='['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$newcourse_label;
-                        $strCreationMailNotificationBody = claro_disp_localised_date($dateTimeFormatLong)."\n"
+                        $strCreationMailNotificationBody = claro_disp_localised_date($dateTimeFormatLong)."\n\n"
                         .                                  $langCreationMailNotificationBody.' ' . $siteName . ' '
-                        .                                  $langByUser . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n"
+                        .                                  $langByUser . ' ' . $_user['firstName'] . ' ' . $_user['lastName'] . ' (' . $_user['mail'] . ') '."\n\n"
                         .                                  ' ' . $langCode			. ' : ' . $currentCourseCode."\n"
                         .                                  ' ' . $langCourseTitle	. ' : ' . $newcourse_label."\n"
                         .                                  ' ' . $langProfessors	    . ' : ' . $newcourse_titulars."\n"
