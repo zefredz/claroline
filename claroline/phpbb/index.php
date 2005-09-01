@@ -283,17 +283,17 @@ foreach ( $categories as $this_category )
 
             echo $locked_string;
 
-            echo '<br /><small>' . $forum_desc . '</small>' . "\n"
+            echo '<br /><div class="comment">' . $forum_desc . '</div>' . "\n"
             .    '</td>' . "\n"
 
-            .    '<td align="center" valign="middle">' . "\n"
+            .    '<td align="center">' . "\n"
             .    '<small>' . $total_topics . '</small>' . "\n"
             .    '</td>' . "\n"
 
-            .    '<td align="center" valign="middle">' . "\n"
+            .    '<td align="center">' . "\n"
             .    '<small>' . $total_posts . '</small>' . "\n"
             .    '</td>' . "\n"
-            .    '<td align="center" valign="middle">' . "\n"
+            .    '<td align="center">' . "\n"
             .    '<small>' . (($last_post > 0) ? $last_post : $langNoPost) . '</small>'
             .    '</td>' . "\n"
             ;
