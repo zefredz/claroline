@@ -50,20 +50,43 @@ event_access_tool($_tid, $_courseTool['label']);
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
+
 function confirmationEmpty ()
 {
         if (confirm(\'' . clean_str_for_javascript($langConfirmEmptyGroups)  . '\'))
-                {return true;}
+        {
+            return true;
+        }
         else
-                {return false;}
+        {
+            return false;
+        }
 };
+
 function confirmationDelete ()
 {
         if (confirm(\'' . clean_str_for_javascript($langConfirmDeleteGroups) . '\'))
-                {return true;}
+        {
+            return true;
+        }
         else
-                {return false;}
+        {
+            return false;
+        }
 };
+
+function confirmationFill ()
+{
+        if (confirm(\'' . clean_str_for_javascript($langFillGroups) . '\'))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+};
+
 </script>'."\n";
 
 $htmlHeadXtra[] =
@@ -355,33 +378,44 @@ if ( $display_groupadmin_manager )
        COMMANDS BUTTONS
       --------------------*/
 
-    echo '<p>' . "\n"
-    .    '<a class="claroCmd" href="group_creation.php">'
+    echo '<p>' . "\n";
+
+    // Create new groups
+    echo '<a class="claroCmd" href="group_creation.php">'
     .    '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
     .    $langNewGroupCreate
     .    '</a> |'
-    .    '&nbsp;' . "\n"
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
+    .    '&nbsp;' . "\n";
+
+    // Delete all groups
+    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    $langDeleteGroups
     .    '</a> |'
-    .    '&nbsp;' . "\n"
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes"  >'
+    .    '&nbsp;' . "\n";
+
+    // Fill groups
+    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes" onClick="return confirmationFill();">'
     .    '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
     .    $langFillGroups
     .    '</a> |'
-    .    '&nbsp;' . "\n"
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
+    .    '&nbsp;' . "\n";
+
+    // Empty all groups
+    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
     .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
     .    $langEmtpyGroups
     .    '</a> |'
-    .    '&nbsp;' . "\n"
-    .    '<a class="claroCmd" href="group_properties.php">'
+    .    '&nbsp;' . "\n";
+
+    // Main group settings
+    echo '<a class="claroCmd" href="group_properties.php">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
     .    $langMainGroupSettings
     .    '</a>'
-    .    '&nbsp;' . "\n"
-    .    '</p>' . "\n"
+    .    '&nbsp;' . "\n";
+
+    echo '</p>' . "\n"
     ;
 
 }    // end course admin only
