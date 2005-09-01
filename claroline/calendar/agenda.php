@@ -24,6 +24,7 @@ $tlabelReq = 'CLCAL___';
 require '../inc/claro_init_global.inc.php';
 require_once($clarolineRepositorySys . '/linker/linker.inc.php');
 require_once($includePath . '/lib/agenda.lib.php');
+require_once($includePath . '/lib/form.lib.php');
 
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
@@ -274,18 +275,11 @@ if ( $is_allowedToEdit )
 
 } // end id is_allowed to edit
 
-
-
-
-
-
-
-
-
 /**
  *     DISPLAY SECTION
  *                    
  */
+
 $noQUERY_STRING = true;
 include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
@@ -303,32 +297,19 @@ if ($display_form)
 
 <table>
 
-<tr>
-<td>&nbsp;</td>
-<td><label for="fday"><?php echo $langDay;    ?></label></td>
-<td><label for="fmonth"><?php echo $langMonth;  ?></label></td>
-<td><label for="fyear"><?php echo $langYear;   ?></label></td>
-<td><label for="fhour"><?php echo $langHour;   ?></label></td>
-<td><label for="fminute"><?php echo $langMinute; ?></label></td>
-<td><label for="lasting"><?php echo $langLasting ?></label></td>
-</tr>
-
 <?php 
 
-$day     = date('d');
-$month   = date('m');
-$year    = date('Y');
-$hours   = date('H');
-$minutes = date('i');
+$date = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y') ) );
+$time = date('H:i:00', mktime( date('H'),date('i'),0) );
 
 if ($editedEvent['hourAncient'])
 {
-    list($hours, $minutes) = split(':', $editedEvent['hourAncient']);
+    $time = $editedEvent['hourAncient'];
 }
 
 if ($editedEvent['dayAncient'])
 {
-    list($year, $month, $day) = split('-',  $editedEvent['dayAncient']);
+    $date = $editedEvent['dayAncient'];
 }
 
 $title   = $editedEvent['title'];
@@ -340,157 +321,41 @@ $content = $editedEvent['content'];
 <td>&nbsp;</td>
 
 <td>
-<select name="fday" id="fday">
-<option value="<?php echo $day ?>" selected>[<?php echo $day ?>]</option>
-<option value="01">1</option>
-<option value="02">2</option>
-<option value="03">3</option>
-<option value="04">4</option>
-<option value="05">5</option>
-<option value="06">6</option>
-<option value="07">7</option>
-<option value="08">8</option>
-<option value="09">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-</select>
-</td>
 
-<td>
+<?
 
-<select name="fmonth" id="fmonth">
-<option value="<?php echo $month ?>" selected>
-[<?php echo $langMonthNames['long'][ $month - 1 ] ?>]
-</option>
-<option value="01"><?php echo $langMonthNames['long'][0] ?></option>
-<option value="02"><?php echo $langMonthNames['long'][1] ?></option>
-<option value="03"><?php echo $langMonthNames['long'][2] ?></option>
-<option value="04"><?php echo $langMonthNames['long'][3] ?></option>
-<option value="05"><?php echo $langMonthNames['long'][4] ?></option>
-<option value="06"><?php echo $langMonthNames['long'][5] ?></option>
-<option value="07"><?php echo $langMonthNames['long'][6] ?></option>
-<option value="08"><?php echo $langMonthNames['long'][7] ?></option>
-<option value="09"><?php echo $langMonthNames['long'][8] ?></option>
-<option value="10"><?php echo $langMonthNames['long'][9] ?></option>
-<option value="11"><?php echo $langMonthNames['long'][10] ?></option>
-<option value="12"><?php echo $langMonthNames['long'][11] ?></option>
-</select>
-</td>
 
-<td>
-<select name="fyear" id="fyear">
-<option value="<?php echo $year -1 ?>"><?php echo $year -1 ?></option>
-<option value="<?php echo $year ?>"  selected>[<?php echo $year ?>]</option>
-<option value="<?php echo $year +1 ?>"><?php echo $year +1 ?></option>
-<option value="<?php echo $year +2 ?>"><?php echo $year +2 ?></option>
-<option value="<?php echo $year +3 ?>"><?php echo $year +3 ?></option>
-<option value="<?php echo $year +4 ?>"><?php echo $year +4 ?></option>
-<option value="<?php echo $year +5 ?>"><?php echo $year +5 ?></option>
-</select>
-</td>
+echo '<tr valign="top">' . "\n"
+    . '<td align="right">' . $langDate . ' : </td>' . "\n"
+    . '<td>' . claro_disp_date_form('fday', 'fmonth', 'fyear', $date ) . ' ' 
+    . claro_disp_time_form('fhour','fminute', $time) 
+    . '&nbsp;<small>' . $langChooseDateHelper . '</small>'
+    . '</td>' . "\n"
+    . '</tr>' . "\n";
 
-<td>
+echo '<tr>' . "\n"
+    . '<td align="right"><label for="lasting">' . $langLasting . '</label> : </td>' . "\n"
+    . '<td><input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" ></td>' . "\n"
+    . '</tr>' . "\n";
 
-<select name="fhour" id="fhour">
-<option value="<?php echo $hours ?>">
-[<?php echo $hours ?>]
-</option>
-<option value="00">00</option>
-<option value="01">01</option>
-<option value="02">02</option>
-<option value="03">03</option>
-<option value="04">04</option>
-<option value="05">05</option>
-<option value="06">06</option>
-<option value="07">07</option>
-<option value="08">08</option>
-<option value="09">09</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-</select>
+?>
 
-</td>
-<td>
-
-<select name="fminute" id="fminute">
-<option value="<?php echo $minutes ?>">[<?php echo $minutes ?>]</option>
-<option value="00">00</option>
-<option value="05">05</option>
-<option value="10">10</option>
-<option value="15">15</option>
-<option value="20">20</option>
-<option value="25">25</option>
-<option value="30">30</option>
-<option value="35">35</option>
-<option value="40">40</option>
-<option value="45">45</option>
-<option value="50">50</option>
-<option value="55">55</option>
-</select>
-
-</td>
-
-<td>
-    <input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="<?php echo htmlspecialchars($editedEvent['lastingAncient']); ?>">
-</td>
-
+<tr valign="top">
+<td align="right"><label for="title"><?php echo $langTitle ?> : </label></td>
+<td> <input size="80" type="text" name="title" id="title" value="<?php  echo isset($title) ? htmlspecialchars($title) : '' ?>"></td>
 </tr>
 
-
-<tr>
-<td valign="top"><label for="title"><?php echo $langTitle ?> : </label></td>
-
-<td colspan="6"> 
-<input size="80" type="text" name="title" id="title" value="<?php  echo isset($title) ? htmlspecialchars($title) : '' ?>">   
-</td>
-</tr>
-
-<tr> 
-
-<td valign="top">
+<tr valign="top"> 
+<td align="right">
 <label for="content"><?php echo $langDetail ?> : </label>
 </td>
-
-<td colspan="6"> 
+<td> 
 <?php echo claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
 <br />
-
 </td></tr>
-<tr>
+<tr valign="top">
 <td>&nbsp;</td>
-<td colspan="6">
+<td>
 
 <?php 
 //---------------------
@@ -508,7 +373,7 @@ else // popup mode
 }
 
 echo '</td></tr>' . "\n"
-.    '<tr><td>&nbsp;</td><td colspan="6">' . "\n";
+.    '<tr valign="top"><td>&nbsp;</td><td>' . "\n";
 
 if( $jpspanEnabled )
 {
