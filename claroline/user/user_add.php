@@ -113,7 +113,10 @@ switch ( $cmd )
         // search on username, official_code, ...
 
         $displayResultTable = TRUE; 
-        $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
+        if (!(empty($user_data['lastname']) && empty($user_data['email']) && empty($user_data['officialCode'])))
+            $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
+        else
+            $users = array();
         break;
 
     case 'subscribe_to_course':
@@ -228,8 +231,7 @@ else
     if ($displayResultTable)
     {
         //displkay a search legend first
-        
-        
+              
         if ($allowSearchInAddUser)
         {
             $enclose_field = "*";    
