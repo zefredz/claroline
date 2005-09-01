@@ -23,7 +23,6 @@ if ( ! $_cid ) claro_disp_select_course();
 @include($includePath . '/lib/debug.lib.inc.php');
 
 $nameTools = $langEditGroup;
-$interbredcrump[]= array ('url' => 'group.php', 'name'=> $langGroups);
 
 $htmlHeadXtra[]='
 <script type="text/javascript" language="JavaScript">
@@ -196,6 +195,10 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     $myStudentGroup = $_group;
 
 }    // end if $modify
+
+
+$interbredcrump[]= array ('url' => 'group.php', 'name'=> $langGroups);
+$interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name'=> $myStudentGroup['name'] );
 
 include($includePath . '/claro_init_header.inc.php');
 
