@@ -113,8 +113,15 @@ switch ( $cmd )
         // search on username, official_code, ...
 
         $displayResultTable = TRUE; 
+        
+        $user_data['lastname']     = str_replace('%', '', $user_data['lastname']);
+        $user_data['email']        = str_replace('%', '', $user_data['email']);
+        $user_data['officialCode'] = str_replace('%', '', $user_data['officialCode']);
+        
         if (!(empty($user_data['lastname']) && empty($user_data['email']) && empty($user_data['officialCode'])))
+        {           
             $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
+        }
         else
             $users = array();
         break;
