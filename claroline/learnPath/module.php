@@ -89,14 +89,14 @@ if(session_is_registered('exerciseResult'))     { session_unregister('exerciseRe
 
 // check in the DB if there is a comment set for this module in general
 
-$sql = "SELECT *
+$sql = "SELECT `comment`, `startAsset_id`, `contentType`
         FROM `".$TABLEMODULE."`
         WHERE `module_id` = ". (int)$_SESSION['module_id'];
 
 $query = claro_sql_query($sql);
 $module = @mysql_fetch_array($query);
 
-if ($module['comment']=='' || $module['comment']==$langDefaultModuleComment) 
+if( empty($module['comment']) || $module['comment'] == $langDefaultModuleComment )
 {
     $noModuleComment = true;
 }
@@ -115,13 +115,13 @@ else
 }
 // check if there is a specific comment for this module in this path
 
-$sql = "SELECT *
+$sql = "SELECT `specificComment`
         FROM `".$TABLELEARNPATHMODULE."`
         WHERE `module_id` = ". (int)$_SESSION['module_id'];
 $query = claro_sql_query($sql);
 $learnpath_module = @mysql_fetch_array($query);
 
-if ($learnpath_module['specificComment']=='' || $learnpath_module['specificComment'] == $langDefaultModuleAddedComment) 
+if( empty($learnpath_module['specificComment']) || $learnpath_module['specificComment'] == $langDefaultModuleAddedComment )
 {
     $noModuleSpecificComment = true;
 }
@@ -158,7 +158,7 @@ if ((!$is_AllowedToEdit) && (@mysql_num_rows($resultBrowsed)==0 ) && $noModuleCo
 //################################## MODULE NAME BOX #################################\\
 //####################################################################################\\
 
-echo "<br />";
+echo '<br />'."\n";
 
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
@@ -211,14 +211,14 @@ if($module['contentType'] != CTLABEL_ )
 //back button
 if ($is_AllowedToEdit)
 {
-    $pathBack = "./learningPathAdmin.php";
+	$pathBack = "./learningPathAdmin.php";
 }
 else
 {
-   $pathBack = "./learningPath.php";
+	$pathBack = "./learningPath.php";
 }
 
-echo "<small><a href=\"".$pathBack."\"><< ".$langBackModule."</a></small><br><br>";
+echo '<small><a href="'.$pathBack.'"><< '.$langBackModule.'</a></small><br /><br />'."\n\n";
 
 //####################################################################################\\
 //############################ PROGRESS  AND  START LINK #############################\\
@@ -239,74 +239,42 @@ if($module['contentType'] != CTLABEL_) //
         if ($list['contentType']== CTEXERCISE_ ) { $contentDescType = $langEXERCISETypeDesc; }
         if ($list['contentType']== CTDOCUMENT_ ) { $contentDescType = $langDOCUMENTTypeDesc; }
 
-        echo "<b>".$langProgInModuleTitle."</b><br><br>";
-
-        echo "<table align=\"center\" class=\"claroTable\" border=\"0\" cellspacing=\"2\">
-              <thead>
-              <tr class=\"headerX\">
-                <th>
-                  ".$langInfoProgNameTitle."
-                </th>
-                <th>
-                  ".$langPersoValue."
-                </th>
-              </tr>
-              </thead>
-              <tbody>";
+		echo '<b>'.$langProgInModuleTitle.'</b><br /><br />'."\n\n"
+			.'<table align="center" class="claroTable" border="0" cellspacing="2">'."\n"
+			.'<thead>'."\n"
+			.'<tr class="headerX">'."\n"
+			.'<th>'.$langInfoProgNameTitle.'</th>'."\n"
+			.'<th>'.$langPersoValue.'</th>'."\n"
+			.'</tr>'."\n"
+			.'</thead>'."\n\n"
+			.'<tbody>'."\n\n";
 
         //display type of the module
-
-        echo "<tr>
-                <td>
-                ".$langTypeOfModule."
-                </td>
-                <td>
-                 <img src=\"".$imgRepositoryWeb.$contentType_img."\" alt=\"".$contentType_alt."\" border=\"0\" />".$contentDescType."
-                </td>
-              </tr>";
+		echo '<tr>'."\n"
+            .'<td>'.$langTypeOfModule.'</td>'."\n"
+			.'<td><img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
+			.'</tr>'."\n\n";
 
         //display total time already spent in the module
-
-        echo "<tr>
-                <td>
-                ".$langTotalTimeSpent."
-                </td>
-                <td>
-                ".$list['total_time']."
-                </td>
-              </tr>";
+		echo '<tr>'."\n"
+			.'<td>'.$langTotalTimeSpent.'</td>'."\n"
+			.'<td>'.$list['total_time'].'</td>'."\n"
+			.'</tr>'."\n\n";
 
         //display time passed in last session
-
-        echo "<tr>
-                <td>
-                ".$langLastSessionTimeSpent."
-                </td>
-                <td>
-                ".$list['session_time']."
-                </td>
-              </tr>";
-        /*
-        //display number of attempts
-
-        echo "<tr>
-                <td>
-                ".$langNumbAttempt."
-                </td>
-                <td>
-                ".$langBrowsed." ".$list['Attempt']." ".$langTimes."
-                </td>
-              </tr>";
-         */
-
+		echo '<tr>'."\n"
+			.'<td>'.$langLastSessionTimeSpent.'</td>'."\n"
+			.'<td>'.$list['session_time'].'</td>'."\n"
+			.'</tr>'."\n\n";
+			
         //display user best score
         if ($list['scoreMax'] > 0)
         {
-            $raw = round($list['raw']/$list['scoreMax']*100);
+			$raw = round($list['raw']/$list['scoreMax']*100);
         }
         else
         {
-            $raw = 0;
+			$raw = 0;
         }
 
         $raw = max($raw, 0);
@@ -314,22 +282,16 @@ if($module['contentType'] != CTLABEL_) //
         if (($list['contentType'] == CTSCORM_ ) && ($list['scoreMax'] <= 0) 
             &&  (  ( ($list['lesson_status'] == "COMPLETED") || ($list['lesson_status'] == "PASSED") ) || ($list['raw'] != -1) ) )
         {
-            $raw = 100;
+			$raw = 100;
         }
 
         // no sens to display a score in case of a document module
         if (($list['contentType'] != CTDOCUMENT_))
         {
-            echo "<tr>
-                    <td>
-                    ".$langYourBestScore."
-                    </td>
-                    <td>
-                    ".
-            claro_disp_progress_bar($raw, 1).
-            " ".$raw."%
-                    </td>
-                  </tr>";
+			echo '<tr>'."\n"
+				.'<td>'.$langYourBestScore.'</td>'."\n"
+				.'<td>'.claro_disp_progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
+				.'</tr>'."\n\n";
         }
 
         //display lesson status
@@ -351,18 +313,12 @@ if($module['contentType'] != CTLABEL_) //
         {
             $statusToDisplay = $list['lesson_status'];
         }
-        echo "<tr>
-                <td>
-                ".$langLessonStatus."
-                </td>
-                <td>
-                ".$statusToDisplay."
-                </td>
-              </tr>";
-        echo  "</tbody>
-               ";
-
-        echo "</table>";
+		echo '<tr>'."\n"
+			.'<td>'.$langLessonStatus.'</td>'."\n"
+			.'<td>'.$statusToDisplay.'</td>'."\n"
+			.'</tr>'."\n\n"
+			.'</tbody>'."\n\n"
+			.'</table>'."\n\n";
 
     } //end display stats
 
@@ -381,15 +337,15 @@ if($module['contentType'] != CTLABEL_) //
        )
     {
 
-        echo "<center>
-                 <form action=\"./navigation/viewer.php\" method=\"post\">
-                   <input type=\"submit\" value=\"".$langStartModule."\">
-                 </form>
-               </center>";
+		echo '<center>'."\n"
+			.'<form action="./navigation/viewer.php" method="post">'."\n"
+			.'<input type="submit" value="'.$langStartModule.'" />'."\n"
+			.'</form>'."\n"
+			.'</center>'."\n\n";
     }
     else
     {
-        echo "<p><center>".$langNoStartAsset."</center></p>";
+        echo '<p><center>'.$langNoStartAsset.'</center></p>'."\n";
     }
 }// end if($module['contentType'] != CTLABEL_) 
 // if module is a label, only allow to change its name.
