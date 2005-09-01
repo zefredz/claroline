@@ -30,12 +30,21 @@
 	
 	require_once $includePath . "/claro_init_header.inc.php";
 	
-	echo '<p style="padding-top:1em; padding-left: 1em;"><strong>File ' . $requestedFile . ' not found !</strong></p>';
+	echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;">'
+		. '<strong>File ' . $requestedFile . ' not found !</strong>'
+		. '</p>'
+		;
+		
+	echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;" class="">'
+		. 'The file you have requested has not been found on this server. '
+		. 'Maybe it has been moved or deleted.'
+		. '</p>'
+		;
 	
 	echo '<p style="padding-left: 2em;">'
 		. 'Back to :'
 		. '<ul>'
-		. '<li><a href="../document/document.php">'.$langDocument.'</a></li>'
+		. '<li><a href="'.$clarolineRepositoryWeb.'document/document.php">'.$langDocument.'</a></li>'
 		. ( (! empty($referer)) ? '<li><a href="'.$referer.'">Previous page</a></li>' : '' )
 		. '</ul>'
 		.'</p>'
