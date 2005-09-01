@@ -625,7 +625,7 @@
                     
                     $colspan = ( $is_allowedToAdmin ) ? 5 : 3;
                     
-                    echo '<td colspan="'.$colspan.'" class="comment">'.$entry['description'].'</td>' . "\n";
+                    echo '<td colspan="'.$colspan.'"><div class="comment">'.$entry['description'].'</div></td>' . "\n";
                     
                     echo '</tr>' . "\n";
 
