@@ -1171,13 +1171,6 @@ unset($attribute);
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 $htmlHeadXtra[] =
-"<style type=text/css>
-<!--
-.comment { margin-left: 30px}
--->
-</style>";
-
-$htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
