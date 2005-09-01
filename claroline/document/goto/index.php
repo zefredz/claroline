@@ -129,11 +129,23 @@ else
 
 function get_slashed_argument($completePath, $baseFile)
 {
+    
     $pahtElementList = explode($baseFile, $completePath);
 
-    if ( isset($pahtElementList[1]) || ! is_null($pahtElementList[1]) )
+    if ( count($pahtElementList) > 1)
     {
-    	return $pahtElementList[1];
+    	$argument = array_pop($pahtElementList);
+
+        $questionMarkPos = strpos($argument, '?');
+        
+        if (is_int($questionMarkPos))
+        {
+        	return substr($argument, 0, $questionMarkPos);
+        }
+        else
+        {
+        	return $argument;
+        }
     }
     else
     {

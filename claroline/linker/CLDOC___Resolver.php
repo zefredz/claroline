@@ -100,7 +100,7 @@
                         }
                         else if( is_file($path)) 
                         {
-                            $url .= "/goto/?doc_url=/"
+                            $url .= "/goto/index.php/"
                                 .$elementCRLArray['resource_id']
                                 ;
                         }
@@ -109,7 +109,8 @@
                             trigger_error("ERROR: invalid path ($crl)",E_USER_ERROR);
                         }
                         
-                        $url .= '&cidReq=' . $elementCRLArray['course_sys_code'] ;
+                        $url .= ( (strpos($url, '?')===false) ? '?' : '&') 
+                             .  'cidReq=' . $elementCRLArray['course_sys_code'] ;
                         
                         if(isset($elementCRLArray["team"]))
                         {
