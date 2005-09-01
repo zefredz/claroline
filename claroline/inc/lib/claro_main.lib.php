@@ -448,7 +448,7 @@ function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 
     if($result)
     {
-        $row = mysql_fetch_row($result);
+        $row = mysql_fetch_array($result, MYSQL_ASSOC);
         mysql_free_result($result);
         return $row;
     }
