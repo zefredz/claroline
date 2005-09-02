@@ -2,7 +2,9 @@
 /** 
  * CLAROLINE 
  *
- * @version 1.7
+ * This script edit userlist of a group and group propreties
+ *
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -335,7 +337,7 @@ while ( $myMember = mysql_fetch_array($resultMember) )
     $userIngroupId = $myMember['user_id'];
 
     echo '<option value="'.$userIngroupId.'">'
-       . htmlspecialchars($myMember['name'].' '.$myMember['firstname'])
+       . htmlspecialchars(ucwords(strtolower($myMember['name'])) . ' ' . ucwords(strtolower($myMember['firstname'])))
        . '</option>'."\n"
        ;
 }
@@ -407,7 +409,7 @@ $resultNotMember = claro_sql_query($sql);
 while ( $myNotMember = mysql_fetch_array($resultNotMember) )
 {
     echo '<option value="' . $myNotMember['user_id'] . '">'
-    .    htmlspecialchars($myNotMember['lastName'] . ' ' . $myNotMember['firstName']) 
+    .    htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName']))) 
     .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
     .    '</option>' . "\n"
     ;
