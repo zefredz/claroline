@@ -893,7 +893,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         case 'newtopic':
     
             $toolBar [] = $langBackTo
-                        . '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                        . ' <a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                         . $forum_name
                         . '</a>'."\n";
             break;
