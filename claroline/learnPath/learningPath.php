@@ -73,11 +73,15 @@ else // anonymous
     $uidCheckString = "AND UMP.`user_id` IS NULL ";
 }
 
-$sql = "SELECT LPM.* , 
-              M.*, 
-              UMP.`lesson_status`, UMP.`raw`, 
-              UMP.`scoreMax`, UMP.`credit`,
-              A.`path`
+$sql = "SELECT LPM.`learnPath_module_id`,
+				LPM.`parent`,
+				LPM.`lock`,
+				M.`module_id`,
+				M.`contentType`,
+				M.`name`,
+				UMP.`lesson_status`, UMP.`raw`,
+				UMP.`scoreMax`, UMP.`credit`,
+				A.`path`
            FROM `".$TABLELEARNPATHMODULE."` AS LPM,
                 `".$TABLEMODULE."` AS M
      LEFT JOIN `".$TABLEUSERMODULEPROGRESS."` AS UMP
@@ -92,13 +96,7 @@ $sql = "SELECT LPM.* ,
        GROUP BY LPM.`module_id`
        ORDER BY LPM.`rank`";
 
-$result = claro_sql_query($sql);
-
-$extendedList = array();
-while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
-{
-  $extendedList[] = $list;
-}
+$extendedList = claro_sql_query_fetch_all($sql);
 
 // build the array of modules     
 // build_element_list return a multi-level array, where children is an array with all nested modules
@@ -111,9 +109,9 @@ $moduleNb = 0;
  
 // look for maxDeep
 $maxDeep = 1; // used to compute colspan of <td> cells
-for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
+for( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
 {
-    if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
+	if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
 }
 
 /*================================================================
@@ -136,21 +134,22 @@ commentBox(LEARNINGPATH_, DISPLAY_);
 //####################################################################################\\
 //############################## MODULE TABLE HEADER #################################\\
 //####################################################################################\\
-?>
-  <br>
-  <table class="claroTable" width="100%" border="0" cellspacing="2">
-  <tr class="headerX" align="center" valign="top">
-  <th colspan="<?php echo $maxDeep+1; ?>"><?php echo $langModule; ?></th>
-<?php
+
+echo "\n".'<br />'."\n"
+  	.'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+	.'<tr class="headerX" align="center" valign="top">'."\n"
+	.'<th colspan="'.($maxDeep+1).'">'.$langModule.'</th>'."\n";
+
 
 if ( $_uid )
 {
-    echo "<th colspan=\"2\">".$langProgress."</th>";
+	// show only progress column for authenticated users
+    echo '<th colspan="2">'.$langProgress.'</th>'."\n";
 }
-?>
-   </tr>
-   <tbody>
-<?php
+
+echo '</tr>'."\n\n"
+	.'<tbody>'."\n\n";
+
    
   //####################################################################################\\
   //############################## MODULE TABLE LIST DISPLAY ###########################\\
@@ -162,7 +161,7 @@ foreach ($flatElementList as $module)
 {
     if( $module['scoreMax'] > 0 && $module['raw'] > 0 )
     {
-        $progress = @round($module['raw']/$module['scoreMax']*100);
+        $progress = round($module['raw']/$module['scoreMax']*100);
     }
     else
     {
@@ -171,7 +170,7 @@ foreach ($flatElementList as $module)
       
     if ( $module['contentType'] == CTEXERCISE_ )
     {
-        $passExercise = ($module['credit']=="CREDIT");
+        $passExercise = ($module['credit'] == "CREDIT");
     }
     else
     {
@@ -197,24 +196,26 @@ foreach ($flatElementList as $module)
     $spacingString = "";
     for($i = 0; $i < $module['children']; $i++)
     {
-        $spacingString .= "<td width=\"5\">&nbsp;</td>";
+        $spacingString .= '<td width="5">&nbsp;</td>'."\n";
     }
     
     $colspan = $maxDeep - $module['children']+1;
       
-    echo "<tr align=\"center\">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
+    echo '<tr align="center">'."\n"
+		.$spacingString
+		.'<td colspan="'.$colspan.'" align="left">'."\n";
     
     //-- if chapter head
     if ( $module['contentType'] == CTLABEL_ )
     {
-        echo "<b>".htmlspecialchars($module['name'])."</b>";
+        echo '<b>'.htmlspecialchars($module['name']).'</b>'."\n";
     }        
     //-- if user can access module
     elseif ( !$is_blocked )
     {
         if($module['contentType'] == CTEXERCISE_ ) 
         {
-            $moduleImg = "quiz.gif";
+            $moduleImg = 'quiz.gif';
         }
         else
         {
@@ -222,9 +223,9 @@ foreach ($flatElementList as $module)
         }
             
         $contentType_alt = selectAlt($module['contentType']);
-        echo "<a href=\"module.php?module_id=".$module['module_id']."\">
-        <img src=\"".$imgRepositoryWeb.$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
-                       .htmlspecialchars($module['name'])."</a>";
+        echo '<a href="module.php?module_id='.$module['module_id'].'">'
+        	.'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'
+        	.htmlspecialchars($module['name']).'</a>'."\n";
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
         // exercise module : credit == CREDIT || lesson_status == 'passed'
@@ -251,29 +252,29 @@ foreach ($flatElementList as $module)
     {
         if($module['contentType'] == CTEXERCISE_ ) 
         {
-            $moduleImg = "quiz.gif";
+            $moduleImg = 'quiz.gif';
         }
         else
         {
             $moduleImg = choose_image(basename($module['path']));
         }
 
-        echo "<img src='".$imgRepositoryWeb.$moduleImg."' alt='".$contentType_alt."' border=\"0\">"
+        echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'."\n"
              .htmlspecialchars($module['name']);
     }
-    echo "</td>";
+    echo '</td>'."\n";
 
-    if($_uid && ($module['contentType'] != CTLABEL_) )
+    if( $_uid && ($module['contentType'] != CTLABEL_) )
     {
         // display the progress value for current module
-        echo "<td align=\"right\">".claro_disp_progress_bar ($progress, 1)."</td>";
-        echo "<td align=\"left\">
-              <small>&nbsp;".$progress."%</small>
-              </td>";
+        echo '<td align="right">'.claro_disp_progress_bar ($progress, 1).'</td>'."\n"
+        	.'<td align="left">'
+			.'<small>&nbsp;'.$progress.'%</small>'
+			.'</td>'."\n";
     }
-    elseif($module['contentType'] == CTLABEL_)
+    elseif( $_uid && $module['contentType'] == CTLABEL_ )
     {
-        echo "<td colspan=\"2\">&nbsp;</td>";
+        echo '<td colspan="2">&nbsp;</td>'."\n";
     }
   
     if ($progress > 0)
@@ -284,31 +285,40 @@ foreach ($flatElementList as $module)
     if($module['contentType'] != CTLABEL_) 
         $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
        
-    echo "\n</tr>\n";
+    echo '</tr>'."\n\n";
     $atleastOne = true;
 }
   
-echo "</tbody>\n<tfoot>\n";
+echo '</tbody>'."\n\n";
 
 if ($atleastOne == false)
 {
-    echo "<tr><td align=\"center\" colspan=\"3\">".$langNoModule."</td></tr>";
+    echo '<tfoot>'."\n\n"
+		.'<tr>'."\n"
+		.'<td align="center" colspan="3">'.$langNoModule.'</td>'."\n"
+		.'</tr>'."\n\n"
+		.'</tfoot>'."\n\n";
 }
 elseif($_uid && $moduleNb > 0)
 {
     // add a blank line between module progression and global progression
-    echo "<tr><td colspan=\"".($maxDeep+3)."\">&nbsp;</td></tr>";
-    // display progression
-    echo "<tr>".
-            "<td align=\"right\" colspan=\"".($maxDeep+1)."\">".$langGlobalProgress."</td>".
-            "<td align=\"right\">".
-            claro_disp_progress_bar(round($globalProg / ($moduleNb) ), 1 ).
-    "</td>".
-            "<td align=\"left\">
-                <small>&nbsp;".round($globalProg / ($moduleNb) ) ."%</small></td>
-              </td>";
+    echo '<tfoot>'."\n\n"
+		.'<tr>'."\n"
+		.'<td colspan="'.($maxDeep+3).'">&nbsp;</td>'."\n"
+		.'</tr>'."\n\n"
+    	// display progression
+		.'<tr>'."\n"
+		.'<td align="right" colspan="'.($maxDeep+1).'">'.$langGlobalProgress.'</td>'."\n"
+		.'<td align="right">'
+        .claro_disp_progress_bar(round($globalProg / ($moduleNb) ), 1 )
+		.'</td>'."\n"
+		.'<td align="left">'
+		.'<small>&nbsp;'.round($globalProg / ($moduleNb) ) .'%</small>'
+		.'</td>'."\n"
+		.'</tr>'."\n\n"
+		.'</tfoot>'."\n\n";
 }
-echo "</tfoot>\n</table>";
+echo '</table>'."\n\n";
 
 //####################################################################################\\
 //################################### FOOTER #########################################\\
