@@ -1,16 +1,19 @@
 <?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * This script allows users to log on platform and back to requested ressource
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLAUTH
+ *
+ * @author Claro Team <cvs@claroline.net>
+ */
 
 require '../inc/claro_init_global.inc.php';
 
@@ -43,7 +46,7 @@ else
 
 if ($_cid) 
 {
-    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="'.htmlspecialchars($_cid).'">';
+    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars($_cid) . '">';
 }
 else
 {
@@ -52,7 +55,7 @@ else
 
 if ($_gid)
 {
-	$sourceGidFormField = '<input type="hidden" name="sourceGid" value="'.htmlspecialchars($_gid).'">';
+	$sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars($_gid) . '">';
 }
 else
 {
@@ -65,7 +68,7 @@ $cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired"
 
 if ( is_null($_uid) )
 {
-    require $includePath.'/claro_init_header.inc.php';
+    require $includePath . '/claro_init_header.inc.php';
 
     echo '<table align="center">'                                     ."\n"
     .    '<tr>'                                                       ."\n"

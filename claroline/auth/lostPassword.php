@@ -1,19 +1,6 @@
-<?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*
- * SCRIPT PURPOSE :
+<?php // $Id$
+/**
+ * CLAROLINE 
  *
  * This script allows users to retrieve the password of their profile(s) 
  * on the basis of their e-mail address. The password is send via email 
@@ -21,6 +8,16 @@
  *
  * Special case : If the password are encrypted in the database, we have 
  * to generate a new one.
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package CLAUTH
+ *
+ * @author Claro Team <cvs@claroline.net>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -32,13 +29,13 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
 
 // library for authentification and mail
-include($includePath.'/lib/auth.lib.inc.php');
-include($includePath.'/lib/claro_mail.lib.inc.php');
+include_once($includePath . '/lib/auth.lib.inc.php');
+include_once($includePath . '/lib/claro_mail.lib.inc.php');
 
 // Initialise variables
 
 $passwordFound = FALSE;
-$msg = "";
+$msg = '';
 
 // Get the forgotten email from the form
 
@@ -51,7 +48,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 {
     // search user with this email
 
-    $sql = 'SELECT  `user_id`   `uid`       ,
+    $sql = "SELECT  `user_id`   `uid`       ,
                     `nom`       `lastName`  ,
                     `prenom`    `firstName` ,
                     `username`  `loginName` ,
@@ -59,9 +56,9 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                     `email`                 ,
                     `authSource`            ,
                     `creatorId`
-             FROM `' . $tbl_user . '`
-             WHERE LOWER(email) LIKE "'. addslashes($Femail) .'"
-                   AND   `email` != "" ';
+             FROM `" . $tbl_user . "`
+             WHERE LOWER(email) LIKE '" . addslashes($Femail) . "'
+                   AND   `email` != '' ";
 
     $user = claro_sql_query_fetch_all($sql);
 
@@ -116,8 +113,8 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         {
             $userAccountList [] = 
                 $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
-                ."\t".$langUserName . ' : ' . $thisUser['loginName'] . "\r\n"
-                ."\t".$langPassword . ' : ' . $thisUser['password']  . " \r\n";
+                ."\t" . $langUserName . ' : ' . $thisUser['loginName'] . "\r\n"
+                ."\t" . $langPassword . ' : ' . $thisUser['password']  . " \r\n";
         }
 
         if ($userAccountList)
@@ -129,6 +126,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                     .$rootWeb."\r\n"
                     .$langYourAccountParam."\r\n\r\n"
                     .$userAccountList;
+
 
             // send message
             $emailTo = $user[0]['uid'];
@@ -175,9 +173,11 @@ else
     $msg = '<p>'.$langEnterMail.'</p>';
 }
 
+
+////////////////////////////////////////////////////
 // display section
 
-include($includePath.'/claro_init_header.inc.php');
+include($includePath . '/claro_init_header.inc.php');
 
 // display title
 
@@ -187,14 +187,14 @@ echo claro_disp_tool_title($nameTools);
 
 if ( ! $passwordFound )
 { 
-    $msg .= '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'
+    $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
          .  '<input type="hidden" name="searchPassword" value="1">'
-         .  '<label for="Femail">'.$langEmail.' : </label>'
+         .  '<label for="Femail">' . $langEmail . ' : </label>'
          .  '<br />'
          .  '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="'. htmlspecialchars($Femail).'">'
          .  '<br /><br />'
-         .  '<input type="submit" name="retrieve" value="'.$langOk.'"> '
-         .claro_disp_button('../../index.php', $langCancel)
+         .  '<input type="submit" name="retrieve" value="' . $langOk . '"> '
+         .  claro_disp_button('../../index.php', $langCancel)
          .  '</form>';
 }
 
@@ -202,6 +202,5 @@ if ( ! empty($msg) ) echo claro_disp_message_box($msg);
 
 // display form
 
-
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 ?>
