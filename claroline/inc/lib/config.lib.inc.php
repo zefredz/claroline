@@ -1174,7 +1174,15 @@ function get_values_from_confFile($file_name,$conf_def_property_list)
                 }
                 else
                 {
-                    $value_list[$propName] = $$propName;
+                    if(isset($$propName))
+                    {
+                        $value_list[$propName] = $$propName;
+                    }
+                    else 
+                    {
+                        $value_list[$propName] = null;
+                    }
+                    
                 }
             }
         }
