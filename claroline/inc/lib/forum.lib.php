@@ -46,6 +46,11 @@ function get_userdata_from_id($userId)
 /**
  * Returns the total number of posts in the whole system, a forum, or a topic
  * Also can return the number of users on the system.
+ *
+ * @param $id integer id of the item in the type
+ * @param $type string 'users','forum', 'topic', 'all'
+ *
+ * @return integer qty
  */
 
 function get_total_posts($id, $type = 'all')
@@ -85,6 +90,9 @@ function get_total_posts($id, $type = 'all')
 /**
  * Check if this is the first post in a topic. Used in editpost.php
  * @param $topic_id integer
+ * @param $post_id integer
+ *
+ * @return true if $post_id is first in the $topic_id
  */
 
 function is_first_post($topic_id, $post_id)
@@ -207,8 +215,10 @@ function sync($forumId, $topicId = null)
 /**
  * Convert a SQL date or datetime to a unix time stamp
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string SQL DATETIME or DATE
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
  * @return int unix time stamp
  */
 
@@ -242,15 +252,13 @@ function datetime_to_timestamp($dateTime)
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  int $forumId
  * @param  int $topicId (optional)
- * @return array forum settings
+ * @return array forum settings or false
  */
 
 function get_forum_settings($forumId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_student_group = $tbl_cdb_names['group_team'];
     $tbl_forums        = $tbl_cdb_names['bb_forums'];
-    $tbl_topics        = $tbl_cdb_names['bb_topics'];
 
     $sql = "SELECT `f`.`forum_id`     `forum_id`,
                    `f`.`forum_name`   `forum_name`,
@@ -387,9 +395,6 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
     $tbl_topics           = $tbl_cdb_names['bb_topics'];
     $tbl_posts            = $tbl_cdb_names['bb_posts'];
     $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users       = $tbl_mdb_names['user'];
-
 
     // CREATE THE POST SETTINGS
 
@@ -412,7 +417,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                 SET post_id   = '" . (int) $postId . "', 
                     post_text = '" . addslashes($message) . "'";
 
-        $result = claro_sql_query($sql);
+        claro_sql_query($sql);
 
         // UPDATE THE TOPIC STATUS
 
@@ -422,7 +427,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                       topic_time         = '" .addslashes($time) . "' 
                 WHERE topic_id = '" . (int) $topicId . "'";
 
-        $result = claro_sql_query($sql);
+        claro_sql_query($sql);
 
         // UPDATE THE POST STATUS FOR THE CURRENT FORUM
 
@@ -431,7 +436,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                       forum_last_post_id = '" . (int) $postId . "' 
                 WHERE forum_id           = '" . (int) $forumId . "'";
 
-        $result = claro_sql_query($sql);
+        claro_sql_query($sql);
 
         return $postId;
     }
@@ -459,7 +464,7 @@ function update_post($post_id, $topic_id, $message, $subject = '')
             SET post_text = '" . addslashes($message) . "' 
             WHERE post_id = '" . (int) $post_id . "'";
 
-    $result = claro_sql_query($sql);
+    claro_sql_query($sql);
 
     if ( $subject != '' )
     {
@@ -468,7 +473,7 @@ function update_post($post_id, $topic_id, $message, $subject = '')
                 SET topic_title  = '" . addslashes($subject) . "'
                 WHERE topic_id = '" . (int) $topic_id . "'";
 
-        $result = claro_sql_query($sql);
+        claro_sql_query($sql);
     }
 }
 
@@ -599,9 +604,9 @@ function trig_topic_notification($topicId)
 
     // send mail to registered user for notification
 
-    while ($list = mysql_fetch_array($notifyResult))
+    while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-       $message = $langDear . " " . $list['firstname']." " . $list['lastname'].",\n\n";
+       $message = $langDear . ' ' . $list['firstname']. ' ' . $list['lastname'].",\n\n";
        $message.= sprintf($l_notifybody,$url_topic,$url_forum);
 
        claro_mail_user($list['user_id'], $message, $subject);
@@ -864,12 +869,20 @@ class postLister
     }
 }
 
+/**
+ * display a pager tool bar
+ *
+ * @author Mathieu Laurent <mla@claroline.net>
+ * @return void
+ */
+
+
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
 
     global $_gid, $forum_name,
            $imgRepositoryWeb, 
-           $langAdm, $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum;
+           $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum;
 
     $toolBar = array();
 
@@ -1166,14 +1179,13 @@ function delete_category($cat_id)
             WHERE `cat_id` = "'.(int) $cat_id.'"';
         
     claro_sql_query($sql);
+    return true;
 }
 
 function delete_forum($forum_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
-    $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
 
     delete_all_post_in_forum($forum_id);
 
@@ -1249,6 +1261,8 @@ function move_up_forum($forum_id)
 
         return true;
     }
+    return true;
+
 }
 
 function move_down_forum($forum_id)
@@ -1284,6 +1298,7 @@ function move_down_forum($forum_id)
 
         if ( claro_sql_query($sql) == false ) return false;
     }
+    return true;
 }
 
 function get_category_settings($cat_id)
@@ -1401,7 +1416,6 @@ function get_forum_list()
 
     $tbl_forums           = $tbl_cdb_names['bb_forums' ];
     $tbl_posts            = $tbl_cdb_names['bb_posts'  ];
-    $tbl_student_group    = $tbl_cdb_names['group_team'];
 
     $sql = "SELECT f.forum_id, f.forum_name, f.forum_desc, 
                    f.forum_access, f.forum_moderator, 
