@@ -909,7 +909,7 @@ $langGroupTutor = "Tutor";
 $langGroupTutors = "Tutores";
 $langGroupUserManagement = "Gesti&oacute;n de Grupos";
 $langGroupUsersList = "Ver <a href=../user/user.php>Usuarios</a>";
-$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langGroups = "Grupos";
 $langGroupsAdded = "grupo(s) ha(n) sido a&ntilde;adido(s)";
 $langGroupsDeleted = "Se han borrado todos los grupos";
 $langGroupsEmptied = "Todos los grupos est&aacute;n ahora vac&iacute;os";
