@@ -178,8 +178,8 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
 
     echo '<br /><form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" >' . "\n"
-    .    '<input type="submit" name="next" value="' . $agreement_next_step_message . '" >' . "\n"
-    .    claro_disp_button( $rootWeb, $agreement_cancel_message )
+    .    '<input type="submit" name="next" value="' . $langOk . '" >' . "\n"
+    .    claro_disp_button( $rootWeb, $langCancel )
     .    '</form>' . "\n" 
     ;
 }
