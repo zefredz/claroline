@@ -153,10 +153,10 @@ echo "<p>"
         .    $langCourseCreate
         .    '</a>'
         ;
-        if ($allow_to_self_enroll) echo '&nbsp;|&nbsp;';
+        if ($allowToSelfEnroll) echo '&nbsp;|&nbsp;';
     }
 
-    if ($allow_to_self_enroll)
+    if ($allowToSelfEnroll)
     {
         echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=">'
         .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '

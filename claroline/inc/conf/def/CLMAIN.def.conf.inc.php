@@ -50,7 +50,7 @@ array ( 'institution_name'
 
 $conf_def['section']['DISP_FILE_SYSTEM_SETTING']['label']='File system settings';
 $conf_def['section']['DISP_FILE_SYSTEM_SETTING']['properties'] =
-array ('rootWeb'
+array ( 'rootWeb'
       , 'rootSys'
       , 'urlAppend'
       , 'garbageRepositorySys'
@@ -81,6 +81,7 @@ $conf_def['section']['advanced']['properties'] =
 array ( 'mysqlRepositorySys'
       , 'userPasswordCrypted'
       , 'allowSelfReg'
+      , 'allowToSelfEnroll'
       , 'is_trackingEnabled'
       ,'claro_texRendererUrl'
       , 'platform_id'
@@ -477,5 +478,14 @@ array ('label'       => 'Development mode'
                                ,'FALSE'=>'Off')
       );      
 
+$conf_def_property_list['allow_to_self_enroll']
+= array ('label'     => 'Personnal course list modification'
+        ,'description' => 'Set if the users are allowed to modify their personnal courses list or not'
+        ,'default'   => 'TRUE'
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'allowed', 'FALSE'=>'not allowed' )
+        );
 
 ?>

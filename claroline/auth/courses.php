@@ -16,7 +16,6 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-require $includePath . '/conf/CLHOME.conf.php'; // conf file
 
 $nameTools  = $lang_course_enrollment;
 $noPHP_SELF = TRUE;
@@ -94,7 +93,7 @@ $inURL = ''; // parameters to add in URL
 
 if ( !$is_platformAdmin )
 {
-    if ($allow_to_self_enroll)
+    if ($allowToSelfEnroll)
     {
         $userId = $_uid; // default use is enroll for itself...
         $uidToEdit = $_uid;
