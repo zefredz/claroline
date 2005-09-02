@@ -40,7 +40,7 @@ array ( 'jpspanAllowed'
 
 $conf_def_property_list['jpspanAllowed'] =
 array ('label'         => 'Activate Jpspan'
- //     ,'description'   => '...'
+      ,'description'   => 'Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -49,8 +49,8 @@ array ('label'         => 'Activate Jpspan'
       );
 
 $conf_def_property_list['otherCoursesAllowed'] =
-array ('label'         => 'Show the link of the other course '
-    //  ,'description'   => '...'
+array ('label'         => 'Allow other course resource linking'
+      ,'description'   => 'Allow a course manager to browse and link resources in its other courses'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -59,8 +59,8 @@ array ('label'         => 'Show the link of the other course '
       );
      
 $conf_def_property_list['publicCoursesAllowed'] =
-array ('label'         => 'Show the link of the public course '
-  //    ,'description'   => '...'
+array ('label'         => 'Allow public course resource linking'
+      ,'description'   => 'Allow a course manager to browse and link resources in any public course'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -69,8 +69,8 @@ array ('label'         => 'Show the link of the public course '
       );
 
 $conf_def_property_list['externalLinkAllowed'] =
-array ('label'         => 'Show the link of the external link '
- //     ,'description'   => '...'
+array ('label'         => 'Allow external resource linking'
+      ,'description'   => 'Allow a course manager to browse and link external resources reachable by an url'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -79,8 +79,8 @@ array ('label'         => 'Show the link of the external link '
       );
       
 $conf_def_property_list['groupAllowed'] =
-array ('label'         => 'Explore the group'
- //     ,'description'   => '...'
+array ('label'         => 'Show groups in resource browser'
+	  // ,'description'   => 'Allow a course manager to browse groups'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -89,8 +89,8 @@ array ('label'         => 'Explore the group'
       );
      
 $conf_def_property_list['toolGroupAllowed'] =
-array ('label'         => 'Explore the tool of a group'
-  //    ,'description'   => '...'
+array ('label'         => 'Allow group resource linking'
+	  ,'description'   => 'Allow a course manager to browse and link resources located in a group space and in group tools'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
