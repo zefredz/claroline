@@ -65,7 +65,7 @@ $TABLEQUIZTEST               = $_course['dbNameGlu']."quiz_test";
 $dbTable = $TABLEASSET; // for old functions of document tool
 
 //lib of this tool
-@include($includePath."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/learnPath.lib.inc.php");
 
 include($includePath."/lib/fileDisplay.lib.php");
 include($includePath."/lib/fileManage.lib.php");
@@ -93,19 +93,19 @@ $sql = "SELECT `comment`, `startAsset_id`, `contentType`
         FROM `".$TABLEMODULE."`
         WHERE `module_id` = ". (int)$_SESSION['module_id'];
 
-$query = claro_sql_query($sql);
-$module = @mysql_fetch_array($query);
+$module = claro_sql_query_get_single_row($sql);
 
 if( empty($module['comment']) || $module['comment'] == $langDefaultModuleComment )
 {
-    $noModuleComment = true;
+  	$noModuleComment = true;
 }
 else
 {
-    $noModuleComment = false;
+   $noModuleComment = false;
 }
 
-if($module['startAsset_id'] == 0)
+
+if( $module['startAsset_id'] == 0 )
 {
     $noStartAsset = true;
 }
@@ -113,25 +113,32 @@ else
 {
     $noStartAsset = false;
 }
-// check if there is a specific comment for this module in this path
 
+
+// check if there is a specific comment for this module in this path
 $sql = "SELECT `specificComment`
         FROM `".$TABLELEARNPATHMODULE."`
         WHERE `module_id` = ". (int)$_SESSION['module_id'];
-$query = claro_sql_query($sql);
-$learnpath_module = @mysql_fetch_array($query);
+
+$learnpath_module = claro_sql_query_get_single_row($sql);
 
 if( empty($learnpath_module['specificComment']) || $learnpath_module['specificComment'] == $langDefaultModuleAddedComment )
 {
-    $noModuleSpecificComment = true;
+	$noModuleSpecificComment = true;
 }
 else
 {
     $noModuleSpecificComment = false;
 }
+
 // check in DB if user has already browsed this module
 
-$sql = "SELECT *
+$sql = "SELECT `contentType`,
+				`total_time`,
+				`session_time`,
+				`scoreMax`,
+				`raw`,
+				`lesson_status`
         FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, 
              `".$TABLELEARNPATHMODULE."` AS LPM, 
              `".$TABLEMODULE."` AS M
@@ -141,18 +148,21 @@ $sql = "SELECT *
           AND LPM.`module_id` = ". (int)$_SESSION['module_id']."
           AND LPM.`module_id` = M.`module_id`
              ";
-$resultBrowsed = claro_sql_query($sql);
+$resultBrowsed = claro_sql_query_get_single_row($sql);
 
-//REDIRECT USER IF NEEDED
-
-if ((!$is_AllowedToEdit) && (@mysql_num_rows($resultBrowsed)==0 ) && $noModuleComment && $noModuleSpecificComment && !$noStartAsset) 
+// redirect user to the path browser if needed
+if( !$is_AllowedToEdit
+	&& ( !is_array($resultBrowsed) || !$resultBrowsed || count($resultBrowsed) <= 0 )
+	&& $noModuleComment
+	&& $noModuleSpecificComment
+	&& !$noStartAsset
+	)
 {
     header("Location:./navigation/viewer.php");
 }
 
 //header
-
-@include($includePath."/claro_init_header.inc.php");
+include($includePath."/claro_init_header.inc.php");
 
 //####################################################################################\\
 //################################## MODULE NAME BOX #################################\\
@@ -228,16 +238,14 @@ echo '<small><a href="'.$pathBack.'"><< '.$langBackModule.'</a></small><br /><br
 
 if($module['contentType'] != CTLABEL_) //
 {
-    if (mysql_num_rows($resultBrowsed) && $module['contentType'] != CTLABEL_)
+    if( $resultBrowsed && count($resultBrowsed) > 0 && $module['contentType'] != CTLABEL_)
     {
+        $contentType_img = selectImage($resultBrowsed['contentType']);
+        $contentType_alt = selectAlt($resultBrowsed['contentType']);
 
-        $list = mysql_fetch_array($resultBrowsed);
-        $contentType_img = selectImage($list['contentType']);
-        $contentType_alt = selectAlt($list['contentType']);
-
-        if ($list['contentType']== CTSCORM_   ) { $contentDescType = $langSCORMTypeDesc;    }
-        if ($list['contentType']== CTEXERCISE_ ) { $contentDescType = $langEXERCISETypeDesc; }
-        if ($list['contentType']== CTDOCUMENT_ ) { $contentDescType = $langDOCUMENTTypeDesc; }
+        if ($resultBrowsed['contentType']== CTSCORM_   ) { $contentDescType = $langSCORMTypeDesc;    }
+        if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = $langEXERCISETypeDesc; }
+        if ($resultBrowsed['contentType']== CTDOCUMENT_ ) { $contentDescType = $langDOCUMENTTypeDesc; }
 
 		echo '<b>'.$langProgInModuleTitle.'</b><br /><br />'."\n\n"
 			.'<table align="center" class="claroTable" border="0" cellspacing="2">'."\n"
@@ -258,19 +266,19 @@ if($module['contentType'] != CTLABEL_) //
         //display total time already spent in the module
 		echo '<tr>'."\n"
 			.'<td>'.$langTotalTimeSpent.'</td>'."\n"
-			.'<td>'.$list['total_time'].'</td>'."\n"
+			.'<td>'.$resultBrowsed['total_time'].'</td>'."\n"
 			.'</tr>'."\n\n";
 
         //display time passed in last session
 		echo '<tr>'."\n"
 			.'<td>'.$langLastSessionTimeSpent.'</td>'."\n"
-			.'<td>'.$list['session_time'].'</td>'."\n"
+			.'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
 			.'</tr>'."\n\n";
 			
         //display user best score
-        if ($list['scoreMax'] > 0)
+        if ($resultBrowsed['scoreMax'] > 0)
         {
-			$raw = round($list['raw']/$list['scoreMax']*100);
+			$raw = round($resultBrowsed['raw']/$resultBrowsed['scoreMax']*100);
         }
         else
         {
@@ -279,14 +287,14 @@ if($module['contentType'] != CTLABEL_) //
 
         $raw = max($raw, 0);
         
-        if (($list['contentType'] == CTSCORM_ ) && ($list['scoreMax'] <= 0) 
-            &&  (  ( ($list['lesson_status'] == "COMPLETED") || ($list['lesson_status'] == "PASSED") ) || ($list['raw'] != -1) ) )
+        if (($resultBrowsed['contentType'] == CTSCORM_ ) && ($resultBrowsed['scoreMax'] <= 0)
+            &&  (  ( ($resultBrowsed['lesson_status'] == "COMPLETED") || ($resultBrowsed['lesson_status'] == "PASSED") ) || ($resultBrowsed['raw'] != -1) ) )
         {
 			$raw = 100;
         }
 
         // no sens to display a score in case of a document module
-        if (($list['contentType'] != CTDOCUMENT_))
+        if (($resultBrowsed['contentType'] != CTDOCUMENT_))
         {
 			echo '<tr>'."\n"
 				.'<td>'.$langYourBestScore.'</td>'."\n"
@@ -298,9 +306,9 @@ if($module['contentType'] != CTLABEL_) //
 
         // document are just browsed or not, but not completed or passed...
 
-        if (($list['contentType']== CTDOCUMENT_))
+        if (($resultBrowsed['contentType']== CTDOCUMENT_))
         {
-            if ($list['lesson_status']=="COMPLETED")
+            if ($resultBrowsed['lesson_status']=="COMPLETED")
             {
                 $statusToDisplay = $langAlreadyBrowsed;
             }
@@ -311,7 +319,7 @@ if($module['contentType'] != CTLABEL_) //
         }
         else
         {
-            $statusToDisplay = $list['lesson_status'];
+            $statusToDisplay = $resultBrowsed['lesson_status'];
         }
 		echo '<tr>'."\n"
 			.'<td>'.$langLessonStatus.'</td>'."\n"
@@ -325,12 +333,12 @@ if($module['contentType'] != CTLABEL_) //
     /* START */
     // check if module.startAssed_id is set and if an asset has the corresponding asset_id
     // asset_id exists ?  for the good module  ?
-    $sql = "SELECT *
+    $sql = "SELECT `asset_id`
               FROM `".$TABLEASSET."`
              WHERE `asset_id` = ". (int)$module['startAsset_id']."
                AND `module_id` = ". (int)$_SESSION['module_id'];
-    $result = claro_sql_query($sql);
-    $asset = @mysql_fetch_array($result);
+
+	$asset = claro_sql_query_get_single_row($sql);
 
     if(( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'])
              || ( $submitStartAsset && isset($startAsset))
