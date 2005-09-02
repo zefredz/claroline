@@ -7,7 +7,7 @@
  * when the user is anonymous, index anonymous.inc.php
  * is load instead of this code.
  *
- * @version 1.7
+ * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -153,10 +153,10 @@ echo "<p>"
         .    $langCourseCreate
         .    '</a>'
         ;
-        if ($allowed_to_register) echo '&nbsp;|&nbsp;';
+        if ($allow_to_self_enroll) echo '&nbsp;|&nbsp;';
     }
 
-    if ($allowed_to_register)
+    if ($allow_to_self_enroll)
     {
         echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=">'
         .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '

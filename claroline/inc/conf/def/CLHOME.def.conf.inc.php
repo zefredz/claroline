@@ -26,7 +26,7 @@ $conf_def['config_class']='platform';
 $conf_def['section']['rightmenu']['label']='Right menu settings';
 $conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
 $conf_def['section']['rightmenu']['properties'] =
-array ( 'max_char_from_content', 'allowed_to_register'
+array ( 'max_char_from_content', 'allow_to_self_enroll'
       );
 
 //PROPERTIES
@@ -42,7 +42,7 @@ $conf_def_property_list['max_char_from_content']
         );
 
 
-$conf_def_property_list['allowed_to_register']
+$conf_def_property_list['allow_to_self_enroll']
 = array ('label'     => 'Personnal course list modification'
         ,'description' => 'Set if the users are allowed to modify their personnal courses list or not'
         ,'default'   => TRUE
