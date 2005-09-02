@@ -216,11 +216,6 @@ else
 
 // Display Forum Footer
 
-echo  '<br />
-<center>
-<small>Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a></small>
-</center>';
-
 include($includePath.'/claro_init_footer.inc.php');
 
 ?>

@@ -349,17 +349,9 @@ foreach ( $categories as $this_category )
     }
 }
 
-echo '</table>' . "\n"
+echo '</table>' . "\n";
 
 // Display Forum Footer
-
-.     '<br />'
-.     '<center>'
-.     '<small>'
-.     'Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a>'
-.     '</small>'
-.     '</center>'
-;
 
 include($includePath . '/claro_init_footer.inc.php');
 
