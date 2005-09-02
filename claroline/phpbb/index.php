@@ -15,6 +15,8 @@
  *
  * @package CLFRM
  *
+ * @todo  $last_post would be always a timestamp 
+ *
  */
 
 /*=================================================================
@@ -294,7 +296,7 @@ foreach ( $categories as $this_category )
             .    '<small>' . $total_posts . '</small>' . "\n"
             .    '</td>' . "\n"
             .    '<td align="center">' . "\n"
-            .    '<small>' . (($last_post > 0) ? $last_post : $langNoPost) . '</small>'
+            .    '<small>' . (($last_post > 0) ? claro_disp_localised_date($dateTimeFormatLong,datetime_to_timestamp($last_post)) : $langNoPost) . '</small>'
             .    '</td>' . "\n"
             ;
 
