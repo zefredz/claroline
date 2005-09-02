@@ -1,23 +1,28 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6.*
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-	  |  This is  just a script tou  print out the for.                      |
-	  |  There is no data working.                                           |
-      +----------------------------------------------------------------------+
+/** 
+ * CLAROLINE 
+ *
+ * This script display form to parameter a creation of group
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLGRP
+ *
+ * @package CLGRP
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
-/**************************************
-       CLAROLINE MAIN SETTINGS
-**************************************/
 require '../inc/claro_init_global.inc.php'; 
 if ( ! $_cid) claro_disp_select_course();
 
 $nameTools = $langGroupCreation;
-$interbredcrump[]= array ("url"=>"group.php", "name"=> $langGroups);
-include($includePath."/claro_init_header.inc.php");
+$interbredcrump[]= array ('url' => 'group.php', 'name'=> $langGroups);
+include($includePath . '/claro_init_header.inc.php');
 
 echo claro_disp_tool_title(array('supraTitle' => $langGroups,
                             'mainTitle' => $nameTools));
@@ -63,5 +68,5 @@ echo claro_disp_tool_title(array('supraTitle' => $langGroups,
 </table>
 </form>
 <?php
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 ?>

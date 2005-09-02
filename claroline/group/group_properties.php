@@ -2,7 +2,7 @@
 /** 
  * CLAROLINE 
  *
- * @version 1.6
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -25,10 +25,10 @@ $nameTools = $langGroupProperties;
 $interbredcrump[]= array ('url'=>'group.php', 'name'=> $langGroups);
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
-$sql = "
-SELECT `self_registration`,`private`,`nbGroupPerUser`,`forum`,`document`,`wiki`,`chat`
-    FROM `".$tbl_course_group_property."`";
+$tbl_course_group_property   = $tbl_cdb_names['group_property'];
+$sql = "SELECT `self_registration`,`private`,`nbGroupPerUser`,
+               `forum`,`document`,`wiki`,`chat`
+        FROM `" . $tbl_course_group_property . "`";
 
 /**
  * This awful code  make usage of a stupid table with only one record.
@@ -57,7 +57,7 @@ $_groupProperties ['tools'] ['forum'    ] =   $gpData['forum']             == 1;
 $_groupProperties ['tools'] ['document' ] =   $gpData['document']          == 1;
 $_groupProperties ['tools'] ['wiki'     ] =   $gpData['wiki']              == 1;
 $_groupProperties ['tools'] ['chat'   ]   =   $gpData['chat']              == 1;
-session_register("_groupProperties");
+session_register('_groupProperties');
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'            ];
 
@@ -77,9 +77,8 @@ if ($multiGroupAllowed)
     }
 }
 
-include($includePath.'/claro_init_header.inc.php');
-echo claro_disp_tool_title( array('supraTitle' => $langGroups,
-'mainTitle' => $nameTools));
+include($includePath . '/claro_init_header.inc.php');
+echo claro_disp_tool_title( array('supraTitle' => $langGroups, 'mainTitle' => $nameTools));
 
 ?>
 
@@ -126,12 +125,14 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups,
                 for( $i = 1; $i <= 10; $i++ )
                 {
                     echo '<option value="'.$i.'"'
-                        .( $nbGroupsPerUserShow == $i?' selected="selected" ':'')
-                        .'>'.$i.'</option>';
+                    .    ( $nbGroupsPerUserShow == $i ? ' selected="selected" ' : '')
+                    .    '>' . $i . '</option>'
+                    ;
                 }
                 echo '<option value="ALL" '
-                    .($nbGroupsPerUserShow == "ALL"?' selected="selected" ':'')
-                    .'>ALL</option>';
+                .    ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
+                .    '>ALL</option>'
+                ;
             ?>
             </select>
             <?php echo $langQtyOfUserCanSubscribe_PartAfterNumber ?>
@@ -202,5 +203,5 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups,
 </table>
 </form>
 <?php
-include($includePath.'/claro_init_footer.inc.php');
+include($includePath . '/claro_init_footer.inc.php');
 ?>
