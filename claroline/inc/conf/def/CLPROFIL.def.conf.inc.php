@@ -29,18 +29,14 @@ $conf_def['config_class']='user';
 
 // Section required fields
 
-$conf_def['section']['required']['label'] = 'Data checkin';
-$conf_def['section']['required']['description'] = '';
-$conf_def['section']['required']['properties'] = 
+$conf_def['section']['agreement']['label'] = 'Registration agreement';
+$conf_def['section']['agreement']['description'] = '';
+$conf_def['section']['agreement']['properties'] = 
 array ( 'show_agreement_panel'
 	  , 'agreement_next_step_message'
 	  , 'agreement_cancel_message'
-      , 'userOfficialCodeCanBeEmpty'
-      , 'ask_for_official_code'
-      , 'userMailCanBeEmpty'
-      , 'SECURE_PASSWORD_REQUIRED'
       );
-
+          
 $conf_def_property_list['show_agreement_panel'] =
 array ( 'label'         => 'Show the agreement panel before creating a new account'
       ,'description'   => 'The content of this panel is editable in administration '
@@ -61,6 +57,15 @@ $conf_def_property_list['agreement_cancel_message'] =
 array ( 'label'         => 'Text of the button to cancel the agreement'
       , 'default'       => 'I Disagree'
       , 'type'          => 'string'
+      );
+
+$conf_def['section']['required']['label'] = 'Data checkin';
+$conf_def['section']['required']['description'] = '';
+$conf_def['section']['required']['properties'] = 
+array ( 'userOfficialCodeCanBeEmpty'
+      , 'ask_for_official_code'
+      , 'userMailCanBeEmpty'
+      , 'SECURE_PASSWORD_REQUIRED'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
