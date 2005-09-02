@@ -65,10 +65,10 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
     $user = claro_sql_query_fetch_all($sql);
 
+    $extAuthPasswordCount = 0;
+
     if ( count($user) > 0 )
     {
-        $extAuthPasswordCount = 0;
-
         for ($i = 0, $j = count($user); $i < $j; $i++)
         {
             if ( in_array(strtolower($user[$i]['authSource']), 
@@ -122,7 +122,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
         if ($userAccountList)
         {
-            $userAccountList = implode ("-----------\r\n", $userAccountList);
+            $userAccountList = implode ("\r\n\r\n", $userAccountList);
         }
 
         $emailBody = $emailSubject."\r\n"
@@ -185,43 +185,23 @@ echo claro_disp_tool_title($nameTools);
 
 // display message box
 
+if ( ! $passwordFound )
+{ 
+    $msg .= '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'
+         .  '<input type="hidden" name="searchPassword" value="1">'
+         .  '<label for="Femail">'.$langEmail.' : </label>'
+         .  '<br />'
+         .  '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="'. htmlspecialchars($Femail).'">'
+         .  '<br /><br />'
+         .  '<input type="submit" name="retrieve" value="'.$langOk.'"> '
+         .claro_disp_button('../../index.php', $langCancel)
+         .  '</form>';
+}
+
 if ( ! empty($msg) ) echo claro_disp_message_box($msg);
 
 // display form
 
-if ( ! $passwordFound )
-{ 
-?>
-<br />
-<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<input type="hidden" name="searchPassword" value="1">
-<fieldset>
-
-<table>
-
-<tr>
-<td>
-<label for="Femail"><?php echo $langEmail ?> : </label>
-</td>
-<td>
-<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="<?php echo htmlspecialchars($Femail) ?>">
-</td>
-</tr>
-
-<tr>
-<td>
-</td>
-<td>
-<input type="submit" name="retrieve" value="Submit">
-</td>
-</tr>
-
-</table>
-
-</fieldset>
-</form>
-<?php
-}
 
 include($includePath."/claro_init_footer.inc.php");
 ?>
