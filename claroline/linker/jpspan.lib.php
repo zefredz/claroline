@@ -26,6 +26,12 @@
     {
         $jpspanEnabled = FALSE;
         
+        /* IIS workaround : JPSPAN does not work on IIS */
+        if ( ! (strpos( $_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS' ) === false) )
+        {
+			return false;
+        }
+        
         // check if the javascript is enabled 
         if (claro_is_javascript_enabled())
         {
