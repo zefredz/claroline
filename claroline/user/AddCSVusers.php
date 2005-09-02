@@ -55,11 +55,20 @@ if ( empty($_SESSION['claro_usedFormat']) )
     $_SESSION['claro_usedFormat'] = $defaultFormat;
 }
 
-if (isset($_REQUEST['usedFormat']))
+if (isset($_REQUEST['loadDefault']) && ($_REQUEST['loadDefault'] =='yes'))
+{
+    $usedFormat                     = $defaultFormat;
+    $_SESSION['claro_usedFormat']   = $defaultFormat;
+    $_SESSION['CSV_fieldSeparator'] = ";";
+    $_SESSION['CSV_enclosedBy']     = "";
+    $dialogBox ="Format changed";
+}
+
+elseif (isset($_REQUEST['usedFormat']))
 {
     //check if posted new format is OK
     
-    $field_correct = claro_CSV_format_ok($_REQUEST['usedFormat']);
+    $field_correct = claro_CSV_format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);
           
     if (!$field_correct)
     {
@@ -68,9 +77,14 @@ if (isset($_REQUEST['usedFormat']))
     else
     {
         $dialogBox ="Format changed";
-        $_SESSION['claro_usedFormat'] = $_REQUEST['usedFormat'];
+        $_SESSION['claro_usedFormat']   = $_REQUEST['usedFormat'];
+        $_SESSION['CSV_fieldSeparator'] = $_REQUEST['fieldSeparator'];
+        $_SESSION['CSV_enclosedBy']     = $_REQUEST['enclosedBy'];
     }
 }
+
+if (!isset($_SESSION['CSV_fieldSeparator'])) $_SESSION['CSV_fieldSeparator'] = "";
+if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = ";";
 
 $usedFormat = $_SESSION['claro_usedFormat'];
 
@@ -78,7 +92,7 @@ $usedFormat = $_SESSION['claro_usedFormat'];
  * 
  * See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
  * - adding CSV users by the admin tool                                                     (AddType=adminTool)
- * - ading CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
+ * - adding CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
  * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
  */
 if (isset($_REQUEST['AddType'])) 
@@ -123,7 +137,7 @@ switch ($cmd)
     //STEP ONE : FILE UPLOADED, CHECK FOR POTENTIAL ERRORS
     
     case 'exImp' :
-        
+           
     //see if format is defined in session or in file
     
     if ($_REQUEST['firstLineFormat']=='YES')
@@ -169,6 +183,7 @@ switch ($cmd)
     
        claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);        
        $display = 'stepone';
+       
     }
     
         break;
@@ -216,15 +231,20 @@ switch ($cmd)
        
     }
    
-   
     
     // perform subscriptions of users with 'no error' found.  
         
     foreach ($usersToAdd as $user)
     {
 
+        //set empty fields if needed
+        
+        if (empty($user['phone']))        $user['phone'] = "";
+        if (empty($user['mail']))         $user['mail'] = "";
+        if (empty($user['officialCode'])) $user['officialCode'] = "";
+         
         $uid = user_add($user);
-      
+        
         // for each use case alos perform thze other needed action :
     
         switch ($AddType)
@@ -303,12 +323,31 @@ echo claro_disp_tool_title($nameTools);
 if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
     $dialogBox = $langModifyFormat .' :<br><br>'
-    .            $langTheFields . ' "<b>firstname;</b>", "<b>lastname;</b>", "<b>username;</b>" and "<b>password;</b>" ' . $langAreCompulsory . '<br><br>'
-    .            '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">'
-    .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55"><br><br>'
+    .            $langTheFields . ' <b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> ' . $langAreCompulsory . '<br><br>'
+    .          '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+    .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55"><br /><br />'
+    .            '<label for="fieldSeparator">' .  $langFieldSeparatorUsed . ' </label>:' 
+    
+    .            '<select name="fieldSeparator" id="fieldSeparator">'
+    .            '  <option value=";">;</option>'
+    .            '  <option value=",">,</option>'
+    .            '  <option value=" ">' . $langBlankSpace . ' </option>'      
+    .            '</select>'  
+    .' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    .            '<label for="enclosedBy">'
+    .            '  ' . $lang_fields_enclosed_by .' :'
+    .            '</label>'
+    
+    .            '<select name="enclosedBy" id="enclosedBy">'
+    .            ' <option value="">' . $langNone . ' </option>'
+    .            ' <option value="dbquote">"</option>'
+    .            ' <option value=",">,</option>'
+    .            ' <option value=".">.</option>'      
+    .            '</select><br />'
     .            '<input type="submit" value="' . $langOk . '"'
-    .            '</form>'
+    .          '</form>'
     ;
+    
 }
 
 
@@ -355,34 +394,15 @@ case 'default' :
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;usedFormat=' . $defaultFormat; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;loadDefault=yes'; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
     | 
     [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes'; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-    <label for="fieldSeparator"><?php echo $langFieldSeparatorUsed; ?></label>: 
     
-    <select name="fieldSeparator" id="fieldSeparator">
-      <option value=";">;</option>
-      <option value=",">,</option>
-      <option value=" "><?php echo $langBlankSpace; ?></option>       
-    </select> 
-    
-    
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <label for="enclosedBy">
-    <?php echo $lang_fields_enclosed_by; ?> :
-    </label>
-    
-    <select name="enclosedBy" id="enclosedBy">
-      <option value=""><?php echo $langNone; ?></option>
-      <option value="dbquote">"</option>
-      <option value=",">,</option>
-      <option value=".">.</option>      
-    </select>
-    
-    <br><br>
+    <input type="hidden" name="fieldSeparator" value="<?php echo $_SESSION['CSV_fieldSeparator']; ?>" >
+    <input type="hidden" name="enclosedBy" value="<?php echo $_SESSION['CSV_enclosedBy']; ?>" > 
+    <br>
     <?php echo $langFileForCSVUpload; ?><input type="file" name="CSVfile">
     <br><br>
     <input type="submit" name="submitCSV" value="<?php echo $lang_add_user_list; ?>">

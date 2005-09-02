@@ -67,9 +67,10 @@ function array_swap_cols_and_rows( $origMatrix, $presumedColKeyList)
  *
  */
 
-function claro_CSV_format_ok($format)
+function claro_CSV_format_ok($format, $delim =";", $enclosedBy="\"")
 {
-    $fieldarray = explode(";",$format);
+    $fieldarray = explode($delim,$format);    
+    if ($enclosedBy == "dbquote") $enclosedBy = "\"";
     
     $username_found = FALSE;
     $password_found = FALSE;
@@ -78,7 +79,13 @@ function claro_CSV_format_ok($format)
 
     foreach ($fieldarray as $field)
     {
-        if ( trim($field) == 'firstname' )
+     
+        if (!empty($enclosedBy))         
+        {
+            $fieldTempArray = explode($enclosedBy,$field);         
+            if (isset($fieldTempArray[1])) $field = $fieldTempArray[1];
+        }      
+        if ( trim($field) == "firstname" )
     	{
     	    $firstname_found = TRUE;
     	}
@@ -90,7 +97,7 @@ function claro_CSV_format_ok($format)
     	{
     	    $username_found = TRUE;
     	}
-    	if ( trim($field) == 'password' )
+    	if ( trim($field) == "password" )
     	{
     	    $password_found = TRUE;
     	}
@@ -174,7 +181,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	    $_SESSION['claro_invalid_format_error']               =  false;
 	}
 	$userlist = $CSVParser->results;
-
+    
 	//save this 2D array userlist in session
 
 	$_SESSION['claro_csv_userlist'] = $userlist;
@@ -686,6 +693,8 @@ class CSV
 	
     function CSV($filename,$delim,$linedef,$enclosed_by="\"",$eol="\n")
     {
+    	
+    	
     	//open the file
         $this->raw_data = implode("",file($filename));
         // make sure all CRLF's are consistent
@@ -699,29 +708,48 @@ class CSV
 		{
 			$this->new_data = @explode($eol,$this->raw_data);
 			if(count($this->new_data)==0)
-                        {
-                           $this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
+            {
+                $this->error("Couldn't split data via given \$eol.<li>\$eol='".$eol."'");
 			}
 		}
 		// create data keys with the line definition given in params, 
-	        // if linedef is not define, take first line of file to define it
+	    // if linedef is not define, take first line of file to define it
 		if ($linedef=="FIRSTLINE") 
 	    {
-	    	$linedef = $this->new_data[0];		
+	    	$linedef = $this->new_data[0];	
 		    $skipFirstLine = TRUE;
 		}
 		else
 		{
-		    $skipFirstLine = FALSE; 
+		    $skipFirstLine = FALSE;     
 		}
         
-        $this->validFormat = claro_CSV_format_ok($linedef); // see if the used format is ok
+        //Create array with the fields format in the file :
         
-	    $temp = @explode($delim,$linedef);
-
+        $temp = @explode($delim,$linedef);
+   
+        if (!empty($enclosed_by))         
+        {
+            $temporary = array();
+            
+            foreach ($temp as $tempfield)
+            {
+                $fieldTempArray = explode($enclosed_by,$tempfield);         
+                if (isset($fieldTempArray[1])) $temporary[] = $fieldTempArray[1];
+            }
+            $temp = $temporary;
+        }
+        
+        //check if the used format is ok for Claroline
+        
+        $this->validFormat = claro_CSV_format_ok($linedef, $delim, $enclosed_by);
+        
+	    if (!($this->validFormat)) return array();
+        
+        
 		foreach($temp AS $field_index=>$field_value)
 	    {            
-			$this->mapping[] = $this->validKEY($field_value); 
+			$this->mapping[] = $this->validKEY($field_value);
 	    }
 
 		// fill the 2D array using the keys given
