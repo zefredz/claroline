@@ -41,11 +41,10 @@ $conf_def_property_list['max_char_from_content']
         ,'acceptedValue' => array ( 'min'=> '0' )
         );
 
-
 $conf_def_property_list['allow_to_self_enroll']
 = array ('label'     => 'Personnal course list modification'
         ,'description' => 'Set if the users are allowed to modify their personnal courses list or not'
-        ,'default'   => TRUE
+        ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'display'       => TRUE
         ,'readonly'      => FALSE
