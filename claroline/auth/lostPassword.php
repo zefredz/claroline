@@ -48,105 +48,131 @@ else                               $Femail = '';
 // Main section
 
 if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
-{  
-
+{
     // search user with this email
 
-	$sql = 'SELECT  `user_id` AS `uid`, 
-					`nom` AS `lastName`, 
-					`prenom` AS `firstName`, 
-	                `username` AS `loginName`, 
-					`password`, 
-					`email`, 
-					`creatorId`
-	         FROM `' . $tbl_user . '`
-	         WHERE LOWER(email) LIKE "'. addslashes($Femail) .'"
-	               AND   `email` != "" ';
-	$result = claro_sql_query($sql);
+    $sql = 'SELECT  `user_id`   `uid`       ,
+                    `nom`       `lastName`  ,
+                    `prenom`    `firstName` ,
+                    `username`  `loginName` ,
+                    `password`              ,
+                    `email`                 ,
+                    `authSource`            ,
+                    `creatorId`
+             FROM `' . $tbl_user . '`
+             WHERE LOWER(email) LIKE "'. addslashes($Femail) .'"
+                   AND   `email` != "" ';
 
-	if ( $result )
-	{
-		if ( mysql_num_rows($result) > 0 )
-		{
+    $user = claro_sql_query_fetch_all($sql);
 
-            $user = array();            
+    if ( count($user) > 0 )
+    {
+        $extAuthPasswordCount = 0;
 
-			while ( $data = mysql_fetch_array($result) )
-			{
-				$user [] = $data;
-			}
+        for ($i = 0, $j = count($user); $i < $j; $i++)
+        {
+            if ( in_array(strtolower($user[$i]['authSource']), 
+                          array('claroline', 'clarocrypt')))
+            {
+                if ($userPasswordCrypted)
+                {
+                    /*
+                     * If password are crypted, we can not send them as such.
+                     * We have to generate new ones.
+                     */
 
-			/*
-			 * If password are crypted, we can not send them as they are.
-			 * There are unusable for the end user. So, we have to generate new ones.
-			 */
-			if ( $userPasswordCrypted ) // $userPasswordCrypted comes claro_main.conf.php
-			{
-				for ($i = 0, $j = count($user); $i < $j; $i++)
-				{
-					$user[$i]['password'] = generate_passwd();
+                    $user[$i]['password'] = generate_passwd();
+                    
+                    // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
-					// UPDATE THE DB WITH THE NEW GENERATED PASSWORD
+                    $sql = 'UPDATE `'.$tbl_user.'`
+                            SET   `password` = "'. addslashes(md5($user[$i]['password'])) .'"
+                             WHERE `user_id` = "'.$user[$i]['uid'].'"';
 
-					$result = claro_sql_query('UPDATE `'.$tbl_user.'`
-					                     SET `password` = "'. addslashes(md5($user[$i]['password'])) .'"
-					                     WHERE `user_id` = "'.$user[$i]['uid'].'"');
-				}
-			}
+                    $result = claro_sql_query($sql)
+                              or die('<p align="center">Unable to record new generated password !</p>');
+                }
+            }
+            else
+            {
+                unset($user[$i]); // remove 
+                $extAuthPasswordCount ++;
+            }
+        }
 
-			$passwordFound = true;
+        // recount if there are still password found
+        if (count($user) > 0) $passwordFound = true;
 
-			/*
-			 * Prepare the email message wich has to be send to the user
-			 */
+        /*
+         * Prepare the email message wich has to be send to the user
+         */
 
-            // mail subject
-			$emailSubject = $langLoginRequest." ".$siteName;
+        // mail subject
+        $emailSubject = $langLoginRequest . ' ' . $siteName;
 
 
-			// mail body
-			foreach($user as $thisUser)
-			{
-				$userAccountList [] = $thisUser['firstName']." ".$thisUser['lastName']."\r\n\r\n"
-									 ."\t".$langUserName." : ".$thisUser['loginName']."\r\n"
-									 ."\t".$langPassword." : ".$thisUser['password']." \r\n";
-			}
+        // mail body
+        foreach($user as $thisUser)
+        {
+            $userAccountList [] = 
+                $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
+                ."\t".$langUserName . ' : ' . $thisUser['loginName'] . "\r\n"
+                ."\t".$langPassword . ' : ' . $thisUser['password']  . " \r\n";
+        }
 
-			if ($userAccountList)
-			{
-				$userAccountList = implode ("-----------\r\n", $userAccountList);
-			}
-			
-			$emailBody = $emailSubject."\r\n"
-			            .$rootWeb."\r\n"
-			            .$langYourAccountParam."\r\n\r\n"
-			            .$userAccountList;
+        if ($userAccountList)
+        {
+            $userAccountList = implode ("-----------\r\n", $userAccountList);
+        }
 
-			// send message
+        $emailBody = $emailSubject."\r\n"
+                    .$rootWeb."\r\n"
+                    .$langYourAccountParam."\r\n\r\n"
+                    .$userAccountList;
+
+            // send message
             $emailTo = $user[0]['uid'];
-      
-            if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
-			{
-				$msg = $langPasswordHasBeenEmailed.$Femail;
-			}
-			else
-			{
-				$msg = $langEmailNotSent
-                .	'<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
-                .	$langPlatformAdministrator
-                .	"</a>";
-			}	
 
-		} 	// end if mysql_num_rows($result) > 0
-		else
-		{
-			$msg = $langEmailAddressNotFound;
-		}
-	}
+            if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
+            {
+                $msg = $langPasswordHasBeenEmailed.$Femail;
+            }
+            else
+            {
+                $msg = $langEmailNotSent
+                .   '<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
+                .   $langPlatformAdministrator
+                .   '</a>';
+            }
+    }
+    else
+    {
+        $msg = $langEmailAddressNotFound;
+    }
+
+    if ($extAuthPasswordCount > 0 )
+    {
+    	if ( count ($user) > 0 )
+    	{
+        	$msg .= '<p>'
+                 .  'Passwords of some of your user account(s) are recorded an in external 
+                    authentication system outside the platform.
+                    <br />For more information take contact with the platform administrator.'
+                 .  '</p>';
+    	}
+        else
+        {
+            $msg .= '<p>'
+                 . 'Your password(s) is (are) recorded in an external authentication 
+                   system outside the platform. 
+                   <br />For more information take contact with the platform administrator.'
+                 . '</p>';
+        }
+    }
 }
 else
 {
-	$msg = "<p>".$langEnterMail."</p>";
+    $msg = '<p>'.$langEnterMail.'</p>';
 }
 
 // display section
