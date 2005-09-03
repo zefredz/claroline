@@ -156,8 +156,12 @@ if ( !empty($fromAdmin) )
     {
         // bred different if we come from admin tool for a CLASS
         $nameTools = $langRegisterClass;
+
         //find info about the class
-        $sqlclass = "SELECT * FROM `" . $tbl_class . "` WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
+        $sqlclass = "SELECT name, class_parent_id, class_level 
+                     FROM `" . $tbl_class . "` 
+                     WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
+
         list($classinfo) = claro_sql_query_fetch_all($sqlclass);
     }
 }
@@ -332,7 +336,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
 
                 WHERE `faculte` = '" . $category . "'
-                AND   " . $visibility_cond . "
+                # AND   " . $visibility_cond . "
 
                 ORDER BY UPPER(`fake_code`)";
 
@@ -630,12 +634,17 @@ switch ( $displayMode )
                     {
                         echo '<small><span class="highlight">' . $lang_already_enrolled . '</span></small>' . "\n";
                     }
-                    else
+                    elseif($thisCourse['visible'] == 1 || $thisCourse['visible'] == 2)
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['code'] . $inURL . '">'
-                            . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $lang_enroll . '">'
+                            . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langLocked . '">'
                             . '</a>' ;
                     }
+                    else
+                    {
+                    	echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . $lang_enroll . '">';
+                    }
+                    
                     echo '</td>' . "\n";
 
                }
