@@ -221,13 +221,17 @@ else
             disp_mini_pager($topic_link, 'start', $replys+1, $posts_per_page);
     
             echo '</td>' . "\n"
-                . '  <td align="center"><small>' . $replys . '</small></td>' . "\n"
-                . '  <td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '<small></td>' . "\n"
-                . '  <td align="center"><small>' . $thisTopic['topic_views'] . '<small></td>' . "\n";
+                .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
+                .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '<small></td>' . "\n"
+                .'<td align="center"><small>' . $thisTopic['topic_views'] . '<small></td>' . "\n";
     
             if ( !empty($last_post) )
             {
-                echo '  <td align="center"><small>' . $last_post . '<small></td>' . "\n";
+                echo  '<td align="center">'
+                    . '<small>' 
+                    . claro_disp_localised_date($dateTimeFormatShort, $last_post)
+                    . '<small>'
+                    . '</td>' . "\n";
             }
             else
             {
