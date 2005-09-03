@@ -290,6 +290,11 @@ if ( $cmd == 'exDelCat' )
         {
             $dialogBox .= '<p>'.$langUnableDeleteGroupCategoryForum.'</p>'."\n";
         }
+        elseif(claro_failure::get_last_failure() == 'GROUP_FORUM_REMOVALE_FORBIDDEN')
+        {
+        	$dialogBox .= '<p>'.$langCannotRemoveGroupForum.'</p>' ;
+        }
+        
     }
 }
 

@@ -1156,36 +1156,46 @@ function delete_category($cat_id)
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
     $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
 
-    $sql = 'SELECT `forum_id` 
+    $sql = 'SELECT `forum_id`, `group_id`
             FROM `'.$tbl_forum_forums.'` 
             WHERE `cat_id` = "'.$cat_id.'"';
 
-    $result = claro_sql_query($sql);
+    $result = claro_sql_query_fetch_all_cols($sql);
 
-    while( list($forum_id) = mysql_fetch_row($result) )
+    $forumIdList = $result['forum_id'];
+    $groupIdList = $result['group_id'];
+
+    if ( count(array_filter($groupIdList, 'is_null') ) < count($groupIdList) )
     {
-        $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
-                WHERE `forum_id` = "'. (int)$forum_id.'"';
+        return claro_failure::set_failure('GROUP_FORUM_REMOVALE_FORBIDDEN');
+    }
+    else
+    {
+        foreach($forumIdList as $thisForumId)
+        {
+            $sql = 'DELETE FROM `'.$tbl_forum_topics.'` 
+                    WHERE `forum_id` = "'. (int)$thisForumId.'"';
+            
+            claro_sql_query($sql);
+        }
+        
+        $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
+                WHERE `cat_id` = "'. (int) $cat_id.'"';
         
         claro_sql_query($sql);
+
+        $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
+                WHERE `cat_id` = "'.(int) $cat_id.'"';
+            
+        claro_sql_query($sql);
+        return true;
     }
-
-    $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
-            WHERE `cat_id` = "'. (int) $cat_id.'"';
-    
-    claro_sql_query($sql);
-
-    $sql = 'DELETE FROM `'.$tbl_forum_categories.'` 
-            WHERE `cat_id` = "'.(int) $cat_id.'"';
-        
-    claro_sql_query($sql);
-    return true;
 }
 
 function delete_forum($forum_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'    ];
+    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
 
     delete_all_post_in_forum($forum_id);
 
