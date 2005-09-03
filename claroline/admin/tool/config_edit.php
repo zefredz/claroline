@@ -127,6 +127,7 @@ else
                     {
                         if (!validate_property($propertyValue, $conf_def_property_list[$propertyName]))
                         {
+                            $controlMsg['info'][] = $propertyName . '(No valid)';
                             $okToSave = FALSE;
                         }
                     }
