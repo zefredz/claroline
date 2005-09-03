@@ -478,14 +478,14 @@ array ('label'       => 'Development mode'
                                ,'FALSE'=>'Off')
       );      
 
-$conf_def_property_list['allow_to_self_enroll']
+$conf_def_property_list['allowToSelfEnroll']
 = array ('label'     => 'Personnal course list modification'
         ,'description' => 'Set if the users are allowed to modify their personnal courses list or not'
         ,'default'   => 'TRUE'
         ,'type'      => 'boolean'
         ,'display'       => TRUE
         ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( 'TRUE'=> 'allowed', 'FALSE'=>'not allowed' )
+        ,'acceptedValue' => array ( 'TRUE'=> 'Allowed', 'FALSE'=>'Not allowed' )
         );
 
 ?>
