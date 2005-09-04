@@ -209,11 +209,12 @@ foreach ( $categories as $this_category )
             
             $forum_name   = htmlspecialchars($this_forum['forum_name']);
             $forum_desc   = htmlspecialchars($this_forum['forum_desc']);
-            $forum_id     = (int) $this_forum['forum_id'    ];
-            $group_id     = (int) $this_forum['group_id'    ];
+            $last_post    = $this_forum['post_time'];
             $total_topics = (int) $this_forum['forum_topics'];
             $total_posts  = (int) $this_forum['forum_posts' ];
-            $last_post    = $this_forum['post_time'   ];
+            $forum_id     = (int) $this_forum['forum_id'    ];
+            $group_id     = is_null($this_forum['group_id']) ? 
+                            null : (int) $this_forum['group_id'];
 
             $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
 
@@ -246,7 +247,7 @@ foreach ( $categories as $this_category )
             // If tutor, see all groups but indicate my groups.
             // Group Category == 1
 
-            if ( $this_category['cat_id'] == 1 )
+            if ( ! is_null($group_id ) )
             {
                 if (   in_array($group_id, $userGroupList )
                     || in_array($group_id, $tutorGroupList) 
