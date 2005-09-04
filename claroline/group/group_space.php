@@ -449,7 +449,7 @@ ON        ct.id = tl.tool_id";
             {
                 case 'CLDOC' :
                 {
-                    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
+                    if($_groupProperties['tools']['document'])
                     {
                         $group_tool_list[] = $tool;
                     }

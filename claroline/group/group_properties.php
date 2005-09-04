@@ -89,6 +89,7 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups, 'mainTitle' => $n
         <b><?php echo $langGroupSelfRegistration ?></b>
         </td>
     </tr>
+
     <tr>
         <td valign="top">
             <span class="item">
@@ -144,14 +145,11 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups, 'mainTitle' => $n
     }
 ?>
     <tr>
-        <td valign="top">
-            <b><?php echo $langGroupTools ?></b>
-        </td>
+        <td><b><?php echo $langAccess; ?></b></td>
     </tr>
     <tr>
         <td valign="top">
             <span class="item">
-            <?php echo $langGroupForum; ?>
             <input type="radio" name="private" id="private_1" value="1" <?php
                 if(!$groupPrivate)
                     echo "checked"?> >
@@ -164,9 +162,21 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups, 'mainTitle' => $n
         </td>
     </tr>
     <tr>
+        <td valign="top">
+            <b><?php echo $langGroupTools ?></b>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <span class="item">
+            <?php echo $langGroupForum; ?>
+            </span>
+        </td>
+    </tr>
+    <tr>
         <td>
             <span class="item">
-            <?php echo $langGroupDocument . ' ' . $langGroupDocumentAlwaysPrivate; ?>
+            <?php echo $langGroupDocument ?>
             </span>
         </td>
     </tr>
