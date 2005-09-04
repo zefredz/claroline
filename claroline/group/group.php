@@ -33,7 +33,6 @@
  */
 
 //**************** INITIALISATION************************
-
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 
@@ -154,14 +153,17 @@ $display_groupadmin_manager = (bool) $is_allowedToManage;
 
 if ( $is_allowedToManage )
 {
-    if ( isset($_REQUEST['creation']) )
+    if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+    else                           $cmd = null;
+
+    if ( $cmd == 'exMkGroup')
     {   
         // require the forum library to create the related forums
         require_once $includePath . '/lib/forum.lib.php';
 
         // For all Group forums, cat_id=1
 
-        $groupMax      = (int) $_REQUEST['group_max'];
+        $groupMax      = (int) $_REQUEST['group_max'     ];
         $groupQuantity = (int) $_REQUEST['group_quantity'];
 
         if ( $groupQuantity < 1 ) $groupQuantity = 1;
@@ -186,6 +188,110 @@ if ( $is_allowedToManage )
 
     }    // end if $submit
 
+    if ($cmd == 'rqMkGroup')
+    {
+        $message = '<b>' . $langNewGroupCreate . '</b>'
+
+
+        .'<form method="post" action="group.php">'                         ."\n"
+        .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' ."\n"
+        .'<input type="hidden" name="cmd" value="exMkGroup">'
+
+        .'<table>'                                                         ."\n"
+
+        .'<tr valign="top">'
+        .'<td>'
+        .'<label for="group_quantity">'.$langCreate.'</label>'
+        .'</td>'
+        .'<td>'
+        .'<input type="text" name="group_quantity" id="group_quantity" size="3" value="1">'
+        .'<label for="group_quantity">'.$langNewGroups.'</label>'
+        .'</td>'                                                           ."\n"
+        .'</tr>'                                                           ."\n"
+
+        .'<tr valign="top">'                                               ."\n"
+        .'<td>'                                                            ."\n"
+        .'<label for="group_max">'.$langMax.'</label>'
+        .'</td>'                                                           ."\n"
+        .'<td>'                                                            ."\n"
+        .'<input type="text" name="group_max" id="group_max" size="3" value="8">'
+        .$langPlaces
+        .'</td>'                                                           ."\n"
+        .'</tr>'                                                           ."\n"
+
+        .'<tr>'                                                            ."\n"
+        .'<td>'                                                            ."\n"
+        .'<label for="creation">'
+        .$langCreate
+        .'</label>'
+        .'</td>'                                                           ."\n"
+        .'<td>'                                                            ."\n"
+        .'<input type="submit" value="'.$langOk.'" name="creation" id="creation"> '
+        .claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+        .'</td>'                                                           ."\n"
+        .'</tr>'                                                           ."\n"
+
+        .'</table>'                                                        ."\n"
+        .'</form>'                                                         ."\n"
+        ;
+    }
+
+    if ( $cmd == 'exDelGroup')
+    {
+            /*----------------------
+                DELETE ALL GROUPS
+              ----------------------*/
+
+        if ($_REQUEST['id'] == 'ALL')
+        {
+            $nbGroupDeleted = deleteAllGroups();
+
+            if ($nbGroupDeleted > 0) $message = $langGroupsDeleted;
+            else                     $message = $langNoGroupsDeleted;
+            event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
+        }
+        elseif(0 < (int)$_REQUEST['id'])
+        {
+                /*----------------------
+                    DELETE ONE GROUP
+                  ----------------------*/
+
+            $nbGroupDeleted = delete_groups( (int) $_REQUEST['id']);
+
+            if     ( $nbGroupDeleted == 1 ) $message = $langGroupDel ;
+            elseif ( $nbGroupDeleted >  1 ) $message = $nbGroupDeleted . ' ' . $langGroupDel;
+            else                            $message = $langNoGroupsDeleted . ' !';
+        }
+    }
+
+    /*-------------------
+       EMPTY ALL GROUPS
+      -------------------*/
+
+    elseif ( $cmd == 'exEmptyGroup' )
+    {
+        $sql = "DELETE FROM `" . $tbl_GroupsUsers . "`";
+        $result  = claro_sql_query($sql);
+
+        $sql = "UPDATE `" . $tbl_Groups . "` SET tutor='0'";
+        $result2 = claro_sql_query($sql);
+
+        event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
+        $message = $langGroupsEmptied;
+    }
+
+    /*-----------------
+      FILL ALL GROUPS
+      -----------------*/
+
+    elseif ( $cmd == 'exFillGroup' )
+    {
+        fill_in_groups();
+        event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
+
+        $message = $langGroupFilledGroups;
+
+    }    // end FILL
 
     /**
      * GROUP PROPERTIES
@@ -283,77 +389,10 @@ if ( $is_allowedToManage )
         $groupHaveChat   = $_groupProperties['tools']['chat'     ];
 
     }    // end if $submit
-
-
-    /*----------------------
-         DELETE ALL GROUPS
-      ----------------------*/
-
-    elseif ( isset($_REQUEST['delete']) )
-    {
-        $nbGroupDeleted = deleteAllGroups();
-
-        if ($nbGroupDeleted>0) $message = $langGroupsDeleted;
-        else                   $message = $langNoGroupsDeleted;
-        event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
-
-    }
-
-    /*----------------------
-         DELETE ONE GROUP
-      ----------------------*/
-
-    elseif ( isset($_REQUEST['delete_one']) )
-    {
-        $id = (int) $_REQUEST['id'];
-        $nbGroupDeleted = delete_groups($id);
-
-        if     ( $nbGroupDeleted == 1 ) $message = $langGroupDel ;
-        elseif ( $nbGroupDeleted >  1 ) $message = $nbGroupDeleted . ' ' . $langGroupDel;
-        else                            $message = $langNoGroupsDeleted . ' !';
-    }
-
-    /*-------------------
-       EMPTY ALL GROUPS
-      -------------------*/
-
-    elseif ( isset($_REQUEST['empty']) )
-    {
-        $sql = "DELETE FROM `" . $tbl_GroupsUsers . "`";
-        $result  = claro_sql_query($sql);
-
-        $sql = "UPDATE `" . $tbl_Groups . "` SET tutor='0'";
-        $result2 = claro_sql_query($sql);
-
-        event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
-        $message = $langGroupsEmptied;
-    }
-
-    /*-----------------
-      FILL ALL GROUPS
-      -----------------*/
-
-    elseif ( isset($_REQUEST['fill']) )
-    {
-        fill_in_groups();
-        event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
-
-        $message = $langGroupFilledGroups;
-
-    }    // end FILL
-
 } // end if is_allowedToManage
 
 
 ////**************** OUTPUT ************************
-/* OUTPUT PANEL IS Divide in  3 Parts
-    1° Message box
-    2° Admin panel
-        Show command to manage groups and course properties about group.
-    3° Common panel.
-        List existing group and show commands
-        aivailable for the current user.
-*/
 
 include($includePath . '/claro_init_header.inc.php');
 
@@ -381,28 +420,28 @@ if ( $display_groupadmin_manager )
     echo '<p>' . "\n";
 
     // Create new groups
-    echo '<a class="claroCmd" href="group_creation.php">'
+    echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkGroup">'
     .    '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
     .    $langNewGroupCreate
     .    '</a> |'
     .    '&nbsp;' . "\n";
 
     // Delete all groups
-    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?delete=yes" onClick="return confirmationDelete();">'
+    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL" onClick="return confirmationDelete();">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    $langDeleteGroups
     .    '</a> |'
     .    '&nbsp;' . "\n";
 
     // Fill groups
-    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?fill=yes" onClick="return confirmationFill();">'
+    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exFillGroup" onClick="return confirmationFill();">'
     .    '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
     .    $langFillGroups
     .    '</a> |'
     .    '&nbsp;' . "\n";
 
     // Empty all groups
-    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?empty=yes"  onClick="return confirmationEmpty();">'
+    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup"  onClick="return confirmationEmpty();">'
     .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
     .    $langEmtpyGroups
     .    '</a> |'
@@ -631,7 +670,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
            . '</a>'
            . '</td>' . "\n"
            . '<td>'
-           . '<a href="' . $_SERVER['PHP_SELF'] . '?delete_one=yes&amp;id=' . $thisGroup['id'] . '">'
+           . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id'] . '">'
            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '">'
            . '</a>'
            . '</td>' . "\n"
