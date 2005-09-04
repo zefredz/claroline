@@ -167,7 +167,9 @@ DISPLAY SECTION
 // CLAROLINE HEADER AND BANNER
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title('<img src="'.$imgRepositoryWeb.'group.gif" alt="" />' . $nameTools);
+echo claro_disp_tool_title(
+array('supraTitle'=> $langGroups,
+'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
 
 if ( !empty($message) )
 {
