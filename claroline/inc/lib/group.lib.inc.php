@@ -98,8 +98,7 @@ function delete_groups($groupIdList = 'ALL')
                                     # ".__LINE__;
 
         $sql_deleteGroupForums  = "DELETE FROM `" . $tbl_Forums . "`
-                                   WHERE cat_id='1'
-                                   AND group_id IN (" . implode(' , ', $groupList['id']) . ")
+                                   WHERE group_id IN (" . implode(' , ', $groupList['id']) . ")
                                     # ".__FUNCTION__."
                                     # ".__FILE__."
                                     # ".__LINE__;
