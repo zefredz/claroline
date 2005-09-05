@@ -157,7 +157,7 @@ $senderMail      = $_user  ['mail'        ];
 
 if( $is_allowedToUse )	// check teacher status
 {
-	echo '<h3>' . $langMessages . '</h3>';
+	echo claro_disp_tool_title($langMessages);
 
     /*
      * DEFAULT DISPLAY SETTINGS
@@ -204,17 +204,17 @@ if( $is_allowedToUse )	// check teacher status
     		{
     			$groupIdList = implode(', ',$groupIdList);
     
-    			$sql = "SELECT user
-    					FROM `".$tbl_groupUser."` user_group
-    					WHERE user_group.team IN (".$groupIdList.")";
+    			$sql = "SELECT `user`
+    					FROM `".$tbl_groupUser."` AS `user_group`
+    					WHERE `team` IN (".$groupIdList.")";
     
-    			$groupMemberResult = claro_sql_query($sql);
+    			$groupMemberList = claro_sql_query_fetch_all($sql);
     			
-    			if ($groupMemberResult)
+    			if ( is_array($groupMemberList) && !empty($groupMemberList) )
     			{
-    				while ($u = mysql_fetch_array($groupMemberResult))
+    				foreach ( $groupMemberList as $groupMember )
     				{
-    					$userIdList[] = $u['user']; // complete the user id list ...
+    					$userIdList[] = $groupMember['user']; // complete the user id list ...
     				}
     			}
     		}
@@ -268,7 +268,7 @@ if( $is_allowedToUse )	// check teacher status
     		                     . $langOn.'	'
     		                     . count($userIdList) .' '
     		                     . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
-    		                     . '<br><small>'
+    		                     . '<br /><small>'
         		                 . $messageFailed
         		                 . '</small>'
     	    	                 . '</p>';
@@ -287,9 +287,9 @@ if( $is_allowedToUse )	// check teacher status
 	{
         echo claro_disp_message_box($message);
 
-        echo '<br>'
+        echo '<br />'."\n"
             .'<a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt;&nbsp;'.$langBackList.'</a>'
-            .'<br>';
+            .'<br />'."\n";
 
 		$displayForm = FALSE;
 	}
@@ -305,19 +305,21 @@ if( $is_allowedToUse )	// check teacher status
 		 * Get user	list of	this course
 		 */
 
-		$sql =	"SELECT u.nom lastName, u.prenom firstName, u.user_id uid
-		         FROM `".$tbl_user."` u, `".$tbl_courseUser."` cu
-		         WHERE cu.code_cours = \"".$_cid."\" 
-		         AND cu.user_id = u.user_id
-		         ORDER BY u.nom, u.prenom";
+		$sql =	"SELECT `u`.`nom` AS `lastName`,
+						`u`.`prenom` AS `firstName`,
+						`u`.`user_id` AS `uid`
+		         FROM `".$tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
+		         WHERE `cu`.`code_cours` = \"".$_cid."\"
+		         AND `cu`.`user_id` = `u`.`user_id`
+		         ORDER BY `u`.`nom`, `u`.`prenom`";
 
-		$result	= claro_sql_query($sql);
+		$singleUserList = claro_sql_query_fetch_all($sql);
 
-		if ( $result )
+		if ( is_array($singleUserList) && !empty($singleUserList) )
 		{
-			while ( $userData = mysql_fetch_array($result) )
+			foreach ( $singleUserList as $singleUser  )
 			{
-				$userList[] = $userData;
+				$userList[] = $singleUser;
 			}
 		}
 
@@ -325,127 +327,99 @@ if( $is_allowedToUse )	// check teacher status
 		 * Get group list of this course
 		 */
 
-		$sql = "SELECT g.id, g.name, COUNT(gu.id) userNb 
-		        FROM `" . $tbl_group . "` AS g LEFT JOIN `" . $tbl_groupUser . "` gu 
-		        ON g.id = gu.team 
-		        GROUP BY g.id";
+		$sql = "SELECT `g`.`id`,
+					`g`.`name`,
+					COUNT(`gu`.`id`) AS `userNb`
+		        FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
+		        ON `g`.`id` = `gu`.`team`
+		        GROUP BY `g`.`id`";
 
-		$groupSelect = claro_sql_query($sql);
+		$groupSelect = claro_sql_query_fetch_all($sql);
 
-		while ( $groupData = mysql_fetch_array($groupSelect) )
+        if ( is_array($groupSelect) && !empty($groupSelect) )
 		{
-			$groupList[] = $groupData;
+			foreach ( $groupSelect as $groupData  )
+			{
+				$groupList[] = $groupData;
+			}
 		}
+
 
 		/*
 		 * Create Form
 		 */
 
-		echo	$langIntroText;
+		echo	$langIntroText."\n\n";
 
-		echo	"<form method=\"post\" ",
-				"action=\"",$_SERVER['PHP_SELF'],"\" ",
-				"name=\"datos\" ",
-				"onSubmit=\"return valida();\">\n",
-
-				"<center>",
-
-				"<table	border=0 cellspacing=3 cellpadding=4>",
-
-				"<tr valign=top	align=center>",
-				"<td>",
-
-				"<p><b>",$langUserlist,"</b></p>",
-
-				"<select name=\"nocorreo[]\" size=15 multiple>";		
+		echo	'<form method="post" action="'.$_SERVER['PHP_SELF'].'" name="datos" onSubmit="return valida();">'."\n"
+				.'<center>'."\n"
+				.'<table border="0" cellspacing="3" cellpadding="4">'."\n"
+				.'<tr valign="top" align="center">'
+				.'<td>'."\n"
+				.'<p><b>'.$langUserlist.'</b></p>'."\n"
+				.'<select name="nocorreo[]" size="15" multiple="multiple">'."\n";
 
 		if ( $groupList )
 		{
 			foreach( $groupList as $thisGroup )
 			{
-				echo	"<option value=\"GROUP:".$thisGroup['id']."\">",
-						"* ",$thisGroup['name']," (",$thisGroup['userNb']," ",$langUsers,")",
-						"</option>";
+				echo '<option value="GROUP:'.$thisGroup['id'].'">'
+					.'* '.$thisGroup['name'].' ('.$thisGroup['userNb'].' '.$langUsers.')'
+					.'</option>'."\n";
 			}
 		}
 
-		echo	"<option value=\"\">",
-				"---------------------------------------------------------",
-				"</option>";
+		echo '<option value="">'
+			.'---------------------------------------------------------'
+			.'</option>'."\n";
 
 		// display user list
 
 		foreach ( $userList as $thisUser )
 		{
-			echo	"<option value=\"USER:",$thisUser['uid'],"\">",
-					$thisUser['lastName']," ",$thisUser['firstName'],
-					"</option>";
+			echo '<option value="USER:'.$thisUser['uid'].'">'
+				.$thisUser['lastName'].' '.$thisUser['firstName']
+				.'</option>'."\n";
 		}
 
 		// WATCH OUT ! form elements are called by numbers "form.element[3]"... 
 		// because select name contains "[]" causing a javascript 
 		// element name problem List of selected users
 		
-		echo	"</select>",
-
-				"</td>",
-
-				"<td valign=\"middle\">",
-
-				"<input	type=\"button\"	",
-				"onClick=\"move(this.form.elements[0],this.form.elements[3])\" ",
-				"value=\"   >>   \">",
-
-				"<p>&nbsp;</p>",
-
-				"<input	type=\"button\"",
-				"onClick=\"move(this.form.elements[3],this.form.elements[0])\" ", 
-				"value=\"   <<   \">",
-
-				"</td>",
-
-				"<td>",
-
-				"<p><b>",$langSelectedUsers,"</b></p>",
-
-				"<p>",
-				"<select name=\"incorreo[]\" ",
-				"size=\"15\" multiple ",
-				"style=\"width:200\" width=\"20\">",
-				"</select>",
-				"</p>",
-
-				"</td>",
-				"</tr>",
-					
-				"<tr>",
-				"<td colspan=3>",
-
-				"<b>",$langAnnouncement,"</b><br>",
-				"<center>",
-				"<textarea wrap=\"physical\" rows=\"7\"	cols=\"60\"	name=\"emailContent\"></textarea>",
-				"</center>",
-
-				"</td>",
-				"</tr>",
-
-				"<tr>",
-
-				"<td colspan=3 align=center>",
-
-				"<input	type=\"Submit\"	
-				name=\"submitAnnouncement\"	",
-				"value=\"",$langSubmit,"\" >",
-
-				"</td>",
-
-				"</tr>";
+		echo	'</select>'."\n"
+				.'</td>'."\n"
+				.'<td valign="middle">'."\n"
+				.'<input type="button" onClick="move(this.form.elements[0],this.form.elements[3])" value="   >>   " />'."\n"
+				.'<p>&nbsp;</p>'."\n"
+				.'<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />'."\n"
+				.'</td>'."\n"
+				.'<td>'."\n"
+				.'<p><b>'.$langSelectedUsers.'</b></p>'."\n"
+				.'<p>'
+				.'<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
+				.'</select>'
+				.'</p>'."\n"
+				.'</td>'."\n"
+				.'</tr>'."\n\n"
+				.'<tr>'."\n"
+				.'<td colspan="3">'."\n"
+				.'<b>'.$langAnnouncement.'</b><br />'."\n"
+				.'<center>'
+				.'<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
+				.'</center>'
+				.'</td>'."\n"
+				.'</tr>'."\n\n"
+				.'<tr>'."\n"
+				.'<td colspan="3" align="center">'."\n"
+				.'<input type="submit" name="submitAnnouncement" value="'.$langSubmit.'" />'
+				.'</td>'."\n"
+				.'</tr>'."\n\n";
 
     } // end if - $displayForm ==  TRUE
 
-echo	"</table>",
-		"</center>",
-		"</form>";
+echo '</table>'."\n\n"
+	.'</center>'."\n\n"
+	.'</form>'."\n\n";
 
 } // end: teacher only
 
