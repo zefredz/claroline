@@ -149,8 +149,6 @@ $display_groupadmin_manager = (bool) $is_allowedToManage;
 
 // ACTIONS
 
-// This is called by the form build in group_creation.php
-
 if ( $is_allowedToManage )
 {
     if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
