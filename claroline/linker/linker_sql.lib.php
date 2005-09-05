@@ -494,9 +494,9 @@
         {
             $sql = "CREATE TABLE IF NOT EXISTS `".$dbname."_links` (
                     `id` int(11) NOT NULL auto_increment,
-                      `src_id` int(11) NOT NULL default '0',
-                      `dest_id` int(11) NOT NULL default '0',
-                      `creation_time` timestamp(14) NOT NULL,
+                    `src_id` int(11) NOT NULL default '0',
+                    `dest_id` int(11) NOT NULL default '0',
+                    `creation_time` timestamp(14) NOT NULL,
                       PRIMARY KEY  (`id`)
                     ) TYPE=MyISAM PACK_KEYS=0";
             echo 'creating ' . $dbname . '_links... ';
@@ -504,11 +504,11 @@
                echo "done<br/>\n";
                
                $sql = "CREATE TABLE IF NOT EXISTS `".$dbname."_resources` (
-                    `id` int(11) NOT NULL auto_increment,
-                   `crl` text NOT NULL,
-                   `title` text NOT NULL,
-                   PRIMARY KEY  (`id`)
-                  ) TYPE=MyISAM PACK_KEYS=0";
+                      `id` int(11) NOT NULL auto_increment,
+                      `crl` text NOT NULL,
+                      `title` text NOT NULL,
+                      PRIMARY KEY  (`id`)
+                     ) TYPE=MyISAM PACK_KEYS=0";
             echo 'creating '.$dbname.'_resources... ';
                claro_sql_query($sql);
                echo 'done<br/>' . "\n";
