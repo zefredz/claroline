@@ -42,15 +42,15 @@ function announcement_upgrade_to_17($course_code)
 
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :  // STEP 1 CREATE TABLES
                 $sql_step1[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."announcement` " . 
                                "ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
-                if ( ! upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
+                if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
             default :
-                return true;
+                return $step;
         }
     }
     return false;
@@ -74,15 +74,15 @@ function agenda_upgrade_to_17($course_code)
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :  // add visibility fields in calendar
                 $sql_step1[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."calendar_event` " .
                                "ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
-                if ( ! upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
+                if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
             default : 
-                return true;
+                return $step;
         }
     }
     return false;
@@ -107,18 +107,15 @@ function course_description_upgrade_to_17($course_code)
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :  
                 $sql_step1[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."course_description` " . 
                                "ADD `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW'";
-                if ( ! upgrade_apply_sql($sql_step1) ) 
-                {
-                    return false;
-                }
-                set_upgrade_status($tool, 0, $course_code);
+                if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
             default : 
-                return true;
+                return $step;
         }
     }
     return false;
@@ -142,7 +139,7 @@ function tracking_upgrade_to_17($course_code)
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :  // STEP 1 CREATE TABLES
     
@@ -161,10 +158,10 @@ function tracking_upgrade_to_17($course_code)
                                 PRIMARY KEY  (`id`)
                                 ) TYPE=MyISAM COMMENT=''";
         
-                if ( !upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
+                if ( !upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
             default : 
-                return true;
+                return $step;
         }
     }
     return false;
@@ -190,7 +187,7 @@ function linker_upgrade_to_17($course_code)
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :  // STEP 1 CREATE TABLES
                 $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."lnk_links` (
@@ -208,10 +205,10 @@ function linker_upgrade_to_17($course_code)
                             PRIMARY KEY  (`id`)
                             ) TYPE=MyISAM";
 
-                if ( ! upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
+                if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
             default : 
-                return true;
+                return $step;
         }
     }
     return false;
@@ -241,7 +238,7 @@ function wiki_upgrade_to_17($course_code)
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :  // STEP 1 CREATE TABLES
             $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."wiki_properties`(
@@ -276,23 +273,23 @@ function wiki_upgrade_to_17($course_code)
                             `content` text NOT NULL,
                             PRIMARY KEY  (`id`) )";
 
-            if ( ! upgrade_apply_sql($sql_step1) ) return false;
-            set_upgrade_status($tool, 2, $course_code);
+            if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+            $step = set_upgrade_status($tool, 2, $course_code);
             
             case 2 : // STEP 2 register tool in the course
 
                 if ( !add_tool_in_course_tool_list('CLWIKI__','COURSE_ADMIN',$currentCourseDbNameGlu) )
                 {
                     log_message('Error: Add wiki failed in course ' . $course_code);
-                    return false;
+                    return $step;
                 }
                 else
                 {
-                    set_upgrade_status($tool, 0, $course_code);
+                    $step = set_upgrade_status($tool, 0, $course_code);
                 }
 
             default : 
-                return true;
+                return $step;
         }
     }
     return false;
@@ -322,14 +319,14 @@ function forum_upgrade_to_17($course_code)
 
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             // groups of forums 
             case 1 :  // STEP1 create new field to keep group_id
 
                 $sql_step1[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "bb_forums` ADD group_id int(11) default NULL";
-                if ( ! upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 1, $course_code);
+                if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 1, $course_code);
 
             case 2 :  // STEP2 set a value in groups link to a forum
 
@@ -339,7 +336,7 @@ function forum_upgrade_to_17($course_code)
                 $result = upgrade_sql_query($sql);
                 if (! $result) 
                 {
-                    return false;
+                    return $step;
                 }
                 while ( ($row = mysql_fetch_array($result)) )
                 {
@@ -348,27 +345,27 @@ function forum_upgrade_to_17($course_code)
                              WHERE `forum_id` = " . $row['forumId'] . "";
                     if (! upgrade_sql_query($sql)) 
                     {
-                        return false;
+                        return $step;
                     }
                 }
-                set_upgrade_status($tool, 3, $course_code);
+                $step = set_upgrade_status($tool, 3, $course_code);
 
             case 3 : // STEP3 remove old value in groups
 
                 $sql_step3[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "group_team` DROP COLUMN forumId";
                 if ( ! upgrade_apply_sql($sql_step3) ) 
                 {
-                    return false;
+                    return $step;
                 }
-                set_upgrade_status($tool, 4, $course_code);
+                $step = set_upgrade_status($tool, 4, $course_code);
 
             case 4 :    // STEP4 remove a deprecated field
 
                 $sql_step4[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu."bb_forums` DROP COLUMN md5";
-                if ( ! upgrade_apply_sql($sql_step4) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
+                if ( ! upgrade_apply_sql($sql_step4) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
             default : 
-                return true;
+                return $step;
         }
     }
     return false;
@@ -400,13 +397,13 @@ function introtext_upgrade_to_17($course_code)
     
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        switch( get_upgrade_status($tool,$course_code) )
+        switch( $step = get_upgrade_status($tool,$course_code) )
         {
             // groups of forums 
             case 1 :  // STEP 1 BAcKUP OLD TABLE Before creat the new
                 $sql_step1[] = "RENAME TABLE `".$currentCourseDbNameGlu."tool_intro` TO `".$currentCourseDbNameGlu."tool_intro_prev17`";       
-                if ( ! upgrade_apply_sql($sql_step1) ) return false;
-                set_upgrade_status($tool, 2, $course_code);
+                if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+                $step = set_upgrade_status($tool, 2, $course_code);
             
             case 2 : // STEP 2 Create The new table
                 $sql_step2[] = "CREATE TABLE `".$currentCourseDbNameGlu."tool_intro` (
@@ -418,8 +415,8 @@ function introtext_upgrade_to_17($course_code)
                               `rank` int(11) default '1',
                               `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
                            PRIMARY KEY  (`id`) ) ";
-                if ( ! upgrade_apply_sql($sql_step2) ) return false;
-                set_upgrade_status($tool, 3, $course_code);
+                if ( ! upgrade_apply_sql($sql_step2) ) return $step;
+                $step = set_upgrade_status($tool, 3, $course_code);
 
             case 3 : // STEP 3 FILL The new table with value from the old
                 $sql = " SELECT `id`, `texte_intro` 
@@ -427,7 +424,7 @@ function introtext_upgrade_to_17($course_code)
 
                 $result = upgrade_sql_query($sql);
 
-                if ( ! $result ) return false;
+                if ( ! $result ) return $step;
 
                 while ( ( $row = mysql_fetch_array($result) ) )
                 {
@@ -438,20 +435,20 @@ function introtext_upgrade_to_17($course_code)
 
                     if ( ! upgrade_sql_query($sql) )  
                     {
-                        return false;
+                        return $step;
                     }
                 }
-                set_upgrade_status($tool, 4, $course_code);
+                $step = set_upgrade_status($tool, 4, $course_code);
             
             case 4 :   // STEP 4 Delete OLD
 
                 $sql_step4[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."tool_intro_prev17`";
-                if ( ! upgrade_apply_sql($sql_step4) ) return false;
-                set_upgrade_status($tool, 0, $course_code);
+                if ( ! upgrade_apply_sql($sql_step4) ) return $step;
+                $step = set_upgrade_status($tool, 0, $course_code);
 
             default : 
 
-                return true;
+                return $step;
         }
     }
     return false;

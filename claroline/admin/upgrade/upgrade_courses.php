@@ -47,8 +47,7 @@ DEFINE ('DISPLAY_RESULT_PANEL', __LINE__);
   Statements Section
  =====================================================================*/
 
-if ( isset($_REQUEST['verbose']) ) $verbose = (bool) $_REQUEST['verbose'];
-else                               $verbose = FALSE;
+if ( isset($_REQUEST['verbose']) ) $verbose = true;
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = FALSE;
@@ -232,7 +231,7 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-                        if ( ! $function($currentCourseCode) )
+                        if ( $function($currentCourseCode) > 0 )
                         {
                             echo 'Error : ' . $function ;
                             $error = true;
@@ -272,7 +271,7 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-                        if ( ! $function($currentCourseCode) )
+                        if ( $function($currentCourseCode) > 0 )
                         {
                             echo 'Error : ' . $function ;
                             $error = true;
