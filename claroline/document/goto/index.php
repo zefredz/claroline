@@ -29,8 +29,15 @@ require '../../inc/claro_init_global.inc.php';
 
 require $includePath.'/lib/events.lib.inc.php';
 
-$requestUrl = stripslashes( urldecode (get_slashed_argument( $_SERVER['REQUEST_URI'], 
-                                       'document/goto/index.php' ) ) );
+if (isset($_REQUEST['url']) )
+{
+	$requestUrl = $_REQUEST['url'];
+}
+else
+{
+    $requestUrl = stripslashes( urldecode (get_slashed_argument( get_request_uri(), 
+                                           'document/goto/index.php' ) ) );
+}
 
 if ( ! $_cid) claro_disp_auth_form(true);
 
@@ -86,7 +93,8 @@ else
 	$intermediatePath = $_course['path']. '/document';
 }
 
-if ( isset($secureDocumentDownload) && $secureDocumentDownload )
+if ( isset($secureDocumentDownload) && $secureDocumentDownload 
+    && strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
 {
     $pathInfo = realpath($coursesRepositorySys . $intermediatePath . '/' . $requestUrl);
     $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
@@ -153,7 +161,43 @@ function get_slashed_argument($completePath, $baseFile)
     }
 }
 
+/**
+ * Returns the name of the current script, WITH the querystring portion.
+ * this function is necessary because PHP_SELF and REQUEST_URI and SCRIPT_NAME
+ * return different things depending on a lot of things like your OS, Web
+ * server, and the way PHP is compiled (ie. as a CGI, module, ISAPI, etc.)
+ * <b>NOTE:</b> This function returns false if the global variables needed are not set.
+ *
+ * @return string
+ */
+ function get_request_uri() {
 
+    if (!empty($_SERVER['REQUEST_URI'])) {
+        return $_SERVER['REQUEST_URI'];
+
+    } else if (!empty($_SERVER['PHP_SELF'])) {
+        if (!empty($_SERVER['QUERY_STRING'])) {
+            return $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+        }
+        return $_SERVER['PHP_SELF'];
+
+    } else if (!empty($_SERVER['SCRIPT_NAME'])) {
+        if (!empty($_SERVER['QUERY_STRING'])) {
+            return $_SERVER['SCRIPT_NAME'] .'?'. $_SERVER['QUERY_STRING'];
+        }
+        return $_SERVER['SCRIPT_NAME'];
+
+    } else if (!empty($_SERVER['URL'])) {     // May help IIS (not well tested)
+        if (!empty($_SERVER['QUERY_STRING'])) {
+            return $_SERVER['URL'] .'?'. $_SERVER['QUERY_STRING'];
+        }
+        return $_SERVER['URL'];
+
+    } else {
+        notify('Warning: Could not find any of these web server variables: $REQUEST_URI, $PHP_SELF, $SCRIPT_NAME or $URL');
+        return false;
+    }
+}
 
 function get_mime_on_ext($fileName)
 {

@@ -1848,10 +1848,18 @@ echo claro_disp_tool_title($titleElement,
                     $image       = choose_image($fileName);
                     $size        = format_file_size($fileList['size'][$fileKey]);
                     $date        = format_date($fileList['date'][$fileKey]);
-    
-                    //$urlFileName = 'goto/?doc_url='.urlencode($cmdFileName);
-                    $urlFileName = "goto/index.php".str_replace('%2F', '/', $cmdFileName);
-                    
+
+                    if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+                    {
+                        // slash argument method - only compatible with Apache
+                        $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
+                    }
+                    else
+                    {
+                        // question mark argument method, for IIS ...
+                        $urlFileName = 'goto/?url='.urlencode($cmdFileName);
+                    }
+
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
 
