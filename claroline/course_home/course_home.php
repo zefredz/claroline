@@ -148,7 +148,7 @@ foreach($toolList as $thisTool)
     if ( ! empty($url) )
     {
         echo ' <a class="' . $style . 'item'.$classItem.'" href="' . $url . '">'
-        .    '<img src="' . $icon . '" hspace="5" alt="">'
+        .    '<img src="' . $icon . '" alt="">'
         .    $toolName
         .    '</a>'
         .    '<br />' . "\n"

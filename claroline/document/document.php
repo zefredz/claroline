@@ -1882,7 +1882,7 @@ echo claro_disp_tool_title($titleElement,
                 } // end if is_image
                 
                 echo "<img src=\"".$imgRepositoryWeb."",
-                        $image,"\" border=\"0\" hspace=\"5\" alt=\"\">".$dspFileName."</a>";
+                        $image,"\" border=\"0\" alt=\"\">".$dspFileName."</a>";
                 
                 echo "</td>\n"
                         
