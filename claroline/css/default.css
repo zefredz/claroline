@@ -312,23 +312,8 @@ th .claroCmdDisabled
  *  </ul>
  */
 
-li.item {padding-left:16px}
-li.hot {background:url(../img/hot.gif) no-repeat}
-.item img {padding-left:16px}
-.hot img {background:url(../img/hot.gif) no-repeat}
-
-/* 
- * Technical Note. Due to a CSS rendering Bug in Internet Explorer 6,
- * we can not simply wrote 
- *
- *	.item {padding-left:16px}
- *	.hot {background:url(../img/hot.gif) no-repeat}
- *
- * Because, despite then no-repeat attribute, IE 6 repeats the background 
- * image on each nested html element.
- */
-
-
+.item {padding-left:16px}
+.hot {background:url(../img/hot.gif) no-repeat}
 
 /******************************************************************************
                              CLAROLINE TABLE
