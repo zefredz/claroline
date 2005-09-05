@@ -153,7 +153,7 @@ else
         if (empty($newcourse_category) || $newcourse_category == 'choose_one')
         {
             $okToCreate = FALSE;
-            $controlMsg['error'][] = sprintf($lang_p_aCategoryWouldBeSelected,$administrator_email);
+            $controlMsg['error'][] = sprintf($lang_p_aCategoryWouldBeSelected,'mailto:'.$administrator_email);
         }
 
         if ($course_email_needed && empty($newcourse_email))
