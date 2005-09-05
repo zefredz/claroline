@@ -213,13 +213,16 @@ if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 			AND `tu`.`team` = `t`.`id`";
 	}
 
-	$result = claro_sql_query($sql);
-	while( $row = mysql_fetch_array($result) )
+	$groupList = claro_sql_query_fetch_all($sql);
+	if( is_array($groupList) && !empty($groupList) )
 	{
-		// yes it is redundant but it is for a easier user later in the script
-		$userGroupList[$row['team']]['id'] = $row['team'];
-		$userGroupList[$row['team']]['name'] = $row['name'];
-	}
+		foreach( $groupList AS $group )
+		{
+			// yes it is redundant but it is for a easier user later in the script
+			$userGroupList[$group['team']]['id'] = $group['team'];
+			$userGroupList[$group['team']]['name'] = $group['name'];
+		}
+ 	}
 }
 
 /*============================================================================
@@ -263,7 +266,7 @@ if( isset($wrk) && isset($_uid) && $assignment['prefill_submit'] != 'AFTERPOST')
             if( isset($userGroupList[$wrk['group_id']]))
             {
                   $groupFound = true;
-                  $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
+                  //$wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
             }
             // SO : a user can edit if the works is owned by one of his groups
             //      OR directly owned by him
@@ -695,7 +698,7 @@ if ( $is_allowedToEdit )
 		    // for groups works
 		    if( $assignment['assignment_type'] == 'GROUP' && isset($wrkForm['wrkGroup']) )
 		    {
-		          $groupString .= "`group_id` = ". (int)$wrkForm['wrkGroup'].",";
+		          $groupString = "`group_id` = ". (int)$wrkForm['wrkGroup'].",";
 		    }
 		    else
 		    {
@@ -943,22 +946,22 @@ if( $is_allowedToSubmit )
             echo '<h4>'.$txtForFormTitle.'</h4>'."\n"
 				  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.$langBack.'</a></small></p>'."\n"
                   .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$_REQUEST['assigId'].'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
-                  .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
-                  .'<input type="hidden" name="cmd" value="'.$cmdToSend.'">'."\n";
+                  .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+                  .'<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
 
             if( isset($_REQUEST['wrkId']) )
             {
-                  echo '<input type="hidden" name="wrkId" value="'.$_REQUEST['wrkId'].'">'."\n";
+                  echo '<input type="hidden" name="wrkId" value="'.$_REQUEST['wrkId'].'" />'."\n";
             }
             
             echo  '<table width="100%">'."\n"
                   .'<tr>'."\n"
                   .'<td valign="top"><label for="wrkTitle">'.$langWrkTitle.'&nbsp;*&nbsp;:</label></td>'."\n"
-                  .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlentities($form['wrkTitle']).'"></td>'."\n"
+                  .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlentities($form['wrkTitle']).'" /></td>'."\n"
                   .'</tr>'."\n\n"
                   .'<tr>'."\n"
                   .'<td valign="top"><label for="wrkAuthors">'.$langWrkAuthors.'&nbsp;*&nbsp;:</label></td>'."\n"
-                  .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlentities($form['wrkAuthors']).'"></td>'."\n"
+                  .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlentities($form['wrkAuthors']).'" /></td>'."\n"
                   .'</tr>'."\n\n";
 
             // display the list of groups of the user
@@ -1025,7 +1028,7 @@ if( $is_allowedToSubmit )
                         {
                               // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
                               $completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
-                              echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'">'
+                              echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
                                     .'</td>'."\n"
                                     .'<td>'
                                     .'<a href="'.$completeWrkUrl.'">'.$form['wrkUrl'].'</a>'
@@ -1033,7 +1036,7 @@ if( $is_allowedToSubmit )
                               if( $assignmentContent == "TEXTFILE" )
                               {
                                     // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
-                                    echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile">'
+                                    echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />'
                                     .'<label for="delAttachedFile">'.$langExplainDeleteFile.'</label>';
                               }
                               echo $langExplainReplaceFile.'</td>'."\n"
@@ -1068,7 +1071,7 @@ if( $is_allowedToSubmit )
 				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
 				{
 					echo '<td>'
-						.'<input type="hidden" name="submitGroupWorkUrl" value="'.$submitGroupWorkUrl.'">'
+						.'<input type="hidden" name="submitGroupWorkUrl" value="'.$submitGroupWorkUrl.'" />'
 						.'<a href="'.$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl.'">'.basename($submitGroupWorkUrl).'</a>'
 						.'</td>'."\n";
 				}
@@ -1076,7 +1079,7 @@ if( $is_allowedToSubmit )
 				{
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$wrkDirSys), $fileAllowedSize);
 
-                  echo '<td><input type="file" name="wrkFile" id="wrkFile" size="30"><br />'
+                  echo '<td><input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
 						.'<small>'.$langMaxFileSize.' '.format_file_size($maxFileSize).'</small></td>'."\n"
                         .'</tr>'."\n\n";
 				}
@@ -1154,7 +1157,7 @@ if( $is_allowedToSubmit )
             echo '<tr>'."\n"
 					.'<td>&nbsp;</td>'."\n"
 					.'<td>'
-					.'<input type="submit" name="submitWrk" value="'.$langOk.'">'."\n"
+					.'<input type="submit" name="submitWrk" value="'.$langOk.'" />'."\n"
 					.'</td>'."\n"
 					.'</tr>'."\n\n"
 					.'</table>'."\n\n"
@@ -1323,7 +1326,7 @@ if( $dispWrkLst )
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
 			{
-			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'">';
+			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'" />';
 			}
 			echo '<br />'."\n";
 	            
@@ -1334,7 +1337,7 @@ if( $dispWrkLst )
 				// display an alert if work was submitted after end date and work is not a correction !
 				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
 				{
-					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'">';
+					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'" />';
 				}			
 			}
 			echo '</p>'."\n";
@@ -1343,24 +1346,24 @@ if( $dispWrkLst )
 			{
 				// the work can be edited 
 				echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqEditWrk&amp;wrkId='.$thisWrk['id'].'">'
-					.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'"></a>';
+					.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'" /></a>';
 			}
 			
 			if( $is_allowedToEditAll )
 			{
 				echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exRmWrk&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'" onClick="return confirmation(\''.clean_str_for_javascript($thisWrk['title']).'\');">'
-				    .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'"></a>';
+				    .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'" /></a>';
 				
 				if ($thisWrk['visibility'] == "INVISIBLE")
 				{
 				    echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'&amp;vis=v">'
-				          .'<img src="'.$imgRepositoryWeb.'invisible.gif" border="0" alt="'.$langMakeVisible.'">'
+				          .'<img src="'.$imgRepositoryWeb.'invisible.gif" border="0" alt="'.$langMakeVisible.'" />'
 				          ."</a>";
 				}
 				else
 				{
 				    echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'&amp;vis=i">'
-				          .'<img src="'.$imgRepositoryWeb.'visible.gif" border="0" alt="'.$langMakeInvisible.'">'
+				          .'<img src="'.$imgRepositoryWeb.'visible.gif" border="0" alt="'.$langMakeInvisible.'" />'
 				          .'</a>';
 				}  
 				if( !$is_feedback )
