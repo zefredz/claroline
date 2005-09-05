@@ -324,8 +324,10 @@ function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
  * @since  1.7
  */
 
-function upgrade_apply_sql ( $array_query , $verbose = false )
+function upgrade_apply_sql ( $array_query )
 {
+    global $verbose;
+
     $nb_error = 0;
 
     foreach ( $array_query as $sql )
@@ -338,9 +340,10 @@ function upgrade_apply_sql ( $array_query , $verbose = false )
 
 }
 
-function upgrade_sql_query($sql, $verbose = false)
+function upgrade_sql_query($sql)
 {
     global $accepted_error_list;
+    global $verbose;
         
     // Sql query
     $handler = mysql_query($sql);
@@ -370,8 +373,14 @@ function upgrade_sql_query($sql, $verbose = false)
     }
     else
     {
-        // no error
-        return $handler;
+            // No error
+            if ( $verbose )
+            {
+                // succeeded
+                $message  = 'Successfull sql: ' . $sql . "\n";
+                log_message($message);
+            }
+            return $handler;
     }
 }
 
@@ -672,7 +681,9 @@ function set_upgrade_status($claro_label,$status,$course_code=null)
              WHERE cid = '" . $course_code . "' 
                AND claro_label = '" . $claro_label . "' ";
 
-    return claro_sql_query($sql);      
+    claro_sql_query($sql);
+
+    return $status;
 
 }
 
