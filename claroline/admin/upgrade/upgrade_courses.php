@@ -40,6 +40,7 @@ $tbl_course_tool       = $tbl_mdb_names['tool'];
  * Displays flags
  * Using __LINE__ to have an arbitrary value
  */
+
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__ );
 DEFINE ('DISPLAY_RESULT_PANEL', __LINE__);
 
@@ -218,7 +219,7 @@ switch ($display)
             if ( ! $error ) 
             {
                 /*---------------------------------------------------------------------
-                  Upgrade 1.6 to 1.7
+                  Upgrade 1.5 to 1.7
                  ---------------------------------------------------------------------*/                
 
                 if ( preg_match('/^1.5/',$currentCourseVersion) )
@@ -231,9 +232,9 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-                        if ( $function($currentCourseCode) > 0 )
+                        if ( $step = $function($currentCourseCode) > 0 )
                         {
-                            echo 'Error : ' . $function ;
+                            echo 'Error : ' . $function . '(step . ' . $step . ')';
                             $error = true;
                         }
                     }
@@ -271,9 +272,9 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-                        if ( $function($currentCourseCode) > 0 )
+                        if ( $step = $function($currentCourseCode) > 0 )
                         {
-                            echo 'Error : ' . $function ;
+                            echo 'Error : ' . $function . '(step . ' . $step . ')';
                             $error = true;
                         }
                     }
