@@ -118,18 +118,21 @@ if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWork
 // if this is a group assignement we will need some group infos about the user
 if ( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 {
-      // get the list of group the user is in
-      $sql = "SELECT `tu`.`team`, `t`.`name`
-                FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
-               WHERE `tu`.`user` = " . (int) $_uid . "
-                 AND `tu`.`team` = `t`.`id`";
-      $result = claro_sql_query($sql);
-      while( $row = mysql_fetch_array($result) )
-      {
-            // yes it is redundant but it is for a easier user later in the script
-            $userGroupList[$row['team']]['id'] = $row['team'];
-            $userGroupList[$row['team']]['name'] = $row['name'];
-      }
+	// get the list of group the user is in
+	$sql = "SELECT `tu`.`team`, `t`.`name`
+	        FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
+	       WHERE `tu`.`user` = " . (int) $_uid . "
+	         AND `tu`.`team` = `t`.`id`";
+	$groupList = claro_sql_query_fetch_all($sql);
+	if( is_array($groupList) && !empty($groupList) )
+	{
+		foreach( $groupList AS $group )
+		{
+			// yes it is redundant but it is for a easier user later in the script
+			$userGroupList[$group['team']]['id'] = $group['team'];
+			$userGroupList[$group['team']]['name'] = $group['name'];
+		}
+ 	}
 }
 
 /*============================================================================
