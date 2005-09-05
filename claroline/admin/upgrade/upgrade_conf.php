@@ -61,6 +61,8 @@ $display = DISPLAY_WELCOME_PANEL;
 
 $error = FALSE;
 
+if ( isset($_REQUEST['verbose']) ) $verbose = true;
+
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : ''; 
 
 if ( $cmd == 'run' )
