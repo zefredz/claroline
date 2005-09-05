@@ -321,28 +321,28 @@ if($is_allowedToEdit) // check teacher status
                 $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" .
                 $siteName . "\n";
 
-                // Select students email list
+                // Select students id list
                 $sql = "SELECT u.user_id
                         FROM `" . $tbl_course_user . "` cu , `" . $tbl_user . "` u
                         WHERE code_cours='" . $courseId . "'
                         AND cu.user_id = u.user_id";
-                $result = claro_sql_query($sql);
+                $studentIdList = claro_sql_query_fetch_all($sql);
 
                 // count
-                $countEmail = mysql_num_rows($result);
+                $countEmail = (is_array($result)) ? sizeof($result) : 0;
                 $countUnvalid = 0;
                 $messageFailed = '';
 
                 // send email one by one to avoid antispam
-                while ( $myrow = mysql_fetch_array($result) )
+                foreach ( $studentIdList as $student )
                 {
-                    if (!claro_mail_user($myrow['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
+                    if (!claro_mail_user($student['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
                     {
                         $messageFailed.= claro_failure::get_last_failure() ;
                         $countUnvalid++;
                     }
                 }
-                $messageUnvalid= $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
+                $messageUnvalid = $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
                 $message .= ' '.$langEmailSent.'<br /><b>'.$messageUnvalid.'</b><br />';
                 $message .= $messageFailed;
 
@@ -633,7 +633,7 @@ if ($displayList)
         ;
 
         $iterator ++;
-    }    // end while ($myrow = mysql_fetch_array($result))
+    }    // end foreach ( $announcementList as $thisAnnouncement)
 
     echo '</table>';
 
