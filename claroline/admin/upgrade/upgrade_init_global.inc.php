@@ -49,6 +49,17 @@ define('CLARO_FILE_PERMISSIONS', 0777);
 
 $coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
 
+// verbose mode
+
+if ( defined(CLARO_DEBUG_MODE) && CLARO_DEBUG_MODE )
+{
+    $verbose = true;
+}
+else
+{
+    $verbose = false;
+}
+
 /*----------------------------------------------------------------------
   Start session
   ----------------------------------------------------------------------*/
@@ -90,12 +101,6 @@ if ($statsDbName == '')
 {
 	$statsDbName = $mainDbName;
 }
-
-/*----------------------------------------------------------------------
-  Include the local (contextual) parameters of this course or section
-  ----------------------------------------------------------------------*/
-
-require $includePath . '/claro_init_local.inc.php';
 
 /*----------------------------------------------------------------------
   Load language files
@@ -192,5 +197,12 @@ else
         }
     }
 }
+
+if ( isset($_uid) ) $_SESSION['_uid'] = $_uid;
+else                $_SESSION['_uid'] = null; // unset 
+
+if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
+else                            $_SESSION['is_platformAdmin'] = null; 
+
 
 ?>
