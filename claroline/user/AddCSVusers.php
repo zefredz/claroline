@@ -67,7 +67,7 @@ if (isset($_REQUEST['loadDefault']) && ($_REQUEST['loadDefault'] =='yes'))
 elseif (isset($_REQUEST['usedFormat']))
 {
     //check if posted new format is OK
-    
+
     $field_correct = claro_CSV_format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);
           
     if (!$field_correct)
@@ -83,8 +83,8 @@ elseif (isset($_REQUEST['usedFormat']))
     }
 }
 
-if (!isset($_SESSION['CSV_fieldSeparator'])) $_SESSION['CSV_fieldSeparator'] = "";
-if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = ";";
+if (!isset($_SESSION['CSV_fieldSeparator'])) $_SESSION['CSV_fieldSeparator'] = ";";
+if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = "\"";
 
 $usedFormat = $_SESSION['claro_usedFormat'];
 
@@ -172,7 +172,7 @@ switch ($cmd)
         $display   = 'default';
         $dialogBox = $langMustSelectAFile;
     }
-    elseif (!in_array($_FILES["CSVfile"]['type'],$mimetypes))
+    elseif (!in_array($_FILES["CSVfile"]['type'],$mimetypes) && (strpos($_FILES["CSVfile"]['type'],"text")===FALSE) )
     {
         $display   = 'default';
         $dialogBox = $langMustSelectATxtFile;
@@ -400,7 +400,7 @@ case 'default' :
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
-    <input type="hidden" name="fieldSeparator" value="<?php echo $_SESSION['CSV_fieldSeparator']; ?>" >
+    <input type="hidden" name="fieldSeparator" value="<?php if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator']; else echo ";" ?>" >
     <input type="hidden" name="enclosedBy" value="<?php echo $_SESSION['CSV_enclosedBy']; ?>" > 
     <br>
     <?php echo $langFileForCSVUpload; ?><input type="file" name="CSVfile">
