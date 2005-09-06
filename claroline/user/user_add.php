@@ -89,15 +89,18 @@ switch ( $cmd )
             // register the new user in the claroline platform
             $user_id = user_add($user_data);
 
-            if ( $user_id ) $platformRegSucceed = true;
-
-            // add user to course
-            if ( user_add_to_course($user_id, $_cid, true) ) 
+            if ( $user_id ) 
             {
-                // update course manager and tutor status
-                user_update_course_manager_status($user_id, $_cid, $user_data['is_coursemanager']);
-                user_update_course_tutor_status($user_id, $_cid, $user_data['is_tutor']);
-                $courseRegSucceed = true;
+                $platformRegSucceed = true;
+
+                // add user to course
+                if ( user_add_to_course($user_id, $_cid, true) ) 
+                {
+                    // update course manager and tutor status
+                    user_update_course_manager_status($user_id, $_cid, $user_data['is_coursemanager']);
+                    user_update_course_tutor_status($user_id, $_cid, $user_data['is_tutor']);
+                    $courseRegSucceed = true;
+                }
             }
         }
         else
@@ -155,59 +158,23 @@ switch ( $cmd )
           
 // Send mail notification
 
-if ( $platformRegSucceed || $courseRegSucceed ) // why course Reg Failed ?
+if ( $platformRegSucceed || $courseRegSucceed )
 {
-    // Mail to 
-    $emailto       = $user_data['lastname'] . ' ' . $user_data['firstname'] . ' <' . $user_data['email'] . '>';
 
-    // Mail subject
-    $emailSubject  = $langYourReg . ' ' . $siteName;
-  
-   	$serverAddress = $rootWeb.'index.php';
+    if ( $platfromRegSucceed )
+   	{
+        // Send message and login and password
+        user_send_registration_mail($user_id, $user_data)
+    }
 
     if ( $courseRegSucceed )
-   	{
-        // Mail body
-	    $emailBody = "$langDear %s %s ,\n"
-                    . "$langOneResp " . $_course['officialCode'] . " $langRegYou $siteName $langSettings %s\n"
-                    . "$langPassword: %s \n"
-                    . "$langAddress $siteName $langIs: $serverAddress\n"
-                    . "$langProblem\n"
-                    . "\n"
-                    . "$langFormula,\n"
-                    . "$langAdministrator $administrator_name \n"
-                    . "$langManager $siteName\n";
-    
-         $emailBody = sprintf($emailBody,$user_data['firstname'],$user_data['lastname'], $user_data['email'],$user_data['password']);
-
-         if ( ! empty($administrator_phone) ) $emailBody .= "T. $administrator_phone \n";
-         $emailBody .= "$langEmail : $administrator_email \n";
-
-	     $messageList[]= sprintf("$langTheU %s %s $langAddedToCourse.",$user_data['firstname'],$user_data['lastname']);
-    }
-    else
     {
-        // why not ???
-        $emailBody = "$langDear %s %s,\n"
-                     . "$langYouAreReg $siteName $langSettings %s \n"
-                     . "$langPassword: %s \n"
-                     . "$langAddress $siteName $langIs: $serverAddress \n"
-                     . "$langProblem\n"
-                     . "\n"
-                     . "$langFormula, \n"
-                     . "$langAdministrator $administrator_name \n"
-                     . "$langManager $siteName\n";
-    
-         $emailBody = sprintf($emailBody,$user_data['firstname'],$user_data['lastname'], $user_data['email'],$user_data['password']);
-
-         if ( ! empty($administrator_phone) ) $emailBody .= "T. $administrator_phone \n";
-         $emailBody .= "$langEmail: $administrator_email \n";
-    
-		 $messageList[] = sprintf("%s %s added to platform.",$user_data['firstname'],$user_data['lastname']);
+        // Send enroll to course message
+        user_send_enroll_to_course_mail ($user_id, $user_data);
 	}
-
-    // Send mail 
-    if ( ! empty($user_data['email']) ) claro_mail_user($user_id, $emailBody, $emailSubject);
+	
+    // display message     
+    $messageList[]= sprintf("$langTheU %s %s $langAddedToCourse.",$user_data['firstname'],$user_data['lastname']);
 }
 
 /*=====================================================================
