@@ -67,7 +67,7 @@ function array_swap_cols_and_rows( $origMatrix, $presumedColKeyList)
  *
  */
 
-function claro_CSV_format_ok($format, $delim =";", $enclosedBy="\"")
+function claro_CSV_format_ok($format, $delim =";", $enclosedBy="")
 {
     $fieldarray = explode($delim,$format);    
     if ($enclosedBy == "dbquote") $enclosedBy = "\"";
@@ -132,7 +132,7 @@ function claro_CSV_format_ok($format, $delim =";", $enclosedBy="\"")
  * 
  */
  
-function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="dbquote")
+function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="")
 {
         //check if temporary directory for uploaded file exists, if not we create it
 	
@@ -325,6 +325,7 @@ function claro_disp_CSV_error_backlog()
 
 function check_email_synthax_userlist($userlist)
 {
+    
     $errors = array();
     //CHECK: check email validity
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
@@ -691,7 +692,7 @@ class CSV
  */
 	
 	
-    function CSV($filename,$delim,$linedef,$enclosed_by="\"",$eol="\n")
+    function CSV($filename,$delim=";",$linedef,$enclosed_by="",$eol="\n")
     {
     	
     	
@@ -726,6 +727,7 @@ class CSV
         
         //Create array with the fields format in the file :
         
+        
         $temp = @explode($delim,$linedef);
    
         if (!empty($enclosed_by))         
@@ -742,6 +744,7 @@ class CSV
         
         //check if the used format is ok for Claroline
         
+                
         $this->validFormat = claro_CSV_format_ok($linedef, $delim, $enclosed_by);
         
 	    if (!($this->validFormat)) return array();
