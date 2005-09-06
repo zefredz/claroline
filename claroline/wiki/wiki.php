@@ -58,7 +58,7 @@
         $groupId = (int) $_gid;
         
         $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-        $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
+        $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -392,13 +392,18 @@
     
     // toolTitle
     
+    $toolTitle = array();
+    
+    if ( $_gid )
+    {
+		$toolTitle['supraTitle'] = $_group['name'];
+    }
+    
     switch( $action )
     {
         // edit form
         case "rqEdit":
         {
-            $toolTitle = array();
-
             if ( $wikiId == 0 )
             {
                 $toolTitle['mainTitle'] = $langWikiTitleNew;
@@ -406,6 +411,7 @@
             else
             {
                 $toolTitle['mainTitle'] = $langWikiTitleEdit;
+                $toolTitle['subTitle'] = $wikiTitle;
             }
 
             break;
@@ -413,7 +419,6 @@
         // delete form
         case "rqDelete":
         {
-            $toolTitle = array();
             $toolTitle['mainTitle'] = $langWikiDeleteWiki;
 
             break;
@@ -421,9 +426,8 @@
         // list wiki
         case "list":
         {
-            $toolTitle = array();
-            $toolTitle['mainTitle'] = $langWikiList;
-
+            $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $langWikiList );
+            
             break;
         }
     }

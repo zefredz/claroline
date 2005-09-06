@@ -62,7 +62,7 @@
         $grouId = $_gid;
         
         $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-        $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
+        $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -597,6 +597,11 @@
     
     $toolTitle = array();
     $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $wiki->getTitle() );
+    
+    if ( $_gid )
+    {
+		$toolTitle['supraTitle'] = $_group['name'];
+    }
 
     switch( $action )
     {
@@ -622,7 +627,7 @@
                 : $title
                 ;
                 
-            $toolTitle['subTitle'] = $subTitle;
+            // $toolTitle['subTitle'] = $subTitle;
                 
             break;
         }
