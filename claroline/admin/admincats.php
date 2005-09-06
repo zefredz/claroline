@@ -73,9 +73,9 @@ if ( isset($_REQUEST['id'])
             if($category['id'] == $id)
             {
                 if($categories[$key]['visible'])
-                    $categories[$key]['visible']=FALSE;
+                    $categories[$key]['visible'] = FALSE;
                 else
-                    $categories[$key]['visible']=TRUE;
+                    $categories[$key]['visible'] = TRUE;
             }
         }
     }
@@ -121,23 +121,20 @@ else
                 $nameCat   = $_REQUEST['nameCat'];
                 $codeCat   = $_REQUEST['codeCat'];
                 $fatherCat = $_REQUEST['fatherCat'];
-                $canHaveCoursesChild = ($_REQUEST['canHaveCoursesChild'] == 1?'TRUE':'FALSE');
+                $canHaveCoursesChild = ($_REQUEST['canHaveCoursesChild'] == 1 ? 'TRUE' : 'FALSE');
     
                 // If the category don't have as parent NULL (root), all parent of this category have a child more
-                $fatherChangeChild=(!strcmp($fatherCat,"NULL")?NULL:$fatherCat);
+                $fatherChangeChild = (!strcmp($fatherCat,'NULL') ? NULL : $fatherCat);
     
                 addNbChildFather($fatherChangeChild,1);
     
                 // If the parent of the new category isn't root
                 if(strcmp($fatherCat, 'NULL'))
                 {
-                    $sql_SearchFather=" SELECT treePos,nb_childs 
-                                        FROM `" . $tbl_course_node . "` 
-                                        WHERE code='" . addslashes($fatherCat) . "'";
-                    $array=claro_sql_query_fetch_all($sql_SearchFather);
-    
+                    $cat_data = get_cat_data(get_cat_id_from_code(addslashes($fatherCat)));
+                    
                     // The treePos from the new category (treePos from this father + nb_childs from this father)
-                    $treePosCat=$array[0]['treePos'] + $array[0]['nb_childs'];
+                    $treePosCat = $cat_data['treePos'] + $cat_data['nb_childs'];
     
                     // Add 1 to all category who have treePos >= of the treePos of the new category
                     $sql_ChangeTree=" UPDATE `" . $tbl_course_node . "` 
@@ -148,7 +145,7 @@ else
                 else    // The parent of the new category is root
                 {
                     // Search the maximum treePos
-                    $treePosCat=search_max_tree_pos()+1;
+                    $treePosCat = search_max_tree_pos() + 1;
                 }
     
                 // Insert the new category to the table
@@ -176,11 +173,11 @@ else
         }
         else // if the new category don't have a name or a code or she can't have child (categories or courses)
         {
-            if(empty($_REQUEST["nameCat"]))
-                $controlMsg["error"][]=$lang_faculty_NameEmpty;
+            if(empty($_REQUEST['nameCat']))
+                $controlMsg['error'][] = $lang_faculty_NameEmpty;
 
-            if(empty($_REQUEST["codeCat"]))
-                $controlMsg["error"][]=$lang_faculty_CodeEmpty;
+            if(empty($_REQUEST['codeCat']))
+                $controlMsg['error'][] = $lang_faculty_CodeEmpty;
         }
     }
 
@@ -215,7 +212,7 @@ else
                 $j--;
 
             // If they are a brother
-            if(!strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]) )
+            if(!strcmp($categories[$j]['code_P'], $categories[$i]['code_P']) )
             {
                 // change the brother and his children
                 for($k=0;$k<=$categories[$j]['nb_childs'];$k++)
@@ -224,7 +221,7 @@ else
                     $newTree=$categories[$j]['treePos'] + $categories[$i]['nb_childs']+1+$k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
-                                    SET treePos='" . (int)$newTree . "' 
+                                    SET treePos='" . (int) $newTree . "' 
                                     WHERE id='". (int) $searchId."'";
                     claro_sql_query($sql_Update) ;
                 }
@@ -452,10 +449,10 @@ else
         // Edit a category (don't move the category)
         if(!isset($_REQUEST["fatherCat"]) && $doChange)
         {
-            $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1?"TRUE":"FALSE");
+            $canHaveCoursesChild=($_REQUEST["canHaveCoursesChild"]==1 ? 'TRUE' : 'FALSE');
 
             // If nothing is different
-            if(!strcmp($facultyEdit["name"],$_REQUEST["nameCat"]) && !strcmp($facultyEdit["code"],$_REQUEST["codeCat"])
+            if(!strcmp($facultyEdit["name"],$_REQUEST["nameCat"]) && !strcmp($facultyEdit['code'], $_REQUEST['codeCat'])
               && !strcmp($facultyEdit["canHaveCoursesChild"],$canHaveCoursesChild) )
             {
                 $controlMsg['warning'][]=$lang_faculty_NoChange;
@@ -707,7 +704,7 @@ else
         $i=0;
         for($i=0;$i<count($array);$i++)
         {
-            $array[$i]["visible"]=TRUE;
+            $array[$i]['visible']=TRUE;
             $categories[]=$array[$i];
         }
 
@@ -1031,6 +1028,8 @@ echo '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
+cat_count_children('NULL');
+
 include($includePath . '/claro_init_footer.inc.php');
 
 
@@ -1058,7 +1057,7 @@ include($includePath . '/claro_init_footer.inc.php');
                           FROM `" . $tbl_course_node . "`";
         $array=claro_sql_query_fetch_all($sql_MaxTreePos);
 
-        return $array[0]["maximum"];
+        return $array[0]['maximum'];
     }
 
 
@@ -1096,16 +1095,16 @@ include($includePath . '/claro_init_footer.inc.php');
 
                     <!-- display + or - to show or hide categories -->
                     <?php
-                    $date=date("mjHis");
+                    $date = date('mjHis');
 
                     echo $space;
 
                     if($one_faculty["nb_childs"]>0)
                     {
-                        if($one_faculty["visible"])
-                            $PM='<img src="'.$imgRepositoryWeb.'minus.gif" border="0" alt="" >';
+                        if($one_faculty['visible'])
+                            $PM='<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" alt="" >';
                         else
-                            $PM='<img src="'.$imgRepositoryWeb.'plus.gif" border="0" alt="" >';
+                            $PM='<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" alt="" >';
                     ?>
 
                     <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&amp;date=".$date."#pm".$one_faculty["id"] ?>"
@@ -1300,7 +1299,7 @@ include($includePath . '/claro_init_footer.inc.php');
      * @desc : add a number of child of all father from a category
      */
 
-    function addNbChildFather($fatherChangeChild,$newNbChild)
+    function addNbChildFather($fatherChangeChild, $newNbChild)
     {
         GLOBAL $tbl_course_node;
         while(!is_null($fatherChangeChild))
@@ -1367,7 +1366,7 @@ include($includePath . '/claro_init_footer.inc.php');
         $tbl_mdb_names   = claro_sql_get_main_tbl();
         $tbl_course_node = $tbl_mdb_names['category'];
         $sql_get_cat_data = " SELECT id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
-                                       FROM `" . $tbl_course_node . "` 
+                       FROM `" . $tbl_course_node . "` 
                                        WHERE id= ". (int) $cat_id;
         return claro_sql_query_get_single_row($sql_get_cat_data);
   	
@@ -1392,4 +1391,19 @@ include($includePath . '/claro_init_footer.inc.php');
 
     }
 
+    /**
+     *
+     * @param $node_code
+     * @return 
+     * @author Christophe Gesché <moosh@claroline.net>
+     *
+     */
+    function cat_count_children($node_code)
+    {
+        global $nodeList;
+    	foreach ($nodeList as $node)
+    	   $child_qty = $node['code_P'] == $node_code ? cat_count_children($node['code']) : 0;
+        
+    	return $child_qty +1;
+    }
 ?>
