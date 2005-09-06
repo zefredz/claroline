@@ -133,26 +133,26 @@ function commentBox($type, $mode)
             $sql = "UPDATE `" . $tbl_name . "`
                            SET `" . $col_name . "` = \"". addslashes($_POST['insertCommentBox'])."\"
                          WHERE " . $where_cond;
-            //echo "<1 upd> ".$sql.'<br>';
             claro_sql_query($sql);
+            
             if($mode == UPDATE_)
-            $dsp = true;
+            	$dsp = true;
             elseif($mode == UPDATENOTSHOWN_)
-            $dsp = false;
+            	$dsp = false;
         }
         else // display form
         {
             // get info to fill the form in
-            $sql = "SELECT *
+            $sql = "SELECT `".$col_name."`
                        FROM `" . $tbl_name . "`
                       WHERE " . $where_cond;
-            $query = claro_sql_query($sql);
-            $oldComment = @mysql_fetch_array($query);
+            $oldComment = claro_sql_query_get_single_value($sql);
+
             echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-                .claro_disp_html_area('insertCommentBox', $oldComment[$col_name], 15, 55).'<br>' . "\n"
-                .'<input type="hidden" name="cmd" value="update' . $col_name . '">'
-                .'<input type="submit" value="' . $langOk . '">' . "\n"
-                .'<br>' . "\n"
+                .claro_disp_html_area('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
+                .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
+                .'<input type="submit" value="' . $langOk . '" />' . "\n"
+                .'<br />' . "\n"
                 .'</form>' . "\n"
             ;
         }
@@ -172,17 +172,16 @@ function commentBox($type, $mode)
     // display mode only or display was asked by delete mode or update mode
     if ( $mode == DISPLAY_ || $dsp == TRUE )
     {
-        $sql = "SELECT *
+        $sql = "SELECT `".$col_name."`
                 FROM `" . $tbl_name . "`
                 WHERE " . $where_cond;
-        //echo "<4 dsp> ".$sql."<br>";
-        $query = claro_sql_query($sql);
-        $currentComment = @mysql_fetch_array($query);
+
+        $currentComment = claro_sql_query_get_single_value($sql);
 
         // display nothing if this is default comment and not an admin
-        if ( ($currentComment[$col_name] == $defaultTxt) && !$is_AllowedToEdit ) return 0;
+        if ( ($currentComment == $defaultTxt) && !$is_AllowedToEdit ) return 0;
 
-        if ( empty($currentComment[$col_name]) )
+        if ( empty($currentComment) )
         {
             // if no comment and user is admin : display link to add a comment
             if ( $is_AllowedToEdit )
@@ -197,7 +196,7 @@ function commentBox($type, $mode)
         else
         {
             // display comment
-            echo "<p>".$currentComment[$col_name]."</p>";
+            echo "<p>".$currentComment."</p>";
             // display edit and delete links if user as the right to see it
             if ( $is_AllowedToEdit )
             {
@@ -205,11 +204,11 @@ function commentBox($type, $mode)
                 echo '<p>' . "\n"
                 .    '<small>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
                 .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . $langDelete . '" border="0">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . $langDelete . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</small>' . "\n"
                 .    '</p>' . "\n"
@@ -290,18 +289,18 @@ function nameBox($type, $mode)
         }
         else // display form
         {
-            $sql = "SELECT *
-                           FROM `" . $tbl_name . "`
-                          WHERE " . $where_cond;
+            $sql = "SELECT `name`
+                    FROM `" . $tbl_name . "`
+                    WHERE " . $where_cond;
 
-            $query = claro_sql_query($sql);
-            $oldName = @mysql_fetch_array($query);
+            $oldName = claro_sql_query_get_single_value($sql);
+
             echo '<form method="POST" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
-            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName['name']).'">'
+            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName).'" />'
             .    '<br />' . "\n"
-            .    '<input type="hidden" name="cmd" value="updateName">' ."\n"
-            .    '<input type="submit" value="' . $langOk . '">' . "\n"
-            .    '<br>' . "\n"
+            .    '<input type="hidden" name="cmd" value="updateName" />' ."\n"
+            .    '<input type="submit" value="' . $langOk . '" />' . "\n"
+            .    '<br />' . "\n"
             .    '</form>' . "\n"
             ;
         }
@@ -311,21 +310,20 @@ function nameBox($type, $mode)
     // display if display mode or asked by the update
     if ( $mode == DISPLAY_ || $dsp == true )
     {
-        $sql = "SELECT *
+        $sql = "SELECT `name`
                       FROM `" . $tbl_name . "`
                      WHERE " . $where_cond;
 
-        $query = claro_sql_query($sql);
-        $currentName = @mysql_fetch_array($query);
+        $currentName = claro_sql_query_get_single_value($sql);
 
         echo '<h4>' 
-        .    $currentName['name'];
+        .    $currentName;
 
         if ( $is_AllowedToEdit )
-            echo '<br><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0">'
+            echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0" />'
             .    '</a>' . "\n";
-        echo '</h4>';
+        echo '</h4>'."\n\n";
     }
 
     return 0;
@@ -450,9 +448,9 @@ function is_num($var)
 
         // 48 to 57 are decimal ascii values for 0 to 9
         if ( $ascii >= 48 && $ascii <= 57)
-        continue;
+        	continue;
         else
-        return FALSE;
+        	return FALSE;
     }
 
     return TRUE;
@@ -489,12 +487,12 @@ function display_path_content()
               AND LP.`learnPath_id` = LPM.`learnPath_id`
               AND LPM.`module_id` = M.`module_id`
             ORDER BY LPM.`rank`";
-    $result = claro_sql_query($sql);
+    $moduleList = claro_sql_query_fetch_all($sql);
 
     $extendedList = array();
-    while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
+    foreach( $moduleList as $module)
     {
-        $extendedList[] = $list;
+        $extendedList[] = $module;
     }
     // build the array of modules
     // build_element_list return a multi-level array, where children is an array with all nested modules
@@ -503,22 +501,23 @@ function display_path_content()
 
     // look for maxDeep
     $maxDeep = 1; // used to compute colspan of <td> cells
-    for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
+    for ($i = 0 ; $i < sizeof($flatElementList) ; $i++)
     {
         if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
     }
 
-    echo '<table class="claroTable" width="100%"  border="0" cellspacing="2">'
-    .    '<tr class="headerX" align="center" valign="top">'
-    .    '<th colspan="' . ($maxDeep+1).'">' . $langModule . '</th>'
-    .    '</tr>' . "\n" . '<tbody>'
+    echo "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
+    .    '<tr class="headerX" align="center" valign="top">'."\n"
+	.    '<th colspan="' . ($maxDeep+1).'">' . $langModule . '</th>'."\n"
+    .    '</tr>'."\n\n"
+	.	 '<tbody>'."\n"
     ;
 
     foreach ($flatElementList as $module)
     {
         $spacingString = '';
         for($i = 0; $i < $module['children']; $i++)
-        $spacingString .= "<td width='5'>&nbsp;</td>";
+        	$spacingString .= '<td width="5">&nbsp;</td>'."\n";
         $colspan = $maxDeep - $module['children']+1;
 
         echo '<tr align="center" '.$style.'>' . "\n"
@@ -533,18 +532,21 @@ function display_path_content()
         else // module
         {
             if($module['contentType'] == CTEXERCISE_ )
-            $moduleImg = 'quiz.gif';
+            	$moduleImg = 'quiz.gif';
             else
-            $moduleImg = choose_image(basename($module['path']));
+            	$moduleImg = choose_image(basename($module['path']));
+            	
             $contentType_alt = selectAlt($module['contentType']);
 
-            echo '<img src="' . $imgRepositoryWeb . $moduleImg . '" alt="' .$contentType_alt.'" border="0">'
+            echo '<img src="' . $imgRepositoryWeb . $moduleImg . '" alt="' .$contentType_alt.'" border="0" />'
             .    $module['name']
             ;
         }
-        echo '</td></tr>';
+        echo '</td>'."\n"
+		.	 '</tr>'."\n\n";
     }
-    echo '</tbody></table>';
+    echo '</tbody>'."\n\n"
+	.	 '</table>'."\n\n";
 }
 
 /**
@@ -578,42 +580,40 @@ function get_learnPath_progress($lpid, $lpUid)
               AND M.`module_id` = LPM.`module_id`
               AND M.`contentType` != '" . CTLABEL_ . "'";
 
-    $result = claro_sql_query($sql);
-
-    //echo $sql."<br>";
-    //echo mysql_error();
+    $modules = claro_sql_query_fetch_all($sql);
 
     $progress = 0;
-    if (mysql_num_rows($result)==0)
+    if( !is_array($modules) || empty($modules) )
     {
         $progression = 0;
     }
     else
     {
-        //progression is calculated in pourcents
-        while ($list = mysql_fetch_array($result))
+        // progression is calculated in pourcents
+        foreach( $modules as $module )
         {
-            if( $list['SMax'] <= 0 )
+            if( $module['SMax'] <= 0 )
             {
                 $modProgress = 0 ;
             }
             else
             {
-                $modProgress = @round($list['R']/$list['SMax']*100);
+                $modProgress = @round($module['R']/$module['SMax']*100);
             }
 
             // in case of scorm module, progression depends on the lesson status value
-            if (($list['CTYPE']=="SCORM") && ($list['SMax'] <= 0) && (( $list['STATUS'] == 'COMPLETED') || ($list['STATUS'] == 'PASSED')))
+            if (($module['CTYPE']=="SCORM") && ($module['SMax'] <= 0) && (( $module['STATUS'] == 'COMPLETED') || ($module['STATUS'] == 'PASSED')))
             {
                 $modProgress = 100;
             }
+            
             if ($modProgress >= 0)
             {
                 $progress += $modProgress;
             }
         }
         // find number of visible modules in this path
-        $sqlnum = "SELECT M.`module_id`
+        $sqlnum = "SELECT COUNT(M.`module_id`)
                     FROM `" . $tbl_lp_rel_learnPath_module . "` AS LPM,
                           `". $tbl_lp_module . "` AS M
                     WHERE LPM.`learnPath_id` = " . (int) $lpid . "
@@ -621,9 +621,13 @@ function get_learnPath_progress($lpid, $lpUid)
                     AND M.`contentType` != '" . CTLABEL_ . "'
                     AND M.`module_id` = LPM.`module_id`
                     ";
-        $countResult = claro_sql_query($sqlnum);
-        //echo $sqlnum." : ".mysql_num_rows($countResult)."<br>";
-        $progression = @round($progress/mysql_num_rows($countResult));
+        $nbrOfVisibleModules = claro_sql_query_get_single_value($sqlnum);
+
+		if( is_numeric($nbrOfVisibleModules) )
+          	$progression = @round($progress/$nbrOfVisibleModules);
+		else
+			$progression = 0;
+
     }
     return $progression;
 }
@@ -655,81 +659,95 @@ function display_my_exercises($dialogBox)
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        echo claro_disp_message_box($dialogBox).'<br />';
+        echo claro_disp_message_box($dialogBox).'<br />'."\n";
     }
-    echo '<table class="claroTable" width="100%" border="0" cellspacing="">'
-    .    '<tr class="headerX" align="center" valign="top">'
+    echo '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
+    .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th width="10%">'
     .    $langAddModule
-    .    '</th>'
+    .    '</th>'."\n"
     .    '<th>'
     .    $langExercise
-    .    '</th>'
-    .    '</tr><tbody>' . "\n"
+    .    '</th>'."\n"
+    .    '</tr>'."\n\n"
     ;
 
     // Display available modules
-    echo '<form method="POST" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">';
+    echo '<form method="POST" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
     $atleastOne = FALSE;
-    $sql = "SELECT *
+    $sql = "SELECT `id`, `titre` AS `title`, `description`
             FROM `" . $tbl_quiz_test . "`
             ORDER BY  `titre`, `id`";
-    $result = claro_sql_query($sql);
-    while ($exercise = mysql_fetch_array($result))
+    $exercises = claro_sql_query_fetch_all($sql);
+    
+    if( is_array($exercises) && !empty($exercises) )
     {
-        echo '<tr>'
-        .    '<td align="center">'
-        .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '">'
-        .    '</td>'
-        .    '<td align="left">'
-        .    '<label for="check_'.$exercise['id'].'" >'
-        .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . $langExercise . '" />' 
-        .    $exercise['titre'] 
-        .    '</label>'
-        .    '</td>'
-        .    '</tr>'
-        ;
+		echo '<tbody>' . "\n\n";
+		
+	    foreach ( $exercises as $exercise )
+	    {
+	        echo '<tr>'."\n"
+	        .    '<td align="center">'
+	        .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '" />'
+	        .    '</td>'."\n"
+	        .    '<td align="left">'
+	        .    '<label for="check_'.$exercise['id'].'" >'
+	        .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . $langExercise . '" />'
+	        .    $exercise['title']
+	        .    '</label>'
+	        .    '</td>'."\n"
+	        .    '</tr>'."\n\n"
+	        ;
 
-        // COMMENT
+	        // COMMENT
 
-        if ($exercise['description']!=null) 
-        {
-            echo '<tr>'
-            .    '<td>&nbsp;</td>'
-            .    '<td>'
-            .    '<small>' . $exercise['description'] . '</small>'
-            .    '</td>'
-            .    '</tr>'
-            ;
-        }
-        $atleastOne = true;
-    }//end while another module to display
-    echo '</tbody><tfoot>';
+	        if( !empty($exercise['description']) )
+	        {
+	            echo '<tr>'."\n"
+	            .    '<td>&nbsp;</td>'."\n"
+	            .    '<td>'
+	            .    '<small>' . $exercise['description'] . '</small>'
+	            .    '</td>'."\n"
+	            .    '</tr>'."\n\n"
+	            ;
+	        }
+	        $atleastOne = true;
+	    }//end while another module to display
+	    echo '</tbody>'."\n\n";
+	}
+    
+    echo '<tfoot>'."\n\n";
+    
     if( !$atleastOne )
     {
-        echo '<tr><td colspan="2" align="center">'
+        echo '<tr>'."\n"
+		.	 '<td colspan="2" align="center">'
         .    $langNoEx
-        .    '</td></tr>'
+        .    '</td>'."\n"
+		.	 '</tr>'."\n\n"
         ;
     }
 
     // Display button to add selected modules
 
-    echo '<tr>'
+    echo '<tr>'."\n"
     .    '<td colspan="2">'
     .    '<hr noshade size="1">'
-    .    '</td></tr>'
+    .    '</td>'."\n"
+	.	 '</tr>'."\n\n"
     ;
     if( $atleastOne )
     {
-        echo '<tr><td colspan="2">'
-        .    '<input type="submit" name="insertExercise" value="'.$langAddModulesButton.'">'
-        .    '</td></tr>'
+        echo '<tr>'."\n"
+		.	 '<td colspan="2">'
+        .    '<input type="submit" name="insertExercise" value="'.$langAddModulesButton.'" />'
+        .    '</td>'."\n"
+		.	 '</tr>'."\n\n"
         ;
     }
-    echo '</form>'
-    .    '</tfoot>'
-    .    '</table>'
+    echo '</form>'."\n\n"
+    .    '</tfoot>'."\n\n"
+    .    '</table>'."\n\n"
     .    '<!-- end of display_my_exercises output -->' . "\n"
     ;
 }
@@ -772,7 +790,7 @@ function display_my_documents($dialogBox)
     $cmdCurDirPath = rawurlencode($curDirPath);
     $cmdParentDir  = rawurlencode($parentDir);
 
-    echo '<br>'
+    echo '<br />'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">';
 
     /*--------------------------------------
@@ -792,7 +810,7 @@ function display_my_documents($dialogBox)
     and we can't go to a parent dir */
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
-        .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" align="absbottom" hspace="5" alt="">'."\n"
+        .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" align="absbottom" hspace="5" alt="" />'."\n"
         .    '<small>' . $langUp . '</small>' . "\n"
         .    '</a>' . "\n"
         ;
@@ -805,7 +823,7 @@ function display_my_documents($dialogBox)
         echo '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
         .    '<th class="superHeader" colspan="' . $colspan . '" align="left">'. "\n"
-        .    '<img src="' . $imgRepositoryWeb . 'opendir.gif" align="absbottom" vspace=2 hspace=5 alt="">' . "\n"
+        .    '<img src="' . $imgRepositoryWeb . 'opendir.gif" align="absbottom" vspace=2 hspace=5 alt="" />' . "\n"
         .    $dspCurDirName . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
