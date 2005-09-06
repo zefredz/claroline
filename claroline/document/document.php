@@ -88,7 +88,7 @@ if ($_gid && $is_groupAllowed)
     $groupDir          = 'group/'.$_group['directory']; 
 
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
+    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
 
     $is_allowedToEdit  = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
     $is_allowedToUnzip =  FALSE;
@@ -1274,7 +1274,7 @@ $cmdParentDir  = rawurlencode($parentDir);
 //display toot title and subtitle
 
 $titleElement['mainTitle'] = $langDocument;
-if ( $_gid && $is_groupAllowed) $titleElement['subTitle'] = $_group['name'];
+if ( $_gid && $is_groupAllowed) $titleElement['supraTitle'] = $_group['name'];
 
 echo claro_disp_tool_title($titleElement, 
                       $is_allowedToEdit ? 'help_document.php' : false);
