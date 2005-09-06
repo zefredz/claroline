@@ -880,7 +880,7 @@ class postLister
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
 
-    global $_gid, $forum_name,
+    global $_gid, $forum_name, $topic_title,
            $imgRepositoryWeb, 
            $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum;
 
@@ -899,8 +899,8 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'reply':
 
-            $toolBar [] = '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                        . '&lt;&lt; ' . $langBackTo .' '. $forum_name
+            $toolBar [] = '<a class="claroCmd" href="viewtopic.php?topic=' . $topic_id . '&amp;gidReq=' . $_gid . '">'
+                        . '&lt;&lt; ' . $langBackTo .' '. $topic_title
                         . '</a>'."\n";
             break;
 
@@ -963,12 +963,12 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
     $breadCrumbNameList   = array ('Forum Index');
     $breadCrumbUrlList    = array ('index.php');
 
-    if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply') ) )
+    if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
         $breadCrumbNameList[] = $forum_name;
         $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
 
-        if ($pagetype != 'viewforum')
+        if ( ! in_array($pagetype, array('viewforum', 'newtopic') ) )
         {
             $breadCrumbNameList[] = $topic_name;
             $breadCrumbUrlList[]  = null;

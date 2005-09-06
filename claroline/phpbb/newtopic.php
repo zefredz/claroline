@@ -208,7 +208,7 @@ else
 
         disp_forum_toolbar($pagetype, $forum_id, 0, 0);
 
-        //disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
+        disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
          . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
