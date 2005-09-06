@@ -46,7 +46,7 @@ $tbl_course_node = $tbl_mdb_names['category'];
 $controlMsg = array();
 
 // Display variables
-$CREATE = FALSE;
+$CREATE  = FALSE;
 $EDIT    = FALSE;
 $MOVE    = FALSE;
 
@@ -129,15 +129,15 @@ else
                 addNbChildFather($fatherChangeChild,1);
     
                 // If the parent of the new category isn't root
-                if(strcmp($fatherCat,"NULL"))
+                if(strcmp($fatherCat, 'NULL'))
                 {
                     $sql_SearchFather=" SELECT treePos,nb_childs 
                                         FROM `" . $tbl_course_node . "` 
-                                        WHERE code='".addslashes($fatherCat)."'";
+                                        WHERE code='" . addslashes($fatherCat) . "'";
                     $array=claro_sql_query_fetch_all($sql_SearchFather);
     
                     // The treePos from the new category (treePos from this father + nb_childs from this father)
-                    $treePosCat=$array[0]["treePos"]+$array[0]["nb_childs"];
+                    $treePosCat=$array[0]['treePos'] + $array[0]['nb_childs'];
     
                     // Add 1 to all category who have treePos >= of the treePos of the new category
                     $sql_ChangeTree=" UPDATE `" . $tbl_course_node . "` 
@@ -375,23 +375,25 @@ else
      * Edit a category : display form
      */
 
-    if($cmd == 'rqEdit')
+    if($cmd == 'rqEdit' && isset($_REQUEST['id']))
     {
-        $EDIT=TRUE;
+        
 
         // Search information of the category edit
-        $sql_SearchInfoTreeFaculty = " SELECT * 
-                                       FROM `" . $tbl_course_node . "` 
-                                       WHERE id='". (int)$_REQUEST["id"]."'";
-        $array=claro_sql_query_fetch_all($sql_SearchInfoTreeFaculty);
-
-        $EditId=$array[0]["id"];
-        $EditName=$array[0]["name"];
-        $EditCode=$array[0]["code"];
-        $editFather=$array[0]["code_P"];
-        $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
-        $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
-    
+        $editedCat_data = get_cat_data( $_REQUEST['id'] );
+        
+        if ($editedCat_data)
+        { 
+            $EDIT=TRUE;
+            $editedCat_Id                  = $editedCat_data['id'];
+            $editedCat_Name                = $editedCat_data['name'];
+            $editedCat_Code                = $editedCat_data['code'];
+            $editFather                    = $editedCat_data['code_P'];
+            $editedCat_CanHaveCatChild     = $editedCat_data['canHaveCatChild'];
+            $editedCat_CanHaveCoursesChild = $editedCat_data['canHaveCoursesChild'];
+            
+            unset ($editedCat_data);
+        }
     }
     
     /**
@@ -401,19 +403,20 @@ else
     if($cmd == 'rqMove')
     {
         // Search information of the category edit
-        $sql_SearchInfoTreeFaculty = " SELECT id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
-                                       FROM `" . $tbl_course_node . "` 
-                                       WHERE id='". (int)$_REQUEST['id']."'";
-        $categoryList=claro_sql_query_fetch_all($sql_SearchInfoTreeFaculty);
-
-        $EditId                  = $categoryList[0]['id'];
-        $EditName                = $categoryList[0]['name'];
-        $EditCode                = $categoryList[0]['code'];
-        $editFather              = $categoryList[0]['code_P'];
-        $EditCanHaveCatChild     = $categoryList[0]['canHaveCatChild'];
-        $EditCanHaveCoursesChild = $categoryList[0]['canHaveCoursesChild'];
-
-        $MOVE=TRUE;
+        $editedCat_data = get_cat_data( $_REQUEST['id'] );
+        
+        if ($editedCat_data)
+        { 
+            $MOVE=TRUE;
+            $editedCat_Id                  = $editedCat_data['id'];
+            $editedCat_Name                = $editedCat_data['name'];
+            $editedCat_Code                = $editedCat_data['code'];
+            $editFather                    = $editedCat_data['code_P'];
+            $editedCat_CanHaveCatChild     = $editedCat_data['canHaveCatChild'];
+            $editedCat_CanHaveCoursesChild = $editedCat_data['canHaveCoursesChild'];
+            
+            unset ($editedCat_data);
+        }
     }
 
     /**
@@ -774,8 +777,8 @@ if($CREATE)
     
     // try to retrieve previsiously posted parameters for the new category
     
-    $EditName = isset($_REQUEST['nameCat']) ? $_REQUEST['nameCat'] : '';
-    $EditCode = isset($_REQUEST['codeCat']) ? $_REQUEST['codeCat'] : '';
+    $editedCat_Name = isset($_REQUEST['nameCat']) ? $_REQUEST['nameCat'] : '';
+    $editedCat_Code = isset($_REQUEST['codeCat']) ? $_REQUEST['codeCat'] : '';
     $canHaveCoursesChild = isset($_REQUEST['canHaveCoursesChild']) ? $_REQUEST['canHaveCoursesChild'] : '';
     
 ?>
@@ -788,7 +791,7 @@ if($CREATE)
         </td>
 
         <td>
-        <input type="texte" name="nameCat" id="nameCat" value="<?php echo htmlspecialchars($EditName); ?>" size="20" maxlength="100">
+        <input type="texte" name="nameCat" id="nameCat" value="<?php echo htmlspecialchars($editedCat_Name); ?>" size="20" maxlength="100">
         </td>
     </tr>
     <tr>
@@ -797,7 +800,7 @@ if($CREATE)
         </td>
 
         <td>
-            <input type="texte" name="codeCat" id="codeCat" value="<?php echo htmlspecialchars($EditCode); ?>" size="20" maxlength="40">
+            <input type="texte" name="codeCat" id="codeCat" value="<?php echo htmlspecialchars($editedCat_Code); ?>" size="20" maxlength="40">
         </td>
     </tr>
     <tr>
@@ -807,15 +810,15 @@ if($CREATE)
 
         <td>
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_1"
-            <?php   echo (isset($EditCanHaveCoursesChild))
-                    ?    (!strcmp($EditCanHaveCoursesChild,"TRUE")?"checked":"")
+            <?php   echo (isset($editedCat_CanHaveCoursesChild))
+                    ?    (!strcmp($editedCat_CanHaveCoursesChild,"TRUE")?"checked":"")
                     :    'checked';
             ?>
          value="1"> <label for="canHaveCoursesChild_1"><?php echo $langYes; ?></label>
 
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0"
-            <?php    if(isset($EditCanHaveCoursesChild))
-                        echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
+            <?php    if(isset($editedCat_CanHaveCoursesChild))
+                        echo (!strcmp($editedCat_CanHaveCoursesChild,"FALSE")?"checked":"");
             ?>
         value="0"> <label for="canHaveCoursesChild_0"><?php echo $langNo; ?></label>
 
@@ -887,7 +890,7 @@ elseif($EDIT)
         </td>
 
         <td>
-        <input type="texte" name="nameCat" id="nameCat" value="<?php echo htmlspecialchars($EditName); ?>" size="20" maxlength="100">
+        <input type="texte" name="nameCat" id="nameCat" value="<?php echo htmlspecialchars($editedCat_Name); ?>" size="20" maxlength="100">
         </td>
     </tr>
     <tr>
@@ -896,7 +899,7 @@ elseif($EDIT)
         </td>
 
         <td>
-        <input type="texte" name="codeCat" id="codeCat" value="<?php echo htmlspecialchars($EditCode); ?>" size="20" maxlength="40">
+        <input type="texte" name="codeCat" id="codeCat" value="<?php echo htmlspecialchars($editedCat_Code); ?>" size="20" maxlength="40">
         </td>
     </tr>
     <tr>
@@ -906,27 +909,26 @@ elseif($EDIT)
 
         <td>
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_1"
-            <?php    if(isset($EditCanHaveCoursesChild))
-                        echo (!strcmp($EditCanHaveCoursesChild,"TRUE")?"checked":"");
+            <?php    if(isset($editedCat_CanHaveCoursesChild))
+                        echo (!strcmp($editedCat_CanHaveCoursesChild,"TRUE")?"checked":"");
                     else
                         echo "checked";
             ?>
          value="1"> <label for="canHaveCoursesChild_1"><?php echo $langYes; ?></label>
 
         <input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0"
-            <?php    if(isset($EditCanHaveCoursesChild))
-                        echo (!strcmp($EditCanHaveCoursesChild,"FALSE")?"checked":"");
+            <?php    if(isset($editedCat_CanHaveCoursesChild))
+                        echo (!strcmp($editedCat_CanHaveCoursesChild, 'FALSE') ? 'checked' : '');
             ?>
         value="0"> <label for="canHaveCoursesChild_0"><?php echo $langNo; ?></label>
 
         </td>
     </tr>
-
     <tr>
         <td><br>
         </td>
     </tr>
-        <input type="hidden" name="id" value="<?php echo $EditId ?>">
+        <input type="hidden" name="id" value="<?php echo $editedCat_Id ?>">
     <tr>
         <td>
         </td>
@@ -947,7 +949,7 @@ elseif($MOVE)
      * Display information to change root of the category
      */
 
-    echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent.$EditCode));
+    echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent . $editedCat_Code));
     if ( isset($controlMsg) && count($controlMsg) > 0 )
     {
         claro_disp_msg_arr($controlMsg);
@@ -980,7 +982,7 @@ elseif($MOVE)
         <td>
         </td>
         <td>
-            <input type="hidden" name="id" value="<?php echo $EditId ?>">
+            <input type="hidden" name="id" value="<?php echo $editedCat_Id ?>">
             <input type="submit" value="Ok">
         </td>
     </tr>
@@ -1342,9 +1344,9 @@ include($includePath."/claro_init_footer.inc.php");
             {
                 if(!strcmp($one_faculty["code_P"],$father))
                 {
-                    echo "<option value=\"".$one_faculty['code']."\" ".
-                            ($one_faculty['code']==$editFather?"selected ":"")
-                    ."> ".$space.$one_faculty['code']." </option>";
+                    echo '<option value="' . $one_faculty['code'] . '" '.
+                            ($one_faculty['code'] == $editFather ? "selected ":"")
+                    ."> ".$space.$one_faculty['code'] . ' </option>';
 
                     build_select_faculty($elem,$one_faculty["code"],$editFather,$space);
                 }
@@ -1357,19 +1359,18 @@ include($includePath."/claro_init_footer.inc.php");
     /**
      *
      * @param $cat_id string code of cat to get data
-     * @return array of data id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
+     * @return array of data id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
      * @author Christophe Gesché <moosh@claroline.net>
      *
      */
     function get_cat_data($cat_id)
     {
         global $tbl_course_node;
-        $sql_get_cat_data = " SELECT id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
+        $sql_get_cat_data = " SELECT id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
                                        FROM `" . $tbl_course_node . "` 
                                        WHERE id= ". (int) $cat_id;
-        $categoryList=claro_sql_query_fetch_all($sql_get_cat_data);
-
-    	return $categoryList[0];
+        return claro_sql_query_get_single_row($sql_get_cat_data);
+   	
     }
 
     /**
@@ -1382,6 +1383,7 @@ include($includePath."/claro_init_footer.inc.php");
     function get_cat_id_from_code($cat_code)
     {
         global $tbl_course_node;
+        
         $sql_get_cat_id = " SELECT id
                                        FROM `" . $tbl_course_node . "` 
                                        WHERE code='". $cat_code."'";
