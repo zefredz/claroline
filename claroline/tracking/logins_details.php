@@ -46,19 +46,20 @@ $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all s
 
 $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$uInfo, "name"=> $langUsers);
 $interbredcrump[]= array ("url"=>"../tracking/userLog.php?uInfo=".$uInfo, "name"=> $langStatsOfUser);
-$_SERVER['QUERY_STRING'] = 'uInfo='.$uInfo."&reqdate=".$reqdate;
+$_SERVER['QUERY_STRING'] = 'uInfo='.$uInfo."&amp;reqdate=".$reqdate;
 
 $nameTools = $langStatistics." : ".$langLoginsAndAccessTools;
 include($includePath."/claro_init_header.inc.php");
 
 echo claro_disp_tool_title($nameTools);
 
-//if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackingEnabled )
 if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_trackingEnabled )
 {
     if( $is_allowedToTrackEverybodyInCourse  || ($uInfo == $_uid)  )
     {
-        $sql = "SELECT `u`.`prenom`,`u`.`nom`, `u`.`email`
+        $sql = "SELECT `u`.`prenom` AS `firstname`,
+						`u`.`nom` AS `lastname`,
+						`u`.`email`
                 FROM `".$tbl_rel_course_user."` cu , `".$tbl_user."` u 
                     WHERE `cu`.`user_id` = `u`.`user_id`
                         AND `cu`.`code_cours` = '".$_cid."'
@@ -66,24 +67,24 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
     }
     else // user is a tutor
     {
-        $sql = "SELECT `u`.`prenom`,`u`.`nom`, `u`.`email`
+        $sql = "SELECT `u`.`prenom` as `firstname`,
+						`u`.`nom`, `u`.`email`
                     FROM `".$tbl_group_rel_team_user."` gu , `".$tbl_user."` u 
                     WHERE `gu`.`user` = `u`.`user_id`
                         AND `gu`.`team` = '".$_gid."'
                         AND `u`.`user_id` = '". (int)$uInfo ."'";
     }
-    $query = claro_sql_query($sql);
-    $res = mysql_fetch_array($query);
-    if(is_array($res))
+    $userDetails = claro_sql_query_get_single_row($sql);
+
+    if( is_array($userDetails) && !empty($userDetails) )
     {
-        $res[2] == '' ? $res2 = $langNoEmail : $res2 = $res[2];
-            
-        
         echo $langUser.' : <br />'
             .'<ul>'."\n"
-            .'<li>'.$langFirstName.' : '.$res[1].'</li>'."\n"
-            .'<li>'.$langLastName.' : '.$res[0].'</li>'."\n"
-            .'<li>'.$langEmail.' : '.$res2.'</li>'."\n"
+            .'<li>'.$langLastName.' : '.$userDetails['lastname'].'</li>'."\n"
+            .'<li>'.$langFirstName.' : '.$userDetails['firstname'].'</li>'."\n"
+            .'<li>'.$langEmail.' : ';
+        if( empty($userDetails['email']) ) echo $langNoEmail; else echo $userDetails['email'];
+		echo '</li>'."\n"
             .'</ul>'."\n"
 			;
                 
@@ -212,7 +213,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
         {
             echo '<tr>'."\n"
                 .'<td colspan="2">'
-				.'<div align="center" class="highlight">'.$langNoResult.'</div>'
+				.'<div align="center">'.$langNoResult.'</div>'
 				.'</td>'."\n"
                 .'</tr>'."\n"
 				;
