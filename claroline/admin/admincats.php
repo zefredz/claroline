@@ -106,12 +106,8 @@ else
         {
             
             // If a category with the same code already exists we only display an error message
-            $sql_SearchSameCode="SELECT code 
-                                 FROM `" . $tbl_course_node . "` 
-                                 WHERE code='" . addslashes($_REQUEST['nameCat']) . "'";
-            $array=claro_sql_query_fetch_all($sql_SearchSameCode);
-
-            if (isset($array[0]['code'])) 
+            $cat_data = get_cat_data(get_cat_id_from_code(addslashes($_REQUEST['nameCat'])));
+            if (isset($cat_data['code'])) 
             {    
                 // Error message for attempt to create a duplicate
                 $controlMsg['info'][] = $lang_faculty_CreateNotOk;
@@ -215,10 +211,10 @@ else
             if(!strcmp($categories[$j]['code_P'], $categories[$i]['code_P']) )
             {
                 // change the brother and his children
-                for($k=0;$k<=$categories[$j]['nb_childs'];$k++)
+                for($k = 0; $k <= $categories[$j]['nb_childs']; $k++)
                 {
-                    $searchId=$categories[$j+$k]['id'];
-                    $newTree=$categories[$j]['treePos'] + $categories[$i]['nb_childs']+1+$k;
+                    $searchId = $categories[$j + $k]['id'];
+                    $newTree = $categories[$j]['treePos'] + $categories[$i]['nb_childs'] + 1 + $k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
                                     SET treePos='" . (int) $newTree . "' 
@@ -227,14 +223,14 @@ else
                 }
 
                 // change the choose category and his childeren
-                for($k=0;$k<=$categories[$i]["nb_childs"];$k++)
+                for($k=0; $k <= $categories[$i]['nb_childs']; $k++)
                 {
-                    $searchId=$categories[$i+$k]["id"];
-                    $newTree=$categories[$i]['treePos'] - $categories[$j]['nb_childs'] - 1 + $k;
+                    $searchId = $categories[$i+$k]['id'];
+                    $newTree  = $categories[$i]['treePos'] - $categories[$j]['nb_childs'] - 1 + $k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
-                                    SET treePos='". (int) $newTree."' 
-                                    WHERE id='". (int) $searchId."'";
+                                    SET treePos='". (int) $newTree . "' 
+                                    WHERE id='". (int) $searchId . "'";
                     claro_sql_query($sql_Update) ;
                 }
 
@@ -251,17 +247,17 @@ else
         {
             // Search the next brother
             $j=$i+1;
-            while($j<=count($categories) && strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]))
+            while($j<=count($categories) && strcmp($categories[$j]['code_P'], $categories[$i]['code_P']))
                 $j++;
 
             // If they are a brother
             if(!strcmp($categories[$j]['code_P'],$categories[$i]['code_P']))
             {
                 // change the brother and his children
-                for($k=0;$k<=$categories[$j]["nb_childs"];$k++)
+                for($k=0; $k <= $categories[$j]['nb_childs']; $k++)
                 {
-                    $searchId=$categories[$j+$k]["id"];
-                    $newTree=$categories[$j]["treePos"]-$categories[$i]["nb_childs"]-1+$k;
+                    $searchId = $categories[$j+$k]['id'];
+                    $newTree  = $categories[$j]['treePos'] - $categories[$i]['nb_childs'] - 1 + $k;
 
                     $sql_Update = " UPDATE `". $tbl_course_node . "` 
                                     SET treePos='".(int)$newTree."' 
@@ -270,19 +266,19 @@ else
                 }
 
                 // change the choose category and his childeren
-                for($k=0;$k<=$categories[$i]["nb_childs"];$k++)
+                for($k = 0; $k <= $categories[$i]['nb_childs']; $k++)
                 {
-                    $searchId=$categories[$i+$k]["id"];
-                    $newTree=$categories[$i]["treePos"]+$categories[$j]["nb_childs"]+1+$k;
+                    $searchId=$categories[$i+$k]['id'];
+                    $newTree=$categories[$i]['treePos'] + $categories[$j]['nb_childs'] + 1 + $k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
-                                    SET treePos='".(int)$newTree."' 
-                                    WHERE id='".(int)$searchId."'";
+                                    SET treePos='" . (int) $newTree . "' 
+                                    WHERE id='" . (int) $searchId . "'";
                     claro_sql_query($sql_Update) ;
                 }
 
                 //Confirm move
-                $controlMsg['info'][]=$lang_faculty_MoveOk;
+                $controlMsg['info'][] = $lang_faculty_MoveOk;
             }
         }
 
@@ -296,20 +292,16 @@ else
     {
 
         // Search information about category
-        $sql_SearchDelete = " SELECT code, code_P, treePos, nb_childs
-                 FROM `". $tbl_course_node . "`
-                 WHERE id='". (int)$_REQUEST['id']."'";
-        $res_SearchDelete = claro_sql_query_fetch_all($sql_SearchDelete);
-
-        if ($res_SearchDelete != FALSE)
+        $cat_data = get_cat_data($_REQUEST['id']);
+        if ($cat_data)
         {
             // we delete if we do not encounter any problem...default is that there is no problem, then we check
             $delok = TRUE;
 
-            $code_parent  = $res_SearchDelete[0]['code_P'];
-            $code_cat     = $res_SearchDelete[0]['code'];
-            $nb_childs    = $res_SearchDelete[0]['nb_childs'];
-            $treePos      = $res_SearchDelete[0]['treePos'];
+            $code_cat     = $cat_data['code'];
+            $code_parent  = $cat_data['code_P'];
+            $nb_childs    = $cat_data['nb_childs'];
+            $treePos      = $cat_data['treePos'];
         
             // Look if there isn't any subcategory in this category first        
             if($nb_childs > 0) 
@@ -319,12 +311,12 @@ else
             }
         
             // Look if they aren't courses in this category
-            $sql_SearchCourses= "SELECT count(cours_id) num 
+            $sql_courseQty= "SELECT count(cours_id) num 
                                  FROM `" . $tbl_course . "` 
-                                 WHERE faculte='". addslashes($code_cat) ."'";
-            $res_SearchCourses= claro_sql_query_fetch_all($sql_SearchCourses);
+                                 WHERE faculte='" . addslashes($code_cat) . "'";
+            $courseQty= claro_sql_query_get_single_value($sql_courseQty);
 
-            if ($res_SearchCourses[0]["num"]>0) 
+            if ($courseQty > 0) 
             {
                 $controlMsg['error'][]=$lang_faculty_CatHaveCourses;
                 $delok = FALSE;
@@ -334,7 +326,7 @@ else
             {
                 // Delete the category
                 $sql_Delete= " DELETE FROM `" . $tbl_course_node . "` 
-                               WHERE id='". (int)$_REQUEST["id"] ."'";
+                               WHERE id='". (int) $_REQUEST['id'] . "'";
                 claro_sql_query($sql_Delete);
 
                 // Update nb_child of the parent
@@ -1027,8 +1019,6 @@ display_tree($categories,NULL,'');
 echo '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
-
-cat_count_children('NULL');
 
 include($includePath . '/claro_init_footer.inc.php');
 
