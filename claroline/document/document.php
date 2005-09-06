@@ -1857,7 +1857,7 @@ echo claro_disp_tool_title($titleElement,
                     else
                     {
                         // question mark argument method, for IIS ...
-                        $urlFileName = 'goto/?url='.urlencode($cmdFileName);
+                        $urlFileName = 'goto/?url=' . $cmdFileName;
                     }
 
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
