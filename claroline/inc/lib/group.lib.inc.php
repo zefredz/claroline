@@ -32,12 +32,17 @@ include_once( dirname(__FILE__) . '/fileManage.lib.php');
 function delete_groups($groupIdList = 'ALL')
 {
     global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys;
+    global $includePath;
 
     $tbl_c_names = claro_sql_get_course_tbl();
     
     $tbl_Groups           = $tbl_c_names['group_team'         ];
     $tbl_GroupsUsers      = $tbl_c_names['group_rel_team_user'];
     $tbl_Forums           = $tbl_c_names['bb_forums'          ];
+    
+    require_once $includePath . '/../wiki/lib/lib.createwiki.php';
+    
+    delete_group_wikis( $groupIdList );
 
     /*
      * Check the data

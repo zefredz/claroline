@@ -183,6 +183,10 @@ if ( $is_allowedToManage )
         event_default( 'GROUPMANAGING'
                      , array ('CREATE_GROUP' => $groupQuantity)
                      );
+                     
+        require_once $includePath . '/../wiki/lib/lib.createwiki.php';
+        
+        create_wiki( $groupId, $langGroup.' '.$groupId );
 
     }    // end if $submit
 
