@@ -218,10 +218,10 @@ else
             if(!strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]) )
             {
                 // change the brother and his children
-                for($k=0;$k<=$categories[$j]["nb_childs"];$k++)
+                for($k=0;$k<=$categories[$j]['nb_childs'];$k++)
                 {
-                    $searchId=$categories[$j+$k]["id"];
-                    $newTree=$categories[$j]["treePos"]+$categories[$i]["nb_childs"]+1+$k;
+                    $searchId=$categories[$j+$k]['id'];
+                    $newTree=$categories[$j]['treePos'] + $categories[$i]['nb_childs']+1+$k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
                                     SET treePos='" . (int)$newTree . "' 
@@ -233,11 +233,11 @@ else
                 for($k=0;$k<=$categories[$i]["nb_childs"];$k++)
                 {
                     $searchId=$categories[$i+$k]["id"];
-                    $newTree=$categories[$i]["treePos"]-$categories[$j]["nb_childs"]-1+$k;
+                    $newTree=$categories[$i]['treePos'] - $categories[$j]['nb_childs'] - 1 + $k;
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "` 
-                                    SET treePos='". (int)$newTree."' 
-                                    WHERE id='". (int)$searchId."'";
+                                    SET treePos='". (int) $newTree."' 
+                                    WHERE id='". (int) $searchId."'";
                     claro_sql_query($sql_Update) ;
                 }
 
@@ -258,7 +258,7 @@ else
                 $j++;
 
             // If they are a brother
-            if(!strcmp($categories[$j]["code_P"],$categories[$i]["code_P"]))
+            if(!strcmp($categories[$j]['code_P'],$categories[$i]['code_P']))
             {
                 // change the brother and his children
                 for($k=0;$k<=$categories[$j]["nb_childs"];$k++)
@@ -1006,34 +1006,32 @@ else
  * Display the bom of categories and the button to create a new category
  */
 
-echo "<p><a class=\"claroCmd\" href=\"" . $_SERVER['PHP_SELF'] . "?cmd=rqCreate\">" . $langSubTitleCreate . "</a></p>";    
-
-?>
-
-    <table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
-    <thead>
-       <tr class="headerX" align="center" valign="top">
-
-<?php
-
+echo '<p>' . "\n"
+.    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">' 
+.    $langSubTitleCreate 
+.    '</a>' . "\n"
+.    '</p>' . "\n"
+.    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+.    '<thead>' . "\n"
+.    '<tr class="headerX" align="center" valign="top">' . "\n"
 // Add titles for the table
+.    '<th>' . $lang_faculty_CodeCat . '</th>' . "\n"
+.    '<th>' . $langEdit . '</th>'."\n"
+.    '<th>' . $langMove . '</th>'."\n"
+.    '<th>' . $langDelete . '</th>'."\n"
+.    '<th colspan="2">' . $langOrder . '</th>'."\n"
+.    '</tr>' . "\n"
+.    '</thead>' . "\n"
+.    '<tbody>' . "\n"
+;
 
-echo '<th>'.$lang_faculty_CodeCat.'</th>'."\n"
-     .'<th>'.$langEdit.'</th>'."\n"
-     .'<th>'.$langMove.'</th>'."\n"
-     .'<th>'.$langDelete.'</th>'."\n"
-     .'<th colspan="2">'.$langOrder.'</th>'."\n";
+display_tree($categories,NULL,'');
 
-echo '</tr>'."\n"
-	.'</thead>'."\n"
-	.'<tbody>'."\n";
+echo '</tbody>' . "\n"
+.    '</table>' . "\n"
+;
 
-display_tree($categories,NULL,"");
-
-echo '</tbody>'."\n"
-	.'</table>'."\n";
-
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 
 
 
@@ -1117,13 +1115,13 @@ include($includePath."/claro_init_footer.inc.php");
                     else
                         echo "&nbsp;° &nbsp;&nbsp;&nbsp;";
 
-                    echo $one_faculty["name"] . " (" . $one_faculty["code"] . ")" ."&nbsp;&nbsp;&nbsp;";
+                    echo $one_faculty['name'] . " (" . $one_faculty["code"] . ")" ."&nbsp;&nbsp;&nbsp;";
 
                     //Number of faculty in this parent
                     $nb=0;
                     foreach($elem as $one_elem)
                     {
-                        if(!strcmp($one_elem["code_P"],$one_faculty["code_P"]))
+                        if(!strcmp($one_elem['code_P'], $one_faculty['code_P']))
                             $nb++;
                     }
 
@@ -1151,7 +1149,7 @@ include($includePath."/claro_init_footer.inc.php");
 
                     //Search nbChild of the father
                     $nbChild=0;
-                    $father=$one_faculty["code_P"];
+                    $father=$one_faculty['code_P'];
 
                     foreach($elem as $fac)
                         if($fac["code_P"]==$father)
@@ -1219,16 +1217,16 @@ include($includePath."/claro_init_footer.inc.php");
     }
 
     /**
-     *This function display the bom of category
+     * display the bom of category and display in red the category edit and his childeren in blue
      *
-     * @author     - < Benoît Muret >
-     * @param   - elem             array     : the categories
-     * @param   - father        string     : the father of a category
-     * @param   - facultyEdit    key     : the category edit
+     * @author < Benoît Muret >
+     * @param  elem             array     : the categories
+     * @param  father        string     : the father of a category
+     * @param  facultyEdit    key     : the category edit
 
-     * @return  - void
+     * @return void
      *
-     * @desc : display the bom of category and display in red the category edit and his childeren in blue
+     * 
      */
 
     function displaySimpleBom($elem,$father,$facultyEdit)
@@ -1272,7 +1270,8 @@ include($includePath."/claro_init_footer.inc.php");
 
     function delete_qty_child_father($node_code, $childQty)
     {
-        GLOBAL $tbl_course_node;
+        $tbl_mdb_names   = claro_sql_get_main_tbl();
+        $tbl_course_node = $tbl_mdb_names['category'];
         while(!is_null($node_code))
         {
             $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "` 
@@ -1365,12 +1364,13 @@ include($includePath."/claro_init_footer.inc.php");
      */
     function get_cat_data($cat_id)
     {
-        global $tbl_course_node;
+        $tbl_mdb_names   = claro_sql_get_main_tbl();
+        $tbl_course_node = $tbl_mdb_names['category'];
         $sql_get_cat_data = " SELECT id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
                                        FROM `" . $tbl_course_node . "` 
                                        WHERE id= ". (int) $cat_id;
         return claro_sql_query_get_single_row($sql_get_cat_data);
-   	
+  	
     }
 
     /**
@@ -1382,8 +1382,9 @@ include($includePath."/claro_init_footer.inc.php");
      */
     function get_cat_id_from_code($cat_code)
     {
-        global $tbl_course_node;
-        
+        $tbl_mdb_names   = claro_sql_get_main_tbl();
+        $tbl_course_node = $tbl_mdb_names['category'];
+      
         $sql_get_cat_id = " SELECT id
                                        FROM `" . $tbl_course_node . "` 
                                        WHERE code='". $cat_code."'";
