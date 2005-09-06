@@ -160,7 +160,7 @@ if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin
 include $includePath . '/claro_init_header.inc.php';
 
 $pagetitle = $l_topictitle;
-$pagetype  = 'viewtopic';
+$pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit(); 
 

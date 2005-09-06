@@ -891,13 +891,20 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         // 'index' is covered by default
     
         case 'newtopic':
-    
-            $toolBar [] = $langBackTo
-                        . ' <a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                        . $forum_name
+
+            $toolBar [] = '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                        . '&lt;&lt; ' . $langBackTo .' '. $forum_name
                         . '</a>'."\n";
             break;
-    
+
+        case 'reply':
+
+            $toolBar [] = '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                        . '&lt;&lt; ' . $langBackTo .' '. $forum_name
+                        . '</a>'."\n";
+            break;
+
+
         case 'viewforum':
     
             $toolBar [] =   '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
