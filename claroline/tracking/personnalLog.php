@@ -31,25 +31,23 @@ echo claro_disp_tool_title($nameTools);
 if ( $is_trackingEnabled )
 {
 	// display list of course of the student with links to the corresponding userLog
-	$sql = "SELECT cours.code code,
-			cours.intitule name,
-			cours.titulaires prof
+	$sql = "SELECT `cours`.`code` as `code`,
+				`cours`.`intitule` as `name`,
+				`cours`.`titulaires` as `prof`
+			FROM `".$tbl_courses."` as `cours`,
+				`".$tbl_link_user_courses."` as `cours_user`
+			WHERE `cours`.`code` = `cours_user`.`code_cours`
+			AND `cours_user`.`user_id` = '". (int)$_uid."'";
 
-			FROM    `".$tbl_courses."`       cours,
-				`".$tbl_link_user_courses."`   cours_user
+	$courseListOfUser = claro_sql_query_fetch_all($sql);
 
-			WHERE cours.code = cours_user.code_cours
-			AND   cours_user.user_id = '". (int)$_uid."'";
-
-	$resCourseListOfUser = claro_sql_query($sql);
-
-	if(mysql_num_rows($resCourseListOfUser) > 0)
+	if( is_array($courseListOfUser) && !empty($courseListOfUser) )
 	{
 		echo "\n\n".'<ul>'."\n\n";
-		while ( $courseOfUser = mysql_fetch_array($resCourseListOfUser) )
+		foreach ( $courseListOfUser as $courseOfUser )
 		{
 			echo '<li>'."\n"
-				.'<a href="userLog.php?uInfo='.$_uid.'&cidReset=true&cidReq='.$courseOfUser['code'].'">'.$courseOfUser['name'].'</a><br>'."\n"
+				.'<a href="userLog.php?uInfo='.$_uid.'&amp;cidReset=true&amp;cidReq='.$courseOfUser['code'].'">'.$courseOfUser['name'].'</a><br />'."\n"
 				.'<small>'.$courseOfUser['code'].' - '.$courseOfUser['prof'].'</small>'."\n"
 				.'</li>'."\n";
 		}
