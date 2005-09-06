@@ -247,6 +247,7 @@ if ( $is_allowedToManage )
             if ($nbGroupDeleted > 0) $message = $langGroupsDeleted;
             else                     $message = $langNoGroupsDeleted;
             event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
+
         }
         elseif(0 < (int)$_REQUEST['id'])
         {
@@ -260,6 +261,10 @@ if ( $is_allowedToManage )
             elseif ( $nbGroupDeleted >  1 ) $message = $nbGroupDeleted . ' ' . $langGroupDel;
             else                            $message = $langNoGroupsDeleted . ' !';
         }
+        $cidReset = TRUE;
+        $cidReq   = $_cid;
+    
+        include('../inc/claro_init_local.inc.php');
     }
 
     /*-------------------
