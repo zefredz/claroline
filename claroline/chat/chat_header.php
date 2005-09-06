@@ -32,7 +32,7 @@ $noPHP_SELF = TRUE;
 include($includePath . '/claro_init_header.inc.php');
 
 $titleElement['mainTitle'] = $nameTools;
-if ( $_gid ) $titleElement['subTitle'] = $_group['name'];
+if ( $_gid ) $titleElement['supraTitle'] = $_group['name'];
 
 echo claro_disp_tool_title($titleElement);
 
