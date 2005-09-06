@@ -616,22 +616,20 @@ function check_duplicate_username_userlist($userlist)
 
 function check_duplicate_officialcode_userlist($userlist)
 {
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_user      = $tbl_mdb_names['user'             ];
+	
     $errors = array();
         
-    for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
+    for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++)
     {       
-        //check username duplicata in the array
+        //check officialCode duplicata in the array
     
-    	$found = array_search($userlist['username'][$i],$userlist['username']);
+	$found = array_search($userlist['officialCode'][$i],$userlist['officialCode']);
 	
-	    if (!($found===FALSE) && ($i!=$found))
+	if (!($found===FALSE) && ($i!=$found))
         {
-	        $errors[$i] = TRUE;
+	    $errors[$i] = TRUE;
         }
-    }
-       
+    }   
     return $errors;
 }
 
