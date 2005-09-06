@@ -18,367 +18,6 @@
  */
 
 /**
-  * Create a backup of a cours
-  * @author Muret Benoît <muret_ben@hotmail.com>
-  *
-  * @param         $link : link to the database
-  *             $sysCode : sysCode of the course
-  *             &$dir : the backup file
-  *
-  * @return nothing
-  *
-  * @desc The function create a backup of a cours in a file
-  */
-function backup_database( $link, $sysCode, &$dir )
-{
-    global $tbl_courses, $coursesRepositorySys;
-    global $courseTablePrefix,$dbGlu;
-
-    $sql_searchCourse = "SELECT * 
-                         FROM `$tbl_courses` 
-                         WHERE code='" . addslashes($sysCode) . "'";
-    $arrayCourse=claro_sql_query_fetch_all($sql_searchCourse);
-
-    $db_name=$arrayCourse[0]['dbName'];
-
-    $tbl_rel_usergroup = $courseTablePrefix.$db_name.$dbGlu.'group_rel_team_user';
-
-    if (!is_resource($link))
-        return false;
-
-    mysql_select_db($db_name);
-
-    $format = strtoupper($format);
-
-    global $localArchivesRepository;
-
-    //Create the repertory who content the file sql
-    if(!is_dir($localArchivesRepository . 'backup_' . $db_name . '_' . date('Y_m_d') ))
-        claro_mkdir($localArchivesRepository . 'backup_' . $db_name . '_' . date('Y_m_d'));
-
-    if(!is_dir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/cours/" ))
-        mkdir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/cours/");
-
-    if(!is_dir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/doc/" ))
-        mkdir($localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/doc/");
-
-    if(file_exists($coursesRepositorySys.$arrayCourse[0]["directory"]."/"))
-        claro_move_file($coursesRepositorySys.$arrayCourse[0]["directory"]."/",
-            $localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/doc/",false);
-
-    $dir=$localArchivesRepository."backup_".$db_name."_".date("Y_m_d")."/cours/backup_".$db_name."_".date("Y_m_d").".sql";
-    $fp = fopen($dir, "w");
-
-    if (!is_resource($fp))
-        return false;
-
-    if(!$singleDbEnabled)
-    {
-        // Create the base
-        fwrite($fp, "DROP DATABASE IF EXISTS ".$db_name.";\n\n");
-        fwrite($fp, "CREATE DATABASE ".$db_name.";\n\n");
-        fwrite($fp, "USE `".$db_name."`;\n\n");
-
-        // List of tables
-        $res = mysql_list_tables($db_name, $link);
-        $num_rows = mysql_num_rows($res);
-    }
-    else
-    {
-        $sql="SELECT dbName 
-              FROM `$tbl_courses` 
-              WHERE code='". addslashes($sysCode) ."'";
-        $res=claro_sql_query_fetch_all($sql);
-
-        global $courseTablePrefix,$dbGlu;
-        $currentCourseDbNameGlu=$courseTablePrefix.$res[0]["dbName"].$dbGlu;
-
-        // Search all tables of this course
-        $sql = "SHOW TABLES LIKE \"". addslashes($currentCourseDbNameGlu) ."%\"";
-        $res=claro_sql_query($sql);
-        $num_rows= mysql_num_rows($res);
-    }
-
-    $i = 0;
-    while ($i < $num_rows)
-    {
-        $tablename = mysql_tablename($res, $i);
-
-        fwrite($fp, "DROP TABLE IF EXISTS `$tablename`;\n");
-
-        // request to created the table
-        $query = "SHOW CREATE TABLE $tablename";
-        $resCreate = claro_sql_query($query);
-        $row = mysql_fetch_array($resCreate);
-        $schema = $row[1].";";
-        fwrite($fp, "$schema\n\n");
-
-        // data of the table
-        $query = "SELECT * 
-                  FROM $tablename";
-        $resData = claro_sql_query($query);
-
-        insert_registry($fp,$tablename,$resData);
-
-        $i++;
-    }
-
-    global $mainDbName;
-    fwrite($fp, "Use `$mainDbName`;\n");
-
-    $com = command_create_temporary_table($tbl_courses, 'temp_cours' );
-    fwrite($fp,$com."\n\n");
-
-    $query = "SELECT * 
-              FROM `$tbl_courses` 
-              WHERE code='" . addslashes($sysCode) . "'";
-    $resData = claro_sql_query($query);
-    $tablename = "temp_cours";
-
-    insert_registry($fp,$tablename,$resData);
-
-    global $tbl_user,$tbl_course_user;
-    $sql_searchUserCourse="SELECT `cu`.user_id user
-                                FROM `$tbl_user` u,`$tbl_course_user` cu
-                                LEFT JOIN `$tbl_rel_usergroup` ug
-                                    ON `cu`.user_id = `ug`.`user`
-                                where
-                                    cu.code_cours='". addslashes($sysCode) ."'
-                                AND `cu`.user_id = `u`.`user_id`";
-
-    $resData = claro_sql_query($sql_searchUserCourse);
-
-    while($res= mysql_fetch_array($resData))
-    {
-            $Data[]=$res["user"];
-    }
-
-    if(count($Data)>1)
-    {
-        $Data=array_unique($Data);
-        sort($Data);
-    }
-
-    $i=0;
-    while($i<count($Data))
-    {
-        if($i!=0)
-            $user.=" OR user_id=";
-
-        $user.=$Data[$i];
-        $i++;
-    }
-
-    $com=command_create_temporary_table($tbl_user, 'temp_user');
-
-    fwrite($fp,$com."\n\n");
-
-    if(isset($user))
-    {
-        global $tbl_user;
-        $query = "SELECT * FROM `$tbl_user` where user_id=".$user;
-        $resData = claro_sql_query($query);
-        $tablename="temp_user";
-
-        insert_registry($fp,$tablename,$resData);
-    }
-
-    $com=command_create_temporary_table($tbl_course_user, 'temp_cours_user');
-
-    fwrite($fp,$com."\n\n");
-
-    if(isset($user))
-    {
-        global $tbl_course_user;
-        $query = "SELECT * FROM `$tbl_course_user` where code_cours='".$sysCode."' and (user_id=".$user.");";
-
-        $resData = claro_sql_query($query);
-        $tablename="temp_cours_user";
-
-        insert_registry($fp,$tablename,$resData);
-    }
-
-    fclose($fp);
-
-
-      $archive = new PclZip($localArchivesRepository."backup_".$db_name."_".date("Y_m_d").".zip");
-      $v_list = $archive->create($localArchivesRepository."backup_".$db_name."_".date("Y_m_d"),
-                            PCLZIP_OPT_REMOVE_PATH,$localArchivesRepository."backup_".$db_name."_".date("Y_m_d"));
-
-    delete_directory( $localArchivesRepository . "backup_".$db_name."_".date("Y_m_d"));
-}
-
-
-/**
-  * Insert to a file a sql order
-  *
-  * @param handler &$fp        the file
-  * @param string  $tablename  the table
-  * @param string  $resData    the values
-  *
-  * @return nothing
-  */
-function insert_registry(&$fp,$tablename,$resData)
-{
-    if (mysql_num_rows($resData) > 0)
-    {
-        $sInsert = "INSERT INTO `$tablename` values ";
-
-        while($rowdata = mysql_fetch_assoc($resData))
-        {
-            unset($lineData);
-            $i=0;
-            foreach($rowdata as $data)
-            {
-                if($i!=0)
-                    $lineData.=",";
-
-                if(is_NULL($data))
-                    $lineData.="NULL";
-                else
-                    $lineData.="'".addslashes($data)."'";
-
-                $i++;
-            }
-
-            $lesDonnees = "$sInsert($lineData);";
-
-            fwrite($fp, "$lineData\n\n");
-        }
-    }
-}
-
-
-/**
-* Removes comment lines and splits up large sql files into individual queries
-*
-* Last revision: September 23, 2001 - gandon
-*
-* @param   array    the splitted sql commands
-* @param   string   the sql commands
-*
-* @return  boolean  always true
-*
-* @access  public
-*/
-function PMA_splitSqlFile(&$ret, $sql)
-{
-    $sql          = trim($sql);
-    $sql_len      = strlen($sql);
-    $char         = '';
-    $string_start = '';
-    $in_string    = FALSE;
-    $time0        = time();
-
-    for ($i = 0; $i < $sql_len; ++$i) {
-        $char = $sql[$i];
-
-        // We are in a string, check for not escaped end of strings except for
-        // backquotes that can't be escaped
-        if ($in_string) {
-            for (;;) {
-                $i         = strpos($sql, $string_start, $i);
-                // No end of string found -> add the current substring to the
-                // returned array
-                if (!$i) {
-                    $ret[] = $sql;
-                    return TRUE;
-                }
-                // Backquotes or no backslashes before quotes: it's indeed the
-                // end of the string -> exit the loop
-                else if ($string_start == '`' || $sql[$i-1] != '\\') {
-                    $string_start      = '';
-                    $in_string         = FALSE;
-                    break;
-                }
-                // one or more Backslashes before the presumed end of string...
-                else {
-                    // ... first checks for escaped backslashes
-                    $j                     = 2;
-                    $escaped_backslash     = FALSE;
-                    while ($i-$j > 0 && $sql[$i-$j] == '\\') {
-                        $escaped_backslash = !$escaped_backslash;
-                        $j++;
-                    }
-                    // ... if escaped backslashes: it's really the end of the
-                    // string -> exit the loop
-                    if ($escaped_backslash) {
-                        $string_start  = '';
-                        $in_string     = FALSE;
-                        break;
-                    }
-                    // ... else loop
-                    else {
-                        $i++;
-                    }
-                } // end if...elseif...else
-            } // end for
-        } // end if (in string)
-
-        // We are not in a string, first check for delimiter...
-        else if ($char == ';') {
-            // if delimiter found, add the parsed part to the returned array
-            $ret[]      = substr($sql, 0, $i);
-            $sql        = ltrim(substr($sql, min($i + 1, $sql_len)));
-            $sql_len    = strlen($sql);
-            if ($sql_len) {
-                $i      = -1;
-            } else {
-                // The submited statement(s) end(s) here
-                return TRUE;
-            }
-        } // end else if (is delimiter)
-
-        // ... then check for start of a string,...
-        else if (($char == '"') || ($char == '\'') || ($char == '`')) {
-            $in_string    = TRUE;
-            $string_start = $char;
-        } // end else if (is start of string)
-
-        // ... for start of a comment (and remove this comment if found)...
-        else if ($char == '#'
-                 || ($char == ' ' && $i > 1 && $sql[$i-2] . $sql[$i-1] == '--')) {
-            // starting position of the comment depends on the comment type
-            $start_of_comment = (($sql[$i] == '#') ? $i : $i-2);
-            // if no "\n" exits in the remaining string, checks for "\r"
-            // (Mac eol style)
-            $end_of_comment   = (strpos(' ' . $sql, "\012", $i+2))
-                              ? strpos(' ' . $sql, "\012", $i+2)
-                              : strpos(' ' . $sql, "\015", $i+2);
-            if (!$end_of_comment) {
-                // no eol found after '#', add the parsed part to the returned
-                // array if required and exit
-                if ($start_of_comment > 0) {
-                    $ret[]    = trim(substr($sql, 0, $start_of_comment));
-                }
-                return TRUE;
-            } else {
-                $sql          = substr($sql, 0, $start_of_comment)
-                              . ltrim(substr($sql, $end_of_comment));
-                $sql_len      = strlen($sql);
-                $i--;
-            } // end if...else
-        } // end else if (is comment)
-
-        // loic1: send a fake header each 30 sec. to bypass browser timeout
-        $time1     = time();
-        if ($time1 >= $time0 + 30) {
-            $time0 = $time1;
-            header('X-pmaPing: Pong');
-        } // end if
-    } // end for
-
-    // add any rest to the returned array
-    if (!empty($sql) && ereg('[^[:space:]]+', $sql)) {
-        $ret[] = $sql;
-    }
-
-    return TRUE;
-} // end of the 'PMA_splitSqlFile()' function
-
-
-
-/**
   * Delete a directory
   * @param string $dir    the directory deleting
   *
@@ -424,15 +63,15 @@ function command_create_temporary_table($tbl, $name )
     $res=claro_sql_query_fetch_all($sql);
 
     global $mainDbName;
-    $com="CREATE TEMPORARY TABLE `$mainDbName`.`$name` (";
+    $com="CREATE TEMPORARY TABLE `" . $mainDbName . "`.`" . $name . "` (";
     foreach($res as $one_res)
     {
-        $com.=$one_res["Field"]." ".$one_res["Type"]." ";
+        $com.=$one_res['Field'] . ' ' . $one_res['Type'] . ' ';
         if(strcmp($one_res["Null"],"YES"))
             $com.="NOT NULL ";
 
         if(!strcmp($one_res["Null"],"YES") || $one_res["Default"]!=NULL)
-            $com.="default ".($one_res["Default"]==NULL?"NULL":"'".$one_res["Default"]."'");
+            $com.="default ".($one_res['Default'] == NULL ? "NULL" : "'".$one_res['Default'] . "'");
 
         $com.=", ";
     }
@@ -453,16 +92,16 @@ function create_select_box_language($selected=NULL)
     $arrayLanguage = language_exists();
     foreach($arrayLanguage as $entries)
     {
-        $selectBox.="<option value=\"$entries\" ";
+        $selectBox .= '<option value="' . $entries . '" ';
 
         if ($entries == $selected)
-            $selectBox.=" selected ";
+            $selectBox .= ' selected ';
 
-        $selectBox.=">".$entries;
+        $selectBox .= '>' . $entries;
 
         global $langNameOfLang;
-        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries]!="" && $langNameOfLang[$entries]!=$entries)
-            $selectBox.=" - $langNameOfLang[$entries]";
+        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries] != '' && $langNameOfLang[$entries] != $entries)
+            $selectBox .= ' - ' . $langNameOfLang[$entries];
 
         $selectBox.="</option>\n";
     }
@@ -503,7 +142,6 @@ function language_exists()
     return $arrayLanguage;
 }
 
-
 /**
  * build the <option> element with categories where we can create/have courses
  *
@@ -512,7 +150,6 @@ function language_exists()
  * @return echo all the <option> elements needed for a <select>. 
  * 
  */
-
 
 function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
 {
@@ -576,7 +213,7 @@ function claro_get_cat_list()
 
     $sql = " SELECT code, code_P, name, canHaveCoursesChild
                FROM `" . $tbl_category . "` 
-               ORDER BY `name`";
+               ORDER BY `treePos`";
     return claro_sql_query_fetch_all($sql);
     
 }
