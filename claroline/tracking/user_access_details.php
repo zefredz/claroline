@@ -34,39 +34,44 @@ if( $is_allowedToTrack && $is_trackingEnabled )
  	if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
 	{
 		    // set the subtitle for the echo claro_disp_tool_title function
-		    $sql = "SELECT `access_tlabel` as `label`
+		    $sql = "SELECT `access_tlabel` AS `label`
 			        FROM `".$TABLETRACK_ACCESS."`
 			        WHERE `access_tid` = ". (int)$_REQUEST['id']."
 					GROUP BY `access_tid`" ;
 
-			$result = claro_sql_query_fetch_all($sql);
+			$viewedToolLabel = claro_sql_query_get_single_row($sql);
 
-			if( isset($result[0]['label']) )
-				if( isset($toolNameList[$result[0]['label']]) )
-					$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$result[0]['label']];
+			if( isset($viewedToolLabel['label']) && isset($toolNameList[$viewedToolLabel['label']]) )
+					$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$viewedToolLabel['label']];
 					
 					
 			// prepare SQL query
-			$sql = "SELECT `nom` as `lastName`, `prenom` as `firstName`, MAX(UNIX_TIMESTAMP(`access_date`)) AS `data`, COUNT(`access_date`) AS `nbr`
-				FROM `".$TABLETRACK_ACCESS."`
-				LEFT JOIN `".$TABLEUSER."`
-				ON `access_user_id` = `user_id`
-				WHERE `access_tid` = '". (int)$_REQUEST['id']."'
-				GROUP BY `nom`, `prenom`
-				ORDER BY `nom`, `prenom`";
+			$sql = "SELECT `nom` AS `lastName`,
+						`prenom` AS `firstName`,
+						MAX(UNIX_TIMESTAMP(`access_date`)) AS `data`,
+						COUNT(`access_date`) AS `nbr`
+					FROM `".$TABLETRACK_ACCESS."`
+					LEFT JOIN `".$TABLEUSER."`
+					ON `access_user_id` = `user_id`
+					WHERE `access_tid` = '". (int)$_REQUEST['id']."'
+					GROUP BY `nom`, `prenom`
+					ORDER BY `nom`, `prenom`";
 	}
 	elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
 	{
 		    // set the subtitle for the echo claro_disp_tool_title function
 			$toolTitle['subTitle'] = $langDocument." : ".$_REQUEST['path'];
 			// prepare SQL query
-			$sql = "SELECT `nom` as `lastName`, `prenom` as `firstName`, MAX(UNIX_TIMESTAMP(`down_date`)) AS `data`, COUNT(`down_date`) AS `nbr`
-				FROM `".$TABLETRACK_DOWNLOADS."`
-				LEFT JOIN `".$TABLEUSER."`
-				ON `down_user_id` = `user_id`
-				WHERE `down_doc_path` = '". addslashes($_REQUEST['path']) ."'
-				GROUP BY `nom`, `prenom`
-				ORDER BY `nom`, `prenom`";
+			$sql = "SELECT `nom` as `lastName`,
+						`prenom` as `firstName`,
+						MAX(UNIX_TIMESTAMP(`down_date`)) AS `data`,
+						COUNT(`down_date`) AS `nbr`
+					FROM `".$TABLETRACK_DOWNLOADS."`
+					LEFT JOIN `".$TABLEUSER."`
+					ON `down_user_id` = `user_id`
+					WHERE `down_doc_path` = '". addslashes($_REQUEST['path']) ."'
+					GROUP BY `nom`, `prenom`
+					ORDER BY `nom`, `prenom`";
 	}
 	else
 	{
@@ -91,9 +96,9 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	$anonymousCount = 0;
 	if( isset($sql) )
 	{
-	    $result = claro_sql_query($sql);
+	    $accessList = claro_sql_query_fetch_all($sql);
 	    // display the list
-	    while ($userAccess = mysql_fetch_array ($result))
+	    foreach ( $accessList as $userAccess )
 	    {
 			$userName = $userAccess['lastName']." ".$userAccess['firstName'];
 			if( empty($userAccess['lastName']) )
@@ -112,10 +117,10 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     // in case of error or no results to display
     if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.$langNoResult.'</center></td>'."\n\n";
  
-    echo '</tbody>'."\n".'</table>';
+    echo '</tbody>'."\n\n".'</table>'."\n\n";
 	
     if( $anonymousCount != 0 )
-		echo '<p>'.$langAnonymousUserAccessCount.' '.$anonymousCount.'</p>';
+		echo '<p>'.$langAnonymousUserAccessCount.' '.$anonymousCount.'</p>'."\n";
  
 }
 // not allowed
