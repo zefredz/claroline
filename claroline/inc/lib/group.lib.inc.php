@@ -432,6 +432,10 @@ function create_group($groupName, $maxUser)
                                  , (int) GROUP_FORUMS_CATEGORY
                                  , $createdGroupId
                                  );
+                                 
+     require_once $includePath . '/../wiki/lib/lib.createwiki.php';
+        
+     create_wiki( $createdGroupId, $groupName. ' - Wiki' );
 
      return $createdGroupId;
 }
