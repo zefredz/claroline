@@ -401,17 +401,17 @@ else
     if($cmd == 'rqMove')
     {
         // Search information of the category edit
-        $sql_SearchInfoTreeFaculty = " SELECT * 
+        $sql_SearchInfoTreeFaculty = " SELECT id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
                                        FROM `" . $tbl_course_node . "` 
-                                       WHERE id='". (int)$_REQUEST["id"]."'";
-        $array=claro_sql_query_fetch_all($sql_SearchInfoTreeFaculty);
+                                       WHERE id='". (int)$_REQUEST['id']."'";
+        $categoryList=claro_sql_query_fetch_all($sql_SearchInfoTreeFaculty);
 
-        $EditId=$array[0]["id"];
-        $EditName=$array[0]["name"];
-        $EditCode=$array[0]["code"];
-        $editFather=$array[0]["code_P"];
-        $EditCanHaveCatChild=$array[0]["canHaveCatChild"];
-        $EditCanHaveCoursesChild=$array[0]["canHaveCoursesChild"];
+        $EditId                  = $categoryList[0]['id'];
+        $EditName                = $categoryList[0]['name'];
+        $EditCode                = $categoryList[0]['code'];
+        $editFather              = $categoryList[0]['code_P'];
+        $EditCanHaveCatChild     = $categoryList[0]['canHaveCatChild'];
+        $EditCanHaveCoursesChild = $categoryList[0]['canHaveCoursesChild'];
 
         $MOVE=TRUE;
     }
@@ -425,9 +425,9 @@ else
         // Search information
         $sql_FacultyEdit = " SELECT * 
                              FROM `" . $tbl_course_node . "` 
-                             WHERE id='". (int)$_REQUEST["id"]."'";
+                             WHERE id='" . (int) $_REQUEST['id'] . "'";
         $arrayfacultyEdit=claro_sql_query_fetch_all($sql_FacultyEdit);
-        $facultyEdit=$arrayfacultyEdit[0];
+        $facultyEdit = $arrayfacultyEdit[0];
         $doChange = TRUE;
     
         // See if we try to set the categorie as a cat that can not have course 
@@ -436,7 +436,7 @@ else
         {
             $sql_SearchCourses= " SELECT count(cours_id) num 
                                   FROM `" . $tbl_course . "` 
-                                  WHERE faculte='". addslashes($treePosDelete["code"]) ."'";
+                                  WHERE faculte='". addslashes($facultyEdit["code"]) ."'";
             $res_SearchCourses=claro_sql_query_fetch_all($sql_SearchCourses);
 
             if($res_SearchCourses[0]["num"]>0)
@@ -622,10 +622,10 @@ else
 
                 claro_sql_query($sql_ChangeInfoFaculty);
 
-                $newNbChild=$facultyEdit["nb_childs"]+1;
+                $newNbChild = $facultyEdit['nb_childs'] + 1;
 
                 // Change the number of childeren of the father category and his parent
-                $fatherChangeChild=$facultyEdit["code_P"];
+                $fatherChangeChild=$facultyEdit['code_P'];
                 delete_qty_child_father($fatherChangeChild,$newNbChild);
 
                 // Change the number of childeren of the new father and his parent
@@ -1260,31 +1260,29 @@ include($includePath."/claro_init_footer.inc.php");
      *This function delete a number of child of all father from a category
      *
      * @author  - < Benoît Muret >
-     * @param   - fatherChangeChild        string     : the father
-     * @param   - newNbChild            int        : the number of child deleting
+     * @param   node_code        string     : the father
+     * @param   childQty            int        : the number of child deleting
 
      * @return  - void
      *
      * @desc : delete a number of child of all father from a category
      */
 
-    function delete_qty_child_father($fatherChangeChild, $newNbChild)
+    function delete_qty_child_father($node_code, $childQty)
     {
         GLOBAL $tbl_course_node;
-        while(!is_null($fatherChangeChild))
+        while(!is_null($node_code))
         {
             $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "` 
-                                        SET nb_childs=nb_childs-".$newNbChild." 
-                                        WHERE code='".$fatherChangeChild."'";
-
+                                        SET nb_childs=nb_childs-".(int) $childQty." 
+                                        WHERE code='" . $node_code . "'";
             claro_sql_query($sql_DeleteNbChildFather);
-
             $sql_SelectCodeP= " SELECT code_P 
                                 FROM `" . $tbl_course_node . "` 
-                                WHERE code='".$fatherChangeChild."'";
+                                WHERE code='".$node_code."'";
             $array=claro_sql_query_fetch_all($sql_SelectCodeP);
 
-            $fatherChangeChild=$array[0]["code_P"];
+            $node_code=$array[0]['code_P'];
         }
     }
 
@@ -1307,17 +1305,17 @@ include($includePath."/claro_init_footer.inc.php");
         while(!is_null($fatherChangeChild))
         {
             $sql_DeleteNbChildFather= " UPDATE `" . $tbl_course_node . "` 
-                                        SET nb_childs=nb_childs+".$newNbChild." 
-                                        WHERE code='".$fatherChangeChild."'";
-
+                                        SET nb_childs=nb_childs+" . (int) $newNbChild . " 
+                                        WHERE code='" . $fatherChangeChild . "'";
             claro_sql_query($sql_DeleteNbChildFather);
 
             $sql_SelectCodeP= " SELECT code_P 
                                 FROM `" . $tbl_course_node . "`
                                 WHERE code='".$fatherChangeChild."'";
+            
             $array=claro_sql_query_fetch_all($sql_SelectCodeP);
 
-            $fatherChangeChild=$array[0]["code_P"];
+            $fatherChangeChild = $array[0]["code_P"];
         }
     }
 
@@ -1355,5 +1353,40 @@ include($includePath."/claro_init_footer.inc.php");
 
     }
 
+    
+    /**
+     *
+     * @param $cat_id string code of cat to get data
+     * @return array of data id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
+     * @author Christophe Gesché <moosh@claroline.net>
+     *
+     */
+    function get_cat_data($cat_id)
+    {
+        global $tbl_course_node;
+        $sql_get_cat_data = " SELECT id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
+                                       FROM `" . $tbl_course_node . "` 
+                                       WHERE id= ". (int) $cat_id;
+        $categoryList=claro_sql_query_fetch_all($sql_get_cat_data);
+
+    	return $categoryList[0];
+    }
+
+    /**
+     *
+     * @param $cat_id string code of cat to get data
+     * @return array of data id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
+     * @author Christophe Gesché <moosh@claroline.net>
+     *
+     */
+    function get_cat_id_from_code($cat_code)
+    {
+        global $tbl_course_node;
+        $sql_get_cat_id = " SELECT id
+                                       FROM `" . $tbl_course_node . "` 
+                                       WHERE code='". $cat_code."'";
+        return claro_sql_query_get_single_value($sql_get_cat_id);
+
+    }
 
 ?>
