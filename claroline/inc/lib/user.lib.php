@@ -759,6 +759,58 @@ function user_send_registration_mail ($user_id, $data)
     }
 
 }
+/**
+ * Send enroll to course succeded email to user
+ *
+ * @param $user_id integer
+ * @param $data array
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_send_enroll_to_course_mail ($user_id, $data)
+{
+    global $langYourReg, $langDear, $langOneResp, $langRegYou, $langManager,$langEmail, 
+           $langSettings, $langAddress, $langIs, $langProblem, $langFormula, $langAdministrator, 
+           $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email,
+           $_course ;
+
+    if ( ! empty($data['email']) )
+    {
+        // email subjet
+        $emailSubject  = '[' . $siteName . '] ' . $langYourReg ;
+
+        // Send message
+	    $emailBody = "$langDear %s %s ,\n"
+                    . "$langOneResp " . $_course['officialCode'] . " $langRegYou $siteName $langSettings %s\n"
+                    . "$langAddress $siteName $langIs: $rootWeb\n"
+                    . "$langProblem\n"
+                    . "\n"
+                    . "$langFormula,\n"
+                    . "$langAdministrator $administrator_name \n"
+                    . "$langManager $siteName\n";
+    
+        $emailBody = sprintf($emailBody,$data['firstname'],$data['lastname'], $data['email']);
+
+        if ( ! empty($administrator_phone) ) $emailBody .= "T. $administrator_phone \n";
+
+        $emailBody .= "$langEmail: $administrator_email \n";
+
+        if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
 
 /**
  * validate form registration
