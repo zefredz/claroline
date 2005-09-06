@@ -112,7 +112,7 @@ else
 if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $langGroupSpace);
+    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
 }
 
 include $includePath . '/claro_init_header.inc.php';
