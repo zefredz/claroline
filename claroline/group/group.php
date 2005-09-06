@@ -630,7 +630,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
     {
         if($isGroupRegAllowed)
         {
-            echo '<td align="left">';
+            echo '<td align="center">';
 
             if( (! $_uid)
                 OR ( $thisGroup['is_member'])
@@ -644,7 +644,7 @@ while ( $thisGroup = mysql_fetch_array($groupList) )
             {
                 echo '&nbsp;'
                    . '<a href="group_space.php?selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
-                   . $langGroupSelfRegInf
+                   . '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="'.$langGroupSelfRegInf.'">'
                    . '</a>'
                    ;
             }
