@@ -50,12 +50,17 @@ $claro_notifier = new Notifier( $claro_event_manager); //listener used for NOTIF
 // "document_visible" is the name of the event that you want to track
 // $notif_listen1 is the listener created for this survey
 
-//global events
+//global events in course
 
 $claro_notifier->addListener( 'delete_notif', "course_deleted");
+$claro_notifier->addListener( 'update', "toollist_changed");
 
 if (isset($_uid) && isset($_cid) && isset($_courseTool)) 
 {  
+    //global events in courseTool
+    
+    $claro_notifier->addListener( 'update', "introsection_modified");
+        
     //document tool events
     
     if (isset($_courseTool['label']) && $_courseTool['label'] == "CLDOC___") 
@@ -138,8 +143,6 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     {
     $claro_notifier->addListener( 'update', "forum_new_topic");
     $claro_notifier->addListener( 'update', "forum_answer_topic");
-    $claro_notifier->addListener( 'update', "introsection_modified");
-    $claro_notifier->addListener( 'update', "toollist_changed");
     }
     
     //wiki tool events
