@@ -68,16 +68,16 @@ $is_allowedToTrack = $is_courseAdmin;
 if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == $_uid);
 
 // get infos about the user
-$sql = "SELECT `nom`, `prenom`, `email` 
+$sql = "SELECT `nom` AS `lastname`, `prenom` as `firstname`, `email`
         FROM `".$TABLEUSER."`
        WHERE `user_id` = ". (int)$_REQUEST['uInfo'];
-$uDetails = claro_sql_query_fetch_all($sql);
+$uDetails = claro_sql_query_get_single_row($sql);
 
 // get infos about the learningPath
 $sql = "SELECT `name` 
         FROM `".$TABLELEARNPATH."`
        WHERE `learnPath_id` = ". (int)$_REQUEST['path_id'];
-$lpDetails = claro_sql_query_fetch_all($sql);
+$lpDetails = claro_sql_query_get_single_row($sql);
 
 ////////////////////
 ////// OUTPUT //////
@@ -93,7 +93,7 @@ $_SERVER['QUERY_STRING'] = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['pa
 include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $lpDetails[0]['name'];
+$titleTab['subTitle'] = $lpDetails['name'];
 echo claro_disp_tool_title($titleTab);
 
 
@@ -101,8 +101,12 @@ if($is_allowedToTrack && $is_trackingEnabled)
 {
 	//### PREPARE LIST OF ELEMENTS TO DISPLAY #################################
 
-	$sql = "SELECT LPM.* ,
-	            M.*,
+	$sql = "SELECT LPM.`learnPath_module_id`,
+				LPM.`parent`,
+				LPM.`lock`,
+				M.`module_id`,
+				M.`contentType`,
+				M.`name`,
 	            UMP.`lesson_status`, UMP.`raw`,
 	            UMP.`scoreMax`, UMP.`credit`,
 	            UMP.`session_time`, UMP.`total_time`,
@@ -121,12 +125,12 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	     GROUP BY LPM.`module_id`
 	     ORDER BY LPM.`rank`";
 
-	$result = claro_sql_query($sql);
+	$moduleList = claro_sql_query_fetch_all($sql);
 
 	$extendedList = array();
-	while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
+	foreach( $moduleList as $module )
 	{
-		$extendedList[] = $list;
+		$extendedList[] = $module;
 	}
   
 	// build the array of modules
@@ -148,9 +152,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	//### SOME USER DETAILS ###########################################
 	echo ucfirst(strtolower($langUser)).' : <br />'."\n"
 		.'<ul>'."\n"
-		.'<li>'.$langFirstName.' : '.$uDetails[0]['nom'].'</li>'."\n"
-		.'<li>'.$langLastName.' : '.$uDetails[0]['prenom'].'</li>'."\n"
-		.'<li>'.$langEmail.' : '.$uDetails[0]['email'].'</li>'."\n"
+		.'<li>'.$langLastName.' : '.$uDetails['lastname'].'</li>'."\n"
+		.'<li>'.$langFirstName.' : '.$uDetails['firstname'].'</li>'."\n"
+  		.'<li>'.$langEmail.' : '.$uDetails['email'].'</li>'."\n"
 		.'</ul>'."\n\n";
 
 	//### TABLE HEADER ################################################
@@ -212,7 +216,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			$moduleImg = choose_image(basename($module['path']));
 
 			$contentType_alt = selectAlt($module['contentType']);
-			echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0">'.$module['name'];
+			echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$module['name'];
 
 		}
           
