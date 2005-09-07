@@ -1,17 +1,22 @@
 <?php // $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
+/**
+ * CLAROLINE
+ *
+ * This tool allow to add a user in his course (an din the platform)
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLUSR
+ *
+ */
 /*=====================================================================
  Init Section
  =====================================================================*/ 
@@ -164,7 +169,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
     if ( $platfromRegSucceed )
    	{
         // Send message and login and password
-        user_send_registration_mail($user_id, $user_data)
+        user_send_registration_mail($user_id, $user_data);
     }
 
     if ( $courseRegSucceed )
@@ -265,7 +270,7 @@ else
 
                 if (empty($user['registered']))
                 {
-                   echo "<a href=\"user.php?cmd=register&user_id=".$user['user']."\"><img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\"/>";
+                   echo "<a href=\"user.php?cmd=register&user_id=".$user['user']."\"><img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" />";
                 }
                 else
                 {
@@ -281,7 +286,7 @@ else
             echo "<td align=\"center\" colspan=\"5\">".$langNoUserFound."</td>";
         }
         echo "</body>
-            </table><br>";
+            </table><br />";
     }
 
     //display form to add a user
@@ -295,65 +300,5 @@ else
 
 // display footer
 include($includePath.'/claro_init_footer.inc.php');
-
-/**
-
-    OLD CODE FROM 1.6 TO PREVENT CLASH
-
-    IT IS DEPRECATED 
-	
-    // prevent conflict with existing user account
-
-	if ( $dataChecked )
-	{
-		$sql = "SELECT user_id,
-		                       (username='".$username_form."') AS loginExists,
-		                       (nom='".$nom_form."' AND prenom='".$prenom_form."' AND email='".$email_form."') AS userExists
-		                     FROM `".$tbl_user."`
-		                     WHERE username='".$username_form."' OR (nom='".$nom_form."' AND prenom='".$prenom_form."' AND email='".$email_form."')
-		                     ORDER BY userExists DESC, loginExists DESC";
-
-        echo $sql;
-		
-		$result=claro_sql_query($sql);
-                		
-		if ( mysql_num_rows($result) )
-		{
-			while ( $user=mysql_fetch_array($result) )
-			{
-				// check if the user is already registered to the platform
-
-				if ( $user['userExists'] )
-				{
-				    $userExists  = true;
-				    $userId      = $user['user_id'];
-				    $message     = $langUserNameTaken;
-				    break;
-				}
-				else
-				{
-				    $userExists = false;
-				}
-
-				// check if the login name choosen is already taken by another user
-
-				if ( $user['loginExists'] )
-				{
-				    $loginExists = true;
-				    $userId      = 0;
-
-				    $message     = $langUserNo." (".$username_form.") ".$langTaken;
-
-				    break;
-				}
-				else
-				{
-				    $loginExists = false;
-				}
-			}				// end while $result
-		}					// end if num rows
-	}						// end if datachecked
-
-*/
 
 ?>
