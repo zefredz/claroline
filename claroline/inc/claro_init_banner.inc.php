@@ -131,13 +131,14 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 <option value="<?php echo $coursesRepositoryWeb . $_course['path'] ?>/index.php">
 <?php echo $langCourseHome; ?>
 </option>
-<?php 
+<?php
     if (is_array($_courseToolList))
     {
         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
             echo '<option value="'.$_courseToolData['url'].'" '
-            .    ( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '') . '>'
+            .    ( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '') 
+            .   'style="padding-left:22px;background:url('.$imgRepositoryWeb.$_courseToolData['icon'].') no-repeat">'
             .    $_courseToolData['name']
             .    '</option>'."\n"
             ;
