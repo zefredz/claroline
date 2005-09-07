@@ -1,31 +1,21 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      |                                                                      |
-      |   This program is distributed in the hope that it will be useful,    |
-      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
-      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
-      |   GNU General Public License for more details.                       |
-      |                                                                      |
-      |   You should have received a copy of the GNU General Public License  |
-      |   along with this program; if not, write to the Free Software        |
-      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
-      |   02111-1307, USA. The GNU GPL license is also available through     |
-      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
-      +----------------------------------------------------------------------+
-      | Authors:
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ * This script displays the stats of all users of a course
+ * for his progression into the chosen learning path
+ *
+ * @version 1.6
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package TRACKING
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sebastien Piraux  <piraux_seb@hotmail.com>
+ *
  */
  
 require '../inc/claro_init_global.inc.php';
@@ -81,15 +71,13 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
                 FROM `".$TABLELEARNPATH."`
                 WHERE `learnPath_id` = ". (int)$path_id;
 
-        $result = claro_sql_query($sql);
+        $learnPathName = claro_sql_query_get_single_value($sql);
     
-        if ( mysql_num_rows($result) )
+        if( $learnPathName )
         {
-            $pDetails = @mysql_fetch_array($result);
-                
             // display title
             $titleTab['mainTitle'] = $nameTools;
-            $titleTab['subTitle'] = htmlspecialchars($pDetails['name']);
+            $titleTab['subTitle'] = htmlspecialchars($learnPathName);
             echo claro_disp_tool_title($titleTab);
 
             // display a list of user and their respective progress    
@@ -102,27 +90,27 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
             $usersList = claro_sql_query_fetch_all($sql);
 
             // display tab header
-            echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+            echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
            		.'<tr class="headerX" align="center" valign="top">'."\n"
 				.'<th>'.$langStudent.'</th>'."\n"
 				.'<th colspan="2">'.$langProgress.'</th>'."\n"
-				.'</tr>'."\n"
-                .'<tbody>'."\n";
+				.'</tr>'."\n\n"
+                .'<tbody>'."\n\n";
 
             // display tab content
             foreach ( $usersList as $user )
             {
                 $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
                 echo '<tr>'."\n"
-					.'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+					.'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                     .'<td align="right">'
                     .claro_disp_progress_bar($lpProgress, 1)
-              	    .'</td>'
-                    .'<td align="left"><small>'.$lpProgress.'%</small></td>'
-                    .'</tr>';
+              	    .'</td>'."\n"
+                    .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
+                    .'</tr>'."\n\n";
             }
             // foot of table
-            echo '</tbody>'."\n".'</table>';
+            echo '</tbody>'."\n\n".'</table>'."\n\n";
         }
     }
 }
