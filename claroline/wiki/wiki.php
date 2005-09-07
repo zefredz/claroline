@@ -23,6 +23,8 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
+    include($includePath . '/lib/events.lib.inc.php');
+    
     if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )
@@ -41,6 +43,8 @@
             die( 'Not allowed' );
         }
     }
+    
+    event_access_tool($_tid, $_courseTool['label']);
     
     // display mode
 
