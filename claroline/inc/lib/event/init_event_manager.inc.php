@@ -146,6 +146,13 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     $claro_notifier->addListener( 'update', "forum_answer_topic");
     }
     
+    //group tool events
+    
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLGRP___") 
+    {
+    $claro_notifier->addListener( 'delete_notif', "group_deleted");
+    }
+    
     //wiki tool events
 
     if (isset($_courseTool['label']) && $_courseTool['label'] == "CLWIKI__") 
