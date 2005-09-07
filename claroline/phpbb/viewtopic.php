@@ -229,7 +229,7 @@ else
 	        .'  <th class="headerX">' . "\n"
 	        .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
 	        . $l_author . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-	        .'<small>' . $l_posted . ' : ' . claro_disp_localised_date($dateTimeFormatShort, $post_time) . '</small>' . "\n"
+	        .'<small>' . $l_posted . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
 	        .'  </th>' . "\n"
 	
 	        .' </tr>'. "\n"
