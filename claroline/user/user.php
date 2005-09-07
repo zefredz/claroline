@@ -210,21 +210,25 @@ foreach ( $userList as $thisUser )
 
 if ( count($usersId)> 0 )
 {
-    $sqlGroupOfUsers = "SELECT `ug`.`user` uid, `ug`.`team` team, 
-                        `sg`.`name` nameTeam
+    $sqlGroupOfUsers = "SELECT `ug`.`user` AS `uid`, `ug`.`team` AS `team`,
+                        `sg`.`name` AS `nameTeam`
                         FROM `".$tbl_rel_users_groups."` `ug`
                         LEFT JOIN `".$tbl_groups."` `sg`
                         ON `ug`.`team` = `sg`.`id`
-                        WHERE `ug`.`user` IN (".implode(",",$usersId).")";
+                        WHERE `ug`.`user` IN (".implode(",",$usersId).")
+						ORDER BY `sg`.`name`";
 
-    $resultUserGroup = claro_sql_query($sqlGroupOfUsers);
+    $userGroupList = claro_sql_query_fetch_all($sqlGroupOfUsers);
 
     $usersGroup = array();
 
-    while ($thisAffiliation = mysql_fetch_array($resultUserGroup,MYSQL_ASSOC))
-    {
-        $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
-    }
+	if( is_array($userGroupList) && !empty($userGroupList) )
+	{
+	    foreach( $userGroupList as $thisAffiliation )
+	    {
+	        $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
+	    }
+	}
 }
 
 /*=====================================================================
@@ -363,7 +367,7 @@ foreach ( $userList as $thisUser )
         {
             echo '<div>'
                . $thisGroupsName["nameTeam"]
-               . '<small>('.$thisGroupsNo.')</small>'
+               . ' <small>('.$thisGroupsNo.')</small>'
                . '</div>';
         }
         echo '</td>'."\n";
