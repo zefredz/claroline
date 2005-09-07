@@ -93,9 +93,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	    WHERE TEX.`exe_exo_id` = ". (int)$exercise->selectId()."
 	            AND TEX.`exe_user_id` IS NOT NULL";
 
-	$result = claro_sql_query($sql);
-	$exo_scores_details = mysql_fetch_array($result);
-
+	$exo_scores_details = claro_sql_query_get_single_row($sql);
 
 	if ( ! isset($exo_scores_details['minimum']) )
 	{
@@ -155,7 +153,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 
 	echo '<p><b>'.$langStatsByUser.'</b></p>'."\n";
 	// display tab header
-	echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+	echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
 		.'<tr class="headerX" align="center" valign="top">'."\n"
 	    .'<th>'.$langStudent.'</th>'."\n"
 	    .'<th>'.$langScoreMin.'</th>'."\n"
@@ -163,7 +161,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	    .'<th>'.$langScoreAvg.'</th>'."\n"
 	    .'<th>'.$langAttempts.'</th>'."\n"
 	    .'<th>'.$langExeAvgTime.'</th>'."\n"
-	  	.'</tr>'."\n"
+	  	.'</tr>'."\n\n"
 	  	.'<tbody>'."\n\n";
 	  	
 	// display tab content
@@ -182,7 +180,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 		  		.'<td>'.(round($exo_users_detail['average']*100)/100).'</td>'."\n"
 		  		.'<td>'.$exo_users_detail['attempts'].'</td>'."\n"
 		  		.'<td>'.claro_disp_duration(floor($exo_users_detail['avgTime'])).'</td>'."\n"
-				.'</tr>'."\n";
+				.'</tr>'."\n\n";
 	}
 	// foot of table
 	echo '</tbody>'."\n".'</table>'."\n\n";
@@ -213,8 +211,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	    .'<th>'.$langScoreMin.'</th>'."\n"
 	    .'<th>'.$langScoreMax.'</th>'."\n"
 	    .'<th>'.$langScoreAvg.'</th>'."\n"
-	  	.'</tr>'."\n"
-	  	.'<tbody>'."\n";
+	  	.'</tr>'."\n\n"
+	  	.'<tbody>'."\n\n";
 	// display tab content
 	foreach ( $exo_questions_details as $exo_questions_detail )
 	{
@@ -228,10 +226,10 @@ if($is_allowedToTrack && $is_trackingEnabled)
 		  		.'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
 		  		.'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
 		  		.'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
-				.'</tr>'."\n";
+				.'</tr>'."\n\n";
 	}
 	// foot of table
-	echo '</tbody>'."\n".'</table>'."\n\n";
+	echo '</tbody>'."\n\n".'</table>'."\n\n";
 }
 // not allowed
 else
