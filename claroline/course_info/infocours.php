@@ -21,8 +21,7 @@ $nameTools = $langCourseSettings;
 
 $dialogBox = '';
 
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
 include_once( $includePath . '/lib/auth.lib.inc.php');
 include_once( $includePath . '/lib/course.lib.inc.php');
@@ -33,14 +32,14 @@ include_once( $includePath . '/conf/course_main.conf.php');
  * Configuration array , define here which field can be left empty or not
  */
 
- $canBeEmpty['intitule']      = !$human_label_needed;
- $canBeEmpty['category']      = false;
- $canBeEmpty['lecturer']      = true;
- $canBeEmpty['screenCode']    = !$human_code_needed;
+ $canBeEmpty['intitule'     ] = !$human_label_needed;
+ $canBeEmpty['category'     ] = false;
+ $canBeEmpty['lecturer'     ] = true;
+ $canBeEmpty['screenCode'   ] = !$human_code_needed;
  $canBeEmpty['lanCourseForm'] = false;
- $canBeEmpty['extLinkName']   = !$extLinkNameNeeded;
- $canBeEmpty['extLinkUrl']    = !$extLinkUrlNeeded;
- $canBeEmpty['email']         = !$course_email_needed;
+ $canBeEmpty['extLinkName'  ] = !$extLinkNameNeeded;
+ $canBeEmpty['extLinkUrl'   ] = !$extLinkUrlNeeded;
+ $canBeEmpty['email'        ] = !$course_email_needed;
 
 /*
  * DB tables definition
@@ -384,7 +383,9 @@ if (isset($cidToEdit))
 <td></td>
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo $langOk ?> ">
-<?php $url = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : $rootWeb; echo claro_disp_button( $url, $langCancel); ?>
+<?php 
+    echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel); 
+?>
 </td>
 </tr>
 
