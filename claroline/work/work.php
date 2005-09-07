@@ -515,8 +515,22 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
     $atLeastOneAssignmentToShow = false;
 
+    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    
     foreach ( $assignmentList as $anAssignment )
     {
+        //modify style if the file is recently added since last login
+
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $anAssignment['id']))
+        {
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+        
+        
         if ( $anAssignment['visibility'] == "INVISIBLE" )
         {
             if ( $is_allowedToEdit )
@@ -536,7 +550,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         $atLeastOneAssignmentToShow = true;
 
         echo "<tr>\n"
-              ."<th class=\"headerX\">\n";
+              ."<th class=\"headerX item".$classItem."\">\n";
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
             echo "<a href=\"workList.php?cmd=rqSubWrk&amp;assigId=".$anAssignment['id']."&amp;submitGroupWorkUrl=".$_REQUEST['submitGroupWorkUrl']."\">".$anAssignment['title']."</a>\n";

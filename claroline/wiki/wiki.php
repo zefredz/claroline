@@ -549,7 +549,7 @@
                                  
                     //modify style if the wiki is recently added or modified since last login
 
-                    if (in_array($entry['id'], $modified_wikis))
+                    if ((isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $entry['id'])))
                     {
                         $classItem=" hot";
                     }

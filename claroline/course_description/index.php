@@ -81,9 +81,9 @@ if ( $is_allowedToEdit )
         // Add new description        
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
 
+        $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
         if ($descId !== FALSE )
         {
-            $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
             $dialogBox .= '<p>' . $langDescAdded . '</p>';
         }
         else
@@ -150,6 +150,7 @@ if ( $is_allowedToEdit )
     {
         if ( course_description_delete_item($descId) ) 
         {
+            $eventNotifier->notifyCourseEvent("course_description_deleted",$_cid, $_tid, $descId, $_gid, "0");
             $dialogBox .= '<p>' . $langDescDeleted . '</p>';
         }
         else
@@ -303,21 +304,33 @@ $hasDisplayedItems = false;
 
 if ( count($descList) )
 {
+    
+    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+        
 	echo '<table class="claroTable" width="100%">'."\n";
+
     foreach ( $descList as $thisDesc )
     {
-        if(($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
+
+        //modify style if the file is recently added since last login
+
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisDesc['id']))
+        {
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+   
+        if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
         {  
             if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
-
-            echo '<tr class="superHeader">'."\n"
-				.'<th><div'.$style.'>'.htmlspecialchars($thisDesc['title']).'</div></th>'."\n"
-				.'</tr>'."\n"
-                .'<tr>'."\n"
-				.'<td><div'.$style.'>'.claro_parse_user_text($thisDesc['content']).'</div></td>'."\n"
-				.'</tr>'."\n"
-				;
-
+            
+        //    echo "\n".''.
+            echo 	'<tr  class="superHeader"><th class="item'.$classItem.'"><div'.$style.'>' . htmlspecialchars($thisDesc['title']) . '</div></th></tr>'."\n"
+                	.'<tr><td><div'.$style.'>'. claro_parse_user_text($thisDesc['content']).'</div></td></tr>'."\n"
+                  	."\n";
             $hasDisplayedItems = true;
         }
     	echo '<tr>'."\n"

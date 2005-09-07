@@ -520,9 +520,22 @@ if ($displayList)
     }
 
     echo '<table class="claroTable" width="100%">';
-
+    
+    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid); //get notification date
+    
     foreach ( $announcementList as $thisAnnouncement)
     {
+        //modify style if the file is recently added since last login
+
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisAnnouncement['id']))
+        {
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+              
         if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
         {
             $style = ($thisAnnouncement['visibility'] == 'HIDE') ? 'invisible' :'';
@@ -551,9 +564,9 @@ if ($displayList)
                 $altImg    = '';
             }
 
-            echo '<tr>' . "\n"
-            .    '<th class="headerX"  >' . "\n"
-            .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>' . "\n"
+            echo '<tr>'."\n"
+            .    '<th class="headerX item'.$classItem.'">'."\n"
+            .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
             .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '">' . "\n"
             .    $langPubl
             .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))

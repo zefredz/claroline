@@ -136,7 +136,7 @@ foreach($toolList as $thisTool)
 
     // see if tool name must be displayed as "containing new item" or not
 
-    if (in_array($thisTool['id'], $modified_tools))
+    if (isset($_uid) && in_array($thisTool['id'], $modified_tools))
     {
         $classItem = " hot";
     }
@@ -144,7 +144,25 @@ foreach($toolList as $thisTool)
     {
         $classItem = "";
     }
+    
+        //deal with specific case of group tool
+    
+    if (isset($_uid) && ($thisTool['label']=="CLGRP___"))
+    {
+        // we must notify if there is at least one group containing notification
+        
+        $groups = $claro_notifier->get_notified_groups($_cid, $date);
 
+        if (!empty($groups))  
+        {
+            $classItem = " hot"; 
+        }
+        else 
+        {
+            $classItem = "";
+        }
+    }
+    
     if ( ! empty($url) )
     {
         echo ' <a class="' . $style . 'item'.$classItem.'" href="' . $url . '">'

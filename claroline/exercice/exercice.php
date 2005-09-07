@@ -323,11 +323,26 @@ $defaultConfirm = "onclick=\"javascript:if(!confirm('".clean_str_for_javascript(
 
 $i = 1;
 // while list exercises
+
+if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+
 foreach( $exercisesList as $exercise )
 {
+
+        //modify style if the file is recently added since last login
+
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $exercise['id']))
+        {
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+
 ?>
 <tbody>
-<tr>
+<tr >
 
 <?php
 	// course admin only
@@ -337,7 +352,7 @@ foreach( $exercisesList as $exercise )
   <td>
     <?php echo ( $i + $offset ).'.'; ?>
     &nbsp;
-    <a href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>" <?php if(!$exercise['active']) echo 'class="invisible"'; ?>><?php echo $exercise['titre']; ?></a>
+    <a class="item<?php echo $classItem;?>" href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>" <?php if(!$exercise['active']) echo 'class="invisible"'; ?>><?php echo $exercise['titre']; ?></a>
   </td>
   <td align="center">
   	<a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlspecialchars($langModify); ?>"></a>

@@ -470,6 +470,8 @@ else
 
 $nowBarAlreadyShowed = FALSE;
 
+if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+
 foreach ( $eventList as $thisEvent )
 {
 
@@ -536,9 +538,21 @@ foreach ( $eventList as $thisEvent )
         /*
         * Display the event date
         */
+        
+        //modify style if the event is recently added since last login
 
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisEvent['id']))
+        {
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+        
+        
         echo '<tr class="headerX" valign="top">' . "\n"
-        .    '<th>' . "\n"
+        .    '<th class="item'.$classItem.'">' . "\n"
         .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
         .    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt=" ">'
         .    ucfirst(claro_disp_localised_date( $dateFormatLong, strtotime($thisEvent['day']))).' '

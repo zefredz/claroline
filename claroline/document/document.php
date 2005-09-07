@@ -1797,15 +1797,13 @@ echo claro_disp_tool_title($titleElement,
                 if (isset($_uid))
                 {    
                     $date = $claro_notifier->get_notification_date($_uid);
-                    $modified_documents = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid, 7);
-                }
-                else
-                {
-                    $modified_documents = array();
+                    
                 }
                     
                 if (isset($fileList))
         {
+            
+            
             foreach($fileList['path'] as $fileKey => $fileName )
             {
                 // Note. We've switched from 'each' to 'foreach', as 'each' seems to 
@@ -1831,16 +1829,16 @@ echo claro_disp_tool_title($titleElement,
                     $style='';
                 }
                 
-                                //modify style if the file is recently added since last login
+                //modify style if the file is recently added since last login
 
-                                if (in_array($fileName, $modified_documents))
-                                {
-                                    $classItem=' hot';
-                                }
-                                else // otherwise just display its name normally
-                                {
-                                    $classItem='';
-                                }
+                if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $fileName))
+                {
+                    $classItem=' hot';
+                }
+                else // otherwise just display its name normally
+                {
+                    $classItem='';
+                }
                                 
                                 
                 if ($fileList['type'][$fileKey] == A_FILE)
@@ -1982,9 +1980,9 @@ echo claro_disp_tool_title($titleElement,
                         ."</tr>\n";
                 }
             }               // end each ($fileList)
-            
+ 
         }                   // end if ( $fileList)
-    
+           
         echo    "</tbody>",
     
                 "</table>\n";

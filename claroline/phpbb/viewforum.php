@@ -180,6 +180,8 @@ else
     }
     else 
     {
+        if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+        
         foreach ( $topicList as $thisTopic )
         {
             echo ' <tr>' . "\n";
@@ -188,15 +190,20 @@ else
             $topic_time     = $thisTopic['topic_time'   ];
             $last_post_time = datetime_to_timestamp( $thisTopic['post_time']);
             $last_post      = datetime_to_timestamp( $thisTopic['post_time'] );
-
-            if ( $last_post_time < $last_visit )
+    
+            if ( empty($last_post_time) )
             {
-                $image = $imgRepositoryWeb.'topic.gif';
+                $last_post_time = datetime_to_timestamp($topic_time);
+            }
+    
+            if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$thisTopic['topic_id'],FALSE))
+            {
+                $image = $imgRepositoryWeb.'topic_hot.gif';
                 $alt='';
             }
             else
             {
-                $image = $imgRepositoryWeb.'topic_hot.gif';
+                $image = $imgRepositoryWeb.'topic.gif';
                 $alt   = 'new post';
             }
     

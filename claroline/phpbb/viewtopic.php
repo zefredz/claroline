@@ -214,6 +214,8 @@ else
 	    . '  </th>' . "\n"
 	    . ' </tr>' . "\n";
 	
+	if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+	
 	foreach ( $postList as $thisPost )
 	{
 	    // Check if the forum post is after the last login
@@ -221,8 +223,10 @@ else
 	
 	    $post_time = datetime_to_timestamp($thisPost['post_time']);
 	
-	    if($post_time < $last_visit) $postImg = 'post.gif';
-	    else                         $postImg = 'post_hot.gif';
+	    if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))    
+	    $postImg = 'post.gif';
+	    else                         
+	    $postImg = 'post_hot.gif';
 	
 	    echo ' <tr>' . "\n"
 	
