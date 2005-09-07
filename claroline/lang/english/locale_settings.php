@@ -1,24 +1,17 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.* $Revision: 
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   English Translation                                                |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
-      +----------------------------------------------------------------------+
-*/
+/**
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-EN
+ *
+ * @author Claro team <cvs@claroline.net>
+ */
 
 $iso639_1_code = "en";
 $iso639_2_code = "eng";
@@ -28,24 +21,33 @@ unset($langDay_of_weekNames);
 unset($langMonthNames);
 unset($byteUnits);
 
-$langNameOfLang['arabic'        ]="arabian";
-$langNameOfLang['brazilian'        ]="brazilian";
-$langNameOfLang['bulgarian'        ]="bulgarian";
-$langNameOfLang['croatian'        ]="croatian";
-$langNameOfLang['dutch'            ]="dutch";
-$langNameOfLang['english'        ]="english";
-$langNameOfLang['finnish'        ]="finnish";
-$langNameOfLang['french'        ]="french";
-$langNameOfLang['german'        ]="german";
-$langNameOfLang['greek'            ]="greek";
-$langNameOfLang['italian'        ]="italian";
-$langNameOfLang['japanese'        ]="japanese";
-$langNameOfLang['polish'        ]="polish";
-$langNameOfLang['simpl_chinese'    ]="simplified chinese";
-$langNameOfLang['spanish'        ]="spanish";
-$langNameOfLang['swedish'        ]="swedish";
-$langNameOfLang['thai'            ]="thai";
-$langNameOfLang['turkish'        ]="turkish";
+$langNameOfLang['arabic']        = "arabian";
+$langNameOfLang['brazilian']     = "brazilian";
+$langNameOfLang['bulgarian']     = "bulgarian";
+$langNameOfLang['catalan']       = "catalan";
+$langNameOfLang['croatian']      = "croatian";
+$langNameOfLang['danish']        = "danish";
+$langNameOfLang['dutch']         = "dutch";
+$langNameOfLang['english']       = "english";
+$langNameOfLang['finnish']       = "finnish";
+$langNameOfLang['french']        = "french";
+$langNameOfLang['galician']      = "galician";
+$langNameOfLang['german']        = "german";
+$langNameOfLang['greek']         = "greek";
+$langNameOfLang['italian']       = "italian";
+$langNameOfLang['indonesian']    = "indonesian";
+$langNameOfLang['japanese']      = "japanese";
+$langNameOfLang['malay']         = "malay"; 
+$langNameOfLang['polish']        = "polish";
+$langNameOfLang['portuguese']    = "portuguese";
+$langNameOfLang['russian']       = "russian";
+$langNameOfLang['simpl_chinese'] = "simplified chinese";
+$langNameOfLang['slovenian']     = "slovenian";
+$langNameOfLang['spanish']       = "spanish";
+$langNameOfLang['swedish']       = "swedish";
+$langNameOfLang['thai']          = "thai";
+$langNameOfLang['turkish']       = "turkish";
+$langNameOfLang['vietnamese']    = "vietnamese";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -66,10 +68,10 @@ $langMonthNames['long'] = array('January', 'February', 'March', 'April', 'May', 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
+$dateFormatShort =  "%b. %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
 $dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
-$dateTimeFormatShort = "%d-%m-%y %I:%M %p";
+$dateTimeFormatShort = "%b. %d, %y %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
 
 ?>
