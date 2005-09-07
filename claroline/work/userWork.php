@@ -88,6 +88,7 @@ $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
   --------------------------------------------------------------------*/
 if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 {
+
 	// we need to know the assignment settings
 	$sql = "SELECT *,
 				UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
@@ -106,7 +107,7 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
   --------------------------------------------------------------------*/
 if( isset($assignment) && isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 {
-	if( $assignment['assignment_type'] == "GROUP")
+  	if( $assignment['assignment_type'] == "GROUP")
 	{
 		$sql = "SELECT `name`
 				FROM `".$tbl_group_team."`
@@ -296,7 +297,7 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 }
 else
 {	
-      if( count($userGroupList) <= 0 )
+      if( empty($userGroupList) )
       {
             // user is not member of any group
             $userCanPost = false;
@@ -506,7 +507,7 @@ if( isset($_REQUEST['submitWrk']) )
 				while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
 
 				$wrkForm['fileName'] = $filename."_".$i.$extension.".url";
-				create_link_file($assigDirSys.$wrkForm['fileName'], $coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl);
+				create_link_file($assigDirSys.$wrkForm['fileName'], $coursesRepositoryWeb.$_course['path'].'/'.$_REQUEST['submitGroupWorkUrl']);
 			}
 			else
 			{
@@ -530,7 +531,7 @@ if( isset($_REQUEST['submitWrk']) )
 				while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
 
 				$wrkForm['fileName'] = $filename."_".$i.$extension.".url";
-				create_link_file($assigDirSys.$wrkForm['fileName'], $coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl);
+				create_link_file($assigDirSys.$wrkForm['fileName'], $coursesRepositoryWeb.$_course['path'].'/'.$_REQUEST['submitGroupWorkUrl']);
 			}
 
 			// if delete of the file is required
@@ -1071,8 +1072,8 @@ if( $is_allowedToSubmit )
 				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
 				{
 					echo '<td>'
-						.'<input type="hidden" name="submitGroupWorkUrl" value="'.$submitGroupWorkUrl.'" />'
-						.'<a href="'.$coursesRepositoryWeb.$_course['path'].'/'.$submitGroupWorkUrl.'">'.basename($submitGroupWorkUrl).'</a>'
+						.'<input type="hidden" name="submitGroupWorkUrl" value="'.$_REQUEST['submitGroupWorkUrl'].'" />'
+						.'<a href="'.$coursesRepositoryWeb.$_course['path'].'/'.$_REQUEST['submitGroupWorkUrl'].'">'.basename($_REQUEST['submitGroupWorkUrl']).'</a>'
 						.'</td>'."\n";
 				}
 				else
