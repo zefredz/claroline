@@ -33,6 +33,7 @@ function delete_groups($groupIdList = 'ALL')
 {
     global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys;
     global $includePath;
+    global $_cid,$_tid,$eventNotifier;
 
     $tbl_c_names = claro_sql_get_course_tbl();
     
@@ -45,7 +46,7 @@ function delete_groups($groupIdList = 'ALL')
     delete_group_wikis( $groupIdList );
 
     /*
-     * Check the data
+     * Check the data and notify eventmanager of the deletion 
      */
 
     if ( strtoupper($groupIdList) == 'ALL' )
@@ -66,13 +67,20 @@ function delete_groups($groupIdList = 'ALL')
         if ( settype($groupIdList, 'integer') )
         {
             $sql_condition = '  WHERE id = ' . (int)$groupIdList ;
+            
+            $eventNotifier->notifyCourseEvent('group_deleted'
+                                         , $_cid
+                                         , $_tid
+                                         , '0'
+                                         , $groupIdList
+                                         , '0');
         }
         else
         {
             return false;
         }
     }
-
+        
     /*
      * Search the groups data necessary to delete them
      */
@@ -83,7 +91,19 @@ function delete_groups($groupIdList = 'ALL')
                         $sql_condition;
 
     $groupList = claro_sql_query_fetch_all_cols($sql_searchGroup);
-
+    
+    //notify event manager about the deletion for each group 
+    
+    foreach ($groupList['id'] as $thisGroupId )
+    {
+        $eventNotifier->notifyCourseEvent('group_deleted'
+                                         , $_cid
+                                         , $_tid
+                                         , '0'
+                                         , $thisGroupId
+                                         , '0');
+    }
+    
     if ( count($groupList['id']) > 0 )
     {
         /*
