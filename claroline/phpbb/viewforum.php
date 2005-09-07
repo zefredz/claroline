@@ -100,18 +100,21 @@ if ( $forumSettingList )
 else
 {
     // No forum
-    $forumAllowed  = false;
-    $error_message = $langNotAllowed;
+    $forumAllowed       = false;
+    $forum_post_allowed = false;
+    $$forum_cat_id      = null;
+    $error_message      = $langNotAllowed;
 }
 
 /*=================================================================
   Display Section
  =================================================================*/
  
-if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
+if (     $forum_cat_id == GROUP_FORUMS_CATEGORY
+     && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
+    $interbredcrump[]  = array ('url'=>'../group/group.php'      , 'name'=> $langGroups);
+    $interbredcrump[]  = array ('url'=>'../group/group_space.php', 'name'=> $_group['name']);
 }
 
 include $includePath . '/claro_init_header.inc.php';
@@ -204,8 +207,8 @@ else
     
             $topic_title = $thisTopic['topic_title'];
             $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id']
-                        .  is_null($forumSettingList['idGroup']) ? 
-                           '' : '&amp;gidReq ='.$forumSettingList['idGroup'];
+                        .  (is_null($forumSettingList['idGroup']) ? 
+                           '' : '&amp;gidReq ='.$forumSettingList['idGroup']);
     
             echo '&nbsp;'
                 .'<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
