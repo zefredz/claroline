@@ -154,7 +154,7 @@ elseif ( $forumSettingList )
     		    }
                 // notify eventmanager that a new message has been posted
         
-                $eventNotifier->notifyCourseEvent("forum_new_topic",$_cid, $_tid, $topic_id, $_gid, "0");
+                $eventNotifier->notifyCourseEvent("forum_new_topic",$_cid, $_tid, $forum_id."-".$topic_id, $_gid, "0");
      
             }
 		

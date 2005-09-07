@@ -201,6 +201,8 @@ foreach ( $categories as $this_category )
     
     $forumIterator = 0;
 
+    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    
     foreach ( $forum_list as $this_forum )
     {
         if ( $this_forum['cat_id'] == $this_category['cat_id'] )
@@ -220,7 +222,7 @@ foreach ( $categories as $this_category )
 
             echo '<tr align="left" valign="top">' . "\n";
 
-            if ( ! is_null($last_post) && datetime_to_timestamp($last_post) > $last_visit )
+            if (isset($_uid) && $claro_notifier->is_a_notified_forum($_cid, $date, $_uid, $_gid, $_tid, $this_forum['forum_id']))
             {
                 $forum_img = 'forum_hot.gif';
             }

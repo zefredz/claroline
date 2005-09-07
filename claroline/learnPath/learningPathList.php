@@ -464,6 +464,8 @@ if($is_AllowedToEdit)
  $resultB = claro_sql_query($sql);
  */
 
+if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid); // get date for notified "as new" paths
+
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
  <thead>
  <tr class=\"headerX\" align=\"center\" valign=\"top\">
@@ -529,6 +531,18 @@ $iterator = 1;
 $is_blocked = false;
 while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 {
+    //modify style if the file is recently added since last login
+
+    if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $list['learnPath_id']))
+    {
+        $classItem=' hot';
+    }
+    else // otherwise just display its name normally
+    {
+        $classItem='';
+    }
+    
+    
     if ( $list['visibility'] == 'HIDE' )
     {
         if ($is_AllowedToEdit)
@@ -551,7 +565,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
     if ( !$is_blocked )
     {
-        echo "<td align=\"left\"><a href=\"learningPath.php?path_id="
+        echo "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
             .$list['learnPath_id']."\"><img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"\"
             border=\"0\" />  ".htmlspecialchars($list['name'])."</a></td>";
 
