@@ -200,6 +200,7 @@ class Notifier extends EventDriven
         $tbl_notify     = $tbl_mdb_names['notify'];        
                 
         $courses = array();
+        $courseList = array();
 
         //  1- find the list of the user's course and in this list, take only the course where recent events happened 
         //    A- FOR A STUDENT : where the events concerned everybody (uid = 0) or the user himself (uid)
@@ -216,28 +217,27 @@ class Notifier extends EventDriven
                     
         }
                         
-            // from result in the notify table, we mustn't take account of the ressources already consulted, 
-            // (saved in session)
+        // from result in the notify table, we mustn't take account of the ressources already consulted, 
+        // (saved in session)
             
         $size = count($courseList);
             
         for($i=0;$i<$size;$i++)
-            {                          
-         
-               if (($courseList[$i]['group_id'])==0) $courseList[$i]['group_id'] = "";
-               
-               if (isset($_SESSION['ConsultedRessourceList']) 
-                && isset($_SESSION['ConsultedRessourceList'][$courseList[$i]['course_code'].":".$courseList[$i]['tool_id'].":".$courseList[$i]['group_id'].":".$courseList[$i]['ressource_id'].":".$courseList[$i]['date']]))                     
-               {                
-                  unset($courseList[$i]); // the ressource is already seen, we retrieve it from the results   
-                  
-               }
-               else
-               {
-                   $courses[] = $courseList[$i]['course_code']; // there is a ressource not consulted yet, we add the course_id in results
-               }            
-            }
+        {                          
+        
+           if (($courseList[$i]['group_id'])==0) $courseList[$i]['group_id'] = "";
+           
+           if (isset($_SESSION['ConsultedRessourceList']) 
+            && isset($_SESSION['ConsultedRessourceList'][$courseList[$i]['course_code'].":".$courseList[$i]['tool_id'].":".$courseList[$i]['group_id'].":".$courseList[$i]['ressource_id'].":".$courseList[$i]['date']]))                     
+           {                
+              unset($courseList[$i]); // the ressource is already seen, we retrieve it from the results   
               
+           }
+           else
+           {
+               $courses[] = $courseList[$i]['course_code']; // there is a ressource not consulted yet, we add the course_id in results
+           }            
+        }       
         
         //2- return an array with the courses with recent unknow event until the date '$date' in the course list of the user
 
