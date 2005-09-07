@@ -128,10 +128,10 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 <select name="url" size="1" 
         onchange="top.location=redirector.url.options[selectedIndex].value" >
 
-<option value="<?php echo $coursesRepositoryWeb . $_course['path'] ?>/index.php">
-<?php echo $langCourseHome; ?>
-</option>
 <?php
+
+echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . $langCourseHome . '</option>';
+
     if (is_array($_courseToolList))
     {
         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
