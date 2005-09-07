@@ -24,8 +24,7 @@ $tlabelReq = 'CLDSC___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid)             claro_disp_select_course();
-if ( ! $is_courseAllowed) claro_disp_auth_form();
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(TRUE);
 $nameTools = $langCourseProgram;
