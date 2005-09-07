@@ -56,8 +56,12 @@ else // anonymous
 }
 
 // get the list of available modules
-$sql = "SELECT LPM.* ,
-            M.*,
+$sql = "SELECT LPM.`learnPath_module_id` ,
+			LPM.`parent`,
+			LPM.`lock`,
+            M.`module_id`,
+            M.`contentType`,
+            M.`name`,
             UMP.`lesson_status`, UMP.`raw`,
             UMP.`scoreMax`, UMP.`credit`,
             A.`path`
@@ -74,14 +78,9 @@ $sql = "SELECT LPM.* ,
           AND LPM.`module_id` = M.`module_id`
      GROUP BY LPM.`module_id`
      ORDER BY LPM.`rank`";
-$result = claro_sql_query($sql);
 
-$extendedList = array();
-while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
-{
-	$extendedList[] = $list;
-}
-  
+$extendedList = claro_sql_query_fetch_all($sql);
+
 // build the array of modules
 // build_element_list return a multi-level array, where children is an array with all nested modules
 // build_display_element_list return an 1-level array where children is the deep of the module
@@ -105,9 +104,9 @@ $sql = "SELECT `name`
       FROM `".$TABLELEARNPATH."`
       WHERE `learnPath_id` = '". (int)$_SESSION['path_id']."'";
 
-$lpName = claro_sql_query_fetch_all($sql);
+$lpName = claro_sql_query_get_single_value($sql);
 
-echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\n"
+echo '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
 	. '<p>'."\n"
 	. '<small>'
 	. $langView.' : '
@@ -116,7 +115,7 @@ echo '<p><b>'.wordwrap($lpName[0]['name'],$moduleNameLength,' ',1).'</b></p>'."\
 	. '<a href="viewer.php?frames=1" target="_top">'.$langInFrames.'</a>'
 	. '</small>'."\n"
 	. '</p>'."\n\n"
-	. '<table width="100%">'."\n"
+	. '<table width="100%">'."\n\n"
 	;
   
 $previous = ""; // temp id of previous module, used as a buffer in foreach
@@ -199,7 +198,7 @@ foreach ($flatElementList as $module)
 				$nextModule = $module['module_id'];
 			}
 			echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
-				.'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0">'.$displayedName.'</a>';
+				.'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0" />'.$displayedName.'</a>';
 		}
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
@@ -233,7 +232,7 @@ foreach ($flatElementList as $module)
 			else
 				$displayedName = $module['name'];
 
-			echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0">'.$displayedName;
+			echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
 		}
 	}
 
@@ -275,7 +274,7 @@ foreach ($flatElementList as $module)
       
 } // end of foreach ($flatElementList as $module)
 
-echo '</table>';
+echo '</table>'."\n\n";
    
 
 
