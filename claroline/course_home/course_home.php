@@ -205,7 +205,7 @@ if ($disp_edit_command)
     ;
 }
 
-echo "<br /><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
+if ( isset($_uid) ) echo '<br /><small><span class="item hot"> '. $langNewLegend . '</span></small>';
 
 ?>
 </td>
