@@ -184,18 +184,9 @@ else
     
             $replys         = $thisTopic['topic_replies'];
             $topic_time     = $thisTopic['topic_time'   ];
-            $last_post_time = $thisTopic['post_time'    ];
-            $last_post      = $thisTopic['post_time'    ];
-    
-            if ( empty($last_post_time) )
-            {
-                $last_post_time = datetime_to_timestamp($topic_time);
-            }
-            else
-            {
-                $last_post_time = datetime_to_timestamp($last_post_time);
-            }
-    
+            $last_post_time = datetime_to_timestamp( $thisTopic['post_time']);
+            $last_post      = datetime_to_timestamp( $thisTopic['post_time'] );
+
             if ( $last_post_time < $last_visit )
             {
                 $image = $imgRepositoryWeb.'topic.gif';
@@ -229,7 +220,7 @@ else
             {
                 echo  '<td align="center">'
                     . '<small>' 
-                    . claro_disp_localised_date($dateTimeFormatShort, $last_post)
+                    . claro_disp_localised_date($dateTimeFormatLong, $last_post)
                     . '<small>'
                     . '</td>' . "\n";
             }
