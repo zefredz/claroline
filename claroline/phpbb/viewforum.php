@@ -220,7 +220,7 @@ else
             {
                 echo  '<td align="center">'
                     . '<small>' 
-                    . claro_disp_localised_date($dateTimeFormatLong, $last_post)
+                    . claro_disp_localised_date($dateTimeFormatShort, $last_post)
                     . '<small>'
                     . '</td>' . "\n";
             }
