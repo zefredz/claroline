@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This part of script is include on run_intall step of  setup tool.
  * in this  part. Script try to run Install
@@ -28,7 +28,7 @@
  * @package INSTALL
  *
  */
- 
+
 ! defined( "CLARO_FILE_PERMISSIONS" ) && define( "CLARO_FILE_PERMISSIONS", 0777 );
 $display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
@@ -43,11 +43,11 @@ $mysqlRepositorySys = $mysqlRepositorySys ["Value"];
 // MAIN DB                             //
 // DB with central info  of  Claroline //
 
-mysql_query("CREATE DATABASE `".$mainDbName."`");
+mysql_query("CREATE DATABASE `" . $mainDbName . "`");
 if (mysql_errno() >0)
 {
     if (mysql_errno() == 1007)
-    {
+    {   // DB already exist
         if ($confirmUseExistingMainDb)
         {
             $runfillMainDb = TRUE;
@@ -56,11 +56,11 @@ if (mysql_errno() >0)
         else
         {
             $mainDbNameExist = TRUE;
-            $display=DISP_DB_NAMES_SETTING;
+            $display = DISP_DB_NAMES_SETTING;
         }
     }
     else
-    {
+    {   // other error would  break install
         $mainDbNameCreationError = '
                 <P class="setup_error">
                     <font color="red">Warning !</font>
@@ -90,7 +90,7 @@ if($statsDbName != $mainDbName)
     if(!$singleDbForm)
     {
         // multi DB mode AND tracking has its own DB so create it
-        claro_sql_query("CREATE DATABASE `$statsDbName`");
+        claro_sql_query("CREATE DATABASE `" . $statsDbName . "`");
         if (mysql_errno() >0)
         {
             if (mysql_errno() == 1007)
@@ -111,9 +111,9 @@ if($statsDbName != $mainDbName)
                 $statsDbNameCreationError = '
                 <P class="setup_error">
                     <font color="red">Warning !</font>
-                    <small>['.mysql_errno().'] - '.mysql_error().'</small>
+                    <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
                     <br>
-                    Error on creation '.$langStatDB.' : <I>'.$dbStatsForm.'</I>
+                    Error on creation ' . $langStatDB . ' : <I>' . $dbStatsForm . '</I>
                     <BR>
                     <font color="blue">
                         Fix this problem before going further
@@ -167,12 +167,12 @@ if ($runfillMainDb && $runfillStatsDb)
 
 $rootSys                    = str_replace("\\","/",realpath($pathForm)."/") ;
 $coursesRepositoryAppend    = '';
-$coursesRepositorySys = $rootSys.$courseRepositoryForm;
-@mkdir($coursesRepositorySys,CLARO_FILE_PERMISSIONS);
+$coursesRepositorySys = $rootSys . $courseRepositoryForm;
+@mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS);
 $clarolineRepositoryAppend  = 'claroline/';
 $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
 $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys) . '/claroline_garbage');
-@mkdir($garbageRepositorySys,CLARO_FILE_PERMISSIONS);
+@mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS);
 
 ########################## WRITE claro_main.conf.php ##################################
 // extract the path to append to the url
@@ -205,9 +205,9 @@ else
     $form_value_list['statsTblPrefix'] = $statsTblPrefixForm ;
     $form_value_list['dbNamePrefix'] = $dbPrefixForm;
     $form_value_list['is_trackingEnabled'] = trueFalse($enableTrackingForm);
-    $form_value_list['singleDbEnabled'] = trueFalse($singleDbForm); 
+    $form_value_list['singleDbEnabled'] = trueFalse($singleDbForm);
     $form_value_list['courseTablePrefix'] = $singleDbForm && empty($dbPrefixForm)?'crs_':'';
-    $form_value_list['dbGlu'] = $singleDbForm?'_':'`.`'; 
+    $form_value_list['dbGlu'] = $singleDbForm?'_':'`.`';
     $form_value_list['mysqlRepositorySys']= str_replace("\\","/",realpath($mysqlRepositorySys)."/");
     $form_value_list['clarolineRepositoryAppend'] = 'claroline/';
     $form_value_list['coursesRepositoryAppend'] = $courseRepositoryForm;
@@ -246,7 +246,7 @@ else
     $newIncludePath . '../../textzone_right.inc.html',
     $newIncludePath . 'conf/auth.conf.php'
     );
-    
+
     foreach ($arr_file_to_undist As $undist_this)
         claro_undist_file($undist_this);
 
@@ -260,69 +260,69 @@ else
     if (is_array($def_file_list))
     {
 
-	    foreach ( $def_file_list as  $config_code => $def )
-	    {
-	        $okToSave = TRUE;
-	
-	        unset($conf_def, $conf_def_property_list);
-	
+        foreach ( $def_file_list as  $config_code => $def )
+        {
+            $okToSave = TRUE;
+
+            unset($conf_def, $conf_def_property_list);
+
             $conf_file = get_conf_file($config_code);
-	        $def_file  = get_def_file($config_code);
-	
-	        if ( file_exists($def_file) )
-	            require($def_file);
-	
-	        if ( is_array($conf_def_property_list) )
-	        {
-	            $propertyList = array();
-	
-	            foreach($conf_def_property_list as $propName => $propDef )
-	            {
-	                if ( isset($form_value_list[$propName]) )
-	                {
+            $def_file  = get_def_file($config_code);
+
+            if ( file_exists($def_file) )
+                require($def_file);
+
+            if ( is_array($conf_def_property_list) )
+            {
+                $propertyList = array();
+
+                foreach($conf_def_property_list as $propName => $propDef )
+                {
+                    if ( isset($form_value_list[$propName]) )
+                    {
                         // get value from form
-	                    $propValue = $form_value_list[$propName];
-	                }
-	                else
-	                {
+                        $propValue = $form_value_list[$propName];
+                    }
+                    else
+                    {
                         // get default value
-	                    $propValue = $propDef['default']; // Use default as effective value
-	                }
-	
-	                if ( !validate_property($propValue, $propDef) )
-	                {
-	                    $okToSave = FALSE;
-	                } 
-	                else
-	                {
-	                    $propertyList[] = array('propName'=>$propName
-	                                           ,'propValue'=>$propValue);
-	                }
-	            }
-	        }
-	        else
-	        {
-	            $okToSave = FALSE;
-	        }
-	
-	        if ($okToSave)
-	        {
+                        $propValue = $propDef['default']; // Use default as effective value
+                    }
+
+                    if ( !validate_property($propValue, $propDef) )
+                    {
+                        $okToSave = FALSE;
+                    }
+                    else
+                    {
+                        $propertyList[] = array('propName'=>$propName
+                                               ,'propValue'=>$propValue);
+                    }
+                }
+            }
+            else
+            {
+                $okToSave = FALSE;
+            }
+
+            if ($okToSave)
+            {
 
                 if ( !file_exists($conf_file) ) touch($conf_file);
-	
-	            if ( is_array($propertyList) && count($propertyList)>0 )
-	            {
-	
-	                if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
-	                {
-	                    // calculate hash of the config file
-	                    $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-	                    //$conf_hash = filemtime($conf_file);
-	                    save_config_hash_in_db($config_code,$conf_hash);
-	                }
-	            }
-	        }
-	    } 
+
+                if ( is_array($propertyList) && count($propertyList)>0 )
+                {
+
+                    if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
+                    {
+                        // calculate hash of the config file
+                        $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
+                        //$conf_hash = filemtime($conf_file);
+                        save_config_hash_in_db($config_code,$conf_hash);
+                    }
+                }
+            }
+        }
     }
 }
 
