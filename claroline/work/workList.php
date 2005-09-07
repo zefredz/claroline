@@ -105,11 +105,11 @@ if ( !isset($assignment) || is_null($assignment) )
 // redirect to the submission form prefilled with a .url document targetting the published document
 if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid) )
 {
-    header( 'Location: userWork.php?authId=' 
+    header( 'Location: userWork.php?authId='
           . $_gid 
-          . '&amp;cmd=rqSubWrk'
-          . '&amp;assigId=' . $_REQUEST['assigId'] 
-          . '&amp;submitGroupWorkUrl=' . $_REQUEST['submitGroupWorkUrl']
+          . '&cmd=rqSubWrk'
+          . '&assigId=' . $_REQUEST['assigId']
+          . '&submitGroupWorkUrl=' . $_REQUEST['submitGroupWorkUrl']
           );
 }
 /*--------------------------------------------------------------------
