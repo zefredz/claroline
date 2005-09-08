@@ -168,21 +168,24 @@ function format_date($fileDate)
 /**
  * Transform the file path in a url
  * 
- * @param - filePaht (string) - relative local path of the file on the Hard disk
+ * @param - url (string) - relative local path of the file on the Hard disk
  * @return - relative url
  */
 
-function format_url($filePath)
+function format_url($url)
 {
-	$stringArray = explode('/', $filePath);
+    $path = substr($url, strpos($url, '://') +3 );
 
-	for ($i = 0; $i < sizeof($stringArray); $i++)
-	{
-		$stringArray[$i] = rawurlencode($stringArray[$i]);
-	}
+    $pathElementList = explode('/', $path);
 
-	return implode("/",$stringArray);
+    for ($i = 0; $i < sizeof($pathElementList); $i++)
+    {
+        $pathElementList[$i] = rawurlencode($pathElementList[$i]);
+    }
+
+	return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
 }
+
 
 //------------------------------------------------------------------------------
 
