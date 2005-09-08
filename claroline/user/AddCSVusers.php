@@ -258,8 +258,11 @@ switch ($cmd)
           
               break;
         
-              case 'userTool':                 
+              case 'userTool':
+                  if (is_course_enrollment_allowed($_cid) )
+                  {
                     user_add_to_course($uid, $_cid);
+                  }
               break;
           }  
         }

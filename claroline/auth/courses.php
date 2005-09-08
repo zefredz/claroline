@@ -228,37 +228,43 @@ if ( $cmd == 'exReg' )
     else                     $forceReg = FALSE;
 
     // try to register user
-
-    if ( user_add_to_course($userId, $course, $forceReg) )
+    if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
     {
-        if ( $_uid != $uidToEdit )
+        if ( user_add_to_course($userId, $course, $forceReg) )
         {
-           // message for admin
-           $message = $lang_user_has_been_enrolled_to_the_course;
+            if ( $_uid != $uidToEdit )
+            {
+               // message for admin
+               $message = $lang_user_has_been_enrolled_to_the_course;
+            }
+            else
+            {
+               $message = $lang_you_have_been_enrolled_to_the_course;
+            }
+
+            if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
+            {
+                $properties['status'] = 1;
+                $properties['role']   = $langCourseManager;
+                $properties['tutor']  = 1;
+                user_update_course_properties($userId, $course, $properties);
+            }
         }
         else
         {
-           $message = $lang_you_have_been_enrolled_to_the_course;
+            switch (claro_failure::get_last_failure())
+            {
+                case 'already_enrolled_in_course' :
+                    $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
+                    break;
+               default:
+                    $message = $langUnableToEnrollInCourse;
+            }
         }
-
-        if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
-        {
-            $properties['status'] = 1;
-            $properties['role']   = $langCourseManager;
-            $properties['tutor']  = 1;
-            user_update_course_properties($userId, $course, $properties);
-        }
-    }
+    } // end if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
     else
     {
-        switch (claro_failure::get_last_failure())
-        {
-            case 'already_enrolled_in_course' :
-                $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
-                break;
-           default:
-                $message = $langUnableToEnrollInCourse;
-        }
+    	$message = $langUnableToEnrollInCourse;
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
