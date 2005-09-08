@@ -100,9 +100,18 @@
                         }
                         else if( is_file($path)) 
                         {
-                            $url .= "/goto/index.php/"
-                                .$elementCRLArray['resource_id']
-                                ;
+                            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+                            {
+                                // slash argument method - only compatible with Apache
+                                $url .= '/goto/index.php/'
+                                     . $elementCRLArray['resource_id'];
+                            }
+                            else
+                            {
+                                // question mark argument method, for IIS ...
+                                $url = 'goto/?url=' . $elementCRLArray['resource_id'];
+                            }
+
                         }
                         else
                         {
