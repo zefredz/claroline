@@ -1,301 +1,400 @@
 <?php // $Id$
 /**
- * This lib provide function to manage and use faculties.
+ * CLAROLINE 
  *
- * @version CLAROLINE 1.6
- * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
- * @package faculty
  *
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
- * @author Muret Benoît <muret_ben@hotmail.com>
+ * This  is  lib  for manage course tree with tree structure version 1
+ *
+ * @version 1.7
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLTREE
+ *
+ * @package CLTREE
+ *
+ * @author Claro Team <cvs@claroline.net>
  *
  */
 
 /**
- * This function return the treePos maximum of the table faculty
- *
- * @author - Benoît Muret <>
- * @return  - int
+     *This function display the bom whith option to edit or delete the categories
+     *
+     * @author - < Benoît Muret >
+     * @param   - elem             array     : the array of each category
+     * @param   - father        string     : the father of the category
 
+     * @return  - void
+     *
+     * @desc - display the bom whith option to edit or delete the categories
+     */
+
+$langExpand = '+';
+$langCollapse = '-';
+
+function claro_disp_tree($elem,$father,$space)
+{
+    GLOBAL $imgRepositoryWeb;
+    GLOBAL $lang_faculty_ConfirmDelete, $langEdit, $langMove, $langDelete, $langUp, $lang_faculty_imgDown, $langExpand, $langCollapse;
+
+
+    if($elem)
+    {
+        $space.="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        $num=0;
+        foreach($elem as $one_faculty)
+        {
+
+            if(!strcmp($one_faculty['code_P'],$father))
+            {
+                $num++;
+
+                echo '<tr><td>';
+
+                    $date = date('mjHis');
+
+                    echo $space;
+
+                    if($one_faculty['nb_childs']>0)
+                    {
+                        
+                        echo '<a href="' . $_SERVER['PHP_SELF'] 
+                        .    '?id=' . $one_faculty['id'] 
+                        .    '&amp;date=' . $date 
+                        .    '#pm' . $one_faculty['id'] .'" '
+                        .    'name="pm' . $one_faculty['id'] . '"> '
+                        .    ( $one_faculty['visible'] 
+                             ?    '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" alt="' . $langCollapse . '" >'
+                             :    '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" alt="' . $langExpand . '" >'
+                             )
+                        .    '</a> '
+                        .    '&nbsp;'
+                        ;
+                    }
+                    else
+                    echo '&nbsp;° &nbsp;&nbsp;&nbsp;';
+
+                    echo $one_faculty['name'] . ' (' . $one_faculty['code'] . ') &nbsp;&nbsp;&nbsp;';
+
+                    //Number of faculty in this parent
+                    $nb=0;
+                    foreach($elem as $one_elem)
+                    {
+                        if(!strcmp($one_elem['code_P'], $one_faculty['code_P']))
+                        $nb++;
+                    }
+
+
+                    //Display the picture to edit and delete a category
+
+                    ?>
+                    </td>
+                    <td  align="center">
+
+                        <a href="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id']; ?>&amp;cmd=rqEdit" >
+                        <img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
+                    </td>
+                    <td align="center">
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=rqMove"; ?>" >
+                        <img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
+                    </td>
+                    <td align="center">
+                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDelete"; ?>"
+                        onclick="javascript:if(!confirm('<?php echo 
+                         clean_str_for_javascript($lang_faculty_ConfirmDelete.$one_faculty['code']." ?") ?>')) return false;" >
+                        <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
+                    </td>
+                    <?php
+
+                    //Search nbChild of the father
+                    $nbChild=0;
+                    $father=$one_faculty['code_P'];
+
+                    foreach($elem as $fac)
+                    if($fac['code_P']==$father)
+                    $nbChild++;
+
+                    //If the number of child is >0, display the arrow up and down
+                    if($nb > 1)
+                    {
+                        ?>
+                        <td align="center">
+                        <?php
+                        //If isn't the first child, you can up
+                        if ($num>1)
+                        {
+                        ?>
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exUp&amp;date=".$date."#ud".$one_faculty['id'];
+                            ?>" name ="<?php echo "ud".$one_faculty['id']; ?>">
+                            <img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo $langUp ?>"></a>
+                        <?php
+                        }
+                        else
+                        {
+                            echo '&nbsp;';
+                        }
+                        ?>
+                         </td>
+						 <td align="center">
+                        <?php
+
+                        //If isn't the last child, you can down
+                        if ($num<$nbChild)
+                        {
+                        ?>
+                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty['id'];
+                            ?>" name="<?php echo "ud".$one_faculty['id']; ?>">
+                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
+                    <?php
+                        }
+                        else
+                        {
+                            echo '&nbsp;';
+                        }
+                        ?>
+                        </td>
+                        
+
+                        <?php
+                    }
+                    else
+                    {
+                        echo '<td>&nbsp;</td>' . "\n"
+                        .    '<td>&nbsp;</td>' . "\n"
+                        ;
+                    }
+
+?>
+                    </tr>
+<?php
+
+//display the bom of this category
+if($one_faculty['visible'])
+claro_disp_tree($elem, $one_faculty['code'], $space);
+            }
+        }
+    }
+}
+
+/**
+     * display the bom of category and display in red the category edit and his childeren in blue
+     *
+     * @author < Benoît Muret >
+     * @param  elem             array     : the categories
+     * @param  father        string     : the father of a category
+     * @param  facultyEdit    key     : the category edit
+
+     * @return void
+     *
+     * 
+     */
+
+function displaySimpleBom($elem,$father,$facultyEdit)
+{
+    if($elem)
+    {
+        foreach($elem as $one_faculty)
+        {
+            if( !strcmp( $one_faculty['code_P'], $father ))
+            {
+                ?>
+                    <ul><li>
+                    <?php
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'<font color="red">':'');
+                    echo $one_faculty['code'];
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'</font>':'');
+
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'<font color="blue">':'');
+                    displaySimpleBom($elem,$one_faculty['code'],$facultyEdit);
+                    echo (!strcmp($one_faculty['code'],$facultyEdit)?'</font>':'');
+                ?>
+                    </li></ul>
+                <?php
+
+            }
+        }
+    }
+}
+
+/**
+ * Update nb_chils fields in node ascedant a deleted node.
+ *
+ * @param   $node_code string : the father
+ * @param   $childQty  int    : the number of child deleting
+
+ * @return  true on success
+ *
+ */
+
+function delete_qty_child_father($node_code, $childQty)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+    while(!is_null($node_code))
+    {
+        $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "`
+                                        SET nb_childs=nb_childs-".(int) $childQty." 
+                                        WHERE code='" . $node_code . "'";
+
+        claro_sql_query($sql_DeleteNbChildFather);
+
+        $sql_SelectCodeP= " SELECT code_P
+                                FROM `" . $tbl_course_node . "` 
+                                WHERE code='" . $node_code . "'";
+        $array=claro_sql_query_fetch_all($sql_SelectCodeP);
+
+        $node_code=$array[0]['code_P'];
+    }
+}
+
+
+/**
+     *This function add a number of child of all father from a category
+     *
+     * @author < Benoît Muret >
+     * @param  fatherChangeChild        string     : the father
+     * @param  newNbChild            int        : the number of child adding
+
+     * @return void
+     */
+
+function addNbChildFather($fatherChangeChild, $newNbChild)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+    while(!is_null($fatherChangeChild))
+    {
+        $sql_DeleteNbChildFather= " UPDATE `" . $tbl_course_node . "`
+                                        SET nb_childs=nb_childs+" . (int) $newNbChild . " 
+                                        WHERE code='" . $fatherChangeChild . "'";
+        claro_sql_query($sql_DeleteNbChildFather);
+
+        $sql_SelectCodeP= " SELECT code_P
+                                FROM `" . $tbl_course_node . "`
+                                WHERE code='".$fatherChangeChild."'";
+
+        $fatherChangeChild = claro_sql_query_get_single_value($sql_SelectCodeP);
+    }
+}
+
+/**
+     *This function create de select box categories
+     *
+     * @author  Benoît Muret 
+     * @param   $elem array the categories
+     * @param   $father string the father of the category
+     * @param   $editFather string the category editing
+     * @param   $space string space to the bom of the category
+     * @return  void
+     *
+     */
+
+function build_select_faculty($elem,$father, $editFather, $space)
+{
+    if($elem)
+    {
+        $space.="&nbsp;&nbsp;&nbsp;";
+        foreach($elem as $one_faculty)
+        {
+            if(!strcmp($one_faculty["code_P"],$father))
+            {
+                echo '<option value="' . $one_faculty['code'] . '" '
+                .    ($one_faculty['code'] == $editFather ? 'selected="selected" ':'')
+                .    '> ' . $space . $one_faculty['code'] . ' </option>'
+                ;
+
+                build_select_faculty($elem,$one_faculty['code'], $editFather, $space);
+            }
+        }
+    }
+}
+
+
+/**
+ *
+ * @param $cat_id string code of cat to get data
+ * @return array of data id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ */
+function get_cat_data($cat_id)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+    $sql_get_cat_data = " SELECT id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
+                       FROM `" . $tbl_course_node . "` 
+                                       WHERE id= ". (int) $cat_id;
+    return claro_sql_query_get_single_row($sql_get_cat_data);
+
+}
+
+/**
+ *
+ * @param $cat_id string code of cat to get data
+ * @return array of data id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ *
+ */
+function get_cat_id_from_code($cat_code)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+
+    $sql_get_cat_id = " SELECT id
+                                       FROM `" . $tbl_course_node . "` 
+                                       WHERE code='". $cat_code."'";
+    return claro_sql_query_get_single_value($sql_get_cat_id);
+
+}
+
+/**
+     *
+     * @param $node_code
+     * @return 
+     * @author Christophe Gesché <moosh@claroline.net>
+     * @since 1.7
+     *
+     */
+function cat_count_children($node_code)
+{
+    global $nodeList;
+    foreach ($nodeList as $node)
+    $child_qty = $node['code_P'] == $node_code ? cat_count_children($node['code']) : 0;
+
+    return $child_qty +1;
+}
+
+/**
+ * Return  minimum and the maximum value for treePos
+ * @return minimum and the maximum value for treePos
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ *
+ */
+function get_extremesTreePos()
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+
+    $sql_InfoTree=" SELECT min(treePos) minimum, max(treePos) maximum
+                FROM `" . $tbl_course_node . "`";
+    return claro_sql_query_get_single_row($sql_InfoTree);
+}
+/**
+ * Get the last treePos of the table faculty
+ *
+ * @return  biggest treePos
+ * @since 1.5
+ *
  */
 
 function search_max_tree_pos()
 {
-	GLOBAL $tbl_faculty;
-
-	$sql_MaxTreePos="SELECT max(treePos) maximum 
-                     FROM `$tbl_faculty`";
-	$array=claro_sql_query_fetch_all($sql_MaxTreePos);
-
-	return $array[0]["maximum"];
+    $extremeTreePos = get_extremesTreePos();
+    return $extremeTreePos['maximum'];
 }
 
-
-/**
- * This function display the bom with option to edit or delete the categories
- *
- * @param   elem 			array 	: the array of each category
- * @param   father		string 	: the father of the category
-
- * @return  void
-
- */
-
-function display_tree($elem, $father, $space)
-{
-	GLOBAL $lang_faculty_ConfirmDelete, $imgRepositoryWeb, $langDelete;
-
-	if($elem)
-	{
-		$space.="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-		$num=0;
-		foreach($elem as $one_faculty)
-		{
-			if(!strcmp($one_faculty["code_P"],$father))
-			{
-				$num++;
-			?>
-				<tr>
-				<td>
-
-				<!-- display + or - to show or hide categories -->
-			<?php
-				$date=date("mjHis");
-
-				echo $space;
-
-				if($one_faculty["nb_childs"]>0)
-				{
-					if($one_faculty["visible"])
-						$PM="-";
-					else
-						$PM="+";
-				?>
-
-					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&date='".$date."'#pm".$one_faculty["id"] ?>"
-					name="<?php echo "pm".$one_faculty["id"]; ?>">  <?php echo $PM ?></a> &nbsp;
-				<?php
-				}
-				else
-					echo "&nbsp;° &nbsp;&nbsp;&nbsp;";
-
-				echo $one_faculty["code"]."&nbsp;&nbsp;&nbsp;";
-
-				//Number of faculty in this parent
-				$nb=0;
-				foreach($elem as $one_elem)
-				{
-					if(!strcmp($one_elem["code_P"],$one_faculty["code_P"]))
-						$nb++;
-				}
-
-				//Display the picture to edit and delete a category
-				?>
-				</td>
-				<td>
-
-					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1"; ?>" >
-					<img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
-				</td>
-				<td>
-					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&edit=1&move=1"; ?>" >
-					<img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
-				</td>
-				<td>
-					<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&delete=1"; ?>"
-					onclick="javascript:if(!confirm('<?php echo
-					 clean_str_for_javascript($lang_faculty_ConfirmDelete.$one_faculty["code"]) ?>')) return false;" >
-					<img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
-				</td>
-				<?php
-
-				//Search nbChild of the father
-				$nbChild=0;
-				$father=$one_faculty["code_P"];
-
-				foreach($elem as $fac)
-					if($fac["code_P"]==$father)
-						$nbChild++;
-
-				//If the number of child is >0, display the arrow up and down
-				if($nb>1)
-				{
-					?>
-					<td>
-					<?php
-					//If isn't the first child, you can up
-					if($num>1)
-					{
-					?>
-						<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=u&date='".$date."'#ud".$one_faculty["id"];
-						?>" name ="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo $lang_faculty_imgUp ?>"> </a>
-					<?php
-					}
-
-					?>
-					</td>
-					<td>
-					<?php
-
-					//If isn't the last child, you can down
-					if($num<$nbChild)
-					{
-					?>
-						<a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty["id"]."&UpDown=d&date='".$date."'#ud".$one_faculty["id"];
-						?>" name="<?php echo "ud".$one_faculty["id"]; ?>">
-						<img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
-					<?php
-					}
-					?>
-					</td>
-
-					<?php
-				}
-?>
-				</tr>
-<?php
-
-				//display the bom of this category
-				if($one_faculty['visible'])
-					display_tree($elem, $one_faculty['code'], $space);
-			}
-		}
-	}
-}
-
-
-
-/**
- *This function display the bom of category
- *
- * @param  elem 		array  : the categories
- * @param  father		string : the father of a category
- * @param  facultyEdit	key    : the category edit
- * @return  - void
- */
-
-function displaySimpleBom($elem,$father,$facultyEdit)
-{
-	if($elem)
-	{
-		foreach($elem as $one_faculty)
-		{
-			if(!strcmp($one_faculty["code_P"],$father))
-			{
-			?>
-				<ul><li>
-				<?php
-				echo (!strcmp($one_faculty["code"],$facultyEdit)?"<font color=\"red\">":"");
-				echo $one_faculty["code"];
-				echo (!strcmp($one_faculty["code"],$facultyEdit)?"</font>":"");
-
-				echo (!strcmp($one_faculty["code"],$facultyEdit)?"<font color=\"blue\">":"");
-				displaySimpleBom($elem,$one_faculty["code"],$facultyEdit);
-				echo (!strcmp($one_faculty["code"],$facultyEdit)?"</font>":"");
-			?>
-				</li></ul>
-			<?php
-
-			}
-		}
-	}
-}
-
-/**
- *This function delete a number of child of all father from a category
- *
- * @author  - < Benoît Muret >
- * @param   - fatherChangeChild		string 	: the father
- * @param   - newNbChild			int		: the number of child deleting
-
- * @return  - void
- *
- * @desc : delete a number of child of all father from a category
- */
-
-function delete_qty_child_father($fatherChangeChild,$newNbChild)
-{
-	GLOBAL $tbl_faculty;
-	while(!is_null($fatherChangeChild))
-	{
-		$sql_DeleteNbChildFather=
-			"UPDATE `$tbl_faculty` 
-             SET nb_childs=nb_childs-". (int)$newNbChild." 
-             WHERE code='". addslashes($fatherChangeChild) ."'";
-
-		claro_sql_query($sql_DeleteNbChildFather);
-
-		$sql_SelectCodeP="SELECT code_P 
-                          FROM `$tbl_faculty`
-                          WHERE code='". addslashes($fatherChangeChild)."'";
-		$array=claro_sql_query_fetch_all($sql_SelectCodeP);
-
-		$fatherChangeChild=$array[0]["code_P"];
-	}
-}
-
-
-/**
- *This function add a number of child of all father from a category
- *
- * @param   - fatherChangeChild		string 	: the father
- * @param   - newNbChild			int		: the number of child adding
-
- *
- * @return  - void
- */
-
-function addNbChildFather($fatherChangeChild,$newNbChild)
-{
-	GLOBAL $tbl_faculty;
-	while(!is_null($fatherChangeChild))
-	{
-		$sql_DeleteNbChildFather=
-			"UPDATE `$tbl_faculty` 
-             SET nb_childs=nb_childs+". (int)$newNbChild."
-             WHERE code='". addslashes($fatherChangeChild)."'";
-
-		claro_sql_query($sql_DeleteNbChildFather);
-
-		$sql_SelectCodeP="SELECT code_P 
-                          FROM `$tbl_faculty` 
-                          WHERE code='". addslashes($fatherChangeChild) ."'";
-		$array=claro_sql_query_fetch_all($sql_SelectCodeP);
-
-		$fatherChangeChild=$array[0]["code_P"];
-	}
-}
-
-
-/**
- *This function create de select box facolties
- *
- * @param  $elem		array 	: 	the faculties
- * @param  $father		string	:	the father of the faculty
- * @param  $editFather	string	:	the faculty editing
- * @param  $space		string	:	space to the bom of the faculty
- * @return  - void
- */
-
-function build_select_faculty($elem,$father,$editFather,$space)
-{
-	if($elem)
-	{
-		$space.="&nbsp;&nbsp;&nbsp;";
-		foreach($elem as $one_faculty)
-		{
-			if(!strcmp($one_faculty["code_P"],$father))
-			{
-				echo "<option value=\"".$one_faculty['code']."\" ".
-						($one_faculty['code']==$editFather?"selected ":"")
-				."> ".$space.$one_faculty['code']." </option>";
-
-				build_select_faculty($elem, $one_faculty['code'], $editFather, $space);
-			}
-		}
-	}
-}
 ?>
