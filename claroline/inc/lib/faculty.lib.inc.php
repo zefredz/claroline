@@ -90,9 +90,11 @@ function claro_disp_tree($elem,$father,$space)
                     //Display the picture to edit and delete a category
                     echo '</td>'
                     .    '<td  align="center">'
-                    .    get_node_descendance_count( $one_faculty['code'] ) 
-                    .    ' / ' 
-                    .    get_node_children_count( $one_faculty['code'] )
+                    .    '<a href="./admincourses.php?category=' . $one_faculty['code'] . '">'
+                    .    get_node_children_count_course( $one_faculty['code'] )
+                    .    '</a>'
+//                    .    ' / ' 
+//                    .    get_node_descendance_count_course( $one_faculty['code'] ) 
                     ;
                     ?>
                     </td>
@@ -454,6 +456,24 @@ function get_node_descendance_count($node)
 	return claro_sql_query_get_single_value($sql);
 }
 
+/**
+ *
+ * @param $node
+ * @return 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function get_node_children_count_course($node)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course      = $tbl_mdb_names['course'];
+
+    $sql = "SELECT COUNT( `courses`.`cours_id` ) `nbCourse`
+            FROM `" . $tbl_course . "` `courses`
+            WHERE `courses`.`faculte` = '". addslashes($node) ."'";
+    
+	return claro_sql_query_get_single_value($sql);
+}
 
 /**
  *

@@ -972,7 +972,7 @@ echo '<p>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">' . "\n"
 // Add titles for the table
 .    '<th>' . $lang_faculty_CodeCat . '</th>' . "\n"
-.    '<th></th>'."\n"
+.    '<th>' . $langCourses . '</th>'."\n"
 .    '<th>' . $langEdit . '</th>'."\n"
 .    '<th>' . $langMove . '</th>'."\n"
 .    '<th>' . $langDelete . '</th>'."\n"
