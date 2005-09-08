@@ -180,12 +180,18 @@
         }
          
         $fileUrl = $file;
-        
-        $img_url = $coursesRepositoryWeb
-			. $courseDir
-			. implode ("/", array_map("rawurlencode", explode("/", $fileUrl ) ) )
-        	;
-         
+
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+        {
+            // slash argument method - only compatible with Apache
+            $img_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($fileUrl));
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $img_url = 'goto/?url=' . rawurlencode($fileUrl);
+        }
+
         return "<img src=\"" . $img_url 
 			. "\" width=\"" . $thumbWidth 
 			. "\" height=\"" . $newHeight 

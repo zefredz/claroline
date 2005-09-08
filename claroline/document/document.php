@@ -1342,9 +1342,19 @@ echo claro_disp_tool_title($titleElement,
         $offset = "&amp;offset=" . $current;
         
         // compute absolute path to requested image
-        $doc_url = $coursesRepositoryWeb . $courseDir
-            .implode ("/", array_map("rawurlencode", explode("/",$file)));
-        
+
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+        {
+            // slash argument method - only compatible with Apache
+            $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file));
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $doc_url = 'goto/?url=' . rawurlencode($file);
+        }
+
+
         // Image description table
         echo "<table class=\"claroTable\" width=\"100%\">\n";
         
@@ -1802,8 +1812,6 @@ echo claro_disp_tool_title($titleElement,
                     
                 if (isset($fileList))
         {
-            
-            
             foreach($fileList['path'] as $fileKey => $fileName )
             {
                 // Note. We've switched from 'each' to 'foreach', as 'each' seems to 
