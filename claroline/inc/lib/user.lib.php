@@ -434,12 +434,6 @@ function user_add_to_course($user_id, $course_code, $force_it=false)
         }
         else
         {
-            if ( ! is_course_enrollment_allowed($course_code) )
-            {
-                return false; // subscribtion not allowed for this course
-            }
-            else
-            {
                 $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                         SET `code_cours` = '" . addslashes($course_code) . "',
                             `user_id`    = '" . (int) $user_id . "',
@@ -447,8 +441,7 @@ function user_add_to_course($user_id, $course_code, $force_it=false)
 
                 if ( claro_sql_query($sql) ) return true;
                 else                         return false;
-            }
-        } // end else user not subscribed in the course
+        }
     } // end else user register in the platform
 }
 
