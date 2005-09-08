@@ -48,32 +48,31 @@ include($includePath."/lib/learnPath.lib.inc.php");
 
 if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
 	$_SESSION['module_id'] = $_GET['viewModule_id'];
-// SET USER_MODULE_PROGRESS IF NOT SET
 
+// SET USER_MODULE_PROGRESS IF NOT SET
 if($_uid) // if not anonymous
 {
-	$sql = "SELECT *
+	// check if we have already a record for this user in this module
+	$sql = "SELECT COUNT(LPM.`learnPath_module_id`)
 	        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, `".$TABLELEARNPATHMODULE."` AS LPM
 	       WHERE UMP.`user_id` = '" . (int)$_uid . "'
 	         AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
 	         AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
 	         AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
-	$query1 = claro_sql_query($sql);
-	$num = mysql_num_rows($query1);
+	$num = claro_sql_query_get_single_value($sql);
 
-	$sql = "SELECT *
+	$sql = "SELECT `learnPath_module_id`
 	        FROM `".$TABLELEARNPATHMODULE."`
 	       WHERE `learnPath_id` = ". (int)$_SESSION['path_id']."
 	         AND `module_id` = ". (int)$_SESSION['module_id'];
-	$query = claro_sql_query($sql);
-	$LPM = mysql_fetch_array($query);
+	$learnPathModuleId = claro_sql_query_get_single_value($sql);
 
 	// if never intialised : create an empty user_module_progress line
-	if ($num == 0)
+	if( !$num || $num == 0 )
 	{
 	    $sql = "INSERT INTO `".$TABLEUSERMODULEPROGRESS."`
 	            ( `user_id` , `learnPath_id` , `learnPath_module_id` )
-	            VALUES ( '" . (int)$_uid . "' , ". (int)$_SESSION['path_id']." , ". (int)$LPM['learnPath_module_id'].")";
+	            VALUES ( '" . (int)$_uid . "' , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.")";
 	    claro_sql_query($sql);
 	}
 }  // else anonymous : record nothing !
@@ -81,21 +80,17 @@ if($_uid) // if not anonymous
 
 // Get info about launched module
 
-$query = "SELECT `contentType`,`startAsset_id`
+$sql = "SELECT `contentType`,`startAsset_id`
           FROM `".$TABLEMODULE."`
          WHERE `module_id` = ". (int)$_SESSION['module_id'];
 
-$result = claro_sql_query($query);
-$module = mysql_fetch_array($result);
+$module = claro_sql_query_get_single_row($sql);
 
-
-$assetQuery = "SELECT `path`
+$sql = "SELECT `path`
                FROM `".$TABLEASSET."`
               WHERE `asset_id` = ". (int)$module['startAsset_id'];
 
-$assetResult = claro_sql_query($assetQuery);
-$asset   = mysql_fetch_array($assetResult);
-
+$assetPath = claro_sql_query_get_single_value($sql);
 
 // Get path of file of the starting asset to launch
 
@@ -114,14 +109,14 @@ switch ($module['contentType'])
 		                   `scoreMin` = 0,
 		                   `scoreMax` = 100
 		             WHERE `user_id` = " . (int)$_uid . "
-		               AND `learnPath_module_id` = ". (int)$LPM['learnPath_module_id'];
+		               AND `learnPath_module_id` = ". (int)$learnPathModuleId;
 
 		    claro_sql_query($sql);
 		} // else anonymous : record nothing
 
-		$startAssetPage = $asset['path'];
+		$startAssetPage = $assetPath;
 
-		// str_replace("%2F","/",urlencode($startAssetPage)) is useed to avoid problems with accents in filename.
+		// str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.
 		$moduleStartAssetPage = $clarolineRepositoryWeb."/document/goto/index.php".str_replace("%2F","/",urlencode($startAssetPage));
 		$withFrames = true;
 		break;
@@ -143,12 +138,12 @@ switch ($module['contentType'])
 
 		$_SESSION['inPathMode'] = true;
 		$startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
-		$exerciseId     = $asset['path'];
+		$exerciseId     = $assetPath;
 		$moduleStartAssetPage = $startAssetpage."?exerciseId=".$exerciseId;
 		break;
 	case CTSCORM_ :
 		// real scorm content method
-		$startAssetPage = $asset['path'];
+		$startAssetPage = $assetPath;
 		$modulePath     = "path_".$_SESSION['path_id'];
 		$moduleStartAssetPage = $coursesRepositoryWeb.$_course['path']."/scormPackages/".$modulePath.$startAssetPage;
 		break;
@@ -158,7 +153,8 @@ switch ($module['contentType'])
 
 ?>
 
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+   "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 
   <head>
