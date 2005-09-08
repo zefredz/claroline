@@ -573,11 +573,11 @@ function create_link_file($filePath, $url)
     $fileContent = '<html>'
                   .'<head>'
                   .'<meta http-equiv="content-Type" content="text/html;charset=ISO-8859-5">'
-                  .'<meta http-equiv="refresh" content="0;url='.$url.'">'
+                  .'<meta http-equiv="refresh" content="0;url='.format_url($url).'">'
                   .'</head>'
                   .'<body>'
 		          .'<div align="center">'
-                  .'<a href="'.$url.'">'.$url.'</a>'
+                  .'<a href="'.format_url($url).'">'.$url.'</a>'
                   .'</div>'
                   .'</body>'
                   .'</html>';
