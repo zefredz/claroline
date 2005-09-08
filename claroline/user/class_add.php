@@ -77,7 +77,7 @@ switch ($cmd)
     {        
         $user_id = $user['user_id'];
 
-        if ( user_add_to_course($user['user_id'], $_cid,true) )
+        if ( user_add_to_course($user['user_id'], $_cid) )
     	{   
             // send mail to user
             user_send_enroll_to_course_mail ($user_id, $user);

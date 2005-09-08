@@ -222,15 +222,13 @@ if ( $cmd == 'exUnreg' )
 
 if ( $cmd == 'exReg' )
 {
-    // if user is platform admin, register to private course can be forced. Otherwise not
+    // if user is platform admin, register to private course can be forced. 
+    // Otherwise not
 
-    if ( $is_platformAdmin ) $forceReg = TRUE;
-    else                     $forceReg = FALSE;
-
-    // try to register user
     if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
     {
-        if ( user_add_to_course($userId, $course, $forceReg) )
+        // try to register user
+        if ( user_add_to_course($userId, $course) )
         {
             if ( $_uid != $uidToEdit )
             {

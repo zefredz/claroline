@@ -109,7 +109,7 @@ if ( $is_allowedToEdit )
     if ( $cmd == 'register')
     {
         $user_id   = $_REQUEST['user_id']; 
-        $done = user_add_to_course($user_id, $_cid,true);
+        $done = user_add_to_course($user_id, $_cid);
         if ($done)
         {
             $dialogBox = $langUserRegisteredToCourse;

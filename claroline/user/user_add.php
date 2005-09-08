@@ -99,7 +99,7 @@ switch ( $cmd )
                 $platformRegSucceed = true;
 
                 // add user to course
-                if ( user_add_to_course($user_id, $_cid, true) ) 
+                if ( user_add_to_course($user_id, $_cid) ) 
                 {
                     // update course manager and tutor status
                     user_update_course_manager_status($user_id, $_cid, $user_data['is_coursemanager']);
@@ -141,7 +141,7 @@ switch ( $cmd )
             $user_id = $_REQUEST['user_id'];
 
             // add user to course
-            user_add_to_course($user_id, $_cid, true);
+            user_add_to_course($user_id, $_cid);
 
             // get user info
             $user_data = user_get_data($user_id);

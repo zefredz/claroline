@@ -75,7 +75,7 @@ switch ( $cmd )
 {
     case 'sub' : //execute subscription command...
 
-        $done = user_add_to_course($user_id, $cidToEdit,true);
+        $done = user_add_to_course($user_id, $cidToEdit);
         
         // Set status requested
         if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher

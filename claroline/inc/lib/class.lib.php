@@ -36,7 +36,7 @@ function register_class_to_course($class_id, $course_code)
     
     foreach ($result as $user)
     {
-        $done = user_add_to_course($user['user_id'], $course_code,true); 
+        $done = user_add_to_course($user['user_id'], $course_code); 
         if ($done)
         {
             $resultLog['OK'][] = $user;

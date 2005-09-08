@@ -401,7 +401,7 @@ function user_delete_admin($user_id)
  *         boolean FALSE otherwise.
  */
 
-function user_add_to_course($user_id, $course_code, $force_it=false)
+function user_add_to_course($user_id, $course_code)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
