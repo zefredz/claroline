@@ -88,11 +88,15 @@ function claro_disp_tree($elem,$father,$space)
 
 
                     //Display the picture to edit and delete a category
-
+                    echo '</td>'
+                    .    '<td  align="center">'
+                    .    get_node_descendance_count( $one_faculty['code'] ) 
+                    .    ' / ' 
+                    .    get_node_children_count( $one_faculty['code'] )
+                    ;
                     ?>
                     </td>
                     <td  align="center">
-
                         <a href="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id']; ?>&amp;cmd=rqEdit" >
                         <img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
                     </td>
@@ -232,20 +236,19 @@ function delete_qty_child_father($node_code, $childQty)
 {
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
+    
     while(!is_null($node_code))
     {
         $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "`
                                         SET nb_childs=nb_childs-".(int) $childQty." 
-                                        WHERE code='" . $node_code . "'";
+                                        WHERE code='" . addslashes($node_code) . "'";
 
         claro_sql_query($sql_DeleteNbChildFather);
 
         $sql_SelectCodeP= " SELECT code_P
                                 FROM `" . $tbl_course_node . "` 
                                 WHERE code='" . $node_code . "'";
-        $array=claro_sql_query_fetch_all($sql_SelectCodeP);
-
-        $node_code=$array[0]['code_P'];
+        $node_code = claro_sql_query_get_single_value($sql_SelectCodeP);
     }
 }
 
@@ -267,7 +270,7 @@ function addNbChildFather($fatherChangeChild, $newNbChild)
     while(!is_null($fatherChangeChild))
     {
         $sql_DeleteNbChildFather= " UPDATE `" . $tbl_course_node . "`
-                                        SET nb_childs=nb_childs+" . (int) $newNbChild . " 
+                                        SET nb_childs = nb_childs+" . (int) $newNbChild . " 
                                         WHERE code='" . $fatherChangeChild . "'";
         claro_sql_query($sql_DeleteNbChildFather);
 
@@ -351,21 +354,22 @@ function get_cat_id_from_code($cat_code)
 }
 
 /**
-     *
-     * @param $node_code
-     * @return 
-     * @author Christophe Gesché <moosh@claroline.net>
-     * @since 1.7
-     *
-     */
-function cat_count_children($node_code)
+ * THEORIC FUNCTION TO COMPUTE  NB_CHILDS
+ * @param $node_code
+ * @return 
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ *
+ 
+function cat_count_descendance($node_code)
 {
     global $nodeList;
     foreach ($nodeList as $node)
-    $child_qty = $node['code_P'] == $node_code ? cat_count_children($node['code']) : 0;
+    $child_count = $node['code_P'] == $node_code ? cat_count_descendance($node['code']) : 0;
 
-    return $child_qty +1;
+    return $child_count +1;
 }
+*/
 
 /**
  * Return  minimum and the maximum value for treePos
@@ -397,4 +401,87 @@ function search_max_tree_pos()
     return $extremeTreePos['maximum'];
 }
 
+/**
+ *
+ * @param $node
+ * @return 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function get_node_children_count($node)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+
+    $sql="SELECT count(id) 
+          FROM `" . $tbl_course_node. "` ";
+    
+    if (is_null($node))
+    {
+        $sql .= "WHERE code_P IS NULL ";
+    }
+    else 
+    {
+        $sql .= "WHERE code_P = '" . $node . "'";
+    }
+    
+	return claro_sql_query_get_single_value($sql);
+}
+
+/**
+ *
+ * @param $node
+ * @return 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function get_node_descendance_count($node)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+    
+    if (is_null($node))
+    {
+        $sql="SELECT count(id) nb_childs FROM `" . $tbl_course_node. "` ";
+    }
+    else 
+    {
+        $sql="SELECT nb_childs
+          FROM `" . $tbl_course_node. "` 
+        WHERE code = '" . $node . "'";
+    }
+    
+	return claro_sql_query_get_single_value($sql);
+}
+
+
+/**
+ *
+ * @param $id_node
+ * @return 
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
+function delete_node($id_node)
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_course_node = $tbl_mdb_names['category'];
+    
+    $cat_data = get_cat_data($id_node);
+	if (!$cat_data) return false;
+	
+    $sql_Delete= " DELETE FROM `" . $tbl_course_node . "`
+                   WHERE id= ". (int) $cat_data['id']; 
+    if (!claro_sql_query($sql_Delete)) return false;
+
+    // Update nb_child of the parent
+
+    delete_qty_child_father($cat_data['code_P'], 1);
+    // Update treePos of next categories
+    $sql_update = " UPDATE `" . $tbl_course_node . "`
+                    SET treePos = treePos - 1
+                    WHERE treePos > " . (int) $cat_data['treePos'] ;
+    claro_sql_query($sql_update);
+	return true;
+}
 ?>

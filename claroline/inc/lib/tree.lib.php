@@ -362,4 +362,159 @@ function claro_recount_NbChild_for_all_nodes()
 
 
 
+
+
+class node
+{
+
+    var  $id_node;
+    var  $id_parent;
+    var  $id_low;
+    var  $id_hi;
+    
+    function node($id_node)
+    {
+        $sql = "select id_node, id_parent, id_low, id_hi 
+                FROM `".$tbl_cat."` 
+                WHERE id_node = '" . $node['id_node'] . "'";
+        $res = claro_sql_query_fetch_all($sql);
+        $this->id_node = $res[0]['id_node'];
+        $this->id_parent = $res[0]['id_parent'];
+        $this->id_low = $res[0]['id_low'];
+        $this->id_hi = $res[0]['id_hi'];
+    }
+
+    function get_node_indexes($id_node)
+    {
+        $sql = "select id_node, id_parent, id_low, id_hi 
+                FROM `".$tbl_cat."` 
+                WHERE id_node = '" . $node['id_node'] . "'";
+        $res = claro_sql_query_fetch_all($sql);
+        return $res[0];
+    }
+    
+    function count_childs_node($id_node=null)
+    {
+        if (is_null($id_node))
+        {
+            $id_low = $this->$id_low;
+            $id_hi = $this->$id_hi;
+        }
+        else 
+        {
+            $idx = get_node_indexes($id_node);
+            $id_hi = $idx['id_hi'];
+            $id_low = $idx['id_low'];
+        }
+        return ($id_hi - $id_low -1 ) / 2;
+    }
+
+    function get_childs_node($id_node=null)
+    {
+        if (is_null($id_node))
+        {
+            $id_low = $this->$id_low;
+            $id_hi = $this->$id_hi;
+        }
+        else 
+        {
+            $idx = get_node_indexes($id_node);
+            $id_hi = $idx['id_hi'];
+            $id_low = $idx['id_low'];
+        }
+        return range($id_node+1, $id_node + ($id_hi - $id_low -1 ) / 2);
+    }
+
+    
+    
+     /**
+      *
+      * @param integer $node_a
+      * @param integer $node_b
+      * @return 
+      * @author Christophe Gesché <moosh@claroline.net>
+      *
+      */
+     function swap( $id_node_a, $id_node_b=null)
+     {
+     	$node_a = new node($id_node_a);
+     	if (is_null($id_node_b))
+     	{
+     	    $node_b = $this;
+     	}
+     	else
+     	{
+     	    $node_b = new node($id_node_b);
+     	}
+     	
+     	if ($node_a->id_low < $node_b->id_low)
+     	{
+     	     $node_Up_idParent  = $node_b->id_parent;
+     	     $node_Down_idParent  = $node_a->id_parent;
+     	}
+        else
+     	{
+     	     $node_toUp  = $node_b;
+     	     $node_toDown  = $node_a;
+     	}
+        
+     	
+         
+     	return $success;
+     }
+    
+    
+    function get_childs_element($id_node)
+    {
+        if (is_null($id_node))
+        {
+            $id_low = $this->$id_low;
+            $id_hi = $this->$id_hi;
+        }
+        else 
+        {
+            $idx = get_node_indexes($id_node);
+            $id_hi = $idx['id_hi'];
+            $id_low = $idx['id_low'];
+        }
+
+        $sql = "select node." . $field_id_node  . " id_node, element.*
+                FROM `" . $tbl_element . "` element
+                JOIN `" . $tbl_cat . "` node
+                ON element." . $field_element_fk_node . " = node." . $field_id_node  . "
+                WHERE 
+                 node." . $field_id_low  . "  > '" . $id_low . "'
+                AND
+                 node." . $field_id_hi  . "  < '" . $id_hi . "'";
+        
+        return claro_sql_query($sql);
+    }
+
+    function count_childs_element($id_node)
+    {
+        if (is_null($id_node))
+        {
+            $id_low = $this->$id_low;
+            $id_hi = $this->$id_hi;
+        }
+        else 
+        {
+            $idx = get_node_indexes($id_node);
+            $id_hi = $idx['id_hi'];
+            $id_low = $idx['id_low'];
+        }
+
+        $sql = "select count(element.*) qty
+                FROM `" . $tbl_element . "` element
+                JOIN `" . $tbl_cat . "` node
+                ON element." . $field_element_fk_node . " = node." . $field_id_node  . "
+                WHERE 
+                 node." . $field_id_low  . "  > '" . $id_low . "'
+                AND
+                 node." . $field_id_hi  . "  < '" . $id_hi . "'";
+        
+        return claro_sql_query_get_single_value($sql);
+    }
+
+}
 ?>
