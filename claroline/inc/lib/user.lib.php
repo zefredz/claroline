@@ -426,11 +426,11 @@ function user_add_to_course($user_id, $course_code, $force_it=false)
                 WHERE `user_id` = '" . (int) $user_id . "'
                 AND `code_cours` ='" . addslashes($course_code) . "'";
 
-        $handle = claro_sql_query($sql);
+        $userResultList = claro_sql_query_fetch_all($sql);
 
-        if ( mysql_num_rows($handle) > 0 )
+        if ( count($userResultList) > 0 )
         {
-            return claro_failure::set_failure('already_enrolled_in_course'); // the user is already enrolled in the course
+            return claro_failure::set_failure('already_enrolled_in_course'); 
         }
         else
         {
@@ -440,9 +440,9 @@ function user_add_to_course($user_id, $course_code, $force_it=false)
                      WHERE  `code` = '" . addslashes($course_code) . "'
                      AND    (`visible` = 0 OR `visible` = 3)" ;
 
-            $handle = claro_sql_query($sql);
+            $resultCourseEnrollmentList = claro_sql_query_fetch_all($sql);
 
-            if ( ( mysql_num_rows($handle) > 0 ) && !$force_it )
+            if ( ( count ($resultCourseEnrollmentList) > 0 ) && !$force_it )
             {
                 return false; // subscribtion not allowed for this course
             }
