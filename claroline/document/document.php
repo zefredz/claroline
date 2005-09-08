@@ -85,7 +85,7 @@ if ($_gid && $is_groupAllowed)
 
     $maxFilledSpace    = isset($maxFilledSpace_for_groups)  ? $maxFilledSpace_for_groups : 2*1024*1024;
     $courseDir         = $_course['path'].'/group/'.$_group['directory'];
-    $groupDir          = 'group/'.$_group['directory']; 
+    $groupDir          = rawurlencode('group/'.$_group['directory']);
 
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
     $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
