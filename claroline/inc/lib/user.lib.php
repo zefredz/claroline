@@ -434,15 +434,7 @@ function user_add_to_course($user_id, $course_code, $force_it=false)
         }
         else
         {
-            // previously check if subscribtion is allowed for this course
-            $sql = " SELECT `code`, `visible` 
-                     FROM `" . $tbl_course . "`
-                     WHERE  `code` = '" . addslashes($course_code) . "'
-                     AND    (`visible` = 0 OR `visible` = 3)" ;
-
-            $resultCourseEnrollmentList = claro_sql_query_fetch_all($sql);
-
-            if ( ( count ($resultCourseEnrollmentList) > 0 ) && !$force_it )
+            if ( ! is_course_enrollment_allowed($course_code) )
             {
                 return false; // subscribtion not allowed for this course
             }
@@ -453,18 +445,35 @@ function user_add_to_course($user_id, $course_code, $force_it=false)
                             `user_id`    = '" . (int) $user_id . "',
                             `statut`     = '5' ";
 
-                if ( claro_sql_query($sql) )
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if ( claro_sql_query($sql) ) return true;
+                else                         return false;
             }
         } // end else user not subscribed in the course
     } // end else user register in the platform
 }
+
+/**
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $courseId - sys code of the course
+ * @return boolean
+ */
+
+function is_course_enrollment_allowed($courseId)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course = $tbl_mdb_names['course'];
+
+    $sql = " SELECT `code`, `visible` 
+             FROM `" . $tbl_course . "`
+             WHERE  `code` = '" . addslashes($courseId) . "'
+             AND    (`visible` = 0 OR `visible` = 3)" ;
+
+    $resultCourseEnrollmentList = claro_sql_query_fetch_all($sql);
+
+    if (count ($resultCourseEnrollmentList) > 0 ) return false;
+    else                                          return true;
+}
+
 
 /**
  * update course manager status of the user in a course
