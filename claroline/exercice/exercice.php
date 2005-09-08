@@ -400,7 +400,7 @@ foreach( $exercisesList as $exercise )
 ?>
 	  <td>
 	  	<?php echo ( $i + $offset ).'.'; ?>&nbsp;
-	  	<a href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>"><?php echo $exercise['titre']; ?></a>
+	  	<a href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>" class="item<?php echo $classItem;?>"><?php echo $exercise['titre']; ?></a>
 	  </td>
 
 <?php
