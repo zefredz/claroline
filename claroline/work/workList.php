@@ -109,7 +109,7 @@ if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWork
           . $_gid 
           . '&cmd=rqSubWrk'
           . '&assigId=' . $_REQUEST['assigId']
-          . '&submitGroupWorkUrl=' . $_REQUEST['submitGroupWorkUrl']
+          . '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
           );
 }
 /*--------------------------------------------------------------------
