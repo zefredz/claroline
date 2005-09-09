@@ -166,7 +166,7 @@ switch ( $cmd )
 if ( $platformRegSucceed || $courseRegSucceed )
 {
 
-    if ( $platfromRegSucceed )
+    if ( $platformRegSucceed )
    	{
         // Send message and login and password
         user_send_registration_mail($user_id, $user_data);
