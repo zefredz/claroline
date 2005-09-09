@@ -1297,14 +1297,12 @@ elseif($display==DISP_PLATFORM_SETTING)
                         <td>
                             <label for="languageForm">Main language</label>
                         </td>
-                        <td colspan="2">
-                            <select id="languageForm" name="languageForm">'.
+                        <td colspan="2">'.
                             claro_html_form_select( 'languageForm'
                                  , $language_list
                                  , $languageForm
                                  , array('id'=>'languageForm'))
                                 . '
-                                </select>
                             </font>
                         </td>
                     </tr>
