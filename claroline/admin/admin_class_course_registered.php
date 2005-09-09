@@ -14,9 +14,8 @@
 require '../inc/claro_init_global.inc.php';
 include $includePath."/lib/admin.lib.inc.php";
 include $includePath."/lib/class.lib.php";
+include $includePath."/lib/user.lib.php";
 include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
-
-define('DISP_RESULT',__LINE__);
 
 //SECURITY CHECK
 
@@ -51,13 +50,17 @@ list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 // Execute COMMAND section
 //------------------------------------
 
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
+
 if (isset($cmd) && $is_platformAdmin)
 {
     if ($cmd=="exReg")
     {
         $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
-        $display=DISP_RESULT;
-        if (is_array($resultLog['OK']))
+        $outputResultLog = '';    
+
+        if ( isset($resultLog['OK']) && is_array($resultLog['OK']) )
         {
             foreach($resultLog['OK'] as $userSubscribed)
             {
@@ -65,14 +68,15 @@ if (isset($cmd) && $is_platformAdmin)
             }
         }
 
-        if (is_array($resultLog['KO']))
+        if ( isset($resultLog['KO']) && is_array($resultLog['KO']) )
         {
             foreach($resultLog['KO'] as $userSubscribedKo)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] '.sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribedKo['prenom'],$userSubscribedKo['nom']).'<br>';
+                $outputResultLog .= '[<font color="red">KO</font>] '.sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribedKo['prenom'],$userSubscribedKo['nom']).'<br>';
             }
         }
     }
+
 }
 
 //------------------------------------
@@ -85,23 +89,23 @@ if (isset($cmd) && $is_platformAdmin)
 echo claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
 
 //Display Forms or dialog box(if needed)
+    
+// display log
+if ( !empty($outputResultLog) )
+{
+    $dialogBox = $outputResultLog;
+}
 
-if($dialogBox)
+if ( !empty($dialogBox) )
 {
     echo claro_disp_message_box($dialogBox);
 }
 
-if($display==DISP_RESULT)
-{
-    // display log
-    echo $outputResultLog."<br>";
-}
-
 // display TOOL links :
 
-echo claro_disp_button("index.php",$langBackToAdmin);
-echo claro_disp_button($clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id'], $langBackToClassMembers);
-echo claro_disp_button($clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&fromAdmin=class&uidToEdit=-1&category=", $langClassRegisterWholeClassAgain);
+echo '<p><a class="claroCmd" href="index.php">' . $langBackToAdmin . '</a> | ';
+echo '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . $langBackToClassMembers . '</a> | ';
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&fromAdmin=class' . '">' . $langClassRegisterWholeClassAgain . '</a></p>';
 
 // display footer
 
