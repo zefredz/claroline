@@ -39,9 +39,9 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
 
     // day field
     for ($dayCounter=1;$dayCounter <=31; $dayCounter++)
-      $available_months[$dayCounter] = $dayCounter;
+      $available_days[$dayCounter] = $dayCounter;
     $dayField = claro_html_form_select( $dayFieldName
-                                   , $available_months
+                                   , $available_days
                                    , $selDay
                                    , array('id'=> $dayFieldName)
                                    );
