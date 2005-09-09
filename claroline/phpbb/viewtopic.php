@@ -1,4 +1,4 @@
-no<?php // $Id$
+<?php // $Id$
 /**
  * CLAROLINE
  *
