@@ -1,4 +1,4 @@
-<?php // $Id$
+no<?php // $Id$
 /**
  * CLAROLINE
  *
@@ -224,9 +224,9 @@ else
 	    $post_time = datetime_to_timestamp($thisPost['post_time']);
 	
 	    if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))    
-	    $postImg = 'post.gif';
-	    else                         
 	    $postImg = 'post_hot.gif';
+	    else                         
+	    $postImg = 'post.gif';
 	
 	    echo ' <tr>' . "\n"
 	
