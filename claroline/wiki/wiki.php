@@ -29,14 +29,7 @@
     {
         if ( is_null( $_cid ) )
         {
-            if ( is_null( $_uid ) )
-            {
-                claro_disp_auth_form();
-            }
-            else
-            {
-                claro_disp_select_course();
-            }
+            claro_disp_auth_form( true );
         }
         else
         {
@@ -225,7 +218,7 @@
                 $action = "error";
             }
 
-            if ( $groupId == 0 )
+            if ( $groupId === 0 )
             {
                 $wikiList = $wikiStore->getCourseWikiList();
             }

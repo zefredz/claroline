@@ -27,14 +27,7 @@
     {
         if ( is_null( $_cid ) )
         {
-            if ( is_null( $_uid ) )
-            {
-                claro_disp_auth_form();
-            }
-            else
-            {
-                claro_disp_select_course();
-            }
+            claro_disp_auth_form( true );
         }
         else
         {
