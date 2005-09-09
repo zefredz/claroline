@@ -68,7 +68,7 @@
             `last_version` int(11) unsigned NOT NULL default '0',
             `last_mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
             PRIMARY KEY  (`id`)
-            ) ENGINE=MyISAM AUTO_INCREMENT=1"
+            )"
             ;
 
         $con->executeQuery( $sql );
@@ -82,7 +82,7 @@
             `mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
             `content` text NOT NULL,
             PRIMARY KEY  (`id`)
-            ) ENGINE=MyISAM AUTO_INCREMENT=1"
+            )"
             ;
 
         $con->executeQuery( $sql );
@@ -93,7 +93,7 @@
             `description` TEXT NULL,
             `group_id` INT(11) NOT NULL DEFAULT 0,
             PRIMARY KEY(`id`)
-            ) ENGINE=MyISAM AUTO_INCREMENT=1"
+            )"
             ;
 
         $con->executeQuery( $sql );
@@ -102,7 +102,7 @@
                     `wiki_id` INT(11) UNSIGNED NOT NULL,
                     `flag` VARCHAR(255) NOT NULL,
                     `value` ENUM('false','true') NOT NULL DEFAULT 'false'
-                ) ENGINE=MyISAM"
+                )"
                 ;
         $con->executeQuery( $sql );
     }
