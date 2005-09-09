@@ -570,9 +570,11 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 
 function create_link_file($filePath, $url)
 {
+	global $charset;
+	
     $fileContent = '<html>'
                   .'<head>'
-                  .'<meta http-equiv="content-Type" content="text/html;charset=ISO-8859-5">'
+                  .'<meta http-equiv="content-Type" content="text/html;charset='.$charset.'">'
                   .'<meta http-equiv="refresh" content="0;url='.format_url($url).'">'
                   .'</head>'
                   .'<body>'
