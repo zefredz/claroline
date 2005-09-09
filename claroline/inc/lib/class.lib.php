@@ -32,7 +32,7 @@ function register_class_to_course($class_id, $course_code)
     
     //subscribe the users each by each
     
-    $resultLog .= "";
+    $resultLog = array();
     
     foreach ($result as $user)
     {
