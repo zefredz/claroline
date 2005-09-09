@@ -408,6 +408,14 @@ class Notifier extends EventDriven
                 if (!isset($_SESSION['ConsultedRessourceList'][$ressource_identification])
                 && preg_match($pattern,$ressource_identification))
                 {
+                    if ($ressource_identification==$_cid.":".$_tid.":".$_gid.":".$ressourceId.":".$ressource['date'])
+                    
+                    //in case the new item is the folder itself only
+                    
+                    {
+                        $_SESSION['ConsultedRessourceList'][$ressource_identification] = TRUE;
+                        
+                    }
                     return true;
                 }
             }
