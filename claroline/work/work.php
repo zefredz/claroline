@@ -395,7 +395,7 @@ if ($is_allowedToEdit)
         <td valign="top"><?php echo $langStartDate; ?>&nbsp;:</td>
         <td>
 <?php
-    echo claro_disp_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date_date']) . ' ' . claro_disp_time_form('startHour', 'startMinute', $assignment_data['start_date_time']);
+    echo claro_disp_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date_date'], 'long') . ' ' . claro_disp_time_form('startHour', 'startMinute', $assignment_data['start_date_time']);
     echo '&nbsp;<small>' . $langChooseDateHelper . '</small>';
 ?>      
         </td>
@@ -405,7 +405,7 @@ if ($is_allowedToEdit)
         <td valign="top"><?php echo $langEndDate; ?>&nbsp;:</td>
         <td>
 <?php
-    echo claro_disp_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date_date']) . ' ' . claro_disp_time_form('endHour', 'endMinute', $assignment_data['end_date_time']);
+    echo claro_disp_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date_date'], 'long') . ' ' . claro_disp_time_form('endHour', 'endMinute', $assignment_data['end_date_time']);
     echo '&nbsp;<small>' . $langChooseDateHelper . '</small>';
 ?>      
         </td>

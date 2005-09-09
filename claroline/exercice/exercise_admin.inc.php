@@ -247,7 +247,7 @@ if( isset($modifyExercise) )
 <td>
 <?php
 
-   echo claro_disp_date_form("startDay", "startMonth", "startYear", $startDate)." ".claro_disp_time_form("startHour", "startMinute", $startTime);
+   echo claro_disp_date_form("startDay", "startMonth", "startYear", $startDate, 'long')." ".claro_disp_time_form("startHour", "startMinute", $startTime);
 ?>
   </td>
 </tr>
@@ -261,7 +261,7 @@ if( isset($modifyExercise) )
 <input type="checkbox" name="useEndDate" id="useEndDate" value="1" <?php if( $useEndDate ) echo 'checked="checked"';?>>
 <label for="useEndDate"><?php echo $langYes; ?>, </label>
 <?php
-   echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate)." ".claro_disp_time_form("endHour", "endMinute", $endTime);
+   echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate, 'long')." ".claro_disp_time_form("endHour", "endMinute", $endTime);
 ?>  
   </td>
 </tr>

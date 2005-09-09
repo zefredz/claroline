@@ -327,7 +327,7 @@ $content = $editedEvent['content'];
 
 echo '<tr valign="top">' . "\n"
     . '<td align="right">' . $langDate . ' : </td>' . "\n"
-    . '<td>' . claro_disp_date_form('fday', 'fmonth', 'fyear', $date ) . ' ' 
+    . '<td>' . claro_disp_date_form('fday', 'fmonth', 'fyear', $date, 'long' ) . ' '
     . claro_disp_time_form('fhour','fminute', $time) 
     . '&nbsp;<small>' . $langChooseDateHelper . '</small>'
     . '</td>' . "\n"
