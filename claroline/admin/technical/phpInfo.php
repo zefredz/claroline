@@ -1,17 +1,17 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * This script present state of 
+ * This script present state of
  * - configuration of Claroline, PHP, Mysql, Webserver
- * - credits 
+ * - credits
  *
  * @version 1.7
- * 
+ *
  * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
- * 
+ *
  * @license http://www.gnu.org/copyleft/gpl.html GENERAL PUBLIC LICENSE (GPL)
- *  
+ *
  * @author : Christophe Gesché <moosh@claroline.net>
  *
  * @package MAINTENANCE
@@ -24,11 +24,10 @@ $claroCreditFilePath = $rootSys.'CREDITS.txt';
 if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
 if ( ! $is_platformAdmin ) claro_disp_auth_form();
 
-$langNoFunctionInThisSection = 'No functions in this extention';
-$langFunctions = 'Functions list';
+
 
 if (! isset($clarolineVersion) )  $clarolineVersion= "X";
- 
+
 
 $nameTools = $lang_php_info;
 $interbredcrump[]= array ('url'=>'..', 'name'=> $langAdmin);
@@ -38,13 +37,13 @@ if (isset($_REQUEST['to']))
     $interbredcrump[]= array ('url'=>basename($_SERVER['PHP_SELF']), 'name'=> $lang_php_info);
     $nameTools = $_REQUEST['to'];
 }
-include($rootAdminSys . '/checkIfHtAccessIsPresent.php');
+
 $is_allowedToAdmin = $is_platformAdmin;
 if ($is_allowedToAdmin)
 {
     include($includePath . '/claro_init_header.inc.php');
     echo claro_disp_tool_title( array( 'mainTitle'=>$nameTools
-                                , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '    
+                                , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '
                                 )
                          );
 
@@ -121,7 +120,7 @@ if ($is_allowedToAdmin)
                     }
                     echo '</OL>';
                 }
-                else 
+                else
                 {
                     echo '!! ' . $langNoFunctionInThisSection . '!!<BR>';
                 }

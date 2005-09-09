@@ -10,11 +10,11 @@
  *  default display
  * $DIPLAY_STATUS_OF_PROTECTION
  *
- * @version 1.6
+ * @version 1.7
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package SDK
  *
@@ -28,26 +28,26 @@ require '../../inc/claro_init_global.inc.php';
 $is_allowedToAdmin = $is_platformAdmin;
 if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
 
-$nameTools = "Security";
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langTechAdmin);
+$nameTools = $langSecurity;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[]= array ('url' => 'index.php', 'name'=> $langTechAdmin);
 
-@include($includePath."/lib/debug.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
-include ($includePath."/lib/auth.lib.inc.php");
+include_once $includePath . '/lib/debug.lib.inc.php';
+include_once $includePath . '/lib/fileManage.lib.php';
+include_once $includePath . '/lib/auth.lib.inc.php';
 
 $dateNow             = claro_disp_localised_date($dateTimeFormatLong);
-$is_allowedToAdmin     = $is_platformAdmin || $PHP_AUTH_USER;
+$is_allowedToAdmin     = $is_platformAdmin;
 
-$htAccessName = ".htaccess";
+$htAccessName = '.htaccess';
 $htPasswordPath = $clarolineAdminRepository;
-$htPasswordName = ".htpasswd4admin";
+$htPasswordName = '.htpasswd4admin';
 
 $DIPLAY_STATUS_OF_PROTECTION = true;
 
 $cmd = $_REQUEST['cmd'];
 
-if ($cmd=="protectInc")
+if ( $cmd == 'protectInc' )
 {
 
     $doProtectInc = true;
@@ -56,8 +56,8 @@ if ($cmd=="protectInc")
 
 if ($doProtectInc)
 {
-    $htAccessIncPath = $clarolineRepository."inc/";
-    if (placeHtAccessFile($htAccessIncPath, $htAccessName,$welcomeString="Restricted Area"))
+    $htAccessIncPath = $clarolineRepository . 'inc/';
+    if (placeHtAccessFile($htAccessIncPath, $htAccessName, $welcomeString = 'Restricted Area'))
     {
         $controlMsg['success'][]=$lang_htAccessIncPath_added;
     }
@@ -65,20 +65,20 @@ if ($doProtectInc)
 
 if ($doProtectAdmin)
 {
-    $htAccessAdminPath = $clarolineRepository."admin/";
-    placeHtAccessFile($htAccessIncPath, $htAccessName,$welcomeString="Administration Claroline");
+    $htAccessAdminPath = $clarolineRepository . 'admin/';
+    placeHtAccessFile($htAccessIncPath, $htAccessName , $welcomeString = $langAdministration . ' Claroline');
 }
 
 if ($doProtectCourse_home)
 {
-    $htAccessCourse_homePath = $clarolineRepository."course_home/";
-    placeHtAccessFile($htAccessIncPath, $htAccessName,$welcomeString="Restricted Area");
+    $htAccessCourse_homePath = $clarolineRepository . 'course_home/';
+    placeHtAccessFile($htAccessIncPath, $htAccessName,$welcomeString = 'Restricted Area');
 }
 
 if ($doProtectLang)
 {
-    $htAccessLangPath = $clarolineRepository."lang/";
-    placeHtAccessFile($htAccessIncPath, $htAccessName,$welcomeString="Restricted Area");
+    $htAccessLangPath = $clarolineRepository . 'lang/';
+    placeHtAccessFile($htAccessIncPath, $htAccessName , $welcomeString = 'Restricted Area');
 }
 
 if ($doProtectInstall)

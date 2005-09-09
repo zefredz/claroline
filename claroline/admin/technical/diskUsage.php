@@ -1,10 +1,12 @@
 <?php // $Id$
-/** 
- * Claroline 
+/**
+ * Claroline
  *
  * This  tool comput the disk Usage of each course.
  * @version 1.7 $Revision$
- * @license GLP
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author  Christophe Gesché <moosh@claroline.net>
  * @package maintenance
  *
@@ -45,7 +47,7 @@ if (isset( $_REQUEST['disp_garbage']))
     $disp_garbage =  $_REQUEST['disp_garbage'];
     $garbagedisk_usage = disk_usage($garbageRepositorySys,'','m');
 }
-else 
+else
 {
     $disp_garbage =  false;
 }
@@ -55,10 +57,10 @@ else                                     $coursesToCheck =  false;
 
 if ($disp_form)
 {
-    
+
     $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
     $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
-    
+
     if (is_array($course_list))
     {
         $coursesToCheck_list[' all ']= '** ' . $langAll . ' ** !!! ' . $langHigh_resources ;
@@ -94,7 +96,7 @@ if ($disp_form)
 <?php
 if ($disp_claro )
     echo '<li>'
-    .    'Claroline : ' 
+    .    'Claroline : '
     .    sprintf('%01.2f', disk_usage($clarolineRepositorySys,'','m')) . ' ' . $byteUnits[2]
     .    '</li>'
     ;
@@ -117,7 +119,7 @@ if ($disp_garbage )
 <li>
 <hr>
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_claro" name="disp_claro" value="true" > 
+<input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
 <label for="disp_claro"><?php echo $langSize_of_claroline_scripts ?></label>
 <br>
 <input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
@@ -149,7 +151,7 @@ echo claro_html_form_select( 'coursesToCheck[]'
 if ($disp_selCrs && $coursesToCheck)
 {
     echo '<li><ol>';
-    $sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `".$tbl_course."` ";
+    $sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `" . $tbl_course . "` ";
     if($coursesToCheck[0]==" all ")
     {
         $sqlListCourses .= " order by dbName";
@@ -170,31 +172,31 @@ if ($disp_selCrs && $coursesToCheck)
         {
             $duFiles = disk_usage($coursesRepositorySys . $course['dir'] . '/','','k');
             $duBase  = disk_usage($mysqlRepositorySys . $course['db'] . '/','','k');
-            
-            
+
+
 //            $duBase  = get_db_size($course["db"],k);
-            
+
             $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
-            echo '<p>' . $coursesRepositorySys . $course["dir"] . '/' 
+            echo '<p>' . $coursesRepositorySys . $course["dir"] . '/'
             .    ' = '
-            .    '<pre>' 
+            .    '<pre>'
             .    var_export( $coursesRepositorySys . $course["dir"] . '/',1)
             .    '</pre>'
             ;
-           
-            $quota   = $course['diskQuota'] * 1; 
+
+            $quota   = $course['diskQuota'] * 1;
             echo '<li>'
-            .    $course['code'] . ' : ' 
-            .    (is_null($course['diskQuota']) ? ' ' . $langNoQuota . ' ' 
+            .    $course['code'] . ' : '
+            .    (is_null($course['diskQuota']) ? ' ' . $langNoQuota . ' '
                                                 : 'Quota : ' . $course["diskQuota"]
                  )
             .    ' ' . $byteUnits[2] . ' | '
             .    sprintf("%01.2f", $duFiles ) . ' ' . $byteUnits[1]
             .    ' + '
-            .    sprintf('%01.2f', $duBase  ) . ' ' . $byteUnits[1] . ' = <strong>' 
+            .    sprintf('%01.2f', $duBase  ) . ' ' . $byteUnits[1] . ' = <strong>'
             .    sprintf('%01.2f', $duTotal ) . ' ' . $byteUnits[2] . '</strong>'
-            .    (is_null($course['diskQuota']) || ($quota > (int) $duTotal) 
-                 ? ' ok ' 
+            .    (is_null($course['diskQuota']) || ($quota > (int) $duTotal)
+                 ? ' ok '
                  : ' <font color="#FF0000">!!!!!!!! OVER QUOTA !!!!!!</font>'
                  )
             .   '</li>'
@@ -234,13 +236,13 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
             $usedspace += claro_get_file_size($dirBase);
             switch ($precision)
             {
-                case 'm' : $usedspace /= 1024; 
-                case 'k' : $usedspace /= 1024; 
+                case 'm' : $usedspace /= 1024;
+                case 'k' : $usedspace /= 1024;
             }
-            
+
             break;
     }
-    
+
     return $usedspace;
 }
 
