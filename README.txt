@@ -1,5 +1,5 @@
 ******************************************
-CLAROLINE 1.7 RELEASE CANDIDATE - README
+CLAROLINE 1.7 RELEASE CANDIDATE 2 - README
 ******************************************
 
 TABLE OF CONTENT :
