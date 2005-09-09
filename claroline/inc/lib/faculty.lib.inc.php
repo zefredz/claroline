@@ -34,7 +34,7 @@
 function claro_disp_tree($elem,$father,$space)
 {
     GLOBAL $imgRepositoryWeb;
-    GLOBAL $lang_faculty_ConfirmDelete, $langEdit, $langMove, $langDelete, $langUp, $lang_faculty_imgDown, $langExpand, $langCollapse;
+    GLOBAL $lang_faculty_ConfirmDelete, $langEdit, $langMove, $langDelete, $langUp, $lang_faculty_imgDown;
 
 
     if($elem)
