@@ -82,6 +82,7 @@ $langNo = "N&atilde;o";
 $langNoResult = "N&atilde;o h&aacute; resultados";
 $langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
+$langOneResp = "Um dos administradores do curso";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "esta senha &eacute; demasiado simples. Utiliza uma semelhante a esta";
 $langPassTwice = "N&atilde;o escreveu a mesma senha as duas vezes.
@@ -105,6 +106,7 @@ $langProblem = "Caso tenha algum problema, n&atilde;o hesite em nos contactar.";
 $langPublic = "p&uacute;blico";
 $langRegAdmin = "Criar cursos (professor)";
 $langRegStudent = "Inscrever-se em cursos (estudante)";
+$langRegYou = "inscreveu-o neste curso";
 $langRole = "Estatuto";
 $langSettings = "com os seguintes par&aacute;metros:
 

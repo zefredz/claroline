@@ -19,7 +19,6 @@ $langElRen = "Dosya yeniden adlandýrýldý";
 $langExercises = "Alýþtýrmalar";
 $langFileExists = "Ýþlem yapýlamýyor.<br>Ayný isimde bir dosya var.";
 $langForums = "Forumlar";
-$langGroupSpace = "Grup alaný";
 $langGroups = "Gruplar";
 $langHelp = "Yardým";
 $langImpossible = "Ýþlem yapýlamýyor";

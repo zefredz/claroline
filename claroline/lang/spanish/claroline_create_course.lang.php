@@ -20,6 +20,7 @@ $langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer
 $langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCourseTitle = "T&iacute;tulo del curso";
+$langCourseWouldBeCreated = "Su curso ser&aacute; creado";
 $langCreate = "crear";
 $langCreateSite = "Crear una web de curso";
 $langCreationMailNotificationBody = "Creaci&oacute;n de curso en";
@@ -42,7 +43,7 @@ $langFieldsRequ = "Todos los campos son obligatorios";
 $langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, a que reconozca que 
 			no sabe lo que pretende saber.";
 $langForums = "Foros";
-$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langGroups = "Grupos";
 $langHelp = "ayuda";
 $langIndeed = "Correcto. La iron&iacute;a socr&aacute;tica es un m&eacute;todo interrogativo. El t&eacute;rmino griego \"eirotao\" significa , por otro lado, \"interrogar\".";
 $langJustCreated = "Acaba usted de crear la web del curso";
@@ -69,6 +70,8 @@ $langNotFalse = "Esta respuesta no es falsa. Es exacto que la puesta en evidenci
 				 se realiza poniendo en evidencia las contradicciones en que desembocan sus tesis.";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administraci&oacute;n de la plataforma";
 $langPoweredBy = "Generado con";
 $langProfessor = "Profesor";
@@ -94,5 +97,9 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWork = "Trabajos";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
+$lang_p_IfNothingHappendClickHere = "<small>Si despu&eacute;s de 30 segundos no cambia nada, pulse por favor <a href=\"%s\">aqu&iacute;</a> 
+y espere de nuevo</small>";
+$lang_p_aCategoryWouldBeSelected = "Debe de escoger una categor&iacute;a. Si hay alguna que no figura, notif&iacute;queselo 
+por favor al <a href=\"%s\">administrador de la plataforma</a>";
 $lang_p_platformManager = "Administrador de %s";
 ?>

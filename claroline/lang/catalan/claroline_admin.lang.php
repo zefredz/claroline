@@ -40,6 +40,7 @@ $langNameOfLang = "Array";
 $langNo = "No";
 $langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
 $langOk = "D'acord";
+$langOneResp = "Un dels administradors del curs";
 $langOtherCourses = "Llista de cursos";
 $langPassTooEasy = "aquest password és massa simple. Utilitza un password com aquest ";
 $langPassTwice = "Has escrit dues paraules de pas diferents. Utilitza el botó enrere del teu navegador i prova un altre cop.";
@@ -49,6 +50,7 @@ $langProblem = "En cas de problemes, contacta'ns.";
 $langPublic = "públic";
 $langRegAdmin = "Crea llocs web de cursos";
 $langRegStudent = "Apunta't a cursos";
+$langRegYou = "t'ha enregistrat en aquest curs";
 $langRole = "Rol";
 $langSettings = "amb els següents detalls:
 Nom d'usuari:";

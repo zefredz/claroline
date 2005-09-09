@@ -22,7 +22,6 @@ $l_separator = "» »";
 $l_viewmsg = "um Ihr Posting anzusehen.";
 $langAdd_users = "Benutzer hinzuf&uuml;gen";
 $langAddedToCreator = "Kurs-Startseite";
-$langAdm = "Foren-Administration";
 $langAdmin = "Administration";
 $langAdministration = "Administration";
 $langAdmitError = "Die eigenen Fehler eingestehen, um sein Gegenüber dazu zu bringen, das Gleiche zu tun.";

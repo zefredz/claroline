@@ -21,7 +21,6 @@ $l_separator = ">>";
 $l_viewmsg = "阅读您的 消息.";
 $langAdd_users = "添加用户";
 $langAddedToCreator = "课程主页";
-$langAdm = "管理";
 $langAdmin = "网站管理";
 $langAdministration = "管理";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";

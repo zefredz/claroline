@@ -36,6 +36,7 @@ $langCampusRemoved = "<strong>Eliminado</strong><p>Su campus ha sido eliminado d
 $langCampusSubmitted = "<strong>Enviado</strong><p>Esperando por validaci&oacute;n por parte del equipo de claroline.net.</p>";
 $langCancel = "Cancelar";
 $langCannotBeBlank = "No puede dejar en blanco el nombre de una clase";
+$langCannotUnsubscribeLastCourseManager = "No puede dar de baja al &uacute;ltimo gestor de este curso.";
 $langCategories = "Crear categor&iacute;a";
 $langCategory = "Categor&iacute;a";
 $langChangePwdexp = "Escribe la nueva contrase&ntilde;a dos veces para cambiarla, dejala en blanco para conservar la actual";
@@ -72,6 +73,8 @@ $langCourseDelete = "El curso ha sido borrado con &eacute;xito";
 $langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Responsable del curso";
+$langCourseManagerCannotUnsubscribeHimself = "Un gestor de curso no se puede dar de baja a si mismo";
+$langCourseNotFound = "Curso no encontrado";
 $langCourseSettings = "Configuraci&oacute;n del curso";
 $langCourseTitle = "T&iacute;tulo del curso";
 $langCourseWithoutAccess = "Cursos no usados";
@@ -118,7 +121,7 @@ $langForums = "Foros";
 $langGoToMainUserSettings = "Ir al men&uacute; principal de configuraci&oacute;n de usuario";
 $langGoToUserSettings = "Ir a la configuraci&oacute;n de usuario";
 $langGroupTutor = "Tutor";
-$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langGroups = "Grupos";
 $langHelp = "ayuda";
 $langHits = "Accesos";
 $langHomePageTextZone = "Zonas de texto en la pagina de principal";
@@ -131,6 +134,7 @@ $langLast7Days = "Los &uacute;ltimo 7 d&iacute;as";
 $langLastName = "Apellido";
 $langLastname = "Apellido";
 $langLearningPath = "Secuencia de aprendizaje";
+$langLegendRequiredFields = "<span class=\"required\">*</span> campo obligatorio";
 $langListClassUser = "Usuarios de la clase";
 $langListUsers = "Lista de usuarios";
 $langLocation = "Ubicaci&oacute;n";
@@ -170,9 +174,16 @@ $langNoUserResult = "No existen usuarios para mostrar";
 $langNormalUser = "Normal";
 $langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langNotUnregYourself = "¡No puede cambiar su propia configuraci&oacute;n!";
+$langNoticeInstallFolderBrowsable = "<b>Atenci&oacute;n:</b> el directorio que contiene el proceso de instalaci&oacute;n
+									de su plataforma Claroline (<code>claroline/install/</code>) es a&uacute;n
+									navegable v&iacute;a web. Esto significa que cualquiera puede relanzar el proceso de 
+									instalaci&oacute;n de su plataforma, destrozando as&iacute; la instalaci&oacute;n que usted
+									previamente realiz&oacute;. Le recomendamos encarecidamente que establezca permisos que 
+									protejan este directorio o bien que lo elimine de su servidor.";
 $langNumero = "N&uacute;m.";
 $langOfficialCode = "C&oacute;digo Administrativo";
 $langOk = "validar";
+$langOneResp = "Uno de los administradores del curso";
 $langOrder = "Ordenar";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "esta contrase&ntilde;a es demasiado simple. Use una como esta";
@@ -180,7 +191,9 @@ $langPassTwice = "No ha escrito la misma clave de acceso las dos veces.
 Use el bot&oacute;n de \"Atr&aacute;s\" del navegador y vuelva a intentarlo.";
 $langPassword = "contraseña";
 $langPeriodDay = "D&iacute;a";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "Hora";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "Mes";
 $langPeriodToDisplay = "Per&iacute;odo";
 $langPeriodYear = "A&ntilde;o";
@@ -203,7 +216,9 @@ $langPublic = "P&uacute;blico";
 $langPublicOnly = "Curso &uacute;nicamente p&uacute;blico";
 $langRegAdmin = "Crear sitios de cursos (Profesor)";
 $langRegStudent = "Inscribirme a cursos (estudiante)";
+$langRegYou = "lo ha inscrito en este curso";
 $langRegister = "Registrar";
+$langRegisterCampusAdvice = "Por favor, verifique que la URL de su campus es accesible desde internet";
 $langRegisterLocalUrl = "Parece que la url de su campus es una url local. Es necesario que facilite una url accesible 
 para poder registrar su sitio web en claroline.net<br /><br />
 Compruebe el valor de la 'Direcci&oacute;n web base' en su configuraci&oacute;n de Claroline.";
@@ -261,6 +276,7 @@ $langTrackingDisabled = "El seguimiento ha sido deshabilitado por el administrad
 $langTrafficDetails = "Detalles de Tr&aacute;fico";
 $langTranslationTools = "Herramientas de traducci&oacute;n";
 $langURL = "URL : ";
+$langUnableDeleteCategory = "No es posible eliminar la categor&iacute;a";
 $langUnkownSOAPError = "Ha ocurrido un error mientras se contactaba con claroline.net";
 $langUnsubscribe = "Retirar el registro del usuario";
 $langUnsubscribeClass = "Dar de baja de la clase";

@@ -36,7 +36,6 @@ $langFileNameMissing = "ادخل اسم الملف";
 $langFileNameOrURLMissing = "يجب ادخل اسم الملف او عنوان الوصلة URL";
 $langFiles = "قائمة الملفات";
 $langForums = "المنتديات";
-$langGroupSpace = "منطقة المجموعة";
 $langGroups = "المجموعات";
 $langHelp = "المساعدة";
 $langImpossible = "العملية غير ممكنة";

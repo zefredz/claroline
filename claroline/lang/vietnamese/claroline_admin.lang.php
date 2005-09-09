@@ -81,6 +81,7 @@ $langNo = "No";
 $langNoResult = "Không có kết quả";
 $langNotAllowed = "Not allowed";
 $langOk = "Ok";
+$langOneResp = "Một trong số quản trị viên của khoá học";
 $langOtherCourses = "Danh mục khoá học";
 $langPassTooEasy = "mật khẩu này quá đơn giản. Nên dùng mật khẩu như ";
 $langPassTwice = "You typed two different passwords. Use your browser's back button and try again.";
@@ -102,6 +103,7 @@ $langProblem = "In case of problems, contact us.";
 $langPublic = "public";
 $langRegAdmin = "Tạo website cho khoá học (GV)";
 $langRegStudent = "Tham gia các khoá học (HS)";
+$langRegYou = "đã đăng ký cho bạn trong khoá này";
 $langRole = "Vai trò";
 $langSettings = "with the following settings:
 Username:";

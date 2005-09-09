@@ -20,7 +20,6 @@ $langElRen = "Element preimenovan";
 $langFileError = "Datoteka za prepis ni dobra.";
 $langFileExists = "Operacija ni mozna.<br>Datoteka s tem imenom ze obstaja.";
 $langForums = "Forumi";
-$langGroupSpace = "Prostor skupine";
 $langGroups = "Skupine";
 $langHelp = "Pomoc";
 $langImpossible = "Operacija ni mozna";

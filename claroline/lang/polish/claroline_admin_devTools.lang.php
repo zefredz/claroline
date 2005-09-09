@@ -21,7 +21,6 @@ $l_returnindex = "¿eby powróciæ do spisu Forów dyskusyjnych";
 $l_returntopic = "¿eby powróciæ do spisu tematów.";
 $l_separator = "» »";
 $l_viewmsg = "¿eby zobaczyæ wiadomo¶æ.";
-$langAdm = "Admin";
 $langAdmitError = "Uznanie w³asnych b³êdów i zachêca rozmówcê do zrobienia tego samego.";
 $langAgain = "Spróbuj jeszcze raz!";
 $langAgenda = "Terminarz";

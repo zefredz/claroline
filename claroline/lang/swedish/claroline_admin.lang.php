@@ -81,6 +81,7 @@ $langNo = "Nej";
 $langNoResult = "Inga resultat";
 $langNotAllowed = "Inte tillåtet";
 $langOk = "validate";
+$langOneResp = "En av kursadministratörerna";
 $langOtherCourses = "Kurslista";
 $langPassTooEasy = "detta lösenord är för enkelt. Använd ett som liknar detta:";
 $langPassTwice = "Du skrev in två skilda lösenord. Använda webbläsaren tillbakaknapp och försök igen.";
@@ -102,6 +103,7 @@ $langProblem = "I händelse av problem, kontakta oss.";
 $langPublic = "publik";
 $langRegAdmin = "Skapa kurswebbsajter (lärare)";
 $langRegStudent = "Följ kurser (elev)";
+$langRegYou = "har registrerat dig på denna kurs";
 $langRole = "Roll";
 $langSettings = "med följande inställningar:
 Användarnamn:";

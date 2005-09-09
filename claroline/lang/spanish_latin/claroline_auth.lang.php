@@ -1,6 +1,7 @@
 <?php
 $langAction = "Acción";
 $langAddress = "La dirección de";
+$langAdministrator = "Administrador";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
 $langBackToCourseList = "Regresar a la lista de cursos";
@@ -59,6 +60,7 @@ $langNowGoChooseYourCourses = "Ahora Ud. puede seleccionar, en la lista, los cur
 $langNowGoCreateYourCourse = "Ahora Ud. puede crear su curso";
 $langOfficialCode = "Código Administrativo";
 $langOk = "Aceptar";
+$langOneResp = "Uno de los administradores del curso";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "esa contraseña es demasiado simple. Use una contraseña como ésta ";
 $langPassTwice = "Ha escrito dos contraseñas diferentes. Use el botón  'Atrás'  del navegador y vuelva a intentarlo.";
@@ -72,6 +74,7 @@ $langProfileReg = "Su nuevo perfil de usuario ha sido registrado";
 $langReg = "Inscribirse";
 $langRegAdmin = "Crear sitios web de cursos (Profesor)";
 $langRegStudent = "Inscribirme en cursos (estudiante)";
+$langRegYou = "lo ha inscripto en este curso";
 $langSaveChanges = "Salvar cambios";
 $langSearch = "Buscar";
 $langSettings = "con los parámetros siguientes:\Nombre de usuario:";

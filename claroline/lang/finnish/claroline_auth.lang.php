@@ -33,6 +33,7 @@ $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
 $langNo = "No";
 $langOk = "Ok";
+$langOneResp = "Eräs kurssin ylläpitäjistä";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";
 $langPoweredBy = "Alusta";
 $langProblem = "Jos sinulla on ongelmia, ota yhteyttä.";
@@ -40,6 +41,7 @@ $langProfileReg = "Profiili on tallennettu";
 $langReg = "Rekisteröinti";
 $langRegAdmin = "Luo kurssien sivustot (opettaja)";
 $langRegStudent = "Valitse kursseja (opiskelija)";
+$langRegYou = "on rekisteröinyt sinut tälle kurssille";
 $langSettings = "seuraavilla asetuksilla:
 Käyttäjänimi:";
 $langStudent = "Opiskelija";

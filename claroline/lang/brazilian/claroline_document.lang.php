@@ -36,7 +36,6 @@ $langFileNameMissing = "Está faltando o nome do arquivo";
 $langFileNameOrURLMissing = "Está faltando o Nome do Arquivo ou a URL.";
 $langFiles = "Lista de Arquivos";
 $langForums = "Fóruns";
-$langGroupSpace = "Área dos grupos";
 $langGroups = "inscrições dos usuários nos grupos";
 $langHelp = "Ajuda";
 $langImpossible = "Operação impossível";

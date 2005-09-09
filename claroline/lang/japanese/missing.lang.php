@@ -645,11 +645,9 @@ with a series of information and functions
 members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
 <hr noshade size=1>";
-$langGroupCreation = "New groups creation";
 $langGroupDel = "Group deleted";
 $langGroupDescription = "Description";
 $langGroupDocument = "Documents";
-$langGroupDocumentAlwaysPrivate = "(always private)";
 $langGroupDocumentsLink = "Documents of the group ";
 $langGroupFilledGroups = "Groups have been filled (or completed) by students present in the 'Users' list.";
 $langGroupForum = "Forum";
@@ -1496,7 +1494,7 @@ $langWikiRecentChanges = "Recent changes";
 $langWikiRecentChangesPattern = "%1\$s modified on %2\$s by %3\$s";
 $langWikiShowDifferences = "Show differences";
 $langWikiTitle = "Title of the wiki";
-$langWikiTitleEdit = "Wiki : Edit poperties";
+$langWikiTitleEdit = "Wiki : Edit properties";
 $langWikiTitleNew = "Wiki : Create new Wiki";
 $langWikiTitlePattern = "Wiki : %s";
 $langWikiVersionInfoPattern = "(version of %1\$s modified by %2\$s)";

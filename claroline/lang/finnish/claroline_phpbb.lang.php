@@ -39,7 +39,6 @@ $l_topictitle = "Katso Aihe";
 $l_viewforum = "Katso foorumit";
 $l_viewmsg = "n‰hd‰ksesi Viesti.";
 $langAddCategory = "Lis‰‰ kategoria";
-$langAdm = "Yll‰pit‰j‰";
 $langAgenda = "Esityslista";
 $langAnnouncement = "Ilmoitukset";
 $langDay_of_weekNames = "Array";

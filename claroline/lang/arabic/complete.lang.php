@@ -73,7 +73,6 @@ $langAddModulesButton = "أضف وحدة(وحدات)";
 $langAddMyCampusOnClarolineNet = "إدراج اسم موقعي ضمن موقع Claroline.net ";
 $langAddNewHeading = "إضافة عنوان جديد";
 $langAddOneModuleButton = "أضف وحدة";
-$langAddPage = "إضافة صفحة";
 $langAddTutors = "قائمة المدراء";
 $langAddUser = "إنشاء مستخدم جديد";
 $langAddUserOneByOne = "سيستقبل المستخدمون الجدد رسالة إلكترونية تحوي اسم المستخدم و كلمة المرور الخاصة بهم.";
@@ -85,7 +84,6 @@ $langAddedToCampusAndCourse = " تم إضافته لموقع الجامعة و �
 $langAddedToCourse = "قام بالتسجيل في المقرر";
 $langAddedToCreator = "الصفحة الخاصة بالمقرر";
 $langAddress = "عنوان ال ";
-$langAdm = "إدارة المنتدى";
 $langAdmin = "مدير";
 $langAdminEmail = "البريد الالكتروني";
 $langAdminLogin = "تسجيل الدخول";
@@ -272,7 +270,6 @@ $langContradiction = "انه نظام تشغيل حر و غير مقيد بشر�
 $langCopy = "نسخ";
 $langCopyFailed = "فشل في الطباعة";
 $langCorrespondsTo = "الموافق ل";
-$langCouldNot = "لم تنجح عملية إرسال الملف";
 $langCountCours = "عدد المقررات التعليمية";
 $langCountCourseByFaculte = "عدد المقررات في كل كلية";
 $langCountCourseByLanguage = "عدد المقررات حسب اللغة";
@@ -795,11 +792,9 @@ $langGroupContent = "<p><b>مقدمة</b></p>
 <ul><li><b>تعديل</b>من اجل التعديل اليدوي لاسم المجموعة , الوصف , المشرف , عناصر المجموعة </li>
 <li><b>حذف</b>حذف المجموعة </li></ul>
 <hr noshade size=1>";
-$langGroupCreation = "إنشاء مجموعات جديدة";
 $langGroupDel = "تم حذف المجموعة";
 $langGroupDescription = "الوصف";
 $langGroupDocument = "الوثائق";
-$langGroupDocumentAlwaysPrivate = "(خاص دوماً)";
 $langGroupDocumentsLink = "الوثائق الخاصة بالمجموعة ";
 $langGroupFilledGroups = "تم ملء المجموعات ( أو إكمالها) من خلال الطلاب الموجودون في قائمة المستخدمين";
 $langGroupForum = "منتدى";
@@ -1020,8 +1015,6 @@ $langLineNumber = "رقم السطر";
 $langLineOrLines = "line(s)";
 $langLines = "الأسطر";
 $langLink = "وصلة";
-$langLinkSite = "إضافة وصلة على الصفحة الرئيسية";
-$langLinks = "وصلات";
 $langListAdmin = "قائمة المستخدمين المدراء";
 $langListAllUsers = "قائمة جميع المستخدمين";
 $langListClassUser = "المستخدمين في الصف";
@@ -1100,7 +1093,6 @@ $langMessages = "الرسائل";
 $langMethodsOfEvaluation = "طرق التقييم";
 $langMethodsOfEvaluationComment1 = "معلومات تفصيلية و دقيقة عن وسائل التقييم كالامتحانات الكتابية , الشفهية , المشاريع , الوظائف ....تاريخ المقابلات و تاريخ انتهاء موعد تسليم الوظائف مع شرح لمعايير التقييم بشكل كامل";
 $langMin = "أصغري : ";
-$langMinute = "دقائق";
 $langMinuteShort = "دقيقة";
 $langMissing = "مفقود";
 $langMissingImagesDetected = "يوجد صور مفقودة";
@@ -1120,7 +1112,6 @@ $langModuleOfMyCourse = "استخدام وحدة  من المقرر";
 $langModuleStillInPool = "وحدات هذا المسار ستبقى متاحة ضمن مخزن الوحدات";
 $langModules = "الوحدات";
 $langModulesPoolToolName = "مخزن الوحدات";
-$langMonth = "الشهر";
 $langMonthNames = "مصفوفة";
 $langMoreAnswers = "إضافة جواب";
 $langMoreElements = "إضافة عنصر";
@@ -1230,7 +1221,6 @@ $langOkFileReceived = "تم استقبال الملف : ";
 $langOkManifestFound = "تم العثور على قائمة الاسماء - مينافست- ضمن الملف المضغوط : ";
 $langOkManifestRead = "تم قراءة المينافست";
 $langOkModuleAdded = "تم إضافة الوحدة : ";
-$langOkSent = "تم إرسال صفحتك بنجاح <p>الصفحة الأن مرتبطة  <a href=../..//index.php>بالصفحة الرئيسية</a>";
 $langOldToNew = "الأقدم اولاً";
 $langOn = "On";
 $langOneByOne = "إضافة مستخدم بشكل يدوي";
@@ -1259,7 +1249,6 @@ $langPeriodWeek = "الاسبوع";
 $langPeriodYear = "السنة";
 $langPersoValue = "القيم";
 $langPersonalCourseList = "قائمة المقررات الشخصية";
-$langPgTitle = "عنوان الصفحة";
 $langPhone = "رقم الهاتف";
 $langPlaces = "عدد المقاعد في كل مجموعة (اختياري)";
 $langPlatform = "المنصة";
@@ -1383,7 +1372,6 @@ $langSeen = "عدد مرات القراءة";
 $langSelUser = "المستخدمون المختارون من الموقع";
 $langSelectAUser = "اختر مستخدم";
 $langSelectedUsers = "المستخدمون المختارون";
-$langSendPage = "الصفحة التي سيتم إرسالها";
 $langSendToUserAccountInfoByMail = "إرسال معلومات الحساب للمستخدم بالبريد الالكتروني";
 $langSequentialExercise = "سؤال واحد في كل صفحة ( اسئلة متتابعة)";
 $langSetAdmin = "وضع كمدير";
@@ -1418,7 +1406,6 @@ $langStoreChat = "حفظ الدردشة";
 $langStudent = "طالب";
 $langStudents = "طلاب";
 $langStudentsNotInThisGroups = "المستخدمون الذين لا ينتمون لهذه المجموعة";
-$langSubTitle = "Adds to your Course Homepage Main Menu a link to a site, a page or any URL. Tip: if you want to add a link to a page, go to that page, cut and paste its address in the URL bar on the top of your browser and insert it into the \"link\" field below.";
 $langSubTitleChangeParent = "تغيير التصنيف الأب ل";
 $langSubTitleCreate = "إنشاء تصنيف";
 $langSubTitleEdit = "تحرير التصنيف";
@@ -1649,7 +1636,6 @@ $langWrkScoreRequired = "المعدل المطلوب";
 $langWrkTitle = "اسم المقرر";
 $langWrkTitleRequired = "عنوان العمل مطلوب";
 $langWrongOperation = "عملية خاطئة";
-$langYear = "السنة";
 $langYes = "نعم";
 $langYesterday = "البارحة";
 $langYouAreReg = "قمت بالتسجيل بتاريخ";

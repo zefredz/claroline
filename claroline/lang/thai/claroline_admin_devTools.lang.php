@@ -6,7 +6,6 @@ $l_returnindex = "กลับไป to the forum index";
 $l_returntopic = "กลับไป to the forum topic list.";
 $l_separator = "ป ป";
 $l_viewmsg = "ต้องการดู ข้อความ ของคุณ";
-$langAdm = "admin";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "ลองใหม่!";
 $langAgenda = "กำหนดการ";

@@ -21,7 +21,6 @@ $l_returnindex = "för att återgå till forumlistan";
 $l_returntopic = "för att återgå till forumets ämneslista.";
 $l_separator = "» »";
 $l_viewmsg = "för att visa ditt Inlägg.";
-$langAdm = "admin";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "Försök igen!";
 $langAgenda = "Agenda";

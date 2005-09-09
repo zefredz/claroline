@@ -38,6 +38,7 @@ $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
 $langNo = "Ne";
 $langOk = "Ok";
+$langOneResp = "Jedan od predmetnih administratora";
 $langOtherCourses = "Popis kolegija";
 $langPassTooEasy = "ova zaporka je prejednostavna. Koristite neku kao na primjer";
 $langPassTwice = "Upisali ste dvije razlièite zaporke. Kliknite na opciju Povratak i pokušajte ponovno.";
@@ -47,6 +48,7 @@ $langProfileReg = "Vaš novi profil je saèuvan";
 $langReg = "Prijava";
 $langRegAdmin = "Kreiraj  website kolegija";
 $langRegStudent = "Prati kolegije";
+$langRegYou = "vas je prijavio na ovaj predmet";
 $langSettings = "sa sljedeæom postavkom :
 Username::";
 $langStudent = "student";

@@ -80,6 +80,7 @@ $langNo = "Tidak";
 $langNoResult = "Tiada Keputusan";
 $langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
+$langOneResp = "Satu daripada Subjek Pentadbir Subjek";
 $langOtherCourses = "Senarai Subjek";
 $langPassTooEasy = "Katalaluan terlalu ringkas.Gunakan katalaluan seperti berikut";
 $langPassTwice = "Anda telah menaip dua katalaluan yang berbeza. Sila cuba sekali lagi";
@@ -101,6 +102,7 @@ $langProblem = "Sebarang kesulitan, sila hubungi.";
 $langPublic = "Umum";
 $langRegAdmin = "Pensyarah";
 $langRegStudent = "Pelajar";
+$langRegYou = "telah mendaftarkan anda untuk mengikuti subjek ini";
 $langRole = "Peranan";
 $langSettings = "dengan maklumat seperti beriku:
 Username:";

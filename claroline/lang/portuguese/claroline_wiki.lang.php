@@ -21,7 +21,6 @@ Utilize o bot&atilde;o de Regressar do seu navegador e tente de novo.";
 $langFirstname = "Primeiro nome";
 $langFormula = "Com os melhores cumprimentos";
 $langForums = "Foros";
-$langGroupSpace = "&Aacute;rea do grupo";
 $langGroupTutor = "Orientador do grupo";
 $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
@@ -36,6 +35,7 @@ $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNo = "N&atilde;o";
 $langOk = "validar";
+$langOneResp = "Um dos administradores do curso";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "esta senha &eacute; demasiado simples. Utiliza uma semelhante a esta";
 $langPassTwice = "N&atilde;o escreveu a mesma senha as duas vezes.
@@ -45,6 +45,7 @@ $langPoweredBy = "Utiliza a Plataforma";
 $langProblem = "Caso tenha algum problema, n&atilde;o hesite em nos contactar.";
 $langRegAdmin = "Criar cursos (professor)";
 $langRegStudent = "Inscrever-se em cursos (estudante)";
+$langRegYou = "inscreveu-o neste curso";
 $langSave = "Guardar";
 $langSettings = "com os seguintes par&aacute;metros:
 

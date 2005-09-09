@@ -50,6 +50,7 @@ $langNo = "Tidak";
 $langNowGoChooseYourCourses = "Sekarang anda boleh memilih Subjek yang anda ingin ikuti.";
 $langNowGoCreateYourCourse = "Sekarang anda boleh membina Laman Subjek";
 $langOk = "Proses";
+$langOneResp = "Satu daripada Subjek Pentadbir Subjek";
 $langOtherCourses = "Senarai Subjek";
 $langPassTooEasy = "Katalaluan terlalu ringkas.Gunakan katalaluan seperti berikut";
 $langPassTwice = "Anda telah menaip dua katalaluan yang berbeza. Sila cuba sekali lagi";
@@ -60,6 +61,7 @@ $langProfileReg = "Butir Peribadi anda telah disimpan";
 $langReg = "Daftar";
 $langRegAdmin = "Pensyarah";
 $langRegStudent = "Pelajar";
+$langRegYou = "telah mendaftarkan anda untuk mengikuti subjek ini";
 $langSettings = "dengan maklumat seperti beriku:
 Username:";
 $langStudent = "Pelajar";

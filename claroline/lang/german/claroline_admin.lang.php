@@ -172,6 +172,7 @@ $langNotUnregYourself = "Sie können Ihre eigenen Einstellungen nicht verändern!"
 $langNumero = "No.";
 $langOfficialCode = "ZugriffsCode";
 $langOk = "Ok";
+$langOneResp = "Eine der Kursleiter";
 $langOrder = "Sortierung";
 $langOtherCourses = "Kurs Angebot";
 $langPassTooEasy = "dieses Passwort ist zu einfach. Benutzen Sie ein Passwort wie dieses ";
@@ -201,6 +202,7 @@ $langPublic = "Öffentlich";
 $langPublicOnly = "Nur öffentliche KursSites";
 $langRegAdmin = "Dozent/Tutor (Kursersteller)";
 $langRegStudent = "Kurs-Teilnehmer";
+$langRegYou = "hat Sie in diese KursSite eingetragen";
 $langRegister = "registrieren";
 $langRegisterLocalUrl = "Ihre KursSite URL scheint eine lokale URL zu sein. Ein vom Web erreichbare URL ist notwendig, um Ihre Site bei Claroline.net zu registrieren.
 <br /><br /> Überprüfen Sie den Wert 'Web base' in Ihrer Claroline Konfiguration.";

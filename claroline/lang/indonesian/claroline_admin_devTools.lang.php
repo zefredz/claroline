@@ -17,7 +17,6 @@ $l_returnindex = "untuk kembali ke index forum";
 $l_returntopic = "untuk kembali ke daftar topik forum.";
 $l_separator = " > ";
 $l_viewmsg = "untuk melihat Pesan anda.";
-$langAdm = "Administrasi Forum";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "Coba lagi!";
 $langAgenda = "Agenda";

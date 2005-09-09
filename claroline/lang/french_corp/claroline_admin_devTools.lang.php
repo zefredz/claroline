@@ -23,7 +23,6 @@ $l_separator = " > ";
 $l_viewmsg = "pour voir votre Message.";
 $langAdd_users = "Ajouter une série d'utilisateurs";
 $langAddedToCreator = "Page d'acceuil du cours";
-$langAdm = "Administrer";
 $langAdmin = "Admin";
 $langAdministration = "Administration";
 $langAdmitError = "Reconnaître ses erreurs pour inviter son interlocuteur à faire de même.";

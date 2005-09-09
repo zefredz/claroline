@@ -171,6 +171,7 @@ $langNotUnregYourself = "U kan uw eigen instellingen niet veranderen!";
 $langNumero = "Nr.";
 $langOfficialCode = "Administratieve code";
 $langOk = "Ok";
+$langOneResp = "E&eacute;n van de verantwoordelijken voor de Claroline-cursus";
 $langOrder = "Volgorde";
 $langOtherCourses = "Cursusoverzicht";
 $langPassTooEasy = "Dit wachtwoord is te eenvoudig. Kies een ander zoals bijvoorbeeld: ";
@@ -200,6 +201,7 @@ $langPublic = "publiek";
 $langPublicOnly = "Alleen publieke cursussen";
 $langRegAdmin = "Cursussen aanmaken";
 $langRegStudent = "Registreren voor cursussen";
+$langRegYou = "heeft u ingeschreven op";
 $langRegister = "Registreren";
 $langRegisterLocalUrl = "Uw campus URL lijkt een locale URL.
 Een web URL is vereist om uw installatie te registreren bij Claroline.net.<br /><br />

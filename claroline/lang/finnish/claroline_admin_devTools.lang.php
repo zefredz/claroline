@@ -19,7 +19,6 @@ $l_returnindex = "Palaa foorumien listaan";
 $l_returntopic = "Palaa foorumien aiheiden listaan.";
 $l_separator = "» »";
 $l_viewmsg = "nähdäksesi Viesti.";
-$langAdm = "Ylläpitäjä";
 $langAdmitError = "Myöntää virheensä, jotta puhetoveri tekisi samoin.";
 $langAgain = "Yritä uudestaan!";
 $langAgenda = "Esityslista";

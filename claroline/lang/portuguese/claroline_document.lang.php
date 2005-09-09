@@ -20,7 +20,6 @@ $langElRen = "foi alterado o nome do elemento";
 $langFileError = "O ficheiro que pretende transferir n&atilde;o &eacute; v&aacute;lido.";
 $langFileExists = "N&atilde;o &eacute; poss&iacute;vel realizar esta opera&ccedil;&atilde;o:<br>j&aacute; existe um elemento com o mesmo nome.";
 $langForums = "Foros";
-$langGroupSpace = "&Aacute;rea do grupo";
 $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
 $langImpossible = "N&atilde;o &eacute; poss&iacut;vel realizar esta opera&ccedil;&atilde;O";

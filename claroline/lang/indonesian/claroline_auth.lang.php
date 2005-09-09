@@ -49,6 +49,7 @@ $langNo = "Tidak";
 $langNowGoChooseYourCourses = "Anda kini dapat memilih pelajaran dari daftar untuk diakses.";
 $langNowGoCreateYourCourse = "Anda kini dapat membuat situs pelajaran anda";
 $langOk = "Ok";
+$langOneResp = "Satu dari administrator pelajaran";
 $langOtherCourses = "Daftar pelajaran";
 $langPassTooEasy = "password tsb terlalu sederhana. Gunakan yang seperti ini ";
 $langPassTwice = "Anda mengetik dua password berbeda. Gunakan tombol BACK di browser dan coba lagi.";
@@ -59,6 +60,7 @@ $langProfileReg = "Profil bau anda telah disimpan";
 $langReg = "Pendaftaran";
 $langRegAdmin = "Buat situs pelajaran";
 $langRegStudent = "Ikut pelajaran";
+$langRegYou = "telah mendaftarkan anda pada pelajaran ini";
 $langSettings = "dengan setting berikut:
 Nama user:";
 $langStudent = "siswa";

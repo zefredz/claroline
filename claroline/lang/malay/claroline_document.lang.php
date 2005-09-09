@@ -20,7 +20,6 @@ $langElRen = "Dokumen telah ditukar namanya";
 $langFileError = "Fail yang dimuat naik tidak sah.";
 $langFileExists = "Permintaan tidak dapat diproses<br>Nama fail telah wujud.";
 $langForums = "Forum";
-$langGroupSpace = "Ruangan Kumpulan";
 $langGroups = "Kumpulan";
 $langHelp = "Bantuan";
 $langImpossible = "Permintaan tidak dapat diproses";

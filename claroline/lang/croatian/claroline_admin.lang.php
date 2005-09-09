@@ -42,6 +42,7 @@ $langNameOfLang = "Array";
 $langNo = "Ne";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
+$langOneResp = "Jedan od predmetnih administratora";
 $langOtherCourses = "Popis kolegija";
 $langPassTooEasy = "ova zaporka je prejednostavna. Koristite neku kao na primjer";
 $langPassTwice = "Upisali ste dvije razlièite zaporke. Kliknite na opciju Povratak i pokušajte ponovno.";
@@ -51,6 +52,7 @@ $langProblem = "U sluèaju problema, kontaktirajte nas.";
 $langPublic = "javno";
 $langRegAdmin = "Kreiraj  website kolegija";
 $langRegStudent = "Prati kolegije";
+$langRegYou = "vas je prijavio na ovaj predmet";
 $langRole = "Uloga";
 $langSettings = "sa sljedeæom postavkom :
 Username::";

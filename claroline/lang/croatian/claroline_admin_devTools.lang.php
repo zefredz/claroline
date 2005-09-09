@@ -19,7 +19,6 @@ $l_returnindex = "povratak na indeks foruma";
 $l_returntopic = "povratak na forumski popis.";
 $l_separator = "» »";
 $l_viewmsg = "da vidite svoju Poruka.";
-$langAdm = "Administracija Foruma ";
 $langAdmitError = "Priznavanje jedne vlastite pogreške poziva sugovornika da uèini isto.";
 $langAgain = "Pokušajte ponovno!";
 $langAgenda = "Program rada";

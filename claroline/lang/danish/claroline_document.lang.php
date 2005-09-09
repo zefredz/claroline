@@ -21,7 +21,6 @@ $langExercises = "Øvelser";
 $langFileError = "Filen til udlægning er ikke gyldig.";
 $langFileExists = "Udlægningen kan ikke gennemføres.<br>Der er allerede en fil med samme navn.";
 $langForums = "Diskussionsforum";
-$langGroupSpace = "Gruppeområde";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
 $langImpossible = "Umulig handling";

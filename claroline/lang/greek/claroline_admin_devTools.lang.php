@@ -23,7 +23,6 @@ $l_separator = "» »";
 $l_viewmsg = "για να εμφανίσετε το Μήνυμα.";
 $langAdd_users = "Πρόσθεσε χρήστες";
 $langAddedToCreator = "Aρχική Σελίδα Μαθήματος";
-$langAdm = "διαχείριση";
 $langAdmin = "Διαχειριστής";
 $langAdministration = "Διαχείριση";
 $langAdmitError = "Παραδοχή των δικών σας σφαλμάτων ώστε να ενθαρρύνετε το συνομιλητή σας να κάνει το ίδιο.";

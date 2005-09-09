@@ -36,7 +36,6 @@ $langFileNameMissing = "Ελλιπες όνομα αρχείου";
 $langFileNameOrURLMissing = "Ονομα αρχείου ή το URL λείπει.";
 $langFiles = "Λίστα αρχείων";
 $langForums = "Περιοχή συζητήσεων";
-$langGroupSpace = "Περιοχή ομάδας χρηστών";
 $langGroups = "Ομάδες Χρηστών";
 $langHelp = "Βοήθεια";
 $langImpossible = "Δεν είναι δυνατή η λειτουργία";

@@ -25,7 +25,6 @@ $l_separator = " > ";
 $l_viewmsg = "لمشاهدة رسالتك";
 $langAdd_users = "إضافة مستخدمين";
 $langAddedToCreator = "الصفحة الخاصة بالمقرر";
-$langAdm = "إدارة المنتدى";
 $langAdmin = "مدير";
 $langAdministration = "المدير";
 $langAdmitError = "يمكن إعداد هذا النظام على الحاسب بسرعة كبيرة";

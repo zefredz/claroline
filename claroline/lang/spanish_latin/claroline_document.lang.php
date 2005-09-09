@@ -34,7 +34,6 @@ $langFileExists = "No se puede realizar la acción.<br>Un archivo con ese nombre 
 $langFileNameMissing = "Falta el nombre del archivo";
 $langFileNameOrURLMissing = "Falta el nombre o la URL.";
 $langForums = "Foros";
-$langGroupSpace = "Area de grupos";
 $langGroups = "Grupos";
 $langHelp = "Ayuda";
 $langImpossible = "Acción imposible";

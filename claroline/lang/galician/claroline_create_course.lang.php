@@ -21,6 +21,7 @@ $langCourseDescription = "Escriba aqu&iacute; a descrici&oacute;n que aparece na
 $langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCourseTitle = "T&iacute;tulo do curso";
+$langCourseWouldBeCreated = "O seu curso ser&aacute; creado";
 $langCreate = "crear";
 $langCreateSite = "Crea-la web do curso";
 $langCreationMailNotificationBody = "Creaci&oacute;n do curso en marcha";
@@ -73,6 +74,8 @@ $langNotFalse = "Esta resposta non &eacute; falsa. &Eacute; exacto que a posta e
 							desembocan as s&uacute;s teses.";
 $langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administraci&oacute;n da Plataforma";
 $langPoweredBy = "Emprega a plataforma";
 $langProfessor = "Profesor";
@@ -98,5 +101,9 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWork = "Traballos";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
+$lang_p_IfNothingHappendClickHere = "<small>Se despois de 30 segundos non muda nada, prema por favor <a href=\"%s\">aqu&iacute;</a> 
+e agarde de novo</small>";
+$lang_p_aCategoryWouldBeSelected = "Debe de escoller unha categor&iacute;a. Se hai algunha que non figura, notif&iacute;quello 
+por favor &oacute; <a href=\"%s\">administrador da plataforma</a>";
 $lang_p_platformManager = "Administrador para %s";
 ?>

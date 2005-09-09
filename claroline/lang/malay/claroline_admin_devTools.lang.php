@@ -19,7 +19,6 @@ $l_returnindex = "untuk kembali ke indeks forum.";
 $l_returntopic = "untuk kembali ke senarai topik forum.";
 $l_separator = " > ";
 $l_viewmsg = "untuk memaparkan Mesej anda";
-$langAdm = "Alat Bantu Forum";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "Daftar Semula";
 $langAgenda = "Agenda";

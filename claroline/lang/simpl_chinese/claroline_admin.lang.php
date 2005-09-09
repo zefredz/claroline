@@ -172,6 +172,7 @@ $langNotUnregYourself = "你不可修改你自己的设置！";
 $langNumero = "No.";
 $langOfficialCode = "管理代码";
 $langOk = "确认";
+$langOneResp = "课程管理员之一";
 $langOrder = "顺序";
 $langOtherCourses = "课程列表";
 $langPassTooEasy = "这个密码太简单。使用的密码要像：";
@@ -201,6 +202,7 @@ $langPublic = "公开";
 $langPublicOnly = "仅发布课程";
 $langRegAdmin = "创建课程";
 $langRegStudent = "选修课程";
+$langRegYou = "已经使您在本课程注册";
 $langRegister = "注册";
 $langRegisterLocalUrl = "你的虚拟校园的网址是一个本地网址。
 一个互联互通的网址必需在Claroline.net注册。<br /><br />

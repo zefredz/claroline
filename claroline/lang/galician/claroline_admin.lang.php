@@ -38,6 +38,7 @@ $langCampusRemoved = "<strong>Eliminado</strong><p>O seu campus foi eliminado da
 $langCampusSubmitted = "<strong>Enviado</strong><p>Agardando a validaci&oacute;n por parte do equipo de Claroline.net.</p>";
 $langCancel = "Cancelar";
 $langCannotBeBlank = "Non lle pode deixa-lo nome dunha clase en branco";
+$langCannotUnsubscribeLastCourseManager = "Non pode dar de baixa &oacute; &uacute;ltimo xestor deste curso.";
 $langCategories = "Categor&iacute;as de curso";
 $langCategory = "Categor&iacute;a";
 $langChangePwdexp = "Escriba o novo contrasinal d&uacute;as veces para mudalo. Deixe os campos baleiros para conserva-lo existente.";
@@ -74,6 +75,8 @@ $langCourseDelete = "O curso foi borrado con &eacute;xito";
 $langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseList = "Lista de cursos";
 $langCourseManager = "Xestor do curso";
+$langCourseManagerCannotUnsubscribeHimself = "Un xestor de curso non se pode dar de baixa a si mesmo";
+$langCourseNotFound = "Curso non atopado";
 $langCourseSettings = "Configuraci&oacute;n do curso";
 $langCourseTitle = "T&iacute;tulo do curso";
 $langCourseWithoutAccess = "Cursos non empregados";
@@ -132,6 +135,7 @@ $langLast7Days = "&Uacute;ltimos 7 d&iacute;as";
 $langLastName = "Apelidos";
 $langLastname = "Apelido";
 $langLearningPath = "Secuencia de aprendizaxe";
+$langLegendRequiredFields = "<span class=\"required\">*</span> campo obrigatorio";
 $langListClassUser = "Usuarios da clase";
 $langListUsers = "Lista de usuarios";
 $langLocation = "Ubicaci&oacute;n";
@@ -171,16 +175,25 @@ $langNoUserResult = "Non hai usuarios que amosar";
 $langNormalUser = "Normal";
 $langNotAllowed = "Acci&oacute;n non permitida";
 $langNotUnregYourself = "Vostede non se pode desinscribir a si mesmo!";
+$langNoticeInstallFolderBrowsable = "<b>Atenci&oacute;n:</b> o directorio que cont&eacute;n o proceso de instalaci&oacute;n
+									da s&uacute;a plataforma Claroline (<code>claroline/install/</code>) &eacute; a&iacute;nda
+									navegable v&iacute;a web. Isto significa que calquera pode relanza-lo proceso de instalaci&oacute;n
+									da s&uacute;a plataforma, destrozando as&iacute; a instalaci&oacute;n que previamente vostede
+									realizou. Recomend&aacute;moslle encarecidamente que estableza permisos que protexan este 
+									directorio ou ben que o elimine do seu servidor.";
 $langNumero = "Num.";
 $langOfficialCode = "DNI (8 d&iacute;xitos)";
 $langOk = "Validar";
+$langOneResp = "Un dos administradores do curso";
 $langOrder = "Ordear";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "este contrasinal &eacute; demasiado simple. Empregue un contrasinal do estilo de ";
 $langPassTwice = "Escribiu vostede dous contrasinais distintos";
 $langPassword = "contrasinal";
 $langPeriodDay = "D&iacute;a";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "Hora";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "Mes";
 $langPeriodToDisplay = "Per&iacute;odo";
 $langPeriodYear = "Ano";
@@ -203,7 +216,9 @@ $langPublic = "P&uacute;blico";
 $langPublicOnly = "S&oacute; cursos p&uacute;blicos";
 $langRegAdmin = "Crear sitios web de cursos (profesor)";
 $langRegStudent = "Inscribirme en cursos (estudante)";
+$langRegYou = "rexistrouno a vostede neste curso";
 $langRegister = "Inscribir";
+$langRegisterCampusAdvice = "Por favor, verifique que a URL do seu campus &eacute; accesible desde a internet";
 $langRegisterLocalUrl = "A url do seu campus semella ser unha url local. &Eacute; preciso dispo&ntilde;er dunha url 
 accesible por web para poder rexistra-la s&uacute;a plataforma en Claroline.net.<br /><br />
 Comprobe o valor do enderezo web base na s&uacute;a configuraci&oacute;n de Claroline.";
@@ -260,6 +275,7 @@ $langTrackingDisabled = "O seguimento foi deshabilitado polo administrador do si
 $langTrafficDetails = "Detalles do trafico";
 $langTranslationTools = "Ferramentas de traducci&oacute;n";
 $langURL = "URL : ";
+$langUnableDeleteCategory = "Non &eacute; posible elimina-la categor&iacute;a";
 $langUnkownSOAPError = "Aconteceu un erro &oacute; contactar con Claroline.net";
 $langUnsubscribe = "Desinscribir usuario";
 $langUnsubscribeClass = "Desinscribir da clase";

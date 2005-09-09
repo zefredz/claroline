@@ -47,6 +47,7 @@ $langNo = "No";
 $langNowGoChooseYourCourses = "You can now go to select, in the list, the courses you want to access.";
 $langNowGoCreateYourCourse = "You can now go to create  your  course";
 $langOk = "Ok";
+$langOneResp = "Một trong số quản trị viên của khoá học";
 $langOtherCourses = "Danh mục khoá học";
 $langPassTooEasy = "mật khẩu này quá đơn giản. Nên dùng mật khẩu như ";
 $langPassTwice = "You typed two different passwords. Use your browser's back button and try again.";
@@ -57,6 +58,7 @@ $langProfileReg = "Your new profile has been saved";
 $langReg = "Đăng ký";
 $langRegAdmin = "Tạo website cho khoá học (GV)";
 $langRegStudent = "Tham gia các khoá học (HS)";
+$langRegYou = "đã đăng ký cho bạn trong khoá này";
 $langSettings = "with the following settings:
 Username:";
 $langStudent = "học sinh";

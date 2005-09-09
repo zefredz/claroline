@@ -291,7 +291,7 @@ una lista de los grupos con una serie de informaci&oacute;n y funciones
 lista de miembros.</li>
 <li><b>Borrar</b> elimina un grupo.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langGroups = "Grupos";
 $langHClar = "Ayuda: primeros pasos";
 $langHDoc = "Ayuda documentos";
 $langHExercise = "Ayuda sobre Ejercicios";
@@ -432,6 +432,8 @@ $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langNameOfLang = "Array";
 $langOtherCourses = "Lista de cursos";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administraci&oacute;n de la plataforma";
 $langPoweredBy = "Generado con";
 $langSecondShort = "seg.";

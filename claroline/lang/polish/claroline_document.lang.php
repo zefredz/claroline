@@ -20,7 +20,6 @@ $langElRen = "Zmieniono nazwê elementu";
 $langFileError = "Plik do za³adowania jest nieprawd³owy.";
 $langFileExists = "Operacja niemo¿liwa.<br>Plik o tej nazwie ju¿ istnieje.";
 $langForums = "Forum";
-$langGroupSpace = "Obszar grupy";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Pomoc";
 $langImpossible = "Czynno¶æ niemo¿liwa";

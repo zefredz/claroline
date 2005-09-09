@@ -80,6 +80,7 @@ $langNo = "Nie";
 $langNoResult = "Brak rezultatów";
 $langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
+$langOneResp = "Jeden z administratorów kursu";
 $langOtherCourses = "Lista kursów";
 $langPassTooEasy = "to has³o jest zbyt proste. Spróbuj czegoœ podobnego do ";
 $langPassTwice = "Wpisa³e¶ dwa ró¿ne has³a. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
@@ -100,6 +101,7 @@ $langProblem = "W przypadku wyst±pienia trudno¶ci, skontaktuj siê z nami.";
 $langPublic = "otwarte";
 $langRegAdmin = "Tworzenie kursu";
 $langRegStudent = "Uczestnictwo w kursie";
+$langRegYou = "zarejestrowa³ Ciê do tego kursu";
 $langRole = "Funkcja";
 $langSettings = "z nastêpuj±cymi ustawieniami: 
 Username:";

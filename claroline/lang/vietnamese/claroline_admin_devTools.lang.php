@@ -6,7 +6,6 @@ $l_returnindex = "d? tr? v? danh m?c di?n dàn";
 $l_returntopic = "d? tr? v? danh m?c ch? d?.";
 $l_separator = " > ";
 $l_viewmsg = "d? xem Bài.";
-$langAdm = "Qu?n tr? di?n dàn";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "Try again!";
 $langAgenda = "Agenda (Lịch công tác)";

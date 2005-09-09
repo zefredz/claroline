@@ -172,6 +172,7 @@ $langNotUnregYourself = "لا تستطيع القيام بتغيير الإعد�
 $langNumero = "لا";
 $langOfficialCode = "الرقم  او الرمز الإداري";
 $langOk = "موافق";
+$langOneResp = "أحد مدراء المقرر";
 $langOrder = "الترتيب";
 $langOtherCourses = "قائمة المقررات";
 $langPassTooEasy = "كلمة السر هذه بسيطة جداً, استخدم كلمة سر مثل ";
@@ -201,6 +202,7 @@ $langPublic = "عام";
 $langPublicOnly = "المقررات العامة فقط";
 $langRegAdmin = "إنشاء مواقع للمقررات";
 $langRegStudent = "التسجيل في مقرر";
+$langRegYou = "قام بتسجسلك في هذا المقرر";
 $langRegister = "تسجيل";
 $langRegisterLocalUrl = "Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />

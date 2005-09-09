@@ -20,7 +20,6 @@ $langElRen = "Elemen diganti nama";
 $langFileError = "File yang di-upload tidak sah.";
 $langFileExists = "Operasi tidak mungkin.<br>File dengan nama sama sudah ada terlebih dulu.";
 $langForums = "Forum-forum";
-$langGroupSpace = "ArealGroup";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Pertolongan";
 $langImpossible = "Operasi tidak mungkin";

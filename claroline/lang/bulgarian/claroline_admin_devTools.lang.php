@@ -21,7 +21,6 @@ $l_returnindex = "за да се върнеш в началото на форума";
 $l_returntopic = "за да се върнеш в списъка с темите.";
 $l_separator = "» »";
 $l_viewmsg = "to view your Съобщение.";
-$langAdm = "Администриране на форумите";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "Опитайте отново!";
 $langAgenda = "График";

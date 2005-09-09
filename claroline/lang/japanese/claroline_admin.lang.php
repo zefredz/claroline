@@ -32,11 +32,13 @@ $langNameOfLang = "Array";
 $langNo = "いいえ";
 $langNotAllowed = "このコース受講が許可されていません";
 $langOk = "オッケー";
+$langOneResp = "One of the course administrators";
 $langPassTwice = "1度目と2度目で違ったパスワードを入れました。ボタンで戻って、再度ためしてください";
 $langPoweredBy = "Powered by Claroline";
 $langProblem = "問題がおきたときは、連絡してください";
 $langRegAdmin = "コースのウエブサイトをつくる (教師)";
 $langRegStudent = "次のコースがあります(学生)";
+$langRegYou = "has registered you on this course";
 $langRole = "Role";
 $langSettings = "次の設定です: 
  Username:";

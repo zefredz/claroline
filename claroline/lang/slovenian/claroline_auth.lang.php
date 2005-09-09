@@ -49,6 +49,7 @@ $langNo = "Ne";
 $langNowGoChooseYourCourses = "Sedaj lahko gres na izbiro zazelenih tecajev iz ustreznega seznama.";
 $langNowGoCreateYourCourse = "Sedaj lahko tvoris svoj tecaj";
 $langOk = "Ok";
+$langOneResp = "Eden od administratorjev tecaja";
 $langOtherCourses = "Seznam tecajev";
 $langPassTooEasy = "to geslo je prevec preprosto. Uporabi geslo, kot na primer ";
 $langPassTwice = "Vtipkal si dve razlicni gesli. V brkljalniku se vrni na prejsnjo stran in poskusi znova.";
@@ -59,6 +60,7 @@ $langProfileReg = "Tvoj novi profil je shranjen";
 $langReg = "Registracija";
 $langRegAdmin = "Tvori spletne strani tecaja";
 $langRegStudent = "Sledi tecajem";
+$langRegYou = "vas je registriral za ta tecaj";
 $langSettings = "z naslednjimi nastavitvami:
 Ime uporabnika:";
 $langStudent = "student";

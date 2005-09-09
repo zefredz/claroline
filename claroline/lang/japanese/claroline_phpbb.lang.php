@@ -41,7 +41,6 @@ $l_topictitle = "View Topic";
 $l_viewforum = "View Forum";
 $l_viewmsg = "to view your Message.";
 $langAddCategory = "カテゴリーを作る";
-$langAdm = "admin";
 $langAgenda = "予定";
 $langAnnouncement = "お知らせ";
 $langDay_of_weekNames = "Array";

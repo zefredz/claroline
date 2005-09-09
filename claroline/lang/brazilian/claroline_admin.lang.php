@@ -172,6 +172,7 @@ $langNotUnregYourself = "Você não pode modificar suas próprias configurações!";
 $langNumero = "Não.";
 $langOfficialCode = "Registro do Aluno (R.A.)";
 $langOk = "validar";
+$langOneResp = "Um dos administradores do curso";
 $langOrder = "Order";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "essa senha é muito simples. Use uma senha como essa ";
@@ -201,6 +202,7 @@ $langPublic = "Público";
 $langPublicOnly = "Apenas cursos públicos";
 $langRegAdmin = "Criar websites de curso";
 $langRegStudent = "Seguir cursos";
+$langRegYou = "registrou você neste curso";
 $langRegister = "Registrar";
 $langRegisterLocalUrl = "A site  de seu campus (departamento ou setor) parace ser uma site local.
 A indicação do endereço de um site é necessario para o cadastro no Claroline.net.<br /><br />

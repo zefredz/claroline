@@ -21,7 +21,6 @@ $langExercises = "Övningar";
 $langFileError = "Filen för uppladdning är inte tillåten.";
 $langFileExists = "Operationen är omöjlig.<br>En fil med detta namn existerar redan.";
 $langForums = "Forum";
-$langGroupSpace = "Grupparea";
 $langGroups = "instruktion för gruppanvändarna";
 $langHelp = "hjälp";
 $langImpossible = "Operation omöjlig";

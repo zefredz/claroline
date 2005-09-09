@@ -22,7 +22,6 @@ $l_separator = "» »";
 $l_viewmsg = "om uw Bericht te lezen.";
 $langAdd_users = "Gebruikers toevoegen";
 $langAddedToCreator = "Cursus thuisbasis";
-$langAdm = "Beheren";
 $langAdmin = "admin";
 $langAdministration = "Administratie";
 $langAdmitError = "Zijn eigen vergissingen erkennen om zijn gesprekspartner uit te nodigen hetzelfde te doen.";

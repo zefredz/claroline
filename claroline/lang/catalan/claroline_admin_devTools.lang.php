@@ -6,7 +6,6 @@ $l_returnindex = "per retornar a l'índex del fòrum";
 $l_returntopic = "per retornar a la llista de tòpics del fòrum.";
 $l_separator = "» »";
 $l_viewmsg = "per veure el teu Missatge.";
-$langAdm = "Administra";
 $langAdmitError = "Admetre els errors d'un mateix per convidar el teu interlocutor a fer el mateix.";
 $langAgain = "Prova un altre cop!";
 $langAgenda = "Agenda";

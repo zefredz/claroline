@@ -19,7 +19,6 @@ $langElRen = "Името на елемента е променено";
 $langExercises = "Упражнения";
 $langFileExists = "Операцията невъзможна.<br>Съществува файл със същото име.";
 $langForums = "Форуми";
-$langGroupSpace = "Group area";
 $langGroups = "Групи";
 $langHelp = "Помощ";
 $langImpossible = "Операцията невъзможна";

@@ -18,7 +18,6 @@ $langDocument = "Dokumenti";
 $langElRen = "Element preimenovan";
 $langFileExists = "Greška.<br>Veæ postoji datoteka s istim imenom";
 $langForums = "Forumi";
-$langGroupSpace = "Podruèje grupa";
 $langGroups = "Grupe";
 $langHelp = "Pomoæ";
 $langImpossible = "Greška. Nemoguæa operacija";

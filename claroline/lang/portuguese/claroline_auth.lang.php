@@ -52,6 +52,7 @@ $langNo = "N&atilde;o";
 $langNowGoChooseYourCourses = "agora pode escolher na lista os cursos a que deseja aceder.";
 $langNowGoCreateYourCourse = "agora pode criar o seu curso";
 $langOk = "validar";
+$langOneResp = "Um dos administradores do curso";
 $langOtherCourses = "Lista de cursos";
 $langPassTooEasy = "esta senha &eacute; demasiado simples. Utiliza uma semelhante a esta";
 $langPassTwice = "N&atilde;o escreveu a mesma senha as duas vezes.
@@ -63,6 +64,7 @@ $langProfileReg = "O seu novo perfil de utilizador foi guardado com sucesso";
 $langReg = "Inscri&ccedil;&atilde;o";
 $langRegAdmin = "Criar cursos (professor)";
 $langRegStudent = "Inscrever-se em cursos (estudante)";
+$langRegYou = "inscreveu-o neste curso";
 $langSettings = "com os seguintes par&aacute;metros:
 
 

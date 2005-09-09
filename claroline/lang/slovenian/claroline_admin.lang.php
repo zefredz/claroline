@@ -80,6 +80,7 @@ $langNo = "Ne";
 $langNoResult = "Ni rezultata";
 $langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
+$langOneResp = "Eden od administratorjev tecaja";
 $langOtherCourses = "Seznam tecajev";
 $langPassTooEasy = "to geslo je prevec preprosto. Uporabi geslo, kot na primer ";
 $langPassTwice = "Vtipkal si dve razlicni gesli. V brkljalniku se vrni na prejsnjo stran in poskusi znova.";
@@ -101,6 +102,7 @@ $langProblem = "V primeru tezav, nam sporoci.";
 $langPublic = "javen";
 $langRegAdmin = "Tvori spletne strani tecaja";
 $langRegStudent = "Sledi tecajem";
+$langRegYou = "vas je registriral za ta tecaj";
 $langRole = "Vloga";
 $langSettings = "z naslednjimi nastavitvami:
 Ime uporabnika:";

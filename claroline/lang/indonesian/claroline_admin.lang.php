@@ -80,6 +80,7 @@ $langNo = "Tidak";
 $langNoResult = "Tidak Ada";
 $langNotAllowed = "Tidak diijinkan";
 $langOk = "Ok";
+$langOneResp = "Satu dari administrator pelajaran";
 $langOtherCourses = "Daftar pelajaran";
 $langPassTooEasy = "password tsb terlalu sederhana. Gunakan yang seperti ini ";
 $langPassTwice = "Anda mengetik dua password berbeda. Gunakan tombol BACK di browser dan coba lagi.";
@@ -101,6 +102,7 @@ $langProblem = "Jika ada masalah, hubungi kami.";
 $langPublic = "publik";
 $langRegAdmin = "Buat situs pelajaran";
 $langRegStudent = "Ikut pelajaran";
+$langRegYou = "telah mendaftarkan anda pada pelajaran ini";
 $langRole = "Peran";
 $langSettings = "dengan setting berikut:
 Nama user:";

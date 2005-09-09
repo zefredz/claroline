@@ -19,7 +19,6 @@ $l_returnindex = "para voltar ao &iacute;ndice do foro";
 $l_returntopic = "para voltar &agrave; lista de temas do foro.";
 $l_separator = "» »";
 $l_viewmsg = "para ver a sua Mensagem.";
-$langAdm = "administrar";
 $langAdmitError = "Reconhecer os pr&oacute;oprios erros para convidar o interlocutor a fazer o mesmo.";
 $langAgain = "Tente de novo!";
 $langAgenda = "Agenda";

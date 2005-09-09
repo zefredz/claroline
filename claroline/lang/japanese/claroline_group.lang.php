@@ -21,7 +21,6 @@ $l_returnindex = "to return to the forum index";
 $l_returntopic = "to return to the forum topic list.";
 $l_separator = "» »";
 $l_viewmsg = "to view your Message.";
-$langAdm = "admin";
 $langAgenda = "Í½Äê";
 $langAnnouncement = "¤ªÃÎ¤é¤»";
 $langCopy = "¥³¥Ô¡¼";

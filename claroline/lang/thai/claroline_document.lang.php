@@ -16,7 +16,6 @@ $langDocument = "เอกสาร";
 $langElRen = "เปลี่ยนชื่อแล้ว";
 $langFileExists = "ไม่สามารถปฏิบัติได้<br>มีไฟล์ชื่อนี้อยู่แล้ว";
 $langForums = "กระดานข่าว";
-$langGroupSpace = "พื้นที่กลุ่ม";
 $langGroups = "กลุ่ม";
 $langHelp = "ช่วยเหลือ";
 $langImpossible = "ไม่สามารถปฏิบัติได้";

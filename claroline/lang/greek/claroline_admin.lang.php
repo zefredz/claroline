@@ -172,6 +172,7 @@ $langNotUnregYourself = "Δεν μπορείς να αλλάξεις τις προσωπικές σου ρυθμίσεις!";
 $langNumero = "No.";
 $langOfficialCode = "Κωδικός διαχείρησης";
 $langOk = "Εντάξει";
+$langOneResp = "Ενας από τους διαχειριστές του μαθήματος";
 $langOrder = "Εντολή ";
 $langOtherCourses = "Λίστα Μαθημάτων";
 $langPassTooEasy = "Το συνθηματικό σας είναι πολύ απλό. Χρησιμοποιήστε ένα συνθηματικό σαν και αυτό";
@@ -201,6 +202,7 @@ $langPublic = "ανοικτό";
 $langPublicOnly = "Δημόσιο μάθημα μόνο";
 $langRegAdmin = "Δημιουργία μαθημάτων";
 $langRegStudent = "Παρακολούθηση μαθημάτων";
+$langRegYou = "σας έχει γράψει σε αυτό το μάθημα";
 $langRegister = "Εγγραφή";
 $langRegisterLocalUrl = "Το campus url φαινεται να είναι τοπικό τοπικό url.
 Απαιτείται προσβάσιμο web url για να εγγραψετε στο site σας στο Claroline.net.<br /><br />

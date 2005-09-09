@@ -20,7 +20,6 @@ $l_returnindex = "para regresar al &iacute;ndice del foro";
 $l_returntopic = "para regresar a la lista de temas del foro.";
 $l_separator = "» »";
 $l_viewmsg = "para ver su Mensaje.";
-$langAdm = "Administración de Foros";
 $langAdmin = "Administrador";
 $langAdmitError = "Reconocer los propios errores para invitar al interlocutor a hacer lo mismo.";
 $langAgain = "Intente de nuevo!";

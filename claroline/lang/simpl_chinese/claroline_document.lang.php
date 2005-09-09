@@ -36,7 +36,6 @@ $langFileNameMissing = "文件名丢失";
 $langFileNameOrURLMissing = "文件名或网址丢失。";
 $langFiles = "文件列表";
 $langForums = "学习论坛";
-$langGroupSpace = "学习小组区";
 $langGroups = "学习小组";
 $langHelp = "帮助";
 $langImpossible = "操作失败";

@@ -18,7 +18,6 @@ $langElRen = "Element reanomenat";
 $langExercises = "Exercicis";
 $langFileExists = "Operació impossible.<br>Ja existeix un fitxer amb aquest nom.";
 $langForums = "Fòrums";
-$langGroupSpace = "Àrea de grups";
 $langGroups = "Grups";
 $langHelp = "Ajuda";
 $langImpossible = "Operació impossible";

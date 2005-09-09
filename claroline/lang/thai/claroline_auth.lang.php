@@ -28,6 +28,7 @@ $langMyCourses = "My courses";
 $langNameOfLang = "Array";
 $langNo = "ไม่";
 $langOk = "ตกลง";
+$langOneResp = "ผู้ดูแลรายวิชาคนหนึ่ง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPassTwice = "คุณพิมพ์รหัสผ่านไม่เหมือนกันสองครั้ง คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง";
 $langPoweredBy = "Powered by";
@@ -36,6 +37,7 @@ $langProfileReg = "ข้อมูลส่วนตัวใหม่ถูกบันทึกเรียบร้อย";
 $langReg = "ลงทะเบียน";
 $langRegAdmin = "สร้างรายวิชา";
 $langRegStudent = "เข้าสู่บทเรียน";
+$langRegYou = "ลงทะเบียนให้คุณที่รายวิชานี้";
 $langSettings = "ตามข้อมูล:
 Username:";
 $langStudent = "นักศึกษา";

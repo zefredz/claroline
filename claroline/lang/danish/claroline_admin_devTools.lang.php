@@ -22,7 +22,6 @@ $l_returnindex = "Retur til forum index";
 $l_returntopic = "Retur til forum emnelisten.";
 $l_separator = " > ";
 $l_viewmsg = "for at se din besked.";
-$langAdm = "Administration af Forum";
 $langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
 $langAgain = "Prøv igen!";
 $langAgenda = "Kalenderen - Hvad sker der?";

@@ -37,6 +37,7 @@ $langMyCourses = "Els meus cursos";
 $langNameOfLang = "Array";
 $langNo = "No";
 $langOk = "D'acord";
+$langOneResp = "Un dels administradors del curs";
 $langOtherCourses = "Llista de cursos";
 $langPassTooEasy = "aquest password és massa simple. Utilitza un password com aquest ";
 $langPassTwice = "Has escrit dues paraules de pas diferents. Utilitza el botó enrere del teu navegador i prova un altre cop.";
@@ -46,6 +47,7 @@ $langProfileReg = "El teu nou perfil ha estat guardat";
 $langReg = "Enregistrament";
 $langRegAdmin = "Crea llocs web de cursos";
 $langRegStudent = "Apunta't a cursos";
+$langRegYou = "t'ha enregistrat en aquest curs";
 $langSettings = "amb els següents detalls:
 Nom d'usuari:";
 $langStudent = "estudiant";

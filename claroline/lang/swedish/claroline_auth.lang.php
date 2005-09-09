@@ -51,6 +51,7 @@ $langNo = "Nej";
 $langNowGoChooseYourCourses = "Du kan nu välja, i listan, de kurser du vill deltaga i.";
 $langNowGoCreateYourCourse = "Du kan nu skapa din kurs";
 $langOk = "validate";
+$langOneResp = "En av kursadministratörerna";
 $langOtherCourses = "Kurslista";
 $langPassTooEasy = "detta lösenord är för enkelt. Använd ett som liknar detta:";
 $langPassTwice = "Du skrev in två skilda lösenord. Använda webbläsaren tillbakaknapp och försök igen.";
@@ -60,6 +61,7 @@ $langProfileReg = "Din nya profil har sparats";
 $langReg = "Registrering";
 $langRegAdmin = "Skapa kurswebbsajter (lärare)";
 $langRegStudent = "Följ kurser (elev)";
+$langRegYou = "har registrerat dig på denna kurs";
 $langSettings = "med följande inställningar:
 Användarnamn:";
 $langStudent = "elev";

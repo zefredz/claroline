@@ -21,7 +21,6 @@ $langExercises = "Bài tập";
 $langFileError = "không hợp lệ.";
 $langFileExists = "Không được.<br>Trùng tên file.";
 $langForums = "Diễn đàn";
-$langGroupSpace = "Khu vực nhóm";
 $langGroups = "Nhóm";
 $langHelp = "Help";
 $langImpossible = "Không được";

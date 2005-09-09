@@ -18,7 +18,7 @@ $langEmpty = "Vac&iacute;o";
 $langExercises = "Ejercicios";
 $langFailed = "<span style=\"color: red\">Fallo!</span>";
 $langForums = "Foros";
-$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langGroups = "Grupos";
 $langHelp = "ayuda";
 $langIntroStep1 = "<p>La <em>herramienta de actualizaci&oacute;n de Claroline</em> est&aacute; a punto de actualizar la 
 				   configuraci&oacute;n principal. Esta configuraci&oacute;n ser&aacute; guardada en 
@@ -85,6 +85,8 @@ $langNo = "No";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
 $langPassword = "contraseña";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAccess = "Acceso al Campus";
 $langPlatformAdministration = "Administraci&oacute;n de la plataforma";
 $langPoweredBy = "Generado con";
@@ -129,6 +131,9 @@ $lang_oldFileBackup = "Antiguo fichero de copia de seguridad";
 $lang_p_CannotCreate_s = "No se puede crear %s";
 $lang_p_CannotRename_s_s = "No se puede renombrar %s a %s";
 $lang_p_UpgradeMainClarolineDatabase_s = "Actualizando la base de datos principal de Claroline (<em>%s</em>)";
+$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Actualizando el curso <strong>%2\$s</strong><br><small>
+Nombre de la Base de Datos  : %3\$s <br>
+Identificador del Curso : %4\$s</small></td></tr></table>";
 $lang_p_YouCan_url_retryToUpgradeTheseCourse = "Solucionar en primer lugar el problema t&eacute;cnico y 
 <a href=\"%s\">relanzar la herramienta de actualizaci&oacute;n</a>.";
 $lang_p_d_affected_rows = "%d filas afectadas";

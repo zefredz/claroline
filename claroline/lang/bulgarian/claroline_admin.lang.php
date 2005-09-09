@@ -43,6 +43,7 @@ $langNameOfLang = "Array";
 $langNo = "Не";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
+$langOneResp = "Един от администраторите на курса";
 $langOtherCourses = "Списък на курсовете";
 $langPassTooEasy = "тази парола е прекалено проста. Използвай парола като тази ";
 $langPassTwice = "Написали сте две различни пароли. Използвайте Back бутона на вашия браузер и опитайте отново.";
@@ -52,6 +53,7 @@ $langProblem = "При проблеми моля свържете се с";
 $langPublic = "публичен";
 $langRegAdmin = "Желая да създам нов курс";
 $langRegStudent = "Желая да чета лекции";
+$langRegYou = "ви е регистрирал за този курс";
 $langRole = "Ролята";
 $langSettings = "със следните настройки:
 Username:";

@@ -36,7 +36,6 @@ $langFileNameMissing = "Bestandsnaam ontbreekt";
 $langFileNameOrURLMissing = "Bestandsnaam of URL ontbreekt.";
 $langFiles = "Bestandslijst";
 $langForums = "Forums";
-$langGroupSpace = "Groepsruimte";
 $langGroups = "Groepen";
 $langHelp = "Help";
 $langImpossible = "Onmogelijk";

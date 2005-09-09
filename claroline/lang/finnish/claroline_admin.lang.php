@@ -33,11 +33,13 @@ $langNameOfLang = "Array";
 $langNo = "No";
 $langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
+$langOneResp = "Eräs kurssin ylläpitäjistä";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";
 $langPoweredBy = "Alusta";
 $langProblem = "Jos sinulla on ongelmia, ota yhteyttä.";
 $langRegAdmin = "Luo kurssien sivustot (opettaja)";
 $langRegStudent = "Valitse kursseja (opiskelija)";
+$langRegYou = "on rekisteröinyt sinut tälle kurssille";
 $langRole = "Rooli";
 $langSettings = "seuraavilla asetuksilla:
 Käyttäjänimi:";

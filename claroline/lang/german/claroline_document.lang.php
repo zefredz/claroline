@@ -36,7 +36,6 @@ $langFileNameMissing = "Kein Dateiname vorhanden";
 $langFileNameOrURLMissing = "Dateiname oder URL nicht vorhanden.";
 $langFiles = "Dateiliste";
 $langForums = "Foren";
-$langGroupSpace = "Gruppenbereich";
 $langGroups = "Gruppen";
 $langHelp = "Hilfe";
 $langImpossible = "Vorgang nicht möglich";

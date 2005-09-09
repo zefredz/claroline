@@ -50,6 +50,7 @@ $langNo = "Nie";
 $langNowGoChooseYourCourses = "Teraz mo¿esz wybieraæ z listy, kursy do których chcesz mieæ dostêp.";
 $langNowGoCreateYourCourse = "Teraz mo¿esz tworzyæ swoje kursy";
 $langOk = "Ok";
+$langOneResp = "Jeden z administratorów kursu";
 $langOtherCourses = "Lista kursów";
 $langPassTooEasy = "to has³o jest zbyt proste. Spróbuj czegoœ podobnego do ";
 $langPassTwice = "Wpisa³e¶ dwa ró¿ne has³a. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
@@ -59,6 +60,7 @@ $langProfileReg = "Twój nowy profil zosta³ zapisany";
 $langReg = "Rejestracja";
 $langRegAdmin = "Tworzenie kursu";
 $langRegStudent = "Uczestnictwo w kursie";
+$langRegYou = "zarejestrowa³ Ciê do tego kursu";
 $langSettings = "z nastêpuj±cymi ustawieniami: 
 Username:";
 $langStudent = "student";

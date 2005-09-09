@@ -173,6 +173,7 @@ $langNotUnregYourself = "Vous ne pouvez pas changer vos propres paramètres !";
 $langNumero = "N°";
 $langOfficialCode = "Code officiel";
 $langOk = "Valider";
+$langOneResp = "l&acute;un des gestionnaires de l&acute;espace";
 $langOrder = "Ordre";
 $langOtherCourses = "Liste des espaces";
 $langPassTooEasy = "Ce mot de passe est trop simple. Choisissez un autre password  comme par exemple : ";
@@ -204,6 +205,7 @@ $langPublic = "public";
 $langPublicOnly = "Les espaces publics uniquement";
 $langRegAdmin = "Créer des espaces";
 $langRegStudent = "M'inscrire à des espaces";
+$langRegYou = "vous a inscrit sur";
 $langRegister = "S'inscrire";
 $langRegisterLocalUrl = "L'URL de votre campus semble être locale.
 Une URL accessible est nécessaire pour enregistrer votre campus.<br /><br />

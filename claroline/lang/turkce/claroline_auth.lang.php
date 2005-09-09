@@ -41,6 +41,7 @@ $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
 $langNo = "Hayýr";
 $langOk = "Tamam";
+$langOneResp = "Ders yöneticilerinden biri";
 $langOtherCourses = "Ders listesi";
 $langPassTooEasy = "bu þifre çok basit. Böyle bir þey önerilir ";
 $langPassTwice = "Þifrenizi farklý yazdýnýz. Geri dönüp tekrar yazýnýz.";
@@ -50,6 +51,7 @@ $langProfileReg = "Yeni profiliniz kaydedildi";
 $langReg = "Kayýt";
 $langRegAdmin = "Hoca";
 $langRegStudent = "Öðrenci";
+$langRegYou = " bu derse sizi kaydetmiþtir";
 $langSettings = "Kayýt bilgileriniz þunlardýr:
 Username:";
 $langStudent = "öðrenci";
