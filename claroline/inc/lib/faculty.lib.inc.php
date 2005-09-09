@@ -31,9 +31,6 @@
      * @desc - display the bom whith option to edit or delete the categories
      */
 
-$langExpand = '+';
-$langCollapse = '-';
-
 function claro_disp_tree($elem,$father,$space)
 {
     GLOBAL $imgRepositoryWeb;
@@ -66,8 +63,8 @@ function claro_disp_tree($elem,$father,$space)
                         .    '#pm' . $one_faculty['id'] .'" '
                         .    'name="pm' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible'] 
-                             ?    '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" alt="' . $langCollapse . '" >'
-                             :    '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" alt="' . $langExpand . '" >'
+                             ?    '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" alt="-" >'
+                             :    '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" alt="+" >'
                              )
                         .    '</a> '
                         .    '&nbsp;'
