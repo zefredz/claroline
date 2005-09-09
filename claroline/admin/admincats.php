@@ -16,7 +16,6 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$lang_faculty_DeleteFail = 'Deleted failed';
 define ('DISP_FORM_CREATE', __LINE__);
 define ('DISP_FORM_EDIT', __LINE__);
 define ('DISP_FORM_MOVE', __LINE__);
@@ -327,7 +326,7 @@ else
             if ($delok == TRUE)
             {
                 if (delete_node( $_REQUEST['id'] )) $controlMsg['info'][] = $lang_faculty_DeleteOk;
-                else                                $controlMsg['info'][] = $lang_faculty_DeleteFail;
+                else                                $controlMsg['info'][] = $langUnableDeleteCategory;
             }
         }
 
