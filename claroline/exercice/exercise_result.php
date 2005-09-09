@@ -326,8 +326,14 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 										break;
 				// for fill in the blanks
 				case FILL_IN_BLANKS :	// splits text and weightings that are joined with the character '::'
-										list($answer,$answerWeighting) = explode('::',$answer);
 
+							            $explodedAnswer = explode( '::',$answer);
+							            $answer = (isset($explodedAnswer[0]))?$explodedAnswer[0]:'';
+							            $answerWeighting = (isset($explodedAnswer[1]))?$explodedAnswer[1]:'';
+							            $fillType = (!empty($explodedAnswer[2]))?$explodedAnswer[2]:1;
+							            // default value if value is invalid
+							            if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
+							            
 										// splits weightings that are joined with a comma
 										$answerWeighting = explode(',',$answerWeighting);
 
@@ -371,8 +377,19 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 											else
 											    $choice[$j] = '';
 
+											// check answer validity
+											if( $fillType == LISTBOX_FILL )
+											{
+												// case sensitive check when select box are used
+                                                $answerIsCorrect = substr($temp,0,$pos) == $choice[$j];
+											}
+											else
+											{
+												// case insensitive check when text box are used
+												$answerIsCorrect = strtolower(substr($temp,0,$pos)) == strtolower($choice[$j]);
+											}
 											// if the word entered by the student IS the same as the one defined by the professor
-											if(strtolower(substr($temp,0,$pos)) == strtolower($choice[$j]))
+											if( $answerIsCorrect )
 											{
 												// gives the related weighting to the student
 												$questionScore += $answerWeighting[$j];
@@ -587,7 +604,7 @@ if($is_trackingEnabled && $displayScore)
 		$exerciseTrackId = event_exercice($_SESSION['objExercise']->selectId(),$totalScore,$totalWeighting,$timeToCompleteExe, $_uid );
     }
 
-	if( isset($exerciseTrackId) && $exerciseTrackId )
+	if( isset($exerciseTrackId) && $exerciseTrackId && !empty($answersToTrack) )
 	{
   		foreach( $answersToTrack as $answerToTrack )
   		{
