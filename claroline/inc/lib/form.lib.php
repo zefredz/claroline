@@ -21,11 +21,12 @@
  * @param string  $dayFieldName attribute name of the input DAY
  * @param string  $monthFieldName attribute name of the input MONTH
  * @param string  $yearFieldName attribute name of the input YEAR
- * @param boolean $selectedDate 
+ * @param boolean $selectedDate
+ * @param string  $formatMonth display type of month select box : numeric, long, short
  * 
  */ 
 
-function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0 )
+function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0, $formatMonth = 'numeric' )
 {
     global $langMonthNames;
 
@@ -47,8 +48,21 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
                                    );
 
     // month field
-    for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-      $available_months[$monthCounter] = $monthCounter;
+    if( $formatMonth == 'numeric' )
+    {
+	    for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+	      $available_months[$monthCounter] = $monthCounter;
+	}
+	elseif( $formatMonth == 'long' )
+	{
+    	for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+	      $available_months[$monthCounter] = $langMonthNames['long'][$monthCounter-1];
+	}
+	elseif( $formatMonth == 'short' )
+	{
+		for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+	      $available_months[$monthCounter] = $langMonthNames['short'][$monthCounter-1];
+	}
     $monthField = claro_html_form_select( $monthFieldName
                                    , $available_months
                                    , $selMonth
