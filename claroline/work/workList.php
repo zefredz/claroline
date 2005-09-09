@@ -469,18 +469,26 @@ foreach ( $workList as $thisWrk )
     
     echo '</a>'
     .    '</td>' . "\n"
-    .    '<td>' . $thisWrk['title'] . '</td>' . "\n"
+    .    '<td>';
+	if( empty($thisWrk['title']) )
+		echo '&nbsp;';
+	else
+	    echo $thisWrk['title'];
+	    
+	echo '</td>' . "\n"
     .    '<td>' . $thisWrk['submissionCount'] . '</td>' . "\n"
     .    '<td>'
     ;
     
-    if   ( isset($feedbackNbrList) )
-    if   ( is_array($feedbackNbrList) )
-    if   ( array_key_exists($thisWrk['authId'],$feedbackNbrList))  
-    {
-        echo $feedbackNbrList[$thisWrk['authId']] ;
-    }
-    else echo 0;
+    if( isset($feedbackNbrList) && is_array($feedbackNbrList) && array_key_exists($thisWrk['authId'],$feedbackNbrList))
+	{
+	  	echo $feedbackNbrList[$thisWrk['authId']] ;
+	}
+	else
+	{
+	  	echo '0';
+	}
+		
     
     echo '</td>' . "\n"
     .    '</tr>' . "\n\n"
