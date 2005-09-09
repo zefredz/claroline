@@ -189,7 +189,7 @@ echo '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'admin/admin_class_reg
    . '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0"/> '
    .$langClassRegisterUser.'</a>'
    . ' | '
-   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;uidToEdit=-1&amp;category=">'
+   . '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php?cmd=rqReg&amp;fromAdmin=class">'
    .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
    .$langClassRegisterWholeClass.'</a>'
    . ' | '
