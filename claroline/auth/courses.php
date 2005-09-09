@@ -72,7 +72,7 @@ else                           $cmd = '';
 if ( isset($_REQUEST['uidToEdit']) ) $uidToEdit = (int) $_REQUEST['uidToEdit'];
 else                                 $uidToEdit = 0;
 
-if ( isset($_REQUEST['fromAdmin']) ) $fromAdmin = trim($_REQUEST['fromAdmin']);
+if ( isset($_REQUEST['fromAdmin']) && $is_platformAdmin ) $fromAdmin = trim($_REQUEST['fromAdmin']);
 else                                 $fromAdmin = '';
 
 if ( isset($_REQUEST['course']) ) $course = trim($_REQUEST['course']);
@@ -109,9 +109,9 @@ else
     // security : only platform admin can edit other user than himself...
 
     if ( isset($fromAdmin)
-         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" || $fromAdmin == "class")
+         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" ) 
          && !empty($uidToEdit)
-         )
+       )
     {
         $userSettingMode = TRUE;
     }
@@ -152,13 +152,14 @@ if ( !empty($fromAdmin) )
     {
         $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
     }
-    elseif ( $fromAdmin == 'class' )
+    
+    if ( $fromAdmin == 'class' )
     {
         // bred different if we come from admin tool for a CLASS
         $nameTools = $langRegisterClass;
 
         //find info about the class
-        $sqlclass = "SELECT name, class_parent_id, class_level 
+        $sqlclass = "SELECT id, name, class_parent_id, class_level 
                      FROM `" . $tbl_class . "` 
                      WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
 
@@ -447,11 +448,11 @@ else
             $backUrl   = '../admin/adminusercourses.php?uidToEdit=' . $userId;
             $backLabel = $langBackToCourseList;
         }
-        if ( $fromAdmin == 'class' ) // admin tool used : class registration
-        {
+    }
+    elseif ( $fromAdmin == 'class' ) // admin tool used : class registration
+    {
             $backUrl   = '../admin/admin_class_user.php?';
             $backLabel = $langBackToClass;
-        }
     }
     else
     {
@@ -567,8 +568,6 @@ switch ( $displayMode )
             if ( $userSettingMode ) //display links to enroll as student and also as teacher (but not for a class)
             {
 
-                if ( $fromAdmin != 'class' )
-                {
                     echo '<thead>' . "\n"
                         . '<tr class="headerX">' . "\n"
                         . '<th>&nbsp;</th>' . "\n"
@@ -576,16 +575,15 @@ switch ( $displayMode )
                         . '<th>' . $langEnrollAsTeacher . '</th>' . "\n"
                         . '<tr>' . "\n"
                         . '</thead>' . "\n";
-                }
-                else
-                {
+            } 
+            elseif ( $fromAdmin == 'class' )
+            {
                     echo '<thead>' . "\n"
                         . '<tr class="headerX">' . "\n"
                         . '<th>&nbsp;</th>' . "\n"
                         . '<th>' . $langEnrollClass . '</th>' . "\n"
                         . '</tr>' . "\n"
                         . '</thead>'. "\n";
-                }
             }
 
             echo '<tbody>' . "\n";
@@ -609,9 +607,9 @@ switch ( $displayMode )
                     }
                     else
                     {
-                         if ( $fromAdmin != 'class') // class may not be enrolled as teachers
-                         {
-                            echo '<td valign="top" align="center">' . "\n"
+                        // class may not be enrolled as teachers
+
+                        echo '<td valign="top" align="center">' . "\n"
                                 . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['code'] . $inURL . '">'
                                 . '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . $langEnrollAsStudent . '">'
                                 . '</a></td>' . "\n"
@@ -619,16 +617,15 @@ switch ( $displayMode )
                                 . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&asTeacher=true&course=' . $thisCourse['code'] .$inURL . '">'
                                 . '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . $langEnrollAsTeacher . '">'
                                 . '</a></td>' . "\n";
-                        }
-                        else
-                        {
-                            echo '<td valign="top"  align="center">' . "\n"
-                                . '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php?cmd=exReg&course=' . $thisCourse['code'] . '&class=' . $classinfo['id'] . $inURL . '">'
-                                . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langEnrollClass . '">'
-                                . '</a>'
-                                . '</td>' . "\n";
-                        }
                     }
+                }
+                elseif ( $fromAdmin == 'class')
+                {
+                    echo '<td valign="top"  align="center">' . "\n"
+                   . '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php?cmd=exReg&course=' . $thisCourse['code'] . '&class=' . $classinfo['id'] . $inURL . '">'
+                   . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langEnrollClass . '">'
+                   . '</a>'
+                   . '</td>' . "\n";
                 }
                 else
                 {
