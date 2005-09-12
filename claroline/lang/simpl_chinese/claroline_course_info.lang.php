@@ -61,6 +61,8 @@ $langNo = "取消";
 $langNotAllowed = "操作禁止";
 $langOk = "确认";
 $langOtherCourses = "课程列表";
+$langPeriodDayShort = "日";
+$langPeriodHourShort = "小时";
 $langPlatformAdministration = "平台管理";
 $langPoweredBy = "技术支持";
 $langPrivateAccess = "内部访问,注册后确认方可,即只对<a href=../user/user.php>用户列表</a>中的人可见";
