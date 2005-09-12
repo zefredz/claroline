@@ -1883,18 +1883,18 @@ echo claro_disp_tool_title($titleElement,
                     $target = '';
                 }
     
-                echo "<tr align=\"center\"",$style,">\n"
+                echo "<tr align=\"center\">\n"
                     ."<td align=\"left\">";
                         
                 if( is_image( $fileName ) )
                 {
                     echo "<a class=\"".$style." item".$classItem."\" href=\"". $_SERVER['PHP_SELF'],
                         "?docView=image&amp;file=" . urlencode($fileName) . "&cwd="
-                        . $curDirPath . $searchCmdUrl ."\"". $style . ">";
+                        . $curDirPath . $searchCmdUrl ."\">";
                 }
                 else
                 {
-                        echo "<a class=\"".$style." item".$classItem."\" href=\"".$urlFileName."\"".$style." ".$target." >";
+                        echo "<a class=\"".$style." item".$classItem."\" href=\"".$urlFileName."\" ".$target." >";
                 } // end if is_image
                 
                 echo "<img src=\"".$imgRepositoryWeb."",
