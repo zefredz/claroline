@@ -27,7 +27,7 @@
         $jpspanEnabled = FALSE;
         
         /* IIS workaround : JPSPAN does not work on IIS */
-        if ( ! (strpos( $_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS' ) === false) )
+        if ( ! (strpos( $_SERVER['SERVER_SOFTWARE'], 'IIS' ) === false) )
         {
 			return false;
         }
