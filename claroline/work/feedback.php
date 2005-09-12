@@ -107,9 +107,20 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
                 // there can be only one automatic feedback but the file is put in the
                 // assignments directory
                 $assigDirSys = $wrkDir . 'assig_' . $_REQUEST['assigId'] . '/';
-                // split file ant its extension 
-                $extension = substr($newFileName, strrpos($newFileName, '.'));
-                $filename = substr($newFileName, 0, strrpos($newFileName, '.'));
+                // split file and its extension
+                $dotPosition = strrpos($newFileName, '.');
+                if( $dotPosition !== false &&  $dotPosition != 0 )
+                {
+					// if a dot was found and not as first letter (case of files like .blah)
+                	$filename = substr($newFileName, 0, $dotPosition );
+                	$extension = substr($newFileName, $dotPosition);
+				}
+				else
+				{
+					// if we have no extension
+					$filename = $newFileName;
+					$extension = '';
+				}
 
                 $i = 0;
                 while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;

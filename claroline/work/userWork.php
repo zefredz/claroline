@@ -463,8 +463,19 @@ if( isset($_REQUEST['submitWrk']) )
 
 				// -- create a unique file name to avoid any conflict
 				// split file and its extension
-				$extension = substr($newFileName, strrpos($newFileName, "."));
-				$filename = substr($newFileName, 0, strrpos($newFileName, "."));
+				$dotPosition = strrpos($newFileName, '.');
+                if( $dotPosition !== false &&  $dotPosition != 0 )
+                {
+					// if a dot was found and not as first letter (case of files like .blah)
+                	$filename = substr($newFileName, 0, $dotPosition );
+                	$extension = substr($newFileName, $dotPosition);
+				}
+				else
+				{
+					// if we have no extension
+					$filename = $newFileName;
+					$extension = '';
+				}
 				$i = 0;
 				while( file_exists($assigDirSys.$filename."_".$i.$extension) ) $i++;
 
