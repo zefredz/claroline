@@ -1,27 +1,30 @@
-<?php # $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0 $Revision$                            |
-      +----------------------------------------------------------------------+
-      |   German translation                                                 |
-      +----------------------------------------------------------------------+
-      | Translator:                                                          |
-      +----------------------------------------------------------------------+
-      | revised and complemented: 2004/09/22 by								 |
-	  | Udo Scharf  <UScharf@netway-online.de>     							 |
-      +----------------------------------------------------------------------+
-
+<?php // $Id$
+/**
+ * CLAROLINE 
+ *
+ * German Translation
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-DE
+ *
+ * @author Udo Scharf  <UScharf@netway-online.de>     							
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 
 $iso639_1_code = "de";
 $iso639_2_code = "ger";
 
-$byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 $charset = 'iso-8859-1';
 $dateFormatLong  = "%A %d. %B %Y ";
 $dateFormatShort =  "%d. %b %y";
 $dateTimeFormatLong  = "%d. %B %Y um %H:%M";
 $englishLangName = "german";
+$byteUnits = array('Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
 $langDay_of_weekNames['init'] = array('S', 'M', 'D', 'M', 'D', 'F', 'S');
 $langDay_of_weekNames['long'] = array('Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag');
 $langDay_of_weekNames['short'] = array('So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa');

@@ -1,15 +1,22 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE 
+ *
+ * indonesian translation
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-ID
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+
+$englishLangName = "indonesian";
+//$localLangName = "";
 
 $iso639_1_code = "id";
 $iso639_2_code = "ind";
@@ -40,7 +47,7 @@ $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
 $number_thousands_separator = ',';
 $number_decimal_separator = '.';
-$byteUnits = array('Bytes', 'KB', 'MB', 'GB');
+$byteUnits = array('Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
 
 $langDay_of_weekNames['init'] = array('M', 'S', 'S', 'R', 'K', 'J', 'S');
 $langDay_of_weekNames['short'] = array('Ming', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab');
