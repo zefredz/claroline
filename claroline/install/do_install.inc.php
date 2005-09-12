@@ -231,8 +231,8 @@ else
     $form_value_list['allowSelfReg'] = trueFalse($allowSelfReg);
     $form_value_list['platformLanguage'] = $languageForm ;
     $form_value_list['claro_stylesheet'] = 'default.css';
-    $form_value_list['CLARO_DEBUG_MODE']= trueFalse($conf_def_property_list['CLARO_DEBUG_MODE']['default']);
-    $form_value_list['DEVEL_MODE']= trueFalse($conf_def_property_list['DEVEL_MODE']['default']);
+    $form_value_list['CLARO_DEBUG_MODE']= $conf_def_property_list['CLARO_DEBUG_MODE']['default'];
+    $form_value_list['DEVEL_MODE']= $conf_def_property_list['DEVEL_MODE']['default'];
 
 ######### DEALING WITH FILES #########################################
 
