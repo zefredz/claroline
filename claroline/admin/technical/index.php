@@ -39,7 +39,6 @@ echo claro_disp_tool_title(
 <ul>
  <li><a href="./diskUsage.php"><?php echo $langDiskUsage ?></a></li>
  <li><a href="./phpInfo.php"><?php echo $lang_php_info ?></a></li>
- <li><a href="./security.php"></a><?php echo $langSecurity ?></li>
 </ul>
 
 <?php
