@@ -220,19 +220,19 @@ function add_extension_for_uploaded_file($uploadedFile)
 
     if( get_extension_from_file_name($uploadedFile['name']) )
     {
-        $extension = ''; // no need for an extension there is already one.
+        $extension = null; // no need for an extension there is already one.
     }
     elseif( isset($uploadedFile['type']) )
     {
-        // CHECK IF A MIME TYPE HAS BEEN SENT BY THE BROWSER
-        $extension = '.' . get_extension_from_mime_type($uploadedFile['type']);
+        $extension = get_extension_from_mime_type($uploadedFile['type']);
     }
     else
     {
-    	$extension = null;
+        $extension = null;
     }
-    
-    return $extension;
+
+    if ( $extension ) return '.' . $extension;
+    else              return '';
 }
 
 /**
