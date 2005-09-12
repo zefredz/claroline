@@ -290,7 +290,7 @@ if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 if ($display_form)
 {
 ?>
-<form onSubmit="linker_confirm();delay(500);return true;" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 <input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
 <input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
