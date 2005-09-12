@@ -451,13 +451,14 @@ if( isset($_REQUEST['submitWrk']) )
 			else
 			{
 			    // add file extension if it doesn't have one
-			    $newFileName = add_ext_on_mime($_FILES['wrkFile']['name']);
+			    $newFileName = $_FILES['wrkFile']['name']
+                             . add_extension_for_uploaded_file($_FILES['wrkFile']);
 
 			    // Replace dangerous characters
 			    $newFileName = replace_dangerous_char($newFileName);
 
 			    // Transform any .php file in .phps fo security
-			    $newFileName = php2phps($newFileName);
+			    $newFileName = get_secure_file_name($newFileName);
 
 
 				// -- create a unique file name to avoid any conflict

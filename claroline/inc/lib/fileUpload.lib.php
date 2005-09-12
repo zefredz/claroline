@@ -209,74 +209,129 @@ function dir_total_space($dirPath)
  *        We don't have solution for this kind of situation
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - fileName (string) - Name of the file
- * @return - fileName (string)
- *
+ * @param  - array $uploadedFile
+ *           It has to be the superglobals $_FILE['myFile'] array
+ * @return - string extension (empty string if the file has already an extension)
  */
 
-function add_ext_on_mime($fileName)
+function add_extension_for_uploaded_file($uploadedFile)
 {
-	/*
-	 * Check if the file has an extension AND if the browser has send a MIME Type
-	 */
+    // CHECK IF THE FILE NAME HAS ALREADY AN EXTENSION
 
-	if(!ereg("([[:alnum:]]|[[[:punct:]])+\.[[:alnum:]]+$", $fileName)
-		&& $_FILES['userfile']['type'])
-	{
-		/*
-		 * Build a "MIME-types / extensions" connection table
-		 */
+    if( get_extension_from_file_name($uploadedFile['name']) )
+    {
+        $extension = ''; // no need for an extension there is already one.
+    }
+    elseif( isset($uploadedFile['type']) )
+    {
+        // CHECK IF A MIME TYPE HAS BEEN SENT BY THE BROWSER
+        $extension = '.' . get_extension_from_mime_type($uploadedFile['type']);
+    }
+    else
+    {
+    	$extension = null;
+    }
+    
+    return $extension;
+}
 
-		static $mimeType = array();
+/**
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $fileName
+ * @return string extension
+ *         boolean false if no extension is found
+ */
 
-        $mimeType[] = 'text/plain';                     $extension[] ='.txt';
-        $mimeType[] = 'application/msword';             $extension[] ='.doc';
-		$mimeType[] = 'application/rtf';                $extension[] ='.rtf';
-		$mimeType[] = 'application/vnd.ms-powerpoint';  $extension[] ='.ppt';
-		$mimeType[] = 'application/vnd.ms-excel';       $extension[] ='.xls';
-		$mimeType[] = 'application/pdf';                $extension[] ='.pdf';
-		$mimeType[] = 'application/postscript';         $extension[] ='.ps';
-		$mimeType[] = 'application/mac-binhex40';       $extension[] ='.hqx';
-		$mimeType[] = 'application/x-gzip';             $extension[] ='tar.gz';
-		$mimeType[] = 'application/x-shockwave-flash';  $extension[] ='.swf';
-		$mimeType[] = 'application/x-stuffit';          $extension[] ='.sit';
-		$mimeType[] = 'application/x-tar';              $extension[] ='.tar';
-		$mimeType[] = 'application/zip';                $extension[] ='.zip';
-		$mimeType[] = 'application/x-tar';              $extension[] ='.tar';
-		$mimeType[] = 'text/html';                      $extension[] ='.htm';
-		$mimeType[] = 'text/plain';                     $extension[] ='.txt';
-		$mimeType[] = 'text/rtf';                       $extension[] ='.rtf';
-		$mimeType[] = 'img/gif';                        $extension[] ='.gif';
-		$mimeType[] = 'img/jpeg';                       $extension[] ='.jpg';
-		$mimeType[] = 'img/png';                        $extension[] ='.png';
-		$mimeType[] = 'audio/midi';                     $extension[] ='.mid';
-		$mimeType[] = 'audio/mpeg';                     $extension[] ='.mp3';
-		$mimeType[] = 'audio/x-aiff';                   $extension[] ='.aif';
-		$mimeType[] = 'audio/x-pn-realaudio';           $extension[] ='.rm';
-		$mimeType[] = 'audio/x-pn-realaudio-plugin';    $extension[] ='.rpm';
-		$mimeType[] = 'audio/x-wav';                    $extension[] ='.wav';
-		$mimeType[] = 'video/mpeg';                     $extension[] ='.mpg';
-		$mimeType[] = 'video/quicktime';                $extension[] ='.mov';
-		$mimeType[] = 'video/x-msvideo';                $extension[] ='.avi';
+function get_extension_from_file_name($fileName)
+{
+    if ( preg_match('/.+\.([a-zA-Z0-9]+)$/', $fileName, $matchList) )
+        return  $matchList[1];
+    else
+        return null;
+}
 
+/**
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $mimeType
+ * @return string extension
+ */
 
-		/*
-		 * Check if the MIME type send by the browser is in the table
-		 */
+function get_extension_from_mime_type($mimeType)
+{
+    list($mimeTypeList, $extensionList) = get_mime_type_extension_map();
 
-		foreach($mimeType as $key=>$type)
-		{
-			if ($type == $_FILES['userfile']['type'])
-			{
-				$fileName .=  $extension[$key];
-				break;
-			}
-		}
+    $key = array_search(strtolower($mimeType), $mimeTypeList);
 
-		unset($mimeType, $extension, $type, $key); // Delete to eschew possible collisions
-	}
+    if ( is_int($key) ) return $extensionList[$key];
+    else                return false;
+}
 
-	return $fileName;
+/**
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $extension (doc, rtf, ...)
+ * @return string - corresponding mime type
+ */
+
+function get_mime_type_from_extension($extension)
+{
+    // remove the dot prefix, in case of ...
+    $extension = str_replace('.', '', $extension);
+
+    list($mimeTypeList, $extensionList) = get_mime_type_extension_map();
+
+    $key = array_search(strtolower($extension), $extensionList);
+
+    if ( is_int($key) ) return $mimeTypeList[$key];
+    else                return false;
+}
+
+/**
+ * Typical use :
+ *      list(mimeTypeLis, $extensionList) = get_mime_type_extension_map()
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param void
+ * @return array nested array containing two other arrays, 
+ *         the firt one with the MIME TYPES, and the second with the 
+ *         corresponding EXTENSIONS. keys of both sub arrays are mapped
+ */
+
+function get_mime_type_extension_map()
+{
+    static $typeList = array(); static $extList= array();
+
+    $typeList[] = 'text/plain';                     $extList[] = 'txt';
+    $typeList[] = 'application/msword';             $extList[] = 'doc';
+    $typeList[] = 'application/rtf';                $extList[] = 'rtf';
+    $typeList[] = 'application/vnd.ms-powerpoint';  $extList[] = 'ppt';
+    $typeList[] = 'application/vnd.ms-excel';       $extList[] = 'xls';
+    $typeList[] = 'application/pdf';                $extList[] = 'pdf';
+    $typeList[] = 'application/postscript';         $extList[] = 'ps';
+    $typeList[] = 'application/mac-binhex40';       $extList[] = 'hqx';
+    $typeList[] = 'application/x-gzip';             $extList[] = 'gz';
+    $typeList[] = 'application/x-shockwave-flash';  $extList[] = 'swf';
+    $typeList[] = 'application/x-stuffit';          $extList[] = 'sit';
+    $typeList[] = 'application/x-tar';              $extList[] = 'tar';
+    $typeList[] = 'application/zip';                $extList[] = 'zip';
+    $typeList[] = 'application/x-tar';              $extList[] = 'tar';
+    $typeList[] = 'application/x-tar';              $extList[] = 'tgz';
+    $typeList[] = 'text/html';                      $extList[] = 'htm';
+    $typeList[] = 'text/plain';                     $extList[] = 'txt';
+    $typeList[] = 'text/rtf';                       $extList[] = 'rtf';
+    $typeList[] = 'image/gif';                        $extList[] = 'gif';
+    $typeList[] = 'image/jpeg';                       $extList[] = 'jpg';
+    $typeList[] = 'image/png';                        $extList[] = 'png';
+    $typeList[] = 'audio/midi';                     $extList[] = 'mid';
+    $typeList[] = 'audio/mpeg';                     $extList[] = 'mp3';
+    $typeList[] = 'audio/x-aiff';                   $extList[] = 'aif';
+    $typeList[] = 'audio/x-pn-realaudio';           $extList[] = 'rm';
+    $typeList[] = 'audio/x-pn-realaudio-plugin';    $extList[] = 'rpm';
+    $typeList[] = 'audio/x-wav';                    $extList[] = 'wav';
+    $typeList[] = 'video/mpeg';                     $extList[] = 'mpg';
+    $typeList[] = 'video/quicktime';                $extList[] = 'mov';
+    $typeList[] = 'video/x-msvideo';                $extList[] = 'avi';
+
+    return array($typeList, $extList);
 }
 
 /**
@@ -308,13 +363,13 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 	}
 	else
 	{
+		/* TRY TO ADD AN EXTENSION TO FILES WITOUT EXTENSION */
+		$fileName = $uploadedFile['name'] . add_extension_for_uploaded_file($uploadedFile);
+
 		$fileName = trim($uploadedFile['name']);
 
 		/* CHECK FOR NO DESIRED CHARACTERS */
 		$fileName = replace_dangerous_char($fileName);
-		
-		/* TRY TO ADD AN EXTENSION TO FILES WITOUT EXTENSION */
-		$fileName = add_ext_on_mime($fileName);
 
 		/* HANDLE DANGEROUS FILE NAME FOR SERVER SECURITY */
 		$fileName = get_secure_file_name($fileName);

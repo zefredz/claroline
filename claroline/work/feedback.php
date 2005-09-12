@@ -94,7 +94,8 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
           else
           {     
                 // add file extension if it doesn't have one
-                $newFileName = add_ext_on_mime($_FILES['prefillDocPath']['name']);
+                $newFileName = $_FILES['prefillDocPath']['name']
+                             . add_extension_for_uploaded_file($_FILES['prefillDocPath']);
 
                 // Replace dangerous characters
                 $newFileName = replace_dangerous_char($newFileName);
