@@ -1,8 +1,16 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      |   Bulgarian Translation 
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ * Bulgarian Portuguese Translation
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-BG
+ *
+ * @author Claro team <cvs@claroline.net>
  */
 
 $iso639_1_code = "bg";
@@ -11,7 +19,7 @@ $iso639_2_code = "bul";
 $englishLangName = "bulgarian";
 $localLangName = "български";
 
-$langNameOfLang['bulgarian'            ] = "български";
+$langNameOfLang['bulgarian'] = "български";
 
 $charset = 'CP1251';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

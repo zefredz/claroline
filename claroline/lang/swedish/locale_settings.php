@@ -1,15 +1,17 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ * Swedish Translation
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-SV
+ *
+ * @author Claro team <cvs@claroline.net>
+ */
 $englishLangName = "Swedish";
 
 $iso639_1_code = "sv";
@@ -52,9 +54,9 @@ $langMonthNames['long'] = array('Januari', 'Februari', 'Mars', 'April', 'Maj', '
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
+$dateFormatShort =  'b %d, %y';
 $dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
+$dateTimeFormatLong  = '%B %d %B %Y kl %H:%M';
 $timeNoSecFormat = '%I:%M %p';
 
 

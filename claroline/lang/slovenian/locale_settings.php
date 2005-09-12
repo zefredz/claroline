@@ -1,15 +1,18 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ * Slovenian Translation
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @package LANG-SL
+ *
+ * @author Claro team <cvs@claroline.net>
+ */
+
 $englishLangName = "Slovenian";
 
 $iso639_1_code = "sl";
@@ -41,7 +44,8 @@ $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
 $number_thousands_separator = ',';
 $number_decimal_separator = '.';
-$byteUnits = array('Bytes', 'KB', 'MB', 'GB');
+$byteUnits = array('Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
+
 
 $langDay_of_weekNames['init'] = array('N', 'P', 'T', 'S', 'C', 'P', 'S');
 $langDay_of_weekNames['short'] = array('Ned', 'Pon', 'Tor', 'Sre', 'Cet', 'Pet', 'Sob');
@@ -51,9 +55,7 @@ $langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O
 $langMonthNames['short'] = array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec');
 $langMonthNames['long'] = array('Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December');
 
-// Voir http://www.php.net/manual/en/function.strftime.php pour la variable
-// ci-dessous
-
+// See http://www.php.net/manual/en/function.strftime.php 
 $dateFormatShort =  "%b %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
 $dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
