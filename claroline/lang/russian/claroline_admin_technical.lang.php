@@ -22,7 +22,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langOk = "Ok";
-$langOptional = "не обязательный";
 $langOtherCourses = "Список курсов";
 $langPoweredBy = "использует оболочку";
 $langStudent = "студент";

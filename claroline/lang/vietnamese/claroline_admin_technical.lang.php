@@ -22,7 +22,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
 $langOk = "Ok";
-$langOptional = "Tuỳ chọn";
 $langOtherCourses = "Danh mục khoá học";
 $langPoweredBy = "Powered by";
 $langStudent = "học sinh";

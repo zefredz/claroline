@@ -21,7 +21,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
 $langOk = "Ok";
-$langOptional = "Opcja";
 $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
 $langStudent = "student";

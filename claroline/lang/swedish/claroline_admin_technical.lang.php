@@ -22,7 +22,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
 $langOk = "validate";
-$langOptional = "Valbart";
 $langOtherCourses = "Kurslista";
 $langPoweredBy = "Med kraft från";
 $langStudent = "elev";

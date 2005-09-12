@@ -22,7 +22,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langOk = "Ok";
-$langOptional = "Opcija";
 $langOtherCourses = "Seznam tecajev";
 $langPoweredBy = "Powered by";
 $langStudent = "student";

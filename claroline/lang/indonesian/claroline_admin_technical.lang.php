@@ -22,7 +22,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
 $langNameOfLang = "Array";
 $langOk = "Ok";
-$langOptional = "Opsional";
 $langOtherCourses = "Daftar pelajaran";
 $langPoweredBy = "Diperkuat oleh";
 $langStudent = "siswa";

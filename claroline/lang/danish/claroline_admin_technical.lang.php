@@ -23,7 +23,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
 $langOk = "Ok";
-$langOptional = "Valgfri";
 $langOtherCourses = "Kursusoversigt";
 $langPoweredBy = "Udviklet af";
 $langStudent = "studerende";

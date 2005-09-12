@@ -21,7 +21,6 @@ $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langOk = "Proses";
-$langOptional = "Pilihan";
 $langOtherCourses = "Senarai Subjek";
 $langPoweredBy = "Oleh : ";
 $langStudent = "Pelajar";

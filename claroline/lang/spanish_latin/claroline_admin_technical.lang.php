@@ -25,7 +25,6 @@ $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langNameOfLang = "Array";
 $langOk = "Aceptar";
-$langOptional = "Opcional";
 $langOtherCourses = "Lista de cursos";
 $langPlatformAdministration = "Administración de la plataforma";
 $langPoweredBy = "Generado con";
