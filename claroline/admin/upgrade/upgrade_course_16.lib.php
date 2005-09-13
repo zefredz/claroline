@@ -139,26 +139,36 @@ function quizz_upgrade_to_16($course_code)
 
 
 function quizz_upgrade_to_16_step_2()
-{   
+{
     global $currentcoursePathSys, $lang_p_CannotCreate_s, $lang_p_CannotRename_s_s;
 
     $error = false;
 
-    // rename folder image in course folder to exercise 
-    if ( is_dir($currentcoursePathSys.'image') ) 
-    {   
-        if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
-        {
-            $error = true;
-            log_message('Error: ' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'image',$currentcoursePathSys.'exercise'));
-        } 
-    }
-    elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
+    // rename folder image in course folder to exercise
+    if ( is_dir($currentcoursePathSys . 'image') )
     {
-        if ( !@mkdir($currentcoursePathSys.'exercise', CLARO_FILE_PERMISSIONS) )
+        if ( !is_dir($currentcoursePathSys . 'exercise') )
+        {
+            if ( ! @rename($currentcoursePathSys . 'image',$currentcoursePathSys . 'exercise') )
+            {
+                $error = true;
+                log_message('Error: ' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'image',$currentcoursePathSys.'exercise'));
+            }
+        }
+        else
+        {
+            $warning = true;
+            log_message('Warning: ' . sprintf( '%1$s and %2$s exists in %3$s. '
+                                             . 'It\'s due to an old upgrade error. '
+                                             . 'Check if all files of %1$s ares in %1$s and delete %1$s', 'image', 'exercise', $currentcoursePathSys));
+        }
+    }
+    elseif ( !is_dir($currentcoursePathSys . 'exercise') )
+    {
+        if ( !@mkdir($currentcoursePathSys . 'exercise', CLARO_FILE_PERMISSIONS) )
         {
             $error = true;
-            log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise'));            
+            log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise'));
         }
     }
     if ( !$error ) return true;
