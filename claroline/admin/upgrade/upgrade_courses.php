@@ -194,6 +194,7 @@ switch ($display)
 
             // initialise
             $error = false;
+            $upgraded = false;
             $message = '';
             
             printf($lang_p_UpgradingOfCourse, 
@@ -318,9 +319,18 @@ switch ($display)
             
             if ( ! $error )
             {
-                $message .= '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
+                if ( preg_match('/^1.7/',$currentCourseVersion) )
+		{
+                    $message .= '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
+                }
+		else
+		{
+                    // course version unknow
+                    $message .= '<p class="error">Course version unknown : ' . $currentCourseVersion . '</p>';
+                    log_message('Course version unknown : ' . $currentCourseVersion . '(in ' . $currentCourseCode . ')');
+		}
             }
-            else 
+            else
             {
                 $count_course_error++;
                 $message .= '<p class="error">'.$langUpgradeCourseFailed.' - ' . $str_execution_time . '</p>';
