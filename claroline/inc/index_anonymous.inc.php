@@ -215,7 +215,7 @@ else
 {
 ?>
 <form action ="<?php echo $rootWeb,basename($_SERVER['PHP_SELF']); ?>" method="post">
-<fieldset style="border: 1px solid gray; padding: 7px;">
+<fieldset style="padding: 7px;">
 <legend><?php echo $langAuthentication ?> : </legend>
 <p>
 <small>
