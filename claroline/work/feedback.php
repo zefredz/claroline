@@ -289,7 +289,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         <td valign="top"><label for="prefillText"><?php echo $langFeedbackText; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
-        echo claro_disp_html_area('prefillText', $form['prefillText']);
+        echo claro_disp_html_area('prefillText', htmlspecialchars($form['prefillText']));
 ?> 
         </td>
       </tr>
@@ -312,7 +312,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
           .    '<label for="delFeedbackFile">' 
           .    $langExplainDeleteFile . ' ' . $langExplainReplaceFile 
           .    '</label> '
-          .    '</td>\n"'
+          .    '</td>'."\n"
           .    '</tr>'
           ;
     }

@@ -1121,7 +1121,7 @@ if( $is_allowedToSubmit )
                         .$langAnswer
                         .'&nbsp;*&nbsp;:</label></td>'."\n"
                         .'<td>'
-                        .claro_disp_html_area('wrkTxt', $form['wrkTxt'])
+                        .claro_disp_html_area('wrkTxt', htmlspecialchars($form['wrkTxt']))
                         .'</td>'."\n"
                         .'</tr>'."\n\n";
             }

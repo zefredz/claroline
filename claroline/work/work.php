@@ -371,7 +371,7 @@ if ($is_allowedToEdit)
         <td valign="top"><label for="description"><?php echo $langAssignmentDescription; ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
-    echo claro_disp_html_area('description', $assignment_data['description']);
+    echo claro_disp_html_area('description', htmlspecialchars($assignment_data['description']));
 ?> 
         </td>
       </tr>
