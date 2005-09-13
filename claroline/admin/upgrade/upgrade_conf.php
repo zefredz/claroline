@@ -66,7 +66,7 @@ if ( $cmd == 'run' )
     $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
     claro_mkdir($backupRepositorySys);
 
-    $output = '<h3>' . $langConfigurationFile . '</h3>' . "\n" ;  
+    $output = '<h3>Configuration file</h3>' . "\n" ;  
     $output.= '<ol>' . "\n" ;
     
     // Generate configuration file from definition file
@@ -163,8 +163,8 @@ if ( $cmd == 'run' )
                         // Validation failed - Alert users
                         $okToSave = FALSE;
                         $error = TRUE;
-                        $output .= '<span class="warning">'.sprintf($lang_p_s_s_isInvalid, $propName, $propValue) . '</span>' . '<br>' . "\n"
-                                . sprintf( $lang_rules_s_in_s,$propDef['type'] ,basename($def_file)).' <br>' . "\n"
+                        $output .= '<span class="warning">'.sprintf("%s : %s is invalid", $propName, $propValue) . '</span>' . '<br>' . "\n"
+                                . sprintf("Rules : %s in %s",$propDef['type'] ,basename($def_file)).' <br>' . "\n"
                                 . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
                     }
                     else
@@ -193,16 +193,16 @@ if ( $cmd == 'run' )
                 else
                 {
                     // Backup current file 
-                    $output .= '<li>' . $lang_oldFileBackup . ' ' ;
+                    $output .= '<li>Old file backup : ' ;
 
                     $fileBackup = $backupRepositorySys . basename($conf_file);
                     if (!@copy($conf_file, $fileBackup) )
                     {
-                        $output .= '<span class="warning">' . $langFailed . '</span>';
+                        $output .= '<span class="warning">Failed</span>';
                     }
                     else
                     {
-                        $output .= '<span class="success">'. $langSucceeded . '</span>';
+                        $output .= '<span class="success">Succeeded</span>';
                     }
                     $output .= '</li>' . "\n" ;
 
@@ -216,15 +216,15 @@ if ( $cmd == 'run' )
                 {
                     // Save the new configuration file 
 
-                    $output .= '<li>' . $lang_fileUpgrade . ' ';
+                    $output .= '<li>File upgrade :';
 
                     if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                     {
-                        $output .= '<span class="success">'. $langSucceeded . '</span>';
+                        $output .= '<span class="success">Succeeded</span>';
                     }
                     else 
                     {
-                        $output .= '<span class="warning">' . $langFailed . '</span>';
+                        $output .= '<span class="warning">Failed</span>';
                         $error = TRUE;
                     }
                     $output .= '</li>'."\n";
@@ -249,15 +249,15 @@ if ( $cmd == 'run' )
     foreach ( $arr_file_to_undist as $undist_this )
     {
         $output .= '<li>'. basename ($undist_this) . "\n"
-                . '<ul><li>'.$langUndist.' : ' . "\n" ;
+                . '<ul><li>Undist : ' . "\n" ;
 
         if ( claro_undist_file($undist_this) )
         {
-            $output .= '<span class="success">'. $langSucceeded . '</span>';
+            $output .= '<span class="success">Succeeded</span>';
         }
         else
         {
-            $output .= '<span class="warning">' . $langFailed . '</span>';
+            $output .= '<span class="warning">Failed</span>';
             $error = TRUE;
         }
         $output .= '</li>' . "\n" . '</ul>' . "\n"
@@ -292,22 +292,24 @@ echo upgrade_disp_header();
 switch ($display)
 {
     case DISPLAY_WELCOME_PANEL :
-        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1);
-        echo $langIntroStep1;
-        echo '<center>' . sprintf ($langLaunchStep1, $_SERVER['PHP_SELF'].'?cmd=run') . '</center>';
+        echo '<h2>Step 1 of 3: platform main settings</h2>
+              <p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
+              These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.
+              </p>
+              <center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch platform
+              main settings upgrade</button></p></center>';
         break;
         
     case DISPLAY_RESULT_ERROR_PANEL :
-        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . $langFailed);
+        echo '<h2>Step 1 of 3: platform main settings - <span class="error">Failed</span></h2>';
         echo $output;
         break;
 
     case DISPLAY_RESULT_SUCCESS_PANEL :
-        echo sprintf ('<h2>%s</h2>',$langUpgradeStep1 . ' - ' . '<span class="success">' . $langSucceeded . '</span>');
+        echo '<h2>Step 1 of 3: platform main settings - <span class="success">Succeeded</span><h2>';
         echo $output;
-        echo '<div align="right">' . sprintf($langNextStep,'upgrade_main_db.php') . '</div>';
+        echo '<div align="right"><p><button onclick="document.location=\'upgrade_main_db.php\';">Next ></button></p></div>';
         break;
-    
 }
 
 // Display footer

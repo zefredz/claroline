@@ -140,7 +140,7 @@ function quizz_upgrade_to_16($course_code)
 
 function quizz_upgrade_to_16_step_2()
 {
-    global $currentcoursePathSys, $lang_p_CannotCreate_s, $lang_p_CannotRename_s_s;
+    global $currentcoursePathSys;
 
     $error = false;
 
@@ -152,7 +152,7 @@ function quizz_upgrade_to_16_step_2()
             if ( ! @rename($currentcoursePathSys . 'image',$currentcoursePathSys . 'exercise') )
             {
                 $error = true;
-                log_message('Error: ' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'image',$currentcoursePathSys.'exercise'));
+                log_message('Error: Cannot rename ' . $currentcoursePathSys.'image' . ' to ' . $currentcoursePathSys . 'exercise');
             }
         }
         else
@@ -168,7 +168,7 @@ function quizz_upgrade_to_16_step_2()
         if ( !@mkdir($currentcoursePathSys . 'exercise', CLARO_FILE_PERMISSIONS) )
         {
             $error = true;
-            log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$currentcoursePathSys.'exercise'));
+            log_message('Error: Cannot create ' .  $currentcoursePathSys . 'exercise');
         }
     }
     if ( !$error ) return true;
@@ -335,7 +335,7 @@ function assignment_upgrade_to_16($course_code)
             {
                 if ( !@mkdir($assignment_dirname, CLARO_FILE_PERMISSIONS) )
                 {
-                    log_message('Error: ' . sprintf($lang_p_CannotCreate_s,$assignment_dirname));
+                    log_message('Error: Cannot create ' . $assignment_dirname );
                     return $step;
                 }
             }
@@ -351,7 +351,7 @@ function assignment_upgrade_to_16($course_code)
             
                         if ( @rename($work_dirname.$file,$assignment_dirname.$file) === FALSE )
                         {
-                            log_message('Error: ' . sprintf($lang_p_CannotRename_s_s,$work_dirname.$file,$assignment_dirname.$file));
+                            log_message('Error: Cannot rename ' . $work_dirname . $file . ' to ' . $assignment_dirname . $file );
                             return $step;
                         }
             

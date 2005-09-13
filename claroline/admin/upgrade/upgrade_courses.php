@@ -100,36 +100,41 @@ switch ($display)
 {
     case DISPLAY_WELCOME_PANEL :
 
-        echo  sprintf('<h2>%s</h2>',$langUpgradeStep3)
-            . '<p>' . $langIntroStep3 . '</p>' 
-            . sprintf($langNbCoursesUpgraded, $count_course_upgraded, $count_course)
-            . '<center>' 
-            . sprintf ($langLaunchStep3, $_SERVER['PHP_SELF'].'?cmd=run') 
-            . '</center>';
+        echo '<h2>Step 3 of 3: courses upgrade</h2>
+             <p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data 
+            (directories and database tables) one by one and set it to be compatible with the new 
+            Claroline version.<p class="help">Note. Depending of the speed of your server or the amount 
+            of data stored on your platform, this operation may take some time.</p>
+            <p style="text-align: center"><strong>' . $count_course_upgraded . ' courses
+            on ' . $count_course . ' already upgraded</strong><br /></p>
+            <center>
+            <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch course data upgrade</button></p>
+            </center>';
         break;
                 
     case DISPLAY_RESULT_PANEL : 
 
-        printf("<h2>%s</h2>". '<p>' . $langIntroStep3Run . '</p>',$langUpgradeStep3); 
+        echo '<h2>Step 3 of 3: courses upgrade</h2>
+              <p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>'; 
 
         // display course upgraded
 
-        echo sprintf($langNbCoursesUpgraded,$count_course_upgraded,$count_course);
+        echo '<p style="text-align: center"><strong>' . $count_course_upgraded . ' courses 
+              on ' . $count_course . ' already upgraded</strong><br /></p>';
+
         flush();
                 
         /*
          * display refresh bloc
          */
 
-        echo  '<div class="help" id="refreshIfBlock">'
-            . '<p>' 
-            . $langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow
-            . '</p>'
-            . '<p style="text-align: center">'
-            . sprintf ("<button onclick=\"document.location='%s';\">".$lang_continueCoursesDataUpgrade."</button>", $_SERVER['PHP_SELF']."?cmd=run")
-            . '</p>'
-            . '<p><small>'. $lang_seeInTheStatusBarOfYourBrowser .'</small></p>'
-            . '</div>'; 
+        echo  '<div class="help" id="refreshIfBlock">
+            <p>In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically</p>
+            <p style="text-align: center">
+            <button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run\';">Continue courses data upgrade</button>
+            </p>
+            <p><small>(*) see in the status bar of your browser.</small></p>
+            </div>'; 
 
         flush();
 
@@ -193,8 +198,15 @@ switch ($display)
             $upgraded = false;
             $message = '';
             
-            printf($lang_p_UpgradingOfCourse, 
-            $count_course_upgraded, $currentCourseFakeCode, $currentCourseDbName, $currentCourseCode);
+
+            echo '<table>
+            <tr valign="top">
+            <td><strong>' . $count_course_upgraded . ' . </strong></td>
+            <td>Upgrading course <strong>' . $currentCourseFakeCode . '</strong><br>
+            <small>DB Name : ' . $currentCourseDbName . '<br>
+            Course ID: ' . $currentCourseCode . '</small></td>
+            </tr>
+            </table>';
             
             /**
              * Make some check.
@@ -209,8 +221,10 @@ switch ($display)
             if ( !file_exists($currentcoursePathSys) )
             {            
                 $error = true;
-                $message .= '<p class="help">'.sprintf($lang_CourseHasNoRepository_s_NotFound , $currentcoursePathSys).'</p>' . "\n";
-                $message .= '<p class="comment">'.$lang_upgradeToolCannotUpgradeThisCourse.'</p>';
+                $message .= '<p class="help"><strong>Course has no repository.</strong><br>
+                             <small>' .  $currentcoursePathSys . '</small> Not found</p>' . "\n";
+                $message .= '<p class="comment">The upgrade tool is not able to upgrade this course.<br>
+                             Fix, first, the technical problem and relaunch the upgrade tool.</p>' . "\n";
             }
 
             if ( ! $error ) 
@@ -304,8 +318,11 @@ switch ($display)
             $stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
             $leftCourses = (int) ($count_course-$count_course_upgraded);
             $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
+
+
             
-            $str_execution_time = sprintf( $lang_p_expectedRemainingTime
+            $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
+                                           <strong>Expected remaining time %s</strong>."
                                           ,$stepDuration
                                           ,$stepDurationAvg
                                           ,strftime('%H:%M:%S',$totaltime)
@@ -317,7 +334,7 @@ switch ($display)
             {
                 if ( preg_match('/^1.7/',$currentCourseVersion) )
 		{
-                    $message .= '<p class="success">'.$langUpgradeCourseSucceed.' - ' . $str_execution_time . '</p>';
+                    $message .= '<p class="success">Upgrade succeeded - ' . $str_execution_time . '</p>';
                 }
 		else
 		{
@@ -330,7 +347,7 @@ switch ($display)
             else
             {
                 $count_course_error++;
-                $message .= '<p class="error">'.$langUpgradeCourseFailed.' - ' . $str_execution_time . '</p>';
+                $message .= '<p class="error">Upgrade failed - ' . $str_execution_time . '</p>';
             }
             
             echo $message;
@@ -356,7 +373,7 @@ switch ($display)
     
             if ( mysql_num_rows($result) )
             {
-                echo '<p  class="error">' . $lang_UpgradeFailedForCourses . ' ';
+                echo '<p  class="error">Upgrade tool is not able to upgrade the following courses : ';
                 while ( ( $course = mysql_fetch_array($result)) )
                 {
                     echo $course['code'] . ' ; ';    
@@ -366,14 +383,15 @@ switch ($display)
             }
 
             echo '<p class="comment">'
-                    . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
+                    . sprintf('Fix first the technical problem and <a href="%s">relaunch the upgrade tool</a>.', 
+                              $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
                     . '</p>';
         }
         else
         {
             // display next step
-            echo '<p class="success">'. $lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses . '</p>' . "\n";
-            echo '<div align="right">' . sprintf($langNextStep,"upgrade.php") . '</div>';
+            echo '<p class="success">The Claroline upgrade process completed</p>' . "\n";
+            echo '<div align="right"><p><button onclick="document.location=\'upgrade.php\';">Next ></button></p></div>';
         }
 
         /*

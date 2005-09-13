@@ -152,69 +152,80 @@ switch ($display)
     
     case DISPVAL_upgrade_backup_needed :
 
-        $str_confirm_backup = '<input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />'
-                            . '<label for="confirm_backup_yes">' . $langYes . '</label><br>'
-                            . '<input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />'
-                            . '<label for="confirm_backup_no">' . $langNo . '</label><br>'
-                            ;
-
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
-            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
-            . '<p>' . sprintf($langMakeABackupBefore,$str_confirm_backup) . '</p>' . "\n"
-            . '<div align="right"><input type="submit" value="' . $langNext . ' > " /></div>' . "\n"
-            . '</form>' . "\n"
-            ;
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+              <form action="' . $_SERVER['PHP_SELF'] . '" method="GET">
+              <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline 
+              installation and set them to be compatible with the new Claroline version. This upgrade 
+              proceeds in three steps:
+              </p>
+              <ol>
+              <li>It will get your previous platform main settings and put them in a new configuration files</li>
+              <li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible
+              with the new data structure.</li>
+              <li>It will update one by one each course data (directories, database tables, ...)</li>
+              </ol>
+              <p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete 
+              backup of the platform data (files and databases).</p>
+              <table>
+              <tbody>
+              <tr valign="top">
+              <td>The data backup has been done</td>
+              <td>
+              <input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />
+              <label for="confirm_backup_yes">Yes</label><br>
+              <input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />
+              <label for="confirm_backup_no">No</label><br>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              <p>The <em>Claroline Upgrade Tool</em> is not able to start if you do not confirm that the data has been done.</p>
+              <div align="right"><input type="submit" value="Next > " /></div>
+              </form>' . "\n" ;
 
         break;
 
     case DISPVAL_upgrade_main_db_needed :
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
-           . '<h2>' . $langDone . ':</h2>' . "\n"
-           . '<ul>' . "\n"
-           . '<li>'
-           . sprintf ('%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">%s</a>)'
-                     , $langUpgradeStep0
-                     , $langCancel)
-           . '</li>'
-           . '<li>'
-           . sprintf ('%s (<a href="upgrade_conf.php">%s</a>)', $langUpgradeStep1,$langStartAgain)
-           . '</li>'
-           . '</ul>' . "\n"
-           . '<h2>' . $langTodo . ':</h2>' . "\n"
-           . '<ul>' . "\n"
-           . sprintf('<li><a href="upgrade_main_db.php">%s</a></li>', $langUpgradeStep2) . "\n"
-           . '<li>' . $langUpgradeStep3 . '</li>' . "\n"
-           . '</ul>' . "\n"
-           ;
+
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+           <h3>Done: </h3>
+           <ul>
+           <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a></li>
+           <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a></li>
+           </ul>
+           <h3>To do:</h3>
+           <ul>
+           <li><a href="upgrade_main_db.php">Step 2 of 3: main platform tables upgrade</a></li>
+           <li>Step 3 of 3: courses upgrade</li>
+           </ul>';
 
         break;
 
     case DISPVAL_upgrade_courses_needed :
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
-            . '<h2>' . $langDone . ':</h2>' . "\n"
-            . '<ul>' . "\n"
-            . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">'. $langCancel . '</a>)</li>',$langUpgradeStep0) . "\n"
-            . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain) . "\n"
-            . sprintf ('<li>%s (<a href="upgrade_main_db.php">%s</a>)</li>',$langUpgradeStep2,$langStartAgain) . "\n"
-            . '</ul>' . "\n"
-            . '<h2>' . $langRemainingSteps . ':</h2>' . "\n"
-            . '<ul>' . "\n"
-            . sprintf('<li><a href="upgrade_courses.php">%s</a> - '.$lang_p_d_coursesToUpgrade.'</li>',$langUpgradeStep3,$count_course_to_upgrade) . "\n"
-            . '</ul>' . "\n"
-            ;
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+            <h3>Done :</h3>
+            <ul>
+            <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
+            <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
+            <li>Step 2 of 3: main platform tables upgrade (<a href="upgrade_main_db.php">%s</a>)</li>
+            </ul>
+            <h3>To do:</h3>
+            <ul>
+            <li><a href="upgrade_courses.php">Step 3 of 3: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li> 
+            </ul>';
 
         break;
 
     case DISPVAL_upgrade_done :
 
-        echo  sprintf($langTitleUpgrade,$currentClarolineVersion,$new_version) . "\n"
-            . '<p>' . $langUpgradeSucceed . '</p>' . "\n"
-            . '<ul>' . "\n"
-            . '<li><a href="../../..">' . $langPlatformAccess . '</a></li>' . "\n"
-            . '</ul>' . "\n"
-            ;
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+
+            <p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>
+            <ul>
+            <li><a href="../../..">Access to campus</a></li>
+            </ul>' ;
 }
 
 // Display footer

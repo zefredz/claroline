@@ -93,12 +93,15 @@ switch ( $display )
 
     // Display welcome message
 
-    echo  sprintf("<h2>%s</h2>",$langUpgradeStep2)
-    . '<p>' . $langIntroStep2 . '</p>' . "\n"
-    . '<center>'
-    . sprintf($langLaunchStep2, $_SERVER['PHP_SELF'].'?cmd=run')
-    . '</center>'
-    ;
+    echo  '<h2>Step 2 of 3: main platform tables upgrade</h2>
+          <p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored
+          into the <b>main Claroline tables</b> (users, course categories, tools list, ...) 
+          and set them to be compatible with the new Claroline version.</p>
+          <p class="help">Note. Depending of the speed of your server or the amount of data 
+          stored on your platform, this operation may take some time.</p>
+          <center>
+          <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch main platform tables upgrade</button></p>
+          </center>';
 
     break;
 
@@ -109,12 +112,8 @@ switch ( $display )
     
         // Display upgrade result
         
-        echo  sprintf('<h2>%s</h2>',$langUpgradeStep2)
-            . '<h3>' 
-            . sprintf ($lang_p_UpgradeMainClarolineDatabase_s, $mainDbName) 
-            .'</h3>' . "\n"
-            ;
-
+        echo '<h2>Step 2 of 3: main platform tables upgrade</h2>
+             <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
         
         if ( ! preg_match('/^1.7/',$currentDbVersion) )
         {
@@ -155,7 +154,7 @@ switch ( $display )
         if ( $nbError == 0 )
         {
             // Upgrade 1.5 to 1.6 Succeed
-            echo '<p class="success">'  .$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded. '</p>' . "\n";
+            echo '<p class="success">The claroline main tables have been successfully upgraded to 1.6</p>' . "\n";
 
             // Database version is 1.6
             $currentDbVersion = '1.6';
@@ -181,7 +180,7 @@ switch ( $display )
         if ( $nbError == 0 )
         {
             // Upgrade 1.6 to 1.7 Succeed
-            echo '<p class="success">'  .$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded. '</p>' . "\n";
+            echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
 
             // Update current version file
             save_current_version_file($currentClarolineVersion, $new_version);
@@ -190,19 +189,19 @@ switch ( $display )
 
     if ( $nbError > 0 )
     {
-        echo '<p class="error">' . sprintf($lang_p_d_errorFound,$nbError) . '</p>' . "\n";
+        echo '<p class="error">' . sprintf(" %d errors found",$nbError) . '</p>' . "\n";
 
-        echo sprintf('<p><button onclick="document.location=\'%s\';" >'.$lang_RetryWithMoreDetails.'</button></p>', $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true');
+        echo '<p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true\';" >Retry with more details</button></p>';
     }
     else
     {
-        echo '<div align="right">' . sprintf($langNextStep,'upgrade_courses.php') . '</div>';
+        echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
     }
 
     break;
 
     default :
-    die('display unknow');
+    die('Display unknow');
 }
 
 // Display footer

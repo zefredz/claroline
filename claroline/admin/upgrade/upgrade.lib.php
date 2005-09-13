@@ -28,7 +28,7 @@
 function upgrade_disp_header()
 {
     global $htmlHeadXtra, $text_dir;
-    global $new_version, $langUpgrade;
+    global $new_version;
 
     $output = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -61,7 +61,7 @@ $output .='</head>
 <tr bgcolor="navy">
 <td valign="top" align="left">
 
-<div id="header">' . sprintf('<h1>Claroline (%s) - ' . $langUpgrade . '</h1>',$new_version) . '
+<div id="header"><h1>Claroline (' . $new_version . ') - Upgrade</h1>
 </div>
 </td>
 </tr>
@@ -185,12 +185,11 @@ function get_new_version ()
 
 function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
 {
-    global $lang_p_d_affected_rows, $langModeVerbose;
     global $accepted_error_list;
 
     $nb_error = 0;
 
-    if ( $verbose ) echo '<p class="info">' . $langModeVerbose . ':</p>' . "\n";
+    if ( $verbose ) echo '<p class="info">Mode Verbose:</p>' . "\n";
 
     echo '<ol>' . "\n";
 
@@ -212,7 +211,7 @@ function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
                 echo  '<li>' . "\n"
                     . '<p class="tt">' . $sql . '</p>' . "\n"
                     . '<p>' 
-                    . sprintf($lang_p_d_affected_rows,mysql_affected_rows()) . '<br />' 
+                    . sprintf('%d affected rows',mysql_affected_rows()) . '<br />' 
                     . mysql_info() 
                     . '</p>' . "\n";
             }
@@ -719,8 +718,6 @@ function open_upgrade_log()
 
 function upgrade_disp_auth_form()
 {
-    global $langLogin, $langUserName, $langPassword;
-
     // Display Header
     echo upgrade_disp_header();
 
@@ -732,12 +729,12 @@ function upgrade_disp_auth_form()
 
         .'<fieldset>'."\n"
 
-        .'<legend>'.$langLogin.'</legend>'."\n"
+        .'<legend>Login</legend>'."\n"
 
-        .'<label for="username">'.$langUserName.' : </label><br>'."\n"
+        .'<label for="username">User name : </label><br>'."\n"
         .'<input type="text" name="login" id="username"><br>'."\n"
 
-        .'<label for="password">'.$langPassword.' : </label><br>'."\n"
+        .'<label for="password">Password : </label><br>'."\n"
         .'<input type="password" name="password" id="password"><br>'."\n"
         .'<input type="submit" >'."\n"
 
