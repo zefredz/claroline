@@ -24,22 +24,13 @@
   Init Section
  =====================================================================*/
 
+// Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 
-// Include library
-
-include ($includePath.'/lib/config.lib.inc.php');
-include ('upgrade.lib.php');
-
-// Initialise Upgrade
-upgrade_init_global();
-
 // Security Check
-
 if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // Define display
-
 DEFINE('DISPLAY_WELCOME_PANEL', 1);
 DEFINE('DISPLAY_RESULT_PANEL',  2);
 

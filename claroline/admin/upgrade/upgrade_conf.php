@@ -34,16 +34,11 @@ if ( ! file_exists('../../currentVersion.inc.php') )
     $platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
 }
 
-// Initialise Claroline
+// Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 
 // Include library
-include ($includePath.'/lib/config.lib.inc.php');
 include ($includePath.'/lib/fileManage.lib.php');
-include ('upgrade.lib.php');
-
-// Initialise Upgrade
-upgrade_init_global();
 
 // Security Check
 if (!$is_platformAdmin) upgrade_disp_auth_form();

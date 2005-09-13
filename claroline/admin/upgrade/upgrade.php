@@ -43,17 +43,9 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 }
 
 // Initialise
-
 require 'upgrade_init_global.inc.php';
 
-// Library 
-include ('upgrade.lib.php');
-
-// Initialise Upgrade
-upgrade_init_global();
-
 // Security Check
-
 if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // Pattern for this new stable version

@@ -17,69 +17,6 @@
  */
 
 /**
- * Initialise upgrade tool and its global variables
- *
- * @param string claroline version
- * @param string database version
- *
- * @since  1.7
- */
-
-function upgrade_init_global()
-{
-
-    global $accepted_error_list;
-    global $currentClarolineVersion, $currentDbVersion;
-    global $new_version, $new_version_branch;
-
-    /**
-     * misc: define function mysql_info if not exists
-     */
-
-    if ( !function_exists('mysql_info') )
-    {
-
-        /**
-         * This is a fake function declared if mysql_info don't exist
-         * The output is use for additional info.
-         * @return string empty.
-         */
-        function mysql_info() {return '';} // mysql_info is used in verbose mode
-    }
-
-    /**
-     * List of accepted error - See MySQL error codes : 
-     *
-     * Error: 1017 SQLSTATE: HY000 (ER_FILE_NOT_FOUND) : already upgraded
-     * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
-     * Error: 1060 SQLSTATE: 42S21 (ER_DUP_FIELDNAME)  : already upgraded
-     * Error: 1062 SQLSTATE: 23000 (ER_DUP_ENTRY) : duplicate entry '%s' for key %d
-     * Error: 1065 SQLSTATE: 42000 (ER_EMPTY_QUERY) : when  sql contain only a comment
-     * Error: 1091 SQLSTATE: 42000 (ER_CANT_DROP_FIELD_OR_KEY) : Can't DROP '%s'; check that column/key exists
-     * Error: 1146 SQLSTATE: 42S02 (ER_NO_SUCH_TABLE) : already upgraded
-     * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
-     */
-
-    $accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
-    $accepted_error_list = array();
-
-    /*
-     * Initialize version variables
-     */
-
-    // Current Version
-    $current_version = get_current_version();
-    $currentClarolineVersion = $current_version['claroline'];
-    $currentDbVersion = $current_version['db'];
-
-    // New Version
-    $this_new_version = get_new_version();
-    $new_version = $this_new_version['complete'];
-    $new_version_branch = $this_new_version['branch'];
-
-}
-
-/**
  * Display header of the upgrade tool
  *
  * @param string claroline version
@@ -229,10 +166,10 @@ function get_new_version ()
 
     include ( $includePath . '/installedVersion.inc.php' ) ;
     
-    $new_version = array( 'complete' => $new_version,
+    $version = array( 'complete' => $new_version,
                           'branch' => $new_version_branch );
 
-    return $new_version;
+    return $version;
 }
 
 /**

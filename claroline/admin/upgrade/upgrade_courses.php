@@ -16,16 +16,12 @@
  *
  */
 
-// Initialise Claroline
+// Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 
 // Include Libraries
-include ('upgrade.lib.php');
 include ('upgrade_course_16.lib.php');
 include ('upgrade_course_17.lib.php');
-
-// Initialise Upgrade
-upgrade_init_global();
 
 // Security Check
 if (!$is_platformAdmin) upgrade_disp_auth_form();

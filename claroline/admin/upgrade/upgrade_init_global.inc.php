@@ -78,6 +78,43 @@ session_start();
 require $includePath . '/lib/claro_main.lib.php';
 
 /*----------------------------------------------------------------------
+  Include upgrade library
+  ----------------------------------------------------------------------*/
+
+require $includePath . '/lib/config.lib.inc.php';
+require 'upgrade.lib.php';
+
+/**
+ * List of accepted error - See MySQL error codes : 
+ *
+ * Error: 1017 SQLSTATE: HY000 (ER_FILE_NOT_FOUND) : already upgraded
+ * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
+ * Error: 1060 SQLSTATE: 42S21 (ER_DUP_FIELDNAME)  : already upgraded
+ * Error: 1062 SQLSTATE: 23000 (ER_DUP_ENTRY) : duplicate entry '%s' for key %d
+ * Error: 1065 SQLSTATE: 42000 (ER_EMPTY_QUERY) : when  sql contain only a comment
+ * Error: 1091 SQLSTATE: 42000 (ER_CANT_DROP_FIELD_OR_KEY) : Can't DROP '%s'; check that column/key exists
+ * Error: 1146 SQLSTATE: 42S02 (ER_NO_SUCH_TABLE) : already upgraded
+ * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
+ */
+
+$accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
+$accepted_error_list = array();
+
+/*
+ * Initialize version variables
+ */
+
+// Current Version
+$current_version = get_current_version();
+$currentClarolineVersion = $current_version['claroline'];
+$currentDbVersion = $current_version['db'];
+
+// New Version
+$this_new_version = get_new_version();
+$new_version = $this_new_version['complete'];
+$new_version_branch = $this_new_version['branch'];
+
+/*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
   ----------------------------------------------------------------------*/
 
