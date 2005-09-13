@@ -467,7 +467,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
         // tool not registered
 
         // find max default rank
-        $sql = "SELECT MAX(def_rank) AS `max_rank`
+        $sql = "SELECT MAX(def_rank)
                 FROM `" . $tbl_tool . "`";
     
         $default_rank = claro_sql_query_get_single_value($sql);
