@@ -150,7 +150,7 @@ function quizz_upgrade_to_16_step_2()
         if ( ! @rename($currentcoursePathSys.'image',$currentcoursePathSys.'exercise') )
         {
             $error = true;
-            log_message('Error: ' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'/image',$currentcoursePathSys.'/exercise'));
+            log_message('Error: ' . sprintf($lang_p_CannotRename_s_s,$currentcoursePathSys.'image',$currentcoursePathSys.'exercise'));
         } 
     }
     elseif ( !is_dir($currentcoursePathSys.'exercise') ) 
