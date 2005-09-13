@@ -30,8 +30,7 @@ if ( ! $_uid ) claro_disp_auth_form();
   Include Files and initialize variables
  ---------------------------------------------------------------------*/
 
-require $includePath . '/lib/debug.lib.inc.php';
-include $includePath . '/lib/admin.lib.inc.php';
+require $includePath . '/lib/admin.lib.inc.php';
 require $includePath . '/lib/user.lib.php';
 require $includePath . '/conf/user_profile.conf.php';
 
