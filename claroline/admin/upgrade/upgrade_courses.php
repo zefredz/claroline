@@ -232,7 +232,8 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-                        if ( $step = $function($currentCourseCode) > 0 )
+			$step = $function($currentCourseCode);
+                        if ( $step > 0 )
                         {
                             echo 'Error : ' . $function . '(step . ' . $step . ')';
                             $error = true;
@@ -272,7 +273,8 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-                        if ( $step = $function($currentCourseCode) > 0 )
+			$step = $function($currentCourseCode);
+                        if ( $step > 0 )
                         {
                             echo 'Error : ' . $function . '(step . ' . $step . ')';
                             $error = true;
