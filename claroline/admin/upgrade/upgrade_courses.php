@@ -321,7 +321,8 @@ switch ($display)
                 }
 		else
 		{
-                    // course version unknow
+                    // course version unknown
+                    $count_course_error++;
                     $message .= '<p class="error">Course version unknown : ' . $currentCourseVersion . '</p>';
                     log_message('Course version unknown : ' . $currentCourseVersion . '(in ' . $currentCourseCode . ')');
 		}
@@ -360,11 +361,13 @@ switch ($display)
                 {
                     echo $course['code'] . ' ; ';    
                 }
-                echo  '</p>' 
-                    . '<p class="comment">'
+                echo  '</p>';
+
+            }
+
+            echo '<p class="comment">'
                     . sprintf($lang_p_YouCan_url_retryToUpgradeTheseCourse, $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
                     . '</p>';
-            }
         }
         else
         {
