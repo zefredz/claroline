@@ -271,8 +271,12 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
   <th><?php echo $langModify; ?></th>
   <th><?php echo $langDelete; ?></th>
   <th><?php echo $langEnable.' / '.$langDisable; ?></th>
-  <th><?php echo $langExport; ?></th>
 <?php
+		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+		{
+  			echo '<th>'.$langExport.'</th>'."\n";
+		}
+
 	}
 	
   	if($is_allowedToTrack)
@@ -288,10 +292,16 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 if( !is_array($exercisesList) || count($exercisesList) == 0 )
 {
+	if($is_allowedToEdit && isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+		$colspan = ' colspan="6"';
+	elseif( $is_allowedToEdit && ( !isset($enableExerciseExportQTI) || $enableExerciseExportQTI != true ) )
+		$colspan = ' colspan="5"';
+	else
+	    $colspan = '';
 ?>
 <tbody>
 <tr>
-  <td <?php if($is_allowedToEdit) echo 'colspan="6"'; ?>><?php echo $langNoEx; ?></td>
+  <td<?php echo $colspan; ?>><?php echo $langNoEx; ?></td>
 </tr>
 </tbody>
 <?php
@@ -381,20 +391,25 @@ foreach( $exercisesList as $exercise )
   </td>
 <?php
 		}
+		
+		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+		{
 ?>
   <td align="center">
 	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0" alt="<?php echo $langExport; ?>"></a>
   </td>
 
 <?php
-    if($is_allowedToTrack)
-    {
+		}
+		
+	    if($is_allowedToTrack)
+	    {
   ?>
           <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&amp;src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlspecialchars($langTracking); ?>"></a></td>
      
    <?php
-    }
-    echo " </tr>";
+	    }
+	    echo " </tr>";
 	}
 	// student only
 	else
