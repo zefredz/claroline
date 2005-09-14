@@ -65,8 +65,13 @@
 
 /* DOKEOS */
 
-// $extAuthSource['dokeos']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.inc.php';
-// $extAuthSource['dokeos']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.inc.php';
+// DOKEOS VERSIONS SINCE 1.6.*
+//$extAuthSource['dokeos']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.1.6.inc.php';
+//$extAuthSource['dokeos']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.1.6.inc.php';
+
+// DOKEOS VERSIONS BEFORE 1.6.*
+//$extAuthSource['dokeos']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.inc.php';
+//$extAuthSource['dokeos']['newUser'] = $clarolineRepositorySys.'/auth/extauth/drivers/dokeos.inc.php';
 
 /* GANESHA */
 
