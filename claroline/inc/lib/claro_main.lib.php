@@ -1661,7 +1661,7 @@ function claro_get_tool_name_list()
 {
     global $langAnnouncement, $langForums, $langAgenda, $langChat, $langDocument,
            $langDescriptionCours, $langGroups, $langLearningPath, $langExercises,
-           $langWork, $langUsers;
+           $langWork, $langUsers, $langWiki;
     
     static $toolNameList;      
     
@@ -1678,7 +1678,7 @@ function claro_get_tool_name_list()
         ,                      'CLQWZ___' => $langExercises
         ,                      'CLWRK___' => $langWork
         ,                      'CLUSR___' => $langUsers
-        ,                      'CLWIKI__' => 'Wiki'
+        ,                      'CLWIKI__' => $langWiki
         );
     }
     return $toolNameList;
