@@ -32,7 +32,7 @@ function upgrade_to_16_remove_deprecated_tool($course_code)
     $tool = 'DROP';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    if ( preg_match($versionRequiredToProceed, $currentCourseVersion) )
     {
         switch ( $step = get_upgrade_status($tool,$course_code) )
         { 
@@ -122,6 +122,8 @@ function quizz_upgrade_to_16($course_code)
                                "ADD `end_date` datetime NOT NULL default '0000-00-00 00:00:00'";
                 $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` ".
                                "CHANGE `ponderation` `ponderation` float default NULL";
+                $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."quiz_test` ".
+                               "SET `end_date` = '9999-12-31 23:59:59'";
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 2, $course_code);
             case 2 : // STEP 2 Create The new table
@@ -215,7 +217,13 @@ function assignment_upgrade_to_16($course_code)
             `prefill_doc_path` varchar(200) NOT NULL default '',
             `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
             PRIMARY KEY  (`id`)
-            ) TYPE=MyISAM";        
+            ) TYPE=MyISAM"; 
+                  
+          $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."wrk_assignment` 
+            SET 
+            `end_date` = '".date('Y-m-d H:i:00', mktime( date('H'),date('i'),0,date('m'), date('d'), date('Y')+1 ) )."',
+            WHERE `end_date` = '0000-00-00 00:00:00',
+            ";        
         $sql_step1[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."wrk_submission` (
             `id` int(11) NOT NULL auto_increment,
             `assignment_id` int(11) default NULL,
