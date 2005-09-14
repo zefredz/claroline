@@ -464,7 +464,7 @@ function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFille
 
 function search_img_from_html($htmlFile)
 {
-	$imgFilePath = array();
+	$imgPathList = array();
 
 	$fp = fopen($htmlFile, "r") or die('<center>can not open file</center>');
 
