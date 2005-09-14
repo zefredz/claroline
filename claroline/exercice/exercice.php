@@ -362,8 +362,8 @@ foreach( $exercisesList as $exercise )
 		}
 ?>
   <td>
+    <img src="<?php echo $imgRepositoryWeb; ?>quiz.gif" /> 
     <?php echo ( $i + $offset ).'.'; ?>
-    &nbsp;
     <a class="item<?php echo $classItem; ?>" href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>"><?php echo $exercise['titre']; ?></a>
   </td>
   <td align="center">
