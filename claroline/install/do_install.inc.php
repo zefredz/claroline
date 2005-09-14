@@ -26,6 +26,8 @@
  * @author Christophe Gesché <moosh@claroline.net>
  *
  * @package INSTALL
+ * 
+ * @todo check if dbexist would be improve for check if table exists, not if db exist.
  *
  */
 
@@ -64,9 +66,9 @@ if (mysql_errno() >0)
         $mainDbNameCreationError = '
                 <P class="setup_error">
                     <font color="red">Warning !</font>
-                    <small>['.mysql_errno().'] - '.mysql_error().'</small>
+                    <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
                     <br>
-                    Error on creation '.$langMainDB.' : <I>'.$dbHostForm.'</I>
+                    Error on creation ' . $langMainDB . ' : <I>' . $dbHostForm . '</I>
                     <BR>
                     <font color="blue">
                         Fix this problem before going further
