@@ -4,7 +4,7 @@
  *
  * Build the frameset for chat.
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -24,7 +24,7 @@ $tlabelReq = 'CLCHT___';
 
 require '../inc/claro_init_global.inc.php'; 
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 
 $nameTools  = $langChat;
 

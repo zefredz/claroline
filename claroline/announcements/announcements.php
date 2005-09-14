@@ -47,6 +47,10 @@
 * Partially rewritten by Hugues Peeters <peeters@ipm.ucl.ac.be> 19 April 2002.
 * Rewritten again     by Hugues Peeters <peeters@ipm.ucl.ac.be> 5 April 2004
 */
+define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);
+define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
+define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);
+define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
 
 /**
  *  CLAROLINE MAIN SETTINGS
@@ -56,12 +60,7 @@ $tlabelReq = 'CLANN___';
 
 require '../inc/claro_init_global.inc.php';
 
-define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);
-define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
-define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);
-define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
-
-if ( ! $_cid || ! $is_courseAllowed) claro_disp_auth_form(true);
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 
 require_once($includePath . '/lib/events.lib.inc.php');
 require_once($includePath . '/lib/announcement.lib.php');
@@ -370,6 +369,8 @@ if ($displayList)
 }
 
 event_access_tool($_tid, $_courseTool['label']);
+
+
 
 
 

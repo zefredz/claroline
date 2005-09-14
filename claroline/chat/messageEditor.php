@@ -2,7 +2,7 @@
 /** 
  * CLAROLINE 
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -35,7 +35,7 @@ function prepare_message()
 </script>';
 
 $hide_banner = TRUE;
-include($includePath.'/claro_init_header.inc.php');
+include ( $includePath . '/claro_init_header.inc.php' );
 
 
 ?>
@@ -57,5 +57,5 @@ include($includePath.'/claro_init_header.inc.php');
            FOOTER
   ==========================*/
 
-include($includePath.'/claro_init_footer.inc.php');
+include( $includePath . '/claro_init_footer.inc.php' );
 ?>

@@ -8,7 +8,7 @@
  * the file  is reserved because always formed 
  * with the group id of the current user in the current course.
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -28,7 +28,21 @@
 $tlabelReq = 'CLCHT___'; // required
 require '../inc/claro_init_global.inc.php';
 
-if ( !$_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) )
+{
+die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
+    .'<html>'."\n"
+    .'<head>'."\n"
+    .'<title>'.$langChat.'</title>'."\n"
+    .'</head>'."\n"
+    .'<body>'."\n"."\n"
+    .'<a href="./chat.php" >click</a>' . "\n"
+    .'</body>'."\n"."\n"
+    
+);
+
+
+}
 
 
 /*============================================================================
@@ -326,3 +340,5 @@ function buffer($content, $tmpFile)
     fwrite($fp, $content);
 }
 ?>
+ 
+	
