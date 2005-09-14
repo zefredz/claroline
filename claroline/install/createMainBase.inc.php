@@ -133,7 +133,9 @@ CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL default '0',
   `class_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `class_id` (`class_id`)
 ) TYPE=MyISAM";
 claro_sql_query($sql);
 
