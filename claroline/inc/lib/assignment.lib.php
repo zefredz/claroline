@@ -32,7 +32,7 @@ function assignment_initialise()
     $data['def_submission_visibility'] = 'VISIBLE';
     $data['assignment_type'] = 'INDIVIDUAL';
     $data['authorized_content'] = 'FILE';
-    $data['allow_late_upload'] = 'NO';
+    $data['allow_late_upload'] = 'YES';
     $data['start_date'] = '';
     $data['end_date'] = '';
     $data['prefill_text'] = '';
