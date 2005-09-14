@@ -107,6 +107,7 @@ Galician translation:           Maria Jose Rodriges Malmierca
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
                                 Markus Petz
                                 Angela Büchler (buechler@gp.tu-berlin.de)
+                                Christine Knieriemen (tine@knieriemen.de)
 
 Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                 Yannis Exidaridis (jexi@noc.uoa.gr)
