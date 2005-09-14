@@ -61,6 +61,8 @@ $langNo = "nein";
 $langNotAllowed = "Sie haben hier keinen Zugriff.";
 $langOk = "Ok";
 $langOtherCourses = "Kurs Angebot";
+$langPeriodDayShort = "T.";
+$langPeriodHourShort = "St.";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Eingeschränkter Zugang, Registrierungsphase abgeschlossen (Die Seiten sind nur für angemeldete <a href=../user/user.php>Teilnehmer</a> zugänglich.)";
