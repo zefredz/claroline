@@ -1044,6 +1044,38 @@ function claro_disp_message_box($message)
 }
 
 /**
+ * Terminate the script and display message
+ *
+ * @param string message
+ */
+
+function claro_die($message)
+{
+    global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $rootWeb; 
+    global $siteName, $text_dir, $_uid, $administrator_name, $administrator_email;
+    global $is_platformAdmin, $_course, $_user;
+    global $lang_p_platformManager, $langPoweredBy, $langModifyProfile,
+           $langLogout, $langOtherCourses, $langModifyProfile, $langMyCourses,
+           $langMyAgenda;
+
+    if ( ! headers_sent () )
+    {
+	// display header
+        require $includePath.'/claro_init_header.inc.php';
+    }
+
+    echo '<table align="center">'
+        . '<tr><td>' 
+        . claro_disp_message_box($message)
+        . '</td></tr>'
+        . '</table>';
+
+    require $includePath.'/claro_init_footer.inc.php';
+
+    die(); // necessary to prevent any continuation of the application
+}
+
+/**
  * Cheks if the string has been written html style (ie &eacute; etc)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
