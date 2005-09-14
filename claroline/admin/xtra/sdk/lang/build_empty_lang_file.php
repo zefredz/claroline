@@ -13,9 +13,9 @@
 
 require '../../../../inc/claro_init_global.inc.php';
 
-// SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 /*
  * This script build the lang files with var without translation for all languages.

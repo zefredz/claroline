@@ -23,8 +23,9 @@ define('DISP_VIEW_FILE', __LINE__);
 $cidReset=TRUE;
 require '../../inc/claro_init_global.inc.php';
 
-$is_allowedToAdmin     = $is_platformAdmin;
-if ( ! $is_allowedToAdmin ) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 include($includePath . '/lib/debug.lib.inc.php');
 

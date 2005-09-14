@@ -62,16 +62,9 @@ $gidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
 
-/* ************************************************************************** */
-/*  Security Check
-/* ************************************************************************** */
-
-$is_allowedToAdmin  = $is_platformAdmin;
-
-if(!$is_allowedToAdmin)
-{
-    claro_disp_auth_form(); // display auth form and terminate script
-}
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries

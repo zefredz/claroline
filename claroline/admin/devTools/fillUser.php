@@ -24,7 +24,8 @@ $langStudentQty = "Quantité d'étudiants";
 require '../../inc/claro_init_global.inc.php';
 
 // Security check
-if (!$is_platformAdmin) claro_disp_auth_form();
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 DEFINE('DISP_RESULT_INSERT'		, __LINE__);
 DEFINE('DISP_FORM_SET_OPTION'	, __LINE__);

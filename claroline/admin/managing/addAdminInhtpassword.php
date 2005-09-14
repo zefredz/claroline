@@ -14,6 +14,11 @@ unset($controlMsg);
 $cidReset = true;
 
 require '../../inc/claro_init_global.inc.php';
+
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 $nameTools = $langNomPageAddHtPass;
 
 $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
@@ -32,7 +37,7 @@ $tbl_user        = $tbl_cdb_names['user'];
 
 
 
-$is_allowedToEdit 	= $is_platformAdmin || isset($PHP_AUTH_USER);
+$is_allowedToEdit 	= $is_platformAdmin;
 
 $pathHtPassword = $rootAdminSys."/".".htpasswd4admin";
 

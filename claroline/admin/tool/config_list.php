@@ -27,6 +27,10 @@ $gidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
 
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
@@ -44,17 +48,6 @@ $noQUERY_STRING     = TRUE;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_tool = $tbl_mdb_names['tool'];
 $urlEditConf = 'config_edit.php';
-
-/* ************************************************************************** */
-/*  SECURITY CHECKS
-/* ************************************************************************** */
-
-$is_allowedToAdmin  = $is_platformAdmin;
-
-if(!$is_allowedToAdmin)
-{
-    claro_disp_auth_form(); // display auth form and terminate script
-}
 
 // Get the list of definition files. 
 // Each one corresponding to a config file.

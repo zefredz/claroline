@@ -14,8 +14,6 @@
 $cidReset=true;
 $gidReset=true;
 
-$langBuildEmptyLangFile = "Empty language file";
-
 require '../../../inc/claro_init_global.inc.php';
 include($includePath."/lib/debug.lib.inc.php");
 include ('lang/language.conf.php');
@@ -24,9 +22,9 @@ $nameTools = $langTranslationTools;
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $table_exists = TRUE;
 
-// SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // table
 

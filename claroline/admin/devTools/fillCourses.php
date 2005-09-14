@@ -53,6 +53,11 @@ $gidReset=true;
 unset($cidReq);
 
 require '../../inc/claro_init_global.inc.php';
+
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 if (!isset($includePath)) trigger_error('init not run',E_USER_ERROR);
 if (!isset($_uid)) trigger_error('you need to be logged',E_USER_ERROR);
 
