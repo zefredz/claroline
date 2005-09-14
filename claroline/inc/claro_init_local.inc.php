@@ -943,7 +943,7 @@ if ($uidReset || $cidReset)
                       pct.claro_label    label,
                       ctl.script_name    name,
                       ctl.access         access,
-                      pct.icon           icon,
+                      IFNULL(pct.icon,'tool.gif')  icon,
                       pct.access_manager access_manager,
 
                       IF(pct.script_url IS NULL ,
