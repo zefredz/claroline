@@ -70,6 +70,7 @@ if ( $cmd == 'run' )
     $output.= '<ol>' . "\n" ;
     
     // Generate configuration file from definition file
+
     $def_file_list = get_def_file_list();
 
     if ( is_array($def_file_list) )
@@ -110,7 +111,21 @@ if ( $cmd == 'run' )
         {
             $current_value_list['platform_id'] = $platform_id;
         }
-       
+
+	// Old variables from 1.5
+	if ( isset($administrator) )
+        { 
+            $current_value_list['administrator_name'] = $administrator['name'];
+            $current_value_list['administrator_phone'] = $administrator['phone'];
+            $current_value_list['administrator_email'] = $administrator['email'];
+        }
+
+	if ( isset($institution) )
+        { 
+            $current_value_list['institution_name'] = $institution['name'];
+            $current_value_list['institution_url'] = $institution['url'];
+        }
+
         // Browse definition file and build them
         
         reset( $def_file_list );
