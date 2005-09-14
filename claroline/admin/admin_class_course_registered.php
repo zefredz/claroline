@@ -17,9 +17,9 @@ include $includePath."/lib/class.lib.php";
 include $includePath."/lib/user.lib.php";
 include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
 
-//SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 //bredcrump
 

@@ -19,12 +19,10 @@ include($includePath."/lib/pager.lib.php");
 include($includePath."/lib/class.lib.php");
 include($includePath."/lib/admin.lib.inc.php");
 
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-//SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
-
-$is_allowedToAdmin     = $is_platformAdmin;
 $userPerPage = 20; // numbers of user to display on the same page
 
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');

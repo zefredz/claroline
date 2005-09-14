@@ -20,8 +20,9 @@ include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/user.lib.php");
 include($includePath."/conf/user_profile.conf.php");
 
-//SECURITY CHECK
-if (!$is_platformAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 $iconForCuStatus['STUDENT']        = "user.gif";
 $iconForCuStatus['COURSE_MANAGER'] = "manager.gif";

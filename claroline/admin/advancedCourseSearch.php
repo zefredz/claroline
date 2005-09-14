@@ -19,9 +19,10 @@
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
-//SECURITY CHECK
-if (!$is_platformAdmin) claro_disp_auth_form();
-if (file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 include($includePath . '/lib/admin.lib.inc.php');
 include_once($includePath . '/lib/course.lib.inc.php');
 include_once($includePath . '/lib/form.lib.php');

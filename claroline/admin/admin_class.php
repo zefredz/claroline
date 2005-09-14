@@ -25,11 +25,9 @@ require '../inc/claro_init_global.inc.php';
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/class.lib.php");
 
-//SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
-
-$is_allowedToAdmin   = $is_platformAdmin;
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 /*
  * DB tables definition

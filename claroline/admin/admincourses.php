@@ -24,9 +24,10 @@ $coursePerPage= 20;
 
 require '../inc/claro_init_global.inc.php';
 
-//SECURITY CHECK
-$is_allowedToAdmin     = $is_platformAdmin;
-if (!$is_allowedToAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 // initialisation of global variables and used libraries
 include($includePath . '/lib/admin.lib.inc.php');
 include($includePath . '/lib/events.lib.inc.php');
@@ -54,12 +55,6 @@ function confirmation (name)
 
 $interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
 $nameTools = $langCourseList;
-
-//SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
-
-$is_allowedToAdmin = $is_platformAdmin;
 
 //------------------------
 //  USED SESSION VARIABLES

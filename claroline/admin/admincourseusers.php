@@ -32,7 +32,10 @@ unset($_cid);
 /* ************************************************************************** */
 /*  Security Check
 /* ************************************************************************** */
-if (!$is_platformAdmin) claro_disp_auth_form();
+
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries

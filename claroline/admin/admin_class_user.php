@@ -18,9 +18,9 @@ include($includePath.'/lib/pager.lib.php');
 include($includePath.'/lib/class.lib.php');
 include($includePath.'/lib/admin.lib.inc.php');
 
-//SECURITY CHECK
-
-if (!$is_platformAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=="") || !isset($_REQUEST['cidToEdit'])) {unset($cidToEdit);}
 

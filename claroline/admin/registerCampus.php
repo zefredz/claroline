@@ -271,10 +271,9 @@ $isoCode['ZW'] = "Zimbabwe";
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 require_once($includePath.'/lib/nusoap.php');
 
-//SECURITY CHECK
-$is_allowedToAdmin     = $is_platformAdmin;
-if (!$is_allowedToAdmin) claro_disp_auth_form();
-
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // status codes
 // keep in mind that these code must be the same than those in the 

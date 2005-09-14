@@ -22,7 +22,8 @@ $tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( !$is_platformAdmin ) claro_disp_auth_form();
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // Include configuration
 include $includePath.'/conf/user_profile.conf.php';

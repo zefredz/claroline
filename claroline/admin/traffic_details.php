@@ -9,6 +9,10 @@
 
 require '../inc/claro_init_global.inc.php';
 
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 include($includePath."/lib/statsUtils.lib.inc.php");
 $tbl_mdb_names 			= claro_sql_get_main_tbl();
 $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];

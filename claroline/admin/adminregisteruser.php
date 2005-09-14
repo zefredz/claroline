@@ -26,10 +26,11 @@ require '../inc/claro_init_global.inc.php';
 include($includePath . '/lib/pager.lib.php');
 include($includePath . '/lib/admin.lib.inc.php');
 include($includePath . '/lib/user.lib.php');
-$canEditSubscription = $is_platformAdmin;
 
-//SECURITY CHECK
-if (!$canEditSubscription) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);

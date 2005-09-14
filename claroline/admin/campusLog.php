@@ -9,6 +9,11 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
 $interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
 
 $nameTools = $langStatsOfCampus;

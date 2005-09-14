@@ -20,14 +20,13 @@
 $cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 include ($includePath . '/lib/admin.lib.inc.php');
 // rss reader library
 require ($includePath . '/lib/lastRSS/lastRSS.php');
 
-//SECURITY CHECK
-$is_allowedToAdmin     = $is_platformAdmin;
-if (!$is_allowedToAdmin) claro_disp_auth_form();
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 $nameTools = $langClarolineNetNews;
 
