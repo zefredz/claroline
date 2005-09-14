@@ -204,6 +204,7 @@ $langUsedInLearningPaths = "N&uacute;mero de secuencias de aprendizaje usadas en
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langVisibility = "Visible/invisible";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $langWrongOperation = "operaci&oacute;n erronea";
 $langYourBestScore = "Su mejor puntuaci&oacute;n";

@@ -78,6 +78,7 @@ $langTipLang = "Αυτή η γλώσσα θα ισχύει για κάθε επισκέπτη του μαθήματος.";
 $langTo = "στο";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langYes = "Ναι";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";

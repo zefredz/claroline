@@ -68,6 +68,7 @@ $langUp = "Hoger";
 $langUsers = "Gebruikers";
 $langView = "View";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";

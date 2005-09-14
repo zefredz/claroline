@@ -136,6 +136,7 @@ $langUnableToUpdateCategory = "Non &eacute; posible actualiza-la categor&iacute;
 $langUnableToUpdateForum = "Non &eacute; posible actualiza-lo foro";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";

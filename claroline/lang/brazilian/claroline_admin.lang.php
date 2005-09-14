@@ -291,6 +291,7 @@ $langUsersMin = "usuários";
 $langViewMode = "Visualizar como";
 $langViewPlatFormError = "Verificar falha técinca";
 $langViewPlatFormStatistics = "Estatísticas da plataforma";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $langYes = "Sim";
 $langYesterday = "Ontem";

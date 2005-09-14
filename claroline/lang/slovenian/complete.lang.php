@@ -760,7 +760,6 @@ $langTitular = "Titular";
 $langTo = "na";
 $langToDate = "tdo";
 $langToday = "Danes";
-$langTodo = "Predlogi";
 $langTooBig = "You didn't choose any file to send, or it is too big";
 $langToolTitleCountColumn = "Celotno stevilo klikov";
 $langToolTitleToolnameColumn = "Ime orodja";

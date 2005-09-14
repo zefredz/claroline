@@ -136,6 +136,7 @@ $langToday = "Hoy";
 $langTranslations = "Traducciones";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
+$langWiki = "Wiki";
 $langWikiMainPageContent = "Esta es la p&aacute;gina de inicio del Wiki. Pulse en Editar para modificar su contido.";
 $langWork = "Trabajos";
 $lang_completeUserInfoOfUser = "Completar informaci&oacute;n del usuario";

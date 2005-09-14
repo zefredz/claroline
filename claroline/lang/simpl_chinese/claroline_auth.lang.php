@@ -128,6 +128,7 @@ $langUserTaken = "用户名已被占用";
 $langUserid = "用户Id";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langYes = "确认";
 $langYouAreReg = "您已注册";

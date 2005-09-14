@@ -38,6 +38,7 @@ $langTotal = "总共";
 $langTranslationTools = "翻译工具";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";

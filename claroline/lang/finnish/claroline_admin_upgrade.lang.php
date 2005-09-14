@@ -14,14 +14,10 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
-$langNo = "No";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
 $langStudent = "Opiskelija";
 $langTo = "Hakemistoon";
-$langTodo = "To do";
-$langUserName = "Käyttäjänimi";
 $langUsers = "Käyttäjät";
 $langWork = "Opiskelijoiden tehtävät";
-$langYes = "Yes";
 ?>

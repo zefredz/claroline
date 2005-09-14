@@ -55,6 +55,7 @@ $langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
 $langTo = "إلى";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_no_access_here = "No way";

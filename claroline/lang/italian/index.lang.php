@@ -51,6 +51,7 @@ $langUserName = "Username";
 $langUsers = "Utenti";
 $langValvas = "Ultimo annuncio";
 $langViewMode = "Vista";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $lang_enroll_to_a_new_course = "Iscriviti ad un nuovo corso";
 $lang_footer_p_CourseManager = "Manager(s) di %s";

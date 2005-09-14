@@ -19,17 +19,11 @@ $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
-$langNext = "Dalej";
-$langNo = "Nie";
 $langOk = "Ok";
 $langOtherCourses = "Lista kursów";
-$langPlatformAccess = "Access to campus";
 $langPoweredBy = "Powered by";
 $langStudent = "student";
 $langTo = "do";
-$langTodo = "Wolne wnioski";
-$langUserName = "Nazwa u¿ytkownika";
 $langUsers = "U¿ytkownicy";
 $langWork = "Works";
-$langYes = "Tak";
 ?>

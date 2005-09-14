@@ -77,6 +77,7 @@ $langUsers = "Benutzer";
 $langViMod = "Sichtbarkeit geändert";
 $langViewMode = "Ansicht";
 $langVisible = "sichtbar";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";

@@ -638,7 +638,6 @@ $langTitular = "Titel";
 $langTo = "till";
 $langToDate = "Till";
 $langToday = "Idag";
-$langTodo = "Att göra";
 $langTooBig = "Du valde ingen fil eller filen du valde är för stor.";
 $langToolTitleCountColumn = "Totalt antal klick";
 $langToolTitleToolnameColumn = "Namn på verktyget";

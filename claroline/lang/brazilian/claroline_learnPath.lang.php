@@ -183,6 +183,7 @@ Número de rotas de aprendizagem utilizando esse módulo : ";
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
 $langVisibility = "Visível/invisível";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $langWrongOperation = "Operação incorreta";
 $langYourBestScore = "Sua melhor performance";

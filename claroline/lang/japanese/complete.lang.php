@@ -259,7 +259,6 @@ $langTheU = "The user";
 $langTipLang = "この言語は、あなたのコースのウエブサイトの全ての訪問者の公用言語です。";
 $langTitle = "タイトル";
 $langTo = "to";
-$langTodo = "「要望」";
 $langTooBig = "ファイルが大きすぎるので、選択できません。";
 $langTrue = "正解";
 $langUnreg = "Unregister";

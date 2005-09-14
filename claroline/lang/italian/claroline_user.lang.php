@@ -174,6 +174,7 @@ $langUsernameUsed = "This username is already used by another user.";
 $langUsers = "Utenti";
 $langUsersMin = "utenti";
 $langViewMode = "Vista";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $langYes = "Sì`";
 $langYouAreReg = "Sei iscritta/o su";

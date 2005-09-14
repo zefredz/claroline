@@ -88,6 +88,7 @@ $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTo = "vers";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
+$langWiki = "Wiki";
 $langWork = "Travaux";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_IfNothingHappendClickHere = "<small>Si <u>après 30 secondes</u> rien ne se passe cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes</small>";

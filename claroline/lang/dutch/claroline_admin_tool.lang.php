@@ -37,6 +37,7 @@ $langTextEditorEnable = "Activeer tekst bewerking";
 $langThisIsAnErrorInDefinitionFile = "Dit is een fout in het definitie bestand.";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_ErrorOnBuild_S_for_S = "Fout bij het samenstellen van <em>%s</em> voor <B>%s</B>";

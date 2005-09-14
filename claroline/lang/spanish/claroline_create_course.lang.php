@@ -95,6 +95,7 @@ $langTextEditorEnable = "Habilitar editor de texto";
 $langTo = "para";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_IfNothingHappendClickHere = "<small>Si despu&eacute;s de 30 segundos no cambia nada, pulse por favor <a href=\"%s\">aqu&iacute;</a> 

@@ -57,6 +57,7 @@ $langTextEditorEnable = "Abilita editor di testo";
 $langUpdated = "Aggiornato";
 $langUsers = "Utenti";
 $langViewMode = "Vista";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $lang_EditFile_ModifyOk = "Variazioni eseguite";
 $lang_footer_p_CourseManager = "Manager(s) di %s";

@@ -145,6 +145,7 @@ $langUser = "مستخدم";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
 $langVisible = "مرئي";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langWrkAdded = "تم إرسال العمل بنجاح";
 $langWrkAuthors = "المؤلف ( المؤلفون)";

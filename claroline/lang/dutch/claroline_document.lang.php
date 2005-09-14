@@ -87,6 +87,7 @@ $langUsers = "Gebruikers";
 $langViMod = "De zichtbaarheid werd gewijzigd.";
 $langViewMode = "Scherm modus";
 $langVisibility = "Zichtbaarheid";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langZipNoPhp = "Het ZIP bestand mag geen php-bestanden bevatten";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";

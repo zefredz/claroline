@@ -18,15 +18,11 @@ $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
-$langNo = "Hayýr";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
 $langStudent = "öðrenci";
 $langTo = "buraya";
-$langTodo = "Yapýlacaklar";
-$langUserName = "Kullanýcý adýnýz";
 $langUsers = "Kullanýcýlar";
 $langWork = "Öðrenci Yazýlarý";
-$langYes = "Evet";
 ?>

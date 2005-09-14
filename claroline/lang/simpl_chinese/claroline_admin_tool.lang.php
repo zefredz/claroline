@@ -39,6 +39,7 @@ $langTextEditorEnable = "显示文本编辑器";
 $langThisIsAnErrorInDefinitionFile = "这是一个规定文件中的错误。";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_ErrorOnBuild_S_for_S = "<B>%s</B> <em>%s</em> 的建设出错";

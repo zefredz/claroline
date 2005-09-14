@@ -35,6 +35,7 @@ $langTextEditorEnable = "Ativar o editor de texto";
 $langUp = "Acima";
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";

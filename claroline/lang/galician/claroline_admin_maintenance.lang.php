@@ -41,6 +41,7 @@ $langTextEditorDisable = "Deshabilitar editor de texto";
 $langTextEditorEnable = "Habilitar editor de texto";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";

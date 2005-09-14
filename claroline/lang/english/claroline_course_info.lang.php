@@ -81,6 +81,7 @@ $langTipLang = "This language will be valid for every visitor of your course's w
 $langTo = "to";
 $langUsers = "Users";
 $langViewMode = "View mode";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $langYes = "Yes";
 $lang_footer_p_CourseManager = "Manager(s) for %s";

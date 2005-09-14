@@ -706,7 +706,6 @@ $langTitular = "Pengarang";
 $langTo = "ke";
 $langToDate = "Kepada";
 $langToday = "Hari ini";
-$langTodo = "Yang akan dilakukan";
 $langTooBig = "Anda tidak memilih file untuk dikirim, atau itu terlalu besar";
 $langToolTitleCountColumn = "Jumlah Klik";
 $langToolTitleToolnameColumn = "Nama tool";

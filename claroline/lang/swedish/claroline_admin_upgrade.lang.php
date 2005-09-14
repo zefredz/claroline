@@ -20,17 +20,11 @@ $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
-$langNext = "Nästa";
-$langNo = "Nej";
 $langOk = "validate";
 $langOtherCourses = "Kurslista";
-$langPlatformAccess = "Åtkomst till campus";
 $langPoweredBy = "Med kraft från";
 $langStudent = "elev";
 $langTo = "till";
-$langTodo = "Att göra";
-$langUserName = "Namn";
 $langUsers = "Användare";
 $langWork = "Elevarbeten";
-$langYes = "Yes";
 ?>

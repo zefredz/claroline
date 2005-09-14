@@ -409,6 +409,7 @@ $langUserContent = "<b>角色</b><p>角色没有计算机管理相关的功能. 这并不赋予谁系统
 <p>为本课程增加一个用户,首先检查该用户是否已在虚拟校园注册.如果已经注册, 选择他名字旁边的选项格,然后'确认'. 如果还没有注册, 可以手工添加. 任何一种情况, 他都会收到一封含用户名和密码的确认邮件.</p>";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";

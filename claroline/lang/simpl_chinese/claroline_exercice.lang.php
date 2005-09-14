@@ -202,6 +202,7 @@ $langUsedInSeveralPath = "该练习已经用在一个或更多的学习路线中。如果你删了它，学
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
 $langWeightingForEachBlank = "请给每一个空赋分";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langYes = "确认";
 $langYourTime = "你的名字是";

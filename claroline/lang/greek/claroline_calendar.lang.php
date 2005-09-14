@@ -61,6 +61,7 @@ $langUsers = "Χρήστες";
 $langViMod = "Η ορατότητα του εγγράφου άλλαξε";
 $langViewMode = "Παρουσίαση τρόπου";
 $langVisible = "Ορατό";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";

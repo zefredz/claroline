@@ -38,6 +38,7 @@ $langTotal = "Total";
 $langTranslationTools = "Translation Tools";
 $langUsers = "Users";
 $langViewMode = "View mode";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";

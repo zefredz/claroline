@@ -289,7 +289,6 @@ $langTitle = "Títol";
 $langTitular = "Autor";
 $langTo = "cap a";
 $langToday = "Avui";
-$langTodo = "Per fer";
 $langTooBig = "No has escollit l'arxiu a enviar o l'arxiu és massa gran.";
 $langTools = "Eines";
 $langTrue = "Veritat";

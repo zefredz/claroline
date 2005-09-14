@@ -151,6 +151,7 @@ $langUser = "用户列表";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
 $langVisible = "可见的";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langWrkAdded = "作业添加";
 $langWrkAuthors = "作者";

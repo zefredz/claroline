@@ -128,6 +128,7 @@ $langUserTaken = "This user name is already taken";
 $langUserid = "User Id";
 $langUsers = "Users";
 $langViewMode = "View mode";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $langYes = "Yes";
 $langYouAreReg = "You are registered on";

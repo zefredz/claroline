@@ -186,6 +186,7 @@ $langUsedInSeveralPath = "Esse exercício está sendo usado em ou mais rotas de ap
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
 $langWeightingForEachBlank = "Por favor acrescer peso a cada espaço em branco";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $langYes = "Sim";
 $langYourTime = "O seu tempo ‚";

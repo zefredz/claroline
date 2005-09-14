@@ -44,6 +44,7 @@ $langMonthNames = "مصفوفة";
 $langMyAgenda = "جدول أعمالي";
 $langMyCourses = "مقرراتي";
 $langNameOfLang = "مصفوفة";
+$langNotAllowed = "غير مسموح";
 $langOk = "موافق";
 $langOtherCourses = "قائمة المقررات";
 $langPlatformAdministration = "الإدارة";
@@ -62,6 +63,7 @@ $langUnableUpdateExternalTool = "فشل في تحديث الأداة الخار�
 $langUpdatedExternalTool = "تم تحديث الأداة الخارجية";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";

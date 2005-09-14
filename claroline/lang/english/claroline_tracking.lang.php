@@ -198,6 +198,7 @@ $langUsers = "Users";
 $langViewMode = "View mode";
 $langViewToolList = "View List of All Tools";
 $langVisits = "visits";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $langWorkAuthors = "Authors";
 $langWorkTitle = "Work title";

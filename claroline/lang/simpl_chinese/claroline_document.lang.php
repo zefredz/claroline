@@ -91,6 +91,7 @@ $langUsers = "用户列表";
 $langViMod = "'显示/隐藏' 属性已更新";
 $langViewMode = "查看模式";
 $langVisibility = "显示/隐藏";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langZipNoPhp = "zip文件不能包含PHP文件";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";

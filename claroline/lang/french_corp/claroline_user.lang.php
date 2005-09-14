@@ -163,6 +163,7 @@ $langUsernameUsed = "Ce nom d'utilisateur est déjà utilisé.";
 $langUsers = "Utilisateurs";
 $langUsersMin = "utilisateurs";
 $langViewMode = "Mode de vue";
+$langWiki = "Wiki";
 $langWork = "Contributions";
 $langYes = "Oui";
 $langYouAreReg = "Vous êtes inscrit(e) sur";

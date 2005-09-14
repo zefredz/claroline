@@ -778,7 +778,6 @@ $langTitular = "Ответственный";
 $langTo = "в";
 $langToDate = "по";
 $langToday = "сегодня";
-$langTodo = "Предложения";
 $langTooBig = "Вы не выбрали файл для размещения, или он слишком большой";
 $langToolTitleCountColumn = "Общее количество переходов";
 $langToolTitleToolnameColumn = "Название средства";

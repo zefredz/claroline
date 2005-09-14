@@ -77,6 +77,7 @@ $langUsers = "用户列表";
 $langViMod = "'显示/隐藏' 属性已更新";
 $langViewMode = "查看模式";
 $langVisible = "可见的";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";

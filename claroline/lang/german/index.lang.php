@@ -51,6 +51,7 @@ $langUserName = "Benutzername";
 $langUsers = "Benutzer";
 $langValvas = "Neueste Bekannmachungen";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_enroll_to_a_new_course = "In eine neue KursSite eintragen";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";

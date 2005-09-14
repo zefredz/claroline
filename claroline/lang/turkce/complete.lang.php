@@ -520,7 +520,6 @@ $langTitle = "Baþlýk";
 $langTitular = "Yazar";
 $langTo = "buraya";
 $langToday = "Today";
-$langTodo = "Yapýlacaklar";
 $langTooBig = "Bir dosya seçmediniz veya çok büyük.";
 $langTools = "Tools";
 $langTrue = "Doðru";

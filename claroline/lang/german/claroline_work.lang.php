@@ -146,6 +146,7 @@ $langUser = "Benutzer";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
 $langVisible = "sichtbar";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langWrkAdded = "Arbeit hinzugef&uuml;gt";
 $langWrkAuthors = "Autor(en)";

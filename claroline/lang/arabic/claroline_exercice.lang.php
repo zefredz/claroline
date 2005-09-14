@@ -186,6 +186,7 @@ $langUsedInSeveralPath = "هذا التمرين مستخدم في مسار تع�
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
 $langWeightingForEachBlank = "حدد درجة الأهمية لكل فراغ";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langYes = "نعم";
 $langYourTime = "قمت بتنفذ التمرين خلال :";

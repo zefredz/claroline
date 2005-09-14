@@ -37,6 +37,7 @@ $langTextEditorEnable = "Ενεργοποίηση επεξεργαστή κειμένου";
 $langThisIsAnErrorInDefinitionFile = "Αυτό είναι σφάλμα στον ορισμό αρχείου.";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_ErrorOnBuild_S_for_S = "Σφάλμα κατασκευής απο <em>%s</em> για <B>%s</B>";

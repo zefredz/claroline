@@ -299,6 +299,7 @@ $langUsersMin = "Benutzer";
 $langViewMode = "Ansicht";
 $langViewPlatFormError = "Auffälligkeiten suchen";
 $langViewPlatFormStatistics = "System-Statistiken";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langYes = "ja";
 $langYesterday = "Gestern";

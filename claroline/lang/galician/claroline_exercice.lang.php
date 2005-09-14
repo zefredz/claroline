@@ -210,6 +210,7 @@ $langUsedInSeveralPath = "Este exercicio &eacute; empregado polo menos nunha sec
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWeightingForEachBlank = "Especifique un peso para cada branco";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $langYes = "Si";
 $langYourTime = "O seu tempo empregado &eacute;";

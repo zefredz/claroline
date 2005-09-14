@@ -16,15 +16,11 @@ $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Els meus cursos";
 $langNameOfLang = "Array";
-$langNo = "No";
 $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";
 $langPoweredBy = "Potenciat per ";
 $langStudent = "estudiant";
 $langTo = "cap a";
-$langTodo = "Per fer";
-$langUserName = "Nom d'usuari";
 $langUsers = "Usuaris";
 $langWork = "Treballs dels estudiants";
-$langYes = "Si";
 ?>

@@ -46,6 +46,7 @@ $langUserName = "Nom d'utilisateur";
 $langUsers = "Utilisateurs";
 $langValvas = "Dernières annonces";
 $langViewMode = "Mode de vue";
+$langWiki = "Wiki";
 $langWork = "Contributions";
 $lang_enroll_to_a_new_course = "S'inscrire à un espace";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";

@@ -24,6 +24,7 @@ $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
+$langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";
 $langPoweredBy = "Powered by";

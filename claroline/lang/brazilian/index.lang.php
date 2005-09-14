@@ -45,6 +45,7 @@ $langUserName = "User name";
 $langUsers = "Utilizadores";
 $langValvas = "Últimos avisos";
 $langViewMode = "Visualizar como";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $lang_enroll_to_a_new_course = "Inscrever-se em um curso";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";

@@ -143,6 +143,7 @@ $langToday = "Hoxe";
 $langTranslations = "Traducci&oacute;ns";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWikiMainPageContent = "Esta &eacute; a p&aacute;xina de inicio do Wiki. Prema en Editar para modifica-lo contido.";
 $langWork = "Traballos";
 $lang_completeUserInfoOfUser = "Completar informaci&oacute;n do usuario";

@@ -202,6 +202,7 @@ $langUsedInSeveralPath = "Este ejercicio es usado en una o m&aacute;s secuencias
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWeightingForEachBlank = "Por favor, asigne un valor a cada hueco";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $langYes = "Si";
 $langYourTime = "Su tiempo es";

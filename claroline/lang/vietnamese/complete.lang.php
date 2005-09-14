@@ -753,7 +753,6 @@ $langTitular = "Titular";
 $langTo = "đến";
 $langToDate = "đến";
 $langToday = "Hôm nay";
-$langTodo = "Kiến nghị";
 $langTooBig = "You didn't choose any file to send, or it is too big";
 $langToolTitleCountColumn = "Tổng số lượt truy cập";
 $langToolTitleToolnameColumn = "Tên công cụ";

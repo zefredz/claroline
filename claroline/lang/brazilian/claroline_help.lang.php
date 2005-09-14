@@ -415,6 +415,7 @@ will receive a mail telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";

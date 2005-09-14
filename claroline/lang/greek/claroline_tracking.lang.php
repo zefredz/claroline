@@ -188,6 +188,7 @@ $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langViewToolList = "Παρουσίαση λίστας όλων των εργαλείων";
 $langVisits = "Επισκέψεις";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langWorkAuthors = "Συγγραφείς";
 $langWorkTitle = "Τίτλος εργασίας";

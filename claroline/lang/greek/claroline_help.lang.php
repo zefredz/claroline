@@ -445,6 +445,7 @@ $langUserContent = "<b>Ρόλοι</b><p>Οι ρόλοι δεν σχετίζονται καθόλου με τον υπολο
 ή θυμήστε του/της το όνομα χρήστη και το συνθηματικό.</p>";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";

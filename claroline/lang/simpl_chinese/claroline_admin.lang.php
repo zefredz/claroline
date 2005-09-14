@@ -300,6 +300,7 @@ $langUsersMin = "用户";
 $langViewMode = "查看模式";
 $langViewPlatFormError = "扫描技术错误";
 $langViewPlatFormStatistics = "平台统计";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langYes = "确认";
 $langYesterday = "昨天";

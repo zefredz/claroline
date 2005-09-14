@@ -88,6 +88,7 @@ $langUsers = "Utilisateurs";
 $langViMod = "Visibilit&eacute; modifi&eacute;e";
 $langViewMode = "Mode de vue";
 $langVisibility = "Visibilité";
+$langWiki = "Wiki";
 $langWork = "Contributions";
 $langZipNoPhp = "Le fichier ZIP ne peut pas contenir de fichiers en .php";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";

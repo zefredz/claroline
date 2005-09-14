@@ -501,6 +501,7 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						o seu correo electr&oacute;nico.</p>";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";

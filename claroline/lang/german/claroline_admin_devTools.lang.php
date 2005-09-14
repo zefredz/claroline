@@ -131,6 +131,7 @@ $langToday = "Heute";
 $langTranslations = "&Uuml;bersetzungen";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWikiMainPageContent = "Das ist die Hauptseite des Wikis %s. Klicken sie hier, um den Inhalt zu bearbeiten oder anzupassen.";
 $langWork = "Upload-Bereich";
 $lang_completeUserInfoOfUser = "komplette Benutzerinformation des Teilnehmers";

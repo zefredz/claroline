@@ -293,6 +293,7 @@ $langUsersMin = "χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langViewPlatFormError = "Ανίχνευση τεχνικών σφαλμάτων";
 $langViewPlatFormStatistics = "Στατιστικά Πλατφόρμας";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langYes = "Ναι";
 $langYesterday = "Χθές";

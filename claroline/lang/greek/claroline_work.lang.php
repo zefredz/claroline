@@ -146,6 +146,7 @@ $langUser = "Χρήστες";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langVisible = "Ορατό";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langWrkAdded = "Εργασία προστέθηκε";
 $langWrkAuthors = "Συγγραφέας -εις";

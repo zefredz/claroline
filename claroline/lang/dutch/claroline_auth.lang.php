@@ -115,6 +115,7 @@ $langUserTaken = "De gekozen gebruikersnaam is al in gebruik";
 $langUserid = "Gebruikers Id";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langYes = "Ja";
 $langYouAreReg = "U bent geregistreerd voor";

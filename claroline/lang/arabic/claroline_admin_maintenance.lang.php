@@ -32,6 +32,7 @@ $langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم
 $langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";

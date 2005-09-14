@@ -77,6 +77,7 @@ $langTipLang = "Deze taal zal gelden voor alle bezoekers van uw cursussite.";
 $langTo = "naar";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langYes = "Ja";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";

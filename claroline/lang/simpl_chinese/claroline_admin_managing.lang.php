@@ -57,6 +57,7 @@ $langTextEditorEnable = "显示文本编辑器";
 $langUpdated = "升级";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_EditFile_ModifyOk = "已经实现正确的变化";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";

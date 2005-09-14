@@ -116,6 +116,7 @@ $langUserTaken = "Το όνομα χρήστη ήδη χρησιμοποιείται από κάποιον άλλον";
 $langUserid = " Ταυτότητα χρήστη";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langYes = "Ναι";
 $langYouAreReg = "Ο λογαριασμός σας στην πλατφόρμα ";

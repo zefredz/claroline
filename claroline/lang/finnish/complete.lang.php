@@ -265,7 +265,6 @@ $langTheU = "Käyttäjä";
 $langTipLang = "Tämä kieli on pätee kaikille kurssin sivuston kävijöille.";
 $langTitle = "Otsikko";
 $langTo = "Hakemistoon";
-$langTodo = "To do";
 $langTooBig = "Et valinnut tiedostoa tai tiedosto on liian suuri.";
 $langTrue = "Tosi";
 $langUnreg = "Reksiteröi pois";

@@ -200,6 +200,7 @@ $langUsedInSeveralPath = "Cet exercice est utilisé dans un ou plusieurs parcours
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWeightingForEachBlank = "Veuillez donner une pondération à chacun des blancs";
+$langWiki = "Wiki";
 $langWork = "Travaux";
 $langYes = "Oui";
 $langYourTime = "Votre temps est de";

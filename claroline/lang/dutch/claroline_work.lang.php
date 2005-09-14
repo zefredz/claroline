@@ -146,6 +146,7 @@ $langUser = "Gebruiker";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langVisible = "Zichtbaar";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langWrkAdded = "Werk toegevoegd";
 $langWrkAuthors = "Auteur(s)";

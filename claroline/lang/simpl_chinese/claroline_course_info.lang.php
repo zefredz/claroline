@@ -79,6 +79,7 @@ $langTipLang = "访问您的课程网站的正式语言:";
 $langTo = "到";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langYes = "确认";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";

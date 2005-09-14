@@ -55,6 +55,7 @@ $langTextEditorEnable = "Ενεργοποίηση επεξεργαστή κειμένου";
 $langUpdated = "Ενημερώθηκε";
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_EditFile_ModifyOk = "Οι αλλαγές έχουν πραγματοποιηθεί σωστά";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";

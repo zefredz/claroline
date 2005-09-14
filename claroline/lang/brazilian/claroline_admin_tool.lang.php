@@ -37,6 +37,7 @@ $langTextEditorEnable = "Ativar o editor de texto";
 $langThisIsAnErrorInDefinitionFile = "Erro na identificação do arquivo.";
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_ErrorOnBuild_S_for_S = "Erro na produção de <em>%s</em> para <B>%s</B>";

@@ -32,6 +32,7 @@ $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
+$langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
 $langOn = "W³±czone";
 $langOtherCourses = "Lista kursów";

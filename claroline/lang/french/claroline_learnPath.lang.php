@@ -199,6 +199,7 @@ Nombre de parcours utilisant ce module : ";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langVisibility = "Visibilité";
+$langWiki = "Wiki";
 $langWork = "Travaux";
 $langWrongOperation = "Opération impossible";
 $langYourBestScore = "Votre meilleur score";

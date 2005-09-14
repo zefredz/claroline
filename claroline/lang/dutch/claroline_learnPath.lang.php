@@ -170,6 +170,7 @@ $langUsedInLearningPaths = "Aantal leerpaden dat gebruik maakt van deze module :
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langVisibility = "Zichtbaarheid";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langWrongOperation = "Verkeerde bewerking";
 $langYourBestScore = "Uw beste score";

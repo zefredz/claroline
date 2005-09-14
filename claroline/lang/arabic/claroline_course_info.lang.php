@@ -77,6 +77,7 @@ $langTipLang = "سيتم تطبيق هذه اللغة من اجل كل زوار 
 $langTo = "إلى";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langYes = "نعم";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";

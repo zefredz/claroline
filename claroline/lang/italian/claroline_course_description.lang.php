@@ -75,6 +75,7 @@ $langUsers = "Utenti";
 $langViMod = "Visibilità modificata";
 $langViewMode = "Vista";
 $langVisible = "Visibile";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
 $lang_p_platformManager = "Amministratore di %s";

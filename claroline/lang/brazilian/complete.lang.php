@@ -40,8 +40,6 @@ $l_topics = "Tópicos";
 $l_topictitle = "Ver Tópico";
 $l_viewforum = "Ver Fórum";
 $l_viewmsg = "para visualizar sua Menssagem.";
-$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "Em caso de interrupção <sup>*</sup>, do <em>Claroline Upgrade </em> reiniciar automaticamente.
-Se isto não ocorrer clique no botão abaixo.";
 $langAccess = "Acesso";
 $langAccessExplain = "(Quando um usuário abre o índice do campus)";
 $langAction = "Ação";
@@ -266,7 +264,6 @@ o modo mais simples é abrir as inscrições durante
 uma semana, pedir aos estudantes que se inscrevam, então fechar as inscrições e checar possíveis intrusos na lista de usuários.";
 $langConfigMenuContent = "Menu de Configuração";
 $langConfiguration = "Configuração";
-$langConfigurationFile = "Arquivo de Configuração";
 $langConfirmDeleteExercise = "Você tem certeza que quer deletar esse exercício ?";
 $langConfirmDeleteGroups = "Você realmente quer deletar todos os grupos?";
 $langConfirmDeleteQuestion = "Você tem certeza que quer deletar totalmente essa questão ?";
@@ -504,7 +501,6 @@ $langDocumentsDetails = "Documentos descarregados pelo estudante";
 $langDocumentsTitleCountColumn = "Total de Downloads";
 $langDocumentsTitleDocumentColumn = "Documento";
 $langDocumentsTitleUsersColumn = "Downloads de Usuários";
-$langDone = "Etapas executadas";
 $langDown = "Ordem decrescente";
 $langDownloadAttachedFile = "Baixar o arquivo anexado";
 $langEG = "ex.";
@@ -710,7 +706,6 @@ $langExternalToolUrl = "URL do link";
 $langExtractFromLangFile = "A partir do arquivo de idioma";
 $langExtractFromScriptFile = "A partir do arquivo script";
 $langExtractLangVariable = "Extrair variáveis de idioma";
-$langFailed = "<span style=\"color: red\">Falhou</span>";
 $langFeedback = "Resposta";
 $langFeedbackAdded = "Resposta adicionada";
 $langFeedbackEdited = "Resposta editada";
@@ -1017,16 +1012,6 @@ Agora, para adicionar um texto introdutório apresentando o seu curso para os est
 $langIntroEditToolList = "Selecione as ferramentas que você quer tornar visíveis para seus usuários.
 Ferramentas invisíveis serão retiradas de sua interface pessoal";
 $langIntroLearningPath = "Use essa ferramenta para fornecer aos seus estudantes uma rota seqüêncial entre documentos, exercícios, páginas HTML, links, etc.<br><br>Se você quiser apresentar sua rota de aprendizagem aos estudantes, clique no botão abaixo.<br>";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. 
-                These settings were stored into claroline/include/config.inc.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going upgrade the data stored into the main Claroline tables 
-                    (users, course categories, tools list, ...) and set it compatible with the new Claroline version.</p>
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform, this 
-                   operation may take some time.</p>";
-$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going update course data (directories and database tables) one by one.
-                   <p class=\"help\">Note: According to the speed of your server or the amount of data stored on your platform,
-                   this operation may take some time.</p>";
-$langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "Para enviar uma mensagem, selecione grupos de usuários (marcados com um * na frente)
  ou usuários individuais apartir da lista a esquerda.";
 $langIntroWork = "Esta página permite a qualquer estudante ou grupo enviar um documento para o website do curso. <br>Envie arquivos HTML apenas se eles não contiverem imagens.<br><br>Se você quiser apresentar essa ferramenta ou dar algumas recomendações aos estudantes, clique no botão abaixo.<br>";
@@ -1054,9 +1039,6 @@ $langLasting = "Faltando";
 $langLastname = "Último Nome";
 $langLateUpload = "Último envio";
 $langLaunchRestoreCourseRepository = "Executar restauração de curso armazenado";
-$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Launch platform main settings upgrade</button></p>";
-$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Launch main platform tables upgrade</button></p>";
-$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Launch course data upgrade</button></p>";
 $langLearnPathDetails = "Progresso nas rotas de aprendizagem";
 $langLearningPath = "Rota de Aprendizagem";
 $langLearningPathAdmin = "Administrador de Rotas de Aprendizagem";
@@ -1098,29 +1080,6 @@ $langMailSynthaxError = "Erro ao informar o e-mail.";
 $langMailTo = "Enviar para : ";
 $langMailUsed = "E-mail em uso por outro usuário.";
 $langMainDB = "BD principal do Claroline";
-$langMakeABackupBefore = "<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
-installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
-
-<ol>
-
-<li>It will get your previous platform main settings and put them in new configuration files</li>
-
-<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.</li>
-
-<li>It will update one by one each course data (directories, database tables, ...)</li>
-
-</ol>
-
-<p>Before proceeding to this upgrade:</p>
-
-<table>
-<tbody>
-<tr valign=\"top\"><td>-</td><td>Make a whole backup of all you platform data (files and databases)</td><td>%s</td></tr>
-
-</tbody>
-</table>
-<p>You won't be allowed to start the upgrade process before this point is marked as 'done'.</p>
-";
 $langMakeCorrespond = "Torne correspondente";
 $langMakeInvisible = "Tornar invisível";
 $langMakeNewSearch = "Fazer nova pesquisa : ";
@@ -1154,7 +1113,6 @@ $langMinuteShort = "min.";
 $langMissing = "faltando";
 $langMissingImagesDetected = "Falta de imagens detectada";
 $langMissingValue = "Faltando valor";
-$langModeVerbose = "Excesso de Palavras";
 $langModifAnn = "Modificar esse aviso";
 $langModifDone = "As informações foram modificadas";
 $langModifUserCourseSettings = "Configurações do curso do usuário";
@@ -1197,7 +1155,6 @@ $langName = "Nome";
 $langNameChanged = "Nome da turma foi alterado";
 $langNameDir = "Nome do novo diretório";
 $langNameOfLang = "Array";
-$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNbLines = "Qtde. de linhas";
 $langNbrAccess = "Contagem de acessos";
 $langNever = "Nunca";
@@ -1219,7 +1176,6 @@ $langNewUsersIn = "novo usuário desta plataforma : ";
 $langNext = "Próximo";
 $langNextDay = "Próximo Dia";
 $langNextMonth = "Próximo Mês";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">Próximo ></button></p>";
 $langNextWeek = "Próxima Semana";
 $langNextYear = "Próximo Ano";
 $langNo = "Não";
@@ -1381,7 +1337,6 @@ $langRegisterTheNewUser = "Registrar esse usuário em um curso";
 $langRegisterUser = "Inscrever-se em um novo curso";
 $langRegisterUserToClass = "Registar usuário em uma turma";
 $langRegistered = "Registrado";
-$langRemainingSteps = "Passos a serem executados";
 $langRemove = "Remover";
 $langRemoveAdminLevel = "Não há mais Administrador";
 $langRename = "Renomear";
@@ -1446,7 +1401,6 @@ $langSize_of_course_repository = "!!!! tamanho do repositÃ³rio do curso (incluin
 $langSize_of_selected_courses = "tamanho dos cursos selecionados";
 $langSocraticIrony = "Ironia socrática é...";
 $langSpecifyFormat = "Você deve especificar o formato CSV  a ser utilizado no site de seu curso";
-$langStartAgain = "Reiniciar";
 $langStartDate = "Data de início";
 $langStartModule = "Iniciar Módulo";
 $langStatDB = "BD de rastreamento. Útil apenas com vários BD";
@@ -1481,7 +1435,6 @@ $langSubscribed = "pessoas registradas nesse curso";
 $langSubscription = "Inscrição";
 $langSubscriptionAllowedOnly = "Inscrição permitida apenas ";
 $langSubscriptionDeniedOnly = "Inscrição negada apenas";
-$langSucceeded = "Realizado";
 $langSupportForum = "Fórum de suporte";
 $langSupports = " Suporte ";
 $langSupportsComment1 = "É permitido desistir do curso?  Qual tipo de suporte vou oferecer?  Integral?  Específica?";
@@ -1510,15 +1463,10 @@ $langTimeInLearnPath = "Tempo na rota de aprendizagem";
 $langTimeOver = "Terminou o tempo, resultado não computado.";
 $langTipLang = "Essa lingua será válida para todos os visitantes do website do seu curso.";
 $langTitle = "Título";
-$langTitleUpgrade = "<h2>Ferramenta de atualização do Claroline<br />
-
-                     de 1.4.* para 1.5</h2>
-";
 $langTitular = "Titular";
 $langTo = "para";
 $langToDate = "para";
 $langToday = "Hoje";
-$langTodo = "Todas etapas";
 $langTooBig = "Você não selecionou nenhum arquivo para enviar, ou ele é muito grande";
 $langTool = "Ferramenta : ";
 $langToolTitleCountColumn = "Cliques Totais";
@@ -1559,7 +1507,6 @@ $langUnamedModule = "Módulo não nomeado";
 $langUnamedPath = "Rota não nomeada";
 $langUncompress = "descompactar arquivo zipado (.zip) no servidor";
 $langUncompulsory = "(opcional)";
-$langUndist = "Não foi alterado";
 $langUniqueAnswer = "Única resposta";
 $langUniqueSelect = "Múltipla escolha (Resposta única)";
 $langUnkownSOAPError = "Ocorreu erro na tentativa de contato com o Claroline.net";
@@ -1574,13 +1521,6 @@ $langUpdateImage = "Trocar imagem";
 $langUpdated = "Atualizado";
 $langUpdatedExternalTool = "Ferramenta externa atualizada";
 $langUpgrade = "Atualizar claroline";
-$langUpgradeCourseFailed = "O Upgrade falhou";
-$langUpgradeCourseSucceed = "Upgrade realizado";
-$langUpgradeStep0 = "Confirmação de backup";
-$langUpgradeStep1 = "Step 1 of 3: platform main settings";
-$langUpgradeStep2 = "Step 2 of 3: main platform tables upgrade";
-$langUpgradeStep3 = "Step 3 of 3: courses upgrade";
-$langUpgradeSucceed = "<em>Claroline Upgrade</em> autualizou inteiramente a sua plataforma.";
 $langUploadAndZipEnd = " Arquivo Zip enviado e descompactado";
 $langUploadDoc = "Baixar documento";
 $langUploadEnd = "O envio terminou";
@@ -1684,19 +1624,13 @@ $langYourRequestToRemoveYourAccountIsSent = "Seu pedido para remoção de seu regi
 $langYourTime = "O seu tempo ‚";
 $langYourTotalScore = "A sua pontuação total é";
 $langZipNoPhp = "O arquivo zip não pode conter arquivos .PHP";
-$lang_CourseHasNoRepository_s_NotFound = "<strong>O curso não tem dados arquivados.</strong>
-<br><small>%s</small> Não localizado. ";
 $lang_EditFile_ModifyOk = "As alterações foram efetuadas com sucesso";
-$lang_RetryWithMoreDetails = "Tente com mais informções";
-$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Upgrade da plataforma principal do claroline feito com sucesso.";
-$lang_UpgradeFailedForCourses = "Não foi possível fazer a atualização para os seguintes cursos :";
 $lang_add_user_list = "Inserir uma lista de usuários";
 $lang_already_enrolled = "já inscrito";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Você tem certeza que quer remover esse curso da sua lista ?";
 $lang_back_to_my_personnal_course_list = "Voltar para minha lista de cursos pessoal";
 $lang_back_to_parent_category = "Voltar para a categoria superior";
 $lang_click_here = "clique aqui";
-$lang_continueCoursesDataUpgrade = "Continuar atualizando dados do curso";
 $lang_course_enrollment = "Curso do usuário";
 $lang_do_you_want_to_continue = "Você deseja continuar?";
 $lang_enroll = "Inscrever";
@@ -1722,53 +1656,36 @@ $lang_faculty_NoMove_1 = "Você não pode mover ";
 $lang_faculty_NoMove_2 = " para a mesma categoria !";
 $lang_faculty_imgDown = "Abaixo";
 $lang_fields_enclosed_by = "Campos bloqueados por";
-$lang_fileUpgrade = "Atualização de arquivo :";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
-$lang_htAccessIncPath_added = "Campo <em>inc</em> protegido";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = " Se você continuar as linhas de erro serão ignoradas";
 $lang_if_you_wish_to_enroll_to_this_course = "Se você deseja se inscrever nesse curso";
 $lang_my_personnal_course_list = "Minha lista de cursos pessoal";
 $lang_no_access_here = "Proibido";
 $lang_no_course_available_fitting_this_keyword = "Nenhum curso disponível relacionado com essa palavra chave";
 $lang_no_error_in_file_found = " Nenhum erro foi observado para o arquivo.";
-$lang_oldFileBackup = "Atualizar arquivo anterior:";
 $lang_or_search_from_keyword = "Pesquisar por palavra-chave";
-$lang_p_CannotCreate_s = "Não pode ser criado %s";
-$lang_p_CannotRename_s_s = "Não pode ser renomeado %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "Erro na produção de <em>%s</em> para <B>%s</B>";
 $lang_p_PropForConfigCommited = "As características para %s (%s) estão ativas no servidor.";
-$lang_p_UpgradeMainClarolineDatabase_s = "Atualizando o banco de dados principal do Claroline (<em>%s</em>)";
-$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Corrija os problemas técnicos e <a href=\"%s\">conecte para atualizar</a>.";
 $lang_p_config_file_creation = "Criação do arquivo de configuração:<BR> %s";
-$lang_p_d_affected_rows = "%d linhas afetada";
 $lang_p_d_course = "%2d curso";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
 $lang_p_d_course_member = "%2d membro";
 $lang_p_d_course_members = "%2d membros";
 $lang_p_d_courses = "%2d cursos";
-$lang_p_d_coursesToUpgrade = "%s curso(s) a atualizar";
-$lang_p_d_errorFound = " %d erros detectados";
 $lang_p_d_student = "%2d estudante";
 $lang_p_d_students = "%2d estudantes";
-$lang_p_expectedRemainingTime = " <!-- Tempo de execução para este curso [%01.2f s] - média [%01.2f s] - total [%s] - cursos  a atualizar [%d]. --><b>Tempo estimado para o término %s</b>.";
 $lang_p_nothing_to_edit_in_S = "nada para editar em %s";
 $lang_p_platformManager = "Adiministrador para %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> foi registrado no curso";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> não foi registrado no curso";
-$lang_p_s_s_isInvalid = "%s : %s ‚ inválido";
 $lang_php_info = "informações sobre o php";
 $lang_remove_course_enrollment = "Cancelar inscrição em um curso";
 $lang_remove_course_from_your_personnal_course_list = "Remover curso da sua lista pessoal de cursos";
-$lang_rules_s_in_s = "Rules : %s in %s";
-$lang_seeInTheStatusBarOfYourBrowser = "(*) verifique a barra de status de seu navegador.";
 $lang_select_course_in = "Selecione o curso no ";
 $lang_select_course_in_search_results = "Selecione o curso em pesquisar resultados";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Os procedimentos do Claroline upgrade foram completados.";
 $lang_the_following_errors_were_found = "Os seguintes erros ocorrerram";
 $lang_unsubscribe = "Desinscrever-se";
-$lang_upgradeToolCannotUpgradeThisCourse = "Infelizmente não foi possivel promover a atualização para este curso.  <br>
-Corrija, primeiro, o problema técnico  e depois incie a atualização.";
 $lang_user_has_been_enrolled_to_the_course = "O usuário foi inscrito no curso";
 $lang_you_had_request = "You ask";
 $lang_you_have_been_enrolled_to_the_course = "Você foi inscrito no curso";

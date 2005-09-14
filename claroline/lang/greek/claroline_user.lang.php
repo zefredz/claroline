@@ -161,6 +161,7 @@ $langUsernameUsed = "Αυτό το όνομα χρήστη χρησιμοποείται ήδη απο άλλο χρήστη.";
 $langUsers = "Χρήστες";
 $langUsersMin = "χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langYes = "Ναι";
 $langYouAreReg = "Ο λογαριασμός σας στην πλατφόρμα ";

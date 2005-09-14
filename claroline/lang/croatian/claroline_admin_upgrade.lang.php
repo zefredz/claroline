@@ -17,15 +17,11 @@ $langModifyProfile = "Izmijeni profil";
 $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
-$langNo = "Ne";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";
 $langStudent = "student";
 $langTo = "u";
-$langTodo = "Za napraviti";
-$langUserName = "Korisnièko ime";
 $langUsers = "Korisnici";
 $langWork = "Studentski Radovi";
-$langYes = "Da";
 ?>

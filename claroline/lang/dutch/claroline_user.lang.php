@@ -158,6 +158,7 @@ $langUsernameUsed = "Deze gebruikersnaam is reeds in gebruik voor een andere geb
 $langUsers = "Gebruikers";
 $langUsersMin = "gebruikers";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langYes = "Ja";
 $langYouAreReg = "U bent geregistreerd voor";

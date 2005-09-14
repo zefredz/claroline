@@ -133,6 +133,7 @@ $langUnableToUpdateCategory = "Impossible de mettre à jour la catégorie.";
 $langUnableToUpdateForum = "Impossible de mettre à jour le forum .";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
+$langWiki = "Wiki";
 $langWork = "Travaux";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";

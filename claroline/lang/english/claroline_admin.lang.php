@@ -300,6 +300,7 @@ $langUsersMin = "users";
 $langViewMode = "View mode";
 $langViewPlatFormError = "Scan technical fault";
 $langViewPlatFormStatistics = "Platform statistics";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $langYes = "Yes";
 $langYesterday = "Yesterday";

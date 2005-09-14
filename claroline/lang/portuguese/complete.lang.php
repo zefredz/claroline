@@ -477,7 +477,6 @@ $langTitular = "Autor";
 $langTo = "para";
 $langToDate = "Para";
 $langToday = "Hoje";
-$langTodo = "Sugest&otilde;es";
 $langTooBig = "N&atilde;o escolheu o ficheiro que pretende enviar, ou ent&atilde;o &eacute; demasiado grande";
 $langToolTitleCountColumn = "Total de cliques";
 $langToolTitleToolnameColumn = "Nome da ferramenta";

@@ -179,6 +179,7 @@ $langUsedInLearningPaths = "عدد مسارات التعليم التي تستخ
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
 $langVisibility = "مرئي/مخفي";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langWrongOperation = "عملية خاطئة";
 $langYourBestScore = "أداؤك الأفضل";

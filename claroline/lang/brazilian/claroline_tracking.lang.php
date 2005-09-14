@@ -188,6 +188,7 @@ $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
 $langViewToolList = "Visualizar Lista de Todas as Ferramentas";
 $langVisits = "visitas";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $langWorkAuthors = "Autores";
 $langWorkTitle = "Título";

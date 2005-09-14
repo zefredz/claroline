@@ -468,7 +468,6 @@ $langTitle = "Naslov";
 $langTitular = "Autor";
 $langTo = "u";
 $langToday = "Danas";
-$langTodo = "Za napraviti";
 $langTooBig = "Niste izabrali dokument koji želite poslati, ili je on prevelik";
 $langTools = "Alati";
 $langTrue = "Toèno";

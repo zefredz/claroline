@@ -307,6 +307,7 @@ $langUsersMin = "usuarios";
 $langViewMode = "Ver modo";
 $langViewPlatFormError = "Escanar faios t&eacute;nicos";
 $langViewPlatFormStatistics = "Estat&iacute;sticas da plataforma";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $langYes = "Si";
 $langYesterday = "Onte";

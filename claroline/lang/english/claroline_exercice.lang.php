@@ -200,6 +200,7 @@ $langUsedInSeveralPath = "This exercise is used in one or more learning path. If
 $langUsers = "Users";
 $langViewMode = "View mode";
 $langWeightingForEachBlank = "Please give a weighting to each blank";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $langYes = "Yes";
 $langYourTime = "Your time is";

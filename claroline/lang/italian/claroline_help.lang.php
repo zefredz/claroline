@@ -293,6 +293,7 @@ $langUserContent = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano i
 <p>Per aggiungere un utente al corso, verificare innanzitutto che sia iscritto sul campus utilizzando il motore di ricerca.  Se lo è, marcate la casella che compare a fianco del suo nome e confermate. Se non è iscritto, aggiungerlo alla pagina principale. In entrambi i casi la persona riceverà una email di conferma dell'avvenuta iscrizione contenente il suo nome e la sua password, a meno che voi non abbiate indicato l'indirizzo email.</p>";
 $langUsers = "Utenti";
 $langViewMode = "Vista";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
 $lang_p_platformManager = "Amministratore di %s";

@@ -87,6 +87,7 @@ $langUsers = "المستخدمون";
 $langViMod = "تم تعديل حالة الظهور/ الإخفاء";
 $langViewMode = "نمط العرض";
 $langVisibility = "مرئي/مخفي";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langZipNoPhp = "لا يسمح لك بان تحمل ملف مضغوط يحوي ضمنه ملف من نوع PHP";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";

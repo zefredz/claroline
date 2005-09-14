@@ -132,6 +132,7 @@ $langUserTaken = "Dieser Benutzername ist leider schon vergeben";
 $langUserid = "Benutzer-ID";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langYes = "ja";
 $langYouAreReg = "Sie wurden registriert am";

@@ -289,6 +289,7 @@ $langUsersMin = "gebruikers";
 $langViewMode = "Scherm modus";
 $langViewPlatFormError = "Technische fout zoeken";
 $langViewPlatFormStatistics = "Platform statistieken";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langYes = "Ja";
 $langYesterday = "Gisteren";

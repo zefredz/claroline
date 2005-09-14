@@ -45,6 +45,7 @@ $langUserName = "اسم المستخدم";
 $langUsers = "المستخدمون";
 $langValvas = "الإعلانات السابقة";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_enroll_to_a_new_course = "التسجيل في مقرر جديد";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";

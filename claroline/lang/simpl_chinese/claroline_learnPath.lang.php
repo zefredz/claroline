@@ -196,6 +196,7 @@ $langUsedInLearningPaths = " 使用该模块的学习路线数：";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
 $langVisibility = "显示/隐藏";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langWrongOperation = "错误的操作";
 $langYourBestScore = "你最好的表现";

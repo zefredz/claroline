@@ -39,8 +39,6 @@ $l_topics = "Onderwerpen";
 $l_topictitle = "Bekijken van Onderwerp";
 $l_viewforum = "Bekijk Forum";
 $l_viewmsg = "om uw Bericht te lezen.";
-$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "In geval van onderbreking <sup>*</sup>, zal de <em>Claroline Upgrade tool</em> automatisch herstarten. 
-Indien dit niet het geval is, klik op de onderstaande knop.";
 $langAccess = "Toegankelijkheid";
 $langAccessExplain = "(Als een gebruiker de index van de campus opent)";
 $langAction = "Actie";
@@ -237,7 +235,6 @@ $langComment = "Commentaar";
 $langConfTip = "Standaard bent u de enige gebruiker van uw cursus. Als u een minimum aan privacy wenst, is het best om de registratie gedurende een week te openen en aan de studenten vragen om zichzelf in te schrijven. Dan sluit u de registratie en controleert u mogelijke indringers in de gebruikerslijst.";
 $langConfigMenuContent = "Configuratie Klein";
 $langConfiguration = "Configuratie";
-$langConfigurationFile = "Configuratie bestand";
 $langConfirmDeleteExercise = "Bent U zeker dat U deze oefening wil verwijderen ?";
 $langConfirmDeleteGroups = "Bent U zeker dat U alle groepen wil verwijderen ?";
 $langConfirmDeleteQuestion = "Bent U zeker dat U deze vraag wil verwijderen ?";
@@ -429,7 +426,6 @@ $langDocumentsDetails = "Documenten gedownload door de student";
 $langDocumentsTitleCountColumn = "Totaal downloads";
 $langDocumentsTitleDocumentColumn = "Document";
 $langDocumentsTitleUsersColumn = "Downloads door gebruikers";
-$langDone = "Volbrachte stappen";
 $langDown = "Omlaag";
 $langDownloadAttachedFile = "Aangehecht bestand overladen";
 $langEG = "bv.";
@@ -625,7 +621,6 @@ $langExternalToolUrl = "URL verwijzing";
 $langExtractFromLangFile = "Van taal bestanden";
 $langExtractFromScriptFile = "Van script bestanden";
 $langExtractLangVariable = "Extraheer taal variabelen";
-$langFailed = "<span style=\"color: red\">Mislukt</span>";
 $langFeedback = "Commentaar";
 $langFeedbackAdded = "Commentaar toegevoegd";
 $langFeedbackEdited = "Commentaar gewijzigd";
@@ -911,22 +906,6 @@ $langIntroEditToolList = "Selecteer de gereedschappen die U aan uw gebruikers te
 
 Een onzichtbaar gereedschap wordt uitgevlakt getoond in uw persoonlijke omgeving";
 $langIntroLearningPath = "Gebruik dit gereedschap om uw studenten documenten, oefeningen, HTML pagina's en links in een bepaalde volgorde aan te bieden.<br><br> Om een nieuw leerpad aan te bieden, klik op de onderstaande knop.<br>";
-$langIntroStep1 = "<p>De <em>Claroline Upgrade Tool</em> zal nu de belangrijkste instellingen bijwerken.
-
-                Deze instellingen werden bewaard in claroline/include/config.inc.php in uw vorige platform versie.</p>";
-$langIntroStep2 = "<p>Nu zal de <em>Claroline Upgrade Tool</em> de data bijwerken in de belangrijkste Claroline tabellen
-
-                    (Gebruikers, cursus categorieen, gereedschapsset, ...) om ze geschikt te maken voor de nieuwe Claroline versie.</p>
-
-                   <p class=\"help\">Opmerking: Naargelang de snelheid van uw server en de hoeveelheid bewaarde gegevens,
-
-                   kan deze operatie lang duren.</p>";
-$langIntroStep3 = "<p>Nu zal de <em>Claroline Upgrade Tool</em> de cursus data (mappen en databank tabellen) een voor een bijwerken.
-
-                   <p class=\"help\">Note: Naargelang de snelheid van uw server en de hoeveelheid bewaarde gegevens,
-
-                   kan deze operatie lang duren.</p>";
-$langIntroStep3Run = "<p>De <em>Claroline Upgrade Tool</em> werkt nu de gegevens van de cursussen bij</p>";
 $langIntroText = "Selecteer een groep gebruikers om een bericht te sturen (selecteer met een * ervoor)
 
  of selecteer enkele gebruikers uit de linker lijst.";
@@ -959,9 +938,6 @@ $langLasting = "Duur";
 $langLastname = "Familienaam";
 $langLateUpload = "te laat ingediend";
 $langLaunchRestoreCourseRepository = "Cursus terughalen uit reservekopij";
-$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Start bijwerken belangrijkste instellingen platform</button></p>";
-$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Start bijwerken systeemtabellen van het platform</button></p>";
-$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Start bijwerken cursus gegevens</button></p>";
 $langLearnPathDetails = "Vooruitgang in leerpad";
 $langLearningPath = "Leerpad";
 $langLearningPathAdmin = "Leerpad Admin";
@@ -1003,51 +979,6 @@ $langMailSynthaxError = "Mail syntax fout.";
 $langMailTo = "Mail naar : ";
 $langMailUsed = "Mail wordt reeds gebruikt door een andere gebruiker.";
 $langMainDB = "Systeem database";
-$langMakeABackupBefore = "<p>De <em>Claroline Upgrade Tool</em> zal de gegevens van uw vorige Claroline
-
-installatie ophalen en ze geschikt maken voor de nieuwe Claroline versie. Dit bijwerken verloopt in 3 stappen:</p>
-
-
-
-<ol>
-
-
-
-<li>Systeeminstellingen van het vorige platform ophalen en in nieuwe configuratie bestanden opslaan.</li>
-
-
-
-<li>Het zal de Claroline systeemtabellen (gebruikers, cursus categori&euml;n, cursus lijst, ...) bijwerken zodat ze de nieuwe gegevens structuur hebben.</li>
-
-
-
-<li>Het zal de gegevens van de cursussen een voor een bijwerken (mappen, tabellen, ...)</li>
-
-
-
-</ol>
-
-
-
-<p>Alvorens dit bijwerken te starten:</p>
-
-
-
-<table>
-
-<tbody>
-
-<tr valign=\"top\"><td>-</td><td>Maak een volledige backup van uw platform data (bestanden en databanken)</td><td>%s</td></tr>
-
-
-
-</tbody>
-
-</table>
-
-<p>U mag het bijwerken niet starten zolang deze actie niet volbracht werd.</p>
-
-";
 $langMakeCorrespond = "Laat overeenstemmen";
 $langMakeInvisible = "Onzichtbaar maken";
 $langMakeNewSearch = "Opnieuw zoeken : ";
@@ -1078,7 +1009,6 @@ $langMinuteShort = "min.";
 $langMissing = "ontbrekend";
 $langMissingImagesDetected = "Ontbrekende beelden gedetecteerd";
 $langMissingValue = "Ontbrekende waarde";
-$langModeVerbose = "Verbose modus";
 $langModifAnn = "Wijzig deze aankondiging";
 $langModifDone = "De eigenschappen werden gewijzigd";
 $langModifUserCourseSettings = "Cursussen van de gebruiker";
@@ -1121,7 +1051,6 @@ $langName = "Naam";
 $langNameChanged = "Naam van de klas is veranderd";
 $langNameDir = "Naam van nieuwe folder";
 $langNameOfLang = "Array";
-$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cursussen op %s reeds bijgewerkt.</strong><br /></p>";
 $langNbLines = "Aantal rijen";
 $langNbrAccess = "Aantal keren bezocht";
 $langNever = "Nooit";
@@ -1143,7 +1072,6 @@ $langNewUsersIn = "Nieuwe gebruikers in het platform : ";
 $langNext = "Volgende";
 $langNextDay = "Volgende dag";
 $langNextMonth = "Volgende maand";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">Volgende</button></p>";
 $langNextWeek = "Volgende week";
 $langNextYear = "Volgend jaar";
 $langNo = "Nee";
@@ -1305,7 +1233,6 @@ $langRegisterTheNewUser = "Schrijf deze gebruiker in in een cursus";
 $langRegisterUser = "Inschrijven in nieuwe cursus";
 $langRegisterUserToClass = "Gebruiker in klas plaatsen";
 $langRegistered = "Ingeschreven";
-$langRemainingSteps = "Overblijvende stappen";
 $langRemove = "Verwijderen";
 $langRemoveAdminLevel = "Niet langer beheerder";
 $langRename = "Hernoemen";
@@ -1369,7 +1296,6 @@ $langSize_of_course_repository = "!!!! Grootte van cursus backup (inbegrepen cla
 $langSize_of_selected_courses = "grootte van geselecteerde cursussen";
 $langSocraticIrony = "Socratische ironie is...";
 $langSpecifyFormat = "U moet het CSV formaat, gebruikt in uw bestand, aanduiden";
-$langStartAgain = "Opnieuw starten";
 $langStartDate = "Start datum";
 $langStartModule = "Start Module";
 $langStatDB = "Databank voor opvolging";
@@ -1404,7 +1330,6 @@ $langSubscribed = "gebruiker(s) ingeschreven voor de cursus";
 $langSubscription = "Inschrijving";
 $langSubscriptionAllowedOnly = "Inschrijving alleen toegestaan ";
 $langSubscriptionDeniedOnly = "Inschrijving alleen verwerpen";
-$langSucceeded = "Geslaagd";
 $langSupportForum = "Ondersteuningsforum";
 $langSupports = " Ondersteuning ";
 $langSupportsComment1 = "Is er ondersteuning?  Welke soort ondersteuning is er?  Open?  Gesloten?";
@@ -1433,12 +1358,10 @@ $langTimeInLearnPath = "Tijd in leerpad";
 $langTimeOver = "Tijd verstreken, resultaten niet overhandigd.";
 $langTipLang = "Deze taal zal gelden voor alle bezoekers van uw cursussite.";
 $langTitle = "Titel";
-$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />van %s naar %s </h2>";
 $langTitular = "Docenten";
 $langTo = "naar";
 $langToDate = "naar";
 $langToday = "Vandaag";
-$langTodo = "Todo";
 $langTooBig = "U hebt geen bestand geselecteerd om op te sturen of uw bestand is te groot.";
 $langTool = "Gereedschap";
 $langToolTitleCountColumn = "Totaal muisklikken";
@@ -1479,7 +1402,6 @@ $langUnamedModule = "Onbenoemde module";
 $langUnamedPath = "Onbenoemd path";
 $langUncompress = "ZIP bestand decomprimeren";
 $langUncompulsory = "(facultatief)";
-$langUndist = "Niet-verdeeld";
 $langUniqueAnswer = "Uniek antwoord";
 $langUniqueSelect = "Meerkeuze (uniek antwoord)";
 $langUnkownSOAPError = "Er is een fout opgetreden tijdens het contacteren van Claroline.net";
@@ -1494,13 +1416,6 @@ $langUpdateImage = "Plaatje wijzigen";
 $langUpdated = "gewijzigd";
 $langUpdatedExternalTool = "Extern gereedschap gewijzigd";
 $langUpgrade = "Bijwerken";
-$langUpgradeCourseFailed = "Bijwerken is mislukt";
-$langUpgradeCourseSucceed = "Bijwerken is geslaagd";
-$langUpgradeStep0 = "Backup bevestigen";
-$langUpgradeStep1 = "Stap 1 van 3: belangrijkste instellingen van het platform";
-$langUpgradeStep2 = "Stap 2 van 3: Systeemtabellen van het platform bijwerken";
-$langUpgradeStep3 = "Stap 3 van 3: Cursussen bijwerken";
-$langUpgradeSucceed = "De <em>Claroline Upgrade Tool</em> heeft uw platform volledig aangepast.";
 $langUploadAndZipEnd = " ZIP bestand werd opgestuurd en gedecomprimeerd";
 $langUploadDoc = "Document opsturen";
 $langUploadEnd = "Upload is geslaagd";
@@ -1586,19 +1501,13 @@ $langYourRequestToRemoveYourAccountIsSent = "Uw verzoek uw account te verwijdere
 $langYourTime = "Uw tijd is";
 $langYourTotalScore = "Uw totale score is";
 $langZipNoPhp = "Het ZIP bestand mag geen php-bestanden bevatten";
-$lang_CourseHasNoRepository_s_NotFound = "<strong>De cursus heeft geen map.</strong>
-<br><small>%s</small> Niet gevonden. ";
 $lang_EditFile_ModifyOk = "De wijzigingen werden correct uitgevoerd";
-$lang_RetryWithMoreDetails = "Opnieuw propberen met meer details";
-$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "De claroline hoofdtabellen zijn met succes aangepast";
-$lang_UpgradeFailedForCourses = "De aanpassingsroutine kan de volgende cursussen niet aanpassen:";
 $lang_add_user_list = "Gebruikerslijst toevoegen";
 $lang_already_enrolled = "Reeds ingeschreven";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Bent U zeker dat U deze cursus uit uw lijst wil verwijderen ?";
 $lang_back_to_my_personnal_course_list = "Terug naar mijn persoonlijke cursus lijst";
 $lang_back_to_parent_category = "Terug naar bovenliggende categorie";
 $lang_click_here = "Klik hier";
-$lang_continueCoursesDataUpgrade = "Cursus gegevens verder aanpassen";
 $lang_course_enrollment = "Cursussen van gebruiker";
 $lang_do_you_want_to_continue = "Wilt U voortgaan?";
 $lang_enroll = "Inschrijven";
@@ -1624,53 +1533,36 @@ $lang_faculty_NoMove_1 = "U kan ";
 $lang_faculty_NoMove_2 = " niet verplaatsen in dezelfde categorie !";
 $lang_faculty_imgDown = "Neer";
 $lang_fields_enclosed_by = "Velden afgebakend door";
-$lang_fileUpgrade = "Bestand bijwerken :";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
-$lang_htAccessIncPath_added = "Map <em>inc</em> is beschermd";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Indien U voortgaat, zullen regels met fouten genegeerd worden";
 $lang_if_you_wish_to_enroll_to_this_course = "Indien U wil inschrijven in deze cursus";
 $lang_my_personnal_course_list = "Mijn persoonlijke lijst cursussen";
 $lang_no_access_here = "Geen toegang";
 $lang_no_course_available_fitting_this_keyword = "Geen cursus beschikbaar voor dit trefwoord";
 $lang_no_error_in_file_found = "Geen fout gevonden in bestand.";
-$lang_oldFileBackup = "Oud reservebestand :";
 $lang_or_search_from_keyword = "Zoeken met trefwoorden";
-$lang_p_CannotCreate_s = "Kan \"%s\" niet aanmaken ";
-$lang_p_CannotRename_s_s = "Kan %s niet hernoemen naar %sa";
 $lang_p_ErrorOnBuild_S_for_S = "Fout bij het samenstellen van <em>%s</em> voor <B>%s</B>";
 $lang_p_PropForConfigCommited = "Eigenschappen van %s (%s) zijn nu effectief op de server.";
-$lang_p_UpgradeMainClarolineDatabase_s = "Aanpassen hoofd Claroline databank (<em>%s</em>)";
-$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Gelieve eerst het technisch probleem op te lossen en <a href=\"%s\"> de upgrade routine opnieuw op te starten</a>.";
 $lang_p_config_file_creation = "Configuratie bestand creatie:<BR> %s";
-$lang_p_d_affected_rows = "%d rijen aangepast";
 $lang_p_d_course = "%2d cursus";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
 $lang_p_d_course_member = "%2d lid";
 $lang_p_d_course_members = "%2d leden";
 $lang_p_d_courses = "%2d cursussen";
-$lang_p_d_coursesToUpgrade = "%s cursus(sen) aan te passen";
-$lang_p_d_errorFound = " %d fouten gevonden";
 $lang_p_d_student = "%2d student";
 $lang_p_d_students = "%2d studenten";
-$lang_p_expectedRemainingTime = " <!-- Tijd nodig voor deze cursus [%01.2f s] - gemiddeld [%01.2f s] - totaal [%s] - cursussen te gaan [%d]. --><b>Geschatte tijd %s</b>.";
 $lang_p_nothing_to_edit_in_S = "Niets te bewerken in %s";
 $lang_p_platformManager = "Beheerder voor %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> werd met succes ingeschreven in de cursus";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> kon niet worden ingeschreven in de cursus";
-$lang_p_s_s_isInvalid = "%s : %s is ongeldig";
 $lang_php_info = "PHP systeem informatie";
 $lang_remove_course_enrollment = "Uitschrijven uit cursus";
 $lang_remove_course_from_your_personnal_course_list = "Uitschrijven uit deze persoonlijke cursus";
-$lang_rules_s_in_s = "Regels : %s in %s";
-$lang_seeInTheStatusBarOfYourBrowser = "(*) Kijk in de statusregel van uw web-browser.";
 $lang_select_course_in = "Kies cursus in ";
 $lang_select_course_in_search_results = "Kies cursus in zoekresultaten";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "De Claroline bijwerking routine is volledig uitgevoerd";
 $lang_the_following_errors_were_found = "De volgende fouten werden gevonden ";
 $lang_unsubscribe = "Uitschrijven";
-$lang_upgradeToolCannotUpgradeThisCourse = "De bijwerkingsroutine kan deze cursus niet aanpassen.  <br>
-Gelieve eerst het technisch probleem op te lossen en de upgrade routine daarna opnieuw op te starten";
 $lang_user_has_been_enrolled_to_the_course = "De gebruiker is ingeschreven in de cursus";
 $lang_you_had_request = "U vraagt";
 $lang_you_have_been_enrolled_to_the_course = "U bent ingeschreven in de cursus";

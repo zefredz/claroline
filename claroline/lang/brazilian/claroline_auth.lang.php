@@ -119,6 +119,7 @@ $langUserTaken = "Este nome de usuário já está em uso";
 $langUserid = "Id. do Usuário";
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $langYes = "Sim";
 $langYouAreReg = "Você está registrado em";

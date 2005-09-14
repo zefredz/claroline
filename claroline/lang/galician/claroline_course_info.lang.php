@@ -85,6 +85,7 @@ $langTipLang = "Este idioma ser&aacute; v&aacute;lido para t&oacute;dolos visita
 $langTo = "en";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $langYes = "Si";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

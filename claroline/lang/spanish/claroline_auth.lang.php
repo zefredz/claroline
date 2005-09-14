@@ -139,6 +139,7 @@ $langUserTaken = "Este nombre de usuario ya existe";
 $langUserid = "Nombre de Usuario";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $langYes = "Si";
 $langYouAreReg = "Usted ha sido inscrito en";

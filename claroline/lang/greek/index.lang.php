@@ -45,6 +45,7 @@ $langUserName = "Όνομα χρήστη";
 $langUsers = "Χρήστες";
 $langValvas = "Τελευταίες ανακοινώσεις";
 $langViewMode = "Παρουσίαση τρόπου";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_enroll_to_a_new_course = "Eγγραφή σε νέο μάθημα";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";

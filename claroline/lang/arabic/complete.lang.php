@@ -42,8 +42,6 @@ $l_topics = "المشاركات";
 $l_topictitle = "عرض المشاركة";
 $l_viewforum = "استعراض المنتدى";
 $l_viewmsg = "لمشاهدة رسالتك";
-$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "في حال الانقطاع <sup>*</sup>, <em>أداة ترقية Claroline</em> سيعاد تشغيلها تلقائياً.
-إذا لم تكن هذه هي الحالة، اضغط على الزر بالأسفل.";
 $langAccess = "الوصول";
 $langAccessExplain = "(عندما يقوم المستخدم باستعراض فهرس الموقع)";
 $langAction = "عمل";
@@ -256,7 +254,6 @@ $langComment = "ملاحظة";
 $langConfTip = "بشكل افتراضي فإن موقع المقرر يكون متاحاً للجميع . الطريقة الأبسط للقيام بعمليات التسجيل هي إتاحة فرصة التسجيل خلال فترة اسبوع واحد و إبلاغ الطلاب بان يقوموا بعملية التسجيل بأنفسهم و من ثم يتم إغلاق باب التسجيل و تدقيق بيانات الطلاب للتحقق من عدم وجود متطفلين او عابثين";
 $langConfigMenuContent = "قائمة الإعدادات";
 $langConfiguration = "الإعدادات";
-$langConfigurationFile = "ملف الإعدادات";
 $langConfirmDeleteExercise = "هل انت متاكد انك تريد حذف هذا التمرين ?";
 $langConfirmDeleteGroups = "هل انت متاكد انك تريد حذف جميع المجموعات ?";
 $langConfirmDeleteQuestion = "هل أنت متأكد انك تريد حذف هذا السؤال بشكل كامل ?";
@@ -509,7 +506,6 @@ $langDocumentsDetails = "الوثائق التي تم تحميلها من قبل
 $langDocumentsTitleCountColumn = "عدد مرات التحميل ";
 $langDocumentsTitleDocumentColumn = "الوثيقة";
 $langDocumentsTitleUsersColumn = "تنزيلات المستخدمين";
-$langDone = "تم إنجاز الخطوات";
 $langDown = "ترتيب تنازلي";
 $langDownloadAttachedFile = "تنزيل الملف المرفق";
 $langEG = "مثال:";
@@ -699,7 +695,6 @@ $langExternalToolUrl = "URL وصلة";
 $langExtractFromLangFile = "من ملفات اللغة";
 $langExtractFromScriptFile = "من ملفات النصوص البرمجية";
 $langExtractLangVariable = "استخراج متحولات اللغة";
-$langFailed = "<span style=\"color: red\">فشل</span>";
 $langFeedback = "مراجعة";
 $langFeedbackAdded = "تم إضافة المراجعة";
 $langFeedbackEdited = "تم تحرير المراجعة";
@@ -964,11 +959,6 @@ $langIntroCourse = "انت الآن في الصفحة الأساسية لموق�
 اما الآن و من أجل إضافة  تمهيد للمقرر يسهل على الطلاب فهم النقاط الأساسية للمقرر انقر على هذه الوصلة";
 $langIntroEditToolList = "قم باختيار الأدوات التي تريد ان تكون ظاهرة و فعالة للمستخدمين<br> الأدوات التي ستكون غير فعالة ستظهر بلون رمادي عند استعراضك للصفحة الخاصة بك ";
 $langIntroLearningPath = "استخدم هذه الأداة لتزويد  الطلاب بمسار متسلسل يتنقلون من خلاله بين المستندات و الوثائق و التمارين و صفحات الانترنت و الروابط ..إلخ <br><br>إذا أردت ان تقدم شرحاً عن مسار التعليم للطلاب قم بالنقر على 'إضافة مقدمة أو تمهيد'<br>";
-$langIntroStep1 = "<p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade. These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.</p>";
-$langIntroStep2 = "<p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored into the <b>main Claroline tables</b>
-(users, course categories, tools list, ...) and set them to be compatible with the new Claroline version.</p><p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
-$langIntroStep3 = "<p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version.<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
-$langIntroStep3Run = "<p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>";
 $langIntroText = "لإرسال رسالة اختر مجموعات المستخدمين أو المستخدمينمن القائمة الموجودة على اليمين ) تم تمميز المجموعات بوضع علامة * في بداية الاسم(";
 $langIntroWork = "هذه الأداة تسمح للمدرس بإنشاء وظائف أو مهام للطلاب بحيث يكون بمقدور كل طالب ( حسب الإعدادات  الخاصة بكل وظيفة) ان يقوم بتحميل مستند أو كتابة نص على موقع المقرر
 <br />تستطيع ان تضيف ملاحظات أو تضع علامات لكل عمل
@@ -998,9 +988,6 @@ $langLasting = "باق";
 $langLastname = "الكنية";
 $langLateUpload = "تحميل متاخر";
 $langLaunchRestoreCourseRepository = "تشغيل مسترجع مخزن المقرر";
-$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">تشغيل برنامج ترقية الإعدادات الأساسية للموقع</button></p>";
-$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">تشغيل برنامج ترقية جداول قاعدة بيانات الموقع</button></p>";
-$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">تشغيل برنامح ترقية  المقررات</button></p>";
 $langLearnPathDetails = "نسبة الإنجاز في مسار التعلم";
 $langLearningPath = "مسار التعليم";
 $langLearningPathAdmin = "إدارة مسار التعليم";
@@ -1042,33 +1029,6 @@ $langMailSynthaxError = "خطأ في صياغة البريد الإلكترون�
 $langMailTo = "بريد الكتروني إلى : ";
 $langMailUsed = "البريد الإلكتروني مستخدم من قبل شخص آخر";
 $langMainDB = "العنوان الرئيسي";
-$langMakeABackupBefore = "<p><em> اداة ترقية نظام Claroline</em>
-تقوم هذه الأداة بالحفاظ على بياناتك الموجودة في الإصدار القديم من النظام و تجهزهها لتصبح متوافقة مع الإصدار الحديث , ز عملية الترقية هذه تمر بثلاث مراحل هي :</p>
-<ol>
-<li>
-القيام بجلب الإعدادات الأساسية لمنصة العمل و تخزينهم في ملفات جديدة للإعدادات
-</li>
-<li>
-إعادة تعيين الجداول الأساسية (المستخدمين, تصنيف المقررات, قائمة المقررات...إلخ) بحيث تصبح متوافقة مع البنية الجديدة للبيانات.
-</li>
-<li>
-تقوم بتحديث بيانات المقرر واحدة تلو الاخرى ( المجلدات , جداول قاعدة البيانات ... إلخ )
-</li>
-</ol>
-<p>
-ننصح بالقيام بعملية الحفظ الاحتياطي الكامل لجميع البيانات ( الملفات و قاعدة البيانات) قبل تشغيل <em> اداة الترقية </em>
-</p>
-<table>
-<tbody>
-<tr valign=\"top\">
-<td>
-تم القيام بعملية الحفظ الاحتياطي للبيانات</td>
-<td>%s</td>
-</tr>
-</tbody>
-</table>
-<p>
-<em> اداة ترقية نظام Claroline</em> لا تستطيع البدء بالعمل إذا لم تقم أنت بتأكيد انه تم الحفظ الاحتياطي للبيانات</p>";
 $langMakeCorrespond = "صنع مقابل";
 $langMakeInvisible = "إخفاء";
 $langMakeNewSearch = "بحث جديد : ";
@@ -1097,7 +1057,6 @@ $langMinuteShort = "دقيقة";
 $langMissing = "مفقود";
 $langMissingImagesDetected = "يوجد صور مفقودة";
 $langMissingValue = "قيمة مفقودة";
-$langModeVerbose = "Mode Verbose";
 $langModifAnn = "تعديل هذا الإعلان";
 $langModifDone = "تم تعديل المعلومات";
 $langModifUserCourseSettings = "إعدادت المقرر للمستخدم";
@@ -1140,7 +1099,6 @@ $langName = "الاسم";
 $langNameChanged = "تم تعديل اسم المقرر";
 $langNameDir = "اسم المجلد الجديد";
 $langNameOfLang = "مصفوفة";
-$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s المقررات في  %s تمت ترقيتها</strong><br /></p>";
 $langNbLines = "عدد الأسطر";
 $langNbrAccess = "عدد مرات الوصول";
 $langNever = "أبداً";
@@ -1162,7 +1120,6 @@ $langNewUsersIn = "مستخدمون انضموا للموقع مؤخرأ: ";
 $langNext = "التالي";
 $langNextDay = "غداً";
 $langNextMonth = "الشهر القادم";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">التالي ></button></p>";
 $langNextWeek = "الاسبوع القادم";
 $langNextYear = "العام القادم";
 $langNo = "لا";
@@ -1324,7 +1281,6 @@ $langRegisterTheNewUser = "تسجيل هذا المستخدم في مقرر";
 $langRegisterUser = "التسجيل في مقرر جديد";
 $langRegisterUserToClass = "تسجيل مستخدم في الصف";
 $langRegistered = "مسجل";
-$langRemainingSteps = "الخطوات المتبقية";
 $langRemove = "إزالة";
 $langRemoveAdminLevel = "لم يعد مديراً";
 $langRename = "تغيير اسم";
@@ -1389,7 +1345,6 @@ $langSize_of_course_repository = "!!!! size of course repository (include clarol
 $langSize_of_selected_courses = "حجم المقررات التي تم اختيارها";
 $langSocraticIrony = "من اهم ميزات نظام التشغيل Linux...";
 $langSpecifyFormat = "يجب ان تقوم بتحديد تنسيق ال CSV المستخدمة في ملفك";
-$langStartAgain = "البدء من جديد";
 $langStartDate = "تاريخ البدء";
 $langStartModule = "بدء الوحدة";
 $langStatDB = "قاعدة بيانات التتبع";
@@ -1424,7 +1379,6 @@ $langSubscribed = "المسجلون في هذا المقرر";
 $langSubscription = "الالتحاق و التسجيل في المقرر";
 $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly = "Subscription denied only";
-$langSucceeded = "ناجح";
 $langSupportForum = "منتدى الدعم الفني";
 $langSupports = " دعم ";
 $langSupportsComment1 = "هل هناك دعم فني خاص بالمقرر؟ ما هو شكل الدعم الذي أقدمه ؟ دعم مفتوح؟ أم دعم مغلق؟";
@@ -1453,12 +1407,10 @@ $langTimeInLearnPath = "الوقت في مسار التعلم";
 $langTimeOver = "انتهى الوقت , لم يتم إرسال الأجوبة";
 $langTipLang = "سيتم تطبيق هذه اللغة من اجل كل زوار الموقع الخاص بالمقرر";
 $langTitle = "اسم المقرر";
-$langTitleUpgrade = "<h2>اداة ترقية نظام Claroline <br />من الإصدار  %s للإصدار %s </h2>";
 $langTitular = "Titular";
 $langTo = "إلى";
 $langToDate = "إلى";
 $langToday = "اليوم";
-$langTodo = "To do";
 $langTooBig = "لم تقم باختيار أي ملف لإرساله او ان حجم الملف كبير جداً";
 $langTool = "أداة";
 $langToolTitleCountColumn = "العدد الكلي للنقرات";
@@ -1499,7 +1451,6 @@ $langUnamedModule = "وحدة بدون اسم";
 $langUnamedPath = "مسار بدون اسم";
 $langUncompress = "فك ضغط الملف على السيرفر (zip)";
 $langUncompulsory = "(اختياري)";
-$langUndist = "Undist";
 $langUniqueAnswer = "جواب وحيد";
 $langUniqueSelect = "عدة اختيارات (جواب وحيد)";
 $langUnkownSOAPError = "حصل خطأ أثناء الاتصال بموقع Claroline.net";
@@ -1514,13 +1465,6 @@ $langUpdateImage = "تغيير الصورة";
 $langUpdated = "تم التحديث";
 $langUpdatedExternalTool = "تم تحديث الأداة الخارجية";
 $langUpgrade = "ترقية";
-$langUpgradeCourseFailed = "فشل في عملية الترقية";
-$langUpgradeCourseSucceed = "نجحت عملية الترقية";
-$langUpgradeStep0 = "تأكيد النسخ الاحتياطي";
-$langUpgradeStep1 = "الخطوة 1 من 3: الإعدادات الأساسية للنظام";
-$langUpgradeStep2 = "الخطوة 2 من 3: ترقية الجداول الأساسية";
-$langUpgradeStep3 = "الخطوة 3 من 3: ترقية المقررات";
-$langUpgradeSucceed = "أنهت <em> أداة الترقية </em> ترقية الموقع الخاص بك";
 $langUploadAndZipEnd = " تم تحميل الملف المضغوط و فك ضغطه";
 $langUploadDoc = "تحميل وثيقة";
 $langUploadEnd = "انتهت عملية التحميل";
@@ -1647,19 +1591,13 @@ $langYourRequestToRemoveYourAccountIsSent = "تم إرسال طلبك بإزال
 $langYourTime = "قمت بتنفذ التمرين خلال :";
 $langYourTotalScore = "عدد الكلي للنقاط التي حصلت عليها هو";
 $langZipNoPhp = "لا يسمح لك بان تحمل ملف مضغوط يحوي ضمنه ملف من نوع PHP";
-$lang_CourseHasNoRepository_s_NotFound = "<strong> المقرر ليس له مخزن</strong>
-<br><small>%s</small> غير موجود";
 $lang_EditFile_ModifyOk = "تم تطبيق التعديلات بنجاح";
-$lang_RetryWithMoreDetails = "إعادة المحاولة مع مزيد من التفاصيل";
-$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "تم ترقية الجداول الأساسية بنجاح";
-$lang_UpgradeFailedForCourses = "فشلت أداة الترقية بترقية المقررات التالية :";
 $lang_add_user_list = "إضافة قائمة مستخدمين";
 $lang_already_enrolled = "مسجل مسبقاً";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "هل أنت متاكد انك ترغب بإزالة هذا المقرر من  القائمة الخاصة بك؟";
 $lang_back_to_my_personnal_course_list = "العودة لقائمة المقررات الخاصة بي";
 $lang_back_to_parent_category = "العودة للتصنيف الأب";
 $lang_click_here = "انقر هنا";
-$lang_continueCoursesDataUpgrade = "متابعة ترقية بيانات المقرر";
 $lang_course_enrollment = "المقررات الخاصة بالطالب";
 $lang_do_you_want_to_continue = "هل تريد المتابعة؟";
 $lang_enroll = "تسجيل";
@@ -1685,52 +1623,36 @@ $lang_faculty_NoMove_1 = "لا تستطيع نقل";
 $lang_faculty_NoMove_2 = " في التصنيف نفسه !";
 $lang_faculty_imgDown = "الأسفل";
 $lang_fields_enclosed_by = "حقول البيانات محاطة برمز";
-$lang_fileUpgrade = "ملف الترقية:";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
-$lang_htAccessIncPath_added = "المجلد <em>inc</em> محمي";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "إذا اخترت المتابعة سيتم تجاهل الأسطر التي تحوي أخطاء";
 $lang_if_you_wish_to_enroll_to_this_course = "إذا كان لديك رغبة بالالتحاق بهذا المقرر";
 $lang_my_personnal_course_list = "قائمة المقررات الخاصة بي";
 $lang_no_access_here = "No way";
 $lang_no_course_available_fitting_this_keyword = "لا يوجد أي مقرر موافق لكلمة البحث التي أدخلتها";
 $lang_no_error_in_file_found = "لم يتم العثور على أخطاء ضمن الملف";
-$lang_oldFileBackup = "نسخ احتياطي للملف القديم :";
 $lang_or_search_from_keyword = "البحث عن";
-$lang_p_CannotCreate_s = "فشل في إنشاء %s";
-$lang_p_CannotRename_s_s = "فشل في تغير اسم  %s to %s";
 $lang_p_ErrorOnBuild_S_for_S = "خطأ في بناء ال <em>%s</em> من اجل <B>%s</B>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
-$lang_p_UpgradeMainClarolineDatabase_s = "ترقية قاعدة البيانات الأساسية لنظام Claroline (<em>%s</em>)";
-$lang_p_YouCan_url_retryToUpgradeTheseCourse = "قم بإصلاح الأخطاء التقنية اولاً و <a href=\"%s\"> أعد تشغيل أداة الترقية</a>.";
 $lang_p_config_file_creation = "إنشاء ملف الإعدادات:<BR> %s";
-$lang_p_d_affected_rows = "%d السجلات المتأثرة";
 $lang_p_d_course = "%2d المقرر";
 $lang_p_d_course_manager = "%2d الاستاذ ";
 $lang_p_d_course_managers = "%2d الاستاذة ";
 $lang_p_d_course_member = "%2d عضو";
 $lang_p_d_course_members = "%2d أعضاء";
 $lang_p_d_courses = "%2d مقررات";
-$lang_p_d_coursesToUpgrade = "%s المقررات التي سيتم ترقيتها";
-$lang_p_d_errorFound = " %d عدد الأخطاء";
 $lang_p_d_student = "%2d طالب";
 $lang_p_d_students = "%2d طلاب";
-$lang_p_expectedRemainingTime = "<!--  زمن التنفيذ لهذا المقرر [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>الزمن المتبقي المتوقع  %s</b>.";
 $lang_p_nothing_to_edit_in_S = "لا يوجد ما يمكن تعديله في  %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> تم تسجيله في المقرر بنجاح";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> لم يتم تسجيله في المقرر بنجاح";
-$lang_p_s_s_isInvalid = "%s : %s غير صحيح";
 $lang_php_info = "PHP معلومات لغة البرمجة";
 $lang_remove_course_enrollment = "إلغاء التسجيل في مقرر";
 $lang_remove_course_from_your_personnal_course_list = "إزالة المقرر من قائمة المقررات الخاصة بك";
-$lang_rules_s_in_s = "القواعد : %s في %s";
-$lang_seeInTheStatusBarOfYourBrowser = "(*) انظر إلى شريط الحالة الموجود اسفل نافذة مستعرض الانترنت ";
 $lang_select_course_in = "اختر مقرر تعليمي في ";
 $lang_select_course_in_search_results = "اختر المقرر من نتيجة البحث";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "انتهت عملية ترقية نظام Claroline";
 $lang_the_following_errors_were_found = "تم العثور على الأخطاء التالية ";
 $lang_unsubscribe = "إلغاء الاشتراك";
-$lang_upgradeToolCannotUpgradeThisCourse = "فشلت أداة الترقية بإتمام عملية ترقية هذا المقرر<br>قم اولاً بإصلاح الأخطاء التقنية و اعد تشغيل الأداة من جديد";
 $lang_user_has_been_enrolled_to_the_course = "تم تسجيل المستخدم في المقرر";
 $lang_you_had_request = "سؤالك";
 $lang_you_have_been_enrolled_to_the_course = "تمت عملية تسجيلك في المقرر";

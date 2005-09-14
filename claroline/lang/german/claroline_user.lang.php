@@ -170,6 +170,7 @@ $langUsernameUsed = "Dieser Benutzername wird bereits von einem anderen Benutzer
 $langUsers = "Benutzer";
 $langUsersMin = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langYes = "ja";
 $langYouAreReg = "Sie wurden registriert am";

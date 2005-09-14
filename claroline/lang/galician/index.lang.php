@@ -53,6 +53,7 @@ $langUserName = "Nome de usuario";
 $langUsers = "Usuarios";
 $langValvas = "&Uacute;ltimos anuncios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_enroll_to_a_new_course = "Matricularse nun novo curso";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

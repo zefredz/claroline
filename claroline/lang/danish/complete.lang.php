@@ -763,7 +763,6 @@ $langTitular = "Titular";
 $langTo = "til";
 $langToDate = "til";
 $langToday = "I dag";
-$langTodo = "Ændringsforslag";
 $langTooBig = "Du valgte ingen fil, eller filen er for stor til at blive sendt";
 $langToolTitleCountColumn = "Totale klik";
 $langToolTitleToolnameColumn = "Værktøjets navn";

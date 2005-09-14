@@ -170,6 +170,7 @@ $langUsernameUsed = "该用户名已经被他人使用了。";
 $langUsers = "用户列表";
 $langUsersMin = "用户";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langYes = "确认";
 $langYouAreReg = "您已注册";

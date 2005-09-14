@@ -179,6 +179,7 @@ $langUsedInLearningPaths = "
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langVisibility = "Ορατό / Αόρατο";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langWrongOperation = "Λάθος λειτουργία";
 $langYourBestScore = "Η καλύτερη σου εκτέλεση/παρουσίαση";

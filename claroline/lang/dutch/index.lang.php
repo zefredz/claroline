@@ -45,6 +45,7 @@ $langUserName = "Gebruikersnaam ('login')";
 $langUsers = "Gebruikers";
 $langValvas = "Nieuwste berichten";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_enroll_to_a_new_course = "Inschrijven in een nieuwe cursus";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";

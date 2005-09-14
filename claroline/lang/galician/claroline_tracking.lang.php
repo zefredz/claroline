@@ -204,6 +204,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langViewToolList = "Ve-la lista de t&oacute;dalas ferramentas";
 $langVisits = "visitas";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $langWorkAuthors = "Autores";
 $langWorkTitle = "T&iacute;tulo";

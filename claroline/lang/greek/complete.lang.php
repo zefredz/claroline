@@ -40,8 +40,6 @@ $l_topics = "Θέματα";
 $l_topictitle = "Εμφάνιση θέματος";
 $l_viewforum = "Εμφάνιση περιοχής συζητήσεων";
 $l_viewmsg = "για να εμφανίσετε το Μήνυμα.";
-$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "Σε περίπτωση διακοπής <sup>*</sup>, το <em>σύστημα Αναβάθμισης Claroline </em> θα πρέπει να κάνει αυτόματη επανεκίνηση.
-Σε διαφορετική περίπτωση, κάντε κλικ στο παρακάτω πλήκτρο.";
 $langAccess = "Πρόσβαση";
 $langAccessExplain = "(Όταν κάποιος χρήστης ανοίξει τα περιεχόμενα του campus)";
 $langAction = "Ενέργεια";
@@ -261,7 +259,6 @@ $langConfTip = "Εξ' ορισμού, το μάθημα είναι προσπελάσιμο μόνο από εσάς. Αν θέλε
 εγγραφή' και να ζητήσετε από τους χρήστες να γραφτούν. Μόλις τελειώσει η εγγραφή μπορείτε να επιλέξετε 'Ελεγχομενη προσβαση'.";
 $langConfigMenuContent = "Διαμόρφωση του Menu";
 $langConfiguration = "Διαμόρφωση";
-$langConfigurationFile = "Διαμόρφωση αρχείου";
 $langConfirmDeleteExercise = "Είστε σίγουρος επιθυμείτε να διαγράψετε αυτή την άσκηση ?";
 $langConfirmDeleteGroups = "Είσαι σίγουρος επιθυμείς να διαγράψεις όλες τις ομάδες ";
 $langConfirmDeleteQuestion = "Είσαι σίγουρος επιθυμείς να διαγράψεις εντελώς αυτή την ερώτηση ?";
@@ -487,7 +484,6 @@ $langDocumentsDetails = "Αρχεία που κατέβασε (donwloads) ο εκπαιδευόμενος";
 $langDocumentsTitleCountColumn = "Σύνολο Downloads";
 $langDocumentsTitleDocumentColumn = "Έγγραφο";
 $langDocumentsTitleUsersColumn = "Downloads των χρηστών";
-$langDone = "Ολοκλήρωση βηματων";
 $langDown = "Εντολή συνέχειας";
 $langDownloadAttachedFile = "Κατεβάστε επισυναπτόμενο αρχείο";
 $langEG = "π.χ.";
@@ -693,7 +689,6 @@ $langExternalToolUrl = "URL σύνδεσμος";
 $langExtractFromLangFile = "Απο αρχεία γλώσσας";
 $langExtractFromScriptFile = "Απο αρχεία κειμένων";
 $langExtractLangVariable = "Ποικιλία αποσπασμάτων γλώσσας";
-$langFailed = "<span style=\"color: red\">Failed</span>";
 $langFeedback = "Feedback";
 $langFeedbackAdded = "Feedback προστέθηκε";
 $langFeedbackEdited = "Σύνταξη Feedback";
@@ -1042,11 +1037,6 @@ $langIntroEditToolList = "Διαλέξτε τα εργαλεία που θέλετε να φαίνονται στους χρή
 
 θα εμφανίζεται με γρι χρώμα στη δική σας οθόνη";
 $langIntroLearningPath = "Χρησιμοποήστε αυτό το εργαλείο για να παρέχετε στους μαθητές σας μια διαδρομή μεταξύ εγγράφων, ασκήσεων,σελίδες HTML, συνδέσεις,...<br><br>Εάν επιθυμείτε να παρουσιάσετε στους μαθητές την πορεία μάθησης σας, κάντε κλικ παρακάτω.<br>";
-$langIntroStep1 = "<p>Το <em>Claroline εργαλείο αναβάθμισης </em> θα προχωρήσει στην κεντρική ρύθμιση αναβάθμισης. Αυτές οι ρυθμίσεις ήταν αποθηκευμένες στο claroline/inc/conf/claro_main.conf.php στην προηγούμενη σειρά (version) platform .</p>";
-$langIntroStep2 = "<p>Tώρα, το <em>Claroline Εργαλείο Αναβάθμισης</em> θα ετοιμάσει μία βάση δεδομένων αποθηκευμένα στο <b>main Claroline tables</b>
-(χρήστες, κατηγορίες μαθήματος, λίστα εργαλείων, ...) και θα τα ορίσει να ειναι συμβατά με το νεό τύπο Claroline.</p><p class=\"help\">Note. Εξαρτώμενη απο την ταχύτητα του server σας η ποσότητα δεδομένων που θα αποθηκευτεί στη platform, η λειτουργία αυτή μπορεί να πάρει καποιο χρόνο.</p>";
-$langIntroStep3 = "<p>Τώρα το <em>Claroline Εργαλείο Αναβάθμισης</em> θα ετοιμάσει τα δεδομένα <b>course</b> (κατάλογοι και πίνακες δεδομένων) ενα - ένα και θα το ορίσει να είναι συμβατό με το νέο τύπο Claroline  .<p class=\"help\">Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.</p>";
-$langIntroStep3Run = "<p>Το  <em>Claroline Εργαλείο Αναβάθμισης</em> προχωρά στα μαθήματα αναβάθμισης δεδομένων </p>";
 $langIntroText = "Για να στείλεις μήνυμα, επέλεξε ομάδες χρηστών (σημειωμένα με ένα * μπροστά)
 
 ή μεμονομένουσ χρήστες απο τη λίστα αριστερά.";
@@ -1079,9 +1069,6 @@ $langLasting = "Διάρκεια";
 $langLastname = "Επώνυμο";
 $langLateUpload = "Καθυστερημένη καταχώρηση";
 $langLaunchRestoreCourseRepository = "Παρουσίαση αποκατάσταση του χώρου φύλαξης μαθήματος";
-$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Παρουσίαση (launch???) κεντρικών ρυθμίσεων αναβάθμισης της platform </button></p>";
-$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Παρουσίαση πινακων αναβαθμισης της κεντρικής platform</button></p>";
-$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Παρουσίαση αναβάθμισης δεδομένων μαθήματος</button></p>";
 $langLearnPathDetails = "Πρόοδο στις διαδρομές μάθησης";
 $langLearningPath = "Διαδρομή μάθησης";
 $langLearningPathAdmin = "Διαχειρηση διαδρομής μάθησης";
@@ -1123,39 +1110,6 @@ $langMailSynthaxError = "Mail synthax σφάλμα.";
 $langMailTo = "Mail σε : ";
 $langMailUsed = "Mail χρησιμοποιείται ήδη απο άλλο χρήστη";
 $langMainDB = "Κεντρική βάση δεδομένων";
-$langMakeABackupBefore = "
-<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
-installation and set them to be compatible with the new Claroline version. This upgrade proceeds in three steps:</p>
-<ol>
-<li>
-It will get your previous platform main settings and put them in a new configuration files
-</li>
-<li>
-It will set the main Claroline tables (user, course categories, course list, ...) to be compatible with the new data structure.
-</li>
-<li>
-It will update one by one each course data (directories, database tables, ...)
-</li>
-</ol>
-<p>
-Before starting the <em>Claroline Upgrade Tool</em>,
-we recommend you to make yourself a complete backup of
-the platform data (files and databases).
-</p>
-<table>
-<tbody>
-<tr valign=\"top\">
-<td>
-The data backup has been done</td>
-<td>%s</td>
-</tr>
-</tbody>
-</table>
-<p>
-The <em>Claroline Upgrade Tool</em>
-is not able to start if you do not confirm that the data has been done.</p>
-
-";
 $langMakeCorrespond = "Γίνεται Αντιστοίχιση";
 $langMakeInvisible = "Γίνεται μη ορατό";
 $langMakeNewSearch = "Γίνεται νέα έρευνα : ";
@@ -1184,7 +1138,6 @@ $langMinuteShort = "min. (ελαχ.)";
 $langMissing = "λείπει";
 $langMissingImagesDetected = "Εντοπ'ιστηκαν ελλιπείς εικόνες-σύμβολα";
 $langMissingValue = "Ελλειπής αξιολόγηση";
-$langModeVerbose = "Τύπος Verbose";
 $langModifAnn = "Αλλαγή της ανακοίνωσης";
 $langModifDone = "Η πληροφορία έχει αλλάξει";
 $langModifUserCourseSettings = "Ρυθμίσεις μαθήματος χρήστη";
@@ -1227,7 +1180,6 @@ $langName = "Όνομα";
 $langNameChanged = "Όνομα τάξης έχει αλλαχθεί";
 $langNameDir = "Όνομα του καινούριου καταλόγου";
 $langNameOfLang = "Διάταξη";
-$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s courses on %s already upgraded</strong><br /></p>";
 $langNbLines = "Αριμός σειρών/γραμμών";
 $langNbrAccess = "Μέτρηση εισόδου";
 $langNever = "Ποτέ";
@@ -1249,7 +1201,6 @@ $langNewUsersIn = "νέοι χρήστες σε αυτή τη platform : ";
 $langNext = "Επόμενο";
 $langNextDay = "Επόμενη ημέρα";
 $langNextMonth = "Επόμενος μήνας";
-$langNextStep = "<p><button onclick=\"document.location='%s';\">Επόμενο ></button></p>";
 $langNextWeek = "Επόμενη εβδομάδα";
 $langNextYear = "Επόμενο έτος";
 $langNo = "όχι";
@@ -1411,7 +1362,6 @@ $langRegisterTheNewUser = "Εγγραφή αυτού του χρήστη σε μάθημα";
 $langRegisterUser = "Εγγραφή σε νέο μάθημα";
 $langRegisterUserToClass = "Εγγραφή χρήστη σε τάξη";
 $langRegistered = "Εγγεγραμμένοι";
-$langRemainingSteps = "Βήματα που απέμειναν";
 $langRemove = "διαγραφή";
 $langRemoveAdminLevel = "Οχι πια Διαχειρ. ";
 $langRename = "Μετονομασία";
@@ -1479,7 +1429,6 @@ $langSize_of_course_repository = "!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπ
 $langSize_of_selected_courses = "μέγεθος επιλεγμενων μαθήματων";
 $langSocraticIrony = "Η Σωκρατική ειρωνεία είναι...";
 $langSpecifyFormat = "Πρέπει να συγκεκριμενοποιήσετε το format του CSV που χρησιμοποείται στο αρχείο σας";
-$langStartAgain = "Επανεκίνηση";
 $langStartDate = "Ημερομηνία έναρξης";
 $langStartModule = "Έναρξη ενότητας";
 $langStatDB = "Στατιστικά της βάσης δεδομένων";
@@ -1514,7 +1463,6 @@ $langSubscribed = "άτομα εγγεγραμένα σε αυτό το μάθημα";
 $langSubscription = "Εγγραφή";
 $langSubscriptionAllowedOnly = "Εγγραφή επιτρέπεται μόνο ";
 $langSubscriptionDeniedOnly = "Εγγραφή απορριπτεται μόνο";
-$langSucceeded = "έγινε επιτυχώς";
 $langSupportForum = "Περιοχή υποστήριξης";
 $langSupports = " Υποστήριξη ";
 $langSupportsComment1 = "Υπάρχει η υποστήριξη μαθήματος?  Τί είδος υποστήριξη πρέπει να δώσω?  Ανοιχτή?  Κλειστή?";
@@ -1543,12 +1491,10 @@ $langTimeInLearnPath = "Χρόνος στη διαδρομή μάθησης";
 $langTimeOver = "Λήξη χρόνου, αποτελέσματα δεν έχουν καταχωρηθεί.";
 $langTipLang = "Αυτή η γλώσσα θα ισχύει για κάθε επισκέπτη του μαθήματος.";
 $langTitle = "Τίτλος";
-$langTitleUpgrade = "<h2>Claroline Εργαλείο αναβάθμισης<br />απο %s σε %s </h2>";
 $langTitular = "Συγγραφέας";
 $langTo = "στο";
 $langToDate = "σε";
 $langToday = "Σήμερα";
-$langTodo = "Να γίνουν";
 $langTooBig = "Δεν διαλέξατε κάποιο αρχείο για να στείλετε,ή είναι πολύ μεγάλο";
 $langTool = "Εργαλείο";
 $langToolTitleCountColumn = "Σύνολο κλικ";
@@ -1589,7 +1535,6 @@ $langUnamedModule = "Ενότητα χωρίς όνομα";
 $langUnamedPath = "Διαδρομή χωρίς όνομα";
 $langUncompress = "αποσυμπίεση του αρχείο (.zip) στον εξυπηρέτη";
 $langUncompulsory = "(προαιρετικό)";
-$langUndist = "Undist";
 $langUniqueAnswer = "Μοναδική απάντηση";
 $langUniqueSelect = "Πόλλαπλές επιλογές (Μοναδική απάντηση)";
 $langUnkownSOAPError = "Σφαλμα προέκυψε κατα την επικοινωνία με το Claroline.net";
@@ -1604,13 +1549,6 @@ $langUpdateImage = "Αλλαγή εικόνας";
 $langUpdated = "Ενημερώθηκε";
 $langUpdatedExternalTool = "Εξωτερικό εργαλείο ενημερώθηκε";
 $langUpgrade = "Αναβάθμιση";
-$langUpgradeCourseFailed = "Αποτυχία αναβάθμισης";
-$langUpgradeCourseSucceed = "Επιτυχία αναβάθμισης";
-$langUpgradeStep0 = "Backup επιβεβαίωση";
-$langUpgradeStep1 = "Βήμα 1 απο 3: κεντρικές ρυθμίσεις πλατφόρμας";
-$langUpgradeStep2 = "Βήμα  2 απο 3: αναβάθμιση πινακων κεντρικής πλατφόρμας";
-$langUpgradeStep3 = "Βήμα  3 απο 3: αναβάθμιση μαθημάτων";
-$langUpgradeSucceed = "Tο <em>Εργαλείο Αναβάθμισης Claroline </em> έχει ολοκληρώσει την αναβάθμιση της πλατφόρμας.";
 $langUploadAndZipEnd = "Το αρχείο zip ανέβηκε και αποσυμπιέστηκε";
 $langUploadDoc = "Ενημέρωση εγγράφου";
 $langUploadEnd = "Ολοκληρώθηκε το ανέβασμα";
@@ -1714,19 +1652,13 @@ $langYourRequestToRemoveYourAccountIsSent = "Το αίτημα σου για να αφαιρεθεί ο λο
 $langYourTime = "Ο χρόνος σου είναι";
 $langYourTotalScore = "Η συνολική βαθμολογία σου είναι";
 $langZipNoPhp = "Το αρχείο zip δεν πρέπει να περιέχει αρχεία.PHP";
-$lang_CourseHasNoRepository_s_NotFound = "<strong>Το μάθημα δεν έχει ύλη.</strong>
-<br><small>%s</small> Δεν βρέθηκε. ";
 $lang_EditFile_ModifyOk = "Οι αλλαγές έχουν πραγματοποιηθεί σωστά";
-$lang_RetryWithMoreDetails = "Ξαναπροσπάθησε με περισσότερες λεπτομέρειες";
-$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "Οι κεντρικοί πίνακες του claroline έχουν αναβαθμιστεί με επιτυχία";
-$lang_UpgradeFailedForCourses = "Το Εργαλείο αναβάθμισης δεν μπορεί να αναβαθμίσει τα παρακάτω μαθήματα  :";
 $lang_add_user_list = "Προσθήκη λίστα χρήστη";
 $lang_already_enrolled = "ήδη εγγεγραμένος";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Είσαι σίγουρος επιθυμείς να αφαιρέσεις αυτό το μάθημα απο τη λίστα σου ?";
 $lang_back_to_my_personnal_course_list = "Επιστροφή στη προσωπική λίστα μαθημάτων";
 $lang_back_to_parent_category = "Επιστοφή στη κύρια κατηγορία";
 $lang_click_here = "Κάνε κλικ εδώ";
-$lang_continueCoursesDataUpgrade = "Συνέχισε αναβάθμιση δεδομένων μαθημάτων";
 $lang_course_enrollment = "Μάθημα χρήστη";
 $lang_do_you_want_to_continue = "Επιθυμείτε να συνεχίσετε?";
 $lang_enroll = "Eγγραφή";
@@ -1752,53 +1684,36 @@ $lang_faculty_NoMove_1 = "Δεν μετακινείται ";
 $lang_faculty_NoMove_2 = " στην ίδια κατηγορία !";
 $lang_faculty_imgDown = "Κάτω";
 $lang_fields_enclosed_by = "Πεδία που είναι κλεισμένα απο";
-$lang_fileUpgrade = "Αναβάθμιση αρχείου :";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
-$lang_htAccessIncPath_added = "Ο Φάκελος <em>inc</em> προστατεύεται";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "αν διαλέξετε να συνεχίσετε, σειρές με λάθη απλώς θα αγνοηθούν";
 $lang_if_you_wish_to_enroll_to_this_course = "Εαν επιθυμείτε να εγγραφείτε στο μάθημα αυτό";
 $lang_my_personnal_course_list = "Η προσωπική μου λίστα μαθήματος";
 $lang_no_access_here = "Δεν υπάρχει δυνατότητα";
 $lang_no_course_available_fitting_this_keyword = "Δεν υπάρχει μάθημα διαθέσιμο που να ταιριάζει σε αυτή τη λέξη κλειδί";
 $lang_no_error_in_file_found = "Δεν βρέθηκε σφάλμα σε αρχείο.";
-$lang_oldFileBackup = "Παλαιού αρχείου backup :";
 $lang_or_search_from_keyword = "Αναζήτηση με λέξη κλειδί";
-$lang_p_CannotCreate_s = "Δεν μπορεί να δημιουργήσει %s";
-$lang_p_CannotRename_s_s = "Δεν μπορεί να ονομάστει ξανα %s σε %s";
 $lang_p_ErrorOnBuild_S_for_S = "Σφάλμα κατασκευής απο <em>%s</em> για <B>%s</B>";
 $lang_p_PropForConfigCommited = "Ιδιοκτησίες για %s (%s) είναι τώρα αποτελεσματικά στο server.";
-$lang_p_UpgradeMainClarolineDatabase_s = "Αναβάθμιση κυρίας βάσης δεδομένων του Claroline (<em>%s</em>)";
-$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Διόρθωσε πρώτα το τεχνικό πρόβλημα και <a href=\"%s\"> προσπάθησε πάλι για αναβάθμισης</a>.";
 $lang_p_config_file_creation = "Ρυθμίσεις δημιουργίας αρχείου:<BR> %s";
-$lang_p_d_affected_rows = "%d Επηρεασμένες σειρές";
 $lang_p_d_course = "%2d μάθημα";
 $lang_p_d_course_manager = "%2d καθηγητής ";
 $lang_p_d_course_managers = "%2d καθηγητές ";
 $lang_p_d_course_member = "%2d μελος";
 $lang_p_d_course_members = "%2d μέλη";
 $lang_p_d_courses = "%2d μαθήματα";
-$lang_p_d_coursesToUpgrade = "%s μαθήματα για αναβάθμιση";
-$lang_p_d_errorFound = " %d σφάλματα βρέθηκαν";
 $lang_p_d_student = "%2d μαθητής";
 $lang_p_d_students = "%2d μαθητές";
-$lang_p_expectedRemainingTime = " <!-- Χρόνος εκτέλεσης αυτού του μαθήματος [%01.2f s] - μέσο όρο  [%01.2f s] - σύνολο [%s] - μαθήματα που απομείναν [%d]. --><b>Αναμενόμενος χρόνος που απομένει %s</b>.";
 $lang_p_nothing_to_edit_in_S = "Τίποτα για επιμέλεια στο %s";
 $lang_p_platformManager = "Διαχειριστής για %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> έχει εγγραφεί με επιτυχία στο μάθημα";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> δεν έχει εγγραφεί με επιτυχία στο μάθημα";
-$lang_p_s_s_isInvalid = "%s : %s δεν είναι έγκυρο";
 $lang_php_info = "PHP σύστημα πληροφοριών";
 $lang_remove_course_enrollment = "Αναίρεση εγγραφής σε μάθημα";
 $lang_remove_course_from_your_personnal_course_list = "Αφαίρεση του μαθήματος απο την προσωπική λίστα μαθημάτων";
-$lang_rules_s_in_s = "Κανόνες : %s in %s";
-$lang_seeInTheStatusBarOfYourBrowser = "(*) δες στην γραμμη κατάστασης του browser σου.";
 $lang_select_course_in = "Επιλογή μαθήματος σε ";
 $lang_select_course_in_search_results = "Επιλογή μαθήματος στην έρευνα αποτελεσμάτων";
-$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "Η διαδικασία αναβάμισης του Claroline ολοκληρώθηκε";
 $lang_the_following_errors_were_found = "Τα ακόλουθα λάθη βρέθηκαν ";
 $lang_unsubscribe = "Κατάργηση της εγγραφής/διαγραφή";
-$lang_upgradeToolCannotUpgradeThisCourse = "Το εργαλείο αναβάθμισης δεν μπορεί να αναβαθμίσει αυτό το μάθημα.  <br>
-Διόρθωσε, πρώτα, το τεχνικό πρόβλημα και ξεκίνησε πάλι το εργαλείο αναβάθμισης.";
 $lang_user_has_been_enrolled_to_the_course = "Ο χρήστης έχει εγγραφεί στο μάθημα";
 $lang_you_had_request = "Ρώτα";
 $lang_you_have_been_enrolled_to_the_course = "Ολοκληρώθηκε η εγγραφή στο μάθημα";

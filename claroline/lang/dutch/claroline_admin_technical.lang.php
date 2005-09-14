@@ -55,6 +55,7 @@ $langTextEditorEnable = "Activeer tekst bewerking";
 $langTo = "naar";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_no_access_here = "Geen toegang";

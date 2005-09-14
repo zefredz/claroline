@@ -37,6 +37,7 @@ $langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
 $langThisIsAnErrorInDefinitionFile = "هذا الخطأ نايتج عن ملف التعريف";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_ErrorOnBuild_S_for_S = "خطأ في بناء ال <em>%s</em> من اجل <B>%s</B>";

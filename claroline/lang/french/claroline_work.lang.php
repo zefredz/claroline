@@ -147,6 +147,7 @@ $langUser = "Utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langVisible = "Visible";
+$langWiki = "Wiki";
 $langWork = "Travaux";
 $langWrkAdded = "Soumission ajoutée";
 $langWrkAuthors = "Auteur(s)";

@@ -25,6 +25,7 @@ $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
+$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";
 $langPoweredBy = "Powered by";

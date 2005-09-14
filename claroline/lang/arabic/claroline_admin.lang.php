@@ -291,6 +291,7 @@ $langUsersMin = "المستخدمون";
 $langViewMode = "نمط العرض";
 $langViewPlatFormError = "البحث عن العيوب و الأخطاء التقنية";
 $langViewPlatFormStatistics = "إحصائيات الموقع";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langYes = "نعم";
 $langYesterday = "البارحة";

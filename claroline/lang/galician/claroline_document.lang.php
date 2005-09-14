@@ -91,6 +91,7 @@ $langUsers = "Usuarios";
 $langViMod = "Visibilidade modificada";
 $langViewMode = "Ver modo";
 $langVisibility = "Visibilidade";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $langZipNoPhp = "O ficheiro comprimido non pode conter arquivos con extensi&oacute;n .PHP";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

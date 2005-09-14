@@ -493,7 +493,6 @@ $langTitle = "Заглавие";
 $langTitular = "Автор";
 $langTo = "в";
 $langToday = "Днес";
-$langTodo = "Предложения";
 $langTooBig = "Не сте избрали файл или файлът е прекалено голям";
 $langTools = "Инструменти";
 $langTrue = "Истина";

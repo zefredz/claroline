@@ -82,6 +82,7 @@ $langTipLang = "Cette langue vaudra pour tous les visiteurs de votre espace.";
 $langTo = "vers";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
+$langWiki = "Wiki";
 $langWork = "Contributions";
 $langYes = "Oui";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";

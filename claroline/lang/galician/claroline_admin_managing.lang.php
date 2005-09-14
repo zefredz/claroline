@@ -58,6 +58,7 @@ $langTextEditorEnable = "Habilitar editor de texto";
 $langUpdated = "Actualizado";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_EditFile_ModifyOk = "Os cambios foron correctamente efectuados";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

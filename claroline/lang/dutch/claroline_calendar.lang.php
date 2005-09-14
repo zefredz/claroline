@@ -61,6 +61,7 @@ $langUsers = "Gebruikers";
 $langViMod = "De zichtbaarheid werd gewijzigd.";
 $langViewMode = "Scherm modus";
 $langVisible = "Zichtbaar";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";

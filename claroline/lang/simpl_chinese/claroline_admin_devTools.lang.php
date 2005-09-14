@@ -132,6 +132,7 @@ $langToday = "今天";
 $langTranslations = "翻译";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWikiMainPageContent = "这是共建资源 %s的主页面。点击编辑来修改内容。";
 $langWork = "作业论文";
 $lang_completeUserInfoOfUser = "用户完全信息";

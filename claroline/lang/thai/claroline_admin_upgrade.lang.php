@@ -15,14 +15,10 @@ $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
-$langNo = "ไม่";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
 $langStudent = "นักศึกษา";
 $langTo = "ไปยัง";
-$langTodo = "สิ่งควรปรับปรุง";
-$langUserName = "ชื่อผู้ใช้";
 $langUsers = "Users";
-$langYes = "ใช่";
 ?>

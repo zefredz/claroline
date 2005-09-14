@@ -90,6 +90,7 @@ $langTextEditorEnable = "显示文本编辑器";
 $langTo = "到";
 $langUsers = "用户列表";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_IfNothingHappendClickHere = "<small>如果30秒后没有改变，请点击 <a href=\"%s\">这里</a>并再次等候</small>";

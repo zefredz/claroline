@@ -628,7 +628,6 @@ $langTitle = "Titulo";
 $langTitular = "Titular";
 $langTo = "a";
 $langToDate = "para";
-$langTodo = "Sugerencias";
 $langTooBig = "Usted no ha seleccionado ningún archivo para enviar, o el archivo es demasiado grande";
 $langToolTitleCountColumn = "Total de Clicks";
 $langToolTitleToolnameColumn = "Nombre de la herramienta";

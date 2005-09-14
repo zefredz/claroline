@@ -88,6 +88,7 @@ $langTextEditorEnable = "HTML-Editor einschalten";
 $langTo = "nach";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_IfNothingHappendClickHere = "<small>Wenn sich nach 30 Sekunden nichts geändert hat, klicken sie bitte<a href=\"%s\">hier</a> und warten</small>";

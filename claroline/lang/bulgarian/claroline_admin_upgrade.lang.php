@@ -18,15 +18,11 @@ $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
-$langNo = "Не";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";
 $langStudent = "студент";
 $langTo = "в";
-$langTodo = "Предложения";
-$langUserName = "Потребителско име";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
-$langYes = "Да";
 ?>

@@ -33,6 +33,7 @@ $langMonthNames = "Array";
 $langMsgSent = "A mensagem foi enviada aos estudantes escolhidos";
 $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
 $langOn = "H&aacute;";
 $langOtherCourses = "Lista de cursos";

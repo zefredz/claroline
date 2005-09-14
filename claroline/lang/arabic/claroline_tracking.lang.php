@@ -188,6 +188,7 @@ $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
 $langViewToolList = "عرض قائمة بجميع الأدوات";
 $langVisits = "الزيارات";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langWorkAuthors = "المؤلفون";
 $langWorkTitle = "عنوان العمل";

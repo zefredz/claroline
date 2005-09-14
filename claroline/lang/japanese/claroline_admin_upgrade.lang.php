@@ -13,14 +13,10 @@ $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
-$langNo = "いいえ";
 $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
 $langStudent = "student";
 $langTo = "to";
-$langTodo = "「要望」";
-$langUserName = "ユーザ名";
 $langUsers = "ユーザ";
 $langWork = "学生の文書たち";
-$langYes = "はい";
 ?>

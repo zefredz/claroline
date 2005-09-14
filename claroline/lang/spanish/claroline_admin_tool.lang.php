@@ -40,6 +40,7 @@ $langTextEditorEnable = "Habilitar editor de texto";
 $langThisIsAnErrorInDefinitionFile = "Este es un error en el fichero de definici&oacute;n";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_ErrorOnBuild_S_for_S = "Error en la construcci&oacute;n de <em>%s</em> para <b>%s</b>";

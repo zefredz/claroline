@@ -73,6 +73,7 @@ $langUsers = "Utilizadores";
 $langViMod = "Visualização modificada";
 $langViewMode = "Visualizar como";
 $langVisible = "Visível";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";

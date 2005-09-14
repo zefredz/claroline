@@ -466,6 +466,7 @@ confirmaci&oacute;n de su inscripci&oacute;n conteniendo su nombre de usuario y 
 que usted no haya introducido su direcci&oacute;n de correo electr&oacute;nico.</p>";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";

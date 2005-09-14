@@ -186,6 +186,7 @@ $langUsedInSeveralPath = "Αυτή η άσκηση χρεισιμοποιείται σε μια ή περισσότερες δ
 $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langWeightingForEachBlank = "Παρακαλώ δώστε βάρος σε κάθε κενό";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langYes = "Ναι";
 $langYourTime = "Ο χρόνος σου είναι";

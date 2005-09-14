@@ -697,7 +697,6 @@ $langTitular = "Titular";
 $langTo = "ke";
 $langToDate = "ke";
 $langToday = "Today";
-$langTodo = "Cadangan Penambahbaikan";
 $langTooBig = "Anda tidak memilih sebarang fail/saiz fail terlalu besar.";
 $langToolTitleCountColumn = "Bilangan Klik";
 $langToolTitleToolnameColumn = "Bilangan Alat Bantu";

@@ -641,7 +641,6 @@ $langTitular = "Autor";
 $langTo = "do";
 $langToDate = "do";
 $langToday = "Dzisiaj";
-$langTodo = "Wolne wnioski";
 $langTooBig = "Nie wybra³e¶ pliku lub plik jest za du¿y.";
 $langToolTitleCountColumn = "Ca³kowita liczba wej¶æ";
 $langToolTitleToolnameColumn = "Nazwa narzêdzia";

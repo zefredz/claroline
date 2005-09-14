@@ -61,6 +61,7 @@ $langUsers = "المستخدمون";
 $langViMod = "تم تعديل حالة الظهور/ الإخفاء";
 $langViewMode = "نمط العرض";
 $langVisible = "مرئي";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";

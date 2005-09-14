@@ -201,6 +201,7 @@ $langUsers = "用户列表";
 $langViewMode = "查看模式";
 $langViewToolList = "查看所有工具列表";
 $langVisits = "访问";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $langWorkAuthors = "作者";
 $langWorkTitle = "作业标题";

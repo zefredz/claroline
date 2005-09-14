@@ -200,6 +200,7 @@ $langUsedInSeveralPath = "Questo esercizio è utilizzato in qualche Learning Path
 $langUsers = "Utenti";
 $langViewMode = "Vista";
 $langWeightingForEachBlank = "Per cortesia dare un peso ad ogni risposta lasciata in bianco";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $langYes = "Sì`";
 $langYourTime = "Il tuo tempo è";

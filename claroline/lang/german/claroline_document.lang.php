@@ -91,6 +91,7 @@ $langUsers = "Benutzer";
 $langViMod = "Sichtbarkeit geändert";
 $langViewMode = "Ansicht";
 $langVisibility = "Sichtbarkeit";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langZipNoPhp = "Die zip-Datei darf keine .PHP-Dateien enthalten";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";

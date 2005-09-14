@@ -89,6 +89,7 @@ $langTextEditorEnable = "Enable text editor";
 $langTo = "to";
 $langUsers = "Users";
 $langViewMode = "View mode";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";

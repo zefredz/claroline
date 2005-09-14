@@ -87,6 +87,7 @@ $langUsers = "Utilizadores";
 $langViMod = "Visualização modificada";
 $langViewMode = "Visualizar como";
 $langVisibility = "Visível/invisível";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $langZipNoPhp = "O arquivo zip não pode conter arquivos .PHP";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";

@@ -79,6 +79,7 @@ $langTipLang = "Questa lingua verrà impiegata per tutti gli utenti del corso.";
 $langTo = "su";
 $langUsers = "Utenti";
 $langViewMode = "Vista";
+$langWiki = "Wiki";
 $langWork = "Lavori";
 $langYes = "Sì`";
 $lang_footer_p_CourseManager = "Manager(s) di %s";

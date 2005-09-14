@@ -200,6 +200,7 @@ $langUsedInSeveralPath = "Dieser Test wird in einem oder mehreren Lernpfaden ver
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
 $langWeightingForEachBlank = "Bitte setzen Sie einen Wert für jede Lücke ein";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langYes = "ja";
 $langYourTime = "Ihre Zeit ist";

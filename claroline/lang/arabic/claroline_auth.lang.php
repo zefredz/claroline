@@ -114,6 +114,7 @@ $langUserTaken = "هذا الاسم محجوز من قبل شخص آخر";
 $langUserid = "رقم المستخدم";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langYes = "نعم";
 $langYouAreReg = "قمت بالتسجيل بتاريخ";

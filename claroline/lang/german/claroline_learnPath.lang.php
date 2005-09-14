@@ -200,6 +200,7 @@ Anzahl von Lernpfaden, die dieses Modul verwenden : ";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
 $langVisibility = "Sichtbarkeit";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langWrongOperation = "Falsche Operation";
 $langYourBestScore = "Ihr bestes Ergebnis";

@@ -57,6 +57,7 @@ $langTextEditorEnable = "HTML-Editor einschalten";
 $langTo = "nach";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_no_access_here = "Keinen Zugriff ";

@@ -70,6 +70,7 @@ $langUp = "Hoch";
 $langUsers = "Benutzer";
 $langView = "Ansehen";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";

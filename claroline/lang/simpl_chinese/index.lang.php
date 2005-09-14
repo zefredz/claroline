@@ -51,6 +51,7 @@ $langUserName = "用户名";
 $langUsers = "用户列表";
 $langValvas = "最新通告";
 $langViewMode = "查看模式";
+$langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_enroll_to_a_new_course = "登记一门新课程";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";

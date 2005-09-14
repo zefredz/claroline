@@ -79,6 +79,7 @@ $langTipLang = "Diese Sprache wird für alle Besucher Ihrer Webseite gültig sein.
 $langTo = "nach";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $langYes = "ja";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";

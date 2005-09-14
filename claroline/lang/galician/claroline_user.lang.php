@@ -172,6 +172,7 @@ $langUsernameUsed = "Este nome de usuario xa est&aacute; a ser empregado.";
 $langUsers = "Usuarios";
 $langUsersMin = "usuarios";
 $langViewMode = "Ver modo";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $langYes = "Si";
 $langYouAreReg = "Est&aacute; vostede inscrito en";

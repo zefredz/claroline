@@ -246,9 +246,6 @@ $lang_completeUserInfoOfUser = "Complete userInfo of user";
 $lang_p_FeedOf_s = "Rss feed for %s";
 $lang_p_FillCourses = "Fill %s with %s";
 $lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
-$lang_p_UpgradingOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading course <strong>%2\$s</strong><br><small>
-DB Name : %3\$s <br>
-Course ID: %4\$s</small></td></tr></table>";
 $lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_category_s_created = "Category %s created";
 $lang_p_d_StudentUnregistredFormCours = "%d student(s) unregistered from this course";

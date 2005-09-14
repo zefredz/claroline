@@ -149,6 +149,7 @@ $langUser = "Usuarios";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langVisible = "Visible";
+$langWiki = "Wiki";
 $langWork = "Trabajos";
 $langWrkAdded = "Trabajo a&ntilde;adido";
 $langWrkAuthors = "Autor(es)";

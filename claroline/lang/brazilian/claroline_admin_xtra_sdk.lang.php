@@ -50,6 +50,7 @@ $langTranslationStatistics = "Progressão da tradução";
 $langTranslationTools = "Opções para tradução";
 $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
+$langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";

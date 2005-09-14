@@ -39,6 +39,7 @@ $langTextEditorEnable = "Enable text editor";
 $langThisIsAnErrorInDefinitionFile = "This is an error in definition file.";
 $langUsers = "Users";
 $langViewMode = "View mode";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";

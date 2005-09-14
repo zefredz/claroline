@@ -87,6 +87,7 @@ $langUsers = "Χρήστες";
 $langViMod = "Η ορατότητα του εγγράφου άλλαξε";
 $langViewMode = "Παρουσίαση τρόπου";
 $langVisibility = "Ορατό / Αόρατο";
+$langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $langZipNoPhp = "Το αρχείο zip δεν πρέπει να περιέχει αρχεία.PHP";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";

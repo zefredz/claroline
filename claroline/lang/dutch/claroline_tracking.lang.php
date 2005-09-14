@@ -188,6 +188,7 @@ $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langViewToolList = "Toon lijst van alle modules";
 $langVisits = "Bezoeken";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langWorkAuthors = "Auteurs";
 $langWorkTitle = "Titel";

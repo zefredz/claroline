@@ -289,6 +289,7 @@ $langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion
 <p>Um einen Benutzer Ihrem Kurs hinzuzufügen, prüfen Sie zuerst, ob er nicht bereits registriert ist. Sollte er bereits registriert sein, können Sie über 'Bearbeiten' Kursinterne Rollen / Rechte vergeben, bzw. ihn austragen. Ansonsten fügen Sie ihn manuell hinzu. In beiden Fällen wird die Person eine E-Mail erhalten, die sie über die Aufnahme und das zugehörige Login und Passwort in Kenntnis setzt.</p>";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
+$langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";

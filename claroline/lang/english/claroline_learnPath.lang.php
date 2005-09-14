@@ -195,6 +195,7 @@ Number of learning paths using this module : ";
 $langUsers = "Users";
 $langViewMode = "View mode";
 $langVisibility = "Visibility";
+$langWiki = "Wiki";
 $langWork = "Assignments";
 $langWrongOperation = "Wrong operation";
 $langYourBestScore = "Your best performance";

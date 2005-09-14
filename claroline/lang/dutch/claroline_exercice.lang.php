@@ -186,6 +186,7 @@ $langUsedInSeveralPath = "Deze oefening wordt gebruikt in een of meerdere leerpa
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langWeightingForEachBlank = "Geef aub een gewicht aan elke invulruimte";
+$langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langYes = "Ja";
 $langYourTime = "Uw tijd is";

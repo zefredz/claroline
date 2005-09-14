@@ -77,6 +77,7 @@ $langUsers = "Usuarios";
 $langViMod = "Visibilidade modificada";
 $langViewMode = "Ver modo";
 $langVisible = "Visible";
+$langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
