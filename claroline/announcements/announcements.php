@@ -61,8 +61,7 @@ define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);
 define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
 
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed) claro_disp_auth_form();
+if ( ! $_cid || ! $is_courseAllowed) claro_disp_auth_form(true);
 
 require_once($includePath . '/lib/events.lib.inc.php');
 require_once($includePath . '/lib/announcement.lib.php');

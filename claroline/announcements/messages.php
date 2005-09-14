@@ -34,7 +34,7 @@
 
 require '../inc/claro_init_global.inc.php'; //	settings initialisation	
 
-if ( ! $_cid ) claro_disp_select_course();
+if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
 
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
@@ -422,6 +422,10 @@ echo '</table>'."\n\n"
 	.'</form>'."\n\n";
 
 } // end: teacher only
+else
+{
+   echo claro_disp_message_box($langNotAllowed);
+}
 
 include($includePath."/claro_init_footer.inc.php");	
 
