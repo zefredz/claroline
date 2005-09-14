@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * Main script for work tool *
+ * Main script for work tool
  *
  * @version 1.7 $Revision$
  *
@@ -21,15 +21,14 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
+
 include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/assignment.lib.php');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];    
-
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed )    claro_disp_auth_form();
 
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -450,7 +449,7 @@ if ($is_allowedToEdit)
         <td>&nbsp;</td>
         <td>
           <input type="submit" name="submitAssignment" value="<?php echo $langOk; ?>">
-          <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
+          <?php echo claro_disp_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), $langCancel); ?>
         </td>
       </tr>
       </table>
@@ -506,7 +505,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         $sql = "SELECT `id`, `title`, `visibility`, 
             `description`, `assignment_type`, `authorized_content`,
             unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
-            FROM `".$tbl_wrk_assignment."` 
+            FROM `" . $tbl_wrk_assignment . "` 
             ORDER BY `end_date` ASC";
     }          
     $assignmentList = claro_sql_query_fetch_all($sql);

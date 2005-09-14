@@ -19,6 +19,8 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
+
 include_once($includePath . '/lib/events.lib.inc.php');
 include_once($includePath . '/lib/fileManage.lib.php');
 
@@ -36,27 +38,22 @@ $tbl_group_rel_team_user  = $tbl_cdb_names['group_rel_team_user'];
 $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
-
-if ( !$_cid ) 	claro_disp_select_course();
-if ( ! $is_courseAllowed)	claro_disp_auth_form();
-
 event_access_tool($_tid, $_courseTool['label']);
 
 
 
-include($includePath."/lib/fileUpload.lib.php");
-include($includePath."/lib/fileDisplay.lib.php"); // need format_url function
-include($includePath."/lib/learnPath.lib.inc.php");
+include_once $includePath . '/lib/fileUpload.lib.php';
+include_once $includePath . '/lib/fileDisplay.lib.php';
+include_once $includePath . '/lib/learnPath.lib.inc.php';
 
 // use viewMode
 claro_set_display_mode_available(true);
 
-
 /*============================================================================
                      BASIC VARIABLES DEFINITION
   =============================================================================*/
-$currentCourseRepositorySys = $coursesRepositorySys.$_course["path"]."/";
-$currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course["path"]."/";
+$currentCourseRepositorySys = $coursesRepositorySys . $_course['path'] . '/';
+$currentCourseRepositoryWeb = $coursesRepositoryWeb . $_course['path'] . '/';
 
 $fileAllowedSize = $max_file_size_per_works ;    //file size in bytes
 $wrkDirSys          = $currentCourseRepositorySys . 'work/'; // systeme work directory
@@ -98,8 +95,8 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
 	
 	list($assignment) = claro_sql_query_fetch_all($sql);
 	
-	$assigDirSys = $wrkDirSys."assig_".$_REQUEST['assigId']."/";
-	$assigDirWeb = $wrkDirWeb."assig_".$_REQUEST['assigId']."/";
+	$assigDirSys = $wrkDirSys . 'assig_' . $_REQUEST['assigId'] . '/';
+	$assigDirWeb = $wrkDirWeb . 'assig_' . $_REQUEST['assigId'] . '/';
 }
 
   /*--------------------------------------------------------------------
@@ -110,15 +107,15 @@ if( isset($assignment) && isset($_REQUEST['authId']) && !empty($_REQUEST['authId
   	if( $assignment['assignment_type'] == "GROUP")
 	{
 		$sql = "SELECT `name`
-				FROM `".$tbl_group_team."`
-				WHERE `id` = ". (int)$_REQUEST['authId'];
+				FROM `" . $tbl_group_team . "`
+				WHERE `id` = " . (int) $_REQUEST['authId'];
 		$authField = 'group_id';
 	}
 	else
 	{
 		$sql = "SELECT CONCAT(`nom`,\" \",`prenom`) as `authName`
-				FROM `".$tbl_user."`
-				WHERE `user_id` = ". (int)$_REQUEST['authId'];
+				FROM `" . $tbl_user . "`
+				WHERE `user_id` = " . (int) $_REQUEST['authId'];
 		$authField = 'user_id';
 	}
 	$authName = claro_sql_query_get_single_value($sql);
@@ -147,18 +144,18 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
                   UNIX_TIMESTAMP(`ws`.`creation_date`) AS `unix_creation_date`,
                   UNIX_TIMESTAMP(`ws`.`last_edit_date`) AS `unix_last_edit_date`,
                   `gt`.`name`
-                  FROM `".$tbl_wrk_submission."` AS ws
-                  LEFT JOIN `".$tbl_group_team."` AS gt
+                  FROM `" . $tbl_wrk_submission . "` AS ws
+                  LEFT JOIN `" . $tbl_group_team . "` AS gt
                         ON `ws`.`group_id`  = `gt`.`id`
-                  WHERE `ws`.`id` = ". (int)$_REQUEST['wrkId'];
+                  WHERE `ws`.`id` = ". (int) $_REQUEST['wrkId'];
       }
       else
       {
             $sql = "SELECT *, 
                   UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
                   UNIX_TIMESTAMP(`last_edit_date`) AS `unix_last_edit_date`                  
-                  FROM `".$tbl_wrk_submission."`
-                  WHERE `id` = ". (int)$_REQUEST['wrkId'];
+                  FROM `" . $tbl_wrk_submission . "`
+                  WHERE `id` = " . (int) $_REQUEST['wrkId'];
       }
       list($wrk) = claro_sql_query_fetch_all($sql);
 }
@@ -1358,36 +1355,65 @@ if( $dispWrkLst )
 			if( $is_allowedToEditThisWrk )
 			{
 				// the work can be edited 
-				echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqEditWrk&amp;wrkId='.$thisWrk['id'].'">'
-					.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'" /></a>';
+				echo '<a href="' . $_SERVER['PHP_SELF']
+				.    '?authId=' . $_REQUEST['authId']
+				.    '&amp;assigId='.$_REQUEST['assigId']
+				.    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
+				.    '<img src="' . $imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'" />'
+				.    '</a>'
+				;
 			}
 			
 			if( $is_allowedToEditAll )
 			{
-				echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exRmWrk&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'" onClick="return confirmation(\''.clean_str_for_javascript($thisWrk['title']).'\');">'
-				    .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'" /></a>';
+				echo '<a href="' . $_SERVER['PHP_SELF']
+				.    '?authId='.$_REQUEST['authId']
+				.    '&amp;cmd=exRmWrk&amp;assigId=' . $_REQUEST['assigId']
+				.    '&amp;wrkId=' . $thisWrk['id'] . '" '
+				.    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
+				.    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="'.$langDelete.'" />'
+				.    '</a>'
+				;
 				
 				if ($thisWrk['visibility'] == "INVISIBLE")
 				{
-				    echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'&amp;vis=v">'
-				          .'<img src="'.$imgRepositoryWeb.'invisible.gif" border="0" alt="'.$langMakeVisible.'" />'
-				          ."</a>";
+				    echo '<a href="' . $_SERVER['PHP_SELF'] 
+				    .    '?authId=' . $_REQUEST['authId']
+				    .    '&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId']
+				    .    '&amp;wrkId='.$thisWrk['id']
+				    .    '&amp;vis=v">'
+				    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . $langMakeVisible . '" />'
+				    .    '</a>'
+				    ;
 				}
 				else
 				{
-				    echo '<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId'].'&amp;wrkId='.$thisWrk['id'].'&amp;vis=i">'
-				          .'<img src="'.$imgRepositoryWeb.'visible.gif" border="0" alt="'.$langMakeInvisible.'" />'
-				          .'</a>';
+				    echo '<a href="' . $_SERVER['PHP_SELF'] 
+				    .    '?authId=' . $_REQUEST['authId']
+				    .    '&amp;cmd=exChVis&amp;assigId=' . $_REQUEST['assigId']
+				    .    '&amp;wrkId='.$thisWrk['id']
+				    .    '&amp;vis=i">'
+				    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . $langMakeInvisible . '" />'
+				    .    '</a>'
+				    ;
 				}  
 				if( !$is_feedback )
 				{
 					// if there is no correction yet show the link to add a correction if user is course admin
-					echo '&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqGradeWrk&amp;wrkId='.$thisWrk['id'].'">'.$langAddFeedback.'</a>';
+					echo '&nbsp;'
+					.    '<a href="' . $_SERVER['PHP_SELF']
+					.    '?authId=' . $_REQUEST['authId']
+					.    '&amp;assigId=' . $_REQUEST['assigId']
+					.    '&amp;cmd=rqGradeWrk&amp;wrkId='.$thisWrk['id'] . '">'
+					.    $langAddFeedback
+					.    '</a>'
+					;
 				}
 			}
 			
-			echo '</td>'."\n"
-				.'</tr>'."\n";
+			echo '</td>' . "\n"
+			.    '</tr>' . "\n"
+			;
 		}
 		echo '</table>';
 	}

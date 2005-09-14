@@ -1,6 +1,6 @@
 <?php  // $Id$
 /**
- * @version  CLAROLINE version 1.6
+ * @version  CLAROLINE version 1.7
  *
  * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
@@ -35,7 +35,7 @@
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
   
-if ( ! $is_courseAllowed ) claro_disp_auth_form();
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 
 /*
  * DB tables definition
@@ -55,7 +55,7 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
+include ($includePath."/lib/learnPath.lib.inc.php");
 
 //lib needed to delete packages
 include($includePath."/lib/fileManage.lib.php");

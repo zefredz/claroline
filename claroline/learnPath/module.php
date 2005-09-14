@@ -21,17 +21,16 @@ $tlabelReq = 'CLLNP___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $is_courseAllowed)
-claro_disp_auth_form();
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 
 // $_SESSION
 // path_id
-if ( isset($_GET['path_id']) && $_GET['path_id'] != "" )
+if ( isset($_GET['path_id']) && $_GET['path_id'] != '' )
 {
     $_SESSION['path_id'] = $_GET['path_id'];
 }
 // module_id
-if ( isset($_GET['module_id']) && $_GET['module_id'] != "")
+if ( isset($_GET['module_id']) && $_GET['module_id'] != '')
 {
     $_SESSION['module_id'] = $_GET['module_id'];
 }

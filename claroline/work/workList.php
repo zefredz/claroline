@@ -19,6 +19,8 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
+
 include_once($includePath . '/lib/events.lib.inc.php');
 include_once($includePath . '/lib/fileManage.lib.php');
 include_once($includePath . '/lib/pager.lib.php');
@@ -38,9 +40,6 @@ $currentUserLastName  = $_user['lastName'];
 
 // 'step' of pager
 $usersPerPage = 50;
-
-if ( !$_cid )     claro_disp_select_course();
-if ( ! $is_courseAllowed )    claro_disp_auth_form();
 
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -83,7 +82,7 @@ if ( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
                 UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
                 UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
                 FROM `" . $tbl_wrk_assignment . "`
-                WHERE `id` = " . (int)$_REQUEST['assigId'];
+                WHERE `id` = " . (int) $_REQUEST['assigId'];
       
       list($assignment) = claro_sql_query_fetch_all($sql);
       
