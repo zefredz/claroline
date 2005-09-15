@@ -23,8 +23,8 @@ require '../inc/claro_init_global.inc.php';
 
 if ( !$_cid || !$_uid ) claro_disp_auth_form(true);
 
-if ($is_courseAdmin)    $is_allowedToEdit = TRUE;
-else                    claro_die($langNotAllowed);
+if ( $is_courseAdmin ) $is_allowedToEdit = TRUE;
+else                   claro_die($langNotAllowed);
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">

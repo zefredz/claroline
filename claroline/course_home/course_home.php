@@ -28,7 +28,7 @@ if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
 
 require $claroGlobalPath . '/claro_init_global.inc.php';
 
-if ( ! $is_courseAllowed) claro_disp_auth_form();
+if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 $toolRepository = $clarolineRepositoryWeb;
 claro_set_display_mode_available(TRUE);
