@@ -21,7 +21,7 @@ $tlabelReq = 'CLLNP___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // $_SESSION
 // path_id

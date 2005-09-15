@@ -19,7 +19,8 @@ $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
    
 $is_AllowedToEdit = $is_courseAdmin;
-if (! $is_AllowedToEdit or !$is_courseAllowed ) claro_disp_auth_form();
+if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if (! $is_AllowedToEdit ) claro_die($langNotAllowed);
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $nameTools = $langimportLearningPath;

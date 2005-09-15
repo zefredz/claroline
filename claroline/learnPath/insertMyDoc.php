@@ -28,8 +28,10 @@ require '../inc/claro_init_global.inc.php';
 // this page will do the necessary to auth the user, 
 // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
 
-if ( ! $_cid) header("Location:./learningPathList.php");
-if ( ! $is_courseAllowed) header("Location:./learningPathList.php");
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+$is_AllowedToEdit = $is_courseAdmin;
+
+if ( ! $is_AllowedToEdit ) claro_die($langNotAllowed);
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
@@ -80,12 +82,6 @@ if ( !isset($_SESSION['path_id']) )
 /*======================================
        CLAROLINE MAIN
  ======================================*/
-
-// main page
-
-$is_AllowedToEdit = $is_courseAdmin;
-
-if (! $is_AllowedToEdit ) header("Location:./learningPathList.php");
 
 // FUNCTION NEEDED TO BUILD THE QUERY TO SELECT THE MODULES THAT MUST BE AVAILABLE
 

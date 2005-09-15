@@ -38,6 +38,8 @@
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true); 
+
 $htmlHeadXtra[] =
             "<script>
             function confirmation (txt)
@@ -57,8 +59,6 @@ $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb
   
 // use viewMode
 claro_set_display_mode_available(true);
-
-if ( ! $_cid ) claro_disp_select_course();
 
 // permissions
 $is_AllowedToEdit = claro_is_allowed_to_edit();

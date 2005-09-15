@@ -22,6 +22,11 @@
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
 
+// main page
+$is_AllowedToEdit = $is_courseAdmin;
+if (! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if (! $is_AllowedToEdit ) claro_die($langNotAllowed);
+
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
 $nameTools = $langInsertMyExerciseToolName;
@@ -56,10 +61,6 @@ if ( !isset($_SESSION['path_id']) )
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-
-// main page
-$is_AllowedToEdit = $is_courseAdmin;
-if (! $is_AllowedToEdit or ! $is_courseAllowed ) claro_disp_auth_form();;
 
 // display title
 echo claro_disp_tool_title($nameTools);
