@@ -327,7 +327,7 @@ if($is_allowedToEdit) // check teacher status
                 $studentIdList = claro_sql_query_fetch_all($sql);
 
                 // count
-                $countEmail = (is_array($result)) ? sizeof($result) : 0;
+                $countEmail = (is_array($studentIdList)) ? sizeof($studentIdList) : 0;
                 $countUnvalid = 0;
                 $messageFailed = '';
 
