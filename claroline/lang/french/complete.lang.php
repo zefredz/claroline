@@ -1399,6 +1399,7 @@ $langNoSeduction = "Non. Il ne s'agit pas d'une stratégie de séduction ou d'une 
 $langNoSpace = "Le téléchargement a échoué. Il n'y a plus assez de place dans votre répertoire";
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
 $langNoTimeLimit = "Pas de limite de temps";
+$langNoTrackingForExerciseAttempt = "Il n'y a pas de statistiques pour cet essai.";
 $langNoUserFound = "Aucun utilisateur trouvé";
 $langNoUserResult = "Il n'y a pas d'utilisateur à afficher";
 $langNoVisibleAssignment = "Il n'y a pas de travaux pour le moment.";
