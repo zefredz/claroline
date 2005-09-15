@@ -36,10 +36,9 @@
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 
-claro_unquote_gpc();
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-if ( ! $_cid ) claro_disp_auth_form(true);
-$nameTools     = $langGroups;
+$nameTools = $langGroups;
 
 include($includePath . '/lib/group.lib.inc.php');
 include($includePath . '/lib/events.lib.inc.php');

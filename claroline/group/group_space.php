@@ -19,7 +19,8 @@
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 $toolRepository = $clarolineRepositoryWeb;
-if ( ! $_cid) claro_disp_select_course();
+
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // block if !$_gid
 // accept  if $is_groupAllowed

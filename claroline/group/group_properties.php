@@ -18,9 +18,16 @@
 
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
-if ( ! $_cid) claro_disp_select_course();
 
-@include('../inc/lib/debug.lib.inc.php');
+// display login form
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+
+// check user right
+if ( ! $is_courseAdmin && ! $is_platformAdmin )
+{
+    claro_die($langNotAllowed);
+}
+
 $nameTools = $langGroupProperties;
 $interbredcrump[]= array ('url'=>'group.php', 'name'=> $langGroups);
 

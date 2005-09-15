@@ -21,8 +21,14 @@
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid ) claro_disp_select_course();
-@include($includePath . '/lib/debug.lib.inc.php');
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+
+$is_allowedToManage = $is_courseAdmin || $is_platformAdmin;
+
+if ( ! $is_allowedToManage ) 
+{
+    claro_die($langNotAllowed);
+}
 
 $nameTools = $langEditGroup;
 
@@ -114,7 +120,6 @@ $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
 $tbl_group_team              = $tbl_cdb_names['group_team'             ];
 
 $currentCourseId     = $_course["sysCode"];
-$is_allowedToManage  = $is_courseAdmin;
 $myStudentGroup      = $_group;
 $nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
 
