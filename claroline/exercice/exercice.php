@@ -78,7 +78,7 @@ $nameTools = $langExercices;
 /* Asking for an export in IMS/QTI ?
  * We need to take care of it before any content has been sent.
  */
-if( isset($_REQUEST['export']) )
+if( isset($_REQUEST['export']) && isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
 {
     include('exercise_export.php');
     
