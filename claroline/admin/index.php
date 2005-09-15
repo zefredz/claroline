@@ -19,7 +19,8 @@ include($includePath.'/lib/admin.lib.inc.php');
 
 //SECURITY CHECK
 
-if (!$is_platformAdmin) claro_disp_auth_form();
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 //------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
