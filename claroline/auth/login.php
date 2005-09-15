@@ -186,7 +186,7 @@ else
                 echo '<p align="center">'           ."\n"
                 .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br />'
                 .    $lang_if_you_wish_to_enroll_to_this_course
-                .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
+                .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
                 .    $langReg.'</a>' ."\n"
                 .    '</p>'          ."\n";
 
