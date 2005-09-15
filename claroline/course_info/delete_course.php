@@ -20,7 +20,7 @@ define('DISP_DELETE_RESULT', __LINE__);
 define('DISP_NOT_ALLOWED', __LINE__);
 
 require '../inc/claro_init_global.inc.php';
-if ( ! $_cid) claro_disp_select_course();
+if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
 include($includePath . '/lib/fileManage.lib.php');
 include($includePath . '/lib/events.lib.inc.php');
@@ -35,7 +35,7 @@ if ( isset($cidToEdit) && ($is_platformAdmin) )
     $cidReq            = $cidToEdit;
     $isAllowedToDelete = true;
     $addToURL          = '&amp;cidToEdit=' . $cidToEdit;
-    $addToURL         .='&amp;cfrom=' . $cfrom;
+    $addToURL         .= '&amp;cfrom=' . $cfrom;
 }
 else
 {
