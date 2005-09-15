@@ -19,8 +19,14 @@ define('DISP_REGISTRATION_AGREEMENT',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-// Redirect before first output
-if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE || isset($_uid) )
+// Registration not allowed
+if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE )
+{
+    claro_die($langMessageRegistrationNotAllowed);
+}
+
+// Already logged
+if ( isset($_uid) )
 {
     header("Location: ".$rootWeb);
     exit;
