@@ -1051,12 +1051,13 @@ function claro_disp_message_box($message)
 
 function claro_die($message)
 {
-    global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $rootWeb; 
-    global $siteName, $text_dir, $_uid, $administrator_name, $administrator_email;
-    global $is_platformAdmin, $_course, $_user;
-    global $lang_p_platformManager, $langPoweredBy, $langModifyProfile,
+    global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $rootWeb, 
+           $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email,
+           $is_platformAdmin, $_course, $_user, $_courseToolList, $coursesRepositoryWeb, 
+           $is_courseAllowed, $imgRepositoryWeb, $lang_footer_p_CourseManager,
+           $lang_p_platformManager, $langPoweredBy, $langModifyProfile,
            $langLogout, $langOtherCourses, $langModifyProfile, $langMyCourses,
-           $langMyAgenda;
+           $langMyAgenda, $langLogin, $langCourseHome, $_tid;
 
     if ( ! headers_sent () )
     {
