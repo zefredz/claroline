@@ -58,7 +58,7 @@ function query_to_upgrade_main_database_to_16 ()
     $sqlForUpdate[] = " ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` CHANGE `dbName` `dbName` varchar(".$lenForDbNameOfACourse.") default NULL";
     
     // Create new table config_file
-    $sqlForUpdate16[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['config_file'] . "` (
+    $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['config_file'] . "` (
       `config_code` varchar(30) NOT NULL default '',
       `config_hash` varchar(40) NOT NULL default '',
       PRIMARY KEY  (`config_code` )
@@ -83,10 +83,10 @@ function query_to_upgrade_main_database_to_16 ()
     $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` SET `icon` = 'user.gif' WHERE `claro_label` = 'CLUSR___'";
 
     // Update table track_e_default
-    $sqlForUpdate16[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_default']  . "` CHANGE `default_user_id` `default_user_id` int(11) NOT NULL default '0'" ;
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_default']  . "` CHANGE `default_user_id` `default_user_id` int(11) NOT NULL default '0'" ;
 
     // Update table login_user_id
-    $sqlForUpdate16[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_login']  . "` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_login']  . "` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
 
     return $sqlForUpdate;
 }
