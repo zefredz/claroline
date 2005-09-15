@@ -2,14 +2,14 @@
 /**
  * CLAROLINE
  *
- * This page is used to launch an event when a user click          |
- * to download a document                                          |
- *   - It gets name of the document                                  |
- *   - It calls the event function                                   |
- *   - It redirects the user to the download                         |
- *                                                                   |
- *   Need document.id, user.user_id, cours.cours_id                  |
- *   when called                                                     |
+ * This page is used to launch an event when a user click          
+ * to download a document                                          
+ *   - It gets name of the document                                  
+ *   - It calls the event function                                   
+ *   - It redirects the user to the download                         
+ *                                                                   
+ *   Need document.id, user.user_id, cours.cours_id                  
+ *   when called                                                     
  *   http://.../document_dl.php?doc_url=$urlFileName&user_id=$_uid&cid=$currenCourseID
  *     
  *  REM : 
