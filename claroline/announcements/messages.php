@@ -45,6 +45,7 @@ CLAROLINE MAIN SETTINGS
 require '../inc/claro_init_global.inc.php'; //	settings initialisation
 
 if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
 
 include_once $includePath . '/lib/claro_mail.lib.inc.php';
 
@@ -158,290 +159,281 @@ $tbl_courseUser = $tbl_mdb_names['rel_course_user'];
 * Various connection variables from the initialisation scripts
 */
 
-$is_allowedToUse = $is_courseAdmin;
 $courseCode      = $_course['officialCode'];
 $courseName      = $_course['name'        ];
 $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-if( $is_allowedToUse )	// check teacher status
+echo claro_disp_tool_title($langMessages);
+
+/*
+* DEFAULT DISPLAY SETTINGS
+*/
+
+$displayForm = TRUE;
+
+/*
+* SUBMIT ANNOUNCEMENT COMMAND
+*/
+
+if ( isset($_REQUEST['submitAnnouncement']) )
 {
-    echo claro_disp_tool_title($langMessages);
 
-    /*
-    * DEFAULT DISPLAY SETTINGS
-    */
-
-    $displayForm = TRUE;
-
-    /*
-    * SUBMIT ANNOUNCEMENT COMMAND
-    */
-
-    if ( isset($_REQUEST['submitAnnouncement']) )
+    if ( isset($_REQUEST['incorreo']) )
     {
 
-        if ( isset($_REQUEST['incorreo']) )
-        {
-
-            /*
-            * Explode the values of incorreo in groups and users
-            */
-
-            foreach($_REQUEST['incorreo'] as $thisIncorreo)
-            {
-                list($type, $elmtId) = explode(':', $thisIncorreo);
-
-                switch($type)
-                {
-                    case 'GROUP':
-                    $groupIdList[] = $elmtId;
-                    break;
-
-                    case 'USER':
-                    $userIdList[] = $elmtId;
-                    break;
-                }
-
-            } // end while
-
-            /*
-            * Select the students of the different groups
-            */
-
-            if ( isset($groupIdList) )
-            {
-                $groupIdList = implode(', ',$groupIdList);
-
-                $sql = "SELECT `user`
-    					FROM `".$tbl_groupUser."` AS `user_group`
-    					WHERE `team` IN (".$groupIdList.")";
-
-                $groupMemberList = claro_sql_query_fetch_all($sql);
-
-                if ( is_array($groupMemberList) && !empty($groupMemberList) )
-                {
-                    foreach ( $groupMemberList as $groupMember )
-                    {
-                        $userIdList[] = $groupMember['user']; // complete the user id list ...
-                    }
-                }
-            }
-
-            /*
-            * Send the differents mails
-            */
-
-            if( is_array($userIdList) )
-            {
-
-                /*
-                * Prepare	email
-                */
-
-                // email subject
-                $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . $langProfessorMessage;
-
-                // email content
-                $emailBody = $_REQUEST['emailContent'] . "\n" . "\n" 
-                .            '--' . "\n" 
-                .            $senderFirstName . ' ' . $senderLastName . "\n" 
-                .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" 
-                .            $siteName . "\n"
-                .            '(' . $langProfessorMessage . ')'
-                ;
-
-                /*
-                * Send	email one by one to	avoid antispam
-                */
-
-                $countUnvalid = 0;
-                $messageFailed = '';
-
-                foreach( $userIdList as $userId )
-                {
-                    if ( !claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName) )
-                    {
-                        $messageFailed.= claro_failure::get_last_failure();
-                        $countUnvalid++;
-                    }
-                }
-
-            } // end if - is_array($userIdList)
-
-            $message = '<p>' . $langMsgSent . '<p>';
-
-            if ( $countUnvalid > 0 )
-            {
-                $messageUnvalid	= '<p>'
-                . $langOn.'	'
-                . count($userIdList) .' '
-                . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
-                . '<br /><small>'
-                . $messageFailed
-                . '</small>'
-                . '</p>';
-                $message .= $messageUnvalid;
-            }
-
-        } // end if - $_REQUEST['incorreo']
-
-    } // end if - $_REQUEST['submitAnnouncement']
-
-    /*
-    * DISPLAY ACTION MESSAGE
-    */
-
-    if ( !empty($message) )
-    {
-        echo claro_disp_message_box($message);
-
-        echo '<br />' . "\n"
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . $langBackList . '</a>'
-        .    '<br />' . "\n"
-        ;
-
-        $displayForm = FALSE;
-    }
-
-    /*----------------------------------------
-    DISPLAY FORM	TO FILL	AN ANNOUNCEMENT
-    (USED FOR ADD AND MODIFY)
-    --------------------------------------*/
-
-    if ( $displayForm == TRUE )
-    {
         /*
-        * Get user	list of	this course
+        * Explode the values of incorreo in groups and users
         */
 
-        $sql =	"SELECT `u`.`nom` AS `lastName`,
-						`u`.`prenom` AS `firstName`,
-						`u`.`user_id` AS `uid`
-		         FROM `" . $tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
-		         WHERE `cu`.`code_cours` = '" . $_cid . "'
-		         AND `cu`.`user_id` = `u`.`user_id`
-		         ORDER BY `u`.`nom`, `u`.`prenom`";
-
-        $singleUserList = claro_sql_query_fetch_all($sql);
-
-        if ( is_array($singleUserList) && !empty($singleUserList) )
+        foreach($_REQUEST['incorreo'] as $thisIncorreo)
         {
-            foreach ( $singleUserList as $singleUser  )
+            list($type, $elmtId) = explode(':', $thisIncorreo);
+
+            switch($type)
             {
-                $userList[] = $singleUser;
+                case 'GROUP':
+                $groupIdList[] = $elmtId;
+                break;
+
+                case 'USER':
+                $userIdList[] = $elmtId;
+                break;
+            }
+
+        } // end while
+
+        /*
+        * Select the students of the different groups
+        */
+
+        if ( isset($groupIdList) )
+        {
+            $groupIdList = implode(', ',$groupIdList);
+
+            $sql = "SELECT `user`
+					FROM `".$tbl_groupUser."` AS `user_group`
+					WHERE `team` IN (".$groupIdList.")";
+
+            $groupMemberList = claro_sql_query_fetch_all($sql);
+
+            if ( is_array($groupMemberList) && !empty($groupMemberList) )
+            {
+                foreach ( $groupMemberList as $groupMember )
+                {
+                    $userIdList[] = $groupMember['user']; // complete the user id list ...
+                }
             }
         }
 
         /*
-        * Get group list of this course
+        * Send the differents mails
         */
 
-        $sql = "SELECT `g`.`id`,
-					`g`.`name`,
-					COUNT(`gu`.`id`) AS `userNb`
-		        FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
-		        ON `g`.`id` = `gu`.`team`
-		        GROUP BY `g`.`id`";
-
-        $groupSelect = claro_sql_query_fetch_all($sql);
-
-        if ( is_array($groupSelect) && !empty($groupSelect) )
+        if( is_array($userIdList) )
         {
-            foreach ( $groupSelect as $groupData  )
-            {
-                $groupList[] = $groupData;
-            }
-        }
 
+            /*
+            * Prepare	email
+            */
 
-        /*
-        * Create Form
-        */
+            // email subject
+            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . $langProfessorMessage;
 
-        echo $langIntroText . "\n\n"
-        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
-        .    'onSubmit="return valida();">' . "\n"
-        .    '<center>' . "\n"
-        .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
-        .    '<tr valign="top" align="center">'
-        .    '<td>' . "\n"
-        .    '<p><b>' . $langUserlist . '</b></p>' . "\n"
-        .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
-        ;
-
-        if ( $groupList )
-        {
-            foreach( $groupList as $thisGroup )
-            {
-                echo '<option value="GROUP:' . $thisGroup['id'] . '">'
-                .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . $langUsers . ')'
-                .    '</option>' . "\n";
-            }
-        }
-
-        echo '<option value="">'
-        .    '---------------------------------------------------------'
-        .    '</option>' . "\n"
-        ;
-
-        // display user list
-
-        foreach ( $userList as $thisUser )
-        {
-            echo '<option value="USER:' . $thisUser['uid'] . '">'
-            .    ucwords(strtolower($thisUser['lastName'] . ' ' . $thisUser['firstName']))
-            .    '</option>' . "\n"
+            // email content
+            $emailBody = $_REQUEST['emailContent'] . "\n" . "\n" 
+            .            '--' . "\n" 
+            .            $senderFirstName . ' ' . $senderLastName . "\n" 
+            .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" 
+            .            $siteName . "\n"
+            .            '(' . $langProfessorMessage . ')'
             ;
+
+            /*
+            * Send	email one by one to	avoid antispam
+            */
+
+            $countUnvalid = 0;
+            $messageFailed = '';
+
+            foreach( $userIdList as $userId )
+            {
+                if ( !claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName) )
+                {
+                    $messageFailed.= claro_failure::get_last_failure();
+                    $countUnvalid++;
+                }
+            }
+
+        } // end if - is_array($userIdList)
+
+        $message = '<p>' . $langMsgSent . '<p>';
+
+        if ( $countUnvalid > 0 )
+        {
+            $messageUnvalid	= '<p>'
+            . $langOn.'	'
+            . count($userIdList) .' '
+            . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
+            . '<br /><small>'
+            . $messageFailed
+            . '</small>'
+            . '</p>';
+            $message .= $messageUnvalid;
         }
 
-        // WATCH OUT ! form elements are called by numbers "form.element[3]"...
-        // because select name contains "[]" causing a javascript
-        // element name problem List of selected users
+    } // end if - $_REQUEST['incorreo']
 
-        echo '</select>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td valign="middle">' . "\n"
-        .    '<input type="button" onClick="move(this.form.elements[0],this.form.elements[3])" value="   >>   " />' . "\n"
-        .    '<p>&nbsp;</p>' . "\n"
-        .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<p><b>' . $langSelectedUsers . '</b></p>' . "\n"
-        .    '<p>'
-        .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
-        .    '</select>'
-        .    '</p>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n\n"
-        .    '<tr>' . "\n"
-        .    '<td colspan="3">' . "\n"
-        .    '<b>' . $langAnnouncement . '</b><br />' . "\n"
-        .    '<center>'
-        .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
-        .    '</center>'
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n\n"
-        .    '<tr>' . "\n"
-        .    '<td colspan="3" align="center">' . "\n"
-        .    '<input type="submit" name="submitAnnouncement" value="' . $langSubmit . '" />'
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n\n"
-        ;
+} // end if - $_REQUEST['submitAnnouncement']
 
-    } // end if - $displayForm ==  TRUE
+/*
+* DISPLAY ACTION MESSAGE
+*/
 
-    echo '</table>' . "\n\n"
-    .    '</center>' . "\n\n"
-    .    '</form>' . "\n\n"
+if ( !empty($message) )
+{
+    echo claro_disp_message_box($message);
+
+    echo '<br />' . "\n"
+    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . $langBackList . '</a>'
+    .    '<br />' . "\n"
     ;
 
-} // end: teacher only
-else
-{
-    echo claro_disp_message_box($langNotAllowed);
+    $displayForm = FALSE;
 }
+
+/*----------------------------------------
+DISPLAY FORM	TO FILL	AN ANNOUNCEMENT
+(USED FOR ADD AND MODIFY)
+--------------------------------------*/
+
+if ( $displayForm == TRUE )
+{
+    /*
+    * Get user	list of	this course
+    */
+
+    $sql =	"SELECT `u`.`nom` AS `lastName`,
+    					`u`.`prenom` AS `firstName`,
+    					`u`.`user_id` AS `uid`
+    	         FROM `" . $tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
+    	         WHERE `cu`.`code_cours` = '" . $_cid . "'
+    	         AND `cu`.`user_id` = `u`.`user_id`
+    	         ORDER BY `u`.`nom`, `u`.`prenom`";
+
+    $singleUserList = claro_sql_query_fetch_all($sql);
+
+    if ( is_array($singleUserList) && !empty($singleUserList) )
+    {
+        foreach ( $singleUserList as $singleUser  )
+        {
+            $userList[] = $singleUser;
+        }
+    }
+
+    /*
+    * Get group list of this course
+    */
+
+    $sql = "SELECT `g`.`id`,
+    				`g`.`name`,
+    				COUNT(`gu`.`id`) AS `userNb`
+    	        FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
+    	        ON `g`.`id` = `gu`.`team`
+    	        GROUP BY `g`.`id`";
+
+    $groupSelect = claro_sql_query_fetch_all($sql);
+
+    if ( is_array($groupSelect) && !empty($groupSelect) )
+    {
+        foreach ( $groupSelect as $groupData  )
+        {
+            $groupList[] = $groupData;
+        }
+    }
+
+
+    /*
+    * Create Form
+    */
+
+    echo $langIntroText . "\n\n"
+    .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
+    .    'onSubmit="return valida();">' . "\n"
+    .    '<center>' . "\n"
+    .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
+    .    '<tr valign="top" align="center">'
+    .    '<td>' . "\n"
+    .    '<p><b>' . $langUserlist . '</b></p>' . "\n"
+    .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
+    ;
+
+    if ( $groupList )
+    {
+        foreach( $groupList as $thisGroup )
+        {
+            echo '<option value="GROUP:' . $thisGroup['id'] . '">'
+            .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . $langUsers . ')'
+            .    '</option>' . "\n";
+        }
+    }
+
+    echo '<option value="">'
+    .    '---------------------------------------------------------'
+    .    '</option>' . "\n"
+    ;
+
+    // display user list
+
+    foreach ( $userList as $thisUser )
+    {
+        echo '<option value="USER:' . $thisUser['uid'] . '">'
+        .    ucwords(strtolower($thisUser['lastName'] . ' ' . $thisUser['firstName']))
+        .    '</option>' . "\n"
+        ;
+    }
+
+    // WATCH OUT ! form elements are called by numbers "form.element[3]"...
+    // because select name contains "[]" causing a javascript
+    // element name problem List of selected users
+
+    echo '</select>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td valign="middle">' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[0],this.form.elements[3])" value="   >>   " />' . "\n"
+    .    '<p>&nbsp;</p>' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<p><b>' . $langSelectedUsers . '</b></p>' . "\n"
+    .    '<p>'
+    .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
+    .    '</select>'
+    .    '</p>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3">' . "\n"
+    .    '<b>' . $langAnnouncement . '</b><br />' . "\n"
+    .    '<center>'
+    .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
+    .    '</center>'
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3" align="center">' . "\n"
+    .    '<input type="submit" name="submitAnnouncement" value="' . $langSubmit . '" />'
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
+    ;
+
+} // end if - $displayForm ==  TRUE
+
+echo '</table>' . "\n\n"
+.    '</center>' . "\n\n"
+.    '</form>' . "\n\n"
+;
 
 include ($includePath . '/claro_init_footer.inc.php');
 

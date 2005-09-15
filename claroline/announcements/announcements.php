@@ -60,7 +60,7 @@ $tlabelReq = 'CLANN___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 require_once($includePath . '/lib/events.lib.inc.php');
 require_once($includePath . '/lib/announcement.lib.php');
