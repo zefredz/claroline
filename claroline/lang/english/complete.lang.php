@@ -1348,6 +1348,7 @@ $langNoSeduction = "No. Socratic irony is not a seduction strategy nor a method 
 $langNoSpace = "The upload has failed. There is not enough space in your directory";
 $langNoStartAsset = "There is no start asset defined for this module.";
 $langNoTimeLimit = "No time limitation";
+$langNoTrackingForExerciseAttempt = "There is no tracking for this attempt.";
 $langNoUserFound = "No user found";
 $langNoUserResult = "No user to display";
 $langNoVisibleAssignment = "There is no assignment at the moment.";
