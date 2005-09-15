@@ -51,7 +51,8 @@ define('DISP_READONLY_FS',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $is_allowedCreateCourse ) claro_disp_auth_form();
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_allowedCreateCourse ) claro_die($langNotAllowed);
 
 //// Config tool
 include($includePath . '/conf/course_main.conf.php');

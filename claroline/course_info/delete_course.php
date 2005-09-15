@@ -22,6 +22,14 @@ define('DISP_NOT_ALLOWED', __LINE__);
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
+//check user right
+$isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
+
+if ( ! $isAllowedToDelete )
+{
+    claro_die($langNotAllowed);
+}
+
 include($includePath . '/lib/fileManage.lib.php');
 include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/admin.lib.inc.php');
@@ -42,9 +50,6 @@ else
     $current_cid = $_course['sysCode'];
 }
 
-//check user right
-$isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
-
 //find needed info in db
 
 $course_to_delete = claro_get_course_data($current_cid);
@@ -54,25 +59,18 @@ $currentCourseName = $course_to_delete['name'];
 $nameTools = $langDelCourse;
 $interbredcrump[] = array('url' => 'infocours.php?' . $addToURL, 'name' => $langCourseSettings);
 
-if( $isAllowedToDelete )
+if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
 {
-    if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
-    {
-        // DO DELETE
-        delete_course($current_cid);
-        event_default( 'DELETION COURSE' , array ('courseName' => addslashes($currentCourseName), 'uid' => $_uid));
+    // DO DELETE
+    delete_course($current_cid);
+    event_default( 'DELETION COURSE' , array ('courseName' => addslashes($currentCourseName), 'uid' => $_uid));
 
-        $display = DISP_DELETE_RESULT;
-    } // end if $delete
-    else
-    {
-        $display = DISP_CONFIRM_DELETE;
-    }        // end else if $delete
-}            // end if $isAllowedToDelete
+    $display = DISP_DELETE_RESULT;
+} // end if $delete
 else
 {
-    $display = DISP_NOT_ALLOWED;
-}
+    $display = DISP_CONFIRM_DELETE;
+}        // end else if $delete
 
 include($includePath . '/claro_init_header.inc.php');
 // display tool title
@@ -122,9 +120,6 @@ switch ($display)
         .    '</p>'
         ;
         break;
-    case DISP_NOT_ALLOWED :
-      echo $langNotAllowed;
-       break;
 }
 
 include($includePath . '/claro_init_footer.inc.php');

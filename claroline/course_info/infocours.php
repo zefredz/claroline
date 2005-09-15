@@ -23,6 +23,13 @@ $dialogBox = '';
 
 if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
+$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
+
+if ( ! $is_allowedToEdit )
+{
+    claro_die($langNotAllowed);
+}
+
 include_once( $includePath . '/lib/auth.lib.inc.php');
 include_once( $includePath . '/lib/course.lib.inc.php');
 include_once( $includePath . '/lib/form.lib.php');
@@ -146,105 +153,96 @@ else
 
 ####################### SUBMIT #################################
 
-$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
-
-if ( $is_allowedToEdit )
+// check if form submitted
+if ( isset($_REQUEST['changeProperties']) )
 {
-    // check if form submitted
-    if ( isset($_REQUEST['changeProperties']) )
+    //create error message(s) if fields are not set properly
+    
+    if ((!$canBeEmpty['intitule']) && $_REQUEST['int'] == '')
+        $dialogBox .= $langErrorCourseTitleEmpty . '<br />';
+    if ((!$canBeEmpty['category']) && $_REQUEST['category'] == '')
+        $dialogBox .= $langErrorCategoryEmpty . '<br />';
+    if ((!$canBeEmpty['lecturer']) && $_REQUEST['titulary'] == '')
+        $dialogBox .= $langErrorLecturerEmpty . '<br />';
+    if ((!$canBeEmpty['screenCode']) && $_REQUEST['screenCode'] == '')
+        $dialogBox .= $langErrorCourseCodeEmpty . '<br />';
+    if ((!$canBeEmpty['lanCourseForm']) && $_REQUEST['lanCourseForm'] == '')
+        $dialogBox .= $langErrorLanguageEmpty . '<br />';
+    if ((!$canBeEmpty['extLinkName']) && $_REQUEST['extLinkName'] == '')
+        $dialogBox .= $langErrorDepartmentEmpty . '<br />';
+    if ((!$canBeEmpty['extLinkUrl']) && $_REQUEST['extLinkUrl'] == '')
+        $dialogBox .= $langErrorDepartmentURLEmpty . '<br />';
+    if ((!$canBeEmpty['email']) && $_REQUEST['email'] == '')
+        $dialogBox .= $langErrorEmailEmpty . '<br />';
+        
+    // check if department url is set properly
+    
+    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+    
+    if ((!empty($_REQUEST['extLinkUrl'])) && !eregi( $regexp, $_REQUEST['extLinkUrl']))            
+        $dialogBox .= $langErrorDepartmentURLWrong . '<br />';
+    
+    //check e-mail validity
+
+    if ( !empty($_REQUEST['email']) && ! is_well_formed_email_address( $_REQUEST['email'] ) )
     {
-        //create error message(s) if fields are not set properly
-        
-        if ((!$canBeEmpty['intitule']) && $_REQUEST['int'] == '')
-            $dialogBox .= $langErrorCourseTitleEmpty . '<br />';
-        if ((!$canBeEmpty['category']) && $_REQUEST['category'] == '')
-            $dialogBox .= $langErrorCategoryEmpty . '<br />';
-        if ((!$canBeEmpty['lecturer']) && $_REQUEST['titulary'] == '')
-            $dialogBox .= $langErrorLecturerEmpty . '<br />';
-        if ((!$canBeEmpty['screenCode']) && $_REQUEST['screenCode'] == '')
-            $dialogBox .= $langErrorCourseCodeEmpty . '<br />';
-        if ((!$canBeEmpty['lanCourseForm']) && $_REQUEST['lanCourseForm'] == '')
-            $dialogBox .= $langErrorLanguageEmpty . '<br />';
-        if ((!$canBeEmpty['extLinkName']) && $_REQUEST['extLinkName'] == '')
-            $dialogBox .= $langErrorDepartmentEmpty . '<br />';
-        if ((!$canBeEmpty['extLinkUrl']) && $_REQUEST['extLinkUrl'] == '')
-            $dialogBox .= $langErrorDepartmentURLEmpty . '<br />';
-        if ((!$canBeEmpty['email']) && $_REQUEST['email'] == '')
-            $dialogBox .= $langErrorEmailEmpty . '<br />';
-            
-        // check if department url is set properly
-        
-        $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
-        
-        if ((!empty($_REQUEST['extLinkUrl'])) && !eregi( $regexp, $_REQUEST['extLinkUrl']))            
-            $dialogBox .= $langErrorDepartmentURLWrong . '<br />';
-        
-        //check e-mail validity
-
-        if ( !empty($_REQUEST['email']) && ! is_well_formed_email_address( $_REQUEST['email'] ) )
-        {
-            $dialogBox .= $langErrorEmailInvalid . '<br />';
-        }
-        
-        //if at least one error is found, we cancel update
-        
-        if (!$dialogBox)
-        {
-
-            
-            //build query to update course table in DB
-        
-            if ($_REQUEST['int'] != '' || $canBeEmpty['int'])
-                $fieldsToUpdate[]= "`intitule`='" . addslashes( trim(  $_REQUEST['int'] ) ) . "'";
-                
-            if ($_REQUEST['category'] != '' || $canBeEmpty['category'])
-                $fieldsToUpdate[]= "`faculte`='" . addslashes( trim(   $_REQUEST['category'] ) ) . "'";
-                
-            if ( $_REQUEST["titulary"] != '' || $canBeEmpty['titulary'])
-                $fieldsToUpdate[]= "`titulaires`='" . addslashes( trim(  $_REQUEST['titulary'] ) ) . "'";
-                
-            if ($_REQUEST['screenCode'] != '' || $canBeEmpty['screenCode'])
-                $fieldsToUpdate[]= "`fake_code`='" . addslashes( trim( $_REQUEST['screenCode'] ) ) . "'";
-                
-            if ($_REQUEST['lanCourseForm'] != '' || $canBeEmpty['lanCourseForm'])
-                $fieldsToUpdate[]= "`languageCourse`='" . addslashes( trim(    $_REQUEST['lanCourseForm'] ) ) . "'";
-                
-            if ($_REQUEST['extLinkName'] != '' || $canBeEmpty['extLinkName'])
-                $fieldsToUpdate[]= "`departmentUrlName`='" . addslashes( trim( $_REQUEST['extLinkName'] ) ) . "'";    
-                
-            if ($_REQUEST['extLinkUrl'] !='' || $canBeEmpty['extLinkUrl'])
-                $fieldsToUpdate[]= "`departmentUrl`='" . addslashes( trim(   $_REQUEST['extLinkUrl'] ) ) . "'";
-                
-            if($_REQUEST['email'] != '' || $canBeEmpty['email'])
-                $fieldsToUpdate[]= "`email`='" . addslashes( trim( $_REQUEST['email'] ) ) . "'";
-                
-            if ($_REQUEST['visible'] == 'false'     && $_REQUEST['allowedToSubscribe']=='false')
-                $fieldsToUpdate[]= "visible='0'";
-            elseif ($_REQUEST['visible'] == 'false' && $_REQUEST['allowedToSubscribe']=='true')
-                $fieldsToUpdate[]= "visible='1'";
-            elseif ($_REQUEST['visible'] == 'true'  && $_REQUEST['allowedToSubscribe']=='false')
-                $fieldsToUpdate[]= "visible='3'";
-            elseif ($_REQUEST['visible'] == 'true'  && $_REQUEST['allowedToSubscribe']=='true')
-                $fieldsToUpdate[]= "visible='2'";
-                
-            //update in DB
-            $sql = "UPDATE `" . $tbl_course . "`
-                        SET " . implode(',', $fieldsToUpdate) . "
-                        WHERE code='" . addslashes($current_cid) . "'";
-            
-            claro_sql_query($sql);
-
-            $dialogBox = $langModifDone;
-        }
+        $dialogBox .= $langErrorEmailInvalid . '<br />';
+    }
     
+    //if at least one error is found, we cancel update
     
-    $cidReset = true;
-    $cidReq = $current_cid;
-    include($includePath . '/claro_init_local.inc.php');
+    if ( !$dialogBox )
+    {
+        
+        //build query to update course table in DB
+    
+        if ($_REQUEST['int'] != '' || $canBeEmpty['int'])
+            $fieldsToUpdate[]= "`intitule`='" . addslashes( trim(  $_REQUEST['int'] ) ) . "'";
+            
+        if ($_REQUEST['category'] != '' || $canBeEmpty['category'])
+            $fieldsToUpdate[]= "`faculte`='" . addslashes( trim(   $_REQUEST['category'] ) ) . "'";
+            
+        if ( $_REQUEST["titulary"] != '' || $canBeEmpty['titulary'])
+            $fieldsToUpdate[]= "`titulaires`='" . addslashes( trim(  $_REQUEST['titulary'] ) ) . "'";
+            
+        if ($_REQUEST['screenCode'] != '' || $canBeEmpty['screenCode'])
+            $fieldsToUpdate[]= "`fake_code`='" . addslashes( trim( $_REQUEST['screenCode'] ) ) . "'";
+            
+        if ($_REQUEST['lanCourseForm'] != '' || $canBeEmpty['lanCourseForm'])
+            $fieldsToUpdate[]= "`languageCourse`='" . addslashes( trim(    $_REQUEST['lanCourseForm'] ) ) . "'";
+            
+        if ($_REQUEST['extLinkName'] != '' || $canBeEmpty['extLinkName'])
+            $fieldsToUpdate[]= "`departmentUrlName`='" . addslashes( trim( $_REQUEST['extLinkName'] ) ) . "'";    
+            
+        if ($_REQUEST['extLinkUrl'] !='' || $canBeEmpty['extLinkUrl'])
+            $fieldsToUpdate[]= "`departmentUrl`='" . addslashes( trim(   $_REQUEST['extLinkUrl'] ) ) . "'";
+            
+        if($_REQUEST['email'] != '' || $canBeEmpty['email'])
+            $fieldsToUpdate[]= "`email`='" . addslashes( trim( $_REQUEST['email'] ) ) . "'";
+            
+        if ($_REQUEST['visible'] == 'false'     && $_REQUEST['allowedToSubscribe']=='false')
+            $fieldsToUpdate[]= "visible='0'";
+        elseif ($_REQUEST['visible'] == 'false' && $_REQUEST['allowedToSubscribe']=='true')
+            $fieldsToUpdate[]= "visible='1'";
+        elseif ($_REQUEST['visible'] == 'true'  && $_REQUEST['allowedToSubscribe']=='false')
+            $fieldsToUpdate[]= "visible='3'";
+        elseif ($_REQUEST['visible'] == 'true'  && $_REQUEST['allowedToSubscribe']=='true')
+            $fieldsToUpdate[]= "visible='2'";
+            
+        //update in DB
+        $sql = "UPDATE `" . $tbl_course . "`
+                    SET " . implode(',', $fieldsToUpdate) . "
+                    WHERE code='" . addslashes($current_cid) . "'";
+        
+        claro_sql_query($sql);
 
-/**
- * FORM
- */
+        $dialogBox = $langModifDone;
+    }
+
+
+$cidReset = true;
+$cidReq = $current_cid;
+include($includePath . '/claro_init_local.inc.php');
     
 }
 
@@ -278,6 +276,8 @@ if (!empty ($dialogBox))
 {
     echo claro_disp_message_box($dialogBox);
 }
+
+// Display form
 
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -384,7 +384,7 @@ if (isset($cidToEdit))
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo $langOk ?> ">
 <?php 
-    echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel); 
+echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel); 
 ?>
 </td>
 </tr>
@@ -396,71 +396,62 @@ if (isset($cidToEdit))
 
 $toAdd='';
 
-    if($showLinkToDeleteThisCourse)
+if ($showLinkToDeleteThisCourse)
+{
+    if (isset($cidToEdit))
     {
-        if (isset($cidToEdit))
-        {
-            $toAdd ='?cidToEdit=' . $current_cid;
-            $toAdd.='&amp;cfrom=' . $cfrom;
-        }
+        $toAdd ='?cidToEdit=' . $current_cid;
+        $toAdd.='&amp;cfrom=' . $cfrom;
+    }
 
-        echo '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    $langDelCourse
-        .    '</a>'
-    
-        .    ' | '
-        .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-        .    $langEditToolList 
-        .    '</a>';
+    echo '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+    .    $langDelCourse
+    .    '</a>'
 
-        if ( $is_trackingEnabled )
-        {
-            echo ' | <a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
-            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
-            .    $langStatistics
-            .    '</a>'
-            ;
-        }
+    .    ' | '
+    .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
+    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
+    .    $langEditToolList 
+    .    '</a>';
 
-        echo ' | '
-        .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-        .    $langHome 
+    if ( $is_trackingEnabled )
+    {
+        echo ' | <a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
+        .    $langStatistics
         .    '</a>'
         ;
+    }
+
+    echo ' | '
+    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
+    .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+    .    $langHome 
+    .    '</a>'
+    ;
 
 
-        if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
+    if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
+    {
+        echo ' | '
+        .    '<a class="claroCmd" href="../admin/index.php">' 
+        .    $langBackToAdmin 
+        .    '</a>'
+        ;
+    }
+
+    if ( isset($cfrom) && ($is_platformAdmin) )
+    {
+        if ($cfrom=="clist")  //in case we come from the course list in admintool
         {
-            echo ' | '
-            .    '<a class="claroCmd" href="../admin/index.php">' 
-            .    $langBackToAdmin 
-            .    '</a>'
-            ;
-        }
-
-        if ( isset($cfrom) && ($is_platformAdmin) )
-        {
-            if ($cfrom=="clist")  //in case we come from the course list in admintool
-            {
-               echo ' | <a class="claroCmd" href="../admin/admincourses.php'
-               .    $toAdd 
-               .    '">' . $langBackToList . '</a>'
-               ;           
-            }
+           echo ' | <a class="claroCmd" href="../admin/admincourses.php'
+           .    $toAdd 
+           .    '">' . $langBackToList . '</a>'
+           ;           
         }
     }
-    include( $includePath . '/claro_init_footer.inc.php');
-}   // if uid==prof_id
-####################STUDENT VIEW ##################################
-else
-{ 
-    // you are not allowed to edit
-    include( $includePath . '/claro_init_header.inc.php');
-    echo claro_disp_message_box($langNotAllowed);
-    include( $includePath . '/claro_init_footer.inc.php');
 }
+include( $includePath . '/claro_init_footer.inc.php');
 
 ?>
