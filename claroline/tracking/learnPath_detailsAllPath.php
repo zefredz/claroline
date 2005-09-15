@@ -21,6 +21,9 @@
  
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
 $nameTools = $langTrackAllPath;
@@ -52,15 +55,13 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 
 include($includePath."/lib/learnPath.lib.inc.php");
 
-$is_allowedToTrack = $is_courseAdmin;
-
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $langTrackAllPathExplanation;
 
 echo claro_disp_tool_title($titleTab);
 
-if($is_allowedToTrack && $is_trackingEnabled) 
+if ( $is_trackingEnabled ) 
 {
     // display a list of user and their respective progress
     
@@ -126,17 +127,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
     echo '</tbody>'."\n\n".'</table>'."\n\n";
     
 }
-// not allowed
 else
 {
-    if(!$is_trackingEnabled)
-    {
-        echo $langTrackingDisabled;
-    }
-    else
-    {
-        echo $langNotAllowed;
-    }
+    echo $langTrackingDisabled;
 }
 
 

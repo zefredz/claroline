@@ -16,6 +16,9 @@
  */
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+
 // exo_id is required
 if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
 
@@ -36,9 +39,6 @@ $tbl_track_e_exercices 	= $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-
-$is_allowedToTrack = $is_courseAdmin;
-
 // get exercise details
 $exercise = new Exercise();
 $exercise->read($_REQUEST['exo_id']);
@@ -57,7 +57,7 @@ else
 $nameTools = $langStatsOfExercise;
 
 // get the tracking of a question as a csv file
-if( $is_allowedToTrack && $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
+if( $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
 {
 	include($includePath.'/lib/export_exe_tracking.class.php');
 
@@ -74,12 +74,14 @@ if( $is_allowedToTrack && $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
 }
 
 include($includePath."/claro_init_header.inc.php");
+
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $exercise->selectTitle();
+
 echo claro_disp_tool_title($titleTab);
 
-if($is_allowedToTrack && $is_trackingEnabled) 
+if ( $is_trackingEnabled ) 
 {
 	// get global infos about scores in the exercise
 	$sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`,
@@ -231,17 +233,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	// foot of table
 	echo '</tbody>'."\n\n".'</table>'."\n\n";
 }
-// not allowed
 else
 {
-    if(!$is_trackingEnabled)
-    {
-        echo $langTrackingDisabled;
-    }
-    else
-    {
-        echo $langNotAllowed;
-    }
+    echo $langTrackingDisabled;
 }
 
 include($includePath."/claro_init_footer.inc.php");

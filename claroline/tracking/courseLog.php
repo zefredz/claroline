@@ -11,6 +11,9 @@
  
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+
 include_once $includePath . '/lib/statsUtils.lib.inc.php';
 
 
@@ -30,8 +33,6 @@ $tbl_bb_posts				 = $tbl_cdb_names['bb_posts'				];
 
 // regroup table names for maintenance purpose
 
-$is_allowedToTrack = $is_courseAdmin;
-
 $nameTools = $langStatistics;
 include($includePath."/claro_init_header.inc.php");
 echo claro_disp_tool_title(
@@ -43,7 +44,7 @@ echo claro_disp_tool_title(
 
 // check if uid is prof of this group
 
-if($is_allowedToTrack && $is_trackingEnabled)
+if( $is_trackingEnabled)
 {
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show
@@ -542,14 +543,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
-    {
-        echo $langTrackingDisabled;
-    }
-    else
-    {
-        echo $langNotAllowed;
-    }
+    echo $langTrackingDisabled;
 }
 
 include($includePath."/claro_init_footer.inc.php");

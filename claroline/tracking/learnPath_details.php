@@ -20,6 +20,9 @@
  
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed) ; 
+
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) ) header("Location: ../learnPath/learningPathList.php");
 
@@ -52,14 +55,11 @@ $TABLECOURSUSER	        = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
 include($includePath.'/lib/statsUtils.lib.inc.php');
-
 include($includePath.'/lib/learnPath.lib.inc.php');
-
-$is_allowedToTrack = $is_courseAdmin;
 
 include($includePath."/claro_init_header.inc.php");
 
-if ( $is_allowedToTrack && $is_trackingEnabled )  
+if ( $is_trackingEnabled )  
 {
 
     if ( !empty($_REQUEST['path_id']) )
@@ -117,14 +117,7 @@ if ( $is_allowedToTrack && $is_trackingEnabled )
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
-    {
-        echo claro_disp_message_box($langTrackingDisabled);
-    }
-    else
-    {
-        echo claro_disp_message_box($langNotAllowed);
-    }
+    echo claro_disp_message_box($langTrackingDisabled);
 }
 
 include($includePath."/claro_init_footer.inc.php");

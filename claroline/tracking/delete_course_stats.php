@@ -30,6 +30,9 @@
  
 require '../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true); 
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+
 // regroup table names for maintenance purpose
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_track_e_access    		= $tbl_cdb_names['track_e_access'];
@@ -45,62 +48,53 @@ $nameTools = $langDelCourseStats;
 
 include($includePath."/claro_init_header.inc.php");
 
-$isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
+echo claro_disp_tool_title($nameTools);
 
-if( $isAllowedToDelete )
+if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
 {
-    echo claro_disp_tool_title($nameTools);
+    // do delete
+    $sql = "TRUNCATE TABLE `".$tbl_track_e_access."`";
+    claro_sql_query($sql);
     
-    if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
-    {
-        // do delete
-        $sql = "TRUNCATE TABLE `".$tbl_track_e_access."`";
-        claro_sql_query($sql);
-        
-        $sql = "TRUNCATE TABLE `".$tbl_track_e_downloads."`";
-        claro_sql_query($sql);
-        
-        $sql = "TRUNCATE TABLE `".$tbl_track_e_uploads."`";
-        claro_sql_query($sql);
-        
-        $sql = "TRUNCATE TABLE `".$tbl_track_e_exercices."`";
-        claro_sql_query($sql);
-        
-    	$sql = "TRUNCATE TABLE `".$tbl_track_e_exe_details."`";
-        claro_sql_query($sql);
-        
-        $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_answers."`";
-        claro_sql_query($sql);
-        
-        // display confirm msg and back link
-        echo $langDelCourseStatsDone."\n"
-             .'<br /><br />'."\n"
-             .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n";
-        
-    }					// end if $delete
-    else
-    {
-      // ASK DELETE CONFIRMATION TO THE USER
+    $sql = "TRUNCATE TABLE `".$tbl_track_e_downloads."`";
+    claro_sql_query($sql);
     
-      echo "\n".'<p>'."\n"
-		.$langConfirmDeleteStats."\n"
-		.'</p>'."\n"
-        .'<p>'."\n"
-	  	.'<a href="'.$_SERVER['PHP_SELF'].'?delete=yes">'
-		.$langYes
-        .'</a>'
-		.'&nbsp;|&nbsp;'
-		.'<a href="courseLog.php">'
-		.$langNo
-		.'</a>'."\n"
-    	.'</p>'."\n";
+    $sql = "TRUNCATE TABLE `".$tbl_track_e_uploads."`";
+    claro_sql_query($sql);
     
-    }		// end else if $delete
-} //end if isAllowedToDelete
+    $sql = "TRUNCATE TABLE `".$tbl_track_e_exercices."`";
+    claro_sql_query($sql);
+    
+	$sql = "TRUNCATE TABLE `".$tbl_track_e_exe_details."`";
+    claro_sql_query($sql);
+    
+    $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_answers."`";
+    claro_sql_query($sql);
+    
+    // display confirm msg and back link
+    echo $langDelCourseStatsDone."\n"
+         .'<br /><br />'."\n"
+         .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n";
+    
+}					// end if $delete
 else
 {
-  die ( $langNotAllowed );
-}
+  // ASK DELETE CONFIRMATION TO THE USER
+
+  echo "\n".'<p>'."\n"
+	.$langConfirmDeleteStats."\n"
+	.'</p>'."\n"
+    .'<p>'."\n"
+  	.'<a href="'.$_SERVER['PHP_SELF'].'?delete=yes">'
+	.$langYes
+    .'</a>'
+	.'&nbsp;|&nbsp;'
+	.'<a href="courseLog.php">'
+	.$langNo
+	.'</a>'."\n"
+	.'</p>'."\n";
+
+}		// end else if $delete
 
 include($includePath."/claro_init_footer.inc.php");
 ?>
