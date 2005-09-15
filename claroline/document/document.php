@@ -1413,7 +1413,7 @@ echo claro_disp_tool_title($titleElement,
         
         // --------------------- tool bar --------------------------------------
         // create image title
-        $imgTitle = htmlentities($fileName);
+        $imgTitle = htmlspecialchars($fileName);
         
         // create image style
         $titleStyle ='title';

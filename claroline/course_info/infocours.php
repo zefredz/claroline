@@ -286,22 +286,22 @@ if (!empty ($dialogBox))
 
 <tr>
 <td align="right"><label for="int"><?php echo $langCourseTitle ?></label> :</td>
-<td><input type="Text" name="int" id="int" value="<?php echo htmlentities($int); ?>" size="60"></td>
+<td><input type="Text" name="int" id="int" value="<?php echo htmlspecialchars($int); ?>" size="60"></td>
 </tr>
 
 <tr>
 <td align="right"><label for="screenCode"><?php echo $langCode ?></label>&nbsp;:</td>
-<td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlentities($currentCourseCode); ?>" size="20"></td>
+<td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlspecialchars($currentCourseCode); ?>" size="20"></td>
 </tr>
 
 <tr>
 <td align="right"><label for="titulary"><?php echo $langProfessors ?></label>&nbsp;:</td>
-<td><input type="text"  id="titulary" name="titulary" value="<?php echo htmlentities($titulary); ?>" size="60"></td>
+<td><input type="text"  id="titulary" name="titulary" value="<?php echo htmlspecialchars($titulary); ?>" size="60"></td>
 </tr>
 
 <tr>
 <td align="right"><label for="email"><?php echo $langEmail ?></label>&nbsp;:</td>
-<td><input type="text"  id="email" name="email" value="<?php echo htmlentities($email); ?>" size="30" maxlength="255"></td>
+<td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" size="30" maxlength="255"></td>
 </tr>
 
 <tr>
@@ -317,12 +317,12 @@ if (!empty ($dialogBox))
 
 <tr>
 <td align="right"><label for="extLinkName"><?php echo $langDepartmentUrlName ?></label>&nbsp;: </td>
-<td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo htmlentities($extLinkName); ?>" size="20" maxlength="30"></td>
+<td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo htmlspecialchars($extLinkName); ?>" size="20" maxlength="30"></td>
 </tr>
 
 <tr>
 <td align="right" nowrap><label for="extLinkUrl" ><?php echo $langDepartmentUrl ?></label>&nbsp;:</td>
-<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo htmlentities($extLinkUrl); ?>" size="60" maxlength="180"></td>
+<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo htmlspecialchars($extLinkUrl); ?>" size="60" maxlength="180"></td>
 </tr>
 
 <tr>

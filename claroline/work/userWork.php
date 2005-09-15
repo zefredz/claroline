@@ -967,11 +967,11 @@ if( $is_allowedToSubmit )
             echo  '<table width="100%">'."\n"
                   .'<tr>'."\n"
                   .'<td valign="top"><label for="wrkTitle">'.$langWrkTitle.'&nbsp;*&nbsp;:</label></td>'."\n"
-                  .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlentities($form['wrkTitle']).'" /></td>'."\n"
+                  .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkTitle']).'" /></td>'."\n"
                   .'</tr>'."\n\n"
                   .'<tr>'."\n"
                   .'<td valign="top"><label for="wrkAuthors">'.$langWrkAuthors.'&nbsp;*&nbsp;:</label></td>'."\n"
-                  .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlentities($form['wrkAuthors']).'" /></td>'."\n"
+                  .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkAuthors']).'" /></td>'."\n"
                   .'</tr>'."\n\n";
 
             // display the list of groups of the user
