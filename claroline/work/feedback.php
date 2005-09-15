@@ -29,8 +29,7 @@ $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'   ];
 $currentUserFirstName = $_user['firstName'];
 $currentUserLastName  = $_user['lastName'];
 
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed ) claro_disp_auth_form();
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 event_access_tool($_tid, $_courseTool['label']);
 
