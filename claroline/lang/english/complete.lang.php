@@ -2039,4 +2039,6 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Your enrollment on the c
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 $langcatcreated = "The new category has been created.";
 $langimportLearningPath = "Import a learning path";
+$langMessageRegistrationNotAllowed = "Registration not allowed on the platform";
+$langMessageEnrollToCourseNotAllowed = "Enroll to course not allowed";
 ?>
