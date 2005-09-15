@@ -191,8 +191,8 @@ switch ($display)
         echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
            <h3>Done: </h3>
            <ul>
-           <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a></li>
-           <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a></li>
+           <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
+           <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
            </ul>
            <h3>To do:</h3>
            <ul>
