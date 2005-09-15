@@ -65,11 +65,14 @@ else
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
 $cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : '');
 
+$uidRequired = true; // todo : possibility to continue in anonymous
 
-if ( is_null($_uid) )
+if ( is_null($_uid) && $uidRequired )
 {
+    // Display header
     require $includePath . '/claro_init_header.inc.php';
 
+    // Display login form
     echo '<table align="center">'                                     ."\n"
     .    '<tr>'                                                       ."\n"
     .    '<td>'                                                       ."\n"
@@ -104,6 +107,7 @@ if ( is_null($_uid) )
     .    '</table>'                                                 ."\n"
     ;
     
+    // Display footer
     require $includePath . '/claro_init_footer.inc.php';
 }
 elseif ( is_null($_cid) && $cidRequired )
@@ -127,9 +131,10 @@ elseif ( is_null($_cid) && $cidRequired )
 
     $courseList = claro_sql_query_fetch_all($sql);
 
+    // Display header
     require $includePath . '/claro_init_header.inc.php';
 
-
+    // Display select course form
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
     .    '<table align="center">'                                ."\n"
     .    '<tr>'                                                  ."\n"
@@ -163,27 +168,32 @@ elseif ( is_null($_cid) && $cidRequired )
     .    '</form>'                                               ."\n"
     ;
 
-        require $includePath . '/claro_init_footer.inc.php';
+    // Display footer
+    require $includePath . '/claro_init_footer.inc.php';
 }
 else
 {
     if ( $_cid && ! $is_courseAllowed )
     {
+        // Display header
+        require $includePath . '/claro_init_header.inc.php';
+
         if ( $_course['registrationAllowed'] )
         {
             if ( $_uid )
             {
-                require $includePath . '/claro_init_header.inc.php';
-
+		// Display link to student to enrol to this course
                 echo '<p align="center">'           ."\n"
                 .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br />'
                 .    $lang_if_you_wish_to_enroll_to_this_course
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
                 .    $langReg.'</a>' ."\n"
                 .    '</p>'          ."\n";
+
             }
-            elseif( $allowSelfReg )
+            elseif ( $allowSelfReg )
             {
+		// Display a link to anonymous to register on the platform
                 echo '<p align="center">'                           ."\n"
                 .    $langCreate1stAccountOnPlatform ."\n"
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
@@ -191,7 +201,27 @@ else
                 .    '</a>'                                         ."\n"
                 .    '</p>'                                         ."\n";
             }
+            else
+            {
+                // Anonymous cannot register on the platform
+                echo '<p align="center">'                           ."\n"
+                . $langMessageRegistrationNotAllowed
+                .    '</p>'                                         ."\n";
+                
+            }
         }
+	else
+	{
+	    // Enrolment is not allowed for this course
+            echo '<p align="center">'                           ."\n"
+                . $langMessageEnrollToCourseNotAllowed
+                .    '</p>'                                     ."\n";
+            
+	}
+
+        // Display footer
+        require $includePath . '/claro_init_footer.inc.php';
+
     }
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
