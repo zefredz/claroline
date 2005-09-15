@@ -4,7 +4,8 @@
 $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 
-if (!($_cid)) 	claro_disp_select_course();
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if ( !$is_courseAdmin ) claro_die($langNotAllowed);
 
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/lib/user.lib.php");

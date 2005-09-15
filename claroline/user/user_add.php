@@ -26,7 +26,8 @@ $tlabelReq = 'CLUSR___';
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! ($is_courseAdmin || $is_platformAdmin) ) claro_disp_auth_form();
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
 
 // include configuration file
 include($includePath."/conf/user_profile.conf.php");

@@ -18,7 +18,9 @@
 
 require '../inc/claro_init_global.inc.php';
 
-@include ($includePath."/installedVersion.inc.php");
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/user_profile.conf.php");
 include($includePath."/lib/user.lib.php");

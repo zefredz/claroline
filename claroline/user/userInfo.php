@@ -41,7 +41,7 @@ $nameTools = $langUser;
 /** OUTPUT **/
 claro_set_display_mode_available(TRUE);
 
-if ( ! $is_courseAllowed ) claro_disp_auth_form();
+if ( !$_cid || ! $is_courseAllowed ) claro_disp_auth_form();
 
 /*
  * data  found  in settings  are :
