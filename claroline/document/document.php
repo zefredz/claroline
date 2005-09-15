@@ -38,10 +38,11 @@
 /*= = = = = = = = = = = = = = = = = 
        CLAROLINE MAIN
   = = = = = = = = = = = = = = = = = = = =*/
+
 $tlabelReq = 'CLDOC___';
 require '../inc/claro_init_global.inc.php';
-if ( ! $is_courseAllowed) claro_disp_auth_form();
-if ( ! isset( $_cid ) ) claro_disp_select_course();
+
+if ( ! $_cid || ! $is_courseAllowed) claro_disp_auth_form(true);
 
 /*
  * Library for images
