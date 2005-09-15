@@ -130,15 +130,13 @@ echo $backLink;
 if( $is_allowedToTrack && $is_trackingEnabled )
 {
 	// display infos about the details ...
-    echo '<p>'
-	    .'<ul>'."\n"
+    echo '<ul>'."\n"
 	    .'<li>'.$langLastName.' : '.$thisAttemptDetails['lastname'].'</li>'."\n"
 	    .'<li>'.$langFirstName.' : '.$thisAttemptDetails['firstname'].'</li>'."\n"
 	    .'<li>'.$langDate.' : '.claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']).'</li>'."\n"
 	    .'<li>'.$langScore.' : '.$thisAttemptDetails['exe_result'].'/'.$thisAttemptDetails['exe_weighting'].'</li>'."\n"
 	    .'<li>'.$langExeTime.' : '.claro_disp_duration($thisAttemptDetails['exe_time']).'</li>'."\n"
-	    .'</ul>'
-	    .'</p>';
+	    .'</ul>'."\n\n";
 
 	// get all question that user get for this attempt
 	$sql = "SELECT TD.`id`, TD.`question_id`, TD.`result`
@@ -495,7 +493,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	// if there is no question (it is a old exercise attempt (before introduction of improved exo stats))
 	if( $i == 0 )
 	{
-		echo "(lang)No specific tracking for this attempt.";
+		echo '<p>'.$langNoTrackingForExerciseAttempt.'</p>'."\n";
 	}
 
 	echo $backLink;
