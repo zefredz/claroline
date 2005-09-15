@@ -225,23 +225,23 @@ class Exercise
 	 * Date from when exercise will be no more available to students
 	 * 
 	 * @author Piraux Sebastien <pir@cerdecam.be>
-   * @param string format 'mysql' or 'timestamp' 
+	 * @param string format 'mysql' or 'timestamp'
 	 * @return string mysql datetime format string
 	 */
-	function get_end_date($format = 'mysql')
+	function get_end_date( $format = 'mysql' )
 	{
-    if ($format == 'mysql')
-    {
-    		return $this->endDate;
-    }
-    elseif($format == 'timestamp')
-    {
-        list($date, $time)            = split(" ",$this->endDate);
-        list($year,$month,$day) = split("-",$date);
-        list($hour,$min,$sec)      = split(":",$time);
+		if( $format == 'timestamp' )
+		{
+		    list($date, $time)  = split(" ",$this->endDate);
+		    list($year,$month,$day) = split("-",$date);
+		    list($hour,$min,$sec) = split(":",$time);
 
-        return mktime($hour,$min,$sec,$month,$day,$year);
-    }
+		    return mktime($hour,$min,$sec,$month,$day,$year);
+		}
+		else // if $format == 'mysql' or anything else
+		{
+			return $this->endDate;
+		}
 	}
 	
 	/**
