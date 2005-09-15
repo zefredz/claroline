@@ -4,7 +4,7 @@
  *
  * Sql query to update main database
  *
- * @version  1.6 $Revision$
+ * @version  1.7 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
@@ -121,8 +121,8 @@ function query_to_upgrade_main_database_to_17 ()
     $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `description`";
 
     // add index in rel_class_user table
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `user_id` ) `";
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `class_id` ) `";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `user_id` ) ";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `class_id` ) ";
 
     return $sqlForUpdate;
 }
