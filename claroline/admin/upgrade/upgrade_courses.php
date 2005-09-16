@@ -198,15 +198,9 @@ switch ($display)
             $upgraded = false;
             $message = '';
             
-
-            echo '<table>
-            <tr valign="top">
-            <td><strong>' . $count_course_upgraded . ' . </strong></td>
-            <td>Upgrading course <strong>' . $currentCourseFakeCode . '</strong><br>
-            <small>DB Name : ' . $currentCourseDbName . '<br>
-            Course ID: ' . $currentCourseCode . '</small></td>
-            </tr>
-            </table>';
+            echo '<p><strong>' . $count_course_upgraded . ' . </strong> 
+                  Upgrading course <strong>' . $currentCourseFakeCode . '</strong><br />
+                  <small>DB Name : ' . $currentCourseDbName . ' - Course ID : ' . $currentCourseCode . '</small></p>';
             
             /**
              * Make some check.
@@ -246,7 +240,7 @@ switch ($display)
 			$step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo 'Error : ' . $function . '(step . ' . $step . ')';
+                            echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
                             $error = true;
                         }
                     }
@@ -287,7 +281,7 @@ switch ($display)
 			$step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo 'Error : ' . $function . '(step . ' . $step . ')';
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
                             $error = true;
                         }
                     }
