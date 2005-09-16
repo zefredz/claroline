@@ -90,12 +90,13 @@ function get_course_home_tool_list($reqAccessLevel = 'ALL')
 
     $sql = "SELECT tl.id                               id,
                    tl.script_name                      name,
-                   tl.access                         access,
+                   tl.access                           access,
                    tl.rank                             rank,
                    IFNULL(ct.script_url,tl.script_url) url,
                    ct.claro_label                      label,
-                   ct.icon                            icon,
-                   ct.access_manager                  access_manager
+                   ct.icon                             icon,
+                   ct.access_manager                   access_manager,
+                   ISNULL(tl.tool_id)                  external
 
             FROM `".$tbl_course_tool_list."` tl
 
@@ -105,7 +106,7 @@ function get_course_home_tool_list($reqAccessLevel = 'ALL')
 
             WHERE tl.access IN (\"".implode("\", \"", $reqAccessList)."\")
 
-            ORDER BY tl.rank
+            ORDER BY external, tl.rank
             ";
 
      return claro_sql_query_fetch_all($sql);
