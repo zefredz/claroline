@@ -260,16 +260,16 @@ function wiki_upgrade_to_17($course_code)
                             `wiki_id` int(11) unsigned NOT NULL default '0',
                             `owner_id` int(11) unsigned NOT NULL default '0',
                             `title` varchar(255) NOT NULL default '',
-                            `ctime` timestamp NOT NULL default '0000-00-00 00:00:00',
+                            `ctime` datetime NOT NULL default '0000-00-00 00:00:00',
                             `last_version` int(11) unsigned NOT NULL default '0',
-                            `last_mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
+                            `last_mtime` datetime NOT NULL default '0000-00-00 00:00:00',
                             PRIMARY KEY  (`id`) )" ;
         
             $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."wiki_pages_content` (
                             `id` int(11) unsigned NOT NULL auto_increment,
                             `pid` int(11) unsigned NOT NULL default '0',
                             `editor_id` int(11) NOT NULL default '0',
-                            `mtime` timestamp NOT NULL default '0000-00-00 00:00:00',
+                            `mtime` datetime NOT NULL default '0000-00-00 00:00:00',
                             `content` text NOT NULL,
                             PRIMARY KEY  (`id`) )";
 
