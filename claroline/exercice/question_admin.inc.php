@@ -29,7 +29,6 @@ if(!defined('ALLOWED_TO_INCLUDE'))
 $attachedFile = $_SESSION['objQuestion']->selectAttachedFile();
 $hasTempAttachedFile = ($_SESSION['objQuestion']->selectTempAttachedFile() != "") ? true:false;
 
-
 // if the question we are modifying is used in several exercises
 if( isset($usedInSeveralExercises) )
 {
@@ -38,8 +37,21 @@ if( isset($usedInSeveralExercises) )
 <h3>
   <?php echo $questionName; ?>
 </h3>
-
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $modifyQuestion; ?>&amp;modifyAnswers=<?php echo $modifyAnswers; ?>">
+<?php
+	$formUrl = $_SERVER['PHP_SELF'];
+	
+	if (isset($modifyQuestion))
+	{
+		$formUrl .= '?modifyQuestion='.$modifyQuestion;
+ 	}
+	elseif( isset($modifyAnswers) )
+	{
+		$formUrl .= '?modifyAnswers='.$modifyAnswers;
+	}
+	
+	
+?>
+<form method="post" action="<?php echo $formUrl; ?>">
 <table border="0" cellpadding="5">
 <tr>
   <td>
@@ -49,12 +61,15 @@ if( isset($usedInSeveralExercises) )
 	// submit question
 	if( isset($_REQUEST['submitQuestion']) )
 	{
+		if( !empty($_REQUEST['answerType']) )
+			$answerType = $_REQUEST['answerType'];
+		else
+		    $answerType = $_SESSION['objQuestion']->selectType();
 ?>
 
     <input type="hidden" name="questionName" value="<?php echo htmlspecialchars($questionName); ?>">
     <input type="hidden" name="questionDescription" value="<?php echo htmlspecialchars($questionDescription); ?>">
-    <input type="hidden" name="fileUpload_size" value="<?php echo $fileUpload_size; ?>">
-    <input type="hidden" name="deleteAttachedFile" value="<?php echo $deletePicture; ?>">
+    <input type="hidden" name="deleteAttachedFile" value="<?php echo (isset($deletePicture))?$deletePicture:''; ?>">
     
     <input type="hidden" name="attachedFile" value="<?php echo htmlspecialchars($attachedFile); ?>">
     <input type="hidden" name="hasTempAttachedFile" value="<?php echo $hasTempAttachedFile; ?>">
@@ -105,7 +120,6 @@ if( isset($usedInSeveralExercises) )
 ?>
 
 	<input type="hidden" name="answerType" value="<?php echo $answerType; ?>">
-
     <table border="0" cellpadding="3" align="center" width="400">
     <tr>
       <td><?php echo $langUsedInSeveralExercises.' :'; ?></td>
@@ -118,7 +132,7 @@ if( isset($usedInSeveralExercises) )
     </tr>
     <tr>
 	  <td>
-      <input type="submit" name="<?php echo $_REQUEST['submitQuestion']?'submitQuestion':'submitAnswers'; ?>" value="<?php echo $langOk; ?>">&nbsp;&nbsp;
+      <input type="submit" name="<?php echo (isset($_REQUEST['submitQuestion']))?'submitQuestion':'submitAnswers'; ?>" value="<?php echo $langOk; ?>">&nbsp;&nbsp;
       <input type="submit" name="buttonBack" value="<?php echo $langCancel; ?>">
 	  </td>
     </tr>
