@@ -258,20 +258,46 @@ class claro_sql_pager
         
             .'<td align="center" width="60%">'."\n";
 
-        if ( $this->offsetCount > 1) 
+        // current page
+        $current_page = (int)$this->offset/$this->step ;
+        // total page
+        $count_page = $this->offsetCount; 
+        // start page    
+        if ( $current_page > 10 ) $start_page = $current_page - 10;
+        else                      $start_page = 0;
+        // end page
+        if ( $current_page + 10 < $count_page ) $end_page = $current_page + 10;
+        else                                    $end_page = $count_page;
+
+        // display 1 ... {start_page}
+        if ( $start_page > 0 )
         {
-            for ($i = 0; $i < $this->offsetCount ; $i ++)
+            echo '<a href="'.$url.$pageList[0].'">'.(0+1).'</a>&nbsp;';
+            if ( $start_page > 1 ) echo '...&nbsp;';
+        } 
+
+        if ( $count_page > 1) 
+        {
+            // display page
+            for ($page=$start_page; $page < $end_page ; $page++)
             {
-                if ($this->offset != $pageList[$i])
+                if ( $current_page == $page )
                 {
-                    echo '<a href="'.$url.$pageList[$i].'">'.($i+1).'</a> ';
+                    echo '<b>'.($page+1).'</b> '; // current page
                 }
                 else
                 {
-                    echo '<b>'.($i+1).'</b> '; // current page
+                    echo '<a href="'.$url.$pageList[$page].'">'.($page+1).'</a> ';
                 }
             }
         }
+
+        // display 1 ... {start_page}
+        if ( $end_page < $count_page )
+        {
+            if ( $end_page + 1 < $count_page ) echo '...';
+            echo '&nbsp;<a href="'.$url.$pageList[$count_page-1].'">'.($count_page).'</a>';
+        } 
 
         echo "\n".'</td>'."\n"
         .    '<td align="right" width="20%">'."\n"
