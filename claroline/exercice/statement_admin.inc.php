@@ -99,9 +99,9 @@ if(isset($_REQUEST['submitQuestion']))
 
 		// if a file has been set or checkbox "delete" has been checked
 		if(
-			( is_uploaded_file($_FILES['fileUpload']['tmp_name']) && $_FILES['fileUpload']['size'] > 0 )
+			( isset($_FILES['fileUpload']) && is_uploaded_file($_FILES['fileUpload']['tmp_name']) && $_FILES['fileUpload']['size'] > 0 )
 			||( isset($_REQUEST['hasTempAttachedFile']) && $_REQUEST['hasTempAttachedFile'] )
-			|| isset($_REQUEST['deleteAttachedFile'])
+			||( isset($_REQUEST['deleteAttachedFile']) && $_REQUEST['deleteAttachedFile'] )
 		  )
 		{
 			// we remove the attached file
@@ -109,7 +109,7 @@ if(isset($_REQUEST['submitQuestion']))
 
 			// if we add a new attached file
 			if(
-				( is_uploaded_file($_FILES['fileUpload']['tmp_name']) && $_FILES['fileUpload']['size'] > 0 )
+				( isset($_FILES['fileUpload']) && is_uploaded_file($_FILES['fileUpload']['tmp_name']) && $_FILES['fileUpload']['size'] > 0 )
 				||( isset($_REQUEST['hasTempAttachedFile']) && $_REQUEST['hasTempAttachedFile'] )
 			  )
 			{
@@ -117,6 +117,9 @@ if(isset($_REQUEST['submitQuestion']))
                 if( isset($_REQUEST['hasTempAttachedFile']) )
                 {
                     $_SESSION['objQuestion']->getTmpAttachedFile();
+                    // clean this var to prevent clash if a question used in several exercises is
+                    // modified several times without cleaning the session of objExercise
+                    $_SESSION['objQuestion']->updateTempAttachedFile('');
                 }
                 // saves the file coming from POST FILE
                 else
