@@ -183,7 +183,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 				$_SESSION['objAnswer']->cancel();
 			}
 			// checks if the question is used in several exercises
-			elseif($exerciseId && !empty($modifyIn) && !$modifyIn && $_SESSION['objQuestion']->selectNbrExercises() > 1)
+			elseif($exerciseId && (empty($modifyIn) || !$modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 			{
 				$usedInSeveralExercises = 1;
 			}
@@ -213,7 +213,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 				if( isset($blanks) ) $blanks = unserialize($blanks);
 
 				// checks if the question is used in several exercises
-				if($exerciseId && !empty($modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
+				if($exerciseId && (empty($modifyIn) || !$modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
 				{
 					$usedInSeveralExercises = 1;
 				}
