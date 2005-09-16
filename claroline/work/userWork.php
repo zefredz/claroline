@@ -480,7 +480,7 @@ if( isset($_REQUEST['submitWrk']) )
 
 			    if( !is_dir( $assigDirSys ) )
 			    {
-			          claro_mkdir( $assigDirSys , 0777 );
+			          claro_mkdir( $assigDirSys , CLARO_FILE_PERMISSIONS );
 			    }
 
 			    if( ! @copy($_FILES['wrkFile']['tmp_name'], $assigDirSys.$wrkForm['fileName']) )
