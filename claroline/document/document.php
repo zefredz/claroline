@@ -901,9 +901,9 @@ if ($cmd == 'rqSearch')
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 if (in_array($cmd, array('rqMv', 'exRm', 'rqEdit', 'exEdit', 'exEditHtml',
-                         'exChVis', 'rqComment', 'exComment')))
+                         'exChVis', 'rqComment', 'exComment', 'submitImage')))
 {
-    $curDirPath = claro_dirname($_REQUEST['file']);
+    $curDirPath = claro_dirname(isset($_REQUEST['file']) ? $_REQUEST['file'] : $_REQUEST['relatedFile']);
 }
 elseif (in_array($cmd, array('rqMkDir', 'exMkDir', 'rqUpload', 'exUpload', 
                              'rqMkUrl', 'exMkUrl', 'reqMkHtml', 'exMkHtml', 'rqSearch')))
