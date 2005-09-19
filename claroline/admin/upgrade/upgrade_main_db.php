@@ -91,19 +91,19 @@ switch ( $display )
 {
     case DISPLAY_WELCOME_PANEL:
 
-    // Display welcome message
+       // Display welcome message
 
-    echo  '<h2>Step 2 of 3: main platform tables upgrade</h2>
-          <p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored
-          into the <b>main Claroline tables</b> (users, course categories, tools list, ...) 
-          and set them to be compatible with the new Claroline version.</p>
-          <p class="help">Note. Depending of the speed of your server or the amount of data 
-          stored on your platform, this operation may take some time.</p>
-          <center>
-          <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch main platform tables upgrade</button></p>
-          </center>';
+        echo  '<h2>Step 2 of 3: main platform tables upgrade</h2>
+              <p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored
+              into the <b>main Claroline tables</b> (users, course categories, tools list, ...) 
+              and set them to be compatible with the new Claroline version.</p>
+              <p class="help">Note. Depending of the speed of your server or the amount of data 
+              stored on your platform, this operation may take some time.</p>
+              <center>
+              <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch main platform tables upgrade</button></p>
+              </center>';
 
-    break;
+        break;
 
     case DISPLAY_RESULT_PANEL :
 
@@ -125,83 +125,89 @@ switch ( $display )
           Upgrade 1.5 to 1.6
          ---------------------------------------------------------------------*/
 
-    if ( preg_match('/^1.5/',$currentDbVersion) )
-    {
-        // Apply sql query from $sqlForUpdate16 to main dataabse
-        $sqlForUpdate16 = query_to_upgrade_main_database_to_16();
-        $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate16,$verbose);
-
-        // For each configuration file add a hash code in the new table config_list (new in 1.6)
-
-        $def_file_list = get_def_file_list();
-        foreach ( $def_file_list as $def_file_bloc)
+        if ( preg_match('/^1.5/',$currentDbVersion) )
         {
-            if ( isset($def_file_bloc['conf']) && is_array($def_file_bloc['conf']) )
+            // Apply sql query from $sqlForUpdate16 to main dataabse
+            $sqlForUpdate16 = query_to_upgrade_main_database_to_16();
+            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate16,$verbose);
+
+            // For each configuration file add a hash code in the new table config_list (new in 1.6)
+
+            $def_file_list = get_def_file_list();
+            foreach ( $def_file_list as $def_file_bloc)
             {
-                // blocs are use in visual config tool to list
-                // in special order thes detected config files.
-                foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+                if ( isset($def_file_bloc['conf']) && is_array($def_file_bloc['conf']) )
                 {
-                    $conf_file = get_conf_file($config_code);
-                    // The Hash compute and store is differed after creation table use for this storage
-                    // calculate hash of the config file
-                    $conf_hash = md5_file($conf_file);
-                    save_config_hash_in_db($config_code,$conf_hash);
+                    // blocs are use in visual config tool to list
+                    // in special order thes detected config files.
+                    foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
+                    {
+                        $conf_file = get_conf_file($config_code);
+                        // The Hash compute and store is differed after creation table use for this storage
+                        // calculate hash of the config file
+                        $conf_hash = md5_file($conf_file);
+                        save_config_hash_in_db($config_code,$conf_hash);
+                    }
                 }
             }
-        }
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.5 to 1.6 Succeed
+                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.6</p>' . "\n";
+    
+                // Database version is 1.6
+                $currentDbVersion = '1.6';
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $currentDbVersion) ;
+            }
+        } // end upgrade 1.5 to 1.6
+
+        /*---------------------------------------------------------------------
+        Upgrade 1.6 to 1.7
+        ---------------------------------------------------------------------*/
+
+        if ( preg_match('/^1.6/',$currentDbVersion) )
+        {
+            // Apply sql query from $sqlForUpdate17 to main database
+            $sqlForUpdate17 = query_to_upgrade_main_database_to_17();
+            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate17,$verbose);
+
+            // Add wiki tool (new in 1.7)
+            register_tool_in_main_database('CLWIKI__','wiki/wiki.php','wiki.gif');
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.6 to 1.7 Succeed
+                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $new_version);
+            }
+        } // End of upgrade 1.6 to 1.7
 
         if ( $nbError == 0 )
         {
-            // Upgrade 1.5 to 1.6 Succeed
-            echo '<p class="success">The claroline main tables have been successfully upgraded to 1.6</p>' . "\n";
-
-            // Database version is 1.6
-            $currentDbVersion = '1.6';
-
-            // Update current version file
-            save_current_version_file($currentClarolineVersion, $currentDbVersion) ;
+            if ( preg_match('/^1.7/',$currentDbVersion) )
+            {
+                echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
+            }
+            else
+            {
+                echo '<p class="error">Db version unknown : ' . $currentDbVersion . '</p>';
+            }
         }
-    } // end upgrade 1.5 to 1.6
-
-    /*---------------------------------------------------------------------
-    Upgrade 1.6 to 1.7
-    ---------------------------------------------------------------------*/
-
-    if ( preg_match('/^1.6/',$currentDbVersion) )
-    {
-        // Apply sql query from $sqlForUpdate17 to main database
-        $sqlForUpdate17 = query_to_upgrade_main_database_to_17();
-        $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate17,$verbose);
-
-        // Add wiki tool (new in 1.7)
-        register_tool_in_main_database('CLWIKI__','wiki/wiki.php','wiki.gif');
-
-        if ( $nbError == 0 )
+        else
         {
-            // Upgrade 1.6 to 1.7 Succeed
-            echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
-
-            // Update current version file
-            save_current_version_file($currentClarolineVersion, $new_version);
+            echo '<p class="error">' . sprintf(" %d errors found",$nbError) . '</p>' . "\n";
+            echo '<p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true\';" >Retry with more details</button></p>';
         }
-    } // End of upgrade 1.6 to 1.7
 
-    if ( $nbError > 0 )
-    {
-        echo '<p class="error">' . sprintf(" %d errors found",$nbError) . '</p>' . "\n";
-
-        echo '<p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true\';" >Retry with more details</button></p>';
-    }
-    else
-    {
-        echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
-    }
-
-    break;
+        break;
 
     default :
-    die('Display unknow');
+        die('Display unknow');
 }
 
 // Display footer
