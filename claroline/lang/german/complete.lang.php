@@ -55,7 +55,7 @@ $langAddClass = "Eine Klasse eintragen";
 $langAddComment = "Kommentar hinzufügen/ändern";
 $langAddCommentOptionnal = "Kommentar hinzufügen (optional) :";
 $langAddEvent = "Termin hinzufügen";
-$langAddExternalTool = "Exterenen Link hinzufügen";
+$langAddExternalTool = "Externen Link hinzufügen";
 $langAddFeedback = "Feedback hinzuf&uuml;gen";
 $langAddForum = "Forum hinzufügen";
 $langAddImage = "Bild einfügen";
@@ -72,7 +72,7 @@ $langAddOneModuleButton = "Modul hinzufügen";
 $langAddTutors = "Benutzerverwaltung";
 $langAddUser = "Neuen Benutzer anlegen";
 $langAddUserOneByOne = "Neuen Benutzern wird eine E-Mail mit Ihren Zugansgdaten übersendet";
-$langAddWrongAnswers = "Falsche Antworten für die Auswahlliste hinzufügen <small>(Optional. Eine falsche Antwort pro Zeile.)</small>";
+$langAddWrongAnswers = "Geben Sie falsche Antworten für 'Wählen aus einer Liste' ein. <small>(Optional; eine falsche Antwort pro Zeile.)</small>";
 $langAdd_users = "Benutzer hinzuf&uuml;gen";
 $langAddedExternalTool = "Externes Tool hinzugefügt.";
 $langAddedToCampus = " wurde der Plattform hinzugefügt.";
@@ -189,7 +189,7 @@ $langBackToCourseList = "Zurück zur Kurs-Übersicht";
 $langBackToEditor = "Zurück zur Bearbeitung";
 $langBackToLPAdmin = "Zurück zur Lernpfad-Administration";
 $langBackToList = "Zurück zur Übersicht";
-$langBackToMyCourseList = "Zur&uumlck zu meiner Kursliste";
+$langBackToMyCourseList = "Zurück zu meiner Kursliste";
 $langBackToUserList = "Zurück zur Benutzer-Übersicht";
 $langBackToUserSettings = "Zurück zu den Benutzer-Einstellungen";
 $langBackToUsersList = "Zurück zur Liste der Teilnehmer";
@@ -210,27 +210,27 @@ $langCampusRegistered = "<strong>Approved</strong><p> Ihre Registrierung wurde v
 $langCampusRegistrationSubmitted = " Ihr Campus wurde übermittelt und wartet auf die Bestätigung des Claroline.net-Teams";
 $langCampusRemoved = "<strong>Gelöscht</strong><p>Ihr Campus wurde von der Worldwide-Seite gelöscht.</p>";
 $langCampusSubmitted = "<strong>Gesendet</strong><p>Warten auf die Bestätigung des Claroline.net-Teams.</p>";
-$langCancel = "abbrechen";
+$langCancel = "Abbrechen";
 $langCannotBeBlank = "Sie können den Namen der Klasse nicht leer lassen!";
 $langCannotCopyFile = "Kann die Datei nicht kopieren.";
 $langCannotInitChat = "Error : Chat kann nicht initialisiert werden";
-$langCannotRemoveGroupForum = "Bevor sie ein Gruppenforum löschen, müssen sie die Gruppe löschen";
-$langCannotSeeExerciseDetails = "Sie sind nicht autorisiert die Antworten im Detail zu sehen.";
-$langCannotUnsubscribeLastCourseManager = "Sie können nicht den letzten Dozenten aus dem Kurs austragen";
+$langCannotRemoveGroupForum = "Sie können ein Gruppenforum nicht löschen. Sie müssen zuerst die Gruppe löschen.";
+$langCannotSeeExerciseDetails = "Detaillierte Antworten dürfen nicht dargestellt werden.";
+$langCannotUnsubscribeLastCourseManager = "Sie können den letzten KursSite-Verantwortlichen nicht entfernen.";
 $langCatagoryGroup = "Gruppenforum";
 $langCatagoryMain = "Haupt";
 $langCategories = "Kategorien";
 $langCategory = "Kategorie";
-$langCategoryDeleted = "Kategorie gelöscht";
-$langCategoryUpdated = "Kategorie aktualisiert";
+$langCategoryDeleted = "Die Kategorie wurde gelöscht.";
+$langCategoryUpdated = "Die Kategorie wurde aktualisiert.";
 $langCfgSetting = "Konfiguratonseinstellungen";
-$langChangePwdexp = "Neues Passwort zweimal eingeben, um es zu ändern - Leer lassen, um es beizubehalten";
+$langChangePwdexp = "Neues Passwort zweimal eingeben, um es zu ändern - Felder leer lassen, um das alte Passwort beizubehalten.";
 $langChangeRaw = "Ändern der Mindestanforderung, um dieses Modul zu bestehen (in Prozent) : ";
 $langChangedTool = "Zugriff auf Tools geändert";
 $langChat = "Chat";
 $langChatResetBy = "Chat zurückgesetzt von";
 $langChoice = "Sie w&auml;hlten";
-$langChooseACourseToAccessThisPage = "Wählen sie einen Kurs, um auf diese Seite zu gelangen";
+$langChooseACourseToAccessThisPage = "Wählen Sie einen Kurs, um zu dieser Seite zu kommen.";
 $langChooseDateHelper = "(T/M/J hh:mm)";
 $langChooseGoodAnswer = "Wählen Sie eine richtige Antwort";
 $langChooseGoodAnswers = "Wählen sie eine oder mehrere richtige Antworten";
@@ -246,8 +246,8 @@ $langClassRegisterWholeClass = "Diese Klasse bei einer KursSite eintragen";
 $langClassRegisterWholeClassAgain = "Die ganze Klasse bei einer weiteren KursSite eintragen";
 $langClassRegistered = "Klasse eingetragen";
 $langClearList = "Kalender bereinigen";
-$langClickToZoomIn = "Zum Vergrößern bitte anklicken";
-$langClickToZoomOut = "zum Verkleinern bitte anklicken";
+$langClickToZoomIn = "klicken Sie zum Reinzoomen";
+$langClickToZoomOut = "klicken Sie zum Rauszoomen";
 $langClose = "schließen";
 $langCloseWindow = "Fenster schlie&szlig;en";
 $langCode = "KursNr.";
@@ -263,13 +263,13 @@ $langConfirmDeleteExercise = "Sind Sie sicher, das Sie diesen Test löschen möcht
 $langConfirmDeleteGroups = "Wollen Sie wirklich alle Gruppen löschen?";
 $langConfirmDeleteQuestion = "Sind Sie sicher, das Sie diesen Frage inkl. aller Antworten löschen möchten ?";
 $langConfirmDeleteStats = "Wenn Sie die KursSite-Statistik l&ouml;schen, dann ist sie unwiederruflich verloren!<br><br>Sind Sie sicher, dass Sie die KursSite-Statistik komplett l&ouml;schen wollen?";
-$langConfirmEmptyForum = "Alle Mitteilungen werden gelöscht";
+$langConfirmEmptyForum = "Alle Postings löschen aus ";
 $langConfirmEmptyGroups = "Wollen Sie wirklich alle Gruppen leeren?";
 $langConfirmEnrollClassToCourse = "Wollen Sie wirklich die ganze Klasse in die KursSite eintragen?";
 $langConfirmYourChoice = "Bitte bestätigen Sie Ihre Auswahl";
 $langConfirmation = "Bestätigung";
 $langContent = "Inhalt";
-$langContinue = "weiter";
+$langContinue = "Weiter";
 $langContradiction = "Ein Widerspruchsprinzip, um sein Gegenüber in die Ecke zu drängen.";
 $langCopy = "Kopieren";
 $langCopyFailed = "Drucken fehlgeschlagen";
@@ -298,28 +298,28 @@ $langCourseDescription = "Kursbeschreibung";
 $langCourseHome = "Kurs-Startseite";
 $langCourseList = "Kurs-Websites";
 $langCourseManager = "KursSite-Verantwortlicher";
-$langCourseManagerCannotUnsubscribeHimself = "Ein Dozent  kann sich nicht selbst aus dem Kurs austragen";
+$langCourseManagerCannotUnsubscribeHimself = "Der KursSite-Verantwortliche kann sich nicht selbst austragen.";
 $langCourseManagerStatusToUser = "Folgender Benutzer erbittet, KursSites erzeugen zu können: %s %s";
-$langCourseNotFound = "Kurs nicht gefunden";
+$langCourseNotFound = "KursSite nicht gefunden";
 $langCourseProgram = "Kursbeschreibung";
 $langCourseSettings = "KursSite-Einstellungen";
 $langCourseTitle = "Titel des Kurses";
 $langCourseWithoutAccess = "nicht genutzte KursSites";
 $langCourseWithoutProf = "KursSites ohne Dozent/Tutor";
 $langCourseWithoutStudents = "KursSites ohne Teilnehmer";
-$langCourseWouldBeCreated = "Ihr Kurs wird erstellt";
+$langCourseWouldBeCreated = "Ihre KursSite wird jetzt erzeugt.";
 $langCourse_Repository = "Kurs-Katalog";
-$langCourses = "Kurse.";
+$langCourses = "Kurse";
 $langCreate = "erstellen";
-$langCreate1stAccountOnPlatform = "Erstellen sie zuerst einen Benutzerzugang";
+$langCreate1stAccountOnPlatform = "Legen Sie zuerst einen Nutzeraccount auf dieser Plattform an.";
 $langCreateAnotherUser = "Einen weiteren neuen Benutzer anlegen";
 $langCreateAssignment = "Neuen Upload-Bereich erstellen";
-$langCreateCategory = "Kategorie erstellen";
+$langCreateCategory = "neue Foren-Kategorie erzeugen";
 $langCreateCourse = "KursSite-Erstellung";
 $langCreateCourses = "KursSites erstellen";
 $langCreateDir = "Verzeichnis&nbsp;erstellen";
 $langCreateDocument = "Dokument&nbsp;erstellen";
-$langCreateForum = "Forum erstellen";
+$langCreateForum = "neues Forum erzeugen";
 $langCreateHyperlink = "Link&nbsp;erstellen";
 $langCreateLabel = "Titel erstellen";
 $langCreateModifyDocument = "Dokument erstellen/bearbeiten";
@@ -464,7 +464,7 @@ $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanag
         <center>
           <p>";
 $langDocDeleted = "Dokument gelöscht";
-$langDocInsertedAsModule = "Wurde als Modul hinzugefügt";
+$langDocInsertedAsModule = "wurde als Modul hinzugefügt";
 $langDocument = "Dokumente/Dateien";
 $langDocumentAlreadyUsed = "Dieses Dokument wird bereits als Modul in diesem Lernpfad verwendet";
 $langDocumentAsModule = "Dokument verwenden";
@@ -490,10 +490,10 @@ $langEditFeedback = "Automatisches Feedback bearbeiten";
 $langEditFileContent = "Inhalt der Datei bearbeiten";
 $langEditFormat = "Format bearbeiten";
 $langEditGroup = "Diese Gruppe bearbeiten";
-$langEditPost = "Nachricht bearbeiten";
+$langEditPost = "Posting bearbeiten";
 $langEditQuestion = "Frage bearbeiten";
 $langEditSettings = "Einstellungen bearbeiten";
-$langEditTextZone = "Textfeld bearbeiten";
+$langEditTextZone = "Textbereich bearbeiten";
 $langEditToolList = " Tool-Liste bearbeiten";
 $langEditWork = "Eine Arbeit ver&auml;ndern";
 $langElRen = "Element umbenannt";
@@ -524,16 +524,16 @@ $langErrorAssetNotFound = "Asset nicht gefunden : ";
 $langErrorCannotReadRSSFile = "Fehler : kann RSS-Quelle nicht lesen";
 $langErrorCategoryEmpty = "Das Feld 'Kategorie' darf nicht leer sein!";
 $langErrorClassNotEmpty = "Diese Klasse enthält immer noch Unterklassen, löschen Sie diese zuerst.";
-$langErrorCopyAttachedFile = "Kopieren nicht möglich";
-$langErrorCopyScormFiles = "Fehler beim Kopieren der benötigten SCORM Dateien";
-$langErrorCopyingScorm = "Fehler beim Kopieren SCORM Inhalt existiert";
+$langErrorCopyAttachedFile = "Kann Datei nicht kopieren: ";
+$langErrorCopyScormFiles = "Fehler beim Kopieren erforderlicher SCORM-Dateien";
+$langErrorCopyingScorm = "Fehler beim Kopieren existierenden SCORM-Inhaltes";
 $langErrorCourseCodeEmpty = "Das Feld 'KursNr.' darf nicht leer sein!";
 $langErrorCourseTitleEmpty = "Das Feld 'Titel des Kurses' darf nicht leer sein!";
-$langErrorCreatingDirectory = "Erstellen des Verzeichnisses nicht möglich";
-$langErrorCreatingFile = "Erstellen der Datei nicht möglich";
-$langErrorCreatingFrame = "Erstellen der Rahmendatei nicht möglich";
-$langErrorCreatingManifest = "Es ist nicht möglich das SCORM-Manifest zu erstellen (imsmanifest.xml)";
-$langErrorCreatingScormArchive = "Erstellen des SCORM Archivs nicht möglich";
+$langErrorCreatingDirectory = "Kann Verzeichnis nicht erstellen: ";
+$langErrorCreatingFile = "Kann Datei nicht erstellen: ";
+$langErrorCreatingFrame = "Kann Frame-Datei nicht erstellen";
+$langErrorCreatingManifest = "Kann das SCORM-Manifest nicht erstellen (imsmanifest.xml)";
+$langErrorCreatingScormArchive = "Kann das SCORM-Archiv nicht erstellen";
 $langErrorDepartmentEmpty = "Das Feld 'Bereich' darf nicht leer sein!";
 $langErrorDepartmentURLEmpty = "Das Feld 'Bereichs-URL' darf nicht leer sein!";
 $langErrorDepartmentURLWrong = "Der 'Bereichs-URL' ist ungültig!";
@@ -545,8 +545,8 @@ $langErrorFormatCSV = "ERROR: Das eingegebene Format ist nicht mit Claroline kom
 $langErrorInvalidParms = "Fehler : Ungültiger Parameter (nur Zahlen benutzen)";
 $langErrorLanguageEmpty = "Das Feld 'Sprache' darf nicht leer sein!";
 $langErrorLecturerEmpty = "Das Feld 'Dozent' darf nicht leer sein!";
-$langErrorLoadingExercise = "Laden des Tests  nicht möglich";
-$langErrorLoadingQuestion = "Laden der Testfragen nicht möglich";
+$langErrorLoadingExercise = "Kann die Übung nicht laden";
+$langErrorLoadingQuestion = "Kann die Frage der Übung nicht laden";
 $langErrorMove = "Sie können eine Klasse nicht in sich selbst verschieben!";
 $langErrorMyOwnSettings = "Sie können Ihren eigenen Status nicht ändern!";
 $langErrorNameAlreadyExists = "FEHLER : Name existiert bereits";
@@ -667,8 +667,8 @@ $langExpectedChoice = "Erwartete Antwort";
 $langExplainDeleteFile = "aktivieren Sie dieses K&auml;stchen, um die angeh&auml;ngte Datei zu l&ouml;schen";
 $langExplainReplaceFile = "Eine neue Datei hochladen, um die existierende Datei zu ersetzen.";
 $langExplanation = "Wenn Sie OK geklickt haben wird eine komplette KursSite mit Forum, Kalender, Dokumenten-/Dateiverwaltung usw. erzeugt werden. Ihr Login als Dozent/Tutor des Kurses erlaubt es Ihnen, die Site nach Ihren Wünschen zu verändern";
-$langExport = "Export";
-$langExportTrackingCsv = "Leistungsdaten in eine CSV-Datei übertragen";
+$langExport = "exportieren";
+$langExportTrackingCsv = "Daten als CSV-Datei speichern";
 $langExternalToolName = "Name des Links";
 $langExternalToolUrl = "URL des Links";
 $langExtractFromLangFile = "Aus den Language-Files";
@@ -702,12 +702,12 @@ $langFillBlanks = "Lücken/Leerstellen ausfüllen";
 $langFillCourses = "Test-Kurs aufbauen";
 $langFillGroups = "Gruppenmitglieder einfügen";
 $langFillLists = "Füllen Sie die Listen aus";
-$langFillSelectBox = "Wählen sie aus der Auswahlliste";
-$langFillTextField = "Schreiben sie in das Textfeld";
-$langFillTheAreaToExplainTheMotivations = " Füllen Sie diesen Bereich aus, um Ihr Anliegen zu erläutern und senden Sie Ihre Anfrage ab.Eine E-Mail wird an den Plattform-Administrator gesendet.";
+$langFillSelectBox = "Wählen aus einer Liste";
+$langFillTextField = "Ausfüllen eines Textfeldes";
+$langFillTheAreaToExplainTheMotivations = " Füllen Sie diesen Bereich aus, um Ihr Anliegen zu erläutern und senden Sie Ihre Anfrage ab. Eine E-Mail wird an den Plattform-Administrator gesendet.";
 $langFillToolCourses = "Fill tool courses";
 $langFillTree = " Kurskategorien einfügen";
-$langFillType = "ausfülllen";
+$langFillType = "Modus des Ausfüllens";
 $langFillUsers = "Nutzer einfügen";
 $langFilling = "Mit Testwerten füllen";
 $langFilter = "Filter";
@@ -729,11 +729,11 @@ Per Voreinstellung enthält das Forum nun die Kategorie 'public' (öffentlich) und
 $langForce = "Sein Gegenüber durch eine Reihe von Fragen und Teilfragen dazu zu bringen, einzugestehen, dass es nicht weiss, was es vorgibt zu wissen.";
 $langFormula = "Mit freundlichen Grüßen,";
 $langForum = "Forum";
-$langForumCreated = "Foraum erstellt";
-$langForumDeleted = "Forum gelöscht";
-$langForumEmptied = "Forum geleert";
+$langForumCreated = "Das Forum wurde erstellt.";
+$langForumDeleted = "Das Forum wurde gelöscht.";
+$langForumEmptied = "Das Forum wurde geleert.";
 $langForumGroup = "Gruppenforum";
-$langForumUpdated = "Forum aktualisiert";
+$langForumUpdated = "Das Forum wurde aktualisiert.";
 $langForums = "Foren";
 $langFree = "Frei";
 $langFrom = "von";
@@ -747,7 +747,7 @@ $langGiveExerciseName = "Bitte den Namen des Tests eintragen";
 $langGiveQuestion = "Bitte die Frage einsetzen";
 $langGiveText = "Erstellen sie den Text";
 $langGlobalProgress = "Lernpfad-Fortschritt : ";
-$langGo2accountCreationPage = "Benutzer hinzufügen";
+$langGo2accountCreationPage = "Gehen Sie zur 'Nutzeraccount anlegen'-Seite";
 $langGoBackToEx = "Zurück zur Test-Übersicht";
 $langGoBackToQuestionList = "Zurück zur Fragenliste";
 $langGoBackToQuestionPool = "Zurück zum Fragen-Archiv";
@@ -757,7 +757,7 @@ $langGroup = "Gruppen";
 $langGroupAllowStudentRegistration = "Benutzer können sich selber in die Gruppen eintragen";
 $langGroupAlwaysPrivate = "(immer privat)";
 $langGroupAssignment = "Gruppen (im 'Gruppen'-Tool, nur Gruppenmitglieder k&ouml;nnen hochladen)";
-$langGroupChatLink = "Gruppenchat";
+$langGroupChatLink = "Chat der Gruppe";
 $langGroupContent = "<p><b>Einführung</b></p>
 <p>Dieses Tool erlaubt das Erstellen und Bearbeiten von Gruppen.
 Beim Erstellen (Gruppen einrichten) sind diese leer. Es gibt verschiedene Möglichlichkeiten, diese aufzubauen:
@@ -802,7 +802,7 @@ $langGroupPlacesThis = "Plätze (optional)";
 $langGroupProperties = "Gruppeneinstellungen";
 $langGroupPropertiesModified = "Gruppeneinstellungen wurden erfolgreich geändert";
 $langGroupSelfRegInf = "registrieren";
-$langGroupSelfRegistration = "Registration";
+$langGroupSelfRegistration = "Registrierung";
 $langGroupSettingsModified = "Gruppeneinstellungen wurden erfolgreich geändert";
 $langGroupSpace = "Gruppenbereich";
 $langGroupSpaceLink = "Gruppenbereich";
@@ -815,7 +815,7 @@ $langGroupTutor = " Tutor / Dozent";
 $langGroupTutors = "Tutoren / Dozenten";
 $langGroupUserManagement = "Gruppenverwaltung";
 $langGroupUsersList = "Siehe <a href=../user/user.php>Teilnehmer</a>";
-$langGroupWikiLink = "Gruppen-Wiki";
+$langGroupWikiLink = "Wiki der Gruppe";
 $langGroups = "Gruppen";
 $langGroupsAdded = "Gruppe(n) wurde(n) hinzugefügt.";
 $langGroupsDeleted = "Alle Gruppen wurden gelöscht.";
@@ -921,7 +921,7 @@ $langHumanAndPhysicalRessources = "Personal- und Materialresourcen";
 $langIfNotRedirect = "Wenn nicht umgeleitet ";
 $langImport = "Import";
 $langImpossible = "Vorgang nicht möglich";
-$langImpossibleToPromote = "Es ist nicht möglich einen Teilnehmer, der schon in der Gruppe eingetragen ist, zum Tutor zu befördern";
+$langImpossibleToPromote = "Es ist nicht möglich, einen Benutzer zu Gruppen-Tutor zu ernennen, der bereits in der Gruppe eingetragen ist.";
 $langIn = "in";
 $langInFrames = "In Frames";
 $langIncorrectDate = "Das Startdatum muss vor dem Enddatum liegen...";
@@ -946,14 +946,14 @@ $langIntroWork = "Über diese Seite können Teilnehmer oder Lern-Gruppen Dateien/D
 <br>Bitte HTML-Dateien nur hochladen, wenn sie keine Bilder/Grafiken enthalten.<br><br>
 Wenn Sie dieses Tool vorstellen oder Ihren Teilnehmern weitere Hinweise geben möchten, klicken Sie auf den Button unterhalb.<br>";
 $langInvalidId = "Login ungültig. Wenn Sie noch nicht registriert sind, füllen Sie bitte die <a href='claroline/auth/inscription.php'>Anmeldung</a></font color> aus.";
-$langInvalidIdSelfReg = "<b>Login fehlerhaft.</b><br>Bitte probieren sie es noch einmal.<br />
-<small>Wenn sie noch keine Benutzerkennung haben, verwenden sie bitte das <a href=claroline/auth/inscription.php>Registrierungsformular</a></font color></small>";
+$langInvalidIdSelfReg = "<b>Login fehlgeschlagen.</b><br>Versuchen Sie es nocheinmal.<br>
+<small>Wenn Sie noch keinen Account haben, benützen Sie das <a href=claroline/auth/inscription.php>Registrierungsformular</a></small>.";
 $langInvisible = "verborgen";
 $langIs = "ist";
 $langIsAlreadyRegistered = "ist bereits in die KursSite eingetragen";
 $langIsNowInYourDocDir = "ist nun in Ihrem Dokumentenverzeichnis abgelegt. <br><B>Diese Datei ist sichtbar</B>";
 $langIsNowRegistered = "ist jetzt in die KursSite eingetragen";
-$langJustCreated = "Sie haben soeben eine Kurs-Site erstellt";
+$langJustCreated = "Sie haben soeben eine KursSite erstellt";
 $langLabelCanBeEmpty = "Titel des Kurses eintragen";
 $langLanguage = "Sprache";
 $langLast31days = "In den letzten 31 Tagen";
@@ -974,11 +974,11 @@ $langLaunchRestoreCourseRepository = "Starten der Wiederherstellung des Kurses a
 $langLearnPathDetails = "Fortschritte in den Lernpfaden";
 $langLearningPath = "Lernpfad";
 $langLearningPathAdmin = "Lernpfad Admin";
-$langLearningPathEmpty = "Lernpfad ist leer";
+$langLearningPathEmpty = "Der Lernpfad ist leer.";
 $langLearningPathList = "Lernpfad-Liste";
-$langLearningPathName = "Neuer Name des Lernpfads : ";
-$langLearningPathNotFound = "Lernpfad nicht gefunden";
-$langLegendRequiredFields = "<span class=\"required\">*</span> für die Kennzeichnung benötigtes Feld";
+$langLearningPathName = "Name des neuen Lernpfads: ";
+$langLearningPathNotFound = "Der Lernpfad wurde nicht gefunden.";
+$langLegendRequiredFields = "<span class=\"required\">*</span> Diese Felder müssen in jedem Fall ausgefüllt werden.";
 $langLessAnswers = "-Antwort";
 $langLessElements = "-Element";
 $langLessonStatus = "Status des Moduls";
@@ -989,19 +989,19 @@ $langLineOrLines = "Zeile(n)";
 $langLines = "Zeilen";
 $langLink = "Links";
 $langLinkerAdd = "anhängen";
-$langLinkerAddNewAttachment = "eine bestehende Datei anhängen";
-$langLinkerAlreadyInAttachementList = "ist angehängt";
-$langLinkerAttachements = "angehängte Dateien";
+$langLinkerAddNewAttachment = "Eine existierende Resource anhängen";
+$langLinkerAlreadyInAttachementList = " ist bereits angehängt.";
+$langLinkerAttachements = "angehängte Resourcen";
 $langLinkerCloseJpspan = "schließen";
 $langLinkerClosePopup = "Fenster schließen";
 $langLinkerDelete = "löschen";
-$langLinkerExternalLink = "externer Link";
+$langLinkerExternalLink = "Link zu externer Adresse";
 $langLinkerMyOtherCourses = "Meine anderen Kurse";
-$langLinkerPromptForUrl = "Link URL eingeben";
-$langLinkerPromptInvalidEmail = "falsche E-Mail-Adresse";
-$langLinkerPromptInvalidUrl = "falsche URL";
-$langLinkerPublicCourses = "öffentliche Kurse";
-$langLinkerResourceAttachment = "Angehängte Dateien: löschen/hinzufügen von Dateien";
+$langLinkerPromptForUrl = "Geben Sie den Link-URL ein";
+$langLinkerPromptInvalidEmail = "Ungültige Email-Adresse";
+$langLinkerPromptInvalidUrl = "Ungültiger URL";
+$langLinkerPublicCourses = "Öffentliche KursSites";
+$langLinkerResourceAttachment = "Angehängte Resourcen: Anhänge anfügen / herausnehmen";
 $langLinkerUntitled = "Unbenannt";
 $langListAdmin = "Liste der Administratoren ";
 $langListAllUsers = "Alle Benutzer auflisten";
@@ -1009,10 +1009,10 @@ $langListClassUser = "Klassenmitglieder";
 $langListCourseUsers = "Kurs-Benutzer-Übersicht";
 $langListHtUsers = "Zeige .htpassword";
 $langListStudents = "Liste der Gruppenmitglieder";
-$langListUsers = "Benutzer Übersicht";
+$langListUsers = "Benutzer-Übersicht";
 $langLoadDefaultFormat = "Standard-Format laden";
 $langLocation = "Einordnung";
-$langLocked = "verankert";
+$langLocked = "Gesperrt";
 $langLogin = "login";
 $langLoginBeforePost1 = "Um in das Forum posten zu k&ouml;nnen, ";
 $langLoginBeforePost2 = "m&uuml;ssen Sie sich zuerst ";
@@ -1031,7 +1031,7 @@ $langMailSynthaxError = "Mailsynthaxfehler";
 $langMailTo = "Mail an : ";
 $langMailUsed = "Diese Email-Adresse wird schon von einem anderen Benutzer verwendet.";
 $langMainDB = "Haupt-Claroline DB";
-$langMainGroupSettings = "Hauptgruppeneinstellungen";
+$langMainGroupSettings = "Übergeordnete Gruppeneinstellungen";
 $langMaintenance = "Wartung";
 $langMakeCorrespond = "Erstellen sie eine Antwort";
 $langMakeInvisible = "unsichtbar machen";
@@ -1063,14 +1063,14 @@ $langMethodsOfEvaluationComment1 = "Genaue Details zur Evaluierungsmethode (schr
 $langMin = "Minimal : ";
 $langMinuteShort = "min.";
 $langMissing = "fehlt";
-$langMissingFields = "fehlende Angaben";
+$langMissingFields = "Erforderliches Feld nicht ausgefüllt.";
 $langMissingImagesDetected = "Fehlende Bilder entdeckt";
 $langMissingValue = "Fehlender Wert";
 $langModifAnn = "Diese Ankündigung verändern";
 $langModifDone = "Die Informatioen wurde geändert";
 $langModifUserCourseSettings = "KursSite-Einstellungen des Benutzers";
 $langModify = "ändern";
-$langModifyExercise = "Test bearbeiten";
+$langModifyExercise = "Aufgabe verändern";
 $langModifyFormat = "Format ändern";
 $langModifyInAllExercises = "in allen Tests";
 $langModifyInThisExercise = "nur in diesem Test";
@@ -1123,7 +1123,7 @@ $langNewEx = "Neuen Test erstellen";
 $langNewGroupCreate = "Neue Gruppe(n) erstellen";
 $langNewGroups = "Neue Gruppe(n)";
 $langNewLabel = "Einen Titel erzeugen";
-$langNewLegend = "kennzeichnet neue Informationen";
+$langNewLegend = "markiert Änderungen";
 $langNewQu = "Neue Frage erstellen";
 $langNewToOld = "Neueste zuerst";
 $langNewTopic = "Neues Topic";
@@ -1134,7 +1134,7 @@ $langNextMonth = "Nächster Monat";
 $langNextWeek = "Nächste Woche";
 $langNextYear = "Nächstes Jahr";
 $langNo = "nein";
-$langNoAnnouncement = "Keine Ankündigungen.";
+$langNoAnnouncement = "Keine Ankündigungen vorhanden.";
 $langNoAnswer = "Es gibt zur Zeit keine Antwort";
 $langNoContent = "Kein Inhalt";
 $langNoCourseResult = "Es gibt keine KursSite, die diesen Kriterien entspricht";
@@ -1143,17 +1143,17 @@ $langNoEndDate = "Kein Enddatum";
 $langNoEventInTheAgenda = "Kein Termin/Ereignis im Kalender";
 $langNoEx = "Es gibt zur Zeit keine Tests";
 $langNoFile = "- none -";
-$langNoForum = "kein Forum";
+$langNoForum = "Kein Forum vorhanden";
 $langNoFunctionInThisSection = "Keine Funktion in diesem Bereich";
 $langNoGroupStudents = "nicht aufgenommene Benutzer";
-$langNoGroupsDeleted = "keine Gruppe gelöscht";
+$langNoGroupsDeleted = "Keine Gruppe geköscht";
 $langNoImage = "Keine Bilder zum Anzeigen";
 $langNoLearningPath = "Kein Lernpfad vorhanden";
 $langNoModule = "Keine Module vorhanden";
 $langNoMoreAttemptsAvailable = "Sie haben die maximal erlaubte Anzahl von Versuchen erreicht.";
 $langNoMoreModuleToAdd = "Alle Module dieser KursSite werden bereits in diesem Lernpfad verwendet.";
-$langNoPost = "Kein Posting";
-$langNoPostAllowed = "keine neuen Antworten erlaubt";
+$langNoPost = "Kein Posting vorhanden";
+$langNoPostAllowed = "Kein neues Posting erlaubt";
 $langNoPsychology = "Nein. Sokratische Ironie ist kein psychologisches Mittel, es bedeutet Argumentation.";
 $langNoQuestion = "Es gibt zur Zeit keine Fragen";
 $langNoQuota = "Keine Begrenzung";
@@ -1165,9 +1165,9 @@ $langNoSeduction = "Nein. Sokratische Ironie ist keine Verführungsstrategie, auc
 $langNoSpace = "Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";
 $langNoStartAsset = "Es ist kein Start asset für dieses Modul definiert.";
 $langNoTimeLimit = "Kein Zeitlimit";
-$langNoUserFound = "Kein Benutzer gefunden";
+$langNoUserFound = "Kein Benutzer gefunden.";
 $langNoUserResult = "Keinen Benutzer gefunden";
-$langNoVisibleAssignment = "Es gibt im Moment keine sichtbaren Aufgabe zum Upload.";
+$langNoVisibleAssignment = "Es gibt im Moment keine sichtbaren Aufgaben zum hochladen.";
 $langNoVisibleSubmission = "Keine sichtbare Abgabe";
 $langNomPageAddHtPass = "Benutzerverwaltung";
 $langNone = "keine";
@@ -1216,9 +1216,9 @@ $langPathContentTitle = "Inhalt des Lernpfads";
 $langPathsInCourseProg = "Kurs-Fortschritt ";
 $langPerhaps_with_others_directory = "u.U. mit anderen Verzeichnissen";
 $langPeriodDay = "Tag";
-$langPeriodDayShort = "T.";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "Stunde";
-$langPeriodHourShort = "St.";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "Monat";
 $langPeriodToDisplay = "Zeitraum";
 $langPeriodWeek = "Woche";
@@ -1292,29 +1292,29 @@ $langRegIntoGroup = "Fügen Sie mich zu dieser Gruppe hinzu";
 $langRegStudent = "Kurs-Teilnehmer";
 $langRegUser = "registrierte Benutzer";
 $langRegYou = "hat Sie in diese KursSite eingetragen";
-$langRegister = "registrieren";
-$langRegisterCampusAdvice = "Bitte sorgen sie dafür, dass die URL ihrer Lernplattform erreichbar ist.";
+$langRegister = "eintragen";
+$langRegisterCampusAdvice = "Bitte überprüfen Sie, ob Ihre Plattform vom Internet aus erreichbar ist.";
 $langRegisterClass = " Eine Klasse eintragen";
 $langRegisterLocalUrl = "Ihre KursSite URL scheint eine lokale URL zu sein. Ein vom Web erreichbare URL ist notwendig, um Ihre Site bei Claroline.net zu registrieren.
 <br /><br /> Überprüfen Sie den Wert 'Web base' in Ihrer Claroline Konfiguration.";
-$langRegisterMyCampus = "Meine KursSite registrieren.";
+$langRegisterMyCampus = "Meine Plattform registrieren";
 $langRegisterTheNewUser = "Diesen Benutzer in eine KursSite eintragen";
 $langRegisterUser = "In eine KursSite eintragen";
 $langRegisterUserToClass = "Einen Benutzer in die Klasse einfügen";
 $langRegistered = "Registriert";
-$langRemove = "Remove";
+$langRemove = "Löschen";
 $langRemoveAdminLevel = "Nicht länger Admin";
 $langRename = "Umbenennen";
 $langReplaceAttachedFile = "angeh&auml;ngte Datei ersetzen";
 $langReply = "Antwort";
-$langRequestOfCourseCreatorStatus = "Statusabfrage des Kurserstellers";
+$langRequestOfCourseCreatorStatus = "Ich möchte KursSite-Ersteller werden";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "erforderlich";
 $langRequirements = "Anforderungen";
 $langResetChat = "Zurücksetzen";
 $langRestoreCourseRepository = "Kursspeicher (Repository) wiederherstellen";
 $langResult = "Ergebnis";
-$langRetry = "nochmal versuchen";
+$langRetry = "retry";
 $langReuse = "Wiederholung";
 $langRevoquationOfUser = "Folgender Benutzer erbittet, seinen Account zu löschen: %s %s";
 $langRidiculise = "Das Gegenüber lächerlich machen, um es dazu zu bringen, einzugestehen, Unrecht zu haben.";
@@ -1363,7 +1363,7 @@ $langShowAnswers = "Antworten anzeigen";
 $langShowAnswersAfterLastTry = "nach dem letzten Versuch";
 $langShowNone = "keine Details";
 $langSimpleExercise = "Auf einer einzigen Seite";
-$langSiteName = "Site Name";
+$langSiteName = "Name der Website";
 $langSize = "Größe";
 $langSize_of_claroline_scripts = " Größe der Claroline Scripts";
 $langSize_of_course_repository = "!!!! Größe des Kurs-Katalogs (incl. Claroline und Mülleimer alter Installationen)";
@@ -1374,21 +1374,21 @@ $langStartDate = "Startdatum";
 $langStartModule = "Lernmodul starten";
 $langStatDB = "Tracking über Datenbank (Nur sinnvoll in der Multidatenbankinstallation)";
 $langStatistics = "Statistiken";
-$langStatsByQuestion = "Antwortstatistik nach Fragen";
-$langStatsByUser = "Antwortstatistik nach Benutzern";
+$langStatsByQuestion = "Statistik per Frage";
+$langStatsByUser = "Statistik per Benutzer";
 $langStatsOfCampus = "Statistik der Lernumgebung";
 $langStatsOfCourse = "KursSite-Statistik";
 $langStatsOfExercise = "Test-Statistik";
-$langStatsOfExerciseAttempt = "Statistik über die Anzahl der Versuche";
+$langStatsOfExerciseAttempt = "Statistik über den Lösungsversuch";
 $langStatsOfLearnPath = "Statistiken";
-$langStatsOfQuestion = "Fragenstatistik";
+$langStatsOfQuestion = "Statistik über die Frage";
 $langStatsOfUser = "Teilnehmer-Statistik";
 $langStatus = "Status";
 $langStatusChangeNotMade = "Keine Änerungen durchgeführt";
 $langStepNOfN = "Schritt %d von %d";
 $langStoreChat = "Chat-Sitzung speichern";
 $langStudent = "Teilnehmer";
-$langStudentQty = "Nb. Teilnehmer";
+$langStudentQty = "Anzahl Teilnehmer";
 $langStudents = "Teilnehmer";
 $langStudentsNotInThisGroups = "Benutzer nicht in dieser Gruppe";
 $langSubTitleChangeParent = "Hauptkategorie ändern von ";
@@ -1404,8 +1404,8 @@ $langSubmitWork = "Eine Arbeit abgeben";
 $langSubmittedWork = "Arbeit";
 $langSubscribeClass = "In die Klasse einfügen";
 $langSubscribeToCourse = "In die KursSite eintragen";
-$langSubscribeUser = "Benutzer registrieren";
-$langSubscribed = "registrierte Benutzer in diesem Kurs";
+$langSubscribeUser = "Benutzer eintragen";
+$langSubscribed = "eingetragene Benutzer in diesem Kurs";
 $langSubscription = "Zustimmung";
 $langSubscriptionAllowedOnly = "Eintragen nur erlaubt für ";
 $langSubscriptionDeniedOnly = "Nur Eintragen verboten";
@@ -1416,7 +1416,7 @@ $langSupportsComment2 = "Pr&auml;sentation des Supports f&uuml;r den Kurs. Pr&au
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
 $langTake = "nehmen";
 $langTargetFac = "Dies ist der Bereich/die Abteilung, der/die den Kurs anbietet";
-$langTeacherQty = "Nb. Dozenten";
+$langTeacherQty = "Anzahl Lehrende";
 $langTeachers = "Teachers";
 $langTeachingTrainingActivities = "Lehrmethoden";
 $langTeachingTrainingActivitiesComment1 = "Welche Methoden und Aktivit&auml;ten werden f&uuml;r das definierte Lehrziel verwendet? Wie sieht die Zeitplanung f&uuml;r diese Aktivit&auml;ten aus?";
@@ -1457,39 +1457,39 @@ $langTotalPlatformLogin = "Gesamt";
 $langTotalTimeSpent = "Gesamtzeit";
 $langTrackAllPath = "Learning paths tracking";
 $langTrackAllPathExplanation = "Fortschritt der Nutzer in allen Lernpfaden";
-$langTrackExerciseError = "Es kann sein, dass die Statistik nicht genau ist, da es so aussieht, als ob einige Fragen geändert worden wären.";
+$langTrackExerciseError = "Details könnten ungenau sein, da es scheint, als hätten sich einige Fragen seit diesem Versuch geändert.";
 $langTrackForumUsage = "Nutzung der Foren";
-$langTrackNotEnoughAttempts = "Sie müssen die maximale Anzahl der erlaubten Versuche erreichen um diese Statistiken zu sehen";
+$langTrackNotEnoughAttempts = "Sie müssen die maximale Anzahl von Versuchen erreichen, um diese Statistiken anzusehen.";
 $langTrackTotalPosts = "Postings";
 $langTrackTotalTopics = "gestartete Topics";
 $langTracking = "Statistik";
 $langTrackingDisabled = "Statistik wurde vom Systemadministrator abgestellt.";
 $langTrafficDetails = "Traffic-Details";
 $langTranslationStatistics = "Stand der &Uuml;bersetzung";
-$langTranslationTools = "&Uuml;bersetzungs-Werkzeuge";
-$langTranslations = "&Uuml;bersetzungen";
-$langTrue = "Wahr";
-$langTrueFalse = "wahr/falsch";
+$langTranslationTools = "Übersetzungs-Werkzeuge";
+$langTranslations = "Übersetzungen";
+$langTrue = "Richtig";
+$langTrueFalse = "Richtig/Falsch";
 $langTypeOfModule = "Modul Typ";
 $langTypeTextBelow = "Setzen Sie den Text ein";
 $langURL = "URL : ";
 $langUnableAddExternalTool = "Hinzufügen von externem Tool nicht möglich";
 $langUnableChangedTool = "Änderung auf Tool-Zugriff nicht möglich";
-$langUnableCreateCategory = "Kategorie kann nicht erstellt werden";
-$langUnableCreateForum = "Forum kann nicht erstellt werden";
-$langUnableDeleteCategory = "Kategorie kann nicht gelöscht werden";
+$langUnableCreateCategory = "Kategorie konnte nicht erstellt werden";
+$langUnableCreateForum = "Forum konnte nicht erstellt werden";
+$langUnableDeleteCategory = "Die Kategorie konnte nicht gelöscht werden.";
 $langUnableDeleteExternalTool = "Löschen von externem Tool nicht möglich";
-$langUnableDeleteForum = "Forum kann nicht gelöscht werden";
-$langUnableDeleteGroupCategoryForum = "Kategorie des Gruppenforums kann nicht gelöscht werden";
+$langUnableDeleteForum = "Das Forum konnt nicht gelöscht werden.";
+$langUnableDeleteGroupCategoryForum = "Die Kategorie Gruppenforen kann nicht gelöscht werden.";
 $langUnableDescToAdd = "Beschreibung kann nicht hinzugefügt werden";
 $langUnableToAdd = "Hinzufügen des Termins/Ereignisses in den Kalender nicht möglich.";
 $langUnableToDelete = "Löschen des Termins/Ereignisses vom Kalender nicht möglich.";
-$langUnableToEmptyForum = "Forum kann nicht geleert werden";
-$langUnableToEnrollInCourse = "Eintragen in den Kurs nicht möglich";
-$langUnableToRemoveCourseRegistration = "Ihre Registrierung zu diesem Kurs kann nicht entfernt werden";
+$langUnableToEmptyForum = "Forum konnte nicht geleert werden.";
+$langUnableToEnrollInCourse = "Sie konnten nicht bei der KursSite eingetragen werden.";
+$langUnableToRemoveCourseRegistration = "Sie konnten nicht aus der KursSite ausgetragen werden.";
 $langUnableToUpdate = "Aktualisieren des Termins/Ereignisses im Kalender nicht möglich.";
-$langUnableToUpdateCategory = "Kategorie kann nicht aktualisiert werden";
-$langUnableToUpdateForum = "Forum kann nicht aktualisiert werden";
+$langUnableToUpdateCategory = "Die Kategorie konnte nicht aktualisiert werden.";
+$langUnableToUpdateForum = "Das Forum konnte nicht aktualisiert werden.";
 $langUnableUpdateExternalTool = "Ändern von externem Tool nicht möglich";
 $langUnamedModule = "Modul ohne Bezeichnung";
 $langUnamedPath = "Lernpfad ohne Bezeichnung";
@@ -1500,7 +1500,7 @@ $langUniqueSelect = "Multiple Choice (eine Antwort je Frage)";
 $langUnkownSOAPError = " Beim Kontakt zu Claroline.net ist ein Fehler aufgetreten";
 $langUnlimitedAttempts = "Versuche nicht limitiert";
 $langUnreg = "Austragen";
-$langUnregisterAllStudents = "Alle Studenten aus dem Kurs austragen";
+$langUnregisterAllStudents = "Alle Teilnehmer austragen";
 $langUnsubscribe = "Benutzer austragen";
 $langUnsubscribeClass = "aus der Klasse entfernen";
 $langUntil = "bis";
@@ -1548,7 +1548,7 @@ $langUserNotUnsubscribedFromCourse = "Error!! Sie können einen KursSite-Verantwo
 $langUserNumber = "Anzahl";
 $langUserOneByOneExplanation = "Der Benutzer erhält eine Bestätigung durch E-Mail mit Login-Daten und Passwort.";
 $langUserRegisteredClass = "Der Benutzer wurde erfolgreich in die Klasse eingetragen.";
-$langUserRegisteredToCourse = "Registrierte Benutzer";
+$langUserRegisteredToCourse = "Der Benutzer wurde bei der KursSite eingetragen.";
 $langUserSettings = "Nutzereinstellungen";
 $langUserStatus = "Status";
 $langUserSubscribed = "Der Benutzer wurde erfolgreich registriert";
@@ -1575,134 +1575,129 @@ $langVisible = "sichtbar";
 $langVisits = "Besuche";
 $langWeightingForEachBlank = "Bitte setzen Sie einen Wert für jede Lücke ein";
 $langWiki = "Wiki";
-$langWikiAccessControl = "Zugangskontrolle";
-$langWikiAccessControlText = "Mit dem folgenden Gitter können sie Zugriffsrechte für die Benutzer setzen";
+$langWikiAccessControl = "Berechtigungen";
+$langWikiAccessControlText = "Hier können Sie die Zugangsberechtigungen der Benutzer für dieses Wiki einstellen: ";
 $langWikiAllPages = "Alle Seiten";
-$langWikiBackToPage = "Zurück";
-$langWikiConflictHowTo = "<p><strong>Bearbeitungskonflikt</strong> : Die Seite, die sie speichern möchten wurde zwischenzeitlich geändert.<br /><br />
-Was können sie jetzt tun?<ul>
-<li>Mit kopieren/einfügen können sie ihre Veränderungen in einem Texteditor (wie der Notepad-Editor) zwischenspeichern und dann auf die letzte Version der Seite klicken, um ihre Veränderungen anzufügen.</li>
-<li>You can also click on cancel to cancel your changes.</li>
+$langWikiBackToPage = "Zurück zur Seite";
+$langWikiConflictHowTo = "<p><strong>Ein Konflikt ist aufgetreten</strong>: Die Seite, die Sie gerade zu speichern versuchen, wurde inzwischen von einem anderen Benutzer geändert. Da sich die Änderungen widersprechen könnten, wurde Ihre Änderung abgewiesen.<br><br>
+Was können Sie jetzt tun?<ul>
+<li>Sie können Ihre Änderungen in einen Texteditor (z.B. Notepad) kopieren, und auf 'Neueste Version bearbeiten' klicken. Versuchen Sie, Ihre Änderungen dort in die neue Version dieser Seite einzufügen.</li>
+<li>Sie können selbstverständlich auch Ihre Änderungen verwerfen, indem Sie auf 'Abbrechen' klicken.</li>
 </ul></p>";
-$langWikiContentEmpty = "Diese Seite ist leer. Klicken sie auf 'Bearbeiten'.";
+$langWikiContentEmpty = "Diese Seite ist noch leer. Klicken Sie auf 'Diese Seite bearbeiten', um Inhalt einzugeben.";
 $langWikiCourseMembers = "Kursteilnehmer";
-$langWikiCreateNewWiki = "Ein Wiki erstellen";
-$langWikiCreatePrivilege = "Seite erstellen";
-$langWikiCreationSucceed = "Erstellen des Wikis erfolgreich";
-$langWikiDefaultDescription = "Geben sie hier eine Beschreibung für ihr Wiki ein";
+$langWikiCreateNewWiki = "Ein neues Wiki erstellen";
+$langWikiCreatePrivilege = "Seiten erstellen";
+$langWikiCreationSucceed = "Wiki erfolgreich erstellt";
+$langWikiDefaultDescription = "Geben Sie hier die Beschreibung Ihres Wikis ein";
 $langWikiDefaultTitle = "Neues Wiki";
 $langWikiDeleteWiki = "Wiki löschen";
-$langWikiDeleteWikiWarning = "WARNUNG: Sie sind dabei dieses Wiki und alle Seiten des Wikis zu löschen. Sind sie sicher, dass sie fortfahren möchten?";
-$langWikiDeletionSucceed = "Löschen des Wikis erfolgreich";
-$langWikiDescription = "Beschreibung des Wikis";
-$langWikiDescriptionForm = "Wiki-Beschreibung";
-$langWikiDescriptionFormText = "Sie können einen Titel für die Beschreibung ihres Wikis wählen:";
-$langWikiDiffAddedLine = "Zeile hinzugefügt";
-$langWikiDiffDeletedLine = "Zeile gelöscht";
-$langWikiDiffMovedLine = "Zeile verschoben";
-$langWikiDiffUnchangedLine = "Zeile unverändert";
+$langWikiDeleteWikiWarning = "WARNUNG : Sie sind im Begriff, dieses Wiki und all seinen Text zu löschen. Sind Sie sicher, dass Sie fortfahren möchten?";
+$langWikiDeletionSucceed = "Das Wiki wurde erfolgreich gelöscht.";
+$langWikiDescription = "Beschreibung";
+$langWikiDescriptionForm = "Beschreibung des Wikis";
+$langWikiDescriptionFormText = "Sie können einen Titel und eine Beschreibung für dieses Wiki eingeben: ";
+$langWikiDiffAddedLine = "Neue Zeile";
+$langWikiDiffDeletedLine = "Gelöschte Zeile";
+$langWikiDiffMovedLine = "Verschobene Zeile";
+$langWikiDiffUnchangedLine = "nicht geänderte Zeile";
 $langWikiDifferenceKeys = "Schlüssel:";
-$langWikiDifferencePattern = "Unterschiede zur Version von  %1\$s geändert von  %2\$s und der Version von %3\$s geändert von  %4\$s";
+$langWikiDifferencePattern = "Unterschiede zwischen der Version vom %1\$s, geändert von %2\$s, und der Version vom %3\$s, geändert von %4\$s";
 $langWikiDifferenceTitle = "Unterschiede:";
-$langWikiEditConflict = "Bearbeitungskonflikt";
-$langWikiEditLastVersion = "Letzte Version bearbeiten";
-$langWikiEditPage = "Seite bearbeiten";
+$langWikiEditConflict = "Konflikt auflösen";
+$langWikiEditLastVersion = "Neueste Version bearbeiten";
+$langWikiEditPage = "Diese Seite bearbeiten";
 $langWikiEditPrivilege = "Seiten bearbeiten";
 $langWikiEditProperties = "Einstellungen bearbeiten";
-$langWikiEditionSucceed = "Bearbeitung des Wikis erfolgreich";
+$langWikiEditionSucceed = "Das Wiki wurde erfolgreich bearbeitet.";
 $langWikiGroupMembers = "Gruppenmitglieder";
-$langWikiHelpAdminContent = "<h3>Wiki Hilfe zur Administration</h3>
+$langWikiHelpAdminContent = "<h3>Wiki administration help</h3>
 <dl class=\"wikiHelp\">
-<dt>Wie erstellt man ein neues Wiki?</dt>
-<dd>Klicken sie auf 'Neues Wiki erstellen'. Dann legen sie die Einstellungen für das Wiki fest :
-<ul>
-<li><b>Titel des Wikisi</b> : wählen sie einen Titel für ihr Wiki</li>
-<li><b>Wiki-Beschreibungi</b> : wählen sie eine Beschreibung für ihr Wiki</li>
-<li><b>Zugriffskontrolle</b> : legen sie die Zugriffseinstellungen ihres Wikis fest, indem sie das Optionsfeld anwählen/abwählen (siehe unten)</li>
-</ul>
+<dt>Wie wird ein neues Wiki erzeugt?</dt>
+<dd>Klicken Sie auf den Link 'Ein neues Wiki erstellen'. Geben Sie dann den Titel, eine Beschreibung und die Zugangsberechtigungen für das Wiki ein.
 </dd>
-<dt>Wie kann man einem Wiki beitreten?</dt>
-<dd>Klicken sie auf den Titel in der Wiki-Liste.</dd>
-<dt>Wie kann man die Einstellungen eines Wikis ändern?</dt>
-<dd>Klicken sie auf das Symbol  'Einstellungen' in der Spalte der Wiki-Liste um zum Wiki-Einstellungs-Formular zu gelangen.</dd>
-<dt>Wie kann man die Zugriffsverwaltungsmöglichkeiten nutzen?</dt>
-<dd>Sie können die Benutzerrechte festlegen, indem sie das Optionsfeld im Feld  'Zugriffsrechte' im Abschnitt der Wiki-Einstellungen anwählen/abwählen .
- Sie können für drei Arten von Benutzern Zugriff erlauben oder verweigern:<ul>
-<li><b>Kursteilnehmer</b> : Teilnehmer, die zu dem Kurs eingeschreiben sind (außer dem Dozenten)</li>
-<li><b>Gruppenmitglieder</b> (nur in einer Gruppe verfügbar) : Teilnehmer, die Mitglieder einer Gruppe sind (bis auf die Gruppenbetreuer)</li>
-<li><b>Andere Benutzer</b> : Anonyme Benutzer, die keine Kurs-Teilnehmer sind</li></ul>
-Für jede Benutzerart können sie drei Arten von Zugriffsmöglichkeiten für das Wiki festlegen(*) :<ul>
-<li><b>Nur lesen</b> : dieser Benutzer kann die Seiten des Wikis lesen</li>
-<li><b>Bearbeiten</b> : dieser Benutzer kann den Inhalt der Wiki-Seiten verändern</li>
-<li><b>Seiten erstellen</b> : dieser Benutzer kann neue Seiten im Wiki erstellen</li>
-</ul><small><em>(*) Beachten sie bitte, dass ein Benutzer, der die Seiten nicht lesen darf, sie auch nicht bearbeiten  kann. Beachten sie bitte, dass ein Benutzer, der keine Seiten bearbeiten darf, auch keine neuen Seiten erstellen kann.</em></small></dd>
-<dt>Wie kann man ein Wiki löschen?</dt>
-<dd>Klicken sie auf das Symbol 'Löschen' in der Wiki-Spalte, um ein Wiki mit allen seinen Seiten zu löschen.</dd>
-<dt>Wie bekommt man eine Liste der Seiten eines Wikis?</dt>
-<dd>Klicken sie auf die Seitenzahl dieses Wikis in der Wiki-Liste.</dd>
-<dt>Wie bekommt man eine Liste der Seiten, die zuletzt im Wiki verändert wurden?</dt>
-<dd>Klicken sie auf das Symbol in der Spalte  'Letzte Änderungen' in der Wiki-Liste.</dd>
+<dt>Wie komme ich in das Wiki hinein?</dt>
+<dd>Klicken Sie auf den Titel des Wikis in der Liste.</dd>
+<dt>Wie kann ich die Einstellungen des Wikis verändern?</dt>
+<dd>Klicken Sie auf das Icon in der Spalte 'Einstellungen' in der Liste der Wikis, um zu den Wiki-Einstellungen zu kommen.</dd>
+<dt>Wie verwende ich die Berechtigungen?</dt>
+<dd>Sie können Zugangsberechtigungen verändern, indem sie Häkchen in die Kästchen im Bereich 'Berechtigungen' der Wiki-Einstellungen setzen.
+ Sie können drei Typen von Benutzern Zugangsrechte geben:<ul>
+<li><b>Kursteilnehmer</b>: Benutzer, die bei der KursSite eingetragen sind (außer KursSite-Verantwortliche).</li>
+<li><b>Gruppenmitglieder</b> (nur innerhalb einer Gruppe verfügbar): Benutzer, die zu der Gruppe gehören, für die Sie das Wiki anlegen (außer Gruppen-Tutoren).</li>
+<li><b>Andere Benutzer</b>: anonyme Benutzer und andere, die keine Teilnehmer dieses Kurses sind.</li></ul>
+Für jeden Typ von Benutzer können Sie folgende Erlaubnis erteilen(*):<ul>
+<li><b>Seiten lesen</b>: die Benutzer dürfen die Wiki-Seiten lesen.</li>
+<li><b>Seiten bearbeiten</b>: die Benutzer dürfen den Inhalt der Seiten verändern.</li>
+<li><b>Seiten erstellen</b>: die Benutzer dürfen neue Seiten in dem Wiki erstellen.</li>
+</ul><small><em>(*) Beachten Sie: wenn Benutzer die Seiten nicht lesen können, dann können sie sie auch nicht bearbeiten. Wenn Benutzer die Seiten nicht bearbeiten können, dann können sie auch keine neuen Seiten erstellen.</em></small></dd>
+<dt>Wie lösche ich ein Wiki?</dt>
+<dd>Klicken Sie auf das Icon in der Spalte 'Löschen' in der Wiki-Liste, um ein Wiki und all seine Seiten zu löschen.</dd>
+<dt>Wie bekomme ich eine Liste aller Seiten eines Wikis?</dt>
+<dd>Klicken Sie auf die Seitenanzahl in der Liste der Wikis.</dd>
+<dt>Wie bekomme ich eine Liste der zuletzt geänderten Seiten eines Wikis?</dt>
+<dd>Klicken Sie auf das Icon in der Spalte 'Neueste Änderungen' in der Liste der Wikis.</dd>
 </dl>";
-$langWikiHelpSyntax = "Wiki Syntax";
-$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+$langWikiHelpSyntax = "Hilfe: Wiki-Eingabeschema";
+$langWikiHelpSyntaxContent = "<h3>Die Wiki2xhtml-Syntax</h3>
+So geben Sie formatierten Text im Wiki ein:
 <dl class=\"wikiHelp\">
-<dt>Erstellen von Wiki-Seiten und Verbindungen zwischen den Seiten</dt>
+<dt>So erstellen Sie Wiki-Seiten und Links zwischen ihnen:</dt>
 <dd><ul>
-<li><strong>Wiki-Wörter</strong> : Wiki Wörter werden geschrieben wie <em>WikiWort</em>. Wiki2xhtml erkennt sie automatisch als Wiki-Verbindungsseiten. Bearbeiten sie eine bestehende Seite, um eine neue Wiki-Seite oder einen Link zu einer anderen Wiki-Seite zu erstellen. Fügen sie den Titel der Seite im WikiWord-Ssyntax hinzu,zum Beispiel <em>MyPage</em>. Speichern sie die Seite. Wiki2xhtml tauscht automatisch das WikiWort <em>MyPage</em> gegen einen Link zu dieser Wiki-Seite <em>MyPage</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki Links sind wie Hyperlinks (siehe unten) außer, dass sie keine Protokoll-Anweisung brauchen  (wie <em>http://</em> oder <em>ftp://</em>) und automatisch als Links zu anderen Wiki-Seiten erkannt werden. Um eine neue Seite zu erstellen oder um einen Link auf einer bestehenden Seite zu erstellen, bearbeiten sie die Seite und fügen <code>[page title]</code> oder <code>[page title|link text]</code>zum Inhalt hinzu. Sie können diesen Syntax auch benutzen, um den Text eines Wiki-Links zu verändern: <code>[WikiWord|text]</code>.</li>
+<li><strong>Wiki-Wörter</strong>: Wiki-Wörter sind Wörter, die so geschrieben sind: <em>WikiWort</em>. Wiki2xhtml erkennt sie automatisch als Link zu einer anderen Wiki-Seite. Um eine Wiki-Seite oder einen Link zu einer Wiki-Seite zu erstellen, bearbeiten Sie eine existierende Seite und schreiben den Titel der gelinkten Seite in der WikiWort-Schreibweise hinein, zum Beispiel <em>MeineSeite</em>. Dann speichern Sie die Seite. Wiki2xhtml wird das Wiki-Wort <em>MeinSeite</em> automatisch durch einen Link zur Wiki-Seite <em>MeineSeite</em> ersetzen.</li>
+<li><strong>Wiki-Links</strong>: Wiki-Links sind wie Hyperlinks (siehe unten), außer dass sie keinen Protokoll-Bezeichner enthalten (wie <em>http://</em> oder <em>ftp://</em>) und dass sie automatisch als Links zu Wiki-Seiten erkannt werden. Um eine neue Seite oder einen Link zu einer existierenden Seite mit einem Wiki-Link zu erstellen, bearbeiten Sie eine Seite und fügen Sie <code>[Titel der Seite]</code> oder <code>[Link-Text|Titel der Seite]</code> hinzu. Sie können diese Syntax auch verwenden, um den angezeigten Text eines WikiWort-Links zu ändern: <code>[neuer Text|WikiWort]</code>.</li>
 </ul></dd>
-<dt>Blockelemente</dt>
-<dd><ul><li>Eine neue Linie <em>der selben Art</em> zwischen jede Linie hinzufügen .&nbsp;;</li>
-<li><strong>Absatz</strong> : einen Text und eine neue Zeile hinzufügen &nbsp;;</li>
-<li><strong>Titel</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> für Titel, Untertitel und Unter-Untertitel;;</li>
-<li><strong>waagrechte Linie</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>Liste</strong> : Zeile beginnt mit <code>*</code> oder <code>#</code>. Sie können die Listensymbole mischen (<code>*#*</code>) um eine Liste mit mehreren Ebenen zu erhalten.&nbsp;;</li>
-<li><strong>Forformatierter Text</strong> : setzen sie ein Leerzeichen vor jede Zeile vorformatierten Text&nbsp;;</li>
-<li><strong>Zitieren</strong> : <code>&gt;</code> oder <code>;:</code> for jede Zeile.</li>
+<dt>Text-Block-Elemente</dt>
+<dd><ul><li>Um einen neuen Textblock <em>des selben Typs wie der des vorangehenden</em> zu beginnen, fügen Sie einen Zeilenumbruch nach dem Textblock ein und beginnen in der nächsten Zeile zu schreiben.</li>
+<li><strong>Absatz</strong>: geben Sie den Text ein und drücken Sie die Eingabetaste.</li>
+<li><strong>Titel</strong>: beginnen Sie die Zeile mit <code>!!!</code>, <code>!!</code> oder <code>!</code> für Titel, Untertitel und Unter-Untertitel.</li>
+<li><strong>Horizontale Trennlinie</strong>: <code>----</code></li>
+<li><strong>Liste</strong>: beginnen Sie die Zeile mit <code>*</code> (nicht nummerierte Liste) oder <code>#</code> (nummerierte Liste). Sie können gemischte Listen mit mehreren Ebenen erzeugen, indem Sie die Listenzeichen kombinieren: (<code>*#*</code>).</li>
+<li><strong>Vorformatierter Text (fixer Zeichenabstand)</strong>: beginnen Sie die Zeile mit einem Leerzeichen.</li>
+<li><strong>Eingerückter Zitatblock</strong>: beginnen Sie die Zeile mit <code>&gt;</code> oder <code>;:</code></li>
 </ul></dd>
-<dt>Eingebettete Elemente</dt>
-<dd><ul><li>Automatische Satzzeichenkorrektur aktiv : Ein unveränderliches Leerzeichen geht den folgenden Symbolen voaus:  \";\",\"?\",\":\" und \"!\".&nbsp;;</li>
-<li><strong>Betonung</strong> : umgibt ihren Text mit zwei Anführungszeichen<code>''text''</code>&nbsp;;</li>
-<li><strong>Starke Betonung</strong> : umgibt ihren Text mit dreifachen Anführungszeichen und Unterstreichung <code>'''text'''</code>&nbsp;;</li>
-<li><strong>manueller Zeilenumbruch</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Unterstrichen</strong> : rahmt ihren Text mit zwie Unterstreichungen ein <code>__text__</code>&nbsp;;</li>
-<li><strong>Strich</strong> : umgibt ihren Text mit zwei Gedankenstrichen <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Bild</strong> : wie Hyperlinks<br>Setzen sie eine  0 in das letzte Argument um eine Bilderkennung zu vermeiden und einen Link auf das Bild zu setzen. Zum Beispiel: <code>[image|image.gif||0]</code> lässt einen Link auf das Bild .gif erscheinen und nicht das Bild selbst.<br>Dieser Syntax ist minderwertig, betrachten sie sich den folgenden&nbsp;;</li>
-<li><strong>Bild</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> oder <code>((url|alternate text|position|long description))</code>. <br>Die Positionsbestimmung kann folgende Werte annehmen : L (links), R (rechts) or C (zentriert).&nbsp;;</li>
-<li><strong>Benannter Anker</strong> : <code>~Anker~</code>&nbsp;;</li>
-<li><strong>Akronym</strong> : <code>??Akronym??</code> oder <code>??Akronym|Definition??</code>&nbsp;;</li>
-<li><strong>Zitat</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
-<li><strong>Fussnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
+<dt>Elemente im Text</dt>
+<dd><ul><li>Wenn die automatische Punktuation aktiv ist, wird ein nicht umbrechbares Leerzeichen vor jedem dieser Zeichen eingefügt: \";\",\"?\",\":\" und \"!\"</li>
+<li><strong>Betonung</strong>: umgeben Sie den Text mit zwei eingachen Anführungszeichen: <code>''Text''</code>.</li>
+<li><strong>Starke Betonung</strong>: umgeben Sie den Text mit drei einfachen Anführungszeichen: <code>'''Text'''</code></li>
+<li><strong>Zeilenumbruch erzwingen</strong>: <code>%%%</code></li>
+<li><strong>Unterstreichen</strong>: umgeben Sie den Text mit zwei Unterstrichen: <code>__Text__</code></li>
+<li><strong>Durchstreichen</strong>: umgeben Sie den Text mit zwei Minus-Symbolen: <code>--Text--</code></li>
+<li><strong>Hyperlinks zu externen Webseiten</strong>: <code>[URL]</code>, <code>[Name|URL]</code>, <code>[Name|URL|Sprache]</code> oder <code>[Name|URL|Sprache|Titel]</code>.</li>
+<li><strong>Bild einfügen</strong> (neue Syntax): <code>((URL|alternativer Text))</code>, <code>((URL|alternativer Text|Position))</code> oder <code>((URL|alternativer Text|Position|lange Beschreibung))</code>. <br>Tas Argument <em>Position</em> kann folgende Werte haben: <em>L</em> (links), <em>R</em> (rechts) oder <em>C</em> (Mitte).</li>
+<li><strong>Benannter Anker (Sprungziel)</strong>: <code>~Anker~</code></li>
+<li><strong>Acronym</strong>: <code>??Acronym??</code> oder <code>??Acronym|Definition??</code></li>
+<li><strong>Zitat</strong>: <code>{{Zitat}}</code>, <code>{{Zitat|Sprache}}</code> oder <code>{{Zitat|Sprache|URL}}</code></li>
+<li><strong>(Programm-)Code</strong>: <code>@@Code hier@@</code></li>
+<li><strong>Fußnote</strong>: <code>\$\$Text der Fußnote\$\$</code>.</li>
 </ul></dd>
 </dl>";
-$langWikiIdenticalContent = "Identischer Inhalt<br />keine Veränderungen gespeichert";
-$langWikiInvalidWikiId = "Unzulässige Wiki-Id";
-$langWikiList = "Wiki-Liste";
-$langWikiMainPage = "Hauptseite";
-$langWikiMainPageContent = "Das ist die Hauptseite des Wikis %s. Klicken sie hier, um den Inhalt zu bearbeiten oder anzupassen.";
+$langWikiIdenticalContent = "Der gesendete Inhalt ist identisch mit dem vorherigen.<br>Es wurde keine Änderung gespeichert.";
+$langWikiInvalidWikiId = "Ungültige Wiki-ID";
+$langWikiList = "Liste der Wikis";
+$langWikiMainPage = "Startseite";
+$langWikiMainPageContent = "Dies ist die Hauptseite des Wikis %s. Klicken Sie auf 'Diese Seite bearbeiten', um den Inhalt zu ändern.";
 $langWikiNoWiki = "Kein Wiki";
-$langWikiNotAllowedToCreate = "Sie haben keine Erlaubnis Seiten zu erstellen";
-$langWikiNotAllowedToEdit = "Sie haben keine Erlaubnis die Seite zu bearbeiten";
-$langWikiNotAllowedToRead = "Sie haben keine Erlaubnis die Seiten zu lesen";
-$langWikiNumberOfPages = "Seitenzahl";
+$langWikiNotAllowedToCreate = "Sie haben keine Erlaubnis, neue Seiten zu erstellen.";
+$langWikiNotAllowedToEdit = "Sie haben keine Erlaubnis, diese Seite zu bearbeiten.";
+$langWikiNotAllowedToRead = "Sie haben keine Erlaubnis, diese Seite zu lesen.";
+$langWikiNumberOfPages = "Anzahl der Seiten";
 $langWikiOtherUsers = "Andere (*)";
-$langWikiOtherUsersText = "(*) anonyme Benutzer, Benutzer, die keine Teilnehmer  des Kurses sind";
-$langWikiPageHistory = "Verlauf";
+$langWikiOtherUsersText = "(*) anonyme Benutzer und andere, die keine Teilnehmer dieses Kurses sind.";
+$langWikiPageHistory = "Geschichte der Seite";
 $langWikiPageSaved = "Seite gespeichert";
-$langWikiPreviewTitle = "Vorschau:";
-$langWikiPreviewWarning = "WARNUNG: Dies ist eine Vorschau. Ihre Veränderungen am Wiki sind noch nicht gespeichert! Vergessen sie nicht den 'Speichern' Button zu betätigen, um sie zu speichern.";
+$langWikiPreviewTitle = "Voransicht : ";
+$langWikiPreviewWarning = "WARNUNG: dies ist eine Voransicht der Seite. Ihre Änderungen am Wiki wurden noch nicht gespeichert! Um zu speichern, vergessen Sie nicht, auf den Knopf 'Speichern' am unteren Rand zu drücken.";
 $langWikiProperties = "Einstellungen";
-$langWikiReadPrivilege = "Lesen";
-$langWikiRecentChanges = "Vorangegangene Änderungen";
-$langWikiRecentChangesPattern = "%1\$s verändert am %2\$s von %3\$s";
-$langWikiShowDifferences = "Unterschiede zeigen";
+$langWikiReadPrivilege = "Seiten lesen";
+$langWikiRecentChanges = "Neueste Änderungen";
+$langWikiRecentChangesPattern = "%1\$s geändert am %2\$s von %3\$s";
+$langWikiShowDifferences = "Unterschiede anzeigen";
 $langWikiTitle = "Titel des Wikis";
-$langWikiTitleEdit = "Wiki: Einstellungen bearbeiten";
-$langWikiTitleNew = "Wiki: Neues Wiki erstellen";
+$langWikiTitleEdit = "Wiki : Einstellungen bearbeiten";
+$langWikiTitleNew = "Wiki : neues Wiki erstellen";
 $langWikiTitlePattern = "Wiki : %s";
-$langWikiVersionInfoPattern = "(Version von %1\$s verändert von %2\$s)";
+$langWikiVersionInfoPattern = "(Version von %1\$s geändert von %2\$s)";
 $langWikiVersionPattern = "%1\$s von %2\$s";
 $langWork = "Upload-Bereich";
 $langWorkAuthors = "Tutor/Dozent";
@@ -1729,7 +1724,7 @@ $langYourTime = "Ihre Zeit ist";
 $langYourTotalScore = "Gesamtpunktezahl";
 $langZipNoPhp = "Die zip-Datei darf keine .PHP-Dateien enthalten";
 $lang_EditFile_ModifyOk = "Änderung erfolgreich";
-$lang_TheUserIsAlreadyEnrolledInTheCourse = "Dieser Teilnehmer ist bereits in den Kurs eingetragen";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "Der Benutzer ist bereits bei der KursSite eingetragen.";
 $lang_add_user_list = "Benutzer hinzuf&uuml;gen";
 $lang_already_enrolled = "immer eingeschrieben";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Sind Sie sicher, dass Sie diese KursSite aus Ihrer Übersicht entfernen wollen ?";
@@ -1771,14 +1766,14 @@ $lang_no_course_available_fitting_this_keyword = "Keine KursSite verfügbar der z
 $lang_no_error_in_file_found = "Kein Fehler in der Datei gefunden.";
 $lang_or_search_from_keyword = "Suche nach Schlagwort";
 $lang_p_ErrorOnBuild_S_for_S = "Fehler beim Erstellen von <em>%s</em> für <B>%s</B>";
-$lang_p_FeedOf_s = "Rss feed für %s";
+$lang_p_FeedOf_s = "Rss feed for %s";
 $lang_p_FillCourses = "Ausfüllen %s mit %s";
-$lang_p_IfNothingHappendClickHere = "<small>Wenn sich nach 30 Sekunden nichts geändert hat, klicken sie bitte<a href=\"%s\">hier</a> und warten</small>";
+$lang_p_IfNothingHappendClickHere = "<small>Wenn sich nach 30 Sekunden noch nichts verändert hat, dann <a href=\"%s\">klicken Sie bitte hier</a> und warten nocheinmal.</small>";
 $lang_p_PropForConfigCommited = "Eigenschaften für %s (%s) sind jetzt auf dem Server aktiv.";
-$lang_p_aCategoryWouldBeSelected = "Sie müssen eine Kategorie wählen.Wenn sie eine Kategorie vermissen, wenden sie sich bitte an <a href=\"%s\">den Administrator</a>";
+$lang_p_aCategoryWouldBeSelected = "Sie müssen eine Kategorie auswählen. Wenn eine Kategorie fehlt, dann kontaktieren Sie bitte den <a href=\"%s\">Plattform-Administrator</a>.";
 $lang_p_category_s_created = "Kategorie %s erstellt";
 $lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
-$lang_p_d_StudentUnregistredFormCours = "%d Teilnehmer aus dem Kurs ausgetragen";
+$lang_p_d_StudentUnregistredFormCours = "%d Teilnehmer wurden aus dieser KursSite ausgetragen.";
 $lang_p_d_course = "%2d Kurs";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
@@ -1790,11 +1785,11 @@ $lang_p_d_students = "%2d Studierende";
 $lang_p_forum_s_created = "Forum %s erstellt";
 $lang_p_nothing_to_edit_in_S = "Nichts zu bearbeiten in %s";
 $lang_p_platformManager = "Administrator von %s";
-$lang_p_post_s_created = "Antwort %s erstellt";
+$lang_p_post_s_created = "Posting %s erstellt";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> wurde erfolgreich in den Kurs eingetragen";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> wurde nicht in den Kurs eingetragen";
-$lang_p_topic_s_created = "Thema %s erstellt";
-$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "Sie müssen sich mit ihren Benutzerdaten %s identifizieren";
+$lang_p_topic_s_created = "Topic %s erstellt";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "Sie müssen mit Ihrem %s Account authentifiziert sein.";
 $lang_php_info = "PHP System-Info";
 $lang_remove_course_enrollment = "Aus einer KursSite austragen";
 $lang_remove_course_from_your_personnal_course_list = "KursSite aus Ihrer perönlichen Kurs-Übersicht entfernen";
