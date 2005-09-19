@@ -27,8 +27,7 @@ $conf_def['config_class']='course';
 $conf_def['section']['create']['label']='Course main settings';
 $conf_def['section']['create']['description']='';
 $conf_def['section']['create']['properties'] = 
-array ( 'show_agreement_panel'
-      , 'defaultVisibilityForANewCourse'
+array ( 'defaultVisibilityForANewCourse'
       , 'human_code_needed'
       , 'human_label_needed'
       , 'course_email_needed'
@@ -41,17 +40,6 @@ array ( 'show_agreement_panel'
       , 'forceCodeCase'
       );
 
-      
-
-$conf_def_property_list['show_agreement_panel'] =
-array ( 'label'         => 'Show the agreement panel before to create a new account'
-      ,'description'   => 'The content of this panel is editable in administration '
-      , 'default'       => 'TRUE'
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Show'
-                                 ,'FALSE' => 'Hide'
-                                 )
-      );
 $conf_def_property_list['forceCodeCase'] = 
 array ('label'       => 'Course code case'
       ,'description' => 'You can force the case  of course code'
