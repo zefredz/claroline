@@ -50,11 +50,17 @@ $claro_notifier = new Notifier( $claro_event_manager); //listener used for NOTIF
 // "document_visible" is the name of the event that you want to track
 // $notif_listen1 is the listener created for this survey
 
+if (isset($_uid))
+{
+   //global events (can happen outside of courses too)
+   
+   $claro_notifier->addListener( 'delete_notif', "course_deleted"); 
+}
+
 if (isset($_uid) && isset($_cid))
 {
-    //global events in course
-    
-    $claro_notifier->addListener( 'delete_notif', "course_deleted");    
+    //global events IN COURSE only
+     
     $claro_notifier->addListener( 'update', "toollist_changed");
     $claro_notifier->addListener( 'update', "introsection_modified");
 }
