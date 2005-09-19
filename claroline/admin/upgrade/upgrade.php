@@ -224,7 +224,7 @@ switch ($display)
 
             <p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>
             <ul>
-            <li><a href="../../..">Access to campus</a></li>
+            <li><a href="../../../index.php?logout=true">Access to campus</a></li>
             </ul>' ;
 }
 
