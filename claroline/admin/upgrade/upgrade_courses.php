@@ -72,6 +72,7 @@ $count_course = $count_course_upgraded['total'];
 $count_course_error = $count_course_upgraded['error'];
 $count_course_upgraded = $count_course_upgraded['upgraded'];
 
+$count_course_error_at_start = $count_course_error;
 $count_course_upgraded_at_start =  $count_course_upgraded;
 
 /*=====================================================================
@@ -190,15 +191,12 @@ switch ($display)
             $currentCourseVersion      = $course['versionClaro'];
             $currentCourseDbNameGlu    = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
 
-            // course upgraded
-            $count_course_upgraded++;
-
             // initialise
             $error = false;
             $upgraded = false;
             $message = '';
             
-            echo '<p><strong>' . $count_course_upgraded . ' . </strong> 
+            echo '<p><strong>' . ( $count_course_upgraded + 1 ) . ' . </strong> 
                   Upgrading course <strong>' . $currentCourseFakeCode . '</strong><br />
                   <small>DB Name : ' . $currentCourseDbName . ' - Course ID : ' . $currentCourseCode . '</small></p>';
             
@@ -304,29 +302,14 @@ switch ($display)
 
             }
 
-            // Calculate time            
-            $mtime = microtime(); $mtime = explode(' ',$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
-            $totaltime = ($endtime - $starttime);
-            $stepDuration = ($endtime - $steptime);
-            $steptime = $endtime;
-            $stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
-            $leftCourses = (int) ($count_course-$count_course_upgraded);
-            $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
-            
-            $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
-                                           <strong>Expected remaining time %s</strong>."
-                                          ,$stepDuration
-                                          ,$stepDurationAvg
-                                          ,strftime('%H:%M:%S',$totaltime)
-                                          ,$leftCourses
-                                          ,$leftTime
-                                         );
             
             if ( ! $error )
             {
                 if ( preg_match('/^1.7/',$currentCourseVersion) )
                 {
-                    $message .= '<p class="success">Upgrade succeeded - ' . $str_execution_time . '</p>';
+                    $message .= '<p class="success">Upgrade succeeded</p>';
+                    // course upgraded
+                    $count_course_upgraded++;
                 }
                 else
                 {
@@ -339,10 +322,34 @@ switch ($display)
             else
             {
                 $count_course_error++;
-                $message .= '<p class="error">Upgrade failed - ' . $str_execution_time . '</p>';
+                $message .= '<p class="error">Upgrade failed</p>';
             }
             
+            // display message
             echo $message;
+            
+            // Calculate time            
+            $mtime = microtime(); $mtime = explode(' ',$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
+            $totaltime = ($endtime - $starttime);
+            $stepDuration = ($endtime - $steptime);
+            $steptime = $endtime;
+            $stepDurationAvg = $totaltime / ( ($count_course_upgraded-$count_course_upgraded_at_start) 
+                                             + ($count_course_error-$count_course_error_at_start) );
+
+            $leftCourses = (int) ($count_course-$count_course_upgraded);
+            $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
+            
+            $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
+                                           <strong>Expected remaining time %s</strong>."
+                                          ,$stepDuration
+                                          ,$stepDurationAvg
+                                          ,strftime('%H:%M:%S',$totaltime)
+                                          ,$leftCourses
+                                          ,$leftTime
+                                         );
+
+            echo '<p>' . $str_execution_time . '</p>';
+
             echo '<hr noshade="noshade" />';           
             flush();
 
