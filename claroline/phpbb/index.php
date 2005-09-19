@@ -102,7 +102,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit()
                     //  is added to give admin status to tutor 
                     // && !$is_courseAdmin)
                     // is added  to let course admin, tutor of current group, use student mode
-                     
+
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
 $is_groupPrivate   = $_groupProperties ['private'];
@@ -133,9 +133,12 @@ foreach ( $categories as $this_category )
     // Pass category for sumple user if no forum inside
     if ($this_category['forum_count'] == 0 && ! $is_allowedToEdit) continue;
 
+    if ($this_category['forum_count'] > 0) $thCssClass = '';
+    else                                   $thCssClass = ' class="invisible" ';
+
     echo '<tr class="superHeader" align="left" valign="top">' . "\n"
     
-    .    '<th colspan="'.$colspan.'" >';
+    .    '<th colspan="'.$colspan.'" '.$thCssClass.'>';
 
     if($is_allowedToEdit)
     {
@@ -144,7 +147,10 @@ foreach ( $categories as $this_category )
         .    '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langEdit.'" />'
         .    '</a>'
         .    '&nbsp;'
-        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
+        ;
+
+        if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
+        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
         .    'onClick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
         .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" />'
         .    '</a>'
@@ -160,16 +166,23 @@ foreach ( $categories as $this_category )
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownCat&amp;catId='.$this_category['cat_id'].'">'
         .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.$langMoveDown.'" />'
         .    '</a>';
-        
+
         echo '</div>'
         ;   
     }
     
-    echo htmlspecialchars($this_category['cat_title']);    
-    
+    echo htmlspecialchars($this_category['cat_title']);
+
+    if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
+    {
+        echo '<a href="'.$clarolineRepositoryWeb.'/group/group.php">'
+        .    '<img src="'.$imgRepositoryWeb. 'group.gif">'
+        .    '</a>';
+    }
+
     echo '</th>' . "\n"
     .    '</tr>' . "\n";
-    
+
 
     
     if ($this_category['forum_count'] == 0)
@@ -197,7 +210,7 @@ foreach ( $categories as $this_category )
         }
         echo '</tr>' . "\n";
     }
-    
+
     $forumIterator = 0;
 
     if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
@@ -261,8 +274,8 @@ foreach ( $categories as $this_category )
                     .    '</a> ' 
                     ;
 
-                    echo '<a href="'.$clarolineRepositoryWeb.'/group/group_space.php?gidReq='.$group_id.'">'
-                        .'<img src="'.$imgRepositoryWeb. 'group.gif">'
+                    echo  '<a href="'.$clarolineRepositoryWeb.'/group/group_space.php?gidReq='.$group_id.'">'
+                        . '<img src="'.$imgRepositoryWeb. 'group.gif">'
                         . '</a>';
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
@@ -274,8 +287,6 @@ foreach ( $categories as $this_category )
                     {
                         echo '&nbsp;<small>(' . $langMyGroup . ')</small>';
                     }
-
-
                 }
                 else
                 {
@@ -315,25 +326,43 @@ foreach ( $categories as $this_category )
             
             if( $is_allowedToEdit)
             {
-                echo '<td align="center">'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="'.$langEdit.'" />'
-                .    '</a>'
-                .    '</td>'
+                echo '<td align="center">';
+
+                if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY)
+                {
+                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
+                    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="'.$langEdit.'" />'
+                    .    '</a>'
+                    ;
+                }
+                else
+                {
+                	echo '&nbsp;';
+                }
+
+                echo '</td>'
+
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
                 .    'onClick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
                 .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="'.$langEmpty.'" />'
                 .    '</a>'
                 .    '</td>'
-                .    '<td align="center">'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
-                .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'" />'
-                .    '</a>'
-                .    '</td>';
-                
-                echo '<td align="center">';
+
+                .'<td align="center">';
+
+                if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY)
+                {
+                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
+                    .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
+                    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'" />'
+                    .    '</a>';
+                }
+                else echo '&nbsp;';
+
+                echo '</td>'
+
+                .    '<td align="center">';
                 
                 if ($forumIterator > 1) 
                 {
@@ -341,6 +370,7 @@ foreach ( $categories as $this_category )
                     .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.$langMoveUp.'" />'
                     .    '</a>';
                 }
+                else echo '&nbsp;';
                              
                 echo '</td>';
                 
@@ -352,7 +382,8 @@ foreach ( $categories as $this_category )
                     .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.$langMoveDown.'" />'
                     .    '</a>';
                 }
-                
+                else echo '&nbsp;';
+
                 echo   '</td>';
             }
 
