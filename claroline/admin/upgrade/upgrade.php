@@ -222,7 +222,7 @@ switch ($display)
 
         echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
 
-            <p>The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>
+            <p class="success">The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>
             <ul>
             <li><a href="../../../index.php?logout=true">Access to campus</a></li>
             </ul>' ;
