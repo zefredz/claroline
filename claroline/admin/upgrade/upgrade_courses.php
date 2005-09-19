@@ -237,7 +237,7 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-			$step = $function($currentCourseCode);
+                        $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
                             echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
@@ -278,7 +278,7 @@ switch ($display)
 
                     foreach ( $function_list as $function )
                     {
-			$step = $function($currentCourseCode);
+                        $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
                             echo 'Error : ' . $function . ' at step ' . $step . '<br />';
@@ -312,8 +312,6 @@ switch ($display)
             $stepDurationAvg = $totaltime / ($count_course_upgraded-$count_course_upgraded_at_start);
             $leftCourses = (int) ($count_course-$count_course_upgraded);
             $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
-
-
             
             $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
                                            <strong>Expected remaining time %s</strong>."
@@ -327,16 +325,16 @@ switch ($display)
             if ( ! $error )
             {
                 if ( preg_match('/^1.7/',$currentCourseVersion) )
-		{
+                {
                     $message .= '<p class="success">Upgrade succeeded - ' . $str_execution_time . '</p>';
                 }
-		else
-		{
+                else
+                {
                     // course version unknown
                     $count_course_error++;
                     $message .= '<p class="error">Course version unknown : ' . $currentCourseVersion . '</p>';
                     log_message('Course version unknown : ' . $currentCourseVersion . '(in ' . $currentCourseCode . ')');
-		}
+                }
             }
             else
             {
