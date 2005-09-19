@@ -44,16 +44,16 @@ $sql = "SELECT `lock`, `raw_to_pass`
        WHERE LPM.`module_id` = ". (int)$_SESSION['module_id']."
          AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
 
-$learningPath_module = claro_sql_query_fetch_all($sql);
+$learningPath_module = claro_sql_query_get_single_row($sql);
 
 // if this module blocks the user if he doesn't complete
-if( isset($learningPath_module[0]['lock'])
-	&& $learningPath_module[0]['lock'] == 'CLOSE'
-	&& isset($learningPath_module[0]['raw_to_pass']) )
+if( isset($learningPath_module['lock'])
+	&& $learningPath_module['lock'] == 'CLOSE'
+	&& isset($learningPath_module['raw_to_pass']) )
 {
 	echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n"
 		.'<label for="newRaw">'.$langChangeRaw.'</label>'."\n"
-		.'<input type="text" value="'.htmlspecialchars( $learningPath_module[0]['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
+		.'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
 		.'<input type="hidden" name="cmd" value="raw" />'."\n"
 		.'<input type="submit" value="'.$langOk.'" />'."\n"
 		.'</form>'."\n\n";
@@ -68,11 +68,9 @@ $sql = "SELECT `E`.`id` AS `exerciseId`, `M`.`name`
          AND `M`.`module_id` = ". (int) $_SESSION['module_id']."
          AND `E`.`id` = `A`.`path`";
 
-$result = claro_sql_query_fetch_all($sql);
-if( is_array($result[0]) )
+$module = claro_sql_query_get_single_row($sql);
+if( $module )
 {
-  	$module = $result[0];
-  	
 	echo "\n\n".'<h4>'.$langExerciseInModule.' :</h4>'."\n"
 		.'<p>'."\n"
 		.htmlspecialchars($module['name'])
