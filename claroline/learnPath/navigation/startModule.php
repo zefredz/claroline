@@ -114,11 +114,19 @@ switch ($module['contentType'])
 		    claro_sql_query($sql);
 		} // else anonymous : record nothing
 
-		$startAssetPage = $assetPath;
-
-		// str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.
-		$moduleStartAssetPage = $clarolineRepositoryWeb."/document/goto/index.php".str_replace("%2F","/",urlencode($startAssetPage));
-		$withFrames = true;
+		$startAssetPage = urlencode($assetPath);
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+        {
+            // slash argument method - only compatible with Apache
+            // str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.
+            $moduleStartAssetPage = $clarolineRepositoryWeb.'document/goto/index.php'.str_replace('%2F','/',$startAssetPage);
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $moduleStartAssetPage = $clarolineRepositoryWeb.'document/goto/?url='.$startAssetPage;
+        }
+  		$withFrames = true;
 		break;
 
 	case CTEXERCISE_ :
