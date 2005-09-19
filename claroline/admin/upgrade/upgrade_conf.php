@@ -112,15 +112,15 @@ if ( $cmd == 'run' )
             $current_value_list['platform_id'] = $platform_id;
         }
 
-	// Old variables from 1.5
-	if ( isset($administrator) )
+        // Old variables from 1.5
+        if ( isset($administrator) )
         { 
             $current_value_list['administrator_name'] = $administrator['name'];
             $current_value_list['administrator_phone'] = $administrator['phone'];
             $current_value_list['administrator_email'] = $administrator['email'];
         }
 
-	if ( isset($institution) )
+        if ( isset($institution) )
         { 
             $current_value_list['institution_name'] = $institution['name'];
             $current_value_list['institution_url'] = $institution['url'];
@@ -208,7 +208,7 @@ if ( $cmd == 'run' )
                 else
                 {
                     // Backup current file 
-                    $output .= '<li>Old file backup : ' ;
+                    $output .= '<li>Backup old file : ' ;
 
                     $fileBackup = $backupRepositorySys . basename($conf_file);
                     if (!@copy($conf_file, $fileBackup) )
@@ -231,7 +231,7 @@ if ( $cmd == 'run' )
                 {
                     // Save the new configuration file 
 
-                    $output .= '<li>File upgrade :';
+                    $output .= '<li>Upgrade file : ';
 
                     if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
                     {
@@ -318,6 +318,8 @@ switch ($display)
     case DISPLAY_RESULT_ERROR_PANEL :
         echo '<h2>Step 1 of 3: platform main settings - <span class="error">Failed</span></h2>';
         echo $output;
+        echo '<center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Relaunch platform
+              main settings upgrade</button></p></center>';
         break;
 
     case DISPLAY_RESULT_SUCCESS_PANEL :
