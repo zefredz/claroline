@@ -339,9 +339,7 @@ if($module['contentType'] != CTLABEL_) //
 
 	$asset = claro_sql_query_get_single_row($sql);
 
-    if(( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'])
-             || ( $submitStartAsset && isset($startAsset))
-       )
+    if( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'] )
     {
 
 		echo '<center>'."\n"
