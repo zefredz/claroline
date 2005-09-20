@@ -175,8 +175,8 @@ foreach ( $categories as $this_category )
 
     if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
     {
-        echo '<a href="'.$clarolineRepositoryWeb.'/group/group.php">'
-        .    '<img src="'.$imgRepositoryWeb. 'group.gif">'
+        echo '&nbsp;<a href="'.$clarolineRepositoryWeb.'group/group.php">'
+        .    '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . $langGroups . '">'
         .    '</a>';
     }
 
@@ -271,11 +271,11 @@ foreach ( $categories as $this_category )
                     echo '<a href="viewforum.php?gidReq=' . $group_id
                     .    '&amp;forum=' . $forum_id . '">'
                     .    $forum_name
-                    .    '</a> ' 
+                    .    '</a>' 
                     ;
 
-                    echo  '<a href="'.$clarolineRepositoryWeb.'/group/group_space.php?gidReq='.$group_id.'">'
-                        . '<img src="'.$imgRepositoryWeb. 'group.gif">'
+                    echo  '&nbsp;<a href="'.$clarolineRepositoryWeb.'group/group_space.php?gidReq='.$group_id.'">'
+                        . '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . $langGroupSpace . '">'
                         . '</a>';
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
