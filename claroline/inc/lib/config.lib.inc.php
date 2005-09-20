@@ -847,17 +847,17 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     // label of the form element
     if ( isset($property_def['label']) )
     {
-        $htmlPropLabel = htmlentities($property_def['label']);
+        $htmlPropLabel = htmlspecialchars($property_def['label']);
     }
     else
     {
-        $htmlPropLabel = htmlentities($property_name);
+        $htmlPropLabel = htmlspecialchars($property_name);
     }
 
     // type description to display
     if ( strlen($type) > 0 )
     {
-        $htmlPropType = ' <small>(' . htmlentities($type) . ')</small>';
+        $htmlPropType = ' <small>(' . htmlspecialchars($type) . ')</small>';
     }
     else
     {
@@ -902,7 +902,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     // description to display 
     if ( isset($property_def['description']) )
     {
-        $htmlPropDesc = nl2br(htmlentities($property_def['description']));
+        $htmlPropDesc = nl2br(htmlspecialchars($property_def['description']));
     }
     else
     {
@@ -930,7 +930,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
     $size = (int) strlen($htmlPropValue);
     $size = 2+(($size > 50)?50:(($size < 15)?15:$size));
 
-    $htmlUnit = (isset($property_def['unit'])?''.htmlentities($property_def['unit']).' ':'');
+    $htmlUnit = (isset($property_def['unit'])?''.htmlspecialchars($property_def['unit']).' ':'');
 
     if ( isset($property_def['display']) && !$property_def['display'] )
     {
