@@ -16,7 +16,7 @@
  *
  */
 
-    require_once dirname(__FILE__) . '/' . '../inc/claro_init_global.inc.php';
+//    require_once dirname(__FILE__) . '/' . '../inc/claro_init_global.inc.php';
     
     // link allready exists return value 
     define( 'LINK_ALLREADY_EXISTS', -1);
