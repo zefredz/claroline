@@ -4,12 +4,13 @@
  * This tool run some check to detect abnormal situation
  * @version 1.7
  * 
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * 
- * @license GENERAL PUBLIC LICENSE (GPL)
- * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
- * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
- * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/ADMIN
  * 
  * @author Sébastien Piraux <pir@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -22,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
+$interbredcrump[] = array ('url' => 'index.php', 'name'=> $langAdministration);
 
 $nameTools = $langViewPlatFormError;
 
@@ -52,7 +53,7 @@ $tbl_document           = $tbl_cdb_names['document'         ];
 
 $toolNameList = claro_get_tool_name_list();
 
-include($includePath."/lib/statsUtils.lib.inc.php");
+include_once $includePath . '/lib/statsUtils.lib.inc.php';
 
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
@@ -70,10 +71,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 {
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show
-    echo "\n<small>"
-    ."[<a href=\"".$_SERVER['PHP_SELF']."?view=1111111\">$langShowAll</a>]"
-    ."&nbsp;[<a href=\"".$_SERVER['PHP_SELF']."?view=0000000\">$langShowNone</a>]"
-    ."</small>\n\n";
+    echo "\n"
+    .    '<small>'
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=1111111">' . $langShowAll . '</a>]'
+    .    '&nbsp;'
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=0000000">' . $langShowNone . '</a>]'
+    .    '</small>' . "\n\n"
+    ;
 
     if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
     else							$view = "0000000";
@@ -151,7 +155,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         //--  courses without professor
         echo '- &nbsp;&nbsp;<b>'.$langCourseWithoutProf.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
 
-        $sql = "SELECT c.code, count( cu.user_id ) nbu
+        $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
                     FROM `".$tbl_course."` c
                     LEFT JOIN `".$tbl_rel_course_user."` cu
                         ON c.code = cu.code_cours 
@@ -178,8 +182,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $tempView[$levelView] = '0';
         //-- courses without students
         echo '- &nbsp;&nbsp;<b>'.$langCourseWithoutStudents.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
-
-        $sql = "SELECT c.code, count( cu.user_id ) nbu
+        $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
                     FROM `".$tbl_course."` c
                     LEFT JOIN `".$tbl_rel_course_user."` cu
                         ON c.code = cu.code_cours 
@@ -319,5 +322,5 @@ else // not allowed to track
     }
 }
 
-include($includePath."/claro_init_footer.inc.php");
+include ($includePath . '/claro_init_footer.inc.php');
 ?>
