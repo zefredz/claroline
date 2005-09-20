@@ -25,6 +25,7 @@ else
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
 if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
+
 /*----------------------------------------------------------------------
   Various Path Init
   ----------------------------------------------------------------------*/
@@ -46,7 +47,6 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 ini_set('include_path', 
         ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
 
-
 $clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
 $clarolineRepositoryWeb = $rootWeb . $clarolineRepositoryAppend;
 $userImageRepositorySys = $rootSys . $userImageRepositoryAppend;
@@ -62,6 +62,17 @@ $imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
 // Unix file permission access ...
 
 define('CLARO_FILE_PERMISSIONS', 0777);
+
+// Compatibility with IIS web server - REQUEST_URI
+
+if ( !isset($_SERVER['REQUEST_URI']) )
+{
+    $_SERVER['REQUEST_URI'] = $_SERVER['PHP_SELF'];
+    if ( !empty($_SERVER['QUERY_STRING']) ) 
+    {
+        $_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
+    }
+}
 
 /*----------------------------------------------------------------------
   Start session
@@ -120,7 +131,6 @@ require $includePath . '/lib/event/init_event_manager.inc.php';
 /*----------------------------------------------------------------------
   Load language files
   ----------------------------------------------------------------------*/
-
 
 if ($_course['language'])
 {
