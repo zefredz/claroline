@@ -1065,11 +1065,11 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                     {
                         if ($htmlPropValue==$keyVal)
                         {
-                            echo '<option name="'.$htmlPropName.'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $htmlUnit .'</option>' . "\n";
+                            echo '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $htmlUnit .'</option>' . "\n";
                         }
                         else
                         {
-                            echo '<option name="'.$htmlPropName.'">' . ($labelVal?$labelVal:$keyVal ). $htmlUnit .'</option>' . "\n";
+                            echo '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $htmlUnit .'</option>' . "\n";
                         }
                     }
 
