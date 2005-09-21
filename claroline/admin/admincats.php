@@ -2,6 +2,7 @@
 /**
  * CLAROLINE 
  *
+ * This tool can edit category tree
  *
  * @version 1.7
  *
@@ -596,9 +597,17 @@ else
                 }
 
                 // Change the category edit
-                $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "`
-                                          SET code_P=" .($_REQUEST['fatherCat'] == 'NULL') ? 'NULL' : ("'" . addslashes($_REQUEST['fatherCat']) . "'")." 
-                                          WHERE id='" . (int) $_REQUEST['id'] . "'";
+                $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "`";
+                if ($_REQUEST['fatherCat'] == 'NULL' )
+                {
+                    $sql_ChangeInfoFaculty .= "SET code_P IS NULL ";
+                }
+                else
+                {
+                    $sql_ChangeInfoFaculty .= "SET code_P = '" . addslashes($_REQUEST['fatherCat']) . "' ";
+                }
+                
+                $sql_ChangeInfoFaculty .= " WHERE id='" . (int) $_REQUEST['id'] . "'";
 
                 claro_sql_query($sql_ChangeInfoFaculty);
 
@@ -606,6 +615,7 @@ else
 
                 // Change the number of childeren of the father category and his parent
                 $fatherChangeChild=$facultyEdit['code_P'];
+                
                 delete_qty_child_father($fatherChangeChild, $newNbChild);
 
                 // Change the number of childeren of the new father and his parent
