@@ -14,13 +14,6 @@
 +----------------------------------------------------------------------+
 */
 
-/*
-
-TODO
-  - handle problem of 'no answer given' in QCM and matching
-  - display of answers is not human readable in matching export
-  - Delete this todo list
-*/
 include_once($rootSys.$clarolineRepositoryAppend.'exercice/question.class.php');
 include_once($rootSys.$clarolineRepositoryAppend.'exercice/answer.class.php');
 include_once( dirname(__FILE__) . '/csv.class.php');
