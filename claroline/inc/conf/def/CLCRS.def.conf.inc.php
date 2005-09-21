@@ -60,9 +60,9 @@ array ('label'       => 'Default course access'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('0'=>'Private&nbsp;+ New registration denied'
-                                ,'1'=>'Public&nbsp;&nbsp;+ New Registration denied'
+                                ,'1'=>'Private&nbsp+ New Registration allowed'
                                 ,'2'=>'Public&nbsp;&nbsp;+ New Registration allowed'
-                                ,'3'=>'Private&nbsp+ New Registration allowed'
+                                ,'3'=>'Public&nbsp;&nbsp;+ New Registration denied'
                                 )
       );
 
