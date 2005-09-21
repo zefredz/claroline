@@ -142,6 +142,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     $claro_notifier->addListener( 'delete_notif', "work_deleted");
     $claro_notifier->addListener( 'update',       "work_submission_posted");
     $claro_notifier->addListener( 'update',       "work_correction_posted");
+    $claro_notifier->addListener( 'update',       "work_feedback_posted");   
     }
     
     //forum tool events

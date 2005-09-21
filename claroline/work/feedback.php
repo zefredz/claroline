@@ -140,7 +140,9 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
                     if( file_exists($assigDirSys.$_REQUEST['currentPrefillDocPath']) )
                         claro_delete_file($assigDirSys.$_REQUEST['currentPrefillDocPath']);
                 }
-
+                
+                //report event to eventmanager "feedback_posted"              
+                $eventNotifier->notifyCourseEvent("work_feedback_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
                 
                 // else : file sending shows no error
                 // $formCorrectlySent stay true;

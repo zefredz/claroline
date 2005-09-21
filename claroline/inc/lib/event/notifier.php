@@ -88,7 +88,6 @@ class Notifier extends EventDriven
                         AND `tool_id`='". (int)$tool."'
                         AND `ressource_id`='". addslashes($ressource) ."'
                         AND `group_id` = '". (int)$gid."'
-                        AND `user_id` = '". (int)$uid."'
                         ";
         }  
                      

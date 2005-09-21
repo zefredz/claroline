@@ -495,7 +495,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         // select only the group assignments
           $sql = "SELECT `id`, `title`, `visibility`, 
             `description`, `assignment_type`, `authorized_content`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
             FROM `" . $tbl_wrk_assignment . "`
             WHERE `assignment_type` = 'GROUP'
             ORDER BY `end_date` ASC";    
@@ -504,7 +504,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     {
         $sql = "SELECT `id`, `title`, `visibility`, 
             `description`, `assignment_type`, `authorized_content`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
             FROM `" . $tbl_wrk_assignment . "` 
             ORDER BY `end_date` ASC";
     }          
@@ -515,17 +515,18 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     $atLeastOneAssignmentToShow = false;
 
     if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
-    
+
     foreach ( $assignmentList as $anAssignment )
     {
-        //modify style if the file is recently added since last login
-
-        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $anAssignment['id']))
+        //modify style if the file is recently added since last login and that assignment tool is used with visible default mode for submissions.
+     
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id'],FALSE) && ($anAssignment['def_submission_visibility']=="VISIBLE"  || $is_allowedToEdit))
         {
             $classItem=' hot';
         }
-        else // otherwise just display its name normally
+        else //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
         {
+            $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id']);
             $classItem='';
         }
         

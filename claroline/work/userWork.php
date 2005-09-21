@@ -630,8 +630,8 @@ if($is_allowedToEditAll)
 
 			$dialogBox .= $langFeedbackAdded;
                         
-            // notify eventmanager that a new submission has been posted
-            $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], $_gid, $_REQUEST['authId']);
+            // notify eventmanager that a new correction has been posted
+            $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], '0', '0');
 
 			// display flags
 			$dispWrkLst = true;
@@ -817,7 +817,7 @@ if( $is_allowedToSubmit )
             $dialogBox .= $langWrkAdded;
             
             // notify eventmanager that a new submission has been posted
-            $eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], $_gid, $_uid);
+            $eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
             
             // display flags
             $dispWrkLst = true;
