@@ -629,7 +629,7 @@ else
                 {
                     // Met des treePos temporaire pour celui qu on vient de deplacer et ses enfants
                     $i=1;
-                    while( $i <= $facultyEdit + 1 ) 
+                    while( $i <= $facultyEdit['nb_childs'] + 1 ) 
                     {
                         $sql_TempTree = " UPDATE `" . $tbl_course_node . "`
                                           SET treePos=" . $maxTree . "+" . $i . "
