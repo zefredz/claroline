@@ -31,7 +31,7 @@
         }
         else
         {
-            die( 'Not allowed' );
+            claro_die($langNotAllowed);
         }
     }
     
@@ -59,7 +59,7 @@
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
-        die( "<center>You are not allowed to see this group's wiki !!!</center>" );
+        claro_die($langNotAllowed);
     }
     elseif ( $is_courseAllowed )
     {
