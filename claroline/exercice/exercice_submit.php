@@ -62,10 +62,14 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
 	// construction of Exercise
 	$objExercise = new Exercise();
 
-	// if the specified exercise doesn't exist or is disabled
-	if( empty($_REQUEST['exerciseId']) || !$objExercise->read($_REQUEST['exerciseId'])
-			|| (!$objExercise->selectStatus() && !$is_allowedToEdit
-			&& ( isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] )
+	// exercise not found if
+	//  - no exerciseId given
+	//	- read error with exerciseId
+	//  -
+	if( empty($_REQUEST['exerciseId'])
+		|| ! $objExercise->read($_REQUEST['exerciseId'])
+		|| ( ! $objExercise->selectStatus() &&  ! $is_allowedToEdit
+				&& ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] )
 			)
    	)
 	{
