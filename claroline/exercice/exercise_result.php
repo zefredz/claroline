@@ -76,7 +76,10 @@ if( !isset($exerciseResult) || !is_array($exerciseResult)
 	|| !is_object($_SESSION['objExercise'])
 	)
 {
-	die($langExerciseNotFound);
+        include ($includePath.'/claro_init_header.inc.php');
+		echo '<br />'.claro_disp_message_box($langExerciseNotFound).'<br />';
+        include ($includePath.'/claro_init_footer.inc.php');
+        die();
 }
 
 $exerciseTitle		= $_SESSION['objExercise']->selectTitle();
