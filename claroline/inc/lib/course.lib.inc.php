@@ -307,7 +307,7 @@ function claro_get_lang_flat_list()
             $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
         $languageLabel .=  $this_language['langNameLocaleLang'];
         
-        $language_flat_list[$languageCode] = $languageLabel;
+        $language_flat_list[$languageCode] = ucwords($languageLabel);
     }
     asort($language_flat_list);
     return $language_flat_list; 

@@ -82,10 +82,10 @@ DISP_RUN_INSTALL_COMPLETE);
 $panelTitle[DISP_WELCOME]                   = $langRequirements;
 $panelTitle[DISP_LICENCE]                   = $langLicence;
 //$panelTitle[DISP_FILE_SYSTEM_SETTING]      = $langFileSystemSetting;
-$panelTitle[DISP_DB_CONNECT_SETTING]        = $langDBSetting;
+$panelTitle[DISP_DB_CONNECT_SETTING]        = 'MySql Database Settings';
 $panelTitle[DISP_DB_NAMES_SETTING]          = $langMysqlNames;
-$panelTitle[DISP_ADMINISTRATOR_SETTING]     = $langAdminSetting;
-$panelTitle[DISP_PLATFORM_SETTING]          = $langCfgSetting;
+$panelTitle[DISP_ADMINISTRATOR_SETTING]     = 'Administrator Account';
+$panelTitle[DISP_PLATFORM_SETTING]          = 'Platform Settings';
 $panelTitle[DISP_ADMINISTRATIVE_SETTING]    = 'Additional Informations<small> (optional)</small>';
 $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = $langLastCheck;
 $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
@@ -165,8 +165,8 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
         if (empty($adminNameForm))         $missing_admin_data[] = 'lastname';
         if (empty($adminEmailForm))     $missing_admin_data[] = 'email';
         if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm))     $error_in_admin_data[] = 'email';
-        if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please fill '.implode(', ',$missing_admin_data).'</font><br>';
-        if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please check '.implode(', ',$error_in_admin_data).'</font><br>';
+        if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br>';
+        if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please, check '.implode(', ',$error_in_admin_data).'</font><br>';
         if ($cmd>DISP_ADMINISTRATOR_SETTING)
         {
             $display=DISP_ADMINISTRATOR_SETTING;
@@ -495,7 +495,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
     .notethis { font-weight : bold;  }
 </style>
 <style  type="text/css"  >
-    .notethis { color : red; }
+    .notethis { font-weight : bold; }
     .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }
 </style>
 
@@ -507,7 +507,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
         <tr  bgcolor="#000066" >
             <th valign="top">
                <FONT color="White">
-                    Claroline 1.7 (<?php echo $new_version ?>) - installation
+                    Claroline <?php echo $new_version ?> - Installation
                 </font>
             </th>
         </TR>
@@ -627,9 +627,9 @@ if ($display==DISP_WELCOME)
     $WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
     echo '<p>Read thoroughly '
     .    '<a href="../../INSTALL.txt">INSTALL.txt</a> '
-    .    'before proceeding to install.'
+    .    'before proceeding to installation.'
     .    '</p>'
-    .    '<h4>Checking requirement</h4>'
+    .    '<h4>Checking requirements</h4>'
     .    '<ul>'
     .    '<li>'
     .    'Checking PHP extentions.'
@@ -649,60 +649,25 @@ if ($display==DISP_WELCOME)
         </UL>
     </LI>
     <LI>
-        Checking PHP settings
+        Checking PHP settings.
         <UL>
             ';
-    if ( ini_get('register_globals') )
+    if (ini_get('safe_mode') )
     {
         echo '<li>'
         .    '<p class="setup_error">' . "\n"
         .    '<font color="red">Warning !</font>' . "\n"
-        .    'register_globals is set to <strong>on</strong>.' . "\n"
+        .    'safe_mode is set to <strong>on</strong>.' . "\n"
         .    '<br>' . "\n"
-        .    'For more security, we recommand you to change the following parameter in your <i>php.ini</i> file to this value :<br>' . "\n"
+        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br>' . "\n"
         .    '<font color="blue">' . "\n"
-        .    '<code>register_globals = off </code>' . "\n"
+        .    '<code>safe_mode = off </code>' . "\n"
         .    '</font>' . "\n"
         .    '</p>' . "\n"
         .    '</li>' . "\n"
         ;
     }
-
-    if (!ini_get('magic_quotes_gpc'))
-    {
-        echo '<LI>'  . "\n"
-        .    '<font color="red">Warning !</font> magic_quotes_gpc is set to <strong>off</strong>.'  . "\n"
-        .    '<br>'  . "\n"
-        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br>'  . "\n"
-        .    '<font color="blue">'  . "\n"
-        .    '<code>magic_quotes_gpc = on</code>'  . "\n"
-        .    '</font>'  . "\n"
-        .    '</LI>'
-        ;
-    }
-
-    if (    ini_get('display_errors')
-    && (ini_get('error_reporting') & E_NOTICE )
-    )
-    {
-        echo '<LI>'  . "\n"
-        .    '<font color="red">'  . "\n"
-        .    'Warning !'  . "\n"
-        .    '</font>'  . "\n"
-        .    'error_reporting include <strong>E_NOTICE</strong>.'  . "\n"
-        .    '<br>'  . "\n"
-        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br>'  . "\n"
-        .    '<font color="blue">'  . "\n"
-        .    '<code>error_reporting  =  E_ALL & ~E_NOTICE</code>'  . "\n"
-        .    '</font><BR>'  . "\n"
-        .    'or<BR>'  . "\n"
-        .    '<font color="blue">'  . "\n"
-        .    '<code>display_errors = off</code>'  . "\n"
-        .    '</font>'  . "\n"
-        .    '<br>'  . "\n"
-        .    '</LI>'
-        ;
-    }
+    
 
     echo '</UL>'
     .    '</li>'
@@ -848,7 +813,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<table width="100%">'
     .    '<tr>'
     .    '<td>'
-    .    '<label for="dbHostForm">' . $langDBHost . '</label>'
+    .    '<label for="dbHostForm">Database host</label>'
     .    '</td>'
     .    '<td>'
     .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'">'
@@ -859,7 +824,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '</tr>'
     .    '<tr>'
     .    '<td>'
-    .    '<label for="dbUsernameForm">'.$langDBLogin.'</label>'
+    .    '<label for="dbUsernameForm">Database username</label>'
     .    '</td>'
     .    '<td>'
     .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'">'
@@ -870,7 +835,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '</tr>'
     .    '<tr>'
     .    '<td>'
-    .    '<label for="dbPassForm">'.$langDBPassword.'</label>'
+    .    '<label for="dbPassForm">Database password</label>'
     .    '</td>'
     .    '<td>'
     .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'">'
@@ -889,13 +854,13 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<td>'
     .    '<input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'>'
     .    '<label for="enableTrackingForm_enabled">'
-    .    'Enabled'
+    .    'enabled'
     .    '</label>'
     .    '</td>'
     .    '<td>'
     .    '<input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'>'
     .    '<label for="enableTrackingForm_disabled">'
-    .    'Disabled'
+    .    'disabled'
     .    '</label>'
     .    '</td>'
     .    '</tr>'
@@ -906,13 +871,13 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<td>'
     .    '<input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' >'
     .    '<label for="singleDbForm_single">'
-    .    'Single'
+    .    'single'
     .    '</label>'
     .    '</td>'
     .    '<td>'
     .    '<input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' >'
     .    '<label for="singleDbForm_multi">'
-    .    'Multi'
+    .    'multi '
     .    '<small>'
     .    '(a database is created at each course creation)'
     .    '</small>'
@@ -984,10 +949,10 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '<td colspan="2">'  . "\n"
         .    '<p class="setup_error">'  . "\n"
         .    '<font color="red">Warning !</font>'  . "\n"
-        .    ': Database <em>'.$dbNameForm.'</em> already exists'  . "\n"
+        .    'Database <em>'.$dbNameForm.'</em> already exists'  . "\n"
         .    '<BR>'  . "\n"
-        .    'Claroline could overwrite data previsously recorded'  . "\n"
-        .    'in these database tables.'  . "\n"
+        .    'Claroline may overwrite data previously stored'  . "\n"
+        .    'in tables of this database.'  . "\n"
         .    '<BR>'  . "\n"
         .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>'  . "\n"
         .    '<label for="confirmUseExistingMainDb" >'  . "\n"
@@ -1008,7 +973,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '&nbsp;'  . "\n"
+    .    'e.g. \''.$dbNameForm.'\''  . "\n"        .    '</td>'  . "\n"
     .    '</td>'  . "\n"
     .    '</tr>'  . "\n"
     .    '<tr>'  . "\n"
@@ -1021,7 +986,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '&nbsp;'  . "\n"
+    .    'e.g. \''.$mainTblPrefixForm.'\''  . "\n"        .    '</td>'  . "\n"
     .    '</td>'  . "\n"
     .    '</tr>'  . "\n"
     .    '<tr>'  . "\n"
@@ -1037,10 +1002,10 @@ elseif($display == DISP_DB_NAMES_SETTING )
             .    '<td colspan="2">'  . "\n"
             .    '<P class="setup_error">'  . "\n"
             .    '<font color="red">Warning !</font>'  . "\n"
-            .    ' : '.$dbStatsForm.' already exist'  . "\n"
+            .    'Database <em>'.$dbStatsForm.'</em> already exists'  . "\n"
             .    '<BR>'  . "\n"
-            .    'Claroline could overwrite data previsously recorded'  . "\n"
-            .    'in these database tables.'  . "\n"
+            .    'Claroline may overwrite data previously stored'  . "\n"
+            .    'in tables of this database.'  . "\n"
             .    '<BR>'  . "\n"
             .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>'  . "\n"
             .    '<label for="confirmUseExistingStatsDb" >'  . "\n"
@@ -1059,7 +1024,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    '&nbsp;'  . "\n"
+        .    'e.g. \''.$dbStatsForm.'\''  . "\n"        .    '</td>'  . "\n"
         .    '</td>'  . "\n"
         .    '</tr>'  . "\n"
         .    '<tr>'  . "\n"
@@ -1072,15 +1037,15 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    '&nbsp;'  . "\n"
+        .    'e.g. \''.$statsTblPrefixForm.'\''  . "\n"                
         .    '</td>'  . "\n"
         .    '</tr>'  . "\n"
         .    '<tr>'  . "\n"
         .    '<td colspan="3">'  . "\n"
         .    '<blockquote><small>'  . "\n"
-        .    'Normally, Claroline creates a separate database for the tracking tables. '  . "\n"
-        .    'But, you can share the same database for the main tables and the tracking ones'  . "\n"
-        .    '(you can specify a prefix for each of these tables).'  . "\n"
+        .    'Normally, Claroline creates the tracking tables into the main Claroline database. <br />'
+        .    'But, if you want, you have the possibility to store tracking data into a separate database <br />'
+        .    'or to specify a special prefix for tracking tables.'  . "\n"
         .    '</small></blockquote>'  . "\n"
         .    '</td>'  . "\n"
         .    '</tr>'  . "\n"
@@ -1156,7 +1121,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
 }     // cmdDB_CONNECT_SETTING
 
 ##########################################################################
-###### STEP CONFIG SETTINGS ##############################################
+###### STEP ADMIN SETTINGS ##############################################
 ##########################################################################
 elseif($display==DISP_ADMINISTRATOR_SETTING)
 
@@ -1181,6 +1146,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
+    .    'e.g. jdoe'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
@@ -1201,6 +1167,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
+    .    'e.g. jdoe@mydomain.net'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<td>'  . "\n"
@@ -1210,6 +1177,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.htmlspecialchars($adminPhoneForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
+    .    'e.g. 877-426-6006'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
@@ -1220,6 +1188,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
+    .    'e.g. Doe'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
@@ -1230,6 +1199,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
+    .    'e.g. John'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>'  . "\n"
@@ -1283,7 +1253,7 @@ elseif($display==DISP_PLATFORM_SETTING)
                     </tr>
                     <tr>
                         <td colspan="3">
-                             <label for="courseRepositoryForm">Courses repository path (relative to the url above) </label><br>
+                             <label for="courseRepositoryForm">Courses repository path (relative to the URL above) </label><br>
                         </td>
                     </tr>
                     <tr>
@@ -1312,30 +1282,31 @@ elseif($display==DISP_PLATFORM_SETTING)
                     <h4>User </h4>
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     Self-registration
                 </td>
                 <td>
                     <input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'>
-                       <label for="allowSelfReg_1">Enabled</label>
+                       <label for="allowSelfReg_1">enabled</label>
                 </td>
                 <td>
                     <input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'>
-                       <label for="allowSelfReg_0">Disabled</label>
+                       <label for="allowSelfReg_0">disabled</label>
                 </td>
             </tr>
                     <tr>
                         <td>
-                            Password in db
+                             Password storage
                         </td>
                         <td>
                             <input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'>
-                            <label for="encryptPassForm_0">Clear text</label>
+                            <label for="encryptPassForm_0">clear text</label>
                         </td>
                         <td>
                             <input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'>
-                            <label for="encryptPassForm_1">Crypted</label>
+                            <label for="encryptPassForm_1">crypted</label>
                         </td>
                     </tr>
                 </table>
@@ -1450,66 +1421,62 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         <blockquote>
 
         <FIELDSET>
-        <LEGEND>Database</LEGEND>
+        <LEGEND>'.$panelTitle[DISP_DB_CONNECT_SETTING].'</LEGEND>
         <EM>Account</EM>
         <br>
-        Database host : '.htmlspecialchars($dbHostForm).'<br>
-        Database username : '.htmlspecialchars($dbUsernameForm).'<br>
-        Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
-        <EM>Names</EM>
-        <br>
-        Main DB name : '.htmlspecialchars($dbNameForm).'<br>
-        Statistics and tracking DB Name : '.htmlspecialchars($dbStatsForm).'<br>
-        Enable single DB : '.($singleDbForm?$langYes:$langNo).'<br>
-        ';
+        &nbsp;Database host : '.htmlspecialchars($dbHostForm).'<br>
+        &nbsp;Database username : '.htmlspecialchars($dbUsernameForm).'<br>
+        &nbsp;Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
+        
+        &nbsp;Enable single database : '.($singleDbForm?'yes':'no').'<br>
+        &nbsp;Enable tracking : '.($enableTrackingForm?'yes':'no').'<br>
+        <EM>Database Names</EM><br>
+        &nbsp;Main database : '.htmlspecialchars($dbNameForm).'<br>
+        &nbsp;Tracking database : '.htmlspecialchars($dbStatsForm).'<br>';
     if ($mainTblPrefixForm!="" || $statsTblPrefixForm!="" || $dbPrefixForm!="")
         echo '<em>Prefixes</em><br>';
     if ($mainTblPrefixForm!="")
-        echo 'Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br>';
+        echo '&nbsp;Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br>';
     if ($statsTblPrefixForm!="")
-        echo 'Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br>';
+        echo '&nbsp;Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br>';
     if ($dbPrefixForm!="")
-        echo 'Courses DB prefix : '.htmlspecialchars($dbPrefixForm).'<br>';
+        echo '&nbsp;Courses database prefix : '.htmlspecialchars($dbPrefixForm).'<br>';
     echo '
         </FIELDSET>
 
         <FIELDSET>
-        <LEGEND>Admin</LEGEND>
-        Administrator email : '.htmlspecialchars($adminEmailForm).'<br>
-        Administrator phone : '.htmlspecialchars($adminPhoneForm).'<br>
-        Administrator name : '.htmlspecialchars($adminNameForm).'<br>
-        Administrator surname : '.htmlspecialchars($adminSurnameForm).'<br>
+        <LEGEND>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</LEGEND>
         <div class="notethis">
-                    Administrator login : '.htmlspecialchars($loginForm).'<br>
-                    Administrator password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)).'<br>
+                    Login : '.htmlspecialchars($loginForm).'<br>
+                    Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br>
         </div>
-        </FIELDSET>
-        <FIELDSET>
-        <LEGEND>Contact</LEGEND>
+        Email : '.htmlspecialchars($adminEmailForm).'<br>
+        Phone : '.htmlspecialchars($adminPhoneForm).'<br>
+        Lastname : '.htmlspecialchars($adminNameForm).'<br>
+        Firstname : '.htmlspecialchars($adminSurnameForm).'<br>
 
-        Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
-        Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
-        Phone : '.htmlspecialchars((empty($contactPhoneForm)?"--empty--":$contactPhoneForm)).'
         </FIELDSET>
         <FIELDSET>
-        <LEGEND>Campus</LEGEND>
-        Your campus name : '.htmlspecialchars($campusForm).'<br>
-        Your organisation : '.htmlspecialchars($institutionForm).'<br>
-        URL of this organisation : '.$institutionUrlForm.'<br>
-        Language : '.$languageForm.'<br>
-        URL of claroline : '.$urlForm.'<br>
+        <LEGEND>'.$panelTitle[DISP_PLATFORM_SETTING].'</LEGEND>
+        Name : '.htmlspecialchars($campusForm).'<br>
+        Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br>
+        Main language : ' . ucwords($languageForm) . '<br>
+        
+        Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br>
+        Password storage : ' .($encryptPassForm ?'crypted ':'clear text').'
         </FIELDSET>
         <FIELDSET>
-        <LEGEND>Config</LEGEND>
-        Enable tracking : '.($enableTrackingForm?$langYes:$langNo).'<br>
-        Self-registration allowed : '.($allowSelfReg?$langYes:$langNo).'<br>
-        Encrypt user passwords in database : ';
+        <LEGEND>Additional Informations</LEGEND>
+        <em>Related organisation</em><br>
 
-        if ($encryptPassForm)
-            echo 'Yes';
-        else
-            echo 'No';
-?>
+        &nbsp;Name : '.htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm)).'<br>
+        &nbsp;URL  : '.(empty($institutionUrlForm)?"--empty--":$institutionUrlForm).'<br>
+
+        <em>Campus contact</em><br>
+        &nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
+        &nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
+        
+
         </FIELDSET>
         </blockquote>
         <table width="100%">
@@ -1521,8 +1488,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
                     <input type="submit" name="cmdDoInstall" value="Install Claroline &gt;">
                 </td>
             </tr>
-        </table>
-<?php
+        </table>';
 
 }
 
@@ -1679,24 +1645,23 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
             </h2>
             <br>
             <br>
-            <b>
-                Last tip
-            </b>
-            : we highly recommend that you <strong>protect</strong> or <strong>remove</strong> installer directory.
-            <br>
-            <br>
-
-            <br>
-            <br>
 
 
 </form>
 <form action="../../" method="POST">
         <input type="hidden" name="logout" value="TRUE">
         <input type="hidden" name="uidReset" value="TRUE">
-
+<center>
         <input type="submit" value="Go to your newly created campus">
+
 </form>
+            <br>
+            <br>
+                Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.
+            
+            <br>
+            <br>
+        </center>
 <?php
 }    // STEP RUN_INSTALL_COMPLETE
 
