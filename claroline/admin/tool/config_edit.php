@@ -39,7 +39,7 @@
  *   This script would be continue 
  *   to generate a def conf file.
  *
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 

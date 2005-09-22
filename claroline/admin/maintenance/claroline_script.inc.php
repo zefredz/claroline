@@ -4,7 +4,7 @@
  *
  * List of scripts in claroline archive
  *
- * @version 1.6
+ * @version 1.7
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *

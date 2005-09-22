@@ -1,7 +1,7 @@
 <?php //$Id$
 /**
  * CLAROLINE 
- * @version 1.6 $Revision$
+ * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
