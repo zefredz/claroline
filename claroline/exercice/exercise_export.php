@@ -1,7 +1,7 @@
 <?php // $Id$
 /*
 +----------------------------------------------------------------------+
-| CLAROLINE 1.6                                                        |
+| CLAROLINE 1.7                                                        |
 +----------------------------------------------------------------------+
 | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
 +----------------------------------------------------------------------+
@@ -10,7 +10,7 @@
 |   as published by the Free Software Foundation; either version 2
 |   of the License, or (at your option) any later version.
 +----------------------------------------------------------------------+
-| Authors: Amand Tihon
+| Authors: Amand Tihon <amand@alrj.org>                                |
 +----------------------------------------------------------------------+
 */
 
