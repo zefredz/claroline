@@ -114,12 +114,12 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_user_course         = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user                    = $tbl_mdb_names['user'             ];
 
-$tbl_bb_forum                = $tbl_cdb_names['bb_forums'             ];
-$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
-$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_group_team              = $tbl_cdb_names['group_team'             ];
+$tbl_bb_forum                = $tbl_cdb_names['bb_forums'];
+$tbl_course_group_property   = $tbl_cdb_names['group_property'];
+$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
+$tbl_group_team              = $tbl_cdb_names['group_team'];
 
-$currentCourseId     = $_course["sysCode"];
+$currentCourseId     = $_course['sysCode'];
 $myStudentGroup      = $_group;
 $nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
 
@@ -128,9 +128,8 @@ else                            $name = '';
 
 if ( isset($_REQUEST['description']) ) $description = trim($_REQUEST['description']);
 else                                   $description = '';
-
-if ( isset($_REQUEST['maxMember']) ) $maxMember = (int) $_REQUEST['maxMember'];
-else                                 $maxMember = 0;
+if ( isset($_REQUEST['maxMember']) && ctype_digit($_REQUEST['maxMember']) && (trim($_REQUEST['maxMember']) != '') ) $maxMember = (int) $_REQUEST['maxMember'];
+else                                                                        $maxMember = NULL;
 
 if ( isset($_REQUEST['tutor']) ) $tutor = (int) $_REQUEST['tutor'];
 else                             $tutor = 0;
@@ -147,10 +146,11 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     $sql = "UPDATE`" . $tbl_group_team . "`
             SET `name`        = '" . addslashes($name) . "',
                 `description` = '" . addslashes($description) . "',
-                `maxStudent`  = '" . (int)$maxMember ."',
-                `tutor`       = '" . (int)$tutor ."'
-            WHERE `id`        = '" . (int)$_gid . "'";
-
+                `maxStudent`  = ". (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember ."'") .",
+                `tutor`       = '" . (int) $tutor ."'
+            WHERE `id`        = '" . (int) $_gid . "'";
+    
+    
     // Update main group settings
     $updateStudentGroup = claro_sql_query($sql);
 
@@ -280,10 +280,10 @@ if ( isset($messageGroupEdited) )
             $selectedState = '';
         }
 
-        echo '<option value = "'.$myTutor['user_id'].'" '.$selectedState.'>'
-           . htmlspecialchars($myTutor['nom'].' '.$myTutor['prenom'])
-           . '</option>'."\n"
-           ;
+        echo '<option value = "' . $myTutor['user_id'] . '" '.$selectedState.'>'
+        .    htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom'])
+        .    '</option>' . "\n"
+        ;
     }
 
     if ( $tutorExists )
@@ -302,9 +302,9 @@ if ( isset($messageGroupEdited) )
     .    '&nbsp;&nbsp;'
     .    '<small><a href="../user/user.php">' . $langAddTutors . '</a></small>'
     .    '<td>'
-    .    '<label for="maxMember">' . $langMax . '</label>';
+    .    '<label for="maxMember">' . $langMax . '</label> ';
 
-    if ( $myStudentGroup['maxMember'] == 0 )
+    if ( is_null($myStudentGroup['maxMember']) )
     {
         echo '<input type="text" name="maxMember" id="maxMember" size="2" value = "-">' . "\n";
     }

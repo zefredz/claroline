@@ -2,7 +2,7 @@
 /** 
  * CLAROLINE 
  *
- * @version 1.7
+ * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -216,12 +216,12 @@ function fill_in_groups($course_id = NULL)
      * (reverse) ordered by the number of place available
      */
 
-    $sql = "SELECT g.id gid, g.maxStudent-count(ug.user) nbPlaces # ".__LINE__." 
-            FROM `" . $tbl_Groups . "` g                          # ".__FILE__." 
+    $sql = "SELECT g.id AS gid, g.maxStudent-count(ug.user) AS  nbPlaces
+            FROM `" . $tbl_Groups . "` AS  g                            
             LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
             ON    `g`.`id` = `ug`.`team`
             GROUP BY (`g`.`id`)
-            HAVING nbPlaces > 0
+            HAVING nbPlaces > 0 OR g.maxStudent IS NULL 
             ORDER BY nbPlaces DESC";
     $result = claro_sql_query($sql);
 
@@ -237,9 +237,11 @@ function fill_in_groups($course_id = NULL)
      * of group they are already enrolled
      */
     
-    $sql = "SELECT cu.user_id uid,  (" . $nbGroupPerUser . "-count(ug.team)) nbTicket # ".__LINE__." 
-            FROM `" . $tbl_CoursUsers . "` cu                    # ".__FILE__." 
-            LEFT JOIN  `" . $tbl_GroupsUsers . "` ug
+    $sql = "SELECT 
+                cu.user_id AS uid, 
+                (" . $nbGroupPerUser . "-count(ug.team)) AS nbTicket 
+            FROM `" . $tbl_CoursUsers . "` cu
+            LEFT JOIN  `" . $tbl_GroupsUsers . "` AS ug
             ON    `ug`.`user`      = `cu`.`user_id`
             WHERE `cu`.`code_cours`='" . addslashes($currentCourseId) . "'
             AND   `cu`.`statut`    = 5 #no teacher
@@ -258,7 +260,7 @@ function fill_in_groups($course_id = NULL)
      * Retrieve the present state of the users repartion in groups
      */
 
-    $sql = "SELECT user uid, team gid FROM `" . $tbl_GroupsUsers . "`";
+    $sql = "SELECT user AS uid, team AS gid FROM `" . $tbl_GroupsUsers . "`";
 
     $result = claro_sql_query($sql);
 
@@ -332,11 +334,7 @@ function fill_in_groups($course_id = NULL)
     {
             $sql = "INSERT INTO `" . $tbl_GroupsUsers . "`
                     (`user`, `team`)
-                    VALUES " . implode(" , ", $prepareQuery) . "
-                                    # ".__FUNCTION__."
-                                    # ".__FILE__."
-                                    # ".__LINE__;
-
+                    VALUES " . implode(" , ", $prepareQuery) ;
             claro_sql_query($sql);
     }
     // else : no student without groups
@@ -356,17 +354,19 @@ function group_count_students_in_course($course_id)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'    ];
 
-    $sql              = "SELECT COUNT(user_id) qty FROM `" . $tbl_rel_course_user . "`
+    $sql              = "SELECT COUNT(user_id) AS qty 
+                         FROM `" . $tbl_rel_course_user . "`
                          WHERE  code_cours =' " . addslashes($course_id) . "'
                          AND    statut = 5 AND tutor = 0";
     return claro_sql_query_get_single_value($sql);
-	
+    
 }
 /**
- * Count user in one group.
+ * Count users in all groups.
  * @param interger (optional) course_id
  * @return interger user quantity
  * @author Christophe Gesché <moosh@claroline.net>
+ * @todo rename this function or change it. count include non student users.
  */
 function group_count_students_in_groups($course_id=null)
 {
@@ -374,6 +374,24 @@ function group_count_students_in_groups($course_id=null)
     $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
     $sql = "SELECT COUNT(user) 
             FROM `" . $tbl_rel_team_user . "`";
+    return (int) claro_sql_query_get_single_value($sql);
+}
+
+/**
+ * Count users in a given group.
+ * @param interger (optional) group_id
+ * @param interger (optional) course_id
+ * @return interger user quantity
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @todo rename this function or change it. count include non student users.
+ */
+function group_count_students_in_group($group_id,$course_id=null)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+    $sql = "SELECT COUNT(user) 
+            FROM `" . $tbl_rel_team_user . "`
+            WHERE `team` = '". (int) $group_id."'";
     return (int) claro_sql_query_get_single_value($sql);
 }
 
@@ -389,7 +407,7 @@ function group_count_group_of_a_user($user_id, $course_id=null)
 {
     $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-    $sql = "SELECT COUNT(`team`) nbGroups
+    $sql = "SELECT COUNT(`team`) 
             FROM `" . $tbl_rel_team_user . "` 
             WHERE user='" . (int) $user_id . "'";
 
@@ -401,11 +419,11 @@ function group_count_group_of_a_user($user_id, $course_id=null)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  string $groupName - name of the group
- * @param  int $maxUser  - max user allowed for this group
+ * @param  int $maxMember  - max user allowed for this group
  * @return int group id
  */
 
-function create_group($groupName, $maxUser)
+function create_group($groupName, $maxMember)
 {
     global $coursesRepositorySys, $currentCourseRepository, $includePath, $langGroup, $langForum;
 
@@ -437,7 +455,7 @@ function create_group($groupName, $maxUser)
 
     $sql = "INSERT INTO `" . $tbl_Groups . "`
             SET name = '" . $groupName . "',
-                maxStudent = " . (int) $maxUser .",
+               `maxStudent`  = ". (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember ."'") .",
                 secretDirectory = '" . addslashes($groupRepository) . "'";
 
     $createdGroupId = claro_sql_query_insert_id($sql);
@@ -459,4 +477,6 @@ function create_group($groupName, $maxUser)
 
      return $createdGroupId;
 }
+
+
 ?>

@@ -1,6 +1,8 @@
-<?php # $Id$
+<?php // $Id$
 /** 
  * CLAROLINE 
+ * 
+ * This tool is "groupe_home" + "group_user" 
  *
  * @version 1.7 $Revision$
  *
@@ -16,8 +18,14 @@
  *
  */
 
+$cidNeeded = true;
+$gidNeeded = true;
 $tlabelReq = 'CLGRP___';
+
+$toolNameList=array();
 require '../inc/claro_init_global.inc.php';
+include_once $includePath . '/lib/group.lib.inc.php';
+
 $toolRepository = $clarolineRepositoryWeb;
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
@@ -36,9 +44,9 @@ $interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroups);
 // use viewMode
 claro_set_display_mode_available(true);
 
-/*============================================================================
-CONNECTION SECTION
-============================================================================*/
+/********************
+* CONNECTION SECTION
+*********************/
 
 $is_courseMember     = $is_courseMember;
 $is_groupMember      = $is_groupMember;
@@ -49,75 +57,61 @@ $is_allowedToManage  = claro_is_allowed_to_edit();
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
-$tbl_user                    = $tbl_mdb_names['user'             ];
-$tbl_bb_forum                = $tbl_cdb_names['bb_forums'             ];
-$tbl_course_group_property   = $tbl_cdb_names['group_property'         ];
-$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_group_team              = $tbl_cdb_names['group_team'             ];
-/*========================================================================*/
+$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'];
+$tbl_user                    = $tbl_mdb_names['user'];
+$tbl_bb_forum                = $tbl_cdb_names['bb_forums'];
+$tbl_course_group_property   = $tbl_cdb_names['group_property'];
+$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
+$tbl_group_team              = $tbl_cdb_names['group_team'];
+/****************************************************************************/
 
 
 // COUNT IN HOW MANY GROUPS CURRENT USER ARE IN
 // (needed to give or refuse selfreg right)
 
-$sql = "SELECT COUNT(id) qtyMember
-        FROM `".$tbl_group_rel_team_user."`
-        WHERE `team` = '".$_gid."'";
+$groupMemberCount = group_count_students_in_group($_gid);
 
-list($result) = claro_sql_query_fetch_all($sql);
-
-$groupMemberQuotaExceeded = (bool) (   $_group ['maxMember'] <= $result['qtyMember'])
+$groupMemberQuotaExceeded = (bool) (   $_group ['maxMember'] <= $groupMemberCount)
 || is_null($_group['maxMember']); // no limit assign to group per user;
-$sql = "SELECT COUNT(team) userGroupRegCount
-        FROM `".$tbl_group_rel_team_user."`
-        WHERE `user` = '".$_uid."'";
 
-list($result) = claro_sql_query_fetch_all($sql);
+$userGroupRegCount = group_count_group_of_a_user($_uid);
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
-$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $result['userGroupRegCount'])
+$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount)
 && ! is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
 
-
-$is_allowedToSelfRegInGroup = (bool) (     $_groupProperties ['registrationAllowed']
+$is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
 && ( ! $userGroupQuotaExceeded )
-&& ( ! $is_courseTutor
-|| ($is_courseTutor
-&& $tutorCanBeSimpleMemberOfOthersGroupsAsStudent)));
+&& ( ! $is_courseTutor || 
+     ( $is_courseTutor 
+       &&
+       $tutorCanBeSimpleMemberOfOthersGroupsAsStudent //FROM CONFIG
+       )));
 
-$is_allowedToSelfRegInGroup  = (bool)    $is_allowedToSelfRegInGroup
-&& $_uid
-&& ( ! $is_groupMember )
-&& $is_courseMember;
+$is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && $_uid && ( ! $is_groupMember ) && $is_courseMember;
 
-$is_allowedToDocAccess      = (bool) (   $is_courseAdmin
-|| $is_groupMember
-|| $is_groupTutor);
+$is_allowedToDocAccess = (bool) ( $is_courseAdmin || $is_groupMember || $is_groupTutor);
+$is_allowedToChatAccess     = (bool) (     $is_courseAdmin || $is_groupMember || $is_groupTutor );
 
-$is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
-|| $is_groupMember
-|| $is_groupTutor );
-
-/*============================================================================
-SELF-REGISTRATION PROCESS
-============================================================================*/
+/**
+ * SELF-REGISTRATION PROCESS
+ */
 
 if( isset($_REQUEST['registration']) )
 {
+    //RECHECK if subscribe is aivailable
     if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
     {
-        //RECHECK if subscribe is aivailable
-        $sql = 'INSERT INTO `'.$tbl_group_rel_team_user.'`
-                SET `user` = "'.$_uid.'",
-                    `team` = "'.$_gid.'"';
+        $sql = 'INSERT INTO `' . $tbl_group_rel_team_user . '`
+                SET `user` = "' . (int) $_uid . '",
+                    `team` = "' . (int) $_gid . '"';
 
         if (claro_sql_query($sql))
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-            header('Location:' . $_SERVER['PHP_SELF'] . '?gidReset=1&amp;gidReq=' . $_gid . '&amp;regDone=1');
+            header('Location:' . $_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
         }
     }
 }
@@ -128,19 +122,19 @@ if ( isset($_REQUEST['regDone']) )
 }
 
 
-/*============================================================================
-GROUP INFORMATIONS RETRIVIAL
-============================================================================*/
+/********************************
+ * GROUP INFORMATIONS RETRIVIAL
+ ********************************/
 
 
 /*----------------------------------------------------------------------------
 GET GROUP MEMBER LIST
 ----------------------------------------------------------------------------*/
 
-$sql = "SELECT `user_id` `id`, `nom` `lastName`, `prenom` `firstName`, `email`
-		FROM `" . $tbl_user . "` `user`, `" . $tbl_group_rel_team_user . "` `user_group`
-		WHERE `user_group`.`team`= '" . $_gid . "'
-		AND   `user_group`.`user`= `user`.`user_id`";
+$sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
+        FROM `" . $tbl_user . "` `user`, `" . $tbl_group_rel_team_user . "` `user_group`
+        WHERE `user_group`.`team`= '" . $_gid . "'
+        AND   `user_group`.`user`= `user`.`user_id`";
 
 $groupMemberList = claro_sql_query_fetch_all($sql);
 
@@ -149,7 +143,7 @@ $groupMemberList = claro_sql_query_fetch_all($sql);
 GET TUTOR(S) DATA
 ----------------------------------------------------------------------------*/
 
-$sql = "SELECT user_id id, nom lastName, prenom firstName, email
+$sql = "SELECT user_id AS id, nom AS lastName, prenom AS firstName, email
         FROM `".$tbl_user."` user
         WHERE user.user_id='".$_group['tutorId']."'";
 
@@ -161,16 +155,15 @@ GET FORUM POINTER
 
 $forumId = $_group['forumId'];
 
-/*============================================================================
-DISPLAY SECTION
-============================================================================*/
+/*****************
+ * DISPLAY SECTION
+ ******************/
 
 // CLAROLINE HEADER AND BANNER
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title(
-array('supraTitle'=> $langGroups,
-'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
+echo claro_disp_tool_title( array('supraTitle'=> $langGroups,
+                                  'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
 
 if ( !empty($message) )
 {
@@ -315,8 +308,9 @@ DISPLAY GROUP DESCRIPTION
 
 if( strlen($_group['description']) > 0)
 {
-    echo '<br /><br />' . "\n";
-    echo $_group['description'];
+    echo '<br /><br />' . "\n"
+    .    $_group['description']
+    ;
 }
 else // Show 'none' if no description
 {
@@ -392,7 +386,7 @@ else
 
 </table>
 <?php
-include($includePath.'/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 
 /**
@@ -408,8 +402,7 @@ include($includePath.'/claro_init_footer.inc.php');
 
 function get_group_tool_list($course_id=NULL)
 {
-    global $_groupProperties,
-    $is_courseAdmin, $is_groupMember, $is_groupTutor, $forumId;
+    global $_groupProperties, $forumId;
 
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_tool = $tbl_cdb_names['tool'];
@@ -418,7 +411,6 @@ function get_group_tool_list($course_id=NULL)
     $tbl_tool  = $tbl_mdb_names['tool'];
 
     $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
-
     
     $sql = "
 SELECT tl.id                               id,
