@@ -80,13 +80,11 @@ $is_allowedToEdit = claro_is_allowed_to_edit()
                     //  is added to give admin status to tutor 
                     // && !$is_courseAdmin)
                     // is added  to let course admin, tutor of current group, use student mode
-	    
-if ( ! isset($_uid) )    // exclude anonymous users
+
+if ( ! $_uid || ! $_cid )
 {
-    $allowed = false;
-    $error_message = $langLoginBeforePost1 . '<br />' . "\n"
-       . $langLoginBeforePost2 .'<a href=../../index.php>' . $langLoginBeforePost3 . '.</a>';
-} 
+    claro_disp_auth_form(true);
+}
 elseif ( $forumSettingList )
 {
     $forum_name         = stripslashes($forumSettingList['forum_name']);
@@ -171,7 +169,8 @@ else
   Display Section
  =================================================================*/
  
-if ( $forum_cat_id == GROUP_FORUMS_CATEGORY && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
+if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY
+    && $is_groupAllowed )
 {
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
     $interbredcrump[]  = array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
@@ -182,7 +181,7 @@ include $includePath . '/claro_init_header.inc.php';
 // display tool title
 echo claro_disp_tool_title($langForums, $is_allowedToEdit ? 'help_forum.php' : false);
 
-if ( !$allowed )
+if ( ! $allowed )
 {
     // not allowed
     echo claro_disp_message_box($error_message);

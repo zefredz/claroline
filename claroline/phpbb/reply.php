@@ -74,13 +74,7 @@ if ( isset($_REQUEST['cancel']) )
 
 $topicSettingList = get_topic_settings($topic_id); 
 
-if ( ! isset($_uid) )
-{
-    // exclude anonymous user
-    $allowed = false;
-    $error_message = $langLoginBeforePost1 . '<br />' . "\n"
-    . $langLoginBeforePost2 .'<a href=../../index.php>' . $langLoginBeforePost3 . '.</a>';
-}
+if ( ! $_uid || ! $_cid) claro_disp_auth_form(true);
 elseif ( $topicSettingList )
 {
     // Get forum and topics settings
@@ -150,7 +144,8 @@ else
   Display Section
  =================================================================*/
  
-if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
+if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY 
+    && $is_groupAllowed)
 {
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
     $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
