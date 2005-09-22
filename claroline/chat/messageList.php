@@ -94,7 +94,7 @@ if ( ! is_dir($curChatRep) ) mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
 
 if ($_gid)
 {
-    if ($is_groupMember || $is_groupTutor || $is_courseAdmin)
+    if ($is_groupAllowed)
     {
         $groupContext  = TRUE;
         $courseContext = FALSE;
