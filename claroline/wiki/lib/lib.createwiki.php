@@ -98,10 +98,13 @@
 		
 		// var_dump( $wikiList );
 		
-		foreach ( $wikiList as $wiki )
+		if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
 		{
-			$store->deleteWiki( $wiki['id'] );
-		}
+		  foreach ( $wikiList as $wiki )
+		  {
+			     $store->deleteWiki( $wiki['id'] );
+		  }
+        }
     }
     
     function delete_group_wikis( $groupIdList = 'ALL' )
