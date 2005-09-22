@@ -84,7 +84,7 @@ if ( isset($_REQUEST['applyChange']) )
     
     if ( count($messageList) == 0 )
     {
-       
+
         // if no error update use setting 
         user_update ($_uid, $user_data); 
 
@@ -92,8 +92,9 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include('../inc/claro_init_local.inc.php');
-        $messageList[] = $langProfileReg."<br>\n"
-                        ."<a href=\"../../index.php\">".$langHome."</a>";
+        $messageList[] = $langProfileReg . '<br>' . "\n"
+        .                '<a href="../../index.php">' . $langHome . '</a>'
+        ;
 
     } // end if $userSettingChangeAllowed
     else
@@ -106,29 +107,33 @@ if ( isset($_REQUEST['applyChange']) )
     $user_data = user_get_data($_uid);
 
 }
-elseif ( $can_request_course_creator_status && $cmd == 'exCCstatus' ) 
+elseif (    $can_request_course_creator_status // FROM CONFIG
+         && $cmd == 'exCCstatus' ) 
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
     $messageList[] = $langYourRequestToBeCourseManagerIsSent;
 }
-elseif ( $can_request_revoquation && $cmd == 'exRevoquation' )
+elseif (    $can_request_revoquation // FROM CONFIG
+         && $cmd == 'exRevoquation' )
 {
     // send a request for revoquation
-    profile_send_request_revoquation($_REQUEST['explanation'],$_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
+    profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
     $messageList[] = $langYourRequestToRemoveYourAccountIsSent;
 }
-elseif ( $can_request_course_creator_status  && $cmd == 'reqCCstatus' )
+elseif (    $can_request_course_creator_status  // FROM CONFIG
+         && $cmd == 'reqCCstatus' )
 {
     // display course creator status form
-    $noQueryString = TRUE;
+    $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
     $nameTools = $langRequestOfCourseCreatorStatus;
 } 
-elseif ( $can_request_revoquation && $cmd == 'reqRevoquation' )
+elseif ( $can_request_revoquation // FROM CONFIG 
+         && $cmd == 'reqRevoquation' )
 {
     // display revoquation form
-    $noQueryString = TRUE;
+    $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_REVOQUATION;
 }
 
@@ -158,9 +163,10 @@ switch ( $display )
 
         // display user tracking link
         echo '<p>'
-            . '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
-            . '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif">' . $langMyStats
-            . '</a>';
+        .    '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
+        .    '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif">' . $langMyStats
+        .    '</a>'
+        ;
 
         // display request course creator status
         if ( $can_request_course_creator_status )
