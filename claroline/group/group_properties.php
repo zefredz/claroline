@@ -23,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // check user right
-if ( ! $is_courseAdmin && ! $is_platformAdmin )
+if ( ! $is_courseAdmin )
 {
     claro_die($langNotAllowed);
 }

@@ -23,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-$is_allowedToManage = $is_courseAdmin || $is_platformAdmin;
+$is_allowedToManage = $is_courseAdmin;
 
 if ( ! $is_allowedToManage ) 
 {
