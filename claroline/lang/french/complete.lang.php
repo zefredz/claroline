@@ -265,7 +265,7 @@ $langClickToZoomIn = "cliquez pour agrandir l'image";
 $langClickToZoomOut = "cliquez pour diminuer la taille de l'image";
 $langClose = "Fermer";
 $langCloseWindow = "Fermer la fenêtre";
-$langCode = "Code du cours";
+$langCode = "Code";
 $langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
 $langCodeCanBeEmpty = "Le code cours doit être rempli";
 $langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
@@ -1547,7 +1547,6 @@ $langRemoveAdminLevel = "Droits d'administrateur supprimés";
 $langRename = "Renommer";
 $langReplaceAttachedFile = "Remplacer le fichier attaché";
 $langReply = "Répondre";
-$langRequestOfCourseCreatorStatus = "Demande à être gestionnaire de cours";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Demandez au développeur de cette configuration d'ajouter ces propriétés dans une section du fichier de définition.";
 $langRequired = "Requis";
 $langRequirements = "Conditions requises";
@@ -2103,4 +2102,7 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Votre inscription au cou
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
+$langRequestOfCourseCreatorStatus = 'Solliciter le statut créateur de cours';
+$langReasons = 'Motif (optionnel)';
+
 ?>

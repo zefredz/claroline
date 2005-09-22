@@ -251,7 +251,7 @@ echo  '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing
      .'</caption>'
      .'<tr class="headerX" align="center" valign="top">';
 //add titles for the table
-echo  '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=code&amp;dir='.$order['code'].'&amp;uidToEdit='.$uidToEdit.'">'.$langOfficialCode.'</a></th>'
+echo  '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=code&amp;dir='.$order['code'].'&amp;uidToEdit='.$uidToEdit.'">'.$langCode.'</a></th>'
      .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=label&amp;dir='.$order['label'].'&amp;uidToEdit='.$uidToEdit.'">'.$langCourseTitle.'</a></th>'
      .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=titular&amp;dir='.$order['titular'].'&amp;uidToEdit='.$uidToEdit.'">'.$langTitular.'</a></th>'
      .'<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=cuStatus&amp;dir='.$order['cuStatus'].'&amp;uidToEdit='.$uidToEdit.'">'.$langRole.'</a></th>'
