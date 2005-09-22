@@ -362,32 +362,20 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
             foreach($row as $key => $value ) $colList[$key][] = $value;
         }
 
-        mysql_free_result($result);
+        if( count($colList) < 1)
+        {
+            // WHEN NO RESULT, THE SCRIPT CREATES AT LEAST COLUMN HEADERS
 
-        if( count($colList) < 1) // special case when there is no result
-        {                        // the script will at least create the
-                                 // column headers from the query
+            $resultFieldCount = mysql_num_fields($result);
 
-            $selectLine = substr($sqlQuery, 0, strpos($sqlQuery, 'FROM') -1 );
-
-            $selectLine = str_replace( array('ALL', 'DISTINCT', 'DISTINCTROW',
-                                             'HIGH_PRIORITY', 'STRAIGHT_JOIN',
-                                           'SQL_SMALL_RESULT', 'SQL_BIG_RESULT',
-                                           'SQL_BUFFER_RESULT', 'SQL_CACHE',
-                                           'SQL_NO_CACHE', 'SQL_CALC_FOUND_ROWS', '`'),
-                                       '', $selectLine);
-
-            $exprList = explode(',', $selectLine);
-            $exprList = array_map('trim', $exprList);
-
-            foreach($exprList as $thisExpr)
+            for ( $i = 0; $i < $resultFieldCount ; ++$i )
             {
-               $decomposedExprList = preg_split('/( AS |[ ]+)/', $thisExpr);
-               $colNameList [] = end( explode( '.', end($decomposedExprList) ) );
+                $colList[ mysql_field_name($result, $i) ] = array();
             }
 
-            foreach($colNameList as $thisColName) $colList[$thisColName]= array();
         } // end if( count($colList) < 1)
+
+        mysql_free_result($result);
 
         return $colList;
 
@@ -397,6 +385,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
         return false;
     }
 }
+
 
 /**
  * Claroline SQL query wrapper returning only a single result value.
