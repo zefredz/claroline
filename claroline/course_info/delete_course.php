@@ -23,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
 //check user right
-$isAllowedToDelete = ($is_courseAdmin || $is_platformAdmin);
+$isAllowedToDelete = $is_courseAdmin;
 
 if ( ! $isAllowedToDelete )
 {

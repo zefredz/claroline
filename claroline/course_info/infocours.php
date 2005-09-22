@@ -24,7 +24,7 @@ $dialogBox = '';
 
 if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
-$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
+$is_allowedToEdit = $is_courseAdmin;
 
 if ( ! $is_allowedToEdit )
 {

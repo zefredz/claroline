@@ -51,7 +51,7 @@ include $includePath . '/lib/forum.lib.php';
  -----------------------------------------------------------------*/
 
 $last_visit = $_user['lastLogin'];
-$is_allowedToEdit = $is_courseAdmin || $is_platformAdmin;
+$is_allowedToEdit = $is_courseAdmin ;
 $dialogBox = '';
 
 /*=================================================================
