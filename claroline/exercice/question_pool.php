@@ -29,6 +29,8 @@ include('answer.class.php');
 
 require '../inc/claro_init_global.inc.php';
 
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+
 include($includePath."/lib/pager.lib.php");
 
 $is_allowedToEdit = $is_courseAdmin;

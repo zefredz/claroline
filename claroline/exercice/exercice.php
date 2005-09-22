@@ -46,8 +46,7 @@ unset($_SESSION['exeStartTime'	]);
 // prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed ) claro_disp_auth_form();
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
 

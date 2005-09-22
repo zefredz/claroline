@@ -40,8 +40,7 @@ define('LISTBOX_FILL',	2);
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid ) claro_disp_select_course();
-if ( ! $is_courseAllowed )    claro_disp_auth_form();
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
 $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';

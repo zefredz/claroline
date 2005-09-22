@@ -68,6 +68,8 @@ include('answer.class.php');
 include('exercise.lib.php');
 
 require '../inc/claro_init_global.inc.php';
+
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
   
 // answer types
 define('UNIQUE_ANSWER',  1);
