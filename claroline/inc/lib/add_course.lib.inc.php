@@ -680,7 +680,7 @@ claro_sql_query("
         name varchar(100) default NULL,
         description text,
         tutor int(11) default NULL,
-        maxStudent int(11) NOT NULL default '0',
+        maxStudent int(11) NULL default '0',
         secretDirectory varchar(30) NOT NULL default '0',
     PRIMARY KEY  (id)
     )");
