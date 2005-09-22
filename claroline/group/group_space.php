@@ -419,14 +419,6 @@ function get_group_tool_list($course_id=NULL)
 
     $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
 
-    $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
-|| $is_groupMember
-|| $is_groupTutor);
-
-$is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
-|| $is_groupMember
-|| $is_groupTutor );
-
     
     $sql = "
 SELECT tl.id                               id,
@@ -476,7 +468,7 @@ ON        ct.id = tl.tool_id";
 
                 case 'CLCHT' :
                 {
-                    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
+                    if($_groupProperties['tools']['chat'])
                     {
                         $group_tool_list[] = $tool;
                     }
