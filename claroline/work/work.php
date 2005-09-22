@@ -295,7 +295,7 @@ if ($is_allowedToEdit)
                             HEADER
   --------------------------------------------------------------------*/
 $htmlHeadXtra[] =
-'<script>
+'<script type="text/javascript">
 function confirmation (name)
 {
     if (confirm("' . clean_str_for_javascript($langAreYouSureToDelete) . ' "+ name + " ? ' . clean_str_for_javascript($langDeleteCaution) . ' " ))
@@ -549,9 +549,9 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         $atLeastOneAssignmentToShow = true;
 
-        echo    "<tr>\n"
-              . "<th class=\"headerX item".$classItem."\">\n"
-              . "<img src=\"".$imgRepositoryWeb."assignment.gif\" /> ";
+        echo    '<tr>'."\n"
+              . '<th class="headerX item'.$classItem.'">'."\n"
+              . '<img src="'.$imgRepositoryWeb.'assignment.gif" alt="" /> ';
 
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
@@ -586,7 +586,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 			
             echo "<div>".$desc." ... "."</div><br />\n";
         }
-        else
+        elseif( !empty($anAssignment['description']) )
         {
             echo "<div>".$anAssignment['description']."</div><br />\n";
         }
