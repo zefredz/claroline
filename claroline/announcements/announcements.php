@@ -544,26 +544,9 @@ if ($displayList)
             
             $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
             $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
-            list($year, $month, $day) = explode('-', $last_post_date);
-            if (checkdate($month, $day, $year))
-            {
-                $announceDate = mktime(0, 0, 0, $month, $day, $year);
-            }
-            else 
-            {
-                $announceDate = null;
-            }
 
-            if ( $announceDate > $userLastLogin )
-            {
-                $imageFile = 'announcement_hot.gif';
-                $altImg    = 'new';
-            }
-            else
-            {
-                $imageFile = 'announcement.gif';
-                $altImg    = '';
-            }
+            $imageFile = 'announcement.gif';
+            $altImg    = '';
 
             echo '<tr>'."\n"
             .    '<th class="headerX item'.$classItem.'">'."\n"
