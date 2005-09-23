@@ -71,8 +71,7 @@ $tbl_group_team              = $tbl_cdb_names['group_team'];
 
 $groupMemberCount = group_count_students_in_group($_gid);
 
-$groupMemberQuotaExceeded = (bool) (   $_group ['maxMember'] <= $groupMemberCount)
-|| is_null($_group['maxMember']); // no limit assign to group per user;
+$groupMemberQuotaExceeded = (bool) ( ! is_null($_group['maxMember']) && ($_group ['maxMember'] <= $groupMemberCount) ); // no limit assign to group per user;
 
 $userGroupRegCount = group_count_group_of_a_user($_uid);
 
@@ -91,6 +90,8 @@ $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
        )));
 
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && $_uid && ( ! $is_groupMember ) && $is_courseMember;
+
+
 
 $is_allowedToDocAccess = (bool) ( $is_courseAdmin || $is_groupMember || $is_groupTutor);
 $is_allowedToChatAccess     = (bool) (     $is_courseAdmin || $is_groupMember || $is_groupTutor );
@@ -169,6 +170,7 @@ if ( !empty($message) )
 {
     echo claro_disp_message_box($message);
 }
+
 
 if($is_allowedToSelfRegInGroup)
 {
