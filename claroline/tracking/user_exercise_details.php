@@ -1,12 +1,15 @@
 <?php // $Id$
 /**
- * @version CLAROLINE version 1.6
- * ----------------------------------------------------------------------
- * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
- * @license GPL
- * @author claro team <info@claroline.net>
+ * CLAROLINE 
  *
  * This page display global information about
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author claro team <info@claroline.net>
+ *
  */
 require '../inc/claro_init_global.inc.php';
 
@@ -40,7 +43,7 @@ $tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-include($includePath."/lib/statsUtils.lib.inc.php");
+include ($includePath . '/lib/statsUtils.lib.inc.php');
 
 //-- get infos
 // get infos about the exercise
@@ -113,13 +116,13 @@ if( isset($_uid) )
 }
 
 
-$interbredcrump[]= array ("url"=>"../exercice/exercice.php", "name"=> $langExercices);
+$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> $langExercices);
 
-$backLink = '<p><small><a href="../exercice/exercice.php">&lt;&lt;&nbsp;'.$langBack.'</a></small></p>'."\n\n";
+$backLink = '<p><small><a href="../exercice/exercice.php">&lt;&lt;&nbsp;' . $langBack . '</a></small></p>' . "\n\n";
 
 $nameTools = $langStatsOfExerciseAttempt;
 
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 // display title
 $titleTab['mainTitle'] = $nameTools;
 
@@ -130,13 +133,14 @@ echo $backLink;
 if( $is_allowedToTrack && $is_trackingEnabled )
 {
 	// display infos about the details ...
-    echo '<ul>'."\n"
-	    .'<li>'.$langLastName.' : '.$thisAttemptDetails['lastname'].'</li>'."\n"
-	    .'<li>'.$langFirstName.' : '.$thisAttemptDetails['firstname'].'</li>'."\n"
-	    .'<li>'.$langDate.' : '.claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']).'</li>'."\n"
-	    .'<li>'.$langScore.' : '.$thisAttemptDetails['exe_result'].'/'.$thisAttemptDetails['exe_weighting'].'</li>'."\n"
-	    .'<li>'.$langExeTime.' : '.claro_disp_duration($thisAttemptDetails['exe_time']).'</li>'."\n"
-	    .'</ul>'."\n\n";
+    echo '<ul>' . "\n"
+	.    '<li>' . $langLastName . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
+	.    '<li>' . $langFirstName . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
+	.    '<li>' . $langDate . ' : ' . claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
+	.    '<li>' . $langScore . ' : ' . $thisAttemptDetails['exe_result'] . '/' . $thisAttemptDetails['exe_weighting'] . '</li>' . "\n"
+	.    '<li>' . $langExeTime . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
+	.    '</ul>' . "\n\n"
+    ;
 
 	// get all question that user get for this attempt
 	$sql = "SELECT TD.`id`, TD.`question_id`, TD.`result`
@@ -167,11 +171,17 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 		unset($objQuestionTmp);
 		
 		if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
+        {
 			$colspan = 4;
+        }
 		elseif($answerType == MATCHING)
+        {
 			$colspan = 2;
+        }
 		else
+        {
 			$colspan = 1;
+        }
 ?>
 
   <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
@@ -190,7 +200,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
 		if( !empty($attachedFile) )
 		{
-			echo "<br />".display_attached_file($attachedFile);
+			echo '<br />' . display_attached_file($attachedFile);
 		}
 	?>
 	</blockquote>
@@ -253,8 +263,8 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
 		// get the answers the user has gaven for this question
 		$sql = "SELECT `answer`
-		        FROM `".$tbl_track_e_exe_answers."`
-		        WHERE `details_id` = ". (int)$question['id'];
+		        FROM `" . $tbl_track_e_exe_answers . "`
+		        WHERE `details_id` = " . (int) $question['id'];
 
 		$answers = claro_sql_query_fetch_all($sql);
 		
@@ -371,7 +381,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 											elseif(!empty($choice[$j]))
 											{
 												// adds the word in red at the end of the string, and strikes it
-												$answer .= "<span class=\"error\"><s>".$choice[$j]."</s></span>";
+												$answer .= '<span class="error"><s>' . $choice[$j] . '</s></span>';
 											}
 											else
 											{
@@ -380,7 +390,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 											}
 
 											// adds the correct word, followed by ] to close the blank
-											$answer .= " / <span class=\"correct\"><b>".substr($temp,0,$pos)."</b></span>]";
+											$answer .= ' / <span class="correct"><b>' . substr($temp,0,$pos) . '</b></span>]';
 
 											$j++;
 
@@ -406,7 +416,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 											}
 											elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
 											{
-												$choice[$answerId] = "<span class=\"error\"><s>".$matching[$choice[$answerId]]."</s></span>";
+												$choice[$answerId] = '<span class="error"><s>' . $matching[$choice[$answerId]] . '</s></span>';
 											}
 										}
 										else
@@ -503,7 +513,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	if( $thisAttemptDetails['exe_weighting'] != $totalWeighting || $thisAttemptDetails['exe_result'] != $totalScore )
 	{
 		// display msg of integrity problem
-		echo '<p align="center">'.$langTrackExerciseError.'</p>'."\n";
+		echo '<p align="center">' . $langTrackExerciseError . '</p>' . "\n";
 	}
 }
 // not allowed
@@ -517,5 +527,5 @@ else
 	echo claro_disp_message_box($dialogBox);
 }
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

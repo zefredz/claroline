@@ -4,8 +4,7 @@
  *
  * This tool list user of a course but in admin section
  *
- * @version 1.7
- *
+ * @version 1.7 $Revision$ 
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 

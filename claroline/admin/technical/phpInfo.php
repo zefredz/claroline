@@ -6,11 +6,10 @@
  * - configuration of Claroline, PHP, Mysql, Webserver
  * - credits
  *
- * @version 1.7
- *
+ * @version 1.7 $Revision$ 
  * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html GENERAL PUBLIC LICENSE (GPL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author : Christophe Gesché <moosh@claroline.net>
  *
@@ -30,7 +29,7 @@ if ( ! $is_platformAdmin ) claro_disp_auth_form();
 
 
 
-if (! isset($clarolineVersion) )  $clarolineVersion= "X";
+if (! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 
 $nameTools = $lang_php_info;

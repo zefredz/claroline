@@ -2,8 +2,7 @@
 /**
  * CLAROLINE 
  * This tool run some check to detect abnormal situation
- * @version 1.7
- * 
+ * @version 1.7 $Revision$ * 
  * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)

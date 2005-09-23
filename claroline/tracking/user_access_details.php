@@ -2,10 +2,10 @@
 /**
  * CLAROLINE
  *
- * @version  1.6 *
+ * @version 1.6 *
  *
  * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
- * @license GPL
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author see CREDITS.txt
  *
  */ 

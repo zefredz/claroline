@@ -7,8 +7,7 @@
  * when the user is authenticated, index°authenticated.inc.php 
  * is load instead of this code.
  *
- * @version 1.7
- *
+ * @version 1.7 $Revision$ 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 

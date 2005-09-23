@@ -151,7 +151,7 @@ require_once "PEAR.php";
  *
  * @author   Jan Wagner <wagner@netsols.de>
  * @package  Auth
- * @version  $Revision$
+ * @version $Revision$
  */
 class Auth_Container_LDAP extends Auth_Container
 {

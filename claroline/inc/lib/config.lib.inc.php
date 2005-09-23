@@ -77,8 +77,9 @@ function claro_undist_file ($file)
  * @param $booleanState boolean
  *
  * @return string boolean value as string
+ * * CLAROLINE
  *
- * @version claroline 1.4
+ * @version 1.4
  *
  */
 function trueFalse($booleanState)

@@ -1,10 +1,6 @@
 <?php // $Id$
 /**
- * @version CLAROLINE version 1.6
- * ----------------------------------------------------------------------
- * @copyright 2001, 2005 Universite catholique de Louvain (UCL)      |
- * @license GPL
- * @author claro team <info@claroline.net>
+ * CLAROLINE 
  *
  * This script allows to run an exercise. According to the exercise type, questions
  * can be on an unique page, or one per page with a Next button.
@@ -19,6 +15,14 @@
  *
  * Notice : This script is also used to show a question before modifying it by
  * the administrator
+ *
+ * @version version 1.7 $Revision$
+ *
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @author claro team <info@claroline.net>
  */
 
 include('exercise.class.php');

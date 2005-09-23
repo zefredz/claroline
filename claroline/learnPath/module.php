@@ -1,11 +1,13 @@
 <?php // $Id$
 
 /**
- * @version  CLAROLINE version 1.6
+ * CLAROLINE 
+ *
+ * @version 1.7 $Revision$
  *
  * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
- * @license GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>

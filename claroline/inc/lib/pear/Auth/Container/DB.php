@@ -32,7 +32,7 @@ PEAR::setErrorHandling(PEAR_ERROR_PRINT);
  *
  * @author   Martin Jansen <mj@php.net>
  * @package  Auth
- * @version  $Revision$
+ * @version $Revision$
  */
 class Auth_Container_DB extends Auth_Container
 {

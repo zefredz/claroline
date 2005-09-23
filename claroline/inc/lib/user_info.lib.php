@@ -4,7 +4,7 @@
  *
  * Provide function to work on  personnal editable info  of each user.
  *
- * @version   version 1.7 $Revision$
+ * @version  version 1.7 $Revision$
  *
  * @copyright  2001 - 2005 Universite catholique de Louvain (UCL)
  *

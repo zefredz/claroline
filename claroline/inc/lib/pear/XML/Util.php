@@ -86,7 +86,7 @@ define("XML_UTIL_COLLAPSE_XHTML_ONLY", 2);
  *
  * @category XML
  * @package  XML_Util
- * @version  1.1.0
+ * @version 1.1.0
  * @author   Stephan Schmidt <schst@php.net>
  */
 class XML_Util {
