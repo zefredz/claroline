@@ -2104,5 +2104,6 @@ $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
 $langRequestOfCourseCreatorStatus = 'Solliciter le statut créateur de cours';
 $langReasons = 'Motif (optionnel)';
-
+$langMessageEnrollToCourseNotAllowed = "Inscription au cours refusé";
+$langMessageRegistrationNotAllowed = "Enregistrement à la plateforme refusé";
 ?>
