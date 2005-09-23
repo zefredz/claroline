@@ -27,14 +27,20 @@ die('---');
 if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
 
 require $claroGlobalPath . '/claro_init_global.inc.php';
+include($includePath . '/lib/course_home.lib.php');
 
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
 $toolRepository = $clarolineRepositoryWeb;
 claro_set_display_mode_available(TRUE);
 
+// Add feed RSS in header
+$htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+        .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+
+// Display header
 include($includePath . '/claro_init_header.inc.php');
-include($includePath . '/lib/course_home.lib.php');
+
 
 /*
 * Tracking - Count only one time by course and by session

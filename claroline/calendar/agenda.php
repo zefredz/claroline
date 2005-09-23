@@ -281,7 +281,14 @@ if ( $is_allowedToEdit )
  */
 
 $noQUERY_STRING = true;
+
+// Add feed RSS in header
+$htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+        .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+
+// Display header
 include($includePath . '/claro_init_header.inc.php');
+
 echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
