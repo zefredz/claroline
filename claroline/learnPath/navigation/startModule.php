@@ -148,8 +148,7 @@ switch ($module['contentType'])
 
 		$_SESSION['inPathMode'] = true;
 		$startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
-		$exerciseId     = $assetPath;
-		$moduleStartAssetPage = $startAssetpage."?exerciseId=".$exerciseId;
+		$moduleStartAssetPage = $startAssetpage."?exerciseId=".$assetPath;
 		break;
 	case CTSCORM_ :
 		// real scorm content method
