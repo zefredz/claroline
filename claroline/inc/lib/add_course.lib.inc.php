@@ -32,9 +32,6 @@
  * @param string $addUniquePrefix  prefix randomly generated prepend to model
  * @param boolean $useCodeInDepedentKeys   whether not ignore $wantedCode param. If FALSE use an empty model.
  * @param boolean $addUniqueSuffix suffix randomly generated append to model
- * @param string $suffix4baseName  suffix added  for db key (prepend to $suffix4all)
- * @param string $suffix4path      suffix added  for repository key (prepend to $suffix4all)
- * @param string $suffix4all       suffix added  for ALL keys 
  * @return array 
  * - ["currentCourseCode"]             : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
@@ -46,7 +43,6 @@
  * @todo manage an error on brake for too many try
  * @todo $keysCourseCode is always 
  */
-
 function define_course_keys ($wantedCode,          
                              $prefix4all = '',
                              $prefix4baseName = '', 
@@ -54,16 +50,13 @@ function define_course_keys ($wantedCode,
                              $addUniquePrefix = FALSE,
                              $useCodeInDepedentKeys = TRUE,
                              $addUniqueSuffix = FALSE,
-                             $suffix4baseName ='', 
-                             $suffix4path = '',          
-                             $suffix4all = '',
                              $forceSameSuffix = TRUE
                              )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'];
 
-    GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$nbCharFinalSuffix,$DEBUG,$singleDbEnabled;
+    GLOBAL $coursesRepositories, $prefixAntiNumber, $prefixAntiEmpty,$nbCharFinalSuffix,$singleDbEnabled;
 
     if ( !isset($nbCharFinalSuffix)
        ||!is_numeric($nbCharFinalSuffix) 
@@ -73,6 +66,7 @@ function define_course_keys ($wantedCode,
 
     if ($coursesRepositories == '')
     {
+        
     };
 
     // $keys["currentCourseCode"] is the "public code"
@@ -90,7 +84,7 @@ function define_course_keys ($wantedCode,
 
     $keysCourseCode    = $wantedCode;
 
-    if (!$useCodeInDepedentKeys) $wantedCode = "";
+    if (!$useCodeInDepedentKeys) $wantedCode = '';
 
     // $keys['currentCourseId'] would Became $cid in normal using.
 
@@ -98,7 +92,6 @@ function define_course_keys ($wantedCode,
     else                  $uniquePrefix = '';
     
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid('')),0,10);
-
     else                  $uniqueSuffix = '';
 
     $keysAreUnique = FALSE;
@@ -111,9 +104,29 @@ function define_course_keys ($wantedCode,
 
     while (!$keysAreUnique)
     {
-        $keysCourseId         = $prefix4all . $uniquePrefix . strtoupper($wantedCode) . $uniqueSuffix . $finalSuffix['CourseId'];
-        $keysCourseDbName     = $prefix4baseName . $uniquePrefix . strtoupper($keysCourseId) . $uniqueSuffix . $finalSuffix['CourseDb'];
-        $keysCourseRepository = $prefix4path . $uniquePrefix . strtoupper($wantedCode) . $uniqueSuffix . $finalSuffix['CourseDir'];
+        $keysCourseId = $prefix4all 
+        .               $uniquePrefix 
+        .               strtoupper($wantedCode) 
+        .               $uniqueSuffix 
+        .               ($finalSuffix['CourseId']>0?'':'_'
+        .               str_pad($finalSuffix['CourseId'],$nbCharFinalSuffix-1,0, STR_PAD_LEFT))
+        ;
+        
+        $keysCourseDbName = $prefix4baseName 
+        .                   $uniquePrefix 
+        .                   strtoupper($wantedCode) 
+        .                   $uniqueSuffix 
+        .                   ($finalSuffix['CourseDb']>0?'':'_'
+        .                   str_pad($finalSuffix['CourseDb'],$nbCharFinalSuffix-1,0, STR_PAD_LEFT))
+        ;
+        
+        $keysCourseRepository = $prefix4path 
+        .                       $uniquePrefix 
+        .                       strtoupper($wantedCode) 
+        .                       $uniqueSuffix 
+        .                       ($finalSuffix['CourseDir']>0?'':'_'
+        .                       str_pad($finalSuffix['CourseDir'],$nbCharFinalSuffix-1,0, STR_PAD_LEFT))
+        ;
 
         $keysAreUnique = TRUE;
         // Now we go to check if there are unique
@@ -129,7 +142,7 @@ function define_course_keys ($wantedCode,
         {
             $keysAreUnique = FALSE;
             $tryNewFSCId++;
-            $finalSuffix['CourseId'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseId']++;
         };
 
         if ($singleDbEnabled)
@@ -145,24 +158,22 @@ function define_course_keys ($wantedCode,
 
         $isCheckCourseDbUsed = mysql_num_rows($resCheckCourseDb);
 
-        if ($isCheckCourseDbUsed>0)
+        if ($isCheckCourseDbUsed > 0)
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDb++;
-            $finalSuffix['CourseDb'] = substr('_'.md5 (uniqid('')), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseDb']++;
         };
 
         if (file_exists($coursesRepositories . '/' . $keysCourseRepository))
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
-            $finalSuffix['CourseDir'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
-            if ($DEBUG) echo '[dir'.$coursesRepositories . '/' . $keysCourseRepository.']<br>';
+            $finalSuffix['CourseDir']++;
         };
         
         if(!$keysAreUnique && $forceSameSuffix)
         {
-            $finalSuffix['CourseDir'] = substr(md5 (uniqid ('')), 0, $nbCharFinalSuffix);
             $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
             $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }
@@ -183,7 +194,7 @@ function define_course_keys ($wantedCode,
     // dbName Can't begin with a number
     if (!strstr("abcdefghijklmnopqrstuvwyzABCDEFGHIJKLMNOPQRSTUVWXYZ",$keysCourseDbName[0]))
     {
-        $keysCourseDbName = $prefixAntiNumber.$keysCourseDbName;
+        $keysCourseDbName = $prefixAntiNumber . $keysCourseDbName;
     }
     
     $keys['currentCourseCode']       = $keysCourseCode;         // screen code
@@ -1058,7 +1069,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
 
     if (mysql_num_rows($result) > 0)
     {
-        while ( $courseTool = mysql_fetch_array($result, MYSQL_ASSOC))
+        while ( ($courseTool = mysql_fetch_array($result, MYSQL_ASSOC)))
         {
             $sql_insert = " INSERT INTO `" . $TABLECOURSEHOMEPAGE . "` "
                         . " (tool_id, rank, access) "
@@ -1265,7 +1276,6 @@ function read_properties_in_archive($archive, $isCompressed=TRUE)
         $pathToArchiveIni = dirname($archive) . '/archive.ini';
     }
     
-//    echo $pathToArchiveIni;
     if (file_exists($pathToArchiveIni))
     {
         $courseProperties = parse_ini_file( $pathToArchiveIni );
