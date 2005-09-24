@@ -90,44 +90,43 @@ function define_course_keys ($wantedCode,
 
     if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid('')),0,10);
     else                  $uniquePrefix = '';
-    
+
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid('')),0,10);
     else                  $uniqueSuffix = '';
 
     $keysAreUnique = FALSE;
 
     $finalSuffix = array('CourseId'=>''
-                        ,'CourseDb'=>''
-                        ,'CourseDir'=>''
-                        );
+    ,'CourseDb'=>''
+    ,'CourseDir'=>''
+    );
     $tryNewFSCId = $tryNewFSCDb = $tryNewFSCDir = 0;
 
     while (!$keysAreUnique)
     {
-        $keysCourseId = $prefix4all 
-        .               $uniquePrefix 
-        .               strtoupper($wantedCode) 
-        .               $uniqueSuffix 
-        .               ($finalSuffix['CourseId']>0?'':'_'
-        .               str_pad($finalSuffix['CourseId'],$nbCharFinalSuffix-1,0, STR_PAD_LEFT))
+        $keysCourseId = $prefix4all
+        .               $uniquePrefix
+        .               strtoupper($wantedCode)
+        .               $uniqueSuffix
+        .               ($finalSuffix['CourseId'] > 0 
+                        ? sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseId']):'')
         ;
-        
-        $keysCourseDbName = $prefix4baseName 
-        .                   $uniquePrefix 
-        .                   strtoupper($wantedCode) 
-        .                   $uniqueSuffix 
-        .                   ($finalSuffix['CourseDb']>0?'':'_'
-        .                   str_pad($finalSuffix['CourseDb'],$nbCharFinalSuffix-1,0, STR_PAD_LEFT))
-        ;
-        
-        $keysCourseRepository = $prefix4path 
-        .                       $uniquePrefix 
-        .                       strtoupper($wantedCode) 
-        .                       $uniqueSuffix 
-        .                       ($finalSuffix['CourseDir']>0?'':'_'
-        .                       str_pad($finalSuffix['CourseDir'],$nbCharFinalSuffix-1,0, STR_PAD_LEFT))
+    
+        $keysCourseDbName = $prefix4baseName
+        .                   $uniquePrefix
+        .                   strtoupper($wantedCode)
+        .                   $uniqueSuffix
+        .                   ($finalSuffix['CourseDb'] > 0?
+                            sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseDb']):'')
         ;
 
+        $keysCourseRepository = $prefix4path
+        .                       $uniquePrefix
+        .                       strtoupper($wantedCode)
+        .                       $uniqueSuffix
+        .                       ($finalSuffix['CourseDir'] > 0?
+                               sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseDir']):'')
+        ;
         $keysAreUnique = TRUE;
         // Now we go to check if there are unique
 
@@ -149,7 +148,7 @@ function define_course_keys ($wantedCode,
         {
             $sqlCheckCourseDb = "SHOW TABLES LIKE '".$keysCourseDbName."%'";
         }
-        else 
+        else
         {
             $sqlCheckCourseDb = "SHOW DATABASES LIKE '".$keysCourseDbName."'";
         }
@@ -171,26 +170,26 @@ function define_course_keys ($wantedCode,
             $tryNewFSCDir++;
             $finalSuffix['CourseDir']++;
         };
-        
+
         if(!$keysAreUnique && $forceSameSuffix)
         {
+            $finalSuffix['CourseDir'] = max($finalSuffix);
             $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
             $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }
-    }
 
-    // here  we can add a counter to exit if need too many try
-    $limitQtyTry = 128;
+        // here  we can add a counter to exit if need too many try
+        $limitQtyTry = 128;
 
-    if (($tryNewFSCId+$tryNewFSCDb+$tryNewFSCDir > $limitQtyTry)
-            or ($tryNewFSCId > $limitQtyTry / 2 )
-            or ($tryNewFSCDb > $limitQtyTry / 2 )
-            or ($tryNewFSCDir > $limitQtyTry / 2 )
+        if (($tryNewFSCId+$tryNewFSCDb+$tryNewFSCDir > $limitQtyTry)
+        or ($tryNewFSCId > $limitQtyTry / 2 )
+        or ($tryNewFSCDb > $limitQtyTry / 2 )
+        or ($tryNewFSCDir > $limitQtyTry / 2 )
         )
-    {
-        return FALSE;
+        {
+            return FALSE;
+        }
     }
-
     // dbName Can't begin with a number
     if (!strstr("abcdefghijklmnopqrstuvwyzABCDEFGHIJKLMNOPQRSTUVWXYZ",$keysCourseDbName[0]))
     {
