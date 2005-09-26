@@ -53,8 +53,8 @@ function define_course_keys ($wantedCode,
                              $prefix4path = '',
                              $addUniquePrefix = FALSE,
                              $useCodeInDepedentKeys = TRUE,
-                             $addUniqueSuffix = FALSE,
-                             $forceSameSuffix = TRUE
+                             $addUniqueSuffix = FALSE
+                             
                              )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -157,7 +157,7 @@ function define_course_keys ($wantedCode,
             if ($DEBUG) echo '[dir'.$coursesRepositories . '/' . $keysCourseRepository.']<br>';
         };
         
-        if(!$keysAreUnique && $forceSameSuffix)
+        if(!$keysAreUnique)
         {
             $finalSuffix['CourseDir'] = substr(md5 (uniqid ('')), 0, $nbCharFinalSuffix);
             $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
@@ -1056,7 +1056,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
 
     if (mysql_num_rows($result) > 0)
     {
-        while ( $courseTool = mysql_fetch_array($result, MYSQL_ASSOC))
+        while ( ($courseTool = mysql_fetch_array($result, MYSQL_ASSOC) ))
         {
             $sql_insert = " INSERT INTO `" . $TABLECOURSEHOMEPAGE . "` "
                         . " (tool_id, rank, access) "
