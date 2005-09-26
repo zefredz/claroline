@@ -248,10 +248,10 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
           --------------------------------------------------------------------*/
 
 
-        if (   strrchr($_FILES['userFile']['name'], '.') == '.htm'
-            || strrchr($_FILES['userFile']['name'], '.') == '.html')
+        if (   strrchr($uploadedFileName, '.') == '.htm'
+            || strrchr($uploadedFileName, '.') == '.html')
         {
-            $imgFilePath = search_img_from_html($baseWorkDir.$_REQUEST['cwd'].'/'.$_FILES['userFile']['name']);
+            $imgFilePath = search_img_from_html($baseWorkDir.$_REQUEST['cwd'].'/'.$uploadedFileName);
 
             /*
              * Generate Form for image upload
@@ -264,7 +264,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                              ."enctype=\"multipart/form-data\">\n"
                              ."<input type=\"hidden\" name=\"cmd\" value=\"submitImage\">\n"
                              ."<input type=\"hidden\" name=\"relatedFile\""
-                             ."value=\"".$_REQUEST['cwd']."/".$_FILES['userFile']['name']."\">\n"
+                             ."value=\"".$_REQUEST['cwd']."/".$uploadedFileName."\">\n"
                              ."<table border=\"0\">\n";
 
                 foreach($imgFilePath as $thisImgKey => $thisImgFilePath )
@@ -374,7 +374,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             // urlencode() does too much. We don't need to replace '/' by '%2F'
             $newImgPathList = str_replace('%2F', '/', $newImgPathList);
 
-            replace_img_path_in_html_file($_POST['imgFilePath'], 
+            replace_img_path_in_html_file($_REQUEST['imgFilePath'], 
                                           $newImgPathList, 
                                           $baseWorkDir.$_REQUEST['relatedFile']);
 
