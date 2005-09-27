@@ -43,7 +43,7 @@ unset($_SESSION['admin_order_crit']);
 
 //declare needed tables
 $tbl_mdb_names    = claro_sql_get_main_tbl();
-$tbl_course_nodes = $tbl_mdb_names['category'         ];
+$tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
@@ -52,11 +52,11 @@ $nameTools = $langSearchUserAdvanced;
 
 //retrieve needed parameters from URL to prefill search form
 
-if (isset($_REQUEST['action']))    $action    = $_REQUEST['action'];    else $action = "";
-if (isset($_REQUEST['lastName']))  $lastName  = $_REQUEST['lastName'];  else $lastName = "";
-if (isset($_REQUEST['firstName'])) $firstName = $_REQUEST['firstName']; else $firstName = "";
-if (isset($_REQUEST['userName']))  $userName  = $_REQUEST['userName'];  else $userName = "";
-if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $mail = "";
+if (isset($_REQUEST['action']))    $action    = $_REQUEST['action'];    else $action = '';
+if (isset($_REQUEST['lastName']))  $lastName  = $_REQUEST['lastName'];  else $lastName = '';
+if (isset($_REQUEST['firstName'])) $firstName = $_REQUEST['firstName']; else $firstName = '';
+if (isset($_REQUEST['userName']))  $userName  = $_REQUEST['userName'];  else $userName = '';
+if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $mail = '';
 
 //header and bredcrump display
 
@@ -123,16 +123,17 @@ echo claro_disp_tool_title($nameTools . ' : ');
   <td>
 <?php 
 
-        $action_list['followcourse'] = $langStudent;
-        $action_list['createcourse'] =  $langCourseCreator;
-        $action_list['plateformadmin'] = $langPlatformAdministrator;
-        $action_list['all'] = $langAll;
+$action_list['all'] = $langAll;
+$action_list['followcourse'] = $langStudent;
+$action_list['createcourse'] =  $langCourseCreator;
+$action_list['plateformadmin'] = $langPlatformAdministrator;
 
-        echo claro_html_form_select( 'action'
-                                         , $action_list
-                                         , $action
-                                         , array('id'=>'action'))
-                                         ; ?>
+
+echo claro_html_form_select( 'action'
+                            , $action_list
+                            , $action
+                            , array('id'=>'action'))
+                                     ; ?>
 
     </td>
 </tr>
