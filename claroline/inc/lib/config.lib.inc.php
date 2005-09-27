@@ -97,6 +97,7 @@ function trueFalse($booleanState)
  * @return whether the success
  *
  * @author Benoit
+ * @deprecated          
  */
 
 function replace_var_value_in_conf_file ($varName,$value,$file)
@@ -106,7 +107,7 @@ function replace_var_value_in_conf_file ($varName,$value,$file)
 
     // Quote regular expression characters of varName
 
-    if ($varName != "")
+    if ($varName != '')
     {
         // build regexp
         $regVarName = preg_quote($varName);
@@ -707,7 +708,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             // description
             if ( !empty($description) )
             {
-                $propertyDesc = '/* ' . $propertyName . ' : ' . str_replace("\n","",$description) . ' */' . "\n";
+                $propertyDesc = '/* ' . $propertyName . ' : ' . str_replace("\n",'',$description) . ' */' . "\n";
             }
             else
             {
@@ -746,7 +747,7 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
             }
             else
             {
-                $propertyLine = '$'.$propertyName.' = '.$valueToWrite.';'."\n";
+                $propertyLine = '$'.$propertyName.' = '. $valueToWrite .';'."\n";
             }
             $propertyLine .= "\n\n";
 
