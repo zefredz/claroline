@@ -481,7 +481,7 @@ function search_img_from_html($htmlFile)
 
 	// Search the image file path from all the <IMG> tag detected
 
-	if ( sizeof($imgTagList)  > 0)
+	if ( isset($imgTagList) && sizeof($imgTagList)  > 0)
 	{
 		foreach($imgTagList as $thisImgTag)
 		{
