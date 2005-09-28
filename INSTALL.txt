@@ -98,16 +98,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline170rc2.tar.gz'
+1. Download 'claroline170.tar.gz'
 
-   Windows : download 'claroline170rc2.zip'.
+   Windows : download 'claroline170.zip'.
 
 
 2. Open a shell, go to download directory and type 
 
-    tar -zxvf claroline170rc2.tar.gz
+    tar -zxvf claroline170.tar.gz
 
-   Windows : unzip 'claroline170rc2.zip'.
+   Windows : unzip 'claroline170.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory). 
@@ -144,16 +144,16 @@ Before upgrading we heavily recommend you do a full backup of the previous
 Claroline directories and databases. If you are unsure how to achieve this 
 please ask your hosting provider for advice.
 
-1. Download 'claroline170b.tar.gz'
+1. Download 'claroline170.tar.gz'
 
-   Windows : download 'claroline170b.zip'.
+   Windows : download 'claroline170.zip'.
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline170rc2.tar.gz
+    tar -zxvf claroline170.tar.gz
 
-   Windows : unzip 'claroline170rc2.zip'.
+   Windows : unzip 'claroline170.zip'.
 
 
 3. Replace your previous Claroline directory and index.php by the new one.
