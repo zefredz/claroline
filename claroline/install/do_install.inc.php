@@ -26,7 +26,7 @@
  * @author Christophe Gesché <moosh@claroline.net>
  *
  * @package INSTALL
- * 
+ *
  * @todo check if dbexist would be improve for check if table exists, not if db exist.
  *
  */
@@ -155,12 +155,15 @@ $tbl_admin = $tbl_mdb_names['admin'];
 if ($runfillMainDb && $runfillStatsDb)
 {
     mysql_select_db ($mainDbName);
-    include ('./createMainBase.inc.php');
-    include ('./fillMainBase.inc.php');
+
+    include './dropMainTables.inc.php';
+    include './createMainBase.inc.php';
+    include './fillMainBase.inc.php';
 
     mysql_select_db ($statsDbName);
-    include ('./createStatBase.inc.php');
-    include ('./fillStatBase.inc.php');
+    include './dropStatTables.inc.php';
+    include './createStatBase.inc.php';
+    include './fillStatBase.inc.php';
 }
 
 // FILE SYSTEM OPERATION
