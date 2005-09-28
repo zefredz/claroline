@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * COURSE SITE CREATION TOOL
  *
@@ -11,13 +11,13 @@
  *     3. Create a www directory with the same name as the db name
  *     4. Add the course to the main icampus/course table
  *     5. Check whether the course code is not already taken.
- *     6. Associate the current user id with the course in order to let 
+ *     6. Associate the current user id with the course in order to let
  *        him administer it.
- * 
+ *
  * List of Events
  * 	- can't create course
  * 		show displayNotForU and exit
- * 
+ *
  * List  of  views
  * 	- displayNotForU
  * 		the  user  is not allowed to  use this script
@@ -28,10 +28,10 @@
  * 		New course is added.  Show  success message.
  *
  * @version 1.7 $Revision$
- * 
+ *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * 
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
@@ -201,20 +201,20 @@ else
 
             }
 
-            $noQUERY_STRING = true;          
-            
+            $noQUERY_STRING = true;
+
             if($showWaitPanel)
-            {            
+            {
                 $display=DISP_WAIT;
-        
-                $param = $_SERVER['PHP_SELF'].'?cmd=exCreate';     
+
+                $param = $_SERVER['PHP_SELF'].'?cmd=exCreate';
                 foreach ($_REQUEST as $k => $v)
                 {
-                   $param .=            '&amp;' . rawurlencode($k) . '=' . rawurlencode($v);     
+                   $param .=            '&amp;' . rawurlencode($k) . '=' . rawurlencode($v);
                 }
                 $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $param . '">';
             }
-            else 
+            else
             {
                 $display = DISP_RESULT;
                 //function prepare_course_repository($courseRepository, $courseId)
@@ -223,21 +223,21 @@ else
                     switch ( claro_failure::get_last_failure() )
                     {
                         case 'READ_ONLY_SYSTEM_FILE' :
-                        $display = DISP_READONLY_FS;                    
+                        $display = DISP_READONLY_FS;
                         break;
                         default: $controlMsg['error'][] = 'error directories creation failed';
-    
+
                     }
                 }
                 else
                 {
-                    
+
                     update_db_course($currentCourseDbName);
                     fill_course_repository($currentCourseRepository);
-    
+
                     // function fill_db_course($courseDbName)
                     fill_db_course( $currentCourseDbName, $newcourse_language );
-    
+
                     if ( register_course($currentCourseId
                     ,                    $currentCourseCode
                     ,                    $currentCourseRepository
@@ -266,7 +266,7 @@ else
                         .                                  ' ' . $langLanguage       . ' : ' . $newcourse_language."\n"
                         .                                  "\n " . $coursesRepositoryWeb.$currentCourseRepository."/\n\n"
                         ;
-    
+
                         // send a email to administrator(s) about the course creation
                         $adminUserIdsList = claro_get_admin_list ();
                         foreach( $adminUserIdsList as $adminUserId )
@@ -285,7 +285,7 @@ else
                         } while ($sysErrorCode=='');
                     }
                 }
-            } 
+            }
         } // if ($okToCreate)
     } // elseif ($submitFromCoursProperties)
 } // else (!$can_create_courses)
@@ -303,23 +303,23 @@ switch ($display)
     case DISP_FORM :
     {
         $language_list = claro_get_lang_flat_list();
-        
+
         $category_array = claro_get_cat_flat_list();
-        // If there is no current $category, add a fake option 
+        // If there is no current $category, add a fake option
         // to prevent auto select the first in list
         // to prevent auto select the first in list
         if ( array_key_exists($category,$category_array))
-        { 
+        {
             $cat_preselect = $category;
         }
-        else 
+        else
         {
             $cat_preselect = 'choose_one';
             $category_array = array_merge(array('choose_one'=>'--'),$category_array);
         }
     }
     break;
-    default : 
+    default :
     break;
 }
 
@@ -406,7 +406,7 @@ elseif($display ==  DISP_FORM)
 
 <tr valign="top">
 <td align="right">
-	<label for="wantedCode"><?php echo $langCode ?></label> : 
+	<label for="wantedCode"><?php echo $langCode ?></label> :
 </td>
 <td >
 	<input type="Text" id="wantedCode" name="wantedCode" maxlength="12" value="<?php echo htmlspecialchars($wantedCode) ?>">
@@ -435,7 +435,7 @@ elseif($display ==  DISP_FORM)
 
 <tr valign="top">
 <td align="right">
-<label for="category"><?php echo $langCategory ?></label> : 
+<label for="category"><?php echo $langCategory ?></label> :
 </td>
 <td>
 <?php echo claro_html_form_select( 'category'
@@ -464,7 +464,7 @@ elseif($display ==  DISP_FORM)
 <label for="submitFromCoursProperties"><?php echo $langCreate ?> : </label>
 </td>
 <td>
-<input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo $langOk?>"> 
+<input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo $langOk?>">
 <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel); ?>
 </td>
 </tr>
@@ -503,8 +503,11 @@ elseif($display == DISP_RESULT)
 } // if all fields fullfilled
 elseif ($display==DISP_WAIT)
 {
-    
-    echo claro_disp_message_box(sprintf($langCourseWouldBeCreated.'<BR>'.$lang_p_IfNothingHappendClickHere,$param));
+    $messageString = '<p>'.$langCourseWouldBeCreated.'</p>'
+                   . '<p align="center"><img src="'.$imgRepositoryWeb.'processing.gif"></p>'
+                   . '<p><small>'.sprintf($lang_p_IfNothingHappendClickHere,$param).'</small></p>';
+
+    echo claro_disp_message_box($messageString);
 }
 include($includePath . '/claro_init_footer.inc.php');
 
