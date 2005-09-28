@@ -23,6 +23,7 @@ $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
 $langNoEx = "Tällä hetkellä ei ole harjoituksia";
 $langNoSpace = "Lataus epäonnistui, hakemistossa ei ole riittävästi tilaa.";
+$langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
 $langQuestion = "Kysymys";

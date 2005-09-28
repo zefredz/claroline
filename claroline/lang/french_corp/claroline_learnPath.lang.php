@@ -135,6 +135,7 @@ $langNoModule = "Pas de module";
 $langNoMoreModuleToAdd = "Tous les modules de cet espace sont déjà utilisés dans ce parcours.";
 $langNoSpace = "Le t&eacute;l&eacute;chargement a &eacute;chou&eacute;. Il n'y a plus assez de place dans votre r&eacute;pertoire";
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langNotInstalled = "Une erreur est survenue.  l&acute;importation du parcours pédagogique a échoué.";
 $langNotice = "Remarque";
 $langOk = "Valider";

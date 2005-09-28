@@ -52,6 +52,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Uusi aihe";
 $langNoPsychology = "Ei. Sokraattinen ironia ei liity psykologiaan, se käsittelee argumentaatiota.";
 $langNoSeduction = "Ei. Sokraattinen ironia ei ole houkutukseen perustuva startegia tai esimerkkiin perustuva menetelmä.";
+$langNotAllowed = "Ei sallittu";
 $langNotFalse = "Tämä vastaus ei ole väärin. On totta, että puhekumppanin tietämättömyys paljastaminen tarkoittaa kieltävien johtopäätelmien näyttämistä, jotka johtuvat hänen lähtökohdistaan.";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";

@@ -20,7 +20,6 @@ $langCourseDescription = "请在这里写下课程简介,这会显示在课程列表中.";
 $langCourseHome = "课程主页";
 $langCourseManager = "课程负责人";
 $langCourseTitle = "课程标题";
-$langCourseWouldBeCreated = "您课程将被建立";
 $langCreate = "建立";
 $langCreateSite = "创建课程";
 $langCreationMailNotificationBody = "课程建立";
@@ -93,7 +92,7 @@ $langViewMode = "查看模式";
 $langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
-$lang_p_IfNothingHappendClickHere = "<small>如果30秒后没有改变，请点击 <a href=\"%s\">这里</a>并再次等候</small>";
+$lang_p_IfNothingHappendClickHere = "如果30秒后没有改变，请点击 <a href=\"%s\">这里</a>并再次等候";
 $lang_p_aCategoryWouldBeSelected = "您必须选择课程分类。如果有课程分类丢失请联系<a href=\"%s\">the 平台管理员</a>";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

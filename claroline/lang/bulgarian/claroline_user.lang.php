@@ -36,6 +36,7 @@ $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNo = "Не";
 $langNone = "Нищо";
+$langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOneByOne = "Добави ръчно потребител";
 $langOneResp = "Един от администраторите на курса";

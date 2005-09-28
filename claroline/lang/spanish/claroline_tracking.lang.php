@@ -184,7 +184,8 @@ $langTrackAllPath = "Estad&iacute;sticas de secuencias de aprendizaje";
 $langTrackAllPathExplanation = "Progreso de los usuarios en todas las secuencias de aprendizaje";
 $langTrackExerciseError = "Puede haber algo incorrecto, ya que parece que algunas preguntas cambiaron entre este intento y agora.";
 $langTrackForumUsage = "Uso del foro";
-$langTrackNotEnoughAttempts = "Debe usted de superar el n&uacute;mero m&aacute;ximo de intentos permitidos para ver estas 
+$langTrackNotEnoughAttempts = "Debe usted de superar el n&uacute;mero m&aacute;ximo de intentos permitidos para ver estas
+
 							   estad&iacute;sticas.";
 $langTrackTotalPosts = "Mensajes enviados";
 $langTrackTotalTopics = "Temas de conversaci&oacute;n iniciados";

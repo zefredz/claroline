@@ -23,6 +23,7 @@ $langManager = "Người quản lý";
 $langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
+$langMoveDown = "Di chuyển xuống";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
 $langNotAllowed = "Not allowed";
@@ -33,5 +34,6 @@ $langStatistics = "Thống kê";
 $langStudent = "học sinh";
 $langTools = "Tools";
 $langUsers = "Users";
+$langVisibility = "Visibility";
 $langWork = "Công việc";
 ?>

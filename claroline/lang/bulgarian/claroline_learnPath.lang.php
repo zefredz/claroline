@@ -28,6 +28,7 @@ $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNoEx = "В момента няма упражнения";
 $langNoSpace = "Качването неуспешно. Няма достатъчно свободно място в директорията";
+$langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
 $langPoweredBy = "Powered by";

@@ -30,5 +30,6 @@ $langStatistics = "Ýstatistikler";
 $langStudent = "öðrenci";
 $langTools = "Tools";
 $langUsers = "Kullanýcýlar";
+$langVisibility = "Görünür/Görünmez";
 $langWork = "Öðrenci Yazýlarý";
 ?>

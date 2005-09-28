@@ -46,6 +46,7 @@ $langMyAgenda = "我的日历";
 $langMyCourses = "我的课程";
 $langNameOfLang = "Array";
 $langNo = "取消";
+$langNotAllowed = "操作禁止";
 $langOfficialCode = "管理代码";
 $langOk = "确认";
 $langOneResp = "课程管理员之一";

@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langNomPageAddHtPass = "Upravljanje z administratorji";
+$langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";
 $langOtherWorks = "druge funkcije";

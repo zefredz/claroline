@@ -5,14 +5,14 @@ $langAddModule = "Hinzufügen";
 $langAddModulesButton = "Modul(e) hinzufügen";
 $langAddOneModuleButton = "Modul hinzufügen";
 $langAgenda = "Termine/Ereignisse";
-$langAlertBlockingMakedInvisible = "Dieses Modul ist gesperrt. 
-Wenn Sie es unsichtbar machen, haben die Teilnehmer die Möglichkeit 
- das nächste Modul aufzurufen, ohne das aktuelle Modul zu beenden. 
+$langAlertBlockingMakedInvisible = "Dieses Modul ist gesperrt.
+Wenn Sie es unsichtbar machen, haben die Teilnehmer die Möglichkeit
+ das nächste Modul aufzurufen, ohne das aktuelle Modul zu beenden.
 
 Okay ?";
-$langAlertBlockingPathMadeInvisible = "Dieser Pfad ist gespert. 
-Wenn Sie ihn unsichtbar machen, haben die Teilnehmer die Möglichkeit 
- den nächsten Lenrpfad aufzurufen, ohne den aktuellen Lernpfad zu beenden. 
+$langAlertBlockingPathMadeInvisible = "Dieser Pfad ist gespert.
+Wenn Sie ihn unsichtbar machen, haben die Teilnehmer die Möglichkeit
+ den nächsten Lenrpfad aufzurufen, ohne den aktuellen Lernpfad zu beenden.
 
 Okay ?";
 $langAlreadyBrowsed = "Bereits durchgesehen";
@@ -41,7 +41,7 @@ $langBack = "Zurück";
 $langBackModule = "Zurück zur Übersicht";
 $langBackToLPAdmin = "Zurück zur Lernpfad-Administration";
 $langBlock = "Sperren/Freischalten";
-$langCancel = "abbrechen";
+$langCancel = "Abbrechen";
 $langChangeRaw = "Ändern der Mindestanforderung, um dieses Modul zu bestehen (in Prozent) : ";
 $langChat = "Chat";
 $langComment = "Kommentar";
@@ -59,26 +59,26 @@ $langDefaultModuleAddedComment = "Dies ist ein zusätzlicher Einführungstext zu d
 $langDefaultModuleComment = "Dies ist der Einführungstext für diese Modul, er wird in jedem Lernpfad erscheinen, der dieses Modul verwendet. Um ihn durch Ihren eigenen Text zu ersetzen, klicken Sie einfach auf <b>bearbeiten</b>.";
 $langDelete = "Löschen";
 $langDescriptionCours = "Kursbeschreibung";
-$langDocInsertedAsModule = "Wurde als Modul hinzugefügt";
+$langDocInsertedAsModule = "wurde als Modul hinzugefügt";
 $langDocument = "Dokumente/Dateien";
 $langDocumentAlreadyUsed = "Dieses Dokument wird bereits als Modul in diesem Lernpfad verwendet";
 $langDocumentAsModule = "Dokument verwenden";
 $langDocumentInModule = "Dokument im Modul";
 $langEXERCISETypeDesc = "Systeminterner Test";
 $langErrorAssetNotFound = "Asset nicht gefunden : ";
-$langErrorCopyAttachedFile = "Kopieren nicht möglich";
-$langErrorCopyScormFiles = "Fehler beim Kopieren der benötigten SCORM Dateien";
-$langErrorCopyingScorm = "Fehler beim Kopieren SCORM Inhalt existiert";
-$langErrorCreatingDirectory = "Erstellen des Verzeichnisses nicht möglich";
-$langErrorCreatingFile = "Erstellen der Datei nicht möglich";
-$langErrorCreatingFrame = "Erstellen der Rahmendatei nicht möglich";
-$langErrorCreatingManifest = "Es ist nicht möglich das SCORM-Manifest zu erstellen (imsmanifest.xml)";
-$langErrorCreatingScormArchive = "Erstellen des SCORM Archivs nicht möglich";
+$langErrorCopyAttachedFile = "Kann Datei nicht kopieren: ";
+$langErrorCopyScormFiles = "Fehler beim Kopieren erforderlicher SCORM-Dateien";
+$langErrorCopyingScorm = "Fehler beim Kopieren existierenden SCORM-Inhaltes";
+$langErrorCreatingDirectory = "Kann Verzeichnis nicht erstellen: ";
+$langErrorCreatingFile = "Kann Datei nicht erstellen: ";
+$langErrorCreatingFrame = "Kann Frame-Datei nicht erstellen";
+$langErrorCreatingManifest = "Kann das SCORM-Manifest nicht erstellen (imsmanifest.xml)";
+$langErrorCreatingScormArchive = "Kann das SCORM-Archiv nicht erstellen";
 $langErrorEmptyName = "Bitte Name eingeben";
 $langErrorFileMustBeZip = "Datei muss ein zip.Archiv sein (.zip)";
 $langErrorInvalidParms = "Fehler : Ungültiger Parameter (nur Zahlen benutzen)";
-$langErrorLoadingExercise = "Laden des Tests  nicht möglich";
-$langErrorLoadingQuestion = "Laden der Testfragen nicht möglich";
+$langErrorLoadingExercise = "Kann die Übung nicht laden";
+$langErrorLoadingQuestion = "Kann die Frage der Übung nicht laden";
 $langErrorNameAlreadyExists = "FEHLER : Name existiert bereits";
 $langErrorNoModuleInPackage = "Keine Module im Paket vorhanden";
 $langErrorNoZlibExtension = "Die PHP Zlib-Erweiterung wird benötigt, um dieses Tool auszuführen. Wenden Sie sich bitte an den Systemadministrator.";
@@ -96,7 +96,7 @@ $langExercise = "Test";
 $langExerciseAsModule = "Test verwenden";
 $langExerciseInModule = "Test im Modul";
 $langExercises = "Tests";
-$langExport = "Export";
+$langExport = "exportieren";
 $langFileError = "Datei-Upload ist nicht möglich.";
 $langFileName = "Dateiname";
 $langForums = "Foren";
@@ -116,10 +116,10 @@ $langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen gepl
 $langLastSessionTimeSpent = "Zeit der letzten Sitzung";
 $langLearningPath = "Lernpfad";
 $langLearningPathAdmin = "Lernpfad Admin";
-$langLearningPathEmpty = "Lernpfad ist leer";
+$langLearningPathEmpty = "Der Lernpfad ist leer.";
 $langLearningPathList = "Lernpfad-Liste";
-$langLearningPathName = "Neuer Name des Lernpfads : ";
-$langLearningPathNotFound = "Lernpfad nicht gefunden";
+$langLearningPathName = "Name des neuen Lernpfads: ";
+$langLearningPathNotFound = "Der Lernpfad wurde nicht gefunden.";
 $langLessonStatus = "Status des Moduls";
 $langLogin = "login";
 $langLogout = "Logout";
@@ -149,6 +149,7 @@ $langNoModule = "Keine Module vorhanden";
 $langNoMoreModuleToAdd = "Alle Module dieser KursSite werden bereits in diesem Lernpfad verwendet.";
 $langNoSpace = "Upload ist fehlgeschlagen. Sie haben nicht genug Platz im Verzeichnis";
 $langNoStartAsset = "Es ist kein Start asset für dieses Modul definiert.";
+$langNotAllowed = "Sie haben hier keinen Zugriff.";
 $langNotInstalled = "Es hat einen Fehler gegeben.  Imnport des Lernpfad misslungen.";
 $langNotice = "Anmerkung";
 $langOk = "Ok";
@@ -163,8 +164,8 @@ $langOrder = "Sortierung";
 $langOtherCourses = "Kurs Angebot";
 $langPathContentTitle = "Inhalt des Lernpfads";
 $langPathsInCourseProg = "Kurs-Fortschritt ";
-$langPeriodDayShort = "T.";
-$langPeriodHourShort = "St.";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPersoValue = "Ergebnisse";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
@@ -172,7 +173,7 @@ $langProgInModuleTitle = "Ihr Fortschritt in der Bearbeitung dieses Moduls";
 $langProgress = "Fortschritt";
 $langQuestion = "Frage";
 $langRawHasBeenChanged = "Mindestanforderung wurde erfolgreich geändert";
-$langRemove = "Remove";
+$langRemove = "Löschen";
 $langRename = "Umbenennen";
 $langRoot = "root";
 $langSCORMTypeDesc = "SCORM 1.2 konformer Inhalr";

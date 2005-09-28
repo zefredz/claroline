@@ -36,6 +36,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
 $langNewTopic = "Uusi aihe";
+$langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langPoweredBy = "Alusta";
 $langReply = "vastaus";

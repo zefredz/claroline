@@ -34,6 +34,7 @@ $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langNoEx = "Tiada Latihan buat masa ini";
 $langNoSpace = "Proses muatnaik gagal. Ruang tidak mencukupi";
+$langNotAllowed = "Tidak dibenarkan";
 $langNotice = "Pemberitahuan";
 $langOk = "Proses";
 $langOtherCourses = "Senarai Subjek";

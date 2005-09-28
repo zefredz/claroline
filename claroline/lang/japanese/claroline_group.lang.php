@@ -38,6 +38,7 @@ $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
 $langNewTopic = "New topic";
+$langNotAllowed = "このコース受講が許可されていません";
 $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
 $langReply = "Answer";

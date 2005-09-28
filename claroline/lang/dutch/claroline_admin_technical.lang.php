@@ -37,6 +37,7 @@ $langMysql_Repository = "Mysql backup";
 $langNameOfLang = "Array";
 $langNoFunctionInThisSection = "Geen functies in deze sectie";
 $langNoQuota = "Geen quota";
+$langNotAllowed = "U bent hier niet toegelaten";
 $langOk = "Ok";
 $langOtherCourses = "Cursusoverzicht";
 $langPerhaps_with_others_directory = "misschien met een andere map";

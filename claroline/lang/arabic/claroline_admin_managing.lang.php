@@ -36,6 +36,7 @@ $langMyCourses = "مقرراتي";
 $langNameOfLang = "مصفوفة";
 $langNoContent = "لايوجد مضمون";
 $langNomPageAddHtPass = "إدارة المستخدمين المدراء";
+$langNotAllowed = "غير مسموح";
 $langOk = "موافق";
 $langOtherCourses = "قائمة المقررات";
 $langOtherWorks = "وظائف أخرى";

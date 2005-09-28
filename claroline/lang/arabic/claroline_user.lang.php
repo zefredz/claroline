@@ -103,6 +103,7 @@ $langNameOfLang = "مصفوفة";
 $langNewUsersIn = "مستخدمون انضموا للموقع مؤخرأ: ";
 $langNo = "لا";
 $langNone = "بدون";
+$langNotAllowed = "غير مسموح";
 $langOfficialCode = "الرقم  او الرمز الإداري";
 $langOk = "موافق";
 $langOneByOne = "إضافة مستخدم بشكل يدوي";

@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNomPageAddHtPass = "Дать доступ к администрированию";
+$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";
 $langOtherWorks = "другие функции";

@@ -54,6 +54,7 @@ $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langNo = "Tidak";
 $langNone = "Tiada satu pun";
+$langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
 $langOneByOne = "Tambah Pengguna secara manual";
 $langOneResp = "Satu daripada Subjek Pentadbir Subjek";

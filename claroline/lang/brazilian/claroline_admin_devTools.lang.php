@@ -90,6 +90,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Novo tópico";
 $langNoPsychology = "Não. Ironia socrática não é um tipo de psicologia, ela diz respeito à argumentação.";
 $langNoSeduction = "Não. Ironia socrática não é uma estratégia de sedução ou um método baseado no exemplo.";
+$langNotAllowed = "Você não é permitido aqui";
 $langNotFalse = "Essa resposta não é falsa. É verdade que a revelação da ignorância de seu interlocutor se dá mostrando suas conclusões contraditórias as suas premissas iniciais.";
 $langNumGroup = "Qtde. de grupos por curso";
 $langNumGroupStudent = "Qtde. do time que o estudante pode inscrever no curso";

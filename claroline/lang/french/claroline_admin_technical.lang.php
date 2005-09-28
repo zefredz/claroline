@@ -37,6 +37,7 @@ $langMysql_Repository = "Dossier MySQL";
 $langNameOfLang = "Array";
 $langNoFunctionInThisSection = "Pas de fonction dans cette extension";
 $langNoQuota = "Pas de quota";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des cours";
 $langPerhaps_with_others_directory = "peut-être avec d'autres dossiers";

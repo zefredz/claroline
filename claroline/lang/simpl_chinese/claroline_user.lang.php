@@ -109,6 +109,7 @@ $langNewUsersIn = "平台上的新用户：";
 $langNo = "取消";
 $langNoUserFound = "用户没找到";
 $langNone = "无";
+$langNotAllowed = "操作禁止";
 $langOfficialCode = "管理代码";
 $langOk = "确认";
 $langOneByOne = "手工添加用户";

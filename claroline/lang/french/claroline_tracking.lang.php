@@ -126,6 +126,7 @@ $langNoModule = "Pas de module";
 $langNoRegisteredCourses = "Pas de statistiques.  Vous n'êtes inscrit dans aucun cours.";
 $langNoResult = "Pas de résultat";
 $langNoScore = "Pas de résultat";
+$langNoTrackingForExerciseAttempt = "Il n'y a pas de statistiques pour cet essai.";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langNotRecentlyConnectedStudents = "Etudiants qui ne se sont pas connecté récemment : ";
 $langOk = "Valider";

@@ -13,6 +13,7 @@ $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
+$langNotAllowed = "Ei sallittu";
 $langPoweredBy = "Alusta";
 $langStudent = "Opiskelija";
 $langUsers = "Käyttäjät";

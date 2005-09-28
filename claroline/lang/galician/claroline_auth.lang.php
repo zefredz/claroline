@@ -39,7 +39,7 @@ $langEditTextZone = "Editar zona de texto";
 $langEmail = "Correo electr&oacute;nico";
 $langEmailAddressNotFound = "Non hai ningunha conta de usuario con este enderezo de correo electr&oacute;nico.";
 $langEmailNotSent = "Algo non funciona, enviar correo electr&oacute;nico a ";
-$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n 
+$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n
 							caracteres non v&aacute;lidos";
 $langEmptyFields = "Deixou vostede baleiros alg&uacute;ns dos campos requiridos";
 $langEnrollAsStudent = "Matricular como estudante";
@@ -48,8 +48,8 @@ $langEnrollClass = "Matricularse nunha clase";
 $langEnter2passToChange = "Escribi-lo novo contrasinal d&uacute;as veces para mudalo e deixar baleiro para mantelo";
 $langEnterMail = "Escriba o seu enderezo de correo electr&oacute;nico e enviar&eacute;moslle o seu contrasinal.";
 $langExercises = "Exercicios";
-$langFillTheAreaToExplainTheMotivations = "Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou 
-												suxesti&oacute;n e prema no bot&oacute;n. Seralle enviado un correo 
+$langFillTheAreaToExplainTheMotivations = "Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou
+												suxesti&oacute;n e prema no bot&oacute;n. Seralle enviado un correo
 												electr&oacute;nico &oacute;(&oacute;s) administrador(es) da plataforma.";
 $langFirstname = "Nome";
 $langFormula = "Atentamente, o seu profesor";
@@ -60,7 +60,9 @@ $langGroups = "Grupos";
 $langHelp = "Axuda";
 $langHome = "Volver &aacute; p&aacute;xina de inicio";
 $langInvalidIdSelfReg = "<b>Fallou o intento de acceso.</b><br />Por favor, int&eacute;nteo de novo.<br />
-<small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o 
+
+<small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o
+
 <a href=claroline/auth/inscription.php>formulario de rexistro</a></font color></small>.";
 $langIs = "&eacute;";
 $langLastname = "Apelido";
@@ -73,7 +75,7 @@ $langLoginRequest = "Solicitude de nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langLostPassword = "Lembrar contrasinal";
 $langManager = "Xestor";
-$langMessageSubscribeDone_p_firstname_lastname = "Estimado %s, %s. Os seus datos persoais ser&aacute;n rexistrados 
+$langMessageSubscribeDone_p_firstname_lastname = "Estimado %s, %s. Os seus datos persoais ser&aacute;n rexistrados
 nun correo electr&oacute;nicos e seranlle enviados para lle lembra-lo seu nome de usuario e o seu contrasinal.";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
@@ -162,6 +164,6 @@ $lang_unsubscribe = "Desinscribirse";
 $lang_user_has_been_enrolled_to_the_course = "O usuario foi matriculado no curso";
 $lang_you_have_been_enrolled_to_the_course = "Foi vostede matriculado no curso";
 $lang_your_enrollment_to_the_course_has_been_removed = "A s&uacute;a subscrici&oacute;n &oacute; curso foi eliminada";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute;
 														matriculado neste curso";
 ?>

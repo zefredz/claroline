@@ -103,6 +103,7 @@ $langNameOfLang = "Array";
 $langNewUsersIn = "novo usuário desta plataforma : ";
 $langNo = "Não";
 $langNone = "nenhum";
+$langNotAllowed = "Você não é permitido aqui";
 $langOfficialCode = "Registro do Aluno (R.A.)";
 $langOk = "validar";
 $langOneByOne = "Adicionar usuário manualmente";

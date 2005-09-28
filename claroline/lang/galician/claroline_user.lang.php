@@ -54,7 +54,7 @@ $langDocument = "Documentos e Ligaz&oacute;ns";
 $langEdit = "Editar conta";
 $langEditFormat = "Editar formato a empregar";
 $langEmail = "Correo electr&oacute;nico";
-$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n 
+$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n
 							caracteres non v&aacute;lidos";
 $langEmptyFields = "Deixou vostede baleiros alg&uacute;ns dos campos requiridos";
 $langEnter2passToChange = "Escribi-lo novo contrasinal d&uacute;as veces para mudalo e deixar baleiro para mantelo";
@@ -110,6 +110,7 @@ $langNewUsersIn = "novos usuarios na plataforma : ";
 $langNo = "Non";
 $langNoUserFound = "Non se atoparon usuarios";
 $langNone = "Ning&uacute;n";
+$langNotAllowed = "Acci&oacute;n non permitida";
 $langOfficialCode = "DNI (8 d&iacute;xitos)";
 $langOk = "Validar";
 $langOneByOne = "Engadir un usuario manualmente";
@@ -161,7 +162,7 @@ $langUserIsPlaformAdmin = "&Eacute; o administrador da plataforma";
 $langUserName = "Nome de usuario";
 $langUserNotUnsubscribedFromCourse = "Erro!. Non pode vostede dar de baixa a un xestor de curso";
 $langUserNumber = "n&uacute;mero";
-$langUserOneByOneExplanation = "El (ela) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n 
+$langUserOneByOneExplanation = "El (ela) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n
 								co seu nome de usuario e contrasinal";
 $langUserRegisteredToCourse = "Usuario rexistrado no curso";
 $langUserTaken = "Este nome de usuario xa existe";

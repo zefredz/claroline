@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langNomPageAddHtPass = "Pengurusan Pengguna";
+$langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
 $langOtherCourses = "Senarai Subjek";
 $langOtherWorks = "fungsi lain";

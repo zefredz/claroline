@@ -68,6 +68,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Nowy Temat";
 $langNoPsychology = "Nie. Sokratyczna ironia nie jest ¶rodkiem psychologicznym, oznacza argumentacjê.";
 $langNoSeduction = "Nie. Sokratyczna ironia nie jest strategi± zwodzenia ani metod± bazuj±c± na przyk³adzie.";
+$langNotAllowed = "You are not allowed here";
 $langNotFalse = "Ta odpowied¼ nie jest z³a. To prawda, ¿e odkrycie ignorancji rozmówcy oznacza pokazanie sprzecznych wniosków, które wynikaj± z jego przes³anek.";
 $langOk = "Ok";
 $langOtherCourses = "Lista kursów";

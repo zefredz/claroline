@@ -3,14 +3,9 @@ $langAdminEmail = "Email";
 $langAdminLogin = "Gebruikersnaam";
 $langAdminName = "Familienaam";
 $langAdminPass = "Wachtwoord";
-$langAdminSetting = "Administrator instellingen";
 $langAdminSurname = "Voornaam";
-$langCfgSetting = "Platform instellingen";
 $langDBConnectionParameters = "Mysql connectie parameters";
 $langDBHost = "Databank machine";
-$langDBLogin = "Databank gebruikersnaam";
-$langDBPassword = "Databank paswoord";
-$langDBSetting = "MySQL databank instellingen";
 $langDBSettingNamesIntro = "
 				<p>
                 Install script will create main claroline databases.
@@ -35,10 +30,8 @@ $langLastCheck = "Laatste check voor installatie";
 $langLicence = "Licentie";
 $langMainDB = "Systeem database";
 $langMysqlNames = "MySQL Databank en tabelnamen";
-$langNo = "Nee";
 $langPrintVers = "Afdrukbare versie";
 $langRequirements = "Vereisten";
 $langStatDB = "Databank voor opvolging";
 $langStepNOfN = "Stap %d van %d";
-$langYes = "Ja";
 ?>

@@ -3,7 +3,8 @@ $langAddComment = "Engadir/modificar un comentario a";
 $langAddModule = "Engadir";
 $langAddModulesButton = "Engadir modulo(s)";
 $langAddOneModuleButton = "Engadir m&oacute;dulo";
-$langAddWrongAnswers = "Engadir respostas err&oacute;neas para desplegar listas <small>(opcional. 
+$langAddWrongAnswers = "Engadir respostas err&oacute;neas para desplegar listas <small>(opcional.
+
 						Unha resposta err&oacute;nea por li&ntilde;a)</small>";
 $langAdvanced = "Avanzado";
 $langAgenda = "Axenda";
@@ -20,9 +21,9 @@ $langAlways = "Sempre";
 $langAmong = "entre";
 $langAnd = "e";
 $langAnnouncement = "Anuncios";
-$langAnonymousAttemptsAllowed = "Permitido : non grava-los nomes de usuario no rexistro de estat&iacute;sticas, os usuarios 
+$langAnonymousAttemptsAllowed = "Permitido : non grava-los nomes de usuario no rexistro de estat&iacute;sticas, os usuarios
 								an&oacute;nimos poder&aacute;n face-lo exercicio.";
-$langAnonymousAttemptsNotAllowed = "Non permitido : grava-los nomes de usuario no rexistro de estat&iacute;sticas, os 
+$langAnonymousAttemptsNotAllowed = "Non permitido : grava-los nomes de usuario no rexistro de estat&iacute;sticas, os
 									usuarios an&oacute;nimos non poder&aacute;n face-lo exercicio.";
 $langAnswer = "Resposta";
 $langAnswerType = "Tipo de resposta";
@@ -47,17 +48,17 @@ $langCourseManager = "Xestor do curso";
 $langCurrentTime = "Hora actual";
 $langDate = "Data";
 $langDay_of_weekNames = "Array";
-$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo 
+$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo
    										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
 $langDefaultMatchingOpt1 = "rico(a)";
 $langDefaultMatchingOpt2 = "guapo(a)";
 $langDefaultMatchingProp1 = "O teu pai &eacute;";
 $langDefaultMatchingProp2 = "A t&uacute;a nai &eacute;";
-$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo 
-   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu 
+$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo
+   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu
 										propio texto, prema abaixo en <b>Modificar</b>.";
-$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada 
-   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo 
+$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada
+   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo
 										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
 $langDefaultTextInBlanks = "[Os brit&aacute;nicos] viven no [Reino Unido].";
 $langDefcon = "Ei!!, detect&aacute;ronse casos estra&ntilde;os!!";
@@ -203,9 +204,9 @@ $langUnlimitedAttempts = "Sen l&iacute;mite de intentos";
 $langUntil = "ata";
 $langUp = "Arriba";
 $langUseTagForBlank = "empregue corchetes [...] para definir un ou m&aacute;is brancos";
-$langUsedInSeveralExercises = "Coidado! Esta cuesti&oacute;n e as s&uacute;s respostas son empregadas 
+$langUsedInSeveralExercises = "Coidado! Esta cuesti&oacute;n e as s&uacute;s respostas son empregadas
 								en varios exercicios. Desexa vostede modificalas ";
-$langUsedInSeveralPath = "Este exercicio &eacute; empregado polo menos nunha secuencia de aprendizaxe. Se vostede 
+$langUsedInSeveralPath = "Este exercicio &eacute; empregado polo menos nunha secuencia de aprendizaxe. Se vostede
 								o elimina, non poder&aacute; estar xa dispo&ntilde;ible nesa(s) secuencia(s) de aprendizaxe.";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";

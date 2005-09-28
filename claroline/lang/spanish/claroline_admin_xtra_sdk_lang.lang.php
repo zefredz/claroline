@@ -23,6 +23,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langNameOfLang = "Array";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langOtherCourses = "Lista de cursos";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";

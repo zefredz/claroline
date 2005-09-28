@@ -5,14 +5,14 @@ $langAddModule = "Ajouter";
 $langAddModulesButton = "Ajouter le(s) module(s)";
 $langAddOneModuleButton = "Ajouter le module";
 $langAgenda = "Agenda";
-$langAlertBlockingMakedInvisible = "Ce module est bloquant, 
-le rendre invisible permettra aux apprenants d'accéder 
- aux modules suivants du parcours sans devoir réussir celui-ci. 
+$langAlertBlockingMakedInvisible = "Ce module est bloquant,
+le rendre invisible permettra aux apprenants d'accéder
+ aux modules suivants du parcours sans devoir réussir celui-ci.
 
 Confirmer ?";
-$langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. 
-le rendre invisible permettra aux apprenants d'accéder 
- aux parcours suivants sans devoir réussir celui-ci. 
+$langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant.
+le rendre invisible permettra aux apprenants d'accéder
+ aux parcours suivants sans devoir réussir celui-ci.
 
 Confirmer ?";
 $langAlreadyBrowsed = "Déjà visité";
@@ -148,6 +148,7 @@ $langNoModule = "Pas de module";
 $langNoMoreModuleToAdd = "Tous les modules de ce cours sont déjà utilisés dans ce parcours.";
 $langNoSpace = "Le téléchargement a échoué. Il n'y a plus assez de place dans votre répertoire";
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langNotInstalled = "Une erreur est survenue.  L'importation du parcours pédagogique a échoué.";
 $langNotice = "Remarque";
 $langOk = "Valider";

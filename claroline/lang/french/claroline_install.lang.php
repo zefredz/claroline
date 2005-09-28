@@ -3,14 +3,9 @@ $langAdminEmail = "E-mail de l'administrateur";
 $langAdminLogin = "Identifiant de l'administrateur";
 $langAdminName = "Nom de l'administrateur";
 $langAdminPass = "Mot de passe de l'administrateur";
-$langAdminSetting = "Paramètres d'administration";
 $langAdminSurname = "Prénom de l'administrateur";
-$langCfgSetting = "Paramètres de configuration";
 $langDBConnectionParameters = "Paramètres de connexion à la base MySQL";
 $langDBHost = "Base de données : Hôte";
-$langDBLogin = "Base de données : Utilisateur";
-$langDBPassword = "Base de données : Mot de passe";
-$langDBSetting = "Paramètres de la base de données MySQL";
 $langDBSettingNamesIntro = "Le script d'installation va créer les bases de données principales de la plateforme. Vous pouvez créer différentes bases de données pour les statistiques et PhpMyAdmin ou mettre toutes ces données dans une base de données. Ensuite, Claroline va créer une nouvelle base de données pour chaque cours créé. Vous pouvez spécifier un préfixe pour les noms de ces bases de données.
 <p>Si vous n'êtes pas authorisés à avoir plusieurs bases de données par votre administrateur, retournez à l'étape précédente et sélectionner l'option \"Single\"</p>
 ";
@@ -22,10 +17,8 @@ $langLastCheck = "Dernier contrôle avant installation";
 $langLicence = "Licence";
 $langMainDB = "Base principale de Claroline";
 $langMysqlNames = "Noms MySQL";
-$langNo = "Non";
 $langPrintVers = "Version imprimable";
 $langRequirements = "Conditions requises";
 $langStatDB = "Base pour le suivi.  Utile uniquement si vous séparez les bases centrales et le suivi";
 $langStepNOfN = "Etape %d de %d";
-$langYes = "Oui";
 ?>

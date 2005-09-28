@@ -35,6 +35,7 @@ $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
 $langNo = "Ne";
 $langNone = "Ništa";
+$langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOneByOne = "ruèno dodaj korisnika";
 $langOneResp = "Jedan od predmetnih administratora";

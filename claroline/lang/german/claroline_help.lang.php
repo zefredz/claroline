@@ -182,7 +182,7 @@ $langHUser = "Benutzerhilfe";
 $langHelp = "Hilfe";
 $langHelpAssignment = "Hilfezuordnung";
 $langHelpAssignmentContent = "<p>
-Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können. 
+Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können.
 <br /><br />
 
 Jeder Upload-Bereich kann verschiedene Ziele und Anforderungen haben: die Publikation muss eine Datei, ein Text oder eine Datei und ein Text sein, die Publikation kann für eine Gruppe statt für einen einzelnen Nutzer gemacht werden, ....
@@ -212,7 +212,7 @@ Lernende haben die Möglichkeit, ihre Arbeiten nach der Veröffentlichung zu verän
 </li><li> the assignment type&nbsp;:
 
 <ul><li> Individueller Modus&nbsp;: jeder authentifizierte Nutzer kann eine Veröffentlichung hochladen
-</li><li> Gruppenmodus&nbsp;: Der Nutzer muss wenigestens in einer Gruppe des Kurses Mitglied sein, um etwas hochzuladen, und die Veröffentlichung erfolgt im Namen der Gruppe 
+</li><li> Gruppenmodus&nbsp;: Der Nutzer muss wenigestens in einer Gruppe des Kurses Mitglied sein, um etwas hochzuladen, und die Veröffentlichung erfolgt im Namen der Gruppe
 </li></ul>
 </li><li> Erlaubnis, nach dem Enddatum zu veröffentlichen
 </li></ul>
@@ -226,9 +226,9 @@ Lernende haben die Möglichkeit, ihre Arbeiten nach der Veröffentlichung zu verän
 
 <hr />
 <h4>Arbeiten</h4>
-<p>Arbeiten sind die Veröffentlichungen, die vom Nutzer hochgeladen werden. 
+<p>Arbeiten sind die Veröffentlichungen, die vom Nutzer hochgeladen werden.
 </p>
-<p> Für jede Aufgabe zeigt das Tool eine Liste aller registrierten Nutzer dieses Kurses und für 
+<p> Für jede Aufgabe zeigt das Tool eine Liste aller registrierten Nutzer dieses Kurses und für
 jeden Nutzer den Titel der ersten veröfftlichten Arbeit, die Anzahl der Veröffentlichungen und die Anzahl der Feedbacks.
 Die Liste der Veröffentlichungen ist mit dem Nutzer verbunden und die Arbeiten können durch Anklicken des Nutzernames angesehen werden.</p>
 <p><strong>Eine Arbeit einreichen</strong></p>
@@ -270,8 +270,8 @@ $langMyAgenda = "Meine Termine";
 $langMyCourses = "Meine Kurse";
 $langNameOfLang = "Feld";
 $langOtherCourses = "Kurs Angebot";
-$langPeriodDayShort = "T.";
-$langPeriodHourShort = "St.";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
 $langSecondShort = "sec.";

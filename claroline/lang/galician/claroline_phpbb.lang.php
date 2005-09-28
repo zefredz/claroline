@@ -9,8 +9,8 @@ $l_here = "aqu&iacute;";
 $l_indextitle = "&Iacute;ndice do foro";
 $l_lastpost = "&Uacute;ltimo \$1_post";
 $l_notify = "Enviar notificaci&oacute;n por correo electr&oacute;nico cando env&iacute;en mensaxes de resposta";
-$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque 
-					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e 
+$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque
+					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e
 					vostede solicitara previamente que se lle notificase este feito.
 
 					Pode vostede ve-lo tema de conversa en:
@@ -80,6 +80,7 @@ $langForumUpdated = "Foro actualizado";
 $langForums = "Foros";
 $langGroupChatLink = "Chat do grupo";
 $langGroupDocumentsLink = "Documentos do grupo";
+$langGroupSpace = "&Aacute;rea do grupo";
 $langGroupSpaceLink = "&Aacute;rea do grupo";
 $langGroupWikiLink = "Wiki do grupo";
 $langGroups = "Grupos";
@@ -88,9 +89,6 @@ $langLastMsg = "&Uacute;ltima mensaxe";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLocked = "Bloqueado";
 $langLogin = "nome de usuario";
-$langLoginBeforePost1 = "Para enviar mensaxes &oacute; foro, ";
-$langLoginBeforePost2 = "antes debe vostede de acceder";
-$langLoginBeforePost3 = "&oacute; Campus cun nome de usuario.";
 $langLogout = "Sa&iacute;r";
 $langManager = "Xestor";
 $langMinuteShort = "min.";

@@ -29,9 +29,9 @@ $langBackToCourseList = "Volver &aacute; lista de cursos do usuario";
 $langBackToList = "Volver &aacute; lista de usuarios";
 $langBackToUserList = "Volver &aacute; lista de usuarios";
 $langCampusAlreadyRegistered = "Semella que vostede ten xa rexistrado o seu campus.";
-$langCampusDeleted = "<strong>Eliminado</strong><p>O seu rexistro de campus foi eliminado, contacte con n&oacute;s 
+$langCampusDeleted = "<strong>Eliminado</strong><p>O seu rexistro de campus foi eliminado, contacte con n&oacute;s
 (vexa a nosa p&aacute;xina web) se cr&eacute; que &eacute; un erro.</p>";
-$langCampusRegistered = "<strong>Aprobado</strong><p>O seu rexistro na plataforma foi aceptado polo equipo de 
+$langCampusRegistered = "<strong>Aprobado</strong><p>O seu rexistro na plataforma foi aceptado polo equipo de
 Claroline.net.<br />Ser&aacute; engadido na p&aacute;xina web de Claroline.net un enlace &oacute; seu campus.</p>";
 $langCampusRegistrationSubmitted = "O seu campus foi enviado e estase agardando a ser validado polo equipo de Claroline.net";
 $langCampusRemoved = "<strong>Eliminado</strong><p>O seu campus foi eliminado da p&aacute;xina de Claroline.net.</p>";
@@ -103,7 +103,7 @@ $langDocument = "Documentos e Ligaz&oacute;ns";
 $langEdit = "Editar conta";
 $langEditSettings = "Editar configuraci&oacute;n";
 $langEmail = "Correo electr&oacute;nico";
-$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n 
+$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n
 							caracteres non v&aacute;lidos";
 $langEmptyFields = "Deixou vostede baleiros alg&uacute;ns dos campos requiridos";
 $langEnrollAsManager = "Matricular como xestor de curso";
@@ -176,10 +176,15 @@ $langNormalUser = "Normal";
 $langNotAllowed = "Acci&oacute;n non permitida";
 $langNotUnregYourself = "Vostede non se pode desinscribir a si mesmo!";
 $langNoticeInstallFolderBrowsable = "<b>Atenci&oacute;n:</b> o directorio que cont&eacute;n o proceso de instalaci&oacute;n
+
 									da s&uacute;a plataforma Claroline (<code>claroline/install/</code>) &eacute; a&iacute;nda
+
 									navegable v&iacute;a web. Isto significa que calquera pode relanza-lo proceso de instalaci&oacute;n
+
 									da s&uacute;a plataforma, destrozando as&iacute; a instalaci&oacute;n que previamente vostede
-									realizou. Recomend&aacute;moslle encarecidamente que estableza permisos que protexan este 
+
+									realizou. Recomend&aacute;moslle encarecidamente que estableza permisos que protexan este
+
 									directorio ou ben que o elimine do seu servidor.";
 $langNumero = "Num.";
 $langOfficialCode = "DNI (8 d&iacute;xitos)";
@@ -219,7 +224,7 @@ $langRegStudent = "Inscribirme en cursos (estudante)";
 $langRegYou = "rexistrouno a vostede neste curso";
 $langRegister = "Inscribir";
 $langRegisterCampusAdvice = "Por favor, verifique que a URL do seu campus &eacute; accesible desde a internet";
-$langRegisterLocalUrl = "A url do seu campus semella ser unha url local. &Eacute; preciso dispo&ntilde;er dunha url 
+$langRegisterLocalUrl = "A url do seu campus semella ser unha url local. &Eacute; preciso dispo&ntilde;er dunha url
 accesible por web para poder rexistra-la s&uacute;a plataforma en Claroline.net.<br /><br />
 Comprobe o valor do enderezo web base na s&uacute;a configuraci&oacute;n de Claroline.";
 $langRegisterMyCampus = "Rexistra-lo meu campus";
@@ -316,7 +321,7 @@ $langYourReg = "A s&uacute;a inscrici&oacute;n en";
 $lang_already_enrolled = "xa foi matriculado";
 $lang_click_here = "prema aqu&iacute;";
 $lang_faculty_CanHaveCatCourse = "Pode ter cursos : ";
-$lang_faculty_CatHaveCat = "Esta categor&iacute;a cont&eacute;n outras categor&iacute;as, debe vostede 
+$lang_faculty_CatHaveCat = "Esta categor&iacute;a cont&eacute;n outras categor&iacute;as, debe vostede
 											de eliminalas antes!";
 $lang_faculty_CatHaveCourses = "Esta categor&iacute;a cont&eacute;n outros cursos, non pode vostede eliminala!";
 $lang_faculty_CodeCat = "C&oacute;digo de categor&iacute;a :";
@@ -327,7 +332,7 @@ $lang_faculty_CreateOk = "Categor&iacute;a creada";
 $lang_faculty_DeleteOk = "Categor&iacute;a eliminada";
 $lang_faculty_EditOk = "Os cambios foron gardados";
 $lang_faculty_Father = "Categor&iacute;a pai";
-$lang_faculty_HaveCourses = "Esta categor&iacute;a incl&uacute;e alg&uacute;ns cursos, debe vostede eliminalos 
+$lang_faculty_HaveCourses = "Esta categor&iacute;a incl&uacute;e alg&uacute;ns cursos, debe vostede eliminalos
 											ou movelos primeiro";
 $lang_faculty_MoveOk = "Categor&iacute;a movida";
 $lang_faculty_NameCat = "Nome de categor&iacute;a :";

@@ -28,6 +28,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
 $langNo = "Ne";
+$langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOneResp = "Jedan od predmetnih administratora";
 $langOtherCourses = "Popis kolegija";

@@ -105,6 +105,7 @@ $langNameOfLang = "Array";
 $langNewUsersIn = "nouveaux utilisateurs sur la plateforme : ";
 $langNo = "Non";
 $langNone = "non";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOfficialCode = "Code officiel";
 $langOk = "Valider";
 $langOneByOne = "Ajouter manuellement un utilisateur";

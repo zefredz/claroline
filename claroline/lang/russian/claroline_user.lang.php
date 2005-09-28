@@ -55,6 +55,7 @@ $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNo = "Нет";
 $langNone = "нет";
+$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOneByOne = "Добавить пользователя вручную";
 $langOneResp = "Один из отетственных за курс";

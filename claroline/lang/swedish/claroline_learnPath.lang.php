@@ -34,6 +34,7 @@ $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
 $langNoEx = "Det finns inga övningar för tillfället";
 $langNoSpace = "Uppladdningen har misslyckats. Det finns inte tillräckligt med diskutrymme i din mapp.";
+$langNotAllowed = "Inte tillåtet";
 $langNotice = "Uppmärksamma";
 $langOk = "validate";
 $langOtherCourses = "Kurslista";

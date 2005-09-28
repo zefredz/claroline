@@ -55,6 +55,7 @@ $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNo = "N&atilde;o";
 $langNone = "nenhum";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
 $langOneByOne = "Acrescentar um utilizador de forma manual";
 $langOneResp = "Um dos administradores do curso";

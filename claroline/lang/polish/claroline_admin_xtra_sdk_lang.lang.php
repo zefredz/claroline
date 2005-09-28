@@ -16,6 +16,7 @@ $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
+$langNotAllowed = "You are not allowed here";
 $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
 $langStudent = "student";

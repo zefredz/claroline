@@ -4,6 +4,8 @@ $langAddExternalTool = "إضافة وصلة خارجية";
 $langAddIntro = "إضافة مقدمة أو تمهيد";
 $langAddedExternalTool = "تم إضافة الأداة الخارجية";
 $langAgenda = "جدول الأعمال";
+$langAltMakeVisible = "جعله مرئياً";
+$langAltMoveUp = "ترتيب تصاعدي";
 $langAnnouncement = "الإعلانات";
 $langAreYouSureToDelete = "سيتم الحذف هل أنت متأكد؟";
 $langCancel = "إلغاء";
@@ -35,17 +37,20 @@ $langIntroEditToolList = "قم باختيار الأدوات التي تريد �
 $langLearningPath = "مسار التعليم";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
+$langMakeInvisible = "إخفاء";
 $langManager = "المدير";
 $langMinuteShort = "دقيقة";
 $langMissingValue = "قيمة مفقودة";
 $langModify = "تعديل";
 $langModifyProfile = "تعديل معلوماتي";
 $langMonthNames = "مصفوفة";
+$langMoveDown = "نقل للأسفل";
 $langMyAgenda = "جدول أعمالي";
 $langMyCourses = "مقرراتي";
 $langNameOfLang = "مصفوفة";
 $langNotAllowed = "غير مسموح";
 $langOk = "موافق";
+$langOrder = "الترتيب";
 $langOtherCourses = "قائمة المقررات";
 $langPlatformAdministration = "الإدارة";
 $langPoweredBy = "مطورة باستخدام";
@@ -63,6 +68,7 @@ $langUnableUpdateExternalTool = "فشل في تحديث الأداة الخار�
 $langUpdatedExternalTool = "تم تحديث الأداة الخارجية";
 $langUsers = "المستخدمون";
 $langViewMode = "نمط العرض";
+$langVisibility = "مرئي/مخفي";
 $langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";

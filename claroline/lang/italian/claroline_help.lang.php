@@ -173,9 +173,9 @@ Oppure potete ricomporre i gruppi dopo o prima dell'iscrizione o del riempimento
 <p>Per creare un nuovo gruppo cliccate 'Creare nuovi gruppi' e specificate quanti gruppi intendete creare e d eventualmente qual è il massimo numero di partecipanti ad ogni singolo gruppo. Se tale ultima opzione non è attivata non ci sarà un limite al numero dei partecipanti al gruppo..</p><hr noshade size=1>
 <p><b>Proprietà del gruppo</b></p>
 <p>Le proprietà dei gruppi possono essere specificate in modo globale (per tutti i gruppi).
-<b>corsisti autorizzati ad iscriversi autonomamente ai gruppi</b>: 
-<p>Possono essere creati dei gruppi vuoti, con iscrizione volontaria da parte dei corsisti. 
-Se si è optato per un limite massimo di partecipanti non saranno possibili iscrizioni in numero superiore. 
+<b>corsisti autorizzati ad iscriversi autonomamente ai gruppi</b>:
+<p>Possono essere creati dei gruppi vuoti, con iscrizione volontaria da parte dei corsisti.
+Se si è optato per un limite massimo di partecipanti non saranno possibili iscrizioni in numero superiore.
 Questo metodo è adatto al caso in cui il docente non conosca l'elenco dei corsisti al momento della creazione dei gruppi.</p>
 <b>Strumenti</b>:</p>
 <p>Ogni gruppo può possedere un 'Forum' proprio (privato o pubblico) o un'area 'Documenti' da gestire o (più frequentemente) entrambi.</p>
@@ -213,7 +213,7 @@ Gli studenti hanno la possibilità di modificare i loro lavori dopo averli inseri
 </li><li> un tipo di inserimento&nbsp;:
 <ul><li> File&nbsp;: può essere uploadato ogni tipo di file, tenendo presente il limite delle dimensioni del file che dipende dalla piattaforma, può essere aggiunto anche un testo per descrivere il file
 
-</li><li> Solo Testo&nbsp;: un testo formattato utilizzando l'editor wysiwyg 
+</li><li> Solo Testo&nbsp;: un testo formattato utilizzando l'editor wysiwyg
 </li><li> Testo con un file allegato&nbsp;: un testo formattato utilizzando l'editor wysiwyg  e un file (opzionale)
 </li></ul>
 </li><li> una data di inizio&nbsp;: la data dalla quale gli utenti potranno inserire la pubblicazione del compito

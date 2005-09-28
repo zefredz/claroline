@@ -87,6 +87,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "New topic";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argument.";
 $langNoSeduction = "No. Socratic irony is not a seduction strategy nor a method based on the example.";
+$langNotAllowed = "Not allowed";
 $langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor's ignorance means showing the contradictory conclusions which lead from his premises.";
 $langNumGroup = "Number of groups per courses";
 $langNumGroupStudent = "Number of teams which student can subscribe to in the course";

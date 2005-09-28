@@ -94,6 +94,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Lanciare un nuovo argomento";
 $langNoPsychology = "No, l'ironia socratica non si esplica sul campo della psicologia, bensì su quello dell'argomentazione.";
 $langNoSeduction = "Non si tratta di una strategia seduttiva o di una metodica per esempi.";
+$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langNotFalse = "La risposta non è falsa: è vero che mettere in evidenza l'ignoranza dell'interlocutore si ottiene mettendo in evidenza le contraddizioni cui portano le sue tesi.";
 $langNumGroup = "Qty di gruppi per corso";
 $langNumGroupStudent = "Qty di squadre che gli studenti possono sottoscrivere in un corso";

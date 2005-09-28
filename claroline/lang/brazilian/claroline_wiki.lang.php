@@ -44,6 +44,7 @@ $langMyAgenda = "Minha agenda";
 $langMyCourses = "Minha lista de cursos";
 $langNameOfLang = "Array";
 $langNo = "Não";
+$langNotAllowed = "Você não é permitido aqui";
 $langOfficialCode = "Registro do Aluno (R.A.)";
 $langOk = "validar";
 $langOneResp = "Um dos administradores do curso";

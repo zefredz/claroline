@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "My calendar";
 $langMyCourses = "My course list";
 $langNameOfLang = "Array";
+$langNotAllowed = "Not allowed";
 $langOtherCourses = "Course list";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";

@@ -17,6 +17,7 @@ $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
+$langNotAllowed = "Tidak dibenarkan";
 $langOtherCourses = "Senarai Subjek";
 $langPoweredBy = "Oleh : ";
 $langStudent = "Pelajar";

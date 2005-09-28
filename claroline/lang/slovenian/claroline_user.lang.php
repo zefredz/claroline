@@ -54,6 +54,7 @@ $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langNo = "Ne";
 $langNone = "Nobeden";
+$langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOneByOne = "Uporabnika dodaj rocno";
 $langOneResp = "Eden od administratorjev tecaja";

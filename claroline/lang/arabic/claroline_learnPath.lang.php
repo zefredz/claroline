@@ -131,6 +131,7 @@ $langNoModule = "لا يوجد وحدة";
 $langNoMoreModuleToAdd = "جميع الوحدات في هذا المقرر مستخدمة ضمن مسار التعليم هذا";
 $langNoSpace = "فشلت عملية التحميل, لا يوجد مساحة كافية ضمن المجلد الخاص بك";
 $langNoStartAsset = "There is no start asset defined for this module.";
+$langNotAllowed = "غير مسموح";
 $langNotInstalled = "حصل خطأ أثناء الاستيراد, لم يتم استيراد مسار التعليم";
 $langNotice = "ملاحظة";
 $langOk = "موافق";

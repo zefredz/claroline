@@ -55,6 +55,7 @@ $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
 $langNo = "Nej";
 $langNone = "Ingen";
+$langNotAllowed = "Ikke tilladt";
 $langOk = "Ok";
 $langOneByOne = "Tilføj deltagerne manuelt";
 $langOneResp = "En af kursusadministratorerne";

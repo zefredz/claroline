@@ -36,6 +36,7 @@ $langMyCourses = "我的课程";
 $langNameOfLang = "Array";
 $langNoContent = "没有内容";
 $langNomPageAddHtPass = "管理员用户管理Admin users management";
+$langNotAllowed = "操作禁止";
 $langOk = "确认";
 $langOtherCourses = "课程列表";
 $langOtherWorks = "其他功能";

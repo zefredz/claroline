@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Daftar Pelajaran Ku";
 $langNameOfLang = "Array";
 $langNomPageAddHtPass = "Manajemen user Admin ";
+$langNotAllowed = "Tidak diijinkan";
 $langOk = "Ok";
 $langOtherCourses = "Daftar pelajaran";
 $langOtherWorks = "fungsi-fungsi lain ";

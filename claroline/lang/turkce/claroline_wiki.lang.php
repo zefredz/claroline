@@ -29,6 +29,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
 $langNo = "Hayýr";
+$langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOneResp = "Ders yöneticilerinden biri";
 $langOtherCourses = "Ders listesi";

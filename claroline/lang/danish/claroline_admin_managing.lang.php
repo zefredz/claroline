@@ -25,6 +25,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
 $langNomPageAddHtPass = "Administration";
+$langNotAllowed = "Ikke tilladt";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";
 $langOtherWorks = "andre funktioner";

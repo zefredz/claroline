@@ -54,6 +54,7 @@ $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
 $langNo = "Nie";
 $langNone = "¿adne";
+$langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
 $langOneByOne = "Rêczne dodawanie u¿ytkownika";
 $langOneResp = "Jeden z administratorów kursu";

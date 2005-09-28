@@ -34,6 +34,7 @@ $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNoEx = "В данный момент тестов нет";
 $langNoSpace = "Размещение файла не удалось. В вашей папке недостаточно места";
+$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langNotice = "Примечание";
 $langOk = "Ok";
 $langOtherCourses = "Список курсов";

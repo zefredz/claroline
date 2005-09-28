@@ -66,8 +66,8 @@ $langFeedback = "Retroalimentaci&oacute;n";
 $langFeedbackAdded = "Retroalimentaci&oacute;n a&ntilde;adida";
 $langFeedbackEdited = "Retroalimentaci&oacute;n editada";
 $langFeedbackFile = "Archivo de retroalimentaci&oacute;n";
-$langFeedbackHelp = "La retroalimentaci&oacute;n es opcional. S&oacute;lo aparece cuando se contesta correctamente 
-					la asignaci&oacute;n. S&iacute; no esta vac&iacute;a se mostrar&aacute; a los usuarios de acuerdo 
+$langFeedbackHelp = "La retroalimentaci&oacute;n es opcional. S&oacute;lo aparece cuando se contesta correctamente
+					la asignaci&oacute;n. S&iacute; no esta vac&iacute;a se mostrar&aacute; a los usuarios de acuerdo
 					a la configuraci&oacute;n de 'Enviar retroalimentaci&oacute;n'.";
 $langFeedbackSubmit = "Enviar retroalimentaci&oacute;n";
 $langFeedbackText = "Texto de la retroalimentaci&oacute;n";
@@ -86,7 +86,7 @@ $langIncorrectDate = "La data de inicio debe de ser anterior a la de finalizaci&
 $langIndividual = "Individual";
 $langIntroWork = "En esta pagina se permite a cualquier estudiante o grupo subir un documento al sitio web de los cursos.
 				  <br>S&oacute;lo se debe de enviar un documento HTML siempre y cuando este no tenga im&aacute;genes.<br>
-				  <br>Si usted desea presentar esta herramienta o dar alg&uacute;n tipo de indicaci&oacute;n a los estudiantes, 
+				  <br>Si usted desea presentar esta herramienta o dar alg&uacute;n tipo de indicaci&oacute;n a los estudiantes,
 				  pulse el bot&oacute;n que est&aacute; abajo.<br>";
 $langInvisible = "Invisible";
 $langLastEditDate = "Fecha de la &uacute;ltima edici&oacute;n";

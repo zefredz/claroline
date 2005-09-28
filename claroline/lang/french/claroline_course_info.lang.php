@@ -12,7 +12,7 @@ qu'il contient et radierez tous les étudiants qui y sont inscrits. <p>Voulez-vou
 $langCancel = "Annuler";
 $langCategory = "Catégorie";
 $langChat = "Discussion";
-$langCode = "Code du cours";
+$langCode = "Code";
 $langConfTip = "Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
 l'inscription pendant une semaine, de demander aux étudiants de s'inscrire eux-mêmes
 puis de fermer l'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.";

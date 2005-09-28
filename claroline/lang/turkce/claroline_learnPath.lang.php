@@ -28,6 +28,7 @@ $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
 $langNoEx = "Þu anda alýþtýrma yok";
 $langNoSpace = "Yükleme baþarýsýz. Yeterli alan yok.";
+$langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";

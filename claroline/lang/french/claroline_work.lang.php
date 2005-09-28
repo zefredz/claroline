@@ -82,7 +82,7 @@ $langGroups = "Groupes";
 $langHelp = "Aide";
 $langIncorrectDate = "La date de début doit être antérieure à la date de fin";
 $langIndividual = "Individuel";
-$langIntroWork = "Cet outil est un espace de publication. 
+$langIntroWork = "Cet outil est un espace de publication.
 <br />Il permet au gestionnaire de cours de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au gestionnaire.
 <br />Vous pourrez ensuite ajouter un commentaire ou une correction à chaque soumission de l'étudiant.
 <br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";

@@ -55,6 +55,7 @@ $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
 $langNo = "No";
 $langNone = "Không";
+$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOneByOne = "Sau khi đăng ký";
 $langOneResp = "Một trong số quản trị viên của khoá học";

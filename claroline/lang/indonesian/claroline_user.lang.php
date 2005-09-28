@@ -54,6 +54,7 @@ $langMyCourses = "Daftar Pelajaran Ku";
 $langNameOfLang = "Array";
 $langNo = "Tidak";
 $langNone = "Tidak satupun";
+$langNotAllowed = "Tidak diijinkan";
 $langOk = "Ok";
 $langOneByOne = "Tambah user secara manual";
 $langOneResp = "Satu dari administrator pelajaran";

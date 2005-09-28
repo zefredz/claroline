@@ -103,6 +103,7 @@ $langNameOfLang = "Array";
 $langNewUsersIn = "Nieuwe gebruikers in het platform : ";
 $langNo = "Nee";
 $langNone = "geen enkel";
+$langNotAllowed = "U bent hier niet toegelaten";
 $langOfficialCode = "Administratieve code";
 $langOk = "Ok";
 $langOneByOne = "Gebruiker manueel toevoegen";

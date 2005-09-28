@@ -4,6 +4,8 @@ $langAddExternalTool = "Engadir ligaz&oacute;n externa";
 $langAddIntro = "Engadir un texto de introducci&oacute;n";
 $langAddedExternalTool = "Ferramenta externa engadida";
 $langAgenda = "Axenda";
+$langAltMakeVisible = "Facer visible";
+$langAltMoveUp = "Orde ascendente";
 $langAnnouncement = "Anuncios";
 $langAreYouSureToDelete = "Est&aacute; vostede seguro de que desexa eliminar";
 $langCancel = "Cancelar";
@@ -27,29 +29,32 @@ $langGroups = "Grupos";
 $langHelp = "Axuda";
 $langHome = "Volver &aacute; p&aacute;xina de inicio";
 $langIntroCourse = "Est&aacute; vostede na p&aacute;xina de inicio do curso.<br><br>Nesta p&aacute;xina, pode vostede :
-							<li class=HelpText>activar ou desactivar ferramentas (premendo no bot&oacute;n '' 
+							<li class=HelpText>activar ou desactivar ferramentas (premendo no bot&oacute;n ''
 							na parte inferior esquerda).
-							<li class=HelpText>muda-las configuraci&oacute;ns ou ver estat&iacute;sticas (premendo nas 
+							<li class=HelpText>muda-las configuraci&oacute;ns ou ver estat&iacute;sticas (premendo nas
 							correspondentes ligaz&oacute;ns da parte inferior).<br><br>
-							Agora, para engadir unha introducci&oacute;n present&aacute;ndolle o seu curso &oacute;s estudantes, 
+							Agora, para engadir unha introducci&oacute;n present&aacute;ndolle o seu curso &oacute;s estudantes,
 							prema neste bot&oacute;n ";
 $langIntroEditToolList = "Seleccione as ferramentas que vostede desexa facer visibles para os seus usuarios.
 									As ferramentas invisibles apareceranlle na s&uacute;a interface persoal";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
+$langMakeInvisible = "Facer invisible";
 $langManager = "Xestor";
 $langMinuteShort = "min.";
 $langMissingValue = "Valor perdido";
 $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";
+$langMoveDown = "Mover cara abaixo";
 $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNameOfLang = "Array";
 $langNewLegend = "indica novos &iacute;tems";
 $langNotAllowed = "Acci&oacute;n non permitida";
 $langOk = "Validar";
+$langOrder = "Ordear";
 $langOtherCourses = "Lista de cursos";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";
@@ -69,6 +74,7 @@ $langUnableUpdateExternalTool = "Non &eacute; posible actualiza-la ferramenta ex
 $langUpdatedExternalTool = "Ferramenta externa actualizada";
 $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
+$langVisibility = "Visibilidade";
 $langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

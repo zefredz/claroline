@@ -44,6 +44,7 @@ $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langNameOfLang = "Array";
 $langNo = "Nee";
+$langNotAllowed = "U bent hier niet toegelaten";
 $langOfficialCode = "Administratieve code";
 $langOk = "Ok";
 $langOneResp = "E&eacute;n van de verantwoordelijken voor de Claroline-cursus";

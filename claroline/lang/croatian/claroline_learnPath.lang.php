@@ -28,6 +28,7 @@ $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
 $langNoEx = "Trenutno nema vježbi";
 $langNoSpace = "Uèitavanje nije završeno, jer nema dovoljno mjesta u folderu";
+$langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";
 $langPoweredBy = "Upravljano s ";

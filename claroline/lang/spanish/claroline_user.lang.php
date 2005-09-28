@@ -57,7 +57,7 @@ $langEmail = "Correo electr&oacute;nico";
 $langEmailWrong = "La direcci&oacute;n de correo electr&oacute;nico no es v&aacute;lida";
 $langEmptyFields = "No ha llenado todos los campos.
 Use el bot&oacute;n de Atr&aacute;s del navegador y vuelva a intentarlo.";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o 
+$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
 							si quiere conservar la actual";
 $langErrorFormatCSV = "ERROR: el formato que ha introducido no es compatible con Claroline";
 $langErrorMyOwnSettings = "No puede cambiar su propio estatus";
@@ -111,6 +111,7 @@ $langNewUsersIn = "nuevos usuarios en la plataforma";
 $langNo = "No";
 $langNoUserFound = "No se encontraron usuarios";
 $langNone = "ninguno";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langOfficialCode = "C&oacute;digo Administrativo";
 $langOk = "validar";
 $langOneByOne = "A&ntilde;adir un usuario de forma manual";
@@ -164,7 +165,7 @@ $langUserIsPlaformAdmin = "Es administrador de la plataforma";
 $langUserName = "Nombre de usuario";
 $langUserNotUnsubscribedFromCourse = "Error!! Usted no puede desinscribir al administrador del curso";
 $langUserNumber = "n&uacute;mero";
-$langUserOneByOneExplanation = "El (ella) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n con el 
+$langUserOneByOneExplanation = "El (ella) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n con el
 								nombre de usuario y la contrase&ntilde;a";
 $langUserRegisteredToCourse = "Usuario registrado en el curso";
 $langUserTaken = "Este nombre de usuario ya existe";

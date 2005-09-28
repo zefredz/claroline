@@ -34,6 +34,7 @@ $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langNoEx = "Trenutno ni nobene vaje";
 $langNoSpace = "Prepis ni uspel. V vasem direktoriju ni dovolj prostora";
+$langNotAllowed = "Tu nimas dovoljenja";
 $langNotice = "Obvestilo";
 $langOk = "Ok";
 $langOtherCourses = "Seznam tecajev";

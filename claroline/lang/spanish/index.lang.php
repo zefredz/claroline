@@ -20,10 +20,12 @@ $langExercises = "Ejercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "ayuda";
-$langInvalidId = "Nombre de usuario no v&aacute;lido. Si no est&aacute; inscrito, rellene el 
+$langInvalidId = "Nombre de usuario no v&aacute;lido. Si no est&aacute; inscrito, rellene el
 				  <a href='claroline/auth/inscription.php'>formulario de inscripci&oacute;n</a></font color>";
 $langInvalidIdSelfReg = "<b>Fall&oacute el intento de acceso.</b><br />Por favor, int&eacute;ntelo de nuevo.<br />
-<small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el 
+
+<small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el
+
 <a href=claroline/auth/inscription.php>formulario de registro</a></font color></small>.";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";

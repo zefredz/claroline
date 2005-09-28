@@ -25,6 +25,7 @@ $langMyCourses = "Kurssini";
 $langNameOfLang = "Array";
 $langNo = "No";
 $langNone = "Ei kukaan";
+$langNotAllowed = "Ei sallittu";
 $langOk = "Ok";
 $langOneResp = "Eräs kurssin ylläpitäjistä";
 $langPassTwice = "Kirjoitti kaksi erilaista salasanaa. Mene takaisin ja yritä uudestaan.";

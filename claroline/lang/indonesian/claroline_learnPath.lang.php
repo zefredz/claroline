@@ -34,6 +34,7 @@ $langMyCourses = "Daftar Pelajaran Ku";
 $langNameOfLang = "Array";
 $langNoEx = "Saat ini belum ada latihan";
 $langNoSpace = "Upload gagal. Tempat penyimpanan di direktori tidak cukup";
+$langNotAllowed = "Tidak diijinkan";
 $langNotice = "Catatan";
 $langOk = "Ok";
 $langOtherCourses = "Daftar pelajaran";

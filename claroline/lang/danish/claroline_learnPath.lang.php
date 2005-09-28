@@ -34,6 +34,7 @@ $langMyCourses = "Mine kurser";
 $langNameOfLang = "Array";
 $langNoEx = "Der er ingen øvelser lige nu";
 $langNoSpace = "Udlægningen mislykkedes. Der er ikke plads i din mappe.";
+$langNotAllowed = "Ikke tilladt";
 $langNotice = "Bemærk";
 $langOk = "Ok";
 $langOtherCourses = "Kursusoversigt";

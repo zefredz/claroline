@@ -27,4 +27,5 @@ $langStatistics = "สถิติ";
 $langStudent = "นักศึกษา";
 $langTools = "เครื่องมือ";
 $langUsers = "Users";
+$langVisibility = "Visible/invisible";
 ?>

@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes espaces";
 $langNameOfLang = "Array";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOtherCourses = "Liste des espaces";
 $langPlatformAdministration = "Administration";
 $langPoweredBy = "Utilise la plate-forme";

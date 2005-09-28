@@ -18,7 +18,7 @@ $langForums = "Foros";
 $langGiveAdminRight = "Fixar un usuario como administrador";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
-$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Aqu&iacute;, pode vostede modifica-lo contido das zonas de 
+$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Aqu&iacute;, pode vostede modifica-lo contido das zonas de
 texto amosadas na p&aacute;xina de inicio da plataforma.";
 $langHomePageTextZone = "Zonas de texto da p&aacute;xina de inicio";
 $langLearningPath = "Secuencia de aprendizaxe";
@@ -37,6 +37,7 @@ $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNameOfLang = "Array";
 $langNoContent = "Sen contido";
 $langNomPageAddHtPass = "Xestión de administradores";
+$langNotAllowed = "Acci&oacute;n non permitida";
 $langOk = "Validar";
 $langOtherCourses = "Lista de cursos";
 $langOtherWorks = "outras funci&oacute;ns";

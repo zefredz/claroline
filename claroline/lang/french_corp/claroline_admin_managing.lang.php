@@ -36,6 +36,7 @@ $langMyCourses = "Liste de mes espaces";
 $langNameOfLang = "Array";
 $langNoContent = "Cette zone texte ne contient rien d'affichable";
 $langNomPageAddHtPass = "Donner accès à l&acute;administration";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langOk = "Valider";
 $langOtherCourses = "Liste des espaces";
 $langOtherWorks = "autres fonctions";

@@ -5,14 +5,14 @@ $langAddModule = "Agregar";
 $langAddModulesButton = "Agregar m&oacute;dulo(s)";
 $langAddOneModuleButton = "Agregar m&oacute;dulo";
 $langAgenda = "Agenda";
-$langAlertBlockingMakedInvisible = "Este m&oacute;dulo est&aacute; bloqueado. 
-Haciendo esto invisible permitir&aacute; a los estudiantes tener acceso 
- Siguiente m&oacute;dulo sin comletar este. 
+$langAlertBlockingMakedInvisible = "Este m&oacute;dulo est&aacute; bloqueado.
+Haciendo esto invisible permitir&aacute; a los estudiantes tener acceso
+ Siguiente m&oacute;dulo sin comletar este.
 
 Confirmar ?";
-$langAlertBlockingPathMadeInvisible = "Esta secuencia de aprendizaje est&aacute; bloqueada. 
-Haci&eacute;ndola invisible permitir&aacute; a los estudiantes tener acceso 
- a la siguiente sin completar esta. 
+$langAlertBlockingPathMadeInvisible = "Esta secuencia de aprendizaje est&aacute; bloqueada.
+Haci&eacute;ndola invisible permitir&aacute; a los estudiantes tener acceso
+ a la siguiente sin completar esta.
 
 Confirmar ?";
 $langAlreadyBrowsed = "Ya han sido hojeados";
@@ -81,7 +81,7 @@ $langErrorLoadingExercise = "No ha sido posible cargar el ejercicio";
 $langErrorLoadingQuestion = "No ha sido posible cargar la pregunta del ejercicio";
 $langErrorNameAlreadyExists = "Error : el nombre ya existe";
 $langErrorNoModuleInPackage = "No hay m&oacute;dulos en el paquete";
-$langErrorNoZlibExtension = "Se requiere la extensi&oacute;n Zlib php para usar esta herramienta.  Por favor 
+$langErrorNoZlibExtension = "Se requiere la extensi&oacute;n Zlib php para usar esta herramienta.  Por favor
 							contacte con el administrador de su plataforma.";
 $langErrorOpeningManifest = "Imposible encontrar el archivo <i>mostrado</i>en el paquete.<br /> Archivo no encontrado : imsmanifest.xml";
 $langErrorOpeningXMLFile = "Imposible encontrar el archivo de inicializaci&oacute;n secundario en el paquete.<br /> Archivo no encontrado : ";
@@ -112,8 +112,8 @@ $langInsertMyModuleToolName = "Insertar mi m&oacute;dulo";
 $langInsertMyModulesTitle = "Inserte un m&oacute;dulo del curso";
 $langInsertNewModuleName = "Insertar un nuevo nombre";
 $langInstalled = "Se ha importado exitosamente el seguimiento de aprendizaje.";
-$langIntroLearningPath = "Use esta herramienta para proveer a sus estudiantes de un seguimiento secuencial entre documentos, 
-						  ejercicios, paginas HTML, enlaces,...<br/><br/>Si usted desea mostrar su seguimiento de aprendizaje 
+$langIntroLearningPath = "Use esta herramienta para proveer a sus estudiantes de un seguimiento secuencial entre documentos,
+						  ejercicios, paginas HTML, enlaces,...<br/><br/>Si usted desea mostrar su seguimiento de aprendizaje
 						  a los estudiantes, presione el bot&oacute;n de abajo.<br>";
 $langLastSessionTimeSpent = "Tiempo de la &uacute;ltima sesi&oacute;n";
 $langLearningPath = "Secuencia de aprendizaje";
@@ -151,13 +151,14 @@ $langNoModule = "No hay m&oacute;dulos";
 $langNoMoreModuleToAdd = "todos los m&oacute;dulos de este curso esta siendo usado en esta secuencia de aprendizaje.";
 $langNoSpace = "La acci&oacute;n ha fallado. No hay suficiente espacio en su directorio";
 $langNoStartAsset = "No est&aacute; definido para este m&oacute;dulo.";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langNotInstalled = "Un error ha ocurrido. Ha fallado la importaci&oacute;n de la secuencia de aprendizaje.";
 $langNotice = "Noticia";
 $langOk = "validar";
 $langOkChapterHeadAdded = "T&iacute;tulo agregado : ";
-$langOkDefaultCommentUsed = "Advertencia: el programa de instalaci&oacute;n no puede encontrar la descripci&oacute;n de la 
+$langOkDefaultCommentUsed = "Advertencia: el programa de instalaci&oacute;n no puede encontrar la descripci&oacute;n de la
 							 secuencia de aprendizaje y se ha dejado un comentario por defecto. ¿Desea cambiarlo?.";
-$langOkDefaultTitleUsed = "Advertencia: el programa de instalaci&oacute;n no puede encontrar el nombre de la secuencia de 
+$langOkDefaultTitleUsed = "Advertencia: el programa de instalaci&oacute;n no puede encontrar el nombre de la secuencia de
 						   aprendizaje, por lo que se ha dejado un nombre por defecto. ¿Desea cambiarlo?.";
 $langOkFileReceived = "Archivo recibido : ";
 $langOkManifestFound = "mostrado encontrado en un archivo comprimido: ";
@@ -198,7 +199,7 @@ $langUnamedModule = "M&oacute;dulo sin nombre";
 $langUnamedPath = "seguimiento sin nombre";
 $langUp = "Arriba";
 $langUseOfPool = "Esta p&aacute;gina le permite ver todos los m&oacute;dulos disponibles en este curso. <br>
-                  Cualquier ejercicio o documento que haya sido a&ntilde;adido a la secuencia de aprendizaje 
+                  Cualquier ejercicio o documento que haya sido a&ntilde;adido a la secuencia de aprendizaje
 				  aparecer&aacute; tambi&eacute;n en esta lista.";
 $langUsedInLearningPaths = "N&uacute;mero de secuencias de aprendizaje usadas en este m&oacute;dulo : ";
 $langUsers = "Usuarios";

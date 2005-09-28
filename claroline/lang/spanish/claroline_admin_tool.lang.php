@@ -24,13 +24,14 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mi agenda";
 $langMyCourses = "Mis cursos";
 $langNameOfLang = "Array";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langOtherCourses = "Lista de cursos";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administraci&oacute;n de la plataforma";
 $langPoweredBy = "Generado con";
 $langPropertiesNotIncludeInSections = "Propiedades no inclu&iacute;das en las secciones";
-$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Solicitar al desarrollador de esta 
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Solicitar al desarrollador de esta
 configuraci&oacute;n de a&ntilde;adir estas propiedades en una secci&oacute;n del fichero de definici&oacute;n.";
 $langSecondShort = "seg.";
 $langStudent = "Estudiante";

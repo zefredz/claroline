@@ -23,5 +23,6 @@ $langPoweredBy = "Alusta";
 $langStatistics = "Statistiikka";
 $langStudent = "Opiskelija";
 $langUsers = "Käyttäjät";
+$langVisibility = "Näkyvä/Näkymätön";
 $langWork = "Opiskelijoiden tehtävät";
 ?>

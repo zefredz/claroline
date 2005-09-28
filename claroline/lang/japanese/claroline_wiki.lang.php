@@ -21,6 +21,7 @@ $langMonthNames = "Array";
 $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
 $langNo = "いいえ";
+$langNotAllowed = "このコース受講が許可されていません";
 $langOk = "オッケー";
 $langOneResp = "One of the course administrators";
 $langPassTwice = "1度目と2度目で違ったパスワードを入れました。ボタンで戻って、再度ためしてください";

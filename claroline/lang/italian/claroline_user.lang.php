@@ -111,6 +111,7 @@ $langNewUsersIn = "nuovi utenti della piattaforma : ";
 $langNo = "No";
 $langNoUserFound = "Nessun utente trovato";
 $langNone = "Nessuno";
+$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOfficialCode = "Codice amministrativo";
 $langOk = "Ok";
 $langOneByOne = "Aggiungi manualmente un utente";

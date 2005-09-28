@@ -44,6 +44,7 @@ $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langNameOfLang = "Διάταξη";
 $langNo = "όχι";
+$langNotAllowed = "Δεν επιτρέπεται";
 $langOfficialCode = "Κωδικός διαχείρησης";
 $langOk = "Εντάξει";
 $langOneResp = "Ενας από τους διαχειριστές του μαθήματος";

@@ -20,9 +20,9 @@ $langCourseDescription = "Write here the description that will appear in the cou
 $langCourseHome = "Course Home";
 $langCourseManager = "Course manager";
 $langCourseTitle = "Course title";
-$langCourseWouldBeCreated = "Your course would be created";
 $langCreate = "Create";
 $langCreateSite = "Create a course website";
+$langCreatingCourse = "Creating course (it may take a while) ... ";
 $langCreationMailNotificationBody = "Course creation on";
 $langCreationMailNotificationSubject = "Course creation";
 $langDay_of_weekNames = "Array";
@@ -92,7 +92,7 @@ $langViewMode = "View mode";
 $langWiki = "Wiki";
 $langWork = "Assignments";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
-$lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
+$lang_p_IfNothingHappendClickHere = "If after while no message appears confirming the course creation, please click <a href=\"%s\">here</a>";
 $lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_platformManager = "Administrator for %s";
 ?>

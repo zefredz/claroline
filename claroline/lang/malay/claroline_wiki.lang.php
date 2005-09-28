@@ -33,6 +33,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langNo = "Tidak";
+$langNotAllowed = "Tidak dibenarkan";
 $langOk = "Proses";
 $langOneResp = "Satu daripada Subjek Pentadbir Subjek";
 $langOtherCourses = "Senarai Subjek";

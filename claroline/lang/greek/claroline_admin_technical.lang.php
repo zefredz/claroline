@@ -37,6 +37,7 @@ $langMysql_Repository = "Mysql Repository (πηγή πληροφοριών???)";
 $langNameOfLang = "Διάταξη";
 $langNoFunctionInThisSection = "Καμία λειτουργία σε αυτο τον τομέα(?)";
 $langNoQuota = "Καμια αναλογία";
+$langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOtherCourses = "Λίστα Μαθημάτων";
 $langPerhaps_with_others_directory = "ίσως με άλλο οδηγό";

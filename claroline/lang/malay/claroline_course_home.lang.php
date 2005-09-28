@@ -22,6 +22,7 @@ $langManager = "Pentadbir Sistem";
 $langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
+$langMoveDown = "Ke bawah";
 $langMyCourses = "Senarai Subjek";
 $langNameOfLang = "Array";
 $langNotAllowed = "Tidak dibenarkan";
@@ -32,5 +33,6 @@ $langStatistics = "Statistik";
 $langStudent = "Pelajar";
 $langTools = "Tools";
 $langUsers = "Users";
+$langVisibility = "Visibility";
 $langWork = "Works";
 ?>

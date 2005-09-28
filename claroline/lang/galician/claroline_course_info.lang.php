@@ -7,17 +7,17 @@ $langAnnouncement = "Anuncios";
 $langBackHomeOf = "Voltar &aacute; P&aacute;xina de Inicio de ";
 $langBackToAdmin = "Volver &aacute; p&aacute;xina do administrador";
 $langBackToList = "Volver &aacute; lista de usuarios";
-$langByDel = "Eliminando a web deste curso borrar&aacute; de xeito permanente t&oacute;dolos documentos que esta 
-							cont&eacute;n e desinscribir&aacute; a t&oacute;dolos estudantes que estean matriculados no mesmo 
-							(non os desinscribir&aacute; dos outros cursos nos que poidan estar matriculados).<p>Est&aacute; 
+$langByDel = "Eliminando a web deste curso borrar&aacute; de xeito permanente t&oacute;dolos documentos que esta
+							cont&eacute;n e desinscribir&aacute; a t&oacute;dolos estudantes que estean matriculados no mesmo
+							(non os desinscribir&aacute; dos outros cursos nos que poidan estar matriculados).<p>Est&aacute;
 							vostede seguro de que desexa suprimi-lo curso";
 $langCancel = "Cancelar";
 $langCategory = "Categor&iacute;a";
 $langChat = "Chat";
 $langCode = "C&oacute;digo do curso";
 $langConfTip = "Por defecto, o seu curso &eacute; accesible para todo o mundo. Se vostede desexa algunha confidencialidade,
-							o xeito m&aacute;is simple de conseguila &eacute; permitindo o rexistro de xeito aberto durante unha semana, 
-							dic&iacute;ndolle &oacute;s estudantes que se rexistren eles mesmos, e logo pechando o rexistro e mirando na 
+							o xeito m&aacute;is simple de conseguila &eacute; permitindo o rexistro de xeito aberto durante unha semana,
+							dic&iacute;ndolle &oacute;s estudantes que se rexistren eles mesmos, e logo pechando o rexistro e mirando na
 							lista de usuarios para localizar posibles intrusos.";
 $langCopy = "Copiar";
 $langCourse = "Curso";

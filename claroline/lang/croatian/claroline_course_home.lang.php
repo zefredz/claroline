@@ -29,5 +29,6 @@ $langStatistics = "Statistika";
 $langStudent = "student";
 $langTools = "Alati";
 $langUsers = "Korisnici";
+$langVisibility = "Vidljivo/nevidljivo";
 $langWork = "Studentski Radovi";
 ?>

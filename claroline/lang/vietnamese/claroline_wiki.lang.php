@@ -34,6 +34,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
 $langNo = "No";
+$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOneResp = "Một trong số quản trị viên của khoá học";
 $langOtherCourses = "Danh mục khoá học";

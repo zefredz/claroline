@@ -3,14 +3,9 @@ $langAdminEmail = "E-mail do Administrador";
 $langAdminLogin = "Login do Administrador";
 $langAdminName = "Nome do Administrador";
 $langAdminPass = "Senha do Administrator";
-$langAdminSetting = "Perfil do Administrator";
 $langAdminSurname = "Sobrenome do Administrator";
-$langCfgSetting = "Configurações";
 $langDBConnectionParameters = "Parâmetros de conexão do mysql";
 $langDBHost = "Servidor de Banco de Dados";
-$langDBLogin = "Usuário do Banco de Dados";
-$langDBPassword = "Senha do Banco de Dados";
-$langDBSetting = "Configurações do banco de dados MySQL";
 $langDBSettingNamesIntro = "
 				O script de instalação irá criar a base de dados principal do claroline. 
 				Você pode criar bases de dados diferentes
@@ -31,10 +26,8 @@ $langLastCheck = "Última verificação antes da instalação";
 $langLicence = "Licença";
 $langMainDB = "BD principal do Claroline";
 $langMysqlNames = "Banco de dados MySQL e Listagem de Nomes";
-$langNo = "Não";
 $langPrintVers = "Versão imprimível";
 $langRequirements = "Requisitos";
 $langStatDB = "BD de rastreamento. Útil apenas com vários BD";
 $langStepNOfN = "Parte %d de %d";
-$langYes = "Sim";
 ?>

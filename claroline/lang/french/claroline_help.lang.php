@@ -101,7 +101,7 @@ Cliquez sur la commande 'créer un lien hypertexte' dans la partie supérieure de 
 Remplissez le champs 'Nom' avec un nom spécifique pour ce lien hypertexte;
 </li>
 <li>
-Tapez l'URL complète de l'hyperlien 
+Tapez l'URL complète de l'hyperlien
 (exemple : http://mon.domaine/mon/fichier.htm).
 </li>
 <li>
@@ -117,7 +117,7 @@ Validez en cliquant sur le bouton 'OK'.
 <ul>
 <li> Cliquez sur la commande 'Créer un document' dans la partie supérieure de votre navigateur.
 </li>
-<li> 
+<li>
 Remplissez le nom d'apparation 'Nom du document' pour ce document.
 </li>
 <li>
@@ -168,7 +168,7 @@ Cliquez sur l'icône à côté du document dans la colonne 'Visibilité'.
 La ressource exitera toujours mais sera plus visible pour les utilisateurs du cours.
 </li>
 <li>
-Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document 
+Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document
 dans la colonne 'Visibilité'.
 </li>
 </ul>
@@ -187,7 +187,7 @@ Validez en cliquant sur le bouton 'OK'.
 </li>
 </ul>
 <p>
-Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'. 
+Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'.
 <h4>Créer un répertoire</h4>
 <ul>
 <li>Cliquez sur la commande 'Créer un répertoire' dans la partie supérieure de votre navigateur.
@@ -248,7 +248,7 @@ Il vous faut commencer par donner un intitulé à votre exercice, ainsi qu.une éve
 </li><li> Essais autorisés&nbsp;: précisez si les étudiants peuvent faire l'exerice autant de fois que souhaité ou si le nombre d'essais est limité
 </li><li> Essais anonymes&nbsp;: si les essais anonymes sont autorisé aucun tracking ne sera conservé et n'importe qui pourra essayer de faire l'exercice, dans le cas contraire les résultats de toutes les tentatives seront conservés et seuls les apprenants inscrits au cours pourront réaliser l'exercice.
 
-</li><li> Après le test, afficher les réponses&nbsp;: 
+</li><li> Après le test, afficher les réponses&nbsp;:
 <ul><li> Oui&nbsp;: la correction est affichée à l'utilisateur après chacune de ses tentatives
 </li><li> Apres la dernière tentative autorisée&nbsp;: la correction ne sera affichée que lorsque l'apprenant aura atteint le nombre maximum d'essais autorisés
 </li><li> Non&nbsp;: aucune correction affichée
@@ -428,7 +428,7 @@ $langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de pos
 
 <h4>Correction automatique</h4>
 </p><p>En plus de la correction manuelle que le responsable de cours peut faire pour chaque soumission il est possible de mettre une correction automatiquement à disposition des apprenants.  Pour ce faire il faut entrer dans un travail et cliquer sur \"Editer la correction automatique\"
-</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;: 
+</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;:
 </p>
 
 <ul><li> à partir de la date de fin de la session
@@ -446,7 +446,7 @@ $langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de pos
 </li><li> <strong>Delete</strong>&nbsp;: permet au responsable de cours d'effacer une soumission
 </li><li> <strong>Visible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est visible à toutes les personnes qui ont accès au cours.  Cliquer sur cette icone rend la soumission invisible
 
-</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission. 
+</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission.
 </li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
 </li></ul>";
 $langHelpGroups = "Gestion des groupes";
@@ -503,7 +503,7 @@ Les rôles n'ont pas de fonction technique particulière. Ils ne donnent pas de dr
 </li>
 
 <li>
-<b>Tuteur de groupe</b>. Tuteur de groupe est un statut qui permet à l'utilistateur d'encadrer un groupe de plus près. Cela lui donne la permission d'accéder aux espaces de tous les groupes, de voir l'ensembles des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.  
+<b>Tuteur de groupe</b>. Tuteur de groupe est un statut qui permet à l'utilistateur d'encadrer un groupe de plus près. Cela lui donne la permission d'accéder aux espaces de tous les groupes, de voir l'ensembles des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.
 </li>
 
 <li>

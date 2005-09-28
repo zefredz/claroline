@@ -1,7 +1,7 @@
 <?php
 $l_click = "Hacer click";
 $l_here = "aqu&iacute;";
-$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
+$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje
 que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Puede ver el tema en:
@@ -61,7 +61,7 @@ $langFillTree = "Introducir categor&iacute;as de cursos";
 $langFillUsers = "Introducir usuarios";
 $langFilling = "Rellenar con valores de prueba";
 $langFirstName = "Nombre";
-$langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, a que reconozca que 
+$langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, a que reconozca que
 			no sabe lo que pretende saber.";
 $langForum = "Foros";
 $langForumGroup = "Foro del grupo";
@@ -82,7 +82,7 @@ $langManager = "Responsable";
 $langManyAnswers = "(varias respuestas correctas son posibles)";
 $langMaxStudentGroup = "M&aacute;ximo de estudiantes por grupo";
 $langMaximum = "M&aacute;ximo : ";
-$langMessage = "en el momento que usted suprima el foro \"Foro de pruebas\", se suprimir&aacute; tambi&eacute;n el presente 
+$langMessage = "en el momento que usted suprima el foro \"Foro de pruebas\", se suprimir&aacute; tambi&eacute;n el presente
 				tema que no contiene m&aacute;s que este mensaje";
 $langMin = "M&iacute;nimo : ";
 $langMinuteShort = "m&iacute;n.";
@@ -95,7 +95,8 @@ $langNameOfLang = "Array";
 $langNewTopic = "Comenzar un tema nuevo";
 $langNoPsychology = "No. La iron&iacute;a socr&aacute;tica no se aplica al terreno de la psicolog&iacute;a, sino en el de la argumentaci&oacute;n.";
 $langNoSeduction = "No. No se trata de una estrategia de seducci&oacute;n o de un m&eacute;todo por ejemplo.";
-$langNotFalse = "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor 
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
+$langNotFalse = "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor
 				 se realiza poniendo en evidencia las contradicciones en que desembocan sus tesis.";
 $langNumGroup = "Cantidad de grupos por cursos";
 $langNumGroupStudent = "cantidad de equipos de estudiantes pueden inscribirse en este curso";
@@ -117,8 +118,8 @@ $langSampleDocument = "documento_ejemplo";
 $langSampleDocumentDesc = "Puede usted usar cualquier documento existente en la herramienta de documentos de este curso.";
 $langSampleExerciseDesc = "Puede usted usar cualquier ejercicio que est&eacute; en la herramienta de ejercicios de su curso.";
 $langSampleLearnPath = "Ejemplo de una secuencia de aprendizaje";
-$langSampleLearnPathDesc = "Este es un ejemplo de una secuencia de aprendizaje, esta es usado en el ejercicio de muestra y el 
-							documento de muestra de la herramienta de ejercicios y la herramienta de documentos. Presionar 
+$langSampleLearnPathDesc = "Este es un ejemplo de una secuencia de aprendizaje, esta es usado en el ejercicio de muestra y el
+							documento de muestra de la herramienta de ejercicios y la herramienta de documentos. Presionar
                             <b>Modificar</b> Para cambiar este texto.";
 $langSecondShort = "seg.";
 $langSocraticIrony = "La iron&iacute;a socr&aacute;tica consiste en...";

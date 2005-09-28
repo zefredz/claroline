@@ -17,6 +17,7 @@ $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
+$langNotAllowed = "Inte tillåtet";
 $langOtherCourses = "Kurslista";
 $langPoweredBy = "Med kraft från";
 $langStudent = "elev";

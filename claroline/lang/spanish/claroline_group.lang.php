@@ -1,7 +1,7 @@
 <?php
 $l_click = "Hacer click";
 $l_here = "aqu&iacute;";
-$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
+$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje
 que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Puede ver el tema en:
@@ -22,7 +22,6 @@ $l_separator = "» »";
 $l_viewmsg = "para ver su Mensaje.";
 $langAccess = "Accesso";
 $langAddTutors = "Lista de administraci&oacute;n de usuarios";
-$langAdminsOfThisCours = "Administrador del curso";
 $langAgenda = "Agenda";
 $langAnnouncement = "Anuncios";
 $langBackTo = "Volver a  :";
@@ -63,7 +62,6 @@ $langGroupForum = "Foros de Grupos";
 $langGroupLimit = "L&iacute;mite";
 $langGroupMembers = "Miembros del grupo";
 $langGroupName = "Nombre del Grupo";
-$langGroupNoGroup = "estudiantes sin asignar";
 $langGroupNoTutor = "(ninguno)";
 $langGroupNone = "(ninguno)";
 $langGroupNoneMasc = "(ninguno)";
@@ -75,15 +73,11 @@ $langGroupSelfRegInf = "registrar";
 $langGroupSelfRegistration = "Registro";
 $langGroupSettingsModified = "Caracter&iacute;sticas del grupo modificadas";
 $langGroupSpaceLink = "&Aacute;rea de Grupo";
-$langGroupStudentsInGroup = "estudiantes registrados en grupos";
-$langGroupStudentsRegistered = "estudiantes registrados en este curso";
 $langGroupThisSpace = "&Aacute;rea para este grupo";
-$langGroupTooMuchMembers = "El n&uacute;mero propuesto excede el m&aacute;ximo que Vd. autoriza (puede modificarlo abajo). 
+$langGroupTooMuchMembers = "El n&uacute;mero propuesto excede el m&aacute;ximo que Vd. autoriza (puede modificarlo abajo).
 				La composici&oacute;n del grupo no se ha modificado";
 $langGroupTools = "Herramientas";
 $langGroupTutor = "Tutor";
-$langGroupTutors = "Tutores";
-$langGroupUsersList = "Ver <a href=../user/user.php>Usuarios</a>";
 $langGroupWikiLink = "Wiki del grupo";
 $langGroups = "Grupos";
 $langGroupsAdded = "grupo(s) ha(n) sido a&ntilde;adido(s)";
@@ -108,6 +102,7 @@ $langNewGroups = "nuevo(s) grupo(s)";
 $langNewTopic = "Comenzar un tema nuevo";
 $langNoGroupStudents = "Estudiantes sin asignar";
 $langNoGroupsDeleted = "No hay grupos eliminados";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langOk = "validar";
 $langOneMyGroups = "mi supervisi&oacute;n";
 $langOtherCourses = "Lista de cursos";
@@ -126,7 +121,6 @@ $langReply = "Responder";
 $langSecondShort = "seg.";
 $langStudent = "Estudiante";
 $langStudentsNotInThisGroups = "Usuarios no est&aacute;n en este grupo.";
-$langSubscribed = "Personas registradas en este curso";
 $langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
 $langTextEditorDisable = "Deshabilitar editor de texto";
 $langTextEditorEnable = "Habilitar editor de texto";

@@ -36,6 +36,7 @@ $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
 $langNo = "Hayýr";
 $langNone = "Hiçbiri";
+$langNotAllowed = "Ýzin verilmiyor";
 $langOk = "Tamam";
 $langOneByOne = "Kullanýcý ekle";
 $langOneResp = "Ders yöneticilerinden biri";

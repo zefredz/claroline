@@ -126,6 +126,7 @@ $langNoModule = "No module";
 $langNoRegisteredCourses = "No stats to show.  You haven't registered any course.";
 $langNoResult = "No Result";
 $langNoScore = "No score";
+$langNoTrackingForExerciseAttempt = "There is no tracking for this attempt.";
 $langNotAllowed = "Not allowed";
 $langNotRecentlyConnectedStudents = "Not recently connected students : ";
 $langOk = "Ok";

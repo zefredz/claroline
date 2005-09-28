@@ -20,7 +20,6 @@ $langCourseDescription = "Escriba aqu&iacute; la descripci&oacute;n que aparecer
 $langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langCourseTitle = "T&iacute;tulo del curso";
-$langCourseWouldBeCreated = "Su curso ser&aacute; creado";
 $langCreate = "crear";
 $langCreateSite = "Crear una web de curso";
 $langCreationMailNotificationBody = "Creaci&oacute;n de curso en";
@@ -36,11 +35,11 @@ $langEx = "p. ej. <i>Historia de la literatura</i>";
 $langExMessage = "Mensaje de ejemplo";
 $langExerciceEx = "Ejemplo de ejercicio";
 $langExercises = "Ejercicios";
-$langExplanation = "Una vez que usted haya pulsado OK, ser&aacute; creada una web que incluir&aacute; Foro, 
-					Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Por medio de su c&oacute;digo 
+$langExplanation = "Una vez que usted haya pulsado OK, ser&aacute; creada una web que incluir&aacute; Foro,
+					Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Por medio de su c&oacute;digo
 					de identificaci&oacute;n, usted podr&aacute; modificar su contenido";
 $langFieldsRequ = "Todos los campos son obligatorios";
-$langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, a que reconozca que 
+$langForce = "Forzar  al interlocutor, por medio de una serie de cuestiones y subcuestiones, a que reconozca que
 			no sabe lo que pretende saber.";
 $langForums = "Foros";
 $langGroups = "Grupos";
@@ -55,7 +54,7 @@ $langLogout = "Salir";
 $langManager = "Responsable";
 $langManyAnswers = "(varias respuestas correctas son posibles)";
 $langMaxSizeCourseCode = "m&aacute;x. 12 caracteres, p. ej.<i>ROM2121</i>";
-$langMessage = "en el momento que usted suprima el foro \"Foro de pruebas\", se suprimir&aacute; tambi&eacute;n el presente 
+$langMessage = "en el momento que usted suprima el foro \"Foro de pruebas\", se suprimir&aacute; tambi&eacute;n el presente
 				tema que no contiene m&aacute;s que este mensaje";
 $langMinuteShort = "m&iacute;n.";
 $langModifyProfile = "Modificar mis datos";
@@ -66,7 +65,7 @@ $langNameOfLang = "Array";
 $langNoPsychology = "No. La iron&iacute;a socr&aacute;tica no se aplica al terreno de la psicolog&iacute;a, sino en el de la argumentaci&oacute;n.";
 $langNoSeduction = "No. No se trata de una estrategia de seducci&oacute;n o de un m&eacute;todo por ejemplo.";
 $langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
-$langNotFalse = "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor 
+$langNotFalse = "Esta respuesta no es falsa. Es exacto que la puesta en evidencia de la ignorancia del interlocutor
 				 se realiza poniendo en evidencia las contradicciones en que desembocan sus tesis.";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
@@ -81,8 +80,8 @@ $langSampleDocument = "documento_ejemplo";
 $langSampleDocumentDesc = "Puede usted usar cualquier documento existente en la herramienta de documentos de este curso.";
 $langSampleExerciseDesc = "Puede usted usar cualquier ejercicio que est&eacute; en la herramienta de ejercicios de su curso.";
 $langSampleLearnPath = "Ejemplo de una secuencia de aprendizaje";
-$langSampleLearnPathDesc = "Este es un ejemplo de una secuencia de aprendizaje, esta es usado en el ejercicio de muestra y el 
-							documento de muestra de la herramienta de ejercicios y la herramienta de documentos. Presionar 
+$langSampleLearnPathDesc = "Este es un ejemplo de una secuencia de aprendizaje, esta es usado en el ejercicio de muestra y el
+							documento de muestra de la herramienta de ejercicios y la herramienta de documentos. Presionar
                             <b>Modificar</b> Para cambiar este texto.";
 $langSecondShort = "seg.";
 $langSocraticIrony = "La iron&iacute;a socr&aacute;tica consiste en...";
@@ -98,9 +97,9 @@ $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
-$lang_p_IfNothingHappendClickHere = "<small>Si despu&eacute;s de 30 segundos no cambia nada, pulse por favor <a href=\"%s\">aqu&iacute;</a> 
-y espere de nuevo</small>";
-$lang_p_aCategoryWouldBeSelected = "Debe de escoger una categor&iacute;a. Si hay alguna que no figura, notif&iacute;queselo 
+$lang_p_IfNothingHappendClickHere = "Si despu&eacute;s de <u>30 segundos</u> no cambia nada, pulse por favor <a href=\"%s\">aqu&iacute;</a> y espere de nuevo";
+$lang_p_aCategoryWouldBeSelected = "Debe de escoger una categor&iacute;a. Si hay alguna que no figura, notif&iacute;queselo
+
 por favor al <a href=\"%s\">administrador de la plataforma</a>";
 $lang_p_platformManager = "Administrador de %s";
 ?>

@@ -22,6 +22,7 @@ $langManager = "Upravnik";
 $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
+$langMoveDown = "Pomik dol";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langNotAllowed = "Tu nimas dovoljenja";
@@ -32,5 +33,6 @@ $langStatistics = "Statistike";
 $langStudent = "student";
 $langTools = "Orodja";
 $langUsers = "Uporabniki";
+$langVisibility = "Vidnost";
 $langWork = "Works";
 ?>

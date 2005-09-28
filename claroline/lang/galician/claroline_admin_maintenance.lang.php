@@ -25,6 +25,7 @@ $langMyAgenda = "A mi&ntilde;a axenda";
 $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langNameOfLang = "Array";
 $langNoScript = "Non hai scripts";
+$langNotAllowed = "Acci&oacute;n non permitida";
 $langOtherCourses = "Lista de cursos";
 $langPeriodDayShort = "d.";
 $langPeriodHourShort = "h.";

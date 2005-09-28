@@ -1,8 +1,8 @@
 <?php
 $l_click = "Premer co rato";
 $l_here = "aqu&iacute;";
-$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque 
-					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e 
+$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque
+					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e
 					vostede solicitara previamente que se lle notificase este feito.
 
 					Pode vostede ve-lo tema de conversa en:
@@ -39,7 +39,7 @@ $langCancel = "Cancelar";
 $langCatagoryGroup = "Foros de grupos";
 $langCatagoryMain = "Principal";
 $langChat = "Chat";
-$langContradiction = "Emprega-lo principio de non contradicci&oacute;n para levar &oacute; interlocutor a un carreiro 
+$langContradiction = "Emprega-lo principio de non contradicci&oacute;n para levar &oacute; interlocutor a un carreiro
 							sen sa&iacute;da.";
 $langCopy = "Copiar";
 $langCourseDescription = "Escriba aqu&iacute; a descrici&oacute;n que aparece na lista de cursos";
@@ -66,7 +66,7 @@ $langFillTree = "Inserir categor&iacute;as de curso";
 $langFillUsers = "Inserir usuarios";
 $langFilling = "Encher cos valores do test";
 $langFirstName = "Nome";
-$langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oacute;ns e subcuesti&oacute;ns, a que 
+$langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oacute;ns e subcuesti&oacute;ns, a que
 							reco&ntilde;eza que non sabe o que di saber.";
 $langForum = "Foros";
 $langForumGroup = "Foro do grupo";
@@ -79,7 +79,7 @@ $langGroupSpaceLink = "&Aacute;rea do grupo";
 $langGroupWikiLink = "Wiki do grupo";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
-$langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego 
+$langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego
 							\"eirotao\" significa , por outro lado, \"interrogar\".";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
@@ -98,11 +98,12 @@ $langMyCourses = "A mi&ntilde;a lista de cursos";
 $langName = "Nome";
 $langNameOfLang = "Array";
 $langNewTopic = "Novo tema de conversa";
-$langNoPsychology = "Non. A iron&iacute;a socr&aacute;tica non se aplica &oacute; terreo da psicolox&iacute;a, senon no da 
+$langNoPsychology = "Non. A iron&iacute;a socr&aacute;tica non se aplica &oacute; terreo da psicolox&iacute;a, senon no da
 							argumentaci&oacute;n.";
 $langNoSeduction = "Non. Non se trata dunha estratexia de seducci&oacute;n ou dun m&eacute;todo por exemplo.";
-$langNotFalse = "Esta resposta non &eacute; falsa. &Eacute; exacto que a posta en evidencia da ignorancia do 
-							interlocutor real&iacute;zase po&ntilde;endo en evidencia as contradicci&oacute;ns en que 
+$langNotAllowed = "Acci&oacute;n non permitida";
+$langNotFalse = "Esta resposta non &eacute; falsa. &Eacute; exacto que a posta en evidencia da ignorancia do
+							interlocutor real&iacute;zase po&ntilde;endo en evidencia as contradicci&oacute;ns en que
 							desembocan as s&uacute;s teses.";
 $langNumGroup = "Cantidade de grupos por curso";
 $langNumGroupStudent = "Cantidade de equipos &oacute;s que un estudante se pode subscribir no curso";
@@ -124,8 +125,8 @@ $langSampleDocument = "Documento de exemplo";
 $langSampleDocumentDesc = "Pode vostede empregar calquera documento existente na secci&oacute;n de documentos deste curso.";
 $langSampleExerciseDesc = "Pode vostede empregar calquera exercicio da secci&oacute;n de exercicios do seu curso.";
 $langSampleLearnPath = "Exemplo de secuencia de aprendizaxe";
-$langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemplo. Emprega o exercicio de exemplo e o 
-								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b> 
+$langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemplo. Emprega o exercicio de exemplo e o
+								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b>
 								para mudar este texto.";
 $langSecondShort = "seg.";
 $langSocraticIrony = "A iron&iacute;a Socr&aacute;tica consiste en...";

@@ -37,6 +37,7 @@ $langMysql_Repository = "Mysql مخزن";
 $langNameOfLang = "مصفوفة";
 $langNoFunctionInThisSection = "لا يوجد توابع في هذا الامتداد";
 $langNoQuota = "لايوجد مساحة مخصصة";
+$langNotAllowed = "غير مسموح";
 $langOk = "موافق";
 $langOtherCourses = "قائمة المقررات";
 $langPerhaps_with_others_directory = "ربما مع مجلدات اخرى";

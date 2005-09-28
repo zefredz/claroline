@@ -49,6 +49,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Nou tòpic";
 $langNoPsychology = "No. La ironia socràtica no és una qüestió de psicologia, té a veure amb l'argumentació.";
 $langNoSeduction = "No. La ironia socràtica no és una estratègia de seducció o un mètode basat en l'exemple.";
+$langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
 $langNotFalse = "Aquesta resposta no és falsa. ës cert que la revelació de la ignorància de l'interlocutor vol dir mostrar les conclusions contradictòries on porten les seves premises.";
 $langOk = "D'acord";
 $langOtherCourses = "Llista de cursos";

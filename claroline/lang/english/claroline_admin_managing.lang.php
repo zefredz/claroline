@@ -36,6 +36,7 @@ $langMyCourses = "My course list";
 $langNameOfLang = "Array";
 $langNoContent = "No Content";
 $langNomPageAddHtPass = "Admin users management";
+$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Course list";
 $langOtherWorks = "other functions";

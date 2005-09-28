@@ -22,6 +22,7 @@ $langManager = "Ответственный";
 $langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
+$langMoveDown = "Вниз";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
@@ -32,5 +33,6 @@ $langStatistics = "Статистика";
 $langStudent = "студент";
 $langTools = "уТЕДУФЧБ ХРТБЧМЕОЙС";
 $langUsers = "Пользователи";
+$langVisibility = "Видимая/скрытая";
 $langWork = "Задания";
 ?>

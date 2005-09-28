@@ -34,6 +34,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
 $langNo = "Nej";
+$langNotAllowed = "Inte tillåtet";
 $langOk = "validate";
 $langOneResp = "En av kursadministratörerna";
 $langOtherCourses = "Kurslista";

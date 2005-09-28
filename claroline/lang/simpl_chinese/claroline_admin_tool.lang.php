@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "我的日历";
 $langMyCourses = "我的课程";
 $langNameOfLang = "Array";
+$langNotAllowed = "操作禁止";
 $langOtherCourses = "课程列表";
 $langPeriodDayShort = "日";
 $langPeriodHourShort = "小时";

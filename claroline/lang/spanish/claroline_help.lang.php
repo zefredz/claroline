@@ -44,100 +44,100 @@ $langCourseHome = "P&aacute;gina de inicio del curso";
 $langCourseManager = "Responsable del curso";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Descripci&oacute;n del curso";
-$langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona de manera semejante a la gesti&oacute;n 
-					de sus documentos en un ordenador. </p><p>Usted puede introducir documentos de todo tipo (HTML, Word, 
-					Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Tenga en cuenta, sin embargo, que los estudiantes 
-					dispongan de las herramientas apropiadas para poder consultarlos. Tenga tambi&eacute;n cuidado de no enviar 
+$langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona de manera semejante a la gesti&oacute;n
+					de sus documentos en un ordenador. </p><p>Usted puede introducir documentos de todo tipo (HTML, Word,
+					Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Tenga en cuenta, sin embargo, que los estudiantes
+					dispongan de las herramientas apropiadas para poder consultarlos. Tenga tambi&eacute;n cuidado de no enviar
 					documentos infectados con virus. Es conveniente comprobar primero con un programa antivirus que los documentos
 					no est&eacute;n infectados antes de colocarlos en el curso.</p>
 
 					<p>Los documentos se presentan en pantalla por orden alfab&eacute;tico.<br>
-  					<b>Consejos:</b> si usted desea que los documentos se ordenen de manera diferente, usted puede hacer 
+  					<b>Consejos:</b> si usted desea que los documentos se ordenen de manera diferente, usted puede hacer
 					que se precedan de un n&uacute;mero, a partir de este momento se ordenar&aacute;n seg&uacute;n esta base. </p>
 					<p>Usted puede:</p>
 					<h4>Usted puede cargar a distancia un documento  en este m&oacute;dulo</h4>
 
 					<ul>
-					  <li>Seleccione el documento en su ordenador con la ayuda del bot&oacute;n &quot;Buscar&quot; 
+					  <li>Seleccione el documento en su ordenador con la ayuda del bot&oacute;n &quot;Buscar&quot;
 						<input type=submit value=Buscar name=submit2>a la derecha de su pantalla.</li>
-					  <li>Ejecute la carga a distancia con la ayuda del bot&oacute;n&quot; 
-						cargar a distancia&quot; 
+					  <li>Ejecute la carga a distancia con la ayuda del bot&oacute;n&quot;
+						cargar a distancia&quot;
 						<input type=submit value=cargar a distancia name=submit2>
 						.</li>
 					</ul>
 					<h4>Cambiar el nombre de un documento (o de un directorio)</h4>
 					<ul>
-					  <li>Haga click en el bot&oacute;n <img src=../document/img/edit.gif width=20 height=20 align=baseline> 
+					  <li>Haga click en el bot&oacute;n <img src=../document/img/edit.gif width=20 height=20 align=baseline>
 						en la columna &quot;Cambiar el nombre.</li>
-					  <li>Introduzca el nuevo nombre en el lugar previsto para este efecto que aparece 
+					  <li>Introduzca el nuevo nombre en el lugar previsto para este efecto que aparece
 						arriba a la izquierda</li>
-					  <li>Validar haciendo click en &quot;OK&quot; 
+					  <li>Validar haciendo click en &quot;OK&quot;
 						<input type=submit value=OK name=submit24>
-						. 
+						.
 					</ul>
 						<h4>Suprimir un documento (o un directorio)</h4>
 						<ul>
-						  
-					  <li>Haga click en el bot&oacute;n <img src=../document/img/delete.gif width=20 height=20> 
+
+					  <li>Haga click en el bot&oacute;n <img src=../document/img/delete.gif width=20 height=20>
 						en la columna &quot;Suprimir&quot;.</li>
 						</ul>
 						<h4>Hacer que un documento sea invisible para los estudiantes (o un directorio)</h4>
 						<ul>
-						  
+
 					  <li>Haga click en el bot&oacute;n <img src=../document/img/visible.gif width=20 height=20>
 						 en la columna &quot;Visible/invisible&quot;.</li>
 						  <li>El documento (o el directorio) contin&uacute;a existiendo, pero ya no es visible para los estudiantes.</li>
 						</ul>
 						<ul>
-						  
-					  <li>Si ustede desea que este elemento vuelva a ser visible, 
-						haga click en el bot&oacute;n <img src=../img/invisible.gif width=24 height=20> 
+
+					  <li>Si ustede desea que este elemento vuelva a ser visible,
+						haga click en el bot&oacute;n <img src=../img/invisible.gif width=24 height=20>
 						en la columna &quot;Visible/invisible&quot;</li>
 						</ul>
 						<h4>A&ntilde;adir o modificar un comentario a un documento (o a un directorio)</h4>
 						<ul>
-						  
-					  <li>Haga click en el bot&oacute;n  <img src=../img/comment.gif width=20 height=20> 
+
+					  <li>Haga click en el bot&oacute;n  <img src=../img/comment.gif width=20 height=20>
 						en la columna &quot;Commentario&quot;</li>
 						  <li>Introduzca el nuevo comentario en la zona prevista para tal efecto que aparecer&aacute; arriba a la izquierda.</li>
-						  <li>Valide haciendo click en &quot;OK&quot; 
+						  <li>Valide haciendo click en &quot;OK&quot;
 							<input type=submit value=OK name=submit2>
 							.</li>
 						</ul>
-						<p>Si usted desea suprimir un comentario, haga click en el bot&oacute;n <img src=../img/comment.gif width=20 height=20>, 
-						  &quot;borrar el antiguo comentario de la zona&quot; y valide haciendo click en &quot;OK&quot; 
+						<p>Si usted desea suprimir un comentario, haga click en el bot&oacute;n <img src=../img/comment.gif width=20 height=20>,
+						  &quot;borrar el antiguo comentario de la zona&quot; y valide haciendo click en &quot;OK&quot;
 						  <input type=submit value=OK name=submit22>
-						  . 
+						  .
 						<hr>
-						<p>Usted puede tambi&eacute;n organizar el contenido del m&oacute;dulo de los documentos guardando 
+						<p>Usted puede tambi&eacute;n organizar el contenido del m&oacute;dulo de los documentos guardando
 						  los documentos en directorios. Para hacer esto usted debe :</p>
 						<h4><b>Crear un directorio</b></h4>
 						<ul>
-						  <li>Hacer click en la funci&oacute;n &quot;<img src=../img/folder.gif>crear 
+						  <li>Hacer click en la funci&oacute;n &quot;<img src=../img/folder.gif>crear
 							un directorio&quot; arriba a la izquierda de la pantalla</li>
-						  <li>Introduzca el nombre de su nuevo directorio en la zona prevista para tal efecto 
+						  <li>Introduzca el nombre de su nuevo directorio en la zona prevista para tal efecto
 							  arriba a la izquierda de la pantalla.</li>
-						  <li>Valide haciendo click en &quot;OK&quot; 
+						  <li>Valide haciendo click en &quot;OK&quot;
 							<input type=submit value=OK name=submit23>
 							.</li>
 						</ul>
 						<h4>Desplazar un documento (o un directorio)</h4>
 						<ul>
-						  <li>Haga click sobre el bot&oacute;n <img src=../img/deplacer.gif width=34 height=16> 
+						  <li>Haga click sobre el bot&oacute;n <img src=../img/deplacer.gif width=34 height=16>
 							en la columna &quot;desplazar&quot;</li>
 						  <li>Escoja el directorio al que usted quiere desplazar el documento
 								  o el directorio en el men&uacute; de selecci&oacute;n previsto
-							 para tal efecto que aparecer&aacute; arriba a la izquierda.(nota: 
-							la palabra &quot;raiz&quot; en dicho men&uacute; representa la ra&iacute;z (base) de 
+							 para tal efecto que aparecer&aacute; arriba a la izquierda.(nota:
+							la palabra &quot;raiz&quot; en dicho men&uacute; representa la ra&iacute;z (base) de
 							su m&oacute;dulo de documentos).</li>
-						  <li>Valide haciendo click sobre &quot;OK&quot; 
+						  <li>Valide haciendo click sobre &quot;OK&quot;
 							<input type=submit value=OK name=submit232>
 							.</li>
 						</ul>
 						<center>
 						  <p>";
 $langDocument = "Documentos";
-$langExerciseContent = "<p>La herramienta de ejercicios le permite crear ejercicios que contendr&aacute;n tantas 
+$langExerciseContent = "<p>La herramienta de ejercicios le permite crear ejercicios que contendr&aacute;n tantas
 preguntas como Vd. quiera.<br><br>
 Hay varios modelos de respuestas disponibles para crear sus preguntas :<br><br>
 <ul>
@@ -170,7 +170,7 @@ Para crear una:<br><br>
   <li>Defina respuestas para su pregunta. Puede a&ntilde;adir o borrar una repuesta pulsando en el bot&eacute;n derecho</li>
   <li>Marque en la casilla de la izquierda la(s) respuesta(s) correcta(s)</li>
   <li>A&ntilde;ada un comentario opcional. Este comentario no lo ver&aacute; el alumno hasta que haya respondido a la pregunta</li>
-  <li>Otorgue un 'peso' (valor de la respuesta respecto a la totalidad del ejercicio) a cada respuesta. 
+  <li>Otorgue un 'peso' (valor de la respuesta respecto a la totalidad del ejercicio) a cada respuesta.
   El peso puede ser un n&uacute;mero positivo, negativo, o cero.</li>
   <li>Guarde sus respuestas</li>
 </ul></p>
@@ -203,7 +203,7 @@ modificar y siga las instrucciones de anteriores.</p>
 al lado del ejercicio que quiera borrar.</p>
 <hr>
 <b>Activar Ejercicios</b>
-<p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> 
+<p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">
 al lado del ejercicio que quiere activar.</p>
 <hr>
 <b>Probar un Ejercicio</b>
@@ -218,10 +218,10 @@ Si Vd. tiene un n&uacute;mero elevado de preguntas, tambi&eacute;n puede hacer q
 de entre todas las preguntas disponibles para ese ejercicio.</p>
 <hr>
 <b>Almac&eacute;n de Preguntas</b>
-<p>Cuando borras un ejercicio, las preguntas no se eliminan de la base de datos, y pueden ser utilizadas en un nuevo ejercicio, 
+<p>Cuando borras un ejercicio, las preguntas no se eliminan de la base de datos, y pueden ser utilizadas en un nuevo ejercicio,
 mediante la 'Almac&eacute;n de Preguntas'.<br><br>
 El Almac&eacute;n de Preguntas permiete reutilizar las mismas preguntas en varios ejercicios distintos.<br><br>
-Por defecto, se muestran todas las preguntas de tu curso. Vd. puede mostrar las preguntas 
+Por defecto, se muestran todas las preguntas de tu curso. Vd. puede mostrar las preguntas
 relacionadas con un ejercicio eligiendo &eacute;ste del men&uacute; desplegable &quot;Filtro&quot;.<br><br>
 Las preguntas hu&eacute;rfanas son preguntas que no pertenecen a ning&uacute;n ejercicio.</p>";
 $langExercises = "Ejercicios";
@@ -271,7 +271,7 @@ La lista de estudiantes es visible en el m&oacute;dulo <b>Usuarios</b>.</p><hr n
 El n&uacute;mero m&aacute;ximo de miembros es ilimitado, pero le sugerimos que indique uno. Si deja el campo n&uacute;mero m&aacute;ximo sin cubrir,
 el tama&ntilde; ser&aacute; infinito. </p><hr noshade size=1>
 <p><b>Caracter&iacute;sticas de los Grupos</b></p>
-<p>Vd. puede determinar las  caracter&iacute;sticas de los grupos de forma global (para todos los grupos). 
+<p>Vd. puede determinar las  caracter&iacute;sticas de los grupos de forma global (para todos los grupos).
 
 <b>Se permite a los estudiantes inscribirse en el grupo que quieran</b>:
 <p>Vd. puede crear grupos vacios, para que los estudiantes se inscriban.
@@ -280,7 +280,7 @@ Este m&eacute;todo es bueno para profesores que a&uacute;n no conocen la lista d
 
 <b>Herramientas</b>:</p>
 <p>Cada grupo tiene bien un foro (privado o p&uacute;blico) o un Area de Documentos (un area en la que compartir documentos)
-o (lo m&aacute;s frecuente) ambos. 
+o (lo m&aacute;s frecuente) ambos.
 </p>
 <hr noshade size=1>
 <p><b>Edici&oacute;n Manual</b></p>
@@ -301,7 +301,7 @@ $langHUser = "Ayuda usuarios";
 $langHelp = "ayuda";
 $langHelpAssignment = "Tarea de ayuda";
 $langHelpAssignmentContent = "<p>
-La herramienta de tareas es un &aacute;rea de publicaci&oacute;n para estudiantes. El gestor del curso 
+La herramienta de tareas es un &aacute;rea de publicaci&oacute;n para estudiantes. El gestor del curso
 crea una o varias tareas (diferentes zonas de publicaci&oacute;n) donde los estudiantes pueden publicar
 sus trabajos.<br/><br/>
 
@@ -325,7 +325,7 @@ pulsar en el enlace \"Crear una nueva tarea\".</p>
 	que hacer</li>
 	<li> un tipo de env&iacute;o&nbsp;:
 		<ul>
-			<li> Fichero&nbsp;: cualquier tipo de fichero que pueda ser cargado, teniendo en cuenta que hay un 
+			<li> Fichero&nbsp;: cualquier tipo de fichero que pueda ser cargado, teniendo en cuenta que hay un
 			tama&ntilde;o l&iacute;mite que depende de la plataforma. Puede ser adjuntado un texto para describir el
 			fichero</li>
 			<li> S&oacute;lo texto&nbsp;: un texto formatado empleando el editor <em>wysiwyg</em></li>
@@ -337,7 +337,7 @@ pulsar en el enlace \"Crear una nueva tarea\".</p>
 	para la tarea</li>
 	<li> una fecha de remate&nbsp;: la fecha hasta la cual los usuarios podr&aacute;n realizar las publicaciones
 	para la tarea</li>
-	<li> la visibilidad por defecto de las publicaciones: permite escojer si las publicaciones 
+	<li> la visibilidad por defecto de las publicaciones: permite escojer si las publicaciones
 	ser&aacute;n o no visibles para los otros usuarios</li>
 	<li> el tipo de tarea&nbsp;:
 		<ul>
@@ -357,7 +357,7 @@ pulsar en el enlace \"Crear una nueva tarea\".</p>
 pulse en el enlace \"Editar correcci&oacute;n autom&aacute;tica\".</p>
 
 
-<p>Puede ser un texto, o un fichero, o ambos. El gestor do curso puede escoger cuando le debe de ser enviada a los 
+<p>Puede ser un texto, o un fichero, o ambos. El gestor do curso puede escoger cuando le debe de ser enviada a los
 usuarios esta correcci&oacute;n autom&aacute;tica (despu&eacute;s de la fecha final de entrega de la tarea o despu&eacute;s del primer
 env&iacute;o de cada usuario en esta tarea)</p>
 
@@ -365,7 +365,7 @@ env&iacute;o de cada usuario en esta tarea)</p>
 <hr />
 <h4>Trabajos</h4>
 <p>Los trabajos son las publicaciones cargadas por los usuarios.</p>
-<p>Para cada tarea, la herramienta muestra una lista de todos los usuarios registrados en el curso y para cada usuario, 
+<p>Para cada tarea, la herramienta muestra una lista de todos los usuarios registrados en el curso y para cada usuario,
 el t&iacute;tulo del primer trabajo que public&oacute;, el n&uacute;mero de env&iacute;os y el n&uacute;mero de correcciones.
 La lista de publicaciones relaccionadas con el usuario y las tareas pueden ser vistas pulsando en el nombre del usuario.</p>
 
@@ -373,29 +373,29 @@ La lista de publicaciones relaccionadas con el usuario y las tareas pueden ser v
 <p>Si los usuarios tienen permisos para enviar trabajos, ser&aacute; mostrado un enlace a un formulario.</p>
 
 <p><strong>Lista de trabajos</strong></p>
-<p>Como gestor de curso, usted tendr&aacute; permiso para editar, borrar y hacer visibles o invisibles cualquiera de los 
+<p>Como gestor de curso, usted tendr&aacute; permiso para editar, borrar y hacer visibles o invisibles cualquiera de los
 trabajos. Poder&aacute; usted tambi&eacute;n a&ntilde;adirle una correcci&oacute;n a cada trabajo.</p>
 
 <ul>
-	<li> <strong>Modificar</strong>&nbsp;: 
-		Si aparece este icono, quiere decir que el usuario puede modificar el contenido del trabajo. Aparece tambi&eacute;n cuando 
+	<li> <strong>Modificar</strong>&nbsp;:
+		Si aparece este icono, quiere decir que el usuario puede modificar el contenido del trabajo. Aparece tambi&eacute;n cuando
 		el usuario es el gestor del curso y cuando el usuario est&aacute; mirando sus trabajos o los trabajos de
 		su grupo.
 	</li>
-	<li> <strong>Borrar</strong>&nbsp;: 
+	<li> <strong>Borrar</strong>&nbsp;:
 		Este comando le permite borrar un trabajo al gestor de curso.
 	</li>
-	<li> <strong>Visible</strong>&nbsp;: 
+	<li> <strong>Visible</strong>&nbsp;:
 		Si aparece este icono, quiere decir que el trabajo es visible para los estudiantes. Funciona del mismo
-		modo que la herramienta 'Documentos' de Claroline. Puede usted cambiar su configuraci&oacute;n 
+		modo que la herramienta 'Documentos' de Claroline. Puede usted cambiar su configuraci&oacute;n
 		pulsando sobre el icono.
 	</li>
-	<li> <strong>Invisible</strong>&nbsp;: 
+	<li> <strong>Invisible</strong>&nbsp;:
 		Si aparece este icono, quiere decir que el trabajo no es visible para los estudiantes. Funciona del mismo
-		modo que la herramienta 'Documentos' de Claroline. Puede usted cambiar su configuraci&oacute;n 
+		modo que la herramienta 'Documentos' de Claroline. Puede usted cambiar su configuraci&oacute;n
 		pulsando sobre el icono.
 	</li>
-	<li> <strong>A&ntilde;adir correcci&oacute;n</strong>&nbsp;: 
+	<li> <strong>A&ntilde;adir correcci&oacute;n</strong>&nbsp;:
 		Permite que el gestor del curso publique una correcci&oacute;n para el trabajo del usuario. La correcci&oacute;n
 		puede ser un fichero, un texto o ambos, con un comentario privado que s&oacute;lo ser&aacute; visible para el(los)
 		gestor(es) del curso y una puntuaci&oacute;n en porcentaje.
@@ -403,23 +403,23 @@ trabajos. Poder&aacute; usted tambi&eacute;n a&ntilde;adirle una correcci&oacute
 </ul>
 ";
 $langHelpGroups = "Ayuda de Grupos";
-$langHomeContent = "La mayor&iacute;a de las r&uacute;bricas de iCampus est&aacute;n ya rellenadas con un corto texto 
+$langHomeContent = "La mayor&iacute;a de las r&uacute;bricas de iCampus est&aacute;n ya rellenadas con un corto texto
 					o por un enlace dados por defecto, o por un ejemplo. A usted le corresponde el modificarlos.</p>
-					<p>As&iacute aparece un texto corto, bien a la vista, en la cabecera de vuestra web.  
-					'Este es el texto de introducci&oacute;n de vuestra web...' Modif&iacute;quelo y aproveche para 
-					describir su curso, vuestros objectivos, vuestros dispositivos. Es importante para la correcta 
-					presentaci&oacute;n de vuestro trabajo.</p><p>En el momento de la creaci&oacute;n de su web, 
-					numerosas herramientas (Agenda, documentos, ejercicios...) se activan para usted por defecto. 
-					Es aconsejable desactivar aquellas que usted no utilice con el fin de no hacer perder el tiempo 
-					a sus usuarios o a sus visitantes.</p><p>Usted puede tambi&eacute;n a&ntilde;adir p&aacute;ginas 
-					a la p&aacute;gina principal. Utilice la funci&oacute;n 'a&ntilde;adir p&aacute;gina' para 
-					a&ntilde;adir una p&aacute;gina y enviarla al servidor. Si por el contrario usted quiere enlazar 
-					con una p&aacute;gina o web ya existente, utilice la funci&oacute;n 'Enlace a la web'. Las 
-					p&aacute;ginas y enlaces que usted a&ntilde;ada a la p&aacute;gina principal pueden ser desactivadas 
-					y luego suprimidas, a diferencia de las herramientas existentes por defecto, las cuales pueden ser 
-					desactivadas, pero no suprimidas.</p><p>Tambi&eacute;n le corresponde a usted el decidir si su curso 
-					debe aparecer en la lista de los cursos. Es aconsejable que un curso en fase de pruebas o 'en obras' 
-					no aparezca en la lista (ver la funci&oacute;n 'Modificar informaci&oacute;n sobre el curso') y 
+					<p>As&iacute aparece un texto corto, bien a la vista, en la cabecera de vuestra web.
+					'Este es el texto de introducci&oacute;n de vuestra web...' Modif&iacute;quelo y aproveche para
+					describir su curso, vuestros objectivos, vuestros dispositivos. Es importante para la correcta
+					presentaci&oacute;n de vuestro trabajo.</p><p>En el momento de la creaci&oacute;n de su web,
+					numerosas herramientas (Agenda, documentos, ejercicios...) se activan para usted por defecto.
+					Es aconsejable desactivar aquellas que usted no utilice con el fin de no hacer perder el tiempo
+					a sus usuarios o a sus visitantes.</p><p>Usted puede tambi&eacute;n a&ntilde;adir p&aacute;ginas
+					a la p&aacute;gina principal. Utilice la funci&oacute;n 'a&ntilde;adir p&aacute;gina' para
+					a&ntilde;adir una p&aacute;gina y enviarla al servidor. Si por el contrario usted quiere enlazar
+					con una p&aacute;gina o web ya existente, utilice la funci&oacute;n 'Enlace a la web'. Las
+					p&aacute;ginas y enlaces que usted a&ntilde;ada a la p&aacute;gina principal pueden ser desactivadas
+					y luego suprimidas, a diferencia de las herramientas existentes por defecto, las cuales pueden ser
+					desactivadas, pero no suprimidas.</p><p>Tambi&eacute;n le corresponde a usted el decidir si su curso
+					debe aparecer en la lista de los cursos. Es aconsejable que un curso en fase de pruebas o 'en obras'
+					no aparezca en la lista (ver la funci&oacute;n 'Modificar informaci&oacute;n sobre el curso') y
 					permanezca privado sin posibilidad de inscribirse en el durante &eacute;l tiempo de su creaci&oacute;n.</p>";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
@@ -441,28 +441,28 @@ $langStudent = "Estudiante";
 $langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
 $langTextEditorDisable = "Deshabilitar editor de texto";
 $langTextEditorEnable = "Habilitar editor de texto";
-$langUserContent = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ninguna funci&oacute;n inform&aacute;tica. 
-No otorgan ning&uacute;n derecho sobre el sistema. Usted puede modificarlos haciendo click sobre 'modificar' debajo de 
-'rol/papel' e introduciendo despu&eacute;s todas las letras de la descripci&oacute;n de la funci&oacute;n conveniente: 
-profesor, asistente, tutor, visitante, documentalista, experto, moderador... Esto servir&aacute; s&oacute;lo para indicar 
+$langUserContent = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ninguna funci&oacute;n inform&aacute;tica.
+No otorgan ning&uacute;n derecho sobre el sistema. Usted puede modificarlos haciendo click sobre 'modificar' debajo de
+'rol/papel' e introduciendo despu&eacute;s todas las letras de la descripci&oacute;n de la funci&oacute;n conveniente:
+profesor, asistente, tutor, visitante, documentalista, experto, moderador... Esto servir&aacute; s&oacute;lo para indicar
 p&uacute;blicamente que rol (papel) que desempe&ntilde;a en el curso.</P><hr>
 <b>Derechos de administraci&oacute;n</b>
-<p>Los derechos de administraci&oacute;n, por el contrario, se refieren al sistema inform&aacute;tico. Actualmente, se 
-puede escoger entre <b>todos</b> (modificar todo, suprimir todo, a&ntilde;adir todo) y <b>ninguno</b> (a parte del derecho 
+<p>Los derechos de administraci&oacute;n, por el contrario, se refieren al sistema inform&aacute;tico. Actualmente, se
+puede escoger entre <b>todos</b> (modificar todo, suprimir todo, a&ntilde;adir todo) y <b>ninguno</b> (a parte del derecho
 de visitar la web, de publicar mensajes en el foro y trabajos por medio de la p&aacute;gina 'Trabajos').</p>
-<p>Para permitir a un co-titular, un asistente, un tutor o quien sea el co-administrar la web junto con usted, debe de 
-inscribirlo previamente en su curso o asegurarse que ya est&aacute; inscrito y despu&eacute;s modificar los derechos que 
+<p>Para permitir a un co-titular, un asistente, un tutor o quien sea el co-administrar la web junto con usted, debe de
+inscribirlo previamente en su curso o asegurarse que ya est&aacute; inscrito y despu&eacute;s modificar los derechos que
 le corresponden haciendo click sobre 'Modificar' en 'Derechos de administraci&oacute;.' y marcando despu&eacute;s 'Todos'.</p><hr>
 <b>Co-titulares</b>
-<p>Para hacer que figure el nombre de un co-titular en la cabecera de su curso, utilice la p&aacute;gina 
-'Modificar la informaci&oacute;n sobre el curso' (en las herramientas de color naranja). Esta modificaci&oacute;n de la 
-cabecera del curso no inscribe autom&aacute;ticamente a este co-titular como usuario del curso. Se trata de dos acciones 
+<p>Para hacer que figure el nombre de un co-titular en la cabecera de su curso, utilice la p&aacute;gina
+'Modificar la informaci&oacute;n sobre el curso' (en las herramientas de color naranja). Esta modificaci&oacute;n de la
+cabecera del curso no inscribe autom&aacute;ticamente a este co-titular como usuario del curso. Se trata de dos acciones
 distintas.</p><hr>
 <b>Ayudar a un usuario</b>
-<p>Para a&ntilde;adir un usuario a su curso, compruebe primero si ya est&aacute; inscrito en iCampus utilizando el motor 
-de b&uacute;squeda. Si ya est&aacute; inscrito, marque la casilla que aparece al lado de su nombre y valide. Si todav&iacute;a 
-no est&aacute; inscrito a&ntilde;adalo a mano. En ambos casos, la persona recibir&aacute; un correo electr&oacute;nico de 
-confirmaci&oacute;n de su inscripci&oacute;n conteniendo su nombre de usuario y su contrase&ntilde;a, excepto en el caso de 
+<p>Para a&ntilde;adir un usuario a su curso, compruebe primero si ya est&aacute; inscrito en iCampus utilizando el motor
+de b&uacute;squeda. Si ya est&aacute; inscrito, marque la casilla que aparece al lado de su nombre y valide. Si todav&iacute;a
+no est&aacute; inscrito a&ntilde;adalo a mano. En ambos casos, la persona recibir&aacute; un correo electr&oacute;nico de
+confirmaci&oacute;n de su inscripci&oacute;n conteniendo su nombre de usuario y su contrase&ntilde;a, excepto en el caso de
 que usted no haya introducido su direcci&oacute;n de correo electr&oacute;nico.</p>";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";

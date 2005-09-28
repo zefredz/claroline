@@ -145,6 +145,7 @@ $langNoModule = "没有模块";
 $langNoMoreModuleToAdd = "该课程的所有模块都已用在学习路线中。";
 $langNoSpace = "上传失败!目录空间不足.";
 $langNoStartAsset = "没有为该模块定义有用的开始部分。";
+$langNotAllowed = "操作禁止";
 $langNotInstalled = "发生一个错误。学习路线输入失败。";
 $langNotice = "注意";
 $langOk = "确认";

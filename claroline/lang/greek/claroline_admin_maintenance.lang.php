@@ -22,6 +22,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Το ημερολόγιο μου";
 $langMyCourses = "Τα μαθήματά μου";
 $langNameOfLang = "Διάταξη";
+$langNotAllowed = "Δεν επιτρέπεται";
 $langOtherCourses = "Λίστα Μαθημάτων";
 $langPlatformAdministration = "Διαχείρηση Πλατφόρμας";
 $langPoweredBy = "Με τη βοήθεια του";

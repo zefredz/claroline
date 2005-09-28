@@ -33,13 +33,13 @@ $langCourseManager = "Xestor do curso";
 $langDate = "Data";
 $langDay = "D&iacute;a";
 $langDay_of_weekNames = "Array";
-$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo 
+$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo
    										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
-$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo 
-   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu 
+$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo
+   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu
 										propio texto, prema abaixo en <b>Modificar</b>.";
-$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada 
-   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo 
+$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada
+   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo
 										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
 $langDefcon = "Ei!!, detect&aacute;ronse casos estra&ntilde;os!!";
 $langDelCourseStats = "Eliminar t&oacute;dalas estati&iacute;sticas de curso";

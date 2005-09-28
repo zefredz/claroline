@@ -34,6 +34,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNo = "Нет";
+$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOneResp = "Один из отетственных за курс";
 $langOtherCourses = "Список курсов";

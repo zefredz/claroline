@@ -45,7 +45,7 @@ Use el bot&oacute;n de Atr&aacute;s del navegador y vuelva a intentarlo.";
 $langEnrollAsStudent = "Inscribir como estudiante";
 $langEnrollAsTeacher = "Inscribir como Profesor";
 $langEnrollClass = "Inscribir clase";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o 
+$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
 							si quiere conservar la actual";
 $langEnterMail = "Introduzca su correo electr&oacute;nico para que se le env&iacute;e a ese correo su clave de acceso.";
 $langExercises = "Ejercicios";
@@ -60,7 +60,9 @@ $langGroups = "Grupos";
 $langHelp = "ayuda";
 $langHome = "Volver a la p&aacute;gina principal";
 $langInvalidIdSelfReg = "<b>Fall&oacute el intento de acceso.</b><br />Por favor, int&eacute;ntelo de nuevo.<br />
-<small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el 
+
+<small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el
+
 <a href=claroline/auth/inscription.php>formulario de registro</a></font color></small>.";
 $langIs = "es";
 $langLastname = "Apellido";
@@ -74,8 +76,8 @@ $langLogout = "Salir";
 $langLostPassword = "Recordar contrase&ntilde;a";
 $langManager = "Responsable";
 $langMessageSubscribeDone_p_firstname_lastname = "
-Estimado(a) %s, %s. 
-Sus datos personales han sido registrados y se ha enviado un 
+Estimado(a) %s, %s.
+Sus datos personales han sido registrados y se ha enviado un
 mensaje de correo electr&oacute;nico a su buz&oacute;n
 para recordarle su nombre de usuario y su clave de acceso.<br>
 Seleccione de la lista los cursos a los que desea tener acceso.";

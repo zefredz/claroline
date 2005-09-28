@@ -144,6 +144,7 @@ $langNoModule = "No module";
 $langNoMoreModuleToAdd = "All modules of this course are already used in this learning path.";
 $langNoSpace = "The upload has failed. There is not enough space in your directory";
 $langNoStartAsset = "There is no start asset defined for this module.";
+$langNotAllowed = "Not allowed";
 $langNotInstalled = "An error occured.  Learning Path import failed.";
 $langNotice = "Notice";
 $langOk = "Ok";

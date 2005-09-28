@@ -103,6 +103,7 @@ $langNameOfLang = "Διάταξη";
 $langNewUsersIn = "νέοι χρήστες σε αυτή τη platform : ";
 $langNo = "όχι";
 $langNone = "κανένας";
+$langNotAllowed = "Δεν επιτρέπεται";
 $langOfficialCode = "Κωδικός διαχείρησης";
 $langOk = "Εντάξει";
 $langOneByOne = "Πρσθήκη χρήστη";

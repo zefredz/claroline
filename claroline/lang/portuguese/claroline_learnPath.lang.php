@@ -34,6 +34,7 @@ $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNoEx = "Actualmente n&atilde;o h&aacute; exerc&iacute;cios";
 $langNoSpace = "N&atilde;o foi poss&iacute;vel colocar o documento no servidor: n&atilde;o h&aacute; suficiente espaço livre no seu direct&oacute;rio";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langNotice = "Aviso";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";

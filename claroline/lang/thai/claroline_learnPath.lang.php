@@ -25,6 +25,7 @@ $langMyCourses = "My courses";
 $langNameOfLang = "Array";
 $langNoEx = "ขณะนี้ ไม่มีแบบฝึกหัด";
 $langNoSpace = "การอัพโหลดล้มเหลว มีเนื้อที่ไม่พอในไดเร็กทอรีของท่าน";
+$langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";

@@ -1,7 +1,7 @@
 <?php
 $langAgenda = "Termine/Ereignisse";
 $langAnnouncement = "Ankündigungen";
-$langCancel = "abbrechen";
+$langCancel = "Abbrechen";
 $langChat = "Chat";
 $langCopy = "Kopieren";
 $langCourseHome = "Kurs-Startseite";
@@ -25,11 +25,11 @@ $langMyCourses = "Meine Kurse";
 $langNameOfLang = "Feld";
 $langOk = "Ok";
 $langOtherCourses = "Kurs Angebot";
-$langPeriodDayShort = "T.";
-$langPeriodHourShort = "St.";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "System-Administration";
 $langPoweredBy = "Powered by";
-$langRetry = "nochmal versuchen";
+$langRetry = "retry";
 $langSecondShort = "sec.";
 $langStudent = "Teilnehmer";
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
@@ -42,7 +42,7 @@ $langViewMode = "Ansicht";
 $langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
-$lang_p_FeedOf_s = "Rss feed für %s";
+$lang_p_FeedOf_s = "Rss feed for %s";
 $lang_p_platformManager = "Administrator von %s";
-$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "Sie müssen sich mit ihren Benutzerdaten %s identifizieren";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "Sie müssen mit Ihrem %s Account authentifiziert sein.";
 ?>

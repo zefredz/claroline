@@ -3,7 +3,8 @@ $langAddComment = "A&ntilde;adir/Modificar el comentario a";
 $langAddModule = "Agregar";
 $langAddModulesButton = "Agregar m&oacute;dulo(s)";
 $langAddOneModuleButton = "Agregar m&oacute;dulo";
-$langAddWrongAnswers = "A&ntilde;adir respuestas err&oacute;neas para desplegar listas <small>(opcional. 
+$langAddWrongAnswers = "A&ntilde;adir respuestas err&oacute;neas para desplegar listas <small>(opcional.
+
 						Una respuesta err&oacute;nea por l&iacute;nea)</small>";
 $langAdvanced = "Avanzado";
 $langAgenda = "Agenda";
@@ -197,7 +198,7 @@ $langUntil = "para";
 $langUp = "Arriba";
 $langUseTagForBlank = "Use los corchetes [...] para definir uno o m&aacute;s huecos";
 $langUsedInSeveralExercises = "¡Cuidado!. Esta pregunta y sus respuestas se usan en varios ejercicios. ¿Quiere modificarlas?";
-$langUsedInSeveralPath = "Este ejercicio es usado en una o m&aacute;s secuencias de aprendizajes. Si lo elimina no 
+$langUsedInSeveralPath = "Este ejercicio es usado en una o m&aacute;s secuencias de aprendizajes. Si lo elimina no
 						  estar&aacute; disponible en ninguna de las secuencias de aprendizaje.";
 $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";

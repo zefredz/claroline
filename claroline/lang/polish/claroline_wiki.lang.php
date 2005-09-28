@@ -33,6 +33,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
 $langNo = "Nie";
+$langNotAllowed = "You are not allowed here";
 $langOk = "Ok";
 $langOneResp = "Jeden z administratorów kursu";
 $langOtherCourses = "Lista kursów";

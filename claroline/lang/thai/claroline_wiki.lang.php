@@ -23,6 +23,7 @@ $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
 $langNo = "ไม่";
+$langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOneResp = "ผู้ดูแลรายวิชาคนหนึ่ง";
 $langOtherCourses = "รายชื่อรายวิชา";

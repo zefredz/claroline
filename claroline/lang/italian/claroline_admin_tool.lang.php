@@ -24,6 +24,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langNameOfLang = "Array";
+$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOtherCourses = "Elenco dei corsi";
 $langPeriodDayShort = "g.";
 $langPeriodHourShort = "h.";

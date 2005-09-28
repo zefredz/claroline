@@ -35,6 +35,7 @@ $langMonthNames = "مصفوفة";
 $langMyAgenda = "جدول أعمالي";
 $langMyCourses = "مقرراتي";
 $langNameOfLang = "مصفوفة";
+$langNotAllowed = "غير مسموح";
 $langOk = "موافق";
 $langOtherCourses = "قائمة المقررات";
 $langPlatformAdministration = "الإدارة";

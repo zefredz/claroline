@@ -25,6 +25,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
 $langNomPageAddHtPass = "Quản lý người dùng quản trị";
+$langNotAllowed = "Not allowed";
 $langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";
 $langOtherWorks = "các chức năng khác";

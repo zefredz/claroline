@@ -23,6 +23,7 @@ $langManager = "Ansvarig";
 $langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
+$langMoveDown = "Flytta ned";
 $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
 $langNotAllowed = "Inte tillåtet";
@@ -33,5 +34,6 @@ $langStatistics = "Statistik";
 $langStudent = "elev";
 $langTools = "Verktyg";
 $langUsers = "Användare";
+$langVisibility = "Synlighet";
 $langWork = "Elevarbeten";
 ?>

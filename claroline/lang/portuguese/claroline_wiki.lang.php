@@ -34,6 +34,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNo = "N&atilde;o";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
 $langOneResp = "Um dos administradores do curso";
 $langOtherCourses = "Lista de cursos";

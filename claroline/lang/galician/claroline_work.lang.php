@@ -45,13 +45,13 @@ $langCurrentFeedbackFile = "Arquivo de realimentaci&oacute;n actual";
 $langDate = "Data";
 $langDay_of_weekNames = "Array";
 $langDefSubVisibility = "Visibilidade dos traballos por defecto";
-$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo 
+$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo
    										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
-$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo 
-   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu 
+$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo
+   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu
 										propio texto, prema abaixo en <b>Modificar</b>.";
-$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada 
-   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo 
+$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada
+   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo
 										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
 $langDelete = "Eliminar";
 $langDeleteCaution = "! Deste xeito eliminar&aacute; tam&eacute;n t&oacute;dolos traballos enviados nesta tarefa !";
@@ -71,8 +71,8 @@ $langFeedback = "Resoluci&oacute;n";
 $langFeedbackAdded = "Resoluci&oacute;n engadida";
 $langFeedbackEdited = "Resoluci&oacute;n editada";
 $langFeedbackFile = "Ficheiro coa resoluci&oacute;n";
-$langFeedbackHelp = "A resoluci&oacute;n &eacute; opcional. &Eacute; a versi&oacute;n correcta da tarefa. 
-Se non se deixa baleira, seralle amosada &oacute;s usuarios de acordo coa configuraci&oacute;n de 'envio 
+$langFeedbackHelp = "A resoluci&oacute;n &eacute; opcional. &Eacute; a versi&oacute;n correcta da tarefa.
+Se non se deixa baleira, seralle amosada &oacute;s usuarios de acordo coa configuraci&oacute;n de 'envio
 da resoluci&oacute;n'.";
 $langFeedbackSubmit = "Envío de resoluci&oacute;n";
 $langFeedbackText = "Texto da resoluci&oacute;n";
@@ -89,9 +89,9 @@ $langGroups = "Grupos";
 $langHelp = "Axuda";
 $langIncorrectDate = "A data de inicio debe de ser anterior &aacute; de remate...";
 $langIndividual = "Individual";
-$langIntroWork = "Esta p&aacute;xina perm&iacute;telle a calquera estudante ou grupo cargar un documento 
-							na p&aacute;xina web do curso. <br>Enviar un ficheiro HTML s&oacute; se non cont&eacute;n 
-							imaxe ningunha.<br><br>Se vostede desexa presentarlle esta ferramenta ou darlle algunha 
+$langIntroWork = "Esta p&aacute;xina perm&iacute;telle a calquera estudante ou grupo cargar un documento
+							na p&aacute;xina web do curso. <br>Enviar un ficheiro HTML s&oacute; se non cont&eacute;n
+							imaxe ningunha.<br><br>Se vostede desexa presentarlle esta ferramenta ou darlle algunha
 							recomendaci&oacute;n &oacute;s estudantes, prema no bot&oacute;n que hai debaixo.<br>";
 $langInvisible = "Invisible";
 $langLastEditDate = "Data da &uacute;ltima edici&oacute;n";
@@ -145,7 +145,7 @@ $langTextEditorEnable = "Habilitar editor de texto";
 $langTextFile = "Texto co arquivo adxunto (texto requirido, ficheiro opcional)";
 $langTextOnly = "S&oacute; texto (requ&iacute;rese o texto, non o ficheiro)";
 $langTo = "en";
-$langTooBig = "Vostede non escolleu ficheiro ning&uacute;n para enviar, ou ben o ficheiro escollido 
+$langTooBig = "Vostede non escolleu ficheiro ning&uacute;n para enviar, ou ben o ficheiro escollido
 							&eacute; demasiado grande";
 $langUntil = "ata";
 $langUp = "Arriba";

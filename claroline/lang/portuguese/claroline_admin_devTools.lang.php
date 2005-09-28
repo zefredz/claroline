@@ -66,6 +66,7 @@ $langNameOfLang = "Nome da l&iacute;ngua";
 $langNewTopic = "Come&ccedil;ar um tema novo";
 $langNoPsychology = "N&atilde;o. A ironia socr&aacute;tica n&atilde;o pertence ao &acirc;mbito da psicologia, mas ao da argumenta&ccedil;&atilde;o.";
 $langNoSeduction = "N&atilde;o. N&atilde;o se trata de uma estrat&eacute;gia de sedu&ccedil;&atilde;o nem dum m&eacute;todo de exemplifica&ccedil;&atilde;o.";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langNotFalse = "Esta resposta n&atilde;o &eacute; errada. &Eacute; verdade que o procedimento para p&ocirc;r em evid&ecirc;ncia a ignor&acirc;ncia do interlocutor &eacute; mostrar as contradi&ccedil;&otilde;es a que levam as suas posi&ccedil;&otilde;es.";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";

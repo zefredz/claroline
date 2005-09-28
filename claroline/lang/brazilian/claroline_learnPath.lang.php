@@ -134,6 +134,7 @@ $langNoModule = "Nenhum módulo";
 $langNoMoreModuleToAdd = "Todos os módulos desse curso já estão sendo usados nessa rota de aprendizagem.";
 $langNoSpace = "O envio falhou. Não há espaço suficiente em seu diretório";
 $langNoStartAsset = "Não há nenhum recurso inicial definido para esse módulo.";
+$langNotAllowed = "Você não é permitido aqui";
 $langNotInstalled = "Um erro ocorreu. A importação da rota de aprendizagem falhou.";
 $langNotice = "Notícia";
 $langOk = "validar";

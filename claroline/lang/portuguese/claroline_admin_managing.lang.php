@@ -23,6 +23,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNomPageAddHtPass = "Acesso do administrador";
+$langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
 $langOtherWorks = "outras funções";

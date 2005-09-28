@@ -30,5 +30,6 @@ $langStatistics = "Статистики";
 $langStudent = "студент";
 $langTools = "Инструменти";
 $langUsers = "Потребители";
+$langVisibility = "Видим/Невидим";
 $langWork = "Студентски материали";
 ?>

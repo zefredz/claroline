@@ -23,6 +23,7 @@ $langMyCourses = "自分のコース";
 $langNameOfLang = "Array";
 $langNoEx = "現在演習問題はありません";
 $langNoSpace = "アップロードが失敗しました。ディスクスペースの不足です。";
+$langNotAllowed = "このコース受講が許可されていません";
 $langOk = "オッケー";
 $langPoweredBy = "Powered by Claroline";
 $langQuestion = "問";

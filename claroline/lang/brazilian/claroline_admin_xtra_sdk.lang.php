@@ -35,6 +35,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Minha agenda";
 $langMyCourses = "Minha lista de cursos";
 $langNameOfLang = "Array";
+$langNotAllowed = "Você não é permitido aqui";
 $langOk = "validar";
 $langOtherCourses = "Lista de cursos";
 $langPlatformAdministration = "Administração da Plataforma";

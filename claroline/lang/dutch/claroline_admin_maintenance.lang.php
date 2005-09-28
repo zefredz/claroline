@@ -22,6 +22,7 @@ $langMonthNames = "Array";
 $langMyAgenda = "Mijn agenda";
 $langMyCourses = "Mijn cursussen";
 $langNameOfLang = "Array";
+$langNotAllowed = "U bent hier niet toegelaten";
 $langOtherCourses = "Cursusoverzicht";
 $langPlatformAdministration = "Platform beheer";
 $langPoweredBy = " gebruikt het platform";

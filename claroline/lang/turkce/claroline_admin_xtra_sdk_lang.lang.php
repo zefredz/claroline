@@ -15,6 +15,7 @@ $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
 $langNameOfLang = "Array";
+$langNotAllowed = "Ýzin verilmiyor";
 $langOtherCourses = "Ders listesi";
 $langPoweredBy = "Powered by";
 $langStudent = "öðrenci";

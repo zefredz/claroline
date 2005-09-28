@@ -89,6 +89,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Nieuw onderwerp";
 $langNoPsychology = "Nee. Socratische ironie heeft niets te maken met psychologie maar wel met argumentatie.";
 $langNoSeduction = "Nee. Socratische ironie is geen verleidingsstrategie of een methode gebaseerd op voorbeelden.";
+$langNotAllowed = "U bent hier niet toegelaten";
 $langNotFalse = "Dit antwoord is niet onjuist. Het is waar dat het tonen van de onwetendheid van zijn gesprekspartner gebeurt dankzij het tonen van de tegenstrijdige conclusies van zijn veronderstellingen.";
 $langNumGroup = "Aantal groepen per cursus";
 $langNumGroupStudent = "Aantal teams in dewelke een student zich kan inschrijven in de cursus";

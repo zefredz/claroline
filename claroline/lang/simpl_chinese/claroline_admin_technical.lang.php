@@ -37,6 +37,7 @@ $langMysql_Repository = "Mysql存储";
 $langNameOfLang = "Array";
 $langNoFunctionInThisSection = "该扩展区没有功能";
 $langNoQuota = "没有定额";
+$langNotAllowed = "操作禁止";
 $langOk = "确认";
 $langOtherCourses = "课程列表";
 $langPerhaps_with_others_directory = "也许用其他的目录";

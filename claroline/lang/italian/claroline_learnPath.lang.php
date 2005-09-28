@@ -5,14 +5,14 @@ $langAddModule = "Aggiungi";
 $langAddModulesButton = "Aggiungi Modulo/i";
 $langAddOneModuleButton = "Aggiungi Modulo";
 $langAgenda = "Calendario";
-$langAlertBlockingMakedInvisible = "Questo modulo è bloccato. 
-Making it invisible will allow students to access 
- next modules without having to complete this one. 
+$langAlertBlockingMakedInvisible = "Questo modulo è bloccato.
+Making it invisible will allow students to access
+ next modules without having to complete this one.
 
 Confirm ?";
-$langAlertBlockingPathMadeInvisible = "Questo percorso è bloccato. 
-Making it invisible will allow students to access 
- next paths without having to complete this one. 
+$langAlertBlockingPathMadeInvisible = "Questo percorso è bloccato.
+Making it invisible will allow students to access
+ next paths without having to complete this one.
 
 Confirm ?";
 $langAlreadyBrowsed = "Già visualizzato";
@@ -148,6 +148,7 @@ $langNoModule = "Nessun modulo";
 $langNoMoreModuleToAdd = "Tutti i moduli di questo corso sono già utilizzati in questo learning path.";
 $langNoSpace = "Il caricamento del file è fallito. La cartella e/o il disco sono pieni";
 $langNoStartAsset = "Non ci sono proprietà iniziali definite per questo modulo.";
+$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langNotInstalled = "Errore.  Importazione del Learning Path fallita.";
 $langNotice = "Notazione";
 $langOk = "Ok";

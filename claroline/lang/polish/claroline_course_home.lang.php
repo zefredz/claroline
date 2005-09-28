@@ -22,6 +22,7 @@ $langManager = "Administrator";
 $langModify = "Modyfikuj";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
+$langMoveDown = "Przesuñ na dó³";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
 $langNotAllowed = "You are not allowed here";
@@ -32,5 +33,6 @@ $langStatistics = "Statystyki";
 $langStudent = "student";
 $langTools = "Narzêdzia";
 $langUsers = "U¿ytkownicy";
+$langVisibility = "Widzialno¶æ";
 $langWork = "Works";
 ?>

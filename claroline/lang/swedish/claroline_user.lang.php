@@ -55,6 +55,7 @@ $langMyCourses = "Mina kurser";
 $langNameOfLang = "Array";
 $langNo = "Nej";
 $langNone = "ingen";
+$langNotAllowed = "Inte tillåtet";
 $langOk = "validate";
 $langOneByOne = "Lägg till användare manuellt";
 $langOneResp = "En av kursadministratörerna";

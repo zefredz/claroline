@@ -28,5 +28,6 @@ $langStatistics = "Estadístiques";
 $langStudent = "estudiant";
 $langTools = "Eines";
 $langUsers = "Usuaris";
+$langVisibility = "Visible/invisible";
 $langWork = "Treballs dels estudiants";
 ?>

@@ -13,6 +13,7 @@ $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
+$langNotAllowed = "ไม่อนุญาต";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";
 $langStudent = "นักศึกษา";

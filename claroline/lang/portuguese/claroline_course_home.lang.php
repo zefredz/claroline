@@ -22,6 +22,7 @@ $langManager = "Respons&aacute;vel";
 $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
+$langMoveDown = "Descer";
 $langMyCourses = "Cursos";
 $langNameOfLang = "Nome da l&iacute;ngua";
 $langNotAllowed = "N&atilde;o est&aacute; identificado como respons&aacute;vel por este curso";
@@ -32,5 +33,6 @@ $langStatistics = "Estat&iacute;sticas";
 $langStudent = "estudante";
 $langTools = "Ferramentas";
 $langUsers = "Utilizadores";
+$langVisibility = "Visibilidade";
 $langWork = "Trabalhos";
 ?>

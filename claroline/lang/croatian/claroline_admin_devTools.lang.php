@@ -63,6 +63,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Nova tema";
 $langNoPsychology = "Ne. Sokratova ironija nije predmet psihologije, ona se tièe argumentacije.";
 $langNoSeduction = "Ne. Sokratova ironija nije zavodljiva strategija ili metoda temeljena na primjeru.";
+$langNotAllowed = "Nije dozvoljeno";
 $langNotFalse = "Ovaj odgovor nije netoèan. Istina je da ignoracija od strane sugovornika pokazuje opovrgavajuæe zakljuèke kada je voðen vlastitim premisama.";
 $langOk = "Ok";
 $langOtherCourses = "Popis kolegija";

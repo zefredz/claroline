@@ -48,6 +48,7 @@ $langMyAgenda = "La mia agenda";
 $langMyCourses = "I miei corsi";
 $langNameOfLang = "Array";
 $langNo = "No";
+$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOfficialCode = "Codice amministrativo";
 $langOk = "Ok";
 $langOneResp = "Uno dei responsabili del corso";

@@ -44,6 +44,7 @@ $langMyAgenda = "جدول أعمالي";
 $langMyCourses = "مقرراتي";
 $langNameOfLang = "مصفوفة";
 $langNo = "لا";
+$langNotAllowed = "غير مسموح";
 $langOfficialCode = "الرقم  او الرمز الإداري";
 $langOk = "موافق";
 $langOneResp = "أحد مدراء المقرر";

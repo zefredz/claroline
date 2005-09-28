@@ -20,6 +20,7 @@ $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
+$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOtherCourses = "Список курсов";
 $langPoweredBy = "использует оболочку";
 $langStudent = "студент";

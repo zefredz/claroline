@@ -109,6 +109,7 @@ $langNewUsersIn = "new users in the platform : ";
 $langNo = "No";
 $langNoUserFound = "No user found";
 $langNone = "None";
+$langNotAllowed = "Not allowed";
 $langOfficialCode = "Administrative code";
 $langOk = "Ok";
 $langOneByOne = "Add user manually";

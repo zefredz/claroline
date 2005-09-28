@@ -36,6 +36,7 @@ $langMyCourses = "Τα μαθήματά μου";
 $langNameOfLang = "Διάταξη";
 $langNoContent = "Κανένα περιεχόμενο";
 $langNomPageAddHtPass = "Προσθήκη διαχειριστή";
+$langNotAllowed = "Δεν επιτρέπεται";
 $langOk = "Εντάξει";
 $langOtherCourses = "Λίστα Μαθημάτων";
 $langOtherWorks = "άλλες λειτουργίες";

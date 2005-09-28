@@ -28,10 +28,10 @@ $langExercises = "Ejercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "ayuda";
-$langHumanAndPhysicalResourcesComment1 = "Cuales son los recursos humanos y f&iacute;sicos disponibles? Cu&aacute;l ser&aacute; 
+$langHumanAndPhysicalResourcesComment1 = "Cuales son los recursos humanos y f&iacute;sicos disponibles? Cu&aacute;l ser&aacute;
 su estructura?. Qu&eacute; pueden esperar los estudiantes del equipo de organizaci&oacute;n o del profesor?";
-$langHumanAndPhysicalResourcesComment2 = "Presentaci&oacute;n de los otros profesores que organizan el curso (asistentes, 
-investigadores, proyectandos o doctorandos...), de la disponibilidad del personal, las instalaciones y el equipamiento 
+$langHumanAndPhysicalResourcesComment2 = "Presentaci&oacute;n de los otros profesores que organizan el curso (asistentes,
+investigadores, proyectandos o doctorandos...), de la disponibilidad del personal, las instalaciones y el equipamiento
 material e inform&aacute;tico disponible.";
 $langHumanAndPhysicalRessources = "Recursos humanos y f&iacute;sicos";
 $langInfo2Say = "Informaci&oacute;n para dar a los estudiantes";
@@ -41,9 +41,9 @@ $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langManager = "Responsable";
 $langMethodsOfEvaluation = "M&eacute;todos de evaluaci&oacute;n";
-$langMethodsOfEvaluationComment1 = "Precise detalles como el m&eacute;todo de evaluaci&oacute;n (examen escrito, oral, 
-proyectos, trabajos a entregar...), las fechas de los controles de evaluaci&oacute;n, fechas l&iacute;mite para la 
-entrega de los trabajos, cu&aacute;les ser&aacute;n los criterios de evaluaci&oacute;n, posible peso de los criterios 
+$langMethodsOfEvaluationComment1 = "Precise detalles como el m&eacute;todo de evaluaci&oacute;n (examen escrito, oral,
+proyectos, trabajos a entregar...), las fechas de los controles de evaluaci&oacute;n, fechas l&iacute;mite para la
+entrega de los trabajos, cu&aacute;les ser&aacute;n los criterios de evaluaci&oacute;n, posible peso de los criterios
 o categor&iacute;as de los criterios.";
 $langMinuteShort = "m&iacute;n.";
 $langModify = "Modificar";
@@ -60,23 +60,23 @@ $langPeriodHourShort = "h.";
 $langPlatformAdministration = "Administraci&oacute;n de la plataforma";
 $langPoweredBy = "Generado con";
 $langQualificationsAndGoals = "Capacidades y metas";
-$langQualificationsAndGoalsComment1 = "¿Cuales son las ayudas al aprendizaje?. Al final del curso, ¿de que nuevas capacidades y 
+$langQualificationsAndGoalsComment1 = "¿Cuales son las ayudas al aprendizaje?. Al final del curso, ¿de que nuevas capacidades y
 conocimientos dispondr&aacute; el estudiante?";
-$langQualificationsAndGoalsComment2 = "Presentaci&oacute;n de los objetivos generales y espec&iacute;ficos del curso, de las 
+$langQualificationsAndGoalsComment2 = "Presentaci&oacute;n de los objetivos generales y espec&iacute;ficos del curso, de las
 capacidades que se pretenden alcanzar.";
 $langQuestionPlan = "Cuestiones Clave";
 $langSecondShort = "seg.";
 $langStudent = "Estudiante";
 $langSupports = " Soporte ";
 $langSupportsComment1 = "¿Existe soporte para el curso?. ¿Que tipo de soporte va a dar?. ¿Abierto?. ¿Cerrado?.";
-$langSupportsComment2 = "Presentaci&oacute;n del soporte del curso. Presentaci&oacute;n de la bibliograf&iacute;a, 
+$langSupportsComment2 = "Presentaci&oacute;n del soporte del curso. Presentaci&oacute;n de la bibliograf&iacute;a,
 el lote de documentos o la bibliograf&iacute;a complementaria.";
 $langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
 $langTeachingTrainingActivities = "Actividades de entrenamiento y aprendizaje";
-$langTeachingTrainingActivitiesComment1 = "Qu&eacute; m&eacute;todos y qu&eacute; actividades dar&aacute;n soporte a 
+$langTeachingTrainingActivitiesComment1 = "Qu&eacute; m&eacute;todos y qu&eacute; actividades dar&aacute;n soporte a
 los objetivos definidos para el curso? Cu&aacute;l es el calendario de actividades?";
-$langTeachingTrainingActivitiesComment2 = "Presentaci&oacute;n de las actividades previstas (ex&aacute;menes oficiales, 
-participaci&oacute;n de los estudiantes esperada, trabajos pr&aacute;cticos, encuentros de laboratorio, visitas, 
+$langTeachingTrainingActivitiesComment2 = "Presentaci&oacute;n de las actividades previstas (ex&aacute;menes oficiales,
+participaci&oacute;n de los estudiantes esperada, trabajos pr&aacute;cticos, encuentros de laboratorio, visitas,
 colecci&oacute;n de informaci&oacute;n recopilada...).";
 $langTextEditorDisable = "Deshabilitar editor de texto";
 $langTextEditorEnable = "Habilitar editor de texto";

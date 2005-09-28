@@ -20,7 +20,6 @@ $langCourseDescription = "Scrivete la descrizione che comparirà nell\'elenco dei
 $langCourseHome = "Home del Corso";
 $langCourseManager = "Manager del corso";
 $langCourseTitle = "Titolo Corso";
-$langCourseWouldBeCreated = "Il tuo corso dovrebbe essere stato creato";
 $langCreate = "Creare";
 $langCreateSite = "Creare un corso";
 $langCreationMailNotificationBody = "Corso creato in ";
@@ -92,7 +91,7 @@ $langViewMode = "Vista";
 $langWiki = "Wiki";
 $langWork = "Lavori";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
-$lang_p_IfNothingHappendClickHere = "<small>Se dopo 30 secondi nulla è cambiato, clicca <a href=\"%s\">qui</a> ed attendi ancora</small>";
+$lang_p_IfNothingHappendClickHere = "Se dopo <u>30 secondi</u> nulla è cambiato, clicca <a href=\"%s\">qui</a> ed attendi ancora";
 $lang_p_aCategoryWouldBeSelected = "Devi scegliere una categoria. Se manca prego contattare <a href=\"%s\">l'amministratore della piattaforma</a>";
 $lang_p_platformManager = "Amministratore di %s";
 ?>

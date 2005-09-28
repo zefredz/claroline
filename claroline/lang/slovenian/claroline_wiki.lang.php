@@ -33,6 +33,7 @@ $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
 $langNameOfLang = "Array";
 $langNo = "Ne";
+$langNotAllowed = "Tu nimas dovoljenja";
 $langOk = "Ok";
 $langOneResp = "Eden od administratorjev tecaja";
 $langOtherCourses = "Seznam tecajev";

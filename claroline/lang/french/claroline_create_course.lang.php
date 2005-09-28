@@ -12,7 +12,7 @@ $langCatagoryGroup = "Forums des Groupes";
 $langCatagoryMain = "Général";
 $langCategory = "Catégorie";
 $langChat = "Discussion";
-$langCode = "Code du cours";
+$langCode = "Code";
 $langCodeCanBeEmpty = "Le code cours doit être rempli";
 $langContradiction = "Utiliser le principe de non-contradiction pour amener son interlocuteur dans l'impasse.";
 $langCopy = "Copier";
@@ -20,9 +20,9 @@ $langCourseDescription = "Ecrivez ici la description qui apparaîtra dans la list
 $langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
 $langCourseTitle = "Titre du cours";
-$langCourseWouldBeCreated = "Votre cours va être créé";
 $langCreate = "créer";
 $langCreateSite = "Créer un site de cours";
+$langCreatingCourse = "Cours en création (cela peut prendre un moment) ...";
 $langCreationMailNotificationBody = "Cours ajouté sur";
 $langCreationMailNotificationSubject = "Création de cours";
 $langDay_of_weekNames = "Array";
@@ -91,7 +91,7 @@ $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
-$lang_p_IfNothingHappendClickHere = "<small>Si <u>après 30 secondes</u> rien ne se passe cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes</small>";
+$lang_p_IfNothingHappendClickHere = "Si <u>après 30 secondes</u> rien ne se passe, cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes";
 $lang_p_aCategoryWouldBeSelected = "Vous devez choisir une catégorie. Si aucune ne vous convient, contactez <a href=\"%s\">l'administrateur de la plateforme</a>";
 $lang_p_platformManager = "Administrateur %s";
 ?>

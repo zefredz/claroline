@@ -122,6 +122,7 @@ $langNoModule = "Geen module";
 $langNoMoreModuleToAdd = "Alle modules van deze cursus zijn reeds gebruikt in dit leerpad.";
 $langNoSpace = "Upload is niet geslaagd. Niet genoeg ruimte op de harde schijf.";
 $langNoStartAsset = "Geen startvaardigheden gedefinieerd voor deze module.";
+$langNotAllowed = "U bent hier niet toegelaten";
 $langNotInstalled = "Er is een fout opgetreden.  Import van leerpad is mislukt.";
 $langNotice = "Merk op";
 $langOk = "Ok";

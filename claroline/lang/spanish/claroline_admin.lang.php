@@ -108,7 +108,7 @@ $langEnrollAsManager = "Inscribir como coordinador";
 $langEnrollAsStudent = "Inscribir como estudiante";
 $langEnrollToNewCourse = "Inscribir a un curso";
 $langEnrollUser = "Inscribir un usuario";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o 
+$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
 							si quiere conservar la actual";
 $langErrorCannotReadRSSFile = "Error : no es posible leer el RSS";
 $langErrorClassNotEmpty = "Esta clase contiene a&uacute;n alguna subclase, es necesario borrarlas primero";
@@ -175,10 +175,15 @@ $langNormalUser = "Normal";
 $langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
 $langNotUnregYourself = "¡No puede cambiar su propia configuraci&oacute;n!";
 $langNoticeInstallFolderBrowsable = "<b>Atenci&oacute;n:</b> el directorio que contiene el proceso de instalaci&oacute;n
+
 									de su plataforma Claroline (<code>claroline/install/</code>) es a&uacute;n
-									navegable v&iacute;a web. Esto significa que cualquiera puede relanzar el proceso de 
+
+									navegable v&iacute;a web. Esto significa que cualquiera puede relanzar el proceso de
+
 									instalaci&oacute;n de su plataforma, destrozando as&iacute; la instalaci&oacute;n que usted
-									previamente realiz&oacute;. Le recomendamos encarecidamente que establezca permisos que 
+
+									previamente realiz&oacute;. Le recomendamos encarecidamente que establezca permisos que
+
 									protejan este directorio o bien que lo elimine de su servidor.";
 $langNumero = "N&uacute;m.";
 $langOfficialCode = "C&oacute;digo Administrativo";
@@ -219,7 +224,7 @@ $langRegStudent = "Inscribirme a cursos (estudiante)";
 $langRegYou = "lo ha inscrito en este curso";
 $langRegister = "Registrar";
 $langRegisterCampusAdvice = "Por favor, verifique que la URL de su campus es accesible desde internet";
-$langRegisterLocalUrl = "Parece que la url de su campus es una url local. Es necesario que facilite una url accesible 
+$langRegisterLocalUrl = "Parece que la url de su campus es una url local. Es necesario que facilite una url accesible
 para poder registrar su sitio web en claroline.net<br /><br />
 Compruebe el valor de la 'Direcci&oacute;n web base' en su configuraci&oacute;n de Claroline.";
 $langRegisterMyCampus = "Registrar mi campus";

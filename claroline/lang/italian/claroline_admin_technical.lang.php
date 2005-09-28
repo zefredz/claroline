@@ -37,6 +37,7 @@ $langMysql_Repository = "Repository - MySql";
 $langNameOfLang = "Array";
 $langNoFunctionInThisSection = "Nessuna funzione in questa estensione";
 $langNoQuota = "No Quota";
+$langNotAllowed = "Non siete stato identificato come Responsabile del corso";
 $langOk = "Ok";
 $langOtherCourses = "Elenco dei corsi";
 $langPerhaps_with_others_directory = "anche con altre directory";

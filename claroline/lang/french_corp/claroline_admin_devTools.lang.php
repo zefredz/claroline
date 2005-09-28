@@ -93,6 +93,7 @@ $langNameOfLang = "Array";
 $langNewTopic = "Lancer un nouveau sujet";
 $langNoPsychology = "Non. l&acute;ironie socratique ne se joue pas sur le terrain de la psychologie, mais sur celui de l&acute;argumentation.";
 $langNoSeduction = "Non. Il ne s\'agit pas d\'une stratégie de séduction ou d\'une méthode par l&acute;exemple.";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
 $langNotFalse = "Cette réponse n\'est pas fausse. Il est exact que la mise en évidence de l&acute;ignorance de l&acute;interlocuteur se fait en mettant en évidence les contradictions auxquelles abouttisent ses thèses.";
 $langNumGroup = "Nombre de groupes par espace";
 $langNumGroupStudent = "Nombre de groupes dont peut faire partie un étudiant dans un espace";

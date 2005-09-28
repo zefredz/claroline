@@ -34,6 +34,7 @@ $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
 $langNoEx = "Jeszcze nie ma ¿adnych æwiczeñ";
 $langNoSpace = "£adowanie pliku nie powiod³o siê. Nie ma wystarczaj±cej przestrzeni w Twoim katalogu";
+$langNotAllowed = "You are not allowed here";
 $langNotice = "Notice";
 $langOk = "Ok";
 $langOtherCourses = "Lista kursów";

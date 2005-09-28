@@ -9,7 +9,7 @@ $l_here = "aqu&iacute;";
 $l_indextitle = "&Iacute;ndice del foro";
 $l_lastpost = "&Uacute;ltimo mensaje";
 $l_notify = "Avisar por correo electr&oacute;nico cuando hayan enviado mensajes de respuesta";
-$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
+$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje
 que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Puede ver el tema en:
@@ -76,6 +76,7 @@ $langForumUpdated = "Foro actualizado";
 $langForums = "Foros";
 $langGroupChatLink = "Chat del grupo";
 $langGroupDocumentsLink = "Documentos del grupo";
+$langGroupSpace = "&Aacute;rea de Grupo";
 $langGroupSpaceLink = "&Aacute;rea de Grupo";
 $langGroupWikiLink = "Wiki del grupo";
 $langGroups = "Grupos";
@@ -84,9 +85,6 @@ $langLastMsg = "&Uacute;ltimo mensaje";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLocked = "Bloqueado";
 $langLogin = "nombre de usuario";
-$langLoginBeforePost1 = "Poner mensajes en el foro, ";
-$langLoginBeforePost2 = "antes, debes ";
-$langLoginBeforePost3 = "entrar en el Curso";
 $langLogout = "Salir";
 $langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";

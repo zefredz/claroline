@@ -34,6 +34,7 @@ $langMyCourses = "Danh mục khoá học";
 $langNameOfLang = "Array";
 $langNoEx = "Chưa có bài tập";
 $langNoSpace = "Upload có lỗi. Không đủ chỗ trống trong thư mục";
+$langNotAllowed = "Not allowed";
 $langNotice = "Ghi chú";
 $langOk = "Ok";
 $langOtherCourses = "Danh mục khoá học";

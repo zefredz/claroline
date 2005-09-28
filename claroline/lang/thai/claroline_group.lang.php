@@ -25,6 +25,7 @@ $langMonthNames = "Array";
 $langMyCourses = "My courses";
 $langNameOfLang = "Array";
 $langNewTopic = "ตั้งกระทู้ใหม่";
+$langNotAllowed = "ไม่อนุญาต";
 $langOk = "ตกลง";
 $langOtherCourses = "รายชื่อรายวิชา";
 $langPoweredBy = "Powered by";

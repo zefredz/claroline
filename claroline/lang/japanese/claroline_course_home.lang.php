@@ -22,5 +22,6 @@ $langPoweredBy = "Powered by Claroline";
 $langStatistics = "統計";
 $langStudent = "student";
 $langUsers = "ユーザ";
+$langVisibility = "見えるようにする/見えないようにする";
 $langWork = "学生の文書たち";
 ?>
