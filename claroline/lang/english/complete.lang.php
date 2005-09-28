@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Author";
 $l_body = "Message Body";
 $l_click = "Click";
@@ -319,7 +319,7 @@ $langCourseTitle = "Course title";
 $langCourseWithoutAccess = "Courses not used";
 $langCourseWithoutProf = "Courses without a lecturer";
 $langCourseWithoutStudents = "Courses without student";
-$langCourseWouldBeCreated = "Your course would be created";
+$langCreatingCourse = "Creating course (it may take a while) ... ";
 $langCourse_Repository = "Course Repository";
 $langCourses = "Courses";
 $langCreate = "Create";
@@ -354,9 +354,9 @@ $langDBLogin = "Database User name";
 $langDBPassword = "Database Password";
 $langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
-The installer is going to create the main Claroline databases. 
-If you are limited by your database system administrator to use 
-only a single database, get back to the previous page 
+The installer is going to create the main Claroline databases.
+If you are limited by your database system administrator to use
+only a single database, get back to the previous page
 and select option 'single' for 'Database mode'.<BR><BR>
 ";
 $langDBUse = "Database usage";
@@ -419,7 +419,7 @@ $langDocContent = "<p>The Documents tool is similar to the File Manager of
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
  must be that your students have the corresponding software to read them.
  Some file types can contain viruses, it is your responsibilty not to
- upload virus contaminated files. It is a worthwhile precaution to check 
+ upload virus contaminated files. It is a worthwhile precaution to check
  documents with antivirus software before uploading them.</p>
 <hr />
 <h4>View modes</h4>
@@ -428,7 +428,7 @@ The Claroline document has 2 view mode
 <li>File list (default)</li>
 <li>Thumbnail</li>
 </ul>
-You can switch between 'file list' and 'thumbnail' mode simply by clicking on 
+You can switch between 'file list' and 'thumbnail' mode simply by clicking on
 the 'File list | Thumbnails' commands  on the right in the directory toolbar.
 <h4>The image viewer</h4>
 <ul>
@@ -456,7 +456,7 @@ The search result wil be displayed just beside the directory toolbar.
 </ul>
 <hr />
 <h4>Managing documents</h4>
-This tool has a collection of commands allowing you to upload, edit and 
+This tool has a collection of commands allowing you to upload, edit and
 organize your file ressources.
 </hr />
 <h4>Upload a document</h4>
@@ -468,11 +468,11 @@ Click on the 'Upload file' command in the upper left.
 Select the file on your computer using the 'Browse' button in the dialog box.
 </li>
 <li>
-Optionnaly, you can attach a comment to this document. It will be displayed 
+Optionnaly, you can attach a comment to this document. It will be displayed
 just below the document line.
 <blockquote><small>
 <i>Note</i> If you upload a file collection gathered in archive file in <i>ZIP</i> format,
-check the 'uncompress zipped (.zip) file on the server' option to extract them 
+check the 'uncompress zipped (.zip) file on the server' option to extract them
 automatically once the archive is uploaded in your course repositoy on the server.
 </small></blockquote>
 </li>
@@ -489,7 +489,7 @@ Click on the 'create hyperlink' command  in the upper side of your browser windo
 Fill the 'Name' field with a specific name to this hyperlink;
 </li>
 <li>
-Type the complete URL of the hyperlink 
+Type the complete URL of the hyperlink
 (example : http://my.domain/my/file.htm).
 </li>
 <li>
@@ -505,7 +505,7 @@ Validate by clicking on the 'OK' button.
 <ul>
 <li> Click on the 'Create document' command in the upper side of your browser windows.
 </li>
-<li> 
+<li>
 Fill appearing 'Document name' field with a a name for this document.
 </li>
 <li>
@@ -516,8 +516,8 @@ Click on the 'OK' button once finished.
 </li>
 </ul>
 <p>
-This command can be used for writing short documents. To write 
-longer texts we recommend you to use a more suitable tool on your personal 
+This command can be used for writing short documents. To write
+longer texts we recommend you to use a more suitable tool on your personal
 computer.
 </p>
 <h4>Rename a document, a directory or a hyperlink</h4>
@@ -528,7 +528,7 @@ computer.
 Type the new name in the field in the upper side of your browser window.
 </li>
 <li>
-Optionally, you can also add or modify a comment attached to this document. 
+Optionally, you can also add or modify a comment attached to this document.
 It will be displayed just below the document line.
 </li>
 <li>
@@ -537,7 +537,7 @@ Validate by clicking on the 'OK' button.
 </ul>
 <p>
 <b>Tip. </b>
-Documents are presented in alphabetical order. If you want to present them in a 
+Documents are presented in alphabetical order. If you want to present them in a
 different order, number them: 01, 02, 03...
 </p>
 <h4>Delete a document, a directory or a hyperlink</h4>
@@ -556,7 +556,7 @@ Click on the icon beside the document in the 'Visible/invisible' column.
 The element still exists but it is not visible by students anymore.
 </li>
 <li>
-To make it invisible back again, click once more on the icon beside the document 
+To make it invisible back again, click once more on the icon beside the document
 in the 'Visible/invisible' column.
 </li>
 </ul>
@@ -596,9 +596,9 @@ Move a document a directory or a hyperlink
 Click on on the icon beside the concernent element in the 'Move' column.
 </li>
 <li>
-Choose the directory into which you want to move the element in 
+Choose the directory into which you want to move the element in
 the corresponding scrolling menu (top left)
-<br />Note: the word 'root' means you cannot go higher than that level in the 
+<br />Note: the word 'root' means you cannot go higher than that level in the
 document tree of the server).
 </li>
 <li>
@@ -746,7 +746,7 @@ This tool allow you to create online exercises composed of a list of questions. 
 <hr />
 <h4>Questions</h4>
 <h4>Multiple choice questions</h4>
-<p>There are two kind of multiple choice question&nbsp;: 
+<p>There are two kind of multiple choice question&nbsp;:
 </p>
 <ul>
 <li> Question with unique answer</li>
@@ -1492,7 +1492,7 @@ $langRemoveAdminLevel = "No longer Admin";
 $langRename = "Rename";
 $langReplaceAttachedFile = "Replace attached file";
 $langReply = "Answer";
-$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
+$langRequestOfCourseCreatorStatus = 'Request course creation status';
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "Required";
 $langRequirements = "Requirements";
@@ -1720,17 +1720,17 @@ $langUserContent = "<p>The 'Users' tool displays user informations in a digest t
 </li>
 <li>
 <b>Roles</b>.
-Roles have no computer related function. They do not give rights on 
-operating the system. They just indicate to humans who is who. You can 
-modify them by clicking on the icon in the 'Edit' column, then typing whatever 
+Roles have no computer related function. They do not give rights on
+operating the system. They just indicate to humans who is who. You can
+modify them by clicking on the icon in the 'Edit' column, then typing whatever
 you want: lecturer, assistant, student, visitor, expert...
 </li>
 <li>
-<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can 
+<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can
 modify this status by clicking on the icon in the 'Edit' column.
 </li>
 <li>
-<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can 
+<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can
 modify this status by clicking on the icon in the 'Edit' column.
 </li>
 <li>
@@ -2002,7 +2002,7 @@ $lang_or_search_from_keyword = "Search from keyword";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
 $lang_p_FeedOf_s = "Rss feed for %s";
 $lang_p_FillCourses = "Fill %s with %s";
-$lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
+$lang_p_IfNothingHappendClickHere = "If after while no message appears confirming the course creation, please click <a href=\"%s\">here</a>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_category_s_created = "Category %s created";

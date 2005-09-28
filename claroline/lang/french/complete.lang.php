@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Auteur";
 $l_body = "Message";
 $l_click = "Cliquez";
@@ -98,14 +98,14 @@ $langAdvanced = "Avancé";
 $langAgain = "Essayez encore !";
 $langAgenda = "Agenda";
 $langAgendaNextEvents = "Agenda : prochains événements";
-$langAlertBlockingMakedInvisible = "Ce module est bloquant, 
-le rendre invisible permettra aux apprenants d'accéder 
- aux modules suivants du parcours sans devoir réussir celui-ci. 
+$langAlertBlockingMakedInvisible = "Ce module est bloquant,
+le rendre invisible permettra aux apprenants d'accéder
+ aux modules suivants du parcours sans devoir réussir celui-ci.
 
 Confirmer ?";
-$langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant. 
-le rendre invisible permettra aux apprenants d'accéder 
- aux parcours suivants sans devoir réussir celui-ci. 
+$langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant.
+le rendre invisible permettra aux apprenants d'accéder
+ aux parcours suivants sans devoir réussir celui-ci.
 
 Confirmer ?";
 $langAll = "Tout";
@@ -307,11 +307,11 @@ $langCourseAccess = "Accès au cours";
 $langCourseAdministratorOnly = "Réservé à l'administrateur du cours";
 $langCourseContent = "Contenu du cours";
 $langCourseContentComment1 = "Quelle est l'importance des différents contenus à traiter dans le cadre du cours&nbsp;?
-Quel est le niveau de difficulté de ces contenus&nbsp;? 
-Comment structurer l'ensemble de la matière&nbsp;?  
-Quelle sera la séquence des contenus&nbsp;? 
+Quel est le niveau de difficulté de ces contenus&nbsp;?
+Comment structurer l'ensemble de la matière&nbsp;?
+Quelle sera la séquence des contenus&nbsp;?
 Quelle sera la progression dans les contenus&nbsp;?";
-$langCourseContentComment2 = "Présentation de la table des matières du cours, de la structuration du 
+$langCourseContentComment2 = "Présentation de la table des matières du cours, de la structuration du
 contenu, de la progression et du calendrier";
 $langCourseCreate = "Créer un site de cours";
 $langCourseCreator = "Créateur de cours";
@@ -329,7 +329,7 @@ $langCourseTitle = "Titre du cours";
 $langCourseWithoutAccess = "Cours inutilisés";
 $langCourseWithoutProf = "Cours sans gestionnaire";
 $langCourseWithoutStudents = "Cours sans étudiants";
-$langCourseWouldBeCreated = "Votre cours va être créé";
+$langCreatingCourse = "Cours en création (cela peut prendre un moment) ...";
 $langCourse_Repository = "Dossier du cours";
 $langCourses = "Cours";
 $langCreate = "créer";
@@ -413,8 +413,8 @@ $langDescriptionComment1 = "Quelle est la place et la spécificité du cours dans 
 Existe-t-il des cours pré-requis&nbsp;?
 Quels sont les liens avec les autres cours&nbsp;?";
 $langDescriptionComment2 = "
-Information permettant d'identifier le cours 
-(sigle, titre, nombre d'heure de cours, de TP, ...) 
+Information permettant d'identifier le cours
+(sigle, titre, nombre d'heure de cours, de TP, ...)
 et l'enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
 <br>
 Présentation générale du cours dans le programme.";
@@ -506,7 +506,7 @@ Cliquez sur la commande 'créer un lien hypertexte' dans la partie supérieure de 
 Remplissez le champs 'Nom' avec un nom spécifique pour ce lien hypertexte;
 </li>
 <li>
-Tapez l'URL complète de l'hyperlien 
+Tapez l'URL complète de l'hyperlien
 (exemple : http://mon.domaine/mon/fichier.htm).
 </li>
 <li>
@@ -522,7 +522,7 @@ Validez en cliquant sur le bouton 'OK'.
 <ul>
 <li> Cliquez sur la commande 'Créer un document' dans la partie supérieure de votre navigateur.
 </li>
-<li> 
+<li>
 Remplissez le nom d'apparation 'Nom du document' pour ce document.
 </li>
 <li>
@@ -573,7 +573,7 @@ Cliquez sur l'icône à côté du document dans la colonne 'Visibilité'.
 La ressource exitera toujours mais sera plus visible pour les utilisateurs du cours.
 </li>
 <li>
-Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document 
+Pour la rendre visible à nouveaux, cliquez simplement de nouveau sur l'icône à côté du document
 dans la colonne 'Visibilité'.
 </li>
 </ul>
@@ -592,7 +592,7 @@ Validez en cliquant sur le bouton 'OK'.
 </li>
 </ul>
 <p>
-Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'. 
+Pour effacer un commentaire, cliquez sur l'icône à côté du document dans la colonne 'Editer', effacez l'ancien commentaire et cliquez sur le bouton 'OK'.
 <h4>Créer un répertoire</h4>
 <ul>
 <li>Cliquez sur la commande 'Créer un répertoire' dans la partie supérieure de votre navigateur.
@@ -766,7 +766,7 @@ Il vous faut commencer par donner un intitulé à votre exercice, ainsi qu.une éve
 </li><li> Essais autorisés&nbsp;: précisez si les étudiants peuvent faire l'exerice autant de fois que souhaité ou si le nombre d'essais est limité
 </li><li> Essais anonymes&nbsp;: si les essais anonymes sont autorisé aucun tracking ne sera conservé et n'importe qui pourra essayer de faire l'exercice, dans le cas contraire les résultats de toutes les tentatives seront conservés et seuls les apprenants inscrits au cours pourront réaliser l'exercice.
 
-</li><li> Après le test, afficher les réponses&nbsp;: 
+</li><li> Après le test, afficher les réponses&nbsp;:
 <ul><li> Oui&nbsp;: la correction est affichée à l'utilisateur après chacune de ses tentatives
 </li><li> Apres la dernière tentative autorisée&nbsp;: la correction ne sera affichée que lorsque l'apprenant aura atteint le nombre maximum d'essais autorisés
 </li><li> Non&nbsp;: aucune correction affichée
@@ -1035,7 +1035,7 @@ $langGroupSpaceLink = "Espace du groupe";
 $langGroupStudentsInGroup = "étudiants inscrits dans les groupes";
 $langGroupStudentsRegistered = "étudiants inscrits au cours";
 $langGroupThisSpace = "Espace de ce groupe";
-$langGroupTooMuchMembers = "Le nombre de membres proposé excède le nombre maximum que vous avez fixé. 
+$langGroupTooMuchMembers = "Le nombre de membres proposé excède le nombre maximum que vous avez fixé.
 	La composition du groupe n'a pas été modifiée. Vous pouvez modifier le nombre maximum ci-dessous.";
 $langGroupTools = "Outils";
 $langGroupTutor = "Tuteur";
@@ -1088,7 +1088,7 @@ $langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de pos
 
 <h4>Correction automatique</h4>
 </p><p>En plus de la correction manuelle que le responsable de cours peut faire pour chaque soumission il est possible de mettre une correction automatiquement à disposition des apprenants.  Pour ce faire il faut entrer dans un travail et cliquer sur \"Editer la correction automatique\"
-</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;: 
+</p><p>La correction automatique peut être un fichier, un texte ou les deux.  Le responsable de cours peut choisir quand cette correction automatique sera montrée aux apprenants&nbsp;:
 </p>
 
 <ul><li> à partir de la date de fin de la session
@@ -1106,7 +1106,7 @@ $langHelpAssignmentContent = "<p>L'outil de travaux permet aux apprenants de pos
 </li><li> <strong>Delete</strong>&nbsp;: permet au responsable de cours d'effacer une soumission
 </li><li> <strong>Visible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est visible à toutes les personnes qui ont accès au cours.  Cliquer sur cette icone rend la soumission invisible
 
-</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission. 
+</li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission.
 </li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
 </li></ul>";
 $langHelpGroups = "Gestion des groupes";
@@ -1139,11 +1139,11 @@ $langHomePageTextZone = "Zones de texte de la page d'accueil";
 $langHour = "Heure";
 $langHumanAndPhysicalResourcesComment1 = "
 Quelles sont les ressources humaines et physiques disponibles&nbsp;?
-Quelle sera la nature de l'encadrement&nbsp;? 
+Quelle sera la nature de l'encadrement&nbsp;?
 Que peuvent attendre les étudiants de l'équipe d'encadrement ou de l'encadrement de l'enseignant&nbsp;?";
-$langHumanAndPhysicalResourcesComment2 = "Présentation des autres 
-enseignants qui vont encadrer le cours (assistants, chercheurs, 
-étudiants-moniteurs,...), des disponibilités des personnes, des locaux et des 
+$langHumanAndPhysicalResourcesComment2 = "Présentation des autres
+enseignants qui vont encadrer le cours (assistants, chercheurs,
+étudiants-moniteurs,...), des disponibilités des personnes, des locaux et des
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
 $langIfNotRedirect = "Si la redirection ne fonctionne pas ";
@@ -1175,7 +1175,7 @@ $langIntroEditToolList = "Sélectionnez les outils que vous voulez activer.
 Les outils invisibles seront grisés dans votre page d'accueil du cours.";
 $langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
 $langIntroText = "Pour envoyer un message sélectionnez un groupe d'utilisateurs (indiqués avec une étoile) ou des utilisateur de la liste de gauche.";
-$langIntroWork = "Cet outil est un espace de publication. 
+$langIntroWork = "Cet outil est un espace de publication.
 <br />Il permet au gestionnaire de cours de créer différents travaux dans lesquels chaque étudiant peut envoyer un document (Word, Excel, HTML... ) vers le site du cours, ou composer un texte, afin de le rendre accessible aux autres étudiants ainsi qu'au gestionnaire.
 <br />Vous pourrez ensuite ajouter un commentaire ou une correction à chaque soumission de l'étudiant.
 <br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";
@@ -1290,9 +1290,9 @@ pour vous rappeler votre nom d’utilisateur et votre mot de passe.";
 $langMessageToSelectedUsers = "Message pour certains  utilisateurs.";
 $langMessages = "Messages";
 $langMethodsOfEvaluation = "Modalités d'évaluation";
-$langMethodsOfEvaluationComment1 = "Précisions quant aux moyens d'évaluation (examens écrits, oraux, projets, 
-travaux à remettre, ...), quant au(x) moment(s) d'évaluation formative prévu(s), 
-échéances pour la remise des travaux, aux critères d'évaluation, éventuellement 
+$langMethodsOfEvaluationComment1 = "Précisions quant aux moyens d'évaluation (examens écrits, oraux, projets,
+travaux à remettre, ...), quant au(x) moment(s) d'évaluation formative prévu(s),
+échéances pour la remise des travaux, aux critères d'évaluation, éventuellement
 la pondération des critères ou des catégories de critères.";
 $langMin = "Minimum : ";
 $langMinuteShort = "min.";
@@ -1650,10 +1650,10 @@ $langSubscriptionAllowedOnly = "Inscription permise seulement";
 $langSubscriptionDeniedOnly = "Inscription interdite seulement";
 $langSupportForum = "Forum de support";
 $langSupports = "Supports";
-$langSupportsComment1 = "Existe-t-il un support de cours ? Quel type de support vais-je privilégier ? 
+$langSupportsComment1 = "Existe-t-il un support de cours ? Quel type de support vais-je privilégier ?
 Ouvert ? Fermé ?";
-$langSupportsComment2 = "Présentation du ou des supports de 
-cours. Présentation de la bibliographie, du portefeuille de documents ou 
+$langSupportsComment2 = "Présentation du ou des supports de
+cours. Présentation de la bibliographie, du portefeuille de documents ou
 d'une bibliographie complémentaire.";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
 $langTake = "prendre";
@@ -1661,12 +1661,12 @@ $langTargetFac = "Il s'agit de la faculté, du département, de l'école... dans le
 $langTeacherQty = "Nbr. professeurs";
 $langTeachers = "gestionnaires";
 $langTeachingTrainingActivities = "Activités d'enseignement-apprentissage";
-$langTeachingTrainingActivitiesComment1 = "Quelles méthodes et quelles activités vont-elles favoriser l'atteinte des 
+$langTeachingTrainingActivitiesComment1 = "Quelles méthodes et quelles activités vont-elles favoriser l'atteinte des
 objectifs définis pour le cours&nbsp;?
 Quel est le calendrier des activités&nbsp;?";
-$langTeachingTrainingActivitiesComment2 = "Présentation des activités prévues 
-(exposés magistraux, participation attendue des étudiants, travaux pratiques, 
-séances de laboratoire, visites, recueil d'informations sur le terrain, 
+$langTeachingTrainingActivitiesComment2 = "Présentation des activités prévues
+(exposés magistraux, participation attendue des étudiants, travaux pratiques,
+séances de laboratoire, visites, recueil d'informations sur le terrain,
 ...).";
 $langTechAdmin = "Administration technique";
 $langTechnical = "Outils techniques";
@@ -1786,7 +1786,7 @@ Les rôles n'ont pas de fonction technique particulière. Ils ne donnent pas de dr
 </li>
 
 <li>
-<b>Tuteur de groupe</b>. Tuteur de groupe est un statut qui permet à l'utilistateur d'encadrer un groupe de plus près. Cela lui donne la permission d'accéder aux espaces de tous les groupes, de voir l'ensembles des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.  
+<b>Tuteur de groupe</b>. Tuteur de groupe est un statut qui permet à l'utilistateur d'encadrer un groupe de plus près. Cela lui donne la permission d'accéder aux espaces de tous les groupes, de voir l'ensembles des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne 'Editer'.
 </li>
 
 <li>
@@ -2065,7 +2065,7 @@ $lang_or_search_from_keyword = "Chercher à partir d'un mot clé";
 $lang_p_ErrorOnBuild_S_for_S = "Erreur dans la construction de <em>%s</em> pour <B>%s</B>";
 $lang_p_FeedOf_s = "Flux rss de %s";
 $lang_p_FillCourses = "Remplissage de %s avec %s";
-$lang_p_IfNothingHappendClickHere = "<small>Si <u>après 30 secondes</u> rien ne se passe cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes</small>";
+$lang_p_IfNothingHappendClickHere = "Si <u>après 30 secondes</u> rien ne se passe, cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes";
 $lang_p_PropForConfigCommited = "Les propriétés  %s (%s) sont effectives sur le serveur.";
 $lang_p_aCategoryWouldBeSelected = "Vous devez choisir une catégorie. Si aucune ne vous convient, contactez <a href=\"%s\">l'administrateur de la plateforme</a>";
 $lang_p_category_s_created = "Catégorie de forum %s créée";

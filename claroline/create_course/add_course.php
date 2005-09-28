@@ -503,9 +503,9 @@ elseif($display == DISP_RESULT)
 } // if all fields fullfilled
 elseif ($display==DISP_WAIT)
 {
-    $messageString = '<p>'.$langCourseWouldBeCreated.'</p>'
-                   . '<p align="center"><img src="'.$imgRepositoryWeb.'processing.gif"></p>'
-                   . '<p><small>'.sprintf($lang_p_IfNothingHappendClickHere,$param).'</small></p>';
+    $messageString = '<p>' . $langCreatingCourse . '</p>'
+                   . '<p align="center"><img src="' . $imgRepositoryWeb . 'processing.gif" alt="process...." height="10px" width="66px" ></p>'
+                   . '<p><small>' . sprintf($lang_p_IfNothingHappendClickHere,$param) . '</small></p>';
 
     echo claro_disp_message_box($messageString);
 }
