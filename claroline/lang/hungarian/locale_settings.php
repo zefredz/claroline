@@ -8,13 +8,13 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @package LANG-EN
+ * @package LANG-HU
  *
  * @author Claro team <cvs@claroline.net>
  */
 
-$iso639_1_code = "en";
-$iso639_2_code = "eng";
+$iso639_1_code = "hu";
+$iso639_2_code = "hun";
 
 unset($langNameOfLang);
 unset($langDay_of_weekNames);
@@ -66,12 +66,11 @@ $langMonthNames['init']  = array('J', 'F', 'M', 'Á', 'M', 'J', 'J', 'A', 'S', 'O
 $langMonthNames['short'] = array('Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sze', 'Okt', 'Nov', 'Dec');
 $langMonthNames['long'] = array('Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December');
 
-// Voir http://www.php.net/manual/en/function.strftime.php pour la variable
-// ci-dessous
+// see http://www.php.net/manual/en/function.strftime.php 
 
 $dateFormatShort =  "%b. %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
+$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p'; // <- Don't forget to translate _at_
 $dateTimeFormatShort = "%b. %d, %y %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
 
