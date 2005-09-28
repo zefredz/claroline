@@ -281,32 +281,32 @@ echo claro_disp_tool_title($nameTools);
 if (isset($newQuestion) || (isset($modifyQuestion)))
 {
 	// statement management
-	include('statement_admin.inc.php');
+	include(dirname(__FILE__).'/statement_admin.inc.php');
 }
 
 if(isset($modifyAnswers) || (isset($modifyAnswers)))
 {
 	// answer management
-	include('answer_admin.inc.php');
+	include(dirname(__FILE__).'/answer_admin.inc.php');
 }
 
 if(isset($editQuestion) || isset($usedInSeveralExercises))
 {
 	// question management
-	include('question_admin.inc.php');
+	include(dirname(__FILE__).'/question_admin.inc.php');
 }
 
 if(!isset($newQuestion) && !isset($modifyQuestion) && !isset($editQuestion) && !isset($modifyAnswers))
 {
 	// exercise management
-	include('exercise_admin.inc.php');
+	include(dirname(__FILE__).'/exercise_admin.inc.php');
 
 	if( !isset($modifyExercise) )
 	{
 		// question list management
-		include('question_list_admin.inc.php');
+		include(dirname(__FILE__).'/question_list_admin.inc.php');
 	}
 }
 
-@include($includePath.'/claro_init_footer.inc.php');
+include($includePath.'/claro_init_footer.inc.php');
 ?>
