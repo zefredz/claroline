@@ -115,8 +115,7 @@ Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                 unofficial greek community website : 
                                 http://www.claroline.gr)
 
-Hungarian translation :         Janos Foldessy & Peter Fuchs,
-                                Balázs Györök (gyorok.balazs@vgszi.szie.hu)
+Hungarian translation :         Balázs Györök (gyorok.balazs@vgszi.szie.hu)
 
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
