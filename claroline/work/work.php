@@ -120,7 +120,7 @@ if( !empty($cmd) )
 		}
 		else
 		{
-		    $assignment_data['description'] = trim( strip_tags($_REQUEST['description'], $allowedTags ) );
+		    $assignment_data['description'] = trim( $_REQUEST['description'], $allowedTags );
 		}
 		
 		$assignment_data['start_date'] = $_REQUEST['startYear'].'-'
@@ -571,6 +571,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         if ( strlen($anAssignment['description']) > 500 )
         {
+			// if the text needs to be cutted remove html tags
             $desc = $anAssignment['description'];
 			// add spaces before and after tags so that stripped text will have some air
    			$desc = preg_replace('/</',' <',$desc);
