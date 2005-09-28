@@ -259,13 +259,14 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             if ( sizeof($imgFilePath) > 0)
             {
-                $dialogBox .= "<br><b>".$langMissingImagesDetected."</b><br>\n"
-                             ."<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\" "
-                             ."enctype=\"multipart/form-data\">\n"
-                             ."<input type=\"hidden\" name=\"cmd\" value=\"submitImage\">\n"
-                             ."<input type=\"hidden\" name=\"relatedFile\""
-                             ."value=\"".$_REQUEST['cwd']."/".$uploadedFileName."\">\n"
-                             ."<table border=\"0\">\n";
+                $dialogBox .= '<br /><b>'.$langMissingImagesDetected.'</b><br />'."\n"
+                             .'<form method="post" action="'.$_SERVER['PHP_SELF'].'" '
+                             .'enctype="multipart/form-data">'."\n"
+                             .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
+                             .'<input type="hidden" name="cmd" value="submitImage">'."\n"
+                             .'<input type="hidden" name="relatedFile" '
+                             .'value="'.$_REQUEST['cwd'].'/'.$uploadedFileName.'">'."\n"
+                             .'<table border="0">'."\n";
 
                 foreach($imgFilePath as $thisImgKey => $thisImgFilePath )
                 {
