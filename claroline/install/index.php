@@ -63,9 +63,9 @@ include ($newIncludePath . 'lib/claro_main.lib.php');
 
 claro_unquote_gpc();
 
-if (!empty($_GET))      {extract($_GET, EXTR_OVERWRITE);}
-if (!empty($_POST))     {extract($_POST, EXTR_OVERWRITE);}
-if (!empty($_SERVER))     {extract($_SERVER, EXTR_OVERWRITE);}
+if (count($_GET) > 0)      {extract($_GET, EXTR_OVERWRITE);}
+if (count($_POST) > 0)     {extract($_POST, EXTR_OVERWRITE);}
+if (count($_SERVER) > 0)   {extract($_SERVER, EXTR_OVERWRITE);}
 
 $panelSequence  = array(
 DISP_WELCOME,
