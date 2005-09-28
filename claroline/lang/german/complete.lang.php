@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Autor";
 $l_body = "Inhalt des Postings";
 $l_click = "Klicken Sie";
@@ -97,14 +97,14 @@ $langAdvanced = "erweitert";
 $langAgain = "Versuchen Sie es noch einmal!";
 $langAgenda = "Termine/Ereignisse";
 $langAgendaNextEvents = "Meine nächsten Termine";
-$langAlertBlockingMakedInvisible = "Dieses Modul ist gesperrt. 
-Wenn Sie es unsichtbar machen, haben die Teilnehmer die Möglichkeit 
- das nächste Modul aufzurufen, ohne das aktuelle Modul zu beenden. 
+$langAlertBlockingMakedInvisible = "Dieses Modul ist gesperrt.
+Wenn Sie es unsichtbar machen, haben die Teilnehmer die Möglichkeit
+ das nächste Modul aufzurufen, ohne das aktuelle Modul zu beenden.
 
 Okay ?";
-$langAlertBlockingPathMadeInvisible = "Dieser Pfad ist gespert. 
-Wenn Sie ihn unsichtbar machen, haben die Teilnehmer die Möglichkeit 
- den nächsten Lenrpfad aufzurufen, ohne den aktuellen Lernpfad zu beenden. 
+$langAlertBlockingPathMadeInvisible = "Dieser Pfad ist gespert.
+Wenn Sie ihn unsichtbar machen, haben die Teilnehmer die Möglichkeit
+ den nächsten Lenrpfad aufzurufen, ohne den aktuellen Lernpfad zu beenden.
 
 Okay ?";
 $langAll = "Alle";
@@ -342,14 +342,14 @@ $langDBLogin = "Datenbank Username";
 $langDBPassword = "Datenbank Passwort";
 $langDBSetting = "MySQL Datenbankeinstellungen";
 $langDBSettingNamesIntro = "
-				Install script will create main claroline databases. 
-				You can create different database 
-				for tracking and PhpMyAdmin extension if you want 
-				or gathering all these stuff in one database, like you want. 
-				Afterwards, Claroline will create a new database for each new course created. 
+				Install script will create main claroline databases.
+				You can create different database
+				for tracking and PhpMyAdmin extension if you want
+				or gathering all these stuff in one database, like you want.
+				Afterwards, Claroline will create a new database for each new course created.
 				You can specify a prefix for these database names.
 				<p>
-				If you are allowed to use only one database by your database system administrator, 
+				If you are allowed to use only one database by your database system administrator,
 				get back to the previous page and select option \"Single\"
 				</p>
 				";
@@ -832,7 +832,7 @@ $langHeading = "Überschrift";
 $langHelp = "Hilfe";
 $langHelpAssignment = "Hilfezuordnung";
 $langHelpAssignmentContent = "<p>
-Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können. 
+Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können.
 <br /><br />
 
 Jeder Upload-Bereich kann verschiedene Ziele und Anforderungen haben: die Publikation muss eine Datei, ein Text oder eine Datei und ein Text sein, die Publikation kann für eine Gruppe statt für einen einzelnen Nutzer gemacht werden, ....
@@ -862,7 +862,7 @@ Lernende haben die Möglichkeit, ihre Arbeiten nach der Veröffentlichung zu verän
 </li><li> the assignment type&nbsp;:
 
 <ul><li> Individueller Modus&nbsp;: jeder authentifizierte Nutzer kann eine Veröffentlichung hochladen
-</li><li> Gruppenmodus&nbsp;: Der Nutzer muss wenigestens in einer Gruppe des Kurses Mitglied sein, um etwas hochzuladen, und die Veröffentlichung erfolgt im Namen der Gruppe 
+</li><li> Gruppenmodus&nbsp;: Der Nutzer muss wenigestens in einer Gruppe des Kurses Mitglied sein, um etwas hochzuladen, und die Veröffentlichung erfolgt im Namen der Gruppe
 </li></ul>
 </li><li> Erlaubnis, nach dem Enddatum zu veröffentlichen
 </li></ul>
@@ -876,9 +876,9 @@ Lernende haben die Möglichkeit, ihre Arbeiten nach der Veröffentlichung zu verän
 
 <hr />
 <h4>Arbeiten</h4>
-<p>Arbeiten sind die Veröffentlichungen, die vom Nutzer hochgeladen werden. 
+<p>Arbeiten sind die Veröffentlichungen, die vom Nutzer hochgeladen werden.
 </p>
-<p> Für jede Aufgabe zeigt das Tool eine Liste aller registrierten Nutzer dieses Kurses und für 
+<p> Für jede Aufgabe zeigt das Tool eine Liste aller registrierten Nutzer dieses Kurses und für
 jeden Nutzer den Titel der ersten veröfftlichten Arbeit, die Anzahl der Veröffentlichungen und die Anzahl der Feedbacks.
 Die Liste der Veröffentlichungen ist mit dem Nutzer verbunden und die Arbeiten können durch Anklicken des Nutzernames angesehen werden.</p>
 <p><strong>Eine Arbeit einreichen</strong></p>
@@ -1052,8 +1052,8 @@ $langMaxStudentGroup = "Max. Anzahl von Teilnehmern p. Gruppe";
 $langMaximum = "Maximal : ";
 $langMessage = "Wenn Sie das Test Forum entfernen, wird die aktuelle Meldung auch entfernt.";
 $langMessageSubscribeDone_p_firstname_lastname = "
-Guten Tag %s, %s. 
-Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail 
+Guten Tag %s, %s.
+Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail
 mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br>
 Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.";
 $langMessageToSelectedUsers = "Nachrichten an ausgewählte Benutzer";
@@ -1768,7 +1768,7 @@ $lang_or_search_from_keyword = "Suche nach Schlagwort";
 $lang_p_ErrorOnBuild_S_for_S = "Fehler beim Erstellen von <em>%s</em> für <B>%s</B>";
 $lang_p_FeedOf_s = "Rss feed for %s";
 $lang_p_FillCourses = "Ausfüllen %s mit %s";
-$lang_p_IfNothingHappendClickHere = "<small>Wenn sich nach 30 Sekunden noch nichts verändert hat, dann <a href=\"%s\">klicken Sie bitte hier</a> und warten nocheinmal.</small>";
+$lang_p_IfNothingHappendClickHere = "Wenn sich <u>nach 30 Sekunden</u> noch nichts verändert hat, dann <a href=\"%s\">klicken Sie bitte hier</a> und warten nocheinmal.";
 $lang_p_PropForConfigCommited = "Eigenschaften für %s (%s) sind jetzt auf dem Server aktiv.";
 $lang_p_aCategoryWouldBeSelected = "Sie müssen eine Kategorie auswählen. Wenn eine Kategorie fehlt, dann kontaktieren Sie bitte den <a href=\"%s\">Plattform-Administrator</a>.";
 $lang_p_category_s_created = "Kategorie %s erstellt";

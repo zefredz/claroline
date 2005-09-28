@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Autor";
 $l_body = "Corpo da \$1_message";
 $l_click = "Premer co rato";
@@ -9,8 +9,8 @@ $l_here = "aqu&iacute;";
 $l_indextitle = "&Iacute;ndice do foro";
 $l_lastpost = "&Uacute;ltimo \$1_post";
 $l_notify = "Enviar notificaci&oacute;n por correo electr&oacute;nico cando env&iacute;en mensaxes de resposta";
-$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque 
-					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e 
+$l_notifybody = "Estimado/a \$m[username]Recibiu vostede este correo electr&oacute;nico porque
+					unha mensaxe que enviou &oacute;s foros de \$sitename foi respostada, e
 					vostede solicitara previamente que se lle notificase este feito.
 
 					Pode vostede ve-lo tema de conversa en:
@@ -76,7 +76,8 @@ $langAddOneModuleButton = "Engadir m&oacute;dulo";
 $langAddTutors = "Lista de usuarios administradores";
 $langAddUser = "Crear un novo usuario";
 $langAddUserOneByOne = "Os novos usuarios recibirán un correo electrónico co seu nome de usuario e contrasinal.";
-$langAddWrongAnswers = "Engadir respostas err&oacute;neas para desplegar listas <small>(opcional. 
+$langAddWrongAnswers = "Engadir respostas err&oacute;neas para desplegar listas <small>(opcional.
+
 						Unha resposta err&oacute;nea por li&ntilde;a)</small>";
 $langAdd_users = "Engadir usuarios";
 $langAddedExternalTool = "Ferramenta externa engadida";
@@ -102,16 +103,16 @@ $langAdvanced = "Avanzado";
 $langAgain = "Int&eacute;nteo de novo!";
 $langAgenda = "Axenda";
 $langAgendaNextEvents = "Pr&oacute;ximos eventos na axenda";
-$langAlertBlockingMakedInvisible = "Este m&oacute;dulo est&aacute; bloqueado. 
-Fac&eacute;ndoo invisible 
-   											permitiralle &oacute;s estudantes acceder &oacute;s m&oacute;dulos 
-											seguintes sen ter que completar este. 
+$langAlertBlockingMakedInvisible = "Este m&oacute;dulo est&aacute; bloqueado.
+Fac&eacute;ndoo invisible
+   											permitiralle &oacute;s estudantes acceder &oacute;s m&oacute;dulos
+											seguintes sen ter que completar este.
 
 Confirmar ?";
-$langAlertBlockingPathMadeInvisible = "Esta secuencia est&aacute; bloqueado. 
-Fac&eacute;ndoa invisible 
-   											permitiralle &oacute;s estudantes acceder &aacute;s secuencias 
-											seguintes sen ter que completar esta. 
+$langAlertBlockingPathMadeInvisible = "Esta secuencia est&aacute; bloqueado.
+Fac&eacute;ndoa invisible
+   											permitiralle &oacute;s estudantes acceder &aacute;s secuencias
+											seguintes sen ter que completar esta.
 
 Confirmar ?";
 $langAll = "Todos";
@@ -142,9 +143,9 @@ $langAnnEmpty = "A secci&oacute;n de Anuncios foi completamente baleirada";
 $langAnnModify = "O anuncio foi modificado";
 $langAnnouncement = "Anuncios";
 $langAnonymous = "An&oacute;nimo";
-$langAnonymousAttemptsAllowed = "Permitido : non grava-los nomes de usuario no rexistro de estat&iacute;sticas, os usuarios 
+$langAnonymousAttemptsAllowed = "Permitido : non grava-los nomes de usuario no rexistro de estat&iacute;sticas, os usuarios
 								an&oacute;nimos poder&aacute;n face-lo exercicio.";
-$langAnonymousAttemptsNotAllowed = "Non permitido : grava-los nomes de usuario no rexistro de estat&iacute;sticas, os 
+$langAnonymousAttemptsNotAllowed = "Non permitido : grava-los nomes de usuario no rexistro de estat&iacute;sticas, os
 									usuarios an&oacute;nimos non poder&aacute;n face-lo exercicio.";
 $langAnonymousUserAccessCount = "Conta de accesos an&oacute;nimos : ";
 $langAnswer = "Resposta";
@@ -154,28 +155,28 @@ $langAntique = "Historia da Filosof&iacute;a Antiga";
 $langAppliedChange = "Foron aplicados os cambios &aacute; configuración do usuario";
 $langArchive = "arquivo";
 $langAreCompulsory = "son obrigatorios";
-$langAreYouSureDeleteModule = "Est&aacute; vostede seguro de que desexa borrar totalmente este 
+$langAreYouSureDeleteModule = "Est&aacute; vostede seguro de que desexa borrar totalmente este
    											m&oacute;dulo ?
 
 Ser&aacute; totalmente borrado do servidor e de
 											calquera secuencia de aprendizaxe na que estea.
-Vostede non poder&aacute; 
+Vostede non poder&aacute;
 											xa empregalo en ningunha secuencia de aprendizaxe.
 
 Confirmar borrado de : ";
 $langAreYouSureToDelete = "Est&aacute; vostede seguro de que desexa eliminar";
-$langAreYouSureToDeleteScorm = "Esta secuencia de aprendizaxe &eacute; clave para unha importaci&oacute;n dun 
-   											paquete SCORM. Se vostede borra esta secuencia de aprendizaxe, t&oacute;dolos 
-											m&oacute;dulos SCORM e os arquivos relacionados ser&aacute;n eliminados da 
-											plataforma. Est&aacute; vostede seguro de que desexa elimina-la secuencia de 
+$langAreYouSureToDeleteScorm = "Esta secuencia de aprendizaxe &eacute; clave para unha importaci&oacute;n dun
+   											paquete SCORM. Se vostede borra esta secuencia de aprendizaxe, t&oacute;dolos
+											m&oacute;dulos SCORM e os arquivos relacionados ser&aacute;n eliminados da
+											plataforma. Est&aacute; vostede seguro de que desexa elimina-la secuencia de
 											aprendizaxe denominada ";
-$langAreYouSureToRemove = "Est&aacute; vostede seguro de que desexa elimina-lo seguinte 
+$langAreYouSureToRemove = "Est&aacute; vostede seguro de que desexa elimina-lo seguinte
    											m&oacute;dulo da secuencia de aprendizaxe : ";
-$langAreYouSureToRemoveLabel = "Eliminando unha etiqueta eliminar&aacute; t&oacute;dolos m&oacute;dulos 
+$langAreYouSureToRemoveLabel = "Eliminando unha etiqueta eliminar&aacute; t&oacute;dolos m&oacute;dulos
    											ou etiquetas que conte&ntilde;a.";
-$langAreYouSureToRemoveSCORM = "Os m&oacute;dulos SCORM son definitivamente eliminados do servidor 
+$langAreYouSureToRemoveSCORM = "Os m&oacute;dulos SCORM son definitivamente eliminados do servidor
    											cando se eliminan na s&uacute;a secuencia de aprendizaxe.";
-$langAreYouSureToRemoveStd = "O m&oacute;dulo estar&aacute; a&iacute;nda dispo&ntilde;ible 
+$langAreYouSureToRemoveStd = "O m&oacute;dulo estar&aacute; a&iacute;nda dispo&ntilde;ible
    											no Dep&oacute;sito de m&oacute;dulos.";
 $langAreYouSureToUnsubscribe = "est&aacute; vostede seguro de que desexa desinscribir ";
 $langAssignment = "Tarefa";
@@ -221,16 +222,16 @@ $langBuildEmptyLangFile = "Baleirar ficheiro de idioma";
 $langBuildLangFile = "Constru&iacute;r ficheiros de idioma";
 $langBuildMissingLangFile = "Ficheiros de idioma perdidos";
 $langBuildProductionLangFile = "Crear ficheiros de idioma";
-$langByDel = "Eliminando a web deste curso borrar&aacute; de xeito permanente t&oacute;dolos documentos que esta 
-							cont&eacute;n e desinscribir&aacute; a t&oacute;dolos estudantes que estean matriculados no mesmo 
-							(non os desinscribir&aacute; dos outros cursos nos que poidan estar matriculados).<p>Est&aacute; 
+$langByDel = "Eliminando a web deste curso borrar&aacute; de xeito permanente t&oacute;dolos documentos que esta
+							cont&eacute;n e desinscribir&aacute; a t&oacute;dolos estudantes que estean matriculados no mesmo
+							(non os desinscribir&aacute; dos outros cursos nos que poidan estar matriculados).<p>Est&aacute;
 							vostede seguro de que desexa suprimi-lo curso";
 $langByUser = "polo usuario";
 $langCSVSeeUserList = "Ver lista de usuarios";
 $langCampusAlreadyRegistered = "Semella que vostede ten xa rexistrado o seu campus.";
-$langCampusDeleted = "<strong>Eliminado</strong><p>O seu rexistro de campus foi eliminado, contacte con n&oacute;s 
+$langCampusDeleted = "<strong>Eliminado</strong><p>O seu rexistro de campus foi eliminado, contacte con n&oacute;s
 (vexa a nosa p&aacute;xina web) se cr&eacute; que &eacute; un erro.</p>";
-$langCampusRegistered = "<strong>Aprobado</strong><p>O seu rexistro na plataforma foi aceptado polo equipo de 
+$langCampusRegistered = "<strong>Aprobado</strong><p>O seu rexistro na plataforma foi aceptado polo equipo de
 Claroline.net.<br />Ser&aacute; engadido na p&aacute;xina web de Claroline.net un enlace &oacute; seu campus.</p>";
 $langCampusRegistrationSubmitted = "O seu campus foi enviado e estase agardando a ser validado polo equipo de Claroline.net";
 $langCampusRemoved = "<strong>Eliminado</strong><p>O seu campus foi eliminado da p&aacute;xina de Claroline.net.</p>";
@@ -259,29 +260,29 @@ $langChooseACourseToAccessThisPage = "Escolla un curso para acceder a esta p&aac
 $langChooseDateHelper = "(d/m/a hh:mm)";
 $langChooseGoodAnswer = "Por favor, escolla unha resposta correcta";
 $langChooseGoodAnswers = "Por favor, escolla unha ou m&aacute;is respostas correctas";
-$langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos. 
-						Os estudantes len (documentos, axenda, informaci&oacute;ns varias) e, outras veces, 
+$langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos.
+						Os estudantes len (documentos, axenda, informaci&oacute;ns varias) e, outras veces,
 						fan exercicios, publican traballos, participan en discusi&oacute;ns de grupos...
 
 						</p><b>Registro</b><p>As seguintes instrucci&oacute;ns son v&aacute;lidas s&oacute;
-						se a s&uacute;a versi&oacute;n de Claroline permite o auto-rexistro (alg&uacute;ns 
+						se a s&uacute;a versi&oacute;n de Claroline permite o auto-rexistro (alg&uacute;ns
 						sitios rex&iacute;strano de xeito autom&aacute;tico).
 
 						<br>Se &eacute; vostede un estudante, s&oacute; precisa inscribirse premendo na
 						opci&oacute;n inscrici&oacute;n, e escoller 'Seguir cursos (estudante)',
 						seleccionando logo os cursos nos que se quere inscribir.</p><p>
-						
+
 						Se &eacute; vostede un profesor ou un axudante, prema na  opci&oacute;n inscrici&oacute;n,
 						pero escolla 'Crear cursos (profesor)'. &Oacute; facelo, presentar&aacute;selle un formulario
 						onde ter&oacute; que cubri-lo C&oacute;digo do Curso, Facultade e Nome do Curso.
 						Unha vez que remate de facelo e o valide (premendo no bot&oacute;n Aceptar),
 						podr&aacute; ver xa o espazo para o curso que acaba de crear, e poder&aacute; modifica-lo
-						seu contido, m&oacute;dulos que quere activar e a s&uacute;a organizaci&oacute;n seg&uacute;ndo 
+						seu contido, m&oacute;dulos que quere activar e a s&uacute;a organizaci&oacute;n seg&uacute;ndo
 						as s&uacute;as preferencias.</p><p>
 
-						A opci&oacute;n 'Suxesti&oacute;ns' permitelle &oacute;s desenvolvedores co&ntilde;ece-la s&uacute;a 
-						opini&oacute;n sobre a plataforma. Vostede pode enviar aqu&iacute; mensaxe dando conta de erros que 
-						te&ntilde; detectado, 
+						A opci&oacute;n 'Suxesti&oacute;ns' permitelle &oacute;s desenvolvedores co&ntilde;ece-la s&uacute;a
+						opini&oacute;n sobre a plataforma. Vostede pode enviar aqu&iacute; mensaxe dando conta de erros que
+						te&ntilde; detectado,
 						ou suxesti&oacute;ns para futuras melloras. A lista 'suxesti&oacute;ns' est&aacute; ligada desde a
 						p&aacute;xina principal do campus (unha vez que entra co seu nome de usuario e contrasinal).</p>
 						<p>
@@ -294,7 +295,7 @@ $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e adminis
 
 						</p><b>Conexi&oacute;n</b><p>
 
-						Nas s&uacute;as pr&oacute;ximas visitas, escriba o nome de usuario e contrasinal e prema en 
+						Nas s&uacute;as pr&oacute;ximas visitas, escriba o nome de usuario e contrasinal e prema en
 						ENTRAR para acceder &oacute;s seus cursos. A URL do sitio &eacute;";
 $langClarolineNetNews = "Novas en Claroline.net";
 $langClass = "Clases";
@@ -317,8 +318,8 @@ $langCodeUsed = "Este c&oacute;digo oficial est&aacute; xa a ser empregado por o
 $langComMod = "Comentario modificado";
 $langComment = "Comentario";
 $langConfTip = "Por defecto, o seu curso &eacute; accesible para todo o mundo. Se vostede desexa algunha confidencialidade,
-							o xeito m&aacute;is simple de conseguila &eacute; permitindo o rexistro de xeito aberto durante unha semana, 
-							dic&iacute;ndolle &oacute;s estudantes que se rexistren eles mesmos, e logo pechando o rexistro e mirando na 
+							o xeito m&aacute;is simple de conseguila &eacute; permitindo o rexistro de xeito aberto durante unha semana,
+							dic&iacute;ndolle &oacute;s estudantes que se rexistren eles mesmos, e logo pechando o rexistro e mirando na
 							lista de usuarios para localizar posibles intrusos.";
 $langConfigMenuContent = "Men&uacute; de configuraci&oacute;n";
 $langConfiguration = "Configuraci&oacute;n";
@@ -334,7 +335,7 @@ $langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
 $langConfirmation = "Confirmaci&oacute;n";
 $langContent = "Contido";
 $langContinue = "Continuar";
-$langContradiction = "Emprega-lo principio de non contradicci&oacute;n para levar &oacute; interlocutor a un carreiro 
+$langContradiction = "Emprega-lo principio de non contradicci&oacute;n para levar &oacute; interlocutor a un carreiro
 							sen sa&iacute;da.";
 $langCopy = "Copiar";
 $langCopyFailed = "Fallou a impresi&oacute;n";
@@ -354,10 +355,10 @@ $langCourse = "Curso";
 $langCourseAccess = "Acceso &oacute; curso";
 $langCourseAdministratorOnly = "S&oacute; administradores de cursos";
 $langCourseContent = "Contido do curso";
-$langCourseContentComment1 = "Cal &eacute; a importancia dos diversos contidos que ser&aacute;n abordados 
-no marco do curso? Cal &eacute; o nivel de dificultades destes contidos? Como est&aacute; estructurada a 
+$langCourseContentComment1 = "Cal &eacute; a importancia dos diversos contidos que ser&aacute;n abordados
+no marco do curso? Cal &eacute; o nivel de dificultades destes contidos? Como est&aacute; estructurada a
 unidade? Cal ser&aacute; a secuencia dos contidos? ";
-$langCourseContentComment2 = "Presentaci&oacute;n do contido do curso, a estructura do contido, a s&uacute;a 
+$langCourseContentComment2 = "Presentaci&oacute;n do contido do curso, a estructura do contido, a s&uacute;a
 progresi&oacute;n e o seu calendario";
 $langCourseCreate = "Crea-la p&aacute;xina web dun curso";
 $langCourseCreator = "Creador do curso";
@@ -409,15 +410,15 @@ $langDBLogin = "Nome de usuario na base de datos";
 $langDBPassword = "Contrasinal na base de datos";
 $langDBSetting = "Configuraci&oacute;n da BD MySQL";
 $langDBSettingNamesIntro = "
-				O script de instalaci&oacute;n crear&aacute; as principais bases de datos de 
-				Claroline. Pode vostede crear diferentes bases de datos para o seguimento e 
-				a extensi&oacute;n de PhpMyAdmin se o desexa, ou reunir todo isto nunha 
-				base de datos, como prefira. Acto seguido, Claroline crear&aacute; unha nova 
-				base de datos para cada novo curso que se cree. Pode vostede especificar un 
+				O script de instalaci&oacute;n crear&aacute; as principais bases de datos de
+				Claroline. Pode vostede crear diferentes bases de datos para o seguimento e
+				a extensi&oacute;n de PhpMyAdmin se o desexa, ou reunir todo isto nunha
+				base de datos, como prefira. Acto seguido, Claroline crear&aacute; unha nova
+				base de datos para cada novo curso que se cree. Pode vostede especificar un
 				prefixo para cada un dos nomes desas bases de datos.
 				<p>
-				Se vostede s&oacute; pode empregar unha base de datos como a s&uacute;a base 
-				de datos do administrador do sistema, volva &aacute; p&aacute;xina anterior 
+				Se vostede s&oacute; pode empregar unha base de datos como a s&uacute;a base
+				de datos do administrador do sistema, volva &aacute; p&aacute;xina anterior
 				e seleccione a opci&oacute;n de empregar unha &uacute;nica base de datos.
 				</p>";
 $langDBUse = "Uso da base de datos";
@@ -430,17 +431,17 @@ $langDbName = "Nome BD";
 $langDbPrefixForm = "Prefixo para do nome da BD do Curso";
 $langDear = "Estimado/a";
 $langDefSubVisibility = "Visibilidade dos traballos por defecto";
-$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo 
+$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo
    										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
 $langDefaultMatchingOpt1 = "rico(a)";
 $langDefaultMatchingOpt2 = "guapo(a)";
 $langDefaultMatchingProp1 = "O teu pai &eacute;";
 $langDefaultMatchingProp2 = "A t&uacute;a nai &eacute;";
-$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo 
-   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu 
+$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo
+   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu
 										propio texto, prema abaixo en <b>Modificar</b>.";
-$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada 
-   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo 
+$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada
+   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo
 										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
 $langDefaultTextInBlanks = "[Os brit&aacute;nicos] viven no [Reino Unido].";
 $langDefcon = "Ei!!, detect&aacute;ronse casos estra&ntilde;os!!";
@@ -468,7 +469,7 @@ $langDescUnableToDelete = "Imposible eliminar";
 $langDescUnableToUpdate = "Imposible actualizar";
 $langDescUpdated = "Descrici&oacute;n actualizada";
 $langDescription = "Descrici&oacute;n";
-$langDescriptionComment1 = "Cal &eacute; o lugar e a especificidade do curso no programa? 
+$langDescriptionComment1 = "Cal &eacute; o lugar e a especificidade do curso no programa?
 Que outros cursos se consideran prerrequisitos para este? Que relaci&oacute;n ten con outros cursos?";
 $langDescriptionComment2 = "";
 $langDescriptionCours = "Descrici&oacute;n do curso";
@@ -481,23 +482,23 @@ $langDirMv = "Elemento movido";
 $langDisable = "Deshabilitado";
 $langDiskUsage = "Uso de disco";
 $langDispClassAdded = "Amosa-las clases engadidas";
-$langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona de maneira semellante &aacute; 
+$langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona de maneira semellante &aacute;
 					xesti&oacute;n dos seus documentos nun ordenador. </p>
-					<p>Pode vostede introducir documentos de todo tipo (HTML, Word, Powerpoint, Excel, Acrobat, 
-					Flash, Quicktime, etc.). Te&ntilde;a en conta, sen embargo, que os estudantes deben de dispo&ntilde;er 
+					<p>Pode vostede introducir documentos de todo tipo (HTML, Word, Powerpoint, Excel, Acrobat,
+					Flash, Quicktime, etc.). Te&ntilde;a en conta, sen embargo, que os estudantes deben de dispo&ntilde;er
 					das ferramentas axeitadas para poder consultalos. Te&ntilde;a tam&eacute;n coidado de non cargar nesa
-					secci&oacute;n documentos infectados con virus. &Eacute; conveniente comprobar primeiro cun programa 
+					secci&oacute;n documentos infectados con virus. &Eacute; conveniente comprobar primeiro cun programa
 					antivirus que os documentos non estean infectados antes de colocalos no curso.</p>
 					<p>Os documentos pres&eacute;ntanse na pantalla por orden alfab&eacute;tico.<br>
-					<b>Consellos:</b> se desexa vostede que os documentos se ordenen de diferente xeito, pode facer 
+					<b>Consellos:</b> se desexa vostede que os documentos se ordenen de diferente xeito, pode facer
 					que se precedan dun n&uacute;mero. As&iacute;, ordenaranse de menos a maior n&uacute;mero de inicio.</p>
 					<p>Pode vostede:</p>
 					<h4>Vostede pode cargar a distancia un documento  neste m&oacute;dulo</h4>
 					<ul>
-						<li>Seleccione o documento no seu ordenador coa axuda do bot&oacute;n &quot;Buscar&quot; 
+						<li>Seleccione o documento no seu ordenador coa axuda do bot&oacute;n &quot;Buscar&quot;
 						<input type=submit value=Buscar name=submit2>
 						&aacute; dereita da s&uacute;a pantalla.</li>
-						<li>Execute a carga a distancia coa axuda do bot&oacute;n &quot;cargar a distancia&quot; 
+						<li>Execute a carga a distancia coa axuda do bot&oacute;n &quot;cargar a distancia&quot;
 						<input type=submit value=cargar a distancia name=submit2>.</li>
 					</ul>
 					<h4>Muda-lo nome dun documento (ou dun directorio)</h4>
@@ -521,7 +522,7 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 						os estudantes.</li>
 					</ul>
 					<ul>
-						<li>Se vostede desexa que este elemento volva ser visible, prema no bot&oacute;n 
+						<li>Se vostede desexa que este elemento volva ser visible, prema no bot&oacute;n
 						<img src=../document/../document/img/invisible.gif width=24 height=20>
 						na columna &quot;Visible/invisible&quot;</li>
 					</ul>
@@ -533,10 +534,10 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 						aparecer&aacute; arriba &aacute; esquerda.</li>
 						<li>Valide facendo click en &quot;OK&quot;<input type=submit value=OK name=submit2>.</li>
 					</ul>
-					<p>Se desexa vostede suprimir un comentario, prema no bot&oacute;n 
+					<p>Se desexa vostede suprimir un comentario, prema no bot&oacute;n
 					<img src=../document/../document/img/comment.gif width=20 height=20>,
 					&quot;elimina-lo antigo comentario da zona&quot; e valide premendo en &quot;OK&quot;
-					<input type=submit value=OK name=submit22>. 
+					<input type=submit value=OK name=submit22>.
 					<hr>
 					<p>Pode vostede tam&eacute;n organiza-lo contido do m&oacute;dulo dos documentos gardando
 					os documentos en directorios. Para facer isto vostede debe :</p>
@@ -565,7 +566,7 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 $langDocDeleted = "Documento eliminado";
 $langDocInsertedAsModule = "foi engadido como m&oacute;dulo";
 $langDocument = "Documentos e Ligaz&oacute;ns";
-$langDocumentAlreadyUsed = "Este documento xa est&aacute; a ser empregado como m&oacute;dulo nesta 
+$langDocumentAlreadyUsed = "Este documento xa est&aacute; a ser empregado como m&oacute;dulo nesta
    												secuencia de aprendizaxe";
 $langDocumentAsModule = "Empregar un documento";
 $langDocumentContent = "Contido do documento : ";
@@ -604,7 +605,7 @@ $langEmailCanBeEmpty = "O campo Correo Electr&oacute;nico debe de ser cuberto";
 $langEmailNotSent = "Algo non funciona, enviar correo electr&oacute;nico a ";
 $langEmailOption = "Enviar este anuncio por correo electr&oacute;nico &oacute;s estudantes rexistrados";
 $langEmailSent = " e enviado por correo electrónico &oacute;s estudiantes rexistrados";
-$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n 
+$langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n
 							caracteres non v&aacute;lidos";
 $langEmpty = "Baleiro";
 $langEmptyAnn = "Baleirar completamente a secci&oacute;n de Anuncios";
@@ -652,11 +653,11 @@ $langErrorMove = "Vostede non pode mover unha clase en si mesma!";
 $langErrorMyOwnSettings = "Vostede non pode muda-lo seu propio estatus";
 $langErrorNameAlreadyExists = "Erro : o nome xa existe";
 $langErrorNoModuleInPackage = "Non hai m&oacute;dulos no paquete";
-$langErrorNoZlibExtension = "&Eacute; precisa a extensi&oacute;n de php Zlib para empregar esta 
+$langErrorNoZlibExtension = "&Eacute; precisa a extensi&oacute;n de php Zlib para empregar esta
    										ferramenta. Por favor, contacte co administrador da plataforma.";
 $langErrorOpeningManifest = "Non &eacute; posible atopa-lo arquivo <i>manifesto</i> no paquete.<br />
    										Ficheiro non atopado : imsmanifest.xml";
-$langErrorOpeningXMLFile = "Non &eacute; posible atopa-lo ficheiro de inicializaci&oacute;n 
+$langErrorOpeningXMLFile = "Non &eacute; posible atopa-lo ficheiro de inicializaci&oacute;n
    										secundario no paquete.<br />Ficheiro non atopado : ";
 $langErrorReadingManifest = "Erro &oacute; le-lo arquivo <i>manifesto</i>";
 $langErrorReadingXMLFile = "Erro lendo un ficheiro de inicializaci&oacute;n secundario : ";
@@ -664,13 +665,13 @@ $langErrorReadingZipFile = "Erro &oacute; le-lo ficheiro zip.";
 $langErrorSql = "Erro en sentencia SQL";
 $langErrorUserNotInGroup = "Nome de usuario non v&aacute;lido : este usuario non existe no seu grupo";
 $langErrorValuesInDouble = "Erro : un ou m&aacute;is valores est&aacute;n replicados";
-$langErrortExtractingManifest = "Non &eacute; posible extrae-lo manifesto desde un arquivo zip 
+$langErrortExtractingManifest = "Non &eacute; posible extrae-lo manifesto desde un arquivo zip
    										(estar&aacute; o arquivo corrompido?).";
 $langEventAdded = "Evento engadido &aacute; axenda";
 $langEventDeleted = "Evento eliminado da axenda";
 $langEventUpdated = "Evento actualizado na axenda";
 $langEx = "p.ex. <i>Historia da Literatura</i>";
-$langExAlreadyUsed = "Este exercicio xa est&aacute; a ser empregado como m&oacute;dulo nesta 
+$langExAlreadyUsed = "Este exercicio xa est&aacute; a ser empregado como m&oacute;dulo nesta
    										secuencia de aprendizaxe";
 $langExInsertedAsModule = "foi engadido como m&oacute;dulo do curso e nesta secuencia de aprendizaxe";
 $langExMessage = "Mensaxe de exemplo";
@@ -682,7 +683,7 @@ $langExercise = "Exercicio";
 $langExerciseAsModule = "Empregar un exercicio";
 $langExerciseCancelled = "Exercicio canceladdo, escolla un m&oacute;dulo na lista para continuar.";
 $langExerciseClosing = "Remate do exercicio";
-$langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear exercicios, que conter&aacute;n 
+$langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear exercicios, que conter&aacute;n
 							tantas preguntas como vostede desexe.<br><br>
 							Hai varios modelos de respostas dispo&ntilde;ibles para crea-las s&uacute;s preguntas :<br><br>
 							<ul>
@@ -691,9 +692,9 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 								<li>Relacionar</li>
 								<li>Cubrir ocos</li>
 							</ul>
-							Un exercicio est&aacute; composto por varias cuesti&oacute;ns que gardan relaci&oacute;n 
+							Un exercicio est&aacute; composto por varias cuesti&oacute;ns que gardan relaci&oacute;n
 							entre elas.</p>
-							
+
 							<hr>
 							<b>Creaci&oacute;n de Exercicios</b>
 							<p>Para crear un exercicio, prema sobre a ligaz&oacute;n &quot;Exercicio Novo&quot;.<br><br>
@@ -705,53 +706,53 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 							</ul>
 							e diga se desexa que as cuesti&oacute;ns sexan ordeadas de xeito aleatorio no momento no
 							que o alumno faga o exercicio.<br><br>
-							Despois, garde o seu exercicio. Vostede ver&aacute; a administración de cuesti&oacute;ns 
+							Despois, garde o seu exercicio. Vostede ver&aacute; a administración de cuesti&oacute;ns
 							para este exercicio.</p>
-							
+
 							<hr>
 							<b>Engadir Cuesti&oacute;ns</b>
-							<p>Pode engadir unha cuesti&oacute;n &oacute; exercicio creado con anterioridade. 
-							A descrici&oacute;n &eacute; opcional, as&iacute; como a posibilidade de inclu&iacute;r 
+							<p>Pode engadir unha cuesti&oacute;n &oacute; exercicio creado con anterioridade.
+							A descrici&oacute;n &eacute; opcional, as&iacute; como a posibilidade de inclu&iacute;r
 							unha imaxe na s&uacute;a cuesti&oacute;n.</p>
 
 							<hr>
 							<b>Elecci&oacute;n M&uacute;ltiple</b>
-							<p>Esta tam&eacute;n se co&ntilde;ece como 'cuesti&oacute;n de resposta ou elecci&oacute;n 
+							<p>Esta tam&eacute;n se co&ntilde;ece como 'cuesti&oacute;n de resposta ou elecci&oacute;n
 							m&uacute;ltiple' MAQ / MCQ.<br><br>
 							Para crear unha:<br><br>
 							<ul>
-								<li>Defina as respostas para a s&uacute;a cuesti&oacute;n. Pode engadir ou eliminar unha 
+								<li>Defina as respostas para a s&uacute;a cuesti&oacute;n. Pode engadir ou eliminar unha
 								reposta premendo no bot&eacute;n dereito</li>
 								<li>Marque na casi&ntilde;a da esquerda a(s) resposta(s) correcta(s)</li>
-								<li>Engada un comentario opcional. Este comentario non o ver&aacute; o alumno ata que 
+								<li>Engada un comentario opcional. Este comentario non o ver&aacute; o alumno ata que
 								responda &aacute; cuesti&oacute;n</li>
-								<li>Outorguelle un 'peso' (valor da resposta respecto &aacute; totalidade do exercicio) 
+								<li>Outorguelle un 'peso' (valor da resposta respecto &aacute; totalidade do exercicio)
 								a cada resposta. O peso pode ser un n&uacute;mero positivo, negativo, ou cero.</li>
 								<li>Garde as s&uacute;as respostas</li>
 							</ul></p>
 							<hr>
-							
+
 							<b>Completar ocos</b>
 							<p>Esto permite crear un texto con ocos. O obxectivo &eacute; deixar que o estudante
 							complete o texto con palabras omitidas por vostede no texto.<br><br>
 							Para quitar unha palabra do texto, e por tanto crear un oco, po&ntilde;a a palabra entre
 							corchetes [como isto].<br><br>
-							Unha vez que o texto se escrib&iacute;iu e se definiron os ocos, pode engadir un comentario 
+							Unha vez que o texto se escrib&iacute;iu e se definiron os ocos, pode engadir un comentario
 							que verá o estudante cando responda a cada pregunta.<br><br>
-							Garde o seu texto, e ver&aacute; o paso seguinte que lle permitir&aacute; asignarlle un peso 
-							a cada oco. Por exemplo, se a pregunta enteira vale 10 puntos e ten 5 ocos, pode vostede darlle 
+							Garde o seu texto, e ver&aacute; o paso seguinte que lle permitir&aacute; asignarlle un peso
+							a cada oco. Por exemplo, se a pregunta enteira vale 10 puntos e ten 5 ocos, pode vostede darlle
 							a cada oco un peso de 2 puntos.</p>
 							<hr>
 
 							<b>Relacionar</b>
-							<p>Este modelo de resposta pode elixirse para crear unha pregunta onde o estudante te&ntilde;a 
+							<p>Este modelo de resposta pode elixirse para crear unha pregunta onde o estudante te&ntilde;a
 							que relacionar elementos desde unha unidade U1 a outra unidade U2. <br><br>
-							Tameacute;n se pode empregar para pedir lle &oacute;s estudantes que seleccionen os elementos 
+							Tameacute;n se pode empregar para pedir lle &oacute;s estudantes que seleccionen os elementos
 							nunha certa orde.<br><br>
-							Primeiro defina as opci&oacute;ns entre as que os estudantes poder&aacute;n selecciona-la 
-							resposta correcta. Logo, defina as cuesti&oacute;ns que ter&aacute;n que ir relacionadas 
-							con cada unha das opci&oacute;ns previamente definidas. Por &uacute;ltimo, relacione, 
-							mediante o men&uacute; despregable, elementos da primeira unidade que se relacionen con 
+							Primeiro defina as opci&oacute;ns entre as que os estudantes poder&aacute;n selecciona-la
+							resposta correcta. Logo, defina as cuesti&oacute;ns que ter&aacute;n que ir relacionadas
+							con cada unha das opci&oacute;ns previamente definidas. Por &uacute;ltimo, relacione,
+							mediante o men&uacute; despregable, elementos da primeira unidade que se relacionen con
 							elementos da segunda.<br><br>
 							Atenci&oacute;n : varios elementos da primeira unidade se poden referir &oacute; mesmo elemento
 							na segunda unidade.<br><br>
@@ -759,19 +760,19 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 							<hr>
 
 							<b>Modificaci&oacute;n de Exercicios</b>
-							<p>Para modificar un exercicio, siga os mesmos pasos que fixo para crealo. S&oacute; prema 
-							na imaxe <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> 
+							<p>Para modificar un exercicio, siga os mesmos pasos que fixo para crealo. S&oacute; prema
+							na imaxe <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\">
 							&oacute; car&oacute;n do exercicio que desexa modificar e siga as instrucci&oacute;ns anteriores.</p>
 							<hr>
 
 							<b>Eliminar Exercicios</b>
-							<p>Para borrar un exercicio, prema na imaxe 
+							<p>Para borrar un exercicio, prema na imaxe
 							<img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\">
 							&oacute; car&oacute;n do exercicio que desexe eliminar.</p>
 							<hr>
 
 							<b>Activar Exercicios</b>
-							<p>Para que os alumnos poidan facer un exercicio, ten vostede que activalo premendo na imaxe 
+							<p>Para que os alumnos poidan facer un exercicio, ten vostede que activalo premendo na imaxe
 							<img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">
 							&oacute; car&oacute;n do exercicio que desexa activar.</p>
 							<hr>
@@ -781,23 +782,23 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 							<hr>
 
 							<b>Exercicios Aleatorios</b>
-							<p>No  momento en que se crea / modifica un exercicio, pode especificar se quere que as 
-							cuesti&oacute;ns aparezan en orde aleatoria de entre t&oacute;dalas nese exercicio 
+							<p>No  momento en que se crea / modifica un exercicio, pode especificar se quere que as
+							cuesti&oacute;ns aparezan en orde aleatoria de entre t&oacute;dalas nese exercicio
 							introducidas. <br><br>
-							Iso significa que, se vostede activa esta opci&oacute;n, as cuesti&oacute;ns aparecer&aacute;n 
+							Iso significa que, se vostede activa esta opci&oacute;n, as cuesti&oacute;ns aparecer&aacute;n
 							nunha orde diferente cada vez que os estudantes preman sobre o exercicio.<br><br>
-							Se vostede ten un n&uacute;mero elevado de cuesti&oacute;ns, pode facer tam&eacute;n que 
-							aparezan s&oacute; X cuesti&oacute;ns de entre t&oacute;dalas cuesti&oacute;ns dispo&ntilde;ibles 
+							Se vostede ten un n&uacute;mero elevado de cuesti&oacute;ns, pode facer tam&eacute;n que
+							aparezan s&oacute; X cuesti&oacute;ns de entre t&oacute;dalas cuesti&oacute;ns dispo&ntilde;ibles
 							para ese exercicio.</p>
 							<hr>
 
 							<b>Almac&eacute;n de Cuesti&oacute;ns</b>
-							<p>Cando elimina un exercicio, as cuesti&oacute;ns non se eliminan da base de datos, polo que 
+							<p>Cando elimina un exercicio, as cuesti&oacute;ns non se eliminan da base de datos, polo que
 							poden ser empregadas nun novo exercicio, mediante o 'Almac&eacute;n de Cuesti&oacute;ns'.<br><br>
-							O Almac&eacute;n de Cuesti&oacute;ns permite reutiliza-las mesmas cuesti&oacute;ns en varios 
+							O Almac&eacute;n de Cuesti&oacute;ns permite reutiliza-las mesmas cuesti&oacute;ns en varios
 							exercicios distintos.<br><br>
-							Por defecto, am&oacute;sanse t&oacute;dalas cuesti&oacute;ns do seu curso. Vostede pode amosa-las 
-							cuesti&oacute;ns relacionadas cun exercicio elixindo este do men&uacute; despregable 
+							Por defecto, am&oacute;sanse t&oacute;dalas cuesti&oacute;ns do seu curso. Vostede pode amosa-las
+							cuesti&oacute;ns relacionadas cun exercicio elixindo este do men&uacute; despregable
 							&quot;Filtro&quot;.<br><br>
 							As cuesti&oacute;ns orfas son cuesti&oacute;ns que non pertencen a ning&uacute;n exercicio.</p>";
 $langExerciseDescription = "Descrici&oacute;n do exercicio";
@@ -820,8 +821,8 @@ $langExistingGroups = "Grupos";
 $langExpectedChoice = "Elecci&oacute;n agardada";
 $langExplainDeleteFile = "Marque este cadro para elimina-lo ficheiro adxunto";
 $langExplainReplaceFile = "Cargar un novo ficheiro para substitu&iacute;r a este";
-$langExplanation = "Unha vez que vostede prema <i>validar</i>, crearase unha web que incluir&aacute; Foro, Axenda, 
-							Documentos, etc. A s&uacute;a conta, como creador do curso que &eacute;, permitiralle modifica-la 
+$langExplanation = "Unha vez que vostede prema <i>validar</i>, crearase unha web que incluir&aacute; Foro, Axenda,
+							Documentos, etc. A s&uacute;a conta, como creador do curso que &eacute;, permitiralle modifica-la
 							p&aacute;xina segundo as s&uacute;as propias necesidades.";
 $langExport = "Exportar";
 $langExportTrackingCsv = "Exportar datos estat&iacute;sticos a un ficheiro CSV";
@@ -835,8 +836,8 @@ $langFeedback = "Resoluci&oacute;n";
 $langFeedbackAdded = "Resoluci&oacute;n engadida";
 $langFeedbackEdited = "Resoluci&oacute;n editada";
 $langFeedbackFile = "Ficheiro coa resoluci&oacute;n";
-$langFeedbackHelp = "A resoluci&oacute;n &eacute; opcional. &Eacute; a versi&oacute;n correcta da tarefa. 
-Se non se deixa baleira, seralle amosada &oacute;s usuarios de acordo coa configuraci&oacute;n de 'envio 
+$langFeedbackHelp = "A resoluci&oacute;n &eacute; opcional. &Eacute; a versi&oacute;n correcta da tarefa.
+Se non se deixa baleira, seralle amosada &oacute;s usuarios de acordo coa configuraci&oacute;n de 'envio
 da resoluci&oacute;n'.";
 $langFeedbackSubmit = "Envío de resoluci&oacute;n";
 $langFeedbackText = "Texto da resoluci&oacute;n";
@@ -862,8 +863,8 @@ $langFillGroups = "Encher grupos";
 $langFillLists = "Por favor, cubra as d&uacute;as listas de abaixo";
 $langFillSelectBox = "Seleccionar na lista despregada";
 $langFillTextField = "Cubri-los campos de texto";
-$langFillTheAreaToExplainTheMotivations = "Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou 
-												suxesti&oacute;n e prema no bot&oacute;n. Seralle enviado un correo 
+$langFillTheAreaToExplainTheMotivations = "Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou
+												suxesti&oacute;n e prema no bot&oacute;n. Seralle enviado un correo
 												electr&oacute;nico &oacute;(&oacute;s) administrador(es) da plataforma.";
 $langFillToolCourses = "Encher ferramentas dos cursos";
 $langFillTree = "Inserir categor&iacute;as de curso";
@@ -878,28 +879,28 @@ $langFinish = "Finalizar";
 $langFirstName = "Nome";
 $langFirstSubmission = "Primeira presentaci&oacute;n";
 $langFirstname = "Nome";
-$langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute;ncrona e escrita. A diferencia do 
-						correo electr&oacute;nico, o foro coloca a discusi&oacute;n nun espazo p&uacute;blico ou 
-						semi-p&uacute;blico.</p><p>Para emprega-la ferramenta do foro, os estudantes s&oacute; 
-						precisan dun simple navegador web (Netscape, Explorer...), non se precisa ter un cliente de 
-						correo electr&oacute;nico (como Eudora, Outlook...).</P><p>Para organiza-los foros, hai que premer 
-						en 'Administrar'. Os intercambios quedan organizados de xeito xer&aacute;rquico segundo a estructura 
-						seguinte:</p><p><b>Categor&iacute;a > Foro > Tema > Resposta</b></p>para lle permitir &oacute;s seus 
-						estudantes a discusi&oacute;n de xeito estructurado, &eacute; indispensable organiza-los intercambios 
-						previamente en categor&iacute;as e foros (a eles lles corresponde crear temas e dar respostas). Por defecto, 
-						o foro cont&eacute;n unicamente a categor&iacute;a P&uacute;blico, un tema de exemplo e unha mensaxe de 
-						exemplo. Vostede pode engadir foros na categor&iacute;a p&uacute;blico, ou ben modifica-lo seu t&iacute;tulo, 
-						ou incluso crear outras categor&iacute;as nas que far&aacute; falla ent&oacute;n crear novos foros. 
-						Unha categor&iacute;a que non conte&ntilde;a ning&uacute;n foro non se amosar&aacute; e estar&aacute; fora 
-						de servizo. Se, por exemplo, vostede crea unha categor&iacute;a chamada 'discusi&oacute;ns para grupos reducidos', 
-						faralle falla crear unha serie de foros nesta segunda categor&iacute;a, por exemplo, 'grupo 1', 'grupo 2', 
+$langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute;ncrona e escrita. A diferencia do
+						correo electr&oacute;nico, o foro coloca a discusi&oacute;n nun espazo p&uacute;blico ou
+						semi-p&uacute;blico.</p><p>Para emprega-la ferramenta do foro, os estudantes s&oacute;
+						precisan dun simple navegador web (Netscape, Explorer...), non se precisa ter un cliente de
+						correo electr&oacute;nico (como Eudora, Outlook...).</P><p>Para organiza-los foros, hai que premer
+						en 'Administrar'. Os intercambios quedan organizados de xeito xer&aacute;rquico segundo a estructura
+						seguinte:</p><p><b>Categor&iacute;a > Foro > Tema > Resposta</b></p>para lle permitir &oacute;s seus
+						estudantes a discusi&oacute;n de xeito estructurado, &eacute; indispensable organiza-los intercambios
+						previamente en categor&iacute;as e foros (a eles lles corresponde crear temas e dar respostas). Por defecto,
+						o foro cont&eacute;n unicamente a categor&iacute;a P&uacute;blico, un tema de exemplo e unha mensaxe de
+						exemplo. Vostede pode engadir foros na categor&iacute;a p&uacute;blico, ou ben modifica-lo seu t&iacute;tulo,
+						ou incluso crear outras categor&iacute;as nas que far&aacute; falla ent&oacute;n crear novos foros.
+						Unha categor&iacute;a que non conte&ntilde;a ning&uacute;n foro non se amosar&aacute; e estar&aacute; fora
+						de servizo. Se, por exemplo, vostede crea unha categor&iacute;a chamada 'discusi&oacute;ns para grupos reducidos',
+						faralle falla crear unha serie de foros nesta segunda categor&iacute;a, por exemplo, 'grupo 1', 'grupo 2',
 						'grupo 3', etc.</p><p>
-						
-						A descrici&oacute;n dun foro de grupo pode se-la lista das persoas que estean invitadas a participar e 
-						discutir no mesmo, pero tam&eacute;n pode ser unha explicaci&oacute;n sobre a s&uacute; raz&oacute;n de ser. 
-						Se vostede crea, por calquera raz&oacute;n, un foro 'Chamadas de axuda', poder&aacute; vostede  engadir como 
+
+						A descrici&oacute;n dun foro de grupo pode se-la lista das persoas que estean invitadas a participar e
+						discutir no mesmo, pero tam&eacute;n pode ser unha explicaci&oacute;n sobre a s&uacute; raz&oacute;n de ser.
+						Se vostede crea, por calquera raz&oacute;n, un foro 'Chamadas de axuda', poder&aacute; vostede  engadir como
 						descrici&oacute;n: 'Sinalar dificultades en relaci&oacute;n co contido ou en relaci&oacute;n co dispositivo'.";
-$langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oacute;ns e subcuesti&oacute;ns, a que 
+$langForce = "Forzar  &oacute; interlocutor, por medio dunha serie de cuesti&oacute;ns e subcuesti&oacute;ns, a que
 							reco&ntilde;eza que non sabe o que di saber.";
 $langFormula = "Atentamente, o seu profesor";
 $langForum = "Foros";
@@ -942,13 +943,13 @@ $langGroupContent = "<p><b>Introducci&oacute;n</b></p>
 								<li>Auto-rexistro dos propios estudiantes (Modificar caracter&iacute;sticas:
 								'Perm&iacute;tese &oacute;s estudantes..').</li>
 							</ul>
-							P&oacute;dense combinar estas tres formas. Pode, por exemplo, ped&iacute;ndolle &oacute;s 
+							P&oacute;dense combinar estas tres formas. Pode, por exemplo, ped&iacute;ndolle &oacute;s
 							estudantes que se inscriban nun grupo.
-							M&aacute;is tarde pode descubrir que alg&uacute;n non o fixo e decida finalmente completar 
-							de forma autom&aacute;tica os grupos para completalos. Tam&eacute;n pode editar cada grupo 
+							M&aacute;is tarde pode descubrir que alg&uacute;n non o fixo e decida finalmente completar
+							de forma autom&aacute;tica os grupos para completalos. Tam&eacute;n pode editar cada grupo
 							para decidir que;n forma parte de cada grupo.</p>
 							<p>Completar grupos, tanto de xeito manual como autom&aacute;tico s&oacute; &eacute;
-							efectivo se hai estudantes rexistrados no curso (non confunda rexistro o no curso co 
+							efectivo se hai estudantes rexistrados no curso (non confunda rexistro o no curso co
 							rexistro nos grupos).
 							A lista de estudantes &eacute; visible no m&oacute;dulo <b>Usuarios</b>.</p><hr noshade size=1>
 							<p><b>Crear Grupos</b></p>
@@ -958,21 +959,21 @@ $langGroupContent = "<p><b>Introducci&oacute;n</b></p>
 							Se deixa o campo n&uacute;mero m&aacute;ximo sen cubrir, o tama&ntilde; ser&aacute; infinito.</p>
 							<hr noshade size=1>
 							<p><b>Caracter&iacute;sticas dos Grupos</b></p>
-							<p>Pode vostede determina-las  caracter&iacute;sticas dos grupos de forma global 
+							<p>Pode vostede determina-las  caracter&iacute;sticas dos grupos de forma global
 							(para t&oacute;dolos grupos).
 
 							<b>Perm&iacute;teselle &oacute;s estudantes inscribirse no grupo que desexen</b>:
 							<p>Pode vodtede crear grupos baleiros, para que os estudantes se inscriban.
 							Se defin&iacute;u vostede un n&uacute;mero m&aacute;ximo, os grupos completos non
 							aceptar&aacute;n novos membros.
-							Este m&eacute;todo &eacute; bo para profesores que a&iacute;nda non co&ntilde;ecen 
+							Este m&eacute;todo &eacute; bo para profesores que a&iacute;nda non co&ntilde;ecen
 							a lista de estudantes cando crean os grupos. </p>
 
 							<b>Ferramentas</b>:</p>
-							<p>Cada grupo ten un foro (privado ou p&uacute;blico) ou unha &Aacute;rea de Documentos 
+							<p>Cada grupo ten un foro (privado ou p&uacute;blico) ou unha &Aacute;rea de Documentos
 							(unha &aacute;rea na que compartir documentos) ou (o m&aacute;is frecuente) ambos.</p>
 							<hr noshade size=1>
-							
+
 							<p><b>Edici&oacute;n Manual</b></p>
 							<p>Unha vez que se crean os grupos (Crear grupos), ver&aacute; na parte inferior da
 							p&aacute;xina unha lista dos grupos cunha serie de informaci&oacute;ns e funci&oacute;ns
@@ -1008,7 +1009,7 @@ $langGroupSpaceLink = "&Aacute;rea do grupo";
 $langGroupStudentsInGroup = "estudantes rexistrados en grupos";
 $langGroupStudentsRegistered = "estudantes rexistrados neste curso";
 $langGroupThisSpace = "&Aacute;rea para este grupo";
-$langGroupTooMuchMembers = "O n&uacute;mero proposto excede o m&aacute;ximo que vostede permite (pode modificalo 
+$langGroupTooMuchMembers = "O n&uacute;mero proposto excede o m&aacute;ximo que vostede permite (pode modificalo
 									debaixo). A composici&oacute;n do grupo non pode ser modificada.";
 $langGroupTools = "Ferramentas";
 $langGroupTutor = "Titor";
@@ -1032,7 +1033,7 @@ $langHeading = "Encabezado";
 $langHelp = "Axuda";
 $langHelpAssignment = "Axuda para Tarefas";
 $langHelpAssignmentContent = "<p>
-A ferramenta de tarefas &eacute; unha &aacute;rea de publicaci&oacute;n para estudantes. O xestor do curso 
+A ferramenta de tarefas &eacute; unha &aacute;rea de publicaci&oacute;n para estudantes. O xestor do curso
 crea unha ou varias tarefas (diferentes zonas de publicaci&oacute;n) onde os estudantes poden publica-los
 seus traballos.<br/><br/>
 
@@ -1056,7 +1057,7 @@ premer na ligaz&oacute;n \"Crear unha nova tarefa\".</p>
 	que facer</li>
 	<li> un tipo de env&iacute;o&nbsp;:
 		<ul>
-			<li> Ficheiro&nbsp;: calquera tipo de ficheiro que poida ser cargado, tendo en conta que hai un 
+			<li> Ficheiro&nbsp;: calquera tipo de ficheiro que poida ser cargado, tendo en conta que hai un
 			tama&ntilde;o l&iacute;mite que depende da plataforma. Pode ser adxuntado un texto para describi-lo
 			ficheiro</li>
 			<li> S&oacute; texto&nbsp;: un texto formatado empregando o editor <em>wysiwyg</em></li>
@@ -1068,7 +1069,7 @@ premer na ligaz&oacute;n \"Crear unha nova tarefa\".</p>
 	para a tarefa</li>
 	<li> unha data de remate&nbsp;: a data ata a cal os usuarios poder&aacute;n realiza-las publicaci&oacute;ns
 	para a tarefa</li>
-	<li> a visibilidade por defecto das publicaci&oacute;ns&nbsp;: permite escoller se as publicaci&oacute;ns 
+	<li> a visibilidade por defecto das publicaci&oacute;ns&nbsp;: permite escoller se as publicaci&oacute;ns
 	ser&aacute;n ou non visibles para outros usuarios</li>
 	<li> o tipo de tarefa&nbsp;:
 		<ul>
@@ -1088,7 +1089,7 @@ premer na ligaz&oacute;n \"Crear unha nova tarefa\".</p>
 prema na ligaz&oacute;n \"Editar correcci&oacute;n autom&aacute;tica\".</p>
 
 
-<p>Pode ser un texto, ou un ficheiro, ou ambos. O xestor do curso pode escoller cando debe de lle ser enviada &oacute;s 
+<p>Pode ser un texto, ou un ficheiro, ou ambos. O xestor do curso pode escoller cando debe de lle ser enviada &oacute;s
 usuarios esta correcci&oacute;n autom&aacute;tica (despois da data final de entrega da tarefa ou logo do primeiro
 envio de cada usuario nesta tarefa)</p>
 
@@ -1096,7 +1097,7 @@ envio de cada usuario nesta tarefa)</p>
 <hr />
 <h4>Traballos</h4>
 <p>Os traballos son as publicaci&oacute;ns cargadas polos usuarios.</p>
-<p>Para cada tarefa, a ferramenta amosa unha lista de t&oacute;dolos usuarios rexistrados no curso e para cada usuario, 
+<p>Para cada tarefa, a ferramenta amosa unha lista de t&oacute;dolos usuarios rexistrados no curso e para cada usuario,
 o t&iacute;tulo do primeiro traballo que publicou, o n&uacute;mero de envios e o n&uacute;mero de correccións.
 A lista de publicaci&oacute;ns relaccionadas co usuario e as tarefas poden ser vistas premendo no nome do usuario.</p>
 
@@ -1104,29 +1105,29 @@ A lista de publicaci&oacute;ns relaccionadas co usuario e as tarefas poden ser v
 <p>Se os usuarios te&ntilde;en permisos para enviar traballos, ser&aacute; amosada unha ligaz&oacute;n a un formulario.</p>
 
 <p><strong>Lista de traballos</strong></p>
-<p>Como xestor de curso, vostede ter&aacute; permiso para editar, borrar e facer visibles ou invisibles calquera dos 
+<p>Como xestor de curso, vostede ter&aacute; permiso para editar, borrar e facer visibles ou invisibles calquera dos
 traballos. Poder&aacute; vostede tam&eacute;n engadirlle unha correcci&oacute;n a cada traballo.</p>
 
 <ul>
-	<li> <strong>Modificar</strong>&nbsp;: 
-		Se aparece este icono, quere dicir que o usuario pode modifica-lo contido do traballo. Aparece tam&eacute;n cando 
+	<li> <strong>Modificar</strong>&nbsp;:
+		Se aparece este icono, quere dicir que o usuario pode modifica-lo contido do traballo. Aparece tam&eacute;n cando
 		o usuario &eacute; o xestor do curso e cando o usuario est&aacute; a mira-los seus traballos ou os traballos do
 		seu grupo.
 	</li>
-	<li> <strong>Borrar</strong>&nbsp;: 
+	<li> <strong>Borrar</strong>&nbsp;:
 		Este comando perm&iacute;telle borrar un traballo &oacute; xestor de curso.
 	</li>
-	<li> <strong>Visible</strong>&nbsp;: 
+	<li> <strong>Visible</strong>&nbsp;:
 		Se aparece este icono, quere dicir que o traballo &eacute; visible para os estudantes. Funciona do mesmo
-		xeito que na ferramenta 'Documentos' de Claroline. Pode vostede mudar a s&uacute;a configuraci&oacute;n 
+		xeito que na ferramenta 'Documentos' de Claroline. Pode vostede mudar a s&uacute;a configuraci&oacute;n
 		premendo sobre o icono.
 	</li>
-	<li> <strong>Invisible</strong>&nbsp;: 
+	<li> <strong>Invisible</strong>&nbsp;:
 		Se aparece este icono, quere dicir que o traballo non &eacute; visible para os estudantes. Funciona do mesmo
-		xeito que na ferramenta 'Documentos' de Claroline. Pode vostede mudar a s&uacute;a configuraci&oacute;n 
+		xeito que na ferramenta 'Documentos' de Claroline. Pode vostede mudar a s&uacute;a configuraci&oacute;n
 		premendo sobre o icono.
 	</li>
-	<li> <strong>Engadir correcci&oacute;n</strong>&nbsp;: 
+	<li> <strong>Engadir correcci&oacute;n</strong>&nbsp;:
 		Permite que o xestor do curso publique unha correcci&oacute;n para o traballo do usuario. A correcci&oacute;n
 		pode ser un ficheiro, un texto ou ambos, cun comentario privado que s&oacute; ser&aacute; visible para o(s)
 		xestor(es) do curso e unha puntuaci&oacute;n en porcentaxe.
@@ -1134,37 +1135,37 @@ traballos. Poder&aacute; vostede tam&eacute;n engadirlle unha correcci&oacute;n 
 </ul>
 ";
 $langHelpGroups = "Axuda grupos";
-$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Aqu&iacute;, pode vostede modifica-lo contido das zonas de 
+$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Aqu&iacute;, pode vostede modifica-lo contido das zonas de
 texto amosadas na p&aacute;xina de inicio da plataforma.";
 $langHigh_resources = "recursos de alto nivel";
 $langHits = "Intentos";
 $langHome = "Volver &aacute; p&aacute;xina de inicio";
-$langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en un curto texto, ou 
-						unha ligaz&oacute;n, ou un exemplo dados por defecto. A vostede lle corresp&oacute;nde 
+$langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en un curto texto, ou
+						unha ligaz&oacute;n, ou un exemplo dados por defecto. A vostede lle corresp&oacute;nde
 						modificalos.</p><p>
-						As&iacute, aparece un curto texto, ben &aacute; vista, na cabeceira da web do seu curso. 
-						'Este &eacute; o texto de introducci&oacute;n da s&uacute;a p&aacute;xina web...' 
-						Modif&iacute;queo e aproveite para describi-lo seu curso, os seus obxectivos, os seus dispositivos. 
+						As&iacute, aparece un curto texto, ben &aacute; vista, na cabeceira da web do seu curso.
+						'Este &eacute; o texto de introducci&oacute;n da s&uacute;a p&aacute;xina web...'
+						Modif&iacute;queo e aproveite para describi-lo seu curso, os seus obxectivos, os seus dispositivos.
 						&Eacute; importante para a correcta presentaci&oacute;n do seu traballo.</p><p>
-						No momento da creaci&oacute;n da s&uacute;a web, numerosas ferramentas (Axenda, Documentos, Exercicios...) 
-						se activar&aacute;n para vostede por defecto. &Eacute; aconsellable desactivar aquelas que vostede decida 
+						No momento da creaci&oacute;n da s&uacute;a web, numerosas ferramentas (Axenda, Documentos, Exercicios...)
+						se activar&aacute;n para vostede por defecto. &Eacute; aconsellable desactivar aquelas que vostede decida
 						non empregar, coa fin de non lle facer perde-lo tempo &oacute;s seus usuarios.</p><p>
 						Pode vostede tam&eacute;n engadirlle p&aacute;xinas &aacute; p&aacute;xina principal. Empregue para iso a
-						funci&oacute;n 'Engadir p&aacute;xina' para engadir unha p&aacute;xina e enviala &oacute; servidor. 
-						Se, polo contrario, quere vostede enlazar cunha p&aacute;xina ou web xa existente, empregue a funci&oacute;n 
-						'Ligaz&oacute;ns'. As p&aacute;xinas e ligaz&oacute;ns que vostede lle engada &aacute; 
-						p&aacute;xina principal poden ser desactivadas e logo suprimidas, a diferencia das ferramentas existentes 
+						funci&oacute;n 'Engadir p&aacute;xina' para engadir unha p&aacute;xina e enviala &oacute; servidor.
+						Se, polo contrario, quere vostede enlazar cunha p&aacute;xina ou web xa existente, empregue a funci&oacute;n
+						'Ligaz&oacute;ns'. As p&aacute;xinas e ligaz&oacute;ns que vostede lle engada &aacute;
+						p&aacute;xina principal poden ser desactivadas e logo suprimidas, a diferencia das ferramentas existentes
 						por defecto, que poden ser desactivadas, pero non suprimidas.</p><p>
-						Tam&eacute;n a vostede lle corresponde decidir se o seu curso debe de aparecer na lista de cursos. 
-						&Eacute; aconsellable que un curso en fase de probas ou en 'obras' non apareza na lista (ve-la 
-						funci&oacute;n 'Modificar informaci&oacute;n sobre o curso') e permaneza privado sen posibilidade de 
+						Tam&eacute;n a vostede lle corresponde decidir se o seu curso debe de aparecer na lista de cursos.
+						&Eacute; aconsellable que un curso en fase de probas ou en 'obras' non apareza na lista (ve-la
+						funci&oacute;n 'Modificar informaci&oacute;n sobre o curso') e permaneza privado sen posibilidade de
 						que os usuarios se inscriban nel durante a s&uacute;a creaci&oacute;n.</p>";
 $langHomePageTextZone = "Zonas de texto da p&aacute;xina de inicio";
 $langHour = "Hora";
-$langHumanAndPhysicalResourcesComment1 = "Que recursos humanos e materiais est&aacute;n dispo&ntilde;ibles? Cal &eacute; a natureza da estructura? 
+$langHumanAndPhysicalResourcesComment1 = "Que recursos humanos e materiais est&aacute;n dispo&ntilde;ibles? Cal &eacute; a natureza da estructura?
 Que poden agarda-los estudantes do equipo de organizaci&oacute;n ou da organizaci&oacute;n do profesor?";
-$langHumanAndPhysicalResourcesComment2 = "Presentaci&oacute;n dos outros profesores que organizar&aacute;n o curso (asistentes, 
-investigadores, monitores-estudantes...), da dispo&ntilde;ibilidade do persoal, as aulas e o equipamento (tam&eacute;n o 
+$langHumanAndPhysicalResourcesComment2 = "Presentaci&oacute;n dos outros profesores que organizar&aacute;n o curso (asistentes,
+investigadores, monitores-estudantes...), da dispo&ntilde;ibilidade do persoal, as aulas e o equipamento (tam&eacute;n o
 inform&aacute;tico) dispo&ntilde;ible.";
 $langHumanAndPhysicalRessources = "Recursos humanos e materiais";
 $langIfNotRedirect = "Se non o redirixe ";
@@ -1174,7 +1175,7 @@ $langImpossibleToPromote = "Non &eacute; posible promocionar a titor de grupo a 
 $langIn = "en";
 $langInFrames = "En marcos";
 $langIncorrectDate = "A data de inicio debe de ser anterior &aacute; de remate...";
-$langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego 
+$langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;todo interrogativo. O termo grego
 							\"eirotao\" significa , por outro lado, \"interrogar\".";
 $langIndividual = "Individual";
 $langInfo2Say = "Informaci&oacute;n para os estudantes";
@@ -1188,28 +1189,30 @@ $langInstalled = "A secuencia de aprendizaxe foi correctamente importada.";
 $langInstitution = "Instituci&oacute;n";
 $langInstitutionUrl = "URL da instituci&oacute;n";
 $langIntroCourse = "Est&aacute; vostede na p&aacute;xina de inicio do curso.<br><br>Nesta p&aacute;xina, pode vostede :
-							<li class=HelpText>activar ou desactivar ferramentas (premendo no bot&oacute;n '' 
+							<li class=HelpText>activar ou desactivar ferramentas (premendo no bot&oacute;n ''
 							na parte inferior esquerda).
-							<li class=HelpText>muda-las configuraci&oacute;ns ou ver estat&iacute;sticas (premendo nas 
+							<li class=HelpText>muda-las configuraci&oacute;ns ou ver estat&iacute;sticas (premendo nas
 							correspondentes ligaz&oacute;ns da parte inferior).<br><br>
-							Agora, para engadir unha introducci&oacute;n present&aacute;ndolle o seu curso &oacute;s estudantes, 
+							Agora, para engadir unha introducci&oacute;n present&aacute;ndolle o seu curso &oacute;s estudantes,
 							prema neste bot&oacute;n ";
 $langIntroEditToolList = "Seleccione as ferramentas que vostede desexa facer visibles para os seus usuarios.
 									As ferramentas invisibles apareceranlle na s&uacute;a interface persoal";
-$langIntroLearningPath = "Empregue esta ferramenta para lle proporcionar &oacute;s seus estudantes unha 
-   									secuencia para se mover entre os documentos, exercicios, p&aacute;xinas HTML, 
-									ligaz&oacute;ns,...<br><br>Se vostede desexa presentarlle a s&uacute;a secuencia 
+$langIntroLearningPath = "Empregue esta ferramenta para lle proporcionar &oacute;s seus estudantes unha
+   									secuencia para se mover entre os documentos, exercicios, p&aacute;xinas HTML,
+									ligaz&oacute;ns,...<br><br>Se vostede desexa presentarlle a s&uacute;a secuencia
 									de aprendizaxe &oacute;s estudantes, prema no bot&oacute;n de abaixo.<br>";
 $langIntroText = "Para enviar unha mensaxe, seleccione grupos de usuarios (os marcados cun * por diante)
 								ou usuarios soltos da lista da esquerda";
-$langIntroWork = "Esta p&aacute;xina perm&iacute;telle a calquera estudante ou grupo cargar un documento 
-							na p&aacute;xina web do curso. <br>Enviar un ficheiro HTML s&oacute; se non cont&eacute;n 
-							imaxe ningunha.<br><br>Se vostede desexa presentarlle esta ferramenta ou darlle algunha 
+$langIntroWork = "Esta p&aacute;xina perm&iacute;telle a calquera estudante ou grupo cargar un documento
+							na p&aacute;xina web do curso. <br>Enviar un ficheiro HTML s&oacute; se non cont&eacute;n
+							imaxe ningunha.<br><br>Se vostede desexa presentarlle esta ferramenta ou darlle algunha
 							recomendaci&oacute;n &oacute;s estudantes, prema no bot&oacute;n que hai debaixo.<br>";
-$langInvalidId = "Fallou o seu intento de acceso.<br>Se vostede non est&aacute; rexistrado, empregue o 
+$langInvalidId = "Fallou o seu intento de acceso.<br>Se vostede non est&aacute; rexistrado, empregue o
 						<a href=claroline/auth/inscription.php>formulario de rexistro</a></font color>";
 $langInvalidIdSelfReg = "<b>Fallou o intento de acceso.</b><br />Por favor, int&eacute;nteo de novo.<br />
-<small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o 
+
+<small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o
+
 <a href=claroline/auth/inscription.php>formulario de rexistro</a></font color></small>.";
 $langInvisible = "Invisible";
 $langIs = "&eacute;";
@@ -1314,14 +1317,14 @@ $langMaxSizeCourseCode = "máx. 12 caracteres, p.ex.<em>ROM2121</em>";
 $langMaxStudentGroup = "M&aacute;ximo de estudantes por grupo";
 $langMaximum = "Maximo : ";
 $langMessage = "Cando vostede elimina o foro de exemplo, elimina tam&eacute;n as mensaxes que hai nese foro.";
-$langMessageSubscribeDone_p_firstname_lastname = "Estimado %s, %s. Os seus datos persoais ser&aacute;n rexistrados 
+$langMessageSubscribeDone_p_firstname_lastname = "Estimado %s, %s. Os seus datos persoais ser&aacute;n rexistrados
 nun correo electr&oacute;nicos e seranlle enviados para lle lembra-lo seu nome de usuario e o seu contrasinal.";
 $langMessageToSelectedUsers = "Mensaxes para os usuarios seleccionados";
 $langMessages = "Mensaxes";
 $langMethodsOfEvaluation = "M&eacute;todos de avaliaci&oacute;n";
-$langMethodsOfEvaluationComment1 = "&Eacute; precisa informaci&oacute;n como o xeito de avaliaci&oacute;n 
-(exame escrito, oral, proxectos, traballos a entregar...), datas das probas formativas, datas de entrega 
-dos traballos, cales son os criteiros de avaliaci&oacute;n, o posible peso de cada criterio ou as 
+$langMethodsOfEvaluationComment1 = "&Eacute; precisa informaci&oacute;n como o xeito de avaliaci&oacute;n
+(exame escrito, oral, proxectos, traballos a entregar...), datas das probas formativas, datas de entrega
+dos traballos, cales son os criteiros de avaliaci&oacute;n, o posible peso de cada criterio ou as
 categor&iacute;as dos criterios.";
 $langMin = "M&iacute;nimo : ";
 $langMinuteShort = "min.";
@@ -1341,7 +1344,7 @@ $langModifyProfile = "Modifica-lo meu perfil";
 $langModule = "M&oacute;dulo";
 $langModuleMoved = "M&oacute;dulo movido";
 $langModuleOfMyCourse = "Empregar un m&oacute;dulo deste curso";
-$langModuleStillInPool = "Os m&oacute;dulos desta secuencia estar&aacute;n a&iacute;nda 
+$langModuleStillInPool = "Os m&oacute;dulos desta secuencia estar&aacute;n a&iacute;nda
    											dispo&ntilde;ibles no Dep&oacute;sito de m&oacute;dulos";
 $langModules = "M&oacute;dulos";
 $langModulesPoolToolName = "Dep&oacute;sito de m&oacute;dulos";
@@ -1415,11 +1418,11 @@ $langNoImage = "Non hai imaxe que amosar";
 $langNoLearningPath = "Non hai secuencias de aprendizaxe";
 $langNoModule = "Non hai m&oacute;dulos";
 $langNoMoreAttemptsAvailable = "Acadou vostede o n&uacute;mero m&aacute;ximo de intentos permitido.";
-$langNoMoreModuleToAdd = "T&oacute;dolos m&oacute;dulos deste curso est&aacute;n a ser empregados nesta 
+$langNoMoreModuleToAdd = "T&oacute;dolos m&oacute;dulos deste curso est&aacute;n a ser empregados nesta
    									secuencia de aprendizaxe.";
 $langNoPost = "Sen mensaxes";
 $langNoPostAllowed = "Non se permiten novos comentarios";
-$langNoPsychology = "Non. A iron&iacute;a socr&aacute;tica non se aplica &oacute; terreo da psicolox&iacute;a, senon no da 
+$langNoPsychology = "Non. A iron&iacute;a socr&aacute;tica non se aplica &oacute; terreo da psicolox&iacute;a, senon no da
 							argumentaci&oacute;n.";
 $langNoQuestion = "Non hai cuesti&oacute;ns polo momento";
 $langNoQuota = "Excede a cota";
@@ -1439,8 +1442,8 @@ $langNomPageAddHtPass = "Xestión de administradores";
 $langNone = "Ning&uacute;n";
 $langNormalUser = "Normal";
 $langNotAllowed = "Acci&oacute;n non permitida";
-$langNotFalse = "Esta resposta non &eacute; falsa. &Eacute; exacto que a posta en evidencia da ignorancia do 
-							interlocutor real&iacute;zase po&ntilde;endo en evidencia as contradicci&oacute;ns en que 
+$langNotFalse = "Esta resposta non &eacute; falsa. &Eacute; exacto que a posta en evidencia da ignorancia do
+							interlocutor real&iacute;zase po&ntilde;endo en evidencia as contradicci&oacute;ns en que
 							desembocan as s&uacute;s teses.";
 $langNotGroupMember = "Vostede non ten permitido o acceso a este chat";
 $langNotInstalled = "Erro. Fallou a importaci&oacute;n da secuencia de aprendizaxe";
@@ -1448,10 +1451,15 @@ $langNotRecentlyConnectedStudents = "Estudantes non conectados recentemente : ";
 $langNotUnregYourself = "Vostede non se pode desinscribir a si mesmo!";
 $langNotice = "Aviso";
 $langNoticeInstallFolderBrowsable = "<b>Atenci&oacute;n:</b> o directorio que cont&eacute;n o proceso de instalaci&oacute;n
+
 									da s&uacute;a plataforma Claroline (<code>claroline/install/</code>) &eacute; a&iacute;nda
+
 									navegable v&iacute;a web. Isto significa que calquera pode relanza-lo proceso de instalaci&oacute;n
+
 									da s&uacute;a plataforma, destrozando as&iacute; a instalaci&oacute;n que previamente vostede
-									realizou. Recomend&aacute;moslle encarecidamente que estableza permisos que protexan este 
+
+									realizou. Recomend&aacute;moslle encarecidamente que estableza permisos que protexan este
+
 									directorio ou ben que o elimine do seu servidor.";
 $langNow = "Agora";
 $langNowGoChooseYourCourses = "Pode vostede seleccionar agora, na lista, os cursos &oacute;s que desexa ter acceso.";
@@ -1462,9 +1470,9 @@ $langNumero = "Num.";
 $langOfficialCode = "DNI (8 d&iacute;xitos)";
 $langOk = "Validar";
 $langOkChapterHeadAdded = "T&iacute;tulo engadido : ";
-$langOkDefaultCommentUsed = "atenci&oacute;n : Durante o proceso de instalaci&oacute;n non se puido atopa-la 
+$langOkDefaultCommentUsed = "atenci&oacute;n : Durante o proceso de instalaci&oacute;n non se puido atopa-la
    										descrici&oacute;n e fixouse un comentario por defecto. Pode vostede mudalo.";
-$langOkDefaultTitleUsed = "atenci&oacute;n : Durante o proceso de instalaci&oacute;n non se puido atopa-lo 
+$langOkDefaultTitleUsed = "atenci&oacute;n : Durante o proceso de instalaci&oacute;n non se puido atopa-lo
    										nome da secuencia de aprendizaxe e fixouse un nome por defecto. Pode vostede mudalo.";
 $langOkFileReceived = "Ficheiro recibido : ";
 $langOkManifestFound = "Atopado manifesto no ficheiro zip : ";
@@ -1543,9 +1551,9 @@ $langPublish = "Publicar";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grupos";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un usuario pode ser membro de, como m&aacute;ximo, ";
 $langQualificationsAndGoals = "Cualificaci&oacute;ns e metas";
-$langQualificationsAndGoalsComment1 = "Cales son os prop&oacute;sitos de ensino? &Oacute; remate do curso, 
+$langQualificationsAndGoalsComment1 = "Cales son os prop&oacute;sitos de ensino? &Oacute; remate do curso,
 que capacidades e co&ntilde;ecementos ser&aacute;n capaces de controlar, de movilizar, os estudantes?";
-$langQualificationsAndGoalsComment2 = "Presentaci&oacute;n dos obxectivos xerais e espec&iacute;ficos do 
+$langQualificationsAndGoalsComment2 = "Presentaci&oacute;n dos obxectivos xerais e espec&iacute;ficos do
 curso, das capacidades a adquirir que se te&ntilde;en como obxectivo.";
 $langQuantity = "Cantidade";
 $langQuestion = "Cuesti&oacute;n";
@@ -1572,7 +1580,7 @@ $langRegYou = "rexistrouno a vostede neste curso";
 $langRegister = "Inscribir";
 $langRegisterCampusAdvice = "Por favor, verifique que a URL do seu campus &eacute; accesible desde a internet";
 $langRegisterClass = " Rexistrar unha clase";
-$langRegisterLocalUrl = "A url do seu campus semella ser unha url local. &Eacute; preciso dispo&ntilde;er dunha url 
+$langRegisterLocalUrl = "A url do seu campus semella ser unha url local. &Eacute; preciso dispo&ntilde;er dunha url
 accesible por web para poder rexistra-la s&uacute;a plataforma en Claroline.net.<br /><br />
 Comprobe o valor do enderezo web base na s&uacute;a configuraci&oacute;n de Claroline.";
 $langRegisterMyCampus = "Rexistra-lo meu campus";
@@ -1586,7 +1594,7 @@ $langRename = "Renomear";
 $langReplaceAttachedFile = "Reemprazar";
 $langReply = "Resposta";
 $langRequestOfCourseCreatorStatus = "Solicitude de estatus de Profesor";
-$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Solicita-lo codificador 
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Solicita-lo codificador
 desta configuraci&oacute;n para engadir esas propiedades nunha secci&oacute;n do ficheiro de definici&oacute;n.";
 $langRequired = "Requirido";
 $langRequirements = "Requirimentos";
@@ -1605,8 +1613,8 @@ $langSampleDocument = "Documento de exemplo";
 $langSampleDocumentDesc = "Pode vostede empregar calquera documento existente na secci&oacute;n de documentos deste curso.";
 $langSampleExerciseDesc = "Pode vostede empregar calquera exercicio da secci&oacute;n de exercicios do seu curso.";
 $langSampleLearnPath = "Exemplo de secuencia de aprendizaxe";
-$langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemplo. Emprega o exercicio de exemplo e o 
-								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b> 
+$langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemplo. Emprega o exercicio de exemplo e o
+								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b>
 								para mudar este texto.";
 $langSave = "Gardar";
 $langSaveChanges = "Garda-los cambios";
@@ -1614,7 +1622,7 @@ $langScore = "Puntuaci&oacute;n";
 $langScoreAvg = "Media";
 $langScoreMax = "M&aacute;x.";
 $langScoreMin = "M&iacute;n.";
-$langScormIntroTextForDummies = "Os paquetes importados deben de consistir nun ficheiro zip e conforme con 
+$langScormIntroTextForDummies = "Os paquetes importados deben de consistir nun ficheiro zip e conforme con
    										SCORM 1.2";
 $langScriptMissing = "Script ausente";
 $langScriptMissingComment = "Debe vostede de instalar estes scripts para que Claroline funcione correctamente";
@@ -1694,7 +1702,7 @@ $langSubscriptionDeniedOnly = "S&oacute; subscrici&oacute;n denegada";
 $langSupportForum = "Foro de soporte";
 $langSupports = " Soporte ";
 $langSupportsComment1 = "Existe soporte para o curso? Que tipo de soporte terei? Aberto? Pechado?";
-$langSupportsComment2 = "Presentaci&oacute;n do soporte do curso. Presentaci&oacute;n da bibliograf&iacute;a, a colecci&oacute;n 
+$langSupportsComment2 = "Presentaci&oacute;n do soporte do curso. Presentaci&oacute;n da bibliograf&iacute;a, a colecci&oacute;n
 de documentos ou a bibliograf&iacute;a complementaria.";
 $langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
 $langTake = "seleccionar";
@@ -1702,10 +1710,10 @@ $langTargetFac = "Esta &eacute; a facultade, departamento ou escola onde o curso
 $langTeacherQty = "Nº de Profesores";
 $langTeachers = "Profesores";
 $langTeachingTrainingActivities = "Actividades de pr&aacute;ctica/aprendizaxe";
-$langTeachingTrainingActivitiesComment1 = "Que m&eacute;todos e actividades soportar&aacute;n os obxectivos definidos 
+$langTeachingTrainingActivitiesComment1 = "Que m&eacute;todos e actividades soportar&aacute;n os obxectivos definidos
 para este curso? Cal &eacute; o calendario de actividades?";
-$langTeachingTrainingActivitiesComment2 = "Presentaci&oacute;n das actividades previstas (revistas autorizadas, participaci&oacute;n 
-dos estudantes agardada, traballos pr&aacute;cticos, pr&aacute;cticas de laboratorio, visitas, colecci&oacute;ns de informaci&oacute;n 
+$langTeachingTrainingActivitiesComment2 = "Presentaci&oacute;n das actividades previstas (revistas autorizadas, participaci&oacute;n
+dos estudantes agardada, traballos pr&aacute;cticos, pr&aacute;cticas de laboratorio, visitas, colecci&oacute;ns de informaci&oacute;n
 de campo...).";
 $langTechAdmin = "Administraci&oacute;n t&eacute;cnica";
 $langTechnical = "Ferramentas t&eacute;cnicas";
@@ -1728,7 +1736,7 @@ $langTitular = "Titular";
 $langTo = "en";
 $langToDate = "ata";
 $langToday = "Hoxe";
-$langTooBig = "Vostede non escolleu ficheiro ning&uacute;n para enviar, ou ben o ficheiro escollido 
+$langTooBig = "Vostede non escolleu ficheiro ning&uacute;n para enviar, ou ben o ficheiro escollido
 							&eacute; demasiado grande";
 $langTool = "Ferramenta : ";
 $langToolTitleCountColumn = "Pulsaci&oacute;ns totais";
@@ -1804,33 +1812,33 @@ $langUploadFile = "Cargar ficheiro";
 $langUploadedFile = "Ficheiro cargado";
 $langUseFollowingFormat = " Empregue o seguinte formato : ";
 $langUseFormatDefined = "Empregue o formato definido na primeira li&ntilde;a do ficheiro";
-$langUseOfPool = "Esta p&aacute;xina perm&iacute;telle ver t&oacute;dolos m&oacute;dulos 
-   								dispo&ntilde;ibles neste curso. <br>Calquera exercicio ou documento que 
-								sexa engadido nunha secuencia de aprendizaxe, aparecer&aacute; tam&eacute;n 
+$langUseOfPool = "Esta p&aacute;xina perm&iacute;telle ver t&oacute;dolos m&oacute;dulos
+   								dispo&ntilde;ibles neste curso. <br>Calquera exercicio ou documento que
+								sexa engadido nunha secuencia de aprendizaxe, aparecer&aacute; tam&eacute;n
 								nesta lista.";
 $langUseTagForBlank = "empregue corchetes [...] para definir un ou m&aacute;is brancos";
 $langUsedInLearningPaths = "N&uacute;mero de secuencias de aprendizaxe empregadas neste m&oacute;dulo : ";
-$langUsedInSeveralExercises = "Coidado! Esta cuesti&oacute;n e as s&uacute;s respostas son empregadas 
+$langUsedInSeveralExercises = "Coidado! Esta cuesti&oacute;n e as s&uacute;s respostas son empregadas
 								en varios exercicios. Desexa vostede modificalas ";
-$langUsedInSeveralPath = "Este exercicio &eacute; empregado polo menos nunha secuencia de aprendizaxe. Se vostede 
+$langUsedInSeveralPath = "Este exercicio &eacute; empregado polo menos nunha secuencia de aprendizaxe. Se vostede
 								o elimina, non poder&aacute; estar xa dispo&ntilde;ible nesa(s) secuencia(s) de aprendizaxe.";
 $langUser = "Usuario";
 $langUserAccessDetails = "Detalles dos accesos do usuario";
 $langUserAlreadyInClass = "O usuario xa est&aacute; nunha clase";
-$langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en ningunha funci&oacute;n 
-						inform&aacute;tica. Non outorgan ning&uacute;n dereito sobre o sistema. Vostede pode 
-						modificalos premendo en 'modificar' debaixo de  'rol/papel' e introducindo logo 
-						t&oacute;dalas letras da descrici&oacute;n da funci&oacute;n conveniente: profesor, 
-						asistente, titor, visitante, documentalista, experto, moderador... Esta servir&aacute; 
+$langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en ningunha funci&oacute;n
+						inform&aacute;tica. Non outorgan ning&uacute;n dereito sobre o sistema. Vostede pode
+						modificalos premendo en 'modificar' debaixo de  'rol/papel' e introducindo logo
+						t&oacute;dalas letras da descrici&oacute;n da funci&oacute;n conveniente: profesor,
+						asistente, titor, visitante, documentalista, experto, moderador... Esta servir&aacute;
 						soamente para indicar publicamente o rol (papel) que desempe&ntilde;a no curso.</P><hr>
 						<b>Dereitos de administraci&oacute;n</b>
 						<p>Os dereitos de administraci&oacute;n, pola contra, ref&iacute;rense &oacute; sistema
 						inform&aacute;tico. Actualmente, p&oacute;edese escoller entre <b>todos</b> (modificar todo,
 						suprimir todo, engadir todo) e <b>ning&uacute;n</b> (a parte do dereito de visitar a web,
 						de publicar mensaxes no foro e traballos mediante a secci&oacute;n de 'Traballos').</P>
-						<p>Para permitir a un co-titular, un asistente, un titor ou quen sexa que desexe 
-						co-administra-la web con vostede, debe inscribilo previamente no seu curso, ou asegurarse 
-						primeiro de que xa est&aacute; inscrito e modificar logo os dereitos que lle corresponden 
+						<p>Para permitir a un co-titular, un asistente, un titor ou quen sexa que desexe
+						co-administra-la web con vostede, debe inscribilo previamente no seu curso, ou asegurarse
+						primeiro de que xa est&aacute; inscrito e modificar logo os dereitos que lle corresponden
 						premendo en 'modificar' debaixo 'dereitos de administraci&oacute;.' e marcando logo 'todos'.</P><hr>
 						<b>Co-titulares</b>
 						<p>Para facer que figure o nome dun co-titular na cabeceira do seu curso, empregue a
@@ -1843,7 +1851,7 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						marque o recadro que aparece &oacute; lado do seu nome e valide. Se todav&iacute;a non
 						est&aacute; inscrito eng&aacute;dao &aacute; man. O usuario recibir&aacute;, en ambos casos,
 						un correo electr&oacute;nico de confirmaci&oacute;n da s&uacute;a inscrici&oacute;n
-						co seu nome de usuario e contrasinal, excepto no caso de que vostede non introducira 
+						co seu nome de usuario e contrasinal, excepto no caso de que vostede non introducira
 						o seu correo electr&oacute;nico.</p>";
 $langUserCourseList = "Lista de usuarios do curso";
 $langUserCreated = "O novo usuario foi creado";
@@ -1856,7 +1864,7 @@ $langUserNoCourseToDisplay = "Non hai cursos para amosar";
 $langUserNotInClass = "O usuarios non est&aacute; na clase";
 $langUserNotUnsubscribedFromCourse = "Erro!. Non pode vostede dar de baixa a un xestor de curso";
 $langUserNumber = "n&uacute;mero";
-$langUserOneByOneExplanation = "El (ela) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n 
+$langUserOneByOneExplanation = "El (ela) recibir&aacute; un correo electr&oacute;nico de confirmaci&oacute;n
 								co seu nome de usuario e contrasinal";
 $langUserRegisteredClass = "O usuario foi satisfactoriamente rexistrado na clase";
 $langUserRegisteredToCourse = "Usuario rexistrado no curso";
@@ -1891,12 +1899,19 @@ $langWikiAccessControlText = "Pode vostede fixar permisos de acceso para os usua
 $langWikiAllPages = "T&oacute;dalas p&aacute;xinas";
 $langWikiBackToPage = "Volver &aacute; p&aacute;xina";
 $langWikiConflictHowTo = "
-<p><strong>Conflito na edici&oacute;n</strong> : semella que a p&aacute;xina que vostede intenta salvar mudou desde 
+
+<p><strong>Conflito na edici&oacute;n</strong> : semella que a p&aacute;xina que vostede intenta salvar mudou desde
+
 que vostede a modificar.<br /><br /> Que desexa facer agora?
+
 <ul>
-<li>Pode vostede copiar/pegar a s&uacute;a modificaci&oacute;n nun editor de texto (como o bloc de notas) e premer en 'edita-la 
+
+<li>Pode vostede copiar/pegar a s&uacute;a modificaci&oacute;n nun editor de texto (como o bloc de notas) e premer en 'edita-la
+
 &uacute;ltima versi&oacute;n' para intentar engadirlle a s&uacute;a modificaci&oacute;n &aacute; nova versi&oacute;n da p&aacute;xina.</li>
+
 <li>Pode vostede tam&eacute;n premer en 'Cancelar' para desbota-los seus cambios.</li>
+
 </ul></p>";
 $langWikiContentEmpty = "Esta p&aacute;xina est&aacute; baleira, prema en 'Editar esta p&aacute;xina' para engadir un contido";
 $langWikiCourseMembers = "Membros do curso";
@@ -1906,7 +1921,8 @@ $langWikiCreationSucceed = "Creaci&oacute;n do Wiki completada";
 $langWikiDefaultDescription = "Introducir aqu&iacute; a descrici&oacute;n do seu wiki";
 $langWikiDefaultTitle = "Novo Wiki";
 $langWikiDeleteWiki = "Eliminar Wiki";
-$langWikiDeleteWikiWarning = "ATENCI&Oacute;N : vai vostede a eliminar este wiki e t&oacute;dalas s&uacute;as p&aacute;xinas. 
+$langWikiDeleteWikiWarning = "ATENCI&Oacute;N : vai vostede a eliminar este wiki e t&oacute;dalas s&uacute;as p&aacute;xinas.
+
 							  Est&aacute; vostede seguro de que desexa continuar ?";
 $langWikiDeletionSucceed = "Completouse a eliminaci&oacute;n do Wiki";
 $langWikiDescription = "Descrici&oacute;n do Wiki";
@@ -1927,96 +1943,185 @@ $langWikiEditProperties = "Editar propiedades";
 $langWikiEditionSucceed = "Edici&oacute;n do Wiki realizada";
 $langWikiGroupMembers = "Membros do grupo";
 $langWikiHelpAdminContent = "<h3>Axuda &aacute; administraci&oacute;n do Wiki</h3>
+
 <dl class=\"wikiHelp\">
+
 <dt>Como se pode crear un novo Wiki?</dt>
+
 <dd>Prema na ligaz&oacute;n 'Crear un novo Wiki'. Logo introduza as propiedades do Wiki :
+
 <ul>
+
 <li><b>T&iacute;tulo do Wiki</b> : escolla un t&iacute;tulo para o Wiki</li>
+
 <li><b>Descrici&oacute;n do Wiki</b> : escolla unha descrici&oacute;n para o Wiki</li>
-<li><b>Xesti&oacute;n do Control de Acceso</b> : estableza o control de acceso &oacute; Wiki marcando ou desmarcando as 
+
+<li><b>Xesti&oacute;n do Control de Acceso</b> : estableza o control de acceso &oacute; Wiki marcando ou desmarcando as
+
 casi&ntilde;as (mire a parte inferior)</li>
+
 </ul>
+
 </dd>
+
 <dt>Como entrar nun Wiki?</dt>
+
 <dd>Prema no t&iacute;tulo do Wiki na lista.</dd>
+
 <dt>Como muda-las propiedades dun Wiki?</dt>
+
 <dd>Premer no icono na columna de 'Propiedades' na lista de Wiki para ir &oacute; formulario de propiedades Wiki.</dd>
+
 <dt>Como emprega-las opci&oacute;ns da administraci&oacute;n do Control de Acceso?</dt>
-<dd>Pode vostede fixa-los dereitos de acceso para os usuarios marcando e desmarcando as casi&ntilde;as na secci&oacute;n de 
+
+<dd>Pode vostede fixa-los dereitos de acceso para os usuarios marcando e desmarcando as casi&ntilde;as na secci&oacute;n de
+
 'Administraci&oacute;n de Control de Acceso' das propiedades do Wiki. Pode vostede garantir/negar acceso a tres tipos de usuarios:
+
 <ul>
+
 <li><b>Membros do curso</b> : usuarios matriculados no curso (excepto xestores de curso)</li>
-<li><b>Membros de grupo</b> (dispo&ntilde;ible s&oacute; dentro dun grupo) : os usuarios que son membros do grupo 
+
+<li><b>Membros de grupo</b> (dispo&ntilde;ible s&oacute; dentro dun grupo) : os usuarios que son membros do grupo
+
 (excepto os titores de grupo)</li>
+
 <li><b>Outros usuarios</b> : usuarios an&oacute;nimos ou usuarios que non son membros do curso</li></ul>
+
 Para cada tipo de usuario, vostede p&oacute;delle proporcionar tres tipos de privilexios para o Wiki(*) :<ul>
+
 <li><b>Ler p&aacute;xinas</b> : o usuario do tipo dado poder&aacute; le-las p&aacute;xinas do Wiki</li>
+
 <li><b>Editar p&aacute;xinas</b> : o usuario do tipo dado poder&aacute; modifica-lo contido das p&aacute;xinas do Wiki</li>
+
 <li><b>Crear p&aacute;xinas</b> :  o usuario do tipo dado poder&aacute; crear novas p&aacute;xinas no Wiki</li>
-</ul><small><em>(*) Note que se un usuario non pode le-las p&aacute;xinas do Wiki, tampouco poder&aacute; editalas ou 
+
+</ul><small><em>(*) Note que se un usuario non pode le-las p&aacute;xinas do Wiki, tampouco poder&aacute; editalas ou
+
 modificalas. Note tam&eacute;n que un usuario que non pode edita-las p&aacute;xinas dun Wiki non pode tampouco crear
+
 novas p&aacute;xinas.</em></small></dd>
+
 <dt>Como eliminar un Wiki ?</dt>
+
 <dd>Prema no icono da columna 'Eliminar' para borrar un Wiki e t&oacute;dalas s&uacute;as p&aacute;xinas.</dd>
+
 <dt>Como obte-la lista das p&aacute;xinas nun Wiki ?</dt>
+
 <dd>Prema no n&uacute;mero de p&aacute;xinas dese Wiki na lista de Wikis.</dd>
+
 <dt>Como obte-la lista das &uacute;ltimas p&aacute;xinas modificadas nun Wiki ?</dt>
+
 <dd>Prema no icono na columna 'Cambios recentes' na lista de Wikis.</dd>
+
 </dl>";
 $langWikiHelpSyntax = "Sintaxe Wiki";
 $langWikiHelpSyntaxContent = "<h3>Sintaxe Wiki_a_xhtml</h3>
+
 <dl class=\"wikiHelp\">
+
 <dt>Creando as p&aacute;xinas do wiki e as ligaz&oacute;ns entre elas</dt>
+
 <dd><ul>
+
 <li><strong>Verbas Wiki</strong> : as Verbas Wiki son palabras escritas do xeito <em>VerbasWiki</em>. O Wiki_a_xhtml
+
 reco&ntilde;&eacute;ceas automaticamente como ligaz&oacute;ns &aacute;s p&aacute;xinas Wiki. Para crear unha
-p&aacute;xina wiki ou para crear unha ligaz&oacute;n a unha p&aacute;xina wiki, edite unha existente e eng&aacute;dalle 
+
+p&aacute;xina wiki ou para crear unha ligaz&oacute;n a unha p&aacute;xina wiki, edite unha existente e eng&aacute;dalle
+
 o t&iacute;tulo da p&aacute;xina en sintaxe de Verbas Wiki como, por exemplo, <em>Mi&ntilde;aP&aacute;xina</em>, e salve
-logo a p&aacute;xina. Wiki_a_xhtml reemprazar&aacute; automaticamente a Verba Wiki <em>Mi&ntilde;aP&aacute;xina</em> 
+
+logo a p&aacute;xina. Wiki_a_xhtml reemprazar&aacute; automaticamente a Verba Wiki <em>Mi&ntilde;aP&aacute;xina</em>
+
 cunha ligaz&oacute;n &aacute; p&aacute;xina Wiki <em>Mi&ntilde;aP&aacute;xina</em>&nbsp;;</li>
-<li><strong>Ligaz&oacute;ns Wiki</strong> : 
-As Ligaz&oacute;ns Wiki son como hiperv&iacute;nculos (ver debaixo), excepto que non conte&ntilde;en ning&uacute;n esquema 
-de protocolo (como <em>http://</em> ou <em>ftp://</em>) e que son reco&ntilde;ecidas automaticamente como ligaz&oacute;ns 
+
+<li><strong>Ligaz&oacute;ns Wiki</strong> :
+
+As Ligaz&oacute;ns Wiki son como hiperv&iacute;nculos (ver debaixo), excepto que non conte&ntilde;en ning&uacute;n esquema
+
+de protocolo (como <em>http://</em> ou <em>ftp://</em>) e que son reco&ntilde;ecidas automaticamente como ligaz&oacute;ns
+
 a p&aacute;xinas Wiki.
-Para crear unha nova p&aacute;xina ou para crear unha ligaz&oacute;n a unha existente empregando Ligaz&oacute;ns Wiki, 
-edite unha p&aacute;xina e eng&aacute;dalle <code>[t&iacute;tulo da p&aacute;xina</code> ou <code>[t&iacute;tulo da 
-p&aacute;xina|texto da ligaz&oacute;n]</code> &oacute; seu contido. Pode tam&eacute;n vostede empregar esta sintaxe 
+
+Para crear unha nova p&aacute;xina ou para crear unha ligaz&oacute;n a unha existente empregando Ligaz&oacute;ns Wiki,
+
+edite unha p&aacute;xina e eng&aacute;dalle <code>[t&iacute;tulo da p&aacute;xina</code> ou <code>[t&iacute;tulo da
+
+p&aacute;xina|texto da ligaz&oacute;n]</code> &oacute; seu contido. Pode tam&eacute;n vostede empregar esta sintaxe
+
 para muda-lo texto dunha ligaz&oacute;n dunha Verba Wiki : <code>[Verba Wiki|texto]</code>.</li>
+
 </ul></dd>
+
 <dt>Elementos de bloque</dt>
+
 <dd><ul><li>Engaden unha nova li&ntilde;a entre cada li&ntilde;a <em>do mesmo tipo</em>.&nbsp;;</li>
+
 <li><strong>P&aacute;rrafo</strong> : escribe alg&uacute;n texto e unha nova li&ntilde;a&nbsp;;</li>
+
 <li><strong>T&iacute;tulo</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectivamente, para t&iacute;tulos,
+
 subt&iacute;tulos e sub-sub-t&iacute;tulos&nbsp;;</li>
+
 <li><strong>Li&ntilde;a horizontal</strong> : <code>----</code>&nbsp;;</li>
+
 <li><strong>Lista</strong> : li&ntilde;a que comeza con <code>*</code> ou <code>#</code>. Pode vostede mesturar listas
+
 (<code>*#*</code>) para crear listas multinivel.&nbsp;;</li>
+
 <li><strong>Texto preformatado</strong> : engade un espazo antes de cada li&ntilde;a de texto preformatado.&nbsp;;</li>
+
 <li><strong>Bloque de cita</strong> : <code>&gt;</code> ou <code>;:</code> antes de cada li&ntilde;a.</li>
+
 </ul></dd>
+
 <dt>Elementos en li&ntilde;a</dt>
-<dd><ul><li>Correcci&oacute;n autom&aacute;tica de puntuaci&oacute;n activa : 
+
+<dd><ul><li>Correcci&oacute;n autom&aacute;tica de puntuaci&oacute;n activa :
+
 Un espazo irrompible preceder&aacute; a cada un dos s&iacute;mbolos seguintes \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
+
 <li><strong>&Eacute;nfase</strong> : rodea o seu texto con d&uacute;as comi&ntilde;as  <code>''texto''</code>&nbsp;;</li>
+
 <li><strong>Grande &eacute;nfase</strong> : rodea o seu texto con tres comi&ntilde;as suli&ntilde;adas <code>'''texto'''</code>&nbsp;;</li>
+
 <li><strong>Salto de li&ntilde;a forzado</strong> : <code>%%%</code>&nbsp;;</li>
+
 <li><strong>Suli&ntilde;ado</strong> : rodea o seu texto con dous gui&oacute;ns baixos <code>__texto__</code>&nbsp;;</li>
+
 <li><strong>Gui&oacute;ns</strong> : rodea o seu texto con dous s&iacute;mbolos de resta <code>--texto--</code>&nbsp;;</li>
-<li><strong>Hiperv&iacute;nculos</strong> : <code>[url]</code>, <code>[nome|url]</code>, <code>[nome|url|idioma]</code> ou 
+
+<li><strong>Hiperv&iacute;nculos</strong> : <code>[url]</code>, <code>[nome|url]</code>, <code>[nome|url|idioma]</code> ou
+
 <code>[nome|url|idioma|t&iacute;tulo]</code>.&nbsp;;</li>
+
 <li><strong>Imaxe</strong> : o mesmo que os Hiperv&iacute;nculos<br>
+
 Po&ntilde;a un 0 no &uacute;ltimo argumento para permiti-lo reco&ntilde;ecemento da imaxe e crear un hiperv&iacute;nculo a ela.
+
 Por exemplo <code>[imaxe|imaxe.gif||0]</code> amosar&aacute; unha ligaz&oacute;n &aacute; imaxe imaxe.gif no canto da imaxe mesma.<br>
+
 Esta sintaxe est&aacute; obsoleta. Use a que a continuaci&oacute;n se especifica&nbsp;;</li>
-<li><strong>Imaxe</strong> (nova sintaxe) : <code>((url|texto alternativo))</code>, <code>((url|texto alternativo|posici&oacute;n))</code> 
-ou <code>((url|texto alternativo|posici&oacute;n|descrici&oacute;n longa))</code>. <br>O argumento de posici&oacute;n pode toma-los 
+
+<li><strong>Imaxe</strong> (nova sintaxe) : <code>((url|texto alternativo))</code>, <code>((url|texto alternativo|posici&oacute;n))</code>
+
+ou <code>((url|texto alternativo|posici&oacute;n|descrici&oacute;n longa))</code>. <br>O argumento de posici&oacute;n pode toma-los
+
 valores seguintes : L (left - esquerda), R (right - dereita) ou C (center - centro).&nbsp;;</li>
+
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
+
 <li><strong>Acr&oacute;nimo</strong> : <code>??acr&oacute;nimo??</code> ou <code>??acr&oacute;nimo|definici&oacute;n??</code>&nbsp;;</li>
+
 <li><strong>Cita</strong> : <code>{{cita}}</code>, <code>{{cita|idioma}}</code> ou <code>{{cita|idioma|url}}</code>&nbsp;;</li>
+
 <li><strong>C&oacute;digo</strong> : <code>@@c&oacute;digo aqu&iacute;@@</code>&nbsp;;</li>
+
 <li><strong>Nota a p&eacute; de p&aacute;xina</strong> : <code>\$\$texto de nota a p&eacute; de p&aacute;xina\$\$</code>.</li>
+
 </ul></dd>
+
 </dl>";
 $langWikiIdenticalContent = "Contido id&eacute;ntico<br />non se gardou modificaci&oacute;n ningunha";
 $langWikiInvalidWikiId = "Identificador de Wiki inv&aacute;lido";
@@ -2033,8 +2138,10 @@ $langWikiOtherUsersText = "(*) usuarios an&oacute;nimos, usuarios que non son me
 $langWikiPageHistory = "Historial da p&aacute;xina";
 $langWikiPageSaved = "P&aacute;xina gardada";
 $langWikiPreviewTitle = "Previsualizaci&oacute;n";
-$langWikiPreviewWarning = "ATENCI&Oacute;N: esta p&aacute;xina &eacute; unha previsualizaci&oacute;n. As s&uacute;as 
-modificaci&oacute;ns no wiki non foron a&iacute;nda gardadas!. Para gardalas, non esqueza premer no bot&oacute;n 
+$langWikiPreviewWarning = "ATENCI&Oacute;N: esta p&aacute;xina &eacute; unha previsualizaci&oacute;n. As s&uacute;as
+
+modificaci&oacute;ns no wiki non foron a&iacute;nda gardadas!. Para gardalas, non esqueza premer no bot&oacute;n
+
 'Gardar' na parte inferior da p&aacute;xina.";
 $langWikiProperties = "Propiedades";
 $langWikiReadPrivilege = "P&aacute;xinas lidas";
@@ -2085,7 +2192,7 @@ $lang_do_you_want_to_continue = "Desexa continuar?";
 $lang_enroll = "Matricularse";
 $lang_enroll_to_a_new_course = "Matricularse nun novo curso";
 $lang_faculty_CanHaveCatCourse = "Pode ter cursos : ";
-$lang_faculty_CatHaveCat = "Esta categor&iacute;a cont&eacute;n outras categor&iacute;as, debe vostede 
+$lang_faculty_CatHaveCat = "Esta categor&iacute;a cont&eacute;n outras categor&iacute;as, debe vostede
 											de eliminalas antes!";
 $lang_faculty_CatHaveCourses = "Esta categor&iacute;a cont&eacute;n outros cursos, non pode vostede eliminala!";
 $lang_faculty_CodeCat = "C&oacute;digo de categor&iacute;a :";
@@ -2096,7 +2203,7 @@ $lang_faculty_CreateOk = "Categor&iacute;a creada";
 $lang_faculty_DeleteOk = "Categor&iacute;a eliminada";
 $lang_faculty_EditOk = "Os cambios foron gardados";
 $lang_faculty_Father = "Categor&iacute;a pai";
-$lang_faculty_HaveCourses = "Esta categor&iacute;a incl&uacute;e alg&uacute;ns cursos, debe vostede eliminalos 
+$lang_faculty_HaveCourses = "Esta categor&iacute;a incl&uacute;e alg&uacute;ns cursos, debe vostede eliminalos
 											ou movelos primeiro";
 $lang_faculty_MoveOk = "Categor&iacute;a movida";
 $lang_faculty_NameCat = "Nome de categor&iacute;a :";
@@ -2118,10 +2225,12 @@ $lang_or_search_from_keyword = "Procurar por palabra clave";
 $lang_p_ErrorOnBuild_S_for_S = "Erro na construcci&oacute;n de <em>%s</em> para <b>%s</b>";
 $lang_p_FeedOf_s = "Fluxo RSS para %s";
 $lang_p_FillCourses = "Cubrir %s con %s";
-$lang_p_IfNothingHappendClickHere = "<small>Se despois de 30 segundos non muda nada, prema por favor <a href=\"%s\">aqu&iacute;</a> 
+$lang_p_IfNothingHappendClickHere = "<small>Se despois de 30 segundos non muda nada, prema por favor <a href=\"%s\">aqu&iacute;</a>
+
 e agarde de novo</small>";
 $lang_p_PropForConfigCommited = "As propiedades para %s (%s) son agora efectivas no servidor.";
-$lang_p_aCategoryWouldBeSelected = "Debe de escoller unha categor&iacute;a. Se hai algunha que non figura, notif&iacute;quello 
+$lang_p_aCategoryWouldBeSelected = "Debe de escoller unha categor&iacute;a. Se hai algunha que non figura, notif&iacute;quello
+
 por favor &oacute; <a href=\"%s\">administrador da plataforma</a>";
 $lang_p_category_s_created = "Categor&iacute;a %s creada";
 $lang_p_config_file_creation = "Creaci&oacute;n do ficheiro de configuraci&oacute;n:<br> %s";
@@ -2154,7 +2263,7 @@ $lang_user_has_been_enrolled_to_the_course = "O usuario foi matriculado no curso
 $lang_you_had_request = "Vostede pregunta";
 $lang_you_have_been_enrolled_to_the_course = "Foi vostede matriculado no curso";
 $lang_your_enrollment_to_the_course_has_been_removed = "A s&uacute;a subscrici&oacute;n &oacute; curso foi eliminada";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute; 
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "No seu perfil de usuario semella que vostede non est&aacute;
 														matriculado neste curso";
 $langcatcreated = "A nova categor&iacute;a foi creada.";
 $langimportLearningPath = "Importar unha secuencia de aprendizaxe";

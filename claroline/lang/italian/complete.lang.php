@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Autore";
 $l_body = "Testo del messaggio";
 $l_click = "Clicca";
@@ -98,14 +98,14 @@ $langAdvanced = "Avanzato";
 $langAgain = "Ricominciate!";
 $langAgenda = "Calendario";
 $langAgendaNextEvents = "Prossimi eventi in agenda";
-$langAlertBlockingMakedInvisible = "Questo modulo è bloccato. 
-Making it invisible will allow students to access 
- next modules without having to complete this one. 
+$langAlertBlockingMakedInvisible = "Questo modulo è bloccato.
+Making it invisible will allow students to access
+ next modules without having to complete this one.
 
 Confirm ?";
-$langAlertBlockingPathMadeInvisible = "Questo percorso è bloccato. 
-Making it invisible will allow students to access 
- next paths without having to complete this one. 
+$langAlertBlockingPathMadeInvisible = "Questo percorso è bloccato.
+Making it invisible will allow students to access
+ next paths without having to complete this one.
 
 Confirm ?";
 $langAll = "Tutto/i";
@@ -342,10 +342,10 @@ $langDBLogin = "Database Username";
 $langDBPassword = "Database Password";
 $langDBSetting = "Impostaazioni database MySQL";
 $langDBSettingNamesIntro = "
-				La procedura di installazione crea il database principale di Claroline. 
-				Potete creare diversi DBs 
-				per il le funzioni di Tracking e PhpMyAdmin se lo riterrete necessario. 
-				Nel caso contrario, Claroline creerà un nuovo DB per ogni corso creato. 
+				La procedura di installazione crea il database principale di Claroline.
+				Potete creare diversi DBs
+				per il le funzioni di Tracking e PhpMyAdmin se lo riterrete necessario.
+				Nel caso contrario, Claroline creerà un nuovo DB per ogni corso creato.
 				Potete specificare un prefisso per questi nomi di DBs.
 				<p>
 				Se siete autorizzati a gestire solo un
@@ -788,9 +788,9 @@ Oppure potete ricomporre i gruppi dopo o prima dell'iscrizione o del riempimento
 <p>Per creare un nuovo gruppo cliccate 'Creare nuovi gruppi' e specificate quanti gruppi intendete creare e d eventualmente qual è il massimo numero di partecipanti ad ogni singolo gruppo. Se tale ultima opzione non è attivata non ci sarà un limite al numero dei partecipanti al gruppo..</p><hr noshade size=1>
 <p><b>Proprietà del gruppo</b></p>
 <p>Le proprietà dei gruppi possono essere specificate in modo globale (per tutti i gruppi).
-<b>corsisti autorizzati ad iscriversi autonomamente ai gruppi</b>: 
-<p>Possono essere creati dei gruppi vuoti, con iscrizione volontaria da parte dei corsisti. 
-Se si è optato per un limite massimo di partecipanti non saranno possibili iscrizioni in numero superiore. 
+<b>corsisti autorizzati ad iscriversi autonomamente ai gruppi</b>:
+<p>Possono essere creati dei gruppi vuoti, con iscrizione volontaria da parte dei corsisti.
+Se si è optato per un limite massimo di partecipanti non saranno possibili iscrizioni in numero superiore.
 Questo metodo è adatto al caso in cui il docente non conosca l'elenco dei corsisti al momento della creazione dei gruppi.</p>
 <b>Strumenti</b>:</p>
 <p>Ogni gruppo può possedere un 'Forum' proprio (privato o pubblico) o un'area 'Documenti' da gestire o (più frequentemente) entrambi.</p>
@@ -866,7 +866,7 @@ Gli studenti hanno la possibilità di modificare i loro lavori dopo averli inseri
 </li><li> un tipo di inserimento&nbsp;:
 <ul><li> File&nbsp;: può essere uploadato ogni tipo di file, tenendo presente il limite delle dimensioni del file che dipende dalla piattaforma, può essere aggiunto anche un testo per descrivere il file
 
-</li><li> Solo Testo&nbsp;: un testo formattato utilizzando l'editor wysiwyg 
+</li><li> Solo Testo&nbsp;: un testo formattato utilizzando l'editor wysiwyg
 </li><li> Testo con un file allegato&nbsp;: un testo formattato utilizzando l'editor wysiwyg  e un file (opzionale)
 </li></ul>
 </li><li> una data di inizio&nbsp;: la data dalla quale gli utenti potranno inserire la pubblicazione del compito
@@ -1778,7 +1778,7 @@ $lang_or_search_from_keyword = "Cerca con parola chiave";
 $lang_p_ErrorOnBuild_S_for_S = "Si è verificato un errore nella costruzione di <em>%s</em> per <B>%s</B>";
 $lang_p_FeedOf_s = "Rss feed per %s";
 $lang_p_FillCourses = "Riempi %s con %s";
-$lang_p_IfNothingHappendClickHere = "<small>Se dopo 30 secondi nulla è cambiato, clicca <a href=\"%s\">qui</a> ed attendi ancora</small>";
+$lang_p_IfNothingHappendClickHere = "Se dopo <u>30 secondi</u> nulla è cambiato, clicca <a href=\"%s\">qui</a> ed attendi ancora";
 $lang_p_PropForConfigCommited = "Le proprietà di %s (%s) sono ora operative sul server.";
 $lang_p_aCategoryWouldBeSelected = "Devi scegliere una categoria. Se manca prego contattare <a href=\"%s\">l'amministratore della piattaforma</a>";
 $lang_p_category_s_created = "Categoria %s creata";

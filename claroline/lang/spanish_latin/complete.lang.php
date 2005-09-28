@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Autor";
 $l_click = "Hacer click";
 $l_delete = "Borrar el mensaje";
@@ -8,7 +8,7 @@ $l_here = "aquí;";
 $l_indextitle = "Indice del Foro";
 $l_lastpost = "&Uacute;ltimo mensaje";
 $l_notify = "Avisar por correo electr&oacute;nico cuando hayan enviado mensajes de respuesta";
-$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje 
+$l_notifybody = "Usted recibe este correo electr&oacute;nico como respuesta a un mensaje
 que ha enviado al foro, ya que usted ha elegido ser informado.
 
 Usted puede ver el tema en:
@@ -199,7 +199,7 @@ $langClarContent = "Aquí, los profesores y asistentes crean y administran
  algunas veces, resuelven ejercicios, publican notas, participan en
  foros de discusiones...</p><b>Registración</b><p>Las siguientes instrucciones
  solamente se aplican si su versión de Claroline permite auto-registración (algunos sitios
- los registran automáticamente). <br>Si usted es un estudiante, 
+ los registran automáticamente). <br>Si usted es un estudiante,
  solo necesita registrarse seleccionando 'Inscribirse en cursos (estudiante)', entonces elija
  el curso en el que desa inscribirse.</p><p>Si usted es un profesor o un
  asistente, también se registr, pero debe seleccionar 'Crear cursos (profesos)'. Enteonces debe
@@ -234,7 +234,7 @@ $langCodeUsed = "Este código oficial ya es usado por otro usuario.";
 $langComMod = "Comentario modificado";
 $langComment = "Comentario";
 $langConfTip = "Por defecto, su curso es accesible por todos. Si usted  busca cierta privacidad,
-El medio más simple es abrir la registración durante 
+El medio más simple es abrir la registración durante
 una semana, avisar a los estudiantes que se registren por ellos mismos, entonces cerrar la registración e identificar a los posibles intrusos en la lista de usuarios.";
 $langConfigMenuContent = "Menú de Configuración";
 $langConfiguration = "Configuración";
@@ -314,9 +314,9 @@ $langCurrentTime = "Hora Actual";
 $langDBConnectionParameters = "parámetros de conexión Mysql";
 $langDBHost = "Host de la Base de Datos";
 $langDBSettingNamesIntro = "
-El instalador está por crear las bases de datos principales de Claroline . 
-Si usted está limitado por su administrador del sistema de Base de Datos para usar 
-solamente una base de datos simple, vuelva atras a la página previa 
+El instalador está por crear las bases de datos principales de Claroline .
+Si usted está limitado por su administrador del sistema de Base de Datos para usar
+solamente una base de datos simple, vuelva atras a la página previa
 y seleccionw la opción 'simple' para el ' modo de la Base de Datos'.<BR><BR>
 ";
 $langDBUse = "Uso de la Base de Datos";
@@ -376,10 +376,10 @@ $langDiskUsage = "Uso del Disco";
 $langDispClassAdded = "Vista de la clase agregada";
 $langDocContent = "<p>La herramienta de Documentos es similar al administrador de archivos de
  su computadora de escritorio.</p><p>Usted puede levantar archivos de cualquier tipo (HTML, Word,
- Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.).  Su única preocupación debe ser que sus estudiantes tengan el software 
- correspondiente para leerlos. Algunos tipos de archivo pueden contener virus, 
- es su responsibilidad que no levanten archivos infectados con un virus . 
- Esto es una precaución que vale la pena tener en cuenta de comprobar los 
+ Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.).  Su única preocupación debe ser que sus estudiantes tengan el software
+ correspondiente para leerlos. Algunos tipos de archivo pueden contener virus,
+ es su responsibilidad que no levanten archivos infectados con un virus .
+ Esto es una precaución que vale la pena tener en cuenta de comprobar los
  documentos con un programa antivirus antes de levantarlos.</p>
 <hr />
 <h4>Modos de vista</h4>
@@ -388,7 +388,7 @@ El document Claroline tiene 2 modos de vista
 <li>Lista de arhivos (por defecto)</li>
 <li>Miniaturas</li>
 </ul>
-Usted puede cambiar entre los modos 'Vista de archivos' y 'Miniaturas' simplemente haciendo clic 
+Usted puede cambiar entre los modos 'Vista de archivos' y 'Miniaturas' simplemente haciendo clic
 el los comandos 'Lista de Archivos | Miniaturas' a la derecha de la barra de directorios.
 <h4>El visor de imágenes</h4>
 <ul>
@@ -416,7 +416,7 @@ El search result wil be displayed just beside El directorio herramientabar.
 </ul>
 <hr />
 <h4>Managing Documentos</h4>
-Este herramienta has un collection de commands todosowing you to upload, editarand 
+Este herramienta has un collection de commands todosowing you to upload, editarand
 organize su archivo ressources.
 </hr />
 <h4>Levantar un Documento</h4>
@@ -428,11 +428,11 @@ Haga clic en  El 'Levantar archivo' comandoen El upper left.
 Select El archivo on su computer using El 'Browse' botón en El dialog box.
 </li>
 <li>
-Optionnaly, Usted puede attach un comment to este Documento. It será displayed 
+Optionnaly, Usted puede attach un comment to este Documento. It será displayed
 just below El Documento line.
 <blockquote><small>
 <i>Note</i> Si usted  Levantar un archivo collection gathered en archive archivo en <i>ZIP</i> formato,
-Marque El 'uncompress zipped (.zip) archivo on El servidor' option to extract them 
+Marque El 'uncompress zipped (.zip) archivo on El servidor' option to extract them
 automatically once El archive es uploaded en su curso repositoy on El servidor.
 </small></blockquote>
 </li>
@@ -449,7 +449,7 @@ Haga clic en  El 'Crear  enlace' comando en El upper side de su browser ventanas
 Llenar El 'Name' campo con un specific nombre to este enlace;
 </li>
 <li>
-Type El complete URL de El enlace 
+Type El complete URL de El enlace
 (example : http://my.domain/my/file.htm).
 </li>
 <li>
@@ -465,7 +465,7 @@ Validate haciendo clic on El 'OK' botón.
 <ul>
 <li> Haga clic en  El 'Crear  Documento' comandoen El upper side de su browser ventanas.
 </li>
-<li> 
+<li>
 Llenar appearing 'Document nombre' campo con un a nombre para esta Documento.
 </li>
 <li>
@@ -476,8 +476,8 @@ Haga clic en  El 'OK' botón once finished.
 </li>
 </ul>
 <p>
-Este comando puede ser usado for writing short Documentos. To write 
-longer texts we recommend you para usar un más suitable herramienta on su personal 
+Este comando puede ser usado for writing short Documentos. To write
+longer texts we recommend you para usar un más suitable herramienta on su personal
 computer.
 </p>
 <h4>Rename un Documento, un directorio o un enlace</h4>
@@ -488,7 +488,7 @@ computer.
 Type El nuevo nombre en El campo en El upper side de su browser ventana.
 </li>
 <li>
-opcionally, Usted puede also add o Modificar un comment adjunto to este Documento. 
+opcionally, Usted puede also add o Modificar un comment adjunto to este Documento.
 It será displayed just below El Documento line.
 </li>
 <li>
@@ -497,7 +497,7 @@ Validate haciendo clic on El 'OK' botón.
 </ul>
 <p>
 <b>Tip. </b>
-Documents are presented en alphabetical order. If que desea present them en un 
+Documents are presented en alphabetical order. If que desea present them en un
 different order, Número them: 01, 02, 03...
 </p>
 <h4>Borre un Documento, un directorio o un enlace</h4>
@@ -516,7 +516,7 @@ Haga clic en  El icon beside El Documento en El 'Visible/invisible' column.
 El Elemento still existes but it no es visible por estudiantes anymore.
 </li>
 <li>
-To Hacer it invisible back again, Haga clic en ce más on El icon beside El Documento 
+To Hacer it invisible back again, Haga clic en ce más on El icon beside El Documento
 in El 'Visible/invisible' column.
 </li>
 </ul>
@@ -556,9 +556,9 @@ Move un Documento un directorio o un enlace
 Haga clic en  on El icon beside El concernent Elemento en El 'Move' column.
 </li>
 <li>
-Choose El directorio into which que desea move El Elemento en 
+Choose El directorio into which que desea move El Elemento en
 El corresponding scrolling menu (top left)
-<br />Note: El word 'root' means Usted no puede go higher than that level en El 
+<br />Note: El word 'root' means Usted no puede go higher than that level en El
 document tree de El servidor).
 </li>
 <li>
@@ -704,7 +704,7 @@ Esta herramienta le permite crear ejercicios en línea compuestos de una lista de
 <hr />
 <h4>Preguntas</h4>
 <h4>Preguntas de selección multiple</h4>
-<p>Hay dos tipos de preguntas de selección multiple;: 
+<p>Hay dos tipos de preguntas de selección multiple;:
 </p>
 <ul>
 <li> preguntas con única</li>
@@ -835,15 +835,15 @@ $langFirstname = "Primer nombre";
 $langForContent = "El foro es una herramienta  de escritura y discusión asincrónica.
  Mientras que el email permite un diálogo uno-a-uno , los foros permiten un diálogo público o semi-público.
  </p><p>hablando técnicamente, los estudiantes solamente necesitan su
- visualizador para usar los foros claroline.</P><p>Para organizar los foros, Haga clic en 
+ visualizador para usar los foros claroline.</P><p>Para organizar los foros, Haga clic en
  'Administrar'. Las discusiones se organizan en agrupaciones y y subagrupaciones como
  sigue:</p><p><b>Categoria > Foro > Tema > Respuestas</b></p>Para estructurar
  las discusiones de sus estudiantes, es necesario organizar las catgorias y los
  foros de antemano, dejando la creación de temas y respuestas a ellos. Por
  defecto, el foro claroline contiene solamente la categoría 'Publico', un foro de ejemplo
- y un tema de ejemplo.</p><p>La primera cosa que debe hacer es borrar 
+ y un tema de ejemplo.</p><p>La primera cosa que debe hacer es borrar
  tema de ejemplo y modificar nombre del primer foro. Entonces, usted puede
- crear, en la categoría 'publico' , otros foros, por grupos o por temas, para 
+ crear, en la categoría 'publico' , otros foros, por grupos o por temas, para
  cubrir los requerimientos de se escrenario de aprendizaje.</p><p>No mezcle categorías y
  foros, y no olvide que una categoría vaciar (sin foros) no
  aparece en la vista del estudiante .</p><p>La descripción de un foro puede ser la
@@ -968,7 +968,7 @@ los estudiantes tienen la posibilidad de modificar su propio trabajo después de 
 </li><li> una descripción&nbsp;: La consigna de la tarea, lo que los alumnos deben hacer
 </li><li> un tipo de entrega&nbsp;:
 <ul><li> archivo&nbsp;: cualquier tipo de archivo que puede ser levantado, tenga en cuenta que hay tamaó límite que depende de la plataforma, se puede adjuntar un texto para describir al archivo
-</li><li> Sólo un Text&nbsp;: un texto formateado usando el editor wysiwyg 
+</li><li> Sólo un Text&nbsp;: un texto formateado usando el editor wysiwyg
 </li><li> Texto con un archivo adjunto&nbsp;: un texto formateado usando el editor wysiwyg y un archivo (El archivo no es obligatorio)
 </li></ul>
 </li><li> una fecha de inicio&nbsp;: la fecha desde la cual los usuarios podrán colocar una publicación en la tarea
@@ -1023,20 +1023,20 @@ $langHomeContent = "Por conveniencia, las herramientas claroline contienen eleme
  y seleccione Ok. Esto es simple. Cada herramienta tiene la misma lógica:
  agregar, borrar, modificar, lo cual es la lógica de los sitio webs dinámicos.</p><p>Cuando
  usted crea su primer sitio web, la mayoría de las herramientas están activas. Aquí nuevamente,
- es donde ustede decide desactivar las que usten no necesita. Usted solamente tiene que 
+ es donde ustede decide desactivar las que usten no necesita. Usted solamente tiene que
  hacer clic en 'desactivar'. Entonces ésta se vuelve de color gris en la sección de su
- página de inicio y se convierte en invisible para su estudiantes.  De todas formas, usted puede 
+ página de inicio y se convierte en invisible para su estudiantes.  De todas formas, usted puede
  reactivarla cuando lo desee, haciéndola visible a la estudiantes otra vez.</p>
 <p>Usted puede agregar sus propias páginas a su
- Página de Inicio. Estas páginas deben ser páginas HTML (las que pueden ser creadas por cualquier 
+ Página de Inicio. Estas páginas deben ser páginas HTML (las que pueden ser creadas por cualquier
  procesador de textos o compositor web). Use 'Levantar página y enlazar a la Página de Inicio' para
  enviar su página al servidor. El encabezado standard de su sitio web será
- automáticamente combinado con su nuevo documento, entonces ustes solo necesita 
+ automáticamente combinado con su nuevo documento, entonces ustes solo necesita
  concentrarse en el contenido. Si desea enlazar desde su págian de inicio a
- sitio webs existentes o cualquier páginas en la red (ya sea dentro su 
+ sitio webs existentes o cualquier páginas en la red (ya sea dentro su
  propio sitio), use 'Agregar un enlace el la Página de Inicio'. Las que ha agregado a la página inicio
  pueden ser borradas, mientras que las where las herramientas standard pueden ser
- desactivadas, pero no borradas.</p><p>Una vez que el sitio web de su curso está listo, vaya  
+ desactivadas, pero no borradas.</p><p>Una vez que el sitio web de su curso está listo, vaya
  a 'Modificar la información del curso' y decida eue nivel de confidenciabilidad desea.
  por por defecto, su curso esa ocultp (porque usted está trabajando en él).</p>";
 $langHomePageTextZone = "Zonas de texto de la Página de Inicio";
@@ -1442,7 +1442,7 @@ $langSampleDocument = "documento_de_ejemplo";
 $langSampleDocumentDesc = "Usted puede usar cualquier documento existente en la herramienta Documentos de este curso.";
 $langSampleExerciseDesc = "Usted puede usar cualquier ejercicio de la herramienta Ejercicios de su curso.";
 $langSampleLearnPath = "Ejemplo de Ruta de Aprendizaje";
-$langSampleLearnPathDesc = "Este es un ejemplo Ruta de Aprendizaje, éste usa el Ejercicio de ejemplo y el Documento de ejemplo de la herramienta de Ejercicios y la herramienta de Documentos. Haga clic en 
+$langSampleLearnPathDesc = "Este es un ejemplo Ruta de Aprendizaje, éste usa el Ejercicio de ejemplo y el Documento de ejemplo de la herramienta de Ejercicios y la herramienta de Documentos. Haga clic en
                             <b>Modificar</b> para cambiar este texto.";
 $langSave = "Guardar";
 $langSaveChanges = "Guardar cambios";
@@ -1635,17 +1635,17 @@ $langUserContent = "<p>La herramienta 'Usuario' muestra información de los usuar
 </li>
 <li>
 <b>Roles</b>.
-Los roles no tienen ninguna función computacional relacionada. Ellos no dan ningunos derechos 
-en el funcionamiento del sistema. Estos solamente indican a la gente quien es quien. Usted puede 
-modificarlos haciendo clic sobre el icono en la columna 'Editar', luego escribir 
+Los roles no tienen ninguna función computacional relacionada. Ellos no dan ningunos derechos
+en el funcionamiento del sistema. Estos solamente indican a la gente quien es quien. Usted puede
+modificarlos haciendo clic sobre el icono en la columna 'Editar', luego escribir
 lo que usted quiera: profesor, ayudante, estudiante, visitante, experto...
 </li>
 <li>
-<b>Tutor de Grupo</b>. El tutor de un grupo es un estado que permite a un usuario dirigir a un grupo más de cerca. Esto da permiso a este usuario a acceder a todas las areas del grupo y ver y editar los mensajes en el foro del grupo . Usted puede 
+<b>Tutor de Grupo</b>. El tutor de un grupo es un estado que permite a un usuario dirigir a un grupo más de cerca. Esto da permiso a este usuario a acceder a todas las areas del grupo y ver y editar los mensajes en el foro del grupo . Usted puede
 modificar este estado haciendo clic en el ícono en la columna 'Editar' .
 </li>
 <li>
-<b>Administrador del courso</b>. Este estado está reservado a las personas que manejan y y administran el curso. Usted puede 
+<b>Administrador del courso</b>. Este estado está reservado a las personas que manejan y y administran el curso. Usted puede
 modificar este estado haciendo clic en el ícono en la columna 'Editar' .
 </li>
 <li>
@@ -1838,7 +1838,7 @@ $lang_or_search_from_keyword = "Buscar desde palabra clave";
 $lang_p_ErrorOnBuild_S_for_S = "Error construyendo de <em>%s</em> para <B>%s</B>";
 $lang_p_FeedOf_s = "Alimentar RSS para %s";
 $lang_p_FillCourses = "Llenar %s con %s";
-$lang_p_IfNothingHappendClickHere = "<small>Si después 30 sgundos nada cambia, Por favor haga un clic <a href=\"%s\">aquí</a> y espere otra vez</small>";
+$lang_p_IfNothingHappendClickHere = "Si <u>después 30 sgundos</u> nada cambia, Por favor haga un clic <a href=\"%s\">aquí</a> y espere otra vez";
 $lang_p_PropForConfigCommited = "Las propiedades para %s (%s) ahora son efectivas en el servidor.";
 $lang_p_aCategoryWouldBeSelected = "Usted debe elegir una categoría. If there es missing un Por favor contact <a href=\"%s\">El plateforme administrator</a>";
 $lang_p_category_s_created = "Categoría %s creada";

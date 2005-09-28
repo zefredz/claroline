@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "作者";
 $l_body = "消息 内容";
 $l_click = "点击";
@@ -1907,7 +1907,7 @@ $lang_or_search_from_keyword = "搜索关键词";
 $lang_p_ErrorOnBuild_S_for_S = "<B>%s</B> <em>%s</em> 的建设出错";
 $lang_p_FeedOf_s = "Rss 提供给 %s";
 $lang_p_FillCourses = "填充 %s 以 %s";
-$lang_p_IfNothingHappendClickHere = "<small>如果30秒后没有改变，请点击 <a href=\"%s\">这里</a>并再次等候</small>";
+$lang_p_IfNothingHappendClickHere = "如果30秒后没有改变，请点击 <a href=\"%s\">这里</a>并再次等候";
 $lang_p_PropForConfigCommited = "%s (%s)属性现在生效。";
 $lang_p_aCategoryWouldBeSelected = "您必须选择课程分类。如果有课程分类丢失请联系<a href=\"%s\">the 平台管理员</a>";
 $lang_p_category_s_created = "课程分类 %s 已创建";
