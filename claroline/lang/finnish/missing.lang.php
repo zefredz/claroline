@@ -37,12 +37,10 @@ $langAdminEmail = "Email";
 $langAdminLogin = "Login";
 $langAdminName = "Lastname";
 $langAdminPass = "Password";
-$langAdminSetting = "Administrator Settings";
 $langAdminSurname = "Firstname";
 $langAdministration = "Administration";
 $langAdministrationClassTools = "Classes";
 $langAdministrator = "Administrator";
-$langAdminsOfThisCours = "manager of the course";
 $langAdvanced = "Advanced";
 $langAgendaNextEvents = "Agenda next events";
 $langAlertBlockingMakedInvisible = "This module is blocked.
@@ -153,7 +151,6 @@ $langCatagoryMain = "Main";
 $langCategory = "Category";
 $langCategoryDeleted = "Category deleted.";
 $langCategoryUpdated = "Category updated.";
-$langCfgSetting = "Platform settings";
 $langChangePwdexp = "Enter new password twice to change, leave empty to keep it";
 $langChangeRaw = "Change minimum raw mark to pass this module (percentage) : ";
 $langChangedTool = "Tool accesses changed";
@@ -244,7 +241,6 @@ $langCourseSettings = "Course settings";
 $langCourseWithoutAccess = "Courses not used";
 $langCourseWithoutProf = "Courses without a lecturer";
 $langCourseWithoutStudents = "Courses without student";
-$langCourseWouldBeCreated = "Your course would be created";
 $langCourse_Repository = "Course Repository";
 $langCourses = "Courses";
 $langCreate = "Create";
@@ -263,6 +259,7 @@ $langCreateNewClass = "Create a new class";
 $langCreateNewLearningPath = "Create a new learning path";
 $langCreateUser = "Create user";
 $langCreateUserAccount = "Create user account";
+$langCreatingCourse = "Creating course (it may take a while) ... ";
 $langCreationMailNotificationBody = "Course creation on";
 $langCreationMailNotificationSubject = "Course creation";
 $langCurrentAttachedDoc = "Current attached file";
@@ -273,13 +270,10 @@ $langCurrentStatus = "Current registration status : <br /> <br />
 $langCurrentTime = "Current time";
 $langDBConnectionParameters = "Mysql connection parameters";
 $langDBHost = "Database Host";
-$langDBLogin = "Database User name";
-$langDBPassword = "Database Password";
-$langDBSetting = "MySQL database settings";
 $langDBSettingNamesIntro = "
-The installer is going to create the main Claroline databases. 
-If you are limited by your database system administrator to use 
-only a single database, get back to the previous page 
+The installer is going to create the main Claroline databases.
+If you are limited by your database system administrator to use
+only a single database, get back to the previous page
 and select option 'single' for 'Database mode'.<BR><BR>
 ";
 $langDBUse = "Database usage";
@@ -450,7 +444,7 @@ This tool allow you to create online exercises composed of a list of questions. 
 <hr />
 <h4>Questions</h4>
 <h4>Multiple choice questions</h4>
-<p>There are two kind of multiple choice question&nbsp;: 
+<p>There are two kind of multiple choice question&nbsp;:
 </p>
 <ul>
 <li> Question with unique answer</li>
@@ -650,7 +644,6 @@ $langGroupForum = "Forum";
 $langGroupLimit = "Limit";
 $langGroupMembers = "Group members";
 $langGroupName = "Group name";
-$langGroupNoGroup = "unassigned students";
 $langGroupNoTutor = "(none)";
 $langGroupNone = "(none)";
 $langGroupNoneMasc = "(none)";
@@ -663,16 +656,12 @@ $langGroupSelfRegistration = "Registration";
 $langGroupSettingsModified = "Group settings modified";
 $langGroupSpace = "Group area";
 $langGroupSpaceLink = "Group area";
-$langGroupStudentsInGroup = "students registered in groups";
-$langGroupStudentsRegistered = "students registered to this course";
 $langGroupThisSpace = "Area for this group";
 $langGroupTooMuchMembers = "Number proposed exceeds max. that you allowed (you can modify it below).
                 Group composition has not been modified";
 $langGroupTools = "Tools";
 $langGroupTutor = "Group Tutor";
-$langGroupTutors = "Group Tutors";
 $langGroupUserManagement = "Group management";
-$langGroupUsersList = "See <a href=../user/user.php>Users</a>";
 $langGroupWikiLink = "Wiki of the group";
 $langGroups = "Groups";
 $langGroupsAdded = "group(s) has (have) been added";
@@ -838,9 +827,6 @@ $langLoadDefaultFormat = "Load default format";
 $langLocation = "Location";
 $langLocked = "Locked";
 $langLogin = "Login";
-$langLoginBeforePost1 = "To post messages on the forum, ";
-$langLoginBeforePost2 = "beforehand, you must ";
-$langLoginBeforePost3 = "login on the Campus";
 $langLoginRequest = "Login request";
 $langLoginWithoutAccess = "Logins not used";
 $langLogins = "Logins";
@@ -870,6 +856,8 @@ $langMaxAllowedTime = "Maximum allowed time";
 $langMaxFileSize = "Max file size : ";
 $langMaxStudentGroup = "Maximum number of students per group";
 $langMaximum = "Maximum : ";
+$langMessageEnrollToCourseNotAllowed = "Enroll to course not allowed";
+$langMessageRegistrationNotAllowed = "Registration not allowed on the platform";
 $langMessageToSelectedUsers = "Messages to selected users";
 $langMessages = "Messages";
 $langMethodsOfEvaluation = "Methods of evaluation";
@@ -962,6 +950,7 @@ $langNoScore = "No score";
 $langNoScript = "No scripts";
 $langNoStartAsset = "There is no start asset defined for this module.";
 $langNoTimeLimit = "No time limitation";
+$langNoTrackingForExerciseAttempt = "There is no tracking for this attempt.";
 $langNoUserFound = "No user found";
 $langNoUserResult = "No user to display";
 $langNoVisibleAssignment = "There is no assignment at the moment.";
@@ -1079,7 +1068,7 @@ $langRegisterUserToClass = "Register user to class";
 $langRegistered = "Registered";
 $langRemoveAdminLevel = "No longer Admin";
 $langReplaceAttachedFile = "Replace attached file";
-$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
+$langRequestOfCourseCreatorStatus = "Request course creation status";
 $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
 $langRequired = "Required";
 $langRequirements = "Requirements";
@@ -1166,7 +1155,6 @@ $langSubmittedWork = "Work";
 $langSubscribeClass = "Register to the class";
 $langSubscribeToCourse = "Subscribe to course";
 $langSubscribeUser = "Register user";
-$langSubscribed = "people registered in this course";
 $langSubscription = "Subscription";
 $langSubscriptionAllowedOnly = "Subscription allowed only ";
 $langSubscriptionDeniedOnly = "Subscription denied only";
@@ -1504,7 +1492,7 @@ $lang_or_search_from_keyword = "Search from keyword";
 $lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
 $lang_p_FeedOf_s = "Rss feed for %s";
 $lang_p_FillCourses = "Fill %s with %s";
-$lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
+$lang_p_IfNothingHappendClickHere = "If after while no message appears confirming the course creation, please click <a href=\"%s\">here</a>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_category_s_created = "Category %s created";

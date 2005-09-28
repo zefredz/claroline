@@ -1,4 +1,5 @@
 <?php 
+$l_body = "Message Body";
 $langAddAClassToCourse = "Subscribe a class to course";
 $langAddCSVUsers = "Add a user list";
 $langAddCSVUsersInClass = "Add a user list in class";
@@ -37,6 +38,7 @@ $langConfirmEmptyForum = "Delete all messages of ";
 $langCreate1stAccountOnPlatform = "Create first a user account on this platform";
 $langCreateCategory = "Create category";
 $langCreateForum = "Create forum";
+$langCreatingCourse = "Creating course (it may take a while) ... ";
 $langEditCategory = "Edit category";
 $langEditPost = "Edit post";
 $langFillUsers = "Insert users";

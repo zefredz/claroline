@@ -1,4 +1,4 @@
-<?php
+<?php 
 $l_author = "Autor";
 $l_click = "Hacer click";
 $l_delete = "Borrar el mensaje";
@@ -285,7 +285,6 @@ $langCourseTitle = "Título del Curso";
 $langCourseWithoutAccess = "Cursos no usados";
 $langCourseWithoutProf = "Cursos sin un profesor";
 $langCourseWithoutStudents = "Cursos sin estudiantes";
-$langCourseWouldBeCreated = "Su curso puede ser creado";
 $langCourse_Repository = "Repositorio de Cursos";
 $langCourses = "Cursos";
 $langCreate = "Crear";
