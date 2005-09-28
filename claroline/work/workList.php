@@ -143,15 +143,21 @@ $afterStartDate      = (bool) ( $assignment['unix_start_date'] <= time() );
 // assignment is invisible 
 $assignmentIsVisible = (bool) ( $assignment['visibility'] == 'VISIBLE' );
 
+$is_allowedToEditAll = (bool) claro_is_allowed_to_edit();
+
+if( !$assignmentIsVisible && !$is_allowedToEditAll )
+{
+	// if assignment is not visible and user is not course admin or upper
+	header("Location: work.php");
+}
+
 // upload or update is allowed between start and end date or after end date if late upload is allowed
-$uploadDateIsOk      = (bool) (  $afterStartDate 
-                              && ( time() < $assignment['unix_end_date'] 
-                                 || $assignment['allow_late_upload'] == 'YES' 
+$uploadDateIsOk      = (bool) (  $afterStartDate
+                              && ( time() < $assignment['unix_end_date']
+                                 || $assignment['allow_late_upload'] == 'YES'
                                  )
                               );
-
-$is_allowedToEditAll = (bool) claro_is_allowed_to_edit();
-        
+                              
 if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 {
     // user is authed and allowed

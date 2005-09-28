@@ -195,12 +195,25 @@ else //if( $assignment['authorized_content'] == "TEXT" )
 // if this is a group assignement we will need some group infos about the user
 if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 {
+	// get complete group list
+	$sql = "SELECT `t`.`id`, `t`.`name`
+			FROM `".$tbl_group_team."` as `t`";
+			
+	$groupList = claro_sql_query_fetch_all($sql);
+	
+	if( is_array($groupList) && !empty($groupList) )
+	{
+		foreach( $groupList AS $group )
+		{
+			// yes it is redundant but it is for a easier user later in the script
+			$allGroupList[$group['id']]['id'] = $group['id'];
+			$allGroupList[$group['id']]['name'] = $group['name'];
+		}
+	}
+
 	if( $is_courseAdmin )
 	{
-		// courseAdmin is virtually a member of all groups
-		$sql = "SELECT `tu`.`team`, `t`.`name`
-			FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
-			WHERE `tu`.`team` = `t`.`id`";
+		$userGroupList = $allGroupList;
 	}
 	else
 	{
@@ -209,18 +222,19 @@ if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 			FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
 			WHERE `tu`.`user` = ". (int)$_uid."
 			AND `tu`.`team` = `t`.`id`";
-	}
 
-	$groupList = claro_sql_query_fetch_all($sql);
-	if( is_array($groupList) && !empty($groupList) )
-	{
-		foreach( $groupList AS $group )
+		$groupList = claro_sql_query_fetch_all($sql);
+
+		if( is_array($groupList) && !empty($groupList) )
 		{
-			// yes it is redundant but it is for a easier user later in the script
-			$userGroupList[$group['team']]['id'] = $group['team'];
-			$userGroupList[$group['team']]['name'] = $group['name'];
-		}
- 	}
+			foreach( $groupList AS $group )
+			{
+				// yes it is redundant but it is for a easier user later in the script
+				$userGroupList[$group['team']]['id'] = $group['team'];
+				$userGroupList[$group['team']]['name'] = $group['name'];
+			}
+	 	}
+	}
 }
 
 /*============================================================================
@@ -234,6 +248,11 @@ $assignmentIsVisible = ( $assignment['visibility'] == "VISIBLE" )?true:false;
 // --
 $is_allowedToEditAll  = (bool) claro_is_allowed_to_edit(); // can submit, edit, delete
 
+if( !$assignmentIsVisible && !$is_allowedToEditAll )
+{
+	// if assignment is not visible and user is not course admin or upper
+	header("Location: work.php");
+}
 //-- is_allowedToEdit
 // upload or update is allowed between start and end date or after end date if late upload is allowed
 $uploadDateIsOk = (bool) ( $afterStartDate 
@@ -1297,7 +1316,7 @@ if( $dispWrkLst )
 			if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
 			{ 
 				 // display group if this is a group assignment and if this is not a correction
-				 echo '<b>'.$langGroup.'</b>&nbsp;: '.$userGroupList[$thisWrk['group_id']]['name'].'<br />';
+				 echo '<b>'.$langGroup.'</b>&nbsp;: '.$allGroupList[$thisWrk['group_id']]['name'].'<br />';
 			}
 	
 			if( $assignmentContent != "TEXT" )
