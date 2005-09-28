@@ -135,10 +135,8 @@ NEW CLAROLINE INSTALLATION
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
-!! Do not use THIS BETA versions in production !!
-
-The upgrade works only from Claroline 1.6.x. Older Claroline versions 
-should upgrade first to Claroline 1.6.x before upgrade to Claroline 1.7.x
+The upgrade works only from Claroline 1.5.x and 1.6.x. Older Claroline versions 
+should upgrade first to Claroline 1.5.x before upgrade to Claroline 1.7.x
 
 Before upgrading we heavily recommend you do a full backup of the previous 
 Claroline directories and databases. If you are unsure how to achieve this 
