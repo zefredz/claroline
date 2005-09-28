@@ -1,5 +1,5 @@
 *********************************************
-CLAROLINE 1.7 RELEASE CANDIDATE 2 - INSTALL
+          CLAROLINE 1.7.0 - INSTALL
 *********************************************
 
 Thank you for downloading Claroline 1.7 . This text will guide you 
@@ -72,10 +72,10 @@ you need the following on your machine :
        versions previous to 3.23.6.
 
        NOTE 2. People using MySQL 4.1 (or later) could face connection 
-	   problem. To fix this problem, see on the my SQL web site :
-	   
-			"Client does not support authentication protocol"
-			http://dev.mysql.com/doc/mysql/en/Old_client.html
+       problem. To fix this problem, see on the my SQL web site :
+       
+            "Client does not support authentication protocol"
+            http://dev.mysql.com/doc/mysql/en/Old_client.html
 
 4. Web Write access to web directory where Claroline has been moved 
    or unzipped to. On a Windows machine locally, this
@@ -105,7 +105,7 @@ NEW CLAROLINE INSTALLATION
 
 2. Open a shell, go to download directory and type 
 
-	tar -zxvf claroline170rc2.tar.gz
+    tar -zxvf claroline170rc2.tar.gz
 
    Windows : unzip 'claroline170rc2.zip'.
 
@@ -119,11 +119,11 @@ NEW CLAROLINE INSTALLATION
 
 4. Open Web Browser and go to 
 
-	http://www.mydomain.org/mysite/mydir/claroline/install/
+    http://www.mydomain.org/mysite/mydir/claroline/install/
 
    Windows : with easyphp locally, open: 
 
-	http://localhost/claroline/install/ (don't forget the final /).
+    http://localhost/claroline/install/ (don't forget the final /).
 
 5. Follow instructions.
 
@@ -151,7 +151,7 @@ please ask your hosting provider for advice.
 
 2. Open a shell, go to download directory and type
 
-	tar -zxvf claroline170rc2.tar.gz
+    tar -zxvf claroline170rc2.tar.gz
 
    Windows : unzip 'claroline170rc2.zip'.
 
@@ -195,5 +195,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - August 23 2005
+            Europe, Belgium, Louvain-la-Neuve - September 28 2005
 ================================== END ===================================
