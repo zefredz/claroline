@@ -8,14 +8,14 @@
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/install/
  *
  * @author Claro Team <cvs@claroline.net>
  *
  * @package INSTALL
- * 
+ *
  */
 
 
@@ -285,48 +285,48 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     $databaseNameValid = TRUE;
     $databaseAlreadyExist = FALSE;
 
-    if (!eregi($regexpPatternForDbName,$dbNameForm)|| strlen($dbNameForm)>64 
+    if (!eregi($regexpPatternForDbName,$dbNameForm)|| strlen($dbNameForm)>64
         ||
-        !eregi($regexpPatternForDbName,$dbStatsForm)|| strlen($dbStatsForm)>64 ) 
-    
+        !eregi($regexpPatternForDbName,$dbStatsForm)|| strlen($dbStatsForm)>64 )
+
     //  64 is  the  max  for the name of a mysql database
     {
         $databaseNameValid = FALSE;
         $msgErrorDbMain_dbNameToolLong = (strlen($dbNameForm)>64);
         $msgErrorDbMain_dbNameInvalid = !eregi($regexpPatternForDbName,$dbNameForm);
         $msgErrorDbMain_dbNameBadStart = !eregi('^[a-z0-9]',$dbNameForm);
-        
+
         if (!$singleDbForm)
         {
             $msgErrorDbMain_dbName = $msgErrorDbMain_dbNameToolLong ||
                                      $msgErrorDbMain_dbNameInvalid ||
                                      $msgErrorDbMain_dbNameBadStart ;
-        
+
             $msgErrorDbStat_dbNameInvalid = !eregi($regexpPatternForDbName,$dbStatsForm);
             $msgErrorDbStat_dbNameToolLong = (strlen($dbStatsForm)>64);
             $msgErrorDbStat_dbNameBadStart = !eregi('^[a-z0-9]',$dbStatsForm);
         }
-        
+
     }
     else
-    {   
+    {
         $db = mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
-        
+
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
         if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
         if (($valMain && !$confirmUseExistingMainDb)
              ||
              ($valStat && !$confirmUseExistingStatsDb ))
-        {   
+        {
             $databaseAlreadyExist              = TRUE;
             if ($valMain)    $mainDbNameExist  = TRUE;
             if ($valStat)    $statsDbNameExist = TRUE;
         }
 
     }
-    
-    if (   $databaseAlreadyExist 
+
+    if (   $databaseAlreadyExist
        || !$databaseNameValid    )
     {
         $canRunCmd = FALSE;
@@ -341,7 +341,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
         {
             $databaseAlreadyExist = false;
         }
-        
+
         if (!$canRunCmd)
         {
             if ($cmd > DISP_DB_NAMES_SETTING)
@@ -588,7 +588,7 @@ if ($display==DISP_WELCOME)
         if ($is_upgrade_available)
         {
             echo '<li>'
-            .    'For Claroline upgrade click '
+            .    'For a Claroline upgrade click '
             .    '<a href="../admin/upgrade/upgrade.php">here</a>.'
             .    '</li>'
             ;
@@ -596,18 +596,20 @@ if ($display==DISP_WELCOME)
         else
         {
             echo '<li>'
-            .    'For claroline upgrade please wait a stable release. '
+            .    'For a Claroline upgrade, please wait the release of a stable version. '
             .    '</li>'
             ;
         }
         echo '<li>'
-        .    'For claroline overwrite click on "next" button'
+        .    'For a Claroline complete reinstallation click on the "Next" button below.<br>'
+        .    '<font color="red">'
+        .    'Be aware that a complete reinstallation will crush the data stored in your previous installed Claroline.'
+        .    '</font>'
         .    '</li>'
         .    '</ul>'
         .    '</div>'
         ;
     }
-
 
     if(!$stable)
     {
@@ -625,8 +627,8 @@ if ($display==DISP_WELCOME)
 
     if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
     $WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
-    echo '<p>Read thoroughly '
-    .    '<a href="../../INSTALL.txt">INSTALL.txt</a> '
+    echo '<p>Please, read thoroughly the '
+    .    '<a href="../../INSTALL.txt">INSTALL.txt</a> document '
     .    'before proceeding to installation.'
     .    '</p>'
     .    '<h4>Checking requirements</h4>'
@@ -667,7 +669,7 @@ if ($display==DISP_WELCOME)
         .    '</li>' . "\n"
         ;
     }
-    
+
 
     echo '</UL>'
     .    '</li>'
@@ -687,7 +689,7 @@ if ($display==DISP_WELCOME)
     ? ''
     : '<li>'
     . '<font color="red">Warning !</font> '
-    . 'claroline is not able to read on : <br>'
+    . 'Claroline is not able to read on : <br>'
     . '<nobr><code>' . realpath('../..') . '</code><nobr>'
     . '<br>'
     . 'Change this file permission the server file system.'
@@ -1037,7 +1039,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    'e.g. \''.$statsTblPrefixForm.'\''  . "\n"                
+        .    'e.g. \''.$statsTblPrefixForm.'\''  . "\n"
         .    '</td>'  . "\n"
         .    '</tr>'  . "\n"
         .    '<tr>'  . "\n"
@@ -1282,7 +1284,7 @@ elseif($display==DISP_PLATFORM_SETTING)
                     <h4>User </h4>
                 </td>
             </tr>
-            
+
             <tr>
                 <td>
                     Self-registration
@@ -1427,7 +1429,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         &nbsp;Database host : '.htmlspecialchars($dbHostForm).'<br>
         &nbsp;Database username : '.htmlspecialchars($dbUsernameForm).'<br>
         &nbsp;Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
-        
+
         &nbsp;Enable single database : '.($singleDbForm?'yes':'no').'<br>
         &nbsp;Enable tracking : '.($enableTrackingForm?'yes':'no').'<br>
         <EM>Database Names</EM><br>
@@ -1461,7 +1463,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         Name : '.htmlspecialchars($campusForm).'<br>
         Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br>
         Main language : ' . ucwords($languageForm) . '<br>
-        
+
         Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br>
         Password storage : ' .($encryptPassForm ?'crypted ':'clear text').'
         </FIELDSET>
@@ -1475,7 +1477,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         <em>Campus contact</em><br>
         &nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
         &nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
-        
+
 
         </FIELDSET>
         </blockquote>
@@ -1513,7 +1515,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             echo '<P><B>'.$langMainDB.'</B> db (<em>'.$dbNameForm.'</em>) already exist <BR>
             <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
             <label for="confirmUseExistingMainDb" >I know, I want use it.</label><BR>
-            <font color="red">Warning !</font> : this script write in tables use by claroline.
+            <font color="red">Warning !</font> : this script write in tables use by Claroline.
             </P>';
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '
@@ -1523,7 +1525,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
             <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><BR>
             <font color="red">Warning !</font>
-            : this script write in tables use by claroline.
+            : this script write in tables use by Claroline.
         </P>';
         echo '
         <P>
@@ -1573,7 +1575,7 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
         </SMALL>
     </b>
     <br><br>
-    You probably do not have write access on claroline root directory,
+    You probably do not have write access on Claroline root directory,
     i.e. you should <EM>CHMOD 777</EM> or <EM>755</EM> or <EM>775</EM><br><br>
 
 Your problems can be related on two possible causes :<br>
@@ -1658,7 +1660,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
             <br>
             <br>
                 Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.
-            
+
             <br>
             <br>
         </center>
