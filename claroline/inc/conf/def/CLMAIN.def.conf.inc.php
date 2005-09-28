@@ -387,8 +387,8 @@ array ('label'         => 'Crypt passwords'
       ,'technical'     => 'By default use claroCrypt as authType'
       ,'default'       => 'FALSE'
       ,'type'          => 'boolean'
-      ,'display'       => TRUE
-      ,'readonly'      => FALSE
+      ,'display'       => false
+      ,'readonly'      => True
       ,'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
       );
 
