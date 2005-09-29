@@ -178,6 +178,10 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user' ];
 $tbl_admin     = $tbl_mdb_names['admin'];
 
+// default variables initialization
+$claro_loginRequested = false;
+$claro_loginSucceeded = null;
+
 if ( isset($_REQUEST['login']) ) $login = $_REQUEST['login'];
 else                             $login = null;
 
@@ -225,11 +229,14 @@ else
             {
                 $_uid = $uData['user_id'];
                 $is_platformAdmin = true;
+                $claro_loginRequested = true;
+                $claro_loginSucceeded = true;
             }
             else // abnormal login -> login failed
             {
-                $_uid        = null;
-                $loginFailed = true;
+                $_uid                 = null;
+                $claro_loginRequested = true;
+                $claro_loginSucceeded = false;
             }
         }
     }

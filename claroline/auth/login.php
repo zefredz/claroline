@@ -97,7 +97,7 @@ if ( is_null($_uid) && $uidRequired )
     .    '</form>'                                                    ."\n"
     ;
 
-    if ($loginFailed) // var comming from claro_init_local.inc.php
+    if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
     {
         echo '<p>' . $langInvalidIdSelfReg . '</p>';
     }
@@ -106,7 +106,7 @@ if ( is_null($_uid) && $uidRequired )
     .    '</tr>'                                                    ."\n"
     .    '</table>'                                                 ."\n"
     ;
-    
+
     // Display footer
     require $includePath . '/claro_init_footer.inc.php';
 }

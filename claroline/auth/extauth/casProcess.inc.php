@@ -36,7 +36,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
         phpCAS::setFixedServiceURL($casCallBackUrl);
         phpCAS::forceAuthentication();
 
-        $userLoggedOnCas              = true;
+        $userLoggedOnCas                  = true;
         $_SESSION['init_CasCheckingDone'] = true;
     }
     elseif( ! isset($_SESSION['init_CasCheckinDone']) || $_REQUEST['fromCasServer'] == true )
@@ -59,14 +59,18 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
        
         if( count($uData) > 0)
         {
-            $_uid        = $uData[0]['userId'];
-            $uidReset    = true;            
-            $loginFailed = false;
+            $_uid                 = $uData[0]['userId'];
+            $uidReset             = true;
+
+            $claro_loginRequested = true;
+            $claro_loginSucceeded = true;
         }
         else
         {
-            $_uid = null;
-            $loginFailed = true;
+            $_uid                 = null;
+
+            $claro_loginRequested = true;
+            $claro_loginSucceeded = false;
         }
     } // end if userLoggedOnCas
     
