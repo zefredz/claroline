@@ -181,6 +181,9 @@ switch ( $display )
             {
                 // Upgrade 1.6 to 1.7 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
+                
+                // Database version is 1.7
+                $currentDbVersion = $new_version;
 
                 // Update current version file
                 save_current_version_file($currentClarolineVersion, $new_version);
