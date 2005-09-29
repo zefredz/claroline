@@ -240,7 +240,9 @@ $tbl_sso             = $tbl_mdb_names['sso'];
   Check authentification
  ---------------------------------------------------------------------------*/
 
-$loginFailed = false;
+// default variables initialization
+$claro_loginRequested = false;
+$claro_loginSucceeded = null;
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
@@ -264,87 +266,87 @@ else
         $uidReset = false;
 
         $_uid = null; // uid not in session ? prevent any hacking
-        
+
         if (!isset($_SESSION['firstLogin'])) $_SESSION['firstLogin'] = false;
             
         if ( $login && $password ) // $login && $password are given to log in
         {
+            $claro_loginRequested = true;
             // lookup the user in the Claroline database
 
             $sql = "SELECT user_id, username, password, authSource, creatorId
                     FROM `".$tbl_user."` `user`
                     WHERE BINARY username = '". addslashes($login) ."'";
 
-            $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+            $result = claro_sql_query($sql);
 
-            if ( mysql_num_rows($result) > 0)
+            if ( count($result) > 0)
             {
-                $uData = mysql_fetch_array($result);
-                
-                if ( $uData['authSource'] == 'claroline' )
+                while ( ( $uData = mysql_fetch_array($result) ) && ! $claro_loginSucceeded )
                 {
-                    // the authentification of this user is managed by claroline itself
-
-                    $password = stripslashes( $password );
-                    $login    = stripslashes( $login    );
-
-                    // determine if the password needs to be crypted before checkin
-                    // $userPasswordCrypted is set in main configuration file
-
-                    if ( $userPasswordCrypted ) $password = md5($password);
-
-                    // check the user's password
-
-                    if ( $password == $uData['password'] )
+                    if ( $uData['authSource'] == 'claroline' )
                     {
-                        $_uid = $uData['user_id'];
-                        $uidReset = true;
+                        // the authentification of this user is managed by claroline itself
+
+                        // determine first if the password needs to be crypted before checkin
+                        // $userPasswordCrypted is set in main configuration file
+
+                        if ( $userPasswordCrypted ) $password = md5($password);
+
+                        // check the user's password
+
+                        if ( $password == $uData['password'] )
+                        {
+                            $_uid                 = $uData['user_id'];
+                            $uidReset             = true;
+                            $claro_loginSucceeded = true;
+                        }
+                        else // abnormal login -> login failed
+                        {
+                            $_uid                 = null;
+                            $claro_loginSucceeded = false;
+                        }
+
+                        if ( $_uid != $uData['creatorId'] )
+                        {
+                            // first login for a not self registred (e.g. registered by a teacher)
+                            // do nothing (code may be added later)
+                            $sql = "UPDATE `".$tbl_user."`
+                                    SET   creatorId = user_id
+                                    WHERE user_id='" . (int)$_uid . "'";
+
+                            claro_sql_query($sql);
+                            $_SESSION['firstLogin'] = true;
+                        }
                     }
-                    else // abnormal login -> login failed
+                    else // no standard claroline login - try external authentification
                     {
-                        $_uid        = null;
-                        $loginFailed = true;
-                    }
+                        /*
+                         * Process external authentication
+                         * on the basis of the given login name
+                         */
+                        
+                        $key = $uData['authSource'];
 
-                    if ( $_uid != $uData['creatorId'] )
-                    {
-                        // first login for a not self registred (e.g. registered by a teacher)
-                        // do nothing (code may be added later)
-                        $sql = "UPDATE `".$tbl_user."`
-                                SET   creatorId = user_id
-                                WHERE user_id='" . (int)$_uid . "'";
+                        $_uid = include_once($extAuthSource[$key]['login']);
 
-                        claro_sql_query($sql);
-                        $_SESSION['firstLogin'] = true;
-                    }
-                    
-                }
-                else // no standard claroline login - try external authentification
-                {
-                    /*
-                     * Process external authentication
-                     * on the basis of the given login name
-                     */
-                    
-                    $key = $uData['authSource'];
-
-                    $_uid = include_once($extAuthSource[$key]['login']);
-
-                    if ( $_uid > 0 )
-                    {
-                        $uidReset = true;
-                    }
-                    else
-                    {
-                        $_uid = null;
-                        $loginFailed = true;
-                    }              
-                } // end try external authentication
+                        if ( $_uid > 0 )
+                        {
+                            $uidReset             = true;
+                            $claro_loginSucceeded = true;
+                        }
+                        else
+                        {
+                            $_uid                 = null;
+                            $claro_loginSucceeded = false;
+                        }              
+                    } // end try external authentication
+                } // end while
             }
             else // login failed, mysql_num_rows($result) <= 0
             {
 
-                $loginFailed = true;
+                $claro_loginSucceeded = false;
 
                 /*
                  * In this section:
@@ -368,19 +370,25 @@ else
 
                         if ( $_uid > 0 )
                         {
-                            $uidReset = true;
-                            $loginFailed = false;
+                            $uidReset             = true;
+                            $claro_loginSucceeded = true;
                             break;
                         }
                         else
                         {
-                            $_uid = null;
+                            $_uid                 = null;
+                            $claro_loginSucceeded = false;
                         }
                     }
                 } //end if is_array($extAuthSource)
                 
             } //end else login failed
+        } // end if $login & password
+        else
+        {
+        	$claro_loginRequested = false;
         }
+        
     }// end else if $claro_CASEnabled
 }
 
@@ -388,7 +396,7 @@ else
   User initialisation
  ---------------------------------------------------------------------------*/
 
-if ( $uidReset && !$loginFailed ) // session data refresh requested
+if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
 {
     // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
     // This function is vital in preventing session fixation attacks
@@ -418,16 +426,15 @@ if ( $uidReset && !$loginFailed ) // session data refresh requested
         }
         else
         {
-            $sql = "SELECT 
-                        `user`.`prenom`     `firstname`, 
-                        `user`.`nom`        `lastname` , 
-                        `user`.`email`                 , 
-                        DATE_SUB(CURDATE(), INTERVAL 1 DAY) `lastLogin`, 
-                        `user`.`statut`, 
-                        `a`.`idUser`        `is_admin`
+            $sql = "SELECT `user`.`prenom`                      `firstname`, 
+                           `user`.`nom`                         `lastname` , 
+                           `user`.`email`                 , 
+                            DATE_SUB(CURDATE(), INTERVAL 1 DAY) `lastLogin`, 
+                            `user`.`statut`, 
+                            `a`.`idUser`                        `is_admin`
                     FROM `". $tbl_user ."` `user`
                     LEFT JOIN `". $tbl_admin  ."` `a`
-                    ON `user`.`user_id` = `a`.`idUser`
+                    ON    `user`.`user_id` = `a`.`idUser`
                     WHERE `user`.`user_id` = '". (int) $_uid."'";
         }
 

@@ -236,7 +236,7 @@ else
 </form>
 
 <?php
-    if (isset($loginFailed) && $loginFailed)
+    if ( $claro_loginRequested && ! $claro_loginSucceeded )
     {
         if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
         {
