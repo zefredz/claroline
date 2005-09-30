@@ -391,10 +391,12 @@ else
         
     }// end else if $claro_CASEnabled
 }
+
 if( $claro_loginRequested && isset($claro_loginSucceeded) && $claro_loginSucceeded )
 {
-	event_login();
+ 	event_login();
 }
+
 /*---------------------------------------------------------------------------
   User initialisation
  ---------------------------------------------------------------------------*/
