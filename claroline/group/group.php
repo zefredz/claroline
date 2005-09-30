@@ -41,7 +41,6 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 $nameTools = $langGroups;
 
 include_once($includePath . '/lib/group.lib.inc.php');
-include_once($includePath . '/lib/events.lib.inc.php');
 
 //stats
 event_access_tool($_tid, $_courseTool['label']);

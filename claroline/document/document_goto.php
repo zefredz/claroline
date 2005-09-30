@@ -34,8 +34,6 @@
  */
 require '../inc/claro_init_global.inc.php';
 
-include($includePath . '/lib/events.lib.inc.php');
-
 // launch event
 $doc_url = urldecode($doc_url);
 event_download($doc_url);

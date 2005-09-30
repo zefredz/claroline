@@ -30,7 +30,6 @@ require '../inc/claro_init_global.inc.php';
 
 include($includePath.'/lib/admin.lib.inc.php');
 include($includePath.'/lib/user.lib.php');
-include($includePath.'/lib/events.lib.inc.php');
 include($includePath.'/lib/user_info.lib.php');
 @include($includePath.'/lib/debug.lib.inc.php');
 

@@ -30,7 +30,6 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // initialisation of global variables and used libraries
 include($includePath . '/lib/admin.lib.inc.php');
-include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/pager.lib.php');
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'  ];

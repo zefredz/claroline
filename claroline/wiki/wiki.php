@@ -23,8 +23,6 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
-    include($includePath . '/lib/events.lib.inc.php');
-    
     if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )

@@ -63,7 +63,6 @@ include ($includePath."/lib/learnPath.lib.inc.php");
 include($includePath."/lib/fileManage.lib.php");
 
 // statistics
-include($includePath."/lib/events.lib.inc.php");
 event_access_tool($_tid, $_courseTool['label']);
 
 $htmlHeadXtra[] =

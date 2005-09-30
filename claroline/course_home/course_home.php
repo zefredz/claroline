@@ -50,7 +50,6 @@ include($includePath . '/claro_init_header.inc.php');
 // check if the user as already visited this course during this session (
 if ( ! isset($_SESSION['tracking']['coursesAlreadyVisited'][$_cid]))
 {
-    @include($includePath .  '/lib/events.lib.inc.php');
     event_access_course();
     $_SESSION['tracking']['coursesAlreadyVisited'][$_cid] = 1;
 }

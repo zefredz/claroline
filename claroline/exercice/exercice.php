@@ -96,9 +96,6 @@ if( isset($_REQUEST['export']) && isset($enableExerciseExportQTI) && $enableExer
 
 include($includePath.'/claro_init_header.inc.php');
 
-// used for stats
-include($includePath.'/lib/events.lib.inc.php');
-
 event_access_tool($_tid, $_courseTool['label']);
 
 // need functions of statsutils lib to display previous exercices scores

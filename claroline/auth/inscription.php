@@ -36,7 +36,6 @@ if ( isset($_uid) )
 include($includePath . '/conf/user_profile.conf.php');
 include($includePath . '/lib/user.lib.php');
 include($includePath . '/lib/claro_mail.lib.inc.php');
-include($includePath . '/lib/events.lib.inc.php');
 
 // Initialise variables
 

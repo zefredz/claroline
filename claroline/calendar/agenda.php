@@ -61,7 +61,6 @@ if ( $is_allowedToEdit )
 
 
 //stats
-include($includePath . '/lib/events.lib.inc.php');
 event_access_tool($_tid, $_courseTool['label']);
 
 

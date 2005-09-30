@@ -42,9 +42,6 @@ $tbl_course_description  = $tbl_cdb_names['course_description'];
 
 include 'tiplistinit.inc.php';
 
-//stats
-include $includePath . '/lib/events.lib.inc.php';
-
 $dialogBox = '';
 
 

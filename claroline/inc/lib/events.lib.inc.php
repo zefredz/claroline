@@ -23,22 +23,6 @@
  */
 
 
-// REGROUP TABLE NAMES FOR MAINTENANCE PURPOSE
-
-$tbl_mdb_names 			   = claro_sql_get_main_tbl();
-$tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
-$tbl_track_e_login         = $tbl_mdb_names['track_e_login'];
-$tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
-
-// course db
-$tbl_cdb_names 			  = claro_sql_get_course_tbl();
-$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
-$tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
-$tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
-$tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
-$tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
-$tbl_track_e_exe_answers  = $tbl_cdb_names['track_e_exe_answers'];
-
 /**
  * Function found on php.net to replace the html_entity_decode (that only works in php 4.3.0 and upper)
  *
@@ -64,7 +48,10 @@ function event_open()
     if( ! $is_trackingEnabled ) return 0;
 
     global $rootWeb ;
-    global $tbl_track_e_open;
+
+    // get table names
+    $tbl_mdb_names 			   = claro_sql_get_main_tbl();
+	$tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
 
     if (isset($_SERVER['HTTP_REFERER'])) 
         $referer = $_SERVER['HTTP_REFERER'];
@@ -103,7 +90,10 @@ function event_login()
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $tbl_track_e_login;
+
+    // get table names
+    $tbl_mdb_names 			   = claro_sql_get_main_tbl();
+	$tbl_track_e_login         = $tbl_mdb_names['track_e_login'];
 
     $reallyNow = time();
     $sql = "INSERT INTO `".$tbl_track_e_login."`
@@ -135,7 +125,10 @@ function event_access_course()
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $tbl_track_e_access;
+
+    // get table names
+    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
+	$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
 
     $reallyNow = time();
     if($_uid)
@@ -173,10 +166,13 @@ function event_access_tool($tid, $tlabel)
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $tbl_track_e_access;
     global $rootWeb;
     global $_course;
 
+    // get table names
+    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
+	$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
+	
     $reallyNow = time();
     // record information only if user doesn't come from the tool itself
     if( !isset($_SESSION['tracking']['lastUsedTool']) || $_SESSION['tracking']['lastUsedTool'] != $tlabel )
@@ -224,7 +220,10 @@ function event_download($doc_url)
     if( ! $is_trackingEnabled ) return 0;
 
     global $_uid;
-    global $tbl_track_e_downloads;
+
+    // get table names
+    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
+	$tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
 
     $reallyNow = time();
     if($_uid)
@@ -270,7 +269,9 @@ function event_upload($doc_id)
 
     global $_uid;
 
-    global $tbl_track_e_uploads;
+    // get table names
+    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
+	$tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
 
     $reallyNow = time();
     if($_uid)
@@ -314,7 +315,9 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
     // if tracking is disabled record nothing
     if( ! $is_trackingEnabled ) return false;
 
-    global $tbl_track_e_exercises;
+    // get table names
+    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
+	$tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
 
     $reallyNow = time();
     if($uid && $uid != "")
@@ -360,8 +363,11 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
     // if tracking is disabled record nothing
     if( ! $is_trackingEnabled ) return 0;
 
-    global $tbl_track_e_exe_details, $tbl_track_e_exe_answers;
-
+    // get table names
+    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
+	$tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
+	$tbl_track_e_exe_answers  = $tbl_cdb_names['track_e_exe_answers'];
+	
 	// add the answer tracking informations
     $sql = "INSERT INTO `".$tbl_track_e_exe_details."`
           (
@@ -417,7 +423,10 @@ function event_default($type_event,$values)
 
     global $_uid;
     global $_cid;
-    global $tbl_track_e_default;
+
+	// get table names
+	$tbl_mdb_names 			   = claro_sql_get_main_tbl();
+	$tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
 
     $reallyNow = time();
 

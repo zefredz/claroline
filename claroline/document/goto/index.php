@@ -27,8 +27,6 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-require $includePath.'/lib/events.lib.inc.php';
-
 if (isset($_REQUEST['url']) )
 {
 	$requestUrl = $_REQUEST['url'];

@@ -36,7 +36,6 @@ include($includePath  . '/lib/admin.lib.inc.php');
 include($includePath  . '/lib/user.lib.php');
 include($includePath  . '/conf/user_profile.conf.php');
 include($includePath  . '/lib/pager.lib.php');
-include($includePath  . '/lib/events.lib.inc.php');
 @include($includePath . '/lib/debug.lib.inc.php');
 
 /*----------------------------------------------------------------------

@@ -29,7 +29,6 @@ if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 $nameTools  = $langChat;
 
 // STATS & TRACKING
-include($includePath.'/lib/events.lib.inc.php');
 event_access_tool($_tid, $_courseTool['label']);
 
 $titlePage = '';

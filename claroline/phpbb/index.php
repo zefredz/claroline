@@ -37,7 +37,6 @@ claro_set_display_mode_available(true); // view mode
   Stats
  -----------------------------------------------------------------*/
 
-include $includePath . '/lib/events.lib.inc.php';
 event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------

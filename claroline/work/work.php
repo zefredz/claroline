@@ -23,7 +23,6 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/assignment.lib.php');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();

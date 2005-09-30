@@ -31,7 +31,6 @@ if ( ! $isAllowedToDelete )
 }
 
 include($includePath . '/lib/fileManage.lib.php');
-include($includePath . '/lib/events.lib.inc.php');
 include($includePath . '/lib/admin.lib.inc.php');
 
 // in case of admin access (from admin tool) to the script, we must determine which course we are working with

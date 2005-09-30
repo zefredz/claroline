@@ -39,7 +39,6 @@ else
 {
     // Perhapas  it's better to add here a die("Upgrade your campus");
 }
-require $includePath . '/lib/events.lib.inc.php'; // stats
 
 // logout request : delete session data
 
@@ -69,7 +68,6 @@ if ( isset($_uid) )
      * AUTHENTICATED USER SECTION
      */
 
-    if(isset($_REQUEST['submitAuth'])) event_login();
     require $includePath . '/index_authenticated.inc.php';
 }
 else

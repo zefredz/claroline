@@ -57,14 +57,7 @@ require_once $includePath . '/lib/image.lib.php';
 
 require_once $includePath.'/lib/fileDisplay.lib.php';
 
-/*
- * Lib for event log, stats & tracking
- * plus record of the access
- */
-
-require_once($includePath.'/lib/events.lib.inc.php');
-
-/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                      FILEMANAGER BASIC VARIABLES DEFINITION
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =*/
 
