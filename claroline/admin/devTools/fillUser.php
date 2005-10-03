@@ -11,7 +11,7 @@
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package SDK
  *
@@ -19,8 +19,6 @@
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-$langTeacherQty = "Quantité de prof";
-$langStudentQty = "Quantité d'étudiants";
 require '../../inc/claro_init_global.inc.php';
 
 // Security check
@@ -73,7 +71,7 @@ if ( isset($_REQUEST['create']) )
 {
     $nbp    = (int) $_REQUEST['nbp'];
     $nbs    = (int) $_REQUEST['nbs'];
-    $sfMail = strtoupper($_REQUEST['sfMail']); 
+    $sfMail = strtoupper($_REQUEST['sfMail']);
     $nom    = $_REQUEST['nom'];
     $prenom = $_REQUEST['prenom'];
     $login  = $_REQUEST['login'];
@@ -87,7 +85,7 @@ else
     $prenom = '';
     $login  = '';
 }
-    
+
 $nc     = (int) DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
 $smin   = (int) DEFAULT_MIN_QTY_STUDENT_REGISTRED_IN_COURSE;
 $smax   = (int) DEFAULT_MAX_QTY_STUDENT_REGISTRED_IN_COURSE;
@@ -171,7 +169,7 @@ if ( isset($_REQUEST['create']) && $nbUsers > 0 )
 		$sqlInsertUser = "
         	INSERT INTO `".$tbl_user."`
             	(
-        	    `nom`, 
+        	    `nom`,
         	    `prenom`,
             	`username`, `password`,
             	`email`, `statut`,
@@ -218,10 +216,10 @@ switch ($display)
 			echo $nbssAdded.' new users';
 			if ( CONFVAL_LIST_USER_ADDED )
 			{
-				echo '<ol>' . "\n" 
-                    . '<li>' 
+				echo '<ol>' . "\n"
+                    . '<li>'
 				    . implode('</LI>'."\n".'<LI>',$users)
-				    . '</li>' . "\n" 
+				    . '</li>' . "\n"
                     .  '</ol>' . "\n";
 			}
 
@@ -251,7 +249,7 @@ switch ($display)
 				</td>
 			</tr>
 			<tr>
-				<th>				
+				<th>
 					<label for="nbs"><?php echo $langStudentQty ?> : </label>
 				</th>
 				<td>
@@ -265,7 +263,7 @@ switch ($display)
 		<table class="claroTable" >
 			<tr>
 				<th >
-					Nom : 
+					Nom :
 				</th>
 				<td>
 					<div>
@@ -327,7 +325,7 @@ switch ($display)
 				</td>
 			</tr>
 		</table>
-	</fieldset>29
+	</fieldset>
 	<input type="submit" name="create" value="create">
 </form>
 		<?php
