@@ -130,7 +130,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
 <?php
 
-echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . $langCourseHome . '</option>';
+echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . $langCourseHome . '</option>' . "\n";
 
     if (is_array($_courseToolList))
     {
