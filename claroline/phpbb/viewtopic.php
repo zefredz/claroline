@@ -160,7 +160,19 @@ if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
 /*=================================================================
   Display Section
  =================================================================*/
- 
+// Confirm javascript code
+
+$htmlHeadXtra[] =
+          "<script type=\"text/javascript\">
+           function confirm_delete()
+           {
+               if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . " ?'))
+               {return true;}
+               else
+               {return false;}
+           }
+		   </script>";
+           
 if (    $forum_cat_id == GROUP_FORUMS_CATEGORY
     && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
@@ -250,7 +262,8 @@ else
 	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '" />'
 	            . '</a>' . "\n"
 	
-	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit">'
+	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
+            	. 'onClick="return confirm_delete();" >'
 	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '" />'
 	            . '</a>' . "\n"
 	
