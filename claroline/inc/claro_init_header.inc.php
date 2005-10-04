@@ -94,7 +94,7 @@ echo '<body dir="' . $text_dir . '" ' . $onload . '>';
 
 if (!isset($hide_banner) || $hide_banner == false) 
 {
-    include('claro_init_banner.inc.php');
+    include dirname(__FILE__) . '/claro_init_banner.inc.php' ;
 }
 
 if (!isset($hide_body) || $hide_body == false)
