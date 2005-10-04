@@ -182,7 +182,7 @@ else
         {
             if ( $_uid )
             {
-		// Display link to student to enrol to this course
+                // Display link to student to enrol to this course
                 echo '<p align="center">'           ."\n"
                 .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br />'
                 .    $lang_if_you_wish_to_enroll_to_this_course
@@ -195,7 +195,7 @@ else
             {
 		// Display a link to anonymous to register on the platform
                 echo '<p align="center">'                           ."\n"
-                .    $langCreate1stAccountOnPlatform ."\n"
+                .    $langCreate1stAccountOnPlatform                ."\n"
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
                 .    $langGo2accountCreationPage
                 .    '</a>'                                         ."\n"
@@ -207,17 +207,23 @@ else
                 echo '<p align="center">'                           ."\n"
                 . $langMessageRegistrationNotAllowed
                 .    '</p>'                                         ."\n";
-                
             }
         }
 	else
 	{
 	    // Enrolment is not allowed for this course
             echo '<p align="center">'                           ."\n"
-                . $langMessageEnrollToCourseNotAllowed
-                .    '</p>'                                     ."\n";
-            
-	}
+                . $langMessageEnrollToCourseNotAllowed;
+            if ($_course['email'] && $_course['titular'])
+            {
+                echo '<br />Please contact course titular(s) : '.$_course['titular']
+                .    '<br /><small>e-mail address : <a href="mailto:' . $_course['email'] .'">' . $_course['email']. '</a>'
+                ;
+           	
+            }
+
+            echo '</p>'                                     ."\n";
+    }
 
         // Display footer
         require $includePath . '/claro_init_footer.inc.php';
@@ -233,7 +239,7 @@ else
         
         if (isset($_REQUEST['sourceGid']))
         {
-        	$sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
+            $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
                        .  'gidReq=' . $_REQUEST['sourceGid'];
         }
         
