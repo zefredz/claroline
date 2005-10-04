@@ -143,14 +143,13 @@ function user_update ($user_id, $data)
     $tbl_user      = $tbl_mdb_names['user'];
     
     $sql = "UPDATE  `" . $tbl_user . "`
-            SET `nom`         = '" . addslashes($data['lastname']) . "',
-                `prenom`      = '" . addslashes($data['firstname']) . "',
-                `username`    = '" . addslashes($data['username']) . "',
-                `phoneNumber` = '" . addslashes($data['phone']) . "',
-                `creatorId`   = '" . (int)$_uid. "',
-                `email`       = '" . addslashes($data['email']) . "' ";
-
-    if ( !empty($data['officialCode']) ) $sql .= ", officialCode   = '" . addslashes($data['officialCode']) . "' ";
+            SET `nom`          = '" . addslashes($data['lastname']) . "',
+                `prenom`       = '" . addslashes($data['firstname']) . "',
+                `username`     = '" . addslashes($data['username']) . "',
+                `phoneNumber`  = '" . addslashes($data['phone']) . "',
+                `creatorId`    = '" . (int)$_uid. "',
+                `email`        = '" . addslashes($data['email']) . "',
+                `officialCode` = '" . addslashes($data['officialCode']) . "' ";
     
     if ( !empty($data['status']) )
     {
@@ -926,7 +925,6 @@ function user_validate_form_registration($data)
     }
 
     return $messageList;
-
 }
 
 /**
