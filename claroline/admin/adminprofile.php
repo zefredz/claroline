@@ -155,9 +155,9 @@ user_display_form_admin_user_profile($user_data);
 
 echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\''.clean_str_for_javascript($langAreYouSureToDelete . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . $langDeleteUser . '</a>' 
     . ' | '
-    . '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . $langRegisterUser . '</a>'
+    . '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . $langRegisterUser . '</a>'
     . '| '
-    . '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . $langSendToUserAccountInfoByMail . '</a>';
+    . '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . $langSendToUserAccountInfoByMail . '</a>';
 
 if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
 {
