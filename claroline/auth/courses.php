@@ -262,7 +262,7 @@ if ( $cmd == 'exReg' )
     } // end if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
     else
     {
-    	$message = $langUnableToEnrollInCourse;
+        $message = $langUnableToEnrollInCourse;
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -322,14 +322,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
     else
     {
-
-        // platform admin can also see private courses so they must be displayed, other users can not.
-
-        if ( !$is_platformAdmin ) $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
-        else                      $visibility_cond = "1=1";
-
-        // build the query taking account with the user rights
-
         $sql = "SELECT `c`.`visible`, `c`.`intitule`, `c`.`directory`, `c`.`code`,
                        `c`.`titulaires`, `c`.`languageCourse`, `c`.`fake_code` AS `officialCode`,
                        `cu`.`user_id` AS `enrolled`
@@ -340,7 +332,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
 
                 WHERE `faculte` = '" . $category . "'
-                # AND   " . $visibility_cond . "
 
                 ORDER BY UPPER(`fake_code`)";
 
@@ -380,7 +371,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
                 LEFT JOIN `".$tbl_course."` c
                 ON c.`faculte` = `subCat`.`code`
-                AND " . $visibility_cond . "
 
                 # filter to get the current and direct children categories
 
@@ -775,15 +765,6 @@ function search_course($keyword)
 
     $keyword = trim($keyword);
 
-    if (!$is_platformAdmin)
-    {
-        $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
-    }
-    else
-    {
-        $visibility_cond = "1=1";
-    }
-
     if (empty($keyword) ) return array();
     $upperKeyword = trim(strtoupper($keyword));
 
@@ -795,12 +776,9 @@ function search_course($keyword)
             ON  c.code = cu.code_cours
             AND cu.user_id = "'.$userId.'"
 
-            WHERE '.$visibility_cond.'
-        AND   (UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
-            OR    UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
-            OR    UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
-
-
+            WHERE UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
+               OR UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
+               OR UPPER(titulaires) LIKE "%'.$upperKeyword.'%"
 
             ORDER BY officialCode';
 
