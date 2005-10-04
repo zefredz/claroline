@@ -467,6 +467,33 @@ function is_course_enrollment_allowed($courseId)
     else                                          return true;
 }
 
+/**
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $courseId - sys code of the course
+ * @return string enrollment key
+ */
+
+function get_course_enrollment_key($courseId)
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course = $tbl_mdb_names['course'];
+
+    $sql = " SELECT enrollment_key
+             FROM `" . $tbl_course . "`
+             WHERE  code = '" . addslashes($courseId) . "'";
+
+    $enrollmentKey = claro_sql_query_get_single_value($sql);
+
+    if ( ! is_null($enrollmentKey) || ! empty($enrollmentKey) )
+    {
+        return $enrollmentKey;
+    }
+    else
+    {
+    	return null;
+    }
+}
+
 
 /**
  * update course manager status of the user in a course
@@ -1198,7 +1225,7 @@ function user_display_form($data, $form_type='registration')
            $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin, $langEnter2passToChange, 
            $ask_for_official_code, $langLegendRequiredFields, $langCreate;
 
-    global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
+    global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $imgRepositoryWeb;
     
     global $rootWeb;
 
@@ -1376,16 +1403,6 @@ function user_display_form($data, $form_type='registration')
             . '</tr>';
     }
 
-    // Personnal course list
-    if ( $form_type == 'admin_user_profile' )
-    {
-        echo '<tr>'
-            . '<td align="right">' . $langPersonalCourseList . ' :</td>'
-            . '<td><a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">' . $lang_click_here . '</a></td>'
-            . '</tr>';
-
-    }
-
     // Submit
     if ( $form_type == 'registration' )
     {
@@ -1431,8 +1448,22 @@ function user_display_form($data, $form_type='registration')
     
     echo '<tr>' . "\n" 
          . '<td>&nbsp;</td>' . "\n" 
-         . '<td>' . $langLegendRequiredFields . '</td>' . "\n" 
+         . '<td><small>' . $langLegendRequiredFields . '</small></td>' . "\n" 
          . '</tr>' . "\n" ;
+
+    // Personnal course list
+    if ( $form_type == 'admin_user_profile' )
+    {
+        echo '<tr>'
+            . '<td align="right">&nbsp;</td>'
+            . '<td>'
+            .'<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
+            . '<img src="'.$imgRepositoryWeb.'course.gif">' . $langPersonalCourseList
+            . '</a>'
+            .'</td>'
+            . '</tr>';
+    }
+
 
     echo '</table>' . "\n"
         . '</form>' . "\n";
