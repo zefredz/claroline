@@ -72,7 +72,7 @@ $langAddNewHeading = "Ajouter un intitulé";
 $langAddOneModuleButton = "Ajouter le module";
 $langAddTutors = "Gérer la liste des tuteurs";
 $langAddUser = "Créer un nouvel utilisateur";
-$langAddUserOneByOne = "Les nouveaux utilisateurs recevront un e-mail avec leur nom d'utilisateur et mot de passe";
+$langAddUserOneByOne = "Les nouveaux utilisateurs recevront un e-mail avec leur identifiant et mot de passe";
 $langAddWrongAnswers = "Ajouter de mauvaises réponses à afficher dans les listes déroulantes. <small>(Optionnel. Une réponse par ligne.)</small>";
 $langAdd_users = "Ajouter une série d'utilisateurs";
 $langAddedExternalTool = "Lien externe ajouté.";
@@ -237,7 +237,7 @@ $langClarContent = "<br><p><b>Etudiant</b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code du cours dans la liste, sans inscription préalable.</p>
-<p>Pour accéder aux cours non accessibles depuis la page d'accueil du campus, il
+<p>Pour accéder aux cours non accessibles depuis la page d'accueil de la plate-forme, il
 est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
 Action: S'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
@@ -328,7 +328,7 @@ $langCourseWithoutProf = "Cours sans gestionnaire";
 $langCourseWithoutStudents = "Cours sans étudiants";
 $langCourse_Repository = "Dossier du cours";
 $langCourses = "Cours";
-$langCreate = "créer";
+$langCreate = "Créer";
 $langCreate1stAccountOnPlatform = "Créez d'abord un compte utilisateur sur cette plateforme";
 $langCreateAnotherUser = "Créer un autre utilisateur";
 $langCreateAssignment = "Créer un nouveau travail";
@@ -1314,9 +1314,9 @@ $langMoveUp = "Monter";
 $langMsgSent = "Le message est envoyé aux utilisateurs sélectionnés.";
 $langMultipleAnswers = "R&eacute;ponses multiples";
 $langMultipleEmails = "Comptes avec le même <i>e-mail</i>";
-$langMultipleLogins = "Comptes avec le même <i>nom d'utilisateur</i>";
+$langMultipleLogins = "Comptes avec le même <i>identifiant</i>";
 $langMultipleSelect = "Choix multiple (Réponses multiples)";
-$langMultipleUsernameAndPassword = "Comptes avec le même <i>nom d'utilisateur</i> et <i>mot de passe</i>";
+$langMultipleUsernameAndPassword = "Comptes avec le même <i>identifiant</i> et <i>mot de passe</i>";
 $langMustSelectAFile = "Vous devez sélectionner un fichier";
 $langMustSelectATxtFile = "Vous devez sélectionner un fichier texte";
 $langMyAgenda = "Mon agenda";
@@ -1434,9 +1434,9 @@ $langPassTooEasy = "Ce mot de passe est trop simple. Choisissez un autre mot de 
 $langPassTwice = "Vous n'avez pas tapé deux fois le même mot de passe.
 Utilisez le bouton de retour en arrière de votre navigateur
 et recommencez.";
-$langPassword = "mot de passe";
+$langPassword = "Mot de passe";
 $langPasswordHasBeenEmailed = "Votre mot depasse a été envoyé à l'adresse ";
-$langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche du nom d'utilisateur.";
+$langPasswordSimple = "Le mot de passe donné est trop simple ou trop proche de l'identifiant.";
 $langPathContentTitle = "Contenu du parcours pédagogique";
 $langPathsInCourseProg = "Progression dans le cours";
 $langPerhaps_with_others_directory = "peut-être avec d'autres dossiers";
@@ -1585,7 +1585,7 @@ $langSendToUserAccountInfoByMail = "Envoyer les infos de connexion par email";
 $langSequentialExercise = "Une question par page (séquentiel)";
 $langSetAdmin = "Rendre administrateur";
 $langSettings = "avec les paramètre suivants:
-Nom d'utilisateur:";
+Identifiant :";
 $langShowAll = "Montrer tout";
 $langShowAnswers = "Après le test, afficher les réponses";
 $langShowAnswersAfterLastTry = "Après le dernier essai autorisé";
@@ -1822,7 +1822,7 @@ $langUserDelete = "La suppression de l'utilisateur a bien été effectuée";
 $langUserIsNowCourseManager = "L'utilisateur est maintenant gestionnaire du cours";
 $langUserIsNowStudent = "L'utilisateur est maintenant étudiant pour ce cours";
 $langUserIsPlaformAdmin = "Peut administrer la plate-forme";
-$langUserName = "Nom d'utilisateur";
+$langUserName = "Identifiant";
 $langUserNoCourseToDisplay = "Aucun cours à montrer";
 $langUserNotInClass = "L'utilisateur n'est pas inscrit à la classe";
 $langUserNotUnsubscribedFromCourse = "Erreur!! vous ne pouvez pas radier un gestionnaire du cours";
@@ -2090,4 +2090,9 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Votre inscription au cou
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas être inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
+$langRequestOfCourseCreatorStatus = 'Solliciter le statut créateur de cours';
+$langReasons = 'Motif (optionnel)';
+$langMessageEnrollToCourseNotAllowed = "Inscription au cours refusé";
+$langMessageRegistrationNotAllowed = "Enregistrement à la plateforme refusé";
+$langEnrollmentKey = "clé d'inscription";
 ?>
