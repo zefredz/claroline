@@ -15,7 +15,7 @@
  *
  */
     require_once dirname(__FILE__) . '/navigator.lib.php';
-    require_once ("CLCAL___Resolver.php");
+    require_once dirname(__FILE__) . '/CLCAL___Resolver.php' ;
 
     /**
     * Class Agenda Navigator 
