@@ -80,7 +80,7 @@ else
 }
 
 
-event_download($requestUrl);
+// event_download($requestUrl);
 
 if ($_gid && $is_groupAllowed)
 {
@@ -103,7 +103,7 @@ if ( isset($secureDocumentDownload) && $secureDocumentDownload
         {
             $mimeType = get_mime_on_ext( basename($pathInfo) );
             if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
-            readfile($pathInfo);
+            if( readfile($pathInfo)  > 0) event_download($requestUrl);
         }
     }
     else
@@ -116,6 +116,12 @@ else
     header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
     header('Cache-Control: post-check=0, pre-check=0', false);
     header('Pragma: no-cache');                                     // HTTP/1.0
+
+    // check that the file really exists before trigging the download tracking
+    if ( file_exists($coursesRepositorySys . $intermediatePath . $requestUrl) )
+    {
+    	event_download($requestUrl);
+    }
 
     $doc_dl_url = $coursesRepositoryWeb. $intermediatePath 
                 . implode ( '/',   
