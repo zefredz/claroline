@@ -1151,8 +1151,6 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
             departmentUrlName = '".  addslashes($extLinkName)      ."',
             departmentUrl     = '".  addslashes($extLinkUrl)       ."'";
 
-    file_put_contents('c:/www/dev/claroline/sql.log', $sql);
-
     if ( claro_sql_query($sql) == false) return false;
 
     $sql = "INSERT INTO `" . $tbl_course_user . "` 
