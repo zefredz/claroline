@@ -192,7 +192,7 @@
  *    for the current user.
  ******************************************************************************/
 
-require_once $includePath.'/conf/auth.conf.php'; // load the platform authentication settings
+require_once dirname(__FILE__).'/conf/auth.conf.php'; // load the platform authentication settings
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the 
