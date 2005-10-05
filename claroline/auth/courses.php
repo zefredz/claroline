@@ -266,7 +266,8 @@ if ( $cmd == 'exReg' )
     else
     {
         $message = $langUnableToEnrollInCourse
-        .        sprintf('<p>You can contact <a href="mailto:%s" >the course manager : %s</a></p>',$_course['email'],$_course['titular']);
+ //       .        sprintf('<p>You can contact <a href="mailto:%s" >the course manager : %s</a></p>',$_course['email'],$_course['titular'])
+        ;
     }
 
     $displayMode = DISPLAY_MESSAGE_SCREEN;
