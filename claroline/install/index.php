@@ -23,7 +23,7 @@
 // __LINE__ use to have arbitrary number but order of panels
 
 define ('DISP_WELCOME',__LINE__);
-define ('DISP_LICENCE',__LINE__);
+define ('DISP_LICENSE',__LINE__);
 define ('DISP_DB_CONNECT_SETTING',__LINE__);
 define ('DISP_DB_NAMES_SETTING',__LINE__);
 define ('DISP_ADMINISTRATOR_SETTING',__LINE__);
@@ -38,7 +38,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 // Place of Config file
 $configFileName = 'claro_main.conf.php';
-$configFilePath = '../inc/conf/'.$configFileName;
+$configFilePath = '../inc/conf/' . $configFileName;
 
 session_start();
 $_SESSION = array();
@@ -67,9 +67,11 @@ if (count($_GET) > 0)      {extract($_GET, EXTR_OVERWRITE);}
 if (count($_POST) > 0)     {extract($_POST, EXTR_OVERWRITE);}
 if (count($_SERVER) > 0)   {extract($_SERVER, EXTR_OVERWRITE);}
 
+
+// LIST OF  VIEW IN ORDER TO SHOW
 $panelSequence  = array(
 DISP_WELCOME,
-DISP_LICENCE,
+DISP_LICENSE,
 //DISP_FILE_SYSTEM_SETTING,
 DISP_DB_CONNECT_SETTING,
 DISP_DB_NAMES_SETTING,
@@ -79,8 +81,11 @@ DISP_ADMINISTRATIVE_SETTING,
 DISP_LAST_CHECK_BEFORE_INSTALL,
 DISP_RUN_INSTALL_COMPLETE);
 //DISP_RUN_INSTALL_NOT_COMPLETE is not a panel of sequence
+
+
+// VIEW TITLE
 $panelTitle[DISP_WELCOME]                   = $langRequirements;
-$panelTitle[DISP_LICENCE]                   = $langLicence;
+$panelTitle[DISP_LICENSE]                   = $langLicence;
 //$panelTitle[DISP_FILE_SYSTEM_SETTING]      = $langFileSystemSetting;
 $panelTitle[DISP_DB_CONNECT_SETTING]        = 'MySql Database Settings';
 $panelTitle[DISP_DB_NAMES_SETTING]          = $langMysqlNames;
@@ -93,9 +98,14 @@ $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
 //$rootSys="'.realpath($pathForm).'";
 
 
+
+
+// CONTROLER
+// GET cmd,
+
 if($_REQUEST['cmdLicence'])
 {
-    $cmd=DISP_LICENCE;
+    $cmd=DISP_LICENSE;
 }
 //elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
 //{
@@ -130,17 +140,30 @@ elseif($_REQUEST['cmdDoInstall'])
     $cmd=DISP_RUN_INSTALL_COMPLETE;
 }
 
-##### STEP 0 INITIALISE FORM VARIABLES IF FIRST VISIT ##################
 
+
+
+
+
+
+
+##### INITIALISE FORM VARIABLES ##################
+
+###  IF FIRST VISIT ###
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
      include ('./defaultsetting.inc.php');
 }
-else
+else ###  IF NOT ###
 {
     extract($_REQUEST);
     $campusForm  = $_REQUEST['campusForm'];
 }
+
+
+
+
+
 
 // This script is a big form.
 // all value are in HIDDEN FIELD,
@@ -153,18 +176,30 @@ else
 //  * Write the config file
 //  * Protect some  directory with an .htaccess (work only  for apache)
 
+
+/**
+ *
+ * Check New Data  (following $_REQUEST['fromPanel'] value)
+ * or if $_REQUEST['cmdDoInstall']
+ *
+ * Each check set the view to display following check Result
+ * when check failed, some flag are set to trigger some explict messages
+ */
+
+
+
 $canRunCmd = TRUE;
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
 {
     if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
     {
         $adminDataMissing = TRUE;
-        if (empty($loginForm))             $missing_admin_data[] = 'login';
-        if (empty($passForm))             $missing_admin_data[] = 'password';
-        if (empty($adminSurnameForm))     $missing_admin_data[] = 'firstname';
-        if (empty($adminNameForm))         $missing_admin_data[] = 'lastname';
-        if (empty($adminEmailForm))     $missing_admin_data[] = 'email';
-        if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm))     $error_in_admin_data[] = 'email';
+        if (empty($loginForm)) $missing_admin_data[] = 'login';
+        if (empty($passForm))  $missing_admin_data[] = 'password';
+        if (empty($adminSurnameForm)) $missing_admin_data[] = 'firstname';
+        if (empty($adminNameForm)) $missing_admin_data[] = 'lastname';
+        if (empty($adminEmailForm)) $missing_admin_data[] = 'email';
+        if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm)) $error_in_admin_data[] = 'email';
         if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br>';
         if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please, check '.implode(', ',$error_in_admin_data).'</font><br>';
         if ($cmd>DISP_ADMINISTRATOR_SETTING)
@@ -406,7 +441,7 @@ if ($canRunCmd)
     $display = DISP_WELCOME;
     if($_REQUEST['cmdLicence'])
     {
-        $display = DISP_LICENCE;
+        $display = DISP_LICENSE;
     }
 //    elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
 //    {
@@ -710,11 +745,11 @@ if ($display==DISP_WELCOME)
 ###################################################################
 ############### STEP 2 LICENSE  ###################################
 ###################################################################
-elseif($display==DISP_LICENCE)
+elseif($display==DISP_LICENSE)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf($langStepNOfN,(array_search(DISP_LICENCE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENCE]
+    .    sprintf($langStepNOfN,(array_search(DISP_LICENSE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENSE]
     .    '</h2>'  . "\n"
     .    '<P>'  . "\n"
     .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
