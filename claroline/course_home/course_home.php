@@ -27,7 +27,8 @@ die('---');
 if ( !isset($claroGlobalPath) ) $claroGlobalPath = '../claroline/inc';
 
 require $claroGlobalPath . '/claro_init_global.inc.php';
-include($includePath . '/lib/course_home.lib.php');
+include $includePath . '/lib/course_home.lib.php';
+include $includePath . '/conf/rss.conf.php';
 
 if ( ! $is_courseAllowed ) claro_disp_auth_form();
 
@@ -35,8 +36,11 @@ $toolRepository = $clarolineRepositoryWeb;
 claro_set_display_mode_available(TRUE);
 
 // Add feed RSS in header
-$htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
-        .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+if ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
+{
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+            .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+}
 
 // Display header
 include($includePath . '/claro_init_header.inc.php');

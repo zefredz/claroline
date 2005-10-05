@@ -22,9 +22,10 @@
 $tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
-require_once($clarolineRepositorySys . '/linker/linker.inc.php');
-require_once($includePath . '/lib/agenda.lib.php');
-require_once($includePath . '/lib/form.lib.php');
+require_once $clarolineRepositorySys . '/linker/linker.inc.php';
+require_once $includePath . '/lib/agenda.lib.php';
+require_once $includePath . '/lib/form.lib.php';
+require_once $includePath . '/conf/rss.conf.php';
 
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
@@ -267,7 +268,8 @@ if ( $is_allowedToEdit )
     } // end if diplayMainCommands
     
     // rss update
-    if ($ex_rss_refresh && file_exists('./agenda.rssgen.inc.php'))
+    if ( ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true ) 
+         && $ex_rss_refresh && file_exists('./agenda.rssgen.inc.php'))
     {
         include('./agenda.rssgen.inc.php');
     }
@@ -282,8 +284,11 @@ if ( $is_allowedToEdit )
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
-$htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
-        .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+if ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
+{
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+            .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+}
 
 // Display header
 include($includePath . '/claro_init_header.inc.php');

@@ -62,9 +62,10 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-require_once($includePath . '/lib/announcement.lib.php');
-require_once($includePath . '/lib/claro_mail.lib.inc.php');
-require_once($clarolineRepositorySys . '/linker/linker.inc.php');
+require_once $includePath . '/lib/announcement.lib.php';
+require_once $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $clarolineRepositorySys . '/linker/linker.inc.php';
+require_once $includePath . '/conf/rss.conf.php';
 
 claro_set_display_mode_available(TRUE);
 
@@ -347,7 +348,8 @@ if($is_allowedToEdit) // check teacher status
         }   // end if $submit Announcement
 
         // rss update
-        if ($ex_rss_refresh && file_exists('./announcements.rssgen.inc.php'))
+        if ( ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
+               && $ex_rss_refresh && file_exists('./announcements.rssgen.inc.php'))
         {
             include('./announcements.rssgen.inc.php');
         }
@@ -378,8 +380,11 @@ $nameTools = $langAnnouncement;
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
-$htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
-        .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+if ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
+{
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+            .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+}
 
 // Display header
 include($includePath . '/claro_init_header.inc.php');

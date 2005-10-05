@@ -23,13 +23,22 @@ $siteName ='';
 $langRetry = 'retry';
 $is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
+include_once $includePath . '/conf/rss.conf.php';
+
+// RSS enabled 
+if ( isset($enable_rss_in_course) && $enable_rss_in_course == false )
+{
+        // Codes Status HTTP 404 for rss feeder
+        header('HTTP/1.0 404 Not Found');
+        exit;
+}
+
 if(!$_cid) 
 {
-    
     die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
 }
 
-if (!$_course['visibility'] && !$is_courseAllowed)
+if ( !$_course['visibility'] && !$is_courseAllowed )
 {
     if (!isset($_SERVER['PHP_AUTH_USER'])) 
     {
@@ -59,7 +68,6 @@ if (!$_course['visibility'] && !$is_courseAllowed)
 
 // OK TO SEND FEED
 
-include_once $includePath . '/conf/rss.conf.php';
 include( $includePath . '/lib/rss/write/gencourse_rss.inc.php');
 
 header('Content-type: text/xml;'); 

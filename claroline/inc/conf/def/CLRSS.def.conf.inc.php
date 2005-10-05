@@ -25,13 +25,23 @@ $conf_def['config_class'] = 'kernel';
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
-//$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] = 
-array ( 'rssRepositoryCache'
+array ( 'enable_rss_in_course'
+      , 'rssRepositoryCache'
       , 'use_rss_cache'
       );
 
 //PROPERTIES
+
+$conf_def_property_list['enable_rss_in_course'] =
+array ('label'         => 'Enable RSS in course'
+      , 'description'  => '' 
+      ,'default'       => 'TRUE'
+      ,'type'          => 'boolean'
+      , 'readonly'      => FALSE 
+      , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
+      
+      );
 
 $conf_def_property_list['rssRepositoryCache'] =
 array ('label'         => 'Where place rss files.'
@@ -40,6 +50,7 @@ array ('label'         => 'Where place rss files.'
       ,'default'       => 'cache/rss/'
       ,'type'          => 'relpath'
       );
+
 $conf_def_property_list['use_rss_cache'] =
 array ('label'         => 'Use the cache'
       , 'description'  => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.' 
