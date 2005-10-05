@@ -17,14 +17,39 @@
 //used libraries
 
 require '../inc/claro_init_global.inc.php';
-
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
-
 include($includePath."/lib/admin.lib.inc.php");
 include($includePath."/conf/user_profile.conf.php");
 include($includePath."/lib/user.lib.php");
 include($includePath."/lib/import_csv.lib.php");
+
+/* 
+ * See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
+ * - adding CSV users by the admin tool                                                     (AddType=adminTool)
+ * - adding CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
+ * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
+ */
+
+if ( isset($_REQUEST['AddType']) ) $NewAddType = $_REQUEST['AddType'];
+else                               $NewAddType = 'userTool'; // default access is the user tool
+
+switch ($NewAddType)
+{
+    case 'adminTool' :
+    case 'adminClassTool' :
+        if ( ! $_uid ) claro_disp_auth_form();
+        if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+        $_SESSION['AddType'] = $NewAddType;
+    break;
+
+    case 'userTool' :
+    default :
+        if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+        if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+        $_SESSION['AddType'] = 'userTool' ;
+    break;
+}
+
+$AddType = $_SESSION['AddType'];
 
 /*
  * DB tables definition
@@ -89,41 +114,6 @@ if (!isset($_SESSION['CSV_fieldSeparator'])) $_SESSION['CSV_fieldSeparator'] = "
 if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = "\"";
 
 $usedFormat = $_SESSION['claro_usedFormat'];
-
-/* 
- * 
- * See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
- * - adding CSV users by the admin tool                                                     (AddType=adminTool)
- * - adding CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
- * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
- */
-if (isset($_REQUEST['AddType'])) 
-{
-   $NewAddType = $_REQUEST['AddType']; //default access is the admin tool
-} 
-
-if (isset($NewAddType))
-{
-    switch ($NewAddType)
-    {
-        case 'adminTool' :
-            if ( !$is_platformAdmin ) claro_disp_auth_form();
-            $_SESSION['AddType'] = $_REQUEST['AddType'];
-        break;
-    
-        case 'adminClassTool':
-            if (!$is_platformAdmin) claro_disp_auth_form();
-            $_SESSION['AddType'] = $_REQUEST['AddType'];
-        break;
-        
-        case 'userTool':
-            if (!$is_courseAdmin) claro_disp_auth_form();
-            $_SESSION['AddType'] = $_REQUEST['AddType'];
-        break;
-    }
-}
-
-$AddType = $_SESSION['AddType'];
 
 /*--------------------------------------------------------------------------------------------------------------*/
 /*    Execute command section                                                                                 */
