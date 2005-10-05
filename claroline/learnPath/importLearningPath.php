@@ -519,7 +519,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     $tempPathId = mysql_insert_id();
     $baseWorkDir .= "path_".$tempPathId;
 
-    if (!is_dir($baseWorkDir)) mkdir($baseWorkDir, 0777);
+    if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
 
     // unzip package
     include($includePath."/lib/pclzip/pclzip.lib.php");

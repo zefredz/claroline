@@ -652,7 +652,7 @@ class ScormExport
         global $langErrorCopyScormFiles, $langErrorCreatingDirectory, $langErrorCopyingScorm, $langErrorCopyAttachedFile;
         // (re)create fresh directory
         claro_delete_file($this->destDir);
-        if ( !claro_mkdir($this->destDir, 0777, true))
+        if ( !claro_mkdir($this->destDir, CLARO_FILE_PERMISSIONS , true))
         {
             $this->error[] = $langErrorCreatingDirectory . $this->destDir;
             return false;
