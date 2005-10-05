@@ -29,27 +29,24 @@ include($includePath."/lib/import_csv.lib.php");
  * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
  */
 
-if ( isset($_REQUEST['AddType']) ) $NewAddType = $_REQUEST['AddType'];
-else                               $NewAddType = 'userTool'; // default access is the user tool
+if ( isset($_REQUEST['AddType']) ) $AddType = $_REQUEST['AddType'];
+else                               $AddType = 'userTool'; // default access is the user tool
 
-switch ($NewAddType)
+switch ($AddType)
 {
     case 'adminTool' :
     case 'adminClassTool' :
         if ( ! $_uid ) claro_disp_auth_form();
         if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
-        $_SESSION['AddType'] = $NewAddType;
     break;
 
     case 'userTool' :
     default :
         if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
         if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
-        $_SESSION['AddType'] = 'userTool' ;
+        $AddType = 'userTool' ;
     break;
 }
-
-$AddType = $_SESSION['AddType'];
 
 /*
  * DB tables definition
@@ -316,7 +313,8 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
     $dialogBox = $langModifyFormat .' :<br><br>'
     .            $langTheFields . ' <b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> ' . $langAreCompulsory . '<br><br>'
-    .          '<form metod="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+    .          '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+    .          '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55"><br /><br />'
     .            '<label for="fieldSeparator">' .  $langFieldSeparatorUsed . ' </label>:' 
     
@@ -386,14 +384,15 @@ case 'default' :
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;loadDefault=yes'; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;loadDefault=yes&amp;AddType=' . $AddType ; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
     | 
-    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes'; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes&amp;AddType=' . $AddType; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     <input type="hidden" name="fieldSeparator" value="<?php if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator']; else echo ";" ?>" >
     <input type="hidden" name="enclosedBy" value="<?php echo $_SESSION['CSV_enclosedBy']; ?>" > 
+    <input type="hidden" name="AddType" value="<?php echo $AddType; ?>" > 
     <br>
     <?php echo $langFileForCSVUpload; ?><input type="file" name="CSVfile">
     <br><br>
@@ -447,6 +446,7 @@ case "stepone" :
         }
         echo '<br>'
         .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+        .    '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
         .   claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
         .   "<input type=\"submit\" value=\"".$langContinue."\">\n "
         .   "</form>\n";
