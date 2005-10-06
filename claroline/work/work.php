@@ -119,9 +119,10 @@ if( !empty($cmd) )
 		}
 		else
 		{
-		    $assignment_data['description'] = trim( $_REQUEST['description'], $allowedTags );
+		    $assignment_data['description'] = trim( $_REQUEST['description'] );
+
 		}
-		
+
 		$assignment_data['start_date'] = $_REQUEST['startYear'].'-'
 									.$_REQUEST['startMonth'].'-'
 									.$_REQUEST['startDay'].' '
