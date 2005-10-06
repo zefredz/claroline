@@ -220,7 +220,26 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
 
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 {
-    if (empty($contactEmailForm)||empty($contactNameForm)||!is_well_formed_email_address($contactEmailForm))
+    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+    if ( (!empty($institutionUrlForm)) && !eregi( $regexp, $institutionUrlForm) )
+    {
+        // problem with url. try to repair
+        // if  it  only the protocol missing add http
+        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $institutionUrlForm )
+        && (eregi($regexp, 'http://' . $institutionUrlForm )))
+        {
+            $institutionUrlForm = 'http://' . $institutionUrlForm;
+        }
+        else
+        {
+            $administrativeDataMissing = TRUE;
+            $check_administrative_data[] = 'Institution Url';
+        }
+    }
+
+    if (empty($contactEmailForm)||empty($contactNameForm)
+        ||!is_well_formed_email_address($contactEmailForm)
+    )
     {
         $administrativeDataMissing = TRUE;
         if (empty($contactNameForm))
@@ -228,6 +247,8 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
             $check_administrative_data[] = 'name of contact ';
             $contactNameForm = $adminNameForm;
         }
+
+
         if (empty($contactEmailForm)||!is_well_formed_email_address($contactEmailForm))
         {
             $check_administrative_data[] = 'email ';
@@ -240,6 +261,11 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
                 $contactEmailForm ='';
             }
         }
+
+    }
+
+    if($administrativeDataMissing)
+    {
         $msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br>';
         if ( $cmd > DISP_ADMINISTRATIVE_SETTING )
         {
@@ -923,16 +949,28 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '</tr>'
     .    '<tr>'
     .    '<td>'
-    .    '<input type="submit" name="cmdLicence" value="&lt; Back">'
-    .    '<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->'
     .    '</td>'
     .    '<td >'
     .    '&nbsp;'
     .    '</td>'
     .    '<td align="right">'
-    .    '<input type="submit" name="cmdDbNameSetting" value="Next &gt;">'
     .    '</td>'
     .    '</tr>'
+    .    '</table>'
+    .    '<table width="100%">'  . "\n"
+    .    '<tr>'  . "\n"
+    .    '<td>'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
+    .    '<input type="submit" name="cmdDbNameSetting" value="Next &gt;">'
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td align="left">'  . "\n"
+    .    '<input type="submit" name="cmdLicence" value="&lt; Back">'
+    .    '<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->'
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
     .    '</table>'
     ;
 }     // cmdDB_CONNECT_SETTING
@@ -1121,20 +1159,19 @@ elseif($display == DISP_DB_NAMES_SETTING )
         ;
 
     }
-    echo '</table>'  . "\n"
-    .    '<table width="100%">'  . "\n"
-    .    '<tr>
-'  . "\n"
+    echo '<table width="100%">'  . "\n"
+    .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">'  . "\n"
     .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '&nbsp;'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td align="right">'  . "\n"
+    .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
     .    '<input type="submit" name="cmdAdministratorSetting" value="Next &gt;">'  . "\n"
-    .    '</td>'  . "\n"
-    .    '</tr>'  . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td align="left">'  . "\n"
+    .    '<input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">'  . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
     .    '</table>'
     ;
     /*
@@ -1243,10 +1280,14 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<table width="100%">'  . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="submit" name="cmdDbNameSetting" value="&lt; Back">'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td align="right">'  . "\n"
+    .    '</td>'  . "\n"
+    .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
     .    '<input type="submit" name="cmdPlatformSetting" value="Next &gt;">'  . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td align="left">'  . "\n"
+    .    '<input type="submit" name="cmdDbNameSetting" value="&lt; Back">'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>'
@@ -1259,104 +1300,104 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 elseif($display==DISP_PLATFORM_SETTING)
 
 {
-    echo '
-                 <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING].'
-                </h2>';
-    echo '
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h4>Campus</h4>
-                '.$msg_missing_platform_data.'
-                <table >
-                    <tr>
-                            <td>
-                                <label for="campusForm">Name</label>
-                            </td>
-                            <td colspan="2">
-                                <input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'">
-                            </td>
-                        </tr>
-                    <tr>
-                        <td>
-                            <label for="urlForm">Complete URL</label>
-                        </td>
-                        <td colspan="2">
-                            <input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                             <label for="courseRepositoryForm">Courses repository path (relative to the URL above) </label><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                        </td>
-                        <td colspan="2">
-                            <input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="languageForm">Main language</label>
-                        </td>
-                        <td colspan="2">'.
-                            claro_html_form_select( 'languageForm'
-                                 , $language_list
-                                 , $languageForm
-                                 , array('id'=>'languageForm'))
-                                . '
-                            </font>
-                        </td>
-                    </tr>
-            <tr>
-                <td colspan=3><br>
-
-                    <h4>User </h4>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Self-registration
-                </td>
-                <td>
-                    <input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'>
-                       <label for="allowSelfReg_1">enabled</label>
-                </td>
-                <td>
-                    <input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'>
-                       <label for="allowSelfReg_0">disabled</label>
-                </td>
-            </tr>
-                    <tr>
-                        <td>
-                             Password storage
-                        </td>
-                        <td>
-                            <input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'>
-                            <label for="encryptPassForm_0">clear text</label>
-                        </td>
-                        <td>
-                            <input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'>
-                            <label for="encryptPassForm_1">crypted</label>
-                        </td>
-                    </tr>
-                </table>
-                <table width="100%">
-                        <tr>
-                            <td>
-                                <input type="submit" name="cmdAdministratorSetting" value="&lt; Back">
-                            </td>
-                            <td align="right">
-                                <input type="submit" name="cmdAdministrativeSetting" value="Next &gt;">
-                            </td>
-                        </tr>
-                    </table>';
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">' . "\n"
+    .    '<h2>' . "\n"
+    .    sprintf($langStepNOfN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING]
+    .    '</h2>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<h4>Campus</h4>' . "\n"
+    .    ''.$msg_missing_platform_data.'' . "\n"
+    .    '<table >' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="campusForm">Name</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="urlForm">Complete URL</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3">' . "\n"
+    .    '<label for="courseRepositoryForm">Courses repository path (relative to the URL above) </label><br>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="languageForm">Main language</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">'
+    .    claro_html_form_select( 'languageForm'
+                               , $language_list
+                               , $languageForm
+                               , array('id'=>'languageForm'))
+    .    '</font>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan=3><br>' . "\n"
+    .    '<h4>User </h4>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    'Self-registration' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'>' . "\n"
+    .    '<label for="allowSelfReg_1">enabled</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'>' . "\n"
+    .    '<label for="allowSelfReg_0">disabled</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    'Password storage' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'>' . "\n"
+    .    '<label for="encryptPassForm_0">clear text</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'>' . "\n"
+    .    '<label for="encryptPassForm_1">crypted</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</table>' . "\n"
+    .    '<table width="100%">' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td align="right" rowspan="2" valign="bottom">' . "\n"
+    .    '<input type="submit" name="cmdAdministrativeSetting" value="Next &gt;">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td align="left">' . "\n"
+    .    '<input type="submit" name="cmdAdministratorSetting" value="&lt; Back">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</table>' . "\n"
+    ;
 }
 ###################################################################
 ###### STEP CONFIG SETTINGS #######################################
@@ -1426,15 +1467,20 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                     </tr>
                 </table>
                 <table width="100%">
-                        <tr>
-                            <td>
-                                <input type="submit" name="cmdPlatformSetting" value="&lt; Back">
-                            </td>
-                            <td align="right">
-                                <input type="submit" name="install6" value="Next &gt;">
-                            </td>
-                        </tr>
-                </table>';
+                 <tr>
+                  <td>
+                  </td>
+                  <td align="right" rowspan="2" valign="bottom">
+                   <input type="submit" name="install6" value="Next &gt;">
+                  </td>
+                 </tr>
+                 <tr>
+                  <td align="left">
+                   <input type="submit" name="cmdPlatformSetting" value="&lt; Back">
+                  </td>
+                 </tr>
+                </table>
+                ';
 }
 
 ###################################################################
