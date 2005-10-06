@@ -1518,9 +1518,11 @@ function user_search($name, $mail, $code, $course_id="")
         $like_search = "";
     }
 
-    if (!empty($name)) $sql .= " AND (U.`nom` LIKE '".$name.$like_search."')";
-    if (!empty($mail)) $sql .= " AND (U.`email` LIKE '".$mail.$like_search."')";
-    if (!empty($code)) $sql .= " AND (U.`officialCode` = '".$code."')";
+    if (!empty($name)) $sql .= " AND (U.`nom` LIKE '". addslashes($name) .$like_search."')";
+    if (!empty($mail)) $sql .= " AND (U.`email` LIKE '". addslashes($mail) .$like_search."')";
+    if (!empty($code)) $sql .= " AND (U.`officialCode` = '". addslashes($code) ."')";
+
+    $sql .= " ORDER BY nom,prenom ";
     
     $result = claro_sql_query_fetch_all($sql);
     return $result;
