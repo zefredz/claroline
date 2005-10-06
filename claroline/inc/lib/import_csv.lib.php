@@ -420,7 +420,7 @@ function check_officialcode_used_userlist($userlist)
     
     for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++) 
     {
-        if (!empty($userlist['officialCode'][$i]) && ($userlist['officialCode'][$i]!=""))
+        if (!empty($userlist['officialCode'][$i]) )
 		{
 		    $sql .= ' OR officialCode="'.addslashes($userlist['officialCode'][$i]).'"';
 		}  
@@ -619,15 +619,18 @@ function check_duplicate_officialcode_userlist($userlist)
 	
     $errors = array();
         
-    for ($i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++)
+    for ( $i=0, $size=sizeof($userlist['officialCode']); $i<$size; $i++ )
     {       
         //check officialCode duplicata in the array
-    
-	$found = array_search($userlist['officialCode'][$i],$userlist['officialCode']);
-	
-	if (!($found===FALSE) && ($i!=$found))
+
+        if ( !empty($userlist['officialCode'][$i]) )
         {
-	    $errors[$i] = TRUE;
+    	    $found = array_search($userlist['officialCode'][$i],$userlist['officialCode']);
+	
+        	if (!($found===FALSE) && ($i!=$found))
+            {
+	            $errors[$i] = TRUE;
+            }
         }
     }   
     return $errors;

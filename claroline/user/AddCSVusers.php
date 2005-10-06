@@ -229,7 +229,7 @@ switch ($cmd)
         //set empty fields if needed
         
         if (empty($user['phone']))        $user['phone'] = "";
-        if (empty($user['mail']))         $user['mail'] = "";
+        if (empty($user['mail']))         $user['email'] = "";
         if (empty($user['officialCode'])) $user['officialCode'] = "";
          
         $uid = user_add($user);
