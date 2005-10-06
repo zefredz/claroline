@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * This tool manage properties of an exiting course
  *
- * @version 1.7 $Revision$
+ * @version 1.7 $Revision$ 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
  * @author claroline Team <cvs@claroline.net>
  *
  * @package CLCRS
@@ -51,7 +51,7 @@ $fieldRequiredStateList['email'        ] = $course_email_needed;
 /*
  * DB tables definition
  */
-
+ 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
@@ -66,19 +66,20 @@ $tbl_category         = $tbl_mdb_names['category'       ];
 
 $thisCourse = claro_get_course_data($_cid);
 
-$courseTitle        = isset($_REQUEST['int'          ]) ? trim($_REQUEST['int'          ]) : $thisCourse['name'    ];
-$courseHolder       = isset($_REQUEST['titulary'     ]) ? trim($_REQUEST['titulary'     ]) : $thisCourse['titular' ];
-$courseLanguage     = isset($_REQUEST['lanCourseForm']) ? trim($_REQUEST['lanCourseForm']) : $thisCourse['language'];
-$email              = isset($_REQUEST['email'        ]) ? trim($_REQUEST['email'        ]) : $thisCourse['email'   ];
-$courseCategory     = isset($_REQUEST['category'     ]) ? trim($_REQUEST['category'     ]) : $thisCourse['categoryCode'];
-$courseOfficialCode = isset($_REQUEST['screenCode'   ]) ? trim($_REQUEST['screenCode'   ]) : $thisCourse['officialCode'];
-$extLinkName        = isset($_REQUEST['extLinkName'  ]) ? trim($_REQUEST['extLinkName'  ]) : $thisCourse['extLink' ]['name'];
-$extLinkUrl         = isset($_REQUEST['extLinkUrl'   ]) ? trim($_REQUEST['extLinkUrl'   ]) : $thisCourse['extLink' ]['url'];
+$courseTitle        = isset($_REQUEST['int'          ]) ? trim(strip_tags($_REQUEST['int'          ])) : $thisCourse['name'    ];
+$courseHolder       = isset($_REQUEST['titulary'     ]) ? trim(strip_tags($_REQUEST['titulary'     ])) : $thisCourse['titular' ];
+$courseLanguage     = isset($_REQUEST['lanCourseForm']) ? trim(strip_tags($_REQUEST['lanCourseForm'])) : $thisCourse['language'];
+$courseEmail        = isset($_REQUEST['email'        ]) ? trim(strip_tags($_REQUEST['email'        ])) : $thisCourse['email'   ];
+$courseCategory     = isset($_REQUEST['category'     ]) ? trim(strip_tags($_REQUEST['category'     ])) : $thisCourse['categoryCode'];
+$courseOfficialCode = isset($_REQUEST['screenCode'   ]) ? trim(strip_tags($_REQUEST['screenCode'   ])) : $thisCourse['officialCode'];
+$extLinkName        = isset($_REQUEST['extLinkName'  ]) ? trim(strip_tags($_REQUEST['extLinkName'  ])) : $thisCourse['extLink' ]['name'];
+$extLinkUrl         = isset($_REQUEST['extLinkUrl'   ]) ? trim(strip_tags($_REQUEST['extLinkUrl'   ])) : $thisCourse['extLink' ]['url'];
+$enrollmentKey      = isset($_REQUEST['enrollmentKey']) ? trim(strip_tags($_REQUEST['enrollmentKey'])) : $thisCourse['enrollmentKey'];
 
-$visibility          = isset($_REQUEST['visible']           )
-                       ? ($_REQUEST['visible'            ] == 'true' ? true : false)
+$visibility          = isset($_REQUEST['visible']           ) 
+                       ? ($_REQUEST['visible'            ] == 'true' ? true : false) 
                        :  $thisCourse['visibility'];
-$registrationAllowed = isset($_REQUEST['allowedToSubscribe'])
+$registrationAllowed = isset($_REQUEST['allowedToSubscribe']) 
                        ? ($_REQUEST['allowedToSubscribe'] == 'true' ? true : false)
                        : $thisCourse['registrationAllowed'];
 
@@ -86,12 +87,12 @@ $directory               = $thisCourse['path'   ];
 $currentCourseID         = $thisCourse['sysCode'];
 $currentCourseRepository = $thisCourse['path'   ];
 
-// in case of admin access (from admin tool) to the script,
+// in case of admin access (from admin tool) to the script, 
 // we must determine which course we are working with
 
 if ( isset($_REQUEST['cidToEdit']) && $is_platformAdmin )
 {
-    $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+    $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration); 
     // braedcrumb different in admin access
     unset($_cid);
     $current_cid = trim($_REQUEST['cidToEdit']);
@@ -128,48 +129,35 @@ if ( isset($_REQUEST['changeProperties']) )
         $errorMsgList[] = $langErrorDepartmentEmpty;
     if ( empty($_extLinkUrl)        && $fieldRequiredStateList['extLinkUrl'])
         $errorMsgList[] = $langErrorDepartmentURLEmpty;
-    if ( empty($email)              && $fieldRequiredStateList['email'])
+    if ( empty($courseEmail)              && $fieldRequiredStateList['email'])
         $errorMsgList[] = $langErrorEmailEmpty;
 
     // check if department url is set properly
-
+    
     $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
-    if ( (!empty($extLinkUrl)) && !eregi( $regexp, $extLinkUrl) )
-    {
-        // problem with url. try to repair
-        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $extLinkUrl )
-        && (eregi($regexp, 'http://' . $extLinkUrl )))
-        {
-
-            $extLinkUrl='http://' . $extLinkUrl;
-        }
-        else
-        {
-             $errorMsgList[] = $langErrorDepartmentURLWrong;
-             $dbUpdateAllowed =  false;
-        }
-    }
-
-
+    
+    if ( (!empty($_REQUEST['extLinkUrl'])) && !eregi( $regexp, $_REQUEST['extLinkUrl']) )
+        $errorMsgList[] = $langErrorDepartmentURLWrong;
+    
     //check e-mail validity
 
     if ( ! empty($_REQUEST['email']) && ! is_well_formed_email_address( $_REQUEST['email'] ) )
     {
         $errorMsgList[] = $langErrorEmailInvalid;
     }
-
+    
     if ( count($errorMsgList) > 0)
     {
-        $dialogBox .= '<p>' . implode('<br />' , $errorMsgList) .'</p>';
+    	$dialogBox .= '<p>' . implode('<br />' , $errorMsgList) .'</p>';
         $dbUpdateAllowed =  false;
     }
     else
     {
-        $dbUpdateAllowed = true;
+    	$dbUpdateAllowed = true;
     }
 
     // if at least one error is found, we cancel update
-
+    
     if ( $dbUpdateAllowed )
     {
         if     ( ! $visibility && ! $registrationAllowed) $visibilityState = 0;
@@ -178,15 +166,16 @@ if ( isset($_REQUEST['changeProperties']) )
         elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
 
         $sql = "UPDATE `" . $tbl_course . "`
-                SET `intitule`         ='" . addslashes($courseTitle)              . "',
-                    `faculte`          ='" . addslashes($courseCategory)         . "',
-                    `titulaires`       ='" . addslashes($courseHolder)         . "',
-                    `fake_code`        ='" . addslashes($courseOfficialCode). "',
-                    `languageCourse`   ='" . addslashes($courseLanguage)   . "',
-                    `departmentUrlName`='" . addslashes($extLinkName)      . "',
-                    `departmentUrl`    ='" . addslashes($extLinkUrl)       . "',
-                    `email`            ='" . addslashes($email)            . "',
-                    `visible`          ="  . (int) $visibilityState        ."
+                SET `intitule`         ='" .addslashes($courseTitle)       . "',
+                    `faculte`          ='" .addslashes($courseCategory)    . "',
+                    `titulaires`       ='" .addslashes($courseHolder)      . "',
+                    `fake_code`        ='" .addslashes($courseOfficialCode). "',
+                    `languageCourse`   ='" .addslashes($courseLanguage)    . "',
+                    `departmentUrlName`='" .addslashes($extLinkName)       . "',
+                    `departmentUrl`    ='" .addslashes($extLinkUrl)        . "',
+                    `email`            ='" .addslashes($courseEmail)       . "',
+                    `enrollment_key`   ='" .addslashes($enrollmentKey)     ."',
+                    `visible`          ="  .(int) $visibilityState         ."
                 WHERE code='" . addslashes($current_cid) . "'";
 
         claro_sql_query($sql);
@@ -198,7 +187,6 @@ if ( isset($_REQUEST['changeProperties']) )
 $cidReset = true;
 $cidReq = $current_cid;
 include($includePath . '/claro_init_local.inc.php');
-
 }
 
 //////////////////////PREPARE DISPLAY
@@ -206,14 +194,14 @@ include($includePath . '/claro_init_local.inc.php');
 $language_list = claro_get_lang_flat_list();
 
 $category_array = claro_get_cat_flat_list();
-// If there is no current $courseCategory, add a fake option
+// If there is no current $courseCategory, add a fake option 
 // to prevent auto select the first in list
 // to prevent auto select the first in list
 if ( array_key_exists($courseCategory,$category_array))
-{
+{ 
     $cat_preselect = $courseCategory;
 }
-else
+else 
 {
     $cat_preselect = 'choose_one';
     $category_array = array_merge(array('choose_one'=>'--'),$category_array);
@@ -252,7 +240,7 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 <tr>
 <td align="right"><label for="email"><?php echo $langEmail ?></label>&nbsp;:</td>
-<td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" size="30" maxlength="255"></td>
+<td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="30" maxlength="255"></td>
 </tr>
 
 <tr>
@@ -266,18 +254,18 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 </td>
 </tr>
 
-<tr>
+<tr valign="top">
 <td align="right"><label for="extLinkName"><?php echo $langDepartmentUrlName ?></label>&nbsp;: </td>
 <td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo htmlspecialchars($extLinkName); ?>" size="20" maxlength="30"></td>
 </tr>
 
-<tr>
+<tr valign="top" >
 <td align="right" nowrap><label for="extLinkUrl" ><?php echo $langDepartmentUrl ?></label>&nbsp;:</td>
 <td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo htmlspecialchars($extLinkUrl); ?>" size="60" maxlength="180"></td>
 </tr>
 
-<tr>
-<td valign="top" align="right"><label for="lanCourseForm"><?php echo $langLanguage ?></label> : </td>
+<tr valign="top" >
+<td align="right"><label for="lanCourseForm"><?php echo $langLanguage ?></label> : </td>
 <td>
 <?php echo claro_html_form_select( 'lanCourseForm'
                                  , $language_list
@@ -303,20 +291,24 @@ if ( isset($cidToEdit) && ($is_platformAdmin))
 </td>
 </tr>
 
-<tr>
-<td valign="top" align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
+<tr valign="top" >
+<td align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
 <td>
 <input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibility ? 'checked':'' ?>> <label for="visible_true"><?php echo $langPublicAccess; ?></label><br />
 <input type="radio" id="visible_false" name="visible" value="false" <?php echo ! $visibility  ?'checked':''; ?>> <label for="visible_false"><?php echo $langPrivateAccess; ?></label>
 </td>
 </tr>
-
-<tr>
-<td valign="top"align="right"><?php echo $langSubscription; ?> : </td>
+<tr valign="top">
+<td align="right"><?php echo $langSubscription; ?> : </td>
 <td>
-<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label><br />
+<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label>
+<label for="enrollmentKey">
+- <?php echo $langEnrollmentKey ?> <small>(<?php echo strtolower($langOptional); ?>)</small> : 
+</label>
+<input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($enrollmentKey); ?>">
+<br />
 <input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo ! $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
-<?php
+<?php 
 if (isset($cidToEdit))
 {
     echo '<input type="hidden" name="cidToEdit" value="'.$cidToEdit.'">';
@@ -324,6 +316,13 @@ if (isset($cidToEdit))
 ?>
 </td>
 </tr>
+<tr valign="top">
+<td align="right"></small></td>
+<td>
+
+</td>
+<tr>
+
 
 <tr>
 <td></td>
@@ -334,8 +333,8 @@ if (isset($cidToEdit))
 <td></td>
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo $langOk ?> ">
-<?php
-echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel);
+<?php 
+echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel); 
 ?>
 </td>
 </tr>
@@ -363,7 +362,7 @@ if ($showLinkToDeleteThisCourse)
     .    ' | '
     .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
     .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-    .    $langEditToolList
+    .    $langEditToolList 
     .    '</a>';
 
     if ( $is_trackingEnabled )
@@ -376,9 +375,9 @@ if ($showLinkToDeleteThisCourse)
     }
 
     echo ' | '
-    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
+    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
     .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-    .    $langHome
+    .    $langHome 
     .    '</a>'
     ;
 
@@ -386,8 +385,8 @@ if ($showLinkToDeleteThisCourse)
     if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
     {
         echo ' | '
-        .    '<a class="claroCmd" href="../admin/index.php">'
-        .    $langBackToAdmin
+        .    '<a class="claroCmd" href="../admin/index.php">' 
+        .    $langBackToAdmin 
         .    '</a>'
         ;
     }
@@ -397,9 +396,9 @@ if ($showLinkToDeleteThisCourse)
         if ($cfrom=="clist")  //in case we come from the course list in admintool
         {
            echo ' | <a class="claroCmd" href="../admin/admincourses.php'
-           .    $toAdd
+           .    $toAdd 
            .    '">' . $langBackToList . '</a>'
-           ;
+           ;           
         }
     }
 }
