@@ -109,7 +109,7 @@ else
     // security : only platform admin can edit other user than himself...
 
     if ( isset($fromAdmin)
-         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" ) 
+         && ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' )
          && !empty($uidToEdit)
        )
     {
@@ -139,7 +139,7 @@ else
 
 if ( isset($_REQUEST['addNewCourse']) )
 {
-    $interbredcrump[] = array("url" => $_SERVER['PHP_SELF'],"name" => $lang_my_personnal_course_list);
+    $interbredcrump[] = array('url' => $_SERVER['PHP_SELF'], 'name' => $lang_my_personnal_course_list);
 }
 
 /*---------------------------------------------------------------------
@@ -150,18 +150,18 @@ if ( !empty($fromAdmin) )
 {
     if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' )
     {
-        $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+        $interbredcrump[]= array ('url' => $rootAdminWeb, 'name'=> $langAdministration);
     }
-    
+
     if ( $fromAdmin == 'class' )
     {
         // bred different if we come from admin tool for a CLASS
         $nameTools = $langRegisterClass;
 
         //find info about the class
-        $sqlclass = "SELECT id, name, class_parent_id, class_level 
-                     FROM `" . $tbl_class . "` 
-                     WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
+        $sqlclass = "SELECT id, name, class_parent_id, class_level
+                     FROM `" . $tbl_class . "`
+                     WHERE `id` = '" . (int) $_SESSION['admin_user_class_id'] . "'";
 
         list($classinfo) = claro_sql_query_fetch_all($sqlclass);
     }
@@ -224,14 +224,14 @@ if ( $cmd == 'exUnreg' )
 
 if ( $cmd == 'exReg' )
 {
-    // if user is platform admin, register to private course can be forced. 
+    // if user is platform admin, register to private course can be forced.
     // Otherwise not
 
     if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
     {
         $courseEnrollmentKey = get_course_enrollment_key($course);
 
-        if (    $is_platformAdmin 
+        if (    $is_platformAdmin
             || ( is_null($courseEnrollmentKey) || empty($courseEnrollmentKey) )
             || (   isset($_REQUEST['enrollmentKey'] )
                 && strtolower(trim($_REQUEST['enrollmentKey'] )) == strtolower(trim($courseEnrollmentKey))) )
@@ -271,16 +271,16 @@ if ( $cmd == 'exReg' )
 
             $displayMode = DISPLAY_MESSAGE_SCREEN;
 
-        } // end else if is_null $courseEnrollmentKey 
+        } // end else if is_null $courseEnrollmentKey
         else
         {
             if ( isset($_REQUEST['enrollmentKey']) )
             {
                 $message = 'Wrong Enrollment Key.';
             }
-            
+
             $displayMode = DISPLAY_ENROLLMENT_KEY_FORM;
-        } // end else if is_null $courseEnrollmentKey 
+        } // end else if is_null $courseEnrollmentKey
     }
     else
     {
@@ -297,8 +297,15 @@ if ( $cmd == 'exReg' )
 
 if ( $cmd == 'rqUnreg' )
 {
-    $sql = "SELECT *
-            FROM `" . $tbl_course."` `c`, `" . $tbl_rel_course_user . "` `cu`
+
+    $sql = "SELECT c.intitule,
+                   c.titulaires,
+                   c.fake_code AS officialCode,
+                   c.code,
+                   cu.user_id AS enrolled,
+                   c.visible
+            FROM `" . $tbl_course."` `c`
+            ,    `" . $tbl_rel_course_user . "` `cu`
             WHERE `cu`.`user_id` = '" . (int) $userId . "'
             AND   `c`.`code`    = `cu`.`code_cours`
             ORDER BY `c`.`fake_code`";
@@ -354,7 +361,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
 
                 WHERE `faculte` = '" . addslashes($category ) ."'
- 
+
                 ORDER BY UPPER(`fake_code`)";
 
         $courseList = claro_sql_query_fetch_all($sql);
@@ -441,7 +448,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
 if ( $cmd == 'rqReg' && ( !empty($category) || !empty($parentCategoryCode) ) )
 {
-        $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&category='.$parentCategoryCode;
+        $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;category=' . $parentCategoryCode;
         $backLabel = $lang_back_to_parent_category;
 }
 else
@@ -479,7 +486,7 @@ $backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&lt
   Display header
  ---------------------------------------------------------------------*/
 
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 if (isset($msg)) echo claro_disp_message_box($msg);
 echo $backLink;
@@ -508,7 +515,7 @@ switch ( $displayMode )
                                         .                ' : '
                                         .                $userInfo['firstname'] . ' '
                                         .                $userInfo['lastname']
-                                        , 'subTitle'  => $lang_select_course_in
+                                        ,      'subTitle'  => $lang_select_course_in
                                         .                ' '
                                         .                $currentCategoryName
                                         )
@@ -534,7 +541,8 @@ switch ( $displayMode )
         if ( count($categoryList) > 0)
         {
             echo '<h4>' . $langCategories . '</h4>' . "\n"
-                 .'<ul>' . "\n";
+            .    '<ul>' . "\n"
+            ;
 
             foreach ( $categoryList as $thisCategory )
             {
@@ -544,10 +552,12 @@ switch ( $displayMode )
 
                     if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0)
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqReg&category=' . $thisCategory['code'] . $inURL . '">'
-                            . $thisCategory['name']
-                            . '</a>'
-                            . '&nbsp<small>(' . $thisCategory['nbCourse'] . ')</small>';
+                        echo '<a href="' . $_SERVER['PHP_SELF']
+                        .    '?cmd=rqReg&amp;category=' . $thisCategory['code'] . $inURL . '">'
+                        .    $thisCategory['name']
+                        .    '</a>'
+                        .    '&nbsp<small>(' . $thisCategory['nbCourse'] . ')</small>'
+                        ;
                     }
                     else
                     {
@@ -580,21 +590,23 @@ switch ( $displayMode )
             {
 
                     echo '<thead>' . "\n"
-                        . '<tr class="headerX">' . "\n"
-                        . '<th>&nbsp;</th>' . "\n"
-                        . '<th>' . $langEnrollAsStudent . '</th>' . "\n"
-                        . '<th>' . $langEnrollAsTeacher . '</th>' . "\n"
-                        . '<tr>' . "\n"
-                        . '</thead>' . "\n";
-            } 
+                    .    '<tr class="headerX">' . "\n"
+                    .    '<th>&nbsp;</th>' . "\n"
+                    .    '<th>' . $langEnrollAsStudent . '</th>' . "\n"
+                    .    '<th>' . $langEnrollAsTeacher . '</th>' . "\n"
+                    .    '<tr>' . "\n"
+                    .    '</thead>' . "\n"
+                    ;
+            }
             elseif ( $fromAdmin == 'class' )
             {
                     echo '<thead>' . "\n"
-                        . '<tr class="headerX">' . "\n"
-                        . '<th>&nbsp;</th>' . "\n"
-                        . '<th>' . $langEnrollClass . '</th>' . "\n"
-                        . '</tr>' . "\n"
-                        . '</thead>'. "\n";
+                    .    '<tr class="headerX">' . "\n"
+                    .    '<th>&nbsp;</th>' . "\n"
+                    .    '<th>' . $langEnrollClass . '</th>' . "\n"
+                    .    '</tr>' . "\n"
+                    .    '</thead>' . "\n"
+                    ;
             }
 
             echo '<tbody>' . "\n";
@@ -602,9 +614,10 @@ switch ( $displayMode )
             foreach($courseList as $thisCourse)
             {
                 echo '<tr>' . "\n"
-                    . '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['intitule'] . '<br />' . "\n"
-                    . '<small>' . $thisCourse['titulaires'] . '</small>' ."\n"
-                    . '</td>' . "\n";
+                .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['intitule'] . '<br />' . "\n"
+                .    '<small>' . $thisCourse['titulaires'] . '</small>' ."\n"
+                .    '</td>' . "\n"
+                ;
 
                 // enroll link
 
@@ -613,21 +626,24 @@ switch ( $displayMode )
                     if ( $thisCourse['enrolled'] )
                     {
                         echo '<td valign="top" colspan="2" align="center">' . "\n"
-                            . '<small><span class="highlight">' . $lang_already_enrolled . '</span></small>'
-                            . '</td>' . "\n";
+                        .    '<small><span class="highlight">' . $lang_already_enrolled . '</span></small>'
+                        .    '</td>' . "\n"
+                        ;
                     }
                     else
                     {
                         // class may not be enrolled as teachers
 
                         echo '<td valign="top" align="center">' . "\n"
-                                . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['code'] . $inURL . '">'
-                                . '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . $langEnrollAsStudent . '">'
-                                . '</a></td>' . "\n"
-                                . '<td valign="top" align="center">' . "\n"
-                                . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&asTeacher=true&course=' . $thisCourse['code'] .$inURL . '">'
-                                . '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . $langEnrollAsTeacher . '">'
-                                . '</a></td>' . "\n";
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['code'] . $inURL . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . $langEnrollAsStudent . '">'
+                        .    '</a></td>' . "\n"
+                        .    '<td valign="top" align="center">' . "\n"
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['code'] .$inURL . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . $langEnrollAsTeacher . '">'
+                        .    '</a>'
+                        .    '</td>' . "\n"
+                        ;
                     }
                 }
                 elseif ( $fromAdmin == 'class')
@@ -656,7 +672,7 @@ switch ( $displayMode )
                     {
                     	echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . $lang_enroll . '">';
                     }
-                    
+
                     echo '</td>' . "\n";
 
                }
@@ -711,31 +727,34 @@ switch ( $displayMode )
 
     case DISPLAY_USER_COURSES :
 
-        echo claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment." : ".$userInfo['firstname'] . ' ' . $userInfo['lastname'],
+        echo claro_disp_tool_title( array('mainTitle' => $lang_course_enrollment . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
                                      'subTitle' => $lang_remove_course_from_your_personnal_course_list));
 
         if ( count($courseList) > 0 )
         {
             echo '<blockquote>' . "\n"
-                 . '<table class="claroTable">' . "\n";
+            .    '<table class="claroTable">' . "\n"
+            ;
 
             foreach ($courseList as $thisCourse)
             {
                 echo '<tr>' . "\n"
-                    . '<td>' . "\n"
-                    . $thisCourse['intitule'] . '<br>' . "\n"
-                    . '<small>' . $thisCourse['fake_code'] . ' - ' . $thisCourse['titulaires'] . '</small>'
-                    . '</td>' . "\n"
-                    . '<td>' . "\n";
+                .    '<td>' . "\n"
+                .    $thisCourse['intitule'] . '<br>' . "\n"
+                .    '<small>' . $thisCourse['fake_code'] . ' - ' . $thisCourse['titulaires'] . '</small>'
+                .    '</td>' . "\n"
+                .    '<td>' . "\n"
+                ;
 
                 if ( $thisCourse['statut'] != 1 )
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['code'] . $inURL . '"'
-                        . ' onclick="javascript:if(!confirm(\''
-                        . clean_str_for_javascript($lang_are_you_sure_to_remove_the_course_from_your_list)
-                        . '\')) return false;">' . "\n"
-                        . '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . $lang_unsubscribe . '">' . "\n"
-                        . '</a>' . "\n";
+                    .    ' onclick="javascript:if(!confirm(\''
+                    .    clean_str_for_javascript($lang_are_you_sure_to_remove_the_course_from_your_list)
+                    .    '\')) return false;">' . "\n"
+                    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . $lang_unsubscribe . '">' . "\n"
+                    .    '</a>' . "\n"
+                    ;
                 }
                 else
                 {
@@ -758,10 +777,10 @@ switch ( $displayMode )
        if ( ! empty($message) ) echo claro_disp_message_box($message);
 
         echo  '<blockquote>This course requires a key for enrollment.</p>' . "\n"
-            . '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">' . "\n"
+            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
             . '<input type="hidden" name="cmd" value="exReg">'        . "\n"
             . 'Key : '
-            . '<input type="hidden" name="course" value="'.$_REQUEST['course'].'">'
+            . '<input type="hidden" name="course" value="' . $_REQUEST['course'] . '">'
             . '<input type="text" name="enrollmentKey">'              . "\n"
             . '<p>'
             . '<input type="submit" value="'.$langOk.'">&nbsp;'             . "\n"
@@ -781,7 +800,7 @@ echo $backLink;
   Display footer
  ---------------------------------------------------------------------*/
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -809,7 +828,7 @@ function search_course($keyword)
 
     if (!$is_platformAdmin)
     {
-        $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
+        $visibility_cond = "(c.visible = 2 OR c.visible = 1)";
     }
     else
     {
@@ -819,14 +838,18 @@ function search_course($keyword)
     if (empty($keyword) ) return array();
     $upperKeyword = trim(strtoupper($keyword));
 
-    $sql = 'SELECT c.intitule, c.titulaires, c.fake_code officialCode, c.code,
-                   cu.user_id enrolled, c.visible
-            FROM `'.$tbl_course.'` c
+    $sql = 'SELECT c.intitule,
+                   c.titulaires,
+                   c.fake_code AS officialCode,
+                   c.code,
+                   cu.user_id AS enrolled,
+                   c.visible
+            FROM `' . $tbl_course . '` c
 
             LEFT JOIN `'.$tbl_rel_course_user.'` cu
             ON  c.code = cu.code_cours
-            AND cu.user_id = "'.$userId.'"
-            
+            AND cu.user_id = "' . (int) $userId . '"
+
             WHERE (UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
                OR  UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
                OR  UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
