@@ -8,10 +8,10 @@
  * build the directory tree, register the course.
  *
  * @version 1.7 $Revision$
- * 
+ *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * 
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/CLCRS/
  *
@@ -26,7 +26,7 @@
  * with  the WantedCode we can define the 4 keys  to find courses datas
  *
  * @param string $wantedCode initial model
- * @param string $prefix4all       prefix added  for ALL keys 
+ * @param string $prefix4all       prefix added  for ALL keys
  * @param string $prefix4baseName  prefix added  for basename key (after the $prefix4all)
  * @param string $prefix4path      prefix added  for repository key (after the $prefix4all)
  * @param string $addUniquePrefix  prefix randomly generated prepend to model
@@ -34,27 +34,27 @@
  * @param boolean $addUniqueSuffix suffix randomly generated append to model
  * @param string $suffix4baseName  suffix added  for db key (prepend to $suffix4all)
  * @param string $suffix4path      suffix added  for repository key (prepend to $suffix4all)
- * @param string $suffix4all       suffix added  for ALL keys 
- * @return array 
+ * @param string $suffix4all       suffix added  for ALL keys
+ * @return array
  * - ["currentCourseCode"]             : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
  * - ["currentCourseDbName"]        : Must be unique it's the database name.
  * - ["currentCourseRepository"]    : Must be unique in /$coursesRepositories/
- * 
+ *
  * @todo actually if suffix is not unique  the next append and not  replace
  * @todo add param listing keyg wich wouldbe identical
  * @todo manage an error on brake for too many try
- * @todo $keysCourseCode is always 
+ * @todo $keysCourseCode is always
  */
 
-function define_course_keys ($wantedCode,          
+function define_course_keys ($wantedCode,
                              $prefix4all = '',
-                             $prefix4baseName = '', 
+                             $prefix4baseName = '',
                              $prefix4path = '',
                              $addUniquePrefix = FALSE,
                              $useCodeInDepedentKeys = TRUE,
                              $addUniqueSuffix = FALSE
-                             
+
                              )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -63,7 +63,7 @@ function define_course_keys ($wantedCode,
     GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$nbCharFinalSuffix,$DEBUG,$singleDbEnabled;
 
     if ( !isset($nbCharFinalSuffix)
-       ||!is_numeric($nbCharFinalSuffix) 
+       ||!is_numeric($nbCharFinalSuffix)
        || $nbCharFinalSuffix < 1
        )
     $nbCharFinalSuffix = 2 ; // Number of car to add on end of key
@@ -93,7 +93,7 @@ function define_course_keys ($wantedCode,
 
     if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid('')),0,10);
     else                  $uniquePrefix = '';
-    
+
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid('')),0,10);
 
     else                  $uniqueSuffix = '';
@@ -133,7 +133,7 @@ function define_course_keys ($wantedCode,
         {
             $sqlCheckCourseDb = "SHOW TABLES LIKE '".$keysCourseDbName."%'";
         }
-        else 
+        else
         {
             $sqlCheckCourseDb = "SHOW DATABASES LIKE '".$keysCourseDbName."'";
         }
@@ -156,14 +156,14 @@ function define_course_keys ($wantedCode,
             $finalSuffix['CourseDir'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
             if ($DEBUG) echo '[dir'.$coursesRepositories . '/' . $keysCourseRepository.']<br>';
         };
-        
+
         if(!$keysAreUnique)
         {
             $finalSuffix['CourseDir'] = substr(md5 (uniqid ('')), 0, $nbCharFinalSuffix);
             $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
             $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }
-    
+
 
         // here  we can add a counter to exit if need too many try
         $limitQtyTry = 128;
@@ -183,7 +183,7 @@ function define_course_keys ($wantedCode,
     {
         $keysCourseDbName = $prefixAntiNumber.$keysCourseDbName;
     }
-    
+
     $keys['currentCourseCode'      ] = $keysCourseCode;      // screen code
     $keys['currentCourseId'        ] = $keysCourseId;        // sysCode
     $keys['currentCourseDbName'    ] = $keysCourseDbName;    // dbname
@@ -215,7 +215,7 @@ function prepare_course_repository($courseRepository, $courseId)
 
     if ( ! is_writable($coursesRepositorySys) ) return claro_failure::set_failure('READ_ONLY_SYSTEM_FILE');
 
-    if ( ! claro_mkdir($courseDirPath, CLARO_FILE_PERMISSIONS) ) return false; 
+    if ( ! claro_mkdir($courseDirPath, CLARO_FILE_PERMISSIONS) ) return false;
 
     if ( ! claro_mkdir($courseDirPath . '/exercise'      , CLARO_FILE_PERMISSIONS) ) return false;
     if ( ! claro_mkdir($courseDirPath . '/document'      , CLARO_FILE_PERMISSIONS) ) return false;
@@ -231,12 +231,13 @@ function prepare_course_repository($courseRepository, $courseId)
     // build index.php of course
     $fd = fopen($courseDirPath . '/index.php', 'w');
     if ( ! $fd) return false;
-    
-    $string= '<?php '                                                      ."\n"
-    .        '$cidReq = "'.$courseId.'";'                                  ."\n"
-    .        '$claroGlobalPath = "'.$includePath.'";'                      ."\n"
-    .        'include "'.$clarolineRepositorySys.'course_home/course_home.php";'."\n"
-    .        '?'.'>'                                                      ."\n";
+
+    $string= '<?php '                                                                  . "\n"
+    .        '$cidReq = \''.$courseId.'\';'                                            . "\n"
+    .        '$claroGlobalPath = \'' . $includePath . '\';'                            . "\n"
+    .        'include \'' . $clarolineRepositorySys . 'course_home/course_home.php\';' . "\n"
+    .        '?'.'>'                                                                   . "\n"
+    ;
 
     if ( ! fwrite($fd, $string) ) return false;
     if ( ! fclose($fd) )          return false;
@@ -244,7 +245,7 @@ function prepare_course_repository($courseRepository, $courseId)
 
     $fd     = fopen($coursesRepositorySys.$courseRepository . '/group/index.php', 'w');
     if ( ! $fd ) return false;
-    
+
     $string = '<?php session_start(); ?'.'>';
 
     if ( ! fwrite($fd, $string) ) return false;
@@ -319,7 +320,7 @@ function update_db_course($courseDbName)
     //linker
     $TABLELINKS               = $tbl_cdb_names['links'];//  "lnk_links";
     $TABLERESOURCES           = $tbl_cdb_names['resources'];//  "lnk_resources";
-    
+
     $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE             = $tbl_cdb_names['lp_module'];//  "lp_module";
     $TABLELEARNPATHMODULE    = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
@@ -332,7 +333,7 @@ function update_db_course($courseDbName)
     $TABLETRACKEXERCICES  = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
     $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details']; //"track_e_exe_details"
     $TABLETRACKEXEANSWERS = $tbl_cdb_names['track_e_exe_answers']; //"track_e_exe_details"
-    
+
     //wiki
     $TABLEWIKIPROPERTIES   = $tbl_cdb_names['wiki_properties']; // "wiki_properties"
     $TABLEWIKIACLS         = $tbl_cdb_names['wiki_acls']; // "wiki_acls"
@@ -587,8 +588,8 @@ function update_db_course($courseDbName)
       `script_name` varchar(255) default NULL,
       PRIMARY KEY  (`id`)) ";
 
-    $sqlList[] = 
-        "ALTER TABLE `".$TABLECOURSEHOMEPAGE."` 
+    $sqlList[] =
+        "ALTER TABLE `".$TABLECOURSEHOMEPAGE."`
          ADD `addedTool` ENUM('YES','NO') DEFAULT 'YES';";
 
 #################################### AGENDA ################################
@@ -634,7 +635,7 @@ function update_db_course($courseDbName)
         `score` smallint(3) NULL default NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLWRKASSIGNMENT."` (
         `id` int(11) NOT NULL auto_increment,
@@ -780,7 +781,7 @@ function update_db_course($courseDbName)
                   `access_tlabel` varchar(8) default NULL,
                   PRIMARY KEY  (`access_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";
-        
+
 
         $sqlList[] = "CREATE TABLE `".$TABLETRACKDOWNLOADS."` (
                   `down_id` int(11) NOT NULL auto_increment,
@@ -789,8 +790,8 @@ function update_db_course($courseDbName)
                   `down_doc_path` varchar(255) NOT NULL default '0',
                   PRIMARY KEY  (`down_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about downloads'";
-        
-        
+
+
         $sqlList[] = "CREATE TABLE `".$TABLETRACKEXERCICES."` (
                   `exe_id` int(11) NOT NULL auto_increment,
                   `exe_user_id` int(10) default NULL,
@@ -801,8 +802,8 @@ function update_db_course($courseDbName)
                   `exe_weighting` float NOT NULL default '0',
                   PRIMARY KEY  (`exe_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about exercices'";
-        
-        
+
+
         $sqlList[] = "CREATE TABLE `".$TABLETRACKEXEDETAILS."` (
                   `id` int(11) NOT NULL auto_increment,
                   `exercise_track_id` int(11) NOT NULL default '0',
@@ -810,15 +811,15 @@ function update_db_course($courseDbName)
                   `result` float NOT NULL default '0',
                   PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
-        
-        
+
+
         $sqlList[] = "CREATE TABLE `" . $TABLETRACKEXEANSWERS . "` (
                   `id` int(11) NOT NULL auto_increment,
                   `details_id` int(11) NOT NULL default '0',
                   `answer` text NOT NULL,
                   PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM COMMENT=''";
-        
+
 
         $sqlList[] = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
                   `upload_id` int(11) NOT NULL auto_increment,
@@ -827,8 +828,8 @@ function update_db_course($courseDbName)
                   `upload_work_id` int(11) NOT NULL default '0',
                   PRIMARY KEY  (`upload_id`)
                 ) TYPE=MyISAM COMMENT='Record some more informations about uploaded works'";
-        
-        
+
+
     ########################## linker ##############################
         $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
                   `id` int(11) NOT NULL auto_increment,
@@ -837,16 +838,16 @@ function update_db_course($courseDbName)
                     `creation_time` timestamp(14) NOT NULL,
                     PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM";
-        
-               
+
+
         $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
                    `id` int(11) NOT NULL auto_increment,
                   `crl` text NOT NULL,
                   `title` text NOT NULL,
                   PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM";
-        
-        
+
+
     ######################## wiki ##################################
 
     $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPROPERTIES."`(
@@ -886,7 +887,7 @@ function update_db_course($courseDbName)
             PRIMARY KEY  (`id`)
             )"
             ;
-            
+
     foreach($sqlList as $thisSql)
     {
         if ( claro_sql_query($thisSql) == false) return false;
@@ -915,7 +916,7 @@ function     fill_course_repository($courseRepository)
 
     global $clarolineRepositorySys, $coursesRepositorySys;
 
-    return copy($clarolineRepositorySys.'document/Example_document.pdf',  
+    return copy($clarolineRepositorySys.'document/Example_document.pdf',
                 $coursesRepositorySys.$courseRepository.'/document/Example_document.pdf');
 };
 
@@ -935,34 +936,34 @@ function     fill_course_repository($courseRepository)
 
 function fill_db_course($courseDbName,$language)
 {
-    global $singleDbEnabled, $courseTablePrefix, $dbGlu, 
+    global $singleDbEnabled, $courseTablePrefix, $dbGlu,
            $clarolineRepositorySys, $_user, $includePath;
 
     // include the language file with all language variables
-    include ($includePath.'/../lang/english/complete.lang.php');
+    include  $includePath . '/../lang/english/complete.lang.php';
 
     if ($language != 'english') // Avoid useless include as English lang is preloaded
     {
-        include($includePath.'/../lang/'.$language.'/complete.lang.php');
+        include $includePath . '/../lang/' . $language . '/complete.lang.php';
     }
 
-    $courseDbName=$courseTablePrefix.$courseDbName.$dbGlu;
+    $courseDbName = $courseTablePrefix . $courseDbName.$dbGlu;
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
     $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
 
     $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'];// $courseDbName."group_property";
 
 
-    $TABLEQUIZ                = $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
-    $TABLEQUIZQUESTION        = $tbl_cdb_names['quiz_rel_test_question'];
-    $TABLEQUIZQUESTIONLIST    = $tbl_cdb_names['quiz_question'];//  "quiz_question";
-    $TABLEQUIZANSWERSLIST    = $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
+    $TABLEQUIZ              = $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
+    $TABLEQUIZQUESTION      = $tbl_cdb_names['quiz_rel_test_question'];
+    $TABLEQUIZQUESTIONLIST  = $tbl_cdb_names['quiz_question'];//  "quiz_question";
+    $TABLEQUIZANSWERSLIST   = $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
 
-    $TABLEPHPBBCATEGORIES    = $tbl_cdb_names['bb_categories'];//  "bb_categories";
-    $TABLEPHPBBFORUMS        = $tbl_cdb_names['bb_forums'];//  "bb_forums";
+    $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];//  "bb_categories";
+    $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];//  "bb_forums";
     $TABLEPHPBBPOSTS        = $tbl_cdb_names['bb_posts'];//  "bb_posts";
     $TABLEPHPBBPOSTSTEXT    = $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
-    $TABLEPHPBBTOPICS        = $tbl_cdb_names['bb_topics'];//  "bb_topics";
+    $TABLEPHPBBTOPICS       = $tbl_cdb_names['bb_topics'];//  "bb_topics";
     $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];//  "bb_users";
 
     $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
@@ -985,8 +986,8 @@ function fill_db_course($courseDbName,$language)
     claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
 VALUES (NULL, '1', '0', '1', '1', '1', '1')");
-    claro_sql_query("INSERT 
-                        INTO `".$TABLEPHPBBFORUMS."` 
+    claro_sql_query("INSERT
+                        INTO `".$TABLEPHPBBFORUMS."`
                         VALUES ( 1
                                , NULL
                                , '".addslashes($langTestForum)."'
@@ -1066,7 +1067,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
 ############################### LEARNING PATH  ####################################
   // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
   claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".addslashes($langSampleLearnPath)."', '".addslashes($langSampleLearnPathDesc)."', 'OPEN', 'SHOW', '1')");
-  
+
   claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('1', '1', '1', 'OPEN', 'SHOW', '', '1', '0', '50')");
   claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('2', '1', '2', 'OPEN', 'SHOW', '', '2', '0', '50')");
 
@@ -1124,7 +1125,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     elseif (   $visibility && ! $registrationAllowed) $visibilityState = 3;
     elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
 
-    if( file_exists($includePath . '/currentVersion.inc.php') ) 
+    if( file_exists($includePath . '/currentVersion.inc.php') )
     {
         include ($includePath . '/currentVersion.inc.php');
     }
@@ -1153,7 +1154,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
     if ( claro_sql_query($sql) == false) return false;
 
-    $sql = "INSERT INTO `" . $tbl_course_user . "` 
+    $sql = "INSERT INTO `" . $tbl_course_user . "`
             SET code_cours     = '" . $courseSysCode . "',
                 user_id = '" . (int) $uidCreator."',
                 statut  = '1',
@@ -1166,16 +1167,15 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 }
 
 /**
- *
+ * get  uid list of platform admin
  * @author Christophe Gesché <moosh@claroline.net>
- *
+ * @return array of uid
  */
 function claro_get_admin_list()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin     = $tbl_mdb_names['admin'];
 
-    $sql = "SELECT `idUser` FROM `" . $tbl_admin . "`";
+    $sql = "SELECT `idUser` FROM `" . $tbl_mdb_names['admin'] . "`";
     return  claro_sql_query_fetch_all($sql);
 }
 ?>
