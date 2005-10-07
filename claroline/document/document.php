@@ -1340,7 +1340,8 @@ echo claro_disp_tool_title($titleElement,
         
         // compute absolute path to requested image
 
-        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
+          && (isset($secureDocumentDownload) && $secureDocumentDownload == true) )
         {
             // slash argument method - only compatible with Apache
             $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file));
@@ -1852,7 +1853,8 @@ echo claro_disp_tool_title($titleElement,
                     $size        = format_file_size($fileList['size'][$fileKey]);
                     $date        = format_date($fileList['date'][$fileKey]);
 
-                    if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+                    if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
+                        && ( isset($secureDocumentDownload) && $secureDocumentDownload == true ) )
                     {
                         // slash argument method - only compatible with Apache
                         $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
