@@ -1,4 +1,4 @@
-<?php 
+<?php
 $l_author = "Auteur";
 $l_body = "Message";
 $l_click = "Cliquez";
@@ -2094,5 +2094,7 @@ $langRequestOfCourseCreatorStatus = 'Solliciter le statut créateur de cours';
 $langReasons = 'Motif (optionnel)';
 $langMessageEnrollToCourseNotAllowed = "Inscription au cours refusé";
 $langMessageRegistrationNotAllowed = "Enregistrement à la plateforme refusé";
+$langConfirmDeleteThisGroup = "Confirmez la suppression de ce groupe ?";
+$langNotSaved = "Vos changement n'ont pas été pris en compte";
 $langEnrollmentKey = "clé d'inscription";
 ?>

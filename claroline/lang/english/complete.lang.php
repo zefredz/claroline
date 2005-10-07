@@ -2030,5 +2030,6 @@ $langimportLearningPath = "Import a learning path";
 $langMessageRegistrationNotAllowed = "Registration not allowed on the platform";
 $langMessageEnrollToCourseNotAllowed = "Enroll to course not allowed";
 $langConfirmDeleteThisGroup = "Are you sure you want to delete this group ?";
+$langNotSaved = "you change is NOT saved";
 $langEnrollmentKey = "enrolment key";
 ?>
