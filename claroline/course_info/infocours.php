@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This tool manage properties of an exiting course
  *
- * @version 1.7 $Revision$ 
+ * @version 1.7 $Revision$
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @author claroline Team <cvs@claroline.net>
  *
  * @package CLCRS
@@ -51,7 +51,7 @@ $fieldRequiredStateList['email'        ] = $course_email_needed;
 /*
  * DB tables definition
  */
- 
+
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
@@ -76,10 +76,10 @@ $extLinkName        = isset($_REQUEST['extLinkName'  ]) ? trim(strip_tags($_REQU
 $extLinkUrl         = isset($_REQUEST['extLinkUrl'   ]) ? trim(strip_tags($_REQUEST['extLinkUrl'   ])) : $thisCourse['extLink' ]['url'];
 $enrollmentKey      = isset($_REQUEST['enrollmentKey']) ? trim(strip_tags($_REQUEST['enrollmentKey'])) : $thisCourse['enrollmentKey'];
 
-$visibility          = isset($_REQUEST['visible']           ) 
-                       ? ($_REQUEST['visible'            ] == 'true' ? true : false) 
+$visibility          = isset($_REQUEST['visible']           )
+                       ? ($_REQUEST['visible'            ] == 'true' ? true : false)
                        :  $thisCourse['visibility'];
-$registrationAllowed = isset($_REQUEST['allowedToSubscribe']) 
+$registrationAllowed = isset($_REQUEST['allowedToSubscribe'])
                        ? ($_REQUEST['allowedToSubscribe'] == 'true' ? true : false)
                        : $thisCourse['registrationAllowed'];
 
@@ -87,12 +87,12 @@ $directory               = $thisCourse['path'   ];
 $currentCourseID         = $thisCourse['sysCode'];
 $currentCourseRepository = $thisCourse['path'   ];
 
-// in case of admin access (from admin tool) to the script, 
+// in case of admin access (from admin tool) to the script,
 // we must determine which course we are working with
 
 if ( isset($_REQUEST['cidToEdit']) && $is_platformAdmin )
 {
-    $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration); 
+    $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
     // braedcrumb different in admin access
     unset($_cid);
     $current_cid = trim($_REQUEST['cidToEdit']);
@@ -129,35 +129,69 @@ if ( isset($_REQUEST['changeProperties']) )
         $errorMsgList[] = $langErrorDepartmentEmpty;
     if ( empty($_extLinkUrl)        && $fieldRequiredStateList['extLinkUrl'])
         $errorMsgList[] = $langErrorDepartmentURLEmpty;
-    if ( empty($courseEmail)              && $fieldRequiredStateList['email'])
+    if ( empty($courseEmail)        && $fieldRequiredStateList['email'])
         $errorMsgList[] = $langErrorEmailEmpty;
 
-    // check if department url is set properly
-    
-    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
-    
-    if ( (!empty($_REQUEST['extLinkUrl'])) && !eregi( $regexp, $_REQUEST['extLinkUrl']) )
-        $errorMsgList[] = $langErrorDepartmentURLWrong;
-    
-    //check e-mail validity
 
-    if ( ! empty($_REQUEST['email']) && ! is_well_formed_email_address( $_REQUEST['email'] ) )
+    // check if department url is set properly
+    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+    if ( (!empty($extLinkUrl)) && !eregi( $regexp, $extLinkUrl) )
     {
-        $errorMsgList[] = $langErrorEmailInvalid;
+        // problem with url. try to repair
+        // if  it  only the protocol missing add http
+        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $extLinkUrl )
+        && (eregi($regexp, 'http://' . $extLinkUrl )))
+        {
+            $extLinkUrl = 'http://' . $extLinkUrl;
+        }
+        else
+        {
+             $errorMsgList[] = $langErrorDepartmentURLWrong;
+        }
     }
-    
+
+
+    /**
+     * Check e-mail validity
+     *
+     * email can be a list
+     *  accept ; [space] and , as separator but  if all is right replace all by ;
+     * if  one is wrong display the erronous and dont change
+     */
+    $is_emailListValid = true;
+    $emailControlList = (strpos($courseEmail,';')===false) ? strtr($courseEmail,', ',';;'):$email;
+    $emailControlList = explode(';',$emailControlList);
+    foreach ($emailControlList as $emailControl )
+    if ( ! is_well_formed_email_address( $emailControl) )
+    {
+        $is_emailListValid = false;
+        $errorMsgList[] = $langErrorEmailInvalid . ' : <i>' . $emailControl . '</i>';
+    }
+    else
+    {
+        $emailValidList[] = $emailControl;
+    }
+    if ($is_emailListValid && is_array($emailValidList))
+    {
+        $courseEmail = implode(';',$emailValidList);
+    }
     if ( count($errorMsgList) > 0)
     {
-    	$dialogBox .= '<p>' . implode('<br />' , $errorMsgList) .'</p>';
+        $dialogBox .= '<p>'
+        .             $langNotSaved
+        .             '<br>'
+        .             implode('<br />' , $errorMsgList)
+        .             '</p>'
+        ;
         $dbUpdateAllowed =  false;
     }
     else
     {
-    	$dbUpdateAllowed = true;
+        $dbUpdateAllowed = true;
     }
 
     // if at least one error is found, we cancel update
-    
+
     if ( $dbUpdateAllowed )
     {
         if     ( ! $visibility && ! $registrationAllowed) $visibilityState = 0;
@@ -194,17 +228,17 @@ include($includePath . '/claro_init_local.inc.php');
 $language_list = claro_get_lang_flat_list();
 
 $category_array = claro_get_cat_flat_list();
-// If there is no current $courseCategory, add a fake option 
+// If there is no current $courseCategory, add a fake option
 // to prevent auto select the first in list
 // to prevent auto select the first in list
-if ( array_key_exists($courseCategory,$category_array))
-{ 
+if ( array_key_exists( $courseCategory, $category_array ) )
+{
     $cat_preselect = $courseCategory;
 }
-else 
+else
 {
     $cat_preselect = 'choose_one';
-    $category_array = array_merge(array('choose_one'=>'--'),$category_array);
+    $category_array = array_merge( array('choose_one'=>'--'), $category_array);
 }
 
 /******************************************************************************
@@ -240,7 +274,7 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 <tr>
 <td align="right"><label for="email"><?php echo $langEmail ?></label>&nbsp;:</td>
-<td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="30" maxlength="255"></td>
+<td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="60" maxlength="255"></td>
 </tr>
 
 <tr>
@@ -265,7 +299,9 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 </tr>
 
 <tr valign="top" >
-<td align="right"><label for="lanCourseForm"><?php echo $langLanguage ?></label> : </td>
+<td align="right">
+<label for="lanCourseForm"><?php echo $langLanguage ?></label> :
+</td>
 <td>
 <?php echo claro_html_form_select( 'lanCourseForm'
                                  , $language_list
@@ -303,12 +339,12 @@ if ( isset($cidToEdit) && ($is_platformAdmin))
 <td>
 <input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label>
 <label for="enrollmentKey">
-- <?php echo $langEnrollmentKey ?> <small>(<?php echo strtolower($langOptional); ?>)</small> : 
+- <?php echo $langEnrollmentKey ?> <small>(<?php echo strtolower($langOptional); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($enrollmentKey); ?>">
 <br />
 <input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo ! $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_false"><?php echo $langDenied; ?></label>
-<?php 
+<?php
 if (isset($cidToEdit))
 {
     echo '<input type="hidden" name="cidToEdit" value="'.$cidToEdit.'">';
@@ -333,8 +369,8 @@ if (isset($cidToEdit))
 <td></td>
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo $langOk ?> ">
-<?php 
-echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel); 
+<?php
+echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', $langCancel);
 ?>
 </td>
 </tr>
@@ -362,7 +398,7 @@ if ($showLinkToDeleteThisCourse)
     .    ' | '
     .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
     .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-    .    $langEditToolList 
+    .    $langEditToolList
     .    '</a>';
 
     if ( $is_trackingEnabled )
@@ -375,9 +411,9 @@ if ($showLinkToDeleteThisCourse)
     }
 
     echo ' | '
-    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">' 
+    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
     .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-    .    $langHome 
+    .    $langHome
     .    '</a>'
     ;
 
@@ -385,24 +421,24 @@ if ($showLinkToDeleteThisCourse)
     if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
     {
         echo ' | '
-        .    '<a class="claroCmd" href="../admin/index.php">' 
-        .    $langBackToAdmin 
+        .    '<a class="claroCmd" href="../admin/index.php">'
+        .    $langBackToAdmin
         .    '</a>'
         ;
     }
 
     if ( isset($cfrom) && ($is_platformAdmin) )
     {
-        if ($cfrom=="clist")  //in case we come from the course list in admintool
+        if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
         {
-           echo ' | <a class="claroCmd" href="../admin/admincourses.php'
-           .    $toAdd 
-           .    '">' . $langBackToList . '</a>'
-           ;           
+            echo ' | <a class="claroCmd" href="../admin/admincourses.php'
+            .    $toAdd
+            .    '">' . $langBackToList . '</a>'
+            ;
         }
     }
 }
 
-include( $includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php' ;
 
 ?>
