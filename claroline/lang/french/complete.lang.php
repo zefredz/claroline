@@ -2094,7 +2094,7 @@ $langRequestOfCourseCreatorStatus = 'Solliciter le statut créateur de cours';
 $langReasons = 'Motif (optionnel)';
 $langMessageEnrollToCourseNotAllowed = "Inscription au cours refusé";
 $langMessageRegistrationNotAllowed = "Enregistrement à la plateforme refusé";
-$langConfirmDeleteThisGroup = "Confirmez la suppression de ce groupe ?";
-$langNotSaved = "Vos changement n'ont pas été pris en compte";
+$langConfirmDeleteThisGroup = "Etes-vous sûr de vouloir supprimer ce groupe ?";
+$langNotSaved = "Vos changements n'ont pas été pris en compte";
 $langEnrollmentKey = "clé d'inscription";
 ?>
