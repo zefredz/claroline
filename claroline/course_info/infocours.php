@@ -377,68 +377,81 @@ echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index
 
 </table>
 </form>
-<hr noshade size="1">
 <?php
 
 $toAdd='';
-
-if ($showLinkToDeleteThisCourse)
+    
+if ( isset($cidToEdit) )
 {
-    if (isset($cidToEdit))
-    {
-        $toAdd ='?cidToEdit=' . $current_cid;
-        $toAdd.='&amp;cfrom=' . $cfrom;
-    }
+    $toAdd ='?cidToEdit=' . $current_cid;
+    $toAdd.='&amp;cfrom=' . $cfrom;
+}
 
-    echo '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
+// initialise links array
+
+$links = array();
+
+// add delete course link
+
+if ( $showLinkToDeleteThisCourse )
+{
+
+    $links[] = '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    $langDelCourse
-    .    '</a>'
-
-    .    ' | '
-    .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-    .    $langEditToolList
     .    '</a>';
+}
 
-    if ( $is_trackingEnabled )
+// add course tool list edit
+
+$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
+        .    $langEditToolList
+        .    '</a>';
+
+// add tracking link
+
+if ( $is_trackingEnabled )
+{
+    $links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
+            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
+            .    $langStatistics
+            .    '</a>' ;
+}
+
+// add course home link
+
+$links[] = '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+        .    $langHome
+        .    '</a>';
+
+// add link to admin page
+
+if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
+{
+    $links[] = '<a class="claroCmd" href="../admin/index.php">'
+            .    $langBackToAdmin
+            .    '</a>';
+}
+
+// add link to course admin page
+
+if ( isset($cfrom) && ($is_platformAdmin) )
+{
+    if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
     {
-        echo ' | <a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
-        .    $langStatistics
-        .    '</a>'
-        ;
-    }
-
-    echo ' | '
-    .    '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-    .    $langHome
-    .    '</a>'
-    ;
-
-
-    if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
-    {
-        echo ' | '
-        .    '<a class="claroCmd" href="../admin/index.php">'
-        .    $langBackToAdmin
-        .    '</a>'
-        ;
-    }
-
-    if ( isset($cfrom) && ($is_platformAdmin) )
-    {
-        if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
-        {
-            echo ' | <a class="claroCmd" href="../admin/admincourses.php'
-            .    $toAdd
-            .    '">' . $langBackToList . '</a>'
-            ;
-        }
+        $links[] = '<a class="claroCmd" href="../admin/admincourses.php'. $toAdd . '">' 
+                . $langBackToList 
+                . '</a>';
     }
 }
 
+// Display links
+echo '<hr />' . "\n";
+echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
+
+// Display footer
 include $includePath . '/claro_init_footer.inc.php' ;
 
 ?>
