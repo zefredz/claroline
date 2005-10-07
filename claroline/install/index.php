@@ -45,17 +45,17 @@ $_SESSION = array();
 session_destroy();
 
 $newIncludePath ='../inc/';
-include ($newIncludePath . 'installedVersion.inc.php');
+include $newIncludePath . 'installedVersion.inc.php';
 
-include ('../lang/english/complete.lang.php');
-include ('../lang/english/locale_settings.php');
+include '../lang/english/complete.lang.php';
+include '../lang/english/locale_settings.php';
 
-include ($newIncludePath . 'lib/auth.lib.inc.php'); // to generate pass and to cryto it if needed
-include ('./install.lib.inc.php');
-include ($newIncludePath . 'lib/config.lib.inc.php');
-include ($newIncludePath . 'lib/form.lib.php');
-include ($newIncludePath . 'lib/course.lib.inc.php');
-include ($newIncludePath . 'lib/claro_main.lib.php');
+include $newIncludePath . 'lib/auth.lib.inc.php'; // to generate pass and to cryto it if needed
+include './install.lib.inc.php';
+include $newIncludePath . 'lib/config.lib.inc.php';
+include $newIncludePath . 'lib/form.lib.php';
+include $newIncludePath . 'lib/course.lib.inc.php';
+include $newIncludePath . 'lib/claro_main.lib.php';
 
 /**
  * Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -152,7 +152,7 @@ elseif($_REQUEST['cmdDoInstall'])
 ###  IF FIRST VISIT ###
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
-     include ('./defaultsetting.inc.php');
+     include './defaultsetting.inc.php';
 }
 else ###  IF NOT ###
 {
@@ -784,7 +784,8 @@ elseif($display==DISP_LICENSE)
     .    '</P>'  . "\n"
     .    '<textarea wrap="virtual" cols="65" rows="15">'
     ;
-    include ('../license/gpl.txt');
+
+    readfile ('../license/gpl.txt');
     echo '</textarea>'
     .    '</td>'
     .    '</tr>'
