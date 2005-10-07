@@ -93,7 +93,7 @@ function forum_upgrade_to_16($course_code)
  */
 function quizz_upgrade_to_16($course_code)
 {
-    global $currentCourseVersion;
+    global $currentCourseVersion, $currentCourseCreationDate;
 
     $versionRequiredToProceed = '/^1.5/';
     $tool = 'CLQWZ';
@@ -122,6 +122,8 @@ function quizz_upgrade_to_16($course_code)
                                "ADD `end_date` datetime NOT NULL default '0000-00-00 00:00:00'";
                 $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_answer` ".
                                "CHANGE `ponderation` `ponderation` float default NULL";
+                $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."quiz_test` ".
+                               "SET `start_date` = '" . $currentCourseCreationDate ."'" ;
                 $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."quiz_test` ".
                                "SET `end_date` = '9999-12-31 23:59:59'";
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
