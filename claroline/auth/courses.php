@@ -55,9 +55,10 @@ $tbl_class            = $tbl_mdb_names['class'            ];
   Define Display
  ---------------------------------------------------------------------*/
 
-define ('DISPLAY_USER_COURSES'  , __LINE__);
-define ('DISPLAY_COURSE_TREE'   , __LINE__);
-define ('DISPLAY_MESSAGE_SCREEN', __LINE__);
+define ('DISPLAY_USER_COURSES'       , __LINE__);
+define ('DISPLAY_COURSE_TREE'        , __LINE__);
+define ('DISPLAY_MESSAGE_SCREEN'     , __LINE__);
+define ('DISPLAY_ENROLLMENT_KEY_FORM', __LINE__);
 
 $displayMode = DISPLAY_USER_COURSES; // default display
 
@@ -80,9 +81,9 @@ else                              $course = '';
 if ( isset($_REQUEST['category']) ) $category = trim($_REQUEST['category']);
 else                                $category = '';
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+/*=====================================================================
   Main Section
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ =====================================================================*/
 
 /*---------------------------------------------------------------------
   Define user we are working with...
@@ -94,7 +95,7 @@ if ( !$is_platformAdmin )
 {
     if ($allowToSelfEnroll)
     {
-        $userId = $_uid; // default use is enroll for itself...
+        $userId    = $_uid; // default use is enroll for itself...
         $uidToEdit = $_uid;
     }
     else
@@ -108,7 +109,7 @@ else
     // security : only platform admin can edit other user than himself...
 
     if ( isset($fromAdmin)
-         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" )
+         && ( $fromAdmin == "settings" || $fromAdmin == "usercourse" ) 
          && !empty($uidToEdit)
        )
     {
@@ -149,17 +150,17 @@ if ( !empty($fromAdmin) )
 {
     if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' )
     {
-        $interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+        $interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
     }
-
+    
     if ( $fromAdmin == 'class' )
     {
         // bred different if we come from admin tool for a CLASS
         $nameTools = $langRegisterClass;
 
         //find info about the class
-        $sqlclass = "SELECT id, name, class_parent_id, class_level
-                     FROM `" . $tbl_class . "`
+        $sqlclass = "SELECT id, name, class_parent_id, class_level 
+                     FROM `" . $tbl_class . "` 
                      WHERE `id`='" . (int) $_SESSION['admin_user_class_id'] . "'";
 
         list($classinfo) = claro_sql_query_fetch_all($sqlclass);
@@ -196,7 +197,7 @@ if ( $cmd == 'exUnreg' )
 {
     if ( user_remove_from_course($userId, $course) )
     {
-        event_default('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
+		event_default('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
         $message = $lang_your_enrollment_to_the_course_has_been_removed;
     }
     else
@@ -223,56 +224,72 @@ if ( $cmd == 'exUnreg' )
 
 if ( $cmd == 'exReg' )
 {
-    // if user is platform admin, register to private course can be forced.
+    // if user is platform admin, register to private course can be forced. 
     // Otherwise not
 
     if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
     {
-        // try to register user
-        if ( user_add_to_course($userId, $course) )
+        $courseEnrollmentKey = get_course_enrollment_key($course);
+
+        if (    $is_platformAdmin 
+            || ( is_null($courseEnrollmentKey) || empty($courseEnrollmentKey) )
+            || (   isset($_REQUEST['enrollmentKey'] )
+                && strtolower(trim($_REQUEST['enrollmentKey'] )) == strtolower(trim($courseEnrollmentKey))) )
         {
-            event_default('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$course));
-            if ( $_uid != $uidToEdit )
+            // try to register user
+            if ( user_add_to_course($userId, $course) )
             {
-               // message for admin
-               $message = $lang_user_has_been_enrolled_to_the_course;
+                if ( $_uid != $uidToEdit )
+                {
+                   // message for admin
+                   $message = $lang_user_has_been_enrolled_to_the_course;
+                }
+                else
+                {
+                   $message = $lang_you_have_been_enrolled_to_the_course;
+                }
+
+                if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
+                {
+                    $properties['status'] = 1;
+                    $properties['role']   = $langCourseManager;
+                    $properties['tutor']  = 1;
+                    user_update_course_properties($userId, $course, $properties);
+                }
             }
             else
             {
-               $message = $lang_you_have_been_enrolled_to_the_course;
+                switch (claro_failure::get_last_failure())
+                {
+                    case 'already_enrolled_in_course' :
+                        $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
+                        break;
+                   default:
+                        $message = $langUnableToEnrollInCourse;
+                }
             }
 
-            if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
-            {
-                $properties['status'] = 1;
-                $properties['role']   = $langCourseManager;
-                $properties['tutor']  = 1;
-                user_update_course_properties($userId, $course, $properties);
-            }
-        }
+            $displayMode = DISPLAY_MESSAGE_SCREEN;
+
+        } // end else if is_null $courseEnrollmentKey 
         else
         {
-            switch (claro_failure::get_last_failure())
+            if ( isset($_REQUEST['enrollmentKey']) )
             {
-                case 'already_enrolled_in_course' :
-                    $message = $lang_TheUserIsAlreadyEnrolledInTheCourse;
-                    break;
-               default:
-                    $message = $langUnableToEnrollInCourse;
-
+                $message = 'Wrong Enrollment Key.';
             }
-        }
-    } // end if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
+            
+            $displayMode = DISPLAY_ENROLLMENT_KEY_FORM;
+        } // end else if is_null $courseEnrollmentKey 
+    }
     else
     {
-        $message = $langUnableToEnrollInCourse
- //       .        sprintf('<p>You can contact <a href="mailto:%s" >the course manager : %s</a></p>',$_course['email'],$_course['titular'])
-        ;
+        $message = $langUnableToEnrollInCourse;
+        $displayMode = DISPLAY_MESSAGE_SCREEN;
     }
 
-    $displayMode = DISPLAY_MESSAGE_SCREEN;
 
-} //if ($cmd == 'exReg')
+} // end if ($cmd == 'exReg')
 
 /*----------------------------------------------------------------------------
   User course list to unregister
@@ -336,8 +353,8 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
                 LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
                 ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
 
-                WHERE `faculte` = '" . $category . "'
-
+                WHERE `faculte` = '" . addslashes($category ) ."'
+ 
                 ORDER BY UPPER(`fake_code`)";
 
         $courseList = claro_sql_query_fetch_all($sql);
@@ -414,9 +431,9 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
 } // end cmd == rqReg
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+/*=====================================================================
   Display Section
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ =====================================================================*/
 
 /*
  * SET 'BACK' LINK
@@ -569,7 +586,7 @@ switch ( $displayMode )
                         . '<th>' . $langEnrollAsTeacher . '</th>' . "\n"
                         . '<tr>' . "\n"
                         . '</thead>' . "\n";
-            }
+            } 
             elseif ( $fromAdmin == 'class' )
             {
                     echo '<thead>' . "\n"
@@ -639,7 +656,7 @@ switch ( $displayMode )
                     {
                     	echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . $lang_enroll . '">';
                     }
-
+                    
                     echo '</td>' . "\n";
 
                }
@@ -656,15 +673,15 @@ switch ( $displayMode )
         // Form: Search a course with a keyword
 
         echo '<blockquote>' . "\n"
-        .    '<p><label for="keyword">' . $lang_or_search_from_keyword . '</label> : </p>' . "\n"
-        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-        .    '<input type="hidden" name="cmd" value="rqReg" />' . "\n"
-        .    '<input type="hidden" name="fromAdmin" value="' . $fromAdmin . '" />' . "\n"
-        .    '<input type="hidden" name="uidToEdit" value="' . $uidToEdit . '" />' . "\n"
-        .    '<input type="text" name="keyword" id="keyword" />' . "\n"
-        .    '&nbsp;<input type="submit" value="' . $langSearch . '" />' . "\n"
-        .    '</form>' . "\n"
-        .    '</blockquote>' . "\n";
+             . '<p><label for="keyword">' . $lang_or_search_from_keyword . '</label> : </p>' . "\n"
+             . '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+             . '<input type="hidden" name="cmd" value="rqReg" />' . "\n"
+             . '<input type="hidden" name="fromAdmin" value="' . $fromAdmin . '" />' . "\n"
+             . '<input type="hidden" name="uidToEdit" value="' . $uidToEdit . '" />' . "\n"
+             . '<input type="text" name="keyword" id="keyword" />' . "\n"
+             . '&nbsp;<input type="submit" value="' . $langSearch . '" />' . "\n"
+             . '</form>' . "\n"
+             . '</blockquote>' . "\n";
         break;
 
     /*---------------------------------------------------------------------
@@ -736,6 +753,26 @@ switch ( $displayMode )
         }
         break;
 
+    case DISPLAY_ENROLLMENT_KEY_FORM :
+
+       if ( ! empty($message) ) echo claro_disp_message_box($message);
+
+        echo  '<blockquote>This course requires a key for enrollment.</p>' . "\n"
+            . '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">' . "\n"
+            . '<input type="hidden" name="cmd" value="exReg">'        . "\n"
+            . 'Key : '
+            . '<input type="hidden" name="course" value="'.$_REQUEST['course'].'">'
+            . '<input type="text" name="enrollmentKey">'              . "\n"
+            . '<p>'
+            . '<input type="submit" value="'.$langOk.'">&nbsp;'             . "\n"
+            . claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqReg', $langCancel)
+            .'</p>'
+            . '</form>'                                               . "\n"
+            . '</blockquote>'
+            ;
+        break;
+
+
 } // end of switch ($displayMode)
 
 echo $backLink;
@@ -746,7 +783,7 @@ echo $backLink;
 
 include($includePath . '/claro_init_footer.inc.php');
 
-//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 /**
  * search a specific course based on his course code
@@ -770,26 +807,31 @@ function search_course($keyword)
 
     $keyword = trim($keyword);
 
+    if (!$is_platformAdmin)
+    {
+        $visibility_cond = "(c.visible=\"2\" OR c.visible=\"1\")";
+    }
+    else
+    {
+        $visibility_cond = "1=1";
+    }
+
     if (empty($keyword) ) return array();
     $upperKeyword = trim(strtoupper($keyword));
 
-    $sql = "SELECT c.intitule,
-                   c.titulaires,
-                   c.fake_code AS officialCode,
-                   c.code,
-                   cu.user_id AS enrolled,
-                   c.visible
-            FROM `" . $tbl_course . "` c
+    $sql = 'SELECT c.intitule, c.titulaires, c.fake_code officialCode, c.code,
+                   cu.user_id enrolled, c.visible
+            FROM `'.$tbl_course.'` c
 
-            LEFT JOIN `" . $tbl_rel_course_user . "` cu
-                 ON     c.code = cu.code_cours
-                    AND cu.user_id = " . (int) $userId . "
+            LEFT JOIN `'.$tbl_rel_course_user.'` cu
+            ON  c.code = cu.code_cours
+            AND cu.user_id = "'.$userId.'"
+            
+            WHERE (UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
+               OR  UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
+               OR  UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
 
-            WHERE UPPER(fake_code)  LIKE '%" . $upperKeyword . "%'
-               OR UPPER(intitule)   LIKE '%" . $upperKeyword . "%'
-               OR UPPER(titulaires) LIKE '%" . $upperKeyword . "%'
-
-            ORDER BY officialCode";
+            ORDER BY officialCode';
 
     $courseList = claro_sql_query_fetch_all($sql);
 
