@@ -21,9 +21,10 @@ include_once( dirname(__FILE__) . '/fileManage.lib.php');
 
 function empty_group($groupIdList='ALL', $course_id=null)
 {
+    $groupFilter = false;
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
-    if ( ctype_digit(($groupIdList) ) $groupIdList[] = (int) $groupIdList;
+    if ( ctype_digit(($groupIdList) )) $groupIdList[] = (int) $groupIdList;
     if ( strtoupper($groupIdList) == 'ALL' ) $sql_condition = '';
     elseif ( is_array($groupIdList) )
     {
@@ -31,7 +32,7 @@ function empty_group($groupIdList='ALL', $course_id=null)
         {
             if ( ! is_int($thisGroupId) ) return claro_failure::set_failure('GROUP_LIST_ACTION_UNKNOWN');
         }
-
+        $groupFilter = true;
         $sql_condition = implode(" , ", $groupIdList) ;
     }
     else
@@ -42,12 +43,12 @@ function empty_group($groupIdList='ALL', $course_id=null)
 
     $sql = "DELETE "
     .      "FROM `" . $tbl_c_names['group_rel_team_user'] . "`"
-    .      ($groupFilter?"WHERE team IN (" . $sql_condition . ")":"")
+    .      ($groupFilter ? "WHERE team IN (" . $sql_condition . ")":"")
     ;
     if (!claro_sql_query($sql)) return claro_failure::get_last_failure();
 
     $sql = "UPDATE `" . $tbl_c_names['group_team'] . "` SET tutor='0'"
-    .      ($groupFilter?"WHERE id IN (" . $sql_condition . ")":"")
+    .      ($groupFilter ? "WHERE id IN (" . $sql_condition . ")":"")
     ;
     if (!claro_sql_query($sql)) return claro_failure::get_last_failure();
 
@@ -468,7 +469,7 @@ function create_group($groupName, $maxMember)
     do
     {
         $groupRepository = uniqid($groupName . '_');
-bon     }
+    }
     while ( check_name_exist(  $coursesRepositorySys
                              . $currentCourseRepository
                              . '/group/' . $groupRepository) );
