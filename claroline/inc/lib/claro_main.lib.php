@@ -173,6 +173,7 @@ function claro_get_course_data($course_id = NULL)
                     `c`.`dbName` `dbName`, 
                     `c`.`titulaires` `titular`, 
                     `c`.`email` , 
+                    `c`.`enrollment_key`  `enrollmentKey` ,
                     `c`.`languageCourse` `language`, 
                     `c`.`departmentUrl` `extLinkUrl`, 
                     `c`.`departmentUrlName` `extLinkName`, 
