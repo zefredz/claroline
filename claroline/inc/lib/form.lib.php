@@ -3,10 +3,10 @@
  * CLAROLINE
  *
  * @version 1.7 $Revision$
- * 
+ *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * 
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/CLCRS/
  *
@@ -23,8 +23,8 @@
  * @param string  $yearFieldName attribute name of the input YEAR
  * @param boolean $selectedDate
  * @param string  $formatMonth display type of month select box : numeric, long, short
- * 
- */ 
+ *
+ */
 
 function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0, $formatMonth = 'numeric' )
 {
@@ -105,9 +105,9 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
 
     if($minuteFieldName != "")
     {
-        for($minuteCounter=0;$minuteCounter < 60; $minuteCounter++)  
+        for($minuteCounter=0;$minuteCounter < 60; $minuteCounter++)
             $available_minutes[$minuteCounter] = $minuteCounter;
-        
+
         $minuteField = claro_html_form_select( $minuteFieldName
                                            , $available_minutes
                                            , $selMinute
@@ -121,13 +121,13 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
 /**
  *
  * @param string $name name of the form (other param can be adds with $attr
- * @param string $list_option 2D table where key are name and value are label 
+ * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
- * @return html output from a 2D table where key are name and value are label 
+ * @return html output from a 2D table where key are name and value are label
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_form_select($select_name,$list_option,$preselect,$attr)
+function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null)
 {
     $html_select = '<select name="' . $select_name . '" ';
     if (is_array($attr)) foreach($attr as $attr_name=>$attr_value)
@@ -143,9 +143,9 @@ function claro_html_form_select($select_name,$list_option,$preselect,$attr)
 
 /**
  * return a string as html form option list to plce in a <select>
- * @param string $list_option 2D table where key are name and value are label 
+ * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
- * @return html output from a 2D table where key are name and value are label 
+ * @return html output from a 2D table where key are name and value are label
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -167,12 +167,12 @@ function claro_html_option_list($list_option, $preselect)
         }
         return $html_option_list;
     }
-    else 
+    else
     {
         trigger_error('$list_option would be array()', E_USER_NOTICE);
         return false;
     }
-    
+
 }
 
 ?>
