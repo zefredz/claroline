@@ -306,7 +306,8 @@ echo '<table class="claroTable emphaseLine" '
 
     echo '<thead>'."\n"
        . '<tr class="headerX" align="center" valign="top">'."\n"
-       . '<th scope="col" id="name">'.$langUserName.'</th>'."\n"
+       . '<th scope="col" id="lastname">'.$langLastName.'</th>'."\n"
+       . '<th scope="col" id="firstname">'.$langFirstName.'</th>'."\n"
        . '<th scope="col" id="role">'.$langRole.'</th>'."\n"
        . '<th scope="col" id="team">'.$langGroup.'</th>'."\n"
        ;
@@ -344,11 +345,18 @@ foreach ( $userList as $thisUser )
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;'
        . '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
-       . ucfirst(strtolower($thisUser['prenom'])) . ' ' . ucfirst(strtolower($thisUser['nom']))
+       . ucfirst(strtolower($thisUser['nom']))
        . '</a>'
-       . '</td>'."\n"
+       . '</td>'."\n";
+       
+    echo '<td id="u'.$i.'" headers="name" align="left">'
+       . '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
+       . ucfirst(strtolower($thisUser['prenom']))
+       . '</a>'
+       . '</td>'."\n";
+
        // User role column
-       . '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n"
+    echo '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n"
        ;
     
     // User group column
