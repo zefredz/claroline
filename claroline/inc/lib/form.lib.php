@@ -24,6 +24,10 @@
  * @param boolean $selectedDate
  * @param string  $formatMonth display type of month select box : numeric, long, short
  *
+ * @author Sébastien Piraux pir@cerdecam.be
+ *
+ * @return string html stream to output input tag for a date
+ *
  */
 
 function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0, $formatMonth = 'numeric' )
@@ -81,6 +85,17 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     return $dayField . '&nbsp;' . $monthField . '&nbsp;' . $yearField;
 }
 
+/**
+ * @param string  $hourFieldName attribute name of the input DAY
+ * @param string  $minuteFieldName attribute name of the input MONTH
+ * @param integer  $selectedTime attribute name of the input YEAR
+ *
+ * @author Sébastien Piraux pir@cerdecam.be
+ *
+ * @return string html stream to output input tag for an hour
+ *
+ */
+
 
 function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 0)
 {
@@ -124,6 +139,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
  * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
  * @return html output from a 2D table where key are name and value are label
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -146,6 +162,7 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
  * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
  * @return html output from a 2D table where key are name and value are label
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
