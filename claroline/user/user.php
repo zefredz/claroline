@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This tool list user member of the course.
  *
@@ -69,7 +69,7 @@ $userPerPage = isset($nbUsersPerPage) ? $nbUsersPerPage : 50;
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$can_add_user     = (bool) (   $is_courseAdmin 
+$can_add_user     = (bool) (   $is_courseAdmin
                      && isset($is_coursemanager_allowed_to_add_user)
                      && $is_coursemanager_allowed_to_add_user)
                      || $is_platformAdmin;
@@ -95,7 +95,7 @@ $tbl_groups          = $tbl_cdb_names['group_team'             ];
 /*=====================================================================
   Main section
   =====================================================================*/
-    
+
 $disp_tool_link = FALSE;
 
 $cmd = ( isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '');
@@ -106,7 +106,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'register')
     {
-        $user_id   = $_REQUEST['user_id']; 
+        $user_id   = $_REQUEST['user_id'];
         $done = user_add_to_course($user_id, $_cid);
         if ($done)
         {
@@ -146,7 +146,7 @@ if ( $is_allowedToEdit )
                     case 'course_manager_cannot_unsubscribe_himself' :
                         $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
                         break;
-                    default :       
+                    default :
                         $dialogBox .= $langUserNotUnsubscribedFromCourse;
                 }
             }
@@ -173,14 +173,17 @@ $userTotalNb = $userTotalNb[0]['nb_users'];
    Get User List
   ----------------------------------------------------------------------*/
 
-$sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`, 
-                      `user`.`email`, `cours_user`.`statut`, 
+$sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`,
+                      `user`.`email`, `cours_user`.`statut`,
                       `cours_user`.`tutor`, `cours_user`.`role`
                FROM `'.$tbl_users.'` `user`, `'.$tbl_rel_course_user.'` `cours_user`
                WHERE `user`.`user_id`=`cours_user`.`user_id`
                AND `cours_user`.`code_cours`="'. addslashes($currentCourseID) .'"
-               ORDER BY `cours_user`.`statut` ASC, `cours_user`.`tutor` DESC,
-                        UPPER(`user`.`nom`), UPPER(`user`.`prenom`) ';
+               ORDER BY `cours_user`.`statut` ASC
+               ,        `cours_user`.`tutor` DESC
+               ,        `user`.`nom`
+               ,        `user`.`prenom` '
+;
 
 if ( !isset($_REQUEST['offset']) )
 {
@@ -237,7 +240,7 @@ $nameTools = $langUsers;
 
 // Display header
 
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools.' ('.$langUserNumber.' : '.$userTotalNb.')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
@@ -255,7 +258,7 @@ if ( $disp_tool_link )
 {
     echo '<p>';
     if ($can_add_user)
-    { 
+    {
        //add a user link
     ?>
     <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo $langAddAU; ?></a> |
@@ -263,12 +266,12 @@ if ( $disp_tool_link )
        //add CSV file of user link
     ?>
     <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo $langAddListUser; ?></a> |
-    <?php 
+    <?php
        //add a class link
     ?>
     <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo $langAddClass; ?></a> |
     <?php
-    
+
     }
     ?>
     <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif" alt="" /><?php echo $langGroupUserManagement; ?></a> |
@@ -294,7 +297,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo '<table class="claroTable emphaseLine" '
 .    ' width="100%" cellpadding="2" cellspacing="1" '
 .    ' border="0" summary="' . $langListCourseUsers . '">' . "\n"
-.    '<colgroup span="3" align="left"></colgroup>' . "\n"
+.    '<colgroup span="4" align="left"></colgroup>' . "\n"
 ;
 
     if($is_allowedToEdit)
@@ -348,7 +351,7 @@ foreach ( $userList as $thisUser )
        . ucfirst(strtolower($thisUser['nom']))
        . '</a>'
        . '</td>'."\n";
-       
+
     echo '<td id="u'.$i.'" headers="name" align="left">'
        . '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
        . ucfirst(strtolower($thisUser['prenom']))
@@ -358,7 +361,7 @@ foreach ( $userList as $thisUser )
        // User role column
     echo '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n"
        ;
-    
+
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
     {
@@ -417,10 +420,10 @@ foreach ( $userList as $thisUser )
         if ($thisUser['user_id'] != $_uid)
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
-               . 'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-               . '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
-               . '</a>'
-               ;
+            .    'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            .    '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
+            .    '</a>'
+            ;
         }
 
         echo '</td>'."\n";
@@ -437,7 +440,8 @@ foreach ( $userList as $thisUser )
   ----------------------------------------------------------------------*/
 
 echo '</tbody>' . "\n"
-    .'</table>' . "\n" ;
+.    '</table>' . "\n"
+;
 
 /*----------------------------------------------------------------------
    Display pager
@@ -446,5 +450,5 @@ echo '</tbody>' . "\n"
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
-include($includePath.'/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>
