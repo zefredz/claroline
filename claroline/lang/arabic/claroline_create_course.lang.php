@@ -2,6 +2,7 @@
 $langAdministration = "المدير";
 $langAdmitError = "يمكن إعداد هذا النظام على الحاسب بسرعة كبيرة";
 $langAgenda = "جدول الأعمال";
+$langAllowed = "مسموح";
 $langAnnouncement = "الإعلانات";
 $langAnonymous = "شخص مجهول";
 $langAntique = "أنظمة التشغيل";
@@ -16,7 +17,7 @@ $langCode = "رمز المقرر التعليمي";
 $langCodeCanBeEmpty = "يجب إكمال حقل رمز المقرر";
 $langContradiction = "انه نظام تشغيل حر و غير مقيد بشركة أو جهة ما و يتبع لترخيص GPL";
 $langCopy = "نسخ";
-$langCourseDescription = "اكتب هنا الوثف الذي سيظهر ضمن قائمة المقررات";
+$langCourseAccess = "الوصول للمقرر";
 $langCourseHome = "صفحة المقرر";
 $langCourseManager = "مدير المقرر";
 $langCourseTitle = "اسم المقرر التعليمي";
@@ -26,6 +27,7 @@ $langCreationMailNotificationBody = "تم إنشاء المقرر بتاريخ";
 $langCreationMailNotificationSubject = "إنشاء المقرر";
 $langDay_of_weekNames = "مصفوفة";
 $langDelAdmin = "إزل هذه من خلال أداة مدير المنتدى";
+$langDenied = "غير مسموح";
 $langDescriptionCours = "وصف المقرر التعليمي";
 $langDocument = "وثائق و وصلات";
 $langEmail = "البريد الالكتروني";
@@ -36,7 +38,6 @@ $langExMessage = "مثال رسالة";
 $langExerciceEx = "مثال تمرين";
 $langExercises = "التمارين";
 $langExplanation = "بمجرد النقر على زر موافق سيتم إنشاء موقع للمقرر يحوي منتدى و جدول أعمال و مدير للوثائق.. إلخ <p> تستطيع تعديل الموقع وفق رغبتك عندما تقوم بتسجيل الدخول له بالاسم الذي انشأته به";
-$langFieldsRequ = "جميع الحقول مطلوبة";
 $langForce = "استقرار النظام  و عمله على الشبكات بشكل ممتاز";
 $langForums = "المنتديات";
 $langGroups = "المجموعات";
@@ -46,6 +47,7 @@ $langJustCreated = "تم إنشاء موقع خاص للمقرر";
 $langLabelCanBeEmpty = "يجب تحديد اسم المقرر";
 $langLanguage = "اللغة";
 $langLearningPath = "مسار التعليم";
+$langLegendRequiredFields = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
 $langManager = "المدير";
@@ -63,11 +65,16 @@ $langNoSeduction = "إن الوقت اللازم لإعداد نظام التش�
 $langNotAllowed = "غير مسموح";
 $langNotFalse = "من أهم ميزات النظام أنه حر و مجاني و يتبع لترخيص البرمجيات الحرة";
 $langOk = "موافق";
+$langOptional = "اختياري";
 $langOtherCourses = "قائمة المقررات";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "الإدارة";
 $langPoweredBy = "مطورة باستخدام";
+$langPrivateAccess = "الموقع متاح فقط لمن هم ضمن <a href=../user/user.php>قائمة المستخدمين</a>(وصول خاص)";
 $langProfessor = "المدرس";
 $langProfessors = "اسم المدرس او المدرسون";
+$langPublicAccess = "إمكانية الوصول لصفحة الموقع من خلال موقع الجامعة و بدون الحاجة لتسجيل الدخول(وصول عام)";
 $langRidiculise = "تعلم هذا النظام أسهل بكثير من تعلم بقية انظمة التشغيل";
 $langSampleDocument = "وثيقة_تجريبية";
 $langSampleDocumentDesc = "تستطيع استخدام أي وثيقة موجودة ضمن أداة الوثائق في هذا المقرر";
@@ -78,6 +85,7 @@ $langSampleLearnPathDesc = "هذا مثال على مسار التعليم , و 
 $langSecondShort = "ثانية";
 $langSocraticIrony = "من اهم ميزات نظام التشغيل Linux...";
 $langStudent = "طالب";
+$langSubscription = "الالتحاق و التسجيل في المقرر";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTargetFac = "اسم الكلية أو القسم او المدرسة التي يتم دراسة المقرر فيها";
 $langTestForum = "منتدى تجريبي";
@@ -89,5 +97,7 @@ $langViewMode = "نمط العرض";
 $langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
+$lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
+$lang_p_aCategoryWouldBeSelected = "عليك اختيار تصنيف , إذا كان التصنيق غير موجود قم بمراسلة مدير الموقع";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

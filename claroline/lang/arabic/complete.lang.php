@@ -60,6 +60,7 @@ $langAddCommentOptionnal = "إضافة ملاحظة ( إختياري) :";
 $langAddEvent = "إضافة حدث";
 $langAddExternalTool = "إضافة وصلة خارجية";
 $langAddFeedback = "إضافة مراجعة";
+$langAddForum = "إضافة منتدى";
 $langAddImage = "تضمين صورة";
 $langAddIntro = "إضافة مقدمة أو تمهيد";
 $langAddListUser = "إضافة قائمة مستخدمين";
@@ -74,6 +75,7 @@ $langAddOneModuleButton = "أضف وحدة";
 $langAddTutors = "قائمة المدراء";
 $langAddUser = "إنشاء مستخدم جديد";
 $langAddUserOneByOne = "سيستقبل المستخدمون الجدد رسالة إلكترونية تحوي اسم المستخدم و كلمة المرور الخاصة بهم.";
+$langAddWrongAnswers = "إضافة الأجوبة الخاطئة للقوائم المنسدلة <small> (اختياري:سؤال غير صحيح واحد ضمن كل سطر)</small>";
 $langAdd_users = "إضافة مستخدمين";
 $langAddedExternalTool = "تم إضافة الأداة الخارجية";
 $langAddedToCampus = " تمت إضافته للجامعة";
@@ -209,16 +211,22 @@ $langCancel = "إلغاء";
 $langCannotBeBlank = "لا يمكن ان يكون اسم الصف غير محدد";
 $langCannotCopyFile = "لا يمكن نسخ الملف";
 $langCannotInitChat = "خطأ:فشل في تجهيز ملفات الدردشة";
+$langCannotRemoveGroupForum = "لا يمكنك حذف منتدى مجموعة قبل أن تقوم بحذف المجموعة أولاً";
+$langCannotSeeExerciseDetails = "عرض تفاصيل الإجابات غير مسموح";
+$langCannotUnsubscribeLastCourseManager = "لا يمكنك إلغاء تسجيل أخر مدير ضمن المقرر";
 $langCatagoryGroup = "منتدى المجموعات";
 $langCatagoryMain = "الرئيسي";
 $langCategories = "التصنيفات";
 $langCategory = "التصنيف";
+$langCategoryDeleted = "تم حذف التصنيف";
+$langCategoryUpdated = "تم تعديل التصنيف";
 $langChangePwdexp = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
 $langChangeRaw = "تغيير العلامة الصافية لاجتياز هذه الوحدة (نسبة مئوية) : ";
 $langChangedTool = "تم تغيير أدوات الوصول";
 $langChat = "دردشة";
 $langChatResetBy = "تم إعادة تشغيل الدردشة من قبل";
 $langChoice = "إجابتك";
+$langChooseACourseToAccessThisPage = "اختر المقرر الذي يسمح له بالوصول لهذه الصفحة";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "قم باختيار الجواب الصحيح من فضلك";
 $langChooseGoodAnswers = "قم باختيار الأجوبة الصحيحة من فضلك";
@@ -240,6 +248,8 @@ $langClassRegisterWholeClass = "تسجيل صف لمقرر";
 $langClassRegisterWholeClassAgain = "تسجيل كامل اعضاء الصف في مقرر أخر";
 $langClassRegistered = "تم تسجيل الصف";
 $langClearList = "مسح قائمة جدول الأعمال";
+$langClickToZoomIn = "انقر للتكبير";
+$langClickToZoomOut = "انقر للتصغير";
 $langClose = "إغلاق";
 $langCloseWindow = "إغلاق النافذة";
 $langCode = "رمز المقرر التعليمي";
@@ -255,11 +265,13 @@ $langConfirmDeleteExercise = "هل انت متاكد انك تريد حذف هذ
 $langConfirmDeleteGroups = "هل انت متاكد انك تريد حذف جميع المجموعات ?";
 $langConfirmDeleteQuestion = "هل أنت متأكد انك تريد حذف هذا السؤال بشكل كامل ?";
 $langConfirmDeleteStats = "إذا حذفت إحصائيات المقرر فلن يمكن إعادتهم!<br /><br />هل أنت متأكد بأنك تريد حذف هذه الإحصائيات?";
+$langConfirmEmptyForum = "حذف جميع رسائل ";
 $langConfirmEmptyGroups = "هل أنت متأكد انك تريد إفراغ جميع المجموعات ?";
 $langConfirmEnrollClassToCourse = "هل أنت متاكد انك تريد تسجيل كامل طلاب الصف في المقرر ?";
 $langConfirmYourChoice = "قم بتأكيد اختيارك من فضلك";
 $langConfirmation = "تأكيد كلمة السر";
 $langContent = "المضمون";
+$langContinue = "متابعة";
 $langContradiction = "انه نظام تشغيل حر و غير مقيد بشركة أو جهة ما و يتبع لترخيص GPL";
 $langCopy = "نسخ";
 $langCopyFailed = "فشل في الطباعة";
@@ -284,11 +296,12 @@ $langCourseContentComment2 = "عرض محتويات المقرر، هيكلية 
 $langCourseCreate = "إنشاء موقع لمقرر";
 $langCourseCreator = "هو من انشأ المقرر";
 $langCourseDelete = "تم حذف المقرر بنجاح";
-$langCourseDescription = "اكتب هنا الوثف الذي سيظهر ضمن قائمة المقررات";
 $langCourseHome = "صفحة المقرر";
 $langCourseList = "قائمة المقررات";
 $langCourseManager = "مدير المقرر";
+$langCourseManagerCannotUnsubscribeHimself = "لا يستطيع مدير المقرر ان يقوم بإلغاء تسجيل نفسه";
 $langCourseManagerStatusToUser = "حالة من أنشأ المقرر ل %s %s";
+$langCourseNotFound = "لم يتم العثور على المقرر";
 $langCourseProgram = "وصف المقرر التعليمي";
 $langCourseSettings = "خصائص و إعدادات المقرر";
 $langCourseTitle = "اسم المقرر التعليمي";
@@ -298,12 +311,15 @@ $langCourseWithoutStudents = "مقررات بدون طلاب";
 $langCourse_Repository = "مخزن المقررات";
 $langCourses = "المقررات التعليمية";
 $langCreate = "إنشاء";
+$langCreate1stAccountOnPlatform = "قم أولاً بإضافة حساب مستخدم ضمن الموقع";
 $langCreateAnotherUser = "إنشاء مستخدم جديد آخر";
 $langCreateAssignment = "إنشاء (وظيفة/مهمة) جديدة";
+$langCreateCategory = "إنشاء تصنيف";
 $langCreateCourse = "إنشاء مقرر";
 $langCreateCourses = "إنشاء مقررات";
 $langCreateDir = "إنشاء مجلد";
 $langCreateDocument = "إنشاء وثيقة";
+$langCreateForum = "إنشاء منتدى";
 $langCreateHyperlink = "إنشاء وصلة";
 $langCreateLabel = "إنشاء سمة";
 $langCreateModifyDocument = "إنشاء/تعديل  وثيقة";
@@ -337,6 +353,10 @@ $langDbPrefixForm = "بادئة لاسماء قواعد بيانات المقر�
 $langDear = "عزيزي";
 $langDefSubVisibility = "سماحية الرؤية الافتراضية للأعمال";
 $langDefaultLearningPathComment = "هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>";
+$langDefaultMatchingOpt1 = "غني";
+$langDefaultMatchingOpt2 = "جميل المظهر";
+$langDefaultMatchingProp1 = "والدك هو";
+$langDefaultMatchingProp2 = "والدتك هي";
 $langDefaultModuleAddedComment = "هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.";
 $langDefaultModuleComment = "هذا هو نص المقدمة لهذه الوحدة، سوف يظهر في كل مسار تعليمي يحوي هذه الوحدة. لاستبداله بنصك الخاص، اضغط بالأسفل على <b>تعديل</b>.";
 $langDefaultTextInBlanks = "[البريطانيون] يعيشون في [المملكة المتحدة].";
@@ -506,14 +526,17 @@ $langEG = "مثال:";
 $langEXERCISETypeDesc = "Claroline تمرين";
 $langEdit = "تعديل";
 $langEditAnswers = "تحرير الأجوبة";
+$langEditCategory = "تحرير تصنيف";
 $langEditEvent = "تحرير حدث";
 $langEditExercise = "تحرير إعدادات التمرين";
 $langEditFeedback = "تحرير المراجعة التلقائية";
 $langEditFileContent = "تحرير مضمون الملف";
 $langEditFormat = "تنسيق التحرير للاستخدام";
 $langEditGroup = "تحرير هذه المجموعة";
+$langEditPost = "تحرير مشاركة";
 $langEditQuestion = "تحرير الأسئلة";
 $langEditSettings = "تحرير الإعدادات";
+$langEditTextZone = "تحرير النص الترحيبي في الصفحة الأساسية";
 $langEditToolList = "تحرير قائمة الأدوات";
 $langEditWork = "تعديل العمل";
 $langElRen = "تمت إعادة تسميةالعنصر";
@@ -544,8 +567,16 @@ $langErrorAssetNotFound = "لم يتم العثور على الممتلك : ";
 $langErrorCannotReadRSSFile = "خطأ : لا يمكن قراءة مصدر RSS";
 $langErrorCategoryEmpty = "لا يمكن للتصنيف أن يكون فارغا";
 $langErrorClassNotEmpty = "الصف يحتوي صفوف فرعية, قم بحذفهم أولاً";
+$langErrorCopyAttachedFile = "فشل في نسخ الملف : ";
+$langErrorCopyScormFiles = "حصل خطأ أثناء نسخ الملفات اللازمة لحزمة ال SCORM";
+$langErrorCopyingScorm = "حصل خطأ أثناء نسخ محتويات ال SCORM";
 $langErrorCourseCodeEmpty = "يجب إدخال رمز المقرر";
 $langErrorCourseTitleEmpty = "يجب إدخال اسم المقرر";
+$langErrorCreatingDirectory = "فشل في إنشاء المجلد:";
+$langErrorCreatingFile = "فشل في إنشاء الملف :";
+$langErrorCreatingFrame = "فشل في إنشاء ملف الإطارات ";
+$langErrorCreatingManifest = "فشل في إنشاء ملف imsmanifest.xml";
+$langErrorCreatingScormArchive = "فشل في إنشاء الملف المضغوط الخاص بال SCORM";
 $langErrorDepartmentEmpty = "يجب إدخال اسم القسم";
 $langErrorDepartmentURLEmpty = "عنوان URL القسم لا يمكن أن يكون فارغاً";
 $langErrorDepartmentURLWrong = "عنوان URL القسم غير صالح";
@@ -557,6 +588,8 @@ $langErrorFormatCSV = "خطاً: التنسيق الذي أعطيته غير م�
 $langErrorInvalidParms = "خطأ: قيمة وسيطية غير صالحة (استخدم الأرقام فقط)";
 $langErrorLanguageEmpty = "يجب اختيار اللغة";
 $langErrorLecturerEmpty = "يجب إدخال اسم المدرس";
+$langErrorLoadingExercise = "فشل في تحميل التمرين";
+$langErrorLoadingQuestion = "فشل في تحميل أسئلة التمرين";
 $langErrorMove = "لا يمكنك نقل المقرر للمقرر نفسه!";
 $langErrorMyOwnSettings = "لا يمكنك تغيير حالتك";
 $langErrorNameAlreadyExists = "خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات";
@@ -684,11 +717,14 @@ $langExpectedChoice = "الإجابات الصحيحة";
 $langExplainDeleteFile = "قم بالنقر على هذا المربع لحذف الملف المرفق";
 $langExplainReplaceFile = "قم بتحميل ملف جديد لاستبدال الملف";
 $langExplanation = "بمجرد النقر على زر موافق سيتم إنشاء موقع للمقرر يحوي منتدى و جدول أعمال و مدير للوثائق.. إلخ <p> تستطيع تعديل الموقع وفق رغبتك عندما تقوم بتسجيل الدخول له بالاسم الذي انشأته به";
+$langExport = "تصدير";
+$langExportTrackingCsv = "الحصول على بيانات التتبع من خلال ملف CSV";
 $langExternalToolName = "وصلة جديدة";
 $langExternalToolUrl = "URL وصلة";
 $langExtractFromLangFile = "من ملفات اللغة";
 $langExtractFromScriptFile = "من ملفات النصوص البرمجية";
 $langExtractLangVariable = "استخراج متحولات اللغة";
+$langFalse = "خاطئ";
 $langFeedback = "مراجعة";
 $langFeedbackAdded = "تم إضافة المراجعة";
 $langFeedbackEdited = "تم تحرير المراجعة";
@@ -698,7 +734,6 @@ $langFeedbackSubmit = "إرسال مراجعة";
 $langFeedbackText = "نص المراجعة";
 $langFeedbacks = "المراجعات";
 $langFieldSeparatorUsed = "الرمز المستخدم للفصل بين الحقول";
-$langFieldsRequ = "جميع الحقول مطلوبة";
 $langFileContentModified = "تم تعديل مضمون الملف";
 $langFileCreated = "تم إنشاء الملف";
 $langFileDesc = "وصف الملف";
@@ -710,14 +745,18 @@ $langFileNameMissing = "ادخل اسم الملف";
 $langFileNameOrURLMissing = "يجب ادخل اسم الملف او عنوان الوصلة URL";
 $langFileOnly = "ملف (الملف مطلوب  و يمكن إضافة شرح بشكل اختياري)";
 $langFileRequired = "الملف مطلوب";
+$langFileStructureChecker = "التحقق من بنية الملف";
 $langFiles = "قائمة الملفات";
 $langFillBlanks = "ملء الفراغات";
 $langFillCourses = "إنشاء مقررات تجريبية";
 $langFillGroups = "ملء تلقائي ";
 $langFillLists = "الرجاء ملء القائمتين أدناه";
+$langFillSelectBox = "الاختيار من قائمة منسدلة";
+$langFillTextField = "مل حقل النص";
 $langFillTheAreaToExplainTheMotivations = "اكتب شرحاً عما يحثك و يشجعك و أرسل طلبك , سيتم إرسال بريد الكتروني لمدير الموقع";
 $langFillToolCourses = "أداة ملء المقررات";
 $langFillTree = "إدخال تصانيف للمقررات";
+$langFillType = "طريقة الملء";
 $langFillUsers = "إضافة مستخدمين";
 $langFilling = "ملء بقيم تجريبية";
 $langFilter = "تصفية";
@@ -734,7 +773,11 @@ $langForContent = "<p>المنتدى أداة تهدف لإيجاد بيئة م�
 $langForce = "استقرار النظام  و عمله على الشبكات بشكل ممتاز";
 $langFormula = "مع أطيب التمنيات";
 $langForum = "المنتدى";
+$langForumCreated = "تم إنشاء المنتدى";
+$langForumDeleted = "تم حذف المنتدى";
+$langForumEmptied = "تم تفريغ المنتدى";
 $langForumGroup = "المنتدى الخاص بالمجموعة";
+$langForumUpdated = "تم تعديل المنتدى";
 $langForums = "المنتديات";
 $langFree = "مجاني";
 $langFrom = "من";
@@ -748,6 +791,7 @@ $langGiveExerciseName = "اكتب اسم التمرين";
 $langGiveQuestion = "قم بكتابة السؤال";
 $langGiveText = "قم بكتابة النص من فضلك";
 $langGlobalProgress = "نسبة التقدم في مسار التعلم : ";
+$langGo2accountCreationPage = "الانتقال لصفحة إنشاء حساب";
 $langGoBackToEx = "العودة للتمارين";
 $langGoBackToQuestionList = "العودة لقائمة الأسئلة";
 $langGoBackToQuestionPool = "العودة للأسئلة";
@@ -757,6 +801,7 @@ $langGroup = "مجموعة";
 $langGroupAllowStudentRegistration = "السماح للطلاب بالتسجيل ضمن المجموعات";
 $langGroupAlwaysPrivate = "(خاص دوماً)";
 $langGroupAssignment = "جماعي";
+$langGroupChatLink = "الدردشة الخاصة بالمجموعة";
 $langGroupContent = "<p><b>مقدمة</b></p>
 
 <p>الهدف من هذه الأداة هو إنشاء و إدارة مجموعات العمل, عند إنشاء المجموعات الجديدة تكون المجموعات فارغة و هناك عدة طرق لملء هذه المجموعات بالعناصر المناسبة :
@@ -807,6 +852,7 @@ $langGroupTooMuchMembers = "الرقم المقترح يزيد عن العدد �
 $langGroupTools = "ادوات";
 $langGroupTutor = "مشرف المجموعة";
 $langGroupUserManagement = "إدارة المجموعة";
+$langGroupWikiLink = "الويكي الخاصة بالمجموعة";
 $langGroups = "المجموعات";
 $langGroupsAdded = "تم إضافة المجموعة ( المجموعات)";
 $langGroupsDeleted = "تم حذف جميع المجموعات";
@@ -926,6 +972,7 @@ $langHumanAndPhysicalRessources = "الموارد البشرية و المادي
 $langIfNotRedirect = "إذا لم يتم التوجيه التلقائي";
 $langImport = "استيراد";
 $langImpossible = "العملية غير ممكنة";
+$langImpossibleToPromote = "من غير الممكن ترقية طالب مسجل في المجموعة ليصبح مشرف للمجموعة";
 $langIn = "في";
 $langInFrames = "ضمن إطارات";
 $langIncorrectDate = "يجب أن يكون تاريخ البدء قبل تاريخ النهاية ...";
@@ -954,6 +1001,7 @@ $langIntroWork = "هذه الأداة تسمح للمدرس بإنشاء وظا�
 
 <br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على 'إضافة مقدمة او تمهيد'<br>";
 $langInvalidId = "فشل في تسجيل الدخول<BR>إذا لم تكن مسجل استخدم  <a href=claroline/auth/inscription.php>استمارة التسجيل</a> من فضلك</font color>";
+$langInvalidIdSelfReg = "<b>فشل في تسجيل الدخول</b><br /> الرجاء المحاولة مرة ثانية<br /><small>If you haven't a user account yet, use the <a href=claroline/auth/inscription.php>registration form</a></font color></small>";
 $langInvisible = "مخفي";
 $langIs = "is";
 $langIsAlreadyRegistered = "مسجل مسبقا بالمقرر";
@@ -980,8 +1028,11 @@ $langLaunchRestoreCourseRepository = "تشغيل مسترجع مخزن المق�
 $langLearnPathDetails = "نسبة الإنجاز في مسار التعلم";
 $langLearningPath = "مسار التعليم";
 $langLearningPathAdmin = "إدارة مسار التعليم";
+$langLearningPathEmpty = "مسار التعليم فارغ";
 $langLearningPathList = "قائمة مسارات التعلم";
 $langLearningPathName = "اسم مسار التعلم الجديد : ";
+$langLearningPathNotFound = "لم يتم العثور على مسار التعليم";
+$langLegendRequiredFields = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
 $langLessAnswers = "حذف إجابة";
 $langLessElements = "حذف عنصر";
 $langLessonStatus = "حالة الوحدة";
@@ -991,6 +1042,21 @@ $langLineNumber = "رقم السطر";
 $langLineOrLines = "line(s)";
 $langLines = "الأسطر";
 $langLink = "وصلة";
+$langLinkerAdd = "إرفاق";
+$langLinkerAddNewAttachment = "إرفاق مورد موجود";
+$langLinkerAlreadyInAttachementList = " تم إرفاقه مسبقاً";
+$langLinkerAttachements = "الموراد المرفقة";
+$langLinkerCloseJpspan = "إغلاق";
+$langLinkerClosePopup = "اغلاق النوافذ المنبثقة";
+$langLinkerDelete = "حذف";
+$langLinkerExternalLink = "وصلة خارجية";
+$langLinkerMyOtherCourses = "بقية مقرراتي";
+$langLinkerPromptForUrl = "إدخال عنوان الوصلة url";
+$langLinkerPromptInvalidEmail = "عنوان بريد الكتروني غير صحيح";
+$langLinkerPromptInvalidUrl = "غير صحيحة url";
+$langLinkerPublicCourses = "المقررات المتاحة للعموم";
+$langLinkerResourceAttachment = "الموارد المرفقة : إضافة / حذف مرفقات";
+$langLinkerUntitled = "بدون عنوان";
 $langListAdmin = "قائمة المستخدمين المدراء";
 $langListAllUsers = "قائمة جميع المستخدمين";
 $langListClassUser = "المستخدمين في الصف";
@@ -1000,6 +1066,7 @@ $langListStudents = "قائمة الطلاب في هذه المجموعة";
 $langListUsers = "قائمة المستخدمين";
 $langLoadDefaultFormat = "تحميل التنسيق الافتراضي";
 $langLocation = "الموقع";
+$langLocked = "مقفول";
 $langLogin = "تسجيل الدخول";
 $langLoginRequest = "طلب تسجيل دخول";
 $langLoginWithoutAccess = "تسجيل دخول غير مستخدم";
@@ -1015,6 +1082,8 @@ $langMailSynthaxError = "خطأ في صياغة البريد الإلكترون�
 $langMailTo = "بريد الكتروني إلى : ";
 $langMailUsed = "البريد الإلكتروني مستخدم من قبل شخص آخر";
 $langMainDB = "العنوان الرئيسي";
+$langMainGroupSettings = "إعدادات المجموعة الرئيسية";
+$langMaintenance = "الصيانة";
 $langMakeCorrespond = "صنع مقابل";
 $langMakeInvisible = "إخفاء";
 $langMakeNewSearch = "بحث جديد : ";
@@ -1041,12 +1110,14 @@ $langMethodsOfEvaluationComment1 = "معلومات تفصيلية و دقيقة 
 $langMin = "أصغري : ";
 $langMinuteShort = "دقيقة";
 $langMissing = "مفقود";
+$langMissingFields = "الحقول المفقودة";
 $langMissingImagesDetected = "يوجد صور مفقودة";
 $langMissingValue = "قيمة مفقودة";
 $langModifAnn = "تعديل هذا الإعلان";
 $langModifDone = "تم تعديل المعلومات";
 $langModifUserCourseSettings = "إعدادت المقرر للمستخدم";
 $langModify = "تعديل";
+$langModifyExercise = "تعديل تمرين";
 $langModifyFormat = "تعديل التنسيق";
 $langModifyInAllExercises = "في جميع التمارين";
 $langModifyInThisExercise = "فقط في التمرين الحالي";
@@ -1099,6 +1170,7 @@ $langNewEx = "تمرين جديد";
 $langNewGroupCreate = "إنشاء مجموعة جديدة";
 $langNewGroups = "مجموعة جديدة";
 $langNewLabel = "إنشاء عنوان أو عبارة جديدة ضمن مسار التعليم هذا";
+$langNewLegend = "للدلالة على العناصر الجديدة";
 $langNewQu = "سؤال جديد";
 $langNewToOld = "الأحدث اولاً";
 $langNewTopic = "مشاركة جديدة";
@@ -1118,24 +1190,29 @@ $langNoEndDate = "لم يتم تحديد تاريخ الإغلاق";
 $langNoEventInTheAgenda = "لا يوجد أي حدث ضمن جدول الأعمال";
 $langNoEx = "لا يوجد أيت تمارين حالياً";
 $langNoFile = "- لا أحد -";
+$langNoForum = "لا يوجد منتدى";
 $langNoFunctionInThisSection = "لا يوجد توابع في هذا الامتداد";
 $langNoGroupStudents = "طلاب غير مخصصين";
+$langNoGroupsDeleted = "لم يتم حذف أي مجموعة";
 $langNoImage = "لايوجد ملفات صور";
 $langNoLearningPath = "لا يوجد مسار للتعليم";
 $langNoModule = "لا يوجد وحدة";
 $langNoMoreAttemptsAvailable = "لقد وصلت للعدد المسموح من المحاولات";
 $langNoMoreModuleToAdd = "جميع الوحدات في هذا المقرر مستخدمة ضمن مسار التعليم هذا";
 $langNoPost = "لا يوجد مشاركة";
+$langNoPostAllowed = "لا يسمح بإرسال مشاركات جديدة";
 $langNoPsychology = "في الواقع إن تعلم نظام التشغيل لينكس أصعب من بقية الأنظمة السائدة كنظام ويندوز";
 $langNoQuestion = "لا يوجد أيه اسئلة في الوقت الحالي";
 $langNoQuota = "لايوجد مساحة مخصصة";
 $langNoRegisteredCourses = "لم تقم بالتسجيل بأي مقرر ,لا يمكن عرض الحالة";
 $langNoResult = "لا يوجد نتائج";
 $langNoScore = "لا يوجد";
+$langNoScript = "لا يوجد نصوص برمجية";
 $langNoSeduction = "إن الوقت اللازم لإعداد نظام التشغيل على الحاسب لا يعبر فعلياً عن جودة و كفاءة هذا النظام";
 $langNoSpace = "فشلت عملية التحميل, لا يوجد مساحة كافية ضمن المجلد الخاص بك";
 $langNoStartAsset = "There is no start asset defined for this module.";
 $langNoTimeLimit = "الوقت غير محدود";
+$langNoUserFound = "لم يتم العثور على مستخدم";
 $langNoUserResult = "لا يوجد مستخدمين";
 $langNoVisibleAssignment = "لايوجد حالياً أية مهام او وظائف";
 $langNoVisibleSubmission = "No visible submission";
@@ -1149,6 +1226,7 @@ $langNotInstalled = "حصل خطأ أثناء الاستيراد, لم يتم ا
 $langNotRecentlyConnectedStudents = "طلاب لم يدخلوا لموقع المقرر في الفترة الأخيرة : ";
 $langNotUnregYourself = "لا تستطيع القيام بتغيير الإعدادت الخاصة بك!";
 $langNotice = "ملاحظة";
+$langNoticeInstallFolderBrowsable = "<b>ملاحظة :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server";
 $langNow = "الآن";
 $langNowGoChooseYourCourses = "يمكنك الآن اختيار المقررات التي تغرب بالوصول إليها من خلال قائمة المقررات";
 $langNowGoCreateYourCourse = "تستطيع الآن إنشاء المقرر الخاص بك";
@@ -1185,7 +1263,9 @@ $langPathContentTitle = "مضمون مسار التعلم";
 $langPathsInCourseProg = "مستوى التقدم في المقرر ";
 $langPerhaps_with_others_directory = "ربما مع مجلدات اخرى";
 $langPeriodDay = "اليوم";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "الساعة";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "الشهر";
 $langPeriodToDisplay = "الفترة";
 $langPeriodWeek = "الاسبوع";
@@ -1203,6 +1283,7 @@ $langPlatformStats = "إحصائيات الموقع";
 $langPleaseEnterMessage = "يجب ان تضع مقدمة لنص الرسالة";
 $langPleaseSelectUsers = "عليك اختيار بعض المستخدمين";
 $langPopulateTools = "Populate tools in courses";
+$langPostReply = "الرد على المشاركة";
 $langPoweredBy = "مطورة باستخدام";
 $langPrefix = "البادئة  : ";
 $langPreventLateUpload = "لا , منع المستخدمين من إرسال العمل بعد انقضاء المهلة المحددة للإرسال";
@@ -1236,6 +1317,7 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "يمكن للمستخدم ان ي
 $langQualificationsAndGoals = "المؤهلات المكتسبة و الأهداف";
 $langQualificationsAndGoalsComment1 = "ماهي أهداف التدريس ؟ ما هي المؤهلات و المعرفة التي سيكتسبها الطلاب في نهاية المقرر";
 $langQualificationsAndGoalsComment2 = "عرض للأهداف العامة و الخاصة للمقرر و ما هي المؤهلات  و الكفاءات التي يمكن الوصول لها عند تحقيق هذه الأهداف";
+$langQuantity = "الكمية";
 $langQuestion = "السؤال";
 $langQuestionAnswers = "أجوبة السؤال";
 $langQuestionDescription = "Statement";
@@ -1258,6 +1340,7 @@ $langRegStudent = "التسجيل في مقرر";
 $langRegUser = "المستخدمون المسجلون في الموقع";
 $langRegYou = "قام بتسجسلك في هذا المقرر";
 $langRegister = "تسجيل";
+$langRegisterCampusAdvice = "يرجى التاكد من إمكانية الوصول لموقع الجامعة الخاص بك من خلال الانترنت";
 $langRegisterClass = " تسجيل مقرر تعليمي";
 $langRegisterLocalUrl = "Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
@@ -1279,6 +1362,7 @@ $langRequirements = "المتطلبات";
 $langResetChat = "البدء من جديد";
 $langRestoreCourseRepository = "استرجاع مخزن المقرر";
 $langResult = "النتيجة";
+$langRetry = "إعادة المحاولة";
 $langReuse = "إعادة استخدام";
 $langRevoquationOfUser = "إلغاء ال %s %s";
 $langRidiculise = "تعلم هذا النظام أسهل بكثير من تعلم بقية انظمة التشغيل";
@@ -1299,6 +1383,10 @@ $langScoreAvg = "المعدل";
 $langScoreMax = "العلامة العظمي";
 $langScoreMin = "العلامة الأدنى";
 $langScormIntroTextForDummies = "الحزمة المستوردة يجب ان تكون ملف مضغوط بصيغة zip و تكون متوافقة مع المواصفة القياسية SCORM 1.2";
+$langScriptMissing = "نص برمجي مفقود";
+$langScriptMissingComment = "يجب عليك إعداد النصوص البرمجية التالية ليعمل النظام بشكل صحيح";
+$langScriptNotInArchive = "نصوص برمجية غير موجودة في برنامج Claroline";
+$langScriptNotInArchiveComment = "يمكنك حذف هذه التعليمات البرمجية من السيرفر الخاص بك";
 $langSearch = "بحث";
 $langSearchAgain = "البحث مجدداً (بحث متقدم)";
 $langSearchCourse = "البحث عن مقرر";
@@ -1335,16 +1423,21 @@ $langStartDate = "تاريخ البدء";
 $langStartModule = "بدء الوحدة";
 $langStatDB = "قاعدة بيانات التتبع";
 $langStatistics = "إحصائيات";
+$langStatsByQuestion = "الإحصائيات حسب السؤال";
+$langStatsByUser = "الإحصائيات حسب المستخدم";
 $langStatsOfCampus = "إحصائيات الجامعة";
 $langStatsOfCourse = "الإحصائيات الخاصة بمقرر ";
 $langStatsOfExercise = "إحصائيات تمرين";
+$langStatsOfExerciseAttempt = "الإحصائيات حول عدد المحاولات لحل التمرين";
 $langStatsOfLearnPath = "إحصائيات";
+$langStatsOfQuestion = "إحصائيات سؤال";
 $langStatsOfUser = "إحصائيات مستخدم";
 $langStatus = "عمل";
 $langStatusChangeNotMade = "لم يتم تطبيق أي تعديل";
 $langStepNOfN = "الخطوة %d من %d";
 $langStoreChat = "حفظ الدردشة";
 $langStudent = "طالب";
+$langStudentQty = "عدد. الطلاب";
 $langStudents = "طلاب";
 $langStudentsNotInThisGroups = "المستخدمون الذين لا ينتمون لهذه المجموعة";
 $langSubTitleChangeParent = "تغيير التصنيف الأب ل";
@@ -1371,6 +1464,7 @@ $langSupportsComment2 = "Presentation of the support of course.  Presentation of
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTake = "انتقاء";
 $langTargetFac = "اسم الكلية أو القسم او المدرسة التي يتم دراسة المقرر فيها";
+$langTeacherQty = "عدد. المدرسين";
 $langTeachers = "الاساتذة";
 $langTeachingTrainingActivities = "أنشطة التدريس و التدريب";
 $langTeachingTrainingActivitiesComment1 = "What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?";
@@ -1411,7 +1505,9 @@ $langTotalPlatformLogin = "الكلي";
 $langTotalTimeSpent = "إجمالي الوقت";
 $langTrackAllPath = "تتبع مسارات التعلم";
 $langTrackAllPathExplanation = "مستوى التقدم لجميع المستخدمين ضمن مسارت التعلم";
+$langTrackExerciseError = "التفاصيل قد تكون غير صحيحةبسبب تغير بعض الاسئلة بين هذه المحاولة و الأن";
 $langTrackForumUsage = "استخدام المنتدى";
+$langTrackNotEnoughAttempts = "يجب ان تصل لعدد المحاولات الأعظم المسموح حتى تتمكن من مشاهدة هذه الإحصائيات";
 $langTrackTotalPosts = "عدد الردود التي أرسلها";
 $langTrackTotalTopics = "مواضيع قام بكتابتها";
 $langTracking = "تتبع";
@@ -1421,16 +1517,27 @@ $langTranslationStatistics = "مستوى التقدم في عملية الترج
 $langTranslationTools = "ادوات الترجمة";
 $langTranslations = "الترجمة";
 $langTrue = "صحيح";
+$langTrueFalse = "صح/خطأ";
 $langTypeOfModule = "نوع الوحدة";
 $langTypeTextBelow = "اكتب النص من فضلك";
 $langURL = "URL : ";
 $langUnableAddExternalTool = "فشل في إضافة الأداة الخارجية";
 $langUnableChangedTool = "Unable to change tool access";
+$langUnableCreateCategory = "فشل في إنشاء تصنيف";
+$langUnableCreateForum = "فشل في إنشاء منتدى";
+$langUnableDeleteCategory = "فشل في حذف تصنيف";
 $langUnableDeleteExternalTool = "فشل في حذف الأداة الخارجية";
+$langUnableDeleteForum = "فشل في حذف منتدى";
+$langUnableDeleteGroupCategoryForum = "تصنيف منتديات المجموعات لا يمكن حذفه";
 $langUnableDescToAdd = "فشل في إضافة الوصف";
 $langUnableToAdd = "فشل في إضافة الحدث لجدول الأعمال";
 $langUnableToDelete = "فشل في حذف الحدث من جدول الأعمال";
+$langUnableToEmptyForum = "فشل في تفريغ منتدى";
+$langUnableToEnrollInCourse = "فشل أثناء محاولة تسجيلك في المقرر";
+$langUnableToRemoveCourseRegistration = "فشل أثناء محاولة إلغاء تسجيلك في المقرر";
 $langUnableToUpdate = "فشل في تحديث الحدث ضمن جدول الأعمال";
+$langUnableToUpdateCategory = "فشل في تعديل التصنيف";
+$langUnableToUpdateForum = "فشل في تعديل المنتدى";
 $langUnableUpdateExternalTool = "فشل في تحديث الأداة الخارجية";
 $langUnamedModule = "وحدة بدون اسم";
 $langUnamedPath = "مسار بدون اسم";
@@ -1441,6 +1548,7 @@ $langUniqueSelect = "عدة اختيارات (جواب وحيد)";
 $langUnkownSOAPError = "حصل خطأ أثناء الاتصال بموقع Claroline.net";
 $langUnlimitedAttempts = "عدد غير محدود للمحاولات";
 $langUnreg = "إلغاء التسجيل";
+$langUnregisterAllStudents = "إلغاء تسجيل جميع الطلاب";
 $langUnsubscribe = "مستخدم غير مسجل";
 $langUnsubscribeClass = "إلغاء التسجيل في الصف";
 $langUntil = "إلى";
@@ -1526,6 +1634,7 @@ $langUserNotUnsubscribedFromCourse = "خطأ ! لا تستطيع إلغاء تس
 $langUserNumber = "العدد";
 $langUserOneByOneExplanation = "سيتم إرسال بريد الكتروني لهذا الطالب يحوي الاسم مع كلمة السر";
 $langUserRegisteredClass = "تم تسجيله بنجاح في الصف";
+$langUserRegisteredToCourse = "الطلاب المسجلون في المقرر";
 $langUserSettings = "إعدادت المستخدم";
 $langUserStatus = "المنزلة";
 $langUserSubscribed = "تم تسجيل المستخدم بنجاح";
@@ -1552,6 +1661,134 @@ $langVisible = "مرئي";
 $langVisits = "الزيارات";
 $langWeightingForEachBlank = "حدد درجة الأهمية لكل فراغ";
 $langWiki = "Wiki";
+$langWikiAccessControl = "إدارة التحكم بالوصول";
+$langWikiAccessControlText = "تستطيع تحديد إمكانيات الوصول للمستخدمين من خلال الجدول التالي : ";
+$langWikiAllPages = "جميع الصفحات";
+$langWikiBackToPage = "العودة للصفحة";
+$langWikiConflictHowTo = "<p><strong>تحرير التعارض</strong> :يبدو أن الصفحة التي تحاول حفظها قد تم تعديلها<br /> <br />
+ماذا تريد ان تفعل الأن ؟<ul>
+<li> يمكنك نسخ/لصق التعديلات التي قمت بها لبرنامج محرر النصوص و من ثم النقر على تحرير أخر نسخة من أجل إضافة التعديلات التي قمن بها على أخر نسخة للصفحة</li>
+<li> يمكنك أيضاً النقر على زر إلغاء لإلغاء التعديلات التي قمت بها </li></ul></p>";
+$langWikiContentEmpty = "هذه الصفحة فارغة , انقر على 'تحرير هذه الصفحة' لإضافة محتوى الصفحة";
+$langWikiCourseMembers = "أعضاء المقرر";
+$langWikiCreateNewWiki = "إنشاء ويكي جديدة";
+$langWikiCreatePrivilege = "إنشاء صفحات";
+$langWikiCreationSucceed = "تم إنشاء الويكي بنجاح";
+$langWikiDefaultDescription = "اكتب وصف للويكي الخاصة بك هنا";
+$langWikiDefaultTitle = "ويكي جديدة";
+$langWikiDeleteWiki = "حذف ويكي";
+$langWikiDeleteWikiWarning = "تحذير : سيتم حذف هذه الويكي و جميع محتوياتها هل تريد المتابعة بعملية الحذف ؟";
+$langWikiDeletionSucceed = "تم حذف الويكي بنجاح";
+$langWikiDescription = "وصف الويكي";
+$langWikiDescriptionForm = "وصف الويكي";
+$langWikiDescriptionFormText = "يمكنك  وضع عنوان او وصف للويكي :";
+$langWikiDiffAddedLine = "الأسطر المضافة";
+$langWikiDiffDeletedLine = "سطر محذوف";
+$langWikiDiffMovedLine = "سطر انتقل من مكان لأخر";
+$langWikiDiffUnchangedLine = "سطر غير متغير";
+$langWikiDifferenceKeys = "المفاتيح :";
+$langWikiDifferencePattern = "الاختلافات بين الإصدار  %1\$s المعدل من قبل %2\$s  و الإصدار %3\$s المعدل من قبل %4\$s";
+$langWikiDifferenceTitle = "الاختلافات :";
+$langWikiEditConflict = "تحرير التعارض";
+$langWikiEditLastVersion = "تحرير النسخة الأخيرة";
+$langWikiEditPage = "تحرير هذه الصفحة";
+$langWikiEditPrivilege = "تحرير الصفحات";
+$langWikiEditProperties = "تحرير الخصائص";
+$langWikiEditionSucceed = "تم تحرير الويكي بنجاح";
+$langWikiGroupMembers = "أعضاء المجموعة";
+$langWikiHelpAdminContent = "<h3>Wiki administration help</h3>
+<dl class=\"wikiHelp\">
+<dt>How to create a new Wiki ?</dt>
+<dd>Click on the link 'Create a new Wiki'. Then enter the properties of the Wiki :
+<ul>
+<li><b>Title of the Wiki</b> : choose a title for the Wiki</li>
+<li><b>Description of the Wiki</b> : choose a description for the Wiki</li>
+<li><b>Access control management</b> : set the access ontrol of the Wiki by checking/uncheking the box (see below)</li>
+</ul>
+</dd>
+<dt>How to enter a Wiki ?</dt>
+<dd>Click on the title of the Wiki in the list.</dd>
+<dt>How to change the properties of a Wiki ?</dt>
+<dd>Click on the icon in the 'Properties' column in the Wiki list to go to the Wiki properties form.</dd>
+<dt>How to use the Access control management options ?</dt>
+<dd>You can set the access rights for users by checking/unchecking the box in the 'Access control management' section of Wiki properties.
+ You can grant/ungrant access to three types of users :<ul>
+<li><b>Course members</b> : users enroll to the course (except the course managers)</li>
+<li><b>Group members</b> (only available whithin a group) : users which are members of the group (expect the group's tutors)</li>
+<li><b>Other users</b> : anonymous users or users which are not course members</li></ul>
+For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
+<li><b>Read pages</b> : the user of the given type can read the pages of the Wiki</li>
+<li><b>Edit pages</b> : the user of the given type can modify the content of th pages of the Wiki</li>
+<li><b>Create pages</b> : the user of the given type can create new pages in the Wiki</li>
+</ul><small><em>(*) Note that if a user cannot read the pages of a Wiki, he cannot edit or modify them. Note that if a user cannot edit the pages of a Wiki, he cannot create new pages.</em></small></dd>
+<dt>How to delete a Wiki ?</dt>
+<dd>Click on the icon in the 'Delete' column to delete a Wiki and all its pages.</dd>
+<dt>How to get the list of the pages in a Wiki ?</dt>
+<dd>Click on the number of pages of this Wiki in the Wiki list.</dd>
+<dt>How to get the list of the last modified pages in a Wiki ?</dt>
+<dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
+</dl>";
+$langWikiHelpSyntax = "Wiki الصيغ المستخدمة لكتابة ";
+$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+<dl class=\"wikiHelp\">
+<dt>Creating wiki pages and links between them</dt>
+<dd><ul>
+<li><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</li>
+<li><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[page title|link text]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[WikiWord|text]</code>.</li>
+</ul></dd>
+<dt>Block elements</dt>
+<dd><ul><li>Add a new line between each line <em>of the same type</em>.&nbsp;;</li>
+<li><strong>Paragraph</strong> : type some text and a new line&nbsp;;</li>
+<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
+<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
+<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
+<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
+<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
+</ul></dd>
+<dt>Inline elements</dt>
+<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
+<li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
+<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
+<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
+<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
+<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
+<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (center).&nbsp;;</li>
+<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
+<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
+<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
+<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
+<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
+</ul></dd>
+</dl>";
+$langWikiIdenticalContent = "المحتويات متطابقة<br />لم يتم حفظ أي تغيرات";
+$langWikiInvalidWikiId = "رقم ويكي غير صحيح";
+$langWikiList = "قائمة بالويكي";
+$langWikiMainPage = "الصفحة الرئيسية";
+$langWikiMainPageContent = "هذه هي الصفحة الرئيسية للويكي %s , انقر على تحرير من أجل تعديل محتوياتها";
+$langWikiNoWiki = "لا يوجد ويكي";
+$langWikiNotAllowedToCreate = "غير مسموح لك إنشاء صفحات جديدة";
+$langWikiNotAllowedToEdit = "غير مسموح لك تعديل هذه الصفحة";
+$langWikiNotAllowedToRead = "لا يسمح لك بقراءة هذه الصفحة";
+$langWikiNumberOfPages = "عدد الصفحات";
+$langWikiOtherUsers = "أخرون (*)";
+$langWikiOtherUsersText = "(*) مستخدمون مجهولون , المستخدمون ممن ليسوا أعضاء ضمن المقرر";
+$langWikiPageHistory = "تاريخ الصفحة";
+$langWikiPageSaved = "تم حفظ الصفحة";
+$langWikiPreviewTitle = "معاينة : ";
+$langWikiPreviewWarning = "تحذير: هذه الصفحة للمعاينة فقط , لم يتم حفظ التغييرات التي قم بها , لا تنسى الضغط على زر حفظ الموجود في أسفل الصفحة للقيام بعملية الحفظ";
+$langWikiProperties = "الخصائص";
+$langWikiReadPrivilege = "الصفحات المقروءة";
+$langWikiRecentChanges = "التغييرات الأخيرة";
+$langWikiRecentChangesPattern = "%1\$s تم تعديلها بتاريخ %2\$s من قبل %3\$s";
+$langWikiShowDifferences = "عرض الاختلافات";
+$langWikiTitle = "عنوان الويكي";
+$langWikiTitleEdit = "الويكي : تحرير الخصائص";
+$langWikiTitleNew = "الويكي : إنشاء ويكي جديدة";
+$langWikiTitlePattern = "الويكي : %s";
+$langWikiVersionInfoPattern = "(النسخة %1\$s تم تعديلها من قبل %2\$s)";
+$langWikiVersionPattern = "%1\$s من قبل %2\$s";
 $langWork = "واجبات و مهام";
 $langWorkAuthors = "المؤلفون";
 $langWorkTitle = "عنوان العمل";
@@ -1577,12 +1814,14 @@ $langYourTime = "قمت بتنفذ التمرين خلال :";
 $langYourTotalScore = "عدد الكلي للنقاط التي حصلت عليها هو";
 $langZipNoPhp = "لا يسمح لك بان تحمل ملف مضغوط يحوي ضمنه ملف من نوع PHP";
 $lang_EditFile_ModifyOk = "تم تطبيق التعديلات بنجاح";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "هذا المستخدم مسجل بالمقرر من قبل";
 $lang_add_user_list = "إضافة قائمة مستخدمين";
 $lang_already_enrolled = "مسجل مسبقاً";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "هل أنت متاكد انك ترغب بإزالة هذا المقرر من  القائمة الخاصة بك؟";
 $lang_back_to_my_personnal_course_list = "العودة لقائمة المقررات الخاصة بي";
 $lang_back_to_parent_category = "العودة للتصنيف الأب";
 $lang_click_here = "انقر هنا";
+$lang_completeUserInfoOfUser = "Complete userInfo of user";
 $lang_course_enrollment = "المقررات الخاصة بالطالب";
 $lang_do_you_want_to_continue = "هل تريد المتابعة؟";
 $lang_enroll = "تسجيل";
@@ -1617,8 +1856,14 @@ $lang_no_course_available_fitting_this_keyword = "لا يوجد أي مقرر م
 $lang_no_error_in_file_found = "لم يتم العثور على أخطاء ضمن الملف";
 $lang_or_search_from_keyword = "البحث عن";
 $lang_p_ErrorOnBuild_S_for_S = "خطأ في بناء ال <em>%s</em> من اجل <B>%s</B>";
+$lang_p_FeedOf_s = "Rss feed for %s";
+$lang_p_FillCourses = "ملء %s ب  %s";
+$lang_p_IfNothingHappendClickHere = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
+$lang_p_aCategoryWouldBeSelected = "عليك اختيار تصنيف , إذا كان التصنيق غير موجود قم بمراسلة مدير الموقع";
+$lang_p_category_s_created = "تم إنشاء التصنيف %s ";
 $lang_p_config_file_creation = "إنشاء ملف الإعدادات:<BR> %s";
+$lang_p_d_StudentUnregistredFormCours = "%d طالب تم إلغاء تسجيلهم من المقرر";
 $lang_p_d_course = "%2d المقرر";
 $lang_p_d_course_manager = "%2d الاستاذ ";
 $lang_p_d_course_managers = "%2d الاستاذة ";
@@ -1627,16 +1872,21 @@ $lang_p_d_course_members = "%2d أعضاء";
 $lang_p_d_courses = "%2d مقررات";
 $lang_p_d_student = "%2d طالب";
 $lang_p_d_students = "%2d طلاب";
+$lang_p_forum_s_created = "المنتدى %s تم إنشاؤه";
 $lang_p_nothing_to_edit_in_S = "لا يوجد ما يمكن تعديله في  %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
+$lang_p_post_s_created = "المشاركة %s تم إنشاؤها";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> تم تسجيله في المقرر بنجاح";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> لم يتم تسجيله في المقرر بنجاح";
+$lang_p_topic_s_created = "الموضوع %s تم غنشاؤه";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "يجب ان يتم التحقق من شرعية حسابك %s";
 $lang_php_info = "PHP معلومات لغة البرمجة";
 $lang_remove_course_enrollment = "إلغاء التسجيل في مقرر";
 $lang_remove_course_from_your_personnal_course_list = "إزالة المقرر من قائمة المقررات الخاصة بك";
 $lang_select_course_in = "اختر مقرر تعليمي في ";
 $lang_select_course_in_search_results = "اختر المقرر من نتيجة البحث";
 $lang_the_following_errors_were_found = "تم العثور على الأخطاء التالية ";
+$lang_toolsToFill = "الأدوات التي يتم نشرها";
 $lang_unsubscribe = "إلغاء الاشتراك";
 $lang_user_has_been_enrolled_to_the_course = "تم تسجيل المستخدم في المقرر";
 $lang_you_had_request = "سؤالك";

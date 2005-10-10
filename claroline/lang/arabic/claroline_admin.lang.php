@@ -36,6 +36,7 @@ $langCampusRemoved = "<strong>تمت الإزالة</strong><p>تمت إزالة
 $langCampusSubmitted = "<strong>تم الإرسال</strong><p>بانتظار التحقق من قبل فريق Claroline.net .</p>";
 $langCancel = "إلغاء";
 $langCannotBeBlank = "لا يمكن ان يكون اسم الصف غير محدد";
+$langCannotUnsubscribeLastCourseManager = "لا يمكنك إلغاء تسجيل أخر مدير ضمن المقرر";
 $langCategories = "التصنيفات";
 $langCategory = "التصنيف";
 $langChangePwdexp = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
@@ -72,6 +73,8 @@ $langCourseDelete = "تم حذف المقرر بنجاح";
 $langCourseHome = "صفحة المقرر";
 $langCourseList = "قائمة المقررات";
 $langCourseManager = "مدير المقرر";
+$langCourseManagerCannotUnsubscribeHimself = "لا يستطيع مدير المقرر ان يقوم بإلغاء تسجيل نفسه";
+$langCourseNotFound = "لم يتم العثور على المقرر";
 $langCourseSettings = "خصائص و إعدادات المقرر";
 $langCourseTitle = "اسم المقرر التعليمي";
 $langCourseWithoutAccess = "المقررات التي لم يتم استخدامها";
@@ -130,6 +133,7 @@ $langLast7Days = "أخر 7 أيام";
 $langLastName = "الكنية";
 $langLastname = "الكنية";
 $langLearningPath = "مسار التعليم";
+$langLegendRequiredFields = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
 $langListClassUser = "المستخدمين في الصف";
 $langListUsers = "قائمة المستخدمين";
 $langLocation = "الموقع";
@@ -169,6 +173,7 @@ $langNoUserResult = "لا يوجد مستخدمين";
 $langNormalUser = "عادي";
 $langNotAllowed = "غير مسموح";
 $langNotUnregYourself = "لا تستطيع القيام بتغيير الإعدادت الخاصة بك!";
+$langNoticeInstallFolderBrowsable = "<b>ملاحظة :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server";
 $langNumero = "لا";
 $langOfficialCode = "الرقم  او الرمز الإداري";
 $langOk = "موافق";
@@ -179,7 +184,9 @@ $langPassTooEasy = "كلمة السر هذه بسيطة جداً, استخدم �
 $langPassTwice = "لقد ادخلت كلمتي سر مختلفتين";
 $langPassword = "كلمة السر";
 $langPeriodDay = "اليوم";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "الساعة";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "الشهر";
 $langPeriodToDisplay = "الفترة";
 $langPeriodYear = "السنة";
@@ -204,6 +211,7 @@ $langRegAdmin = "إنشاء مواقع للمقررات";
 $langRegStudent = "التسجيل في مقرر";
 $langRegYou = "قام بتسجسلك في هذا المقرر";
 $langRegister = "تسجيل";
+$langRegisterCampusAdvice = "يرجى التاكد من إمكانية الوصول لموقع الجامعة الخاص بك من خلال الانترنت";
 $langRegisterLocalUrl = "Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
 Check the value of 'Web base' in your Claroline configuration.";
@@ -260,6 +268,7 @@ $langTrackingDisabled = "تم إيقاف عملية المتابعة من قبل
 $langTrafficDetails = "تفاصيل الدخول للموقع";
 $langTranslationTools = "ادوات الترجمة";
 $langURL = "URL : ";
+$langUnableDeleteCategory = "فشل في حذف تصنيف";
 $langUnkownSOAPError = "حصل خطأ أثناء الاتصال بموقع Claroline.net";
 $langUnsubscribe = "مستخدم غير مسجل";
 $langUnsubscribeClass = "إلغاء التسجيل في الصف";

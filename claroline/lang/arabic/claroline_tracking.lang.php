@@ -16,6 +16,7 @@ $langAnswer = "الجواب";
 $langAssignment = "وظيفة/مهمة";
 $langAttempts = "المحاولات";
 $langBack = "للخلف";
+$langCannotSeeExerciseDetails = "عرض تفاصيل الإجابات غير مسموح";
 $langChat = "دردشة";
 $langChoice = "إجابتك";
 $langClose = "إغلاق";
@@ -66,6 +67,7 @@ $langExercisesDetails = "نتائج التمارين";
 $langExercisesResults = "نتائج التمارين التي تم تنفيذها";
 $langExercisesTitleExerciseColumn = "تمرين";
 $langExpectedChoice = "الإجابات الصحيحة";
+$langExportTrackingCsv = "الحصول على بيانات التتبع من خلال ملف CSV";
 $langFirstName = "الاسم";
 $langForums = "المنتديات";
 $langFrom = "من";
@@ -129,7 +131,9 @@ $langNotRecentlyConnectedStudents = "طلاب لم يدخلوا لموقع ال�
 $langOk = "موافق";
 $langOtherCourses = "قائمة المقررات";
 $langPeriodDay = "اليوم";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "الساعة";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "الشهر";
 $langPeriodToDisplay = "الفترة";
 $langPeriodWeek = "الاسبوع";
@@ -153,9 +157,13 @@ $langShowAll = "إظهار الكل";
 $langShowNone = "إخفاء الكل";
 $langSize = "الحجم";
 $langStatistics = "إحصائيات";
+$langStatsByQuestion = "الإحصائيات حسب السؤال";
+$langStatsByUser = "الإحصائيات حسب المستخدم";
 $langStatsOfCourse = "الإحصائيات الخاصة بمقرر ";
 $langStatsOfExercise = "إحصائيات تمرين";
+$langStatsOfExerciseAttempt = "الإحصائيات حول عدد المحاولات لحل التمرين";
 $langStatsOfLearnPath = "إحصائيات";
+$langStatsOfQuestion = "إحصائيات سؤال";
 $langStatsOfUser = "إحصائيات مستخدم";
 $langStudent = "طالب";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
@@ -174,7 +182,9 @@ $langTotal = "الكلي";
 $langTotalTimeSpent = "إجمالي الوقت";
 $langTrackAllPath = "تتبع مسارات التعلم";
 $langTrackAllPathExplanation = "مستوى التقدم لجميع المستخدمين ضمن مسارت التعلم";
+$langTrackExerciseError = "التفاصيل قد تكون غير صحيحةبسبب تغير بعض الاسئلة بين هذه المحاولة و الأن";
 $langTrackForumUsage = "استخدام المنتدى";
+$langTrackNotEnoughAttempts = "يجب ان تصل لعدد المحاولات الأعظم المسموح حتى تتمكن من مشاهدة هذه الإحصائيات";
 $langTrackTotalPosts = "عدد الردود التي أرسلها";
 $langTrackTotalTopics = "مواضيع قام بكتابتها";
 $langTrackingDisabled = "تم إيقاف عملية المتابعة من قبل مدير النظام";

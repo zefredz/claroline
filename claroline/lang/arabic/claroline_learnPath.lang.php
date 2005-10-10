@@ -62,9 +62,19 @@ $langDocumentAsModule = "استخدام وثيقة";
 $langDocumentInModule = "مستند في وحدة";
 $langEXERCISETypeDesc = "Claroline تمرين";
 $langErrorAssetNotFound = "لم يتم العثور على الممتلك : ";
+$langErrorCopyAttachedFile = "فشل في نسخ الملف : ";
+$langErrorCopyScormFiles = "حصل خطأ أثناء نسخ الملفات اللازمة لحزمة ال SCORM";
+$langErrorCopyingScorm = "حصل خطأ أثناء نسخ محتويات ال SCORM";
+$langErrorCreatingDirectory = "فشل في إنشاء المجلد:";
+$langErrorCreatingFile = "فشل في إنشاء الملف :";
+$langErrorCreatingFrame = "فشل في إنشاء ملف الإطارات ";
+$langErrorCreatingManifest = "فشل في إنشاء ملف imsmanifest.xml";
+$langErrorCreatingScormArchive = "فشل في إنشاء الملف المضغوط الخاص بال SCORM";
 $langErrorEmptyName = "يجب إكمال الاسم";
 $langErrorFileMustBeZip = "يجب ان يكون الملف من نمط الملفات المضغوطة (.zip)";
 $langErrorInvalidParms = "خطأ: قيمة وسيطية غير صالحة (استخدم الأرقام فقط)";
+$langErrorLoadingExercise = "فشل في تحميل التمرين";
+$langErrorLoadingQuestion = "فشل في تحميل أسئلة التمرين";
 $langErrorNameAlreadyExists = "خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات";
 $langErrorNoModuleInPackage = "لا يوجد وحدة في الحزمة";
 $langErrorNoZlibExtension = "التوسيعة Zlib للـ PHP مطلوبة لاستخدام هذه الأداة. الرجاء الاتصال بمدير منصتك.";
@@ -82,6 +92,7 @@ $langExercise = "تمرين";
 $langExerciseAsModule = "استخدام تمرين";
 $langExerciseInModule = "تمرين في الوحدة";
 $langExercises = "التمارين";
+$langExport = "تصدير";
 $langFileError = "الملف الذي تحاول تحميله غير صحيح";
 $langFileName = "اسم الملف";
 $langForums = "المنتديات";
@@ -100,8 +111,10 @@ $langIntroLearningPath = "استخدم هذه الأداة لتزويد  الط�
 $langLastSessionTimeSpent = "وقت أخر جلسة ";
 $langLearningPath = "مسار التعليم";
 $langLearningPathAdmin = "إدارة مسار التعليم";
+$langLearningPathEmpty = "مسار التعليم فارغ";
 $langLearningPathList = "قائمة مسارات التعلم";
 $langLearningPathName = "اسم مسار التعلم الجديد : ";
+$langLearningPathNotFound = "لم يتم العثور على مسار التعليم";
 $langLessonStatus = "حالة الوحدة";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
@@ -146,6 +159,8 @@ $langOrder = "الترتيب";
 $langOtherCourses = "قائمة المقررات";
 $langPathContentTitle = "مضمون مسار التعلم";
 $langPathsInCourseProg = "مستوى التقدم في المقرر ";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPersoValue = "القيم";
 $langPlatformAdministration = "الإدارة";
 $langPoweredBy = "مطورة باستخدام";

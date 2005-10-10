@@ -11,9 +11,11 @@ $langBackToClass = "العودة للمقرر";
 $langBackToCourseList = "العودة لقائمة المقرر";
 $langBackToUserSettings = "العودة لإعدادات المستخدم";
 $langCancel = "إلغاء";
+$langCannotUnsubscribeLastCourseManager = "لا يمكنك إلغاء تسجيل أخر مدير ضمن المقرر";
 $langCategories = "التصنيفات";
 $langChangePwdexp = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
 $langChat = "دردشة";
+$langChooseACourseToAccessThisPage = "اختر المقرر الذي يسمح له بالوصول لهذه الصفحة";
 $langCodeUsed = "هذا الرمز الإداري مستخدم من قبل طالب أخر";
 $langComment = "ملاحظة";
 $langConfirmation = "تأكيد كلمة السر";
@@ -22,8 +24,10 @@ $langCourse = "المقرر";
 $langCourseHome = "صفحة المقرر";
 $langCourseList = "قائمة المقررات";
 $langCourseManager = "مدير المقرر";
+$langCourseManagerCannotUnsubscribeHimself = "لا يستطيع مدير المقرر ان يقوم بإلغاء تسجيل نفسه";
 $langCourseManagerStatusToUser = "حالة من أنشأ المقرر ل %s %s";
 $langCreate = "إنشاء";
+$langCreate1stAccountOnPlatform = "قم أولاً بإضافة حساب مستخدم ضمن الموقع";
 $langCreateUserAccount = "تسجيل حساب جديد";
 $langDay_of_weekNames = "مصفوفة";
 $langDear = "عزيزي";
@@ -31,6 +35,7 @@ $langDelImage = "إزالة الصورة";
 $langDeleteMyAccount = "حذف الحساب الخاص بي";
 $langDescriptionCours = "وصف المقرر التعليمي";
 $langDocument = "وثائق و وصلات";
+$langEditTextZone = "تحرير النص الترحيبي في الصفحة الأساسية";
 $langEmail = "البريد الالكتروني";
 $langEmailAddressNotFound = "لا يوجد حساب مستخدم مطابق لعنوان البريد الالكتروني ";
 $langEmailNotSent = "لم يتمكن النظام من إرسال بريد إلكتروني إليك.<br>رجاء اتصل بـ";
@@ -46,14 +51,18 @@ $langFillTheAreaToExplainTheMotivations = "اكتب شرحاً عما يحثك �
 $langFirstname = "الاسم";
 $langFormula = "مع أطيب التمنيات";
 $langForums = "المنتديات";
+$langGo2accountCreationPage = "الانتقال لصفحة إنشاء حساب";
 $langGroupTutor = "مشرف المجموعة";
 $langGroups = "المجموعات";
 $langHelp = "المساعدة";
 $langHome = "العودة للصفحة الأساسية";
+$langInvalidIdSelfReg = "<b>فشل في تسجيل الدخول</b><br /> الرجاء المحاولة مرة ثانية<br /><small>If you haven't a user account yet, use the <a href=claroline/auth/inscription.php>registration form</a></font color></small>";
 $langIs = "is";
 $langLastname = "الكنية";
 $langLearningPath = "مسار التعليم";
+$langLegendRequiredFields = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
 $langLink = "وصلة";
+$langLocked = "مقفول";
 $langLogin = "تسجيل الدخول";
 $langLoginRequest = "طلب تسجيل دخول";
 $langLogout = "خروج";
@@ -80,6 +89,8 @@ $langPassTooEasy = "كلمة السر هذه بسيطة جداً, استخدم �
 $langPassTwice = "لقد ادخلت كلمتي سر مختلفتين";
 $langPassword = "كلمة السر";
 $langPasswordHasBeenEmailed = "تم إرسال كلمة السر الخاصة بك إلى ";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPersonalCourseList = "قائمة المقررات الشخصية";
 $langPhone = "رقم الهاتف";
 $langPlatformAdministration = "الإدارة";
@@ -106,6 +117,8 @@ $langSwitchEditorToTextConfirm = "This command is going to remove the current te
 $langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
 $langTextEditorEnable = "تشغيل محرر النصوص المتقدم";
 $langTo = "إلى";
+$langUnableToEnrollInCourse = "فشل أثناء محاولة تسجيلك في المقرر";
+$langUnableToRemoveCourseRegistration = "فشل أثناء محاولة إلغاء تسجيلك في المقرر";
 $langUpdateImage = "تغيير الصورة";
 $langUser = "مستخدم";
 $langUserIsPlaformAdmin = "هو مدير الموقع";
@@ -122,6 +135,7 @@ $langYourAccountParam = "كلمة السر الخاصة بك لتسجيل الد
 $langYourReg = "تم تسجيلك في اليوم الموافق ل ";
 $langYourRequestToBeCourseManagerIsSent = "طلبك بان تصبح قادراً على إنشاء مواقع المقررات تم إرساله لمدير النظام";
 $langYourRequestToRemoveYourAccountIsSent = "تم إرسال طلبك بإزالة حسابك";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "هذا المستخدم مسجل بالمقرر من قبل";
 $lang_already_enrolled = "مسجل مسبقاً";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "هل أنت متاكد انك ترغب بإزالة هذا المقرر من  القائمة الخاصة بك؟";
 $lang_back_to_my_personnal_course_list = "العودة لقائمة المقررات الخاصة بي";

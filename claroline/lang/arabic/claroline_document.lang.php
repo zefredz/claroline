@@ -7,6 +7,8 @@ $langAreYouSureToDelete = "سيتم الحذف هل أنت متأكد؟";
 $langBackToEditor = "العودة لمحرر النصوص";
 $langCancel = "إلغاء";
 $langChat = "دردشة";
+$langClickToZoomIn = "انقر للتكبير";
+$langClickToZoomOut = "انقر للتصغير";
 $langComMod = "تم تعديل الملاحظة";
 $langCopy = "نسخ";
 $langCourseHome = "صفحة المقرر";
@@ -63,6 +65,8 @@ $langNoSpace = "فشلت عملية التحميل, لا يوجد مساحة ك�
 $langNotice = "ملاحظة";
 $langOk = "موافق";
 $langOtherCourses = "قائمة المقررات";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPlatformAdministration = "الإدارة";
 $langPoweredBy = "مطورة باستخدام";
 $langPublish = "نشر";

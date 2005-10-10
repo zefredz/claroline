@@ -27,6 +27,7 @@ $langBackToUsersList = "العودة لقائمة المستخدمين";
 $langBlankSpace = "(فراغ)";
 $langCSVSeeUserList = "استعراض قائمة المستخدمين";
 $langCancel = "إلغاء";
+$langCannotUnsubscribeLastCourseManager = "لا يمكنك إلغاء تسجيل أخر مدير ضمن المقرر";
 $langChangePwdexp = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
 $langChat = "دردشة";
 $langClass = "الصفوف";
@@ -36,10 +37,12 @@ $langCodeUsed = "هذا الرمز الإداري مستخدم من قبل طا�
 $langComment = "ملاحظة";
 $langConfirmEnrollClassToCourse = "هل أنت متاكد انك تريد تسجيل كامل طلاب الصف في المقرر ?";
 $langConfirmation = "تأكيد كلمة السر";
+$langContinue = "متابعة";
 $langCopy = "نسخ";
 $langCourseAdministratorOnly = "مدير المقرر فقط";
 $langCourseHome = "صفحة المقرر";
 $langCourseManager = "مدير المقرر";
+$langCourseManagerCannotUnsubscribeHimself = "لا يستطيع مدير المقرر ان يقوم بإلغاء تسجيل نفسه";
 $langCreate = "إنشاء";
 $langDay_of_weekNames = "مصفوفة";
 $langDear = "عزيزي";
@@ -70,12 +73,14 @@ $langGroups = "المجموعات";
 $langHasBeenEnrolled = "تم تسجيله";
 $langHeading = "الترويسة";
 $langHelp = "المساعدة";
+$langImpossibleToPromote = "من غير الممكن ترقية طالب مسجل في المجموعة ليصبح مشرف للمجموعة";
 $langIs = "is";
 $langIsAlreadyRegistered = "مسجل مسبقا بالمقرر";
 $langIsNowRegistered = "أصبح الأن مسجلاً في المقرر";
 $langLastName = "الكنية";
 $langLastname = "الكنية";
 $langLearningPath = "مسار التعليم";
+$langLegendRequiredFields = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
 $langLine = "السطر";
 $langLineNumber = "رقم السطر";
 $langLineOrLines = "line(s)";
@@ -102,6 +107,7 @@ $langName = "الاسم";
 $langNameOfLang = "مصفوفة";
 $langNewUsersIn = "مستخدمون انضموا للموقع مؤخرأ: ";
 $langNo = "لا";
+$langNoUserFound = "لم يتم العثور على مستخدم";
 $langNone = "بدون";
 $langNotAllowed = "غير مسموح";
 $langOfficialCode = "الرقم  او الرمز الإداري";
@@ -114,6 +120,8 @@ $langPassTooEasy = "كلمة السر هذه بسيطة جداً, استخدم �
 $langPassTwice = "لقد ادخلت كلمتي سر مختلفتين";
 $langPassword = "كلمة السر";
 $langPasswordSimple = "كلمة السر التي أدخلتها بسيطة جداً او أنها مشابهة لاسم المستخدم";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
 $langPersonalCourseList = "قائمة المقررات الشخصية";
 $langPhone = "رقم الهاتف";
 $langPlatformAdministration = "الإدارة";
@@ -142,7 +150,9 @@ $langTheU = "المستخدم";
 $langTo = "إلى";
 $langTopLevel = "المستوى الاعلى";
 $langTracking = "تتبع";
+$langUnableToEnrollInCourse = "فشل أثناء محاولة تسجيلك في المقرر";
 $langUnreg = "إلغاء التسجيل";
+$langUnregisterAllStudents = "إلغاء تسجيل جميع الطلاب";
 $langUpdateImage = "تغيير الصورة";
 $langUseFollowingFormat = " استخدم التنسيق التالي : ";
 $langUseFormatDefined = "استخدم التنسيق المعرف في السطر الأول من الملف";
@@ -152,6 +162,7 @@ $langUserName = "اسم المستخدم";
 $langUserNotUnsubscribedFromCourse = "خطأ ! لا تستطيع إلغاء تسجيل مدير المقرر";
 $langUserNumber = "العدد";
 $langUserOneByOneExplanation = "سيتم إرسال بريد الكتروني لهذا الطالب يحوي الاسم مع كلمة السر";
+$langUserRegisteredToCourse = "الطلاب المسجلون في المقرر";
 $langUserTaken = "هذا الاسم محجوز من قبل شخص آخر";
 $langUserUnsubscribedFromCourse = "قام المستخدم بإلغاء تسجيله في المقرر بنجاح";
 $langUserid = "رقم المستخدم";
@@ -173,6 +184,7 @@ $lang_fields_enclosed_by = "حقول البيانات محاطة برمز";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "إذا اخترت المتابعة سيتم تجاهل الأسطر التي تحوي أخطاء";
 $lang_no_error_in_file_found = "لم يتم العثور على أخطاء ضمن الملف";
+$lang_p_d_StudentUnregistredFormCours = "%d طالب تم إلغاء تسجيلهم من المقرر";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> تم تسجيله في المقرر بنجاح";
 $lang_the_following_errors_were_found = "تم العثور على الأخطاء التالية ";
