@@ -1102,7 +1102,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
  * @author Christophe Gesché <moosh@claroline.net>
  */
 
-function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse, $uidCreator, $visibility, $registrationAllowed, $enrollmentKey, $expirationDate, $extLinkName, $extLinkUrl)
+function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse='', $uidCreator, $visibility, $registrationAllowed, $enrollmentKey='', $expirationDate='', $extLinkName='', $extLinkUrl='')
 {
     global $langProfessor, $includePath, $versionDb, $clarolineVersion;
 
@@ -1110,25 +1110,25 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     $tbl_course      = $tblList['course'         ];
     $tbl_course_user = $tblList['rel_course_user'];
 
+    // Needed parameters
     if ($courseSysCode    == '') return claro_failure::set_failure('courseSysCode is missing');
     if ($courseScreenCode == '') return claro_failure::set_failure('courseScreenCode is missing');
     if ($courseDbName     == '') return claro_failure::set_failure('courseDbName is missing');
     if ($courseRepository == '') return claro_failure::set_failure('course Repository is missing');
     if ($uidCreator       == '') return claro_failure::set_failure('uidCreator is missing');
 
-    if ($languageCourse == '') $languageCourse = 'english';
-    if ($expirationDate == '') $expirationDate = 'NULL';
-    else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
-
     if     ( ! $visibility && ! $registrationAllowed) $visibilityState = 0;
     elseif ( ! $visibility &&   $registrationAllowed) $visibilityState = 1;
     elseif (   $visibility && ! $registrationAllowed) $visibilityState = 3;
     elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
 
-    if( file_exists($includePath . '/currentVersion.inc.php') )
-    {
-        include ($includePath . '/currentVersion.inc.php');
-    }
+    // optionnal parameters
+    if ($languageCourse == '') $languageCourse = 'english';
+    if ($expirationDate == '') $expirationDate = 'NULL';
+    else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
+
+    $currenVersionFilePath = $includePath . '/currentVersion.inc.php';
+    file_exists($currenVersionFilePath) && require $includePath . '/currentVersion.inc.php';
 
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code              = '" . addslashes($courseSysCode)    . "',
@@ -1157,9 +1157,9 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     $sql = "INSERT INTO `" . $tbl_course_user . "`
             SET code_cours     = '" . $courseSysCode . "',
                 user_id = '" . (int) $uidCreator."',
-                statut  = '1',
+                statut  = 1,
                 role    = '" . addslashes( $langProfessor ) . "',
-                tutor   = '1'";
+                tutor   = 1";
 
     if ( claro_sql_query($sql) == false) return false;
 
