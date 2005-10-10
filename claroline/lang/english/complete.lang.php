@@ -2032,4 +2032,5 @@ $langMessageEnrollToCourseNotAllowed = "Enroll to course not allowed";
 $langConfirmDeleteThisGroup = "Are you sure to delete this group ?";
 $langNotSaved = "Unable to save";
 $langEnrollmentKey = "enrolment key";
+$langGroupsNotEmptied = "Unable to empty groups";
 ?>
