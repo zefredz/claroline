@@ -1,4 +1,5 @@
 <?php
+$langAddCommentOptionnal = "Добави коментар(незадълж.) :";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langAreYouSureToDelete = "Сигурен ли сте, че искате да изтриете ";
@@ -23,18 +24,21 @@ $langGroups = "Групи";
 $langHelp = "Помощ";
 $langImpossible = "Операцията невъзможна";
 $langIn = "в";
+$langLearningPath = "Обучаваща пътека";
 $langLogout = "Изход";
 $langManager = "Администратор";
 $langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMove = "Премести";
+$langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langNameDir = "Име на новата директория";
 $langNameOfLang = "Array";
 $langNoSpace = "Качването неуспешно. Няма достатъчно свободно място в директорията";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
+$langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langPublish = "Публикувай";
 $langRename = "Промени името";
@@ -51,4 +55,5 @@ $langViMod = "Видимостта променена";
 $langVisibility = "Видим/Невидим";
 $langWork = "Студентски материали";
 $langZipNoPhp = "Zip архивът не бива да съдържа PHP файлове";
+$lang_p_platformManager = "Администратор на %s";
 ?>

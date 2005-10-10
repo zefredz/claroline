@@ -1,5 +1,8 @@
 <?php
+$langAdmin = "Админ";
+$langAdministration = "Администрация";
 $langAgenda = "График";
+$langAll = "Всички";
 $langAnnouncement = "Обяви";
 $langCancel = "Анулирай";
 $langChat = "Чат";
@@ -12,19 +15,23 @@ $langExercises = "Упражнения";
 $langForums = "Форуми";
 $langGroups = "Групи";
 $langHelp = "Помощ";
+$langLearningPath = "Обучаваща пътека";
 $langLogout = "Изход";
 $langManager = "Администратор";
 $langMissing = "липсващи";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
+$langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
+$langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langStudent = "студент";
 $langTo = "в";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
+$lang_p_platformManager = "Администратор на %s";
 ?>

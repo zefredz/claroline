@@ -1,4 +1,5 @@
 <?php
+$langAdministration = "Администрация";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langBackHomeOf = "Обратно към началната страница на ";
@@ -24,17 +25,20 @@ $langHasDel = "е изтрит";
 $langHelp = "Помощ";
 $langHome = "Обратно към началната страница";
 $langLanguage = "Език";
+$langLearningPath = "Обучаваща пътека";
 $langLogout = "Изход";
 $langManager = "Администратор";
 $langModifDone = "Информацията е променена";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
+$langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNo = "Не";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
+$langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langPrivateAccess = "Частен достъп - курсът е достъпен само за вече регистрирани потребители <a href=../user/user.php>Списък с потребителите</a>)";
 $langProfessors = "Преподаватели";
@@ -46,4 +50,5 @@ $langTo = "в";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
 $langYes = "Да";
+$lang_p_platformManager = "Администратор на %s";
 ?>

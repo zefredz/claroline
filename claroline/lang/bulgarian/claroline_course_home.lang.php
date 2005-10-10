@@ -1,5 +1,6 @@
 <?php
 $langActivate = "Активирай";
+$langAddExternalTool = "Добави външна връзка";
 $langAddIntro = "Добави увод";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
@@ -15,16 +16,20 @@ $langForums = "Форуми";
 $langGroups = "Групи";
 $langHelp = "Помощ";
 $langHome = "Обратно към началната страница";
+$langLearningPath = "Обучаваща пътека";
 $langLogout = "Изход";
 $langManager = "Администратор";
 $langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
+$langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
+$langNewLegend = "означава нови елементи";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
+$langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langStatistics = "Статистики";
 $langStudent = "студент";
@@ -32,4 +37,5 @@ $langTools = "Инструменти";
 $langUsers = "Потребители";
 $langVisibility = "Видим/Невидим";
 $langWork = "Студентски материали";
+$lang_p_platformManager = "Администратор на %s";
 ?>

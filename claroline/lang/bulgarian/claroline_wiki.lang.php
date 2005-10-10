@@ -1,5 +1,8 @@
 <?php
+$langAction = "Действие";
+$langAddImage = "Include picture";
 $langAddress = "Адресът на ";
+$langAdministrator = "Администратор";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langCancel = "Анулирай";
@@ -22,10 +25,12 @@ $langGroupTutor = "Преподавател";
 $langGroups = "Групи";
 $langHelp = "Помощ";
 $langIs = "е";
+$langLearningPath = "Обучаваща пътека";
 $langLogout = "Изход";
 $langManager = "Администратор";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
+$langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNo = "Не";
@@ -35,6 +40,8 @@ $langOneResp = "Един от администраторите на курса";
 $langOtherCourses = "Списък на курсовете";
 $langPassTooEasy = "тази парола е прекалено проста. Използвай парола като тази ";
 $langPassTwice = "Написали сте две различни пароли. Използвайте Back бутона на вашия браузер и опитайте отново.";
+$langPassword = "Парола";
+$langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langProblem = "При проблеми моля свържете се с";
 $langRegAdmin = "Желая да създам нов курс";
@@ -52,4 +59,5 @@ $langWork = "Студентски материали";
 $langYes = "Да";
 $langYouAreReg = "Вие сте регистриран";
 $langYourReg = "Вашата регистрация";
+$lang_p_platformManager = "Администратор на %s";
 ?>

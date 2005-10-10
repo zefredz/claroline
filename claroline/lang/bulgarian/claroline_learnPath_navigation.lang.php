@@ -1,6 +1,11 @@
 <?php
 $langAddComment = "Довави/промени коментар за";
+$langAddModule = "Добави";
+$langAddModulesButton = "Добави модул(и)";
+$langAddOneModuleButton = "Добави модул";
 $langAgenda = "График";
+$langAltDocument = "Документ";
+$langAltExercise = "Упражнение";
 $langAnnouncement = "Обяви";
 $langBack = "Назад";
 $langChat = "Чат";
@@ -13,20 +18,24 @@ $langExercises = "Упражнения";
 $langForums = "Форуми";
 $langGroups = "Групи";
 $langHelp = "Помощ";
+$langLearningPath = "Обучаваща пътека";
 $langLogout = "Изход";
 $langManager = "Администратор";
 $langModify = "Промени";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
+$langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langNameOfLang = "Array";
 $langNoEx = "В момента няма упражнения";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
+$langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langSize = "Размер";
 $langStudent = "студент";
 $langUp = "Нагоре";
 $langUsers = "Потребители";
 $langWork = "Студентски материали";
+$lang_p_platformManager = "Администратор на %s";
 ?>
