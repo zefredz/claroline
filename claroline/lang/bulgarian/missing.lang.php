@@ -1,4 +1,18 @@
 <?php 
+$l_delete = "Delete this Post";
+$l_indextitle = "Forum Index";
+$l_notify = "Notify by email when replies are posted";
+$l_notifybody = "You are receiving this Email because a new message in one of your favourite topics
+ on our forums has been added, and
+you selected to be notified on this event.
+You may view the topic at:
+%1\$s
+Or view the forum index at
+%2\$s
+Thank you for using our forums.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_notopics = "There are no topics for this forum. You can post one.";
+$l_topicreview = "Topic Review";
 $langAccessExplain = "(When an user open the index of the campus)";
 $langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
 $langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
@@ -10,6 +24,7 @@ $langAddedExternalTool = "External Tool added.";
 $langAddedToCampus = " has been added to the campus";
 $langAddedToCampusAndClass = " has been added to the campus and to the class";
 $langAddedToCampusAndCourse = " has been added to the campus and to the course";
+$langAdmitError = "Admit one's own errors to invite one's interlocutor to do the same.";
 $langAdvanced = "Advanced";
 $langAgendaNextEvents = "Agenda next events";
 $langAlertBlockingMakedInvisible = "This module is blocked.
@@ -113,6 +128,28 @@ $langChooseACourseToAccessThisPage = "Choose a course to access this page.";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "Please choose a good answer";
 $langChooseGoodAnswers = "Please choose one or more good answers";
+$langClarContent = "Here, lecturers and assistants create and administer
+ courses websites. Students read (documents, agenda, information) and,
+ sometimes, do exercises, publish papers, participate in
+ forum discussions...</p><b>Registration</b><p>The following instructions
+ only apply if your version of claroline allows self-registration (some sites
+ register you automatically). <br>If you are a Student, you
+ just need to register selecting 'Follow courses (student)', then choose
+ the courses you would like to follow.</p><p>If you are a Lecturer or an
+ Assistant, register too, but select 'Create courses (lecturer)'. You will
+ then have to fill a form with Course Code, Faculty and Course Title. Once
+ this is validated, you will be directed to the site you have just created and
+ allowed to modify its content and organisation according to your
+ requirements. </p><p>The 'To do' option is to allow feedback to your claroline website administrators.
+ Things that you might post here include faults or suggestions for improvements. The 'To do'
+ list is linked to on the Home Page of the campus (once
+ logged in).</p>
+<p>The support forum is different. It connects all Claroline users worldwide.
+If you don't find the answer to a question inside your claroline campus and environment,
+post a message there.</p>
+<p>The link to Registration (if present) is on the Home Page of the campus
+ (top right).</p><b>Login</b><p>On your next visit, type login/password
+ and Ok to access your courses. The URL of the site is";
 $langClarolineNetNews = "Claroline.net news";
 $langClass = "Classes";
 $langClassMembers = "Class members";
@@ -142,6 +179,7 @@ $langConfirmEnrollClassToCourse = "Are you sure you want to enrol the whole clas
 $langConfirmYourChoice = "Please confirm your choice";
 $langContent = "Content";
 $langContinue = "Continue";
+$langContradiction = "Use the Principle of Non Contradiction to force one's interlocutor into a dead end.";
 $langCorrespondsTo = "Corresponds to";
 $langCountCours = "Number of courses";
 $langCountCourseByFaculte = "Number of courses by faculty";
@@ -196,6 +234,7 @@ $langCurrentStatus = "Current registration status : <br /> <br />
 ";
 $langCurrentTime = "Current time";
 $langDBConnectionParameters = "Mysql connection parameters";
+$langDBHost = "Database Host";
 $langDBSettingNamesIntro = "
 The installer is going to create the main Claroline databases.
 If you are limited by your database system administrator to use
@@ -242,6 +281,199 @@ $langDevTools = "Devel Tools";
 $langDisable = "Disable";
 $langDiskUsage = "Disk Usage";
 $langDispClassAdded = "Display the class added";
+$langDocContent = "<p>The Documents tool is similar to the File Manager of
+ your desktop computer.</p><p>You can upload files of any type (HTML, Word,
+ Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
+ must be that your students have the corresponding software to read them.
+ Some file types can contain viruses, it is your responsibilty not to
+ upload virus contaminated files. It is a worthwhile precaution to check
+ documents with antivirus software before uploading them.</p>
+<hr />
+<h4>View modes</h4>
+The Claroline document has 2 view mode
+<ul>
+<li>File list (default)</li>
+<li>Thumbnail</li>
+</ul>
+You can switch between 'file list' and 'thumbnail' mode simply by clicking on
+the 'File list | Thumbnails' commands  on the right in the directory toolbar.
+<h4>The image viewer</h4>
+<ul>
+<li>Open the Image Viewer simply by clicking on the name of an image file in the File List mode
+or on an image thumbnails in the Thumbnails Mode</li>
+<li>Go to next or previous image y clicking on its name or its thumbnails
+in the Image Viewer toolbar</li>
+<li>Close the Image Viewer simply by clicking either on 'Thumbnails' or on 'File List' on the right
+in the directory toolbar</li>
+</ul>
+<h4>Search a ressource</h4>
+<ul>
+<li>
+Click on the 'Search command' in the upper side of your browser windows.
+</li>
+<li>
+Enter your search patter. You can use '*' and '?' wildcards for complex research.
+</li>
+<li>
+Click on the 'OK' button.
+</li>
+<li>
+The search result wil be displayed just beside the directory toolbar.
+</li>
+</ul>
+<hr />
+<h4>Managing documents</h4>
+This tool has a collection of commands allowing you to upload, edit and
+organize your file ressources.
+</hr />
+<h4>Upload a document</h4>
+<ul>
+<li>
+Click on the 'Upload file' command in the upper left.
+</li>
+<li>
+Select the file on your computer using the 'Browse' button in the dialog box.
+</li>
+<li>
+Optionnaly, you can attach a comment to this document. It will be displayed
+just below the document line.
+<blockquote><small>
+<i>Note</i> If you upload a file collection gathered in archive file in <i>ZIP</i> format,
+check the 'uncompress zipped (.zip) file on the server' option to extract them
+automatically once the archive is uploaded in your course repositoy on the server.
+</small></blockquote>
+</li>
+<li>
+Launch the upload by clicking on the 'Upload' button.
+</li>
+</ul>
+<h4>Create an hyperlink</h4>
+<ul>
+<li>
+Click on the 'create hyperlink' command  in the upper side of your browser windows.
+</li>
+<li>
+Fill the 'Name' field with a specific name to this hyperlink;
+</li>
+<li>
+Type the complete URL of the hyperlink
+(example : http://my.domain/my/file.htm).
+</li>
+<li>
+Optionnaly, you can attach a comment to this hyperlink.
+It will be displayed just below the hyperlink line.
+</li>
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<h4>Create an HTML document on line</h4>
+<ul>
+<li> Click on the 'Create document' command in the upper side of your browser windows.
+</li>
+<li>
+Fill appearing 'Document name' field with a a name for this document.
+</li>
+<li>
+Enter the document content in the 'Document content' area.
+</li>
+<li>
+Click on the 'OK' button once finished.
+</li>
+</ul>
+<p>
+This command can be used for writing short documents. To write
+longer texts we recommend you to use a more suitable tool on your personal
+computer.
+</p>
+<h4>Rename a document, a directory or a hyperlink</h4>
+<ul>
+<li>Click on the icon in the 'Edit' column.
+</li>
+<li>
+Type the new name in the field in the upper side of your browser window.
+</li>
+<li>
+Optionally, you can also add or modify a comment attached to this document.
+It will be displayed just below the document line.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<p>
+<b>Tip. </b>
+Documents are presented in alphabetical order. If you want to present them in a
+different order, number them: 01, 02, 03...
+</p>
+<h4>Delete a document, a directory or a hyperlink</h4>
+<ul>
+<li>
+Click on the icon beside the document in the 'Delete' column.</li>
+</ul>
+<h4>
+Make a document, a directory or a hyperlink invisible to students
+</h4>
+<ul>
+<li>
+Click on the icon beside the document in the 'Visible/invisible' column.
+</li>
+<li>
+The element still exists but it is not visible by students anymore.
+</li>
+<li>
+To make it invisible back again, click once more on the icon beside the document
+in the 'Visible/invisible' column.
+</li>
+</ul>
+<h4>
+Add or modify a comment to a document, a directory or a hyperlink
+</h4>
+<ul>
+<li>
+Click on the icon beside the document in the 'edit' column.
+</li>
+<li>
+Type new comment in the corresponding field.
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<p>
+To delete a comment, click on the icon beside the document in the 'Edit' column,
+delete the old comment in the field and click on the 'OK' button.
+<h4>Create a directory</h4>
+<ul>
+<li>Click on the 'Create directory' command in the upper side of your browser window.
+</li>
+<li>
+Type the name of your new directory in the corresponding field (top left).
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<h4>
+Move a document a directory or a hyperlink
+</h4>
+<ul>
+<li>
+Click on on the icon beside the concernent element in the 'Move' column.
+</li>
+<li>
+Choose the directory into which you want to move the element in
+the corresponding scrolling menu (top left)
+<br />Note: the word 'root' means you cannot go higher than that level in the
+document tree of the server).
+</li>
+<li>
+Validate by clicking on the 'OK' button.
+</li>
+</ul>
+<center>
+<p>";
 $langDocInsertedAsModule = "has been added as module";
 $langDocumentAlreadyUsed = "This document is already used as a module in this learning path";
 $langDocumentAsModule = "Use a document";
@@ -510,10 +742,54 @@ $langGoToUserSettings = "Go to user settings";
 $langGroupAlwaysPrivate = "(always private)";
 $langGroupAssignment = "Groups (from groups tool, only group members can post)";
 $langGroupChatLink = "Chat of the group";
+$langGroupContent = "<p><b>Introduction</b></p>
+<p>This tool allows to create and manage work groups.
+At creation (Create groups), groups are emtpy. There are
+many ways to fill them:
+<ul><li>automatically ('Fill groups'),</li>
+<li>manually ('Edit'),</li>
+<li>self-registration by students (Groups settings: 'Self registration allowed...').</li>
+</ul>
+These three ways can be combined. You can, for instance, ask students to self-register first.
+Then discover that some of them didn't and decide then to fill groups automatically in
+order to complete them. You can also edit each group to compose membership one student
+at a time after or before self-registration and/or automatical filling.</p>
+<p>Group filling, whether automatical or manual, works only if there are already students
+registered in the course (don't mix registration to the course with registration into groups).
+Students list is visible in <b>Users</b> tool. </p><hr noshade size=1>
+<p><b>Create groups</b></p>
+<p>To create new groups, click on 'Create new group(s)' and determine number of groups to
+create. Maximum number of members is optional but we suggest to chose one. If you leave max. field
+unchanged, groups size maximum will be infinite.</p><hr noshade size=1>
+<p><b>Group settings</b></p>
+<p>You can determine Group settings globally (for all groups).
+<b>Students are allowed to self-register in groups</b>:
+<p>You create empty groups, students self-register.
+If you have defined a maximum number, full groups do not accept new members.
+This method is good for teachers who do not know the list of students when
+creating groups.</p>
+<b>Tools</b>:</p>
+<p>Every group possesses either a forum (private or public) or a Documents area
+(a shared file manager) or (most frequently) both.</p>
+<hr noshade size=1>
+<p><b>Manual edit</b></p>
+<p>Once groups are created (Create groups), you see at bottom of page, a list of groups
+with a series of information and functions
+<ul><li><b>Edit</b> to modify manually Group name, description, tutor,
+members list.</li>
+<li><b>Delete</b> deletes a group.</li></ul>
+<hr noshade size=1>";
 $langGroupLimit = "Limit";
+$langGroupSpace = "Group area";
+$langGroupSpaceLink = "Group area";
+$langGroupThisSpace = "Area for this group";
 $langGroupWikiLink = "Wiki of the group";
 $langGroupsNotEmptied = "Unable to empty groups";
+$langHClar = "Start Help";
+$langHDoc = "Help Documents";
 $langHExercise = "Help exercises";
+$langHHome = "Help Home Page";
+$langHUser = "Help Users";
 $langHasBeenEnrolled = "has been enrolled";
 $langHeading = "Heading";
 $langHelpAssignment = "Help assignment";
@@ -573,6 +849,7 @@ The list of publications related to the user and the assignment can be view by c
 </li>
 </ul>
 ";
+$langHelpGroups = "Help groups";
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Here you can modify the content of the text zones displayed on the platform home page.";
 $langHigh_resources = "high resources";
 $langHits = "Hits";
@@ -786,6 +1063,7 @@ $langNoVisibleAssignment = "There is no assignment at the moment.";
 $langNoVisibleSubmission = "No visible submission";
 $langNomPageAddHtPass = "Admin users management";
 $langNormalUser = "Normal";
+$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor's ignorance means showing the contradictory conclusions which lead from his premises.";
 $langNotGroupMember = "You are not a member of this groups";
 $langNotInstalled = "An error occured.  Learning Path import failed.";
 $langNotRecentlyConnectedStudents = "Not recently connected students : ";
@@ -890,6 +1168,7 @@ $langRestoreCourseRepository = "Restore course repository";
 $langRetry = "retry";
 $langReuse = "Reuse";
 $langRevoquationOfUser = "Revocation of %s %s";
+$langRidiculise = "Ridiculise one's interlocutor in order to have him concede he is wrong.";
 $langRoot = "root";
 $langSCORMTypeDesc = "SCORM 1.2 conformable content";
 $langSDK = "SDK";
@@ -1068,6 +1347,57 @@ $langUsedInSeveralPath = "This exercise is used in one or more learning path. If
 $langUser = "User";
 $langUserAccessDetails = "User access details";
 $langUserAlreadyInClass = "User already in class";
+$langUserContent = "<p>The 'Users' tool displays user informations in a digest table. Here is below the column descriptions resumed.
+<ul>
+<li>
+<b>Name</b>. By clicking on the user name you can see additional informations concerning this user, like e-mail etc.
+</li>
+<li>
+<b>Roles</b>.
+Roles have no computer related function. They do not give rights on
+operating the system. They just indicate to humans who is who. You can
+modify them by clicking on the icon in the 'Edit' column, then typing whatever
+you want: lecturer, assistant, student, visitor, expert...
+</li>
+<li>
+<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can
+modify this status by clicking on the icon in the 'Edit' column.
+</li>
+<li>
+<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can
+modify this status by clicking on the icon in the 'Edit' column.
+</li>
+<li>
+<b>Edit</b> (restricted to course manager). This commands allows course managers to edit user informations related to this course. Course managers are not allowed to modify personal user information like e-mail, name etc, only the data directly related to the course ,like role, tutor status, course manager status, etc. With this command, course managers are also able to create new headings dedicated only this course (see the 'define headings' button in the user details page). Once headings are defined,each student will be able to fill them.
+</li>
+<li>
+<b>Unregister</b> (restricted to course manager). This command allows course manager to remove a user from their course. It doesn't mean the user account don't exist anymore, but only that this account is not enrolled to this course.
+</li>
+</ul>
+<h4>
+Main commands
+</h4>
+<ul>
+<li>
+<b>Add a user</b>. Click on this command to add a user for this course, fill the fields and validate. The person will receive an e-mail telling them they have been registered him/her and telling or reminding them of their login and password.
+</li>
+<li><b>Add a list of users</b></li> Click on this command to add in a list of several users with a file in CSV format.
+</li>
+<li>
+<b>Subscribe a class</b>. Click on this command to add a collection of users gathered by classes predefined by the platform administrator.
+</li>
+<li>
+<b>Group management</b>. Allows to go directly to the group management tool.
+</li>
+</ul>
+<h4>Tips</h4>
+<p>
+To allow an assistant, for instance, to co-admin the site, you need to register him in the course or be sure he is already registered, then click on 'modify' under 'admin rights', then click 'all', then 'Ok'. Co-chairman
+</p>
+<p>
+To mention in the header of the course web site the name of a co-chairman, use the tool 'Modify course information' (orange tools). This modification does not register your co-chairman as a user of the course. The field 'Lecturers' is completely independent of the Users list.
+Add a user
+</p>";
 $langUserCourseList = "User's course list";
 $langUserCreated = "The new user has been sucessfully created";
 $langUserDelete = "Deletion of the user was done sucessfully";
