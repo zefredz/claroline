@@ -38,7 +38,6 @@ $tlabelReq = 'CLGRP___';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 
-
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 include_once $includePath . '/lib/group.lib.inc.php' ;
@@ -217,9 +216,9 @@ if ( $is_allowedToManage )
         }
         elseif(0 < (int)$_REQUEST['id'])
         {
-                /*----------------------
-                    DELETE ONE GROUP
-                  ----------------------*/
+            /*----------------------
+                DELETE ONE GROUP
+             ----------------------*/
 
             $nbGroupDeleted = delete_groups( (int) $_REQUEST['id']);
 
@@ -241,14 +240,17 @@ if ( $is_allowedToManage )
     elseif ( $cmd == 'exEmptyGroup' )
     {
 
-        $sql = "DELETE FROM `" . $tbl_GroupsUsers . "`";
-        $result  = claro_sql_query($sql);
+        if (empty_group())
+        {
+            event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
+            $message = $langGroupsEmptied;
+        }
+        else
+        {
+            echo claro_failure::get_last_failure();
+            $message = $langGroupsNotEmptied;
+        }
 
-        $sql = "UPDATE `" . $tbl_Groups . "` SET tutor='0'";
-        $result2 = claro_sql_query($sql);
-
-        event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
-        $message = $langGroupsEmptied;
     }
 
     /*-----------------
@@ -341,7 +343,7 @@ if ( $is_allowedToManage )
         $cidReset = TRUE;
         $cidReq   = $_cid;
 
-        include($includePath .'/claro_init_local.inc.php');
+        include $includePath . '/claro_init_local.inc.php';
 
         $isGroupRegAllowed = $_groupProperties['registrationAllowed']
                              && (
@@ -368,30 +370,24 @@ if ( $is_allowedToManage )
 if ($display == DISP_GROUP_LIST)
 {
 
-$sql = "SELECT `g`.`id`              AS id,
-               `g`.`name`            AS name,
-               `g`.`maxStudent`      AS maxStudent,
-               `g`.`secretDirectory` AS secretDirectory,
-               `g`.`tutor`           AS id_tutor,
-               `g`.`description`     AS description,
+    $sql = "SELECT `g`.`id`              AS id,
+                   `g`.`name`            AS name,
+                   `g`.`maxStudent`      AS maxStudent,
+                   `g`.`secretDirectory` AS secretDirectory,
+                   `g`.`tutor`           AS id_tutor,
+                   `g`.`description`     AS description,
 
-               `ug`.`user`        AS is_member
-                ,COUNT(`ug2`.`id`) AS nbMember
-
-               #,`tutor`.user_id    AS user_id
-               #,`tutor`.`nom`      AS nom
-               #,`tutor`.`prenom`   AS prenom
-               #,`tutor`.`username` AS username
-               #,`tutor`.`email`    AS email
+                   `ug`.`user`        AS is_member
+                    ,COUNT(`ug2`.`id`) AS nbMember
 
           FROM `" . $tbl_Groups . "` `g`
 
           # retrieve the tutor id
-          LEFT JOIN  `" . $tbl_user . "` `tutor`
+          LEFT JOIN  `" . $tbl_user . "` AS `tutor`
           ON `tutor`.`user_id` = `g`.`tutor`
 
           # retrieve the user group(s)
-          LEFT JOIN `" . $tbl_GroupsUsers . "` `ug`
+          LEFT JOIN `" . $tbl_GroupsUsers . "` AS `ug`
           ON `ug`.`team` = `g`.`id` AND `ug`.`user` = " . (int) $_uid . "
 
           # count the registered users in each group
@@ -401,16 +397,16 @@ $sql = "SELECT `g`.`id`              AS id,
           GROUP BY `g`.`id`
           ORDER BY UPPER(g.name)";
 
-$groupList = claro_sql_query_fetch_all($sql);
+    $groupList = claro_sql_query_fetch_all($sql);
 
 
 
 
-$htmlHeadXtra[] =
-'<script type="text/javascript">
+    $htmlHeadXtra[] =
+    '<script type="text/javascript">
 
-function confirmationEmpty ()
-{
+    function confirmationEmpty ()
+    {
         if (confirm(\'' . clean_str_for_javascript($langConfirmEmptyGroups)  . '\'))
         {
             return true;
@@ -419,10 +415,10 @@ function confirmationEmpty ()
         {
             return false;
         }
-};
+    };
 
-function confirmationDelete ()
-{
+    function confirmationDelete ()
+    {
         if (confirm(\'' . clean_str_for_javascript($langConfirmDeleteGroups) . '\'))
         {
             return true;
@@ -431,10 +427,10 @@ function confirmationDelete ()
         {
             return false;
         }
-};
+    };
 
-function confirmationDeleteThisGroup (name)
-{
+    function confirmationDeleteThisGroup (name)
+    {
         if (confirm(\'' . clean_str_for_javascript($langConfirmDeleteThisGroup) . ' \\n\' + name ))
         {
             return true;
@@ -443,10 +439,10 @@ function confirmationDeleteThisGroup (name)
         {
             return false;
         }
-};
+    };
 
-function confirmationFill ()
-{
+    function confirmationFill ()
+    {
         if (confirm(\'' . clean_str_for_javascript($langFillGroups) . '\'))
         {
             return true;
@@ -455,9 +451,9 @@ function confirmationFill ()
         {
             return false;
         }
-};
+    };
 
-</script>'."\n";
+    </script>'."\n";
 }
 
 $htmlHeadXtra[] =
@@ -588,7 +584,8 @@ if ( $is_allowedToManage ) // only for course administrator
 }
 
 echo '</tr>' . "\n"
-.     '<tbody>' . "\n";
+.    '<tbody>' . "\n"
+;
 
 //////////////////////////////////////////////////////////////////////////////
 $totalRegistered = 0;
@@ -607,7 +604,6 @@ else $modified_groups = array();
 
 foreach ($groupList as $thisGroup)
 {
-
     // COLUMN 1 - NAME OF GROUP + If open LINK.
 
     echo '<tr align="center">' . "\n"
