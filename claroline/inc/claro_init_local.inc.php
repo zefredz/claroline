@@ -97,21 +97,23 @@
  * string  $_course['categoryCode']
  * string  $_course['categoryName']
  *
+ * PROPERTIES IN ALL GROUPS OF THE COURSE
+ *
  * boolean $_groupProperties ['registrationAllowed']
  * boolean $_groupProperties ['private'            ]
  * int     $_groupProperties ['nbGroupPerUser'     ]
  * boolean $_groupProperties ['tools'] ['forum'    ]
  * boolean $_groupProperties ['tools'] ['document' ]
  * boolean $_groupProperties ['tools'] ['wiki'     ]
- * boolean $_groupProperties ['tools'] ['chat'   ]
+ * boolean $_groupProperties ['tools'] ['chat'     ]
  *
+ * REL COURSE USER VARIABLES
  * string  $_courseUser['role']
  * boolean $is_courseMember
  * boolean $is_courseTutor
  * boolean $is_courseAdmin
  *
- *
- * GROUP VARIABLES
+ * REL COURSE GROUP VARIABLES
  *
  * int     $_gid (the group id)
  *
@@ -137,6 +139,7 @@
  * string $_courseTool['icon'          ]
  * string $_courseTool['access_manager']
  *
+ * REL USER TOOL COURSE VARIABLES
  * boolean $is_toolAllowed
  *
  * LIST OF THE TOOLS AVAILABLE FOR THE CURRENT USER
@@ -145,7 +148,7 @@
  * string  $_courseToolList[]['label'         ]
  * string  $_courseToolList[]['name'          ]
  * string  $_courseToolList[]['access'        ]
- * sting   $_courseToolList[]['icon'          ]
+ * string  $_courseToolList[]['icon'          ]
  * string  $_courseToolList[]['access_manager']
  * string  $_courseToolList[]['url'           ]
  *
@@ -965,7 +968,7 @@ if ($uidReset || $cidReset)
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl
 
-               LEFT JOIN `".$tbl_tool."` pct
+               LEFT JOIN `" . $tbl_tool . "` pct
                ON       pct.id = ctl.tool_id
 
                WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")
@@ -1094,10 +1097,10 @@ else                           $_SESSION['_courseToolList'] = null ;
 if (isset($_cid) && $_courseTool['label'])
 {
     $config_code = rtrim($_courseTool['label'],'_');
-    if (file_exists($includePath.'/conf/'.$config_code.'.conf.php'))
-        require $includePath.'/conf/'.$config_code.'.conf.php';
-    if (isset($_cid) && file_exists($coursesRepositorySys.$_course['path'].'/conf/'.$config_code.'.conf.php'))
-        require $coursesRepositorySys.$_course['path'].'/conf/'.$config_code.'.conf.php';
+    if (file_exists($includePath . '/conf/' . $config_code . '.conf.php'))
+        require $includePath . '/conf/' . $config_code . '.conf.php';
+    if (isset($_cid) && file_exists($coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
+        require $coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php';
 }
 
 ?>
