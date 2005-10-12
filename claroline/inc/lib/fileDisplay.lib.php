@@ -128,19 +128,19 @@ function format_file_size($fileSize)
 	
 	if($fileSize >= 1073741824)
 	{
-		$fileSize = round($fileSize / 1073741824 * 100) / 100 . $byteUnits[3]; //GB
+		$fileSize = round($fileSize / 1073741824 * 100) / 100 . '&nbsp;' . $byteUnits[3]; //GB
 	}
 	elseif($fileSize >= 1048576)
 	{
-		$fileSize = round($fileSize / 1048576 * 100) / 100 . $byteUnits[2]; //MB
+		$fileSize = round($fileSize / 1048576 * 100) / 100 . '&nbsp;' . $byteUnits[2]; //MB
 	}
 	elseif($fileSize >= 1024)
 	{
-		$fileSize = round($fileSize / 1024 * 100) / 100 . $byteUnits[1]; //KB
+		$fileSize = round($fileSize / 1024 * 100) / 100 . '&nbsp;' . $byteUnits[1]; //KB
 	}
 	else
 	{
-		$fileSize = $fileSize . "b";
+		$fileSize = $fileSize . '&nbsp;' . $byteUnits[0];
 	}
 
 	return $fileSize;
