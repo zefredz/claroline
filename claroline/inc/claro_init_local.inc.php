@@ -202,7 +202,7 @@ require_once dirname(__FILE__).'/conf/auth.conf.php'; // load the platform authe
   global name space.
  ===========================================================================*/
 
-$AllowedPhpRequestList = array('login', 'password', 'logout', 'uidReset',
+$AllowedPhpRequestList = array('logout', 'uidReset',
                                'cidReset', 'cidReq',
                                'gidReset', 'gidReq',
                                'tidReset', 'tidReq', 'tlabelReq');
@@ -223,6 +223,8 @@ foreach($AllowedPhpRequestList as $thisPhpRequestName)
         $GLOBALS[$thisPhpRequestName] = null;
     }
 }
+$login = isset($_REQUEST['login']) ? $_REQUEST['login'] : null;
+$password = isset($_REQUEST['password']) ? $_REQUEST['password'] : null;
 
 /*===========================================================================
   Get table name
