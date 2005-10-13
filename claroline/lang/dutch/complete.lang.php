@@ -57,6 +57,7 @@ $langAddCommentOptionnal = "Commentaar toevoegen (optioneel) :";
 $langAddEvent = "Gebeurtenis toevoegen";
 $langAddExternalTool = "Externe verwijzing toevoegen";
 $langAddFeedback = "Opmerking toevoegen";
+$langAddForum = "voeg forum toe";
 $langAddImage = "Beeldje invoegen";
 $langAddIntro = "Inleiding toevoegen";
 $langAddListUser = "Gebruikerslijst toevoegen";
@@ -71,6 +72,7 @@ $langAddOneModuleButton = "Module toevoegen";
 $langAddTutors = "Lijst van de lesgevers beheren";
 $langAddUser = "Nieuwe gebruiker aanmaken";
 $langAddUserOneByOne = "Nieuwe gebruikers krijgen een e-mail met hun gebruikersnaam en wachtwoord";
+$langAddWrongAnswers = "voeg een fout antwoord toe voor de drop down lijst <small>(optioneel. een fout antwoord per lijn)</small>";
 $langAdd_users = "Gebruikers toevoegen";
 $langAddedExternalTool = "Extern gereedschap toegevoegd.";
 $langAddedToCampus = " is toegevoegd aan de campus";
@@ -197,16 +199,22 @@ $langCancel = "Annuleren";
 $langCannotBeBlank = "U mag geen lege naam aan een klas geven";
 $langCannotCopyFile = "Kan het bestand niet kopi&euml;ren.";
 $langCannotInitChat = "Fout: kan de chat niet initializeren";
+$langCannotRemoveGroupForum = "U kunt geen groeps forum verwijderen . U moet eerst de groep verwijderen";
+$langCannotSeeExerciseDetails = "Toon de gedaitaleerde antwoorden niet aan onbevoegden";
+$langCannotUnsubscribeLastCourseManager = "Je kunt jezelf niet uitschrijven uit de laatste course manager van den course";
 $langCatagoryGroup = "Forum groepen";
 $langCatagoryMain = "Algemeen";
 $langCategories = "Categorie&euml;n";
 $langCategory = "Categorie";
+$langCategoryDeleted = "category verwijderd.";
+$langCategoryUpdated = "category gewijzigd.";
 $langChangePwdexp = "Geef nieuw wachtwoord twee maal in om te wijzigen, laat leeg om huidige te behouden";
 $langChangeRaw = "Verander ruwe minimum om deze module met succes te be&euml;indigen (in percent) : ";
 $langChangedTool = "Gereedschap toegang gewijzigd";
 $langChat = "Online chat";
 $langChatResetBy = "Chat ge-herinitaliseerd door";
 $langChoice = "Uw keuze";
+$langChooseACourseToAccessThisPage = "Kies een course om deze pagina te kunnen bekijken.";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "Kies een goed antwoord";
 $langChooseGoodAnswers = "Kies &eacute;&eacute;n of meerdere goede antwoorden.";
@@ -221,6 +229,8 @@ $langClassRegisterWholeClass = "Registreer klas in een cursus";
 $langClassRegisterWholeClassAgain = "Registreer volledige klas voor een andere cursus";
 $langClassRegistered = "Klas geregistreerd";
 $langClearList = "Lijst opkuisen";
+$langClickToZoomIn = "Klik om in te zoomen.";
+$langClickToZoomOut = "Klik om uit te zoomen";
 $langClose = "Venster sluiten";
 $langCloseWindow = "Venster sluiten";
 $langCode = "Cursuscode";
@@ -236,11 +246,13 @@ $langConfirmDeleteExercise = "Bent U zeker dat U deze oefening wil verwijderen ?
 $langConfirmDeleteGroups = "Bent U zeker dat U alle groepen wil verwijderen ?";
 $langConfirmDeleteQuestion = "Bent U zeker dat U deze vraag wil verwijderen ?";
 $langConfirmDeleteStats = "Indien U de statistieken van deze cursus verwijdert is dit een onomkeerbare actie!<br /><br />Bent U zeker dat U de statistieken wil verwijderen ?";
+$langConfirmEmptyForum = "Verwijder alle berichten van";
 $langConfirmEmptyGroups = "Bent U zeker dat U alle groepen wil leegmaken ?";
 $langConfirmEnrollClassToCourse = "Are you sure you want to enrol the whole class on the course ?";
 $langConfirmYourChoice = "Gelieve uw keuze te bevestigen";
 $langConfirmation = "Bevestiging";
 $langContent = "Inhoud";
+$langContinue = "doorgaan";
 $langContradiction = "Het principe van tegenstrijdigheid gebruiken om zijn gesprekspartner in de tang te krijgen.";
 $langCopy = "Knippen";
 $langCopyFailed = "Het kopi&euml;ren van het bestand is mislukt...";
@@ -265,11 +277,12 @@ $langCourseContentComment2 = "Presentatie van de inhoud van de cursus, structuur
 $langCourseCreate = "Maak een web-cursus";
 $langCourseCreator = "Cursus creator";
 $langCourseDelete = "De cursus is met succes verwijderd";
-$langCourseDescription = "Schrijf hier de beschrijving van de cursus.  Deze zal verschijnen in de cursussenlijst (de inhoud van dit vlak verschijnt nu nergens en bestaat hier als voorbereiding voor een volgende versie van Claroline).";
 $langCourseHome = "Cursus thuisbasis";
 $langCourseList = "Cursus lijst";
 $langCourseManager = "Cursusbeheerder";
+$langCourseManagerCannotUnsubscribeHimself = "de course begeleider kanzichzelf nietuitschrijven";
 $langCourseManagerStatusToUser = "Cursus creator status naar %s %s";
+$langCourseNotFound = "course niet gevonden";
 $langCourseProgram = "Cursusprogramma";
 $langCourseSettings = "Eigenschappen cursus";
 $langCourseTitle = "Titel";
@@ -279,12 +292,15 @@ $langCourseWithoutStudents = "Cursussen zonder student";
 $langCourse_Repository = "Cursus repository";
 $langCourses = "Cursussen";
 $langCreate = "aanmaken";
+$langCreate1stAccountOnPlatform = "Maak eerst een gebruikers accountant op dit platform";
 $langCreateAnotherUser = "Maak opnieuw een nieuwe gebruiker";
 $langCreateAssignment = "Maak een nieuwe taak";
+$langCreateCategory = "Maak category";
 $langCreateCourse = "Maak een cursus";
 $langCreateCourses = "Maak cursussen";
 $langCreateDir = "Nieuwe map";
 $langCreateDocument = "Maak een document";
+$langCreateForum = "Maak forum";
 $langCreateHyperlink = "Maak een Hyperlink";
 $langCreateLabel = "Nieuw label";
 $langCreateModifyDocument = "Maak/bewerk document";
@@ -293,6 +309,7 @@ $langCreateNewLearningPath = "Maak een nieuw leerpad";
 $langCreateSite = "Cursussite aanmaken";
 $langCreateUser = "Maak een gebruiker";
 $langCreateUserAccount = "Gebruiker aanmaken";
+$langCreatingCourse = "Bezig met maken van een course (dit kan enkele ogenblikken duren...)";
 $langCreationMailNotificationBody = "Cursus creatie aan";
 $langCreationMailNotificationSubject = "Cursus creatie";
 $langCurrentAttachedDoc = "Huidig aangehecht bestand";
@@ -329,6 +346,10 @@ $langDbPrefixForm = "Prefix voor namen van cursus databanken";
 $langDear = "Beste";
 $langDefSubVisibility = "Standaard zichtbaarheid werkjes";
 $langDefaultLearningPathComment = "Dit is de inleidende tekst van dit leerpad. Om het door uw eigen tekst te vervangen, klik op de onderstaande link <b>inleiding toevoegen</b>.";
+$langDefaultMatchingOpt1 = "rijk";
+$langDefaultMatchingOpt2 = "mooi ogend";
+$langDefaultMatchingProp1 = "Jouw vader is";
+$langDefaultMatchingProp2 = "Jouw moeder is";
 $langDefaultModuleAddedComment = "Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leerpad waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.";
 $langDefaultModuleComment = "Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leerpad waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.";
 $langDefaultTextInBlanks = "Van alle [Galli&euml;rs] zijn de [Belgen] het dapperst.";
@@ -426,14 +447,17 @@ $langEG = "bv.";
 $langEXERCISETypeDesc = "Claroline exercise";
 $langEdit = "Wijzigen";
 $langEditAnswers = "Antwoorden bewerken";
+$langEditCategory = "verander category";
 $langEditEvent = "Gebeurtenis bewerken";
 $langEditExercise = "Instellingen oefening bewerken";
 $langEditFeedback = "Commentaar bestand bewerken";
 $langEditFileContent = "Bestandsinhoud bewerken";
 $langEditFormat = "Te gebruiken formaat bewerken";
 $langEditGroup = "Deze groep wijzigen";
+$langEditPost = "Wijzig post";
 $langEditQuestion = "Vraag bewerken";
 $langEditSettings = "Voorkeurinstellingen bewerken";
+$langEditTextZone = "Wijzig tekst zone";
 $langEditToolList = "Gereedschapsset bewerken";
 $langEditWork = "Werkje aanpassen";
 $langElRen = "Naam van Folder/bestand is gewijzigd.";
@@ -464,8 +488,16 @@ $langErrorAssetNotFound = "Troef niet gevonden : ";
 $langErrorCannotReadRSSFile = "Fout : kan de RSS feed niet lezen";
 $langErrorCategoryEmpty = "Categorie mag niet leeg zijn";
 $langErrorClassNotEmpty = "Deze klas bevat nog steeds sub-klassen, deze moet U eerst verwijderen";
+$langErrorCopyAttachedFile = "Niet gelukt om bestand te kopiëren :";
+$langErrorCopyScormFiles = "Fout tijdens kopiëren van SCORM bestanden";
+$langErrorCopyingScorm = "Fout tijdens kopiëren SCORM inhoud";
 $langErrorCourseCodeEmpty = "De cursus code mag niet leeg zijn";
 $langErrorCourseTitleEmpty = "De cursus titel mag niet leeg zijn";
+$langErrorCreatingDirectory = "Onmogelijk om Map te maken";
+$langErrorCreatingFile = "onmogelijk om bestand te maken";
+$langErrorCreatingFrame = "onmogelijk om het frame bestand te maken";
+$langErrorCreatingManifest = "onmogelijk om het SCORM manifest te maken (imsmanifest.xml)";
+$langErrorCreatingScormArchive = "Onmogelijk om SCORM acrhief te maken";
 $langErrorDepartmentEmpty = "Departement mag niet leeg zijn";
 $langErrorDepartmentURLEmpty = "Departement URL mag niet leeg zijn";
 $langErrorDepartmentURLWrong = "Departement URL is ongeldig";
@@ -477,6 +509,8 @@ $langErrorFormatCSV = "ERROR: Het format dat U opgaf is niet verenigbaar met Cla
 $langErrorInvalidParms = "Fout: ongeldige parameter (gebruik alleen getallen)";
 $langErrorLanguageEmpty = "Taal mag niet leeg zijn";
 $langErrorLecturerEmpty = "Lesgever mag niet leeg zijn";
+$langErrorLoadingExercise = "Onmogelijk om oefeing te laden";
+$langErrorLoadingQuestion = "Onmogelijk om de vragen van de oefening te laden";
 $langErrorMove = "U kan een klas niet in zichzelf verplaatsen!";
 $langErrorMyOwnSettings = "U kan uw eigen status niet wijzigen";
 $langErrorNameAlreadyExists = "Fout : De naam bestaat reeds";
@@ -610,11 +644,14 @@ $langExpectedChoice = "Correcte antwoord";
 $langExplainDeleteFile = "Vink hier aan om het aangehechte bestand te verwijderen.";
 $langExplainReplaceFile = "Stuur een nieuw bestand op om het bestand te vervangen.";
 $langExplanation = "Wanneer U Ok drukt wordt een pagina aangemaakt met o.a. de onderdelen: forum, links, oefeningen, agenda en cursusmateriaal. Met uw login kan U de inhoud later wijzigen";
+$langExport = "Uitvoeren";
+$langExportTrackingCsv = "Neem volg data in een CVS bestand";
 $langExternalToolName = "Naam verwijzing";
 $langExternalToolUrl = "URL verwijzing";
 $langExtractFromLangFile = "Van taal bestanden";
 $langExtractFromScriptFile = "Van script bestanden";
 $langExtractLangVariable = "Extraheer taal variabelen";
+$langFalse = "niet waar";
 $langFeedback = "Commentaar";
 $langFeedbackAdded = "Commentaar toegevoegd";
 $langFeedbackEdited = "Commentaar gewijzigd";
@@ -624,7 +661,6 @@ $langFeedbackSubmit = "Commentaar toevoegen";
 $langFeedbackText = "Commentaar teksten";
 $langFeedbacks = "Commentaren";
 $langFieldSeparatorUsed = "Gebruikt veldscheidingsteken";
-$langFieldsRequ = "Alle velden moeten ingevuld worden";
 $langFileContentModified = "Bestandsinhoud gewijzigd";
 $langFileCreated = "Bestand aangemaakt";
 $langFileDesc = "Bestandsomschrijving";
@@ -636,14 +672,18 @@ $langFileNameMissing = "Bestandsnaam ontbreekt";
 $langFileNameOrURLMissing = "Bestandsnaam of URL ontbreekt.";
 $langFileOnly = "Bestand (bestand is vereist, omschrijving is optioneel)";
 $langFileRequired = "Een bestand is vereist";
+$langFileStructureChecker = "bestand structuur controleur";
 $langFiles = "Bestandslijst";
 $langFillBlanks = "Invullen";
 $langFillCourses = "Aanmaak test cursussen";
 $langFillGroups = "Alle groepen invullen";
 $langFillLists = "Vul de twee lijsten hieronder aan";
+$langFillSelectBox = "selecteer in drop down lijst";
+$langFillTextField = "vol tekst zone";
 $langFillTheAreaToExplainTheMotivations = "Gebruik deze zone om uw motivatie uit te leggen en dien uw vraag in. Een email zal naar de administrators van het platform verzonden worden.";
 $langFillToolCourses = "Opvul gereedschap voor cursussen";
 $langFillTree = "Aanmaak categori&euml;n van cursussen";
+$langFillType = "vol type";
 $langFillUsers = "Gebruikers invoegen";
 $langFilling = "OPvullen met testwaarden";
 $langFilter = "Filter";
@@ -658,7 +698,11 @@ $langForContent = "Het forum is een tool waarin gesprekken in de vorm van een ge
 $langForce = "Zijn gesprekspartner dwingen, door een reeks vragen en bijvragen, te erkennen dat hij niet kent wat hij denkt te kennen.";
 $langFormula = "Vriendelijke groeten, Uw lesgever";
 $langForum = "Forum";
+$langForumCreated = "forum gemaakt";
+$langForumDeleted = "forum verwijderd";
+$langForumEmptied = "forum geleegt";
 $langForumGroup = "Groepsforum";
+$langForumUpdated = "forum geupdated";
 $langForums = "Forums";
 $langFree = "Vrij";
 $langFrom = "Van";
@@ -672,6 +716,7 @@ $langGiveExerciseName = "Geef a.u.b. een naam aan de oefening.";
 $langGiveQuestion = "Stel a.u.b. een vraag";
 $langGiveText = "Tik aub een tekst";
 $langGlobalProgress = "Leerpad vooruitgang : ";
+$langGo2accountCreationPage = "Ga naar het accountant maak pagina";
 $langGoBackToEx = "Terug naar de oefening";
 $langGoBackToQuestionList = "Terug naar de vragenlijst van de oefening";
 $langGoBackToQuestionPool = "Terug naar de lijst van alle vragen";
@@ -681,6 +726,7 @@ $langGroup = "Groep";
 $langGroupAllowStudentRegistration = "De gebruikers mogen zichzelf in de groepen inschrijven";
 $langGroupAlwaysPrivate = "(steeds priv&eacute;)";
 $langGroupAssignment = "Groepen (uit groepen, alleen groepsleden kunnen posten)";
+$langGroupChatLink = "Chat van de groep";
 $langGroupContent = "<p><b>Inleiding</b></p>
 <p>Deze functie maakt het u mogelijk werk- of studiegroepen aan te maken en te beheren. Deze groepen zijn leeg bij de aanmaak. De lesgever kan de groepen op verschillende manieren invullen:
 <ul>
@@ -731,6 +777,7 @@ $langGroupTooMuchMembers = "Het aantal deelnemers overschrijdt het maximum aanta
 $langGroupTools = "Functies";
 $langGroupTutor = "Lesgever";
 $langGroupUserManagement = "Groepenbeheer";
+$langGroupWikiLink = "Wiki van de groep";
 $langGroups = "Groepen";
 $langGroupsAdded = "groep(en) werd(en) toegevoegd";
 $langGroupsDeleted = "Alle groepen werden verwijderd";
@@ -865,6 +912,7 @@ $langHumanAndPhysicalRessources = "Menselijke en fysieke middelen";
 $langIfNotRedirect = "Indien niet doorverwezen";
 $langImport = "Import";
 $langImpossible = "Onmogelijk";
+$langImpossibleToPromote = "Impossible to promote group tutor a student already register to group";
 $langIn = "in";
 $langInFrames = "In frames";
 $langIncorrectDate = "Begindatum moet voor einddatum liggen ...";
@@ -904,6 +952,8 @@ $langIntroWork = "Dit stuk gereedschap staat de lesgever toe opdrachtenaan te ma
 
 <br /><br />Indien U deze taak wil tonen aan de studenten of enkele aanbevelingen wil doen, klik op onderstaande knop.<br>";
 $langInvalidId = "Ongeldige log-in. Indien u nog niet ingeschreven bent, gelieve het <a href='claroline/auth/inscription.php'>registratieformulier</a> in te vullen.";
+$langInvalidIdSelfReg = "<b>Login fout.</b><br />Probeer opnieuw.<br />
+<small>Indien je nog niet bent geregistreerd gebruik dan het volgende<a href=claroline/auth/inscription.php>registratie formulier</a></font color></small>";
 $langInvisible = "Onzichtbaar";
 $langIs = "is";
 $langIsAlreadyRegistered = "is reeds ingeschreven voor de cursus";
@@ -930,8 +980,11 @@ $langLaunchRestoreCourseRepository = "Cursus terughalen uit reservekopij";
 $langLearnPathDetails = "Vooruitgang in leerpad";
 $langLearningPath = "Leerpad";
 $langLearningPathAdmin = "Leerpad Admin";
+$langLearningPathEmpty = "Leer weg is weg";
 $langLearningPathList = "Leerpad Lijst";
 $langLearningPathName = "Nieuwe leerpad naam : ";
+$langLearningPathNotFound = "Leer weg werd niet gevonden";
+$langLegendRequiredFields = "<span class=\"required\">*</span> Moeten ingevuld zijn";
 $langLessAnswers = "- antwoord";
 $langLessElements = "- element";
 $langLessonStatus = "Module status";
@@ -941,6 +994,21 @@ $langLineNumber = "Lijnnummer";
 $langLineOrLines = "lijn(en)";
 $langLines = "lijnen";
 $langLink = "Links";
+$langLinkerAdd = "Voeg toe";
+$langLinkerAddNewAttachment = "voeg een al bestaande bron toe";
+$langLinkerAlreadyInAttachementList = "is al toegevoegd";
+$langLinkerAttachements = "toegevoegt bron";
+$langLinkerCloseJpspan = "sluit";
+$langLinkerClosePopup = "sluit popup";
+$langLinkerDelete = "verwijder";
+$langLinkerExternalLink = "Uitgaande link";
+$langLinkerMyOtherCourses = "Mijn andere courses";
+$langLinkerPromptForUrl = "Typ link url";
+$langLinkerPromptInvalidEmail = "geen geldig email adres";
+$langLinkerPromptInvalidUrl = "geen geldig url";
+$langLinkerPublicCourses = "publieke courses";
+$langLinkerResourceAttachment = "Voeg bron toe : voeg /verwijder een bestand (toe)";
+$langLinkerUntitled = "onbenoemt";
 $langListAdmin = "Lijst van administratieve gebruikers";
 $langListAllUsers = "Lijst van alle gebruikers";
 $langListClassUser = "Gebruikers in klas";
@@ -950,6 +1018,7 @@ $langListStudents = "List of students in this group";
 $langListUsers = "Gebruikerslijst";
 $langLoadDefaultFormat = "Laad standaard formaat";
 $langLocation = "Locatie";
+$langLocked = "gesloten";
 $langLogin = "Inloggen";
 $langLoginRequest = "Verzoek tot aanmelden";
 $langLoginWithoutAccess = "Niet gebruikte logins";
@@ -965,6 +1034,8 @@ $langMailSynthaxError = "Mail syntax fout.";
 $langMailTo = "Mail naar : ";
 $langMailUsed = "Mail wordt reeds gebruikt door een andere gebruiker.";
 $langMainDB = "Systeem database";
+$langMainGroupSettings = "Hoofd Groeps Instellingen";
+$langMaintenance = "Onderhoud";
 $langMakeCorrespond = "Laat overeenstemmen";
 $langMakeInvisible = "Onzichtbaar maken";
 $langMakeNewSearch = "Opnieuw zoeken : ";
@@ -983,6 +1054,8 @@ $langMaxSizeCourseCode = "max. 12 lettertekens, bijv.<i>ROM2121</i>";
 $langMaxStudentGroup = "Maximaal aantal studenten per groep";
 $langMaximum = "Maximum : ";
 $langMessage = "Wanneer U het Testforum verwijdert, zal ook elk onderwerp hierin verwijderd worden.";
+$langMessageEnrollToCourseNotAllowed = "Inschrijven voor de cursus is niet toegestaan";
+$langMessageRegistrationNotAllowed = "Registratie niet toegestaan op platform";
 $langMessageSubscribeDone_p_firstname_lastname = "Beste %s, %s.
 Uw persoonlijke gegevens werden opgeslagen en een e-mail werd naar 
 U opgestuurd ter herinnering van uw gebruikersnaam.";
@@ -993,12 +1066,14 @@ $langMethodsOfEvaluationComment1 = "Details over de gebruikte evaluatie (geschre
 $langMin = "Minimum : ";
 $langMinuteShort = "min.";
 $langMissing = "ontbrekend";
+$langMissingFields = "Niet ingevuld(e) veld(en)";
 $langMissingImagesDetected = "Ontbrekende beelden gedetecteerd";
 $langMissingValue = "Ontbrekende waarde";
 $langModifAnn = "Wijzig deze aankondiging";
 $langModifDone = "De eigenschappen werden gewijzigd";
 $langModifUserCourseSettings = "Cursussen van de gebruiker";
 $langModify = "Wijzigen";
+$langModifyExercise = "Wijzig oefeing";
 $langModifyFormat = "Formaat wijzigen";
 $langModifyInAllExercises = "in alle oefeningen";
 $langModifyInThisExercise = "enkel in de huidige oefening";
@@ -1051,6 +1126,7 @@ $langNewEx = "Nieuwe oefening";
 $langNewGroupCreate = "Nieuwe groep(en) aanmaken";
 $langNewGroups = "nieuwe groepen";
 $langNewLabel = "Maak een nieuw label / titel aan in dit leerpad";
+$langNewLegend = "Duid nieuwe punten aan";
 $langNewQu = "Nieuwe vraag";
 $langNewToOld = "Meest recente eerst";
 $langNewTopic = "Nieuw onderwerp";
@@ -1070,24 +1146,30 @@ $langNoEndDate = "Geen afsluitdatum";
 $langNoEventInTheAgenda = "Geen gebeurtenissen in de agenda";
 $langNoEx = "Er is momenteel geen oefening.";
 $langNoFile = "- geen -";
+$langNoForum = "Geen forum aanwezig";
 $langNoFunctionInThisSection = "Geen functies in deze sectie";
 $langNoGroupStudents = "Gebruiker(s) zonder groep";
+$langNoGroupsDeleted = "Geen groep verwijderd";
 $langNoImage = "Geen plaatje om te tonen";
 $langNoLearningPath = "Geen leerpad";
 $langNoModule = "Geen module";
 $langNoMoreAttemptsAvailable = "U hebt het maximaal aantal pogingen bereikt.";
 $langNoMoreModuleToAdd = "Alle modules van deze cursus zijn reeds gebruikt in dit leerpad.";
 $langNoPost = "Geen Post";
+$langNoPostAllowed = "Geen nieuwe post toegestaan";
 $langNoPsychology = "Nee. Socratische ironie heeft niets te maken met psychologie maar wel met argumentatie.";
 $langNoQuestion = "Er zijn momenteel geen vragen (in deze categorie)";
 $langNoQuota = "Geen quota";
 $langNoRegisteredCourses = "Geen statistieken om te tonen.  U heeft geen cursus geregistreerd.";
 $langNoResult = "Geen resultaat";
 $langNoScore = "Geen score";
+$langNoScript = "Geen scripts";
 $langNoSeduction = "Nee. Socratische ironie is geen verleidingsstrategie of een methode gebaseerd op voorbeelden.";
 $langNoSpace = "Upload is niet geslaagd. Niet genoeg ruimte op de harde schijf.";
 $langNoStartAsset = "Geen startvaardigheden gedefinieerd voor deze module.";
 $langNoTimeLimit = "Geen tijdslimiet";
+$langNoTrackingForExerciseAttempt = "Er is geen volging voor deze poging.";
+$langNoUserFound = "Geen gebruiker gevonden";
 $langNoUserResult = "Geen gebruiker om te tonen";
 $langNoVisibleAssignment = "Er is geen zichtbare taak op dit moment.";
 $langNoVisibleSubmission = "Geen zichtbare documenten";
@@ -1101,6 +1183,7 @@ $langNotInstalled = "Er is een fout opgetreden.  Import van leerpad is mislukt."
 $langNotRecentlyConnectedStudents = "Studenten die niet recent aangemeld waren : ";
 $langNotUnregYourself = "U kan uw eigen instellingen niet veranderen!";
 $langNotice = "Merk op";
+$langNoticeInstallFolderBrowsable = "<b>Opmerking:</b> De map die Claroline instal script bevat <code>claroline/install/</code>) IS nog steeds aanwezig en bereikbaar via het web. Wat wil zeggen dat iedereen Claroline kan herinstalleren en jouw vorige installatie vernietiggen.We raden ten stelligste aan om deze map van je server te verwijderen , of ze onbereikbaar te maken voor bezoekers.";
 $langNow = "Nu";
 $langNowGoChooseYourCourses = "U mag nu in de lijst de cursussen selecteren die U wenst te gebruiken.";
 $langNowGoCreateYourCourse = "U kunt nu verdergaan om uw cursus aan te maken.";
@@ -1137,7 +1220,9 @@ $langPathContentTitle = "Leerpad inhoud";
 $langPathsInCourseProg = "Cursus vooruitgang";
 $langPerhaps_with_others_directory = "misschien met een andere map";
 $langPeriodDay = "Dag";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "Uur";
+$langPeriodHourShort = "u.";
 $langPeriodMonth = "Maand";
 $langPeriodToDisplay = "Periode";
 $langPeriodWeek = "Week";
@@ -1155,6 +1240,7 @@ $langPlatformStats = "Platform statistieken";
 $langPleaseEnterMessage = "Geef aub een boodschap om te versturen.";
 $langPleaseSelectUsers = "Selecteer eerst gebruikers om de boodschap aan te versturen.";
 $langPopulateTools = "Gereedschapssets aanmaken in cursussen";
+$langPostReply = "Post beantwoorden";
 $langPoweredBy = " gebruikt het platform";
 $langPrefix = "Voorzetsel  : ";
 $langPreventLateUpload = "Nee, gebruikers mogen geen werk indienen na de einddatum";
@@ -1188,6 +1274,7 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "Een gebruiker kan slechts deelnem
 $langQualificationsAndGoals = "Qualificaties en doelstellingen";
 $langQualificationsAndGoalsComment1 = "Wat zijn de doelstellingen?  Welke zijn de capaciteiten en kennis waarover de student zal beschikken aan het eind van de cursus?";
 $langQualificationsAndGoalsComment2 = "Presentatie van de algemene en specifieke doelstellingen van de cursus, van qualificaties tot dewelke het beheersen van het onderwerp leidt";
+$langQuantity = "Hoeveelheid";
 $langQuestion = "Vraag";
 $langQuestionAnswers = "Antwoorden op de vraag";
 $langQuestionDescription = "Commentaar (optioneel)";
@@ -1210,6 +1297,7 @@ $langRegStudent = "Registreren voor cursussen";
 $langRegUser = "ingeschreven gebruikers";
 $langRegYou = "heeft u ingeschreven op";
 $langRegister = "Registreren";
+$langRegisterCampusAdvice = "Gelieve te controleren of het campus url bereikbaar is via het internet.";
 $langRegisterClass = " klas registreren";
 $langRegisterLocalUrl = "Uw campus URL lijkt een locale URL.
 Een web URL is vereist om uw installatie te registreren bij Claroline.net.<br /><br />
@@ -1231,6 +1319,7 @@ $langRequirements = "Vereisten";
 $langResetChat = "Opnieuw instellen";
 $langRestoreCourseRepository = "Restore cursus backup";
 $langResult = "Resultaat";
+$langRetry = "herprobeer";
 $langReuse = "Hergebruik";
 $langRevoquationOfUser = "Intrekken van %s %s";
 $langRidiculise = "Zijn gesprekspartner belachelijk maken om hem zijn fouten te doen erkennen.";
@@ -1251,6 +1340,10 @@ $langScoreAvg = "Gemiddelde";
 $langScoreMax = "Maximum";
 $langScoreMin = "Minimum";
 $langScormIntroTextForDummies = "Geimporteerde pakketen moeten uit een zip bestand met SCORM 1.2 conforme inhoud";
+$langScriptMissing = "scripts vermist";
+$langScriptMissingComment = "U moet deze scripts installeren om Claroline goed te kunnen gebruiken";
+$langScriptNotInArchive = "Scripts bestaat niet in claroline";
+$langScriptNotInArchiveComment = "U kunt deze scripts verwijderen van jouw server";
 $langSearch = "Zoeken";
 $langSearchAgain = "Opnieuw zoeken (uitgebreid)";
 $langSearchCourse = "Zoek cursus";
@@ -1286,16 +1379,21 @@ $langStartDate = "Start datum";
 $langStartModule = "Start Module";
 $langStatDB = "Databank voor opvolging";
 $langStatistics = "Statistieken";
+$langStatsByQuestion = "Statistieken volgends vraag";
+$langStatsByUser = "statistieken volgends gebruiker";
 $langStatsOfCampus = "Statistieken van campus";
 $langStatsOfCourse = "Statistieken van cursus";
 $langStatsOfExercise = "Statistieken van oefening";
+$langStatsOfExerciseAttempt = "statistieken van de gedaane oefeningen";
 $langStatsOfLearnPath = "Statistieken";
+$langStatsOfQuestion = "statistieken van de vragen";
 $langStatsOfUser = "Statistieken van gebruiker";
 $langStatus = "Actie";
 $langStatusChangeNotMade = "Verandering niet toegepast";
 $langStepNOfN = "Stap %d van %d";
 $langStoreChat = "Chat opslaan";
 $langStudent = "student";
+$langStudentQty = "Nb. studenten";
 $langStudents = "Studenten";
 $langStudentsNotInThisGroups = "Deelnemer(s) niet in deze groep";
 $langSubTitleChangeParent = "Verander bovenliggende categorie van ";
@@ -1322,6 +1420,7 @@ $langSupportsComment2 = "Presentatie van de ondersteuning van de cursus.  Presen
 $langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwijderen. Wilt U verdergaan ?";
 $langTake = "Nemen";
 $langTargetFac = "Hier komt de naam van de faculteit waar de cursus wordt gegeven";
+$langTeacherQty = "Nb. leerkrachten";
 $langTeachers = "Lesgevers";
 $langTeachingTrainingActivities = "Les-training activiteiten";
 $langTeachingTrainingActivitiesComment1 = "Welke methodes en welke activiteiten helpen bij het bereiken van de doelstellingen van de cursus?  Wat is de kalender van activiteiten ?";
@@ -1362,7 +1461,9 @@ $langTotalPlatformLogin = "Totaal";
 $langTotalTimeSpent = "Total time";
 $langTrackAllPath = "Leerpad opvolging";
 $langTrackAllPathExplanation = "Vooruitgang gebruikers op alle leerpaden";
+$langTrackExerciseError = "Details kunnen fout zijn , aangezien sommige vragen veranderd zijn tussen deze test en nu.";
 $langTrackForumUsage = "Gebruik forum";
+$langTrackNotEnoughAttempts = "U moet de maximum aantal keer geprobeert hebben om de statistieken te kunnen bekijken";
 $langTrackTotalPosts = "Verzonden berichten:";
 $langTrackTotalTopics = "Gestarte onderwerpen";
 $langTracking = "Opvolgen";
@@ -1372,16 +1473,27 @@ $langTranslationStatistics = "Vooruitgang vertaling";
 $langTranslationTools = "Vertaalgereedschappen";
 $langTranslations = "Vertalingen";
 $langTrue = "Waar";
+$langTrueFalse = "waar/niet waar";
 $langTypeOfModule = "Module type";
 $langTypeTextBelow = "Tik hieronder uw tekst";
 $langURL = "URL : ";
 $langUnableAddExternalTool = "Kon extern gereedschap niet toevoegen";
 $langUnableChangedTool = "Kon toegang tot extern gereedschap niet veranderen";
+$langUnableCreateCategory = "onmogelijk om deze category te maken";
+$langUnableCreateForum = "onmogelijk om dit forum te maken";
+$langUnableDeleteCategory = "onmogelijk om deze category te verwijderen";
 $langUnableDeleteExternalTool = "Kon extern gereedschap niet verwijderen";
+$langUnableDeleteForum = "onmogelijk om dit forum te verwijderen";
+$langUnableDeleteGroupCategoryForum = "Groeps forums categoryen kunnen niet worden verwijderd";
 $langUnableDescToAdd = "Kon geen omschrijving toevoegen";
 $langUnableToAdd = "Kon de gebeurtenis niet aan de agenda toevoegen.";
 $langUnableToDelete = "Kon de gebeurtenis niet uit de agenda verwijderen.";
+$langUnableToEmptyForum = "onmogelijk om forum te legen.";
+$langUnableToEnrollInCourse = "Niet mogelijkom u in te schrijven voor deze cursus";
+$langUnableToRemoveCourseRegistration = "onmogelijk om je registratie ongedaan te maken voor deze cursus";
 $langUnableToUpdate = "Kon de gebeurtenis in de agenda niet wijzigen.";
+$langUnableToUpdateCategory = "onmogelijk om deze category te wijziggen";
+$langUnableToUpdateForum = "onmogelijk om forum te wijziggen";
 $langUnableUpdateExternalTool = "Kon get externe gereedschap niet bijwerken.";
 $langUnamedModule = "Onbenoemde module";
 $langUnamedPath = "Onbenoemd path";
@@ -1392,6 +1504,7 @@ $langUniqueSelect = "Meerkeuze (uniek antwoord)";
 $langUnkownSOAPError = "Er is een fout opgetreden tijdens het contacteren van Claroline.net";
 $langUnlimitedAttempts = "Onbegrensd aantal pogingen";
 $langUnreg = "Registratie annuleren";
+$langUnregisterAllStudents = "verwijder alle geregistreerde studenten";
 $langUnsubscribe = "Niet-geregistreerde gebruiker";
 $langUnsubscribeClass = "Uitschrijven uit klas";
 $langUntil = "tot";
@@ -1436,6 +1549,7 @@ $langUserNotUnsubscribedFromCourse = "Fout!! U kan een cursus beheerder niet uit
 $langUserNumber = "aantal";
 $langUserOneByOneExplanation = "De hier ingevulde gebruikersnaam en wachtwoord zal aan deze gebruiker per e-mail medegedeeld worden.";
 $langUserRegisteredClass = "Gebruiker met succes ingeschreven in de klas";
+$langUserRegisteredToCourse = "gebruiker geregistreerd in de cursus";
 $langUserSettings = "Voorkeurinstellingen gebruiker";
 $langUserStatus = "Status";
 $langUserSubscribed = "De gebruiker werd met succes geregistreerd";
@@ -1462,6 +1576,143 @@ $langVisible = "Zichtbaar";
 $langVisits = "Bezoeken";
 $langWeightingForEachBlank = "Geef aub een gewicht aan elke invulruimte";
 $langWiki = "Wiki";
+$langWikiAccessControl = "toegangs controle beheer";
+$langWikiAccessControlText = "u kunt de toegang rechten voor gebruikers wijziggen in de volgende tabel :";
+$langWikiAllPages = "alle pagina's";
+$langWikiBackToPage = "terug naar de pagina";
+$langWikiConflictHowTo = "<p><strong>wijziging probleem</strong> : De pagina die u probeert te verander blijkt al veranderd te zijn voordat u deze veranderdet.<br /><br />
+Wat kunt u nu doen ?<ul>
+<li>U kunt de wijziggingen knippen en plakken in word of een andere aplicatie de laatste versie bekijken en kijken of je deze nog hoeft aan te passen naat u wensen.
+</li>
+<li>Je kunt ook op anuleren drukken om je wijzigingen niet door te voeren.</li>
+</ul></p>";
+$langWikiContentEmpty = "Deze pagina is leeg , klik op 'wijzig deze pagina' om inhoud toe te voegen";
+$langWikiCourseMembers = "cursus leden";
+$langWikiCreateNewWiki = "maak een nieuw Wiki";
+$langWikiCreatePrivilege = "maak pagina's";
+$langWikiCreationSucceed = "Wiki is succesvol aagemaakt";
+$langWikiDefaultDescription = "schrijf een omschrijving van jouw wiki hier";
+$langWikiDefaultTitle = "nieuw wiki";
+$langWikiDeleteWiki = "verwijder wiki";
+$langWikiDeleteWikiWarning = "waarschuwing : u gaat dezez wiki  verwijderen en alle pagina's van dit wiki . Bent u zeker dat u wil doorgaan ?";
+$langWikiDeletionSucceed = "wiki succesvol verwijderd";
+$langWikiDescription = "beschrijving van het Wiki";
+$langWikiDescriptionForm = "Wiki beschrijving";
+$langWikiDescriptionFormText = "U kunt een titel en een beschrijving kiezen voor u Wiki";
+$langWikiDiffAddedLine = "lijn toegeovoegt";
+$langWikiDiffDeletedLine = "lijn verwijderd";
+$langWikiDiffMovedLine = "lijn verplaatst";
+$langWikiDiffUnchangedLine = "lijn onveranderd";
+$langWikiDifferenceKeys = "sleutels :";
+$langWikiDifferencePattern = "Verschil tussen versie van  %1\$s gemodificeert door %2\$s en versie van %3\$s gemodificeert door %4\$s";
+$langWikiDifferenceTitle = "verschillen :";
+$langWikiEditConflict = "wijzig probleem";
+$langWikiEditLastVersion = "wijzig laatste versie";
+$langWikiEditPage = "wijzig deze pagina
+";
+$langWikiEditPrivilege = "wijzig pagina";
+$langWikiEditProperties = "wijzig eingenschappen";
+$langWikiEditionSucceed = "wiki succesvol gewijzigt";
+$langWikiGroupMembers = "groeps leden";
+$langWikiHelpAdminContent = "<h3>Wiki administration help</h3>
+<dl class=\"wikiHelp\">
+<dt>Hoe een nieuw wiki maken ?</dt>
+<dd>Klik op 'maak een nieuw wiki'. En zet dan de instellingen juist :
+<ul>
+<li><b>titel van Wiki</b> : Kies een algemene titel voor je Wiki</li>
+<li><b>Beschrijving van Wiki</b> : Kies een beschrijving van Wiki</li>
+<li><b>Toegangs beheer</b> : Zet de toegangs rechten door het box aan te vinken of uit te vinken</li>
+</ul>
+
+
+</dd>
+<dt>Hoe een Wiki bekijken ?</dt>
+<dd>Klik op de titel van het wiki die je in de lijst terug vind.</dd>
+<dt>Hoe de instellingen van een Wiki veranderen ?</dt>
+<dd>Klik op het icoon 'instellingen' om de instellingen vervolgends te wijziggen .</dd>
+<dt>Hoe gebruik ik de instellingen van toegangs rechten beheer ?</dt>
+<dd>U kunt de toegangsrechten voor gebruikers plaatsen door het vakje in de 'sectie Van het toegangsbeheer'
+eigenschappen controleren door de boxes aan of uit te vinken Wiki.
+Zo kunt u de toegang geven of weigeren aan de 3 types :<ul>
+<li><b>cursus leden</b> : gebruikers ingeschreven in de cursus , behalve de laarkracht</li>
+<li><b>Groeps leden</b> (aleen beschikbaar binnen een groep) : gebruikers die lid zijn van de groep (met uitzondering van de groepsleiders)</li>
+<li><b>Andere gebruikers :</b> : Andere gebruikers zijn niet ingeschreven in de cursus en zijn dus gast</li></ul>
+Voor ieder type gebruiker kun je verschillende instellingen geven voor de Wiki(*) :<ul>
+<li><b>Lees pagina's</b> : Deze insteling zorgt dat dit type kan pagina's lezen in het Wiki</li>
+<li><b>Wijzig pagina's</b> : Deze insteling zorgt dat dit type kan pagina's wijziggen in het Wiki</li>
+<li><b>Maak pagina's</b> : Deze insteling zorgt dat dit type kan pagina's maken in het Wiki</li>
+</ul><small><em>(*) een gebruiker kan geen nieuwe pagina's aanmaken als hij deze niet kan wijziggen , tevens kan hij als hij ze kan maken dan kan hij ze altijd lezen.</em></small></dd>
+<dt>Hoe een Wiki verwijderen ?</dt>
+<dd>klik op 'delete' om een wiki volledig te verwijderd.</dd>
+<dt>Hoe een lijst krijgen van alle pagina's ?</dt>
+<dd>klik op het nummer van de pagina's om het te bekijken.</dd>
+<dt>hoe een lijst krijgen van de laast gewijzigde pagina's ?</dt>
+<dd>Klik op het icoon laatst gewijzigde pagina's.</dd>
+</dl>";
+$langWikiHelpSyntax = "Wiki syntax";
+$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+<dl class=\"wikiHelp\">
+<dt>Maken van Wiki pagina's en link daartussen</dt>
+<dd><ul>
+<li><strong>Wiki woorden</strong> : Wiki woorden zijn woorden als <em>WikiWord</em>.
+ Wiki2xhtml herkent deze meteen en zet een link. Om een pagina of link te maken in Wiki, wijzig een bestaant en verander de titel in een WikiWord syntax, bijvoorbeeld <em>Mijnpagina</em>, bewaar dan de pagina. Wiki2xhtml zal meteen het Wiki Word veranderen <em>Mijnpagina</em> met een link naar <em>MijnPagina</em>&nbsp;;</li>
+<li><strong>Wiki links</strong> : Wiki links zijn net Hyperlinks (zie onderaan) verwacht niet dat ze een protocol bevatten (zoals <em>http://</em> of <em>ftp://</em>) 
+and thatthey are automaticaly recognise as links to Wiki pages. Om een nieuwe pagina te maken of een link te maken in een bestaand Wiki,wijzig een pagina en voeg toe <code>[page title]</code> of <code>[page title|link text]</code> in deze inhoud.
+om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.</li>
+</ul></dd>
+<dt>Block elements</dt>
+<dd><ul><li>voeg een nieuwe lijn toe in een lijn<em> van het zelfde type</em>.&nbsp;;</li>
+<li><strong>Paragraph</strong> : typ wat tekst en een nieuw lijn&nbsp;;</li>
+<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
+<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
+<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
+<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
+<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
+</ul></dd>
+<dt>Inline elements</dt>
+<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
+<li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
+<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
+<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
+<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
+<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
+<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
+<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
+<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
+<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
+<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
+</ul></dd>
+</dl>";
+$langWikiIdenticalContent = "Geen veranderingen gevonden <br />geen wijzigingen aangebracht";
+$langWikiInvalidWikiId = "fout Wiki id";
+$langWikiList = "Lijst van Wiki's";
+$langWikiMainPage = "Hoofd pagina";
+$langWikiMainPageContent = "Dit is de hoofd pagina van Wiki %s. klik op edit om de inhoud te wijziggen";
+$langWikiNoWiki = "Geen Wiki";
+$langWikiNotAllowedToCreate = "Het is niet toegestaan om een pagina aan te maken. U hebt geen toegang daartoe";
+$langWikiNotAllowedToEdit = "Het is niet toegestaan om deze pagina te wijzigingen. U hebt geen toegang daartoe.";
+$langWikiNotAllowedToRead = "Het is niet mogelijk om deze pagina te lezen. Het is niet toegestaan";
+$langWikiNumberOfPages = "Aantal pagina's";
+$langWikiOtherUsers = "Andere (*)";
+$langWikiOtherUsersText = "(*) Gasten , gebruikers die niet ingeschreven zijn in deze cursus ...";
+$langWikiPageHistory = "pagina historie";
+$langWikiPageSaved = "pagina bewaard";
+$langWikiPreviewTitle = "voorbeeld :";
+$langWikiPreviewWarning = "Opgepast : deze pagina is een voorbeeld. Uw wijziggingen zij nog niet bewaard ! om ze te beweren vergeet niet om te klikken op de 'bewaar' knop.";
+$langWikiProperties = "instellingen";
+$langWikiReadPrivilege = "lees pagina's";
+$langWikiRecentChanges = "recentelijke wijziggingen";
+$langWikiRecentChangesPattern = "%1\$s gewijzigt op %2\$s door %3\$s";
+$langWikiShowDifferences = "Toon verschillen";
+$langWikiTitle = "Titel van Wiki";
+$langWikiTitleEdit = "Wiki : Wijzig instellingen";
+$langWikiTitleNew = "Wiki : Maak een nieuw Wiki";
+$langWikiTitlePattern = "Wiki : %s";
+$langWikiVersionInfoPattern = "(versie van %1\$s gewijzigt door %2\$s)";
+$langWikiVersionPattern = "%1\$s door %2\$s";
 $langWork = "Studenten Box";
 $langWorkAuthors = "Auteurs";
 $langWorkTitle = "Titel";
@@ -1487,12 +1738,14 @@ $langYourTime = "Uw tijd is";
 $langYourTotalScore = "Uw totale score is";
 $langZipNoPhp = "Het ZIP bestand mag geen php-bestanden bevatten";
 $lang_EditFile_ModifyOk = "De wijzigingen werden correct uitgevoerd";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "De gebruiker is reeds ingeschreven in de curus";
 $lang_add_user_list = "Gebruikerslijst toevoegen";
 $lang_already_enrolled = "Reeds ingeschreven";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Bent U zeker dat U deze cursus uit uw lijst wil verwijderen ?";
 $lang_back_to_my_personnal_course_list = "Terug naar mijn persoonlijke cursus lijst";
 $lang_back_to_parent_category = "Terug naar bovenliggende categorie";
 $lang_click_here = "Klik hier";
+$lang_completeUserInfoOfUser = "Volledige gebruikersinfo van de gebruiker";
 $lang_course_enrollment = "Cursussen van gebruiker";
 $lang_do_you_want_to_continue = "Wilt U voortgaan?";
 $lang_enroll = "Inschrijven";
@@ -1527,8 +1780,14 @@ $lang_no_course_available_fitting_this_keyword = "Geen cursus beschikbaar voor d
 $lang_no_error_in_file_found = "Geen fout gevonden in bestand.";
 $lang_or_search_from_keyword = "Zoeken met trefwoorden";
 $lang_p_ErrorOnBuild_S_for_S = "Fout bij het samenstellen van <em>%s</em> voor <B>%s</B>";
+$lang_p_FeedOf_s = "Rss feed voor %s";
+$lang_p_FillCourses = "Fill %s with %s";
+$lang_p_IfNothingHappendClickHere = "Indein er na een tijdje geen bevestiging komt gelieve dan <a href=\"%s\">hier</a> te klikken";
 $lang_p_PropForConfigCommited = "Eigenschappen van %s (%s) zijn nu effectief op de server.";
+$lang_p_aCategoryWouldBeSelected = "Je mag een category kiezen. Als er een weg is gelieve contact op te nemen met <a href=\"%s\">de platform administrator</a>";
+$lang_p_category_s_created = "category %s created";
 $lang_p_config_file_creation = "Configuratie bestand creatie:<BR> %s";
+$lang_p_d_StudentUnregistredFormCours = "%d student((e)n) uitgeschreven uit deze cursus";
 $lang_p_d_course = "%2d cursus";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";
@@ -1537,16 +1796,21 @@ $lang_p_d_course_members = "%2d leden";
 $lang_p_d_courses = "%2d cursussen";
 $lang_p_d_student = "%2d student";
 $lang_p_d_students = "%2d studenten";
+$lang_p_forum_s_created = "Forum %s gemaakt";
 $lang_p_nothing_to_edit_in_S = "Niets te bewerken in %s";
 $lang_p_platformManager = "Beheerder voor %s";
+$lang_p_post_s_created = "Post %s gemaakt";
 $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> werd met succes ingeschreven in de cursus";
 $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> kon niet worden ingeschreven in de cursus";
+$lang_p_topic_s_created = "Topics %s gemaakt";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "U moet gedetecteerd worden met uw %s acountant";
 $lang_php_info = "PHP systeem informatie";
 $lang_remove_course_enrollment = "Uitschrijven uit cursus";
 $lang_remove_course_from_your_personnal_course_list = "Uitschrijven uit deze persoonlijke cursus";
 $lang_select_course_in = "Kies cursus in ";
 $lang_select_course_in_search_results = "Kies cursus in zoekresultaten";
 $lang_the_following_errors_were_found = "De volgende fouten werden gevonden ";
+$lang_toolsToFill = "hulpmiddelen om populatie stijging te verzoorzaken";
 $lang_unsubscribe = "Uitschrijven";
 $lang_user_has_been_enrolled_to_the_course = "De gebruiker is ingeschreven in de cursus";
 $lang_you_had_request = "U vraagt";
