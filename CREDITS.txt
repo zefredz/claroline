@@ -96,6 +96,7 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Stefan De Wannemacker (sdwannem@cage.rug.ac.be)
                                 Toon Van Hoecke (toon.vanhoecke@ugent.be)
                                 Michael Van Canneyt (michael.vancanneyt@wisa.be)
+                                Svenn d'hert - wmtown.com
 
 French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
 
