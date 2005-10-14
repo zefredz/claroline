@@ -172,7 +172,7 @@ function format_date($fileDate)
  * @return - relative url
  */
 
-function format_url($url)
+/*function format_url($url)
 {
     $path = substr($url, strpos($url, '://') +3 );
 
@@ -184,6 +184,108 @@ function format_url($url)
     }
 
 	return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
+}*/
+
+function format_url($url)
+{
+    $urlArray = parse_url( $url );
+
+    $path = format_url_path( substr( $urlArray['path']   , 1) );
+    
+    $urlToRet = '';
+
+    if ( isset( $urlArray['user'] ) )
+    {
+		$urlToRet = $urlArray['user'];
+		$urlToRet .= isset( $urlArray['pass'] )
+			? ':'.$urlArray['pass']
+			: ''
+			;
+		$urlToRet .= '@';
+	}
+
+	$urlToRet .= $urlArray['host'];
+	$urlToRet .= isset( $urlArray['port']  )
+		? ':' . $urlArray['port']
+		: ''
+		;
+
+	$urlToRet .= isset( $urlArray['path'] )
+		? '/' . format_url_path( substr( $urlArray['path'],  1 ) )
+		: ''
+		;
+
+	$urlToRet .= isset( $urlArray['query'] )
+		? '?' . format_url_query( $urlArray['query'] )
+		: ''
+		;
+
+	$urlToRet .= isset( $urlArray['fragment'] )
+		? '#' . $urlArray['fragment']
+		: ''
+		;
+
+    return $urlArray['scheme'] . '://' . $urlToRet;
+}
+
+function format_url_path( $path )
+{
+    $pathElementList = explode('/', $path);
+
+    for ($i = 0; $i < sizeof($pathElementList); $i++)
+    {
+        $pathElementList[$i] = rawurlencode($pathElementList[$i]);
+    }
+
+	return implode('/',$pathElementList);
+}
+
+function format_url_query( $query )
+{
+	$ret = '';
+	
+    if ( strpos( $query, '&' ) !== false
+        || strpos( $query, '&amp;' ) !== false
+        || strpos( $query, '=' ) !== false )
+	{
+		$queryArray = preg_split( '~(&|&amp;)~', $query );
+		$parts = array();
+		foreach ( $queryArray as $part )
+		{
+            if ( preg_match( '~(.*?)=(.*?)~', $part ) )
+            {
+                $parts[] = preg_replace_callback( '~(.+?)=(.+)~', 'query_make_part', $part );
+			}
+			elseif ( preg_match( '~/?[^=]+~', $part ) )
+			{
+                // option 1 :
+                $parts[] = '/' . format_url_path( substr( $part,  1 ) );
+                // option 2
+                // $parts[] = $part;
+                // option 3
+                // $parts[] = rawurlencode($part);
+			}
+			else
+			{
+                // option 1
+                // $parts[] = $part;
+                // option 2
+                // $parts[] = rawurlencode($part);
+			}
+		}
+        $ret = implode( '&', $parts );
+	}
+	else
+	{
+		$ret = rawurlencode( $query );
+	}
+
+	return $ret;
+}
+
+function query_make_part( $matches )
+{
+    return $matches[1] . '=' . rawurlencode( $matches[2] );
 }
 
 
