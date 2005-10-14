@@ -1,14 +1,14 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
- * User lib contains function to manage users on the platform 
+ * User lib contains function to manage users on the platform
  *
  * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE   
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLUSR
  *
@@ -17,11 +17,14 @@
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
- 
+
+
 include_once(dirname(__FILE__).'/auth.lib.inc.php');
+!defined('COURSE_ADMIN_STATUS') && define('COURSE_ADMIN_STATUS', 1);
+!defined('STUDENT_STATUS') && define('STUDENT_STATUS', 5);
 
 /**
- * Initialise user data 
+ * Initialise user data
  *
  * @return  array with user data
  *
@@ -32,7 +35,7 @@ include_once(dirname(__FILE__).'/auth.lib.inc.php');
 function user_initialise()
 {
     $data = array();
-    
+
     $data['lastname'] = '';
     $data['firstname'] = '';
     $data['officialCode'] = '';
@@ -43,7 +46,7 @@ function user_initialise()
     $data['email'] = '';
     $data['phone'] = '';
     $data['picture'] = '';
-    
+
     return $data;
 }
 
@@ -65,16 +68,16 @@ function user_get_data($user_id)
     $tbl_user      = $tbl_mdb_names['user'];
 
     $sql = 'SELECT  `user_id`,
-                    `nom` as `lastname` , 
-        		    `prenom` as `firstname` , 
-        		    `username` , 
-        		    `email` , 
-        		    `pictureUri` as `picture` , 
-        		    `officialCode` , 
-        		    `phoneNumber` as `phone` ,  
-        		    `statut` as `status`  
+                    `nom` as `lastname` ,
+        		    `prenom` as `firstname` ,
+        		    `username` ,
+        		    `email` ,
+        		    `pictureUri` as `picture` ,
+        		    `officialCode` ,
+        		    `phoneNumber` as `phone` ,
+        		    `statut` as `status`
             FROM  `' . $tbl_user . '`
-            WHERE 
+            WHERE
         		`user_id` = "' . (int) $user_id . '"';
 
     $result = claro_sql_query($sql);
@@ -91,7 +94,7 @@ function user_get_data($user_id)
 }
 
 /**
- * Add a new user 
+ * Add a new user
  *
  * @param $data array to fill the form
  *
@@ -104,7 +107,7 @@ function user_add ($data)
     global $userPasswordCrypted, $_uid;
 
     $password = $userPasswordCrypted?md5($data['password']):$data['password'];
-    
+
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
@@ -141,7 +144,7 @@ function user_update ($user_id, $data)
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
-    
+
     $sql = "UPDATE  `" . $tbl_user . "`
             SET `nom`          = '" . addslashes($data['lastname']) . "',
                 `prenom`       = '" . addslashes($data['firstname']) . "',
@@ -150,13 +153,13 @@ function user_update ($user_id, $data)
                 `creatorId`    = '" . (int)$_uid. "',
                 `email`        = '" . addslashes($data['email']) . "',
                 `officialCode` = '" . addslashes($data['officialCode']) . "' ";
-    
+
     if ( !empty($data['status']) )
     {
         $sql .= ", `statut` = '" . (int) $data['status'] . "' " ;
-    } 
+    }
 
-    if ( !empty($data['password']) ) 
+    if ( !empty($data['password']) )
     {
         $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
         $sql .= ", `password`   = '" . addslashes($password) . "' " ;
@@ -165,7 +168,7 @@ function user_update ($user_id, $data)
     if ( !empty($data['picture']) )
     {
         $sql .= ", `pictureUri` = '" . addslashes($data['picture']) . "' " ;
-    } 
+    }
     else
     {
         $sql .= ", `pictureUri` = NULL " ;
@@ -188,9 +191,9 @@ function user_update ($user_id, $data)
 
 function user_delete ($user_id)
 {
-    global $dbGlu, $courseTablePrefix, $_uid;
-    
-    $user_id = (int)$user_id;
+    global $_uid;
+
+    $user_id = (int) $user_id;
 
     // user cannot remove himself of the platform
     if ( $_uid == $user_id )
@@ -212,7 +215,7 @@ function user_delete ($user_id)
     // get the list of course code where the user is subscribed
     $sql_user_courses = " SELECT `c`.`code`
                           FROM `" . $tbl_rel_course_user . "` cu,`" . $tbl_course . "` c
-                          WHERE `cu`.`code_cours`=`c`.`code` 
+                          WHERE `cu`.`code_cours`=`c`.`code`
                             AND `cu`.`user_id`='" . $user_id . "'";
 
     $res_user_courses = claro_sql_query($sql_user_courses) ;
@@ -237,12 +240,12 @@ function user_delete ($user_id)
             // delete user information in the table group_rel_team_user
             $sql_deleteUserFromGroup = " delete from `" . $tbl_group_rel_team_user . "` where `user`='" . $user_id . "'";
             claro_sql_query($sql_deleteUserFromGroup);
-            
+
             // change tutor -> NULL for the course where the the tutor is the user deleting
             $sql_update = " update `" . $tbl_group_team . "` set `tutor`=NULL where `tutor`='" . $user_id . "'";
             claro_sql_query($sql_update);
 
-            // delete user notification in the table bb_rel_topic_userstonotify 
+            // delete user notification in the table bb_rel_topic_userstonotify
             $sql_deleteUserNotification = " delete from `" . $tbl_bb_rel_topic_userstonotify . "` where `user_id` ='" . $user_id . "'";
             claro_sql_query($sql_deleteUserNotification) ;
 
@@ -262,7 +265,7 @@ function user_delete ($user_id)
 
             $sql_DeleteUser = " delete from `" . $tbl_track_e_uploads . "` where `upload_user_id`='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
-            
+
         }
 
     }
@@ -293,12 +296,12 @@ function user_delete ($user_id)
     // delete the info in the class table
     $sql_DeleteUser = " delete from `" . $tbl_rel_class_user . "` where `user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
-    
+
     // delete info from sso table
     $sql_DeleteUser = " delete from `" . $tbl_sso . "` where `user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
-    
-    return true;    
+
+    return true;
 
 }
 
@@ -307,7 +310,7 @@ function user_delete ($user_id)
  *
  * @param $user_id integer
  *
- * @return boolean 
+ * @return boolean
  *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
@@ -319,8 +322,8 @@ function user_is_admin($user_id)
     $tbl_admin = $tbl_mdb_names['admin'];
 
     $sql = " SELECT `idUser`
-             FROM `" . $tbl_admin . "` 
-             WHERE `idUser` = " .  (int)$user_id . "";
+             FROM `" . $tbl_admin . "`
+             WHERE `idUser` = " .  (int) $user_id . "";
     $result = claro_sql_query($sql);
 
     return (bool) mysql_num_rows($result);
@@ -339,15 +342,13 @@ function user_is_admin($user_id)
 
 function user_add_admin($user_id)
 {
-    global $is_platformAdmin;
-
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_admin = $tbl_mdb_names['admin'];
 
     $sql = "SELECT `idUser` FROM `" . $tbl_admin . "`
-            WHERE `idUser`='" . (int) $user_id . "'";
+            WHERE `idUser`= " . (int) $user_id;
     $result =  claro_sql_query($sql);
-    
+
     if ( mysql_num_rows($result) > 0 )
     {
         // user is already administrator
@@ -358,7 +359,7 @@ function user_add_admin($user_id)
         // add user in administrator table
         $sql = "INSERT INTO `" . $tbl_admin . "` (`idUser`) VALUES (" . (int)$user_id . ")";
         return (bool) claro_sql_query($sql);
-    }   
+    }
 
 }
 
@@ -375,13 +376,11 @@ function user_add_admin($user_id)
 
 function user_delete_admin($user_id)
 {
-    global $is_platformAdmin;
-
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_admin = $tbl_mdb_names['admin'];
 
     $sql = "DELETE FROM `" . $tbl_admin . "`
-            WHERE `idUser`='" . (int)$user_id . "'";
+            WHERE `idUser`= " . (int) $user_id ;
 
     return (bool) claro_sql_query($sql);
 }
@@ -403,14 +402,13 @@ function user_delete_admin($user_id)
 function user_add_to_course($user_id, $course_code)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user = $tbl_mdb_names['user'];
-    $tbl_course = $tbl_mdb_names['course'];
+    $tbl_user            = $tbl_mdb_names['user'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     // previously check if the user are already registered on the platform
-    $sql = "SELECT `statut` `status` 
+    $sql = "SELECT `statut` `status`
             FROM `" . $tbl_user . "`
-            WHERE user_id = '" . (int)$user_id . "'";
+            WHERE user_id = " . (int) $user_id ;
     $handle = claro_sql_query($sql);
 
     if ( mysql_num_rows($handle) == 0 )
@@ -420,23 +418,23 @@ function user_add_to_course($user_id, $course_code)
     else
     {
         // previously check if the user isn't already subscribed to the course
-        $sql = "SELECT `user_id` 
+        $sql = "SELECT `user_id`
                 FROM `" . $tbl_rel_course_user . "`
-                WHERE `user_id` = '" . (int) $user_id . "'
+                WHERE `user_id` = " . (int) $user_id . "
                 AND `code_cours` ='" . addslashes($course_code) . "'";
 
         $userResultList = claro_sql_query_fetch_all($sql);
 
         if ( count($userResultList) > 0 )
         {
-            return claro_failure::set_failure('already_enrolled_in_course'); 
+            return claro_failure::set_failure('already_enrolled_in_course');
         }
         else
         {
                 $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                         SET `code_cours` = '" . addslashes($course_code) . "',
-                            `user_id`    = '" . (int) $user_id . "',
-                            `statut`     = '5' ";
+                            `user_id`    = " . (int) $user_id . ",
+                            `statut`     = '" . STUDENT_STATUS . "' ";
 
                 if ( claro_sql_query($sql) ) return true;
                 else                         return false;
@@ -455,7 +453,7 @@ function is_course_enrollment_allowed($courseId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
 
-    $sql = " SELECT `code`, `visible` 
+    $sql = " SELECT `code`, `visible`
              FROM `" . $tbl_course . "`
              WHERE  `code` = '" . addslashes($courseId) . "'
              AND    (`visible` = 0 OR `visible` = 3)" ;
@@ -513,7 +511,7 @@ function user_update_course_manager_status($user_id, $course_code, $status)
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET statut = '" . (int)$status . "' 
+            SET statut = '" . (int)$status . "'
             WHERE `user_id` = '" . (int)$user_id . "'
             AND `code_cours` ='" . addslashes($course_code) . "'";
 
@@ -559,7 +557,7 @@ function user_add_to_class($user_id,$class_id)
     // 2. See if there is a class with such ID in the main DB
 
     $sql = "SELECT `id`
-            FROM `" . $tbl_class . "` 
+            FROM `" . $tbl_class . "`
             WHERE `id` = '" . $class_id . "' ";
     $handle = claro_sql_query($sql);
 
@@ -570,8 +568,8 @@ function user_add_to_class($user_id,$class_id)
 
     // 3. See if user is not already in class
 
-    $sql = "SELECT `user_id` 
-            FROM `" . $tbl_rel_class_user . "` 
+    $sql = "SELECT `user_id`
+            FROM `" . $tbl_rel_class_user . "`
             WHERE `user_id` = '" . $user_id . "' ";
     $handle = claro_sql_query($sql);
 
@@ -584,7 +582,7 @@ function user_add_to_class($user_id,$class_id)
 
     $sql = "INSERT INTO `" . $tbl_rel_class_user . "`
 	        SET `user_id` = '" . $user_id . "',
-	           `class_id` = '" . $class_id . "' "; 
+	           `class_id` = '" . $class_id . "' ";
 
     return claro_sql_query($sql);
 }
@@ -608,8 +606,8 @@ function user_update_course_tutor_status($user_id, $course_code, $status)
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET tutor = '" . (int)$status . "' 
-            WHERE `user_id` = '" . (int)$user_id . "'
+            SET tutor = '" . (int) $status . "'
+            WHERE `user_id` = " . (int) $user_id . "
             AND `code_cours` ='" . addslashes($course_code) . "'";
 
     if ( claro_sql_query($sql) ) return true;
@@ -637,15 +635,15 @@ function user_update_course_properties($user_id, $course_code, $properties)
 
     if ( ( $properties['status'] == 1 or $properties['status'] ==  5 ) )
     {
-        $sqlChangeStatus = "`statut` = \"" . $properties['status'] . "\",";
+        $sqlChangeStatus = "`statut` = '" . $properties['status'] . "', ";
     }
 
     $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET     `role`       = \"" . addslashes($properties['role']) . "\",
+            SET `role` = '" . addslashes($properties['role']) . "',
            " . $sqlChangeStatus . "
-           `tutor`      = \"" . (int)$properties['tutor'] . "\"
-           WHERE   `user_id`    = \"" . (int)$user_id . "\"
-           AND     `code_cours` = \"" . addslashes($course_code) . "\"";
+           `tutor`      = " . (int) $properties['tutor'] . "
+           WHERE   `user_id`    = " . (int) $user_id . "
+           AND     `code_cours` = '" . addslashes($course_code) . "'";
 
     if ( claro_sql_query($sql) ) return true;
     else                         return false;
@@ -658,7 +656,7 @@ function user_update_course_properties($user_id, $course_code, $properties)
  *
  * @param  int     $user_id     user ID from the course_user table
  * @param  string  $course_code course code from the cours table
- * @param boolean $force_it if true  : a course manager can unsubscribe it himself 
+ * @param boolean $force_it if true  : a course manager can unsubscribe it himself
  *                          if false : (default value)
  *
  * @return boolean TRUE        if unsubscribtion succeed
@@ -680,9 +678,9 @@ function user_remove_from_course($user_id, $course_code,$force_it=false)
 
     $course_manager = claro_sql_query_fetch_all_cols($sql);
 
-    if ( $course_manager !== false ) 
-    {   
-        // user to unsubscribe is course manager   
+    if ( $course_manager !== false )
+    {
+        // user to unsubscribe is course manager
         if ( in_array($user_id,$course_manager['user_id']) )
         {
             // cannot unsubscribe the last course manager
@@ -690,8 +688,8 @@ function user_remove_from_course($user_id, $course_code,$force_it=false)
             if ( count($course_manager['user_id']) == 1 )
             {
                 return claro_failure::set_failure('cannot_unsubscribe_the_last_course_manager');
-            }            
-            
+            }
+
             // a course manager cannot unsubscribe himself from a course
             if ( $_uid == $user_id && !$force_it )
             {
@@ -799,8 +797,8 @@ function user_send_registration_mail ($user_id, $data)
 
 function user_send_enroll_to_course_mail ($user_id, $data)
 {
-    global $langYourReg, $langDear, $langOneResp, $langRegYou, $langManager,$langEmail, 
-           $langSettings, $langAddress, $langIs, $langProblem, $langFormula, $langAdministrator, 
+    global $langYourReg, $langDear, $langOneResp, $langRegYou, $langManager,$langEmail,
+           $langSettings, $langAddress, $langIs, $langProblem, $langFormula, $langAdministrator,
            $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email,
            $_course ;
 
@@ -818,7 +816,7 @@ function user_send_enroll_to_course_mail ($user_id, $data)
                     . "$langFormula,\n"
                     . "$langAdministrator $administrator_name \n"
                     . "$langManager $siteName\n";
-    
+
         $emailBody = sprintf($emailBody,$data['firstname'],$data['lastname'], $data['email']);
 
         if ( ! empty($administrator_phone) ) $emailBody .= "T. $administrator_phone \n";
@@ -853,13 +851,13 @@ function user_send_enroll_to_course_mail ($user_id, $data)
 
 function user_validate_form_registration($data)
 {
-    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice;
+    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice, $langPassTooEasy;
 
     $messageList = array();
 
     // required fields
-    if ( empty($data['lastname']) 
-        || empty($data['firstname']) 
+    if ( empty($data['lastname'])
+        || empty($data['firstname'])
         || empty($data['password_conf'])
         || empty($data['password'])
         || empty($data['username'])
@@ -869,8 +867,8 @@ function user_validate_form_registration($data)
     {
         $error = true;
         $messageList[] = $langEmptyFields;
-    } 
-    
+    }
+
     // check if official code is available
     if ( !empty($data['officialCode']) )
     {
@@ -880,7 +878,7 @@ function user_validate_form_registration($data)
             $messageList[] = claro_failure::get_last_failure();
         }
     }
-    
+
     // check if username is available
     if ( !empty($data['username']) )
     {
@@ -891,7 +889,7 @@ function user_validate_form_registration($data)
         }
     }
 
-    // check if the two password are identical 
+    // check if the two password are identical
     if ( $data['password_conf']  != $data['password']  )
     {
         $error = true;
@@ -902,15 +900,17 @@ function user_validate_form_registration($data)
     if ( !empty($data['password']) && SECURE_PASSWORD_REQUIRED )
     {
         if ( ! is_password_secure_enough( $data['password'],
-                                          array( $data['username'] , 
-                                                 $data['officialCode'] , 
-                                                 $data['lastname'] , 
-                                                 $data['firstname'] , 
+                                          array( $data['username'] ,
+                                                 $data['officialCode'] ,
+                                                 $data['lastname'] ,
+                                                 $data['firstname'] ,
                                                  $data['email'] ))
             )
         {
             $error = true;
-            $messageList[] = claro_failure::get_last_failure();
+            if (claro_failure::get_last_failure()=='too_easy')
+                $messageList[] = $langPassTooEasy . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
+
         }
     }
 
@@ -941,10 +941,10 @@ function user_validate_form_profile($data,$user_id)
     global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice;
 
     $messageList = array();
-    
+
     // required fields
-    if ( empty($data['lastname']) 
-        || empty($data['firstname']) 
+    if ( empty($data['lastname'])
+        || empty($data['firstname'])
         || empty($data['username'])
         || ( empty($data['officialCode']) && ! $userOfficialCodeCanBeEmpty )
         || ( empty($data['email'] ) && !$userMailCanBeEmpty )
@@ -952,8 +952,8 @@ function user_validate_form_profile($data,$user_id)
     {
         $error = true;
         $messageList[] = $langEmptyFields;
-    } 
-    
+    }
+
     // check if official code is available
     if ( !empty($data['officialCode']) )
     {
@@ -963,7 +963,7 @@ function user_validate_form_profile($data,$user_id)
             $messageList[] = claro_failure::get_last_failure();
         }
     }
-    
+
     // check if username is available
     if ( !empty($data['username']) )
     {
@@ -974,7 +974,7 @@ function user_validate_form_profile($data,$user_id)
         }
     }
 
-    // check if the two password are identical 
+    // check if the two password are identical
     if ( $data['password_conf'] != $data['password']  )
     {
         $error = true;
@@ -986,10 +986,10 @@ function user_validate_form_profile($data,$user_id)
         if ( !empty($data['password']) && SECURE_PASSWORD_REQUIRED )
         {
             if ( ! is_password_secure_enough( $data['password'],
-                                              array( $data['username'] , 
-                                                     $data['officialCode'] , 
-                                                     $data['lastname'] , 
-                                                     $data['firstname'] , 
+                                              array( $data['username'] ,
+                                                     $data['officialCode'] ,
+                                                     $data['lastname'] ,
+                                                     $data['firstname'] ,
                                                      $data['email'] ))
                 )
             {
@@ -1026,13 +1026,11 @@ function user_validate_form_profile($data,$user_id)
 
 function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 {
-    global $langPassTooEasy;
-
     foreach ( $forbiddenValueList as $thisValue )
     {
         if ( strtoupper($requestedPassword) == strtoupper($thisValue) )
         {
-            return claro_failure::set_failure($langPassTooEasy);
+           return claro_failure::set_failure('too_easy');
         }
     }
 
@@ -1078,12 +1076,12 @@ function is_username_available($username,$user_id=null)
     $tbl_user = $tbl_mdb_names['user'];
 
     $sql = "SELECT COUNT(*) `loginCount`
-            FROM `" . $tbl_user . "` 
+            FROM `" . $tbl_user . "`
             WHERE username='" . addslashes($username) . "' ";
-    
+
     if ( !empty($user_id) )
     {
-        $sql .= " AND user_id <> "  . (int) $user_id ; 
+        $sql .= " AND user_id <> "  . (int) $user_id ;
     }
 
     list($result) = claro_sql_query_fetch_all($sql);
@@ -1113,16 +1111,16 @@ function is_official_code_available($official_code,$user_id=null)
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
-   
+
     $sql = "SELECT COUNT(*) `officialCodeCount`
-            FROM `" . $tbl_user . "` 
+            FROM `" . $tbl_user . "`
             WHERE officialCode='" . addslashes($official_code) . "' ";
 
     if ( !empty($user_id) )
     {
-        $sql .= " AND user_id <> "  . (int) $user_id ; 
+        $sql .= " AND user_id <> "  . (int) $user_id ;
     }
-                
+
     list($result) = claro_sql_query_fetch_all($sql);
 
     if ( $result['officialCodeCount'] == 0 )
@@ -1150,7 +1148,7 @@ function user_display_form_registration($data)
 }
 
 /**
- * Display user form profile 
+ * Display user form profile
  *
  * @param $data array to fill the form
  *
@@ -1216,15 +1214,15 @@ function user_display_form($data, $form_type='registration')
 {
 
     global $langLastname, $langFirstname, $langOfficialCode, $langUserName, $langPassword,
-           $langConfirmation, $langEmail, $langPhone, $langAction, $langRegister,
-           $langRegStudent, $langRegAdmin, $langUserid, 
+           $langConfirmation, $langEmail, $langPhone, $langAction,
+           $langRegStudent, $langRegAdmin, $langUserid,
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langSearch, $langChangePwdexp,
            $langGroupTutor,$langManager,
-           $langPersonalCourseList, $lang_click_here, $langYes, $langNo, $langUserIsPlaformAdmin, $langEnter2passToChange, 
+           $langPersonalCourseList, $langYes, $langNo, $langUserIsPlaformAdmin,
            $ask_for_official_code, $langLegendRequiredFields, $langCreate;
 
     global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $imgRepositoryWeb;
-    
+
     global $rootWeb;
 
     // display registration form
@@ -1233,8 +1231,8 @@ function user_display_form($data, $form_type='registration')
     // hidden fields
     echo '<input type="hidden" name="cmd" value="registration" />' . "\n"
         . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
-    
-    // table begin 
+
+    // table begin
     echo '<table cellpadding="3" cellspacing="0" border="0">' . "\n";
 
     // user id
@@ -1272,12 +1270,12 @@ function user_display_form($data, $form_type='registration')
     // user picture
     if ( defined('CONFVAL_ASK_FOR_PICTURE ') && CONFVAL_ASK_FOR_PICTURE == TRUE && $form_type == 'profile' )
     {
-        echo '<tr>' . "\n" 
-            . '<td align="right">' . "\n" 
-            . ' <label for="picture">' . $data['picture']?$langUpdateImage:$langAddImage . ' :<br />' . "\n" 
+        echo '<tr>' . "\n"
+            . '<td align="right">' . "\n"
+            . ' <label for="picture">' . $data['picture']?$langUpdateImage:$langAddImage . ' :<br />' . "\n"
             . ' <small>(.jpg or .jpeg only)</small></label>'
-            . ' </td>' . "\n" 
-            . ' <td>' . "\n" 
+            . ' </td>' . "\n"
+            . ' <td>' . "\n"
             . '<input type="file" name="picture" id="picture" >';
 
         if ( empty($data['picture']) )
@@ -1289,7 +1287,7 @@ function user_display_form($data, $form_type='registration')
         {
             echo '<input type="hidden" name="del_picture" id="del_picture" value="no">';
         }
-        echo '</td>' . "\n" 
+        echo '</td>' . "\n"
             . '</tr>' . "\n";
     }
 
@@ -1300,9 +1298,9 @@ function user_display_form($data, $form_type='registration')
 
     if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
     {
-        echo '<tr>' . "\n" 
-            . '<td>&nbsp;</td>' . "\n" 
-            . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n" 
+        echo '<tr>' . "\n"
+            . '<td>&nbsp;</td>' . "\n"
+            . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n"
             . '</tr>' . "\n" ;
     }
     else
@@ -1321,14 +1319,14 @@ function user_display_form($data, $form_type='registration')
         . '     <td align="right"><label for="password">' . $langPassword . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="password" size="40" id="password" name="password" /></td>' . "\n"
         . '    </tr>' . "\n";
-    
+
     // password confirmation
     echo ' <tr>' . "\n"
         . '     <td align="right"><label for="password_conf">' . $langPassword . '&nbsp;:<br>' . "\n" . "\n"
         . ' <small>(' . $langConfirmation . ')</small></label></td>' . "\n"
         . '  <td><input type="password" size="40" id="password_conf" name="password_conf" /></td>' . "\n"
         . ' </tr>' . "\n";
-    
+
     echo ' <tr>' . "\n"
         . '  <td>&nbsp;</td>' . "\n"
         . '  <td>&nbsp;</td>' . "\n"
@@ -1344,7 +1342,7 @@ function user_display_form($data, $form_type='registration')
         . '  <td align="right"><label for="phone">' . $langPhone . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
-    
+
     // Group Tutor
     if ( $form_type == 'add_new_user' )
     {
@@ -1358,7 +1356,7 @@ function user_display_form($data, $form_type='registration')
             . '</td>'
             . '</tr>';
     }
-    
+
     // Course manager of the course
     if ( $form_type == 'add_new_user' )
     {
@@ -1443,10 +1441,10 @@ function user_display_form($data, $form_type='registration')
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
-    
-    echo '<tr>' . "\n" 
-         . '<td>&nbsp;</td>' . "\n" 
-         . '<td><small>' . $langLegendRequiredFields . '</small></td>' . "\n" 
+
+    echo '<tr>' . "\n"
+         . '<td>&nbsp;</td>' . "\n"
+         . '<td><small>' . $langLegendRequiredFields . '</small></td>' . "\n"
          . '</tr>' . "\n" ;
 
     // Personnal course list
@@ -1474,14 +1472,14 @@ function required_field($field)
 }
 
 /**
- * Returns an array containing the users'informations who meets the search criteria given in parameters 
+ * Returns an array containing the users'informations who meets the search criteria given in parameters
  *
  * @param $name    the name as a search criteria, leave empty is not needed
  * @param $mail    the mail as a search criteria, leave empty is not needed
  * @param $code    the code as a search criteria, leave empty is not needed
- * 
+ *
  * @author guillaume Lederer
- * 
+ *
  */
 
 function user_search($name, $mail, $code, $course_id="")
@@ -1493,7 +1491,7 @@ function user_search($name, $mail, $code, $course_id="")
     $tbl_course_user = $tbl_mdb_names['rel_course_user'];
 
     if (!empty($course_id))
-    { 
+    {
         $toAdd = ",CU.`user_id` AS registered";
     }
     else
@@ -1501,10 +1499,10 @@ function user_search($name, $mail, $code, $course_id="")
         $toAdd = "";
     }
 
-    $sql =  "SELECT nom,prenom,email,officialCode,U.`user_id` AS user ".$toAdd." FROM `" . $tbl_user . "` AS U"; 
+    $sql =  "SELECT nom,prenom,email,officialCode,U.`user_id` AS user ".$toAdd." FROM `" . $tbl_user . "` AS U";
 
-    if (!empty($course_id)) $sql.= " LEFT JOIN `" . $tbl_course_user . "` AS CU 
-                                            ON  CU.`user_id`=U.`user_id` 
+    if (!empty($course_id)) $sql.= " LEFT JOIN `" . $tbl_course_user . "` AS CU
+                                            ON  CU.`user_id`=U.`user_id`
                                             AND CU.`code_cours` = '" . $course_id . "'
                                             ";
     $sql .= " WHERE (0=0) ";
@@ -1523,7 +1521,7 @@ function user_search($name, $mail, $code, $course_id="")
     if (!empty($code)) $sql .= " AND (U.`officialCode` = '". addslashes($code) ."')";
 
     $sql .= " ORDER BY nom,prenom ";
-    
+
     $result = claro_sql_query_fetch_all($sql);
     return $result;
 }
