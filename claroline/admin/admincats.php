@@ -31,9 +31,9 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-include_once ($includePath . '/lib/debug.lib.inc.php');
-include_once ($includePath . '/lib/course.lib.inc.php');
-include_once ($includePath . '/lib/faculty.lib.inc.php');
+include_once $includePath . '/lib/debug.lib.inc.php';
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/faculty.lib.inc.php';
 
 // build bredcrump
 $nameTools        = $langCategories;
