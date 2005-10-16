@@ -226,6 +226,9 @@ else 								$offset = $_REQUEST['offset'];
 $myPager = new claro_sql_pager($sql, $offset, $questionsPerPage);
 $questionList = $myPager->get_result_list();
 
+//pager display
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
 ?>
 
 <table class="claroTable" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
