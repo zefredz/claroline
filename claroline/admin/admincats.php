@@ -124,7 +124,7 @@ else
                 // If the category don't have as parent NULL (root), all parent of this category have a child more
                 $fatherChangeChild = ($fatherCat == 'NULL') ? NULL : $fatherCat;
 
-                addNbChildFather($fatherChangeChild,1);
+                addNbChildFather($fatherChangeChild, 1);
 
                 // If the parent of the new category isn't root
                 if(strcmp($fatherCat, 'NULL'))
@@ -136,7 +136,7 @@ else
 
                     // Add 1 to all category who have treePos >= of the treePos of the new category
                     $sql_ChangeTree=" UPDATE `" . $tbl_course_node . "`
-                                      SET treePos = treePos+1
+                                      SET treePos = treePos + 1
                                       WHERE treePos >= '" . $treePosCat . "'";
 
                     claro_sql_query($sql_ChangeTree);
@@ -149,11 +149,23 @@ else
 
                 // Insert the new category to the table
 
-                $sql_InsertCat=" INSERT INTO `". $tbl_course_node ."`
-                                 (name, code, bc , nb_childs, canHaveCoursesChild, canHaveCatChild,
-                                  treePos ,code_P )
-                                 VALUES ('". addslashes($nameCat)."','".addslashes($codeCat)."',NULL,'0','".$canHaveCoursesChild."','TRUE',
-                                  '".(int)$treePosCat."'";
+                $sql_InsertCat = " INSERT INTO `" . $tbl_course_node . "` "
+                .                " (name"
+                .                " , code"
+                .                " , bc "
+                .                " , nb_childs"
+                .                " , canHaveCoursesChild"
+                .                " , canHaveCatChild"
+                .                " , treePos "
+                .                " , code_P )"
+                .                " VALUES ('" . addslashes($nameCat) . "'"
+                .                " ,'" . addslashes($codeCat) . "'"
+                .                " , NULL"
+                .                " , 0"
+                .                " , '" . $canHaveCoursesChild . "'"
+                .                " , 'TRUE'"
+                .                " , " . (int) $treePosCat
+                ;
                 if ($fatherCat == "NULL")
                 {
                     $sql_InsertCat .= ",NULL)";
@@ -166,7 +178,7 @@ else
                 claro_sql_query($sql_InsertCat);
 
                 // Confirm creating
-                $controlMsg['info'][]=$lang_faculty_CreateOk;
+                $controlMsg['info'][] = $lang_faculty_CreateOk;
 
             }
         }
@@ -218,7 +230,7 @@ else
 
                     $sql_Update = " UPDATE `" . $tbl_course_node . "`
                                     SET treePos='" . (int) $newTree . "'
-                                    WHERE id='". (int) $searchId."'";
+                                    WHERE id='". (int) $searchId . "'";
                     claro_sql_query($sql_Update) ;
                 }
 
@@ -228,9 +240,10 @@ else
                     $searchId = $categories[$i+$k]['id'];
                     $newTree  = $categories[$i]['treePos'] - $categories[$j]['nb_childs'] - 1 + $k;
 
-                    $sql_Update = " UPDATE `" . $tbl_course_node . "`
-                                    SET treePos='". (int) $newTree . "'
-                                    WHERE id='". (int) $searchId . "'";
+                    $sql_Update = " UPDATE `" . $tbl_course_node . "`"
+                    .             "  SET treePos = '" . (int) $newTree . "'"
+                    .             "  WHERE id='" . (int) $searchId . "'"
+                    ;
                     claro_sql_query($sql_Update) ;
                 }
 
@@ -413,9 +426,10 @@ else
             // and that the cat already contain courses
             if (isset($_REQUEST['canHaveCoursesChild']) && $_REQUEST['canHaveCoursesChild'] == 0)
             {
-                $sql_SearchCourses= " SELECT count(cours_id) num
-                                      FROM `" . $tbl_course . "`
-                                      WHERE faculte='" . addslashes($facultyEdit['code']) . "'";
+                $sql_SearchCourses= " SELECT count(cours_id) num"
+                .                   " FROM `" . $tbl_course . "`"
+                .                   " WHERE faculte='" . addslashes($facultyEdit['code']) . "'"
+                ;
                 $res_SearchCourses = claro_sql_query_get_single_value($sql_SearchCourses);
 
                 if($res_SearchCourses > 0)
@@ -447,16 +461,16 @@ else
                 // If the category can't have course child, look if they haven't already
                 if($canHaveCoursesChild == 'FALSE' )
                 {
-                    $sql_SearchCourses = " SELECT count(cours_id) num
-                                           FROM `" . $tbl_course . "`
-                                           WHERE faculte='" . addslashes( $facultyEdit['code']) . "'";
+                    $sql_SearchCourses = " SELECT count(cours_id) num"
+                    .                    " FROM `" . $tbl_course . "`"
+                    .                    " WHERE faculte = '" . addslashes( $facultyEdit['code']) . "'";
 
                     $array=claro_sql_query_fetch_all($sql_SearchCourses);
 
                     if($array[0]['num'] > 0)
                     {
                         $controlMsg['warning'][] = $lang_faculty_HaveCourses;
-                        $canHaveCoursesChild="TRUE";
+                        $canHaveCoursesChild = "TRUE";
                     }
                     else
                     {
