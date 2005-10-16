@@ -120,30 +120,35 @@ function claro_disp_datagrid($dataGrid)
     if (is_array($dataGrid) && count($dataGrid))
     {
         $stream = '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-        .         '<THead>'
-        .         '<tr class="headerX" align="center" valign="top">'
+        .         '<THead>' . "\n"
+        .         '<tr class="headerX" align="center" valign="top">' . "\n"
         .         '<th>'
-        .         '</th>';
+        .         '</th>' . "\n"
+        ;
+        $i=0;
         foreach (array_keys($dataGrid[0]) as $colTitle)
-        $stream .= '<th>' . $colTitle . '</th>';
-        $stream .= '</tr>'
-        .         '</THEAD>'
-        .         '<tbody>';
+            $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
+        $stream .= '</tr>' . "\n"
+        .         '</THEAD>' . "\n"
+        .         '<tbody>' . "\n"
+        ;
         foreach ($dataGrid as $key => $dataLine)
         {
-            $stream .= '<tr><td>' . $key .'</td>';
+            $stream .= '<tr>' . "\n"
+            .          '<td>' . $key .'</td>' . "\n";
+            $i=0;
             foreach ($dataLine as $dataCell)
             {
-                $stream .= '<td>';
+                $stream .= '<td headers="c' . $i++ . '">';
                 $stream .= $dataCell;
-                $stream .= '</td>';
+                $stream .= '</td>' . "\n";
             }
-            $stream .= '</tr>';
+            $stream .= '</tr>' . "\n";
 
         }
     }
-    $stream .= '</tbody>'
-    .         '</table>';
+    $stream .= '</tbody>' . "\n"
+    .         '</table>' . "\n";
 
     return $stream;
 
