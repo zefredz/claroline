@@ -1,0 +1,152 @@
+<?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * This tool try to repair a broken category tree
+ *
+ * @version 1.7 $Revision$
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLTREE
+ *
+ * @package CLTREE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
+define ('DISP_ANALYSE', __LINE__);
+define ('DISP_REPAIR_RESULT', __LINE__);
+
+$cidReset = TRUE;
+$gidReset = TRUE;
+$tidReset = TRUE;
+
+// include claro main global
+require '../../inc/claro_init_global.inc.php';
+
+// check if user is logged as administrator
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/faculty.lib.inc.php';
+
+// build bredcrump
+$nameTools        = $langCategories;
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+
+// get table name
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_course      = $tbl_mdb_names['course'  ];
+$tbl_course_node = $tbl_mdb_names['category'];
+
+$controlMsg = array();
+
+// Display variables
+$view = DISP_ANALYSE;
+
+//Get Parameters from URL or post
+
+$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : 'doAnalyse');
+
+/**
+ * Show or hide sub categories
+ */
+
+switch($cmd)
+{
+    case 'doAnalyse' :
+    {
+        // analyse Tree Structure
+        $category_array = claro_get_cat_flat_list();
+        foreach (array_keys($category_array) as $catCode)
+        {
+            $analyseResult = analyseCat($catCode);
+            $dataAnalyseResult[] = array ( 'Code'=>$catCode
+                                         , 'Result'=>$analyseResult?'ok':'fail'
+                                         , 'Message'=>$analyseResult?'':claro_failure::get_last_failure());
+        }
+
+        // analyse Course onwance
+        $sql = "SELECT c.code `Course code`, c.faculte `Unknow faculty`
+        FROM  `" . $tbl_course . "`  c
+        LEFT JOIN  `" . $tbl_course_node. "` f
+        ON C.FACULTE = f.code
+        WHERE f.id IS null ";
+        $courseOwnanceCheck = claro_sql_query_fetch_all($sql);
+        $view = DISP_ANALYSE;
+    }
+    break;
+}
+
+/**
+ * prepare display
+ */
+
+
+/**
+ * Display
+ */
+// display claroline header
+include $includePath . '/claro_init_header.inc.php';
+
+/**
+  * Information edit for create or edit a category
+  */
+switch ($view)
+{
+    case DISP_ANALYSE :
+    {
+        echo claro_disp_tool_title('ANALYSE RESULT');
+        echo claro_disp_tool_title('Tree Structure');
+        echo claro_disp_datagrid($dataAnalyseResult);
+        echo claro_disp_tool_title('Course ownance');
+        echo claro_disp_datagrid($courseOwnanceCheck );
+    }
+    break;
+    default :
+    {
+        echo '<div>'.__LINE__.': $view = <pre>'. var_export($view,1).'</PRE></div>';
+    }
+}
+
+
+include $includePath . '/claro_init_footer.inc.php';
+
+function claro_disp_datagrid($dataGrid)
+{
+    if (is_array($dataGrid) && count($dataGrid))
+    {
+        $stream = '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+        .         '<THead>'
+        .         '<tr class="headerX" align="center" valign="top">'
+        .         '<th>'
+        .         '</th>';
+        foreach (array_keys($dataGrid[0]) as $colTitle)
+        $stream .= '<th>' . $colTitle . '</th>';
+        $stream .= '</tr>'
+        .         '</THEAD>'
+        .         '<tbody>';
+        foreach ($dataGrid as $key => $dataLine)
+        {
+            $stream .= '<tr><td>' . $key .'</td>';
+            foreach ($dataLine as $dataCell)
+            {
+                $stream .= '<td>';
+                $stream .= $dataCell;
+                $stream .= '</td>';
+            }
+            $stream .= '</tr>';
+
+        }
+    }
+    $stream .= '</tbody>'
+    .         '</table>';
+
+    return $stream;
+
+}
+
+?>
