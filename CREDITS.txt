@@ -81,6 +81,8 @@ Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
                                 Eng.Ali Ismaeel (ali@parmaja.com,a-s-is@scs-net.org)
                                 (http://www.arabeyes.org, http://www.parmaja.com/)
 
+Bulgarian translation :         Alexander Simidchiev (simid@mail.bg)
+
 Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
 
 Chinese translation :           Maizeman (Maizeman@21cn.com)
