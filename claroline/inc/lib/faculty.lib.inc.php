@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  *
  * This  is  lib  for manage course tree with tree structure version 1
  *
- * @version 1.7 $Revision$ 
+ * @version 1.7 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLTREE
  *
@@ -55,13 +55,13 @@ function claro_disp_tree($elem,$father,$space)
 
                     if($one_faculty['nb_childs']>0)
                     {
-                        
-                        echo '<a href="' . $_SERVER['PHP_SELF'] 
-                        .    '?id=' . $one_faculty['id'] 
-                        .    '&amp;date=' . $date 
+
+                        echo '<a href="' . $_SERVER['PHP_SELF']
+                        .    '?id=' . $one_faculty['id']
+                        .    '&amp;date=' . $date
                         .    '#pm' . $one_faculty['id'] .'" '
                         .    'name="pm' . $one_faculty['id'] . '"> '
-                        .    ( $one_faculty['visible'] 
+                        .    ( $one_faculty['visible']
                              ?    '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" alt="-" >'
                              :    '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" alt="+" >'
                              )
@@ -89,8 +89,8 @@ function claro_disp_tree($elem,$father,$space)
                     .    '<a href="./admincourses.php?category=' . $one_faculty['code'] . '">'
                     .    get_node_children_count_course( $one_faculty['code'] )
                     .    '</a>'
-//                    .    ' / ' 
-//                    .    get_node_descendance_count_course( $one_faculty['code'] ) 
+//                    .    ' / '
+//                    .    get_node_descendance_count_course( $one_faculty['code'] )
                     ;
                     ?>
                     </td>
@@ -104,7 +104,7 @@ function claro_disp_tree($elem,$father,$space)
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDelete"; ?>"
-                        onclick="javascript:if(!confirm('<?php echo 
+                        onclick="javascript:if(!confirm('<?php echo
                          clean_str_for_javascript($lang_faculty_ConfirmDelete.$one_faculty['code']." ?") ?>')) return false;" >
                         <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
                     </td>
@@ -157,7 +157,7 @@ function claro_disp_tree($elem,$father,$space)
                         }
                         ?>
                         </td>
-                        
+
 
                         <?php
                     }
@@ -190,7 +190,7 @@ claro_disp_tree($elem, $one_faculty['code'], $space);
 
      * @return void
      *
-     * 
+     *
      */
 
 function displaySimpleBom($elem,$father,$facultyEdit)
@@ -234,17 +234,17 @@ function delete_qty_child_father($node_code, $childQty)
 {
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
-    
+
     while(!is_null($node_code))
     {
         $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "`
-                                        SET nb_childs=nb_childs-".(int) $childQty." 
+                                        SET nb_childs=nb_childs-".(int) $childQty."
                                         WHERE code='" . addslashes($node_code) . "'";
 
         claro_sql_query($sql_DeleteNbChildFather);
 
         $sql_SelectCodeP= " SELECT code_P
-                                FROM `" . $tbl_course_node . "` 
+                                FROM `" . $tbl_course_node . "`
                                 WHERE code='" . $node_code . "'";
         $node_code = claro_sql_query_get_single_value($sql_SelectCodeP);
     }
@@ -268,7 +268,7 @@ function addNbChildFather($fatherChangeChild, $newNbChild)
     while(!is_null($fatherChangeChild))
     {
         $sql_DeleteNbChildFather= " UPDATE `" . $tbl_course_node . "`
-                                        SET nb_childs = nb_childs+" . (int) $newNbChild . " 
+                                        SET nb_childs = nb_childs+" . (int) $newNbChild . "
                                         WHERE code='" . $fatherChangeChild . "'";
         claro_sql_query($sql_DeleteNbChildFather);
 
@@ -283,7 +283,7 @@ function addNbChildFather($fatherChangeChild, $newNbChild)
 /**
      *This function create de select box categories
      *
-     * @author  Benoît Muret 
+     * @author  Benoît Muret
      * @param   $elem array the categories
      * @param   $father string the father of the category
      * @param   $editFather string the category editing
@@ -325,7 +325,7 @@ function get_cat_data($cat_id)
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
     $sql_get_cat_data = " SELECT id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
-                       FROM `" . $tbl_course_node . "` 
+                       FROM `" . $tbl_course_node . "`
                                        WHERE id= ". (int) $cat_id;
     return claro_sql_query_get_single_row($sql_get_cat_data);
 
@@ -345,7 +345,7 @@ function get_cat_id_from_code($cat_code)
     $tbl_course_node = $tbl_mdb_names['category'];
 
     $sql_get_cat_id = " SELECT id
-                                       FROM `" . $tbl_course_node . "` 
+                                       FROM `" . $tbl_course_node . "`
                                        WHERE code='". $cat_code."'";
     return claro_sql_query_get_single_value($sql_get_cat_id);
 
@@ -354,11 +354,11 @@ function get_cat_id_from_code($cat_code)
 /**
  * THEORIC FUNCTION TO COMPUTE  NB_CHILDS
  * @param $node_code
- * @return 
+ * @return
  * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  *
- 
+
 function cat_count_descendance($node_code)
 {
     global $nodeList;
@@ -402,7 +402,7 @@ function search_max_tree_pos()
 /**
  *
  * @param $node
- * @return 
+ * @return
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -411,25 +411,25 @@ function get_node_children_count($node)
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
 
-    $sql="SELECT count(id) 
+    $sql="SELECT count(id)
           FROM `" . $tbl_course_node. "` ";
-    
+
     if (is_null($node))
     {
         $sql .= "WHERE code_P IS NULL ";
     }
-    else 
+    else
     {
         $sql .= "WHERE code_P = '" . $node . "'";
     }
-    
+
 	return claro_sql_query_get_single_value($sql);
 }
 
 /**
  *
  * @param $node
- * @return 
+ * @return
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -437,25 +437,25 @@ function get_node_descendance_count($node)
 {
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
-    
+
     if (is_null($node))
     {
         $sql="SELECT count(id) nb_childs FROM `" . $tbl_course_node. "` ";
     }
-    else 
+    else
     {
         $sql="SELECT nb_childs
-          FROM `" . $tbl_course_node. "` 
+          FROM `" . $tbl_course_node. "`
         WHERE code = '" . $node . "'";
     }
-    
+
 	return claro_sql_query_get_single_value($sql);
 }
 
 /**
  *
  * @param $node
- * @return 
+ * @return
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -467,14 +467,14 @@ function get_node_children_count_course($node)
     $sql = "SELECT COUNT( `courses`.`cours_id` ) `nbCourse`
             FROM `" . $tbl_course . "` `courses`
             WHERE `courses`.`faculte` = '". addslashes($node) ."'";
-    
+
 	return claro_sql_query_get_single_value($sql);
 }
 
 /**
  *
  * @param $id_node
- * @return 
+ * @return
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -482,12 +482,12 @@ function delete_node($id_node)
 {
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
-    
+
     $cat_data = get_cat_data($id_node);
 	if (!$cat_data) return false;
-	
+
     $sql_Delete= " DELETE FROM `" . $tbl_course_node . "`
-                   WHERE id= ". (int) $cat_data['id']; 
+                   WHERE id= ". (int) $cat_data['id'];
     if (!claro_sql_query($sql_Delete)) return false;
 
     // Update nb_child of the parent
@@ -499,5 +499,55 @@ function delete_node($id_node)
                     WHERE treePos > " . (int) $cat_data['treePos'] ;
     claro_sql_query($sql_update);
 	return true;
+}
+
+function analyseCat($catCode)
+{
+    $catData = get_cat_data(get_cat_id_from_code($catCode));
+    /*
+    'id' => '1',
+  'name' => 'Sciences',
+  'code' => 'SC',
+  'code_P' => NULL,
+  'treePos' => '1',
+  'nb_childs' => '0',
+  'canHaveCatChild' => 'TRUE',
+  'canHaveCoursesChild' => 'TRUE',*/
+
+    //TEST 1 :
+    if(!ctype_digit($catData['id'])) return claro_failure::set_failure('id_not_numerical');
+    //TEST 2 :
+    if(!ctype_digit($catData['treePos'])) return claro_failure::set_failure('treePos_not_numerical');
+    //TEST 3 :
+    if(!ctype_digit($catData['nb_childs'])) return claro_failure::set_failure('nb_childs_not_numerical');
+    //TEST 4
+    if(!is_null($catData['code']) && !get_cat_id_from_code($catData['code'])) return claro_failure::set_failure('code_not_valid: ' . $catData['code']);
+    //TEST 5
+    if(!is_null($catData['code_P']) && !get_cat_id_from_code($catData['code_P'])  ) return claro_failure::set_failure('parent_code_not_valid: '.$catData['code_P']);
+    //TEST 6
+    if(countChild($catCode)!=($catData['nb_childs'])) return claro_failure::set_failure('nb_childs_wrong'.countChild($catCode).':'.($catData['nb_childs']));
+
+    return true;
+}
+
+function countChild($catCode)
+{
+    $catList = claro_get_cat_list();
+    reset($catList);
+    while (list(,$cat) = each($catList))
+    {
+        if ($cat['code']==$catCode)
+        {
+            $codeP = $cat['code_P'];
+            break;
+        }
+    }
+    $i = 0;
+    while (list(,$cat) = each($catList))
+    {
+        if ($cat['code_P']==$codeP) return $i;
+        $i++;
+    }
+    return 0;
 }
 ?>
