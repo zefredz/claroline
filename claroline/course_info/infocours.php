@@ -162,14 +162,14 @@ if ( isset($_REQUEST['changeProperties']) )
     $emailControlList = (strpos($courseEmail,';')===false) ? strtr($courseEmail,', ',';;'):$email;
     $emailControlList = explode(';',$emailControlList);
     foreach ($emailControlList as $emailControl )
-    if ( ! is_well_formed_email_address( $emailControl) )
+    if ( ! is_well_formed_email_address( trim($emailControl)) )
     {
         $is_emailListValid = false;
         $errorMsgList[] = $langErrorEmailInvalid . ' : <i>' . $emailControl . '</i>';
     }
     else
     {
-        $emailValidList[] = $emailControl;
+        $emailValidList[] = trim($emailControl);
     }
     if ($is_emailListValid && is_array($emailValidList))
     {
@@ -200,16 +200,16 @@ if ( isset($_REQUEST['changeProperties']) )
         elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
 
         $sql = "UPDATE `" . $tbl_course . "`
-                SET `intitule`         ='" .addslashes($courseTitle)       . "',
-                    `faculte`          ='" .addslashes($courseCategory)    . "',
-                    `titulaires`       ='" .addslashes($courseHolder)      . "',
-                    `fake_code`        ='" .addslashes($courseOfficialCode). "',
-                    `languageCourse`   ='" .addslashes($courseLanguage)    . "',
-                    `departmentUrlName`='" .addslashes($extLinkName)       . "',
-                    `departmentUrl`    ='" .addslashes($extLinkUrl)        . "',
-                    `email`            ='" .addslashes($courseEmail)       . "',
-                    `enrollment_key`   ='" .addslashes($enrollmentKey)     ."',
-                    `visible`          ="  .(int) $visibilityState         ."
+                SET `intitule`         = '" .addslashes($courseTitle)       . "',
+                    `faculte`          = '" .addslashes($courseCategory)    . "',
+                    `titulaires`       = '" .addslashes($courseHolder)      . "',
+                    `fake_code`        = '" .addslashes($courseOfficialCode). "',
+                    `languageCourse`   = '" .addslashes($courseLanguage)    . "',
+                    `departmentUrlName`= '" .addslashes($extLinkName)       . "',
+                    `departmentUrl`    = '" .addslashes($extLinkUrl)        . "',
+                    `email`            = '" .addslashes($courseEmail)       . "',
+                    `enrollment_key`   = '" .addslashes($enrollmentKey)     ."',
+                    `visible`          = "  .(int) $visibilityState         ."
                 WHERE code='" . addslashes($current_cid) . "'";
 
         claro_sql_query($sql);
@@ -380,7 +380,7 @@ echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index
 <?php
 
 $toAdd='';
-    
+
 if ( isset($cidToEdit) )
 {
     $toAdd ='?cidToEdit=' . $current_cid;
@@ -441,8 +441,8 @@ if ( isset($cfrom) && ($is_platformAdmin) )
 {
     if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
     {
-        $links[] = '<a class="claroCmd" href="../admin/admincourses.php'. $toAdd . '">' 
-                . $langBackToList 
+        $links[] = '<a class="claroCmd" href="../admin/admincourses.php'. $toAdd . '">'
+                . $langBackToList
                 . '</a>';
     }
 }
