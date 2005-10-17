@@ -10,7 +10,7 @@
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/CLDSC/
  *
@@ -19,7 +19,7 @@
  * @package CLDSC
  *
  * @todo move functions to a lib
- * 
+ *
  */
 
 $tlabelReq = 'CLDSC___';
@@ -64,7 +64,7 @@ if ( $is_allowedToEdit )
     if ( $cmd == 'exEdit' )
     {
         // Update description
-        if ( course_description_set_item($descId,$descTitle,$descContent) != FALSE )
+        if ( course_description_set_item($descId, $descTitle, $descContent) != false )
         {
             $eventNotifier->notifyCourseEvent('course_description_modified', $_cid, $_tid, $descId, $_gid, '0');
             $dialogBox .= '<p>' . $langDescUpdated . '</p>';
@@ -79,16 +79,10 @@ if ( $is_allowedToEdit )
     {
         // Add new description
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
+        $dialogBox .= '<p>' . ($descId !== false ? $langDescAdded : $langUnableDescToAdd ) . '</p>';
 
-        $eventNotifier->notifyCourseEvent("course_description_added",$_cid, $_tid, $descId, $_gid, "0");
-        if ($descId !== FALSE )
-        {
-            $dialogBox .= '<p>' . $langDescAdded . '</p>';
-        }
-        else
-        {
-            $dialogBox .= '<p>' . $langUnableDescToAdd . '</p>';
-        }
+        $eventNotifier->notifyCourseEvent('course_description_added',$_cid, $_tid, $descId, $_gid, 0);
+
     }
 
     /******************************************************************************
@@ -149,7 +143,7 @@ if ( $is_allowedToEdit )
     {
         if ( course_description_delete_item($descId) )
         {
-            $eventNotifier->notifyCourseEvent("course_description_deleted",$_cid, $_tid, $descId, $_gid, "0");
+            $eventNotifier->notifyCourseEvent('course_description_deleted',$_cid, $_tid, $descId, $_gid, '0');
             $dialogBox .= '<p>' . $langDescDeleted . '</p>';
         }
         else
@@ -175,7 +169,7 @@ if ( $is_allowedToEdit )
 
         if ($cmd == 'mkShow')
         {
-            $eventNotifier->notifyCourseEvent("course_description_visible",$_cid, $_tid, $descId, $_gid, "0");
+            $eventNotifier->notifyCourseEvent('course_description_visible',$_cid, $_tid, $descId, $_gid, '0');
         }
     }
 }
@@ -217,14 +211,14 @@ if ( $is_allowedToEdit )
         .    '<tr>'               . "\n"
         .    '<td>'               . "\n"
         .    '<form  method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-        .    '<input type="hidden" name="cmd" value="' . ($descItem['content'] ? 'exEdit' : 'exAdd' ). '">' 
+        .    '<input type="hidden" name="cmd" value="' . ($descItem['content'] ? 'exEdit' : 'exAdd' ). '">'
         .    (isset($descItem['id']) ? '<input type="hidden" name="id" value="' . $descItem['id'] . '">' : '' )
         .    '<p><label for="descTitle"><b>' . $langTitle . ' : </b></label><br /></p>' . "\n"
         .    ( $descNotEditable==true ? htmlspecialchars($descPresetTitle) . '<input type="hidden" name="descTitle" value="'. htmlspecialchars($descPresetTitle) .'">' : '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($descItem['title']) . '">' . "\n")
         .    '<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n"
         .    claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
-        .    '<input type="submit" name="save" value="' . $langOk . '">' . "\n"
+        .    '<input type="submit" name="save" value="' . $langOk . '" />' . "\n"
         .    claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
         .    '</form>' . "\n"
         .    '</td>'  . "\n"
@@ -322,8 +316,8 @@ if ( count($descList) )
             //    echo "\n".''.
             echo '<tr class="superHeader">'
             .    '<th class="item' . $classItem . '">'
-            .    '<div' . $style . '>' 
-            .    htmlspecialchars($thisDesc['title']) 
+            .    '<div' . $style . '>'
+            .    htmlspecialchars($thisDesc['title'])
             .    '</div>'
             .    '</th>'
             .    '</tr>' . "\n"
@@ -344,24 +338,24 @@ if ( count($descList) )
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
             .    '<img src="' . $imgRepositoryWeb.'edit.gif" alt="' . $langModify . '">'
-            .    '</a>'."\n"
+            .    '</a>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
             .    ' onClick="if(!confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete)
             .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'">'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'" />'
             .    '</a>' . "\n"
             ;
             if ($thisDesc['visibility'] == 'SHOW')
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . $langInvisible . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . $langInvisible . '" />'
                 .    '</a>' . "\n"
                 ;
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . $langVisible . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . $langVisible . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -384,11 +378,11 @@ include $includePath . '/claro_init_footer.inc.php';
 
 /**
  * get all the items
- * 
+ *
  * @param $course_id string  glued dbName of the course to affect default: current course
  *
  * @return array of arrays with data of the item
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -399,7 +393,7 @@ function course_description_get_item_list($course_id=Null)
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
     $sql = "SELECT `id`, `title`, `content` , `visibility`
-            FROM `".$tbl_course_description."` 
+            FROM `".$tbl_course_description."`
             ORDER BY `id`";
     return  claro_sql_query_fetch_all($sql);
 }
@@ -408,12 +402,12 @@ function course_description_get_item_list($course_id=Null)
 
 /**
  * get the item of the given id.
- * 
+ *
  * @param $descId   integer id of the item to get
  * @param $course_id string  glued dbName of the course to affect default: current course
  *
  * @return array with data of the item
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
 */
@@ -433,12 +427,12 @@ function course_description_get_item($descId, $course_id=Null)
 
 /**
  * remove the item of the given id.
- * 
+ *
  * @param $descId   integer id of the item to delete
  * @param $course_id string  glued dbName of the course to affect default: current course
  *
  * @return result of query
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -457,14 +451,14 @@ function course_description_delete_item($descId, $course_id=Null)
 
 /**
  * update values of the item of the given id.
- * 
+ *
  * @param $descId       integer id of the item to update
  * @param $descTitle    string Title of the item
  * @param $descContent  string Content of the item
  * @param $course_id    string  glued dbName of the course to affect default: current course
  *
  * @return result of query
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -485,14 +479,14 @@ function course_description_set_item($descId , $descTitle , $descContent, $cours
 
 
 /**
- * insert values in a new item 
- * 
+ * insert values in a new item
+ *
  * @param $descTitle    string Title of the item
  * @param $descContent  string Content of the item
  * @param $course_id    string  glued dbName of the course to affect default: current course
  *
  * @return integer id of the new item
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -526,14 +520,14 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
 }
 
 /**
- * insert values in a new item 
- * 
+ * insert values in a new item
+ *
  * @param $descTitle    string Title of the item
  * @param $cmd          string with command to hide or show item
  * @param $dbnameGlu    string  glued dbName of the course to affect default: current course
  *
  * @return integer id of the new item
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -553,12 +547,12 @@ function course_description_visibility_item($descId, $cmd, $dbnameGlu=Null)
 }
 
 /**
- * return tips id of a new item 
- * 
+ * return tips id of a new item
+ *
  * @param $id integer id of the item
  *
  * @return integer tips id of the new item
- * 
+ *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
