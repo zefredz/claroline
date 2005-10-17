@@ -166,16 +166,16 @@ function claro_disp_datagrid($dataGrid, $option=null)
 
 }
 
-function claro_get_lang($langStringId,$param1=null,$param2=null,$param3=null)
+function claro_get_lang($stringId,$param1=null,$param2=null,$param3=null)
 {
+        // this  awful code  woulde  change  and  use func_get_args
+    $stringList[$stringId]=$stringId;
+    if (is_null($param1))     $string = $stringList[$stringId];
+    elseif (is_null($param2)) $string = sprintf($stringList[$stringId],$param1);
+    elseif (is_null($param3)) $string = sprintf($stringList[$stringId],$param1,$param2);
+    else                      $string = sprintf($stringList[$stringId],$param1,$param2,$param3);
 
-    $langStringList[$langStringId]=$langStringId;
-    if (is_null($param1))     $langString = $langStringList[$langStringId];
-    elseif (is_null($param2)) $langString = sprintf($langStringList[$langStringId],$param1);
-    elseif (is_null($param3)) $langString = sprintf($langStringList[$langStringId],$param1,$param2);
-    else                      $langString = sprintf($langStringList[$langStringId],$param1,$param2,$param3);
-
-    return $langString;
+    return $string;
 }
 
 ?>
