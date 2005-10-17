@@ -17,9 +17,9 @@
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  */
-include_once( dirname(__FILE__) . '/fileManage.lib.php');
+include_once dirname(__FILE__) . '/fileManage.lib.php';
 
-function empty_group($groupIdList='ALL', $course_id=null)
+function empty_group($groupIdList = 'ALL', $course_id = null)
 {
     $groupFilter = false;
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
