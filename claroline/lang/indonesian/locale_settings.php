@@ -57,10 +57,10 @@ $langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O
 $langMonthNames['short'] = array('Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des');
 $langMonthNames['long'] = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
 
-// Voir http://www.php.net/manual/en/function.strftime.php pour la variable
+// see http://www.php.net/manual/en/function.strftime.php to edit $date* variables
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
+$dateFormatShort =  '%b %d, %y';
 $dateFormatLong  = '%A, %d %B %Y';
 $dateTimeFormatLong  = '%d %B, %Y pada %I:%M %p';
 $timeNoSecFormat = '%I:%M %p';
