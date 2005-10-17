@@ -37,6 +37,12 @@ include_once $includePath . '/lib/faculty.lib.inc.php';
 $nameTools        = $langCategories;
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
+$htmlHeadXtra[] = '
+<STYLE>
+.error {color:red;}
+</STYLE>
+';
+$analyseTreeResultMsg= null;
 // get table name
 $tbl_mdb_names   = claro_sql_get_main_tbl();
 $tbl_course      = $tbl_mdb_names['course'  ];
@@ -60,6 +66,7 @@ switch($cmd)
     case 'doAnalyse' :
     {
         // analyse Tree Structure
+        $errorCounter =0;
         $category_array = claro_get_cat_flat_list();
         foreach (array_keys($category_array) as $catCode)
         {
@@ -67,8 +74,11 @@ switch($cmd)
             $dataAnalyseResult[] = array ( 'Code'=>$catCode
                                          , 'Result'=>$analyseResult?'ok':'fail'
                                          , 'Message'=>$analyseResult?'':claro_failure::get_last_failure());
-        }
+            if (! $analyseResult) $errorCounter++;
 
+        }
+        if ($errorCounter == 1)    $analyseTreeResultMsg['error'][] = claro_get_lang('One error found');
+        elseif ($errorCounter > 1) $analyseTreeResultMsg['error'][] = claro_get_lang('%s errors found', $errorCounter);
         // analyse Course onwance
         $sql = "SELECT c.code `Course code`, c.faculte `Unknow faculty`
         FROM  `" . $tbl_course . "`  c
@@ -100,7 +110,9 @@ switch ($view)
     case DISP_ANALYSE :
     {
         echo claro_disp_tool_title('ANALYSE RESULT');
-        echo claro_disp_tool_title('Tree Structure');
+        echo claro_disp_tool_title('Tree Structure ');
+        claro_disp_msg_arr($analyseTreeResultMsg);
+
         echo claro_disp_datagrid($dataAnalyseResult);
         echo claro_disp_tool_title('Course ownance');
         echo claro_disp_datagrid($courseOwnanceCheck );
@@ -115,7 +127,7 @@ switch ($view)
 
 include $includePath . '/claro_init_footer.inc.php';
 
-function claro_disp_datagrid($dataGrid)
+function claro_disp_datagrid($dataGrid, $option=null)
 {
     if (is_array($dataGrid) && count($dataGrid))
     {
@@ -148,10 +160,22 @@ function claro_disp_datagrid($dataGrid)
         }
     }
     $stream .= '</tbody>' . "\n"
-    .         '</table>' . "\n";
+    .          '</table>' . "\n";
 
     return $stream;
 
+}
+
+function claro_get_lang($langStringId,$param1=null,$param2=null,$param3=null)
+{
+
+    $langStringList[$langStringId]=$langStringId;
+    if (is_null($param1))     $langString = $langStringList[$langStringId];
+    elseif (is_null($param2)) $langString = sprintf($langStringList[$langStringId],$param1);
+    elseif (is_null($param3)) $langString = sprintf($langStringList[$langStringId],$param1,$param2);
+    else                      $langString = sprintf($langStringList[$langStringId],$param1,$param2,$param3);
+
+    return $langString;
 }
 
 ?>
