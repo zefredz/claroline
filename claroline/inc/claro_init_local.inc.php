@@ -197,6 +197,7 @@
 
 require_once dirname(__FILE__).'/conf/auth.conf.php'; // load the platform authentication settings
 
+
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
   global name space.
@@ -286,7 +287,7 @@ else
 
             $result = claro_sql_query($sql);
 
-            if ( count($result) > 0)
+            if ( mysql_num_rows($result) > 0)
             {
                 while ( ( $uData = mysql_fetch_array($result) ) && ! $claro_loginSucceeded )
                 {
@@ -351,7 +352,6 @@ else
             }
             else // login failed, mysql_num_rows($result) <= 0
             {
-
                 $claro_loginSucceeded = false;
 
                 /*
