@@ -117,10 +117,10 @@ switch ($view)
     {
         echo claro_disp_tool_title(array('mainTitle'=>'ANALYSE RESULT','subTitle'=>'Tree Structure '))
         .    claro_disp_msg_arr($analyseTreeResultMsg,1)
-        .    claro_disp_datagrid($dataAnalyseResult)
+        .    claro_disp_datagrid($dataAnalyseResult, array('dispCounter' => true))
         .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? '):'' )
         .    claro_disp_tool_title('Course ownance')
-        .    claro_disp_datagrid($courseOwnanceCheck )
+        .    claro_disp_datagrid($courseOwnanceCheck , array('dispCounter' => true))
         ;
     }
     break;
@@ -142,8 +142,12 @@ switch ($view)
 
 include $includePath . '/claro_init_footer.inc.php';
 
-function claro_disp_datagrid($dataGrid, $option=null)
+function claro_disp_datagrid($dataGrid, $option = null)
 {
+    if(is_null($option) || ! is_array($option) )  $option=array();
+
+    if (! array_key_exists('idLine',$option)) $option['idLine'] = 'blank';
+
     if (is_array($dataGrid) && count($dataGrid))
     {
         $stream = '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
@@ -156,13 +160,37 @@ function claro_disp_datagrid($dataGrid, $option=null)
         foreach (array_keys($dataGrid[0]) as $colTitle)
             $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
         $stream .= '</tr>' . "\n"
-        .         '</THEAD>' . "\n"
-        .         '<tbody>' . "\n"
+        .          '</THEAD>' . "\n"
+        ;
+
+        if (array_key_exists('dispCounter',$option))
+        {
+            $stream .= '<TFOOT>' . "\n"
+            .          '<tr class="headerX" align="center" valign="top">' . "\n"
+            .          '<TD>' . "\n"
+            .          '</TD>' . "\n"
+            .          '<TD>' . "\n"
+            .          count($dataGrid)
+            .          '</TD>' . "\n"
+            .          '</TR>' . "\n"
+            .          '</TR>' . "\n"
+            .          '</TFOOT>' . "\n"
+            ;
+
+        }
+
+        $stream .= '<tbody>' . "\n"
         ;
         foreach ($dataGrid as $key => $dataLine)
         {
+            switch ($option['idLine'])
+            {
+                case 'blank'   : $idLine = '';   break;
+                case 'numeric' : $idLine = $key; break;
+            }
+
             $stream .= '<tr>' . "\n"
-            .          '<td>' . $key .'</td>' . "\n";
+            .          '<td>' . $idLine .'</td>' . "\n";
             $i=0;
             foreach ($dataLine as $dataCell)
             {
