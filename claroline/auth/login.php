@@ -134,39 +134,51 @@ elseif ( is_null($_cid) && $cidRequired )
     // Display header
     require $includePath . '/claro_init_header.inc.php';
 
-    // Display select course form
-    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
-    .    '<table align="center">'                                ."\n"
-    .    '<tr>'                                                  ."\n"
-    .    '<td colspan="2">'                                      ."\n"
-    .    claro_disp_tool_title($langChooseACourseToAccessThisPage)
-    .    $sourceUrlFormField                                     ."\n"
-    .    $cidRequiredFormField                                   ."\n"
-    .    $sourceCidFormField                                     ."\n"
-    .    $sourceGidFormField                                     ."\n"
-    .    '<tr>'                                                  ."\n"
-    .    '<td>'                                                  ."\n"
-    .    '<label for="selectCourse">' 
-    .    $langCourse 
-    .    '</label> : '                                           ."\n"
-    .    '</td>'                                                 ."\n"
-    .    '<td>'                                                  ."\n"
-    .    '<select name="cidReq" id="selectCourse">'              ."\n"
-    .    implode("\n", prepare_option_tags($courseList) )        ."\n"
-    .    '</select>'                                             ."\n"
-    .    '</td>'                                                 ."\n"
-    .    '</tr>'                                                 ."\n"
-    .    '<tr>'                                                  ."\n"
-    .    '<td>'                                                  ."\n"
-    .    '</td>'                                                 ."\n"
-    .    '<td>'                                                  ."\n"
-    .    '<input type="submit" value="' . $langOk . '">'         ."\n"
-    .    claro_disp_button($rootWeb, $langCancel)
-    .    '</td>'                                                 ."\n"
-    .    '</tr>'                                                 ."\n"
-    .    '</table>'                                              ."\n"
-    .    '</form>'                                               ."\n"
-    ;
+    if ( $courseList !== fasle && count($courseList) > 0 )
+    {
+        // Display select course form
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+        .    '<table align="center">'                                ."\n"
+        .    '<tr>'                                                  ."\n"
+        .    '<td colspan="2">'                                      ."\n"
+        .    claro_disp_tool_title($langChooseACourseToAccessThisPage)
+        .    $sourceUrlFormField                                     ."\n"
+        .    $cidRequiredFormField                                   ."\n"
+        .    $sourceCidFormField                                     ."\n"
+        .    $sourceGidFormField                                     ."\n"
+        .    '<tr>'                                                  ."\n"
+        .    '<td>'                                                  ."\n"
+        .    '<label for="selectCourse">' 
+        .    $langCourse 
+        .    '</label> : '                                           ."\n"
+        .    '</td>'                                                 ."\n"
+        .    '<td>'                                                  ."\n"
+        .    '<select name="cidReq" id="selectCourse">'              ."\n"
+        .    implode("\n", prepare_option_tags($courseList) )        ."\n"
+        .    '</select>'                                             ."\n"
+        .    '</td>'                                                 ."\n"
+        .    '</tr>'                                                 ."\n"
+        .    '<tr>'                                                  ."\n"
+        .    '<td>'                                                  ."\n"
+        .    '</td>'                                                 ."\n"
+        .    '<td>'                                                  ."\n"
+        .    '<input type="submit" value="' . $langOk . '">'         ."\n"
+        .    claro_disp_button($rootWeb, $langCancel)
+        .    '</td>'                                                 ."\n"
+        .    '</tr>'                                                 ."\n"
+        .    '</table>'                                              ."\n"
+        .    '</form>'                                               ."\n"
+        ;
+    }
+    else
+    {            
+        // Display link to student to enrol to this course
+        echo '<p align="center">'           ."\n"
+        .    $lang_if_you_wish_to_enroll_to_this_course
+        .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg">'
+        .    $langReg.'</a>' ."\n"
+        .    '</p>'          ."\n";
+    }
 
     // Display footer
     require $includePath . '/claro_init_footer.inc.php';
@@ -193,7 +205,7 @@ else
             }
             elseif ( $allowSelfReg )
             {
-		// Display a link to anonymous to register on the platform
+        		// Display a link to anonymous to register on the platform
                 echo '<p align="center">'                           ."\n"
                 .    $langCreate1stAccountOnPlatform                ."\n"
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
