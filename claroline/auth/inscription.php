@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLAUTH
  *
@@ -28,30 +28,31 @@ if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE )
 // Already logged
 if ( isset($_uid) )
 {
-    header("Location: ".$rootWeb);
+    header('Location: ' . $rootWeb);
     exit;
 }
 
 // include profile library
-include($includePath . '/conf/user_profile.conf.php');
-include($includePath . '/lib/user.lib.php');
-include($includePath . '/lib/claro_mail.lib.inc.php');
+include $includePath . '/conf/user_profile.conf.php';
+include $includePath . '/lib/user.lib.php';
+include $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
 
 $error = false;
 $messageList = array();
 
-// Initialise field variable from subscription form 
+// Initialise field variable from subscription form
 
 $user_data = user_initialise();
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
-/*=====================================================================
+/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
   Main Section
- =====================================================================*/ 
+  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 if ( $cmd == 'registration' )
 {
@@ -71,7 +72,7 @@ if ( $cmd == 'registration' )
     // validate forum params
 
     $messageList = user_validate_form_registration($user_data);
-    
+
     if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
@@ -90,20 +91,20 @@ if ( $cmd == 'registration' )
             $_SESSION['_uid'] = $_uid;
             $_SESSION['_user'] = $_user;
             $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
-            
+
             // track user login
             event_login();
-    
+
             // last user login date is now
             $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
             $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
-    
-            // send info to user by email 
+
+            // send info to user by email
             user_send_registration_mail($_uid, $user_data);
-        
+
         } // if _uid
 
-    } // end register user    
+    } // end register user
     else
     {
         // user validate form return error messages
@@ -127,15 +128,15 @@ else
 }
 
 
-/*=====================================================================
+/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
   Display Section
- =====================================================================*/ 
+  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 $interbredcrump[]= array ('url' => 'inscription.php', 'name' => $langCreateUserAccount);
 
 // Display Header
 
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 // Display Title
 
@@ -157,17 +158,17 @@ if ( $display == DISP_REGISTRATION_SUCCEED )
         }
 
         echo '<form action="../../index.php?cidReset=1" >'
-        .    '<input type="submit" name="next" value="' . $langNext . '" >' . "\n"
-        .    '</form>'."\n" 
+        .    '<input type="submit" name="next" value="' . $langNext . '" />' . "\n"
+        .    '</form>' . "\n"
         ;
 }
 elseif ( $display == DISP_REGISTRATION_AGREEMENT )
 {
-    
+
     if (file_exists('./textzone_inscription.inc.html'))
     {
         echo '<div class="info">';
-        include './textzone_inscription.inc.html'; // Introduction message if needed
+        readfile('./textzone_inscription.inc.html'); // Introduction message if needed
         echo '</div>';
     }
 
@@ -175,24 +176,24 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     {
         echo '&nbsp;'
         .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=2">'
-        .    '<img src="claroline/img/edit.gif">' . $langEditTextZone
+        .    '<img src="claroline/img/edit.gif" />' . $langEditTextZone
         .    '</a>' . "\n"
         .    '<br />' . "\n"
         ;
     }
 
     echo '<br /><form action="' . $_SERVER['PHP_SELF'] . '" >'
-    .    '<input type="hidden" name="cmd" value="agree" >' . "\n"
-    .    '<input type="submit" name="next" value="' . $langOk . '" >' . "\n"
+    .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
+    .    '<input type="submit" name="next" value="' . $langOk . '" />' . "\n"
     .    claro_disp_button( $rootWeb, $langCancel )
-    .    '</form>' . "\n" 
+    .    '</form>' . "\n"
     ;
 }
 elseif ( $display == DISP_REGISTRATION_FORM )
 {
     //  if registration failed display error message
 
-    if ( count($messageList) > 0 ) 
+    if ( count($messageList) > 0 )
     {
         echo claro_disp_message_box( implode('<br />', $messageList) );
     }
@@ -206,6 +207,6 @@ else
 
 // Display Footer
 
-include ($includePath . '/claro_init_footer.inc.php' );
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>
