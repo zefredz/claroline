@@ -940,7 +940,7 @@ $langIntroText = "Per inviare un messaggio, selezionare il gruppo di utenti (shi
 $langIntroWork = "Questa pagina permette a qualsiasi studente o gruppo di fare l'upload di un documento sul sito del corso. <br>Manda un file HTML solo se non contiene immagini.<br><br>Se vuoi presentare questo strumento o dare alcune raccomandazioni agli studenti, clicca sul bottone qua sotto.<br>";
 $langInvalidId = "Identificativo non valido. Se non è ancora iscritto compili il <a href='claroline/auth/inscription.php'>modulo d'iscrizione</a></font color>";
 $langInvalidIdSelfReg = "<b>Login errato.</b><br />Prego riprova.<br />
-<small>Se non hai ancora un account utente, usa la <a href=claroline/auth/inscription.php>form di registrazione</a></font color></small>";
+<small>Se non hai ancora un account utente, usa la <a href=\"%s\">form di registrazione</a></font color></small>";
 $langInvisible = "Invisibile";
 $langIs = "è";
 $langIsAlreadyRegistered = "è già registrato al corso";

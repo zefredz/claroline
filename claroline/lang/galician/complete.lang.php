@@ -1201,7 +1201,7 @@ $langInvalidIdSelfReg = "<b>Fallou o intento de acceso.</b><br />Por favor, int&
 
 <small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o
 
-<a href=claroline/auth/inscription.php>formulario de rexistro</a></font color></small>.";
+<a href=\"%s\">formulario de rexistro</a></font color></small>.";
 $langInvisible = "Invisible";
 $langIs = "&eacute;";
 $langIsAlreadyRegistered = "xa est&aacute; rexistrado no curso";

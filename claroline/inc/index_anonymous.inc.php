@@ -244,7 +244,7 @@ else
         }
         else
         {
-        	echo claro_disp_message_box($langInvalidIdSelfReg);
+        	echo claro_disp_message_box(sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') );
         }
         
     }

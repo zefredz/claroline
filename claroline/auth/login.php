@@ -99,7 +99,7 @@ if ( is_null($_uid) && $uidRequired )
 
     if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
     {
-        echo '<p>' . $langInvalidIdSelfReg . '</p>';
+        echo '<p>' . sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') . '</p>';
     }
 
     echo '</td>'                                                    ."\n"

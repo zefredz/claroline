@@ -999,7 +999,7 @@ untuk mengumpulkan tugas berupa dokumen, atau menulis teks, di situs mata kuliah
 <br /><br />Jika Anda ingin menyajikann tool ini atau memberikan sejumlah saran kepada mahassiwa, klik pada tombol di bawah.<br>";
 $langInvalidId = "Login gagal.<BR>Jika anda belum terdaftar, gunakan <a href=claroline/auth/inscription.php>formulir  pendaftaran</a></font color>";
 $langInvalidIdSelfReg = "<b>Login gagal.</b><br />Silahkan coba lagi.<br />
-<small>Jika Anda belum terdaftar gunakan <a href=claroline/auth/inscription.php>formulir pendaftaran</a></font color></small>";
+<small>Jika Anda belum terdaftar gunakan <a href=\"%s\">formulir pendaftaran</a></font color></small>";
 $langInvisible = "Sembunyi";
 $langIs = "adalah";
 $langIsAlreadyRegistered = "telah terdaftar pada mata kuliah";

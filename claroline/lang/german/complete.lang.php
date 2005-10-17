@@ -935,7 +935,7 @@ $langIntroWork = "Über diese Seite können Teilnehmer oder Lern-Gruppen Dateien/D
 Wenn Sie dieses Tool vorstellen oder Ihren Teilnehmern weitere Hinweise geben möchten, klicken Sie auf den Button unterhalb.<br>";
 $langInvalidId = "Login ungültig. Wenn Sie noch nicht registriert sind, füllen Sie bitte die <a href='claroline/auth/inscription.php'>Anmeldung</a></font color> aus.";
 $langInvalidIdSelfReg = "<b>Login fehlgeschlagen.</b><br>Versuchen Sie es nocheinmal.<br>
-<small>Wenn Sie noch keinen Account haben, benützen Sie das <a href=claroline/auth/inscription.php>Registrierungsformular</a></small>.";
+<small>Wenn Sie noch keinen Account haben, benützen Sie das <a href=\"%s\">Registrierungsformular</a></small>.";
 $langInvisible = "verborgen";
 $langIs = "ist";
 $langIsAlreadyRegistered = "ist bereits in die KursSite eingetragen";

@@ -956,7 +956,7 @@ $langIntroWork = "Dit stuk gereedschap staat de lesgever toe opdrachtenaan te ma
 <br /><br />Indien U deze taak wil tonen aan de studenten of enkele aanbevelingen wil doen, klik op onderstaande knop.<br>";
 $langInvalidId = "Ongeldige log-in. Indien u nog niet ingeschreven bent, gelieve het <a href='claroline/auth/inscription.php'>registratieformulier</a> in te vullen.";
 $langInvalidIdSelfReg = "<b>Login fout.</b><br />Probeer opnieuw.<br />
-<small>Indien je nog niet bent geregistreerd gebruik dan het volgende<a href=claroline/auth/inscription.php>registratie formulier</a></font color></small>";
+<small>Indien je nog niet bent geregistreerd gebruik dan het volgende<a href=\"%s\">registratie formulier</a></font color></small>";
 $langInvisible = "Onzichtbaar";
 $langIs = "is";
 $langIsAlreadyRegistered = "is reeds ingeschreven voor de cursus";

@@ -1001,7 +1001,7 @@ $langIntroWork = "هذه الأداة تسمح للمدرس بإنشاء وظا�
 
 <br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على 'إضافة مقدمة او تمهيد'<br>";
 $langInvalidId = "فشل في تسجيل الدخول<BR>إذا لم تكن مسجل استخدم  <a href=claroline/auth/inscription.php>استمارة التسجيل</a> من فضلك</font color>";
-$langInvalidIdSelfReg = "<b>فشل في تسجيل الدخول</b><br /> الرجاء المحاولة مرة ثانية<br /><small>If you haven't a user account yet, use the <a href=claroline/auth/inscription.php>registration form</a></font color></small>";
+$langInvalidIdSelfReg = "<b>فشل في تسجيل الدخول</b><br /> الرجاء المحاولة مرة ثانية<br /><small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
 $langInvisible = "مخفي";
 $langIs = "is";
 $langIsAlreadyRegistered = "مسجل مسبقا بالمقرر";
