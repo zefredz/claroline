@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This tool is write to edit setting  of  claroline.
  *
@@ -13,13 +13,13 @@
  * installer was eable to rename from .conf.inc.php.dist
  * to .conf.inc.php
  *
- * The actual config file is build 
+ * The actual config file is build
  * to merge new and active setting.
  *
  * The system as more change than previous evolution
  * Tool are released with a conf definition file.
  *
- * This file define for each property a name, 
+ * This file define for each property a name,
  * a place but also some control for define accepted content.
  *
  * And finally some comment, explanation or info
@@ -30,20 +30,20 @@
  * - renaming or deletion of properties from config
  * - locking  of edit file (This tools can't really be
  *   in the active part of the day in prod. )
- *   I need to change that to let 
+ *   I need to change that to let
  *   admin sleep during the night
  *
  * To make transition,
  * - a section can parse old file to found old properties
  *   and his values.
- *   This script would be continue 
+ *   This script would be continue
  *   to generate a def conf file.
  *
  * @version 1.7 $Revision$
- * 
+ *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * 
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
@@ -61,7 +61,7 @@ $gidReset=TRUE;
 // include init and library files
 
 require '../../inc/claro_init_global.inc.php';
-
+$controlMsg = array();
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
@@ -70,9 +70,9 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-include($includePath.'/lib/debug.lib.inc.php');
-include($includePath.'/lib/course.lib.inc.php');
-include($includePath.'/lib/config.lib.inc.php');
+require_once $includePath.'/lib/debug.lib.inc.php';
+require_once $includePath.'/lib/course.lib.inc.php';
+require_once $includePath.'/lib/config.lib.inc.php';
 
 /* ************************************************************************** */
 /* Process
@@ -120,7 +120,7 @@ else
                     {
                         if (!validate_property($propertyValue, $conf_def_property_list[$propertyName]))
                         {
-                            $controlMsg['info'][] = $propertyName . '(No valid)';
+                            $controlMsg['info'][] = $propertyName . ' (No valid)';
                             $okToSave = FALSE;
                         }
                     }
@@ -131,9 +131,9 @@ else
                         reset($_REQUEST['prop']);
                         foreach ( $_REQUEST['prop'] as $propertyName => $propertyValue )
                         {
-                            $storedPropertyList[] = array('propName'=>$propertyName
-                                                         ,'propValue'=>$propertyValue);
-                                                         
+                            $storedPropertyList[] = array( 'propName' => $propertyName
+                                                         , 'propValue' => $propertyValue);
+
                             // here was writing to DB.... Perhaps refactoring is needed
                         }
                     }
@@ -219,7 +219,7 @@ else
         unset($conf_def,$conf_def_property_list);
         require($def_file);
 
-        // Search for value  existing  in conf file 
+        // Search for value  existing  in conf file
         $currentConfContent = get_values_from_confFile($conf_file,$conf_def_property_list);
 
         unset($currentConfContent[$config_code.'GenDate']);
@@ -243,7 +243,7 @@ else
                 }
             }
         }
-        
+
         if(!is_array($conf_def_property_list))
         {
              $controlMsg['info'][] = ''.$config_name . ' def file not valid (' . $config_code . '). <br />' . "\n"
@@ -304,16 +304,13 @@ $interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'nam
 // display claroline header
 include($includePath . '/claro_init_header.inc.php');
 
-// display tool title
-echo claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools));
 
-// display message
 if ( isset($controlMsg['debug']) ) unset($controlMsg['debug']);
 
-if ( !empty($controlMsg) )
-{
-    claro_disp_msg_arr($controlMsg);
-}
+// display tool title
+echo claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools))
+.    claro_disp_msg_arr($controlMsg,1)
+;
 
 // Display edition form
 if ( $display_form )
@@ -404,6 +401,6 @@ if ( $display_form )
 }
 
 // display footer
-include($includePath . '/claro_init_footer.inc.php' );
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

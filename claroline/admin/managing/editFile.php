@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLMANAGE
  *
@@ -53,7 +53,7 @@ if ( isset($_REQUEST['modify']) )
     }
     $controlMsg['info'][] = $lang_EditFile_ModifyOk
     .                       ' <br />'
-    .                       '<strong>' 
+    .                       '<strong>'
     .                       basename($filePathList[$_REQUEST['file']])
     .                       '</strong>'
     ;
@@ -102,12 +102,9 @@ include($includePath . '/claro_init_header.inc.php');
 $titles = array('mainTitle'=>$nameTools);
 if (isset($subtitle)) $titles['subTitle'] = $subtitle;
 
-echo claro_disp_tool_title($titles);
-
-if ( count($controlMsg) > 0 )
-{
-    claro_disp_msg_arr($controlMsg);
-}
+echo claro_disp_tool_title($titles)
+.    claro_disp_msg_arr($controlMsg,1)
+;
 
 //OUTPUT
 
@@ -142,7 +139,7 @@ if($display==DISP_FILE_LIST
     }
     ?>
 </table><br />
-        
+
     <?php
 }
 

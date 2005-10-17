@@ -109,13 +109,12 @@ switch ($view)
 {
     case DISP_ANALYSE :
     {
-        echo claro_disp_tool_title('ANALYSE RESULT');
-        echo claro_disp_tool_title('Tree Structure ');
-        claro_disp_msg_arr($analyseTreeResultMsg);
-
-        echo claro_disp_datagrid($dataAnalyseResult);
-        echo claro_disp_tool_title('Course ownance');
-        echo claro_disp_datagrid($courseOwnanceCheck );
+        echo claro_disp_tool_title(array('mainTitle'=>'ANALYSE RESULT','subTitle'=>'Tree Structure '))
+        .    claro_disp_msg_arr($analyseTreeResultMsg,1)
+        .    claro_disp_datagrid($dataAnalyseResult)
+        .    claro_disp_tool_title('Course ownance')
+        .    claro_disp_datagrid($courseOwnanceCheck )
+        ;
     }
     break;
     default :

@@ -85,14 +85,7 @@ if ( isset($_REQUEST['id'])
 else
 {
     // Get value from session variables
-    if ( isset($_SESSION['categories']) )
-    {
-        $categories = $_SESSION['categories'];
-    }
-    else
-    {
-        $categories = array();
-    }
+    $categories = ( isset($_SESSION['categories']) ? $_SESSION['categories']: array());
 
     /**
      * Create a category
@@ -349,7 +342,7 @@ else
      * Create a category : display form
      */
 
-    if($cmd == 'rqCreate')
+    elseif($cmd == 'rqCreate')
     {
         $display_form = DISP_FORM_CREATE;
 
@@ -413,7 +406,7 @@ else
      * Change information of category : do change in db
      */
 
-    if( $cmd == 'exChange' )
+    elseif( $cmd == 'exChange' )
     {
         $noQUERY_STRING = true;
 
@@ -768,13 +761,9 @@ switch ($display_form)
 {
     case DISP_FORM_CREATE :
     {
-        echo claro_disp_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => $langSubTitleCreate));
-        if ( isset($controlMsg) && count($controlMsg) > 0 )
-        {
-            claro_disp_msg_arr($controlMsg);
-        }
-
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        echo claro_disp_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => $langSubTitleCreate))
+        .    claro_disp_msg_arr($controlMsg,1)
+        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCreate" >' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
@@ -854,13 +843,10 @@ switch ($display_form)
          * Display information to edit a category and the bom of categories
          */
 
-        echo claro_disp_tool_title(array('mainTitle' => $nameTools,'subTitle' => $langSubTitleEdit));
+        echo claro_disp_tool_title(array('mainTitle' => $nameTools,'subTitle' => $langSubTitleEdit))
+        .    claro_disp_msg_arr($controlMsg,1)
 
-        if ( isset($controlMsg) && count($controlMsg) > 0 )
-        {
-            claro_disp_msg_arr($controlMsg);
-        }
-        echo '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        .    '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
@@ -868,7 +854,7 @@ switch ($display_form)
         .    '<label for="nameCat"> ' .  $lang_faculty_NameCat . '</label >' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="20" maxlength="100">' . "\n"
+        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="20" maxlength="100" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -876,7 +862,7 @@ switch ($display_form)
         .    '<label for="codeCat"> ' .  $lang_faculty_CodeCat . ' </label >' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="texte" name="codeCat" id="codeCat" value="' .  htmlspecialchars($editedCat_Code) . '" size="20" maxlength="40">' . "\n"
+        .    '<input type="texte" name="codeCat" id="codeCat" value="' .  htmlspecialchars($editedCat_Code) . '" size="20" maxlength="40" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -892,16 +878,15 @@ switch ($display_form)
         else
             echo "checked";
 
-        echo ' value="1">' . "\n"
+        echo ' value="1" />' . "\n"
         .    ' ' . "\n"
         .    '<label for="canHaveCoursesChild_1">' .  $langYes . '</label>' . "\n"
         .    '' . "\n"
         .    '<input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0" '
         ;
-        if(isset($editedCat_CanHaveCoursesChild))
-            echo (!strcmp($editedCat_CanHaveCoursesChild, 'FALSE') ? 'checked' : '');
+        if(isset($editedCat_CanHaveCoursesChild)) echo (!strcmp($editedCat_CanHaveCoursesChild, 'FALSE') ? 'checked' : '');
 
-        echo ' value="0">' . "\n"
+        echo ' value="0" />' . "\n"
         .    '<label for="canHaveCoursesChild_0">' .  $langNo . '</label>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -909,12 +894,12 @@ switch ($display_form)
         .    '<td><br>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
-        .    '<input type="hidden" name="id" value="' .  $editedCat_Id .'">' . "\n"
+        .    '<input type="hidden" name="id" value="' .  $editedCat_Id .'" />' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="submit" value="Ok">' . "\n"
+        .    '<input type="submit" value="' . $langOk . '" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
@@ -929,12 +914,9 @@ switch ($display_form)
      * Display information to change root of the category
      */
 
-        echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent . $editedCat_Code));
-        if ( isset($controlMsg) && count($controlMsg) > 0 )
-        {
-            claro_disp_msg_arr($controlMsg);
-        }
-        echo '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>$langSubTitleChangeParent . $editedCat_Code))
+        .    claro_disp_msg_arr($controlMsg,1)
+        .    '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
@@ -971,12 +953,9 @@ switch ($display_form)
     break;
     default :
     {
-        echo claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langManageCourseCategories));
-
-        if ( isset($controlMsg) && count($controlMsg) > 0 )
-        {
-            claro_disp_msg_arr($controlMsg);
-        }
+        echo claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>$langManageCourseCategories))
+        .    claro_disp_msg_arr($controlMsg,1)
+        ;
     }
 }
 
@@ -1004,7 +983,7 @@ echo '<p>' . "\n"
 .    '<tbody>' . "\n"
 ;
 
-claro_disp_tree($categories,NULL,'');
+claro_disp_tree($categories, NULL, '');
 
 echo '</tbody>' . "\n"
 .    '</table>' . "\n"

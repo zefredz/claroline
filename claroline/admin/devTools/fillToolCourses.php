@@ -1,6 +1,6 @@
 <?php // $Id$µ
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * Filler for tools in course
  *
@@ -8,7 +8,7 @@
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package SDK
  *
@@ -52,15 +52,15 @@ $toolNameList = claro_get_tool_name_list();
 if ( isset( $_REQUEST['create'] ) )
 {
     //echo '<p>$_REQUEST = <pre>'.var_export( $_REQUEST,1).'</pre>';
-    
-    $sqlCourses ='select * FROM `' . $tbl_course . '`'; 
+
+    $sqlCourses ='select * FROM `' . $tbl_course . '`';
     $course_list  = claro_sql_query_fetch_all($sqlCourses);
     foreach ($course_list as $course)
     {
         foreach ($_REQUEST['toolToFill'] as $tool_label)
         {
             $result[$course['code']][$tool_label] ='';
-            for ($i = 1; $i <= rand(1, 5); $i++) 
+            for ($i = 1; $i <= rand(1, 5); $i++)
             {
                 fill_tool_in_course($course['code'], $tool_label);
                 $result[$course['code']][$tool_label] .= '+';
@@ -68,11 +68,11 @@ if ( isset( $_REQUEST['create'] ) )
         }
     }
     // echo '</ul>';
-    
-    
+
+
     $display=DISP_RESULT_INSERT;
 }
-else 
+else
 {
 $display = DISP_FORM_SET_OPTION;
     $sql ="SELECT pct.id             id,
@@ -82,14 +82,13 @@ $display = DISP_FORM_SET_OPTION;
                         pct.script_url url
                FROM`" . $tbl_tool . "` pct";
     $tool_list  = claro_sql_query_fetch_all($sql);
-    
+
 }
 
 
 
 include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
-if(isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 
 //////////////// OUTPUT
 switch ($display)
@@ -122,7 +121,7 @@ switch ($display)
                 </th>
             </tr>
             <tr>
-                <td>                
+                <td>
                     <select name="toolToFill[]" id="toolToFill" size="<?php echo (sizeof($tool_list)+1); ?>" multiple>
                     <?php
                     foreach($tool_list as $tool)
@@ -132,7 +131,7 @@ switch ($display)
                 </td>
                 <td>
                     <input type="radio" id="courses" selected="selected" name="courses" value="<?php echo $courses ?>" size="5" maxlength="4"> ALL
-                                        
+
                 </td>
             </tr>
         </table>
@@ -141,7 +140,7 @@ switch ($display)
         <legend >Data</legend>
         <table class="claroTable" >
             Add one line in each course.
-            
+
         </table>
     </fieldset>
     <input type="submit" name="create" value="create">
@@ -155,14 +154,14 @@ switch ($display)
 function fill_tool_in_course($course_code,$tool_label)
 {
     global  $courseTablePrefix, $dbGlu, $coursesRepositorySys, $includePath, $_course, $_uid, $_user;
-    
-    global  $lang_p_category_s_created 
-    ,       $lang_p_forum_s_created 
-    ,       $lang_p_topic_s_created 
+
+    global  $lang_p_category_s_created
+    ,       $lang_p_forum_s_created
+    ,       $lang_p_topic_s_created
     ,       $lang_p_post_s_created ;
 
 
-    
+
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
@@ -170,18 +169,18 @@ function fill_tool_in_course($course_code,$tool_label)
     $course_id = $course_code;
     $course_dbNameGlu  = claro_get_course_db_name_glued($course_code);
     $course_repository = claro_get_course_path($course_code);
-    
+
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_code));
-    
+
     $tbl_rel_usergroup       = $tbl_cdb_names['group_rel_team_user'];
     $tbl_group               = $tbl_cdb_names['group_team'];
     $tbl_userInfo            = $tbl_cdb_names['userinfo_content'];
-    
+
     $tbl_track_access    = $tbl_cdb_names['track_e_access'];    // access_user_id
     $tbl_track_downloads = $tbl_cdb_names['track_e_downloads'];
     $tbl_track_exercices = $tbl_cdb_names['track_e_exercices'];
     $tbl_track_upload    = $tbl_cdb_names['track_e_uploads'];// upload_user_id
-    
+
     switch (trim($tool_label,'_'))
     {
         case 'CLANN' :
@@ -196,18 +195,18 @@ function fill_tool_in_course($course_code,$tool_label)
             $year  = 2000+rand(4,08);
             ;
             $randomTime = mktime($hour, $min, $sec, $month, $day,$year);
-            return announcement_add_item($lorem_title, $lorem_content, 'SHOW', $randomTime, $course_code); 
+            return announcement_add_item($lorem_title, $lorem_content, 'SHOW', $randomTime, $course_code);
             break;
-        case 'CLCAL' : 
+        case 'CLCAL' :
             require_once($includePath . '/lib/agenda.lib.php');
-            
+
             $lorem_title = lorem('characters',rand(10,80));
             $lorem_content = lorem('paragraphs',rand(1,8));
-            
-            $hour = 3600; 
-            $day = 24 * $hour; 
-            $week = 7 * $day; 
-            $month = 31 * $day; 
+
+            $hour = 3600;
+            $day = 24 * $hour;
+            $week = 7 * $day;
+            $month = 31 * $day;
             $randomDate = time( ) -6*$month
                         + rand(0,18) * $month
                         + rand(0, 5) * $week
@@ -219,16 +218,16 @@ function fill_tool_in_course($course_code,$tool_label)
 
             return agenda_add_item($lorem_title, $lorem_content, $randomDate, $randomTime,$randomLasting,'SHOW', $course_code);
             break;
-        case 'CLCHT' : 
+        case 'CLCHT' :
             break; /// not ready
             $nick     = 'lorem hips';
             $chatLine = lorem('words', rand(3,20));
             $curChatRep = $course_repository . '/chat/';
-            
-            if ( ! is_dir($curChatRep) ) 
+
+            if ( ! is_dir($curChatRep) )
             {
                 claro_mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
-                if ( ! is_dir($curChatRep) ) 
+                if ( ! is_dir($curChatRep) )
                 {
                     echo '<br> <b>création '.$curChatRep.' impossible</b>';
                 }
@@ -237,7 +236,7 @@ function fill_tool_in_course($course_code,$tool_label)
             $timeNow = claro_disp_localised_date('%d/%m/%y [%H:%M]');
             if ( ! file_exists($activeChatFile))
             {
-                   $fp = @fopen($activeChatFile, 'w');    
+                   $fp = @fopen($activeChatFile, 'w');
                    @fclose($fp);
             }
             if ($chatLine)
@@ -245,7 +244,7 @@ function fill_tool_in_course($course_code,$tool_label)
                 $fchat = fopen($activeChatFile,'a');
                 $chatLine = htmlspecialchars( stripslashes($chatLine) );
                 $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
-            
+
                 fwrite($fchat,
                        '<small>'
                        .$timeNow.' '
@@ -253,48 +252,48 @@ function fill_tool_in_course($course_code,$tool_label)
                        .' &gt; '
                        .$chatLine
                        ."</small><br />\n");
-                
+
                 fclose($fchat);
             }
             return 'ok';
             break;
-        case 'CLDOC' : 
+        case 'CLDOC' :
             //$foo = lorem('words', 180);
             return false ;
-        case 'CLDSC' : 
+        case 'CLDSC' :
             break;
-        case 'CLFRM' : 
+        case 'CLFRM' :
             //return ' this  filler is broken';
-            //add ONE post. 
+            //add ONE post.
             // in a existing or new cat
             // in a existing or new forum
             // in a existing or new topic
 
             require_once $includePath . '/lib/forum.lib.php';
 
-            $resultPopulate = '<ul>';        
-            
+            $resultPopulate = '<ul>';
+
             // SELECT CATEGORY... Create it if needed
             $total_categories = get_total_category($course_id);
             $categoryToPopulate = rand(1,$total_categories+1);
-            
+
             if ($categoryToPopulate > $total_categories)
             {
                 $category_title =  lorem('characters',rand(10,150));
-                
+
                 $categoryToPopulate = create_category($category_title, $course_id);
-                                $resultPopulate .= '<li>' 
+                                $resultPopulate .= '<li>'
                                 . sprintf($lang_p_category_s_created, $categoryToPopulate)
                                 . ' :  <i>' . $category_title . '</i>'
                                 . '</li>'
-                                ;        
-                
+                                ;
+
             }
-            
-            $resultPopulate .= '<li>Cat ' . $categoryToPopulate . ' selected.  ' . '</li>';        
+
+            $resultPopulate .= '<li>Cat ' . $categoryToPopulate . ' selected.  ' . '</li>';
             // SELECT FORUM... Create it if needed
             $frm_qty = get_total_forum($categoryToPopulate, $course_id);
-            
+
             if ($categoryToPopulate=1)
             {
                 // Can't create forum in group category
@@ -304,95 +303,95 @@ function fill_tool_in_course($course_code,$tool_label)
             {
                 $forumToPopulate = rand(1, $frm_qty + 1);
             }
-            
+
             if ($forumToPopulate > $frm_qty)
             {
                 $forum_name = lorem('words',rand(2, 10));
                 $forum_desc = lorem('paragraphs',rand(1, 5));
-                
+
                 // find order in the category we must give to the newly created forum
-                
+
                 $forumToPopulate = create_forum($forum_name, $forum_desc, 2, $categoryToPopulate, $course_id);
 
                 // add new forum in DB
-                $resultPopulate .= '<li>'. sprintf($lang_p_forum_s_created , $forumToPopulate).' : <i>'.$forum_name.'</i>'.'</li>';        
+                $resultPopulate .= '<li>'. sprintf($lang_p_forum_s_created , $forumToPopulate).' : <i>'.$forum_name.'</i>'.'</li>';
             }
-            $resultPopulate .= '<li> Forum ' . $forumToPopulate . ' selected.  '.'</li>';        
-                  
+            $resultPopulate .= '<li> Forum ' . $forumToPopulate . ' selected.  '.'</li>';
+
             // SELECT TOPIC... Create it if needed
             $topic_qty = get_total_topics($forumToPopulate, $course_id);
             $topicToPopulate = rand(1, $topic_qty+1);
-            
+
             $time = date('Y-m-d H:i');
             if ($topicToPopulate > $topic_qty)
             {
                 $topic_title = lorem('words',rand(2  ,10));
-                
+
                 // find order in the category we must give to the newly created forum
-        
+
                 // add new topic in DB
-                
-                $topicToPopulate = create_new_topic(   $topic_title, 
-                                                       $time, 
-                                                       $forumToPopulate, 
+
+                $topicToPopulate = create_new_topic(   $topic_title,
+                                                       $time,
+                                                       $forumToPopulate,
                                                        $_uid,
-                                                       $_user['firstName'], 
+                                                       $_user['firstName'],
                                                        $_user['lastName'],
                                                        $course_id);
 
-                $resultPopulate .= '<li>' 
+                $resultPopulate .= '<li>'
                                 . sprintf($lang_p_topic_s_created, $topicToPopulate)
                                 . ' :  <i>' . $topic_title . '</i>'
                                 . '</li>'
-                                ;        
+                                ;
             }
             $resultPopulate .= '<li> Topic '.$topicToPopulate.' selected.  '.'</li>';
             $lorem_message = lorem('paragraphs', rand(1,10));
-    
-            $newPost = create_new_post( $topicToPopulate 
+
+            $newPost = create_new_post( $topicToPopulate
                                       , $forumToPopulate
-                                      , $_uid 
+                                      , $_uid
                                       , $time
                                       , $_SERVER['REMOTE_ADDR']
-                                      , $_user['lastName'] 
+                                      , $_user['lastName']
                                       , $_user['firstName']
                                       , $lorem_message
                                       , $course_id);
-                $resultPopulate .= '<li>' 
+                $resultPopulate .= '<li>'
                                 . sprintf($lang_p_post_s_created, $newPost)
                                 . '</li>'
-                                ;        
-            $resultPopulate .= '</ul>';        
+                                ;
+            $resultPopulate .= '</ul>';
             return $resultPopulate;
             break;
-        case 'CLGRP' : 
+        case 'CLGRP' :
                 return 'Nothing to add here, use fillCourse with add randomly groups';
             break;
-        case 'CLLNP' : 
+        case 'CLLNP' :
                 return 'Filler not ready';
             break;
-        case 'CLQWZ' : 
+        case 'CLQWZ' :
                 ///// Select An quizz
                 ///// Select a Question
                 ///// Add an Answer
-                
+
                 return 'Filler not ready';
             break;
-        case 'CLUSR' : 
+        case 'CLUSR' :
             return 'Filler not ready';
             require_once($includePath.'/lib/user_info.lib.php');
             $def_title = lorem('words',rand(2  ,10));
             $def_comment = lorem('paragraphs',rand(1,5));
             $tbl_userinfo_def     = $tbl_cdb_names['userinfo_def'];
             $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
-            $resultPopulate .= '<ul>';        
+            $resultPopulate .= '<ul>';
             // Create user_info blocs
-            $sql = "SELECT count(`id`) def_qty 
+            $sql = "SELECT count(`id`) def_qty
                     FROM  `".$tbl_userinfo_def."` ";
-            
+
             $def_qty = claro_sql_query_fetch_all($sql);
             $def_qty = (int) $def_qty[0]['def_qty'];
-            
+
             $defToPopulate = rand (1,$def_qty+1);
             if ($defToPopulate>$def_qty)
             {
@@ -404,9 +403,9 @@ function fill_tool_in_course($course_code,$tool_label)
             // add user_info contents
             $sql = "select user_id From `".$tbl_rel_course_user."` WHERE code_cours='" . $course_code."' ";
             $userList = claro_sql_query_fetch_all($sql);
-            
+
             $rand_keys = array_rand ($userList, rand(1, sizeof($userList)));
-            if(!is_array($rand_keys)) // stupid array_rand do not an array 
+            if(!is_array($rand_keys)) // stupid array_rand do not an array
                                       // if result contain only 1 value
             {   // rebuild an array
                 $rand_key = $rand_keys;
@@ -414,16 +413,16 @@ function fill_tool_in_course($course_code,$tool_label)
                 $rand_keys[0] = $rand_key;
                 unset($rand_key);
             }
-            
-            
+
+
             foreach($rand_keys as $rand_key)
             {
                 $user = $userList[$rand_key];
                 $userIdViewed = $user['user_id'];
                 $def_content = lorem('paragraphs',rand(1,5));
-                $resultPopulate .= '<li>' . $lang_completeUserInfoOfUser . ' ' . $userIdViewed . '</LI>';        
+                $resultPopulate .= '<li>' . $lang_completeUserInfoOfUser . ' ' . $userIdViewed . '</LI>';
                 $sql = "SELECT count(id) userDef_qty
-                        FROM  `" . $tbl_userinfo_content . "` 
+                        FROM  `" . $tbl_userinfo_content . "`
                         WHERE `user_id` = '" . $userIdViewed . "' AND `def_id` = '".$defToPopulate."' ";
 
                 $userDefQty = claro_sql_query_fetch_all($sql);
@@ -438,14 +437,14 @@ function fill_tool_in_course($course_code,$tool_label)
                     claro_user_info_fill_new_cat_content($defToPopulate, $userIdViewed, $def_content, $REMOTE_ADDR);
                 }
             }
-            $resultPopulate .= '</ul>';        
+            $resultPopulate .= '</ul>';
             return $resultPopulate;
             break;
-        case 'CLWRK' : 
+        case 'CLWRK' :
                 return 'Filler not ready';
             break;
-        default : 
-            return 'Nothing done';        
+        default :
+            return 'Nothing done';
     }
 
 }
@@ -518,7 +517,7 @@ function lorem($units, $length)
                         . 'University of Louvain (Belgium), it treats in a  '
                         . 'positive way how to elaborate pedagogical devices  '
                         . 'both adapted to these new technological tools and  '
-                        . 'devoted to promote learning.';                        
+                        . 'devoted to promote learning.';
         $greekingList[] = 'Claroline 1.6 Release Candidate available. '
                         . 'Thanks to the Claroline community and a huge  '
                         . 'debugging campaign, Claroline 1.6 RC is now available. '
@@ -527,7 +526,7 @@ function lorem($units, $length)
                         . 'Now, focus will be on the upgrade script as no further '
                         . 'change would be planned to the new database '
                         . 'structure of Claroline.';
-                        
+
         $greekingList[] = 'Li Europan lingues es membres del sam familie.  '
                         . 'Lor separat existentie es un myth.  '
                         . 'Por scientie, musica, sport etc.,  '
@@ -538,7 +537,7 @@ function lorem($units, $length)
                         . 'on refusa continuar payar custosi traductores.  '
                         . 'It solmen va esser necessi far uniform grammatica,  '
                         . 'pronunciation e plu sommun paroles.';
-                        
+
         $greekingList[] = 'Ma quande lingues coalesce, li grammatica del resultant  '
                         . 'lingue es plu simplic e regulari quam ti del  '
                         . 'coalescent lingues. Li nov lingua franca va  '
@@ -547,7 +546,7 @@ function lorem($units, $length)
                         . 'in fact, it va esser Occidental.  '
                         . 'A un Angleso it va semblar un simplificat Angles,  '
                         . 'quam un skeptic Cambridge amico dit me que Occidental es.';
-                        
+
         $greekingList[] = 'Epsum factorial non deposit quid pro quo hic escorol.  '
                         . 'Olypian quarrels et gorilla congolium sic ad nauseum.  '
                         . 'Souvlaki ignitus carborundum e pluribus unum.  '
@@ -616,16 +615,16 @@ function lorem($units, $length)
         {
             exit($errorMsg);
         }
-    
+
         $output = "";
-    
+
         switch ($units)
         {
-        
+
             case "characters":
                 $output = substr($greeking, 0, $length);
                 break;
-        
+
             case "words":
                 $aWord = strtok($greeking, " ");
                 for ($ctr = 1; $ctr <= $length; $ctr++)
@@ -634,7 +633,7 @@ function lorem($units, $length)
                     $aWord = strtok(" ");
                 }
                    break;
-        
+
            case "sentences":
                 $aSentence = strtok($greeking, ".");
                 for ($ctr = 1; $ctr <= $length; $ctr++)
@@ -643,7 +642,7 @@ function lorem($units, $length)
                     $aSentence = strtok(".");
                 }
                    break;
-        
+
             case "paragraphs":
                 $aSentence = strtok($greeking, ".");
                 srand((double)microtime()*1000000);//seed random number generator
@@ -663,10 +662,10 @@ function lorem($units, $length)
                     $output = $output . $paragraph;
                 }
                 break;
-        
+
             default:
                 exit($errorMsg);
-        
+
         }//end switch($units)
 
     return trim($output,' .');

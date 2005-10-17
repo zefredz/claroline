@@ -13,7 +13,7 @@
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package SDK
  *
@@ -161,7 +161,7 @@ if ($cmd == 'exFill')
     }
 
     $aivailableFaculty = array_keys(claro_get_cat_flat_list());
-  
+
     $sqlTeachers = "SELECT `user_id` `uid` FROM `" . $TABLEUSER . "` WHERE statut = 1";
     $resTeachers = claro_sql_query($sqlTeachers);
     while ($teacher = mysql_fetch_array($resTeachers,MYSQL_ASSOC))
@@ -183,7 +183,7 @@ if ($cmd == 'exFill')
     {
         $wantedCode        = substr($pfCode . ' ' . field_rand($nameOfCourses) . ' (' . substr(md5(uniqid('')),0,3) . ')',0,12);
         $faculte           = field_rand($aivailableFaculty);
-        
+
         $language_course   = field_rand($aivailableLang);
         $uidCourse         = field_rand($teachersUid);
         //  function define_course_keys ($wantedCode, $prefix4all="", $prefix4baseName="",     $prefix4path="", $addUniquePrefix =false,    $useCodeInDepedentKeys = TRUE    )
@@ -296,8 +296,8 @@ if ($cmd == 'exFill')
                     forum_type, md5)
                     VALUES ('','" . $langForumGroup . " " . $lastId . "','', 2, 1, 0, 0,
                             1, 1, 0,'" . md5(time()) . "')";
-            
-            
+
+
             $forumInsertId = claro_sql_query_insert_id($sql);
 
             /*
@@ -366,7 +366,6 @@ if ($cmd == 'exFill')
 
 include( $includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title( $nameTools);
-if (isset($controlMsg)) claro_disp_msg_arr($controlMsg);
 
 switch ($display)
 {
@@ -438,7 +437,7 @@ switch ($display)
     <input align="right" id="gpumax"  type="text" name="gmax" value="<?php echo $gpumax ?>" size="5" maxlength="3">
     </fieldset>
 
-    
+
     <input type="hidden" name="cmd" value="exFill">
     <input type="submit" name="create" value="<?php echo $langCreate ?>">
 </form>
