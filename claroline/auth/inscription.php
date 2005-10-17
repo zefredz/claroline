@@ -50,7 +50,6 @@ if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
   Main Section
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
@@ -182,7 +181,8 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
         ;
     }
 
-    echo '<br /><form action="' . $_SERVER['PHP_SELF'] . '" >'
+    echo '<br />'
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . $langOk . '" />' . "\n"
     .    claro_disp_button( $rootWeb, $langCancel )
