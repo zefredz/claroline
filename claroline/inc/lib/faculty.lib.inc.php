@@ -501,19 +501,16 @@ function delete_node($id_node)
 	return true;
 }
 
+/**
+ * make 6 test on the given category and and return the status
+ * @param $cat_Code
+ * @return boolean tree status
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
 function analyseCat($catCode)
 {
     $catData = get_cat_data(get_cat_id_from_code($catCode));
-    /*
-    'id' => '1',
-  'name' => 'Sciences',
-  'code' => 'SC',
-  'code_P' => NULL,
-  'treePos' => '1',
-  'nb_childs' => '0',
-  'canHaveCatChild' => 'TRUE',
-  'canHaveCoursesChild' => 'TRUE',*/
-
     //TEST 1 :
     if(!ctype_digit($catData['id'])) return claro_failure::set_failure('id_not_numerical');
     //TEST 2 :
@@ -550,4 +547,68 @@ function countChild($catCode)
     }
     return 0;
 }
+
+
+function repairTree()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_category  = $tbl_mdb_names['category'];
+
+    $sql = " SELECT code, code_P, treePos, name, nb_childs
+               FROM `" . $tbl_category . "`
+               ORDER BY `treePos`";
+    $catList = claro_sql_query_fetch_all($sql);
+    $newTreePos= 1;
+    $listSize = count($catList);
+    foreach ($catList as $cat)
+    {
+        $newCatList[$cat['code']] = $cat;
+        if(!is_null($cat['code_P']) && !get_cat_id_from_code($cat['code_P'])  )
+        {
+            $newCatList[$cat['code']]['newCode_P'] = ' root ';
+            $newCatList[$cat['code']]['newTreePos'] = $listSize--;
+        }
+        else
+        {
+            $newCatList[$cat['code']]['newTreePos'] = $newTreePos++;
+            $newCatList[$cat['code']]['newNb_childs'] = countChild($cat['code']);
+        }
+    }
+    reset($newCatList);
+    foreach ($newCatList as $cat)
+    {
+        if(isset($cat['newCode_P']) && ($cat['code_P'] != $cat['newCode_P']))
+        {
+            $sql = "UPDATE  `" . $tbl_category . "` "
+            . ($cat['newCode_P']==' root ' ? "   SET code_P = null "
+                                          : "   SET code_P = " . (int) $cat['newCode_P'])
+            .      " WHERE code = '" . addslashes($cat['code']) . "'"
+            ;
+            claro_sql_query($sql);
+        }
+        if(isset($cat['newNb_childs']) && ($cat['nb_childs'] != $cat['newNb_childs']))
+        {
+            $sql = "UPDATE  `" . $tbl_category . "` "
+            .      "   SET nb_childs = " . (int) $cat['newNb_childs']
+            .      " WHERE code = '" . addslashes($cat['code']) . "'"
+            ;
+            claro_sql_query($sql);
+        }
+        if($cat['treePos']!=$cat['newTreePos'])
+        {
+            $sql = "UPDATE  `" . $tbl_category . "` "
+            .      "   SET treePos = " . (int) $cat['newTreePos']
+            .      " WHERE code = '" . addslashes($cat['code']) . "'"
+            ;
+
+            claro_sql_query($sql);
+        }
+
+    }
+
+    return true;
+};
+
+
+
 ?>

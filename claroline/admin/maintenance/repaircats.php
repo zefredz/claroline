@@ -55,7 +55,7 @@ $view = DISP_ANALYSE;
 
 //Get Parameters from URL or post
 
-$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : 'doAnalyse');
+$cmd = ((isset($_REQUEST['cmd']) && !empty($_REQUEST['cmd']))? $_REQUEST['cmd'] : 'doAnalyse');
 
 /**
  * Show or hide sub categories
@@ -89,6 +89,12 @@ switch($cmd)
         $view = DISP_ANALYSE;
     }
     break;
+    case 'repairTree' :
+    {
+       $repairResult = repairTree();
+       $view = DISP_REPAIR_RESULT;
+    }
+    break;
 }
 
 /**
@@ -112,9 +118,19 @@ switch ($view)
         echo claro_disp_tool_title(array('mainTitle'=>'ANALYSE RESULT','subTitle'=>'Tree Structure '))
         .    claro_disp_msg_arr($analyseTreeResultMsg,1)
         .    claro_disp_datagrid($dataAnalyseResult)
+        .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? '):'' )
         .    claro_disp_tool_title('Course ownance')
         .    claro_disp_datagrid($courseOwnanceCheck )
         ;
+    }
+    break;
+    case  DISP_REPAIR_RESULT :
+    {
+        echo claro_disp_tool_title(array('mainTitle'=>'REPAIR RESULT','subTitle'=>'Tree Structure '))
+        .   '<div>'.__LINE__.': $repairResult = <pre>'. var_export($repairResult,1).'</PRE></div>'
+        .   claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
+        ;
+
     }
     break;
     default :
@@ -176,5 +192,7 @@ function claro_get_lang($stringId,$param1=null,$param2=null,$param3=null)
 
     return $string;
 }
+
+
 
 ?>
