@@ -121,6 +121,8 @@ Hungarian translation :         Balázs Györök (gyorok.balazs@vgszi.szie.hu)
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
                                 Giuseppe Filice (Università della Calabria)
+                                
+Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
 
