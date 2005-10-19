@@ -34,8 +34,9 @@ include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
 
 // build bredcrump
-$nameTools        = $langCategories;
+$nameTools        = $langCategoriesRepairs;
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[] = array ('url' => $rootAdminWeb. '/admincats.php', 'name' => $langCategories);
 
 $htmlHeadXtra[] = '
 <STYLE>
@@ -151,7 +152,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
     if (is_array($dataGrid) && count($dataGrid))
     {
         $stream = '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-        .         '<THead>' . "\n"
+        .         '<thead>' . "\n"
         .         '<tr class="headerX" align="center" valign="top">' . "\n"
         .         '<th>'
         .         '</th>' . "\n"
@@ -160,21 +161,21 @@ function claro_disp_datagrid($dataGrid, $option = null)
         foreach (array_keys($dataGrid[0]) as $colTitle)
             $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
         $stream .= '</tr>' . "\n"
-        .          '</THEAD>' . "\n"
+        .          '</thead>' . "\n"
         ;
 
         if (array_key_exists('dispCounter',$option))
         {
-            $stream .= '<TFOOT>' . "\n"
+            $stream .= '<tfoot>' . "\n"
             .          '<tr class="headerX" align="center" valign="top">' . "\n"
-            .          '<TD>' . "\n"
-            .          '</TD>' . "\n"
-            .          '<TD>' . "\n"
+            .          '<td>' . "\n"
+            .          '</td>' . "\n"
+            .          '<td>' . "\n"
             .          count($dataGrid)
-            .          '</TD>' . "\n"
-            .          '</TR>' . "\n"
-            .          '</TR>' . "\n"
-            .          '</TFOOT>' . "\n"
+            .          '</td>' . "\n"
+            .          '</tr>' . "\n"
+            .          '</tr>' . "\n"
+            .          '</tfoot>' . "\n"
             ;
 
         }
@@ -209,16 +210,11 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
 }
 
-function claro_get_lang($stringId,$param1=null,$param2=null,$param3=null)
+function claro_get_lang($stringId)
 {
-        // this  awful code  woulde  change  and  use func_get_args
-    $stringList[$stringId]=$stringId;
-    if (is_null($param1))     $string = $stringList[$stringId];
-    elseif (is_null($param2)) $string = sprintf($stringList[$stringId],$param1);
-    elseif (is_null($param3)) $string = sprintf($stringList[$stringId],$param1,$param2);
-    else                      $string = sprintf($stringList[$stringId],$param1,$param2,$param3);
 
-    return $string;
+    $stringList[$stringId]=$stringId;
+    return vprintf($stringList[$stringId],array_shift($argsList));
 }
 
 
