@@ -2099,6 +2099,6 @@ $langNotSaved = "Vos changements n'ont pas été pris en compte";
 $langEnrollmentKey = "clé d'inscription";
 $langGroupsNotEmptied = "Impossible de vider les groupes";
 $langCategoriesRepairs = "Vérifier l'arbre des catégories";
-$langCategoriesStructureOK = "Structure des l'arbre des catégories réparé";
+$langCategoriesStructureOK = "La structure de l'arbre des catégories réparé";
 
 ?>

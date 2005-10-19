@@ -2033,7 +2033,7 @@ $langConfirmDeleteThisGroup = "Are you sure to delete this group ?";
 $langNotSaved = "Unable to save";
 $langEnrollmentKey = "enrolment key";
 $langGroupsNotEmptied = "Unable to empty groups";
-$langCategoriesRepairs = "Repair Category structure";
+$langCategoriesRepairs = "Repair category structure";
 $langCategoriesStructureOK = "Category structure repaired";
 
 ?>
