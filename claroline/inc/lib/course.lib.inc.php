@@ -177,7 +177,7 @@ function claro_get_cat_list()
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_category  = $tbl_mdb_names['category'];
 
-    $sql = " SELECT code, code_P, name, canHaveCoursesChild
+    $sql = " SELECT code, code_P, name, canHaveCoursesChild, treePos
                FROM `" . $tbl_category . "`
                ORDER BY `treePos`";
     return claro_sql_query_fetch_all($sql);
@@ -187,16 +187,16 @@ function claro_get_cat_list()
 
 function claro_get_cat_flat_list($separator = ' > ')
 {
-
     $fac_list = claro_get_cat_list();
 
     if(is_array($fac_list))
     foreach ($fac_list as $myfac)
     {
-        $categories[$myfac['code']]['code']   = $myfac['code'];
-        $categories[$myfac['code']]['parent'] = $myfac['code_P'];
-        $categories[$myfac['code']]['name']   = $myfac['name'];
-        $categories[$myfac['code']]['childs'] = $myfac['canHaveCoursesChild'];
+        $categories[$myfac['code']]['treePos'] = $myfac['treePos'];
+        $categories[$myfac['code']]['code']    = $myfac['code'];
+        $categories[$myfac['code']]['parent']  = $myfac['code_P'];
+        $categories[$myfac['code']]['name']    = $myfac['name'];
+        $categories[$myfac['code']]['childs']  = $myfac['canHaveCoursesChild'];
     }
 
     // then we build the table we need : full path of editable cats in an array
@@ -238,7 +238,8 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
     {
         if (( $currentCat['code'] == $catcode))
         {
-            $parent = $currentCat['parent'];
+            $parent       = $currentCat['parent'];
+            $childTreePos = $currentCat['treePos']; // for protection anti loop
         }
     }
     // RECURSION : find parent categorie in table
@@ -251,7 +252,12 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
     {
         if (($currentCat['code'] == $parent))
         {
-            return get_full_path($categories, $parent, $separator).$separator.$catcode;
+
+            if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
+            return get_full_path($categories, $parent, $separator)
+            .      $separator
+            .      $catcode
+            ;
             break;
         }
     }
