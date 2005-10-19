@@ -32,7 +32,6 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
-
 // build bredcrump
 $nameTools        = $langCategoriesRepairs;
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
@@ -68,6 +67,7 @@ switch($cmd)
     {
         // analyse Tree Structure
         $errorCounter =0;
+
         $category_array = claro_get_cat_flat_list();
         foreach (array_keys($category_array) as $catCode)
         {
@@ -93,7 +93,23 @@ switch($cmd)
     case 'repairTree' :
     {
        $repairResult = repairTree();
-       if ($repairResult) $repairResultMsg['success'][] = $langTreeOk;
+       if ($repairResult)
+       {
+           $repairResultMsg['success'][] = $langCategoriesStructureOK;
+       }
+       else
+       switch ($failure = claro_failure::get_last_failure())
+       {
+           case 'node_moved' :
+           {
+                $repairResultMsg['warning'][] = claro_get_lang('Node Moved, relaunch repar to complete process');
+           } break;
+           case defaut :
+           {
+
+           }
+
+       }
 
        $view = DISP_REPAIR_RESULT;
     }
@@ -143,6 +159,16 @@ switch ($view)
 
 
 include $includePath . '/claro_init_footer.inc.php';
+
+
+/**
+ * display data array in a <table>
+ *
+ * @param array $dataGrid array of data
+ * @param array $option array of options
+ * @return string html stream
+ *
+ */
 
 function claro_disp_datagrid($dataGrid, $option = null)
 {
@@ -213,12 +239,22 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
 }
 
+/**
+ * this is a beta function to manage I18N
+ *
+ * @param string $stringId
+ * @return string translated string.
+ */
+
 function claro_get_lang($stringId)
 {
+
     $argsList = func_get_args();
     array_shift($argsList);
-
-    $stringList[$stringId]=$stringId;
+    if(!isset($stringList) || !is_array($stringList) || !array_key_exist($stringList,$stringId))
+    {
+        $stringList[$stringId]=$stringId;
+    }
     return vsprintf($stringList[$stringId],$argsList);
 }
 

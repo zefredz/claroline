@@ -49,7 +49,7 @@ function claro_disp_tree($elem,$father,$space)
 
                 echo '<tr><td>';
 
-                    $date = date('mjHis');
+                    $date = claro_date('mjHis');
 
                     echo $space;
 
@@ -296,10 +296,10 @@ function build_select_faculty($elem,$father, $editFather, $space)
 {
     if($elem)
     {
-        $space.="&nbsp;&nbsp;&nbsp;";
+        $space .= '&nbsp;&nbsp;&nbsp;';
         foreach($elem as $one_faculty)
         {
-            if(!strcmp($one_faculty["code_P"],$father))
+            if(!strcmp($one_faculty['code_P'],$father))
             {
                 echo '<option value="' . $one_faculty['code'] . '" '
                 .    ($one_faculty['code'] == $editFather ? 'selected="selected" ':'')
@@ -522,7 +522,13 @@ function analyseCat($catCode)
     //TEST 5
     if(!is_null($catData['code_P']) && !get_cat_id_from_code($catData['code_P'])  ) return claro_failure::set_failure('parent_code_not_valid: '.$catData['code_P']);
     //TEST 6
+
+    $parentCatData = get_cat_data(get_cat_id_from_code($catData['code_P']));
+    if($catData['treePos'] < $parentCatData['treePos']) return claro_failure::set_failure('loop_asendance ' .$catData['code'].':'.$catData['treePos'] . ' < ' .$parentCatData['code'].':'.$parentCatData['treePos'] );
+
+    //TEST 7 // CheckPath
     if(countChild($catCode)!=($catData['nb_childs'])) return claro_failure::set_failure('nb_childs_wrong'.countChild($catCode).':'.($catData['nb_childs']));
+
 
     return true;
 }
@@ -531,18 +537,20 @@ function countChild($catCode)
 {
     $catList = claro_get_cat_list();
     reset($catList);
-    while (list(,$cat) = each($catList))
+    $knowCatList=array();
+    while ((list(,$cat) = each($catList)))
     {
-        if ($cat['code']==$catCode)
+        if ($cat['code'] == $catCode)
         {
             $codeP = $cat['code_P'];
             break;
         }
     }
     $i = 0;
-    while (list(,$cat) = each($catList))
+
+    while ((list(,$cat) = each($catList)))
     {
-        if ($cat['code_P']==$codeP) return $i;
+        if ($cat['code_P'] == $codeP ) return $i;
         $i++;
     }
     return 0;
@@ -554,27 +562,48 @@ function repairTree()
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_category  = $tbl_mdb_names['category'];
 
+    //  get  list of all node
     $sql = " SELECT code, code_P, treePos, name, nb_childs
                FROM `" . $tbl_category . "`
                ORDER BY `treePos`";
     $catList = claro_sql_query_fetch_all($sql);
     $newTreePos= 1;
     $listSize = count($catList);
+
+    // foreach node check code_parent,  treepos and nbchilds
+
     foreach ($catList as $cat)
+
     {
         $newCatList[$cat['code']] = $cat;
-        if(!is_null($cat['code_P']) && !get_cat_id_from_code($cat['code_P'])  )
+        $parentCatData = get_cat_data(get_cat_id_from_code($cat['code_P']));
+
+        if($cat['treePos'] < $parentCatData['treePos'])
         {
             $newCatList[$cat['code']]['newCode_P'] = ' root ';
             $newCatList[$cat['code']]['newTreePos'] = $listSize--;
         }
         else
         {
-            $newCatList[$cat['code']]['newTreePos'] = $newTreePos++;
-            $newCatList[$cat['code']]['newNb_childs'] = countChild($cat['code']);
+
+            if(!is_null($cat['code_P']) && !get_cat_id_from_code($cat['code_P'])  )
+            {
+                $newCatList[$cat['code']]['newCode_P'] = ' root ';
+                $newCatList[$cat['code']]['newTreePos'] = $listSize--;
+            }
+            else
+            {
+                $newCatList[$cat['code']]['newTreePos'] = $newTreePos++;
+                $newCatList[$cat['code']]['newNb_childs'] = countChild($cat['code']);
+            }
         }
+
+
     }
     reset($newCatList);
+
+    $node_moved=false;
+    // rescan node list  and  update data if difference was detected.
     foreach ($newCatList as $cat)
     {
         if(isset($cat['newCode_P']) && ($cat['code_P'] != $cat['newCode_P']))
@@ -584,6 +613,7 @@ function repairTree()
                                           : "   SET code_P = " . (int) $cat['newCode_P'])
             .      " WHERE code = '" . addslashes($cat['code']) . "'"
             ;
+            $node_moved=true; // repair ownance but brok countchild
             claro_sql_query($sql);
         }
         if(isset($cat['newNb_childs']) && ($cat['nb_childs'] != $cat['newNb_childs']))
@@ -594,7 +624,8 @@ function repairTree()
             ;
             claro_sql_query($sql);
         }
-        if($cat['treePos']!=$cat['newTreePos'])
+
+        if($cat['treePos'] != $cat['newTreePos'])
         {
             $sql = "UPDATE  `" . $tbl_category . "` "
             .      "   SET treePos = " . (int) $cat['newTreePos']
@@ -606,7 +637,8 @@ function repairTree()
 
     }
 
-    return true;
+    if ($node_moved) return claro_failure::set_failure('node_moved');
+    else             return true;
 };
 
 
