@@ -30,8 +30,6 @@ $nameTools = $langDiskUsage;
 $interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => $langAdministration);
 $interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => $langTechAdmin);
 
-$dateNow = claro_disp_localised_date($dateTimeFormatLong);
-
 $disp_form = true;
 
 if (isset( $_REQUEST['disp_claro'])) $disp_claro = $_REQUEST['disp_claro'];
