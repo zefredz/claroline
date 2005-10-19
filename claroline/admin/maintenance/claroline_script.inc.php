@@ -4,10 +4,10 @@
  *
  * List of scripts in claroline archive
  *
- * @version 1.7 $Revision$ 
+ * @version 1.7 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package MAINTENANCE
  *
@@ -318,7 +318,7 @@ $claroline_script[] = "/linker/CLWRK___Navigator.php";
 $claroline_script[] = "/linker/CLWRK___Resolver.php";
 $claroline_script[] = "/linker/CRLTool.php";
 $claroline_script[] = "/linker/CourseResolver.php";
-$claroline_script[] = "/linker/error_handler.php";
+//$claroline_script[] = "/linker/error_handler.php"; // deprecated, removed in 1.7.1
 $claroline_script[] = "/linker/jpspan.lib.php";
 $claroline_script[] = "/linker/linker.inc.php";
 $claroline_script[] = "/linker/linker.lib.php";
