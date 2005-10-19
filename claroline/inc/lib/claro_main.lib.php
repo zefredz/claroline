@@ -25,30 +25,30 @@
 
 function claro_sql_get_main_tbl()
 {
-    global $mainDbName,$statsDbName, $mainTblPrefix, $statsTblPrefix;
+    global $mainDbName, $statsDbName, $mainTblPrefix, $statsTblPrefix;
     static $mainTblList = array();
 
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'config_property'           => $mainDbName . '`.`'.$mainTblPrefix.'config_property',
-        'config_file'               => $mainDbName . '`.`'.$mainTblPrefix.'config_file',
-        'admin'                     => $mainDbName . '`.`'.$mainTblPrefix.'admin',
-        'course'                    => $mainDbName . '`.`'.$mainTblPrefix.'cours',
-        'rel_course_user'           => $mainDbName . '`.`'.$mainTblPrefix.'cours_user',
-        'category'                  => $mainDbName . '`.`'.$mainTblPrefix.'faculte',
-        'user'                      => $mainDbName . '`.`'.$mainTblPrefix.'user',
-        'tool'                      => $mainDbName . '`.`'.$mainTblPrefix.'course_tool',
-        'user_category'             => $mainDbName . '`.`'.$mainTblPrefix.'class',
-        'user_rel_profile_category' => $mainDbName . '`.`'.$mainTblPrefix.'rel_class_user',
-        'class'                     => $mainDbName . '`.`'.$mainTblPrefix.'class',
-        'rel_class_user'            => $mainDbName . '`.`'.$mainTblPrefix.'rel_class_user',
-        'sso'                       => $mainDbName . '`.`'.$mainTblPrefix.'sso',
-        'notify'                    => $mainDbName . '`.`'.$mainTblPrefix.'notify',
-        'upgrade_status'            => $mainDbName . '`.`'.$mainTblPrefix.'upgrade_status',
-        'track_e_default'           => $statsDbName . '`.`'.$statsTblPrefix.'track_e_default',
-        'track_e_login'             => $statsDbName . '`.`'.$statsTblPrefix.'track_e_login',
-        'track_e_open'              => $statsDbName . '`.`'.$statsTblPrefix.'track_e_open'
+        'config_property'           => $mainDbName . '`.`' . $mainTblPrefix . 'config_property',
+        'config_file'               => $mainDbName . '`.`' . $mainTblPrefix . 'config_file',
+        'admin'                     => $mainDbName . '`.`' . $mainTblPrefix . 'admin',
+        'course'                    => $mainDbName . '`.`' . $mainTblPrefix . 'cours',
+        'rel_course_user'           => $mainDbName . '`.`' . $mainTblPrefix . 'cours_user',
+        'category'                  => $mainDbName . '`.`' . $mainTblPrefix . 'faculte',
+        'user'                      => $mainDbName . '`.`' . $mainTblPrefix . 'user',
+        'tool'                      => $mainDbName . '`.`' . $mainTblPrefix . 'course_tool',
+        'user_category'             => $mainDbName . '`.`' . $mainTblPrefix . 'class',
+        'user_rel_profile_category' => $mainDbName . '`.`' . $mainTblPrefix . 'rel_class_user',
+        'class'                     => $mainDbName . '`.`' . $mainTblPrefix . 'class',
+        'rel_class_user'            => $mainDbName . '`.`' . $mainTblPrefix . 'rel_class_user',
+        'sso'                       => $mainDbName . '`.`' . $mainTblPrefix . 'sso',
+        'notify'                    => $mainDbName . '`.`' . $mainTblPrefix . 'notify',
+        'upgrade_status'            => $mainDbName . '`.`' . $mainTblPrefix . 'upgrade_status',
+        'track_e_default'           => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_default',
+        'track_e_login'             => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_login',
+        'track_e_open'              => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_open'
         );
     }
 
@@ -628,7 +628,7 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
     }
 
 
-    $string = "\n".'<h3 class="claroToolTitle">'."\n";
+    $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
 
     if ($helpUrl)
     {
@@ -641,7 +641,8 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
             .' alt ="'.$langHelp.'"'
             .' align="right"'
             .' hspace="30">'
-            .'</a>'."\n";
+            .'</a>' . "\n"
+            ;
     }
 
 
@@ -877,16 +878,12 @@ function claro_set_display_mode_available($mode)
 /**
     Display    list of    messages
 
-    !!! DEPRECATED !!!
-
-    USE echo claro_disp_message_box($message) INSTEAD
-
-    @param $msgArrBody array of    messages
+    @param $msgArrBody array of messages
     @author Christophe Gesché <moosh@claroline.net>
     @version 1.0
 
     Example    code for using this    in your    tools:
-    $msgArrBody["nameOfCssClass"]="foo";
+    $msgArrBody["nameOfCssClass"][]="foo";
 .    css    class can be defined in    script but try to use
     class from    generic    css    ()
     error success warning
@@ -935,20 +932,21 @@ function claro_disp_auth_form($cidRequired = false)
     if ( ! headers_sent () )
     {
         $urlCmd = ($cidRequired && ! $_cid ? '&cidRequired=true' : '');
-        header('Location:'.$rootWeb.'claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
+        header('Location:' . $rootWeb . 'claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
     }
     else // HTTP header has already been sent - impossible to relocate
     {
         echo '<p align="center">'
-            .'WARNING ! Login Required <br />'
-            .'Click '
-            .'<a href="'.$rootWeb.'claroline/auth/login.php'
-            .'?sourceUrl='.urlencode($sourceUrl).'">'
-            .'here'
-            .'</a>'
-            .'</p>';
+        .    'WARNING ! Login Required <br />'
+        .    'Click '
+        .    '<a href="' . $rootWeb . 'claroline/auth/login.php'
+        .    '?sourceUrl=' . urlencode($sourceUrl) . '">'
+        .    'here'
+        .    '</a>'
+        .    '</p>'
+        ;
 
-        require $includePath.'/claro_init_footer.inc.php';
+        require $includePath . '/claro_init_footer.inc.php';
     }
 
     die(); // necessary to prevent any continuation of the application
@@ -1001,10 +999,11 @@ function claro_die($message)
     }
 
     echo '<table align="center">'
-        . '<tr><td>'
-        . claro_disp_message_box($message)
-        . '</td></tr>'
-        . '</table>';
+    .    '<tr><td>'
+    .    claro_disp_message_box($message)
+    .    '</td></tr>'
+    .    '</table>'
+    ;
 
     require $includePath . '/claro_init_footer.inc.php' ;
 
@@ -1156,6 +1155,27 @@ function claro_disp_progress_bar ($progress, $factor)
 }
 
 /**
+ * compose currentdate with server time shift
+ *
+ */
+function claro_date($format, $timestamp = -1)
+{
+    if ($timestamp == -1) return date($format, claro_time());
+    else                  return date($format, $timestamp);
+
+}
+
+/**
+ * compose currentdate with server time shift
+ *
+ */
+function claro_time()
+{
+     $mainTimeShift = (int) (isset($GLOBALS['mainTimeShift'])?$GLOBALS['mainTimeShift']:0);
+     return time()+(3600*$mainTimeShift);
+}
+
+/**
  * Display a date at localized format
  * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
@@ -1169,7 +1189,7 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 {
     global $langMonthNames, $langDay_of_weekNames;
 
-    if ($timestamp == -1) $timestamp = time();
+    if ($timestamp == -1) $timestamp = claro_time();
 
     // avec un ereg on fait nous même le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
