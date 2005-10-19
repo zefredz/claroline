@@ -1,26 +1,27 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package ADMIN
+ *
+ * @author claro team <cvs@claroline.net>
+ */
 $cidReset=TRUE;
 $gidReset=TRUE;
 require '../inc/claro_init_global.inc.php';
-
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-include($includePath.'/lib/admin.lib.inc.php');
 
 //SECURITY CHECK
 
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
+file_exists ( $includePath . '/currentVersion.inc.php') && include $includePath . '/currentVersion.inc.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
 
 //------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
@@ -54,7 +55,7 @@ unset($_SESSION['admin_order_crit']);
 
 unset($_SESSION['_cid']);
 unset($_cid);
-
+$controlMsg = array();
 //----------------------------------
 // DISPLAY
 //----------------------------------
@@ -63,21 +64,20 @@ unset($_cid);
 
 $nameTools = $langAdministration;
 
-include($includePath."/lib/debug.lib.inc.php");
-$dateNow             = claro_disp_localised_date($dateTimeFormatLong);
+include $includePath . '/lib/debug.lib.inc.php';
 $is_allowedToAdmin     = $is_platformAdmin;
 
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-     $controlMsg = $langNoticeInstallFolderBrowsable;
+     $controlMsg['highlight'][] = $langNoticeInstallFolderBrowsable;
 }
 // ----- is install visible ----- end
 
-include($includePath.'/claro_init_header.inc.php');
-echo claro_disp_tool_title($nameTools);
-
-if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $controlMsg . '</blockquote>'."\n\n";
+include $includePath . '/claro_init_header.inc.php';
+echo claro_disp_tool_title($nameTools)
+.    claro_disp_msg_arr( $controlMsg,1) . "\n\n"
+;
 
 ?>
 <table cellspacing="5" align="center">
@@ -89,23 +89,23 @@ if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $contr
 <ul>
 <li>
 <form name="searchUser" action="adminusers.php" method="GET" >
-<label for="search_user"><?php echo $langUser?></label> 
-: 
-<input name="search" id="search_user"> 
-<input type="submit" value="<?php echo $langSearch?>">
+<label for="search_user"><?php echo $langUser; ?></label>
+:
+<input name="search" id="search_user" />
+<input type="submit" value="<?php echo $langSearch; ?>" />
 &nbsp;&nbsp;[<a class="claroCmd" href="advancedUserSearch.php"><?php echo $langAdvanced?></a>]
 </form>
 <li>
-<a href="adminusers.php"><?php echo $langListUsers?></a>
+<a href="adminusers.php" class="toollink"><?php echo $langListUsers?></a>
 </li>
 <li>
-<a href="adminaddnewuser.php"><?php echo $langCreateUser?></a>
+<a href="adminaddnewuser.php" class="toollink"><?php echo $langCreateUser?></a>
 </li>
 <li>
-<a href="admin_class.php"><?php echo $langManageClasses?></a>
+<a href="admin_class.php" class="toollink"><?php echo $langManageClasses?></a>
 </li>
 <li>
-<a href="../user/AddCSVusers.php?AddType=adminTool"><?php echo $langAddCSVUsers?></a>
+<a href="../user/AddCSVusers.php?AddType=adminTool" class="toollink"><?php echo $langAddCSVUsers?></a>
 </li>
 </ul>
 </td>
@@ -115,18 +115,20 @@ if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $contr
 <ul>
 <li>
 <form name="searchCourse" action="admincourses.php" method="GET" >
-<label for="search_course"><?php echo $langCourse?></label> : <input name="search" id="search_course"> <input type="submit" value="<?php echo $langSearch?>">
+<label for="search_course"><?php echo $langCourse; ?></label> :
+<input name="search" id="search_course" />
+<input type="submit" value="<?php echo $langSearch; ?>" />
 &nbsp; &nbsp;[<a class="claroCmd" href="advancedCourseSearch.php"><?php echo $langAdvanced?></a>]
 </form>
 </li>
 <li>
-<a href="admincourses.php"><?php echo $langCourseList?></a>
+<a href="admincourses.php" class="toollink"><?php echo $langCourseList?></a>
 </li>
 <li>
-<a href="../create_course/add_course.php?fromAdmin=yes"><?php echo $langCreateCourse?></a><br>
+<a href="../create_course/add_course.php?fromAdmin=yes" class="toollink"><?php echo $langCreateCourse?></a><br>
 </li>
 <li>
-<a href="admincats.php"><?php echo $langManageCourseCategories?></a>
+<a href="admincats.php" class="toollink"><?php echo $langManageCourseCategories?></a>
 </li>
 </ul>
 </td>
@@ -138,19 +140,22 @@ if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $contr
 <h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" alt="" /> <?php echo $langPlatform?></h4>
 <ul>
 <li>
-<a href="tool/config_list.php"><?php echo $langConfiguration?></a>
+<a href="tool/config_list.php" class="toollink"><?php echo $langConfiguration?></a>
 </li>
 <li>
-<a href="managing/editFile.php"><?php echo $langHomePageTextZone ?></a>
+<a href="managing/editFile.php" class="toollink"><?php echo $langHomePageTextZone ?></a>
 </li>
 <li>
-<a href="campusLog.php"><?php echo $langViewPlatFormStatistics?></a>
+<a href="campusLog.php" class="toollink"><?php echo $langViewPlatFormStatistics?></a>
 </li>
 <li>
-<a href="campusProblem.php"><?php echo $langViewPlatFormError ?></a>
+<a href="campusProblem.php" class="toollink"><?php echo $langViewPlatFormError ?></a>
 </li>
 <li>
-<a href="upgrade/index.php"><?php echo $langUpgrade?></a>
+<a href="maintenance/repaircats.php" class="toollink"><?php echo $langCategoriesRepairs ?></a>
+</li>
+<li>
+<a href="upgrade/index.php" class="toollink"><?php echo $langUpgrade?></a>
 </li>
 </ul>
 </td>
@@ -159,13 +164,13 @@ if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $contr
 <h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" alt="" />&nbsp;Claroline.net</h4>
 <ul>
 <li>
-<a href="registerCampus.php"><?php echo $langRegisterMyCampus; ?></a>
+<a href="registerCampus.php"  class="toollink" ><?php echo $langRegisterMyCampus; ?></a>
 </li>
 <li>
-<a href="http://www.claroline.net/forum/"><?php echo $langSupportForum; ?></a>
+<a href="http://www.claroline.net/forum/" class="extlink" ><?php echo $langSupportForum; ?></a>
 </li>
 <li>
-<a href="clarolinenews.php"><?php echo $langClarolineNetNews; ?></a>
+<a href="clarolinenews.php" class="extlink" ><?php echo $langClarolineNetNews; ?></a>
 </li>
 </ul>
 </td>
@@ -176,26 +181,32 @@ if ( !empty($controlMsg) ) echo "\n\n".'<blockquote class="highlight">' . $contr
 if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 || ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
-?>
-<tr valign="top">
-
-<td nowrap="nowrap">
-<h4><?php echo $langSDK?></h4>
-<ul>
-<?php
+    echo '<tr valign="top">'
+    .    '<td nowrap="nowrap">'
+    .    '<h4>'
+    .    $langSDK
+    .    '</h4>'
+    .    '<ul>'
+    ;
 }
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
 {
-?>
-<li><a href="xtra/sdk/translation_index.php"><?php echo $langTranslationTools?></a></li>
-<?php
+    echo '<li>'
+    .    '<a href="xtra/sdk/translation_index.php" class="toollink">'
+    .    $langTranslationTools
+    .    '</a>'
+    .    '</li>'
+    ;
 }
 if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 {
-?>
-<li><a href="devTools/"><?php echo $langDevTools ?></a></li>
-<?php
+    echo '<li>'
+    .    '<a href="devTools/" class="toollink">'
+    .    $langDevTools
+    .    '</a>'
+    .    '</li>'
+    ;
 }
 
 if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
@@ -212,5 +223,5 @@ if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 ?>
 </table>
 <?php
-include($includePath.'/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>
