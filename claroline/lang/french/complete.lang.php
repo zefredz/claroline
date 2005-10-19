@@ -2098,5 +2098,7 @@ $langConfirmDeleteThisGroup = "Etes-vous sûr de vouloir supprimer ce groupe ?";
 $langNotSaved = "Vos changements n'ont pas été pris en compte";
 $langEnrollmentKey = "clé d'inscription";
 $langGroupsNotEmptied = "Impossible de vider les groupes";
-$langCategoriesRepairs = "Regénérateur de structure corrompue";
+$langCategoriesRepairs = "Vérifier l'arbre des catégories";
+$langCategoriesStructureOK = "Structure des l'arbre des catégories réparé";
+
 ?>

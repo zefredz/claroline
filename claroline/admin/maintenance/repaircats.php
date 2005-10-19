@@ -93,6 +93,8 @@ switch($cmd)
     case 'repairTree' :
     {
        $repairResult = repairTree();
+       if ($repairResult) $repairResultMsg['success'][] = $langTreeOk;
+
        $view = DISP_REPAIR_RESULT;
     }
     break;
@@ -116,8 +118,8 @@ switch ($view)
 {
     case DISP_ANALYSE :
     {
-        echo claro_disp_tool_title(array('mainTitle'=>'ANALYSE RESULT','subTitle'=>'Tree Structure '))
-        .    claro_disp_msg_arr($analyseTreeResultMsg,1)
+        echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
+        .    claro_disp_msg_arr($analyseTreeResultMsg, 1)
         .    claro_disp_datagrid($dataAnalyseResult, array('dispCounter' => true))
         .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? '):'' )
         .    claro_disp_tool_title('Course ownance')
@@ -127,11 +129,10 @@ switch ($view)
     break;
     case  DISP_REPAIR_RESULT :
     {
-        echo claro_disp_tool_title(array('mainTitle'=>'REPAIR RESULT','subTitle'=>'Tree Structure '))
-        .   '<div>'.__LINE__.': $repairResult = <pre>'. var_export($repairResult,1).'</PRE></div>'
-        .   claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
+        echo claro_disp_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
+        .    claro_disp_msg_arr($repairResultMsg, 1)
+        .    claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
-
     }
     break;
     default :
@@ -160,6 +161,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
         $i=0;
         foreach (array_keys($dataGrid[0]) as $colTitle)
             $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
+
         $stream .= '</tr>' . "\n"
         .          '</thead>' . "\n"
         ;
@@ -191,7 +193,8 @@ function claro_disp_datagrid($dataGrid, $option = null)
             }
 
             $stream .= '<tr>' . "\n"
-            .          '<td>' . $idLine .'</td>' . "\n";
+            .          '<td>' . $idLine .'</td>' . "\n"
+            ;
             $i=0;
             foreach ($dataLine as $dataCell)
             {
@@ -212,9 +215,11 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
 function claro_get_lang($stringId)
 {
+    $argsList = func_get_args();
+    array_shift($argsList);
 
     $stringList[$stringId]=$stringId;
-    return vprintf($stringList[$stringId],array_shift($argsList));
+    return vsprintf($stringList[$stringId],$argsList);
 }
 
 
