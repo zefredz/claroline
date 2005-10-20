@@ -45,7 +45,6 @@ $langLearningPathAdmin = "Administrar secuencias de aprendizaxe";
 $langLearningPathList = "Lista de secuencias de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modifica-lo meu perfil";

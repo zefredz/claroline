@@ -28,7 +28,6 @@ $langHelp = "Axuda";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

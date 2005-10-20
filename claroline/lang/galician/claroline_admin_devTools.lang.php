@@ -42,7 +42,6 @@ $langChat = "Chat";
 $langContradiction = "Emprega-lo principio de non contradicci&oacute;n para levar &oacute; interlocutor a un carreiro
 							sen sa&iacute;da.";
 $langCopy = "Copiar";
-$langCourseDescription = "Escriba aqu&iacute; a descrici&oacute;n que aparece na lista de cursos";
 $langCourseHome = "P&aacute;xina de inicio do Curso";
 $langCourseManager = "Xestor do curso";
 $langCreate = "crear";
@@ -84,7 +83,6 @@ $langIndeed = "Correcto. A iron&iacute;a socr&aacute;tica &eacute; un m&eacute;t
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langManyAnswers = "(varias respostas correctas son posibles)";
 $langMaxStudentGroup = "M&aacute;ximo de estudantes por grupo";
 $langMaximum = "Maximo : ";

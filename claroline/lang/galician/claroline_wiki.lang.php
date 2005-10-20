@@ -25,7 +25,6 @@ $langEmail = "Correo electr&oacute;nico";
 $langEmailWrong = "O enderezo electr&oacute;nico non est&aacute; completo ou cont&eacute;n
 							caracteres non v&aacute;lidos";
 $langEmptyFields = "Deixou vostede baleiros alg&uacute;ns dos campos requiridos";
-$langEnter2passToChange = "Escribi-lo novo contrasinal d&uacute;as veces para mudalo e deixar baleiro para mantelo";
 $langExercises = "Exercicios";
 $langFirstname = "Nome";
 $langFormula = "Atentamente, o seu profesor";
@@ -66,7 +65,6 @@ $langProblem = "Se detecta calquera problema, non dubide en contactar connosco."
 $langRegAdmin = "Crear sitios web de cursos (profesor)";
 $langRegStudent = "Inscribirme en cursos (estudante)";
 $langRegYou = "rexistrouno a vostede neste curso";
-$langRegister = "Inscribir";
 $langSave = "Gardar";
 $langSaveChanges = "Garda-los cambios";
 $langSearch = "Procurar";
@@ -350,7 +348,6 @@ $langWork = "Traballos";
 $langYes = "Si";
 $langYouAreReg = "Est&aacute; vostede inscrito en";
 $langYourReg = "A s&uacute;a inscrici&oacute;n en";
-$lang_click_here = "prema aqu&iacute;";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

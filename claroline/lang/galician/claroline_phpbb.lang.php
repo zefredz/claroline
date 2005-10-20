@@ -90,7 +90,6 @@ $langLearningPath = "Secuencia de aprendizaxe";
 $langLocked = "Bloqueado";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langMissingFields = "Campo(s) ausente(s)";
 $langModifyProfile = "Modifica-lo meu perfil";

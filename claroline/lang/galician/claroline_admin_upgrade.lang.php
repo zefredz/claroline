@@ -19,7 +19,6 @@ $langLaunchRestoreCourseRepository = "Iniciar restauraci&oacute;n do repositorio
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

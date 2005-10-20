@@ -150,7 +150,6 @@ $langLessonStatus = "Estatus do m&oacute;dulo";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langMakeInvisible = "Facer invisible";
-$langManager = "Xestor";
 $langMaxFileSize = "Tama&ntilde;o m&aacute;ximo do ficheiro : ";
 $langMinuteShort = "min.";
 $langModify = "Modificar";

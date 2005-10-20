@@ -47,7 +47,6 @@ $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langMakeInvisible = "Facer invisible";
 $langMakeVisible = "Facer visible";
-$langManager = "Xestor";
 $langMaxFileSize = "Tama&ntilde;o m&aacute;ximo do ficheiro : ";
 $langMinuteShort = "min.";
 $langMissingImagesDetected = "Detect&aacute;ronse imaxes perdidas";

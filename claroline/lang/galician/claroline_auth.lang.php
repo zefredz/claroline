@@ -45,7 +45,6 @@ $langEmptyFields = "Deixou vostede baleiros alg&uacute;ns dos campos requiridos"
 $langEnrollAsStudent = "Matricular como estudante";
 $langEnrollAsTeacher = "Matricularse como Mestre";
 $langEnrollClass = "Matricularse nunha clase";
-$langEnter2passToChange = "Escribi-lo novo contrasinal d&uacute;as veces para mudalo e deixar baleiro para mantelo";
 $langEnterMail = "Escriba o seu enderezo de correo electr&oacute;nico e enviar&eacute;moslle o seu contrasinal.";
 $langExercises = "Exercicios";
 $langFillTheAreaToExplainTheMotivations = "Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou
@@ -63,7 +62,7 @@ $langInvalidIdSelfReg = "<b>Fallou o intento de acceso.</b><br />Por favor, int&
 
 <small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o
 
-<a href=claroline/auth/inscription.php>formulario de rexistro</a></font color></small>.";
+<a href=\"%s\">formulario de rexistro</a></font color></small>.";
 $langIs = "&eacute;";
 $langLastname = "Apelido";
 $langLearningPath = "Secuencia de aprendizaxe";
@@ -75,6 +74,8 @@ $langLoginRequest = "Solicitude de nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langLostPassword = "Lembrar contrasinal";
 $langManager = "Xestor";
+$langMessageEnrollToCourseNotAllowed = "Non &eacute; posible matricularse no curso";
+$langMessageRegistrationNotAllowed = "Non &eacute; posible o rexistro na plataforma";
 $langMessageSubscribeDone_p_firstname_lastname = "Estimado %s, %s. Os seus datos persoais ser&aacute;n rexistrados
 nun correo electr&oacute;nicos e seranlle enviados para lle lembra-lo seu nome de usuario e o seu contrasinal.";
 $langMinuteShort = "min.";
@@ -110,7 +111,6 @@ $langReg = "Inscrici&oacute;n";
 $langRegAdmin = "Crear sitios web de cursos (profesor)";
 $langRegStudent = "Inscribirme en cursos (estudante)";
 $langRegYou = "rexistrouno a vostede neste curso";
-$langRegister = "Inscribir";
 $langRegisterClass = " Rexistrar unha clase";
 $langRequestOfCourseCreatorStatus = "Solicitude de estatus de Profesor";
 $langRevoquationOfUser = "Revocaci&oacute;n de %s %s";
@@ -148,7 +148,6 @@ $lang_already_enrolled = "xa foi matriculado";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Est&aacute; vostede seguro de que desexa eliminar este curso da s&uacute; lista?";
 $lang_back_to_my_personnal_course_list = "Volver &aacute; mi&ntilde;a lista persoal de cursos";
 $lang_back_to_parent_category = "Volver &aacute; categor&iacute; pai";
-$lang_click_here = "prema aqu&iacute;";
 $lang_course_enrollment = "Cursos do usuario";
 $lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

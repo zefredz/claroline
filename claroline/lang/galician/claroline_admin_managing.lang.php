@@ -28,7 +28,6 @@ $langListHtUsers = "Ver .htpassword";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langManage = "Administrar Campus";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

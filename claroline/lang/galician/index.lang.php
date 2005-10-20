@@ -26,12 +26,11 @@ $langInvalidIdSelfReg = "<b>Fallou o intento de acceso.</b><br />Por favor, int&
 
 <small>Se non ten vostede a&iacute;nda unha conta de usuario, cubra o
 
-<a href=claroline/auth/inscription.php>formulario de rexistro</a></font color></small>.";
+<a href=\"%s\">formulario de rexistro</a></font color></small>.";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langLostPassword = "Lembrar contrasinal";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

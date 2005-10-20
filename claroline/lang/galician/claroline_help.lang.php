@@ -454,7 +454,6 @@ $langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en 
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

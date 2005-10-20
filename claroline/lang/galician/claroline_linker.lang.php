@@ -32,7 +32,6 @@ $langLinkerResourceAttachment = "Recursos adxuntados: Engadir / Eliminar";
 $langLinkerUntitled = "Sen t&iacute;tulo";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

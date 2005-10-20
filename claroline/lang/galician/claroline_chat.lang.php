@@ -21,7 +21,6 @@ $langIsNowInYourDocDir = "xa est&aacute; na s&uacute;a secci&oacute;n de documen
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifica-lo meu perfil";
 $langMonthNames = "Array";

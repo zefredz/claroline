@@ -110,7 +110,6 @@ $langEnrollAsManager = "Matricular como xestor de curso";
 $langEnrollAsStudent = "Matricular como estudante";
 $langEnrollToNewCourse = "Matricularse nun novo curso";
 $langEnrollUser = "Matricular un usuario";
-$langEnter2passToChange = "Escribi-lo novo contrasinal d&uacute;as veces para mudalo e deixar baleiro para mantelo";
 $langErrorCannotReadRSSFile = "Erro : non se pode le-la alimentaci&oacute;n RSS";
 $langErrorClassNotEmpty = "Esta clase cont&eacute;n a&iacute;nda algunhas subclases, elim&iacute;neas primeiro";
 $langErrorMove = "Vostede non pode mover unha clase en si mesma!";
@@ -222,7 +221,6 @@ $langPublicOnly = "S&oacute; cursos p&uacute;blicos";
 $langRegAdmin = "Crear sitios web de cursos (profesor)";
 $langRegStudent = "Inscribirme en cursos (estudante)";
 $langRegYou = "rexistrouno a vostede neste curso";
-$langRegister = "Inscribir";
 $langRegisterCampusAdvice = "Por favor, verifique que a URL do seu campus &eacute; accesible desde a internet";
 $langRegisterLocalUrl = "A url do seu campus semella ser unha url local. &Eacute; preciso dispo&ntilde;er dunha url
 accesible por web para poder rexistra-la s&uacute;a plataforma en Claroline.net.<br /><br />

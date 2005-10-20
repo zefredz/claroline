@@ -46,7 +46,6 @@ $langLinkerResourceAttachment = "Recursos adxuntados: Engadir / Eliminar";
 $langLinkerUntitled = "Sen t&iacute;tulo";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMessageToSelectedUsers = "Mensaxes para os usuarios seleccionados";
 $langMessages = "Mensaxes";
 $langMinuteShort = "min.";

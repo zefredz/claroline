@@ -41,7 +41,6 @@ $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langMakeInvisible = "Facer invisible";
-$langManager = "Xestor";
 $langMinuteShort = "min.";
 $langMissingValue = "Valor perdido";
 $langModify = "Modificar";

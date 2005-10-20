@@ -118,7 +118,6 @@ $langLessElements = "-elementos";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langMakeCorrespond = "Facer corresponder";
-$langManager = "Xestor";
 $langMatching = "Relacionar";
 $langMaxAllowedTime = "Tempo m&aacute;ximo permitido";
 $langMaxFileSize = "Tama&ntilde;o m&aacute;ximo do ficheiro : ";

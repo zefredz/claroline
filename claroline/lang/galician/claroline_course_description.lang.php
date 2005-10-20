@@ -43,7 +43,6 @@ $langInvisible = "Invisible";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
-$langManager = "Xestor";
 $langMethodsOfEvaluation = "M&eacute;todos de avaliaci&oacute;n";
 $langMethodsOfEvaluationComment1 = "&Eacute; precisa informaci&oacute;n como o xeito de avaliaci&oacute;n
 (exame escrito, oral, proxectos, traballos a entregar...), datas das probas formativas, datas de entrega
