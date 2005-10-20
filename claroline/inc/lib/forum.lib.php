@@ -81,7 +81,7 @@ function get_total_posts($id, $type = 'all')
     }
     else
     {
-    	return false;
+        return false;
     }
 }
 
@@ -120,8 +120,8 @@ function error_die($msg)
         .'<tr>'."\n"
         .'<td>'."\n"
         .'<blockquote>'."\n"
-		.$msg."\n"
-		.'</blockquote>'."\n"
+        .$msg."\n"
+        .'</blockquote>'."\n"
         .'</td>'."\n"
         .'</tr>'."\n"
         .'</table>'."\n";
@@ -442,7 +442,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
     }
     else
     {
-    	return false;
+        return false;
     }
 }
 
@@ -705,14 +705,14 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
 
         if ($pageNum < $pageMax || $isLastPage)
         {
-        	$pageList[] = '<a href="' . $url . $glue . $offsetParam . '=' . $offset . '">'
+            $pageList[] = '<a href="' . $url . $glue . $offsetParam . '=' . $offset . '">'
                         . $pageNum
                         . '</a>'
                         ;
         }
         elseif (! $skip)
         {
-        	$pageList[] = '...'; // actually first time one have to skip
+            $pageList[] = '...'; // actually first time one have to skip
             $skip       = true;
         }
            
@@ -721,7 +721,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
 
     if (count($pageList) > 0)
     {
-        echo '<small>(' . implode(', ', $pageList) . ')</small>';	
+        echo '<small>(' . implode(', ', $pageList) . ')</small>';    
     }
 }
 
@@ -907,22 +907,22 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewforum':
     
-            $toolBar [] =   '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                           .'<img src="' . $imgRepositoryWeb . 'topic.gif"> '
-                           . $langNewTopic
-                           .'</a>';
+            $toolBar [] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                        . '<img src="' . $imgRepositoryWeb . 'topic.gif"> '
+                        . $langNewTopic
+                        . '</a>';
     
             break;
     
         case 'viewtopic':
     
-            $toolBar [] =   '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                           .'<img src="' . $imgRepositoryWeb . 'topic.gif"> '
+            $toolBar [] =    '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                           . '<img src="' . $imgRepositoryWeb . 'topic.gif"> '
                            . $langNewTopic
                            . '</a>';  
     
-            $toolBar [] =   '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
-                            ."<img src=\"" . $imgRepositoryWeb."reply.gif\"> "
+            $toolBar [] =    '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
+                            . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> '
                             . $langReply
                             . '</a>' ."\n";
     
@@ -988,13 +988,13 @@ function disp_forum_group_toolbar($gid)
                                       || $is_groupMember
                                       || $is_groupTutor);
 
-    $is_allowedToChatAccess     = (bool) ( 	$is_courseAdmin
-					                   || $is_groupMember
-					                   || $is_groupTutor );
+    $is_allowedToChatAccess     = (bool) (     $is_courseAdmin
+                                       || $is_groupMember
+                                       || $is_groupTutor );
 
-	// group space links
+    // group space links
 
-	echo  '<p>'
+    echo  '<p>'
         . '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
         . '<img src="' . $imgRepositoryWeb.'group.gif">&nbsp;'
         . $langGroupSpaceLink
@@ -1004,30 +1004,31 @@ function disp_forum_group_toolbar($gid)
     if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
     {
         echo '&nbsp;|&nbsp'
-            ."<a href=\"../document/document.php\" class=\"claroCmd\">"
+            .'<a href="../document/document.php" class="claroCmd">"
             .'<img src="'.$imgRepositoryWeb.'document.gif" />'
-            .'&nbsp;' .$langGroupDocumentsLink
-            ."</a>"
+            .'&nbsp;' 
+            .$langGroupDocumentsLink
+            .'</a>'
             ;
     }
 
     if($_groupProperties['tools']['wiki'])
     {
         echo '&nbsp;|&nbsp'
-            ."<a href=\"../wiki/wiki.php\" class=\"claroCmd\">"
+            .'<a href="../wiki/wiki.php" class="claroCmd">"
             .'<img src="'.$imgRepositoryWeb.'wiki.gif" />'
             .'&nbsp;' . $langGroupWikiLink
-            ."</a>"
+            .'</a>'
             ;
     }
 
     if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
     {
         echo '&nbsp;|&nbsp'
-            ."<a href=\"../chat/chat.php?gidReq=".$gid."\" class=\"claroCmd\">"
-            .'<img src="'.$imgRepositoryWeb.'chat.gif" />'
+            .'<a href="../chat/chat.php?gidReq=" . $gid . " class="claroCmd">'
+            .'<img src="' . $imgRepositoryWeb . 'chat.gif" />'
             .'&nbsp;' . $langGroupChatLink
-            ."</a>"
+            .'</a>'
             ;
     }
     
@@ -1335,8 +1336,8 @@ function get_category_settings($cat_id)
 
 function move_up_category($cat_id)
 {
-	$categorySettingList = get_category_settings($cat_id);
-	$order = $categorySettingList['cat_order'];
+    $categorySettingList = get_category_settings($cat_id);
+    $order = $categorySettingList['cat_order'];
 
     if ($order > 1 )
     {
@@ -1474,9 +1475,9 @@ function increase_topic_view_count($topicId)
     $tbl_topics =  $tbl_cdb_names['bb_topics'];
     
     $sql = "UPDATE `".$tbl_topics."`
-	        SET   topic_views = topic_views + 1
-	        WHERE topic_id    = " . (int) $topicId;
-	
+            SET   topic_views = topic_views + 1
+            WHERE topic_id    = " . (int) $topicId;
+    
     if ( claro_sql_query($sql) == false) return false;
     else                                 return true;
 }
