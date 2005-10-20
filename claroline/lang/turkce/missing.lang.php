@@ -144,6 +144,8 @@ $langCannotInitChat = "Error : Cannot initialize chat";
 $langCannotRemoveGroupForum = "You can not remove a group forum. You have to remove the group first";
 $langCannotSeeExerciseDetails = "Display of detailled answers is not authorized.";
 $langCannotUnsubscribeLastCourseManager = "You cannot unsubscribe the last course manager of the course";
+$langCategoriesRepairs = "Repair category structure";
+$langCategoriesStructureOK = "Category structure repaired";
 $langCategory = "Category";
 $langCategoryDeleted = "Category deleted.";
 $langCategoryUpdated = "Category updated.";
@@ -652,7 +654,7 @@ $langIntroWork = "This tool allows the teacher to create assignments in which an
 <br />You will be able to add a comment or a grade to each work.
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
 $langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
-<small>If you haven't a user account yet, use the <a href=claroline/auth/inscription.php>registration form</a></font color></small>";
+<small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
 $langInvisible = "Invisible";
 $langIsAlreadyRegistered = "is already registered to course";
 $langIsNowRegistered = "is now registered to course";

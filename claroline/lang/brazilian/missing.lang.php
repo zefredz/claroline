@@ -4,6 +4,8 @@ $langAddWrongAnswers = "Add wrong answers for drop down lists <small>(Optionnal.
 $langCannotRemoveGroupForum = "You can not remove a group forum. You have to remove the group first";
 $langCannotSeeExerciseDetails = "Display of detailled answers is not authorized.";
 $langCannotUnsubscribeLastCourseManager = "You cannot unsubscribe the last course manager of the course";
+$langCategoriesRepairs = "Repair category structure";
+$langCategoriesStructureOK = "Category structure repaired";
 $langCategoryDeleted = "Category deleted.";
 $langCategoryUpdated = "Category updated.";
 $langChooseACourseToAccessThisPage = "Choose a course to access this page.";
@@ -53,7 +55,7 @@ $langGroupWikiLink = "Wiki of the group";
 $langGroupsNotEmptied = "Unable to empty groups";
 $langImpossibleToPromote = "Impossible to promote group tutor a student already register to group";
 $langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
-<small>If you haven't a user account yet, use the <a href=claroline/auth/inscription.php>registration form</a></font color></small>";
+<small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
 $langLearningPathEmpty = "Learning Path is empty";
 $langLearningPathNotFound = "Learning Path not found";
 $langLegendRequiredFields = "<span class=\"required\">*</span> denotes required field";
