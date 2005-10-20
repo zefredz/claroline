@@ -73,7 +73,7 @@ switch($cmd)
         {
             $analyseResult = analyseCat($catCode);
             $dataAnalyseResult[] = array ( 'Code'=>$catCode
-                                         , 'Result'=>$analyseResult?'ok':'fail'
+                                         , 'Result'=>$analyseResult?claro_get_lang('Ok'):claro_get_lang('Fail')
                                          , 'Message'=>$analyseResult?'':claro_failure::get_last_failure());
             if (! $analyseResult) $errorCounter++;
 
@@ -95,14 +95,14 @@ switch($cmd)
        $repairResult = repairTree();
        if ($repairResult)
        {
-           $repairResultMsg['success'][] = $langCategoriesStructureOK;
+           $repairResultMsg['success'][] = claro_get_lang('CategoriesStructureOK');
        }
        else
        switch ($failure = claro_failure::get_last_failure())
        {
            case 'node_moved' :
            {
-                $repairResultMsg['warning'][] = claro_get_lang('Node Moved, relaunch repar to complete process');
+                $repairResultMsg['warning'][] = claro_get_lang('Node Moved, relaunch repair process to complete');
            } break;
            case defaut :
            {
@@ -130,16 +130,21 @@ include $includePath . '/claro_init_header.inc.php';
 /**
   * Information edit for create or edit a category
   */
+
 switch ($view)
 {
     case DISP_ANALYSE :
     {
         echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_disp_msg_arr($analyseTreeResultMsg, 1)
-        .    claro_disp_datagrid($dataAnalyseResult, array('dispCounter' => true))
-        .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? '):'' )
+        .    claro_disp_datagrid($dataAnalyseResult, array('idLine' => 'numeric'))
+        .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
         .    claro_disp_tool_title('Course ownance')
-        .    claro_disp_datagrid($courseOwnanceCheck , array('dispCounter' => true))
+        .    claro_disp_datagrid($courseOwnanceCheck , array('idLine' => 'numeric'
+                                                            ,'idLineShift' => 10
+                                                            ,'colTitleList' => array( claro_get_lang('Code')
+                                                                                    , claro_get_lang('Unknow faculty'))
+                                                            ,))
         ;
     }
     break;
@@ -168,13 +173,21 @@ include $includePath . '/claro_init_footer.inc.php';
  * @param array $option array of options
  * @return string html stream
  *
+ * $dataGrid[]=array('nom'=>'dubois', 'prenom'=>'jean');
+ * $dataGrid[]=array('nom'=>'dupont', 'prenom'=>'pol');
+ * $dataGrid[]=array('nom'=>'durand', 'prenom'=>'simon');
  */
 
 function claro_disp_datagrid($dataGrid, $option = null)
 {
     if(is_null($option) || ! is_array($option) )  $option=array();
 
-    if (! array_key_exists('idLine',$option)) $option['idLine'] = 'blank';
+    if (! array_key_exists('idLine',      $option)) $option['idLine'] = 'blank';
+    if (! array_key_exists('idLineShift', $option)) $option['idLineShift'] = 1;
+    if (! array_key_exists('colTitleList', $option)) $option['colTitleList'] = array_keys($dataGrid[0]);
+
+
+
     $stream = '';
     if (is_array($dataGrid) && count($dataGrid))
     {
@@ -185,7 +198,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
         .          '</th>' . "\n"
         ;
         $i=0;
-        foreach (array_keys($dataGrid[0]) as $colTitle)
+        foreach ($option['colTitleList'] as $colTitle)
             $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
 
         $stream .= '</tr>' . "\n"
@@ -215,7 +228,8 @@ function claro_disp_datagrid($dataGrid, $option = null)
             switch ($option['idLine'])
             {
                 case 'blank'   : $idLine = '';   break;
-                case 'numeric' : $idLine = $key; break;
+                case 'numeric' : $idLine = $key + $option['idLineShift']; break;
+                default        : $idLine = '';   break;
             }
 
             $stream .= '<tr>' . "\n"
@@ -232,7 +246,8 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
         }
         $stream .= '</tbody>' . "\n"
-        .          '</table>' . "\n";
+        .          '</table>' . "\n"
+        ;
 
     }
 
@@ -250,15 +265,17 @@ function claro_disp_datagrid($dataGrid, $option = null)
 function claro_get_lang($stringId)
 {
 
+    $stringIdKey = 'lang'.strtr($stringId,'ãáàâäõóôöoíiîïéèêëúùûüý- ','aaaaaoooooiiiieeeeuuuuy__');
+    if (isset($GLOBALS[$stringIdKey]))
+    {
+        $stringId = $GLOBALS[$stringIdKey];
+    }
+
     $argsList = func_get_args();
     array_shift($argsList);
-    if(!isset($stringList) || !is_array($stringList) || !array_key_exist($stringList,$stringId))
-    {
-        $stringList[$stringId]=$stringId;
-    }
-    return vsprintf($stringList[$stringId],$argsList);
-}
 
+    return vsprintf($stringId,$argsList);
+}
 
 
 ?>
