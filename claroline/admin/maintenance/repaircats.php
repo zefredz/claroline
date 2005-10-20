@@ -175,14 +175,14 @@ function claro_disp_datagrid($dataGrid, $option = null)
     if(is_null($option) || ! is_array($option) )  $option=array();
 
     if (! array_key_exists('idLine',$option)) $option['idLine'] = 'blank';
-
+    $stream = '';
     if (is_array($dataGrid) && count($dataGrid))
     {
-        $stream = '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-        .         '<thead>' . "\n"
-        .         '<tr class="headerX" align="center" valign="top">' . "\n"
-        .         '<th>'
-        .         '</th>' . "\n"
+        $stream .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+        .          '<thead>' . "\n"
+        .          '<tr class="headerX" align="center" valign="top">' . "\n"
+        .          '<th>'
+        .          '</th>' . "\n"
         ;
         $i=0;
         foreach (array_keys($dataGrid[0]) as $colTitle)
@@ -231,9 +231,10 @@ function claro_disp_datagrid($dataGrid, $option = null)
             $stream .= '</tr>' . "\n";
 
         }
+        $stream .= '</tbody>' . "\n"
+        .          '</table>' . "\n";
+
     }
-    $stream .= '</tbody>' . "\n"
-    .          '</table>' . "\n";
 
     return $stream;
 
