@@ -70,7 +70,7 @@ $is_allowedToAdmin     = $is_platformAdmin;
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-     $controlMsg['highlight'][] = $langNoticeInstallFolderBrowsable;
+     $controlMsg['warning'][] = $langNoticeInstallFolderBrowsable;
 }
 // ----- is install visible ----- end
 
