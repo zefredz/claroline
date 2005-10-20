@@ -26,12 +26,11 @@ $langInvalidIdSelfReg = "<b>Fall&oacute el intento de acceso.</b><br />Por favor
 
 <small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el
 
-<a href=claroline/auth/inscription.php>formulario de registro</a></font color></small>.";
+<a href=\"%s\">formulario de registro</a></font color></small>.";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langLostPassword = "Recordar contrase&ntilde;a";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";

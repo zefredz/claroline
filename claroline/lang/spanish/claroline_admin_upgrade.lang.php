@@ -19,7 +19,6 @@ $langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";

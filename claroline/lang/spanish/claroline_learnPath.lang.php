@@ -126,7 +126,6 @@ $langLessonStatus = "Estado del m&oacute;dulo";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langMakeInvisible = "Hacer invisible";
-$langManager = "Responsable";
 $langMaxFileSize = "Tama&ntilde;o M&aacute;ximo de archivo : ";
 $langMinuteShort = "m&iacute;n.";
 $langModify = "Modificar";

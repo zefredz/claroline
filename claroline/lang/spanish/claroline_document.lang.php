@@ -47,7 +47,6 @@ $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langMakeInvisible = "Hacer invisible";
 $langMakeVisible = "Hacer visible";
-$langManager = "Responsable";
 $langMaxFileSize = "Tama&ntilde;o M&aacute;ximo de archivo : ";
 $langMinuteShort = "m&iacute;n.";
 $langMissingImagesDetected = "Se ha detectado que faltan im&aacute;genes.";

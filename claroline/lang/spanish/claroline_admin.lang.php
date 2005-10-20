@@ -108,8 +108,6 @@ $langEnrollAsManager = "Inscribir como coordinador";
 $langEnrollAsStudent = "Inscribir como estudiante";
 $langEnrollToNewCourse = "Inscribir a un curso";
 $langEnrollUser = "Inscribir un usuario";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
-							si quiere conservar la actual";
 $langErrorCannotReadRSSFile = "Error : no es posible leer el RSS";
 $langErrorClassNotEmpty = "Esta clase contiene a&uacute;n alguna subclase, es necesario borrarlas primero";
 $langErrorMove = "¡No puede mover una clase dentro de si misma!";
@@ -222,7 +220,6 @@ $langPublicOnly = "Curso &uacute;nicamente p&uacute;blico";
 $langRegAdmin = "Crear sitios de cursos (Profesor)";
 $langRegStudent = "Inscribirme a cursos (estudiante)";
 $langRegYou = "lo ha inscrito en este curso";
-$langRegister = "Registrar";
 $langRegisterCampusAdvice = "Por favor, verifique que la URL de su campus es accesible desde internet";
 $langRegisterLocalUrl = "Parece que la url de su campus es una url local. Es necesario que facilite una url accesible
 para poder registrar su sitio web en claroline.net<br /><br />

@@ -45,8 +45,6 @@ Use el bot&oacute;n de Atr&aacute;s del navegador y vuelva a intentarlo.";
 $langEnrollAsStudent = "Inscribir como estudiante";
 $langEnrollAsTeacher = "Inscribir como Profesor";
 $langEnrollClass = "Inscribir clase";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
-							si quiere conservar la actual";
 $langEnterMail = "Introduzca su correo electr&oacute;nico para que se le env&iacute;e a ese correo su clave de acceso.";
 $langExercises = "Ejercicios";
 $langFillTheAreaToExplainTheMotivations = "Explique sus motivos en el &aacute;rea de texto y envie su sugerencia. Le ser&aacute;
@@ -63,7 +61,7 @@ $langInvalidIdSelfReg = "<b>Fall&oacute el intento de acceso.</b><br />Por favor
 
 <small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el
 
-<a href=claroline/auth/inscription.php>formulario de registro</a></font color></small>.";
+<a href=\"%s\">formulario de registro</a></font color></small>.";
 $langIs = "es";
 $langLastname = "Apellido";
 $langLearningPath = "Secuencia de aprendizaje";
@@ -75,6 +73,8 @@ $langLoginRequest = "Petici&oacute;n del nombre de usuario";
 $langLogout = "Salir";
 $langLostPassword = "Recordar contrase&ntilde;a";
 $langManager = "Responsable";
+$langMessageEnrollToCourseNotAllowed = "No es posible matricularse en el curso";
+$langMessageRegistrationNotAllowed = "No es posible el registro en la plataforma";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Estimado(a) %s, %s.
 Sus datos personales han sido registrados y se ha enviado un
@@ -115,7 +115,6 @@ $langReg = "Inscripci&oacute;n";
 $langRegAdmin = "Crear sitios de cursos (Profesor)";
 $langRegStudent = "Inscribirme a cursos (estudiante)";
 $langRegYou = "lo ha inscrito en este curso";
-$langRegister = "Registrar";
 $langRegisterClass = "Registrar una clase";
 $langRequestOfCourseCreatorStatus = "Solicitud de estatus de Creador de Cursos";
 $langRevoquationOfUser = "Revocaci&oacute;n de %s %s";
@@ -154,7 +153,6 @@ $lang_already_enrolled = "ya ha sido matriculado";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "¿Est&aacute; seguro de querer eliminar este curso de su lista?";
 $lang_back_to_my_personnal_course_list = "Volver a mi lista personal de cursos";
 $lang_back_to_parent_category = "Volver a la categor&iacute;a anterior";
-$lang_click_here = "pulse aqu&iacute;";
 $lang_course_enrollment = "Usuarios del curso";
 $lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";

@@ -39,7 +39,6 @@ $langInvisible = "Invisible";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
-$langManager = "Responsable";
 $langMethodsOfEvaluation = "M&eacute;todos de evaluaci&oacute;n";
 $langMethodsOfEvaluationComment1 = "Precise detalles como el m&eacute;todo de evaluaci&oacute;n (examen escrito, oral,
 proyectos, trabajos a entregar...), las fechas de los controles de evaluaci&oacute;n, fechas l&iacute;mite para la

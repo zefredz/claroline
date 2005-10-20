@@ -57,8 +57,6 @@ $langEmail = "Correo electr&oacute;nico";
 $langEmailWrong = "La direcci&oacute;n de correo electr&oacute;nico no es v&aacute;lida";
 $langEmptyFields = "No ha llenado todos los campos.
 Use el bot&oacute;n de Atr&aacute;s del navegador y vuelva a intentarlo.";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
-							si quiere conservar la actual";
 $langErrorFormatCSV = "ERROR: el formato que ha introducido no es compatible con Claroline";
 $langErrorMyOwnSettings = "No puede cambiar su propio estatus";
 $langExercises = "Ejercicios";
@@ -183,7 +181,6 @@ $langYouAreReg = "Usted ha sido inscrito en";
 $langYourReg = "Su inscripci&oacute;n en";
 $lang_add_user_list = "A&ntilde;adir lista de usuarios";
 $lang_already_enrolled = "ya ha sido matriculado";
-$lang_click_here = "pulse aqu&iacute;";
 $lang_do_you_want_to_continue = "Desea usted continuar?";
 $lang_fields_enclosed_by = "Campos listados por";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";

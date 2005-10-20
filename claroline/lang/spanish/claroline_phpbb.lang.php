@@ -86,7 +86,6 @@ $langLearningPath = "Secuencia de aprendizaje";
 $langLocked = "Bloqueado";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langMissingFields = "Campo(s) ausente(s)";
 $langModifyProfile = "Modificar mis datos";

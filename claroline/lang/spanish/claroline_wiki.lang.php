@@ -25,8 +25,6 @@ $langEmail = "Correo electr&oacute;nico";
 $langEmailWrong = "La direcci&oacute;n de correo electr&oacute;nico no es v&aacute;lida";
 $langEmptyFields = "No ha llenado todos los campos.
 Use el bot&oacute;n de Atr&aacute;s del navegador y vuelva a intentarlo.";
-$langEnter2passToChange = "Introduzca su clave de acceso dos veces para que pueda ser cambiada o d&eacute;jelo vac&iacute;o
-							si quiere conservar la actual";
 $langExercises = "Ejercicios";
 $langFirstname = "Nombre";
 $langFormula = "Cordialmente, vuestro profesor";
@@ -68,7 +66,6 @@ $langProblem = "En caso de tener alg&uacute;n problema, no dude en contactarnos.
 $langRegAdmin = "Crear sitios de cursos (Profesor)";
 $langRegStudent = "Inscribirme a cursos (estudiante)";
 $langRegYou = "lo ha inscrito en este curso";
-$langRegister = "Registrar";
 $langSave = "Guardar";
 $langSaveChanges = "Guardar cambios";
 $langSearch = "Buscar";
@@ -353,7 +350,6 @@ $langWork = "Trabajos";
 $langYes = "Si";
 $langYouAreReg = "Usted ha sido inscrito en";
 $langYourReg = "Su inscripci&oacute;n en";
-$lang_click_here = "pulse aqu&iacute;";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

@@ -21,7 +21,6 @@ $langIsNowInYourDocDir = "est&aacute; ya en su secci&oacute;n de documentos.<br>
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";

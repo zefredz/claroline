@@ -38,7 +38,6 @@ $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langMakeInvisible = "Hacer invisible";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langMissingValue = "Valor perdido";
 $langModify = "Modificar";

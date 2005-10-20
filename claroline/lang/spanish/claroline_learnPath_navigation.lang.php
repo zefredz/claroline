@@ -40,7 +40,6 @@ $langLearningPathAdmin = "Administrador de secuencia de aprendizaje";
 $langLearningPathList = "Lista secuencia de aprendizaje ";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";

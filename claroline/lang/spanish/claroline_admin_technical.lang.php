@@ -26,7 +26,6 @@ $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langMailTo = "Enviar correo electr&oacute;nico a: ";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langMissing = "Perdidos";
 $langModifyProfile = "Modificar mis datos";

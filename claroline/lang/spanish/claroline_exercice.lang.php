@@ -111,7 +111,6 @@ $langLessElements = "-elem";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
 $langMakeCorrespond = "Hacer corresponder";
-$langManager = "Responsable";
 $langMatching = "Relacionar";
 $langMaxAllowedTime = "Tiempo m&aacute;ximo permitido";
 $langMaxFileSize = "Tama&ntilde;o M&aacute;ximo de archivo : ";

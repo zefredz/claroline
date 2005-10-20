@@ -43,7 +43,6 @@ $langLinkerResourceAttachment = "Recursos adjuntados : A&ntilde;adir / Eliminar"
 $langLinkerUntitled = "Sin t&iacute;tulo";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
-$langManager = "Responsable";
 $langMinuteShort = "m&iacute;n.";
 $langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
