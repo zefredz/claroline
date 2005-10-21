@@ -38,8 +38,7 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 // This action is mandatory because PEAR inner include() statements 
 // rely on the php.ini include_path settings
 
-ini_set('include_path', 
-        ini_get('include_path') . ( strstr(PHP_OS, 'WIN') ?';':':') . PEAR_LIB_PATH );
+set_include_path( get_include_path(). PATH_SEPARATOR . PEAR_LIB_PATH );
 
 // Unix file permission access ...
 
