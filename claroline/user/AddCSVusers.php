@@ -116,9 +116,7 @@ $usedFormat = $_SESSION['claro_usedFormat'];
 /*    Execute command section                                                                                 */
 /*--------------------------------------------------------------------------------------------------------------*/
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null ;
 
 switch ($cmd)
 {
