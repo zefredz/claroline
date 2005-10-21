@@ -1,19 +1,16 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*=====================================================================
- Init Section
- =====================================================================*/ 
+/**
+ * CLAROLINE
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package ADMIN
+ *
+ * @author Guillaume Lederer <lederer@claroline.net>
+ */
 
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -26,10 +23,10 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // Include configuration
-include $includePath.'/conf/user_profile.conf.php';
+include $includePath . '/conf/user_profile.conf.php';
 
 // Include libraries
-include $includePath.'/lib/user.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // Initialise variables
 $nameTools=$langUserSettings;
@@ -44,7 +41,7 @@ $tbl_course_user = $tbl_mdb_names['rel_course_user'];
 
 /*=====================================================================
   Main Section
- =====================================================================*/ 
+ =====================================================================*/
 
 // see which user we are working with ...
 
@@ -79,12 +76,12 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     // validate forum params
 
     $messageList = user_validate_form_profile($user_data, $user_id);
-    
+
     if ( count($messageList) == 0 )
     {
 
-        // if no error update use setting 
-        user_update ($user_id, $user_data); 
+        // if no error update use setting
+        user_update ($user_id, $user_data);
 
         // re-init the system to take new settings in account
         if ( $user_id == $_uid )
@@ -104,7 +101,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     }
     else
     {
-        // user validate form return error messages 
+        // user validate form return error messages
         $error = true;
     }
 
@@ -115,13 +112,13 @@ $user_data['is_admin'] = user_is_admin($user_id);
 
 /*=====================================================================
  Display Section
- =====================================================================*/ 
+ =====================================================================*/
 
-$interbredcrump[]= array ("url" => $rootAdminWeb, "name" => $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
-if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == "ulist")
+if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    $interbredcrump[]= array ("url" => $rootAdminWeb."adminusers.php", "name" => $langListUsers);
+    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => $langListUsers);
 }
 
 $htmlHeadXtra[] =
@@ -153,7 +150,7 @@ user_display_form_admin_user_profile($user_data);
 
 // Display tools link :
 
-echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\''.clean_str_for_javascript($langAreYouSureToDelete . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . $langDeleteUser . '</a>' 
+echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\'' . clean_str_for_javascript($langAreYouSureToDelete . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . $langDeleteUser . '</a>'
     . ' | '
     . '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . $langRegisterUser . '</a>'
     . '| '
@@ -166,5 +163,5 @@ if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must 
 
 // display footer
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath .'/claro_init_footer.inc.php';
 ?>

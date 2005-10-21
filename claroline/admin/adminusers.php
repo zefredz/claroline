@@ -1,12 +1,12 @@
 <?php //$Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @package ADMIN
  *
  * @author Guillaume Lederer <lederer@claroline.net>
@@ -20,13 +20,14 @@ DEFINE('COURSE_CREATOR',1);
 DEFINE('COURSE_STUDENT',5);
 require '../inc/claro_init_global.inc.php';
 
-include($includePath."/lib/pager.lib.php");
-include($includePath."/lib/admin.lib.inc.php");
-include($includePath."/lib/user.lib.php");
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=="")) {unset($_REQUEST['cidToEdit']);}
 
@@ -84,8 +85,8 @@ $tbl_track_default    = $tbl_mdb_names['track_e_default'];
 $tbl_track_login      = $tbl_mdb_names['track_e_login'  ];
 
 // javascript confirm pop up declaration
-  $htmlHeadXtra[] =
-    '<script type="text/javascript">
+$htmlHeadXtra[] =
+'<script type="text/javascript">
 		function confirmation (name)
 		{
 			if (confirm("'.clean_str_for_javascript($langAreYouSureToDelete).'" + name + "? "))
@@ -93,11 +94,11 @@ $tbl_track_login      = $tbl_mdb_names['track_e_login'  ];
 			else
 				{return false;}
 		}'
-        ."\n".'</script>'."\n";
+."\n".'</script>'."\n";
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 $nameTools = $langListUsers;
 //TABLES
 
@@ -106,32 +107,32 @@ $nameTools = $langListUsers;
 //------------------------------------
 
 if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
+$cmd = $_REQUEST['cmd'];
 else $cmd = null;
 
 switch ( $cmd )
 {
-  case 'delete' :
+    case 'delete' :
 
-        if  (isset($_REQUEST['user_id']) ) $user_id = $_REQUEST['user_id'];
-    	else                               $user_id = null;
-	
-    	if ( user_delete($user_id) )
-        {
-	        $dialogBox = $langUserDelete;
-    	}
-	    else
-    	{
-	        $dialogBox = $langNotUnregYourself;
-    	}
-        break;
+    if  (isset($_REQUEST['user_id']) ) $user_id = $_REQUEST['user_id'];
+    else                               $user_id = null;
+
+    if ( user_delete($user_id) )
+    {
+        $dialogBox = $langUserDelete;
+    }
+    else
+    {
+        $dialogBox = $langNotUnregYourself;
+    }
+    break;
 }
 
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
 
-$sql = "SELECT 
+$sql = "SELECT
        `U`.`user_id`     ,
        `U`.`nom`         ,
        `U`.`prenom`      ,
@@ -143,15 +144,15 @@ $sql = "SELECT
        `U`.`officialCode`,
        `U`.`phoneNumber` ,
        `U`.`pictureUri`  ,
-       `U`.`creatorId` creator_id, 
+       `U`.`creatorId` creator_id,
 #       IF(`U`.`user_id`=`U`.`creatorId`,'ACTIVE','GHOST') `activity` ,
 #       max(UNIX_TIMESTAMP(`login`.`login_date`)) `login_date`,
 #       now()-`login_date` `login_idle` ,
        IF(`U`.`statut`=".COURSE_CREATOR.",'COURSE_CREATOR','ORDINARY') `statut` ,
        count(DISTINCT `CU`.`code_cours`) `qty_course`
-       FROM  `".$tbl_user."` AS `U`";
+       FROM  `" . $tbl_user . "` AS `U`";
 
-//deal with admin user search only (PART ONE)	
+//deal with admin user search only (PART ONE)
 
 if (isset($_SESSION['admin_user_action']) && $_SESSION['admin_user_action']=="plateformadmin")
 {
@@ -160,10 +161,10 @@ if (isset($_SESSION['admin_user_action']) && $_SESSION['admin_user_action']=="pl
 
 // join with course table to find course numbers of each user and last login
 
-$sql.= " 
+$sql.= "
 #       LEFT JOIN `".$tbl_track_login."` `login`
 #       ON `U`.`user_id`  = `login`.`login_user_id`
-       LEFT JOIN `".$tbl_course_user."` AS `CU` 
+       LEFT JOIN `".$tbl_course_user."` AS `CU`
        ON `CU`.`user_id` = `U`.`user_id`
 
        WHERE 1=1 ";
@@ -173,8 +174,8 @@ $sql.= "
 if (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin"))
 {
     $sql .= " AND `AD`.`idUser` = `U`.`user_id` ";
-}       
-       
+}
+
 //deal with LETTER classification call
 
 if (isset($_SESSION['admin_user_letter']))
@@ -200,7 +201,7 @@ if (isset($_SESSION['admin_user_firstName']))
 
 if (isset($_SESSION['admin_user_lastName']))
 {
-	$sql .= " AND (U.`nom` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
+    $sql .= " AND (U.`nom` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
 }
 
 if (isset($_SESSION['admin_user_userName']))
@@ -213,16 +214,16 @@ if (isset($_SESSION['admin_user_mail']))
     $sql.= " AND (U.`email` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
 }
 
-if (   isset($_SESSION['admin_user_action']) 
-         && (    $_SESSION['admin_user_action']=="createcourse" 
-		      || $_SESSION['admin_user_action']=="plateformadmin")
-            )
+if (   isset($_SESSION['admin_user_action'])
+&& (    $_SESSION['admin_user_action']=="createcourse"
+|| $_SESSION['admin_user_action']=="plateformadmin")
+)
 {
     $sql.=' AND (U.`statut`='.COURSE_CREATOR.')';
 }
 
-if (   isset($_SESSION['admin_user_action']) 
-         && (    $_SESSION['admin_user_action']=="followcourse"))
+if (   isset($_SESSION['admin_user_action'])
+&& (    $_SESSION['admin_user_action']=="followcourse"))
 {
     $sql.=' AND (U.`statut`='.COURSE_STUDENT.')';
 }
@@ -232,19 +233,19 @@ $sql.=" GROUP BY U.`user_id` ";
 // deal with REORDER
 if (isset($_SESSION['admin_user_order_crit']))
 {
-	// set the name of culomn to sort following $_SESSION['admin_user_order_crit'] value
-	switch ($_SESSION['admin_user_order_crit'])
-	{
-		case 'uid'          : $fieldSort = 'U`.`user_id';      break;
-		case 'name'         : $fieldSort = 'U`.`nom';          break;
-		case 'firstname'    : $fieldSort = 'U`.`prenom';       break;
-		case 'officialCode' : $fieldSort = 'U`.`officialCode'; break;
-		case 'email'        : $fieldSort = 'U`.`email';        break;
-		case 'status'       : $fieldSort = 'U`.`statut';       break;
-		#case 'activity'     : $fieldSort = 'login_idle';       break;
-		case 'courseqty'    : $fieldSort = 'qty_course';
+    // set the name of culomn to sort following $_SESSION['admin_user_order_crit'] value
+    switch ($_SESSION['admin_user_order_crit'])
+    {
+        case 'uid'          : $fieldSort = 'U`.`user_id';      break;
+        case 'name'         : $fieldSort = 'U`.`nom';          break;
+        case 'firstname'    : $fieldSort = 'U`.`prenom';       break;
+        case 'officialCode' : $fieldSort = 'U`.`officialCode'; break;
+        case 'email'        : $fieldSort = 'U`.`email';        break;
+        case 'status'       : $fieldSort = 'U`.`statut';       break;
+        #case 'activity'     : $fieldSort = 'login_idle';       break;
+        case 'courseqty'    : $fieldSort = 'qty_course';
 
-	}
+    }
     $sql.= " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_dir'];
     $order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
 }
@@ -263,7 +264,7 @@ if (!isset($order['courseqty']))        $order['courseqty']    = "";
 
 //Build pager with SQL request
 
-if (!isset($_REQUEST['offset'])) 
+if (!isset($_REQUEST['offset']))
 {
     $offset = "0";
 }
@@ -275,15 +276,13 @@ else
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 
-//$dialogBox .= '<pre>'.var_export($userList,1)."</pre><br />"; //debug
-
 //Display search form
 //see passed search parameters :
 
 $advanced_search_query_string = array();
-$isSearched ="";
+$isSearched = '';
 
-if ( !empty($_SESSION['admin_user_search']) ) 
+if ( !empty($_SESSION['admin_user_search']) )
 {
     $isSearched .= "*".$_SESSION['admin_user_search']."* ";
 }
@@ -297,28 +296,28 @@ if ( !empty($_SESSION['admin_user_lastName']) )
     $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";
     $advanced_search_query_string[] = "lastName=".urlencode($_SESSION['admin_user_lastName']);
 }
-if ( !empty($_SESSION['admin_user_userName']) ) 
+if ( !empty($_SESSION['admin_user_userName']) )
 {
     $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";
     $advanced_search_query_string[] = "userName=".urlencode($_SESSION['admin_user_userName']);
 }
-if ( !empty($_SESSION['admin_user_mail']) ) 
+if ( !empty($_SESSION['admin_user_mail']) )
 {
     $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";
     $advanced_search_query_string[] = "mail=".urlencode($_SESSION['admin_user_mail']);
 }
 
-if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="followcourse")) 
+if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="followcourse"))
 {
     $isSearched .= "<b> <br />".$langRegStudent."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
-elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse")) 
+elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="createcourse"))
 {
     $isSearched .= "<b> <br />".$langCourseCreator."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
-elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin")) 
+elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="plateformadmin"))
 {
     $isSearched .= "<b> <br />".$langPlatformAdministrator."  </b> ";
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
@@ -330,7 +329,7 @@ else
 
 if ( count($advanced_search_query_string) > 0 )
 {
-   $addtoAdvanced = '?' . implode('&amp;',$advanced_search_query_string);
+    $addtoAdvanced = '?' . implode('&amp;',$advanced_search_query_string);
 }
 else
 {
@@ -339,10 +338,10 @@ else
 
 if( empty($isSearched) )
 {
-   $title = "&nbsp;";
-   $isSearched = "&nbsp;";
-} 
-else 
+    $title = "&nbsp;";
+    $isSearched = "&nbsp;";
+}
+else
 {
     $title = $langSearchOn." : ";
 }
@@ -354,10 +353,10 @@ else
 if (!isset($addToURL)) $addToURL ="";
 
 //Header
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
-echo claro_disp_tool_title($nameTools)."\n\n";
+echo claro_disp_tool_title($nameTools) . "\n\n";
 
 //Display Forms or dialog box(if needed)
 
@@ -372,37 +371,30 @@ if(isset($dialogBox))
 
 //get the search keyword, if any
 
-if (!isset($_REQUEST['search']))
-{
-   $search = "";
-}
-else
-{
-   $search = $_REQUEST['search'];
-}
+$search  = (isset($_REQUEST['search']) ? $_REQUEST['search'] : '');
 
-   //Display search form
+//Display search form
 
-echo '<table width="100%">
-        <tr>
-          <td align="left">
-             <b>'.$title.'</b>
-             <small>
-             '.$isSearched.'
-             </small>
-          </td>
-          <td align="right">
-            <form action="'.$_SERVER['PHP_SELF'].'">
-            <label for="search">'.$langMakeNewSearch.'</label>
-            <input type="text" value="'.htmlspecialchars($search).'" name="search" id="search" >
-            <input type="submit" value=" '.$langOk.' ">
-            <input type="hidden" name="newsearch" value="yes">
-            [<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >'.$langAdvanced.'</a>]
-            </form>
-          </td>
-        </tr>
-      </table>
-       ';
+echo '<table width="100%">'
+.    '<tr>'
+.    '<td align="left">'
+.    '<b>' . $title . '</b>'
+.    '<small>'
+.    $isSearched
+.    '</small>'
+.    '</td>'
+.    '<td align="right">'
+.    '<form action="'.$_SERVER['PHP_SELF'].'">'
+.    '<label for="search">'.$langMakeNewSearch.'</label>'
+.    '<input type="text" value="'.htmlspecialchars($search).'" name="search" id="search" />'
+.    '<input type="submit" value=" '.$langOk.' " />'
+.    '<input type="hidden" name="newsearch" value="yes" />'
+.    '[<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >' . $langAdvanced . '</a>]'
+.    '</form>'
+.    '</td>'
+.    '</tr>'
+.    '</table>'
+;
 
 //Pager
 
@@ -410,8 +402,8 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // Display list of users
 
-   // start table...
-   
+// start table...
+
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
      <thead>
      <tr class=\"headerX\" align=\"center\" valign=\"top\">
@@ -422,154 +414,160 @@ echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellsp
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=email&amp;dir=".$order['email']."\">".$langEmail."</a></th>
           <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=status&amp;dir=".$order['status']."\">".$langUserStatus."</a></th>
           <th>".$langUserSettings."</th>"
-        #."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=activity&amp;dir=".$order['activity']."\">".$langLastLogin."</a></th>"
-         ."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=courseqty&amp;dir=".$order['courseqty']."\">".$langCourses."</a></th>
+#."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=activity&amp;dir=".$order['activity']."\">".$langLastLogin."</a></th>"
+."<th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=courseqty&amp;dir=".$order['courseqty']."\">".$langCourses."</a></th>
           <th>".$langDelete."</th>";
 echo "</tr><tbody> ";
 
-   // Start the list of users...
+// Start the list of users...
 foreach($userList as $list)
 //while ($list = mysql_fetch_array($query))
 {
-     echo '<tr>';
+    echo '<tr>';
 
-     //  Id
+    //  Id
 
     echo "<td align=\"center\">"
-	     .$list['user_id']
-	     ."</td>";
+    .$list['user_id']
+    ."</td>";
 
-     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {  //trick to prevent "//1" display when no keyword used in search 
-	 
-         $bold_search = str_replace("*",".*",$_SESSION['admin_user_search']);
-     
-         // name
-	 	 
-	 $bolded_name = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['nom']);	 
-         echo "<td align=\"left\">".$bolded_name."</td>";
+    if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {  //trick to prevent "//1" display when no keyword used in search
 
-         //  Firstname
-	 
-	 $bolded_firstname = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['prenom']);
-         echo "<td align=\"left\">".$bolded_firstname."</td>";
-     }
-     else
-     {
-         // name
+    $bold_search = str_replace("*",".*",$_SESSION['admin_user_search']);
 
-         echo "<td align=\"left\">".$list['nom']."</td>";
+    // name
 
-         //  Firstname
+    echo '<td align="left">' . eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['nom']) . '</td>'
+    //  Firstname
+    .    '<td align="left">' . eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['prenom']) . '</td>';
+    }
+    else
+    {
+        // name
 
-         echo "<td align=\"left\">".$list['prenom']."</td>";
-     }
+        echo '<td align="left">' . $list['nom'] . '</td>'
 
-     //  Official code
+        //  Firstname
 
-     if (isset($list['officialCode'])) { $toAdd = $list['officialCode']; } else $toAdd = " - ";
-     echo "<td align=\"center\">".$toAdd."</td>";
+        .    '<td align="left">' . $list['prenom'] . '</td>';
+    }
+
+    //  Official code
+
+    if (isset($list['officialCode'])) { $toAdd = $list['officialCode']; } else $toAdd = " - ";
+    echo '<td align="center">' . $toAdd . '</td>';
 
 
-     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {
+    if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!='')) {
 
-         // mail
-	 
-	 $bolded_email = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['email']);
-         echo "<td align=\"left\">".$bolded_email."</td>";
+        // mail
 
-     }
-     else
-     {
-         // mail
-         echo "<td align=\"left\">".$list['email']."</td>";
-     }
+        $bolded_email = eregi_replace("(".$bold_search.")",'<b>\\1</b>', $list['email']);
+        echo "<td align=\"left\">".$bolded_email."</td>";
 
-     // Status
+    }
+    else
+    {
+        // mail
+        echo "<td align=\"left\">".$list['email']."</td>";
+    }
+
+    // Status
     $userStatus = ($list['statut']=='COURSE_CREATOR'?$langCourseCreator:$langNormalUser);
     if (isAdminUser($list['user_id']))
     {
         $userStatus .= '<br /><font color="red">'.$langAdministrator.'</font>';
     }
 
-    echo '<td align="center">'."\n"
-        .$userStatus
-        .'</td>'."\n"
-        ;
-     // Modify link
+    echo '<td align="center">' . "\n"
+    .    $userStatus
+    .    '</td>'."\n"
 
-     echo     "<td align=\"center\">\n",
-                        "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&amp;cfrom=ulist".$addToURL."\">\n
-                         <img src=\"".$imgRepositoryWeb."usersetting.gif\" border=\"0\" alt=\"".$langUserSettings."\" />\n",
-                        "</a>\n",
-                        "</td>\n";
+    // Modify link
+
+    .    '<td align="center">' . "\n"
+    .    '<a href="adminprofile.php'
+    .    '?uidToEdit=' . $list['user_id']
+    .    '&amp;cfrom=ulist' . $addToURL . '">'
+    .    '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . $langUserSettings . '" />'
+    .    '</a>'
+    .    '</td>' . "\n"
+    ;
 
 
-
- // Activity
+    // Activity
     /*
     echo '<td align="center">'
-        .'<small><small>'
-        ;
+    .'<small><small>'
+    ;
     if ($list['activity']== 'GHOST')
     {
-        echo $langNever;
+    echo $langNever;
     }
     else
     {
-        $idle = date_diff($list['login_date'],mktime());
-        if ($idle['idle']> $delayToConsiderAsSleeper ) echo '<font color="red"> ';
-        if ($idle['year']>0 ) printf($langpyear.' ', $idle['year']);
-        if ($idle['week']>0 ) printf($langpweek.' ', $idle['week']);
-        if ($idle['days']>0 ) printf($langpday.' ', $idle['days']);
-        if ($idle['idle']<(3600*48) && $idle['hours']>0 ) printf($langphours.' ', $idle['hours']);
-        if ($idle['idle']<3600 ) echo $lang_recently;
+    $idle = date_diff($list['login_date'],mktime());
+    if ($idle['idle']> $delayToConsiderAsSleeper ) echo '<font color="red"> ';
+    if ($idle['year']>0 ) printf($langpyear.' ', $idle['year']);
+    if ($idle['week']>0 ) printf($langpweek.' ', $idle['week']);
+    if ($idle['days']>0 ) printf($langpday.' ', $idle['days']);
+    if ($idle['idle']<(3600*48) && $idle['hours']>0 ) printf($langphours.' ', $idle['hours']);
+    if ($idle['idle']<3600 ) echo $lang_recently;
 
-#       if ($idle['minutes']>0 ) printf($langpminute.' ', $idle['minutes']);
-#       if ($idle['seconds']>0 ) printf($langpsecond.' ', $idle['seconds']);
-        if ($idle['idle']> $delayToConsiderAsSleeper ) echo '</font>';
+    #       if ($idle['minutes']>0 ) printf($langpminute.' ', $idle['minutes']);
+    #       if ($idle['seconds']>0 ) printf($langpsecond.' ', $idle['seconds']);
+    if ($idle['idle']> $delayToConsiderAsSleeper ) echo '</font>';
 
     }
 
     echo '</small></small>'
-        .'</td>'
-        ;
-*/
+    .'</td>'
+    ;
+    */
 
-     // All course of this user
+    // All course of this user
 
     echo '<td align="center">'
-        .'<a href="adminusercourses.php?uidToEdit='.$list['user_id'].'&amp;cfrom=ulist'.$addToURL.'">'."\n"
-        .sprintf(($list['qty_course']>1?$lang_p_d_courses:$lang_p_d_course),$list['qty_course'])."\n"
-        .'</a>'."\n"
-        .'</td>'."\n";
+    .    '<a href="adminusercourses.php?uidToEdit=' . $list['user_id']
+    .    '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
+    .    sprintf(($list['qty_course']>1 ? $lang_p_d_courses : $lang_p_d_course), $list['qty_course']) . "\n"
+    .    '</a>' . "\n"
+    .    '</td>' . "\n"
+    ;
 
-     //  Delete link
+    //  Delete link
 
-     echo '<td align="center">'
-         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=delete&amp;user_id='.$list['user_id'].'&amp;ffset='.$offset.$addToURL.'" '
-         .' onClick="return confirmation(\''.clean_str_for_javascript(' '.$list['prenom'].' '.$list['nom']).'\');">'."\n"
-         .'<img src="'.$imgRepositoryWeb.'deluser.gif" border="0" alt="'.$langDelete.'" />'."\n"
-         .'</a> '."\n"
-         .'</td>'."\n"
-         .'</tr>';
-     $atLeastOne= TRUE;
+    echo '<td align="center">'
+    .    '<a href="'.$_SERVER['PHP_SELF']
+    .    '?cmd=delete&amp;user_id=' . $list['user_id']
+    .    '&amp;ffset=' . $offset . $addToURL . '" '
+    .    ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $list['prenom'] . ' ' . $list['nom']).'\');">'."\n"
+    .    '<img src="' . $imgRepositoryWeb . 'deluser.gif" border="0" alt="' . $langDelete . '" />' . "\n"
+    .    '</a> '."\n"
+    .    '</td>'."\n"
+    .    '</tr>';
+    $atLeastOne= TRUE;
 }
-   // end display users table
+// end display users table
 if (!isset($atLeastOne))
 {
-   echo '<tr>
-          <td colspan="9" align="center">
-            '.$langNoUserResult.'<br />
-            <a href="advancedUserSearch.php'.$addtoAdvanced.'">'.$langSearchAgain.'</a>
-          </td>
-         </tr>';
+    echo '<tr>' . "\n"
+    .    '<td colspan="9" align="center">' . "\n"
+    .    $langNoUserResult . "\n"
+    .    '<br />' . "\n"
+    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . $langSearchAgain . '</a>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>'
+    ;
 }
-echo "</tbody>\n</table>\n";
+echo '</tbody>' . "\n"
+.    '</table>' . "\n"
+;
 
 //Pager
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 /*******************/
 // END OF SCRIPT
 /*******************/
@@ -582,43 +580,44 @@ function isAdminUser($user_id)
     if ( count($admin_list) == 0 )
 
     {
-		$sql = "SELECT `idUser` `admin_id` 
-                FROM `".$tbl_admin."` ";
-    	$result = claro_sql_query_fetch_all($sql);
-		foreach($result as $admin_id)
-		{
-			$admin_list[]=$admin_id['admin_id'];
-		}
-	}
-	return (in_array($user_id,$admin_list));
+        $sql = "SELECT `idUser` `admin_id`
+                FROM `" . $tbl_admin . "` ";
+        $result = claro_sql_query_fetch_all($sql);
+        foreach($result as $admin_id)
+        {
+            $admin_list[] = $admin_id['admin_id'];
+        }
+    }
+    return (in_array($user_id,$admin_list));
 }
-function date_diff($earlierDate, $laterDate) 
-{
-  //returns an array of numeric values representing days, hours, minutes & seconds respectively
-  $ret=array('idle'=>0,'year'=>0,'week'=>0,'days'=>0,'hours'=>0,'minutes'=>0,'seconds'=>0);
 
-  $totalsec = $laterDate - $earlierDate;
-  $ret['idle']=$totalsec;
-  if ($totalsec >= 31536000) {
-   $ret['year'] = floor($totalsec/31536000);
-   $totalsec = $totalsec % 31536000;
-  }
-  if ($totalsec >= 604800) {
-   $ret['week'] = floor($totalsec/604800);
-   $totalsec = $totalsec % 604800;
-  }
-  if ($totalsec >= 86400) {
-   $ret['days'] = floor($totalsec/86400);
-   $totalsec = $totalsec % 86400;
-  }
-  if ($totalsec >= 3600) {
-   $ret['hours'] = floor($totalsec/3600);
-   $totalsec = $totalsec % 3600;
-  }
-  if ($totalsec >= 60) {
-   $ret['minutes'] = floor($totalsec/60);
-  }
-  $ret['seconds'] = $totalsec % 60;
-  return $ret;
+function date_diff($earlierDate, $laterDate)
+{
+    //returns an array of numeric values representing days, hours, minutes & seconds respectively
+    $ret=array('idle'=>0,'year'=>0,'week'=>0,'days'=>0,'hours'=>0,'minutes'=>0,'seconds'=>0);
+
+    $totalsec = $laterDate - $earlierDate;
+    $ret['idle']=$totalsec;
+    if ($totalsec >= 31536000) {
+        $ret['year'] = floor($totalsec/31536000);
+        $totalsec = $totalsec % 31536000;
+    }
+    if ($totalsec >= 604800) {
+        $ret['week'] = floor($totalsec/604800);
+        $totalsec = $totalsec % 604800;
+    }
+    if ($totalsec >= 86400) {
+        $ret['days'] = floor($totalsec/86400);
+        $totalsec = $totalsec % 86400;
+    }
+    if ($totalsec >= 3600) {
+        $ret['hours'] = floor($totalsec/3600);
+        $totalsec = $totalsec % 3600;
+    }
+    if ($totalsec >= 60) {
+        $ret['minutes'] = floor($totalsec/60);
+    }
+    $ret['seconds'] = $totalsec % 60;
+    return $ret;
 }
 ?>
