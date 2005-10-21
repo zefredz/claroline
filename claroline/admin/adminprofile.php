@@ -10,11 +10,10 @@
  * @package ADMIN
  *
  * @author Guillaume Lederer <lederer@claroline.net>
+ * @author claro team <cvs@claroline.net>
  */
 
-$cidReset = TRUE;
-$gidReset = TRUE;
-$tidReset = TRUE;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -33,26 +32,14 @@ $nameTools=$langUserSettings;
 $error = false;
 $messageList = array();
 
-$tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_user        = $tbl_mdb_names['user'  ];
-$tbl_course      = $tbl_mdb_names['course'];
-$tbl_admin       = $tbl_mdb_names['admin' ];
-$tbl_course_user = $tbl_mdb_names['rel_course_user'];
-
 /*=====================================================================
   Main Section
  =====================================================================*/
 
 // see which user we are working with ...
 
-if ( !empty($_REQUEST['uidToEdit']) )
-{
-    $user_id = $_REQUEST['uidToEdit'];
-}
-else
-{
-    header('Location: adminusers.php');
-}
+if ( empty($_REQUEST['uidToEdit']) ) header('Location: adminusers.php');
+else                                 $user_id = $_REQUEST['uidToEdit'];
 
 $user_data = user_initialise();
 $user_data['is_admin'] = false;
@@ -87,7 +74,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         if ( $user_id == $_uid )
         {
             $uidReset = true;
-            include($includePath . '/claro_init_local.inc.php');
+            include $includePath . '/claro_init_local.inc.php';
         }
 
         $classMsg = 'success';
@@ -133,7 +120,7 @@ $htmlHeadXtra[] =
             </script>";
 
 // Disdplay header
-include($includePath.'/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_disp_tool_title($nameTools);
@@ -151,10 +138,10 @@ user_display_form_admin_user_profile($user_data);
 // Display tools link :
 
 echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\'' . clean_str_for_javascript($langAreYouSureToDelete . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . $langDeleteUser . '</a>'
-    . ' | '
-    . '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . $langRegisterUser . '</a>'
-    . '| '
-    . '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . $langSendToUserAccountInfoByMail . '</a>';
+.    ' | '
+.    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . $langRegisterUser . '</a>'
+.    ' | '
+.    '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . $langSendToUserAccountInfoByMail . '</a>';
 
 if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
 {
