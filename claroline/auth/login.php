@@ -134,7 +134,7 @@ elseif ( is_null($_cid) && $cidRequired )
     // Display header
     require $includePath . '/claro_init_header.inc.php';
 
-    if ( $courseList !== fasle && count($courseList) > 0 )
+    if ( $courseList !== false && count($courseList) > 0 )
     {
         // Display select course form
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
