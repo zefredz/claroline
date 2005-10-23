@@ -76,7 +76,7 @@ if ( is_null($_uid) && $uidRequired )
     echo '<table align="center">'                                     ."\n"
     .    '<tr>'                                                       ."\n"
     .    '<td>'                                                       ."\n"
-    .    claro_disp_tool_title('Autentication required.')
+    .    claro_disp_tool_title('Authentication required.')
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
     .    '<fieldset>'                                                 ."\n"
     .    $sourceUrlFormField                                          ."\n"
