@@ -6,5 +6,6 @@
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
 */
-  header("Location:./exercice.php");
+header("Location:./exercice.php");
+exit();
 ?>

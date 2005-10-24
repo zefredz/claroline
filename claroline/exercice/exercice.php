@@ -90,7 +90,7 @@ if( isset($_REQUEST['export']) && isset($enableExerciseExportQTI) && $enableExer
         header("Content-type: application/xml");
         header('Content-Disposition: attachment; filename="quiz_'. http_response_splitting_workaround( $_REQUEST['export'] ) . '.xml"');
         echo $xml;
-        exit;
+        exit();
     }
 }
 

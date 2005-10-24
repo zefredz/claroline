@@ -135,7 +135,7 @@ else
         .'<a href="'.$doc_dl_url.'">'.$lang_click_here.'</a> .';
 
     // exit to be sure the script stop running
-    exit;
+    exit();
 } // end else if $secureDownload
 
 

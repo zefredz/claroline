@@ -101,7 +101,7 @@ if($is_allowedToEdit)
 			header("Content-type: application/xml");
 			header('Content-Disposition: attachment; filename="question_'. http_response_splitting_workaround($_REQUEST['export']) . '.xml"');
 			echo $xml;
-			exit;
+			exit();
 		}
 	}
 }

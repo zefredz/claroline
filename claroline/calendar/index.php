@@ -25,4 +25,5 @@ else
 {
     header('Location:./myagenda.php');
 }
+exit();
 ?>
