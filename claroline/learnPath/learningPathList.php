@@ -96,11 +96,12 @@ if ( $cmd == 'export' )
       $scorm = new ScormExport($_REQUEST['path_id']);
       if ( !$scorm->export() )
       {
-          $dialogBox = '<b>Error exporting SCORM package</b><br><ul>';
+          $dialogBox = '<b>Error exporting SCORM package</b><br />'."\n".'<ul>'."\n";
           foreach( $scorm->getError() as $error)
           {
-              $dialogBox .= '<li>' . $error . '</li>';
+              $dialogBox .= '<li>' . $error . '</li>'."\n";
           }
+          $dialogBox .= '<ul>'."\n";
       }
 } // endif $cmd == export
       
