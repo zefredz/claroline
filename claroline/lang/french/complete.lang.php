@@ -1925,37 +1925,50 @@ Pour chaque type d'utilisateur vous pouvez activer/désactiver trois types de dro
 <dd>Cliquez sur l'icône située dans la collonne 'Modifications récentes' dans la liste des Wikis.</dd>
 </dl>";
 $langWikiHelpSyntax = "Syntaxe Wiki";
-$langWikiHelpSyntaxContent = "<h3>Syntaxe wiki2xhtml</h3>
+$langWikiHelpSyntaxContent = "<h1>Syntaxe Wiki</h1>
+<h2>1. Syntaxe de base</h2>
 <dl class=\"wikiHelp\">
 <dt>Création de pages et liens vers des pages du Wiki</dt>
-<dd><ul>
-<li><strong>Mots Wiki</strong> : les mots Wiki sont des mots du type <em>MotWiki</em>. Wiki2xhtml les reconnait automatiquement comme étant des liens vers de pages du Wiki. Pour créer une page ou créer un lien vers cette page, ajoutez son titre en mot Wiki, par example <em>MaPage</em>, au contenu d'une page déjà existante et enregistrez vos modifications. Le titre en mot Wiki <em>MaPage</em> sera transformé automatiquement en lien vers la page de Wiki <em>MaPage</em> par wiki2xhtml&nbsp;;</li>
-<li><strong>Liens Wiki</strong> : les liens Wiki sont des hyperliens normaux (voir plus loin) mais ne contiennent pas de schéma de protocole web (comme <em>http:://</em> or <em>ftp:://</em>). Pour créer une page ou créer un lien vers cette page avec un lien Wiki, ajoutez <code>[titre de la page]</code> or <code>[titre de la page|texte du lien]</code> au contenu d'une page déjà existante. Vous pouvez également utiliser cette syntaxe pour changer le texte du lien d'un mot Wiki : <code>[MotWiki|texte du lien]</code>.</li>
-</ul></dd>
-<dt>Blocs</dt><dd><ul><li>Laisser une ligne vide entre chaque bloc <em>de même nature</em>.&nbsp;;</li>
-<li><strong>Paragraphe</strong> : du texte et une ligne vide&nbsp;;</li>
-<li><strong>Titre</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> pour des titres plus ou moins importants&nbsp;;</li>
-<li><strong>Trait horizontal</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>Liste</strong> : ligne débutant par <code>*</code> ou <code>#</code>. Il est possible de mélanger les listes (<code>*#*</code>) pour faire des listes de plusieurs niveaux. Respecter le style de chaque niveau&nbsp;;</li>
-<li><strong>Texte préformaté</strong> : espace devant chaque ligne de texte&nbsp;;</li>
-<li><strong>Bloc de citation</strong> : <code>&gt;</code> ou <code>;:</code> devant chaque ligne de texte.</li>
-</ul></dd><dt>Éléments en ligne</dt><dd><ul><li>La correction de
-ponctuation est active. Un espace insécable remplacera automatiquement
-tout espace précédant les marque \";\",\"?\",\":\" et \"!\".&nbsp;;</li>
-<li><strong>Emphase</strong> : deux apostrophes <code>''texte''</code>&nbsp;;</li>
-<li><strong>Forte emphase</strong> : trois apostrophes <code>'''texte'''</code>&nbsp;;</li>
-<li><strong>Retour forcé à la ligne</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Texte souligné</strong> : deux soulignés <code>__texte__</code>&nbsp;;</li>
-<li><strong>Texte barré</strong> : deux moins <code>--texte--</code>&nbsp;;</li>
-<li><strong>Hyperlien</strong> : <code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : comme un lien mais avec une extension d'image.<br>Pour désactiver la reconnaissance d'image mettez 0 dans un dernier argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher.<br>Il est conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</li>
-<li><strong>Image</strong> (nouvelle syntaxe) : <code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</li>
-<li><strong>Ancre</strong> : <code>~ancre~</code>&nbsp;;</li>
-<li><strong>Acronyme</strong> : <code>??acronyme??</code> ou <code>??acronyme|definition??</code>&nbsp;;</li>
-<li><strong>Citation</strong> : <code>{{citation}}</code>, <code>{{citation|langue}}</code> ou <code>{{citation|langue|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code ici@@</code>&nbsp;;</li>
-<li><strong>Note de bas de page</strong> : <code>\$\$Corps de la note\$\$</code>.</li>
-</ul></dd>
+<dd><strong>Mots Wiki</strong> :les mots Wiki sont des mots du type <em>MotWiki</em>. Wiki2xhtml les reconnait automatiquement comme étant des liens vers de pages du Wiki. Pour créer une page ou créer un lien vers cette page, ajoutez son titre en mot Wiki, par example <em>MaPage</em>, au contenu d'une page déjà existante et enregistrez vos modifications. Le titre en mot Wiki <em>MaPage</em> sera transformé automatiquement en lien vers la page de Wiki <em>MaPage</em> par wiki2xhtml&nbsp;;</dd>
+<dd><strong>Liens Wiki</strong> : les liens Wiki sont des hyperliens normaux (voir plus loin) mais ne contiennent pas de schéma de protocole web (comme <em>http:://</em> or <em>ftp:://</em>). Pour créer une page ou créer un lien vers cette page avec un lien Wiki, ajoutez <code>[titre de la page]</code> or <code>[titre de la page|texte du lien]</code> au contenu d'une page déjà existante. Vous pouvez également utiliser cette syntaxe pour changer le texte du lien d'un mot Wiki : <code>[MotWiki|texte du lien]</code>.</dd>
+<dt>Lien hypertexte</dt>
+<dd><code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</dd>
+<dt>Inclusion d'image</dt>
+<dd><code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</dd>
+<dd>Une inclusion d'image peut également se faire de la même manière qu'un lien hypertexte mais avec une extension d'image. Par exemple <code>[titre de l'imageimage|image.gif]</code>. Il est toutefois conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</dd>
+<dt>Lien vers une image</dt>
+<dd>Un lien vers une image se fait de la même manière qu'un hyperlien mais avec un '0' comme quatrième argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher&nbsp;;</dd>
+<dt>Mise en page</dt>
+<dd><strong>Italique</strong> : entourer le texte de deux apostrophes <code>''texte''</code>&nbsp;;</dd>
+<dd><strong>Gras</strong> : entourer le texte de trois apostrophes <code>'''texte'''</code>&nbsp;;</dd>
+<dd><strong>Souligné</strong> : entourer le texte deux soulignés <code>__texte__</code>&nbsp;;</dd>
+<dd><strong>Barré</strong> : entourer le texte de deux moins <code>--texte--</code>&nbsp;;</dd>
+<dd><strong>Titre</strong> : précéder le texte de <code>!!!</code>, <code>!!</code> ou <code>!</code> selon l'importance du titre&nbsp;;</dd>
+<dt>Listes</dt>
+<dd>ligne débutant par <code>*</code> (liste non numérotée) ou <code>#</code> (liste numérotée). Il est possible de mélanger les listes (<code>*#*</code>) pour faire des listes de plusieurs niveaux&nbsp;;</dd>
+<dt>Paragraphes</dt>
+<dd>Séparer les paragraphes par une ou plusieurs ligne(s) vide(s)&nbsp;;</dd>
+</dl>
+<h2>2. Syntaxe avancée</h2>
+<dl class=\"wikiHelp\">
+<dt>Note en bas de page</dt>
+<dd><code>\$\$texte de la note\$\$</code>&nbsp;;</dd>
+<dt>Texte préformaté</dt>
+<dd>précéder chaque ligne du texte préformaté d'un espace&nbsp;;</dd>
+<dt>Bloc de citation</dt>
+<dd><code>&gt;</code> ou <code>;:</code> devant chaque ligne de texte&nbsp;;</dd>
+<dt>Trait horizontal</dt>
+<dd><code>----</code>&nbsp;;</dd>
+<dt>Retour forcé à la ligne</dt>
+<dd><code>%%%</code>&nbsp;;</dd>
+<dt>Acronyme</dt>
+<dd><code>??acronyme??</code> ou <code>??acronyme|definition??</code>&nbsp;;</dd>
+<dt>Citation dans une ligne</dt>
+<dd><code>{{citation}}</code>, <code>{{citation|langue}}</code> ou <code>{{citation|langue|url}}</code>&nbsp;;</dd>
+<dt>Code</dt>
+<dd><code>@@code ici@@</code>&nbsp;;</dd>
+<dt>Ancre</dt>
+<dd><code>~ancre~</code>&nbsp;;</dd>
 </dl>";
 $langWikiIdenticalContent = "Contenu identique<br />aucune modification sauvée";
 $langWikiInvalidWikiId = "Wiki Id non valide";
