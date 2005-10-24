@@ -304,6 +304,12 @@ if($is_allowedToEdit) // check teacher status
                 $msgContent = $content;
                 $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
                 $msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
+
+                // Transform string like this : click <a hre="http://www.claroline.net">here</a>
+                // in string like that : click here [ http://www.claroline.net ]
+
+                $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);
+                
                 $msgContent = preg_replace('/  /',' ',$msgContent);
                 $msgContent = unhtmlentities($msgContent);
                 $msgContent = strip_tags($msgContent);
