@@ -908,7 +908,7 @@ function user_validate_form_registration($data)
             )
         {
             $error = true;
-            if (claro_failure::get_last_failure()=='too_easy')
+            if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
                 $messageList[] = $langPassTooEasy . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
 
         }
@@ -938,7 +938,7 @@ function user_validate_form_registration($data)
 
 function user_validate_form_profile($data,$user_id)
 {
-    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice;
+    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice, $langPassTooEasy;
 
     $messageList = array();
 
@@ -994,7 +994,8 @@ function user_validate_form_profile($data,$user_id)
                 )
             {
                 $error = true;
-                $messageList[] = claro_failure::get_last_failure();
+                if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
+                    $messageList[] =  $langPassTooEasy  . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
             }
         }
     }
@@ -1030,7 +1031,7 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
     {
         if ( strtoupper($requestedPassword) == strtoupper($thisValue) )
         {
-           return claro_failure::set_failure('too_easy');
+           return claro_failure::set_failure('ERROR_CODE_too_easy');
         }
     }
 
