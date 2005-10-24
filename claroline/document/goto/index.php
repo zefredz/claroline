@@ -12,18 +12,6 @@
 //----------------------------------------------------------------------
 
 // This page is used to launch an event when a user click to download a document
-// - It gets name of the document
-// - It calls the event function
-// - It redirects the user to the download
-// Need document.id, user.user_id, cours.cours_id
-// when called
-// http://.../document_dl.php?doc_url=$urlFileName&user_id=$uid&cid=$currenCourseID
-// 
-// REM : 
-// -----
-// Line  echo "<a href=\"".$urlFileName."\"".$style.">\n"; in document.php, 
-// must be replaced 2 times by 
-// echo "<a href=\"document_goto.php?doc_url=".urlencode($urlFileName)."\"".$style.">";
 
 require '../../inc/claro_init_global.inc.php';
 
