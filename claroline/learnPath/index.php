@@ -16,5 +16,6 @@
  *
  */
 
-   header('Location:./learningPathList.php');
+header('Location:./learningPathList.php');
+exit();
 ?>

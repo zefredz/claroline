@@ -95,6 +95,7 @@ if ( !isset($assignment) || is_null($assignment) )
       // we NEED to know in which assignment we are, so if assigId is not set
       // relocate the user to the previous page
       header('Location: work.php');
+      exit();
 }
 
 /*============================================================================
@@ -109,6 +110,7 @@ if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWork
           . '&assigId=' . $_REQUEST['assigId']
           . '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
           );
+    exit();
 }
 /*--------------------------------------------------------------------
                         USER GROUP INFORMATIONS
@@ -148,6 +150,7 @@ if( !$assignmentIsVisible && !$is_allowedToEditAll )
 {
 	// if assignment is not visible and user is not course admin or upper
 	header("Location: work.php");
+	exit();
 }
 
 // upload or update is allowed between start and end date or after end date if late upload is allowed

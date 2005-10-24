@@ -160,6 +160,7 @@ if( !$is_AllowedToEdit
 	)
 {
     header("Location:./navigation/viewer.php");
+    exit();
 }
 
 //header

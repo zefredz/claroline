@@ -49,6 +49,7 @@ elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
 { 
     // if path id not set, redirect user to the home page of learning path
     header("Location: ".$clarolineRepositoryWeb."learnPath/learningPathList.php");
+    exit();
 }
 
 // use viewMode
@@ -59,6 +60,7 @@ if ( claro_is_allowed_to_edit() )
 {
     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
     header("Location: ".$clarolineRepositoryWeb."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
+    exit();
 }
 
 // main page

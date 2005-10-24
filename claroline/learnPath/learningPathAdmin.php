@@ -98,7 +98,7 @@ if ( !$is_AllowedToEdit )
     {
         header("Location: ./learningPathList.php");
     }
-    die();
+    exit();
 }
 
 // main page

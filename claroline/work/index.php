@@ -16,5 +16,6 @@
  *
  */
 
-   header('Location:./work.php');
+header('Location:./work.php');
+exit();
 ?>
