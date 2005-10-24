@@ -70,7 +70,7 @@ if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] = ($_REQUEST['di
 unset($_SESSION['_cid']);
 unset($_cid);
 
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
 
 //TABLES
@@ -116,10 +116,6 @@ switch ( $cmd )
         else                               $user_id = null;
         $dialogBox = ( user_delete($user_id) ? $langUserDelete : $langNotUnregYourself);
     }   break;
-    default :
-    {
-        trigger_error('UNKNOW CMD',E_USER_ERROR);
-    }
 }
 
 //----------------------------------
