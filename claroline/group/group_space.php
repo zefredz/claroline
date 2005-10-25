@@ -36,6 +36,7 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if (!$_gid || (!$is_groupAllowed & !isset($_REQUEST['selfReg']) ))
 {
     header('Location:group.php');
+    exit();
 }
 
 $nameTools        = $_group['name'];
@@ -113,6 +114,8 @@ if( isset($_REQUEST['registration']) )
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
             header('Location:' . $_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
+            exit();
+            
         }
     }
 }
@@ -444,7 +447,7 @@ ON        ct.id = tl.tool_id";
 
                 case 'CLFRM' :
                 {
-                    if($_groupProperties['tools']['forum'])
+                    if($        operties['tools']['forum'])
                     {
                         $tool['url'] = 'phpbb/viewforum.php?forum=' . $forumId ;
                         $group_tool_list[] = $tool;
