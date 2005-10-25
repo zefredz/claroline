@@ -101,6 +101,7 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Svenn d'hert - wmtown.com
 
 French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
+                                Paul Muraille (info@tictips.com)
 
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
@@ -129,6 +130,7 @@ Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
 
 Polish translation :            Slawomir Gurdala (guslaw@uni.lodz.pl)
+                                Jacek Grudzien (bel2@bel.biz.pl)
 
 Portugese translation :         Marcello R. Minholi (minholi@unipar.br)
 
