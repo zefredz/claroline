@@ -2,16 +2,16 @@
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langChat = "Chat-room";
-$langCourseManager = "Administrator";
+$langCourseHome = "Strona domowa kursu";
+$langCourseManager = "Zarz¹dzaj¹cy kursem";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Opis kursu";
 $langDocument = "Dokumenty";
 $langForums = "Forum";
-$langGroups = "inscription des utilisateurs dans les groupes";
+$langGroups = "Grupy";
 $langHelp = "Pomoc";
 $langLogin = "Logowanie";
 $langLogout = "Wylogowanie";
-$langManager = "Administrator";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
@@ -20,5 +20,5 @@ $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
 $langStudent = "student";
 $langUsers = "U¿ytkownicy";
-$langWork = "Works";
+$langWork = "Prace";
 ?>

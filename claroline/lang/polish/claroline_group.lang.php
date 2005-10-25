@@ -1,34 +1,37 @@
 <?php
 $l_click = "Kliknij";
 $l_here = "tutaj";
-$l_notifybody = "You are receiving this Email because a message
-you posted on forums has been replied to, and
-you selected to be notified on this event.
+$l_notifybody = "Otrzyma³eœ ten e-mail poniewa¿ odpowiedziano na twoj¹ wiadomoœæ, 
+a ty zazanczy³eœ, ¿e chcesz byæ o tym informowany
 
-You may view the topic at:
+Mo¿esz zobaczyæ tamat na:
 
 %1\$s
 
-Or view the forum index at
+lub ogl¹dn¹æ indeks forum na
 
 %2\$s
 
-Thank you for using forums.
+Dziêkujê za u¿ycie forum.
 
-Have a nice day.";
-$l_notifysubj = "A reply to your topic has been posted.";
+Mi³ego dnia.";
+$l_notifysubj = "Wys³ano odpowiedŸ na zadany przez Ciebie temat";
 $l_returnindex = "¿eby powróciæ do spisu Forów dyskusyjnych";
 $l_returntopic = "¿eby powróciæ do spisu tematów.";
 $l_separator = "» »";
 $l_viewmsg = "¿eby zobaczyæ wiadomo¶æ.";
-$langAccess = "Access";
+$langAccess = "Dostêp";
 $langAddTutors = "Lista administratorów";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
+$langBackTo = "Z powrotem do :";
 $langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
+$langConfirmDeleteGroups = "Naprawdê chcesz usun±æ wszystkie grupy?";
+$langConfirmEmptyGroups = "Naprawdê chcesz opró¿niæ wszystkie grupy?";
 $langCopy = "Kopiuj";
-$langCourseManager = "Administrator";
+$langCourseHome = "Strona domowa kursu";
+$langCourseManager = "Zarz¹dzaj¹cy kursem";
 $langCreate = "Utwórz";
 $langDay_of_weekNames = "Array";
 $langDear = "";
@@ -68,14 +71,13 @@ $langGroupThisSpace = "Obszar dla tej grupy";
 $langGroupTooMuchMembers = "Proponowana maksymalna, dopuszczalna liczba uczestników grupy (mo¿na j± zmieniæ poni¿ej). Uk³ad grup nie mo¿e byæ zmieniony.";
 $langGroupTools = "Narzêdzia";
 $langGroupTutor = "Prowadz±cy";
-$langGroups = "inscription des utilisateurs dans les groupes";
+$langGroups = "Grupy";
 $langGroupsAdded = "grupa(y) zosta³a(y) dodana(e)";
 $langGroupsDeleted = "Wszystkie grupy zosta³y usuniête";
 $langGroupsEmptied = "Wszystkie grupy sa puste";
 $langHelp = "Pomoc";
 $langLogin = "Logowanie";
 $langLogout = "Wylogowanie";
-$langManager = "Administrator";
 $langMax = "max.";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
@@ -86,7 +88,7 @@ $langNewGroupCreate = "Utwórz now± grupê(y)";
 $langNewGroups = "now±(e) grupê(y)";
 $langNewTopic = "Nowy Temat";
 $langNoGroupStudents = "Studenci nie zapisani";
-$langNotAllowed = "You are not allowed here";
+$langNotAllowed = "Nie wolno Ci tu przebywaæ";
 $langOk = "Ok";
 $langOneMyGroups = "moja grupa";
 $langOtherCourses = "Lista kursów";
@@ -104,5 +106,5 @@ $langStudentsNotInThisGroups = "Users not in this group";
 $langTo = "do";
 $langUncompulsory = "(opcjonalnie)";
 $langUsers = "U¿ytkownicy";
-$langWork = "Works";
+$langWork = "Prace";
 ?>

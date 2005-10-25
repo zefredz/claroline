@@ -4,7 +4,15 @@ $langAdminLogin = " Identyfikator administratora";
 $langAdminName = "Imiê administratora";
 $langAdminPass = "Has³o administratora";
 $langAdminSurname = "Nazwisko administrator";
+$langDBConnectionParameters = "Parametry po³±czenia MySql";
 $langDBHost = "Host Bazy danych";
+$langDBSettingNamesIntro = "
+Instalator zamierza stworzyæ g³ówne bazy danych Claroline.
+Je¶li administrator systemu bazy danych ograniczy³ Ci dostêp tylko do pojedynczej bazy,
+wróæ na poprzedni± stronê i wybierz opcjê \"Pojedyncza (single)\" z \"Tryb bazy danych (Database mode)\".<BR><BR>
+";
+$langDBUse = "U¿ycie bazy danychDatabase usage";
+$langDbName = "Nazwa bazy danych";
 $langDbPrefixForm = "MySQL Prefix";
 $langEG = "np.";
 $langLastCheck = "Ostatnie sprawdzenie przed instalacj±";

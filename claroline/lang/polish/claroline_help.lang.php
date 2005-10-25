@@ -2,13 +2,13 @@
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langChat = "Chat-room";
-$langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...Here, professors and assistants create and administer
- courses websites. Students read (documents, agendas, informations) and,
- sometimes, make exercises, publish papers, participate to
- forum discussions...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
+$langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
 <p>'Forum u¿ytkowników Claroline' ³aczy osoby korzystaj±ce z oprogramowania Claroline na ca³ym swiecie. Je¶li nie mo¿esz uzyskaæ odpowiedzi na swoje pytanie wewn±trz swojego campusa, wy¶lij tam swoj± wiadomo¶æ.</p>
 <p>Odno¶nik 'Rejestracja' (je¶li istnieje) znajduje siê na stronie g³ównej campusu (u góry, po prawej).</p><b>Logowanie</b><p>Podczas nastêpnych wizyt, wpisuj swoj± nazwê u¿ytkownika i has³o, a nastêpnie 'Wej¶cie', ¿eby uzyskaæ dostêp Twoich kursów. Adres strony: ";
-$langCourseManager = "Administrator";
+$langCloseWindow = "Zamknij okno";
+$langConfigMenuContent = "Menu konfiguracji";
+$langCourseHome = "Strona domowa kursu";
+$langCourseManager = "Zarz¹dzaj¹cy kursem";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Opis kursu";
 $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w komputerze.</p><p>Mo¿esz ³adowaæ pliki ró¿nego typu (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Musisz tylko zadbaæ, ¿eby studenci mieli programy, które umo¿liwi±  odczytanie umieszczonych plików. Pliki niektórych typów mog± zawieraæ wirusy - do Ciebie nale¿y odpowiedzialno¶æ, ¿eby nie za³adowaæ zawirusowanych plików. Rozs±dnym jest sprawdzanie wszystkich plików programem przeciwwirusowym przed ich za³adowaniem do serwera. </p>
@@ -77,76 +77,6 @@ $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kom
 	<center>
 	  <p>";
 $langDocument = "Dokumenty";
-$langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br><br>
-There are various types of answers available for the creation of your questions :<br><br>
-<ul>
-  <li>Multiple choice (Unique answer)</li>
-  <li>Multiple choice (multiple answers)</li>
-  <li>Matching</li>
-  <li>Fill in the blanks</li>
-</ul>
-An exercise gathers a certain number of questions under a common theme.</p>
-<hr>
-<b>Exercise creation</b>
-<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
-Type the exercise name, as well as an optional description of it.<br><br>
-You can also choose between 2 exercise types :<br><br>
-<ul>
-  <li>Questions on an unique page</li>
-  <li>One question per page (sequential)</li>
-</ul>
-and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>
-Then, save your exercise. You will go to to the question administration for this exercise.</p>
-<hr>
-<b>Question adding</b>
-<p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p>
-<hr>
-<b>Multiple choice</b>
-<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-In order to create a MAQ / MCQ :<br><br>
-<ul>
-  <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
-  <li>Check via the left box the correct answer(s)</li>
-  <li>Add an optional comment. This comment won't be seen by the student till this one has replied to the question</li>
-  <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>
-  <li>Save your answers</li>
-</ul></p>
-<hr>
-<b>Fill in the blanks</b>
-<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
-To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>
-Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>
-Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-<hr>
-<b>Matching</b>
-<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>
-It can also be used to ask students to sort elements in a certain order.<br><br>
-First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
-Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
-Give a weighting to each correct matching, and save your answer.</p>
-<hr>
-<b>Exercise modification</b>
-<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
-<hr>
-<b>Exercise deleting</b>
-<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
-<hr>
-<b>Exercise enabling</b>
-<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
-<hr>
-<b>Exercise running</b>
-<p>You can test your exercise by clicking on its name in the exercise list.</p>
-<hr>
-<b>Random exercises</b>
-<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
-That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
-If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p>
-<hr>
-<b>Question pool</b>
-<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>
-The question pool also allows to reuse a same questions into several exercises.<br><br>
-By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
-Orphan questions are questions that don't belong to any exercise.</p>";
 $langForContent = "Forum dyskusyjne jest asynchronicznym narzêdziem do prowadzenia dyskusji. Podczas gdy email pozwala na jednoznaczny dialog 'jeden do jednego', Forum umo¿liwia publicznn± dyskusjê. </p><p>Od technicznej strony, studenci potrzebuj± tylko przegl±darki z Claroline Forum. </P><p>Do zarz±dzania Forum nale¿y wybrac 'Admin'. Wszystkie wiadomo¶ci w Forach dyskusyjnych s± uporz±dkowane w zestawy i podzbiory nastêpuj±co: </p><p><b>Kategoria > Forum > Tematy > Odpowiedzi</b></p>Do tego, ¿eby uporz±dkowaæ dyskusje studentów niezbêdne jest zorganizowanie Kategorii i For wewn±trz nich. W obrêbie Forum (które dotyczy np. omawianego podczas zajêæ zagadnienia), studenci maj± mo¿liwo¶æ tworzenia nowych listów (Tematów) i odpowiadania na listy napisane wcze¶niej. Domy¶lnie Forum dyskusyjne Claroline zawiera tylko kategoriê 'Public', a 'Przyk³adowe Forum' - jeden 'Przyk³adowy Temat'. </p><p>Pierwsza rzecz, któr± nale¿y zrobiæ to usun±æ przyk³adowy Temat i zmieniæ nazwê Forum. Teraz w kategorii 'Public' mo¿na tworzyæ kolejne Fora tak, ¿eby odpowiada³o to scenariuszowi prowadzonych zajêæ w poszczególnych grupach i tematach. </p><p>Nie mo¿na myliæ Kategorii i For dyskusyjnych. Pusta Kategoria (bez Forum) nie bêdzie widoczna dla studentów. </p><p>Opis Forum mo¿e zawieraæ wykaz studentów, definicje celu, postawione zadania, szczegó³owe tematy...";
 $langForums = "Forum";
 $langGroupContent = "<p><b>Wprowadzenie</b></p>
@@ -175,7 +105,7 @@ $langGroupContent = "<p><b>Wprowadzenie</b></p>
 	<ul><li><b>Edycja</b> do rêcznej modyfikacji nazwy, opisu, nauczyciela, listy cz³onków grupy.</li>
 	<li><b>Usuñ</b> do usuniêcia grupy.</li></ul>
 	<hr noshade size=1>";
-$langGroups = "inscription des utilisateurs dans les groupes";
+$langGroups = "Grupy";
 $langHClar = "Pomoc - Start";
 $langHDoc = "Dokumenty - Pomoc";
 $langHExercise = "Æwiczenia - Pomoc";
@@ -188,7 +118,6 @@ $langHomeContent = "Dla wiêkszej wygody, narzêdzia Claroline ju¿ na pocz±tku nie
 <p>Kiedy przystêpujesz do tworzenia serwisu kursu, wiêkszo¶æ narzêdzi jest aktywna. Mo¿na aktywowaæ i dezaktywowaæ poszczególne narzêdzia tak, ¿eby korzystaæ tylko z tych, ktore s± potrzebne. Deaktywacja powoduje przeniesienie narzêdzia na dó³ Strony g³ównej i powoduje, ¿e jest ona niewidoczna dla studentów. </p><p>Mo¿esz dodawaæ Twoje w³asne strony do Strony g³ównej. Te strony musz± byæ dokumentami HTML (które mog± byæ tworzone w dowolnym edytorze tekstu lub programie do tworzenia stron WWW). U¿yj ³±cza 'Za³aduj stronê i przy³±cz do Strony g³ównej', ¿eby wys³aæ stronê do serwera. Standardowy nag³ówek Twojego serwisu automatycznie bêdzie po³±czony z nowym dokumentem , tak ¿eby koncentrowaæ siê na zawarto¶ci. Gdyby¶ chcia³ ³±czyæ siê ze Strony domowej z istniej±c± stron± sieci Web (nawet wewn±trz serwera), u¿ywaj 'Dodaj odno¶nik do Strony g³ównej'. Dodana strona mo¿e byæ aktywowana lub dezaktywowana ale nie usuwana. </p><p>Zanim kurs bêdzie gotowy, przejd¼ do 'Modyfikuj ustawienia kursu' i zdecyduj o poziomie dostêpu do kursów, który chcesz zastosowaæ. Domy¶lnie Twój kurs powinien byæ ukryty (poniewa¿ w³a¶nie nad nim pracujesz). </p>";
 $langLogin = "Logowanie";
 $langLogout = "Wylogowanie";
-$langManager = "Administrator";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
@@ -205,5 +134,5 @@ $langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± ni
 <b>Dodawanie u¿ytkownika</b>
 <p>¯eby dodaæ u¿ytkownika do kursu, wype³nij odpowiednie pola i zatwierd¼. Do osób, które zarejestujesz zostan± wys³ne listy email z informacj± o ich Nazwie u¿ytkownika i ha¶le.</p>";
 $langUsers = "U¿ytkownicy";
-$langWork = "Works";
+$langWork = "Prace";
 ?>

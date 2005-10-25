@@ -1,277 +1,36 @@
 <?php 
-$langAddAClassToCourse = "Subscribe a class to course";
-$langAddCSVUsers = "Add a user list";
-$langAddCSVUsersInClass = "Add a user list in class";
-$langAddCSVUsersInCourse = "Add a user list in course";
-$langAddClass = "Subscribe a class";
-$langAddCommentOptionnal = "Add a comment (optionnal) :";
-$langAddExternalTool = "Add external link";
-$langAddFeedback = "Add feedback";
 $langAddForum = "Add forum";
-$langAddImage = "Include picture";
-$langAddListUser = "Add a list of users";
-$langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
-$langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
-$langAddModifyComment = "Add/modify a comment to";
-$langAddModule = "Add";
-$langAddModulesButton = "Add module(s)";
-$langAddMyCampusOnClarolineNet = "Add my campus on Claroline.net website";
-$langAddOneModuleButton = "Add module";
-$langAddUser = "Create a new user";
-$langAddUserOneByOne = "New users will receive an e-mail with their user name and password";
 $langAddWrongAnswers = "Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>";
-$langAdd_users = "Add users";
-$langAddedExternalTool = "External Tool added.";
-$langAddedToCampus = " has been added to the campus";
-$langAddedToCampusAndClass = " has been added to the campus and to the class";
-$langAddedToCampusAndCourse = " has been added to the campus and to the course";
-$langAddedToCreator = "Course Home";
-$langAdmin = "Admin";
-$langAdministration = "Administration";
-$langAdministrationClassTools = "Classes";
-$langAdministrator = "Administrator";
-$langAdvanced = "Advanced";
-$langAgendaNextEvents = "Agenda next events";
-$langAlertBlockingMakedInvisible = "This module is blocked.
-Making it invisible will allow students to access
- the next module without having to complete this one.
-Confirm ?";
-$langAlertBlockingPathMadeInvisible = "This path is blocking.
-Making it invisible will allow students to access
- the next path without having to complete this one.
-Confirm ?";
-$langAll = "All";
-$langAllUsersOfThisCourse = "Course members";
-$langAllowAnonymousAttempts = "Anonymous attempts";
-$langAllowLateUpload = "Yes, allow users to submit works after end date";
-$langAllowLateUploadShort = "Allow late upload";
-$langAllowedTime = "Time limit";
-$langAlreadyBrowsed = "Already browsed";
-$langAltClarodoc = "Clarodoc";
-$langAltDocument = "Document";
-$langAltExercise = "Exercise";
-$langAltMakeNotBlocking = "Unblock";
-$langAltMakeVisible = "Make visible";
-$langAltMove = "Move";
-$langAltMoveUp = "Order up";
-$langAltScorm = "Scorm";
-$langAlways = "Always";
-$langAnonymousAttemptsAllowed = "Allowed : don't record usernames in tracking, anonymous users can do the exercise.";
-$langAnonymousAttemptsNotAllowed = "Not allowed : record usernames in tracking, anonymous users cannot do the exercise.";
-$langAnonymousUserAccessCount = "Anonymous users access count : ";
-$langAnswerRequired = "Answer is required";
-$langAppliedChange = "Changes have been applied to the user settings";
-$langAreCompulsory = "are compulsory";
-$langAreYouSureDeleteModule = "Are you sure to totally delete this module ?
-It will be completely deleted from the server and from any learning path it is in.
-You won't be able to use it in any learning path.
-Confirm delete of : ";
 $langAreYouSureToDeleteScorm = "This learning path is part of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
 $langAreYouSureToRemove = "Are you sure you want to remove the following module from the learning path : ";
 $langAreYouSureToRemoveLabel = "By deleting a label you will delete all modules or label it contains.";
 $langAreYouSureToRemoveSCORM = "SCORM conformant modules are definitively removed from server when deleted in their learning path.";
 $langAreYouSureToRemoveStd = "The module will still be available in the pool of modules.";
-$langAreYouSureToUnsubscribe = "Are you sure you want to unregister ";
-$langAssignment = "Assignment";
-$langAssignmentAdded = "New assignment created";
-$langAssignmentDeleted = "Assignment deleted";
-$langAssignmentDescription = "Description";
-$langAssignmentEdited = "Assignment modified";
-$langAssignmentTitle = "Assignment title";
-$langAssignmentTitleAlreadyExists = "Assignment title already exists";
-$langAssignmentTitleRequired = "Assignment title required";
-$langAssignmentType = "Assignment type";
-$langAttachDoc = "Attach a file";
-$langAttachFile = "Attach a file";
-$langAttachedFile = "Attached file";
-$langAttempt = "Attempt";
-$langAttemptAllowed = "attempt allowed";
-$langAttempts = "Attempts";
-$langAttemptsAllowed = "attempts allowed";
-$langAuthentication = "Authentication";
-$langAvailableFrom = "Available from";
-$langBackModule = "Back to list";
-$langBackTo = "Back to :";
-$langBackToAdmin = "Back to admin page";
-$langBackToClass = "back to the class";
-$langBackToClassList = "Back to class list";
-$langBackToClassMembers = "Back to class members";
-$langBackToCourseList = "Back to course list";
-$langBackToEditor = "Back to the editor";
-$langBackToLPAdmin = "Back to learning path administration";
-$langBackToMyCourseList = "Back to my course list";
-$langBackToUserList = "Back to user list";
-$langBackToUserSettings = "Back to user settings";
-$langBlankSpace = "(Blank space)";
-$langBlock = "Block";
-$langBrowserCannotSeeFrames = "Your browser cannot see frames.";
-$langBuildCompleteLangFile = "Complete language files";
-$langBuildEmptyLangFile = "Empty language file";
-$langBuildLangFile = "Build language files";
-$langBuildMissingLangFile = "Missing language files";
-$langBuildProductionLangFile = "Production language files";
-$langByUser = "by the user";
-$langCSVSeeUserList = "See user list";
-$langCampusAlreadyRegistered = "It seems that you already have registered your campus.";
-$langCampusDeleted = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
-$langCampusRegistered = "<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.<br />A link to your campus is shown on the Worldwide page of Claroline.net.</p>";
-$langCampusRegistrationSubmitted = "Your campus has been submitted and is waiting to be validate by Claroline.net team";
-$langCampusRemoved = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
-$langCampusSubmitted = "<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>";
-$langCannotBeBlank = "You cannot give a blank name to a class";
-$langCannotCopyFile = "Cannot copy the file.";
-$langCannotInitChat = "Error : Cannot initialize chat";
 $langCannotRemoveGroupForum = "You can not remove a group forum. You have to remove the group first";
 $langCannotSeeExerciseDetails = "Display of detailled answers is not authorized.";
 $langCannotUnsubscribeLastCourseManager = "You cannot unsubscribe the last course manager of the course";
 $langCategoriesRepairs = "Repair category structure";
-$langCategoriesStructureOK = "Category structure repaired";
-$langCategory = "Category";
 $langCategoryDeleted = "Category deleted.";
 $langCategoryUpdated = "Category updated.";
-$langChangePwdexp = "Enter new password twice to change, leave empty to keep it";
-$langChangeRaw = "Change minimum raw mark to pass this module (percentage) : ";
-$langChangedTool = "Tool accesses changed";
-$langChatResetBy = "Chat reset by";
 $langChooseACourseToAccessThisPage = "Choose a course to access this page.";
-$langChooseDateHelper = "(d/m/y hh:mm)";
-$langClarolineNetNews = "Claroline.net news";
-$langClass = "Classes";
-$langClassMembers = "Class members";
-$langClassMoved = "The class has been moved";
-$langClassName = "Class name";
-$langClassRegisterUser = "Register a user for this class";
-$langClassRegisterWholeClass = "Register class for course";
-$langClassRegisterWholeClassAgain = "Register whole class for another course";
-$langClassRegistered = "Class registered";
-$langClearList = "Clear up event list";
 $langClickToZoomIn = "click to zoom in";
 $langClickToZoomOut = "click to zoom out";
-$langCloseWindow = "Close window";
-$langCodeAppearAlready = "This official code already appears in a previous line of the CSV file.";
-$langCodeCanBeEmpty = "Course code field needs to be completed";
-$langCodeUsed = "This official code is already used by another user.";
-$langConfigMenuContent = "Configuration Menu";
-$langConfiguration = "Configuration";
-$langConfirmDeleteExercise = "Are you sure you want to delete this exercise ?";
-$langConfirmDeleteGroups = "Are you sure you want to delete all groups ?";
-$langConfirmDeleteQuestion = "Are you sure you want to completely delete this question ?";
-$langConfirmDeleteStats = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure you want to completely delete the statistics ?";
 $langConfirmDeleteThisGroup = "Are you sure to delete this group ?";
 $langConfirmEmptyForum = "Delete all messages of ";
-$langConfirmEmptyGroups = "Are you sure you want to empty all groups ?";
-$langConfirmEnrollClassToCourse = "Are you sure you want to enrol the whole class on the course ?";
-$langContent = "Content";
 $langContinue = "Continue";
-$langCountry = "Country";
-$langCountryCodeError = "Country code seems to be incorrect.";
-$langCourseContentComment1 = "What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?";
-$langCourseContentComment2 = "Presentation of the content of the course, the structuring of the content, the progression and the calendar";
-$langCourseCreator = "Course creator";
-$langCourseDelete = "The course has been successfully deleted";
-$langCourseHome = "Course Home";
-$langCourseList = "Course list";
 $langCourseManagerCannotUnsubscribeHimself = "Course manager cannot unsubscribe himself";
-$langCourseManagerStatusToUser = "Course creator status to %s %s";
 $langCourseNotFound = "Course not found";
-$langCourseSettings = "Course settings";
-$langCourseWithoutStudents = "Courses without student";
-$langCourse_Repository = "Course Repository";
 $langCreate1stAccountOnPlatform = "Create first a user account on this platform";
-$langCreateAnotherUser = "Create another new user";
-$langCreateAssignment = "Create a new assignment";
 $langCreateCategory = "Create category";
-$langCreateCourse = "Create course";
-$langCreateCourses = "Create course";
-$langCreateDocument = "Create Document";
 $langCreateForum = "Create forum";
-$langCreateHyperlink = "Create hyperlink";
-$langCreateLabel = "Create label";
-$langCreateModifyDocument = "Create/edit document";
-$langCreateNewClass = "Create a new class";
-$langCreateNewLearningPath = "Create a new learning path";
-$langCreateUser = "Create user";
-$langCreateUserAccount = "Create user account";
 $langCreatingCourse = "Creating course (it may take a while) ... ";
-$langCreationMailNotificationBody = "Course creation on";
-$langCreationMailNotificationSubject = "Course creation";
-$langCurrentAttachedDoc = "Current attached file";
-$langCurrentDoc = "Current file";
-$langCurrentFeedbackFile = "Current feedback file";
-$langCurrentStatus = "Current registration status : <br /> <br />
-";
-$langCurrentTime = "Current time";
-$langDBConnectionParameters = "Mysql connection parameters";
-$langDBSettingNamesIntro = "
-The installer is going to create the main Claroline databases.
-If you are limited by your database system administrator to use
-only a single database, get back to the previous page
-and select option 'single' for 'Database mode'.<BR><BR>
-";
-$langDBUse = "Database usage";
-$langDOCUMENTTypeDesc = "Document";
-$langDateLastWrite = "Last message was on : ";
-$langDbName = "Database name";
-$langDefSubVisibility = "Default works visibility";
-$langDefaultLearningPathComment = "This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.";
 $langDefaultMatchingOpt1 = "rich";
 $langDefaultMatchingOpt2 = "good looking";
 $langDefaultMatchingProp1 = "Your daddy is";
 $langDefaultMatchingProp2 = "Your mother is";
-$langDefaultModuleAddedComment = "This an additional introduction text about the presence of this module specially into this learning path. To replace it by your own text, click below on <b>modify</b>.";
-$langDefaultModuleComment = "This is the introduction text of this module, it will appears in each learning path that contains this module. To replace it by your own text, click below on <b>modify</b>.";
-$langDelCourseStats = "Delete all course statistics";
-$langDelCourseStatsDone = "Course statistics deleted";
-$langDelImage = "Remove picture";
-$langDeleteAttachedFile = "Delete attached file";
-$langDeleteCaution = "! This will also delete all works submitted in this assignment !";
-$langDeleteMyAccount = "Delete my account";
-$langDeleteUser = "Delete user";
-$langDeletedExternalTool = "External tool deleted";
-$langDescAdded = "Description added.";
-$langDescDeleted = "Description deleted.";
-$langDescUnableToDelete = "Unable to delete";
-$langDescUnableToUpdate = "Unable to update";
-$langDescUpdated = "Description updated.";
-$langDescriptionComment1 = "What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?";
-$langDescriptionComment2 = "Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.";
-$langDevTools = "Devel Tools";
-$langDisable = "Disable";
-$langDiskUsage = "Disk Usage";
-$langDispClassAdded = "Display the class added";
-$langDocInsertedAsModule = "has been added as module";
-$langDocumentAlreadyUsed = "This document is already used as a module in this learning path";
-$langDocumentAsModule = "Use a document";
-$langDocumentContent = "Document content : ";
-$langDocumentInModule = "Document in module";
-$langDocumentName = "Document name : ";
-$langDocumentation = "Documentation";
-$langDown = "Order down";
-$langDownloadAttachedFile = "Download attached file";
-$langEXERCISETypeDesc = "Claroline exercise";
-$langEditAnswers = "Edit answers";
 $langEditCategory = "Edit category";
-$langEditEvent = "Edit Event";
-$langEditExercise = "Edit exercise settings";
-$langEditFeedback = "Edit automatic feedback";
-$langEditFileContent = "Edit file content";
-$langEditFormat = "Edit format to use";
 $langEditPost = "Edit post";
-$langEditQuestion = "Edit question";
-$langEditSettings = "Edit settings";
 $langEditTextZone = "Edit text zone";
-$langEditToolList = "Edit Tool list";
-$langEditWork = "Modify a work";
-$langEmailAddressNotFound = "There is no user account with this email address.";
-$langEmailCanBeEmpty = "Email field need to be filled";
-$langEnable = "Enable";
-$langEndDate = "End date";
-$langEnrollAsManager = "Enrol as course manager";
-$langEnrollAsStudent = "Enrol as student";
-$langEnrollAsTeacher = "Enrol as Teacher";
-$langEnrollClass = "Enrol class";
-$langEnrollToNewCourse = "Enrol to a new course";
-$langEnrollUser = "Enrol a user";
 $langEnrollmentKey = "enrolment key";
 $langEnterMail = "Enter your email so we can send you your password.";
 $langErrorAssetNotFound = "Asset not found : ";
@@ -324,6 +83,89 @@ $langExeTime = "Time";
 $langExerciseAsModule = "Use an exercise";
 $langExerciseCancelled = "Exercise cancelled, choose a module in the list to continue.";
 $langExerciseClosing = "Exercise ends";
+$langExerciseContent = "<h4>What is the exercise tool ?</h4>
+This tool allow you to create online exercises composed of a list of questions. The questions can be of different kinds, students can fill in the exercises and if they are registered to your course, their scores will be stored and visible in the statitiscs of the course.
+<hr />
+<h4>Administering the exercises</h4>
+<p>To create an Exercise</p>
+<ul>
+<li> Click on \"New exercise\", in the start page of the tool (be sure that you are loggued in as teacher of the course or admin)</li>
+<li> Enter a name for the exercise in the box</li>
+<li> Enter a description</li>
+<li> Choose if the user will see all the questions on a single page or one page for each question</li>
+<li> I you want to you can also modify the advanced settings (not required)
+<ul>
+<li> choose a start date</li>
+<li> choose a end date</li>
+<li> define a time limit</li>
+<li> choose the number of allowed attempts</li>
+<li> choose if anonymous attempts are allowed (if not allowed there will be no tracking)</li>
+<li> choose when the feedback has to be shown</li>
+</ul>
+</li>
+<li> Click on Ok</li>
+</ul>
+<p>You can now fill your new exercises with new questions or questions from the pool.</p>
+<hr />
+<h4>Questions</h4>
+<h4>Multiple choice questions</h4>
+<p>There are two kind of multiple choice question&nbsp;:
+</p>
+<ul>
+<li> Question with unique answer</li>
+<li> Question with multiple answer</li>
+</ul>
+<p>In both case, when you start creating a new question, there are only two possible answers displayed. If you wish to have more possible answers then</p>
+<ul>
+<li> Press +Answ for each additional answer you require</li>
+</ul>
+<p>If you wish the reduce the amount of possible answers then </p>
+<ul>
+<li> Press -Answ for each answer to be removed</li>
+</ul>
+<p>Then for each answer&nbsp;:</p>
+<ul>
+<li> Place a tick in the checkbox for the correct answer(s).</li>
+<li> In the answer column Enter the text for the possible answers to the questions</li>
+<li> In the comment column Enter feedback that is given if a student selects that answer.</li>
+<li> Adjust the weighting value. The principle of this scoring table is to define proper weight to number of good answers by question. For instance, if you have a question with 4 answers (possibly more than one right) and the student has two wrong and two right, you can give him half of the points, but you can also decide that this is not satisfactory and give, for instance, maximum points (20) if everything is right and zero points in any other combination.
+</li>
+</ul>
+<h4>Matching question</h4>
+<p>In this type of question, the student will have to find the correspondance between the elements of to distinct list.</p>
+<p>When you start creating a new question of that kind, there are only two elements in the two list displayed. If you wish to have more possible elements to correspond then</p>
+<ul>
+<li> Press +elem for each additional answer you require</li>
+</ul>
+<p>If you wish the reduce the amount of elements then </p>
+<ul>
+<li> Press -elem for each answer to be removed</li>
+</ul>
+<p>You can also define the weighting of each answer, they can not be negative. Don't forget to click on \"ok\" to validate your new question.</p>
+<h4>'Fill in blanks' question</h4>
+<p>This type of question is a text with some words missing that the student must fill in.
+When you create such a question&nbsp;:
+</p>
+<ul>
+<li> Introduce first the text for the question.</li>
+<li> Use brackets [...] to define one or more blanks in the text, put the correct answers between the brackets.
+<ul>
+<li> <em>example:</em> [British people] live in [United Kingdom].</li>
+</ul>
+</li>
+<li> Click on \"next\" when done</li>
+<li> Define the ponderation for each answer</li>
+<li> Click on \"Ok\" to validate your new question</li>
+</ul>
+<hr />
+<h4>The Pool of questions</h4>
+<p>The pool of questions keeps a list of all questions created in the course.  The lists regroups already used question (in one or several exercises) and orphaned question (that are not used in any exercise).</p>
+<p>When you delete an exercise, questions of its own are not removed from the database, and can be reused in a new exercise, via the question pool.</p>
+<p>The question pool also allows you to reuse the same questions in several exercises.</p>
+<p>By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu \"Filter\".</p>
+<hr />
+<h4>How to see my previous scores ?</h4>
+<p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>";
 $langExerciseDone = "Exercise done, choose a module in the list to continue.";
 $langExerciseInModule = "Exercise in module";
 $langExerciseNoMoreAvailable = "Exercise no longer available";
@@ -951,38 +793,50 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
 </dl>";
 $langWikiHelpSyntax = "Wiki syntax";
-$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+$langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
+<h2>1. Basic syntax</h2>
 <dl class=\"wikiHelp\">
 <dt>Creating wiki pages and links between them</dt>
-<dd><ul>
-<li><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[page title|link text]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[WikiWord|text]</code>.</li>
-</ul></dd>
-<dt>Block elements</dt>
-<dd><ul><li>Add a new line between each line <em>of the same type</em>.&nbsp;;</li>
-<li><strong>Paragraph</strong> : type some text and a new line&nbsp;;</li>
-<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
-<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
-<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
-<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
-</ul></dd>
-<dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
-<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
-<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
-<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
-<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
-<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
-<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
-</ul></dd>
+<dd><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</dd>
+<dd><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[name of link|title of page]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[name of link|WikiWord]</code>.</dd>
+<dt>Hyperlinks</dt>
+<dd><code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> ou <code>[name|url|language|title]</code>.&nbsp;;</dd>
+<dt>Image inclusion</dt>
+<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</dd>
+<dd>You can use the syntax as Hyperlinks. For example <code>[title|image.gif]</code>. This syntax is deprecated, consider to use the preceding one&nbsp;;</dd>
+<dt>Link to an image</dt>
+<dd>same as Hyperlinks but put a 0 in fourth argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself</dd>
+<dt>Layout</dt>
+<dd><strong>Italic</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</dd>
+<dd><strong>Bold</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</dd>
+<dd><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</dd>
+<dd><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</dd>
+<dd><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</dd>
+<dt>List</dt>
+<dd>line starting with <code>*</code> (unordered list) or <code>#</code> (ordered list). You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</dd>
+<dt>Paragraph</dt>
+<dd>Separate paragraphs with one or more new lines&nbsp;;</dd>
+</dl>
+<h2>2. Advanced syntax</h2>
+<dl class=\"wikiHelp\">
+<dt>Footnote</dt>
+<dd><code>\$\$footnote text\$\$</code>&nbsp;;</dd>
+<dt>Preformated text</dt>
+<dd>begin each line of preformated text with a blank space&nbsp;;</dd>
+<dt>Cite block</dt>
+<dd><code>&gt;</code> or <code>;:</code> before each line&nbsp;;</dd>
+<dt>Horizontal line</dt>
+<dd><code>----</code>&nbsp;;</dd>
+<dt>Forced line break</dt>
+<dd><code>%%%</code>&nbsp;;</dd>
+<dt>Acronym</dt>
+<dd><code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</dd>
+<dt>Inline cite</dt>
+<dd><code>{{cite}}</code>, <code>{{cite|language}}</code> ou <code>{{cite|language|url}}</code>&nbsp;;</dd>
+<dt>Code</dt>
+<dd><code>@@your code here@@</code>&nbsp;;</dd>
+<dt>Named anchor</dt>
+<dd><code>~anchor~</code>&nbsp;;</dd>
 </dl>";
 $langWikiIdenticalContent = "Identical content<br />no modification saved";
 $langWikiInvalidWikiId = "Invalid Wiki Id";

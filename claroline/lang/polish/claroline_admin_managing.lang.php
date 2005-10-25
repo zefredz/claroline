@@ -1,28 +1,31 @@
 <?php
+$langAddLoginPass = "Dodaj login/has³o w .htpassword</a><br>";
+$langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
+$langAdministration = "Administracja";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langCancel = "Zrezygnuj";
 $langChat = "Chat-room";
-$langCourseManager = "Administrator";
+$langCourseHome = "Strona domowa kursu";
+$langCourseManager = "Zarz¹dzaj¹cy kursem";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Opis kursu";
 $langDocument = "Dokumenty";
 $langEdit = "Edytuj";
 $langForums = "Forum";
-$langGroups = "inscription des utilisateurs dans les groupes";
+$langGroups = "Grupy";
 $langHelp = "Pomoc";
 $langLogin = "Logowanie";
 $langLogout = "Wylogowanie";
-$langManager = "Administrator";
 $langModifyProfile = "Modyfikuj Mój profil";
 $langMonthNames = "Array";
 $langMyCourses = "Lista moich kursów";
 $langNameOfLang = "Array";
-$langNotAllowed = "You are not allowed here";
+$langNotAllowed = "Nie wolno Ci tu przebywaæ";
 $langOk = "Ok";
 $langOtherCourses = "Lista kursów";
 $langPoweredBy = "Powered by";
 $langStudent = "student";
 $langUsers = "U¿ytkownicy";
-$langWork = "Works";
+$langWork = "Prace";
 ?>
