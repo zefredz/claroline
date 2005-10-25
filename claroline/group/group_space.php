@@ -447,7 +447,7 @@ ON        ct.id = tl.tool_id";
 
                 case 'CLFRM' :
                 {
-                    if($        operties['tools']['forum'])
+                    if($_groupProperties['tools']['forum'])
                     {
                         $tool['url'] = 'phpbb/viewforum.php?forum=' . $forumId ;
                         $group_tool_list[] = $tool;
