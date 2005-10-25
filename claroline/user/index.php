@@ -18,4 +18,6 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-header('Location:./user.php');?>
+header('Location:./user.php');
+exit();
+?>

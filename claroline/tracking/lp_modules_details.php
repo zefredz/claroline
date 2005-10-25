@@ -28,9 +28,17 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if( empty($_REQUEST['uInfo']) )	header("Location: ./userLog.php");
+if( empty($_REQUEST['uInfo']) )
+{
+	header("Location: ./userLog.php");
+	exit();
+}
 	
-if( empty($_REQUEST['path_id']) ) header("Location: ./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
+if( empty($_REQUEST['path_id']) )
+{
+  	header("Location: ./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
+  	exit();
+}
 
 /*
  * DB tables definition

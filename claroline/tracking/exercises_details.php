@@ -19,7 +19,11 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
 
 // exo_id is required
-if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
+if( empty($_REQUEST['exo_id']) )
+{
+	header("Location: ../exercice/exercice.php");
+	exit();
+}
 
 include('../exercice/exercise.class.php');
 /**

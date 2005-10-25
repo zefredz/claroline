@@ -50,7 +50,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     if( empty($_REQUEST['toolId']) ) 
     {
         header("Location: ./courseLog.php?view=0010000");
-        die();
+        exit();
     }
     else
     {

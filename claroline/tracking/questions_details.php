@@ -27,7 +27,11 @@ define('MATCHING',	 4);
 define('TRUEFALSE',	 5);
 
 // exo_id is required
-if( empty($_REQUEST['exo_id']) ) header("Location: ../exercice/exercice.php");
+if( empty($_REQUEST['exo_id']) )
+{
+	header("Location: ../exercice/exercice.php");
+	exit();
+}
 
 include('../exercice/question.class.php');
 include('../exercice/answer.class.php');

@@ -23,7 +23,11 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die($langNotAllowed) ; 
 
 // path id can not be empty, return to the list of learning paths
-if( empty($_REQUEST['path_id']) ) header("Location: ../learnPath/learningPathList.php");
+if( empty($_REQUEST['path_id']) )
+{
+	header("Location: ../learnPath/learningPathList.php");
+	exit();
+}
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
