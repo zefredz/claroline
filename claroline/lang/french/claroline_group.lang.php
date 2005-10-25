@@ -1,49 +1,50 @@
 <?php
 $l_click = "Cliquez";
 $l_here = "ici";
-$l_notifybody = "Vous recevez cet e-mail parce qu'un message
-que vous avez posté sur nos forums a reçu une réponse, et que
-vous avez choisi d'en être informé.
+$l_notifybody = "Cet e-mail vous est envoyé parce qu'un 
+message que vous avez posté sur nos forums a reçu une réponse et que
+vous avez demandé d'en être averti.
 
-Vous pouvez voir le sujet à:
+Vous pouvez voir le sujet à :
 
 %1\$s
 
-Ou voir l'index du forum  à
+ou voir l'index du forum à
 
 %2\$s
 
-Merci d'utiliser les forums .
+Merci d'utiliser les forums.
 
 Bonne journée.";
-$l_notifysubj = "Une réponse à votre sujet a été posté.";
-$l_returnindex = "pour retourner à l'index du forum";
+$l_notifysubj = "Une réponse à votre sujet a été postée.";
+$l_returnindex = "pour retourner à l'index des forums";
 $l_returntopic = "pour retourner à la liste des sujets du forum.";
 $l_separator = " > ";
-$l_viewmsg = "pour voir votre Message.";
+$l_viewmsg = "pour voir votre message.";
 $langAccess = "Accès";
 $langAddTutors = "Gérer la liste des tuteurs";
 $langAgenda = "Agenda";
 $langAnnouncement = "Annonces";
-$langBackTo = "Retourner dans : ";
+$langBackTo = "Retourner dans&nbsp;: ";
 $langCancel = "Annuler";
 $langChat = "Discussion";
-$langConfirmDeleteGroups = "Etes-vous sûr de vouloir supprimer tous les groupes ?";
-$langConfirmEmptyGroups = "Êtes vous sûr de vouloir vider tous les groupes ?";
+$langConfirmDeleteGroups = "Êtes-vous certain(e) de vouloir supprimer tous les groupes ?";
+$langConfirmDeleteThisGroup = "Êtes-vous certain(e) de vouloir supprimer ce groupe ?";
+$langConfirmEmptyGroups = "Êtes-vous certain(e) de vouloir vider tous les groupes ?";
 $langCopy = "Copier";
 $langCourseHome = "Accueil";
 $langCourseManager = "Gestionnaire de cours";
-$langCreate = "créer";
+$langCreate = "Créer";
 $langCreateCategory = "Créer une catégorie";
 $langCreateForum = "Créer un forum";
 $langDay_of_weekNames = "Array";
 $langDear = "Cher(ère)";
-$langDelete = "Effacer";
+$langDelete = "Supprimer";
 $langDeleteGroups = "Supprimer tous les groupes";
 $langDescriptionCours = "Description du cours";
 $langDocument = "Documents et liens";
-$langEdit = "Editer";
-$langEditGroup = "Editer ce groupe";
+$langEdit = "Éditer";
+$langEditGroup = "Éditer ce groupe";
 $langEmtpyGroups = "Vider tous les groupes";
 $langExercises = "Exercices";
 $langExistingGroups = "Groupes";
@@ -51,8 +52,8 @@ $langFillGroups = "Remplir le(s) groupe(s) (automatique)";
 $langForum = "Forum";
 $langForums = "Forums";
 $langGroup = "Groupe";
-$langGroupAllowStudentRegistration = "Etudiants autorisés à s'inscrire eux-mêmes dans les groupes";
-$langGroupAlwaysPrivate = "(Toujours privé)";
+$langGroupAllowStudentRegistration = "Étudiants autorisés à s'inscrire eux-mêmes dans les groupes";
+$langGroupAlwaysPrivate = "(toujours privé)";
 $langGroupChatLink = "Discussion du groupe";
 $langGroupDel = "Groupe supprimé";
 $langGroupDescription = "Description";
@@ -84,34 +85,34 @@ $langGroups = "Groupes";
 $langGroupsAdded = "groupe(s) a (ont) été ajouté(s)";
 $langGroupsDeleted = "Tous les groupes ont été supprimés";
 $langGroupsEmptied = "Tous les groupes sont maintenant vides";
+$langGroupsNotEmptied = "Impossible de vider les groupes";
 $langHelp = "Aide";
 $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langMainGroupSettings = "Propriétés des groupes";
-$langManager = "Gestionnaire";
 $langMax = "maximum";
 $langMinuteShort = "min.";
-$langModifyProfile = "Modifier mon profil";
+$langModifyProfile = "Gérer mon compte utilisateur";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
 $langMyGroup = "mon groupe";
 $langNameOfLang = "Array";
-$langNewGroupCreate = "Créer nouveau(x) groupe(s)";
+$langNewGroupCreate = "Créer un/des groupe(s)";
 $langNewGroups = "nouveau(x) groupe(s)";
 $langNewTopic = "Lancer un nouveau sujet";
-$langNoGroupStudents = "Etudiants sans groupe";
+$langNoGroupStudents = "Étudiants sans groupe";
 $langNoGroupsDeleted = "Aucun groupe supprimé";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
-$langOk = "Valider";
+$langOk = "OK";
 $langOneMyGroups = "sous ma supervision";
 $langOtherCourses = "Liste des cours";
 $langPeriodDayShort = "j.";
-$langPeriodHourShort = "h.";
+$langPeriodHourShort = "h";
 $langPlaces = "places par groupe (facultatif)";
-$langPlatformAdministration = "Administration";
-$langPoweredBy = "Utilise la plate-forme";
+$langPlatformAdministration = "Gérer la plateforme";
+$langPoweredBy = "Utilise la plateforme";
 $langPrivate = "Privé";
 $langPublic = "Public";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "groupe(s)";
@@ -119,10 +120,10 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utilisateur peut être inscrit 
 $langRegIntoGroup = "M'ajouter à ce groupe";
 $langRegistered = "Inscrits";
 $langReply = "Répondre";
-$langSecondShort = "sec.";
-$langStudent = "Etudiant";
+$langSecondShort = "sec";
+$langStudent = "Étudiant";
 $langStudentsNotInThisGroups = "Utilisateurs non inscrits à ce groupe";
-$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page courante du texte. Continuer ?";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTo = "vers";
@@ -130,7 +131,7 @@ $langUncompulsory = "(facultatif)";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
-$langWikiMainPageContent = "Ceci est la page principale du Wiki %s. Cliquez sur éditer pour en modifier le contenu.";
+$langWikiMainPageContent = "Ceci est la page principale du wiki %s. Cliquez sur <strong>Éditer</strong> pour en modifier le contenu.";
 $langWork = "Travaux";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";

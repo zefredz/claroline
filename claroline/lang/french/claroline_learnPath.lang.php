@@ -5,37 +5,37 @@ $langAddModule = "Ajouter";
 $langAddModulesButton = "Ajouter le(s) module(s)";
 $langAddOneModuleButton = "Ajouter le module";
 $langAgenda = "Agenda";
-$langAlertBlockingMakedInvisible = "Ce module est bloquant,
-le rendre invisible permettra aux apprenants d'accéder
+$langAlertBlockingMakedInvisible = "Ce module est bloquant.
+ Le rendre invisible permettra aux apprenants d'accéder
  aux modules suivants du parcours sans devoir réussir celui-ci.
 
-Confirmer ?";
+ Confirmer ?";
 $langAlertBlockingPathMadeInvisible = "Ce parcours est bloquant.
-le rendre invisible permettra aux apprenants d'accéder
+ Le rendre invisible permettra aux apprenants d'accéder
  aux parcours suivants sans devoir réussir celui-ci.
 
-Confirmer ?";
+ Confirmer ?";
 $langAlreadyBrowsed = "Déjà visité";
 $langAltClarodoc = "Clarodoc";
 $langAltDocument = "Document";
-$langAltExercise = "Exercise";
+$langAltExercise = "Exercice";
 $langAltMakeNotBlocking = "Rendre non bloquant";
 $langAltMakeVisible = "Rendre visible";
 $langAltMove = "Déplacer";
 $langAltMoveUp = "Monter";
 $langAltScorm = "Scorm";
 $langAnnouncement = "Annonces";
-$langAreYouSureDeleteModule = "Etes-vous sûr de vouloir totalement effacer ce module ?
+$langAreYouSureDeleteModule = "Êtes-vous certain(e) de vouloir totalement supprimer ce module ?
 
-Il sera définitivement effacé du serveur et du parcours pédagogique.
+Il sera définitivement supprimé du serveur et du parcours pédagogique.
 Vous ne pourrez plus l'utiliser dans aucun parcours pédagogique.
 
 Confirmer la suppression de : ";
-$langAreYouSureToDelete = "Etes-vous sûr de vouloir supprimer ";
-$langAreYouSureToDeleteScorm = "Ce parcours est issu de l'importation d'un package SCORM. Si vous effacez ce parcours, tous les contenus SCORM de ses modules seront supprimés du serveur.  Etes-vous sûr de vouloir effacer le parcours pédagogique ";
-$langAreYouSureToRemove = "Etes-vous sûr de vouloir retirer ce module du parcours pédagogique : ";
-$langAreYouSureToRemoveLabel = "Effacer un titre efface également tous les titres et modules qu'il contient.";
-$langAreYouSureToRemoveSCORM = "Les modules conformes à SCORM sont définitivement effacés du serveur lorsqu'ils sont effacés dans un parcours pédagogique.";
+$langAreYouSureToDelete = "Êtes-vous certain(e) de vouloir supprimer ";
+$langAreYouSureToDeleteScorm = "Ce parcours est issu de l'importation d'un package SCORM. Si vous le supprimez, tous les contenus SCORM des modules associés au parcours seront supprimés. Êtes-vous certain(e) de vouloir effacer le parcours pédagogique ";
+$langAreYouSureToRemove = "Êtes-vous certain(e) de vouloir retirer ce module du parcours pédagogique : ";
+$langAreYouSureToRemoveLabel = "Supprimer un titre supprime aussi tous les titres et modules qu'il contient.";
+$langAreYouSureToRemoveSCORM = "Quand des modules conformes à SCORM sont supprimés dans un parcours pédagogique, ils sont définitivement supprimés du serveur.";
 $langAreYouSureToRemoveStd = "Le module sera toujours accessible dans la banque de modules.";
 $langBack = "Retour";
 $langBackModule = "Retour à la liste";
@@ -55,9 +55,9 @@ $langDOCUMENTTypeDesc = "Document";
 $langDate = "Date";
 $langDay_of_weekNames = "Array";
 $langDefaultLearningPathComment = "Ceci est le texte d'introduction du parcours pédagogique. Pour le remplacer par votre propre texte, cliquez en-dessous sur <b>modifier</b>.";
-$langDefaultModuleAddedComment = "Ceci est un texte additionnel d'introduction du module. Il est spécifique à la présence de ce module dans ce parcours pédagogique. Pour le remplacer par votre propre texte, cliquez en dessous sur <b>modifier</b>.";
-$langDefaultModuleComment = "Ceci est un texte d'introduction du module, il apparaîtra dans chaque parcours contenant ce module. Pour le remplacer par votre propre texte, cliquez en dessous sur <b>modifier</b>.";
-$langDelete = "Effacer";
+$langDefaultModuleAddedComment = "Ceci est un texte additionnel d'introduction du module. Il est spécifique à la présence de ce module dans ce parcours pédagogique. Pour le remplacer par votre propre texte, cliquez sur <b>Modifier</b> ci-dessous.";
+$langDefaultModuleComment = "Ceci est un texte d'introduction du module, il apparaîtra dans chaque parcours contenant ce module. Pour le remplacer par votre propre texte, cliquez sur <b>Modifier</b> ci-dessous.";
+$langDelete = "Supprimer";
 $langDescriptionCours = "Description du cours";
 $langDocInsertedAsModule = "a été ajouté comme module";
 $langDocument = "Documents et liens";
@@ -65,7 +65,7 @@ $langDocumentAlreadyUsed = "Ce document est déjà utilisé comme module dans ce pa
 $langDocumentAsModule = "Utiliser un document";
 $langDocumentInModule = "Document dans le module";
 $langEXERCISETypeDesc = "Exercice Claroline";
-$langErrorAssetNotFound = "Ressource non trouvée : ";
+$langErrorAssetNotFound = "Ressource introuvable : ";
 $langErrorCopyAttachedFile = "Impossible de copier le fichier :";
 $langErrorCopyScormFiles = "Erreur lors de la copie des fichiers SCORM requis";
 $langErrorCopyingScorm = "Erreur lors de la copie du contenu SCORM existant";
@@ -74,21 +74,21 @@ $langErrorCreatingFile = "Impossible de créer le fichier : ";
 $langErrorCreatingFrame = "Impossible de créer le fichier de cadres";
 $langErrorCreatingManifest = "Impossible de créer le manifeste SCORM (imsmanifest.xml)";
 $langErrorCreatingScormArchive = "Impossible de créer l'archive SCORM";
-$langErrorEmptyName = "Le nom doit être complèté";
-$langErrorFileMustBeZip = "Le fichier uploadé doit être au format zip (.zip)";
-$langErrorInvalidParms = "Erreur : Paramètre invalide (utilisé des nombres uniquement)";
+$langErrorEmptyName = "Le nom doit être complété";
+$langErrorFileMustBeZip = "Le fichier chargé sur le serveur doit être au format zip (.zip)";
+$langErrorInvalidParms = "Erreur : paramètre non valide (utiliser des nombres uniquement)";
 $langErrorLoadingExercise = "Impossible de charger l'exercice";
 $langErrorLoadingQuestion = "Impossible de charger la question";
-$langErrorNameAlreadyExists = "Erreur : Le nom existe déjà dans le parcours ou dans la banque de module";
+$langErrorNameAlreadyExists = "Erreur : le nom existe déjà dans le parcours ou dans la banque de modules";
 $langErrorNoModuleInPackage = "Pas de module dans le package";
-$langErrorNoZlibExtension = "L'extension php 'zlib' est requise pour l'utilisation de cet outil. Contactez l'administrateur de la plate-forme.";
-$langErrorOpeningManifest = "Le manifeste n'a pas été trouvé dans le package.<br /> Fichier manquant : imsmanifest.xml";
-$langErrorOpeningXMLFile = "Un fichier XML secondaire d'initialisation n'a pas pu être trouvé.<br /> Fichier manquant : ";
+$langErrorNoZlibExtension = "L'extension php 'zlib' est requise pour l'utilisation de cet outil. Contactez l'administrateur de la plateforme.";
+$langErrorOpeningManifest = "Le manifeste n'a pas été trouvé dans le package.<br />Fichier manquant : imsmanifest.xml";
+$langErrorOpeningXMLFile = "Un fichier XML secondaire d'initialisation est introuvable.<br /> Fichier manquant&nbsp;: ";
 $langErrorReadingManifest = "Erreur à la lecture du fichier <i>imsmanifest.xml</i>";
 $langErrorReadingXMLFile = "Erreur à la lecture d'un fichier secondaire d'initialisation : ";
 $langErrorReadingZipFile = "Erreur lors de la lecture du fichier zip.";
 $langErrorSql = "Erreur dans les requêtes SQL";
-$langErrorValuesInDouble = "Erreur : Une ou plusieurs valeurs sont identiques";
+$langErrorValuesInDouble = "Erreur : une ou plusieurs valeurs sont identiques";
 $langErrortExtractingManifest = "Impossible d'extraire le manifeste du fichier zip (fichier corrompu ?)";
 $langExAlreadyUsed = "Cet exercice est déjà utilisé comme module dans ce parcours pédagogique";
 $langExInsertedAsModule = "a été ajouté comme module de ce cours et comme module de ce parcours pédagogique";
@@ -100,7 +100,7 @@ $langExport = "Exporter";
 $langFileError = "Le fichier à télécharger n'est pas valide.";
 $langFileName = "Nom du fichier";
 $langForums = "Forums";
-$langGlobalProgress = "Progression du parcours pédagogique : ";
+$langGlobalProgress = "Progression du parcours pédagogique&nbsp;: ";
 $langGroups = "Groupes";
 $langHelp = "Aide";
 $langImport = "Importer";
@@ -122,12 +122,11 @@ $langLearningPathNotFound = "Parcours pédagogique non trouvé";
 $langLessonStatus = "Statut du module";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langMakeInvisible = "Rendre invisible";
-$langManager = "Gestionnaire";
-$langMaxFileSize = "Taille maximum : ";
+$langMakeInvisible = "Masquer";
+$langMaxFileSize = "Taille max&nbsp;: ";
 $langMinuteShort = "min.";
 $langModify = "Modifier";
-$langModifyProfile = "Modifier mon profil";
+$langModifyProfile = "Gérer mon compte utilisateur";
 $langModule = "Module";
 $langModuleMoved = "Module déplacé";
 $langModuleOfMyCourse = "Utiliser un module de ce cours";
@@ -149,12 +148,12 @@ $langNoMoreModuleToAdd = "Tous les modules de ce cours sont déjà utilisés dans c
 $langNoSpace = "Le téléchargement a échoué. Il n'y a plus assez de place dans votre répertoire";
 $langNoStartAsset = "Il n'y a pas de ressource de démarrage définie pour ce module.";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
-$langNotInstalled = "Une erreur est survenue.  L'importation du parcours pédagogique a échoué.";
+$langNotInstalled = "Une erreur s'est produite. L'importation du parcours pédagogique a échoué.";
 $langNotice = "Remarque";
-$langOk = "Valider";
+$langOk = "OK";
 $langOkChapterHeadAdded = "Titre ajouté : ";
-$langOkDefaultCommentUsed = "attention : l'installation n'a pas trouvé la description du parcours pédagogique et a attribué un commentaire par défaut. Vous pourrez le changer par la suite";
-$langOkDefaultTitleUsed = "attention : l'installation n'a pas trouvé le nom du parcours pédagogique et a attribué un nom par défaut. Vous pourrez le changer par la suite.";
+$langOkDefaultCommentUsed = "Attention : l'installation n'a pas trouvé la description du parcours pédagogique et a attribué un commentaire par défaut. Vous pourrez le changer par la suite";
+$langOkDefaultTitleUsed = "Attention : l'installation n'a pas trouvé le nom du parcours pédagogique et a attribué un nom par défaut. Vous pourrez le changer par la suite.";
 $langOkFileReceived = "Fichier reçu : ";
 $langOkManifestFound = "Manifest trouvé.";
 $langOkManifestRead = "Manifest lu.";
@@ -164,10 +163,10 @@ $langOtherCourses = "Liste des cours";
 $langPathContentTitle = "Contenu du parcours pédagogique";
 $langPathsInCourseProg = "Progression dans le cours";
 $langPeriodDayShort = "j.";
-$langPeriodHourShort = "h.";
+$langPeriodHourShort = "h";
 $langPersoValue = "Valeurs";
-$langPlatformAdministration = "Administration";
-$langPoweredBy = "Utilise la plate-forme";
+$langPlatformAdministration = "Gérer la plateforme";
+$langPoweredBy = "Utilise la plateforme";
 $langProgInModuleTitle = "Votre progression dans ce module";
 $langProgress = "Progression";
 $langQuestion = "Question";
@@ -178,23 +177,23 @@ $langRoot = "Niveau supérieur";
 $langSCORMTypeDesc = "Contenu conforme à SCORM 1.2";
 $langScore = "Résultat";
 $langScormIntroTextForDummies = "Les packages importés doivent être des fichiers zip et répondre à la norme SCORM 1.2";
-$langSecondShort = "sec.";
+$langSecondShort = "sec";
 $langSize = "Taille";
 $langStartModule = "Commencer le module";
-$langStudent = "Etudiant";
-$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$langStudent = "Étudiant";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page courante du texte. Continuer ?";
 $langTextEditorDisable = "Désactiver l'éditeur de texte";
 $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTo = "vers";
 $langTotalTimeSpent = "Temps total";
-$langTrackAllPath = "Tracking des parcours";
+$langTrackAllPath = "Suivi des parcours";
 $langTracking = "Suivi";
 $langTypeOfModule = "Type de module";
 $langUnamedModule = "Module sans nom";
 $langUnamedPath = "Parcours sans nom";
 $langUp = "Remonter";
 $langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
-                     Tous les exercices ou document qui ont été ajoutés dans un parcours apparaîtront aussi dans cette liste.";
+         Tous les exercices ou documents qui ont été ajoutés dans un parcours apparaîtront aussi dans cette liste.";
 $langUsedInLearningPaths = "
 Nombre de parcours utilisant ce module : ";
 $langUsers = "Utilisateurs";

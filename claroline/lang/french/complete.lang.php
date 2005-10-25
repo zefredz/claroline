@@ -1,4 +1,4 @@
-<?php
+<?php 
 $l_author = "Auteur";
 $l_body = "Message";
 $l_click = "Cliquez";
@@ -24,7 +24,7 @@ ou voir l'index du forum à
 Merci d'utiliser les forums.
 
 Bonne journée.";
-$l_notifysubj = "Une réponse à votre sujet a été postée."; 
+$l_notifysubj = "Une réponse à votre sujet a été postée.";
 $l_notopics = "Il n'y a pas de sujet sur ce forum. Vous pouvez en lancer un.";
 $l_posted = "Posté le";
 $l_poster = "Initiateur";
@@ -220,6 +220,7 @@ $langCannotUnsubscribeLastCourseManager = "Vous ne pouvez pas radier d'un cours 
 $langCatagoryGroup = "Forums des Groupes";
 $langCatagoryMain = "Général";
 $langCategories = "Catégories";
+$langCategoriesRepairs = "Vérifier l'arbre des catégories";
 $langCategory = "Catégorie";
 $langCategoryDeleted = "Catégorie supprimée.";
 $langCategoryUpdated = "Catégorie mise à jour.";
@@ -277,6 +278,7 @@ $langConfirmDeleteExercise = "Êtes-vous certain(e) de vouloir supprimer cet exer
 $langConfirmDeleteGroups = "Êtes-vous certain(e) de vouloir supprimer tous les groupes ?";
 $langConfirmDeleteQuestion = "Êtes-vous certain(e) de vouloir totalement supprimer cette question ?";
 $langConfirmDeleteStats = "Attention&nbsp;: la suppression des données statistiques est définitive&nbsp;!<br /><br />Êtes vous certain(e) de vouloir les effacer&nbsp;?";
+$langConfirmDeleteThisGroup = "Êtes-vous certain(e) de vouloir supprimer ce groupe ?";
 $langConfirmEmptyForum = "Supprimer tous les messages de ";
 $langConfirmEmptyGroups = "Êtes-vous certain(e) de vouloir vider tous les groupes ?";
 $langConfirmEnrollClassToCourse = "Êtes-vous certain(e) de vouloir inscrire la classe entière à ce cours ?";
@@ -313,7 +315,6 @@ contenu, de la progression et du calendrier";
 $langCourseCreate = "Créer un site de cours";
 $langCourseCreator = "Créateur de cours";
 $langCourseDelete = "Le cours a été supprimé";
-$langCourseDescription = "Tapez ici la description qui apparaîtra dans la liste des cours (ce champ n'est pas encore utilisé par cette version de Claroline mais le sera dans une version ultérieure).";
 $langCourseHome = "Accueil";
 $langCourseList = "Liste des cours";
 $langCourseManager = "Gestionnaire de cours";
@@ -666,8 +667,8 @@ $langEnrollAsTeacher = "Inscrire comme gestionnaire";
 $langEnrollClass = "Inscrire une classe";
 $langEnrollToNewCourse = "Inscrire à un nouveau cours";
 $langEnrollUser = "Inscrire un utilisateur";
+$langEnrollmentKey = "clé d'inscription";
 $langEnter = "Entrer";
-$langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer ; laissez vide pour garder l'ancien.";
 $langEnterMail = "Tapez votre adresse de courrier électronique et confirmez.";
 $langErrorAssetNotFound = "Ressource introuvable : ";
 $langErrorCannotReadRSSFile = "Erreur : le fil RSS est introuvable.";
@@ -862,7 +863,6 @@ $langFeedbackSubmit = "Soumission du correctif";
 $langFeedbackText = "Texte correctif";
 $langFeedbacks = "Corrections";
 $langFieldSeparatorUsed = "Séparateur de champ utilisé";
-$langFieldsRequ = "Tous les champs sont obligatoires";
 $langFileContentModified = "Contenu du fichier modifié";
 $langFileCreated = "Fichier créé";
 $langFileDesc = "Description du fichier";
@@ -1021,6 +1021,7 @@ $langGroups = "Groupes";
 $langGroupsAdded = "groupe(s) a (ont) été ajouté(s)";
 $langGroupsDeleted = "Tous les groupes ont été supprimés";
 $langGroupsEmptied = "Tous les groupes sont maintenant vides";
+$langGroupsNotEmptied = "Impossible de vider les groupes";
 $langHClar = "Aide au démarrage";
 $langHDoc = "Aide de l'outil Documents";
 $langHExercise = "Aide de l'outil Exercices";
@@ -1382,6 +1383,7 @@ $langNotFalse = "Cette réponse n'est pas fausse. Il est exact que la mise en évi
 $langNotGroupMember = "Vous n'êtes pas membre de ce groupe.";
 $langNotInstalled = "Une erreur s'est produite. L'importation du parcours pédagogique a échoué.";
 $langNotRecentlyConnectedStudents = "Étudiants qui ne se sont pas connectés récemment&nbsp;: ";
+$langNotSaved = "Vos changements n'ont pas été pris en compte";
 $langNotUnregYourself = "Vous ne pouvez pas changer vos propres paramètres !";
 $langNotice = "Remarque";
 $langNoticeInstallFolderBrowsable = "<b>Note&nbsp;:</b> le dossier contenant l'installateur de votre plateforme claroline (<code>claroline/install/</code>) est accessible par le web. N'importe qui peut réinstaller claroline et écraser votre installation. Nous vous recommandons de protéger ce dossier ou de le supprimer.";
@@ -2066,15 +2068,4 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Vous avez été désinscrit
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
-$langRequestOfCourseCreatorStatus = 'Solliciter le statut de créateur de cours';
-$langReasons = 'Motif (optionnel)';
-$langMessageEnrollToCourseNotAllowed = "Inscription au cours refusée";
-$langMessageRegistrationNotAllowed = "Enregistrement à la plateforme refusé";
-$langConfirmDeleteThisGroup = "Êtes-vous certain(e) de vouloir supprimer ce groupe ?";
-$langNotSaved = "Vos changements n'ont pas été pris en compte";
-$langEnrollmentKey = "clé d'inscription";
-$langGroupsNotEmptied = "Impossible de vider les groupes";
-$langCategoriesRepairs = "Vérifier l'arbre des catégories";
-$langCategoriesStructureOK = "La structure de l'arbre des catégories est réparée";
-
 ?>
