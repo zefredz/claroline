@@ -13,7 +13,7 @@ require '../inc/claro_init_global.inc.php';
 if( empty($_REQUEST['uInfo']) ) 
 {
     header("Location: ../user/user.php");
-    die();
+    exit();
 }
 else
 {
@@ -98,60 +98,56 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
 			;
 
 		if( !empty($_REQUEST['period']) ) 	$period = $_REQUEST['period'];
-		else                                $period = "";
-		
-        switch($period)
+		else                                $period = 'month'; // default period type
+
+        if( $period == 'week' )
         {
-            case "week" :
-                // previous and next date must be evaluated
-                $previousReqDate = $reqdate - 7*86400;
-                $nextReqDate = $reqdate + 7*86400;
-                echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.$langPreviousWeek.'</a>]'."\n"
-                    .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.$langNextWeek.'</a>]'."\n"
-					;
-                break;
-            default :
-                $period = "month";
-            case "month" :
-                // previous and next date must be evaluated
-                // 30 days should be a good approximation
-                $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
-                $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-                echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.$langPreviousMonth.'</a>]'."\n"
-                    .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.$langNextMonth.'</a>]'."\n"
-					;
-                break;
-    
-        
-        }
+            // previous and next date must be evaluated
+            $previousReqDate = $reqdate - 7*86400;
+            $nextReqDate = $reqdate + 7*86400;
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.$langPreviousWeek.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.$langNextWeek.'</a>]'."\n"
+				;
+		}
+		else // month
+		{
+		    // previous and next date must be evaluated
+		    // 30 days should be a good approximation
+		    $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
+		    $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
+		    echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.$langPreviousMonth.'</a>]'."\n"
+		        .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.$langNextMonth.'</a>]'."\n"
+				;
+		}
+		
         echo '</small>'."\n\n";
         /******* END OF MENU ********/
         
         if( !isset($reqdate) )
             $reqdate = time();
-        switch($period)
+
+        if( $period == 'week' )
         {
-            case "month" : 
-                $sql = "SELECT `login_date`
-                            FROM `".$tbl_track_e_login."`
-                            WHERE `login_user_id` = ". (int)$uInfo ."
-                                AND MONTH(`login_date`) = MONTH( FROM_UNIXTIME('".$reqdate."') )
-                                AND YEAR(`login_date`) = YEAR( FROM_UNIXTIME(".$reqdate.") )
-                            ORDER BY `login_date` ASC ";
-                $displayedDate = $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
-                break;
-            case "week" : 
-                $sql = "SELECT `login_date`
-                            FROM `".$tbl_track_e_login."`
-                            WHERE `login_user_id` = '". (int)$uInfo ."'
-                                AND WEEK(`login_date`) = WEEK( FROM_UNIXTIME('".$reqdate."') )
-                                AND YEAR(`login_date`) = YEAR( FROM_UNIXTIME(".$reqdate.") )
-                            ORDER BY `login_date` ASC ";
-                $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
-                $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
-                $displayedDate = $langFrom." ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate)
-                                ." ".$langToDate." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
-                break;
+            $sql = "SELECT `login_date`
+                        FROM `".$tbl_track_e_login."`
+                        WHERE `login_user_id` = '". (int)$uInfo ."'
+                            AND WEEK(`login_date`) = WEEK( FROM_UNIXTIME('".$reqdate."') )
+                            AND YEAR(`login_date`) = YEAR( FROM_UNIXTIME(".$reqdate.") )
+                        ORDER BY `login_date` ASC ";
+            $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
+            $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
+            $displayedDate = $langFrom." ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate)
+                            ." ".$langToDate." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
+		}
+		else // month
+		{
+			$sql = "SELECT `login_date`
+                        FROM `".$tbl_track_e_login."`
+                        WHERE `login_user_id` = ". (int)$uInfo ."
+                            AND MONTH(`login_date`) = MONTH( FROM_UNIXTIME('".$reqdate."') )
+                            AND YEAR(`login_date`) = YEAR( FROM_UNIXTIME(".$reqdate.") )
+                        ORDER BY `login_date` ASC ";
+            $displayedDate = $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
         }
 
         $loginDates = claro_sql_query_fetch_all($sql);
