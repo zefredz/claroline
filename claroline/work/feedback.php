@@ -126,7 +126,7 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
                 
                 $tmpWorkUrl = $assigDirSys.$prefillDocPath;
 
-                if( ! copy($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
+                if( ! move_uploaded_file($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
                 {
                       $dialogBox .= $langCannotCopyFile . '<br />';
                       $formCorrectlySent = false;
