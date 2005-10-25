@@ -190,7 +190,7 @@ function claro_copy_file($sourcePath, $targetPath)
         // check to not copy the directory inside itself
         if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
 
-        if ( ! mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
+        if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
 
         $dirHandle = opendir($sourcePath);
 
