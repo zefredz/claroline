@@ -188,7 +188,7 @@
 
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
-        $valid_actions = "edit", "preview", "save"
+        $valid_actions = array( "edit", "preview", "save"
             , "show", "recent", "diff", "all", "history"
             );
     }
