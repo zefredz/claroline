@@ -1004,7 +1004,7 @@ function disp_forum_group_toolbar($gid)
     if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
     {
         echo '&nbsp;|&nbsp'
-            .'<a href="../document/document.php" class="claroCmd">"
+            .'<a href="../document/document.php" class="claroCmd">'
             .'<img src="'.$imgRepositoryWeb.'document.gif" />'
             .'&nbsp;' 
             .$langGroupDocumentsLink
@@ -1015,7 +1015,7 @@ function disp_forum_group_toolbar($gid)
     if($_groupProperties['tools']['wiki'])
     {
         echo '&nbsp;|&nbsp'
-            .'<a href="../wiki/wiki.php" class="claroCmd">"
+            .'<a href="../wiki/wiki.php" class="claroCmd">'
             .'<img src="'.$imgRepositoryWeb.'wiki.gif" />'
             .'&nbsp;' . $langGroupWikiLink
             .'</a>'
