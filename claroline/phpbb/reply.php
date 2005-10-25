@@ -69,6 +69,7 @@ else                               $message = '';
 if ( isset($_REQUEST['cancel']) )
 {
     header('Location: viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
+    exit();
 }
 
 $topicSettingList = get_topic_settings($topic_id); 
