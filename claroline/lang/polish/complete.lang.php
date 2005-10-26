@@ -92,7 +92,6 @@ $langAdmitError = "Uznanie w³asnych b³êdów i zachêca rozmówcê do zrobienia tego 
 $langAdvanced = "Zaawansowane";
 $langAgain = "Spróbuj jeszcze raz!";
 $langAgenda = "Terminarz";
-$langAgendaNextEvents = "Nastêpne wydarzenia agendy";
 $langAlertBlockingMakedInvisible = "Ten modu³ jest zablokowany.
 Czynienie go niewidocznym pozwoli studentom na dostêp do
  nastêpnego modu³u bez przymusu ukoñczenia obecnego.
@@ -272,7 +271,6 @@ $langCourseAdministratorOnly = "Tylko administrator";
 $langCourseContent = "Zawartoœæ kursu";
 $langCourseContentComment1 = "Jakie jest znaczenie ró¿nej tre¶ci nauczanej w ramach tego kursu?  Jaki jest poziom trudno¶ci tej tre¶ci?  Jaka jest struktura jednostki?  Jaka bêdzie sekwencja tre¶ci?  Do czego bêdzie tre¶æ bêdzie prowadziæ?";
 $langCourseContentComment2 = "Prezentacja tre¶ci kursu, struktura tre¶ci, rozwój i kalendarz";
-$langCourseCreate = "Utwórz nowy kurs";
 $langCourseCreator = "Twórca kursu";
 $langCourseDelete = "Kurs zosta³ skasowany";
 $langCourseHome = "Strona domowa kursu";
@@ -317,7 +315,7 @@ Instalator zamierza stworzyæ g³ówne bazy danych Claroline.
 Je¶li administrator systemu bazy danych ograniczy³ Ci dostêp tylko do pojedynczej bazy,
 wróæ na poprzedni± stronê i wybierz opcjê \"Pojedyncza (single)\" z \"Tryb bazy danych (Database mode)\".<BR><BR>
 ";
-$langDBUse = "U¿ycie bazy danychDatabase usage";
+$langDBUse = "U¿ycie bazy danych";
 $langDOCUMENTTypeDesc = "Dokument";
 $langDate = "Data";
 $langDateLastWrite = "Ostatnia wiadomo¶æ by³a : ";
@@ -441,7 +439,6 @@ $langDocumentAsModule = "U¿yj dokumentu";
 $langDocumentContent = "Zawarto¶æ dokumentu : ";
 $langDocumentInModule = "Dokument w module";
 $langDocumentName = "Nazwa dokumentu : ";
-$langDocumentation = "Dokumentacja";
 $langDocumentsAccess = "Dokumenty";
 $langDocumentsDetails = "Dokumenty pobrane przez studentów";
 $langDocumentsTitleCountColumn = "Ca³kowita liczba pobrañ";
@@ -476,21 +473,90 @@ $langEmpty = "Zostawi³e¶ niewype³nione pola.<br>U¿yj przycisku Wstecz i spróbuj 
 $langEmptyAnn = "Wyczy¶æ listê og³oszeñ";
 $langEmptyFields = "Zostawi³e¶ puste pola. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
 $langEmtpyGroups = "Wyzeruj wszystkie grupy";
-$langEnable = "Udostêonij";
+$langEnable = "Udostêpnij";
 $langEndDate = "Data koñcowa";
-$langEnrollAsManager = "Zapisz siê jako manad¿er kursu";
+$langEnrollAsManager = "Zapisz siê jako menad¿er kursu";
 $langEnrollAsStudent = "Zapisz siê jako student";
 $langEnrollAsTeacher = "Zapisz siê jako nauczyciel";
 $langEnrollClass = "Zapisz klasê";
 $langEnrollToNewCourse = "Zapisz na nowy kurs";
 $langEnrollUser = "Zapisz u¿ytkownika";
-$langEnter = "Wej¶cie";
 $langErrorUserNotInGroup = "Nieprawid³owy u¿ytkownik: nie mo¿e uczestniczyæ w grupie";
 $langEx = "np. <i>Historia Literatury</i>";
 $langExMessage = "Wiadomo¶æ w Forum";
 $langExerciceEx = "Przyk³adowe æwiczenie";
 $langExercices = "Æwiczenia";
 $langExercise = "Æwiczenia";
+$langExerciseContent = "<p>Narzêdzie pozwala tworzyæ æwiczenia które bêd¹ zawieraæ tyle pytañ ile chcesz.<br><br>
+Dostêpne s¹ ró¿ne typy odpowiedzi na stworzone przez Ciebie pytania:<br><br>
+<ul>
+  <li>Jeden z wielu (pojedyncza odpowiedŸ)</li>
+  <li>Wielokrotny wybór (wiele odpowiedzi)</li>
+  <li>Dobór</li>
+  <li>Wype³nianie</li>
+</ul>
+Æwiczenie zawiera pewn¹ liczbê pytañ pod ka¿dym wspólnym tematem.</p>
+<hr>
+<b>Exercise creation</b>
+<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
+Type the exercise name, as well as an optional description of it.<br><br>
+You can also choose between 2 exercise types :<br><br>
+<ul>
+  <li>Questions on an unique page</li>
+  <li>One question per page (sequential)</li>
+</ul>
+and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>
+Then, save your exercise. You will go to to the question administration for this exercise.</p>
+<hr>
+<b>Question adding</b>
+<p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p>
+<hr>
+<b>Multiple choice</b>
+<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
+In order to create a MAQ / MCQ :<br><br>
+<ul>
+  <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
+  <li>Check via the left box the correct answer(s)</li>
+  <li>Add an optional comment. This comment won't be seen by the student till this one has replied to the question</li>
+  <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>
+  <li>Save your answers</li>
+</ul></p>
+<hr>
+<b>Fill in the blanks</b>
+<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
+To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>
+Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>
+Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
+<hr>
+<b>Matching</b>
+<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>
+It can also be used to ask students to sort elements in a certain order.<br><br>
+First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
+Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
+Give a weighting to each correct matching, and save your answer.</p>
+<hr>
+<b>Exercise modification</b>
+<p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
+<hr>
+<b>Exercise deleting</b>
+<p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
+<hr>
+<b>Exercise enabling</b>
+<p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
+<hr>
+<b>Exercise running</b>
+<p>You can test your exercise by clicking on its name in the exercise list.</p>
+<hr>
+<b>Random exercises</b>
+<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
+That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
+If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p>
+<hr>
+<b>Question pool</b>
+<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>
+The question pool also allows to reuse a same questions into several exercises.<br><br>
+By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
+Orphan questions are questions that don't belong to any exercise.</p>";
 $langExerciseDescription = "Opis æwiczenia";
 $langExerciseManagement = "Zarz±dzanie æwiczeniami";
 $langExerciseName = "Nazwa æwiczenia";
@@ -595,31 +661,91 @@ $langHome = "Powrót do strony g³ównej";
 $langHomeContent = "Dla wiêkszej wygody, narzêdzia Claroline ju¿ na pocz±tku nie s± puste. Ka¿de narzêdzie zawiera ma³y przyk³ad, który powinien pomóc zrozumieæ, jak to dzia³a. Mo¿na te przyk³ady modyfikowaæ lub usuwaæ.</p><p>Na przyk³ad, na Stronie g³ównej Twojego kursu, jest tekst wprowadzaj±cy w tematykê kursu. Mo¿esz zast±piæ ten tekst swoim tekstem klikaj±c przycisk 'modyfikuj' a nastêpnie 'Zatwierd¼'. Wszystkie czynno¶ci s± bardzo proste. We wszystkich narzêdziach obowi±zuje taka sama logika: 'dodawaj', 'usuwaj', 'modyfikuj'. </p>
 <p>Kiedy przystêpujesz do tworzenia serwisu kursu, wiêkszo¶æ narzêdzi jest aktywna. Mo¿na aktywowaæ i dezaktywowaæ poszczególne narzêdzia tak, ¿eby korzystaæ tylko z tych, ktore s± potrzebne. Deaktywacja powoduje przeniesienie narzêdzia na dó³ Strony g³ównej i powoduje, ¿e jest ona niewidoczna dla studentów. </p><p>Mo¿esz dodawaæ Twoje w³asne strony do Strony g³ównej. Te strony musz± byæ dokumentami HTML (które mog± byæ tworzone w dowolnym edytorze tekstu lub programie do tworzenia stron WWW). U¿yj ³±cza 'Za³aduj stronê i przy³±cz do Strony g³ównej', ¿eby wys³aæ stronê do serwera. Standardowy nag³ówek Twojego serwisu automatycznie bêdzie po³±czony z nowym dokumentem , tak ¿eby koncentrowaæ siê na zawarto¶ci. Gdyby¶ chcia³ ³±czyæ siê ze Strony domowej z istniej±c± stron± sieci Web (nawet wewn±trz serwera), u¿ywaj 'Dodaj odno¶nik do Strony g³ównej'. Dodana strona mo¿e byæ aktywowana lub dezaktywowana ale nie usuwana. </p><p>Zanim kurs bêdzie gotowy, przejd¼ do 'Modyfikuj ustawienia kursu' i zdecyduj o poziomie dostêpu do kursów, który chcesz zastosowaæ. Domy¶lnie Twój kurs powinien byæ ukryty (poniewa¿ w³a¶nie nad nim pracujesz). </p>";
 $langHour = "Godzina";
+$langHumanAndPhysicalResourcesComment1 = "Jakie s¹ dostêpne zasoby fizyczne i ludzkie?  Jaka bêdzie natura szkieletu konstrukcji? Czego mog¹ oczekiwaæ studenci od grupy organizacji lub organizacji nauczycieli?";
+$langHumanAndPhysicalResourcesComment2 = "Prezentacja innych nauczycieli organizuj¹cych kurs (asystenci, badacze, œledz¹cy postêpy studentów ...), dostêpnoœæ ludzi, budynki i wyposa¿enie lub dostêpne wyposa¿enie komputerowe.";
+$langHumanAndPhysicalRessources = "Zasoby fizyczne i ludzkie";
+$langIfNotRedirect = "Je¿eli nie przekierowano ";
+$langImport = "Import";
 $langImpossible = "Czynno¶æ niemo¿liwa";
 $langIn = "w";
+$langInFrames = "W ramach";
+$langIncorrectDate = "Data startu musi byæ przed dat¹ zakoñczenia ...";
 $langIndeed = "Tak, Sokratyczna ironia jest metod± pytaj±c±. Z greckiego \"eirotao\" - \"zadawaæ pytania\"";
+$langIndividual = "Indywidualnie";
 $langInfo2Say = "Informacje dla studentów";
-$langInvalidId = "Niew³a¶ciwa nazwa u¿ytkownika. Je¶li nie jeste¶ zarejestowany, wype³nij <a href='claroline/auth/inscription.php'>formularz rejestracyjny</a></font color>";
+$langInfoProgNameTitle = "Informacja";
+$langInsertMyDocToolName = "Wstaw dokument jako modu³";
+$langInsertMyExerciseToolName = "Wstaw moje æwiczenie";
+$langInsertMyModuleToolName = "Wstaw mój modu³";
+$langInsertMyModulesTitle = "Wstaw modu³ kursu";
+$langInsertNewModuleName = "Wstaw now¹ nazwê";
+$langInstalled = "Pomyœlnie zaimportowano œcie¿kê nauczania.";
+$langInstitution = "Instytucja";
+$langInstitutionUrl = "URL Instytucji";
+$langInvisible = "Niewidoczny";
 $langIs = "jest";
+$langIsAlreadyRegistered = "jest ju¿ zarejestrowany na kursie";
 $langIsNowInYourDocDir = "jest ju¿ w obszarze dokumentów. <br><B>Ten plik jest widoczny.</B>";
+$langIsNowRegistered = "jest teraz zarejestrowany na kurs";
 $langJustCreated = "Utworzony zosta³ kurs ";
+$langLabelCanBeEmpty = "Wymagany tytu³ kursu";
 $langLanguage = "Jêzyk";
 $langLast31days = "W ostatnich 31 dniach";
 $langLast7Days = "W ostatnich 7 dniach";
+$langLastAccess = "Ostatni dostêp";
+$langLastActiveTopics = "Ostatnio aktywne tematy";
+$langLastAttempt = "Ostatnie przyst¹pienie";
 $langLastCheck = "Ostatnie sprawdzenie przed instalacj±";
+$langLastEditDate = "Ostatnia data edycji";
 $langLastMsg = "Ostatnia wiadomo¶æ";
+$langLastMsgs = "Ostatnie wiadomoœci";
 $langLastName = "Nazwisko";
+$langLastSessionTimeSpent = "Ostatni czas sesji";
 $langLasting = "Czas trwania";
 $langLastname = "Nazwisko";
+$langLateUpload = "PóŸny upload";
+$langLearnPathDetails = "Postêp na œcie¿ce nauczania";
+$langLearningPath = "Œcie¿ka nauczania";
+$langLearningPathAdmin = "Administrator œcie¿ki nauczania";
+$langLearningPathEmpty = "Œcie¿ka nauczania jest pusta";
+$langLearningPathList = "Lista œcie¿ek nauczania";
+$langLearningPathName = "Nazwa nowej œcie¿ki nauczania : ";
+$langLearningPathNotFound = "Œcie¿ka nauczania nie znaleziona";
+$langLegendRequiredFields = "<span class=\"required\">*</span> oznacza wymagane pole";
 $langLessAnswers = "-odp";
 $langLessElements = "-elem";
+$langLessonStatus = "Status modu³u";
 $langLicence = "Licencja";
 $langLine = "linia";
 $langLineNumber = "Lczba linii";
 $langLineOrLines = "linia(i)";
 $langLines = "linii";
 $langLink = "Odno¶niki";
+$langLinkerAdd = "Do³¹cz";
+$langLinkerAddNewAttachment = "Do³¹cz istniej¹cy zasób";
+$langLinkerAlreadyInAttachementList = " jest ju¿ do³¹czony";
+$langLinkerAttachements = "Do³¹czone zasoby";
+$langLinkerCloseJpspan = "Zamknij";
+$langLinkerClosePopup = "Zamknij popup";
+$langLinkerDelete = "Usuñ";
+$langLinkerExternalLink = "Zewnêtrzny link";
+$langLinkerMyOtherCourses = "Moje inne kursy";
+$langLinkerPromptForUrl = "WprowadŸ link url";
+$langLinkerPromptInvalidEmail = "Nieprawid³owy adres e-mail";
+$langLinkerPromptInvalidUrl = "Nieprawid³owy url";
+$langLinkerPublicCourses = "Kursy publiczne";
+$langLinkerResourceAttachment = "Do³¹czone zasoby Dodaj/Usuñ za³¹cznik";
+$langLinkerUntitled = "Brak tytu³u";
+$langListAdmin = "Lista administratorów";
+$langListAllUsers = "Lista wszystkich u¿ytkowników";
+$langListClassUser = "Lista cz³onków klasy";
+$langListCourseUsers = "Lista u¿ytkowników kursu";
+$langListHtUsers = "Zobacz .htpassword";
 $langListStudents = "Lista studentów w grupie";
+$langListUsers = "Lista u¿ytkowników";
+$langLoadDefaultFormat = "Za³aduj format domyœlny";
+$langLocation = "Miejsce";
+$langLocked = "Zablokowany";
 $langLogin = "Logowanie";
 $langLoginRequest = "Wymagana nazwa u¿ytkownika";
 $langLoginWithoutAccess = "Logins not used";
@@ -630,95 +756,219 @@ $langLoginsTitleCountColumn = "liczba logowañ";
 $langLoginsTitleMonthColumn = "Miesi±c";
 $langLogout = "Wylogowanie";
 $langLostPassword = "Odzyskiwanie has³a";
+$langMailAppearAlready = "Ten mail ju¿ siê pojawi³ w poprzedniej linii pliku CSV.";
+$langMailSynthaxError = "B³¹d sk³adni maila.";
+$langMailTo = "Poczta do : ";
+$langMailUsed = "Mail jest ju¿ u¿ywany przez innego u¿ytkownika.";
 $langMainDB = "G³ówna baza danych Claroline";
+$langMainGroupSettings = "G³ówne stawienia grupy";
+$langMaintenance = "Obs³uga";
 $langMakeCorrespond = "Powi±¿";
+$langMakeInvisible = "Uczyñ niewidocznym";
+$langMakeNewSearch = "Wykonaj nowe wyszukiwanie : ";
+$langMakeSearch = "Wykonaj wyszukiwanie";
+$langMakeVisible = "Uczyñ widocznym";
+$langManage = "Zarz¹dzaj kampusem";
+$langManageClasses = "Zarz¹dzaj klasami";
+$langManageCourseCategories = "Zarz¹dzaj kategoriami kursu";
 $langManager = "Zarz¹dca";
 $langManyAnswers = "(wiêcej ni¿ jedna odopwied¼ mo¿e byæ prawdziwa)";
 $langMatching = "Dopasuj";
 $langMax = "max.";
+$langMaxAllowedTime = "Maksymalny dopuszczalny czas";
 $langMaxFileSize = "Maksymalna wielko¶æ pliku";
 $langMaxSizeCourseCode = "max. 12 znaków, np. <i>ROM2121</i>";
+$langMaxStudentGroup = "Maksymalna liczba studentów w grupie";
+$langMaximum = "Maksimum : ";
 $langMessage = "Je¶li usuniesz Forum przyk³adowe, skasujesz tak¿e bie¿±c± wiadomo¶æ.";
+$langMessageEnrollToCourseNotAllowed = "Zapisy na kurs niedozwolone";
+$langMessageRegistrationNotAllowed = "Rejestracja na platformie niedozwolona";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Dear %s, %s. 
 Twoje osobiste ustawienia zosta³y zarejestrowane a 
 Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
 Wybierz z listy kursy, do których chcesz mieæ dostêp.";
+$langMessageToSelectedUsers = "Wiadomoœæ do wybranych u¿ytkowników";
+$langMessages = "Wiadomoœci";
+$langMethodsOfEvaluation = "Metody oceny";
+$langMin = "Minimum : ";
+$langMinuteShort = "min.";
 $langMissing = "wadliwy";
+$langMissingFields = "Utracone pole/pola";
 $langMissingImagesDetected = "Wykryto brakuj±ce obrazki";
+$langMissingValue = "Utracona wartoœæ";
 $langModifAnn = "Modyfikuj og³oszenie";
 $langModifDone = "Informacje zosta³y zmodyfikowane";
+$langModifUserCourseSettings = "Ustawienia u¿ytkownika kursu";
 $langModify = "Modyfikuj";
+$langModifyExercise = "Zmodyfikuj æwiczenie";
+$langModifyFormat = "Zmodyfikuj format";
 $langModifyInAllExercises = "we wszystkich æwiczeniach";
 $langModifyInThisExercise = "tylko w bie¿±cym æwiczeniu";
 $langModifyProfile = "Modyfikuj Mój profil";
+$langModule = "Modu³";
+$langModuleMoved = "Modu³ przesuniêto";
+$langModuleOfMyCourse = "U¿yj modu³u tego kursu";
+$langModuleStillInPool = "Modu³y tej œcie¿ki bêd¹ ci¹gle dostêpne w puli modu³ów";
+$langModules = "Modu³y";
+$langModulesPoolToolName = "Pula modu³ów";
 $langMonthNames = "Array";
 $langMoreAnswers = "+odp";
 $langMoreElements = "+elem";
+$langMoreRepliedTopics = "Wiêcej tematów na które odpowiedziano";
+$langMoreSeenTopics = "Wiêcej widocznych tematów";
 $langMove = "Przenie¶";
 $langMoveDown = "Przesuñ na dó³";
 $langMoveUp = "Przesuñ ni¿ej";
-$langMultipleEmails = "Accounts with same <i>Email</i>";
-$langMultipleLogins = "Accounts with same <i>Username</i>";
-$langMultipleSelect = "Multiple choice (wiele odpowiedzi poprawnych)";
-$langMultipleUsernameAndPassword = "Accounts with same <i>Username</i> AND same <i>Password</i>";
+$langMsgSent = "Wiadomoœæ zosta³¹ wys³ana do wybranych studentów";
+$langMultipleAnswers = "Wielokrotne odpowiedzi";
+$langMustSelectAFile = "Musisz wybraæ plik";
+$langMustSelectATxtFile = "Musisz wybraæ plik tekstowy";
+$langMyAgenda = "Moja agenda";
 $langMyCourses = "Lista moich kursów";
 $langMyGroup = "moja grupa";
+$langMyResults = "Moje rezultaty";
 $langMyStats = "Zobacz statystykê";
+$langMysqlNames = "Baza danych MySQL i nazwy tablic";
+$langMysql_Repository = "Repozytorium Mysql";
 $langNULLValue = "Empty (or NULL)";
+$langName = "Nazwa";
+$langNameChanged = "Zmieniono nazwê klasy";
 $langNameDir = "Nazwa nowego katalogu";
 $langNameOfLang = "Array";
+$langNbLines = "Liczba wierszy";
+$langNbrAccess = "Licznik dostêpu";
+$langNever = "Nigdy";
+$langNeverBrowsed = "Nigdy nie przegl¹dniêto";
+$langNeverConnectedStudents = "Nigdy nie po³¹czeni studenci : ";
+$langNeverUsed = "Nieu¿ywany";
 $langNewBloc = "Inne";
+$langNewChat = "Nowy chat";
+$langNewClassCreated = "Stworzono now¹ klasê";
+$langNewClassName = "Nazwê nowej klasy";
 $langNewEx = "Nowe æwiczenie";
 $langNewGroupCreate = "Utwórz now± grupê(y)";
 $langNewGroups = "now±(e) grupê(y)";
+$langNewLabel = "Utwórz now¹ etykietê / tytu³ w tej œcie¿ce dostêpu";
+$langNewLegend = "symbolizuje nowe pozycjê";
 $langNewQu = "Nowe pytanie";
 $langNewToOld = "Zmieñ kolejno¶æ";
 $langNewTopic = "Nowy Temat";
+$langNewUsersIn = "nowi u¿ytkownicy na platformie : ";
 $langNext = "Dalej";
 $langNextDay = "Nastêpny dziañ";
 $langNextMonth = "Nastêpny miesi±c";
 $langNextWeek = "Nastêpny tydzieñ";
 $langNextYear = "Nastêpny rok";
 $langNo = "Nie";
+$langNoAnnouncement = "Brak og³oszeñ.";
 $langNoAnswer = "Nie ma jeszcz ¿adnych odpowiedzi";
+$langNoContent = "Brak zawartoœci";
+$langNoCourseResult = "Nie ma kursu spe³niaj¹cego takie kryteria";
 $langNoEmail = "¯aden adres email nie zosta³ podany";
+$langNoEndDate = "Brak daty zamnkniêcia";
+$langNoEventInTheAgenda = "Brak zdarzeñ w agendzie";
 $langNoEx = "Jeszcze nie ma ¿adnych æwiczeñ";
+$langNoFile = "- ¿aden -";
+$langNoForum = "Brak forum";
+$langNoFunctionInThisSection = "Brak funkcji o tym rozszerzeniu";
 $langNoGroupStudents = "Studenci nie zapisani";
+$langNoGroupsDeleted = "Nie skasowano ¿adnej grupy";
+$langNoImage = "Brak obrazkó do wyœwietlenia";
+$langNoLearningPath = "Brak œcie¿ek nauczania";
+$langNoModule = "Brak modu³ów";
+$langNoMoreAttemptsAvailable = "Osi¹gn¹³eœ maksymaln¹ liczbê dozwolonych prób.";
+$langNoMoreModuleToAdd = "Wszystkie modu³y tego kursu s¹ ju¿ u¿ywane w tej œcie¿ce nauczania.";
+$langNoPost = "Brak posów";
+$langNoPostAllowed = "Brak zezwolenia na nowe posty";
 $langNoPsychology = "Nie. Sarkastyczna ironia nie jest ¶rodkiem psychologicznym, oznacza argumentacjê.";
 $langNoQuestion = "Nie ma pytañ";
+$langNoQuota = "Brak quoty";
+$langNoRegisteredCourses = "Brak statystyk do pokazania. Nie zarejestrowa³eœ ¿adnego kursu.";
 $langNoResult = "Brak rezultatów";
+$langNoScore = "Brak wyników";
+$langNoScript = "Brak skryptów";
 $langNoSeduction = "Nie. Sarkastyczna ironia nie jest strategi± zwodzenia ani metod± bazuj±c± na przyk³adzie.";
 $langNoSpace = "£adowanie pliku nie powiod³o siê. Nie ma wystarczaj±cej przestrzeni w Twoim katalogu";
+$langNoStartAsset = "Nie ma zdefiniowanych pocz¹tkowych zasobów w tym module.";
+$langNoTimeLimit = "Brak ograniczeñ czasowych";
+$langNoTrackingForExerciseAttempt = "Nie ma danych œledz¹cych przyst¹pienie do tej próby.";
+$langNoUserFound = "Nie znaleziono u¿ytkowników";
+$langNoUserResult = "Brak u¿ytkowników do wyœwietlenia";
+$langNoVisibleAssignment = "Nie ma zadañ w tej chwili.";
+$langNoVisibleSubmission = "Brak widocznych przed³o¿eñ";
+$langNomPageAddHtPass = "Zarz¹danie administratorami";
 $langNone = "¿adne";
+$langNormalUser = "Normalny";
 $langNotAllowed = "Nie wolno Ci tu przebywaæ";
 $langNotFalse = "Ta odpowied¼ nie jest z³a. To prawda, ¿e odkrycie ignorancji rozmówcy oznacza pokazanie sprzecznych wniosków, które wynikaj± z jego przes³anek.";
+$langNotGroupMember = "Nie jesteœ cz³onkiem tej grupy";
+$langNotInstalled = "Wyst¹pi³ b³¹d. Import œcie¿ki nauczania nie uda³ siê.";
+$langNotRecentlyConnectedStudents = "Studenci ostatnio nie po³¹czeni : ";
+$langNotSaved = "Brak mo¿liwoœci zachowania";
+$langNotUnregYourself = "Nie mo¿na zmieniæ swoich ustawieñ!";
 $langNotice = "Przypomnienie";
+$langNoticeInstallFolderBrowsable = "<b>Uwaga :</b> Katalog zawieraj¹cy proces instalacji Claroline jest ci¹gle mo¿liwy do ogl¹dniêcia prze sieæ. To oznacza, ¿e ka¿dy mo¿e zreinstalowaæ Claroline i uszkodziæ Twoj¹ poprzedni¹ instalacjê. Bardzo rekomendujemy zabezpieczyæ ten katalog lub usun¹æ go ze serwera";
 $langNow = "Teraz";
 $langNowGoChooseYourCourses = "Teraz mo¿esz wybieraæ z listy, kursy do których chcesz mieæ dostêp.";
 $langNowGoCreateYourCourse = "Teraz mo¿esz tworzyæ swoje kursy";
+$langNumGroup = "Liczba grup na kurs";
+$langNumGroupStudent = "Liczba grup które student mo¿e subskrybowaæ w kursie";
+$langNumero = "Nie.";
+$langOfficialCode = "Kod administracyjny";
 $langOk = "Ok";
+$langOkChapterHeadAdded = "Dodany tytu³ : ";
+$langOkDefaultCommentUsed = "ostrze¿enie : Instalacja nie potrafi znaleŸæ opisu œcie¿ki nauczania i wstawi³a domyœlny komentarz. Powinieneœ to zmieniæ";
+$langOkDefaultTitleUsed = "ostrze¿enie : Instalacja nie potrafi znaleŸæ nazwy œcie¿ki nauczania i wstawi³a nazwê domyœln¹.Powinieneœ to zmieniæ.";
+$langOkFileReceived = "Otrzymano plik : ";
+$langOkManifestFound = "Znaleziono manifest w pliku zip : ";
+$langOkManifestRead = "Przeczytano manifest.";
+$langOkModuleAdded = "Dodano modu³ : ";
 $langOldToNew = "Zmieñ kolejno¶æ";
 $langOn = "W³±czone";
 $langOneByOne = "Rêczne dodawanie u¿ytkownika";
 $langOneMyGroups = "moja grupa";
 $langOneResp = "Jeden z administratorów kursu";
+$langOnly = "Tylko";
 $langOptional = "Opcja";
+$langOrder = "Porz¹dek";
+$langOrderUp = "Rosn¹co";
 $langOrphanQuestions = "Pytania bez przydzia³u";
 $langOtherCourses = "Lista kursów";
+$langOtherWorks = "inne funkcje";
 $langPassTooEasy = "to has³o jest zbyt proste. Spróbuj czegoœ podobnego do ";
 $langPassTwice = "Wpisa³e¶ dwa ró¿ne has³a. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
+$langPassword = "Has³o";
+$langPasswordHasBeenEmailed = "Twoje has³o zosta³o wys³ane do  ";
+$langPasswordSimple = "Nadane has³o jest zbyt proste lub zbyt zbli¿one do nazwy u¿ytkownika.";
+$langPathContentTitle = "Zawartoœæ œcie¿ki nauczania";
+$langPathsInCourseProg = "Postêp kursu ";
+$langPerhaps_with_others_directory = "mo¿e w innych katalogach";
 $langPeriodDay = "Dzieñ";
+$langPeriodDayShort = "d.";
 $langPeriodHour = "Godzina";
+$langPeriodHourShort = "h.";
 $langPeriodMonth = "Miesi±c";
 $langPeriodToDisplay = "Okres";
 $langPeriodWeek = "Tydzieñ";
 $langPeriodYear = "Rok";
+$langPersoValue = "Values";
+$langPersonalCourseList = "Lista kursów osobistych";
+$langPhone = "Telefon";
 $langPlaces = "miejsc(a) w grupie";
+$langPlatform = "Platforma";
 $langPlatformAccess = "Dostêp do kampusu";
-$langPlatformCoursesAccess = "Access to courses";
-$langPlatformStats = "Platform Statistics";
+$langPlatformAdministration = "Administracja platformy";
+$langPlatformAdministrator = "Administrator platformy";
+$langPleaseEnterMessage = "Musisz wprowadziæ tekst wiadomoœci.";
+$langPleaseSelectUsers = "Musisz wybraæ u¿ytkowników.";
+$langPopulateTools = "Narzêdzia zasiedleñcze w kursach";
+$langPostReply = "Replika na post";
 $langPoweredBy = "Powered by";
+$langPrefix = "Prefix  : ";
+$langPreventLateUpload = "Nie zabezpiecz przed dostarczaniem prac u¿ytkownikó po dacie koñcowej";
+$langPreview = "Podgl¹d";
+$langPrevious = "Poprzedni";
 $langPreviousDay = "Poprzedni dzieñ";
 $langPreviousMonth = "Poprzedni miesi±c";
 $langPreviousWeek = "Poprzedni tydzieñ";
@@ -726,16 +976,25 @@ $langPreviousYear = "Poprzedni rok";
 $langPrintVers = "Do wydruku";
 $langPrivate = "zamkniête";
 $langPrivateAccess = "Dostêp autoryzowany, rejestracja zamkniêta (Kurs dostêpny dla zarejestrowanych <a href=../user/user.php>U¿ytkowników</a>)";
+$langPrivateFeedback = "Prywatna informacja zwrotna";
+$langPrivateOnly = "Prywatne kursy tylko";
 $langProblem = "W przypadku wyst±pienia trudno¶ci, skontaktuj siê z nami.";
 $langProfessor = "Prowadz±cy";
+$langProfessorMessage = "Wiadomoœæ od Twojego wyk³adowcy";
 $langProfessors = "Prowadz±cy";
 $langProfileReg = "Twój nowy profil zosta³ zapisany";
+$langProgInModuleTitle = "Twój postêp w tym module";
+$langProgress = "Postêp";
+$langPropertiesNotIncludeInSections = "W³asciwoœci nie zawarte w sekcjach";
 $langPubl = "Opublikowane";
 $langPublic = "otwarte";
 $langPublicAccess = "Publiczny dostêp ze strony g³ównej bez logowania";
+$langPublicOnly = "Tylko kursy publiczne";
 $langPublish = "Publikowanie";
 $langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grup";
 $langQtyOfUserCanSubscribe_PartBeforeNumber = "U¿ytkownik mo¿e byæ cz³onkiem maksimum ";
+$langQualificationsAndGoals = "Kwalifikacje i cele";
+$langQuantity = "Iloœæ";
 $langQuestion = "Pytanie";
 $langQuestionAnswers = "Odpowiedzi na pytania";
 $langQuestionDescription = "opcjonalny komentarz";
@@ -744,51 +1003,157 @@ $langQuestionManagement = "Zarz±dzanie pytaniami/odpowiedziami";
 $langQuestionNotFound = "Pytanie nie znalezione";
 $langQuestionPlan = "Pytania do prowadz±cego";
 $langQuestionPool = "Pula pytañ";
+$langQuestionTitle = "Tytu³ pytania";
 $langQuestionWeighting = "Weighting";
 $langQuestions = "Pytania";
+$langQuitViewer = "Z powrotem do listy";
+$langRandomLanguage = "Tasuj wybór w dostêpnych jêzykach";
 $langRandomQuestions = "Losowe pytania";
+$langRawHasBeenChanged = "Minimalne wymagania zosta³y zmienione";
 $langReg = "Rejestracja";
 $langRegAdmin = "Tworzenie kursu";
 $langRegIntoGroup = "Dodaj mnie do tej grupy";
 $langRegStudent = "Uczestnictwo w kursie";
 $langRegUser = "u¿ytkownicy zarejestrowanie na stronie";
 $langRegYou = "zarejestrowa³ Ciê do tego kursu";
+$langRegister = "Rejestruj";
+$langRegisterCampusAdvice = "SprawdŸ, czy URL twojego kampusu jest osi¹galny z internetu.";
+$langRegisterClass = " Zarejestruj klasê";
+$langRegisterLocalUrl = "URL Twojego kampusu wydaje siê byæ URL lokalnym. Do rejestracji Twojego kampusu na stronie Claroline .net wymagany jest URL dostêpny z sieci<br /><br />
+SprawdŸ wartoœæ 'Baza sieci' w konfiguracji swojej Claroline.";
+$langRegisterMyCampus = "Zarejestruj mój kampus";
+$langRegisterTheNewUser = "Zarejestruj tego u¿ytkownika na kurs";
+$langRegisterUser = "Zapisz na nowy kurs";
+$langRegisterUserToClass = "Zarejestruj u¿ytkownika do klasy";
 $langRegistered = "Zarejestrowani";
 $langRemove = "usuñ";
+$langRemoveAdminLevel = "Nie jesteœ ju¿ administratorem";
 $langRename = "Zmieñ nazwê";
+$langReplaceAttachedFile = "Zamieñ za³¹czony plik";
 $langReply = "Odpowiedz";
+$langRequestOfCourseCreatorStatus = "Zg³oœ zapytanie o status tworzenia kursu";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Zg³oœ ¿¹danie dodania tych w³aœciwoœci w sekcji pliku definicji koderowi tej konfiguracji.";
+$langRequired = "Wymagany";
 $langRequirements = "Wymagania";
+$langResetChat = "Reset";
+$langRestoreCourseRepository = "Odzyskaj repozytorium kursu";
 $langResult = "Resultat";
+$langRetry = "spróbuj ponownie";
 $langReuse = "U¿yj ponownie";
+$langRevoquationOfUser = "Uniewa¿nienie %s %s";
 $langRidiculise = "O¶mieszenie rozmówcy, który musi w ten sposób uznaæ swój b³±d.";
 $langRole = "Funkcja";
-$langSave = "Zapisz";
+$langRoot = "root";
+$langSCORMTypeDesc = "zawartoœæ zgodna ze SCORM 1.2";
+$langSDK = "SDK";
+$langSampleDocument = "przykladowy_dokument";
+$langSampleDocumentDesc = "Mo¿na u¿ywaæ ka¿dy dokument istniej¹cy w puli dokumentów tego kursu.";
+$langSampleExerciseDesc = "Mo¿na u¿ywaæ ka¿de æwiczenie z puli æwiczeñ Twojego kursu.";
+$langSampleLearnPath = "Przyk³adowa œcie¿ka nauczania";
+$langSampleLearnPathDesc = "To jest przyk³adowa œcie¿ka nauczania, u¿ywa przyk³adowych æwiczeñ i dokumentów z puli æwiczeñ i puli dokumentów. Kliknij na 
+                            <b>Zmodyfikuj</b> aby zmieniæ ten tekst.";
+$langSaveChanges = "Zapisz zamiany";
 $langScore = "Wynik";
+$langScoreAvg = "Œrednia punktacja";
+$langScoreMax = "Najlepszy wynik";
+$langScoreMin = "Najgorszy wynik ";
+$langScormIntroTextForDummies = "Importowane pakiety musz¹ sk³adaæ siê z pliku zip i byæ zgodne ze SCORM 1.2";
+$langScriptMissing = "Utracony skrypt";
+$langScriptMissingComment = "Musisz zainstalowaæ te skrypty aby prawid³owo uruchomiæ Claroline";
+$langScriptNotInArchive = "Brak skryptu w Claroline";
+$langScriptNotInArchiveComment = "Mo¿na skasowaæ te skrypty ze serwera";
+$langSearch = "Wyszukaj";
+$langSearchAgain = "Wyszukaj ponownie (zaawansowane)";
+$langSearchCourse = "Wyszukaj kurs";
+$langSearchCourseAdvanced = "Zaawansowane wyszukiwanie kursu";
+$langSearchOn = "Szukaj dalej";
+$langSearchResult = "Wynik wyszukiwania";
+$langSearchUser = "Wyszukaj u¿ytkownika";
+$langSearchUserAdvanced = "Zaawansowane wyszukiwanie u¿ytkownika";
+$langSecondShort = "[s]";
+$langSeeUserSettings = "Zobacz na ustawienia u¿ytkownika";
+$langSeebelowthefilesyoucaneditfromthistool = "Patrz poni¿ej pliki mo¿liwe do edycji z tego narzêdzia.";
 $langSeen = "Czytane";
+$langSelUser = "wybrani u¿ytkownicy";
+$langSelectAUser = "Wybierz u¿ytkownika";
+$langSelectedUsers = "Wybrani u¿ytkownicy";
+$langSendToUserAccountInfoByMail = "Wyœlij informacje o koncie do u¿ytkownika poprzez e-mail";
 $langSequentialExercise = "Jedno pytanie na stronie (kolejno)";
+$langSetAdmin = "Ustaw Administratora";
 $langSettings = "z nastêpuj±cymi ustawieniami: 
 Username:";
 $langShowAll = "Poka¿ wszystkie";
+$langShowAnswers = "Poka¿ odpowiedzi";
+$langShowAnswersAfterLastTry = "Po ostatniej dozwolonej próbie";
 $langShowNone = "Ukryj";
 $langSimpleExercise = "On an unique page";
+$langSiteName = "Nazwa miejsca";
 $langSize = "Rozmiar";
+$langSize_of_claroline_scripts = " rozmiar skryptów Claroline";
+$langSize_of_course_repository = "!!!! rozmiar repozytorium kursu (zawiera Claroline i œmieci w starym systemie)";
+$langSize_of_selected_courses = "rozmiar wybranych kursów";
 $langSocraticIrony = "Sokratycza ironia oznacza ...";
+$langSpecifyFormat = "Nale¿y wyspecyfikowaæ format CSV u¿ywany w Twoim pliku";
+$langStartDate = "Data rozpoczêcia";
+$langStartModule = "Start modu³u";
 $langStatDB = "Raportowanie Bazy.";
 $langStatistics = "Statystyki";
+$langStatsByQuestion = "Statystyki wzglêdem pytañ";
+$langStatsByUser = "Statystyki wzglêdem u¿ytkowników";
 $langStatsOfCampus = "Statystyki campusu";
 $langStatsOfCourse = "Statystyki kursu";
+$langStatsOfExercise = "Statystyki wzglêdem æwiczeñ";
+$langStatsOfExerciseAttempt = "Statystyki wzglêdem prób przyst¹pienia do æwiczeñ";
+$langStatsOfLearnPath = "Statystyki";
+$langStatsOfQuestion = "Statystyki pytañ";
 $langStatsOfUser = "Statystyki u¿ytkowników";
 $langStatus = "Funkcja";
+$langStatusChangeNotMade = "Nie zastosowano zmian";
+$langStepNOfN = "Krok %d z %d";
+$langStoreChat = "Zapisz Chat";
 $langStudent = "student";
+$langStudentQty = "Liczba studentów";
+$langStudents = "Studenci";
 $langStudentsNotInThisGroups = "Users not in this group";
+$langSubTitleChangeParent = "Zmieñ kategoriê nadrzêdn¹ ";
+$langSubTitleCreate = "Utwórz kategoriê";
+$langSubTitleEdit = "Edytuj kategoriê";
+$langSubmissionDate = "Data pierwszego &nbsp;przed³o¿enia&nbsp;";
+$langSubmissionType = "Typ przed³o¿enia";
+$langSubmissions = "Przed³o¿enia";
+$langSubmit = "Przed³ó¿";
+$langSubmitFeedbackAfterEndDate = "Automatycznie, po dacie koñcowej";
+$langSubmitFeedbackAfterPost = "Automatycznie po ka¿dym przed³o¿eniu";
+$langSubmitWork = "Przed³ó¿ pracê";
+$langSubmittedWork = "Praca";
+$langSubscribeClass = "Zarejestruj do klasy";
+$langSubscribeToCourse = "Zarejestruj na kurs";
+$langSubscribeUser = "Zarejestruj u¿ytkownika";
 $langSubscription = "Zapisy";
+$langSubscriptionAllowedOnly = "Dozwolona tylko subskrypcja ";
+$langSubscriptionDeniedOnly = "Dozwolony tylko wypis ze subskrypcji";
 $langSupportForum = "Forum u¿ytkowników Claroline";
+$langSupports = " Wsparcie ";
+$langSwitchEditorToTextConfirm = "Ta komenda spowoduje usuniêcie nastêpnej warstwy tekstu. Chcesz kontynuowaæ?";
 $langTake = "take";
 $langTargetFac = "Wydzia³, Instytut lub Szko³a, w której kurs jest prowadzony";
+$langTeacherQty = "Liczba nauczycieli";
+$langTeachers = "Nauczyciele";
+$langTeachingTrainingActivities = "Aktywnoœæ nauczanie - trening";
+$langTechAdmin = "Technika administracyjna";
+$langTechnical = "Narzêdzia techniczne";
 $langTestForum = "Forum przyk³adowe";
+$langTextEditorDisable = "Zablokuj edytor tekstu";
+$langTextEditorEnable = "Odblokuj edytor tekstu";
+$langTextFile = "Tekst z do³¹czonym plikiem (tekst wymagany, plik opcjonalny)";
+$langTextOnly = "Tylko tekst (tekst wymagany, brak pliku)";
+$langTheFields = "Pola";
 $langTheU = "U¿ytkownik";
 $langThisCourseDescriptionIsEmpty = "Ten kurs nie ma opisu";
+$langThisIsAnErrorInDefinitionFile = "To jest b³¹d w pliku definicji.";
 $langThisday = "Dzisiaj";
+$langTimeInLearnPath = "Czas na œcie¿ce nauczania";
+$langTimeOver = "Czas min¹³, rezultatów nie dostarczono.";
 $langTipLang = "Ten jêzyk bêdzie obowi±zywa³ wszystkich u¿ytkowników tego kursu.";
 $langTitle = "Tytu³";
 $langTitular = "Autor";
@@ -796,28 +1161,78 @@ $langTo = "do";
 $langToDate = "do";
 $langToday = "Dzisiaj";
 $langTooBig = "Nie wybra³e¶ pliku lub plik jest za du¿y.";
+$langTool = "Narzêdzie";
 $langToolTitleCountColumn = "Ca³kowita liczba wej¶æ";
 $langToolTitleToolnameColumn = "Nazwa narzêdzia";
 $langToolTitleUsersColumn = "Wej¶cia u¿ytkowników";
 $langTools = "Narzêdzia";
 $langToolsAccess = "Dostêp do narzêdzi";
+$langTopLevel = "najwy¿szy poziom";
+$langTopicReplies = "Odpowiedzi";
 $langTotal = "Total";
 $langTotalPlatformAccess = "Total";
 $langTotalPlatformLogin = "Total";
+$langTotalTimeSpent = "Ca³kowity czas";
+$langTrackAllPath = "Œledzenie œcie¿ki nauczania";
+$langTrackAllPathExplanation = "Postêpy u¿ytkowników na wszystkich œcie¿kach nauczania";
+$langTrackForumUsage = "U¿ytkowanie forum";
+$langTrackNotEnoughAttempts = "Musisz osi¹gn¹æ maksymaln¹ liczbê dozwolonych prób aby zobaczyæ te statystyki.";
+$langTrackTotalPosts = "Wiadomoœci wys³ano";
+$langTrackTotalTopics = "Tematy rozpoczêto";
 $langTracking = "Raportowanie";
 $langTrackingDisabled = "Raportowanie zosta³o wy³±czone przez administratora systemu.";
 $langTrafficDetails = "Traffic Details";
+$langTranslationStatistics = "Postêp t³umaczenia";
+$langTranslationTools = "Narzêdzia t³umaczenia";
+$langTranslations = "T³umaczenia";
 $langTrue = "Prawda";
+$langTrueFalse = "Prawda/Fa³sz";
+$langTypeOfModule = "Typ modu³u";
 $langTypeTextBelow = "Wpisz tekst poni¿ej";
+$langURL = "URL : ";
+$langUnableAddExternalTool = "Brak mo¿liwoœci dodania zewnêtrznego narzêdzia";
+$langUnableChangedTool = "Brak mo¿liwoœci zmiany narzêdzi dostêpu";
+$langUnableCreateCategory = "Brak mo¿liwoœci tworzenia kategorii";
+$langUnableCreateForum = "Brak mo¿liwoœci tworzenia forum";
+$langUnableDeleteCategory = "Brak mo¿liwoœci skasowania kategorii.";
+$langUnableDeleteExternalTool = "Brak mo¿liwoœci usuniêcia zewnêtrznego narzêdzia";
+$langUnableDeleteForum = "Brak mo¿liwoœci skasowania forum.";
+$langUnableDeleteGroupCategoryForum = "Brak mo¿liwoœci skasoawnia kategorii for grup.";
+$langUnableDescToAdd = "Brak mo¿liwoœci dodania opisu";
+$langUnableToAdd = "Brak mo¿liwoœci dadania zdarzenia do agendy.";
+$langUnableToDelete = "Brak mo¿liwoœci usuniêcia zdarzenia z agendy.";
+$langUnableToEmptyForum = "Brak mo¿liwoœci wyczyszczenia forum.";
+$langUnableToEnrollInCourse = "Brak mo¿liwoœci zapisu na kurs";
+$langUnableToRemoveCourseRegistration = "Brak mo¿liwoœci usuniêcia Twojej rejestracji z kursu";
+$langUnableToUpdate = "Brak mo¿liwoœci uaktualnienia zdarzenia z agendy.";
+$langUnableToUpdateCategory = "Brak mo¿liwoœci uaktualnienia agendy.";
+$langUnableToUpdateForum = "Brak mo¿liwoœci uaktualnienia forum.";
+$langUnableUpdateExternalTool = "Brak mo¿liwoœci uaktualnienia zewnêtrznego narzêdzia";
+$langUnamedModule = "Nienazwany modu³";
+$langUnamedPath = "Nienazwana œcie¿ka";
 $langUncompress = "rozpakuj plik archiwum (.zip) w serwerze";
 $langUncompulsory = "(opcjonalnie)";
+$langUniqueAnswer = "Pojedyncza odpowiedŸ";
 $langUniqueSelect = "Wielokrotny wybór (jedna odpowied¼ poprawna)";
+$langUnkownSOAPError = "Przy kontakcie z Claroline.net wyst¹pi³ b³¹d";
+$langUnlimitedAttempts = "Nieograniczona liczba prób";
 $langUnreg = "Wyrejestrowanie";
+$langUnregisterAllStudents = "Wyrejestruj wszystkich studentów";
+$langUnsubscribe = "Wyrejestruj u¿ytkownika";
+$langUnsubscribeClass = "Wyrejestruj z klasy";
+$langUntil = "do";
 $langUnvalid = "brak lub wadliwy adres e-mail";
 $langUp = "Do góry";
+$langUpdateImage = "Zmieñ obrazek";
+$langUpdated = "Uaktualniono";
+$langUpdatedExternalTool = "Uaktualniono zewnêtrzne narzêdzie";
+$langUpgrade = "Upgrade";
 $langUploadAndZipEnd = " Plik zip za³adowany i rozpakowany";
+$langUploadDoc = "Dokonaj Upload dokumentu";
 $langUploadEnd = "£adowanie pliku zakoñczone";
 $langUploadFile = "Za³aduj plik do serwera";
+$langUploadedFile = "Uploadowany plik";
+$langUseFollowingFormat = " U¿yj nastêpuj¹cego formatu : ";
 $langUseTagForBlank = "use brackets [...] to define one or more blanks";
 $langUsedInSeveralExercises = "Uwaga ! To pytanie i odpowied¼ s± u¿ywane w kilku æwiczeniach. By³oby lepiej zmodyfikowaæ je";
 $langUser = "U¿ytkownicy";
@@ -838,7 +1253,6 @@ $langViMod = "Widoczno¶æ zmodyfikowana";
 $langViewToolList = "Zobacz listê wszystkich narzêdzi";
 $langVisibility = "Widzialno¶æ";
 $langVisits = "wizyt";
-$langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWork = "Prace";
 $langWorkAuthors = "Autor";
 $langWorkTitle = "Tytu³";
