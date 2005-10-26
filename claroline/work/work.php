@@ -519,16 +519,15 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     foreach ( $assignmentList as $anAssignment )
     {
         //modify style if the file is recently added since last login and that assignment tool is used with visible default mode for submissions.
-     
+		$classItem='';
         if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id'],FALSE) && ($anAssignment['def_submission_visibility']=="VISIBLE"  || $is_allowedToEdit))
         {
             $classItem=' hot';
         }
-        else //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
+        elseif( isset($_uid) ) //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
         {
             $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id']);
-            $classItem='';
-        }
+		}
         
         
         if ( $anAssignment['visibility'] == "INVISIBLE" )
