@@ -303,16 +303,18 @@ if($is_allowedToEdit) // check teacher status
                 // email message
                 $msgContent = $content;
                 $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
-                $msgContent = preg_replace('/<p>/',"\n\n",$msgContent);
+
+                $str_to_search = array('<p>','<li>','<ul>','<ol>','</li>','</ul>','</ol>');
+                $str_to_replace = array("\n\n","\t* ","\n","\n","\n","\n","\n");                
+                $msgContent = str_replace($str_to_search,$str_to_replace,$msgContent);
 
                 // Transform string like this : click <a hre="http://www.claroline.net">here</a>
                 // in string like that : click here [ http://www.claroline.net ]
 
-                $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);
-                
-                $msgContent = preg_replace('/  /',' ',$msgContent);
+                $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);                
+                $msgContent = str_replace('  ',' ',$msgContent);
                 $msgContent = unhtmlentities($msgContent);
-                $msgContent = strip_tags($msgContent);
+                $msgContent = strip_tags($msgContent);                
 
                 // attached resource
                 $msgAttachement = linker_email_resource();
@@ -342,7 +344,7 @@ if($is_allowedToEdit) // check teacher status
                 {
                     if (!claro_mail_user($student['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
                     {
-                        $messageFailed.= claro_failure::get_last_failure() ;
+                        $messageFailed.= claro_failure::get_last_failure() . '<br />' . "\n";
                         $countUnvalid++;
                     }
                 }
