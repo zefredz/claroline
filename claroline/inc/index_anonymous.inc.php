@@ -48,8 +48,16 @@ $sql = "SELECT `intitule`   `title`,
                `directory` ,
                `languageCourse` `language`
         FROM `".$tbl_courses."` 
-        WHERE `faculte` = '". addslashes($category) ."'
-        ORDER BY UPPER(fake_code)";
+        WHERE `faculte` = '". addslashes($category) ."'";
+
+if ( empty($course_order_by) || $course_order_by == 'official_code' )
+{
+    $sql .= " ORDER BY UPPER(`fake_code`), `title`";
+}
+else
+{
+    $sql .= " ORDER BY `title`, UPPER(`fake_code`)";
+}
 
 $courseList = claro_sql_query_fetch_all($sql);
 
@@ -174,10 +182,18 @@ if ( count($courseList) > 0 )
         }
 
         echo '<li>' . "\n"
-        .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">'
-        .    $thisCourse['officialCode'] . ' - '
-        .    $thisCourse['title']
-        .    '</a>'
+        .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">';
+
+        if ( empty($course_order_by) || $course_order_by == 'official_code' )
+        {
+             echo $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
+        }
+        else
+        {
+             echo $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
+        }
+
+        echo '</a>'
         .    '<br>'
         .    '<small>' . $thisCourse['titular'] . $course_language_txt . '</small>'
         .    '</li>' . "\n"

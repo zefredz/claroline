@@ -35,8 +35,16 @@ $sql = "SELECT course.code           `sysCode`,
                     `" . $tbl_link_user_courses . "` course_user
 
                WHERE course.code         = course_user.code_cours
-                 AND course_user.user_id = '" . (int) $_uid . "'
-               ORDER BY UPPER(fake_code)";
+                 AND course_user.user_id = '" . (int) $_uid . "'";
+
+if ( empty($course_order_by) || $course_order_by == 'official_code' )
+{
+    $sql .= " ORDER BY UPPER(`fake_code`), `title`";
+}
+else
+{
+    $sql .= " ORDER BY `title`, UPPER(`fake_code`)";
+}
 
 $personnalCourseList = claro_sql_query_fetch_all($sql);
 
@@ -221,10 +229,18 @@ foreach($personnalCourseList as $thisCourse)
     }
 
     echo '<li class="item' . $classItem . '">' ."\n"
-    .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">'
-    .    $thisCourse['officialCode'] . ' - '
-    .    $thisCourse['title']
-    .    '</a>'
+    .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">';
+
+    if ( empty($course_order_by) || $course_order_by == 'official_code' )
+    {
+        echo $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
+    }
+    else
+    {
+        echo $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
+    }
+
+    echo '</a>'
     .    '<br />'
     .    '<small>' . $thisCourse['titular'] . $course_language_txt . '</small>' . "\n"
     .    '</li>' ."\n"
