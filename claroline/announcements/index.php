@@ -14,5 +14,5 @@
  */
 
 header('Location:./announcements.php');
-
+exit();
 ?>
