@@ -407,7 +407,7 @@ foreach($userList as $list)
 //while ($list = mysql_fetch_array($query))
 {
 
-    if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!=''))
+    if ( !empty($_SESSION['admin_user_search']) )
     {
         $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
 
@@ -416,7 +416,7 @@ foreach($userList as $list)
         $list['email']  = eregi_replace('(' . $bold_search . ')', '<b>\\1</b>' , $list['email']);
     }
 
-    if (!isset($list['officialCode'])) $list['officialCode'] = ' - ';
+    if ( empty($list['officialCode']) ) $list['officialCode'] = ' - ';
 
     $userStatus = ($list['statut']=='COURSE_CREATOR' ? $langCourseCreator : $langNormalUser);
     if (isAdminUser($list['user_id'])) $userStatus .= '<br /><font color="red">'.$langAdministrator.'</font>';
@@ -463,7 +463,7 @@ foreach($userList as $list)
     $atLeastOne= TRUE;
 }
 // end display users table
-if (!isset($atLeastOne))
+if ( ! isset($atLeastOne) )
 {
     echo '<tr>' . "\n"
     .    '<td colspan="9" align="center">' . "\n"
