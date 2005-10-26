@@ -235,7 +235,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
         
     if (!$mail->Send())
     {
-        return claro_failure::set_failure($list['nom'] . " " . $list['prenom'] . " : there has been a mail error sending to " . $list['email'] ."<br>");
+        return claro_failure::set_failure($list['nom'] . " " . $list['prenom'] . " : there has been a mail error sending to " . $list['email']);
     }
     // Clear all addresses and attachments for next use
         
