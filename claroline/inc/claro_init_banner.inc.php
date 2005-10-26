@@ -231,7 +231,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
 
 	    echo "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
-            .'?sourceUrl='.urlencode( ($_SERVER['HTTPS'] ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). $casAuthRequested .'">'
+            .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). $casAuthRequested .'">'
             .$langLogin
             .'</a>'
             .'</div>'."\n";
