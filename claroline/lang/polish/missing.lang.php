@@ -236,10 +236,6 @@ $langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
 <small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
 $langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langMethodsOfEvaluationComment1 = "Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.";
-$langMultipleEmails = "Accounts with same <i>Email</i>";
-$langMultipleLogins = "Accounts with same <i>User name</i>";
-$langMultipleSelect = "Multiple choice (Multiple answers)";
-$langMultipleUsernameAndPassword = "Accounts with same <i>User name</i> AND same <i>Password</i>";
 $langPlatformCoursesAccess = "Access to courses";
 $langPlatformStats = "Platform Statistics";
 $langQualificationsAndGoalsComment1 = "What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?";
@@ -281,13 +277,49 @@ $langUserlist = "Users List";
 $langUsernameAppearAlready = "This username appears already in a previous line of the CSV file.";
 $langUsernameUsed = "This username is already used by another user.";
 $langUsersMin = "users";
+$langValvas = "Latest announcements";
 $langView = "View";
 $langViewMode = "View mode";
 $langViewPlatFormError = "Scan technical fault";
 $langViewPlatFormStatistics = "Platform statistics";
 $langVisible = "Visible";
-$langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWiki = "Wiki";
+$langWikiAccessControl = "Access control management";
+$langWikiAccessControlText = "You can set access rights for users using the following grid : ";
+$langWikiAllPages = "All pages";
+$langWikiBackToPage = "Back to page";
+$langWikiConflictHowTo = "<p><strong>Edit conflict</strong> : The page you try to save seems to have been changed since you modify it.<br /><br />
+What to do now ?<ul>
+<li>You can copy/paste your modification to a text editor (like notepad) and click on 'edit last version' to try to add your modification to the new version of the page.</li>
+<li>You can also click on cancel to cancel your changes.</li>
+</ul></p>";
+$langWikiContentEmpty = "This page is empty, click on 'Edit this page' to add a content";
+$langWikiCourseMembers = "Course members";
+$langWikiCreateNewWiki = "Create a new Wiki";
+$langWikiCreatePrivilege = "Create Pages";
+$langWikiCreationSucceed = "Wiki creation succeed";
+$langWikiDefaultDescription = "Enter the description of your wiki here";
+$langWikiDefaultTitle = "New Wiki";
+$langWikiDeleteWiki = "Delete Wiki";
+$langWikiDeleteWikiWarning = "WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?";
+$langWikiDeletionSucceed = "Wiki deletion succeed";
+$langWikiDescription = "Description of the Wiki";
+$langWikiDescriptionForm = "Wiki description";
+$langWikiDescriptionFormText = "You can choose a title an a description for the wiki : ";
+$langWikiDiffAddedLine = "Added line";
+$langWikiDiffDeletedLine = "Deleted line";
+$langWikiDiffMovedLine = "Moved line";
+$langWikiDiffUnchangedLine = "Unchanged line";
+$langWikiDifferenceKeys = "Keys :";
+$langWikiDifferencePattern = "differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s";
+$langWikiDifferenceTitle = "Differences :";
+$langWikiEditConflict = "Edit conflict";
+$langWikiEditLastVersion = "Edit last version";
+$langWikiEditPage = "Edit this page";
+$langWikiEditPrivilege = "Edit Pages";
+$langWikiEditProperties = "Edit properties";
+$langWikiEditionSucceed = "Wiki edition succeed";
+$langWikiGroupMembers = "Group members";
 $langWikiHelpAdminContent = "<h3>Wiki administration help</h3>
 <dl class=\"wikiHelp\">
 <dt>How to create a new Wiki ?</dt>
@@ -320,6 +352,7 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dt>How to get the list of the last modified pages in a Wiki ?</dt>
 <dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
 </dl>";
+$langWikiHelpSyntax = "Wiki syntax";
 $langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
 <h2>1. Basic syntax</h2>
 <dl class=\"wikiHelp\">
@@ -365,7 +398,33 @@ $langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
 <dt>Named anchor</dt>
 <dd><code>~anchor~</code>&nbsp;;</dd>
 </dl>";
+$langWikiIdenticalContent = "Identical content<br />no modification saved";
+$langWikiInvalidWikiId = "Invalid Wiki Id";
+$langWikiList = "List of Wiki";
+$langWikiMainPage = "Main page";
 $langWikiMainPageContent = "This is the main page of the Wiki %s. Click on edit to modify the content.";
+$langWikiNoWiki = "No Wiki";
+$langWikiNotAllowedToCreate = "You are not allowed to create pages";
+$langWikiNotAllowedToEdit = "You are not allowed to edit this page";
+$langWikiNotAllowedToRead = "You are not allowed to read this page";
+$langWikiNumberOfPages = "Number of pages";
+$langWikiOtherUsers = "Others (*)";
+$langWikiOtherUsersText = "(*) anonymous users, users who are not members of this course...";
+$langWikiPageHistory = "Page history";
+$langWikiPageSaved = "Page saved";
+$langWikiPreviewTitle = "Preview : ";
+$langWikiPreviewWarning = "WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.";
+$langWikiProperties = "Properties";
+$langWikiReadPrivilege = "Read Pages";
+$langWikiRecentChanges = "Recent changes";
+$langWikiRecentChangesPattern = "%1\$s modified on %2\$s by %3\$s";
+$langWikiShowDifferences = "Show differences";
+$langWikiTitle = "Title of the wiki";
+$langWikiTitleEdit = "Wiki : Edit properties";
+$langWikiTitleNew = "Wiki : Create new Wiki";
+$langWikiTitlePattern = "Wiki : %s";
+$langWikiVersionInfoPattern = "(version of %1\$s modified by %2\$s)";
+$langWikiVersionPattern = "%1\$s by %2\$s";
 $langWrkAdded = "Work added";
 $langWrkAuthors = "Author(s)";
 $langWrkAuthorsRequired = "Author(s) is(are) required";
@@ -387,6 +446,7 @@ $lang_back_to_parent_category = "Back to parent category";
 $lang_click_here = "click here";
 $lang_completeUserInfoOfUser = "Complete userInfo of user";
 $lang_do_you_want_to_continue = "Do you want to continue?";
+$lang_enroll_to_a_new_course = "Enrol on a new course";
 $lang_faculty_CanHaveCatCourse = "Can have courses : ";
 $lang_faculty_CatHaveCat = "This category contains other categories, you must delete them before !";
 $lang_faculty_CatHaveCourses = "This category contains some courses, you can't erase it!";
@@ -441,6 +501,7 @@ $lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname =
 $lang_p_topic_s_created = "Topic %s created";
 $lang_p_youNeedToBeAuthenticatedWithYour_s_account = "You need to be authenticated with your %s account";
 $lang_php_info = "PHP system information";
+$lang_remove_course_enrollment = "Remove course enrolment";
 $lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
 $lang_the_following_errors_were_found = "The following errors were found ";
 $lang_toolsToFill = "Tools to populate";
