@@ -72,7 +72,7 @@ if ( is_null($_uid) && $uidRequired )
     // Display header
     require $includePath . '/claro_init_header.inc.php';
 
-    if($claro_displayLocalAuthForm)
+    if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
     {
 	    // Display login form
 	    echo '<table align="center">'                                     ."\n"

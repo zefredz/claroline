@@ -229,7 +229,7 @@ if (isset($claro_CasEnabled) && $claro_CasEnabled) // CAS is a special cas of ex
     .    '</div>';
 }
 
-if($claro_displayLocalAuthForm)
+if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
 {
 ?>
 <form action ="<?php echo $clarolineRepositoryWeb . 'auth/login.php' ?>"  method="post">

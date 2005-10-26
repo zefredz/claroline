@@ -227,7 +227,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
 
     if ( is_null($_uid) )
     {
-            $casAuthRequested = ( $claro_CasEnabled && ! $claro_displayLocalAuthForm ) ? '&authModeReq=CAS' : '';
+        $casAuthRequested = ( $claro_CasEnabled && ( isset($claro_displayLocalAuthForm) && ! $claro_displayLocalAuthForm ) ) ? '&authModeReq=CAS' : '';
 
 	    echo "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
