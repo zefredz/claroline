@@ -87,8 +87,7 @@ function define_course_keys ($wantedCode,
 
     $keysCourseCode    = $wantedCode;
 
-    if (!$useCodeInDepedentKeys) $wantedCode = "";
-
+    if (!$useCodeInDepedentKeys) $wantedCode = '';
     // $keys['currentCourseId'] would Became $cid in normal using.
 
     if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid('')),0,10);
@@ -215,22 +214,21 @@ function prepare_course_repository($courseRepository, $courseId)
 
     if ( ! is_writable($coursesRepositorySys) ) return claro_failure::set_failure('READ_ONLY_SYSTEM_FILE');
 
-    if ( ! claro_mkdir($courseDirPath, CLARO_FILE_PERMISSIONS) ) return false;
+    if ( ! claro_mkdir($courseDirPath, CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP');
 
-    if ( ! claro_mkdir($courseDirPath . '/exercise'      , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/document'      , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/page'          , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/work'          , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/group'         , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/chat'          , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/modules'       , CLARO_FILE_PERMISSIONS) ) return false;
-    if ( ! claro_mkdir($courseDirPath . '/scormPackages' , CLARO_FILE_PERMISSIONS) ) return false;
+    if ( ! claro_mkdir($courseDirPath . '/exercise'      , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLQWZ');
+    if ( ! claro_mkdir($courseDirPath . '/document'      , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLDOC');
+    if ( ! claro_mkdir($courseDirPath . '/work'          , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLWRK');
+    if ( ! claro_mkdir($courseDirPath . '/group'         , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLGRP');
+    if ( ! claro_mkdir($courseDirPath . '/chat'          , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLCHT');
+    if ( ! claro_mkdir($courseDirPath . '/modules'       , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_MODULES');
+    if ( ! claro_mkdir($courseDirPath . '/scormPackages' , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_SCORM');
     // for sample learning path
-    if ( ! claro_mkdir($courseDirPath . '/modules/module_1', CLARO_FILE_PERMISSIONS)) return false;
+    if ( ! claro_mkdir($courseDirPath . '/modules/module_1', CLARO_FILE_PERMISSIONS)) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_MODULE_1');
 
     // build index.php of course
     $fd = fopen($courseDirPath . '/index.php', 'w');
-    if ( ! $fd) return false;
+    if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
 
     $string= '<?php '                                                                  . "\n"
     .        '$cidReq = \''.$courseId.'\';'                                            . "\n"
@@ -239,8 +237,8 @@ function prepare_course_repository($courseRepository, $courseId)
     .        '?'.'>'                                                                   . "\n"
     ;
 
-    if ( ! fwrite($fd, $string) ) return false;
-    if ( ! fclose($fd) )          return false;
+    if ( ! fwrite($fd, $string) ) return claro_failure::set_failure('CANT_WRITE_COURSE_INDEX');
+    if ( ! fclose($fd) )          return claro_failure::set_failure('CANT_SAVE_COURSE_INDEX');
 
 
     $fd     = fopen($coursesRepositorySys.$courseRepository . '/group/index.php', 'w');
@@ -274,7 +272,7 @@ function update_db_course($courseDbName)
     if(!$singleDbEnabled)
     {
         claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
-        if (mysql_errno()>0)
+        if (mysql_errno() > 0)
             return CLARO_ERROR_CANT_CREATE_DB;
     }
 
