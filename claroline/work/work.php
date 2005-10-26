@@ -549,19 +549,20 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         $atLeastOneAssignmentToShow = true;
 
         echo    '<tr>'."\n"
-              . '<th class="headerX item'.$classItem.'">'."\n"
-              . '<img src="'.$imgRepositoryWeb.'assignment.gif" alt="" /> ';
+              . '<th class="headerX">'."\n";
 
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
-            echo "<a href=\"workList.php?cmd=rqSubWrk&amp;assigId=".$anAssignment['id']."&amp;submitGroupWorkUrl=".urlencode($_REQUEST['submitGroupWorkUrl'])."\">"
-                . $anAssignment['title']
-                . "</a>\n";
+            echo '<a href="workList.php?cmd=rqSubWrk&amp;assigId='.$anAssignment['id'].'&amp;submitGroupWorkUrl='.urlencode($_REQUEST['submitGroupWorkUrl']).'" class="item'.$classItem.'">';
+                
         }
         else
         {
-            echo "<a href=\"workList.php?assigId=".$anAssignment['id']."\">".$anAssignment['title']."</a>\n";
+            echo '<a href="workList.php?assigId='.$anAssignment['id'].'" class="item'.$classItem.'">';
         }
+		echo 	'<img src="'.$imgRepositoryWeb.'assignment.gif" alt="" /> '
+			  . $anAssignment['title']
+			  . "</a>\n";
         echo "</th>"
             ;
 
