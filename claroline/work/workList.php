@@ -449,17 +449,19 @@ echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<tbody>'
 ;
 
-if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
-
-$claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $_REQUEST['assigId']);
-$classItem='';
+if (isset($_uid))
+{
+	$date = $claro_notifier->get_notification_date($_uid);
+	// call this function to set the __assignment__ as seen, all the submission as seen
+	$claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $_REQUEST['assigId']);
+}
 
 foreach ( $workList as $thisWrk )
 {
                    
     echo '<tr align="center">' . "\n"
     .    '<td align="left">'
-    .    '<a class= "item '.$classItem.'" href="userWork.php'
+    .    '<a class="item" href="userWork.php'
     .    '?authId=' . $thisWrk['authId']
     .    '&amp;assigId=' . $_REQUEST['assigId'] . '">'
     ;
