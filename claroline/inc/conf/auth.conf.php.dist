@@ -93,6 +93,9 @@
 // $extAuthSource['mambo']['newUser'] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 
 
+
+$claro_displayLocalAuthForm    = true;
+
 // --------------------------------------------
 // CENTRAL AUTHENTICATION SERVICE (CAS) SECTION
 // --------------------------------------------
@@ -102,6 +105,9 @@ $claro_CasSeverHostUrl  = 'my.cas.server.domain.com';
 $claro_CasSeverHostPort = 443;
 $claro_CasLibPath       = $includePath.'/lib/cas/CAS.php';
 $claro_CasProcessPath   = $clarolineRepositorySys.'/auth/extauth/casProcess.inc.php';
+$claro_CasLoginString          = 'Magic Login';
+
+
 
 // ---------------------------------------
 // CLAROLINE SINGLE SIGN ON (SSO) SECTION
