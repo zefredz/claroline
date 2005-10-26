@@ -224,8 +224,9 @@ foreach($AllowedPhpRequestList as $thisPhpRequestName)
         $GLOBALS[$thisPhpRequestName] = null;
     }
 }
-$login = isset($_REQUEST['login']) ? $_REQUEST['login'] : null;
-$password = isset($_REQUEST['password']) ? $_REQUEST['password'] : null;
+
+$login    = isset($_REQUEST['login'   ]) ? trim( $_REQUEST['login'   ] ) : null;
+$password = isset($_REQUEST['password']) ? trim( $_REQUEST['password'] ) : null;
 
 /*===========================================================================
   Get table name
@@ -248,7 +249,7 @@ $tbl_sso             = $tbl_mdb_names['sso'];
 
 // default variables initialization
 $claro_loginRequested = false;
-$claro_loginSucceeded = null;
+$claro_loginSucceeded = false;
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
@@ -263,144 +264,126 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    if (isset($claro_CasEnabled) && $claro_CasEnabled) // CAS is a special cas of external authentication
+    $_uid     = null;   // uid not in session ? prevent any hacking
+    $uidReset = false;
+
+    if ( isset($claro_CasEnabled) && $claro_CasEnabled ) // CAS is a special case of external authentication
     {
         require($claro_CasProcessPath);
     }
+
+    if ( $login && $password ) // $login && $password are given to log in
+    {
+        $claro_loginRequested = true;
+
+        // lookup the user in the Claroline database
+
+        $sql = "SELECT user_id, username, password, authSource
+                FROM `".$tbl_user."` `user`
+                WHERE BINARY username = '". addslashes($login) ."'";
+
+        $result = claro_sql_query($sql);
+
+        if ( mysql_num_rows($result) > 0)
+        {
+            while ( ( $uData = mysql_fetch_array($result) ) && ! $claro_loginSucceeded )
+            {
+                if ( $uData['authSource'] == 'claroline' )
+                {
+                    // the authentification of this user is managed by claroline itself
+
+                    // determine first if the password needs to be crypted before checkin
+                    // $userPasswordCrypted is set in main configuration file
+
+                    if ( $userPasswordCrypted ) $password = md5($password);
+
+                    // check the user's password
+
+                    if ( $password == $uData['password'] )
+                    {
+                        $_uid                 = $uData['user_id'];
+                        $uidReset             = true;
+                        $claro_loginSucceeded = true;
+                    }
+                    else // abnormal login -> login failed
+                    {
+                        $_uid                 = null;
+                        $claro_loginSucceeded = false;
+                    }
+                }
+                else // no standard claroline login - try external authentification
+                {
+                    /*
+                     * Process external authentication
+                     * on the basis of the given login name
+                     */
+
+                    $key = $uData['authSource'];
+
+                    $_uid = include_once($extAuthSource[$key]['login']);
+
+                    if ( $_uid > 0 )
+                    {
+                        $uidReset             = true;
+                        $claro_loginSucceeded = true;
+                    }
+                    else
+                    {
+                        $_uid                 = null;
+                        $claro_loginSucceeded = false;
+                    }
+                } // end try external authentication
+            } // end while
+        }
+        else // login failed, mysql_num_rows($result) <= 0
+        {
+            $claro_loginSucceeded = false;
+
+            /*
+             * In this section:
+             * there is no entry for the $login user in the claroline database.
+             * This also means there is no authSource for the user. We let all
+             * external procedures attempt to add him/her to the system.
+             *
+             * Process external login on the basis of the authentication sources
+             * list provided by the Claroline configuration settings.
+             * If the login succeeds, for going further, Claroline needs the
+             * $_uid variable to be set and registered in the session. It's the
+             * responsability of the external login script to provide this
+             * $_uid.
+             */
+
+            if (isset($extAuthSource) && is_array($extAuthSource))
+            {
+                foreach($extAuthSource as $thisAuthSource)
+                {
+                    $_uid = include_once($thisAuthSource['newUser']);
+
+                    if ( $_uid > 0 )
+                    {
+                        $uidReset             = true;
+                        $claro_loginSucceeded = true;
+                        break;
+                    }
+                    else
+                    {
+                        $_uid                 = null;
+                        $claro_loginSucceeded = false;
+                    }
+                }
+            } //end if is_array($extAuthSource)
+
+        } //end else login failed
+    } // end if $login & password
     else
     {
-        $uidReset = false;
-
-        $_uid = null; // uid not in session ? prevent any hacking
-        $login = trim($login);
-        $password = trim($password);
-        if (!isset($_SESSION['firstLogin'])) $_SESSION['firstLogin'] = false;
-
-        if ( $login && $password ) // $login && $password are given to log in
-        {
-            $claro_loginRequested = true;
-            // lookup the user in the Claroline database
-
-            $sql = "SELECT user_id, username, password, authSource, creatorId
-                    FROM `".$tbl_user."` `user`
-                    WHERE BINARY username = '". addslashes($login) ."'";
-
-            $result = claro_sql_query($sql);
-
-            if ( mysql_num_rows($result) > 0)
-            {
-                while ( ( $uData = mysql_fetch_array($result) ) && ! $claro_loginSucceeded )
-                {
-                    if ( $uData['authSource'] == 'claroline' )
-                    {
-                        // the authentification of this user is managed by claroline itself
-
-                        // determine first if the password needs to be crypted before checkin
-                        // $userPasswordCrypted is set in main configuration file
-
-                        if ( $userPasswordCrypted ) $password = md5($password);
-
-                        // check the user's password
-
-                        if ( $password == $uData['password'] )
-                        {
-                            $_uid                 = $uData['user_id'];
-                            $uidReset             = true;
-                            $claro_loginSucceeded = true;
-                        }
-                        else // abnormal login -> login failed
-                        {
-                            $_uid                 = null;
-                            $claro_loginSucceeded = false;
-                        }
-
-                        if ( $_uid != $uData['creatorId'] )
-                        {
-                            // first login for a not self registred (e.g. registered by a teacher)
-                            // do nothing (code may be added later)
-                            $sql = "UPDATE `".$tbl_user."`
-                                    SET   creatorId = user_id
-                                    WHERE user_id='" . (int)$_uid . "'";
-
-                            claro_sql_query($sql);
-                            $_SESSION['firstLogin'] = true;
-                        }
-                    }
-                    else // no standard claroline login - try external authentification
-                    {
-                        /*
-                         * Process external authentication
-                         * on the basis of the given login name
-                         */
-
-                        $key = $uData['authSource'];
-
-                        $_uid = include_once($extAuthSource[$key]['login']);
-
-                        if ( $_uid > 0 )
-                        {
-                            $uidReset             = true;
-                            $claro_loginSucceeded = true;
-                        }
-                        else
-                        {
-                            $_uid                 = null;
-                            $claro_loginSucceeded = false;
-                        }
-                    } // end try external authentication
-                } // end while
-            }
-            else // login failed, mysql_num_rows($result) <= 0
-            {
-                $claro_loginSucceeded = false;
-
-                /*
-                 * In this section:
-                 * there is no entry for the $login user in the claroline database.
-                 * This also means there is no authSource for the user. We let all
-                 * external procedures attempt to add him/her to the system.
-                 *
-                 * Process external login on the basis of the authentication sources
-                 * list provided by the Claroline configuration settings.
-                 * If the login succeeds, for going further, Claroline needs the
-                 * $_uid variable to be set and registered in the session. It's the
-                 * responsability of the external login script to provide this
-                 * $_uid.
-                 */
-
-                if (isset($extAuthSource) && is_array($extAuthSource))
-                {
-                    foreach($extAuthSource as $thisAuthSource)
-                    {
-                        $_uid = include_once($thisAuthSource['newUser']);
-
-                        if ( $_uid > 0 )
-                        {
-                            $uidReset             = true;
-                            $claro_loginSucceeded = true;
-                            break;
-                        }
-                        else
-                        {
-                            $_uid                 = null;
-                            $claro_loginSucceeded = false;
-                        }
-                    }
-                } //end if is_array($extAuthSource)
-
-            } //end else login failed
-        } // end if $login & password
-        else
-        {
-        	$claro_loginRequested = false;
-        }
-
-    }// end else if $claro_CASEnabled
+        $claro_loginRequested = false;
+    }
 }
 
 if( $claro_loginRequested && isset($claro_loginSucceeded) && $claro_loginSucceeded )
 {
- 	event_login();
+    event_login();
 }
 
 /*---------------------------------------------------------------------------
@@ -418,7 +401,6 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
 
     if ( !empty($_uid) ) // a uid is given (log in succeeded)
     {
-
         if ( $is_trackingEnabled )
         {
             $sql = "SELECT `user`.`prenom`                       `firstname`,
@@ -426,7 +408,8 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
                            `user`.`email`                        `email`    ,
                            `user`.`statut`,
                            `a`.`idUser`                          `is_admin`,
-                            UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`
+                            UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`,
+                            `user`.`creatorId`                   `creatorId`
                      FROM `".$tbl_user."` `user`
                      LEFT JOIN `". $tbl_admin  ."` `a`
                      ON `user`.`user_id` = `a`.`idUser`
@@ -464,6 +447,23 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
 
             $is_platformAdmin        = (bool) (! is_null( $uData['is_admin']));
             $is_allowedCreateCourse  = (bool) ($uData ['statut'] == 1);
+
+            if ( $_uid != $uData['creatorId'] )
+            {
+                // first login for a not self registred (e.g. registered by a teacher)
+                // do nothing (code may be added later)
+                $sql = "UPDATE `".$tbl_user."`
+                        SET   creatorId = user_id
+                        WHERE user_id='" . (int)$_uid . "'";
+
+                claro_sql_query($sql);
+
+                $_SESSION['firstLogin'] = true;
+            }
+            else
+            {
+                $_SESSION['firstLogin'] = false;
+            }
 
             // RECORD SSO COOKIE
             // $ssoEnabled set in claroline/conf/auth.conf.php

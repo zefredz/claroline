@@ -222,14 +222,17 @@ echo '</td>';
 <?php
 if (isset($claro_CasEnabled) && $claro_CasEnabled) // CAS is a special cas of external authentication
 {
-?>
-<div align="center"><a href="claroline/auth/login.php">Login</a></div>
-<?php
+    echo '<div align="center">'
+    .    '<a href="'.$clarolineRepositoryWeb . 'auth/login.php?authModeReq=CAS">'
+    .    (isset($claro_CasLoginString) ? $claro_CasLoginString : $langLogin)
+    .    '</a>'
+    .    '</div>';
 }
-else
+
+if($claro_displayLocalAuthForm)
 {
 ?>
-<form action ="<?php echo $rootWeb,basename($_SERVER['PHP_SELF']); ?>" method="post">
+<form action ="<?php echo $clarolineRepositoryWeb . 'auth/login.php' ?>"  method="post">
 <fieldset style="padding: 7px;">
 <legend><?php echo $langAuthentication ?> : </legend>
 <p>

@@ -2,11 +2,11 @@
 
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || $logout 
-    || basename($_SERVER['SCRIPT_NAME']) == 'login.php'
+    || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
     || isset($_REQUEST['fromCasServer']) )
 {
     include_once $claro_CasLibPath;
-    phpCAS::client(CAS_VERSION_2_0, $claro_CasSeverHostUrl, $claro_CasSeverHostPort, '');
+    phpCAS::client(CAS_VERSION_2_0, $claro_CasServerHostUrl, $claro_CasServerHostPort , '');
 
     if ($logout)
     {
@@ -15,9 +15,11 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
-        // set the call back url
-
-        $casCallBackUrl = (is_null($_SERVER['HTTP_REFERER'])?$rootWeb:$_SERVER['HTTP_REFERER']);      
+    	// set the call back url
+        if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = $_REQUEST['sourceUrl'];
+        elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
+        else                                           $casCallBackUrl = $rootWeb;
+	
         $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
                         .  'fromCasServer=true';
 
@@ -33,7 +35,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
                          .  'gidReq='.urlencode($_SESSION['_gid']);
         }
 
-        phpCAS::setFixedServiceURL($casCallBackUrl);
+	phpCAS::setFixedServiceURL($casCallBackUrl);
         phpCAS::forceAuthentication();
 
         $userLoggedOnCas                  = true;
@@ -50,7 +52,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
 
     if ($userLoggedOnCas)
     {
-        $sql = "SELECT user_id  AS userId
+    	    $sql = "SELECT user_id  AS userId
                 FROM `".$tbl_user."`
                 WHERE username = '". addslashes(phpCAS::getUser())."'
                 AND   authSource = 'CAS'";

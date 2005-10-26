@@ -72,41 +72,53 @@ if ( is_null($_uid) && $uidRequired )
     // Display header
     require $includePath . '/claro_init_header.inc.php';
 
-    // Display login form
-    echo '<table align="center">'                                     ."\n"
-    .    '<tr>'                                                       ."\n"
-    .    '<td>'                                                       ."\n"
-    .    claro_disp_tool_title('Authentication required.')
-    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
-    .    '<fieldset>'                                                 ."\n"
-    .    $sourceUrlFormField                                          ."\n"
-    .    $cidRequiredFormField
-    .    $sourceCidFormField                                          ."\n"
-    .    $sourceGidFormField                                          ."\n"
-    .    '<legend>' . $langAuthentication . '</legend>'               ."\n"
-
-    .    '<label for="username">'.$langUserName.' : </label><br />'   ."\n"
-    .    '<input type="text" name="login" id="username"><br />'       ."\n"
-
-    .    '<label for="password">'.$langPassword.' : </label><br />'   ."\n"
-    .    '<input type="password" name="password" id="password"><br />'."\n"
-    .    '<br />'
-    .    '<input type="submit" value="'.$langOk.'"> '                 ."\n"
-    .    claro_disp_button($clarolineRepositoryWeb, $langCancel)
-    .    '</fieldset>'                                                ."\n"
-    .    '</form>'                                                    ."\n"
-    ;
-
-    if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
+    if($claro_displayLocalAuthForm)
     {
-        echo '<p>' . sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') . '</p>';
-    }
+	    // Display login form
+	    echo '<table align="center">'                                     ."\n"
+	    .    '<tr>'                                                       ."\n"
+	    .    '<td>'                                                       ."\n"
+	    .    claro_disp_tool_title('Authentication required.')
+	    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+	    .    '<fieldset>'                                                 ."\n"
+	    .    $sourceUrlFormField                                          ."\n"
+	    .    $cidRequiredFormField
+	    .    $sourceCidFormField                                          ."\n"
+	    .    $sourceGidFormField                                          ."\n"
+	    .    '<legend>' . $langAuthentication . '</legend>'               ."\n"
 
-    echo '</td>'                                                    ."\n"
-    .    '</tr>'                                                    ."\n"
-    .    '</table>'                                                 ."\n"
-    ;
+	    .    '<label for="username">'.$langUserName.' : </label><br />'   ."\n"
+	    .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
+	    .    '<label for="password">'.$langPassword.' : </label><br />'   ."\n"
+	    .    '<input type="password" name="password" id="password"><br />'."\n"
+	    .    '<br />'
+	    .    '<input type="submit" value="'.$langOk.'"> '                 ."\n"
+	    .    claro_disp_button($clarolineRepositoryWeb, $langCancel)
+	    .    '</fieldset>'                                                ."\n"
+	    .    '</form>'                                                    ."\n"
+	    ;
+
+	    if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
+	    {
+		echo '<p>' . sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') . '</p>';
+	    }
+
+	    echo '</td>'                                                    ."\n"
+	    .    '</tr>'                                                    ."\n"
+	    .    '</table>'                                                 ."\n"
+	    ;
+    } // end if claro_dispLocalAuthForm
+
+    if (isset($claro_CasEnabled) && $claro_CasEnabled )
+    {
+	    echo '<div align="center">'
+	    .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
+	    .    (isset($claro_CasLoginString) ? $claro_CasLoginString : $langLogin)
+	    .    '</a>'
+	    .    '</div>';
+    } // end if claro_CASEnabled
+    
     // Display footer
     require $includePath . '/claro_init_footer.inc.php';
 }
