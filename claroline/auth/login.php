@@ -41,7 +41,7 @@ else
 // Immediatly redirect to the CAS authentication process
 // If CAS is the only authentication system enabled
 
-if ($claro_CasEnabled && ! $claro_displayLocalAuthForm)
+if (isset($claro_CasEnabled) && $claro_CasEnabled && ! $claro_displayLocalAuthForm)
 {
     header('Location: ' . http_response_splitting_workaround($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl)));
 }
