@@ -381,11 +381,6 @@ else
     }
 }
 
-if( $claro_loginRequested && isset($claro_loginSucceeded) && $claro_loginSucceeded )
-{
-    event_login();
-}
-
 /*---------------------------------------------------------------------------
   User initialisation
  ---------------------------------------------------------------------------*/
@@ -518,6 +513,13 @@ else
     $_uid  = null;
     $is_platformAdmin        = false;
     $is_allowedCreateCourse  = false;
+}
+
+
+if( $claro_loginRequested && isset($claro_loginSucceeded) && $claro_loginSucceeded )
+{
+	// needs to be AFTER the initialisation of $_user ['lastLogin']
+    event_login();
 }
 
 /*---------------------------------------------------------------------------
