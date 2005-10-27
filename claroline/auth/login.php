@@ -15,6 +15,8 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
+
+
 require '../inc/claro_init_global.inc.php';
 
 /* Capture the source of the authentication trigger to get back to it 
@@ -34,6 +36,14 @@ elseif ( isset($_SERVER ['HTTP_REFERER'])
 else
 {
     $sourceUrl = null;
+}
+
+// Immediatly redirect to the CAS authentication process
+// If CAS is the only authentication system enabled
+
+if ($claro_CasEnabled && ! $claro_displayLocalAuthForm)
+{
+    header('Location: ' . http_response_splitting_workaround($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl)));
 }
 
 if ( $sourceUrl )
