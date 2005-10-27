@@ -275,4 +275,14 @@ if ( isset($_POST['claroFormId']) )
     }
 }
 
+/*----------------------------------------------------------------------------
+    CLAROLINE VERSIONS COMPATIBILITY FIXES
+  ----------------------------------------------------------------------------*/
+
+// These folowing variables could not be present in configuration files
+// They are set by defaul to prevent any warning.
+
+    $claro_CasEnabled           = false;
+    $claro_displayLocalAuthForm = true;
+
 ?>
