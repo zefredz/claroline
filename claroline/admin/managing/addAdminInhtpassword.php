@@ -26,7 +26,7 @@ $nameTools = $langNomPageAddHtPass;
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 $interbredcrump[]= array ('url' => $rootAdminWeb . 'managing/', 'name' => $langManage);
 
-@include("./checkIfHtAccessIsPresent.php");
+@include('./checkIfHtAccessIsPresent.php');
 /*$htmlHeadXtra[] = "<style type=\"text/css\">
 <!--
 
@@ -118,29 +118,29 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
         $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => $langNomPageAddHtPass);
         $nameTools = $langListAdmin;
     }
-    elseif (isset($_REQUEST["listHtLogins"]))
+    elseif (isset($_REQUEST['listHtLogins']))
     {
         $display = LIST_HT_LOGIN;
         $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => $langNomPageAddHtPass);
         $nameTools = $langListHtUsers;
     }
-    elseif (isset($_REQUEST["uidToSetAdmin"]))
+    elseif (isset($_REQUEST['uidToSetAdmin']))
     {
         $sqlSetAdminUser = "Insert IGNORE INTO  `".$tbl_admin."` SET `idUser` = '".$_REQUEST["uidToSetAdmin"]."'";
           claro_sql_query($sqlSetAdminUser) or die("Erreur sqlSetAdminUser ".$sqlSetAdminUser);
         $sqlGetUser = "SELECT `nom`, `prenom`, `username`, `password`, `email` FROM  `".$tbl_user."`  `user` WHERE `user_id` = '".$_REQUEST["uidToSetAdmin"]."';";
-          $resGetUser = claro_sql_query($sqlGetUser) or die("Erreur in sqlGetUser ".$sqlGetUser);
+          $resGetUser = claro_sql_query($sqlGetUser) or die('Erreur in sqlGetUser '.$sqlGetUser);
         $user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
-        $controlMsg["success"][]= "ok : Now, add a login-pass for <strong>".$user["prenom"]." ".$user["nom"]."</strong> in .htaccess and  give it to the user by secure way";
+        $controlMsg['success'][]= 'ok : Now, add a login-pass for <strong>'.$user['prenom'].' '.$user['nom'].'</strong> in .htaccess and  give it to the user by secure way';
         $display         = AFTER_ADD_ADMIN;
         $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => $langNomPageAddHtPass);
         $nameTools = $langGiveAdminRight;
     }
-    elseif (isset($_REQUEST["uidToSetNotAdmin"]))
+    elseif (isset($_REQUEST['uidToSetNotAdmin']))
     {
         if(!isset($_uid))
         {
-            $controlMsg["warning"][]= "You must be logged on ".$siteName." to access to this section";
+            $controlMsg['warning'][]= 'You must be logged on '.$siteName.' to access to this section';
         }
         else
         {

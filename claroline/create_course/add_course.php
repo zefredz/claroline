@@ -1,15 +1,16 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package ADMIN
+ *
+ * @author Claro team  <cvs@claroline.net>
+ */
 
 define('DISP_COURSE_CREATION_FORM'     ,__LINE__);
 define('DISP_COURSE_CREATION_SUCCEED'  ,__LINE__);
@@ -22,11 +23,11 @@ if ( ! $_uid )                   claro_disp_auth_form();
 if ( ! $is_allowedCreateCourse ) claro_die($langNotAllowed);
 
 include $includePath . '/conf/course_main.conf.php';
-include $includePath . '/lib/add_course.lib.inc.php';
-include $includePath . '/lib/course.lib.inc.php';
-include $includePath . '/lib/fileManage.lib.php';
-include $includePath . '/lib/form.lib.php';
-include $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $includePath . '/lib/add_course.lib.inc.php';
+require_once $includePath . '/lib/course.lib.inc.php';
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/form.lib.php';
+require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 
@@ -44,10 +45,10 @@ $extLinkName         = isset($_REQUEST['extLinkName'    ]) ? trim(strip_tags($_R
 $extLinkUrl          = isset($_REQUEST['extLinkUrl'     ]) ? trim(strip_tags($_REQUEST['extLinkUrl'     ])) : null;
 $courseEnrollmentKey = isset($_REQUEST['enrollmentKey'  ]) ? trim(strip_tags($_REQUEST['enrollmentKey'  ])) : null;
 
-$courseVisibility   = isset($_REQUEST['courseVisibility']    ) 
-                    ? ($_REQUEST['courseVisibility'         ] == 'true' ? true : false) 
+$courseVisibility   = isset($_REQUEST['courseVisibility']    )
+                    ? ($_REQUEST['courseVisibility'         ] == 'true' ? true : false)
                     :  true;
-$courseEnrollAllowed = isset($_REQUEST['courseEnrollAllowed']) 
+$courseEnrollAllowed = isset($_REQUEST['courseEnrollAllowed'])
                      ? ($_REQUEST['courseEnrollAllowed'] == 'true' ? true : false)
                      : true;
 
@@ -65,7 +66,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
     if ( ! $courseOfficialCode && $human_code_needed )          $errorList[] = $langCodeCanBeEmpty;
     if ( ! $courseCategory || $courseCategory == 'choose_one')  $errorList[] = sprintf($lang_p_aCategoryWouldBeSelected, 'mailto:'.$administrator_email);
     if ( empty($courseEmail) && $course_email_needed )          $errorList[] = $langEmailCanBeEmpty;
-    if ( ! empty( $courseEmail ) 
+    if ( ! empty( $courseEmail )
         && ! is_well_formed_email_address($courseEmail) )       $errorList[] = $langEmailWrong;
 
     if (count ($errorList) > 0) $okToCreate  = FALSE;
@@ -89,10 +90,10 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
         {
             // START COURSE CREATION PORCESSS
 
-            if (   prepare_course_repository($courseDirectory, $courseSysCode) 
+            if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && fill_course_repository($courseDirectory)
                 && update_db_course($courseDbName)
-                && fill_db_course( $courseDbName, $courseLanguage ) 
+                && fill_db_course( $courseDbName, $courseLanguage )
                 && register_course($courseSysCode
                    ,               $courseOfficialCode
                    ,               $courseDirectory
@@ -117,11 +118,11 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
                 $mailSubject =
                 '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$courseTitle;
-                
-                $mailBody    = 
+
+                $mailBody    =
                   claro_disp_localised_date($dateTimeFormatLong)."\n\n"
                 . $langCreationMailNotificationBody .' ' . $siteName . ' '
-                . $langByUser . ' ' . $_user['firstName'] . ' ' . $_user['lastName'] 
+                . $langByUser . ' ' . $_user['firstName'] . ' ' . $_user['lastName']
                 . ' (' . $_user['mail'] . ') '
                 . "\n\n"
                 . $langCode          . "\t:\t" . $courseOfficialCode  ."\n"
@@ -148,14 +149,14 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 $lastFailure = claro_failure::get_last_failure();
 
                 if ( $lastFailure == 'READ_ONLY_SYSTEM_FILE' )
-                $display = DISP_COURSE_CREATION_FAILED;
+                    $display = DISP_COURSE_CREATION_FAILED;
             }
         }
-        else 
+        else
         {       // TRIG WAITING SCREEN AS COURSE CREATION MAY TAKE A WHILE ...
             $display     = DISP_COURSE_CREATION_PROGRESS;
 
-            $paramString = $_SERVER['PHP_SELF'].'?cmd=exCreate';
+            $paramString = $_SERVER['PHP_SELF'] . '?cmd=exCreate';
 
             foreach ($_REQUEST as $requestKey => $requestValue)
             {
@@ -196,14 +197,14 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
     $language_list        = claro_get_lang_flat_list();
     $courseCategory_array = claro_get_cat_flat_list();
 
-    // If there is no current course category, add a fake option 
+    // If there is no current course category, add a fake option
     // to prevent user to simply select the first in list without purpose
 
     if ( array_key_exists($courseCategory , $courseCategory_array))
-    { 
+    {
         $cat_preselect = $courseCategory;
     }
-    else 
+    else
     {
         $cat_preselect        = 'choose_one';
         $courseCategory_array = array_merge(array('choose_one'=>'--'),$courseCategory_array);
@@ -229,12 +230,12 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 
 <tr valign="top">
 <td align="right">
-<label for="officialCode"><?php echo ($human_code_needed ? '<span class="required">*</span>' :'') . $langCode ?></label> : 
+<label for="officialCode"><?php echo ($human_code_needed ? '<span class="required">*</span>' :'') . $langCode ?></label> :
 </td>
 <td >
-	<input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>">
-	<br>
-	<small><?php echo $langMaxSizeCourseCode ?></small>
+    <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>">
+    <br>
+    <small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
 </tr>
 
@@ -272,12 +273,16 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 
 <tr valign="top">
 <td align="right"><label for="extLinkName">Department</label>&nbsp;: </td>
-<td><input type="text" name="extLinkName" id="extLinkName" value="" size="20" maxlength="30"></td>
+<td>
+<input type="text" name="extLinkName" id="extLinkName" value="" size="20" maxlength="30" />
+</td>
 </tr>
 
 <tr valign="top" >
 <td align="right" nowrap><label for="extLinkUrl" >Department URL</label>&nbsp;:</td>
-<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="" size="60" maxlength="180"></td>
+<td>
+<input type="text" name="extLinkUrl" id="extLinkUrl" value="" size="60" maxlength="180" />
+</td>
 </tr>
 
 <tr valign="top">
@@ -302,13 +307,13 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 <tr valign="top">
 <td align="right"><?php echo $langSubscription; ?> : </td>
 <td>
-<input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label>
+<input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> /> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label>
 <label for="courseEnrollmentKey">
-- <?php echo $langEnrollmentKey ?> <small>(<?php echo strtolower($langOptional); ?>)</small> : 
+- <?php echo $langEnrollmentKey ?> <small>(<?php echo strtolower($langOptional); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($courseEnrollmentKey); ?>">
 <br />
-<input type="radio" id="courseEnrollAllowed_false"  name="courseEnrollAllowed" value="false" <?php echo ! $courseEnrollAllowed ?'checked':''; ?>> <label for="courseEnrollAllowed_false"><?php echo $langDenied; ?></label>
+<input type="radio" id="courseEnrollAllowed_false"  name="courseEnrollAllowed" value="false" <?php echo ! $courseEnrollAllowed ?'checked':''; ?> /> <label for="courseEnrollAllowed_false"><?php echo $langDenied; ?></label>
 <tr valign="top">
 <td align="right">
 <label for="submitFromCoursProperties"><?php echo $langCreate ?> : </label>
@@ -319,7 +324,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 </td>
 </tr>
 <tr>
-<td></td> 
+<td></td>
 <td>
 <?php echo $langLegendRequiredFields ?>
 </td>
@@ -359,11 +364,11 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
     .            '</strong>'
     ;
 
-    echo claro_disp_message_box($dialogBox) 
+    echo claro_disp_message_box($dialogBox)
     .    '<br />'
     .    '<a class="claroCmd" href="../../index.php">'
     .    $langBackToMyCourseList
-    . '</a>'
+    .    '</a>'
     ;
 } // if all fields fullfilled
 
@@ -385,6 +390,6 @@ if ( $display == DISP_COURSE_CREATION_PROGRESS )
 }
 
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>
