@@ -213,9 +213,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 <form lang="<?php echo $iso639_2_code ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
 <table>
 <tr valign="top">
-<td colspan="2">
-
-</td>
+<td colspan="2"></td>
 </tr>
 
 <tr valign="top">
@@ -223,7 +221,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 <label for="title"><?php echo ($human_label_needed ? '<span class="required">*</span>' :'') . $langCourseTitle ?></label> :
 </td>
 <td valign="top">
-<input type="Text" name="title" id="title" size="60" value="<?php echo htmlspecialchars($courseTitle) ?>">
+<input type="Text" name="title" id="title" size="60" value="<?php echo htmlspecialchars($courseTitle) ?>" />
 <br><small><?php echo $langEx ?></small>
 </td>
 </tr>
@@ -233,7 +231,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 <label for="officialCode"><?php echo ($human_code_needed ? '<span class="required">*</span>' :'') . $langCode ?></label> :
 </td>
 <td >
-    <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>">
+    <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>" />
     <br>
     <small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
@@ -244,7 +242,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 <label for="holder"><?php echo $langProfessors ?></label> :
 </td>
 <td>
-<input type="Text" name="holder" id="holder" size="60" value="<?php echo htmlspecialchars($courseHolder) ?>">
+<input type="Text" name="holder" id="holder" size="60" value="<?php echo htmlspecialchars($courseHolder) ?>" />
 </td>
 </tr>
 
@@ -300,18 +298,22 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 <tr valign="top" >
 <td align="right" nowrap><?php echo $langCourseAccess; ?> : </td>
 <td>
-<input type="radio" id="courseVisibility_true" name="courseVisibility" value="true" <?php echo $courseVisibility ? 'checked':'' ?>> <label for="courseVisibility_true"><?php echo $langPublicAccess; ?></label><br />
-<input type="radio" id="courseVisibility_false" name="courseVisibility" value="false" <?php echo ! $courseVisibility  ?'checked':''; ?>> <label for="courseVisibility_false"><?php echo strip_tags($langPrivateAccess); ?></label>
+<input type="radio" id="courseVisibility_true" name="courseVisibility" value="true" <?php echo $courseVisibility ? 'checked':'' ?> />
+<label for="courseVisibility_true"><?php echo $langPublicAccess; ?></label><br />
+<input type="radio" id="courseVisibility_false" name="courseVisibility" value="false" <?php echo ! $courseVisibility  ?'checked':''; ?> />
+<label for="courseVisibility_false"><?php echo strip_tags($langPrivateAccess); ?></label>
 </td>
 </tr>
 <tr valign="top">
 <td align="right"><?php echo $langSubscription; ?> : </td>
 <td>
-<input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> /> <label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label>
+<input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> />
+<label for="allowedToSubscribe_true"><?php echo $langAllowed; ?></label>
 <label for="courseEnrollmentKey">
-- <?php echo $langEnrollmentKey ?> <small>(<?php echo strtolower($langOptional); ?>)</small> :
+- <?php echo $langEnrollmentKey ?>
+<small>(<?php echo strtolower($langOptional); ?>)</small> :
 </label>
-<input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($courseEnrollmentKey); ?>">
+<input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($courseEnrollmentKey); ?>" />
 <br />
 <input type="radio" id="courseEnrollAllowed_false"  name="courseEnrollAllowed" value="false" <?php echo ! $courseEnrollAllowed ?'checked':''; ?> /> <label for="courseEnrollAllowed_false"><?php echo $langDenied; ?></label>
 <tr valign="top">
@@ -382,7 +384,7 @@ if ( $display == DISP_COURSE_CREATION_PROGRESS )
     echo claro_disp_message_box(  $langCreatingCourse
                                 .'<br />'
                                 .'<p align="center">'
-                                .'<img src="'.$imgRepositoryWeb.'/processing.gif" / alt="">'
+                                .'<img src="' . $imgRepositoryWeb . '/processing.gif" / alt="">'
                                 .'</p>'
                                 .'<p>'
                                 . sprintf($lang_p_IfNothingHappendClickHere,$paramString)
