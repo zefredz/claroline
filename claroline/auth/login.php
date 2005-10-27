@@ -26,7 +26,8 @@ if ( isset($_REQUEST['sourceUrl']) )
     $sourceUrl = $_REQUEST['sourceUrl'];
 }
 elseif ( isset($_SERVER ['HTTP_REFERER']) 
-         && basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF']) )
+         &&   basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF'])
+         && ! strstr($_SERVER ['HTTP_REFERER'], 'logout=true') )
 {
      $sourceUrl = $_SERVER ['HTTP_REFERER'];
 }
