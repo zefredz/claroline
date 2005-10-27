@@ -217,109 +217,20 @@ The list of publications related to the user and the assignment can be view by c
 $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Here you can modify the content of the text zones displayed on the platform home page.";
 $langHigh_resources = "high resources";
 $langHomePageTextZone = "Home page text zones";
-$langImpossibleToPromote = "Impossible to promote group tutor a student already register to group";
 $langIntroCourse = "You are on the course home page.<br /><br />On this page, you can :
 <ul>
 <li>activate or deactivate tools (click on the 'Edit Tool list' button at bottom left).</li>
 <li>change settings or view statistics (click on corresponding links at bottom).</li>
 </ul>
 Now, to add an introduction text presenting your course to students, click on this button ";
-$langIntroEditToolList = "Select the tools you want to make visible for your user.
-An invisible tool will be greyed out on your personal interface";
-$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
-$langIntroText = "To send a message, select groups of users (marked with a * in the front)
- or single users from the list on the left.";
 $langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 <br />You will be able to add a comment or a grade to each work.
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
-$langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
-<small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
-$langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langMethodsOfEvaluationComment1 = "Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.";
 $langPlatformCoursesAccess = "Access to courses";
 $langPlatformStats = "Platform Statistics";
 $langQualificationsAndGoalsComment1 = "What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?";
-$langQualificationsAndGoalsComment2 = "Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.";
-$langSupportsComment1 = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
-$langSupportsComment2 = "Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.";
-$langTeachingTrainingActivitiesComment1 = "What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?";
-$langTeachingTrainingActivitiesComment2 = "Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).";
 $langThumbnails = "Thumbnails";
-$langTrackExerciseError = "Details may be incorrect as it seems that some questions have change between this attempt and now.";
-$langUseFormatDefined = "Use format defined in first line of file";
-$langUseOfPool = "This page allows you to view all the modules available in this course. <br />
-                     Any exercise or document that has been added in a learning path will also appear in this list.";
-$langUsedInLearningPaths = "
-Number of learning paths using this module : ";
-$langUsedInSeveralPath = "This exercise is used in one or more learning path. If you delete it it will be no longer be available in the learning path.";
-$langUserAccessDetails = "User access details";
-$langUserAlreadyInClass = "User already in class";
-$langUserCourseList = "User's course list";
-$langUserCreated = "The new user has been sucessfully created";
-$langUserDelete = "Deletion of the user was done sucessfully";
-$langUserIsNowCourseManager = "User is now course manager";
-$langUserIsNowStudent = "User is now student for this course";
-$langUserIsPlaformAdmin = "Is platform admin";
-$langUserNoCourseToDisplay = "No course to display";
-$langUserNotInClass = "User not in the class";
-$langUserNotUnsubscribedFromCourse = "Error!! you cannot unregister a course manager";
-$langUserRegisteredClass = "User has been sucessfully registered to the class";
-$langUserRegisteredToCourse = "User registered to the course";
-$langUserSettings = "User settings";
-$langUserStatus = "Status";
-$langUserSubscribed = "The user has been successfully registered";
-$langUserUnregistered = "User unregistered";
-$langUserUnregisteredFromClass = "User has been sucessfully unregistered from the class";
-$langUserUnsubscribed = "The user has been successfully unregistered";
-$langUserUnsubscribedFromCourse = "The user has been successfully unregistered from course";
-$langUserid = "User Id";
-$langUserlist = "Users List";
-$langUsernameAppearAlready = "This username appears already in a previous line of the CSV file.";
-$langUsernameUsed = "This username is already used by another user.";
-$langUsersMin = "users";
-$langValvas = "Latest announcements";
-$langView = "View";
-$langViewMode = "View mode";
-$langViewPlatFormError = "Scan technical fault";
-$langViewPlatFormStatistics = "Platform statistics";
-$langVisible = "Visible";
-$langWiki = "Wiki";
-$langWikiAccessControl = "Access control management";
-$langWikiAccessControlText = "You can set access rights for users using the following grid : ";
-$langWikiAllPages = "All pages";
-$langWikiBackToPage = "Back to page";
-$langWikiConflictHowTo = "<p><strong>Edit conflict</strong> : The page you try to save seems to have been changed since you modify it.<br /><br />
-What to do now ?<ul>
-<li>You can copy/paste your modification to a text editor (like notepad) and click on 'edit last version' to try to add your modification to the new version of the page.</li>
-<li>You can also click on cancel to cancel your changes.</li>
-</ul></p>";
-$langWikiContentEmpty = "This page is empty, click on 'Edit this page' to add a content";
-$langWikiCourseMembers = "Course members";
-$langWikiCreateNewWiki = "Create a new Wiki";
-$langWikiCreatePrivilege = "Create Pages";
-$langWikiCreationSucceed = "Wiki creation succeed";
-$langWikiDefaultDescription = "Enter the description of your wiki here";
-$langWikiDefaultTitle = "New Wiki";
-$langWikiDeleteWiki = "Delete Wiki";
-$langWikiDeleteWikiWarning = "WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?";
-$langWikiDeletionSucceed = "Wiki deletion succeed";
-$langWikiDescription = "Description of the Wiki";
-$langWikiDescriptionForm = "Wiki description";
-$langWikiDescriptionFormText = "You can choose a title an a description for the wiki : ";
-$langWikiDiffAddedLine = "Added line";
-$langWikiDiffDeletedLine = "Deleted line";
-$langWikiDiffMovedLine = "Moved line";
-$langWikiDiffUnchangedLine = "Unchanged line";
-$langWikiDifferenceKeys = "Keys :";
-$langWikiDifferencePattern = "differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s";
-$langWikiDifferenceTitle = "Differences :";
-$langWikiEditConflict = "Edit conflict";
-$langWikiEditLastVersion = "Edit last version";
-$langWikiEditPage = "Edit this page";
-$langWikiEditPrivilege = "Edit Pages";
-$langWikiEditProperties = "Edit properties";
-$langWikiEditionSucceed = "Wiki edition succeed";
-$langWikiGroupMembers = "Group members";
 $langWikiHelpAdminContent = "<h3>Wiki administration help</h3>
 <dl class=\"wikiHelp\">
 <dt>How to create a new Wiki ?</dt>
@@ -352,7 +263,6 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dt>How to get the list of the last modified pages in a Wiki ?</dt>
 <dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
 </dl>";
-$langWikiHelpSyntax = "Wiki syntax";
 $langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
 <h2>1. Basic syntax</h2>
 <dl class=\"wikiHelp\">
@@ -398,118 +308,5 @@ $langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
 <dt>Named anchor</dt>
 <dd><code>~anchor~</code>&nbsp;;</dd>
 </dl>";
-$langWikiIdenticalContent = "Identical content<br />no modification saved";
-$langWikiInvalidWikiId = "Invalid Wiki Id";
-$langWikiList = "List of Wiki";
-$langWikiMainPage = "Main page";
-$langWikiMainPageContent = "This is the main page of the Wiki %s. Click on edit to modify the content.";
-$langWikiNoWiki = "No Wiki";
-$langWikiNotAllowedToCreate = "You are not allowed to create pages";
-$langWikiNotAllowedToEdit = "You are not allowed to edit this page";
-$langWikiNotAllowedToRead = "You are not allowed to read this page";
-$langWikiNumberOfPages = "Number of pages";
-$langWikiOtherUsers = "Others (*)";
-$langWikiOtherUsersText = "(*) anonymous users, users who are not members of this course...";
-$langWikiPageHistory = "Page history";
-$langWikiPageSaved = "Page saved";
-$langWikiPreviewTitle = "Preview : ";
-$langWikiPreviewWarning = "WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.";
-$langWikiProperties = "Properties";
-$langWikiReadPrivilege = "Read Pages";
-$langWikiRecentChanges = "Recent changes";
-$langWikiRecentChangesPattern = "%1\$s modified on %2\$s by %3\$s";
-$langWikiShowDifferences = "Show differences";
-$langWikiTitle = "Title of the wiki";
-$langWikiTitleEdit = "Wiki : Edit properties";
-$langWikiTitleNew = "Wiki : Create new Wiki";
-$langWikiTitlePattern = "Wiki : %s";
-$langWikiVersionInfoPattern = "(version of %1\$s modified by %2\$s)";
-$langWikiVersionPattern = "%1\$s by %2\$s";
-$langWrkAdded = "Work added";
-$langWrkAuthors = "Author(s)";
-$langWrkAuthorsRequired = "Author(s) is(are) required";
-$langWrkEdited = "Work modified";
-$langWrkScoreRequired = "Score required";
-$langWrkTitle = "Title";
-$langWrkTitleRequired = "Work title required";
-$langWrongOperation = "Wrong operation";
-$langYesterday = "Yesterday";
-$langYourBestScore = "Your best performance";
-$langYourRequestToBeCourseManagerIsSent = "Your request to become a course creator has been sent to platform administrator(s).";
-$langYourRequestToRemoveYourAccountIsSent = "Your request to remove your account has been sent";
-$langYourTime = "Your time is";
-$lang_EditFile_ModifyOk = "The changes have been carried out correctly";
-$lang_TheUserIsAlreadyEnrolledInTheCourse = "The user is already enrolled in this course";
-$lang_add_user_list = "Add user list";
-$lang_are_you_sure_to_remove_the_course_from_your_list = "Are you sure you want to remove this course from your list ?";
-$lang_back_to_parent_category = "Back to parent category";
-$lang_click_here = "click here";
-$lang_completeUserInfoOfUser = "Complete userInfo of user";
-$lang_do_you_want_to_continue = "Do you want to continue?";
-$lang_enroll_to_a_new_course = "Enrol on a new course";
-$lang_faculty_CanHaveCatCourse = "Can have courses : ";
-$lang_faculty_CatHaveCat = "This category contains other categories, you must delete them before !";
-$lang_faculty_CatHaveCourses = "This category contains some courses, you can't erase it!";
-$lang_faculty_CodeCat = "Category code :";
-$lang_faculty_CodeEmpty = "Category code is required";
-$lang_faculty_ConfirmDelete = "Do you really want to delete the category ";
-$lang_faculty_CreateNotOk = "This category already exists!";
-$lang_faculty_CreateOk = "Category created";
-$lang_faculty_DeleteOk = "Category deleted";
-$lang_faculty_EditOk = "Changes have been saved";
-$lang_faculty_Father = "Parent category ";
-$lang_faculty_HaveCourses = "This category include some courses, you must delete or move them before";
-$lang_faculty_MoveOk = "Category moved";
-$lang_faculty_NameCat = "Category name :";
-$lang_faculty_NameEmpty = "Category name is required";
-$lang_faculty_NoCat = "There is no category available !";
-$lang_faculty_NoChange = "No change applied.";
-$lang_faculty_NoMove_1 = "You can't move ";
-$lang_faculty_NoMove_2 = " in the same category !";
-$lang_faculty_imgDown = "Down";
-$lang_fields_enclosed_by = "Fields enclosed by";
-$lang_footer_p_CourseManager = "Manager(s) for %s";
-$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "if you choose to continue, lines with errors will simply be ignored";
-$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enrol on this course";
-$lang_no_access_here = "No way";
-$lang_no_course_available_fitting_this_keyword = "No course available fitting this keyword";
-$lang_no_error_in_file_found = "No error in file found.";
-$lang_or_search_from_keyword = "Search from keyword";
-$lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
-$lang_p_FeedOf_s = "Rss feed for %s";
-$lang_p_FillCourses = "Fill %s with %s";
-$lang_p_IfNothingHappendClickHere = "If after while no message appears confirming the course creation, please click <a href=\"%s\">here</a>";
-$lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
-$lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
-$lang_p_category_s_created = "Category %s created";
-$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
-$lang_p_d_StudentUnregistredFormCours = "%d student(s) unregistered from this course";
-$lang_p_d_course = "%2d course";
-$lang_p_d_course_manager = "%2d prof ";
-$lang_p_d_course_managers = "%2d profs ";
-$lang_p_d_course_member = "%2d member";
-$lang_p_d_course_members = "%2d members";
-$lang_p_d_courses = "%2d courses";
-$lang_p_d_student = "%2d student";
-$lang_p_d_students = "%2d students";
-$lang_p_forum_s_created = "Forum %s created";
-$lang_p_nothing_to_edit_in_S = "nothing to edit in %s";
-$lang_p_platformManager = "Administrator for %s";
-$lang_p_post_s_created = "Post %s created";
-$lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has been sucessfully registered to the course";
-$lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> has not been sucessfully registered to the course";
-$lang_p_topic_s_created = "Topic %s created";
-$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "You need to be authenticated with your %s account";
-$lang_php_info = "PHP system information";
-$lang_remove_course_enrollment = "Remove course enrolment";
-$lang_remove_course_from_your_personnal_course_list = "Remove course from your personal course list";
-$lang_the_following_errors_were_found = "The following errors were found ";
-$lang_toolsToFill = "Tools to populate";
-$lang_user_has_been_enrolled_to_the_course = "The user has been enrolled to the course";
-$lang_you_had_request = "You ask";
-$lang_you_have_been_enrolled_to_the_course = "You've been enrolled on the course";
-$lang_your_enrollment_to_the_course_has_been_removed = "Your enrollment on the course has been removed";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
-$langcatcreated = "The new category has been created.";
 $langimportLearningPath = "Import a learning path";
 ?>
