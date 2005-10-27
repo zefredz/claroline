@@ -213,6 +213,7 @@ function get_mime_on_ext($fileName)
         $mimeTypeList[] = 'application/msword';             $extensionList[] ='.doc';
         $mimeTypeList[] = 'application/rtf';                $extensionList[] ='.rtf';
         $mimeTypeList[] = 'application/vnd.ms-powerpoint';  $extensionList[] ='.ppt';
+        $mimeTypeList[] = 'application/vnd.ms-powerpoint';  $extensionList[] ='.pps';
         $mimeTypeList[] = 'application/vnd.ms-excel';       $extensionList[] ='.xls';
         $mimeTypeList[] = 'application/pdf';                $extensionList[] ='.pdf';
         $mimeTypeList[] = 'application/postscript';         $extensionList[] ='.ps';
