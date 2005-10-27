@@ -1,12 +1,21 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |  Authors : see CREDITS.txt					     |
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLSTAT
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @todo to factorise sql
+ * @todo to split work and output
+ *
  */
  
 require '../inc/claro_init_global.inc.php';
@@ -108,7 +117,7 @@ if( $is_trackingEnabled)
             echo '<small>'.$langNoResult.'</small><br />'."\n";
         }
         //-- student not connected for 1 month
-        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `fistname`, MAX(A.`access_date`) AS `max_access_date`
+        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(A.`access_date`) AS `max_access_date`
             FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."` AS CU, `".$tbl_track_e_access."` AS A
             WHERE U.`user_id` = CU.`user_id`
             AND CU.`code_cours` = '".$_cid."'
@@ -159,14 +168,14 @@ if( $is_trackingEnabled)
         $tempView[$viewLevel] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langCourseAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
         
-        $sql = "SELECT count(*)
+        $sql = "SELECT count(`access_id`)
                     FROM `".$tbl_track_e_access."`
                     WHERE access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountToolAccess.' : '.$count.'<br />'."\n";
         
         // last 31 days
-        $sql = "SELECT count(*) 
+        $sql = "SELECT count(`access_id`) 
                     FROM `".$tbl_track_e_access."` 
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))
                         AND access_tid IS NULL";
@@ -174,7 +183,7 @@ if( $is_trackingEnabled)
         echo '&nbsp;&nbsp;&nbsp;'.$langLast31days.' : '.$count.'<br />'."\n";
         
         // last 7 days
-        $sql = "SELECT count(*) 
+        $sql = "SELECT count(`access_id`) 
                     FROM `".$tbl_track_e_access."` 
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
                         AND access_tid IS NULL";
@@ -182,17 +191,52 @@ if( $is_trackingEnabled)
         echo '&nbsp;&nbsp;&nbsp;'.$langLast7Days.' : '.$count.'<br />'."\n";
         
         // today
-        $sql = "SELECT count(*) 
+        $sql = "SELECT count(`access_id`) 
                     FROM `".$tbl_track_e_access."` 
                     WHERE ( access_date > CURDATE() )
                         AND access_tid IS NULL";
-        $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'
+		$count = claro_sql_query_get_single_value($sql);
+		
+		echo '&nbsp;&nbsp;&nbsp;'
 		    .$langThisday
 			.' : '
 			.$count
 			.'<br />'."\n";
-        
+			
+        // today user list
+        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, 
+					MAX(A.`access_date`) AS `max_access_date`, count(A.`access_date`) AS `access_nbr`
+            FROM `".$tbl_track_e_access."` AS A
+			LEFT JOIN `".$tbl_user."` AS U
+            	ON U.`user_id` = A.`access_user_id`
+			WHERE access_date > CURDATE() 
+			AND access_tid IS NULL
+            GROUP BY A.`access_user_id`
+            ORDER BY A.`access_date` ASC
+			";
+
+		$results = claro_sql_query_fetch_all($sql);
+		if( !empty($results) && is_array($results) )
+        { 
+            echo '<ul>'."\n";
+            foreach( $results as $result )
+            { 
+					
+                echo '<li>';
+				if ( empty($result['user_id']) || empty($result['firstname']) )
+				{
+					echo $langAnonymous 
+						.' <small>( '.$langLastAccess.' : '.$result['max_access_date'].' ; '.$langTotal.' : '.$result['access_nbr'].' )</small>';
+				}
+				else
+				{
+					echo '<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'.$result['firstname'].' '.$result['lastname'].'</a>'
+						.' <small>( '.$langLastAccess.' : '.$result['max_access_date'].' ; '.$langTotal.' : '.$result['access_nbr'].' )</small>';
+				}
+				echo '</li>'."\n";
+            }
+            echo '</ul>'."\n";
+        }	
         //-- view details of traffic
         echo '&nbsp;&nbsp;&nbsp;'
 		    .'<a href="course_access_details.php">'.$langTrafficDetails.'</a><br />'
