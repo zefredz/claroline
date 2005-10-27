@@ -881,7 +881,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
     global $_gid, $forum_name, $topic_title,
            $imgRepositoryWeb, 
-           $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum;
+           $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum, $langSearch;
 
     $toolBar = array();
 
@@ -941,6 +941,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                           .  '</a>';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
+                          .  '<img src="' . $imgRepositoryWeb . 'forum.gif" /> '
                           .  $langCreateForum
                           .  '</a>';
             }
@@ -948,7 +949,11 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     }
 
     if ( ! in_array($pagetype, array('newtopic', 'reply') ) )
-        $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">search</a>';
+        $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">'
+        .            '<img src="' . $imgRepositoryWeb . 'search.gif" /> '
+        .            $langSearch
+        .            '</a>'
+        ;
 
     if ( isset($toolBar) && is_array($toolBar)) 
     {
