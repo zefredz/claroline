@@ -108,8 +108,10 @@ $is_groupPrivate   = $_groupProperties ['private'];
 
 echo claro_disp_tool_title($langForums, 
                       $is_allowedToEdit ? 'help_forum.php' : false);
-                      
-if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);                    
+
+echo claro_disp_search_box();
+
+if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 // Forum toolbar
 

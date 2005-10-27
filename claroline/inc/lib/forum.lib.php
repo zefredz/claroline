@@ -879,7 +879,6 @@ class postLister
 
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-
     global $_gid, $forum_name, $topic_title,
            $imgRepositoryWeb, 
            $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum;
@@ -911,11 +910,11 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                         . '<img src="' . $imgRepositoryWeb . 'topic.gif"> '
                         . $langNewTopic
                         . '</a>';
-    
+
             break;
-    
+
         case 'viewtopic':
-    
+
             $toolBar [] =    '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                            . '<img src="' . $imgRepositoryWeb . 'topic.gif"> '
                            . $langNewTopic
@@ -948,12 +947,36 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             break;
     }
 
+    if ( ! in_array($pagetype, array('newtopic', 'reply') ) )
+        $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">search</a>';
+
     if ( isset($toolBar) && is_array($toolBar)) 
     {
         $toolBar = implode(' | ', $toolBar);
         echo '<p>' . $toolBar . '<p>' . "\n";
     }
     return TRUE;
+}
+
+function claro_disp_search_box()
+{
+    global $langSearch, $langOk, $langCancel;
+
+    if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
+    {
+        return claro_disp_message_box(
+        '<form action="viewsearch.php" method="post">'
+        .            $langSearch.' : <br />'
+        .            '<input type="text" name="searchPattern"><br />'
+        .            '<input type="submit" value="'.$langOk.'">&nbsp;'
+        .            claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+        .            '</form>'
+        );
+    }
+    else
+    {
+        return '';
+    }
 }
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name='')
