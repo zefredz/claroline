@@ -134,8 +134,8 @@ $langAnnEmpty = "Les annonces ont été complètement supprimées";
 $langAnnModify = "L'annonce a été modifiée";
 $langAnnouncement = "Annonces";
 $langAnonymous = "Anonyme";
-$langAnonymousAttemptsAllowed = "Autoriser&nbsp;: les noms des utilisateurs ne sont pas enregistrés dans les statistiques et les utilisateurs anonymes peuvent faire l'exercice.";
-$langAnonymousAttemptsNotAllowed = "Ne pas autoriser&nbsp;: les noms des utilisateurs sont enregistrés dans les statistiques et les utilisateurs anonymes ne peuvent pas faire l'exercice.";
+$langAnonymousAttemptsAllowed = "Autoriser (les noms des utilisateurs ne sont pas enregistrés dans les statistiques et les utilisateurs anonymes peuvent faire l'exercice)";
+$langAnonymousAttemptsNotAllowed = "Interdire (les noms des utilisateurs sont enregistrés dans les statistiques et les utilisateurs anonymes ne peuvent pas faire l'exercice)";
 $langAnonymousUserAccessCount = "Nombre d'accès d'utilisateurs anonymes&nbsp;: ";
 $langAnswer = "Réponses";
 $langAnswerRequired = "Réponse obligatoire";
@@ -726,9 +726,9 @@ $langExercise = "Exercice";
 $langExerciseAsModule = "Utiliser un exercice";
 $langExerciseCancelled = "Exercice annulé. Choisissez un module dans la liste pour continuer.";
 $langExerciseClosing = "Date de fin";
-$langExerciseContent = "<h4>À quoi sert l'outil Exercices</h4>
+$langExerciseContent = "<h4>À quoi sert l'outil Exercices&nbsp;?</h4>
 <p>
-L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre&nbsp;; s'ils se sont enregistrés au cours, leurs scores seront conservés et visibles dans la section des statistiques du cours.
+L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre&nbsp;; s'ils se sont enregistrés au cours, leurs scores seront conservés et seront visibles dans la section des statistiques du cours.
 </p>
 
 <hr />
@@ -736,31 +736,31 @@ L'outil Exercices permet de créer des exercices en ligne sous la forme d'une lis
 <h4>Administrer l'outil Exercices</h4>
 
 <p>Créer un exercice</p>
-<p>Cliquez sur <strong>Exercices</strong> pour entrer dans la liste de vos exercices.
+<p>Cliquez sur <strong>Exercices</strong> pour entrer dans la liste des exercices.
 </p><p><br />
-Commençons par créer un nouvel exercice. Pour cela, cliquez sur le lien <strong>Nouvel exercice</strong>.
+Pour créer un nouvel excercice, cliquez sur <strong>Nouvel exercice</strong>.
 </p><p><br />
-Vous devez commencer par donner un intitulé à l'exercice et, si vous le souhaitez, une description.
+Saisissez l'intitulé du nouvel l'exercice et, facultativement, sa description.
 </p><p>Définissez ensuite les options souhaitées pour l'exercice&nbsp;:
 </p>
 <ul><li> Type d'exercice
-<ul><li> Questions sur une seule page&nbsp;: lorsque l'étudiant exécutera l'exercice, toutes les questions lui seront présentées en une fois.</li>
-<li> Une question par page&nbsp;: les questions sont réparties sur plusieurs pages. Une fois que l'étudiant à répondu à une question, il passe à la suivante et ne peut revenir en arrière.</li>
+<ul><li> Questions sur une seule page&nbsp;: lorsque l'étudiant exécute l'exercice, toutes les questions lui sont présentées en une fois.</li>
+<li> Une question par page&nbsp;: les questions sont réparties sur plusieurs pages. Une fois que l'étudiant a répondu à une question, il passe à la suivante et ne peut revenir en arrière.</li>
 </ul></li></ul>
 <p>Les options suivantes sont facultatives. Conserver les valeurs par défaut permet la création d'un exercice tel que dans Claroline 1.5.
 </p>
-<ul><li> Date de début&nbsp;: date à partir de laquelle les étudiants pourront répondre au questionnaire.</li>
-<li> Date de fin&nbsp;: date jusqu'à laquelle les étudiants pourront répondre au questionnaire (la case doit être cochée pour que la date de fin soit prise en compte).</li>
-<li> Limite de temps&nbsp;: cochez la case pour imposer une limite de temps aux étudiants lorsqu'ils réaliseront l'exercice et spécifiez le temps maximum autorisé.
+<ul><li> Date de début&nbsp;: date à partir de laquelle les étudiants peuvent répondre au questionnaire.</li>
+<li> Date de fin&nbsp;: date jusqu'à laquelle les étudiants peuvent répondre au questionnaire (la case doit être cochée pour que la date de fin soit prise en compte).</li>
+<li> Limite de temps&nbsp;: cochez la case pour imposer une limite de temps aux étudiants lorsqu'ils réalisent l'exercice et spécifiez le temps maximum autorisé.
 </li><li> Essais autorisés&nbsp;: précisez si les étudiants peuvent faire l'exercice autant de fois que souhaité ou si le nombre d'essais est limité.</li>
-<li> Essais anonymes&nbsp;: si les essais anonymes sont autorisés, aucun tracking ne sera conservé et n'importe qui pourra essayer de faire l'exercice&nbsp; dans le cas contraire, les résultats de toutes les tentatives seront conservés et seuls les étudiants inscrits au cours pourront réaliser l'exercice.</li>
+<li> Essais anonymes&nbsp;: si les essais anonymes sont autorisés, aucun suivi ne sera conservé et n'importe qui pourra essayer de faire l'exercice&nbsp;; dans le cas contraire, les résultats de toutes les tentatives seront conservés et seuls les étudiants inscrits au cours pourront réaliser l'exercice.</li>
 <li> Après le test, afficher les réponses&nbsp;:
 <ul><li> Oui&nbsp;: la correction est affichée à l'utilisateur après chacune de ses tentatives.
-</li><li> Après la dernière tentative autorisée&nbsp;: la correction ne sera affichée que lorsque l'apprenant aura atteint le nombre maximum d'essais autorisés.
+</li><li> Après la dernière tentative autorisée&nbsp;: la correction est uniquement affichée quand l'apprenant a atteint le nombre maximum d'essais autorisés.
 </li><li> Non&nbsp;: aucune correction affichée.
 </li></ul>
 </li></ul>
-<p>Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur <strong>Valider</strong> pour enregistrer votre exercice.
+<p>Une fois toutes les informations nécessaires spécifiées, cliquez sur <strong>OK</strong> pour enregistrer l'exercice.
 </p><p><br />
 </p><p>Vous arrivez alors à la liste des questions de l'exercice. Comme il s'agit d'un nouvel exercice, cette liste est vide.
 </p><p>Pour ajouter une nouvelle question, cliquez sur le lien <strong>Nouvelle question</strong>.
@@ -938,7 +938,7 @@ $langGarbage = "Corbeille (garbage)";
 $langGetExistingQuestion = "Récupérer une question d'un autre exercice";
 $langGiveAdminRight = "Donner les droits d'administrateur à un utilisateur existant";
 $langGiveAnswers = "Veuillez fournir les réponses à cette question.";
-$langGiveExerciseName = "Veuillez saisir l'intitulé de l'exercice.";
+$langGiveExerciseName = "Saisissez l'intitulé de l'exercice.";
 $langGiveQuestion = "Veuillez taper la question.";
 $langGiveText = "Veuillez saisir le texte";
 $langGlobalProgress = "Progression du parcours pédagogique&nbsp;: ";
@@ -1146,7 +1146,7 @@ $langIntroCourse = "Bienvenue sur la page d'accueil du cours.<br /><br />Sur cet
 Pour présenter votre cours aux étudiants, cliquer sur Ajouter un texte d'introduction ci-dessous.<br />";
 $langIntroEditToolList = "Sélectionnez les outils que vous voulez activer.
 En mode d'affichage Étudiant, les outils désactivés seront invisiblesanbsp;en mode d'affichage Gestionnaire du cours, ils apparaîtront en grisé dans la page d'accueil du cours.";
-$langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
+$langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants.<br /><br />Pour ajouter un texte d'introduction, cliquez sur le lien ci-dessous.<br />";
 $langIntroText = "Pour envoyer un message, sélectionnez des utilisateurs ou des groupes d'utilisateurs (identifiés par une astérisque) dans la liste de gauche.";
 $langIntroWork = "Cet outil est un espace de publication.
 <br />Il permet au gestionnaire de cours de créer différents travaux dans le cadre desquels chaque étudiant peut envoyer un document (HTML, Microsoft Word, Excel, etc.) vers le site du cours ou composer un texte afin de le rendre accessible aux autres étudiants ainsi qu'au gestionnaire.
@@ -1534,7 +1534,7 @@ $langRole = "Rôle";
 $langRoot = "Niveau supérieur";
 $langSCORMTypeDesc = "Contenu conforme à SCORM 1.2";
 $langSDK = "SDK";
-$langSampleDocument = "document_exemple";
+$langSampleDocument = "document d'exemple";
 $langSampleDocumentDesc = "Vous pouvez utiliser n'importe quel document de l'outil Documents de ce cours.";
 $langSampleExerciseDesc = "Vous pouvez utiliser n'importe quel exercice de l'outil Exercices de ce cours.";
 $langSampleLearnPath = "Exemple de parcours pédagogique";
@@ -1545,7 +1545,7 @@ $langScore = "Résultat";
 $langScoreAvg = "Score moyen";
 $langScoreMax = "Meilleur score";
 $langScoreMin = "Pire score";
-$langScormIntroTextForDummies = "Les packages importés doivent être des fichiers zip et répondre à la norme SCORM 1.2";
+$langScormIntroTextForDummies = "Les packages importés doivent être des fichiers zip et répondre à la norme SCORM 1.2.";
 $langScriptMissing = "Script manquant";
 $langScriptMissingComment = "Vous devez installer ces scripts pour utiliser correctement claroline";
 $langScriptNotInArchive = "Script qui ne font pas partie de claroline";
@@ -1735,8 +1735,8 @@ $langUploadFile = "Ajouter un fichier";
 $langUploadedFile = "Fichier envoyé";
 $langUseFollowingFormat = "Utiliser le format suivant : ";
 $langUseFormatDefined = "Utiliser le format défini à la première ligne du fichier";
-$langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
-         Tous les exercices ou documents qui ont été ajoutés dans un parcours apparaîtront aussi dans cette liste.";
+$langUseOfPool = "Cette page affiche tous les modules disponibles dans votre cours.<br />
+Tout exercice ou document qui a été ajouté dans un parcours apparaîtra aussi dans cette liste.";
 $langUseTagForBlank = "utilisez les crochets [...] pour créer un ou des blancs";
 $langUsedInLearningPaths = "
 Nombre de parcours utilisant ce module : ";
