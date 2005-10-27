@@ -26,6 +26,17 @@ else
 // The line below set the error reporting to the most fitting one for Claroline
 if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
 
+/*----------------------------------------------------------------------------
+    CLAROLINE VERSIONS COMPATIBILITY FIXES
+  ----------------------------------------------------------------------------*/
+
+// These folowing variables could not be present in configuration files
+// They are set by defaul to prevent any warning.
+
+    $claro_CasEnabled           = false;
+    $claro_displayLocalAuthForm = true;
+
+
 /*----------------------------------------------------------------------
   Various Path Init
   ----------------------------------------------------------------------*/
@@ -274,15 +285,5 @@ if ( isset($_POST['claroFormId']) )
          }
     }
 }
-
-/*----------------------------------------------------------------------------
-    CLAROLINE VERSIONS COMPATIBILITY FIXES
-  ----------------------------------------------------------------------------*/
-
-// These folowing variables could not be present in configuration files
-// They are set by defaul to prevent any warning.
-
-    $claro_CasEnabled           = false;
-    $claro_displayLocalAuthForm = true;
 
 ?>
