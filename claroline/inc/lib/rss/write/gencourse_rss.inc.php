@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE 
- * 
+ * CLAROLINE
+ *
  * Build an rss file containing agenda and announcement item of a cours
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLRSS
  *
@@ -33,7 +33,7 @@ function build_course_feed($forceBuild= false, $_cid=null)
         $administrator_email ,
         $iso639_1_code,
         $charset ;
-        
+
     require_once 'XML/Serializer.php';
     include dirname(__FILE__) . '/../../../conf/rss.conf.php';
     require_once dirname(__FILE__) . '/../../fileManage.lib.php';
@@ -58,7 +58,7 @@ function build_course_feed($forceBuild= false, $_cid=null)
     if ($forceBuild || !file_exists($rssFilePath))
     {
 
-        
+
         $options = array(
         'indent'    => '    ',
         'linebreak' => "\n",
@@ -71,7 +71,7 @@ function build_course_feed($forceBuild= false, $_cid=null)
         );
 
         $data['channel'] = array(
-        'title'          => '['.$siteName.'] '.$_course['officialCode'],
+        'title'          => '[' . $siteName . '] '.$_course['officialCode'],
         'description'    => $_course['name'],
         'link'           => $coursesRepositoryWeb.$_course['path'],
         'generator'      => 'Claroline-PEARSerializer',
@@ -79,7 +79,7 @@ function build_course_feed($forceBuild= false, $_cid=null)
         'managingEditor' => $_course['email'],
         'language'       => $iso639_1_code,
         'docs'           => 'http://blogs.law.harvard.edu/tech/rss',
-        'pubDate'        => date("r")
+        'pubDate'        => date("r",time())
         );
 
         $eventRssList = agenda_get_rss_item_list();
@@ -107,14 +107,17 @@ function agenda_get_rss_item_list( $course_id=NULL)
     $eventRssList = array();
     foreach ($eventList as $eventItem)
     {
-        $eventRssList[] = array( 'title' => $eventItem['title']
-        , 'category' => trim($toolNameList[str_pad('CLCAL',8,'_')])
-        , 'guid' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
-        , 'link' => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
-        , 'description' => trim(str_replace('<!-- content: html -->','',$eventItem['content']))
-        , 'pubDate' => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
+        if($eventItem['visibility'] == 'SHOW')
+        {
+            $eventRssList[] = array( 'title'       => $eventItem['title']
+            ,                        'category'    => trim($toolNameList[str_pad('CLCAL',8,'_')])
+            ,                        'guid'        => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
+            ,                        'link'        => $clarolineRepositoryWeb . 'calendar/agenda.php?cidReq=' . $_cid.'&amp;l#event' . $eventItem['id']
+            ,                        'description' => trim(str_replace('<!-- content: html -->','',$eventItem['content']))
+            ,                        'pubDate'     => date('r', stripslashes(strtotime($eventItem['day'].' '.$eventItem['hour'] )))
         //, 'author' => $_course['email']
-        );
+            );
+        }
     }
     return $eventRssList;
 }
@@ -130,14 +133,17 @@ function announcement_get_rss_item_list( $course_id=NULL)
     $rssList = array();
     foreach ($announcementList as $announcementItem)
     {
-        $rssList[] = array( 'title' => trim($announcementItem['title'])
-        , 'category' => trim($toolNameList[str_pad('CLANN',8,'_')])
-        , 'guid' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
-        , 'link' => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
-        , 'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
-        , 'pubDate' => date('r', stripslashes(strtotime($announcementItem['time'])))
-        //, 'author' => $_course['email']
-        );
+        if($announcementItem['visibility'] == 'SHOW')
+        {
+            $rssList[] = array( 'title'       => trim($announcementItem['title'])
+            ,                   'category'    => trim($toolNameList[str_pad('CLANN',8,'_')])
+            ,                   'guid'        => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
+            ,                   'link'        => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
+            ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
+            ,                   'pubDate'     => date('r', stripslashes(strtotime($announcementItem['time'])))
+          //,                   'author'      => $_course['email']
+            );
+        }
     }
     return $rssList;
 }
