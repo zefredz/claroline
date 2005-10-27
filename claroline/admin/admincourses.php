@@ -8,19 +8,23 @@
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/COURSE/
  *
  * @author Claro Team <cvs@claroline.net>
  *
  * @package COURSE
- * 
+ *
  */
 
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 $coursePerPage= 20;
+// initialisation of global variables and used libraries
+defined('COURSE_CREATOR') || define('COURSE_CREATOR',1);
+defined('COURSE_STUDENT') || define('COURSE_STUDENT',5);
+
 
 require '../inc/claro_init_global.inc.php';
 
@@ -29,8 +33,8 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // initialisation of global variables and used libraries
-include($includePath . '/lib/admin.lib.inc.php');
-include($includePath . '/lib/pager.lib.php');
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/pager.lib.php';
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'  ];
 $tbl_course          = $tbl_mdb_names['course'];
@@ -52,7 +56,7 @@ function confirmation (name)
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 $nameTools = $langCourseList;
 
 //------------------------
@@ -84,13 +88,13 @@ if (isset($_REQUEST['intitule'])){$_SESSION['admin_course_intitule']     = trim(
 if (isset($_REQUEST['category'])){$_SESSION['admin_course_category']     = trim($_REQUEST['category']);}
 if (isset($_REQUEST['language'])){$_SESSION['admin_course_language']     = trim($_REQUEST['language']);}
 if (isset($_REQUEST['access']))  {$_SESSION['admin_course_access']       = trim($_REQUEST['access']);}
-if (isset($_REQUEST['subscription'])) 
+if (isset($_REQUEST['subscription']))
                                  {$_SESSION['admin_course_subscription'] = trim($_REQUEST['subscription']);}
-if (isset($_REQUEST['order_crit']))   
+if (isset($_REQUEST['order_crit']))
                                  {$_SESSION['admin_course_order_crit']   = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
-if (isset($_REQUEST['search']))  {$search = $_REQUEST['search'];} else $search='';   
-   
+if (isset($_REQUEST['search']))  {$search = $_REQUEST['search'];} else $search='';
+
 // clean session if we come from a course
 
 session_unregister('_cid');
@@ -106,8 +110,8 @@ if (!isset($order['cat']))     $order['cat']    = '';
 
 $addToURL = '';
 if (!isset($_REQUEST['offsetC']))
-{ 
-   $offsetC = '0'; 
+{
+   $offsetC = '0';
 }
 else
 {
@@ -134,17 +138,17 @@ switch ($cmd)
         $delCode = $_REQUEST['delCode'];
         $the_course = claro_get_course_data($delCode);
 
-        if ($the_course) 
+        if ($the_course)
         {
             delete_course($delCode);
             $dialogBox = $langCourseDelete;
             $noQUERY_STRING = true;
         }
-        else 
+        else
         {
             switch(claro_failure::get_last_failure())
             {
-                case 'course_not_found': 
+                case 'course_not_found':
                 {
                     $dialogBox = $langCourseNotFound;
                 }
@@ -154,7 +158,7 @@ switch ($cmd)
                     $dialogBox = $langCourseNotFound;
                 }
             }
-            
+
         }
         break;
 }
@@ -166,18 +170,18 @@ switch ($cmd)
    // main query to know what must be displayed in the list
 
 $sql = "SELECT  C.*,
-                C.`fake_code` `officialCode`, 
-                C.`code`      `sysCode`, 
-                C.`directory` `repository`, 
-                count(IF(`CU`.`statut`=5,1,null)) `qty_stu` , 
-                #count only lines where statut of user is 5
-                
-                count(IF(`CU`.`statut`=1,1,null)) `qty_cm` 
+                C.`fake_code` `officialCode`,
+                C.`code`      `sysCode`,
+                C.`directory` `repository`,
+                count(IF(`CU`.`statut`=" . COURSE_STUDENT . ",".COURSE_CREATOR.",null)) `qty_stu` ,
+                #count only lines where statut of user is COURSE_STUDENT
+
+                count(IF(`CU`.`statut`=1,1,null)) `qty_cm`
                 #count only lines where statut of user is 1
 
-        FROM `".$tbl_course."` AS C 
+        FROM `".$tbl_course."` AS C
         LEFT JOIN `".$tbl_rel_course_user."` AS CU
-            ON `CU`.`code_cours` = `C`.`code` 
+            ON `CU`.`code_cours` = `C`.`code`
         WHERE 1=1 ";
 
 //deal with LETTER classification call
@@ -191,9 +195,9 @@ if (isset($_SESSION['admin_course_letter']))
 //deal with KEY WORDS classification call
 if (isset($_SESSION['admin_course_search']))
 {
-    $toAdd = " AND (      C.`intitule`  LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%' 
-                       OR C.`fake_code` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%' 
-                       OR C.`faculte`   LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%' 
+    $toAdd = " AND (      C.`intitule`  LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+                       OR C.`fake_code` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+                       OR C.`faculte`   LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
                )";
     $sql.=$toAdd;
 
@@ -308,50 +312,50 @@ if (isset($dialogBox))
 
   //see passed search parameters :
 
-$advanced_search_query_string = array();  
+$advanced_search_query_string = array();
 $isSearched ='';
-      
-if ( !empty($_REQUEST['search']) )              
+
+if ( !empty($_REQUEST['search']) )
 {
     $isSearched .= trim($_REQUEST['search']) . ' ';
 }
 
-if ( !empty($_REQUEST['code']) )                   
+if ( !empty($_REQUEST['code']) )
 {
     $isSearched .= $langCode . ' = ' . $_REQUEST['code'] . ' ';
     $advanced_search_query_string[] = 'code=' . urlencode($_REQUEST['code']);
 }
 
-if ( !empty($_REQUEST['intitule']) )           
+if ( !empty($_REQUEST['intitule']) )
 {
     $isSearched .= $langCourseTitle . ' = ' . $_REQUEST['intitule'] . ' ';
     $advanced_search_query_string[] = 'intitule=' . urlencode($_REQUEST['intitule']);
 }
 
-if ( !empty($_REQUEST['category']) )           
+if ( !empty($_REQUEST['category']) )
 {
     $isSearched .= $langCategory . ' = ' . $_REQUEST['category'] . ' ';
     $advanced_search_query_string[] = 'category=' . urlencode($_REQUEST['category']);
 }
-if ( !empty($_REQUEST['language']) )           
+if ( !empty($_REQUEST['language']) )
 {
     $isSearched .= $langLanguage . ' : ' . $_REQUEST['language'] . ' ';
     $advanced_search_query_string[] = 'language=' . urlencode($_REQUEST['language']);
 }
-if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')         
+if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')
 {
     $isSearched .= ' <b><br />' . $langPublicOnly . ' </b> ';
-    
+
 }
-if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')        
+if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')
 {
     $isSearched .= ' <b><br />' . $langPrivateOnly . ' </b>  ';
 }
-if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed') 
+if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed')
 {
     $isSearched .= ' <b><br />' . $langSubscriptionAllowedOnly . ' </b>  ';
 }
-if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')  
+if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')
 {
     $isSearched .= ' <b><br />' . $langSubscriptionDeniedOnly . ' </b>  ';
 }
@@ -382,8 +386,8 @@ if( empty($isSearched) )
 {
     $title = '&nbsp;';
     $isSearched = '&nbsp;';
-} 
-else 
+}
+else
 {
     $title = $langSearchOn . ' : ';
 }
@@ -391,20 +395,20 @@ else
 echo "\n".'<table width="100%">'."\n\n"
 .    '<tr>'."\n"
 .    '<td align="left">'."\n"
-.    '<b>' 
-.    $title 
+.    '<b>'
+.    $title
 .    '</b>'
 .    '<small>'
-.    $isSearched 
+.    $isSearched
 .    '</small>'
 .    '</td>'."\n"
 .    '<td align="right">'."\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">'."\n"
 .    '<label for="search">' . $langMakeNewSearch . '</label>'."\n"
-.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search">'."\n"
-.    '<input type="submit" value=" ' . $langOk . ' ">'."\n"
-.    '<input type="hidden" name="newsearch" value="yes">'."\n"
-.    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">' 
+.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />'."\n"
+.    '<input type="submit" value=" ' . $langOk . ' " />'."\n"
+.    '<input type="hidden" name="newsearch" value="yes" />'."\n"
+.    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">'
 .    $langAdvanced
 .    '</a>]'."\n"
 .    '</form>'."\n\n"
@@ -428,19 +432,19 @@ echo "\n\n".'<table class="claroTable emphaseLine" width="100%" border="0" cells
 //add titles for the table
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">'
-.    $langCode 
+.    $langCode
 .    '</a>'
 .    '</th>'."\n"
 
 .    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">' 
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">'
 .    $langCourseTitle
 .    '</a>'
 .    '</th>'."\n"
 
 .    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">' 
-.    $langCategory 
+.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">'
+.    $langCategory
 .    '</a>'
 .    '</th>'."\n"
 
@@ -460,8 +464,8 @@ foreach($resultList as $courseLine)
     echo '<tr>'."\n";
 
 
-    if (    isset($_SESSION['admin_course_search']) 
-        && $_SESSION['admin_course_search'] != '' ) 
+    if (    isset($_SESSION['admin_course_search'])
+        && $_SESSION['admin_course_search'] != '' )
         //trick to prevent "//1" display when no keyword used in search
     {
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
@@ -529,7 +533,7 @@ foreach($resultList as $courseLine)
     .    '<td align="center">' ."\n"
     .    '<a href="../course_info/infocours.php?adminContext=1'
     .    '&amp;cidReq=' . $courseLine['code'] . $addToURL . '&amp;cfrom=clist">'
-    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="' . $langCourseSettings. '">'
+    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="' . $langCourseSettings. '" />'
     .    '</a>'
     .    '</td>' . "\n"
 
@@ -537,7 +541,7 @@ foreach($resultList as $courseLine)
 
 
     .    '<td align="center">' . "\n"
-    .    '<a href="' . $_SERVER['PHP_SELF'] 
+    .    '<a href="' . $_SERVER['PHP_SELF']
     .    '?cmd=delete&amp;delCode=' . $courseLine['code'] . $addToURL . '" '
     .    ' onClick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '" />' . "\n"
@@ -568,5 +572,5 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display footer
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>
