@@ -93,7 +93,7 @@ echo claro_disp_tool_title($nameTools)
 :
 <input name="search" id="search_user" />
 <input type="submit" value="<?php echo $langSearch; ?>" />
-&nbsp;&nbsp;[<a class="claroCmd" href="advancedUserSearch.php"><?php echo $langAdvanced?></a>]
+&nbsp;&nbsp;<small><a href="advancedUserSearch.php"><?php echo $langAdvanced?></small></a>
 </form>
 <li>
 <a href="adminusers.php" class="toollink"><?php echo $langListUsers?></a>
@@ -118,7 +118,7 @@ echo claro_disp_tool_title($nameTools)
 <label for="search_course"><?php echo $langCourse; ?></label> :
 <input name="search" id="search_course" />
 <input type="submit" value="<?php echo $langSearch; ?>" />
-&nbsp; &nbsp;[<a class="claroCmd" href="advancedCourseSearch.php"><?php echo $langAdvanced?></a>]
+&nbsp; &nbsp;<small><a href="advancedCourseSearch.php"><?php echo $langAdvanced?></a></small>
 </form>
 </li>
 <li>
