@@ -212,7 +212,7 @@ if ( $is_allowedToEdit )
         .    '<td>'               . "\n"
         .    '<form  method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
         .    '<input type="hidden" name="cmd" value="' . ($descItem['content'] ? 'exEdit' : 'exAdd' ). '">'
-        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
         .    (isset($descItem['id']) ? '<input type="hidden" name="id" value="' . $descItem['id'] . '">' : '' )
         .    '<p><label for="descTitle"><b>' . $langTitle . ' : </b></label><br /></p>' . "\n"
         .    ( $descNotEditable==true ? htmlspecialchars($descPresetTitle) . '<input type="hidden" name="descTitle" value="'. htmlspecialchars($descPresetTitle) .'">' : '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($descItem['title']) . '">' . "\n")
@@ -257,7 +257,7 @@ if ( $is_allowedToEdit )
 
         echo "\n\n"
         .    '<form method="get" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
-        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
         .    '<input type="hidden" name="cmd" value="rqEdit">' . "\n"
         .    '<select name="tipsId">' . "\n"
         ;
@@ -320,11 +320,11 @@ if ( count($descList) )
             .    '<th class="item' . $classItem . '">'
             .    '<div' . $style . '>';
 
-			if( trim($thisDesc['title']) == '' )
+            if( trim($thisDesc['title']) == '' )
                 echo '&nbsp;';
-			else
-			    echo htmlspecialchars($thisDesc['title']);
-			    
+            else
+                echo htmlspecialchars($thisDesc['title']);
+                
             echo '</div>'
             .    '</th>'
             .    '</tr>' . "\n"

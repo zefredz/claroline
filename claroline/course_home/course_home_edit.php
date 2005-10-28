@@ -1,12 +1,12 @@
-<?php # $Id$
+<?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLHOME
  *
@@ -30,10 +30,10 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-	if (confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).'\'+ name + \' ?\'))
-		{return true;}
-	else
-		{return false;}
+    if (confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).'\'+ name + \' ?\'))
+        {return true;}
+    else
+        {return false;}
 }
 </script>';
 
@@ -41,8 +41,8 @@ $toolRepository = '../';
 
 $currentCourseRepository = $_course['path'];
 
-include($includePath . '/claro_init_header.inc.php');
-include($includePath . '/lib/course_home.lib.php');
+include $includePath . '/claro_init_header.inc.php';
+include $includePath . '/lib/course_home.lib.php';
 
 /*
  * set access level of the user
@@ -91,7 +91,7 @@ if ($cmd == 'exSetToolAccess')
     foreach($currentToolStateList as $thisCurrentToolState)
     {
 
-        if ( isset($_REQUEST['toolAccessList']) && is_array($_REQUEST['toolAccessList']) 
+        if ( isset($_REQUEST['toolAccessList']) && is_array($_REQUEST['toolAccessList'])
              && in_array($thisCurrentToolState['id'],$_REQUEST['toolAccessList'])
             )
         {
@@ -110,7 +110,7 @@ if ($cmd == 'exSetToolAccess')
     {
         // notify that tool list has been changed
 
-        $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');        
+        $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, '0', '0', '0', '0');
         $msg .= $langChangedTool;
     }
     else
@@ -130,11 +130,11 @@ if ($cmd == 'exAdd')
     {
         if (insert_local_course_tool($_REQUEST['toolName'], $_REQUEST['toolUrl']) !== FALSE )
         {
-        
+
          // notify that tool list has been changed
 
-         $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');     
-                
+         $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
+
          $msg .= $langAddedExternalTool;
         }
         else
@@ -161,8 +161,8 @@ if ($cmd == 'exEdit')
         {
             // notify that tool list has been changed
 
-            $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');   
-            
+            $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
+
             $msg .= $langUpdatedExternalTool;
         }
         else
@@ -234,7 +234,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
     $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
             .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
-          	.'<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
+              .'<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
 
     if ($externalToolId)
     {
@@ -242,12 +242,12 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<label for="toolName">'.$langExternalToolName.'</label><br />'."\n"
-			.'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
-			.'<label for="toolUrl">'.$langExternalToolUrl.'</label><br />'."\n"
-			.'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
-			.'<input class="claroButton" type="submit" value="'.$langOk.'">&nbsp;'."\n"
-			.claro_disp_button($_SERVER['PHP_SELF'], $langCancel)."\n"
-			.'</form>'."\n" ;
+            .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
+            .'<label for="toolUrl">'.$langExternalToolUrl.'</label><br />'."\n"
+            .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
+            .'<input class="claroButton" type="submit" value="'.$langOk.'">&nbsp;'."\n"
+            .claro_disp_button($_SERVER['PHP_SELF'], $langCancel)."\n"
+            .'</form>'."\n" ;
 }
 
 $backLink = '<p>'
@@ -329,22 +329,22 @@ foreach($toolList as $thisTool)
     echo '<tr>'."\n";
 
     echo '<td >'."\n"
-	    .'<label for="toolAccessList'.$thisTool['id'].'">'
-	    .'<img src="'.$icon.'" alt="" />'
-	    .$toolName.'</label>'."\n"
-		.'</td>'."\n"
-	    .'<td>'."\n"
-		.'<input type="checkbox" name="toolAccessList[]" id="toolAccessList'.$thisTool['id'].'" value="'.$thisTool['id'].'"'.$checkState.'>'."\n";
+        .'<label for="toolAccessList'.$thisTool['id'].'">'
+        .'<img src="'.$icon.'" alt="" />'
+        .$toolName.'</label>'."\n"
+        .'</td>'."\n"
+        .'<td>'."\n"
+        .'<input type="checkbox" name="toolAccessList[]" id="toolAccessList'.$thisTool['id'].'" value="'.$thisTool['id'].'"'.$checkState.'>'."\n";
 
     if ($removableTool)
     {
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$thisTool['id'].'">'
-	        .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'" />'
-	        .'</a>'."\n"
-	        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$thisTool['id'].'"'
-	        .' onClick="return confirmation(\''.clean_str_for_javascript($toolName).'\');">'
-	        .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" />'
-	        .'</a>'."\n";
+            .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'" />'
+            .'</a>'."\n"
+            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$thisTool['id'].'"'
+            .' onClick="return confirmation(\''.clean_str_for_javascript($toolName).'\');">'
+            .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" />'
+            .'</a>'."\n";
 
     }
 

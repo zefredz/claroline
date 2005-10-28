@@ -85,7 +85,7 @@ $accessLevelList = array( 'ALL'            => 0
 $is_allowedToEdit = claro_is_allowed_to_edit();
 $disp_edit_command = $is_allowedToEdit;
 
-if     ($is_platformAdmin 	&& $is_allowedToEdit)   $reqAccessLevel   = 'PLATFORM_ADMIN';
+if     ($is_platformAdmin     && $is_allowedToEdit)   $reqAccessLevel   = 'PLATFORM_ADMIN';
 elseif ($is_allowedToEdit)   $reqAccessLevel   = 'COURSE_ADMIN';
 else                         $reqAccessLevel   = 'ALL';
 
