@@ -74,13 +74,13 @@ echo claro_disp_tool_title($langForums,
 echo '<table class="claroTable" width="100%">'        . "\n"
 .    '<tr align="left">'                              . "\n"
 .    '<th class="superHeader">'                       . "\n"
-.    'Search results on: '.$_REQUEST['searchPattern'] . "\n"
+.    $langSearchOn . ' : '.$_REQUEST['searchPattern'] . "\n"
 .    '</th>'                                          . "\n"
 .    '</tr>'                                          . "\n";
 
     if (count($searchResultList) < 1 )
     {
-        echo '<tr><td align="center">No result</td></tr>';
+        echo '<tr><td align="center">' . $langNoResult . '</td></tr>';
     }
     else foreach ( $searchResultList as $thisPost )
     {
@@ -133,11 +133,6 @@ echo '<table class="claroTable" width="100%">'        . "\n"
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
-
-echo  '<br />
-<center>
-<small>Copyright &copy; 2000 - 2001 <a href="http://www.phpbb.com/" target="_blank">The phpBB Group</a></small>
-</center>';
 
 include $includePath.'/claro_init_footer.inc.php';
 
