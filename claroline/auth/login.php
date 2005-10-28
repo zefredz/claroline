@@ -61,16 +61,16 @@ if ($_cid)
 }
 else
 {
-	$sourceCidFormField = '';
+    $sourceCidFormField = '';
 }
 
 if ($_gid)
 {
-	$sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars($_gid) . '">';
+    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars($_gid) . '">';
 }
 else
 {
-	$sourceGidFormField = '';
+    $sourceGidFormField = '';
 }
 
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
@@ -85,49 +85,49 @@ if ( is_null($_uid) && $uidRequired )
 
     if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
     {
-	    // Display login form
-	    echo '<table align="center">'                                     ."\n"
-	    .    '<tr>'                                                       ."\n"
-	    .    '<td>'                                                       ."\n"
-	    .    claro_disp_tool_title('Authentication required.')
-	    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
-	    .    '<fieldset>'                                                 ."\n"
-	    .    $sourceUrlFormField                                          ."\n"
-	    .    $cidRequiredFormField
-	    .    $sourceCidFormField                                          ."\n"
-	    .    $sourceGidFormField                                          ."\n"
-	    .    '<legend>' . $langAuthentication . '</legend>'               ."\n"
+        // Display login form
+        echo '<table align="center">'                                     ."\n"
+        .    '<tr>'                                                       ."\n"
+        .    '<td>'                                                       ."\n"
+        .    claro_disp_tool_title('Authentication required.')
+        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+        .    '<fieldset>'                                                 ."\n"
+        .    $sourceUrlFormField                                          ."\n"
+        .    $cidRequiredFormField
+        .    $sourceCidFormField                                          ."\n"
+        .    $sourceGidFormField                                          ."\n"
+        .    '<legend>' . $langAuthentication . '</legend>'               ."\n"
 
-	    .    '<label for="username">'.$langUserName.' : </label><br />'   ."\n"
-	    .    '<input type="text" name="login" id="username"><br />'       ."\n"
+        .    '<label for="username">'.$langUserName.' : </label><br />'   ."\n"
+        .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
-	    .    '<label for="password">'.$langPassword.' : </label><br />'   ."\n"
-	    .    '<input type="password" name="password" id="password"><br />'."\n"
-	    .    '<br />'
-	    .    '<input type="submit" value="'.$langOk.'"> '                 ."\n"
-	    .    claro_disp_button($clarolineRepositoryWeb, $langCancel)
-	    .    '</fieldset>'                                                ."\n"
-	    .    '</form>'                                                    ."\n"
-	    ;
+        .    '<label for="password">'.$langPassword.' : </label><br />'   ."\n"
+        .    '<input type="password" name="password" id="password"><br />'."\n"
+        .    '<br />'
+        .    '<input type="submit" value="'.$langOk.'"> '                 ."\n"
+        .    claro_disp_button($clarolineRepositoryWeb, $langCancel)
+        .    '</fieldset>'                                                ."\n"
+        .    '</form>'                                                    ."\n"
+        ;
 
-	    if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
-	    {
-		echo '<p>' . sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') . '</p>';
-	    }
+        if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
+        {
+        echo '<p>' . sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') . '</p>';
+        }
 
-	    echo '</td>'                                                    ."\n"
-	    .    '</tr>'                                                    ."\n"
-	    .    '</table>'                                                 ."\n"
-	    ;
+        echo '</td>'                                                    ."\n"
+        .    '</tr>'                                                    ."\n"
+        .    '</table>'                                                 ."\n"
+        ;
     } // end if claro_dispLocalAuthForm
 
     if (isset($claro_CasEnabled) && $claro_CasEnabled )
     {
-	    echo '<div align="center">'
-	    .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
-	    .    (isset($claro_CasLoginString) ? $claro_CasLoginString : $langLogin)
-	    .    '</a>'
-	    .    '</div>';
+        echo '<div align="center">'
+        .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
+        .    (isset($claro_CasLoginString) ? $claro_CasLoginString : $langLogin)
+        .    '</a>'
+        .    '</div>';
     } // end if claro_CASEnabled
     
     // Display footer
@@ -228,7 +228,7 @@ else
             }
             elseif ( $allowSelfReg )
             {
-        		// Display a link to anonymous to register on the platform
+                // Display a link to anonymous to register on the platform
                 echo '<p align="center">'                           ."\n"
                 .    $langCreate1stAccountOnPlatform                ."\n"
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
@@ -244,9 +244,9 @@ else
                 .    '</p>'                                         ."\n";
             }
         }
-	else
-	{
-	    // Enrolment is not allowed for this course
+    else
+    {
+        // Enrolment is not allowed for this course
             echo '<p align="center">'                           ."\n"
                 . $langMessageEnrollToCourseNotAllowed;
             if ($_course['email'] && $_course['titular'])
@@ -254,7 +254,7 @@ else
                 echo '<br />Please contact course titular(s) : '.$_course['titular']
                 .    '<br /><small>e-mail address : <a href="mailto:' . $_course['email'] .'">' . $_course['email']. '</a>'
                 ;
-           	
+               
             }
 
             echo '</p>'                                     ."\n";

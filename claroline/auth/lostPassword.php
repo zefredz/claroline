@@ -150,14 +150,14 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
     if ($extAuthPasswordCount > 0 )
     {
-    	if ( count ($user) > 0 )
-    	{
-        	$msg .= '<p>'
+        if ( count ($user) > 0 )
+        {
+            $msg .= '<p>'
                  .  'Passwords of some of your user account(s) are recorded an in external 
                     authentication system outside the platform.
                     <br />For more information take contact with the platform administrator.'
                  .  '</p>';
-    	}
+        }
         else
         {
             $msg .= '<p>'
@@ -202,5 +202,5 @@ if ( ! empty($msg) ) echo claro_disp_message_box($msg);
 
 // display form
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

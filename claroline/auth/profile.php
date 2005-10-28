@@ -92,7 +92,7 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include('../inc/claro_init_local.inc.php');
-        $messageList[] = $langProfileReg . '<br>' . "\n"
+        $messageList[] = $langProfileReg . '<br />' . "\n"
         .                '<a href="../../index.php">' . $langHome . '</a>'
         ;
 

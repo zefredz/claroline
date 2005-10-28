@@ -150,7 +150,7 @@ if ( !empty($fromAdmin) )
 {
     if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' )
     {
-        $interbredcrump[]= array ('url' => $rootAdminWeb, 'name'=> $langAdministration);
+        $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
     }
 
     if ( $fromAdmin == 'class' )
@@ -197,7 +197,7 @@ if ( $cmd == 'exUnreg' )
 {
     if ( user_remove_from_course($userId, $course) )
     {
-		event_default('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
+        event_default('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
         $message = $lang_your_enrollment_to_the_course_has_been_removed;
     }
     else
@@ -670,7 +670,7 @@ switch ( $displayMode )
                     }
                     else
                     {
-                    	echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . $lang_enroll . '">';
+                        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . $lang_enroll . '">';
                     }
 
                     echo '</td>' . "\n";
@@ -740,7 +740,7 @@ switch ( $displayMode )
             {
                 echo '<tr>' . "\n"
                 .    '<td>' . "\n"
-                .    $thisCourse['intitule'] . '<br>' . "\n"
+                .    $thisCourse['intitule'] . '<br />' . "\n"
                 .    '<small>' . $thisCourse['fake_code'] . ' - ' . $thisCourse['titulaires'] . '</small>'
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
