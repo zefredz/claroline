@@ -251,8 +251,8 @@ if($is_allowedToEdit)
   --------------------------------------------------------------------*/
 
 // bredcrump to return to the list when in a form
-$interbredcrump[]= array ("url"=>"./work.php", "name"=> $langWork);
-$interbredcrump[]= array ("url"=>"./workList.php?assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
+$interbredcrump[]= array ('url' => "./work.php", 'name' => $langWork);
+$interbredcrump[]= array ('url' => "./workList.php?assigId=".$_REQUEST['assigId'], 'name' => $langAssignment);
 $nameTools = $langFeedback;
 
 
@@ -348,5 +348,5 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 }
 
 // FOOTER
-include($includePath . '/claro_init_footer.inc.php'); 
+include $includePath . '/claro_init_footer.inc.php'; 
 ?>

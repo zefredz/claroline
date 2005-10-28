@@ -213,9 +213,9 @@ switch ($display)
             if ( !file_exists($currentcoursePathSys) )
             {            
                 $error = true;
-                $message .= '<p class="help"><strong>Course has no repository.</strong><br>
+                $message .= '<p class="help"><strong>Course has no repository.</strong><br />
                              <small>' .  $currentcoursePathSys . '</small> Not found</p>' . "\n";
-                $message .= '<p class="comment">The upgrade tool is not able to upgrade this course.<br>
+                $message .= '<p class="comment">The upgrade tool is not able to upgrade this course.<br />
                              Fix, first, the technical problem and relaunch the upgrade tool.</p>' . "\n";
             }
 

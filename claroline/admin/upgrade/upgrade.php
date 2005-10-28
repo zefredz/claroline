@@ -171,9 +171,9 @@ switch ($display)
               <td>The data backup has been done</td>
               <td>
               <input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />
-              <label for="confirm_backup_yes">Yes</label><br>
+              <label for="confirm_backup_yes">Yes</label><br />
               <input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />
-              <label for="confirm_backup_no">No</label><br>
+              <label for="confirm_backup_no">No</label><br />
               </td>
               </tr>
               </tbody>

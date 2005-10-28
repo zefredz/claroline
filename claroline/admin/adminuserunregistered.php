@@ -26,7 +26,7 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 $nameTools=$langUserSettings;
 $dialogBox = '';
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -94,6 +94,6 @@ echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\"
 
 // Display footer
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

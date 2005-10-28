@@ -76,49 +76,49 @@ echo claro_disp_tool_title($nameTools . ' : ');
 ?>
 <form action="adminusers.php" method="GET" >
 <table border="0">
-	<tr>
-		<td align="right">
-			<label for="lastName"><?php echo $langLastName?></label>
-			: <br>
-		</td>
-		<td>
-			<input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($lastName); ?>"/>
-		</td>
-	</tr>
+    <tr>
+        <td align="right">
+            <label for="lastName"><?php echo $langLastName?></label>
+            : <br />
+        </td>
+        <td>
+            <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($lastName); ?>"/>
+        </td>
+    </tr>
 
-	<tr>
-		<td align="right">
-			<label for="firstName"><?php echo $langFirstName?></label>
-			: <br>
-		</td>
-		<td>
-			<input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($firstName) ?>"/>
-		</td>
-	</tr>
-	
-	<tr>
-		<td align="right">
-			<label for="userName"><?php echo $langUserName ?></label> 
-			:  <br>
-		</td>
-		<td>
-			<input type="text" name="userName" id="userName" value="<?php echo htmlspecialchars($userName); ?>"/>
-		</td>
-	</tr>
+    <tr>
+        <td align="right">
+            <label for="firstName"><?php echo $langFirstName?></label>
+            : <br />
+        </td>
+        <td>
+            <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($firstName) ?>"/>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+            <label for="userName"><?php echo $langUserName ?></label> 
+            :  <br />
+        </td>
+        <td>
+            <input type="text" name="userName" id="userName" value="<?php echo htmlspecialchars($userName); ?>"/>
+        </td>
+    </tr>
 
-	<tr>
-		<td align="right">
-			<label for="mail"><?php echo $langEmail ?></label> 
-			: <br>
-		</td>
-		<td>
-			<input type="text" name="mail" id="mail" value="<?php echo htmlspecialchars($mail); ?>"/>
-		</td>
-	</tr>
+    <tr>
+        <td align="right">
+            <label for="mail"><?php echo $langEmail ?></label> 
+            : <br />
+        </td>
+        <td>
+            <input type="text" name="mail" id="mail" value="<?php echo htmlspecialchars($mail); ?>"/>
+        </td>
+    </tr>
 
 <tr>
   <td align="right">
-   <label for="action"><?php echo $langStatus ?></label> : <br>
+   <label for="action"><?php echo $langStatus ?></label> : <br />
   </td>
   <td>
 <?php 
@@ -147,5 +147,5 @@ echo claro_html_form_select( 'action'
 </table>
 </form>
 <?php
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

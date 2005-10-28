@@ -83,7 +83,7 @@ if (isset($restored_courses)) echo $restored_courses;
 
 echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . $langLaunchRestoreCourseRepository . '</a></p>';
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 
 /**

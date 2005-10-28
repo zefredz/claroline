@@ -515,5 +515,5 @@ echo '</tbody>' . "\n"
 ;
 
 // FOOTER
-include($includePath . '/claro_init_footer.inc.php'); 
+include $includePath . '/claro_init_footer.inc.php'; 
 ?>

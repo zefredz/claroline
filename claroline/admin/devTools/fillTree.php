@@ -1,11 +1,11 @@
 
-#Paste  in sql win  of <A target"=_PMA" href=../mysql/ >PMA</A> (open a new windows)<br>
-#<br>
+#Paste  in sql win  of <A target"=_PMA" href=../mysql/ >PMA</A> (open a new windows)<br />
+#<br />
 #and after  click to theses button
 
 <FORM action="../managing/adminCoursesTree.php" method="post" >
-	<input type="submit" name="rebuiltTreePos" value="rebuilt Tree Pos">
-	<input type="submit" name="refreshAllNbChildInBase" value="rebuilt nb Childs in db">
+    <input type="submit" name="rebuiltTreePos" value="rebuilt Tree Pos">
+    <input type="submit" name="refreshAllNbChildInBase" value="rebuilt nb Childs in db">
 </FORM>
 
 
@@ -28,33 +28,33 @@ $deep = 4;
 $number = 24; // <- 1+ select max(number) FROM faculte;
 
 echo "INSERT INTO `faculte`
-		SET
-			`code`		= '".$code."' ,
-			`code_P`	= NULL ,
-			`name` 		= 'test tree root'	;<br>" ;
+        SET
+            `code`        = '".$code."' ,
+            `code_P`    = NULL ,
+            `name`         = 'test tree root'    ;<br />" ;
 
 create_childs($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep);
 
 function create_childs($largeurMin,$largeurMax,$deep,$nom,$nomSep,$code,$catSep)
 {
-	GLOBAL $number;
-	//echo "#DEEP :".$deep."<br>";
-	$code_P = $code;
-	$nom_P	= $nom;
-	if ($deep > 0)
-	for ($i=1;$i<=(rand($largeurMin,$largeurMax));$i++)
-	{
-		$nom  = $nom_P . $nomSep . $i;
-		$code =	$code_P . $catSep . $i;
-		//echo "# ".$nom." * ".$code."<br>";
-		echo "INSERT INTO `faculte`
-		SET
-			`code`		= '" . $code . "' ,
-			`code_P`	= '" . $code_P . "' ,
-			`name` 		= '" . $nom . "';<br>" ;
-		create_childs(rand(0,$largeurMin), rand($largeurMin,$largeurMax), $deep-rand(1,3), $nom, $nomSep, $code, $catSep);
-	}
-	return true;
+    GLOBAL $number;
+    //echo "#DEEP :".$deep."<br />";
+    $code_P = $code;
+    $nom_P    = $nom;
+    if ($deep > 0)
+    for ($i=1;$i<=(rand($largeurMin,$largeurMax));$i++)
+    {
+        $nom  = $nom_P . $nomSep . $i;
+        $code =    $code_P . $catSep . $i;
+        //echo "# ".$nom." * ".$code."<br />";
+        echo "INSERT INTO `faculte`
+        SET
+            `code`        = '" . $code . "' ,
+            `code_P`    = '" . $code_P . "' ,
+            `name`         = '" . $nom . "';<br />" ;
+        create_childs(rand(0,$largeurMin), rand($largeurMin,$largeurMax), $deep-rand(1,3), $nom, $nomSep, $code, $catSep);
+    }
+    return true;
 }
 
 ?>

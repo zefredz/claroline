@@ -44,10 +44,10 @@ if ( mysql_errno() == 1146 ) $table_exists = FALSE;
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[] = array ('url' => $urlSDK, 'name' => $langSDK);
 
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 // echo claro_disp_tool_title('<img src="lang/language.png" style="vertical-align: middle;" alt="" /> '.$nameTools);
 echo claro_disp_tool_title($nameTools);
@@ -86,5 +86,5 @@ if ( $table_exists == TRUE )
 ?>
 
 <?php
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

@@ -177,9 +177,9 @@ if ( $cmd == 'run' )
                         // Validation failed - Alert users
                         $okToSave = FALSE;
                         $error = TRUE;
-                        $output .= '<span class="warning">'.sprintf("%s : %s is invalid", $propName, $propValue) . '</span>' . '<br>' . "\n"
-                                . sprintf("Rules : %s in %s",$propDef['type'] ,basename($def_file)).' <br>' . "\n"
-                                . var_export($propDef['acceptedValue'],1) . '<br>' . "\n" ;
+                        $output .= '<span class="warning">'.sprintf("%s : %s is invalid", $propName, $propValue) . '</span>' . '<br />' . "\n"
+                                . sprintf("Rules : %s in %s",$propDef['type'] ,basename($def_file)).' <br />' . "\n"
+                                . var_export($propDef['acceptedValue'],1) . '<br />' . "\n" ;
                     }
                     else
                     {

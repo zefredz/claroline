@@ -11,8 +11,8 @@
  *
  * @author claro team <cvs@claroline.net>
  */
-$cidReset=TRUE;
-$gidReset=TRUE;
+$cidReset=true;
+$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
@@ -125,7 +125,7 @@ echo claro_disp_tool_title($nameTools)
 <a href="admincourses.php" class="toollink"><?php echo $langCourseList?></a>
 </li>
 <li>
-<a href="../create_course/add_course.php?fromAdmin=yes" class="toollink"><?php echo $langCreateCourse?></a><br>
+<a href="../create_course/add_course.php?fromAdmin=yes" class="toollink"><?php echo $langCreateCourse?></a><br />
 </li>
 <li>
 <a href="admincats.php" class="toollink"><?php echo $langManageCourseCategories?></a>
@@ -212,7 +212,7 @@ if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 || ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
-	// close opened tag if needed
+    // close opened tag if needed
 ?>
 </ul>
 </td>

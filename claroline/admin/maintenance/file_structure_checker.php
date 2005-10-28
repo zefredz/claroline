@@ -72,8 +72,8 @@ else
 
 $nameTools = $langFileStructureChecker;
 
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[] = array ("url"=>$urlMaintenance, "name"=> $langMaintenance);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[] = array ('url' => $urlMaintenance, 'name' => $langMaintenance);
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -131,8 +131,7 @@ switch ($display)
 }
 
 
-include($includePath.'/claro_init_footer.inc.php');
-
+include $includePath . '/claro_init_footer.inc.php';
 /*=====================================================================
   Display Section
  =====================================================================*/

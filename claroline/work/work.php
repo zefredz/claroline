@@ -307,7 +307,7 @@ function confirmation (name)
 
 if ( isset($_gid) )
 {
-    $interbredcrump[]= array ( 'url' => '../group/group.php', 'name'=> $langGroup);
+    $interbredcrump[]= array ( 'url' => '../group/group.php', 'name' => $langGroup);
     $interbredcrump[]= array ( 'url' => '../group/group_space.php', 'name' => $langGroupSpace);
 }
 
@@ -615,19 +615,19 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             echo "<tr".$style.">\n"
                 ."<td>\n"
                 ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
-                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\"></a>\n"
+                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\" /></a>\n"
                 ;
             if ( $anAssignment['visibility'] == "INVISIBLE" )
             {
                 echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=v\">"
-                      ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\">"
+                      ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\" />"
                       ."</a>"
                       ;
             }
             else
             {
                 echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=i\">"
-                      ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\">"
+                      ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\" / >"
                       ."</a>"
                       ;
             }
@@ -651,5 +651,5 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
 }
 // FOOTER
-include($includePath . '/claro_init_footer.inc.php'); 
+include $includePath . '/claro_init_footer.inc.php'; 
 ?>

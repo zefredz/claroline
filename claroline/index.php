@@ -13,19 +13,19 @@
 //----------------------------------------------------------------------
 
 /*
- *	if not admin ,  nothing  to do  here.
+ * if not admin ,  nothing  to do  here.
  */
 
 session_start();
 
 if ( isset($_SESSION['is_platformAdmin']) && $_SESSION['is_platformAdmin'] == TRUE )
 {
-	//
-    header("Location:../");
+    //
+    header('Location:../');
 }
 else
 {
-   header("Location:../");
+    header('Location:../');
 }
 
 ?>

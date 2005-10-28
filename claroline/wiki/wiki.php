@@ -52,8 +52,8 @@
         // group context
         $groupId = (int) $_gid;
         
-        $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-        $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
+        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => $langGroups);
+        $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -356,18 +356,18 @@
     {
         case "rqEdit":
         {
-            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
-            $interbredcrump[]= array ("url"=>NULL
-                , 'name'=> $wikiTitle);
+            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => $langWiki );
+            $interbredcrump[]= array ('url' => NULL
+                , 'name' => $wikiTitle);
             $nameTools = $langWikiProperties;
             $noPHP_SELF = true;
             break;
         }
         case "rqDelete":
         {
-            $interbredcrump[]= array ("url"=>"wiki.php", 'name'=> $langWiki );
-            $interbredcrump[]= array ("url"=>NULL
-                , 'name'=> $wikiTitle);
+            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => $langWiki );
+            $interbredcrump[]= array ('url' => NULL
+                , 'name' => $wikiTitle);
             $nameTools = $langDelete;
             $noPHP_SELF = true;
             break;

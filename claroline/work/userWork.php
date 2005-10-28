@@ -910,13 +910,13 @@ function confirmation (name)
 
 if(isset($_gid))
 {
-	$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langGroup);
-	$interbredcrump[]= array ("url"=>"../group/group_space.php", "name"=> $langGroupSpace);
+	$interbredcrump[]= array ('url' => "../group/group.php", 'name' => $langGroup);
+	$interbredcrump[]= array ('url' => "../group/group_space.php", 'name' => $langGroupSpace);
 }
 
-$interbredcrump[]= array ("url"=>"../work/work.php", "name"=> $langWork);
+$interbredcrump[]= array ('url' => "../work/work.php", 'name' => $langWork);
 
-$interbredcrump[]= array ("url"=>"../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name"=> $langAssignment);
+$interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], 'name' => $langAssignment);
 // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
 $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
 $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
@@ -925,7 +925,7 @@ $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
 if( $dispWrkDet || $dispWrkForm )
 {
       // bredcrump to return to the list when in a form
-      $interbredcrump[]= array ("url"=>"../work/userWork.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name" => $authName);
+      $interbredcrump[]= array ('url' => "../work/userWork.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name" => $authName);
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
 	  $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
 	  $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
@@ -1443,5 +1443,5 @@ if( $dispWrkLst )
 	}
 }
 // FOOTER
-include($includePath."/claro_init_footer.inc.php"); 
+include $includePath . '/claro_init_footer.inc.php'; 
 ?>

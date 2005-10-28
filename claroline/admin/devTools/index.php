@@ -27,15 +27,15 @@ if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
 $nameTools = $langDevTools;
 
-$interbredcrump[]= array ('url'=>'../index.php', 'name'=> $langAdmin);
+$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
 
 include($includePath.'/claro_init_header.inc.php');
 
 echo claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools
-	)
-	);
+    array(
+    'mainTitle'=>$nameTools
+    )
+    );
 
 ?>
 <h4><?php echo $langTranslations ?></h4>
@@ -51,5 +51,5 @@ echo claro_disp_tool_title(
 </ul>
 
 <?php
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

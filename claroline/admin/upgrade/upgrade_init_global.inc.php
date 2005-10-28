@@ -125,17 +125,17 @@ claro_unquote_gpc();
 
 $db = @mysql_connect($dbHost, $dbLogin, $dbPass)
 or die ('<center>'
-	   .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
-	   .'</center>');
+       .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
+       .'</center>');
 
 $selectResult = mysql_select_db($mainDbName,$db)
 or die ( '<center>'
-		.'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
-		.'</center>');
+        .'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
+        .'</center>');
 
 if ($statsDbName == '')
 {
-	$statsDbName = $mainDbName;
+    $statsDbName = $mainDbName;
 }
 
 /*----------------------------------------------------------------------
@@ -144,11 +144,11 @@ if ($statsDbName == '')
 
 if ($_course['language'])
 {
-	$languageInterface = $_course['language'];
+    $languageInterface = $_course['language'];
 }
 else
 {
-	$languageInterface = $platformLanguage;
+    $languageInterface = $platformLanguage;
 }
 
 // include the language file with all language variables

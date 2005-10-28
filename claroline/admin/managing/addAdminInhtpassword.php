@@ -169,7 +169,7 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
             fwrite($filePasswd, $stringPasswd);
             fclose($filePasswd);
             $controlMsg["success"][]= "ok : Now, ".$user["prenom"]." ".$user["nom"]." can use his campus login-pass to access in protected areas
-            <br>".realpath($pathHtPassword)." ".$langUpdated;
+            <br />".realpath($pathHtPassword)." ".$langUpdated;
         }
         else
         {
@@ -286,7 +286,7 @@ elseif ($display == USER_SELECT_FORM)
         }
 ?>
 </select>
-<input type="submit" value="<?php echo $langSetAdmin; ?>"><br>
+<input type="submit" value="<?php echo $langSetAdmin; ?>"><br />
 <?php
     }
 ?>
@@ -328,8 +328,8 @@ elseif ($display == LIST_ADMINS)
     }
     echo "
 </UL>
-<br>
-<br>";
+<br />
+<br />";
 }
 elseif ($display == LIST_HT_LOGIN)
 {
@@ -340,7 +340,7 @@ elseif ($display == LIST_HT_LOGIN)
 elseif ($display == ADD_LOGIN_PASS)
 {    if (isset($msgstr))
     {
-        echo "<DIV class=\"",$classMsg,"\">",$msgstr,"</DIV><br>";
+        echo "<DIV class=\"",$classMsg,"\">",$msgstr,"</DIV><br />";
     }
 ?>
 <form  method="POST" name="crypte" action="<?php echo $_SERVER['PHP_SELF']?>">

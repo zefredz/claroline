@@ -33,7 +33,7 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 $nameTools = $langSearchCourseAdvanced;
 
 //--------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 <table border="0">
 <tr>
   <td align="right">
-   <label for="code"><?php echo $langOfficialCode?></label> : <br>
+   <label for="code"><?php echo $langOfficialCode?></label> : <br />
   </td>
   <td colspan="3">
     <input type="text" size="40" name="code" id="code" value="<?php echo htmlspecialchars($code); ?>"/>
@@ -94,7 +94,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="intitule"><?php echo $langCourseTitle?></label> :  <br>
+   <label for="intitule"><?php echo $langCourseTitle?></label> :  <br />
   </td>
   <td colspan="3">
     <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo htmlspecialchars($intitule);?>"/>
@@ -103,7 +103,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="category"><?php echo $langCategory?></label> : <br>
+   <label for="category"><?php echo $langCategory?></label> : <br />
   </td>
   <td colspan="3">
   <?php echo claro_html_form_select( 'category'
@@ -116,7 +116,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="language"><?php echo $langLanguage?></label> : <br>
+   <label for="language"><?php echo $langLanguage?></label> : <br />
   </td>
   <td colspan="3">
     <?php echo claro_html_form_select( 'language'
@@ -176,7 +176,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 </table>
 </form>
 <?php
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 //NEEDED FUNCTION (to be moved in libraries)
 

@@ -157,8 +157,8 @@ if (isset($_REQUEST['letter']))
 if (isset($_REQUEST['search']))
 {
     $toAdd = " AND (    C.`intitule` LIKE '%". addslashes($_REQUEST['search']) ."%'
-    	                 OR C.`code` LIKE '%". addslashes($_REQUEST['search']) ."%'
-    				   )";
+                         OR C.`code` LIKE '%". addslashes($_REQUEST['search']) ."%'
+                       )";
     $sql.=$toAdd;
 }
 
@@ -175,7 +175,7 @@ if (isset($_SESSION['admin_user_course_order_crit']))
         case 'titular'  : $fieldSort = 'C`.`titulaires';break;
         case 'code'     : $fieldSort = 'C`.`code';      break;
         case 'cuStatus' : $fieldSort = 'CU`.`statut';   break;
-        //		case 'email'  : $fieldSort = 'email';
+        //        case 'email'  : $fieldSort = 'email';
     }
     $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_course_dir'];
     $order[$_SESSION['admin_user_course_order_crit']] = ($_SESSION['admin_user_course_dir']=='ASC'?'DESC':'ASC');

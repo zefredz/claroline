@@ -13,22 +13,22 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-include($includePath."/lib/statsUtils.lib.inc.php");
-$tbl_mdb_names 			= claro_sql_get_main_tbl();
+require_once $includePath . '/statsUtils.lib.inc.php';
+$tbl_mdb_names             = claro_sql_get_main_tbl();
 $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 
 $is_allowedToTrack = $is_platformAdmin;
 
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
-$interbredcrump[]= array ("url"=>"campusLog.php", "name"=> $langStatsOfCampus);
+$interbredcrump[]= array ('url' => "index.php", 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => "campusLog.php", 'name' => $langStatsOfCampus);
 
 $nameTools = $langTrafficDetails;
 
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools,
-	)
+    array(
+    'mainTitle'=>$nameTools,
+    )
 );
 ?>
 <table width="100%" cellpadding="2" cellspacing="3" border="0">
@@ -36,15 +36,15 @@ echo claro_disp_tool_title(
     if( $is_allowedToTrack && $is_trackingEnabled)
     {
         if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
-        	$reqdate = time();  // default value
-		else
-		    $reqdate = (int)$_REQUEST['reqdate'];
-		    
+            $reqdate = time();  // default value
+        else
+            $reqdate = (int)$_REQUEST['reqdate'];
+            
         if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
         else                                $period = "day"; // default value
         
         if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
-        else                                	$displayType = ''; // default value
+        else                                    $displayType = ''; // default value
 
         // dislayed period
         echo "<tr><td><b>";
@@ -57,8 +57,8 @@ echo claro_disp_tool_title(
             case "month" : 
                 echo $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
                 break;
-			default :
-       			$period = "day"; // if $period has no correct value
+            default :
+                   $period = "day"; // if $period has no correct value
             case "day" :
                 echo $langDay_of_weekNames['long'][date("w" , $reqdate)].date(" d " , $reqdate).$langMonthNames['long'][date("n", $reqdate)-1].date(" Y" , $reqdate);
                 break;
@@ -206,5 +206,5 @@ echo claro_disp_tool_title(
 </table>
 
 <?php
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

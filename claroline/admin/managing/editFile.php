@@ -170,5 +170,5 @@ elseif( $display == DISP_VIEW_FILE )
 
 }
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

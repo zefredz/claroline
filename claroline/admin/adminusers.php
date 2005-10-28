@@ -87,13 +87,13 @@ $tbl_user             = $tbl_mdb_names['user'];
 // javascript confirm pop up declaration
 $htmlHeadXtra[] =
 '<script type="text/javascript">
-		function confirmation (name)
-		{
-			if (confirm("'.clean_str_for_javascript($langAreYouSureToDelete).'" + name + "? "))
-				{return true;}
-			else
-				{return false;}
-		}'
+        function confirmation (name)
+        {
+            if (confirm("'.clean_str_for_javascript($langAreYouSureToDelete).'" + name + "? "))
+                {return true;}
+            else
+                {return false;}
+        }'
 ."\n".'</script>'."\n";
 
 // Deal with interbredcrumps

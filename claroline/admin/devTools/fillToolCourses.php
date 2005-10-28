@@ -107,7 +107,7 @@ switch ($display)
     echo '</ul>';
         break;
     case DISP_FORM_SET_OPTION :
-        ?><br><br>
+        ?><br /><br />
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
         <legend ><?php $lang_toolsToFill; ?></legend>
@@ -229,7 +229,7 @@ function fill_tool_in_course($course_code,$tool_label)
                 claro_mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
                 if ( ! is_dir($curChatRep) )
                 {
-                    echo '<br> <b>création '.$curChatRep.' impossible</b>';
+                    echo '<br /> <b>création '.$curChatRep.' impossible</b>';
                 }
             }
             $activeChatFile = $curChatRep . $course_id . '.chat.html';

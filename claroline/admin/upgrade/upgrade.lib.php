@@ -699,16 +699,16 @@ function open_upgrade_log()
     // open file in write mode
     if ( $fp_upgrade_log = fopen('upgrade_log.txt','a+') )
     {
-	    $upgradeHeader = '========================================================' . "\n"
-	                   . ' * Upgrade to ' . $new_version . "\n"
-	                   . ' * Current File Version : ' . $currentClarolineVersion . "\n"
-	                   . ' * Current Database Version : ' . $currentDbVersion . "\n"
-	                   . ' * Date :'. claro_disp_localised_date($dateTimeFormatLong) . "\n"
-	                   . '========================================================'. "\n" ;
-	
-	    // write content in file
-	    fwrite($fp_upgrade_log, $upgradeHeader);
-	    return true;
+        $upgradeHeader = '========================================================' . "\n"
+                       . ' * Upgrade to ' . $new_version . "\n"
+                       . ' * Current File Version : ' . $currentClarolineVersion . "\n"
+                       . ' * Current Database Version : ' . $currentDbVersion . "\n"
+                       . ' * Date :'. claro_disp_localised_date($dateTimeFormatLong) . "\n"
+                       . '========================================================'. "\n" ;
+    
+        // write content in file
+        fwrite($fp_upgrade_log, $upgradeHeader);
+        return true;
     }
     else
     {
@@ -731,11 +731,11 @@ function upgrade_disp_auth_form()
 
         .'<legend>Login</legend>'."\n"
 
-        .'<label for="username">User name : </label><br>'."\n"
-        .'<input type="text" name="login" id="username"><br>'."\n"
+        .'<label for="username">User name : </label><br />'."\n"
+        .'<input type="text" name="login" id="username"><br />'."\n"
 
-        .'<label for="password">Password : </label><br>'."\n"
-        .'<input type="password" name="password" id="password"><br>'."\n"
+        .'<label for="password">Password : </label><br />'."\n"
+        .'<input type="password" name="password" id="password"><br />'."\n"
         .'<input type="submit" >'."\n"
 
         .'</fieldset>'."\n"

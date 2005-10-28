@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /**
  * Claroline
  * SHUFFLE COURSE SITE CREATION TOOL
@@ -73,8 +73,8 @@ include($includePath . '/lib/fileManage.lib.php');
 include($includePath . '/conf/course_main.conf.php');
 
 $nameTools = $langCreateSite;
-$interbredcrump[]= array ('url' => '../index.php', 'name'=> $langAdministration);
-$interbredcrump[]= array ('url' => 'index.php',    'name'=> $langDevTools);
+$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => 'index.php',    'name' => $langDevTools);
 /*
 * DB tables definition
 */
@@ -340,16 +340,16 @@ if ($cmd == 'exFill')
         .           '<strong>'
         .           '[wantedCode:           ' . $wantedCode              . ']'
         .           '</strong>'
-        .           '<br>'
+        .           '<br />'
         .           '[Code:                 ' . $currentCourseCode       . ']'
         .           '[Id:                   ' . $currentCourseId         . ']'
         .           '[Db:                   ' . $currentCourseDbName     . ']'
         .           '[Path:                 ' . $currentCourseRepository . ']'
-        .           '<br>'
+        .           '<br />'
         .           '[language_course:      ' . $language_course         . ']'
         .           '[faculte:              ' . $faculte                 . ']'
         .           '[uidCourse:            ' . $uidCourse               . ']'
-        .           '<br>'
+        .           '<br />'
         .           '[nb users added:       ' . $addedUsers              . ']'
         .           '[nb group:             ' . $group_quantity          . ']'
         .           '[max student per group:' . $group_max               . ']'
@@ -389,21 +389,21 @@ switch ($display)
     <fieldset>
     <legend > <?php echo $langCreateCourses ?> </legend>
     <label for="nc"> <?php echo $langQuantity ?> </label>
-    <input align="right" type="text" id="nc" name="nc" value="<?php echo $nc ?>" size="5" maxlength="3"><br>
+    <input align="right" type="text" id="nc" name="nc" value="<?php echo $nc ?>" size="5" maxlength="3"><br />
     <label for="pfCode"> <?php echo $langPrefix ?> </label>
     <input align="right" type="text" id="pfCode" name="pfCode" value="<?php echo $pfCode ?>" size="5" maxlength="5">
     </fieldset>
     <fieldset >
     <legend > <?php echo $langStudent ?> </legend>
     <Label for="smin"><?php echo $langMin ?> </Label>
-    <input type="text" id="smin" align="right" name="smin" value="<?php echo $smin ?>" size="5" maxlength="3"><br>
+    <input type="text" id="smin" align="right" name="smin" value="<?php echo $smin ?>" size="5" maxlength="3"><br />
     <Label for="smax"><?php echo $langMaximum ?> </Label>
     <input type="text" id="smax" align="right" name="smax" value="<?php echo $smax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
     <legend ><?php echo $langProfessor."(".$langAddedToCreator.")"; ?> </legend>
     <Label for="pmin"> <?php echo $langMin ?> </Label>
-    <input align="right" id="pmin"  type="text" name="pmin" value="<?php echo $pmin ?>" size="5" maxlength="3"><br>
+    <input align="right" id="pmin"  type="text" name="pmin" value="<?php echo $pmin ?>" size="5" maxlength="3"><br />
     <Label for="pmax"> <?php echo $langMaximum ?> </Label>
     <input align="right" id="pmax"  type="text" name="pmax" value="<?php echo $pmax ?>" size="5" maxlength="3">
     </fieldset>
@@ -420,7 +420,7 @@ switch ($display)
     <fieldset>
     <legend ><?php echo $langNumGroup; ?> </legend>
     <Label for="gmin"> <?php echo $langMin ?> </Label>
-    <input align="right" id="gmin"  type="text" name="gmin" value="<?php echo $gmin ?>" size="5" maxlength="3"><br>
+    <input align="right" id="gmin"  type="text" name="gmin" value="<?php echo $gmin ?>" size="5" maxlength="3"><br />
     <Label for="gmax"> <?php echo $langMaximum ?> </Label>
     <input align="right" id="gmax"  type="text" name="gmax" value="<?php echo $gmax ?>" size="5" maxlength="3">
     </fieldset>
@@ -432,7 +432,7 @@ switch ($display)
         <fieldset>
     <legend ><?php echo $langNumGroupStudent; ?> </legend>
     <Label for="gpumin"> <?php echo $langMin ?> </Label>
-    <input align="right" id="gpumin"  type="text" name="gmin" value="<?php echo $gpumin ?>" size="5" maxlength="3"><br>
+    <input align="right" id="gpumin"  type="text" name="gmin" value="<?php echo $gpumin ?>" size="5" maxlength="3"><br />
     <Label for="gpumax"> <?php echo $langMaximum ?> </Label>
     <input align="right" id="gpumax"  type="text" name="gmax" value="<?php echo $gpumax ?>" size="5" maxlength="3">
     </fieldset>

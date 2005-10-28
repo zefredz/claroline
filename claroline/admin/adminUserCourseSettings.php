@@ -199,7 +199,7 @@ include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title( array( 'mainTitle' =>$nameTools
                                  , 'subTitle' => $langCourse . ' : ' 
                                               .  $courseData['name'] 
-                                              .  '<br>' 
+                                              .  '<br />' 
                                               .  $langUser . ' : ' 
                                               .  $prenom_form 
                                               .  ' ' 
@@ -277,5 +277,5 @@ elseif ( $displayBackToUC )//coming from usercourse list
 
 // display footer
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>
