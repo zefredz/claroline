@@ -33,13 +33,12 @@ if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
 include($includePath."/conf/user_profile.conf.php");
 
 // include libraries
-include($includePath."/lib/debug.lib.inc.php");
-include($includePath.'/lib/user.lib.php');
-include($includePath.'/lib/claro_mail.lib.inc.php');
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
 $nameTools        = $langAddAU;
-$interbredcrump[] = array ('url'=>'user.php', 'name'=> $langUsers);
+$interbredcrump[] = array ('url' => 'user.php', 'name' => $langUsers);
 
 $messageList = array();
 
@@ -128,7 +127,7 @@ switch ( $cmd )
         $user_data['officialCode'] = str_replace('%', '', $user_data['officialCode']);
         
         if (!(empty($user_data['lastname']) && empty($user_data['email']) && empty($user_data['officialCode'])))
-        {           
+        {
             $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
         }
         else
@@ -161,7 +160,7 @@ switch ( $cmd )
 
 } // end switch cmd
 
-          
+
 // Send mail notification
 
 if ( $platformRegSucceed || $courseRegSucceed )
@@ -177,8 +176,8 @@ if ( $platformRegSucceed || $courseRegSucceed )
     {
         // Send enroll to course message
         user_send_enroll_to_course_mail ($user_id, $user_data);
-	}
-	
+    }
+
     // display message     
     $messageList[]= sprintf("$langTheU %s %s $langAddedToCourse.",$user_data['firstname'],$user_data['lastname']);
 }
@@ -212,70 +211,71 @@ else
     {
         //displkay a search legend first
               
-        if ($allowSearchInAddUser)
-        {
-            $enclose_field = "*";    
-        }   
-        else
-        {
-            $enclose_field = "";    
-        }
+        if ($allowSearchInAddUser) $enclose_field = '*';
+        else                       $enclose_field = '';
+
+        echo $langSearchOn . ' : ';
         
-        echo $langSearchOn." : ";
-        
-        if ($user_data['lastname']!="")
+        if ($user_data['lastname'] != '')
         {  
-            echo $langLastName."=".$user_data['lastname'].$enclose_field." ";
+            echo $langLastName . '=' . $user_data['lastname'] . $enclose_field . ' ';
         }
-        if ($user_data['email']!="")
+        if ($user_data['email'] != '')
         {
-            echo $langEmail."=".$user_data['email'].$enclose_field." ";
+            echo $langEmail . '=' . $user_data['email'] . $enclose_field . ' ';
         }
-        if ($user_data['officialCode']!="")
+        if ($user_data['officialCode'] != '')
         {
-            echo $langOfficialCode."=".$user_data['officialCode']." ";
+            echo $langOfficialCode . "=" . $user_data['officialCode'] . " ";
         }
-        echo "<br /><br />";
-        
-        echo "<table class=\"claroTable emphaseLine\" border=\"0\" cellspacing=\"2\">
-                <thead>
-                  <tr class=\"headerX\" align=\"center\" valign=\"top\">
-                    <th>".$langLastName."</th>
-                    <th>".$langFirstName."</th>
-                    <th>".$langEmail."</th>
-                    <th>".$langOfficialCode."</th>
-                    <th>".$langRegister."</th> 
-                  </tr>
-                </thead>
-                <tbody>
-              ";
+        echo '<br /><br />'
+        .    '<table class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
+        .    '<thead>' . "\n"
+        .    '<tr class="headerX" align="center" valign="top">' . "\n"
+        .    '<th>' . $langLastName     . '</th>' . "\n"
+        .    '<th>' . $langFirstName    . '</th>' . "\n"
+        .    '<th>' . $langEmail        . '</th>' . "\n"
+        .    '<th>' . $langOfficialCode . '</th>' . "\n"
+        .    '<th>' . $langRegister     . '</th>' . "\n"
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
+        .    '<tbody>' . "\n"
+        ;
 
         foreach ($users as $user)
         {
-           echo "<tr>"
-               ."  <td>"
-               ."    ".$user['nom']
-               ."  </td>"
-               ."  <td>"
-               ."    ".$user['prenom']
-               ."  </td>"
-               ."  <td>"
-               ."    ".$user['email']
-               ."  </td>"
-               ."  <td>"
-               ."    ".$user['officialCode']
-               ."  </td>"
-               ."  <td align=\"center\" valign=\"top\">";
+           echo '<tr>'
+           .    '<td>'
+           .    $user['nom']
+           .    '</td>'
+           .    '<td>'
+           .    $user['prenom']
+           .    '</td>'
+           .    '<td>'
+           .    $user['email']
+           .    '</td>'
+           .    '<td>'
+           .    $user['officialCode']
+           .    '</td>'
+           .    '<td align="center" valign="top">'
+           ;
 
                 // deal with already registered users found in result
 
                 if (empty($user['registered']))
                 {
-                   echo "<a href=\"user.php?cmd=register&user_id=".$user['user']."\"><img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" />";
+                    echo '<a href="user.php?cmd=register&amp;user_id=' . $user['user'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" />'
+                    ;
                 }
                 else
                 {
-                    echo "<small><span class=\"highlight\">".$lang_already_enrolled."</span></small>";
+                    echo '<small>'
+                    .    '<span class="highlight">'
+                    .    $lang_already_enrolled
+                    .    '</span>'
+                    .    '</small>'
+                    ;
                 }
 
                 echo "  </td>"
@@ -284,10 +284,11 @@ else
 
         if (sizeof($users)==0)
         {
-            echo "<td align=\"center\" colspan=\"5\">".$langNoUserFound."</td>";
+            echo '<td align="center" colspan="5">' . $langNoUserFound . '</td>';
         }
-        echo "</body>
-            </table><br />";
+        echo '</body>'
+        .    '</table><br />'
+        ;
     }
 
     //display form to add a user
@@ -300,6 +301,5 @@ else
 }
 
 // display footer
-include($includePath.'/claro_init_footer.inc.php');
-
+include $includePath . '/claro_init_footer.inc.php';
 ?>

@@ -7,9 +7,9 @@ require '../inc/claro_init_global.inc.php';
 if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 if ( !$is_courseAdmin ) claro_die($langNotAllowed);
 
-include($includePath."/lib/admin.lib.inc.php");
+require_once $includePath . '/lib/admin.lib.inc.php';
 include($includePath."/lib/user.lib.php");
-include($includePath."/lib/class.lib.php");
+require_once $includePath . '/lib/class.lib.php';
 include($includePath.'/lib/claro_mail.lib.inc.php');
 
 // javascript confirm pop up declaration for header
@@ -61,7 +61,7 @@ switch ($cmd)
       
   // subscribe a class to the course    
   case "subscribe" :           
-    $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br>";
+    $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br />";
     $sql = " SELECT U.`user_id`,
                     U.`nom` as `lastname` , 
         		    U.`prenom` as `firstname` , 
@@ -83,17 +83,17 @@ switch ($cmd)
             // send mail to user
             user_send_enroll_to_course_mail ($user_id, $user);
             // add message 
-	        $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsNowRegistered<br>";
+	        $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsNowRegistered<br />";
         }
     	else
 	    {
             switch (claro_failure::get_last_failure())
             {
                 case 'already_enrolled_in_course' : 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsAlreadyRegistered<br>";
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsAlreadyRegistered<br />";
                     break;
         	    default: 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langUnableToEnrollInCourse<br>";
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langUnableToEnrollInCourse<br />";
             }            
         }
     }
@@ -122,11 +122,11 @@ $display = "tree";
 
 
 $nameTools = $langAddClass;
-$interbredcrump[]    = array ("url"=>"user.php", "name"=> $langUsers);
+$interbredcrump[]    = array ('url' => "user.php", 'name' => $langUsers);
 
 // display top banner
 
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
@@ -147,7 +147,7 @@ switch ($display)
     
     // display tool links
 
-    echo "<a class=\"claroCmd\" href=\"user.php\">".$langBackToList."</a><br><br>";
+    echo "<a class=\"claroCmd\" href=\"user.php\">".$langBackToList."</a><br /><br />";
 
     // display cols headers
 
@@ -179,5 +179,5 @@ switch ($display)
 
 // footer banner
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

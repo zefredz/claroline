@@ -49,6 +49,6 @@ echo "<h1><center>Hello world!<center></h1>";
 	   CLAROLINE FOOTER 
   ======================================*/ 
 
-include($includePath."/claro_init_footer.inc.php"); 
+include $includePath . '/claro_init_footer.inc.php'; 
 
 ?>

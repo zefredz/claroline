@@ -1,7 +1,7 @@
 <?php // $Id$
 /**
  *
- * CLAROLINE 
+ * CLAROLINE
  *
  * mangage personal user info in a course.
  *
@@ -33,7 +33,7 @@ include($includePath.'/lib/user.lib.php');
 include($includePath.'/lib/user_info.lib.php');
 @include($includePath.'/lib/debug.lib.inc.php');
 
-$interbredcrump[]= array ('url'=>'user.php', 'name'=> $langUsers);
+$interbredcrump[]= array ('url' => 'user.php', 'name' => $langUsers);
 
 $nameTools = $langUser;
 
@@ -43,19 +43,19 @@ claro_set_display_mode_available(TRUE);
 if ( !$_cid || ! $is_courseAllowed ) claro_disp_auth_form();
 
 /*
- * data  found  in settings  are :
- *    $uid
- *    $isAdmin
- *    $isAdminOfCourse
- *    
- */
+* data  found  in settings  are :
+*    $uid
+*    $isAdmin
+*    $isAdminOfCourse
+*
+*/
 
 if (isset($_REQUEST['uInfo'])) $userIdViewed = (int) $_REQUEST['uInfo']; // Id of the user we want to view coming from the user.php
 else $userIdViewed = 0;
 
 /*--------------------------------------------------------
-  Connection API between Claroline and the current script
-  --------------------------------------------------------*/
+Connection API between Claroline and the current script
+--------------------------------------------------------*/
 
 $courseCode              = $_course['sysCode'];
 $tbl_mdb_names           = claro_sql_get_main_tbl();
@@ -70,8 +70,8 @@ $userIdViewer = $_uid; // id fo the user currently online
 
 $allowedToEditContent     = ($userIdViewer == $userIdViewed) || claro_is_allowed_to_edit();
 $allowedToEditDef         = claro_is_allowed_to_edit();
-$is_allowedToTrack        =  claro_is_allowed_to_edit() && $is_trackingEnabled 
-                          || ($userIdViewer == $userIdViewed );
+$is_allowedToTrack        =  claro_is_allowed_to_edit() && $is_trackingEnabled
+|| ($userIdViewer == $userIdViewed );
 
 // clean field submited by the user
 if ($_POST)
@@ -83,8 +83,8 @@ if ($_POST)
 }
 
 /*======================================
-           COMMANDS SECTION
-  ======================================*/
+COMMANDS SECTION
+======================================*/
 
 $displayMode = "viewContentList";
 $dialogBox = '';
@@ -139,28 +139,28 @@ if ($allowedToEditDef)
     elseif (isset($_REQUEST['submitMainUserInfo']))
     {
         $userIdViewed = $_REQUEST['submitMainUserInfo'];
-        
-    //set variable for course manager or student status
-    
+
+        //set variable for course manager or student status
+
         if (isset($_REQUEST['promoteCourseAdmin']))
-        { 
+        {
             $userProperties['status'] = CLARO_COURSE_CREATOR_STATUS;
         }
         else
         {
             $userProperties['status'] = CLARO_STUDENT_STATUS;
         }
-            
-        //set variable for tutor setting    
-        
+
+        //set variable for tutor setting
+
         if (isset($_REQUEST['promoteTutor']))
         {
             // check first the user isn't registered to a group yet
-    
-            $sql = "SELECT COUNT(user) 
+
+            $sql = "SELECT COUNT(user)
                     FROM `".$tbl_group_rel_team_user."`
                     WHERE user = ".(int) $userIdViewed;
-    
+
             if ( 0 == claro_sql_query_get_single_value($sql) )
             {
                 $userProperties['tutor' ] = 1;
@@ -175,17 +175,17 @@ if ($allowedToEditDef)
         {
             $userProperties['tutor' ] = 0;
         }
-            
+
         //set variable for role setting
-    
+
         $userProperties['role'] =  $_REQUEST['role'];
-    
+
         // apply changes in DB
-    
+
         if (($userIdViewed == $_uid) &&($userProperties['status']==CLARO_STUDENT_STATUS))
         {
             //prevent teacher to let the course without any teacher
-    
+
             $displayMode = "viewMainInfoEdit";
             $dialogBox   = $langErrorMyOwnSettings;
         }
@@ -227,24 +227,24 @@ if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
 
 event_access_tool($_tid, $_courseTool['label']);
 
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
 
 /*======================================
-             DISPLAY MODES
-  ======================================*/
+DISPLAY MODES
+======================================*/
 
 // Back button for each display mode (Top)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>'."\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>' . "\n";
 
-   // Display Forms or dialog box (if needed)
+// Display Forms or dialog box (if needed)
 
-   if(isset($dialogBox) && $dialogBox!="")
-   {
-       echo claro_disp_message_box($dialogBox);
-   }
-   
+if(isset($dialogBox) && $dialogBox!="")
+{
+    echo claro_disp_message_box($dialogBox);
+}
+
 if ($displayMode == "viewDefEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES DEFINITIONS : EDIT <<<<<<<<<<<<*/
@@ -252,11 +252,11 @@ if ($displayMode == "viewDefEdit")
     if (isset($_REQUEST['editDef'])) $catToEdit = claro_user_info_get_cat_def($_REQUEST['editDef']);
     else
     {
-	    $catToEdit = array();
-	    $catToEdit['title'] = "";
-	    $catToEdit['comment'] = "";
-	    $catToEdit['nbline'] = 1;
-	    $catToEdit['id'] = "";
+        $catToEdit = array();
+        $catToEdit['title'] = "";
+        $catToEdit['comment'] = "";
+        $catToEdit['nbline'] = 1;
+        $catToEdit['id'] = "";
     }
 ?>
 
@@ -329,48 +329,48 @@ elseif ($displayMode == "viewDefList")
         {
             // displays Title and comments
 
-            echo    '<p>'."\n"
-                    .'<b>'.htmlize($thisCat['title']).'</b><br />'."\n"
-                    .'<i>'.htmlize($thisCat['comment']).'</i>'."\n"
-                    .'</p>'."\n";
+            echo    '<p>' . "\n"
+            .    '<b>'.htmlize($thisCat['title']).'</b><br />' . "\n"
+            .    '<i>'.htmlize($thisCat['comment']).'</i>' . "\n"
+            .    '</p>' . "\n";
 
             // displays lines
 
-            echo    '<blockquote>'."\n"
-                    .'<font color="gray">'."\n";
+            echo    '<blockquote>' . "\n"
+            .    '<font color="gray">' . "\n";
 
             for ($i=1;$i<=$thisCat['nbline'];$i++ )
             {
-                echo '<br />__________________________________________'."\n";
+                echo '<br />__________________________________________' . "\n";
             }
 
-            echo    '</font>'."\n"
-                    .'</blockquote>'."\n";
+            echo    '</font>' . "\n"
+            .    '</blockquote>' . "\n";
 
             // displays commands
 
             echo     '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
-                    .'<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langRemove.'">'
-                    .'</a>'."\n"
-                    .'<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
-                    .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
-                    .'</a>'."\n"
-                    .'<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'].'">'
-                    .'<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.$langMoveUp.'">'
-                    .'</a>'."\n"
-                    .'<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
-                    .'<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.$langMoveDown.'">'
-                    .'</a>'."\n";
+            .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langRemove.'">'
+            .    '</a>' . "\n"
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
+            .    '</a>' . "\n"
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.$langMoveUp.'">'
+            .    '</a>' . "\n"
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.$langMoveDown.'">'
+            .    '</a>' . "\n";
         } // end for each
 
     } // end if ($catList)
 
 
-    echo     '<div align="center">'."\n"
-            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'."\n"
-            .'<input type="submit" name="addDef" value="'.$langAddNewHeading.'" />'."\n"
-            .'</form>'."\n"
-            .'</div>'."\n";
+    echo     '<div align="center">' . "\n"
+    .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
+    .    '<input type="submit" name="addDef" value="'.$langAddNewHeading.'" />' . "\n"
+    .    '</form>' . "\n"
+    .    '</div>' . "\n";
 
 }
 elseif ($displayMode == "viewContentEdit")
@@ -387,12 +387,12 @@ elseif ($displayMode == "viewContentEdit")
 <p><label for="content" ><b><?php echo $catToEdit['title']?></b></label></p>
 <p><i><?php echo htmlize($catToEdit['comment'])?></i></p>
 <?php if ($catToEdit['nbline']==1)
-    {
+{
 ?><input  type="text" name="content" id="content" size="80" value="<?php echo htmlspecialchars($catToEdit['content']); ?>" />
 <?php
-    }
-    else
-    {
+}
+else
+{
 ?><textarea  cols="80" rows="<?php echo $catToEdit['nbline']?>" name="content" id="content" wrap="VIRTUAL"><?php echo $catToEdit['content']?></textarea>
 <?php }
 ?><input type="submit" name="submitContent" value="<?php echo $langOk?>" />
@@ -408,61 +408,61 @@ elseif ($displayMode =="viewMainInfoEdit")
 
     if ($mainUserInfo)
     {
-        ($mainUserInfo['status'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = "";
-        ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = "";
+    ($mainUserInfo['status'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = "";
+    ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = "";
 
 
-        echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">'
-            .'<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'" />'."\n"
-            .'<table class="claroTable" width="80%" border="0">'
-            .'<thead>'."\n"
-            .'<tr class="headerX">'."\n"
-            .'<th align="left">'.$langName.'</th>'."\n"
-            .'<th align="left"><label for="role">'.$langRole.' ('. $langOptional .')</label></th>'."\n"
-            .'<th><label for="promoteTutor">'.$langGroupTutor.'</label></th>'."\n"
-            .'<th><label for="promoteCourseAdmin">'.$langCourseManager.'</label></th>'."\n"
-            .'<th>&nbsp;</th>'."\n"
-            .'</tr>'."\n"
-            .'</thead>'."\n"
-            .'<tfoot>'."\n".'<tr align="center">'."\n"
-            .'<td align="left"><b>'
-            .htmlize(ucfirst(strtolower($mainUserInfo['firstName']))).' '
-            .htmlize(ucfirst(strtolower($mainUserInfo['lastName']))).'</b></td>'."\n"
-            .'<td align="left"><input type="text" name="role" id="role" value="'.htmlspecialchars($mainUserInfo['role']).'" maxlength="40" /></td>'."\n"
-            .'<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" '.$tutorChecked.' /></td>'."\n";
+    echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">'
+    .    '<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'" />' . "\n"
+    .    '<table class="claroTable" width="80%" border="0">'
+    .    '<thead>' . "\n"
+    .    '<tr class="headerX">' . "\n"
+    .    '<th align="left">'.$langName.'</th>' . "\n"
+    .    '<th align="left"><label for="role">' . $langRole . ' (' . $langOptional .')</label></th>' . "\n"
+    .    '<th><label for="promoteTutor">' . $langGroupTutor . '</label></th>' . "\n"
+    .    '<th><label for="promoteCourseAdmin">' . $langCourseManager . '</label></th>' . "\n"
+    .    '<th>&nbsp;</th>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</thead>' . "\n"
+    .    '<tfoot>' . "\n".'<tr align="center">' . "\n"
+    .    '<td align="left"><b>'
+    .    htmlize($mainUserInfo['firstName']) . ' '
+    .    htmlize($mainUserInfo['lastName'])  . '</b></td>' . "\n"
+    .    '<td align="left"><input type="text" name="role" id="role" value="'.htmlspecialchars($mainUserInfo['role']).'" maxlength="40" /></td>' . "\n"
+    .    '<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n";
 
 
-        if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
-        {
-            echo  '<td>'
-                 .$langCourseManager
-                 .'</td>'."\n"
-                 ;
-        }
-        else
-        {
-            echo  '<td>'
-                 .'<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.' />'
-                 .'</td>'."\n"
-                 ;
-        }
+    if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
+    {
+        echo '<td>'
+        .    $langCourseManager
+        .    '</td>' . "\n"
+        ;
+    }
+    else
+    {
+        echo '<td>'
+        .    '<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.' />'
+        .    '</td>' . "\n"
+        ;
+    }
 
 
-        echo  '<td>'
-             .'<input type="submit" name="submit" value="'.$langOk.'" />'
-             .'</td>'."\n"
-             .'</tr>'."\n"
-             .'</tfoot>'."\n"
-             .'</table>'."\n"
-             .'</form>'."\n"
-             ;
+    echo '<td>'
+    .    '<input type="submit" name="submit" value="'.$langOk.'" />'
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</tfoot>' . "\n"
+    .    '</table>' . "\n"
+    .    '</form>' . "\n"
+    ;
 
-        echo '<p>'
-            .'<a href="mailto:'.$mainUserInfo['email'].'?subject=['.rawurlencode($siteName).'])['.urlencode($_course['officialCode']).']">'
-            .$mainUserInfo['email']
-            .'</a>'
-            .'</p>'
-            ;
+    echo '<p>'
+    .    '<a href="mailto:'.$mainUserInfo['email'].'?subject=['.rawurlencode($siteName).'])['.urlencode($_course['officialCode']).']">'
+    .    $mainUserInfo['email']
+    .    '</a>'
+    .    '</p>'
+    ;
 
     }
 }
@@ -474,85 +474,72 @@ elseif ($displayMode == "viewContentList") // default display
 
     if ($mainUserInfo)
     {
+        $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? $langGroupTutor : ' - ');
+        $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? $langCourseManager : ' - ');
+
         if ($mainUserInfo['picture'] != '')
         {
-            echo "<img src=\"".$imgRepositoryWeb."users/".$mainUserInfo['picture']."\" border=\"1\">";
+            echo '<img src="' . $imgRepositoryWeb . 'users/' . $mainUserInfo['picture'] . '" border="1">';
         }
 
-        echo '<table class="claroTable" width="80%" border="0">'."\n"
-           . '<thead>'."\n"
-           . '<tr class="headerX">'."\n"
-           . '<th align="left">'.$langName.'</th>'."\n"
-           . '<th align="left">'.$langRole.'</th>'."\n"
-           . '<th>'.$langGroupTutor.'</th>'."\n"
-           . '<th>'.$langCourseManager.'</th>'."\n"
-           . ($allowedToEditDef?'<th>'.$langEdit.'</th>'."\n":'')
-           . ($is_allowedToTrack?"<th>".$langTracking.'</th>'."\n":'')
-           . '</tr>'."\n"
-           . '</thead>'."\n"
-           . '<tbody>'."\n"
-           . '<tr align="center">'."\n"
-           . '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>'."\n"
-           . '<td align="left">'.htmlize($mainUserInfo['role']).'</td>'."\n"
-           ;
+        echo '<table class="claroTable" width="80%" border="0">' . "\n"
+        .    '<thead>' . "\n"
+        .    '<tr class="headerX">' . "\n"
+        .    '<th align="left">'.$langName.'</th>' . "\n"
+        .    '<th align="left">'.$langRole.'</th>' . "\n"
+        .    '<th>'.$langGroupTutor.'</th>' . "\n"
+        .    '<th>'.$langCourseManager.'</th>' . "\n"
+        .    ($allowedToEditDef?'<th>'.$langEdit.'</th>' . "\n":'')
+        .    ($is_allowedToTrack?"<th>".$langTracking.'</th>' . "\n":'')
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
+        .    '<tbody>' . "\n"
+        .    '<tr align="center">' . "\n"
+        .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
+        .    '<td align="left">'.htmlize($mainUserInfo['role']).'</td>' . "\n"
+        .    '<td>'.$mainUserInfo['tutor'].'</td>'
+        .    '<td>'.$mainUserInfo['status'].'</td>'
+        ;
 
-        if ($mainUserInfo['tutor'] == 1)
-        {
-            echo '<td>'.$langGroupTutor.'</td>'."\n";
-        }
-        else
-        {
-            echo '<td> - </td>'."\n";
-        }
-        
-        if ($mainUserInfo['status'] == 1 )
-        {
-            echo '<td>'.$langCourseManager.'</td>'."\n";
-        }
-        else
-        {
-            echo '<td> - </td>'."\n";
-        }
-        
         if($allowedToEditDef)
         {
-            echo  '<td>'
-                 .'<a href="'.$_SERVER['PHP_SELF'].'?editMainUserInfo='.$userIdViewed.'">'
-                 .'<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif">'
-                 .'</a>'
-                 .'</td>'."\n"
-                 ;
+            echo '<td>'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?editMainUserInfo='.$userIdViewed.'">'
+            .    '<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif" />'
+            .    '</a>'
+            .    '</td>' . "\n"
+            ;
         }
-        
+
         if($is_allowedToTrack)
         {
-                echo  '<td>'
-                     .'<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
-                     .'<img border="0" alt="'.$langTracking.'" src="'.$imgRepositoryWeb.'statistics.gif">'
-                     .'</a>'
-                     .'</td>'."\n"
-                     ;
-        }
-        echo '</tr>'."\n"
-            .'</tbody>'."\n"
-            .'</table>'."\n\n"
-            .'<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a>'
-            .'<p>'."\n"
-            .'<hr noshade="noshade" size="1">'."\n"
+            echo '<td>'
+            .    '<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
+            .    '<img border="0" alt="'.$langTracking.'" src="'.$imgRepositoryWeb.'statistics.gif" />'
+            .    '</a>'
+            .    '</td>' . "\n"
             ;
+        }
+        echo '</tr>' . "\n"
+        .    '</tbody>' . "\n"
+        .    '</table>'."\n\n"
+        .    '<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a>'
+        .    '<p>' . "\n"
+        .    '<hr noshade="noshade" size="1" />' . "\n"
+        ;
     }
 
     if ($allowedToEditDef) // only course administrators see this line
     {
         echo "\n\n"
-            .'<div align="right">'."\n"
-            .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">'."\n"
-            .$langCourseAdministratorOnly.' : '
-            .'<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'" />'."\n"
-            .'</form>'."\n"
-            .'<hr noshade="noshade" size="1">'."\n"
-            .'</div>'
-            ;
+        .    '<div align="right">' . "\n"
+        .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
+        .    $langCourseAdministratorOnly.' : '
+        .    '<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'" />' . "\n"
+        .    '</form>' . "\n"
+        .    '<hr noshade="noshade" size="1" />' . "\n"
+        .    '</div>'
+        ;
     }
 
     $catList = claro_user_info_get_course_user_info($userIdViewed);
@@ -563,37 +550,32 @@ elseif ($displayMode == "viewContentList") // default display
         {
             // Category title
 
-            echo '<p><b>'.$thisCat['title'].'</b></p>'."\n"
-               . '<blockquote>'."\n"
-               ;
+            echo '<p><b>'.$thisCat['title'].'</b></p>' . "\n"
+            .    '<blockquote>' . "\n"
+            ;
             // Category content
 
-            if ($thisCat['content'])
-            {
-                echo htmlize($thisCat['content'])."\n";
-            }
-            else
-            {
-                echo '....';
-            }
+            if ($thisCat['content']) echo htmlize($thisCat['content'])."\n";
+            else                     echo '....';
 
             // Edit command
 
             if ($allowedToEditContent)
             {
-                echo  '<br /><br />'."\n"
-                     .'<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
-                     .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
-                     .'</a>'."\n";
+                echo '<br /><br />' . "\n"
+                .    '<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '" />'
+                .    '</a>' . "\n"
+                ;
             }
 
-            echo    '</blockquote>'."\n";
+            echo    '</blockquote>' . "\n";
         }
     }
 }
 
 // Back button for each display mode (bottom)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>'."\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . $langBackToUsersList . '</a></small></p>' . "\n";
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>
