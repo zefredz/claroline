@@ -204,8 +204,8 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 }    // end if $modify
 
 
-$interbredcrump[]= array ('url' => 'group.php', 'name'=> $langGroups);
-$interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name'=> $myStudentGroup['name'] );
+$interbredcrump[]= array ('url' => 'group.php', 'name' => $langGroups);
+$interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name' => $myStudentGroup['name'] );
 
 include($includePath . '/claro_init_header.inc.php');
 
@@ -349,8 +349,8 @@ while ( $myMember = mysql_fetch_array($resultMember) )
 
 ?>
 </select>
-<br>
-<br>
+<br />
+<br />
 <input type=submit value="<?php echo $langOk ?>" name="modify" onClick="selectAll(this.form.elements['ingroup'],true)">
 
 </td>
@@ -360,10 +360,10 @@ while ( $myMember = mysql_fetch_array($resultMember) )
 WATCH OUT ! form elements are called by numbers "form.element[3]"...
 because select name contains "[]" causing a javascript element name problem
 -->
-<br>
-<br>
+<br />
+<br />
 <input type="button" onClick="move(this.form.elements['ingroup'],this.form.elements['nogroup'])" value="   >>   ">
-<br>
+<br />
 <input type="button" onClick="move(this.form.elements['nogroup'],this.form.elements['ingroup'])" value="   <<   ">
 </td>
 
@@ -422,7 +422,7 @@ while ( $myNotMember = mysql_fetch_array($resultNotMember) )
 
 ?>
 </select>
-<br>
+<br />
 <?php
 if ( $multiGroupAllowed )
 {
@@ -442,5 +442,4 @@ else
 </form>
 
 <?php
-include($includePath.'/claro_init_footer.inc.php');
-?>
+include $includePath . '/claro_init_footer.inc.php';?>

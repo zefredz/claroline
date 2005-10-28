@@ -1,7 +1,7 @@
-<?php # -$Id$
+<?php // $Id$
 
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
-    || $logout 
+    || $logout
     || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
     || isset($_REQUEST['fromCasServer']) )
 {
@@ -15,27 +15,27 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
-    	// set the call back url
+        // set the call back url
         if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = $_REQUEST['sourceUrl'];
         elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
         else                                           $casCallBackUrl = $rootWeb;
-	
-        $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
+
+        $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                         .  'fromCasServer=true';
 
         if ( $_SESSION['_cid'] )
         {
-            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
+            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                             .  'cidReq='.urlencode($_SESSION['_cid']);
         }
 
         if ( $_SESSION['_gid'] )
         {
-            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') 
+            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                          .  'gidReq='.urlencode($_SESSION['_gid']);
         }
 
-	phpCAS::setFixedServiceURL($casCallBackUrl);
+        phpCAS::setFixedServiceURL($casCallBackUrl);
         phpCAS::forceAuthentication();
 
         $userLoggedOnCas                  = true;
@@ -52,13 +52,13 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
 
     if ($userLoggedOnCas)
     {
-    	    $sql = "SELECT user_id  AS userId
-                FROM `".$tbl_user."`
-                WHERE username = '". addslashes(phpCAS::getUser())."'
+            $sql = "SELECT user_id  AS userId
+                FROM `" . $tbl_user . "`
+                WHERE username = '" . addslashes(phpCAS::getUser()) . "'
                 AND   authSource = 'CAS'";
 
         $uData = claro_sql_query_fetch_all($sql);
-       
+
         if( count($uData) > 0)
         {
             $_uid                 = $uData[0]['userId'];
@@ -75,7 +75,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
             $claro_loginSucceeded = false;
         }
     } // end if userLoggedOnCas
-    
+
 
 } // end if init_CasCheckinDone' || logout _SERVER['SCRIPT_NAME']) == 'login.php'
 

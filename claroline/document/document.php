@@ -84,8 +84,8 @@ if ($_gid && $is_groupAllowed)
     $courseDir         = $_course['path'] . '/group/' . $_group['directory'];
     $groupDir          = urlencode('group/' . $_group['directory']);
 
-    $interbredcrump[]  = array ('url' =>'../group/group.php', 'name'=> $langGroups);
-    $interbredcrump[]= array ('url' =>'../group/group_space.php', 'name'=> $_group['name']);
+    $interbredcrump[]  = array ('url' =>'../group/group.php', 'name' => $langGroups);
+    $interbredcrump[]= array ('url' =>'../group/group_space.php', 'name' => $_group['name']);
 
     $is_allowedToEdit  = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
     $is_allowedToUnzip =  FALSE;
@@ -331,7 +331,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             if (!isset($oldComment)) $oldComment = "";
         $dialogBox .= "<p>\n"
                         ."<label for=\"comment\">".$langAddCommentOptionnal."</label>"
-                        ."<br><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
+                        ."<br /><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
                         .$oldComment
                         ."</textarea>\n"
                         ."</p>\n";
@@ -450,7 +450,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             if ( fwrite($fp, $_REQUEST['htmlContent']) )
             {
                 $eventNotifier->notifyCourseEvent("document_htmlfile_edited",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
-                                $dialogBox .= $langFileContentModified."<br>";
+                                $dialogBox .= $langFileContentModified."<br />";
             }
 
         }
@@ -520,16 +520,16 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                      ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".$langURL."</label><br />\n"
                      ."<input type=\"text\" id=\"url\" name=\"url\" value=\"\">\n"
-                     ."<br><br>\n";
+                     ."<br /><br />\n";
 
         if ($courseContext)
         {
-        	$dialogBox .= "<label for=\"comment\">\n"
+            $dialogBox .= "<label for=\"comment\">\n"
                         ."Add a comment (optionnal) :\n"
                         ."</label>\n"
-                        ."<br>\n"
+                        ."<br />\n"
                         ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
-                        ."<br>\n";
+                        ."<br />\n";
         }
 
         $dialogBox .= "<input type=\"submit\" value=\"".$langOk."\">\n"
@@ -563,11 +563,11 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                                    $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
             }
 
-            $dialogBox = $langDirMv.'<br>';
+            $dialogBox = $langDirMv.'<br />';
         }
         else
         {
-            $dialogBox = $langImpossible.'<br>';
+            $dialogBox = $langImpossible.'<br />';
 
             if ( claro_failure::get_last_failure() == 'FILE EXISTS' )
             {
@@ -688,7 +688,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ( $newPath )
         {
             $newPath = substr($newPath, strlen($baseWorkDir) );
-            $dialogBox = $langElRen.'<br>';
+            $dialogBox = $langElRen.'<br />';
 
             if ($courseContext)
             {
@@ -700,7 +700,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
                 update_Doc_Path_in_Assets('update', $_REQUEST['file'], $newPath);
 
-                if ( ! empty($newComment) ) $dialogBox .= $langComMod.'<br>';
+                if ( ! empty($newComment) ) $dialogBox .= $langComMod.'<br />';
             }
         }
         else
@@ -728,7 +728,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ."<p>\n"
                         ."<label for=\"newName\">".$langRename." ".htmlspecialchars($fileName)
                         ." ".$langIn." : </Label>\n"
-                        ."<br><input type=\"text\" id=\"newName\" name=\"newName\" value=\"". htmlspecialchars($fileName) ."\">\n"
+                        ."<br /><input type=\"text\" id=\"newName\" name=\"newName\" value=\"". htmlspecialchars($fileName) ."\">\n"
                         ."</p>\n";
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
@@ -756,7 +756,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             $dialogBox .= "<p>\n<label for=\"newComment\">"
                           .$langAddModifyComment." ".htmlspecialchars($fileName)."</label>\n"
-                          ."<br><textarea rows=\"2\" cols=\"50\" name=\"newComment\" id=\"newComment\">"
+                          ."<br /><textarea rows=\"2\" cols=\"50\" name=\"newComment\" id=\"newComment\">"
                           .$oldComment
                           ."</textarea>\n"
                           ."</p>\n";
@@ -843,9 +843,9 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                       ."<label for=\"comment\">\n"
                       ."Add a comment (optionnal) :\n"
                       ."</label>\n"
-                      ."<br>\n"
+                      ."<br />\n"
                       ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
-                      ."<br>\n"
+                      ."<br />\n"
                       ."<input type=\"submit\" value=\"".$langOk."\">\n"
                       .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
                                                 $langCancel)

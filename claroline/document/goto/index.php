@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -17,7 +17,7 @@ require '../../inc/claro_init_global.inc.php';
 
 if (isset($_REQUEST['url']) )
 {
-	$requestUrl = $_REQUEST['url'];
+    $requestUrl = $_REQUEST['url'];
 }
 else
 {
@@ -72,11 +72,11 @@ else
 
 if ($_gid && $is_groupAllowed)
 {
-	$intermediatePath = $_course['path']. '/group/'.$_group['directory'];
+    $intermediatePath = $_course['path']. '/group/'.$_group['directory'];
 }
 else
 {
-	$intermediatePath = $_course['path']. '/document';
+    $intermediatePath = $_course['path']. '/document';
 }
 
 if ( isset($secureDocumentDownload) && $secureDocumentDownload 
@@ -96,7 +96,7 @@ if ( isset($secureDocumentDownload) && $secureDocumentDownload
     }
     else
     {
-    	header('HTTP/1.1 404 Not Found'); exit;
+        header('HTTP/1.1 404 Not Found'); exit;
     }
 }
 else
@@ -108,7 +108,7 @@ else
     // check that the file really exists before trigging the download tracking
     if ( file_exists($coursesRepositorySys . $intermediatePath . $requestUrl) )
     {
-    	event_download($requestUrl);
+        event_download($requestUrl);
     }
 
     $doc_dl_url = $coursesRepositoryWeb. $intermediatePath 
@@ -134,18 +134,13 @@ function get_slashed_argument($completePath, $baseFile)
 
     if ( count($pahtElementList) > 1)
     {
-    	$argument = array_pop($pahtElementList);
+        $argument = array_pop($pahtElementList);
 
         $questionMarkPos = strpos($argument, '?');
         
-        if (is_int($questionMarkPos))
-        {
-        	return substr($argument, 0, $questionMarkPos);
-        }
-        else
-        {
-        	return $argument;
-        }
+        if (is_int($questionMarkPos)) return substr($argument, 0, $questionMarkPos);
+        else                          return $argument;
+        
     }
     else
     {
@@ -196,11 +191,11 @@ function get_mime_on_ext($fileName)
     $mimeType = null;
 
     /*
-	 * Check if the file has an extension AND if the browser has send a MIME Type
-	 */
+     * Check if the file has an extension AND if the browser has send a MIME Type
+     */
 
-	if( preg_match('|.[[:alnum:]]+$|', $fileName, $match) )
-	{
+    if( preg_match('|.[[:alnum:]]+$|', $fileName, $match) )
+    {
         $fileExtension = $match[0];
 
         /*
@@ -240,21 +235,21 @@ function get_mime_on_ext($fileName)
         $mimeTypeList[] = 'video/quicktime';                $extensionList[] ='.mov';
         $mimeTypeList[] = 'video/x-msvideo';                $extensionList[] ='.avi';
 
-		/*
-		 * Check if the MIME type send by the browser is in the table
-		 */
+        /*
+         * Check if the MIME type send by the browser is in the table
+         */
 
-		foreach($extensionList as $key => $extension)
-		{
-			if ($extension == $fileExtension)
-			{
-				$mimeType = $mimeTypeList[$key];
-				break;
-			}
-		}
-	}
+        foreach($extensionList as $key => $extension)
+        {
+            if ($extension == $fileExtension)
+            {
+                $mimeType = $mimeTypeList[$key];
+                break;
+            }
+        }
+    }
 
-	return $mimeType;
+    return $mimeType;
 }
 
 

@@ -29,7 +29,7 @@ if ( ! $is_courseAdmin )
 }
 
 $nameTools = $langGroupProperties;
-$interbredcrump[]= array ('url'=>'group.php', 'name'=> $langGroups);
+$interbredcrump[]= array ('url' => 'group.php', 'name' => $langGroups);
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_course_group_property   = $tbl_cdb_names['group_property'];
@@ -220,5 +220,5 @@ echo claro_disp_tool_title( array('supraTitle' => $langGroups, 'mainTitle' => $n
 </table>
 </form>
 <?php
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

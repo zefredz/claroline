@@ -6,27 +6,27 @@ require '../inc/claro_init_global.inc.php';
 if ($_gid && $is_groupAllowed)
 {
     $courseDir         = $_course['path'] .'/group/'.$_group['directory'];
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-	$interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDocument);
+    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => $langGroups);
+    $interbredcrump[] = array ('url' => 'document.php', 'name' => $langDocument);
 }
 else
 {
     $courseDir   = $_course['path'] .'/document';
-    $interbredcrump[] = array ('url'=>'document.php', 'name'=> $langDocument);
+    $interbredcrump[] = array ('url' => 'document.php', 'name' => $langDocument);
 }
 
 $noPHP_SELF = true;
 
 $baseWorkDir = $coursesRepositorySys . $courseDir;
 
-if( !empty($_REQUEST['cmd']) )	$cmd = $_REQUEST['cmd'];
-else 							$cmd = null;
+if( !empty($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
 
 if( !empty($_REQUEST ['cwd']) ) $cwd = $_REQUEST ['cwd'];
 else                            $cwd = '';
 
 $nameTools = $langCreateModifyDocument;
-include('../inc/claro_init_header.inc.php');
+include '../inc/claro_init_header.inc.php';
 
 echo claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
 
@@ -37,11 +37,11 @@ echo claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $la
 if ($cmd ==  'rqMkHtml' )
 {
     ?><form action="document.php" method="post">
-    <input type="hidden" name="cmd" value="exMkHtml">
-    <input type="hidden" name="cwd" value="<?php echo $cwd; ?>">
+    <input type="hidden" name="cmd" value="exMkHtml" />
+    <input type="hidden" name="cwd" value="<?php echo $cwd; ?>" />
     <p>
     <b><?php echo $langDocumentName ?></b><br />
-    <input type="text" name="fileName" size="80">
+    <input type="text" name="fileName" size="80" />
     </p>
     <p>
     <b><?php echo $langDocumentContent ?></b>
@@ -54,7 +54,7 @@ if ($cmd ==  'rqMkHtml' )
     // get to the editor because of an error at creation 
     // (eg forgot to give a file name)
     ?> 
-    <input type="submit" value="<?php echo $langOk; ?>">
+    <input type="submit" value="<?php echo $langOk; ?>" />
     <?php echo claro_disp_button('./document.php?cmd=exChDir&file='.$cwd, $langCancel); ?>
     </form>
     <?php
@@ -83,4 +83,4 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 <br />
 <br />
 
-<?php include($includePath."/claro_init_footer.inc.php"); ?>
+<?php include $includePath . '/claro_init_footer.inc.php'; ?>

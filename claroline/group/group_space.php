@@ -40,7 +40,7 @@ if (!$_gid || (!$is_groupAllowed & !isset($_REQUEST['selfReg']) ))
 }
 
 $nameTools        = $_group['name'];
-$interbredcrump[] = array ('url'=>'group.php', 'name'=> $langGroups);
+$interbredcrump[] = array ('url' => 'group.php', 'name' => $langGroups);
 
 // use viewMode
 claro_set_display_mode_available(true);
