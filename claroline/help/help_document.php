@@ -3,8 +3,10 @@
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = $langHDoc;
-$hide_banner=TRUE;
-include($includePath."/claro_init_header.inc.php");
+$hide_banner = true;
+$hide_footer = true;
+
+include $includePath . '/claro_init_header.inc.php';
 
 ?>
 <table width="100%" border="0" cellpadding="1" cellspacing="1">
@@ -27,14 +29,13 @@ include($includePath."/claro_init_header.inc.php");
 </tr>
 <tr>
   <td colspan="2">
-    <br>
+    <br />
     <center><a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a></center>
   </td>
 </tr>
 </table>
 <?php
 
-$hide_footer = true;
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>
