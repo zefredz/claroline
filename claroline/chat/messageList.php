@@ -1,18 +1,18 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * This script  chat simply works with a flat file where lines are appended. 
- * Simple user can  just  write lines. 
- * Chat manager can reset and store the chat if $chatforgroup is true,  
- * the file  is reserved because always formed 
+ * This script  chat simply works with a flat file where lines are appended.
+ * Simple user can  just  write lines.
+ * Chat manager can reset and store the chat if $chatforgroup is true,
+ * the file  is reserved because always formed
  * with the group id of the current user in the current course.
  *
  * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
@@ -38,7 +38,7 @@ die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
     .'<body>'."\n"."\n"
     .'<a href="./chat.php" >click</a>' . "\n"
     .'</body>'."\n"."\n"
-    
+
 );
 
 
@@ -62,7 +62,7 @@ $is_allowedToReset  = $is_courseAdmin;
 if ( $_user['firstName'] == '' && $_user['lastName'] == '')
 {
     $nick = $langAnonymous;
-} 
+}
 else
 {
     $nick = $_user['firstName'] . ' ' . $_user['lastName'] ;
@@ -109,7 +109,7 @@ if ($_gid)
     }
     else
     {
-        die('<center>'.$langNotGroupMember.'</center>');
+        die('<center>' . $langNotGroupMember . '</center>');
     }
 }
 else
@@ -204,7 +204,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     }
     else
     {
-        $cmdMsg = '<blockquote>'.$langCopyFailed.'</blockquote>'."\n";
+        $cmdMsg = '<blockquote>' . $langCopyFailed . '</blockquote>'."\n";
     }
 }
 
@@ -222,10 +222,7 @@ if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
     // replace url with real html link
     $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
-    fwrite($fchat,
-    '<small>'
-    .$timeNow.' &lt;<b>'.$nick.'</b>&gt; '.$chatLine
-    ."</small><br />\n");
+    fwrite($fchat, '<small>' . $timeNow . ' &lt;<b>' . $nick . '</b>&gt; ' . $chatLine . '</small><br />' . "\n");
 
     fclose($fchat);
 }
@@ -276,14 +273,14 @@ else
 }
 
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
-	.'<html>'."\n"
+    .'<html>'."\n"
     .'<head>'."\n"
     .'<title>'.$langChat.'</title>'
-	.'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
-	.'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
-	.'</head>'."\n"
-	.'<body>'."\n"."\n"
-	;
+    .'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
+    .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
+    .'</head>'."\n"
+    .'<body>'."\n"."\n"
+    ;
 
 if( isset($cmdMsg) )
 {
@@ -291,7 +288,7 @@ if( isset($cmdMsg) )
 }
 
 echo implode("\n", $curDisplayLineList) // LAST LINES
-	."\n"
+    ."\n"
     .'<p align="right"><small>'
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
     .'</small></p>'."\n\n"
@@ -321,6 +318,13 @@ if ($activeLineCount > $max_line_in_file)
 
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Store $content in a buffer
+ * add an html header if it's new buffer
+ *
+ * @param string $content content to bufferise
+ * @param string $tmpFile filename to store the content
+ */
 function buffer($content, $tmpFile)
 {
     global $langChat, $langArchive;
@@ -340,5 +344,3 @@ function buffer($content, $tmpFile)
     fwrite($fp, $content);
 }
 ?>
- 
-	

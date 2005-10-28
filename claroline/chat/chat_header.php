@@ -22,8 +22,8 @@ require '../inc/claro_init_global.inc.php';
 
 if(isset($_gid))
 {
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
-    $interbredcrump[]= array ('url'=>'../group/group_space.php', 'name'=> $_group['name']);
+    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => $langGroups);
+    $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
 }
 
 $nameTools  = $langChat;
@@ -37,5 +37,5 @@ if ( $_gid ) $titleElement['supraTitle'] = $_group['name'];
 echo claro_disp_tool_title($titleElement);
 
 $hide_footer = TRUE;
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

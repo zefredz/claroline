@@ -73,6 +73,6 @@ echo claro_disp_tool_title($nameTools);
 claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
 
 // Footer
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

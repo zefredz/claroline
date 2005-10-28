@@ -239,7 +239,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'rqEdit' || $cmd == 'rqAdd' )
     {
-    	claro_set_display_mode_available(false);
+        claro_set_display_mode_available(false);
 
         if ( $cmd == 'rqEdit' && !empty($id) )
         {
@@ -445,22 +445,22 @@ if ($display_command)
         */
         if ( count($eventList) > 0 )
         {
-	        echo '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-	        .    ' onclick="if (confirm(\'' . clean_str_for_javascript($langClearList) . ' ? \')){return true;}else{return false;}">'
-	        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-	        .    $langClearList
-	        .    '</a>'
-	        ;
-		}
-		else
-		{
-	        echo '<span class="claroCmdDisabled" >'
-	        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-	        .    $langClearList
-	        .    '</span>'
-	        ;
-		}
-		echo '</p>' . "\n";
+            echo '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
+            .    ' onclick="if (confirm(\'' . clean_str_for_javascript($langClearList) . ' ? \')){return true;}else{return false;}">'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+            .    $langClearList
+            .    '</a>'
+            ;
+        }
+        else
+        {
+            echo '<span class="claroCmdDisabled" >'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+            .    $langClearList
+            .    '</span>'
+            ;
+        }
+        echo '</p>' . "\n";
 
 }
 
@@ -481,7 +481,7 @@ else
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . $langNewToOld . '</a>' . "\n";
     }
 
-	echo "\n" . '<table class="claroTable" width="100%">' . "\n";
+    echo "\n" . '<table class="claroTable" width="100%">' . "\n";
 }
 
 $nowBarAlreadyShowed = FALSE;
