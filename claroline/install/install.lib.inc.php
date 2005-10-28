@@ -43,7 +43,7 @@ function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
         echo '<LI>'
         .    '<font color="red">Warning !</font>'
         .    $extentionName . ' is missing.</font>'
-        .    '<br>'
+        .    '<br />'
         .    'Configure php to use this extention'
         .    '(see <a href="http://www.php.net/' . $extentionName . '">' 
         .    $extentionName 
@@ -101,7 +101,7 @@ function topRightPath($path='.')
 
     }
     $search_top_log .= '</dl>'
-    .  'topWritablePath = ' . $topWritablePath . '<br>'
+    .  'topWritablePath = ' . $topWritablePath . '<br />'
     .  'topReadablePath = ' . $topReadablePath
     ;
 

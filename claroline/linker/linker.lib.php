@@ -506,7 +506,7 @@
         if ( is_array($linkList) && count($linkList) > 0 )
         {
             //style=\"margin-top:1em;\"
-            echo "<hr>\n";
+            echo "<hr />\n";
             echo "<div  style=\"margin-bottom:2em;\">\n"; 
             
             foreach ( $linkList as $link )
@@ -515,7 +515,7 @@
                    $url = $res->resolve($link["crl"]);
                 $name = $link["title"];
                 
-                echo "<a href=\"".htmlspecialchars($url)."\">".htmlspecialchars($name)."</a><br>\n";
+                echo "<a href=\"".htmlspecialchars($url)."\">".htmlspecialchars($name)."</a><br />\n";
             }
             echo "</div>\n";
         }

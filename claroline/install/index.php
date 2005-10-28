@@ -200,8 +200,8 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
         if (empty($adminNameForm)) $missing_admin_data[] = 'lastname';
         if (empty($adminEmailForm)) $missing_admin_data[] = 'email';
         if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm)) $error_in_admin_data[] = 'email';
-        if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br>';
-        if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please, check '.implode(', ',$error_in_admin_data).'</font><br>';
+        if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br />';
+        if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please, check '.implode(', ',$error_in_admin_data).'</font><br />';
         if ($cmd>DISP_ADMINISTRATOR_SETTING)
         {
             $display=DISP_ADMINISTRATOR_SETTING;
@@ -266,7 +266,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 
     if($administrativeDataMissing)
     {
-        $msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br>';
+        $msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br />';
         if ( $cmd > DISP_ADMINISTRATIVE_SETTING )
         {
             $display = DISP_ADMINISTRATIVE_SETTING;
@@ -296,7 +296,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
                 <P class="setup_error">
                     <font color="red">Warning !</font>
                     <small>['.$no.'] - '.$msg.'</small>
-                    <br>';
+                    <br />';
         if ($no=='2005')
         $msg_no_connection .= '
                     Wrong '.$langDBHost.' : <I>'.$dbHostForm.'</I>';
@@ -309,11 +309,11 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
         else
         $msg_no_connection .= 'Server unavailable. '
                            .  'Is your MySQL server started ?';
-        $msg_no_connection .= '<BR>'
+        $msg_no_connection .= '<br />'
                            .  '<font color="blue">'
                            .  'Fix this problem before going further'
                            .  '</font>'
-                           .  '<BR>'
+                           .  '<br />'
                            .  '</P>'
                            ;
         $databaseParam_ok = FALSE;
@@ -443,7 +443,7 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
     if($platformDataMissing)
     {
         $canRunCmd = FALSE;
-        $msg_missing_platform_data = '<font color="red" >Please fill ' . implode(', ',$missing_platform_data) . '</font><br>';
+        $msg_missing_platform_data = '<font color="red" >Please fill ' . implode(', ',$missing_platform_data) . '</font><br />';
         if ($cmd > DISP_PLATFORM_SETTING)
         {
             $display = DISP_PLATFORM_SETTING;
@@ -642,7 +642,7 @@ if ($display==DISP_WELCOME)
         .    '<b>'
         .    '<font color="red">Warning !</font> '
         .    'The installer has detected an existing claroline platform on your system. '
-        .    '<br>'
+        .    '<br />'
         .    '</b>'
         .    '<ul>'
         ;
@@ -662,7 +662,7 @@ if ($display==DISP_WELCOME)
             ;
         }
         echo '<li>'
-        .    'For a Claroline complete reinstallation click on the "Next" button below.<br>'
+        .    'For a Claroline complete reinstallation click on the "Next" button below.<br />'
         .    '<font color="red">'
         .    'Be aware that a complete reinstallation will crush the data stored in your previous installed Claroline.'
         .    '</font>'
@@ -677,7 +677,7 @@ if ($display==DISP_WELCOME)
         echo '<B>'
         .    'Notice. This version is not considered as stable '
         .    'and is not aimed for production.'
-        .    '</B><br>'
+        .    '</B><br />'
         .    'If  something goes wrong, '
         .    'come talk on our support forum at '
         .    '<a href="http://www.claroline.net/forum/viewforum.php?f=62" '
@@ -721,8 +721,8 @@ if ($display==DISP_WELCOME)
         .    '<p class="setup_error">' . "\n"
         .    '<font color="red">Warning !</font>' . "\n"
         .    'safe_mode is set to <strong>on</strong>.' . "\n"
-        .    '<br>' . "\n"
-        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br>' . "\n"
+        .    '<br />' . "\n"
+        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br />' . "\n"
         .    '<font color="blue">' . "\n"
         .    '<code>safe_mode = off </code>' . "\n"
         .    '</font>' . "\n"
@@ -740,9 +740,9 @@ if ($display==DISP_WELCOME)
     .    (is_writable('../..')
     ? ''
     : '</li>'
-    . '<font color="red">Warning !</font> Claroline is not able to write on : <br>'
+    . '<font color="red">Warning !</font> Claroline is not able to write on : <br />'
     . '<nobr><code>' . realpath('../..') . '</code><nobr>'
-    . '<br>'
+    . '<br />'
     . 'Change this file permission the server file system.'
     . '</li>')
     .    ' '
@@ -750,9 +750,9 @@ if ($display==DISP_WELCOME)
     ? ''
     : '<li>'
     . '<font color="red">Warning !</font> '
-    . 'Claroline is not able to read on : <br>'
+    . 'Claroline is not able to read on : <br />'
     . '<nobr><code>' . realpath('../..') . '</code><nobr>'
-    . '<br>'
+    . '<br />'
     . 'Change this file permission the server file system.'
     . '</li>')
     .    '</ul>'
@@ -823,17 +823,17 @@ echo '
 <tr>
 <td>
 <!--            <h4>Absolute path</h4>
-<label for="urlForm">Campus Path (absolute path to your campus)</label><br>
-<input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br>
+<label for="urlForm">Campus Path (absolute path to your campus)</label><br />
+<input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br />
 <h4>Relative path</h4>
-<label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br>
-<input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br>
-<br>
+<label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br />
+<input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br />
+<br />
 -->
-<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br>
+<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br />
 <input type="text"  size="85" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
-<br>
-<br>
+<br />
+<br />
 <table width="100%">
 <tr>
 <td>
@@ -1026,10 +1026,10 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    '<p class="setup_error">'  . "\n"
         .    '<font color="red">Warning !</font>'  . "\n"
         .    'Database <em>'.$dbNameForm.'</em> already exists'  . "\n"
-        .    '<BR>'  . "\n"
+        .    '<br />'  . "\n"
         .    'Claroline may overwrite data previously stored'  . "\n"
         .    'in tables of this database.'  . "\n"
-        .    '<BR>'  . "\n"
+        .    '<br />'  . "\n"
         .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>'  . "\n"
         .    '<label for="confirmUseExistingMainDb" >'  . "\n"
         .    '<B>I know, I want to use this database.</B>'  . "\n"
@@ -1079,10 +1079,10 @@ elseif($display == DISP_DB_NAMES_SETTING )
             .    '<P class="setup_error">'  . "\n"
             .    '<font color="red">Warning !</font>'  . "\n"
             .    'Database <em>'.$dbStatsForm.'</em> already exists'  . "\n"
-            .    '<BR>'  . "\n"
+            .    '<br />'  . "\n"
             .    'Claroline may overwrite data previously stored'  . "\n"
             .    'in tables of this database.'  . "\n"
-            .    '<BR>'  . "\n"
+            .    '<br />'  . "\n"
             .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>'  . "\n"
             .    '<label for="confirmUseExistingStatsDb" >'  . "\n"
             .    '<B>I know, I want to use this database.</B>'  . "\n"
@@ -1151,7 +1151,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         .    'Afterwards, Claroline will create a new database for each newly '  . "\n"
         .    'created course. '  . "\n"
         .    '</b>'  . "\n"
-        .    '<BR>'  . "\n"
+        .    '<br />'  . "\n"
         .    'You can specify a prefix for these database names.'  . "\n"
         .    '</small>'  . "\n"
         .    '</blockquote>'  . "\n"
@@ -1330,7 +1330,7 @@ elseif($display==DISP_PLATFORM_SETTING)
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td colspan="3">' . "\n"
-    .    '<label for="courseRepositoryForm">Courses repository path (relative to the URL above) </label><br>' . "\n"
+    .    '<label for="courseRepositoryForm">Courses repository path (relative to the URL above) </label><br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1353,7 +1353,7 @@ elseif($display==DISP_PLATFORM_SETTING)
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
-    .    '<td colspan=3><br>' . "\n"
+    .    '<td colspan=3><br />' . "\n"
     .    '<h4>User </h4>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1436,11 +1436,11 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                         </td>
                         <td colspan="2">
                             <input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm).'">
-                            <br>
+                            <br />
                         </td>
                     </tr>
                 <tr>
-                        <td colspan="3"><br>
+                        <td colspan="3"><br />
                     </tr>
                     <tr>
                         <td colspan="3">
@@ -1463,7 +1463,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3"><br>
+                        <td colspan="3"><br />
                         </td>
                     </tr>
                 </table>
@@ -1498,7 +1498,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
                 <h2>
                     '.sprintf($langStepNOfN,(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
                 </h2>
-        Here are the values you entered <br>
+        Here are the values you entered <br />
         <Font color="red">
             Print this page to remember your admin password and other settings
         </font>
@@ -1507,58 +1507,58 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         <FIELDSET>
         <LEGEND>'.$panelTitle[DISP_DB_CONNECT_SETTING].'</LEGEND>
         <EM>Account</EM>
-        <br>
-        &nbsp;Database host : '.htmlspecialchars($dbHostForm).'<br>
-        &nbsp;Database username : '.htmlspecialchars($dbUsernameForm).'<br>
-        &nbsp;Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br>
+        <br />
+        &nbsp;Database host : '.htmlspecialchars($dbHostForm).'<br />
+        &nbsp;Database username : '.htmlspecialchars($dbUsernameForm).'<br />
+        &nbsp;Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br />
 
-        &nbsp;Enable single database : '.($singleDbForm?'yes':'no').'<br>
-        &nbsp;Enable tracking : '.($enableTrackingForm?'yes':'no').'<br>
-        <EM>Database Names</EM><br>
-        &nbsp;Main database : '.htmlspecialchars($dbNameForm).'<br>
-        &nbsp;Tracking database : '.htmlspecialchars($dbStatsForm).'<br>';
+        &nbsp;Enable single database : '.($singleDbForm?'yes':'no').'<br />
+        &nbsp;Enable tracking : '.($enableTrackingForm?'yes':'no').'<br />
+        <EM>Database Names</EM><br />
+        &nbsp;Main database : '.htmlspecialchars($dbNameForm).'<br />
+        &nbsp;Tracking database : '.htmlspecialchars($dbStatsForm).'<br />';
     if ($mainTblPrefixForm!="" || $statsTblPrefixForm!="" || $dbPrefixForm!="")
-        echo '<em>Prefixes</em><br>';
+        echo '<em>Prefixes</em><br />';
     if ($mainTblPrefixForm!="")
-        echo '&nbsp;Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br>';
+        echo '&nbsp;Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br />';
     if ($statsTblPrefixForm!="")
-        echo '&nbsp;Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br>';
+        echo '&nbsp;Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br />';
     if ($dbPrefixForm!="")
-        echo '&nbsp;Courses database prefix : '.htmlspecialchars($dbPrefixForm).'<br>';
+        echo '&nbsp;Courses database prefix : '.htmlspecialchars($dbPrefixForm).'<br />';
     echo '
         </FIELDSET>
 
         <FIELDSET>
         <LEGEND>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</LEGEND>
         <div class="notethis">
-                    Login : '.htmlspecialchars($loginForm).'<br>
-                    Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br>
+                    Login : '.htmlspecialchars($loginForm).'<br />
+                    Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br />
         </div>
-        Email : '.htmlspecialchars($adminEmailForm).'<br>
-        Phone : '.htmlspecialchars($adminPhoneForm).'<br>
-        Lastname : '.htmlspecialchars($adminNameForm).'<br>
-        Firstname : '.htmlspecialchars($adminSurnameForm).'<br>
+        Email : '.htmlspecialchars($adminEmailForm).'<br />
+        Phone : '.htmlspecialchars($adminPhoneForm).'<br />
+        Lastname : '.htmlspecialchars($adminNameForm).'<br />
+        Firstname : '.htmlspecialchars($adminSurnameForm).'<br />
 
         </FIELDSET>
         <FIELDSET>
         <LEGEND>'.$panelTitle[DISP_PLATFORM_SETTING].'</LEGEND>
-        Name : '.htmlspecialchars($campusForm).'<br>
-        Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br>
-        Main language : ' . ucwords($languageForm) . '<br>
+        Name : '.htmlspecialchars($campusForm).'<br />
+        Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br />
+        Main language : ' . ucwords($languageForm) . '<br />
 
-        Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br>
+        Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br />
         Password storage : ' .($encryptPassForm ?'crypted ':'clear text').'
         </FIELDSET>
         <FIELDSET>
         <LEGEND>Additional Informations</LEGEND>
-        <em>Related organisation</em><br>
+        <em>Related organisation</em><br />
 
-        &nbsp;Name : '.htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm)).'<br>
-        &nbsp;URL  : '.(empty($institutionUrlForm)?"--empty--":$institutionUrlForm).'<br>
+        &nbsp;Name : '.htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm)).'<br />
+        &nbsp;URL  : '.(empty($institutionUrlForm)?"--empty--":$institutionUrlForm).'<br />
 
-        <em>Campus contact</em><br>
-        &nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br>
-        &nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br>
+        <em>Campus contact</em><br />
+        &nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br />
+        &nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br />
 
 
         </FIELDSET>
@@ -1592,20 +1592,20 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     ||    $statsDbNameExist
     )
     {
-        echo "<HR>";
+        echo "<hr />";
         if ($mainDbNameExist)
-            echo '<P><B>'.$langMainDB.'</B> db (<em>'.$dbNameForm.'</em>) already exist <BR>
+            echo '<P><B>'.$langMainDB.'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />
             <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
-            <label for="confirmUseExistingMainDb" >I know, I want use it.</label><BR>
+            <label for="confirmUseExistingMainDb" >I know, I want use it.</label><br />
             <font color="red">Warning !</font> : this script write in tables use by Claroline.
             </P>';
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '
         <P>
             <B>'.$langStatDB.'</B> db ('.$dbStatsForm.') already exist
-            <BR>
+            <br />
             <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
-            <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><BR>
+            <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><br />
             <font color="red">Warning !</font>
             : this script write in tables use by Claroline.
         </P>';
@@ -1613,10 +1613,10 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         <P>
             OR <input type="submit" name="cmdDbNameSetting" value="set DB Names">
         </P>
-        <HR>';
+        <hr />';
     }
     if($mainDbNameCreationError)
-        echo '<BR>'.$mainDbNameCreationError;
+        echo '<br />'.$mainDbNameCreationError;
         echo '
                 <p align="right">
                     <input type="submit" name="alreadyVisited" value="|&lt; Restart from beginning">
@@ -1638,33 +1638,33 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
                     Install Problem
                 </h2>';
     if($mainDbNameCreationError)
-        echo "<BR>".$mainDbNameCreationError;
+        echo "<br />".$mainDbNameCreationError;
     if($statsDbNameCreationError)
-        echo "<BR>".$statsDbNameCreationError;
+        echo "<br />".$statsDbNameCreationError;
     if($fileAccessInLangRepositoryCreationError)
-        echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessLangPath)."</U><br>";
+        echo "<br />Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessLangPath)."</U><br />";
     if($fileAccessInSqlRepositoryCreationError)
-        echo "<BR>Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessSqlPath)."</U><br>";
+        echo "<br />Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessSqlPath)."</U><br />";
     if ($fileConfigCreationError)
     echo '
     <b>
         <font color="red">
             Probably, your script doesn\'t have write access to the config directory
         </font>
-        <br>
+        <br />
         <SMALL>
             <EM>('.realpath("../inc/conf/").')</EM>
         </SMALL>
     </b>
-    <br><br>
+    <br /><br />
     You probably do not have write access on Claroline root directory,
-    i.e. you should <EM>CHMOD 777</EM> or <EM>755</EM> or <EM>775</EM><br><br>
+    i.e. you should <EM>CHMOD 777</EM> or <EM>755</EM> or <EM>775</EM><br /><br />
 
-Your problems can be related on two possible causes :<br>
+Your problems can be related on two possible causes :<br />
 <UL>
     <LI>
         Permission problems.
-        <br>Try initially with
+        <br />Try initially with
         <EM>chmod 777 -R</EM> and increase restrictions gradually.
     </LI>
     <LI>
@@ -1678,30 +1678,30 @@ Your problems can be related on two possible causes :<br>
 
     if ($coursesRepositorySysMissing)
     {
-        echo '<BR> <em>$coursesRepositorySys = '.$coursesRepositorySys.'</em> : <br>dir is missing';
+        echo '<br /> <em>$coursesRepositorySys = '.$coursesRepositorySys.'</em> : <br />dir is missing';
     }
 
     if ($coursesRepositorySysWriteProtected)
     {
-        echo '<BR><b><em>'.$coursesRepositorySys.'</em> is Write Protected.</b>
-        Claroline need to have write right to create course.<br>
+        echo '<br /><b><em>'.$coursesRepositorySys.'</em> is Write Protected.</b>
+        Claroline need to have write right to create course.<br />
         change right on this directory and retry.';
     }
 
     if ($garbageRepositorySysMissing)
     {
-        echo '<BR> <em>$garbageRepositorySys = '.$garbageRepositorySys.'</em> : <br>dir is missing';
+        echo '<br /> <em>$garbageRepositorySys = '.$garbageRepositorySys.'</em> : <br />dir is missing';
     }
 
     if ($garbageRepositorySysWriteProtected)
     {
         echo '
-        <BR>
+        <br />
         <b>
             <em>'.$garbageRepositorySys.'</em>
             is Write Protected.
         </b>
-        Claroline need to have write right to trash courses.<br>
+        Claroline need to have write right to trash courses.<br />
         change right on this directory and retry.';
     }
 
@@ -1727,8 +1727,8 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
  ?>
 
             </h2>
-            <br>
-            <br>
+            <br />
+            <br />
 
 
 </form>
@@ -1739,12 +1739,12 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
         <input type="submit" value="Go to your newly created campus">
 
 </form>
-            <br>
-            <br>
+            <br />
+            <br />
                 Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.
 
-            <br>
-            <br>
+            <br />
+            <br />
         </center>
 <?php
 }    // STEP RUN_INSTALL_COMPLETE
@@ -1753,9 +1753,9 @@ else
 {
     echo '
             <pre>'.$display.'</pre not set.
-            <BR>
-            Error in script. <BR>
-            <BR>
+            <br />
+            Error in script. <br />
+            <br />
             Please inform  <a href=mailto:moosh@claroline.net">claroline team</a> )';
 }
 

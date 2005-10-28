@@ -216,7 +216,7 @@
         .    '<div id="toolBar">' . "\n"
         .    '</div>' . "\n"
         .    '<div id="courseBar">' . "\n"
-        .    '<hr>' . "\n"
+        .    '<hr />' . "\n"
         .    '</div>' . "\n"
         .    '<div id="nav">' . "\n"
         .    '</div>' . "\n"

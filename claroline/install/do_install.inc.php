@@ -67,9 +67,9 @@ if (mysql_errno() >0)
                 <P class="setup_error">
                     <font color="red">Warning !</font>
                     <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
-                    <br>
+                    <br />
                     Error on creation ' . $langMainDB . ' : <I>' . $dbHostForm . '</I>
-                    <BR>
+                    <br />
                     <font color="blue">
                         Fix this problem before going further
                     </font>
@@ -114,9 +114,9 @@ if($statsDbName != $mainDbName)
                 <P class="setup_error">
                     <font color="red">Warning !</font>
                     <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
-                    <br>
+                    <br />
                     Error on creation ' . $langStatDB . ' : <I>' . $dbStatsForm . '</I>
-                    <BR>
+                    <br />
                     <font color="blue">
                         Fix this problem before going further
                     </font>
