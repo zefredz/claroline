@@ -518,7 +518,7 @@ else
 
 if( $claro_loginRequested && isset($claro_loginSucceeded) && $claro_loginSucceeded )
 {
-	// needs to be AFTER the initialisation of $_user ['lastLogin']
+    // needs to be AFTER the initialisation of $_user ['lastLogin']
     event_login();
 }
 

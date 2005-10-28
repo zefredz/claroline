@@ -16,10 +16,10 @@ ob_start();
 echo '<span id="institution">';
 if( !empty($institution_name) )
 {
-	if( !empty($institution_url) )
-		echo '<a href="'.$institution_url.'" target="_top">'.$institution_name.'</a>';
-	else
-	    echo $institution_name;
+    if( !empty($institution_url) )
+        echo '<a href="'.$institution_url.'" target="_top">'.$institution_name.'</a>';
+    else
+        echo $institution_name;
 }
 
 if( !empty($_course['extLink']['name']) )    /* --- External Link Section --- */

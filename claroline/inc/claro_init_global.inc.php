@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 
 // include the main Claroline platform configuration file
 
@@ -10,7 +10,7 @@ $includePath = dirname(__FILE__);
 if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
     require $includePath . '/conf/claro_main.conf.php';
-} 
+}
 else
 {
     die ('<center>'
@@ -52,7 +52,7 @@ if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
 define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 
 // Add the Claroline PEAR path to the php.ini include path
-// This action is mandatory because PEAR inner include() statements 
+// This action is mandatory because PEAR inner include() statements
 // rely on the php.ini include_path settings
 
 set_include_path( get_include_path(). PATH_SEPARATOR . PEAR_LIB_PATH );
@@ -78,7 +78,7 @@ define('CLARO_FILE_PERMISSIONS', 0777);
 if ( !isset($_SERVER['REQUEST_URI']) )
 {
     $_SERVER['REQUEST_URI'] = $_SERVER['PHP_SELF'];
-    if ( !empty($_SERVER['QUERY_STRING']) ) 
+    if ( !empty($_SERVER['QUERY_STRING']) )
     {
         $_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
     }
@@ -113,17 +113,17 @@ claro_unquote_gpc();
 
 $db = @mysql_connect($dbHost, $dbLogin, $dbPass)
 or die ('<center>'
-	   .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
-	   .'</center>');
+       .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
+       .'</center>');
 
 $selectResult = mysql_select_db($mainDbName,$db)
 or die ( '<center>'
-		.'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
-		.'</center>');
+        .'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
+        .'</center>');
 
 if ($statsDbName == '')
 {
-	$statsDbName = $mainDbName;
+    $statsDbName = $mainDbName;
 }
 
 /*----------------------------------------------------------------------
@@ -141,21 +141,15 @@ require $includePath . '/claro_init_local.inc.php';
 /*----------------------------------------------------------------------
   Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
-  
+
 require $includePath . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
   Load language files
   ----------------------------------------------------------------------*/
 
-if ($_course['language'])
-{
-	$languageInterface = $_course['language'];
-}
-else
-{
-	$languageInterface = $platformLanguage;
-}
+if ($_course['language']) $languageInterface = $_course['language'];
+else                      $languageInterface = $platformLanguage;
 
 /*----------------------------------------------------------------------
   Common language properties and generic expressions
@@ -169,9 +163,9 @@ if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION' )
 
     if ($languageInterface  != 'english') // Avoid useless include as English lang is preloaded
     {
-        include($includePath.'/../lang/' . $languageInterface . '/complete.lang.php');
+        include($includePath . '/../lang/' . $languageInterface . '/complete.lang.php');
     }
-    
+
 }
 else
 {
@@ -179,14 +173,14 @@ else
     if ( isset($course_homepage) && $course_homepage == TRUE )
     {
         $languageFilename = 'claroline_course_home';
-    } 
+    }
     else
     {
         /*
          * tool specific language translation
          */
-    
-        // build lang file of the tool    
+
+        // build lang file of the tool
         $languageFilename = preg_replace('|^'.preg_quote($urlAppend.'/').'|', '',  $_SERVER['PHP_SELF'] );
         $pos = strpos($languageFilename, 'claroline/');
 
@@ -202,19 +196,19 @@ else
             $languageFilename = str_replace('/','_',$languageFilename);
         }
     }
-    
+
     // add extension to file
-    $languageFile = $languageFilename . '.lang.php'; 
+    $languageFile = $languageFilename . '.lang.php';
 
     if ( ! file_exists($includePath . '/../lang/english/' . $languageFile) )
     {
         include($includePath . '/../lang/english/complete.lang.php');
     }
     else
-    {   
+    {
         include($includePath . '/../lang/english/' . $languageFile);
     }
-	
+
     // load previously english file to be sure every $lang variable
     // have at least some content
 
@@ -222,13 +216,13 @@ else
     {
         @include($includePath . '/../lang/' . $languageInterface . '/' . $languageFile);
     }
-    
+
 }
 
 // include the locale settings language
 
 include($includePath.'/../lang/english/locale_settings.php');
-    
+
 if ( $languageInterface  != 'english' ) // // Avoid useless include as English lang is preloaded
 {
    include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
@@ -238,23 +232,23 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
   Prevent duplicate form submission
   ----------------------------------------------------------------------*/
 
-// The code below is a routine to prevent duplicate form submission, for 
-// example if the user clicks on the 'Refresh' or 'Back' button of his 
-// browser. It will nullify all the variables posted to the server by the 
+// The code below is a routine to prevent duplicate form submission, for
+// example if the user clicks on the 'Refresh' or 'Back' button of his
+// browser. It will nullify all the variables posted to the server by the
 // form, provided this form complies to 2 points :
-// 
-// 1. The form is submitted by POST method (<form method="POST">). GET 
+//
+// 1. The form is submitted by POST method (<form method="POST">). GET
 // method is not taken into account.
-// 
-// 2. A unique ID value is provided at form submission that way 
-// 
+//
+// 2. A unique ID value is provided at form submission that way
+//
 //    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); >">
-// 
-// The routine records in PHP session all the the ID of the submitted 
-// forms. Once a form is submitted, its ID is compared to recorded ID, to 
-// check if the form hasn't be posted before. 
-// 
-// One can set a limit to the stored ID in session by adapting the 
+//
+// The routine records in PHP session all the the ID of the submitted
+// forms. Once a form is submitted, its ID is compared to recorded ID, to
+// check if the form hasn't be posted before.
+//
+// One can set a limit to the stored ID in session by adapting the
 // CLARO_MAX_REGISTERED_FORM_ID constant.
 
 define('CLARO_MAX_REGISTERED_FORM_ID', 50);
@@ -276,7 +270,7 @@ if ( isset($_POST['claroFormId']) )
     }
     else
     {
-         $claroFormIdListCount = array_unshift($_SESSION['claroFormIdList'], 
+         $claroFormIdListCount = array_unshift($_SESSION['claroFormIdList'],
                                                $_POST['claroFormId']         );
 
          if ( $claroFormIdListCount > CLARO_MAX_REGISTERED_FORM_ID )
