@@ -94,21 +94,21 @@ switch ($cmd)
     .            '<table>' . "\n"
     .            '<tr>' . "\n"
     .            '<td>' . $langNewClassName.' : ' . '</td>' . "\n"
-    . '<td>' . "\n"
-    . '<input type="hidden" name="cmd" value="new" />' . "\n"
-    . '<input type="text" name="classname" />' . "\n"
-    . '</td>' . "\n"
-    . '</tr>' . "\n"
-    . '<tr>' . "\n"
-    . '<td>'. $langLocation.' :' . '</td>' . "\n"
-    . '<td>' . "\n"
-    . displaySelectBox()
-    . '<input type="submit" value=" Ok " />' . "\n"
-    . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-    . '</td>' . "\n"
-    . '</tr>' . "\n"
-    . '</table>' . "\n"
-    . '</form>'."\n "
+    .            '<td>' . "\n"
+    .            '<input type="hidden" name="cmd" value="new" />' . "\n"
+    .            '<input type="text" name="classname" />' . "\n"
+    .            '</td>' . "\n"
+    .            '</tr>' . "\n"
+    .            '<tr>' . "\n"
+    .            '<td>'. $langLocation.' :' . '</td>' . "\n"
+    .            '<td>' . "\n"
+    .            displaySelectBox()
+    .            '<input type="submit" value=" Ok " />' . "\n"
+    .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+    .            '</td>' . "\n"
+    .            '</tr>' . "\n"
+    .            '</table>' . "\n"
+    .            '</form>'."\n "
     ;
     break;
 
@@ -162,20 +162,20 @@ switch ($cmd)
     $class_name =  claro_sql_query_get_single_value($sqlGetClassName);
 
     $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
-    .'<table>' . "\n"
-    .'<tr>' . "\n"
-    .'<td>' . "\n"
-    .$langClassName.' : ' . "\n"
-    .'</td>' . "\n"
-    .'<td>' . "\n"
-    .'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-    .'<input type="hidden" name="class" value="' . $_REQUEST['class'].'" />' . "\n"
-    .'<input type="text" name="classname" value="' . htmlspecialchars($class_name) . '" />' . "\n"
-    .'<input type="submit" value=" Ok " />' . "\n"
-    .'</td>' . "\n"
-    .'</tr>' . "\n"
-    .'</table>' . "\n"
-    .'</form>'."\n "
+    .           '<table>' . "\n"
+    .           '<tr>' . "\n"
+    .           '<td>' . "\n"
+    .           $langClassName.' : ' . "\n"
+    .           '</td>' . "\n"
+    .           '<td>' . "\n"
+    .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+    .           '<input type="hidden" name="class" value="' . $_REQUEST['class'].'" />' . "\n"
+    .           '<input type="text" name="classname" value="' . htmlspecialchars($class_name) . '" />' . "\n"
+    .           '<input type="submit" value=" Ok " />' . "\n"
+    .           '</td>' . "\n"
+    .           '</tr>' . "\n"
+    .           '</table>' . "\n"
+    .           '</form>'."\n "
     ;
     break;
 
@@ -224,7 +224,7 @@ switch ($cmd)
     . '<input type="hidden" name="cmd" value="exMove" />' . "\n"
     . '<input type="hidden" name="movedClassId" value="'.$_REQUEST['class'].'" />' . "\n"
     . displaySelectBox()
-    . '<input type="submit" value=" Ok ">' . "\n"
+    . '<input type="submit" value=" Ok " />' . "\n"
     . '</td>' . "\n"
     . '</tr>' . "\n"
     . '</table>'
