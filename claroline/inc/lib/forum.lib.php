@@ -929,7 +929,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     
         // 'Register' is covered by default
     
-        default:
+        case 'index':
         
             if ( claro_is_allowed_to_edit() )
             {
@@ -963,7 +963,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     return TRUE;
 }
 
-function claro_disp_search_box()
+function disp_search_box()
 {
     global $langSearch, $langOk, $langCancel;
 
@@ -986,7 +986,7 @@ function claro_disp_search_box()
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name='')
 {
-    global $l_separator, $_gid;
+    global $l_separator, $_gid, $langSearchResult;
 
     $breadCrumbNameList   = array ('Forum Index');
     $breadCrumbUrlList    = array ('index.php');
@@ -1001,6 +1001,11 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
             $breadCrumbNameList[] = $topic_name;
             $breadCrumbUrlList[]  = null;
         }
+    }
+    elseif ($pagetype == 'viewsearch')
+    {
+            $breadCrumbNameList[] = $langSearchResult;
+            $breadCrumbUrlList[]  = null;
     }
 
     echo claro_disp_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, $l_separator);

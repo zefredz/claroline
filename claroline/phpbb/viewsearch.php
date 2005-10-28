@@ -64,19 +64,24 @@ if (isset($_REQUEST['searchPattern']))
     }
 }
 
+$pagetype= 'viewsearch';
+
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($langForums, 
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
+disp_forum_toolbar($pagetype, null);
+
+disp_forum_breadcrumb($pagetype, null, null, null);
 
 
-echo '<table class="claroTable" width="100%">'        . "\n"
-.    '<tr align="left">'                              . "\n"
-.    '<th class="superHeader">'                       . "\n"
-.    $langSearchOn . ' : '.$_REQUEST['searchPattern'] . "\n"
-.    '</th>'                                          . "\n"
-.    '</tr>'                                          . "\n";
+echo '<table class="claroTable" width="100%">'                          . "\n"
+.    '<tr align="left">'                                                . "\n"
+.    '<th class="superHeader">'                                         . "\n"
+.    $langSearchResult. ' : '.htmlspecialchars($_REQUEST['searchPattern']) . "\n"
+.    '</th>'                                                            . "\n"
+.    '</tr>'                                                            . "\n";
 
     if (count($searchResultList) < 1 )
     {
