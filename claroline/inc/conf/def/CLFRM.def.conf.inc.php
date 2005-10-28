@@ -1,6 +1,6 @@
 <?php //$Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for forum tool
  *
@@ -26,18 +26,18 @@ $conf_def['config_class']='tool';
 
 $conf_def['section']['forum']['label']='General settings';
 $conf_def['section']['forum']['description']='Settings of the tool';
-$conf_def['section']['forum']['properties'] = 
+$conf_def['section']['forum']['properties'] =
 array ( 'allow_html'
       , 'posts_per_page'
       , 'topics_per_page'
       );
-      
+
 //PROPERTIES
 // Setup forum Options.
 $conf_def_property_list['allow_html']
 = array ('label'     => 'HTML in posts'
-	,'description' => 'Allow user to use html tag in messages'
-      , 'display'       => false
+        ,'description' => 'Allow user to use html tag in messages'
+        ,'display'       => false
         ,'default'   => '1'
         ,'type'      => 'enum'
         ,'container' => 'VAR'

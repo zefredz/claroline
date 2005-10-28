@@ -80,7 +80,7 @@ array ('label'         => 'Allow external resource linking'
       
 $conf_def_property_list['groupAllowed'] =
 array ('label'         => 'Show groups in resource browser'
-	  // ,'description'   => 'Allow a course manager to browse groups'
+      // ,'description'   => 'Allow a course manager to browse groups'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -90,7 +90,7 @@ array ('label'         => 'Show groups in resource browser'
      
 $conf_def_property_list['toolGroupAllowed'] =
 array ('label'         => 'Allow group resource linking'
-	  ,'description'   => 'Allow a course manager to browse and link resources located in a group space and in group tools'
+      ,'description'   => 'Allow a course manager to browse and link resources located in a group space and in group tools'
       ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'

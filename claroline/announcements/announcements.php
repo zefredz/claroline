@@ -100,25 +100,25 @@ $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
 
 if($is_allowedToEdit) // check teacher status
 {
-	//------------------------
-	//linker
+    //------------------------
+    //linker
     
     if ( !isset($_REQUEST['cmd']) )
     {
-    	linker_init_session();
+        linker_init_session();
     }
     
     if( $jpspanEnabled )
     {
-   		linker_set_local_crl( isset ($_REQUEST['id']) );
-   	}
+           linker_set_local_crl( isset ($_REQUEST['id']) );
+       }
    
-   	if( isset($_REQUEST['cmd']) 
-   		&& ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
-   	{
-    	linker_html_head_xtra();
+       if( isset($_REQUEST['cmd']) 
+           && ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
+       {
+        linker_html_head_xtra();
     }
-	//linker
+    //linker
     //------------------------
 
     $ex_rss_refresh = FALSE;
@@ -461,7 +461,7 @@ if ( $displayForm )
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'."\n"
-   	.	 '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">'
+       .     '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '">'
     .    (isset( $announcementToEdit['id'] ) 
          ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '">' . "\n"
@@ -488,7 +488,7 @@ if ( $displayForm )
     .    '<tr>' 
     .    '<td></td>'
     .    '<td><input type=checkbox value="1" name="emailOption" id="emailOption" >'
-    .    '<label for="emailOption">' . $langEmailOption . '</label><hr>' . "\n"
+    .    '<label for="emailOption">' . $langEmailOption . '</label><hr />' . "\n"
     ;
 
     //---------------------
@@ -648,5 +648,5 @@ if ($displayList)
 
 } // end if displayList
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

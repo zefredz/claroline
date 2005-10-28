@@ -1,6 +1,6 @@
 <?php //$Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for CLDOC config file
  *
@@ -30,22 +30,22 @@ $conf_def['config_class']= 'tool';
 // CONFIG SECTIONS
 $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
-$conf_def['section']['main']['properties'] = 
+$conf_def['section']['main']['properties'] =
 array ( 'openNewWindowForDoc', 'secureDocumentDownload' );
 
 
 // CONFIG SECTIONS
 $conf_def['section']['quota']['label']='Quota';
 $conf_def['section']['quota']['description']='Disk space allowed for documents';
-$conf_def['section']['quota']['properties'] = 
+$conf_def['section']['quota']['properties'] =
 array ( 'maxFilledSpace_for_course'
       , 'maxFilledSpace_for_groups'
       );
-      
+
 // CONFIG PROPERTIES
 $conf_def_property_list['maxFilledSpace_for_course']
 = array ('label'     => 'Quota for courses'
-	,'description' => 'Disk space allowed to each course'
+        ,'description' => 'Disk space allowed to each course'
         ,'default'   => '100000000'
         ,'unit'      => 'bytes'
         ,'type'      => 'integer'
@@ -55,28 +55,28 @@ $conf_def_property_list['maxFilledSpace_for_course']
 
 $conf_def_property_list['maxFilledSpace_for_groups']
 = array ('label'     => 'Quota for groups'
-	,'description' => 'Disk space allowed to each group'
+        ,'description' => 'Disk space allowed to each group'
         ,'default'   => '1000000'
         ,'unit'      => 'bytes'
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         ,'acceptedValue' => array('min' => '1024')
         );
-        
-// IMAGE VIEWER        
+
+// IMAGE VIEWER
 
 $conf_def['section']['img_viewer']['label']='Image Viewer';
 $conf_def['section']['img_viewer']['description']='Display options for Image Viewer';
-$conf_def['section']['img_viewer']['properties'] = 
+$conf_def['section']['img_viewer']['properties'] =
 array ( 'thumbnailWidth'
       , 'numberOfRows'
       , 'numberOfCols'
       );
-      
+
 // CONFIG PROPERTIES
 $conf_def_property_list['thumbnailWidth']
 = array ('label'     => 'Thumbnail width'
-	// ,'description' => ''
+    // ,'description' => ''
         ,'default'   => '75'
         ,'unit'      => 'pixels'
         ,'type'      => 'integer'
@@ -86,7 +86,7 @@ $conf_def_property_list['thumbnailWidth']
 
 $conf_def_property_list['numberOfRows']
 = array ('label'     => 'Number of rows'
-	    ,'description' => 'Number of rows displayed per pages'
+        ,'description' => 'Number of rows displayed per pages'
         ,'default'   => '3'
         ,'unit'      => 'rows'
         ,'type'      => 'integer'
@@ -96,7 +96,7 @@ $conf_def_property_list['numberOfRows']
 
 $conf_def_property_list['numberOfCols']
 = array ('label'     => 'Number of columns'
-     	,'description' => 'Number of columns displayed per pages'
+        ,'description' => 'Number of columns displayed per pages'
         ,'default'   => '4'
         ,'unit'      => 'columns'
         ,'type'      => 'integer'

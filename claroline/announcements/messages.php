@@ -27,12 +27,12 @@
 /*
 * > > > > > > > > > > > > MESSAGES MODULE < < < < < < < < < < < <
 *
-* Code	borrowed from parts
+* Code    borrowed from parts
 *
 * originally written by Thomas Depraetere (depraetere@ipm.ucl.ac.be) - January 15 2002
 * partially rewritten by Hugues Peeters (peeters@ipm.ucl.ac.be)      - April 19 2002,
 * improved by Pablo Rey & Miguel Rubio (http://aula.cesga.es)        - February 2003
-* partially rewritten by Roan Embrechts (roan_embrechts@yahoo.com)	  - September 2003
+* partially rewritten by Roan Embrechts (roan_embrechts@yahoo.com)      - September 2003
 * changes by Miguel Rubio (teleensino@cesga.es)                     - October 2003
 * Refactored by Hugues Peeters (peeters@ipm.ucl.ac.be)               - October 30 2003
 *
@@ -42,7 +42,7 @@
 CLAROLINE MAIN SETTINGS
 **************************************/
 
-require '../inc/claro_init_global.inc.php'; //	settings initialisation
+require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
 if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
@@ -53,90 +53,90 @@ $htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">
 
 <!-- Begin javascript menu swapper
 
-function move(fbox,	tbox)
+function move(fbox,    tbox)
 {
-	var	arrFbox	= new Array();
-	var	arrTbox	= new Array();
-	var	arrLookup =	new	Array();
+    var    arrFbox    = new Array();
+    var    arrTbox    = new Array();
+    var    arrLookup =    new    Array();
 
-	var	i;
-	for	(i = 0;	i <	tbox.options.length; i++)
-	{
-		arrLookup[tbox.options[i].text]	= tbox.options[i].value;
-		arrTbox[i] = tbox.options[i].text;
-	}
+    var    i;
+    for    (i = 0;    i <    tbox.options.length; i++)
+    {
+        arrLookup[tbox.options[i].text]    = tbox.options[i].value;
+        arrTbox[i] = tbox.options[i].text;
+    }
 
-	var	fLength	= 0;
-	var	tLength	= arrTbox.length;
+    var    fLength    = 0;
+    var    tLength    = arrTbox.length;
 
-	for(i =	0; i < fbox.options.length;	i++)
-	{
-		arrLookup[fbox.options[i].text]	= fbox.options[i].value;
+    for(i =    0; i < fbox.options.length;    i++)
+    {
+        arrLookup[fbox.options[i].text]    = fbox.options[i].value;
 
-		if (fbox.options[i].selected &&	fbox.options[i].value != \"\")
-		{
-			arrTbox[tLength] = fbox.options[i].text;
-			tLength++;
-		} 
-		else
-		{
-			arrFbox[fLength] = fbox.options[i].text;
-			fLength++;
-		}
-	}
+        if (fbox.options[i].selected &&    fbox.options[i].value != \"\")
+        {
+            arrTbox[tLength] = fbox.options[i].text;
+            tLength++;
+        } 
+        else
+        {
+            arrFbox[fLength] = fbox.options[i].text;
+            fLength++;
+        }
+    }
 
-	arrFbox.sort();
-	arrTbox.sort();
-	fbox.length	= 0;
-	tbox.length	= 0;
+    arrFbox.sort();
+    arrTbox.sort();
+    fbox.length    = 0;
+    tbox.length    = 0;
 
-	var	c;
-	for(c =	0; c < arrFbox.length; c++)
-	{
-		var	no = new Option();
-		no.value = arrLookup[arrFbox[c]];
-		no.text	= arrFbox[c];
-		fbox[c]	= no;
-	}
-	for(c =	0; c < arrTbox.length; c++)
-	{
-		var	no = new Option();
-		no.value = arrLookup[arrTbox[c]];
-		no.text	= arrTbox[c];
-		tbox[c]	= no;
-	}
+    var    c;
+    for(c =    0; c < arrFbox.length; c++)
+    {
+        var    no = new Option();
+        no.value = arrLookup[arrFbox[c]];
+        no.text    = arrFbox[c];
+        fbox[c]    = no;
+    }
+    for(c =    0; c < arrTbox.length; c++)
+    {
+        var    no = new Option();
+        no.value = arrLookup[arrTbox[c]];
+        no.text    = arrTbox[c];
+        tbox[c]    = no;
+    }
 }
 
 function valida()
 {
-	var	f =	document.datos;
-	var	dat;
+    var    f =    document.datos;
+    var    dat;
 
-	if (f.elements[3].length <	1) {
-		alert(\"" . clean_str_for_javascript($langPleaseSelectUsers) . "\");
-		return false;
-	}
-	for	(var i=0; i<f.elements[3].length; i++)	
-		f.elements[3][i].selected = f.elements[3][i].checked = true
+    if (f.elements[3].length <    1) {
+        alert(\"" . clean_str_for_javascript($langPleaseSelectUsers) . "\");
+        return false;
+    }
+    for    (var i=0; i<f.elements[3].length; i++)    
+        f.elements[3][i].selected = f.elements[3][i].checked = true
 
-	dat=f.emailContent.value;
-	if(dat.length == 0)
-	{
-		//old: Debe	introducir el Texto	del	Mensaje
-		alert(\"" . clean_str_for_javascript($langPleaseEnterMessage) . "\");
-		f.emailContent.focus();
-		f.emailContent.select();
-		return false;	
-	}
-	
-	f.submit();
-	return true;
+    dat=f.emailContent.value;
+    if(dat.length == 0)
+    {
+        //old: Debe    introducir el Texto    del    Mensaje
+        alert(\"" . clean_str_for_javascript($langPleaseEnterMessage) . "\");
+        f.emailContent.focus();
+        f.emailContent.select();
+        return false;    
+    }
+    
+    f.submit();
+    return true;
 }
 
-//	End	-->
+//    End    -->
 </script>";
 
-$interbredcrump[]= array ('url'=>'../announcements/announcements.php', 'name' => $langAnnouncement);
+$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => $langAnnouncement);
 
 $nameTools = $langMessages;
 
@@ -213,8 +213,8 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             $groupIdList = implode(', ',$groupIdList);
 
             $sql = "SELECT `user`
-					FROM `".$tbl_groupUser."` AS `user_group`
-					WHERE `team` IN (".$groupIdList.")";
+                    FROM `".$tbl_groupUser."` AS `user_group`
+                    WHERE `team` IN (".$groupIdList.")";
 
             $groupMemberList = claro_sql_query_fetch_all($sql);
 
@@ -235,7 +235,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         {
 
             /*
-            * Prepare	email
+            * Prepare    email
             */
 
             // email subject
@@ -251,7 +251,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             ;
 
             /*
-            * Send	email one by one to	avoid antispam
+            * Send    email one by one to    avoid antispam
             */
 
             $countUnvalid = 0;
@@ -272,10 +272,10 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
         if ( $countUnvalid > 0 )
         {
-            $messageUnvalid	= '<p>'
-            . $langOn.'	'
+            $messageUnvalid    = '<p>'
+            . $langOn.'    '
             . count($userIdList) .' '
-            . $langSelUser.',	' .  $countUnvalid . ' ' .$langUnvalid
+            . $langSelUser.',    ' .  $countUnvalid . ' ' .$langUnvalid
             . '<br /><small>'
             . $messageFailed
             . '</small>'
@@ -304,23 +304,23 @@ if ( !empty($message) )
 }
 
 /*----------------------------------------
-DISPLAY FORM	TO FILL	AN ANNOUNCEMENT
+DISPLAY FORM    TO FILL    AN ANNOUNCEMENT
 (USED FOR ADD AND MODIFY)
 --------------------------------------*/
 
 if ( $displayForm == TRUE )
 {
     /*
-    * Get user	list of	this course
+    * Get user    list of    this course
     */
 
-    $sql =	"SELECT `u`.`nom` AS `lastName`,
-    					`u`.`prenom` AS `firstName`,
-    					`u`.`user_id` AS `uid`
-    	         FROM `" . $tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
-    	         WHERE `cu`.`code_cours` = '" . $_cid . "'
-    	         AND `cu`.`user_id` = `u`.`user_id`
-    	         ORDER BY `u`.`nom`, `u`.`prenom`";
+    $sql =    "SELECT `u`.`nom` AS `lastName`,
+                        `u`.`prenom` AS `firstName`,
+                        `u`.`user_id` AS `uid`
+                 FROM `" . $tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
+                 WHERE `cu`.`code_cours` = '" . $_cid . "'
+                 AND `cu`.`user_id` = `u`.`user_id`
+                 ORDER BY `u`.`nom`, `u`.`prenom`";
 
     $singleUserList = claro_sql_query_fetch_all($sql);
 
@@ -337,11 +337,11 @@ if ( $displayForm == TRUE )
     */
 
     $sql = "SELECT `g`.`id`,
-    				`g`.`name`,
-    				COUNT(`gu`.`id`) AS `userNb`
-    	        FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
-    	        ON `g`.`id` = `gu`.`team`
-    	        GROUP BY `g`.`id`";
+                    `g`.`name`,
+                    COUNT(`gu`.`id`) AS `userNb`
+                FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
+                ON `g`.`id` = `gu`.`team`
+                GROUP BY `g`.`id`";
 
     $groupSelect = claro_sql_query_fetch_all($sql);
 
