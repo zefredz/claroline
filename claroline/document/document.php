@@ -990,8 +990,8 @@ if ($cmd == 'exSearch')
     $searchPattern   = str_replace('?', '.?' , $searchPattern);
     $searchPattern   = '|'.$searchPattern.'|i';
 
-    $searchPatternSql = str_replace('_', '\_', $searchPatternSql);
-    $searchPatternSql = str_replace('%', '\%', $searchPatternSql);
+    $searchPatternSql = str_replace('_', '\\_', $searchPatternSql);
+    $searchPatternSql = str_replace('%', '\\%', $searchPatternSql);
     $searchPatternSql = str_replace('?', '_' , $searchPatternSql);
     $searchPatternSql = str_replace('*', '%' , $searchPatternSql);
 
