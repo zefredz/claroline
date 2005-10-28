@@ -155,19 +155,18 @@ if (isset($_REQUEST['search']))
 // deal with REORDER
   if (isset($_SESSION['admin_course_user_order_crit']))
 {
-	switch ($_SESSION['admin_course_user_order_crit'])
-	{
-		case 'uid'       : $fieldSort = 'U`.`user_id'; break;
-		case 'name'      : $fieldSort = 'U`.`nom';     break;
-		case 'firstname' : $fieldSort = 'U`.`prenom';  break;
-		case 'cu_status' : $fieldSort = 'CU`.`statut'; break;
-//		case 'email'  : $fieldSort = 'email';       
-	}
+    switch ($_SESSION['admin_course_user_order_crit'])
+    {
+        case 'uid'       : $fieldSort = 'U`.`user_id'; break;
+        case 'name'      : $fieldSort = 'U`.`nom';     break;
+        case 'firstname' : $fieldSort = 'U`.`prenom';  break;
+        case 'cu_status' : $fieldSort = 'CU`.`statut'; break;
+//        case 'email'  : $fieldSort = 'email';       
+    }
     $toAdd = " ORDER BY `" . $fieldSort . "` " . $_SESSION['admin_course_user_dir'];
     $order[$_SESSION['admin_course_user_order_crit']] = ($_SESSION['admin_course_user_dir']=='ASC'?'DESC':'ASC');
     $sql.=$toAdd;
 }
-//echo $sql."<br>";
 
 //Build SQL query
 if (!isset($_REQUEST['offset'])) 
@@ -194,7 +193,7 @@ $resultList = $myPager->get_result_list();
 $nameTools = $langAllUsersOfThisCourse;
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
 //Header
 include($includePath . '/claro_init_header.inc.php');
@@ -231,11 +230,11 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<caption>'
 .    '<small>'
 .    '<img src="' . $imgRepositoryWeb . $iconForCuStatus['STUDENT'] . '" '
-.    ' alt="STUDENT" border="0" title="statut" >'
+.    ' alt="STUDENT" border="0" title="statut" />'
 .    ' Student '
 .    '<wbr>'
 .    '<img src="' . $imgRepositoryWeb . $iconForCuStatus['COURSE_MANAGER'].'" '
-.    ' alt="course manager" border="0" title="statut" >'
+.    ' alt="course manager" border="0" title="statut" />'
 .    'Course Manager'
 .    '</nobr>'
 .    '</small>'
@@ -294,11 +293,11 @@ foreach($resultList as $list)
      .    '<td >' . $list['prenom'] . '</td>'
      //  course manager
      .    '<td align="center">'
-	 .    '<a href="adminUserCourseSettings.php'
+     .    '<a href="adminUserCourseSettings.php'
      .    '?cidToEdit=' . $cidToEdit
      .    '&amp;uidToEdit=' . $list['user_id'] . '&amp;ccfrom=culist">'
      .    '<img src="' . $imgRepositoryWeb . $iconForCuStatus[$list['stat']] . '" '
-     .    ' alt="' . $list['stat'] . '" border="0"  hspace="4" title="' . $list['stat'] . '" >'
+     .    ' alt="' . $list['stat'] . '" border="0"  hspace="4" title="' . $list['stat'] . '" />'
      .    '</a>'
      .    '</td>'
      ;
@@ -326,5 +325,5 @@ echo '</tbody>'
 
 //Pager
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

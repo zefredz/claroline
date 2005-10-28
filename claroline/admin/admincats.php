@@ -821,7 +821,7 @@ switch ($display_form)
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
-        .    '<td><br>' . "\n"
+        .    '<td><br />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -891,7 +891,7 @@ switch ($display_form)
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
-        .    '<td><br>' . "\n"
+        .    '<td><br />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<input type="hidden" name="id" value="' .  $editedCat_Id .'" />' . "\n"
@@ -904,7 +904,7 @@ switch ($display_form)
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
         .    '</form>' . "\n"
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         ;
     }
     break;
@@ -934,7 +934,7 @@ switch ($display_form)
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -947,7 +947,7 @@ switch ($display_form)
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
         .    '</form>' . "\n"
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         ;
     }
     break;
