@@ -41,6 +41,7 @@ $tbl_track_e_uploads     	= $tbl_cdb_names['track_e_uploads'];
 $tbl_track_e_exercices 		= $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details 	= $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers 	= $tbl_cdb_names['track_e_exe_answers'];
+$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
 
@@ -69,6 +70,9 @@ if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     claro_sql_query($sql);
     
     $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_answers."`";
+    claro_sql_query($sql);
+    
+    $sql = "TRUNCATE TABLE `".$tbl_lp_user_module_progress."`";
     claro_sql_query($sql);
     
     // display confirm msg and back link
