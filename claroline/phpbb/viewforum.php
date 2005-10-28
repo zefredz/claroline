@@ -144,12 +144,10 @@ else
     // Show Group Documents and Group Space
     // only if in Category 2 = Group Forums Category
     
-    if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) ) disp_forum_group_toolbar($_gid);
+    if (    $forum_cat_id == GROUP_FORUMS_CATEGORY 
+        && ($is_groupMember || $is_allowedToEdit ) ) disp_forum_group_toolbar($_gid);
 
-    if ($forum_post_allowed)
-    {
-        disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
-    }
+    if ($forum_post_allowed) disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
 
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
     
