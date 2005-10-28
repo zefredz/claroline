@@ -648,17 +648,17 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
 
     if ( isset($titleElement['supraTitle']) )
     {
-        $string .= '<small>'.$titleElement['supraTitle'].'</small><br />'."\n";
+        $string .= '<small>' . $titleElement['supraTitle'] . '</small><br />' . "\n";
     }
 
     if ( isset($titleElement['mainTitle']) )
     {
-        $string .= $titleElement['mainTitle']."\n";
+        $string .= $titleElement['mainTitle'] . "\n";
     }
 
     if ( isset($titleElement['subTitle']) )
     {
-        $string .= '<br /><small>'.$titleElement['subTitle'].'</small>'."\n";
+        $string .= '<br /><small>' . $titleElement['subTitle'] . '</small>' . "\n";
     }
 
     $string .= '</h3>'."\n\n";
@@ -729,7 +729,8 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 
             $studentButton     = '<a href="' . $url . '&amp;viewMode=STUDENT">'
                                . $langStudent
-                               . '</a>';
+                               . '</a>'
+                               ;
             $courseAdminButton = '<b>' . $langCourseManager . '</b>';
 
             break;
@@ -747,10 +748,11 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo $langViewMode." : "
-        .$studentButton
-        ." | "
-        .$courseAdminButton;
+    echo $langViewMode . ' : '
+    .    $studentButton
+    .    ' | '
+    .    $courseAdminButton
+    ;
 
     return true;
 }
@@ -905,7 +907,7 @@ function claro_disp_msg_arr($msgArrBody, $return=true)
             }
         }
         if($return) return claro_disp_message_box($msgBox);
-        else        echo claro_disp_message_box($msgBox);
+        else        echo   claro_disp_message_box($msgBox);
     }
 }
 
