@@ -67,7 +67,7 @@ function array_swap_cols_and_rows( $origMatrix, $presumedColKeyList)
  *
  */
 
-function claro_CSV_format_ok($format, $delim =";", $enclosedBy="")
+function claro_CSV_format_ok($format, $delim, $enclosedBy)
 {
     $fieldarray = explode($delim,$format);    
     if ($enclosedBy == "dbquote") $enclosedBy = "\"";
@@ -132,7 +132,7 @@ function claro_CSV_format_ok($format, $delim =";", $enclosedBy="")
  * 
  */
  
-function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", $fieldSep=";", $fieldEnclose="")
+function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $fieldSeparator, $enclosedBy)
 {
         //check if temporary directory for uploaded file exists, if not we create it
 	
@@ -151,30 +151,19 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 
 	//Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 
-	   //see where the line format must be found and which seperator and enclosion must be used
+	  //see where the line format must be found and which seperator and enclosion must be used
 
-	if ($useFirstLine)
-	{
-	    $usedFormat      = "FIRSTLINE";
-	    $fieldSeparator  = ";";
-	    $enclosedBy      = "";
-	}
-	else
-	{
-	    $usedFormat = $format; 
-	    $fieldSeparator  = $fieldSep;	    
-	    $enclosedBy      = $fieldEnclose;
-	    if ($fieldEnclose=="dbquote") 
-	    {
-	        $enclosedBy = "\"";
-	    }   
-	}
+	if ($useFirstLine)          $usedFormat = "FIRSTLINE";
+    if ($enclosedBy=="dbquote") $enclosedBy = "\""; 
 
+	  //create file Parser
+	
 	$CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
+		
 	if ($CSVParser->validFormat==false)
 	{
 	    $_SESSION['claro_invalid_format_error']               =  true;
-	    return;
+		return;
 	}
 	else
 	{
@@ -199,17 +188,21 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $format="", 
 	$cols[] = "password";
 	$cols[] = "officialCode";   
 	
-	//var_dump($_SESSION['claro_csv_userlist']);
-	   
 	$working2Darray = array_swap_cols_and_rows($_SESSION['claro_csv_userlist'],$cols);
 	
+	//var_dump($_SESSION['claro_csv_userlist']);
+	//var_dump($working2Darray);
+
 	//look for possible new errors
 	      
 	$mail_synthax_error           = check_email_synthax_userlist($working2Darray);
 	$mail_used_error              = check_mail_used_userlist($working2Darray);
 	$username_used_error          = check_username_used_userlist($working2Darray);
 	$officialcode_used_error      = check_officialcode_used_userlist($working2Darray);
+	
+	if (SECURE_PASSWORD_REQUIRED) 
 	$password_error               = check_password_userlist($working2Darray);
+	
 	$mail_duplicate_error         = check_duplicate_mail_userlist($working2Darray);
 	$username_duplicate_error     = check_duplicate_username_userlist($working2Darray);
 	$officialcode_duplicate_error = check_duplicate_officialcode_userlist($working2Darray);
@@ -727,25 +720,22 @@ class CSV
 		}
         
         //Create array with the fields format in the file :
-        
-        
-        $temp = @explode($delim,$linedef);
-   
+               
+        $temp = @explode($delim,$linedef);		
         if (!empty($enclosed_by))         
         {
             $temporary = array();
             
             foreach ($temp as $tempfield)
             {
-                $fieldTempArray = explode($enclosed_by,$tempfield);         
-                if (isset($fieldTempArray[1])) $temporary[] = $fieldTempArray[1];
+                $fieldTempArray = explode($enclosed_by,$tempfield);         			
+				$temporary[] = preg_replace('/^("|\')/','',$tempfield);
             }
             $temp = $temporary;
         }
         
         //check if the used format is ok for Claroline
-        
-                
+           
         $this->validFormat = claro_CSV_format_ok($linedef, $delim, $enclosed_by);
         
 	    if (!($this->validFormat)) return array();

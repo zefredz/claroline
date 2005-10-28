@@ -93,7 +93,7 @@ elseif (isset($_REQUEST['usedFormat']))
     //check if posted new format is OK
 
     $field_correct = claro_CSV_format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);
-          
+        
     if (!$field_correct)
     {
         $dialogBox = $langErrorFormatCSV;
@@ -133,8 +133,8 @@ switch ($cmd)
     }
     else
     {
-        $fieldSeparator  = $_REQUEST['fieldSeparator'];    
-        $enclosedBy      = $_REQUEST['enclosedBy'];
+        $fieldSeparator  = $_SESSION['fieldSeparator'];    
+        $enclosedBy      = $_SESSION['enclosedBy'];
         if ($_REQUEST['enclosedBy']=='dbquote') 
         {
             $enclosedBy = '"';
@@ -167,8 +167,8 @@ switch ($cmd)
     else
     {
        //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
-    
-       claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);        
+    	   
+	   claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);        
        $display = 'stepone';
        
     }
@@ -227,7 +227,7 @@ switch ($cmd)
         //set empty fields if needed
         
         if (empty($user['phone']))        $user['phone'] = "";
-        if (empty($user['mail']))         $user['email'] = "";
+        if (empty($user['email']))        $user['email'] = "";
         if (empty($user['officialCode'])) $user['officialCode'] = "";
          
         $uid = user_add($user);
@@ -309,7 +309,16 @@ echo claro_disp_tool_title($nameTools);
 
 if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
-    $dialogBox = $langModifyFormat .' :<br><br>'
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=="dbquote") $dbquote_selected = "selected"; else $dbquote_selected = "";
+	if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=="")   $blank_selected   = "selected"; else $blank_selected   = "";
+	if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==",")  $coma_selected    = "selected"; else $coma_selected    = "";
+	if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==".")  $dot_selected     = "selected"; else $dot_selected     = "";
+	
+	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==";")  $dot_coma_selected_sep = "selected"; else $dot_coma_selected_sep = "";
+	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==",")  $coma_selected_sep     = "selected"; else $coma_selected_sep = "";
+	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=="")   $blank_selected_sep    = "selected"; else $blank_selected_sep = "";
+	
+	$dialogBox = $langModifyFormat .' :<br><br>'
     .            $langTheFields . ' <b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> ' . $langAreCompulsory . '<br><br>'
     .          '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .          '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
@@ -317,9 +326,9 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            '<label for="fieldSeparator">' .  $langFieldSeparatorUsed . ' </label>:' 
     
     .            '<select name="fieldSeparator" id="fieldSeparator">'
-    .            '  <option value=";">;</option>'
-    .            '  <option value=",">,</option>'
-    .            '  <option value=" ">' . $langBlankSpace . ' </option>'      
+    .            '  <option value=";"  '.$dot_coma_selected_sep.'>;</option>'
+    .            '  <option value=","  '.$coma_selected_sep.'    >,</option>'
+    .            '  <option value=" "  '.$blank_selected_sep.'   >' . $langBlankSpace . ' </option>'      
     .            '</select>'  
     .' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     .            '<label for="enclosedBy">'
@@ -327,10 +336,10 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            '</label>'
     
     .            '<select name="enclosedBy" id="enclosedBy">'
-    .            ' <option value="">' . $langNone . ' </option>'
-    .            ' <option value="dbquote">"</option>'
-    .            ' <option value=",">,</option>'
-    .            ' <option value=".">.</option>'      
+    .            ' <option value=""        '.$blank_selected.'>' . $langNone . ' </option>'
+    .            ' <option value="dbquote" '.$dbquote_selected.'>"</option>'
+    .            ' <option value=","       '.$coma_selected.'>,</option>'
+    .            ' <option value="."       '.$dot_selected.'>.</option>'      
     .            '</select><br />'
     .            '<input type="submit" value="' . $langOk . '"'
     .          '</form>'
@@ -387,7 +396,7 @@ case 'default' :
     [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes&amp;AddType=' . $AddType; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    
+ 
     <input type="hidden" name="fieldSeparator" value="<?php if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator']; else echo ";" ?>" >
     <input type="hidden" name="enclosedBy" value="<?php echo $_SESSION['CSV_enclosedBy']; ?>" > 
     <input type="hidden" name="AddType" value="<?php echo $AddType; ?>" > 
