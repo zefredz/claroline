@@ -1,19 +1,19 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  * This tool run some check to detect abnormal situation
- * @version 1.7 $Revision$ * 
+ *
  * @version 1.7 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/ADMIN
- * 
+ *
  * @author Sébastien Piraux <pir@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
- * 
+ *
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -22,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-$interbredcrump[] = array ('url' => 'index.php', 'name'=> $langAdministration);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => $langAdministration);
 
 $nameTools = $langViewPlatFormError;
 
@@ -38,17 +38,16 @@ TD {border-bottom: thin dashed Gray;}
 * DB tables definition
 */
 
-$tbl_mdb_names 			= claro_sql_get_main_tbl();
-$tbl_cdb_names 			= claro_sql_get_course_tbl();
-$tbl_course 			= $tbl_mdb_names['course'           ];
-$tbl_rel_course_user	= $tbl_mdb_names['rel_course_user'  ];
-$tbl_user 				= $tbl_mdb_names['user'             ];
-$tbl_track_e_default    = $tbl_mdb_names['track_e_default'];
-$tbl_track_e_login      = $tbl_mdb_names['track_e_login'];
-$tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$tbl_cdb_names       = claro_sql_get_course_tbl();
+$tbl_course          = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_user            = $tbl_mdb_names['user'             ];
+$tbl_track_e_default = $tbl_mdb_names['track_e_default'];
+$tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
+$tbl_track_e_open    = $tbl_mdb_names['track_e_open'];
 
-$tbl_document           = $tbl_cdb_names['document'         ];
-
+$tbl_document        = $tbl_cdb_names['document'];
 
 $toolNameList = claro_get_tool_name_list();
 
@@ -58,12 +57,12 @@ include_once $includePath . '/lib/statsUtils.lib.inc.php';
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
 $limitBeforeUnused = "INTERVAL 6 MONTH";
 
-$is_allowedToTrack 	= $is_platformAdmin;
+$is_allowedToTrack     = $is_platformAdmin;
 
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title(
 array(
-'mainTitle'=>$nameTools	)
+'mainTitle'=>$nameTools    )
 );
 
 if( $is_allowedToTrack && $is_trackingEnabled)
@@ -79,12 +78,12 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     ;
 
     if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
-    else							$view = "0000000";
+    else                            $view = "0000000";
 
     $levelView=-1;
 
     /***************************************************************************
-    *		Main
+    *        Main
     ***************************************************************************/
     $tempView = $view;
     $levelView++;
@@ -96,8 +95,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         //--  multiple logins |
         //--     multiple logins are not possible in the new version but this page can be used with previous versions
         $sql = "SELECT DISTINCT username , count(*) as nb
-                    FROM `".$tbl_user."` 
-                    GROUP BY username 
+                    FROM `".$tbl_user."`
+                    GROUP BY username
                     HAVING nb > 1
                     ORDER BY nb DESC";
 
@@ -115,7 +114,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
     /***************************************************************************
     *
-    *		Platform access and logins
+    *        Platform access and logins
     *
     ***************************************************************************/
     $tempView = $view;
@@ -128,9 +127,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         //--  multiple account with same email
 
         $sql = "SELECT DISTINCT email , count(*) as nb
-                    FROM `".$tbl_user."` 
-                    GROUP BY email 
-                    HAVING nb > 1  
+                    FROM `".$tbl_user."`
+                    GROUP BY email
+                    HAVING nb > 1
                     ORDER BY nb DESC";
 
         buildTabDefcon(claro_sql_query_fetch_all($sql));
@@ -157,7 +156,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
                     FROM `".$tbl_course."` c
                     LEFT JOIN `".$tbl_rel_course_user."` cu
-                        ON c.code = cu.code_cours 
+                        ON c.code = cu.code_cours
                         AND cu.statut = 1
                     GROUP BY c.code, statut
                     HAVING nbu = 0
@@ -184,8 +183,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
                     FROM `".$tbl_course."` c
                     LEFT JOIN `".$tbl_rel_course_user."` cu
-                        ON c.code = cu.code_cours 
-                        AND cu.statut = 5 
+                        ON c.code = cu.code_cours
+                        AND cu.statut = 5
                     GROUP BY c.code, statut
                     HAVING nbu = 0
                     ORDER BY code_cours";
@@ -211,7 +210,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         echo '- &nbsp;&nbsp;<b>'.$langLoginWithoutAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
 
         $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
-                    FROM `".$tbl_user."` AS us 
+                    FROM `".$tbl_user."` AS us
                     LEFT JOIN `".$tbl_track_e_login."` AS lo
                     ON`lo`.`login_user_id` = `us`.`user_id`
                     GROUP BY `us`.`username`

@@ -84,7 +84,7 @@ echo claro_disp_tool_title(
     )
 );
 
-echo $langCourse_Repository . ' : ' . $coursesRepositorySys . '<br>' . $langMysql_Repository . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . $langMissing) . '<br>';
+echo $langCourse_Repository . ' : ' . $coursesRepositorySys . '<br />' . $langMysql_Repository . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . $langMissing) . '<br />';
 
 
 
@@ -116,20 +116,20 @@ if ($disp_garbage )
     ;
 ?>
 <li>
-<hr>
+<hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
 <label for="disp_claro"><?php echo $langSize_of_claroline_scripts ?></label>
-<br>
+<br />
 <input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
 <label for="disp_allcrs"><?php echo $langSize_of_course_repository ?></label>
-<br>
+<br />
 <input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
 <label for="disp_garbage">size of garbage</label>
-<br>
+<br />
 
 <input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
-<label for="disp_selCrs"><?php echo $langSize_of_selected_courses ?></label><br>
+<label for="disp_selCrs"><?php echo $langSize_of_selected_courses ?></label><br />
 
 <?php
 echo claro_html_form_select( 'coursesToCheck[]'
@@ -141,7 +141,7 @@ echo claro_html_form_select( 'coursesToCheck[]'
 
 <input type="submit">
 </form>
-<hr>
+<hr />
 </li>
 <?php
 }
@@ -213,7 +213,7 @@ if ($disp_selCrs && $coursesToCheck)
 
 <?php
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 
 
 

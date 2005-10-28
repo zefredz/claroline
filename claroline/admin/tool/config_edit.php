@@ -277,7 +277,7 @@ else
     // verify is config file manually edit
     if ( is_conf_file_modified($_REQUEST['config_code']) )
     {
-        $controlMsg['info'][] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br>';
+        $controlMsg['info'][] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br />';
     }
 
 }

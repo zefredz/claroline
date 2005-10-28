@@ -25,7 +25,7 @@ if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
 $nameTools = $langTechnical;
 
-$interbredcrump[]= array ('url'=>'../index.php', 'name'=> $langAdmin);
+$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
 
 include($includePath . '/claro_init_header.inc.php');
 

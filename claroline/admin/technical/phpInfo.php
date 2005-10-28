@@ -6,7 +6,7 @@
  * - configuration of Claroline, PHP, Mysql, Webserver
  * - credits
  *
- * @version 1.7 $Revision$ 
+ * @version 1.7 $Revision$
  * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -33,11 +33,11 @@ if (! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 
 $nameTools = $lang_php_info;
-$interbredcrump[]= array ('url'=>'..', 'name'=> $langAdmin);
-$interbredcrump[]= array ('url'=>'index.php', 'name'=> $langTechnical);
+$interbredcrump[]= array ('url' => '..', 'name' => $langAdmin);
+$interbredcrump[]= array ('url' => 'index.php', 'name' => $langTechnical);
 if (isset($_REQUEST['to']))
 {
-    $interbredcrump[]= array ('url'=>basename($_SERVER['PHP_SELF']), 'name'=> $lang_php_info);
+    $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => $lang_php_info);
     $nameTools = $_REQUEST['to'];
 }
 
@@ -53,13 +53,7 @@ if ($is_allowedToAdmin)
 ?>
 <img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right">
 <?php
-    if (isset($_REQUEST))
-    {
-        while(list($name, $value) = each($_REQUEST))
-        {
-            $$name = $value;
-        }
-    }
+    if (isset($_REQUEST)) while( (list($name, $value) = each($_REQUEST)))  $$name = $value;
     if (!isset($cmd)) $cmd = '';
     if (!isset($ext)) $ext = '';
     if (!isset($ext)) $do = '';
@@ -72,16 +66,16 @@ if ($is_allowedToAdmin)
         $local_addr = $_SERVER['REMOTE_ADDR'];
         if ($local_addr == "127.0.0.1")
         {
-            $local_test = TRUE;
+            $local_test = true;
         }
         else
         {
-            $local_test = FALSE;
+            $local_test = false;
         }
     }
 ?>
 
-<br>
+<br />
 <DIV class="elementServeur">
 <span class="elementServeur" >PHP</span>  <?php echo phpversion()?> :
 [<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo">PHP info</a>]&nbsp;
@@ -93,23 +87,22 @@ if ($is_allowedToAdmin)
 [<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=clarcredit">Claroline credit</a>]&nbsp;
 </DIV>
 <DIV class="elementServeur">
-<span class="elementServeur" >WebServer</span> <?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong><br>
+<span class="elementServeur" >WebServer</span> <?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong><br />
 
 [<?php echo $langMailTo ?><a href="mailto:<?php echo $_SERVER['SERVER_ADMIN'] ?>">Admin apache (<?php echo $_SERVER['SERVER_ADMIN'] ?>)</A>]
-<!--[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=mdp">Parametres</a>]&nbsp;--><BR>
- </DIV>
+<br />
+</DIV>
 <HR size="1" noshade="noshade">
-
 <?php
 
     if ($cmd == 'ext')
     {
         $extensions = @get_loaded_extensions();
-        echo count($extensions) . ' extensions <hr><br>';
+        echo count($extensions) . ' extensions <hr /><br />';
         @sort($extensions);
         foreach($extensions as $extension)
         {
-            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.$langFunctions.'</a><br>'."\n";
+            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.$langFunctions.'</a><br />'."\n";
             if ($extension==$ext)
             {
                 $functions = @get_extension_funcs($ext);
@@ -125,7 +118,7 @@ if ($is_allowedToAdmin)
                 }
                 else
                 {
-                    echo '!! ' . $langNoFunctionInThisSection . '!!<BR>';
+                    echo '!! ' . $langNoFunctionInThisSection . '!!<br />';
                 }
             }
         }
@@ -141,9 +134,9 @@ if ($is_allowedToAdmin)
 
     elseif ($cmd == 'clarconf')
     {
-        echo '<div style="background-color: #dfdfff;"><HR>config file<HR>';
+        echo '<div style="background-color: #dfdfff;"><hr />config file<hr />';
         highlight_file($includePath . '/conf/claro_main.conf.php');
-        echo '<HR></div>';
+        echo '<hr /></div>';
 
     }
     elseif ($cmd == 'clarcredit' )
@@ -172,8 +165,8 @@ else
 ?>
 <HR size="1" noshade="noshade">
 [<a href="http://freshmeat.net/projects/claroline/?topic_id=92%2C72%2C20%2C71"  hreflang="en">FreshMeat</a>]
-[<a href="http://freshmeat.net/rate/20465/"  hreflang="en" >Rate it</a>]<br>
-[<a href="https://sourceforge.net/projects/claroline/" hreflang="en">SourceForge</a>]<br>
+[<a href="http://freshmeat.net/rate/20465/"  hreflang="en" >Rate it</a>]<br />
+[<a href="https://sourceforge.net/projects/claroline/" hreflang="en">SourceForge</a>]<br />
 <?php
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

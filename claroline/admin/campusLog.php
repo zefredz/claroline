@@ -1,11 +1,20 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>
-      |          Christophe Gesché <moosh@claroline.net>
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ * This tool run some check to detect abnormal situation
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/ADMIN
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <pir@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -14,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-$interbredcrump[]= array ("url"=>"index.php", "name"=> $langAdministration);
+$interbredcrump[]= array ('url' => 'index.php', 'name' => $langAdministration);
 
 $nameTools = $langStatsOfCampus;
 
@@ -36,20 +45,20 @@ $tbl_document        = $tbl_cdb_names['document'         ];
 
 $toolNameList = claro_get_tool_name_list();
 
-include($includePath."/lib/statsUtils.lib.inc.php");
+require_once $includePath . '/statsUtils.lib.inc.php';
 
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
 $limitBeforeUnused = "INTERVAL 6 MONTH";
 
-$is_allowedToTrack 	= $is_platformAdmin;
+$is_allowedToTrack     = $is_platformAdmin;
 
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools,
-	)
-	);
+    array(
+    'mainTitle'=>$nameTools,
+    )
+    );
 
 if( $is_allowedToTrack && $is_trackingEnabled)
 {
@@ -61,11 +70,11 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             .'</small>'."\n\n";
 
     if( isset($_REQUEST['view']) )  $view = $_REQUEST['view'];
-	else							$view = "0000000";
+    else                            $view = "0000000";
 
     /***************************************************************************
      *
-     *		Main
+     *        Main
      *
      ***************************************************************************/
     $tempView = $view;
@@ -81,7 +90,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_course."`";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountCours.' : '.$count.'<br />'."\n";
-        
+
         //--  number of courses by faculte
         $sql = "SELECT `faculte`, count( * ) AS `nbr`
                     FROM `".$tbl_course."`
@@ -106,13 +115,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_course."`
                     WHERE `visible` IS NOT NULL
                     GROUP BY `visible`";
-        
+
         $results = claro_sql_query_fetch_all($sql);
         $results = changeResultOfVisibility($results);
         echo '&nbsp;&nbsp;&nbsp;'.$langCountCourseByVisibility.' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
-        
+
         //-- USERS
         echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.$langUsers.'</b><br />'."\n";
 
@@ -164,7 +173,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
     /***************************************************************************
      *
-     *		Platform access and logins
+     *        Platform access and logins
      *
      ***************************************************************************/
     $tempView = $view;
@@ -173,81 +182,81 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[1] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langPlatformAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
-        
+
         //----------------------------  access
         echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.$langAccess.'</b> '.$langAccessExplain.'<br />'."\n";
-        
+
         //--  all
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_open."`";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langTotalPlatformAccess.' : '.$count.'<br />'."\n";
-        
+
         //--  last 31 days
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langLast31days.' : '.$count.'<br />'."\n";
-        
+
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langLast7Days.' : '.$count.'<br />'."\n";
-        
+
         //--  yesterday
         $sql = "SELECT count(*)
-                    FROM `".$tbl_track_e_open."` 
+                    FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
                       AND (`open_date` < CURDATE() )";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langYesterday.' : '.$count.'<br />'."\n";
-        
+
         //--  today
         $sql = "SELECT count(*)
-                    FROM `".$tbl_track_e_open."` 
-                    WHERE (`open_date` > CURDATE() )"; 
+                    FROM `".$tbl_track_e_open."`
+                    WHERE (`open_date` > CURDATE() )";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langThisday.' : '.$count.'<br />'."\n";
-        
+
         //---------------------------- view details of traffic
         echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.$langTrafficDetails.'</b><br />'."\n"
                 .'&nbsp;&nbsp;&nbsp;<a href="traffic_details.php">'.$lang_click_here.'</a><br />'."\n";
-                
-                
+
+
         //----------------------------  logins
         echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.$langLogins.'</b><br />'."\n";
-        
+
         //--  all
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_login."`";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langTotalPlatformLogin.' : '.$count.'<br />'."\n";
-        
+
         //--  last 31 days
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langLast31days.' : '.$count.'<br />'."\n";
-        
+
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langLast7Days.' : '.$count.'<br />'."\n";
-        
+
         //--  yesterday
         $sql = "SELECT count(*)
-                    FROM `".$tbl_track_e_login."` 
+                    FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
                       AND (`login_date` < CURDATE() )";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.$langYesterday.' : '.$count.'<br />'."\n";
-        
+
         //--  today
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_login."`
@@ -265,9 +274,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
     /***************************************************************************
      *
-     *		Access to courses
-     *     // due to the moving of access tables in course DB this part of the code exec (nbCourser+1) queries 
-     *     // this can create heavy overload on servers ... should be reconsidered     
+     *        Access to courses
+     *     // due to the moving of access tables in course DB this part of the code exec (nbCourser+1) queries
+     *     // this can create heavy overload on servers ... should be reconsidered
      *
      ***************************************************************************/
     $tempView = $view;
@@ -277,11 +286,11 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $tempView[2] = '0';
         echo '-&nbsp;&nbsp;<b>'.$langPlatformCoursesAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
         // display list of course of the student with links to the corresponding userLog
-        $sql = "SELECT `fake_code`, `dbName` 
-                FROM    `".$tbl_course."` 
+        $sql = "SELECT `fake_code`, `dbName`
+                FROM    `".$tbl_course."`
                 ORDER BY code ASC";
         $resCourseList = claro_sql_query_fetch_all($sql);
-        $i=0;                               
+        $i=0;
         foreach( $resCourseList as $course )
         {
             $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
@@ -308,8 +317,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 
     /***************************************************************************
      *
-     *		Access to tools 
-     *     // due to the moving of access tables in course DB this part of the code exec (nbCourser+1) queries 
+     *        Access to tools
+     *     // due to the moving of access tables in course DB this part of the code exec (nbCourser+1) queries
      *     // this can create heavy overload on servers ... should be reconsidered
      *
      ***************************************************************************/
@@ -317,39 +326,39 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     echo '<p>'."\n";
     if($view[3] == '1')
     {
-		$tempView[3] = '0';
-		 echo '-&nbsp;&nbsp;<b>'.$langToolsAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
-		// display list of course of the student with links to the corresponding userLog
-		$sql = "SELECT code, dbName
-		      FROM    `".$tbl_course."`
-		      ORDER BY code ASC";
+        $tempView[3] = '0';
+         echo '-&nbsp;&nbsp;<b>'.$langToolsAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        // display list of course of the student with links to the corresponding userLog
+        $sql = "SELECT code, dbName
+              FROM    `".$tbl_course."`
+              ORDER BY code ASC";
 
-		$resCourseList = claro_sql_query_fetch_all($sql);
+        $resCourseList = claro_sql_query_fetch_all($sql);
 
-		foreach ( $resCourseList as $course )
-		{
-			$TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
-			$sql = "SELECT count( `access_id` ) AS nb, `access_tlabel`
-					FROM `".$TABLEACCESSCOURSE."`
-					WHERE `access_tid` IS NOT NULL
-					GROUP BY `access_tid`";
+        foreach ( $resCourseList as $course )
+        {
+            $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
+            $sql = "SELECT count( `access_id` ) AS nb, `access_tlabel`
+                    FROM `".$TABLEACCESSCOURSE."`
+                    WHERE `access_tid` IS NOT NULL
+                    GROUP BY `access_tid`";
 
-			$access = claro_sql_query_fetch_all($sql);
+            $access = claro_sql_query_fetch_all($sql);
 
-			// look for each tool of the course in re
-			foreach( $access as $count )
-			{
-				if ( !isset($resultsTools[$count['access_tlabel']]) )
-				{
-					$resultsTools[$count['access_tlabel']] = $count['nb'];
-				}
-				else
-				{
-					$resultsTools[$count['access_tlabel']] += $count['nb'];
-				}
-			}
-		}
-      
+            // look for each tool of the course in re
+            foreach( $access as $count )
+            {
+                if ( !isset($resultsTools[$count['access_tlabel']]) )
+                {
+                    $resultsTools[$count['access_tlabel']] = $count['nb'];
+                }
+                else
+                {
+                    $resultsTools[$count['access_tlabel']] += $count['nb'];
+                }
+            }
+        }
+
       echo '<table cellpadding="2" cellspacing="1" class="claroTable" align="center">'
          . '<thead>'
          . '<tr class="headerX">'."\n"
@@ -393,15 +402,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 }
 else // not allowed to track
 {
-    if(!$is_trackingEnabled)
-    {
-        echo $langTrackingDisabled;
-    }
-    else
-    {
-        echo $langNotAllowed;
-    }
+    if(!$is_trackingEnabled) echo $langTrackingDisabled;
+    else                     echo $langNotAllowed;
 }
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

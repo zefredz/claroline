@@ -1,21 +1,28 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ *
+ * prupose to admin to register  his claroline on claroline.net worldwild list
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/ADMIN
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <pir@claroline.net>
+ *
+ */
+
 
 $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]   = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 /*--------------------------------------------------------------------
                LIST OF COUNTRY ISO CODES AND COUNTRY NAMES
   --------------------------------------------------------------------*/
@@ -267,7 +274,7 @@ $isoCode['ZM'] = "Zambia";
 $isoCode['ZW'] = "Zimbabwe";
 
 /*---------------------------------------------------------------------*/
-  
+
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 require_once($includePath.'/lib/nusoap.php');
 
@@ -276,7 +283,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // status codes
-// keep in mind that these code must be the same than those in the 
+// keep in mind that these code must be the same than those in the
 // soap server file that is on claroline.net
 define("CAMPUS_ADDED", 1);
 define("LOCAL_URL_ERROR", 2);
@@ -285,88 +292,88 @@ define("SQL_ERROR", 4);
 define("COUNTRY_CODE_ERROR", 5);
 
 /*============================================================================
-						INIT SOAP CLIENT
+                        INIT SOAP CLIENT
   ============================================================================*/
 $soapclient = new soapclient('http://www.claroline.net/worldwide/worldwide_soap.php');
 
 /*============================================================================
-						COMMANDS
+                        COMMANDS
   ============================================================================*/
-  
+
 // -- register campus
 if( isset($_REQUEST['register']) )
 {
-	$country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
-	$parameters = array('campusName' => addslashes($siteName), 'campusUrl' => $rootWeb,
-						'institutionName' => addslashes($institution_name), 'institutionUrl' => $institution_url,
-						'country' => $country, 'adminEmail' => $administrator_email
-						);
+    $country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
+    $parameters = array('campusName' => addslashes($siteName), 'campusUrl' => $rootWeb,
+                        'institutionName' => addslashes($institution_name), 'institutionUrl' => $institution_url,
+                        'country' => $country, 'adminEmail' => $administrator_email
+                        );
 
-	// make the soap call to register the campus
-	$soapResponse = $soapclient->call('registerCampus', $parameters);
+    // make the soap call to register the campus
+    $soapResponse = $soapclient->call('registerCampus', $parameters);
 
-	if( $soapResponse == CAMPUS_ADDED )
-	{
-		$dialogBox = $langCampusRegistrationSubmitted;
-	}
-	elseif( $soapResponse == LOCAL_URL_ERROR )
-	{
-	    $dialogBox = $langRegisterLocalUrl;
-	}
-	elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
-	{
-		$dialogBox = $langCampusAlreadyRegistered;
-	}
-	elseif( $soapResponse == COUNTRY_CODE_ERROR )
-	{
-		$dialogBox = $langCountryCodeError;
-	}
-	else
-	{
-		$dialogBox = $langUnkownSOAPError;
-	}
+    if( $soapResponse == CAMPUS_ADDED )
+    {
+        $dialogBox = $langCampusRegistrationSubmitted;
+    }
+    elseif( $soapResponse == LOCAL_URL_ERROR )
+    {
+        $dialogBox = $langRegisterLocalUrl;
+    }
+    elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
+    {
+        $dialogBox = $langCampusAlreadyRegistered;
+    }
+    elseif( $soapResponse == COUNTRY_CODE_ERROR )
+    {
+        $dialogBox = $langCountryCodeError;
+    }
+    else
+    {
+        $dialogBox = $langUnkownSOAPError;
+    }
 }
 
 // -- get current status
 if( !isset($_REQUEST['register']) )
 {
-	$parameters = array('campusUrl' => $rootWeb);
-	$soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
+    $parameters = array('campusUrl' => $rootWeb);
+    $soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
 
-	if( $soapResponse )
-	{
-	    $dialogBox = $langCurrentStatus.'<br />'."\n";
+    if( $soapResponse )
+    {
+        $dialogBox = $langCurrentStatus.'<br />'."\n";
 
-		switch($soapResponse)
-		{
-		    case 'SUBMITTED' :
-				$dialogBox .= $langCampusSubmitted;
-				break;
-		    case 'REGISTERED' :
-				$dialogBox .= $langCampusRegistered;
-				break;
-		    case 'UNREGISTERED' :
-				$dialogBox .= $langCampusRemoved;
-				break;
-		    case 'HIDDEN' :
-				$dialogBox .= $langCampusDeleted;
-				break;
-			default :
-				// unknown status ?
-				break;
-		}
-		$alreadyRegistered = TRUE;
-	}
-	// else : there is no current status or an erroe occurred so don't show current status
+        switch($soapResponse)
+        {
+            case 'SUBMITTED' :
+                $dialogBox .= $langCampusSubmitted;
+                break;
+            case 'REGISTERED' :
+                $dialogBox .= $langCampusRegistered;
+                break;
+            case 'UNREGISTERED' :
+                $dialogBox .= $langCampusRemoved;
+                break;
+            case 'HIDDEN' :
+                $dialogBox .= $langCampusDeleted;
+                break;
+            default :
+                // unknown status ?
+                break;
+        }
+        $alreadyRegistered = TRUE;
+    }
+    // else : there is no current status or an erroe occurred so don't show current status
 }
 
 /*============================================================================
-						DISPLAY
+                        DISPLAY
   ============================================================================*/
 $nameTools = $langRegisterMyCampus;
 // bread crumb à ajouter
 
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 $title['mainTitle'] = $nameTools;
 $title['subTitle'] = $langAddMyCampusOnClarolineNet;
@@ -376,36 +383,36 @@ if( isset($dialogBox) && $dialogBox != '' ) echo claro_disp_message_box($dialogB
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {
-	echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-	    .'<ul>'."\n"
-		.'<li>'.$langSiteName.' : '.stripslashes($siteName).'</li>'."\n"
-		.'<li>'.$langURL.'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
-		.'<li>'.$langInstitution.' : '.stripslashes($institution_name).'</li>'."\n"
-		.'<li>'.$langInstitutionUrl.' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
-		.'<li>'.$langEmail.' : '.$administrator_email.'</li>'."\n"
-		.'<li>'
-		.'<label for="country">'.$langCountry.' : </label>'."\n"
-		.'<select name="country" id="country">'."\n";
+    echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        .'<ul>'."\n"
+        .'<li>'.$langSiteName.' : '.stripslashes($siteName).'</li>'."\n"
+        .'<li>'.$langURL.'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
+        .'<li>'.$langInstitution.' : '.stripslashes($institution_name).'</li>'."\n"
+        .'<li>'.$langInstitutionUrl.' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
+        .'<li>'.$langEmail.' : '.$administrator_email.'</li>'."\n"
+        .'<li>'
+        .'<label for="country">'.$langCountry.' : </label>'."\n"
+        .'<select name="country" id="country">'."\n";
 
-	$optionString = "";
-	foreach( $isoCode as $code => $country)	
-	{
-		$optionString .= '<option value="'.$code.'">'.$country.'</option>'."\n";
-	}
-	
-	echo $optionString
-		.'</select>'."\n"
-		.'</li>'."\n"
-	    .'</ul>'."\n"
-	    .'<br />'."\n"
-		.'<input type="submit" name="register" value="'.$langRegisterMyCampus.'" />'."\n"
-		.'<p>'
-	    .'<small>'.$langRegisterCampusAdvice.'</small>'
-	    .'</p>'."\n"
-		.'</form>'."\n";
+    $optionString = "";
+    foreach( $isoCode as $code => $country)
+    {
+        $optionString .= '<option value="'.$code.'">'.$country.'</option>'."\n";
+    }
+
+    echo $optionString
+        .'</select>'."\n"
+        .'</li>'."\n"
+        .'</ul>'."\n"
+        .'<br />'."\n"
+        .'<input type="submit" name="register" value="'.$langRegisterMyCampus.'" />'."\n"
+        .'<p>'
+        .'<small>'.$langRegisterCampusAdvice.'</small>'
+        .'</p>'."\n"
+        .'</form>'."\n";
 }
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 
 
 ?>
