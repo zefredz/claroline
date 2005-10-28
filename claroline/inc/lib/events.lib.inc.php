@@ -1,44 +1,46 @@
 <?php # $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ *
+ * Functions of this library are used to record informations when some kind
+ * of event occur. Each event has his own types of informations then each event
+ * use its own function.
+ *
+ * All this  function output only  if  debugClaro is on
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package KERNEL
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ *
+ */
 
 /*============================================================================
                                  EVENTS LIBRARY
   ============================================================================*/
 
-/*
- * Functions of this library are used to record informations when some kind
- * of event occur. Each event has his own types of informations then each event
- * use its own function.
- */
-
-
 /**
  * Function found on php.net to replace the html_entity_decode (that only works in php 4.3.0 and upper)
  *
  */
-function unhtmlentities ($string) 
+function unhtmlentities ($string)
 {
-   $trans_tbl = get_html_translation_table (HTML_ENTITIES);
-   $trans_tbl = array_flip ($trans_tbl);
-   return strtr ($string, $trans_tbl);
+    $trans_tbl = get_html_translation_table (HTML_ENTITIES);
+    $trans_tbl = array_flip ($trans_tbl);
+    return strtr ($string, $trans_tbl);
 }
-  
-  
+
 /**
+ * Record information for open event (when homepage is opened)
  *
  * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record information for open event (when homepage is opened)
+ *
  */
 
 function event_open()
@@ -50,10 +52,10 @@ function event_open()
     global $rootWeb ;
 
     // get table names
-    $tbl_mdb_names 			   = claro_sql_get_main_tbl();
-	$tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
+    $tbl_mdb_names                = claro_sql_get_main_tbl();
+    $tbl_track_e_open          = $tbl_mdb_names['track_e_open'];
 
-    if (isset($_SERVER['HTTP_REFERER'])) 
+    if (isset($_SERVER['HTTP_REFERER']))
         $referer = $_SERVER['HTTP_REFERER'];
     else
         $referer = NULL;
@@ -77,12 +79,11 @@ function event_open()
 
 
 /**
-
- * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record information for login event
-     (when an user identifies himself with username & password)
+ *  Record information for login event
+ * (when an user identifies himself with username & password)
+ *
+ * @return true if traking enabled.
  */
-
 function event_login()
 {
     global $is_trackingEnabled ;
@@ -92,31 +93,30 @@ function event_login()
     global $_uid;
 
     // get table names
-    $tbl_mdb_names 			   = claro_sql_get_main_tbl();
-	$tbl_track_e_login         = $tbl_mdb_names['track_e_login'];
+    $tbl_mdb_names     = claro_sql_get_main_tbl();
+    $tbl_track_e_login = $tbl_mdb_names['track_e_login'];
 
     $reallyNow = time();
     $sql = "INSERT INTO `".$tbl_track_e_login."`
-            (`login_user_id`, 
-             `login_ip`, 
+            (`login_user_id`,
+             `login_ip`,
              `login_date`)
 
              VALUES
-                ('". (int)$_uid."', 
+                ( " .  (int)$_uid . ",
                 '". addslashes($_SERVER['REMOTE_ADDR']) ."',
-                FROM_UNIXTIME(".$reallyNow."))";
+                FROM_UNIXTIME(" . $reallyNow . "))";
 
     $res = claro_sql_query($sql);
 
-	return 1;
+    return 1;
 
 }
 
 
 /**
+ * Record information for access event for courses
  * @param tool name of the tool (rubrique in mainDb.accueil table)
- * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record information for access event for courses
  */
 function event_access_course()
 {
@@ -127,8 +127,8 @@ function event_access_course()
     global $_uid;
 
     // get table names
-    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-	$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
 
     $reallyNow = time();
     if($_uid)
@@ -140,14 +140,14 @@ function event_access_course()
         $user_id = "NULL";
     }
 
-	$sql = "INSERT INTO `".$tbl_track_e_access."`
-            (`access_user_id`,  
+    $sql = "INSERT INTO `".$tbl_track_e_access."`
+            (`access_user_id`,
              `access_date`)
             VALUES
-            (". $user_id.", 
+            (". $user_id.",
             FROM_UNIXTIME(".$reallyNow."))";
 
-	$res = claro_sql_query($sql);
+    $res = claro_sql_query($sql);
 
     return 1;
 
@@ -170,9 +170,9 @@ function event_access_tool($tid, $tlabel)
     global $_course;
 
     // get table names
-    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-	$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
-	
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
+
     $reallyNow = time();
     // record information only if user doesn't come from the tool itself
     if( !isset($_SESSION['tracking']['lastUsedTool']) || $_SESSION['tracking']['lastUsedTool'] != $tlabel )
@@ -198,7 +198,7 @@ function event_access_tool($tid, $tlabel)
               ". (int)$tid.",
               '".addslashes($tlabel)."',
               FROM_UNIXTIME(".$reallyNow."))";
-              
+
         $res = claro_sql_query($sql);
         $_SESSION['tracking']['lastUsedTool'] = $tlabel;
     }
@@ -222,8 +222,8 @@ function event_download($doc_url)
     global $_uid;
 
     // get table names
-    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-	$tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
 
     $reallyNow = time();
     if($_uid)
@@ -245,10 +245,10 @@ function event_download($doc_url)
             VALUES
             (
              ".$user_id.",
-             '".htmlspecialchars($doc_url,ENT_QUOTES)."', 
+             '".htmlspecialchars($doc_url,ENT_QUOTES)."',
              FROM_UNIXTIME(".$reallyNow.")
             )";
-                
+
     $res = claro_sql_query($sql);
     return 1;
 }
@@ -270,8 +270,8 @@ function event_upload($doc_id)
     global $_uid;
 
     // get table names
-    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-	$tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
 
     $reallyNow = time();
     if($_uid)
@@ -282,21 +282,21 @@ function event_upload($doc_id)
     {
         $user_id = "NULL";
     }
-    
+
     $sql = "INSERT INTO `".$tbl_track_e_uploads."`
             (
              `upload_user_id`,
-             `upload_work_id`, 
+             `upload_work_id`,
              `upload_date`
             )
 
             VALUES
             (
-             ". $user_id.", 
-             '".(int)$doc_id."', 
+             ". $user_id.",
+             '".(int)$doc_id."',
              FROM_UNIXTIME(".$reallyNow.")
             )";
-                
+
     $res = claro_sql_query($sql);
     return 1;
 }
@@ -316,8 +316,8 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
     if( ! $is_trackingEnabled ) return false;
 
     // get table names
-    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-	$tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
 
     $reallyNow = time();
     if($uid && $uid != "")
@@ -330,14 +330,14 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
     }
     $sql = "INSERT INTO `".$tbl_track_e_exercises."`
           (
-			`exe_user_id`,
-			`exe_exo_id`,
-			`exe_result`,
-			`exe_weighting`,
-			`exe_date`,
-			`exe_time`
+            `exe_user_id`,
+            `exe_exo_id`,
+            `exe_result`,
+            `exe_weighting`,
+            `exe_date`,
+            `exe_time`
           )
-          
+
           VALUES
           (
           ".$user_id.",
@@ -364,46 +364,46 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
     if( ! $is_trackingEnabled ) return 0;
 
     // get table names
-    $tbl_cdb_names 			  = claro_sql_get_course_tbl();
-	$tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
-	$tbl_track_e_exe_answers  = $tbl_cdb_names['track_e_exe_answers'];
-	
-	// add the answer tracking informations
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_exe_details  = $tbl_cdb_names['track_e_exe_details'];
+    $tbl_track_e_exe_answers  = $tbl_cdb_names['track_e_exe_answers'];
+
+    // add the answer tracking informations
     $sql = "INSERT INTO `".$tbl_track_e_exe_details."`
           (
-			`exercise_track_id`,
-			`question_id`,
-			`result`
+            `exercise_track_id`,
+            `question_id`,
+            `result`
           )
           VALUES
           (
-          	".(int) $exerciseTrackId.",
-           	'".(int) $questionId."',
-           	'".(int) $questionResult."'
+              ".(int) $exerciseTrackId.",
+               '".(int) $questionId."',
+               '".(int) $questionResult."'
           )";
     $details_id = claro_sql_query_insert_id($sql);
-    
+
     // check if previous query succeed to add answers
     if( $details_id )
     {
-	    // add, if needed, the different answers of the user
-	    // one line by answer
-	    // each entry of $values should be correctly formatted depending on the question type
-	    foreach( $values as $answer )
-	    {
-			$sql = "INSERT INTO `".$tbl_track_e_exe_answers."`
-				(
-					`details_id`,
-					`answer`
-				)
-				VALUES
-				(
-				    ". (int)$details_id.",
-				    '".addslashes($answer)."'
-				)";
-		    claro_sql_query($sql);
-		}
-	}
+        // add, if needed, the different answers of the user
+        // one line by answer
+        // each entry of $values should be correctly formatted depending on the question type
+        foreach( $values as $answer )
+        {
+            $sql = "INSERT INTO `".$tbl_track_e_exe_answers."`
+                (
+                    `details_id`,
+                    `answer`
+                )
+                VALUES
+                (
+                    ". (int)$details_id.",
+                    '".addslashes($answer)."'
+                )";
+            claro_sql_query($sql);
+        }
+    }
     return 1;
 }
 
@@ -424,9 +424,9 @@ function event_default($type_event,$values)
     global $_uid;
     global $_cid;
 
-	// get table names
-	$tbl_mdb_names 			   = claro_sql_get_main_tbl();
-	$tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
+    // get table names
+    $tbl_mdb_names                = claro_sql_get_main_tbl();
+    $tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
 
     $reallyNow = time();
 

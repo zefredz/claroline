@@ -39,7 +39,7 @@ function echo_session_value()
     }
 
         $infoResult .= '
-    <HR>
+    <hr />
     <a href="../claroline/admin/phpInfo.php">phpInfo Claroline</a>
     <PRE><strong>PHP Version</strong> : ' . phpversion() . '
     <strong>nivo d\'err</strong> : ' . error_reporting(2039);
@@ -124,7 +124,7 @@ function echo_session_value()
     
         $infoResult .= "
     </PRE>
-    <HR>
+    <hr />
         ";
     if (PRINT_DEBUG_INFO)
         echo $infoResult;
@@ -155,7 +155,7 @@ function debug_IO($file = '')
 
     if  ($file != '' )
     {
-        $infoResult .= '<HR> '
+        $infoResult .= '<hr /> '
         .              '<strong>' . $file . '</strong> = '
         .              '[<strong>o</strong>:' . fileowner($file) 
         .              ' <strong>g</strong>:' . filegroup($file) 
@@ -170,7 +170,7 @@ function debug_IO($file = '')
     }
     
     $file = '.';
-    $infoResult .= '<HR> <strong>' . $file . '</strong> - '
+    $infoResult .= '<hr /> <strong>' . $file . '</strong> - '
     .              '[<strong>o</strong>:' . fileowner($file) 
     .              ' <strong>g</strong>:' . filegroup($file) 
     .              ' ' . display_perms(fileperms($file)) . ']'
@@ -183,7 +183,7 @@ function debug_IO($file = '')
     if ( is_writeable(  $file ) ) echo '-W-'; 
 
     $file = '..';
-    echo '<HR> <strong>' . $file . '</strong> - '
+    echo '<hr /> <strong>' . $file . '</strong> - '
     .    '[<strong>o</strong>:' . fileowner($file) 
     .    ' <strong>g</strong>:' . filegroup($file)
     .    ' ' . display_perms(     fileperms($file) ) . ']'
@@ -314,12 +314,12 @@ $is_groupAllowed;
             (uid)             : '.var_export($uid,1).' |
             (_uid)             : '.var_export($_uid,1).' |
             (session[_uid]) : '.var_export($_SESSION["_uid"],1).'
-            <BR>
+            <br />
             reset = '.var_export($uidReset,1).' | 
-            req = '.var_export($uidReq,1).'<br>
+            req = '.var_export($uidReq,1).'<br />
             _user : <pre>'.var_export($_user,1).'</pre>
-            <br>is_platformAdmin            :'.var_export($is_platformAdmin,1).'
-            <br>is_allowedCreateCourse    :'.var_export($is_allowedCreateCourse,1).'
+            <br />is_platformAdmin            :'.var_export($is_platformAdmin,1).'
+            <br />is_allowedCreateCourse    :'.var_export($is_allowedCreateCourse,1).'
         </TD>';
     }
     if($selection == "*" or strstr($selection,"c"))
@@ -327,11 +327,11 @@ $is_groupAllowed;
         echo "
         <TD valign=\"top\" >
             <strong>Course</strong> : (_cid)".var_export($_cid,1)."
-            <br>
+            <br />
             reset = ".var_export($cidReset,1)." | req = ".var_export($cidReq,1)."
-            <br>
+            <br />
             _course : <pre>".var_export($_course,1)."</pre>
-            <br>
+            <br />
             _groupProperties : 
             <PRE>
                 ".var_export($_groupProperties,1)."
@@ -343,18 +343,18 @@ $is_groupAllowed;
     <TR>';
     if($selection == "*" or strstr($selection,"g"))
     {
-        echo "<TD valign=\"top\" ><strong>Group</strong> : (_gid) ".var_export($_gid,1)."<br>
-        reset = ".var_export($gidReset,1)." | req = ".var_export($gidReq,1)."<br>
+        echo "<TD valign=\"top\" ><strong>Group</strong> : (_gid) ".var_export($_gid,1)."<br />
+        reset = ".var_export($gidReset,1)." | req = ".var_export($gidReq,1)."<br />
         _group :<pre>".var_export($_group,1).
         "</pre></TD>";
     }
     if($selection == "*" or strstr($selection,"t"))
     {
-        echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export($_tid,1).'<br>
+        echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export($_tid,1).'<br />
         reset = '.var_export($tidReset,1).' | 
         req = '.var_export($tidReq,1).'| 
         req = '.var_export($tlabelReq,1).'
-        <br>
+        <br />
         _tool :'.
         var_export($_tool,1).
         "</TD>";
@@ -363,14 +363,14 @@ $is_groupAllowed;
     if($selection == "*" or (strstr($selection,"u")&&strstr($selection,"c")))
     {
         echo '<TR><TD valign="top" colspan="2"><strong>Course-User</strong>';
-        if ($_uid) echo '<br><strong>User</strong> :'.var_export($_uid,1);
-        if ($_cid) echo ' in '.var_export($_cid,1).'<BR>';
+        if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
+        if ($_cid) echo ' in '.var_export($_cid,1).'<br />';
         if ($_uid && $_cid) 
         echo '_courseUser            : <pre>'.var_export($_courseUser,1).'</pre>';
-        echo '<br>is_courseMember    : '.var_export($is_courseMember,1);
-        echo '<br>is_courseAdmin    : '.var_export($is_courseAdmin,1);
-        echo '<br>is_courseAllowed    : '.var_export($is_courseAllowed,1);
-        echo '<br>is_courseTutor    : '.var_export($is_courseTutor,1);
+        echo '<br />is_courseMember    : '.var_export($is_courseMember,1);
+        echo '<br />is_courseAdmin    : '.var_export($is_courseAdmin,1);
+        echo '<br />is_courseAllowed    : '.var_export($is_courseAllowed,1);
+        echo '<br />is_courseTutor    : '.var_export($is_courseTutor,1);
         echo '</TD></TR>';
     }
     echo "";
@@ -378,12 +378,12 @@ $is_groupAllowed;
     {
 
         echo '<TR><TD valign="top"  colspan="2"><strong>Course-Group-User</strong>';
-        if ($_uid) echo '<br><strong>User</strong> :'.var_export($_uid,1);
+        if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
         if ($_gid) echo ' in '.var_export($_gid,1);
-        if ($_gid) echo "<br>_groupUser:".var_export($_groupUser,1);
-        echo "<br>is_groupMember:".var_export($is_groupMember,1);
-        echo "<br>is_groupTutor:".var_export($is_groupTutor,1);
-        echo "<br>
+        if ($_gid) echo "<br />_groupUser:".var_export($_groupUser,1);
+        echo "<br />is_groupMember:".var_export($is_groupMember,1);
+        echo "<br />is_groupTutor:".var_export($is_groupTutor,1);
+        echo "<br />
         is_groupAllowed:";
         var_export($is_groupAllowed);
         echo "</TD>
@@ -393,11 +393,11 @@ $is_groupAllowed;
     {
 
         echo '<tr>
-        <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br>';
+        <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br />';
         if ($_tid) echo 'Tool :'.$_tid;
-        if ($_cid) echo ' in '.$_cid.'<br>';
+        if ($_cid) echo ' in '.$_cid.'<br />';
         
-        if ($_tid) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br>';
+        if ($_tid) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
         echo 'is_toolAllowed : '.var_export($is_toolAllowed,1);
         echo "</TD>";
     }
@@ -419,7 +419,7 @@ function printConfig()
     <tr><td>rootWeb</TD><TD>$rootWeb</td></tr>
     <tr><td>urlAppend </TD><TD>$urlAppend</td></tr>
     <tr><td>serverAddress </TD><TD>$serverAddress</td></tr>
-    <tr><td colspan=2><HR></td></tr>
+    <tr><td colspan=2><hr /></td></tr>
     <tr><td colspan=2><strong>param for new and future features</strong></td></tr>
     <tr><td>checkEmailByHashSent             </TD><TD>$checkEmailByHAshSent             </td></tr>
     <tr><td>ShowEmailnotcheckedToStudent     </TD><TD>$ShowEmailnotcheckedToStudent     </td></tr>

@@ -1,117 +1,117 @@
 <?php // $Id$
 
-// plusieures fonctions ci-dessous  ont été adaptées de fonctions  distribuées par www.nexen.net
-/** 
- * Backup a db to a file 
+// Pusieures fonctions ci-dessous  ont été adaptées de fonctions  distribuées par www.nexen.net
+/**
+ * Backup a db to a file
  *
- * @param ressource    $link            lien vers la base de donnees 
- * @param string    $db_name        nom de la base de donnees 
- * @param boolean    $structure        true => sauvegarde de la structure des tables 
- * @param boolean    $donnees        true => sauvegarde des donnes des tables 
- * @param boolean    $format            format des donnees 
+ * @param ressource    $link            lien vers la base de donnees
+ * @param string    $db_name        nom de la base de donnees
+ * @param boolean    $structure        true => sauvegarde de la structure des tables
+ * @param boolean    $donnees        true => sauvegarde des donnes des tables
+ * @param boolean    $format            format des donnees
                                      'INSERT' => des clauses SQL INSERT
                                     'CSV' => donnees separees par des virgules
- * @param boolean    $insertComplet    true => clause INSERT avec nom des champs 
+ * @param boolean    $insertComplet    true => clause INSERT avec nom des champs
  * @param boolean    $verbose         true => comment are printed
- */ 
+ */
 function backup_database($link , $db_name , $structure , $donnees , $format="SQL" , $whereSave=".", $insertComplet="",$verbose=false)
-{ 
+{
 
     $errorCode ="";
-    if (!is_resource($link)) 
+    if (!is_resource($link))
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] link is not a ressource";
         $error_no["backup"][] = "1";
-        return false; 
+        return false;
     }
 
-    mysql_select_db($db_name); 
-    $format = strtolower($format); 
-    $filename = $whereSave."/courseDbContent.".$format; 
-    $format = strtoupper($format); 
+    mysql_select_db($db_name);
+    $format = strtolower($format);
+    $filename = $whereSave."/courseDbContent.".$format;
+    $format = strtoupper($format);
     $fp = fopen($filename, "w");
-    if (!is_resource($fp)) 
-        return false; 
-    // liste des tables 
-    $res = mysql_list_tables($db_name, $link); 
-    $num_rows = mysql_num_rows($res); 
-    $i = 0; 
-    while ($i < $num_rows) 
-    { 
+    if (!is_resource($fp))
+        return false;
+    // liste des tables
+    $res = mysql_list_tables($db_name, $link);
+    $num_rows = mysql_num_rows($res);
+    $i = 0;
+    while ($i < $num_rows)
+    {
         if ($format=="PHP")
             fwrite($fp, "\nmysql_query(\"");
         if ($format=="HTML")
             fwrite($fp, "\n<h2>".$tablename."</h2><TABLE border=\"1\" width=\"100%\">");
-        $tablename = mysql_tablename($res, $i); 
+        $tablename = mysql_tablename($res, $i);
         if ($verbose)
             echo "[".$tablename."] ";
-        if ($structure === true) 
-        { 
+        if ($structure === true)
+        {
             if ($format=="PHP" || $format=="SQL" )
-                fwrite($fp, "DROP TABLE IF EXISTS `$tablename`;"); 
+                fwrite($fp, "DROP TABLE IF EXISTS `$tablename`;");
             if ($format=="PHP")
                 fwrite($fp, "\");\n");
             if ($format=="PHP")
                 fwrite($fp, "\nmysql_query(\"");
-            // requete de creation de la table 
-            $query = "SHOW CREATE TABLE `" . $tablename . "`"; 
-            $resCreate = mysql_query($query); 
-            $row = mysql_fetch_array($resCreate); 
-            $schema = $row[1].";"; 
+            // requete de creation de la table
+            $query = "SHOW CREATE TABLE `" . $tablename . "`";
+            $resCreate = mysql_query($query);
+            $row = mysql_fetch_array($resCreate);
+            $schema = $row[1].";";
             if ($format=="PHP" || $format=="SQL" )
-                fwrite($fp, "$schema"); 
+                fwrite($fp, "$schema");
             if ($format=="PHP")
                 fwrite($fp, "\");\n\n");
-        } 
-        if ($donnees === true) 
-        { 
-            // les données de la table 
+        }
+        if ($donnees === true)
+        {
+            // les données de la table
             $query = "SELECT * FROM $tablename";
-            $resData = mysql_query($query); 
-            if (mysql_num_rows($resData) > 0) 
-            { 
-                $sFieldnames = ""; 
-                if ($insertComplet === true) 
-                { 
-                    $num_fields = mysql_num_fields($resData); 
-                    for($j=0; $j < $num_fields; $j++) 
-                    { 
-                        $sFieldnames .= "`".mysql_field_name($resData, $j)."`, "; 
-                    } 
-                    $sFieldnames = "(".substr($sFieldnames, 0, -2).")"; 
-                } 
-                $sInsert = "INSERT INTO `$tablename` $sFieldnames values "; 
-                while($rowdata = mysql_fetch_assoc($resData)) 
-                { 
+            $resData = mysql_query($query);
+            if (mysql_num_rows($resData) > 0)
+            {
+                $sFieldnames = "";
+                if ($insertComplet === true)
+                {
+                    $num_fields = mysql_num_fields($resData);
+                    for($j=0; $j < $num_fields; $j++)
+                    {
+                        $sFieldnames .= "`".mysql_field_name($resData, $j)."`, ";
+                    }
+                    $sFieldnames = "(".substr($sFieldnames, 0, -2).")";
+                }
+                $sInsert = "INSERT INTO `$tablename` $sFieldnames values ";
+                while($rowdata = mysql_fetch_assoc($resData))
+                {
                     if ($format=="HTML")
                     {
-                        $lesDonnees = "\n\t<tr>\n\t\t<td>".implode("\n\t\t</td>\n\t\t<td>", $rowdata)."\n\t\t</td>"; 
+                        $lesDonnees = "\n\t<tr>\n\t\t<td>".implode("\n\t\t</td>\n\t\t<td>", $rowdata)."\n\t\t</td>";
                     }
                     if ($format == "SQL" || $format=="PHP")
                     {
-                        $lesDonnees = "<guillemet>".implode("<guillemet>,<guillemet>", $rowdata)."<guillemet>"; 
-                        $lesDonnees = str_replace("<guillemet>", "'",addslashes($lesDonnees)); 
-                        if ($format == "SQL") 
-                        { 
-                            $lesDonnees = $sInsert." ( ".$lesDonnees." );"; 
-                        } 
+                        $lesDonnees = "<guillemet>".implode("<guillemet>,<guillemet>", $rowdata)."<guillemet>";
+                        $lesDonnees = str_replace("<guillemet>", "'",addslashes($lesDonnees));
+                        if ($format == "SQL")
+                        {
+                            $lesDonnees = $sInsert." ( ".$lesDonnees." );";
+                        }
                         if ($format=="PHP")
                             fwrite($fp, "\nmysql_query(\"");
                     }
-                    fwrite($fp, "$lesDonnees"); 
+                    fwrite($fp, "$lesDonnees");
                     if ($format=="PHP")
                         fwrite($fp, "\");\n");
-                } 
-            } 
-        } 
-        $i++; 
+                }
+            }
+        }
+        $i++;
         if ($format=="HTML")
-            fwrite($fp, "\n</TABLE>\n<HR>\n");
-    } 
+            fwrite($fp, "\n</TABLE>\n<hr />\n");
+    }
     echo "fin du backup au  format :".$format;
-    
-    fclose($fp); 
+
+    fclose($fp);
 }
 
 
@@ -119,11 +119,11 @@ function backup_database($link , $db_name , $structure , $donnees , $format="SQL
 
 function copydir($origine,$destination,$verbose=false)
 {
-    $dossier= @opendir($origine) or die( "<HR>impossible d'ouvrir ".$origine." [".__LINE__."]");
+    $dossier= @opendir($origine) or die( "<hr />impossible d'ouvrir ".$origine." [".__LINE__."]");
     if ($verbose)
-        echo "<BR> $origine -> $destination";
+        echo "<br /> $origine -> $destination";
 /*    if (file_exists($destination))
-    { 
+    {
         echo "la cible existe, ca ne va pas être possible";
         return 0;
     }
@@ -138,7 +138,7 @@ function copydir($origine,$destination,$verbose=false)
         <OL>";
     $total = 0;
 
-    while ($fichier = readdir($dossier)) 
+    while ($fichier = readdir($dossier))
     {
         $l = array('.', '..');
         if (!in_array( $fichier, $l))
@@ -150,7 +150,7 @@ function copydir($origine,$destination,$verbose=false)
             <LI>";
                 $total += copydir("$origine/$fichier", "$destination/$fichier",$verbose);
             }
-            else 
+            else
             {
                 copy("$origine/$fichier", "$destination/$fichier");
                 if ($verbose)
@@ -170,15 +170,15 @@ function copydir($origine,$destination,$verbose=false)
     return $total;
 }
 
-/** 
- * Export a course to a zip file 
+/**
+ * Export a course to a zip file
  *
- * @param integer    $currentCourseID    needed        sysId Of course to be exported 
+ * @param integer    $currentCourseID    needed        sysId Of course to be exported
  * @param boolean     $verboseBackup        def FALSE    echo  step of work
  * @param string    $ignore                def NONE     // future param  for selected bloc to export.
  * @param string    $formats            def ALL        ALL,SQL,PHP,XML,CSV,XLS,HTML
 
- 
+
  * 1° Check if all data needed are aivailable
  * 2° Build the archive repository tree
  * 3° Build exported element and Fill  the archive repository tree
@@ -200,20 +200,20 @@ function copydir($origine,$destination,$verbose=false)
             about "ignore"
              As  we don't know what is  add in course  by the local admin  of  claroline,
              I  prefer follow the  logic : save all except ...
-            
- */ 
+
+ */
 function makeTheBackup($exportedCourseId, $verboseBackup="FALSE", $ignore="", $formats="ALL")
 {
     GLOBAL     $error_msg,    $error_no, $db,
-        
+
 $archiveRepositorySys, $archiveRepositoryWeb,         // from configs files
 $appendCourse, $appendMainDb,                        //
-$archiveName, $mainDbName, 
+$archiveName, $mainDbName,
 $clarolineRepositorySys,$_course,$coursesRepositorySys,
 $TABLEUSER, $TABLECOURSUSER, $TABLECOURS, $TABLEANNOUNCEMENT,
-$langArchiveName, 
-$langArchiveLocation, 
-$langSizeOf, 
+$langArchiveName,
+$langArchiveLocation,
+$langSizeOf,
 $langDisk_free_space,
 $langCreateMissingDirectories,
 $langBUCourseDataOfMainBase,
@@ -248,69 +248,69 @@ if ($verboseBackup)
     $errorCode =0;
     $stop = FALSE;
 // ****** 1° 2. 1 params.needed
-    if (!isset($exportedCourseId) )     
+    if (!isset($exportedCourseId) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] Course Id Missing";
         $error_no["backup"][] = "1";
         $stop = TRUE;
     }
-    if (!isset($mainDbName) )     
+    if (!isset($mainDbName) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] Main Db name is Missing";
         $error_no["backup"][] = "2";
         $stop = TRUE;
     }
-    if (!isset($archiveRepositorySys) ) 
+    if (!isset($archiveRepositorySys) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] archive Path not found";
         $error_no["backup"][] = "3";
         $stop = TRUE;
-    }    
-    if (!isset($appendMainDb) ) 
+    }
+    if (!isset($appendMainDb) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] where place course datas from main db in archive";
         $error_no["backup"][] = "4";
         $stop = TRUE;
-    }    
-    if (!isset($appendCourse) ) 
+    }
+    if (!isset($appendCourse) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] where place course datas in archive";
         $error_no["backup"][] = "5";
         $stop = TRUE;
-    }    
-    if (!isset($TABLECOURS) ) 
+    }
+    if (!isset($TABLECOURS) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] name of table of course not defined";
         $error_no["backup"][] = "6";
         $stop = TRUE;
-    }    
-    if (!isset($TABLEUSER) ) 
+    }
+    if (!isset($TABLEUSER) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] name of table of users not defined";
         $error_no["backup"][] = "7";
         $stop = TRUE;
-    }    
-    if (!isset($TABLECOURSUSER) ) 
+    }
+    if (!isset($TABLECOURSUSER) )
     {
         GLOBAL $error_msg,$error_no;
         $error_msg["backup"][] = "[".basename(__FILE__)."][".__LINE__."] name of table of subscription of users in courses not defined";
         $error_no["backup"][] = "8";
         $stop = TRUE;
-    }    
+    }
     if ($stop)
     {
         return false;
     }
-    
+
 // ****** 1° 2. 2 params.optional
-    if (!isset($verboseBackup) ) 
+    if (!isset($verboseBackup) )
     {
         $verboseBackup = false;
     }
@@ -323,7 +323,7 @@ if ($verboseBackup)
 //////////////////////////////////////////////
 // ****** 2° Build the archive repository tree
 // ****** 2° 1. fix names
-    $shortDateBackuping  = date("YzBs"); // YEAR - Day in Year - Swatch - second 
+    $shortDateBackuping  = date("YzBs"); // YEAR - Day in Year - Swatch - second
     $archiveFileName = "archive.".$exportedCourseId.".".$shortDateBackuping.".zip";
     $dateBackuping  = $shortDateBackuping  ;
     $archiveDir .= $archiveRepositorySys.$exportedCourseId."/".$shortDateBackuping."/";
@@ -343,13 +343,13 @@ if ($verboseBackup)
 ###################
     if ($verboseBackup)
     {
-        echo "<hr><u>",$langArchiveName,"</u> : "
-            ,"<strong>",basename($systemFileNameOfArchive),"</strong><br><u>",$langArchiveLocation,"</u> : "
-            ,"<strong>",realpath($systemFileNameOfArchive),"</strong><br><u>",$langSizeOf," ",realpath("../../".$exportedCourseId."/"),"</u> : "
-            ,"<strong>",claro_get_file_size("../../".$exportedCourseId."/"),"</strong> bytes <br>";
+        echo "<hr /><u>",$langArchiveName,"</u> : "
+            ,"<strong>",basename($systemFileNameOfArchive),"</strong><br /><u>",$langArchiveLocation,"</u> : "
+            ,"<strong>",realpath($systemFileNameOfArchive),"</strong><br /><u>",$langSizeOf," ",realpath("../../".$exportedCourseId."/"),"</u> : "
+            ,"<strong>",claro_get_file_size("../../".$exportedCourseId."/"),"</strong> bytes <br />";
         if (  function_exists(diskfreespace))
             echo "<u>".$langDisk_free_space."</u> : <strong>".diskfreespace("/")."</strong> bytes";
-        echo "<hr>" ;
+        echo "<hr />" ;
     }
     claro_mkdir($archiveDirOriginalDocs.$appendMainDb    ,CLARO_FILE_PERMISSIONS, true);
     claro_mkdir($archiveDirHtml.$appendMainDb            ,CLARO_FILE_PERMISSIONS, true);
@@ -375,7 +375,7 @@ if ($verboseBackup)
     if ( $verboseBackup )
         echo "
 build config file
-<hr>" ;
+<hr />" ;
 
     // ********************************************************************
     // build config file
@@ -383,7 +383,7 @@ build config file
         $stringConfig="<?php
 /*
       +----------------------------------------------------------------------+
-      CLAROLINE version ".$clarolineVersion." 
+      CLAROLINE version ".$clarolineVersion."
       +----------------------------------------------------------------------+
       This file was generate by script " . $_SERVER['PHP_SELF'] . "
       ".date("r")."                  |
@@ -415,7 +415,7 @@ build config file
         echo "
 <LI>
 ".$langBUCourseDataOfMainBase."  ".$exportedCourseId."
-<HR>
+<hr />
 <PRE>";
     $sqlInsertCourse = "
 INSERT INTO cours SET ";
@@ -430,7 +430,7 @@ INSERT INTO cours SET ";
             $sqlInsertCourse .= ", ";
         $nameField = mysql_field_name($resInfoCourse,$noField);
         /*echo "
-        <BR>
+        <br />
         $nameField ->  ".$infoCourse["$nameField"]." ";
         */
         $sqlInsertCourse .= "$nameField = '".$infoCourse["$nameField"]."'";
@@ -438,7 +438,7 @@ INSERT INTO cours SET ";
     }
 
 //     buildTheIniFile
-    $iniCourse .= 
+    $iniCourse .=
 "name=".                strtr($infoCourse['intitule'       ],"()","[]")."\n".
 "officialCode=".        strtr($infoCourse['fake_code'      ],"()","[]")."\n". // use in echo
 "adminCode=".            strtr($infoCourse['code'              ],"()","[]")."\n". // use as key in db
@@ -454,7 +454,7 @@ INSERT INTO cours SET ";
 "registrationAllowed=".    ($infoCourse['visible']==1 || $infoCourse['visible']==2);
 
     $sqlInsertCourse .= ";";
-//    echo $csvInsertCourse."<BR>";    
+//    echo $csvInsertCourse."<br />";
     $stringConfig .= "
 # Insert Course
 #------------------------
@@ -465,15 +465,15 @@ INSERT INTO cours SET ";
         echo "</PRE>";
 
     $fcoursql = fopen($archiveDirSql.$appendMainDb."course.sql", "w");
-    fwrite($fcoursql, $sqlInsertCourse); 
+    fwrite($fcoursql, $sqlInsertCourse);
     fclose($fcoursql);
 
     $fcourcsv = fopen($archiveDirCsv.$appendMainDb."course.csv", "w");
-    fwrite($fcourcsv, $csvInsertCourse); 
+    fwrite($fcourcsv, $csvInsertCourse);
     fclose($fcourcsv);
 
     $fcourini = fopen($archiveDir.$systemFileNameOfArchiveIni, "w");
-    fwrite($fcourini, $iniCourse); 
+    fwrite($fcourini, $iniCourse);
     fclose($fcourini);
 
     echo $iniCourse, " ini Course";
@@ -487,9 +487,9 @@ INSERT INTO cours SET ";
             echo "
         <LI>
             ".$langBUUsersInMainBase." ".$exportedCourseId."
-            <hR>
+            <hr />
         <PRE>";
-        
+
         // recup users
         $sqlUserOfTheCourse ="
     SELECT
@@ -506,7 +506,7 @@ INSERT INTO cours SET ";
             $csvInsertUsers = "";
             $htmlInsertUsers = "<table>\t<TR>\n";
         //
-        // creation of headers 
+        // creation of headers
         //
             for($noField=0; $noField < $nbFields; $noField++)
             {
@@ -515,7 +515,7 @@ INSERT INTO cours SET ";
                 $htmlInsertUsers .= "\t\t<TH>".$nameField."</TH>\n";
             }
             $htmlInsertUsers .= "\t</TR>\n";
-        
+
         //
         // creation of body
         //
@@ -531,18 +531,18 @@ INSERT INTO cours SET ";
                         $sqlInsertUsers .= ", ";
                     $nameField = mysql_field_name($resUsers,$noField);
                     /*echo "
-                        <BR>
+                        <br />
                         $nameField ->  ".$users["$nameField"]." ";
                     */
                     $sqlInsertUsers .= "$nameField = '".$users["$nameField"]."' ";
                     $csvInsertUsers .= "'".addslashes($users["$nameField"])."';";
-                    $htmlInsertUsers .= "\t\t<TD>".$users["$nameField"]."</TD>\n";                
+                    $htmlInsertUsers .= "\t\t<TD>".$users["$nameField"]."</TD>\n";
                 }
                 $sqlInsertUsers .= ";";
                 $htmlInsertUsers .= "\t</TR>\n";
             }
             $htmlInsertUsers .= "</TABLE>\n";
-            
+
             $stringConfig .= "
     # INSERT Users
     #------------------------------------------
@@ -550,22 +550,22 @@ INSERT INTO cours SET ";
     #------------------------------------------
         ";
             $fuserssql = fopen($archiveDirSql.$appendMainDb."users.sql", "w");
-            fwrite($fuserssql, $sqlInsertUsers); 
+            fwrite($fuserssql, $sqlInsertUsers);
             fclose($fuserssql);
-        
+
             $fuserscsv = fopen($archiveDirCsv.$appendMainDb."users.csv", "w");
-            fwrite($fuserscsv, $csvInsertUsers); 
+            fwrite($fuserscsv, $csvInsertUsers);
             fclose($fuserscsv);
 
             $fusershtml = fopen($archiveDirHtml.$appendMainDb."users.html", "w");
-            fwrite($fusershtml, $htmlInsertUsers); 
+            fwrite($fusershtml, $htmlInsertUsers);
             fclose($fusershtml);
         }
         else
         {
             if ( $verboseBackup )
-                echo "<HR><div align=\"center\">NO user in this course !!!!</div><HR>";
-    
+                echo "<hr /><div align=\"center\">NO user in this course !!!!</div><hr />";
+
         }
         if ( $verboseBackup )
             echo "</PRE>";
@@ -581,14 +581,14 @@ if ($saveAnnouncement)
         echo "
     <LI>
         ".$langBUAnnounceInMainBase." ".$exportedCourseId."
-        <hR>
+        <hr />
     <PRE>";
-    
+
     // recup annonce
     $sqlAnnounceOfTheCourse ="
 SELECT
     *
-    FROM  `".$TABLEANNOUNCEMENT."` 
+    FROM  `".$TABLEANNOUNCEMENT."`
     WHERE code_cours='".$exportedCourseId."'";
 
     $resAnn = claro_sql_query($sqlAnnounceOfTheCourse);
@@ -597,7 +597,7 @@ SELECT
     $csvInsertAnn = "";
     $htmlInsertAnn .= "<table>\t<TR>\n";
 //
-// creation of headers 
+// creation of headers
 //
     for($noField=0; $noField < $nbFields; $noField++)
     {
@@ -622,12 +622,12 @@ INSERT INTO users SET ";
                 $sqlInsertAnn .= ", ";
             $nameField = mysql_field_name($resAnn,$noField);
                 /*echo "
-                <BR>
+                <br />
                 $nameField ->  ".$users["$nameField"]." ";
                 */
             $sqlInsertAnn .= "$nameField = '".addslashes($announce["$nameField"])."' ";
             $csvInsertAnn .= "'".addslashes($announce["$nameField"])."';";
-            $htmlInsertAnn .= "\t\t<TD>".$announce["$nameField"]."</TD>\n";                
+            $htmlInsertAnn .= "\t\t<TD>".$announce["$nameField"]."</TD>\n";
         }
         $sqlInsertAnn .= ";";
         $htmlInsertAnn .= "\t</TR>\n";
@@ -636,7 +636,7 @@ INSERT INTO users SET ";
         echo "</PRE>";
     $htmlInsertAnn .= "</TABLE>\n";
 
-    
+
     $stringConfig .= "
 #INSERT ANNOUNCE
 #------------------------------------------
@@ -644,15 +644,15 @@ INSERT INTO users SET ";
 #------------------------------------------
     ";
     $fannsql = fopen($archiveDirSql.$appendMainDb."annonces.sql", "w");
-    fwrite($fannsql, $sqlInsertAnn); 
+    fwrite($fannsql, $sqlInsertAnn);
     fclose($fannsql);
 
     $fanncsv = fopen($archiveDirCsv.$appendMainDb."annnonces.csv", "w");
-    fwrite($fanncsv, $csvInsertAnn); 
+    fwrite($fanncsv, $csvInsertAnn);
     fclose($fanncsv);
 
     $fannhtml = fopen($archiveDirHtml.$appendMainDb."annonces.html", "w");
-    fwrite($fannhtml, $htmlInsertAnn); 
+    fwrite($fannhtml, $htmlInsertAnn);
     fclose($fannhtml);
 
 /*  End  of  backup Annonces */
@@ -662,7 +662,7 @@ INSERT INTO users SET ";
         echo "
         <LI>
             ".$langCopyDirectoryCourse;
-            
+
     $nbFiles = copydir($coursesRepositorySys.$_course['path'], $archiveDirOriginalDocs.$appendCourse, $verboseBackup);
     if ( $verboseBackup )
         echo "
@@ -670,7 +670,7 @@ INSERT INTO users SET ";
                 ".$nbFiles."
             </strong>
             ".$langFileCopied."
-            <br>
+            <br />
         </li>";
     $stringConfig .= "
 // ".$nbFiles." was in ".realpath($archiveDirOriginalDocs);
@@ -683,39 +683,39 @@ INSERT INTO users SET ";
         echo "
         <LI>
             ".$langBackupOfDataBase." ".$exportedCourseId."  (SQL)
-            <hr>";
+            <hr />";
     backup_database($db , $exportedCourseId , true, true , 'SQL' , $archiveDirSql.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         </LI>
         <LI>
             ".$langBackupOfDataBase." ".$exportedCourseId."  (PHP)
-            <hr>";
+            <hr />";
     backup_database($db , $exportedCourseId , true, true , 'PHP' , $archiveDirPhp.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         </LI>
         <LI>
             ".$langBackupOfDataBase." ".$exportedCourseId."  (CSV)
-            <hr>";
+            <hr />";
     backup_database($db , $exportedCourseId , true, true , 'CSV' , $archiveDirCsv.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         <LI>
             ".$langBackupOfDataBase." ".$exportedCourseId."  (HTML)
-            <hr>";
+            <hr />";
     backup_database($db , $exportedCourseId , true, true , 'HTML' , $archiveDirHtml.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         <LI>
             ".$langBackupOfDataBase." ".$exportedCourseId."  (XML)
-            <hr>";
+            <hr />";
     backup_database($db , $exportedCourseId , true, true , 'XML' , $archiveDirXml.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         <LI>
             ".$langBackupOfDataBase." ".$exportedCourseId."  (LOG)
-            <hr>";
+            <hr />";
     backup_database($db , $exportedCourseId , true, true , 'LOG' , $archiveDirLog.$appendCourse,true,$verboseBackup);
 
 // ********************************************************************
@@ -729,8 +729,8 @@ INSERT INTO users SET ";
         echo "
         </LI>
     </OL>
-    
-    <br>";
+
+    <br />";
 
 ///////////////////////////////////
 // ****** 4° Compress the tree
@@ -743,29 +743,29 @@ INSERT INTO users SET ";
         $prefixPath    = $exportedCourseId;
 
         $zipCourse = new PclZip($archiveRepositorySys.$archiveFileName);
-        $zipRes= $zipCourse->create(    $whatZip, 
-                                        PCLZIP_OPT_ADD_PATH, $prefixPath,    
+        $zipRes= $zipCourse->create(    $whatZip,
+                                        PCLZIP_OPT_ADD_PATH, $prefixPath,
                                         PCLZIP_OPT_REMOVE_PATH, $forgetPath    );
         if ($zipRes==0)
         {
             echo "<font size=\"+1\" color=\"#FF0000\">",$zipCourse->errorInfo(true),"</font>";
         }
         else
-        for ($i=0; $i<sizeof($zipRes); $i++) 
+        for ($i=0; $i<sizeof($zipRes); $i++)
         {
-            for(reset($zipRes[$i]); $key = key($zipRes[$i]); next($zipRes[$i])) 
+            for(reset($zipRes[$i]); $key = key($zipRes[$i]); next($zipRes[$i]))
             {
-                echo "File $i / [$key] = ".$list[$i][$key]."<br>";
+                echo "File $i / [$key] = ".$list[$i][$key]."<br />";
             }
-            echo "<br>";
+            echo "<br />";
         }
         $pathToArchive = $archiveRepositoryWeb.$archiveFileName;
-        if ( $verboseBackup  )    echo "<hr>".$langBuildTheCompressedFile;
-    } 
+        if ( $verboseBackup  )    echo "<hr />".$langBuildTheCompressedFile;
+    }
 
 ?>
     <!--
-    <hr>
+    <hr />
     3° - Si demandé suppression des éléments sources qui viennent d'être archivés
     <font color="#FF0000">
         non réalisé
