@@ -252,7 +252,7 @@ echo '<table width="100%" >'
 //TOOL LINKS
 .    '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'
 .    $langAllUsersOfThisCourse
-.    '</a><br><br>'
+.    '</a><br /><br />'
 ;
       
 //Pager
@@ -390,5 +390,5 @@ foreach($userList as $user)
 echo '</tbody></table>';
 //Pager
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

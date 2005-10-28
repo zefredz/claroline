@@ -179,7 +179,7 @@ if ( isset($_REQUEST['changeProperties']) )
     {
         $dialogBox .= '<p>'
         .             $langNotSaved
-        .             '<br>'
+        .             '<br />'
         .             implode('<br />' , $errorMsgList)
         .             '</p>'
         ;

@@ -1,12 +1,12 @@
 <?php # $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLCRS
  *
@@ -88,7 +88,7 @@ switch ($display)
         .    $langBackHomeOf.' '. $siteName
         .    '</a>'
         ;
-    
+
         if ( isset($cidToEdit) ) //we can suppose that script is accessed from admin tool in this case
         {
             echo ' | '
@@ -121,5 +121,5 @@ switch ($display)
         break;
 }
 
-include($includePath . '/claro_init_footer.inc.php');
+include $includePath . '/claro_init_footer.inc.php';
 ?>

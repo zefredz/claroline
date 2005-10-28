@@ -1,13 +1,13 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
  * This tool list user of a course but in admin section
  *
- * @version 1.7 $Revision$ 
+ * @version 1.7 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLUSR
  *
@@ -17,15 +17,15 @@
  *
  */
 
-$cidReset=TRUE;
-$gidReset=TRUE;
-$tidReset=TRUE;
+$cidReset=true;
+$gidReset=true;
+$tidReset=true;
+$userPerPage = 20; // numbers of user to display on the same page
 
 require '../inc/claro_init_global.inc.php';
 
 // clean session if we come from a course
 unset($_SESSION['_cid']);
-
 unset($_cid);
 
 /* ************************************************************************** */
@@ -39,21 +39,19 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
-$userPerPage = 20; // numbers of user to display on the same page
 $dialogBox = '';
 // initialisation of global variables and used libraries
 $iconForCuStatus['STUDENT']        = "user.gif";
 $iconForCuStatus['COURSE_MANAGER'] = "manager.gif";
-include_once( $includePath . '/lib/pager.lib.php');
-include_once( $includePath . '/lib/admin.lib.inc.php');
-include_once( $includePath . '/lib/user.lib.php');
-include_once( $includePath . '/conf/user_profile.conf.php');
+include_once $includePath . '/lib/pager.lib.php';
+include_once $includePath . '/lib/admin.lib.inc.php';
+include_once $includePath . '/lib/user.lib.php';
+include $includePath . '/conf/user_profile.conf.php';
 //find which course is concerned in URL parameters
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
     $dialogBox .= 'ERROR : NO COURSE SET!!!';
-    
 }
 else
 {
@@ -71,13 +69,13 @@ $htmlHeadXtra[] =
          }
          </script>";
 // See SESSION variables used for reorder criteria :
-if (isset($_REQUEST['order_crit']))   
+if (isset($_REQUEST['order_crit']))
 {
     $_SESSION['admin_course_user_order_crit']   = trim($_REQUEST['order_crit']) ;
 }
 
-if (isset($_REQUEST['dir']))     
-{    
+if (isset($_REQUEST['dir']))
+{
     $_SESSION['admin_course_user_dir'] = $_REQUEST['dir']=='DESC'?'DESC':'ASC';
 }
 
@@ -117,9 +115,9 @@ if ( $cmd == 'unsub' )
             case 'course_manager_cannot_unsubscribe_himself' :
                 $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
                 break;
-            default :       
+            default :
         }
-    }    
+    }
 }
 // build and call DB to get info about current course (for title) if needed :
 $courseData = claro_get_course_data($cidToEdit);
@@ -130,7 +128,7 @@ $courseData = claro_get_course_data($cidToEdit);
 $sql = "SELECT *, IF(CU.statut=1,'COURSE_MANAGER','STUDENT') `stat`
         FROM  `" . $tbl_user . "` AS U
         ";
-$toAdd = ", `" . $tbl_course_user . "` AS CU 
+$toAdd = ", `" . $tbl_course_user . "` AS CU
           WHERE CU.`user_id` = U.`user_id`
             AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'
         ";
@@ -161,7 +159,7 @@ if (isset($_REQUEST['search']))
         case 'name'      : $fieldSort = 'U`.`nom';     break;
         case 'firstname' : $fieldSort = 'U`.`prenom';  break;
         case 'cu_status' : $fieldSort = 'CU`.`statut'; break;
-//        case 'email'  : $fieldSort = 'email';       
+//        case 'email'  : $fieldSort = 'email';
     }
     $toAdd = " ORDER BY `" . $fieldSort . "` " . $_SESSION['admin_course_user_dir'];
     $order[$_SESSION['admin_course_user_order_crit']] = ($_SESSION['admin_course_user_dir']=='ASC'?'DESC':'ASC');
@@ -169,7 +167,7 @@ if (isset($_REQUEST['search']))
 }
 
 //Build SQL query
-if (!isset($_REQUEST['offset'])) 
+if (!isset($_REQUEST['offset']))
 {
     $offset = '0';
 }
@@ -206,11 +204,11 @@ if ( !empty($dialogBox) )
 {
     echo claro_disp_message_box($dialogBox);
 }
-  
+
 //Display selectbox, alphabetic choice, and advanced search link search
 echo '<a class="claroCmd" href="adminregisteruser.php'
-.    '?cidToEdit=' . $cidToEdit . '">' 
-.    $langEnrollUser 
+.    '?cidToEdit=' . $cidToEdit . '">'
+.    $langEnrollUser
 .    '</a>'
 ;
 
@@ -242,18 +240,18 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<tr class="headerX" align="center" valign="top">'
 
 .    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] 
-.    '?order_crit=uid&amp;dir=' . $order['uid'] 
+.    '<a href="' . $_SERVER['PHP_SELF']
+.    '?order_crit=uid&amp;dir=' . $order['uid']
 .    '&amp;cidToEdit=' . $cidToEdit."\">"
 .    $langUserid
 .    '</a>'
 .    '</th>'
 
 .    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] 
+.    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=name&amp;dir=' . $order['name']
 .    '&amp;cidToEdit='.$cidToEdit.'">'
-.    $langLastName 
+.    $langLastName
 .    '</a>'
 .    '</th>'
 
@@ -261,7 +259,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=firstname&amp;dir=' . $order['firstname']
 .    '&amp;cidToEdit=' . $cidToEdit.  '">'
-.    $langFirstName 
+.    $langFirstName
 .    '</a>'
 .    '</th>'
 
@@ -301,13 +299,13 @@ foreach($resultList as $list)
      .    '</a>'
      .    '</td>'
      ;
-     
+
      // Unregister
      if (isset($cidToEdit))
      {
         echo  '<td align="center">' . "\n"
         .     '<a href="' . $_SERVER['PHP_SELF']
-        .     '?cidToEdit=' . $cidToEdit 
+        .     '?cidToEdit=' . $cidToEdit
         .     '&amp;cmd=unsub&amp;user_id=' . $list['user_id']
         .     '&amp;offset=' . $offset . '" '
         .     ' onClick="return confirmationReg(\'' . clean_str_for_javascript($list['username']) . '\');">' . "\n"
@@ -316,7 +314,7 @@ foreach($resultList as $list)
         .     '</td>' . "\n"
         ;
      }
-     
+
      echo '</tr>';
 } // end display users table
 echo '</tbody>'

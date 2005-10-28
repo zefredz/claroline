@@ -20,9 +20,9 @@ define ('DISP_FORM_CREATE', __LINE__);
 define ('DISP_FORM_EDIT', __LINE__);
 define ('DISP_FORM_MOVE', __LINE__);
 
-$cidReset = TRUE;
-$gidReset = TRUE;
-$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 
 // include claro main global
 require '../inc/claro_init_global.inc.php';

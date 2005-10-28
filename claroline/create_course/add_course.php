@@ -222,7 +222,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 </td>
 <td valign="top">
 <input type="Text" name="title" id="title" size="60" value="<?php echo htmlspecialchars($courseTitle) ?>" />
-<br><small><?php echo $langEx ?></small>
+<br /><small><?php echo $langEx ?></small>
 </td>
 </tr>
 
@@ -232,7 +232,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 </td>
 <td >
     <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>" />
-    <br>
+    <br />
     <small><?php echo $langMaxSizeCourseCode ?></small>
 </td>
 </tr>
@@ -265,7 +265,7 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
                                  , $cat_preselect
                                  , array('id'=>'category'))
                                  ; ?>
-<br><small><?php echo $langTargetFac ?></small>
+<br /><small><?php echo $langTargetFac ?></small>
 </td>
 </tr>
 
