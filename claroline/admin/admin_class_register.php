@@ -1,23 +1,25 @@
 <?php //$Id$
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
+/**
+ * CLAROLINE
+ *
+ * this tool manage the
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author  Guillaume Lederer <lederer@cerdecam.be>
+ */
 // initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
 
-include($includePath."/lib/pager.lib.php");
-include($includePath."/lib/class.lib.php");
-include($includePath."/lib/admin.lib.inc.php");
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -37,21 +39,21 @@ $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
 //find info about the class
 
-$sqlclass = "SELECT * 
-             FROM `".$tbl_class."` 
+$sqlclass = "SELECT *
+             FROM `".$tbl_class."`
              WHERE `id`='".$_SESSION['admin_user_class_id']."'";
 
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 // See SESSION variables used for reorder criteria :
 
-if (isset($_REQUEST['dir'])) 
+if (isset($_REQUEST['dir']))
 {
-   $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+    $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
 }
 else
 {
- $_REQUEST['dir'] = 'ASC';
+    $_REQUEST['dir'] = 'ASC';
 }
 
 //------------------------------------
@@ -65,37 +67,37 @@ else $cmd = null;
 switch ($cmd)
 {
   case "subscribe" :
-        
+
     // 1- test if user is not already registered to class
-	
-	$sql = "SELECT `user_id` 
-	        FROM `".$tbl_class_user."`
-	        WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
-		      AND `class_id` = '".(int)$classinfo['id']."'";
+
+    $sql = "SELECT `user_id`
+            FROM `".$tbl_class_user."`
+            WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
+              AND `class_id` = '".(int)$classinfo['id']."'";
     $result = claro_sql_query($sql);
 
-	if (!(mysql_num_rows($result) > 0))
-	{
-	
-    	// 2- process the registration of user in the class
-	
-	    $sql ="INSERT INTO `".$tbl_class_user."` 
-	           SET `user_id` = '". (int)$_REQUEST['user_id'] ."',
-	               `class_id` = '". (int)$classinfo['id'] ."' "; 
-	    claro_sql_query($sql); 	
-	    $dialogBox = $langUserRegisteredClass;
-	}     
+    if (!(mysql_num_rows($result) > 0))
+    {
+
+        // 2- process the registration of user in the class
+
+        $sql ="INSERT INTO `".$tbl_class_user."`
+               SET `user_id` = '". (int)$_REQUEST['user_id'] ."',
+                   `class_id` = '". (int)$classinfo['id'] ."' ";
+        claro_sql_query($sql);
+        $dialogBox = $langUserRegisteredClass;
+    }
     break;
 
   case "unsubscribe" :
-    $sql ="DELETE FROM `".$tbl_class_user."` 
-	       WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
-	         AND `class_id` = '". (int)$classinfo['id']."'";
-	claro_sql_query($sql);
+    $sql ="DELETE FROM `".$tbl_class_user."`
+           WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
+             AND `class_id` = '". (int)$classinfo['id']."'";
+    claro_sql_query($sql);
 
-	$dialogBox = $langUserUnregisteredFromClass; 
-	break;
-	
+    $dialogBox = $langUserUnregisteredFromClass;
+    break;
+
 }
 
 
@@ -105,7 +107,7 @@ switch ($cmd)
 //----------------------------------
 
 
-$sql = "SELECT *, U.`user_id` 
+$sql = "SELECT *, U.`user_id`
         FROM  `".$tbl_user."` AS U
         LEFT JOIN `".$tbl_class_user."` AS CU
                ON  CU.`user_id` = U.`user_id`
@@ -119,15 +121,15 @@ if (isset($_REQUEST['order_crit']))
 {
     $_SESSION['admin_class_reg_user_order_crit'] = $_REQUEST['order_crit'];
     if ($_REQUEST['order_crit']=="user_id")
-    {  
+    {
         $_SESSION['admin_class_reg_user_order_crit'] = "U`.`user_id";
     }
 }
-if (isset($_REQUEST['class'])) 
+if (isset($_REQUEST['class']))
 {
     $_SESSION['admin_user_class_id'] = $_REQUEST['class'];
 }
-if (!isset($_SESSION['admin_user_class_id'])) 
+if (!isset($_SESSION['admin_user_class_id']))
 {
     $dialogBox ="ERROR : NO CLASS SET!!!";
 }
@@ -159,17 +161,17 @@ if (isset($_SESSION['admin_class_reg_user_order_crit']))
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[]= array ("url"=>$rootAdminWeb."admin_class.php", "name"=> $langClass);
-$interbredcrump[]    = array ("url"=>$rootAdminWeb."admin_class_user.php", "name"=> $langListClassUser);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb."admin_class.php", 'name' => $langClass);
+$interbredcrump[]    = array ('url' => $rootAdminWeb."admin_class_user.php", 'name' => $langListClassUser);
 $nameTools = $langRegisterUserToClass;
 
 //Header
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 //Build pager with SQL request
 
-if (!isset($_REQUEST['offset'])) 
+if (!isset($_REQUEST['offset']))
 {
     $offset = "0";
 }
@@ -245,7 +247,7 @@ foreach($resultList as $list)
      //  Firstname
 
      echo '<td align="left">'.$list['prenom'].'</td>'."\n";
-  
+
      // Register
 
      if ($list['id']==null)
@@ -291,5 +293,5 @@ echo "</tbody>\n</table>\n";
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

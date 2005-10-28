@@ -1,15 +1,18 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ *
+ * this tool manage the
+ *
+ * @version 1.7 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author  Guillaume Lederer <lederer@cerdecam.be>
+ */
 
 require '../inc/claro_init_global.inc.php';
 include $includePath."/lib/admin.lib.inc.php";
@@ -24,7 +27,7 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 //bredcrump
 
 $nameTools=$langClassRegistered;
-$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langClassRegistered);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langClassRegistered);
 
 /*
  * DB tables definition
@@ -41,8 +44,8 @@ include($includePath.'/claro_init_header.inc.php');
 
 //find info about the class
 
-$sqlclass = "SELECT * 
-             FROM `".$tbl_class."` 
+$sqlclass = "SELECT *
+             FROM `".$tbl_class."`
              WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
@@ -58,7 +61,7 @@ if (isset($cmd) && $is_platformAdmin)
     if ($cmd=="exReg")
     {
         $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
-        $outputResultLog = '';    
+        $outputResultLog = '';
 
         if ( isset($resultLog['OK']) && is_array($resultLog['OK']) )
         {
@@ -89,7 +92,7 @@ if (isset($cmd) && $is_platformAdmin)
 echo claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
 
 //Display Forms or dialog box(if needed)
-    
+
 // display log
 if ( !empty($outputResultLog) )
 {
@@ -109,5 +112,5 @@ echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?
 
 // display footer
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>
