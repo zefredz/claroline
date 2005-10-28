@@ -258,12 +258,12 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 <table  cellpadding="3" border="0">
 
 <tr>
-<td align="right"><label for="int"><?php echo $langCourseTitle ?></label> :</td>
+<td align="right"><label for="int"><?php echo ($human_label_needed ? '<span class="required">*</span>' :'') . $langCourseTitle ?></label> :</td>
 <td><input type="Text" name="int" id="int" value="<?php echo htmlspecialchars($courseTitle); ?>" size="60"></td>
 </tr>
 
 <tr>
-<td align="right"><label for="screenCode"><?php echo $langCode ?></label>&nbsp;:</td>
+<td align="right"><label for="screenCode"><?php echo ($human_code_needed ? '<span class="required">*</span>' :'') . $langCode ?></label>&nbsp;:</td>
 <td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlspecialchars($courseOfficialCode); ?>" size="20"></td>
 </tr>
 
@@ -273,12 +273,12 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 </tr>
 
 <tr>
-<td align="right"><label for="email"><?php echo $langEmail ?></label>&nbsp;:</td>
+<td align="right"><label for="email"><?php echo ($course_email_needed ? '<span class="required">*</span>' : '') . $langEmail ?></label>&nbsp;:</td>
 <td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="60" maxlength="255"></td>
 </tr>
 
 <tr>
-<td align="right"><label for="category"><?php echo $langCategory ?></label> :</td>
+<td align="right"><label for="category"><span class="required">*</span><?php echo $langCategory ?></label> :</td>
 <td>
 <?php echo claro_html_form_select( 'category'
                                  , $category_array
@@ -300,7 +300,7 @@ if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 <tr valign="top" >
 <td align="right">
-<label for="lanCourseForm"><?php echo $langLanguage ?></label> :
+<label for="lanCourseForm"><span class="required">*</span><?php echo $langLanguage ?></label> :
 </td>
 <td>
 <?php echo claro_html_form_select( 'lanCourseForm'
@@ -357,14 +357,17 @@ if (isset($cidToEdit))
 <td>
 
 </td>
+</tr>
 <tr>
-
-
-<tr>
-<td></td>
+<td>&nbsp;</td>
 <td><small><font color="gray"><?php echo $langConfTip ?></font></small></td>
 </tr>
-
+<tr>
+<td></td>
+<td>
+<?php echo $langLegendRequiredFields ?>
+</td>
+</tr>
 <tr>
 <td></td>
 <td>
