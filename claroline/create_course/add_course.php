@@ -270,14 +270,14 @@ if( $display ==  DISP_COURSE_CREATION_FORM )
 </tr>
 
 <tr valign="top">
-<td align="right"><label for="extLinkName">Department</label>&nbsp;: </td>
+<td align="right"><label for="extLinkName"><?php echo $langDepartmentUrlName ?></label>&nbsp;: </td>
 <td>
 <input type="text" name="extLinkName" id="extLinkName" value="" size="20" maxlength="30" />
 </td>
 </tr>
 
 <tr valign="top" >
-<td align="right" nowrap><label for="extLinkUrl" >Department URL</label>&nbsp;:</td>
+<td align="right" nowrap><label for="extLinkUrl" ><?php echo $langDepartmentUrl ?></label>&nbsp;:</td>
 <td>
 <input type="text" name="extLinkUrl" id="extLinkUrl" value="" size="60" maxlength="180" />
 </td>
