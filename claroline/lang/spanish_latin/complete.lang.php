@@ -199,7 +199,7 @@ $langClarContent = "Aquí, los profesores y asistentes crean y administran
  algunas veces, resuelven ejercicios, publican notas, participan en
  foros de discusiones...</p><b>Registración</b><p>Las siguientes instrucciones
  solamente se aplican si su versión de Claroline permite auto-registración (algunos sitios
- los registran automáticamente). <br>Si usted es un estudiante,
+ los registran automáticamente). <br />Si usted es un estudiante,
  solo necesita registrarse seleccionando 'Inscribirse en cursos (estudiante)', entonces elija
  el curso en el que desa inscribirse.</p><p>Si usted es un profesor o un
  asistente, también se registr, pero debe seleccionar 'Crear cursos (profesos)'. Enteonces debe
@@ -316,7 +316,7 @@ $langDBSettingNamesIntro = "
 El instalador está por crear las bases de datos principales de Claroline .
 Si usted está limitado por su administrador del sistema de Base de Datos para usar
 solamente una base de datos simple, vuelva atras a la página previa
-y seleccionw la opción 'simple' para el ' modo de la Base de Datos'.<BR><BR>
+y seleccionw la opción 'simple' para el ' modo de la Base de Datos'.<br /><br />
 ";
 $langDBUse = "Uso de la Base de Datos";
 $langDOCUMENTTypeDesc = "Documento";
@@ -602,7 +602,7 @@ $langElementList = "Lista de Elementos";
 $langEmail = "Email";
 $langEmailAddressNotFound = "No hay una cuenta de usuario con esta dirección de email.";
 $langEmailCanBeEmpty = "El campo Email debe ser rellenado";
-$langEmailNotSent = "El sistema no puede enviarle un e-mail.<br>Por favor contacte al  ";
+$langEmailNotSent = "El sistema no puede enviarle un e-mail.<br />Por favor contacte al  ";
 $langEmailOption = "Enviar este anuncio por email a los estudiantes registrados";
 $langEmailSent = " y enviado por email a los estudiantes registrados";
 $langEmailWrong = "La dirección de email no es válida";
@@ -803,7 +803,7 @@ $langFileContentModified = "Contenido del Archivo modificado";
 $langFileCreated = "Archivo creado";
 $langFileDesc = "Descripción del Archivo ";
 $langFileError = "El archivo a levantar no es válido.";
-$langFileExists = "Operation imposible.<br>Ya existe un archivo con este nombre.";
+$langFileExists = "Operation imposible.<br />Ya existe un archivo con este nombre.";
 $langFileForCSVUpload = "Archivo CSV con la lista de usuarios : ";
 $langFileName = "Nombre del archivo";
 $langFileNameMissing = "Falta el nombre del archivo";
@@ -1070,18 +1070,18 @@ $langIntroCourse = "Usted está en la Página de Inicio del curso.<br /><br />En e
 Ahora, agregue un texto introductorio presentando su curso a los estudiantes, Haga clic en este botón ";
 $langIntroEditToolList = "Seleccione las herramientas que desea hacer visible a sus usuarios.
 Una herramienta invisible será mostrada en color gris en su interfaz personal";
-$langIntroLearningPath = "Use esta herramienta to brindar a sus estudiantes con una ruta secuencia entre Documentos, ejercicios, páginas HTML, enlaces,...<br><br>Si desea presentar su Ruta de Aprendizaje a los estudiantes, Haga clic en el botón abajo.<br>";
+$langIntroLearningPath = "Use esta herramienta to brindar a sus estudiantes con una ruta secuencia entre Documentos, ejercicios, páginas HTML, enlaces,...<br /><br />Si desea presentar su Ruta de Aprendizaje a los estudiantes, Haga clic en el botón abajo.<br />";
 $langIntroText = "Para enviar un mensaje, seleccione los grupos de usuarios (marcados con un * en al frente)
  o a usuarios individales desde la lista a la izquierda.";
 $langIntroWork = "Esta herramienta permite al profesor crear tareas en las cuales cualquier estudiante (de acuerdo a los valores asignados a cada tarea) será capaz de levantar un documento, o escribir un texto, en el sitio web del curso.
 <br />You podrá agregar un comentario o una calificación a cada trabajo.
-<br /><br />Si desea presentar esta herramienta o dar algunas recomeendaciones a los estudiantes, haga clic en el botón abajo.<br>";
-$langInvalidId = "Acceso fallido.<BR>Contacte a su administrador.";
-$langInvalidIdSelfReg = "Acceso fallido.<BR>Si usted no está registrado, use el <a href=claroline/auth/inscription.php>formulario de registro</a></font color>";
+<br /><br />Si desea presentar esta herramienta o dar algunas recomeendaciones a los estudiantes, haga clic en el botón abajo.<br />";
+$langInvalidId = "Acceso fallido.<br />Contacte a su administrador.";
+$langInvalidIdSelfReg = "Acceso fallido.<br />Si usted no está registrado, use el <a href=claroline/auth/inscription.php>formulario de registro</a></font color>";
 $langInvisible = "Invisible";
 $langIs = "es";
 $langIsAlreadyRegistered = "ya está registrado al curso";
-$langIsNowInYourDocDir = "ahora está en su herramienta Documentos. <br><B>Este archivo es visible</B>";
+$langIsNowInYourDocDir = "ahora está en su herramienta Documentos. <br /><B>Este archivo es visible</B>";
 $langIsNowRegistered = "ahora está registrado al curso";
 $langJustCreated = "Usted  ha creado el sitio web del curso ";
 $langLabelCanBeEmpty = "El título del cuerso es obligatorio";
@@ -1617,7 +1617,7 @@ $langUploadFile = "Levantar archivo";
 $langUploadedFile = "Archivo levantado";
 $langUseFollowingFormat = " Usar el siguiente formato : ";
 $langUseFormatDefined = "Usar el formato definido en la primera línea del archivo";
-$langUseOfPool = "Esta página le permite ver todos los módulos disponibles en este curso. <br>
+$langUseOfPool = "Esta página le permite ver todos los módulos disponibles en este curso. <br />
                      Cualquier ejercicio o documento que haya sido agregado en una Ruta de Aprendizaje aparecerá en esta lista.";
 $langUseTagForBlank = "use corchetes [...] para definir uno o más blancos";
 $langUsedInLearningPaths = "
@@ -1841,7 +1841,7 @@ $lang_p_IfNothingHappendClickHere = "Si <u>después 30 sgundos</u> nada cambia, P
 $lang_p_PropForConfigCommited = "Las propiedades para %s (%s) ahora son efectivas en el servidor.";
 $lang_p_aCategoryWouldBeSelected = "Usted debe elegir una categoría. If there es missing un Por favor contact <a href=\"%s\">El plateforme administrator</a>";
 $lang_p_category_s_created = "Categoría %s creada";
-$lang_p_config_file_creation = "Creación del archivo de configuración:<BR> %s";
+$lang_p_config_file_creation = "Creación del archivo de configuración:<br /> %s";
 $lang_p_d_StudentUnregistredFormCours = "%d estudiante(s) dados de baja en este curso";
 $lang_p_d_course = "%2d curso";
 $lang_p_d_course_manager = "%2d prof ";

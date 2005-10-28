@@ -61,7 +61,7 @@ $langAddFeedback = "Inserir comentário de retorno";
 $langAddImage = "Imagem";
 $langAddIntro = "Adicionar texto introdutório";
 $langAddListUser = "Inserir Lista de Usuários";
-$langAddLoginPass = "Adicionar login/senha ao .htpasswd</a><br>";
+$langAddLoginPass = "Adicionar login/senha ao .htpasswd</a><br />";
 $langAddLoginPassForThisUser = "Adicionar a senha de login do campus para esse usuário no .htpassword";
 $langAddModifyComment = "Inserir/Modificar o comentário para:";
 $langAddModule = "Adicionar";
@@ -403,7 +403,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
  Alguns tipos de arquivo podem conter vírus, é sua responsabilidade não enviar
  arquivos contaminados por vírus. Seja cuidadoso ao verificar seus documentos
  com um software anti-vírus antes de enviá-los.</p>
-<p>Os documentos são apresentados em ordem alfabética.<br><b>Tip : </b>Se
+<p>Os documentos são apresentados em ordem alfabética.<br /><b>Tip : </b>Se
  você quiser apresentá-los em uma ordem diferente, enumere-os: 01, 02,
  03...</p>
 <p>Você pode:</p>
@@ -456,7 +456,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 	  delete the old comment in the field and click <input type=submit
  value=OK name=submit22>
 	  . 
-	<hr>
+	<hr />
 	<p>You can organise your content through filing. For this:</p>
 	<h4><b>Create a directory</b></h4>
 	<ul>
@@ -520,7 +520,7 @@ $langEmailNotSent = "Alguma coisa não funciona, envie isso por e-mail para ";
 $langEmailOption = "Enviar esse aviso por e-mail para estudantes registrados";
 $langEmailSent = " e enviada para os estudantes registrados";
 $langEmailWrong = "O endereço de e-mail não está completo ou contém algum caractere inválido";
-$langEmpty = "Você deixou alguns campos vazios.<br>Use o botão <b>Voltar</b> do seu browser e tente novamente.<br>Se você não sabe o código do seu curso, veja o Programa do Curso";
+$langEmpty = "Você deixou alguns campos vazios.<br />Use o botão <b>Voltar</b> do seu browser e tente novamente.<br />Se você não sabe o código do seu curso, veja o Programa do Curso";
 $langEmptyAnn = "Limpar a lista de avisos";
 $langEmptyFields = "Você deixou alguns campos vazios.";
 $langEmtpyGroups = "Esvaziar todos os grupos";
@@ -714,7 +714,7 @@ $langFileContentModified = "Conteúdo do arquivo modificado";
 $langFileCreated = "Arquivo criado";
 $langFileDesc = "Arquivo de descrição";
 $langFileError = "O arquivo a ser enviado não é válido.";
-$langFileExists = "Operação impossível.<br>Um arquivo com esse nome já existe.";
+$langFileExists = "Operação impossível.<br />Um arquivo com esse nome já existe.";
 $langFileForCSVUpload = "CSV file with the user list : ";
 $langFileName = "Nome do arquivo";
 $langFileNameMissing = "Está faltando o nome do arquivo";
@@ -992,7 +992,7 @@ $langInsertNewModuleName = "Inserir novo nome";
 $langInstalled = "A rota de aprendizagem foi importada com sucesso.";
 $langInstitution = "Instituição";
 $langInstitutionUrl = "Website da Instituição";
-$langIntroCourse = "Você está na página inicial do seu curso.<br><br>Nessa página, você pode :
+$langIntroCourse = "Você está na página inicial do seu curso.<br /><br />Nessa página, você pode :
 <ul>
 <li>ativar ou desativar ferramentas (clique no botão '' no canto inferior esquerdo).</li>
 <li>modificar configurações ou visualizar estatísticas (clique nos link correspondentes abaixo).</li>
@@ -1000,15 +1000,15 @@ $langIntroCourse = "Você está na página inicial do seu curso.<br><br>Nessa págin
 Agora, para adicionar um texto introdutório apresentando o seu curso para os estudantes, clique nesse botão ";
 $langIntroEditToolList = "Selecione as ferramentas que você quer tornar visíveis para seus usuários.
 Ferramentas invisíveis serão retiradas de sua interface pessoal";
-$langIntroLearningPath = "Use essa ferramenta para fornecer aos seus estudantes uma rota seqüêncial entre documentos, exercícios, páginas HTML, links, etc.<br><br>Se você quiser apresentar sua rota de aprendizagem aos estudantes, clique no botão abaixo.<br>";
+$langIntroLearningPath = "Use essa ferramenta para fornecer aos seus estudantes uma rota seqüêncial entre documentos, exercícios, páginas HTML, links, etc.<br /><br />Se você quiser apresentar sua rota de aprendizagem aos estudantes, clique no botão abaixo.<br />";
 $langIntroText = "Para enviar uma mensagem, selecione grupos de usuários (marcados com um * na frente)
  ou usuários individuais apartir da lista a esquerda.";
-$langIntroWork = "Esta página permite a qualquer estudante ou grupo enviar um documento para o website do curso. <br>Envie arquivos HTML apenas se eles não contiverem imagens.<br><br>Se você quiser apresentar essa ferramenta ou dar algumas recomendações aos estudantes, clique no botão abaixo.<br>";
+$langIntroWork = "Esta página permite a qualquer estudante ou grupo enviar um documento para o website do curso. <br />Envie arquivos HTML apenas se eles não contiverem imagens.<br /><br />Se você quiser apresentar essa ferramenta ou dar algumas recomendações aos estudantes, clique no botão abaixo.<br />";
 $langInvalidId = "Login inválido. Se você não é registrado, preencha o <a href='claroline/auth/inscription.php'>Formulário de Inscrição</a></font color>";
 $langInvisible = "Invisível";
 $langIs = "é";
 $langIsAlreadyRegistered = " Já  está  registrado no curso";
-$langIsNowInYourDocDir = "está agora na sua ferramenta de documentos. <br><B>Esse arquivo está visível</B>";
+$langIsNowInYourDocDir = "está agora na sua ferramenta de documentos. <br /><B>Esse arquivo está visível</B>";
 $langIsNowRegistered = " Agora está  registrado no curso";
 $langJustCreated = "Você acabou de criar o website do curso";
 $langLabelCanBeEmpty = "É necessário informar o título do curso";
@@ -1087,7 +1087,7 @@ $langMessage = "Quando você remover o fórum de teste, irá remover todas as suas 
 $langMessageSubscribeDone_p_firstname_lastname = "
 Caro %s, %s. 
 Suas configurações pessoais foram registradas e um e-mail será enviado 
-para lembrá-lo de seu nome de usuário e senha.<br>
+para lembrá-lo de seu nome de usuário e senha.<br />
 Selecione agora na 
 lista os cursos que deseja participar.";
 $langMessageToSelectedUsers = "Mensagens para usuários selecionados";
@@ -1513,7 +1513,7 @@ $langUploadFile = "Enviar arquivo";
 $langUploadedFile = "Enviar arquivo";
 $langUseFollowingFormat = " Uasar o seguinte formato: ";
 $langUseFormatDefined = "Usar o formato definido na primeira linha";
-$langUseOfPool = "Essa página permite a você visualizar todos os módulos disponíveis nesse curso. <br>
+$langUseOfPool = "Essa página permite a você visualizar todos os módulos disponíveis nesse curso. <br />
                      Qualquer exercício ou documento que tenha sido adicionado em uma rota de aprendizagem irá também aparecer nessa lista.";
 $langUseTagForBlank = "use colchetes [...] para definir um ou mais espaços em branco";
 $langUsedInLearningPaths = "
@@ -1527,7 +1527,7 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
- visitor, expert...</P><hr>
+ visitor, expert...</P><hr />
 <b>Admin rights</b>
 <p>Admin rights, on the other hand, correspond to the technical
  authorisation to modify the content and organisation of the course
@@ -1535,13 +1535,13 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  rights and giving none of them.</P>
 <p>To allow an assistant, for instance, to co-admin the site, you need to
  register him in the course or be sure he is already registerd, then click
- on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
+ on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr />
 <b>Co-chairmen</b>
 <p>To mention in the header of the course website the name of a
  co-chairmen, use the tool 'Modify course info' (orange tools). This
  modification does not register your co-chairmen as a user of the course.
  The field 'Professors' is completely independant of the Users
- list.</p><hr>
+ list.</p><hr />
 <b>Add a user</b>
 <p>To add a user for your course, fill the fields and validate. The person
 will receive a mail telling him/her you have registered him/her and telling
@@ -1651,7 +1651,7 @@ $lang_no_error_in_file_found = " Nenhum erro foi observado para o arquivo.";
 $lang_or_search_from_keyword = "Pesquisar por palavra-chave";
 $lang_p_ErrorOnBuild_S_for_S = "Erro na produção de <em>%s</em> para <B>%s</B>";
 $lang_p_PropForConfigCommited = "As características para %s (%s) estão ativas no servidor.";
-$lang_p_config_file_creation = "Criação do arquivo de configuração:<BR> %s";
+$lang_p_config_file_creation = "Criação do arquivo de configuração:<br /> %s";
 $lang_p_d_course = "%2d curso";
 $lang_p_d_course_manager = "%2d prof ";
 $lang_p_d_course_managers = "%2d profs ";

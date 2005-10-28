@@ -133,7 +133,7 @@ $langDocContent = "<p>この文書ツールは、コンピュータのファイルマネージャに似てい
 	</ul>
 	<p>コメントを削除<img src=../img/comment.gif width=20 height=20>, 	欄内の古いコメントを空白にする <input type=submit value=OK name=submit22>
 	  . 
-	<hr>
+	<hr />
 	<p>文書整理は次のようにします:</p>
 	<h4><b>ディレクトリを作る</b></h4>
 	<ul>

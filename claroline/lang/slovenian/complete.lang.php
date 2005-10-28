@@ -51,7 +51,7 @@ $langAddCategory = "Dodaj kategorijo";
 $langAddComment = "Dodaj/spremeni komentar na";
 $langAddEvent = "Dodaj dogodek";
 $langAddIntro = "Dodaj uvodno besedilo";
-$langAddLoginPass = "Dodaj administratorsko ime/geslo v .htpassword</a><br>";
+$langAddLoginPass = "Dodaj administratorsko ime/geslo v .htpassword</a><br />";
 $langAddNewHeading = "Dodaj nov naslov";
 $langAddTutors = "Seznam administratorjev";
 $langAddedToCourse = "je bil registriran za tvoj tecaj";
@@ -100,7 +100,7 @@ $langClarContent = "Tu lahko ucitelji in njihovi asistenti tvorijo in upravljajo
 izvajajo vaje, objavljajo svoje izdelke, sodelujejo v razpravah (forumih)...</p>
 <b>Registracija</b>
 <p>Naslednja navodila veljajo le, ce vasa verzija claroline dovoljuje samo-registracijo
- (nekatere spletne lokacije vas avtomatsko registrirajo). <br>
+ (nekatere spletne lokacije vas avtomatsko registrirajo). <br />
 Ce si student, se moras vpisati z izbiro 'Sledi tecajem (student)', nato pa izberes tecaje, ki bi jih rad obiskoval.</p>
 <p>Ce si ucitelj ali asistent, se moras tudi registrirati, vendar izberes 'Tvorba tecajev (ucitelj)'. Izpolniti bos moral
 obrazec s kodo tecaja, nazivom fakultete in tecaja. Ko je to potrjeno, bos napoten na spletno stran, 
@@ -179,7 +179,7 @@ $langDocContent = "<p>Orodje dokumenti je podobno upravniku datotek na vasem nam
 Poskrbeti moras le, da bodo studenti imeli na voljo potrebne programe za njihovo branje.
  Nekatere datoteke lahko vsebujejo viruse in ti si odgovoren, da ne prepisujes okuzenih datotek. 
 Zato je smiselno, da datoteke pred prepisovanjem preveris s primernim protivirusnim programmom.</p>
-<p>Dokumenti so predstavljeni v abecednem vrstnem redu.<br><b>Tip : </b>
+<p>Dokumenti so predstavljeni v abecednem vrstnem redu.<br /><b>Tip : </b>
 Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p>
 <p>You can :</p>
 <h4>Prepisovanje (Upload) dokumenta</h4>
@@ -250,7 +250,7 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 		Za brisanje komentarja klikni na <img src=../img/comment.gif width=20 height=20>,
 		brisi stari komentar v polju in klikni 
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			Vsebino lahko uredis s polnjenjem. Za to:
 		</p>
@@ -318,8 +318,8 @@ $langExMessage = "Example message";
 $langExerciceEx = "Sample exercise";
 $langExercices = "Vaje";
 $langExercise = "Vaje";
-$langExerciseContent = "<p>Orodje Vaje omogoca tvorbo vaj, ki bodo vsebovale poljubno stevilo vprasanj.<br><br>
-Imamo vec vrst odgovorov na nasa vprasanja:<br><br>
+$langExerciseContent = "<p>Orodje Vaje omogoca tvorbo vaj, ki bodo vsebovale poljubno stevilo vprasanj.<br /><br />
+Imamo vec vrst odgovorov na nasa vprasanja:<br /><br />
 <ul>
   <li>Veckratna izbira (En odgovor)</li>
   <li>Veckratna izbira (vec odgovorov)</li>
@@ -327,24 +327,24 @@ Imamo vec vrst odgovorov na nasa vprasanja:<br><br>
   <li>Zapolnjevanje praznih polj</li>
 </ul>
 Vaja zdruzuje doloceno stevilo vprasanj na skupno tematiko.</p>
-<hr>
+<hr />
 <b>Tvorba vaje</b>
-<p>Vajo tvorimo tako, da kliknemo na povezavo &quot;New exercise&quot;.<br><br>
-Vtipkamo ime vaje in njen poljuben opis.<br><br>
-Lahko izbiramo med dvema vrstama vaj :<br><br>
+<p>Vajo tvorimo tako, da kliknemo na povezavo &quot;New exercise&quot;.<br /><br />
+Vtipkamo ime vaje in njen poljuben opis.<br /><br />
+Lahko izbiramo med dvema vrstama vaj :<br /><br />
 <ul>
   <li>Vprasanja na eni strani</li>
   <li>Enio vprasanje na strani (zaporedno)</li>
 </ul>
-in napovemo, ali zelimo, da bodo med izvedbo vaje vprasanja nakljucno razvrscena ali ne.<br><br>
+in napovemo, ali zelimo, da bodo med izvedbo vaje vprasanja nakljucno razvrscena ali ne.<br /><br />
 Nato vajo shranimo. Preidemo na administracijo vprasanj za to vajo.</p>
-<hr>
+<hr />
 <b>Dodajanje vprasanj</b>
 <p>Sedaj lahko dodajamo vprasanja na predhodno tvorjeno vajo. Poljubno dodamo opis in nave\emo ustrezno sliko.</p>
-<hr>
+<hr />
 <b>Veckratna izbira</b>
-<p>To je slavni MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-MAQ / MCQ tvorimo tako:<br><br>
+<p>To je slavni MAQ (multiple answer question) / MCQ (multiple choice question).<br /><br />
+MAQ / MCQ tvorimo tako:<br /><br />
 <ul>
   <li>Definiramo odgovore na vprasanja. Odgovore dodajas ali brises s klikom na desni gumb</li>
   <li>Oznacevanje pravilnih odgovorov s kvadratkom na levi</li>
@@ -352,48 +352,48 @@ MAQ / MCQ tvorimo tako:<br><br>
   <li>Vsakemu odgovoru lahko damo utez. Utez je lahko pozitivno ali negativno celo stevilo, ali nic</li>
   <li>Shrani odgovore</li>
 </ul></p>
-<hr>
+<hr />
 <b>Zapolni prazna polja</b>
-<p>To predvideva yapolnjenje praznih polj z besedilom. Cilj je, da student najde besede, ki smo jih odstranili iz teksta.<br><br>
-Besedo odstranimo iz teksta in tako tvorimo prazno polje tako, da  dano besedo oklenemo v oklepaje [tako].<br><br>
+<p>To predvideva yapolnjenje praznih polj z besedilom. Cilj je, da student najde besede, ki smo jih odstranili iz teksta.<br /><br />
+Besedo odstranimo iz teksta in tako tvorimo prazno polje tako, da  dano besedo oklenemo v oklepaje [tako].<br /><br />
 Ko bo besedilo vtipkano in prazna polja zapolnjena, lahko dodamo komentar, 
-ki ga bo videl student, ko boodgovoril na vprasanja.<br><br>
+ki ga bo videl student, ko boodgovoril na vprasanja.<br /><br />
 Besedilo shranimo in gremo na naslednji korak, v katerem za vsako prazno polje dolocimo utez. 
 Tako je lahko vprasanje utezeno z 10 tockami in ce imamo 5 praznih polj, je vsako utezeno z 2 tockama.</p>
-<hr>
+<hr />
 <b>Ujemanje</b>
-<p>Ta tip odgovorov izberes za tvorbo vprasanja, kjer mora student povezati elemente enote U1 z elementi enote U2.<br><br>
-Lahko ga tudi uporabimo, ce zahtevamo od studenta razvrscanje elementov v dolocenem zaporedju.<br><br>
+<p>Ta tip odgovorov izberes za tvorbo vprasanja, kjer mora student povezati elemente enote U1 z elementi enote U2.<br /><br />
+Lahko ga tudi uporabimo, ce zahtevamo od studenta razvrscanje elementov v dolocenem zaporedju.<br /><br />
 Najprej definiramo opcije, med katerimi bo mogel student izbirati pravilen odgovor. 
 Nato dolocimo vprasanja, ki jih bomo povezali na eno od prej predvidenih opcij. 
-Koncno povezemo z uporabo menuja elemente iz prve enote z elementi iz druge.<br><br>
-Opomba : Vec elementov iz prve enote lahko kaze na isti element iz druge enote.<br><br>
+Koncno povezemo z uporabo menuja elemente iz prve enote z elementi iz druge.<br /><br />
+Opomba : Vec elementov iz prve enote lahko kaze na isti element iz druge enote.<br /><br />
 Podamom utez za vsako pravilno ujemanje in shranimo odgovor.</p>
-<hr>
+<hr />
 <b>Spremembe vaj</b>
 <p>Vaje lahko spreminjamo na enak nacin, kot jih tvorimo. Kliknemo na sliko <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo spreminjamo, 
 in sledimo navodilom.</p>
-<hr>
+<hr />
 <b>Brisanje vaj</b>
 <p>Vajo brisemo tako, da kliknemo na sliko <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
 ob vaji, ki jo brisemo.</p>
-<hr>
+<hr />
 <b>Omogocanje vaj</b>
 <p>Vajo, ki naj bi bila uporabljena, moramo omogociti s klikom na sliko <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ob vaji, ki jo omogocamo.</p>
-<hr>
+<hr />
 <b>Izvajanje vaj</b>
 <p>Vaje lahko preskusamo s klikom na njeno ime v seznamu vaj.</p>
-<hr>
+<hr />
 <b>Nakljucno izvajanje vaj</b>
-<p>Ko vajo tvorimo ali spreminjamo, lahko dolocimo, ali bodo postavljana vprasanja v nakljucnem vrstnem redu.<br><br>
-Z izbiro te opcije bodo studenti vsakokrat dobili vprasanja v drugacnem zaporedju.<br><br>
+<p>Ko vajo tvorimo ali spreminjamo, lahko dolocimo, ali bodo postavljana vprasanja v nakljucnem vrstnem redu.<br /><br />
+Z izbiro te opcije bodo studenti vsakokrat dobili vprasanja v drugacnem zaporedju.<br /><br />
 Ce imamo veliko stevilo vprasanj, lahko tudi izberemo da bodo nakljucno dobili le X vprasanj iz zaloge vseh moznih vprasanj za to vajo.</p>
-<hr>
+<hr />
 <b>Zaloga vprasanj</b>
-<p>Ko neko vajo zbrisemo, vprasanja nisoodstranjena s podatkovne baze in jih lahko ponovno uporabimov drugih vajah.<br><br>
-Taka zaloga vprasanj omogoca tudi njihovo uporabo v vec vajah.<br><br>
+<p>Ko neko vajo zbrisemo, vprasanja nisoodstranjena s podatkovne baze in jih lahko ponovno uporabimov drugih vajah.<br /><br />
+Taka zaloga vprasanj omogoca tudi njihovo uporabo v vec vajah.<br /><br />
 Privzeto vidimo vsa vprasanja nasega tecaja. 
-Vprasanja neke vaje lahko vidimoz njihovo izbiro v ustreznem menuju &quot;Filter&quot;.<br><br>
+Vprasanja neke vaje lahko vidimoz njihovo izbiro v ustreznem menuju &quot;Filter&quot;.<br /><br />
 Opuscena vprasanja so tista, ki ne pripadajo nobeni vaji.</p>";
 $langExerciseDescription = "Opis vaje";
 $langExerciseManagement = "Upravljanje z vajo";
@@ -405,7 +405,7 @@ $langExpectedChoice = "Pricakovana izbira";
 $langExplanation = "The page must be in HTML format (e.g. \"my_page.htm\"). It will be linked from Homepage. If you want to send non HTML documents (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Documents tool</a>";
 $langFieldsRequ = "Vsa polja so potrebna";
 $langFileError = "Datoteka za prepis ni dobra.";
-$langFileExists = "Operacija ni mozna.<br>Datoteka s tem imenom ze obstaja.";
+$langFileExists = "Operacija ni mozna.<br />Datoteka s tem imenom ze obstaja.";
 $langFillBlanks = "Napolni prazna mesta";
 $langFillGroups = "Polni skupine";
 $langFillLists = "Izpolni dva spodnja seznama";
@@ -543,9 +543,9 @@ $langImpossible = "Operacija ni mozna";
 $langIn = "v";
 $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Informacija za studente";
-$langInvalidId = "Vstop ni uspel.<BR>Ce nimas registracije, uporabi <a href=claroline/auth/inscription.php>obrazec za registracijo</a></font color>";
+$langInvalidId = "Vstop ni uspel.<br />Ce nimas registracije, uporabi <a href=claroline/auth/inscription.php>obrazec za registracijo</a></font color>";
 $langIs = "je";
-$langIsNowInYourDocDir = "je sedaj v tvojem orodju za dokumente. <br><B>Ta datoteka je vidna</B>";
+$langIsNowInYourDocDir = "je sedaj v tvojem orodju za dokumente. <br /><B>Ta datoteka je vidna</B>";
 $langJustCreated = "Uspesno si tvoril spletno stran tecaja";
 $langLanguage = "Jezik";
 $langLast31days = "V zadnjih 31 dneh";
@@ -778,17 +778,17 @@ $langUser = "Uporabniki";
 $langUserContent = "<b>Vloge</b><p>Vloge nimajo nobene funkcijske zveze z racunalnikom.
  Z njimi ne dobimo pravic v operacijskem sistemu. Z njimi le nakazemo, kdo je kdo. 
 Lahkom jih spremenimo s klikom na 'spremeni' v opciji
- 'vloga', nakar vtipkas, kar zelis: ucitelj, asistent, student, obiskovalec, ekspert...</P><hr>
+ 'vloga', nakar vtipkas, kar zelis: ucitelj, asistent, student, obiskovalec, ekspert...</P><hr />
 <b>Pravice administratorja</b>
 <p>Pravice administratorja po drugi strani ustrezajo tehnicnim pravicam
 spreminjanja vsebin in organizacije spletne strani tecaja. 
 Trenutno lahko dodelite le popolne administratorske pravice ali nobene.</P>
 <p>Ce hoces na primer dovoliti asistentu soupravljanje spletne strani, ga moras registrirati v tecaj in nato klikniti
-na 'spremeni' pod 'Pravice administratorja', nato klikniti 'vse', in potrditi z 'Ok'.</P><hr>
+na 'spremeni' pod 'Pravice administratorja', nato klikniti 'vse', in potrditi z 'Ok'.</P><hr />
 <b>Sodelujoci ucitelji</b>
 <p>V nazivu spletne strani tecaja lahko navedemo sodelujocega ucitelja z orodjem 'Spremeni podatke o tecaju' (oranzno orodje). 
 Ta sprememba ne registrira sodelujocega ucitelja kot uporabnika tecaja.
-Polje 'Ucitelji' je povsem neodvisno od seznama uporabnikov.</p><hr>
+Polje 'Ucitelji' je povsem neodvisno od seznama uporabnikov.</p><hr />
 <b>Dodajanje uporabnika</b>
 <p>Uporabnika dodamo v tecaj tako, da izpolnimo polja in to potrdimo. Oseba bo dobila elektronsko posto s sporocilom, 
 da je bila registrirana s podanim uporabniskim imenom in geslom.</p>";

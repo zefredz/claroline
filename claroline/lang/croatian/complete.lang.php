@@ -79,7 +79,7 @@ $langCategories = "Kategorije";
 $langChat = "Razgovor - chat";
 $langChoice = "Vaš izbor";
 $langClarContent = "Ovdje, profesori i asistenti mogu kreirati i nadzirati predmetnu web stranicu. Studenti èitaju (dokumente,   informacije) i, 
- ponekad, rade vježbe, publiciraju radove, sudjeluju u forumskim diskusijama...</p><b>Prijava</b><p>Sljedeæe upute odnose se samo ukoliko imate verziju claroline koja dozvoljava samostalnu prijavu (neke stranice registriraj korisnika automatski). <br>Ukoliko ste student za prijavu potrebno je odabrati 'Prati predmete (student)', i onda odaberite predmete koje \elite pratiti.</p><p> Ukoliko ste profesor ili asistent, za prijavu odaberite 
+ ponekad, rade vježbe, publiciraju radove, sudjeluju u forumskim diskusijama...</p><b>Prijava</b><p>Sljedeæe upute odnose se samo ukoliko imate verziju claroline koja dozvoljava samostalnu prijavu (neke stranice registriraj korisnika automatski). <br />Ukoliko ste student za prijavu potrebno je odabrati 'Prati predmete (student)', i onda odaberite predmete koje \elite pratiti.</p><p> Ukoliko ste profesor ili asistent, za prijavu odaberite 
 'Kreiraj predmet (profesor)'. Tada æete morati popuniti podatke o predmetnom kodu, Fakultetu i nazivu predmeta. Kada je to potvrðeno, bit æete usmjereni na stranicu koju ste upravo stvorili i ovlašteni da mjenjate njezin sadržaj i organizirate ju prema svojim potrebama
 </p><p>Opcija 'Uradi' omoguæava povratnu vezu sa  vašim claroline website administratorom. Ono što možete poslati ovdje ukljuèuje greške ili vaše prijedloge.'Uradi' lista je povezana sa Poèetnom stranicom campusa (kad je jednom logirana).</p>
 <p>Potpora foruma je razli;ita. Ona sadrži sve Claroline korisnike u svijetu. Ukoliko ne možete pronaæi odgovor na pitanje unutar claroline campusa i okolice pošaljite poruku ovdje.
@@ -124,7 +124,7 @@ $langDirMv = "Element pomaknut";
 $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj površini raèunala.</p><p> Možete uèitati dokumente bilo kojeg tipa (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, itd.). Pritom je važno da studenti imaju takoðer odgovarajuæi software kako bi mogli èitati dokumente.
  Neke datoteke mogu sadržavati viruse, a Vaša je odgovornost da ne uèitavate zaražene virusom datoteke. Zbog mjere opreza preporuèa se provjeriti dokumente antivirusnim programom prije nihovog oèitavanja.
  </p>
-<p>Dokumenti su postavljeni prema abecednom poretku.<br><b> Tip : </b>Ukoliko ih želite složiti nekim drugim redosljedom, numerirajte ih oznakama: 01, 02, 03...</p>
+<p>Dokumenti su postavljeni prema abecednom poretku.<br /><b> Tip : </b>Ukoliko ih želite složiti nekim drugim redosljedom, numerirajte ih oznakama: 01, 02, 03...</p>
 <p>Možete :</p>
 <h4>Uèitajte dokument</h4>
 <ul>
@@ -195,7 +195,7 @@ $langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj p
 		Da bi izbrisali primjedbu, kliknite na <img src=../img/comment.gif width=20 height=20>, 
 		obrišite staru primjedbu u polju i kliknite 
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			Možete organizirati svoj  sadržaj popunjevanjem. Za to:
 		</p>
@@ -244,7 +244,7 @@ $langEmail = "Email";
 $langEmailOption = "Pošalji najavu elektronièkom poštom registriranim studentima";
 $langEmailSent = " i poslano elektronièkom poštom registriranim studentima";
 $langEmailWrong = "Email adresa je nepotpuna ili sadrži neku nedozvoljenu karakteristiku";
-$langEmpty = " Niste ispunili sve podatke,<br> Tipkom <b>Back</b> vratite se i ispravite.<br>";
+$langEmpty = " Niste ispunili sve podatke,<br /> Tipkom <b>Back</b> vratite se i ispravite.<br />";
 $langEmptyAnn = "Pobriši popis najava";
 $langEmptyFields = "Ostavili ste neka prazna polja.Kliknite na opciju Povratak i pokušajte ponovno";
 $langEmtpyGroups = "Isprazni sve grupe";
@@ -257,7 +257,7 @@ $langExercise = "Vježbe";
 $langExistingGroups = "Grupe";
 $langExplanation = "Stranica mora biti u HTML formatu (e.g. \"my_page.htm\"). Bit æe link na poèetnoj stranici. Ako želite poslati u nekom drugom formatu (PDF, Word, Power Point, Video, itd.) koristite <a href=../document/document.php>Alati dokumenata</a>";
 $langFieldsRequ = "Potrebno je ispuniti sve podatke";
-$langFileExists = "Greška.<br>Veæ postoji datoteka s istim imenom";
+$langFileExists = "Greška.<br />Veæ postoji datoteka s istim imenom";
 $langFillGroups = "Popuni grupe";
 $langFinish = "Kraj";
 $langForContent = "Forum je pisani i asinkroni diskusijski alat.
@@ -348,7 +348,7 @@ $langIndeed = "Zaista. Sokratova ironija je metoda govorništva. Grèki  \"eirotao
 $langInfo2Say = "Informacije za studente";
 $langInvalidId = "Neuspjela prijava. Niste registrirani korisnik";
 $langIs = "je";
-$langIsNowInYourDocDir = " se nalazi  u vašim dokumentima. <br><B>Datoteka je vidljiva</B>";
+$langIsNowInYourDocDir = " se nalazi  u vašim dokumentima. <br /><B>Datoteka je vidljiva</B>";
 $langJustCreated = "Stvorili ste Website za predmet";
 $langLanguage = "Jezik";
 $langLast7Days = "Zadnjih 7 dana";
@@ -367,7 +367,7 @@ $langMessage = "Kod brisanja pokusnog foruma, izbrisati æe se i sve poruke u nje
 $langMessageSubscribeDone_p_firstname_lastname = "
 Poštovani %s, %s. 
 Vaši osobni podaci su prijavljeni i poslan Vam je e-mail 
-s vašim korisnièkim imenom i zaporkom.<br>
+s vašim korisnièkim imenom i zaporkom.<br />
 Izaberite sada sa popisa kojim predmetima želite pristup.";
 $langMissing = "nedostaje";
 $langModifAnn = "Izmjena najave";
@@ -469,14 +469,14 @@ $langUploadFile = "Uèitavanje datoteke na server";
 $langUser = "Korisnici";
 $langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
  Oni ne daju prava za upravljanje sustavom. Oni samo ukazuju ljudima tko je tko. Možete ih mjenjati klikom na  'promjeni' ispod 'uloge', i tada možete utipkati bilo što: profesor, asistent, student,
- posjetitelj, struènjak...</P><hr>
+ posjetitelj, struènjak...</P><hr />
 <b>Admin prava</b>
 <p>Admin prava, s druge strane, korespondiraju sa tehnièkom autorizacijom za mjenjanje sadržaja i organiziranja predmente web stranice. Trenutno, možete samo birati izmeðu davanja svih admin prava ili davanja ni jednog prava
-.</P><p> Da bi dozvolili asistentu, primjerice, da administrira stranicu, morate ga prijaviti na predmetu ili biti sigurni da je on veæ prijavljen, tada kliknite na 'promjeni' ispod 'admin prava', zatim kliknite na 'sva', i zatim 'Ok'.</P><hr>
+.</P><p> Da bi dozvolili asistentu, primjerice, da administrira stranicu, morate ga prijaviti na predmetu ili biti sigurni da je on veæ prijavljen, tada kliknite na 'promjeni' ispod 'admin prava', zatim kliknite na 'sva', i zatim 'Ok'.</P><hr />
 <b>Suradnik</b>
 <p>Kako bi postavili u zaglavlje predmente web stranice ime 
  suradnik, koristite alat 'Promjeni predmetne infomacije' (naranðasti alati). Ova modifikacija ne registrira vašeg suradnika kao korisnika na predmetu.
- Polje 'Nastavnici' je potpuno neovisan od Korisnièke liste.</p><hr>
+ Polje 'Nastavnici' je potpuno neovisan od Korisnièke liste.</p><hr />
 <b>Dodaj korisnika</b>
 <p>Kako bi dodali korisnika na vaš predmet, popunite polje i  potvrdite. Osoba 'e primiti obavijest putem emaila o prijavi i svom korisni;kom imenu i zaporki.</p>";
 $langUserName = "Korisnièko ime";

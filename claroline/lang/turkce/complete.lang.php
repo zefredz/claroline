@@ -70,7 +70,7 @@ $langClarContent = "Here, professors and assistants create and administer
  sometimes, make exercices, publish papers, participate to
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites 
- register you automatically). <br>If you are a Student, you
+ register you automatically). <br />If you are a Student, you
  just need to register selecting 'Follow courses (student)', then choose
  the courses you would like to follow.</p><p>If you are a Professor or an
  Assistant, register too, but select 'Create courses (professor)'. You will
@@ -130,7 +130,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
  Some file types can contain viruses, it is your responsibilty not to
  upload virus contaminated files. It is a worthwhile precaution to check documents with 
  antivirus software before uploading them.</p>
-<p>The documents are presented in alphabetical order.<br><b>Tip : </b>If
+<p>The documents are presented in alphabetical order.<br /><b>Tip : </b>If
  you want to present them in a different order, numerate them: 01, 02,
  03...</p>
 <p>You can :</p>
@@ -202,7 +202,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		To delete a comment, click on <img src=../img/comment.gif width=20 height=20>, 
 		delete the old comment in the field and click 
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			You can organise your content through filing. For this:
 		</p>
@@ -251,7 +251,7 @@ $langEmail = "Epostanýz";
 $langEmailOption = "Bu duyuruyu epostayla kayýtlý öðrencilere gönder";
 $langEmailSent = " kayýtlý öðrencilere epostalandý";
 $langEmailWrong = "Eposta adresi eksik veya geçersiz";
-$langEmpty = "Bazý alanlarý boþ býraktýnýz.<br>Gezgininizin <b>Geri</b> düðmesini kullanarak doldurunuz.<br>Eðer ders kodunu yazmadýysanýz Ders Programýna bakýnýz";
+$langEmpty = "Bazý alanlarý boþ býraktýnýz.<br />Gezgininizin <b>Geri</b> düðmesini kullanarak doldurunuz.<br />Eðer ders kodunu yazmadýysanýz Ders Programýna bakýnýz";
 $langEmptyAnn = "Duyurular listesini temizle";
 $langEmptyFields = "Bazý alanlarý boþ býraktýnýz. Geri dönüp doldurunuz.";
 $langEmtpyGroups = "Tüm gruplarý boþalt";
@@ -264,7 +264,7 @@ $langExercises = "Alýþtýrmalar";
 $langExistingGroups = "Gruplar";
 $langExplanation = "Sayfa HTML formatýnda olmalýdýr (örnek: \"felsefe_odevi.htm\"). Eðer HTML olmayan bir dosya göndermek istiyorsanýz (PDF, Word, Power Point, Video, etc.) use <a href=../document/document.php>Belge Araçlarýný kullanýnýz</a>";
 $langFieldsRequ = "Tüm alanlar zorunludur";
-$langFileExists = "Ýþlem yapýlamýyor.<br>Ayný isimde bir dosya var.";
+$langFileExists = "Ýþlem yapýlamýyor.<br />Ayný isimde bir dosya var.";
 $langFillGroups = "Gruplarý doldur";
 $langFinish = "Bitir";
 $langForContent = "The forum is a written and asynchronous discussion tool.
@@ -396,9 +396,9 @@ $langImpossible = "Ýþlem yapýlamýyor";
 $langIn = "içinde";
 $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langInfo2Say = "Öðrencilere verilecek bilgiler";
-$langInvalidId = "Giriþ yapýlamadý.<BR>Eðer kayýtlý deðilseniz, bu formdan <a href=claroline/auth/inscription.php>kaydolunuz</a></font color>";
+$langInvalidId = "Giriþ yapýlamadý.<br />Eðer kayýtlý deðilseniz, bu formdan <a href=claroline/auth/inscription.php>kaydolunuz</a></font color>";
 $langIs = "dýr";
-$langIsNowInYourDocDir = " belge araçlarýnýzdadýr. <br><B>Bu dosya GÖRÜNÜR</B>";
+$langIsNowInYourDocDir = " belge araçlarýnýzdadýr. <br /><B>Bu dosya GÖRÜNÜR</B>";
 $langJustCreated = "Ders websiteniz yaratýlmýþtýr";
 $langLanguage = "Language";
 $langLast7Days = "Last 7 days";
@@ -419,7 +419,7 @@ Sayýn %s, %s.
 Kiþisel ayarlarýnýz kaydedildi, 
 kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi. 
 Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu 
-adresinize gönderilecektir.<br>
+adresinize gönderilecektir.<br />
 Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.";
 $langMissing = "missing";
 $langModifAnn = "Bu duyuruyu deðiþtir";
@@ -522,7 +522,7 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
- visitor, expert...</P><hr>
+ visitor, expert...</P><hr />
 <b>Admin rights</b>
 <p>Admin rights, on the other hand, correspond to the technical
  authorisation to modify the content and organisation of the course
@@ -530,13 +530,13 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  rights and giving none of them.</P>
 <p>To allow an assistant, for instance, to co-admin the site, you need to
  register him in the course or be sure he is already registerd, then click
- on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
+ on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr />
 <b>Co-chairmen</b>
 <p>To mention in the header of the course website the name of a
  co-chairmen, use the tool 'Modify course information' (orange tools). This
  modification does not register your co-chairmen as a user of the course.
  The field 'Professors' is completely independant of the Users
- list.</p><hr>
+ list.</p><hr />
 <b>Add a user</b>
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling

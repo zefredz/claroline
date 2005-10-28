@@ -92,7 +92,7 @@ $langDirCr = "Hakemisto on luotu";
 $langDirMv = "Hakemisto on siirretty";
 $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietokoneen tiedostonhallinta.</p>
 <p>Voit lisätä minkälaisia tiedostoja tahansa (.html, .doc, .sxw, .pdf, .swf, .mov ja niin edelleen). Sinun pitää vain huolehtia, että opiskelijoilla on oikeat ohjelmat, joilla he voivat käsitellä tiedostoja. Sinun pitää huolehtia myös mahdollisesta virus-vaarasta.</p>
-<p>Dokumentit näyttään aakkosjärjestyksessä.<br>
+<p>Dokumentit näyttään aakkosjärjestyksessä.<br />
 <b>Vinkki: </b>Jos haluat esittää tiedostot toisella tavalla, numeroi ne: 01, 02, 03 ja niin edelleen</p>
 <p>Voit tehdä seuraavaa :</p>
 
@@ -124,7 +124,7 @@ $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietoko
    <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit2>.</li>
 </ul>
 <p>Poistaaksesi kommentin, klikkaa <img src=../document/img/comment.gif width=20 height=20>, poista vanha kommentti kentästä ja klikkaa <input type=submit value=OK name=submit22>.
-<hr>
+<hr />
 <p>Voit järjestää sisältöä täyttämällä tähän tapaan:</p>
 <h4><b>Luo hakemisto</b></h4>
 <ul>
@@ -146,7 +146,7 @@ $langEmail = "Sähköposti";
 $langEmailOption = "Send this announcement by email to registered students";
 $langEmailSent = " and emailed to registered students";
 $langEmailWrong = "Sähköpostiosoitteesi on puutteellinen tai virheellinen";
-$langEmpty = "Jätit joitain kenttiä tyhjäksi.<br>Mene takaisin ja yritä uudetaan.<br>Jos et huomannut kurssin koodia, katso kurssin ohjelmasta.";
+$langEmpty = "Jätit joitain kenttiä tyhjäksi.<br />Mene takaisin ja yritä uudetaan.<br />Jos et huomannut kurssin koodia, katso kurssin ohjelmasta.";
 $langEmptyAnn = "Tyhjennä ilmoitusten lista";
 $langEmptyFields = "Jätit jotkut kentistä tyhjiksi. Mene takaisin ja yritä uudestaan.";
 $langEnter = "Sisään.";
@@ -157,7 +157,7 @@ $langExercices = "harjoitukset";
 $langExercises = "Harjoitukset";
 $langExplanation = "Sivun täytyy olla HTML-muodossa. Jos haluat lähettää sivun ei-HTML-muodossa (PDF, DOC, SWD, jne.), niin käytä<a href=../document/document.php>Dokumentti-sivua</a>";
 $langFieldsRequ = "Täytä kaikki kentät";
-$langFileExists = "Toiminto on mahdoton.<br>Samanniminen tiedosto on olemassa.";
+$langFileExists = "Toiminto on mahdoton.<br />Samanniminen tiedosto on olemassa.";
 $langForContent = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja ajasta riippumatonta. Sähköposti on kahden henkilön välistä keskustelua, sitä vastoin foorumi mahdollistaa julkisen tai puolijulkisen keskustelun.</p>
 <p>Teknisestä näkökulmasta katsoen oppilaat tarvitsevat vain selaimen osallistuakseen Clarolinen foorumeihin.<p>
 <p>Voit organisoida foorumin, klikkaa ylläpito-työkalua. Keskustelut on organisoitu sarjaksi seuraavalla tavalla:</p>
@@ -202,7 +202,7 @@ $langMessage = "Kun poistat testifoorumin, poistat myös kaikki viestit.";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Hyvä %s, %s. 
 Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa 
-on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
+on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br />
 Valitse listasta kurssit, joihin haluat pääsyn.";
 $langModifDone = "Tietoja on muutettu";
 $langModify = "Muokkaa";
@@ -274,16 +274,16 @@ $langUploadEnd = "Lataus on päättynyt";
 $langUploadFile = "Lisää tiedostot palvelimelle.";
 $langUserContent = "<p><b>Roolit</b></p>
 <p>Rooleilla ei ole mitään tekemistä tietokoneiden kanssa. Ne eivät anna oikeuksia järjestelmän suhteen. Ne tarkoittavat vain ihmisiä, kuka kukin on. Voit muokata niitä klikkamalla 'Muokkaa' 'roolin' alla. Voit kirjoittaa mitä tahansa rooliksi: opettaja, assistentti, vierailija, asiantuntija ja niin edelleen.</p>
-<hr>
+<hr />
 <p><b>Ylläpito-oikeudet</b></p>
 <p>Toisaalta ylläpito-oikeudet liittyy tekniseen oikeuteen muokata sisältöä ja järjestää kurssin sivustoa. Tällä hetkellä vaihtoehtoja on vain kaksi, kaikki tai ei mitään oikeuksia.</p>
 <p>Jos haluat antaa apulaiselle oikeuden ylläpitää sivustoa, sinun täytyy rekisteröidä hänet
 (tai hänen pitää itse rekisteröityä), sitten klikkaat 'Muokkaa' 'Ylläpito-oikeudet' alla, sitten klikkaat 'kaikki',
 ja sitten vielä 'ok'.</p>
-<hr>
+<hr />
 <p><b>Muut opettajat</b></p>
 <p>Jos haluat mainita muita opettajia kurssille, käytä työkalua 'Muokkaa kurssin tietoja' (oranssit työkalut). Tämä muutos ei tee muista opettajista kurssin oppilaita, kenttä 'Opettajat' on täysin erillään käyttäjien listasta.</p>
-<hr>
+<hr />
 <p><b>Lisää käyttäjä</b></p>
 <p>Jos haluat lisätä oppilaita kurssillesi, niin tarkista että ovatko he rekisteröityneet. Jos oppilas on jo rekisteröitynyt, niin tarkista laatikko hänen nimensä vieressä ja klikkaa 'Ok'. Jos hän ei ole rekisteröitynyt, niin lisää hänet käsin. Kummassakin tapauksessa, henkilö saa sähköpostiviestin, jossa kerrotaan, että olet rekisteröinyt hänet. Lisäksi hän saa tai hänelle muistutetaan tunnuksesta ja salasanasta.</p>";
 $langUserName = "Käyttäjänimi";

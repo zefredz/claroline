@@ -51,7 +51,7 @@ $langAddForum = "Fórum hozzáadása";
 $langAddImage = "Kép kapcsolása";
 $langAddIntro = "Bevezetõ szöveg hozzáadása";
 $langAddListUser = "Felhasználói lista hozzáadása";
-$langAddLoginPass = "Login/pass hozzáadása a .htpassword</a><br> fájlhoz";
+$langAddLoginPass = "Login/pass hozzáadása a .htpassword</a><br /> fájlhoz";
 $langAddLoginPassForThisUser = "Login/pass hozzáadása a .htpassword-höz a campus account alapján";
 $langAddModifyComment = "Megjegyzés hozzáadása, módosítása";
 $langAddModule = "Hozzáad";
@@ -222,7 +222,7 @@ A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenkén
 teszteket tölthetnek ki, dokumentumaikat publikálhatják, fórum megbeszéléseken vehetnek részt...
 </p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer 
 a hallgatói regisztrációt megengedi (bizonyos helyek automatikusan regisztrálnak). 
-<br>Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató) 
+<br />Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató) 
 kiválasztásával, majd a kívánt tanfolyam kiválasztásával.</p><p>Ha Ön professzor vagy 
 tanársegéd, szintén regisztrálhat, de válassza a Tanfolyam létrehozása opciót, ezt 
 követõen egy ûrlapon megadhatja a Tanfolyam kódot, Kart és Tanfolyam nevet. 
@@ -341,7 +341,7 @@ $langDBConnectionParameters = "Mysql kapcsolat paraméterek";
 $langDBHost = "Adatbázis Szerver";
 $langDBSettingNamesIntro = "A telepítõ létrehozza a fõ Claroline adatbázisokat.
 Ha a rendszer adminisztrátor csak egy adatbázist engedélyez, akkor 
-menjen vissza az elõzõ oldalra, és válassza az 'egyedüli'-t az 'Adatbázis Mód'-nál.<BR><BR>";
+menjen vissza az elõzõ oldalra, és válassza az 'egyedüli'-t az 'Adatbázis Mód'-nál.<br /><br />";
 $langDBUse = "Adatbázis használat";
 $langDOCUMENTTypeDesc = "Dokumentum";
 $langDate = "Dátum";
@@ -629,7 +629,7 @@ $langElementList = "Elem lista";
 $langEmail = "E-mail";
 $langEmailAddressNotFound = "Jelenleg nincsen felhasználói fiók ezen az e-mail címen";
 $langEmailCanBeEmpty = "Az e-mail cím megadása kötelezõ";
-$langEmailNotSent = "A rendszer nem képes az e-mail elküldésére.<br>Kérjük lépjen kapcsolatba a következõvel:";
+$langEmailNotSent = "A rendszer nem képes az e-mail elküldésére.<br />Kérjük lépjen kapcsolatba a következõvel:";
 $langEmailOption = "Küldje el ezt a hirdetményt e-mail-ben a regisztrált hallgatóknak";
 $langEmailSent = "és e-mail-ben elküldve a regisztrált hallgatóknak";
 $langEmailWrong = "Az e-mail cím érvénytelen";
@@ -831,7 +831,7 @@ $langFileContentModified = "A fájl tartalma módosult";
 $langFileCreated = "Fájl létrehozva";
 $langFileDesc = "Fájl leírás";
 $langFileError = "A feltöltendõ fájl érvénytelen";
-$langFileExists = "Mûvelet nem lehetséges.<br>Ezen a néven már létezik fájl.";
+$langFileExists = "Mûvelet nem lehetséges.<br />Ezen a néven már létezik fájl.";
 $langFileForCSVUpload = "CSV fájl a felhasználói listával:";
 $langFileName = "Fájlnév";
 $langFileNameMissing = "Fájlnév hiányzik";
@@ -1097,18 +1097,18 @@ $langIntroCourse = "Ön most a tanfolyam honlapján tartózkodik.<br /><br />Ezen a
 Kattintson erre a gombra bevezetõ szöveg megjeleítéséhez";
 $langIntroEditToolList = "Válassza ki azokat az eszközöket, melyeket láthatóvá kíván tenni a felhasználó számára.
 A láthatatlan eszközök szürkén jelennek meg Önnek";
-$langIntroLearningPath = "Használja ezt az eszközt arra, hogy segítse a hallgatókat egy dokumentumokból, gyakorlatokból, HTML oldalakból, linkekbõl, stb. álló sorrendiséggel. <br><br>Ha meg akarja jeleníteni a hallgatók számára, kattintson az alábbiakra.<br>";
+$langIntroLearningPath = "Használja ezt az eszközt arra, hogy segítse a hallgatókat egy dokumentumokból, gyakorlatokból, HTML oldalakból, linkekbõl, stb. álló sorrendiséggel. <br /><br />Ha meg akarja jeleníteni a hallgatók számára, kattintson az alábbiakra.<br />";
 $langIntroText = "Üzenet küldéséhez válassza ki a hallgatók csoportjait (*-gal jelölve), vagy egyesével a hallgatókat a baloldali listából.";
 $langIntroWork = "Az eszköz lehetõvé teszi a tanárok számára beadandó feladatok készítését, ahova bármely hallgató (függõen a beállításoktól) feladhat dokumentumot, szöveget írjon a tanfolyam honlapján.
 <br />Minden munkához megjegyzést fûzhet, vagy akár osztályzatot.
-<br /><br />Ha be akarja mutatni az eszközt, vagy javaslatokat akar tenni a hallgatók számára, kattintson az alábbi gombra.<br>";
-$langInvalidId = "Belépés sikertelen.<BR>Lépjen kapcsolatba az adminisztrátorral.";
+<br /><br />Ha be akarja mutatni az eszközt, vagy javaslatokat akar tenni a hallgatók számára, kattintson az alábbi gombra.<br />";
+$langInvalidId = "Belépés sikertelen.<br />Lépjen kapcsolatba az adminisztrátorral.";
 $langInvalidIdSelfReg = "<b>Belépés sikertelen.</b><br />Próbálkozzon újra!<br />
 <small>Ha még nincsen felhasználói fiókja, használja a <a href=claroline/auth/inscription.php>regisztrációs ûrlapot</a></font color></small>";
 $langInvisible = "Láthatatlan";
 $langIs = "van";
 $langIsAlreadyRegistered = "már reisztrálva van tanfolyamra";
-$langIsNowInYourDocDir = "mostantól benne van a dokumentum eszközben. <br><B>A fájl látható</B>";
+$langIsNowInYourDocDir = "mostantól benne van a dokumentum eszközben. <br /><B>A fájl látható</B>";
 $langIsNowRegistered = "regisztrálva van a tanfolyamra";
 $langJustCreated = "Elkészült a tanfolyam honlapja";
 $langLabelCanBeEmpty = "A tanfolyam címe kötelezõ";
@@ -1866,8 +1866,8 @@ $langWikiHelpSyntaxContent = "Fordítatlan!!!
 <li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
 <li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
 <li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
 <li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
@@ -1975,7 +1975,7 @@ $lang_p_IfNothingHappendClickHere = "<small>Ha 30 másodpercen belül semmi sem tö
 $lang_p_PropForConfigCommited = "%s (%s) tulajdonságai érvénybe léptek a szerveren.";
 $lang_p_aCategoryWouldBeSelected = "Kategória választása kötelezõ. Ha hiányzik valamelyik, lépjen kapcsolatba a <a href=\"%s\">rendszer adminisztrátorral</a>";
 $lang_p_category_s_created = "%s kategória létrehozva";
-$lang_p_config_file_creation = "Konfigurációs fájl elkészítése: <BR> %s";
+$lang_p_config_file_creation = "Konfigurációs fájl elkészítése: <br /> %s";
 $lang_p_d_StudentUnregistredFormCours = "%d hallgatók kiiratkozott a tanfolyamból";
 $lang_p_d_course = "%2d tanfolyam";
 $lang_p_d_course_manager = "%2d tanár";

@@ -61,7 +61,7 @@ $langAddForum = "Forum hinzufügen";
 $langAddImage = "Bild einfügen";
 $langAddIntro = "Einführungstext hinzufügen";
 $langAddListUser = "Benutzer aus einer Liste hinzuf&uuml;gen";
-$langAddLoginPass = "Trage ein Login/Passwort in der .htpassword- Datei ein</a><br>";
+$langAddLoginPass = "Trage ein Login/Passwort in der .htpassword- Datei ein</a><br />";
 $langAddLoginPassForThisUser = "Login-Passwort vom System-Account dieses Benutzers  .htpassword zufügen";
 $langAddModifyComment = "Kommentar hinzuf&uuml;gen oder &auml;ndern f&uuml;r";
 $langAddModule = "Hinzufügen";
@@ -231,7 +231,7 @@ $langChooseACourseToAccessThisPage = "Wählen Sie einen Kurs, um zu dieser Seite 
 $langChooseDateHelper = "(T/M/J hh:mm)";
 $langChooseGoodAnswer = "Wählen Sie eine richtige Antwort";
 $langChooseGoodAnswers = "Wählen sie eine oder mehrere richtige Antworten";
-$langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br>Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br>
+$langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br />Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br />
 Wenn Sie ein Dozent sind, der eine Kurswebsite anlegen möchte, dann registrieren sie sich als solcher (sofern die Sebstregistrierung als Dozent ermöglicht ist), oder ersuchen um diesen Status bei 'Mein Profil verändern'.</p>";
 $langClarolineNetNews = "Claroline.net News";
 $langClass = "Klassen";
@@ -259,7 +259,7 @@ $langConfiguration = "Konfiguration";
 $langConfirmDeleteExercise = "Sind Sie sicher, das Sie diesen Test löschen möchten ?";
 $langConfirmDeleteGroups = "Wollen Sie wirklich alle Gruppen löschen?";
 $langConfirmDeleteQuestion = "Sind Sie sicher, das Sie diesen Frage inkl. aller Antworten löschen möchten ?";
-$langConfirmDeleteStats = "Wenn Sie die KursSite-Statistik l&ouml;schen, dann ist sie unwiederruflich verloren!<br><br>Sind Sie sicher, dass Sie die KursSite-Statistik komplett l&ouml;schen wollen?";
+$langConfirmDeleteStats = "Wenn Sie die KursSite-Statistik l&ouml;schen, dann ist sie unwiederruflich verloren!<br /><br />Sind Sie sicher, dass Sie die KursSite-Statistik komplett l&ouml;schen wollen?";
 $langConfirmEmptyForum = "Alle Postings löschen aus ";
 $langConfirmEmptyGroups = "Wollen Sie wirklich alle Gruppen leeren?";
 $langConfirmEnrollClassToCourse = "Wollen Sie wirklich die ganze Klasse in die KursSite eintragen?";
@@ -402,7 +402,7 @@ $langDisable = "Deaktivieren";
 $langDiskUsage = "Festplattennutzung";
 $langDispClassAdded = "Die hinzugefügte Klasse anzeigen";
 $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager Ihres Computers.</p><p>Sie können beliebige Dateien hochladen (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, usw.). Denken Sie daran, dass Ihre Teilnehmer die entprechende Software zum Öffnen benötigen. Manche Dateitypen können Viren enthalten. Sie sind dafür verantwortlich, keine infizierten Dateien hochzuladen. Sie sollten die Dateien mit einem Antivirenprogramm kontrollieren, bevor Sie die Dateien hochladen.</p>
-<p>Die Dokumente sind alphabetisch sortiert.<br><b>Hinweis : </b>Wenn Sie sie in einer anderen Reihenfolge bereitstellen möchten, nummerieren Sie die Dateien: 01, 02, 03...</p>
+<p>Die Dokumente sind alphabetisch sortiert.<br /><b>Hinweis : </b>Wenn Sie sie in einer anderen Reihenfolge bereitstellen möchten, nummerieren Sie die Dateien: 01, 02, 03...</p>
 <p>Sie können :</p>
 <h4>Ein Dokument hochladen</h4>
 <ul>
@@ -439,7 +439,7 @@ $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanag
         </ul>
         <p>Um einen Kommentar zu entfernen, klicken Sie auf <img src=../img/comment.gif width=20 height=20>,
           entfernen Sie den alten Kommentar im Feld und klicken Sie auf <input type=submit value=OK name=submit22>.
-        <hr>
+        <hr />
         <p>Der Inhalt kann durch Verschieben sortiert werden. Dazu:</p>
         <h4><b>Ein Verzeichnis einrichten</b></h4>
         <ul>
@@ -469,7 +469,7 @@ $langDocumentsAccess = "Dokumente";
 $langDocumentsDetails = "Dokumenten-Download der Teilnehmer";
 $langDocumentsTitleCountColumn = "Gesamt-Downloads";
 $langDocumentsTitleDocumentColumn = "Dokument";
-$langDocumentsTitleUsersColumn = "Anz. der Benutzer,<br>die die Datei runtergeladen haben";
+$langDocumentsTitleUsersColumn = "Anz. der Benutzer,<br />die die Datei runtergeladen haben";
 $langDown = "Absteigend sortiert";
 $langDownloadAttachedFile = "angeh&auml;ngte Datei herunterladen";
 $langEG = "z. B.";
@@ -569,8 +569,8 @@ $langExercise = "Test";
 $langExerciseAsModule = "Test verwenden";
 $langExerciseCancelled = "Test abgebrochen. Wählen Sie ein Modul aus der Liste, um fortzufahren.";
 $langExerciseClosing = "&Uuml;bung endet";
-$langExerciseContent = "<p>Das test-Tool ermöglicht es Ihnen, Tests mit beliebig vielen Fragen zu erstellen.<br><br>
-Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br><br>
+$langExerciseContent = "<p>Das test-Tool ermöglicht es Ihnen, Tests mit beliebig vielen Fragen zu erstellen.<br /><br />
+Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br /><br />
 <ul>
   <li>Multiple Choice (eine richtige Antwort)</li>
   <li>Multiple Choice (mehrere richtige Antworten)</li>
@@ -578,24 +578,24 @@ Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br><br>
   <li>Lückentexte ausfüllen</li>
 </ul>
 Die Tests umfassen zumeist mehrere Fragen zu einem Themenbereich.</p>
-<hr>
+<hr />
 <b>Tests erstellen</b>
-<p>Um einen neuen Test zu erstellen, klicken Sie auf &quot;Neuer Test&quot;.<br><br>
-Geben Sie einen Namen für den Test und eine kurze Beschreibung (optional) ein.<br><br>
-Sie können nun zwischen zwei Typen wählen:<br><br>
+<p>Um einen neuen Test zu erstellen, klicken Sie auf &quot;Neuer Test&quot;.<br /><br />
+Geben Sie einen Namen für den Test und eine kurze Beschreibung (optional) ein.<br /><br />
+Sie können nun zwischen zwei Typen wählen:<br /><br />
 <ul>
   <li>Alle Fragen auf einer einzigen Seite</li>
   <li>Eine Frage pro Seite</li>
 </ul>
-und festlegen ob die Fragen nach dem Zufallsprinzip bei der Ausführung angeordnet werden sollen. Dies erhöht den Erfolg beim mehrfachen Bearbeiten des Tests durch die Teilnehmer.<br><br>
+und festlegen ob die Fragen nach dem Zufallsprinzip bei der Ausführung angeordnet werden sollen. Dies erhöht den Erfolg beim mehrfachen Bearbeiten des Tests durch die Teilnehmer.<br /><br />
 Speichern Sie nun den Test. Jetzt können Sie die Fragen für diesen Test bearbeiten.</p>
-<hr>
+<hr />
 <b>Fragen hinzufügen</b>
 <p>Sie können nun dem soeben erstellten Test Fragen hinzufügen. Die Beschreibung ist optional, genauso wie ein Bild, das Sie der Frage hinzufügen können.</p>
-<hr>
+<hr />
 <b>Multiple Choice</b>
-<p>MAQ (Multiple Answer Question) / MCQ (Multiple Choice Question).<br><br>
-So erstellen Sie eine MAQ / MCQ :<br><br>
+<p>MAQ (Multiple Answer Question) / MCQ (Multiple Choice Question).<br /><br />
+So erstellen Sie eine MAQ / MCQ :<br /><br />
 <ul>
   <li>Legen Sie die Antworten für Ihre Frage fest. Mit dem rechten Button können Sie Fragen hinzufügen oder löschen.</li>
   <li>In der linken Box bestimmen Sie die richtige Antwort/en</li>
@@ -603,41 +603,41 @@ So erstellen Sie eine MAQ / MCQ :<br><br>
   <li>Geben Sie den Antworten einen Punktewert als Bewertung. Der Wert kann eine positive oder negative Zahl oder Null sein.</li>
   <li>Speichern Sie Ihre Antworten</li>
 </ul></p>
-<hr>
+<hr />
 <b>Füllen Sie die Leerstellen / den Lückentext aus</b>
-<p>Hier können Sie einen Lückentext erstellen. Die Teilnehmer sollen nun die fehlenden Wörter suchen und eintragen.<br><br>
-Um ein Wort aus dem Text zu entfernen (für die Teilnehmer) setzen sie ihn in [eckige Klammern] (AltGr+8 bzw. AltGr+9).<br><br>
-Nachdem Sie den Text eingetragen und die Lücken bestimmt haben, können Sie einen Kommentar ergänzen, den die Teilnehmer nach dem Ausfüllen angezeigt bekommen.<br><br>
+<p>Hier können Sie einen Lückentext erstellen. Die Teilnehmer sollen nun die fehlenden Wörter suchen und eintragen.<br /><br />
+Um ein Wort aus dem Text zu entfernen (für die Teilnehmer) setzen sie ihn in [eckige Klammern] (AltGr+8 bzw. AltGr+9).<br /><br />
+Nachdem Sie den Text eingetragen und die Lücken bestimmt haben, können Sie einen Kommentar ergänzen, den die Teilnehmer nach dem Ausfüllen angezeigt bekommen.<br /><br />
 Speichern Sie Ihren Text. Nun können Sie im nächsten Schritt für jede Leerstelle im Text Bewertungen vergeben. Wenn die richtige Beantwortung der gesamten Frage 10 Punkte erzielen soll und Sie 5 Leerstellen eingetragen haben, können Sie jede Leerstelle mit 2 Punkten bewerten.</p>
-<hr>
+<hr />
 <b>Verbinden/Zuordnen</b>
-<p>Diesen Antworttyp können sie wählen, wenn Elemente einer Einheit U1 mit Elementen einer Einheit U2 verbunden werden sollen.<br><br>
-Sie können jedoch auch Elemente in einer bestimmten Reihenfolge sortieren oder anordnen lassen.<br><br>
-Zuerst bestimmen Sie die Wahlmöglichkeiten unter denen gewählt werden kann. Dann legen Sie die Frage fest, die mit diesen Optionen verbunden werden soll. Abschließend verbinden Sie mit dem Drop-Down-Menue Elemente der ersten Einheit mit denen der zweiten Einheit.<br><br>
-Anmerkung: Einzelne Elemente der ersten Einheit können zu der zweiten Einheit passen.<br><br>
+<p>Diesen Antworttyp können sie wählen, wenn Elemente einer Einheit U1 mit Elementen einer Einheit U2 verbunden werden sollen.<br /><br />
+Sie können jedoch auch Elemente in einer bestimmten Reihenfolge sortieren oder anordnen lassen.<br /><br />
+Zuerst bestimmen Sie die Wahlmöglichkeiten unter denen gewählt werden kann. Dann legen Sie die Frage fest, die mit diesen Optionen verbunden werden soll. Abschließend verbinden Sie mit dem Drop-Down-Menue Elemente der ersten Einheit mit denen der zweiten Einheit.<br /><br />
+Anmerkung: Einzelne Elemente der ersten Einheit können zu der zweiten Einheit passen.<br /><br />
 Vergeben Sie nun Punkte für jede richtige Zuordnung.</p>
-<hr>
+<hr />
 <b>Tests bearbeiten</b>
 <p>Um Ihre Tests zu bearbeiten, können Sie genauso vorgehen, wie bei der Erstellung des Tests. Klicken Sie auf das Symbol zum Bearbeiten neben des Tests <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\">, und folgen Sie der Anleitung oben auf dieser Seite.</p>
-<hr>
+<hr />
 <b>Tests löschen</b>
 <p>Um Ihre Tests zu löschen, klicken sie auf das Symbol <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> neben dem Test.</p>
-<hr>
+<hr />
 <b>Tests aktivieren</b>
 <p>Wenn Ihre Tests nun veröffentlicht  werden soll, müssen Sie sie durch einen Klick auf das Symbol <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> neben dem Test aktivieren.</p>
-<hr>
+<hr />
 <b>Test ausführen</b>
 <p>Probieren Sie den Test selber aus. Klicken Sie im Verzeichnis der Tests auf den Namen des Tests.</p>
-<hr>
+<hr />
 <b>Zufallsfunktion</b>
-<p>Beim Erstellen oder Bearbeiten des Tests können Sie festlegen, ob die Fragen des Tests nach dem Zufallsprinzip bereitgestellt werden sollen.<br><br>
-Bei jedem Aufruf der Tests werden die verschiedenen Fragen dann in einer anderen Reihenfolge angezeigt.<br><br>
+<p>Beim Erstellen oder Bearbeiten des Tests können Sie festlegen, ob die Fragen des Tests nach dem Zufallsprinzip bereitgestellt werden sollen.<br /><br />
+Bei jedem Aufruf der Tests werden die verschiedenen Fragen dann in einer anderen Reihenfolge angezeigt.<br /><br />
 Wenn Sie eine sehr große Zahl von Fragen eingerichtet haben, können Sie auch festlegen, dass nur eine bestimmte Anzahl von Fragen im Test gezeigt werden.</p>
-<hr>
+<hr />
 <b>Fragen-Archiv</b>
-<p>Wenn Sie eine Frage gelöscht haben, wird diese nicht in der Datenbank gelöscht. Sie kann für einen neuen Test aus dem Archiv geholt werden.<br><br>
-Das Archiv ermöglicht Ihnen,  die gleiche Frage auch für verschiedene Tests zu verwenden.<br><br>
-In der Grundeinstellung werden alle Fragen Ihres Kurses angezeigt. Im Drop-Down-Menue können Sie nun Veränderungen vornehmen &quot;Filter&quot;.<br><br>
+<p>Wenn Sie eine Frage gelöscht haben, wird diese nicht in der Datenbank gelöscht. Sie kann für einen neuen Test aus dem Archiv geholt werden.<br /><br />
+Das Archiv ermöglicht Ihnen,  die gleiche Frage auch für verschiedene Tests zu verwenden.<br /><br />
+In der Grundeinstellung werden alle Fragen Ihres Kurses angezeigt. Im Drop-Down-Menue können Sie nun Veränderungen vornehmen &quot;Filter&quot;.<br /><br />
 Verwaiste Fragen sind solche, die gerade in keinem Test verwandt werden.</p>";
 $langExerciseDescription = "Beschreibung des Tests";
 $langExerciseDone = "Ihr Ergebnis wurde aufgezeichnet, whlen Sie ein Modul aus der Liste, um fortzufahren.";
@@ -650,7 +650,7 @@ $langExerciseNotFound = "Test nicht gefunden";
 $langExerciseOpening = "&Uuml;bung beginnt";
 $langExerciseTotalAttempts = "Versuche gesamt";
 $langExerciseType = "Test-Typ";
-$langExerciseUsersAttempts = "Anz. der Benutzer,<br>die den Test versuchten";
+$langExerciseUsersAttempts = "Anz. der Benutzer,<br />die den Test versuchten";
 $langExercises = "Tests";
 $langExercisesDetails = "In &Uuml;bungen erzielte Punkte";
 $langExercisesResults = "In &Uuml;bungen erzielte Resultate";
@@ -682,7 +682,7 @@ $langFileContentModified = "Inhalt der Datei geändert";
 $langFileCreated = "Datei erstellt";
 $langFileDesc = "Beschreibung der Datei";
 $langFileError = "Datei-Upload ist nicht möglich.";
-$langFileExists = "Operation nicht möglich.<br>Eine Datei mit dem gleichen Namen exisitiert bereits";
+$langFileExists = "Operation nicht möglich.<br />Eine Datei mit dem gleichen Namen exisitiert bereits";
 $langFileForCSVUpload = "CSV-Datei mit der Benutzerliste : ";
 $langFileName = "Dateiname";
 $langFileNameMissing = "Kein Dateiname vorhanden";
@@ -925,21 +925,21 @@ $langInsertNewModuleName = "Neuen Namen einfügen";
 $langInstalled = "Der Lernpfad wurde erfolgreich importiert.";
 $langInstitution = "Institution";
 $langInstitutionUrl = "Institutions-URL";
-$langIntroCourse = "Sie sind auf der Kurs-Startseite. <br><br> Auf dieser Seite können Sie <li class=HelpText>Tools sperren oder freischalten (Auf den ' Tool-Liste bearbeiten'-Button unten links klicken).</li> <li class=HelpText>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li> <BR><BR>Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
+$langIntroCourse = "Sie sind auf der Kurs-Startseite. <br /><br /> Auf dieser Seite können Sie <li class=HelpText>Tools sperren oder freischalten (Auf den ' Tool-Liste bearbeiten'-Button unten links klicken).</li> <li class=HelpText>Einstellungen ändern oder Statistiken abrufen (unten auf den entsprechenden Link klicken).</li> <br /><br />Um einen Einführungstext zur Vorstellung Ihres Kurses für Ihre Teilnehmer zu erstellen, klicken Sie auf diesen Button  ";
 $langIntroEditToolList = "Wählen Sie die Tools, die für Ihre Teilnehmer sichtbar sein sollen. Unsichtbare Tools erscheinen zu Ihrer Information in Ihrer Ansicht grau.";
-$langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br><br>
-   Wenn Sie Ihren Teilnehmern einen Lernpafd anbieten möchten, klicken Sie auf den Button unten.<br>";
+$langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br /><br />
+   Wenn Sie Ihren Teilnehmern einen Lernpafd anbieten möchten, klicken Sie auf den Button unten.<br />";
 $langIntroText = "Um eine Nachricht zu senden, wählen Sie bitte eine Gruppe von Benutzern (markiert mit einem * auf der linken Seite) oder einen einzelnen Benutzer aus der Liste links.";
 $langIntroWork = "Über diese Seite können Teilnehmer oder Lern-Gruppen Dateien/Dokumente in die Kurs-Website hochladen.
-<br>Bitte HTML-Dateien nur hochladen, wenn sie keine Bilder/Grafiken enthalten.<br><br>
-Wenn Sie dieses Tool vorstellen oder Ihren Teilnehmern weitere Hinweise geben möchten, klicken Sie auf den Button unterhalb.<br>";
+<br />Bitte HTML-Dateien nur hochladen, wenn sie keine Bilder/Grafiken enthalten.<br /><br />
+Wenn Sie dieses Tool vorstellen oder Ihren Teilnehmern weitere Hinweise geben möchten, klicken Sie auf den Button unterhalb.<br />";
 $langInvalidId = "Login ungültig. Wenn Sie noch nicht registriert sind, füllen Sie bitte die <a href='claroline/auth/inscription.php'>Anmeldung</a></font color> aus.";
-$langInvalidIdSelfReg = "<b>Login fehlgeschlagen.</b><br>Versuchen Sie es nocheinmal.<br>
+$langInvalidIdSelfReg = "<b>Login fehlgeschlagen.</b><br />Versuchen Sie es nocheinmal.<br />
 <small>Wenn Sie noch keinen Account haben, benützen Sie das <a href=\"%s\">Registrierungsformular</a></small>.";
 $langInvisible = "verborgen";
 $langIs = "ist";
 $langIsAlreadyRegistered = "ist bereits in die KursSite eingetragen";
-$langIsNowInYourDocDir = "ist nun in Ihrem Dokumentenverzeichnis abgelegt. <br><B>Diese Datei ist sichtbar</B>";
+$langIsNowInYourDocDir = "ist nun in Ihrem Dokumentenverzeichnis abgelegt. <br /><B>Diese Datei ist sichtbar</B>";
 $langIsNowRegistered = "ist jetzt in die KursSite eingetragen";
 $langJustCreated = "Sie haben soeben eine KursSite erstellt";
 $langLabelCanBeEmpty = "Titel des Kurses eintragen";
@@ -1039,7 +1039,7 @@ $langMessage = "Wenn Sie das Test Forum entfernen, wird die aktuelle Meldung auc
 $langMessageSubscribeDone_p_firstname_lastname = "
 Guten Tag %s, %s.
 Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail
-mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br>
+mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br />
 Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.";
 $langMessageToSelectedUsers = "Nachrichten an ausgewählte Benutzer";
 $langMessages = "Nachrichten";
@@ -1430,7 +1430,7 @@ $langTooBig = "Sie haben keine Datei ausgewählt, oder sie ist zu groß.";
 $langTool = "Tool : ";
 $langToolTitleCountColumn = "Gesamt-Klicks";
 $langToolTitleToolnameColumn = "Name des Tools";
-$langToolTitleUsersColumn = "Anz. der Benutzer,<br>die das das Tool<br>ge&ouml;ffnet haben";
+$langToolTitleUsersColumn = "Anz. der Benutzer,<br />die das das Tool<br />ge&ouml;ffnet haben";
 $langTools = "Tools";
 $langToolsAccess = "Zugang zu den Tools";
 $langTopLevel = "oberste Ebene";
@@ -1501,7 +1501,7 @@ $langUploadFile = "Datei hochladen";
 $langUploadedFile = "Hochgeladene Datei";
 $langUseFollowingFormat = "Das folgende Format benutzen: ";
 $langUseFormatDefined = "Die erste Zeile der Datei enth&auml;lt die Definition des Formats";
-$langUseOfPool = "Diese Seite erlaubt Ihnen, alle verfügbaren Module dieses Kurses zu sehen. <br>
+$langUseOfPool = "Diese Seite erlaubt Ihnen, alle verfügbaren Module dieses Kurses zu sehen. <br />
                      Jeden Test und jedes Dokument, das Sie dem Lernpfad hinzugefügt haben wird in dieser Übersicht angezeigt.";
 $langUseTagForBlank = "Verwenden Sie eckige Klammern [...] um eine oder mehrere Lücken zu erzeugen";
 $langUsedInLearningPaths = "
@@ -1511,12 +1511,12 @@ $langUsedInSeveralPath = "Dieser Test wird in einem oder mehreren Lernpfaden ver
 $langUser = "Benutzer";
 $langUserAccessDetails = "Details Benutzer-Zugriff";
 $langUserAlreadyInClass = "Der Benutzer ist bereits in dieser Klasse";
-$langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr>
+$langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr />
 <b>KursSite-Verantwortlicher</b>
 <p>Andererseits haben KursSite-Verantwortliche die technische Möglichkeit, Inhalte und Strukturen einer KursSite zu verändern. Zur Zeit wird nur in 'komplette Freigabe' bzw. 'keine' unterschieden.</P>
-<p>Um z.B. eine/n Vertreter/in die Site verändern zu lassen, muss er in die KursSite eingetragen sein; anschließend wählen Sie 'bearbeiten' und aktivieren 'KursSite-Verantwortlicher'. Klicken Sie abschließend auf 'Ok'.</P><hr>
+<p>Um z.B. eine/n Vertreter/in die Site verändern zu lassen, muss er in die KursSite eingetragen sein; anschließend wählen Sie 'bearbeiten' und aktivieren 'KursSite-Verantwortlicher'. Klicken Sie abschließend auf 'Ok'.</P><hr />
 <b>Mitverantwortliche</b>
-<p>Um im Kopf eines Kurses den Namen eines/einer Mitverantwortlichen zu nennen, benutzen Sie 'Kurs-Einstellungen' und ändern den Text im Feld 'Dozent/Tutor'. Das Feld 'Dozent/Tutor' ist völlig unabhängig von der Teilnehmerliste und diese Änderung registriert Ihre Mitverantwortlichen nicht als Benutzer der KursSite.</p><hr>
+<p>Um im Kopf eines Kurses den Namen eines/einer Mitverantwortlichen zu nennen, benutzen Sie 'Kurs-Einstellungen' und ändern den Text im Feld 'Dozent/Tutor'. Das Feld 'Dozent/Tutor' ist völlig unabhängig von der Teilnehmerliste und diese Änderung registriert Ihre Mitverantwortlichen nicht als Benutzer der KursSite.</p><hr />
 <b>Benutzer hinzufügen</b>
 <p>Um einen Benutzer Ihrem Kurs hinzuzufügen, prüfen Sie zuerst, ob er nicht bereits registriert ist. Sollte er bereits registriert sein, können Sie über 'Bearbeiten' Kursinterne Rollen / Rechte vergeben, bzw. ihn austragen. Ansonsten fügen Sie ihn manuell hinzu. In beiden Fällen wird die Person eine E-Mail erhalten, die sie über die Aufnahme und das zugehörige Login und Passwort in Kenntnis setzt.</p>";
 $langUserCourseList = "KursSite-Übersicht des Benutzers";
@@ -1563,7 +1563,7 @@ $langWikiAccessControl = "Berechtigungen";
 $langWikiAccessControlText = "Hier können Sie die Zugangsberechtigungen der Benutzer für dieses Wiki einstellen: ";
 $langWikiAllPages = "Alle Seiten";
 $langWikiBackToPage = "Zurück zur Seite";
-$langWikiConflictHowTo = "<p><strong>Ein Konflikt ist aufgetreten</strong>: Die Seite, die Sie gerade zu speichern versuchen, wurde inzwischen von einem anderen Benutzer geändert. Da sich die Änderungen widersprechen könnten, wurde Ihre Änderung abgewiesen.<br><br>
+$langWikiConflictHowTo = "<p><strong>Ein Konflikt ist aufgetreten</strong>: Die Seite, die Sie gerade zu speichern versuchen, wurde inzwischen von einem anderen Benutzer geändert. Da sich die Änderungen widersprechen könnten, wurde Ihre Änderung abgewiesen.<br /><br />
 Was können Sie jetzt tun?<ul>
 <li>Sie können Ihre Änderungen in einen Texteditor (z.B. Notepad) kopieren, und auf 'Neueste Version bearbeiten' klicken. Versuchen Sie, Ihre Änderungen dort in die neue Version dieser Seite einzufügen.</li>
 <li>Sie können selbstverständlich auch Ihre Änderungen verwerfen, indem Sie auf 'Abbrechen' klicken.</li>
@@ -1648,7 +1648,7 @@ So geben Sie formatierten Text im Wiki ein:
 <li><strong>Unterstreichen</strong>: umgeben Sie den Text mit zwei Unterstrichen: <code>__Text__</code></li>
 <li><strong>Durchstreichen</strong>: umgeben Sie den Text mit zwei Minus-Symbolen: <code>--Text--</code></li>
 <li><strong>Hyperlinks zu externen Webseiten</strong>: <code>[URL]</code>, <code>[Name|URL]</code>, <code>[Name|URL|Sprache]</code> oder <code>[Name|URL|Sprache|Titel]</code>.</li>
-<li><strong>Bild einfügen</strong> (neue Syntax): <code>((URL|alternativer Text))</code>, <code>((URL|alternativer Text|Position))</code> oder <code>((URL|alternativer Text|Position|lange Beschreibung))</code>. <br>Tas Argument <em>Position</em> kann folgende Werte haben: <em>L</em> (links), <em>R</em> (rechts) oder <em>C</em> (Mitte).</li>
+<li><strong>Bild einfügen</strong> (neue Syntax): <code>((URL|alternativer Text))</code>, <code>((URL|alternativer Text|Position))</code> oder <code>((URL|alternativer Text|Position|lange Beschreibung))</code>. <br />Tas Argument <em>Position</em> kann folgende Werte haben: <em>L</em> (links), <em>R</em> (rechts) oder <em>C</em> (Mitte).</li>
 <li><strong>Benannter Anker (Sprungziel)</strong>: <code>~Anker~</code></li>
 <li><strong>Acronym</strong>: <code>??Acronym??</code> oder <code>??Acronym|Definition??</code></li>
 <li><strong>Zitat</strong>: <code>{{Zitat}}</code>, <code>{{Zitat|Sprache}}</code> oder <code>{{Zitat|Sprache|URL}}</code></li>
@@ -1656,7 +1656,7 @@ So geben Sie formatierten Text im Wiki ein:
 <li><strong>Fußnote</strong>: <code>\$\$Text der Fußnote\$\$</code>.</li>
 </ul></dd>
 </dl>";
-$langWikiIdenticalContent = "Der gesendete Inhalt ist identisch mit dem vorherigen.<br>Es wurde keine Änderung gespeichert.";
+$langWikiIdenticalContent = "Der gesendete Inhalt ist identisch mit dem vorherigen.<br />Es wurde keine Änderung gespeichert.";
 $langWikiInvalidWikiId = "Ungültige Wiki-ID";
 $langWikiList = "Liste der Wikis";
 $langWikiMainPage = "Startseite";
@@ -1756,7 +1756,7 @@ $lang_p_IfNothingHappendClickHere = "Wenn sich <u>nach 30 Sekunden</u> noch nich
 $lang_p_PropForConfigCommited = "Eigenschaften für %s (%s) sind jetzt auf dem Server aktiv.";
 $lang_p_aCategoryWouldBeSelected = "Sie müssen eine Kategorie auswählen. Wenn eine Kategorie fehlt, dann kontaktieren Sie bitte den <a href=\"%s\">Plattform-Administrator</a>.";
 $lang_p_category_s_created = "Kategorie %s erstellt";
-$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_config_file_creation = "Configuration  file creation:<br /> %s";
 $lang_p_d_StudentUnregistredFormCours = "%d Teilnehmer wurden aus dieser KursSite ausgetragen.";
 $lang_p_d_course = "%2d Kurs";
 $lang_p_d_course_manager = "%2d prof ";

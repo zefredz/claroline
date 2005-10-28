@@ -1899,7 +1899,7 @@ $langWikiHelpSyntaxContent = "<h1>Syntaxe Wiki</h1>
 <dt>Lien hypertexte</dt>
 <dd><code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</dd>
 <dt>Inclusion d'image</dt>
-<dd><code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</dd>
+<dd><code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br />La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</dd>
 <dd>Une inclusion d'image peut également se faire de la même manière qu'un lien hypertexte mais avec une extension d'image. Par exemple <code>[titre de l'imageimage|image.gif]</code>. Il est toutefois conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</dd>
 <dt>Lien vers une image</dt>
 <dd>Un lien vers une image se fait de la même manière qu'un hyperlien mais avec un '0' comme quatrième argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher&nbsp;;</dd>

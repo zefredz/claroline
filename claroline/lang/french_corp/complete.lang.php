@@ -226,7 +226,7 @@ $langChoice = "Votre choix";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "Veuillez choisir une bonne réponse";
 $langChooseGoodAnswers = "Veuillez choisir une ou plusieurs bonnes réponses";
-$langClarContent = "<br><p><b>Utilisateur</b></p>
+$langClarContent = "<br /><p><b>Utilisateur</b></p>
 <p>
 Pour visiter les espaces accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code de l&acute;espace dans la liste, sans inscription préalable.</p>
@@ -400,7 +400,7 @@ Quels sont les liens avec les autres cours&nbsp;?";
 $langDescriptionComment2 = "Information permettant d'identifier l&acute;espace
 (sigle, titre, nombre d'heure de cours, de TP, ...)
 et l&acute;enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
-<br>
+<br />
 Présentation générale de l&acute;espace.";
 $langDescriptionCours = "Description de l&acute;espace";
 $langDetail = "Détail";
@@ -708,8 +708,8 @@ $langExerciseAsModule = "Utiliser un exercice";
 $langExerciseCancelled = "Exercice annulé, choisissez un module dans la liste pour continuer.";
 $langExerciseClosing = "Date de fin";
 $langExerciseContent = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre
-quelconque de questions.<br><br>
-Il existe différents types de réponses disponibles pour la création de vos questions :<br><br>
+quelconque de questions.<br /><br />
+Il existe différents types de réponses disponibles pour la création de vos questions :<br /><br />
 <ul>
   <li>Choix multiple (Réponse unique)</li>
   <li>Choix multiple (Réponses multiples)</li>
@@ -717,29 +717,29 @@ Il existe différents types de réponses disponibles pour la création de vos quest
   <li>Remplissage de blancs</li>
 </ul>
 Un exercice rassemble un certain nombre de questions sous un thème commun.</p>
-<hr>
+<hr />
 <b>Création d'un exercice</b>
-<p>Pour créer un exercice, cliquez sur le lien 'Nouvel exercice'.<br><br>
-Introduisez l&acute;intitulé de votre exercice, ainsi qu'une éventuelle description de celui-ci.<br><br>
-Vous pouvez également choisir entre 2 types d'exercices :<br><br>
+<p>Pour créer un exercice, cliquez sur le lien 'Nouvel exercice'.<br /><br />
+Introduisez l&acute;intitulé de votre exercice, ainsi qu'une éventuelle description de celui-ci.<br /><br />
+Vous pouvez également choisir entre 2 types d'exercices :<br /><br />
 <ul>
   <li>Questions sur une seule page</li>
   <li>Une question par page (séquentiel)</li>
 </ul>
 et préciser si vous souhaitez ou non que les questions soient triées aléatoirement lors de
-l&acute;exécution de l&acute;exercice par l&acute;étudiant.<br><br>
+l&acute;exécution de l&acute;exercice par l&acute;étudiant.<br /><br />
 Enregistrez ensuite votre exercice. Vous arriverez à la gestion des questions de cet
 exercice.</p>
-<hr>
+<hr />
 <b>Ajout d'une question</b>
 <p>Vous pouvez à présent ajouter une question à l&acute;exercice précédemment créé. La description
 est facultative, de même que l&acute;image que vous avez la possibilité d'associer à votre
 question.</p>
-<hr>
+<hr />
 <b>Choix multiple</b>
 <p>Il s'agit du classique QRM (question à réponse multiple) / QCM (question à choix
-multiple).<br><br>
-Pour créer un QRM / QCM :<br><br>
+multiple).<br /><br />
+Pour créer un QRM / QCM :<br /><br />
 <ul>
   <li>Définissez les réponses à votre question. Vous pouvez ajouter ou supprimer une réponse
 en cliquant sur le bouton adéquat</li>
@@ -750,65 +750,65 @@ répondu à la question</li>
 nombre entier, positif, négatif ou nul</li>
   <li>Enregistrez vos réponses</li>
 </ul></p>
-<hr>
+<hr />
 <b>Remplissage de blancs</b>
 <p>Il s'agit du texte à trous. Le but est de faire trouver à l&acute;étudiant des mots que vous avez
-préalablement retirés du texte.<br><br>
+préalablement retirés du texte.<br /><br />
 Pour retirer un mot du texte, et donc créer un blanc, placez ce mot entre crochets [comme
-ceci].<br><br>
+ceci].<br /><br />
 Une fois le texte introduit et les blancs définis, vous pouvez éventuellement ajouter un
-commentaire qui sera vu par l&acute;étudiant lorsqu'il aura répondu à la question.<br><br>
+commentaire qui sera vu par l&acute;étudiant lorsqu'il aura répondu à la question.<br /><br />
 Enregistrez votre texte, et vous arriverez à l&acute;étape suivante qui vous permettra d'attribuer une
 pondération à chacun des blancs. Par exemple si la question est sur 10 points et que vous avez
 5 blancs, vous pouvez donner une pondération de 2 points à chaque blanc.</p>
-<hr>
+<hr />
 <b>Correspondance</b>
 <p>Ce type de réponse peut être choisi pour créer une question où l&acute;étudiant devra relier des
-éléments d'un ensemble E1 avec les éléments d'un ensemble E2.<br><br>
+éléments d'un ensemble E1 avec les éléments d'un ensemble E2.<br /><br />
 Il peut également être utilisé pour demander à l&acute;étudiant de trier des éléments dans un certain
-ordre.<br><br>
+ordre.<br /><br />
 Commencez par définir les options parmi lesquelles l&acute;étudiant pourra choisir la bonne réponse.
 Ensuite, définissez les questions qui devront être reliées à une des options définies
-précédemment. Enfin, établissez les correspondances via les menus déroulants.<br><br>
+précédemment. Enfin, établissez les correspondances via les menus déroulants.<br /><br />
 Remarque : Plusieurs éléments du premier ensemble peuvent pointer vers le même élément du
-deuxième ensemble.<br><br>
+deuxième ensemble.<br /><br />
 Donnez une pondération à chaque correspondance correctement établie, et enregistrez votre
 réponse.</p>
-<hr>
+<hr />
 <b>Modification d'un exercice</b>
 <p>Pour modifier un exercice, le principe est le même que pour la création. Cliquez simplement
 sur l&acute;image <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> à côté de l&acute;exercice à
 modifier, et suivez les instructions ci-dessus.</p>
-<hr>
+<hr />
 <b>Suppression d'un exercice</b>
 <p>Pour supprimer un exercice, cliquez sur l&acute;image <img src=\"img/delete.gif\" border=\"0\"
 align=\"absmiddle\"> à côté de l&acute;exercice à supprimer.</p>
-<hr>
+<hr />
 <b>Activation d'un exercice</b>
 <p>Avant qu'un exercice ne puisse être utilisé par un étudiant, vous devez l&acute;activer en cliquant
 sur l&acute;image <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> à côté de
 l&acute;exercice à activer.</p>
-<hr>
+<hr />
 <b>Exécution d'un exercice</b>
 <p>Vous pouvez tester votre exercice en cliquant sur son nom dans la liste des exercices.</p>
-<hr>
+<hr />
 <b>Exercices aléatoires</b>
 <p>Lors de la création / modification d'un exercice, vous avez la possibilité de préciser si vous
 souhaitez que les questions soient tirées dans un ordre aléatoire parmi toutes les questions de
-l&acute;exercice.<br><br>
+l&acute;exercice.<br /><br />
 Cela signifie qu'en activant cette option, les questions seront à chaque fois dans un ordre
-différent lorsque les participants exécuteront l&acute;exercice.<br><br>
+différent lorsque les participants exécuteront l&acute;exercice.<br /><br />
 Si vous avez un grand nombre de questions, vous pouvez aussi choisir de ne prendre
 aléatoirement que X questions sur l&acute;ensemble des questions disponibles dans cet exercice.</p>
-<hr>
+<hr />
 <b>Banque de questions</b>
 <p>Lorsque vous supprimez un exercice, les questions qu'il contenait ne le sont pas et peuvent
-être réutilisées dans un nouvel exercice, via la banque de questions.<br><br>
+être réutilisées dans un nouvel exercice, via la banque de questions.<br /><br />
 La banque de questions permet également de réutiliser une même question dans plusieurs
-exercices.<br><br>
+exercices.<br /><br />
 Par défaut, toutes les questions de votre espace sont affichées. Vous pouvez afficher les
 questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant
-'Filtre'.<br><br>
+'Filtre'.<br /><br />
 Des questions orphelines sont des questions n'appartenant à aucun exercice.</p>";
 $langExerciseDescription = "Description de l&acute;exercice";
 $langExerciseDone = "Exercice terminé, choisissez un module dans la liste pour continuer.";
@@ -851,7 +851,7 @@ $langFileCreated = "Fichier créé";
 $langFileDesc = "Description du fichier";
 $langFileError = "Le fichier à télécharger n'est pas valide.";
 $langFileExists = "Impossible d'effectuer cette op&eacute;ration.
-<br>Un fichier portant ce nom existe déj&agrave;.";
+<br />Un fichier portant ce nom existe déj&agrave;.";
 $langFileForCSVUpload = "Fichier CSV avec la liste d'utilisateurs : ";
 $langFileName = "Nom du fichier";
 $langFileNameMissing = "Nom du fichier manquant";
@@ -1102,7 +1102,7 @@ $langInFrames = "En cadres";
 $langIncorrectDate = "La date de début doit être antérieure à la date de fin";
 $langIndeed = "En effet. l&acute;ironie socratique est une méthode interrogative. Le grec \"eirotao\" signifie d\'ailleurs \"interroger\".";
 $langIndividual = "Individuel";
-$langInfo2Say = "Informations &agrave; communiquer <BR>à l'utilisateur";
+$langInfo2Say = "Informations &agrave; communiquer <br />à l'utilisateur";
 $langInfoProgNameTitle = "Information";
 $langInsertMyDocToolName = "Insérer un document comme module";
 $langInsertMyExerciseToolName = "Ajouter mon exercice";
@@ -1131,7 +1131,7 @@ remplissez le <a href='claroline/auth/inscription.php'>formulaire d'inscription<
 $langInvisible = "Invisible";
 $langIs = "est";
 $langIsAlreadyRegistered = "est déjà inscrit à l&acute;espace";
-$langIsNowInYourDocDir = "est maintenant dans votre outil document. <br><B>Attention il est visible pour tous</B>";
+$langIsNowInYourDocDir = "est maintenant dans votre outil document. <br /><B>Attention il est visible pour tous</B>";
 $langIsNowRegistered = "est maintenant inscrit à l'espace";
 $langJustCreated = "Vous venez de créer  un espace";
 $langLabelCanBeEmpty = "l&acute;intitulé est obligatoire";
@@ -1416,7 +1416,7 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un utilisateur peut être inscrit 
 $langQualificationsAndGoals = "Compétences et Objectifs";
 $langQualificationsAndGoalsComment1 = "Présentation des objectifs généraux et spécifiques de l&acute;espace, des compétences auxquelles la maîtrise de tels objectifs pourrait conduire.";
 $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l&acute;enseignement&nbsp;?
-<br>
+<br />
 Au terme de l&acute;espace, quelles sont les compétences, les capacités et les connaissances que les participants seront en mesure de maîtriser, de mobiliser&nbsp;?";
 $langQuestion = "Question";
 $langQuestionAnswers = "Réponses à la question";
@@ -1424,7 +1424,7 @@ $langQuestionDescription = "Description de la question";
 $langQuestionList = "Liste des questions";
 $langQuestionManagement = "Administration des questions / réponses";
 $langQuestionNotFound = "Question introuvable";
-$langQuestionPlan = "Question de planification <BR>pour le modérateur";
+$langQuestionPlan = "Question de planification <br />pour le modérateur";
 $langQuestionPool = "Banque de questions";
 $langQuestionTitle = "Titre";
 $langQuestionWeighting = "Pondération";
@@ -1661,13 +1661,13 @@ $langUserContent = "<b>Droits d'administration</b>
  soit de co-administrer l&acute;espace avec vous, vous devez préalablement
  l&acute;inscrire à votre espace ou vous assurer qu'il est inscrit puis modifier
  ses droits en cochant 'modifier' sous 'droits d'admin.' puis
- 'tous'.</P><hr>
+ 'tous'.</P><hr />
 <b>Co-modérateurs</b>
 <p>Pour faire figurer le nom d'un co-modérateur dans l&acute;en-tête de votre
  espace, utilisez la page 'Modifier info espace' (dans les outils orange
  sur la page d'accueil de votre espace). Cette modification de l&acute;en-tête
  de l&acute;espace n'inscrit pas automatiquement ce co-modérateur comme utilisateur
- de l&acute;espace. Ce sont deux actions distinctes.</p><hr>
+ de l&acute;espace. Ce sont deux actions distinctes.</p><hr />
 <b>Ajouter un utilisateur</b>
 <p>Pour ajouter un utilisateur à votre espace, remplissez les champs
 et validez. La personne recevra un courriel de confirmation de son
@@ -1779,7 +1779,7 @@ $lang_no_error_in_file_found = "Aucune erreur trouvée dans le fichier.";
 $lang_or_search_from_keyword = "Chercher à partir d'un mot clé";
 $lang_p_ErrorOnBuild_S_for_S = "Erreur dans la construction de <em>%s</em> pour <B>%s</B>";
 $lang_p_PropForConfigCommited = "Les propriétés  %s (%s) sont effectives sur le serveurs.";
-$lang_p_config_file_creation = "Création du fichier de cinfiguration :<BR> %s";
+$lang_p_config_file_creation = "Création du fichier de cinfiguration :<br /> %s";
 $lang_p_d_course = "%2d cours";
 $lang_p_d_course_manager = "%2d prof. ";
 $lang_p_d_course_managers = "%2d prof. ";

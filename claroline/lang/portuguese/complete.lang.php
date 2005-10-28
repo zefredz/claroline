@@ -193,7 +193,7 @@ $langExpectedChoice = "Escolha esperada";
 $langExplanation = "Depois de carregar em OK, ser&aacute; criada uma web que incluir&aacute; Foro, Lista de liga&ccedil;&otilde;es, Exerc&iacute;cios, Agenda, Lista de documentos... Por meio do seu c&oacute;digo de identifica&ccedil;&atilde;o, poder&aacute; alterar o seu conte&uacute;do";
 $langFieldsRequ = "Todos os campos s&atilde;o obrigat&oacute;rios";
 $langFileError = "O ficheiro que pretende transferir n&atilde;o &eacute; v&aacute;lido.";
-$langFileExists = "N&atilde;o &eacute; poss&iacute;vel realizar esta opera&ccedil;&atilde;o:<br>j&aacute; existe um elemento com o mesmo nome.";
+$langFileExists = "N&atilde;o &eacute; poss&iacute;vel realizar esta opera&ccedil;&atilde;o:<br />j&aacute; existe um elemento com o mesmo nome.";
 $langFillBlanks = "Preencher espa&ccedil;os";
 $langFillGroups = "Preencher os grupos";
 $langFillLists = "Por favor, preencha as duas listas em baixo";
@@ -258,7 +258,7 @@ $langIndeed = "Correcto. A ironia socr&aacute;tica &eacute; um m&eacute;todo int
 $langInfo2Say = "Informa&ccedil;&atilde;o para dar aos estudantes";
 $langInvalidId = "Nome de utilizador n&atilde;o v&aacute;lido. Se n&atilde;o estiver inscrito, preencha o <a href='claroline/auth/inscription.php'>formul&aacute;rio de inscri&ccedil;&atilde;o</a></font color>";
 $langIs = "&eacute;";
-$langIsNowInYourDocDir = "foi colocado na sua sec&ccedil;&atilde;o de documentos. <br><B>Aten&ccedil;&atilde;o: este ficheiro &eacute; vis&iacute;vel para todos os utilizadores</B>";
+$langIsNowInYourDocDir = "foi colocado na sua sec&ccedil;&atilde;o de documentos. <br /><B>Aten&ccedil;&atilde;o: este ficheiro &eacute; vis&iacute;vel para todos os utilizadores</B>";
 $langJustCreated = "Acabou de criar a web do curso";
 $langLanguage = "L&iacute;ngua";
 $langLast31days = "Nos &uacute;ltimos 31 dias";
@@ -302,7 +302,7 @@ $langMessageSubscribeDone_p_firstname_lastname = "
 Caro(a) %s, %s. 
 Os seus dados pessoais foram registados e foi enviada 
 uma mensagem &agrave; sua caixa de correio electr&oacute;nico 
-para lhe lembrar o seu nome de utilizador e a sua senha.<br>
+para lhe lembrar o seu nome de utilizador e a sua senha.<br />
 Escolha na lista os cursos a que deseja aceder.";
 $langMissing = "falta";
 $langMissingImagesDetected = "Foram detectadas imagens perdidas";

@@ -49,7 +49,7 @@ $langAddCategory = "Tambah Kategori";
 $langAddComment = "Tambah/ubahsuai komen ke";
 $langAddEvent = "Tambah peristiwa";
 $langAddIntro = "Tambah pengenalan";
-$langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
+$langAddLoginPass = "Add a login/pass in .htpassword</a><br />";
 $langAddNewHeading = "Tambah Tajuk Utama baru";
 $langAddTutors = "Senarai Pengguna (Pentadbir Laman Subjek)";
 $langAddedToCourse = "telah didaftarkan dalam Subjek anda";
@@ -93,7 +93,7 @@ $langChat = "Perbincangan";
 $langChoice = "Pilihan anda";
 $langChooseGoodAnswer = "Please choose a good answer";
 $langChooseGoodAnswers = "Please choose one or more good answers";
-$langClarContent = "eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br>Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status 'Pelajar', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
+$langClarContent = "eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br />Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status 'Pelajar', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
 <p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status 'Pensyarah' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
 <p>Pautan 'Aduan dan Cadangan' memberi kemudahan kepada anda untuk membuat aduan atau cadangan kepada pentadbir sistem.</p>
 <b>ID Pengguna</b><p>Pada kunjungan anda yang seterusnya ke eLearning@kukum, sila masukkan ID Pengguna dan katalaluan serta sahkan capaian anda ke laman subjek tersebut.</p><p><b>Teori Pembelajaran</b><p>Untuk pensyarah, menyediakan program di Internet merupakan persoalan kepada teori pembelajaran.";
@@ -227,7 +227,7 @@ $langDocContent = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengu
 		<p>
 		Untuk memadam komen, sila klik ikon ini <img src=../img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
 		<input type=submit value=Proses name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			Anda boleh menguruskan kandungan dokumen anda melalui beberapa pengisian. Contohnya adalah seperti berikut:
 		</p>
@@ -282,7 +282,7 @@ $langEmailNotSent = "Jika ada masalah sila mail kepada ";
 $langEmailOption = "Hantar Pengumuman ke email Pelajar berdaftar";
 $langEmailSent = " dan emailkan kepada Pelajar berdaftar";
 $langEmailWrong = "Alamat email anda tidak sah";
-$langEmpty = "Ruang kosong belum diisi sepenuhnya.<br>Use the <b>Back</b> button on your browser and try again.<br>If you ignore your course's code, see the Course Program";
+$langEmpty = "Ruang kosong belum diisi sepenuhnya.<br />Use the <b>Back</b> button on your browser and try again.<br />If you ignore your course's code, see the Course Program";
 $langEmptyAnn = "Padam senarai pengumuman";
 $langEmptyFields = "Terdapat ruang kosong yang tidak diisi.Sila penuhkan dan cuba sekali lagi";
 $langEmtpyGroups = "Kosongkan semua kumpulan";
@@ -293,8 +293,8 @@ $langExMessage = "Contoh Mesej";
 $langExerciceEx = "Contoh Latihan";
 $langExercices = "Latihan";
 $langExercise = "Latihan";
-$langExerciseContent = "<p>Alat Bantu Latihan membenarkan anda mencipta Latihan yang mengandungi seberapa banyak soalan yang anda suka.<br><br>
-Terdapat pelbagai soalan yang mempunyai pelbagai format jawapan :<br><br>
+$langExerciseContent = "<p>Alat Bantu Latihan membenarkan anda mencipta Latihan yang mengandungi seberapa banyak soalan yang anda suka.<br /><br />
+Terdapat pelbagai soalan yang mempunyai pelbagai format jawapan :<br /><br />
 <ul>
   <li>Pelbagai Jawapan (Satu Jawapan)</li>
   <li>Pelbagai Jawapan (Lebih dari satu jawapan)</li>
@@ -302,24 +302,24 @@ Terdapat pelbagai soalan yang mempunyai pelbagai format jawapan :<br><br>
   <li>Isikan ruang kosong</li>
 </ul>
 Satu latihan yang mengumpulkan beberapa soalan tertentu di bawah <i>themes</i> yang sama.</p>
-<hr>
+<hr />
 <b>Bina Latihan</b>
-<p>Untuk membina latihan, klik pada pautan <i>Latihan Baru</i>.<br><br>
-Sila isikan nama baru bagi Latihan yang ingin dibina, di mana nama tersebut dapat menerangkan Latihan anda.<br><br>
-Anda juga boleh memilih di antara 2 jenis latihan :<br><br>
+<p>Untuk membina latihan, klik pada pautan <i>Latihan Baru</i>.<br /><br />
+Sila isikan nama baru bagi Latihan yang ingin dibina, di mana nama tersebut dapat menerangkan Latihan anda.<br /><br />
+Anda juga boleh memilih di antara 2 jenis latihan :<br /><br />
 <ul>
   <li>Soalan pada <i>Page</i> unik</li>
   <li>Satu soalan per satu <i>Page</i> (berturutan)</li>
 </ul>
-Anda juga boleh menyusun soalan anda secara lawak ketika Latihan sedang dipaparkan.<br><br>
+Anda juga boleh menyusun soalan anda secara lawak ketika Latihan sedang dipaparkan.<br /><br />
 Kemudian, simpan Latihan yang telah dibina. Seterusnya, sila ke pengurusan soalan untuk Latihan yang dibina.</p>
-<hr>
+<hr />
 <b>Tambah Soalan</b>
 <p>Anda boleh menambah soalan pada Latihan yang telah dibina. Penerangan terhadap soalan adalah pilihan dan sekurang-kurangnya terdapat gambarajah yang dipautkan ke soalan tersebut.</p>
-<hr>
+<hr />
 <b>Pelbagai Pilihan</b>
-<p>Merupakan SPJ (Soalan Pelbagai Jawapan) / SPP (Soalan Pelbagai Pilihan) yang paling diminati.<br><br>
-Untuk membina SPJ / SPP :<br><br>
+<p>Merupakan SPJ (Soalan Pelbagai Jawapan) / SPP (Soalan Pelbagai Pilihan) yang paling diminati.<br /><br />
+Untuk membina SPJ / SPP :<br /><br />
 <ul>
   <li>Sila kenalpasti jawapan untuk setiap soalan anda terlebih dahulu. Anda boleh menambah atau memadam jawapan dengan hanya klik pada butang di sebelah kanan. </li>
   <li>Sila semak sama ada kotak di sebelah kiri menyimpan jawapan yang betul.</li>
@@ -327,41 +327,41 @@ Untuk membina SPJ / SPP :<br><br>
   <li>Sila sediakan skema jawapan untuk setiap soalan. Markah jawapan hendaklah terdiri daripada integer positif, integer negatif ataupun sifar</li>
   <li>Seterusnya, sila simpan jawapan anda.</li>
 </ul></p>
-<hr>
+<hr />
 <b>Isikan Ruang Kosong</b>
-<p>Ia membenarkan anda membina soalan bersama ruang kosong. Objektif utama bagi soalan yang mempunyai format ini adalah untuk menguji perkataan yang ditinggalkan dalam baris ayat tersebut.<br><br>
-Untuk memadam perkataan daripada ayat, dan membina ruang kosong, letakkan perkataan di antara kurungan [seperti ini].<br><br>
-Apabila perkataan telah diisi pada ruangan kosong yang telah dikenalpasti, anda boleh menambah komen yang akan dipaparkan kepada pelajar apabila pelajar menjawaab soalan tersebut.<br><br>
+<p>Ia membenarkan anda membina soalan bersama ruang kosong. Objektif utama bagi soalan yang mempunyai format ini adalah untuk menguji perkataan yang ditinggalkan dalam baris ayat tersebut.<br /><br />
+Untuk memadam perkataan daripada ayat, dan membina ruang kosong, letakkan perkataan di antara kurungan [seperti ini].<br /><br />
+Apabila perkataan telah diisi pada ruangan kosong yang telah dikenalpasti, anda boleh menambah komen yang akan dipaparkan kepada pelajar apabila pelajar menjawaab soalan tersebut.<br /><br />
 Simpan perkataan tersebut dan seterusnya sistem akan meminta anda menetapkan skema jawapan untuk setiap tempat kosong tersebut. Sebagai contoh, jika skema jawapan menetapkan markah untuk keseluruhan soalan ialah 10 markah dan anda telah membina 5 ruang kosong, maka setiap ruang kosong mewakili 2 markah.</p>
-<hr>
+<hr />
 <b>Suaikan</b>
-<p>Soalan jenis ini akan meminta pelajar menyesuaikan soalan dengan jawapan.<br><br>
-Ia juga berguna bagi pelajar untuk menyusun soalan dan jawapan mengikut susunan tertentu.<br><br>
-Caranya ialah, pertama, sila tentukan di antara pilihan jawapan yang berkemungkinan dijawab dengan betul oleh pelajar. Kemudian, tentukan soalan yang akan disuaikan dengan pilihan jawapan tadi. Akhir sekali, sambungkan elemen menu <i>drop-down</i> dari unit pertama ke unit kedua.<br><br>
-Notis : Kebanyakan elemen dari unit pertama boleh dihalakan ke elemen pada unit kedua.<br><br>
+<p>Soalan jenis ini akan meminta pelajar menyesuaikan soalan dengan jawapan.<br /><br />
+Ia juga berguna bagi pelajar untuk menyusun soalan dan jawapan mengikut susunan tertentu.<br /><br />
+Caranya ialah, pertama, sila tentukan di antara pilihan jawapan yang berkemungkinan dijawab dengan betul oleh pelajar. Kemudian, tentukan soalan yang akan disuaikan dengan pilihan jawapan tadi. Akhir sekali, sambungkan elemen menu <i>drop-down</i> dari unit pertama ke unit kedua.<br /><br />
+Notis : Kebanyakan elemen dari unit pertama boleh dihalakan ke elemen pada unit kedua.<br /><br />
 Kemudian, sediakan skema jawapan untuk setiap soalan yang disuaikan dengan betul dan simpan jawapan tersebut.</p>
-<hr>
+<hr />
 <b>Ubahsuai Latihan</b>
 <p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
-<hr>
+<hr />
 <b>Padam Latihan</b>
 <p>Untuk memadam Latihan, klik pada ikon ini <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> dan pilih Latihan yang ingin dipadam.</p>
-<hr>
+<hr />
 <b>Papar Latihan</b>
 <p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">.</p>
-<hr>
+<hr />
 <b>Uji Latihan</b>
 <p>Anda boleh menguji Latihan yang telah dibina dengan klik pada nama Latihan tersebut yang terdapat pada senarai Latihan.</p>
-<hr>
+<hr />
 <b>Latihan Secara Rawak</b>
-<p>Setelah Latihan dibina / diubahsuai, anda boleh menyusun kembali semua soalan secara rawak.<br><br>
-Dengan cara ini, semua soalan anda akan disusun mengikut susunan yang berbeza setiap kali anda memaparkan soalan kepada pelajar. Ini bermakna soalan anda boleh dikitarsemula mengikut kesesuaian anda.<br><br>
+<p>Setelah Latihan dibina / diubahsuai, anda boleh menyusun kembali semua soalan secara rawak.<br /><br />
+Dengan cara ini, semua soalan anda akan disusun mengikut susunan yang berbeza setiap kali anda memaparkan soalan kepada pelajar. Ini bermakna soalan anda boleh dikitarsemula mengikut kesesuaian anda.<br /><br />
 Jika anda mempunyai sejumlah soalan, anda boleh memilih soalan-soalan yang dirasakan perlu untuk dipaparkan kepada pelajar.</p>
-<hr>
+<hr />
 <b>Bank Soalan</b>
-<p>Apabila anda memadam Latihan, soalan dalam latihan tersebut tidak akan terpadam dari pangkalan data, dan anda boleh menggunakan semula soalan-soalan tersebut untuk membina semula Latihan baru kerana untuk makluman anda, soalan-soalan tersebut disimpan sebagai Bank Soalan.<br><br>
-Bank soalan membenarkan anda mengitar-semula soalan-soalan yang pernah dipaparkan kepada pelajar untuk menjadi pelbagai Latihan baru.<br><br>
-Secara umumnya, semua soalan bagi subjek anda akan dipaparkan. Anda boleh memilih untuk memaparkan soalan yang berkaitan dengan Latihan anda, dengan cara memilih menu <i>drop-down Filter</i>.<br><br>
+<p>Apabila anda memadam Latihan, soalan dalam latihan tersebut tidak akan terpadam dari pangkalan data, dan anda boleh menggunakan semula soalan-soalan tersebut untuk membina semula Latihan baru kerana untuk makluman anda, soalan-soalan tersebut disimpan sebagai Bank Soalan.<br /><br />
+Bank soalan membenarkan anda mengitar-semula soalan-soalan yang pernah dipaparkan kepada pelajar untuk menjadi pelbagai Latihan baru.<br /><br />
+Secara umumnya, semua soalan bagi subjek anda akan dipaparkan. Anda boleh memilih untuk memaparkan soalan yang berkaitan dengan Latihan anda, dengan cara memilih menu <i>drop-down Filter</i>.<br /><br />
 Soalan asing adalah soalan yang tidak berkaitan dengan mana-mana Latihan</p>";
 $langExerciseDescription = "Penerangan Latihan";
 $langExerciseManagement = "Latihan";
@@ -373,7 +373,7 @@ $langExpectedChoice = "Pilihan Jangkaan";
 $langExplanation = "Apabila anda klik pada butang <b>Proses</b>,satu Laman Subjek yang mempunyai Forum, Agenda, Pengumuman dan sebagainya akan dibina. Anda boleh mengubahsuai Laman Subjek tersebut mengikut keperluan anda";
 $langFieldsRequ = "Semua Ruang Kosong Perlu Diisi";
 $langFileError = "Fail yang dimuat naik tidak sah.";
-$langFileExists = "Permintaan tidak dapat diproses<br>Nama fail telah wujud.";
+$langFileExists = "Permintaan tidak dapat diproses<br />Nama fail telah wujud.";
 $langFillBlanks = "Isikan Ruang Kosong";
 $langFillGroups = "Penuhkan kumpulan";
 $langFillLists = "Please fill the two lists below";
@@ -482,7 +482,7 @@ $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"ei
 $langInfo2Say = "Maklumat untuk Pelajar";
 $langInvalidId = "ID Pengguna dan Katalaluan anda tidak sah.Sila login semula atau <a href=claroline/auth/inscription.php>daftar</a> sebagai pengguna baru.</font color>";
 $langIs = "ialah";
-$langIsNowInYourDocDir = " - Kini, fail ini berada dalam Alat Bantu Dokumen. <br><B>Fail ini dalam format .txt</B>";
+$langIsNowInYourDocDir = " - Kini, fail ini berada dalam Alat Bantu Dokumen. <br /><B>Fail ini dalam format .txt</B>";
 $langJustCreated = "Anda telah membina laman subjek";
 $langLanguage = "Language";
 $langLast31days = "31 hari lepas";
@@ -712,13 +712,13 @@ $langUploadFile = "Muatnaik fail ke server";
 $langUseTagForBlank = "use brackets [...] to define one or more blanks";
 $langUsedInSeveralExercises = "Peringatan ! Soalan ini telah digunakan beberapa kali sebelum ini, adakah anda ingin mengubahsuainya?";
 $langUser = "Ahli";
-$langUserContent = "<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang ditetapkan. Peranan ahli tidak mempunyai kesan kepada sistem pengoperasian. Ia cuma memaparkan pengguna yang sah dalam sistem. Pada bahagian ini, anda dibenarkan untuk menetapkan fungsi ahli bagi subjek anda dengan hanya mengklik <i>Ubahsuai</i> di bawah lajur <i> Peranan</i>, kemudian tetapkan ahli bagi subjek anda sama ada sebagai Professor, Jurutera Pengajar, Pelajar, Pelawat atau Pakar....</P><hr>
+$langUserContent = "<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang ditetapkan. Peranan ahli tidak mempunyai kesan kepada sistem pengoperasian. Ia cuma memaparkan pengguna yang sah dalam sistem. Pada bahagian ini, anda dibenarkan untuk menetapkan fungsi ahli bagi subjek anda dengan hanya mengklik <i>Ubahsuai</i> di bawah lajur <i> Peranan</i>, kemudian tetapkan ahli bagi subjek anda sama ada sebagai Professor, Jurutera Pengajar, Pelajar, Pelawat atau Pakar....</P><hr />
 <b>Capaian Pentadbir</b>
 <p>Capaian Pentadbir - bertanggungjawab terhadap kebenaran teknikal untuk mengubahsuai dan menguruskan kandungan laman subjek. Buat masa ini, anda hanya boleh memilih untuk memberi capaian kepada pentadbir atau tidak.</P>
-<p>Untuk membenarkan jurutera pengajar menjadi pembantu bagi menguruskan laman subjek anda, anda perlu memastikan mereka sudah berdaftar untuk subjek anda atau anda mendaftarkan mereka ke laman subjek anda (bagi yang masih belum mendaftar), kemudian klik pada <i>Ubahsuai</i> di bawah <i> Capaian Pentadbir</i> kemudian klik pada kotak pilihan seterusnya klik butang <i>Ok</i>.</P><hr>
+<p>Untuk membenarkan jurutera pengajar menjadi pembantu bagi menguruskan laman subjek anda, anda perlu memastikan mereka sudah berdaftar untuk subjek anda atau anda mendaftarkan mereka ke laman subjek anda (bagi yang masih belum mendaftar), kemudian klik pada <i>Ubahsuai</i> di bawah <i> Capaian Pentadbir</i> kemudian klik pada kotak pilihan seterusnya klik butang <i>Ok</i>.</P><hr />
 <b>Capaian <i>Co-chairmen</i></b>
 <p>Untuk memaparkan nama co-chairmen sebagai pengguna, sila gunakan alat bantu ini : <i>Ubahsuai Maklumat Subjek </i>(Alat bantu yang berwarna oren). Untuk makluman anda, pengubahsuaian ini tidak akan mendaftarkan co-chairmen sebagai ke dalam subjek anda.
- Lajur <i>Pensyarah</i> bergantung kepada senarai ahli subjek sepenuhnya</p><hr>
+ Lajur <i>Pensyarah</i> bergantung kepada senarai ahli subjek sepenuhnya</p><hr />
 <b>Tambah Ahli</b>
 <p>Untuk menambah ahli ke laman subjek anda, sila isikan lajur yang terlibat dengan senarai ahli yang ingin ditambah dan sahkan lajur tersebut. Pengguna yang ditambah keahlian ke dalam subjek anda akan menerima email yang memaklumkan keahlian mereka berserta ID Pengguna dan katalaluan.</p>";
 $langUserName = "Nama Pengguna";

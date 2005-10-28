@@ -158,7 +158,7 @@ $langDetails = "Detaljer";
 $langDirCr = "mapp skapad";
 $langDirMv = "mapp flyttad";
 $langDocContent = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p><p>Du kan ladda upp filer oavsett typ (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, m.fl.). Du behöver bara bry dig om ifall eleverna har motsvarande programvara för att kunna läsa dem. Några filtyper kan vara bärare av datorvirus och det är ditt ansvar att inte ladda upp smittade filer. Det är säkrast att kontrollera dokumentet med en antivirusprogramvara före uppladdning.</p>
-<p>Dokumenten visas i alfabetisk ordning.<br><b>Tips : </b>Om du presentera dem i en viss ordning så kan du numrera dem: 01, 02, 03... före det verkliga dokumentnamnet.</p>
+<p>Dokumenten visas i alfabetisk ordning.<br /><b>Tips : </b>Om du presentera dem i en viss ordning så kan du numrera dem: 01, 02, 03... före det verkliga dokumentnamnet.</p>
 <p>Du kan :</p>
 <h4>Ladda upp ett dokument</h4>
 <ul>
@@ -200,7 +200,7 @@ $langDocContent = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.<
 	<p>För att radera kommentar, klick på <img src=../img/comment.gif width=20 height=20>, 
 	  radera den gamla kommentaren i fältet och klicka på <input type=submit value=OK name=submit22>
 	  . 
-	<hr>
+	<hr />
 	<p>Du kan organisera innehållet genom mappanvändning. För detta:</p>
 	<h4><b>Skapa en mapp</b></h4>
 	<ul>
@@ -246,8 +246,8 @@ $langEx = "e.g. <i>Svenska A</i>";
 $langExMessage = "Exempelmeddelande";
 $langExerciceEx = "Enkel övning";
 $langExercices = "Övningar";
-$langExerciseContent = "<p>Övningsverktyget tillåter dig att skapa övningar som innehåller så många frågor som du önskar dig.<br><br>
-Det finns flera typer av svarmöjligheter tillgänliga vid skapandet av frågorna:<br><br>
+$langExerciseContent = "<p>Övningsverktyget tillåter dig att skapa övningar som innehåller så många frågor som du önskar dig.<br /><br />
+Det finns flera typer av svarmöjligheter tillgänliga vid skapandet av frågorna:<br /><br />
 <ul>
 <li>Multipla val (Unik svar)</li>
 <li>Multipla val (multipla svar)</li>
@@ -255,24 +255,24 @@ Det finns flera typer av svarmöjligheter tillgänliga vid skapandet av frågorna:<
 <li>Fyll i de blanka</li>
 </ul>
 En övning samlar samlar en mängd frågor under ett gemensamt tema.</p>
-<hr>
+<hr />
 <b>Att skapa övningar</b>
-<p>För att kunna skapa en övning, klicka på länken &quot;Nya övning&quot;.<br><br>
-Skriv in övningen namn, som väl som en valfri beskrivninga av den.<br><br>
-Du kan även välja mellan två övningstyper:<br><br>
+<p>För att kunna skapa en övning, klicka på länken &quot;Nya övning&quot;.<br /><br />
+Skriv in övningen namn, som väl som en valfri beskrivninga av den.<br /><br />
+Du kan även välja mellan två övningstyper:<br /><br />
 <ul>
 <li>Frågor på en unik sida</li>
 <li>En fråga per sida (sekventiell)</li>
 </ul>
-och tala om ifall du vill att frågorna slumpas fram under körningen eller inte.<br><br>
+och tala om ifall du vill att frågorna slumpas fram under körningen eller inte.<br /><br />
 Därefter sparar du övningen. Du kommer sedan till frågeadministrationssidan för övningen.</p>
-<hr>
+<hr />
 <b>Att lägga till frågor</b>
 <p>Du kan nu lägga till en fråga in den nyss skapade övningen. Beskrivningen är valfri, så väl som bilden som du har möjlighet att länka till din fråga.</p>
-<hr>
+<hr />
 <b>Multipla val</b>
-<p>Detta är den berömda MSF (multipla svar frågan) / MVF (multipla val frågan).<br><br>
-För att kunna skapa en MSF / MVF :<br><br>
+<p>Detta är den berömda MSF (multipla svar frågan) / MVF (multipla val frågan).<br /><br />
+För att kunna skapa en MSF / MVF :<br /><br />
 <ul>
 <li>Definera svar för din fråga. Du kan lägga till eller radera svar genom att klicka på den högra knappen</li>
 <li>Markera med den vänstra svarsboxen vilket som är det korrekta svaret(svaren)</li>
@@ -280,41 +280,41 @@ För att kunna skapa en MSF / MVF :<br><br>
 <li>Angen en viktning till vart och ett av dina svar. Viktningen kan vara ett positivt eller negativt heltal, eller noll</li>
 <li>Spara dina svar</li>
 </ul></p>
-<hr>
+<hr />
 <b>Fyll i de blanka</b>
-<p>Denna frågetyp ger dig möjlighet att skapa text med luckor. Målet är att låta eleverna skall finna ordet som du plockat bort.<br><br>
-För att ta bort ett ord från texten, och på sätt skapa en lucka, så använder du hakparanteser runt ordet [på detta sätt].<br><br>
-Så snart som texten skrivits in och luckorna definierats, kan du lägga till en kommenter som eleverna kan se när de svarar på frågan.<br><br>
+<p>Denna frågetyp ger dig möjlighet att skapa text med luckor. Målet är att låta eleverna skall finna ordet som du plockat bort.<br /><br />
+För att ta bort ett ord från texten, och på sätt skapa en lucka, så använder du hakparanteser runt ordet [på detta sätt].<br /><br />
+Så snart som texten skrivits in och luckorna definierats, kan du lägga till en kommenter som eleverna kan se när de svarar på frågan.<br /><br />
 Spara texten, och du kan gå till nästa steg som tillåter dig att vikta var en av de blanka. Till exempel kan en fråga vara värd 10 poäng och du har 5 blanka vilket ger en viktning av 2 poäng per blank.</p>
-<hr>
+<hr />
 <b>Matchning</b>
-<p>Denna frågetyp kan väljas om du vill skapa en fråga där eleven kan koppla ett antal element i grupp 1 till ett antal element i grupp 2, så att elementpar bildas.<br><br>
-Den kan också användas för att be eleverna sortera element i en viss ordning.<br><br>
-Definera först svarsalternativen som eleverna kommer att kunna välja från de rätta svaren ifrån. Definiera sedan frågorna som sedan skall länkas till svaren som du tidigare skapat. Till slut kopplar du ihop frågorna och svaren med hjälp av av plockmenyerna.<br><br>
-Notera : Flera element från ena gruppen kan kopplas till samma element i den andra gruppen.<br><br>
+<p>Denna frågetyp kan väljas om du vill skapa en fråga där eleven kan koppla ett antal element i grupp 1 till ett antal element i grupp 2, så att elementpar bildas.<br /><br />
+Den kan också användas för att be eleverna sortera element i en viss ordning.<br /><br />
+Definera först svarsalternativen som eleverna kommer att kunna välja från de rätta svaren ifrån. Definiera sedan frågorna som sedan skall länkas till svaren som du tidigare skapat. Till slut kopplar du ihop frågorna och svaren med hjälp av av plockmenyerna.<br /><br />
+Notera : Flera element från ena gruppen kan kopplas till samma element i den andra gruppen.<br /><br />
 Ange viktning för vart och ett av de korrekta svaren, och spara sedan frågan.</p>
-<hr>
+<hr />
 <b>Modifiera övningar</b>
 <p>För att kunna modifiera övningar, gäller samma principer som för att skapa övningarna. Klicka bara på bilden <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> på sidan om övningen för att modifiera, och följ sedan instruktionerna ovan.</p>
-<hr>
+<hr />
 <b>Radera övningar</b>
 <p>För att radera en övning, klicka på bilden <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> på sidan av övningen du vill radera.</p>
-<hr>
+<hr />
 <b>Aktivera övning</b>
 <p>För att en övning skall kunna användas så måste du aktivera den genom att klicka på bilden <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> på sidan för att aktivera den.</p>
-<hr>
+<hr />
 <b>Utföra en övning</b>
 <p>Du kan testa din övning genom att klicka på dess namn i övningslistan.</p>
-<hr>
+<hr />
 <b>Slumpvisa övningar</b>
-<p>Vid den tidpunkt när du skapar/modifierar frågan har du möjlighet att tala om ifall frågorna skall tas i den ordning som du valt eller om de skall slumpas fram.<br><br>
-Detta betyder att, om du aktiverar detta val kommer, frågorna kommer att uppträda i olika ordning varje gång som studenten utför övningen.<br><br>
+<p>Vid den tidpunkt när du skapar/modifierar frågan har du möjlighet att tala om ifall frågorna skall tas i den ordning som du valt eller om de skall slumpas fram.<br /><br />
+Detta betyder att, om du aktiverar detta val kommer, frågorna kommer att uppträda i olika ordning varje gång som studenten utför övningen.<br /><br />
 Om du har ett stort antal frågor, kan du även välja att X antal frågor skall slumpas fram från hela mängden frågor i den övningen.</p>
-<hr>
+<hr />
 <b>Frågepool</b>
-<p>När du raderar en övning, raderas inte frågorna frågorna från databasen utan de kan återanvändas i en annan övning där du kan plocka övningar från frågepoolen.<br><br>
-Frågepoolen kan även användas till att återanvända samma fråga till flera övningar.<br><br>
-Som standard, visas all frågor i din kurs. Du kan visa frågor relaterade till en övning, genom att välja then den hör(this one) i plockmenyn &quot;Filter&quot;.<br><br>
+<p>När du raderar en övning, raderas inte frågorna frågorna från databasen utan de kan återanvändas i en annan övning där du kan plocka övningar från frågepoolen.<br /><br />
+Frågepoolen kan även användas till att återanvända samma fråga till flera övningar.<br /><br />
+Som standard, visas all frågor i din kurs. Du kan visa frågor relaterade till en övning, genom att välja then den hör(this one) i plockmenyn &quot;Filter&quot;.<br /><br />
 Föräldralösa frågor är frågor som inte är kopplade till någon övning.</p>";
 $langExerciseDescription = "Övningsbeskrivning";
 $langExerciseManagement = "Övningshanterare";
@@ -327,7 +327,7 @@ $langExpectedChoice = "Förväntat val";
 $langExplanation = "Sidan måste vara i HTML-format (eg. \"my_page.html\"). Den kommer att länka till från Hemsidan. Om du vill sända icke HTML-dokument (PDF, Word, Power Point, Video, etc.) använd <a href=../document/document.php>Dokumentverkyget</a>";
 $langFieldsRequ = "Alla fält krävs";
 $langFileError = "Filen för uppladdning är inte tillåten.";
-$langFileExists = "Operationen är omöjlig.<br>En fil med detta namn existerar redan.";
+$langFileExists = "Operationen är omöjlig.<br />En fil med detta namn existerar redan.";
 $langFillBlanks = "Fyll i blanka";
 $langFillGroups = "Fyll grupper";
 $langFillLists = "Var snäll och fyll i de två listorna nedan";
@@ -428,7 +428,7 @@ $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"ei
 $langInfo2Say = "Information att ge till eleverna";
 $langInvalidId = "Ogiltig inloggning. Om du inte är registrerad fyll i <a href='claroline/auth/inscription.php'>registreringsformuläret</a></font color>";
 $langIs = "är";
-$langIsNowInYourDocDir = "är nu i ditt dokumentverktyg. <br><B>Denna fil är synlig</B>";
+$langIsNowInYourDocDir = "är nu i ditt dokumentverktyg. <br /><B>Denna fil är synlig</B>";
 $langJustCreated = "Du har just skapat en webbplats för kursen";
 $langLanguage = "Språk";
 $langLast31days = "Inom de senaste 31 dagarna";
@@ -470,7 +470,7 @@ $langMessage = "när du tar bort detta testforum kommer du också att ta bort det 
 $langMessageSubscribeDone_p_firstname_lastname = "
 Kära %s, %s. 
 Dina personliga inställningar har registrerats och emejlats 
-till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br>
+till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br />
 Välj i listan vilka kurser som du vill deltaga i.";
 $langMissing = "saknas";
 $langMissingImagesDetected = "Saknade bilder har detekterats";
@@ -650,12 +650,12 @@ $langUploadFile = "Ladda filen till servern";
 $langUseTagForBlank = "använd hakparanteser [...] för att definiera en eller flera blanka";
 $langUsedInSeveralExercises = "Varning ! Denna fråga och dess svar används i flera övningar. Vill du modifiera den";
 $langUser = "Användare";
-$langUserContent = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De ger inga rättigheter på operativsystemsnivå. De finns bara för att indikera vem som är vem på mänsklig nivå. Du kan modifiera dem genom klicka på 'modifiera' under 'roll', därefter skriver du in önskad roll, t.ex: lärare, professor, assistent, elev, student, besökare, expert...</P><hr>
+$langUserContent = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De ger inga rättigheter på operativsystemsnivå. De finns bara för att indikera vem som är vem på mänsklig nivå. Du kan modifiera dem genom klicka på 'modifiera' under 'roll', därefter skriver du in önskad roll, t.ex: lärare, professor, assistent, elev, student, besökare, expert...</P><hr />
 <b>Administrationsrättigheter</b>
 <p>Administratörsrättigheter, å andra sida motsvarar den tekniska behörigheten att modifiera innehållet och organisationen av kurswebbsajten. För tillfället, kan du bara välja mellan administratörsrättighet och inget alls.</P>
-<p>För att tillåta en assistent, till exempel, att hjälp till med administrationen så måste du registrera honom eller veta att han själv har gjort det. Klicka sedan på 'modifiera' under 'administrationsrättigheter', och därefter klicka på 'alla', och sedan 'Ok'.</P><hr>
+<p>För att tillåta en assistent, till exempel, att hjälp till med administrationen så måste du registrera honom eller veta att han själv har gjort det. Klicka sedan på 'modifiera' under 'administrationsrättigheter', och därefter klicka på 'alla', och sedan 'Ok'.</P><hr />
 <b>Medlärare</b>
-<p>För att nämna medlärare i huvudet på kurswebbsajten, använd verktyget 'Modifiera kursinformation' (oranget verktyg). Denna modifikation gör inte medläraren till deltagare i kursen. Fältet 'Lärare' är helt skilt från Användarlistan.</p><hr>
+<p>För att nämna medlärare i huvudet på kurswebbsajten, använd verktyget 'Modifiera kursinformation' (oranget verktyg). Denna modifikation gör inte medläraren till deltagare i kursen. Fältet 'Lärare' är helt skilt från Användarlistan.</p><hr />
 <b>Lägg till en användare</b>
 <p>För att lägga till en användare på din kurs, kontrollera först att personen inte är registrerad globalt på webbsajten. Om det är så markera i rutan på sidan om hans namn och klicka 'Ok'. Om personen inte är registrerad, lägg till personen manuellt. I båda fallen kommer personen att få ett mejl som talar om att du har registrerat personen och lösenord samt användarnamn skickas till personen som påminnelse.</p>";
 $langUserName = "Namn";

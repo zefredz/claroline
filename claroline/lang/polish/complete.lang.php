@@ -60,7 +60,7 @@ $langAddFeedback = "Dodaj informacjê zwrotn±";
 $langAddImage = "Dodaj obrazek";
 $langAddIntro = "Dodaj tekst wprowadzenia";
 $langAddListUser = "Dodaj listê u¿ytkowników";
-$langAddLoginPass = "Dodaj login/has³o w .htpassword</a><br>";
+$langAddLoginPass = "Dodaj login/has³o w .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
 $langAddModifyComment = "Dodaj/zmodyfikuj komentarz do";
 $langAddModule = "Dodaj";
@@ -218,7 +218,7 @@ $langChoice = "Twój wybór";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "Podaj poprawn± odpowied¼";
 $langChooseGoodAnswers = "Podaj jedn± lub wiêcej poprawnych odpowiedzi";
-$langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
+$langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br />Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
 <p>'Forum u¿ytkowników Claroline' ³aczy osoby korzystaj±ce z oprogramowania Claroline na ca³ym swiecie. Je¶li nie mo¿esz uzyskaæ odpowiedzi na swoje pytanie wewn±trz swojego campusa, wy¶lij tam swoj± wiadomo¶æ.</p>
 <p>Odno¶nik 'Rejestracja' (je¶li istnieje) znajduje siê na stronie g³ównej campusu (u góry, po prawej).</p><b>Logowanie</b><p>Podczas nastêpnych wizyt, wpisuj swoj± nazwê u¿ytkownika i has³o, a nastêpnie 'Wej¶cie', ¿eby uzyskaæ dostêp Twoich kursów. Adres strony: ";
 $langClarolineNetNews = "Nowiny Claroline.net";
@@ -315,7 +315,7 @@ $langDBHost = "Host Bazy danych";
 $langDBSettingNamesIntro = "
 Instalator zamierza stworzyæ g³ówne bazy danych Claroline.
 Je¶li administrator systemu bazy danych ograniczy³ Ci dostêp tylko do pojedynczej bazy,
-wróæ na poprzedni± stronê i wybierz opcjê \"Pojedyncza (single)\" z \"Tryb bazy danych (Database mode)\".<BR><BR>
+wróæ na poprzedni± stronê i wybierz opcjê \"Pojedyncza (single)\" z \"Tryb bazy danych (Database mode)\".<br /><br />
 ";
 $langDBUse = "U¿ycie bazy danych";
 $langDOCUMENTTypeDesc = "Dokument";
@@ -369,7 +369,7 @@ $langDisable = "Zablokuj";
 $langDiskUsage = "U¿ycie dysku";
 $langDispClassAdded = "Wy¶wietl dodan± klasê";
 $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w komputerze.</p><p>Mo¿esz ³adowaæ pliki ró¿nego typu (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Musisz tylko zadbaæ, ¿eby studenci mieli programy, które umo¿liwi±  odczytanie umieszczonych plików. Pliki niektórych typów mog± zawieraæ wirusy - do Ciebie nale¿y odpowiedzialno¶æ, ¿eby nie za³adowaæ zawirusowanych plików. Rozs±dnym jest sprawdzanie wszystkich plików programem przeciwwirusowym przed ich za³adowaniem do serwera. </p>
-<p>Dokumenty s± wy¶wietlane w porz±dku alfabetycznym.<br><b>Uwaga : </b>Je¶li chcesz umie¶cic pliki w innej kolejno¶ci, ponumeruj je: 01, 02, 03...</p>
+<p>Dokumenty s± wy¶wietlane w porz±dku alfabetycznym.<br /><b>Uwaga : </b>Je¶li chcesz umie¶cic pliki w innej kolejno¶ci, ponumeruj je: 01, 02, 03...</p>
 <p>Mo¿esz:</p>
 <h4>Za³adowaæ dokument</h4>
 <ul>
@@ -414,7 +414,7 @@ $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kom
 	  skasuj istniej±cy komentarz i kliknij <input type=submit
  value=OK name=submit22>
 	  . 
-	<hr>
+	<hr />
 	<p>Mo¿esz dowolnie zorganizowaæ zawarto¶æ. W tym celu:</p>
 	<h4><b>Twórz katalogi</b></h4>
 	<ul>
@@ -472,7 +472,7 @@ $langEmailNotSent = "Co¶ nie dzia³a - wy¶lij mail do ";
 $langEmailOption = "Wy¶lij to og³oszenie do zarejestrowanych u¿ytkowników";
 $langEmailSent = " i wys³aæ email do zarejestrowanych studentów";
 $langEmailWrong = "Adres e-mail jest niekompletny lub zawiera niedozwolone znaki";
-$langEmpty = "Zostawi³e¶ niewype³nione pola.<br>U¿yj przycisku Wstecz i spróbuj jeszcze raz.<br>Je¶li zignorujesz Kod kursu spójrz do Programu kursu";
+$langEmpty = "Zostawi³e¶ niewype³nione pola.<br />U¿yj przycisku Wstecz i spróbuj jeszcze raz.<br />Je¶li zignorujesz Kod kursu spójrz do Programu kursu";
 $langEmptyAnn = "Wyczy¶æ listê og³oszeñ";
 $langEmptyFields = "Zostawi³e¶ puste pola. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
 $langEmtpyGroups = "Wyzeruj wszystkie grupy";
@@ -491,8 +491,8 @@ $langExMessage = "Wiadomo¶æ w Forum";
 $langExerciceEx = "Przyk³adowe æwiczenie";
 $langExercices = "Æwiczenia";
 $langExercise = "Æwiczenia";
-$langExerciseContent = "<p>Narzêdzie pozwala tworzyæ æwiczenia które bêd¹ zawieraæ tyle pytañ ile chcesz.<br><br>
-Dostêpne s¹ ró¿ne typy odpowiedzi na stworzone przez Ciebie pytania:<br><br>
+$langExerciseContent = "<p>Narzêdzie pozwala tworzyæ æwiczenia które bêd¹ zawieraæ tyle pytañ ile chcesz.<br /><br />
+Dostêpne s¹ ró¿ne typy odpowiedzi na stworzone przez Ciebie pytania:<br /><br />
 <ul>
   <li>Jeden z wielu (pojedyncza odpowiedŸ)</li>
   <li>Wielokrotny wybór (wiele odpowiedzi)</li>
@@ -500,24 +500,24 @@ Dostêpne s¹ ró¿ne typy odpowiedzi na stworzone przez Ciebie pytania:<br><br>
   <li>Wype³nianie</li>
 </ul>
 Æwiczenie zawiera pewn¹ liczbê pytañ pod ka¿dym wspólnym tematem.</p>
-<hr>
+<hr />
 <b>Exercise creation</b>
-<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
-Type the exercise name, as well as an optional description of it.<br><br>
-You can also choose between 2 exercise types :<br><br>
+<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br /><br />
+Type the exercise name, as well as an optional description of it.<br /><br />
+You can also choose between 2 exercise types :<br /><br />
 <ul>
   <li>Questions on an unique page</li>
   <li>One question per page (sequential)</li>
 </ul>
-and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>
+and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br /><br />
 Then, save your exercise. You will go to to the question administration for this exercise.</p>
-<hr>
+<hr />
 <b>Question adding</b>
 <p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p>
-<hr>
+<hr />
 <b>Multiple choice</b>
-<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-In order to create a MAQ / MCQ :<br><br>
+<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br /><br />
+In order to create a MAQ / MCQ :<br /><br />
 <ul>
   <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
   <li>Check via the left box the correct answer(s)</li>
@@ -525,41 +525,41 @@ In order to create a MAQ / MCQ :<br><br>
   <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>
   <li>Save your answers</li>
 </ul></p>
-<hr>
+<hr />
 <b>Fill in the blanks</b>
-<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
-To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>
-Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>
+<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br /><br />
+To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br /><br />
+Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />
 Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-<hr>
+<hr />
 <b>Matching</b>
-<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>
-It can also be used to ask students to sort elements in a certain order.<br><br>
-First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
-Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
+<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br /><br />
+It can also be used to ask students to sort elements in a certain order.<br /><br />
+First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br /><br />
+Notice : Several elements from the first unit can point to the same element in the second unit.<br /><br />
 Give a weighting to each correct matching, and save your answer.</p>
-<hr>
+<hr />
 <b>Exercise modification</b>
 <p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
-<hr>
+<hr />
 <b>Exercise deleting</b>
 <p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
-<hr>
+<hr />
 <b>Exercise enabling</b>
 <p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
-<hr>
+<hr />
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
-<hr>
+<hr />
 <b>Random exercises</b>
-<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
-That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
+<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br /><br />
+That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br /><br />
 If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p>
-<hr>
+<hr />
 <b>Question pool</b>
-<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>
-The question pool also allows to reuse a same questions into several exercises.<br><br>
-By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
+<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br /><br />
+The question pool also allows to reuse a same questions into several exercises.<br /><br />
+By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br /><br />
 Orphan questions are questions that don't belong to any exercise.</p>";
 $langExerciseDescription = "Opis æwiczenia";
 $langExerciseManagement = "Zarz±dzanie æwiczeniami";
@@ -570,7 +570,7 @@ $langExistingGroups = "Grupy";
 $langExpectedChoice = "Spodziewany wybór";
 $langExplanation = "Strona musi byæ w formacie HTML (np. \"my_page.htm\"). Odno¶nik do strony umieszczone zostanie na Stronie g³ównej. Je¶li chcesz wys³aæ dokument inny i¿ HTML (PDF, Word, Power Point, Video, etc.) u¿yj <a href=../document/document.php>narzêdzia Dokumenty</a>";
 $langFileError = "Plik do za³adowania jest nieprawd³owy.";
-$langFileExists = "Operacja niemo¿liwa.<br>Plik o tej nazwie ju¿ istnieje.";
+$langFileExists = "Operacja niemo¿liwa.<br />Plik o tej nazwie ju¿ istnieje.";
 $langFillBlanks = "Wype³nij pole";
 $langFillGroups = "Zapisywanie do grup";
 $langFillLists = "Wype³nij dwie listy poni¿ej";
@@ -697,7 +697,7 @@ $langInvalidIdSelfReg = "<b>Logowanie niepomy¶lne.</b><br />Proszê spróbowaæ pon
 $langInvisible = "Niewidoczny";
 $langIs = "jest";
 $langIsAlreadyRegistered = "jest ju¿ zarejestrowany na kursie";
-$langIsNowInYourDocDir = "jest ju¿ w obszarze dokumentów. <br><B>Ten plik jest widoczny.</B>";
+$langIsNowInYourDocDir = "jest ju¿ w obszarze dokumentów. <br /><B>Ten plik jest widoczny.</B>";
 $langIsNowRegistered = "jest teraz zarejestrowany na kurs";
 $langJustCreated = "Utworzony zosta³ kurs ";
 $langLabelCanBeEmpty = "Wymagany tytu³ kursu";
@@ -799,7 +799,7 @@ $langMessageRegistrationNotAllowed = "Rejestracja na platformie niedozwolona";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Dear %s, %s. 
 Twoje osobiste ustawienia zosta³y zarejestrowane a 
-Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
+Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br />
 Wybierz z listy kursy, do których chcesz mieæ dostêp.";
 $langMessageToSelectedUsers = "Wiadomoœæ do wybranych u¿ytkowników";
 $langMessages = "Wiadomoœci";
@@ -1269,12 +1269,12 @@ $langUsedInSeveralPath = "To æwiczenie jest u¿ywane w przynajmniej jednej ¶cie¿c
 $langUser = "U¿ytkownicy";
 $langUserAccessDetails = "Szczegó³y dostêpu u¿ytkownika";
 $langUserAlreadyInClass = "U¿ytkownik jest ju¿ w klasie";
-$langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie 'modyfikuj' w kolumnie 'Funkcje' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr>
+$langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie 'modyfikuj' w kolumnie 'Funkcje' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr />
 <b>Uprawnienia administratora</b>
 <p>Uprawnienia administratora odpowiadaj± technicznej autoryzacji w celu modyfikowania zawarto¶ci i organizacji stron kursu. W chwili obecnej mo¿esz wybraæ jedynie miêdzy przyznaniem wszelkich praw administracyjnych i nie przyznaniem ¿adnych.</P>
-<p>¯eby do³±czyæ do kursu asystenta lub wspó³administratora, musisz zarejestrowaæ go w kursie lub upewniæ siê, ¿e jest ju¿ zarejestrowany, potem kliknij 'modyfikuj' w kolumnie 'Uprawnienia administracyjne', nastêpnie 'wszystkie' i 'Ok'.</P><hr>
+<p>¯eby do³±czyæ do kursu asystenta lub wspó³administratora, musisz zarejestrowaæ go w kursie lub upewniæ siê, ¿e jest ju¿ zarejestrowany, potem kliknij 'modyfikuj' w kolumnie 'Uprawnienia administracyjne', nastêpnie 'wszystkie' i 'Ok'.</P><hr />
 <b>Prowadz±cy</b>
-<p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c 'Modyfikuj ustawienia kursu'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole 'Wyk³adowca' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr>
+<p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c 'Modyfikuj ustawienia kursu'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole 'Wyk³adowca' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr />
 <b>Dodawanie u¿ytkownika</b>
 <p>¯eby dodaæ u¿ytkownika do kursu, wype³nij odpowiednie pola i zatwierd¼. Do osób, które zarejestujesz zostan± wys³ne listy email z informacj± o ich Nazwie u¿ytkownika i ha¶le.</p>";
 $langUserCourseList = "Lista kursów u¿ytkowników";

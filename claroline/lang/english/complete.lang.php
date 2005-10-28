@@ -55,7 +55,7 @@ $langAddForum = "Add forum";
 $langAddImage = "Include picture";
 $langAddIntro = "Add introduction text";
 $langAddListUser = "Add a list of users";
-$langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
+$langAddLoginPass = "Add a login/pass in .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
 $langAddModifyComment = "Add/modify a comment to";
 $langAddModule = "Add";
@@ -226,7 +226,7 @@ $langClarContent = "Here, lecturers and assistants create and administer
  sometimes, do exercises, publish papers, participate in
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites
- register you automatically). <br>If you are a Student, you
+ register you automatically). <br />If you are a Student, you
  just need to register selecting 'Follow courses (student)', then choose
  the courses you would like to follow.</p><p>If you are a Lecturer or an
  Assistant, register too, but select 'Create courses (lecturer)'. You will
@@ -351,7 +351,7 @@ $langDBSettingNamesIntro = "
 The installer is going to create the main Claroline databases.
 If you are limited by your database system administrator to use
 only a single database, get back to the previous page
-and select option 'single' for 'Database mode'.<BR><BR>
+and select option 'single' for 'Database mode'.<br /><br />
 ";
 $langDBUse = "Database usage";
 $langDOCUMENTTypeDesc = "Document";
@@ -639,7 +639,7 @@ $langElementList = "Element list";
 $langEmail = "Email";
 $langEmailAddressNotFound = "There is no user account with this email address.";
 $langEmailCanBeEmpty = "Email field need to be filled";
-$langEmailNotSent = "The system is unable to send you an e-mail.<br>Please contact the  ";
+$langEmailNotSent = "The system is unable to send you an e-mail.<br />Please contact the  ";
 $langEmailOption = "Send this announcement by email to registered students";
 $langEmailSent = " and emailed to registered students";
 $langEmailWrong = "The email address is not valid";
@@ -840,7 +840,7 @@ $langFileContentModified = "File content modified";
 $langFileCreated = "File created";
 $langFileDesc = "File description";
 $langFileError = "The file to upload is not valid.";
-$langFileExists = "Operation impossible.<br>A file with this name already exists.";
+$langFileExists = "Operation impossible.<br />A file with this name already exists.";
 $langFileForCSVUpload = "CSV file with the user list : ";
 $langFileName = "Filename";
 $langFileNameMissing = "File name is missing";
@@ -1115,19 +1115,19 @@ $langIntroCourse = "You are on the course home page.<br /><br />On this page, yo
 Now, to add an introduction text presenting your course to students, click on this button ";
 $langIntroEditToolList = "Select the tools you want to make visible for your user.
 An invisible tool will be greyed out on your personal interface";
-$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
+$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br /><br />If you want to present your learning path to students, click on the button below.<br />";
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
  or single users from the list on the left.";
 $langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 <br />You will be able to add a comment or a grade to each work.
-<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
-$langInvalidId = "Login failed.<BR>Contact your administrator.";
+<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br />";
+$langInvalidId = "Login failed.<br />Contact your administrator.";
 $langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
 <small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
 $langInvisible = "Invisible";
 $langIs = "is";
 $langIsAlreadyRegistered = "is already registered to course";
-$langIsNowInYourDocDir = "is now in  your document tool. <br><B>This file is visible</B>";
+$langIsNowInYourDocDir = "is now in  your document tool. <br /><B>This file is visible</B>";
 $langIsNowRegistered = "is now registered to course";
 $langJustCreated = "You have just created the course website";
 $langLabelCanBeEmpty = "Course title needed";
@@ -1870,7 +1870,7 @@ $langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
 <dt>Hyperlinks</dt>
 <dd><code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> ou <code>[name|url|language|title]</code>.&nbsp;;</dd>
 <dt>Image inclusion</dt>
-<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</dd>
+<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</dd>
 <dd>You can use the syntax as Hyperlinks. For example <code>[title|image.gif]</code>. This syntax is deprecated, consider to use the preceding one&nbsp;;</dd>
 <dt>Link to an image</dt>
 <dd>same as Hyperlinks but put a 0 in fourth argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself</dd>
@@ -2006,7 +2006,7 @@ $lang_p_IfNothingHappendClickHere = "If after while no message appears confirmin
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_category_s_created = "Category %s created";
-$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_config_file_creation = "Configuration  file creation:<br /> %s";
 $lang_p_d_StudentUnregistredFormCours = "%d student(s) unregistered from this course";
 $lang_p_d_course = "%2d course";
 $lang_p_d_course_manager = "%2d prof ";
