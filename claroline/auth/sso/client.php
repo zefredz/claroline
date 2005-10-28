@@ -124,16 +124,9 @@ if ( isset($_COOKIE[$cookieName]) )
     }
     else
     {
-    	// AUTHENTICATION FAILED
+        // AUTHENTICATION FAILED
         echo '<center>Authentication failed</center>';
     }
     
 }
-
-
-
-
-
-
-
 ?>

@@ -297,7 +297,7 @@ function is_allowed_to_recieve_user_info($auth)
     }
     else
     {
-    	return false;
+        return false;
     }
 }
 ?>

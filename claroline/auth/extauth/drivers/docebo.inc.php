@@ -71,8 +71,8 @@ if ( $extAuth->isAuth() )
     else
     {
         // create a new rank in the claroline user table for this user
-	
-	$extAuth->recordUserData($extAuthAttribNameList, 
+    
+    $extAuth->recordUserData($extAuthAttribNameList, 
                              $extAuthAttribTreatmentList);
     }
 
@@ -80,7 +80,7 @@ if ( $extAuth->isAuth() )
 }
 else
 {
-	$extAuthId = false;
+    $extAuthId = false;
 }
 
 return $extAuthId;
