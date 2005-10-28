@@ -11,15 +11,15 @@ if ( $extAuth->isAuth() )
     {
        // update the user data in the claroline user table
 
-       $extAuth->recordUserData($extAuthAttribNameList, 
-                                $extAuthAttribTreatmentList, 
+       $extAuth->recordUserData($extAuthAttribNameList,
+                                $extAuthAttribTreatmentList,
                                 $uData['user_id']);
     }
     else
     {
         // create a new rank in the claroline user table for this user
-    
-        $extAuth->recordUserData($extAuthAttribNameList, 
+
+        $extAuth->recordUserData($extAuthAttribNameList,
                                  $extAuthAttribTreatmentList);
     }
 

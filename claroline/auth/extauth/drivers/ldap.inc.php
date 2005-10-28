@@ -13,7 +13,7 @@
 //----------------------------------------------------------------------
 
 
-// Define the Auth driver options 
+// Define the Auth driver options
 
 $authSourceName = 'ldap';
 $authSourceType = 'LDAP';
@@ -26,16 +26,17 @@ $extAuthOptionList = array(
     'userattr' => 'uid',
     'useroc'   => 'person',
     'attributes' => array('sn', 'givenName', 'telephoneNumber','mail'),
+    'attributesformat' => AUTH_LDAP_ATTR_AUTH_STYLE,
 );
 
 
 // Link external authentication attributes to the Claroline user attribute.
-// The keys are the claroline attributes and the value are the authentication 
+// The keys are the claroline attributes and the value are the authentication
 // external attributes.
 //
 // Note. If the attribute isn't found in the external authentication results,
-// the external attribute NAME would be record as claroline attribute VALUE 
-// user table. It means that you can substitute a default value to the attribute 
+// the external attribute NAME would be record as claroline attribute VALUE
+// user table. It means that you can substitute a default value to the attribute
 // name.
 
 $extAuthAttribNameList = array (
@@ -46,13 +47,13 @@ $extAuthAttribNameList = array (
     'authSource'   => 'ldap'
 );
 
-    
 
-// Array setting optionnal preliminary treatment to the data retrieved from the 
-// exernal authentication source. The array keys are the concernend claroline 
-// user table fields, ans the values are the name of the function which make 
-// the treatment You can use standart PHP functions or functions defined by 
-// your own. If no function named like the value are found, the authentication 
+
+// Array setting optionnal preliminary treatment to the data retrieved from the
+// exernal authentication source. The array keys are the concernend claroline
+// user table fields, ans the values are the name of the function which make
+// the treatment You can use standart PHP functions or functions defined by
+// your own. If no function named like the value are found, the authentication
 // system will simply stored thisvalue into Claroline.
 
 $extAuthAttribTreatmentList = array (
