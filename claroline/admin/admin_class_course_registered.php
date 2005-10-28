@@ -15,10 +15,10 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-include $includePath."/lib/admin.lib.inc.php";
-include $includePath."/lib/class.lib.php";
-include $includePath."/lib/user.lib.php";
-include $includePath.'/conf/user_profile.conf.php'; // find this file to modify values.
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/user.lib.php';
+include $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -28,25 +28,23 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 $nameTools=$langClassRegistered;
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langClassRegistered);
-
-/*
+/**#@+
  * DB tables definition
+ * @var $tbl_mdb_names array table name for the central database
  */
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user                  = $tbl_mdb_names['user'];
-$tbl_course                = $tbl_mdb_names['course'];
-$tbl_course_user           = $tbl_mdb_names['rel_course_user'];
-
-$tbl_class                 = $tbl_mdb_names['user_category'];
-$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
-
-include($includePath.'/claro_init_header.inc.php');
+$tbl_user        = $tbl_mdb_names['user'];
+$tbl_course      = $tbl_mdb_names['course'];
+$tbl_course_user = $tbl_mdb_names['rel_course_user'];
+$tbl_class       = $tbl_mdb_names['user_category'];
+$tbl_class_user  = $tbl_mdb_names['user_rel_profile_category'];
+/**#@-*/
 
 //find info about the class
 
 $sqlclass = "SELECT *
-             FROM `".$tbl_class."`
-             WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
+             FROM `" . $tbl_class . "`
+             WHERE `id`='". (int) $_SESSION['admin_user_class_id'] . "'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 //------------------------------------
@@ -58,7 +56,7 @@ else                           $cmd = null;
 
 if (isset($cmd) && $is_platformAdmin)
 {
-    if ($cmd=="exReg")
+    if ($cmd == 'exReg')
     {
         $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
         $outputResultLog = '';
@@ -67,7 +65,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['OK'] as $userSubscribed)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] '.sprintf($lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribed['prenom'],$userSubscribed['nom']).'<br>';
+                $outputResultLog .= '[<font color="green">OK</font>] ' . sprintf($lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribed['prenom'], $userSubscribed['nom']) . '<br />';
             }
         }
 
@@ -75,7 +73,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['KO'] as $userSubscribedKo)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] '.sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribedKo['prenom'],$userSubscribedKo['nom']).'<br>';
+                $outputResultLog .= '[<font color="red">KO</font>] ' . sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname, $userSubscribedKo['prenom'], $userSubscribedKo['nom']).'<br />';
             }
         }
     }
@@ -86,10 +84,10 @@ if (isset($cmd) && $is_platformAdmin)
 // DISPLAY
 //------------------------------------
 
-
+include $includePath . '/claro_init_header.inc.php';
 // Display tool title
 
-echo claro_disp_tool_title($langClassRegistered." : ".$classinfo['name']);
+echo claro_disp_tool_title($langClassRegistered . ' : ' . $classinfo['name']);
 
 //Display Forms or dialog box(if needed)
 
@@ -108,7 +106,7 @@ if ( !empty($dialogBox) )
 
 echo '<p><a class="claroCmd" href="index.php">' . $langBackToAdmin . '</a> | ';
 echo '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . $langBackToClassMembers . '</a> | ';
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&fromAdmin=class' . '">' . $langClassRegisterWholeClassAgain . '</a></p>';
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . $langClassRegisterWholeClassAgain . '</a></p>';
 
 // display footer
 

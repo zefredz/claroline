@@ -17,13 +17,23 @@ $userPerPage = 20; // numbers of user to display on the same page
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
 
-require_once $includePath.'/lib/pager.lib.php';
-require_once $includePath.'/lib/class.lib.php';
-require_once $includePath.'/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+
+/**#@+
+ * DB tables definition
+ * @var $tbl_mdb_names array table name for the central database
+ */
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user       = $tbl_mdb_names['user'];
+$tbl_class      = $tbl_mdb_names['user_category'];
+$tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
+/**#@-*/
 
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
 {
@@ -57,22 +67,8 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/
 
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[]= array ('url' => $rootAdminWeb.'admin_class.php', 'name' => $langClass);
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => $langClass);
 $nameTools = $langClassMembers;
-
-//Header
-
-include($includePath.'/claro_init_header.inc.php');
-
-/**#@+
- * DB tables definition
- * @var $tbl_mdb_names array table name for the central database
- */
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user       = $tbl_mdb_names['user'];
-$tbl_class      = $tbl_mdb_names['user_category'];
-$tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
-/**#@-*/
 
 //SESSION VARIABLES
 
@@ -91,8 +87,8 @@ else                         $cmd = null;
 switch ($cmd)
 {
     case 'unsubscribe' :
-        $sql = "DELETE FROM `".$tbl_class_user."`
-                WHERE `user_id`='" . (int) $_REQUEST['userid'] . "'";
+        $sql = "DELETE FROM `" . $tbl_class_user . "`
+                WHERE `user_id` = " . (int) $_REQUEST['userid'];
         claro_sql_query($sql);
         $dialogBox = $langUserUnregisteredFromClass;
         break;
@@ -109,15 +105,15 @@ switch ($cmd)
 //find info about the class
 
 $sqlclass = "SELECT *
-             FROM `".$tbl_class."`
+             FROM `" . $tbl_class . "`
              WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 //find this current content
 
 $sql = "SELECT *
-        FROM `".$tbl_user."` AS U
-            LEFT JOIN `".$tbl_class_user."` AS CU
+        FROM `" . $tbl_user . "` AS U
+            LEFT JOIN `" . $tbl_class_user . "` AS CU
             ON U.`user_id`= CU.`user_id`
         WHERE `class_id`='" . (int)$_SESSION['admin_user_class_id'] . "'
         ";
@@ -145,23 +141,17 @@ if (isset($_REQUEST['order_crit']))
         $_SESSION['admin_user_class_order_crit'] = 'U`.`user_id';
     }
 }
+
 if (isset($_SESSION['admin_user_class_order_crit']))
 {
-    $toAdd = " ORDER BY `".$_SESSION['admin_user_class_order_crit']."` ".$_SESSION['admin_user_class_dir'];
+    $toAdd = " ORDER BY `".$_SESSION['admin_user_class_order_crit'] . "` " . $_SESSION['admin_user_class_dir'];
     $sql.=$toAdd;
 
 }
 
 //Build pager with SQL request
-
-if (!isset($_REQUEST['offset']))
-{
-    $offset = "0";
-}
-else
-{
-    $offset = $_REQUEST['offset'];
-}
+if (!isset($_REQUEST['offset'])) $offset = "0";
+else                             $offset = $_REQUEST['offset'];
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
 $resultList = $myPager->get_result_list();
@@ -172,6 +162,9 @@ $resultList = $myPager->get_result_list();
 
 if (!isset($addToUrl)) $addToUrl ='';
 
+//Header
+include $includePath . '/claro_init_header.inc.php';
+
 // Display tool title
 
 echo claro_disp_tool_title($nameTools . ' : ' . $classinfo['name']);
@@ -181,7 +174,7 @@ echo claro_disp_tool_title($nameTools . ' : ' . $classinfo['name']);
 if (isset($dialogBox))
 {
     echo claro_disp_message_box($dialogBox);
-    echo '<br>';
+    echo '<br />';
 }
 
 //TOOL LINKS
@@ -202,7 +195,7 @@ echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class
 .    '<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
 .    $langAddCSVUsersInClass
 .    '</a>'
-.    '<br><br>'
+.    '<br /><br />'
 ;
 
    //Pager
@@ -212,21 +205,21 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // Display list of users
 
-   // start table...
+// start table...
 
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-   . '<thead>'
-   . '<tr class="headerX" align="center" valign="top">'
-   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=user_id&amp;chdir=yes">'.$langUserid.'</a></th>'
-   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=nom&amp;chdir=yes">'.$langLastName.'</a></th>'
-   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=prenom&amp;chdir=yes">'.$langFirstName.'</a></th>'
-   . '<th><a href="'.$_SERVER['PHP_SELF'].'?order_crit=officialCode&amp;chdir=yes">'.$langOfficialCode.'</a></th>'
-   . '<th>'.$langEmail.'</th>'
-   . '<th>'.$langUnsubscribeClass.'</th>'
-   . '</tr>'
-   . '</thead>'
-   . '<tbody>'
-   ;
+.    '<thead>'
+.    '<tr class="headerX" align="center" valign="top">'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . $langUserid . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes">' . $langLastName . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes">' . $langFirstName . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;chdir=yes">' . $langOfficialCode . '</a></th>'
+.    '<th>' . $langEmail . '</th>'
+.    '<th>' . $langUnsubscribeClass . '</th>'
+.    '</tr>'
+.    '</thead>'
+.    '<tbody>'
+;
 
    // Start the list of users...
 foreach($resultList as $list)
@@ -234,9 +227,9 @@ foreach($resultList as $list)
      $list['officialCode'] = (isset($list['officialCode']) ? $list['officialCode'] :' - ');
 
      echo '<tr>'
-     .    '<td align="center" >' . $list['user_id']      .'</td>'
-     .    '<td align="left" >'   . $list['nom']          .'</td>'
-     .    '<td align="left" >'   . $list['prenom']       .'</td>'
+     .    '<td align="center" >' . $list['user_id']      . '</td>'
+     .    '<td align="left" >'   . $list['nom']          . '</td>'
+     .    '<td align="left" >'   . $list['prenom']       . '</td>'
      .    '<td align="center">'  . $list['officialCode'] . '</td>'
      .    '<td align="left">'    . $list['email']        . '</td>'
      .    '<td align="center">'  ."\n"
@@ -256,7 +249,7 @@ if (isset($atLeastOne) && !$atLeastOne)
     echo '<tr>'
     .    '<td colspan="8" align="center">'
     .    $langNoUserResult
-    .    '<br>'
+    .    '<br />'
     .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class.php' . $addtoAdvanced . '">'
     .    $langBack
     .    '</a>'

@@ -47,56 +47,50 @@ list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
 // See SESSION variables used for reorder criteria :
 
-if (isset($_REQUEST['dir']))
-{
-    $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
-}
-else
-{
-    $_REQUEST['dir'] = 'ASC';
-}
+if (isset($_REQUEST['dir'])) $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+else                         $_REQUEST['dir'] = 'ASC';
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
+if (isset($_REQUEST['cmd'])) $cmd = $_REQUEST['cmd'];
+else                         $cmd = null;
 
 switch ($cmd)
 {
-  case "subscribe" :
-
-    // 1- test if user is not already registered to class
-
-    $sql = "SELECT `user_id`
-            FROM `".$tbl_class_user."`
-            WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
-              AND `class_id` = '".(int)$classinfo['id']."'";
-    $result = claro_sql_query($sql);
-
-    if (!(mysql_num_rows($result) > 0))
+    case 'subscribe' :
     {
+        // 1- test if user is not already registered to class
 
-        // 2- process the registration of user in the class
+        $sql = "SELECT `user_id`
+            FROM `" . $tbl_class_user . "`
+            WHERE `user_id` = ". (int) $_REQUEST['user_id'] . "
+              AND `class_id` = " . (int) $classinfo['id'] ;
+        $result = claro_sql_query($sql);
 
-        $sql ="INSERT INTO `".$tbl_class_user."`
+        if (!(mysql_num_rows($result) > 0))
+        {
+
+            // 2- process the registration of user in the class
+
+            $sql ="INSERT INTO `".$tbl_class_user."`
                SET `user_id` = '". (int)$_REQUEST['user_id'] ."',
                    `class_id` = '". (int)$classinfo['id'] ."' ";
+            claro_sql_query($sql);
+            $dialogBox = $langUserRegisteredClass;
+        }
+    } break;
+
+    case 'unsubscribe' :
+    {
+        $sql ="DELETE FROM `".$tbl_class_user."`
+           WHERE `user_id` = ". (int) $_REQUEST['user_id']."
+             AND `class_id` = ". (int) $classinfo['id'];
         claro_sql_query($sql);
-        $dialogBox = $langUserRegisteredClass;
-    }
-    break;
 
-  case "unsubscribe" :
-    $sql ="DELETE FROM `".$tbl_class_user."`
-           WHERE `user_id` = '". (int)$_REQUEST['user_id']."'
-             AND `class_id` = '". (int)$classinfo['id']."'";
-    claro_sql_query($sql);
-
-    $dialogBox = $langUserUnregisteredFromClass;
-    break;
+        $dialogBox = $langUserUnregisteredFromClass;
+    } break;
 
 }
 
@@ -108,10 +102,10 @@ switch ($cmd)
 
 
 $sql = "SELECT *, U.`user_id`
-        FROM  `".$tbl_user."` AS U
-        LEFT JOIN `".$tbl_class_user."` AS CU
+        FROM  `" . $tbl_user . "` AS U
+        LEFT JOIN `" . $tbl_class_user . "` AS CU
                ON  CU.`user_id` = U.`user_id`
-              AND CU.`class_id` = '". (int)$classinfo['id']."'";
+              AND CU.`class_id` = " . (int) $classinfo['id'];
 
 // deal with REORDER
 
@@ -162,8 +156,8 @@ if (isset($_SESSION['admin_class_reg_user_order_crit']))
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[]= array ('url' => $rootAdminWeb."admin_class.php", 'name' => $langClass);
-$interbredcrump[]    = array ('url' => $rootAdminWeb."admin_class_user.php", 'name' => $langListClassUser);
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => $langClass);
+$interbredcrump[]    = array ('url' => $rootAdminWeb . 'admin_class_user.php', 'name' => $langListClassUser);
 $nameTools = $langRegisterUserToClass;
 
 //Header
@@ -171,14 +165,8 @@ include $includePath . '/claro_init_header.inc.php';
 
 //Build pager with SQL request
 
-if (!isset($_REQUEST['offset']))
-{
-    $offset = "0";
-}
-else
-{
-    $offset = $_REQUEST['offset'];
-}
+if (!isset($_REQUEST['offset'])) $offset = '0';
+else                             $offset = $_REQUEST['offset'];
 
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
@@ -191,103 +179,96 @@ $resultList = $myPager->get_result_list();
 
 // Display tool title
 
-echo claro_disp_tool_title($nameTools." : ".$classinfo['name']);
+echo claro_disp_tool_title($nameTools . ' : ' . $classinfo['name']);
 
 // Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
-{
-    echo claro_disp_message_box($dialogBox);
-}
+if(isset($dialogBox)) echo claro_disp_message_box($dialogBox);
 
 //TOOL LINKS
 
-echo "<a class=\"claroCmd\" href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$classinfo['id']."\"> ".$langClassMembers." </a><br><br>";
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . $langClassMembers . '</a>'
+.    '<br /><br />'
+;
 
-if (isset($cfrom) && ($cfrom=="clist"))
-{
-    echo claro_disp_button("admincourses.php", $langBackToCourseList);
-}
+if (isset($cfrom) && ($cfrom=="clist")) echo claro_disp_button("admincourses.php", $langBackToCourseList);
 
 //Pager
 
 $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // Display list of users
+// start table...
 
-   // start table...
-
-echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
-    ."<thead>\n"
-    ."<tr class=\"headerX\" align=\"center\" valign=\"top\">"
-    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>"
-    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=nom&chdir=yes\">".$langLastName."</a></th>"
-    ."  <th><a href=\"".$_SERVER['PHP_SELF']."?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>"
-    ."  <th>".$langSubscribeClass."</th>"
-    ."  <th>".$langUnsubscribeClass."</th>"
-    ."</tr>\n"
-    ."</thead>\n"
-    ."<tbody>\n";
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+.    '<thead>' . "\n"
+.    '<tr class="headerX" align="center" valign="top">'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . $langUserid . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . $langLastName . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . $langFirstName . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . $langFirstName . '</a></th>' . "\n"
+.    '<th>' . $langSubscribeClass . '</th>'
+.    '<th>' . $langUnsubscribeClass . '</th>'
+.    '<th>' . $langUnsubscribeClass . '</th>'
+.    '</tr>' . "\n"
+.    '</thead>' . "\n"
+.    '<tbody>' . "\n"
+;
 
    // Start the list of users...
 
 foreach($resultList as $list)
 {
-     echo "<tr>";
-
-     //  Id
-
-     echo "<td align=\"center\"><a name=\"u".$list['user_id']."\"></a>".$list['user_id']."
-           </td>";
-
-     // lastname
-
-     echo '<td align="left">'.$list['nom'].'</td>'."\n";
-
-     //  Firstname
-
-     echo '<td align="left">'.$list['prenom'].'</td>'."\n";
-
+     echo '<tr>'
+     .    '<td align="center"><a name="u' . $list['user_id'] . '"></a>' . $list['user_id'] . '</td>' . "\n"
+     .    '<td align="left">' . $list['nom']    . '</td>' . "\n"
+     .    '<td align="left">' . $list['prenom'] . '</td>' . "\n"
+     ;
      // Register
 
      if ($list['id']==null)
      {
-        echo  '<td align="center">'."\n"
-             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=subscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
-             .'<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" alt="'.$langSubscribeClass.'" />'."\n"
-             .'</a>'."\n"
-             .'</td>'."\n";
+         echo '<td align="center">' . "\n"
+         .    '<a href="' . $_SERVER['PHP_SELF'] . '?class=' . $classinfo['id'] . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
+         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langSubscribeClass . '" />' . "\n"
+         .    '</a>' . "\n"
+         .    '</td>' . "\n"
+         ;
      }
      else
      {
-        echo  '<td align="center">'."\n"
-             .'<small>'.$langUserAlreadyInClass.'</small>'."\n"
-             .'</td>'."\n";
+         echo '<td align="center">'."\n"
+         .    '<small>'.$langUserAlreadyInClass.'</small>' . "\n"
+         .    '</td>' . "\n"
+         ;
      }
 
      // Unregister
 
      if ($list['id']!=null)
      {
-        echo  '<td align="center">'."\n"
-             .'<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
-             .'<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langUnsubscribeClass.'" />'."\n"
-             .'</a>'."\n"
-             .'</td>'."\n";
+         echo '<td align="center">'."\n"
+         .    '<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
+         .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langUnsubscribeClass.'" />'."\n"
+         .    '</a>'."\n"
+         .    '</td>'."\n"
+         ;
      }
      else
      {
-        echo  '<td align="center">'."\n"
-             .'<small>'.$langUserNotInClass.'</small>'."\n"
-             .'</td>'."\n";
+         echo '<td align="center">' . "\n"
+         .    '<small>' . $langUserNotInClass . '</small>' . "\n"
+         .    '</td>' . "\n"
+         ;
      }
-
-     echo "</tr>\n";
+     echo '</tr>' . "\n";
 }
 
    // end display users table
 
-echo "</tbody>\n</table>\n";
+echo '</tbody>' . "\n"
+.    '</table>' . "\n"
+;
 
 //Pager
 
