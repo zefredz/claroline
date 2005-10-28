@@ -29,6 +29,8 @@
     
     $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
     
+    echo '<center><a href="#" onclick="window.close()">'.$langCloseWindow.'</a></center>' . "\n";
+    
     switch( $help )
     {
         case 'syntax':
@@ -46,6 +48,8 @@
             echo '<center><h1>Missing help request</h1></center>';
         }
     }
+    
+    echo '<center><a href="#" onclick="window.close()">'.$langCloseWindow.'</a></center>' . "\n";
     
     $hide_footer = true;
     require_once $includePath."/claro_init_footer.inc.php";
