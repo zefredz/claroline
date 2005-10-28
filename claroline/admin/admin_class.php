@@ -28,9 +28,9 @@ if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 * DB tables definition
 */
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user                  = $tbl_mdb_names['user'];
-$tbl_class                 = $tbl_mdb_names['user_category'];
-$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
+$tbl_user       = $tbl_mdb_names['user'];
+$tbl_class      = $tbl_mdb_names['user_category'];
+$tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
 // USED SESSION VARIABLES
 
@@ -47,14 +47,14 @@ $interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => $langAdministrat
 
 $htmlHeadXtra[] =
 "<script>
-            function confirmation (name)
-            {
-                if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+' '+ name + \"? \"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
+function confirmation (name)
+{
+    if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+' '+ name + \"? \"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>";
 
 /*-----------------------------------*/
 /*    EXECUTE COMMAND                 */
@@ -171,7 +171,7 @@ switch ($cmd)
     .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     .           '<input type="hidden" name="class" value="' . $_REQUEST['class'].'" />' . "\n"
     .           '<input type="text" name="classname" value="' . htmlspecialchars($class_name) . '" />' . "\n"
-    .           '<input type="submit" value=" Ok " />' . "\n"
+    .           '<input type="submit" value=" ' . $langOk . ' " />' . "\n"
     .           '</td>' . "\n"
     .           '</tr>' . "\n"
     .           '</table>' . "\n"
@@ -204,7 +204,7 @@ switch ($cmd)
         if (!is_null($parent)) $parent = (int) $parent;
 
         $sql_update="UPDATE `" . $tbl_class . "`
-                     SET class_parent_id=" . $parent . "
+                     SET class_parent_id= " . $parent . "
                      WHERE id= " . (int) $_REQUEST['movedClassId'] ;
         claro_sql_query($sql_update);
         $dialogBox = $langClassMoved;
