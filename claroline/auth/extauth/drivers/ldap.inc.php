@@ -27,7 +27,7 @@ $extAuthOptionList = array(
     'userattr' => 'uid',
     'useroc'   => 'person',
     'attributes' => array('sn', 'givenName', 'telephoneNumber','mail'),
-    'attributesformat' => 'AUTH_LDAP_ATTR_AUTH_STYLE',
+    'attrformat' => 'AUTH_LDAP_ATTR_AUTH_STYLE',
 );
 
 
