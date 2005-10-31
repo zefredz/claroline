@@ -180,18 +180,17 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ($cmd == 'exUpload')
     {
-        /*
-         * Check if the file is valid (not to big and exists)
-         */
-
-        if( ! is_uploaded_file($_FILES['userFile']['tmp_name']) )
+        if( ! isset( $_FILES['userFile'] ) )
         {
-            $dialogBox .= $langFileError . '<br />' . $langNotice . ' : ' . $langMaxFileSize . ' ' . get_cfg_var('upload_max_filesize');
+            $dialogBox .= 'Error. No file uploaded';
         }
         else
         {
-            if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1 && $is_allowedToUnzip) $unzip = 'unzip';
-            else                                                                                      $unzip = '';
+            if (   isset($_REQUEST['uncompress']) 
+                && $_REQUEST['uncompress'] == 1
+                && $is_allowedToUnzip)                $unzip = 'unzip';
+            else                                      $unzip = '';
+
 
             $_REQUEST['cwd'] = str_replace('..', '', $_REQUEST['cwd']);
 
@@ -218,14 +217,33 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
             else
             {
-                if ( claro_failure::get_last_failure() == 'not_enough_space' )
+                $uploadFailure = claro_failure::get_last_failure();
+                switch ( $uploadFailure )
                 {
-                    $dialogBox .= $langNoSpace;
+                    case 'not_enough_space': 
+                        $dialogBox .= $langNoSpace;
+                        break;
+                    case 'php_file_in_zip_file': 
+                        $dialogBox .= $langZipNoPhp;
+                        break;
+                    case 'file_exceeds_php_upload_max_filesize' :
+                        $dialogBox .= 'File size exeeds.' 
+                                   .  '<br />'.$langNotice . ' : ' . $langMaxFileSize 
+                                   . ' ' . get_cfg_var('upload_max_filesize');
+                        break;
+                    case 'file_exceeds_html_max_file_size':
+                        $dialogBox .= 'File size exceeds.' ;
+                        break;
+                    case 'file_partially_uploaded':
+                        $dialogBox .= 'File upload incomplete.';
+                        break;
+                    case 'no_file_uploaded':
+                        $dialogBox .= 'No file uploaded.';
+                        break;
+                    default:
+                        $dialogBox .= 'File upload failed.';
                 }
-                elseif( claro_failure::get_last_failure() == 'php_file_in_zip_file')
-                {
-                    $dialogBox .= $langZipNoPhp;
-                }
+                
             }
 
             //notify that a new document has been uploaded
@@ -304,7 +322,22 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         $spaceAlreadyOccupied = dir_total_space($baseWorkDir);
 
-        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"multipart/form-data\">"
+        /*
+         * Technical note: 'cmd=exUpload' is added into the 'action' 
+         * attributes of the form, rather than simply put in a post 
+         * hidden input. That way, this parameter is concatenated with 
+         * the URL, and it guarantees than it will be received by the 
+         * server. The reason of this trick, is because, sometimes, 
+         * when file upload fails, no form data are received at all by 
+         * the server. For example when the size of the sent file is so 
+         * huge that its reception exceeds the max execution time 
+         * allowed for the script. When no 'cmd' argument are sent it is 
+         * impossible to manage this error gracefully. That's why, 
+         * exceptionally, we pass 'cmd' in the 'action' attribute of 
+         * the form.
+         */
+
+        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."?cmd=exUpload\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
                      ."<label for=\"userFile\">".$langUploadFile." : </label><br />"
