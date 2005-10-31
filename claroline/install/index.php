@@ -715,6 +715,22 @@ if ($display==DISP_WELCOME)
         Checking PHP settings.
         <UL>
             ';
+    $phpVersion =  explode('.',phpversion());
+    if($phpVersion[0]<5 && ($phpv$phpVersionersion[0]==4 && $phpVersion[1]<3))
+    {
+        echo '<li>'
+        .    '<p class="setup_error">' . "\n"
+        .    '<font color="red">Warning !</font>' . "\n"
+        .    'php version is <strong>' . var_export($phpversion,1) . '</strong>.' . "\n"
+        .    '<br />' . "\n"
+        .    'upgrade your system if you want use claroline<br />' . "\n"
+        .    '</p>' . "\n"
+        .    '</li>' . "\n"
+        ;
+
+
+    }
+
     if (ini_get('safe_mode') )
     {
         echo '<li>'
@@ -780,7 +796,7 @@ elseif($display==DISP_LICENSE)
     .    '<P>'  . "\n"
     .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
     .    'Please read the licence and click &quot;I accept&quot;.'  . "\n"
-    .    '<a href="../../LICENCE.txt">'.$langPrintVers.'</a>'  . "\n"
+    .    '<a href="../../LICENCE.txt">' . $langPrintVers . '</a>'  . "\n"
     .    '</P>'  . "\n"
     .    '<textarea wrap="virtual" cols="65" rows="15">'
     ;
