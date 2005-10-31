@@ -318,9 +318,9 @@ function get_mime_type_extension_map()
     $typeList[] = 'text/html';                      $extList[] = 'htm';
     $typeList[] = 'text/plain';                     $extList[] = 'txt';
     $typeList[] = 'text/rtf';                       $extList[] = 'rtf';
-    $typeList[] = 'image/gif';                        $extList[] = 'gif';
-    $typeList[] = 'image/jpeg';                       $extList[] = 'jpg';
-    $typeList[] = 'image/png';                        $extList[] = 'png';
+    $typeList[] = 'image/gif';                      $extList[] = 'gif';
+    $typeList[] = 'image/jpeg';                     $extList[] = 'jpg';
+    $typeList[] = 'image/png';                      $extList[] = 'png';
     $typeList[] = 'audio/midi';                     $extList[] = 'mid';
     $typeList[] = 'audio/mpeg';                     $extList[] = 'mp3';
     $typeList[] = 'audio/x-aiff';                   $extList[] = 'aif';
@@ -351,7 +351,34 @@ function get_mime_type_extension_map()
 
 function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '')
 {
-	if ( ! enough_size($uploadedFile['size'], $baseWorkDir, $maxFilledSpace))
+    if ($uploadedFile['error'] != UPLOAD_ERR_OK )
+    {
+        // init constant only define un PHP 4.3.1, 5 and 5.1
+        if ( ! defined('UPLOAD_ERR_NO_TMP_DIR') ) define('UPLOAD_ERR_NO_TMP_DIR', 6);
+        if ( ! defined('UPLOAD_ERR_CANT_WRITE') ) define('UPLOAD_ERR_CANT_WRITE', 7);
+
+        switch ( $uploadedFile['error'] )
+        {
+            case UPLOAD_ERR_INI_SIZE   : $failureStr = 'file_exceeds_php_upload_max_filesize';
+                break;
+            case UPLOAD_ERR_FORM_SIZE  : $failureStr = 'file_exceeds_html_max_file_size';
+                break;
+            case UPLOAD_ERR_PARTIAL    : $failureStr = 'file_partially_uploaded';
+                break;
+            case UPLOAD_ERR_NO_FILE    : $failureStr = 'no_file_uploaded';
+                 break;
+            case UPLOAD_ERR_NO_TMP_DIR : $failureStr = 'tmp_dir_missing';
+                 break;
+            case UPLOAD_ERR_CANT_WRITE : $failureStr = 'file_write_failed';
+                 break;
+            default :                    $failureStr = null;
+        }
+
+        return claro_failure::set_failure($failureStr);
+    }
+    
+
+    if ( ! enough_size($uploadedFile['size'], $baseWorkDir, $maxFilledSpace))
 	{
 		return claro_failure::set_failure('not_enough_space');
 	}
@@ -375,12 +402,16 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 		$fileName = get_secure_file_name($fileName);
 
 		/* COPY THE FILE TO THE DESIRED DESTINATION */
-		if (move_uploaded_file($uploadedFile['tmp_name'], 
+		if ( move_uploaded_file($uploadedFile['tmp_name'], 
             $baseWorkDir.$uploadPath.'/'.$fileName) )
 		{
             chmod($baseWorkDir.$uploadPath.'/'.$fileName,CLARO_FILE_PERMISSIONS);
-			return $fileName;
+            return $fileName;
 		}
+        else
+        {
+            return false;
+        }
 	}
 
     return false;
