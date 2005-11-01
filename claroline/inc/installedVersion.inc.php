@@ -35,5 +35,5 @@ if (!$is_upgrade_available)
     $new_version = $new_version . '.[unstable:' . date('yzBs') . ']';
 }
 
-$requiredPhpVersion = '4.3.10';
+$requiredPhpVersion = '4.3.0';
 ?>
