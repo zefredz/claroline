@@ -715,15 +715,14 @@ if ($display==DISP_WELCOME)
         Checking PHP settings.
         <UL>
             ';
-    $phpVersion =  explode('.',phpversion());
-    if($phpVersion[0]<5 && ($phpv$phpVersionersion[0]==4 && $phpVersion[1]<3))
+    if (!checkVersion(phpversion(), $requiredPhpVersion))
     {
         echo '<li>'
         .    '<p class="setup_error">' . "\n"
         .    '<font color="red">Warning !</font>' . "\n"
-        .    'php version is <strong>' . var_export($phpversion,1) . '</strong>.' . "\n"
+        .    'php version is <strong>' . phpversion() . '</strong>.' . "\n"
         .    '<br />' . "\n"
-        .    'upgrade your system if you want use claroline<br />' . "\n"
+        .    'Upgrade your php to <strong>' . $requiredPhpVersion . '</strong><br />' . "\n"
         .    '</p>' . "\n"
         .    '</li>' . "\n"
         ;

@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This lib prupose function use by installer.
  *
@@ -45,8 +45,8 @@ function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
         .    $extentionName . ' is missing.</font>'
         .    '<br />'
         .    'Configure php to use this extention'
-        .    '(see <a href="http://www.php.net/' . $extentionName . '">' 
-        .    $extentionName 
+        .    '(see <a href="http://www.php.net/' . $extentionName . '">'
+        .    $extentionName
         .    ' manual</a>)'
         .    '</LI>'
         ;
@@ -80,12 +80,12 @@ function topRightPath($path='.')
         $search_top_log .= '<dt>' . $pathToCheck . '</dt>'
                         .  '<dd>write:'
                         .  (is_writable($pathToCheck)?'open':'close')
-                        .  ' read:' 
-                        .  (is_readable($pathToCheck)?'open':'close') 
+                        .  ' read:'
+                        .  (is_readable($pathToCheck)?'open':'close')
                         .  '</dd>'
                         ;
-        if (   $pathToCheck != '/' 
-           && $pathToCheck != $previousPath 
+        if (   $pathToCheck != '/'
+           && $pathToCheck != $previousPath
            && (  is_writable($pathToCheck)
               || is_readable($pathToCheck)
               )
@@ -162,4 +162,27 @@ function check_claro_table_in_db_exist($dbType,$db=null)
     return false;
 }
 
+
+/**
+ * check current version is equal or greater than required version
+ *
+ * @param string $currentVersion like  '1.1.1'
+ * @param string $requiredVersion like  '1.1.1'
+ * @return boolean
+ *
+ * @todo check if param have a good format
+ */
+function checkVersion($currentVersion, $requiredVersion)
+{
+
+
+    $currentVersion = explode('.',$currentVersion);
+    $requiredVersion = explode('.',$requiredVersion);
+
+    if ((int) $currentVersion[0] < (int) $requiredVersion[0]) return false;
+    if ((int) $currentVersion[1] < (int) $requiredVersion[1]) return false;
+    if ((int) $currentVersion[2] < (int) $requiredVersion[2]) return false;
+
+    return true;
+}
 ?>
