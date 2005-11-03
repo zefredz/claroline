@@ -272,6 +272,10 @@ else
     $x = 1;
 }
 
+// set http charset
+if (isset($charset)) header('Content-Type: text/html; charset='. $charset);
+
+// page header with meta to refresh the page
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
     .'<head>'."\n"
