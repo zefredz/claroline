@@ -58,14 +58,22 @@ $extAuthAttribNameList = array (
 // system will simply stored thisvalue into Claroline.
 
 $extAuthAttribTreatmentList = array (
-    'lastname'     => 'utf8_decode',
-    'firstname'    => 'utf8_decode',
-    'loginName'    => 'utf8_decode',
-    'email'        => 'utf8_decode',
-    'officialCode' => 'utf8_decode',
-    'phoneNumber'  => 'utf8_decode',
+    'lastname'     => 'ldap_to_claroline',
+    'firstname'    => 'ldap_to_claroline',
+    'loginName'    => 'ldap_to_claroline',
+    'email'        => 'ldap_to_claroline',
+    'officialCode' => 'ldap_to_claroline',
+    'phoneNumber'  => 'ldap_to_claroline',
     'status'       => 5
 );
+
+
+function ldap_to_claroline($attribute)
+{
+    if ( is_array( $attribute ) ) $attribute = implode(', ', $attribute);
+    return utf8_decode($attribute);
+}
+
 
 // PROCESS AUTHENTICATION
 
