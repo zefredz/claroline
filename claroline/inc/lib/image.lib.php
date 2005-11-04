@@ -86,7 +86,7 @@
         global $allowedImageTypes;
          
         // if file extension is an allowed image extension
-        if (eregi(".(" . $allowedImageTypes . ")$", $fileName))
+        if (preg_match("/\.(" . $allowedImageTypes . ")$/i", $fileName))
         {
             return true;
         }
