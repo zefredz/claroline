@@ -242,11 +242,11 @@ il suffit de cliquer sur le code du cours dans la liste, sans inscription préala
 est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
 Action&nbsp;: S'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
-pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de votre prochaine visite.</p>
+pour vous rappeler l'identifiant et le mot de passe à introduire lors de votre prochaine visite.</p>
 <hr noshade size=1 />
 <p><b>Gestionnaire de cours</b></p>
 <p><b>Créer un site de cours</b></p>
-<p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. À l'inscription, un e-mail vous a été envoyé pour vous rappeler le nom d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
+<p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. À l'inscription, un e-mail vous a été envoyé pour vous rappeler l'identifiant et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre administrateur réseau ou l'administrateur de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
 $langClarolineNetNews = "Actualités Claroline.net";
@@ -264,9 +264,9 @@ $langClickToZoomOut = "cliquez pour diminuer la taille de l'image";
 $langClose = "Fermer";
 $langCloseWindow = "Fermer la fenêtre";
 $langCode = "Code";
-$langCodeAppearAlready = "Ce code officiel apparait déjà dans une ligne précédente du fichier CSV.";
+$langCodeAppearAlready = "Ce matricule apparait déjà dans une ligne précédente du fichier CSV.";
 $langCodeCanBeEmpty = "Le code cours doit être fourni";
-$langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
+$langCodeUsed = "Ce matricule est déjà utilisé par un autre utilisateur.";
 $langComMod = "commentaire modifié";
 $langComment = "Commentaire";
 $langConfTip = "Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d'ouvrir
@@ -1393,7 +1393,7 @@ $langNowGoCreateYourCourse = "Vous pouvez à présent passer à la création de votr
 $langNumGroup = "Nombre de groupes par cours";
 $langNumGroupStudent = "Nombre de groupes dont peut faire partie un étudiant dans un cours";
 $langNumero = "N°";
-$langOfficialCode = "Code officiel";
+$langOfficialCode = "Matricule";
 $langOk = "OK";
 $langOkChapterHeadAdded = "Titre ajouté : ";
 $langOkDefaultCommentUsed = "Attention : l'installation n'a pas trouvé la description du parcours pédagogique et a attribué un commentaire par défaut. Vous pourrez le changer par la suite";
@@ -1465,7 +1465,7 @@ $langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langProfessor = "Gestionnaire de cours";
 $langProfessorMessage = "Message de votre gestionnaire de cours";
 $langProfessors = "Gestionnaire(s) de cours";
-$langProfileReg = "Votre nouveau profil a été enregistré";
+$langProfileReg = "Votre nouveau compte a été enregistré";
 $langProgInModuleTitle = "Votre progression dans ce module";
 $langProgress = "Progression";
 $langPropertiesNotIncludeInSections = "Propriétés non incluses dans les sections";
@@ -1798,15 +1798,15 @@ $langUserRegisteredToCourse = "Utilisateurs inscrits";
 $langUserSettings = "Paramètres de l'utilisateur";
 $langUserStatus = "Statut";
 $langUserSubscribed = "L'utilisateur a été inscrit au cours";
-$langUserTaken = "Le nom d'utilisateur que vous avez choisi est déjà pris";
+$langUserTaken = "L'identifiant que vous avez choisi est déjà pris";
 $langUserUnregistered = "Utilisateur radié";
 $langUserUnregisteredFromClass = "L'utilisateur a été désinscrit de la classe";
 $langUserUnsubscribed = "L'utilisateur a été radié";
 $langUserUnsubscribedFromCourse = "L'utilisateur a été radié du cours";
 $langUserid = "ID de l'utilisateur";
 $langUserlist = "Liste des utilisateurs";
-$langUsernameAppearAlready = "Ce nom d'utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
-$langUsernameUsed = "Ce nom d'utilisateur est déjà utilisé.";
+$langUsernameAppearAlready = "Cet identifiant utilisateur apparait déjà dans une ligne précédente du fichier CSV.";
+$langUsernameUsed = "Cet identifiant utilisateur est déjà utilisé.";
 $langUsers = "Utilisateurs";
 $langUsersMin = "utilisateurs";
 $langValvas = "Dernières annonces";
@@ -2065,7 +2065,7 @@ $lang_user_has_been_enrolled_to_the_course = "L'utilisateur a été inscrit au cou
 $lang_you_had_request = "Vous aviez demandé";
 $lang_you_have_been_enrolled_to_the_course = "Vous êtes inscrit au cours.";
 $lang_your_enrollment_to_the_course_has_been_removed = "Vous avez été désinscrit du cours";
-$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre profil utilisateur ne semble pas inscrit à ce cours";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre compte utilisateur ne semble pas inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
 ?>
