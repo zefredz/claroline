@@ -1,81 +1,131 @@
 <?php
-$l_click = "Klik";
+$l_click = "Kliknite";
 $l_here = "ovdje";
-$l_notifybody = "primili ste ovaj email jer na poruku, koju ste poslali na forum, je odgovoreno, a odabrali ste da budete obaviješteni o tom dogaðaju utem emaila. 
+$l_notifybody = "
+Ova obavijest Vam je stigla jer ste izabrali opciju da budete 
+obavijeÅ¡teni o novim porukama na Claroline forumu. 
 
-Možete vidjeti teme na:
+Novu poruku moÅ¾ete vidjeti na:
 
 %1\$s
 
-ili vidite na forum indeks na
+
+ili moÅ¾ete otici poÄetnu stranicu foruma na
 
 %2\$s
 
-Hvala Vam što koristite  forume.
 
-Ugodan dan Vam želimo.";
-$l_notifysubj = "Odgovor na tvoju temu je poslan.";
-$l_returnindex = "povratak na indeks foruma";
-$l_returntopic = "povratak na forumski popis.";
-$l_separator = "» »";
-$l_viewmsg = "da vidite svoju Poruka.";
-$langAdmitError = "Priznavanje jedne vlastite pogreške poziva sugovornika da uèini isto.";
-$langAgain = "Pokušajte ponovno!";
+Hvala Vam Å¡to koristite naÅ¡e forume.";
+$l_notifysubj = "Obavijest o odgovoru na temu";
+$l_returnindex = "za povratak na poÄetnu stranicu foruma";
+$l_returntopic = "za povratak na popis tema";
+$l_separator = " > ";
+$l_viewmsg = "da biste pregledali VaÅ¡u poruku.";
+$langAdd_users = "Dodaj korisnike";
+$langAddedToCreator = "PoÄetna stranica predmeta";
+$langAdmin = "Administrator";
+$langAdministration = "Administriranje";
+$langAdmitError = "Priznavanje vlastitih pogreÅ¡aka da bi se sugovornika ponukalo da uÄini to isto";
+$langAgain = "PokuÅ¡ajte ponovno!";
 $langAgenda = "Program rada";
-$langAnnouncement = "Najave- Priopæenja";
-$langAnonymous = "Neimenovan";
-$langAntique = "Povijest antièke filozofije";
-$langCancel = "Odustanite";
-$langCatagoryGroup = "Grupni forumi";
-$langCatagoryMain = "Osnovna";
-$langChat = "Razgovor - chat";
-$langContradiction = "Koristite principe neopovrgavanja kako bi stjerali sugovornika u kut.";
+$langAnnouncement = "Obavijesti";
+$langAnonymous = "Anoniman";
+$langAntique = "Povijest drevne filozofije";
+$langBackTo = "Natrag na:";
+$langCancel = "Odustani";
+$langCatagoryGroup = "Forumi grupa";
+$langCatagoryMain = "Glavna kategorija";
+$langChat = "Chat";
+$langContradiction = "KoriÅ¡tenje principa nekontradikcije da bi se sugovornika stjeralo u kut";
 $langCopy = "Kopiraj";
-$langCourseDescription = "Napišite ovdje opis koji æe se pojavljivati na listi predmeta.";
-$langCreate = "stvorite";
-$langCreateSite = "Stvaranje stranica predmeta";
+$langCourseHome = "PoÄetna stranica predmeta";
+$langCourseManager = "Voditelj predmeta";
+$langCreate = "Stvori";
+$langCreateCourses = "Stvaranje predmeta";
+$langCreateSite = "Stvaranje websitea predmeta";
 $langDay_of_weekNames = "Array";
-$langDear = "Poštovani";
-$langDelAdmin = "Izbrišite uporabom alata za nadzor foruma";
-$langDescriptionCours = "Opis kolegija";
-$langDocument = "Dokumenti";
+$langDear = "PoÅ¡tovani/a";
+$langDelAdmin = "ObriÅ¡ite pomoÄ‡u alata za administriranje foruma";
+$langDescriptionCours = "Opis predmeta";
+$langDevTools = "Alati za razvoj";
+$langDocument = "Dokumenti i linkovi";
 $langEmail = "Email";
-$langExMessage = "Pokusna poruka";
-$langExerciceEx = "Jednostavna vježba";
-$langForce = "Prinudite sugovornika, nizom pitanja i podpitanja, da ne zna ono što tvrdi da zna";
+$langExMessage = "Ogledna tema";
+$langExerciceEx = "Ogledna vjeÅ¾ba";
+$langExercises = "VjeÅ¾be";
+$langFillCourses = "Stvori testni predmet";
+$langFillToolCourses = "Dodaj alate za predmete";
+$langFillTree = "Dodavanje kategorija predmeta";
+$langFillUsers = "Dodaj korisnike";
+$langFilling = "Popunite testnim vrijednostima";
+$langFirstName = "Ime";
+$langForce = "Nizom pitanja i potpitanja navesti sugovornika da prizna da ne poznaje ono Å¡to tvrdi da poznaje.";
 $langForum = "Forum";
 $langForumGroup = "Forum grupe";
 $langForums = "Forumi";
+$langFree = "Slobodno";
 $langGroup = "Grupa";
-$langGroupDocumentsLink = "Dokumenti grupe ";
-$langGroupSpaceLink = "Podruèje grupe";
+$langGroupDocumentsLink = "Dokumenti grupe";
+$langGroupSpaceLink = "Grupa";
 $langGroups = "Grupe";
-$langHelp = "Pomoæ";
-$langIndeed = "Zaista. Sokratova ironija je metoda govorništva. Grèki  \"eirotao\" znaèi \"postavi pitanje\"";
+$langHelp = "PomoÄ‡";
+$langIndeed = "Doista. Sokratska ironija je metoda ispitivanja. \"Eirotao\" u grÄkom znaÄi \"postavljati pitanja\"";
+$langLearningPath = "Redoslijed uÄenja";
+$langLogin = "Prijava";
 $langLogout = "Odjava";
-$langManager = "Manager";
-$langManyAnswers = "(toèno je više odgovora)";
-$langMessage = "Kod brisanja pokusnog foruma, izbrisati æe se i sve poruke u njemu";
-$langModifyProfile = "Izmijeni profil";
+$langManyAnswers = "(viÅ¡e odgovora moÅ¾e biti ispravno)";
+$langMaxStudentGroup = "Maksimalni broj Älanova po grupi";
+$langMaximum = "Maksimum: ";
+$langMessage = "Ako izbriÅ¡ete testni forum, s njim Ä‡e biti izbrisane i sve poruke koje on sadrÅ¾i";
+$langMin = "Minimum: ";
+$langMinuteShort = "min.";
+$langModifyProfile = "Promijeni moj profil";
 $langMonthNames = "Array";
+$langMyAgenda = "Moj kalendar";
 $langMyCourses = "Moji predmeti";
+$langName = "Ime";
 $langNameOfLang = "Array";
 $langNewTopic = "Nova tema";
-$langNoPsychology = "Ne. Sokratova ironija nije predmet psihologije, ona se tièe argumentacije.";
-$langNoSeduction = "Ne. Sokratova ironija nije zavodljiva strategija ili metoda temeljena na primjeru.";
+$langNoPsychology = "Neispravno. Sokratska ironija nije stvar psihologije, veÄ‡ se tiÄe rasprave";
+$langNoSeduction = "Neispravno. Sokratska ironija nije strategija zavoÄ‘enja, niti metoda voÄ‘ena primjerom.";
 $langNotAllowed = "Nije dozvoljeno";
-$langNotFalse = "Ovaj odgovor nije netoèan. Istina je da ignoracija od strane sugovornika pokazuje opovrgavajuæe zakljuèke kada je voðen vlastitim premisama.";
+$langNotFalse = "Odgovor nije neispravan. Istina je da se neznanje sugovornika otkriva pokazivanjem proturjeÄnih zakljuÄaka koji slijede iz njegovih premisa.";
+$langNumGroup = "Broj grupa po predmetu";
+$langNumGroupStudent = "Broj grupa u koje korisnik moÅ¾e biti prijavljen";
 $langOk = "Ok";
-$langOtherCourses = "Popis kolegija";
-$langPoweredBy = "Upravljano s ";
-$langProfessor = "Profesor";
-$langReply = "Odgovor";
-$langRidiculise = "Smiješno je kad sugovornik treba shvatiti da nije u pravu.";
-$langSocraticIrony = "Sokratova ironija je...";
-$langStudent = "student";
-$langTestForum = "Pokusni forum";
+$langOnly = "IskljuÄivo";
+$langOtherCourses = "Popis predmeta";
+$langPlatformAdministration = "Administiranje";
+$langPopulateTools = "Dodavanje alata u predmete";
+$langPoweredBy = "Powered by";
+$langPrefix = "Prefiks: ";
+$langProfessor = "PredavaÄ";
+$langRandomLanguage = "IzmjeÅ¡aj izbore u dostupnim jezicima";
+$langReply = "Odgovori";
+$langRidiculise = "Ismijavanjem navesti sugovornika da prizna da je u krivu";
+$langSampleDocument = "ogledni_dokument";
+$langSampleDocumentDesc = "Modul moÅ¾e biti bilo koji dokument pridodijeljen predmetu";
+$langSampleExerciseDesc = "Modul moÅ¾e biti bilo koja vjeÅ¾ba pridodijeljena predmetu";
+$langSampleLearnPath = "Ogledni redoslijed uÄenja";
+$langSampleLearnPathDesc = "Ovo je ogledni redoslijed uÄenja, u kojem se nalaze ogledna vjeÅ¾ba i ogledni dokument. Da biste promijenili ovaj tekst kliknite na olovÄicu";
+$langSearch = "TraÅ¾i";
+$langSearchResult = "Rezultati pretrage";
+$langSecondShort = "s";
+$langSocraticIrony = "Sokratska ironija je ...";
+$langStudent = "Korisnik";
+$langStudents = "Korisnici";
+$langSwitchEditorToTextConfirm = "Ova naredba prebacuje editor u tekstualni naÄin rada. Å½elite li nastaviti?";
+$langTeachers = "PredavaÄi";
+$langTestForum = "Ogledni forum";
+$langTextEditorDisable = "Tekstualni editor";
+$langTextEditorEnable = "Vizualni editor";
 $langTo = "u";
 $langToday = "Danas";
+$langTranslations = "Prijevodi";
 $langUsers = "Korisnici";
-$langWork = "Studentski Radovi";
+$langViewMode = "Pregledavati kao";
+$langWiki = "Wiki";
+$langWork = "Zadaci";
+$lang_footer_p_CourseManager = "Voditelj predmeta %s";
+$lang_p_platformManager = "Administrator sustava %s";
 ?>

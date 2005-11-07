@@ -1,40 +1,54 @@
-<?php // $Id$ 
+<?php // $Id$
 /*
       +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.*
+      | CLAROLINE version 1.5.* $Revision: 
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
       +----------------------------------------------------------------------+
-      |   Croatian Translation                                                |
+      |   English Translation                                                |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
       +----------------------------------------------------------------------+
 
       +----------------------------------------------------------------------+
       | Translator :                                                         |
+      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
       +----------------------------------------------------------------------+
- */
-$iso639_1_code = "hr";
-$iso639_2_code = "scr";
+*/
 
+$iso639_1_code = "en";
+$iso639_2_code = "eng";
 
-$langNameOfLang['brazilian']="brazilian";
-$langNameOfLang['croatian']="croatian";
-$langNameOfLang['dutch']="dutch";
-$langNameOfLang['english']="english";
-$langNameOfLang['finnish']="finnish";
-$langNameOfLang['french']="french";
-$langNameOfLang['german']="german";
-$langNameOfLang['italian']="italian";
-$langNameOfLang['japanese']="japanese";
-$langNameOfLang['polish']="polish";
-$langNameOfLang['simpl_chinese']="simplified chinese";
-$langNameOfLang['spanish']="spanish";
-$langNameOfLang['swedish']="swedish";
-$langNameOfLang['thai']="thai";
-$langNameOfLang['arabic']="arabian";
-$langNameOfLang['turkish']="turkish";
+unset($langNameOfLang);
+unset($langDay_of_weekNames);
+unset($langMonthNames);
+unset($byteUnits);
 
+$langNameOfLang['arabic'		]="arapski";
+$langNameOfLang['brazilian'		]="brazilski";
+$langNameOfLang['bulgarian'		]="bugarski";
+$langNameOfLang['croatian'		]="hrvatski";
+$langNameOfLang['dutch'			]="nizozemski";
+$langNameOfLang['english'		]="engleski";
+$langNameOfLang['finnish'		]="finski";
+$langNameOfLang['french'		]="francuski";
+$langNameOfLang['german'		]="njemaèli";
+$langNameOfLang['greek'			]="grèki";
+$langNameOfLang['italian'		]="talijanski";
+$langNameOfLang['japanese'		]="japanski";
+$langNameOfLang['polish'		]="poljski";
+$langNameOfLang['simpl_chinese'	]="pojednostavljeni kineski";
+$langNameOfLang['spanish'		]="španjolski";
+$langNameOfLang['swedish'		]="švedski";
+$langNameOfLang['thai'			]="thai";
+$langNameOfLang['turkish'		]="turski";
 
-$charset = 'iso-1250';
+$charset = 'utf-8';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
@@ -43,7 +57,7 @@ $number_decimal_separator = '.';
 $byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
 $langDay_of_weekNames['init'] = array('N', 'P', 'U', 'S', 'È', 'P', 'S');
-$langDay_of_weekNames['short'] = array('Ned', 'Pon', 'Uto', 'Sri', 'Èet', 'Pet', 'Sub');
+$langDay_of_weekNames['short'] = array('Ned', 'Pon', 'Ut', 'Sri', 'Èet', 'Pet', 'Sub');
 $langDay_of_weekNames['long'] = array('Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Èetvrtak', 'Petak', 'Subota');
 
 $langMonthNames['init']  = array('S', 'V', 'O', 'T', 'S', 'L', 'S', 'K', 'R', 'L', 'S', 'P');
@@ -53,9 +67,10 @@ $langMonthNames['long'] = array('Sijeèanj', 'Veljaèa', 'Ožujak', 'Travanj', 'Svi
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
-$dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
-$timeNoSecFormat = '%I:%M %p';
+$dateFormatShort =  "%d %b , %y";
+$dateFormatLong  = '%A %d %B, %Y';
+$dateTimeFormatLong  = '%d %B, %Y u %H:%M';
+$dateTimeFormatShort = "%d-%m-%y %H:%M";
+$timeNoSecFormat = '%H:%M';
 
 ?>

@@ -1,14 +1,24 @@
 <?php
-$langAdminEmail = "Administratorov email";
-$langAdminLogin = "Administratorova korisnièko ime";
-$langAdminName = "Administratorovo ime";
-$langAdminPass = "Administratorova zaporka";
-$langAdminSurname = "Administratorovo prezime";
-$langDBHost = "Naziv raèunala  baze podataka";
-$langEG = "e. g..";
-$langLastCheck = "Posljednja provjera prije instaliranja";
+$langAdminEmail = "Email";
+$langAdminLogin = "KorisniÄko ime";
+$langAdminName = "Prezime";
+$langAdminPass = "Zaporka";
+$langAdminSurname = "Ime";
+$langDBConnectionParameters = "MySQL connection parameters";
+$langDBHost = "Database Host";
+$langDBSettingNamesIntro = "Instalacijska procedura stvara glavnu Claroline bazu podataka.
+Ukoliko ste, zbog postavki sustava za upravljanje bazama podataka, ograniÄeni na jednu bazu podataka,
+vratite se na prethodnu stranicu i odaberite 'single' za 'Database mode.<BR><BR>";
+$langDBUse = "KoriÅ¡tenje baze podataka";
+$langDbName = "Ime baze podataka";
+$langDbPrefixForm = "Prefiks za imena baza podataka predmeta";
+$langEG = "npr..";
+$langLastCheck = "Posljednja provjera prije instalacije";
 $langLicence = "Licenca";
-$langMainDB = "Glavna claroline baza podataka";
-$langPrintVers = "Printajuæa verzija";
+$langMainDB = "Glavna baza podataka";
+$langMysqlNames = "MySQL baza podataka i imena tablica";
+$langPrintVers = "Inacica za ispis";
 $langRequirements = "Zahtjevi";
+$langStatDB = "Baza podataka za praÄ‡enje";
+$langStepNOfN = "Korak %d od %d";
 ?>

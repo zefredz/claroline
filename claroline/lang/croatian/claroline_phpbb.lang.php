@@ -1,82 +1,112 @@
 <?php
-$l_author = "Autor";
-$l_body = "Poruka tijelo";
-$l_click = "Klik";
-$l_delete = "Obriöi ovu oruku";
-$l_deleted = "Vaöa Poruka je izbrisana.";
-$l_emptymsg = "Morate napisati oruku da bi je poslali. Ne moûete poslati praznu poruku.";
+$l_author = "Autor/ica";
+$l_body = "Tijelo poruke";
+$l_click = "Kliknite";
+$l_delete = "Izbri≈°i ovu poruku";
+$l_deleted = "Va≈°a je poruka izbrisana";
+$l_emptymsg = "Poruka mora imati naslov";
 $l_here = "ovdje";
-$l_indextitle = "Forum Indeks";
-$l_lastpost = "Posljednja Poruka";
-$l_notify = "Obavijesti putem emaila kada su odgovori poslani";
-$l_notifybody = "primili ste ovaj email jer na poruku, koju ste poslali na forum, je odgovoreno, a odabrali ste da budete obavijeöteni o tom dogaaju utem emaila. 
+$l_indextitle = "Poƒçetna stranica foruma";
+$l_lastpost = "Posljednja poruka";
+$l_notify = "Poƒçni pratiti temu (obavijest na email-om prilikom objave odgovora)";
+$l_notifybody = "
+Ova obavijest Vam je stigla jer ste izabrali opciju da budete 
+obavije≈°teni o novim porukama na Claroline forumu. 
 
-Moûete vidjeti teme na:
+Novu poruku mo≈æete vidjeti na:
 
 %1\$s
 
-ili vidite na forum indeks na
+
+ili mo≈æete otici poƒçetnu stranicu foruma na
 
 %2\$s
 
-Hvala Vam öto koristite  forume.
 
-Ugodan dan Vam ûelimo.";
-$l_notifysubj = "Odgovor na tvoju temu je poslan.";
-$l_notopics = "Nema tema za ovaj forum. Moûete poslati jednu.";
-$l_posted = "Oglaöeno";
-$l_poster = "Oglas";
+Hvala Vam ≈°to koristite na≈°e forume.";
+$l_notifysubj = "Obavijest o odgovoru na temu";
+$l_notopics = "Nema tema na ovom forumu";
+$l_posted = "Objavljeno";
+$l_poster = "Autor/ica";
 $l_posts = "Poruke";
-$l_returnindex = "povratak na indeks foruma";
-$l_returntopic = "povratak na forumski popis.";
-$l_separator = "ª ª";
-$l_stored = "Vaöa Poruka je pohranjena u bazi podataka.";
-$l_subject = "Predmet";
+$l_returnindex = "za povratak na poƒçetnu stranicu foruma";
+$l_returntopic = "za povratak na popis tema";
+$l_separator = " > ";
+$l_stored = "Va≈°a je poruka uspje≈°no pohranjena";
+$l_subject = "Naslov";
 $l_topic = "Tema";
-$l_topicreview = "Pregled tema";
+$l_topicreview = "Pregled teme";
 $l_topics = "Teme";
-$l_topictitle = "vidi Tema";
-$l_viewforum = "Vidi Forum";
-$l_viewmsg = "da vidite svoju Poruka.";
+$l_topictitle = "Pregled teme";
+$l_viewforum = "Pregled foruma";
+$l_viewmsg = "da biste pregledali Va≈°u poruku.";
 $langAddCategory = "Dodaj kategoriju";
 $langAgenda = "Program rada";
-$langAnnouncement = "Najave- PriopÊenja";
-$langAreYouSureToDelete = "éelite li pobrisati";
-$langCancel = "Odustanite";
-$langChat = "Razgovor - chat";
+$langAnnouncement = "Obavijesti";
+$langAreYouSureToDelete = "≈Ωelite li zaista izbrisati ";
+$langBackTo = "Natrag na:";
+$langCancel = "Odustani";
+$langCategory = "Kategorija";
+$langChat = "Chat";
+$langCourseHome = "Poƒçetna stranica predmeta";
+$langCourseManager = "Voditelj predmeta";
 $langDay_of_weekNames = "Array";
-$langDear = "Poötovani";
-$langDelete = "Izbriöi";
-$langDescription = "Opis dokumenta";
-$langDescriptionCours = "Opis kolegija";
-$langDocument = "Dokumenti";
-$langEdit = "Ureivanje";
-$langEmpty = " Niste ispunili sve podatke,<br> Tipkom <b>Back</b> vratite se i ispravite.<br>";
+$langDear = "Po≈°tovani/a";
+$langDelete = "Izbri≈°i";
+$langDescription = "Opis";
+$langDescriptionCours = "Opis predmeta";
+$langDisable = "Nevidljiva";
+$langDocument = "Dokumenti i linkovi";
+$langEdit = "Promijeni";
+$langEmpty = "prazan";
+$langExercises = "Vje≈æbe";
 $langForum = "Forum";
+$langForumDeleted = "Forum je izbrisan";
 $langForums = "Forumi";
-$langGroupDocumentsLink = "Dokumenti grupe ";
-$langGroupSpace = "PodruËje grupa";
-$langGroupSpaceLink = "PodruËje grupe";
+$langGroupDocumentsLink = "Dokumenti grupe";
+$langGroupSpace = "Postavke grupe";
+$langGroupSpaceLink = "Grupa";
 $langGroups = "Grupe";
-$langHelp = "PomoÊ";
+$langHelp = "Pomoƒá";
 $langLastMsg = "Posljednja poruka";
+$langLearningPath = "Redoslijed uƒçenja";
+$langLogin = "Prijava";
 $langLogout = "Odjava";
-$langManager = "Manager";
-$langModifyProfile = "Izmijeni profil";
+$langMinuteShort = "min.";
+$langModifyProfile = "Promijeni moj profil";
 $langMonthNames = "Array";
-$langMove = "Pomakni";
+$langMove = "Premjesti ";
+$langMoveDown = "Pomakni dolje";
+$langMoveUp = "Pomakni gore";
+$langMyAgenda = "Moj kalendar";
 $langMyCourses = "Moji predmeti";
-$langMyGroup = "moje grupe";
+$langMyGroup = "moja grupa";
+$langName = "Ime";
 $langNameOfLang = "Array";
 $langNewTopic = "Nova tema";
+$langNoPost = "Nema poruka";
+$langNoResult = "Nema rezultata";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
-$langOneMyGroups = "Moja vizija";
-$langOtherCourses = "Popis kolegija";
-$langPoweredBy = "Upravljano s ";
-$langReply = "Odgovor";
-$langSeen = "Opaûen";
-$langStudent = "student";
+$langOneMyGroups = "pod mojim vodstvom";
+$langOtherCourses = "Popis predmeta";
+$langPlatformAdministration = "Administiranje";
+$langPoweredBy = "Powered by";
+$langReply = "Odgovori";
+$langSearch = "Tra≈æi";
+$langSearchResult = "Rezultati pretrage";
+$langSecondShort = "s";
+$langSeen = "Pogledano";
+$langStudent = "Korisnik";
+$langSubmit = "Po≈°alji";
+$langSwitchEditorToTextConfirm = "Ova naredba prebacuje editor u tekstualni naƒçin rada. ≈Ωelite li nastaviti?";
+$langTextEditorDisable = "Tekstualni editor";
+$langTextEditorEnable = "Vizualni editor";
 $langUsers = "Korisnici";
-$langWork = "Studentski Radovi";
+$langViewMode = "Pregledavati kao";
+$langWiki = "Wiki";
+$langWork = "Zadaci";
+$lang_footer_p_CourseManager = "Voditelj predmeta %s";
+$lang_p_platformManager = "Administrator sustava %s";
+$langcatcreated = "Nova kategorija je stvorena";
 ?>

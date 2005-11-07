@@ -1,100 +1,129 @@
 <?php
-$l_click = "Klik";
+$l_click = "Kliknite";
 $l_here = "ovdje";
-$l_notifybody = "primili ste ovaj email jer na poruku, koju ste poslali na forum, je odgovoreno, a odabrali ste da budete obaviješteni o tom dogaðaju utem emaila. 
+$l_notifybody = "
+Ova obavijest Vam je stigla jer ste izabrali opciju da budete 
+obavijeÅ¡teni o novim porukama na Claroline forumu. 
 
-Možete vidjeti teme na:
+Novu poruku moÅ¾ete vidjeti na:
 
 %1\$s
 
-ili vidite na forum indeks na
+
+ili moÅ¾ete otici poÄetnu stranicu foruma na
 
 %2\$s
 
-Hvala Vam što koristite  forume.
 
-Ugodan dan Vam želimo.";
-$l_notifysubj = "Odgovor na tvoju temu je poslan.";
-$l_returnindex = "povratak na indeks foruma";
-$l_returntopic = "povratak na forumski popis.";
-$l_separator = "» »";
-$l_viewmsg = "da vidite svoju Poruka.";
-$langAddTutors = "Administrator korisnièkih lista";
+Hvala Vam Å¡to koristite naÅ¡e forume.";
+$l_notifysubj = "Obavijest o odgovoru na temu";
+$l_returnindex = "za povratak na poÄetnu stranicu foruma";
+$l_returntopic = "za povratak na popis tema";
+$l_separator = " > ";
+$l_viewmsg = "da biste pregledali VaÅ¡u poruku.";
+$langAccess = "Pristup";
+$langAddTutors = "Popis administratora";
 $langAgenda = "Program rada";
-$langAnnouncement = "Najave- Priopæenja";
-$langCancel = "Odustanite";
-$langChat = "Razgovor - chat";
+$langAnnouncement = "Obavijesti";
+$langBackTo = "Natrag na:";
+$langCancel = "Odustani";
+$langChat = "Chat";
+$langConfirmDeleteGroups = "Å½elite li zaista izbrisati sve grupe?";
+$langConfirmEmptyGroups = "Å½elite li zaista isprazniti sve grupe?";
 $langCopy = "Kopiraj";
-$langCreate = "stvorite";
+$langCourseHome = "PoÄetna stranica predmeta";
+$langCourseManager = "Voditelj predmeta";
+$langCreate = "Stvori";
 $langDay_of_weekNames = "Array";
-$langDear = "Poštovani";
-$langDelete = "Izbriši";
-$langDeleteGroups = "Izbriši sve grupe";
-$langDescriptionCours = "Opis kolegija";
-$langDocument = "Dokumenti";
-$langEdit = "Ureðivanje";
-$langEditGroup = "Dodaj ovu grupu";
+$langDear = "PoÅ¡tovani/a";
+$langDelete = "IzbriÅ¡i";
+$langDeleteGroups = "IzbriÅ¡i sve grupe";
+$langDescriptionCours = "Opis predmeta";
+$langDocument = "Dokumenti i linkovi";
+$langEdit = "Promijeni";
+$langEditGroup = "UreÄ‘ivanje grupe";
 $langEmtpyGroups = "Isprazni sve grupe";
+$langExercises = "VjeÅ¾be";
 $langExistingGroups = "Grupe";
-$langFillGroups = "Popuni grupe";
+$langFillGroups = "Automatski rasporedi u grupe";
 $langForum = "Forum";
 $langForums = "Forumi";
 $langGroup = "Grupa";
-$langGroupAllowStudentRegistration = "Studentima je dozvoljeno samostalno prijavljivanje u grupe";
-$langGroupDel = "Grupa je izbrisana";
+$langGroupAllowStudentRegistration = "Korisnici se mogu sami prijaviti u grupu";
+$langGroupAlwaysPrivate = "(uvijek privatan)";
+$langGroupDel = "Grupa izbrisana";
 $langGroupDescription = "Opis";
 $langGroupDocument = "Dokumenti";
-$langGroupDocumentsLink = "Dokumenti grupe ";
-$langGroupFilledGroups = "Grupa je popunjena (ili kompletna) studentima sa 'Korisnièke' liste.";
+$langGroupDocumentsLink = "Dokumenti grupe";
+$langGroupFilledGroups = "Grupe su popunjene polaznicima";
 $langGroupForum = "Forum";
-$langGroupMembers = "Èlanovi grupe";
+$langGroupLimit = "OgraniÄenje";
+$langGroupMembers = "ÄŒlanovi grupe";
 $langGroupName = "Ime grupe";
-$langGroupNoTutor = "(ništa)";
-$langGroupNone = "(ništa)";
-$langGroupNoneMasc = "(ništa)";
-$langGroupNowMember = "Sada ste èlan ove grupe";
-$langGroupPlacesThis = "broj sudionika (moguænost)";
-$langGroupProperties = "Karakteristike grupe";
-$langGroupPropertiesModified = "Grupne postavke su promjenjene";
-$langGroupSelfRegInf = "prijavljeno";
-$langGroupSelfRegistration = "Prijava";
-$langGroupSettingsModified = "Grupne postavke su modificirane";
-$langGroupSpaceLink = "Podruèje grupe";
-$langGroupThisSpace = "Podruèje za ovu grupu";
-$langGroupTooMuchMembers = "Broj maksimalnih prekoraèenja koje æe se dozvoliti (možete to promjeniti ispod). Sastav grupe nije promjenjen";
+$langGroupNoTutor = "nije dodijeljen";
+$langGroupNone = "ne postoji";
+$langGroupNoneMasc = "Nema Älanova grupe";
+$langGroupNowMember = "You are now a member of this group.";
+$langGroupPlacesThis = "mjesta u grupi (nije obavezno)";
+$langGroupProperties = "Postavke grupa";
+$langGroupPropertiesModified = "Postavke grupe su promijenjene";
+$langGroupSelfRegInf = "Prijavi me u grupu";
+$langGroupSelfRegistration = "Prijavljivanje";
+$langGroupSettingsModified = "Postavke grupe su promijenjene";
+$langGroupSpaceLink = "Grupa";
+$langGroupThisSpace = "";
+$langGroupTooMuchMembers = "Navedeni broj korisnika je veÄ‡i od najveeg dozvoljenog broja korisnika u grupi.
+Postavke grupe nisu izmjenjene";
 $langGroupTools = "Alati";
-$langGroupTutor = "Tutor";
+$langGroupTutor = "Mentor grupe";
 $langGroups = "Grupe";
-$langGroupsAdded = "Grupa(e) je(su) dodana(e)";
-$langGroupsDeleted = "Sve grupe su izbrisane";
-$langGroupsEmptied = "Sve grupe su sada prazne";
-$langHelp = "Pomoæ";
+$langGroupsAdded = " - broj stvorenih grupa";
+$langGroupsDeleted = "Sve su grupe izbrisane";
+$langGroupsEmptied = "Sve grupe su ispraznjene";
+$langHelp = "PomoÄ‡";
+$langLearningPath = "Redoslijed uÄenja";
+$langLogin = "Prijava";
 $langLogout = "Odjava";
-$langManager = "Manager";
-$langMax = "maks.";
-$langModifyProfile = "Izmijeni profil";
+$langMax = "Maks.";
+$langMinuteShort = "min.";
+$langModifyProfile = "Promijeni moj profil";
 $langMonthNames = "Array";
+$langMyAgenda = "Moj kalendar";
 $langMyCourses = "Moji predmeti";
-$langMyGroup = "moje grupe";
+$langMyGroup = "moja grupa";
 $langNameOfLang = "Array";
-$langNewGroupCreate = "Kreirajte novu grupu(e)";
-$langNewGroups = "Nova grupa(e)";
+$langNewGroupCreate = "Stvori novu grupu";
+$langNewGroups = "grupu/a/e";
 $langNewTopic = "Nova tema";
-$langNoGroupStudents = "Neprijavljeni studenti";
+$langNoGroupStudents = "Negrupirani korisnici";
 $langNotAllowed = "Nije dozvoljeno";
 $langOk = "Ok";
-$langOneMyGroups = "Moja vizija";
-$langOtherCourses = "Popis kolegija";
-$langPlaces = "broj sudionika u grupi (moguænost)";
-$langPoweredBy = "Upravljano s ";
-$langPrivate = "privatno";
-$langPublic = "javno";
-$langRegIntoGroup = "Dodaj me u ovu grupu";
-$langRegistered = "Registrirano";
-$langReply = "Odgovor";
-$langStudent = "student";
+$langOneMyGroups = "pod mojim vodstvom";
+$langOtherCourses = "Popis predmeta";
+$langPlaces = "mjesta/o u grupi (nije obavezno)";
+$langPlatformAdministration = "Administiranje";
+$langPoweredBy = "Powered by";
+$langPrivate = "Privatan";
+$langPublic = "Javan";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;grupe/a";
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "Korisnik moÅ¾e biti Älan najviÅ¡e";
+$langRegIntoGroup = "Prijavi me u ovu grupu";
+$langRegistered = "Broj Älanova";
+$langReply = "Odgovori";
+$langSearch = "TraÅ¾i";
+$langSearchResult = "Rezultati pretrage";
+$langSecondShort = "s";
+$langStudent = "Korisnik";
+$langStudentsNotInThisGroups = "Korisnici koji nisu u ovoj grupi";
+$langSwitchEditorToTextConfirm = "Ova naredba prebacuje editor u tekstualni naÄin rada. Å½elite li nastaviti?";
+$langTextEditorDisable = "Tekstualni editor";
+$langTextEditorEnable = "Vizualni editor";
 $langTo = "u";
-$langUncompulsory = "(moguænost)";
+$langUncompulsory = "(nije obavezno)";
 $langUsers = "Korisnici";
-$langWork = "Studentski Radovi";
+$langViewMode = "Pregledavati kao";
+$langWiki = "Wiki";
+$langWork = "Zadaci";
+$lang_footer_p_CourseManager = "Voditelj predmeta %s";
+$lang_p_platformManager = "Administrator sustava %s";
 ?>

@@ -1,196 +1,400 @@
 <?php
 $langAgenda = "Program rada";
-$langAnnouncement = "Najave- Priopæenja";
-$langChat = "Razgovor - chat";
-$langClarContent = "Ovdje, profesori i asistenti mogu kreirati i nadzirati predmetnu web stranicu. Studenti èitaju (dokumente,   informacije) i, 
- ponekad, rade vjebe, publiciraju radove, sudjeluju u forumskim diskusijama...</p><b>Prijava</b><p>Sljedeæe upute odnose se samo ukoliko imate verziju claroline koja dozvoljava samostalnu prijavu (neke stranice registriraj korisnika automatski). <br>Ukoliko ste student za prijavu potrebno je odabrati 'Prati predmete (student)', i onda odaberite predmete koje \elite pratiti.</p><p> Ukoliko ste profesor ili asistent, za prijavu odaberite 
-'Kreiraj predmet (profesor)'. Tada æete morati popuniti podatke o predmetnom kodu, Fakultetu i nazivu predmeta. Kada je to potvrğeno, bit æete usmjereni na stranicu koju ste upravo stvorili i ovlašteni da mjenjate njezin sadraj i organizirate ju prema svojim potrebama
-</p><p>Opcija 'Uradi' omoguæava povratnu vezu sa  vašim claroline website administratorom. Ono što moete poslati ovdje ukljuèuje greške ili vaše prijedloge.'Uradi' lista je povezana sa Poèetnom stranicom campusa (kad je jednom logirana).</p>
-<p>Potpora foruma je razli;ita. Ona sadri sve Claroline korisnike u svijetu. Ukoliko ne moete pronaæi odgovor na pitanje unutar claroline campusa i okolice pošaljite poruku ovdje.
-</p><p>Link za prijavu (if present) je na Poèetnoj stranici campusa
- (gore desno).</p><b>Pristup</b><p>Prilikom vašeg sljedeæeg posjeta, unesite login/zaporku i Ok da bi pristupili svom predmetu. URL stranice je ";
+$langAnnouncement = "Obavijesti";
+$langChat = "Chat";
+$langCloseWindow = "Zatvori prozor";
+$langConfigMenuContent = "Izbornik postavki";
+$langCourseHome = "PoÄetna stranica predmeta";
+$langCourseManager = "Voditelj predmeta";
 $langDay_of_weekNames = "Array";
-$langDescriptionCours = "Opis kolegija";
-$langDocContent = "<p> Alati dokumenata su slièni FileManageru na vašoj radnoj površini raèunala.</p><p> Moete uèitati dokumente bilo kojeg tipa (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, itd.). Pritom je vano da studenti imaju takoğer odgovarajuæi software kako bi mogli èitati dokumente.
- Neke datoteke mogu sadravati viruse, a Vaša je odgovornost da ne uèitavate zaraene virusom datoteke. Zbog mjere opreza preporuèa se provjeriti dokumente antivirusnim programom prije nihovog oèitavanja.
- </p>
-<p>Dokumenti su postavljeni prema abecednom poretku.<br><b> Tip : </b>Ukoliko ih elite sloiti nekim drugim redosljedom, numerirajte ih oznakama: 01, 02, 03...</p>
-<p>Moete :</p>
-<h4>Uèitajte dokument</h4>
+$langDescriptionCours = "Opis predmeta";
+$langDocContent = "<p>Putem 'Dokumenti' alata moguÄ‡e je <i>uploadati</i> bilo
+koju vrstu dokumenta (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, i dr.)</p>
+<hr />
+<h4>NaÄini pregledavanja</h4>
+Dokumenti se mogu pregledavati kao:
 <ul>
-  <li>Odaberite datoteku na vašem raèunalu koristeæi opciju Biraj 
-<input
- type=submit value=Browse name=submit2>
-	desno na tvom ekranu.</li>
-		<li>
-			Uèitavanje datoteke poèinjete pritiskom na opciju Uèitaj <input type=submit value=Uèitavanje name=submit2>..
-		</li>
-	</ul>
-	<h4>
-		Preimenujte dokument (direktorij)
-	</h4>
-	<ul>
-		<li>
-			Klikom na <img src=../dokument/img/edit.gif width=20 height=20 align=baseline> 
-			opciju u Preimenuj koloni
-		</li>
-		<li>
-			Utipkajte novo ime u polje (gore lijevo)
-		</li>
-		<li>
-			Potvrdite to klikom na <input type=submit value=Ok name=submit24>.
-		</li>
-	</ul>
-		<h4>
-			Obrišite dokument (ili folder)
-		</h4>
-		<ul>
-			<li>
-				Klikom na <img src=../document/img/delete.gif width=20 height=20> 
-				u koloni 'obriši'.
-			</li>
-		</ul>
-		<h4>
-			Napravite dokument (ili direktorij) nevidljiv za studente
-		</h4>
-		<ul>
-			<li>
-				Klikom na <img src=../document/img/visible.gif width=20 height=20>
-				kolonu 'Vidljiv/nevidljiv'.
-			</li>
-			<li>
-				Dokument (ili direktorij) još uvijek postoji ali nije više vidljiv za studente.
-			</li>
-			<li>
-				Da bi te ga ponovo uèinili vidljivim, kliknite na 
-				<img src=../img/invisible.gif width=24 height=20> 
-				kolonu 'Vidljiv/nevidljiv'
-			</li>
-		</ul>
-		<h4>
-			Dodavanje ili promjena primjedbu u dokumentu (ili direktoriju)
-		</h4>
-		<ul>
-			<li>
-				klikom na <img src=../img/comment.gif width=20 height=20> u koloni 'Primjedba'
-			</li>
-			<li>
-				Utipkajte novi komentar u odgovarajuæe polje (gore desno).
-			</li>
-			<li>
-				Potvrdite to klikom na  <input type=submit value=OK name=submit2>
-			.</li>
-		</ul>
-		<p>
-		Da bi izbrisali primjedbu, kliknite na <img src=../img/comment.gif width=20 height=20>, 
-		obrišite staru primjedbu u polju i kliknite 
-		<input type=submit value=OK name=submit22>.
-		<hr>
-		<p>
-			Moete organizirati svoj  sadraj popunjevanjem. Za to:
-		</p>
-		<h4>
-			<b>
-				Stvorite folder
-			</b>
-		</h4>
-		<ul>
-			<li>
-				Klikom na 
-				<img src=../img/folder.gif>
-				'Stvaranje foldera' (na vrhu lijevo)
-			</li>
-			<li>
-				Utipkajte ime vašeg novog direktorija u odgovarajuæe polje (gore lijevo)
-			</li>
-			<li>
-				Potvrdite to klikom na <input type=submit value=OK name=submit23>
-			</li>
-		</ul>
-		<h4>
-			Pomaknite dokument (ili folder)
-		</h4>
-		<ul>
-			<li>
-				Klikom na opciju <img src=../img/deplacer.gif width=34 height=16> 
-				u koloni 'Pomakni'
-			</li>
-			<li>
-				Izaberite folder u koji elite premjestiti dokumet (ili folder) u odgovarajuæi omièuæi izbornik (gore lijevo) (napomena: rijeè 'korijen' znaæi da ne moete iæi više od ove razine u stablu dokumenata na serveru).
-			</li>
-			<li>
-				Potvrdite to klikom na <input type=submit value=OK name=submit232>
-			</li>
-		</ul>
-<centar>
-<p>";
-$langDocument = "Dokumenti";
-$langForContent = "Forum je pisani i asinkroni diskusijski alat.
-Kako email omoguæava jedan - prema - jedan dijalog, forumi omoguæavaju javni ili polu-javni dijalog.
-</p><p> Tehnièki gledano, studenti trebaju samo svoj preglednik da bi koristili Claroline forume. .</P><p>Da bi organizirali forume, kliknite na'Upravljanje'. Diskusija je organizirana u setovima i podsetovima kako slijedi: </p><p><b>Kategorija > Forum > Tema > Odgovor</b></p> Da bi struktuirali vaše studentske diskusije, potrebno je, prije svega, organizirati kategorije i forume, ostavljajuæi teme i odgovore studentima da sami stvaraju. Prema standardnim postavkama forumi sadre samo kategoriju 'Javno', primjer foruma i rimjer jedne teme.</p><p> Prvo što morate uèiniti je izbrisati primjer teme i tako modificirate prvo ime foruma. Tada, moete stvoriti u kategoriji
-'javno'druge forume, po grupama ili po temama, kako bi upotpunili zahtjeve nastavnog predmeta.</p><p>Ne miješajte kategorije i forume i nemojte zaboraviti da prazna kategorija (bez foruma) nije vidljiva studentima.</p><p> Opis foruma moe sadravati popis èlanova, definiranje ciljeva, zadaæa, tema ...";
-$langForums = "Forumi";
-$langGroupContent = "<p><b>Uvod</b></p>
-<p>Ovaj alat omoguæava stvaranje i upravljanje radnim grupama. Prilikom stvranja (kreiranja) grupe, grupe su prazne. Postoji mnogo naèina za njihovo popunjavanje:
-<ul><li>automatsko ('Popuni grupe'),</li>
-<li>ruèno ('Dodaj'),</li>
-<li>studentsko samoprijavljivanje  (Grupne postavke: 'Samoprijavljivanje dozvoljeno...').</li>
+<li>Popis datoteka (<i>default</i>)</li>
+<li><i>Thumbnailovi</i></li>
 </ul>
-Ova tri naèina se mogu kombinirati. Moete, primjerice, èitati studente da se prvo samostalno prijavljuju.
-Tada otkrijete da se neki od njih nisu prijavili i odluèite tada popuniti grupu automatski kako bi je upotpunili.
-Takoğer, moete dodati svakoj grupi da stvara èlanstva po principu jedan po jedan student prije ili poslije samoprijavljivanja ili automatskog popunjavanja.</p>
-<p>Grupno popunjavanje, bilo automatsko ili ruèno, radi samo ukoliko su studenti veæ prijavljeni na predmetu (ne miješajte prijavu za nastavni predmet i prijavu za grupu).
-Studentski popis je vidljiv na izboniku  <b>Korisnici</b> . </p><hr noshade size=1>
-<p><b>Stvaranje grupa</b></p>
-<p>Da bi stvorili novu grupu, kliknite na  'Stvori novu grupu(e)' i odredite broj grupa koje elite stvoriti Maksimalni broj èlanova nije odreğen, ali predlaemo da izaberete jedan broj. Ukoliko ostavite polje maksimalnog broja grupe, maksimalni broj grupe je neodreğen.</p><hr noshade size=1>
-<p><b>Grupne postavke</b></p>
-<p>Moete odrediti opæe grupne postavke koje vrijede za sve grupe.
-<b>Studentima je dozvoljeno samostalno prijavljivanje u grupe</b>: 
-<p>Moete stvoriti praznu grupu, a studenti se mogu samostalno prijavljuju.
-Ukoliko ste definirali maksimalni broj èlanova grupe, pune grupe ne prihvaæaju nove èlanove.
-Ova metoda je dobra za nastavnike koji ne znaju studentsku listu prilikom stvaranja grupe.</p>
-<b>Outils</b>:</p>
-<p>Svaka grupa posjeduje ili forum (privatni ili javni) ili podruèje Dokumenata (zajednièke datoteka) ili najèešæe oboje.</p>
-<hr noshade size=1>
-<p><b>Ruèno dodavanje</b></p>
-<p>Jednom kada je grupa stvorena (Stvori grupe), na dnu stranice moete vidjeti popis grupa sa nizom informacija i funkcija
-<ul><li><b>Uredi</b> da bi promjenili ruèno ime grue, opis, tutora, listu èlanova 
-.</li>
-<li><b>Obriši</b> obrišite grupu.</li></ul>
-<hr noshade size=1>";
+NaÄin pregledavanja moÅ¾ete odabrati klikom na odgovarajuÄ‡i link koji se nalazi s desne strane
+popisa datoteka, odnosno, <i>thumbnailova</i>
+<h4>Preglednik slika</h4>
+<ul>
+<li>Preglednik slika se otvara klikom na ime slikovne datoteke u popisu datoteka, ili klikom na <i>thumbnail</i> slike u
+<i>thumbnail</i> naÄinu pregledavanju.
+</li>
+<li>Da biste zatvorili preglednik slika, kliknite na link '<i>Thumbnailovi</i>' ili 'Popis datoteka'</li>
+</ul>
+<h4>TraÅ¾enje dokumenta</h4>
+<ul>
+<li>
+Da biste pretraÅ¾ivali dokumente i linkove, kliknite na 'TraÅ¾i' link. Dozvoljeno je koriÅ¡tenje znakova '*' i '?'.
+</li>
+</ul>
+<hr />
+<h4>Upravljanje dokumentima</h4>
+</hr />
+
+<h4><i>Uploadanje</i> dokumenata</h4>
+Da biste <i>uploadali</i> dokument:
+<ul>
+<li>
+Kliknite na '<i>Uploadaj</i> datoteku'
+</li>
+<li>
+Kliknite na 'browse' gumb
+</li>
+<li>
+Odaberite datoteku koju Å¾elite <i>uploadati</i>.
+Po Å¾elji dokumentu moÅ¾ete dodati komentar.
+<blockquote><small>
+<i>Napomena</i>: Prilikom <i>uploada</i> <i>zip</i> datoteke moguÄ‡e je oznaÄiti opciju '<i>Odzippaj</i> .zip datoteku na serveru'
+</small></blockquote>
+</li>
+<li>
+Kliknite na 'Uploadaj' gumb .
+</li>
+</ul>
+
+<h4>Stvaranje <i>hyperlinka</i></h4>
+<ul>
+<li>
+Kliknite na 'Stvori <i>hyperlink</i>'
+</li>
+<li>
+UpiÅ¡ite ime <i>hyperlinka</i>
+</li>
+<li>
+UpiÅ¡ite URL <i>hyperlinka</i>
+(npr.: http://www.mojeuciliste.com/mojadatoteka.htm).
+</li>
+<li>
+Po Å¾elji <i>hyperlinku</i> moÅ¾ete dodati komentar.
+</li>
+</li>
+</ul>
+
+<h4><i>Online</i> stvaranje HTML dokumenta</h4>
+<ul>
+<li>Kliknite na 'Stvori dokument'
+</li>
+<li> 
+UpiÅ¡ite ime dokumenta
+</li>
+<li>
+UpiÅ¡ite sadrÅ¾aj dokumenta
+</li>
+</ul>
+<p>
+
+<blockquote><small>
+<i>Napomena</i>: Ne preporuÄuje se <i>online</i> pisanje duÅ¾ih dokumenata. Umjesto toga, napiÅ¡ite dokument <i>offline</i>, te ga zatim <i>uploadajte</i> na sustav.
+</small></blockquote>
+</p>
+
+
+<h4>Preimenovanje dokumenata, mapa i <i>hyperlinkova</i></h4>
+<ul>
+<li>Kliknite na 'promijeni' ikonu
+</li>
+<li>
+UpiÅ¡ite novo ime
+</li>
+<li>
+Po Å¾elji dodajte ili izmijenite komentar.
+</li>
+</ul>
+
+<blockquote><small>
+<i>Napomena</i>: Dokumenti su abecedno poredani.
+</small></blockquote>
+
+
+<h4>Brisanje dokumenta, mape ili <i>hyperlinka</i></h4>
+<ul>
+<li>
+Kliknite na 'IzbriÅ¡i' ikonu
+</ul>
+
+<h4>
+Mijenjanje vidljivosti dokumenta, mape ili <i>hyperlinka</i>
+</h4>
+<ul>
+<li>
+Kliknite na 'Vidljivost' ikonu
+</li>
+</ul>
+
+<blockquote><small>
+<i>Napomena</i>: Nevidljivi element nije vidljiv polaznicima predmeta, ali joÅ¡ uvijek postoji u sustavu
+</small></blockquote>
+
+<h4>
+Dodavanje i mijenjanje komentara
+</h4>
+<ul>
+<li>
+Kliknite na 'Promijeni' ikonu
+</li>
+<li>
+UpiÅ¡ite komentar
+</li>
+</ul>
+
+<blockquote><small>
+<i>Napomena</i>: Da biste obrisali postojeÄ‡i komentar, kliknite 'Promijeni' ikonu, te izbriÅ¡ite tekst komentara
+</small></blockquote>
+
+<h4>Stvaranje mape</h4>
+<ul>
+<li>Kliknite na 'Stvori mapu'
+</li>
+<li>
+UpiÅ¡ite ime mape
+</li>
+</ul>
+<h4>
+PremjeÅ¡tanje dokumenta, mape ili <i>hyperlinka</i>
+</h4>
+<ul>
+<li>
+Kliknite na 'Premjesti' ikonu elementa kojeg Å¾elite premjestiti.
+</li>
+</ul>
+<center>
+<p>";
+$langDocument = "Dokumenti i linkovi";
+$langExerciseContent = "Alat 'VjeÅ¾be' voditeljima predmeta omoguÄ‡uje stvaranje <i>online</i> vjeÅ¾bi. Korisnici putem ovog alata mogu interaktivno
+rjeÅ¡avati vjeÅ¾be. U sluÄaju da je korisnik prijavljen, rezultati vjeÅ¾bi bit Ä‡e spremljeni u statistikama predmeta.
+<hr />
+
+<h4>Upravljanje vjeÅ¾bama</h4>
+<h4>Stvaranje vjeÅ¾be</h4>
+<ul>
+<li> Kliknite na 'Stvori vjeÅ¾bu'</li>
+<li> UpiÅ¡ite ime vjeÅ¾be</li>
+<li> Po Å¾elji vjeÅ¾bi moÅ¾ete dodati komentar.</li>
+<li> Odaberite hoÄ‡e li sva pitanja vjeÅ¾be biti na istoj stranici, ili Ä‡e svako pitanje biti na svojoj stranici</li>
+<li> Napredne postavke vjeÅ¾be (neobavezno)
+<ul>
+<li> Odaberite kada vjeÅ¾ba zapoÄinje</li>
+<li> Odaberite kada vjeÅ¾ba zavrÅ¡ava</li>
+<li> Odredite vremensko ograniÄenje vjeÅ¾be</li>
+<li> Odaberite koliko puta pojedini korisnik smije rjeÅ¡avati vjeÅ¾bu</li>
+<li> Odaberite jesu li anonimni pokuÅ¡aji dozvoljeni ili ne</li>
+<li> Odaberite kada Ä‡e rezultati vjeÅ¾be biti prikazani</li>
+</ul>
+</ul>
+<p>Nakon Å¡to je vjeÅ¾ba stvorena, u nju je moguÄ‡e dodati pitanja.</p>
+
+<hr />
+<h4>Pitanja</h4>
+<h4>Pitanja s viÅ¡estrukim izborom</h4>
+<p>Postoje dvije vrste pitanja s viÅ¡estrukim izborom: 
+</p>
+<ul>
+<li> Pitanja s jednim ispravnim odgovorom</li>
+<li> Pitanja s viÅ¡e ispravnih odgovora</li>
+</ul>
+<p>Prilikom stvaranja pitanja s viÅ¡estrukim izborom, standardno su ponuÄ‘ena dva odgovora.
+Da biste poveÄ‡ali broj ponuÄ‘enih odgovora kliknite na 'Dodaj novi odgovor'
+</p>
+<p>Da biste smanjili broj ponuÄ‘enih odgovora, kliknite na 'IzbriÅ¡i posljednji odgovor'</p>
+<p>Za svaki ponuÄ‘eni odgovor potrebno je:</p>
+<ul>
+<li>OznaÄiti je li odgovor istinit</li>
+<li>U 'odgovor' upisati tekst ponuÄ‘enog odgovora</li>
+<li>U 'komentar' upisati tekst koji Ä‡e se prikazati korisnicima ako odaberu navedeni odgovor</li>
+<li>Upisati broj bodova. Istiniti odgovori donose pozitivan broj bodova, dok odgovori koji nisu istiniti
+ne donose bodove (0 bodova) ili donose negativne bodove.
+</li>
+</ul>
+
+<h4>Pitanja s povezivanjem</h4>
+<p>U ovoj vrsti pitanja, korisnici moraju pronaÄ‡i vezu meÄ‘u elementima dva popisa.</p>
+<p>Prilikom stvaranja pitanja s viÅ¡estrukim izborom, standardno su ponuÄ‘ena dva odgovora u svakom od popisa.
+Da biste poveÄ‡ali broj elemenata u popisu  kliknite na 'Dodaj element'</p>
+<p>Da biste smanjili broj elemenata u popisu kliknite na 'IzbriÅ¡i element'</p>
+
+<p>Broj bodova ne moÅ¾e biti negativan.</p>
+
+<h4>Pitanja s nadopunjavanjem</h4>
+<p>Pitanja su zadana u obliku teksta u kojem su neke rijeÄi izostavljene.</p>
+<p>
+Praznine se definiraju pomoÄ‡u uglatih zagrada [...] u koje korisnici upisuje rijeÄ koju nedostaju.
+</p>
+
+<hr />
+
+<h4>Zbirka pitanja</h4>
+<p>U zbirci pitanja se nalaze pitanja iz svih vjeÅ¾bi ovog predmeta kao i nedodijeljena pitanja (pitanja koja se ne koriste
+niti u jednoj vjeÅ¾bi).
+</p>
+<p>Prilikom brisanja vjeÅ¾be, pitanja se ne briÅ¡u iz baze podataka, veÄ‡ ostaju dostupna putem alata 'Zbirka pitanja'.</p>
+<p>Po <i>defaultu</i>, prikazana su sva pitanja ovog predmeta. PomoÄ‡u filtera je moguÄ‡e prikazati pitanja odreÄ‘ene vjeÅ¾be ili nedodijeljena pitanja.</p>
+";
+$langExercises = "VjeÅ¾be";
+$langForContent = "Forumi su namijenjeni za javnu ili privatnu pisanu komunikaciju.</p>
+<p>Kako biste organizirali forume, kliknite na 'Administriranje foruma'. Rasprave su organizirane
+prema sljedeÄ‡oj hijerarhiji:</p>
+<p><b>Kategorija > Forum > Tema > Poruka</b></p>
+<p>
+Kao administrator foruma, trebali biste stvoriti kategorije i forume, a korisnicima
+prepustiti stvaranje tema i poruka. Po <i>defaultu</i>, forumi za predmet sastoje se od
+'Glavne kategorije', 'Oglednog foruma' i 'Ogledne teme'.</p>
+<p>PreporuÄljivo je izbrisati oglednu temu i promijeniti ime foruma. Kategorije koje ne sadrÅ¾e
+forume neÄ‡e biti prikazane polaznicima predmeta.</p>";
+$langForums = "Forumi";
 $langGroups = "Grupe";
-$langHClar = "Poèetak pomoæi ";
-$langHDoc = "Pomoæ za dokumente";
-$langHFor = "Forum pomoæ";
-$langHHome = "Pomoæ za Poèetnu stranicu";
-$langHUser = "Pomoæ korisnicima";
-$langHelp = "Pomoæ";
-$langHelpGroups = "Pomoæ grupama";
-$langHomeContent = "Radi olakšanja, alati claroline sadre standardne ulazne postavke. 
-U svakom alatu je jednostavan primjer kako bi brzo shvatili kako radi. Na Vama je da modificirate ili izbrišete primjer. Primjerice, na oèetnoj stranici vašeg predmeta je kratak uvodni tekst koji glasi:
-'Ovo je uvodni tekst za vaš predmet. Kako bi ga zamjenili sa vlastitm tekstom kliknite ispod na promjeni.' Kliknite na promjeni, dodaj i Ok. Ovo je vrlo jednostavno.svaki alat ima istu logiku: dodaj, obriši, promjeni, što je logika dinamiènih web stranica.</p><p> Kada prvi put kreirate svoju web stranicu, veæina alata je aktivna. Na vama je da deaktivirate one alate za koje smatrate da vam nisu potrebni.Tada morate kliknuti na 'deaktiviraj'. Tada alat odlazi  dolje na sivi dio vaše Poèetne stranica i ostaje nevidljiv za studente. Svakako, moete ga ponovno aktivirati, i tada on ostaje onovno vidljiv studentima.</p><p> Moete dodati svoje vlastite stranice na vašu Poèetnu stranicu. Te stranice moraju biti HTML formatu (koji se moe stvoriti koristeæi Word procesor ili Web composer). Koristite 'uèitane stranice i linkove za Poèetnu stranicu' kako bi poslali stranice na server. Standardno zaglavlje na vašoj web stranici æe automatski biti spojen sa novim dokumentom. Ukoliko elite link (vezu) sa svoje Poèetne stranice ka postojeæim stranicama ili stranicama koje postoje bilo gdje na Webu (èak i unutar vaše vlastite stranice), koristite 'Dodaj link na poèetnu stranicu' Stranice koje ste dodali na Poèetnu stranicu mogu se deaktivirati, a zatim i borisati, kada su standardni alati deaktivirani, ali ne i izbrisani.</p><p> Jednom kada je vaša web stranica spremna, odite na 'Promjeni predmetne informacije' i odluèite koju razinu pouzdanosti elite.
- Prema standardnim postavkama, Vaš predmet je skriven (zato što radite na njemu).</p>";
+$langHDoc = "Dokumenti pomoÄ‡";
+$langHExercise = "Vjezbe pomoÄ‡";
+$langHFor = "Forum pomoÄ‡";
+$langHUser = "Korisnici pomoÄ‡";
+$langHelp = "PomoÄ‡";
+$langHelpAssignment = "Zadaci pomoÄ‡";
+$langHelpAssignmentContent = "<p>
+Alat 'Zadaci' sluÅ¾i voditeljima predmeta za stvaranje zadataka. Korisnici putem ovog alata mogu poslati rjeÅ¡enja.
+RjeÅ¡enja, u obliku teksta, datoteke ili njihove kombinacije, polaznici predaju samostalno ili u grupama.
+Polaznici mogu ureÄ‘ivati rad Äak i nakon Å¡to je predan.
+Voditelji predmeta su zaduÅ¾eni za slanje ispravki radova i njihovo ocjenjivanje.
+</p>
+<hr />
+
+<h4>Stvaranje zadatka</h4>
+<p>Kliknite na 'Stvori novi zadatak'.</p>
+<p>Potrebno je navesti sljedeÄ‡e:
+</p>
+<ul><li>Ime zadatka
+</li><li>Opis - tekst zadatka
+</li><li>Predaje se kao:
+<ul><li>Datoteka (datoteka obavezna, tekst neobavezan) - datoteka bilo kojeg tipa moÅ¾e biti <i>uploadana</i>.
+Postoji ograniÄenje na veliÄinu datoteke, ovisno o postavkama sustava.
+Tekstualni opis rjeÅ¡enja nije obavezan.
+
+</li><li>IskljuÄivo tekst (tekst obavezan, bez datoteke) - rjeÅ¡enje zadatka u tekstualnom obliku, koje se unosi putem Claroline editora teksta.
+</li><li>Tekst s datotekom (tekst obavezan, datoteka neobavezna) - rjeÅ¡enje zadatka u tekstualnom obliku, koje se unosi putem Claroline editora tekst.
+Datoteke moÅ¾e, ali ne mora, biti predana.</li></ul>
+
+</li><li>MoÅ¾e se predati od - datum i vrijeme od kada je korisnicima omoguÄ‡ena predaja radova
+</li><li>Najkasnije do - datum i vrijeme do kada je korisnicima omoguÄ‡ena predaja radova
+</li><li><i>Default</i> vidljivost radova - hoÄ‡e li radovi polaznika, odnosno grupe, biti vidljivi ostalim polaznicima ili grupama
+</li><li>Vrsta zadatka:
+
+<ul><li>Samostalni - registrirani korisnici sustava Claroline mogu predavati radove
+</li><li>Grupni (iskljuÄivo Älanovi grupe mogu slati rjeÅ¡enja) - da bi predali rad, korisnici moraju biti Älanovi barem jedne grupe ovog predmeta.
+</li></ul>
+</li><li>Dozvoljen zakaÅ¡njeli <i>upload</i> - mogu li se radovi predavati i nakon roka predaje
+</li></ul>
+<p><br />
+<strong>Dodavanje automatskog ispravka</strong>
+</p>
+<p>Ispravak predstavlja ispravno rjeÅ¡enje zadatka. Da biste zadatku dodali automatski ispravak, odaberite zadatak i kliknite na 'Uredi automatizirani ispravak'</p>
+<p>Ispravak moÅ¾e biti tekst, datoteka ili oboje. Voditelj predmeta odluÄuje kada Ä‡e se automatski ispravak prikazati polaznicima - nakon roka predaje ili nakon prve predaje rada.
+</p>
+
+<hr />
+<h4>Radovi</h4>
+<p>
+U tablici radova prikazani su polaznici predmeta, naslov prvog predanog rada, broj predavanja rada i broj ispravaka.
+Popis radova korisnika moÅ¾e se dobiti klikom na ime korisnika</p>
+<p><strong>Popis radova</strong></p>
+<p>Voditelji predmeta mogu ureÄ‘ivati, brisati, mijenjati vidljivost radova i objavljivati ispravke, putem sljedeÄ‡ih naredbi:
+</p>
+<ul>
+<li><strong>Uredi</strong> - Klikom na 'Uredi' ikonu moguÄ‡e je uredjivati rad. Rad moÅ¾e ureÄ‘ivati korisnik koji ga je predao, bilo koji Älan
+grupe u kojoj se korisnik nalazi ili voditelj predmeta.
+</li>
+<li><strong>IzbriÅ¡i</strong> - Klikom na 'IzbriÅ¡i' ikonu briÅ¡e se (predani) rad
+</li>
+<li><strong>Vidljiv/nevidljiv</strong> - Ukoliko je rad oznaÄen kao vidljiv, svi polaznici predmeta Ä‡e mu moÄ‡i pristupiti.
+</li>
+<li><strong>Dodaj ispravak</strong> - Klikom na 'dodaj ispravak' voditelji predmeta mogu dodati ispravak rada. Ispravak moÅ¾e sadrzavati
+'napomene', koje su vidljive iskljuÄivo voditeljima predmeta.
+</li>
+</ul>
+
+
+
+";
+$langHelpGroups = "Grupe pomoÄ‡";
+$langLearningPath = "Redoslijed uÄenja";
+$langLogin = "Prijava";
 $langLogout = "Odjava";
-$langManager = "Manager";
-$langModifyProfile = "Izmijeni profil";
+$langMinuteShort = "min.";
+$langModifyProfile = "Promijeni moj profil";
 $langMonthNames = "Array";
+$langMyAgenda = "Moj kalendar";
 $langMyCourses = "Moji predmeti";
 $langNameOfLang = "Array";
-$langOtherCourses = "Popis kolegija";
-$langPoweredBy = "Upravljano s ";
-$langStudent = "student";
-$langUserContent = "<b>Uloge</b><p>Uloge nemaju raèunalno povezanu funkciju.
- Oni ne daju prava za upravljanje sustavom. Oni samo ukazuju ljudima tko je tko. Moete ih mjenjati klikom na  'promjeni' ispod 'uloge', i tada moete utipkati bilo što: profesor, asistent, student,
- posjetitelj, struènjak...</P><hr>
-<b>Admin prava</b>
-<p>Admin prava, s druge strane, korespondiraju sa tehnièkom autorizacijom za mjenjanje sadraja i organiziranja predmente web stranice. Trenutno, moete samo birati izmeğu davanja svih admin prava ili davanja ni jednog prava
-.</P><p> Da bi dozvolili asistentu, primjerice, da administrira stranicu, morate ga prijaviti na predmetu ili biti sigurni da je on veæ prijavljen, tada kliknite na 'promjeni' ispod 'admin prava', zatim kliknite na 'sva', i zatim 'Ok'.</P><hr>
-<b>Suradnik</b>
-<p>Kako bi postavili u zaglavlje predmente web stranice ime 
- suradnik, koristite alat 'Promjeni predmetne infomacije' (naranğasti alati). Ova modifikacija ne registrira vašeg suradnika kao korisnika na predmetu.
- Polje 'Nastavnici' je potpuno neovisan od Korisnièke liste.</p><hr>
-<b>Dodaj korisnika</b>
-<p>Kako bi dodali korisnika na vaš predmet, popunite polje i  potvrdite. Osoba 'e primiti obavijest putem emaila o prijavi i svom korisni;kom imenu i zaporki.</p>";
+$langOtherCourses = "Popis predmeta";
+$langPlatformAdministration = "Administiranje";
+$langPoweredBy = "Powered by";
+$langSecondShort = "s";
+$langStudent = "Korisnik";
+$langSwitchEditorToTextConfirm = "Ova naredba prebacuje editor u tekstualni naÄin rada. Å½elite li nastaviti?";
+$langTextEditorDisable = "Tekstualni editor";
+$langTextEditorEnable = "Vizualni editor";
+$langUserContent = "<p>Alat 'Korisnici' je namijenjen radu s korisniÄkim podacima. Tablica korisnika sadrÅ¾i sljedeÄ‡e podatke:
+<ul>
+<li>
+<b>KorisniÄko ime</b>. Klikom na korisniÄko ime, moguÄ‡e je dobiti podatke o odabranom korisniku, kao Å¡to je npr. Email
+</li>
+
+<li>
+<b>Uloga</b>.
+Vrijednost uloge nema utjecaja na prava korisnika unutar Claroline sustava, veÄ‡ sluÅ¾i iskljuÄivo kao sredstvo
+oznaÄavanje uloga korisnika u sustavu.
+Uloge moÅ¾ete promijeniti tako da kliknete na 'Promijeni' ikonu i upiÅ¡ete proizvoljni tekst.
+</li>
+
+<li>
+<b>Mentor grupe</b>Svakoj grupi moÅ¾e biti dodijeljen jedan ili viÅ¡e mentora.
+Mentor grupe ima pristup svim funkcijama alata 'Grupe' ukljuÄujuÄ‡i dozvole za mijenjanje poruka na forumu grupe.
+Status mentora moguÄ‡e je mijenjati klikom na 'Promijeni'.
+</li>
+
+<li>
+<b>Voditelj predmeta</b>. Ovaj status imaju korisnici zaduÅ¾eni za voÄ‘enje i administraciju predmeta.
+Status voditelja predmeta moguÄ‡e je mijenjati klikom na 'Promijeni'.
+</li>
+
+<li>
+<b>Promijeni</b> (rezervirano za voditelje predmeta). Naredba omoguÄ‡ava voditeljima predmeta mijenjanje korisniÄkih podataka vezanih za ovaj predmet.
+Voditelji predmeta putem ove naredbe ne mogu mijenjati osobne podatke korisnika, kao Å¡to su ime, email i sliÄno.
+Klikom na 'definiraj zaglavlje' moguÄ‡e je stvoriti zaglavlja koja Ä‡e polazniÄ‡i predmeta moÄ‡i ispuniti.
+</li>
+
+<li>
+<b>Odjavi</b> (rezervirano za voditelje predmeta). Naredba omoguÄ‡ava voditeljima predmeta odjavljivanje korisnika s predmeta.
+</li>
+
+</ul>
+
+<h4>
+Glavne naredbe
+</h4>
+
+<ul>
+<li>
+<b>Dodaj korisnika</b>. Naredbom se registrira novi korisnik u sustav i automatski se prijavljuje na predmet.
+Novostvorenom korisniku Ä‡e prilikom stvaranja korisniÄkog raÄuna biti poslan email s obavijestima o registraciji, koji
+sadrÅ¾i korisniÄko ime i zaporku.
+</li>
+<li><b>Dodaj korisnike iz datoteke</b></li> Naredbom se u sustav registriraju korisnici iz CSV datoteke.
+</li>
+<li>
+<b>Prijavi razred na predmet</b>. Naredbom se na predmet prijavljuju svi Älanovi razreda.
+</li>
+<li>
+<b>Grupe</b>. Naredba sluÅ¾i kao <i>link</i> na alat 'Grupe'
+</li>
+</ul>
+";
 $langUsers = "Korisnici";
-$langWork = "Studentski Radovi";
+$langViewMode = "Pregledavati kao";
+$langWiki = "Wiki";
+$langWork = "Zadaci";
+$lang_footer_p_CourseManager = "Voditelj predmeta %s";
+$lang_p_platformManager = "Administrator sustava %s";
 ?>
