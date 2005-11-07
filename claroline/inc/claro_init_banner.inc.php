@@ -60,6 +60,7 @@ if($_uid)
 <span id="userName"><?php echo $_user ['firstName'] . ' ' . $_user ['lastName'] ?> : </span>
 <a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a> | 
 <a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a> | 
 <?php 
 if($is_platformAdmin)
 {
@@ -68,7 +69,6 @@ if($is_platformAdmin)
 <?php 
 } 
 ?>
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a> | 
 <a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a>
 <div class="spacer"></div>
 </div>
