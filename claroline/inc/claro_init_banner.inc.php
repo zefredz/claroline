@@ -105,6 +105,16 @@ if (isset($_cid))
 /*
  * Language initialisation of the tool names
  */
+if ($is_courseAdmin)
+{
+    echo '<div align="left">'
+    .    '<a class="claroCmd" href="' . $toolRepository . 'course_info/infocours.php">'
+    .     '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
+    .    $langCourseSettings
+    .    '</a>'
+    .    '</div>' . "\n";
+}
+
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
     $toolNameList = claro_get_tool_name_list();
@@ -177,7 +187,7 @@ echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php"
 <div id="breadcrumbLine">
 <?php
 if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
-    {
+{
         echo '<hr />' . "\n";
             //'<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
 
@@ -234,6 +244,15 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             .'</a>'
             .'</div>'."\n";
     }
+    elseif ($_cid && ! $is_courseMember && $_course['registrationAllowed'])
+    {
+        echo '<div id="toolViewOption">'
+        .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
+        .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
+        .    '<b>'.$lang_enroll.'</b>'
+        .    '</a>'
+        .    '</div>' . "\n";
+    }
     elseif ( claro_is_display_mode_available() )
     {
         echo "\n".'<div id="toolViewOption">'                    ."\n";
@@ -248,6 +267,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         }
         echo "\n".'</div>'                                       ."\n";
     }
+
 
     echo '<div class="spacer"></div>'                       ."\n"
     .    '<hr />'                                           ."\n";
