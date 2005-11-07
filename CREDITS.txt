@@ -90,6 +90,8 @@ Chinese translation :           Maizeman (Maizeman@21cn.com)
                                 Ping Pingjianban (pingjianban@gmail.com)
 
 Croatian translation :          Dragan Misovic
+                                Karolj Skala (skala@irb.hr)
+                                Bozo Jonic (bjonic@irb.hr) 
 
 Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Denis Smidts (Smidts@ipm.ucl.ac.be)
@@ -128,6 +130,8 @@ Italian translation :           Maurizio Guercio  (mguercio@libero.it),
 Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
+
+Persian translation :           Elnaz Sarbar (elnaz.s@gmail.com)
 
 Polish translation :            Slawomir Gurdala (guslaw@uni.lodz.pl)
                                 Jacek Grudzien (bel2@bel.biz.pl)
