@@ -133,8 +133,8 @@ switch ($cmd)
     }
     else
     {
-        $fieldSeparator  = $_SESSION['fieldSeparator'];    
-        $enclosedBy      = $_SESSION['enclosedBy'];
+        $fieldSeparator  = $_REQUEST['fieldSeparator'];    
+        $enclosedBy      = $_REQUEST['enclosedBy'];
         if ($_REQUEST['enclosedBy']=='dbquote') 
         {
             $enclosedBy = '"';
