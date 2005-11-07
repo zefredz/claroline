@@ -1,9 +1,9 @@
 *********************************************
-          CLAROLINE 1.7.0 - INSTALL
+          CLAROLINE 1.7.1 - INSTALL
 *********************************************
 
 Thank you for downloading Claroline 1.7 . This text will guide you 
-through the basics of installation and operation of Claroline 1.6. Please 
+through the basics of installation and operation of Claroline 1.7. Please 
 ensure you read this fully BEFORE proceeding with the installation.
 
 TABLE OF CONTENT :
@@ -98,16 +98,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline170.tar.gz'
+1. Download 'claroline171.tar.gz'
 
-   Windows : download 'claroline170.zip'.
+   Windows : download 'claroline171.zip'.
 
 
 2. Open a shell, go to download directory and type 
 
-    tar -zxvf claroline170.tar.gz
+    tar -zxvf claroline171.tar.gz
 
-   Windows : unzip 'claroline170.zip'.
+   Windows : unzip 'claroline171.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory). 
