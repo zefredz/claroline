@@ -148,7 +148,7 @@ function check_if_db_exist($db_name,$db=null)
 
 function check_claro_table_in_db_exist($dbType,$db=null)
 {
-    GLOBAL $dbName;
+    $db='no used';
     switch ($dbType)
     {
         case 'main' :
@@ -174,15 +174,22 @@ function check_claro_table_in_db_exist($dbType,$db=null)
  */
 function checkVersion($currentVersion, $requiredVersion)
 {
-
-
     $currentVersion = explode('.',$currentVersion);
     $requiredVersion = explode('.',$requiredVersion);
 
     if ((int) $currentVersion[0] < (int) $requiredVersion[0]) return false;
-    if ((int) $currentVersion[1] < (int) $requiredVersion[1]) return false;
-    if ((int) $currentVersion[2] < (int) $requiredVersion[2]) return false;
-
+    elseif ((int) $currentVersion[0] > (int) $requiredVersion[0]) return true;
+    else
+    {
+        if ((int) $currentVersion[1] < (int) $requiredVersion[1]) return false;
+        elseif ((int) $currentVersion[1] < (int) $requiredVersion[1]) return true;
+        else
+        {
+            if ((int) $currentVersion[2] < (int) $requiredVersion[2]) return false;
+        }
+    }
     return true;
 }
+
+
 ?>
