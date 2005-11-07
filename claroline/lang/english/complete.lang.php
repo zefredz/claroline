@@ -1123,7 +1123,7 @@ $langIntroWork = "This tool allows the teacher to create assignments in which an
 <br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br />";
 $langInvalidId = "Login failed.<br />Contact your administrator.";
 $langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
-<small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
+<small>If you haven't a user account yet, use the <a href=\"%s\">the account creation form</a></small>";
 $langInvisible = "Invisible";
 $langIs = "is";
 $langIsAlreadyRegistered = "is already registered to course";
@@ -2047,5 +2047,6 @@ $langEnrollmentKey = "enrolment key";
 $langGroupsNotEmptied = "Unable to empty groups";
 $langCategoriesRepairs = "Repair category structure";
 $langCategoriesStructureOK = "Category structure repaired";
-
+$langEnroll = "Enrol";
+$langAuthenticationRequired = "Authentication Required"
 ?>

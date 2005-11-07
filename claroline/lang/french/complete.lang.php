@@ -173,7 +173,7 @@ $langAttempt = "Essai";
 $langAttemptAllowed = "essai autorisé";
 $langAttempts = "Essais";
 $langAttemptsAllowed = "essais autorisés";
-$langAuthentication = "Authentification";
+$langAuthentication = "Identification";
 $langAvailableFrom = "Disponible à partir du";
 $langBack = "Retour";
 $langBackHomeOf = "Retour à la page d'accueil de ";
@@ -1154,7 +1154,7 @@ $langIntroWork = "Cet outil est un espace de publication.
 <br /><br />Si vous désirez donner des consignes aux étudiants, cliquez sur ce bouton";
 $langInvalidId = "Cet identifiant n'est pas valable. Si vous n'êtes pas encore inscrit,
 complétez le <a href='claroline/auth/inscription.php'>formulaire d'inscription</a></font color>";
-$langInvalidIdSelfReg = "L'authentification a échoué.<br />Si vous n'êtes pas enregistré, utilisez le <a href=claroline/auth/inscription.php>formulaire d'inscription</a>";
+$langInvalidIdSelfReg = "L'identification a échoué.<br /><small>Si vous ne possédez pas encore de compte utilisateur, utilisez le <a href=\"%s\">formulaire de création compte</a>.</small>";
 $langInvisible = "Invisible";
 $langIs = "est";
 $langIsAlreadyRegistered = "est déjà inscrit au cours";
@@ -2068,4 +2068,5 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Vous avez été désinscrit
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre compte utilisateur ne semble pas inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
+$langAuthenticationRequired = "Identification requise"
 ?>
