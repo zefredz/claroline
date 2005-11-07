@@ -225,12 +225,12 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
     $contactNameForm    = trim($contactNameForm);
     $adminNameForm      = trim($adminNameForm);
     $contactEmailForm   = trim($contactEmailForm);
-    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
     if ( (!empty($institutionUrlForm)) && !eregi( $regexp, $institutionUrlForm) )
     {
         // problem with url. try to repair
         // if  it  only the protocol missing add http
-        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $institutionUrlForm )
+        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $institutionUrlForm )
         && (eregi($regexp, 'http://' . $institutionUrlForm )))
         {
             $institutionUrlForm = 'http://' . $institutionUrlForm;
