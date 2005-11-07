@@ -108,7 +108,7 @@ if (isset($_cid))
 if ($is_courseAdmin)
 {
     echo '<div align="left">'
-    .    '<a class="claroCmd" href="' . $toolRepository . 'course_info/infocours.php">'
+    .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_info/infocours.php">'
     .     '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
     .    $langCourseSettings
     .    '</a>'
