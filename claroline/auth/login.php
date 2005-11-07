@@ -89,8 +89,23 @@ if ( is_null($_uid) && $uidRequired )
         echo '<table align="center">'                                     ."\n"
         .    '<tr>'                                                       ."\n"
         .    '<td>'                                                       ."\n"
-        .    claro_disp_tool_title('Authentication required.')
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+        .    claro_disp_tool_title($langAuthenticationRequired);
+
+        if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
+        {
+            if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
+            {
+                echo claro_disp_message_box($langInvalidId);
+            }
+            else
+            {
+                echo claro_disp_message_box(sprintf($langInvalidIdSelfReg,
+                                                    $urlAppend.'/claroline/auth/inscription.php') )
+                .    '<br />';
+            }
+
+
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
         .    '<fieldset>'                                                 ."\n"
         .    $sourceUrlFormField                                          ."\n"
         .    $cidRequiredFormField
@@ -110,9 +125,6 @@ if ( is_null($_uid) && $uidRequired )
         .    '</form>'                                                    ."\n"
         ;
 
-        if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
-        {
-        echo '<p>' . sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') . '</p>';
         }
 
         echo '</td>'                                                    ."\n"
