@@ -220,6 +220,11 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
 
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
 {
+
+    $institutionUrlForm = trim($institutionUrlForm);
+    $contactNameForm    = trim($contactNameForm);
+    $adminNameForm      = trim($adminNameForm);
+    $contactEmailForm   = trim($contactEmailForm);
     $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
     if ( (!empty($institutionUrlForm)) && !eregi( $regexp, $institutionUrlForm) )
     {
