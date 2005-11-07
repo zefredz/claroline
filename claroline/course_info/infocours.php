@@ -250,6 +250,81 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
 if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
+
+
+$toAdd='';
+
+if ( isset($cidToEdit) )
+{
+    $toAdd ='?cidToEdit=' . $current_cid;
+    $toAdd.='&amp;cfrom=' . $cfrom;
+}
+
+// initialise links array
+
+$links = array();
+
+// add course home link
+
+$links[] = '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+        .    $langHome
+        .    '</a>';
+
+// add course tool list edit
+
+$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
+        .    $langEditToolList
+        .    '</a>';
+
+// add tracking link
+
+if ( $is_trackingEnabled )
+{
+    $links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
+            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
+            .    $langStatistics
+            .    '</a>' ;
+}
+
+
+// add link to admin page
+
+if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
+{
+    $links[] = '<a class="claroCmd" href="../admin/index.php">'
+            .    $langBackToAdmin
+            .    '</a>';
+}
+
+// add delete course link
+
+if ( $showLinkToDeleteThisCourse )
+{
+
+    $links[] = '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+    .    $langDelCourse
+    .    '</a>';
+}
+
+
+// add link to course admin page
+
+if ( isset($cfrom) && ($is_platformAdmin) )
+{
+    if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
+    {
+        $links[] = '<a class="claroCmd" href="../admin/admincourses.php'. $toAdd . '">'
+                . $langBackToList
+                . '</a>';
+    }
+}
+
+// Display links
+echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
+
 // Display form
 
 ?>
@@ -382,76 +457,7 @@ echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index
 </form>
 <?php
 
-$toAdd='';
-
-if ( isset($cidToEdit) )
-{
-    $toAdd ='?cidToEdit=' . $current_cid;
-    $toAdd.='&amp;cfrom=' . $cfrom;
-}
-
-// initialise links array
-
-$links = array();
-
-// add delete course link
-
-if ( $showLinkToDeleteThisCourse )
-{
-
-    $links[] = '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-    .    $langDelCourse
-    .    '</a>';
-}
-
-// add course tool list edit
-
-$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-        .    $langEditToolList
-        .    '</a>';
-
-// add tracking link
-
-if ( $is_trackingEnabled )
-{
-    $links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
-            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
-            .    $langStatistics
-            .    '</a>' ;
-}
-
-// add course home link
-
-$links[] = '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-        .    $langHome
-        .    '</a>';
-
-// add link to admin page
-
-if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
-{
-    $links[] = '<a class="claroCmd" href="../admin/index.php">'
-            .    $langBackToAdmin
-            .    '</a>';
-}
-
-// add link to course admin page
-
-if ( isset($cfrom) && ($is_platformAdmin) )
-{
-    if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
-    {
-        $links[] = '<a class="claroCmd" href="../admin/admincourses.php'. $toAdd . '">'
-                . $langBackToList
-                . '</a>';
-    }
-}
-
 // Display links
-echo '<hr />' . "\n";
 echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
 
 // Display footer
