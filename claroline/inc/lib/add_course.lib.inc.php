@@ -36,7 +36,7 @@
  * @param string $suffix4path      suffix added  for repository key (prepend to $suffix4all)
  * @param string $suffix4all       suffix added  for ALL keys
  * @return array
- * - ["currentCourseCode"]             : Must be alphaNumeric and outputable in HTML System
+ * - ["currentCourseCode"]          : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
  * - ["currentCourseDbName"]        : Must be unique it's the database name.
  * - ["currentCourseRepository"]    : Must be unique in /$coursesRepositories/
@@ -214,17 +214,17 @@ function prepare_course_repository($courseRepository, $courseId)
 
     if ( ! is_writable($coursesRepositorySys) ) return claro_failure::set_failure('READ_ONLY_SYSTEM_FILE');
 
-    if ( ! claro_mkdir($courseDirPath, CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP');
+    if ( ! claro_mkdir($courseDirPath, CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP');
 
-    if ( ! claro_mkdir($courseDirPath . '/exercise'      , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLQWZ');
-    if ( ! claro_mkdir($courseDirPath . '/document'      , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLDOC');
-    if ( ! claro_mkdir($courseDirPath . '/work'          , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLWRK');
-    if ( ! claro_mkdir($courseDirPath . '/group'         , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLGRP');
-    if ( ! claro_mkdir($courseDirPath . '/chat'          , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLCHT');
-    if ( ! claro_mkdir($courseDirPath . '/modules'       , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_MODULES');
-    if ( ! claro_mkdir($courseDirPath . '/scormPackages' , CLARO_FILE_PERMISSIONS) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_SCORM');
+    if ( ! claro_mkdir($courseDirPath . '/exercise'      , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLQWZ');
+    if ( ! claro_mkdir($courseDirPath . '/document'      , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLDOC');
+    if ( ! claro_mkdir($courseDirPath . '/work'          , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLWRK');
+    if ( ! claro_mkdir($courseDirPath . '/group'         , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLGRP');
+    if ( ! claro_mkdir($courseDirPath . '/chat'          , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_CLCHT');
+    if ( ! claro_mkdir($courseDirPath . '/modules'       , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_MODULES');
+    if ( ! claro_mkdir($courseDirPath . '/scormPackages' , CLARO_FILE_PERMISSIONS,true) ) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_SCORM');
     // for sample learning path
-    if ( ! claro_mkdir($courseDirPath . '/modules/module_1', CLARO_FILE_PERMISSIONS)) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_MODULE_1');
+    if ( ! claro_mkdir($courseDirPath . '/modules/module_1', CLARO_FILE_PERMISSIONS,true)) return claro_failure::set_failure('CANT_CREATE_COURSE_REP_MODULE_1');
 
     // build index.php of course
     $fd = fopen($courseDirPath . '/index.php', 'w');
