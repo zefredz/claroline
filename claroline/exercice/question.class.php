@@ -371,7 +371,15 @@ class Question
 
 			// saves the file into a temporary file
 	    $this->tempAttachedFile = "tmp".$this->id.".".$extension;
-		@move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->tempAttachedFile);
+		if ( move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->tempAttachedFile) )
+		{
+            chmod($attachedFilePathSys.'/'.$this->tempAttachedFile,CLARO_FILE_PERMISSIONS);
+            return $fileName;
+		}
+        else
+        {
+            return false;
+        }
 	}
 
 	/**

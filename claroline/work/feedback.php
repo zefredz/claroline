@@ -126,10 +126,14 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
                 
                 $tmpWorkUrl = $assigDirSys.$prefillDocPath;
 
-                if( ! move_uploaded_file($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
+                if( move_uploaded_file($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
                 {
-                      $dialogBox .= $langCannotCopyFile . '<br />';
-                      $formCorrectlySent = false;
+					chmod($tmpWorkUrl,CLARO_FILE_PERMISSIONS);
+				}
+				else
+				{
+                    $dialogBox .= $langCannotCopyFile . '<br />';
+                    $formCorrectlySent = false;
                 }
 
                 // remove the previous file if there was one

@@ -503,11 +503,15 @@ if( isset($_REQUEST['submitWrk']) )
 			          claro_mkdir( $assigDirSys , CLARO_FILE_PERMISSIONS );
 			    }
 
-			    if( ! move_uploaded_file($_FILES['wrkFile']['tmp_name'], $assigDirSys.$wrkForm['fileName']) )
-			    {
-			          $dialogBox .= $langCannotCopyFile."<br />";
-			          $formCorrectlySent = false;
-			    }
+				if( move_uploaded_file($_FILES['wrkFile']['tmp_name'], $assigDirSys.$wrkForm['fileName']) )
+                {
+					chmod($assigDirSys.$wrkForm['fileName'],CLARO_FILE_PERMISSIONS);
+				}
+				else
+				{
+                    $dialogBox .= $langCannotCopyFile . '<br />';
+                    $formCorrectlySent = false;
+                }
 
 			    // remove the previous file if there was one
 			    if( isset($_REQUEST['currentWrkUrl']) )
