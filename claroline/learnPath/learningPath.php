@@ -86,8 +86,8 @@ $sql = "SELECT LPM.`learnPath_module_id`,
 				UMP.`lesson_status`, UMP.`raw`,
 				UMP.`scoreMax`, UMP.`credit`,
 				A.`path`
-           FROM `".$TABLELEARNPATHMODULE."` AS LPM,
-                `".$TABLEMODULE."` AS M
+           FROM (`".$TABLEMODULE."` AS M,
+		   		`".$TABLELEARNPATHMODULE."` AS LPM)
      LEFT JOIN `".$TABLEUSERMODULEPROGRESS."` AS UMP
              ON UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
              ".$uidCheckString."

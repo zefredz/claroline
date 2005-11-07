@@ -312,7 +312,7 @@ if (isset($sortDirection) && $sortDirection)
 
     // get list of modules with same parent as the moved module
     $sql = "SELECT LPM.`learnPath_module_id`, LPM.`rank`
-            FROM `".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLELEARNPATH."` AS LP
+            FROM (`".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLELEARNPATH."` AS LP)
               LEFT JOIN `".$TABLELEARNPATHMODULE."` AS LPM2 ON LPM2.`parent` = LPM.`parent`
             WHERE LPM2.`learnPath_module_id` = ". (int)$thisLPMId."
               AND LPM.`learnPath_id` = LP.`learnPath_id`
@@ -456,12 +456,13 @@ if (isset($dialogBox) && $dialogBox!="")
 //--- BUILD ARBORESCENCE OF MODULES IN LEARNING PATH
 
 $sql = "SELECT M.*, LPM.*, A.`path`
-        FROM `".$TABLEMODULE."` AS M, 
-             `".$TABLELEARNPATHMODULE."` AS LPM
+        FROM (`".$TABLEMODULE."` AS M, 
+             `".$TABLELEARNPATHMODULE."` AS LPM)
         LEFT JOIN `".$TABLEASSET."` AS A ON M.`startAsset_id` = A.`asset_id`
         WHERE M.`module_id` = LPM.`module_id`
           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
         ORDER BY LPM.`rank` ASC";
+
 $result = claro_sql_query($sql);
 
 $extendedList = array();
