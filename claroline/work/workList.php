@@ -334,7 +334,7 @@ else // INDIVIDUAL
         
     $sql = "SELECT `U`.`user_id` as `authId`, concat(`U`.`nom`, ' ', `U`.`prenom`) as `name`, 
             count(`S`.`id`) as `submissionCount`, `S`.`title`, MIN(`S`.`creation_date`)
-        FROM `".$tbl_rel_course_user."` as `CU`, `".$tbl_user."` as `U`
+        FROM (`".$tbl_rel_course_user."` as `CU`, `".$tbl_user."` as `U`)
         LEFT JOIN `".$tbl_wrk_submission."` as `S`
             ON `S`.`user_id` = `U`.`user_id`
                 AND ( 
