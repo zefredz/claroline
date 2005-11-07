@@ -198,11 +198,15 @@ switch ($cmd)
     }
     else
     {
-        if ($_REQUEST['theclass']=="root") $parent = "null";
-        else                               $parent = $_REQUEST['theclass'];
-
-        if (!is_null($parent)) $parent = (int) $parent;
-
+        if ($_REQUEST['theclass']=="root") 
+        {
+            $parent = "null";
+        }
+        else                               
+        {
+            $parent = $_REQUEST['theclass'];
+        }       
+        if (!is_null($parent) && ($parent != "null")) $parent = (int) $parent;      
         $sql_update="UPDATE `" . $tbl_class . "`
                      SET class_parent_id= " . $parent . "
                      WHERE id= " . (int) $_REQUEST['movedClassId'] ;
