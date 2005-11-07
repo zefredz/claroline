@@ -1,15 +1,26 @@
 <?php // $Id$
 /**
  * CLAROLINE
+ *
+ * This  script  manage the creation of a new course.
+ *
+ * it contain 3 panel
+ * - Form
+ * - Wait
+ * - Done
+ *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package ADMIN
+ * @see http://www.claroline.net/wiki/CLCRS/
  *
- * @author Claro team  <cvs@claroline.net>
+ * @package COURSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 define('DISP_COURSE_CREATION_FORM'     ,__LINE__);
@@ -120,7 +131,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 '['.$siteName.'] '.$langCreationMailNotificationSubject.' : '.$courseTitle;
 
                 $mailBody    =
-                  claro_disp_localised_date($dateTimeFormatLong)."\n\n"
+                  claro_disp_localised_date($dateTimeFormatLong) . "\n\n"
                 . $langCreationMailNotificationBody .' ' . $siteName . ' '
                 . $langByUser . ' ' . $_user['firstName'] . ' ' . $_user['lastName']
                 . ' (' . $_user['mail'] . ') '
@@ -144,12 +155,68 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 }
             }
             else
-            {   // COURSE CREATION FAILED
-
+            {
                 $lastFailure = claro_failure::get_last_failure();
 
-                if ( $lastFailure == 'READ_ONLY_SYSTEM_FILE' )
-                    $display = DISP_COURSE_CREATION_FAILED;
+                switch ($lastFailure )
+                {
+                    case 'READ_ONLY_SYSTEM_FILE' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+/*                  case 'CANT_CREATE_COURSE_REP_CLQWZ' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_CLDOC' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_CLWRK' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_CLGRP' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_CLCHT' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_MODULES' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_MODULE_1' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_REP_SCORM' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_CREATE_COURSE_INDEX' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_WRITE_COURSE_INDEX' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+                    case 'CANT_SAVE_COURSE_INDEX' :
+                    {
+                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
+                    } break;
+*/
+                    default:
+                    {
+                        $errorList['error'] = 'Error code : '. $lastFailure;
+                    }
+                }
+                $display = DISP_COURSE_CREATION_FAILED;
+
+
             }
         }
         else
@@ -192,7 +259,7 @@ if ( count($errorList) > 0 ) echo claro_disp_message_box(implode('<br />', $erro
                                     FORM DISPLAY
   ----------------------------------------------------------------------------*/
 
-if( $display ==  DISP_COURSE_CREATION_FORM )
+if( $display == DISP_COURSE_CREATION_FORM )
 {
     $language_list        = claro_get_lang_flat_list();
     $courseCategory_array = claro_get_cat_flat_list();
@@ -393,5 +460,4 @@ if ( $display == DISP_COURSE_CREATION_PROGRESS )
 
 
 include $includePath . '/claro_init_footer.inc.php';
-
 ?>
