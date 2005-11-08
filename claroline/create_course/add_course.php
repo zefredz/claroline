@@ -48,7 +48,7 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 
 $courseTitle         = isset($_REQUEST['title'          ]) ? trim(strip_tags($_REQUEST['title'          ])) : null;
 $courseHolder        = isset($_REQUEST['holder'         ]) ? trim(strip_tags($_REQUEST['holder'         ])) : $_user['firstName'].' '.$_user['lastName'];
-$courseLanguage      = isset($_REQUEST['language'       ]) ? trim(strip_tags($_REQUEST['language'       ])) : $platformLanguage;
+$courseLanguage      = isset($_REQUEST['languageCourse' ]) ? trim(strip_tags($_REQUEST['languageCourse' ])) : $platformLanguage;
 $courseEmail         = isset($_REQUEST['email'          ]) ? trim(strip_tags($_REQUEST['email'          ])) : $_user['mail'];
 $courseCategory      = isset($_REQUEST['category'       ]) ? trim(strip_tags($_REQUEST['category'       ])) : null;
 $courseOfficialCode  = isset($_REQUEST['officialCode'   ]) ? trim(strip_tags($_REQUEST['officialCode'   ])) : null;
