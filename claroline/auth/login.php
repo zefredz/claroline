@@ -103,6 +103,7 @@ if ( is_null($_uid) && $uidRequired )
                                                     $urlAppend.'/claroline/auth/inscription.php') )
                 .    '<br />';
             }
+        }
 
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
@@ -124,8 +125,6 @@ if ( is_null($_uid) && $uidRequired )
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
-
-        }
 
         echo '</td>'                                                    ."\n"
         .    '</tr>'                                                    ."\n"
