@@ -19,6 +19,8 @@
 
 require '../../inc/claro_init_global.inc.php';
 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+
 // the following constant defines the default display of the learning path browser
 // 0 : display only table of content and content
 // 1 : display claroline header and footer and table of content, and content
