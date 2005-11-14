@@ -19,40 +19,6 @@
 */
 
 
-/******************************************
- GENERIC FUNCTIONS : FOR OLDER PHP VERSIONS
-*******************************************/
-
-if ( ! function_exists('array_search') )
-{
-	/**
-	 * Searches haystack for needle and returns the key
-	 * if it is found in the array, FALSE otherwise
-	 *
-	 * Natively implemented in PHP since 4.0.5 version.
-	 * This function is intended for previous version.
-	 *
-	 * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
-	 * @param   - needle (mixed)
-	 * @param   - haystack (array)
-	 * @return  - array key or FALSE
-	 *
-	 * @see     - http://www.php.net/array_search
-	 */
-
-	function array_search($needle, $haystack)
-	{
-		while (list ($key, $val) = each ($haystack))
-			if ($val == $needle )
-				return $key;
-		return false;
-	}
-}
-
-
-
-/*****************************************
-
 /**
  * Define the image to display for each file extension
  * This needs an existing image repository to works
@@ -330,6 +296,5 @@ function claro_disp_document_breadcrumb($curDirPath)
 
     return claro_disp_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
 }
-
 
 ?>
