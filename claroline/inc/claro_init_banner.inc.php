@@ -58,14 +58,14 @@ if($_uid)
 
 <div id="userBanner">
 <span id="userName"><?php echo $_user ['firstName'] . ' ' . $_user ['lastName'] ?> : </span>
-<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a> | 
+<a href="<?php echo $rootWeb?>index.php" target="_top"><img src="<?php echo $imgRepositoryWeb ?>course.gif" alth=""><?php echo $langMyCourses; ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><img src="<?php echo $imgRepositoryWeb ?>agenda.gif" alth=""><?php echo $langMyAgenda; ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><img src="<?php echo $imgRepositoryWeb ?>user.gif" alth=""><?php echo $langModifyProfile; ?></a> | 
 <?php 
 if($is_platformAdmin)
 {
 ?>
-<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><img src="<?php echo $imgRepositoryWeb ?>settings.gif" alth=""><?php echo $langPlatformAdministration ?></a> | 
 <?php 
 } 
 ?>
@@ -239,7 +239,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
     {
         echo "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
-            .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '">'
+            .'?sourceUrl='.urlencode( ( isset( $_SERVER['HTTPS'] && ! empty($_SERVER['HTTPS']) ) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '">'
             .$langLogin
             .'</a>'
             .'</div>'."\n";
