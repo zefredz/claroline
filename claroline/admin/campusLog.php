@@ -45,7 +45,7 @@ $tbl_document        = $tbl_cdb_names['document'         ];
 
 $toolNameList = claro_get_tool_name_list();
 
-require_once $includePath . '/statsUtils.lib.inc.php';
+require_once $includePath . '/lib/statsUtils.lib.inc.php';
 
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
