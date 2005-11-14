@@ -25,7 +25,6 @@ $coursePerPage= 20;
 defined('COURSE_CREATOR') || define('COURSE_CREATOR',1);
 defined('COURSE_STUDENT') || define('COURSE_STUDENT',5);
 
-
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -94,11 +93,6 @@ if (isset($_REQUEST['order_crit']))
                                  {$_SESSION['admin_course_order_crit']   = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
 if (isset($_REQUEST['search']))  {$search = $_REQUEST['search'];} else $search='';
-
-// clean session if we come from a course
-
-session_unregister('_cid');
-unset($_cid);
 
 //set the reorder parameters for colomuns titles
 

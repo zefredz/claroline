@@ -24,10 +24,6 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 require '../inc/claro_init_global.inc.php';
 
-// clean session if we come from a course
-unset($_SESSION['_cid']);
-unset($_cid);
-
 /* ************************************************************************** */
 /*  Security Check
 /* ************************************************************************** */

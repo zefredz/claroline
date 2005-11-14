@@ -65,14 +65,6 @@ if (isset($_REQUEST['action']))    {$_SESSION['admin_user_action']     = trim($_
 if (isset($_REQUEST['order_crit'])){$_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']) ;}
 if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
 
-// clean session if we come from a course
-
-unset($_SESSION['_cid']);
-unset($_cid);
-
-if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-
-
 //TABLES
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();

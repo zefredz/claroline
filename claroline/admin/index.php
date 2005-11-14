@@ -20,7 +20,6 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-file_exists ( $includePath . '/currentVersion.inc.php') && include $includePath . '/currentVersion.inc.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -50,11 +49,6 @@ unset($_SESSION['admin_user_mail']);
 unset($_SESSION['admin_user_action']);
 unset($_SESSION['admin_order_crit']);
 
-
-// clean session if we come from a course
-
-unset($_SESSION['_cid']);
-unset($_cid);
 $controlMsg = array();
 //----------------------------------
 // DISPLAY

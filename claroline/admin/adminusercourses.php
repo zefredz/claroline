@@ -59,11 +59,6 @@ if (!isset($order['label']))    $order['label']    = '';
 if (!isset($order['titular']))  $order['titular']  = '';
 if (!isset($order['cuStatus'])) $order['cuStatus'] = '';
 
-// clean session if we come from a course
-
-unset($_SESSION['_cid']);
-unset($_cid);
-
 //find which user is concerned in URL parameters
 
 $dialogBox = '';
