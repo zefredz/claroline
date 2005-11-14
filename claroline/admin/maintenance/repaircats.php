@@ -84,7 +84,7 @@ switch($cmd)
         $sql = "SELECT c.code `Course code`, c.faculte `Unknow faculty`
         FROM  `" . $tbl_course . "`  c
         LEFT JOIN  `" . $tbl_course_node. "` f
-        ON C.FACULTE = f.code
+        ON c.FACULTE = f.code
         WHERE f.id IS null ";
         $courseOwnanceCheck = claro_sql_query_fetch_all($sql);
         $view = DISP_ANALYSE;
