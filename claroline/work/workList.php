@@ -175,12 +175,6 @@ $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $u
                     HEADER
 ---------------------------------------------*/
 
-if(isset($_gid))
-{
-    $interbredcrump[]= array ('url' => '../group/group.php', 'name' => $langGroup);
-    $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $langGroupSpace);
-}
-
 $interbredcrump[]= array ('url' => '../work/work.php', 'name' => $langWork);
 
 $nameTools = $langAssignment;

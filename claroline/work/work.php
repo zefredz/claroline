@@ -305,12 +305,6 @@ function confirmation (name)
 }
 </script>';
 
-if ( isset($_gid) )
-{
-    $interbredcrump[]= array ( 'url' => '../group/group.php', 'name' => $langGroup);
-    $interbredcrump[]= array ( 'url' => '../group/group_space.php', 'name' => $langGroupSpace);
-}
-
 if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
     // bredcrump to return to the list when in a form
