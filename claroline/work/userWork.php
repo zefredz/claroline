@@ -912,12 +912,6 @@ function confirmation (name)
 }
 </script>';
 
-if(isset($_gid))
-{
-	$interbredcrump[]= array ('url' => "../group/group.php", 'name' => $langGroup);
-	$interbredcrump[]= array ('url' => "../group/group_space.php", 'name' => $langGroupSpace);
-}
-
 $interbredcrump[]= array ('url' => "../work/work.php", 'name' => $langWork);
 
 $interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], 'name' => $langAssignment);
@@ -952,7 +946,14 @@ include($includePath.'/claro_init_header.inc.php');
 
 $pageTitle['mainTitle'  ] = $langAssignment." : ".$assignment['title'];
 
-$pageTitle['subTitle'   ] = $langUser." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";
+if( isset($_gid) )
+{
+	$pageTitle['subTitle'   ] = $langGroup." : <a href=\"../group/group_space.php?gidReq=".$_REQUEST['authId']."\">".$authName."</a>\n";
+}
+else
+{
+	$pageTitle['subTitle'   ] = $langUser." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";	
+}
 echo claro_disp_tool_title($pageTitle);
 
 /*--------------------------------------------------------------------
