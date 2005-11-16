@@ -105,16 +105,6 @@ if (isset($_cid))
 /*
  * Language initialisation of the tool names
  */
-if ($is_courseAdmin)
-{
-    echo '<div align="left">'
-    .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_info/infocours.php">'
-    .     '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
-    .    $langCourseSettings
-    .    '</a>'
-    .    '</div>' . "\n";
-}
-
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
     $toolNameList = claro_get_tool_name_list();
