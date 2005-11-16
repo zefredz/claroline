@@ -24,25 +24,25 @@ $englishLangName = "Polish";
 $iso639_1_code = "pl";
 $iso639_2_code = "pol";
 
-$langNameOfLang['arabic']        ="arabian";
-$langNameOfLang['brazilian']    ="brazilian";
-//$langNameOfLang['catalan']    ="";
-//$langNameOfLang['croatian']    ="";
-//$langNameOfLang['dutch']    ="";
-$langNameOfLang['english']    ="english";
-$langNameOfLang['finnish']    ="finnish";
-$langNameOfLang['french']        ="french";
-//$langNameOfLang['galician']    ="";
-$langNameOfLang['german']        ="german";
-//$langNameOfLang['greek']    ="";
-$langNameOfLang['italian']    ="italian";
-$langNameOfLang['japanese']    ="japanese";
-$langNameOfLang['polish']        ="polish";
-$langNameOfLang['simpl_chinese']="simplified chinese";
-$langNameOfLang['spanish']    ="spanish";
-$langNameOfLang['swedish']    ="swedish";
-$langNameOfLang['thai']        ="thai";
-$langNameOfLang['turkish']    ="turkish";
+$langNameOfLang[arabic]		="arabian";
+$langNameOfLang[brazilian]	="brazilian";
+//$langNameOfLang[catalan]	="";
+//$langNameOfLang[croatian]	="";
+//$langNameOfLang[dutch]	="";
+$langNameOfLang[english]	="english";
+$langNameOfLang[finnish]	="finnish";
+$langNameOfLang[french]		="french";
+//$langNameOfLang[galician]	="";
+$langNameOfLang[german]		="german";
+//$langNameOfLang[greek]	="";
+$langNameOfLang[italian]	="italian";
+$langNameOfLang[japanese]	="japanese";
+$langNameOfLang[polish]		="polish";
+$langNameOfLang[simpl_chinese]="simplified chinese";
+$langNameOfLang[spanish]	="spanish";
+$langNameOfLang[swedish]	="swedish";
+$langNameOfLang[thai]		="thai";
+$langNameOfLang[turkish]	="turkish";
 
 $charset = 'iso-8859-2';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -58,7 +58,7 @@ $langDay_of_weekNames['long'] = array('Niedziela', 'Poniedzia³ek', 'Wtorek', '¦r
 
 $langMonthNames['init']  = array('S', 'L', 'M', 'K', 'M', 'C', 'L', 'S', 'W', 'P', 'L', 'G');
 $langMonthNames['short'] = array('Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Pa¼', 'Lis', 'Gru');
-$langMonthNames['long'] = array('stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'wrze¶nia', 'pa¼dziernika', 'listopada', 'grudnia');
+$langMonthNames['long'] = array('Styczeñ', 'Luty', 'Marzec', 'Kwiecieñ', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpieñ', 'Wrzesieñ', 'Pa¼dziernik', 'Listopad', 'Grudzieñ');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
@@ -69,3 +69,4 @@ $dateTimeFormatLong  = '%d %B %Y at %H:%M';
 $timeNoSecFormat = '%H:%M';
 
 ?>
+
