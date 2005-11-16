@@ -361,20 +361,20 @@ class Question
 	 *
 	 * @author Olivier Brouckaert
 	 * @param string $tempAttachedFile - temporary path of the file to move
-   * @return string the name of the temporary file
+	 * @return string the name of the temporary file
 	 */
 	function setTmpAttachedFile($tempAttachedFile,$attachedFile)
 	{
 		global $attachedFilePathSys;
                 
-	    $extension=substr(strrchr($attachedFile, '.'), 1);
+	    $extension = substr(strrchr($attachedFile, '.'), 1);
 
 			// saves the file into a temporary file
 	    $this->tempAttachedFile = "tmp".$this->id.".".$extension;
 		if ( move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->tempAttachedFile) )
 		{
             chmod($attachedFilePathSys.'/'.$this->tempAttachedFile,CLARO_FILE_PERMISSIONS);
-            return $fileName;
+            return $this->tempAttachedFile;
 		}
         else
         {
