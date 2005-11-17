@@ -165,9 +165,12 @@ function assignment_insert($data, $wrkDir)
  */
 function assignment_update($assignment_id, $data)
 {
+	global $confval_def_sub_vis_change_only_new;
+	
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
-
+    $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
+	
 	$sql = "UPDATE `".$tbl_wrk_assignment."`
 			SET `title` = '".addslashes($data['title'])."',
 				`description` = '".addslashes($data['description'])."',
@@ -179,7 +182,25 @@ function assignment_update($assignment_id, $data)
 				`start_date` = '".addslashes($data['start_date'])."',
 				`end_date` = '".addslashes($data['end_date'])."'
     		WHERE `id` = '" . (int) $assignment_id . "'";
-
+	
+	if( isset($confval_def_sub_vis_change_only_new) && !$confval_def_sub_vis_change_only_new )
+	{
+		// get current assignment data
+		$current_data = assignment_get_data($assignment_id);
+		// change visibility of all works only if def_submission_visibility has changed
+		if( $current_data['def_submission_visibility'] != $data['def_submission_visibility'] )
+		{
+			// adapt visibility of all submissions of the assignment 
+			// according to the default submission visibility
+			$sql2 = "UPDATE `".$tbl_wrk_submission."`
+					SET `visibility` = '".addslashes($data['def_submission_visibility'])."'
+					WHERE `assignment_id` = ".(int) $assignment_id."
+					AND `visibility` != '".addslashes($data['def_submission_visibility'])."'";
+			 
+			claro_sql_query ($sql2);
+		}
+	}
+	// execute and return main query	 
 	return claro_sql_query($sql);
 }
 /**
