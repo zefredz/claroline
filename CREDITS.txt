@@ -15,9 +15,9 @@ Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
                                 
 Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
 http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
+                                Sebastien Piraux (piraux@cerdecam.be)
                                 Nicolas Leblanc (leblanc@cerdecam.be)
                                 Guillaume Lederer (lederer@cerdecam.be)
-                                Sebastien Piraux (piraux@cerdecam.be)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
 
 
