@@ -312,10 +312,6 @@ contenu, de la progression et du calendrier";
 $langCourseCreate = "Créer un espace";
 $langCourseCreator = "Créateur de l&acute;espace";
 $langCourseDelete = "l&acute;espace a été supprimé";
-$langCourseDescription = "Description de l&acute;espace
-Ecrivez ici la description qui apparaîtra dans la liste des espaces (Le contenu de ce champ ne
-s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine
-de Claroline).";
 $langCourseHome = "Accueil";
 $langCourseList = "Liste des espaces";
 $langCourseManager = "gestionnaire de l&acute;espace";
@@ -659,7 +655,6 @@ $langEnrollClass = "Inscrire une sélection";
 $langEnrollToNewCourse = "Inscrire à un nouvel espace";
 $langEnrollUser = "Inscrire un utilisateur";
 $langEnter = "Entrer";
-$langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l&acute;ancien.";
 $langEnterMail = "Saisissez votre adresse email et confirmez.";
 $langErrorAssetNotFound = "Ressource non trouvée : ";
 $langErrorCannotReadRSSFile = "Erreur : le fil RSS ne peut être trouvé.";
@@ -845,7 +840,6 @@ $langFeedbackSubmit = "Soumission du correctif";
 $langFeedbackText = "Texte correctif";
 $langFeedbacks = "Corrections";
 $langFieldSeparatorUsed = "Séparateur de champ utilisé";
-$langFieldsRequ = "Tous les champs sont obligatoires";
 $langFileContentModified = "Contenu du fichier modifié";
 $langFileCreated = "Fichier créé";
 $langFileDesc = "Description du fichier";

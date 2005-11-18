@@ -1,6 +1,6 @@
 <?php 
+$langAuthenticationRequired = "Authentication Required";
 $langCategoriesRepairs = "Repair category structure";
-$langCategoriesStructureOK = "Category structure repaired";
 $langConfirmDeleteThisGroup = "Are you sure to delete this group ?";
 $langCreatingCourse = "Creating course (it may take a while) ... ";
 $langEnrollmentKey = "enrolment key";

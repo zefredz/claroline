@@ -484,7 +484,6 @@ $langEnrollToNewCourse = "In een nieuwe cursus inschrijven";
 $langEnrollUser = "Gebruiker inschrijven";
 $langEnrollmentKey = "Inschrijvings sleutel";
 $langEnter = "Terug naar uw cursussenlijst";
-$langEnter2passToChange = "Paswoord tweemaal ingeven, leeg laten om te behouden";
 $langEnterMail = "Geef een e-mail adres in zodat we U uw paswoord kunnen opsturen.";
 $langErrorAssetNotFound = "Troef niet gevonden : ";
 $langErrorCannotReadRSSFile = "Fout : kan de RSS feed niet lezen";

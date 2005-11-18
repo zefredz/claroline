@@ -148,8 +148,6 @@ $langCourseAccess = "Доступ к этому курсу";
 $langCourseAdministratorOnly = "Доступно только администратору курса";
 $langCourseContent = "Содержание курса";
 $langCourseCreate = "Создать сайт курса";
-$langCourseDescription = "Впишите сюда описание, которое появится в списке курсов 
-(Содержимое этого поля в данный момент нигде не видно и размещено здесь для следующей версии Claroline).";
 $langCourseManager = "Менеджер курса";
 $langCourseProgram = "Описание курса";
 $langCourseTitle = "звание";
@@ -412,7 +410,6 @@ $langExplanation = "Эта страница дожна быть в формете HTML (например, \"my_page.
 Она будет связана ссылкой с главной страницей курса. 
 Если вы хотите разместить документ в другом формате 
 (PDF, Power Point, Word...) используйте средство <a href=../document/document.php> Учебные материалы</a>";
-$langFieldsRequ = "чУЕ РПМС ПВСЪБФЕМШОЩ";
 $langFileError = "Файл для размещения не подходит.";
 $langFileExists = "Невозможно осуществить операцию.
 

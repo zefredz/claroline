@@ -561,7 +561,6 @@ $langEnrollClass = "تسجيل صف";
 $langEnrollToNewCourse = "التسجيل في مقرر جديد";
 $langEnrollUser = "تسجيل مستخدم";
 $langEnter = "دخول";
-$langEnter2passToChange = "أدخل كلمة السر الجديدة مرتين أول اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
 $langEnterMail = "أدخل عنوان البريد الاكتروني الخاص بك لنقوم بإرسال كلمة المرور ";
 $langErrorAssetNotFound = "لم يتم العثور على الممتلك : ";
 $langErrorCannotReadRSSFile = "خطأ : لا يمكن قراءة مصدر RSS";

@@ -75,7 +75,6 @@ $langContradiction = "Käyttämällä myöntämisen periaatetta pakotetaan puhekumppan
 $langCopy = "Kopioi";
 $langCourse = "Sivusto ";
 $langCourseCreate = "Luo kurssin sivusto";
-$langCourseDescription = "Kirjoita tähän kuvaus kurssista, se näkyy kurssien listassa.";
 $langCourseTitle = "Otsikko";
 $langCreateDir = "Luo hakemisto";
 $langCreateSite = "Luo kurssin sivusto";
@@ -156,7 +155,6 @@ $langExerciceEx = "Testitehtävä";
 $langExercices = "harjoitukset";
 $langExercises = "Harjoitukset";
 $langExplanation = "Sivun täytyy olla HTML-muodossa. Jos haluat lähettää sivun ei-HTML-muodossa (PDF, DOC, SWD, jne.), niin käytä<a href=../document/document.php>Dokumentti-sivua</a>";
-$langFieldsRequ = "Täytä kaikki kentät";
 $langFileExists = "Toiminto on mahdoton.<br />Samanniminen tiedosto on olemassa.";
 $langForContent = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja ajasta riippumatonta. Sähköposti on kahden henkilön välistä keskustelua, sitä vastoin foorumi mahdollistaa julkisen tai puolijulkisen keskustelun.</p>
 <p>Teknisestä näkökulmasta katsoen oppilaat tarvitsevat vain selaimen osallistuakseen Clarolinen foorumeihin.<p>

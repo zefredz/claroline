@@ -63,7 +63,6 @@ $langConfirmation = "ยืนยันรหัสผ่าน";
 $langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
 $langCopy = "ย้าย";
 $langCourseCreate = "สร้างรายวิชา";
-$langCourseDescription = "พิมพ์รายละเอียดรายวิชาของท่าน ที่นี่.";
 $langCourseTitle = "ชื่อวิชา";
 $langCreateDir = "สร้าง directory";
 $langCreateSite = "สร้างรายวิชา";
@@ -171,7 +170,6 @@ $langExMessage = "ตัวอย่างข้อความ";
 $langExerciceEx = "ตัวอย่างแบบฝึกหัด";
 $langExercices = "แบบฝึกหัด";
 $langExplanation = "เอกสารต้องอยุ่ในรูปแบบ HTML format (เช่น \"my_page.htm\")  จึงจะสามารถ link จากหน้าแรกได้  หากท่านต้องการส่งเอกสารที่ไม่เป็น HTML  (เช่น PDF, Word, Power Point, Video, etc.) เลือกใช้ <a href=../document/document.php>เครื่องมือจัดการเอกสาร</a>";
-$langFieldsRequ = "ต้องกรอกข้อมูลทุกช่อง";
 $langFileExists = "ไม่สามารถปฏิบัติได้<br />มีไฟล์ชื่อนี้อยู่แล้ว";
 $langFinish = "เสร็จสิ้น";
 $langForContent = "กระดานข่าวเป็นรูปแบบของการสนทนาแบบกลุ่ม ซึ่งจะแตกต่างจากอีเมล์ 

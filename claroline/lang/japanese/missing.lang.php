@@ -13,7 +13,7 @@ $langAddFeedback = "Add feedback";
 $langAddForum = "Add forum";
 $langAddImage = "Include picture";
 $langAddListUser = "Add a list of users";
-$langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
+$langAddLoginPass = "Add a login/pass in .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
 $langAddModifyComment = "Add/modify a comment to";
 $langAddModule = "Add";
@@ -108,6 +108,7 @@ $langAttemptAllowed = "attempt allowed";
 $langAttempts = "Attempts";
 $langAttemptsAllowed = "attempts allowed";
 $langAuthentication = "Authentication";
+$langAuthenticationRequired = "Authentication Required";
 $langAvailableFrom = "Available from";
 $langBackModule = "Back to list";
 $langBackTo = "Back to :";
@@ -149,7 +150,6 @@ $langCannotUnsubscribeLastCourseManager = "You cannot unsubscribe the last cours
 $langCatagoryGroup = "Group forums";
 $langCatagoryMain = "Main";
 $langCategoriesRepairs = "Repair category structure";
-$langCategoriesStructureOK = "Category structure repaired";
 $langCategory = "Category";
 $langCategoryDeleted = "Category deleted.";
 $langCategoryUpdated = "Category updated.";
@@ -167,7 +167,7 @@ $langClarContent = "Here, lecturers and assistants create and administer
  sometimes, do exercises, publish papers, participate in
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites
- register you automatically). <br>If you are a Student, you
+ register you automatically). <br />If you are a Student, you
  just need to register selecting 'Follow courses (student)', then choose
  the courses you would like to follow.</p><p>If you are a Lecturer or an
  Assistant, register too, but select 'Create courses (lecturer)'. You will
@@ -277,7 +277,7 @@ $langDBSettingNamesIntro = "
 The installer is going to create the main Claroline databases.
 If you are limited by your database system administrator to use
 only a single database, get back to the previous page
-and select option 'single' for 'Database mode'.<BR><BR>
+and select option 'single' for 'Database mode'.<br /><br />
 ";
 $langDBUse = "Database usage";
 $langDOCUMENTTypeDesc = "Document";
@@ -357,7 +357,7 @@ $langEditWork = "Modify a work";
 $langElementList = "Element list";
 $langEmailAddressNotFound = "There is no user account with this email address.";
 $langEmailCanBeEmpty = "Email field need to be filled";
-$langEmailNotSent = "The system is unable to send you an e-mail.<br>Please contact the  ";
+$langEmailNotSent = "The system is unable to send you an e-mail.<br />Please contact the  ";
 $langEmtpyGroups = "Empty all groups";
 $langEnable = "Enable";
 $langEndDate = "End date";
@@ -762,17 +762,17 @@ $langIntroCourse = "You are on the course home page.<br /><br />On this page, yo
 Now, to add an introduction text presenting your course to students, click on this button ";
 $langIntroEditToolList = "Select the tools you want to make visible for your user.
 An invisible tool will be greyed out on your personal interface";
-$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br><br>If you want to present your learning path to students, click on the button below.<br>";
+$langIntroLearningPath = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br /><br />If you want to present your learning path to students, click on the button below.<br />";
 $langIntroText = "To send a message, select groups of users (marked with a * in the front)
  or single users from the list on the left.";
 $langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 <br />You will be able to add a comment or a grade to each work.
-<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
+<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br />";
 $langInvalidIdSelfReg = "<b>Login failed.</b><br />Please try again.<br />
-<small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
+<small>If you haven't a user account yet, use the <a href=\"%s\">the account creation form</a></small>";
 $langInvisible = "Invisible";
 $langIsAlreadyRegistered = "is already registered to course";
-$langIsNowInYourDocDir = "is now in  your document tool. <br><B>This file is visible</B>";
+$langIsNowInYourDocDir = "is now in  your document tool. <br /><B>This file is visible</B>";
 $langIsNowRegistered = "is now registered to course";
 $langLabelCanBeEmpty = "Course title needed";
 $langLast31days = "Last 31 days";
@@ -1372,38 +1372,50 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
 </dl>";
 $langWikiHelpSyntax = "Wiki syntax";
-$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+$langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
+<h2>1. Basic syntax</h2>
 <dl class=\"wikiHelp\">
 <dt>Creating wiki pages and links between them</dt>
-<dd><ul>
-<li><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[page title|link text]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[WikiWord|text]</code>.</li>
-</ul></dd>
-<dt>Block elements</dt>
-<dd><ul><li>Add a new line between each line <em>of the same type</em>.&nbsp;;</li>
-<li><strong>Paragraph</strong> : type some text and a new line&nbsp;;</li>
-<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
-<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
-<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
-<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
-</ul></dd>
-<dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
-<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
-<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
-<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
-<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
-<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
-<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
-</ul></dd>
+<dd><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</dd>
+<dd><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[name of link|title of page]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[name of link|WikiWord]</code>.</dd>
+<dt>Hyperlinks</dt>
+<dd><code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</dd>
+<dt>Image inclusion</dt>
+<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</dd>
+<dd>You can use the syntax as Hyperlinks. For example <code>[title|image.gif]</code>. This syntax is deprecated, consider to use the preceding one&nbsp;;</dd>
+<dt>Link to an image</dt>
+<dd>same as Hyperlinks but put a 0 in fourth argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself</dd>
+<dt>Layout</dt>
+<dd><strong>Italic</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</dd>
+<dd><strong>Bold</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</dd>
+<dd><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</dd>
+<dd><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</dd>
+<dd><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</dd>
+<dt>List</dt>
+<dd>line starting with <code>*</code> (unordered list) or <code>#</code> (ordered list). You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</dd>
+<dt>Paragraph</dt>
+<dd>Separate paragraphs with one or more new lines&nbsp;;</dd>
+</dl>
+<h2>2. Advanced syntax</h2>
+<dl class=\"wikiHelp\">
+<dt>Footnote</dt>
+<dd><code>\$\$footnote text\$\$</code>&nbsp;;</dd>
+<dt>Preformated text</dt>
+<dd>begin each line of preformated text with a blank space&nbsp;;</dd>
+<dt>Cite block</dt>
+<dd><code>&gt;</code> or <code>;:</code> before each line&nbsp;;</dd>
+<dt>Horizontal line</dt>
+<dd><code>----</code>&nbsp;;</dd>
+<dt>Forced line break</dt>
+<dd><code>%%%</code>&nbsp;;</dd>
+<dt>Acronym</dt>
+<dd><code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</dd>
+<dt>Inline cite</dt>
+<dd><code>{{cite}}</code>, <code>{{cite|language}}</code> or <code>{{cite|language|url}}</code>&nbsp;;</dd>
+<dt>Code</dt>
+<dd><code>@@your code here@@</code>&nbsp;;</dd>
+<dt>Named anchor</dt>
+<dd><code>~anchor~</code>&nbsp;;</dd>
 </dl>";
 $langWikiIdenticalContent = "Identical content<br />no modification saved";
 $langWikiInvalidWikiId = "Invalid Wiki Id";
@@ -1501,7 +1513,7 @@ $lang_p_IfNothingHappendClickHere = "If after while no message appears confirmin
 $lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
 $lang_p_aCategoryWouldBeSelected = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
 $lang_p_category_s_created = "Category %s created";
-$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_config_file_creation = "Configuration  file creation:<br /> %s";
 $lang_p_d_StudentUnregistredFormCours = "%d student(s) unregistered from this course";
 $lang_p_d_course = "%2d course";
 $lang_p_d_course_manager = "%2d prof ";
