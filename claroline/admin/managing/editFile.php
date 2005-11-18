@@ -42,7 +42,7 @@ $display = DISP_FILE_LIST;
 if ( isset($_REQUEST['modify']) )
 {
     $text = trim($_REQUEST['textContent']);
-    if ( trim( strip_tags( $text ) ) != '' )
+    if ( trim( strip_tags( $text,'<img>' ) ) != '' )
     {
         $fp = fopen($filePathList[$_REQUEST['file']], 'w+');
         fwrite($fp,$text);
@@ -79,7 +79,7 @@ if( isset($_REQUEST['file']) )
     }
     else
     {
-        if ( trim( strip_tags( $textContent ) ) == '' )
+        if ( trim( strip_tags( $textContent,'<img>' ) ) == '' )
         $textContent = '<blockquote>'."\n"
         .              '<font color="#808080">- <em>'."\n"
         .              $langNoContent."\n"
