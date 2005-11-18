@@ -49,7 +49,10 @@ if ( isset($_REQUEST['modify']) )
     }
     else  // remove file if empty
     {
-        unlink($filePathList[$_REQUEST['file']]);
+        if ( file_exists($filePathList[$_REQUEST['file']]) )
+        {
+            unlink($filePathList[$_REQUEST['file']]);
+        }
     }
     $controlMsg['info'][] = $lang_EditFile_ModifyOk
     .                       ' <br />'
