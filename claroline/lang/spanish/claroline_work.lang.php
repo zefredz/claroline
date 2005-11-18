@@ -79,15 +79,14 @@ $langFirstSubmission = "Primer env&iacute;o";
 $langForums = "Foros";
 $langGroup = "Grupos";
 $langGroupAssignment = "Grupos (s&oacute;lo los miembros del grupo pueden remitir trabajos desde la herramienta de Grupos)";
-$langGroupSpace = "&Aacute;rea de Grupo";
 $langGroups = "Grupos";
 $langHelp = "ayuda";
 $langIncorrectDate = "La data de inicio debe de ser anterior a la de finalizaci&oacute;n";
 $langIndividual = "Individual";
 $langIntroWork = "En esta pagina se permite a cualquier estudiante o grupo subir un documento al sitio web de los cursos.
-				  <br>S&oacute;lo se debe de enviar un documento HTML siempre y cuando este no tenga im&aacute;genes.<br>
-				  <br>Si usted desea presentar esta herramienta o dar alg&uacute;n tipo de indicaci&oacute;n a los estudiantes,
-				  pulse el bot&oacute;n que est&aacute; abajo.<br>";
+				  <br />S&oacute;lo se debe de enviar un documento HTML siempre y cuando este no tenga im&aacute;genes.<br />
+				  <br />Si usted desea presentar esta herramienta o dar alg&uacute;n tipo de indicaci&oacute;n a los estudiantes,
+				  pulse el bot&oacute;n que est&aacute; abajo.<br />";
 $langInvisible = "Invisible";
 $langLastEditDate = "Fecha de la &uacute;ltima edici&oacute;n";
 $langLateUpload = "&Uacute;ltima carga";
@@ -157,6 +156,7 @@ $langWrkEdited = "Trabajo modificado";
 $langWrkScoreRequired = "Se requiere puntuaci&oacute;n";
 $langWrkTitle = "T&iacute;tulo";
 $langWrkTitleRequired = "Se requiere un t&iacute;tulo para el trabajo";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

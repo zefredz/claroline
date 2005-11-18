@@ -4,6 +4,7 @@ $langAddComment = "добавить/изменить комментарий к";
 $langAgenda = "Календарь";
 $langAllRight = "Все хорошо.";
 $langAnnouncement = "Объявления";
+$langAnonymous = "Аноним";
 $langAnswer = "Ответ";
 $langBack = "Назад";
 $langChat = "Чат";
@@ -33,9 +34,9 @@ $langDocumentsTitleUsersColumn = "Скачиваний зарегистрированными пользователями"
 $langElementList = "Список элементов";
 $langEmail = "Email";
 $langEmpty = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
-<br>
+<br />
  йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
-<br>еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
+<br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
 $langErrorUserNotInGroup = "Этот пользователь не в вашей группе.";
 $langExercices = "Тесты";
 $langExercise = "Тесты";
@@ -59,7 +60,6 @@ $langLoginsDetails = "Нажмите на названии месяца для большего количества деталей
 $langLoginsTitleCountColumn = "Количество подключений";
 $langLoginsTitleMonthColumn = "Месяц";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
@@ -120,4 +120,5 @@ $langWorkTitle = "Заголовок";
 $langWorkUploads = "Отправленных работ";
 $langWorksDetails = "Работы, размещенные студентом под именем 'Авторы'";
 $langYes = "Да";
+$lang_enroll = "Регистрация";
 ?>

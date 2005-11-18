@@ -16,7 +16,6 @@ $langInvalidId = "ID Pengguna dan Katalaluan anda tidak sah.Sila login semula at
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
 $langLostPassword = "Lupa Katalaluan";
-$langManager = "Pentadbir Sistem";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
@@ -28,4 +27,5 @@ $langStudent = "Pelajar";
 $langUserName = "Nama Pengguna";
 $langUsers = "Users";
 $langWork = "Works";
+$lang_enroll = "Sertai";
 ?>

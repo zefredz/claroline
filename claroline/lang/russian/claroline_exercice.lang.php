@@ -58,7 +58,6 @@ $langLessElements = "-элем";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
 $langMakeCorrespond = "найдите соответствия";
-$langManager = "Ответственный";
 $langMatching = "Соответствия";
 $langMaxFileSize = "Максимальный размер";
 $langModify = "йЪНЕОЙФШ";
@@ -120,4 +119,5 @@ $langWeightingForEachBlank = "Дайте вес каждому вопросу";
 $langWork = "Задания";
 $langYes = "Да";
 $langYourTotalScore = "Общее количество набранных вами баллов";
+$lang_enroll = "Регистрация";
 ?>

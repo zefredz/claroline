@@ -74,7 +74,6 @@ $langGroupsEmptied = "Semua kumpulan tidak mempunyai ahli";
 $langHelp = "Bantuan";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
-$langManager = "Pentadbir Sistem";
 $langMax = "Keahlian Maksimum ";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
@@ -104,4 +103,5 @@ $langTo = "ke";
 $langUncompulsory = "(pilihan)";
 $langUsers = "Users";
 $langWork = "Works";
+$lang_enroll = "Sertai";
 ?>

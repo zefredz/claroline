@@ -39,6 +39,7 @@ $langUsers = "Korisnici";
 $langViewMode = "Pregledavati kao";
 $langWiki = "Wiki";
 $langWork = "Zadaci";
+$lang_enroll = "Prijavi";
 $lang_faculty_ConfirmDelete = "Želite li zaista izbrisati kategoriju ";
 $lang_faculty_imgDown = "Pomakni dolje";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";

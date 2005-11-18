@@ -39,7 +39,6 @@ $langEmptyFields = "Você deixou alguns campos vazios.";
 $langEnrollAsStudent = "Inscrever-se como estudante";
 $langEnrollAsTeacher = "Inscrever como Professor";
 $langEnrollClass = "Registrar a turma";
-$langEnter2passToChange = "Informe a sua senha duas vezes para trocá-la. Caso não o queira, deixe os campos vazios.";
 $langEnterMail = "Entre com seu e-mail assim poderemos enviar sua senha.";
 $langExercises = "Exercícios";
 $langFillTheAreaToExplainTheMotivations = " Complete a  área para explicar a sua motivação e submeter o seu pedido. Uma mensagem será  enviada aos adminstrador(es) desta plataforma.";
@@ -50,6 +49,7 @@ $langGroupTutor = "Tutor";
 $langGroups = "inscrições dos usuários nos grupos";
 $langHelp = "Ajuda";
 $langHome = "Voltar para a Home Page";
+$langInvalidId = "Login inválido. Se você não é registrado, preencha o <a href='claroline/auth/inscription.php'>Formulário de Inscrição</a></font color>";
 $langIs = "é";
 $langLastname = "Último Nome";
 $langLearningPath = "Rota de Aprendizagem";
@@ -62,7 +62,7 @@ $langManager = "Gerente";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Caro %s, %s. 
 Suas configurações pessoais foram registradas e um e-mail será enviado 
-para lembrá-lo de seu nome de usuário e senha.<br>
+para lembrá-lo de seu nome de usuário e senha.<br />
 Selecione agora na 
 lista os cursos que deseja participar.";
 $langMinuteShort = "min.";
@@ -96,7 +96,6 @@ $langReg = "Inscrição";
 $langRegAdmin = "Criar websites de curso";
 $langRegStudent = "Seguir cursos";
 $langRegYou = "registrou você neste curso";
-$langRegister = "Registrar";
 $langRegisterClass = " Registrar uma turma";
 $langRequestOfCourseCreatorStatus = "solicitação de alteração de perfil ao criador do curso";
 $langRevoquationOfUser = "Cancelamento de %s %s";
@@ -131,7 +130,6 @@ $lang_already_enrolled = "já inscrito";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Você tem certeza que quer remover esse curso da sua lista ?";
 $lang_back_to_my_personnal_course_list = "Voltar para minha lista de cursos pessoal";
 $lang_back_to_parent_category = "Voltar para a categoria superior";
-$lang_click_here = "clique aqui";
 $lang_course_enrollment = "Curso do usuário";
 $lang_enroll = "Inscrever";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";

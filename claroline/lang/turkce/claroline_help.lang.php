@@ -7,7 +7,7 @@ $langClarContent = "Here, professors and assistants create and administer
  sometimes, make exercices, publish papers, participate to
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites 
- register you automatically). <br>If you are a Student, you
+ register you automatically). <br />If you are a Student, you
  just need to register selecting 'Follow courses (student)', then choose
  the courses you would like to follow.</p><p>If you are a Professor or an
  Assistant, register too, but select 'Create courses (professor)'. You will
@@ -33,7 +33,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
  Some file types can contain viruses, it is your responsibilty not to
  upload virus contaminated files. It is a worthwhile precaution to check documents with 
  antivirus software before uploading them.</p>
-<p>The documents are presented in alphabetical order.<br><b>Tip : </b>If
+<p>The documents are presented in alphabetical order.<br /><b>Tip : </b>If
  you want to present them in a different order, numerate them: 01, 02,
  03...</p>
 <p>You can :</p>
@@ -105,7 +105,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		To delete a comment, click on <img src=../img/comment.gif width=20 height=20>, 
 		delete the old comment in the field and click 
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			You can organise your content through filing. For this:
 		</p>
@@ -234,7 +234,6 @@ $langHomeContent = "For more convenience, claroline tools contain default entrie
  to 'Modify course info' and decide what level of confidentiality you want.
  By default, your course is hidden (because you work on it).</p>";
 $langLogout = "Çýkýþ";
-$langManager = "Yönetici";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";
 $langMyCourses = "Derslerim";
@@ -246,7 +245,7 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
- visitor, expert...</P><hr>
+ visitor, expert...</P><hr />
 <b>Admin rights</b>
 <p>Admin rights, on the other hand, correspond to the technical
  authorisation to modify the content and organisation of the course
@@ -254,13 +253,13 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  rights and giving none of them.</P>
 <p>To allow an assistant, for instance, to co-admin the site, you need to
  register him in the course or be sure he is already registerd, then click
- on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
+ on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr />
 <b>Co-chairmen</b>
 <p>To mention in the header of the course website the name of a
  co-chairmen, use the tool 'Modify course information' (orange tools). This
  modification does not register your co-chairmen as a user of the course.
  The field 'Professors' is completely independant of the Users
- list.</p><hr>
+ list.</p><hr />
 <b>Add a user</b>
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling

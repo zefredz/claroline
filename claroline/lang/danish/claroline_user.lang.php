@@ -87,4 +87,5 @@ $langYes = "Ja";
 $langYouAreReg = "Du er registreret på";
 $langYourReg = "Din registrering til";
 $lang_already_enrolled = "allerede tilmeldt";
+$lang_enroll = "Tilmeld";
 ?>

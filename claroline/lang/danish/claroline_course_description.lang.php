@@ -20,7 +20,6 @@ $langHelp = "Hjælp";
 $langInfo2Say = "Information til de studerende";
 $langLogin = "login";
 $langLogout = "Logud";
-$langManager = "Support";
 $langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
@@ -37,4 +36,5 @@ $langTitle = "Titel";
 $langUsers = "Deltagerlisten";
 $langViMod = "synlighed ændret";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 ?>

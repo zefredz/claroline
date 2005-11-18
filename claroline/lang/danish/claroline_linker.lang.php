@@ -15,7 +15,6 @@ $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
 $langLogin = "login";
 $langLogout = "Logud";
-$langManager = "Support";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -26,4 +25,5 @@ $langStudent = "studerende";
 $langUp = "op";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 ?>

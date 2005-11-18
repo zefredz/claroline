@@ -137,8 +137,8 @@ $langInsertNewModuleName = "Inserir novo nome";
 $langInstalled = "A secuencia de aprendizaxe foi correctamente importada.";
 $langIntroLearningPath = "Empregue esta ferramenta para lle proporcionar &oacute;s seus estudantes unha
    									secuencia para se mover entre os documentos, exercicios, p&aacute;xinas HTML,
-									ligaz&oacute;ns,...<br><br>Se vostede desexa presentarlle a s&uacute;a secuencia
-									de aprendizaxe &oacute;s estudantes, prema no bot&oacute;n de abaixo.<br>";
+									ligaz&oacute;ns,...<br /><br />Se vostede desexa presentarlle a s&uacute;a secuencia
+									de aprendizaxe &oacute;s estudantes, prema no bot&oacute;n de abaixo.<br />";
 $langLastSessionTimeSpent = "Duraci&oacute;n da &uacute;ltima sesi&oacute;n";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLearningPathAdmin = "Administrar secuencias de aprendizaxe";
@@ -225,7 +225,7 @@ $langUnamedModule = "M&oacute;dulo sen nome";
 $langUnamedPath = "Secuencia sen nome";
 $langUp = "Arriba";
 $langUseOfPool = "Esta p&aacute;xina perm&iacute;telle ver t&oacute;dolos m&oacute;dulos
-   								dispo&ntilde;ibles neste curso. <br>Calquera exercicio ou documento que
+   								dispo&ntilde;ibles neste curso. <br />Calquera exercicio ou documento que
 								sexa engadido nunha secuencia de aprendizaxe, aparecer&aacute; tam&eacute;n
 								nesta lista.";
 $langUsedInLearningPaths = "N&uacute;mero de secuencias de aprendizaxe empregadas neste m&oacute;dulo : ";
@@ -237,6 +237,7 @@ $langWork = "Traballos";
 $langWrongOperation = "Operaci&oacute;n incorrecta";
 $langYourBestScore = "O seu mellor resultado";
 $langZipNoPhp = "O ficheiro comprimido non pode conter arquivos con extensi&oacute;n .PHP";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 $langimportLearningPath = "Importar unha secuencia de aprendizaxe";

@@ -318,6 +318,7 @@ $langYouAreReg = "Est&aacute; vostede inscrito en";
 $langYourReg = "A s&uacute;a inscrici&oacute;n en";
 $lang_already_enrolled = "xa foi matriculado";
 $lang_click_here = "prema aqu&iacute;";
+$lang_enroll = "Matricularse";
 $lang_faculty_CanHaveCatCourse = "Pode ter cursos : ";
 $lang_faculty_CatHaveCat = "Esta categor&iacute;a cont&eacute;n outras categor&iacute;as, debe vostede
 											de eliminalas antes!";

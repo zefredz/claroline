@@ -16,7 +16,6 @@ $langInvalidId = "Nome de utilizador n&atilde;o v&aacute;lido. Se n&atilde;o est
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
 $langLostPassword = "Lembrar a senha";
-$langManager = "Respons&aacute;vel";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
@@ -28,4 +27,5 @@ $langStudent = "estudante";
 $langUserName = "Nome de utilizador";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

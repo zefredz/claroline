@@ -8,6 +8,7 @@ $langAnnouncement = "Ad Valvas";
 $langCancel = "Annuleren";
 $langChangePwdexp = "Geef nieuw wachtwoord twee maal in om te wijzigen, laat leeg om huidige te behouden";
 $langChat = "Online chat";
+$langCloseWindow = "Venster sluiten";
 $langCodeUsed = "Deze officiele code is reeds in gebruik door een andere gebruiker.";
 $langConfirmation = "Bevestiging";
 $langContinue = "doorgaan";
@@ -24,7 +25,6 @@ $langEdit = "Wijzigen";
 $langEmail = "Email";
 $langEmailWrong = "Het e-mail adres is niet volledig of bevat ongeldige lettertekens";
 $langEmptyFields = "U hebt niet alle velden ingevuld. Gebruik de Back-toets van uw browser, en probeer opnieuw.";
-$langEnter2passToChange = "Paswoord tweemaal ingeven, leeg laten om te behouden";
 $langExercises = "Oefeningen";
 $langFirstname = "Voornaam";
 $langFormula = "Vriendelijke groeten, Uw lesgever";
@@ -65,7 +65,6 @@ $langProblem = "In geval van problemen kan u met ons contact opnemen.";
 $langRegAdmin = "Cursussen aanmaken";
 $langRegStudent = "Registreren voor cursussen";
 $langRegYou = "heeft u ingeschreven op";
-$langRegister = "Registreren";
 $langSave = "Opslaan";
 $langSaveChanges = "Wijzigingen bewaren";
 $langSearch = "Zoeken";
@@ -185,8 +184,8 @@ om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.
 <li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
 <li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
 <li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
 <li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
@@ -225,7 +224,7 @@ $langWork = "Studenten Box";
 $langYes = "Ja";
 $langYouAreReg = "U bent geregistreerd voor";
 $langYourReg = "Uw registratie op";
-$lang_click_here = "Klik hier";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

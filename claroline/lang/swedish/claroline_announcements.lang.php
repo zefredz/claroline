@@ -26,7 +26,6 @@ $langGroups = "instruktion för gruppanvändarna";
 $langHelp = "hjälp";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
-$langManager = "Ansvarig";
 $langModifAnn = "Modifiera detta tillkännagivande";
 $langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";

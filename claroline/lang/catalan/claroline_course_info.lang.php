@@ -25,7 +25,6 @@ $langHasDel = "ha estat esborrat";
 $langHelp = "Ajuda";
 $langHome = "Retorna a la plana principal";
 $langLanguage = "Llenguatge";
-$langManager = "El coordinador";
 $langModifDone = "La informació ha estat modificada";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";

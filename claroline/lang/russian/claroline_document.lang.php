@@ -17,10 +17,9 @@ $langDirMv = "элемент перемещен";
 $langDocDeleted = "элемент удален";
 $langDocument = "Документ";
 $langElRen = "Элемент переименован";
-$langFileError = "Файл для размещения не подходит.";
 $langFileExists = "Невозможно осуществить операцию.
 
-<br>Файл с таким именем уже существует.";
+<br />Файл с таким именем уже существует.";
 $langForums = "Форумы";
 $langGroups = "запись пользователей в группы";
 $langHelp = "рПНПЭШ";
@@ -28,7 +27,6 @@ $langImpossible = "Невозможно осуществить операцию";
 $langIn = "в";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langMaxFileSize = "Максимальный размер";
 $langMissingImagesDetected = "Обнаружены недостающие изображения";
 $langModify = "йЪНЕОЙФШ";
@@ -58,4 +56,5 @@ $langViMod = "Функция видимый / скрытый изменена";
 $langVisibility = "Видимая/скрытая";
 $langWork = "Задания";
 $langZipNoPhp = "Файл ZIP не может содержать файлов с расширением .php";
+$lang_enroll = "Регистрация";
 ?>

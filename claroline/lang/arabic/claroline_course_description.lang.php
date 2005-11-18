@@ -36,7 +36,6 @@ $langInvisible = "مخفي";
 $langLearningPath = "مسار التعليم";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
-$langManager = "المدير";
 $langMethodsOfEvaluation = "طرق التقييم";
 $langMethodsOfEvaluationComment1 = "معلومات تفصيلية و دقيقة عن وسائل التقييم كالامتحانات الكتابية , الشفهية , المشاريع , الوظائف ....تاريخ المقابلات و تاريخ انتهاء موعد تسليم الوظائف مع شرح لمعايير التقييم بشكل كامل";
 $langMinuteShort = "دقيقة";
@@ -77,6 +76,7 @@ $langViewMode = "نمط العرض";
 $langVisible = "مرئي";
 $langWiki = "Wiki";
 $langWork = "واجبات و مهام";
+$lang_enroll = "تسجيل";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

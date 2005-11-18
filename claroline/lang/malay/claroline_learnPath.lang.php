@@ -23,7 +23,6 @@ $langGroups = "Kumpulan";
 $langHelp = "Bantuan";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
-$langManager = "Pentadbir Sistem";
 $langMaxFileSize = "Saiz maksimum fail ialah ";
 $langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
@@ -52,4 +51,5 @@ $langUsers = "Users";
 $langVisibility = "Visibility";
 $langWork = "Works";
 $langZipNoPhp = "Fail zip file can not contain .PHP files";
+$lang_enroll = "Sertai";
 ?>

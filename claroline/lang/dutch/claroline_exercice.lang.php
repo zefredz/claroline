@@ -109,7 +109,6 @@ $langLessElements = "- element";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
 $langMakeCorrespond = "Laat overeenstemmen";
-$langManager = "Platformbeheerder";
 $langMatching = "Koppelen ('matching')";
 $langMaxAllowedTime = "Maximaal toegestane tijd";
 $langMaxFileSize = "Maximum bestandsgrootte is";
@@ -205,6 +204,7 @@ $langWork = "Studenten Box";
 $langYes = "Ja";
 $langYourTime = "Uw tijd is";
 $langYourTotalScore = "Uw totale score is";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

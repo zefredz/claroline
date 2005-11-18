@@ -16,7 +16,6 @@ $langHelp = "Hjælp";
 $langLogin = "login";
 $langLogout = "Logud";
 $langMailTo = "Send email til : ";
-$langManager = "Support";
 $langMissing = "mangler";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
@@ -30,6 +29,7 @@ $langStudent = "studerende";
 $langTo = "til";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 $lang_no_access_here = "Ingen adgang her ";
 $lang_php_info = "information om systemet";
 ?>

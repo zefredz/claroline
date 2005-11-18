@@ -15,7 +15,6 @@ $langIfNotRedirect = "Ha nincsen átirányítva";
 $langLearningPath = "Tanösvény";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
-$langManager = "Vezetõ";
 $langMinuteShort = "min.";
 $langModifyProfile = "Saját beállítások módosítása";
 $langMonthNames = "Tömb";
@@ -37,6 +36,7 @@ $langViewMode = "Nézet";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
 $lang_click_here = "kattintson ide";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

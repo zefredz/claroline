@@ -77,14 +77,13 @@ $langFirstSubmission = "Elsõ beküldés";
 $langForums = "Fórumok";
 $langGroup = "Csoport";
 $langGroupAssignment = "Csoportok (a csoport eszközbõl csak csoport tagok üzenhetnek)";
-$langGroupSpace = "Csoport terület";
 $langGroups = "Csoportok";
 $langHelp = "Segítség";
 $langIncorrectDate = "A kezdési dátumnak meg kell elõzni a zárási dátumot";
 $langIndividual = "Egyéni";
 $langIntroWork = "Az eszköz lehetõvé teszi a tanárok számára beadandó feladatok készítését, ahova bármely hallgató (függõen a beállításoktól) feladhat dokumentumot, szöveget írjon a tanfolyam honlapján.
 <br />Minden munkához megjegyzést fûzhet, vagy akár osztályzatot.
-<br /><br />Ha be akarja mutatni az eszközt, vagy javaslatokat akar tenni a hallgatók számára, kattintson az alábbi gombra.<br>";
+<br /><br />Ha be akarja mutatni az eszközt, vagy javaslatokat akar tenni a hallgatók számára, kattintson az alábbi gombra.<br />";
 $langInvisible = "Láthatatlan";
 $langLastEditDate = "Utolsó szerkesztési dátum";
 $langLateUpload = "Késett feltöltés";
@@ -93,7 +92,6 @@ $langLogin = "Belépés";
 $langLogout = "Kilépés";
 $langMakeInvisible = "Láthatatlanná tesz";
 $langMakeVisible = "Láthatóvá tesz";
-$langManager = "Vezetõ";
 $langMaxFileSize = "Max. fájlméret:";
 $langMinuteShort = "min.";
 $langModify = "Módosít";
@@ -155,6 +153,7 @@ $langWrkEdited = "Munka módosítva";
 $langWrkScoreRequired = "Eredmény kötelezõ";
 $langWrkTitle = "Cím";
 $langWrkTitleRequired = "Munka címe kötelezõ";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

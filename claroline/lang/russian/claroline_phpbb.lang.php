@@ -54,9 +54,9 @@ $langDescriptionCours = "Описание курса";
 $langDocument = "Документ";
 $langEdit = "тЕДБЛФЙТПЧБФШ";
 $langEmpty = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
-<br>
+<br />
  йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
-<br>еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
+<br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
 $langForum = "жПТХН";
 $langForums = "Форумы";
 $langGroupDocumentsLink = "Документы группы";
@@ -67,7 +67,6 @@ $langHelp = "рПНПЭШ";
 $langLastMsg = "Последнее сообщение";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMove = "Переместить";
@@ -77,6 +76,7 @@ $langMyCourses = "Список моих курсов";
 $langMyGroup = "моя группа";
 $langNameOfLang = "Array";
 $langNewTopic = "Начать новую тему";
+$langNoResult = "Нет результата";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOk = "Ok";
 $langOneMyGroups = "одна из моих групп";
@@ -87,4 +87,5 @@ $langSeen = "Прочитанные";
 $langStudent = "студент";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

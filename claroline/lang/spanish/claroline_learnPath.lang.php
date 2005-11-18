@@ -114,7 +114,7 @@ $langInsertNewModuleName = "Insertar un nuevo nombre";
 $langInstalled = "Se ha importado exitosamente el seguimiento de aprendizaje.";
 $langIntroLearningPath = "Use esta herramienta para proveer a sus estudiantes de un seguimiento secuencial entre documentos,
 						  ejercicios, paginas HTML, enlaces,...<br/><br/>Si usted desea mostrar su seguimiento de aprendizaje
-						  a los estudiantes, presione el bot&oacute;n de abajo.<br>";
+						  a los estudiantes, presione el bot&oacute;n de abajo.<br />";
 $langLastSessionTimeSpent = "Tiempo de la &uacute;ltima sesi&oacute;n";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLearningPathAdmin = "Administrador de secuencia de aprendizaje";
@@ -197,7 +197,7 @@ $langTypeOfModule = "Tipo de m&oacute;dulo";
 $langUnamedModule = "M&oacute;dulo sin nombre";
 $langUnamedPath = "seguimiento sin nombre";
 $langUp = "Arriba";
-$langUseOfPool = "Esta p&aacute;gina le permite ver todos los m&oacute;dulos disponibles en este curso. <br>
+$langUseOfPool = "Esta p&aacute;gina le permite ver todos los m&oacute;dulos disponibles en este curso. <br />
                   Cualquier ejercicio o documento que haya sido a&ntilde;adido a la secuencia de aprendizaje
 				  aparecer&aacute; tambi&eacute;n en esta lista.";
 $langUsedInLearningPaths = "N&uacute;mero de secuencias de aprendizaje usadas en este m&oacute;dulo : ";
@@ -209,6 +209,7 @@ $langWork = "Trabajos";
 $langWrongOperation = "operaci&oacute;n erronea";
 $langYourBestScore = "Su mejor puntuaci&oacute;n";
 $langZipNoPhp = "El archivo zip no debe contener archivos .php";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 $langimportLearningPath = "Importar una secuencia de aprendizaje";

@@ -16,7 +16,6 @@ $langHelp = "Aiuto";
 $langLearningPath = "Learning Path";
 $langLogin = "login";
 $langLogout = "Uscita";
-$langManager = "Responsabile";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
@@ -41,6 +40,7 @@ $langUsers = "Utenti";
 $langViewMode = "Vista";
 $langWiki = "Wiki";
 $langWork = "Lavori";
+$lang_enroll = "Iscriviti";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
 $lang_p_platformManager = "Amministratore di %s";
 ?>

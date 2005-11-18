@@ -18,6 +18,7 @@ $langFormula = "Terveisin:";
 $langForums = "Foorumit";
 $langHelp = "Apua";
 $langHome = "Takaisin omalle sivulle";
+$langInvalidId = "Sisäänkirjautuminen epäonnistui. Jos et ole rekisteröitynyt, niin täytä <a href='../auth/inscription.php'>rekisteröitymislomake</a></font color>";
 $langIs = "on";
 $langLink = "Linkki";
 $langLogout = "Logout";
@@ -25,7 +26,7 @@ $langManager = "Ylläpitäjä";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Hyvä %s, %s. 
 Henkilökohtaiset asetuksesi on rekisteröity ja sähköpostissa 
-on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br>
+on lähetetty käyttäjänimesi ja salasanasi, jotta muistaisit ne.<br />
 Valitse listasta kurssit, joihin haluat pääsyn.";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";

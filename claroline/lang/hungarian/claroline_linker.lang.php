@@ -32,7 +32,6 @@ $langLinkerResourceAttachment = "Csatolt erõforrások: Csatolmányok hozzáadása/tö
 $langLinkerUntitled = "Névtelen";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
-$langManager = "Vezetõ";
 $langMinuteShort = "min.";
 $langModifyProfile = "Saját beállítások módosítása";
 $langMonthNames = "Tömb";
@@ -54,6 +53,7 @@ $langUsers = "Felhasználók";
 $langViewMode = "Nézet";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

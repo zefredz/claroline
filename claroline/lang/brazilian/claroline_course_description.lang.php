@@ -36,7 +36,6 @@ $langInvisible = "Invisível";
 $langLearningPath = "Rota de Aprendizagem";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Gerente";
 $langMethodsOfEvaluation = "Métodos de Avaliação";
 $langMethodsOfEvaluationComment1 = "Detalhes precisos sobre as formas de avaliação (avaliações escritas, orais, projetos, trabalhos a serem definidos...), datas de revisão de provas e trabalhos, datas limites de entrega de trabalhos e atividades, critérios de avaliação, pesos nas avaliações ou conceitos.";
 $langMinuteShort = "min.";
@@ -75,6 +74,7 @@ $langViewMode = "Visualizar como";
 $langVisible = "Visível";
 $langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";
 ?>

@@ -13,7 +13,6 @@ $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
@@ -26,4 +25,5 @@ $langTo = "para";
 $langToday = "Hoje";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

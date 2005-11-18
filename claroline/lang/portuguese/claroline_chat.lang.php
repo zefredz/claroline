@@ -12,10 +12,9 @@ $langDocument = "Documentos";
 $langForums = "Foros";
 $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
-$langIsNowInYourDocDir = "foi colocado na sua sec&ccedil;&atilde;o de documentos. <br><B>Aten&ccedil;&atilde;o: este ficheiro &eacute; vis&iacute;vel para todos os utilizadores</B>";
+$langIsNowInYourDocDir = "foi colocado na sua sec&ccedil;&atilde;o de documentos. <br /><B>Aten&ccedil;&atilde;o: este ficheiro &eacute; vis&iacute;vel para todos os utilizadores</B>";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
@@ -25,4 +24,5 @@ $langPoweredBy = "Utiliza a Plataforma";
 $langStudent = "estudante";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

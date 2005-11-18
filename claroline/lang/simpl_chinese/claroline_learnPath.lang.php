@@ -106,9 +106,9 @@ $langInsertMyModuleToolName = "插入我的模块";
 $langInsertMyModulesTitle = "插入一个课程的模块";
 $langInsertNewModuleName = "插入新的名称";
 $langInstalled = "学习路线已经成功输入。";
-$langIntroLearningPath = "使用该工具提供文件、练习、网页、链接之间的连续路线给你的学生，...<br><br>
+$langIntroLearningPath = "使用该工具提供文件、练习、网页、链接之间的连续路线给你的学生，...<br /><br />
 
-如果你想提供学习路线给你的学生，点击下面的按钮。<br>";
+如果你想提供学习路线给你的学生，点击下面的按钮。<br />";
 $langLastSessionTimeSpent = "上个学期时间";
 $langLearningPath = "学习路线";
 $langLearningPathAdmin = "学习路线管理";
@@ -120,7 +120,6 @@ $langLessonStatus = "模块状况";
 $langLogin = "登录";
 $langLogout = "退出系统";
 $langMakeInvisible = "使之隐藏";
-$langManager = "管理员";
 $langMaxFileSize = "文件最大尺寸： ";
 $langMinuteShort = "min.";
 $langModify = "更新";
@@ -190,7 +189,7 @@ $langTypeOfModule = "模块类型";
 $langUnamedModule = "未命名的模块";
 $langUnamedPath = "未命名的路线";
 $langUp = "向上";
-$langUseOfPool = "该页允许你查看课程中所有可用的模块。<br>
+$langUseOfPool = "该页允许你查看课程中所有可用的模块。<br />
 
                      已经添加到学习路线中的任何练习或文件将显示在这个列表中。";
 $langUsedInLearningPaths = " 使用该模块的学习路线数：";
@@ -202,6 +201,7 @@ $langWork = "作业论文";
 $langWrongOperation = "错误的操作";
 $langYourBestScore = "你最好的表现";
 $langZipNoPhp = "zip文件不能包含PHP文件";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 $langimportLearningPath = "输入一个学习路线";

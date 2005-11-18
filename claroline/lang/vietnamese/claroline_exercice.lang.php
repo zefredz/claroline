@@ -58,7 +58,6 @@ $langLessElements = "-elem";
 $langLogin = "login";
 $langLogout = "Logout";
 $langMakeCorrespond = "Thiết lập tương ứng";
-$langManager = "Người quản lý";
 $langMatching = "Ghép cột";
 $langMaxFileSize = "Kích thước tối đa của file là";
 $langModify = "Modify";
@@ -120,4 +119,5 @@ $langWeightingForEachBlank = "Xin cho điểm vào mỗi ô trống";
 $langWork = "Công việc";
 $langYes = "Yes";
 $langYourTotalScore = "Tổng điểm của bạn là";
+$lang_enroll = "Tham gia";
 ?>

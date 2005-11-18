@@ -8,6 +8,7 @@ $langAnnouncement = "Anuncios";
 $langCancel = "Cancelar";
 $langChangePwdexp = "Escriba o novo contrasinal d&uacute;as veces para mudalo. Deixe os campos baleiros para conserva-lo existente.";
 $langChat = "Chat";
+$langCloseWindow = "Pechar fiestra";
 $langCodeUsed = "Este c&oacute;digo oficial est&aacute; xa a ser empregado por outro usuario.";
 $langConfirmation = "Confirmaci&oacute;n";
 $langContinue = "Continuar";
@@ -286,17 +287,17 @@ Un espazo irrompible preceder&aacute; a cada un dos s&iacute;mbolos seguintes \"
 
 <code>[nome|url|idioma|t&iacute;tulo]</code>.&nbsp;;</li>
 
-<li><strong>Imaxe</strong> : o mesmo que os Hiperv&iacute;nculos<br>
+<li><strong>Imaxe</strong> : o mesmo que os Hiperv&iacute;nculos<br />
 
 Po&ntilde;a un 0 no &uacute;ltimo argumento para permiti-lo reco&ntilde;ecemento da imaxe e crear un hiperv&iacute;nculo a ela.
 
-Por exemplo <code>[imaxe|imaxe.gif||0]</code> amosar&aacute; unha ligaz&oacute;n &aacute; imaxe imaxe.gif no canto da imaxe mesma.<br>
+Por exemplo <code>[imaxe|imaxe.gif||0]</code> amosar&aacute; unha ligaz&oacute;n &aacute; imaxe imaxe.gif no canto da imaxe mesma.<br />
 
 Esta sintaxe est&aacute; obsoleta. Use a que a continuaci&oacute;n se especifica&nbsp;;</li>
 
 <li><strong>Imaxe</strong> (nova sintaxe) : <code>((url|texto alternativo))</code>, <code>((url|texto alternativo|posici&oacute;n))</code>
 
-ou <code>((url|texto alternativo|posici&oacute;n|descrici&oacute;n longa))</code>. <br>O argumento de posici&oacute;n pode toma-los
+ou <code>((url|texto alternativo|posici&oacute;n|descrici&oacute;n longa))</code>. <br />O argumento de posici&oacute;n pode toma-los
 
 valores seguintes : L (left - esquerda), R (right - dereita) ou C (center - centro).&nbsp;;</li>
 
@@ -348,6 +349,7 @@ $langWork = "Traballos";
 $langYes = "Si";
 $langYouAreReg = "Est&aacute; vostede inscrito en";
 $langYourReg = "A s&uacute;a inscrici&oacute;n en";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

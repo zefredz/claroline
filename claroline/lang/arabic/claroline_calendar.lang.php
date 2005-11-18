@@ -43,7 +43,6 @@ $langLinkerResourceAttachment = "الموارد المرفقة : إضافة / ح
 $langLinkerUntitled = "بدون عنوان";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
-$langManager = "المدير";
 $langMinuteShort = "دقيقة";
 $langModify = "تعديل";
 $langModifyProfile = "تعديل معلوماتي";
@@ -79,6 +78,7 @@ $langViewMode = "نمط العرض";
 $langVisible = "مرئي";
 $langWiki = "Wiki";
 $langWork = "واجبات و مهام";
+$lang_enroll = "تسجيل";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

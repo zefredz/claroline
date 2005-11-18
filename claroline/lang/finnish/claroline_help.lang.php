@@ -4,7 +4,7 @@ $langAnnouncement = "Ilmoitukset";
 $langDay_of_weekNames = "Array";
 $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietokoneen tiedostonhallinta.</p>
 <p>Voit lisätä minkälaisia tiedostoja tahansa (.html, .doc, .sxw, .pdf, .swf, .mov ja niin edelleen). Sinun pitää vain huolehtia, että opiskelijoilla on oikeat ohjelmat, joilla he voivat käsitellä tiedostoja. Sinun pitää huolehtia myös mahdollisesta virus-vaarasta.</p>
-<p>Dokumentit näyttään aakkosjärjestyksessä.<br>
+<p>Dokumentit näyttään aakkosjärjestyksessä.<br />
 <b>Vinkki: </b>Jos haluat esittää tiedostot toisella tavalla, numeroi ne: 01, 02, 03 ja niin edelleen</p>
 <p>Voit tehdä seuraavaa :</p>
 
@@ -36,7 +36,7 @@ $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietoko
    <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit2>.</li>
 </ul>
 <p>Poistaaksesi kommentin, klikkaa <img src=../document/img/comment.gif width=20 height=20>, poista vanha kommentti kentästä ja klikkaa <input type=submit value=OK name=submit22>.
-<hr>
+<hr />
 <p>Voit järjestää sisältöä täyttämällä tähän tapaan:</p>
 <h4><b>Luo hakemisto</b></h4>
 <ul>
@@ -75,7 +75,6 @@ $langHomeContent = "<p>Mukavuuden vuoksi Claroline-työkalut eivät ilmesty tyhjin
 <p>Voit lisätä omia sivuja kotisivulle. Näiden sivujen tulee olla HTML-muotoisia. Voit luoda tällaisia sivuja millä tahansa tekstinkäsittely-ohjelmalla tai selainten sivunteko-ohjelmilla. Käytä 'lisää sivu ja linkki kotisivulle'-toimintoa lisätäksesi sivun palvelimelle. Uuden dokumentin otsikoksi tulee sama kuin sivuston, voit keskittyä sivun sisältöön. Jos haluat linkittää minkä tahansa sivun missä tahansa käytä 'lisää linkki kotisivulle'-toimintoa. Voit poistaa sivuja, työkaluja voit tehdä vain toimimattomaksi.</p>
 <p>Kun kurssin sivusto on valmis, käytä 'Muokkaa kurssin tietoja'-toimintaa ja päätä minkä tasoista luottamuksellisuutta haluat. Oletuksena kurssi on piilossa (koska työskentelet siinä).</p>";
 $langLogout = "Logout";
-$langManager = "Ylläpitäjä";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";
@@ -84,16 +83,16 @@ $langPoweredBy = "Alusta";
 $langStudent = "Opiskelija";
 $langUserContent = "<p><b>Roolit</b></p>
 <p>Rooleilla ei ole mitään tekemistä tietokoneiden kanssa. Ne eivät anna oikeuksia järjestelmän suhteen. Ne tarkoittavat vain ihmisiä, kuka kukin on. Voit muokata niitä klikkamalla 'Muokkaa' 'roolin' alla. Voit kirjoittaa mitä tahansa rooliksi: opettaja, assistentti, vierailija, asiantuntija ja niin edelleen.</p>
-<hr>
+<hr />
 <p><b>Ylläpito-oikeudet</b></p>
 <p>Toisaalta ylläpito-oikeudet liittyy tekniseen oikeuteen muokata sisältöä ja järjestää kurssin sivustoa. Tällä hetkellä vaihtoehtoja on vain kaksi, kaikki tai ei mitään oikeuksia.</p>
 <p>Jos haluat antaa apulaiselle oikeuden ylläpitää sivustoa, sinun täytyy rekisteröidä hänet
 (tai hänen pitää itse rekisteröityä), sitten klikkaat 'Muokkaa' 'Ylläpito-oikeudet' alla, sitten klikkaat 'kaikki',
 ja sitten vielä 'ok'.</p>
-<hr>
+<hr />
 <p><b>Muut opettajat</b></p>
 <p>Jos haluat mainita muita opettajia kurssille, käytä työkalua 'Muokkaa kurssin tietoja' (oranssit työkalut). Tämä muutos ei tee muista opettajista kurssin oppilaita, kenttä 'Opettajat' on täysin erillään käyttäjien listasta.</p>
-<hr>
+<hr />
 <p><b>Lisää käyttäjä</b></p>
 <p>Jos haluat lisätä oppilaita kurssillesi, niin tarkista että ovatko he rekisteröityneet. Jos oppilas on jo rekisteröitynyt, niin tarkista laatikko hänen nimensä vieressä ja klikkaa 'Ok'. Jos hän ei ole rekisteröitynyt, niin lisää hänet käsin. Kummassakin tapauksessa, henkilö saa sähköpostiviestin, jossa kerrotaan, että olet rekisteröinyt hänet. Lisäksi hän saa tai hänelle muistutetaan tunnuksesta ja salasanasta.</p>";
 $langUsers = "Käyttäjät";

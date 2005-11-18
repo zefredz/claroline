@@ -46,7 +46,6 @@ $langLearningPath = "Διαδρομή μάθησης";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
 $langMakeInvisible = "Γίνεται μη ορατό";
-$langManager = "Διαχειριστής";
 $langMinuteShort = "min. (ελαχ.)";
 $langMissingValue = "Ελλειπής αξιολόγηση";
 $langModify = "Διόρθωση";
@@ -79,6 +78,7 @@ $langViewMode = "Παρουσίαση τρόπου";
 $langVisibility = "Ορατό / Αόρατο";
 $langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
+$lang_enroll = "Eγγραφή";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";
 ?>

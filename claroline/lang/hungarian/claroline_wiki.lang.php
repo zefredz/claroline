@@ -8,6 +8,7 @@ $langAnnouncement = "Hirdetmények";
 $langCancel = "Mégse";
 $langChangePwdexp = "Írja be kétszer az új jelszót a módosításhoz, vagy hagyja üresen, ha meg kívánja tartani a régit.";
 $langChat = "Csevegés";
+$langCloseWindow = "Ablak bezárása";
 $langCodeUsed = "Ezt a hallgatói kódot már más használja.";
 $langConfirmation = "Megerõsítés";
 $langContinue = "Folytat";
@@ -24,7 +25,6 @@ $langEdit = "Szerkeszt";
 $langEmail = "E-mail";
 $langEmailWrong = "Az e-mail cím érvénytelen";
 $langEmptyFields = "Ön valamelyik mezõt üresen hagyta";
-$langEnter2passToChange = "Új jelszó megadása kétszer, vagy üresen hagyás, ha nincsen változtatás";
 $langExercises = "Gyakorlatok";
 $langFirstname = "Keresztnév";
 $langFormula = "Üdvözlettel";
@@ -65,7 +65,6 @@ $langProblem = "Probléma esetén lépjen velünk kapcsolatba.";
 $langRegAdmin = "Tanfolyam lap létrehozása";
 $langRegStudent = "Tanfolyamok követése";
 $langRegYou = "regisztrálta Önt a tanfolyamba";
-$langRegister = "Regisztrál";
 $langSave = "Mentés";
 $langSaveChanges = "Változások mentése";
 $langSearch = "Keresés";
@@ -180,8 +179,8 @@ $langWikiHelpSyntaxContent = "Fordítatlan!!!
 <li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
 <li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
 <li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
 <li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
@@ -220,7 +219,7 @@ $langWork = "Beadandó feladatok";
 $langYes = "Igen";
 $langYouAreReg = "Ön regisztrálva van: ";
 $langYourReg = "Az Ön regisztrációja a következõben:";
-$lang_click_here = "kattintson ide";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

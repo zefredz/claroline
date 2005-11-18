@@ -12,10 +12,9 @@ $langDocument = "Dokumenti";
 $langForums = "Forumi";
 $langGroups = "Skupine";
 $langHelp = "Pomoc";
-$langIsNowInYourDocDir = "je sedaj v tvojem orodju za dokumente. <br><B>Ta datoteka je vidna</B>";
+$langIsNowInYourDocDir = "je sedaj v tvojem orodju za dokumente. <br /><B>Ta datoteka je vidna</B>";
 $langLogin = "vstop";
 $langLogout = "Izstop";
-$langManager = "Upravnik";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
@@ -25,4 +24,5 @@ $langPoweredBy = "Powered by";
 $langStudent = "student";
 $langUsers = "Uporabniki";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 ?>

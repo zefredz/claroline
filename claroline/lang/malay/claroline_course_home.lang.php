@@ -18,7 +18,6 @@ $langHelp = "Bantuan";
 $langHome = "Kembali ke Laman Subjek";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
-$langManager = "Pentadbir Sistem";
 $langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
@@ -35,4 +34,5 @@ $langTools = "Tools";
 $langUsers = "Users";
 $langVisibility = "Visibility";
 $langWork = "Works";
+$lang_enroll = "Sertai";
 ?>

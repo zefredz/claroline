@@ -62,6 +62,7 @@ $langViewMode = "Pregledavati kao";
 $langVisible = "Vidljivi";
 $langWiki = "Wiki";
 $langWork = "Zadaci";
+$lang_enroll = "Prijavi";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_p_platformManager = "Administrator sustava %s";
 ?>

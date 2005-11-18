@@ -2,14 +2,14 @@
 $langAgenda = "Agenda";
 $langAnnouncement = "Ad Valvas";
 $langChat = "Online chat";
-$langClarContent = "<br><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de universiteit, is het wel noodzakelijk om zich voorafgaan te registreren. <b>Registratie > Vul uw persoonlijke gegevens in > Actie: Registreren voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>lesgever</b></p><p><b>Cursussite aanmaken</b></p><p>Zo gaat u te werk: <b>Registratie > Vul alle velden in en kies 'cursussen aanmaken' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer of een faculteit of een vakgroep.  Voer de referentie van de cursus in  > Klik Ok </b>. U komt in uw persoonlijke pagina in Claroline terecht. Hier vindt u de lijst van cursussen waarin u geregistreerd bent.  Klik op de naam van de cursus die u hebt aangemaakt. U komt in een ‘lege’ cursussite terecht.  Leeg in die zin dat er enkel voorbeelditems zijn aangebracht, zodat het angstzweet u niet uitbreekt bij de confrontatie met blanco pagina’s. Bij uw registratie kreeg u een e-mail, waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><p>Als er een problem is, neem contact op met uw Claroline-beheerder. U kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>";
+$langClarContent = "<br /><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de universiteit, is het wel noodzakelijk om zich voorafgaan te registreren. <b>Registratie > Vul uw persoonlijke gegevens in > Actie: Registreren voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>lesgever</b></p><p><b>Cursussite aanmaken</b></p><p>Zo gaat u te werk: <b>Registratie > Vul alle velden in en kies 'cursussen aanmaken' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer of een faculteit of een vakgroep.  Voer de referentie van de cursus in  > Klik Ok </b>. U komt in uw persoonlijke pagina in Claroline terecht. Hier vindt u de lijst van cursussen waarin u geregistreerd bent.  Klik op de naam van de cursus die u hebt aangemaakt. U komt in een ‘lege’ cursussite terecht.  Leeg in die zin dat er enkel voorbeelditems zijn aangebracht, zodat het angstzweet u niet uitbreekt bij de confrontatie met blanco pagina’s. Bij uw registratie kreeg u een e-mail, waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><p>Als er een problem is, neem contact op met uw Claroline-beheerder. U kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>";
 $langCloseWindow = "Venster sluiten";
 $langConfigMenuContent = "Configuratie Klein";
 $langCourseHome = "Cursus thuisbasis";
 $langCourseManager = "Cursusbeheerder";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Cursus omschrijving";
-$langDocContent = "<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br>  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in folders organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets 'Browse'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets 'Uploaden'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of folder)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
+$langDocContent = "<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br />  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in folders organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets 'Browse'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets 'Uploaden'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of folder)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
  height=20 align=baseline> in de kolom 'nieuwe naam';.</li>
   <li>Breng in de nieuwe naam in de voorbehouden zone links boven</li>
   <li>Klik op 'OK'; <input type=submit value=OK name=submit24>. </li></ul>
@@ -48,8 +48,8 @@ $langDocContent = "<p>De module voor het beheer van documenten (cursusmaterialen
 </p>";
 $langDocument = "Documenten";
 $langExerciseContent = "<p>De oefeningen module laat u toe om verschillende testen (oefeningen)  te maken die elk zoveel vragen bevatten als u wilt.
-	<i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br><br>
-Er zijn verschillende vraagtypes beschikbaar : <br>
+	<i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br /><br />
+Er zijn verschillende vraagtypes beschikbaar : <br />
 <ul>
   <li>Meerkeuze met &eacute;&eacute;n mogelijk antwoord</li>
   <li>Meerkeuze met meerdere mogelijke antwoorden</li>
@@ -57,24 +57,24 @@ Er zijn verschillende vraagtypes beschikbaar : <br>
   <li>Invullen</li>
 </ul>
 Een oefening verzamelt een aantal vragen met een gemeenschappelijk thema.</p>
-<hr>
+<hr />
 <b>Maken van oefeningen</b>
-<p>Om een oefening te maken: klik op de link &quot;Nieuwe oefening&quot;.<br><br>
-Geef een naam aan de oefening, alsook een beschrijving (optioneel).<br><br>
-U kunt ook kiezen tussen twee types oefeningen:<br>
+<p>Om een oefening te maken: klik op de link &quot;Nieuwe oefening&quot;.<br /><br />
+Geef een naam aan de oefening, alsook een beschrijving (optioneel).<br /><br />
+U kunt ook kiezen tussen twee types oefeningen:<br />
 <ul>
   <li>Alle vragen op &eacute;&eacute;n pagina</li>
   <li>E&eacute;n vraag per pagina (sequenti&euml;le test)</li>
 </ul>
-Tevens kunt u aanduiden of u de vragen in een willekeurige volgorde wilt ordenen als de oefening begint.<br><br>
+Tevens kunt u aanduiden of u de vragen in een willekeurige volgorde wilt ordenen als de oefening begint.<br /><br />
 Klik op &quot;OK&quot; om uw oefening te bewaren. U gaat nu naar het vraagbeheer van de oefening.</p>
-<hr>
+<hr />
 <b>Vragen toevoegen</b>
 <p>U kunt nu vragen toevoegen aan de pas gecreërde oefening. Een beschrijving is optioneel, net als een tekening.</p>
-<hr>
+<hr />
 <b>Meerkeuze vragen</b>
-<p>Dit is het bekende MAQ / MCQ vraagtype (Multiple Answer Question / Multiple Choice Question).<br><br>
-Om een meerkeuzevraag te maken: <br>
+<p>Dit is het bekende MAQ / MCQ vraagtype (Multiple Answer Question / Multiple Choice Question).<br /><br />
+Om een meerkeuzevraag te maken: <br />
 <ul>
   <li>Definieer antwoorden voor uw vraag. U kunt antwoorden toevoegen of verwijderen door op de &quot;+&nbsp;antwoord&quot; of &quot;-&nbsp;antwoord&quot; knoppen te klikken.</li>
   <li>Kruis via de linkerknoppen het (de) juiste antwoord(en) aan.</li>
@@ -82,53 +82,53 @@ Om een meerkeuzevraag te maken: <br>
   <li>Ken vervolgens een gewicht toe aan elk antwoord. Het gewicht kan elk positief of negatief geheel getal zijn, inclusief nul</li>
   <li>Bewaar de antwoorden door op &quot;OK&quot; te klikken.</li>
 </ul></p>
-<hr>
+<hr />
 <b>Invulvragen</b>
 <p>Hiermee kunt u een tekst met invulruimtes cre&euml;ren. Het doel is om studenten woorden te laten
-	invullen die ontbreken in de tekst.<br><br>
-	Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br><br>
-	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>-->
+	invullen die ontbreken in de tekst.<br /><br />
+	Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br /><br />
+	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
 	Bewaar uw tekst, en dan kunt u vervolgens gewichten toekennen aan elke invulruimte.
 	Bijvoorbeeld: voor een vraag die 10 punten waard is, met 5 invulruimtes, kunt u 2 punten toekenen aan iedere invulruimte.
 </p>
-<hr>
+<hr />
 <b>Koppelen (matching)</b>
-<p>Bij dit type vraag is het de bedoeling dat studenten elementen uit een keuzelijst verbinden met elementen uit een andere keuzelijst.<br><br>
-Het kan ook gebruikt worden om studenten elementen in een bepaalde volgorde te laten sorteren.<br><br>
+<p>Bij dit type vraag is het de bedoeling dat studenten elementen uit een keuzelijst verbinden met elementen uit een andere keuzelijst.<br /><br />
+Het kan ook gebruikt worden om studenten elementen in een bepaalde volgorde te laten sorteren.<br /><br />
 U moet voor dit vraagtype te gebruiken twee keuzelijsten invullen. U kunt zoveel elementen toevoegen als u wilt.
-Met de uitschuiflijsten kunt u de elementen uit de ene lijst verbinden met elementen uit de andere lijst.<br><br>
-Merk op : verschillende elementen van de eerste lijst kunnen wijzen naar hetzelfde element uit de tweede lijst.<br><br>
+Met de uitschuiflijsten kunt u de elementen uit de ene lijst verbinden met elementen uit de andere lijst.<br /><br />
+Merk op : verschillende elementen van de eerste lijst kunnen wijzen naar hetzelfde element uit de tweede lijst.<br /><br />
 Geef een gewicht aan elk goed koppel, en dan kunt u uw vraag bewaren.</p>
-<hr>
+<hr />
 <b>Oefeningen wijzigen</b>
 <p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
-<hr>
+<hr />
 <b>Oefeningen wissen</b>
 <p>Klik voor het wissen van een oefening op het <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> ikoontje naast de oefening.</p>
-<hr>
+<hr />
 <b>Oefeningen activeren</b>
 <p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> tekening naast de oefening te klikken.</p>
-<hr>
+<hr />
 <b>Oefening uitvoeren</b>
 <p>U kunt uw oefening testen door op haar naam te klikken in de oefeningenlijst.</p>
 
-<hr>
+<hr />
 <b>Willekeurige oefeningen</b>
 <p>Als u een oefening aanmaakt of wijzigt, kunt u aanduiden om de vragen in een willekeurige volgorde te plaatsen.
-<br><br>
+<br /><br />
 Door deze optie aan te duiden, krijgt elke student de vragen telkens in een andere volgorde te zien.
-<br><br>
+<br /><br />
 Als u veel vragen hebt, kunt u ook slechts een bepaald aantal vragen laten trekken uit de volledige vragenlijst van de oefening.
 </p>
-<hr>
+<hr />
 <b>Verzameling van alle vragen</b>
 <p>Als u een oefening wist, worden de individuele vragen van die oefening niet mee gewist,
-	zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br><br>
-Deze algemene lijst van vragen laat u ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br><br>
+	zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br /><br />
+Deze algemene lijst van vragen laat u ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br /><br />
 Standaard worden in de lijst alle vragen van uw cursus getoond.
 U kunt dit overzicht verfijnen via het uitschuifmenu &quot;Filter&quot;.
 Bijvoorbeeld: kies de naam van een oefening uit het uitschuifmenu en dan ziet u enkel de vragen verbonden aan die oefening.
-<br><br>
+<br /><br />
 U kunt ook de &quot;wees&quot; vragen tonen; dit zijn vragen die niet behoren tot een oefening..</p>";
 $langExercises = "Oefeningen";
 $langForContent = "Het forum is een tool waarin gesprekken in de vorm van een geschreven asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek gebeurt in een ruimte met een openbare of semi-openbare modus, waarin in principe een onbeperkt aantal meerdere mensen actief kunnen zijn.</p><p>Om het forum van Claroline te gebruiken, is enkel de internet browser nodig (Netscape, Explorer...), en geen e-mailtool(Eudora, Outlook...).</p><p>Om de forums te organiseren, moet u op 'beheren' klikken. De post zijn hiërarchisch georganiseerd:<b>Categorie > Forum > Onderwerp > Antwoord</b>.</p><p>Het is aan te raden om het forum, vooraf aan de activering ervan, te organiseren in categorieën en forums, zodat de deelnemers in het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p><p>Testforum onder Hoofdcategorie: het forum bestaat uit de openbare modus, en een voorbeeldonderwerp en een voorbeeldbericht.<p></p>U kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken in de welke u nieuwe forums moet aanmaken.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als u bijvoorbeeld een categorie 'gesprekken in kleine groepen' aanmaakt, dan zal u een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld 'groep 1', 'groep 2', 'groep 3', enz.</p><p>De beschrijving van een groepsforum kan de lijst zijn van de mensen die uitgenodigd zijn om aan de gesprekken deel te nemen, maar ook een uitleg van zijn nut. Als u een 'hulpvragen'-forum aanmaakt, dan mag u een beschrijving toevoegen zoals : 'Moeilijkheden meedelen qua inhoud of qua inrichting'.</p>";
@@ -275,7 +275,6 @@ Die zijn als voorbeeld gegeven en kunt u zelf wijzigen of verwijderen.</p>
 $langLearningPath = "Leerpad";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
-$langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
@@ -293,15 +292,16 @@ $langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwi
 $langTextEditorDisable = "Desactiveer tekst bewerking";
 $langTextEditorEnable = "Activeer tekst bewerking";
 $langUserContent = "<b>Beheersrechten</b>
-<p>Om een medelesgever, assistent, tutor of iemand anders toe te laten uw cursussite, al dan niet samen met u, te beheren, moet u eerst deze persoon voor uw cursus inschrijven (of ervoor zorgen hij ingeschreven word).  Vervolgens wijzigt u zijn rechten door te klikken op de wijzigingsfunctie onder ofwel de kolom Tutor of de kolom Beheerder op de rij van de medelesgever.</p><hr>
+<p>Om een medelesgever, assistent, tutor of iemand anders toe te laten uw cursussite, al dan niet samen met u, te beheren, moet u eerst deze persoon voor uw cursus inschrijven (of ervoor zorgen hij ingeschreven word).  Vervolgens wijzigt u zijn rechten door te klikken op de wijzigingsfunctie onder ofwel de kolom Tutor of de kolom Beheerder op de rij van de medelesgever.</p><hr />
 <b>Medelesgevers</b>
-<p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina 'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr>
+<p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina 'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr />
 <b>Gebruiker toevoegen</b>
 <p>Om een gebruiker toe te voegen aan uw cursus, vul de velden in en klik op ‘Ok’. De persoon zal zijn gebruikersnaam en wachtwoord krijgen via e-mail, met de bevestiging van zijn registratie, behalve als u geen e-mailadres hebt ingegeven.</p>";
 $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

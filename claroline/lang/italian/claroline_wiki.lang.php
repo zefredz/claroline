@@ -8,6 +8,7 @@ $langAnnouncement = "Annunci";
 $langCancel = "Cancella";
 $langChangePwdexp = "Inserire una nuova password due volte per variarla, lasciare vuota per mantenere la corrente";
 $langChat = "Chat";
+$langCloseWindow = "Chiudi finestra";
 $langCodeUsed = "Questa matricola è già utilizzata da un altro utente.";
 $langConfirmation = "Conferma";
 $langContinue = "Continua";
@@ -26,7 +27,6 @@ $langEmailWrong = "L'indirizzo email non è valido";
 $langEmptyFields = "Non avete riempito tutti i campi.
 Utilizzante l'opzione /'Pagina precedente/' del browser
 e ricominciate";
-$langEnter2passToChange = "Inserisci la nuova password due volte per variare, vuota per lasciare";
 $langExercises = "Esercizi";
 $langFirstname = "Nome";
 $langFormula = "Cordialmente, il Vostro docente";
@@ -69,7 +69,6 @@ $langProblem = "In caso di problemi non esitate a prendere contatto con noi";
 $langRegAdmin = "Iscrivimi come Docente (crea i corsi)";
 $langRegStudent = "Iscrivimi come Corsista (segue i corsi)";
 $langRegYou = "vi ha iscritto su";
-$langRegister = "Registra";
 $langSave = "Salva";
 $langSaveChanges = "Salva i cambiamenti";
 $langSearch = "Trova";
@@ -182,8 +181,8 @@ $langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
 <li><strong>Sottolineatura</strong> : racchiudere il testo tra due sottolineature <code>__testo__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : racchiudere il testo tra due simboli meno <code>--testo--</code>&nbsp;;</li>
 <li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> o <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Immagine</strong> : così come gli Hyperlinks<br>Inserisci uno 0 nell'ultimo argomento per evitare l'identificazione dell'immagine e ottenere il link all'immagine. Ad esempio <code>[immagine|immagine.gif||0]</code> visualizzarà un link ad immagine.gif invece di visualizzare l'immagine stessa.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Immagine</strong> (nuova sintassi) : <code>((url|testo alternativo))</code>, <code>((url|testo alternativo|posizione))</code> o <code>((url|testo alternativo|posizione|descrizione estesa))</code>. <br>L'argomento posizione può assumere i seguenti valori : L (sinistra), R (destra) o C (centro).&nbsp;;</li>
+<li><strong>Immagine</strong> : così come gli Hyperlinks<br />Inserisci uno 0 nell'ultimo argomento per evitare l'identificazione dell'immagine e ottenere il link all'immagine. Ad esempio <code>[immagine|immagine.gif||0]</code> visualizzarà un link ad immagine.gif invece di visualizzare l'immagine stessa.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Immagine</strong> (nuova sintassi) : <code>((url|testo alternativo))</code>, <code>((url|testo alternativo|posizione))</code> o <code>((url|testo alternativo|posizione|descrizione estesa))</code>. <br />L'argomento posizione può assumere i seguenti valori : L (sinistra), R (destra) o C (centro).&nbsp;;</li>
 <li><strong>Ancora con nome</strong> : <code>~anchor~</code>&nbsp;;</li>
 <li><strong>Acronimo</strong> : <code>??acronym??</code> o <code>??acronym|definition??</code>&nbsp;;</li>
 <li><strong>Cita</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> o <code>{{citation|language|url}}</code>&nbsp;;</li>
@@ -222,7 +221,7 @@ $langWork = "Lavori";
 $langYes = "Sì`";
 $langYouAreReg = "Sei iscritta/o su";
 $langYourReg = "Iscrizione su";
-$lang_click_here = "Premi Qui";
+$lang_enroll = "Iscriviti";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
 $lang_p_platformManager = "Amministratore di %s";
 ?>

@@ -28,7 +28,6 @@ $langHelp = "Help";
 $langLearningPath = "Leerpad";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
-$langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
@@ -55,6 +54,7 @@ $langUsers = "Gebruikers";
 $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

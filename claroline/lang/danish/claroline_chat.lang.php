@@ -13,10 +13,9 @@ $langExercises = "Øvelser";
 $langForums = "Diskussionsforum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
-$langIsNowInYourDocDir = "er nu i dine værktøjer til dokumenter. <br><B>Denne fil er synlig</B>";
+$langIsNowInYourDocDir = "er nu i dine værktøjer til dokumenter. <br /><B>Denne fil er synlig</B>";
 $langLogin = "login";
 $langLogout = "Logud";
-$langManager = "Support";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -26,4 +25,5 @@ $langPoweredBy = "Udviklet af";
 $langStudent = "studerende";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 ?>

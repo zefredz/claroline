@@ -17,7 +17,6 @@ $langInvalidId = "<small>Không đăng nhập được.Nếu bạn chưa phải 
 $langLogin = "login";
 $langLogout = "Logout";
 $langLostPassword = "Quên mật khẩu";
-$langManager = "Người quản lý";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
@@ -29,4 +28,5 @@ $langStudent = "học sinh";
 $langUserName = "Username";
 $langUsers = "Users";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 ?>

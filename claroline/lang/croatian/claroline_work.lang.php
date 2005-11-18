@@ -76,7 +76,6 @@ $langFirstSubmission = "Datum i vrijeme prve predaje rada";
 $langForums = "Forumi";
 $langGroup = "Grupa";
 $langGroupAssignment = "Grupni (isključivo članovi grupe mogu slati rješenja)";
-$langGroupSpace = "Postavke grupe";
 $langGroups = "Grupe";
 $langHelp = "Pomoć";
 $langIncorrectDate = "Rok predaje mora biti nakon početka vježbe";
@@ -153,6 +152,7 @@ $langWrkEdited = "Rad je promijenjen";
 $langWrkScoreRequired = "Ocjena je obavezna";
 $langWrkTitle = "Naslov";
 $langWrkTitleRequired = "Naslov rada je obavezan";
+$lang_enroll = "Prijavi";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_p_platformManager = "Administrator sustava %s";
 ?>

@@ -15,7 +15,6 @@ $langIfNotRedirect = "Indien niet doorverwezen";
 $langLearningPath = "Leerpad";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
-$langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
@@ -37,6 +36,7 @@ $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_click_here = "Klik hier";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

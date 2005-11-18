@@ -10,7 +10,7 @@ $langDBSettingNamesIntro = "
 El instalador está por crear las bases de datos principales de Claroline .
 Si usted está limitado por su administrador del sistema de Base de Datos para usar
 solamente una base de datos simple, vuelva atras a la página previa
-y seleccionw la opción 'simple' para el ' modo de la Base de Datos'.<BR><BR>
+y seleccionw la opción 'simple' para el ' modo de la Base de Datos'.<br /><br />
 ";
 $langDBUse = "Uso de la Base de Datos";
 $langDbName = "Nombre de la Base de Datos";

@@ -28,6 +28,7 @@ $langGroupTutor = "Orientador do grupo";
 $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
 $langHome = "Voltar &agrave; p&aacute;gina principal";
+$langInvalidId = "Nome de utilizador n&atilde;o v&aacute;lido. Se n&atilde;o estiver inscrito, preencha o <a href='claroline/auth/inscription.php'>formul&aacute;rio de inscri&ccedil;&atilde;o</a></font color>";
 $langIs = "&eacute;";
 $langLastname = "&Uacute;ltimo nome";
 $langLink = "Liga&ccedil;&otilde;es";
@@ -40,7 +41,7 @@ $langMessageSubscribeDone_p_firstname_lastname = "
 Caro(a) %s, %s. 
 Os seus dados pessoais foram registados e foi enviada 
 uma mensagem &agrave; sua caixa de correio electr&oacute;nico 
-para lhe lembrar o seu nome de utilizador e a sua senha.<br>
+para lhe lembrar o seu nome de utilizador e a sua senha.<br />
 Escolha na lista os cursos a que deseja aceder.";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";

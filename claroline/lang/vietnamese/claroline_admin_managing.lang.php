@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Thêm login/pass trong .htpassword</a><br>";
+$langAddLoginPass = "Thêm login/pass trong .htpassword</a><br />";
 $langAgenda = "Agenda (Lịch công tác)";
 $langAnnouncement = "Thông báo";
 $langCancel = "Cancel";
@@ -19,7 +19,6 @@ $langListHtUsers = "Xem .htpassword";
 $langLogin = "login";
 $langLogout = "Logout";
 $langManage = "Quản lý học vụ";
-$langManager = "Người quản lý";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
@@ -37,5 +36,6 @@ $langStudent = "học sinh";
 $langUpdated = "đã cập nhật";
 $langUsers = "Users";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 $lang_no_access_here = "Không được phép";
 ?>

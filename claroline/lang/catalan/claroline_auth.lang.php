@@ -22,6 +22,7 @@ $langGroupTutor = "Tutor";
 $langGroups = "Grups";
 $langHelp = "Ajuda";
 $langHome = "Retorna a la plana principal";
+$langInvalidId = "Accés invàlid.<br />Si no estàs enregistrat, utilitza el <a href='claroline/auth/inscription.php'> formulari per enregistrar-te</a></font color>";
 $langIs = "és";
 $langLink = "Enllaços";
 $langManager = "El coordinador";

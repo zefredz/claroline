@@ -105,7 +105,6 @@ $langLessElements = "Rem. elem.";
 $langLogin = "Conectarse";
 $langLogout = "Desconexión";
 $langMakeCorrespond = "Hacer corresponder";
-$langManager = "Administrar";
 $langMatching = "Emparejar";
 $langMaxAllowedTime = "Tiempo Máximo Permitido ";
 $langMaxFileSize = "Tamaño Max. del archivo : ";
@@ -200,6 +199,7 @@ $langWork = "Tareas";
 $langYes = "Si";
 $langYourTime = "Su tiempo es";
 $langYourTotalScore = "Su puntaje total es";
+$lang_enroll = "Inscribirse";
 $lang_footer_p_CourseManager = "Administrado por %s";
 $lang_p_platformManager = "Administrado por %s";
 ?>

@@ -15,7 +15,6 @@ $langIfNotRedirect = "Αν δεν έχουν προωθηθεί";
 $langLearningPath = "Διαδρομή μάθησης";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
-$langManager = "Διαχειριστής";
 $langMinuteShort = "min. (ελαχ.)";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
@@ -35,6 +34,7 @@ $langViewMode = "Παρουσίαση τρόπου";
 $langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_click_here = "Κάνε κλικ εδώ";
+$lang_enroll = "Eγγραφή";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";
 ?>

@@ -58,7 +58,6 @@ $langLessElements = "-elem";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langMakeCorrespond = "Skapa svar";
-$langManager = "Ansvarig";
 $langMatching = "Matchning";
 $langMaxFileSize = "Max filstorlek är";
 $langModify = "Redigera";

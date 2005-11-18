@@ -58,4 +58,5 @@ $langWork = "Công việc";
 $langYes = "Yes";
 $langYouAreReg = "You are registered on";
 $langYourReg = "Your registration on";
+$lang_enroll = "Tham gia";
 ?>

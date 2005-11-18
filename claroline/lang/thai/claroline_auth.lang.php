@@ -18,6 +18,7 @@ $langForums = "กระดานข่าว";
 $langGroups = "กลุ่ม";
 $langHelp = "ช่วยเหลือ";
 $langHome = "กลับหน้าแรก";
+$langInvalidId = "การล็อคอินผิดพลาด หากท่านยังไม่ลงทะเบียน โปรด<a href='claroline/auth/inscription.php'>ลงทะเบียน</a></font color>";
 $langIs = "คือ";
 $langLink = "Link";
 $langLogout = "Logout";

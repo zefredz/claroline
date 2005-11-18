@@ -77,7 +77,6 @@ $langGroupsEmptied = "Alla grupper är nu tomma";
 $langHelp = "hjälp";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
-$langManager = "Ansvarig";
 $langMax = "Max.";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";

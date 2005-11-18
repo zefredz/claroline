@@ -195,6 +195,7 @@ $langWorkUploads = "<i>Upload</i> rada";
 $langWorksDetails = "Radovi koje je korisnik <i>uploadao</i>";
 $langWrongOperation = "Pogrešna operacija";
 $langYes = "Da";
+$lang_enroll = "Prijavi";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_p_platformManager = "Administrator sustava %s";
 ?>

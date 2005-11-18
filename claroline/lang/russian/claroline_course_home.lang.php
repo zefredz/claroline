@@ -18,7 +18,6 @@ $langHelp = "рПНПЭШ";
 $langHome = "Вернуться на главную страницу";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
@@ -35,4 +34,5 @@ $langTools = "уТЕДУФЧБ ХРТБЧМЕОЙС";
 $langUsers = "Пользователи";
 $langVisibility = "Видимая/скрытая";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

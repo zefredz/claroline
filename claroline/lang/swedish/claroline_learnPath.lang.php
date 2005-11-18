@@ -23,7 +23,6 @@ $langGroups = "instruktion för gruppanvändarna";
 $langHelp = "hjälp";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
-$langManager = "Ansvarig";
 $langMaxFileSize = "Max filstorlek är";
 $langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";

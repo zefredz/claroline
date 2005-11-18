@@ -16,7 +16,6 @@ $langExercise = "演習問題";
 $langForums = "会議室";
 $langHelp = "へルプ";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModify = "修正";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";

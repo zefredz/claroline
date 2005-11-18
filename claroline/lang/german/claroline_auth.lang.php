@@ -44,7 +44,6 @@ $langEmptyFields = "Sie haben einige Felder leer gelassen. Gehen Sie zurück und 
 $langEnrollAsStudent = "Als Teilnehmer eintragen";
 $langEnrollAsTeacher = "Als Dozent/Tutor einschreiben";
 $langEnrollClass = "Klasse eintragen";
-$langEnter2passToChange = "Geben Sie das neue Passwort zwei mal ein oder lassen Sie die Felder leer, um das Passwort beizubehalten";
 $langEnterMail = "Geben Sie Ihre Email-Adresse ein, damit wir Ihnen Ihr Passwort zusenden können.";
 $langExercises = "Tests";
 $langFillTheAreaToExplainTheMotivations = " Füllen Sie diesen Bereich aus, um Ihr Anliegen zu erläutern und senden Sie Ihre Anfrage ab. Eine E-Mail wird an den Plattform-Administrator gesendet.";
@@ -56,8 +55,9 @@ $langGroupTutor = " Tutor / Dozent";
 $langGroups = "Gruppen";
 $langHelp = "Hilfe";
 $langHome = "zurück zur Startseite";
-$langInvalidIdSelfReg = "<b>Login fehlgeschlagen.</b><br>Versuchen Sie es nocheinmal.<br>
-<small>Wenn Sie noch keinen Account haben, benützen Sie das <a href=claroline/auth/inscription.php>Registrierungsformular</a></small>.";
+$langInvalidId = "Login ungültig. Wenn Sie noch nicht registriert sind, füllen Sie bitte die <a href='claroline/auth/inscription.php'>Anmeldung</a></font color> aus.";
+$langInvalidIdSelfReg = "<b>Login fehlgeschlagen.</b><br />Versuchen Sie es nocheinmal.<br />
+<small>Wenn Sie noch keinen Account haben, benützen Sie das <a href=\"%s\">Registrierungsformular</a></small>.";
 $langIs = "ist";
 $langLastname = "Nachname";
 $langLearningPath = "Lernpfad";
@@ -72,7 +72,7 @@ $langManager = "KursSite-Verantwortlicher";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Guten Tag %s, %s.
 Ihre persönlichen Einstellungen wurden gespeichert und eine E-Mail
-mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br>
+mit Benutzernamen und Passwort wurde zur Erinnerung an Sie gesendet.<br />
 Wählen Sie nun in der Liste der Kurse die Kurse aus, die Sie belegen möchten.";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mein Profil verändern";
@@ -107,7 +107,6 @@ $langReg = "Registrierung";
 $langRegAdmin = "Dozent/Tutor (Kursersteller)";
 $langRegStudent = "Kurs-Teilnehmer";
 $langRegYou = "hat Sie in diese KursSite eingetragen";
-$langRegister = "eintragen";
 $langRegisterClass = " Eine Klasse eintragen";
 $langRequestOfCourseCreatorStatus = "Ich möchte KursSite-Ersteller werden";
 $langRevoquationOfUser = "Folgender Benutzer erbittet, seinen Account zu löschen: %s %s";
@@ -145,7 +144,6 @@ $lang_already_enrolled = "immer eingeschrieben";
 $lang_are_you_sure_to_remove_the_course_from_your_list = "Sind Sie sicher, dass Sie diese KursSite aus Ihrer Übersicht entfernen wollen ?";
 $lang_back_to_my_personnal_course_list = "Zurück zur persönlichen Kursübersicht";
 $lang_back_to_parent_category = "Zurück zur übergeordneten Kategorie";
-$lang_click_here = " hier klicken";
 $lang_course_enrollment = "KursSite des Benutzers";
 $lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";

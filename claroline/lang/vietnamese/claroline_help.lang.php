@@ -7,7 +7,7 @@ $langClarContent = "Here, professors and assistants create and administer
  sometimes, make exercises, publish papers, participate to
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites
- register you automatically). <br>If you are a Student, you
+ register you automatically). <br />If you are a Student, you
  just need to register selecting 'Follow courses (student)', then choose
  the courses you would like to follow.</p><p>If you are a Professor or an
  Assistant, register too, but select 'Create courses (professor)'. You will
@@ -34,7 +34,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
  Some file types can contain viruses, it is your responsibilty not to
  upload virus contaminated files. It is a worthwhile precaution to check documents with
  antivirus software before uploading them.</p>
-<p>The documents are presented in alphabetical order.<br><b>Tip : </b>If
+<p>The documents are presented in alphabetical order.<br /><b>Tip : </b>If
  you want to present them in a different order, numerate them: 01, 02,
  03...</p>
 <p>You can :</p>
@@ -106,7 +106,7 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		To delete a comment, click on <img src=../img/comment.gif width=20 height=20>,
 		delete the old comment in the field and click
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			You can organise your content through filing. For this:
 		</p>
@@ -146,8 +146,8 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 <center>
 <p>";
 $langDocument = "Tài liệu";
-$langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br><br>
-There are various types of answers available for the creation of your questions :<br><br>
+$langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br /><br />
+There are various types of answers available for the creation of your questions :<br /><br />
 <ul>
   <li>Multiple choice (Unique answer)</li>
   <li>Multiple choice (multiple answers)</li>
@@ -155,24 +155,24 @@ There are various types of answers available for the creation of your questions 
   <li>Fill in the blanks</li>
 </ul>
 An exercise gathers a certain number of questions under a common theme.</p>
-<hr>
+<hr />
 <b>Exercise creation</b>
-<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
-Type the exercise name, as well as an optional description of it.<br><br>
-You can also choose between 2 exercise types :<br><br>
+<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br /><br />
+Type the exercise name, as well as an optional description of it.<br /><br />
+You can also choose between 2 exercise types :<br /><br />
 <ul>
   <li>Questions on an unique page</li>
   <li>One question per page (sequential)</li>
 </ul>
-and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>
+and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br /><br />
 Then, save your exercise. You will go to to the question administration for this exercise.</p>
-<hr>
+<hr />
 <b>Question adding</b>
 <p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p>
-<hr>
+<hr />
 <b>Multiple choice</b>
-<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-In order to create a MAQ / MCQ :<br><br>
+<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br /><br />
+In order to create a MAQ / MCQ :<br /><br />
 <ul>
   <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
   <li>Check via the left box the correct answer(s)</li>
@@ -180,41 +180,41 @@ In order to create a MAQ / MCQ :<br><br>
   <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>
   <li>Save your answers</li>
 </ul></p>
-<hr>
+<hr />
 <b>Fill in the blanks</b>
-<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
-To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>
-Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>
+<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br /><br />
+To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br /><br />
+Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />
 Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-<hr>
+<hr />
 <b>Matching</b>
-<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>
-It can also be used to ask students to sort elements in a certain order.<br><br>
-First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
-Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
+<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br /><br />
+It can also be used to ask students to sort elements in a certain order.<br /><br />
+First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br /><br />
+Notice : Several elements from the first unit can point to the same element in the second unit.<br /><br />
 Give a weighting to each correct matching, and save your answer.</p>
-<hr>
+<hr />
 <b>Exercise modification</b>
 <p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
-<hr>
+<hr />
 <b>Exercise deleting</b>
 <p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
-<hr>
+<hr />
 <b>Exercise enabling</b>
 <p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
-<hr>
+<hr />
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
-<hr>
+<hr />
 <b>Random exercises</b>
-<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
-That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
+<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br /><br />
+That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br /><br />
 If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p>
-<hr>
+<hr />
 <b>Question pool</b>
-<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>
-The question pool also allows to reuse a same questions into several exercises.<br><br>
-By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
+<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br /><br />
+The question pool also allows to reuse a same questions into several exercises.<br /><br />
+By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br /><br />
 Orphan questions are questions that don't belong to any exercise.</p>";
 $langExercises = "Bài tập";
 $langForContent = "The forum is a written and asynchronous discussion tool.
@@ -307,7 +307,6 @@ $langHomeContent = "For more convenience, claroline tools contain default entrie
  By default, your course is hidden (because you work on it).</p>";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
@@ -319,7 +318,7 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
- visitor, expert...</P><hr>
+ visitor, expert...</P><hr />
 <b>Admin rights</b>
 <p>Admin rights, on the other hand, correspond to the technical
  authorisation to modify the content and organisation of the course
@@ -327,17 +326,18 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  rights and giving none of them.</P>
 <p>To allow an assistant, for instance, to co-admin the site, you need to
  register him in the course or be sure he is already registerd, then click
- on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
+ on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr />
 <b>Co-chairmen</b>
 <p>To mention in the header of the course website the name of a
  co-chairmen, use the tool 'Modify course information' (orange tools). This
  modification does not register your co-chairmen as a user of the course.
  The field 'Professors' is completely independant of the Users
- list.</p><hr>
+ list.</p><hr />
 <b>Add a user</b>
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
 $langUsers = "Users";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 ?>

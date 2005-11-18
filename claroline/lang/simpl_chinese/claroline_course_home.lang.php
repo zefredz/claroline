@@ -46,7 +46,6 @@ $langLearningPath = "学习路线";
 $langLogin = "登录";
 $langLogout = "退出系统";
 $langMakeInvisible = "使之隐藏";
-$langManager = "管理员";
 $langMinuteShort = "min.";
 $langMissingValue = "遗失的数值";
 $langModify = "更新";
@@ -82,6 +81,7 @@ $langViewMode = "查看模式";
 $langVisibility = "显示/隐藏";
 $langWiki = "Wiki";
 $langWork = "作业论文";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

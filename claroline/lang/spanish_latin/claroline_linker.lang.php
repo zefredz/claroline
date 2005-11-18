@@ -32,7 +32,6 @@ $langLinkerResourceAttachment = "Recursos Adjuntos : Agregar / borrar adjunto";
 $langLinkerUntitled = "Sin título";
 $langLogin = "Conectarse";
 $langLogout = "Desconexión";
-$langManager = "Administrar";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
@@ -53,6 +52,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de Vista";
 $langWiki = "Wiki";
 $langWork = "Tareas";
+$lang_enroll = "Inscribirse";
 $lang_footer_p_CourseManager = "Administrado por %s";
 $lang_p_platformManager = "Administrado por %s";
 ?>

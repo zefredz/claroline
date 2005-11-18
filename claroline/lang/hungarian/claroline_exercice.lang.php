@@ -109,7 +109,6 @@ $langLessElements = "Kev. elem";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
 $langMakeCorrespond = "Összhangba hoz";
-$langManager = "Vezetõ";
 $langMatching = "Párosítás";
 $langMaxAllowedTime = "Megengedett maximális idõ";
 $langMaxFileSize = "Max. fájlméret:";
@@ -205,6 +204,7 @@ $langWork = "Beadandó feladatok";
 $langYes = "Igen";
 $langYourTime = "Az Ön ideje";
 $langYourTotalScore = "Az Ön összes pontja: ";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

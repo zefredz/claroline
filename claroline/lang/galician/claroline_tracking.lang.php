@@ -11,6 +11,7 @@ $langAltDocument = "Documento";
 $langAltExercise = "Exercicio";
 $langAltScorm = "Scorm";
 $langAnnouncement = "Anuncios";
+$langAnonymous = "An&oacute;nimo";
 $langAnonymousUserAccessCount = "Conta de accesos an&oacute;nimos : ";
 $langAnswer = "Resposta";
 $langAssignment = "Tarefa";
@@ -212,6 +213,7 @@ $langWorkUploads = "Cargas de traballos";
 $langWorksDetails = "Traballos subidos polo estudante no nome de 'Autores'";
 $langWrongOperation = "Operaci&oacute;n incorrecta";
 $langYes = "Si";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

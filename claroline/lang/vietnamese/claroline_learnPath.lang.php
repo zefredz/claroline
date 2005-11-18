@@ -23,7 +23,6 @@ $langGroups = "Nhóm";
 $langHelp = "Help";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langMaxFileSize = "Kích thước tối đa của file là";
 $langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
@@ -52,4 +51,5 @@ $langUsers = "Users";
 $langVisibility = "Visibility";
 $langWork = "Công việc";
 $langZipNoPhp = "";
+$lang_enroll = "Tham gia";
 ?>

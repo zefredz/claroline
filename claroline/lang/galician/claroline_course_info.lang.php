@@ -54,6 +54,7 @@ $langHelp = "Axuda";
 $langHome = "Volver &aacute; p&aacute;xina de inicio";
 $langLanguage = "Idioma";
 $langLearningPath = "Secuencia de aprendizaxe";
+$langLegendRequiredFields = "<span class=\"required\">*</span> campo obrigatorio";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
 $langMinuteShort = "min.";
@@ -90,6 +91,7 @@ $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
 $langYes = "Si";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

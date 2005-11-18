@@ -1,25 +1,30 @@
 <?php
 $langAgenda = "Календарь";
 $langAnnouncement = "Объявления";
+$langCategories = "Разделы";
 $langChat = "Чат";
 $langCourseManager = "Менеджер курса";
 $langDay_of_weekNames = "Array";
+$langDelete = "удалить";
 $langDescriptionCours = "Описание курса";
 $langDocument = "Документ";
+$langEdit = "тЕДБЛФЙТПЧБФШ";
 $langForums = "Форумы";
 $langGroups = "запись пользователей в группы";
 $langHelp = "рПНПЭШ";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
+$langMove = "Переместить";
 $langMyCourses = "Список моих курсов";
 $langNameOfLang = "Array";
 $langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
 $langOtherCourses = "Список курсов";
 $langPoweredBy = "использует оболочку";
 $langStudent = "студент";
+$langUp = "вверх";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

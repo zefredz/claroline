@@ -15,7 +15,6 @@ $langIfNotRedirect = "如果不重新定向";
 $langLearningPath = "学习路线";
 $langLogin = "登录";
 $langLogout = "退出系统";
-$langManager = "管理员";
 $langMinuteShort = "min.";
 $langModifyProfile = "个人资料";
 $langMonthNames = "Array";
@@ -37,6 +36,7 @@ $langViewMode = "查看模式";
 $langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_click_here = "点这里";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

@@ -58,4 +58,5 @@ $langWork = "Задания";
 $langYes = "Да";
 $langYouAreReg = "Вы зарегистрированы на ";
 $langYourReg = "Вааша регистрация на";
+$lang_enroll = "Регистрация";
 ?>

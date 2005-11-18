@@ -45,7 +45,6 @@ $langLinkerResourceAttachment = "Csatolt erõforrások: Csatolmányok hozzáadása/tö
 $langLinkerUntitled = "Névtelen";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
-$langManager = "Vezetõ";
 $langMessageToSelectedUsers = "Üzenetek a kiválasztott hallgatóknak";
 $langMessages = "Üzenetek";
 $langMinuteShort = "min.";
@@ -92,6 +91,7 @@ $langViewMode = "Nézet";
 $langVisible = "Látható";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

@@ -32,7 +32,6 @@ $langLinkerResourceAttachment = "Angehängte Resourcen: Anhänge anfügen / herausn
 $langLinkerUntitled = "Unbenannt";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "KursSite-Verantwortlicher";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
@@ -54,6 +53,7 @@ $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
 $langWiki = "Wiki";
 $langWork = "Upload-Bereich";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 ?>

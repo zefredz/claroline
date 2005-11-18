@@ -43,7 +43,6 @@ $langInvisible = "隐藏";
 $langLearningPath = "学习路线";
 $langLogin = "登录";
 $langLogout = "退出系统";
-$langManager = "管理员";
 $langMethodsOfEvaluation = "评价方法";
 $langMethodsOfEvaluationComment1 = "关于评价方式的精确细节 (测验，书面方式，口头方式，课题，给出的作业...)，形成性评价预演日期，作业提交过期等，有评价标准，可能还有标准或标准分类的权重。";
 $langMinuteShort = "min.";
@@ -85,6 +84,7 @@ $langViewMode = "查看模式";
 $langVisible = "可见的";
 $langWiki = "Wiki";
 $langWork = "作业论文";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

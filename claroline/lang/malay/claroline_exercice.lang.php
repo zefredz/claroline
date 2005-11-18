@@ -58,7 +58,6 @@ $langLessElements = "Padam";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
 $langMakeCorrespond = "Make correspond";
-$langManager = "Pentadbir Sistem";
 $langMatching = "Suaikan";
 $langMaxFileSize = "Saiz maksimum fail ialah ";
 $langModify = "Ubahsuai";
@@ -120,4 +119,5 @@ $langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWork = "Works";
 $langYes = "Ya";
 $langYourTotalScore = "Jumlah Markah ialah";
+$lang_enroll = "Sertai";
 ?>

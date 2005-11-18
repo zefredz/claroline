@@ -11,7 +11,6 @@ $langForums = "Foorumit";
 $langHelp = "Apua";
 $langInvalidId = "Sisäänkirjautuminen epäonnistui. Jos et ole rekisteröitynyt, niin täytä <a href='../auth/inscription.php'>rekisteröitymislomake</a></font color>";
 $langLogout = "Logout";
-$langManager = "Ylläpitäjä";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";
 $langMyCourses = "Kurssini";

@@ -7,7 +7,7 @@ $langClarContent = "Aquí, los profesores y asistentes crean y administran
  algunas veces, resuelven ejercicios, publican notas, participan en
  foros de discusiones...</p><b>Registración</b><p>Las siguientes instrucciones
  solamente se aplican si su versión de Claroline permite auto-registración (algunos sitios
- los registran automáticamente). <br>Si usted es un estudiante,
+ los registran automáticamente). <br />Si usted es un estudiante,
  solo necesita registrarse seleccionando 'Inscribirse en cursos (estudiante)', entonces elija
  el curso en el que desa inscribirse.</p><p>Si usted es un profesor o un
  asistente, también se registr, pero debe seleccionar 'Crear cursos (profesos)'. Enteonces debe
@@ -455,7 +455,6 @@ $langHomeContent = "Por conveniencia, las herramientas claroline contienen eleme
 $langLearningPath = "Ruta de Aprendizaje";
 $langLogin = "Conectarse";
 $langLogout = "Desconexión";
-$langManager = "Administrar";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modificar mis datos";
 $langMonthNames = "Array";
@@ -525,6 +524,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de Vista";
 $langWiki = "Wiki";
 $langWork = "Tareas";
+$lang_enroll = "Inscribirse";
 $lang_footer_p_CourseManager = "Administrado por %s";
 $lang_p_platformManager = "Administrado por %s";
 ?>

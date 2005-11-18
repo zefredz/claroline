@@ -76,7 +76,6 @@ $langGroupsEmptied = "Þõå úôèòòý æåòåôû òèõæý";
 $langHelp = "Òðîðüû";
 $langLogin = "÷ÈÏÄ, ÌÏÇÉÎ";
 $langLogout = "÷ÙÊÔÉ";
-$langManager = "ïÔ×ÅÔÓÔ×ÅÎÎÙÊ";
 $langMax = "îâìõêîèî";
 $langModifyProfile = "éÚÍÅÎÉÔØ ÍÏÉ ÎÁÓÔÒÏÊËÉ";
 $langMonthNames = "Array";
@@ -106,4 +105,5 @@ $langTo = "×";
 $langUncompulsory = "(òð ãåíâïêá)";
 $langUsers = "ðÏÌØÚÏ×ÁÔÅÌÉ";
 $langWork = "úÁÄÁÎÉÑ";
+$lang_enroll = "òÅÇÉÓÔÒÁÃÉÑ";
 ?>

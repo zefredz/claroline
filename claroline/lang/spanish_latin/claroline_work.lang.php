@@ -72,14 +72,13 @@ $langFirstSubmission = "Primer envío";
 $langForums = "Foros";
 $langGroup = "Grupo";
 $langGroupAssignment = "Grupos (desde herramienta de grupos, solamente los miembros del grupo pueden publicar)";
-$langGroupSpace = "Area del Grupo";
 $langGroups = "Grupos";
 $langHelp = "Ayuda ";
 $langIncorrectDate = "La facha de inicio debe ser anterior a la fecha de finalización...";
 $langIndividual = "Individual";
 $langIntroWork = "Esta herramienta permite al profesor crear tareas en las cuales cualquier estudiante (de acuerdo a los valores asignados a cada tarea) será capaz de levantar un documento, o escribir un texto, en el sitio web del curso.
 <br />You podrá agregar un comentario o una calificación a cada trabajo.
-<br /><br />Si desea presentar esta herramienta o dar algunas recomeendaciones a los estudiantes, haga clic en el botón abajo.<br>";
+<br /><br />Si desea presentar esta herramienta o dar algunas recomeendaciones a los estudiantes, haga clic en el botón abajo.<br />";
 $langInvisible = "Invisible";
 $langLastEditDate = "Ultimo fecha de edición";
 $langLateUpload = "Entregar tarde";
@@ -88,7 +87,6 @@ $langLogin = "Conectarse";
 $langLogout = "Desconexión";
 $langMakeInvisible = "Hacer invisible";
 $langMakeVisible = "Hacer visible";
-$langManager = "Administrar";
 $langMaxFileSize = "Tamaño Max. del archivo : ";
 $langMinuteShort = "min.";
 $langModify = "Modificar";
@@ -149,6 +147,7 @@ $langWrkEdited = "Trabajo modificado";
 $langWrkScoreRequired = "Puntaje requerido";
 $langWrkTitle = "Título";
 $langWrkTitleRequired = "Se requiere un título para el Trabajo";
+$lang_enroll = "Inscribirse";
 $lang_footer_p_CourseManager = "Administrado por %s";
 $lang_p_platformManager = "Administrado por %s";
 ?>

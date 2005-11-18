@@ -31,7 +31,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
  Alguns tipos de arquivo podem conter vírus, é sua responsabilidade não enviar
  arquivos contaminados por vírus. Seja cuidadoso ao verificar seus documentos
  com um software anti-vírus antes de enviá-los.</p>
-<p>Os documentos são apresentados em ordem alfabética.<br><b>Tip : </b>Se
+<p>Os documentos são apresentados em ordem alfabética.<br /><b>Tip : </b>Se
  você quiser apresentá-los em uma ordem diferente, enumere-os: 01, 02,
  03...</p>
 <p>Você pode:</p>
@@ -84,7 +84,7 @@ $langDocContent = "<p>A ferramenta Documentos é similar ao gerenciador de arquiv
 	  delete the old comment in the field and click <input type=submit
  value=OK name=submit22>
 	  . 
-	<hr>
+	<hr />
 	<p>You can organise your content through filing. For this:</p>
 	<h4><b>Create a directory</b></h4>
 	<ul>
@@ -375,7 +375,6 @@ $langHomeContent = "Para maior conveniencia, as ferramentas do claroline não
 $langLearningPath = "Rota de Aprendizagem";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Gerente";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modificar meu perfíl";
 $langMonthNames = "Array";
@@ -394,7 +393,7 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
- visitor, expert...</P><hr>
+ visitor, expert...</P><hr />
 <b>Admin rights</b>
 <p>Admin rights, on the other hand, correspond to the technical
  authorisation to modify the content and organisation of the course
@@ -402,13 +401,13 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
  rights and giving none of them.</P>
 <p>To allow an assistant, for instance, to co-admin the site, you need to
  register him in the course or be sure he is already registerd, then click
- on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr>
+ on 'modify' under 'admin rights', then click 'all', then 'Ok'.</P><hr />
 <b>Co-chairmen</b>
 <p>To mention in the header of the course website the name of a
  co-chairmen, use the tool 'Modify course info' (orange tools). This
  modification does not register your co-chairmen as a user of the course.
  The field 'Professors' is completely independant of the Users
- list.</p><hr>
+ list.</p><hr />
 <b>Add a user</b>
 <p>To add a user for your course, fill the fields and validate. The person
 will receive a mail telling him/her you have registered him/her and telling
@@ -417,6 +416,7 @@ $langUsers = "Utilizadores";
 $langViewMode = "Visualizar como";
 $langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";
 ?>

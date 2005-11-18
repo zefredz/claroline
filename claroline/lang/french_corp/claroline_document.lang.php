@@ -30,9 +30,8 @@ $langElRen = "El&eacute;ment renomm&eacute;";
 $langExercises = "Exercices";
 $langFileContentModified = "Contenu du fichier modifié";
 $langFileCreated = "Fichier créé";
-$langFileError = "Le fichier à télécharger n'est pas valide.";
 $langFileExists = "Impossible d'effectuer cette op&eacute;ration.
-<br>Un fichier portant ce nom existe déj&agrave;.";
+<br />Un fichier portant ce nom existe déj&agrave;.";
 $langFileNameMissing = "Nom du fichier manquant";
 $langFileNameOrURLMissing = "Nom du fichier ou URL manquant(s)";
 $langFiles = "Liste des fichiers";
@@ -46,7 +45,6 @@ $langLogin = "login";
 $langLogout = "Quitter";
 $langMakeInvisible = "Rendre invisible";
 $langMakeVisible = "Rendre visible";
-$langManager = "Gestionnaire";
 $langMaxFileSize = "La taille maximum est de";
 $langMinuteShort = "min.";
 $langMissingImagesDetected = "Images manquantes détectées";
@@ -91,6 +89,7 @@ $langVisibility = "Visibilité";
 $langWiki = "Wiki";
 $langWork = "Contributions";
 $langZipNoPhp = "Le fichier ZIP ne peut pas contenir de fichiers en .php";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

@@ -109,7 +109,6 @@ $langLessElements = "حذف عنصر";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
 $langMakeCorrespond = "صنع مقابل";
-$langManager = "المدير";
 $langMatching = "مطابقة";
 $langMaxAllowedTime = "الوقت المسموح";
 $langMaxFileSize = "الحجم الأعظم المسموح للملف : ";
@@ -205,6 +204,7 @@ $langWork = "واجبات و مهام";
 $langYes = "نعم";
 $langYourTime = "قمت بتنفذ التمرين خلال :";
 $langYourTotalScore = "عدد الكلي للنقاط التي حصلت عليها هو";
+$lang_enroll = "تسجيل";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

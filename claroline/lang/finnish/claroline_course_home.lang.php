@@ -11,7 +11,6 @@ $langForums = "Foorumit";
 $langHelp = "Apua";
 $langHome = "Takaisin omalle sivulle";
 $langLogout = "Logout";
-$langManager = "Ylläpitäjä";
 $langModify = "Muokkaa";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";

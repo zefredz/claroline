@@ -59,7 +59,6 @@ $langGroupsDeleted = "Tüm gruplar silindi";
 $langGroupsEmptied = "Tüm gruplar boþaltýldý";
 $langHelp = "Yardým";
 $langLogout = "Çýkýþ";
-$langManager = "Yönetici";
 $langMax = "en çok.";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";

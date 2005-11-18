@@ -29,6 +29,8 @@ $langCreationMailNotificationSubject = "Creaci&oacute;n de curso";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Este foro se ha creado como ejemplo. Puede modificarlo o eliminarlo";
 $langDenied = "Cerrada";
+$langDepartmentUrl = "URL del Departamento";
+$langDepartmentUrlName = "Departamento";
 $langDescriptionCours = "Descripci&oacute;n del curso";
 $langDocument = "Documentos";
 $langEmail = "Correo electr&oacute;nico";
@@ -104,6 +106,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_IfNothingHappendClickHere = "Si despu&eacute;s de <u>30 segundos</u> no cambia nada, pulse por favor <a href=\"%s\">aqu&iacute;</a> y espere de nuevo";
 $lang_p_aCategoryWouldBeSelected = "Debe de escoger una categor&iacute;a. Si hay alguna que no figura, notif&iacute;queselo

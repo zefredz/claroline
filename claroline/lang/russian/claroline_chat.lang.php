@@ -12,10 +12,9 @@ $langDocument = "Документ";
 $langForums = "Форумы";
 $langGroups = "запись пользователей в группы";
 $langHelp = "рПНПЭШ";
-$langIsNowInYourDocDir = "сейчас в вашей папке Учебные материалы. <br><B>Внимание, он виден всем</B>";
+$langIsNowInYourDocDir = "сейчас в вашей папке Учебные материалы. <br /><B>Внимание, он виден всем</B>";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
@@ -25,4 +24,5 @@ $langPoweredBy = "использует оболочку";
 $langStudent = "студент";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

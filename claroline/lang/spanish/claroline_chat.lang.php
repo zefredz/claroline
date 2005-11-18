@@ -17,7 +17,7 @@ $langExercises = "Ejercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "ayuda";
-$langIsNowInYourDocDir = "est&aacute; ya en su secci&oacute;n de documentos.<br><b>Este archivo es visible</b>";
+$langIsNowInYourDocDir = "est&aacute; ya en su secci&oacute;n de documentos.<br /><b>Este archivo es visible</b>";
 $langLearningPath = "Secuencia de aprendizaje";
 $langLogin = "nombre de usuario";
 $langLogout = "Salir";
@@ -45,6 +45,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

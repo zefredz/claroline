@@ -24,6 +24,7 @@ $langGroupTutor = "Hoca";
 $langGroups = "Gruplar";
 $langHelp = "Yardým";
 $langHome = "Ana Sayfaya dön";
+$langInvalidId = "Giriþ yapýlamadý.<br />Eðer kayýtlý deðilseniz, bu formdan <a href=claroline/auth/inscription.php>kaydolunuz</a></font color>";
 $langIs = "dýr";
 $langLink = "Baðlantýlar";
 $langLogout = "Çýkýþ";
@@ -33,7 +34,7 @@ Sayýn %s, %s.
 Kiþisel ayarlarýnýz kaydedildi, 
 kullanýcý adýnýz ve þifreniz eposta adresinize gönderildi. 
 Ayrýca Ders eðitmenleri tarafýndan yapýlan duyurular da bu 
-adresinize gönderilecektir.<br>
+adresinize gönderilecektir.<br />
 Þimdi girmek istediðiniz dersi listeden seçebilirsiniz.";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";

@@ -105,7 +105,6 @@ $langEnrollAsManager = "Εγγραφή ως διευθυντής μαθήματος";
 $langEnrollAsStudent = "Εγγραφή ως μαθητής";
 $langEnrollToNewCourse = "Eγγραφή σε νέο μάθημα";
 $langEnrollUser = "Εγγραφή χρήστη";
-$langEnter2passToChange = "Εισαγωγή νέου κωδικού δυο φορές για να αλλαχτεί, ή αφήστε το κενό για τα παραμείνει το ίδιο";
 $langErrorCannotReadRSSFile = "Σφάλμα : δεν ειναι δυνατόν να διαβαστούν τα RSS δεδομένα";
 $langErrorClassNotEmpty = "Αυτή η τάξη περιέχει ακόμα κάποιες υποκατηγορίες τάξεων, να τις διαγράψετε πρώτα";
 $langErrorMove = "Δεν μπορείτε αν μετακινήσετε μια τάξη μεσα στην ίδια!";
@@ -203,7 +202,6 @@ $langPublicOnly = "Δημόσιο μάθημα μόνο";
 $langRegAdmin = "Δημιουργία μαθημάτων";
 $langRegStudent = "Παρακολούθηση μαθημάτων";
 $langRegYou = "σας έχει γράψει σε αυτό το μάθημα";
-$langRegister = "Εγγραφή";
 $langRegisterLocalUrl = "Το campus url φαινεται να είναι τοπικό τοπικό url.
 Απαιτείται προσβάσιμο web url για να εγγραψετε στο site σας στο Claroline.net.<br /><br />
 Ελέξτε την αξία του  'Web base' στην διαμόρφωση-διάταξη για το Claroline .";
@@ -301,6 +299,7 @@ $langYouAreReg = "Ο λογαριασμός σας στην πλατφόρμα ";
 $langYourReg = "Η εγγραφή σας στο";
 $lang_already_enrolled = "ήδη εγγεγραμένος";
 $lang_click_here = "Κάνε κλικ εδώ";
+$lang_enroll = "Eγγραφή";
 $lang_faculty_CanHaveCatCourse = "Μαθήματα που μπορεί να έχει : ";
 $lang_faculty_CatHaveCat = "Αυτή η κατηγορία περιέχει και άλλες κατηγορίες, πρέπει πρώτα να τις διαγράψετε !";
 $lang_faculty_CatHaveCourses = "Αυτή η κατηγορία περιέχει κάποια μαθήματα,δεν μπορείτε να την σβήσετε!";

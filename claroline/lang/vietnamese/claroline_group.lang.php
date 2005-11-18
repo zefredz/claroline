@@ -62,7 +62,6 @@ $langGroupsEmptied = "All groups are now empty";
 $langHelp = "Help";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langMax = "max.";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
@@ -92,4 +91,5 @@ $langTo = "đến";
 $langUncompulsory = "(optional)";
 $langUsers = "Users";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 ?>

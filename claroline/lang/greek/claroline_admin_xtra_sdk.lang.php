@@ -28,7 +28,6 @@ $langHelp = "Βοήθεια";
 $langLearningPath = "Διαδρομή μάθησης";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
-$langManager = "Διαχειριστής";
 $langMinuteShort = "min. (ελαχ.)";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
@@ -53,6 +52,7 @@ $langUsers = "Χρήστες";
 $langViewMode = "Παρουσίαση τρόπου";
 $langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
+$lang_enroll = "Eγγραφή";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";
 ?>

@@ -37,7 +37,6 @@ $langLearningPathAdmin = "Administrar Ruta de Aprendizaje";
 $langLearningPathList = "Listar Ruta de Aprendizaje";
 $langLogin = "Conectarse";
 $langLogout = "Desconexión";
-$langManager = "Administrar";
 $langMinuteShort = "min.";
 $langModify = "Modificar";
 $langModifyProfile = "Modificar mis datos";
@@ -68,6 +67,7 @@ $langView = "Vista";
 $langViewMode = "Modo de Vista";
 $langWiki = "Wiki";
 $langWork = "Tareas";
+$lang_enroll = "Inscribirse";
 $lang_footer_p_CourseManager = "Administrado por %s";
 $lang_p_platformManager = "Administrado por %s";
 ?>

@@ -15,7 +15,6 @@ $langHelp = "Pomoc";
 $langLogin = "vstop";
 $langLogout = "Izstop";
 $langMailTo = "Polji poto : ";
-$langManager = "Upravnik";
 $langMissing = "manjka";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
@@ -29,6 +28,7 @@ $langStudent = "student";
 $langTo = "na";
 $langUsers = "Uporabniki";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 $lang_no_access_here = "Tu ni dostopa ";
 $lang_php_info = "informacije o sistemu";
 ?>

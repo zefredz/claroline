@@ -61,4 +61,5 @@ $langWork = "Trabalhos";
 $langYes = "Sim";
 $langYouAreReg = "Foi inscrito em";
 $langYourReg = "A sua inscri&ccedil;&atilde;o em";
+$lang_enroll = "Inscrever-se";
 ?>

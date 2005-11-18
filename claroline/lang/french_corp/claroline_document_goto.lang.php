@@ -15,7 +15,6 @@ $langIfNotRedirect = "Si la redirection ne fonctionne pas ";
 $langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langManager = "Gestionnaire";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modifier mon profil";
 $langMonthNames = "Array";
@@ -35,6 +34,7 @@ $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Contributions";
 $lang_click_here = "cliquez ici";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

@@ -36,7 +36,6 @@ $langInvisible = "Αόρατο";
 $langLearningPath = "Διαδρομή μάθησης";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
-$langManager = "Διαχειριστής";
 $langMethodsOfEvaluation = "Mέθοδοι αξιολόγησης";
 $langMethodsOfEvaluationComment1 = "Ακριβείς λεπτομέρειες όπως είναι τα μέσα αξιολόγησης (γραπτές εξετάσεις, προφορικές, εργασίες (projects), ανάθεση εργασίας...), ημερομηνία προβολής αξιολόγησης  , ημερομηνίες προσθεσμίας για τις παραδόσεις εργασιών, με το κριτήριο της αξιολόγησης, πιθανό ζύγισμα κριτηρίων ή κατηγορίες κριτηρίων.";
 $langMinuteShort = "min. (ελαχ.)";
@@ -75,6 +74,7 @@ $langViewMode = "Παρουσίαση τρόπου";
 $langVisible = "Ορατό";
 $langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
+$lang_enroll = "Eγγραφή";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";
 ?>

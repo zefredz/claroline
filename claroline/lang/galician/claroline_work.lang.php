@@ -84,15 +84,14 @@ $langFirstSubmission = "Primeira presentaci&oacute;n";
 $langForums = "Foros";
 $langGroup = "Grupo";
 $langGroupAssignment = "Grupos (desde a ferramenta de grupos, s&oacute; os membros de grupo poden enviar mensaxes)";
-$langGroupSpace = "&Aacute;rea do grupo";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
 $langIncorrectDate = "A data de inicio debe de ser anterior &aacute; de remate...";
 $langIndividual = "Individual";
 $langIntroWork = "Esta p&aacute;xina perm&iacute;telle a calquera estudante ou grupo cargar un documento
-							na p&aacute;xina web do curso. <br>Enviar un ficheiro HTML s&oacute; se non cont&eacute;n
-							imaxe ningunha.<br><br>Se vostede desexa presentarlle esta ferramenta ou darlle algunha
-							recomendaci&oacute;n &oacute;s estudantes, prema no bot&oacute;n que hai debaixo.<br>";
+							na p&aacute;xina web do curso. <br />Enviar un ficheiro HTML s&oacute; se non cont&eacute;n
+							imaxe ningunha.<br /><br />Se vostede desexa presentarlle esta ferramenta ou darlle algunha
+							recomendaci&oacute;n &oacute;s estudantes, prema no bot&oacute;n que hai debaixo.<br />";
 $langInvisible = "Invisible";
 $langLastEditDate = "Data da &uacute;ltima edici&oacute;n";
 $langLateUpload = "&Uacute;ltima carga";
@@ -163,6 +162,7 @@ $langWrkEdited = "Traballo modificado";
 $langWrkScoreRequired = "Puntuaci&oacute;n requirida";
 $langWrkTitle = "T&iacute;tulo";
 $langWrkTitleRequired = "T&iacute;tulo do traballo requirido";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

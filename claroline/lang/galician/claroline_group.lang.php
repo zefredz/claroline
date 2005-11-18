@@ -123,6 +123,8 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "Un usuario pode ser membro de, co
 $langRegIntoGroup = "Unirme a este grupo";
 $langRegistered = "Rexistrado";
 $langReply = "Resposta";
+$langSearch = "Procurar";
+$langSearchResult = "Resultados da procura";
 $langSecondShort = "seg.";
 $langStudent = "Estudante";
 $langStudentsNotInThisGroups = "Usuarios non rexistrados neste grupo";
@@ -136,6 +138,7 @@ $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWikiMainPageContent = "Esta &eacute; a p&aacute;xina de inicio do Wiki. Prema en Editar para modifica-lo contido.";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

@@ -38,10 +38,6 @@ $langCatagoryMain = "Général";
 $langChat = "Discussion";
 $langContradiction = "Utiliser le principe de non-contradiction pour amener son interlocuteur dans l&acute;impasse.";
 $langCopy = "Copier";
-$langCourseDescription = "Description de l&acute;espace
-Ecrivez ici la description qui apparaîtra dans la liste des espaces (Le contenu de ce champ ne
-s\'affiche actuellement nulle part et ne se trouve ici qu\'en préparation à une version prochaine
-de Claroline).";
 $langCourseHome = "Accueil";
 $langCourseManager = "gestionnaire de l&acute;espace";
 $langCreate = "créer";
@@ -77,7 +73,6 @@ $langIndeed = "En effet. l&acute;ironie socratique est une méthode interrogative
 $langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langManager = "Gestionnaire";
 $langManyAnswers = "(plusieurs bonnes réponses possibles)";
 $langMaxStudentGroup = "Nombre maximum de participants par groupe";
 $langMaximum = "Maximum : ";
@@ -113,6 +108,8 @@ $langSampleDocumentDesc = "Vous pouvez utiliser n\'importe quel document de l&ac
 $langSampleExerciseDesc = "Vous pouvez utiliser n\'importe quel exercice de l&acute;outil d\'exercices de cet espace.";
 $langSampleLearnPath = "Exemple de parcours pédagogique";
 $langSampleLearnPathDesc = "Ceci est un exemple de parcours pédagogique, il utilise l&acute;exemple d\'exercice et l&acute;exemple de document de l&acute;outil d\'exercices et l&acute;outil de documents. Cliquez sur <b>Modifier</b> pour changer ce texte.";
+$langSearch = "Rechercher";
+$langSearchResult = "Résultat de recherche";
 $langSecondShort = "sec.";
 $langSocraticIrony = "l&acute;ironie socratique consiste à...";
 $langStudent = "participant";
@@ -129,6 +126,7 @@ $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Contributions";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 $lang_you_had_request = "Vous aviez demandé";

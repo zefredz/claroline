@@ -48,6 +48,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_faculty_ConfirmDelete = "¿Est&aacute; seguro de que desea eliminar la categor&iacute;a?";
 $lang_faculty_imgDown = "Abajo";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";

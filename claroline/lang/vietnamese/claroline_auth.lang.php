@@ -28,6 +28,7 @@ $langGroupTutor = "Tutor";
 $langGroups = "Nhóm";
 $langHelp = "Help";
 $langHome = "Trở về trang chủ";
+$langInvalidId = "<small>Không đăng nhập được.Nếu bạn chưa phải thành viên, hãy <a href=claroline/auth/inscription.php>đăng ký ở đây</a></small></font color>";
 $langIs = "is";
 $langLastname = "Họ";
 $langLink = "Địa chỉ URL";

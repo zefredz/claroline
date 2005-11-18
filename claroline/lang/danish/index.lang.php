@@ -13,11 +13,10 @@ $langExercises = "Øvelser";
 $langForums = "Diskussionsforum";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
-$langInvalidId = "Fejl ved Login.<BR>Hvis du ikke er registreret, brug <a href=claroline/auth/inscription.php>Registrering</a></font color>";
+$langInvalidId = "Fejl ved Login.<br />Hvis du ikke er registreret, brug <a href=claroline/auth/inscription.php>Registrering</a></font color>";
 $langLogin = "login";
 $langLogout = "Logud";
 $langLostPassword = "Glemt din adgangskode?";
-$langManager = "Support";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -29,4 +28,5 @@ $langStudent = "studerende";
 $langUserName = "Brugernavn";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 ?>

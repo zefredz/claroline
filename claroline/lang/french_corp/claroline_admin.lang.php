@@ -106,7 +106,6 @@ $langEnrollAsManager = "Inscrire comme gestionnaire de l&acute;espace";
 $langEnrollAsStudent = "Inscrire comme utilisateur";
 $langEnrollToNewCourse = "Inscrire à un nouvel espace";
 $langEnrollUser = "Inscrire un utilisateur";
-$langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l&acute;ancien.";
 $langErrorCannotReadRSSFile = "Erreur : le fil RSS ne peut être trouvé.";
 $langErrorClassNotEmpty = "Cette sélection contient toujours d'autres sélections, supprimez d'abord son contenu";
 $langErrorMove = "Vous ne pouvez pas déplacer une sélection vers elle-même!";
@@ -206,7 +205,6 @@ $langPublicOnly = "Les espaces publics uniquement";
 $langRegAdmin = "Créer des espaces";
 $langRegStudent = "M'inscrire à des espaces";
 $langRegYou = "vous a inscrit sur";
-$langRegister = "S'inscrire";
 $langRegisterLocalUrl = "L'URL de votre campus semble être locale.
 Une URL accessible est nécessaire pour enregistrer votre campus.<br /><br />
 Veuillez vérifier la valeur de 'Web base' dans la configuration de votre campus.";
@@ -302,6 +300,7 @@ $langYouAreReg = "Vous êtes inscrit(e) sur";
 $langYourReg = "Votre inscription sur";
 $lang_already_enrolled = "Déjà inscrit";
 $lang_click_here = "cliquez ici";
+$lang_enroll = "Inscription";
 $lang_faculty_CanHaveCatCourse = "Peut-elle avoir des cours ? ";
 $lang_faculty_CatHaveCat = "Cette catégorie contient d'autres catégories, supprimez-les avant celle ci!";
 $lang_faculty_CatHaveCourses = "Cette catégorie contient des espaces, vous ne pouvez pas la supprimer!";

@@ -13,7 +13,6 @@ $langGroups = "กลุ่ม";
 $langHelp = "ช่วยเหลือ";
 $langHome = "กลับหน้าแรก";
 $langLogout = "Logout";
-$langManager = "ผู้จัดการ";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";

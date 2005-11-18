@@ -57,7 +57,6 @@ $langGroupsAdded = "grup(s) ha(n) estat afegit(s)";
 $langGroupsDeleted = "Tots els grups han estat esborrats";
 $langGroupsEmptied = "Tots els grups es troben buits ara";
 $langHelp = "Ajuda";
-$langManager = "El coordinador";
 $langMax = "màx.";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";

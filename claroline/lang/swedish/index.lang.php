@@ -17,7 +17,6 @@ $langInvalidId = "Ogiltig inloggning. Om du inte är registrerad fyll i <a href='
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
 $langLostPassword = "Tappat Lösenordet";
-$langManager = "Ansvarig";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mina kurser";

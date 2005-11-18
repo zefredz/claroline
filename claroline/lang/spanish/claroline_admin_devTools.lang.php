@@ -119,6 +119,8 @@ $langSampleLearnPath = "Ejemplo de una secuencia de aprendizaje";
 $langSampleLearnPathDesc = "Este es un ejemplo de una secuencia de aprendizaje, esta es usado en el ejercicio de muestra y el
 							documento de muestra de la herramienta de ejercicios y la herramienta de documentos. Presionar
                             <b>Modificar</b> Para cambiar este texto.";
+$langSearch = "Buscar";
+$langSearchResult = "Resultados de la b&uacute;squeda";
 $langSecondShort = "seg.";
 $langSocraticIrony = "La iron&iacute;a socr&aacute;tica consiste en...";
 $langStudent = "Estudiante";
@@ -139,6 +141,7 @@ $langWiki = "Wiki";
 $langWikiMainPageContent = "Esta es la p&aacute;gina de inicio del Wiki. Pulse en Editar para modificar su contido.";
 $langWork = "Trabajos";
 $lang_completeUserInfoOfUser = "Completar informaci&oacute;n del usuario";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_FillCourses = "Cubrir %s con %s";
 $lang_p_category_s_created = "Categor&iacute;a %s creada";

@@ -28,6 +28,7 @@ $langGroupTutor = "Lärare";
 $langGroups = "instruktion för gruppanvändarna";
 $langHelp = "hjälp";
 $langHome = "Tillbaka till hemsidan";
+$langInvalidId = "Ogiltig inloggning. Om du inte är registrerad fyll i <a href='claroline/auth/inscription.php'>registreringsformuläret</a></font color>";
 $langIs = "är";
 $langLastname = "Efternamn";
 $langLink = "Länkar";
@@ -39,7 +40,7 @@ $langManager = "Ansvarig";
 $langMessageSubscribeDone_p_firstname_lastname = "
 Kära %s, %s. 
 Dina personliga inställningar har registrerats och emejlats 
-till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br>
+till dig för att hjälpa dig komma ihåg användarnamn och lösenord.<br />
 Välj i listan vilka kurser som du vill deltaga i.";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";

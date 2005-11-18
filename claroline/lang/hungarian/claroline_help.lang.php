@@ -7,7 +7,7 @@ A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenkén
 teszteket tölthetnek ki, dokumentumaikat publikálhatják, fórum megbeszéléseken vehetnek részt...
 </p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer 
 a hallgatói regisztrációt megengedi (bizonyos helyek automatikusan regisztrálnak). 
-<br>Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató) 
+<br />Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató) 
 kiválasztásával, majd a kívánt tanfolyam kiválasztásával.</p><p>Ha Ön professzor vagy 
 tanársegéd, szintén regisztrálhat, de válassza a Tanfolyam létrehozása opciót, ezt 
 követõen egy ûrlapon megadhatja a Tanfolyam kódot, Kart és Tanfolyam nevet. 
@@ -446,7 +446,6 @@ For convenience, claroline tools contain default entries.
 $langLearningPath = "Tanösvény";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
-$langManager = "Vezetõ";
 $langMinuteShort = "min.";
 $langModifyProfile = "Saját beállítások módosítása";
 $langMonthNames = "Tömb";
@@ -519,6 +518,7 @@ $langUsers = "Felhasználók";
 $langViewMode = "Nézet";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

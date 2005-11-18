@@ -18,7 +18,6 @@ $langListHtUsers = "Список имен пользователей htAccess";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
 $langManage = "Управление кампусом";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
@@ -36,5 +35,6 @@ $langStudent = "студент";
 $langUpdated = "обновлен";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 $lang_no_access_here = "Нет доступа ";
 ?>

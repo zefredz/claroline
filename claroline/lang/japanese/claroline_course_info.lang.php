@@ -20,7 +20,6 @@ $langHelp = "へルプ";
 $langHome = "ホームページに戻る";
 $langLanguage = "言語";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModifDone = "情報修正されました";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";

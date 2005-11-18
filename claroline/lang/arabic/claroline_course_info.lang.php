@@ -47,9 +47,9 @@ $langHelp = "المساعدة";
 $langHome = "العودة للصفحة الأساسية";
 $langLanguage = "اللغة";
 $langLearningPath = "مسار التعليم";
+$langLegendRequiredFields = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
 $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
-$langManager = "المدير";
 $langMinuteShort = "دقيقة";
 $langModifDone = "تم تعديل المعلومات";
 $langModifyProfile = "تعديل معلوماتي";
@@ -83,6 +83,7 @@ $langViewMode = "نمط العرض";
 $langWiki = "Wiki";
 $langWork = "واجبات و مهام";
 $langYes = "نعم";
+$lang_enroll = "تسجيل";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

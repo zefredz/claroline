@@ -30,7 +30,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
  opnærksom på er, om dine studerende har programmer til at åbne dem med.
  Nogle filer kan indeholde virus, og det er dit ansvar, at der ikke følger virus med, når du lægger materialet ud.
  Tjek derfor din dokumenter med et antivirus program før du lægger dem ud.</p>
- <p>Dokumenterne præsenteres i alfabetisk orden.<br><b>Tip : </b>Ønsker du at præsentere dem
+ <p>Dokumenterne præsenteres i alfabetisk orden.<br /><b>Tip : </b>Ønsker du at præsentere dem
  i en anden rækkefølge, så giv dem et nummer: 01, 02,
  03...</p>
 <p>Du kan :</p>
@@ -102,7 +102,7 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 		For at fjerne en kommentar, klik på <img src=../img/comment.gif width=20 height=20>, 
 		slet den gamle kommentar i feltet og klik 
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			Du kan organisere dit indhold gennem arkivering. Gør følgende:
 		</p>
@@ -142,8 +142,8 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 <center>
 <p>";
 $langDocument = "Dokumenter";
-$langExerciseContent = "<p>Øvelsesværktøjet tillader dig at oprette øvelser med lige så mange spørgsmål, som du ønker.<br><br>
-Værktøjet giver dig mulighed for at oprette forskellige svartyper på dine spørgsmål :<br><br>
+$langExerciseContent = "<p>Øvelsesværktøjet tillader dig at oprette øvelser med lige så mange spørgsmål, som du ønker.<br /><br />
+Værktøjet giver dig mulighed for at oprette forskellige svartyper på dine spørgsmål :<br /><br />
 <ul>
   <li>Multiple choce (et svar)</li>
   <li>Multiple choice (mange svar)</li>
@@ -151,24 +151,24 @@ Værktøjet giver dig mulighed for at oprette forskellige svartyper på dine spørgs
   <li>Udfyld rubrikker</li>
 </ul>
 En øvelse rummer et antal spørgsmål omkring et bestemt tema.</p>
-<hr>
+<hr />
 <b>Oprette øvelse</b>
-<p>For at oprette en øvelse, klik på linket &quot;Ny øvelse&quot;.<br><br>
-Angiv øvelsens navn, samt en valgfri beskrivelse af denne.<br><br>
-Du kan desuden vælge mellem to øvelestyper :<br><br>
+<p>For at oprette en øvelse, klik på linket &quot;Ny øvelse&quot;.<br /><br />
+Angiv øvelsens navn, samt en valgfri beskrivelse af denne.<br /><br />
+Du kan desuden vælge mellem to øvelestyper :<br /><br />
 <ul>
   <li>Spørgsmål på en side</li>
   <li>Et spørgsmål pr. side (sekventielt)</li>
 </ul>
-og angiv om du ønsker eller ikke ønsker, at spørgsmålene vises i vilkårlig rækkefølge, når øvelsen skal bruges.<br><br>
+og angiv om du ønsker eller ikke ønsker, at spørgsmålene vises i vilkårlig rækkefølge, når øvelsen skal bruges.<br /><br />
 Derefter gemmer du din øvelse. Det hele foregår i øvelseshåndteringen.</p>
-<hr>
+<hr />
 <b>Tilføj spørgsmål</b>
 <p>Du kan altid oprette nye spørgsmål i den øvelse, du har arbejdet med tidligere. Beskrivelsen er valgfri, ligesom det billede du gerne vil inkludere i spørgsmålet.</p>
-<hr>
+<hr />
 <b>Multiple choice</b>
-<p>Dette er den berømte MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-For at kunne oprette en MAQ / MCQ :<br><br>
+<p>Dette er den berømte MAQ (multiple answer question) / MCQ (multiple choice question).<br /><br />
+For at kunne oprette en MAQ / MCQ :<br /><br />
 <ul>
   <li>Angiv svar på dine spørgsmål. Du kan tilføje eller slette et svar ved at klikke på knappen til højre</li>
   <li>Tjek det/de korrekte svar vha. den venstre box</li>
@@ -176,41 +176,41 @@ For at kunne oprette en MAQ / MCQ :<br><br>
   <li>Angiv en værdi til hvert svar. Værdien kan være positiv, negativ eller nul</li>
   <li>Gem dine svar</li>
 </ul></p>
-<hr>
+<hr />
 <b>Udfyld rubrikker</b>
-<p>Dette giver dig mulighed for at oprette en tekst med tomme felter. Formålet er, at den studerende skal finde de ord, som du har fjernet fra teksten.<br><br>
-For at fjerne et ord fra teksten, og oprette et tomt felt, skal du placere ordet i en parentes [som denne].<br><br>
-Når teksten er skrevet og felterne er angivet, så kan du tilføje en kommentar, som kan læses af den studerende, når han har angivet sine svar.<br><br>
+<p>Dette giver dig mulighed for at oprette en tekst med tomme felter. Formålet er, at den studerende skal finde de ord, som du har fjernet fra teksten.<br /><br />
+For at fjerne et ord fra teksten, og oprette et tomt felt, skal du placere ordet i en parentes [som denne].<br /><br />
+Når teksten er skrevet og felterne er angivet, så kan du tilføje en kommentar, som kan læses af den studerende, når han har angivet sine svar.<br /><br />
 Gem din tekst, og du vil nu få mulighed for at angive en værdi på hvert felt. For eksempel, hvis spørgsmålet værdisættes til 10 point og du har 5 felter, så kan du angive en værdi på 2 point til hvert felt.</p>
-<hr>
+<hr />
 <b>Matching</b>
-<p>Disse svartyper kan vælges, når man ønsker at oprette spørgsmål, hvor den studerende skal kombinere elementer fra en enhed U1 med elementer fra en anden enhed U2.<br><br>
-Den kan også anvendes, hvis man ønsker at udfordre den studerende til at sortere elementer i en bestemt rækkefølge.<br><br>
-Først angives valgmulighederne blandt hvilke den studerende vil være i stand til at vælge det gode svar. Derefter angives spørgsmålene, som skal lænkes til fra en af de tidligere angivne valgmuligheder. Til sidst, forbind vha. en drop-down menu elementer fra den første enhed med elementer fra den anden enhed.<br><br>
-Bemærk : Adskillige elementer fra den første nehd kan pege på det samme element i den anden enhed.<br><br>
+<p>Disse svartyper kan vælges, når man ønsker at oprette spørgsmål, hvor den studerende skal kombinere elementer fra en enhed U1 med elementer fra en anden enhed U2.<br /><br />
+Den kan også anvendes, hvis man ønsker at udfordre den studerende til at sortere elementer i en bestemt rækkefølge.<br /><br />
+Først angives valgmulighederne blandt hvilke den studerende vil være i stand til at vælge det gode svar. Derefter angives spørgsmålene, som skal lænkes til fra en af de tidligere angivne valgmuligheder. Til sidst, forbind vha. en drop-down menu elementer fra den første enhed med elementer fra den anden enhed.<br /><br />
+Bemærk : Adskillige elementer fra den første nehd kan pege på det samme element i den anden enhed.<br /><br />
 Angiv værdi på hvert korrekt svar, og gem din svar.</p>
-<hr>
+<hr />
 <b>Ændre i øvelserne</b>
 <p>For at kunne ændre i en øvelse er princippet det samme som, når du opretter en øvelse. Klik på billedet <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen for at ændre og følg instruktionerne.</p>
-<hr>
+<hr />
 <b>Slette øvelser</b>
 <p>For at kunne slette en øvelse, klik på billedet <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
-<hr>
+<hr />
 <b>Aktivering af øvelse</b>
 <p>For at kunne bruge en øvelse, skal du aktivere denne ved at klikke på billedet <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> ved siden af øvelsen.</p>
-<hr>
+<hr />
 <b>Test øvelserne</b>
 <p>Du kan teste din øvelse ved at klikke på dens navn på øvelseslisten.</p>
-<hr>
+<hr />
 <b>Vilkårlige øvelser</b>
-<p>Samtidig med at øvelsen oprettes / ændres, kan du angive, om du ønsker, at spørgsmålene skal optræde i vilkårlig rækkefølge i øvelsen.<br><br>
-Det betyder, at du ved at aktivere denne valgmulighed, så vil spørgsmålene blive vist i forskellige rækkefølger, hver gang den studerende gennemgår øvelsen.<br><br>
+<p>Samtidig med at øvelsen oprettes / ændres, kan du angive, om du ønsker, at spørgsmålene skal optræde i vilkårlig rækkefølge i øvelsen.<br /><br />
+Det betyder, at du ved at aktivere denne valgmulighed, så vil spørgsmålene blive vist i forskellige rækkefølger, hver gang den studerende gennemgår øvelsen.<br /><br />
 Hvis du har mange spørgsmål, kan du også vælge, at kun X antal spørgsmål ud af øvelsens samlede antal vises hver gang den studerende gennemgår øvelsen.</p>
-<hr>
+<hr />
 <b>Spørgsmålspulje</b>
-<p>Når du sletter en øvelse, fjernes selvstændige spørgsmål ikke fra databasen, og kan genbruges i en ny øvelse vha. spørgsmålspuljen.<br><br>
-Spørgsmålspuljen tillader dig også at anvende det samme spørgsmål i flere øvelser<br><br>
-Som standardindstilling, vises alle spørgsmål til kurset. Du kan vise spørgsmålene til en øvelse ved at vældge denne i drop-down menuen &quotFilter&quot;.<br><br>
+<p>Når du sletter en øvelse, fjernes selvstændige spørgsmål ikke fra databasen, og kan genbruges i en ny øvelse vha. spørgsmålspuljen.<br /><br />
+Spørgsmålspuljen tillader dig også at anvende det samme spørgsmål i flere øvelser<br /><br />
+Som standardindstilling, vises alle spørgsmål til kurset. Du kan vise spørgsmålene til en øvelse ved at vældge denne i drop-down menuen &quotFilter&quot;.<br /><br />
 Forældreløse spørgsmål er spørgsmål, som ikke tilhører en bestemt øvelse.</p>";
 $langExercises = "Øvelser";
 $langForContent = "Diskussionsforum er et skriftligt asynkront værktøj, 
@@ -295,7 +295,6 @@ $langHomeContent = "For at komme i gang, indeholder værktøjerne i claroline stan
  Som standard har dit kursus 'offentlig adgang'.</p>";
 $langLogin = "login";
 $langLogout = "Logud";
-$langManager = "Support";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -307,21 +306,22 @@ $langUserContent = "<b>Titel</b><p>Titel har ikke noget at gøre med at administr
  men har udelukkende til formål at præsentere deltagerne for hinanden.
  Du kan ændre titlerne ved at klikke på 'ændre' under
  'titel', og derefter skrive hvad du vil: professor, assistent, studerende,
- gæst, ekspert...</P><hr>
+ gæst, ekspert...</P><hr />
 <b>Admin rettigheder</b>
 <p>Admin rettigheder giver, på den anden side, rettigheder til at kunne ændre
  på indholdet på kursushjemmesiden. I øjeblikket kan du kun vælge mellem at give alle rettigheder eller ingen.</P>
  <p>For at tillade f.eks. en assistent at med-administrere kursushjemmesiden, skal du registrere ham på kurset
- eller være sikker på, at han er oprettet, klik derefter på 'ændre' under 'admin rettigheder', klik derefter på 'alle', og derefter på 'Ok'.</P><hr>
+ eller være sikker på, at han er oprettet, klik derefter på 'ændre' under 'admin rettigheder', klik derefter på 'alle', og derefter på 'Ok'.</P><hr />
 <b>Med-administrator</b>
 <p>For at få din med-administrators navn med i banneret øverst på din kursushjemmeside, brug
  værktøjet 'Ændre kursusinformation' (orange værktøj på kursushjemmesiden). Denne ændring
  registrerer ikke din med-administrator som deltager på kurset.
- Feltet 'Underviser' er helt uafhængig af deltagerlisten.</p><hr>
+ Feltet 'Underviser' er helt uafhængig af deltagerlisten.</p><hr />
 <b>Tilføj en deltager</b>
 <p>For at tilføje en deltager på dit kursus, udfyld felterne og udfør ved at klikke 'ok'. Personen
 vil mdotage en e-mail, der fortæller ham/hende, at du har registreret ham/hende og fortæller
 ham/hende eller minder ham/hende om sit login og sin adgangskode.</p>";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 ?>

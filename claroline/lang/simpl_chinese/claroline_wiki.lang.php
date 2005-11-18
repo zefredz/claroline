@@ -8,6 +8,7 @@ $langAnnouncement = "公告通知";
 $langCancel = "取消";
 $langChangePwdexp = "修改密码要输入两次新密码，不修改密码请留空";
 $langChat = "聊天答疑";
+$langCloseWindow = "关闭窗口";
 $langCodeUsed = "正式代码已经被人使用";
 $langConfirmation = "确认";
 $langContinue = "继续";
@@ -24,7 +25,6 @@ $langEdit = "编辑";
 $langEmail = "邮件";
 $langEmailWrong = "邮件地址不正确,存在非法字符";
 $langEmptyFields = "有些项未填写!返回重试.";
-$langEnter2passToChange = "修改密码要输入两次新密码，不修改密码请留空";
 $langExercises = "练习";
 $langFirstname = "名";
 $langFormula = "教授";
@@ -65,7 +65,6 @@ $langProblem = "遇到问题,请联系我们.";
 $langRegAdmin = "创建课程";
 $langRegStudent = "选修课程";
 $langRegYou = "已经使您在本课程注册";
-$langRegister = "注册";
 $langSave = "保存";
 $langSaveChanges = "保存修改";
 $langSearch = "搜索";
@@ -178,8 +177,8 @@ $langWikiHelpSyntaxContent = "<h3>共建资源帮助句法内容</h3>
 <li><strong>下划线</strong> : 在文本两边加两个下划线 <code>__文本__</code>&nbsp;;</li>
 <li><strong>划线</strong> : 在文本两边加两个负号 <code>--文本--</code>&nbsp;;</li>
 <li><strong>超链接</strong> : <code>[url]</code>, <code>[名称|url]</code>, <code>[名称|url|语言]</code> 或 <code>[名称|url||标题]</code>.&nbsp;;</li>
-<li><strong>图像</strong> ：同超链接<br>在最后一个值后面加一个0来防止图片识别，并且将超链接指向图片。例如<code>[image|image.gif||0]</code> 会显示指向 image.gif 的链接而不是直接显示图像。<br>鉴于下面的用法，我们不赞成使用该句法&nbsp;;</li>
-<li><strong>图像</strong> （新句法）： <code>((url|替换文本))</code>, <code>((url|替换文本|位置))</code> 或 <code>((url|替换文本|位置|描述))</code>. <br>位置（position）可以有以下的值：L （左），R （右）或 C （居中）。&nbsp;;</li>
+<li><strong>图像</strong> ：同超链接<br />在最后一个值后面加一个0来防止图片识别，并且将超链接指向图片。例如<code>[image|image.gif||0]</code> 会显示指向 image.gif 的链接而不是直接显示图像。<br />鉴于下面的用法，我们不赞成使用该句法&nbsp;;</li>
+<li><strong>图像</strong> （新句法）： <code>((url|替换文本))</code>, <code>((url|替换文本|位置))</code> 或 <code>((url|替换文本|位置|描述))</code>. <br />位置（position）可以有以下的值：L （左），R （右）或 C （居中）。&nbsp;;</li>
 <li><strong>指定的锚</strong> : <code>~锚~</code>&nbsp;;</li>
 <li><strong>首字母简略词</strong> : <code>??缩略词??</code> 或 <code>??缩略词|定义??</code>&nbsp;;</li>
 <li><strong>引用</strong> : <code>{{引用}}</code>，<code>{{引用|语言}}</code> 或 <code>{{引用|语言|url}}</code>&nbsp;;</li>
@@ -217,7 +216,7 @@ $langWork = "作业论文";
 $langYes = "确认";
 $langYouAreReg = "您已注册";
 $langYourReg = "您的注册";
-$lang_click_here = "点这里";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

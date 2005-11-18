@@ -28,7 +28,7 @@ $langForums = "Fóruns";
 $langGroups = "inscrições dos usuários nos grupos";
 $langHelp = "Ajuda";
 $langHome = "Voltar para a Home Page";
-$langIntroCourse = "Você está na página inicial do seu curso.<br><br>Nessa página, você pode :
+$langIntroCourse = "Você está na página inicial do seu curso.<br /><br />Nessa página, você pode :
 <ul>
 <li>ativar ou desativar ferramentas (clique no botão '' no canto inferior esquerdo).</li>
 <li>modificar configurações ou visualizar estatísticas (clique nos link correspondentes abaixo).</li>
@@ -40,7 +40,6 @@ $langLearningPath = "Rota de Aprendizagem";
 $langLogin = "login";
 $langLogout = "Logout";
 $langMakeInvisible = "Tornar invisível";
-$langManager = "Gerente";
 $langMinuteShort = "min.";
 $langMissingValue = "Faltando valor";
 $langModify = "Modificar";
@@ -73,6 +72,7 @@ $langViewMode = "Visualizar como";
 $langVisibility = "Visível/invisível";
 $langWiki = "Wiki - editor de Home Page ";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever";
 $lang_footer_p_CourseManager = "Administrador(es) para %s";
 $lang_p_platformManager = "Adiministrador para %s";
 ?>

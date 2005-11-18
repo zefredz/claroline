@@ -56,7 +56,6 @@ $langLessElements = "-elem";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
 $langMakeCorrespond = "Fa&ccedil;a a correspond&ecirc;ncia";
-$langManager = "Respons&aacute;vel";
 $langMatching = "Relacionar";
 $langMaxFileSize = "O tamanho m&aacute;ximo do ficheiro &eacute;";
 $langModify = "alterar";
@@ -115,4 +114,5 @@ $langUsers = "Utilizadores";
 $langWeightingForEachBlank = "Por favor, atribua um valor a cada espa&ccedil;o";
 $langWork = "Trabalhos";
 $langYes = "Sim";
+$lang_enroll = "Inscrever-se";
 ?>

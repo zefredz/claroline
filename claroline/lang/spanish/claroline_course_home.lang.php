@@ -28,7 +28,7 @@ $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "ayuda";
 $langHome = "Volver a la p&aacute;gina principal";
-$langIntroCourse = "Est&aacute; usted en la p&aacute;gina principal de los cursos.<br><br>En esta p&aacute;gina, usted puede:
+$langIntroCourse = "Est&aacute; usted en la p&aacute;gina principal de los cursos.<br /><br />En esta p&aacute;gina, usted puede:
 <li class=HelpText>Activar o desactivar herramientas (presionando en el bot&oacute;n 'Editar lista herramientas' del lado inferior izquierdo).
 <li class=HelpText>Cambiar la configuraci&oacute;n o ver las estadisticas (presionando en el correspondiente enlace de la parte inferior).<br/><br/>
 Ahora, para agregar un texto introductorio para presentar su curso a sus estudiantes, presione este bot&oacute;n";
@@ -73,6 +73,7 @@ $langViewMode = "Modo de vista";
 $langVisibility = "Visible/invisible";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

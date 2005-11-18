@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Πρόσθεσε κωδικό εισόδου(login/pass) στο .htpassword</a><br>";
+$langAddLoginPass = "Πρόσθεσε κωδικό εισόδου(login/pass) στο .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Πρόσθεσε κωδικό εισόδου του ιδίου χρήστη απο το λογαριασμό του campus στο .htpassword";
 $langAdministration = "Διαχείριση";
 $langAgenda = "Ατζέντα";
@@ -27,7 +27,6 @@ $langListHtUsers = "εμφάνιση .htpassword";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
 $langManage = "Διαχείρηση Campus";
-$langManager = "Διαχειριστής";
 $langMinuteShort = "min. (ελαχ.)";
 $langModifyProfile = "Αλλαγή του προφίλ μου";
 $langMonthNames = "Array";
@@ -59,6 +58,7 @@ $langViewMode = "Παρουσίαση τρόπου";
 $langWiki = "Wiki";
 $langWork = "Εργασίες Φοιτητών";
 $lang_EditFile_ModifyOk = "Οι αλλαγές έχουν πραγματοποιηθεί σωστά";
+$lang_enroll = "Eγγραφή";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_no_access_here = "Δεν υπάρχει δυνατότητα";
 $lang_p_platformManager = "Διαχειριστής για %s";

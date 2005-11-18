@@ -27,6 +27,7 @@ $langGroupTutor = "Ucitelj";
 $langGroups = "Skupine";
 $langHelp = "Pomoc";
 $langHome = "Povratek na domaco stran";
+$langInvalidId = "Vstop ni uspel.<br />Ce nimas registracije, uporabi <a href=claroline/auth/inscription.php>obrazec za registracijo</a></font color>";
 $langIs = "je";
 $langLastname = "Ime";
 $langLink = "Povezave";

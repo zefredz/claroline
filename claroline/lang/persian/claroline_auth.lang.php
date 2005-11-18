@@ -50,6 +50,7 @@ $langGroupTutor = "آموزگار گروه";
 $langGroups = "گروه‌ها";
 $langHelp = "راهنما";
 $langHome = "برگشت به صفحه‌ی اصلی";
+$langInvalidId = "ورود به سیستم شکست خورد.<BR>با مدیرتان تماس بگیرید.";
 $langInvalidIdSelfReg = "<b>ورود به سیستم شکست خورد.</b><br />لطفاً دوباره سعی کنید.<br />
 <small>اگر هنوز حساب کاربری ندارید، از <a href=\"%s\">فرم ثبت نام</a></font color> استفاده کنید</small>";
 $langIs = "برابر است";

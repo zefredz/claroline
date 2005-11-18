@@ -59,6 +59,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_no_access_here = "Usted no tiene acceso a esta secci&oacute;n.";
 $lang_p_platformManager = "Administrador de %s";

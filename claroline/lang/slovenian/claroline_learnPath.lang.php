@@ -23,7 +23,6 @@ $langGroups = "Skupine";
 $langHelp = "Pomoc";
 $langLogin = "vstop";
 $langLogout = "Izstop";
-$langManager = "Upravnik";
 $langMaxFileSize = "Maks velikost datoteke je";
 $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
@@ -52,4 +51,5 @@ $langUsers = "Uporabniki";
 $langVisibility = "Vidnost";
 $langWork = "Works";
 $langZipNoPhp = "Datoteka zip file ne more vsebovati datotek .PHP";
+$lang_enroll = "Vpis";
 ?>

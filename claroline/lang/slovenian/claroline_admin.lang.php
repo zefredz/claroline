@@ -135,4 +135,5 @@ $langYes = "Da";
 $langYouAreReg = "Registriran si";
 $langYourReg = "Tvoja registracija";
 $lang_already_enrolled = "ze vpisani";
+$lang_enroll = "Vpis";
 ?>

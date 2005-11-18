@@ -78,7 +78,6 @@ $langGroupsEmptied = "Alle grupper er nu tomme";
 $langHelp = "Hjælp";
 $langLogin = "login";
 $langLogout = "Logud";
-$langManager = "Support";
 $langMax = "max.";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
@@ -108,4 +107,5 @@ $langTo = "til";
 $langUncompulsory = "(valgfri)";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 ?>

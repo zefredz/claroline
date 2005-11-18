@@ -12,11 +12,10 @@ $langEnter = "Vstop";
 $langForums = "Forumi";
 $langGroups = "Skupine";
 $langHelp = "Pomoc";
-$langInvalidId = "Vstop ni uspel.<BR>Ce nimas registracije, uporabi <a href=claroline/auth/inscription.php>obrazec za registracijo</a></font color>";
+$langInvalidId = "Vstop ni uspel.<br />Ce nimas registracije, uporabi <a href=claroline/auth/inscription.php>obrazec za registracijo</a></font color>";
 $langLogin = "vstop";
 $langLogout = "Izstop";
 $langLostPassword = "Izgubljeno geslo";
-$langManager = "Upravnik";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
@@ -28,4 +27,5 @@ $langStudent = "student";
 $langUserName = "User name";
 $langUsers = "Uporabniki";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 ?>

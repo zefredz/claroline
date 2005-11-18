@@ -6,7 +6,6 @@ $langDocument = "文書たち";
 $langForums = "会議室";
 $langHelp = "へルプ";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";

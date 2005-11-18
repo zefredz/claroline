@@ -48,6 +48,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_faculty_ConfirmDelete = "Quere vostede realmente elimina-la categor&iacute;a ";
 $lang_faculty_imgDown = "Abaixo";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";

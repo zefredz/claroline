@@ -13,7 +13,6 @@ $langGroups = "запись пользователей в группы";
 $langHelp = "рПНПЭШ";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
@@ -26,4 +25,5 @@ $langTo = "в";
 $langToday = "сегодня";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

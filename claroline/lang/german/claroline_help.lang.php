@@ -2,7 +2,7 @@
 $langAgenda = "Termine/Ereignisse";
 $langAnnouncement = "Ankündigungen";
 $langChat = "Chat";
-$langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br>Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br>
+$langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br />Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br />
 Wenn Sie ein Dozent sind, der eine Kurswebsite anlegen möchte, dann registrieren sie sich als solcher (sofern die Sebstregistrierung als Dozent ermöglicht ist), oder ersuchen um diesen Status bei 'Mein Profil verändern'.</p>";
 $langCloseWindow = "Fenster schlie&szlig;en";
 $langConfigMenuContent = "Konfigurationsmenu";
@@ -11,7 +11,7 @@ $langCourseManager = "KursSite-Verantwortlicher";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Kursbeschreibung";
 $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager Ihres Computers.</p><p>Sie können beliebige Dateien hochladen (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, usw.). Denken Sie daran, dass Ihre Teilnehmer die entprechende Software zum Öffnen benötigen. Manche Dateitypen können Viren enthalten. Sie sind dafür verantwortlich, keine infizierten Dateien hochzuladen. Sie sollten die Dateien mit einem Antivirenprogramm kontrollieren, bevor Sie die Dateien hochladen.</p>
-<p>Die Dokumente sind alphabetisch sortiert.<br><b>Hinweis : </b>Wenn Sie sie in einer anderen Reihenfolge bereitstellen möchten, nummerieren Sie die Dateien: 01, 02, 03...</p>
+<p>Die Dokumente sind alphabetisch sortiert.<br /><b>Hinweis : </b>Wenn Sie sie in einer anderen Reihenfolge bereitstellen möchten, nummerieren Sie die Dateien: 01, 02, 03...</p>
 <p>Sie können :</p>
 <h4>Ein Dokument hochladen</h4>
 <ul>
@@ -48,7 +48,7 @@ $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanag
         </ul>
         <p>Um einen Kommentar zu entfernen, klicken Sie auf <img src=../img/comment.gif width=20 height=20>,
           entfernen Sie den alten Kommentar im Feld und klicken Sie auf <input type=submit value=OK name=submit22>.
-        <hr>
+        <hr />
         <p>Der Inhalt kann durch Verschieben sortiert werden. Dazu:</p>
         <h4><b>Ein Verzeichnis einrichten</b></h4>
         <ul>
@@ -66,8 +66,8 @@ $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanag
         <center>
           <p>";
 $langDocument = "Dokumente/Dateien";
-$langExerciseContent = "<p>Das test-Tool ermöglicht es Ihnen, Tests mit beliebig vielen Fragen zu erstellen.<br><br>
-Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br><br>
+$langExerciseContent = "<p>Das test-Tool ermöglicht es Ihnen, Tests mit beliebig vielen Fragen zu erstellen.<br /><br />
+Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br /><br />
 <ul>
   <li>Multiple Choice (eine richtige Antwort)</li>
   <li>Multiple Choice (mehrere richtige Antworten)</li>
@@ -75,24 +75,24 @@ Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br><br>
   <li>Lückentexte ausfüllen</li>
 </ul>
 Die Tests umfassen zumeist mehrere Fragen zu einem Themenbereich.</p>
-<hr>
+<hr />
 <b>Tests erstellen</b>
-<p>Um einen neuen Test zu erstellen, klicken Sie auf &quot;Neuer Test&quot;.<br><br>
-Geben Sie einen Namen für den Test und eine kurze Beschreibung (optional) ein.<br><br>
-Sie können nun zwischen zwei Typen wählen:<br><br>
+<p>Um einen neuen Test zu erstellen, klicken Sie auf &quot;Neuer Test&quot;.<br /><br />
+Geben Sie einen Namen für den Test und eine kurze Beschreibung (optional) ein.<br /><br />
+Sie können nun zwischen zwei Typen wählen:<br /><br />
 <ul>
   <li>Alle Fragen auf einer einzigen Seite</li>
   <li>Eine Frage pro Seite</li>
 </ul>
-und festlegen ob die Fragen nach dem Zufallsprinzip bei der Ausführung angeordnet werden sollen. Dies erhöht den Erfolg beim mehrfachen Bearbeiten des Tests durch die Teilnehmer.<br><br>
+und festlegen ob die Fragen nach dem Zufallsprinzip bei der Ausführung angeordnet werden sollen. Dies erhöht den Erfolg beim mehrfachen Bearbeiten des Tests durch die Teilnehmer.<br /><br />
 Speichern Sie nun den Test. Jetzt können Sie die Fragen für diesen Test bearbeiten.</p>
-<hr>
+<hr />
 <b>Fragen hinzufügen</b>
 <p>Sie können nun dem soeben erstellten Test Fragen hinzufügen. Die Beschreibung ist optional, genauso wie ein Bild, das Sie der Frage hinzufügen können.</p>
-<hr>
+<hr />
 <b>Multiple Choice</b>
-<p>MAQ (Multiple Answer Question) / MCQ (Multiple Choice Question).<br><br>
-So erstellen Sie eine MAQ / MCQ :<br><br>
+<p>MAQ (Multiple Answer Question) / MCQ (Multiple Choice Question).<br /><br />
+So erstellen Sie eine MAQ / MCQ :<br /><br />
 <ul>
   <li>Legen Sie die Antworten für Ihre Frage fest. Mit dem rechten Button können Sie Fragen hinzufügen oder löschen.</li>
   <li>In der linken Box bestimmen Sie die richtige Antwort/en</li>
@@ -100,41 +100,41 @@ So erstellen Sie eine MAQ / MCQ :<br><br>
   <li>Geben Sie den Antworten einen Punktewert als Bewertung. Der Wert kann eine positive oder negative Zahl oder Null sein.</li>
   <li>Speichern Sie Ihre Antworten</li>
 </ul></p>
-<hr>
+<hr />
 <b>Füllen Sie die Leerstellen / den Lückentext aus</b>
-<p>Hier können Sie einen Lückentext erstellen. Die Teilnehmer sollen nun die fehlenden Wörter suchen und eintragen.<br><br>
-Um ein Wort aus dem Text zu entfernen (für die Teilnehmer) setzen sie ihn in [eckige Klammern] (AltGr+8 bzw. AltGr+9).<br><br>
-Nachdem Sie den Text eingetragen und die Lücken bestimmt haben, können Sie einen Kommentar ergänzen, den die Teilnehmer nach dem Ausfüllen angezeigt bekommen.<br><br>
+<p>Hier können Sie einen Lückentext erstellen. Die Teilnehmer sollen nun die fehlenden Wörter suchen und eintragen.<br /><br />
+Um ein Wort aus dem Text zu entfernen (für die Teilnehmer) setzen sie ihn in [eckige Klammern] (AltGr+8 bzw. AltGr+9).<br /><br />
+Nachdem Sie den Text eingetragen und die Lücken bestimmt haben, können Sie einen Kommentar ergänzen, den die Teilnehmer nach dem Ausfüllen angezeigt bekommen.<br /><br />
 Speichern Sie Ihren Text. Nun können Sie im nächsten Schritt für jede Leerstelle im Text Bewertungen vergeben. Wenn die richtige Beantwortung der gesamten Frage 10 Punkte erzielen soll und Sie 5 Leerstellen eingetragen haben, können Sie jede Leerstelle mit 2 Punkten bewerten.</p>
-<hr>
+<hr />
 <b>Verbinden/Zuordnen</b>
-<p>Diesen Antworttyp können sie wählen, wenn Elemente einer Einheit U1 mit Elementen einer Einheit U2 verbunden werden sollen.<br><br>
-Sie können jedoch auch Elemente in einer bestimmten Reihenfolge sortieren oder anordnen lassen.<br><br>
-Zuerst bestimmen Sie die Wahlmöglichkeiten unter denen gewählt werden kann. Dann legen Sie die Frage fest, die mit diesen Optionen verbunden werden soll. Abschließend verbinden Sie mit dem Drop-Down-Menue Elemente der ersten Einheit mit denen der zweiten Einheit.<br><br>
-Anmerkung: Einzelne Elemente der ersten Einheit können zu der zweiten Einheit passen.<br><br>
+<p>Diesen Antworttyp können sie wählen, wenn Elemente einer Einheit U1 mit Elementen einer Einheit U2 verbunden werden sollen.<br /><br />
+Sie können jedoch auch Elemente in einer bestimmten Reihenfolge sortieren oder anordnen lassen.<br /><br />
+Zuerst bestimmen Sie die Wahlmöglichkeiten unter denen gewählt werden kann. Dann legen Sie die Frage fest, die mit diesen Optionen verbunden werden soll. Abschließend verbinden Sie mit dem Drop-Down-Menue Elemente der ersten Einheit mit denen der zweiten Einheit.<br /><br />
+Anmerkung: Einzelne Elemente der ersten Einheit können zu der zweiten Einheit passen.<br /><br />
 Vergeben Sie nun Punkte für jede richtige Zuordnung.</p>
-<hr>
+<hr />
 <b>Tests bearbeiten</b>
 <p>Um Ihre Tests zu bearbeiten, können Sie genauso vorgehen, wie bei der Erstellung des Tests. Klicken Sie auf das Symbol zum Bearbeiten neben des Tests <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\">, und folgen Sie der Anleitung oben auf dieser Seite.</p>
-<hr>
+<hr />
 <b>Tests löschen</b>
 <p>Um Ihre Tests zu löschen, klicken sie auf das Symbol <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> neben dem Test.</p>
-<hr>
+<hr />
 <b>Tests aktivieren</b>
 <p>Wenn Ihre Tests nun veröffentlicht  werden soll, müssen Sie sie durch einen Klick auf das Symbol <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> neben dem Test aktivieren.</p>
-<hr>
+<hr />
 <b>Test ausführen</b>
 <p>Probieren Sie den Test selber aus. Klicken Sie im Verzeichnis der Tests auf den Namen des Tests.</p>
-<hr>
+<hr />
 <b>Zufallsfunktion</b>
-<p>Beim Erstellen oder Bearbeiten des Tests können Sie festlegen, ob die Fragen des Tests nach dem Zufallsprinzip bereitgestellt werden sollen.<br><br>
-Bei jedem Aufruf der Tests werden die verschiedenen Fragen dann in einer anderen Reihenfolge angezeigt.<br><br>
+<p>Beim Erstellen oder Bearbeiten des Tests können Sie festlegen, ob die Fragen des Tests nach dem Zufallsprinzip bereitgestellt werden sollen.<br /><br />
+Bei jedem Aufruf der Tests werden die verschiedenen Fragen dann in einer anderen Reihenfolge angezeigt.<br /><br />
 Wenn Sie eine sehr große Zahl von Fragen eingerichtet haben, können Sie auch festlegen, dass nur eine bestimmte Anzahl von Fragen im Test gezeigt werden.</p>
-<hr>
+<hr />
 <b>Fragen-Archiv</b>
-<p>Wenn Sie eine Frage gelöscht haben, wird diese nicht in der Datenbank gelöscht. Sie kann für einen neuen Test aus dem Archiv geholt werden.<br><br>
-Das Archiv ermöglicht Ihnen,  die gleiche Frage auch für verschiedene Tests zu verwenden.<br><br>
-In der Grundeinstellung werden alle Fragen Ihres Kurses angezeigt. Im Drop-Down-Menue können Sie nun Veränderungen vornehmen &quot;Filter&quot;.<br><br>
+<p>Wenn Sie eine Frage gelöscht haben, wird diese nicht in der Datenbank gelöscht. Sie kann für einen neuen Test aus dem Archiv geholt werden.<br /><br />
+Das Archiv ermöglicht Ihnen,  die gleiche Frage auch für verschiedene Tests zu verwenden.<br /><br />
+In der Grundeinstellung werden alle Fragen Ihres Kurses angezeigt. Im Drop-Down-Menue können Sie nun Veränderungen vornehmen &quot;Filter&quot;.<br /><br />
 Verwaiste Fragen sind solche, die gerade in keinem Test verwandt werden.</p>";
 $langExercises = "Tests";
 $langForContent = "Ein Forum ist ein schriftliches, asynchrones Diskussionswerkzeug. Wo Email nur einen Eins-zu-Eins Dialog ermöglicht, bieten Foren die Gelegenheit öffentliche bzw. halböffentliche Diskussionen zu führen.</p><p>Die Benutzer benötigen nur ihren Browser, um die Foren zu benutzen.</P>
@@ -262,7 +262,6 @@ Diese Seiten müssen in HTML geschrieben sein (dazu können Sie eine beliebeige Te
 $langLearningPath = "Lernpfad";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "KursSite-Verantwortlicher";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
@@ -279,18 +278,19 @@ $langStudent = "Teilnehmer";
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
 $langTextEditorDisable = "HTML-Editor ausschalten";
 $langTextEditorEnable = "HTML-Editor einschalten";
-$langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr>
+$langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr />
 <b>KursSite-Verantwortlicher</b>
 <p>Andererseits haben KursSite-Verantwortliche die technische Möglichkeit, Inhalte und Strukturen einer KursSite zu verändern. Zur Zeit wird nur in 'komplette Freigabe' bzw. 'keine' unterschieden.</P>
-<p>Um z.B. eine/n Vertreter/in die Site verändern zu lassen, muss er in die KursSite eingetragen sein; anschließend wählen Sie 'bearbeiten' und aktivieren 'KursSite-Verantwortlicher'. Klicken Sie abschließend auf 'Ok'.</P><hr>
+<p>Um z.B. eine/n Vertreter/in die Site verändern zu lassen, muss er in die KursSite eingetragen sein; anschließend wählen Sie 'bearbeiten' und aktivieren 'KursSite-Verantwortlicher'. Klicken Sie abschließend auf 'Ok'.</P><hr />
 <b>Mitverantwortliche</b>
-<p>Um im Kopf eines Kurses den Namen eines/einer Mitverantwortlichen zu nennen, benutzen Sie 'Kurs-Einstellungen' und ändern den Text im Feld 'Dozent/Tutor'. Das Feld 'Dozent/Tutor' ist völlig unabhängig von der Teilnehmerliste und diese Änderung registriert Ihre Mitverantwortlichen nicht als Benutzer der KursSite.</p><hr>
+<p>Um im Kopf eines Kurses den Namen eines/einer Mitverantwortlichen zu nennen, benutzen Sie 'Kurs-Einstellungen' und ändern den Text im Feld 'Dozent/Tutor'. Das Feld 'Dozent/Tutor' ist völlig unabhängig von der Teilnehmerliste und diese Änderung registriert Ihre Mitverantwortlichen nicht als Benutzer der KursSite.</p><hr />
 <b>Benutzer hinzufügen</b>
 <p>Um einen Benutzer Ihrem Kurs hinzuzufügen, prüfen Sie zuerst, ob er nicht bereits registriert ist. Sollte er bereits registriert sein, können Sie über 'Bearbeiten' Kursinterne Rollen / Rechte vergeben, bzw. ihn austragen. Ansonsten fügen Sie ihn manuell hinzu. In beiden Fällen wird die Person eine E-Mail erhalten, die sie über die Aufnahme und das zugehörige Login und Passwort in Kenntnis setzt.</p>";
 $langUsers = "Benutzer";
 $langViewMode = "Ansicht";
 $langWiki = "Wiki";
 $langWork = "Upload-Bereich";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 ?>

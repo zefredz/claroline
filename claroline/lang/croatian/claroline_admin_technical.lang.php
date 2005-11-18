@@ -56,6 +56,7 @@ $langUsers = "Korisnici";
 $langViewMode = "Pregledavati kao";
 $langWiki = "Wiki";
 $langWork = "Zadaci";
+$lang_enroll = "Prijavi";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_no_access_here = "Pristup nije dozvoljen";
 $lang_p_platformManager = "Administrator sustava %s";

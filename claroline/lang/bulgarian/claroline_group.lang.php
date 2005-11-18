@@ -1,22 +1,7 @@
 <?php
 $l_click = "Натисни";
 $l_here = "тук";
-$l_notifybody = "You are receiving this Email because a message
-you posted on  forums has been replied to, and
-you selected to be notified on this event.
-
-You may view the topic at:
-
-%1\$s
-
-Or view the  forum index at
-
-%2\$s
-
-Thank you for using  forums.
-
-Have a nice day.";
-$l_notifysubj = "A reply to your topic has been posted.";
+$l_notifysubj = "Изпратен е отговор на Вашият топик.";
 $l_returnindex = "за да се върнеш в началото на форума";
 $l_returntopic = "за да се върнеш в списъка с темите.";
 $l_separator = "» »";
@@ -25,10 +10,18 @@ $langAccess = "Достъп";
 $langAddTutors = "Списък на администраторите";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
+$langBackTo = "Обратно към :";
 $langCancel = "Анулирай";
 $langChat = "Чат";
+$langConfirmDeleteGroups = "Сигурни ли сте за изтриването на всички групи ?";
+$langConfirmDeleteThisGroup = "Сигурни ли сте за изтриването на групата ?";
+$langConfirmEmptyGroups = "Сигурни ли сте за изпразването на всички групи ?";
 $langCopy = "Копирай";
+$langCourseHome = "Начало на курса";
+$langCourseManager = "Отговорник за курса";
 $langCreate = "създай";
+$langCreateCategory = "Създай категория";
+$langCreateForum = "Създай форум";
 $langDay_of_weekNames = "Array";
 $langDear = "Уважаеми";
 $langDelete = "Изтрий";
@@ -45,6 +38,8 @@ $langForum = "Форуми";
 $langForums = "Форуми";
 $langGroup = "Група";
 $langGroupAllowStudentRegistration = "Разрешено е на студентите да се саморегистрират в групите";
+$langGroupAlwaysPrivate = "(винаги частна)";
+$langGroupChatLink = "Чат на групата";
 $langGroupDel = "Групата изтрита";
 $langGroupDescription = "Описание";
 $langGroupDocument = "Документи";
@@ -63,8 +58,6 @@ $langGroupPropertiesModified = "Настройките на групата са променени";
 $langGroupSelfRegInf = "регистрирай";
 $langGroupSelfRegistration = "Регистрация";
 $langGroupSettingsModified = "Настройките на групата са променени";
-$langGroupSpaceLink = "Group area";
-$langGroupThisSpace = "Area for this group";
 $langGroupTooMuchMembers = "Броят на желаещите надхвърля разрешения брой (може да го промениш отдолу). 
 				Състава на групата не е променен";
 $langGroupTools = "Инструменти";
@@ -75,9 +68,10 @@ $langGroupsDeleted = "Всички групи са изтрити";
 $langGroupsEmptied = "Всички групи са празни";
 $langHelp = "Помощ";
 $langLearningPath = "Обучаваща пътека";
+$langLogin = "Логин";
 $langLogout = "Изход";
-$langManager = "Администратор";
 $langMax = "макс.";
+$langMinuteShort = "мин.";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyAgenda = "Моя календар";
@@ -92,6 +86,8 @@ $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOneMyGroups = "my supervision";
 $langOtherCourses = "Списък на курсовете";
+$langPeriodDayShort = "д.";
+$langPeriodHourShort = "ч.";
 $langPlaces = "места в групата (не задължително)";
 $langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
@@ -100,10 +96,16 @@ $langPublic = "публичен";
 $langRegIntoGroup = "Добави ме към тази група";
 $langRegistered = "Регистрирани";
 $langReply = "Отговор";
+$langSearch = "Търсене";
 $langStudent = "студент";
+$langStudentsNotInThisGroups = "Потребители не в тази група";
+$langTextEditorDisable = "Изключи текстов редактор";
+$langTextEditorEnable = "Включи текстов редактор";
 $langTo = "в";
 $langUncompulsory = "(незадължително)";
 $langUsers = "Потребители";
+$langViewMode = "Гледай като";
 $langWork = "Студентски материали";
+$lang_footer_p_CourseManager = "Водещ на курс %s е";
 $lang_p_platformManager = "Администратор на %s";
 ?>

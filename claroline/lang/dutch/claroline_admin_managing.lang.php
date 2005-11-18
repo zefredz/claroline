@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Gebruikersnaam/Wachtwoord toevoegen in .htpassword</a><br>";
+$langAddLoginPass = "Gebruikersnaam/Wachtwoord toevoegen in .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Gebruikersnaam/paswoord van campus login van deze gebruiker toevoegen aan .htpassword";
 $langAdministration = "Administratie";
 $langAgenda = "Agenda";
@@ -27,7 +27,6 @@ $langListHtUsers = "Bekijk .htpassword";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
 $langManage = "Beheer Campus";
-$langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mijn profiel";
 $langMonthNames = "Array";
@@ -61,6 +60,7 @@ $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
 $lang_EditFile_ModifyOk = "De wijzigingen werden correct uitgevoerd";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_no_access_here = "Geen toegang";
 $lang_p_platformManager = "Beheerder voor %s";

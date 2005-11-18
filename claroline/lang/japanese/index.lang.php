@@ -10,7 +10,6 @@ $langForums = "会議室";
 $langHelp = "へルプ";
 $langInvalidId = "ログインは受け付けられませんでした。もし登録がまだなら、次のリンクでどうぞ <a href";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";

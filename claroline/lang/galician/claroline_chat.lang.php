@@ -17,7 +17,7 @@ $langExercises = "Exercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
-$langIsNowInYourDocDir = "xa est&aacute; na s&uacute;a secci&oacute;n de documentos. <br><B>Este arquivo &eacute; visible</B>";
+$langIsNowInYourDocDir = "xa est&aacute; na s&uacute;a secci&oacute;n de documentos. <br /><B>Este arquivo &eacute; visible</B>";
 $langLearningPath = "Secuencia de aprendizaxe";
 $langLogin = "nome de usuario";
 $langLogout = "Sa&iacute;r";
@@ -45,6 +45,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

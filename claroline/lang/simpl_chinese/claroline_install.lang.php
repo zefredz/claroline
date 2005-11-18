@@ -10,7 +10,7 @@ $langDBSettingNamesIntro = "
 安装程序正在建立Claroline主要数据库。如果你被数据库系统管
 理者限制使用一个数据库的话，返回到前页，勾选“数据库模式”
 前的“单个”复选框。
-<BR><BR>
+<br /><br />
 ";
 $langDBUse = "数据库使用";
 $langDbName = "数据库名";

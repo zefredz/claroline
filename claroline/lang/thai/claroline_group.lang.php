@@ -19,7 +19,6 @@ $langGroupSpaceLink = "พื้นที่กลุ่ม";
 $langGroups = "กลุ่ม";
 $langHelp = "ช่วยเหลือ";
 $langLogout = "Logout";
-$langManager = "ผู้จัดการ";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";
 $langMyCourses = "My courses";

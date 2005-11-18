@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Tilføj et login/pass in .htpassword</a><br>";
+$langAddLoginPass = "Tilføj et login/pass in .htpassword</a><br />";
 $langAgenda = "Kalenderen - Hvad sker der?";
 $langAnnouncement = "Meddelelser";
 $langCancel = "Fortryd";
@@ -19,7 +19,6 @@ $langListHtUsers = "Vis .htpassword";
 $langLogin = "login";
 $langLogout = "Logud";
 $langManage = "Styring af e-learning";
-$langManager = "Support";
 $langModifyProfile = "Ændre min profil";
 $langMonthNames = "Array";
 $langMyCourses = "Mine kurser";
@@ -37,5 +36,6 @@ $langStudent = "studerende";
 $langUpdated = "Opdateret";
 $langUsers = "Deltagerlisten";
 $langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
 $lang_no_access_here = "Ingen adgang her ";
 ?>

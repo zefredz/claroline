@@ -18,7 +18,6 @@ $langHelp = "へルプ";
 $langImpossible = "操作不能";
 $langIn = "in";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModify = "修正";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";

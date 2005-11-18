@@ -19,7 +19,6 @@ $langHelp = "Pomoc";
 $langLasting = "Trajanje";
 $langLogin = "vstop";
 $langLogout = "Izstop";
-$langManager = "Upravnik";
 $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
@@ -39,4 +38,5 @@ $langUp = "Gor";
 $langUsers = "Uporabniki";
 $langViMod = "Vidnost spremenjena";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 ?>

@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Agregar una pareja nombre-de-usuario/contrase&ntilde;a en .htpassword</a><br>";
+$langAddLoginPass = "Agregar una pareja nombre-de-usuario/contrase&ntilde;a en .htpassword</a><br />";
 $langAddLoginPassForThisUser = "agregar nombre de usuario y contrase&ntilde;a de la cuenta del campus de este ususario en .htpassword";
 $langAdministration = "Administraci&oacute;n";
 $langAgenda = "Agenda";
@@ -60,6 +60,7 @@ $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
 $lang_EditFile_ModifyOk = "Cambios listos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_no_access_here = "Usted no tiene acceso a esta secci&oacute;n.";
 $lang_p_platformManager = "Administrador de %s";

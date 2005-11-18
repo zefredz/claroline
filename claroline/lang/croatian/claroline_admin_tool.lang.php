@@ -39,6 +39,7 @@ $langUsers = "Korisnici";
 $langViewMode = "Pregledavati kao";
 $langWiki = "Wiki";
 $langWork = "Zadaci";
+$lang_enroll = "Prijavi";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_p_ErrorOnBuild_S_for_S = "Pogreška prilikom izgradnje <em>%s</em> za <B>%s</B>";
 $lang_p_PropForConfigCommited = "Postavke za %s (%s) su spremljene";

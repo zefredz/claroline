@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
+$langAddLoginPass = "Add a login/pass in .htpassword</a><br />";
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
 $langCancel = "Batal";
@@ -18,7 +18,6 @@ $langListHtUsers = "View .htpassword";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
 $langManage = "Pengurusan Kampus";
-$langManager = "Pentadbir Sistem";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
@@ -36,5 +35,6 @@ $langStudent = "Pelajar";
 $langUpdated = "Kemaskini";
 $langUsers = "Users";
 $langWork = "Works";
+$lang_enroll = "Sertai";
 $lang_no_access_here = "Tiada Kebenaran";
 ?>

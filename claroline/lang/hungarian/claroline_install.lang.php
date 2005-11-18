@@ -8,7 +8,7 @@ $langDBConnectionParameters = "Mysql kapcsolat paraméterek";
 $langDBHost = "Adatbázis Szerver";
 $langDBSettingNamesIntro = "A telepítõ létrehozza a fõ Claroline adatbázisokat.
 Ha a rendszer adminisztrátor csak egy adatbázist engedélyez, akkor 
-menjen vissza az elõzõ oldalra, és válassza az 'egyedüli'-t az 'Adatbázis Mód'-nál.<BR><BR>";
+menjen vissza az elõzõ oldalra, és válassza az 'egyedüli'-t az 'Adatbázis Mód'-nál.<br /><br />";
 $langDBUse = "Adatbázis használat";
 $langDbName = "Adatbázis név";
 $langDbPrefixForm = "Elõtét a tanfolyam adatbázisok nevei elé";

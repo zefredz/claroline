@@ -15,7 +15,6 @@ $langIfNotRedirect = "Wenn nicht umgeleitet ";
 $langLearningPath = "Lernpfad";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "KursSite-Verantwortlicher";
 $langMinuteShort = "min.";
 $langModifyProfile = "Mein Profil verändern";
 $langMonthNames = "Array";
@@ -37,6 +36,7 @@ $langViewMode = "Ansicht";
 $langWiki = "Wiki";
 $langWork = "Upload-Bereich";
 $lang_click_here = " hier klicken";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 ?>

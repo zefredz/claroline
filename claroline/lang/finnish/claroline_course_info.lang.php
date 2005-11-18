@@ -19,7 +19,6 @@ $langHelp = "Apua";
 $langHome = "Takaisin omalle sivulle";
 $langLanguage = "Kieli";
 $langLogout = "Logout";
-$langManager = "Ylläpitäjä";
 $langModifDone = "Tietoja on muutettu";
 $langModifyProfile = "Muokkaa profiiliani";
 $langMonthNames = "Array";

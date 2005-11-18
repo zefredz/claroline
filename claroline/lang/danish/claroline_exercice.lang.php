@@ -58,7 +58,6 @@ $langLessElements = "-felt";
 $langLogin = "login";
 $langLogout = "Logud";
 $langMakeCorrespond = "Skab overensstemmelse";
-$langManager = "Support";
 $langMatching = "Matching";
 $langMaxFileSize = "Max fil størrelse er 10MB - ellers brug din lokale server";
 $langModify = "Ændre";
@@ -120,4 +119,5 @@ $langWeightingForEachBlank = "Venligst angiv en værdi til hver rubrik";
 $langWork = "Studerendes Opgaver";
 $langYes = "Ja";
 $langYourTotalScore = "Dit samlede pointtal er";
+$lang_enroll = "Tilmeld";
 ?>

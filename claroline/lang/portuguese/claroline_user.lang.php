@@ -92,4 +92,5 @@ $langYes = "Sim";
 $langYouAreReg = "Foi inscrito em";
 $langYourReg = "A sua inscri&ccedil;&atilde;o em";
 $lang_already_enrolled = "j&aacute; foi inscrito";
+$lang_enroll = "Inscrever-se";
 ?>

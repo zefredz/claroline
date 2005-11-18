@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Engadir unha parella nome/contrasinal en .htpassword</a><br>";
+$langAddLoginPass = "Engadir unha parella nome/contrasinal en .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Engadir nome de paso desde a conta deste usuario en .htpassword";
 $langAdministration = "Administraci&oacute;n";
 $langAgenda = "Axenda";
@@ -61,6 +61,7 @@ $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_EditFile_ModifyOk = "Os cambios foron correctamente efectuados";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_no_access_here = "Acceso denegado";
 $lang_p_platformManager = "Administrador para %s";

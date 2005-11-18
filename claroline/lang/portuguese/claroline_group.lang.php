@@ -74,7 +74,6 @@ $langGroupsEmptied = "Todos os grupos est&atilde;o agora vazios";
 $langHelp = "ajuda";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langMax = "m&aacute;x.";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
@@ -104,4 +103,5 @@ $langTo = "para";
 $langUncompulsory = "(opcional)";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

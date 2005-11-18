@@ -2,30 +2,15 @@
 $l_author = "Автор";
 $l_body = "Съобщение Body";
 $l_click = "Натисни";
-$l_delete = "Delete this Post";
+$l_delete = "Изтрий този запис";
 $l_deleted = "Вашата Обява е изтрита.";
 $l_emptymsg = "You must type a Съобщение to post. You cannot post an empty Съобщение.";
 $l_here = "тук";
-$l_indextitle = "Forum Index";
+$l_indextitle = "Индекс на Форума";
 $l_lastpost = "Последна Обява";
-$l_notify = "Notify by email when replies are posted";
-$l_notifybody = "You are receiving this Email because a message
-you posted on  forums has been replied to, and
-you selected to be notified on this event.
-
-You may view the topic at:
-
-%1\$s
-
-Or view the  forum index at
-
-%2\$s
-
-Thank you for using  forums.
-
-Have a nice day.";
-$l_notifysubj = "A reply to your topic has been posted.";
-$l_notopics = "There are no topics for this forum. You can post one.";
+$l_notify = "Уведоми с и-мейл при публикуван отговор";
+$l_notifysubj = "Изпратен е отговор на Вашият топик.";
+$l_notopics = "Няма записи в този форум. Можете да публикувате един.";
 $l_posted = "Публикувана";
 $l_poster = "Обява";
 $l_posts = "Обяви";
@@ -35,7 +20,7 @@ $l_separator = "» »";
 $l_stored = "Your Съобщение has been stored in the database.";
 $l_subject = "Тема";
 $l_topic = "Тема";
-$l_topicreview = "Topic Review";
+$l_topicreview = "Преглеждане на записи";
 $l_topics = "Теми";
 $l_topictitle = "Виж Тема";
 $l_viewforum = "Виж Forum";
@@ -45,46 +30,78 @@ $langAddForum = "Добави форум";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langAreYouSureToDelete = "Сигурен ли сте, че искате да изтриете ";
+$langBackTo = "Обратно към :";
 $langCancel = "Анулирай";
+$langCannotRemoveGroupForum = "Не може да изтриете групов форум. Трябва първо да премахнете групата";
+$langCategory = "Категория";
+$langCategoryDeleted = "Категорията е изтрита.";
+$langCategoryUpdated = "Категорията е обновена.";
 $langChat = "Чат";
+$langConfirmEmptyForum = "Изтрийте всички съобщения на ";
+$langCourseHome = "Начало на курса";
+$langCourseManager = "Отговорник за курса";
+$langCreateCategory = "Създай категория";
+$langCreateForum = "Създай форум";
 $langDay_of_weekNames = "Array";
 $langDear = "Уважаеми";
 $langDelete = "Изтрий";
 $langDescription = "Описание на документа";
 $langDescriptionCours = "Описание на курса";
+$langDisable = "Изключи";
 $langDocument = "Документи";
 $langEdit = "Редактирай";
-$langEmpty = "Оставили сте някои полета празни.<br>Използвайте <b>Back</b> бутона на вашия браузер и пробвайте отново.<br>Ако игнорирате кода на курса, вижте програмата с всички курсове";
+$langEditCategory = "Редакция категория";
+$langEditPost = "Редакция публикация";
+$langEmpty = "Оставили сте някои полета празни.<br />Използвайте <b>Back</b> бутона на вашия браузер и пробвайте отново.<br />Ако игнорирате кода на курса, вижте програмата с всички курсове";
 $langExercises = "Упражнения";
 $langForum = "Форуми";
+$langForumCreated = "Форумът е създаден.";
+$langForumDeleted = "Форумът е изтрит.";
+$langForumEmptied = "Форумът е изпразнен.";
+$langForumUpdated = "Форумът е обновен.";
 $langForums = "Форуми";
+$langGroupChatLink = "Чат на групата";
 $langGroupDocumentsLink = "Документи на група ";
-$langGroupSpace = "Group area";
-$langGroupSpaceLink = "Group area";
 $langGroups = "Групи";
 $langHelp = "Помощ";
 $langLastMsg = "Последно съобщение";
 $langLearningPath = "Обучаваща пътека";
+$langLocked = "Заключено";
+$langLogin = "Логин";
 $langLogout = "Изход";
-$langManager = "Администратор";
+$langMinuteShort = "мин.";
+$langMissingFields = "Липсващо поле";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMove = "Премести";
+$langMoveDown = "Премести надолу";
+$langMoveUp = "Премести нагоре";
 $langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
 $langMyGroup = "моята група";
+$langName = "Име";
 $langNameOfLang = "Array";
 $langNewTopic = "Нова тема";
+$langNoResult = "Няма такива";
 $langNotAllowed = "Не разрешено";
 $langOk = "ОК";
 $langOneMyGroups = "my supervision";
 $langOtherCourses = "Списък на курсовете";
+$langPeriodDayShort = "д.";
+$langPeriodHourShort = "ч.";
 $langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langReply = "Отговор";
+$langSearch = "Търсене";
 $langSeen = "Видян";
 $langStudent = "студент";
+$langSubmit = "Изпрати";
+$langTextEditorDisable = "Изключи текстов редактор";
+$langTextEditorEnable = "Включи текстов редактор";
 $langUsers = "Потребители";
+$langViewMode = "Гледай като";
 $langWork = "Студентски материали";
+$lang_footer_p_CourseManager = "Водещ на курс %s е";
 $lang_p_platformManager = "Администратор на %s";
+$langcatcreated = "Новата категория е саздадена.";
 ?>

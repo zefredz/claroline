@@ -80,7 +80,6 @@ $langFirstSubmission = "第一次提交";
 $langForums = "学习论坛";
 $langGroup = "学习小组";
 $langGroupAssignment = "学习小组(来自小组工具，只有学习小组成员才可以发帖)";
-$langGroupSpace = "学习小组区";
 $langGroups = "学习小组";
 $langHelp = "帮助";
 $langIncorrectDate = "起始日期必须在结束日期之前...";
@@ -89,7 +88,7 @@ $langIntroWork = "该工具允许教师建立功课，任何学生(按照每个功课的设置)可以在课程
 
 <br />你将可以添加一个评论或给每个作业升级。
 
-<br /><br />如果你想提供这个工具或给学生一些忠告，点击下面的按钮。<br>";
+<br /><br />如果你想提供这个工具或给学生一些忠告，点击下面的按钮。<br />";
 $langInvisible = "隐藏";
 $langLastEditDate = "上一次编辑时间";
 $langLateUpload = "最新上载";
@@ -98,7 +97,6 @@ $langLogin = "登录";
 $langLogout = "退出系统";
 $langMakeInvisible = "使之隐藏";
 $langMakeVisible = "使之显示";
-$langManager = "管理员";
 $langMaxFileSize = "文件最大尺寸： ";
 $langMinuteShort = "min.";
 $langModify = "更新";
@@ -160,6 +158,7 @@ $langWrkEdited = "作业修改";
 $langWrkScoreRequired = "分数必需";
 $langWrkTitle = "标题";
 $langWrkTitleRequired = "作业标题必需";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

@@ -17,6 +17,7 @@ $langFormula = "Yours sincerely";
 $langForums = "会議室";
 $langHelp = "へルプ";
 $langHome = "ホームページに戻る";
+$langInvalidId = "ログインは受け付けられませんでした。もし登録がまだなら、次のリンクでどうぞ <a href";
 $langIs = "は";
 $langLink = "リンク";
 $langLogout = "ログアウト";

@@ -8,6 +8,7 @@ $langAnnouncement = "Annonces";
 $langCancel = "Annuler";
 $langChangePwdexp = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l&acute;ancien";
 $langChat = "Discussion";
+$langCloseWindow = "Fermer la fenêtre";
 $langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
 $langConfirmation = "Confirmation";
 $langCourseHome = "Accueil";
@@ -25,7 +26,6 @@ $langEmailWrong = "l&acute;adresse email que vous avez introduite n'est pas comp
 ou contient certains caractères non valides";
 $langEmptyFields = "Vous n'avez pas rempli tous les champs.
 Utilisez le bouton de retour en arrière de votre navigateur et recommencez.";
-$langEnter2passToChange = "Tapez deux fois le nouveau mot de passe pour le changer, laissez vide pour garder l&acute;ancien.";
 $langExercises = "Exercices";
 $langFirstname = "Prenom";
 $langFormula = "Cordialement";
@@ -65,7 +65,6 @@ $langProblem = "En cas de problème, n'hésitez pas à prendre contact avec nous";
 $langRegAdmin = "Créer des espaces";
 $langRegStudent = "M'inscrire à des espaces";
 $langRegYou = "vous a inscrit sur";
-$langRegister = "S'inscrire";
 $langSave = "Enregistrer";
 $langSaveChanges = "Sauvegarder les changements";
 $langSearch = "Rechercher";
@@ -89,7 +88,7 @@ $langWork = "Contributions";
 $langYes = "Oui";
 $langYouAreReg = "Vous êtes inscrit(e) sur";
 $langYourReg = "Votre inscription sur";
-$lang_click_here = "cliquez ici";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

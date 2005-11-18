@@ -77,7 +77,6 @@ $langFirstSubmission = "أول تسليم";
 $langForums = "المنتديات";
 $langGroup = "مجموعة";
 $langGroupAssignment = "جماعي";
-$langGroupSpace = "منطقة المجموعة";
 $langGroups = "المجموعات";
 $langHelp = "المساعدة";
 $langIncorrectDate = "يجب أن يكون تاريخ البدء قبل تاريخ النهاية ...";
@@ -85,7 +84,7 @@ $langIndividual = "شخصي";
 $langIntroWork = "هذه الأداة تسمح للمدرس بإنشاء وظائف أو مهام للطلاب بحيث يكون بمقدور كل طالب ( حسب الإعدادات  الخاصة بكل وظيفة) ان يقوم بتحميل مستند أو كتابة نص على موقع المقرر
 <br />تستطيع ان تضيف ملاحظات أو تضع علامات لكل عمل
 
-<br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على 'إضافة مقدمة او تمهيد'<br>";
+<br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على 'إضافة مقدمة او تمهيد'<br />";
 $langInvisible = "مخفي";
 $langLastEditDate = "تاريخ أخر تعديل";
 $langLateUpload = "تحميل متاخر";
@@ -94,7 +93,6 @@ $langLogin = "تسجيل الدخول";
 $langLogout = "خروج";
 $langMakeInvisible = "إخفاء";
 $langMakeVisible = "إظهار";
-$langManager = "المدير";
 $langMaxFileSize = "الحجم الأعظم المسموح للملف : ";
 $langMinuteShort = "دقيقة";
 $langModify = "تعديل";
@@ -156,6 +154,7 @@ $langWrkEdited = "تم تعديل العمل";
 $langWrkScoreRequired = "المعدل المطلوب";
 $langWrkTitle = "اسم المقرر";
 $langWrkTitleRequired = "عنوان العمل مطلوب";
+$lang_enroll = "تسجيل";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

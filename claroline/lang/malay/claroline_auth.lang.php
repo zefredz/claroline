@@ -27,6 +27,7 @@ $langGroupTutor = "Jurutera Pengajar/Tutor";
 $langGroups = "Kumpulan";
 $langHelp = "Bantuan";
 $langHome = "Kembali ke Laman Subjek";
+$langInvalidId = "ID Pengguna dan Katalaluan anda tidak sah.Sila login semula atau <a href=claroline/auth/inscription.php>daftar</a> sebagai pengguna baru.</font color>";
 $langIs = "ialah";
 $langLastname = "Nama pertama";
 $langLink = "URL";

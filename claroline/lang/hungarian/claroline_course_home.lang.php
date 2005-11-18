@@ -40,7 +40,6 @@ $langLearningPath = "Tanösvény";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
 $langMakeInvisible = "Láthatatlanná tesz";
-$langManager = "Vezetõ";
 $langMinuteShort = "min.";
 $langMissingValue = "Hiányzó érték";
 $langModify = "Módosít";
@@ -76,6 +75,7 @@ $langViewMode = "Nézet";
 $langVisibility = "Láthatóság";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

@@ -119,6 +119,8 @@ $langQtyOfUserCanSubscribe_PartBeforeNumber = "El usuario puede ser miembro de u
 $langRegIntoGroup = "A&ntilde;&aacute;deme a este grupo";
 $langRegistered = "Registrado";
 $langReply = "Responder";
+$langSearch = "Buscar";
+$langSearchResult = "Resultados de la b&uacute;squeda";
 $langSecondShort = "seg.";
 $langStudent = "Estudiante";
 $langStudentsNotInThisGroups = "Usuarios no est&aacute;n en este grupo.";
@@ -132,6 +134,7 @@ $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWikiMainPageContent = "Esta es la p&aacute;gina de inicio del Wiki. Pulse en Editar para modificar su contido.";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

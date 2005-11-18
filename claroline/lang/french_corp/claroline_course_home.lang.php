@@ -40,7 +40,6 @@ $langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langMakeInvisible = "Rendre invisible";
-$langManager = "Gestionnaire";
 $langMinuteShort = "min.";
 $langMissingValue = "Valeur manquante";
 $langModify = "modifier";
@@ -73,6 +72,7 @@ $langViewMode = "Mode de vue";
 $langVisibility = "Visibilité";
 $langWiki = "Wiki";
 $langWork = "Contributions";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

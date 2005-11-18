@@ -138,4 +138,5 @@ $langYes = "Да";
 $langYouAreReg = "Вы зарегистрированы на ";
 $langYourReg = "Вааша регистрация на";
 $lang_already_enrolled = "Уже записан";
+$lang_enroll = "Регистрация";
 ?>

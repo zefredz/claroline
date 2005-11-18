@@ -77,14 +77,13 @@ $langFirstSubmission = "Erste Abgabe";
 $langForums = "Foren";
 $langGroup = "Gruppen";
 $langGroupAssignment = "Gruppen (im 'Gruppen'-Tool, nur Gruppenmitglieder k&ouml;nnen hochladen)";
-$langGroupSpace = "Gruppenbereich";
 $langGroups = "Gruppen";
 $langHelp = "Hilfe";
 $langIncorrectDate = "Das Startdatum muss vor dem Enddatum liegen...";
 $langIndividual = "individuell";
 $langIntroWork = "Über diese Seite können Teilnehmer oder Lern-Gruppen Dateien/Dokumente in die Kurs-Website hochladen.
-<br>Bitte HTML-Dateien nur hochladen, wenn sie keine Bilder/Grafiken enthalten.<br><br>
-Wenn Sie dieses Tool vorstellen oder Ihren Teilnehmern weitere Hinweise geben möchten, klicken Sie auf den Button unterhalb.<br>";
+<br />Bitte HTML-Dateien nur hochladen, wenn sie keine Bilder/Grafiken enthalten.<br /><br />
+Wenn Sie dieses Tool vorstellen oder Ihren Teilnehmern weitere Hinweise geben möchten, klicken Sie auf den Button unterhalb.<br />";
 $langInvisible = "verborgen";
 $langLastEditDate = "Zuletzt bearbeitet";
 $langLateUpload = "Versp&auml;tetes Hochladen";
@@ -93,7 +92,6 @@ $langLogin = "login";
 $langLogout = "Logout";
 $langMakeInvisible = "unsichtbar machen";
 $langMakeVisible = "sichtbar machen";
-$langManager = "KursSite-Verantwortlicher";
 $langMaxFileSize = "Max. Dateigröße ist ";
 $langMinuteShort = "min.";
 $langModify = "ändern";
@@ -155,6 +153,7 @@ $langWrkEdited = "Arbeit ge&auml;ndert";
 $langWrkScoreRequired = "Punktezahl erforderlich";
 $langWrkTitle = "Titel";
 $langWrkTitleRequired = "Titel der Arbeit erforderlich";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 ?>

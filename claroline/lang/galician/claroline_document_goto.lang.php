@@ -36,6 +36,7 @@ $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
 $lang_click_here = "prema aqu&iacute;";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

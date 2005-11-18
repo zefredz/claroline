@@ -23,7 +23,6 @@ $langGroups = "запись пользователей в группы";
 $langHelp = "рПНПЭШ";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langMaxFileSize = "Максимальный размер";
 $langModify = "йЪНЕОЙФШ";
 $langModifyProfile = "Изменить мои настройки";
@@ -52,4 +51,5 @@ $langUsers = "Пользователи";
 $langVisibility = "Видимая/скрытая";
 $langWork = "Задания";
 $langZipNoPhp = "Файл ZIP не может содержать файлов с расширением .php";
+$lang_enroll = "Регистрация";
 ?>

@@ -25,7 +25,6 @@ $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langModifAnn = "Altera este an&uacute;ncio";
 $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
@@ -51,4 +50,5 @@ $langUsers = "Utilizadores";
 $langViMod = "Visibilidade alterada com sucesso";
 $langVisible = "Vis&iacute;vel";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

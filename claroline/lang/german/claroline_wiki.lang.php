@@ -8,6 +8,7 @@ $langAnnouncement = "Ankündigungen";
 $langCancel = "Abbrechen";
 $langChangePwdexp = "Neues Passwort zweimal eingeben, um es zu ändern - Felder leer lassen, um das alte Passwort beizubehalten.";
 $langChat = "Chat";
+$langCloseWindow = "Fenster schlie&szlig;en";
 $langCodeUsed = "Dieser Zugriffscode wird bereits von einem anderen Benutzer verwendet.";
 $langConfirmation = "Bestätigung";
 $langContinue = "Weiter";
@@ -24,7 +25,6 @@ $langEdit = "Bearbeiten";
 $langEmail = "Email";
 $langEmailWrong = "Falsche Email-Adresse";
 $langEmptyFields = "Sie haben einige Felder leer gelassen. Gehen Sie zurück und versuchen Sie es noch einmal.";
-$langEnter2passToChange = "Geben Sie das neue Passwort zwei mal ein oder lassen Sie die Felder leer, um das Passwort beizubehalten";
 $langExercises = "Tests";
 $langFirstname = "Vorname";
 $langFormula = "Mit freundlichen Grüßen,";
@@ -65,7 +65,6 @@ $langProblem = "Falls Probleme auftreten sollten, treten Sie bitte mit uns in Ko
 $langRegAdmin = "Dozent/Tutor (Kursersteller)";
 $langRegStudent = "Kurs-Teilnehmer";
 $langRegYou = "hat Sie in diese KursSite eingetragen";
-$langRegister = "eintragen";
 $langSave = "Speichern";
 $langSaveChanges = "Änderungen speichern";
 $langSearch = "Suchen";
@@ -89,7 +88,7 @@ $langWikiAccessControl = "Berechtigungen";
 $langWikiAccessControlText = "Hier können Sie die Zugangsberechtigungen der Benutzer für dieses Wiki einstellen: ";
 $langWikiAllPages = "Alle Seiten";
 $langWikiBackToPage = "Zurück zur Seite";
-$langWikiConflictHowTo = "<p><strong>Ein Konflikt ist aufgetreten</strong>: Die Seite, die Sie gerade zu speichern versuchen, wurde inzwischen von einem anderen Benutzer geändert. Da sich die Änderungen widersprechen könnten, wurde Ihre Änderung abgewiesen.<br><br>
+$langWikiConflictHowTo = "<p><strong>Ein Konflikt ist aufgetreten</strong>: Die Seite, die Sie gerade zu speichern versuchen, wurde inzwischen von einem anderen Benutzer geändert. Da sich die Änderungen widersprechen könnten, wurde Ihre Änderung abgewiesen.<br /><br />
 Was können Sie jetzt tun?<ul>
 <li>Sie können Ihre Änderungen in einen Texteditor (z.B. Notepad) kopieren, und auf 'Neueste Version bearbeiten' klicken. Versuchen Sie, Ihre Änderungen dort in die neue Version dieser Seite einzufügen.</li>
 <li>Sie können selbstverständlich auch Ihre Änderungen verwerfen, indem Sie auf 'Abbrechen' klicken.</li>
@@ -174,7 +173,7 @@ So geben Sie formatierten Text im Wiki ein:
 <li><strong>Unterstreichen</strong>: umgeben Sie den Text mit zwei Unterstrichen: <code>__Text__</code></li>
 <li><strong>Durchstreichen</strong>: umgeben Sie den Text mit zwei Minus-Symbolen: <code>--Text--</code></li>
 <li><strong>Hyperlinks zu externen Webseiten</strong>: <code>[URL]</code>, <code>[Name|URL]</code>, <code>[Name|URL|Sprache]</code> oder <code>[Name|URL|Sprache|Titel]</code>.</li>
-<li><strong>Bild einfügen</strong> (neue Syntax): <code>((URL|alternativer Text))</code>, <code>((URL|alternativer Text|Position))</code> oder <code>((URL|alternativer Text|Position|lange Beschreibung))</code>. <br>Tas Argument <em>Position</em> kann folgende Werte haben: <em>L</em> (links), <em>R</em> (rechts) oder <em>C</em> (Mitte).</li>
+<li><strong>Bild einfügen</strong> (neue Syntax): <code>((URL|alternativer Text))</code>, <code>((URL|alternativer Text|Position))</code> oder <code>((URL|alternativer Text|Position|lange Beschreibung))</code>. <br />Tas Argument <em>Position</em> kann folgende Werte haben: <em>L</em> (links), <em>R</em> (rechts) oder <em>C</em> (Mitte).</li>
 <li><strong>Benannter Anker (Sprungziel)</strong>: <code>~Anker~</code></li>
 <li><strong>Acronym</strong>: <code>??Acronym??</code> oder <code>??Acronym|Definition??</code></li>
 <li><strong>Zitat</strong>: <code>{{Zitat}}</code>, <code>{{Zitat|Sprache}}</code> oder <code>{{Zitat|Sprache|URL}}</code></li>
@@ -182,7 +181,7 @@ So geben Sie formatierten Text im Wiki ein:
 <li><strong>Fußnote</strong>: <code>\$\$Text der Fußnote\$\$</code>.</li>
 </ul></dd>
 </dl>";
-$langWikiIdenticalContent = "Der gesendete Inhalt ist identisch mit dem vorherigen.<br>Es wurde keine Änderung gespeichert.";
+$langWikiIdenticalContent = "Der gesendete Inhalt ist identisch mit dem vorherigen.<br />Es wurde keine Änderung gespeichert.";
 $langWikiInvalidWikiId = "Ungültige Wiki-ID";
 $langWikiList = "Liste der Wikis";
 $langWikiMainPage = "Startseite";
@@ -213,7 +212,7 @@ $langWork = "Upload-Bereich";
 $langYes = "ja";
 $langYouAreReg = "Sie wurden registriert am";
 $langYourReg = "Ihre Registrierung am";
-$lang_click_here = " hier klicken";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 ?>

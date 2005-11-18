@@ -20,7 +20,7 @@ $langExercises = "Exercicios";
 $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
-$langInvalidId = "Fallou o seu intento de acceso.<br>Se vostede non est&aacute; rexistrado, empregue o
+$langInvalidId = "Fallou o seu intento de acceso.<br />Se vostede non est&aacute; rexistrado, empregue o
 						<a href=claroline/auth/inscription.php>formulario de rexistro</a></font color>";
 $langInvalidIdSelfReg = "<b>Fallou o intento de acceso.</b><br />Por favor, int&eacute;nteo de novo.<br />
 
@@ -56,6 +56,7 @@ $langValvas = "&Uacute;ltimos anuncios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_enroll_to_a_new_course = "Matricularse nun novo curso";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";

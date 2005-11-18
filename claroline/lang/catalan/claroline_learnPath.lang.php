@@ -17,7 +17,6 @@ $langExercises = "Exercicis";
 $langForums = "Fòrums";
 $langGroups = "Grups";
 $langHelp = "Ajuda";
-$langManager = "El coordinador";
 $langModify = "modifica";
 $langModifyProfile = "Modifica el meu perfil";
 $langMonthNames = "Array";

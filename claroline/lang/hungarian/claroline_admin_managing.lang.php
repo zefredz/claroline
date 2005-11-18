@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Login/pass hozzáadása a .htpassword</a><br> fájlhoz";
+$langAddLoginPass = "Login/pass hozzáadása a .htpassword</a><br /> fájlhoz";
 $langAddLoginPassForThisUser = "Login/pass hozzáadása a .htpassword-höz a campus account alapján";
 $langAdministration = "Adminisztráció";
 $langAgenda = "Eseménynaptár";
@@ -27,7 +27,6 @@ $langListHtUsers = ".htpassword megtekintése";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
 $langManage = "Campus kezelése";
-$langManager = "Vezetõ";
 $langMinuteShort = "min.";
 $langModifyProfile = "Saját beállítások módosítása";
 $langMonthNames = "Tömb";
@@ -61,6 +60,7 @@ $langViewMode = "Nézet";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
 $lang_EditFile_ModifyOk = "A változások sikeresen végrehajtva";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_no_access_here = "Semmi esetre";
 $lang_p_platformManager = "%s adminisztrátora";

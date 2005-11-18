@@ -42,10 +42,11 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_ErrorOnBuild_S_for_S = "Error en la construcci&oacute;n de <em>%s</em> para <b>%s</b>";
 $lang_p_PropForConfigCommited = "Las propiedades para %s (%s) est&aacute;n ahora disponibles en el servidor.";
-$lang_p_config_file_creation = "Creaci&oacute;n del fichero de configuraci&oacute;n:<br> %s";
+$lang_p_config_file_creation = "Creaci&oacute;n del fichero de configuraci&oacute;n:<br /> %s";
 $lang_p_nothing_to_edit_in_S = "nada que editar en %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

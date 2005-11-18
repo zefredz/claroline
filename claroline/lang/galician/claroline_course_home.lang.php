@@ -28,11 +28,11 @@ $langForums = "Foros";
 $langGroups = "Grupos";
 $langHelp = "Axuda";
 $langHome = "Volver &aacute; p&aacute;xina de inicio";
-$langIntroCourse = "Est&aacute; vostede na p&aacute;xina de inicio do curso.<br><br>Nesta p&aacute;xina, pode vostede :
+$langIntroCourse = "Est&aacute; vostede na p&aacute;xina de inicio do curso.<br /><br />Nesta p&aacute;xina, pode vostede :
 							<li class=HelpText>activar ou desactivar ferramentas (premendo no bot&oacute;n ''
 							na parte inferior esquerda).
 							<li class=HelpText>muda-las configuraci&oacute;ns ou ver estat&iacute;sticas (premendo nas
-							correspondentes ligaz&oacute;ns da parte inferior).<br><br>
+							correspondentes ligaz&oacute;ns da parte inferior).<br /><br />
 							Agora, para engadir unha introducci&oacute;n present&aacute;ndolle o seu curso &oacute;s estudantes,
 							prema neste bot&oacute;n ";
 $langIntroEditToolList = "Seleccione as ferramentas que vostede desexa facer visibles para os seus usuarios.
@@ -76,6 +76,7 @@ $langViewMode = "Ver modo";
 $langVisibility = "Visibilidade";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

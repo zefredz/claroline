@@ -16,7 +16,6 @@ $langGroups = "Gruplar";
 $langHelp = "Yardým";
 $langHome = "Ana Sayfaya dön";
 $langLogout = "Çýkýþ";
-$langManager = "Yönetici";
 $langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";

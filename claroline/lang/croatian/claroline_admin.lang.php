@@ -297,6 +297,7 @@ $langYouAreReg = "registrirani ste na";
 $langYourReg = "Vaša registracija";
 $lang_already_enrolled = "prijavljeni na predmet";
 $lang_click_here = "kliknite ovdje";
+$lang_enroll = "Prijavi";
 $lang_faculty_CanHaveCatCourse = "Može sadržavati predmete: ";
 $lang_faculty_CatHaveCat = "Kategoriju nije moguće obrisati, jer sadrži potkategorije. Da biste izbrisali kategoriju, prethodno morate izbrisati sve njene potkategorije";
 $lang_faculty_CatHaveCourses = "Kategoriju nije moguće obrisati, jer sadrži predmete. Da biste izbrisali kategoriju, prethodno morate izbrisati sve njene predmete";

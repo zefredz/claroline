@@ -126,6 +126,8 @@ $langSampleLearnPath = "Exemplo de secuencia de aprendizaxe";
 $langSampleLearnPathDesc = "Esta &eacute; unha secuencia de aprendizaxe de exemplo. Emprega o exercicio de exemplo e o
 								documento de exemplo das secci&oacute;ns de Exercicios e Documentos. Prema en <b>Modificar</b>
 								para mudar este texto.";
+$langSearch = "Procurar";
+$langSearchResult = "Resultados da procura";
 $langSecondShort = "seg.";
 $langSocraticIrony = "A iron&iacute;a Socr&aacute;tica consiste en...";
 $langStudent = "Estudante";
@@ -146,6 +148,7 @@ $langWiki = "Wiki";
 $langWikiMainPageContent = "Esta &eacute; a p&aacute;xina de inicio do Wiki. Prema en Editar para modifica-lo contido.";
 $langWork = "Traballos";
 $lang_completeUserInfoOfUser = "Completar informaci&oacute;n do usuario";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_FillCourses = "Cubrir %s con %s";
 $lang_p_category_s_created = "Categor&iacute;a %s creada";

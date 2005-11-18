@@ -26,7 +26,6 @@ $langGroups = "Nhóm";
 $langHelp = "Help";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langModifAnn = "Sửa thông báo này";
 $langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
@@ -49,4 +48,5 @@ $langUp = "Up";
 $langUsers = "Users";
 $langViMod = "Đã thay đổi tính hiển thị";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 ?>

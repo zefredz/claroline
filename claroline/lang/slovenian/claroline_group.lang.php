@@ -76,7 +76,6 @@ $langGroupsEmptied = "Vse skupine so sedaj prazne";
 $langHelp = "Pomoc";
 $langLogin = "vstop";
 $langLogout = "Izstop";
-$langManager = "Upravnik";
 $langMax = "maks.";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
@@ -106,4 +105,5 @@ $langTo = "na";
 $langUncompulsory = "(opcija)";
 $langUsers = "Uporabniki";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 ?>

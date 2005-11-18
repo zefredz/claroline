@@ -111,7 +111,6 @@ $langLessElements = "Rem. elem.";
 $langLogin = "登录";
 $langLogout = "退出系统";
 $langMakeCorrespond = "使之一致";
-$langManager = "管理员";
 $langMatching = "匹配";
 $langMaxAllowedTime = "允许最长时间";
 $langMaxFileSize = "文件最大尺寸： ";
@@ -207,6 +206,7 @@ $langWork = "作业论文";
 $langYes = "确认";
 $langYourTime = "你的名字是";
 $langYourTotalScore = "你的总分是";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_p_platformManager = "%s 的平台负责人";
 ?>

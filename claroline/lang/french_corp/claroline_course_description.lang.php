@@ -31,7 +31,7 @@ Quels sont les liens avec les autres cours&nbsp;?";
 $langDescriptionComment2 = "Information permettant d'identifier l&acute;espace
 (sigle, titre, nombre d'heure de cours, de TP, ...)
 et l&acute;enseignant (nom, prénom, bureau, tél, e-mail, disponibilités éventuelles).
-<br>
+<br />
 Présentation générale de l&acute;espace.";
 $langDescriptionCours = "Description de l&acute;espace";
 $langDocument = "Documents et liens";
@@ -48,12 +48,11 @@ enseignants qui vont encadrer le cours (assistants, chercheurs,
 étudiants-moniteurs,...), des disponibilités des personnes, des locaux et des
 équipements ou matériel informatique disponibles.";
 $langHumanAndPhysicalRessources = "Ressources humaines et physiques";
-$langInfo2Say = "Informations &agrave; communiquer <BR>à l'utilisateur";
+$langInfo2Say = "Informations &agrave; communiquer <br />à l'utilisateur";
 $langInvisible = "Invisible";
 $langLearningPath = "Parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langManager = "Gestionnaire";
 $langMethodsOfEvaluation = "Modalités d'évaluation";
 $langMethodsOfEvaluationComment1 = "Précisions quant aux moyens d'évaluation (examens écrits, oraux, projets,
 travaux à remettre, ...), quant au(x) moment(s) d'évaluation formative prévu(s),
@@ -74,9 +73,9 @@ $langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et Objectifs";
 $langQualificationsAndGoalsComment1 = "Présentation des objectifs généraux et spécifiques de l&acute;espace, des compétences auxquelles la maîtrise de tels objectifs pourrait conduire.";
 $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l&acute;enseignement&nbsp;?
-<br>
+<br />
 Au terme de l&acute;espace, quelles sont les compétences, les capacités et les connaissances que les participants seront en mesure de maîtriser, de mobiliser&nbsp;?";
-$langQuestionPlan = "Question de planification <BR>pour le modérateur";
+$langQuestionPlan = "Question de planification <br />pour le modérateur";
 $langSecondShort = "sec.";
 $langStudent = "participant";
 $langSupports = "Supports";
@@ -105,6 +104,7 @@ $langViewMode = "Mode de vue";
 $langVisible = "Visible";
 $langWiki = "Wiki";
 $langWork = "Contributions";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

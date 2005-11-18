@@ -9,15 +9,14 @@ $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Описание курса";
 $langDocument = "Документ";
 $langEmpty = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
-<br>
+<br />
  йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
-<br>еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
+<br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
 $langForums = "Форумы";
 $langGroups = "запись пользователей в группы";
 $langHelp = "рПНПЭШ";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
@@ -28,4 +27,5 @@ $langStudent = "студент";
 $langUp = "вверх";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

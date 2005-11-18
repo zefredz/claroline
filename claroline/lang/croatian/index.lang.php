@@ -46,6 +46,7 @@ $langValvas = "Posljednje obavijesti";
 $langViewMode = "Pregledavati kao";
 $langWiki = "Wiki";
 $langWork = "Zadaci";
+$lang_enroll = "Prijavi";
 $lang_enroll_to_a_new_course = "Prijavi me na novi predmet";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_p_platformManager = "Administrator sustava %s";

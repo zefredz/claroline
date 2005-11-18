@@ -15,7 +15,6 @@ $langHelp = "рПНПЭШ";
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
 $langMailTo = "Контакт : ";
-$langManager = "Ответственный";
 $langMissing = "отсутствующий";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
@@ -29,6 +28,7 @@ $langStudent = "студент";
 $langTo = "в";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 $lang_no_access_here = "Нет доступа ";
 $lang_php_info = "Информация о системе php";
 ?>

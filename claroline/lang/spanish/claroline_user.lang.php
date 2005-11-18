@@ -182,6 +182,7 @@ $langYourReg = "Su inscripci&oacute;n en";
 $lang_add_user_list = "A&ntilde;adir lista de usuarios";
 $lang_already_enrolled = "ya ha sido matriculado";
 $lang_do_you_want_to_continue = "Desea usted continuar?";
+$lang_enroll = "Matricularse";
 $lang_fields_enclosed_by = "Campos listados por";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "si usted desea continuar, las l&iacute;neas con errores ser&aacute;n simplemente ignoradas";

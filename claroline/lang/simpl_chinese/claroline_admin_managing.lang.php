@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "添加用户名/密码到加密文件中</a><br>";
+$langAddLoginPass = "添加用户名/密码到加密文件中</a><br />";
 $langAddLoginPassForThisUser = "添加该用户虚拟校园用户名/密码到加密文件中";
 $langAdministration = "管理";
 $langAgenda = "计划安排";
@@ -27,7 +27,6 @@ $langListHtUsers = "查看.htpassword文件";
 $langLogin = "登录";
 $langLogout = "退出系统";
 $langManage = "管理虚拟校园";
-$langManager = "管理员";
 $langMinuteShort = "min.";
 $langModifyProfile = "个人资料";
 $langMonthNames = "Array";
@@ -61,6 +60,7 @@ $langViewMode = "查看模式";
 $langWiki = "Wiki";
 $langWork = "作业论文";
 $lang_EditFile_ModifyOk = "已经实现正确的变化";
+$lang_enroll = "登记";
 $lang_footer_p_CourseManager = "%s的课程负责人 ";
 $lang_no_access_here = "没有办法";
 $lang_p_platformManager = "%s 的平台负责人";

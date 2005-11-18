@@ -20,7 +20,6 @@ $langHelp = "hjälp";
 $langInfo2Say = "Information att ge till eleverna";
 $langLogin = "Logga in";
 $langLogout = "Logga ut";
-$langManager = "Ansvarig";
 $langModify = "Redigera";
 $langModifyProfile = "Modifiera min profil";
 $langMonthNames = "Array";

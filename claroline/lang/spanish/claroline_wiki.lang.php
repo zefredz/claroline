@@ -8,6 +8,7 @@ $langAnnouncement = "Anuncios";
 $langCancel = "Cancelar";
 $langChangePwdexp = "Escribe la nueva contrase&ntilde;a dos veces para cambiarla, dejala en blanco para conservar la actual";
 $langChat = "Debate";
+$langCloseWindow = "Cerrar ventana";
 $langCodeUsed = "Este c&oacute;digo oficial ya se le ha asignado a otro usuario.";
 $langConfirmation = "confirmaci&oacute;n";
 $langContinue = "Continuar";
@@ -288,17 +289,17 @@ Un espacio irrompible preceder&aacute; a cada uno de los s&iacute;mbolos siguien
 
 <code>[nombre|url|idioma|t&iacute;tulo]</code>.&nbsp;;</li>
 
-<li><strong>Imagen</strong> : lo mismo que los Hiperv&iacute;nculos<br>
+<li><strong>Imagen</strong> : lo mismo que los Hiperv&iacute;nculos<br />
 
 Ponga un 0 en el &uacute;ltimo argumento para permitir el reconocimiento de la imagen y crear un hiperv&iacute;nculo a ella.
 
-Por ejemplo <code>[imagen|imagen.gif||0]</code> mostrar&aacute; un enlace a la imagen imagen.gif en lugar de la imagen misma.<br>
+Por ejemplo <code>[imagen|imagen.gif||0]</code> mostrar&aacute; un enlace a la imagen imagen.gif en lugar de la imagen misma.<br />
 
 Esta sintaxis est&aacute; obsoleta. Use la que a continuacialn se especifica&nbsp;;</li>
 
 <li><strong>Imagen</strong> (nueva sintaxis) : <code>((url|texto alternativo))</code>, <code>((url|texto alternativo|posici&oacute;n))</code>
 
-o <code>((url|texto alternativo|posici&oacute;n|descripci&oacute;n larga))</code>. <br>El argumento de posici&oacute;n puede tomar los
+o <code>((url|texto alternativo|posici&oacute;n|descripci&oacute;n larga))</code>. <br />El argumento de posici&oacute;n puede tomar los
 
 siguientes valores : L (left - izquierda), R (right - derecha) o C (center - centro).&nbsp;;</li>
 
@@ -350,6 +351,7 @@ $langWork = "Trabajos";
 $langYes = "Si";
 $langYouAreReg = "Usted ha sido inscrito en";
 $langYourReg = "Su inscripci&oacute;n en";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

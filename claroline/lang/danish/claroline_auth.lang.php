@@ -28,6 +28,7 @@ $langGroupTutor = "tutor";
 $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
 $langHome = "Tilbage til min kursusoversigt";
+$langInvalidId = "Fejl ved Login.<br />Hvis du ikke er registreret, brug <a href=claroline/auth/inscription.php>Registrering</a></font color>";
 $langIs = "er";
 $langLastname = "Fornavn";
 $langLink = "Links";

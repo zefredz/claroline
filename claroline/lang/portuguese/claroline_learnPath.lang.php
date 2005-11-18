@@ -23,7 +23,6 @@ $langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
 $langHelp = "ajuda";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langMaxFileSize = "O tamanho m&aacute;ximo do ficheiro &eacute;";
 $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
@@ -52,4 +51,5 @@ $langUsers = "Utilizadores";
 $langVisibility = "Visibilidade";
 $langWork = "Trabalhos";
 $langZipNoPhp = "O arquivo zip n&atilde;o pode conter ficheiros .PHP";
+$lang_enroll = "Inscrever-se";
 ?>

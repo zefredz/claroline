@@ -19,7 +19,6 @@ $langHelp = "ajuda";
 $langInfo2Say = "Informa&ccedil;&atilde;o para dar aos estudantes";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
@@ -37,4 +36,5 @@ $langUsers = "Utilizadores";
 $langViMod = "Visibilidade alterada com sucesso";
 $langVisible = "Vis&iacute;vel";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

@@ -23,7 +23,6 @@ $langGroups = "inscription des utilisateurs dans les groupes";
 $langHelp = "Hjælp";
 $langLogin = "login";
 $langLogout = "Logud";
-$langManager = "Support";
 $langMaxFileSize = "Max fil størrelse er 10MB - ellers brug din lokale server";
 $langModify = "Ændre";
 $langModifyProfile = "Ændre min profil";
@@ -52,4 +51,5 @@ $langUsers = "Deltagerlisten";
 $langVisibility = "Synlig/usynlig";
 $langWork = "Studerendes Opgaver";
 $langZipNoPhp = "Zip fil må ikke indeholde .PHP filer";
+$lang_enroll = "Tilmeld";
 ?>

@@ -12,10 +12,9 @@ $langDocument = "Dokumen";
 $langForums = "Forum";
 $langGroups = "Kumpulan";
 $langHelp = "Bantuan";
-$langIsNowInYourDocDir = " - Kini, fail ini berada dalam Alat Bantu Dokumen. <br><B>Fail ini dalam format .txt</B>";
+$langIsNowInYourDocDir = " - Kini, fail ini berada dalam Alat Bantu Dokumen. <br /><B>Fail ini dalam format .txt</B>";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
-$langManager = "Pentadbir Sistem";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
 $langMyCourses = "Senarai Subjek";
@@ -25,4 +24,5 @@ $langPoweredBy = "Oleh : ";
 $langStudent = "Pelajar";
 $langUsers = "Users";
 $langWork = "Works";
+$lang_enroll = "Sertai";
 ?>

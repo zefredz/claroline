@@ -13,7 +13,6 @@ $langGroups = "Skupine";
 $langHelp = "Pomoc";
 $langLogin = "vstop";
 $langLogout = "Izstop";
-$langManager = "Upravnik";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
@@ -26,4 +25,5 @@ $langTo = "na";
 $langToday = "Danes";
 $langUsers = "Uporabniki";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 ?>

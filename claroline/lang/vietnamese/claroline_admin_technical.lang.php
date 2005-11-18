@@ -15,7 +15,6 @@ $langGroups = "Nhóm";
 $langHelp = "Help";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langMissing = "missing";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
@@ -29,5 +28,6 @@ $langStudent = "học sinh";
 $langTo = "đến";
 $langUsers = "Users";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 $lang_no_access_here = "Không được phép";
 ?>

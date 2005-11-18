@@ -167,6 +167,7 @@ $langYourReg = "Vaša registracija";
 $lang_add_user_list = "Dodaj korisnike";
 $lang_already_enrolled = "prijavljeni na predmet";
 $lang_do_you_want_to_continue = "Želite li nastaviti?";
+$lang_enroll = "Prijavi";
 $lang_fields_enclosed_by = "Polja su omeđena";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Ako odlučite nastaviti, linije koje sadrže pogrešku bit će zanemarene";

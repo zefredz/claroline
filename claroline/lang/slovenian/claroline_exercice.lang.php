@@ -58,7 +58,6 @@ $langLessElements = "-elem";
 $langLogin = "vstop";
 $langLogout = "Izstop";
 $langMakeCorrespond = "Make correspond";
-$langManager = "Upravnik";
 $langMatching = "Ujemanje";
 $langMaxFileSize = "Maks velikost datoteke je";
 $langModify = "Uredi";
@@ -120,4 +119,5 @@ $langWeightingForEachBlank = "Podaj utez za vsako prazno mesto";
 $langWork = "Works";
 $langYes = "Da";
 $langYourTotalScore = "Celotno tockovanje je";
+$lang_enroll = "Vpis";
 ?>

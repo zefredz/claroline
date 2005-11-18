@@ -77,7 +77,6 @@ $langFirstSubmission = "Eerste maal ingediend";
 $langForums = "Forums";
 $langGroup = "Groep";
 $langGroupAssignment = "Groepen (uit groepen, alleen groepsleden kunnen posten)";
-$langGroupSpace = "Groepsruimte";
 $langGroups = "Groepen";
 $langHelp = "Help";
 $langIncorrectDate = "Begindatum moet voor einddatum liggen ...";
@@ -86,7 +85,7 @@ $langIntroWork = "Dit stuk gereedschap staat de lesgever toe opdrachtenaan te ma
 
 <br />U kan een commentaar of quotering aan elk ingediend werk toevoegen.
 
-<br /><br />Indien U deze taak wil tonen aan de studenten of enkele aanbevelingen wil doen, klik op onderstaande knop.<br>";
+<br /><br />Indien U deze taak wil tonen aan de studenten of enkele aanbevelingen wil doen, klik op onderstaande knop.<br />";
 $langInvisible = "Onzichtbaar";
 $langLastEditDate = "Datum laatst bewerkt";
 $langLateUpload = "te laat ingediend";
@@ -95,7 +94,6 @@ $langLogin = "Inloggen";
 $langLogout = "Afmelden";
 $langMakeInvisible = "Onzichtbaar maken";
 $langMakeVisible = "Zichtbaar maken";
-$langManager = "Platformbeheerder";
 $langMaxFileSize = "Maximum bestandsgrootte is";
 $langMinuteShort = "min.";
 $langModify = "Wijzigen";
@@ -157,6 +155,7 @@ $langWrkEdited = "Work gewijzigd";
 $langWrkScoreRequired = "Quotering vereist";
 $langWrkTitle = "Titel";
 $langWrkTitleRequired = "Werk titel vereist";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

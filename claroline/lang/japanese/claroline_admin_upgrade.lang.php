@@ -8,7 +8,6 @@ $langEmpty = "未記入欄があります。<br />もどるボタンでもどって、再度試してくださ
 $langForums = "会議室";
 $langHelp = "へルプ";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMyCourses = "自分のコース";

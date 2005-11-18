@@ -32,8 +32,7 @@ $langElRen = "Elemento renomeado";
 $langExercises = "Exercicios";
 $langFileContentModified = "O contido do ficheiro foi modificado";
 $langFileCreated = "Ficheiro creado";
-$langFileError = "O ficheiro para cargar non &eacute; v&aacute;lido";
-$langFileExists = "Non &eacute; posible realizar esta operaci&oacute;n.<br>Existe xa un arquivo co mesmo nome";
+$langFileExists = "Non &eacute; posible realizar esta operaci&oacute;n.<br />Existe xa un arquivo co mesmo nome";
 $langFileNameMissing = "O nome do ficheiro perdeuse";
 $langFileNameOrURLMissing = "Perdeuse o nome do ficheiro ou URL";
 $langFiles = "Lista de ficheiros";
@@ -93,6 +92,7 @@ $langVisibility = "Visibilidade";
 $langWiki = "Wiki";
 $langWork = "Traballos";
 $langZipNoPhp = "O ficheiro comprimido non pode conter arquivos con extensi&oacute;n .PHP";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

@@ -111,8 +111,8 @@ $langInsertMyModuleToolName = "Modul einfügen";
 $langInsertMyModulesTitle = "Der KursSite ein Modul hinzufügen";
 $langInsertNewModuleName = "Neuen Namen einfügen";
 $langInstalled = "Der Lernpfad wurde erfolgreich importiert.";
-$langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br><br>
-   Wenn Sie Ihren Teilnehmern einen Lernpafd anbieten möchten, klicken Sie auf den Button unten.<br>";
+$langIntroLearningPath = "Verwenden Sie dieses Tool, um den Benutzern einen geplanten Ablauf zwischen Dokumenten, Tests, HTML-Seiten, Links usw. vorzugeben.<br /><br />
+   Wenn Sie Ihren Teilnehmern einen Lernpafd anbieten möchten, klicken Sie auf den Button unten.<br />";
 $langLastSessionTimeSpent = "Zeit der letzten Sitzung";
 $langLearningPath = "Lernpfad";
 $langLearningPathAdmin = "Lernpfad Admin";
@@ -124,7 +124,6 @@ $langLessonStatus = "Status des Moduls";
 $langLogin = "login";
 $langLogout = "Logout";
 $langMakeInvisible = "unsichtbar machen";
-$langManager = "KursSite-Verantwortlicher";
 $langMaxFileSize = "Max. Dateigröße ist ";
 $langMinuteShort = "min.";
 $langModify = "ändern";
@@ -194,7 +193,7 @@ $langTypeOfModule = "Modul Typ";
 $langUnamedModule = "Modul ohne Bezeichnung";
 $langUnamedPath = "Lernpfad ohne Bezeichnung";
 $langUp = "Hoch";
-$langUseOfPool = "Diese Seite erlaubt Ihnen, alle verfügbaren Module dieses Kurses zu sehen. <br>
+$langUseOfPool = "Diese Seite erlaubt Ihnen, alle verfügbaren Module dieses Kurses zu sehen. <br />
                      Jeden Test und jedes Dokument, das Sie dem Lernpfad hinzugefügt haben wird in dieser Übersicht angezeigt.";
 $langUsedInLearningPaths = "
 Anzahl von Lernpfaden, die dieses Modul verwenden : ";
@@ -206,6 +205,7 @@ $langWork = "Upload-Bereich";
 $langWrongOperation = "Falsche Operation";
 $langYourBestScore = "Ihr bestes Ergebnis";
 $langZipNoPhp = "Die zip-Datei darf keine .PHP-Dateien enthalten";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 $langimportLearningPath = "Einen Lernpfad importieren";

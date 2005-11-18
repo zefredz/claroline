@@ -17,7 +17,6 @@ $langInvalidId = "Это имя пользователя не действительно. Если вы еще не зарегист
 $langLogin = "Вход, логин";
 $langLogout = "Выйти";
 $langLostPassword = "Пароль утерян";
-$langManager = "Ответственный";
 $langModifyProfile = "Изменить мои настройки";
 $langMonthNames = "Array";
 $langMyCourses = "Список моих курсов";
@@ -29,4 +28,5 @@ $langStudent = "студент";
 $langUserName = "Имя пользователя";
 $langUsers = "Пользователи";
 $langWork = "Задания";
+$lang_enroll = "Регистрация";
 ?>

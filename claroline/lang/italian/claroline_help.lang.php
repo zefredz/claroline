@@ -10,7 +10,7 @@ $langCourseManager = "Manager del corso";
 $langDay_of_weekNames = "Array";
 $langDescriptionCours = "Programma";
 $langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simile a quella della gestione del file system sul computer. </p><p>Potete depositare documenti di ogni tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Assicuratevi comunque che i corsisti dispongano dei programmi adatti per consultarli. Fate attenzione a non trasmettere documenti contenenti virus: è norma di prudenza verificare il documento con un programmma antivirus presente nell'Istituto.</p>
-<p>I documenti sono elencati in ordine alfabetico.<br>
+<p>I documenti sono elencati in ordine alfabetico.<br />
   <b>Trucchi:</b> se desiderate un diverso ordinamento potete rinominare i documenti facendoli precedere da un numero (01, 02,...); l'ordinamento sarà fatto su tale base. </p>
 <p>Potete:</p>
 <h4>Trasmettere un documento in questa parte</h4>
@@ -63,7 +63,7 @@ $langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simil
 	  cancellate il vecchio commento nella zona in cui comparirà e confermate cliccando &quot;OK&quot;
 	  <input type=submit value=OK name=submit22>
 	  .
-	<hr>
+	<hr />
 	<p>Potete altresì organizzare il contenuto del modulo Documenti ripartendo i documenti in diverse cartelle. Per far ciò dovete innanzitutto :</p>
 	<h4><b>Creare una cartella</b></h4>
 	<ul>
@@ -86,8 +86,8 @@ L'operazione potrà essere compita solo se precedentemente sarà stata creata alme
 	<center>
 	  <p>";
 $langDocument = "Documento : ";
-$langExerciseContent = "<p>La funzione esercizi allows you to create exercises that will contains as many questions as you like.<br><br>
-There are various types of answers available for the creation of your questions :<br><br>
+$langExerciseContent = "<p>La funzione esercizi allows you to create exercises that will contains as many questions as you like.<br /><br />
+There are various types of answers available for the creation of your questions :<br /><br />
 <ul>
   <li>Multiple choice (Unique answer)</li>
   <li>Multiple choice (multiple answers)</li>
@@ -95,24 +95,24 @@ There are various types of answers available for the creation of your questions 
   <li>Fill in the blanks</li>
 </ul>
 An exercise gathers a certain number of questions under a common theme.</p>
-<hr>
+<hr />
 <b>Exercise creation</b>
-<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
-Type the exercise name, as well as an optional description of it.<br><br>
-You can also choose between 2 exercise types :<br><br>
+<p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br /><br />
+Type the exercise name, as well as an optional description of it.<br /><br />
+You can also choose between 2 exercise types :<br /><br />
 <ul>
   <li>Questions on an unique page</li>
   <li>One question per page (sequential)</li>
 </ul>
-and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>
+and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br /><br />
 Then, save your exercise. You will go to to the question administration for this exercise.</p>
-<hr>
+<hr />
 <b>Question adding</b>
 <p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p>
-<hr>
+<hr />
 <b>Multiple choice</b>
-<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
-In order to create a MAQ / MCQ :<br><br>
+<p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br /><br />
+In order to create a MAQ / MCQ :<br /><br />
 <ul>
   <li>Define answers for your question. You can add or delete an answer by clicking on the right button</li>
   <li>Check via the left box the correct answer(s)</li>
@@ -120,41 +120,41 @@ In order to create a MAQ / MCQ :<br><br>
   <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>
   <li>Save your answers</li>
 </ul></p>
-<hr>
+<hr />
 <b>Fill in the blanks</b>
-<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
-To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>
-Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>
+<p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br /><br />
+To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br /><br />
+Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />
 Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-<hr>
+<hr />
 <b>Matching</b>
-<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>
-It can also be used to ask students to sort elements in a certain order.<br><br>
-First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
-Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
+<p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br /><br />
+It can also be used to ask students to sort elements in a certain order.<br /><br />
+First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br /><br />
+Notice : Several elements from the first unit can point to the same element in the second unit.<br /><br />
 Give a weighting to each correct matching, and save your answer.</p>
-<hr>
+<hr />
 <b>Exercise modification</b>
 <p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to modify, and follow instructions above.</p>
-<hr>
+<hr />
 <b>Exercise deleting</b>
 <p>In order to delete an exercise, click on the picture <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to delete.</p>
-<hr>
+<hr />
 <b>Exercise enabling</b>
 <p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> beside the exercise to enable.</p>
-<hr>
+<hr />
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
-<hr>
+<hr />
 <b>Random exercises</b>
-<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
-That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
+<p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br /><br />
+That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br /><br />
 If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p>
-<hr>
+<hr />
 <b>Question pool</b>
-<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>
-The question pool also allows to reuse a same questions into several exercises.<br><br>
-By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
+<p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br /><br />
+The question pool also allows to reuse a same questions into several exercises.<br /><br />
+By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br /><br />
 Orphan questions are questions that don't belong to any exercise.</p>";
 $langExercises = "Esercizi";
 $langForContent = "Il forum è uno strumento di discussione scritta a tempo differito. A differenza della posta elettronica, il forum colloca la discussione in uno spazio pubblico o semi-pubblico (molti a molti).</p><p>Per usare il forum del campus. i corsisti hanno bisogno solo di un browser web (Netscape, Explorer...), non di un sistema di posta elettronica (Eudora, Outlook...).</P><p>Per organizzare dei forum, , cliccate su 'Amministrare'. Le discussioni sono organizzate in modo gerarchico secondo la struttura 'ad albero' seguente:</p><p><b>Categoria > Forum > Argomento > Risposta</b></p>Per permettre ai corsisti di  discutere in modo strutturato, è opportuno per prima cosa organizzare le discussioni in Categorie e Forum (i corsisti stessi proporrannno gli argomenti e le risposte). Per default il Forum contiene unicamente la Categoria Pubblico,un argomento esemplificativo e un messaggio d'esempio. Potete aggiungere dei forum nella categoria Pubblico,oppure modificare l'intestazione o ancora creare nuove Categorie al cui interno potrete creare nuovi Forum. Una Categoria che non contenga Forum non sarà utilizzabile. Se ad esempio create una Categoria 'discussione per piccoli gruppi', dovrete creare creare una serie di forum nella Categoria, ad esempio 'gruppo 1', 'gruppo 2', 'gruppo 3', ecc.</p><p>La Descrizione di un forum di gruppo potrebbe essere l'elenco delle persone che sono invitate ad usarlo, ma anche una spiegazione sulle sue finalità. Se create, per qualsiasi ragione, un Forum \"Richieste d'aiuto\", potete aggiungere come descrizione: 'Segnalare le difficoltà relative al contenuto o all'organizzazione'.";
@@ -266,7 +266,6 @@ $langHomeContent = "La maggior parte delle rubriche del campus sono già state ri
 $langLearningPath = "Learning Path";
 $langLogin = "login";
 $langLogout = "Uscita";
-$langManager = "Responsabile";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modificare il mio profilo";
 $langMonthNames = "Array";
@@ -283,18 +282,19 @@ $langStudent = "Studenti";
 $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
 $langTextEditorDisable = "Disabilita editor di testo";
 $langTextEditorEnable = "Abilita editor di testo";
-$langUserContent = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano informatico, non danno diritti diversi di amministrazione del sistema. Potete modificarli cliccando su 'modificare' sotto 'Ruolo' e scrivendo per esteso la descrizione della funzione adatta (docente, assistente, tutor, visitatore, esperto, moderatore...) come indicazione del ruolo svolto dalle singole persone nel corso.</P><hr>
+$langUserContent = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano informatico, non danno diritti diversi di amministrazione del sistema. Potete modificarli cliccando su 'modificare' sotto 'Ruolo' e scrivendo per esteso la descrizione della funzione adatta (docente, assistente, tutor, visitatore, esperto, moderatore...) come indicazione del ruolo svolto dalle singole persone nel corso.</P><hr />
 <b>Diritti di amministrazione</b>
 <p>Al contrario, i diritti di amministrazione hanno una funzione informatica. Per è possibile scegliere tra &quot;tutti&quot; (modificare, rimuovere, aggiungere ogni cosa) e &quot;nessuno&quot; (salvo il diritto di visitare il sito, pubblicare messaggi nei Forum e trasmettere contributi alla pagina 'Contributi').</P>
-<p>Per permettere a un contitolare, a un assistente, a un tutor o altra persona di amministrare il sito assieme a Voi, dovrete prima iscriverlo al corso o assicurarvi che sia iscritto e in seguito modificare i suoi diritti tramite l'opzione 'modificare' sotto 'Amministrazione' scegliendo l'opzione 'tutti'.</P><hr>
+<p>Per permettere a un contitolare, a un assistente, a un tutor o altra persona di amministrare il sito assieme a Voi, dovrete prima iscriverlo al corso o assicurarvi che sia iscritto e in seguito modificare i suoi diritti tramite l'opzione 'modificare' sotto 'Amministrazione' scegliendo l'opzione 'tutti'.</P><hr />
 <b>Contitolari</b>
 <p>Per far comparire il nome di un contitolare nell'intestazione del corso utilizzate la pagina 'Modificare le informazioni sul corso' (strumenti in arancione).La modifica dell'intestazione non iscrive automaticamente il contitolare come utente del cors: si tratta di due azioni distinte..</p>
-<hr><b>Aggiungere un utente</b>
+<hr /><b>Aggiungere un utente</b>
 <p>Per aggiungere un utente al corso, verificare innanzitutto che sia iscritto sul campus utilizzando il motore di ricerca.  Se lo è, marcate la casella che compare a fianco del suo nome e confermate. Se non è iscritto, aggiungerlo alla pagina principale. In entrambi i casi la persona riceverà una email di conferma dell'avvenuta iscrizione contenente il suo nome e la sua password, a meno che voi non abbiate indicato l'indirizzo email.</p>";
 $langUsers = "Utenti";
 $langViewMode = "Vista";
 $langWiki = "Wiki";
 $langWork = "Lavori";
+$lang_enroll = "Iscriviti";
 $lang_footer_p_CourseManager = "Manager(s) di %s";
 $lang_p_platformManager = "Amministratore di %s";
 ?>

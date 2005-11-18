@@ -18,7 +18,6 @@ $langHelp = "ajuda";
 $langHome = "Voltar &agrave; p&aacute;gina principal";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langModify = "alterar";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
@@ -35,4 +34,5 @@ $langTools = "Ferramentas";
 $langUsers = "Utilizadores";
 $langVisibility = "Visibilidade";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 ?>

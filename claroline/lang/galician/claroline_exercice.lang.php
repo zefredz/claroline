@@ -215,6 +215,7 @@ $langWork = "Traballos";
 $langYes = "Si";
 $langYourTime = "O seu tempo empregado &eacute;";
 $langYourTotalScore = "A s&uacute;a puntuaci&oacute;n total &eacute;";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

@@ -10,7 +10,7 @@ otras veces, hacen ejercicios, publican trabajos, participan en discusiones de g
 si su versi&oacute;n de claroline permite el auto-registro (algunos sitios le registran
 de forma autom&aacute;tica).
 
- <br>Si Vd. es un estudiante, s&oacute;lo necesia inscribirse pulsando en la
+ <br />Si Vd. es un estudiante, s&oacute;lo necesia inscribirse pulsando en la
  opci&oacute;n inscripci&oacute;n, y escoger 'Seguir cursos (estudiante),
 y despu&eacute;s seleccionar los cursos en los que quiere inscribirse.
 </p><p>
@@ -51,7 +51,7 @@ $langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona 
 					documentos infectados con virus. Es conveniente comprobar primero con un programa antivirus que los documentos
 					no est&eacute;n infectados antes de colocarlos en el curso.</p>
 
-					<p>Los documentos se presentan en pantalla por orden alfab&eacute;tico.<br>
+					<p>Los documentos se presentan en pantalla por orden alfab&eacute;tico.<br />
   					<b>Consejos:</b> si usted desea que los documentos se ordenen de manera diferente, usted puede hacer
 					que se precedan de un n&uacute;mero, a partir de este momento se ordenar&aacute;n seg&uacute;n esta base. </p>
 					<p>Usted puede:</p>
@@ -108,7 +108,7 @@ $langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona 
 						  &quot;borrar el antiguo comentario de la zona&quot; y valide haciendo click en &quot;OK&quot;
 						  <input type=submit value=OK name=submit22>
 						  .
-						<hr>
+						<hr />
 						<p>Usted puede tambi&eacute;n organizar el contenido del m&oacute;dulo de los documentos guardando
 						  los documentos en directorios. Para hacer esto usted debe :</p>
 						<h4><b>Crear un directorio</b></h4>
@@ -138,8 +138,8 @@ $langDocContent = "<p>El m&oacute;dulo de gesti&oacute;n de documentos funciona 
 						  <p>";
 $langDocument = "Documentos";
 $langExerciseContent = "<p>La herramienta de ejercicios le permite crear ejercicios que contendr&aacute;n tantas
-preguntas como Vd. quiera.<br><br>
-Hay varios modelos de respuestas disponibles para crear sus preguntas :<br><br>
+preguntas como Vd. quiera.<br /><br />
+Hay varios modelos de respuestas disponibles para crear sus preguntas :<br /><br />
 <ul>
   <li>Elecci&oacute;n m&uacute;ltiple (Respuesta &uacute;nica)</li>
   <li>Elecci&oacute;n m&uacute;ltiple (Respuestas m&uacute;ltiples )</li>
@@ -147,25 +147,25 @@ Hay varios modelos de respuestas disponibles para crear sus preguntas :<br><br>
   <li>Rellenar huecos</li>
 </ul>
 Un ejercicio est&aacute; compuesto por varias preguntas que guardan relaci&oacute;n entre ellas.</p>
-<hr>
+<hr />
 <b>Creaci&oacute;n de Ejercicios</b>
-<p>Para crear un ejercicio, pulse sobre el enlace &quot;Nuevo Ejercicio&quot;.<br><br>
-Escriba el nombre del ejercicio y, si quiere, una descripci&oacute;n del mismo.<br><br>
-Tambi&eacute;n puede escoger entre dos modelos de ejercicios :<br><br>
+<p>Para crear un ejercicio, pulse sobre el enlace &quot;Nuevo Ejercicio&quot;.<br /><br />
+Escriba el nombre del ejercicio y, si quiere, una descripci&oacute;n del mismo.<br /><br />
+Tambi&eacute;n puede escoger entre dos modelos de ejercicios :<br /><br />
 <ul>
   <li>Preguntas en una &uacute;nica p&aacute;gina</li>
   <li>Una pregunta por p&aacute;gina (secuencial)</li>
 </ul>
-y diga si quiere que las preguntas sean ordenadas de forma aleatoria en el momento que se haga el ejercicio.<br><br>
+y diga si quiere que las preguntas sean ordenadas de forma aleatoria en el momento que se haga el ejercicio.<br /><br />
 Despu&eacute;s, guarde su ejercicio. Vd. ver&aacute; la administraci&oacute;n de preguntas para este ejercicio.</p>
-<hr>
+<hr />
 <b>A&ntilde;adir Preguntas</b>
 <p>Puede a&ntilde;adir una pregunta al ejercicio creado con anterioridad. La descripci&oacute;n es opcional,
 as&iacute; como la posibilidad de incluir una imagen en su pregunta.</p>
-<hr>
+<hr />
 <b>Elecci&oacute;n M&uacute;ltiple</b>
-<p>Esta tambi&eacute;n se conoce como 'pregunta de respuesta o elecci&oacute;n m&uacute;ltiple' MAQ / MCQ.<br><br>
-Para crear una:<br><br>
+<p>Esta tambi&eacute;n se conoce como 'pregunta de respuesta o elecci&oacute;n m&uacute;ltiple' MAQ / MCQ.<br /><br />
+Para crear una:<br /><br />
 <ul>
   <li>Defina respuestas para su pregunta. Puede a&ntilde;adir o borrar una repuesta pulsando en el bot&eacute;n derecho</li>
   <li>Marque en la casilla de la izquierda la(s) respuesta(s) correcta(s)</li>
@@ -174,55 +174,55 @@ Para crear una:<br><br>
   El peso puede ser un n&uacute;mero positivo, negativo, o cero.</li>
   <li>Guarde sus respuestas</li>
 </ul></p>
-<hr>
+<hr />
 <b>Rellenar huecos</b>
 <p>Esto permite crear un texto con huecos. El objetivo es dejar que el estudiante cubra palabras
-que Vd. ha eliminado del texto .<br><br>
-Para quitar una palabra del texto, y por tanto crear un hueco, ponga la palabra entre corchetes [como esto].<br><br>
+que Vd. ha eliminado del texto .<br /><br />
+Para quitar una palabra del texto, y por tanto crear un hueco, ponga la palabra entre corchetes [como esto].<br /><br />
 Una vez que el texto se ha escrito y definido los huecos, puede a&ntilde;adir un comentario que ver&aacute; el estudiante
-cuando responda a cada pregunta.<br><br>
+cuando responda a cada pregunta.<br /><br />
 Salve su texto, y ver&aacute; el paso siguiente que le permitir&aacute; asignar un peso a cada hueco. Por ejemplo,si
 la pregunta entera vale 10 puntos y tiene 5 huecos, Vd. puede darle un peso de 2 puntos a cada hueco.</p>
-<hr>
+<hr />
 <b>Relacionar</b>
 <p>Este modelo de respuesta puede elegirse para crear una pregunta donde el estudiante tenga que relacionar elementos
-desde una unidad U1 a otra unidad U2. <br><br>
-Tambi&eacute;n se puede usar para pedir a los estudiantes que seleccionen los elementos en un cierto orden.<br><br>
+desde una unidad U1 a otra unidad U2. <br /><br />
+Tambi&eacute;n se puede usar para pedir a los estudiantes que seleccionen los elementos en un cierto orden.<br /><br />
 Primero defina las opciones entre las que los estudiantes podr&aacute;n seleccionar la respuesta correcta. Despu&eacute;s
 defina las preguntas que tendr&aacute;n que ir relacionadas con una de las opciones definidas previamente. Por &uacute;ltimo,
-relacione, mediante el men&uacute; desplegable elementos de la primera unidad que se relacionen con la segunda.<br><br>
-Atenci&oacute;n : Varios elementos de la primera unidad pueden referirse al mismo elemento en la segunda unidad.<br><br>
+relacione, mediante el men&uacute; desplegable elementos de la primera unidad que se relacionen con la segunda.<br /><br />
+Atenci&oacute;n : Varios elementos de la primera unidad pueden referirse al mismo elemento en la segunda unidad.<br /><br />
 Otorgue un peso a cada relaci&oacute;n correcta, y salve su respuesta.</p>
-<hr>
+<hr />
 <b>Modificaci&oacute;n de Ejercicios</b>
 <p>Para modificar un ejercicio, siga los mismos pasos que hizo para crearlo. S&oacute;lo pulse en la imagen <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> al lado del ejercicio que quiere
 modificar y siga las instrucciones de anteriores.</p>
-<hr>
+<hr />
 <b>Borrar Ejercicios</b>
 <p>Para borrar un ejercicio, pulse en la imagen <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\">
 al lado del ejercicio que quiera borrar.</p>
-<hr>
+<hr />
 <b>Activar Ejercicios</b>
 <p>Para que los alumnos puedan hacer un ejercicio, Vd. tiene que activarlo pulsando en la imagen <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">
 al lado del ejercicio que quiere activar.</p>
-<hr>
+<hr />
 <b>Probar un Ejercicio</b>
 <p>Vd. puede probar su ejercicio pulsando sobre el nombre del ejercicio en la lista de ejercicios.</p>
-<hr>
+<hr />
 <b>Ejercicios Aleatorios</b>
 <p>En el momento en que se crea / modifica un ejercicio, puede especificar si quiere que las preguntas aparezcan
-en orden aleatorio de entre todas las introducidas en ese ejercicio. <br><br>
+en orden aleatorio de entre todas las introducidas en ese ejercicio. <br /><br />
 Eso significa que, si Vd. activa esta opci&oacute;n, las preguntas aparecer&aacute;n en un orden diferente cada vez que
-los estudiantes pulsen sobre el ejercicio.<br><br>
+los estudiantes pulsen sobre el ejercicio.<br /><br />
 Si Vd. tiene un n&uacute;mero elevado de preguntas, tambi&eacute;n puede hacer que aparezcan s&oacute;lo X preguntas
 de entre todas las preguntas disponibles para ese ejercicio.</p>
-<hr>
+<hr />
 <b>Almac&eacute;n de Preguntas</b>
 <p>Cuando borras un ejercicio, las preguntas no se eliminan de la base de datos, y pueden ser utilizadas en un nuevo ejercicio,
-mediante la 'Almac&eacute;n de Preguntas'.<br><br>
-El Almac&eacute;n de Preguntas permiete reutilizar las mismas preguntas en varios ejercicios distintos.<br><br>
+mediante la 'Almac&eacute;n de Preguntas'.<br /><br />
+El Almac&eacute;n de Preguntas permiete reutilizar las mismas preguntas en varios ejercicios distintos.<br /><br />
 Por defecto, se muestran todas las preguntas de tu curso. Vd. puede mostrar las preguntas
-relacionadas con un ejercicio eligiendo &eacute;ste del men&uacute; desplegable &quot;Filtro&quot;.<br><br>
+relacionadas con un ejercicio eligiendo &eacute;ste del men&uacute; desplegable &quot;Filtro&quot;.<br /><br />
 Las preguntas hu&eacute;rfanas son preguntas que no pertenecen a ning&uacute;n ejercicio.</p>";
 $langExercises = "Ejercicios";
 $langForContent = "El foro es una herramienta de discusi&oacute;n
@@ -444,19 +444,19 @@ $langUserContent = "<b>Papeles (roles)</b><p>Los papeles (roles) no tienen ningu
 No otorgan ning&uacute;n derecho sobre el sistema. Usted puede modificarlos haciendo click sobre 'modificar' debajo de
 'rol/papel' e introduciendo despu&eacute;s todas las letras de la descripci&oacute;n de la funci&oacute;n conveniente:
 profesor, asistente, tutor, visitante, documentalista, experto, moderador... Esto servir&aacute; s&oacute;lo para indicar
-p&uacute;blicamente que rol (papel) que desempe&ntilde;a en el curso.</P><hr>
+p&uacute;blicamente que rol (papel) que desempe&ntilde;a en el curso.</P><hr />
 <b>Derechos de administraci&oacute;n</b>
 <p>Los derechos de administraci&oacute;n, por el contrario, se refieren al sistema inform&aacute;tico. Actualmente, se
 puede escoger entre <b>todos</b> (modificar todo, suprimir todo, a&ntilde;adir todo) y <b>ninguno</b> (a parte del derecho
 de visitar la web, de publicar mensajes en el foro y trabajos por medio de la p&aacute;gina 'Trabajos').</p>
 <p>Para permitir a un co-titular, un asistente, un tutor o quien sea el co-administrar la web junto con usted, debe de
 inscribirlo previamente en su curso o asegurarse que ya est&aacute; inscrito y despu&eacute;s modificar los derechos que
-le corresponden haciendo click sobre 'Modificar' en 'Derechos de administraci&oacute;.' y marcando despu&eacute;s 'Todos'.</p><hr>
+le corresponden haciendo click sobre 'Modificar' en 'Derechos de administraci&oacute;.' y marcando despu&eacute;s 'Todos'.</p><hr />
 <b>Co-titulares</b>
 <p>Para hacer que figure el nombre de un co-titular en la cabecera de su curso, utilice la p&aacute;gina
 'Modificar la informaci&oacute;n sobre el curso' (en las herramientas de color naranja). Esta modificaci&oacute;n de la
 cabecera del curso no inscribe autom&aacute;ticamente a este co-titular como usuario del curso. Se trata de dos acciones
-distintas.</p><hr>
+distintas.</p><hr />
 <b>Ayudar a un usuario</b>
 <p>Para a&ntilde;adir un usuario a su curso, compruebe primero si ya est&aacute; inscrito en iCampus utilizando el motor
 de b&uacute;squeda. Si ya est&aacute; inscrito, marque la casilla que aparece al lado de su nombre y valide. Si todav&iacute;a
@@ -467,6 +467,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

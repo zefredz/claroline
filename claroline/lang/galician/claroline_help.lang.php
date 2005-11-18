@@ -10,7 +10,7 @@ $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e adminis
 						se a s&uacute;a versi&oacute;n de Claroline permite o auto-rexistro (alg&uacute;ns
 						sitios rex&iacute;strano de xeito autom&aacute;tico).
 
-						<br>Se &eacute; vostede un estudante, s&oacute; precisa inscribirse premendo na
+						<br />Se &eacute; vostede un estudante, s&oacute; precisa inscribirse premendo na
 						opci&oacute;n inscrici&oacute;n, e escoller 'Seguir cursos (estudante)',
 						seleccionando logo os cursos nos que se quere inscribir.</p><p>
 
@@ -52,7 +52,7 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 					das ferramentas axeitadas para poder consultalos. Te&ntilde;a tam&eacute;n coidado de non cargar nesa
 					secci&oacute;n documentos infectados con virus. &Eacute; conveniente comprobar primeiro cun programa
 					antivirus que os documentos non estean infectados antes de colocalos no curso.</p>
-					<p>Os documentos pres&eacute;ntanse na pantalla por orden alfab&eacute;tico.<br>
+					<p>Os documentos pres&eacute;ntanse na pantalla por orden alfab&eacute;tico.<br />
 					<b>Consellos:</b> se desexa vostede que os documentos se ordenen de diferente xeito, pode facer
 					que se precedan dun n&uacute;mero. As&iacute;, ordenaranse de menos a maior n&uacute;mero de inicio.</p>
 					<p>Pode vostede:</p>
@@ -101,7 +101,7 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 					<img src=../document/../document/img/comment.gif width=20 height=20>,
 					&quot;elimina-lo antigo comentario da zona&quot; e valide premendo en &quot;OK&quot;
 					<input type=submit value=OK name=submit22>.
-					<hr>
+					<hr />
 					<p>Pode vostede tam&eacute;n organiza-lo contido do m&oacute;dulo dos documentos gardando
 					os documentos en directorios. Para facer isto vostede debe :</p>
 					<h4><b>Crear un directorio</b></h4>
@@ -128,8 +128,8 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 					<p>";
 $langDocument = "Documentos e Ligaz&oacute;ns";
 $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear exercicios, que conter&aacute;n
-							tantas preguntas como vostede desexe.<br><br>
-							Hai varios modelos de respostas dispo&ntilde;ibles para crea-las s&uacute;s preguntas :<br><br>
+							tantas preguntas como vostede desexe.<br /><br />
+							Hai varios modelos de respostas dispo&ntilde;ibles para crea-las s&uacute;s preguntas :<br /><br />
 							<ul>
 								<li>Elección m&uacute;ltiple (Resposta &uacute;nica)</li>
 								<li>lección m&uacute;ltiple (Respostas m&uacute;ltiples )</li>
@@ -139,31 +139,31 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 							Un exercicio est&aacute; composto por varias cuesti&oacute;ns que gardan relaci&oacute;n
 							entre elas.</p>
 
-							<hr>
+							<hr />
 							<b>Creaci&oacute;n de Exercicios</b>
-							<p>Para crear un exercicio, prema sobre a ligaz&oacute;n &quot;Exercicio Novo&quot;.<br><br>
-							Escriba o nome do exercicio e, se o desexa, unha descrici&oacute;n do mesmo.<br><br>
-							Pode tam&eacute;n escoller entre dous modelos de exercicios :<br><br>
+							<p>Para crear un exercicio, prema sobre a ligaz&oacute;n &quot;Exercicio Novo&quot;.<br /><br />
+							Escriba o nome do exercicio e, se o desexa, unha descrici&oacute;n do mesmo.<br /><br />
+							Pode tam&eacute;n escoller entre dous modelos de exercicios :<br /><br />
 							<ul>
 								<li>Cuesti&oacute;ns nunha &uacute;nica p&aacute;xina</li>
 								<li>Unha pregunta por p&aacute;xina (secuencial)</li>
 							</ul>
 							e diga se desexa que as cuesti&oacute;ns sexan ordeadas de xeito aleatorio no momento no
-							que o alumno faga o exercicio.<br><br>
+							que o alumno faga o exercicio.<br /><br />
 							Despois, garde o seu exercicio. Vostede ver&aacute; a administración de cuesti&oacute;ns
 							para este exercicio.</p>
 
-							<hr>
+							<hr />
 							<b>Engadir Cuesti&oacute;ns</b>
 							<p>Pode engadir unha cuesti&oacute;n &oacute; exercicio creado con anterioridade.
 							A descrici&oacute;n &eacute; opcional, as&iacute; como a posibilidade de inclu&iacute;r
 							unha imaxe na s&uacute;a cuesti&oacute;n.</p>
 
-							<hr>
+							<hr />
 							<b>Elecci&oacute;n M&uacute;ltiple</b>
 							<p>Esta tam&eacute;n se co&ntilde;ece como 'cuesti&oacute;n de resposta ou elecci&oacute;n
-							m&uacute;ltiple' MAQ / MCQ.<br><br>
-							Para crear unha:<br><br>
+							m&uacute;ltiple' MAQ / MCQ.<br /><br />
+							Para crear unha:<br /><br />
 							<ul>
 								<li>Defina as respostas para a s&uacute;a cuesti&oacute;n. Pode engadir ou eliminar unha
 								reposta premendo no bot&eacute;n dereito</li>
@@ -174,76 +174,76 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 								a cada resposta. O peso pode ser un n&uacute;mero positivo, negativo, ou cero.</li>
 								<li>Garde as s&uacute;as respostas</li>
 							</ul></p>
-							<hr>
+							<hr />
 
 							<b>Completar ocos</b>
 							<p>Esto permite crear un texto con ocos. O obxectivo &eacute; deixar que o estudante
-							complete o texto con palabras omitidas por vostede no texto.<br><br>
+							complete o texto con palabras omitidas por vostede no texto.<br /><br />
 							Para quitar unha palabra do texto, e por tanto crear un oco, po&ntilde;a a palabra entre
-							corchetes [como isto].<br><br>
+							corchetes [como isto].<br /><br />
 							Unha vez que o texto se escrib&iacute;iu e se definiron os ocos, pode engadir un comentario
-							que verá o estudante cando responda a cada pregunta.<br><br>
+							que verá o estudante cando responda a cada pregunta.<br /><br />
 							Garde o seu texto, e ver&aacute; o paso seguinte que lle permitir&aacute; asignarlle un peso
 							a cada oco. Por exemplo, se a pregunta enteira vale 10 puntos e ten 5 ocos, pode vostede darlle
 							a cada oco un peso de 2 puntos.</p>
-							<hr>
+							<hr />
 
 							<b>Relacionar</b>
 							<p>Este modelo de resposta pode elixirse para crear unha pregunta onde o estudante te&ntilde;a
-							que relacionar elementos desde unha unidade U1 a outra unidade U2. <br><br>
+							que relacionar elementos desde unha unidade U1 a outra unidade U2. <br /><br />
 							Tameacute;n se pode empregar para pedir lle &oacute;s estudantes que seleccionen os elementos
-							nunha certa orde.<br><br>
+							nunha certa orde.<br /><br />
 							Primeiro defina as opci&oacute;ns entre as que os estudantes poder&aacute;n selecciona-la
 							resposta correcta. Logo, defina as cuesti&oacute;ns que ter&aacute;n que ir relacionadas
 							con cada unha das opci&oacute;ns previamente definidas. Por &uacute;ltimo, relacione,
 							mediante o men&uacute; despregable, elementos da primeira unidade que se relacionen con
-							elementos da segunda.<br><br>
+							elementos da segunda.<br /><br />
 							Atenci&oacute;n : varios elementos da primeira unidade se poden referir &oacute; mesmo elemento
-							na segunda unidade.<br><br>
+							na segunda unidade.<br /><br />
 							Outorguelle un peso a cada relaci&oacute;n correcta, e garde a s&uacute;a resposta.</p>
-							<hr>
+							<hr />
 
 							<b>Modificaci&oacute;n de Exercicios</b>
 							<p>Para modificar un exercicio, siga os mesmos pasos que fixo para crealo. S&oacute; prema
 							na imaxe <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\">
 							&oacute; car&oacute;n do exercicio que desexa modificar e siga as instrucci&oacute;ns anteriores.</p>
-							<hr>
+							<hr />
 
 							<b>Eliminar Exercicios</b>
 							<p>Para borrar un exercicio, prema na imaxe
 							<img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\">
 							&oacute; car&oacute;n do exercicio que desexe eliminar.</p>
-							<hr>
+							<hr />
 
 							<b>Activar Exercicios</b>
 							<p>Para que os alumnos poidan facer un exercicio, ten vostede que activalo premendo na imaxe
 							<img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">
 							&oacute; car&oacute;n do exercicio que desexa activar.</p>
-							<hr>
+							<hr />
 
 							<b>Probar un Exercicio</b>
 							<p>Pode vostede proba-lo seu exercicio premendo sobre o nome do exercicio na lista de exercicios.</p>
-							<hr>
+							<hr />
 
 							<b>Exercicios Aleatorios</b>
 							<p>No  momento en que se crea / modifica un exercicio, pode especificar se quere que as
 							cuesti&oacute;ns aparezan en orde aleatoria de entre t&oacute;dalas nese exercicio
-							introducidas. <br><br>
+							introducidas. <br /><br />
 							Iso significa que, se vostede activa esta opci&oacute;n, as cuesti&oacute;ns aparecer&aacute;n
-							nunha orde diferente cada vez que os estudantes preman sobre o exercicio.<br><br>
+							nunha orde diferente cada vez que os estudantes preman sobre o exercicio.<br /><br />
 							Se vostede ten un n&uacute;mero elevado de cuesti&oacute;ns, pode facer tam&eacute;n que
 							aparezan s&oacute; X cuesti&oacute;ns de entre t&oacute;dalas cuesti&oacute;ns dispo&ntilde;ibles
 							para ese exercicio.</p>
-							<hr>
+							<hr />
 
 							<b>Almac&eacute;n de Cuesti&oacute;ns</b>
 							<p>Cando elimina un exercicio, as cuesti&oacute;ns non se eliminan da base de datos, polo que
-							poden ser empregadas nun novo exercicio, mediante o 'Almac&eacute;n de Cuesti&oacute;ns'.<br><br>
+							poden ser empregadas nun novo exercicio, mediante o 'Almac&eacute;n de Cuesti&oacute;ns'.<br /><br />
 							O Almac&eacute;n de Cuesti&oacute;ns permite reutiliza-las mesmas cuesti&oacute;ns en varios
-							exercicios distintos.<br><br>
+							exercicios distintos.<br /><br />
 							Por defecto, am&oacute;sanse t&oacute;dalas cuesti&oacute;ns do seu curso. Vostede pode amosa-las
 							cuesti&oacute;ns relacionadas cun exercicio elixindo este do men&uacute; despregable
-							&quot;Filtro&quot;.<br><br>
+							&quot;Filtro&quot;.<br /><br />
 							As cuesti&oacute;ns orfas son cuesti&oacute;ns que non pertencen a ning&uacute;n exercicio.</p>";
 $langExercises = "Exercicios";
 $langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute;ncrona e escrita. A diferencia do
@@ -475,7 +475,7 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						modificalos premendo en 'modificar' debaixo de  'rol/papel' e introducindo logo
 						t&oacute;dalas letras da descrici&oacute;n da funci&oacute;n conveniente: profesor,
 						asistente, titor, visitante, documentalista, experto, moderador... Esta servir&aacute;
-						soamente para indicar publicamente o rol (papel) que desempe&ntilde;a no curso.</P><hr>
+						soamente para indicar publicamente o rol (papel) que desempe&ntilde;a no curso.</P><hr />
 						<b>Dereitos de administraci&oacute;n</b>
 						<p>Os dereitos de administraci&oacute;n, pola contra, ref&iacute;rense &oacute; sistema
 						inform&aacute;tico. Actualmente, p&oacute;edese escoller entre <b>todos</b> (modificar todo,
@@ -484,12 +484,12 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						<p>Para permitir a un co-titular, un asistente, un titor ou quen sexa que desexe
 						co-administra-la web con vostede, debe inscribilo previamente no seu curso, ou asegurarse
 						primeiro de que xa est&aacute; inscrito e modificar logo os dereitos que lle corresponden
-						premendo en 'modificar' debaixo 'dereitos de administraci&oacute;.' e marcando logo 'todos'.</P><hr>
+						premendo en 'modificar' debaixo 'dereitos de administraci&oacute;.' e marcando logo 'todos'.</P><hr />
 						<b>Co-titulares</b>
 						<p>Para facer que figure o nome dun co-titular na cabeceira do seu curso, empregue a
 						p&aacute;xina 'Modifica-la informaci&oacute;n sobre o curso' (nas ferramentas de cor laranxa).
 						Esta modificaci&oacute;n da cabeceira do curso non inscribe automaticamente a este co-titular
-						como usuario do curso. Tr&aacute;tase de d&uacute;as acci&oacute;ns distintas.</p><hr>
+						como usuario do curso. Tr&aacute;tase de d&uacute;as acci&oacute;ns distintas.</p><hr />
 						<b>Axudar a un usuario</b>
 						<p>Para engadir un usuario &oacute; seu curso, comprobe primeiro se xa est&aacute;
 						inscrito na plataforma empregando o motor de procura. Se xa est&aacute; inscrito,
@@ -502,6 +502,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

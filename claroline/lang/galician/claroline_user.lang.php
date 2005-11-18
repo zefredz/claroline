@@ -180,6 +180,7 @@ $langYourReg = "A s&uacute;a inscrici&oacute;n en";
 $lang_add_user_list = "Engadir unha lista de usuarios";
 $lang_already_enrolled = "xa foi matriculado";
 $lang_do_you_want_to_continue = "Desexa continuar?";
+$lang_enroll = "Matricularse";
 $lang_fields_enclosed_by = "Campos rodeados por";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "se escolle vostede continuar, as li&ntilde;as con erros ser&aacute;n simplemente ignoradas";

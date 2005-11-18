@@ -135,4 +135,5 @@ $langYes = "Ya";
 $langYouAreReg = "Anda telah berdaftar pada";
 $langYourReg = "Pendaftaran anda pada";
 $lang_already_enrolled = "telah sedia mengikuti";
+$lang_enroll = "Sertai";
 ?>

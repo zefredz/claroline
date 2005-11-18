@@ -1,22 +1,7 @@
 <?php
 $l_click = "Натисни";
 $l_here = "тук";
-$l_notifybody = "You are receiving this Email because a message
-you posted on  forums has been replied to, and
-you selected to be notified on this event.
-
-You may view the topic at:
-
-%1\$s
-
-Or view the  forum index at
-
-%2\$s
-
-Thank you for using  forums.
-
-Have a nice day.";
-$l_notifysubj = "A reply to your topic has been posted.";
+$l_notifysubj = "Изпратен е отговор на Вашият топик.";
 $l_returnindex = "за да се върнеш в началото на форума";
 $l_returntopic = "за да се върнеш в списъка с темите.";
 $l_separator = "» »";
@@ -25,19 +10,24 @@ $langAdd_users = "Добеви потребители";
 $langAddedToCreator = "Начало на курс-а";
 $langAdmin = "Админ";
 $langAdministration = "Администрация";
-$langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
+$langAdmitError = "Admit one's own errors to invite one's interlocutor to do the same.";
 $langAgain = "Опитайте отново!";
 $langAgenda = "График";
 $langAnnouncement = "Обяви";
 $langAnonymous = "Анонимен";
 $langAntique = "История на България";
+$langBackTo = "Обратно към :";
 $langCancel = "Анулирай";
 $langCatagoryGroup = "Форуми на групите";
 $langCatagoryMain = "Основна";
 $langChat = "Чат";
-$langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
 $langCopy = "Копирай";
+$langCourseHome = "Начало на курса";
+$langCourseManager = "Отговорник за курса";
 $langCreate = "създай";
+$langCreateCategory = "Създай категория";
+$langCreateCourses = "Създай курсове";
+$langCreateForum = "Създай форум";
 $langCreateSite = "Създай сайт на курса";
 $langDay_of_weekNames = "Array";
 $langDear = "Уважаеми";
@@ -48,44 +38,61 @@ $langEmail = "Емейл";
 $langExMessage = "Примерно съобщение";
 $langExerciceEx = "Примерно упражнение";
 $langExercises = "Упражнения";
+$langFillCourses = "Създай тестов курс";
+$langFirstName = "Малко име";
 $langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
 $langForum = "Форуми";
 $langForumGroup = "Форум на групата";
 $langForums = "Форуми";
+$langFree = "Свободно";
 $langGroup = "Група";
+$langGroupChatLink = "Чат на групата";
 $langGroupDocumentsLink = "Документи на група ";
-$langGroupSpaceLink = "Group area";
 $langGroups = "Групи";
 $langHelp = "Помощ";
 $langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
 $langLearningPath = "Обучаваща пътека";
+$langLogin = "Логин";
 $langLogout = "Изход";
-$langManager = "Администратор";
 $langManyAnswers = "(повече от един отговор може да е верен)";
+$langMaxStudentGroup = "Макс. брой студенти в група";
+$langMaximum = "Максимум : ";
 $langMessage = "Премахвайки тест форума, ще изтриете и всички съобщения в него.";
+$langMin = "Минимум : ";
+$langMinuteShort = "мин.";
 $langModifyProfile = "Промени моя профил";
 $langMonthNames = "Array";
 $langMyAgenda = "Моя календар";
 $langMyCourses = "Моите курсове";
+$langName = "Име";
 $langNameOfLang = "Array";
 $langNewTopic = "Нова тема";
 $langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
 $langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
 $langNotAllowed = "Не разрешено";
-$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
+$langNumGroup = "Брой групи в курс";
 $langOk = "ОК";
 $langOtherCourses = "Списък на курсовете";
+$langPeriodDayShort = "д.";
+$langPeriodHourShort = "ч.";
 $langPlatformAdministration = "Администр. платформа";
 $langPoweredBy = "Powered by";
 $langProfessor = "Преподавател";
+$langQuantity = "Количество";
 $langReply = "Отговор";
-$langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
+$langSearch = "Търсене";
 $langSocraticIrony = "Иронията на Сократ е...";
 $langStudent = "студент";
+$langStudentQty = "Брой обучаващи се";
+$langStudents = "Обучаващи се";
 $langTestForum = "Тествайте форума";
+$langTextEditorDisable = "Изключи текстов редактор";
+$langTextEditorEnable = "Включи текстов редактор";
 $langTo = "в";
 $langToday = "Днес";
 $langUsers = "Потребители";
+$langViewMode = "Гледай като";
 $langWork = "Студентски материали";
+$lang_footer_p_CourseManager = "Водещ на курс %s е";
 $lang_p_platformManager = "Администратор на %s";
 ?>

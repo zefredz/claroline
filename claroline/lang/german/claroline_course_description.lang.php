@@ -36,7 +36,6 @@ $langInvisible = "verborgen";
 $langLearningPath = "Lernpfad";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "KursSite-Verantwortlicher";
 $langMethodsOfEvaluation = "Methoden der Beurteilung";
 $langMethodsOfEvaluationComment1 = "Genaue Details zur Evaluierungsmethode (schriftliche und m&uuml;ndliche Pr&uuml;fungen, Projekte, abzugebende Arbeiten...), Datum der einleitenden Evaluierung oder Eingangs&uuml;berpr&uuml;fung. Abgabetermine der Arbeiten, mit Beurteilungskriterien. Fallweise die Gewichtung der Kriterien oder die Kategorien der Kriterien.";
 $langMinuteShort = "min.";
@@ -77,6 +76,7 @@ $langViewMode = "Ansicht";
 $langVisible = "sichtbar";
 $langWiki = "Wiki";
 $langWork = "Upload-Bereich";
+$lang_enroll = "Anmeldung";
 $lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
 $lang_p_platformManager = "Administrator von %s";
 ?>

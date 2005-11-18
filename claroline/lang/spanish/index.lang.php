@@ -56,6 +56,7 @@ $langValvas = "&Uacute;ltimo comentario";
 $langViewMode = "Modo de vista";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
+$lang_enroll = "Matricularse";
 $lang_enroll_to_a_new_course = "Inscribirse en un curso nuevo";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";

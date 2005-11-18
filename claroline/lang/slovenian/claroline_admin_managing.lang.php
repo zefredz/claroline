@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Dodaj administratorsko ime/geslo v .htpassword</a><br>";
+$langAddLoginPass = "Dodaj administratorsko ime/geslo v .htpassword</a><br />";
 $langAgenda = "Agenda";
 $langAnnouncement = "Obvestila";
 $langCancel = "Prekini";
@@ -18,7 +18,6 @@ $langListHtUsers = "Vpogled v  .htpassword";
 $langLogin = "vstop";
 $langLogout = "Izstop";
 $langManage = "Upravljanje s kampusom";
-$langManager = "Upravnik";
 $langModifyProfile = "Spremeni moj profil";
 $langMonthNames = "Array";
 $langMyCourses = "Seznam mojih tecajev";
@@ -36,5 +35,6 @@ $langStudent = "student";
 $langUpdated = "Ayurirano";
 $langUsers = "Uporabniki";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 $lang_no_access_here = "Tu ni dostopa ";
 ?>

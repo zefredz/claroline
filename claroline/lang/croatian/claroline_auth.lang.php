@@ -48,6 +48,7 @@ $langGroupTutor = "Mentor grupe";
 $langGroups = "Grupe";
 $langHelp = "Pomoć";
 $langHome = "Natrag na početnu stranicu";
+$langInvalidId = "Neuspjela prijava<br /> Da biste se registrirali ispunite <a href=claroline/auth/inscription.php>registracijski obrazac</a></font color>";
 $langIs = "je";
 $langLastname = "Prezime";
 $langLearningPath = "Redoslijed učenja";

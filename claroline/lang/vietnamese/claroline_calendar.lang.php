@@ -20,7 +20,6 @@ $langHelp = "Help";
 $langLasting = "Kéo dài";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langModify = "Modify";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
@@ -40,4 +39,5 @@ $langUp = "Up";
 $langUsers = "Users";
 $langViMod = "Đã thay đổi tính hiển thị";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 ?>

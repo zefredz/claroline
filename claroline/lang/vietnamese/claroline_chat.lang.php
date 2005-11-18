@@ -13,10 +13,9 @@ $langExercises = "Bài tập";
 $langForums = "Diễn đàn";
 $langGroups = "Nhóm";
 $langHelp = "Help";
-$langIsNowInYourDocDir = "is now  in  your document tool. <br><B>This  file  is  visible</B>";
+$langIsNowInYourDocDir = "is now  in  your document tool. <br /><B>This  file  is  visible</B>";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Người quản lý";
 $langModifyProfile = "Sửa thông tin cá nhân";
 $langMonthNames = "Array";
 $langMyCourses = "Danh mục khoá học";
@@ -26,4 +25,5 @@ $langPoweredBy = "Powered by";
 $langStudent = "học sinh";
 $langUsers = "Users";
 $langWork = "Công việc";
+$lang_enroll = "Tham gia";
 ?>

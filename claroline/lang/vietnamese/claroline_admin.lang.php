@@ -135,4 +135,5 @@ $langYes = "Yes";
 $langYouAreReg = "You are registered on";
 $langYourReg = "Your registration on";
 $lang_already_enrolled = "đã tham gia rồi";
+$lang_enroll = "Tham gia";
 ?>

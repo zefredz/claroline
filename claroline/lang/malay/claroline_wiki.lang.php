@@ -57,4 +57,5 @@ $langWork = "Works";
 $langYes = "Ya";
 $langYouAreReg = "Anda telah berdaftar pada";
 $langYourReg = "Pendaftaran anda pada";
+$lang_enroll = "Sertai";
 ?>

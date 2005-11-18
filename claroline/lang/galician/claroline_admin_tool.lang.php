@@ -42,10 +42,11 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_ErrorOnBuild_S_for_S = "Erro na construcci&oacute;n de <em>%s</em> para <b>%s</b>";
 $lang_p_PropForConfigCommited = "As propiedades para %s (%s) son agora efectivas no servidor.";
-$lang_p_config_file_creation = "Creaci&oacute;n do ficheiro de configuraci&oacute;n:<br> %s";
+$lang_p_config_file_creation = "Creaci&oacute;n do ficheiro de configuraci&oacute;n:<br /> %s";
 $lang_p_nothing_to_edit_in_S = "nada que editar en %s";
 $lang_p_platformManager = "Administrador para %s";
 ?>

@@ -105,7 +105,6 @@ $langEnrollAsManager = "Inscrever-se como gerenciador de curso";
 $langEnrollAsStudent = "Inscrever-se como estudante";
 $langEnrollToNewCourse = "Inscrever-se em um novo curso";
 $langEnrollUser = "Inscrever um usuário";
-$langEnter2passToChange = "Informe a sua senha duas vezes para trocá-la. Caso não o queira, deixe os campos vazios.";
 $langErrorCannotReadRSSFile = "Erro : não pode ser lido o campo RSS";
 $langErrorClassNotEmpty = "Esta turma ainda contém algumas sub-turmas, favor deletar estas primeiro";
 $langErrorMove = "Você não pode remover uma Turma!";
@@ -203,7 +202,6 @@ $langPublicOnly = "Apenas cursos públicos";
 $langRegAdmin = "Criar websites de curso";
 $langRegStudent = "Seguir cursos";
 $langRegYou = "registrou você neste curso";
-$langRegister = "Registrar";
 $langRegisterLocalUrl = "A site  de seu campus (departamento ou setor) parace ser uma site local.
 A indicação do endereço de um site é necessario para o cadastro no Claroline.net.<br /><br />
 Verifica o valor  'Web base' na sua configuração do Claroline.";
@@ -299,6 +297,7 @@ $langYouAreReg = "Você está registrado em";
 $langYourReg = "Sua inscrição em";
 $lang_already_enrolled = "já inscrito";
 $lang_click_here = "clique aqui";
+$lang_enroll = "Inscrever";
 $lang_faculty_CanHaveCatCourse = "Pode ter cursos : ";
 $lang_faculty_CatHaveCat = "Essa categoria contém outras categorias, você precisa deletá-las antes !";
 $lang_faculty_CatHaveCourses = "Essa categoria contém alguns cursos, você não pode apagá-la!";

@@ -18,7 +18,6 @@ $langForums = "กระดานข่าว";
 $langGroups = "กลุ่ม";
 $langHelp = "ช่วยเหลือ";
 $langLogout = "Logout";
-$langManager = "ผู้จัดการ";
 $langModify = "ปรับปรุง";
 $langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
 $langMonthNames = "Array";

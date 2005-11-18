@@ -48,9 +48,9 @@ $langHelp = "Help";
 $langHome = "Terug naar startpagina";
 $langLanguage = "Taal";
 $langLearningPath = "Leerpad";
+$langLegendRequiredFields = "<span class=\"required\">*</span> Moeten ingevuld zijn";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
-$langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
 $langModifDone = "De eigenschappen werden gewijzigd";
 $langModifyProfile = "Mijn profiel";
@@ -85,6 +85,7 @@ $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
 $langYes = "Ja";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

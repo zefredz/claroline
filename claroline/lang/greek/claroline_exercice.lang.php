@@ -99,7 +99,6 @@ $langLessElements = "Rem. elem.(απομάκρυνση στοιχείων)";
 $langLogin = "Login";
 $langLogout = "Εξοδος";
 $langMakeCorrespond = "Γίνεται Αντιστοίχιση";
-$langManager = "Διαχειριστής";
 $langMatching = "Matching (Ταίριασμα???)";
 $langMaxAllowedTime = "Μέγιστος επιτρεπόμενος χρόνος";
 $langMaxFileSize = "Μέγιστο μέγεθος αρχείου : ";
@@ -191,6 +190,7 @@ $langWork = "Εργασίες Φοιτητών";
 $langYes = "Ναι";
 $langYourTime = "Ο χρόνος σου είναι";
 $langYourTotalScore = "Η συνολική βαθμολογία σου είναι";
+$lang_enroll = "Eγγραφή";
 $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για %s";
 ?>

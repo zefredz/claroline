@@ -178,6 +178,7 @@ $langWork = "Zadaci";
 $langWrongOperation = "Pogrešna operacija";
 $langYourBestScore = "Vaš najbolji rezultat";
 $langZipNoPhp = "Zip datoteka ne smije sadržavati .PHP datoteke";
+$lang_enroll = "Prijavi";
 $lang_footer_p_CourseManager = "Voditelj predmeta %s";
 $lang_p_platformManager = "Administrator sustava %s";
 $langimportLearningPath = "<i>Importiraj</i> redoslijed učenja";

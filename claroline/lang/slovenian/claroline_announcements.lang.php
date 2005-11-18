@@ -25,7 +25,6 @@ $langGroups = "Skupine";
 $langHelp = "Pomoc";
 $langLogin = "vstop";
 $langLogout = "Izstop";
-$langManager = "Upravnik";
 $langModifAnn = "Spremeni to obvestilo";
 $langModify = "Uredi";
 $langModifyProfile = "Spremeni moj profil";
@@ -48,4 +47,5 @@ $langUp = "Gor";
 $langUsers = "Uporabniki";
 $langViMod = "Vidnost spremenjena";
 $langWork = "Works";
+$lang_enroll = "Vpis";
 ?>

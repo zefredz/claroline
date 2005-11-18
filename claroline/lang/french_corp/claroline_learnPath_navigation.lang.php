@@ -40,7 +40,6 @@ $langLearningPathAdmin = "Administration du parcours";
 $langLearningPathList = "Liste des parcours";
 $langLogin = "login";
 $langLogout = "Quitter";
-$langManager = "Gestionnaire";
 $langMinuteShort = "min.";
 $langModify = "modifier";
 $langModifyProfile = "Modifier mon profil";
@@ -70,6 +69,7 @@ $langView = "Vue";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Contributions";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

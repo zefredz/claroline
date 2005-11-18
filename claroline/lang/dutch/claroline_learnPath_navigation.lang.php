@@ -40,7 +40,6 @@ $langLearningPathAdmin = "Leerpad Admin";
 $langLearningPathList = "Leerpad Lijst";
 $langLogin = "Inloggen";
 $langLogout = "Afmelden";
-$langManager = "Platformbeheerder";
 $langMinuteShort = "min.";
 $langModify = "Wijzigen";
 $langModifyProfile = "Mijn profiel";
@@ -72,6 +71,7 @@ $langView = "View";
 $langViewMode = "Scherm modus";
 $langWiki = "Wiki";
 $langWork = "Studenten Box";
+$lang_enroll = "Inschrijven";
 $lang_footer_p_CourseManager = "Beheerder(s) voor %s";
 $lang_p_platformManager = "Beheerder voor %s";
 ?>

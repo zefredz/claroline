@@ -8,6 +8,7 @@ $langAnnouncement = "الإعلانات";
 $langCancel = "إلغاء";
 $langChangePwdexp = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
 $langChat = "دردشة";
+$langCloseWindow = "إغلاق النافذة";
 $langCodeUsed = "هذا الرمز الإداري مستخدم من قبل طالب أخر";
 $langConfirmation = "تأكيد كلمة السر";
 $langContinue = "متابعة";
@@ -24,7 +25,6 @@ $langEdit = "تعديل";
 $langEmail = "البريد الالكتروني";
 $langEmailWrong = "عنوان البريد الإلكتروني غير صحيح";
 $langEmptyFields = "تركت بعض الحقول اللازمة فارغة";
-$langEnter2passToChange = "أدخل كلمة السر الجديدة مرتين أول اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
 $langExercises = "التمارين";
 $langFirstname = "الاسم";
 $langFormula = "مع أطيب التمنيات";
@@ -65,7 +65,6 @@ $langProblem = "عند حدوث مشاكل اتصل بنا";
 $langRegAdmin = "إنشاء مواقع للمقررات";
 $langRegStudent = "التسجيل في مقرر";
 $langRegYou = "قام بتسجسلك في هذا المقرر";
-$langRegister = "تسجيل";
 $langSave = "حفظ";
 $langSaveChanges = "حفظ التعديلات";
 $langSearch = "بحث";
@@ -177,8 +176,8 @@ $langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
 <li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
 <li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (center).&nbsp;;</li>
+<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
+<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (center).&nbsp;;</li>
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
 <li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
 <li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
@@ -217,7 +216,7 @@ $langWork = "واجبات و مهام";
 $langYes = "نعم";
 $langYouAreReg = "قمت بالتسجيل بتاريخ";
 $langYourReg = "تم تسجيلك في اليوم الموافق ل ";
-$lang_click_here = "انقر هنا";
+$lang_enroll = "تسجيل";
 $lang_footer_p_CourseManager = "المدير المسؤول عن %s";
 $lang_p_platformManager = "المسؤول عن موقع   %s";
 ?>

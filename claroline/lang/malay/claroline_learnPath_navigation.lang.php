@@ -17,7 +17,6 @@ $langGroups = "Kumpulan";
 $langHelp = "Bantuan";
 $langLogin = "Melog Masuk";
 $langLogout = "Melog Keluar";
-$langManager = "Pentadbir Sistem";
 $langModify = "Ubahsuai";
 $langModifyProfile = "Ubahsuai Maklumat Peribadi";
 $langMonthNames = "Array";
@@ -33,4 +32,5 @@ $langStudent = "Pelajar";
 $langUp = "Atas";
 $langUsers = "Users";
 $langWork = "Works";
+$lang_enroll = "Sertai";
 ?>

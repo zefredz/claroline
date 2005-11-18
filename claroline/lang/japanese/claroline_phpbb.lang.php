@@ -54,7 +54,6 @@ $langForums = "会議室";
 $langHelp = "へルプ";
 $langLastMsg = "Last msg";
 $langLogout = "ログアウト";
-$langManager = "運用者";
 $langModifyProfile = "自分のプロファイルを修正";
 $langMonthNames = "Array";
 $langMove = "移動";

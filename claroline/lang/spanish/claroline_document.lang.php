@@ -32,8 +32,7 @@ $langElRen = "Elemento re nombrado";
 $langExercises = "Ejercicios";
 $langFileContentModified = "Contenido del archivo modificado";
 $langFileCreated = "Archivo Creado";
-$langFileError = "El archivo a subir no es v&aacute;lido.";
-$langFileExists = "No se puede realizar la acci&oacute;n.<br>Ya existe un archivo con ese nombre.";
+$langFileExists = "No se puede realizar la acci&oacute;n.<br />Ya existe un archivo con ese nombre.";
 $langFileNameMissing = "Falta el nombre del archivo";
 $langFileNameOrURLMissing = "Falta el nombre o la URL.";
 $langFiles = "Lista de archivos";
@@ -93,6 +92,7 @@ $langVisibility = "Visible/invisible";
 $langWiki = "Wiki";
 $langWork = "Trabajos";
 $langZipNoPhp = "El archivo zip no debe contener archivos .php";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Gestor(es) para %s";
 $lang_p_platformManager = "Administrador de %s";
 ?>

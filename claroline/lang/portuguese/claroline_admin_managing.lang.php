@@ -17,7 +17,6 @@ $langListAdmin = "Lista dos Administradores";
 $langListHtUsers = "Lista de nomes de utilizador em .htAccess";
 $langLogin = "Nome de utilizador";
 $langLogout = "Sair da Sess&atilde;o";
-$langManager = "Respons&aacute;vel";
 $langModifyProfile = "Alterar perfil";
 $langMonthNames = "Array";
 $langMyCourses = "Cursos";
@@ -35,5 +34,6 @@ $langStudent = "estudante";
 $langUpdated = "actualizado";
 $langUsers = "Utilizadores";
 $langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
 $lang_no_access_here = "Acesso não autorizado ";
 ?>

@@ -19,7 +19,6 @@ $langForums = "Forumlar";
 $langGroups = "Gruplar";
 $langHelp = "Yardým";
 $langLogout = "Çýkýþ";
-$langManager = "Yönetici";
 $langModify = "Deðiþtir";
 $langModifyProfile = "Profilimi deðiþtir";
 $langMonthNames = "Array";

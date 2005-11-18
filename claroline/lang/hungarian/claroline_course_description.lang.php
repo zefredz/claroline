@@ -36,7 +36,6 @@ $langInvisible = "Láthatatlan";
 $langLearningPath = "Tanösvény";
 $langLogin = "Belépés";
 $langLogout = "Kilépés";
-$langManager = "Vezetõ";
 $langMethodsOfEvaluation = "Értékelési módszerek";
 $langMethodsOfEvaluationComment1 = "Az értékelés módjáról precíz részletek (írott vizsgák, szóbeli, projektek, beadandó feladatok..), a formális értékelések idõpontja, lejárati dátumok a beadandó feladatokhoz, az értékelési kritériumokkal, a kritériumok súlyival, vagy a kritériumok kategóriáival.";
 $langMinuteShort = "min.";
@@ -77,6 +76,7 @@ $langViewMode = "Nézet";
 $langVisible = "Látható";
 $langWiki = "Wiki";
 $langWork = "Beadandó feladatok";
+$lang_enroll = "Bejelentkezik";
 $lang_footer_p_CourseManager = "%s vezetõje";
 $lang_p_platformManager = "%s adminisztrátora";
 ?>

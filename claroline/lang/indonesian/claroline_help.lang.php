@@ -2,22 +2,25 @@
 $langAgenda = "Agenda";
 $langAnnouncement = "Pengumuman";
 $langChat = "Diskusi";
-$langClarContent = "Disini pengajar dan asisten membuat dan mengelila situs pelajaran. Siswa membaca (dokumen, agenda, informasi) dan,
- kadang, mengerjakan latihan, mem-publis paper, berpartisipasi dalam forum diskusi...</p><b>Pendaftaran</b><p>Instruksi berikut berlaku jika setting claroline mengijinkan pendaftaran sendiri/self-registration (beberapa situs meregister secara otomatis). <br>Jika anda siswa, anda hanya perlu mendaftar dengan memilih 'Ikut Pelajaran (siswa)', kemudian pilih pelajaran yang ingin diikuti.</p><p>Jika anda pengajar atau asisten, mendaftar juga, tetapi pilih 'Buat situs pelajaran (pengajar)'. Anda kemudian diminta untuk mengiisi borang tentang Kode Pelajaran, Fakultas/Jurusan dan Nama Pelajaran. Begitu selesai, anda akan dibawa ke situs yang baru saja anda buat dan disini anda dapat mengubah isi dan organisasinya sesuai kebutuhan. </p><p>Pilihan 'To do' adalah untuk menampung masukan  untuk administrator claroline.
+$langClarContent = "Di sini pengajar dan asisten membuat dan mengelola situs mata kuliah. Mahasiswa membaca (dokumen, agenda, informasi) dan,
+ kadang, mengerjakan latihan, mem-publis paper, berpartisipasi dalam forum diskusi...</p><b>Pendaftaran</b><p>Instruksi berikut berlaku jika setting claroline mengijinkan pendaftaran sendiri/self-registration (beberapa situs meregister secara otomatis). <br />Jika anda mahamahasiswa, anda hanya perlu mendaftar dengan memilih 'Ikut mata kuliah (mahamahasiswa)', kemudian pilih mata kuliah yang ingin diikuti.</p><p>Jika anda pengajar atau asisten, mendaftar juga, tetapi pilih 'Buat situs mata kuliah (pengajar)'. Anda kemudian diminta untuk mengiisi borang tentang Kode mata kuliah, Fakultas/Jurusan dan Nama mata kuliah. Begitu selesai, anda akan dibawa ke situs yang baru saja anda buat dan disini anda dapat mengubah isi dan organisasinya sesuai kebutuhan. </p><p>Pilihan 'To do' adalah untuk menampung masukan  untuk administrator claroline.
  Hal-hal yang dapat di-posting-kan misalnya terjadinya error dan saran-saran pengembangan. Daftar 'To do' terhubung ke situs Home Page kampus (begitu
  log in).</p>
 <p>Forum dukungan berbeda fungsinya yaitu menghubungkan pengguna Claroline di seluruh dunia.
-Jika anda tidak menemukan jawaban dari pertanyaan anda dalam lingkungan kampus anda,
-posting-kan pesan kesini.</p>
+Jika anda tidak menemukan jawaban dari pertanyaan anda dalam lingkungan kampus anda, 
+kirimkankan pesan kesini.</p>
 <p>Link ke Pendaftaran (jika ada) ada pada Home Page (bagian kanan atas).</p><b>Login</b><p>Pada kunjungan berikutnya, ketik login/password
- dan Ok untuk mengakses pelajaran anda. URL situsnya ";
-$langCourseManager = "Penanggung jawab pelajaran";
+ dan Ok untuk mengakses mata kuliah anda. URL situsnya ";
+$langCloseWindow = "Tutup jendela";
+$langConfigMenuContent = "Menu Konfigurasi";
+$langCourseHome = "Halaman induk mata kuliah";
+$langCourseManager = "Penanggung jawab mata kuliah";
 $langDay_of_weekNames = "Array";
-$langDescriptionCours = "Deskripsi pelajaran";
+$langDescriptionCours = "Deskripsi mata kuliah";
 $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>Anda dapat meng-upload file berbagai type (HTML, Word,
- Powerpoint, Excel, Acrobat, Flash, Quicktime, dll.). Yang perlu dipertimbangkan hanyalah apakah siswa anda memiliki software untuk membacanya.
+ Powerpoint, Excel, Acrobat, Flash, Quicktime, dll.). Yang perlu dipertimbangkan hanyalah apakah mahamahasiswa anda memiliki software untuk membacanya.
  Beberapa type file dapat mengandung virus, tanggungjawab andalah untuk tidak meng-upload file ber-virus. Karena itu sangat berguna jika kita dapat memeriksakan file-file dengan software antivirus  sebelum meng-uploadnya.</p>
-<p>Dokumen-dokumen ditampilkan dalam urutan abjad.<br><b>Tip : </b>Jika anda menginginkan file-file tampil dalam urutan berbeda, nomori mereka menjadi: 01, 02,
+<p>Dokumen-dokumen ditampilkan dalam urutan abjad.<br /><b>Tip : </b>Jika anda menginginkan file-file tampil dalam urutan berbeda, nomori mereka menjadi: 01, 02,
  03...</p>
 <p>Anda dapat:</p>
 <h4>Meng-upload dokumen</h4>
@@ -26,7 +29,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
  type=submit value=Browse name=submit2>
 	di bagian kanan layar.</li>
 		<li>
-			Jalankan upload dengan tombol Upload <input type=submit value=Upload name=submit2>.
+			Masukkan file dengan tombol Masukkan <input type=submit value=MasukkanS name=submit2>.
 		</li>
 	</ul>
 	<h4>
@@ -54,7 +57,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 			</li>
 		</ul>
 		<h4>
-			Membuat dokumen (atau direktori) tidak nampak bagi siswa
+			Membuat dokumen (atau direktori) tidak nampak bagi mahamahasiswa
 		</h4>
 		<ul>
 			<li>
@@ -62,10 +65,10 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 				dalam kolom 'Tampilkan/sembunyikan'.
 			</li>
 			<li>
-				Dokumen (atau direktori) tsb tetap ada tetapi tidak nampak oleh siswa.
+				Dokumen (atau direktori) tsb tetap ada tetapi tidak nampak oleh mahamahasiswa.
 			</li>
 			<li>
-				Untuk membuatnya nampak kembali lagi dan klik pada
+				Untuk membuatnya tampak lagi dan klik pada
 				<img src=../img/invisible.gif width=24 height=20>
 				dalam kolom 'Tampilkan/sembunyikan'
 			</li>
@@ -88,7 +91,7 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 		Untuk menghapus sebuah komentar, klik pada <img src=../img/comment.gif width=20 height=20>,
 		hapus komentar lama di field tsb dan klik
 		<input type=submit value=OK name=submit22>.
-		<hr>
+		<hr />
 		<p>
 			Anda dapat mengatur isinya melalui filing. Untuk ituz:
 		</p>
@@ -128,8 +131,8 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 <center>
 <p>";
 $langDocument = "Dokumen";
-$langExerciseContent = "<p>Tool latihan memungkinkan anda membuat latihan yang berisi sebanyak mungkin pertanyaan yang anda inginkan.<br><br>
-Ada beberapa macam soal tersedia :<br><br>
+$langExerciseContent = "<p>Tool latihan memungkinkan anda membuat latihan yang berisi sebanyak mungkin pertanyaan yang anda inginkan.<br /><br />
+Ada beberapa macam soal tersedia :<br /><br />
 <ul>
   <li>Pilihan berganda (Jawaban unik/tunggal)</li>
   <li>Pilihan berganda (jawaban berganda)</li>
@@ -137,99 +140,100 @@ Ada beberapa macam soal tersedia :<br><br>
   <li>Mengisi titik-titik</li>
 </ul>
 Sebuah latihan menggabungkan sejumlah pertanyaan dalam tema bersama.</p>
-<hr>
+<hr />
 <b>Pembuatan latihan</b>
-<p>Uktuk membuat latihan, klik pada link &quot;Latihan baru&quot;.<br><br>
-Ketik nama latihan, sekaligus deskripsinya (optional).<br><br>
-Anda juga dapat memilih 2 macam latihan :<br><br>
+<p>Uktuk membuat latihan, klik pada link &quot;Latihan baru&quot;.<br /><br />
+Ketik nama latihan, sekaligus deskripsinya (optional).<br /><br />
+Anda juga dapat memilih 2 macam latihan :<br /><br />
 <ul>
   <li>Pertanyaan-pertanyaan dalam halaman unik</li>
   <li>Satu pertanyaan per halaman  (sekuensial)</li>
 </ul>
-dan tetapkan apakah anda ingin/tidak pertanyaan-pertanyaan diurut secara acak pada saat latihan berjalan.<br><br>
+dan tetapkan apakah anda ingin/tidak pertanyaan-pertanyaan diurut secara acak pada saat latihan berjalan.<br /><br />
 Kemudian simpan latihan. Anda akan ke administrasi pertanyaan untuk  latihan ini.</p>
-<hr>
+<hr />
 <b>Menambah pertanyaan</b>
 <p>Anda dapat menambah pertanyaan ke latihan yang telah dibuat sebelumnya. Deskripsi dan gambar yang di-link ke pertanyaan adalah opsional.</p>
-<hr>
+<hr />
 <b>Pilihan berganda</b>
-<p>Ini merupakan Pertanyaan dengan jawaban berganda / MAQ (multiple answer question) dan pilihan berganda dengan jawaban tunggal / MCQ (multiple choice question) yang terkenal.<br><br>
-Untuk membuat MAQ / MCQ :<br><br>
+<p>Ini merupakan Pertanyaan dengan jawaban berganda / MAQ (multiple answer question) dan pilihan berganda dengan jawaban tunggal / MCQ (multiple choice question) yang terkenal.<br /><br />
+Untuk membuat MAQ / MCQ :<br /><br />
 <ul>
   <li>Tetapkan jawaban untuk pertanyaan anda. Anda dapat menambah atau menghapus jawaban dengan meng-klik tombol kanan</li>
   <li>Conteng melalui kotak di kiri jawaban (jawaban-jawaban) yang benar</li>
-  <li>Bila perlu tambahkan komentar. Komentar tsb tidak akan terlihat oleh siswa sampai pertanyaan selesai dijawab</li>
+  <li>Bila perlu tambahkan komentar. Komentar tsb tidak akan terlihat oleh mahamahasiswa sampai pertanyaan selesai dijawab</li>
   <li>Beri bobot ke tiap pertanyaan. Bobot dapat bernilai positif, negatif atau nol.</li>
   <li>Simpan jawaban-jawaban anda</li>
 </ul></p>
-<hr>
+<hr />
 <b>Mengisi titik-titik</b>
-<p>Ini memungkinkan anda membuat teks dengan celah-celah. Tujuannya adalah agar siswa mencari kata-kata yang anda buang dari teks.<br><br>
-Untuk membuang sebuah kata dari teks, sehingga membentuk titik-titik, beri tanda kurung pada kata tersebut [seperti ini].<br><br>
-Sekalinteks diketik dan titik didefinisikan, anda dapat menambah komentar yang akan tampil kepada siswa ketika selesai menjawab pertanyaan.<br><br>
+<p>Ini memungkinkan anda membuat teks dengan celah-celah. Tujuannya adalah agar mahamahasiswa mencari kata-kata yang anda buang dari teks.<br /><br />
+Untuk membuang sebuah kata dari teks, sehingga membentuk titik-titik, beri tanda kurung pada kata tersebut [seperti ini].<br /><br />
+Sekalinteks diketik dan titik didefinisikan, anda dapat menambah komentar yang akan tampil kepada mahamahasiswa ketika selesai menjawab pertanyaan.<br /><br />
 Simpan teks anda, dan anda akan memasuki langkah berikutnya untuk memberi bobot kepada tiap titik-titik. Contoh, jika pertanyaan bernilai 10 point dan anda memiliki 5 titik-titik, anda dapat memberi bobot 2 kepada tiap titik-titik.</p>
-<hr>
+<hr />
 <b>Menjodohkan</b>
-<p>Type soal seperti ini dapat dipilih untuk membuat pertanyaan dimana siswa disuruh menjodohkan antara unsur dari unit U1 dengan unsur dari unit U2.<br><br>
-Model ini juga dapat digunakan untuk memerintahkan siswa mengurut unsur dalam suatu urutan tertentu.<br><br>
-Pertama tentukan alternatif jawaban  dimana siswa dapat memilih jawaban yang tepat. Kemudian tetapkan pertanyaan yang berhubungan dengan salah satu alternatif jawaban yang dibuat sebelumnya. Akhirnya hubungkan melalui menu drop-down unsur-unsur dari unit pertama dengan unsur-unsur dari unit kedua.<br><br>
-Catatan : Beberapa unsur dari unit pertama dapat berjodoh dengan satu unsur yang sama dari unit kedua.<br><br>
+<p>Type soal seperti ini dapat dipilih untuk membuat pertanyaan dimana mahamahasiswa disuruh menjodohkan antara unsur dari unit U1 dengan unsur dari unit U2.<br /><br />
+Model ini juga dapat digunakan untuk memerintahkan mahasiswa mengurut unsur dalam suatu urutan tertentu.<br /><br />
+Pertama tentukan alternatif jawaban  dimana mahasiswa dapat memilih jawaban yang tepat. Kemudian tetapkan pertanyaan yang berhubungan dengan salah satu alternatif jawaban yang dibuat sebelumnya. Akhirnya hubungkan melalui menu drop-down unsur-unsur dari unit pertama dengan unsur-unsur dari unit kedua.<br /><br />
+Catatan : Beberapa unsur dari unit pertama dapat berjodoh dengan satu unsur yang sama dari unit kedua.<br /><br />
 Beri bobot kepada setiap penjodoham, dan simpan jawaban anda.</p>
-<hr>
+<hr />
 <b>Modifikasi Latihan</b>
 <p>Modifikasi latihan secara prinsip sama dengan pembuatannya. Klik saja gambar <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> disamoi latihan yang akan dimodifikasi, dan ikuti petunjuk di atas.</p>
-<hr>
+<hr />
 <b>Penghapusan Latihan</b>
 <p>Untuk menghapus klik pada gambar <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> disamping latihan yang ingin dihapus.</p>
-<hr>
+<hr />
 <b>Pengaktifan Latihan</b>
 <p>Agar latihan dapat digunakan anda harus mengaktifkannya dengan meng-klik gambar <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> fisamping latihan yang ingin diaktifkan.</p>
-<hr>
+<hr />
 <b>Menjakankan Latihan</b>
 <p>Anda dapat mencobs latihan anda dengan meng-klik pada nama dalam daftar latihan.</p>
-<hr>
+<hr />
 <b>Latihan Acaks</b>
-<p>Pada saat pembuatan/modifikasi latihan, anda dapat menetapkan apakah pertanyaan akan ditampilkan secara acak dari soal-soal dalam latihan tsb.<br><br>
-Artinya, dengan men-set seperti di atas, pertanyaan-pertanyaan akan keluar dalam urutan berbeda setiap siswa menjalankan latihan.<br><br>
+<p>Pada saat pembuatan/modifikasi latihan, anda dapat menetapkan apakah pertanyaan akan ditampilkan secara acak dari soal-soal dalam latihan tsb.<br /><br />
+Artinya, dengan men-set seperti di atas, pertanyaan-pertanyaan akan keluar dalam urutan berbeda setiap mahasiswa menjalankan latihan.<br /><br />
 Jika anda memiliki banyak sekali soal, anda dapat memilih secara acak sebanyak  X soal dari soal yang tersedia pada latihan tsb.=.</p>
-<hr>
+<hr />
 <b>Bank Soal</b>
-<p>Ketika anda menghapus sebuah latihan, soal-soal tidak dihapus dari  data base, dan dapat digunakan kembali untuk latihan yang baru, melalui bank soal.<br><br>
-Dengan bank soal dimungkinkan juga menggunakan soal yang sama untuk latihan yang berbeda.<br><br>
-Secaradefault, semua soal ditampilkan. Anda dapat menampilkan pertanyaan yang Berhubungan dengan suatu latihan, dengan memilihnya dalam menu drop-down &quot;Filter&quot;.<br><br>
+<p>Ketika anda menghapus sebuah latihan, soal-soal tidak dihapus dari  data base, dan dapat digunakan kembali untuk latihan yang baru, melalui bank soal.<br /><br />
+Dengan bank soal dimungkinkan juga menggunakan soal yang sama untuk latihan yang berbeda.<br /><br />
+Secara bawaan, semua soal ditampilkan. Anda dapat menampilkan pertanyaan yang berhubungan dengan suatu latihan, dengan memilihnya dalam menu drop-down &quot;Filter&quot;.<br /><br />
 Soal yatim yaitu soal yang bukan milik suatu latihan.</p>";
+$langExercises = "Latihan";
 $langForContent = "Forum merupakan media diskusi tertulis secara asynchronous.
- Kalau email memungkinkan dialog empat mata, maka pada forum dimungkinkan dialog publik/semi-publik.</p><p>Secara teknis, siswa hanya membutuhkan browser untuk menggunakan forum claroline .</P><p>Untuk mengatur forum, klik
- 'Administer'. Diskusi di-organisasikan dalam set dan subset seperti  dalam struktur berikut:</p><p><b>Kategori > Forum > Topik > Jawaban</b></p>Untuk menstrukturkan diskusi siswa anda, maka sebelumnya anda harus mengatur kategori dan forum.  Sedangkan topik dan jawaban dibiarkan dikembangkan siswa. Secara default, forum claroline berisi kategori 'Public', sebuah contoh forum dan topik.</p><p>Hal pertama yang mesti anda lakukan adalah menghapus topik sample tsb dan mengubah nama forum yang pertama. Kemudian anda dapat membuat forum lain dalam kategori 'public', atau forum-forum lain, menurut group atau tema, sesuai kebutuhan skenario pembelajaran.</p><p>Jangan campur-adukkan antara kategori dan forum, dan jangan lupa kategori kosong (tanpa forum) tidak tampil pada menu siswa.</p><p>Deskripsi forum dapat berupa daftar anggota, definisi tujuan, tugas, tema dll.";
+ Kalau email memungkinkan dialog empat mata, maka pada forum dimungkinkan dialog publik/semi-publik.</p><p>Secara teknis, mahasiswa hanya membutuhkan browser untuk menggunakan forum claroline .</P><p>Untuk mengatur forum, klik
+ 'Administer'. Diskusi di-organisasikan dalam set dan subset seperti  dalam struktur berikut:</p><p><b>Kategori > Forum > Topik > Jawaban</b></p>Untuk menstrukturkan diskusi mahasiswa anda, maka sebelumnya anda harus mengatur kategori dan forum.  Sedangkan topik dan jawaban dibiarkan dikembangkan mahasiswa. Secara default, forum claroline berisi kategori 'Public', sebuah contoh forum dan topik.</p><p>Hal pertama yang mesti anda lakukan adalah menghapus topik sample tsb dan mengubah nama forum yang pertama. Kemudian anda dapat membuat forum lain dalam kategori 'public', atau forum-forum lain, menurut group atau tema, sesuai kebutuhan skenario pembelajaran.</p><p>Jangan campur-adukkan antara kategori dan forum, dan jangan lupa kategori kosong (tanpa forum) tidak tampil pada menu mahasiswa.</p><p>Deskripsi forum dapat berupa daftar anggota, definisi tujuan, tugas, tema dll.";
 $langForums = "Forum-forum";
 $langGroupContent = "<p><b>Pengantar</b></p>
-<p>Tool ini digunakan untuk membuat dan mengelola group kerja/work groups.
-Pada saat pembutan (Buat group), group kosong. Ada beberapa cara untuk mengiisinya:
+<p>Tool ini digunakan untuk membuat dan mengelola kelompok tugas.
+Pada saat pembutan (Buat group), group masih kosong. Ada beberapa cara untuk mengiisinya:
 <ul><li>otomatis ('Isi group'),</li>
 <li>manual ('Edit'),</li>
-<li>swa-daftar oleh siswa (Seting Group: 'Pendaftaran sendiri diijinkan ...').</li>
+<li>pendaftaran-mandiri oleh mahasiswa (Seting Group: 'Pendaftaran sendiri diijinkan ...').</li>
 </ul>
-Ada tiga cara yang dapat dikombinasikan. Anda dapat menyuruh siswa-siswa mendaftar sendiri.  Kemudian cari yang sudah/belum 
-dan isi group secara otomatis untuk melengkapinya. Anda juga dapat mengedit tiap group untuk memilih anggota-anggotanya untuk membentuk keanggotaan seorang siswa pada suatu saat atau setelah/sebelum swa-daftar dan/atau pengisian otomatis.</p>
-<p>Pengisian Group, baik otomatis maupun manual, bekerja hanya jika sudah ada siswa yang terdaftar di pelajaran  (jangan campurkan antara pendaftaran ke pelajaran dengan pendaftaran ke group).
-Daftar siswa daoat dilihat dalam tool <b>User</b>. </p><hr noshade size=1>
-<p><b>Create groups</b></p>
-<p>Untuk membuat group baru, klik pada 'Buat group baru' dan tetapkan jumlah group yang akan dibuat. Jumlah maksimum anggota tidak wajib tetapi disarankan untuk menetspkannya. Jika anda biarkan max. field tidak berubah, ukuran group menjadi tidak terbatas.</p><hr noshade size=1>
+Ada tiga cara yang dapat dikombinasikan. Anda dapat meminta mahasiswa-mahasiswa mendaftar sendiri.  Kemudian cari yang belum terdaftar
+kemudian isi group secara otomatis untuk melengkapinya. Anda juga dapat mengedit tiap group untuk memilih anggota-anggotanya untuk membentuk keanggotaan seorang mahasiswa pada suatu saat atau setelah/sebelum mendaftar mandiri dan/atau pengisian otomatis.</p>
+<p>Pengisian Group, baik otomatis maupun manual, bekerja hanya jika telah ada mahasiswa yang terdaftar di mata kuliah  (jangan campurkan antara pendaftaran ke mata kuliah dengan pendaftaran ke group).
+Daftar mahasiswa dapat dilihat dalam tool <b>User</b>. </p><hr noshade size=1>
+<p><b>Buat group</b></p>
+<p>Untuk membuat group baru, klik pada 'Buat group baru' dan tetapkan jumlah group yang akan dibuat. Jumlah maksimum anggota tidak wajib tetapi disarankan untuk menetapkannya. Jika anda biarkan bidang maksimum tidak berubah (tidak diisi), ukuran group menjadi tidak terbatas.</p><hr noshade size=1>
 <p><b>Seting Group</b></p>
 <p>Anda dapat menetapkan seting Group secara global(untuk semua group).
-<b>Siswa diijinkan untuk mendaftar sendiri dalam group</b>:
-<p>Anda membuat group kosong, kemudian siswa mendaftar sendiri. Jika anda tetapkan jumlah maksimum anggota group, group yang penuh tidak akan menerima anggota baru.
-Metode ini baik untuk pengajar yang tidak tahu daftar siswa ketika membuat groupg.</p>
-<b>Outils</b>:</p>
-<p>Setiap group dapat memiliki sebuah forum (privat atau publik) atau sebuah Area Dokumen (file manager yang di-share) atau keduanya (paling sering).</p>
+<b>Mahasiswa diijinkan untuk mendaftar sendiri dalam group</b>:
+<p>Anda membuat group kosong, kemudian mahasiswa mendaftar sendiri. Jika anda tetapkan jumlah maksimum anggota group, group yang penuh tidak akan menerima anggota baru.
+Metode ini baik untuk pengajar yang tidak tahu daftar mahasiswa ketika membuat groupg.</p>
+<b>Tool</b>:</p>
+<p>Setiap group dapat memiliki sebuah forum (privat atau publik) atau sebuah Area Dokumen (file manager yang digunakan bersama) atau keduanya (paling sering).</p>
 <hr noshade size=1>
 <p><b>Editing Manual</b></p>
-<p>Sekali groups dibuat (Buat group), anda akan melihat di bsgian bawah halaman, daftar group-group bersama sejumlah informasi dan fungsinya.
+<p>Begitu kelompok selesai dibuat (Buat group), anda akan melihat di bsgian bawah halaman, daftar group-group bersama sejumlah informasi dan fungsinya.
 <ul><li><b>Edit</b> untuk mengubah group secara manual nama Group, deskripsi, tutor,
 daftar anggota.</li>
-<li><b>Hapus</b> menghapus sebuah group.</li></ul>
+<li><b>Hapus</b> menghapus group.</li></ul>
 <hr noshade size=1>";
-$langGroups = "inscription des utilisateurs dans les groupes";
+$langGroups = "Pendaftaran user ke dalam grup";
 $langHClar = "Mulai Pertolongan";
 $langHDoc = "Dokumen Pertolongan";
 $langHExercise = "Pertolongan Latihan";
@@ -237,35 +241,121 @@ $langHFor = "Pertolongan Forum";
 $langHHome = "Home Page Pertolongan";
 $langHUser = "Pertolongan User";
 $langHelp = "Pertolongan";
+$langHelpAssignment = "Bantuan tugas";
+$langHelpAssignmentContent = "<p>
+Bagi mahasiswa, tool tugas adalah tempat untuk mengumpulkan publikasi. Pengelola mata kuliah membuat satu atau beberapa tugas
+( zona publikasi yang berbeda ) tempat mahasiswa dapat memasukkan pekerjaan mereka.<br /><br />
+Setiap tugas dapat memiliki tujuan dan prasyarat yang berbeda : publikasi harus berupa file, atau teks,
+atau teks disertai file, publikasi dapat dapat dibuat oleh group selain oleh seorang mahasiswa,...<br /><br />
+Mahasiswa memiliki kemampuan untuk mengubah pekerjaan mereka setelah pengumpulan dan pengelola mata kuliah 
+dapat memberikan umpan balik kepada para mahasiswa tentang pekerjaan yang sudah dikumpulkan.
+</p>
+<hr />
+<h4>Buat tugas</h4>
+<p>Untuk membuat tugas baru pengelola mata kuliah harus masuk ke tool tugas dan klik pada 
+link \"Buat tugas baru\".
+</p>
+<p>Formulir ini meminta pengelola mata kuliah untuk menetapkan&nbsp;:
+</p>
+<ul><li> judul&nbsp;: judul tugas
+</li><li> deskripsi&nbsp;: pernyataan tentang tugas, apa yang harus dilakukan oleh mahasiswa
+</li><li> tipe tugas yang dikumpulkan&nbsp;:
+<ul><li> File&nbsp;: setiap jenis file yang dapat dikirim (upload), perlu diingat bahwa ada batasan ukuran yang 
+tergantung pada platform, teks dapat disertakan untuk menjelaskan tentang file
+</li><li> Hanya teks&nbsp;: teks yang diformat dengan editor wysiwyg atau format html
+</li><li> Teks yang disertai dengan lampiran file&nbsp;: teks yang diformat dengan editor wysiwyg (atau format html)
+ dan disertai file (file tidak wajib)
+</li></ul>
+</li><li> tanggal mulai&nbsp;: tanggal ketika user mulai dapat mengirim publikasi untuk memenuhi tugas
+</li><li> tanggal berakhir&nbsp;: tanggal saat terakhir kalinya user dapat mengirim publikasi untuk memenuhi tugas
+</li><li> seting awal keterbukaan publikasi&nbsp;: pilihan untuk menentukan apakah publikasi hanya tersedia bagi user atau tidak
+</li><li> tipe tugas&nbsp;:
+<ul><li> modus individu&nbsp;: setiap user yang sudah login dapat mengumpulkan tugas
+</li><li> modus group&nbsp;: user harus menjadi anggota pada group sekurang-kurangnya satu mata kuliah 
+dan tugas akan dikumpul atas nama kelompok
+</li></ul>
+</li><li> ijin untuk mengumpulkan tugas setelah tanggal akhir
+</li></ul>
+<p><br />
+<strong>Tambah umpan balik otomatis</strong>
+</p>
+<p>Umpan balik adalah tugas yang seharusnya dibuat oleh mahasiswa.  Untuk menambah umpan balik 
+otomatis pada tugas, masuk ke tugas dan klik pada link \"Edit umpan balik otomatis\".  </p>
+<p>Umpan balik dapat berupa teks atau file atau keduanya.  Pengelola mata kuliah dapat menentukan kapan umpan balik akan ditampilkan kepada mahasiswa ( setelah tanggal akhir pengumpulan tugas atau setelah pengumpulan tugas pertama kalinya)
+</p>
+<hr />
+<h4>Tugas</h4>
+<p>Tugas adalah pekerjaan yang dikumpulkan oleh mahasiswa.</p>
+<p>Untuk setiap tugas tool tugas akan menunjukkan daftar user yang terdaftar pada mata kuliah, dan untuk setiap user
+akan ditampilkan judul tugas yang pertama kali dikumpulkan, jumlah tugas yang dikumpulkan dan jumlah umpan balik.
+ Daftar publikasi yang terkait dengan mahasiswa dan tugas dapat dilihat dengan melakukan klik pada nama mahasiswa.</p>
+<p><strong>Kumpul tugas</strong></p>
+<p>Jika seseorang user memiliki hak untuk mengumpulkan tugas, ia akan disajikan link untuk mengumpulkan tugas.</p>
+<p><strong>Daftar tugas</strong></p>
+<p>Pengelola mata kuliah memiliki hak untuk mengedit, menghapus, atau membuat tugas tampak atau tidak tampak bagi user.  Pengelola juga dapat
+menambahkan umpan balik bagi setiap tugas yang telah dikumpul.
+</p>
+<ul>
+<li> <strong>Ubah</strong>&nbsp;: Jika ikon ini muncul, berarti user dapat mengubah isi tugas, yang dapat terjadi jika user adalah pengelola
+mata kuliah, ketika user sedang melihat tugasnya atau tugas kelompok.
+</li>
+<li> <strong>Hapus</strong>&nbsp;: Perintah ini memungkinkan pengelola mata kuliah untuk menghapus suatu tugas.
+</li>
+<li> <strong>Tampak</strong>&nbsp;: Jika ikon tampil, berarti tugas dapat dilihat oleh mahasiswa. Hal ini seperti tool dokumen
+pada . Seting ini dapat diubah dengan melakukan klik pada ikon ini.
+</li>
+<li> <strong>Tak tampak</strong>&nbsp;: Jika ikon ini tampil, berarti tugas tidak tampak bagi mahasiswa. Hal ini seperti tool dokumen Claroline.
+  Seting dapat dirubah dengan melakukan klik pada ikon ini.
+</li>
+<li> <strong>Tambah umpan balik</strong>&nbsp;: ijinkan pengelola untuk memasukkan umpan balik tentang tugas yang telah dikerjakan 
+oleh mahasiswa.  Umpan balik dapat berupa file, atau teks, atau keduanya dengan komentar pribadi yang 
+hanya dapat dilihat dan diberi nilai oleh pengelola mata kuliah.
+</li>
+</ul>
+";
 $langHelpGroups = "Perolongan group";
 $langHomeContent = "Untuk kemudahan, tool claroline berisi setting default.
- Terdapat contoh kecil pada tiap tool untuk membantu anda mencerna bagaimana hal tsb bekerja. Terserah anda untuk mengubahnya atau menghapusnya.</p><p>Contohnya, pada Home Page pelajaran ini, terdapat teks pendahuluan berisi 'Ini teks pendahuluan pelajaran anda. Untuk menggantinya dengan teks anda, klik di bawah ini pada 'ubah' untuk mengubahnya, editlah teks tsb dan OK. Sesederhana itulah modelnya. Tiap tool memiliki logika yang sama:
- tambah, hapus, ubah, yang merupakan logika ditus dinamis.</p><p>Pada saat pertamabanda membuat situs, hampir semua tool aktif. Kembali terserah anda untuk me-nonaktifkan poin-poin yang tidak anda butuhkan. Andan hanya perlu untuk meng-klik 'nonaktifkan'. Maka item tsb akan berubah menjadi bagian kelabu dari situs anda dan menjadi tidak tampak untuk siswa anda.  Namun anda mengaktifkannya jika anda butuhkan, membuatnya nampak untuk siswa anda.</p>
+ Terdapat contoh kecil pada tiap tool untuk membantu anda mencerna bagaimana hal tsb bekerja. Terserah anda untuk mengubahnya atau menghapusnya.</p><p>Contohnya, pada Home Page mata kuliah ini, terdapat teks pendahuluan berisi 'Ini teks pendahuluan mata kuliah anda. Untuk menggantinya dengan teks anda, klik di bawah ini pada 'ubah' untuk mengubahnya, editlah teks tsb dan OK. Sesederhana itulah modelnya. Tiap tool memiliki logika yang sama:
+ tambah, hapus, ubah, yang merupakan logika ditus dinamis.</p><p>Pada saat pertamabanda membuat situs, hampir semua tool aktif. Kembali terserah anda untuk me-nonaktifkan poin-poin yang tidak anda butuhkan. Andan hanya perlu untuk meng-klik 'nonaktifkan'. Maka item tsb akan berubah menjadi bagian kelabu dari situs anda dan menjadi tidak tampak untuk mahasiswa anda.  Namun anda mengaktifkannya jika anda butuhkan, membuatnya nampak untuk mahasiswa anda.</p>
 <p>Anda dapat menambahkan halaman ke situs anda.  Halaman tsb mesti dalam format HTML (yang dapat dibuat menggunakan 
- Word Processor atau Web Composer). Gunakan 'Upload halaman dan  link-kan ke Situs' untuk mengirim halaman anda ke server. Header standar situs anda secara otomatis akan bergabung dengan dumen baru tsb, jadi anda hanya perlu berkonsentrasi ke isi saja. Jika anda ingin me-link situs anda ke situs/dokumen lain di web (bahkan ke dalam situs anda sendiri), gunaksn 'Tambahkan link ke Situs'.  Halaman yang anda tambahkan tsb dapat di-nonaktifkan kemudian dihapus, dimana tool standar dapat me-nonaktifkan tetapi tidak menghapus.</p><p>Begitu situs anda siap, browse ke 'Ubah info pelajaran' dan tentukan tingkat kerahasiaan yang diinginkan.
- Secara default, pelajaran anda tersrmbunyi (karena anda sedang bekerja disitu).</p>";
+ Word Processor atau Web Composer). Gunakan 'Upload halaman dan  link-kan ke Situs' untuk mengirim halaman anda ke server. Header standar situs anda secara otomatis akan bergabung dengan dumen baru tsb, jadi anda hanya perlu berkonsentrasi ke isi saja. Jika anda ingin me-link situs anda ke situs/dokumen lain di web (bahkan ke dalam situs anda sendiri), gunaksn 'Tambahkan link ke Situs'.  Halaman yang anda tambahkan tsb dapat di-nonaktifkan kemudian dihapus, dimana tool standar dapat me-nonaktifkan tetapi tidak menghapus.</p><p>Begitu situs anda siap, browse ke 'Ubah info mata kuliah' dan tentukan tingkat kerahasiaan yang diinginkan.
+ Secara default, mata kuliah anda tersrmbunyi (karena anda sedang bekerja disitu).</p>";
+$langLearningPath = "Alur pembelajaran";
 $langLogin = "login";
 $langLogout = "Logout";
-$langManager = "Pengelola";
+$langMinuteShort = "menit";
 $langModifyProfile = "Ubah profil Ku";
 $langMonthNames = "Array";
-$langMyCourses = "Daftar Pelajaran Ku";
+$langMyAgenda = "Kalenderku";
+$langMyCourses = "Daftar Mata kuliah Ku";
 $langNameOfLang = "Array";
-$langOtherCourses = "Daftar pelajaran";
+$langOtherCourses = "Daftar mata kuliah";
+$langPeriodDayShort = "h.";
+$langPeriodHourShort = "j.";
+$langPlatformAdministration = "Administrasi Platform";
 $langPoweredBy = "Diperkuat oleh";
-$langStudent = "siswa";
+$langSecondShort = "detik";
+$langStudent = "mahasiswa";
+$langSwitchEditorToTextConfirm = "Perintah ini akan menghapus layout teks berlaku. Ingin dilanjutkan?";
+$langTextEditorDisable = "Nonaktifkan editor teks";
+$langTextEditorEnable = "Aktifkan editor teks";
 $langUserContent = "<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
  Peran tidak memberi hak pada sistem operasi, tetapi hanya menunjukkan kepada kita siapa user. Anda dapat mengubahnya dengan meng-klik 'ubah' dalam 
- 'peran', kemudian ketikkan apa yang anda inginkan: pengajar, asisten, siswa,
- pengunjung, pakar ...</P><hr>
+ 'peran', kemudian ketikkan apa yang anda inginkan: pengajar, asisten, mahasiswa,
+ pengunjung, pakar ...</P><hr />
 <b>Hak Admin</b>
-<p>Hak Admin, di lain pihako, berhubungan dengan autorisasi teknis untuk mengubah isi dan organisasi situs pelajaran. Pada saat ini, hanya terdapat dua pilihan antara memberi semua hak admin atau tidak sama sekali.</P>
-<p>Untuk memungkinkan asisten, misal, dapat membantu/co-admin situs, anda mesti mendaftarkannya di situs pelajaran atau pastikan dia telah terdaftar, kemudian klik 'ubah' dalam 'hak admin', kemudian klik 'semua', kemudian 'Ok'.</P><hr>
+<p>Hak Admin, di lain pihako, berhubungan dengan autorisasi teknis untuk mengubah isi dan organisasi situs mata kuliah. Pada saat ini, hanya terdapat dua pilihan antara memberi semua hak admin atau tidak sama sekali.</P>
+<p>Untuk memungkinkan asisten, misal, dapat membantu/co-admin situs, anda mesti mendaftarkannya di situs mata kuliah atau pastikan dia telah terdaftar, kemudian klik 'ubah' dalam 'hak admin', kemudian klik 'semua', kemudian 'Ok'.</P><hr />
 <b>Co-chairmen</b>
-<p>Untuk menampilkan nama co-chairmen di  header situs suatu pelajaran, gunakan tool 'Ubah informasi pelajaran' (tool oranye). Modifikasi ini tidak mendaftarkan co-chairmen sebagai user pelajaran.
- Field 'Pengajar'  independen terhadap Daftar User.</p><hr>
+<p>Untuk menampilkan nama wakil ketua di  judul situs suatu mata kuliah, gunakan tool 'Ubah informasi mata kuliah' (tool oranye). Modifikasi ini tidak mendaftarkan co-chairmen sebagai user mata kuliah.
+ Field 'Pengajar'  independen terhadap Daftar User.</p><hr />
 <b>Tambah user</b>
-<p>Untuk menambah seorang user ke pelajaran anda, isi field-field dan validasi. User tersebut akan menerima email berisi bahwa user tsb telah terdaftar dan informasi login dan passwordnya.</p>";
+<p>Untuk menambah seorang user ke mata kuliah anda, isi field-field dan validasi. User tersebut akan menerima email berisi bahwa user tsb telah terdaftar dan informasi login dan passwordnya.</p>";
 $langUsers = "Users";
-$langWork = "Tugad";
+$langViewMode = "modus tampil";
+$langWiki = "Wiki";
+$langWork = "Tugas";
+$lang_enroll = "Daftar";
+$lang_footer_p_CourseManager = "Pengelola %s";
+$lang_p_platformManager = "Administrator untuk %s";
 ?>

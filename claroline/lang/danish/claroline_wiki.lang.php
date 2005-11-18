@@ -57,4 +57,5 @@ $langWork = "Studerendes Opgaver";
 $langYes = "Ja";
 $langYouAreReg = "Du er registreret på";
 $langYourReg = "Din registrering til";
+$lang_enroll = "Tilmeld";
 ?>

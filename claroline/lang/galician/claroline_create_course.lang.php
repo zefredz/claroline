@@ -30,6 +30,8 @@ $langCreationMailNotificationSubject = "Creaci&oacute;n do curso";
 $langDay_of_weekNames = "Array";
 $langDelAdmin = "Este foro creouse como exemplo. Pode modificalo ou eliminalo mediante as ferramentas de administrador para o foro";
 $langDenied = "Denegado";
+$langDepartmentUrl = "URL do departamento";
+$langDepartmentUrlName = "Departamento";
 $langDescriptionCours = "Descrici&oacute;n do curso";
 $langDocument = "Documentos e Ligaz&oacute;ns";
 $langEmail = "Correo electr&oacute;nico";
@@ -107,6 +109,7 @@ $langUsers = "Usuarios";
 $langViewMode = "Ver modo";
 $langWiki = "Wiki";
 $langWork = "Traballos";
+$lang_enroll = "Matricularse";
 $lang_footer_p_CourseManager = "Xestor(es) para %s";
 $lang_p_IfNothingHappendClickHere = "<small>Se despois de 30 segundos non muda nada, prema por favor <a href=\"%s\">aqu&iacute;</a>
 
