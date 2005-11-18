@@ -446,7 +446,7 @@ function get_file_extension($file)
     {
         $lastPiece = array_pop($pieceList); // the last cell should be the extansion
 
-        if ( ! strstr('/', $lastPiece) ) // check the dot is not into 
+        if ( !empty($lastPiece) && !strstr('/', $lastPiece) ) // check the dot is not into 
         {                                // a parent directory name
             return $lastPiece;
         }
@@ -454,7 +454,6 @@ function get_file_extension($file)
 
     return false;
 }
-
 
 
 /**
