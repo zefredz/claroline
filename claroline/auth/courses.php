@@ -303,6 +303,7 @@ if ( $cmd == 'rqUnreg' )
                    c.fake_code AS officialCode,
                    c.code,
                    cu.user_id AS enrolled,
+                   cu.statut,
                    c.visible
             FROM `" . $tbl_course."` `c`
             ,    `" . $tbl_rel_course_user . "` `cu`
@@ -741,7 +742,7 @@ switch ( $displayMode )
                 echo '<tr>' . "\n"
                 .    '<td>' . "\n"
                 .    $thisCourse['intitule'] . '<br />' . "\n"
-                .    '<small>' . $thisCourse['fake_code'] . ' - ' . $thisCourse['titulaires'] . '</small>'
+                .    '<small>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['titulaires'] . '</small>'
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
                 ;
