@@ -32,7 +32,6 @@ $langElRen = "Élément renommé";
 $langExercises = "Exercices";
 $langFileContentModified = "Contenu du fichier modifié";
 $langFileCreated = "Fichier créé";
-$langFileError = "Le fichier à télécharger n'est pas valide.";
 $langFileExists = "Impossible d'exécuter cette opération.
 <br />Un fichier portant ce nom existe déjà.";
 $langFileNameMissing = "Nom du fichier manquant";
@@ -94,6 +93,7 @@ $langVisibility = "Visibilité";
 $langWiki = "Wiki";
 $langWork = "Travaux";
 $langZipNoPhp = "Le fichier ZIP ne peut pas contenir de fichiers en .php";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

@@ -111,7 +111,7 @@ $langInsertMyModuleToolName = "Insérer mon module";
 $langInsertMyModulesTitle = "Insérer un module du cours";
 $langInsertNewModuleName = "Insérer le nouveau nom";
 $langInstalled = "L'importation du parcours pédagogique a réussi.";
-$langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants<br /><br />Si vous désirez ajouter un texte d'introduction, cliquez sur ce bouton.<br />";
+$langIntroLearningPath = "Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants.<br /><br />Pour ajouter un texte d'introduction, cliquez sur le lien ci-dessous.<br />";
 $langLastSessionTimeSpent = "Durée de la dernière session";
 $langLearningPath = "Parcours pédagogique";
 $langLearningPathAdmin = "Administration du parcours";
@@ -176,7 +176,7 @@ $langRename = "Renommer";
 $langRoot = "Niveau supérieur";
 $langSCORMTypeDesc = "Contenu conforme à SCORM 1.2";
 $langScore = "Résultat";
-$langScormIntroTextForDummies = "Les packages importés doivent être des fichiers zip et répondre à la norme SCORM 1.2";
+$langScormIntroTextForDummies = "Les packages importés doivent être des fichiers zip et répondre à la norme SCORM 1.2.";
 $langSecondShort = "sec";
 $langSize = "Taille";
 $langStartModule = "Commencer le module";
@@ -192,8 +192,8 @@ $langTypeOfModule = "Type de module";
 $langUnamedModule = "Module sans nom";
 $langUnamedPath = "Parcours sans nom";
 $langUp = "Remonter";
-$langUseOfPool = "Cette page vous permet de voir tous les modules disponibles dans votre cours. <br />
-         Tous les exercices ou documents qui ont été ajoutés dans un parcours apparaîtront aussi dans cette liste.";
+$langUseOfPool = "Cette page affiche tous les modules disponibles dans votre cours.<br />
+Tout exercice ou document qui a été ajouté dans un parcours apparaîtra aussi dans cette liste.";
 $langUsedInLearningPaths = "
 Nombre de parcours utilisant ce module : ";
 $langUsers = "Utilisateurs";
@@ -204,6 +204,7 @@ $langWork = "Travaux";
 $langWrongOperation = "Opération impossible";
 $langYourBestScore = "Votre meilleur score";
 $langZipNoPhp = "Le fichier ZIP ne peut pas contenir de fichiers en .php";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 $langimportLearningPath = "Importer un parcours";

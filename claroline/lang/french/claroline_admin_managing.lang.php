@@ -60,6 +60,7 @@ $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
 $lang_EditFile_ModifyOk = "Les changements ont été effectués correctement";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_no_access_here = "Pas d'accès ";
 $lang_p_platformManager = "Administrateur %s";

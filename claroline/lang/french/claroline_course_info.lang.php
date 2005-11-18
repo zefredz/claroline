@@ -51,6 +51,7 @@ $langHelp = "Aide";
 $langHome = "Retourner à la page d'accueil";
 $langLanguage = "Langue";
 $langLearningPath = "Parcours pédagogique";
+$langLegendRequiredFields = "Les champs précédés d'une astérisque (<span class=\"required\">*</span>) sont obligatoires.";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langMinuteShort = "min.";
@@ -87,6 +88,7 @@ $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
 $langYes = "Oui";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

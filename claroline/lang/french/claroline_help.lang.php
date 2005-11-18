@@ -10,11 +10,11 @@ il suffit de cliquer sur le code du cours dans la liste, sans inscription préala
 est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
 Action&nbsp;: S'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
-pour vous rappeler le nom d'utilisateur et le mot de passe à introduire lors de votre prochaine visite.</p>
+pour vous rappeler l'identifiant et le mot de passe à introduire lors de votre prochaine visite.</p>
 <hr noshade size=1 />
 <p><b>Gestionnaire de cours</b></p>
 <p><b>Créer un site de cours</b></p>
-<p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. À l'inscription, un e-mail vous a été envoyé pour vous rappeler le nom d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
+<p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. À l'inscription, un e-mail vous a été envoyé pour vous rappeler l'identifiant et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre administrateur réseau ou l'administrateur de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
 $langCloseWindow = "Fermer la fenêtre";
@@ -213,9 +213,9 @@ Validez en cliquant sur OK.
 <center>
 <p>";
 $langDocument = "Documents et liens";
-$langExerciseContent = "<h4>À quoi sert l'outil Exercices</h4>
+$langExerciseContent = "<h4>À quoi sert l'outil Exercices&nbsp;?</h4>
 <p>
-L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre&nbsp;; s'ils se sont enregistrés au cours, leurs scores seront conservés et visibles dans la section des statistiques du cours.
+L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre&nbsp;; s'ils se sont enregistrés au cours, leurs scores seront conservés et seront visibles dans la section des statistiques du cours.
 </p>
 
 <hr />
@@ -223,31 +223,31 @@ L'outil Exercices permet de créer des exercices en ligne sous la forme d'une lis
 <h4>Administrer l'outil Exercices</h4>
 
 <p>Créer un exercice</p>
-<p>Cliquez sur <strong>Exercices</strong> pour entrer dans la liste de vos exercices.
+<p>Cliquez sur <strong>Exercices</strong> pour entrer dans la liste des exercices.
 </p><p><br />
-Commençons par créer un nouvel exercice. Pour cela, cliquez sur le lien <strong>Nouvel exercice</strong>.
+Pour créer un nouvel excercice, cliquez sur <strong>Nouvel exercice</strong>.
 </p><p><br />
-Vous devez commencer par donner un intitulé à l'exercice et, si vous le souhaitez, une description.
+Saisissez l'intitulé du nouvel l'exercice et, facultativement, sa description.
 </p><p>Définissez ensuite les options souhaitées pour l'exercice&nbsp;:
 </p>
 <ul><li> Type d'exercice
-<ul><li> Questions sur une seule page&nbsp;: lorsque l'étudiant exécutera l'exercice, toutes les questions lui seront présentées en une fois.</li>
-<li> Une question par page&nbsp;: les questions sont réparties sur plusieurs pages. Une fois que l'étudiant à répondu à une question, il passe à la suivante et ne peut revenir en arrière.</li>
+<ul><li> Questions sur une seule page&nbsp;: lorsque l'étudiant exécute l'exercice, toutes les questions lui sont présentées en une fois.</li>
+<li> Une question par page&nbsp;: les questions sont réparties sur plusieurs pages. Une fois que l'étudiant a répondu à une question, il passe à la suivante et ne peut revenir en arrière.</li>
 </ul></li></ul>
 <p>Les options suivantes sont facultatives. Conserver les valeurs par défaut permet la création d'un exercice tel que dans Claroline 1.5.
 </p>
-<ul><li> Date de début&nbsp;: date à partir de laquelle les étudiants pourront répondre au questionnaire.</li>
-<li> Date de fin&nbsp;: date jusqu'à laquelle les étudiants pourront répondre au questionnaire (la case doit être cochée pour que la date de fin soit prise en compte).</li>
-<li> Limite de temps&nbsp;: cochez la case pour imposer une limite de temps aux étudiants lorsqu'ils réaliseront l'exercice et spécifiez le temps maximum autorisé.
+<ul><li> Date de début&nbsp;: date à partir de laquelle les étudiants peuvent répondre au questionnaire.</li>
+<li> Date de fin&nbsp;: date jusqu'à laquelle les étudiants peuvent répondre au questionnaire (la case doit être cochée pour que la date de fin soit prise en compte).</li>
+<li> Limite de temps&nbsp;: cochez la case pour imposer une limite de temps aux étudiants lorsqu'ils réalisent l'exercice et spécifiez le temps maximum autorisé.
 </li><li> Essais autorisés&nbsp;: précisez si les étudiants peuvent faire l'exercice autant de fois que souhaité ou si le nombre d'essais est limité.</li>
-<li> Essais anonymes&nbsp;: si les essais anonymes sont autorisés, aucun tracking ne sera conservé et n'importe qui pourra essayer de faire l'exercice&nbsp; dans le cas contraire, les résultats de toutes les tentatives seront conservés et seuls les étudiants inscrits au cours pourront réaliser l'exercice.</li>
+<li> Essais anonymes&nbsp;: si les essais anonymes sont autorisés, aucun suivi ne sera conservé et n'importe qui pourra essayer de faire l'exercice&nbsp;; dans le cas contraire, les résultats de toutes les tentatives seront conservés et seuls les étudiants inscrits au cours pourront réaliser l'exercice.</li>
 <li> Après le test, afficher les réponses&nbsp;:
 <ul><li> Oui&nbsp;: la correction est affichée à l'utilisateur après chacune de ses tentatives.
-</li><li> Après la dernière tentative autorisée&nbsp;: la correction ne sera affichée que lorsque l'apprenant aura atteint le nombre maximum d'essais autorisés.
+</li><li> Après la dernière tentative autorisée&nbsp;: la correction est uniquement affichée quand l'apprenant a atteint le nombre maximum d'essais autorisés.
 </li><li> Non&nbsp;: aucune correction affichée.
 </li></ul>
 </li></ul>
-<p>Lorsque vous avez fourni toutes les informations nécessaires, cliquez sur <strong>Valider</strong> pour enregistrer votre exercice.
+<p>Une fois toutes les informations nécessaires spécifiées, cliquez sur <strong>OK</strong> pour enregistrer l'exercice.
 </p><p><br />
 </p><p>Vous arrivez alors à la liste des questions de l'exercice. Comme il s'agit d'un nouvel exercice, cette liste est vide.
 </p><p>Pour ajouter une nouvelle question, cliquez sur le lien <strong>Nouvelle question</strong>.
@@ -513,6 +513,7 @@ $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

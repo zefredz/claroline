@@ -11,6 +11,7 @@ $langAltDocument = "Document";
 $langAltExercise = "Exercice";
 $langAltScorm = "Scorm";
 $langAnnouncement = "Annonces";
+$langAnonymous = "Anonyme";
 $langAnonymousUserAccessCount = "Nombre d'accès d'utilisateurs anonymes&nbsp;: ";
 $langAnswer = "Réponses";
 $langAssignment = "Travail";
@@ -206,6 +207,7 @@ $langWorkUploads = "Travaux envoyés";
 $langWorksDetails = "Travaux postés par l'étudiant au nom de 'Auteurs'";
 $langWrongOperation = "Opération impossible";
 $langYes = "Oui";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

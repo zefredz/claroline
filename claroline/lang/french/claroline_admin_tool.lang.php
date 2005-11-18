@@ -41,6 +41,7 @@ $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_ErrorOnBuild_S_for_S = "Erreur dans la construction de <em>%s</em> pour <b>%s</b>";
 $lang_p_PropForConfigCommited = "Les propriétés %s (%s) sont effectives sur le serveur.";

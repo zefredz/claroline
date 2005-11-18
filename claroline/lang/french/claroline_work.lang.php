@@ -77,7 +77,6 @@ $langFirstSubmission = "Première soumission";
 $langForums = "Forums";
 $langGroup = "Groupe";
 $langGroupAssignment = "De groupe (seuls les utilisateurs membres de groupes de l'outil Groupes peuvent poster)";
-$langGroupSpace = "Espace de groupe";
 $langGroups = "Groupes";
 $langHelp = "Aide";
 $langIncorrectDate = "La date de début doit être antérieure à la date de fin";
@@ -155,6 +154,7 @@ $langWrkEdited = "Soumission modifiée";
 $langWrkScoreRequired = "Score requis";
 $langWrkTitle = "Titre";
 $langWrkTitleRequired = "La soumission doit avoir un titre";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

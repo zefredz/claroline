@@ -2,7 +2,7 @@
 $langAgenda = "Agenda";
 $langAgendaNextEvents = "Agenda&nbsp;: prochains événements";
 $langAnnouncement = "Annonces";
-$langAuthentication = "Authentification";
+$langAuthentication = "Identification";
 $langCategories = "Catégories";
 $langChat = "Discussion";
 $langCourseCreate = "Créer un site de cours";
@@ -22,7 +22,7 @@ $langGroups = "Groupes";
 $langHelp = "Aide";
 $langInvalidId = "Cet identifiant n'est pas valable. Si vous n'êtes pas encore inscrit,
 complétez le <a href='claroline/auth/inscription.php'>formulaire d'inscription</a></font color>";
-$langInvalidIdSelfReg = "L'authentification a échoué.<br />Si vous n'êtes pas enregistré, utilisez le <a href=claroline/auth/inscription.php>formulaire d'inscription</a>";
+$langInvalidIdSelfReg = "L'identification a échoué.<br /><small>Si vous ne possédez pas encore de compte utilisateur, utilisez le <a href=\"%s\">formulaire de création compte</a>.</small>";
 $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
@@ -52,6 +52,7 @@ $langValvas = "Dernières annonces";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
+$lang_enroll = "Inscription";
 $lang_enroll_to_a_new_course = "S'inscrire à un cours";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";

@@ -174,6 +174,7 @@ $langAttemptAllowed = "essai autorisé";
 $langAttempts = "Essais";
 $langAttemptsAllowed = "essais autorisés";
 $langAuthentication = "Identification";
+$langAuthenticationRequired = "Identification requise";
 $langAvailableFrom = "Disponible à partir du";
 $langBack = "Retour";
 $langBackHomeOf = "Retour à la page d'accueil de ";
@@ -2068,5 +2069,4 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Vous avez été désinscrit
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre compte utilisateur ne semble pas inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
-$langAuthenticationRequired = "Identification requise"
 ?>

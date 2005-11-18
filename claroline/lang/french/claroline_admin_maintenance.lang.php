@@ -49,6 +49,7 @@ $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
 $langWiki = "Wiki";
 $langWork = "Travaux";
+$lang_enroll = "Inscription";
 $lang_faculty_ConfirmDelete = "Voulez-vous vraiment supprimer ";
 $lang_faculty_imgDown = "Descendre";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";

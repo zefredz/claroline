@@ -105,6 +105,7 @@ $langViewMode = "Mode de vue";
 $langVisible = "Visible";
 $langWiki = "Wiki";
 $langWork = "Travaux";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>

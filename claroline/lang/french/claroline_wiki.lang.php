@@ -8,7 +8,8 @@ $langAnnouncement = "Annonces";
 $langCancel = "Annuler";
 $langChangePwdexp = "Tapez deux fois le nouveau mot de passe pour le changer ; laissez vide pour garder l'ancien";
 $langChat = "Discussion";
-$langCodeUsed = "Ce code officiel est déjà utilisé par un autre utilisateur.";
+$langCloseWindow = "Fermer la fenêtre";
+$langCodeUsed = "Ce matricule est déjà utilisé par un autre utilisateur.";
 $langConfirmation = "Confirmation";
 $langContinue = "Continuer";
 $langCourseHome = "Accueil";
@@ -47,7 +48,7 @@ $langMyCourses = "Liste de mes cours";
 $langNameOfLang = "Array";
 $langNo = "Non";
 $langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
-$langOfficialCode = "Code officiel";
+$langOfficialCode = "Matricule";
 $langOk = "OK";
 $langOneResp = "L'un des gestionnaires du cours";
 $langOtherCourses = "Liste des cours";
@@ -81,7 +82,7 @@ $langTitle = "Titre";
 $langUpdateImage = "Changez de photo";
 $langUserIsPlaformAdmin = "Peut administrer la plateforme";
 $langUserName = "Identifiant";
-$langUserTaken = "Le nom d'utilisateur que vous avez choisi est déjà pris";
+$langUserTaken = "L'identifiant que vous avez choisi est déjà pris";
 $langUserid = "ID de l'utilisateur";
 $langUsers = "Utilisateurs";
 $langViewMode = "Mode de vue";
@@ -164,7 +165,7 @@ $langWikiHelpSyntaxContent = "<h1>Syntaxe Wiki</h1>
 <dt>Lien hypertexte</dt>
 <dd><code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</dd>
 <dt>Inclusion d'image</dt>
-<dd><code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br>La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</dd>
+<dd><code>((url|texte alternatif))</code>, <code>((url|texte alternatif|position))</code> ou <code>((url|texte alternatif|position|description longue))</code>. <br />La position peut prendre les valeur L (gauche), R (droite) ou C (centré).&nbsp;;</dd>
 <dd>Une inclusion d'image peut également se faire de la même manière qu'un lien hypertexte mais avec une extension d'image. Par exemple <code>[titre de l'imageimage|image.gif]</code>. Il est toutefois conseillé d'utiliser la nouvelle syntaxe.&nbsp;;</dd>
 <dt>Lien vers une image</dt>
 <dd>Un lien vers une image se fait de la même manière qu'un hyperlien mais avec un '0' comme quatrième argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l'image au lieu de l'afficher&nbsp;;</dd>
@@ -231,6 +232,7 @@ $langWork = "Travaux";
 $langYes = "Oui";
 $langYouAreReg = "Vous êtes inscrit(e) sur";
 $langYourReg = "Votre inscription sur";
+$lang_enroll = "Inscription";
 $lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
 $lang_p_platformManager = "Administrateur %s";
 ?>
