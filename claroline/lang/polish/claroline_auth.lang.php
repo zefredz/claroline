@@ -7,6 +7,7 @@ $langAdministrator = "Administrator";
 $langAgenda = "Terminarz";
 $langAnnouncement = "Og³oszenia";
 $langAuthentication = "Autentykacja";
+$langAuthenticationRequired = "Wymagana autentykacja";
 $langBackToClass = "powrotem do klasy";
 $langBackToCourseList = "Z powrotem do listy kursów";
 $langBackToUserSettings = "Z powrotem do ustawieñ u¿ytkownika";

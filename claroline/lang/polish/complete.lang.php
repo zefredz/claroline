@@ -173,6 +173,7 @@ $langAttemptAllowed = "próba dozwolona";
 $langAttempts = "Próby";
 $langAttemptsAllowed = "próby dozwolone";
 $langAuthentication = "Autentykacja";
+$langAuthenticationRequired = "Wymagana autentykacja";
 $langAvailableFrom = "Dostêpne od";
 $langBack = "Wstecz";
 $langBackHomeOf = "Powrót do strony g³ównej ";
