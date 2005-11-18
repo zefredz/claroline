@@ -8,6 +8,7 @@ $langAnnouncement = "Announcements";
 $langCancel = "Cancel";
 $langChangePwdexp = "Enter new password twice to change, leave empty to keep it";
 $langChat = "Chat";
+$langCloseWindow = "Close window";
 $langCodeUsed = "This official code is already used by another user.";
 $langConfirmation = "Confirmation";
 $langContinue = "Continue";
@@ -24,7 +25,6 @@ $langEdit = "Edit";
 $langEmail = "Email";
 $langEmailWrong = "The email address is not valid";
 $langEmptyFields = "You left some required fields empty";
-$langEnter2passToChange = "Enter new password twice to change, or leave empty to keep";
 $langExercises = "Exercises";
 $langFirstname = "First name";
 $langFormula = "Yours sincerely";
@@ -65,7 +65,6 @@ $langProblem = "In case of problems, contact us.";
 $langRegAdmin = "Create course websites";
 $langRegStudent = "Follow courses";
 $langRegYou = "has registered you on this course";
-$langRegister = "Register";
 $langSave = "Save";
 $langSaveChanges = "Save changes";
 $langSearch = "Search";
@@ -154,38 +153,50 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
 </dl>";
 $langWikiHelpSyntax = "Wiki syntax";
-$langWikiHelpSyntaxContent = "<h3>Wiki2xhtml syntax</h3>
+$langWikiHelpSyntaxContent = "<h1>Wiki Syntax</h1>
+<h2>1. Basic syntax</h2>
 <dl class=\"wikiHelp\">
 <dt>Creating wiki pages and links between them</dt>
-<dd><ul>
-<li><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[page title|link text]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[WikiWord|text]</code>.</li>
-</ul></dd>
-<dt>Block elements</dt>
-<dd><ul><li>Add a new line between each line <em>of the same type</em>.&nbsp;;</li>
-<li><strong>Paragraph</strong> : type some text and a new line&nbsp;;</li>
-<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
-<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
-<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
-<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
-</ul></dd>
-<dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
-<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
-<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br>Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br>This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br>The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
-<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
-<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
-<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
-<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
-</ul></dd>
+<dd><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</dd>
+<dd><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[name of link|title of page]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[name of link|WikiWord]</code>.</dd>
+<dt>Hyperlinks</dt>
+<dd><code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</dd>
+<dt>Image inclusion</dt>
+<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</dd>
+<dd>You can use the syntax as Hyperlinks. For example <code>[title|image.gif]</code>. This syntax is deprecated, consider to use the preceding one&nbsp;;</dd>
+<dt>Link to an image</dt>
+<dd>same as Hyperlinks but put a 0 in fourth argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself</dd>
+<dt>Layout</dt>
+<dd><strong>Italic</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</dd>
+<dd><strong>Bold</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</dd>
+<dd><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</dd>
+<dd><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</dd>
+<dd><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</dd>
+<dt>List</dt>
+<dd>line starting with <code>*</code> (unordered list) or <code>#</code> (ordered list). You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</dd>
+<dt>Paragraph</dt>
+<dd>Separate paragraphs with one or more new lines&nbsp;;</dd>
+</dl>
+<h2>2. Advanced syntax</h2>
+<dl class=\"wikiHelp\">
+<dt>Footnote</dt>
+<dd><code>\$\$footnote text\$\$</code>&nbsp;;</dd>
+<dt>Preformated text</dt>
+<dd>begin each line of preformated text with a blank space&nbsp;;</dd>
+<dt>Cite block</dt>
+<dd><code>&gt;</code> or <code>;:</code> before each line&nbsp;;</dd>
+<dt>Horizontal line</dt>
+<dd><code>----</code>&nbsp;;</dd>
+<dt>Forced line break</dt>
+<dd><code>%%%</code>&nbsp;;</dd>
+<dt>Acronym</dt>
+<dd><code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</dd>
+<dt>Inline cite</dt>
+<dd><code>{{cite}}</code>, <code>{{cite|language}}</code> or <code>{{cite|language|url}}</code>&nbsp;;</dd>
+<dt>Code</dt>
+<dd><code>@@your code here@@</code>&nbsp;;</dd>
+<dt>Named anchor</dt>
+<dd><code>~anchor~</code>&nbsp;;</dd>
 </dl>";
 $langWikiIdenticalContent = "Identical content<br />no modification saved";
 $langWikiInvalidWikiId = "Invalid Wiki Id";
@@ -218,7 +229,7 @@ $langWork = "Assignments";
 $langYes = "Yes";
 $langYouAreReg = "You are registered on";
 $langYourReg = "Your registration on";
-$lang_click_here = "click here";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";
 ?>

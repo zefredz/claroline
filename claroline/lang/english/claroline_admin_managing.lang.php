@@ -1,5 +1,5 @@
 <?php
-$langAddLoginPass = "Add a login/pass in .htpassword</a><br>";
+$langAddLoginPass = "Add a login/pass in .htpassword</a><br />";
 $langAddLoginPassForThisUser = "Add login pass from campus account of this user in .htpassword";
 $langAdministration = "Administration";
 $langAgenda = "Agenda";
@@ -27,7 +27,6 @@ $langListHtUsers = "View .htpassword";
 $langLogin = "Login";
 $langLogout = "Logout";
 $langManage = "Manage Campus";
-$langManager = "Manager";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
@@ -61,6 +60,7 @@ $langViewMode = "View mode";
 $langWiki = "Wiki";
 $langWork = "Assignments";
 $lang_EditFile_ModifyOk = "The changes have been carried out correctly";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_no_access_here = "No way";
 $lang_p_platformManager = "Administrator for %s";

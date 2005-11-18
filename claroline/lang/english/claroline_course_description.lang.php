@@ -36,7 +36,6 @@ $langInvisible = "Invisible";
 $langLearningPath = "Learning Path";
 $langLogin = "Login";
 $langLogout = "Logout";
-$langManager = "Manager";
 $langMethodsOfEvaluation = "Methods of evaluation";
 $langMethodsOfEvaluationComment1 = "Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.";
 $langMinuteShort = "min.";
@@ -77,6 +76,7 @@ $langViewMode = "View mode";
 $langVisible = "Visible";
 $langWiki = "Wiki";
 $langWork = "Assignments";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";
 ?>

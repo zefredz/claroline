@@ -7,7 +7,7 @@ $langClarContent = "Here, lecturers and assistants create and administer
  sometimes, do exercises, publish papers, participate in
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites
- register you automatically). <br>If you are a Student, you
+ register you automatically). <br />If you are a Student, you
  just need to register selecting 'Follow courses (student)', then choose
  the courses you would like to follow.</p><p>If you are a Lecturer or an
  Assistant, register too, but select 'Create courses (lecturer)'. You will
@@ -456,7 +456,6 @@ $langHomeContent = "For convenience, claroline tools contain default entries.
 $langLearningPath = "Learning Path";
 $langLogin = "Login";
 $langLogout = "Logout";
-$langManager = "Manager";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
@@ -528,6 +527,7 @@ $langUsers = "Users";
 $langViewMode = "View mode";
 $langWiki = "Wiki";
 $langWork = "Assignments";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";
 ?>

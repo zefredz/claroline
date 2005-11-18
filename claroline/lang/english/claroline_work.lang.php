@@ -77,14 +77,13 @@ $langFirstSubmission = "First submission";
 $langForums = "Forums";
 $langGroup = "Group";
 $langGroupAssignment = "Groups (from groups tool, only group members can post)";
-$langGroupSpace = "Group area";
 $langGroups = "Groups";
 $langHelp = "Help";
 $langIncorrectDate = "Start date must be before end date ...";
 $langIndividual = "Individual";
 $langIntroWork = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
 <br />You will be able to add a comment or a grade to each work.
-<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br>";
+<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br />";
 $langInvisible = "Invisible";
 $langLastEditDate = "Last edit date";
 $langLateUpload = "Late upload";
@@ -93,7 +92,6 @@ $langLogin = "Login";
 $langLogout = "Logout";
 $langMakeInvisible = "Make invisible";
 $langMakeVisible = "Make visible";
-$langManager = "Manager";
 $langMaxFileSize = "Max file size : ";
 $langMinuteShort = "min.";
 $langModify = "Modify";
@@ -155,6 +153,7 @@ $langWrkEdited = "Work modified";
 $langWrkScoreRequired = "Score required";
 $langWrkTitle = "Title";
 $langWrkTitleRequired = "Work title required";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";
 ?>

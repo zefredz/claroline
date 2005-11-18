@@ -10,7 +10,7 @@ $langDBSettingNamesIntro = "
 The installer is going to create the main Claroline databases.
 If you are limited by your database system administrator to use
 only a single database, get back to the previous page
-and select option 'single' for 'Database mode'.<BR><BR>
+and select option 'single' for 'Database mode'.<br /><br />
 ";
 $langDBUse = "Database usage";
 $langDbName = "Database name";

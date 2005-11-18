@@ -43,7 +43,6 @@ $langLinkerResourceAttachment = "Attached Resources : Add / Delete attachement";
 $langLinkerUntitled = "Untitled";
 $langLogin = "Login";
 $langLogout = "Logout";
-$langManager = "Manager";
 $langMinuteShort = "min.";
 $langModify = "Modify";
 $langModifyProfile = "Modify my profile";
@@ -79,6 +78,7 @@ $langViewMode = "View mode";
 $langVisible = "Visible";
 $langWiki = "Wiki";
 $langWork = "Assignments";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";
 ?>

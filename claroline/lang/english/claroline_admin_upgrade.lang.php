@@ -19,7 +19,6 @@ $langLaunchRestoreCourseRepository = "Launch restore of the course repository";
 $langLearningPath = "Learning Path";
 $langLogin = "Login";
 $langLogout = "Logout";
-$langManager = "Manager";
 $langMinuteShort = "min.";
 $langModifyProfile = "Modify my profile";
 $langMonthNames = "Array";
@@ -43,6 +42,7 @@ $langUsers = "Users";
 $langViewMode = "View mode";
 $langWiki = "Wiki";
 $langWork = "Assignments";
+$lang_enroll = "Enrol";
 $lang_footer_p_CourseManager = "Manager(s) for %s";
 $lang_p_platformManager = "Administrator for %s";
 ?>
