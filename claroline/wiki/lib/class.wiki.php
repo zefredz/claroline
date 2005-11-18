@@ -2,11 +2,6 @@
      
     // vim: expandtab sw=4 ts=4 sts=4:
      
-    if( (bool) stristr( $_SERVER['PHP_SELF'], basename(__FILE__) ) )
-    {
-        die("This file cannot be accessed directly! Include it in your script instead!");
-    }
-     
     /**
      * CLAROLINE
      *
