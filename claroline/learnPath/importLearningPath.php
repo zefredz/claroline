@@ -125,27 +125,31 @@ function startElement($parser,$name,$attributes)
             break;
 
         case "ITEM" :
-            if (isset($attributes['IDENTIFIERREF'])) $manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
-            if (isset($attributes['PARAMETERS']))    $manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
-            if (isset($attributes['ISVISIBLE']))     $manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
-            if (isset($attributes['IDENTIFIER']))    $manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
+            if (isset($attributes['IDENTIFIER']))
+            {    
+               	$manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
             
-            if ( count($itemsPile) > 0)
-                $manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
-            
-            array_push($itemsPile, $attributes['IDENTIFIER']);
-            
-            if ( $flagTag['type'] == "item" )
-            {
-                $flagTag['deep']++;
+	            if (isset($attributes['IDENTIFIERREF'])) $manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
+	            if (isset($attributes['PARAMETERS']))    $manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
+	            if (isset($attributes['ISVISIBLE']))     $manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
+	                    
+	            if ( count($itemsPile) > 0)
+	                $manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
+	            
+	            array_push($itemsPile, $attributes['IDENTIFIER']);
+	            
+	            if ( $flagTag['type'] == "item" )
+	            {
+	                $flagTag['deep']++;
+	            }
+	            else
+	            {
+	                $flagTag['type'] = "item";
+	                $flagTag['deep'] = 0;
+	            }
+	            $manifestData['items'][$attributes['IDENTIFIER']]['deep'] = $flagTag['deep'];
+	            $flagTag['value'] = $attributes['IDENTIFIER'];
             }
-            else
-            {
-                $flagTag['type'] = "item";
-                $flagTag['deep'] = 0;
-            }
-            $manifestData['items'][$attributes['IDENTIFIER']]['deep'] = $flagTag['deep'];
-            $flagTag['value'] = $attributes['IDENTIFIER'];
             break;
         
         case "ORGANIZATIONS" :
