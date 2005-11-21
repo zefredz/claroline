@@ -68,17 +68,17 @@ function user_get_data($user_id)
     $tbl_user      = $tbl_mdb_names['user'];
 
     $sql = 'SELECT  `user_id`,
-                    `nom` as `lastname` ,
-        		    `prenom` as `firstname` ,
-        		    `username` ,
-        		    `email` ,
-        		    `pictureUri` as `picture` ,
-        		    `officialCode` ,
-        		    `phoneNumber` as `phone` ,
-        		    `statut` as `status`
-            FROM  `' . $tbl_user . '`
-            WHERE
-        		`user_id` = "' . (int) $user_id . '"';
+                    `nom`         AS `lastname` ,
+                    `prenom`      AS `firstname`,
+                    `username`                  ,
+                    `email`                     ,
+                    `authSource`  AS authsource ,
+                    `pictureUri`  AS `picture`  ,
+                    `officialCode`              ,
+                    `phoneNumber` AS `phone`    ,
+                    `statut`      AS `status`
+            FROM   `' . $tbl_user . '`
+            WHERE  `user_id` = "' . (int) $user_id . '"';
 
     $result = claro_sql_query($sql);
 
@@ -1213,7 +1213,6 @@ function user_display_form_admin_user_profile($data)
 
 function user_display_form($data, $form_type='registration')
 {
-
     global $langLastname, $langFirstname, $langOfficialCode, $langUserName, $langPassword,
            $langConfirmation, $langEmail, $langPhone, $langAction,
            $langRegStudent, $langRegAdmin, $langUserid,
@@ -1292,46 +1291,57 @@ function user_display_form($data, $form_type='registration')
             . '</tr>' . "\n";
     }
 
-    echo ' <tr>' . "\n"
-        . '  <td>&nbsp;</td>' . "\n"
-        . '  <td>&nbsp;</td>' . "\n"
-        . ' </tr>' . "\n";
 
-    if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+    if (   strtolower($data['authsource']) == 'claroline' 
+        || strtolower($data['authsource']) == 'clarocrypt' 
+        || $form_type == 'admin_user_profile')
     {
-        echo '<tr>' . "\n"
-            . '<td>&nbsp;</td>' . "\n"
-            . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n"
-            . '</tr>' . "\n" ;
+
+        echo ' <tr>' . "\n"
+            . '  <td>&nbsp;</td>' . "\n"
+            . '  <td>&nbsp;</td>' . "\n"
+            . ' </tr>' . "\n";
+
+        if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+        {
+            echo '<tr>' . "\n"
+                . '<td>&nbsp;</td>' . "\n"
+                . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n"
+                . '</tr>' . "\n" ;
+        }
+        else
+        {
+            $langPassword = required_field($langPassword);
+        }
+
+        // username
+        echo ' <tr>' . "\n"
+            . '  <td align="right"><label for="username">' . required_field($langUserName) . '&nbsp;:</label></td>' . "\n"
+            . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
+            . ' </tr>' . "\n";
+
+        // password
+        echo ' <tr>'  . "\n"
+            . '     <td align="right"><label for="password">' . $langPassword . '&nbsp;:</label></td>' . "\n"
+            . '  <td><input type="password" size="40" id="password" name="password" /></td>' . "\n"
+            . '    </tr>' . "\n";
+
+        // password confirmation
+        echo ' <tr>' . "\n"
+            . '     <td align="right"><label for="password_conf">' . $langPassword . '&nbsp;:<br>' . "\n" . "\n"
+            . ' <small>(' . $langConfirmation . ')</small></label></td>' . "\n"
+            . '  <td><input type="password" size="40" id="password_conf" name="password_conf" /></td>' . "\n"
+            . ' </tr>' . "\n";
+
+        echo ' <tr>' . "\n"
+            . '  <td>&nbsp;</td>' . "\n"
+            . '  <td>&nbsp;</td>' . "\n"
+            . ' </tr>' . "\n";
     }
     else
     {
-        $langPassword = required_field($langPassword);
+    	echo '<tr><td align="right">'.$langUserName.' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
     }
-
-    // username
-    echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="username">' . required_field($langUserName) . '&nbsp;:</label></td>' . "\n"
-        . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n";
-
-    // password
-    echo ' <tr>'  . "\n"
-        . '     <td align="right"><label for="password">' . $langPassword . '&nbsp;:</label></td>' . "\n"
-        . '  <td><input type="password" size="40" id="password" name="password" /></td>' . "\n"
-        . '    </tr>' . "\n";
-
-    // password confirmation
-    echo ' <tr>' . "\n"
-        . '     <td align="right"><label for="password_conf">' . $langPassword . '&nbsp;:<br>' . "\n" . "\n"
-        . ' <small>(' . $langConfirmation . ')</small></label></td>' . "\n"
-        . '  <td><input type="password" size="40" id="password_conf" name="password_conf" /></td>' . "\n"
-        . ' </tr>' . "\n";
-
-    echo ' <tr>' . "\n"
-        . '  <td>&nbsp;</td>' . "\n"
-        . '  <td>&nbsp;</td>' . "\n"
-        . ' </tr>' . "\n";
 
     // email
     echo ' <tr>' . "\n"
