@@ -47,6 +47,16 @@ class ExternalAuthentication
         $_POST['username'] = $GLOBALS[ $formFieldList['username'] ];
         $_POST['password'] = $GLOBALS[ $formFieldList['password'] ];
 
+        if ($extAuthType == 'LDAP')
+        {
+            // CASUAL PATCH (Nov 21 2005) : due to a sort of bug in the 
+            // PEAR AUTH LDAP container, we add a specific option wich forces 
+            // to return attributes to a format compatible with the attribute 
+            // format of the other AUTH containers
+
+            $authOptionList ['attrformat'] = 'AUTH';
+        }
+
         require_once('Auth/Auth.php');
 
         $this->auth = new Auth($extAuthType, $authOptionList,'', false);
