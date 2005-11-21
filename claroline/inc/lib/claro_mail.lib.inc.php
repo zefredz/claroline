@@ -104,7 +104,8 @@ function claro_mail_spool($mails)
        {
             $mail->FromName = $administrator_name;
        }
-    
+
+       $mail->Charset = $GLOBALS['charset'];     
        $mail->IsMail();
        $mail->Subject = $mailToSend['subject'];
        $mail->Body    = $mailToSend['body'];
