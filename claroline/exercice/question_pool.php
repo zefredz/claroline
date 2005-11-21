@@ -227,7 +227,11 @@ $myPager = new claro_sql_pager($sql, $offset, $questionsPerPage);
 $questionList = $myPager->get_result_list();
 
 //pager display
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if( isset($_REQUEST['exerciseId']) )
+	$pagerTarget = 'question_pool.php?exerciseId='.$_REQUEST['exerciseId'];	
+else
+	$pagerTarget = 'question_pool.php';
+$myPager->disp_pager_tool_bar($pagerTarget);
 
 ?>
 
@@ -335,6 +339,10 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 ?>
 
 </table>
+<?php
+//pager display
+$myPager->disp_pager_tool_bar($pagerTarget);
+?>
 </form>
 
 <?php
