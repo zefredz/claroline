@@ -119,8 +119,10 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	            UMP.`scoreMax`, UMP.`credit`,
 	            UMP.`session_time`, UMP.`total_time`,
 	            A.`path`
-	         FROM `".$TABLELEARNPATHMODULE."` AS LPM,
-	              `".$TABLEMODULE."` AS M
+	         FROM (
+	         	`".$TABLELEARNPATHMODULE."` AS LPM,
+				`".$TABLEMODULE."` AS M
+				)
 	   LEFT JOIN `".$TABLEUSERMODULEPROGRESS."` AS UMP
 	           ON UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
 	           AND UMP.`user_id` = ". (int)$_REQUEST['uInfo']."
