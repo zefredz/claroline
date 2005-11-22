@@ -206,9 +206,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . $langUserid . '</a></th>' . "\n"
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . $langLastName . '</a></th>' . "\n"
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . $langFirstName . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . $langFirstName . '</a></th>' . "\n"
 .    '<th>' . $langSubscribeClass . '</th>'
-.    '<th>' . $langUnsubscribeClass . '</th>'
 .    '<th>' . $langUnsubscribeClass . '</th>'
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
