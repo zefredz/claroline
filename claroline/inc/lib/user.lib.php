@@ -1291,12 +1291,15 @@ function user_display_form($data, $form_type='registration')
             . '</tr>' . "\n";
     }
 
-
-    if (   strtolower($data['authsource']) == 'claroline' 
-        || strtolower($data['authsource']) == 'clarocrypt' 
-        || $form_type == 'admin_user_profile')
+    if ( isset($data['authsource']) && 
+         ( strtolower($data['authsource']) != 'claroline' && strtolower($data['authsource']) != 'clarocrypt' ) 
+        && $form_type == 'profile' )
     {
-
+        // disable modification of username and password with external autentication
+    	echo '<tr><td align="right">'.$langUserName.' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
+    }
+    else
+    {
         echo ' <tr>' . "\n"
             . '  <td>&nbsp;</td>' . "\n"
             . '  <td>&nbsp;</td>' . "\n"
@@ -1337,10 +1340,6 @@ function user_display_form($data, $form_type='registration')
             . '  <td>&nbsp;</td>' . "\n"
             . '  <td>&nbsp;</td>' . "\n"
             . ' </tr>' . "\n";
-    }
-    else
-    {
-    	echo '<tr><td align="right">'.$langUserName.' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
     }
 
     // email
