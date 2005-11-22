@@ -241,6 +241,10 @@ function format_url_query( $query )
 		}
         $ret = implode( '&', $parts );
 	}
+    elseif ( strpos( $query, '/' ) !== false )
+    {
+        $ret = format_url_path( $query );
+    }
 	else
 	{
 		$ret = rawurlencode( $query );
