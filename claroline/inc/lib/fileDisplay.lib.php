@@ -156,8 +156,6 @@ function format_url($url)
 {
     $urlArray = parse_url( $url );
 
-    $path = format_url_path( substr( $urlArray['path']   , 1) );
-    
     $urlToRet = '';
 
     if ( isset( $urlArray['user'] ) )
