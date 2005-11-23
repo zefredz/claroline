@@ -71,6 +71,8 @@ $postSettingList =  get_post_settings($post_id);
 
 if ( $postSettingList && $is_allowedToEdit )
 {
+     $topic_id        = $postSettingList['topic_id'];
+
     $forumSettingList = get_forum_settings($postSettingList['forum_id']);
 
     $forum_name         = stripslashes($forumSettingList['forum_name']);
@@ -78,6 +80,7 @@ if ( $postSettingList && $is_allowedToEdit )
     $forum_type         = $forumSettingList['forum_type'  ];
     $forum_groupId      = $forumSettingList['idGroup'     ];
     $forum_cat_id       = $forumSettingList['cat_id'      ];
+    $forum_topicId      = $forumSettingList['topic_id'    ];
 
     /* 
      * Check if the topic isn't attached to a group,  or -- if it is attached --, 
@@ -96,6 +99,12 @@ if ( $postSettingList && $is_allowedToEdit )
     } 
     else 
     {
+        if ( isset($_REQUEST['cancel']) )
+        {
+            header('Location: viewtopic.php?topic=' . $topic_id );
+            exit();
+        }
+
         if ( isset($_REQUEST['submit']) )
         {
             /*-----------------------------------------------------------------
@@ -257,7 +266,8 @@ else
             . '<tr>'
             . '<td>&nbsp;</td>' ."\n"
             . '<td>'
-            . '<input type="submit" name="submit" value="' . $langSubmit . '" />' . "\n"
+            . '<input type="submit" name="submit" value="' . $langOk . '" />' . "\n"
+            . '<input type="submit" name="cancel" value="' . $langCancel . '" />'
             . '</td>' . "\n"
             . '</tr>' . "\n"
             . '</table>'. "\n"
