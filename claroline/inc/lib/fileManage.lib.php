@@ -556,7 +556,7 @@ function get_link_file_url($file)
    $fileContent = implode("\n", file ($file));
    $matchList =  array();
    
-   if (preg_match('~<meta http-equiv="refresh" content="[0-9]+;url=([^">]+)~',
+   if (preg_match('~>([^<]+)</a>~',
                   $fileContent,
                   $matchList))
    {
