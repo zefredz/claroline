@@ -25,8 +25,6 @@ $tlabelReq = 'CLFRM___';
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langForums;
-
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);

@@ -5,7 +5,6 @@ $tlabelReq = 'CLFRM___';
 require '../inc/claro_init_global.inc.php';
 require $includePath .'/lib/forum.lib.php';
 
-$nameTools         = $langForums;
 $last_visit        = $_user['lastLogin'];
 $is_groupPrivate   = $_groupProperties ['private'];
 $is_allowedToEdit  = claro_is_allowed_to_edit();
