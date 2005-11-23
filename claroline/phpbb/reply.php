@@ -25,8 +25,6 @@ $tlabelReq = 'CLFRM___';
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langForums;
-
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
@@ -150,6 +148,9 @@ if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
     $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
 }
+
+$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 

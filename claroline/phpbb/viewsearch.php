@@ -66,6 +66,9 @@ if (isset($_REQUEST['searchPattern']))
 
 $pagetype= 'viewsearch';
 
+$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$noPHP_SELF       = true;
+
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($langForums, 

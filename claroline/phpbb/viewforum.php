@@ -116,6 +116,9 @@ if (     $forum_cat_id == GROUP_FORUMS_CATEGORY
     $interbredcrump[]  = array ('url'=>'../group/group_space.php', 'name'=> $_group['name']);
 }
 
+$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$noPHP_SELF       = true;
+
 include $includePath . '/claro_init_header.inc.php';
 
 if ( ! $forumAllowed )
