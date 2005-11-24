@@ -207,7 +207,7 @@ $langByUser = "par l'utilisateur";
 $langCSVSeeUserList = "Voir la liste des utilisateurs";
 $langCampusAlreadyRegistered = "Votre campus est déjà enregistré.";
 $langCampusDeleted = "<strong>Supprimé</strong><p>Votre campus a été supprimé de la page 'Worldwide' de Claroline.net. Contactez-nous si vous pensez qu'il s'agit d'une erreur.</p>";
-$langCampusRegistered = "<strong>Approuvée</strong><p>L'enregistrement de votre campus a été accepté.<br />Un lien vers votre plateforme est à présent disponible sur la page 'Worldwide' de Claroline.net</p>";
+$langCampusRegistered = "<strong>Approuvée</strong><p>L'enregistrement de votre campus a été accepté.<br />Un lien vers votre plate-forme est à présent disponible sur la page 'Worldwide' de Claroline.net</p>";
 $langCampusRegistrationSubmitted = "Votre campus a été soumis et est en attente de validation par l'équipe de Claroline";
 $langCampusRemoved = "<strong>Masqué</strong><p>Votre campus n'est plus visible sur la page 'Worldwide' de Claroline.net</p>";
 $langCampusSubmitted = "<strong>Soumis</strong><p>En attente de validation par l'équipe de Claroline.</p>";
@@ -239,7 +239,7 @@ $langClarContent = "<br /><p><b>Étudiant</b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code du cours dans la liste, sans inscription préalable.</p>
-<p>Pour accéder aux cours non accessibles depuis la page d'accueil de la plateforme, il
+<p>Pour accéder aux cours non accessibles depuis la page d'accueil de la plate-forme, il
 est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
 Action&nbsp;: S'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
@@ -331,7 +331,7 @@ $langCourseWithoutStudents = "Cours sans étudiants";
 $langCourse_Repository = "Dossier du cours";
 $langCourses = "Cours";
 $langCreate = "Créer";
-$langCreate1stAccountOnPlatform = "Créez d'abord un compte utilisateur sur cette plateforme";
+$langCreate1stAccountOnPlatform = "Créez d'abord un compte utilisateur sur cette plate-forme";
 $langCreateAnotherUser = "Créer un autre utilisateur";
 $langCreateAssignment = "Créer un nouveau travail";
 $langCreateCategory = "Créer une catégorie";
@@ -359,7 +359,7 @@ $langCurrentStatus = "Statut de votre enregistrement&nbsp;: <br /> <br />
 $langCurrentTime = "Temps actuel";
 $langDBConnectionParameters = "Paramètres de connexion à la base MySQL";
 $langDBHost = "Base de données&nbsp;: hôte";
-$langDBSettingNamesIntro = "Le script d'installation va créer les bases de données principales de la plateforme. Vous pouvez créer différentes bases de données pour les statistiques et PhpMyAdmin ou mettre toutes ces données dans une base de données. Par la suite, Claroline créera une base de données par cours créé. Vous pouvez spécifier un préfixe pour les noms de ces bases de données.
+$langDBSettingNamesIntro = "Le script d'installation va créer les bases de données principales de la plate-forme. Vous pouvez créer différentes bases de données pour les statistiques et PhpMyAdmin ou mettre toutes ces données dans une base de données. Par la suite, Claroline créera une base de données par cours créé. Vous pouvez spécifier un préfixe pour les noms de ces bases de données.
 <p>Si vous n'êtes pas autorisés à avoir plusieurs bases de données par votre administrateur, retournez à l'étape précédente et sélectionnez l'option \"Single\"</p>
 ";
 $langDBUse = "Base de données";
@@ -702,7 +702,7 @@ $langErrorMove = "Vous ne pouvez pas déplacer une classe vers elle-même !";
 $langErrorMyOwnSettings = "Vous ne pouvez pas changer votre propre statut";
 $langErrorNameAlreadyExists = "Erreur : le nom existe déjà dans le parcours ou dans la banque de modules";
 $langErrorNoModuleInPackage = "Pas de module dans le package";
-$langErrorNoZlibExtension = "L'extension php 'zlib' est requise pour l'utilisation de cet outil. Contactez l'administrateur de la plateforme.";
+$langErrorNoZlibExtension = "L'extension php 'zlib' est requise pour l'utilisation de cet outil. Contactez l'administrateur de la plate-forme.";
 $langErrorOpeningManifest = "Le manifeste n'a pas été trouvé dans le package.<br />Fichier manquant : imsmanifest.xml";
 $langErrorOpeningXMLFile = "Un fichier XML secondaire d'initialisation est introuvable.<br /> Fichier manquant&nbsp;: ";
 $langErrorReadingManifest = "Erreur à la lecture du fichier <i>imsmanifest.xml</i>";
@@ -884,7 +884,7 @@ $langFillGroups = "Remplir le(s) groupe(s) (automatique)";
 $langFillLists = "Veuillez remplir les deux listes ci-dessous";
 $langFillSelectBox = "Choix dans une liste déroulante";
 $langFillTextField = "Remplissage de zones de texte.";
-$langFillTheAreaToExplainTheMotivations = "Remplis la zone de texte pour expliquer tes motivations et soumettre ta requête. Un e-mail sera envoyé aux administrateurs de la plateforme.";
+$langFillTheAreaToExplainTheMotivations = "Remplis la zone de texte pour expliquer tes motivations et soumettre ta requête. Un e-mail sera envoyé aux administrateurs de la plate-forme.";
 $langFillToolCourses = "Remplir les outils de cours";
 $langFillTree = "Insérer des catégories/faculté dans l'arbre";
 $langFillType = "Type de remplissage";
@@ -1255,9 +1255,9 @@ $langMaxFileSize = "Taille max&nbsp;: ";
 $langMaxSizeCourseCode = "12 caractères max., p. ex.<i>ROM2121</i>";
 $langMaxStudentGroup = "Nombre maximum d'étudiants par groupe";
 $langMaximum = "Maximum&nbsp;: ";
-$langMessage = "Quand vous supprimerez le forum &quot;Forum d&rsquo;essai&quot;, vous supprimerez aussi ce sujet et le seul message qu'il contient";
+$langMessage = "Quand vous supprimerez le forum \"Forum d'essai\", vous supprimerez aussi ce sujet et le seul message qu'il contient";
 $langMessageEnrollToCourseNotAllowed = "Inscription au cours refusée";
-$langMessageRegistrationNotAllowed = "Enregistrement à la plateforme refusé";
+$langMessageRegistrationNotAllowed = "Enregistrement à la plate-forme refusé";
 $langMessageSubscribeDone_p_firstname_lastname = "Cher/Chère %s, %s, vos coordonnées personnelles ont été enregistrées et un e-mail vous a été envoyé
 pour vous rappeler votre nom d’utilisateur et votre mot de passe.";
 $langMessageToSelectedUsers = "Message pour certains utilisateurs.";
@@ -1280,7 +1280,7 @@ $langModifyExercise = "Modifier l'exercice";
 $langModifyFormat = "Modifier le format";
 $langModifyInAllExercises = "pour l'ensemble des exercices";
 $langModifyInThisExercise = "uniquement pour l'exercice courant";
-$langModifyProfile = "Gérer mon compte utilisateur";
+$langModifyProfile = "Mon compte utilisateur";
 $langModule = "Module";
 $langModuleMoved = "Module déplacé";
 $langModuleOfMyCourse = "Utiliser un module de ce cours";
@@ -1296,7 +1296,7 @@ $langMove = "Déplacer";
 $langMoveDown = "Descendre";
 $langMoveUp = "Monter";
 $langMsgSent = "Le message est envoyé aux utilisateurs sélectionnés.";
-$langMultipleAnswers = "R&eacute;ponses multiples";
+$langMultipleAnswers = "Réponses multiples";
 $langMultipleEmails = "Comptes avec la même adresse de <i>courrier électronique</i>";
 $langMultipleLogins = "Comptes avec le même <i>identifiant</i>";
 $langMultipleSelect = "Choix multiple (Réponses multiples)";
@@ -1333,7 +1333,7 @@ $langNewLegend = "Nouveautés";
 $langNewQu = "Nouvelle question";
 $langNewToOld = "Inverser";
 $langNewTopic = "Nouveau sujet";
-$langNewUsersIn = "nouveaux utilisateurs de la plateforme&nbsp;: ";
+$langNewUsersIn = "nouveaux utilisateurs de la plate-forme&nbsp;: ";
 $langNext = "Suivant";
 $langNextDay = "Jour suivant";
 $langNextMonth = "Mois suivant";
@@ -1387,7 +1387,7 @@ $langNotRecentlyConnectedStudents = "Étudiants qui ne se sont pas connectés réce
 $langNotSaved = "Vos changements n'ont pas été pris en compte";
 $langNotUnregYourself = "Vous ne pouvez pas changer vos propres paramètres !";
 $langNotice = "Remarque";
-$langNoticeInstallFolderBrowsable = "<b>Note&nbsp;:</b> le dossier contenant l'installateur de votre plateforme claroline (<code>claroline/install/</code>) est accessible par le web. N'importe qui peut réinstaller claroline et écraser votre installation. Nous vous recommandons de protéger ce dossier ou de le supprimer.";
+$langNoticeInstallFolderBrowsable = "<b>Note&nbsp;:</b> le dossier contenant l'installateur de votre plate-forme claroline (<code>claroline/install/</code>) est accessible par le web. N'importe qui peut réinstaller claroline et écraser votre installation. Nous vous recommandons de protéger ce dossier ou de le supprimer.";
 $langNow = "Maintenant";
 $langNowGoChooseYourCourses = "Vous pouvez à présent sélectionner les cours auxquels vous souhaitez avoir accès.";
 $langNowGoCreateYourCourse = "Vous pouvez à présent passer à la création de votre cours";
@@ -1437,17 +1437,17 @@ $langPersoValue = "Valeurs";
 $langPersonalCourseList = "Liste personnelle des cours";
 $langPhone = "Téléphone";
 $langPlaces = "places par groupe (facultatif)";
-$langPlatform = "Plateforme";
+$langPlatform = "Plate-forme";
 $langPlatformAccess = "Accès au campus";
-$langPlatformAdministration = "Gérer la plateforme";
-$langPlatformAdministrator = "Administrateur de la plateforme";
+$langPlatformAdministration = "Gérer la plate-forme";
+$langPlatformAdministrator = "Administrateur de la plate-forme";
 $langPlatformCoursesAccess = "Accès aux cours";
 $langPlatformStats = "Statistiques du campus";
 $langPleaseEnterMessage = "Tapez le message à envoyer.";
 $langPleaseSelectUsers = "Sélectionnez d'abord les utilisateurs auxquels le message sera envoyé.";
 $langPopulateTools = "Remplir les outils";
 $langPostReply = "Répondre";
-$langPoweredBy = "Utilise la plateforme";
+$langPoweredBy = "Utilise la plate-forme";
 $langPrefix = "Préfixe : ";
 $langPreventLateUpload = "Non, ne pas autoriser les utilisateurs à soumettre leur travail après la date de fin";
 $langPreview = "Aperçu";
@@ -1714,7 +1714,7 @@ $langUnamedModule = "Module sans nom";
 $langUnamedPath = "Parcours sans nom";
 $langUncompress = "Décompresser fichier zippé (.zip)";
 $langUncompulsory = "(facultatif)";
-$langUniqueAnswer = "R&eacute;ponse unique";
+$langUniqueAnswer = "Réponse unique";
 $langUniqueSelect = "Choix multiple (Réponse unique)";
 $langUnkownSOAPError = "Une erreur s'est produite lors de la tentative d'enregistrement.";
 $langUnlimitedAttempts = "Essais illimités";
@@ -1753,7 +1753,7 @@ $langUserContent = "<p>L'outil Utilisateurs permet d'afficher un tableau d'infor
 </li>
 <li>
 <b>Rôles</b>.
-Les rôles n'ont pas de fonction technique particulière et ne sont associés à aucun droit spécifique sur la plateforme. Ils indiquent simplement aux personnes 'qui est qui'. Vous pouvez modifier le rôle d'un utilisateur en cliquant sur l'icône dans la colonne Éditer et en tapant ensuite le rôle désiré&nbsp;: professeur, assistant, étudiant, visiteur, expert, etc.
+Les rôles n'ont pas de fonction technique particulière et ne sont associés à aucun droit spécifique sur la plate-forme. Ils indiquent simplement aux personnes 'qui est qui'. Vous pouvez modifier le rôle d'un utilisateur en cliquant sur l'icône dans la colonne Éditer et en tapant ensuite le rôle désiré&nbsp;: professeur, assistant, étudiant, visiteur, expert, etc.
 </li>
 <li>
 <b>Tuteur de groupe</b>. Le statut de Tuteur de groupe permet à l'utilistateur d'encadrer un groupe plus étroitement. Le tuteur dispose du droit d'accéder aux espaces de tous les groupes, de voir l'ensemble des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne Éditer.
@@ -1772,7 +1772,7 @@ Les rôles n'ont pas de fonction technique particulière et ne sont associés à auc
 <ul>
 <li><b>Ajouter un utilisateur</b>. Cliquez sur cette commande pour ajouter un utilisateur dans le cours. Complétez le formulaire puis validez. La personne recevera un e-mail mentionnant qu'elle a été inscrite et lui indiquant son nouveau login et mot de passe.</li>
 <li><b>Ajouter une liste d'utilisateurs</b></li> Cliquez sur cette commande pour ajouter une liste d'utilisateurs à l'aide d'un fichier au format CSV.</li>
-<li><b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d'utilisateurs rassemblés dans une classe prédéfinie par l'administrateur de la plateforme.</li>
+<li><b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d'utilisateurs rassemblés dans une classe prédéfinie par l'administrateur de la plate-forme.</li>
 <li><b>Gestion des groupes</b>. Permet d'accéder directement à l'outil de gestion des groupes.</li>
 </ul>
 
@@ -1787,7 +1787,7 @@ $langUserCreated = "Le nouvel utilisateur a été créé";
 $langUserDelete = "La suppression de l'utilisateur a été exécutée";
 $langUserIsNowCourseManager = "L'utilisateur est à présent gestionnaire du cours";
 $langUserIsNowStudent = "L'utilisateur est à présent étudiant pour ce cours";
-$langUserIsPlaformAdmin = "Peut administrer la plateforme";
+$langUserIsPlaformAdmin = "Peut administrer la plate-forme";
 $langUserName = "Identifiant";
 $langUserNoCourseToDisplay = "Aucun cours à montrer";
 $langUserNotInClass = "L'utilisateur n'est pas inscrit à la classe";
@@ -1814,8 +1814,8 @@ $langValvas = "Dernières annonces";
 $langViMod = "Visibilité modifiée";
 $langView = "Vue";
 $langViewMode = "Mode de vue";
-$langViewPlatFormError = "Recherche d&#146;anomalies";
-$langViewPlatFormStatistics = "Statistiques de la plateforme";
+$langViewPlatFormError = "Recherche d'anomalies";
+$langViewPlatFormStatistics = "Statistiques de la plate-forme";
 $langViewToolList = "Voir la liste de tous les outils";
 $langVisibility = "Visibilité";
 $langVisible = "Visible";
@@ -2034,7 +2034,7 @@ $lang_p_FeedOf_s = "Flux RSS de %s";
 $lang_p_FillCourses = "Remplissage de %s avec %s";
 $lang_p_IfNothingHappendClickHere = "Si rien ne se passe <u>après 30 secondes</u>, cliquez sur <a href=\"%s\">ce lien</a> et patientez quelques secondes";
 $lang_p_PropForConfigCommited = "Les propriétés %s (%s) sont effectives sur le serveur.";
-$lang_p_aCategoryWouldBeSelected = "Vous devez choisir une catégorie. Si aucune ne vous convient, contactez <a href=\"%s\">l'administrateur de la plateforme</a>.";
+$lang_p_aCategoryWouldBeSelected = "Vous devez choisir une catégorie. Si aucune ne vous convient, contactez <a href=\"%s\">l'administrateur de la plate-forme</a>.";
 $lang_p_category_s_created = "Catégorie de forum %s créée";
 $lang_p_config_file_creation = "Création du fichier de configuration&nbsp;:<br /> %s";
 $lang_p_d_StudentUnregistredFormCours = "%d étudiant(e)(s) désinscrit(e)(s) de ce cours";
