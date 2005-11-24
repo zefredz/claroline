@@ -2069,4 +2069,10 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Vous avez été désinscrit
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre compte utilisateur ne semble pas inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
+
+$langChooseYourPassword =  "Choisissez à présent l'identifiant et le mot de passe de votre compte utilisateur.";
+$langMemorizeYourPassord = "Mémorisez-les, il vous serviront à vous identifier la prochaine fois que vous vous rendrez sur ce site.";
+$langWarning = "Attention.";
+$langTheSystemIsCaseSensitive = "Le système est sensible aux majuscules et aux minuscules.";
+
 ?>

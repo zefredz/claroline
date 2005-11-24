@@ -1219,6 +1219,7 @@ function user_display_form($data, $form_type='registration')
            $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langSearch, $langChangePwdexp,
            $langGroupTutor,$langManager,
            $langPersonalCourseList, $langYes, $langNo, $langUserIsPlaformAdmin,
+           $langChooseYourPassword, $langMemorizeYourPassord, $langWarning, $langTheSystemIsCaseSensitive,
            $ask_for_official_code, $langLegendRequiredFields, $langCreate;
 
     global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $imgRepositoryWeb;
@@ -1314,6 +1315,21 @@ function user_display_form($data, $form_type='registration')
         }
         else
         {
+            if ( $form_type == 'registration' )
+            {
+            	echo  '<tr>'
+                .     '<td>&nbsp;</td>'
+                .     '<td>'
+                .    '<small>'
+                .    $langChooseYourPassword . '<br />'
+                .    $langMemorizeYourPassord . '<br />'
+                .    $langWarning . ' '. $langTheSystemIsCaseSensitive
+                .    '</small>'
+                .    '</td>'
+                .    '</tr>';
+
+            }
+
             $langPassword = required_field($langPassword);
         }
 
