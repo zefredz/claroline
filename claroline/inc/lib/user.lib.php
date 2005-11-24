@@ -1323,7 +1323,7 @@ function user_display_form($data, $form_type='registration')
                 .    '<small>'
                 .    $langChooseYourPassword . '<br />'
                 .    $langMemorizeYourPassord . '<br />'
-                .    $langWarning . ' '. $langTheSystemIsCaseSensitive
+                .    '<strong>' . $langWarning . ' '. $langTheSystemIsCaseSensitive . '</strong>'
                 .    '</small>'
                 .    '</td>'
                 .    '</tr>';
