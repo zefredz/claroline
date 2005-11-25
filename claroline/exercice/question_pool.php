@@ -46,7 +46,7 @@ $tbl_quiz_question      = $tbl_cdb_names['quiz_question'];
 $tbl_quiz_answer		= $tbl_cdb_names['quiz_answer'];
 
 // maximum number of questions on a same page
-$questionsPerPage = 1;
+$questionsPerPage = 25;
 
 if($is_allowedToEdit)
 {
