@@ -508,6 +508,8 @@ echo '</tbody>' . "\n"
 .    '</table>' . "\n\n"
 ;
 
+$workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']);
+
 // FOOTER
 include $includePath . '/claro_init_footer.inc.php'; 
 ?>
