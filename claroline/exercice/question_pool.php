@@ -46,7 +46,7 @@ $tbl_quiz_question      = $tbl_cdb_names['quiz_question'];
 $tbl_quiz_answer		= $tbl_cdb_names['quiz_answer'];
 
 // maximum number of questions on a same page
-$questionsPerPage = 25;
+$questionsPerPage = 1;
 
 if($is_allowedToEdit)
 {
@@ -227,10 +227,15 @@ $myPager = new claro_sql_pager($sql, $offset, $questionsPerPage);
 $questionList = $myPager->get_result_list();
 
 //pager display
-if( isset($_REQUEST['exerciseId']) )
-	$pagerTarget = 'question_pool.php?exerciseId='.$_REQUEST['exerciseId'];	
-else
-	$pagerTarget = 'question_pool.php';
+$pagerTarget = 'question_pool.php';
+
+if ( !empty($_REQUEST['exerciseId']) && !empty($_REQUEST['fromExercise']) )
+	$pagerTarget .= '?fromExercise='.$_REQUEST['fromExercise'].'exerciseId='.$_REQUEST['exerciseId'];
+elseif ( !empty($_REQUEST['exerciseId']) )	
+	$pagerTarget .= '?exerciseId='.$_REQUEST['exerciseId'];
+elseif ( !empty($_REQUEST['fromExercise']) )	
+	$pagerTarget .= '?fromExercise='.$_REQUEST['fromExercise'];
+	
 $myPager->disp_pager_tool_bar($pagerTarget);
 
 ?>
