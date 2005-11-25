@@ -139,7 +139,7 @@ if ( $is_trackingEnabled )
 	        AVG(TE.`exe_result`) AS `average`,
 	        COUNT(TE.`exe_result`) AS `attempts`,
 			AVG(TE.`exe_time`) AS `avgTime`
-	FROM `".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_quiz_test."` AS `QT`
+	FROM (`".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_quiz_test."` AS `QT`)
 	LEFT JOIN `".$tbl_track_e_exercices."` AS `TE`
 	      ON `CU`.`user_id` = `TE`.`exe_user_id`
 	      AND `QT`.`id` = `TE`.`exe_exo_id`
@@ -195,7 +195,7 @@ if ( $is_trackingEnabled )
           		MIN(TED.`result`) AS `minimum`,
 				MAX(TED.`result`) AS `maximum`,
 				AVG(TED.`result`) AS `average`
-		FROM `".$tbl_quiz_question."` AS `Q`, `".$tbl_quiz_rel_test_question."` AS `RTQ`
+		FROM (`".$tbl_quiz_question."` AS `Q`, `".$tbl_quiz_rel_test_question."` AS `RTQ`)
 		LEFT JOIN `".$tbl_track_e_exercices."` AS `TE`
 		    ON `TE`.`exe_exo_id` = `RTQ`.`exercice_id`
 		LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
