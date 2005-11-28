@@ -27,7 +27,7 @@ $is_upgrade_available = TRUE;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.7.0';
+$new_version = '1.7.1';
 $new_version_branch = '1.7';
 
 if (!$is_upgrade_available)
@@ -36,4 +36,5 @@ if (!$is_upgrade_available)
 }
 
 $requiredPhpVersion = '4.3.0';
+
 ?>
