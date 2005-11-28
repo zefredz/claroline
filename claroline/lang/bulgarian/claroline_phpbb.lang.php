@@ -95,7 +95,6 @@ $langReply = "Отговор";
 $langSearch = "Търсене";
 $langSeen = "Видян";
 $langStudent = "студент";
-$langSubmit = "Изпрати";
 $langTextEditorDisable = "Изключи текстов редактор";
 $langTextEditorEnable = "Включи текстов редактор";
 $langUsers = "Потребители";

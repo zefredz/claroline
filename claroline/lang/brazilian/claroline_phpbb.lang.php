@@ -97,7 +97,6 @@ $langSearchResult = "Procurar resultado";
 $langSecondShort = "sec.";
 $langSeen = "Visto";
 $langStudent = "Estudantes";
-$langSubmit = "Enviar";
 $langSwitchEditorToTextConfirm = "Este comando irá alterar a atual aparência do texto apresentado. Você quer continuar ?";
 $langTextEditorDisable = "Desativar o editor de texo";
 $langTextEditorEnable = "Ativar o editor de texto";

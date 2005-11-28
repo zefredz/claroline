@@ -121,7 +121,6 @@ $langSearchResult = "نتيجة البحث";
 $langSecondShort = "ثانية";
 $langSeen = "عدد مرات القراءة";
 $langStudent = "طالب";
-$langSubmit = "إرسال";
 $langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
 $langTextEditorDisable = "إيقاف عمل محرر النصوص المتقدم";
 $langTextEditorEnable = "تشغيل محرر النصوص المتقدم";

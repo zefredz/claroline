@@ -6,7 +6,7 @@ $langAdminPass = "Mot de passe de l'administrateur";
 $langAdminSurname = "Prénom de l'administrateur";
 $langDBConnectionParameters = "Paramètres de connexion à la base MySQL";
 $langDBHost = "Base de données&nbsp;: hôte";
-$langDBSettingNamesIntro = "Le script d'installation va créer les bases de données principales de la plateforme. Vous pouvez créer différentes bases de données pour les statistiques et PhpMyAdmin ou mettre toutes ces données dans une base de données. Par la suite, Claroline créera une base de données par cours créé. Vous pouvez spécifier un préfixe pour les noms de ces bases de données.
+$langDBSettingNamesIntro = "Le script d'installation va créer les bases de données principales de la plate-forme. Vous pouvez créer différentes bases de données pour les statistiques et PhpMyAdmin ou mettre toutes ces données dans une base de données. Par la suite, Claroline créera une base de données par cours créé. Vous pouvez spécifier un préfixe pour les noms de ces bases de données.
 <p>Si vous n'êtes pas autorisés à avoir plusieurs bases de données par votre administrateur, retournez à l'étape précédente et sélectionnez l'option \"Single\"</p>
 ";
 $langDBUse = "Base de données";

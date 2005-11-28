@@ -118,7 +118,6 @@ $langSearchResult = "Resultaat zoekbewerking";
 $langSecondShort = "sec.";
 $langSeen = "Gelezen";
 $langStudent = "student";
-$langSubmit = "Verzenden";
 $langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwijderen. Wilt U verdergaan ?";
 $langTextEditorDisable = "Desactiveer tekst bewerking";
 $langTextEditorEnable = "Activeer tekst bewerking";

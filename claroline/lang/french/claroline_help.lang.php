@@ -6,7 +6,7 @@ $langClarContent = "<br /><p><b>Étudiant</b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code du cours dans la liste, sans inscription préalable.</p>
-<p>Pour accéder aux cours non accessibles depuis la page d'accueil de la plateforme, il
+<p>Pour accéder aux cours non accessibles depuis la page d'accueil de la plate-forme, il
 est nécessaire de s'inscrire. Inscription > Tapez vos paramètres personnels >
 Action&nbsp;: S'inscrire à des cours > Cochez les cours et validez.</p>
 <p>Un e-mail vous sera envoyé
@@ -458,7 +458,7 @@ $langLearningPath = "Parcours pédagogique";
 $langLogin = "login";
 $langLogout = "Quitter";
 $langMinuteShort = "min.";
-$langModifyProfile = "Gérer mon compte utilisateur";
+$langModifyProfile = "Mon compte utilisateur";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
@@ -466,8 +466,8 @@ $langNameOfLang = "Array";
 $langOtherCourses = "Liste des cours";
 $langPeriodDayShort = "j.";
 $langPeriodHourShort = "h";
-$langPlatformAdministration = "Gérer la plateforme";
-$langPoweredBy = "Utilise la plateforme";
+$langPlatformAdministration = "Gérer la plate-forme";
+$langPoweredBy = "Utilise la plate-forme";
 $langSecondShort = "sec";
 $langStudent = "Étudiant";
 $langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page courante du texte. Continuer ?";
@@ -480,7 +480,7 @@ $langUserContent = "<p>L'outil Utilisateurs permet d'afficher un tableau d'infor
 </li>
 <li>
 <b>Rôles</b>.
-Les rôles n'ont pas de fonction technique particulière et ne sont associés à aucun droit spécifique sur la plateforme. Ils indiquent simplement aux personnes 'qui est qui'. Vous pouvez modifier le rôle d'un utilisateur en cliquant sur l'icône dans la colonne Éditer et en tapant ensuite le rôle désiré&nbsp;: professeur, assistant, étudiant, visiteur, expert, etc.
+Les rôles n'ont pas de fonction technique particulière et ne sont associés à aucun droit spécifique sur la plate-forme. Ils indiquent simplement aux personnes 'qui est qui'. Vous pouvez modifier le rôle d'un utilisateur en cliquant sur l'icône dans la colonne Éditer et en tapant ensuite le rôle désiré&nbsp;: professeur, assistant, étudiant, visiteur, expert, etc.
 </li>
 <li>
 <b>Tuteur de groupe</b>. Le statut de Tuteur de groupe permet à l'utilistateur d'encadrer un groupe plus étroitement. Le tuteur dispose du droit d'accéder aux espaces de tous les groupes, de voir l'ensemble des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l'icône de la colonne Éditer.
@@ -499,7 +499,7 @@ Les rôles n'ont pas de fonction technique particulière et ne sont associés à auc
 <ul>
 <li><b>Ajouter un utilisateur</b>. Cliquez sur cette commande pour ajouter un utilisateur dans le cours. Complétez le formulaire puis validez. La personne recevera un e-mail mentionnant qu'elle a été inscrite et lui indiquant son nouveau login et mot de passe.</li>
 <li><b>Ajouter une liste d'utilisateurs</b></li> Cliquez sur cette commande pour ajouter une liste d'utilisateurs à l'aide d'un fichier au format CSV.</li>
-<li><b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d'utilisateurs rassemblés dans une classe prédéfinie par l'administrateur de la plateforme.</li>
+<li><b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d'utilisateurs rassemblés dans une classe prédéfinie par l'administrateur de la plate-forme.</li>
 <li><b>Gestion des groupes</b>. Permet d'accéder directement à l'outil de gestion des groupes.</li>
 </ul>
 

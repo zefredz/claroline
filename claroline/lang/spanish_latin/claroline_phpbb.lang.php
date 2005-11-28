@@ -97,7 +97,6 @@ $langSearchResult = "Resultado de la búsqueda";
 $langSecondShort = "seg.";
 $langSeen = "Visto";
 $langStudent = "Estudiante";
-$langSubmit = "Entregar";
 $langTextEditorDisable = "Deshabilitar el editor de textos";
 $langTextEditorEnable = "Habilitar el editor de textos";
 $langUsers = "Usuarios";

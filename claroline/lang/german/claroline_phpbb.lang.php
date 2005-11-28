@@ -118,7 +118,6 @@ $langSearchResult = "Suchergebnis";
 $langSecondShort = "sec.";
 $langSeen = "Angesehen";
 $langStudent = "Teilnehmer";
-$langSubmit = "absenden";
 $langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
 $langTextEditorDisable = "HTML-Editor ausschalten";
 $langTextEditorEnable = "HTML-Editor einschalten";

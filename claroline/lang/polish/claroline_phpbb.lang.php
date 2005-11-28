@@ -118,7 +118,6 @@ $langSearchResult = "Wynik wyszukiwania";
 $langSecondShort = "[s]";
 $langSeen = "Czytane";
 $langStudent = "student";
-$langSubmit = "Przed³ó¿";
 $langSwitchEditorToTextConfirm = "Ta komenda spowoduje usuniêcie nastêpnej warstwy tekstu. Chcesz kontynuowaæ?";
 $langTextEditorDisable = "Zablokuj edytor tekstu";
 $langTextEditorEnable = "Odblokuj edytor tekstu";

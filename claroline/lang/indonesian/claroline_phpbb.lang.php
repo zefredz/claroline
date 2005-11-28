@@ -110,7 +110,6 @@ $langSearchResult = "Hasil pencarian";
 $langSecondShort = "detik";
 $langSeen = "Terlihat";
 $langStudent = "mahasiswa";
-$langSubmit = "Masukkan";
 $langSwitchEditorToTextConfirm = "Perintah ini akan menghapus layout teks berlaku. Ingin dilanjutkan?";
 $langTextEditorDisable = "Nonaktifkan editor teks";
 $langTextEditorEnable = "Aktifkan editor teks";

@@ -108,7 +108,6 @@ $langSearchResult = "Keresési eredmény";
 $langSecondShort = "m.p.";
 $langSeen = "Már láttam";
 $langStudent = "Hallgató";
-$langSubmit = "Beküld";
 $langSwitchEditorToTextConfirm = "Ez a parancs eltávolítja az aktuális szöveg elrendezést. Folytatja?";
 $langTextEditorDisable = "Szövegszerkesztõ kikapcsolása";
 $langTextEditorEnable = "Szövegszerkesztõ bekapcsolása";

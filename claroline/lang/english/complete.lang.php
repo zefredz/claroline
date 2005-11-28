@@ -223,6 +223,7 @@ $langChooseACourseToAccessThisPage = "Choose a course to access this page.";
 $langChooseDateHelper = "(d/m/y hh:mm)";
 $langChooseGoodAnswer = "Please choose a good answer";
 $langChooseGoodAnswers = "Please choose one or more good answers";
+$langChooseYourPassword = "Choose now a username and a password for the user account.";
 $langClarContent = "Here, lecturers and assistants create and administer
  courses websites. Students read (documents, agenda, information) and,
  sometimes, do exercises, publish papers, participate in
@@ -1225,6 +1226,7 @@ $langMaxFileSize = "Max file size : ";
 $langMaxSizeCourseCode = "max. 12 characters, ie.<em>ROM2121</em>";
 $langMaxStudentGroup = "Maximum number of students per group";
 $langMaximum = "Maximum : ";
+$langMemorizeYourPassord = "Memorize them, you will use them the next time you will enter to this site.";
 $langMessage = "When you remove the test forum, it will remove all messages in that forum too.";
 $langMessageEnrollToCourseNotAllowed = "Enroll to course not allowed";
 $langMessageRegistrationNotAllowed = "Registration not allowed on the platform";
@@ -1605,6 +1607,7 @@ $langTextEditorEnable = "Enable text editor";
 $langTextFile = "Text with attached file (text required, file optional)";
 $langTextOnly = "Text only (text required, no file)";
 $langTheFields = "The fields";
+$langTheSystemIsCaseSensitive = "The system is case sensitive.";
 $langTheU = "The user";
 $langThisCourseDescriptionIsEmpty = "This course is currently not described";
 $langThisIsAnErrorInDefinitionFile = "This is an error in definition file.";
@@ -1792,6 +1795,7 @@ $langViewToolList = "View List of All Tools";
 $langVisibility = "Visibility";
 $langVisible = "Visible";
 $langVisits = "visits";
+$langWarning = "Warning.";
 $langWeightingForEachBlank = "Please give a weighting to each blank";
 $langWiki = "Wiki";
 $langWikiAccessControl = "Access control management";
@@ -2041,9 +2045,4 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Your enrollment on the c
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
 $langcatcreated = "The new category has been created.";
 $langimportLearningPath = "Import a learning path";
-$langChooseYourPassword =  "Choose now a username and a password for the user account.";
-$langMemorizeYourPassord = "Memorize them, you will use them the next time you will enter to this site.";
-$langWarning = "Warning.";
-$langTheSystemIsCaseSensitive = 'The system is case sensitive.';
-
 ?>

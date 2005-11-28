@@ -98,7 +98,6 @@ $langSearchResult = "Rezultati pretrage";
 $langSecondShort = "s";
 $langSeen = "Pogledano";
 $langStudent = "Korisnik";
-$langSubmit = "Pošalji";
 $langSwitchEditorToTextConfirm = "Ova naredba prebacuje editor u tekstualni način rada. Želite li nastaviti?";
 $langTextEditorDisable = "Tekstualni editor";
 $langTextEditorEnable = "Vizualni editor";

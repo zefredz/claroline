@@ -119,7 +119,6 @@ $langSearchResult = "Risultati della ricerca";
 $langSecondShort = "sec.";
 $langSeen = "Letto";
 $langStudent = "Studenti";
-$langSubmit = "Invia";
 $langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
 $langTextEditorDisable = "Disabilita editor di testo";
 $langTextEditorEnable = "Abilita editor di testo";

@@ -60,7 +60,7 @@ aux échéances de remise des travaux, aux critères d'évaluation, et éventuellemen
 à la pondération des critères ou des catégories de critères.";
 $langMinuteShort = "min.";
 $langModify = "Modifier";
-$langModifyProfile = "Gérer mon compte utilisateur";
+$langModifyProfile = "Mon compte utilisateur";
 $langMonthNames = "Array";
 $langMyAgenda = "Mon agenda";
 $langMyCourses = "Liste de mes cours";
@@ -70,8 +70,8 @@ $langOk = "OK";
 $langOtherCourses = "Liste des cours";
 $langPeriodDayShort = "j.";
 $langPeriodHourShort = "h";
-$langPlatformAdministration = "Gérer la plateforme";
-$langPoweredBy = "Utilise la plateforme";
+$langPlatformAdministration = "Gérer la plate-forme";
+$langPoweredBy = "Utilise la plate-forme";
 $langQualificationsAndGoals = "Compétences et objectifs";
 $langQualificationsAndGoalsComment1 = "Présentation des objectifs généraux et spécifiques du cours, des compétences auxquelles la maîtrise de tels objectifs peut conduire.";
 $langQualificationsAndGoalsComment2 = "Quels sont les apprentissages visés par l'enseignement&nbsp;?

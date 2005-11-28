@@ -235,6 +235,7 @@ $langChooseACourseToAccessThisPage = "Choississez un cours pour accéder à cette 
 $langChooseDateHelper = "(j/m/a hh:mm)";
 $langChooseGoodAnswer = "Veuillez choisir une bonne réponse";
 $langChooseGoodAnswers = "Veuillez choisir une ou plusieurs bonnes réponses";
+$langChooseYourPassword = "Choisissez à présent l'identifiant et le mot de passe de votre compte utilisateur.";
 $langClarContent = "<br /><p><b>Étudiant</b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
@@ -1255,6 +1256,7 @@ $langMaxFileSize = "Taille max&nbsp;: ";
 $langMaxSizeCourseCode = "12 caractères max., p. ex.<i>ROM2121</i>";
 $langMaxStudentGroup = "Nombre maximum d'étudiants par groupe";
 $langMaximum = "Maximum&nbsp;: ";
+$langMemorizeYourPassord = "Mémorisez-les, il vous serviront à vous identifier la prochaine fois que vous vous rendrez sur ce site.";
 $langMessage = "Quand vous supprimerez le forum \"Forum d'essai\", vous supprimerez aussi ce sujet et le seul message qu'il contient";
 $langMessageEnrollToCourseNotAllowed = "Inscription au cours refusée";
 $langMessageRegistrationNotAllowed = "Enregistrement à la plate-forme refusé";
@@ -1648,6 +1650,7 @@ $langTextEditorEnable = "Activer l'éditeur de texte";
 $langTextFile = "Texte avec un fichier joint (texte requis, fichier facultatif)";
 $langTextOnly = "Texte seul (texte requis, pas de fichier)";
 $langTheFields = "Les champs";
+$langTheSystemIsCaseSensitive = "Le système est sensible aux majuscules et aux minuscules.";
 $langTheU = "L'utilisateur";
 $langThisCourseDescriptionIsEmpty = "La description de ce cours est vide";
 $langThisIsAnErrorInDefinitionFile = "C'est une erreur dans la définition du fichier";
@@ -1820,6 +1823,7 @@ $langViewToolList = "Voir la liste de tous les outils";
 $langVisibility = "Visibilité";
 $langVisible = "Visible";
 $langVisits = "visites";
+$langWarning = "Attention.";
 $langWeightingForEachBlank = "Veuillez donner une pondération à chacun des blancs";
 $langWiki = "Wiki";
 $langWikiAccessControl = "Gestion du contrôle d'accès";
@@ -2069,10 +2073,4 @@ $lang_your_enrollment_to_the_course_has_been_removed = "Vous avez été désinscrit
 $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Votre compte utilisateur ne semble pas inscrit à ce cours";
 $langcatcreated = "Nouvelle catégorie créée";
 $langimportLearningPath = "Importer un parcours";
-
-$langChooseYourPassword =  "Choisissez à présent l'identifiant et le mot de passe de votre compte utilisateur.";
-$langMemorizeYourPassord = "Mémorisez-les, il vous serviront à vous identifier la prochaine fois que vous vous rendrez sur ce site.";
-$langWarning = "Attention.";
-$langTheSystemIsCaseSensitive = "Le système est sensible aux majuscules et aux minuscules.";
-
 ?>

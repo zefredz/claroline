@@ -97,7 +97,6 @@ $langSearchResult = "Αποτέλεσμα έρευνας";
 $langSecondShort = "sec.";
 $langSeen = "Παλιά";
 $langStudent = "φοιτητής";
-$langSubmit = "Υποβάλεται";
 $langSwitchEditorToTextConfirm = "Η εντολή θα αφαιρέσει τη τρέχουσα διάταξη κειμένου. Θέλετε να συμεχίσετε ?";
 $langTextEditorDisable = "Απενεργοποίηση επεξεργαστή κειμένου";
 $langTextEditorEnable = "Ενεργοποίηση επεξεργαστή κειμένου";

@@ -118,7 +118,6 @@ $langSearchResult = "Resultados de la b&uacute;squeda";
 $langSecondShort = "seg.";
 $langSeen = "Visto";
 $langStudent = "Estudiante";
-$langSubmit = "Asunto";
 $langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
 $langTextEditorDisable = "Deshabilitar editor de texto";
 $langTextEditorEnable = "Habilitar editor de texto";

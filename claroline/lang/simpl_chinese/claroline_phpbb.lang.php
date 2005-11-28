@@ -117,7 +117,6 @@ $langSearchResult = "搜索结果";
 $langSecondShort = "sec.";
 $langSeen = "浏览";
 $langStudent = "学生";
-$langSubmit = "提交";
 $langSwitchEditorToTextConfirm = "该命令将移出当前文本。你想继续吗？";
 $langTextEditorDisable = "移除文本编辑器";
 $langTextEditorEnable = "显示文本编辑器";
