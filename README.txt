@@ -75,6 +75,14 @@ at :
 7. NEW FEATURES
    ============
 
+NEW FEATURES IN CLAROLINE 1.7.1 SINCE CLAROLINE 1.7.0
+-----------------------------------------------------
+
+* New translation updates : Arabic, Bulgarian, Croatian, Dutch, French, Galician, 
+                            Indonesian, Persian, Polish and Spanish
+* Security and bug Fixes ; For more details, see the changelog on our documentation wiki :
+  http://wwww.claroline.net/wiki/index.php/Changelog_1.7.x
+
 NEW FEATURES IN CLAROLINE 1.7 SINCE CLAROLINE 1.6
 -------------------------------------------------
 
