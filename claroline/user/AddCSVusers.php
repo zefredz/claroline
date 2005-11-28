@@ -454,9 +454,9 @@ case "stepone" :
         echo '<br>'
         .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
         .    '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
-        .   claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
-        .   "<input type=\"submit\" value=\"".$langContinue."\">\n "
-        .   "</form>\n";
+        .   '<input type="submit" value="' . $langContinue .'" >' . "\n"
+        .   claro_disp_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), $langCancel)
+        .   '</form>' . "\n";
         
     }
     else
