@@ -565,6 +565,7 @@
                         . $entry['title'] . '</a>'
                         ;
                         ;
+                    
                     echo '</td>' . "\n";
                     
                     echo '<td style="text-align: center;">';
@@ -620,14 +621,20 @@
                     
                     echo '</tr>' . "\n";
                     
-                    echo '<tr>' . "\n";
-                    
-                    $colspan = ( $is_allowedToAdmin ) ? 5 : 3;
-                    
-                    echo '<td colspan="'.$colspan.'"><div class="comment">'.$entry['description'].'</div></td>' . "\n";
-                    
-                    echo '</tr>' . "\n";
-
+                    if ( ! empty( $entry['description'] ) )
+                    {                    
+                        echo '<tr>' . "\n";           
+                        
+                        $colspan = ( $is_allowedToAdmin ) ? 5 : 3;
+                        
+                        echo '<td colspan="'
+                            . $colspan.'"><div class="comment">'
+                            . $entry['description'].'</div></td>'
+                            . "\n"
+                            ;
+                        
+                        echo '</tr>' . "\n";
+                    }
                 }
             }
             // wiki list empty
