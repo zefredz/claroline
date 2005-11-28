@@ -398,13 +398,27 @@ function form_dir_list($file, $baseWorkDir)
 
 function claro_mkdir($pathName, $mode = 0777, $recursive = false)
 {
+    global $rootSys;
+
     if ($recursive)
     {
+        if ( strstr($pathName,$rootSys) !== false )
+        {
+            /* Remove rootSys path from pathName for system with safe_mode or open_basedir restrictions
+               Functions (like file_exists, mkdir, ...) return false for files inaccessible with these restrictions
+            */
+            
+            $pathName = str_replace($rootSys,'',$pathName);
+            $dirTrail = $rootSys ;
+        }
+        else
+        {
+            $dirTrail = '';
+        }
+
         $dirList = explode( '/', str_replace('\\', '/', $pathName) );
         
         $dirList[0] = empty($dirList[0]) ? '/' : $dirList[0];
-
-        $dirTrail = '';
 
         foreach($dirList as $thisDir)
         {
