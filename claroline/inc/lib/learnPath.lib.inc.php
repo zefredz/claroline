@@ -780,6 +780,8 @@ function display_my_documents($dialogBox)
 
     global $fileList;
     global $imgRepositoryWeb;
+    
+    global $secureDocumentDownload;
 
     /**
      * DISPLAY
@@ -875,7 +877,20 @@ function display_my_documents($dialogBox)
                 $image       = choose_image($fileName);
                 $size        = format_file_size($fileList['size'][$fileKey]);
                 $date        = format_date($fileList['date'][$fileKey]);
-                $urlFileName = '../document/goto/index.php'.$cmdFileName;
+                
+                if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
+                    && (isset($secureDocumentDownload) && $secureDocumentDownload == true) )
+                {
+                    // slash argument method - only compatible with Apache
+                    $doc_url = $cmdFileName;
+                }
+                else
+                {
+                    // question mark argument method, for IIS ...
+                    $doc_url = '?url=' . $cmdFileName;
+                }
+                
+                $urlFileName = '../document/goto/index.php'.$doc_url;
             }
             elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
             {
