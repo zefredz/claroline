@@ -181,7 +181,9 @@
          
         $fileUrl = $file;
 
-        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
+             && (isset($secureDocumentDownload) && $secureDocumentDownload == true) 
+           )
         {
             // slash argument method - only compatible with Apache
             $img_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($fileUrl));

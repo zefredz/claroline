@@ -117,7 +117,9 @@ switch ($module['contentType'])
 		} // else anonymous : record nothing
 
 		$startAssetPage = urlencode($assetPath);
-        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
+              && (isset($secureDocumentDownload) && $secureDocumentDownload == true)
+            )
         {
             // slash argument method - only compatible with Apache
             // str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.

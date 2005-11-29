@@ -99,7 +99,8 @@
                         }
                         else if( is_file($path)) 
                         {
-                            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+                            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
+                                 && (isset($secureDocumentDownload) && $secureDocumentDownload == true) )
                             {
                                 // slash argument method - only compatible with Apache
                                 $url .= '/goto/index.php/'
