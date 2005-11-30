@@ -20,21 +20,21 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
- if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
-$stable = TRUE;
-$is_upgrade_available = TRUE;
+$stable = false;
+$is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.7.1';
-$new_version_branch = '1.7';
+$new_version = '1.8.alpha';
+$new_version_branch = '1.8';
 
 if (!$is_upgrade_available)
 {
     $new_version = $new_version . '.[unstable:' . date('yzBs') . ']';
 }
 
-$requiredPhpVersion = '4.3.0';
+$requiredPhpVersion = '4.3.11';
 
 ?>
