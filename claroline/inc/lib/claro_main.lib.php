@@ -1750,4 +1750,28 @@ function http_response_splitting_workaround( $str )
     return preg_replace( $dangerousCharactersPattern, '', $str );
 }
 
+
+/**
+ * This is a beta function to manage I18N
+ * 
+ * The prepare to usage of get_lang and  is ready to encapuslate old varnames 
+ *
+ * @param string $stringId
+ * @return string translated string.
+ * @todo http://www.claroline.net/forum/viewtopic.php?t=4052#14205 
+ */
+
+function get_lang($stringId)
+{
+    $stringIdKey = 'lang'.strtr($stringId,'ãáàâäõóôöoíiîïéèêëúùûüý- ','aaaaaoooooiiiieeeeuuuuy__');
+    if (isset($GLOBALS[$stringIdKey]))
+    {
+        $stringId = $GLOBALS[$stringIdKey];
+    }
+
+    $argsList = func_get_args();
+    array_shift($argsList);
+
+    return vsprintf($stringId,$argsList);
+}
 ?>
