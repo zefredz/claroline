@@ -104,14 +104,14 @@
             ;
 
         $result = $con->getRowFromQuery( $sql );
+        
+        $wikiGroupId = (int) $result['group_id'];
 
-        // echo 'passed here';
-
-        if ( isset( $gid ) && $result['group_id'] != $_gid )
+        if ( isset( $_gid ) && $_gid != $wikiGroupId )
         {
             claro_die($langNotAllowed);
         }
-        elseif( $result['group_id'] != 0 )
+        elseif( !isset( $_gid ) && $result['group_id'] != 0 )
         {
             claro_die($langNotAllowed);
         }
