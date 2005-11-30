@@ -23,7 +23,7 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
-    if ( ! $is_toolAllowed )
+    /*if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )
         {
@@ -33,7 +33,9 @@
         {
             claro_die($langNotAllowed);
         }
-    }
+    }*/
+    
+    if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
     
     // config file
     require_once $includePath . "/conf/CLWIKI.conf.php";
@@ -49,6 +51,7 @@
     // set admin mode and groupId
     
     $is_allowedToAdmin = claro_is_allowed_to_edit();
+    
 
     if ( $_gid && $is_groupAllowed )
     {
@@ -83,6 +86,32 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.wikidisplay.php";
     require_once "lib/lib.javascript.php";
+
+    // security fix : disable access to other groups wiki
+    if ( isset( $_REQUEST['wikiId'] ) && $_gid )
+    {
+        $wikiId = (int) $_REQUEST['wikiId'];
+
+        // Database nitialisation
+
+        $tblList = claro_sql_get_course_tbl();
+
+        $con = new ClarolineDatabaseConnection();
+
+        $sql = "SELECT `group_id` "
+            . "FROM `" . $tblList[ "wiki_properties" ] . "` "
+            . "WHERE `id` = " . $wikiId
+            ;
+
+        $result = $con->getRowFromQuery( $sql );
+
+        // echo 'passed here';
+
+        if ( $result['group_id'] != $_gid )
+        {
+            claro_die($langNotAllowed);
+        }
+    }
     
     // Claroline libraries
     

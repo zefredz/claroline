@@ -23,7 +23,7 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
-    if ( ! $is_toolAllowed )
+    /*if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )
         {
@@ -33,7 +33,9 @@
         {
             claro_die($langNotAllowed);
         }
-    }
+    }*/
+    
+    if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
     
     event_access_tool($_tid, $_courseTool['label']);
     
@@ -46,6 +48,7 @@
     // set admin mode and groupId
     
     $is_allowedToAdmin = claro_is_allowed_to_edit();
+    
 
     if ( $_gid && $is_groupAllowed )
     {
@@ -158,7 +161,7 @@
     }
 
     // Database nitialisation
-    
+
     $tblList = claro_sql_get_course_tbl();
 
     $config = array();
