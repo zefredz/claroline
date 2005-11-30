@@ -88,7 +88,7 @@
     require_once "lib/lib.javascript.php";
 
     // security fix : disable access to other groups wiki
-    if ( isset( $_REQUEST['wikiId'] ) && $_gid )
+    if ( isset( $_REQUEST['wikiId'] ) )
     {
         $wikiId = (int) $_REQUEST['wikiId'];
 
@@ -107,7 +107,11 @@
 
         // echo 'passed here';
 
-        if ( $result['group_id'] != $_gid )
+        if ( isset( $gid ) && $result['group_id'] != $_gid )
+        {
+            claro_die($langNotAllowed);
+        }
+        elseif( $result['group_id'] != 0 )
         {
             claro_die($langNotAllowed);
         }
