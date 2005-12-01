@@ -1,0 +1,586 @@
+/******************************************************************************
+                              MAIN HTML TAGS STYLE
+ ******************************************************************************/
+
+body 
+{
+	font-family: arial, helvetica, sans-serif;
+	color:#333333;
+	background-color: #fff;
+	padding: 1px;
+	margin: 1px;
+}
+
+a:link, a:active, a:visited 
+{
+	color: #00008B;
+}
+
+a img 
+{
+	border:none;
+	text-decoration: none;
+}
+
+.spacer 
+{
+	clear: both;
+}
+
+h3{
+	font-size: 110%;
+}
+
+
+/******************************************************************************
+                              CLAROLINE TOP BANNER
+ ******************************************************************************/
+
+ /*----------------------------------------------------------------------------
+                                  CAMPUS LINE
+ ----------------------------------------------------------------------------*/
+
+#platformBanner
+{
+	/* color: #303B7D; */
+	color:white;
+    height:30px;
+	background-color:#167F89;
+	background:url(netscape/campus_banner_bg.png) repeat-x;
+	padding: 4px;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+#platformBanner a,
+#platformBanner a:active,
+#platformBanner a:link,
+#platformBanner a:visited
+{
+	text-decoration: none;
+   	/* color: #303B7D; */
+	color:white;
+}
+
+#platformBanner a:hover 
+{
+	/* color: #303B7D; */
+	color:white;
+	text-decoration: underline;
+}
+
+#platformBanner #siteName
+{
+	position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
+#platformBanner #institution
+{
+	position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+ /*----------------------------------------------------------------------------
+                                   USER LINE
+ ----------------------------------------------------------------------------*/
+
+#userBanner
+{
+	/* background-color: #E2F4F3; */
+	background-color: black;
+	/* background-color: #D2C9AB; */
+	color:white;
+	font-size: 80%;
+	font-weight:bold;
+	border-top: 1px #FFF solid;
+	padding: 4px;
+}
+
+#userBanner #userName
+{
+	 font-size: 110%;
+	 font-weight: normal;
+	 margin: 0;
+}
+
+#userBanner a,
+#userBanner a:active,
+#userBanner a:link,
+#userBanner a:visited
+{
+	text-decoration: none;
+	color: white;
+}
+
+#userBanner a:hover
+{
+	color: white;
+	text-decoration: underline;
+}
+
+
+ /*----------------------------------------------------------------------------
+                                  COURSE LINE
+ ----------------------------------------------------------------------------*/
+#courseBanner
+{
+   	padding: 4px;
+	background-color: #EAE5D5;
+	color: black;
+	font-weight: bold;
+	border-top: 1px #FFF solid;
+}
+
+#courseBanner #course
+{
+	position: relative;
+	float: left;
+	text-align: left;
+}
+
+#courseBanner #course span
+{
+   	display: block;
+}
+
+#courseBanner #courseToolList
+{
+	position: relative;
+	float: right;
+   text-align: right;
+}
+
+#courseBanner #courseName {
+	font-size: 120%;
+	padding: 0;
+	margin: 0;
+}
+
+#courseBanner a,
+#courseBanner a:active,
+#courseBanner a:link,
+#courseBanner a:visited
+{
+	color: black;
+	text-decoration: none;
+}
+
+#courseBanner a:hover
+{
+	text-decoration: underline;
+}
+
+#courseBanner #courseCode {
+	font-size: 80%;
+}
+
+#courseBanner form
+{
+	padding-top: 5px;
+	margin: 0;
+}
+ /*----------------------------------------------------------------------------
+                                  BREAD CRUMB TRAIL
+ ----------------------------------------------------------------------------*/
+
+#breadcrumbLine
+{
+	/* background-color:red; */
+	background:url('netscape/grayfadeout.gif') repeat-x;
+	padding-top: 2px;
+	border-bottom: solid 1px white;
+	height:7px;
+}
+
+
+#breadcrumbLine hr
+{
+	display: none;
+}
+
+
+#breadcrumbLine .breadcrumbTrail
+{
+	float: left;
+}
+
+#breadcrumbLine #toolViewOption
+{
+	float: right;
+	text-align: right;
+	font-size: 80%;
+}
+
+
+.breadcrumbTrail
+{
+	font-size: 80%;
+}
+
+/******************************************************************************
+                             CLAROLINE BODY
+ ******************************************************************************/
+
+#claroBody{
+
+}
+
+
+/******************************************************************************
+                              CLAROLINE FOOTER
+ ******************************************************************************/
+
+#footer
+{
+	font-size: 80%;
+}
+
+#footer hr
+{
+	border: 0;
+	height: 1px;
+	background-color: gray;
+}
+
+#footer #platformManager
+{
+	float: right;
+}
+
+#footer #courseManager
+{
+	float: left;
+	text-align: center;
+}
+
+#footer #poweredBy
+{
+    clear: both;
+    text-align: center;
+    font-style: italic;
+}
+
+
+/******************************************************************************
+	CLAROLINE COMMAND LINKS
+ ******************************************************************************/
+ 
+.claroCmd
+{
+		font-size: smaller;
+		font-weight: bold;
+		text-decoration: underline;
+}
+
+.claroCmdDisabled 
+{
+		color: Gray;
+		font-size: smaller;
+		font-weight: bold;
+		text-decoration: none;
+}
+
+/* Added for document view mode toolbar */
+
+th .claroCmd
+{
+	font-size: smaller;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+th .claroCmdDisabled
+{
+   color: white;
+   font-size: smaller;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+/******************************************************************************
+                             CLAROLINE ITEM
+ ******************************************************************************/
+
+/*
+ * Classes family to emphase some item in the tool interface.
+ * These two classes has to be used together to work correctly.
+ *
+ * SOME EXAMPLES :
+ *
+ *  <a href="0" class="item"><img src="icon.gif" />lorem ipsum</a><br />
+ *  <a href="0" class="item hot"><img src="icon.gif" />lorem ipsum</a><br />
+ *
+ *  <span class="item"><img src="icon.gif" />lorem ipsum</span><br>
+ *  <span class="item hot"><img src="icon.gif" />lorem ipsum<br>
+ *
+ *  <ul style="list-style-image:url(icon.gif);list-style-position:inside">
+ *   <li class="item">lorem ipsum</li>
+ *   <li class="item hot">lorem ipsum</li>
+ *  </ul>
+ */
+
+.item {padding-left:16px}
+.hot {background:url(../img/hot.gif) no-repeat}
+
+/******************************************************************************
+                             CLAROLINE TABLE
+ ******************************************************************************/
+
+/* Uniformize claroline table format. The class provide 3 header type
+ *
+ *     - superHeader : allowing to define table title above the column header
+ *     - headerX : define header in the X axis for each column
+ *     - headerY : define header in the Y axis for each rank
+ * 
+ * Example of table using a super header and header in X axis
+ *
+ * <table class="claroTable">
+ * <tr class="superHeader">
+ * <th colspan="3">User Birthdate</th>
+ * </tr>
+ * <tr class="headerX">
+ * <th>Firstname</th>
+ * <th>Lastname</th>
+ * <th>Birthdate</th>
+ * </tr>
+ * 
+ * <tbody>
+ * 
+ * <tr>
+ * <td>Hugues</td>
+ * <td>Peeters</td>
+ * <td>1969-09-27</td>
+ * </tr>
+ * <tr>
+ * ...
+ * </tr>
+ * 
+ * </tbody>
+ * 
+ * </table>
+ * 
+ * Example of table using header in Y axis
+ * 
+ * 
+ * <table class="claroTable">
+ *
+ * <tr class="superHeader">
+ * <th colspan="3">User Birthdate</th>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Firstname</th>
+ * <td>Hugues</td>
+ * <td> ...  </td>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Lastname</th>
+ * <td>Peeters</td>
+ * <td> ...  </td>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Birthdate</th>
+ * <td>1969-09-27</td>
+ * <td> ...  </td>
+ * </tr>
+ *
+ * </table>
+ */
+
+.claroTable td, th {
+	margin:  0px;
+	padding: 4px;
+}
+
+
+.claroTable .superHeader th, .claroTable th.superHeader {
+	color: black;
+	background-color: #D2C9AB;
+	font-weight: bold;
+	text-align: left;
+}
+
+.claroTable .superHeader a {
+	color: black;
+}
+
+
+.claroTable th.headerY, .claroTable .headerY th, 
+.claroTable th.headerX, .claroTable .headerX th {
+	font-weight: normal;
+	text-align: left;
+}
+
+.claroTable .headerX th,  .claroTable th.headerX {
+	background-color: #EAE5D5;
+	color:black;
+}
+
+/* extension of claroTable class for Image Viewer */
+.claroTable tr th.toolbar {
+	background: white;
+	font-weight: normal;
+}
+
+.claroTable tr.toolbar th.prev{
+	text-align:left;
+	font-weight: normal;
+}
+
+.claroTable tr.toolbar th.title{
+	font-weight:bold;
+	text-align:center;
+}
+
+.claroTable tr.toolbar th.next{
+	text-align:right;
+	font-weight: normal;
+}
+
+.emphaseLine tbody td {
+	border-bottom: solid #EAE5D5 1px ;
+}
+
+.emphaseLine tbody tr:hover {
+	background-color: #F7F5EF;
+}
+
+.claroTable .superHeader th.invisible {
+	background-color:#A9B8BB;
+}
+
+/******************************************************************************
+                             VARIOUS CLAROLINE CSS CLASS
+ ******************************************************************************/
+
+/*
+ * 'claroMessageBox' is used to display all messages from the platform like 
+ * action confirmation, parameter request, warning mesage...
+ * Things that are usually displayed in a dialog box into offline applications
+ */ 
+ 
+.claroMessageBox {
+	margin-left:20px;
+	border:solid 1px #FCC519; 
+	background-color:#FFECB5;
+	color: #000;
+}
+
+.claroIntroSection { 
+	background-color: #F5F5F5;
+	padding: 5px;
+	margin-top : 5px;
+	margin-bottom: 5px;
+}
+
+/*
+ * 'invisible' is generally attached to element that shouldn't be visible into 
+ * common user interface but which are visible in course manager or platform 
+ * administrator screen, showing that the element is deactivated or isn't 
+ * visible fo the other users
+ */
+
+.invisible
+{
+	color: #999999;
+}
+
+.invisible a, 
+.invisible a:link, 
+.invisible a:visited,
+a.invisible,
+a:link.invisible,
+a:visited.invisible
+{
+	color: #999999;
+}
+
+/* 'correct' is attached to element that must be highlighted as correct
+	example : a good score in exercices
+*/
+.correct {
+	color: #009900;
+}
+
+/* 'error' is attached to element that must be highlighted as correct
+	example : a wrong score in exercices
+	example : an error message
+*/
+.error {
+	color: #990000;
+}
+
+/* 'highlight' is used when something needs to be especially shown to the user
+	example : 'today' in the agenda
+*/
+.highlight {
+ color: #FFB848;
+ font-weight: bold;
+}
+
+/* 'required' is used to set the color of the asterisk displayed before the required form field
+*/
+.required {
+ color: red;
+}
+
+/* 'hotItem' is used when something needs to be notified as new on the platform since the last login
+    to the user
+*/
+.hotItem,
+.hotItem a
+{
+ color: #FF00CC;
+ font-weight: bold;
+}
+
+/*
+ * 'rightMenu' is mainly use in the platform home page
+ */
+
+.claroRightMenu  {
+	/* background-color: #C3D8EF; */
+	background-color: white;
+	/* border-left:solid 1px #34A2BB; */
+	border-left:solid 1px #EAE5D5;
+
+}
+
+.claroRightMenu a, 
+.claroRightMenu a:visited, 
+.claroRightMenu a:active {
+		
+}
+	
+claroRightMenu a:hover {
+				
+}
+
+.HelpText {
+    color:gray
+}
+
+.claroToolTitle {
+	padding-top: 5px;
+}
+
+/*
+ * 'comment' is used for comment of documents, forum description, ...
+ */
+
+.comment {
+    font-size: smaller;
+    margin-left: 30px;
+}
+
+fieldset {
+	border:solid 1px #EAE5D5;
+}
