@@ -72,7 +72,7 @@ if ($result)
 		
         while ( $row=mysql_fetch_array($result) )
         {
-	        $string = '$'. $row['varName'] . ' = "";' . "\n";
+	        $string = '$_lang[\''. $row['varName'] . '\'] = "";' . "\n";
     	    fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
 	    }
 	

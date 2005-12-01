@@ -101,22 +101,13 @@ function glance_through_dir_lang ($dirPath, $languageName)
 
 function retrieve_lang_var($fileName, $languageName)
 {
+    global $_lang;
 
-    $varList = array();
+    $_lang = array();
 
 	include($fileName);
 
-	$localVar = get_defined_vars(); // collect the variable instancied locally
-
-	foreach($localVar as $thisVarKey => $thisVarContent)
-	{
-		if ( is_a_lang_varname($thisVarKey) )
-		{
-			$varList[$thisVarKey] = addslashes($thisVarContent);
-		}
-	}
-
-	store_lang_var($varList, $fileName, $languageName);	
+	store_lang_var($_lang, $fileName, $languageName);	
 }
 
 /**
@@ -139,8 +130,8 @@ function store_lang_var($languageVarList, $sourceFileName, $languageName)
 	{
 		$sql = "INSERT INTO " . $tbl_translation . " SET 
 		 VarName    = \"".$thisVarKey."\", 
-		 VarContent = \"".$thisVarContent."\", 
-         varFullContent  = \"".$thisVarContent."\", 
+		 VarContent = \"". addslashes($thisVarContent) ."\", 
+         varFullContent  = \"". addslashes($thisVarContent) ."\", 
 		 language   = \"".$languageName."\",
 		 sourceFile = \"" . str_replace($rootSys,"",$sourceFileName) ."\"";
 		mysql_query($sql) or die($problemMessage);
@@ -412,7 +403,8 @@ function get_lang_vars_from_file($file)
         $sourceFile = file_get_contents($file);
         $tokenList  = token_get_all($sourceFile);
 
-        $languageVarList      = detect_lang_var($tokenList);
+        //$languageVarList      = detect_lang_var($tokenList);
+        $languageVarList      = detect_get_lang($tokenList);
         $includeStatementList = detect_included_files($tokenList);
 
         foreach ( $includeStatementList as $thisIncludeStatement )
@@ -460,6 +452,79 @@ function get_lang_vars_from_file($file)
     	return false;
     }
     
+}
+
+/**
+ * Extract the parameter name of get_lang function from a script
+ * 
+ * @return - array $languageVarList
+ * @param  - array $tokenList
+ */
+
+function detect_get_lang($tokenList)
+{
+    $languageVarList = array();
+
+    $total_token = count($tokenList);
+
+    $i = 0;
+
+    // Parse token list
+
+    while ( $i < $total_token )
+    {
+        $thisToken = $tokenList[$i];
+
+        if ( is_array($thisToken) && is_int($thisToken[0]) && $thisToken[0] == T_STRING ) 
+        {
+
+            // find function 'get_lang'
+
+            if ( $thisToken[1] == 'get_lang' ) 
+            {
+                $varName = '';
+
+                $i++;
+                
+                // Parse get_lang function parameters
+
+                while ($i < $total_token)
+                {
+                    $thisToken = $tokenList[$i];
+                    
+                    if ( is_string($thisToken) && $thisToken == '(')
+                    {
+                        // bracket open - begin parsong of parameters
+                        $i++;
+                        continue;
+                    }
+                    elseif ( is_string($thisToken) && $thisToken == ')')
+                    {
+                        // bracket close - end parsing of parameters
+                        $i++;
+                        break;
+                    }
+                    elseif ( is_array($thisToken) )
+                    {
+                        // get parameters name
+                        if ( $thisToken[0] == T_CONSTANT_ENCAPSED_STRING )
+                        {
+                            $search = array ('/^[\'"]/','/[\'"]$/');
+                            $replace = array('','');
+                            $varName .= preg_replace($search,$replace,$thisToken[1]);
+                        }
+                        
+                    }
+                    $i++;
+                }
+                $languageVarList[]=$varName;
+            }
+        }
+        $i++;
+
+    } // end token parsing
+
+    return $languageVarList;
 }
 
 /**

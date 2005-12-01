@@ -181,7 +181,7 @@ if (isset($_REQUEST['language']))
                 // addslashes before $
                 $varContent = preg_replace('/\$/','\\\$', $varContent);
 
-                $string = '$'.$thisLangVar['name'].' = "'.$varContent."\";\n";
+                $string = '$_lang[\''.$thisLangVar['name'].'\'] = "'.$varContent."\";\n";
 
 		        fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
 		    }
