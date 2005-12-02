@@ -1238,146 +1238,144 @@ function claro_disp_duration( $duration  )
 }
 
 /**
- * Insert a    sort of    HTML Wysiwyg textarea inside a FORM
- * the html area currently implemented is HTMLArea 3.0. To work correctly,
- * the area    needs a    specific stylesheet
- * previously loaded in the html header.
- * For that, use the claroline $htmlHeadXtra[] array at
- * the top of the script
- * just before including claro_init_header.inc.php
+ * Insert a Wysiwyg editor inside a form instead of a textarea
+ * A standard textarea is displayed if the Wysiwyg editor is disabled or if
+ * the user's browser have no activated javascript support
  *
  * @param string $name content for name attribute in textarea tag
  * @param string $content optional content previously inserted into    the    area
- * @param int     $rows optional    textarea rows
- * @param int     $cols optional    textarea columns
+ * @param int	 $rows optional    textarea rows
+ * @param int    $cols optional    textarea columns
  * @param string $optAttrib    optional - additionnal tag attributes
  *                                       (wrap, class, ...)
- * @return void
+ * @return string html output for standard textarea or Wysiwyg editor
  *
- * @global strin urlAppend from    claro_main.conf.php
+ * @global string rootWeb from claro_main.conf.php
+ * @global string rootSys from claro_main.conf.php
+ * @global string langTextEditorDisable from lang file
+ * @global string langTextEditorEnable from lang file
+ * @global string langSwitchEditorToTextConfirm from lang file
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @author Sébastien Piraux <pir@cerdecam.be>
  */
-// Example : $htmlHeadXtra[] = '<style type="text/css">
-//                               @import url('.$urlAppend.'/claroline/inc/htmlarea'.'/htmlarea.css);
-//                              </style>';
+
+function claro_disp_textarea_editor($name, $content = '',
+	                              $rows=20,    $cols=80,
+								  $optAttrib='')
+{
+	global $rootWeb, $rootSys;
+	global $langTextEditorDisable, $langTextEditorEnable, $langSwitchEditorToTextConfirm;
+	global $claro_editor;
+	
+	if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
+
+ 	$returnString = '';
+
+	// default value of htmlEditor
+	if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
+
+	// get content if in url
+	if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
+
+	// $claro_editor is the directory name of the editor
+	$incPath = $rootSys . 'claroline/editor/'.$claro_editor;
+	$editorPath = $rootWeb . 'claroline/editor/';
+	$webPath = $editorPath . $claro_editor;
+
+	if( file_exists($incPath . '/editor.class.php') )
+	{
+		// include editor class
+		include_once $incPath . '/editor.class.php';
+
+		// editor instance
+		$editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
+
+		if (claro_is_javascript_enabled())
+	    {
+			if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+	        {
+	            $switchState = 'off';
+	            $message     = $langTextEditorDisable;
+	            $confirmCommand = "if(!confirm('".clean_str_for_javascript($langSwitchEditorToTextConfirm)."'))return(false);";
+	        }
+	        else
+	        {
+	            $switchState = 'on';
+	            $message     = $langTextEditorEnable;
+	            $confirmCommand = '';
+	        }
+
+	        $location = '\''
+	        .           $editorPath.'/editorswitcher.php?'
+	        .           'switch='.$switchState
+	        .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
+	        .           '&areaContent='
+	        .           '\''
+	        .           '+escape(document.getElementById(\''.$name.'\').value)'
+	        ;
+			// use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
+	        $returnString .=
+			"\n".'<div align="right">'
+	        .    '<small>'
+	        .    '<b>'
+	        .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
+			.	 'onClick ="' . $confirmCommand . 'window.location='
+	        .    $location . ';return(false);">'
+	        .    $message
+	        .    '</a>'
+	        .    '</b>'
+	        .    '</small>'
+	        .    '</div>'."\n"
+	        ;
+		}
+
+		if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+		{
+			$returnString .= $editor->getAdvancedEditor();
+		}
+		else
+		{
+			// get standard text area
+	   		$returnString .=
+	        	'<textarea '
+				.'id="'.$name.'" '
+				.'name="'.$name.'" '
+				.'style="width:100%" '
+				.'rows="'.$rows.'" '
+				.'cols="'.$cols.'" '
+				.$optAttrib.' >'
+				."\n".$content."\n"
+				.'</textarea>'."\n";
+		}
+	}
+	else
+	{
+		// if the editor class doesn't exists we cannot rely on it to display
+		// the standard textarea
+		$returnString .=
+        	'<textarea '
+			.'id="'.$name.'" '
+			.'name="'.$name.'" '
+			.'style="width:100%" '
+			.'rows="'.$rows.'" '
+			.'cols="'.$cols.'" '
+			.$optAttrib.' >'
+			."\n".$content."\n"
+			.'</textarea>'."\n";
+	}
+	
+	return $returnString;
+}
 
 function claro_disp_html_area($name, $content = '',
-                              $rows=20,    $cols=80, $optAttrib='')
+                              $rows=20, $cols=80,
+							  $optAttrib='')
 {
-    global $urlAppend, $iso639_1_code, $langTextEditorDisable, $langTextEditorEnable,$langSwitchEditorToTextConfirm;
-    $incPath = $urlAppend.'/claroline/inc/htmlarea';
-
-    ob_start();
-
-    if( ! isset( $_SESSION['htmlArea'] ) )
-    {
-        // TODO use a config variable instead of hardcoded value
-        $_SESSION['htmlArea'] = 'enabled';
-    }
-
-    if (isset($_REQUEST['areaContent'])) $content = stripslashes($_REQUEST['areaContent']);
-
-    if (claro_is_javascript_enabled())
-    {
-        if ( isset($_SESSION['htmlArea']) && $_SESSION['htmlArea'] != 'disabled' )
-        {
-            $switchState = 'off';
-            $message     = $langTextEditorDisable;
-            $areaContent = 'editor.getHTML()';
-            $confirmCommand = "if(!confirm('".clean_str_for_javascript($langSwitchEditorToTextConfirm)."'))return(false);";
-        }
-        else
-        {
-            $switchState = 'on';
-            $message     = $langTextEditorEnable;
-            $areaContent = 'document.getElementById(\''.$name.'\').value';
-            $confirmCommand = '';
-        }
-
-        $location = '\''
-        .           $incPath.'/editorswitcher.php?'
-        .           'switch='.$switchState
-        .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
-        .           '&areaContent='
-        .           '\''
-        .           '+escape('.$areaContent.')'
-        ;
-
-
-
-        echo "\n".'<div align="right">'
-        .    '<small>'
-        .    '<b>'
-        .    '<a href="/" onClick ="' . $confirmCommand . 'window.location='
-        .    $location . ';return(false);">'
-        .    $message
-        .    '</a>'
-        .    '</b>'
-        .    '</small>'
-        .    '</div>'."\n"
-        ;
-
-    } // end if claro_is_javascript_enabled()
-
-
-echo '<textarea '
-		.'id="'.$name.'" '
-		.'name="'.$name.'" '
-		.'style="width:100%" '
-		.'rows="'.$rows.'" '
-		.'cols="'.$cols.'" '
-		.$optAttrib.' >'
-		."\n".$content."\n"
-		.'</textarea>'."\n";
-
-    if ( isset($_SESSION['htmlArea']) && $_SESSION['htmlArea'] != 'disabled' )
-    {
-
-?>
-
-<script type="text/javascript">_editor_url = "<?php echo  $incPath?>";</script>
-<script type="text/javascript" src="<?php echo $incPath; ?>/htmlarea.js"></script>
-<script type="text/javascript" src="<?php echo $incPath; ?>/lang/<?php echo $iso639_1_code; ?>.js"></script>
-<script type="text/javascript" src="<?php echo $incPath; ?>/dialog.js"></script>
-
-<script type="text/javascript">
-var    editor = null;
-function initEditor() {
-  editor = new HTMLArea("<?php echo $name ?>");
-
-  // comment the following two lines to    see    how    customization works
-  editor.generate();
-  return false;
+	// becomes a alias while the function call is not replaced by the new one
+	return claro_disp_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
-<?php
-// there is no link or button to use these functions, so do not output them
-/*
-function insertHTML() {
- var html =    prompt("Enter some HTML    code here");
- if    (html) {editor.insertHTML(html);}
-}
-function highlight() {
-  editor.surroundHTML('<span style="background-color: yellow">', '</span>');
-}
-*/
-?>
-</script>
 
-<script type="text/javascript">
-initEditor();
-</script>
-<?php
-    } // end if  $_SESSION['htmlArea'] != 'disabled'
-    else
-    {
-        // noop
-    }
-
-    $returnString = ob_get_contents();
-    ob_end_clean();
-    return $returnString;
-}
 
 /**
  * function claro_build_nested_select_menu($name, $elementList)
