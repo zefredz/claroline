@@ -353,7 +353,8 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         if ($is_allowedToUnzip)
         {
-            $dialogBox .= "<input type=\"checkbox\" id=\"uncompress\" name=\"uncompress\" value=\"1\">"
+            $dialogBox .= "<img src=\"".$imgRepositoryWeb."zip.gif\" alt=\"\">"
+                          ."<input type=\"checkbox\" id=\"uncompress\" name=\"uncompress\" value=\"1\">"
                           ."<label for=\"uncompress\">".get_lang('Uncompress')."</label>";
         }
 
