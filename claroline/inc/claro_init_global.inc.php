@@ -100,6 +100,7 @@ session_start();
   ----------------------------------------------------------------------*/
 
 require $includePath . '/lib/claro_main.lib.php';
+require $includePath . '/lib/language.lib.php';
 
 /*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -151,73 +152,16 @@ require $includePath . '/lib/event/init_event_manager.inc.php';
 if ($_course['language']) $languageInterface = $_course['language'];
 else                      $languageInterface = $platformLanguage;
 
-/*----------------------------------------------------------------------
-  Common language properties and generic expressions
-  ----------------------------------------------------------------------*/
-
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION' )
 {
-    // include the language file with all language variables
-
-    include($includePath . '/../lang/english/complete.lang.php');
-
-    if ($languageInterface  != 'english') // Avoid useless include as English lang is preloaded
-    {
-        include($includePath . '/../lang/' . $languageInterface . '/complete.lang.php');
-    }
-
+    $mode = 'TRANSLATION';
 }
 else
 {
-
-    if ( isset($course_homepage) && $course_homepage == TRUE )
-    {
-        $languageFilename = 'claroline_course_home';
-    }
-    else
-    {
-        /*
-         * tool specific language translation
-         */
-
-        // build lang file of the tool
-        $languageFilename = preg_replace('|^'.preg_quote($urlAppend.'/').'|', '',  $_SERVER['PHP_SELF'] );
-        $pos = strpos($languageFilename, 'claroline/');
-
-        if ($pos === FALSE || $pos != 0)
-        {
-            // if the script isn't in the claroline folder the language file base name is index
-            $languageFilename = 'index';
-        }
-        else
-        {
-            // else language file basename is like claroline_folder_subfolder_...
-            $languageFilename = dirname($languageFilename);
-            $languageFilename = str_replace('/','_',$languageFilename);
-        }
-    }
-
-    // add extension to file
-    $languageFile = $languageFilename . '.lang.php';
-
-    if ( ! file_exists($includePath . '/../lang/english/' . $languageFile) )
-    {
-        include($includePath . '/../lang/english/complete.lang.php');
-    }
-    else
-    {
-        include($includePath . '/../lang/english/' . $languageFile);
-    }
-
-    // load previously english file to be sure every $lang variable
-    // have at least some content
-
-    if ( $languageInterface != 'english' )
-    {
-        @include($includePath . '/../lang/' . $languageInterface . '/' . $languageFile);
-    }
-
+    $mode = 'PRODUCTION';
 }
+
+load_language_translation($languageInterface,$mode);
 
 // include the locale settings language
 
