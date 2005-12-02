@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Annonces";
-$langChat = "Discussion";
-$langClarContent = "<br /><p><b>Étudiant</b></p>
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Annonces";
+$_lang['Chat'] = "Discussion";
+$_lang['ClarContent'] = "<br /><p><b>Étudiant</b></p>
 <p>
 Pour visiter les cours accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code du cours dans la liste, sans inscription préalable.</p>
@@ -17,13 +17,12 @@ pour vous rappeler l'identifiant et le mot de passe à introduire lors de votre p
 <p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l'exception de quelques contenus factices destinés à vous éviter l'angoisse de la page blanche. À l'inscription, un e-mail vous a été envoyé pour vous rappeler l'identifiant et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre administrateur réseau ou l'administrateur de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
-$langCloseWindow = "Fermer la fenêtre";
-$langConfigMenuContent = "Menu de configuration";
-$langCourseHome = "Accueil";
-$langCourseManager = "Gestionnaire de cours";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Description du cours";
-$langDocContent = "<p>Le module de gestion de documents fonctionne de
+$_lang['CloseWindow'] = "Fermer la fenêtre";
+$_lang['ConfigMenuContent'] = "Menu de configuration";
+$_lang['CourseHome'] = "Accueil";
+$_lang['CourseManager'] = "Gestionnaire de cours";
+$_lang['DescriptionCours'] = "Description du cours";
+$_lang['DocContent'] = "<p>Le module de gestion de documents fonctionne de
  manière semblable à la gestion de vos documents sur un
  ordinateur. </p><p>Vous pouvez y déposer des documents de tout type
  (HTML, Microsoft Word, PowerPoint, Excel, Adobe Acrobat, Macromedia Flash, Apple Quicktime, etc.). Veillez cependant à ce que vos étudiants disposent des
@@ -212,8 +211,8 @@ Validez en cliquant sur OK.
 </ul>
 <center>
 <p>";
-$langDocument = "Documents et liens";
-$langExerciseContent = "<h4>À quoi sert l'outil Exercices&nbsp;?</h4>
+$_lang['Document'] = "Documents et liens";
+$_lang['ExerciseContent'] = "<h4>À quoi sert l'outil Exercices&nbsp;?</h4>
 <p>
 L'outil Exercices permet de créer des exercices en ligne sous la forme d'une liste de questions. Ces questions peuvent être de différents types. Les étudiants peuvent essayer de répondre&nbsp;; s'ils se sont enregistrés au cours, leurs scores seront conservés et seront visibles dans la section des statistiques du cours.
 </p>
@@ -312,8 +311,8 @@ Une fois le texte introduit, définissez les différents blancs en entourant les m
 <p>Chaque utilisateur peut consulter la liste de ses scores pour chaque exercice réalisé. Cette liste se trouve sous la liste des exercices. Une vue plus détaillée est aussi disponible dans les statistiques personnelles (accessibles via le lien \"Modifier mon profil\" puis \"Voir mes statistiques\").
 </p><p>En outre, un gestionnaire de cours a accès à une vue détaillée des résultats des étudiants pour chaque exercice. Pour y accéder, il faut cliquer sur le lien de tracking qui se trouve dans la liste des exercices disponibles.
 </p>";
-$langExercises = "Exercices";
-$langForContent = "Le forum est un outil de discussion asynchrone par écrit.
+$_lang['Exercises'] = "Exercices";
+$_lang['ForContent'] = "Le forum est un outil de discussion asynchrone par écrit.
  A la différence du courrier électronique, le forum place la discussion dans un espace
  public ou semi-public (à plusieurs).</p><p>Pour utiliser l'outil de forum
  de Claroline, les étudiants ont uniquement besoin d'un navigateur web
@@ -337,8 +336,8 @@ $langForContent = "Le forum est un outil de discussion asynchrone par écrit.
  'Appels à l'aide', vous pourriez y ajouter une
  description comme 'Signaler des difficultés par rapport au contenu ou par
  rapport au dispositif'.";
-$langForums = "Forums";
-$langGroupContent = "<p><b>Introduction</b></p>
+$_lang['Forums'] = "Forums";
+$_lang['GroupContent'] = "<p><b>Introduction</b></p>
 	<p>Cet outil permet de créer et de gérer des groupes de travail.
 	A la création, les groupes sont vides. Le gestionnaire de cours dispose de
 	plusieurs façons de les remplir&nbsp;:
@@ -374,16 +373,16 @@ $langGroupContent = "<p><b>Introduction</b></p>
 	et de fonctions. <ul><li><b>Éditer</b> permet de modifier manuellement la composition du groupe.</li>
 	<li><b>Supprimer</b> détruit un groupe.</li></ul>
 	<hr noshade size=1 />";
-$langGroups = "Groupes";
-$langHClar = "Aide au démarrage";
-$langHDoc = "Aide de l'outil Documents";
-$langHExercise = "Aide de l'outil Exercices";
-$langHFor = "Aide de l'outil Forums";
-$langHHome = "Aide Page d'accueil";
-$langHUser = "Aide Utilisateurs";
-$langHelp = "Aide";
-$langHelpAssignment = "Aide de l'outil Travaux";
-$langHelpAssignmentContent = "<p>L'outil Travaux permet aux étudiants de poster un fichier qu'ils jugent intéressant pour les autres membres du cours ou qu'un gestionnaire de cours leur a demandé de lui envoyer. Cet outil peut être utilisé de différentes manières, selon la façon dont le gestionnaire de cours l'a configuré.</p>
+$_lang['Groups'] = "Groupes";
+$_lang['HClar'] = "Aide au démarrage";
+$_lang['HDoc'] = "Aide de l'outil Documents";
+$_lang['HExercise'] = "Aide de l'outil Exercices";
+$_lang['HFor'] = "Aide de l'outil Forums";
+$_lang['HHome'] = "Aide Page d'accueil";
+$_lang['HUser'] = "Aide Utilisateurs";
+$_lang['Help'] = "Aide";
+$_lang['HelpAssignment'] = "Aide de l'outil Travaux";
+$_lang['HelpAssignmentContent'] = "<p>L'outil Travaux permet aux étudiants de poster un fichier qu'ils jugent intéressant pour les autres membres du cours ou qu'un gestionnaire de cours leur a demandé de lui envoyer. Cet outil peut être utilisé de différentes manières, selon la façon dont le gestionnaire de cours l'a configuré.</p>
 <p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes. Un travail peut être un fichier, un texte ou un texte accompagné d'un fichier. Un travail peut également être posté à titre individuel ou au nom d'un groupe d'utilisateurs.</p>
 
 <hr />
@@ -432,8 +431,8 @@ $langHelpAssignmentContent = "<p>L'outil Travaux permet aux étudiants de poster 
 </li><li> <strong>Invisible</strong>&nbsp;: quand cette icône est affichée, la soumission est masquée à toutes les personnes qui ont accès au cours, à l'exception des gestionnaires de cours et de l'utilisateur (ou du groupe) propriétaire de la soumission.
 </li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au gestionnaire de cours de soumettre une correction individuelle à l'auteur de la soumission. En plus d'un fichier et/ou d'un texte, la correction peut être accompagnée d'un pourcentage et d'un commentaire que seuls les gestionnaires de cours pourront voir.
 </li></ul>";
-$langHelpGroups = "Gestion des groupes";
-$langHomeContent = "La plupart des rubriques de Claroline contiennent déjà un petit texte ou un lien par défaut ou pour l'exemple. Il vous revient de les modifier.</p>
+$_lang['HelpGroups'] = "Gestion des groupes";
+$_lang['HomeContent'] = "La plupart des rubriques de Claroline contiennent déjà un petit texte ou un lien par défaut ou pour l'exemple. Il vous revient de les modifier.</p>
 <p>Ainsi un petit texte est là, bien visible,
  en en-tête de votre site. Il commence par « Ceci est le texte
  d'introduction de votre site (...) ». Modifiez-le et profitez-en pour décrire
@@ -454,26 +453,24 @@ $langHomeContent = "La plupart des rubriques de Claroline contiennent déjà un pe
  souhaitable qu'un cours à l'essai ou en chantier n'apparaisse pas dans
  la liste (voir la fonction 'Propriétés du cours') et demeure privé sans
  possibilité d'inscription le temps de sa conception.</p>";
-$langLearningPath = "Parcours pédagogique";
-$langLogin = "login";
-$langLogout = "Quitter";
-$langMinuteShort = "min.";
-$langModifyProfile = "Mon compte utilisateur";
-$langMonthNames = "Array";
-$langMyAgenda = "Mon agenda";
-$langMyCourses = "Liste de mes cours";
-$langNameOfLang = "Array";
-$langOtherCourses = "Liste des cours";
-$langPeriodDayShort = "j.";
-$langPeriodHourShort = "h";
-$langPlatformAdministration = "Gérer la plate-forme";
-$langPoweredBy = "Utilise la plate-forme";
-$langSecondShort = "sec";
-$langStudent = "Étudiant";
-$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page courante du texte. Continuer ?";
-$langTextEditorDisable = "Désactiver l'éditeur de texte";
-$langTextEditorEnable = "Activer l'éditeur de texte";
-$langUserContent = "<p>L'outil Utilisateurs permet d'afficher un tableau d'information sur les utilisateurs. Voici un résumé du contenu des colonnes du tableau.
+$_lang['LearningPath'] = "Parcours pédagogique";
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Quitter";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Mon compte utilisateur";
+$_lang['MyAgenda'] = "Mon agenda";
+$_lang['MyCourses'] = "Liste de mes cours";
+$_lang['OtherCourses'] = "Liste des cours";
+$_lang['PeriodDayShort'] = "j.";
+$_lang['PeriodHourShort'] = "h";
+$_lang['PlatformAdministration'] = "Gérer la plate-forme";
+$_lang['PoweredBy'] = "Utilise la plate-forme";
+$_lang['SecondShort'] = "sec";
+$_lang['Student'] = "Étudiant";
+$_lang['SwitchEditorToTextConfirm'] = "Cette commande supprimera la mise en page courante du texte. Continuer ?";
+$_lang['TextEditorDisable'] = "Désactiver l'éditeur de texte";
+$_lang['TextEditorEnable'] = "Activer l'éditeur de texte";
+$_lang['UserContent'] = "<p>L'outil Utilisateurs permet d'afficher un tableau d'information sur les utilisateurs. Voici un résumé du contenu des colonnes du tableau.
 <ul>
 <li>
 <b>Nom</b>. En cliquant sur le nom de l'utilisateur , vous pourrez voir des informations additionnelles concernant cet utilisateur (son adresse de messagerie,, etc.).
@@ -509,11 +506,11 @@ Les rôles n'ont pas de fonction technique particulière et ne sont associés à auc
 <p>
 Pour mentionner le nom d'un cogestionnaire dans l'en-tête du site du cours, utilisez l'outil <strong> Paramètres de cours</strong>. Cette modification n'inscrit pas la personne comme gestionnaire, le champ <strong>Gestionnaire(s) de cours</strong> de ce formulaire est totalement indépendant de la liste des utilisateurs.
 </p>";
-$langUsers = "Utilisateurs";
-$langViewMode = "Mode de vue";
-$langWiki = "Wiki";
-$langWork = "Travaux";
-$lang_enroll = "Inscription";
-$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
-$lang_p_platformManager = "Administrateur %s";
+$_lang['Users'] = "Utilisateurs";
+$_lang['ViewMode'] = "Mode de vue";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Travaux";
+$_lang['_enroll'] = "Inscription";
+$_lang['_footer_p_CourseManager'] = "Gestionnaire(s) du cours %s";
+$_lang['_p_platformManager'] = "Administrateur %s";
 ?>

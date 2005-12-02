@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Anuncios";
-$langChat = "Chat";
-$langClarContent = "Aquí, los profesores y asistentes crean y administran
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Anuncios";
+$_lang['Chat'] = "Chat";
+$_lang['ClarContent'] = "Aquí, los profesores y asistentes crean y administran
  los sitios web de los cursos. Los estudiantes leen (documentos, agenda, información) y,
  algunas veces, resuelven ejercicios, publican notas, participan en
  foros de discusiones...</p><b>Registración</b><p>Las siguientes instrucciones
@@ -23,13 +23,12 @@ coloque un mensaje ahí.</p>
 <p>El enlace a Registrarse (si está presente) está en la Página de Inicio del Campus
  (arriba a la derecha).</p><b>Conectarse</b><p>En su próxima visita, escriba su nombre de usuario y contaseña
  y pulse Ingresar para acceder a sus cursos. La URL del sitio es";
-$langCloseWindow = "Cerrar ventana";
-$langConfigMenuContent = "Menú de Configuración";
-$langCourseHome = "Incinio del Curso";
-$langCourseManager = "Administrador del Curso";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Descripción del Curso";
-$langDocContent = "<p>La herramienta de Documentos es similar al administrador de archivos de
+$_lang['CloseWindow'] = "Cerrar ventana";
+$_lang['ConfigMenuContent'] = "Menú de Configuración";
+$_lang['CourseHome'] = "Incinio del Curso";
+$_lang['CourseManager'] = "Administrador del Curso";
+$_lang['DescriptionCours'] = "Descripción del Curso";
+$_lang['DocContent'] = "<p>La herramienta de Documentos es similar al administrador de archivos de
  su computadora de escritorio.</p><p>Usted puede levantar archivos de cualquier tipo (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.).  Su única preocupación debe ser que sus estudiantes tengan el software
  correspondiente para leerlos. Algunos tipos de archivo pueden contener virus,
@@ -222,8 +221,8 @@ Validate haciendo clic on El 'OK' botón.
 </ul>
 <center>
 <p>";
-$langDocument = "Documentos y enlaces";
-$langExerciseContent = "<h4>¿Qué es la herramienta de ejercicios?</h4>
+$_lang['Document'] = "Documentos y enlaces";
+$_lang['ExerciseContent'] = "<h4>¿Qué es la herramienta de ejercicios?</h4>
 Esta herramienta le permite crear ejercicios en línea compuestos de una lista de preguntas. El preguntas pueden ser de diferentes tipos, los estudiantes pueden comletar los ejercicios y si ellos están registrados en su curso, sus puntajes serán almacenados y visibles en las estadístiscas del curso.
 <hr />
 <h4>Administrando los ejercicios</h4>
@@ -306,8 +305,8 @@ Cuando usted crear este tipo de pregunta&nbsp;:
 <hr />
 <h4>¿Como ver mi puntución anterior?</h4>
 <p>Cada usuario puede ver su propio puntajes debajo de la lista de ejercicios. Como un administrador del curso usted puede hacer clic en enlace de seguimiento disponible para cada ejercicio en la lista de ejercicios para tener acceso a los puntajes detallados de cada estudiante de el curso.</p>";
-$langExercises = "Ejercicios";
-$langForContent = "El foro es una herramienta  de escritura y discusión asincrónica.
+$_lang['Exercises'] = "Ejercicios";
+$_lang['ForContent'] = "El foro es una herramienta  de escritura y discusión asincrónica.
  Mientras que el email permite un diálogo uno-a-uno , los foros permiten un diálogo público o semi-público.
  </p><p>hablando técnicamente, los estudiantes solamente necesitan su
  visualizador para usar los foros claroline.</P><p>Para organizar los foros, Haga clic en
@@ -323,8 +322,8 @@ $langForContent = "El foro es una herramienta  de escritura y discusión asincrón
  foros, y no olvide que una categoría vaciar (sin foros) no
  aparece en la vista del estudiante .</p><p>La descripción de un foro puede ser la
  lista de sus miembros, la definición de un objetivo, una tarea, una tema...";
-$langForums = "Foros";
-$langGroupContent = "<p><b>Introducción</b></p>
+$_lang['Forums'] = "Foros";
+$_lang['GroupContent'] = "<p><b>Introducción</b></p>
 <p>Esta herramienta le permite crear  y administrar el trabajo de los grupos.
 Al crearse (Crear  grupos), los grupos están vacíos. Hay varias
 formas de completarlos:
@@ -361,16 +360,16 @@ with un series de información y funciones
 members lista.</li>
 <li><b>Borrar</b> borrar un grupo.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Grupos";
-$langHClar = "Comenzar Ayuda";
-$langHDoc = "Ayuda  Documentos";
-$langHExercise = "Ayuda  Ejercicios";
-$langHFor = "Ayuda  Foros";
-$langHHome = "Ayuda  Página de Inicio";
-$langHUser = "Ayuda  Usuarios";
-$langHelp = "Ayuda ";
-$langHelpAssignment = "Ayuda  Tarea";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "Grupos";
+$_lang['HClar'] = "Comenzar Ayuda";
+$_lang['HDoc'] = "Ayuda  Documentos";
+$_lang['HExercise'] = "Ayuda  Ejercicios";
+$_lang['HFor'] = "Ayuda  Foros";
+$_lang['HHome'] = "Ayuda  Página de Inicio";
+$_lang['HUser'] = "Ayuda  Usuarios";
+$_lang['Help'] = "Ayuda ";
+$_lang['HelpAssignment'] = "Ayuda  Tarea";
+$_lang['HelpAssignmentContent'] = "<p>
 La herramienta Trabajos es un área de publicación para los estudiantes. El administrador del curso crea una o varias tareas (diferentes zonas de publicación) donde los estudiantes será podrán publicar su trabajo.<br /><br />
 Cada tarea puede tener diferentes objetivos o requeriemientos : la publicación  de un archivo, o un texto o un texto y un archivo, la publicación puede ser hecha por grupo en lugar de un solo usuario,...<br /><br />
 los estudiantes tienen la posibilidad de modificar su propio trabajo después de enviarlo y el administrador del curso pueden darle una contestación acerca de su envío.
@@ -426,8 +425,8 @@ La lista de publicaciones relativas al usuario y la tarea puede ser vista hacien
 </li>
 </ul>
 ";
-$langHelpGroups = "Ayuda: Grupos";
-$langHomeContent = "Por conveniencia, las herramientas claroline contienen elementos por defecto .
+$_lang['HelpGroups'] = "Ayuda: Grupos";
+$_lang['HomeContent'] = "Por conveniencia, las herramientas claroline contienen elementos por defecto .
  Estos son un pequeño ejemplo en cada herramienta para ayudarlo a hacer su
  trabajo. Ustede decide si desea modificar el ejemplo o borrarlo.</p><p>Por
  ejemplo, aquí on la Página de Inicio del sitio web de su curso, hay un pequeño
@@ -452,25 +451,23 @@ $langHomeContent = "Por conveniencia, las herramientas claroline contienen eleme
  desactivadas, pero no borradas.</p><p>Una vez que el sitio web de su curso está listo, vaya
  a 'Modificar la información del curso' y decida eue nivel de confidenciabilidad desea.
  por por defecto, su curso esa ocultp (porque usted está trabajando en él).</p>";
-$langLearningPath = "Ruta de Aprendizaje";
-$langLogin = "Conectarse";
-$langLogout = "Desconexión";
-$langMinuteShort = "min.";
-$langModifyProfile = "Modificar mis datos";
-$langMonthNames = "Array";
-$langMyAgenda = "Mi Agenda";
-$langMyCourses = "Mi lista de cursos";
-$langNameOfLang = "Array";
-$langOtherCourses = "Lista de Cursos";
-$langPeriodDayShort = "d.";
-$langPeriodHourShort = "h.";
-$langPlatformAdministration = "Administración de la Plataforma";
-$langPoweredBy = "Impulsado por";
-$langSecondShort = "seg.";
-$langStudent = "Estudiante";
-$langTextEditorDisable = "Deshabilitar el editor de textos";
-$langTextEditorEnable = "Habilitar el editor de textos";
-$langUserContent = "<p>La herramienta 'Usuario' muestra información de los usuarios en una tablea resumen. Aquí debajo están las descripciones de columna reasumidas.
+$_lang['LearningPath'] = "Ruta de Aprendizaje";
+$_lang['Login'] = "Conectarse";
+$_lang['Logout'] = "Desconexión";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Modificar mis datos";
+$_lang['MyAgenda'] = "Mi Agenda";
+$_lang['MyCourses'] = "Mi lista de cursos";
+$_lang['OtherCourses'] = "Lista de Cursos";
+$_lang['PeriodDayShort'] = "d.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PlatformAdministration'] = "Administración de la Plataforma";
+$_lang['PoweredBy'] = "Impulsado por";
+$_lang['SecondShort'] = "seg.";
+$_lang['Student'] = "Estudiante";
+$_lang['TextEditorDisable'] = "Deshabilitar el editor de textos";
+$_lang['TextEditorEnable'] = "Habilitar el editor de textos";
+$_lang['UserContent'] = "<p>La herramienta 'Usuario' muestra información de los usuarios en una tablea resumen. Aquí debajo están las descripciones de columna reasumidas.
 <ul>
 <li>
 <b>Nombre</b>. Haciendo clic en el nombre del usuario puede ver información adicional acerca de este usuario, como ser su e-mail etc.
@@ -520,11 +517,11 @@ Para permitir a un un asistente, por ejemplo, a co-administrar el sitio, necesit
 Para mencionar en el encabezado del sitio web del curso el nombre de un co-director, use la herramienta 'Modificar información del curso' (herramientas naranja). Esta modificación no registra a su co-director como un usuario del curso. El campo 'Profesores' es completamente independiente de la lista de usuarios.
 Agregar un usuario
 </p>";
-$langUsers = "Usuarios";
-$langViewMode = "Modo de Vista";
-$langWiki = "Wiki";
-$langWork = "Tareas";
-$lang_enroll = "Inscribirse";
-$lang_footer_p_CourseManager = "Administrado por %s";
-$lang_p_platformManager = "Administrado por %s";
+$_lang['Users'] = "Usuarios";
+$_lang['ViewMode'] = "Modo de Vista";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Tareas";
+$_lang['_enroll'] = "Inscribirse";
+$_lang['_footer_p_CourseManager'] = "Administrado por %s";
+$_lang['_p_platformManager'] = "Administrado por %s";
 ?>

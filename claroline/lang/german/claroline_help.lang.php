@@ -1,16 +1,15 @@
 <?php
-$langAgenda = "Termine/Ereignisse";
-$langAnnouncement = "Ankündigungen";
-$langChat = "Chat";
-$langClarContent = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br />Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br />
+$_lang['Agenda'] = "Termine/Ereignisse";
+$_lang['Announcement'] = "Ankündigungen";
+$_lang['Chat'] = "Chat";
+$_lang['ClarContent'] = "Hier können Tutoren/Dozenten Kurswebsites erstellen, ändern und löschen. Teilnehmer können Dokumente, Termine, diverse Informationen abfragen und Tests durchführen, Arbeiten hochladen, an Diskussionsforen teilnehmen...<p><b>Registrierung</b><br />Als Kursteilnehmer können Sie sich in eine Kurswebsite eintragen, indem Sie den Meunuepunkt 'In eine KursSite eintragen' auswählen, anschließend wählen Sie die Kurse aus, die Sie belegen möchten.<br />
 Wenn Sie ein Dozent sind, der eine Kurswebsite anlegen möchte, dann registrieren sie sich als solcher (sofern die Sebstregistrierung als Dozent ermöglicht ist), oder ersuchen um diesen Status bei 'Mein Profil verändern'.</p>";
-$langCloseWindow = "Fenster schlie&szlig;en";
-$langConfigMenuContent = "Konfigurationsmenu";
-$langCourseHome = "Kurs-Startseite";
-$langCourseManager = "KursSite-Verantwortlicher";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Kursbeschreibung";
-$langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager Ihres Computers.</p><p>Sie können beliebige Dateien hochladen (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, usw.). Denken Sie daran, dass Ihre Teilnehmer die entprechende Software zum Öffnen benötigen. Manche Dateitypen können Viren enthalten. Sie sind dafür verantwortlich, keine infizierten Dateien hochzuladen. Sie sollten die Dateien mit einem Antivirenprogramm kontrollieren, bevor Sie die Dateien hochladen.</p>
+$_lang['CloseWindow'] = "Fenster schlie&szlig;en";
+$_lang['ConfigMenuContent'] = "Konfigurationsmenu";
+$_lang['CourseHome'] = "Kurs-Startseite";
+$_lang['CourseManager'] = "KursSite-Verantwortlicher";
+$_lang['DescriptionCours'] = "Kursbeschreibung";
+$_lang['DocContent'] = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanager Ihres Computers.</p><p>Sie können beliebige Dateien hochladen (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, usw.). Denken Sie daran, dass Ihre Teilnehmer die entprechende Software zum Öffnen benötigen. Manche Dateitypen können Viren enthalten. Sie sind dafür verantwortlich, keine infizierten Dateien hochzuladen. Sie sollten die Dateien mit einem Antivirenprogramm kontrollieren, bevor Sie die Dateien hochladen.</p>
 <p>Die Dokumente sind alphabetisch sortiert.<br /><b>Hinweis : </b>Wenn Sie sie in einer anderen Reihenfolge bereitstellen möchten, nummerieren Sie die Dateien: 01, 02, 03...</p>
 <p>Sie können :</p>
 <h4>Ein Dokument hochladen</h4>
@@ -65,8 +64,8 @@ $langDocContent = "<p>Das Werkzeug Dokumente ist vergleichbar mit dem Dateimanag
         </ul>
         <center>
           <p>";
-$langDocument = "Dokumente/Dateien";
-$langExerciseContent = "<p>Das test-Tool ermöglicht es Ihnen, Tests mit beliebig vielen Fragen zu erstellen.<br /><br />
+$_lang['Document'] = "Dokumente/Dateien";
+$_lang['ExerciseContent'] = "<p>Das test-Tool ermöglicht es Ihnen, Tests mit beliebig vielen Fragen zu erstellen.<br /><br />
 Sie können unterschiedliche Antwortformen zu Ihren Fragen einrichten:<br /><br />
 <ul>
   <li>Multiple Choice (eine richtige Antwort)</li>
@@ -136,8 +135,8 @@ Wenn Sie eine sehr große Zahl von Fragen eingerichtet haben, können Sie auch fes
 Das Archiv ermöglicht Ihnen,  die gleiche Frage auch für verschiedene Tests zu verwenden.<br /><br />
 In der Grundeinstellung werden alle Fragen Ihres Kurses angezeigt. Im Drop-Down-Menue können Sie nun Veränderungen vornehmen &quot;Filter&quot;.<br /><br />
 Verwaiste Fragen sind solche, die gerade in keinem Test verwandt werden.</p>";
-$langExercises = "Tests";
-$langForContent = "Ein Forum ist ein schriftliches, asynchrones Diskussionswerkzeug. Wo Email nur einen Eins-zu-Eins Dialog ermöglicht, bieten Foren die Gelegenheit öffentliche bzw. halböffentliche Diskussionen zu führen.</p><p>Die Benutzer benötigen nur ihren Browser, um die Foren zu benutzen.</P>
+$_lang['Exercises'] = "Tests";
+$_lang['ForContent'] = "Ein Forum ist ein schriftliches, asynchrones Diskussionswerkzeug. Wo Email nur einen Eins-zu-Eins Dialog ermöglicht, bieten Foren die Gelegenheit öffentliche bzw. halböffentliche Diskussionen zu führen.</p><p>Die Benutzer benötigen nur ihren Browser, um die Foren zu benutzen.</P>
 <p>Um Foren einzurichten, klicken Sie auf 'admin'. Diskussions-Stränge sind wie folgt aufgebaut:</p>
 <p><b>Kategorie > Forum > Überschrift > Antworten</b></p>
 Um die Diskussionen zu strukturieren, müssen zuvor die Kategorien und Foren eingerichtet werden. Dabei können die Überschriften und Antworten frei bleiben.
@@ -145,8 +144,8 @@ Per Voreinstellung enthält das Forum nun die Kategorie 'public' (öffentlich) und
 <p>Zuerst sollten Sie die Beispielüberschrift entfernen und den Forennamen ändern. Anschließend können Sie in der Kategorie 'public' weitere Foren anlegen, nach Gruppen oder Themen, entsprechend den Anforderungen Ihrer Vorstellungen.</p>
 <p>Mischen Sie keine Kategorien und Foren und vergessen Sie nicht, daß eine leere Kategorie (ohne Foren) nicht in der Benutzeransicht sichtbar ist.</p>
 <p>Die Beschreibung eines Forums kann eine Liste der Mitglieder, eine Zieldefinition, ein Vorhaben, ein Thema... sein.";
-$langForums = "Foren";
-$langGroupContent = "<p><b>Einführung</b></p>
+$_lang['Forums'] = "Foren";
+$_lang['GroupContent'] = "<p><b>Einführung</b></p>
 <p>Dieses Tool erlaubt das Erstellen und Bearbeiten von Gruppen.
 Beim Erstellen (Gruppen einrichten) sind diese leer. Es gibt verschiedene Möglichlichkeiten, diese aufzubauen:
 <ul><li>automatisch ('Fill groups'),</li>
@@ -172,16 +171,16 @@ Wenn Sie eine Obergrenze für die Anzahl der Gruppenmitglieder eingetragen haben,
 <ul><li><b>Bearbeiten</b> um den Namen der Gruppe, die Beschreibung, den Tutor oder die Mitgliederliste zu verändern.</li>
 <li><b>Löschen</b> löscht eine Gruppe.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Gruppen";
-$langHClar = "Hilfe zum Start";
-$langHDoc = "Hilfe Dokumente";
-$langHExercise = "Hilfe für Tests";
-$langHFor = "Hilfe für die Foren";
-$langHHome = "Hilfe für die Homepage";
-$langHUser = "Benutzerhilfe";
-$langHelp = "Hilfe";
-$langHelpAssignment = "Hilfezuordnung";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "Gruppen";
+$_lang['HClar'] = "Hilfe zum Start";
+$_lang['HDoc'] = "Hilfe Dokumente";
+$_lang['HExercise'] = "Hilfe für Tests";
+$_lang['HFor'] = "Hilfe für die Foren";
+$_lang['HHome'] = "Hilfe für die Homepage";
+$_lang['HUser'] = "Benutzerhilfe";
+$_lang['Help'] = "Hilfe";
+$_lang['HelpAssignment'] = "Hilfezuordnung";
+$_lang['HelpAssignmentContent'] = "<p>
 Der Upload-Bereich ist der Veröffentlichungsbereich für Lernende. Der Kursmanager erstellt ein oder mehrere Assignments (verschiedene Publikationsbereiche), wo die Studierenden ihre Arbeiten veröffentlichen können.
 <br /><br />
 
@@ -254,31 +253,29 @@ Die Liste der Veröffentlichungen ist mit dem Nutzer verbunden und die Arbeiten k
 
 
 ";
-$langHelpGroups = "Hilfe für Gruppenverwaltung";
-$langHomeContent = "Zur Vereinfachung sind die Tools nicht leer. Es gibt ein kleines Beispiel zu jedem Tool, um die Funktionsweise zu verdeutlichen. Sie können die Beispiele ändern oder löschen.</p><p>Auf der Homepage der Kurswebsite befindet sich ein kurzer Einführungstext, mit folgendem Text 'Dies ist der Einführungstext Ihres Kurses. Ersetzen Sie ihn mit Ihrem eigenen Text. Klicken Sie unten auf ändern.' Auf Ändern klicken, verändern und bestätigen. So einfach ist das. Jedes Tool hat die gleiche Logik: hinzufügen, löschen, ändern.</p><p>Zu Beginn der Websiteerstellung sind die meisten Tools aktiv. Sie können diejenigen deaktivieren, die Sie nicht benötigen. Es wird dann in den grauen unteren Bereich Ihrer Homepage verschoben. Es ist dann nicht mehr für Ihre Teilnehmer sichtbar, aber Sie können es jederzeit reaktivieren.</p>
+$_lang['HelpGroups'] = "Hilfe für Gruppenverwaltung";
+$_lang['HomeContent'] = "Zur Vereinfachung sind die Tools nicht leer. Es gibt ein kleines Beispiel zu jedem Tool, um die Funktionsweise zu verdeutlichen. Sie können die Beispiele ändern oder löschen.</p><p>Auf der Homepage der Kurswebsite befindet sich ein kurzer Einführungstext, mit folgendem Text 'Dies ist der Einführungstext Ihres Kurses. Ersetzen Sie ihn mit Ihrem eigenen Text. Klicken Sie unten auf ändern.' Auf Ändern klicken, verändern und bestätigen. So einfach ist das. Jedes Tool hat die gleiche Logik: hinzufügen, löschen, ändern.</p><p>Zu Beginn der Websiteerstellung sind die meisten Tools aktiv. Sie können diejenigen deaktivieren, die Sie nicht benötigen. Es wird dann in den grauen unteren Bereich Ihrer Homepage verschoben. Es ist dann nicht mehr für Ihre Teilnehmer sichtbar, aber Sie können es jederzeit reaktivieren.</p>
 <p>Sie können auch eigene Seiten zu Ihrer Homepage hinzufügen.
 Diese Seiten müssen in HTML geschrieben sein (dazu können Sie eine beliebeige Textverarbeitung oder andere Software zu Webseitenerzeugung nutzen). Benutzen Sie 'Seite Hochladen und zur Homepage verknüpfen', um Ihre Seite auf den Server zu laden. Der Standard-Header Ihrer Webseite wird automatisch mit dem neuen Dokument verbunden. So können Sie sich auf den Inhalt konzentrieren. Wenn Sie von Ihrer Homepage auf bereits bestehende Webseiten oderr Seiten im Web verknüpfen möchten (auch innerhalb Ihrer eigenen Seite), benutzen Sie 'Verknüpfung auf Homepage hinzufügen'. Die Seiten, die Sie hinzugefügt haben, können deaktivert und anschließend gelöscht werden. Die Standard-Tools können indes nur deaktiviert, aber nicht gelöscht werden.</p>
 <p>Wenn Ihr Website fertiggestellt ist, wählen Sie 'Kursinformation ändern' aus und entscheiden Sie sich wie man auf Ihren Kurs zugreifen kann. Per Voreinstellung ist der Kurs nicht sichtbar (da Sie zur Zeit damit arbeiten).</p>";
-$langLearningPath = "Lernpfad";
-$langLogin = "login";
-$langLogout = "Logout";
-$langMinuteShort = "min.";
-$langModifyProfile = "Mein Profil verändern";
-$langMonthNames = "Array";
-$langMyAgenda = "Meine Termine";
-$langMyCourses = "Meine Kurse";
-$langNameOfLang = "Feld";
-$langOtherCourses = "Kurs Angebot";
-$langPeriodDayShort = "d.";
-$langPeriodHourShort = "h.";
-$langPlatformAdministration = "System-Administration";
-$langPoweredBy = "Powered by";
-$langSecondShort = "sec.";
-$langStudent = "Teilnehmer";
-$langSwitchEditorToTextConfirm = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
-$langTextEditorDisable = "HTML-Editor ausschalten";
-$langTextEditorEnable = "HTML-Editor einschalten";
-$langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr />
+$_lang['LearningPath'] = "Lernpfad";
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Logout";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Mein Profil verändern";
+$_lang['MyAgenda'] = "Meine Termine";
+$_lang['MyCourses'] = "Meine Kurse";
+$_lang['OtherCourses'] = "Kurs Angebot";
+$_lang['PeriodDayShort'] = "d.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PlatformAdministration'] = "System-Administration";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['SecondShort'] = "sec.";
+$_lang['Student'] = "Teilnehmer";
+$_lang['SwitchEditorToTextConfirm'] = "Dieses Kommando wird das derzeitige HTML-Text-Layout entfernen. Wollen Sie fortfahren?";
+$_lang['TextEditorDisable'] = "HTML-Editor ausschalten";
+$_lang['TextEditorEnable'] = "HTML-Editor einschalten";
+$_lang['UserContent'] = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion. Dadurch werden keine Rechte für das System vergeben. Sie zeigen nur an, wer welche Rolle im Kurs einnimmt. Sie können die Rollen verändern, wenn Sie auf 'ändern' unter 'Rolle' klicken, anschließend können Sie einen beliebigen Text eintragen: Dozent, Tutor, Coach, Assistent, Student, Besucher, Experte...</P><hr />
 <b>KursSite-Verantwortlicher</b>
 <p>Andererseits haben KursSite-Verantwortliche die technische Möglichkeit, Inhalte und Strukturen einer KursSite zu verändern. Zur Zeit wird nur in 'komplette Freigabe' bzw. 'keine' unterschieden.</P>
 <p>Um z.B. eine/n Vertreter/in die Site verändern zu lassen, muss er in die KursSite eingetragen sein; anschließend wählen Sie 'bearbeiten' und aktivieren 'KursSite-Verantwortlicher'. Klicken Sie abschließend auf 'Ok'.</P><hr />
@@ -286,11 +283,11 @@ $langUserContent = "<b>Rollen</b><p>Rollen haben keine computerbezogene Funktion
 <p>Um im Kopf eines Kurses den Namen eines/einer Mitverantwortlichen zu nennen, benutzen Sie 'Kurs-Einstellungen' und ändern den Text im Feld 'Dozent/Tutor'. Das Feld 'Dozent/Tutor' ist völlig unabhängig von der Teilnehmerliste und diese Änderung registriert Ihre Mitverantwortlichen nicht als Benutzer der KursSite.</p><hr />
 <b>Benutzer hinzufügen</b>
 <p>Um einen Benutzer Ihrem Kurs hinzuzufügen, prüfen Sie zuerst, ob er nicht bereits registriert ist. Sollte er bereits registriert sein, können Sie über 'Bearbeiten' Kursinterne Rollen / Rechte vergeben, bzw. ihn austragen. Ansonsten fügen Sie ihn manuell hinzu. In beiden Fällen wird die Person eine E-Mail erhalten, die sie über die Aufnahme und das zugehörige Login und Passwort in Kenntnis setzt.</p>";
-$langUsers = "Benutzer";
-$langViewMode = "Ansicht";
-$langWiki = "Wiki";
-$langWork = "Upload-Bereich";
-$lang_enroll = "Anmeldung";
-$lang_footer_p_CourseManager = "Verantwortliche(r) f&uuml;r %s";
-$lang_p_platformManager = "Administrator von %s";
+$_lang['Users'] = "Benutzer";
+$_lang['ViewMode'] = "Ansicht";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Upload-Bereich";
+$_lang['_enroll'] = "Anmeldung";
+$_lang['_footer_p_CourseManager'] = "Verantwortliche(r) f&uuml;r %s";
+$_lang['_p_platformManager'] = "Administrator von %s";
 ?>

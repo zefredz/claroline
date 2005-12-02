@@ -1,15 +1,14 @@
 <?php
-$langAgenda = "Calendario";
-$langAnnouncement = "Annunci";
-$langChat = "Chat";
-$langClarContent = "Qui i docenti e gli assistenti creano e amministrano i siti dei corsi, i corsisti li adoperano (Documenti, Agende, informazioni diverse). Nel caso, i corsisti svolgono degli Esercizi, trasmettono dei Contributi, prendono parte alle discussioni nei Forum...</p><b>Iscrizione</b><p>Se siete un corsista, è sufficiente iscrivervi scegliendo 'Iscrivermi a dei corsi (corsista)' e in seguito marcare il corso che desiderate seguire.</p><p>Se siete un docente o un assistente , iscrivetevi ugualmente, scegliendo però l'opzione 'Creare dei siti di corso (docente)'. A questo punto vi sarà chiesto di riempire un modulo precisando il codice e il titolo del primo corso. Dopo che avrete confermato la scelta, sarete condotti al sito da voi creato e potrete modificarne il contenuto e l'organizzazione, a seconda delle vostre necessità.</P><p>Se questo portale di creazione e amministrazione non vi soddisfa, non esitate a segnalarcelo tramite l'opzione 'Suggerimenti' accessibile dalla pagina principale del campus virtuale, una volta che siate stati identificati.</p><p>Il collegamento verso 'Iscrizione' è posto nella pagina principale in alto a destra.</p><b>Identificazione personale (login)</b><p>Nelle vostre prossime visite, per accedere al vostro corso, immettete il vostro Identificativo utente e la vostra Password nel campo posto in altro a destra dello schermo. L'indirizzo del sito è";
-$langCloseWindow = "Chiudi finestra";
-$langConfigMenuContent = "Menu di Configurazione";
-$langCourseHome = "Home del Corso";
-$langCourseManager = "Manager del corso";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Programma";
-$langDocContent = "<p>Il modulo di gestione dei documenti funziona in modo simile a quella della gestione del file system sul computer. </p><p>Potete depositare documenti di ogni tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Assicuratevi comunque che i corsisti dispongano dei programmi adatti per consultarli. Fate attenzione a non trasmettere documenti contenenti virus: è norma di prudenza verificare il documento con un programmma antivirus presente nell'Istituto.</p>
+$_lang['Agenda'] = "Calendario";
+$_lang['Announcement'] = "Annunci";
+$_lang['Chat'] = "Chat";
+$_lang['ClarContent'] = "Qui i docenti e gli assistenti creano e amministrano i siti dei corsi, i corsisti li adoperano (Documenti, Agende, informazioni diverse). Nel caso, i corsisti svolgono degli Esercizi, trasmettono dei Contributi, prendono parte alle discussioni nei Forum...</p><b>Iscrizione</b><p>Se siete un corsista, è sufficiente iscrivervi scegliendo 'Iscrivermi a dei corsi (corsista)' e in seguito marcare il corso che desiderate seguire.</p><p>Se siete un docente o un assistente , iscrivetevi ugualmente, scegliendo però l'opzione 'Creare dei siti di corso (docente)'. A questo punto vi sarà chiesto di riempire un modulo precisando il codice e il titolo del primo corso. Dopo che avrete confermato la scelta, sarete condotti al sito da voi creato e potrete modificarne il contenuto e l'organizzazione, a seconda delle vostre necessità.</P><p>Se questo portale di creazione e amministrazione non vi soddisfa, non esitate a segnalarcelo tramite l'opzione 'Suggerimenti' accessibile dalla pagina principale del campus virtuale, una volta che siate stati identificati.</p><p>Il collegamento verso 'Iscrizione' è posto nella pagina principale in alto a destra.</p><b>Identificazione personale (login)</b><p>Nelle vostre prossime visite, per accedere al vostro corso, immettete il vostro Identificativo utente e la vostra Password nel campo posto in altro a destra dello schermo. L'indirizzo del sito è";
+$_lang['CloseWindow'] = "Chiudi finestra";
+$_lang['ConfigMenuContent'] = "Menu di Configurazione";
+$_lang['CourseHome'] = "Home del Corso";
+$_lang['CourseManager'] = "Manager del corso";
+$_lang['DescriptionCours'] = "Programma";
+$_lang['DocContent'] = "<p>Il modulo di gestione dei documenti funziona in modo simile a quella della gestione del file system sul computer. </p><p>Potete depositare documenti di ogni tipo (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Assicuratevi comunque che i corsisti dispongano dei programmi adatti per consultarli. Fate attenzione a non trasmettere documenti contenenti virus: è norma di prudenza verificare il documento con un programmma antivirus presente nell'Istituto.</p>
 <p>I documenti sono elencati in ordine alfabetico.<br />
   <b>Trucchi:</b> se desiderate un diverso ordinamento potete rinominare i documenti facendoli precedere da un numero (01, 02,...); l'ordinamento sarà fatto su tale base. </p>
 <p>Potete:</p>
@@ -85,8 +84,8 @@ L'operazione potrà essere compita solo se precedentemente sarà stata creata alme
 	</ul>
 	<center>
 	  <p>";
-$langDocument = "Documento : ";
-$langExerciseContent = "<p>La funzione esercizi allows you to create exercises that will contains as many questions as you like.<br /><br />
+$_lang['Document'] = "Documento : ";
+$_lang['ExerciseContent'] = "<p>La funzione esercizi allows you to create exercises that will contains as many questions as you like.<br /><br />
 There are various types of answers available for the creation of your questions :<br /><br />
 <ul>
   <li>Multiple choice (Unique answer)</li>
@@ -156,10 +155,10 @@ If you have got a big number of questions, you can also choose to randomly draw 
 The question pool also allows to reuse a same questions into several exercises.<br /><br />
 By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br /><br />
 Orphan questions are questions that don't belong to any exercise.</p>";
-$langExercises = "Esercizi";
-$langForContent = "Il forum è uno strumento di discussione scritta a tempo differito. A differenza della posta elettronica, il forum colloca la discussione in uno spazio pubblico o semi-pubblico (molti a molti).</p><p>Per usare il forum del campus. i corsisti hanno bisogno solo di un browser web (Netscape, Explorer...), non di un sistema di posta elettronica (Eudora, Outlook...).</P><p>Per organizzare dei forum, , cliccate su 'Amministrare'. Le discussioni sono organizzate in modo gerarchico secondo la struttura 'ad albero' seguente:</p><p><b>Categoria > Forum > Argomento > Risposta</b></p>Per permettre ai corsisti di  discutere in modo strutturato, è opportuno per prima cosa organizzare le discussioni in Categorie e Forum (i corsisti stessi proporrannno gli argomenti e le risposte). Per default il Forum contiene unicamente la Categoria Pubblico,un argomento esemplificativo e un messaggio d'esempio. Potete aggiungere dei forum nella categoria Pubblico,oppure modificare l'intestazione o ancora creare nuove Categorie al cui interno potrete creare nuovi Forum. Una Categoria che non contenga Forum non sarà utilizzabile. Se ad esempio create una Categoria 'discussione per piccoli gruppi', dovrete creare creare una serie di forum nella Categoria, ad esempio 'gruppo 1', 'gruppo 2', 'gruppo 3', ecc.</p><p>La Descrizione di un forum di gruppo potrebbe essere l'elenco delle persone che sono invitate ad usarlo, ma anche una spiegazione sulle sue finalità. Se create, per qualsiasi ragione, un Forum \"Richieste d'aiuto\", potete aggiungere come descrizione: 'Segnalare le difficoltà relative al contenuto o all'organizzazione'.";
-$langForums = "Forum";
-$langGroupContent = "<p><b>Introduzione</b></p>
+$_lang['Exercises'] = "Esercizi";
+$_lang['ForContent'] = "Il forum è uno strumento di discussione scritta a tempo differito. A differenza della posta elettronica, il forum colloca la discussione in uno spazio pubblico o semi-pubblico (molti a molti).</p><p>Per usare il forum del campus. i corsisti hanno bisogno solo di un browser web (Netscape, Explorer...), non di un sistema di posta elettronica (Eudora, Outlook...).</P><p>Per organizzare dei forum, , cliccate su 'Amministrare'. Le discussioni sono organizzate in modo gerarchico secondo la struttura 'ad albero' seguente:</p><p><b>Categoria > Forum > Argomento > Risposta</b></p>Per permettre ai corsisti di  discutere in modo strutturato, è opportuno per prima cosa organizzare le discussioni in Categorie e Forum (i corsisti stessi proporrannno gli argomenti e le risposte). Per default il Forum contiene unicamente la Categoria Pubblico,un argomento esemplificativo e un messaggio d'esempio. Potete aggiungere dei forum nella categoria Pubblico,oppure modificare l'intestazione o ancora creare nuove Categorie al cui interno potrete creare nuovi Forum. Una Categoria che non contenga Forum non sarà utilizzabile. Se ad esempio create una Categoria 'discussione per piccoli gruppi', dovrete creare creare una serie di forum nella Categoria, ad esempio 'gruppo 1', 'gruppo 2', 'gruppo 3', ecc.</p><p>La Descrizione di un forum di gruppo potrebbe essere l'elenco delle persone che sono invitate ad usarlo, ma anche una spiegazione sulle sue finalità. Se create, per qualsiasi ragione, un Forum \"Richieste d'aiuto\", potete aggiungere come descrizione: 'Segnalare le difficoltà relative al contenuto o all'organizzazione'.";
+$_lang['Forums'] = "Forum";
+$_lang['GroupContent'] = "<p><b>Introduzione</b></p>
 <p>Questo strumento vi permette di creare e gestire gruppi di lavoro.
 Nel momento in cui sono creati i gruppi sono vuoti di partecipanti. Vi sono diversi modi per riempirli:
 <ul><li>automaticamente ('Riempire i gruppi'),</li>
@@ -185,16 +184,16 @@ Questo metodo è adatto al caso in cui il docente non conosca l'elenco dei corsis
 <ul><li><b>Modifica</b> permette di modificare il nome, la descrizione, il Tutot, l'elenco dei partecipanti.</li>
 <li><b>Elimina</b> elimina il gruppo.</li></ul>
 <hr noshade size=1>";
-$langGroups = "iscrizione degli utilizzatori nei gruppi";
-$langHClar = "Aiuto all'avvio del corso";
-$langHDoc = "Aiuto Documenti";
-$langHExercise = "Help Esercizi";
-$langHFor = "Aiuto forum";
-$langHHome = "Aiuto pagina principale";
-$langHUser = "Aiuto Utenti";
-$langHelp = "Aiuto";
-$langHelpAssignment = "Aiuto Compiti";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "iscrizione degli utilizzatori nei gruppi";
+$_lang['HClar'] = "Aiuto all'avvio del corso";
+$_lang['HDoc'] = "Aiuto Documenti";
+$_lang['HExercise'] = "Help Esercizi";
+$_lang['HFor'] = "Aiuto forum";
+$_lang['HHome'] = "Aiuto pagina principale";
+$_lang['HUser'] = "Aiuto Utenti";
+$_lang['Help'] = "Aiuto";
+$_lang['HelpAssignment'] = "Aiuto Compiti";
+$_lang['HelpAssignmentContent'] = "<p>
 Lo strumento dell'assegnamento dei compiti è un'area di pubblicazione per gli studenti. Il manager del corso crea uno o più compiti ( differenti zone di pubblicazione ) dove gli studenti possono pubblicare i loro lavori.<br /><br />
 
 Ogni compito può avere diversi obiettivi o specifiche : la pubblicazione può essere un file, o un testo o un testo e un file, è possibile che la pubblicazione sia fatta da un gruppi piuttosto che un singolo utente,...<br /><br />
@@ -261,28 +260,26 @@ L'elenco di pubblicazioni relative all'utente e al compito può essere visualizza
 
 
 ";
-$langHelpGroups = "Aiuto gruppi";
-$langHomeContent = "La maggior parte delle rubriche del campus sono già state riempite con breve testo, un collegamento di default o un esempio. E' vostro interesse modificarli.</p><p>Un breve testo è anche presente, ben visibile, nella pagina principale del vostro sito: modificatelo approfittando dell'occasione per descrivere il corso, gli obiettivi da raggiungere, l'organizzazione. Queste informazioni daranno una chiara visibilità al vostro lavoro.</p><p>Alla creazione del sito risulteranno attivi per default numerosi strumenti (Calendario, Documenti, Esercizi...). Vi consigliamo di disattivare quelli che non utilizzate per non far inutilmente perder tempo ai vostri utenti o ai visitatori.</p><p>Potete anche aggiungere collegamenti a pagine alla pagina principale. Utilizzate l'opzione 'Collegare una pagina...' per aggiungere una pagina (con formato HTML) trasmettendola al server. Se invece volete rinviare verso una pagina o un sito web esistente, utilizzate l'opzione \"Collegare un sito...\" . Le pagine e i collegamenti che aggiungete all pagina iniziale possono essere disattivati ed in seguito eliminati, a differenza di quanto accade per gli strumenti esistenti per default, che possono essere disattivati ma non eliminati.</p><p>Dovrete decidere anche se il vostro corso debba comparire nell'elenco dei corsi. E' desiderabile che un corso ancora 'in lavorazione' non compaia nell'elenco (vedi l'opzione 'Modificare le informazioni sul corso') e resti privo della possibilità di iscrizioni nel tempo in cui viene messo a punto.</p>";
-$langLearningPath = "Learning Path";
-$langLogin = "login";
-$langLogout = "Uscita";
-$langMinuteShort = "min.";
-$langModifyProfile = "Modificare il mio profilo";
-$langMonthNames = "Array";
-$langMyAgenda = "La mia agenda";
-$langMyCourses = "I miei corsi";
-$langNameOfLang = "Array";
-$langOtherCourses = "Elenco dei corsi";
-$langPeriodDayShort = "g.";
-$langPeriodHourShort = "h.";
-$langPlatformAdministration = "Amministrazione Claroline";
-$langPoweredBy = "Supportato da";
-$langSecondShort = "sec.";
-$langStudent = "Studenti";
-$langSwitchEditorToTextConfirm = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
-$langTextEditorDisable = "Disabilita editor di testo";
-$langTextEditorEnable = "Abilita editor di testo";
-$langUserContent = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano informatico, non danno diritti diversi di amministrazione del sistema. Potete modificarli cliccando su 'modificare' sotto 'Ruolo' e scrivendo per esteso la descrizione della funzione adatta (docente, assistente, tutor, visitatore, esperto, moderatore...) come indicazione del ruolo svolto dalle singole persone nel corso.</P><hr />
+$_lang['HelpGroups'] = "Aiuto gruppi";
+$_lang['HomeContent'] = "La maggior parte delle rubriche del campus sono già state riempite con breve testo, un collegamento di default o un esempio. E' vostro interesse modificarli.</p><p>Un breve testo è anche presente, ben visibile, nella pagina principale del vostro sito: modificatelo approfittando dell'occasione per descrivere il corso, gli obiettivi da raggiungere, l'organizzazione. Queste informazioni daranno una chiara visibilità al vostro lavoro.</p><p>Alla creazione del sito risulteranno attivi per default numerosi strumenti (Calendario, Documenti, Esercizi...). Vi consigliamo di disattivare quelli che non utilizzate per non far inutilmente perder tempo ai vostri utenti o ai visitatori.</p><p>Potete anche aggiungere collegamenti a pagine alla pagina principale. Utilizzate l'opzione 'Collegare una pagina...' per aggiungere una pagina (con formato HTML) trasmettendola al server. Se invece volete rinviare verso una pagina o un sito web esistente, utilizzate l'opzione \"Collegare un sito...\" . Le pagine e i collegamenti che aggiungete all pagina iniziale possono essere disattivati ed in seguito eliminati, a differenza di quanto accade per gli strumenti esistenti per default, che possono essere disattivati ma non eliminati.</p><p>Dovrete decidere anche se il vostro corso debba comparire nell'elenco dei corsi. E' desiderabile che un corso ancora 'in lavorazione' non compaia nell'elenco (vedi l'opzione 'Modificare le informazioni sul corso') e resti privo della possibilità di iscrizioni nel tempo in cui viene messo a punto.</p>";
+$_lang['LearningPath'] = "Learning Path";
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Uscita";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Modificare il mio profilo";
+$_lang['MyAgenda'] = "La mia agenda";
+$_lang['MyCourses'] = "I miei corsi";
+$_lang['OtherCourses'] = "Elenco dei corsi";
+$_lang['PeriodDayShort'] = "g.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PlatformAdministration'] = "Amministrazione Claroline";
+$_lang['PoweredBy'] = "Supportato da";
+$_lang['SecondShort'] = "sec.";
+$_lang['Student'] = "Studenti";
+$_lang['SwitchEditorToTextConfirm'] = "Questo comando andrà a rimuovere il corrente layout del testo. Vuoi continuare ?";
+$_lang['TextEditorDisable'] = "Disabilita editor di testo";
+$_lang['TextEditorEnable'] = "Abilita editor di testo";
+$_lang['UserContent'] = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano informatico, non danno diritti diversi di amministrazione del sistema. Potete modificarli cliccando su 'modificare' sotto 'Ruolo' e scrivendo per esteso la descrizione della funzione adatta (docente, assistente, tutor, visitatore, esperto, moderatore...) come indicazione del ruolo svolto dalle singole persone nel corso.</P><hr />
 <b>Diritti di amministrazione</b>
 <p>Al contrario, i diritti di amministrazione hanno una funzione informatica. Per è possibile scegliere tra &quot;tutti&quot; (modificare, rimuovere, aggiungere ogni cosa) e &quot;nessuno&quot; (salvo il diritto di visitare il sito, pubblicare messaggi nei Forum e trasmettere contributi alla pagina 'Contributi').</P>
 <p>Per permettere a un contitolare, a un assistente, a un tutor o altra persona di amministrare il sito assieme a Voi, dovrete prima iscriverlo al corso o assicurarvi che sia iscritto e in seguito modificare i suoi diritti tramite l'opzione 'modificare' sotto 'Amministrazione' scegliendo l'opzione 'tutti'.</P><hr />
@@ -290,11 +287,11 @@ $langUserContent = "<b>Ruoli</b><p>I ruoli non hanno alcuna funzione sul piano i
 <p>Per far comparire il nome di un contitolare nell'intestazione del corso utilizzate la pagina 'Modificare le informazioni sul corso' (strumenti in arancione).La modifica dell'intestazione non iscrive automaticamente il contitolare come utente del cors: si tratta di due azioni distinte..</p>
 <hr /><b>Aggiungere un utente</b>
 <p>Per aggiungere un utente al corso, verificare innanzitutto che sia iscritto sul campus utilizzando il motore di ricerca.  Se lo è, marcate la casella che compare a fianco del suo nome e confermate. Se non è iscritto, aggiungerlo alla pagina principale. In entrambi i casi la persona riceverà una email di conferma dell'avvenuta iscrizione contenente il suo nome e la sua password, a meno che voi non abbiate indicato l'indirizzo email.</p>";
-$langUsers = "Utenti";
-$langViewMode = "Vista";
-$langWiki = "Wiki";
-$langWork = "Lavori";
-$lang_enroll = "Iscriviti";
-$lang_footer_p_CourseManager = "Manager(s) di %s";
-$lang_p_platformManager = "Amministratore di %s";
+$_lang['Users'] = "Utenti";
+$_lang['ViewMode'] = "Vista";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Lavori";
+$_lang['_enroll'] = "Iscriviti";
+$_lang['_footer_p_CourseManager'] = "Manager(s) di %s";
+$_lang['_p_platformManager'] = "Amministratore di %s";
 ?>

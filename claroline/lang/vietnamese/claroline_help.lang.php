@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda (Lịch công tác)";
-$langAnnouncement = "Thông báo";
-$langChat = "Thảo luận";
-$langClarContent = "Here, professors and assistants create and administer
+$_lang['Agenda'] = "Agenda (Lịch công tác)";
+$_lang['Announcement'] = "Thông báo";
+$_lang['Chat'] = "Thảo luận";
+$_lang['ClarContent'] = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,
  sometimes, make exercises, publish papers, participate to
  forum discussions...</p><b>Registration</b><p>The following instructions
@@ -24,10 +24,9 @@ post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is";
-$langCourseManager = "Quản lý khoá họcr";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Mô tả khoá học";
-$langDocContent = "<p>The Documents tool is similar to the FileManager of
+$_lang['CourseManager'] = "Quản lý khoá họcr";
+$_lang['DescriptionCours'] = "Mô tả khoá học";
+$_lang['DocContent'] = "<p>The Documents tool is similar to the FileManager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
  must be that your students have the corresponding software to read them.
@@ -145,8 +144,8 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		</ul>
 <center>
 <p>";
-$langDocument = "Tài liệu";
-$langExerciseContent = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br /><br />
+$_lang['Document'] = "Tài liệu";
+$_lang['ExerciseContent'] = "<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br /><br />
 There are various types of answers available for the creation of your questions :<br /><br />
 <ul>
   <li>Multiple choice (Unique answer)</li>
@@ -216,8 +215,8 @@ If you have got a big number of questions, you can also choose to randomly draw 
 The question pool also allows to reuse a same questions into several exercises.<br /><br />
 By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br /><br />
 Orphan questions are questions that don't belong to any exercise.</p>";
-$langExercises = "Bài tập";
-$langForContent = "The forum is a written and asynchronous discussion tool.
+$_lang['Exercises'] = "Bài tập";
+$_lang['ForContent'] = "The forum is a written and asynchronous discussion tool.
  Where email allows one-to-one dialogue, forums allow public or semi-public
  dialogue.</p><p>Technically speaking, the students need only their
  browser to use claroline forums.</P><p>To organise forums, click on
@@ -233,8 +232,8 @@ $langForContent = "The forum is a written and asynchronous discussion tool.
  forums, and don't forget that an empty category (without forums) does not
  appear on the student view.</p><p>The description of a forum can be the
  list of its members, the definition of a goal, a task, a theme...";
-$langForums = "Diễn đàn";
-$langGroupContent = "<p><b>Introduction</b></p>
+$_lang['Forums'] = "Diễn đàn";
+$_lang['GroupContent'] = "<p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups.
 At creation (Create groups), groups are emtpy. There are
 many ways to fill them:
@@ -271,16 +270,16 @@ with a series of informations and functions
 members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Nhóm";
-$langHClar = "Start Help";
-$langHDoc = "Help Documents";
-$langHExercise = "Help exercises";
-$langHFor = "Help Forums";
-$langHHome = "Help Home Page";
-$langHUser = "Help Users";
-$langHelp = "Help";
-$langHelpGroups = "Help groups";
-$langHomeContent = "For more convenience, claroline tools contain default entries.
+$_lang['Groups'] = "Nhóm";
+$_lang['HClar'] = "Start Help";
+$_lang['HDoc'] = "Help Documents";
+$_lang['HExercise'] = "Help exercises";
+$_lang['HFor'] = "Help Forums";
+$_lang['HHome'] = "Help Home Page";
+$_lang['HUser'] = "Help Users";
+$_lang['Help'] = "Help";
+$_lang['HelpGroups'] = "Help groups";
+$_lang['HomeContent'] = "For more convenience, claroline tools contain default entries.
  There is a small example in every tool to help you grasp quickly how it
  works. It is up to you to modify the example or to delete it.</p><p>For
  instance, here on the Home Page of your course website,there is a small
@@ -305,16 +304,14 @@ $langHomeContent = "For more convenience, claroline tools contain default entrie
  deactivated, but not deleted.</p><p>Once your course website is ready, go
  to 'Modify course info' and decide what level of confidentiality you want.
  By default, your course is hidden (because you work on it).</p>";
-$langLogin = "login";
-$langLogout = "Logout";
-$langModifyProfile = "Sửa thông tin cá nhân";
-$langMonthNames = "Array";
-$langMyCourses = "Danh mục khoá học";
-$langNameOfLang = "Array";
-$langOtherCourses = "Danh mục khoá học";
-$langPoweredBy = "Powered by";
-$langStudent = "học sinh";
-$langUserContent = "<b>Roles</b><p>Roles have no computer related function.
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Logout";
+$_lang['ModifyProfile'] = "Sửa thông tin cá nhân";
+$_lang['MyCourses'] = "Danh mục khoá học";
+$_lang['OtherCourses'] = "Danh mục khoá học";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['Student'] = "học sinh";
+$_lang['UserContent'] = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
@@ -337,7 +334,7 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
-$langUsers = "Users";
-$langWork = "Công việc";
-$lang_enroll = "Tham gia";
+$_lang['Users'] = "Users";
+$_lang['Work'] = "Công việc";
+$_lang['_enroll'] = "Tham gia";
 ?>

@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Gündem";
-$langAnnouncement = "Duyurular";
-$langChat = "Tartýþma";
-$langClarContent = "Here, professors and assistants create and administer
+$_lang['Agenda'] = "Gündem";
+$_lang['Announcement'] = "Duyurular";
+$_lang['Chat'] = "Tartýþma";
+$_lang['ClarContent'] = "Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and, 
  sometimes, make exercices, publish papers, participate to
  forum discussions...</p><b>Registration</b><p>The following instructions
@@ -24,9 +24,8 @@ post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Ders açýklamasý";
-$langDocContent = "<p>The Documents tool is similar to the FileManager of
+$_lang['DescriptionCours'] = "Ders açýklamasý";
+$_lang['DocContent'] = "<p>The Documents tool is similar to the FileManager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
  must be that your students have the corresponding software to read them.
@@ -144,9 +143,9 @@ $langDocContent = "<p>The Documents tool is similar to the FileManager of
 		</ul>
 <center>
 <p>";
-$langDocument = "Belgeler";
-$langExercises = "Alýþtýrmalar";
-$langForContent = "The forum is a written and asynchronous discussion tool.
+$_lang['Document'] = "Belgeler";
+$_lang['Exercises'] = "Alýþtýrmalar";
+$_lang['ForContent'] = "The forum is a written and asynchronous discussion tool.
  Where email allows one-to-one dialogue, forums allow public or semi-public 
  dialogue.</p><p>Technically speaking, the students need only their
  browser to use claroline forums.</P><p>To organise forums, click on
@@ -162,8 +161,8 @@ $langForContent = "The forum is a written and asynchronous discussion tool.
  forums, and don't forget that an empty category (without forums) does not
  appear on the student view.</p><p>The description of a forum can be the
  list of its members, the definition of a goal, a task, a theme...";
-$langForums = "Forumlar";
-$langGroupContent = "<p><b>Introduction</b></p>
+$_lang['Forums'] = "Forumlar";
+$_lang['GroupContent'] = "<p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups. 
 At creation (Create groups), groups are emtpy. There are 
 many ways to fill them:
@@ -200,15 +199,15 @@ with a series of informations and functions
 members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Gruplar";
-$langHClar = "Start Help";
-$langHDoc = "Help Documents";
-$langHFor = "Help Forums";
-$langHHome = "Help Home Page";
-$langHUser = "Help Users";
-$langHelp = "Yardým";
-$langHelpGroups = "Help groups";
-$langHomeContent = "For more convenience, claroline tools contain default entries.
+$_lang['Groups'] = "Gruplar";
+$_lang['HClar'] = "Start Help";
+$_lang['HDoc'] = "Help Documents";
+$_lang['HFor'] = "Help Forums";
+$_lang['HHome'] = "Help Home Page";
+$_lang['HUser'] = "Help Users";
+$_lang['Help'] = "Yardým";
+$_lang['HelpGroups'] = "Help groups";
+$_lang['HomeContent'] = "For more convenience, claroline tools contain default entries.
  There is a small example in every tool to help you grasp quickly how it
  works. It is up to you to modify the example or to delete it.</p><p>For
  instance, here on the Home Page of your course website,there is a small
@@ -233,15 +232,13 @@ $langHomeContent = "For more convenience, claroline tools contain default entrie
  deactivated, but not deleted.</p><p>Once your course website is ready, go
  to 'Modify course info' and decide what level of confidentiality you want.
  By default, your course is hidden (because you work on it).</p>";
-$langLogout = "Çýkýþ";
-$langModifyProfile = "Profilimi deðiþtir";
-$langMonthNames = "Array";
-$langMyCourses = "Derslerim";
-$langNameOfLang = "Array";
-$langOtherCourses = "Ders listesi";
-$langPoweredBy = "Powered by";
-$langStudent = "öðrenci";
-$langUserContent = "<b>Roles</b><p>Roles have no computer related function.
+$_lang['Logout'] = "Çýkýþ";
+$_lang['ModifyProfile'] = "Profilimi deðiþtir";
+$_lang['MyCourses'] = "Derslerim";
+$_lang['OtherCourses'] = "Ders listesi";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['Student'] = "öðrenci";
+$_lang['UserContent'] = "<b>Roles</b><p>Roles have no computer related function.
  They do not give rights on operating the system. They just indicate to
  Humans, who is who. You can modify them by clicking on 'modify' under
  'role', then typing whatever you want: professor, assistant, student,
@@ -264,6 +261,6 @@ $langUserContent = "<b>Roles</b><p>Roles have no computer related function.
 <p>To add a user for your course, fill the fields and validate. The person
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>";
-$langUsers = "Kullanýcýlar";
-$langWork = "Öðrenci Yazýlarý";
+$_lang['Users'] = "Kullanýcýlar";
+$_lang['Work'] = "Öðrenci Yazýlarý";
 ?>

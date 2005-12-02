@@ -1,19 +1,19 @@
 <?php
-$langDate = "Дата";
-$langDocumentInModule = "Документ в модула";
-$langErrorCopyAttachedFile = "Не мога да копирам файла : ";
-$langErrorCreatingDirectory = "Не мога да създам директория : ";
-$langErrorCreatingFile = "Не мога да създам файл : ";
-$langErrorCreatingFrame = "Не мога да създам рамков файл";
-$langErrorLoadingExercise = "Не мога да заредя упражнение";
-$langErrorLoadingQuestion = "Не мога да заредя въпрос от упражнението";
-$langExerciseInModule = "Упражнение в модула";
-$langFileName = "Име на файл";
-$langLearningPathEmpty = "Обучаваща пътека е празна";
-$langLearningPathNotFound = "Обучаваща пътека не е намерена";
-$langModify = "Промени";
-$langOk = "ОК";
-$langQuestion = "Въпрос";
-$langScore = "Оценка";
-$langSize = "Размер";
+$_lang['Date'] = "Дата";
+$_lang['DocumentInModule'] = "Документ в модула";
+$_lang['ErrorCopyAttachedFile'] = "Не мога да копирам файла : ";
+$_lang['ErrorCreatingDirectory'] = "Не мога да създам директория : ";
+$_lang['ErrorCreatingFile'] = "Не мога да създам файл : ";
+$_lang['ErrorCreatingFrame'] = "Не мога да създам рамков файл";
+$_lang['ErrorLoadingExercise'] = "Не мога да заредя упражнение";
+$_lang['ErrorLoadingQuestion'] = "Не мога да заредя въпрос от упражнението";
+$_lang['ExerciseInModule'] = "Упражнение в модула";
+$_lang['FileName'] = "Име на файл";
+$_lang['LearningPathEmpty'] = "Обучаваща пътека е празна";
+$_lang['LearningPathNotFound'] = "Обучаваща пътека не е намерена";
+$_lang['Modify'] = "Промени";
+$_lang['Ok'] = "ОК";
+$_lang['Question'] = "Въпрос";
+$_lang['Score'] = "Оценка";
+$_lang['Size'] = "Размер";
 ?>

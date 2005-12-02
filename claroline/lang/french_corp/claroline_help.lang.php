@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Annonces";
-$langChat = "Discussion";
-$langClarContent = "<br /><p><b>Utilisateur</b></p>
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Annonces";
+$_lang['Chat'] = "Discussion";
+$_lang['ClarContent'] = "<br /><p><b>Utilisateur</b></p>
 <p>
 Pour visiter les espaces accessibles depuis la page d'accueil du campus,
 il suffit de cliquer sur le code de l&acute;espace dans la liste, sans inscription préalable.</p>
@@ -26,13 +26,12 @@ d'utilisateur et le mot de passe que vous devrez taper lors de votre prochaine v
 virtuel. Vous pouvez aussi publier un message sur le forum de support de <a
 href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>";
-$langCloseWindow = "Fermer la fenêtre";
-$langConfigMenuContent = "Menu de configuration";
-$langCourseHome = "Accueil";
-$langCourseManager = "gestionnaire de l&acute;espace";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Description de l&acute;espace";
-$langDocContent = "<p>Le module de gestion de document fonctionne de
+$_lang['CloseWindow'] = "Fermer la fenêtre";
+$_lang['ConfigMenuContent'] = "Menu de configuration";
+$_lang['CourseHome'] = "Accueil";
+$_lang['CourseManager'] = "gestionnaire de l&acute;espace";
+$_lang['DescriptionCours'] = "Description de l&acute;espace";
+$_lang['DocContent'] = "<p>Le module de gestion de document fonctionne de
  manière semblable à la gestion de vos documents sur un
  ordinateur. </p><p>Vous pouvez y déposer des documents de tout type
  (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Soyez
@@ -225,8 +224,8 @@ Validate by clicking on the 'OK' button.
 </ul>
 <center>
 <p>";
-$langDocument = "Documents et liens";
-$langExerciseContent = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre
+$_lang['Document'] = "Documents et liens";
+$_lang['ExerciseContent'] = "<p>Le module d'exercice vous permet de créer des exercices pouvant contenir un nombre
 quelconque de questions.<br /><br />
 Il existe différents types de réponses disponibles pour la création de vos questions :<br /><br />
 <ul>
@@ -329,8 +328,8 @@ Par défaut, toutes les questions de votre espace sont affichées. Vous pouvez aff
 questions relatives à un exercice en particulier, en choisissant celui-ci dans le menu déroulant
 'Filtre'.<br /><br />
 Des questions orphelines sont des questions n'appartenant à aucun exercice.</p>";
-$langExercises = "Exercices";
-$langForContent = "Le forum est un outil de discussion asynchrone par écrit.
+$_lang['Exercises'] = "Exercices";
+$_lang['ForContent'] = "Le forum est un outil de discussion asynchrone par écrit.
  A la différence de l&acute;email, le forum situe la discussion dans un espace
  public ou semi-public (à plusieurs).</p><p>Pour utiliser l&acute;outil de forum
  de iCampus, les cadres n'ont besoin que d'un simple navigateur web
@@ -354,8 +353,8 @@ $langForContent = "Le forum est un outil de discussion asynchrone par écrit.
  ce soit, un forum 'Appels à l&acute;aide', vous pouvez y ajouter comme
  description: 'Signaler des difficultés par rapport au contenu ou par
  rapport au dispositif'.";
-$langForums = "Forums";
-$langGroupContent = "<p><b>Introduction</b></p>
+$_lang['Forums'] = "Forums";
+$_lang['GroupContent'] = "<p><b>Introduction</b></p>
 	<p>Cet outil permet de créer et de gérer des groupes de travail.
 	A la création, les groupes sont vides. Le modérateur dispose de
 	plusieurs façons de les remplir:
@@ -393,16 +392,16 @@ $langGroupContent = "<p><b>Introduction</b></p>
 	et de fonctions. <ul><li><b>Editer</b> permet de modifier manuellement la composition du groupe.</li>
 	<li><b>Supprimer</b> détruit un groupe.</li></ul>
 	<hr noshade size=1>";
-$langGroups = "Groupes";
-$langHClar = "Aide au démarrage";
-$langHDoc = "Aide documents";
-$langHExercise = "Aide exercices";
-$langHFor = "Aide forums";
-$langHHome = "Aide Page d'accueil";
-$langHUser = "Aide utilisateurs";
-$langHelp = "aide";
-$langHelpAssignment = "Aide aux soumissions";
-$langHelpAssignmentContent = "<p>L'outil de soumissions  permet aux utilisateurs de poster des fichiers qu'ils pensent pouvoir être intéressants pour les autres utilisateurs, ou lorsque le responsable de l'espace leur a demandé de lui envoyer un fichier.  En effet, cet outil peut être utilisé de différentes manières, selon la façon dont le responsable  l'a configuré.
+$_lang['Groups'] = "Groupes";
+$_lang['HClar'] = "Aide au démarrage";
+$_lang['HDoc'] = "Aide documents";
+$_lang['HExercise'] = "Aide exercices";
+$_lang['HFor'] = "Aide forums";
+$_lang['HHome'] = "Aide Page d'accueil";
+$_lang['HUser'] = "Aide utilisateurs";
+$_lang['Help'] = "aide";
+$_lang['HelpAssignment'] = "Aide aux soumissions";
+$_lang['HelpAssignmentContent'] = "<p>L'outil de soumissions  permet aux utilisateurs de poster des fichiers qu'ils pensent pouvoir être intéressants pour les autres utilisateurs, ou lorsque le responsable de l'espace leur a demandé de lui envoyer un fichier.  En effet, cet outil peut être utilisé de différentes manières, selon la façon dont le responsable  l'a configuré.
 </p><p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes.  Un travail peut être un fichier, un texte ou un texte accompagné d'un fichier.  Un travail peut également être posté à titre individuel ou au nom d'un groupe d'utilisateurs.
 </p>
 
@@ -453,8 +452,8 @@ $langHelpAssignmentContent = "<p>L'outil de soumissions  permet aux utilisateurs
 </li><li> <strong>Invisible</strong>&nbsp;: si cette icone apparait cela signifie que la soumission est masquée à toutes les personnes qui ont accès au cours, la soumission n'est alors visible que pour tous les utilisateurs à l'exception des responsables de cours et de l'utilisateur ou du groupe propriétaire de la soumission.
 </li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au responsable de cours de soumettre une correction individuelle à l'auteur de la soumission.  En plus d'un fichier et/ou d'un texte cette correction peut être accompagné d'un pourcentage et d'un commentaire que seuls les responsables de cours pourront voir.
 </li></ul>";
-$langHelpGroups = "Gestion des groupes";
-$langHomeContent = "La plupart des rubriques du Campus des Cadres sont déjà remplies
+$_lang['HelpGroups'] = "Gestion des groupes";
+$_lang['HomeContent'] = "La plupart des rubriques du Campus des Cadres sont déjà remplies
  d'un petit texte ou d'un lien donnés par défaut ou pour l&acute;exemple. Il vous
  revient de les modifier.</p><p>Ainsi un petit texte est là, bien visible,
  en en-tête de votre espace. Il commence par 'Ceci est le texte
@@ -475,24 +474,22 @@ $langHomeContent = "La plupart des rubriques du Campus des Cadres sont déjà remp
  souhaitable qu'un espace à l&acute;essai ou 'en chantier' n'apparaisse pas dans
  la liste (voir la fonction 'Propriétés de l&acute;espace') et demeure privé sans
  possibilité d'inscription le temps de sa conception.</p>";
-$langLearningPath = "Parcours";
-$langLogin = "login";
-$langLogout = "Quitter";
-$langMinuteShort = "min.";
-$langModifyProfile = "Modifier mon profil";
-$langMonthNames = "Array";
-$langMyAgenda = "Mon agenda";
-$langMyCourses = "Liste de mes espaces";
-$langNameOfLang = "Array";
-$langOtherCourses = "Liste des espaces";
-$langPlatformAdministration = "Administration";
-$langPoweredBy = "Utilise la plate-forme";
-$langSecondShort = "sec.";
-$langStudent = "participant";
-$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
-$langTextEditorDisable = "Désactiver l'éditeur de texte";
-$langTextEditorEnable = "Activer l'éditeur de texte";
-$langUserContent = "<b>Droits d'administration</b>
+$_lang['LearningPath'] = "Parcours";
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Quitter";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Modifier mon profil";
+$_lang['MyAgenda'] = "Mon agenda";
+$_lang['MyCourses'] = "Liste de mes espaces";
+$_lang['OtherCourses'] = "Liste des espaces";
+$_lang['PlatformAdministration'] = "Administration";
+$_lang['PoweredBy'] = "Utilise la plate-forme";
+$_lang['SecondShort'] = "sec.";
+$_lang['Student'] = "participant";
+$_lang['SwitchEditorToTextConfirm'] = "Cette commande supprimera la mise en page actuelle du texte.  Etes-vous certain de vouloir continuer ?";
+$_lang['TextEditorDisable'] = "Désactiver l'éditeur de texte";
+$_lang['TextEditorEnable'] = "Activer l'éditeur de texte";
+$_lang['UserContent'] = "<b>Droits d'administration</b>
 <p>Pour permettre à un co-modérateur ou qui que ce
  soit de co-administrer l&acute;espace avec vous, vous devez préalablement
  l&acute;inscrire à votre espace ou vous assurer qu'il est inscrit puis modifier
@@ -509,11 +506,11 @@ $langUserContent = "<b>Droits d'administration</b>
 et validez. La personne recevra un courriel de confirmation de son
 inscription contenant son nom d'utilisateur et son mot de passe, sauf si
 vous n'avez pas introduit son email.</p>";
-$langUsers = "Utilisateurs";
-$langViewMode = "Mode de vue";
-$langWiki = "Wiki";
-$langWork = "Contributions";
-$lang_enroll = "Inscription";
-$lang_footer_p_CourseManager = "Gestionnaire(s) de l&acute;espace %s";
-$lang_p_platformManager = "Administrateur %s";
+$_lang['Users'] = "Utilisateurs";
+$_lang['ViewMode'] = "Mode de vue";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Contributions";
+$_lang['_enroll'] = "Inscription";
+$_lang['_footer_p_CourseManager'] = "Gestionnaire(s) de l&acute;espace %s";
+$_lang['_p_platformManager'] = "Administrateur %s";
 ?>

@@ -1,8 +1,7 @@
 <?php
-$langAgenda = "Esityslista";
-$langAnnouncement = "Ilmoitukset";
-$langDay_of_weekNames = "Array";
-$langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietokoneen tiedostonhallinta.</p>
+$_lang['Agenda'] = "Esityslista";
+$_lang['Announcement'] = "Ilmoitukset";
+$_lang['DocContent'] = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietokoneen tiedostonhallinta.</p>
 <p>Voit lisätä minkälaisia tiedostoja tahansa (.html, .doc, .sxw, .pdf, .swf, .mov ja niin edelleen). Sinun pitää vain huolehtia, että opiskelijoilla on oikeat ohjelmat, joilla he voivat käsitellä tiedostoja. Sinun pitää huolehtia myös mahdollisesta virus-vaarasta.</p>
 <p>Dokumentit näyttään aakkosjärjestyksessä.<br />
 <b>Vinkki: </b>Jos haluat esittää tiedostot toisella tavalla, numeroi ne: 01, 02, 03 ja niin edelleen</p>
@@ -51,9 +50,9 @@ $langDocContent = "<p>Työkalu dokumentteja varten on samankaltainen kuin tietoko
    <li>Hyväksy klikkaamalla <input type=submit value=OK name=submit232>.</li>
 </ul>
 <p>";
-$langDocument = "Dokumentit";
-$langExercises = "Harjoitukset";
-$langForContent = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja ajasta riippumatonta. Sähköposti on kahden henkilön välistä keskustelua, sitä vastoin foorumi mahdollistaa julkisen tai puolijulkisen keskustelun.</p>
+$_lang['Document'] = "Dokumentit";
+$_lang['Exercises'] = "Harjoitukset";
+$_lang['ForContent'] = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja ajasta riippumatonta. Sähköposti on kahden henkilön välistä keskustelua, sitä vastoin foorumi mahdollistaa julkisen tai puolijulkisen keskustelun.</p>
 <p>Teknisestä näkökulmasta katsoen oppilaat tarvitsevat vain selaimen osallistuakseen Clarolinen foorumeihin.<p>
 <p>Voit organisoida foorumin, klikkaa ylläpito-työkalua. Keskustelut on organisoitu sarjaksi seuraavalla tavalla:</p>
 <p><b>Kategoria > Foorumi > Aihe > Vastaukset</b></p>
@@ -62,26 +61,24 @@ $langForContent = "<p>Foorumi on työkalu keskustelua varten, kirjoitettua ja aja
 <p>Sinun täytyy ensiksi poistaa esimerkkiaihe ja muokata ensimmäisen foorumin nimeä. Sitten voit luoda 'julkiseen' kategoriaan muita foorumeita, ryhmittäin tai teemoittain. Tämä riippuu omista näkemyksistäsi opetuksen suhteen.</p>
 <p>Älä sekoita kategorioita ja foorumeita. Tyhjä kategoria ilman foorumeita ei näy opiskelijoille.</p>
 <p>Kuvaus foorumista voi olla lista sen jäsenistä, määritys tavoitteista kurssilla, tehtävä, teema ja niin edelleen.</p>";
-$langForums = "Foorumit";
-$langHClar = "Apua - Claroline";
-$langHDoc = "Apua - Dokumentit";
-$langHFor = "Apua - foorumit";
-$langHHome = "Apua - Kotisivu";
-$langHUser = "Apua - Käyttäjä";
-$langHelp = "Apua";
-$langHomeContent = "<p>Mukavuuden vuoksi Claroline-työkalut eivät ilmesty tyhjinä. Jokaisen työkalun mukana pieni esimerkki, joka auttaa sinut nopeasti alkuun. Voit joko poistaa esiemrkin tai muokata sitä.</p>
+$_lang['Forums'] = "Foorumit";
+$_lang['HClar'] = "Apua - Claroline";
+$_lang['HDoc'] = "Apua - Dokumentit";
+$_lang['HFor'] = "Apua - foorumit";
+$_lang['HHome'] = "Apua - Kotisivu";
+$_lang['HUser'] = "Apua - Käyttäjä";
+$_lang['Help'] = "Apua";
+$_lang['HomeContent'] = "<p>Mukavuuden vuoksi Claroline-työkalut eivät ilmesty tyhjinä. Jokaisen työkalun mukana pieni esimerkki, joka auttaa sinut nopeasti alkuun. Voit joko poistaa esiemrkin tai muokata sitä.</p>
 <p>Esimerkiksi kurssin sivuston kotisivulla on lyhyt johdanto, jossa kerrotaan miten tekstiä voidaan muokata. Klikkaa muokkausta, muokkaa tekstiä ja vahvista teksti, niin yksinkertaista se on. Kaikissa työkaluissa on sama logiikka: lisää, poista, muokkaa. Näin dynaamiset sivustot toimivat.</p>
 <p>Kun luot kurssin sivuston, useimmat työkaluista ovat toiminnassa. Jos haluat poistaa toimintoja sivustolta, niin klikkaa 'toimimaton'. Silloin toiminto näkyy sivuston harmaassa osassa. Toiminto ei näy opiskelijoille, mutta voit saada toiminnon takaisin milloin tahansa.</p>
 <p>Voit lisätä omia sivuja kotisivulle. Näiden sivujen tulee olla HTML-muotoisia. Voit luoda tällaisia sivuja millä tahansa tekstinkäsittely-ohjelmalla tai selainten sivunteko-ohjelmilla. Käytä 'lisää sivu ja linkki kotisivulle'-toimintoa lisätäksesi sivun palvelimelle. Uuden dokumentin otsikoksi tulee sama kuin sivuston, voit keskittyä sivun sisältöön. Jos haluat linkittää minkä tahansa sivun missä tahansa käytä 'lisää linkki kotisivulle'-toimintoa. Voit poistaa sivuja, työkaluja voit tehdä vain toimimattomaksi.</p>
 <p>Kun kurssin sivusto on valmis, käytä 'Muokkaa kurssin tietoja'-toimintaa ja päätä minkä tasoista luottamuksellisuutta haluat. Oletuksena kurssi on piilossa (koska työskentelet siinä).</p>";
-$langLogout = "Logout";
-$langModifyProfile = "Muokkaa profiiliani";
-$langMonthNames = "Array";
-$langMyCourses = "Kurssini";
-$langNameOfLang = "Array";
-$langPoweredBy = "Alusta";
-$langStudent = "Opiskelija";
-$langUserContent = "<p><b>Roolit</b></p>
+$_lang['Logout'] = "Logout";
+$_lang['ModifyProfile'] = "Muokkaa profiiliani";
+$_lang['MyCourses'] = "Kurssini";
+$_lang['PoweredBy'] = "Alusta";
+$_lang['Student'] = "Opiskelija";
+$_lang['UserContent'] = "<p><b>Roolit</b></p>
 <p>Rooleilla ei ole mitään tekemistä tietokoneiden kanssa. Ne eivät anna oikeuksia järjestelmän suhteen. Ne tarkoittavat vain ihmisiä, kuka kukin on. Voit muokata niitä klikkamalla 'Muokkaa' 'roolin' alla. Voit kirjoittaa mitä tahansa rooliksi: opettaja, assistentti, vierailija, asiantuntija ja niin edelleen.</p>
 <hr />
 <p><b>Ylläpito-oikeudet</b></p>
@@ -95,6 +92,6 @@ ja sitten vielä 'ok'.</p>
 <hr />
 <p><b>Lisää käyttäjä</b></p>
 <p>Jos haluat lisätä oppilaita kurssillesi, niin tarkista että ovatko he rekisteröityneet. Jos oppilas on jo rekisteröitynyt, niin tarkista laatikko hänen nimensä vieressä ja klikkaa 'Ok'. Jos hän ei ole rekisteröitynyt, niin lisää hänet käsin. Kummassakin tapauksessa, henkilö saa sähköpostiviestin, jossa kerrotaan, että olet rekisteröinyt hänet. Lisäksi hän saa tai hänelle muistutetaan tunnuksesta ja salasanasta.</p>";
-$langUsers = "Käyttäjät";
-$langWork = "Opiskelijoiden tehtävät";
+$_lang['Users'] = "Käyttäjät";
+$_lang['Work'] = "Opiskelijoiden tehtävät";
 ?>

@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Kalenderen - Hvad sker der?";
-$langAnnouncement = "Meddelelser";
-$langChat = "Chat";
-$langClarContent = "Her kan undervisere og assistenter oprette og administrere
+$_lang['Agenda'] = "Kalenderen - Hvad sker der?";
+$_lang['Announcement'] = "Meddelelser";
+$_lang['Chat'] = "Chat";
+$_lang['ClarContent'] = "Her kan undervisere og assistenter oprette og administrere
 kursushjemmesider. De studerende læser (dokumenter, kalender, informationer) og sommetider 
 udfører de øvelser, lægger opgavebesvarelser ud, deltager i diskussionsforum
 ...</p><b>Registrering</b><p>Hvis du er studerende, skal du
@@ -21,10 +21,9 @@ sende dit spørgsmål ind her.</p>
 <p>Linket til registrering finder du på forsiden til Claroline 
 (øverst til højre).</p><b>Login</b><p>Ved dit næste besøg, skriv brugernavn og adgangskode 
 (husk de er <i>case sensitive</i>) og tryk ok for at komme ind på dine kurser.";
-$langCourseManager = "Kursusadministrator";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "kursusbeskrivelse";
-$langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
+$_lang['CourseManager'] = "Kursusadministrator";
+$_lang['DescriptionCours'] = "kursusbeskrivelse";
+$_lang['DocContent'] = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 </p><p>Du kan lægge alle slags filer ud (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Det eneste du skal være 
  opnærksom på er, om dine studerende har programmer til at åbne dem med.
@@ -141,8 +140,8 @@ $langDocContent = "<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 		</ul>
 <center>
 <p>";
-$langDocument = "Dokumenter";
-$langExerciseContent = "<p>Øvelsesværktøjet tillader dig at oprette øvelser med lige så mange spørgsmål, som du ønker.<br /><br />
+$_lang['Document'] = "Dokumenter";
+$_lang['ExerciseContent'] = "<p>Øvelsesværktøjet tillader dig at oprette øvelser med lige så mange spørgsmål, som du ønker.<br /><br />
 Værktøjet giver dig mulighed for at oprette forskellige svartyper på dine spørgsmål :<br /><br />
 <ul>
   <li>Multiple choce (et svar)</li>
@@ -212,8 +211,8 @@ Hvis du har mange spørgsmål, kan du også vælge, at kun X antal spørgsmål ud af ø
 Spørgsmålspuljen tillader dig også at anvende det samme spørgsmål i flere øvelser<br /><br />
 Som standardindstilling, vises alle spørgsmål til kurset. Du kan vise spørgsmålene til en øvelse ved at vældge denne i drop-down menuen &quotFilter&quot;.<br /><br />
 Forældreløse spørgsmål er spørgsmål, som ikke tilhører en bestemt øvelse.</p>";
-$langExercises = "Øvelser";
-$langForContent = "Diskussionsforum er et skriftligt asynkront værktøj, 
+$_lang['Exercises'] = "Øvelser";
+$_lang['ForContent'] = "Diskussionsforum er et skriftligt asynkront værktøj, 
  hvor e-mail giver adgang til en-til-en dialog, der enten har en åben eller
  lukket form. </p><p>Teknisk behøver den studerende kun sin browser for at få adgang til et
  Diskussionsforum.</P><p>For at oprette et Diskussionforum, klik på
@@ -229,8 +228,8 @@ $langForContent = "Diskussionsforum er et skriftligt asynkront værktøj,
  og husk at en tom kategori (uden forum) ikke kan ses af den
  studende.</p><p>Beskrivelsen af et forum kan være deltagerlisten, målformulering, 
  et tema...";
-$langForums = "Diskussionsforum";
-$langGroupContent = "<p><b>Introduktion</b></p>
+$_lang['Forums'] = "Diskussionsforum";
+$_lang['GroupContent'] = "<p><b>Introduktion</b></p>
 <p>Dette værktøj giver dig mulighed for at oprette og styre grupper. 
 Ved oprettelsen ('Opret gruppe'), er grupperne tomme. Der er flere måde at udfylde dem på: 
 <ul><li>automatisk ('Udfyld grupper'),</li>
@@ -262,16 +261,16 @@ med en række informationer og funktioner<ul><li><b>Rediger</b> manuel ændring af
 deltagerliste.</li>
 <li><b>Slet</b> sletter en gruppe.</li></ul>
 <hr noshade size=1>";
-$langGroups = "inscription des utilisateurs dans les groupes";
-$langHClar = "Kom i gang";
-$langHDoc = "Hjælpedokumenter";
-$langHExercise = "Hjælp øvelser";
-$langHFor = "Hjælpeforum";
-$langHHome = "Hjælp til kursushjemmesiden";
-$langHUser = "Brugerhjælp";
-$langHelp = "Hjælp";
-$langHelpGroups = "Gruppehælp";
-$langHomeContent = "For at komme i gang, indeholder værktøjerne i claroline standard opsætninger.
+$_lang['Groups'] = "inscription des utilisateurs dans les groupes";
+$_lang['HClar'] = "Kom i gang";
+$_lang['HDoc'] = "Hjælpedokumenter";
+$_lang['HExercise'] = "Hjælp øvelser";
+$_lang['HFor'] = "Hjælpeforum";
+$_lang['HHome'] = "Hjælp til kursushjemmesiden";
+$_lang['HUser'] = "Brugerhjælp";
+$_lang['Help'] = "Hjælp";
+$_lang['HelpGroups'] = "Gruppehælp";
+$_lang['HomeContent'] = "For at komme i gang, indeholder værktøjerne i claroline standard opsætninger.
  Der er et lille eksempel på indhold i hvert værktøj for at hjælpe dig til hurtigt at forstå,
  hvordan det fungerer. Det er op til dig at ændre eksemplerne eller slette dem.</p><p>For
  eksempel er der her på din kursushjemmeside en lille introduktionstekst: 
@@ -293,16 +292,14 @@ $langHomeContent = "For at komme i gang, indeholder værktøjerne i claroline stan
  gøres passive, men ikke fjernes.</p><p>Når din kursushjemmeside er klar, gå
  til 'Ændre kursusinformation' og beslut hvilket fortrolighedsniveau du ønsker for dit kursus.
  Som standard har dit kursus 'offentlig adgang'.</p>";
-$langLogin = "login";
-$langLogout = "Logud";
-$langModifyProfile = "Ændre min profil";
-$langMonthNames = "Array";
-$langMyCourses = "Mine kurser";
-$langNameOfLang = "Array";
-$langOtherCourses = "Kursusoversigt";
-$langPoweredBy = "Udviklet af";
-$langStudent = "studerende";
-$langUserContent = "<b>Titel</b><p>Titel har ikke noget at gøre med at administrere kurset,
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Logud";
+$_lang['ModifyProfile'] = "Ændre min profil";
+$_lang['MyCourses'] = "Mine kurser";
+$_lang['OtherCourses'] = "Kursusoversigt";
+$_lang['PoweredBy'] = "Udviklet af";
+$_lang['Student'] = "studerende";
+$_lang['UserContent'] = "<b>Titel</b><p>Titel har ikke noget at gøre med at administrere kurset,
  men har udelukkende til formål at præsentere deltagerne for hinanden.
  Du kan ændre titlerne ved at klikke på 'ændre' under
  'titel', og derefter skrive hvad du vil: professor, assistent, studerende,
@@ -321,7 +318,7 @@ $langUserContent = "<b>Titel</b><p>Titel har ikke noget at gøre med at administr
 <p>For at tilføje en deltager på dit kursus, udfyld felterne og udfør ved at klikke 'ok'. Personen
 vil mdotage en e-mail, der fortæller ham/hende, at du har registreret ham/hende og fortæller
 ham/hende eller minder ham/hende om sit login og sin adgangskode.</p>";
-$langUsers = "Deltagerlisten";
-$langWork = "Studerendes Opgaver";
-$lang_enroll = "Tilmeld";
+$_lang['Users'] = "Deltagerlisten";
+$_lang['Work'] = "Studerendes Opgaver";
+$_lang['_enroll'] = "Tilmeld";
 ?>

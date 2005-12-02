@@ -1,8 +1,8 @@
 <?php
-$langDate = "Datum";
-$langModify = "Redigera";
-$langOk = "validate";
-$langQuestion = "Fråga";
-$langScore = "poäng";
-$langSize = "Storlek";
+$_lang['Date'] = "Datum";
+$_lang['Modify'] = "Redigera";
+$_lang['Ok'] = "validate";
+$_lang['Question'] = "Fråga";
+$_lang['Score'] = "poäng";
+$_lang['Size'] = "Storlek";
 ?>

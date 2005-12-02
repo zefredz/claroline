@@ -1,29 +1,26 @@
 <?php
-$langAgenda = "Календарь";
-$langAnnouncement = "Объявления";
-$langChat = "Чат";
-$langCourseManager = "Менеджер курса";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Описание курса";
-$langDocument = "Документ";
-$langEmpty = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
+$_lang['Agenda'] = "Календарь";
+$_lang['Announcement'] = "Объявления";
+$_lang['Chat'] = "Чат";
+$_lang['CourseManager'] = "Менеджер курса";
+$_lang['DescriptionCours'] = "Описание курса";
+$_lang['Document'] = "Документ";
+$_lang['Empty'] = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
 <br />
  йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
 <br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
-$langForums = "Форумы";
-$langGroups = "запись пользователей в группы";
-$langHelp = "рПНПЭШ";
-$langLogin = "Вход, логин";
-$langLogout = "Выйти";
-$langModifyProfile = "Изменить мои настройки";
-$langMonthNames = "Array";
-$langMyCourses = "Список моих курсов";
-$langNameOfLang = "Array";
-$langNotAllowed = "Вы не зарегистрированы как ответственный за курс";
-$langOtherCourses = "Список курсов";
-$langPoweredBy = "использует оболочку";
-$langStudent = "студент";
-$langUsers = "Пользователи";
-$langWork = "Задания";
-$lang_enroll = "Регистрация";
+$_lang['Forums'] = "Форумы";
+$_lang['Groups'] = "запись пользователей в группы";
+$_lang['Help'] = "рПНПЭШ";
+$_lang['Login'] = "Вход, логин";
+$_lang['Logout'] = "Выйти";
+$_lang['ModifyProfile'] = "Изменить мои настройки";
+$_lang['MyCourses'] = "Список моих курсов";
+$_lang['NotAllowed'] = "Вы не зарегистрированы как ответственный за курс";
+$_lang['OtherCourses'] = "Список курсов";
+$_lang['PoweredBy'] = "использует оболочку";
+$_lang['Student'] = "студент";
+$_lang['Users'] = "Пользователи";
+$_lang['Work'] = "Задания";
+$_lang['_enroll'] = "Регистрация";
 ?>

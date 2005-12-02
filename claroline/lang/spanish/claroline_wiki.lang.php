@@ -1,97 +1,94 @@
 <?php
-$langAction = "Acci&oacute;n";
-$langAddImage = "Incluir foto";
-$langAddress = "La direcci&oacute;n de";
-$langAdministrator = "Administrador";
-$langAgenda = "Agenda";
-$langAnnouncement = "Anuncios";
-$langCancel = "Cancelar";
-$langChangePwdexp = "Escribe la nueva contrase&ntilde;a dos veces para cambiarla, dejala en blanco para conservar la actual";
-$langChat = "Debate";
-$langCloseWindow = "Cerrar ventana";
-$langCodeUsed = "Este c&oacute;digo oficial ya se le ha asignado a otro usuario.";
-$langConfirmation = "confirmaci&oacute;n";
-$langContinue = "Continuar";
-$langCourseHome = "P&aacute;gina de inicio del curso";
-$langCourseManager = "Responsable del curso";
-$langCreate = "crear";
-$langDay_of_weekNames = "Array";
-$langDear = "Estimado(a)";
-$langDelImage = "Eliminar la im&aacute;gen";
-$langDelete = "Borrar";
-$langDescriptionCours = "Descripci&oacute;n del curso";
-$langDocument = "Documentos";
-$langEdit = "Modificar";
-$langEmail = "Correo electr&oacute;nico";
-$langEmailWrong = "La direcci&oacute;n de correo electr&oacute;nico no es v&aacute;lida";
-$langEmptyFields = "No ha llenado todos los campos.
+$_lang['Action'] = "Acci&oacute;n";
+$_lang['AddImage'] = "Incluir foto";
+$_lang['Address'] = "La direcci&oacute;n de";
+$_lang['Administrator'] = "Administrador";
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Anuncios";
+$_lang['Cancel'] = "Cancelar";
+$_lang['ChangePwdexp'] = "Escribe la nueva contrase&ntilde;a dos veces para cambiarla, dejala en blanco para conservar la actual";
+$_lang['Chat'] = "Debate";
+$_lang['CloseWindow'] = "Cerrar ventana";
+$_lang['CodeUsed'] = "Este c&oacute;digo oficial ya se le ha asignado a otro usuario.";
+$_lang['Confirmation'] = "confirmaci&oacute;n";
+$_lang['Continue'] = "Continuar";
+$_lang['CourseHome'] = "P&aacute;gina de inicio del curso";
+$_lang['CourseManager'] = "Responsable del curso";
+$_lang['Create'] = "crear";
+$_lang['Dear'] = "Estimado(a)";
+$_lang['DelImage'] = "Eliminar la im&aacute;gen";
+$_lang['Delete'] = "Borrar";
+$_lang['DescriptionCours'] = "Descripci&oacute;n del curso";
+$_lang['Document'] = "Documentos";
+$_lang['Edit'] = "Modificar";
+$_lang['Email'] = "Correo electr&oacute;nico";
+$_lang['EmailWrong'] = "La direcci&oacute;n de correo electr&oacute;nico no es v&aacute;lida";
+$_lang['EmptyFields'] = "No ha llenado todos los campos.
 Use el bot&oacute;n de Atr&aacute;s del navegador y vuelva a intentarlo.";
-$langExercises = "Ejercicios";
-$langFirstname = "Nombre";
-$langFormula = "Cordialmente, vuestro profesor";
-$langForums = "Foros";
-$langGroupTutor = "Tutor";
-$langGroups = "Grupos";
-$langHelp = "ayuda";
-$langIs = "es";
-$langLastname = "Apellido";
-$langLearningPath = "Secuencia de aprendizaje";
-$langLegendRequiredFields = "<span class=\"required\">*</span> campo obligatorio";
-$langLogin = "nombre de usuario";
-$langLogout = "Salir";
-$langManager = "Responsable";
-$langMinuteShort = "m&iacute;n.";
-$langModifyProfile = "Modificar mis datos";
-$langMonthNames = "Array";
-$langMyAgenda = "Mi agenda";
-$langMyCourses = "Mis cursos";
-$langNameOfLang = "Array";
-$langNo = "No";
-$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
-$langOfficialCode = "C&oacute;digo Administrativo";
-$langOk = "validar";
-$langOneResp = "Uno de los administradores del curso";
-$langOtherCourses = "Lista de cursos";
-$langPassTooEasy = "esta contrase&ntilde;a es demasiado simple. Use una como esta";
-$langPassTwice = "No ha escrito la misma clave de acceso las dos veces.
+$_lang['Exercises'] = "Ejercicios";
+$_lang['Firstname'] = "Nombre";
+$_lang['Formula'] = "Cordialmente, vuestro profesor";
+$_lang['Forums'] = "Foros";
+$_lang['GroupTutor'] = "Tutor";
+$_lang['Groups'] = "Grupos";
+$_lang['Help'] = "ayuda";
+$_lang['Is'] = "es";
+$_lang['Lastname'] = "Apellido";
+$_lang['LearningPath'] = "Secuencia de aprendizaje";
+$_lang['LegendRequiredFields'] = "<span class=\"required\">*</span> campo obligatorio";
+$_lang['Login'] = "nombre de usuario";
+$_lang['Logout'] = "Salir";
+$_lang['Manager'] = "Responsable";
+$_lang['MinuteShort'] = "m&iacute;n.";
+$_lang['ModifyProfile'] = "Modificar mis datos";
+$_lang['MyAgenda'] = "Mi agenda";
+$_lang['MyCourses'] = "Mis cursos";
+$_lang['No'] = "No";
+$_lang['NotAllowed'] = "Usted no est&aacute; identificado como responsable de este curso";
+$_lang['OfficialCode'] = "C&oacute;digo Administrativo";
+$_lang['Ok'] = "validar";
+$_lang['OneResp'] = "Uno de los administradores del curso";
+$_lang['OtherCourses'] = "Lista de cursos";
+$_lang['PassTooEasy'] = "esta contrase&ntilde;a es demasiado simple. Use una como esta";
+$_lang['PassTwice'] = "No ha escrito la misma clave de acceso las dos veces.
 Use el bot&oacute;n de \"Atr&aacute;s\" del navegador y vuelva a intentarlo.";
-$langPassword = "contraseña";
-$langPeriodDayShort = "d.";
-$langPeriodHourShort = "h.";
-$langPersonalCourseList = "Lista de miembros del curso";
-$langPhone = "Tel&eacute;fono";
-$langPlatformAdministration = "Administraci&oacute;n de la plataforma";
-$langPoweredBy = "Generado con";
-$langPreview = "Vista previa";
-$langProblem = "En caso de tener alg&uacute;n problema, no dude en contactarnos.";
-$langRegAdmin = "Crear sitios de cursos (Profesor)";
-$langRegStudent = "Inscribirme a cursos (estudiante)";
-$langRegYou = "lo ha inscrito en este curso";
-$langSave = "Guardar";
-$langSaveChanges = "Guardar cambios";
-$langSearch = "Buscar";
-$langSecondShort = "seg.";
-$langSettings = "con los siguientes par&aacute;metros:
+$_lang['Password'] = "contraseña";
+$_lang['PeriodDayShort'] = "d.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PersonalCourseList'] = "Lista de miembros del curso";
+$_lang['Phone'] = "Tel&eacute;fono";
+$_lang['PlatformAdministration'] = "Administraci&oacute;n de la plataforma";
+$_lang['PoweredBy'] = "Generado con";
+$_lang['Preview'] = "Vista previa";
+$_lang['Problem'] = "En caso de tener alg&uacute;n problema, no dude en contactarnos.";
+$_lang['RegAdmin'] = "Crear sitios de cursos (Profesor)";
+$_lang['RegStudent'] = "Inscribirme a cursos (estudiante)";
+$_lang['RegYou'] = "lo ha inscrito en este curso";
+$_lang['Save'] = "Guardar";
+$_lang['SaveChanges'] = "Guardar cambios";
+$_lang['Search'] = "Buscar";
+$_lang['SecondShort'] = "seg.";
+$_lang['Settings'] = "con los siguientes par&aacute;metros:
 
 Nombre de usuario:";
-$langStudent = "Estudiante";
-$langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
-$langTextEditorDisable = "Deshabilitar editor de texto";
-$langTextEditorEnable = "Habilitar editor de texto";
-$langTitle = "T&iacute;tulo";
-$langUpdateImage = "Cambiar la im&aacute;gen";
-$langUserIsPlaformAdmin = "Es administrador de la plataforma";
-$langUserName = "Nombre de usuario";
-$langUserTaken = "Este nombre de usuario ya existe";
-$langUserid = "Nombre de Usuario";
-$langUsers = "Usuarios";
-$langViewMode = "Modo de vista";
-$langWiki = "Wiki";
-$langWikiAccessControl = "Configuraci&oacute;n del control de acceso";
-$langWikiAccessControlText = "Puede usted fijar permisos de acceso para los usuarios empleando la siguiente parrilla : ";
-$langWikiAllPages = "Todas las p&aacute;ginas";
-$langWikiBackToPage = "Volver a la p&aacute;gina";
-$langWikiConflictHowTo = "
+$_lang['Student'] = "Estudiante";
+$_lang['SwitchEditorToTextConfirm'] = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
+$_lang['TextEditorDisable'] = "Deshabilitar editor de texto";
+$_lang['TextEditorEnable'] = "Habilitar editor de texto";
+$_lang['Title'] = "T&iacute;tulo";
+$_lang['UpdateImage'] = "Cambiar la im&aacute;gen";
+$_lang['UserIsPlaformAdmin'] = "Es administrador de la plataforma";
+$_lang['UserName'] = "Nombre de usuario";
+$_lang['UserTaken'] = "Este nombre de usuario ya existe";
+$_lang['Userid'] = "Nombre de Usuario";
+$_lang['Users'] = "Usuarios";
+$_lang['ViewMode'] = "Modo de vista";
+$_lang['Wiki'] = "Wiki";
+$_lang['WikiAccessControl'] = "Configuraci&oacute;n del control de acceso";
+$_lang['WikiAccessControlText'] = "Puede usted fijar permisos de acceso para los usuarios empleando la siguiente parrilla : ";
+$_lang['WikiAllPages'] = "Todas las p&aacute;ginas";
+$_lang['WikiBackToPage'] = "Volver a la p&aacute;gina";
+$_lang['WikiConflictHowTo'] = "
 
 <p><strong>Conflicto en la edici&oacute;n</strong> : parece que la p&aacute;gina que usted intenta salvar ha cambiado desde
 
@@ -106,36 +103,36 @@ que usted la ha modificado.<br /><br /> Qu&eacute; desea hacer ahora?
 <li>Puede usted tambien pulsar en 'Cancelar' para anular sus cambios.</li>
 
 </ul></p>";
-$langWikiContentEmpty = "Esta p&aacute;gina est&aacute; vac&iacute;a, pulse en 'Editar esta p&aacute;gina' para a&ntilde;adir contenido";
-$langWikiCourseMembers = "Miembros del curso";
-$langWikiCreateNewWiki = "Crear un nuevo Wiki";
-$langWikiCreatePrivilege = "Crear p&aacute;ginas";
-$langWikiCreationSucceed = "Creaci&oacute;n del Wiki completada";
-$langWikiDefaultDescription = "Introduzca aqu&iacute; la descripci&oacute;n de su wiki";
-$langWikiDefaultTitle = "Nuevo Wiki";
-$langWikiDeleteWiki = "Eliminar Wiki";
-$langWikiDeleteWikiWarning = "ATENCI&Oacute;N : va usted a eliminar este wiki y todas sus p&aacute;ginas.
+$_lang['WikiContentEmpty'] = "Esta p&aacute;gina est&aacute; vac&iacute;a, pulse en 'Editar esta p&aacute;gina' para a&ntilde;adir contenido";
+$_lang['WikiCourseMembers'] = "Miembros del curso";
+$_lang['WikiCreateNewWiki'] = "Crear un nuevo Wiki";
+$_lang['WikiCreatePrivilege'] = "Crear p&aacute;ginas";
+$_lang['WikiCreationSucceed'] = "Creaci&oacute;n del Wiki completada";
+$_lang['WikiDefaultDescription'] = "Introduzca aqu&iacute; la descripci&oacute;n de su wiki";
+$_lang['WikiDefaultTitle'] = "Nuevo Wiki";
+$_lang['WikiDeleteWiki'] = "Eliminar Wiki";
+$_lang['WikiDeleteWikiWarning'] = "ATENCI&Oacute;N : va usted a eliminar este wiki y todas sus p&aacute;ginas.
 
 							  Est&aacute; usted seguro de que desea continuar ?";
-$langWikiDeletionSucceed = "Se ha completado la eliminaci&oacute;n del Wiki";
-$langWikiDescription = "Descripci&oacute;n del Wiki";
-$langWikiDescriptionForm = "Descripci&oacute;n del Wiki";
-$langWikiDescriptionFormText = "Puede usted escoger un t&iacute;tulo y una descripci&oacute;n para el Wiki : ";
-$langWikiDiffAddedLine = "L&iacute;nea a&ntilde;adida";
-$langWikiDiffDeletedLine = "L&iacute;nea eliminada";
-$langWikiDiffMovedLine = "L&iacute;nea movida";
-$langWikiDiffUnchangedLine = "L&iacute;nea sin cambios";
-$langWikiDifferenceKeys = "Teclas :";
-$langWikiDifferencePattern = "diferencias entre la versi&oacute;n de %1\$s modificada por %2\$s y la versi&oacute;n de %3\$s modificada por %4\$s";
-$langWikiDifferenceTitle = "Diferencias :";
-$langWikiEditConflict = "Conflictos de edici&oacute;n";
-$langWikiEditLastVersion = "Editar &uacute;ltima versi&oacute;n";
-$langWikiEditPage = "Editar esta p&aacute;gina";
-$langWikiEditPrivilege = "Editar p&aacute;ginas";
-$langWikiEditProperties = "Editar propiedades";
-$langWikiEditionSucceed = "Edici&oacute;n del Wiki realizada";
-$langWikiGroupMembers = "Miembros del grupo";
-$langWikiHelpAdminContent = "<h3>Ayuda a la administraci&oacute;n del Wiki</h3>
+$_lang['WikiDeletionSucceed'] = "Se ha completado la eliminaci&oacute;n del Wiki";
+$_lang['WikiDescription'] = "Descripci&oacute;n del Wiki";
+$_lang['WikiDescriptionForm'] = "Descripci&oacute;n del Wiki";
+$_lang['WikiDescriptionFormText'] = "Puede usted escoger un t&iacute;tulo y una descripci&oacute;n para el Wiki : ";
+$_lang['WikiDiffAddedLine'] = "L&iacute;nea a&ntilde;adida";
+$_lang['WikiDiffDeletedLine'] = "L&iacute;nea eliminada";
+$_lang['WikiDiffMovedLine'] = "L&iacute;nea movida";
+$_lang['WikiDiffUnchangedLine'] = "L&iacute;nea sin cambios";
+$_lang['WikiDifferenceKeys'] = "Teclas :";
+$_lang['WikiDifferencePattern'] = "diferencias entre la versi&oacute;n de %1\$s modificada por %2\$s y la versi&oacute;n de %3\$s modificada por %4\$s";
+$_lang['WikiDifferenceTitle'] = "Diferencias :";
+$_lang['WikiEditConflict'] = "Conflictos de edici&oacute;n";
+$_lang['WikiEditLastVersion'] = "Editar &uacute;ltima versi&oacute;n";
+$_lang['WikiEditPage'] = "Editar esta p&aacute;gina";
+$_lang['WikiEditPrivilege'] = "Editar p&aacute;ginas";
+$_lang['WikiEditProperties'] = "Editar propiedades";
+$_lang['WikiEditionSucceed'] = "Edici&oacute;n del Wiki realizada";
+$_lang['WikiGroupMembers'] = "Miembros del grupo";
+$_lang['WikiHelpAdminContent'] = "<h3>Ayuda a la administraci&oacute;n del Wiki</h3>
 
 <dl class=\"wikiHelp\">
 
@@ -208,8 +205,8 @@ nuevas p&aacute;ginas.</em></small></dd>
 <dd>Pulse en el icono en la columna 'Cambios recientes' en la lista de Wikis.</dd>
 
 </dl>";
-$langWikiHelpSyntax = "Sintaxis Wiki";
-$langWikiHelpSyntaxContent = "<h3>Sintaxis Wiki_a_xhtml</h3>
+$_lang['WikiHelpSyntax'] = "Sintaxis Wiki";
+$_lang['WikiHelpSyntaxContent'] = "<h3>Sintaxis Wiki_a_xhtml</h3>
 
 <dl class=\"wikiHelp\">
 
@@ -316,42 +313,42 @@ siguientes valores : L (left - izquierda), R (right - derecha) o C (center - cen
 </ul></dd>
 
 </dl>";
-$langWikiIdenticalContent = "Contenido id&eacute;ntico<br />no se ha guardado ninguna modificaci&oacute;n";
-$langWikiInvalidWikiId = "Identificador de Wiki inv&aacute;lido";
-$langWikiList = "Lista de Wikis";
-$langWikiMainPage = "P&aacute;gina de inicio";
-$langWikiMainPageContent = "Esta es la p&aacute;gina de inicio del Wiki. Pulse en Editar para modificar su contido.";
-$langWikiNoWiki = "No hay Wikis";
-$langWikiNotAllowedToCreate = "Usted no tiene permisos para la creaci&oacute;n de p&aacute;ginas";
-$langWikiNotAllowedToEdit = "Usted no tiene permisos para editar esta p&aacute;gina";
-$langWikiNotAllowedToRead = "Usted no tiene permisos para leer esta p&aacute;gina";
-$langWikiNumberOfPages = "N&uacute;mero de p&aacute;ginas";
-$langWikiOtherUsers = "Otros (*)";
-$langWikiOtherUsersText = "(*) usuarios an&oacute;nimos, usuarios que no son miembros de este curso...";
-$langWikiPageHistory = "Historial de la p&aacute;gina";
-$langWikiPageSaved = "P&aacute;gina guardada";
-$langWikiPreviewTitle = "Previsualizaci&oacute;n";
-$langWikiPreviewWarning = "ATENCI&Oacute;N: esta p&aacute;gina se una previsualizaci&oacute;n. Sus
+$_lang['WikiIdenticalContent'] = "Contenido id&eacute;ntico<br />no se ha guardado ninguna modificaci&oacute;n";
+$_lang['WikiInvalidWikiId'] = "Identificador de Wiki inv&aacute;lido";
+$_lang['WikiList'] = "Lista de Wikis";
+$_lang['WikiMainPage'] = "P&aacute;gina de inicio";
+$_lang['WikiMainPageContent'] = "Esta es la p&aacute;gina de inicio del Wiki. Pulse en Editar para modificar su contido.";
+$_lang['WikiNoWiki'] = "No hay Wikis";
+$_lang['WikiNotAllowedToCreate'] = "Usted no tiene permisos para la creaci&oacute;n de p&aacute;ginas";
+$_lang['WikiNotAllowedToEdit'] = "Usted no tiene permisos para editar esta p&aacute;gina";
+$_lang['WikiNotAllowedToRead'] = "Usted no tiene permisos para leer esta p&aacute;gina";
+$_lang['WikiNumberOfPages'] = "N&uacute;mero de p&aacute;ginas";
+$_lang['WikiOtherUsers'] = "Otros (*)";
+$_lang['WikiOtherUsersText'] = "(*) usuarios an&oacute;nimos, usuarios que no son miembros de este curso...";
+$_lang['WikiPageHistory'] = "Historial de la p&aacute;gina";
+$_lang['WikiPageSaved'] = "P&aacute;gina guardada";
+$_lang['WikiPreviewTitle'] = "Previsualizaci&oacute;n";
+$_lang['WikiPreviewWarning'] = "ATENCI&Oacute;N: esta p&aacute;gina se una previsualizaci&oacute;n. Sus
 
 modificaciones en el wiki no fueron guardadas todav&iacute;a!. Para guardalas, no olvide pulsar el bot&oacute;n
 
 'Guardar' en la parte inferior de la p&aacute;gina.";
-$langWikiProperties = "Propiedades";
-$langWikiReadPrivilege = "P&aacute;ginas leidas";
-$langWikiRecentChanges = "Cambios recientes";
-$langWikiRecentChangesPattern = "%1\$s modificada(s) en %2\%s por %3\$s";
-$langWikiShowDifferences = "Mostrar diferencias";
-$langWikiTitle = "T&iacute;tulo del wiki";
-$langWikiTitleEdit = "Wiki : Editar propiedades";
-$langWikiTitleNew = "Wiki : Crear nuevo Wiki";
-$langWikiTitlePattern = "Wiki : %s";
-$langWikiVersionInfoPattern = "(versi&oacute;n de %1\$s modificada por %2\$s)";
-$langWikiVersionPattern = "%1\$s por %2\$s";
-$langWork = "Trabajos";
-$langYes = "Si";
-$langYouAreReg = "Usted ha sido inscrito en";
-$langYourReg = "Su inscripci&oacute;n en";
-$lang_enroll = "Matricularse";
-$lang_footer_p_CourseManager = "Gestor(es) para %s";
-$lang_p_platformManager = "Administrador de %s";
+$_lang['WikiProperties'] = "Propiedades";
+$_lang['WikiReadPrivilege'] = "P&aacute;ginas leidas";
+$_lang['WikiRecentChanges'] = "Cambios recientes";
+$_lang['WikiRecentChangesPattern'] = "%1\$s modificada(s) en %2\%s por %3\$s";
+$_lang['WikiShowDifferences'] = "Mostrar diferencias";
+$_lang['WikiTitle'] = "T&iacute;tulo del wiki";
+$_lang['WikiTitleEdit'] = "Wiki : Editar propiedades";
+$_lang['WikiTitleNew'] = "Wiki : Crear nuevo Wiki";
+$_lang['WikiTitlePattern'] = "Wiki : %s";
+$_lang['WikiVersionInfoPattern'] = "(versi&oacute;n de %1\$s modificada por %2\$s)";
+$_lang['WikiVersionPattern'] = "%1\$s por %2\$s";
+$_lang['Work'] = "Trabajos";
+$_lang['Yes'] = "Si";
+$_lang['YouAreReg'] = "Usted ha sido inscrito en";
+$_lang['YourReg'] = "Su inscripci&oacute;n en";
+$_lang['_enroll'] = "Matricularse";
+$_lang['_footer_p_CourseManager'] = "Gestor(es) para %s";
+$_lang['_p_platformManager'] = "Administrador de %s";
 ?>

@@ -1,17 +1,16 @@
 <?php
-$langAgenda = "Terminarz";
-$langAnnouncement = "Og³oszenia";
-$langChat = "Chat-room";
-$langClarContent = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
+$_lang['Agenda'] = "Terminarz";
+$_lang['Announcement'] = "Og³oszenia";
+$_lang['Chat'] = "Chat-room";
+$_lang['ClarContent'] = "Tutaj prowadz±cy zajêcia tworz± i administruja stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê 'Uczestnictwo w kursie', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê 'Tworzenie kursu'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik 'Wolne wnioski' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona 'Wolne wnioski' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
 <p>'Forum u¿ytkowników Claroline' ³aczy osoby korzystaj±ce z oprogramowania Claroline na ca³ym swiecie. Je¶li nie mo¿esz uzyskaæ odpowiedzi na swoje pytanie wewn±trz swojego campusa, wy¶lij tam swoj± wiadomo¶æ.</p>
 <p>Odno¶nik 'Rejestracja' (je¶li istnieje) znajduje siê na stronie g³ównej campusu (u góry, po prawej).</p><b>Logowanie</b><p>Podczas nastêpnych wizyt, wpisuj swoj± nazwê u¿ytkownika i has³o, a nastêpnie 'Wej¶cie', ¿eby uzyskaæ dostêp Twoich kursów. Adres strony: ";
-$langCloseWindow = "Zamknij okno";
-$langConfigMenuContent = "Menu konfiguracji";
-$langCourseHome = "Strona domowa kursu";
-$langCourseManager = "Zarz±dca kursu";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Opis kursu";
-$langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w komputerze.</p><p>Mo¿esz ³adowaæ pliki ró¿nego typu (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Musisz tylko zadbaæ, ¿eby studenci mieli programy, które umo¿liwi±  odczytanie umieszczonych plików. Pliki niektórych typów mog± zawieraæ wirusy - do Ciebie nale¿y odpowiedzialno¶æ, ¿eby nie za³adowaæ zawirusowanych plików. Rozs±dnym jest sprawdzanie wszystkich plików programem przeciwwirusowym przed ich za³adowaniem do serwera. </p>
+$_lang['CloseWindow'] = "Zamknij okno";
+$_lang['ConfigMenuContent'] = "Menu konfiguracji";
+$_lang['CourseHome'] = "Strona domowa kursu";
+$_lang['CourseManager'] = "Zarz±dca kursu";
+$_lang['DescriptionCours'] = "Opis kursu";
+$_lang['DocContent'] = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w komputerze.</p><p>Mo¿esz ³adowaæ pliki ró¿nego typu (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Musisz tylko zadbaæ, ¿eby studenci mieli programy, które umo¿liwi±  odczytanie umieszczonych plików. Pliki niektórych typów mog± zawieraæ wirusy - do Ciebie nale¿y odpowiedzialno¶æ, ¿eby nie za³adowaæ zawirusowanych plików. Rozs±dnym jest sprawdzanie wszystkich plików programem przeciwwirusowym przed ich za³adowaniem do serwera. </p>
 <p>Dokumenty s± wy¶wietlane w porz±dku alfabetycznym.<br><b>Uwaga : </b>Je¶li chcesz umie¶cic pliki w innej kolejno¶ci, ponumeruj je: 01, 02, 03...</p>
 <p>Mo¿esz:</p>
 <h4>Za³adowaæ dokument</h4>
@@ -76,8 +75,8 @@ $langDocContent = "<p>Narzedzie Dokumenty jest podobne do Menad¿era Plików w kom
 	</ul>
 	<center>
 	  <p>";
-$langDocument = "Dokumenty";
-$langExerciseContent = "<p>Narzêdzie pozwala tworzyæ æwiczenia które bêd± zawieraæ tyle pytañ ile chcesz.<br><br>
+$_lang['Document'] = "Dokumenty";
+$_lang['ExerciseContent'] = "<p>Narzêdzie pozwala tworzyæ æwiczenia które bêd± zawieraæ tyle pytañ ile chcesz.<br><br>
 Dostêpne s± ró¿ne typy odpowiedzi na stworzone przez Ciebie pytania:<br><br>
 <ul>
   <li>Jeden z wielu (pojedyncza odpowied¼)</li>
@@ -147,10 +146,10 @@ If you have got a big number of questions, you can also choose to randomly draw 
 The question pool also allows to reuse a same questions into several exercises.<br><br>
 By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
 Orphan questions are questions that don't belong to any exercise.</p>";
-$langExercises = "Æwiczenia";
-$langForContent = "Forum dyskusyjne jest asynchronicznym narzêdziem do prowadzenia dyskusji. Podczas gdy email pozwala na jednoznaczny dialog 'jeden do jednego', Forum umo¿liwia publicznn± dyskusjê. </p><p>Od technicznej strony, studenci potrzebuj± tylko przegl±darki z Claroline Forum. </P><p>Do zarz±dzania Forum nale¿y wybrac 'Admin'. Wszystkie wiadomo¶ci w Forach dyskusyjnych s± uporz±dkowane w zestawy i podzbiory nastêpuj±co: </p><p><b>Kategoria > Forum > Tematy > Odpowiedzi</b></p>Do tego, ¿eby uporz±dkowaæ dyskusje studentów niezbêdne jest zorganizowanie Kategorii i For wewn±trz nich. W obrêbie Forum (które dotyczy np. omawianego podczas zajêæ zagadnienia), studenci maj± mo¿liwo¶æ tworzenia nowych listów (Tematów) i odpowiadania na listy napisane wcze¶niej. Domy¶lnie Forum dyskusyjne Claroline zawiera tylko kategoriê 'Public', a 'Przyk³adowe Forum' - jeden 'Przyk³adowy Temat'. </p><p>Pierwsza rzecz, któr± nale¿y zrobiæ to usun±æ przyk³adowy Temat i zmieniæ nazwê Forum. Teraz w kategorii 'Public' mo¿na tworzyæ kolejne Fora tak, ¿eby odpowiada³o to scenariuszowi prowadzonych zajêæ w poszczególnych grupach i tematach. </p><p>Nie mo¿na myliæ Kategorii i For dyskusyjnych. Pusta Kategoria (bez Forum) nie bêdzie widoczna dla studentów. </p><p>Opis Forum mo¿e zawieraæ wykaz studentów, definicje celu, postawione zadania, szczegó³owe tematy...";
-$langForums = "Forum";
-$langGroupContent = "<p><b>Wprowadzenie</b></p>
+$_lang['Exercises'] = "Æwiczenia";
+$_lang['ForContent'] = "Forum dyskusyjne jest asynchronicznym narzêdziem do prowadzenia dyskusji. Podczas gdy email pozwala na jednoznaczny dialog 'jeden do jednego', Forum umo¿liwia publicznn± dyskusjê. </p><p>Od technicznej strony, studenci potrzebuj± tylko przegl±darki z Claroline Forum. </P><p>Do zarz±dzania Forum nale¿y wybrac 'Admin'. Wszystkie wiadomo¶ci w Forach dyskusyjnych s± uporz±dkowane w zestawy i podzbiory nastêpuj±co: </p><p><b>Kategoria > Forum > Tematy > Odpowiedzi</b></p>Do tego, ¿eby uporz±dkowaæ dyskusje studentów niezbêdne jest zorganizowanie Kategorii i For wewn±trz nich. W obrêbie Forum (które dotyczy np. omawianego podczas zajêæ zagadnienia), studenci maj± mo¿liwo¶æ tworzenia nowych listów (Tematów) i odpowiadania na listy napisane wcze¶niej. Domy¶lnie Forum dyskusyjne Claroline zawiera tylko kategoriê 'Public', a 'Przyk³adowe Forum' - jeden 'Przyk³adowy Temat'. </p><p>Pierwsza rzecz, któr± nale¿y zrobiæ to usun±æ przyk³adowy Temat i zmieniæ nazwê Forum. Teraz w kategorii 'Public' mo¿na tworzyæ kolejne Fora tak, ¿eby odpowiada³o to scenariuszowi prowadzonych zajêæ w poszczególnych grupach i tematach. </p><p>Nie mo¿na myliæ Kategorii i For dyskusyjnych. Pusta Kategoria (bez Forum) nie bêdzie widoczna dla studentów. </p><p>Opis Forum mo¿e zawieraæ wykaz studentów, definicje celu, postawione zadania, szczegó³owe tematy...";
+$_lang['Forums'] = "Forum";
+$_lang['GroupContent'] = "<p><b>Wprowadzenie</b></p>
 	<p>To narzêdzie pozwala na tworzenie i zarz±dzanie grupami roboczymi. 
 	Po utworzeniu (Tworzenie grup), grupy s± puste. Jest kilka sposobów na ich wype³nienie:
 	<ul><li>automatyczne ('Wype³nij grupy'),</li>
@@ -176,16 +175,16 @@ $langGroupContent = "<p><b>Wprowadzenie</b></p>
 	<ul><li><b>Edycja</b> do rêcznej modyfikacji nazwy, opisu, nauczyciela, listy cz³onków grupy.</li>
 	<li><b>Usuñ</b> do usuniêcia grupy.</li></ul>
 	<hr noshade size=1>";
-$langGroups = "Grupy";
-$langHClar = "Pomoc - Start";
-$langHDoc = "Dokumenty - Pomoc";
-$langHExercise = "Æwiczenia - Pomoc";
-$langHFor = "Pomoc - Forum dyskusyjne";
-$langHHome = "Pomoc - Strona g³ówna";
-$langHUser = "U¿ytkownicy - Pomoc ";
-$langHelp = "Pomoc";
-$langHelpAssignment = "Pomoc do zadañ";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "Grupy";
+$_lang['HClar'] = "Pomoc - Start";
+$_lang['HDoc'] = "Dokumenty - Pomoc";
+$_lang['HExercise'] = "Æwiczenia - Pomoc";
+$_lang['HFor'] = "Pomoc - Forum dyskusyjne";
+$_lang['HHome'] = "Pomoc - Strona g³ówna";
+$_lang['HUser'] = "U¿ytkownicy - Pomoc ";
+$_lang['Help'] = "Pomoc";
+$_lang['HelpAssignment'] = "Pomoc do zadañ";
+$_lang['HelpAssignmentContent'] = "<p>
 Narzêdzie zadania jest publicznym obszarem dla studentów. Zarz±dca kursu tworzy jedno lub kilka zadañ (ró¿ne obszary publikacji), gdzie studenci bêd± mogli publikowaæ swoje prace.<br /><br />
 Ka¿de zadanie mo¿e mieæ odmienne cele i wymagania: publikacja musi byæ plikem, tekstem lub tekstem i plikiem; publikacja mo¿e byæ wykonana przez grupê zamiast przez pojedynczego u¿ytkownika, ...<br /><br />
 Studenci maj± mo¿liwo¶æ modyfikacji swojej pracy po prezentacji a zarz±dca kursu mo¿e przekazaæ im informacje zwrotne na temat ich prezentacji.
@@ -240,29 +239,27 @@ Mo¿na ogl±dn±æ listê publikacji zwi±zanych z u¿ytkownikiem i zadaniem poprzez kl
 </li>
 </ul>
 ";
-$langHelpGroups = "Pomoc - grupy studentów";
-$langHomeContent = "Dla wiêkszej wygody, narzêdzia Claroline ju¿ na pocz±tku nie s± puste. Ka¿de narzêdzie zawiera ma³y przyk³ad, który powinien pomóc zrozumieæ, jak to dzia³a. Mo¿na te przyk³ady modyfikowaæ lub usuwaæ.</p><p>Na przyk³ad, na Stronie g³ównej Twojego kursu, jest tekst wprowadzaj±cy w tematykê kursu. Mo¿esz zast±piæ ten tekst swoim tekstem klikaj±c przycisk 'modyfikuj' a nastêpnie 'Zatwierd¼'. Wszystkie czynno¶ci s± bardzo proste. We wszystkich narzêdziach obowi±zuje taka sama logika: 'dodawaj', 'usuwaj', 'modyfikuj'. </p>
+$_lang['HelpGroups'] = "Pomoc - grupy studentów";
+$_lang['HomeContent'] = "Dla wiêkszej wygody, narzêdzia Claroline ju¿ na pocz±tku nie s± puste. Ka¿de narzêdzie zawiera ma³y przyk³ad, który powinien pomóc zrozumieæ, jak to dzia³a. Mo¿na te przyk³ady modyfikowaæ lub usuwaæ.</p><p>Na przyk³ad, na Stronie g³ównej Twojego kursu, jest tekst wprowadzaj±cy w tematykê kursu. Mo¿esz zast±piæ ten tekst swoim tekstem klikaj±c przycisk 'modyfikuj' a nastêpnie 'Zatwierd¼'. Wszystkie czynno¶ci s± bardzo proste. We wszystkich narzêdziach obowi±zuje taka sama logika: 'dodawaj', 'usuwaj', 'modyfikuj'. </p>
 <p>Kiedy przystêpujesz do tworzenia serwisu kursu, wiêkszo¶æ narzêdzi jest aktywna. Mo¿na aktywowaæ i dezaktywowaæ poszczególne narzêdzia tak, ¿eby korzystaæ tylko z tych, ktore s± potrzebne. Deaktywacja powoduje przeniesienie narzêdzia na dó³ Strony g³ównej i powoduje, ¿e jest ona niewidoczna dla studentów. </p><p>Mo¿esz dodawaæ Twoje w³asne strony do Strony g³ównej. Te strony musz± byæ dokumentami HTML (które mog± byæ tworzone w dowolnym edytorze tekstu lub programie do tworzenia stron WWW). U¿yj ³±cza 'Za³aduj stronê i przy³±cz do Strony g³ównej', ¿eby wys³aæ stronê do serwera. Standardowy nag³ówek Twojego serwisu automatycznie bêdzie po³±czony z nowym dokumentem , tak ¿eby koncentrowaæ siê na zawarto¶ci. Gdyby¶ chcia³ ³±czyæ siê ze Strony domowej z istniej±c± stron± sieci Web (nawet wewn±trz serwera), u¿ywaj 'Dodaj odno¶nik do Strony g³ównej'. Dodana strona mo¿e byæ aktywowana lub dezaktywowana ale nie usuwana. </p><p>Zanim kurs bêdzie gotowy, przejd¼ do 'Modyfikuj ustawienia kursu' i zdecyduj o poziomie dostêpu do kursów, który chcesz zastosowaæ. Domy¶lnie Twój kurs powinien byæ ukryty (poniewa¿ w³a¶nie nad nim pracujesz). </p>";
-$langLearningPath = "¶cie¿ka nauczania";
-$langLogin = "Logowanie";
-$langLogout = "Wylogowanie";
-$langMinuteShort = "min.";
-$langModifyProfile = "Modyfikuj Mój profil";
-$langMonthNames = "Array";
-$langMyAgenda = "Moja agenda";
-$langMyCourses = "Lista moich kursów";
-$langNameOfLang = "Array";
-$langOtherCourses = "Lista kursów";
-$langPeriodDayShort = "d.";
-$langPeriodHourShort = "h.";
-$langPlatformAdministration = "Administracja platformy";
-$langPoweredBy = "Powered by";
-$langSecondShort = "[s]";
-$langStudent = "student";
-$langSwitchEditorToTextConfirm = "Ta komenda spowoduje usuniêcie nastêpnej warstwy tekstu. Chcesz kontynuowaæ?";
-$langTextEditorDisable = "Zablokuj edytor tekstu";
-$langTextEditorEnable = "Odblokuj edytor tekstu";
-$langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie 'modyfikuj' w kolumnie 'Funkcje' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr>
+$_lang['LearningPath'] = "¶cie¿ka nauczania";
+$_lang['Login'] = "Logowanie";
+$_lang['Logout'] = "Wylogowanie";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Modyfikuj Mój profil";
+$_lang['MyAgenda'] = "Moja agenda";
+$_lang['MyCourses'] = "Lista moich kursów";
+$_lang['OtherCourses'] = "Lista kursów";
+$_lang['PeriodDayShort'] = "d.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PlatformAdministration'] = "Administracja platformy";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['SecondShort'] = "[s]";
+$_lang['Student'] = "student";
+$_lang['SwitchEditorToTextConfirm'] = "Ta komenda spowoduje usuniêcie nastêpnej warstwy tekstu. Chcesz kontynuowaæ?";
+$_lang['TextEditorDisable'] = "Zablokuj edytor tekstu";
+$_lang['TextEditorEnable'] = "Odblokuj edytor tekstu";
+$_lang['UserContent'] = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie 'modyfikuj' w kolumnie 'Funkcje' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr>
 <b>Uprawnienia administratora</b>
 <p>Uprawnienia administratora odpowiadaj± technicznej autoryzacji w celu modyfikowania zawarto¶ci i organizacji stron kursu. W chwili obecnej mo¿esz wybraæ jedynie miêdzy przyznaniem wszelkich praw administracyjnych i nie przyznaniem ¿adnych.</P>
 <p>¯eby do³±czyæ do kursu asystenta lub wspó³administratora, musisz zarejestrowaæ go w kursie lub upewniæ siê, ¿e jest ju¿ zarejestrowany, potem kliknij 'modyfikuj' w kolumnie 'Uprawnienia administracyjne', nastêpnie 'wszystkie' i 'Ok'.</P><hr>
@@ -270,11 +267,11 @@ $langUserContent = "<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± ni
 <p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c 'Modyfikuj ustawienia kursu'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole 'Wyk³adowca' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr>
 <b>Dodawanie u¿ytkownika</b>
 <p>¯eby dodaæ u¿ytkownika do kursu, wype³nij odpowiednie pola i zatwierd¼. Do osób, które zarejestujesz zostan± wys³ne listy email z informacj± o ich Nazwie u¿ytkownika i ha¶le.</p>";
-$langUsers = "U¿ytkownicy";
-$langViewMode = "Tryb widoku";
-$langWiki = "Wiki";
-$langWork = "Prace";
-$lang_enroll = "Zapisz";
-$lang_footer_p_CourseManager = "Zarz±dca / zarz±dcy %s";
-$lang_p_platformManager = "Administrator %s";
+$_lang['Users'] = "U¿ytkownicy";
+$_lang['ViewMode'] = "Tryb widoku";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Prace";
+$_lang['_enroll'] = "Zapisz";
+$_lang['_footer_p_CourseManager'] = "Zarz±dca / zarz±dcy %s";
+$_lang['_p_platformManager'] = "Administrator %s";
 ?>

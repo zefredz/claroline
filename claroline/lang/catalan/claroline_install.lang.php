@@ -1,14 +1,14 @@
 <?php
-$langAdminEmail = "Correu-e de l'administrador";
-$langAdminLogin = "Login de l'administrator";
-$langAdminName = "Nom de l'administrator";
-$langAdminPass = "Mot de pas de l'administrator";
-$langAdminSurname = "Cognom de l'administrator";
-$langDBHost = "Servidor de la Base de dades";
-$langEG = "e. g.";
-$langLastCheck = "Darrera comprovació abans de la instal·lació";
-$langLicence = "Llicència";
-$langMainDB = "BD principal de claroline";
-$langPrintVers = "Versió imprimible";
-$langRequirements = "Requeriments";
+$_lang['AdminEmail'] = "Correu-e de l'administrador";
+$_lang['AdminLogin'] = "Login de l'administrator";
+$_lang['AdminName'] = "Nom de l'administrator";
+$_lang['AdminPass'] = "Mot de pas de l'administrator";
+$_lang['AdminSurname'] = "Cognom de l'administrator";
+$_lang['DBHost'] = "Servidor de la Base de dades";
+$_lang['EG'] = "e. g.";
+$_lang['LastCheck'] = "Darrera comprovació abans de la instal·lació";
+$_lang['Licence'] = "Llicència";
+$_lang['MainDB'] = "BD principal de claroline";
+$_lang['PrintVers'] = "Versió imprimible";
+$_lang['Requirements'] = "Requeriments";
 ?>

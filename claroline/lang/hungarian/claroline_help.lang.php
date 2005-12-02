@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Eseménynaptár";
-$langAnnouncement = "Hirdetmények";
-$langChat = "Csevegés";
-$langClarContent = "Itt az oktatók és segítõik létrehozhatnak és adminisztrálhatnak tanfolyam honlapokat. 
+$_lang['Agenda'] = "Eseménynaptár";
+$_lang['Announcement'] = "Hirdetmények";
+$_lang['Chat'] = "Csevegés";
+$_lang['ClarContent'] = "Itt az oktatók és segítõik létrehozhatnak és adminisztrálhatnak tanfolyam honlapokat. 
 A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenként 
 teszteket tölthetnek ki, dokumentumaikat publikálhatják, fórum megbeszéléseken vehetnek részt...
 </p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer 
@@ -21,13 +21,12 @@ hozza Önnel. Ha valamire saját rendszerén belül nem kap választ, akkor tegyen fe
 <p>A Regisztrációt indító link (ha van ilyen) a Campus honlapján található (jobb oldalon)
 </p><b>Belépés</b><p>Következõ látogatásakor adja meg felhasználói nevét és 
 jelszavát, majd kattintson a gombra a rendszerbe való belépéshez. A rendszer címe:";
-$langCloseWindow = "Ablak bezárása";
-$langConfigMenuContent = "Beállítás Menü";
-$langCourseHome = "Tanfolyam Honlap";
-$langCourseManager = "Tanfolyam vezetõ";
-$langDay_of_weekNames = "Tömb";
-$langDescriptionCours = "Tanfolyam leírás";
-$langDocContent = "Fordítatlan!!!
+$_lang['CloseWindow'] = "Ablak bezárása";
+$_lang['ConfigMenuContent'] = "Beállítás Menü";
+$_lang['CourseHome'] = "Tanfolyam Honlap";
+$_lang['CourseManager'] = "Tanfolyam vezetõ";
+$_lang['DescriptionCours'] = "Tanfolyam leírás";
+$_lang['DocContent'] = "Fordítatlan!!!
 <p>The Documents tool is similar to the File Manager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
@@ -221,8 +220,8 @@ Validate by clicking on the 'OK' button.
 </ul>
 <center>
 <p>";
-$langDocument = "Dokumentumok és Linkek";
-$langExerciseContent = "Fordítatlan!!!
+$_lang['Document'] = "Dokumentumok és Linkek";
+$_lang['ExerciseContent'] = "Fordítatlan!!!
 <h4>What is the exercise tool ?</h4>
 This tool allow you to create online exercises composed of a list of questions. The questions can be of different kinds, students can fill in the exercises and if they are registered to your course, their scores will be stored and visible in the statitiscs of the course.
 <hr />
@@ -306,13 +305,13 @@ When you create such a question&nbsp;:
 <hr />
 <h4>How to see my previous scores ?</h4>
 <p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>";
-$langExercises = "Gyakorlatok";
-$langForContent = "A fórum agy írott aszinkron megbeszélési szköz.
+$_lang['Exercises'] = "Gyakorlatok";
+$_lang['ForContent'] = "A fórum agy írott aszinkron megbeszélési szköz.
 Míg az e-mail egyes személyek közötti párbeszéd, a fórum publikus, vagy részben publikus dialógust eredményez.</p><p>
 Technikailag, a hallgatóknak csak egy böngészõre van szükségük a fórum használatához. </P><p> A fórumok szervezéséhez kattintson az 'Adminisztráció' gombra. A megbeszélések szintek és al-szintek keretében folynak:</p><p><b>Kategória > Fórum > Téma > Válaszok</b></p>
 A hallgatói beszélgetések strukturálásához szükséges kategóriák  és fórumok elõzetes megszervezésére az oktatók feladata, míg a hallgatókra a témák és válaszok létrehozása hárul. Alapértelmezésként, a Claroline fórum egy 'Publikus' kategóriát tartalmaz, egy minta fórumot, és egy minta témát.</p><p>Elõször el kell távolítani a minta témát, és módosítani kell az elsõ fórum nevét. Ezután, Ön létre tud hozni a publikus kategóiában csoportosított, vagy különálló fórumokat, hogy azok a legjobban megfeleljenek a céloknak.</p><p>Ne keverje a Kategóriákat és Fórumokat, és azt se felejtse el, hogy üres kategória nem jelenik meg a hallgatók elõtt.</p><p>A fórum lerása lehet a tagok listája, a célok, feladatok, a téma leírása...";
-$langForums = "Fórumok";
-$langGroupContent = "Fordítatlan!!!
+$_lang['Forums'] = "Fórumok";
+$_lang['GroupContent'] = "Fordítatlan!!!
 <p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups.
 At creation (Create groups), groups are emtpy. There are
@@ -350,16 +349,16 @@ with a series of information and functions
 members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Csoportok";
-$langHClar = "Segítség az induláshoz";
-$langHDoc = "Dokumentumok, segítség";
-$langHExercise = "Gyakorlatok, segítség";
-$langHFor = "Fórumok, segítség";
-$langHHome = "Honlap, segítség";
-$langHUser = "Felhasználók, segítség";
-$langHelp = "Segítség";
-$langHelpAssignment = "Beadandó feladatok, segítség";
-$langHelpAssignmentContent = "Fordítatlan!!!
+$_lang['Groups'] = "Csoportok";
+$_lang['HClar'] = "Segítség az induláshoz";
+$_lang['HDoc'] = "Dokumentumok, segítség";
+$_lang['HExercise'] = "Gyakorlatok, segítség";
+$_lang['HFor'] = "Fórumok, segítség";
+$_lang['HHome'] = "Honlap, segítség";
+$_lang['HUser'] = "Felhasználók, segítség";
+$_lang['Help'] = "Segítség";
+$_lang['HelpAssignment'] = "Beadandó feladatok, segítség";
+$_lang['HelpAssignmentContent'] = "Fordítatlan!!!
 <p>
 Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
 Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
@@ -416,8 +415,8 @@ The list of publications related to the user and the assignment can be view by c
 </li>
 </ul>
 ";
-$langHelpGroups = "Csoportok, segítség";
-$langHomeContent = "Fordítatlan!!!
+$_lang['HelpGroups'] = "Csoportok, segítség";
+$_lang['HomeContent'] = "Fordítatlan!!!
 For convenience, claroline tools contain default entries.
  There is a small example in every tool to help you quickly grasp how it
  works. It is up to you to modify the example or to delete it.</p><p>For
@@ -443,26 +442,24 @@ For convenience, claroline tools contain default entries.
  deactivated, but not deleted.</p><p>Once your course website is ready, go
  to 'Modify course info' and decide what level of confidentiality you want.
  By default, your course is hidden (because you work on it).</p>";
-$langLearningPath = "Tanösvény";
-$langLogin = "Belépés";
-$langLogout = "Kilépés";
-$langMinuteShort = "min.";
-$langModifyProfile = "Saját beállítások módosítása";
-$langMonthNames = "Tömb";
-$langMyAgenda = "Saját Eseménynaptár";
-$langMyCourses = "Saját Tanfolyam Lista";
-$langNameOfLang = "Tömb";
-$langOtherCourses = "Tanfolyam lista";
-$langPeriodDayShort = "n.";
-$langPeriodHourShort = "ó.";
-$langPlatformAdministration = "Rendszer Adminisztráció";
-$langPoweredBy = "Fejlesztõ:";
-$langSecondShort = "m.p.";
-$langStudent = "Hallgató";
-$langSwitchEditorToTextConfirm = "Ez a parancs eltávolítja az aktuális szöveg elrendezést. Folytatja?";
-$langTextEditorDisable = "Szövegszerkesztõ kikapcsolása";
-$langTextEditorEnable = "Szövegszerkesztõ bekapcsolása";
-$langUserContent = "Fordítatlan!!!
+$_lang['LearningPath'] = "Tanösvény";
+$_lang['Login'] = "Belépés";
+$_lang['Logout'] = "Kilépés";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Saját beállítások módosítása";
+$_lang['MyAgenda'] = "Saját Eseménynaptár";
+$_lang['MyCourses'] = "Saját Tanfolyam Lista";
+$_lang['OtherCourses'] = "Tanfolyam lista";
+$_lang['PeriodDayShort'] = "n.";
+$_lang['PeriodHourShort'] = "ó.";
+$_lang['PlatformAdministration'] = "Rendszer Adminisztráció";
+$_lang['PoweredBy'] = "Fejlesztõ:";
+$_lang['SecondShort'] = "m.p.";
+$_lang['Student'] = "Hallgató";
+$_lang['SwitchEditorToTextConfirm'] = "Ez a parancs eltávolítja az aktuális szöveg elrendezést. Folytatja?";
+$_lang['TextEditorDisable'] = "Szövegszerkesztõ kikapcsolása";
+$_lang['TextEditorEnable'] = "Szövegszerkesztõ bekapcsolása";
+$_lang['UserContent'] = "Fordítatlan!!!
 <p>The 'Users' tool displays user informations in a digest table. Here is below the column descriptions resumed.
 <ul>
 <li>
@@ -514,11 +511,11 @@ To allow an assistant, for instance, to co-admin the site, you need to register 
 To mention in the header of the course web site the name of a co-chairman, use the tool 'Modify course information' (orange tools). This modification does not register your co-chairman as a user of the course. The field 'Lecturers' is completely independent of the Users list.
 Add a user
 </p>";
-$langUsers = "Felhasználók";
-$langViewMode = "Nézet";
-$langWiki = "Wiki";
-$langWork = "Beadandó feladatok";
-$lang_enroll = "Bejelentkezik";
-$lang_footer_p_CourseManager = "%s vezetõje";
-$lang_p_platformManager = "%s adminisztrátora";
+$_lang['Users'] = "Felhasználók";
+$_lang['ViewMode'] = "Nézet";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Beadandó feladatok";
+$_lang['_enroll'] = "Bejelentkezik";
+$_lang['_footer_p_CourseManager'] = "%s vezetõje";
+$_lang['_p_platformManager'] = "%s adminisztrátora";
 ?>

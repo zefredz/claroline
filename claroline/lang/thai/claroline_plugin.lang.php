@@ -1,18 +1,15 @@
 <?php
-$langAgenda = "กำหนดการ";
-$langChat = "Chat";
-$langDay_of_weekNames = "Array";
-$langDocument = "เอกสาร";
-$langForums = "กระดานข่าว";
-$langGroups = "กลุ่ม";
-$langHelp = "ช่วยเหลือ";
-$langLogout = "Logout";
-$langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
-$langMonthNames = "Array";
-$langMyCourses = "My courses";
-$langNameOfLang = "Array";
-$langOtherCourses = "รายชื่อรายวิชา";
-$langPoweredBy = "Powered by";
-$langStudent = "นักศึกษา";
-$langUsers = "Users";
+$_lang['Agenda'] = "กำหนดการ";
+$_lang['Chat'] = "Chat";
+$_lang['Document'] = "เอกสาร";
+$_lang['Forums'] = "กระดานข่าว";
+$_lang['Groups'] = "กลุ่ม";
+$_lang['Help'] = "ช่วยเหลือ";
+$_lang['Logout'] = "Logout";
+$_lang['ModifyProfile'] = "ปรับปรุงข้อมูลส่วนตัว";
+$_lang['MyCourses'] = "My courses";
+$_lang['OtherCourses'] = "รายชื่อรายวิชา";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['Student'] = "นักศึกษา";
+$_lang['Users'] = "Users";
 ?>

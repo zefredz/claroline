@@ -1,7 +1,7 @@
 <?php
-$langDate = "Tarih";
-$langModify = "Deðiþtir";
-$langOk = "Tamam";
-$langQuestion = "Soru";
-$langSize = "Boyut";
+$_lang['Date'] = "Tarih";
+$_lang['Modify'] = "Deðiþtir";
+$_lang['Ok'] = "Tamam";
+$_lang['Question'] = "Soru";
+$_lang['Size'] = "Boyut";
 ?>

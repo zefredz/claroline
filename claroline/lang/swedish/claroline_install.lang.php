@@ -1,16 +1,16 @@
 <?php
-$langAdminEmail = "Administratörens emejl";
-$langAdminLogin = "Administratörens användare";
-$langAdminName = "Administratörens efternamn";
-$langAdminPass = "Administratörens lösenord";
-$langAdminSurname = "Administratörens förname";
-$langDBHost = "Databasvärd";
-$langDbPrefixForm = "MySQL-Prefix";
-$langEG = "e.g.";
-$langLastCheck = "Sista kontroll före installation";
-$langLicence = "Licens";
-$langMainDB = "Claroline huvudDB";
-$langPrintVers = "Utskrivbar version";
-$langRequirements = "Krav";
-$langStatDB = "Spårnings-DB. Endast användbar vid flera DB";
+$_lang['AdminEmail'] = "Administratörens emejl";
+$_lang['AdminLogin'] = "Administratörens användare";
+$_lang['AdminName'] = "Administratörens efternamn";
+$_lang['AdminPass'] = "Administratörens lösenord";
+$_lang['AdminSurname'] = "Administratörens förname";
+$_lang['DBHost'] = "Databasvärd";
+$_lang['DbPrefixForm'] = "MySQL-Prefix";
+$_lang['EG'] = "e.g.";
+$_lang['LastCheck'] = "Sista kontroll före installation";
+$_lang['Licence'] = "Licens";
+$_lang['MainDB'] = "Claroline huvudDB";
+$_lang['PrintVers'] = "Utskrivbar version";
+$_lang['Requirements'] = "Krav";
+$_lang['StatDB'] = "Spårnings-DB. Endast användbar vid flera DB";
 ?>

@@ -1,4 +1,4 @@
 <?php
-$langNo = "No";
-$langYes = "Yes";
+$_lang['No'] = "No";
+$_lang['Yes'] = "Yes";
 ?>

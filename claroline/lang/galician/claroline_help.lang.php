@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Axenda";
-$langAnnouncement = "Anuncios";
-$langChat = "Chat";
-$langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos.
+$_lang['Agenda'] = "Axenda";
+$_lang['Announcement'] = "Anuncios";
+$_lang['Chat'] = "Chat";
+$_lang['ClarContent'] = "Aqu&iacute;, os profesores e axudantes poden crear e administrar webs de cursos.
 						Os estudantes len (documentos, axenda, informaci&oacute;ns varias) e, outras veces,
 						fan exercicios, publican traballos, participan en discusi&oacute;ns de grupos...
 
@@ -39,13 +39,12 @@ $langClarContent = "Aqu&iacute;, os profesores e axudantes poden crear e adminis
 
 						Nas s&uacute;as pr&oacute;ximas visitas, escriba o nome de usuario e contrasinal e prema en
 						ENTRAR para acceder &oacute;s seus cursos. A URL do sitio &eacute;";
-$langCloseWindow = "Pechar fiestra";
-$langConfigMenuContent = "Men&uacute; de configuraci&oacute;n";
-$langCourseHome = "P&aacute;xina de inicio do Curso";
-$langCourseManager = "Xestor do curso";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Descrici&oacute;n do curso";
-$langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona de maneira semellante &aacute;
+$_lang['CloseWindow'] = "Pechar fiestra";
+$_lang['ConfigMenuContent'] = "Men&uacute; de configuraci&oacute;n";
+$_lang['CourseHome'] = "P&aacute;xina de inicio do Curso";
+$_lang['CourseManager'] = "Xestor do curso";
+$_lang['DescriptionCours'] = "Descrici&oacute;n do curso";
+$_lang['DocContent'] = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona de maneira semellante &aacute;
 					xesti&oacute;n dos seus documentos nun ordenador. </p>
 					<p>Pode vostede introducir documentos de todo tipo (HTML, Word, Powerpoint, Excel, Acrobat,
 					Flash, Quicktime, etc.). Te&ntilde;a en conta, sen embargo, que os estudantes deben de dispo&ntilde;er
@@ -126,8 +125,8 @@ $langDocContent = "<p>O m&oacute;dulo de xesti&oacute;n de documentos funciona d
 					</ul>
 					<center>
 					<p>";
-$langDocument = "Documentos e Ligaz&oacute;ns";
-$langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear exercicios, que conter&aacute;n
+$_lang['Document'] = "Documentos e Ligaz&oacute;ns";
+$_lang['ExerciseContent'] = "<p>A ferramenta de exercicios perm&iacute;telle crear exercicios, que conter&aacute;n
 							tantas preguntas como vostede desexe.<br /><br />
 							Hai varios modelos de respostas dispo&ntilde;ibles para crea-las s&uacute;s preguntas :<br /><br />
 							<ul>
@@ -245,8 +244,8 @@ $langExerciseContent = "<p>A ferramenta de exercicios perm&iacute;telle crear ex
 							cuesti&oacute;ns relacionadas cun exercicio elixindo este do men&uacute; despregable
 							&quot;Filtro&quot;.<br /><br />
 							As cuesti&oacute;ns orfas son cuesti&oacute;ns que non pertencen a ning&uacute;n exercicio.</p>";
-$langExercises = "Exercicios";
-$langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute;ncrona e escrita. A diferencia do
+$_lang['Exercises'] = "Exercicios";
+$_lang['ForContent'] = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute;ncrona e escrita. A diferencia do
 						correo electr&oacute;nico, o foro coloca a discusi&oacute;n nun espazo p&uacute;blico ou
 						semi-p&uacute;blico.</p><p>Para emprega-la ferramenta do foro, os estudantes s&oacute;
 						precisan dun simple navegador web (Netscape, Explorer...), non se precisa ter un cliente de
@@ -267,8 +266,8 @@ $langForContent = "O foro &eacute; unha ferramenta de discusi&oacute;n as&iacute
 						discutir no mesmo, pero tam&eacute;n pode ser unha explicaci&oacute;n sobre a s&uacute; raz&oacute;n de ser.
 						Se vostede crea, por calquera raz&oacute;n, un foro 'Chamadas de axuda', poder&aacute; vostede  engadir como
 						descrici&oacute;n: 'Sinalar dificultades en relaci&oacute;n co contido ou en relaci&oacute;n co dispositivo'.";
-$langForums = "Foros";
-$langGroupContent = "<p><b>Introducci&oacute;n</b></p>
+$_lang['Forums'] = "Foros";
+$_lang['GroupContent'] = "<p><b>Introducci&oacute;n</b></p>
 							<p>Esta ferramenta permite crear e xestionar grupos de traballo.
 							Cando se crea o curso (Crear Grupos), os grupos est&aacute;n baleiros.
 							Hai moitas formas de completalos:
@@ -319,16 +318,16 @@ $langGroupContent = "<p><b>Introducci&oacute;n</b></p>
 								<li><b>Borrar</b> elimina un grupo.</li>
 							</ul>
 							<hr noshade size=1>";
-$langGroups = "Grupos";
-$langHClar = "Axuda: primeiros pasos";
-$langHDoc = "Axuda documentos";
-$langHExercise = "Axuda sobre Exercicios";
-$langHFor = "Axuda foros";
-$langHHome = "Axuda p&aacute;xina principal";
-$langHUser = "Axuda usuarios";
-$langHelp = "Axuda";
-$langHelpAssignment = "Axuda para Tarefas";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "Grupos";
+$_lang['HClar'] = "Axuda: primeiros pasos";
+$_lang['HDoc'] = "Axuda documentos";
+$_lang['HExercise'] = "Axuda sobre Exercicios";
+$_lang['HFor'] = "Axuda foros";
+$_lang['HHome'] = "Axuda p&aacute;xina principal";
+$_lang['HUser'] = "Axuda usuarios";
+$_lang['Help'] = "Axuda";
+$_lang['HelpAssignment'] = "Axuda para Tarefas";
+$_lang['HelpAssignmentContent'] = "<p>
 A ferramenta de tarefas &eacute; unha &aacute;rea de publicaci&oacute;n para estudantes. O xestor do curso
 crea unha ou varias tarefas (diferentes zonas de publicaci&oacute;n) onde os estudantes poden publica-los
 seus traballos.<br/><br/>
@@ -430,8 +429,8 @@ traballos. Poder&aacute; vostede tam&eacute;n engadirlle unha correcci&oacute;n 
 	</li>
 </ul>
 ";
-$langHelpGroups = "Axuda grupos";
-$langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en un curto texto, ou
+$_lang['HelpGroups'] = "Axuda grupos";
+$_lang['HomeContent'] = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en un curto texto, ou
 						unha ligaz&oacute;n, ou un exemplo dados por defecto. A vostede lle corresp&oacute;nde
 						modificalos.</p><p>
 						As&iacute, aparece un curto texto, ben &aacute; vista, na cabeceira da web do seu curso.
@@ -451,26 +450,24 @@ $langHomeContent = "A maior&iacute;a das ferramentas da plataforma te&ntilde;en 
 						&Eacute; aconsellable que un curso en fase de probas ou en 'obras' non apareza na lista (ve-la
 						funci&oacute;n 'Modificar informaci&oacute;n sobre o curso') e permaneza privado sen posibilidade de
 						que os usuarios se inscriban nel durante a s&uacute;a creaci&oacute;n.</p>";
-$langLearningPath = "Secuencia de aprendizaxe";
-$langLogin = "nome de usuario";
-$langLogout = "Sa&iacute;r";
-$langMinuteShort = "min.";
-$langModifyProfile = "Modifica-lo meu perfil";
-$langMonthNames = "Array";
-$langMyAgenda = "A mi&ntilde;a axenda";
-$langMyCourses = "A mi&ntilde;a lista de cursos";
-$langNameOfLang = "Array";
-$langOtherCourses = "Lista de cursos";
-$langPeriodDayShort = "d.";
-$langPeriodHourShort = "h.";
-$langPlatformAdministration = "Administraci&oacute;n da Plataforma";
-$langPoweredBy = "Emprega a plataforma";
-$langSecondShort = "seg.";
-$langStudent = "Estudante";
-$langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
-$langTextEditorDisable = "Deshabilitar editor de texto";
-$langTextEditorEnable = "Habilitar editor de texto";
-$langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en ningunha funci&oacute;n
+$_lang['LearningPath'] = "Secuencia de aprendizaxe";
+$_lang['Login'] = "nome de usuario";
+$_lang['Logout'] = "Sa&iacute;r";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Modifica-lo meu perfil";
+$_lang['MyAgenda'] = "A mi&ntilde;a axenda";
+$_lang['MyCourses'] = "A mi&ntilde;a lista de cursos";
+$_lang['OtherCourses'] = "Lista de cursos";
+$_lang['PeriodDayShort'] = "d.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PlatformAdministration'] = "Administraci&oacute;n da Plataforma";
+$_lang['PoweredBy'] = "Emprega a plataforma";
+$_lang['SecondShort'] = "seg.";
+$_lang['Student'] = "Estudante";
+$_lang['SwitchEditorToTextConfirm'] = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
+$_lang['TextEditorDisable'] = "Deshabilitar editor de texto";
+$_lang['TextEditorEnable'] = "Habilitar editor de texto";
+$_lang['UserContent'] = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en ningunha funci&oacute;n
 						inform&aacute;tica. Non outorgan ning&uacute;n dereito sobre o sistema. Vostede pode
 						modificalos premendo en 'modificar' debaixo de  'rol/papel' e introducindo logo
 						t&oacute;dalas letras da descrici&oacute;n da funci&oacute;n conveniente: profesor,
@@ -498,11 +495,11 @@ $langUserContent = "<b>Papeis (roles)</b><p>Os papeis (roles) non te&ntilde;en n
 						un correo electr&oacute;nico de confirmaci&oacute;n da s&uacute;a inscrici&oacute;n
 						co seu nome de usuario e contrasinal, excepto no caso de que vostede non introducira
 						o seu correo electr&oacute;nico.</p>";
-$langUsers = "Usuarios";
-$langViewMode = "Ver modo";
-$langWiki = "Wiki";
-$langWork = "Traballos";
-$lang_enroll = "Matricularse";
-$lang_footer_p_CourseManager = "Xestor(es) para %s";
-$lang_p_platformManager = "Administrador para %s";
+$_lang['Users'] = "Usuarios";
+$_lang['ViewMode'] = "Ver modo";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Traballos";
+$_lang['_enroll'] = "Matricularse";
+$_lang['_footer_p_CourseManager'] = "Xestor(es) para %s";
+$_lang['_p_platformManager'] = "Administrador para %s";
 ?>

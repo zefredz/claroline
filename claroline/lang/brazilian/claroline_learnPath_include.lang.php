@@ -1,13 +1,13 @@
 <?php
-$langChangeRaw = "Altere o aproveitamento mínimo para passar desse módulo (em porcentagem) : ";
-$langDate = "Data";
-$langDocumentInModule = "Documento no módulo";
-$langExerciseInModule = "Exercício no módulo";
-$langFileName = "Nome do arquivo";
-$langModify = "Modificar";
-$langOk = "validar";
-$langQuestion = "Questão";
-$langRawHasBeenChanged = "O aproveitamento mínimo para passar foi alterado";
-$langScore = "Pontuação";
-$langSize = "Tamanho";
+$_lang['ChangeRaw'] = "Altere o aproveitamento mínimo para passar desse módulo (em porcentagem) : ";
+$_lang['Date'] = "Data";
+$_lang['DocumentInModule'] = "Documento no módulo";
+$_lang['ExerciseInModule'] = "Exercício no módulo";
+$_lang['FileName'] = "Nome do arquivo";
+$_lang['Modify'] = "Modificar";
+$_lang['Ok'] = "validar";
+$_lang['Question'] = "Questão";
+$_lang['RawHasBeenChanged'] = "O aproveitamento mínimo para passar foi alterado";
+$_lang['Score'] = "Pontuação";
+$_lang['Size'] = "Tamanho";
 ?>

@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Obvestila";
-$langChat = "Razprava";
-$langClarContent = "Tu lahko ucitelji in njihovi asistenti tvorijo in upravljajo
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Obvestila";
+$_lang['Chat'] = "Razprava";
+$_lang['ClarContent'] = "Tu lahko ucitelji in njihovi asistenti tvorijo in upravljajo
  spletne strani tecajev. Studentje berejo (dokumente, agende, informacije) in vcasih
 izvajajo vaje, objavljajo svoje izdelke, sodelujejo v razpravah (forumih)...</p>
 <b>Registracija</b>
@@ -19,10 +19,9 @@ Ce ne najdes odgovora na svoja vprasanja znotraj svojega kampusa, posreduj vpras
 <p>Povezava na registracijo (ce jo imas) je na domaci strani kampusa (desno zgoraj).</p>
 <b>Vstop</b><p>Pri naslednjem obisku vtipkaj svoje uporabnisko ime in geslo ter klikni Vstop, 
 ce zelis dostop do svojih tecajev.";
-$langCourseManager = "Upravnik tecaja";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Opis tecaja";
-$langDocContent = "<p>Orodje dokumenti je podobno upravniku datotek na vasem namizju.</p>
+$_lang['CourseManager'] = "Upravnik tecaja";
+$_lang['DescriptionCours'] = "Opis tecaja";
+$_lang['DocContent'] = "<p>Orodje dokumenti je podobno upravniku datotek na vasem namizju.</p>
 <p>Prepisete (upload) lahko dateteke kateregakoli tipa (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). 
 Poskrbeti moras le, da bodo studenti imeli na voljo potrebne programe za njihovo branje.
@@ -139,8 +138,8 @@ Ce jih hoces predstaviti v drugacnem zaporedju, jih ostevilci: 01, 02,  03...</p
 		</ul>
 <center>
 <p>";
-$langDocument = "Dokumenti";
-$langExerciseContent = "<p>Orodje Vaje omogoca tvorbo vaj, ki bodo vsebovale poljubno stevilo vprasanj.<br /><br />
+$_lang['Document'] = "Dokumenti";
+$_lang['ExerciseContent'] = "<p>Orodje Vaje omogoca tvorbo vaj, ki bodo vsebovale poljubno stevilo vprasanj.<br /><br />
 Imamo vec vrst odgovorov na nasa vprasanja:<br /><br />
 <ul>
   <li>Veckratna izbira (En odgovor)</li>
@@ -217,7 +216,7 @@ Taka zaloga vprasanj omogoca tudi njihovo uporabo v vec vajah.<br /><br />
 Privzeto vidimo vsa vprasanja nasega tecaja. 
 Vprasanja neke vaje lahko vidimoz njihovo izbiro v ustreznem menuju &quot;Filter&quot;.<br /><br />
 Opuscena vprasanja so tista, ki ne pripadajo nobeni vaji.</p>";
-$langForContent = "Forum je pisno, asinhrono orodje za razpravo.
+$_lang['ForContent'] = "Forum je pisno, asinhrono orodje za razpravo.
  Medtem ko e-posta omogoca pogovor ena proti ena, omogocajo forumi javen ali napol javen
 pogovor.</p><p>V tehnicnem smislu potrebujejo studenti za uporabo forumov Claroline le svoj brkljalnik
 .</P><p>Forume organiziramo tako, da kliknemo na
@@ -229,8 +228,8 @@ in odgovore nanje. Privzeto vsebuje forum claroline kategorijo 'Javno', vzorcen 
 druge forume, po skupinah in po temah v skladu z zahtevami nasega ucnega scenarija.</p>
 <p>Ne mesajmo kategorij in forumov in ne pozabimo, da praznih kategorij (brez forumov) studentje ne vidijo</p>
 <p>Opis foruma je lahko seznam njegovih udelezencev, opis cilja, naloge, tematike...";
-$langForums = "Forumi";
-$langGroupContent = "<p><b>Uvod</b></p>
+$_lang['Forums'] = "Forumi";
+$_lang['GroupContent'] = "<p><b>Uvod</b></p>
 <p>To orodje omogoca tvorbo in upravljanje delovnih skupin.
 Ob tvorbi (Tvorba skupin), so skupine prazne. Napolnimo jih lahko na vec nacinov:
 <ul><li>avtomaticno ('Napolni skupine'),</li>
@@ -263,16 +262,16 @@ Ta metoda je uporabna za ucitelje, ki pri tvosbi skupin ne poznajo seznama stude
 <ul><li><b>Uredi</b> za rocno spreminjanje imena skupine, opisa, mentorja in seznama clanov.</li>
 <li><b>Brisi</b> zbrise skupino.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Skupine";
-$langHClar = "Pomoc na zacetku";
-$langHDoc = "Pomoc dokumenti";
-$langHExercise = "Pomoc Vaje";
-$langHFor = "Pomoc foruma";
-$langHHome = "Pomoc domaca stran";
-$langHUser = "Pomoc uporabniki";
-$langHelp = "Pomoc";
-$langHelpGroups = "Pomoc skupine";
-$langHomeContent = "Za lazje delo vsebuje Claroline privzete vhode.
+$_lang['Groups'] = "Skupine";
+$_lang['HClar'] = "Pomoc na zacetku";
+$_lang['HDoc'] = "Pomoc dokumenti";
+$_lang['HExercise'] = "Pomoc Vaje";
+$_lang['HFor'] = "Pomoc foruma";
+$_lang['HHome'] = "Pomoc domaca stran";
+$_lang['HUser'] = "Pomoc uporabniki";
+$_lang['Help'] = "Pomoc";
+$_lang['HelpGroups'] = "Pomoc skupine";
+$_lang['HomeContent'] = "Za lazje delo vsebuje Claroline privzete vhode.
  V vsakem orodju imamo majhen primer, ki nam omogoca razumevanje delovanja orodja. 
 Sami lahko ta primer spremenite ali zbrisete.</p>
 <p>Tako na primer imamo na domaci strani spletne strani tecaja kratek uvod, ki pove
@@ -293,16 +292,14 @@ Standardna orodja pa lahko le deaktiviras, ne mores pa jih zbrisati.</p>
 <p>Ko je spletna stran tecaja pripravljena, pojdi na 'Spremeni podatke o tecaju' in se odloci, kaksno stopnjo
 zaupnosti zelis.
 Privzeto je tecaj skrit (vendar lahko na njem delas).</p>";
-$langLogin = "vstop";
-$langLogout = "Izstop";
-$langModifyProfile = "Spremeni moj profil";
-$langMonthNames = "Array";
-$langMyCourses = "Seznam mojih tecajev";
-$langNameOfLang = "Array";
-$langOtherCourses = "Seznam tecajev";
-$langPoweredBy = "Powered by";
-$langStudent = "student";
-$langUserContent = "<b>Vloge</b><p>Vloge nimajo nobene funkcijske zveze z racunalnikom.
+$_lang['Login'] = "vstop";
+$_lang['Logout'] = "Izstop";
+$_lang['ModifyProfile'] = "Spremeni moj profil";
+$_lang['MyCourses'] = "Seznam mojih tecajev";
+$_lang['OtherCourses'] = "Seznam tecajev";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['Student'] = "student";
+$_lang['UserContent'] = "<b>Vloge</b><p>Vloge nimajo nobene funkcijske zveze z racunalnikom.
  Z njimi ne dobimo pravic v operacijskem sistemu. Z njimi le nakazemo, kdo je kdo. 
 Lahkom jih spremenimo s klikom na 'spremeni' v opciji
  'vloga', nakar vtipkas, kar zelis: ucitelj, asistent, student, obiskovalec, ekspert...</P><hr />
@@ -319,7 +316,7 @@ Polje 'Ucitelji' je povsem neodvisno od seznama uporabnikov.</p><hr />
 <b>Dodajanje uporabnika</b>
 <p>Uporabnika dodamo v tecaj tako, da izpolnimo polja in to potrdimo. Oseba bo dobila elektronsko posto s sporocilom, 
 da je bila registrirana s podanim uporabniskim imenom in geslom.</p>";
-$langUsers = "Uporabniki";
-$langWork = "Works";
-$lang_enroll = "Vpis";
+$_lang['Users'] = "Uporabniki";
+$_lang['Work'] = "Works";
+$_lang['_enroll'] = "Vpis";
 ?>

@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Announcements";
-$langChat = "Chat";
-$langClarContent = "Here, lecturers and assistants create and administer
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Announcements";
+$_lang['Chat'] = "Chat";
+$_lang['ClarContent'] = "Here, lecturers and assistants create and administer
  courses websites. Students read (documents, agenda, information) and,
  sometimes, do exercises, publish papers, participate in
  forum discussions...</p><b>Registration</b><p>The following instructions
@@ -24,13 +24,12 @@ post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visit, type login/password
  and Ok to access your courses. The URL of the site is";
-$langCloseWindow = "Close window";
-$langConfigMenuContent = "Configuration Menu";
-$langCourseHome = "Course Home";
-$langCourseManager = "Course manager";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Course description";
-$langDocContent = "<p>The Documents tool is similar to the File Manager of
+$_lang['CloseWindow'] = "Close window";
+$_lang['ConfigMenuContent'] = "Configuration Menu";
+$_lang['CourseHome'] = "Course Home";
+$_lang['CourseManager'] = "Course manager";
+$_lang['DescriptionCours'] = "Course description";
+$_lang['DocContent'] = "<p>The Documents tool is similar to the File Manager of
  your desktop computer.</p><p>You can upload files of any type (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
  must be that your students have the corresponding software to read them.
@@ -223,8 +222,8 @@ Validate by clicking on the 'OK' button.
 </ul>
 <center>
 <p>";
-$langDocument = "Documents and Links";
-$langExerciseContent = "<h4>What is the exercise tool ?</h4>
+$_lang['Document'] = "Documents and Links";
+$_lang['ExerciseContent'] = "<h4>What is the exercise tool ?</h4>
 This tool allow you to create online exercises composed of a list of questions. The questions can be of different kinds, students can fill in the exercises and if they are registered to your course, their scores will be stored and visible in the statitiscs of the course.
 <hr />
 <h4>Administering the exercises</h4>
@@ -307,8 +306,8 @@ When you create such a question&nbsp;:
 <hr />
 <h4>How to see my previous scores ?</h4>
 <p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>";
-$langExercises = "Exercises";
-$langForContent = "The forum is a written and asynchronous discussion tool.
+$_lang['Exercises'] = "Exercises";
+$_lang['ForContent'] = "The forum is a written and asynchronous discussion tool.
  Whereas email allows one-to-one dialogue, forums allow public or semi-public
  dialogue.</p><p>Technically speaking, the students need only their
  browser to use claroline forums.</P><p>To organise forums, click on
@@ -324,8 +323,8 @@ $langForContent = "The forum is a written and asynchronous discussion tool.
  forums, and don't forget that an empty category (without forums) does not
  appear in the student view.</p><p>The description of a forum can be the
  list of its members, the definition of a goal, a task, a theme...";
-$langForums = "Forums";
-$langGroupContent = "<p><b>Introduction</b></p>
+$_lang['Forums'] = "Forums";
+$_lang['GroupContent'] = "<p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups.
 At creation (Create groups), groups are emtpy. There are
 many ways to fill them:
@@ -362,16 +361,16 @@ with a series of information and functions
 members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Groups";
-$langHClar = "Start Help";
-$langHDoc = "Help Documents";
-$langHExercise = "Help exercises";
-$langHFor = "Help Forums";
-$langHHome = "Help Home Page";
-$langHUser = "Help Users";
-$langHelp = "Help";
-$langHelpAssignment = "Help assignment";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "Groups";
+$_lang['HClar'] = "Start Help";
+$_lang['HDoc'] = "Help Documents";
+$_lang['HExercise'] = "Help exercises";
+$_lang['HFor'] = "Help Forums";
+$_lang['HHome'] = "Help Home Page";
+$_lang['HUser'] = "Help Users";
+$_lang['Help'] = "Help";
+$_lang['HelpAssignment'] = "Help assignment";
+$_lang['HelpAssignmentContent'] = "<p>
 Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
 Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
 Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
@@ -427,8 +426,8 @@ The list of publications related to the user and the assignment can be view by c
 </li>
 </ul>
 ";
-$langHelpGroups = "Help groups";
-$langHomeContent = "For convenience, claroline tools contain default entries.
+$_lang['HelpGroups'] = "Help groups";
+$_lang['HomeContent'] = "For convenience, claroline tools contain default entries.
  There is a small example in every tool to help you quickly grasp how it
  works. It is up to you to modify the example or to delete it.</p><p>For
  instance, here on the Home Page of your course website,there is a small
@@ -453,26 +452,24 @@ $langHomeContent = "For convenience, claroline tools contain default entries.
  deactivated, but not deleted.</p><p>Once your course website is ready, go
  to 'Modify course info' and decide what level of confidentiality you want.
  By default, your course is hidden (because you work on it).</p>";
-$langLearningPath = "Learning Path";
-$langLogin = "Login";
-$langLogout = "Logout";
-$langMinuteShort = "min.";
-$langModifyProfile = "My User Account";
-$langMonthNames = "Array";
-$langMyAgenda = "My calendar";
-$langMyCourses = "My course list";
-$langNameOfLang = "Array";
-$langOtherCourses = "Course list";
-$langPeriodDayShort = "d.";
-$langPeriodHourShort = "h.";
-$langPlatformAdministration = "Platform Administration";
-$langPoweredBy = "Powered by";
-$langSecondShort = "sec.";
-$langStudent = "Student";
-$langSwitchEditorToTextConfirm = "This command is going to remove the current text layout. Do you want to continue ?";
-$langTextEditorDisable = "Disable text editor";
-$langTextEditorEnable = "Enable text editor";
-$langUserContent = "<p>The 'Users' tool displays user informations in a digest table. Here is below the column descriptions resumed.
+$_lang['LearningPath'] = "Learning Path";
+$_lang['Login'] = "Login";
+$_lang['Logout'] = "Logout";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "My User Account";
+$_lang['MyAgenda'] = "My calendar";
+$_lang['MyCourses'] = "My course list";
+$_lang['OtherCourses'] = "Course list";
+$_lang['PeriodDayShort'] = "d.";
+$_lang['PeriodHourShort'] = "h.";
+$_lang['PlatformAdministration'] = "Platform Administration";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['SecondShort'] = "sec.";
+$_lang['Student'] = "Student";
+$_lang['SwitchEditorToTextConfirm'] = "This command is going to remove the current text layout. Do you want to continue ?";
+$_lang['TextEditorDisable'] = "Disable text editor";
+$_lang['TextEditorEnable'] = "Enable text editor";
+$_lang['UserContent'] = "<p>The 'Users' tool displays user informations in a digest table. Here is below the column descriptions resumed.
 <ul>
 <li>
 <b>Name</b>. By clicking on the user name you can see additional informations concerning this user, like e-mail etc.
@@ -523,11 +520,11 @@ To allow an assistant, for instance, to co-admin the site, you need to register 
 To mention in the header of the course web site the name of a co-chairman, use the tool 'Modify course information' (orange tools). This modification does not register your co-chairman as a user of the course. The field 'Lecturers' is completely independent of the Users list.
 Add a user
 </p>";
-$langUsers = "Users";
-$langViewMode = "View mode";
-$langWiki = "Wiki";
-$langWork = "Assignments";
-$lang_enroll = "Enrol";
-$lang_footer_p_CourseManager = "Manager(s) for %s";
-$lang_p_platformManager = "Administrator for %s";
+$_lang['Users'] = "Users";
+$_lang['ViewMode'] = "View mode";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Assignments";
+$_lang['_enroll'] = "Enrol";
+$_lang['_footer_p_CourseManager'] = "Manager(s) for %s";
+$_lang['_p_platformManager'] = "Administrator for %s";
 ?>

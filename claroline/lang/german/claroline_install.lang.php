@@ -1,12 +1,12 @@
 <?php
-$langAdminEmail = "Administrator E-Mail";
-$langAdminLogin = "Administrator Username";
-$langAdminName = "Administrator Nachname";
-$langAdminPass = "Administrator Passwort";
-$langAdminSurname = "Administrator Vorname";
-$langDBConnectionParameters = "MySQK Connection Parameter";
-$langDBHost = "Datenbank Host";
-$langDBSettingNamesIntro = "
+$_lang['AdminEmail'] = "Administrator E-Mail";
+$_lang['AdminLogin'] = "Administrator Username";
+$_lang['AdminName'] = "Administrator Nachname";
+$_lang['AdminPass'] = "Administrator Passwort";
+$_lang['AdminSurname'] = "Administrator Vorname";
+$_lang['DBConnectionParameters'] = "MySQK Connection Parameter";
+$_lang['DBHost'] = "Datenbank Host";
+$_lang['DBSettingNamesIntro'] = "
 				Install script will create main claroline databases.
 				You can create different database
 				for tracking and PhpMyAdmin extension if you want
@@ -18,16 +18,16 @@ $langDBSettingNamesIntro = "
 				get back to the previous page and select option \"Single\"
 				</p>
 				";
-$langDBUse = "Database usage";
-$langDbName = "DB Name";
-$langDbPrefixForm = "MySQL Präfix";
-$langEG = "z. B.";
-$langLastCheck = "Letzte Übersicht vor der Installation";
-$langLicence = "Lizenz";
-$langMainDB = "Haupt-Claroline DB";
-$langMysqlNames = "MySQL Datenbank- und Tabellennamen";
-$langPrintVers = "Druckversion";
-$langRequirements = "Anforderungen";
-$langStatDB = "Tracking über Datenbank (Nur sinnvoll in der Multidatenbankinstallation)";
-$langStepNOfN = "Schritt %d von %d";
+$_lang['DBUse'] = "Database usage";
+$_lang['DbName'] = "DB Name";
+$_lang['DbPrefixForm'] = "MySQL Präfix";
+$_lang['EG'] = "z. B.";
+$_lang['LastCheck'] = "Letzte Übersicht vor der Installation";
+$_lang['Licence'] = "Lizenz";
+$_lang['MainDB'] = "Haupt-Claroline DB";
+$_lang['MysqlNames'] = "MySQL Datenbank- und Tabellennamen";
+$_lang['PrintVers'] = "Druckversion";
+$_lang['Requirements'] = "Anforderungen";
+$_lang['StatDB'] = "Tracking über Datenbank (Nur sinnvoll in der Multidatenbankinstallation)";
+$_lang['StepNOfN'] = "Schritt %d von %d";
 ?>

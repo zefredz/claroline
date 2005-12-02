@@ -1,12 +1,12 @@
 <?php
-$langAdminEmail = "Email";
-$langAdminLogin = "Gebruikersnaam";
-$langAdminName = "Familienaam";
-$langAdminPass = "Wachtwoord";
-$langAdminSurname = "Voornaam";
-$langDBConnectionParameters = "Mysql connectie parameters";
-$langDBHost = "Databank machine";
-$langDBSettingNamesIntro = "
+$_lang['AdminEmail'] = "Email";
+$_lang['AdminLogin'] = "Gebruikersnaam";
+$_lang['AdminName'] = "Familienaam";
+$_lang['AdminPass'] = "Wachtwoord";
+$_lang['AdminSurname'] = "Voornaam";
+$_lang['DBConnectionParameters'] = "Mysql connectie parameters";
+$_lang['DBHost'] = "Databank machine";
+$_lang['DBSettingNamesIntro'] = "
 				<p>
                 Install script will create main claroline databases.
                 You can create different databases for the main tables and for the tracking tables 
@@ -22,16 +22,16 @@ $langDBSettingNamesIntro = "
                 get back to the previous page and select option 'Single' for 'Database mode'.
                 </p>
                 ";
-$langDBUse = "Databank gebruik";
-$langDbName = "Databank naam";
-$langDbPrefixForm = "Prefix voor namen van cursus databanken";
-$langEG = "bv.";
-$langLastCheck = "Laatste check voor installatie";
-$langLicence = "Licentie";
-$langMainDB = "Systeem database";
-$langMysqlNames = "MySQL Databank en tabelnamen";
-$langPrintVers = "Afdrukbare versie";
-$langRequirements = "Vereisten";
-$langStatDB = "Databank voor opvolging";
-$langStepNOfN = "Stap %d van %d";
+$_lang['DBUse'] = "Databank gebruik";
+$_lang['DbName'] = "Databank naam";
+$_lang['DbPrefixForm'] = "Prefix voor namen van cursus databanken";
+$_lang['EG'] = "bv.";
+$_lang['LastCheck'] = "Laatste check voor installatie";
+$_lang['Licence'] = "Licentie";
+$_lang['MainDB'] = "Systeem database";
+$_lang['MysqlNames'] = "MySQL Databank en tabelnamen";
+$_lang['PrintVers'] = "Afdrukbare versie";
+$_lang['Requirements'] = "Vereisten";
+$_lang['StatDB'] = "Databank voor opvolging";
+$_lang['StepNOfN'] = "Stap %d van %d";
 ?>

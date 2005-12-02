@@ -1,7 +1,28 @@
 <?php
-$l_click = "Klikkaa";
-$l_here = "Tästä";
-$l_notifybody = "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun  foorumeihin on vastattu.
+$_lang['Agenda'] = "Esityslista";
+$_lang['Announcement'] = "Ilmoitukset";
+$_lang['Copy'] = "Kopioi";
+$_lang['Dear'] = "Hyvä";
+$_lang['Delete'] = "Poista";
+$_lang['Document'] = "Dokumentit";
+$_lang['Exercises'] = "Harjoitukset";
+$_lang['Forums'] = "Foorumit";
+$_lang['Help'] = "Apua";
+$_lang['Logout'] = "Logout";
+$_lang['ModifyProfile'] = "Muokkaa profiiliani";
+$_lang['MyCourses'] = "Kurssini";
+$_lang['NewTopic'] = "Uusi aihe";
+$_lang['NotAllowed'] = "Ei sallittu";
+$_lang['Ok'] = "Ok";
+$_lang['PoweredBy'] = "Alusta";
+$_lang['Reply'] = "vastaus";
+$_lang['Student'] = "Opiskelija";
+$_lang['To'] = "Hakemistoon";
+$_lang['Users'] = "Käyttäjät";
+$_lang['Work'] = "Opiskelijoiden tehtävät";
+$_lang['click'] = "Klikkaa";
+$_lang['here'] = "Tästä";
+$_lang['notifybody'] = "Saat tämän viestin, koska olet pyytänyt sähköpostiviestiä, kun  foorumeihin on vastattu.
 
 Voit katsoa aihetta:
 
@@ -14,33 +35,9 @@ tai katsoa foorumien listaa:
 Kiitos, että olet käyttänyt foorumeita.
 
 Hyvää päivän jatkoa.";
-$l_notifysubj = "Vastauksesi aiheeseen on lähetetty.";
-$l_returnindex = "Palaa foorumien listaan";
-$l_returntopic = "Palaa foorumien aiheiden listaan.";
-$l_separator = "» »";
-$l_viewmsg = "nähdäksesi Viesti.";
-$langAgenda = "Esityslista";
-$langAnnouncement = "Ilmoitukset";
-$langCopy = "Kopioi";
-$langDay_of_weekNames = "Array";
-$langDear = "Hyvä";
-$langDelete = "Poista";
-$langDocument = "Dokumentit";
-$langExercises = "Harjoitukset";
-$langForums = "Foorumit";
-$langHelp = "Apua";
-$langLogout = "Logout";
-$langModifyProfile = "Muokkaa profiiliani";
-$langMonthNames = "Array";
-$langMyCourses = "Kurssini";
-$langNameOfLang = "Array";
-$langNewTopic = "Uusi aihe";
-$langNotAllowed = "Ei sallittu";
-$langOk = "Ok";
-$langPoweredBy = "Alusta";
-$langReply = "vastaus";
-$langStudent = "Opiskelija";
-$langTo = "Hakemistoon";
-$langUsers = "Käyttäjät";
-$langWork = "Opiskelijoiden tehtävät";
+$_lang['notifysubj'] = "Vastauksesi aiheeseen on lähetetty.";
+$_lang['returnindex'] = "Palaa foorumien listaan";
+$_lang['returntopic'] = "Palaa foorumien aiheiden listaan.";
+$_lang['separator'] = "» »";
+$_lang['viewmsg'] = "nähdäksesi Viesti.";
 ?>

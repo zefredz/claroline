@@ -1,12 +1,11 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Tillkännagivanden";
-$langChat = "Diskussion";
-$langClarContent = "Här kan, lärare och assistenter skapa och administrera kurswebbsajter. Studenter kan läsa (dokument, agendor och annan information) och ibland göra övningar, publicera arbeten samt delta i forumdiskusioner...</p><b>Registrering</b><p>Följande instruktioner gäller bara om din version av Claroline tillåter självregistrering (vissa sajter registrerar dig automatiskt). Om du är elev, behöver du bara registrera dig på kursen genom att välja 'Följ kurser (elev)', därefter väljer du de kurser du vill delta i.</p><p>Om du är lärare eller assistent, registrera dig också, välj 'Skapa kurswebbsajter(lärare)'. Du kommer sedan att få fylla i Kurskod, Fakultet och Kurstitel. När allt godkänts tas du till den sajt som du nyss har skapat för att modifiera dess innehåll och organisation efter dina önskemål. </p><p>Om denna portal inte passar för dina ändamål, kontakta oss genom länken 'Att göra' som finns på campusens hemsida (när du loggat in).</p><p>Länken till Registrering hittar du på Campusens hemsida (överst till höger).</p><b>Login</b><p>När beöker sajten nästa gång, skriv in inloggnngsnamn/lösenord och godkänn för att få åtkomst till dina kurser. URL:en för sajten är";
-$langCourseManager = "Kursansvarig";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Kursbeskrivning";
-$langDocContent = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p><p>Du kan ladda upp filer oavsett typ (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, m.fl.). Du behöver bara bry dig om ifall eleverna har motsvarande programvara för att kunna läsa dem. Några filtyper kan vara bärare av datorvirus och det är ditt ansvar att inte ladda upp smittade filer. Det är säkrast att kontrollera dokumentet med en antivirusprogramvara före uppladdning.</p>
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Tillkännagivanden";
+$_lang['Chat'] = "Diskussion";
+$_lang['ClarContent'] = "Här kan, lärare och assistenter skapa och administrera kurswebbsajter. Studenter kan läsa (dokument, agendor och annan information) och ibland göra övningar, publicera arbeten samt delta i forumdiskusioner...</p><b>Registrering</b><p>Följande instruktioner gäller bara om din version av Claroline tillåter självregistrering (vissa sajter registrerar dig automatiskt). Om du är elev, behöver du bara registrera dig på kursen genom att välja 'Följ kurser (elev)', därefter väljer du de kurser du vill delta i.</p><p>Om du är lärare eller assistent, registrera dig också, välj 'Skapa kurswebbsajter(lärare)'. Du kommer sedan att få fylla i Kurskod, Fakultet och Kurstitel. När allt godkänts tas du till den sajt som du nyss har skapat för att modifiera dess innehåll och organisation efter dina önskemål. </p><p>Om denna portal inte passar för dina ändamål, kontakta oss genom länken 'Att göra' som finns på campusens hemsida (när du loggat in).</p><p>Länken till Registrering hittar du på Campusens hemsida (överst till höger).</p><b>Login</b><p>När beöker sajten nästa gång, skriv in inloggnngsnamn/lösenord och godkänn för att få åtkomst till dina kurser. URL:en för sajten är";
+$_lang['CourseManager'] = "Kursansvarig";
+$_lang['DescriptionCours'] = "Kursbeskrivning";
+$_lang['DocContent'] = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p><p>Du kan ladda upp filer oavsett typ (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, m.fl.). Du behöver bara bry dig om ifall eleverna har motsvarande programvara för att kunna läsa dem. Några filtyper kan vara bärare av datorvirus och det är ditt ansvar att inte ladda upp smittade filer. Det är säkrast att kontrollera dokumentet med en antivirusprogramvara före uppladdning.</p>
 <p>Dokumenten visas i alfabetisk ordning.<br /><b>Tips : </b>Om du presentera dem i en viss ordning så kan du numrera dem: 01, 02, 03... före det verkliga dokumentnamnet.</p>
 <p>Du kan :</p>
 <h4>Ladda upp ett dokument</h4>
@@ -68,8 +67,8 @@ $langDocContent = "<p>Dokumentverktyget är liknande Filhanteraren på din dator.<
 	</ul>
 	<center>
 	  <p>";
-$langDocument = "Dokument";
-$langExerciseContent = "<p>Övningsverktyget tillåter dig att skapa övningar som innehåller så många frågor som du önskar dig.<br /><br />
+$_lang['Document'] = "Dokument";
+$_lang['ExerciseContent'] = "<p>Övningsverktyget tillåter dig att skapa övningar som innehåller så många frågor som du önskar dig.<br /><br />
 Det finns flera typer av svarmöjligheter tillgänliga vid skapandet av frågorna:<br /><br />
 <ul>
 <li>Multipla val (Unik svar)</li>
@@ -139,10 +138,10 @@ Om du har ett stort antal frågor, kan du även välja att X antal frågor skall slu
 Frågepoolen kan även användas till att återanvända samma fråga till flera övningar.<br /><br />
 Som standard, visas all frågor i din kurs. Du kan visa frågor relaterade till en övning, genom att välja then den hör(this one) i plockmenyn &quot;Filter&quot;.<br /><br />
 Föräldralösa frågor är frågor som inte är kopplade till någon övning.</p>";
-$langExercises = "Övningar";
-$langForContent = "Forumet är ett textbaserat asynkront diskussionsforum. Där emejl tillåter en ett-till-ett-dialog, forumet tillåter publik eller semipublik dialog.</p><p>I tekniska termer behöver studenterna bara en webbläsare för att använda Clarolines forum.</P><p>För att organisera forumet klicka på 'admin'. Diskussioner är organiserade i olika nivåer:</p><p><b>Kategori > Forum > Ämne > Svar</b></p>För att ge eleverna struktur i diskussionerna är det nödvändigt att i förhand skapa forum och några ämnen och lämna resterande ämnen och svar till dem. Som standard, har Claroline forum innehållsmässigt skapat kategorin 'Publik', som ett demo.forum med ett demo.ämne.</p><p>Det första som du bör gör är att radera demoämnet och modifiera det första forumets namn. Därefter bör du skapa i den 'publika' kategorin, andra efter grupp eller efter tema, anpassat efter dina undervisningsbehov.</p><p>Blanda inte kategorier och forum och glöm inte att tomma kategorier (utan forum) inte visas för eleven.</p><p>Beskrivningen av ett forum kan vara en lista över medlemmarna, måldefinitionen, en uppgift eller ett tema...";
-$langForums = "Forum";
-$langGroupContent = "<p><b>Introduktion</b></p>
+$_lang['Exercises'] = "Övningar";
+$_lang['ForContent'] = "Forumet är ett textbaserat asynkront diskussionsforum. Där emejl tillåter en ett-till-ett-dialog, forumet tillåter publik eller semipublik dialog.</p><p>I tekniska termer behöver studenterna bara en webbläsare för att använda Clarolines forum.</P><p>För att organisera forumet klicka på 'admin'. Diskussioner är organiserade i olika nivåer:</p><p><b>Kategori > Forum > Ämne > Svar</b></p>För att ge eleverna struktur i diskussionerna är det nödvändigt att i förhand skapa forum och några ämnen och lämna resterande ämnen och svar till dem. Som standard, har Claroline forum innehållsmässigt skapat kategorin 'Publik', som ett demo.forum med ett demo.ämne.</p><p>Det första som du bör gör är att radera demoämnet och modifiera det första forumets namn. Därefter bör du skapa i den 'publika' kategorin, andra efter grupp eller efter tema, anpassat efter dina undervisningsbehov.</p><p>Blanda inte kategorier och forum och glöm inte att tomma kategorier (utan forum) inte visas för eleven.</p><p>Beskrivningen av ett forum kan vara en lista över medlemmarna, måldefinitionen, en uppgift eller ett tema...";
+$_lang['Forums'] = "Forum";
+$_lang['GroupContent'] = "<p><b>Introduktion</b></p>
 <p>Detta verktyg hjälper dig att skapa och hantera arbetsgrupper.
 Vid skapande (Skapa grupper), är grupperna tomma. Det finns flera sätt att fylla dem:
 <ul><li>automatiskt ('Fyll grupper'),</li>
@@ -168,26 +167,24 @@ Denna metod är bra för lärare som inte känner till elevlistan när grupperna skap
 <ul><li><b>Redigera</b> för att manuellt modifiera Gruppnamn, beskrivning, lärare och medlemslista.</li>
 <li><b>Radera</b> raderar en grupp.</li></ul>
 <hr noshade size=1>";
-$langGroups = "instruktion för gruppanvändarna";
-$langHClar = "Hjälp Start";
-$langHDoc = "Hjälp Dokument";
-$langHExercise = "Hjälp övningar";
-$langHFor = "Hjälp Forum";
-$langHHome = "Hjälp Hemsida";
-$langHUser = "Hjälp Användare";
-$langHelp = "hjälp";
-$langHelpGroups = "Hjälp grupper";
-$langHomeContent = "För större bekvämlighet, så uppträder i verktygen i Claroline med innehåll. Det finns ett litet exempel i varje verktyg för att hjälpa dig att snabbt förstå hur det fungerar. Det är upp till dig att modifiera eller radera exemplet.</p><p>Som exempel, här på kurssajtens hemsida, finns det en lite introduktionstext om kursen. För att byta ut den med din egen text, klicka nedan på 'modifiera'. Redigera texten och godkänn den. Det är enkelt. Och varje verktyg har samma logiska uppbyggnad: lägg till, radera, modifiera, vilken är logiken för dynamiska webbsajter.</p><p>När du skapar din första kurswebbsajt är de flesta verktygen aktiva. Åter igen, är det upp till dig att, deaktivera de som du inte behöver. Du behöver bara klicka på 'deaktivera'. Den flyttas sedan ner till den gråa sektionen på din webbsida. Den är inte synlig längre för dina elever, men du kan aktivera dem när du behöver dem.</p><p>Du kan lägga till dina egna sidor till din webbsida. Dessa sidor måste vara HTML-sidor (dessa kan skapas med vilket ordbehandlings eller webbredigeringsverktyg som helst). Använd 'Ladda upp sida och länka till Hemsida' för att skicka sidan till din server. Webbsidan infogas automatiskt i standardhuvudet på din hemsida, du kan alltså lugnt koncentrera dig på sidans innehåll. Om du vill länka från hemsidan till andra redan existerande sidor eller webbsajter vart som helst på Internet (även din egen sajt, använd 'Lägg till länk på Hemsidan'. Sidorna som du lägger till på hemsidan kan deaktiveras och sedan raderas, standardverktygen däremot kan bara deaktiveras men inte raderas.</p><p>När din kurswebbsajt är färdig, gå till 'Modifiera kursinformation' och bestäm graden av konfidentialitet du behöver. Som standard, är din kurs dold (därför att du arbetar på den).</p>";
-$langLogin = "Logga in";
-$langLogout = "Logga ut";
-$langModifyProfile = "Modifiera min profil";
-$langMonthNames = "Array";
-$langMyCourses = "Mina kurser";
-$langNameOfLang = "Array";
-$langOtherCourses = "Kurslista";
-$langPoweredBy = "Med kraft från";
-$langStudent = "elev";
-$langUserContent = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De ger inga rättigheter på operativsystemsnivå. De finns bara för att indikera vem som är vem på mänsklig nivå. Du kan modifiera dem genom klicka på 'modifiera' under 'roll', därefter skriver du in önskad roll, t.ex: lärare, professor, assistent, elev, student, besökare, expert...</P><hr />
+$_lang['Groups'] = "instruktion för gruppanvändarna";
+$_lang['HClar'] = "Hjälp Start";
+$_lang['HDoc'] = "Hjälp Dokument";
+$_lang['HExercise'] = "Hjälp övningar";
+$_lang['HFor'] = "Hjälp Forum";
+$_lang['HHome'] = "Hjälp Hemsida";
+$_lang['HUser'] = "Hjälp Användare";
+$_lang['Help'] = "hjälp";
+$_lang['HelpGroups'] = "Hjälp grupper";
+$_lang['HomeContent'] = "För större bekvämlighet, så uppträder i verktygen i Claroline med innehåll. Det finns ett litet exempel i varje verktyg för att hjälpa dig att snabbt förstå hur det fungerar. Det är upp till dig att modifiera eller radera exemplet.</p><p>Som exempel, här på kurssajtens hemsida, finns det en lite introduktionstext om kursen. För att byta ut den med din egen text, klicka nedan på 'modifiera'. Redigera texten och godkänn den. Det är enkelt. Och varje verktyg har samma logiska uppbyggnad: lägg till, radera, modifiera, vilken är logiken för dynamiska webbsajter.</p><p>När du skapar din första kurswebbsajt är de flesta verktygen aktiva. Åter igen, är det upp till dig att, deaktivera de som du inte behöver. Du behöver bara klicka på 'deaktivera'. Den flyttas sedan ner till den gråa sektionen på din webbsida. Den är inte synlig längre för dina elever, men du kan aktivera dem när du behöver dem.</p><p>Du kan lägga till dina egna sidor till din webbsida. Dessa sidor måste vara HTML-sidor (dessa kan skapas med vilket ordbehandlings eller webbredigeringsverktyg som helst). Använd 'Ladda upp sida och länka till Hemsida' för att skicka sidan till din server. Webbsidan infogas automatiskt i standardhuvudet på din hemsida, du kan alltså lugnt koncentrera dig på sidans innehåll. Om du vill länka från hemsidan till andra redan existerande sidor eller webbsajter vart som helst på Internet (även din egen sajt, använd 'Lägg till länk på Hemsidan'. Sidorna som du lägger till på hemsidan kan deaktiveras och sedan raderas, standardverktygen däremot kan bara deaktiveras men inte raderas.</p><p>När din kurswebbsajt är färdig, gå till 'Modifiera kursinformation' och bestäm graden av konfidentialitet du behöver. Som standard, är din kurs dold (därför att du arbetar på den).</p>";
+$_lang['Login'] = "Logga in";
+$_lang['Logout'] = "Logga ut";
+$_lang['ModifyProfile'] = "Modifiera min profil";
+$_lang['MyCourses'] = "Mina kurser";
+$_lang['OtherCourses'] = "Kurslista";
+$_lang['PoweredBy'] = "Med kraft från";
+$_lang['Student'] = "elev";
+$_lang['UserContent'] = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De ger inga rättigheter på operativsystemsnivå. De finns bara för att indikera vem som är vem på mänsklig nivå. Du kan modifiera dem genom klicka på 'modifiera' under 'roll', därefter skriver du in önskad roll, t.ex: lärare, professor, assistent, elev, student, besökare, expert...</P><hr />
 <b>Administrationsrättigheter</b>
 <p>Administratörsrättigheter, å andra sida motsvarar den tekniska behörigheten att modifiera innehållet och organisationen av kurswebbsajten. För tillfället, kan du bara välja mellan administratörsrättighet och inget alls.</P>
 <p>För att tillåta en assistent, till exempel, att hjälp till med administrationen så måste du registrera honom eller veta att han själv har gjort det. Klicka sedan på 'modifiera' under 'administrationsrättigheter', och därefter klicka på 'alla', och sedan 'Ok'.</P><hr />
@@ -195,6 +192,6 @@ $langUserContent = "<b>Roller</b><p>Roller har ingen datorrelaterad funktion. De
 <p>För att nämna medlärare i huvudet på kurswebbsajten, använd verktyget 'Modifiera kursinformation' (oranget verktyg). Denna modifikation gör inte medläraren till deltagare i kursen. Fältet 'Lärare' är helt skilt från Användarlistan.</p><hr />
 <b>Lägg till en användare</b>
 <p>För att lägga till en användare på din kurs, kontrollera först att personen inte är registrerad globalt på webbsajten. Om det är så markera i rutan på sidan om hans namn och klicka 'Ok'. Om personen inte är registrerad, lägg till personen manuellt. I båda fallen kommer personen att få ett mejl som talar om att du har registrerat personen och lösenord samt användarnamn skickas till personen som påminnelse.</p>";
-$langUsers = "Användare";
-$langWork = "Elevarbeten";
+$_lang['Users'] = "Användare";
+$_lang['Work'] = "Elevarbeten";
 ?>

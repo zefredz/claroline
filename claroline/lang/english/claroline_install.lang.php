@@ -1,27 +1,27 @@
 <?php
-$langAdminEmail = "Email";
-$langAdminLogin = "Login";
-$langAdminName = "Lastname";
-$langAdminPass = "Password";
-$langAdminSurname = "Firstname";
-$langDBConnectionParameters = "Mysql connection parameters";
-$langDBHost = "Database Host";
-$langDBSettingNamesIntro = "
+$_lang['AdminEmail'] = "Email";
+$_lang['AdminLogin'] = "Login";
+$_lang['AdminName'] = "Lastname";
+$_lang['AdminPass'] = "Password";
+$_lang['AdminSurname'] = "Firstname";
+$_lang['DBConnectionParameters'] = "Mysql connection parameters";
+$_lang['DBHost'] = "Database Host";
+$_lang['DBSettingNamesIntro'] = "
 The installer is going to create the main Claroline databases.
 If you are limited by your database system administrator to use
 only a single database, get back to the previous page
 and select option 'single' for 'Database mode'.<br /><br />
 ";
-$langDBUse = "Database usage";
-$langDbName = "Database name";
-$langDbPrefixForm = "Prefix for names of course databases";
-$langEG = "e. g.";
-$langLastCheck = "Last check before install";
-$langLicence = "License";
-$langMainDB = "Main database";
-$langMysqlNames = "MySQL Database and Table Names";
-$langPrintVers = "Printable version";
-$langRequirements = "Requirements";
-$langStatDB = "Tracking database";
-$langStepNOfN = "Step %d of %d";
+$_lang['DBUse'] = "Database usage";
+$_lang['DbName'] = "Database name";
+$_lang['DbPrefixForm'] = "Prefix for names of course databases";
+$_lang['EG'] = "e. g.";
+$_lang['LastCheck'] = "Last check before install";
+$_lang['Licence'] = "License";
+$_lang['MainDB'] = "Main database";
+$_lang['MysqlNames'] = "MySQL Database and Table Names";
+$_lang['PrintVers'] = "Printable version";
+$_lang['Requirements'] = "Requirements";
+$_lang['StatDB'] = "Tracking database";
+$_lang['StepNOfN'] = "Step %d of %d";
 ?>

@@ -1,8 +1,8 @@
 <?php
-$langDate = "Ngày";
-$langModify = "Modify";
-$langOk = "Ok";
-$langQuestion = "Câu hỏi";
-$langScore = "Điểm";
-$langSize = "Kích thước";
+$_lang['Date'] = "Ngày";
+$_lang['Modify'] = "Modify";
+$_lang['Ok'] = "Ok";
+$_lang['Question'] = "Câu hỏi";
+$_lang['Score'] = "Điểm";
+$_lang['Size'] = "Kích thước";
 ?>

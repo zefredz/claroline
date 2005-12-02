@@ -1,8 +1,8 @@
 <?php
-$langDate = "Дата";
-$langModify = "йЪНЕОЙФШ";
-$langOk = "Ok";
-$langQuestion = "Вопрос";
-$langScore = "баллы";
-$langSize = "Размер";
+$_lang['Date'] = "Дата";
+$_lang['Modify'] = "йЪНЕОЙФШ";
+$_lang['Ok'] = "Ok";
+$_lang['Question'] = "Вопрос";
+$_lang['Score'] = "баллы";
+$_lang['Size'] = "Размер";
 ?>

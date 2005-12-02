@@ -1,8 +1,8 @@
 <?php
-$langAgenda = "Agenda";
-$langAnnouncement = "Pengumuman";
-$langChat = "Diskusi";
-$langClarContent = "Di sini pengajar dan asisten membuat dan mengelola situs mata kuliah. Mahasiswa membaca (dokumen, agenda, informasi) dan,
+$_lang['Agenda'] = "Agenda";
+$_lang['Announcement'] = "Pengumuman";
+$_lang['Chat'] = "Diskusi";
+$_lang['ClarContent'] = "Di sini pengajar dan asisten membuat dan mengelola situs mata kuliah. Mahasiswa membaca (dokumen, agenda, informasi) dan,
  kadang, mengerjakan latihan, mem-publis paper, berpartisipasi dalam forum diskusi...</p><b>Pendaftaran</b><p>Instruksi berikut berlaku jika setting claroline mengijinkan pendaftaran sendiri/self-registration (beberapa situs meregister secara otomatis). <br />Jika anda mahamahasiswa, anda hanya perlu mendaftar dengan memilih 'Ikut mata kuliah (mahamahasiswa)', kemudian pilih mata kuliah yang ingin diikuti.</p><p>Jika anda pengajar atau asisten, mendaftar juga, tetapi pilih 'Buat situs mata kuliah (pengajar)'. Anda kemudian diminta untuk mengiisi borang tentang Kode mata kuliah, Fakultas/Jurusan dan Nama mata kuliah. Begitu selesai, anda akan dibawa ke situs yang baru saja anda buat dan disini anda dapat mengubah isi dan organisasinya sesuai kebutuhan. </p><p>Pilihan 'To do' adalah untuk menampung masukan  untuk administrator claroline.
  Hal-hal yang dapat di-posting-kan misalnya terjadinya error dan saran-saran pengembangan. Daftar 'To do' terhubung ke situs Home Page kampus (begitu
  log in).</p>
@@ -11,13 +11,12 @@ Jika anda tidak menemukan jawaban dari pertanyaan anda dalam lingkungan kampus a
 kirimkankan pesan kesini.</p>
 <p>Link ke Pendaftaran (jika ada) ada pada Home Page (bagian kanan atas).</p><b>Login</b><p>Pada kunjungan berikutnya, ketik login/password
  dan Ok untuk mengakses mata kuliah anda. URL situsnya ";
-$langCloseWindow = "Tutup jendela";
-$langConfigMenuContent = "Menu Konfigurasi";
-$langCourseHome = "Halaman induk mata kuliah";
-$langCourseManager = "Penanggung jawab mata kuliah";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Deskripsi mata kuliah";
-$langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>Anda dapat meng-upload file berbagai type (HTML, Word,
+$_lang['CloseWindow'] = "Tutup jendela";
+$_lang['ConfigMenuContent'] = "Menu Konfigurasi";
+$_lang['CourseHome'] = "Halaman induk mata kuliah";
+$_lang['CourseManager'] = "Penanggung jawab mata kuliah";
+$_lang['DescriptionCours'] = "Deskripsi mata kuliah";
+$_lang['DocContent'] = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>Anda dapat meng-upload file berbagai type (HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, dll.). Yang perlu dipertimbangkan hanyalah apakah mahamahasiswa anda memiliki software untuk membacanya.
  Beberapa type file dapat mengandung virus, tanggungjawab andalah untuk tidak meng-upload file ber-virus. Karena itu sangat berguna jika kita dapat memeriksakan file-file dengan software antivirus  sebelum meng-uploadnya.</p>
 <p>Dokumen-dokumen ditampilkan dalam urutan abjad.<br /><b>Tip : </b>Jika anda menginginkan file-file tampil dalam urutan berbeda, nomori mereka menjadi: 01, 02,
@@ -130,8 +129,8 @@ $langDocContent = "<p>Tool Dokumen sama dengan File Manager dari PC anda.</p><p>
 		</ul>
 <center>
 <p>";
-$langDocument = "Dokumen";
-$langExerciseContent = "<p>Tool latihan memungkinkan anda membuat latihan yang berisi sebanyak mungkin pertanyaan yang anda inginkan.<br /><br />
+$_lang['Document'] = "Dokumen";
+$_lang['ExerciseContent'] = "<p>Tool latihan memungkinkan anda membuat latihan yang berisi sebanyak mungkin pertanyaan yang anda inginkan.<br /><br />
 Ada beberapa macam soal tersedia :<br /><br />
 <ul>
   <li>Pilihan berganda (Jawaban unik/tunggal)</li>
@@ -201,12 +200,12 @@ Jika anda memiliki banyak sekali soal, anda dapat memilih secara acak sebanyak  
 Dengan bank soal dimungkinkan juga menggunakan soal yang sama untuk latihan yang berbeda.<br /><br />
 Secara bawaan, semua soal ditampilkan. Anda dapat menampilkan pertanyaan yang berhubungan dengan suatu latihan, dengan memilihnya dalam menu drop-down &quot;Filter&quot;.<br /><br />
 Soal yatim yaitu soal yang bukan milik suatu latihan.</p>";
-$langExercises = "Latihan";
-$langForContent = "Forum merupakan media diskusi tertulis secara asynchronous.
+$_lang['Exercises'] = "Latihan";
+$_lang['ForContent'] = "Forum merupakan media diskusi tertulis secara asynchronous.
  Kalau email memungkinkan dialog empat mata, maka pada forum dimungkinkan dialog publik/semi-publik.</p><p>Secara teknis, mahasiswa hanya membutuhkan browser untuk menggunakan forum claroline .</P><p>Untuk mengatur forum, klik
  'Administer'. Diskusi di-organisasikan dalam set dan subset seperti  dalam struktur berikut:</p><p><b>Kategori > Forum > Topik > Jawaban</b></p>Untuk menstrukturkan diskusi mahasiswa anda, maka sebelumnya anda harus mengatur kategori dan forum.  Sedangkan topik dan jawaban dibiarkan dikembangkan mahasiswa. Secara default, forum claroline berisi kategori 'Public', sebuah contoh forum dan topik.</p><p>Hal pertama yang mesti anda lakukan adalah menghapus topik sample tsb dan mengubah nama forum yang pertama. Kemudian anda dapat membuat forum lain dalam kategori 'public', atau forum-forum lain, menurut group atau tema, sesuai kebutuhan skenario pembelajaran.</p><p>Jangan campur-adukkan antara kategori dan forum, dan jangan lupa kategori kosong (tanpa forum) tidak tampil pada menu mahasiswa.</p><p>Deskripsi forum dapat berupa daftar anggota, definisi tujuan, tugas, tema dll.";
-$langForums = "Forum-forum";
-$langGroupContent = "<p><b>Pengantar</b></p>
+$_lang['Forums'] = "Forum-forum";
+$_lang['GroupContent'] = "<p><b>Pengantar</b></p>
 <p>Tool ini digunakan untuk membuat dan mengelola kelompok tugas.
 Pada saat pembutan (Buat group), group masih kosong. Ada beberapa cara untuk mengiisinya:
 <ul><li>otomatis ('Isi group'),</li>
@@ -233,16 +232,16 @@ Metode ini baik untuk pengajar yang tidak tahu daftar mahasiswa ketika membuat g
 daftar anggota.</li>
 <li><b>Hapus</b> menghapus group.</li></ul>
 <hr noshade size=1>";
-$langGroups = "Pendaftaran user ke dalam grup";
-$langHClar = "Mulai Pertolongan";
-$langHDoc = "Dokumen Pertolongan";
-$langHExercise = "Pertolongan Latihan";
-$langHFor = "Pertolongan Forum";
-$langHHome = "Home Page Pertolongan";
-$langHUser = "Pertolongan User";
-$langHelp = "Pertolongan";
-$langHelpAssignment = "Bantuan tugas";
-$langHelpAssignmentContent = "<p>
+$_lang['Groups'] = "Pendaftaran user ke dalam grup";
+$_lang['HClar'] = "Mulai Pertolongan";
+$_lang['HDoc'] = "Dokumen Pertolongan";
+$_lang['HExercise'] = "Pertolongan Latihan";
+$_lang['HFor'] = "Pertolongan Forum";
+$_lang['HHome'] = "Home Page Pertolongan";
+$_lang['HUser'] = "Pertolongan User";
+$_lang['Help'] = "Pertolongan";
+$_lang['HelpAssignment'] = "Bantuan tugas";
+$_lang['HelpAssignmentContent'] = "<p>
 Bagi mahasiswa, tool tugas adalah tempat untuk mengumpulkan publikasi. Pengelola mata kuliah membuat satu atau beberapa tugas
 ( zona publikasi yang berbeda ) tempat mahasiswa dapat memasukkan pekerjaan mereka.<br /><br />
 Setiap tugas dapat memiliki tujuan dan prasyarat yang berbeda : publikasi harus berupa file, atau teks,
@@ -313,33 +312,31 @@ hanya dapat dilihat dan diberi nilai oleh pengelola mata kuliah.
 </li>
 </ul>
 ";
-$langHelpGroups = "Perolongan group";
-$langHomeContent = "Untuk kemudahan, tool claroline berisi setting default.
+$_lang['HelpGroups'] = "Perolongan group";
+$_lang['HomeContent'] = "Untuk kemudahan, tool claroline berisi setting default.
  Terdapat contoh kecil pada tiap tool untuk membantu anda mencerna bagaimana hal tsb bekerja. Terserah anda untuk mengubahnya atau menghapusnya.</p><p>Contohnya, pada Home Page mata kuliah ini, terdapat teks pendahuluan berisi 'Ini teks pendahuluan mata kuliah anda. Untuk menggantinya dengan teks anda, klik di bawah ini pada 'ubah' untuk mengubahnya, editlah teks tsb dan OK. Sesederhana itulah modelnya. Tiap tool memiliki logika yang sama:
  tambah, hapus, ubah, yang merupakan logika ditus dinamis.</p><p>Pada saat pertamabanda membuat situs, hampir semua tool aktif. Kembali terserah anda untuk me-nonaktifkan poin-poin yang tidak anda butuhkan. Andan hanya perlu untuk meng-klik 'nonaktifkan'. Maka item tsb akan berubah menjadi bagian kelabu dari situs anda dan menjadi tidak tampak untuk mahasiswa anda.  Namun anda mengaktifkannya jika anda butuhkan, membuatnya nampak untuk mahasiswa anda.</p>
 <p>Anda dapat menambahkan halaman ke situs anda.  Halaman tsb mesti dalam format HTML (yang dapat dibuat menggunakan 
  Word Processor atau Web Composer). Gunakan 'Upload halaman dan  link-kan ke Situs' untuk mengirim halaman anda ke server. Header standar situs anda secara otomatis akan bergabung dengan dumen baru tsb, jadi anda hanya perlu berkonsentrasi ke isi saja. Jika anda ingin me-link situs anda ke situs/dokumen lain di web (bahkan ke dalam situs anda sendiri), gunaksn 'Tambahkan link ke Situs'.  Halaman yang anda tambahkan tsb dapat di-nonaktifkan kemudian dihapus, dimana tool standar dapat me-nonaktifkan tetapi tidak menghapus.</p><p>Begitu situs anda siap, browse ke 'Ubah info mata kuliah' dan tentukan tingkat kerahasiaan yang diinginkan.
  Secara default, mata kuliah anda tersrmbunyi (karena anda sedang bekerja disitu).</p>";
-$langLearningPath = "Alur pembelajaran";
-$langLogin = "login";
-$langLogout = "Logout";
-$langMinuteShort = "menit";
-$langModifyProfile = "Ubah profil Ku";
-$langMonthNames = "Array";
-$langMyAgenda = "Kalenderku";
-$langMyCourses = "Daftar Mata kuliah Ku";
-$langNameOfLang = "Array";
-$langOtherCourses = "Daftar mata kuliah";
-$langPeriodDayShort = "h.";
-$langPeriodHourShort = "j.";
-$langPlatformAdministration = "Administrasi Platform";
-$langPoweredBy = "Diperkuat oleh";
-$langSecondShort = "detik";
-$langStudent = "mahasiswa";
-$langSwitchEditorToTextConfirm = "Perintah ini akan menghapus layout teks berlaku. Ingin dilanjutkan?";
-$langTextEditorDisable = "Nonaktifkan editor teks";
-$langTextEditorEnable = "Aktifkan editor teks";
-$langUserContent = "<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
+$_lang['LearningPath'] = "Alur pembelajaran";
+$_lang['Login'] = "login";
+$_lang['Logout'] = "Logout";
+$_lang['MinuteShort'] = "menit";
+$_lang['ModifyProfile'] = "Ubah profil Ku";
+$_lang['MyAgenda'] = "Kalenderku";
+$_lang['MyCourses'] = "Daftar Mata kuliah Ku";
+$_lang['OtherCourses'] = "Daftar mata kuliah";
+$_lang['PeriodDayShort'] = "h.";
+$_lang['PeriodHourShort'] = "j.";
+$_lang['PlatformAdministration'] = "Administrasi Platform";
+$_lang['PoweredBy'] = "Diperkuat oleh";
+$_lang['SecondShort'] = "detik";
+$_lang['Student'] = "mahasiswa";
+$_lang['SwitchEditorToTextConfirm'] = "Perintah ini akan menghapus layout teks berlaku. Ingin dilanjutkan?";
+$_lang['TextEditorDisable'] = "Nonaktifkan editor teks";
+$_lang['TextEditorEnable'] = "Aktifkan editor teks";
+$_lang['UserContent'] = "<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
  Peran tidak memberi hak pada sistem operasi, tetapi hanya menunjukkan kepada kita siapa user. Anda dapat mengubahnya dengan meng-klik 'ubah' dalam 
  'peran', kemudian ketikkan apa yang anda inginkan: pengajar, asisten, mahasiswa,
  pengunjung, pakar ...</P><hr />
@@ -351,11 +348,11 @@ $langUserContent = "<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
  Field 'Pengajar'  independen terhadap Daftar User.</p><hr />
 <b>Tambah user</b>
 <p>Untuk menambah seorang user ke mata kuliah anda, isi field-field dan validasi. User tersebut akan menerima email berisi bahwa user tsb telah terdaftar dan informasi login dan passwordnya.</p>";
-$langUsers = "Users";
-$langViewMode = "modus tampil";
-$langWiki = "Wiki";
-$langWork = "Tugas";
-$lang_enroll = "Daftar";
-$lang_footer_p_CourseManager = "Pengelola %s";
-$lang_p_platformManager = "Administrator untuk %s";
+$_lang['Users'] = "Users";
+$_lang['ViewMode'] = "modus tampil";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Tugas";
+$_lang['_enroll'] = "Daftar";
+$_lang['_footer_p_CourseManager'] = "Pengelola %s";
+$_lang['_p_platformManager'] = "Administrator untuk %s";
 ?>

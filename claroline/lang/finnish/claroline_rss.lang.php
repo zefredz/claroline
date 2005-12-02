@@ -1,21 +1,18 @@
 <?php
-$langAgenda = "Esityslista";
-$langAnnouncement = "Ilmoitukset";
-$langCopy = "Kopioi";
-$langDay_of_weekNames = "Array";
-$langDocument = "Dokumentit";
-$langExercises = "Harjoitukset";
-$langForums = "Foorumit";
-$langHelp = "Apua";
-$langLogout = "Logout";
-$langModifyProfile = "Muokkaa profiiliani";
-$langMonthNames = "Array";
-$langMyCourses = "Kurssini";
-$langNameOfLang = "Array";
-$langOk = "Ok";
-$langPoweredBy = "Alusta";
-$langStudent = "Opiskelija";
-$langTo = "Hakemistoon";
-$langUsers = "Käyttäjät";
-$langWork = "Opiskelijoiden tehtävät";
+$_lang['Agenda'] = "Esityslista";
+$_lang['Announcement'] = "Ilmoitukset";
+$_lang['Copy'] = "Kopioi";
+$_lang['Document'] = "Dokumentit";
+$_lang['Exercises'] = "Harjoitukset";
+$_lang['Forums'] = "Foorumit";
+$_lang['Help'] = "Apua";
+$_lang['Logout'] = "Logout";
+$_lang['ModifyProfile'] = "Muokkaa profiiliani";
+$_lang['MyCourses'] = "Kurssini";
+$_lang['Ok'] = "Ok";
+$_lang['PoweredBy'] = "Alusta";
+$_lang['Student'] = "Opiskelija";
+$_lang['To'] = "Hakemistoon";
+$_lang['Users'] = "Käyttäjät";
+$_lang['Work'] = "Opiskelijoiden tehtävät";
 ?>

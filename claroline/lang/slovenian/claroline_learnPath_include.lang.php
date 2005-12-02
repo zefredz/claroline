@@ -1,8 +1,8 @@
 <?php
-$langDate = "Datum";
-$langModify = "Uredi";
-$langOk = "Ok";
-$langQuestion = "Vprasanje";
-$langScore = "Tockovanje";
-$langSize = "Velikost";
+$_lang['Date'] = "Datum";
+$_lang['Modify'] = "Uredi";
+$_lang['Ok'] = "Ok";
+$_lang['Question'] = "Vprasanje";
+$_lang['Score'] = "Tockovanje";
+$_lang['Size'] = "Velikost";
 ?>

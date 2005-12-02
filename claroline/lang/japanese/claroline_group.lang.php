@@ -1,7 +1,28 @@
 <?php
-$l_click = "Click";
-$l_here = "here";
-$l_notifybody = "You are receiving this Email because a message
+$_lang['Agenda'] = "Í½Äê";
+$_lang['Announcement'] = "¤ªÃÎ¤é¤»";
+$_lang['Copy'] = "¥³¥Ô¡¼";
+$_lang['Dear'] = "·ÉÇò";
+$_lang['Delete'] = "ºï½ü";
+$_lang['Document'] = "Ê¸½ñ¤¿¤Á";
+$_lang['Forum'] = "²ñµÄ¼¼";
+$_lang['Forums'] = "²ñµÄ¼¼";
+$_lang['Help'] = "¤Ø¥ë¥×";
+$_lang['Logout'] = "¥í¥°¥¢¥¦¥È";
+$_lang['ModifyProfile'] = "¼«Ê¬¤Î¥×¥í¥Õ¥¡¥¤¥ë¤ò½¤Àµ";
+$_lang['MyCourses'] = "¼«Ê¬¤Î¥³¡¼¥¹";
+$_lang['NewTopic'] = "New topic";
+$_lang['NotAllowed'] = "¤³¤Î¥³¡¼¥¹¼õ¹Ö¤¬µö²Ä¤µ¤ì¤Æ¤¤¤Þ¤»¤ó";
+$_lang['Ok'] = "¥ª¥Ã¥±¡¼";
+$_lang['PoweredBy'] = "Powered by Claroline";
+$_lang['Reply'] = "Answer";
+$_lang['Student'] = "student";
+$_lang['To'] = "to";
+$_lang['Users'] = "¥æ¡¼¥¶";
+$_lang['Work'] = "³ØÀ¸¤ÎÊ¸½ñ¤¿¤Á";
+$_lang['click'] = "Click";
+$_lang['here'] = "here";
+$_lang['notifybody'] = "You are receiving this Email because a message
 you posted on forums has been replied to, and
 you selected to be notified on this event.
 
@@ -16,33 +37,9 @@ Or view the forum index at
 Thank you for using forums.
 
 Have a nice day.";
-$l_notifysubj = "A reply to your topic has been posted.";
-$l_returnindex = "to return to the forum index";
-$l_returntopic = "to return to the forum topic list.";
-$l_separator = "» »";
-$l_viewmsg = "to view your Message.";
-$langAgenda = "Í½Äê";
-$langAnnouncement = "¤ªÃÎ¤é¤»";
-$langCopy = "¥³¥Ô¡¼";
-$langDay_of_weekNames = "Array";
-$langDear = "·ÉÇò";
-$langDelete = "ºï½ü";
-$langDocument = "Ê¸½ñ¤¿¤Á";
-$langForum = "²ñµÄ¼¼";
-$langForums = "²ñµÄ¼¼";
-$langHelp = "¤Ø¥ë¥×";
-$langLogout = "¥í¥°¥¢¥¦¥È";
-$langModifyProfile = "¼«Ê¬¤Î¥×¥í¥Õ¥¡¥¤¥ë¤ò½¤Àµ";
-$langMonthNames = "Array";
-$langMyCourses = "¼«Ê¬¤Î¥³¡¼¥¹";
-$langNameOfLang = "Array";
-$langNewTopic = "New topic";
-$langNotAllowed = "¤³¤Î¥³¡¼¥¹¼õ¹Ö¤¬µö²Ä¤µ¤ì¤Æ¤¤¤Þ¤»¤ó";
-$langOk = "¥ª¥Ã¥±¡¼";
-$langPoweredBy = "Powered by Claroline";
-$langReply = "Answer";
-$langStudent = "student";
-$langTo = "to";
-$langUsers = "¥æ¡¼¥¶";
-$langWork = "³ØÀ¸¤ÎÊ¸½ñ¤¿¤Á";
+$_lang['notifysubj'] = "A reply to your topic has been posted.";
+$_lang['returnindex'] = "to return to the forum index";
+$_lang['returntopic'] = "to return to the forum topic list.";
+$_lang['separator'] = "» »";
+$_lang['viewmsg'] = "to view your Message.";
 ?>

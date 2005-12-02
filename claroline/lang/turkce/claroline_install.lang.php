@@ -1,14 +1,14 @@
 <?php
-$langAdminEmail = "Administrator email";
-$langAdminLogin = "Administrator login";
-$langAdminName = "Administrator name";
-$langAdminPass = "Administrator password";
-$langAdminSurname = "Administrator surname";
-$langDBHost = "Database Host";
-$langEG = "e. g.";
-$langLastCheck = "Last check before install";
-$langLicence = "License";
-$langMainDB = "Main claroline DB";
-$langPrintVers = "Printable version";
-$langRequirements = "Requirements";
+$_lang['AdminEmail'] = "Administrator email";
+$_lang['AdminLogin'] = "Administrator login";
+$_lang['AdminName'] = "Administrator name";
+$_lang['AdminPass'] = "Administrator password";
+$_lang['AdminSurname'] = "Administrator surname";
+$_lang['DBHost'] = "Database Host";
+$_lang['EG'] = "e. g.";
+$_lang['LastCheck'] = "Last check before install";
+$_lang['Licence'] = "License";
+$_lang['MainDB'] = "Main claroline DB";
+$_lang['PrintVers'] = "Printable version";
+$_lang['Requirements'] = "Requirements";
 ?>

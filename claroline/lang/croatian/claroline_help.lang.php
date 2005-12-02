@@ -1,14 +1,13 @@
 <?php
-$langAgenda = "Program rada";
-$langAnnouncement = "Obavijesti";
-$langChat = "Chat";
-$langCloseWindow = "Zatvori prozor";
-$langConfigMenuContent = "Izbornik postavki";
-$langCourseHome = "Početna stranica predmeta";
-$langCourseManager = "Voditelj predmeta";
-$langDay_of_weekNames = "Array";
-$langDescriptionCours = "Opis predmeta";
-$langDocContent = "<p>Putem 'Dokumenti' alata moguće je <i>uploadati</i> bilo
+$_lang['Agenda'] = "Program rada";
+$_lang['Announcement'] = "Obavijesti";
+$_lang['Chat'] = "Chat";
+$_lang['CloseWindow'] = "Zatvori prozor";
+$_lang['ConfigMenuContent'] = "Izbornik postavki";
+$_lang['CourseHome'] = "Početna stranica predmeta";
+$_lang['CourseManager'] = "Voditelj predmeta";
+$_lang['DescriptionCours'] = "Opis predmeta";
+$_lang['DocContent'] = "<p>Putem 'Dokumenti' alata moguće je <i>uploadati</i> bilo
 koju vrstu dokumenta (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, i dr.)</p>
 <hr />
 <h4>Načini pregledavanja</h4>
@@ -164,8 +163,8 @@ Kliknite na 'Premjesti' ikonu elementa kojeg želite premjestiti.
 </ul>
 <center>
 <p>";
-$langDocument = "Dokumenti i linkovi";
-$langExerciseContent = "Alat 'Vježbe' voditeljima predmeta omogućuje stvaranje <i>online</i> vježbi. Korisnici putem ovog alata mogu interaktivno
+$_lang['Document'] = "Dokumenti i linkovi";
+$_lang['ExerciseContent'] = "Alat 'Vježbe' voditeljima predmeta omogućuje stvaranje <i>online</i> vježbi. Korisnici putem ovog alata mogu interaktivno
 rješavati vježbe. U slučaju da je korisnik prijavljen, rezultati vježbi bit će spremljeni u statistikama predmeta.
 <hr />
 
@@ -234,8 +233,8 @@ niti u jednoj vježbi).
 <p>Prilikom brisanja vježbe, pitanja se ne brišu iz baze podataka, već ostaju dostupna putem alata 'Zbirka pitanja'.</p>
 <p>Po <i>defaultu</i>, prikazana su sva pitanja ovog predmeta. Pomoću filtera je moguće prikazati pitanja određene vježbe ili nedodijeljena pitanja.</p>
 ";
-$langExercises = "Vježbe";
-$langForContent = "Forumi su namijenjeni za javnu ili privatnu pisanu komunikaciju.</p>
+$_lang['Exercises'] = "Vježbe";
+$_lang['ForContent'] = "Forumi su namijenjeni za javnu ili privatnu pisanu komunikaciju.</p>
 <p>Kako biste organizirali forume, kliknite na 'Administriranje foruma'. Rasprave su organizirane
 prema sljedećoj hijerarhiji:</p>
 <p><b>Kategorija > Forum > Tema > Poruka</b></p>
@@ -245,15 +244,15 @@ prepustiti stvaranje tema i poruka. Po <i>defaultu</i>, forumi za predmet sastoj
 'Glavne kategorije', 'Oglednog foruma' i 'Ogledne teme'.</p>
 <p>Preporučljivo je izbrisati oglednu temu i promijeniti ime foruma. Kategorije koje ne sadrže
 forume neće biti prikazane polaznicima predmeta.</p>";
-$langForums = "Forumi";
-$langGroups = "Grupe";
-$langHDoc = "Dokumenti pomoć";
-$langHExercise = "Vjezbe pomoć";
-$langHFor = "Forum pomoć";
-$langHUser = "Korisnici pomoć";
-$langHelp = "Pomoć";
-$langHelpAssignment = "Zadaci pomoć";
-$langHelpAssignmentContent = "<p>
+$_lang['Forums'] = "Forumi";
+$_lang['Groups'] = "Grupe";
+$_lang['HDoc'] = "Dokumenti pomoć";
+$_lang['HExercise'] = "Vjezbe pomoć";
+$_lang['HFor'] = "Forum pomoć";
+$_lang['HUser'] = "Korisnici pomoć";
+$_lang['Help'] = "Pomoć";
+$_lang['HelpAssignment'] = "Zadaci pomoć";
+$_lang['HelpAssignmentContent'] = "<p>
 Alat 'Zadaci' služi voditeljima predmeta za stvaranje zadataka. Korisnici putem ovog alata mogu poslati rješenja.
 Rješenja, u obliku teksta, datoteke ili njihove kombinacije, polaznici predaju samostalno ili u grupama.
 Polaznici mogu uređivati rad čak i nakon što je predan.
@@ -317,25 +316,23 @@ grupe u kojoj se korisnik nalazi ili voditelj predmeta.
 
 
 ";
-$langHelpGroups = "Grupe pomoć";
-$langLearningPath = "Redoslijed učenja";
-$langLogin = "Prijava";
-$langLogout = "Odjava";
-$langMinuteShort = "min.";
-$langModifyProfile = "Promijeni moj profil";
-$langMonthNames = "Array";
-$langMyAgenda = "Moj kalendar";
-$langMyCourses = "Moji predmeti";
-$langNameOfLang = "Array";
-$langOtherCourses = "Popis predmeta";
-$langPlatformAdministration = "Administiranje";
-$langPoweredBy = "Powered by";
-$langSecondShort = "s";
-$langStudent = "Korisnik";
-$langSwitchEditorToTextConfirm = "Ova naredba prebacuje editor u tekstualni način rada. Želite li nastaviti?";
-$langTextEditorDisable = "Tekstualni editor";
-$langTextEditorEnable = "Vizualni editor";
-$langUserContent = "<p>Alat 'Korisnici' je namijenjen radu s korisničkim podacima. Tablica korisnika sadrži sljedeće podatke:
+$_lang['HelpGroups'] = "Grupe pomoć";
+$_lang['LearningPath'] = "Redoslijed učenja";
+$_lang['Login'] = "Prijava";
+$_lang['Logout'] = "Odjava";
+$_lang['MinuteShort'] = "min.";
+$_lang['ModifyProfile'] = "Promijeni moj profil";
+$_lang['MyAgenda'] = "Moj kalendar";
+$_lang['MyCourses'] = "Moji predmeti";
+$_lang['OtherCourses'] = "Popis predmeta";
+$_lang['PlatformAdministration'] = "Administiranje";
+$_lang['PoweredBy'] = "Powered by";
+$_lang['SecondShort'] = "s";
+$_lang['Student'] = "Korisnik";
+$_lang['SwitchEditorToTextConfirm'] = "Ova naredba prebacuje editor u tekstualni način rada. Želite li nastaviti?";
+$_lang['TextEditorDisable'] = "Tekstualni editor";
+$_lang['TextEditorEnable'] = "Vizualni editor";
+$_lang['UserContent'] = "<p>Alat 'Korisnici' je namijenjen radu s korisničkim podacima. Tablica korisnika sadrži sljedeće podatke:
 <ul>
 <li>
 <b>Korisničko ime</b>. Klikom na korisničko ime, moguće je dobiti podatke o odabranom korisniku, kao što je npr. Email
@@ -391,11 +388,11 @@ sadrži korisničko ime i zaporku.
 </li>
 </ul>
 ";
-$langUsers = "Korisnici";
-$langViewMode = "Pregledavati kao";
-$langWiki = "Wiki";
-$langWork = "Zadaci";
-$lang_enroll = "Prijavi";
-$lang_footer_p_CourseManager = "Voditelj predmeta %s";
-$lang_p_platformManager = "Administrator sustava %s";
+$_lang['Users'] = "Korisnici";
+$_lang['ViewMode'] = "Pregledavati kao";
+$_lang['Wiki'] = "Wiki";
+$_lang['Work'] = "Zadaci";
+$_lang['_enroll'] = "Prijavi";
+$_lang['_footer_p_CourseManager'] = "Voditelj predmeta %s";
+$_lang['_p_platformManager'] = "Administrator sustava %s";
 ?>
