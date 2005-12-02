@@ -31,6 +31,7 @@ $conf_def['section']['PLATFORM_SETTING']['properties'] =
 array ( 'siteName'
       , 'platformLanguage'
       , 'claro_stylesheet'
+      , 'claro_editor'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Technical contact';
@@ -295,6 +296,15 @@ array ('label'       => 'Layout'
       ,'readonly'    => FALSE
       );
 
+$conf_def_property_list['claro_editor'] =
+array ('label'       => 'Editor'
+      ,'description' => 'Set the editor that will replace standard html textarea.'
+      ,'default'     => 'tiny_mce'
+      ,'type'        => 'editor'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+      
 $conf_def_property_list['CLAROLANG'] =
 array('label'         => 'Language mode'
      ,'description'   => 'Translation: use a single language file'."\n".'Production: each script use its own language file.'
