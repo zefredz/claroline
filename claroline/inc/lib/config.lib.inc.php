@@ -501,6 +501,24 @@ function validate_property ($propertyValue, $propertyDef)
                 closedir($handle);
                 $type='enum';
                 break;
+			case 'editor' :
+                $dirname = $rootSys . 'claroline/editor/';
+                if($dirname[strlen($dirname)-1]!='/')
+                    $dirname.='/';
+                $handle=opendir($dirname);
+                $acceptedValue=array();
+                while ($entries = readdir($handle))
+                {
+                    if ($entries=='.' || $entries=='..' || $entries=='CVS')
+                        continue;
+                    if (is_dir($dirname . $entries))
+                    {
+                        $acceptedValue[$entries] = $entries;
+                    }
+                }
+                closedir($handle);
+                $type='enum';
+                break;
         }
 
 
@@ -1010,6 +1028,24 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                 break;
             case 'lang' :
                 $dirname = '../../lang/';
+                if($dirname[strlen($dirname)-1]!='/')
+                    $dirname.='/';
+                $handle=opendir($dirname);
+                $property_def['acceptedValue']=array();
+                while ($entries = readdir($handle))
+                {
+                    if ($entries=='.'||$entries=='..'||$entries=='CVS')
+                        continue;
+                    if (is_dir($dirname.$entries))
+                    {
+                        $property_def['acceptedValue'][$entries] = $entries;
+                    }
+                }
+                closedir($handle);
+                $type = 'enum';
+                break;
+            case 'editor' :
+                $dirname = '../../editor/';
                 if($dirname[strlen($dirname)-1]!='/')
                     $dirname.='/';
                 $handle=opendir($dirname);
