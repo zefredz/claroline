@@ -200,21 +200,21 @@ if ($disp_edit_command)
     echo '<p>' . "\n"
     .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
     .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt=""> '
-    .    $langEditToolList
+    .    get_lang('EditToolList')
     .    '</a><br />' . "\n"
     .    '<a class="claroCmd" href="' . $toolRepository . 'course_info/infocours.php">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
-    .    $langCourseSettings
+    .    get_lang('CourseSettings')
     .    '</a><br />' . "\n"
     .    '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php">'
     .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt=""> '
-    .    $langStatistics
+    .    get_lang('Statistics')
     .    '</a>' . "\n"
     .    '</p>'
     ;
 }
 
-if ( isset($_uid) ) echo '<br /><small><span class="item hot"> '. $langNewLegend . '</span></small>';
+if ( isset($_uid) ) echo '<br /><small><span class="item hot"> '. get_lang('NewLegend') . '</span></small>';
 
 ?>
 </td>
@@ -233,7 +233,7 @@ INTRODUCTION TEXT SECTION
 
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
 $moduleId = -1;
-$helpAddIntroText=$langIntroCourse;
+$helpAddIntroText=get_lang('IntroCourse');
 include($includePath . '/introductionSection.inc.php');
 ?>
 </td>

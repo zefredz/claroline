@@ -83,13 +83,13 @@
         **/
         function getResourceName($crl)
         {
-            global $_courseToolList,$langGroups;
+            global $_courseToolList;
              
             $elementCRLArray = CRLTool::parseCRL($crl);
             $title = "";
 
             $title  = get_toolname_title( $elementCRLArray );
-            $title .= " > $langGroups > ".$this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray["team"]);    
+            $title .= " > " . get_lang('Groups') . " > ".$this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray["team"]);    
                 
             return $title;
                

@@ -29,7 +29,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 // initialisation of global variables and used libraries
 require_once $includePath . '/lib/admin.lib.inc.php';
@@ -46,7 +46,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm("' . clean_str_for_javascript($langAreYouSureToDelete) . '" + name + \'"? \'))
+    if (confirm("' . clean_str_for_javascript(get_lang('AreYouSureToDelete')) . '" + name + \'"? \'))
         {return true;}
     else
         {return false;}
@@ -55,8 +55,8 @@ function confirmation (name)
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$nameTools = $langCourseList;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$nameTools = get_lang('CourseList');
 
 //------------------------
 //  USED SESSION VARIABLES
@@ -135,7 +135,7 @@ switch ($cmd)
         if ($the_course)
         {
             delete_course($delCode);
-            $dialogBox = $langCourseDelete;
+            $dialogBox = get_lang('CourseDelete');
             $noQUERY_STRING = true;
         }
         else
@@ -144,12 +144,12 @@ switch ($cmd)
             {
                 case 'course_not_found':
                 {
-                    $dialogBox = $langCourseNotFound;
+                    $dialogBox = get_lang('CourseNotFound');
                 }
                 break;
                 default  :
                 {
-                    $dialogBox = $langCourseNotFound;
+                    $dialogBox = get_lang('CourseNotFound');
                 }
             }
 
@@ -316,42 +316,42 @@ if ( !empty($_REQUEST['search']) )
 
 if ( !empty($_REQUEST['code']) )
 {
-    $isSearched .= $langCode . ' = ' . $_REQUEST['code'] . ' ';
+    $isSearched .= get_lang('Code') . ' = ' . $_REQUEST['code'] . ' ';
     $advanced_search_query_string[] = 'code=' . urlencode($_REQUEST['code']);
 }
 
 if ( !empty($_REQUEST['intitule']) )
 {
-    $isSearched .= $langCourseTitle . ' = ' . $_REQUEST['intitule'] . ' ';
+    $isSearched .= get_lang('CourseTitle') . ' = ' . $_REQUEST['intitule'] . ' ';
     $advanced_search_query_string[] = 'intitule=' . urlencode($_REQUEST['intitule']);
 }
 
 if ( !empty($_REQUEST['category']) )
 {
-    $isSearched .= $langCategory . ' = ' . $_REQUEST['category'] . ' ';
+    $isSearched .= get_lang('Category') . ' = ' . $_REQUEST['category'] . ' ';
     $advanced_search_query_string[] = 'category=' . urlencode($_REQUEST['category']);
 }
 if ( !empty($_REQUEST['language']) )
 {
-    $isSearched .= $langLanguage . ' : ' . $_REQUEST['language'] . ' ';
+    $isSearched .= get_lang('Language') . ' : ' . $_REQUEST['language'] . ' ';
     $advanced_search_query_string[] = 'language=' . urlencode($_REQUEST['language']);
 }
 if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')
 {
-    $isSearched .= ' <b><br />' . $langPublicOnly . ' </b> ';
+    $isSearched .= ' <b><br />' . get_lang('PublicOnly') . ' </b> ';
 
 }
 if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')
 {
-    $isSearched .= ' <b><br />' . $langPrivateOnly . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('PrivateOnly') . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed')
 {
-    $isSearched .= ' <b><br />' . $langSubscriptionAllowedOnly . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('SubscriptionAllowedOnly') . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')
 {
-    $isSearched .= ' <b><br />' . $langSubscriptionDeniedOnly . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('SubscriptionDeniedOnly') . ' </b>  ';
 }
 
 //see what must be kept for advanced links
@@ -383,7 +383,7 @@ if( empty($isSearched) )
 }
 else
 {
-    $title = $langSearchOn . ' : ';
+    $title = get_lang('SearchOn') . ' : ';
 }
 
 echo "\n".'<table width="100%">'."\n\n"
@@ -398,12 +398,12 @@ echo "\n".'<table width="100%">'."\n\n"
 .    '</td>'."\n"
 .    '<td align="right">'."\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">'."\n"
-.    '<label for="search">' . $langMakeNewSearch . '</label>'."\n"
+.    '<label for="search">' . get_lang('MakeNewSearch') . '</label>'."\n"
 .    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />'."\n"
-.    '<input type="submit" value=" ' . $langOk . ' " />'."\n"
+.    '<input type="submit" value=" ' . get_lang('Ok') . ' " />'."\n"
 .    '<input type="hidden" name="newsearch" value="yes" />'."\n"
 .    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">'
-.    $langAdvanced
+.    get_lang('Advanced')
 .    '</a>]'."\n"
 .    '</form>'."\n\n"
 .    '</td>'."\n"
@@ -426,25 +426,25 @@ echo "\n\n".'<table class="claroTable emphaseLine" width="100%" border="0" cells
 //add titles for the table
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">'
-.    $langCode
+.    get_lang('Code')
 .    '</a>'
 .    '</th>'."\n"
 
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">'
-.    $langCourseTitle
+.    get_lang('CourseTitle')
 .    '</a>'
 .    '</th>'."\n"
 
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">'
-.    $langCategory
+.    get_lang('Category')
 .    '</a>'
 .    '</th>'."\n"
 
-.    '<th>' . $langAllUsersOfThisCourse . '</th>'."\n"
-.    '<th>' . $langCourseSettings . '</th>'."\n"
-.    '<th>' . $langDelete . '</th>'."\n"
+.    '<th>' . get_lang('AllUsersOfThisCourse') . '</th>'."\n"
+.    '<th>' . get_lang('CourseSettings') . '</th>'."\n"
+.    '<th>' . get_lang('Delete') . '</th>'."\n"
 .    '</tr>'."\n"
 .    '</thead>' . "\n\n"
 
@@ -511,13 +511,13 @@ foreach($resultList as $courseLine)
     echo  '<td align="right">' . "\n"
     .     '<a href="admincourseusers.php'
     .     '?cidToEdit=' . $courseLine['code'] . $addToURL . '&amp;cfrom=clist">'
-    .     sprintf( ( $courseLine['qty_cm'] + $courseLine['qty_stu'] > 1 ? $lang_p_d_course_members : $lang_p_d_course_member)
+    .     sprintf( ( $courseLine['qty_cm'] + $courseLine['qty_stu'] > 1 ? get_lang('_p_d_course_members') : get_lang('_p_d_course_member'))
                  , ( $courseLine['qty_stu'] + $courseLine['qty_cm'] ) )
     .     '</a>'
     .     '<br />'."\n".'<small><small>'."\n"
-    .     sprintf( ( $courseLine['qty_cm'] > 1 ? $lang_p_d_course_managers : $lang_p_d_course_manager)
+    .     sprintf( ( $courseLine['qty_cm'] > 1 ? get_lang('_p_d_course_managers') : get_lang('_p_d_course_manager'))
                  , $courseLine['qty_cm']) . "\n"
-    .     sprintf( ( $courseLine['qty_stu'] > 1 ? $lang_p_d_students : $lang_p_d_student)
+    .     sprintf( ( $courseLine['qty_stu'] > 1 ? get_lang('_p_d_students') : get_lang('_p_d_student'))
                  , $courseLine['qty_stu']) . "\n"
     .     '</small></small>' . "\n"
     .     '</td>' . "\n"
@@ -527,7 +527,7 @@ foreach($resultList as $courseLine)
     .    '<td align="center">' ."\n"
     .    '<a href="../course_info/infocours.php?adminContext=1'
     .    '&amp;cidReq=' . $courseLine['code'] . $addToURL . '&amp;cfrom=clist">'
-    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="' . $langCourseSettings. '" />'
+    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('CourseSettings'). '" />'
     .    '</a>'
     .    '</td>' . "\n"
 
@@ -538,7 +538,7 @@ foreach($resultList as $courseLine)
     .    '<a href="' . $_SERVER['PHP_SELF']
     .    '?cmd=delete&amp;delCode=' . $courseLine['code'] . $addToURL . '" '
     .    ' onClick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '" />' . "\n"
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
@@ -550,8 +550,8 @@ if (!isset($atleastOneResult))
 {
    echo '<tr>'."\n"
    .    '<td colspan="6" align="center">'
-   .    $langNoCourseResult . '<br />'
-   .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . $langSearchAgain . '</a>'
+   .    get_lang('NoCourseResult') . '<br />'
+   .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('SearchAgain') . '</a>'
    .    '</td>'."\n"
    .    '</tr>'."\n\n"
    ;

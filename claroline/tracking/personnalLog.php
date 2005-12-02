@@ -12,8 +12,8 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> $langModifyProfile);
-$nameTools = $langStatistics;
+$interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> get_lang('ModifyProfile'));
+$nameTools = get_lang('Statistics');
 
 if (!$_uid) claro_disp_auth_form();
 
@@ -55,12 +55,12 @@ if ( $is_trackingEnabled )
 	}
 	else
 	{
-		echo $langNoRegisteredCourses;
+		echo get_lang('NoRegisteredCourses');
 	}
 }
 else
 {
-	echo $langTrackingDisabled;
+	echo get_lang('TrackingDisabled');
 }
 
 include($includePath."/claro_init_footer.inc.php");

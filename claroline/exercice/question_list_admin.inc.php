@@ -67,11 +67,11 @@ if( isset($deleteQuestion) )
 
 <hr size="1" noshade="noshade">
 
-<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?newQuestion=yes"><?php echo $langNewQu; ?></a> | <a class="claroCmd" href="question_pool.php?fromExercise=<?php echo $exerciseId; ?>"><?php echo $langGetExistingQuestion; ?></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?newQuestion=yes"><?php echo get_lang('NewQu'); ?></a> | <a class="claroCmd" href="question_pool.php?fromExercise=<?php echo $exerciseId; ?>"><?php echo get_lang('GetExistingQuestion'); ?></a>
 
 <br><br>
 
-<b><?php echo $langQuestionList; ?></b>
+<b><?php echo get_lang('QuestionList'); ?></b>
 
 <table border="0" align="center" cellpadding="2" cellspacing="2" width="100%">
 
@@ -94,15 +94,15 @@ if($nbrQuestions)
 </tr>
 <tr>
   <td>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt="<?php echo $langEditQuestion; ?>"></a>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmYourChoice); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" align="absmiddle" alt="<?php echo $langDelete; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?editQuestion=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt="<?php echo get_lang('EditQuestion'); ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteQuestion=<?php echo $id; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('ConfirmYourChoice')); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" align="absmiddle" alt="<?php echo get_lang('Delete'); ?>"></a>
 
 <?php
 		if($i != 1)
 		{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" align="absmiddle" alt="<?php echo $langMoveUp; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveUp=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" align="absmiddle" alt="<?php echo get_lang('MoveUp'); ?>"></a>
 
 <?php
 		}
@@ -111,7 +111,7 @@ if($nbrQuestions)
 		{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" align="absmiddle" alt="<?php echo $langMoveDown; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?moveDown=<?php echo $id; ?>"><img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" align="absmiddle" alt="<?php echo get_lang('MoveDown'); ?>"></a>
 
 <?php
 		}
@@ -132,7 +132,7 @@ if(!isset($i))
 ?>
 
 <tr>
-  <td><?php echo $langNoQuestion; ?></td>
+  <td><?php echo get_lang('NoQuestion'); ?></td>
 </tr>
 
 <?php

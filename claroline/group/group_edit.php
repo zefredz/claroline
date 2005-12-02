@@ -27,10 +27,10 @@ $is_allowedToManage = $is_courseAdmin;
 
 if ( ! $is_allowedToManage ) 
 {
-    claro_die($langNotAllowed);
+    claro_die(get_lang('NotAllowed'));
 }
 
-$nameTools = $langEditGroup;
+$nameTools = get_lang('EditGroup');
 
 $htmlHeadXtra[]='
 <script type="text/javascript" language="JavaScript">
@@ -171,7 +171,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     if ( $maxMember < $numberMembers AND $maxMember != '0' )
     {
         // Too much members compared to max members allowed
-        $messageGroupEdited = $langGroupTooMuchMembers;
+        $messageGroupEdited = get_lang('GroupTooMuchMembers');
     }
     else
     {
@@ -190,7 +190,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
             $registerUserGroup = claro_sql_query($sql);
         }
 
-        $messageGroupEdited = $langGroupSettingsModified;
+        $messageGroupEdited = get_lang('GroupSettingsModified');
 
     }    // else
 
@@ -204,12 +204,12 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 }    // end if $modify
 
 
-$interbredcrump[]= array ('url' => 'group.php', 'name' => $langGroups);
+$interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang('Groups'));
 $interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name' => $myStudentGroup['name'] );
 
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title(array('supraTitle' => $langGroups,
+echo claro_disp_tool_title(array('supraTitle' => get_lang('Groups'),
 'mainTitle' => $nameTools));
 
 if ( isset($messageGroupEdited) )
@@ -224,27 +224,27 @@ if ( isset($messageGroupEdited) )
 
 <tr valign="top">
 <td align="right">
-<label for="name" ><?php echo $langGroupName; ?></label> : 
+<label for="name" ><?php echo get_lang('GroupName'); ?></label> : 
 </td>
 <td colspan="2">
 <input type="text" name="name" id="name" size="40" value="<?php echo htmlspecialchars($myStudentGroup['name']); ?>">
 </td>
 
 <td>
-<a href="group_space.php?gidReq=<?php echo $_gid ?>"><?php echo '<img src="'.$imgRepositoryWeb.'group.gif" />&nbsp;' . $langGroupThisSpace ?></a>
+<a href="group_space.php?gidReq=<?php echo $_gid ?>"><?php echo '<img src="'.$imgRepositoryWeb.'group.gif" />&nbsp;' . get_lang('GroupThisSpace') ?></a>
 </td>
 </tr>
 
 <tr valign="top">
 <td align="right">
-<label for="description"><?php echo $langGroupDescription . ' ' . $langUncompulsory; ?></label> :
+<label for="description"><?php echo get_lang('GroupDescription') . ' ' . get_lang('Uncompulsory'); ?></label> :
 <td colspan="3">
 <textarea name="description" id="description" rows="4 "cols="70" wrap="virtual"><?php echo htmlspecialchars($myStudentGroup['description']); ?></textarea>
 </td>
 </tr>
 
 <tr valign="top">
-<td align="right"><label for="tutor"><?php echo $langGroupTutor ?></label> : </td>
+<td align="right"><label for="tutor"><?php echo get_lang('GroupTutor') ?></label> : </td>
 <td colspan="2">
 <select name="tutor" id="tutor" >
 <?php
@@ -296,13 +296,13 @@ if ( isset($messageGroupEdited) )
     }
 
     echo '<option value="0" ' . $selectedState . '>'
-    .    $langGroupNoTutor
+    .    get_lang('GroupNoTutor')
     .    '</option>'
     .    '</select>'
     .    '&nbsp;&nbsp;'
-    .    '<small><a href="../user/user.php">' . $langAddTutors . '</a></small>'
+    .    '<small><a href="../user/user.php">' . get_lang('AddTutors') . '</a></small>'
     .    '<td>'
-    .    '<label for="maxMember">' . $langMax . '</label> ';
+    .    '<label for="maxMember">' . get_lang('Max') . '</label> ';
 
     if ( is_null($myStudentGroup['maxMember']) )
     {
@@ -315,12 +315,12 @@ if ( isset($messageGroupEdited) )
         ;
     }
 
-    echo $langGroupPlacesThis
+    echo get_lang('GroupPlacesThis')
     .    '</td>'
     .    '</tr>'
 ################### STUDENTS IN AND OUT GROUPS #######################
     .    '<tr valign="top">'
-    .    '<td align="right"><Label for="inGroup">' . $langGroupMembers . '</Label> : </td>'
+    .    '<td align="right"><Label for="inGroup">' . get_lang('GroupMembers') . '</Label> : </td>'
     .    '<td>'
     .    '<select id="ingroup" name="ingroup[]" size="8" multiple>'
     ;
@@ -351,7 +351,7 @@ while ( $myMember = mysql_fetch_array($resultMember) )
 </select>
 <br />
 <br />
-<input type=submit value="<?php echo $langOk ?>" name="modify" onClick="selectAll(this.form.elements['ingroup'],true)">
+<input type=submit value="<?php echo get_lang('Ok') ?>" name="modify" onClick="selectAll(this.form.elements['ingroup'],true)">
 
 </td>
 
@@ -426,11 +426,11 @@ while ( $myNotMember = mysql_fetch_array($resultNotMember) )
 <?php
 if ( $multiGroupAllowed )
 {
-    echo $langStudentsNotInThisGroups;
+    echo get_lang('StudentsNotInThisGroups');
 }
 else
 {
-    echo $langNoGroupStudents;
+    echo get_lang('NoGroupStudents');
 }
 ?>
 </td>

@@ -28,21 +28,21 @@ require '../inc/claro_init_global.inc.php';
 
 $is_AllowedToEdit = $is_courseAdmin;
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_AllowedToEdit ) claro_die($langNotAllowed);
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('NotAllowed'));
 
 $htmlHeadXtra[] =
         "<script>
         function confirmation (name)
         {
-            if (confirm(\"".clean_str_for_javascript($langAreYouSureDeleteModule)."\"+ name))
+            if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureDeleteModule'))."\"+ name))
                 {return true;}
             else
                 {return false;}
         }
         </script>";
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-$nameTools = $langModulesPoolToolName;
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$nameTools = get_lang('ModulesPoolToolName');
 
 // tables names
 /*
@@ -78,7 +78,7 @@ include($includePath."/claro_init_header.inc.php");
 echo claro_disp_tool_title($nameTools);
 
 // display use explication text
-echo $langUseOfPool."<br /><br />";
+echo get_lang('UseOfPool')."<br /><br />";
 
 // HANDLE COMMANDS:
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
@@ -150,9 +150,9 @@ switch( $cmd )
         $list = mysql_fetch_array($result);
         echo "
             <form method=\"post\" name=\"rename\" action=\"".$_SERVER['PHP_SELF']."\">
-            <label for=\"newName\">".$langInsertNewModuleName."</label> :
+            <label for=\"newName\">".get_lang('InsertNewModuleName')."</label> :
             <input type=\"text\" name=\"newName\" id=\"newName\" value=\"".htmlspecialchars($list['name'])."\"></input>
-            <input type=\"submit\" value=\"".$langOk."\" name=\"submit\">
+            <input type=\"submit\" value=\"".get_lang('Ok')."\" name=\"submit\">
             <input type=\"hidden\" name=\"cmd\" value=\"exRename\">
             <input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">
             </form>
@@ -183,13 +183,13 @@ switch( $cmd )
             }
             else
             {
-                echo claro_disp_message_box($langErrorNameAlreadyExists);
+                echo claro_disp_message_box(get_lang('ErrorNameAlreadyExists'));
                 echo "<br />";
             }
         }
         else
         {
-            echo claro_disp_message_box($langErrorEmptyName);
+            echo claro_disp_message_box(get_lang('ErrorEmptyName'));
             echo "<br />";
         }
         break;
@@ -212,7 +212,7 @@ switch( $cmd )
                     ."<br />\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
                     ."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"
-                    ."<input type=\"submit\" value=\"".$langOk."\">\n"
+                    ."<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
                     ."<br /><br />\n"
                     ."</form>\n";
             }
@@ -236,16 +236,16 @@ echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
     <thead>
         <tr class=\"headerX\" align=\"center\" valign=\"top\">
           <th>
-            ".$langModule."
+            ".get_lang('Module')."
           </th>
           <th>
-            ".$langDelete."
+            ".get_lang('Delete')."
           </th>
           <th>
-            ".$langRename."
+            ".get_lang('Rename')."
           </th>
           <th>
-            ".$langComment."
+            ".get_lang('Comment')."
           </th>";
 echo      "</tr>\n",
       "</thead>\n",
@@ -277,15 +277,15 @@ while ($list = mysql_fetch_array($result))
             </td>
             <td align='center'>
              <a href=\"",$_SERVER['PHP_SELF'],"?cmd=eraseModule&amp;cmdid=".$list['module_id']."\"
-                onClick=\"return confirmation('".clean_str_for_javascript($list['name'] . $langUsedInLearningPaths . $list['timesUsed'])."');\">
-                <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\" />
+                onClick=\"return confirmation('".clean_str_for_javascript($list['name'] . get_lang('UsedInLearningPaths') . $list['timesUsed'])."');\">
+                <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />
                 </a>
             </td>
             <td align=\"center\">
-               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqRename&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"$langRename\" /></a>
+               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqRename&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"get_lang('Rename')\" /></a>
             </td>
             <td align=\"center\">
-               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqComment&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."comment.gif\" border=0 alt=\"$langComment\" /></a>
+               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqComment&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."comment.gif\" border=0 alt=\"get_lang('Comment')\" /></a>
             </td>";
     echo "</tr>";
 
@@ -303,7 +303,7 @@ while ($list = mysql_fetch_array($result))
 
 } //end while another module to display
 
-if ($atleastOne == false) {echo "<tr><td align=\"center\" colspan=\"5\">".$langNoModule."</td></tr>";}
+if ($atleastOne == false) {echo "<tr><td align=\"center\" colspan=\"5\">".get_lang('NoModule')."</td></tr>";}
 
 // Display button to add selected modules
 

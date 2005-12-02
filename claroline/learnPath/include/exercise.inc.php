@@ -25,7 +25,7 @@ if( isset($cmd) && $cmd = "raw" )
 				AND `learnPath_id` = ". (int)$_SESSION['path_id'];
 		claro_sql_query($sql);
 
-		$dialogBox = $langRawHasBeenChanged;
+		$dialogBox = get_lang('RawHasBeenChanged');
 	}
 }
 
@@ -54,10 +54,10 @@ if( isset($learningPath_module['lock'])
 	&& isset($learningPath_module['raw_to_pass']) )
 {
 	echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-		.'<label for="newRaw">'.$langChangeRaw.'</label>'."\n"
+		.'<label for="newRaw">'.get_lang('ChangeRaw').'</label>'."\n"
 		.'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
 		.'<input type="hidden" name="cmd" value="raw" />'."\n"
-		.'<input type="submit" value="'.$langOk.'" />'."\n"
+		.'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
 		.'</form>'."\n\n";
 }
 
@@ -73,11 +73,11 @@ $sql = "SELECT `E`.`id` AS `exerciseId`, `M`.`name`
 $module = claro_sql_query_get_single_row($sql);
 if( $module )
 {
-	echo "\n\n".'<h4>'.$langExerciseInModule.' :</h4>'."\n"
+	echo "\n\n".'<h4>'.get_lang('ExerciseInModule').' :</h4>'."\n"
 		.'<p>'."\n"
 		.htmlspecialchars($module['name'])
 		.'<a href="../exercice/admin.php?exerciseId='.$module['exerciseId'].'">'
-		.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'" />'
+		.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
 		.'</a>'."\n"
 		.'</p>'."\n";
 } // else sql error, do nothing except in debug mode, where claro_sql_query_fetch_all will show the error

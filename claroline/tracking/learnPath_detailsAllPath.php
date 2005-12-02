@@ -21,11 +21,11 @@
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 
-$nameTools = $langTrackAllPath;
+$nameTools = get_lang('TrackAllPath');
 
 $tbl_cdb_names               = claro_sql_get_course_tbl();
 $tbl_mdb_names               = claro_sql_get_main_tbl();
@@ -56,7 +56,7 @@ include($includePath."/lib/learnPath.lib.inc.php");
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $langTrackAllPathExplanation;
+$titleTab['subTitle'] = get_lang('TrackAllPathExplanation');
 
 echo claro_disp_tool_title($titleTab);
 
@@ -73,8 +73,8 @@ if ( $is_trackingEnabled )
     // display tab header
     echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
     	.'<tr class="headerX" align="center" valign="top">'."\n"
-		.'<th>'.$langStudent.'</th>'."\n"
-		.'<th colspan="2">'.$langProgress.'</th>'."\n"
+		.'<th>'.get_lang('Student').'</th>'."\n"
+		.'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
         .'</tr>'."\n\n"
         .'<tbody>'."\n\n";
     
@@ -106,7 +106,7 @@ if ( $is_trackingEnabled )
 
 		if( $iterator == 1 )
 		{
-			echo '<tr><td align="center" colspan="8">'.$langNoLearningPath.'</td></tr>'."\n\n";
+			echo '<tr><td align="center" colspan="8">'.get_lang('NoLearningPath').'</td></tr>'."\n\n";
 		}
 		else
 		{
@@ -128,7 +128,7 @@ if ( $is_trackingEnabled )
 }
 else
 {
-    echo $langTrackingDisabled;
+    echo get_lang('TrackingDisabled');
 }
 
 

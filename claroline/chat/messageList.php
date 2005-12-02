@@ -33,7 +33,7 @@ if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) )
 die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
     .'<head>'."\n"
-    .'<title>'.$langChat.'</title>'."\n"
+    .'<title>'.get_lang('Chat').'</title>'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
     .'<a href="./chat.php" >click</a>' . "\n"
@@ -61,7 +61,7 @@ $is_allowedToReset  = $is_courseAdmin;
 
 if ( $_user['firstName'] == '' && $_user['lastName'] == '')
 {
-    $nick = $langAnonymous;
+    $nick = get_lang('Anonymous');
 }
 else
 {
@@ -109,7 +109,7 @@ if ($_gid)
     }
     else
     {
-        die('<center>' . $langNotGroupMember . '</center>');
+        die('<center>' . get_lang('NotGroupMember') . '</center>');
     }
 }
 else
@@ -130,10 +130,10 @@ if ( ! file_exists($activeChatFile))
 {
     // create the file
     $fp = @fopen($activeChatFile, 'w')
-    or die ('<center>'.$langCannotInitChat.'</center>');
+    or die ('<center>'.get_lang('CannotInitChat').'</center>');
     fclose($fp);
 
-    $dateLastWrite = $langNewChat;
+    $dateLastWrite = get_lang('NewChat');
 }
 
 
@@ -158,7 +158,7 @@ if ( ! file_exists($activeChatFile))
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
     $fchat = fopen($activeChatFile,'w');
-    fwrite($fchat, '<small>'.$timeNow.' -------- '.$langChatResetBy.' '.$nick.' --------</small><br />'."\n");
+    fwrite($fchat, '<small>'.$timeNow.' -------- '.get_lang('ChatResetBy').' '.$nick.' --------</small><br />'."\n");
     fclose($fchat);
 
     @unlink($onflySaveFile);
@@ -196,7 +196,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
                 . '<a href="../document/document.php" target="blank">'
                 . '<strong>'.$saveIn.'</strong>'
                 . '</a> '
-                . $langIsNowInYourDocDir."\n"
+                . get_lang('IsNowInYourDocDir')."\n"
                 . '</blockquote>'."\n\n"
                 ;
 
@@ -204,7 +204,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     }
     else
     {
-        $cmdMsg = '<blockquote>' . $langCopyFailed . '</blockquote>'."\n";
+        $cmdMsg = '<blockquote>' . get_lang('CopyFailed') . '</blockquote>'."\n";
     }
 }
 
@@ -240,7 +240,7 @@ DISPLAY MESSAGE LIST
 
 if ( !isset($dateLastWrite) )
 {
-    $dateLastWrite = $langDateLastWrite
+    $dateLastWrite = get_lang('DateLastWrite')
                 .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
 
@@ -279,7 +279,7 @@ if (isset($charset)) header('Content-Type: text/html; charset='. $charset);
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
     .'<head>'."\n"
-    .'<title>'.$langChat.'</title>'
+    .'<title>'.get_lang('Chat').'</title>'
     .'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
     .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
     .'</head>'."\n"
@@ -331,13 +331,11 @@ if ($activeLineCount > $max_line_in_file)
  */
 function buffer($content, $tmpFile)
 {
-    global $langChat, $langArchive;
-
     if ( ! file_exists($tmpFile) )
     {
         $content = '<html>'."\n"
                  . '<head>'."\n"
-                 . '<title>'.$langChat.' - '.$langArchive.'</title>'."\n"
+                 . '<title>'.get_lang('Chat').' - '.get_lang('Archive').'</title>'."\n"
                  . '</head>'."\n\n"
                  . '<body>'."\n"
                  . $content

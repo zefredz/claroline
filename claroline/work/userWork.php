@@ -345,7 +345,7 @@ if( isset($_REQUEST['submitWrk']) )
 	{
 	    if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
 	    {
-			$dialogBox .= $langAnswerRequired."<br />";
+			$dialogBox .= get_lang('AnswerRequired')."<br />";
 			$formCorrectlySent = false;
 	    }
 	    else
@@ -370,7 +370,7 @@ if( isset($_REQUEST['submitWrk']) )
 	// check if a title has been given
 	if( ! isset($_REQUEST['wrkTitle']) || trim($_REQUEST['wrkTitle']) == "" )
 	{
-		$dialogBox .= $langWrkTitleRequired."<br />";
+		$dialogBox .= get_lang('WrkTitleRequired')."<br />";
 		$formCorrectlySent = false;
         $wrkForm['wrkTitle'] = '';
 	}
@@ -392,7 +392,7 @@ if( isset($_REQUEST['submitWrk']) )
 	    }
 	    else
 	    {
-			$dialogBox .= $langWrkAuthorsRequired."<br />";
+			$dialogBox .= get_lang('WrkAuthorsRequired')."<br />";
 			$formCorrectlySent = false;
 	    }
 	}
@@ -408,7 +408,7 @@ if( isset($_REQUEST['submitWrk']) )
 	{
 	    if( $_REQUEST['wrkScore'] < -1 || $_REQUEST['wrkScore'] > 100 )
 	    {
-			$dialogBox .= $langWrkScoreRequired."<br />";
+			$dialogBox .= get_lang('WrkScoreRequired')."<br />";
 			$formCorrectlySent = false;
 	    }
 	    else
@@ -435,7 +435,7 @@ if( isset($_REQUEST['submitWrk']) )
 
 		if( !$groupFound )
 		{
-			$dialogBox .= $langNotGroupMember;
+			$dialogBox .= get_lang('NotGroupMember');
 			$formCorrectlySent = false;
 		}
 	}
@@ -462,7 +462,7 @@ if( isset($_REQUEST['submitWrk']) )
 		{
 			if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
 			{
-			    $dialogBox .= $langTooBig."<br />";
+			    $dialogBox .= get_lang('TooBig')."<br />";
 			    $formCorrectlySent = false;
 			}
 			else
@@ -509,7 +509,7 @@ if( isset($_REQUEST['submitWrk']) )
 				}
 				else
 				{
-                    $dialogBox .= $langCannotCopyFile . '<br />';
+                    $dialogBox .= get_lang('CannotCopyFile') . '<br />';
                     $formCorrectlySent = false;
                 }
 
@@ -545,7 +545,7 @@ if( isset($_REQUEST['submitWrk']) )
 			else
 			{
 				// if the main thing to provide is a file and that no file was sent
-				$dialogBox .= $langFileRequired."<br />";
+				$dialogBox .= get_lang('FileRequired')."<br />";
 				$formCorrectlySent = false;
 			}
 		}
@@ -652,7 +652,7 @@ if($is_allowedToEditAll)
 
 			claro_sql_query($sqlAddWork);
 
-			$dialogBox .= $langFeedbackAdded;
+			$dialogBox .= get_lang('FeedbackAdded');
                         
             // notify eventmanager that a new correction has been posted
             $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], '0', '0');
@@ -675,7 +675,7 @@ if($is_allowedToEditAll)
 		if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
 		{
 		    // prefill some fields of the form
-		    $form['wrkTitle'  ] = $wrk['title']." (".$langFeedback.")";
+		    $form['wrkTitle'  ] = $wrk['title']." (".get_lang('Feedback').")";
 		    $form['wrkAuthors'] = $currentUserLastName." ".$currentUserFirstName;
 			$form['wrkTxt'] = '';
 		    $form['wrkScore'  ] = -1;
@@ -693,7 +693,7 @@ if($is_allowedToEditAll)
 
 		$cmdToSend = "exGradeWrk";
 
-		$txtForFormTitle = $langAddFeedback;
+		$txtForFormTitle = get_lang('AddFeedback');
 		$isGrade = true;
 
 		// display flags
@@ -752,7 +752,7 @@ if ( $is_allowedToEdit )
 
 		    $lastWrkId = claro_sql_query($sqlEditWork);
 
-		    $dialogBox .= $langWrkEdited;
+		    $dialogBox .= get_lang('WrkEdited');
 
 		    // display flags
 		    $dispWrkLst = true;
@@ -794,7 +794,7 @@ if ( $is_allowedToEdit )
 		}
 		$cmdToSend = "exEditWrk";
 		// fill the title of the page
-		$txtForFormTitle = $langEditWork;
+		$txtForFormTitle = get_lang('EditWork');
 
 		// display flags
 		$dispWrkLst = false;
@@ -838,7 +838,7 @@ if( $is_allowedToSubmit )
 
             claro_sql_query($sqlAddWork);
                         
-            $dialogBox .= $langWrkAdded;
+            $dialogBox .= get_lang('WrkAdded');
             
             // notify eventmanager that a new submission has been posted
             $eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
@@ -880,7 +880,7 @@ if( $is_allowedToSubmit )
     // request the form with correct cmd
     $cmdToSend = "exSubWrk";
     // fill the title of the page
-    $txtForFormTitle = $langSubmitWork;
+    $txtForFormTitle = get_lang('SubmitWork');
     
     // display flags
 	$dispWrkLst = false;
@@ -905,16 +905,16 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-	if (confirm(" '.clean_str_for_javascript($langAreYouSureToDelete).' "+ name + " ?  " ))
+	if (confirm(" '.clean_str_for_javascript(get_lang('AreYouSureToDelete')).' "+ name + " ?  " ))
 		{return true;}
 	else
 		{return false;}
 }
 </script>';
 
-$interbredcrump[]= array ('url' => "../work/work.php", 'name' => $langWork);
+$interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Work'));
 
-$interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], 'name' => $langAssignment);
+$interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], 'name' => get_lang('Assignment'));
 // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
 $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
 $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
@@ -928,7 +928,7 @@ if( $dispWrkDet || $dispWrkForm )
 	  $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
 	  $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
       $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
-      $nameTools = $langSubmittedWork;
+      $nameTools = get_lang('SubmittedWork');
 }
 else
 {
@@ -944,15 +944,15 @@ include($includePath.'/claro_init_header.inc.php');
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
-$pageTitle['mainTitle'  ] = $langAssignment." : ".$assignment['title'];
+$pageTitle['mainTitle'  ] = get_lang('Assignment')." : ".$assignment['title'];
 
 if( isset($_gid) )
 {
-	$pageTitle['subTitle'   ] = $langGroup." : <a href=\"../group/group_space.php?gidReq=".$_REQUEST['authId']."\">".$authName."</a>\n";
+	$pageTitle['subTitle'   ] = get_lang('Group')." : <a href=\"../group/group_space.php?gidReq=".$_REQUEST['authId']."\">".$authName."</a>\n";
 }
 else
 {
-	$pageTitle['subTitle'   ] = $langUser." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";	
+	$pageTitle['subTitle'   ] = get_lang('User')." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";	
 }
 echo claro_disp_tool_title($pageTitle);
 
@@ -973,13 +973,13 @@ if( $is_allowedToSubmit )
 			if( !empty($assignment['description']) )
 			{
 				echo "\n".'<div>'."\n"
-					.'<b>'.$langAssignmentDescription.'</b><br />'
+					.'<b>'.get_lang('AssignmentDescription').'</b><br />'
 					.claro_parse_user_text($assignment['description'])
 					."\n".'</div>'."\n".'<br />'."\n";
 			}
 
             echo '<h4>'.$txtForFormTitle.'</h4>'."\n"
-				  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.$langBack.'</a></small></p>'."\n"
+				  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small></p>'."\n"
                   .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$_REQUEST['assigId'].'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
                   .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                   .'<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
@@ -991,11 +991,11 @@ if( $is_allowedToSubmit )
             
             echo  '<table width="100%">'."\n"
                   .'<tr>'."\n"
-                  .'<td valign="top"><label for="wrkTitle">'.$langWrkTitle.'&nbsp;*&nbsp;:</label></td>'."\n"
+                  .'<td valign="top"><label for="wrkTitle">'.get_lang('WrkTitle').'&nbsp;*&nbsp;:</label></td>'."\n"
                   .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkTitle']).'" /></td>'."\n"
                   .'</tr>'."\n\n"
                   .'<tr>'."\n"
-                  .'<td valign="top"><label for="wrkAuthors">'.$langWrkAuthors.'&nbsp;*&nbsp;:</label></td>'."\n"
+                  .'<td valign="top"><label for="wrkAuthors">'.get_lang('WrkAuthors').'&nbsp;*&nbsp;:</label></td>'."\n"
                   .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkAuthors']).'" /></td>'."\n"
                   .'</tr>'."\n\n";
 
@@ -1005,7 +1005,7 @@ if( $is_allowedToSubmit )
 				)
             {
 				echo '<tr>'."\n"
-				      .'<td valign="top"><label for="wrkGroup">'.$langGroup.'&nbsp;:</label></td>'."\n";
+				      .'<td valign="top"><label for="wrkGroup">'.get_lang('Group').'&nbsp;:</label></td>'."\n";
 				
 				if( isset($_gid) )
 				{
@@ -1052,12 +1052,12 @@ if( $is_allowedToSubmit )
                         if( $assignment['authorized_content'] == "TEXT"  )
                         {
                               // if text is required, file is considered as a an attached document
-                              echo $langCurrentAttachedDoc;
+                              echo get_lang('CurrentAttachedDoc');
                         }
                         else
                         {
                               // if the file is required and the text is only a description of the file
-                              echo $langCurrentDoc;
+                              echo get_lang('CurrentDoc');
                         }
                         if( !empty($form['wrkUrl']) )
                         {
@@ -1072,9 +1072,9 @@ if( $is_allowedToSubmit )
                               {
                                     // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
                                     echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />'
-                                    .'<label for="delAttachedFile">'.$langExplainDeleteFile.'</label>';
+                                    .'<label for="delAttachedFile">'.get_lang('ExplainDeleteFile').'</label>';
                               }
-                              echo $langExplainReplaceFile.'</td>'."\n"
+                              echo get_lang('ExplainReplaceFile').'</td>'."\n"
                                     .'</tr>'."\n\n";
                         }
                         else
@@ -1082,7 +1082,7 @@ if( $is_allowedToSubmit )
                               echo '&nbsp;:'
                                     .'</td>'."\n"
                                     .'<td>'
-                                    .$langNoFile
+                                    .get_lang('NoFile')
                                     .'</td>'."\n"
                                     .'</tr>'."\n\n";
                         }
@@ -1095,12 +1095,12 @@ if( $is_allowedToSubmit )
 				if( $assignmentContent == "TEXTFILE" )
 				{
 					// if text is required, file is considered as a an attached document
-					echo $langAttachDoc;
+					echo get_lang('AttachDoc');
 				}
 				else
 				{
 					// if the file is required and the text is only a description of the file
-					echo $langUploadDoc.'&nbsp;*';
+					echo get_lang('UploadDoc').'&nbsp;*';
 				}
 				echo '&nbsp;:</label></td>'."\n";
 				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
@@ -1115,7 +1115,7 @@ if( $is_allowedToSubmit )
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$wrkDirSys), $fileAllowedSize);
 
                   echo '<td><input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
-						.'<small>'.$langMaxFileSize.' '.format_file_size($maxFileSize).'</small></td>'."\n"
+						.'<small>'.get_lang('MaxFileSize').' '.format_file_size($maxFileSize).'</small></td>'."\n"
                         .'</tr>'."\n\n";
 				}
             }
@@ -1127,7 +1127,7 @@ if( $is_allowedToSubmit )
                   echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkTxt">'
-                        .$langFileDesc
+                        .get_lang('FileDesc')
                         .'&nbsp;:<br /></label></td>'
                         .'<td>'."\n"
                         .'<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
@@ -1140,7 +1140,7 @@ if( $is_allowedToSubmit )
                   echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkTxt">'
-                        .$langAnswer
+                        .get_lang('Answer')
                         .'&nbsp;*&nbsp;:</label></td>'."\n"
                         .'<td>'
                         .claro_disp_html_area('wrkTxt', htmlspecialchars($form['wrkTxt']))
@@ -1153,9 +1153,9 @@ if( $is_allowedToSubmit )
 				echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkPrivFbk">'
-                        .$langPrivateFeedback
+                        .get_lang('PrivateFeedback')
                         .'&nbsp;:<br />'
-						.'<small>'.$langCourseAdministratorOnly.'</small>'
+						.'<small>'.get_lang('CourseAdministratorOnly').'</small>'
 						.'</label></td>'
                         .'<td>'."\n"
                         .'<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
@@ -1169,7 +1169,7 @@ if( $is_allowedToSubmit )
                   {
                         $wrkScoreField .= ' selected="selected"';
                   }                  
-                  $wrkScoreField .= '>'.$langNoScore.'</option>'."\n";
+                  $wrkScoreField .= '>'.get_lang('NoScore').'</option>'."\n";
                   
                   for($i=0;$i <= 100; $i++)
                   {
@@ -1182,7 +1182,7 @@ if( $is_allowedToSubmit )
                   }
                   $wrkScoreField .= '</select> %';
                   echo '<tr>'."\n"
-                        .'<td valign="top"><label for="wrkScore">'.$langScore.'&nbsp;&nbsp;:</label></td>'."\n"
+                        .'<td valign="top"><label for="wrkScore">'.get_lang('Score').'&nbsp;&nbsp;:</label></td>'."\n"
                         .'<td>'
                         .$wrkScoreField
                         .'</td>'
@@ -1192,12 +1192,12 @@ if( $is_allowedToSubmit )
             echo '<tr>'."\n"
 					.'<td>&nbsp;</td>'."\n"
 					.'<td>'
-					.'<input type="submit" name="submitWrk" value="'.$langOk.'" />'."\n"
+					.'<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
 					.'</td>'."\n"
 					.'</tr>'."\n\n"
 					.'</table>'."\n\n"
 					.'</form>'
-					.'<small>* : '.$langRequired.'</small>';
+					.'<small>* : '.get_lang('Required').'</small>';
       }
 }
   
@@ -1261,7 +1261,7 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new assignment
-		echo '<p><a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.$langSubmitWork.'</a></p>'."\n";
+		echo '<p><a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('SubmitWork').'</a></p>'."\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
@@ -1285,17 +1285,17 @@ if( $dispWrkLst )
 			// change some displayed text depending on the context
 			if( $assignmentContent == "TEXTFILE" || $is_feedback )
 			{
-				$txtForFile = $langAttachedFile;
-				$txtForText = $langAnswer;
+				$txtForFile = get_lang('AttachedFile');
+				$txtForText = get_lang('Answer');
 			}
 			elseif( $assignmentContent == "TEXT" )
 			{
-				$txtForText = $langAnswer;
+				$txtForText = get_lang('Answer');
 			}
 			elseif( $assignmentContent == "FILE" )
 			{
-				$txtForFile = $langUploadedFile;
-				$txtForText = $langFileDesc;
+				$txtForFile = get_lang('UploadedFile');
+				$txtForText = get_lang('FileDesc');
 			}
 			
 			// title (and edit links)
@@ -1317,12 +1317,12 @@ if( $dispWrkLst )
 			}
 				
 			// author
-			echo '<b>'.$langWrkAuthors.'</b>&nbsp;: '.$thisWrk['authors'].'<br />';
+			echo '<b>'.get_lang('WrkAuthors').'</b>&nbsp;: '.$thisWrk['authors'].'<br />';
 	
 			if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
 			{ 
 				 // display group if this is a group assignment and if this is not a correction
-				 echo '<b>'.$langGroup.'</b>&nbsp;: '.$allGroupList[$thisWrk['group_id']]['name'].'<br />';
+				 echo '<b>'.get_lang('Group').'</b>&nbsp;: '.$allGroupList[$thisWrk['group_id']]['name'].'<br />';
 			}
 	
 			if( $assignmentContent != "TEXT" )
@@ -1337,7 +1337,7 @@ if( $dispWrkLst )
 				}
 				else
 				{
-				     echo '<b>'.$txtForFile.'</b>&nbsp;: '.$langNoFile.'<br />'."\n";
+				     echo '<b>'.$txtForFile.'</b>&nbsp;: '.get_lang('NoFile').'<br />'."\n";
 				}
 			}
 	      
@@ -1348,31 +1348,31 @@ if( $dispWrkLst )
 			{
 				if( $is_allowedToEditAll )
 				{
-					echo '<br /><div><b>'.$langPrivateFeedback.'</b>&nbsp;: <br />'."\n"
+					echo '<br /><div><b>'.get_lang('PrivateFeedback').'</b>&nbsp;: <br />'."\n"
 						.$thisWrk['private_feedback'].'</div>'."\n";
 				}
-				echo '<br /><b>'.$langScore.'</b>&nbsp;: ';
-				echo ( $thisWrk['score'] == -1 ) ? $langNoScore : $thisWrk['score'].' %' ;
+				echo '<br /><b>'.get_lang('Score').'</b>&nbsp;: ';
+				echo ( $thisWrk['score'] == -1 ) ? get_lang('NoScore') : $thisWrk['score'].' %' ;
 				echo '<br />'."\n";
 			}
-			echo '<p><b>'.$langSubmissionDate.'</b>&nbsp;: '
+			echo '<p><b>'.get_lang('SubmissionDate').'</b>&nbsp;: '
 				.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date']);
 			
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
 			{
-			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'" />';
+			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('LateUpload').'" />';
 			}
 			echo '<br />'."\n";
 	            
 			if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
 			{
-				echo '<b>'.$langLastEditDate.'</b>&nbsp;: '
+				echo '<b>'.get_lang('LastEditDate').'</b>&nbsp;: '
 					.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
 				// display an alert if work was submitted after end date and work is not a correction !
 				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
 				{
-					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.$langLateUpload.'" />';
+					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('LateUpload').'" />';
 				}			
 			}
 			echo '</p>'."\n";
@@ -1384,7 +1384,7 @@ if( $dispWrkLst )
 				.    '?authId=' . $_REQUEST['authId']
 				.    '&amp;assigId='.$_REQUEST['assigId']
 				.    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
-				.    '<img src="' . $imgRepositoryWeb.'edit.gif" border="0" alt="'.$langModify.'" />'
+				.    '<img src="' . $imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
 				.    '</a>'
 				;
 			}
@@ -1396,7 +1396,7 @@ if( $dispWrkLst )
 				.    '&amp;cmd=exRmWrk&amp;assigId=' . $_REQUEST['assigId']
 				.    '&amp;wrkId=' . $thisWrk['id'] . '" '
 				.    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
-				.    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="'.$langDelete.'" />'
+				.    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
 				.    '</a>'
 				;
 				
@@ -1407,7 +1407,7 @@ if( $dispWrkLst )
 				    .    '&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId']
 				    .    '&amp;wrkId='.$thisWrk['id']
 				    .    '&amp;vis=v">'
-				    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . $langMakeVisible . '" />'
+				    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('MakeVisible') . '" />'
 				    .    '</a>'
 				    ;
 				}
@@ -1418,7 +1418,7 @@ if( $dispWrkLst )
 				    .    '&amp;cmd=exChVis&amp;assigId=' . $_REQUEST['assigId']
 				    .    '&amp;wrkId='.$thisWrk['id']
 				    .    '&amp;vis=i">'
-				    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . $langMakeInvisible . '" />'
+				    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('MakeInvisible') . '" />'
 				    .    '</a>'
 				    ;
 				}  
@@ -1430,7 +1430,7 @@ if( $dispWrkLst )
 					.    '?authId=' . $_REQUEST['authId']
 					.    '&amp;assigId=' . $_REQUEST['assigId']
 					.    '&amp;cmd=rqGradeWrk&amp;wrkId='.$thisWrk['id'] . '">'
-					.    $langAddFeedback
+					.    get_lang('AddFeedback')
 					.    '</a>'
 					;
 				}
@@ -1444,7 +1444,7 @@ if( $dispWrkLst )
 	}
 	else
 	{
-		echo "\n".'<p>'."\n".'<blockquote>'.$langNoVisibleSubmission.'</blockquote>'."\n".'</p>'."\n";
+		echo "\n".'<p>'."\n".'<blockquote>'.get_lang('NoVisibleSubmission').'</blockquote>'."\n".'</p>'."\n";
 	}
 }
 // FOOTER

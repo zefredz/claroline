@@ -79,7 +79,7 @@ if( !isset($exerciseResult) || !is_array($exerciseResult)
 	)
 {
         include ($includePath.'/claro_init_header.inc.php');
-		echo '<br />'.claro_disp_message_box($langExerciseNotFound).'<br />';
+		echo '<br />'.claro_disp_message_box(get_lang('ExerciseNotFound')).'<br />';
         include ($includePath.'/claro_init_footer.inc.php');
         die();
 }
@@ -111,11 +111,11 @@ if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )          // lear
 else                                        // normal exercise mode
 {
 	$is_allowedToEdit = true; // allow to be in admin mode
-	$interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
+	$interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
 }
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult );
+echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Result') );
 
     if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) // exercise mode
     {
@@ -211,7 +211,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
   <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
   <tr class="headerX">
   <th colspan="<?php echo $colspan; ?>">
-	<?php echo $langQuestion.' '.($i+1); ?>
+	<?php echo get_lang('Question').' '.($i+1); ?>
   </th>
 </tr>
 <tfoot>
@@ -238,16 +238,16 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 
 <tr>
   <td width="5%" valign="top" align="center" nowrap="nowrap">
-	<small><i><?php echo $langChoice; ?></i></small>
+	<small><i><?php echo get_lang('Choice'); ?></i></small>
   </td>
   <td width="5%" valign="top" nowrap="nowrap">
-	<small><i><?php echo $langExpectedChoice; ?></i></small>
+	<small><i><?php echo get_lang('ExpectedChoice'); ?></i></small>
   </td>
   <td width="45%" valign="top">
-	<small><i><?php echo $langAnswer; ?></i></small>
+	<small><i><?php echo get_lang('Answer'); ?></i></small>
   </td>
   <td width="45%" valign="top">
-	<small><i><?php echo $langComment; ?></i></small>
+	<small><i><?php echo get_lang('Comment'); ?></i></small>
   </td>
 </tr>
 
@@ -259,7 +259,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 
 <tr>
   <td>
-	<small><i><?php echo $langAnswer; ?></i></small>
+	<small><i><?php echo get_lang('Answer'); ?></i></small>
   </td>
 </tr>
 
@@ -271,10 +271,10 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 
 <tr>
   <td width="50%">
-	<small><i><?php echo $langElementList; ?></i></small>
+	<small><i><?php echo get_lang('ElementList'); ?></i></small>
   </td>
   <td width="50%">
-	<small><i><?php echo $langCorrespondsTo; ?></i></small>
+	<small><i><?php echo get_lang('CorrespondsTo'); ?></i></small>
   </td>
 </tr>
 
@@ -527,7 +527,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 ?>
 <tr>
   <td colspan="<?php echo $colspan; ?>" align="right">
-	<b><?php echo $langScore." : ".$questionScore."/".$questionWeighting; ?></b>
+	<b><?php echo get_lang('Score')." : ".$questionScore."/".$questionWeighting; ?></b>
   </td>
 </tr>
 </tfoot>
@@ -551,10 +551,10 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 <tr>
   <td align="center">
 	<?php 
-		echo $langYourTime." ".claro_disp_duration($timeToCompleteExe);
+		echo get_lang('YourTime')." ".claro_disp_duration($timeToCompleteExe);
 		if( $exerciseMaxTime > 0 )
 		{
-			echo "<br />".$langMaxAllowedTime." ".claro_disp_duration($exerciseMaxTime);
+			echo "<br />".get_lang('MaxAllowedTime')." ".claro_disp_duration($exerciseMaxTime);
 		}
 	?>
   </td>
@@ -565,11 +565,11 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 <?php 
 	if ( $displayScore )
 	{
-		echo $langYourTotalScore." ". $totalScore."/".$totalWeighting;
+		echo get_lang('YourTotalScore')." ". $totalScore."/".$totalWeighting;
 	}
 	else
 	{
-		echo $langTimeOver;
+		echo get_lang('TimeOver');
 	}
 ?>
 </b>
@@ -580,7 +580,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".$langResult )
 <tr>
   <td align="center">
     <br>
-	<input type="submit" value="<?php echo $langFinish; ?>">
+	<input type="submit" value="<?php echo get_lang('Finish'); ?>">
   </td>
 </tr>
 </table>

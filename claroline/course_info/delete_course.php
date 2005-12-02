@@ -27,7 +27,7 @@ $isAllowedToDelete = $is_courseAdmin;
 
 if ( ! $isAllowedToDelete )
 {
-    claro_die($langNotAllowed);
+    claro_die(get_lang('NotAllowed'));
 }
 
 include($includePath . '/lib/fileManage.lib.php');
@@ -55,8 +55,8 @@ $course_to_delete = claro_get_course_data($current_cid);
 $currentCourseCode = $course_to_delete['officialCode'];
 $currentCourseName = $course_to_delete['name'];
 
-$nameTools = $langDelCourse;
-$interbredcrump[] = array('url' => 'infocours.php?' . $addToURL, 'name' => $langCourseSettings);
+$nameTools = get_lang('DelCourse');
+$interbredcrump[] = array('url' => 'infocours.php?' . $addToURL, 'name' => get_lang('CourseSettings'));
 
 if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
 {
@@ -79,13 +79,13 @@ switch ($display)
 {
     case DISP_DELETE_RESULT :
         echo '<p>'
-        .    $langCourse.' &quot;'.$currentCourseName.'&quot; '
+        .    get_lang('Course').' &quot;'.$currentCourseName.'&quot; '
         .    '('.$currentCourseCode.') '
-        .    $langHasDel
+        .    get_lang('HasDel')
         .    '</p>'
         .    '<p>'
         .    '<a href="../../index.php">'
-        .    $langBackHomeOf.' '. $siteName
+        .    get_lang('BackHomeOf').' '. $siteName
         .    '</a>'
         ;
 
@@ -93,7 +93,7 @@ switch ($display)
         {
             echo ' | '
             .    '<a href="../admin/index.php">'
-            .    $langBackToAdmin . '</a>'
+            .    get_lang('BackToAdmin') . '</a>'
             ;
         }
         echo '</p>';
@@ -102,18 +102,18 @@ switch ($display)
     case DISP_CONFIRM_DELETE :
         echo '<p>'
         .    '<font color="#CC0000">'
-        .    $langByDel.' &quot;' . $currentCourseName . '&quot; '
+        .    get_lang('ByDel').' &quot;' . $currentCourseName . '&quot; '
         .    '(' . $currentCourseCode.') ?'
         .    '</font>'
         .    '</p>'
         .    '<p>'
         .    '<font color="#CC0000">'
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?delete=yes' . $addToURL . '">'
-        .    $langYes
+        .    get_lang('Yes')
         .    '</a>'
         .    '&nbsp;|&nbsp;'
         .    '<a href="infocours.php?'.$addToURL.'">'
-        .    $langNo
+        .    get_lang('No')
         .    '</a>'
         .    '</font>'
         .    '</p>'

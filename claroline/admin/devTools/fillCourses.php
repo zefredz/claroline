@@ -56,7 +56,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 if (!isset($includePath)) trigger_error('init not run',E_USER_ERROR);
 if (!isset($_uid)) trigger_error('you need to be logged',E_USER_ERROR);
@@ -72,9 +72,9 @@ include($includePath . '/lib/debug.lib.inc.php');
 include($includePath . '/lib/fileManage.lib.php');
 include($includePath . '/conf/course_main.conf.php');
 
-$nameTools = $langCreateSite;
-$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdministration);
-$interbredcrump[]= array ('url' => 'index.php',    'name' => $langDevTools);
+$nameTools = get_lang('CreateSite');
+$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => 'index.php',    'name' => get_lang('DevTools'));
 /*
 * DB tables definition
 */
@@ -294,7 +294,7 @@ if ($cmd == 'exFill')
                     (forum_id, forum_name, forum_desc, forum_access, forum_moderator,
                     forum_topics, forum_posts, forum_last_post_id, cat_id,
                     forum_type, md5)
-                    VALUES ('','" . $langForumGroup . " " . $lastId . "','', 2, 1, 0, 0,
+                    VALUES ('','" . get_lang('ForumGroup') . " " . $lastId . "','', 2, 1, 0, 0,
                             1, 1, 0,'" . md5(time()) . "')";
 
 
@@ -318,7 +318,7 @@ if ($cmd == 'exFill')
             /* Stores the directory path into the group table */
 
             $sql = "UPDATE `" . $tbl_Groups . "`
-                    SET name            = '" . $langGroup . ' ' . $lastId . "',
+                    SET name            = '" . get_lang('Group') . ' ' . $lastId . "',
                         forumId         = '" . $forumInsertId . "',
                         secretDirectory = '" . $secretDirectory . "'
                     WHERE id ='" . $lastId . "'";
@@ -387,59 +387,59 @@ switch ($display)
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
-    <legend > <?php echo $langCreateCourses ?> </legend>
-    <label for="nc"> <?php echo $langQuantity ?> </label>
+    <legend > <?php echo get_lang('CreateCourses') ?> </legend>
+    <label for="nc"> <?php echo get_lang('Quantity') ?> </label>
     <input align="right" type="text" id="nc" name="nc" value="<?php echo $nc ?>" size="5" maxlength="3"><br />
-    <label for="pfCode"> <?php echo $langPrefix ?> </label>
+    <label for="pfCode"> <?php echo get_lang('Prefix') ?> </label>
     <input align="right" type="text" id="pfCode" name="pfCode" value="<?php echo $pfCode ?>" size="5" maxlength="5">
     </fieldset>
     <fieldset >
-    <legend > <?php echo $langStudent ?> </legend>
-    <Label for="smin"><?php echo $langMin ?> </Label>
+    <legend > <?php echo get_lang('Student') ?> </legend>
+    <Label for="smin"><?php echo get_lang('Min') ?> </Label>
     <input type="text" id="smin" align="right" name="smin" value="<?php echo $smin ?>" size="5" maxlength="3"><br />
-    <Label for="smax"><?php echo $langMaximum ?> </Label>
+    <Label for="smax"><?php echo get_lang('Maximum') ?> </Label>
     <input type="text" id="smax" align="right" name="smax" value="<?php echo $smax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
-    <legend ><?php echo $langProfessor."(".$langAddedToCreator.")"; ?> </legend>
-    <Label for="pmin"> <?php echo $langMin ?> </Label>
+    <legend ><?php echo get_lang('Professor')."(".get_lang('AddedToCreator').")"; ?> </legend>
+    <Label for="pmin"> <?php echo get_lang('Min') ?> </Label>
     <input align="right" id="pmin"  type="text" name="pmin" value="<?php echo $pmin ?>" size="5" maxlength="3"><br />
-    <Label for="pmax"> <?php echo $langMaximum ?> </Label>
+    <Label for="pmax"> <?php echo get_lang('Maximum') ?> </Label>
     <input align="right" id="pmax"  type="text" name="pmax" value="<?php echo $pmax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
     <Label for="noLangRand">
     <input type="radio" id="noLangRand" name="random_lang" value="no" checked="checked">
-    <?php echo $langOnly . " " . $langNameOfLang[$platformLanguage] ?>
+    <?php echo get_lang('Only') . " " . $langNameOfLang[$platformLanguage] ?>
     </label>
     <Label for="langRand">
     <input type="radio" id="langRand" name="random_lang" value="random_lang">
-    <?php echo $langRandomLanguage ?>
+    <?php echo get_lang('RandomLanguage') ?>
     </label>
     </fieldset>
     <fieldset>
-    <legend ><?php echo $langNumGroup; ?> </legend>
-    <Label for="gmin"> <?php echo $langMin ?> </Label>
+    <legend ><?php echo get_lang('NumGroup'); ?> </legend>
+    <Label for="gmin"> <?php echo get_lang('Min') ?> </Label>
     <input align="right" id="gmin"  type="text" name="gmin" value="<?php echo $gmin ?>" size="5" maxlength="3"><br />
-    <Label for="gmax"> <?php echo $langMaximum ?> </Label>
+    <Label for="gmax"> <?php echo get_lang('Maximum') ?> </Label>
     <input align="right" id="gmax"  type="text" name="gmax" value="<?php echo $gmax ?>" size="5" maxlength="3">
     </fieldset>
         <fieldset>
-    <legend ><?php echo $langMaxStudentGroup; ?> </legend>
-    <Label for="emax"> <?php echo $langMaximum ?> </Label>
+    <legend ><?php echo get_lang('MaxStudentGroup'); ?> </legend>
+    <Label for="emax"> <?php echo get_lang('Maximum') ?> </Label>
     <input align="right" id="emax"  type="text" name="emax" value="<?php echo $emax ?>" size="5" maxlength="3">
     </fieldset>
         <fieldset>
-    <legend ><?php echo $langNumGroupStudent; ?> </legend>
-    <Label for="gpumin"> <?php echo $langMin ?> </Label>
+    <legend ><?php echo get_lang('NumGroupStudent'); ?> </legend>
+    <Label for="gpumin"> <?php echo get_lang('Min') ?> </Label>
     <input align="right" id="gpumin"  type="text" name="gmin" value="<?php echo $gpumin ?>" size="5" maxlength="3"><br />
-    <Label for="gpumax"> <?php echo $langMaximum ?> </Label>
+    <Label for="gpumax"> <?php echo get_lang('Maximum') ?> </Label>
     <input align="right" id="gpumax"  type="text" name="gmax" value="<?php echo $gpumax ?>" size="5" maxlength="3">
     </fieldset>
 
 
     <input type="hidden" name="cmd" value="exFill">
-    <input type="submit" name="create" value="<?php echo $langCreate ?>">
+    <input type="submit" name="create" value="<?php echo get_lang('Create') ?>">
 </form>
         <?php
         break;

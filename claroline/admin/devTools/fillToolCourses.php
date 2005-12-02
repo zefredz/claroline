@@ -28,7 +28,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 //// Config tool
 include($includePath . '/conf/course_main.conf.php');
@@ -38,9 +38,9 @@ require_once($includePath . '/lib/debug.lib.inc.php');
 require_once($includePath . '/lib/fileManage.lib.php');
 require_once($includePath . '/conf/course_main.conf.php');
 
-$nameTools = $langPopulateTools;
-$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
-$interbredcrump[]= array ('url' => 'index.php', 'name' => $langDevTools);
+$nameTools = get_lang('PopulateTools');
+$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
+$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('DevTools'));
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
@@ -100,7 +100,7 @@ switch ($display)
         echo '<LI><b>' . $course['code'] . '</b> : '.$course['intitule'].'<ul>';
         foreach ($_REQUEST['toolToFill'] as $tool_label)
         {
-            echo '<li>' . sprintf( $lang_p_FillCourses, $toolNameList[$tool_label], $result[$course['code']][$tool_label]) . '</li>';
+            echo '<li>' . sprintf( get_lang('_p_FillCourses'), $toolNameList[$tool_label], $result[$course['code']][$tool_label]) . '</li>';
         }
         echo '</ul></LI>';
     }
@@ -110,7 +110,7 @@ switch ($display)
         ?><br /><br />
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
-        <legend ><?php $lang_toolsToFill; ?></legend>
+        <legend ><?php get_lang('_toolsToFill'); ?></legend>
         <table class="claroTable" >
             <tr>
                 <th >
@@ -154,13 +154,6 @@ switch ($display)
 function fill_tool_in_course($course_code,$tool_label)
 {
     global  $courseTablePrefix, $dbGlu, $coursesRepositorySys, $includePath, $_course, $_uid, $_user;
-
-    global  $lang_p_category_s_created
-    ,       $lang_p_forum_s_created
-    ,       $lang_p_topic_s_created
-    ,       $lang_p_post_s_created ;
-
-
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
@@ -283,7 +276,7 @@ function fill_tool_in_course($course_code,$tool_label)
 
                 $categoryToPopulate = create_category($category_title, $course_id);
                                 $resultPopulate .= '<li>'
-                                . sprintf($lang_p_category_s_created, $categoryToPopulate)
+                                . sprintf(get_lang('_p_category_s_created'), $categoryToPopulate)
                                 . ' :  <i>' . $category_title . '</i>'
                                 . '</li>'
                                 ;
@@ -314,7 +307,7 @@ function fill_tool_in_course($course_code,$tool_label)
                 $forumToPopulate = create_forum($forum_name, $forum_desc, 2, $categoryToPopulate, $course_id);
 
                 // add new forum in DB
-                $resultPopulate .= '<li>'. sprintf($lang_p_forum_s_created , $forumToPopulate).' : <i>'.$forum_name.'</i>'.'</li>';
+                $resultPopulate .= '<li>'. sprintf(get_lang('_p_forum_s_created') , $forumToPopulate).' : <i>'.$forum_name.'</i>'.'</li>';
             }
             $resultPopulate .= '<li> Forum ' . $forumToPopulate . ' selected.  '.'</li>';
 
@@ -340,7 +333,7 @@ function fill_tool_in_course($course_code,$tool_label)
                                                        $course_id);
 
                 $resultPopulate .= '<li>'
-                                . sprintf($lang_p_topic_s_created, $topicToPopulate)
+                                . sprintf(get_lang('_p_topic_s_created'), $topicToPopulate)
                                 . ' :  <i>' . $topic_title . '</i>'
                                 . '</li>'
                                 ;
@@ -358,7 +351,7 @@ function fill_tool_in_course($course_code,$tool_label)
                                       , $lorem_message
                                       , $course_id);
                 $resultPopulate .= '<li>'
-                                . sprintf($lang_p_post_s_created, $newPost)
+                                . sprintf(get_lang('_p_post_s_created'), $newPost)
                                 . '</li>'
                                 ;
             $resultPopulate .= '</ul>';
@@ -420,7 +413,7 @@ function fill_tool_in_course($course_code,$tool_label)
                 $user = $userList[$rand_key];
                 $userIdViewed = $user['user_id'];
                 $def_content = lorem('paragraphs',rand(1,5));
-                $resultPopulate .= '<li>' . $lang_completeUserInfoOfUser . ' ' . $userIdViewed . '</LI>';
+                $resultPopulate .= '<li>' . get_lang('_completeUserInfoOfUser') . ' ' . $userIdViewed . '</LI>';
                 $sql = "SELECT count(id) userDef_qty
                         FROM  `" . $tbl_userinfo_content . "`
                         WHERE `user_id` = '" . $userIdViewed . "' AND `def_id` = '".$defToPopulate."' ";

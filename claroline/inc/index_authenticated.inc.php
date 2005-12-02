@@ -138,12 +138,12 @@ if ($is_platformAdmin)
 {
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
-    .    '<img src="claroline/img/edit.gif" alt="" />' . $langEditTextZone
+    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
     .    '</a>' . "\n"
     ;
 }
 
-echo claro_disp_tool_title($langMyCourses);
+echo claro_disp_tool_title(get_lang('MyCourses'));
 
 /*
  * Commands line
@@ -158,7 +158,7 @@ echo "<p>"
     {
         echo '<a href="claroline/create_course/add_course.php">'
         .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
-        .    $langCourseCreate
+        .    get_lang('CourseCreate')
         .    '</a>'
         ;
         if ($allowToSelfEnroll) echo '&nbsp;|&nbsp;';
@@ -168,13 +168,13 @@ echo "<p>"
     {
         echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=">'
         .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
-        .    $lang_enroll_to_a_new_course
+        .    get_lang('_enroll_to_a_new_course')
         .    '</a>'
         .    '&nbsp;|&nbsp;'
 
         .    '<a href="claroline/auth/courses.php?cmd=rqUnreg">'
         .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" alt="" /> '
-        .    $lang_remove_course_enrollment
+        .    get_lang('_remove_course_enrollment')
         .    '</a>'
         .    '</b>'
         .    '</small>' . "\n"
@@ -252,7 +252,7 @@ echo '</ul>' . "\n";
 
 //display legend
 
-echo "<br /><small><span class=\"item hot\"> ".$langNewLegend."</span></small>";
+echo "<br /><small><span class=\"item hot\"> ".get_lang('NewLegend')."</span></small>";
 echo '</td>' . "\n";
 
 
@@ -270,7 +270,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
                 $itemIcon = 'announcement.gif';
                 $url = 'claroline/announcements/announcements.php?cidReq='
                      . $courseDigestList['courseSysCode'][$i];
-                $name = $langValvas;
+                $name = get_lang('Valvas');
                 break;
 
 
@@ -278,7 +278,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
                 $itemIcon = 'agenda.gif';
                 $url = 'claroline/calendar/agenda.php?cidReq='
                      . $courseDigestList['courseSysCode'][$i];
-                $name = $langAgendaNextEvents;
+                $name = get_lang('AgendaNextEvents');
                 break;
         }
 
@@ -312,13 +312,13 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
 
 ?>
 <div align="center">
-<a href="claroline/calendar/myagenda.php"><?php echo $langMyAgenda ?></a>
+<a href="claroline/calendar/myagenda.php"><?php echo get_lang('MyAgenda') ?></a>
 </div>
 
 <hr noshade size="1">
 
 <p>
-<a href="http://www.claroline.net/documentation.htm"><?php echo $langDocumentation ?></a>
+<a href="http://www.claroline.net/documentation.htm"><?php echo get_lang('Documentation') ?></a>
 </p>
 
 <?php
@@ -326,7 +326,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
                             Only available for platform administrator */
     {
 ?>
-<p><a href="claroline/admin/"><?php echo $langPlatformAdministration ?></a></p>
+<p><a href="claroline/admin/"><?php echo get_lang('PlatformAdministration') ?></a></p>
 
 <?php
     } // end if is_platformAdmin
@@ -338,7 +338,7 @@ if ($is_platformAdmin)
 {
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
-    .    '<img src="claroline/img/edit.gif" alt="" />' . $langEditTextZone
+    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
     .    '</a>' . "\n"
     ;
 }

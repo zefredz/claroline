@@ -25,7 +25,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 // lang variables
 $urlMaintenance = $rootAdminWeb . 'maintenance/';
@@ -70,10 +70,10 @@ else
   Display Section
  =====================================================================*/
 
-$nameTools = $langFileStructureChecker;
+$nameTools = get_lang('FileStructureChecker');
 
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[] = array ('url' => $urlMaintenance, 'name' => $langMaintenance);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $urlMaintenance, 'name' => get_lang('Maintenance'));
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -93,8 +93,8 @@ switch ($display)
     case DISP_DIFF: 
     default :
 
-        echo '<h4>' . $langScriptMissing . '</h4>' . "\n";
-        echo '<p><em>'  . $langScriptMissingComment . '</em></p>' . "\n";
+        echo '<h4>' . get_lang('ScriptMissing') . '</h4>' . "\n";
+        echo '<p><em>'  . get_lang('ScriptMissingComment') . '</em></p>' . "\n";
     
         if ( count($diff_script_missing) > 0 )
         { 
@@ -107,11 +107,11 @@ switch ($display)
         }
         else
         {
-            echo $langNoScript;
+            echo get_lang('NoScript');
         }
 
-        echo '<h4>' . $langScriptNotInArchive . '</h4>';
-        echo '<p><em>' . $langScriptNotInArchiveComment . '</em></p>' ;
+        echo '<h4>' . get_lang('ScriptNotInArchive') . '</h4>';
+        echo '<p><em>' . get_lang('ScriptNotInArchiveComment') . '</em></p>' ;
 
         if ( count($diff_script_not_used) > 0 )
         { 
@@ -124,7 +124,7 @@ switch ($display)
         }
         else
         {
-            echo $langNoScript;
+            echo get_lang('NoScript');
         }
         break;
     

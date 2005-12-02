@@ -40,7 +40,7 @@ if (!$_gid || (!$is_groupAllowed & !isset($_REQUEST['selfReg']) ))
 }
 
 $nameTools        = $_group['name'];
-$interbredcrump[] = array ('url' => 'group.php', 'name' => $langGroups);
+$interbredcrump[] = array ('url' => 'group.php', 'name' => get_lang('Groups'));
 
 // use viewMode
 claro_set_display_mode_available(true);
@@ -122,7 +122,7 @@ if( isset($_REQUEST['registration']) )
 
 if ( isset($_REQUEST['regDone']) )
 {
-    $message = $langGroupNowMember;
+    $message = get_lang('GroupNowMember');
 }
 
 
@@ -166,7 +166,7 @@ $forumId = $_group['forumId'];
 // CLAROLINE HEADER AND BANNER
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title( array('supraTitle'=> $langGroups,
+echo claro_disp_tool_title( array('supraTitle'=> get_lang('Groups'),
                                   'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
 
 if ( !empty($message) )
@@ -179,8 +179,8 @@ if($is_allowedToSelfRegInGroup)
 {
     echo '<p>'
     .    '<a href="' . $_SERVER['PHP_SELF'] . '?registration=1" class="claroCmd">'
-    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . $langRegIntoGroup . '" />'
-    .    $langRegIntoGroup
+    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('RegIntoGroup') . '" />'
+    .    get_lang('RegIntoGroup')
     .    '</a>'
     .    '</p>'
     ;
@@ -291,8 +291,8 @@ echo '<br /><br />' . "\n";
 if ($is_allowedToManage)
 {
     echo '<a href="group_edit.php" class="claroCmd">'
-    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langEditGroup . '" />'
-    .    $langEditGroup
+    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('EditGroup') . '" />'
+    .    get_lang('EditGroup')
     .    '</a>'
     ;
 }
@@ -304,7 +304,7 @@ if ($is_allowedToManage)
 &nbsp;
 </td>
 <td valign="top">
-<b><?php echo $langGroupDescription ?></b> :
+<b><?php echo get_lang('GroupDescription') ?></b> :
 <?php
 
 /*----------------------------------------------------------------------------
@@ -319,14 +319,14 @@ if( strlen($_group['description']) > 0)
 }
 else // Show 'none' if no description
 {
-    echo $langGroupNone;
+    echo get_lang('GroupNone');
 }
 
 ?>
 
 <br /><br />
 
-<b><?php echo $langGroupTutor ?></b> :
+<b><?php echo get_lang('GroupTutor') ?></b> :
 <?php
 
 /*----------------------------------------------------------------------------
@@ -350,13 +350,13 @@ if (count($tutorDataList) > 0)
 }
 else
 {
-    echo $langGroupNoTutor;
+    echo get_lang('GroupNoTutor');
 }
 ?>
 
 <br /><br />
 
-<b><?php echo  $langGroupMembers ?></b> :
+<b><?php echo  get_lang('GroupMembers') ?></b> :
 <?php
 
 
@@ -381,7 +381,7 @@ if(count($groupMemberList) > 0)
 }
 else
 {
-    echo $langGroupNoneMasc;
+    echo get_lang('GroupNoneMasc');
 }
 
 ?>

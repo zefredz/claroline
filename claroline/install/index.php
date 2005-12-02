@@ -56,6 +56,7 @@ include $newIncludePath . 'lib/config.lib.inc.php';
 include $newIncludePath . 'lib/form.lib.php';
 include $newIncludePath . 'lib/course.lib.inc.php';
 include $newIncludePath . 'lib/claro_main.lib.php';
+include $newIncludePath . 'lib/language.lib.php';
 
 /**
  * Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -84,15 +85,15 @@ DISP_RUN_INSTALL_COMPLETE);
 
 
 // VIEW TITLE
-$panelTitle[DISP_WELCOME]                   = $langRequirements;
-$panelTitle[DISP_LICENSE]                   = $langLicence;
-//$panelTitle[DISP_FILE_SYSTEM_SETTING]      = $langFileSystemSetting;
+$panelTitle[DISP_WELCOME]                   = get_lang('Requirements');
+$panelTitle[DISP_LICENSE]                   = get_lang('Licence');
+//$panelTitle[DISP_FILE_SYSTEM_SETTING]      = get_lang('FileSystemSetting');
 $panelTitle[DISP_DB_CONNECT_SETTING]        = 'MySql Database Settings';
-$panelTitle[DISP_DB_NAMES_SETTING]          = $langMysqlNames;
+$panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MysqlNames');
 $panelTitle[DISP_ADMINISTRATOR_SETTING]     = 'Administrator Account';
 $panelTitle[DISP_PLATFORM_SETTING]          = 'Platform Settings';
 $panelTitle[DISP_ADMINISTRATIVE_SETTING]    = 'Additional Informations<small> (optional)</small>';
-$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = $langLastCheck;
+$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('LastCheck');
 $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
 
 //$rootSys="'.realpath($pathForm).'";
@@ -304,7 +305,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
                     <br />';
         if ($no=='2005')
         $msg_no_connection .= '
-                    Wrong '.$langDBHost.' : <I>'.$dbHostForm.'</I>';
+                    Wrong '.get_lang('DBHost').' : <I>'.$dbHostForm.'</I>';
         elseif ($no=='1045')
         $msg_no_connection .= 'Wrong database Login : '
                            .  '(<I>' . $dbUsernameForm . '</I>) '
@@ -633,7 +634,7 @@ if ($display==DISP_WELCOME)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
     .    '<h2>'
-    .    sprintf($langStepNOfN,(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME]
+    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME]
     .    '</h2>'
     ;
     // check if an claroline configuration file doesn't already exists.
@@ -795,12 +796,12 @@ elseif($display==DISP_LICENSE)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf($langStepNOfN,(array_search(DISP_LICENSE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENSE]
+    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_LICENSE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENSE]
     .    '</h2>'  . "\n"
     .    '<P>'  . "\n"
     .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
     .    'Please read the licence and click &quot;I accept&quot;.'  . "\n"
-    .    '<a href="../../LICENCE.txt">' . $langPrintVers . '</a>'  . "\n"
+    .    '<a href="../../LICENCE.txt">' . get_lang('PrintVers') . '</a>'  . "\n"
     .    '</P>'  . "\n"
     .    '<textarea wrap="virtual" cols="65" rows="15">'
     ;
@@ -836,7 +837,7 @@ elseif($display==DISP_FILE_SYSTEM_SETTING)
 echo '
 <input type="hidden" name="fromPanel" value="'.$display.'">
 <h2>
-'.sprintf($langStepNOfN,(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
+'.sprintf(get_lang('StepNOfN'),(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
 </h2>
 </td>
 </tr>
@@ -883,13 +884,13 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
     .    '<h2>'
-    .    sprintf($langStepNOfN,(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING]
+    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING]
     .    '</h2>'
     .    '</td>'
     .    '</tr>'
     .    '<tr>'
     .    '<td>'
-    .    '<h4>'.$langDBConnectionParameters.'</h4>'
+    .    '<h4>'.get_lang('DBConnectionParameters').'</h4>'
     .    '<p>'
     .    'Enter here the parameters given by your database server administrator.'
     .    '</p>'
@@ -903,7 +904,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'">'
     .    '</td>'
     .    '<td>'
-    .    $langEG . ' localhost'
+    .    get_lang('EG') . ' localhost'
     .    '</td>'
     .    '</tr>'
     .    '<tr>'
@@ -914,7 +915,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'">'
     .    '</td>'
     .    '<td>'
-    .    $langEG.' root'
+    .    get_lang('EG').' root'
     .    '</td>'
     .    '</tr>'
     .    '<tr>'
@@ -925,11 +926,11 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'">'
     .    '</td>'
     .    '<td>'
-    .    $langEG.' '.generate_passwd(8)
+    .    get_lang('EG').' '.generate_passwd(8)
     .    '</td>'
     .    '</tr>'
     .    '</table>'
-    .    '<h4>'.$langDBUse.'</h4>'
+    .    '<h4>'.get_lang('DBUse').'</h4>'
     .    '<table width="100%">'
     .    '<tr>'
     .    '<td>'
@@ -1004,9 +1005,9 @@ elseif($display == DISP_DB_NAMES_SETTING )
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf($langStepNOfN,(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING]  . "\n"
+    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING]  . "\n"
     .    '</h2>'  . "\n"
-    .    ($singleDbForm?'':$langDBSettingNamesIntro)  . "\n"
+    .    ($singleDbForm?'':get_lang('DBSettingNamesIntro'))  . "\n"
     .    '</td>'  . "\n"
     .    '</tr>'  . "\n"
     .    '<tr>'  . "\n"
@@ -1062,7 +1063,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     echo '<tr>'  . "\n"
     .    '<td>'  . "\n"
     .    '<label for="dbNameForm">'  . "\n"
-    .    ''.($singleDbForm?$langDbName:$langMainDB).''  . "\n"
+    .    ''.($singleDbForm?get_lang('DbName'):get_lang('MainDB')).''  . "\n"
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
@@ -1114,7 +1115,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         }
         echo '<tr>'  . "\n"
         .    '<td>'  . "\n"
-        .    '<label for="dbStatsForm">'.$langStatDB.'</label>'  . "\n"
+        .    '<label for="dbStatsForm">'.get_lang('StatDB').'</label>'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
         .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'">'  . "\n"
@@ -1150,7 +1151,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     echo '<tr>'  . "\n"
     .    '<td>'  . "\n"
     .    '<label for="dbPrefixForm">'  . "\n"
-    .    ($singleDbForm?'Prefix for names of course tables':$langDbPrefixForm).''  . "\n"
+    .    ($singleDbForm?'Prefix for names of course tables':get_lang('DbPrefixForm')).''  . "\n"
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
@@ -1223,7 +1224,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING] . "\n"
+    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING] . "\n"
     .    '</h2>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1235,7 +1236,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<tr>'  . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<b><label for="loginForm">'.$langAdminLogin.'</label></b>'  . "\n"
+    .    '<b><label for="loginForm">'.get_lang('AdminLogin').'</label></b>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'">'  . "\n"
@@ -1246,7 +1247,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<b><label for="passForm">'.$langAdminPass.'</label></b>'  . "\n"
+    .    '<b><label for="passForm">'.get_lang('AdminPass').'</label></b>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'">'  . "\n"
@@ -1256,7 +1257,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<td>'  . "\n"
-    .    '<label for="adminEmailForm">'.$langAdminEmail.'</label>'  . "\n"
+    .    '<label for="adminEmailForm">'.get_lang('AdminEmail').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'">'  . "\n"
@@ -1277,7 +1278,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<label for="adminNameForm">'.$langAdminName.'</label>'  . "\n"
+    .    '<label for="adminNameForm">'.get_lang('AdminName').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'">'  . "\n"
@@ -1288,7 +1289,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<label for="adminSurnameForm">'.$langAdminSurname.'</label>'  . "\n"
+    .    '<label for="adminSurnameForm">'.get_lang('AdminSurname').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'">'  . "\n"
@@ -1323,7 +1324,7 @@ elseif($display==DISP_PLATFORM_SETTING)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">' . "\n"
     .    '<h2>' . "\n"
-    .    sprintf($langStepNOfN,(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING]
+    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING]
     .    '</h2>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1428,7 +1429,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
     echo '
                  <input type="hidden" name="fromPanel" value="'.$display.'">
                 <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATIVE_SETTING].'
+                    '.sprintf(get_lang('StepNOfN'),(array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATIVE_SETTING].'
                 </h2>'
                 .$msg_missing_administrative_data ;
     echo '
@@ -1516,7 +1517,7 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
 
     echo '
                 <h2>
-                    '.sprintf($langStepNOfN,(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
+                    '.sprintf(get_lang('StepNOfN'),(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
                 </h2>
         Here are the values you entered <br />
         <Font color="red">
@@ -1614,7 +1615,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     {
         echo "<hr />";
         if ($mainDbNameExist)
-            echo '<P><B>'.$langMainDB.'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />
+            echo '<P><B>'.get_lang('MainDB').'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />
             <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
             <label for="confirmUseExistingMainDb" >I know, I want use it.</label><br />
             <font color="red">Warning !</font> : this script write in tables use by Claroline.
@@ -1622,7 +1623,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '
         <P>
-            <B>'.$langStatDB.'</B> db ('.$dbStatsForm.') already exist
+            <B>'.get_lang('StatDB').'</B> db ('.$dbStatsForm.') already exist
             <br />
             <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
             <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><br />
@@ -1742,7 +1743,7 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 ?>
             <h2>
 <?php
-                    echo sprintf($langStepNOfN,(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
+                    echo sprintf(get_lang('StepNOfN'),(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
 
  ?>
 

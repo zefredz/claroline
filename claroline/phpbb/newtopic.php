@@ -47,7 +47,7 @@ $allowed = TRUE;
 $error = FALSE;
 
 $error_message = '';
-$pagetitle = $langNewTopic;
+$pagetitle = get_lang('NewTopic');
 $pagetype =  'newtopic';
 
 /*=================================================================
@@ -104,7 +104,7 @@ elseif ( $forumSettingList )
 	    // forum and the group of the concerned forum isn't the same as the session 
 	    // one, something weird is happening, indeed ...
 	    $allowed = FALSE;
-        $error_message = $langNotAllowed ;
+        $error_message = get_lang('NotAllowed') ;
 	}
     else
     {
@@ -134,7 +134,7 @@ elseif ( $forumSettingList )
 		    // prevent to go further if the fields are actually empty
 		    if ( strip_tags($message) == '' || $subject == '' ) 
 			{
-				$error_message = $l_emptymsg;
+				$error_message = get_lang('emptymsg');
 		        $error = TRUE;
 			}
 		
@@ -159,7 +159,7 @@ else
 {
     // forum doesn't exists
     $allowed = false;
-    $error_message = $langNotAllowed;
+    $error_message = get_lang('NotAllowed');
 }
 
 /*=================================================================
@@ -169,17 +169,17 @@ else
 if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY
     && $is_groupAllowed )
 {
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
+    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
     $interbredcrump[]  = array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
 }
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
-echo claro_disp_tool_title($langForums, $is_allowedToEdit ? 'help_forum.php' : false);
+echo claro_disp_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( ! $allowed )
 {
@@ -193,7 +193,7 @@ else
 	if ( isset($_REQUEST['submit']) && !$error)
 	{
 	    // Display success message
-	    disp_confirmation_message ($l_stored, $forum_id, $topic_id);
+	    disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
 	
 	} 
 	else
@@ -213,10 +213,10 @@ else
 
          . '<table border="0">' . "\n"
          . '<tr valign="top">' . "\n"
-         . '<td align="right"><label for="subject">' . $l_subject . '</label> : </td>' 
+         . '<td align="right"><label for="subject">' . get_lang('subject') . '</label> : </td>' 
          . '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
 	     . '<tr  valign="top">' . "\n" 
-         . '<td align="right"><br />' . $l_body . ' :</td>'; 
+         . '<td align="right"><br />' . get_lang('body') . ' :</td>'; 
 
         if ( !empty($message) ) $content = htmlspecialchars($message);
         else                    $content = '';
@@ -226,8 +226,8 @@ else
             .'</td>'
             . '</tr>'
             . '<tr  valign="top"><td>&nbsp;</td>'
-            . '<td><input type="submit" name="submit" value="' . $langOk . '" />' 
-            . '&nbsp;<input type="submit" name="cancel" value="' . $langCancel . '" />' . "\n"
+            . '<td><input type="submit" name="submit" value="' . get_lang('Ok') . '" />' 
+            . '&nbsp;<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />' . "\n"
             . '</td></tr>'
             . '</table>'
             .'</form>' . "\n";

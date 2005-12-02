@@ -29,7 +29,7 @@ include_once $includePath . '/conf/user_profile.conf.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 $iconForCuStatus['STUDENT']        = 'user.gif';
 $iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';
@@ -62,8 +62,8 @@ if (!isset($order['cuStatus'])) $order['cuStatus'] = '';
 //find which user is concerned in URL parameters
 
 $dialogBox = '';
-$nameTools = $langUserCourseList;
-$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => $langAdministration);
+$nameTools = get_lang('UserCourseList');
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 if ((isset($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit'] == '') || !isset($_REQUEST['uidToEdit']))
 {
@@ -96,17 +96,17 @@ switch ($cmd)
 
     if ( user_remove_from_course($uidToEdit,$_REQUEST['code'],true) )
     {
-        $dialogBox .= $langUserUnsubscribed;
+        $dialogBox .= get_lang('UserUnsubscribed');
     }
     else
     {
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
-            $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+            $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
             break;
             case 'course_manager_cannot_unsubscribe_himself' :
-            $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+            $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
             break;
             default :
         }
@@ -196,7 +196,7 @@ $htmlHeadXtra[] =
 "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -221,12 +221,12 @@ if ( !empty($dialogBox) )
 
 //TOOL LINKS
 
-echo '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . $langSeeUserSettings . '</a> | ';
-echo '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . $langEnrollToNewCourse . '</a>';
+echo '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('SeeUserSettings') . '</a> | ';
+echo '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('EnrollToNewCourse') . '</a>';
 
 if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must display go back to list
 {
-    echo ' | <a class="claroCmd" href="adminusers.php">' . $langBackToUserList . '</a>';
+    echo ' | <a class="claroCmd" href="adminusers.php">' . get_lang('BackToUserList') . '</a>';
     $addToUrl = '&amp;cfrom=ulist';
 }
 
@@ -247,11 +247,11 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<tr class="headerX" align="center" valign="top">'
 
 //    add titles for the table
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langCode . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langCourseTitle . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langTitular . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cuStatus&amp;dir=' . $order['cuStatus'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langRole . '</a></th>'
-.    '<th>' . $langUnsubscribe . '</th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Code') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('CourseTitle') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Titular') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cuStatus&amp;dir=' . $order['cuStatus'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Role') . '</a></th>'
+.    '<th>' . get_lang('Unsubscribe') . '</th>'
 .    '</tr>'
 .    '</thead>' . "\n"
 ;
@@ -294,7 +294,7 @@ foreach($resultList as $list)
     .    '&amp;code=' . $list['code']
     .    '&amp;offset=' . $offset . '"'
     .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
-    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . $langDelete . '" />' . "\n"
+    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>'
@@ -307,7 +307,7 @@ if (!isset($atLeastOne) || !$atLeastOne)
 {
     echo '<tr>'
     .    '<td colspan="5" align="center">'
-    .    $langUserNoCourseToDisplay
+    .    get_lang('UserNoCourseToDisplay')
     .    '</td>'
     .    '</tr>'
     ;

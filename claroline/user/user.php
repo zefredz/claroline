@@ -53,7 +53,7 @@ $htmlHeadXtra[] =
 <script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm(" ' . clean_str_for_javascript($langAreYouSureToDelete) . ' "+ name + " ?"))
+    if (confirm(" ' . clean_str_for_javascript(get_lang('AreYouSureToDelete')) . ' "+ name + " ?"))
         {return true;}
     else
         {return false;}
@@ -110,7 +110,7 @@ if ( $is_allowedToEdit )
         $done = user_add_to_course($user_id, $_cid);
         if ($done)
         {
-            $dialogBox = $langUserRegisteredToCourse;
+            $dialogBox = get_lang('UserRegisteredToCourse');
         }
     }
 
@@ -127,27 +127,27 @@ if ( $is_allowedToEdit )
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
-            $dialogBox .= sprintf($lang_p_d_StudentUnregistredFormCours,$unregisterdUserCount);
+            $dialogBox .= sprintf(get_lang('_p_d_StudentUnregistredFormCours'),$unregisterdUserCount);
         }
         elseif ( 0 < (int)$_REQUEST['user_id'] )
         {
             // delete user from course user list
             if ( user_remove_from_course( $_REQUEST['user_id'], $_cid) )
             {
-               $dialogBox .= $langUserUnsubscribedFromCourse;
+               $dialogBox .= get_lang('UserUnsubscribedFromCourse');
             }
             else
             {
                 switch ( claro_failure::get_last_failure() )
                 {
                     case 'cannot_unsubscribe_the_last_course_manager' :
-                        $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                        $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
                         break;
                     case 'course_manager_cannot_unsubscribe_himself' :
-                        $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                        $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
                         break;
                     default :
-                        $dialogBox .= $langUserNotUnsubscribedFromCourse;
+                        $dialogBox .= get_lang('UserNotUnsubscribedFromCourse');
                 }
             }
         }
@@ -236,13 +236,13 @@ if ( count($usersId)> 0 )
   Display section
   =====================================================================*/
 
-$nameTools = $langUsers;
+$nameTools = get_lang('Users');
 
 // Display header
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title($nameTools.' ('.$langUserNumber.' : '.$userTotalNb.')',
+echo claro_disp_tool_title($nameTools.' ('.get_lang('UserNumber').' : '.$userTotalNb.')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
@@ -261,24 +261,24 @@ if ( $disp_tool_link )
     {
        //add a user link
     ?>
-    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo $langAddAU; ?></a> |
+    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo get_lang('AddAU'); ?></a> |
     <?php
        //add CSV file of user link
     ?>
-    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo $langAddListUser; ?></a> |
+    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo get_lang('AddListUser'); ?></a> |
     <?php
        //add a class link
     ?>
-    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo $langAddClass; ?></a> |
+    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo get_lang('AddClass'); ?></a> |
     <?php
 
     }
     ?>
-    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif" alt="" /><?php echo $langGroupUserManagement; ?></a> |
+    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif" alt="" /><?php echo get_lang('GroupUserManagement'); ?></a> |
 
     <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=unregister&amp;user_id=allStudent"
        onClick="return confirmation('<?php echo clean_str_for_javascript(' all students '); ?>')">
-    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif" alt="" /><?php echo $langUnregisterAllStudents ?>
+    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif" alt="" /><?php echo get_lang('UnregisterAllStudents') ?>
     </a>
     </p>
 <?php
@@ -296,7 +296,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 echo '<table class="claroTable emphaseLine" '
 .    ' width="100%" cellpadding="2" cellspacing="1" '
-.    ' border="0" summary="' . $langListCourseUsers . '">' . "\n"
+.    ' border="0" summary="' . get_lang('ListCourseUsers') . '">' . "\n"
 .    '<colgroup span="4" align="left"></colgroup>' . "\n"
 ;
 
@@ -309,18 +309,18 @@ echo '<table class="claroTable emphaseLine" '
 
     echo '<thead>'."\n"
        . '<tr class="headerX" align="center" valign="top">'."\n"
-       . '<th scope="col" id="lastname">'.$langLastName.'</th>'."\n"
-       . '<th scope="col" id="firstname">'.$langFirstName.'</th>'."\n"
-       . '<th scope="col" id="role">'.$langRole.'</th>'."\n"
-       . '<th scope="col" id="team">'.$langGroup.'</th>'."\n"
+       . '<th scope="col" id="lastname">'.get_lang('LastName').'</th>'."\n"
+       . '<th scope="col" id="firstname">'.get_lang('FirstName').'</th>'."\n"
+       . '<th scope="col" id="role">'.get_lang('Role').'</th>'."\n"
+       . '<th scope="col" id="team">'.get_lang('Group').'</th>'."\n"
        ;
 
     if($is_allowedToEdit) // EDIT COMMANDS
     {
-        echo '<th scope="col" id="tut"  >'.$langGroupTutor.'</th>'."\n"
-           . '<th scope="col" id="CM"   >'.$langCourseManager.'</th>'."\n"
-           . '<th scope="col" id="edit" >'.$langEdit.'</th>'."\n"
-           . '<th scope="col" id="del"  >'.$langUnreg.'</th>'."\n"
+        echo '<th scope="col" id="tut"  >'.get_lang('GroupTutor').'</th>'."\n"
+           . '<th scope="col" id="CM"   >'.get_lang('CourseManager').'</th>'."\n"
+           . '<th scope="col" id="edit" >'.get_lang('Edit').'</th>'."\n"
+           . '<th scope="col" id="del"  >'.get_lang('Unreg').'</th>'."\n"
            ;
     }
 
@@ -395,13 +395,13 @@ foreach ( $userList as $thisUser )
         }
         else
         {
-            echo '<td headers="tut u'.$i.'">'.$langGroupTutor.'</td>'."\n";
+            echo '<td headers="tut u'.$i.'">'.get_lang('GroupTutor').'</td>'."\n";
         }
 
         // course manager column
         if($thisUser['statut'] == '1')
         {
-            echo '<td headers="CM u'.$i.'">'.$langCourseManager.'</td>'."\n";
+            echo '<td headers="CM u'.$i.'">'.get_lang('CourseManager').'</td>'."\n";
         }
         else
         {
@@ -411,7 +411,7 @@ foreach ( $userList as $thisUser )
         // Edit user column
         echo '<td headers="edit u'.$i.'">'
            . '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
-           . '<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif" />'
+           . '<img border="0" alt="'.get_lang('Edit').'" src="'.$imgRepositoryWeb.'edit.gif" />'
            . '</a>'
            . '</td>'."\n"
         // Unregister user column
@@ -420,8 +420,8 @@ foreach ( $userList as $thisUser )
         if ($thisUser['user_id'] != $_uid)
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
-            .    'onClick="return confirmation(\''.clean_str_for_javascript($langUnreg .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img border="0" alt="'.$langUnreg.'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
+            .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unreg') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            .    '<img border="0" alt="'.get_lang('Unreg').'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
             .    '</a>'
             ;
         }

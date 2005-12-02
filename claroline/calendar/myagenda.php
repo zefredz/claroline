@@ -32,7 +32,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 
 require_once($includePath . '/lib/agenda.lib.php');
 
-$nameTools = $langMyAgenda;
+$nameTools = get_lang('MyAgenda');
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 
@@ -70,7 +70,7 @@ include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title($nameTools);
 
 // Display Calendar
-claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
+claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName);
 
 // Footer
 include $includePath . '/claro_init_footer.inc.php';

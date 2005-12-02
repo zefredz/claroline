@@ -31,12 +31,12 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 $is_AllowedToEdit = $is_courseAdmin;
 
-if ( ! $is_AllowedToEdit ) claro_die($langNotAllowed);
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('NotAllowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
 
-$nameTools = $langInsertMyDocToolName;
+$nameTools = get_lang('InsertMyDocToolName');
 
 //header
 @include($includePath."/claro_init_header.inc.php");
@@ -175,7 +175,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // create new module
                 $sql = "INSERT INTO `".$TABLEMODULE."`
                         (`name` , `comment`, `contentType`)
-                        VALUES ('". addslashes($basename) ."' , '". addslashes($langDefaultModuleComment) . "', '".CTDOCUMENT_."' )";
+                        VALUES ('". addslashes($basename) ."' , '". addslashes(get_lang('DefaultModuleComment')) . "', '".CTDOCUMENT_."' )";
                 $query = claro_sql_query($sql);
 
                 $insertedModule_id = mysql_insert_id();
@@ -204,12 +204,12 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes($langDefaultModuleAddedComment)."', ".(int)$order.", 'OPEN')";
+                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
                 
                 $addedDoc = $basename;
 
-                $dialogBox .= $addedDoc ." ".$langDocInsertedAsModule."<br>";
+                $dialogBox .= $addedDoc ." ".get_lang('DocInsertedAsModule')."<br>";
             }
             else
             {
@@ -237,16 +237,16 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                     // finally : insert in learning path
                     $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                             (`learnPath_id`, `module_id`, `specificComment`, `rank`,`lock`)
-                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes($langDefaultModuleAddedComment)."', ".(int)$order.",'OPEN')";
+                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
                     $query = claro_sql_query($sql);
                      
                     $addedDoc =  $basename;
 
-                    $dialogBox .= $addedDoc ." ".$langDocInsertedAsModule."<br>";
+                    $dialogBox .= $addedDoc ." ".get_lang('DocInsertedAsModule')."<br>";
                 }
                 else
                 {
-                    $dialogBox .= $basename." : ".$langDocumentAlreadyUsed."<br>";
+                    $dialogBox .= $basename." : ".get_lang('DocumentAlreadyUsed')."<br>";
                 }
             }
         }
@@ -458,8 +458,8 @@ display_my_documents($dialogBox) ;
 //################################## MODULES LIST ####################################\\
 //####################################################################################\\
 
-echo claro_disp_tool_title($langPathContentTitle);
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
+echo claro_disp_tool_title(get_lang('PathContentTitle'));
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('BackToLPAdmin').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();

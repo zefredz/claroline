@@ -82,7 +82,7 @@ if ( $forumSettingList )
     {
         // user are not allowed to see topics of this group
         $forumAllowed       = false;
-        $error_message = $langNotAllowed;
+        $error_message = get_lang('NotAllowed');
     }
 
     if ( $forumAllowed )
@@ -100,7 +100,7 @@ else
     $forumAllowed       = false;
     $forum_post_allowed = false;
     $$forum_cat_id      = null;
-    $error_message      = $langNotAllowed;
+    $error_message      = get_lang('NotAllowed');
 }
 
 /*=================================================================
@@ -110,11 +110,11 @@ else
 if (     $forum_cat_id == GROUP_FORUMS_CATEGORY
      && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
-    $interbredcrump[]  = array ('url'=>'../group/group.php'      , 'name'=> $langGroups);
+    $interbredcrump[]  = array ('url'=>'../group/group.php'      , 'name'=> get_lang('Groups'));
     $interbredcrump[]  = array ('url'=>'../group/group_space.php', 'name'=> $_group['name']);
 }
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
@@ -129,7 +129,7 @@ else
       Display Forum Header
     -----------------------------------------------------------------*/
 
-    $pagetitle = $l_viewforum;
+    $pagetitle = get_lang('viewforum');
     $pagetype = 'viewforum';
     
     $is_allowedToEdit = claro_is_allowed_to_edit() 
@@ -139,7 +139,7 @@ else
                         // && !$is_courseAdmin)
                         // is added  to let course admin, tutor of current group, use student mode
 
-    echo claro_disp_tool_title($langForums, 
+    echo claro_disp_tool_title(get_lang('Forums'), 
                           $is_allowedToEdit ? 'help_forum.php' : false);
 
     // Show Group Documents and Group Space
@@ -161,11 +161,11 @@ else
         .' </tr>'                                     . "\n"
     
         .' <tr class="headerX" align="left">'                            . "\n"
-        .'  <th>&nbsp;' . $l_topic . '</th>'                             . "\n"
-        .'  <th width="9%"  align="center">' . $l_posts . '</th>'        . "\n"
-        .'  <th width="20%" align="center">&nbsp;' . $l_poster . '</th>' . "\n"
-        .'  <th width="8%"  align="center">' . $langSeen . '</th>'       . "\n"
-        .'  <th width="15%" align="center">' . $langLastMsg . '</th>'    . "\n"
+        .'  <th>&nbsp;' . get_lang('topic') . '</th>'                             . "\n"
+        .'  <th width="9%"  align="center">' . get_lang('posts') . '</th>'        . "\n"
+        .'  <th width="20%" align="center">&nbsp;' . get_lang('poster') . '</th>' . "\n"
+        .'  <th width="8%"  align="center">' . get_lang('Seen') . '</th>'       . "\n"
+        .'  <th width="15%" align="center">' . get_lang('LastMsg') . '</th>'    . "\n"
         .' </tr>' . "\n";
     
     $topics_start = $start;
@@ -173,7 +173,7 @@ else
     if ( count($topicList) == 0 )
     {
         echo ' <tr>' . "\n" 
-            .'  <td colspan="5" align="center">' . $l_notopics . '</td>'. "\n"
+            .'  <td colspan="5" align="center">' . get_lang('notopics') . '</td>'. "\n"
             .' </tr>' . "\n";
     }
     else 
@@ -235,7 +235,7 @@ else
             }
             else
             {
-                echo '  <td align="center"><small>' . $langNoPost . '<small></td>' . "\n";
+                echo '  <td align="center"><small>' . get_lang('NoPost') . '<small></td>' . "\n";
             }
     
             echo ' </tr>' . "\n";

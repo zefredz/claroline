@@ -28,14 +28,14 @@ require '../../inc/claro_init_global.inc.php';
 
 // check if user is logged as administrator
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
 // build bredcrump
-$nameTools        = $langCategoriesRepairs;
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[] = array ('url' => $rootAdminWeb. '/admincats.php', 'name' => $langCategories);
+$nameTools        = get_lang('CategoriesRepairs');
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb. '/admincats.php', 'name' => get_lang('Categories'));
 
 $htmlHeadXtra[] = '
 <STYLE>

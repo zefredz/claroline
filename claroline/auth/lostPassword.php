@@ -22,7 +22,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langLostPassword;
+$nameTools = get_lang('LostPassword');
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -105,7 +105,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
          */
 
         // mail subject
-        $emailSubject = $langLoginRequest . ' ' . $siteName;
+        $emailSubject = get_lang('LoginRequest') . ' ' . $siteName;
 
 
         // mail body
@@ -113,8 +113,8 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         {
             $userAccountList [] = 
                 $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
-                ."\t" . $langUserName . ' : ' . $thisUser['loginName'] . "\r\n"
-                ."\t" . $langPassword . ' : ' . $thisUser['password']  . " \r\n";
+                ."\t" . get_lang('UserName') . ' : ' . $thisUser['loginName'] . "\r\n"
+                ."\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n";
         }
 
         if ($userAccountList)
@@ -124,7 +124,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
         $emailBody = $emailSubject."\r\n"
                     .$rootWeb."\r\n"
-                    .$langYourAccountParam."\r\n\r\n"
+                    .get_lang('YourAccountParam')."\r\n\r\n"
                     .$userAccountList;
 
 
@@ -133,19 +133,19 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
             if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
             {
-                $msg = $langPasswordHasBeenEmailed.$Femail;
+                $msg = get_lang('PasswordHasBeenEmailed').$Femail;
             }
             else
             {
-                $msg = $langEmailNotSent
+                $msg = get_lang('EmailNotSent')
                 .   '<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
-                .   $langPlatformAdministrator
+                .   get_lang('PlatformAdministrator')
                 .   '</a>';
             }
     }
     else
     {
-        $msg = $langEmailAddressNotFound;
+        $msg = get_lang('EmailAddressNotFound');
     }
 
     if ($extAuthPasswordCount > 0 )
@@ -170,7 +170,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 }
 else
 {
-    $msg = '<p>'.$langEnterMail.'</p>';
+    $msg = '<p>'.get_lang('EnterMail').'</p>';
 }
 
 
@@ -189,12 +189,12 @@ if ( ! $passwordFound )
 { 
     $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
          .  '<input type="hidden" name="searchPassword" value="1">'
-         .  '<label for="Femail">' . $langEmail . ' : </label>'
+         .  '<label for="Femail">' . get_lang('Email') . ' : </label>'
          .  '<br />'
          .  '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="'. htmlspecialchars($Femail).'">'
          .  '<br /><br />'
-         .  '<input type="submit" name="retrieve" value="' . $langOk . '"> '
-         .  claro_disp_button('../../index.php', $langCancel)
+         .  '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '"> '
+         .  claro_disp_button('../../index.php', get_lang('Cancel'))
          .  '</form>';
 }
 

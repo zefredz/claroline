@@ -20,7 +20,6 @@
 
 $_course = array();
 $siteName ='';
-$langRetry = 'retry';
 $is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/conf/rss.conf.php';
@@ -42,10 +41,10 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 {
     if (!isset($_SERVER['PHP_AUTH_USER']))
     {
-        header('WWW-Authenticate: Basic realm="'.sprintf($lang_p_FeedOf_s, $_course['name']).'"');
+        header('WWW-Authenticate: Basic realm="'.sprintf(get_lang('_p_FeedOf_s'), $_course['name']).'"');
         header('HTTP/1.0 401 Unauthorized');
-        echo '<h2>' . sprintf($lang_p_youNeedToBeAuthenticatedWithYour_s_account, $siteName) . '</h2>'
-        .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . '</a>'
+        echo '<h2>' . sprintf(get_lang('_p_youNeedToBeAuthenticatedWithYour_s_account'), $siteName) . '</h2>'
+        .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
         ;
         exit;
     }
@@ -64,10 +63,10 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
         require '../inc/claro_init_local.inc.php';
         if (!$_course['visibility'] && !$is_courseAllowed)
         {
-            header('WWW-Authenticate: Basic realm="'.sprintf($lang_p_FeedOf_s, $_course['name']).'"');
+            header('WWW-Authenticate: Basic realm="'.sprintf(get_lang('_p_FeedOf_s'), $_course['name']).'"');
             header('HTTP/1.0 401 Unauthorized');
-            echo '<h2>' . sprintf($lang_p_youNeedToBeAuthenticatedWithYour_s_account, $siteName) . '</h2>'
-            .    '<a href="index.php?cidReq=' . $_cid . '">' . $langRetry . '</a>'
+            echo '<h2>' . sprintf(get_lang('_p_youNeedToBeAuthenticatedWithYour_s_account'), $siteName) . '</h2>'
+            .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
             ;
             exit;
         }

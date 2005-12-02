@@ -16,7 +16,7 @@
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
 
 // exo_id is required
 if( empty($_REQUEST['exo_id']) )
@@ -48,16 +48,16 @@ $exercise->read($_REQUEST['exo_id']);
 
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
-	$interbredcrump[]= array ("url"=>"../exercice/exercice.php", "name"=> $langExercices);
+	$interbredcrump[]= array ("url"=>"../exercice/exercice.php", "name"=> get_lang('Exercices'));
 	$src = '&src=ex';
 }
 else
 {
-	$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+	$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 	$src = '';
 }
 	
-$nameTools = $langStatsOfExercise;
+$nameTools = get_lang('StatsOfExercise');
 
 // get the tracking of a question as a csv file
 if( $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
@@ -118,18 +118,18 @@ if ( $is_trackingEnabled )
     	$displayedWeighting = '';
 		
   	echo '<ul>'."\n"
-    .'<li>'.$langScoreMin.' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.$langScoreMax.' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.$langScoreAvg.' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
-	.'<li>'.$langExeAvgTime.' : '.claro_disp_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
+    .'<li>'.get_lang('ScoreMin').' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
+    .'<li>'.get_lang('ScoreMax').' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
+    .'<li>'.get_lang('ScoreAvg').' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
+	.'<li>'.get_lang('ExeAvgTime').' : '.claro_disp_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
 	.'</ul>'."\n\n"
 	.'<ul>'."\n"
-	.'<li>'.$langExerciseUsersAttempts.' : '.$exo_scores_details['users'].'</li>'."\n"
-	.'<li>'.$langExerciseTotalAttempts.' : '.$exo_scores_details['tusers'].'</li>'."\n"
+	.'<li>'.get_lang('ExerciseUsersAttempts').' : '.$exo_scores_details['users'].'</li>'."\n"
+	.'<li>'.get_lang('ExerciseTotalAttempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
 	.'</ul>'."\n\n";
 	
 	echo '<ul>'."\n"
-	.'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exo_id='.$_REQUEST['exo_id'].'">'.$langExportTrackingCsv.'</a></li>'."\n"
+	.'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exo_id='.$_REQUEST['exo_id'].'">'.get_lang('ExportTrackingCsv').'</a></li>'."\n"
 	.'</ul>'."\n\n";
 
 	//-- display details : USERS VIEW
@@ -156,16 +156,16 @@ if ( $is_trackingEnabled )
     
 	$exo_users_details = claro_sql_query_fetch_all($sql);
 
-	echo '<p><b>'.$langStatsByUser.'</b></p>'."\n";
+	echo '<p><b>'.get_lang('StatsByUser').'</b></p>'."\n";
 	// display tab header
 	echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
 		.'<tr class="headerX" align="center" valign="top">'."\n"
-	    .'<th>'.$langStudent.'</th>'."\n"
-	    .'<th>'.$langScoreMin.'</th>'."\n"
-	    .'<th>'.$langScoreMax.'</th>'."\n"
-	    .'<th>'.$langScoreAvg.'</th>'."\n"
-	    .'<th>'.$langAttempts.'</th>'."\n"
-	    .'<th>'.$langExeAvgTime.'</th>'."\n"
+	    .'<th>'.get_lang('Student').'</th>'."\n"
+	    .'<th>'.get_lang('ScoreMin').'</th>'."\n"
+	    .'<th>'.get_lang('ScoreMax').'</th>'."\n"
+	    .'<th>'.get_lang('ScoreAvg').'</th>'."\n"
+	    .'<th>'.get_lang('Attempts').'</th>'."\n"
+	    .'<th>'.get_lang('ExeAvgTime').'</th>'."\n"
 	  	.'</tr>'."\n\n"
 	  	.'<tbody>'."\n\n";
 	  	
@@ -208,14 +208,14 @@ if ( $is_trackingEnabled )
 
 	$exo_questions_details = claro_sql_query_fetch_all($sql);
 
-	echo '<p><b>'.$langStatsByQuestion.'</b></p>'."\n";
+	echo '<p><b>'.get_lang('StatsByQuestion').'</b></p>'."\n";
 	// display tab header
 	echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
 		.'<tr class="headerX" align="center" valign="top">'."\n"
-	    .'<th>'.$langQuestionTitle.'</th>'."\n"
-	    .'<th>'.$langScoreMin.'</th>'."\n"
-	    .'<th>'.$langScoreMax.'</th>'."\n"
-	    .'<th>'.$langScoreAvg.'</th>'."\n"
+	    .'<th>'.get_lang('QuestionTitle').'</th>'."\n"
+	    .'<th>'.get_lang('ScoreMin').'</th>'."\n"
+	    .'<th>'.get_lang('ScoreMax').'</th>'."\n"
+	    .'<th>'.get_lang('ScoreAvg').'</th>'."\n"
 	  	.'</tr>'."\n\n"
 	  	.'<tbody>'."\n\n";
 	// display tab content
@@ -238,7 +238,7 @@ if ( $is_trackingEnabled )
 }
 else
 {
-    echo $langTrackingDisabled;
+    echo get_lang('TrackingDisabled');
 }
 
 include($includePath."/claro_init_footer.inc.php");

@@ -18,7 +18,7 @@
                                 SOAP SERVER INIT
  ******************************************************************************/
 
-// $langFile = 'trad4all'; // this line is mandatory to work in claroline 1.5
+// get_lang('File') = 'trad4all'; // this line is mandatory to work in claroline 1.5
                            // but can be skipped in claroline 1.6
 
 require_once '../../inc/claro_init_global.inc.php';

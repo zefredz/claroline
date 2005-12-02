@@ -33,8 +33,6 @@
 function claro_disp_tree($elem,$father,$space)
 {
     GLOBAL $imgRepositoryWeb;
-    GLOBAL $lang_faculty_ConfirmDelete, $langEdit, $langMove, $langDelete, $langUp, $lang_faculty_imgDown;
-
 
     if($elem)
     {
@@ -96,17 +94,17 @@ function claro_disp_tree($elem,$father,$space)
                     </td>
                     <td  align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id']; ?>&amp;cmd=rqEdit" >
-                        <img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" > </a>
+                        <img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo get_lang('Edit') ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=rqMove"; ?>" >
-                        <img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo $langMove ?>" > </a>
+                        <img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo get_lang('Move') ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDelete"; ?>"
                         onclick="javascript:if(!confirm('<?php echo
-                         clean_str_for_javascript($lang_faculty_ConfirmDelete.$one_faculty['code']." ?") ?>')) return false;" >
-                        <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete ?>"> </a>
+                         clean_str_for_javascript(get_lang('_faculty_ConfirmDelete').$one_faculty['code']." ?") ?>')) return false;" >
+                        <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo get_lang('Delete') ?>"> </a>
                     </td>
                     <?php
 
@@ -130,7 +128,7 @@ function claro_disp_tree($elem,$father,$space)
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exUp&amp;date=".$date."#ud".$one_faculty['id'];
                             ?>" name ="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo $langUp ?>"></a>
+                            <img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo get_lang('Up') ?>"></a>
                         <?php
                         }
                         else
@@ -148,7 +146,7 @@ function claro_disp_tree($elem,$father,$space)
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty['id'];
                             ?>" name="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo $lang_faculty_imgDown ?>" > </a>
+                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo get_lang('_faculty_imgDown') ?>" > </a>
                     <?php
                         }
                         else

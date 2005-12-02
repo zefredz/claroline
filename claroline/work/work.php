@@ -192,7 +192,7 @@ if ($is_allowedToEdit)
         //notify eventmanager
         $eventNotifier->notifyCourseEvent('work_deleted', $_cid, $_tid, $_REQUEST['assigId'], $_gid, '0');
         
-        $dialogBox .= $langAssignmentDeleted;    
+        $dialogBox .= get_lang('AssignmentDeleted');    
     }
    
     /*--------------------------------------------------------------------
@@ -210,16 +210,16 @@ if ($is_allowedToEdit)
         {
             assignment_update((int) $_REQUEST['assigId'], $assignment_data);
 
-			$dialogBox .= $langAssignmentEdited;
+			$dialogBox .= get_lang('AssignmentEdited');
         } 
         else
         {
    			if(claro_failure::get_last_failure() == 'assignment_no_title')
-			   $dialogBox .= $langAssignmentTitleRequired.'<br />';
+			   $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
 			if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-				$dialogBox .= $langAssignmentTitleAlreadyExists.'<br />';
+				$dialogBox .= get_lang('AssignmentTitleAlreadyExists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-				$dialogBox .= $langIncorrectDate."<br />";
+				$dialogBox .= get_lang('IncorrectDate')."<br />";
 				
             $cmd = 'rqEditAssig';
         }
@@ -252,7 +252,7 @@ if ($is_allowedToEdit)
         {
 			$lastAssigId = assignment_insert($assignment_data, $wrkDir);
             // confirmation message
-            $dialogBox .= $langAssignmentAdded;
+            $dialogBox .= get_lang('AssignmentAdded');
             
             if($lastAssigId)
             {
@@ -263,11 +263,11 @@ if ($is_allowedToEdit)
         else
         {
    			if(claro_failure::get_last_failure() == 'assignment_no_title')
-			   $dialogBox .= $langAssignmentTitleRequired.'<br />';
+			   $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
 			if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-				$dialogBox .= $langAssignmentTitleAlreadyExists.'<br />';
+				$dialogBox .= get_lang('AssignmentTitleAlreadyExists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-				$dialogBox .= $langIncorrectDate."<br />";
+				$dialogBox .= get_lang('IncorrectDate')."<br />";
 
             $cmd = 'rqMkAssig';
         }
@@ -298,7 +298,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm("' . clean_str_for_javascript($langAreYouSureToDelete) . ' "+ name + " ? ' . clean_str_for_javascript($langDeleteCaution) . ' " ))
+    if (confirm("' . clean_str_for_javascript(get_lang('AreYouSureToDelete')) . ' "+ name + " ? ' . clean_str_for_javascript(get_lang('DeleteCaution')) . ' " ))
         {return true;}
     else
         {return false;}
@@ -308,12 +308,12 @@ function confirmation (name)
 if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
     // bredcrump to return to the list when in a form
-    $interbredcrump[]= array ('url' => '../work/work.php', 'name' => $langWork);
-    $nameTools = $langAssignment;
+    $interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Work'));
+    $nameTools = get_lang('Assignment');
 }
 else
 {
-    $nameTools = $langWork;
+    $nameTools = get_lang('Work');
 }
 
 include( $includePath . '/claro_init_header.inc.php' );
@@ -356,12 +356,12 @@ if ($is_allowedToEdit)
 ?>
     <table cellpadding="5" width="100%">
       <tr>
-        <td valign="top"><label for="title"><?php echo $langAssignmentTitle; ?>&nbsp;:</label></td>
+        <td valign="top"><label for="title"><?php echo get_lang('AssignmentTitle'); ?>&nbsp;:</label></td>
         <td><input type="text" name="title" id="title" size="50" maxlength="200" value="<?php echo htmlspecialchars($assignment_data['title']); ?>"></td>
       </tr>
 
       <tr>
-        <td valign="top"><label for="description"><?php echo $langAssignmentDescription; ?>&nbsp;:<br /></label></td>
+        <td valign="top"><label for="description"><?php echo get_lang('AssignmentDescription'); ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
     echo claro_disp_html_area('description', htmlspecialchars($assignment_data['description']));
@@ -370,80 +370,80 @@ if ($is_allowedToEdit)
       </tr>
       
       <tr>
-        <td valign="top"><?php echo $langSubmissionType; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('SubmissionType'); ?>&nbsp;:</td>
         <td>
           <input type="radio" name="authorized_content" id="authorizeFile" value="FILE" <?php if( $assignment_data['authorized_content'] == "FILE" ) echo 'checked="checked"'; ?>>
-            <label for="authorizeFile">&nbsp;<?php echo $langFileOnly; ?></label>
+            <label for="authorizeFile">&nbsp;<?php echo get_lang('FileOnly'); ?></label>
             <br />
           <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" <?php if( $assignment_data['authorized_content'] == "TEXT" ) echo 'checked="checked"'; ?>>
-            <label for="authorizeText">&nbsp;<?php echo $langTextOnly; ?></label>
+            <label for="authorizeText">&nbsp;<?php echo get_lang('TextOnly'); ?></label>
             <br />
           <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" <?php if( $assignment_data['authorized_content'] == "TEXTFILE" ) echo 'checked="checked"'; ?>>
-            <label for="authorizeTextFile">&nbsp;<?php echo $langTextFile; ?></label>
+            <label for="authorizeTextFile">&nbsp;<?php echo get_lang('TextFile'); ?></label>
             <br />
         </td>
       </tr>
       
       <tr>
-        <td valign="top"><?php echo $langStartDate; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('StartDate'); ?>&nbsp;:</td>
         <td>
 <?php
     echo claro_disp_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date_date'], 'long') . ' ' . claro_disp_time_form('startHour', 'startMinute', $assignment_data['start_date_time']);
-    echo '&nbsp;<small>' . $langChooseDateHelper . '</small>';
+    echo '&nbsp;<small>' . get_lang('ChooseDateHelper') . '</small>';
 ?>      
         </td>
       </tr>    
       
       <tr>
-        <td valign="top"><?php echo $langEndDate; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('EndDate'); ?>&nbsp;:</td>
         <td>
 <?php
     echo claro_disp_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date_date'], 'long') . ' ' . claro_disp_time_form('endHour', 'endMinute', $assignment_data['end_date_time']);
-    echo '&nbsp;<small>' . $langChooseDateHelper . '</small>';
+    echo '&nbsp;<small>' . get_lang('ChooseDateHelper') . '</small>';
 ?>      
         </td>
       </tr>
       
       <tr>
-        <td valign="top"><?php echo $langDefSubVisibility; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('DefSubVisibility'); ?>&nbsp;:</td>
         <td>
           <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment_data['def_submission_visibility'] == "VISIBLE") echo 'checked="checked"'; ?>>
-            <label for="visible">&nbsp;<?php echo $langVisible; ?></label>
+            <label for="visible">&nbsp;<?php echo get_lang('Visible'); ?></label>
             <br />
           <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment_data['def_submission_visibility'] == "INVISIBLE") echo 'checked="checked"'; ?>>
-            <label for="invisible">&nbsp;<?php echo $langInvisible; ?></label>
+            <label for="invisible">&nbsp;<?php echo get_lang('Invisible'); ?></label>
             <br />
         </td>
       </tr>
       
       <tr>
-        <td valign="top"><?php echo $langAssignmentType; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('AssignmentType'); ?>&nbsp;:</td>
         <td>
           <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment_data['assignment_type'] == "INDIVIDUAL") echo 'checked="checked"'; ?>>
-            <label for="individual">&nbsp;<?php echo $langIndividual; ?></label>
+            <label for="individual">&nbsp;<?php echo get_lang('Individual'); ?></label>
             <br />
           <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment_data['assignment_type'] == "GROUP") echo 'checked="checked"'; ?>>
-            <label for="group">&nbsp;<?php echo $langGroupAssignment; ?></label>
+            <label for="group">&nbsp;<?php echo get_lang('GroupAssignment'); ?></label>
             <br />
         </td>
       </tr> 
 
       <tr>
-        <td valign="top"><?php echo $langAllowLateUploadShort; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('AllowLateUploadShort'); ?>&nbsp;:</td>
         <td>
         <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment_data['allow_late_upload'] == "YES") echo 'checked="checked"'; ?>>
-          <label for="allowUpload">&nbsp;<?php echo $langAllowLateUpload; ?></label>
+          <label for="allowUpload">&nbsp;<?php echo get_lang('AllowLateUpload'); ?></label>
           <br />
         <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment_data['allow_late_upload'] == "NO") echo 'checked="checked"'; ?>>
-          <label for="preventUpload">&nbsp;<?php echo $langPreventLateUpload; ?></label>
+          <label for="preventUpload">&nbsp;<?php echo get_lang('PreventLateUpload'); ?></label>
           <br />
         </td>
       </tr>
       <tr>
         <td>&nbsp;</td>
         <td>
-          <input type="submit" name="submitAssignment" value="<?php echo $langOk; ?>">
-          <?php echo claro_disp_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), $langCancel); ?>
+          <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>">
+          <?php echo claro_disp_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
         </td>
       </tr>
       </table>
@@ -463,7 +463,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
       --------------------------------------------------------------------*/
     
     $moduleId = $_tid; // Id of the Student Paper introduction Area
-    $helpAddIntroText = $langIntroWork;
+    $helpAddIntroText = get_lang('IntroWork');
     include($includePath . '/introductionSection.inc.php');  
 
     /*--------------------------------------------------------------------
@@ -474,7 +474,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         // link to create a new assignment
         echo '<p>' 
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig">'
-        .    '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" />' . $langCreateAssignment 
+        .    '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" />' . get_lang('CreateAssignment') 
         .    '</a>'
         .    '</p>' . "\n"
         ;
@@ -586,18 +586,18 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             echo "<div>".$anAssignment['description']."</div><br />\n";
         }
 
-        echo "<small>".$langAvailableFrom." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".$langUntil." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
+        echo "<small>".get_lang('AvailableFrom')." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".get_lang('Until')." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
             ."<small>"
             ;
         // content type
-        if( $anAssignment['authorized_content'] == 'TEXT' ) echo $langTextOnly;
-        elseif( $anAssignment['authorized_content'] == 'FILE' ) echo $langFileOnly;
-        elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) echo $langTextFile;
+        if( $anAssignment['authorized_content'] == 'TEXT' ) echo get_lang('TextOnly');
+        elseif( $anAssignment['authorized_content'] == 'FILE' ) echo get_lang('FileOnly');
+        elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) echo get_lang('TextFile');
 
         echo "<br />";
         // assignment type
-        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) echo $langIndividual ;
-        elseif( $anAssignment['assignment_type'] == 'GROUP' ) echo $langGroupAssignment;
+        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) echo get_lang('Individual') ;
+        elseif( $anAssignment['assignment_type'] == 'GROUP' ) echo get_lang('GroupAssignment');
 
         echo "</small>\n";
 
@@ -608,20 +608,20 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         {
             echo "<tr".$style.">\n"
                 ."<td>\n"
-                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langModify."\"></a>\n"
-                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".$langDelete."\" /></a>\n"
+                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".get_lang('Modify')."\"></a>\n"
+                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" /></a>\n"
                 ;
             if ( $anAssignment['visibility'] == "INVISIBLE" )
             {
                 echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=v\">"
-                      ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".$langMakeVisible."\" />"
+                      ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".get_lang('MakeVisible')."\" />"
                       ."</a>"
                       ;
             }
             else
             {
                 echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=i\">"
-                      ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".$langMakeInvisible."\" / >"
+                      ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".get_lang('MakeInvisible')."\" / >"
                       ."</a>"
                       ;
             }
@@ -636,7 +636,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     {
         echo "<tr>\n"
             ."<td>\n"
-            .$langNoVisibleAssignment
+            .get_lang('NoVisibleAssignment')
             ."</td>\n"
             ."</tr>\n";
     }

@@ -31,7 +31,7 @@
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true); 
-if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
 
 // regroup table names for maintenance purpose
 $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -43,9 +43,9 @@ $tbl_track_e_exe_details 	= $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers 	= $tbl_cdb_names['track_e_exe_answers'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 
-$nameTools = $langDelCourseStats;
+$nameTools = get_lang('DelCourseStats');
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -76,9 +76,9 @@ if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     claro_sql_query($sql);
     
     // display confirm msg and back link
-    echo $langDelCourseStatsDone."\n"
+    echo get_lang('DelCourseStatsDone')."\n"
          .'<br /><br />'."\n"
-         .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n";
+         .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n";
     
 }					// end if $delete
 else
@@ -86,15 +86,15 @@ else
   // ASK DELETE CONFIRMATION TO THE USER
 
   echo "\n".'<p>'."\n"
-	.$langConfirmDeleteStats."\n"
+	.get_lang('ConfirmDeleteStats')."\n"
 	.'</p>'."\n"
     .'<p>'."\n"
   	.'<a href="'.$_SERVER['PHP_SELF'].'?delete=yes">'
-	.$langYes
+	.get_lang('Yes')
     .'</a>'
 	.'&nbsp;|&nbsp;'
 	.'<a href="courseLog.php">'
-	.$langNo
+	.get_lang('No')
 	.'</a>'."\n"
 	.'</p>'."\n";
 

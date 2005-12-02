@@ -1,7 +1,6 @@
 <?php
-$langFile='help';
 require '../inc/claro_init_global.inc.php';
-$nameTools = $langHHome;
+$nameTools = get_lang('HHome');
 $hide_banner = TRUE;
 include($includePath."/claro_init_header.inc.php");
 ?>
@@ -9,16 +8,16 @@ include($includePath."/claro_init_header.inc.php");
 <tr>
   <td align="left" valign="top">
 
-    <?php echo "<h4>$langHHome</h4>"; ?>
+    <?php echo "<h4>get_lang('HHome')</h4>"; ?>
 
   </td>
   <td align="right" valign="top">
-    <a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a>
+    <a href="javascript:window.close();"><?php echo get_lang('CloseWindow'); ?></a>
   </td>
 </tr>
 <tr>
   <td colspan="2">
-    <?php echo $langConfigMenuContent; ?>
+    <?php echo get_lang('ConfigMenuContent'); ?>
     <h3>Edit main(old system)</h3>
     <p>
         Lien vers l'ancienne page de configuration (Claroline 1.5.0) pour les  valeurs principales de la configuration.
@@ -55,7 +54,7 @@ include($includePath."/claro_init_header.inc.php");
 <tr>
   <td colspan="2">
     <br>
-    <center><a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a></center>
+    <center><a href="javascript:window.close();"><?php echo get_lang('CloseWindow'); ?></a></center>
   </td>
 </tr>
 </table>

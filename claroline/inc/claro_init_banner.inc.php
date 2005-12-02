@@ -58,18 +58,18 @@ if($_uid)
 
 <div id="userBanner">
 <span id="userName"><?php echo $_user ['firstName'] . ' ' . $_user ['lastName'] ?> : </span>
-<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $langMyCourses; ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo $langMyAgenda; ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo $langModifyProfile; ?></a> | 
+<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo get_lang('MyCourses'); ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo get_lang('MyAgenda'); ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo get_lang('ModifyProfile'); ?></a> | 
 <?php 
 if($is_platformAdmin)
 {
 ?>
-<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo $langPlatformAdministration ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo get_lang('PlatformAdministration') ?></a> | 
 <?php 
 } 
 ?>
-<a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo $langLogout; ?></a>
+<a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo get_lang('Logout'); ?></a>
 <div class="spacer"></div>
 </div>
 
@@ -130,7 +130,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
 <?php
 
-echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . $langCourseHome . '</option>' . "\n";
+echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('CourseHome') . '</option>' . "\n";
 
     if (is_array($_courseToolList))
     {
@@ -230,7 +230,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         echo "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
             .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS']) && ! empty($_SERVER['HTTPS']) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '">'
-            .$langLogin
+            .get_lang('Login')
             .'</a>'
             .'</div>'."\n";
     }
@@ -239,7 +239,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         echo '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
         .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
-        .    '<b>'.$lang_enroll.'</b>'
+        .    '<b>'.get_lang('_enroll').'</b>'
         .    '</a>'
         .    '</div>' . "\n";
     }

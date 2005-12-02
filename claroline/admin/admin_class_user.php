@@ -23,7 +23,7 @@ require_once $includePath . '/lib/admin.lib.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /**#@+
  * DB tables definition
@@ -58,7 +58,7 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))."\"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -66,9 +66,9 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/
             </script>";
 
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => $langClass);
-$nameTools = $langClassMembers;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Class'));
+$nameTools = get_lang('ClassMembers');
 
 //SESSION VARIABLES
 
@@ -90,7 +90,7 @@ switch ($cmd)
         $sql = "DELETE FROM `" . $tbl_class_user . "`
                 WHERE `user_id` = " . (int) $_REQUEST['userid'];
         claro_sql_query($sql);
-        $dialogBox = $langUserUnregisteredFromClass;
+        $dialogBox = get_lang('UserUnregisteredFromClass');
         break;
 
     default :
@@ -182,18 +182,18 @@ if (isset($dialogBox))
 echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
 .    '?class='.$classinfo['id'].'">'
 .    '<img src="'.$imgRepositoryWeb . 'enroll.gif" border="0"/> '
-.    $langClassRegisterUser . '</a>'
+.    get_lang('ClassRegisterUser') . '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
 .    '?cmd=rqReg&amp;fromAdmin=class">'
 .    '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
-.    $langClassRegisterWholeClass
+.    get_lang('ClassRegisterWholeClass')
 .    '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php'
 .    '?AddType=adminClassTool">'
 .    '<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
-.    $langAddCSVUsersInClass
+.    get_lang('AddCSVUsersInClass')
 .    '</a>'
 .    '<br /><br />'
 ;
@@ -210,12 +210,12 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . $langUserid . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes">' . $langLastName . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes">' . $langFirstName . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;chdir=yes">' . $langOfficialCode . '</a></th>'
-.    '<th>' . $langEmail . '</th>'
-.    '<th>' . $langUnsubscribeClass . '</th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('Userid') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes">' . get_lang('LastName') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes">' . get_lang('FirstName') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;chdir=yes">' . get_lang('OfficialCode') . '</a></th>'
+.    '<th>' . get_lang('Email') . '</th>'
+.    '<th>' . get_lang('UnsubscribeClass') . '</th>'
 .    '</tr>'
 .    '</thead>'
 .    '<tbody>'
@@ -248,10 +248,10 @@ if (isset($atLeastOne) && !$atLeastOne)
 {
     echo '<tr>'
     .    '<td colspan="8" align="center">'
-    .    $langNoUserResult
+    .    get_lang('NoUserResult')
     .    '<br />'
     .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class.php' . $addtoAdvanced . '">'
-    .    $langBack
+    .    get_lang('Back')
     .    '</a>'
     .    '</td>'
     .    '</tr>'

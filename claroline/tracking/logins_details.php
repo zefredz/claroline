@@ -57,11 +57,11 @@ $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all s
 
 // check if uid is tutor of this group
 
-$interbredcrump[]= array ('url'=>'../user/user.php', 'name'=> $langUsers);
-$interbredcrump[]= array ('url'=>'../tracking/userLog.php?uInfo=' . $uInfo, 'name'=> $langStatsOfUser);
+$interbredcrump[]= array ('url'=>'../user/user.php', 'name'=> get_lang('Users'));
+$interbredcrump[]= array ('url'=>'../tracking/userLog.php?uInfo=' . $uInfo, 'name'=> get_lang('StatsOfUser'));
 $_SERVER['QUERY_STRING'] = 'uInfo=' . $uInfo . '&amp;reqdate=' . $reqdate;
 
-$nameTools = $langStatistics . ' : ' . $langLoginsAndAccessTools;
+$nameTools = get_lang('Statistics') . ' : ' . get_lang('LoginsAndAccessTools');
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
@@ -91,20 +91,20 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
 
     if( is_array($userDetails) && !empty($userDetails) )
     {
-        if( empty($userDetails['email']) ) $userDetails['email'] = $langNoEmail;
-        echo $langUser.' : <br />'
+        if( empty($userDetails['email']) ) $userDetails['email'] = get_lang('NoEmail');
+        echo get_lang('User').' : <br />'
         .   '<ul>' . "\n"
-        .   '<li>' . $langLastName  . ' : ' . $userDetails['lastname']  . '</li>' . "\n"
-        .   '<li>' . $langFirstName . ' : ' . $userDetails['firstname'] . '</li>' . "\n"
-        .   '<li>' . $langEmail     . ' : ' . $userDetails['email']     . '</li>' . "\n"
+        .   '<li>' . get_lang('LastName')  . ' : ' . $userDetails['lastname']  . '</li>' . "\n"
+        .   '<li>' . get_lang('FirstName') . ' : ' . $userDetails['firstname'] . '</li>' . "\n"
+        .   '<li>' . get_lang('Email')     . ' : ' . $userDetails['email']     . '</li>' . "\n"
         .   '</ul>' . "\n"
 
         /******* MENU ********/
         .   '<small>'."\n"
-        .   '[<a href="userLog.php?uInfo=' . $uInfo . '">' . $langBack . '</a>]' . "\n"
+        .   '[<a href="userLog.php?uInfo=' . $uInfo . '">' . get_lang('Back') . '</a>]' . "\n"
         .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-        .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate='.$reqdate.'">'.$langPeriodWeek.'</a>]'."\n"
-        .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate='.$reqdate.'">'.$langPeriodMonth.'</a>]'."\n"
+        .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('PeriodWeek').'</a>]'."\n"
+        .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('PeriodMonth').'</a>]'."\n"
         .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
         ;
 
@@ -116,8 +116,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 7*86400;
             $nextReqDate = $reqdate + 7*86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.$langPreviousWeek.'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.$langNextWeek.'</a>]'."\n"
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.get_lang('PreviousWeek').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.get_lang('NextWeek').'</a>]'."\n"
                 ;
         }
         else // month
@@ -126,8 +126,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.$langPreviousMonth.'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.$langNextMonth.'</a>]'."\n"
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.get_lang('PreviousMonth').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$uInfo.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.get_lang('NextMonth').'</a>]'."\n"
                 ;
         }
         
@@ -147,8 +147,8 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                         ORDER BY `login_date` ASC ";
             $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
             $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
-            $displayedDate = $langFrom." ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate)
-                            ." ".$langToDate." ".date("d " , $weekhighreqdate ).$langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
+            $displayedDate = get_lang('From')." ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate)
+                            ." ".get_lang('ToDate')." ".date("d " , $weekhighreqdate ). $langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
         }
         else // month
         {
@@ -202,7 +202,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
                     {
                         echo '<tr>' . "\n"
                         .    '<td width="70%"><small>' . $toolNameList[$aToolAccess['access_tlabel']] . '</small></td>' . "\n"
-                        .    '<td width="30%" align="right"><small>' . $aToolAccess['nbr_access'] . ' ' . $langVisits.'</small></td>' . "\n"
+                        .    '<td width="30%" align="right"><small>' . $aToolAccess['nbr_access'] . ' ' . get_lang('Visits').'</small></td>' . "\n"
                         .    '</tr>' . "\n"
                         ;
 
@@ -220,7 +220,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
         {
             echo '<tr>' . "\n"
             .    '<td colspan="2">'
-            .    '<div align="center">' . $langNoResult . '</div>'
+            .    '<div align="center">' . get_lang('NoResult') . '</div>'
             .    '</td>'."\n"
             .    '</tr>' . "\n"
             ;
@@ -229,15 +229,15 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
     }
     else
     {
-        echo $langErrorUserNotInGroup;
+        echo get_lang('ErrorUserNotInGroup');
     }
 
 }
 // not allowed
 else
 {
-    if(!$is_trackingEnabled) echo $langTrackingDisabled;
-    else                     echo $langNotAllowed;
+    if(!$is_trackingEnabled) echo get_lang('TrackingDisabled');
+    else                     echo get_lang('NotAllowed');
 }
 
 include $includePath . '/claro_init_footer.inc.php';

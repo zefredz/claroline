@@ -587,7 +587,6 @@ function trig_topic_notification($topicId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_users       = $tbl_mdb_names['user'];
 
-    global $langDear, $l_notifybody, $l_notifysubj;
     global $rootWeb, $_course;
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
@@ -597,7 +596,7 @@ function trig_topic_notification($topicId)
             AND   notif.user_id  = u.user_id";
 
     $notifyResult = claro_sql_query($sql);
-    $subject      = $l_notifysubj;
+    $subject      = get_lang('notifysubj');
 
     $url_topic = $rootWeb . "claroline/phpbb/viewtopic.php?topic=" .  $topicId . "&cidReq=" . $_course['sysCode'];
     $url_forum = $rootWeb . "claroline/phpbb/index.php?cidReq=" . $_course['sysCode'];
@@ -606,8 +605,8 @@ function trig_topic_notification($topicId)
 
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-       $message = $langDear . ' ' . $list['firstname']. ' ' . $list['lastname'].",\n\n";
-       $message.= sprintf($l_notifybody,$url_topic,$url_forum);
+       $message = get_lang('Dear') . ' ' . $list['firstname']. ' ' . $list['lastname'].",\n\n";
+       $message.= sprintf(get_lang('notifybody'),$url_topic,$url_forum);
 
        claro_mail_user($list['user_id'], $message, $subject);
     }
@@ -627,7 +626,6 @@ function trig_topic_notification($topicId)
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
     global $tablewidth;
-    global $l_click, $l_here, $l_viewmsg, $l_returntopic, $l_returnindex;
 
     echo '<table border="0" align="center" width="' . $tablewidth . '">'
        . '<tr>' . "\n"
@@ -639,11 +637,11 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
         if ($forumId && $topicId)
         {
             echo '<p>'
-               . $l_click
+               . get_lang('click')
                . ' <a href="viewtopic.php?topic=' . $topicId . '&amp;forum=' . $forumId . '">'
-               . $l_here
+               . get_lang('here')
                . '</a> '
-               . $l_viewmsg
+               . get_lang('viewmsg')
                . '</p>' . "\n"
                ;
         }
@@ -651,20 +649,20 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
         if ($forumId)
         {
             echo "<p>"
-                .$l_click
+                .get_lang('click')
                 ." <a href=\"viewforum.php?forum=" . $forumId."\">"
-                .$l_here
+                .get_lang('here')
                 ."</a> " 
-                .$l_returntopic
+                .get_lang('returntopic')
                 ."</p>\n";
         }
 
         echo "<p>"
-            .$l_click
+            .get_lang('click')
             ." <a href=\"index.php\">"
-            .$l_here
+            .get_lang('here')
             ."</a> "
-            .$l_returnindex
+            .get_lang('returnindex')
             ."</p>"
         
             ."</center>\n"
@@ -879,9 +877,7 @@ class postLister
 
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-    global $_gid, $forum_name, $topic_title,
-           $imgRepositoryWeb, 
-           $langBackTo, $langNewTopic, $langReply, $langCreateCategory, $langCreateForum, $langSearch;
+    global $_gid, $forum_name, $topic_title, $imgRepositoryWeb;
 
     $toolBar = array();
 
@@ -892,14 +888,14 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         case 'newtopic':
 
             $toolBar [] = '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                        . '&lt;&lt; ' . $langBackTo .' '. $forum_name
+                        . '&lt;&lt; ' . get_lang('BackTo') .' '. $forum_name
                         . '</a>'."\n";
             break;
 
         case 'reply':
 
             $toolBar [] = '<a class="claroCmd" href="viewtopic.php?topic=' . $topic_id . '&amp;gidReq=' . $_gid . '">'
-                        . '&lt;&lt; ' . $langBackTo .' '. $topic_title
+                        . '&lt;&lt; ' . get_lang('BackTo') .' '. $topic_title
                         . '</a>'."\n";
             break;
 
@@ -908,7 +904,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     
             $toolBar [] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                         . '<img src="' . $imgRepositoryWeb . 'topic.gif"> '
-                        . $langNewTopic
+                        . get_lang('NewTopic')
                         . '</a>';
 
             break;
@@ -917,12 +913,12 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolBar [] =    '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
                            . '<img src="' . $imgRepositoryWeb . 'topic.gif"> '
-                           . $langNewTopic
+                           . get_lang('NewTopic')
                            . '</a>';  
     
             $toolBar [] =    '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
                             . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> '
-                            . $langReply
+                            . get_lang('Reply')
                             . '</a>' ."\n";
     
             break;
@@ -937,12 +933,12 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                 else               $toAdd = '';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
-                          .  $langCreateCategory
+                          .  get_lang('CreateCategory')
                           .  '</a>';
                           
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
                           .  '<img src="' . $imgRepositoryWeb . 'forum.gif" /> '
-                          .  $langCreateForum
+                          .  get_lang('CreateForum')
                           .  '</a>';
             }
             break;
@@ -951,7 +947,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     if ( ! in_array($pagetype, array('newtopic', 'reply') ) )
         $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">'
         .            '<img src="' . $imgRepositoryWeb . 'search.gif" /> '
-        .            $langSearch
+        .            get_lang('Search')
         .            '</a>'
         ;
 
@@ -965,16 +961,14 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
 function disp_search_box()
 {
-    global $langSearch, $langOk, $langCancel;
-
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
     {
         return claro_disp_message_box(
         '<form action="viewsearch.php" method="post">'
-        .            $langSearch.' : <br />'
+        .            get_lang('Search').' : <br />'
         .            '<input type="text" name="searchPattern"><br />'
-        .            '<input type="submit" value="'.$langOk.'">&nbsp;'
-        .            claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+        .            '<input type="submit" value="'.get_lang('Ok').'">&nbsp;'
+        .            claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
         );
     }
@@ -986,7 +980,7 @@ function disp_search_box()
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name='')
 {
-    global $l_separator, $_gid, $langSearchResult;
+    global $_gid;
 
     $breadCrumbNameList   = array ('Forum Index');
     $breadCrumbUrlList    = array ('index.php');
@@ -1004,17 +998,16 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
     }
     elseif ($pagetype == 'viewsearch')
     {
-            $breadCrumbNameList[] = $langSearchResult;
+            $breadCrumbNameList[] = get_lang('SearchResult');
             $breadCrumbUrlList[]  = null;
     }
 
-    echo claro_disp_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, $l_separator);
+    echo claro_disp_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, get_lang('separator'));
 }
 
 
 function disp_forum_group_toolbar($gid)
 {
-    global $langGroupSpaceLink, $langGroupDocumentsLink, $langGroupChatLink, $langGroupWikiLink;
     global $imgRepositoryWeb, $_groupProperties, $is_courseAdmin, $is_groupTutor, $is_groupMember;
     
     $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
@@ -1030,7 +1023,7 @@ function disp_forum_group_toolbar($gid)
     echo  '<p>'
         . '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
         . '<img src="' . $imgRepositoryWeb.'group.gif">&nbsp;'
-        . $langGroupSpaceLink
+        . get_lang('GroupSpaceLink')
         . '</a>' 
         ;
 
@@ -1040,7 +1033,7 @@ function disp_forum_group_toolbar($gid)
             .'<a href="../document/document.php" class="claroCmd">'
             .'<img src="'.$imgRepositoryWeb.'document.gif" />'
             .'&nbsp;' 
-            .$langGroupDocumentsLink
+            .get_lang('GroupDocumentsLink')
             .'</a>'
             ;
     }
@@ -1050,7 +1043,7 @@ function disp_forum_group_toolbar($gid)
         echo '&nbsp;|&nbsp'
             .'<a href="../wiki/wiki.php" class="claroCmd">'
             .'<img src="'.$imgRepositoryWeb.'wiki.gif" />'
-            .'&nbsp;' . $langGroupWikiLink
+            .'&nbsp;' . get_lang('GroupWikiLink')
             .'</a>'
             ;
     }
@@ -1060,7 +1053,7 @@ function disp_forum_group_toolbar($gid)
         echo '&nbsp;|&nbsp'
             .'<a href="../chat/chat.php?gidReq=" . $gid . " class="claroCmd">'
             .'<img src="' . $imgRepositoryWeb . 'chat.gif" />'
-            .'&nbsp;' . $langGroupChatLink
+            .'&nbsp;' . get_lang('GroupChatLink')
             .'</a>'
             ;
     }

@@ -21,7 +21,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 include($includePath . '/lib/admin.lib.inc.php');
 include_once($includePath . '/lib/course.lib.inc.php');
@@ -33,8 +33,8 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$nameTools = $langSearchCourseAdvanced;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$nameTools = get_lang('SearchCourseAdvanced');
 
 //--------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
@@ -63,9 +63,9 @@ if (isset($_REQUEST['language']))      $language      = $_REQUEST['language'];  
 // Search needed info in db to create the right formulaire
 $arrayFaculty = course_category_get_list();
 $category_array = claro_get_cat_flat_list();
-$category_array = array_merge(array('' => $langAll),$category_array);
+$category_array = array_merge(array('' => get_lang('All')),$category_array);
 $language_list = claro_get_lang_flat_list();
-$language_list = array_merge(array('' => $langAll),$language_list);
+$language_list = array_merge(array('' => get_lang('All')),$language_list);
 
 //----------------------------------
 // DISPLAY
@@ -85,7 +85,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 <table border="0">
 <tr>
   <td align="right">
-   <label for="code"><?php echo $langOfficialCode?></label> : <br />
+   <label for="code"><?php echo get_lang('OfficialCode')?></label> : <br />
   </td>
   <td colspan="3">
     <input type="text" size="40" name="code" id="code" value="<?php echo htmlspecialchars($code); ?>"/>
@@ -94,7 +94,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="intitule"><?php echo $langCourseTitle?></label> :  <br />
+   <label for="intitule"><?php echo get_lang('CourseTitle')?></label> :  <br />
   </td>
   <td colspan="3">
     <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo htmlspecialchars($intitule);?>"/>
@@ -103,7 +103,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="category"><?php echo $langCategory?></label> : <br />
+   <label for="category"><?php echo get_lang('Category')?></label> : <br />
   </td>
   <td colspan="3">
   <?php echo claro_html_form_select( 'category'
@@ -116,7 +116,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="language"><?php echo $langLanguage?></label> : <br />
+   <label for="language"><?php echo get_lang('Language')?></label> : <br />
   </td>
   <td colspan="3">
     <?php echo claro_html_form_select( 'language'
@@ -129,39 +129,39 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <?php echo $langCourseAccess ?> 
+   <?php echo get_lang('CourseAccess') ?> 
    :
   </td>
   <td>
    <input type="radio" name="access" value="public"  id="access_public"  <?php if ($access=="public") echo "checked";?> >
-   <label for="access_public"><?php echo $langPublic ?></label>
+   <label for="access_public"><?php echo get_lang('Public') ?></label>
   </td>
   <td>
       <input type="radio" name="access" value="private" id="access_private" <?php if ($access=="private") echo "checked";?>>
-    <label for="access_private"><?php echo $langPrivate ?></label>
+    <label for="access_private"><?php echo get_lang('Private') ?></label>
   </td>
   <td>
       <input type="radio" name="access" value=""        id="access_all"     <?php if ($access=="") echo "checked";?>>
-    <label for="access_all"><?php echo $langAll ?></label>
+    <label for="access_all"><?php echo get_lang('All') ?></label>
   </td>
 </tr>
 
 <tr>
   <td align="right">
-      <?php echo $langSubscription ?> 
+      <?php echo get_lang('Subscription') ?> 
     :
   </td>
   <td>
       <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($subscription=="allowed") echo "checked";?>>
-    <label for="subscription_allowed"><?php echo $langAllowed ?></label>
+    <label for="subscription_allowed"><?php echo get_lang('Allowed') ?></label>
   </td>
   <td>
       <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?php if ($subscription=="denied") echo "checked";?>>
-    <label for="subscription_denied"><?php echo $langDenied ?></label>
+    <label for="subscription_denied"><?php echo get_lang('Denied') ?></label>
   </td>
   <td>
       <input type="radio" name="subscription" value=""  id="subscription_all" <?php if ($subscription=="") echo "checked";?>>
-    <label for="subscription_all"><?php echo $langAll ?></label>
+    <label for="subscription_all"><?php echo get_lang('All') ?></label>
   </td>
 </tr>
 
@@ -170,7 +170,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
   </td>
   <td colspan="3">
-    <input type="submit" class="claroButton" value="<?php echo $langSearchCourse?>" >
+    <input type="submit" class="claroButton" value="<?php echo get_lang('SearchCourse')?>" >
   </td>
 </tr>
 </table>

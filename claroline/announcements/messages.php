@@ -45,7 +45,7 @@ CLAROLINE MAIN SETTINGS
 require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
 if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
 
 include_once $includePath . '/lib/claro_mail.lib.inc.php';
 
@@ -113,7 +113,7 @@ function valida()
     var    dat;
 
     if (f.elements[3].length <    1) {
-        alert(\"" . clean_str_for_javascript($langPleaseSelectUsers) . "\");
+        alert(\"" . clean_str_for_javascript(get_lang('PleaseSelectUsers')) . "\");
         return false;
     }
     for    (var i=0; i<f.elements[3].length; i++)    
@@ -123,7 +123,7 @@ function valida()
     if(dat.length == 0)
     {
         //old: Debe    introducir el Texto    del    Mensaje
-        alert(\"" . clean_str_for_javascript($langPleaseEnterMessage) . "\");
+        alert(\"" . clean_str_for_javascript(get_lang('PleaseEnterMessage')) . "\");
         f.emailContent.focus();
         f.emailContent.select();
         return false;    
@@ -136,9 +136,9 @@ function valida()
 //    End    -->
 </script>";
 
-$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => $langAnnouncement);
+$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => get_lang('Announcement'));
 
-$nameTools = $langMessages;
+$nameTools = get_lang('Messages');
 
 include('../inc/claro_init_header.inc.php');
 
@@ -165,7 +165,7 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-echo claro_disp_tool_title($langMessages);
+echo claro_disp_tool_title(get_lang('Messages'));
 
 /*
 * DEFAULT DISPLAY SETTINGS
@@ -239,7 +239,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             */
 
             // email subject
-            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . $langProfessorMessage;
+            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . get_lang('ProfessorMessage');
 
             // email content
             $emailBody = $_REQUEST['emailContent'] . "\n" . "\n" 
@@ -247,7 +247,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             .            $senderFirstName . ' ' . $senderLastName . "\n" 
             .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" 
             .            $siteName . "\n"
-            .            '(' . $langProfessorMessage . ')'
+            .            '(' . get_lang('ProfessorMessage') . ')'
             ;
 
             /*
@@ -268,14 +268,14 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
         } // end if - is_array($userIdList)
 
-        $message = '<p>' . $langMsgSent . '<p>';
+        $message = '<p>' . get_lang('MsgSent') . '<p>';
 
         if ( $countUnvalid > 0 )
         {
             $messageUnvalid    = '<p>'
-            . $langOn.'    '
+            . get_lang('On').'    '
             . count($userIdList) .' '
-            . $langSelUser.',    ' .  $countUnvalid . ' ' .$langUnvalid
+            . get_lang('SelUser').',    ' .  $countUnvalid . ' ' .get_lang('Unvalid')
             . '<br /><small>'
             . $messageFailed
             . '</small>'
@@ -296,7 +296,7 @@ if ( !empty($message) )
     echo claro_disp_message_box($message);
 
     echo '<br />' . "\n"
-    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . $langBackList . '</a>'
+    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('BackList') . '</a>'
     .    '<br />' . "\n"
     ;
 
@@ -358,14 +358,14 @@ if ( $displayForm == TRUE )
     * Create Form
     */
 
-    echo $langIntroText . "\n\n"
+    echo get_lang('IntroText') . "\n\n"
     .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
     .    'onSubmit="return valida();">' . "\n"
     .    '<center>' . "\n"
     .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
     .    '<tr valign="top" align="center">'
     .    '<td>' . "\n"
-    .    '<p><b>' . $langUserlist . '</b></p>' . "\n"
+    .    '<p><b>' . get_lang('Userlist') . '</b></p>' . "\n"
     .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
     ;
 
@@ -374,7 +374,7 @@ if ( $displayForm == TRUE )
         foreach( $groupList as $thisGroup )
         {
             echo '<option value="GROUP:' . $thisGroup['id'] . '">'
-            .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . $langUsers . ')'
+            .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . get_lang('Users') . ')'
             .    '</option>' . "\n";
         }
     }
@@ -406,7 +406,7 @@ if ( $displayForm == TRUE )
     .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<p><b>' . $langSelectedUsers . '</b></p>' . "\n"
+    .    '<p><b>' . get_lang('SelectedUsers') . '</b></p>' . "\n"
     .    '<p>'
     .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
     .    '</select>'
@@ -415,7 +415,7 @@ if ( $displayForm == TRUE )
     .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td colspan="3">' . "\n"
-    .    '<b>' . $langAnnouncement . '</b><br />' . "\n"
+    .    '<b>' . get_lang('Announcement') . '</b><br />' . "\n"
     .    '<center>'
     .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
     .    '</center>'
@@ -423,7 +423,7 @@ if ( $displayForm == TRUE )
     .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td colspan="3" align="center">' . "\n"
-    .    '<input type="submit" name="submitAnnouncement" value="' . $langSubmit . '" />'
+    .    '<input type="submit" name="submitAnnouncement" value="' . get_lang('Submit') . '" />'
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;

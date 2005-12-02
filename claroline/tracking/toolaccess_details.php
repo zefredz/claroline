@@ -20,11 +20,11 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 
 if ( !$_uid || !$_cid) claro_disp_auth_form(true);
 
-$nameTools = $langDetails;
+$nameTools = get_lang('Details');
 
 // main page
 include($includePath."/lib/statsUtils.lib.inc.php");
@@ -97,8 +97,8 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         case "week" : 
             $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
             $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
-            echo '<b>'.$langFrom.'</b> '.date('d ' , $weeklowreqdate).$langMonthNames['long'][date('n', $weeklowreqdate)-1].date(' Y' , $weeklowreqdate)."\n";
-            echo ' <b>'.$langToDate.'</b> '.date('d ' , $weekhighreqdate ).$langMonthNames['long'][date('n', $weekhighreqdate)-1].date(' Y' , $weekhighreqdate)."\n";
+            echo '<b>'.get_lang('From').'</b> '.date('d ' , $weeklowreqdate).$langMonthNames['long'][date('n', $weeklowreqdate)-1].date(' Y' , $weeklowreqdate)."\n";
+            echo ' <b>'.get_lang('ToDate').'</b> '.date('d ' , $weekhighreqdate ).$langMonthNames['long'][date('n', $weekhighreqdate)-1].date(' Y' , $weekhighreqdate)."\n";
             break;
         // default == day
         default :
@@ -113,9 +113,9 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     echo '<tr>'."\n"
 		.'<td>'."\n"
 		.'<small>'."\n"
-		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.$langPeriodDay.'</a>]'."\n"
-		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.$langPeriodWeek.'</a>]'."\n"
-		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.$langPeriodMonth.'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('PeriodDay').'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('PeriodWeek').'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('PeriodMonth').'</a>]'."\n"
 		.'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
 
     switch($period)
@@ -125,27 +125,27 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.$langPreviousMonth.'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.$langNextMonth.'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.get_lang('PreviousMonth').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.get_lang('NextMonth').'</a>]'."\n";
             break;
         case "week" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 7*86400;
             $nextReqDate = $reqdate + 7*86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.$langPreviousWeek.'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.$langNextWeek.'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.get_lang('PreviousWeek').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.get_lang('NextWeek').'</a>]'."\n";
             break;
         case "day" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 86400;
             $nextReqDate = $reqdate + 86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.$langPreviousDay.'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.$langNextDay.'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.get_lang('PreviousDay').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.get_lang('NextDay').'</a>]'."\n";
             break;
     }
     
     echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-		.'[<a href="./courseLog.php?view=0010000">'.$langViewToolList.'</a>]'."\n"
+		.'[<a href="./courseLog.php?view=0010000">'.get_lang('ViewToolList').'</a>]'."\n"
 		.'</small>'."\n"
 		.'</td>'."\n"
 		.'</tr>'."\n"."\n";
@@ -162,7 +162,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
                         ORDER BY `access_date` ASC";
             
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,$langDay);
+            makeHitsTable($days_array,get_lang('Day'));
             break;
         // all days
         case "week" :
@@ -174,7 +174,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
                         ORDER BY `access_date` ASC";
 
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,$langDay);
+            makeHitsTable($days_array,get_lang('Day'));
             break;
         // all hours
         case "day"  :
@@ -186,7 +186,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
                         ORDER BY `access_date` ASC";
             
             $hours_array = hoursTab($sql,$reqdate);
-            makeHitsTable($hours_array,$langHour);
+            makeHitsTable($hours_array,get_lang('Hour'));
             break;
     }
 }
@@ -194,11 +194,11 @@ else // not allowed to track
 {
     if(!$is_trackingEnabled)
     {
-        echo $langTrackingDisabled;
+        echo get_lang('TrackingDisabled');
     }
     else
     {
-        echo $langNotAllowed;
+        echo get_lang('NotAllowed');
     }
 }
     

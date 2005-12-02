@@ -21,7 +21,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security Check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 // Include library
 require $includePath . '/conf/user_profile.conf.php';
@@ -30,7 +30,7 @@ require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
-$nameTools = $langAddUser;
+$nameTools = get_lang('AddUser');
 $error = false;
 $messageList = array();
 
@@ -85,7 +85,7 @@ if ( $cmd == 'registration' )
   Display Section
  =====================================================================*/
 
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $noQUERY_STRING   = TRUE;
 
 // Display Header
@@ -98,23 +98,23 @@ echo claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
 
 if ( $cmd == 'registration' && $error == false )
 {
-    echo '<p>' . $langUserCreated . '</p>'
+    echo '<p>' . get_lang('UserCreated') . '</p>'
     .    '<ul>'
     .    '<li>'
     .    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings">'
-    .    $langRegisterTheNewUser
+    .    get_lang('RegisterTheNewUser')
     .    '</a>'
     .    '</li>'
     .    '<li>'
     .    '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category="> '
-    .    $langGoToUserSettings
+    .    get_lang('GoToUserSettings')
     .    '</a>'
     .    '</li>'
     .    '<li>'
-    .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . $langCreateAnotherUser . ' </a>'
+    .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . get_lang('CreateAnotherUser') . ' </a>'
     .    '</li>'
     .    '<li>'
-    .    '<a class="claroCmd" href="index.php"> ' . $langBackToAdmin . ' </a>'
+    .    '<a class="claroCmd" href="index.php"> ' . get_lang('BackToAdmin') . ' </a>'
     .    '</li>'
     .    '</ul>'
     ;
@@ -128,7 +128,7 @@ else
         echo claro_disp_message_box( implode('<br />', $messageList) );
     }
 
-    echo $langAddUserOneByOne;
+    echo get_lang('AddUserOneByOne');
 
     user_display_form_admin_add_new_user($user_data);
 }

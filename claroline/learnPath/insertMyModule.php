@@ -27,11 +27,11 @@ require '../inc/claro_init_global.inc.php';
 
 $is_AllowedToEdit = $is_courseAdmin;
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_AllowedToEdit ) claro_die($langNotAllowed);
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('NotAllowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPathAdmin);
-$nameTools = $langInsertMyModuleToolName;
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
+$nameTools = get_lang('InsertMyModuleToolName');
 
 //header
 include($includePath."/claro_init_header.inc.php");
@@ -109,7 +109,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_disp_tool_title($langInsertMyModulesTitle);
+echo claro_disp_tool_title(get_lang('InsertMyModulesTitle'));
 
 //COMMAND ADD SELECTED MODULE(S):
 
@@ -164,10 +164,10 @@ echo '<table class="claroTable" width="100%">'."\n"
        .'<thead>'."\n"
        .'<tr class="headerX">'."\n"
        .'<th width="10%">'
-       .$langAddModule
+       .get_lang('AddModule')
        .'</th>'."\n"
        .'<th>'
-       .$langModule
+       .get_lang('Module')
        .'</th>'."\n"
        .'</tr>'."\n"
        .'</thead>'."\n\n"
@@ -218,7 +218,7 @@ if ( !$atleastOne )
 {
     echo '<tr>'."\n"
         .'<td colspan="2" align="center">'
-        .$langNoMoreModuleToAdd
+        .get_lang('NoMoreModuleToAdd')
         .'</td>'."\n"
         .'</tr>'."\n";
 }
@@ -232,7 +232,7 @@ if ( $atleastOne )
 {
     echo '<tr>'."\n"
         .'<td colspan="2">'."\n"
-        .'<input type="submit" value="'.$langAddModulesButton.'" />'."\n"
+        .'<input type="submit" value="'.get_lang('AddModulesButton').'" />'."\n"
         .'<input type="hidden" name="cmdglobal" value="add">'."\n"
         .'</td>'."\n"
         .'</tr>'."\n";
@@ -245,10 +245,10 @@ echo "\n".'</tfoot>'."\n\n".'</form>'."\n".'</table>';
 //####################################################################################\\
 
 // display subtitle
-echo claro_disp_tool_title($langPathContentTitle);
+echo claro_disp_tool_title(get_lang('PathContentTitle'));
 
 // display back link to return to the LP administration
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.$langBackToLPAdmin.'</a>';
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('BackToLPAdmin').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();

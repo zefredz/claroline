@@ -18,7 +18,7 @@ require '../../../inc/claro_init_global.inc.php';
 include($includePath."/lib/debug.lib.inc.php");
 require_once $includePath . '/lib/admin.lib.inc.php';
 
-$nameTools = $langSDK;
+$nameTools = get_lang('SDK');
 
 // SECURITY CHECK
 
@@ -27,14 +27,14 @@ if (!$is_platformAdmin) claro_disp_auth_form();
 // DISPLAY
 
 // Deal with interbredcrumps  and title variable
-$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
 ?>
 
-<p><img src="<?php echo 'lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="translation_index.php"><?php echo $langTranslationTools?></a></p>
+<p><img src="<?php echo 'lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="translation_index.php"><?php echo get_lang('TranslationTools')?></a></p>
 
 <?php
 include $includePath . '/claro_init_footer.inc.php';

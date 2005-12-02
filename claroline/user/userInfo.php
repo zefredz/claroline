@@ -33,9 +33,9 @@ include($includePath.'/lib/user.lib.php');
 include($includePath.'/lib/user_info.lib.php');
 @include($includePath.'/lib/debug.lib.inc.php');
 
-$interbredcrump[]= array ('url' => 'user.php', 'name' => $langUsers);
+$interbredcrump[]= array ('url' => 'user.php', 'name' => get_lang('Users'));
 
-$nameTools = $langUser;
+$nameTools = get_lang('User');
 
 /** OUTPUT **/
 claro_set_display_mode_available(TRUE);
@@ -168,7 +168,7 @@ if ($allowedToEditDef)
             else
             {
                 $userProperties['tutor' ] = 0;
-                $dialogBox .= $langImpossibleToPromote;
+                $dialogBox .= get_lang('ImpossibleToPromote');
             }
         }
         else
@@ -187,7 +187,7 @@ if ($allowedToEditDef)
             //prevent teacher to let the course without any teacher
 
             $displayMode = "viewMainInfoEdit";
-            $dialogBox   = $langErrorMyOwnSettings;
+            $dialogBox   = get_lang('ErrorMyOwnSettings');
         }
         else
         {
@@ -236,7 +236,7 @@ DISPLAY MODES
 ======================================*/
 
 // Back button for each display mode (Top)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.$langBackToUsersList.'</a></small></p>' . "\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('BackToUsersList').'</a></small></p>' . "\n";
 
 // Display Forms or dialog box (if needed)
 
@@ -266,7 +266,7 @@ if ($displayMode == "viewDefEdit")
 <table>
 <tr>
 <td>
-<label for="title" ><?php echo $langHeading?></label> :
+<label for="title" ><?php echo get_lang('Heading')?></label> :
 </td>
 <td>
 <input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo htmlspecialchars($catToEdit['title']); ?>" />
@@ -275,7 +275,7 @@ if ($displayMode == "viewDefEdit")
 
 <tr>
 <td>
-<label for="comment" ><?php echo $langComment?></label> :
+<label for="comment" ><?php echo get_lang('Comment')?></label> :
 </td>
 <td>
 <textarea name="comment" id="comment" cols="60" rows="3" wrap="virtual"><?php echo $catToEdit['comment']?></textarea>
@@ -284,24 +284,24 @@ if ($displayMode == "viewDefEdit")
 
 <tr>
 <td nowrap>
-<label for="nbline" ><?php echo $langLineNumber?></label> :
+<label for="nbline" ><?php echo get_lang('LineNumber')?></label> :
 </td>
 <td>
 <select name="nbline" id="nbline">
 <?php
 if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
 { ?>
-    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo $langLineOrLines?></option>
+    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo get_lang('LineOrLines')?></option>
     <option>---</option>
 <?php
 }
 sort($descSizeToPrupose);
 ?>
-<option value="1">1 <?php echo $langLine; ?></option>
+<option value="1">1 <?php echo get_lang('Line'); ?></option>
 <?php
 foreach($descSizeToPrupose as $nblines)
 {
-    echo '<option value="'.$nblines.'">'.$nblines.' '.$langLines.'</option>';
+    echo '<option value="'.$nblines.'">'.$nblines.' '.get_lang('Lines').'</option>';
 }
 
 ?>
@@ -309,7 +309,7 @@ foreach($descSizeToPrupose as $nblines)
 </td>
 <tr>
 <td>&nbsp;</td>
-<td align="center"><input type="submit" name="submitDef" value="<?php echo $langOk?>" /></td>
+<td align="center"><input type="submit" name="submitDef" value="<?php echo get_lang('Ok')?>" /></td>
 </tr>
 </table>
 </form>
@@ -350,16 +350,16 @@ elseif ($displayMode == "viewDefList")
             // displays commands
 
             echo     '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langRemove.'">'
+            .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Remove').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.$langEdit.'">'
+            .    '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Edit').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.$langMoveUp.'">'
+            .    '<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.get_lang('MoveUp').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.$langMoveDown.'">'
+            .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.get_lang('MoveDown').'">'
             .    '</a>' . "\n";
         } // end for each
 
@@ -368,7 +368,7 @@ elseif ($displayMode == "viewDefList")
 
     echo     '<div align="center">' . "\n"
     .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
-    .    '<input type="submit" name="addDef" value="'.$langAddNewHeading.'" />' . "\n"
+    .    '<input type="submit" name="addDef" value="'.get_lang('AddNewHeading').'" />' . "\n"
     .    '</form>' . "\n"
     .    '</div>' . "\n";
 
@@ -395,7 +395,7 @@ else
 {
 ?><textarea  cols="80" rows="<?php echo $catToEdit['nbline']?>" name="content" id="content" wrap="VIRTUAL"><?php echo $catToEdit['content']?></textarea>
 <?php }
-?><input type="submit" name="submitContent" value="<?php echo $langOk?>" />
+?><input type="submit" name="submitContent" value="<?php echo get_lang('Ok')?>" />
 </form>
 
 <?php
@@ -417,10 +417,10 @@ elseif ($displayMode =="viewMainInfoEdit")
     .    '<table class="claroTable" width="80%" border="0">'
     .    '<thead>' . "\n"
     .    '<tr class="headerX">' . "\n"
-    .    '<th align="left">'.$langName.'</th>' . "\n"
-    .    '<th align="left"><label for="role">' . $langRole . ' (' . $langOptional .')</label></th>' . "\n"
-    .    '<th><label for="promoteTutor">' . $langGroupTutor . '</label></th>' . "\n"
-    .    '<th><label for="promoteCourseAdmin">' . $langCourseManager . '</label></th>' . "\n"
+    .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
+    .    '<th align="left"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label></th>' . "\n"
+    .    '<th><label for="promoteTutor">' . get_lang('GroupTutor') . '</label></th>' . "\n"
+    .    '<th><label for="promoteCourseAdmin">' . get_lang('CourseManager') . '</label></th>' . "\n"
     .    '<th>&nbsp;</th>' . "\n"
     .    '</tr>' . "\n"
     .    '</thead>' . "\n"
@@ -435,7 +435,7 @@ elseif ($displayMode =="viewMainInfoEdit")
     if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
     {
         echo '<td>'
-        .    $langCourseManager
+        .    get_lang('CourseManager')
         .    '</td>' . "\n"
         ;
     }
@@ -449,7 +449,7 @@ elseif ($displayMode =="viewMainInfoEdit")
 
 
     echo '<td>'
-    .    '<input type="submit" name="submit" value="'.$langOk.'" />'
+    .    '<input type="submit" name="submit" value="'.get_lang('Ok').'" />'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</tfoot>' . "\n"
@@ -474,8 +474,8 @@ elseif ($displayMode == "viewContentList") // default display
 
     if ($mainUserInfo)
     {
-        $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? $langGroupTutor : ' - ');
-        $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? $langCourseManager : ' - ');
+        $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? get_lang('GroupTutor') : ' - ');
+        $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? get_lang('CourseManager') : ' - ');
 
         if ($mainUserInfo['picture'] != '')
         {
@@ -485,12 +485,12 @@ elseif ($displayMode == "viewContentList") // default display
         echo '<table class="claroTable" width="80%" border="0">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
-        .    '<th align="left">'.$langName.'</th>' . "\n"
-        .    '<th align="left">'.$langRole.'</th>' . "\n"
-        .    '<th>'.$langGroupTutor.'</th>' . "\n"
-        .    '<th>'.$langCourseManager.'</th>' . "\n"
-        .    ($allowedToEditDef?'<th>'.$langEdit.'</th>' . "\n":'')
-        .    ($is_allowedToTrack?"<th>".$langTracking.'</th>' . "\n":'')
+        .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
+        .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
+        .    '<th>'.get_lang('GroupTutor').'</th>' . "\n"
+        .    '<th>'.get_lang('CourseManager').'</th>' . "\n"
+        .    ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
+        .    ($is_allowedToTrack?"<th>".get_lang('Tracking').'</th>' . "\n":'')
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
@@ -505,7 +505,7 @@ elseif ($displayMode == "viewContentList") // default display
         {
             echo '<td>'
             .    '<a href="'.$_SERVER['PHP_SELF'].'?editMainUserInfo='.$userIdViewed.'">'
-            .    '<img border="0" alt="'.$langEdit.'" src="'.$imgRepositoryWeb.'edit.gif" />'
+            .    '<img border="0" alt="'.get_lang('Edit').'" src="'.$imgRepositoryWeb.'edit.gif" />'
             .    '</a>'
             .    '</td>' . "\n"
             ;
@@ -515,7 +515,7 @@ elseif ($displayMode == "viewContentList") // default display
         {
             echo '<td>'
             .    '<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
-            .    '<img border="0" alt="'.$langTracking.'" src="'.$imgRepositoryWeb.'statistics.gif" />'
+            .    '<img border="0" alt="'.get_lang('Tracking').'" src="'.$imgRepositoryWeb.'statistics.gif" />'
             .    '</a>'
             .    '</td>' . "\n"
             ;
@@ -534,8 +534,8 @@ elseif ($displayMode == "viewContentList") // default display
         echo "\n\n"
         .    '<div align="right">' . "\n"
         .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
-        .    $langCourseAdministratorOnly.' : '
-        .    '<input type="submit" name="viewDefList" value="'.$langDefineHeadings.'" />' . "\n"
+        .    get_lang('CourseAdministratorOnly').' : '
+        .    '<input type="submit" name="viewDefList" value="'.get_lang('DefineHeadings').'" />' . "\n"
         .    '</form>' . "\n"
         .    '<hr noshade="noshade" size="1" />' . "\n"
         .    '</div>'
@@ -564,7 +564,7 @@ elseif ($displayMode == "viewContentList") // default display
             {
                 echo '<br /><br />' . "\n"
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -575,7 +575,7 @@ elseif ($displayMode == "viewContentList") // default display
 }
 
 // Back button for each display mode (bottom)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . $langBackToUsersList . '</a></small></p>' . "\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . get_lang('BackToUsersList') . '</a></small></p>' . "\n";
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

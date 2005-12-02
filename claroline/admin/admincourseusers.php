@@ -30,7 +30,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
@@ -58,7 +58,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationReg (name)
          {
-             if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \" ? \"))
+             if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \" ? \"))
                  {return true;}
              else
                  {return false;}
@@ -99,17 +99,17 @@ if ( $cmd == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true) )
     {
-        $dialogBox .= $langUserUnsubscribed;
+        $dialogBox .= get_lang('UserUnsubscribed');
     }
     else
     {
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
-                $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
                 break;
             case 'course_manager_cannot_unsubscribe_himself' :
-                $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
                 break;
             default :
         }
@@ -184,10 +184,10 @@ $resultList = $myPager->get_result_list();
 //------------------------------------
 // Display tool title
 
-$nameTools = $langAllUsersOfThisCourse;
+$nameTools = get_lang('AllUsersOfThisCourse');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 //Header
 include($includePath . '/claro_init_header.inc.php');
@@ -204,13 +204,13 @@ if ( !empty($dialogBox) )
 //Display selectbox, alphabetic choice, and advanced search link search
 echo '<a class="claroCmd" href="adminregisteruser.php'
 .    '?cidToEdit=' . $cidToEdit . '">'
-.    $langEnrollUser
+.    get_lang('EnrollUser')
 .    '</a>'
 ;
 
 if (isset($cfrom) && ($cfrom=='clist'))
 {
-    echo ' | <a class="claroCmd" href="admincourses.php">' . $langBackToCourseList . '</a>';
+    echo ' | <a class="claroCmd" href="admincourses.php">' . get_lang('BackToCourseList') . '</a>';
 }
 
 //Pager
@@ -239,7 +239,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=uid&amp;dir=' . $order['uid']
 .    '&amp;cidToEdit=' . $cidToEdit."\">"
-.    $langUserid
+.    get_lang('Userid')
 .    '</a>'
 .    '</th>'
 
@@ -247,7 +247,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=name&amp;dir=' . $order['name']
 .    '&amp;cidToEdit='.$cidToEdit.'">'
-.    $langLastName
+.    get_lang('LastName')
 .    '</a>'
 .    '</th>'
 
@@ -255,7 +255,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=firstname&amp;dir=' . $order['firstname']
 .    '&amp;cidToEdit=' . $cidToEdit.  '">'
-.    $langFirstName
+.    get_lang('FirstName')
 .    '</a>'
 .    '</th>'
 
@@ -264,10 +264,10 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '?order_crit=cu_status'
 .    '&amp;dir=' . $order['cu_status']
 .    '&amp;cidToEdit=' . $cidToEdit . '">'
-.    $langStatus
+.    get_lang('Status')
 .    '</a>'
 .    '</th>'
-.    '<th>' . $langUnsubscribe . '</th>'
+.    '<th>' . get_lang('Unsubscribe') . '</th>'
 .    '</tr>'
 .    '</thead>'
 .    '<tbody>'
@@ -305,7 +305,7 @@ foreach($resultList as $list)
         .     '&amp;cmd=unsub&amp;user_id=' . $list['user_id']
         .     '&amp;offset=' . $offset . '" '
         .     ' onClick="return confirmationReg(\'' . clean_str_for_javascript($list['username']) . '\');">' . "\n"
-        .     '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . $langUnsubscribe . '" />' . "\n"
+        .     '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
         .     '</a>' . "\n"
         .     '</td>' . "\n"
         ;

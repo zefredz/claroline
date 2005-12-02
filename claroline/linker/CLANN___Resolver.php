@@ -185,8 +185,6 @@
         */ 
         function getTitle( $course_sys_code , $id )
         {        
-            global $langLinkerUntitled;
-            
             $announcementInfo = $this->_getInfo( $course_sys_code , $id );
             $content = trim( stripslashes(strip_tags($announcementInfo[0]["contenu"])));     
                     
@@ -206,7 +204,7 @@
                    *   todo : no name of annonce -
                    *-----------------------------*/
                    
-                   $title = $langLinkerUntitled;      
+                   $title = get_lang('LinkerUntitled');      
                }
                
                return $title; 

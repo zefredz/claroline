@@ -25,14 +25,14 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
-$nameTools=$langUserSettings;
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$nameTools=get_lang('UserSettings');
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 //------------------------------------
 // Execute COMMAND section
@@ -42,7 +42,7 @@ $cmd = (isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null );
 
 if ( $cmd=='delete' )
 {
-    $dialogBox = user_delete((int) $_REQUEST['uidToEdit']) ? $langUserDelete : $langNotUnregYourself;
+    $dialogBox = user_delete((int) $_REQUEST['uidToEdit']) ? get_lang('UserDelete') : get_lang('NotUnregYourself');
 }
 
 //------------------------------------
@@ -53,7 +53,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_disp_tool_title($langDeleteUser);
+echo claro_disp_tool_title(get_lang('DeleteUser'));
 
 //Display Forms or dialog box(if needed)
 
@@ -61,8 +61,8 @@ if ( isset($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 // display TOOL links :
 
-echo '<a class="claroCmd" href="index.php" >' . $langBackToAdmin . '</a> | '
-.    '<a class="claroCmd" href="adminusers.php" >' . $langBackToUserList . '</a>'
+echo '<a class="claroCmd" href="index.php" >' . get_lang('BackToAdmin') . '</a> | '
+.    '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>'
 ;
 
 

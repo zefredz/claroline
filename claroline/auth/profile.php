@@ -42,7 +42,7 @@ include $includePath . '/lib/claro_mail.lib.inc.php';
 include $includePath . '/lib/fileManage.lib.php';
 //include $includePath.'/lib/auth.lib.inc.php';
 
-$nameTools = $langModifyProfile;
+$nameTools = get_lang('ModifyProfile');
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -92,8 +92,8 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include('../inc/claro_init_local.inc.php');
-        $messageList[] = $langProfileReg . '<br />' . "\n"
-        .                '<a href="../../index.php">' . $langHome . '</a>'
+        $messageList[] = get_lang('ProfileReg') . '<br />' . "\n"
+        .                '<a href="../../index.php">' . get_lang('Home') . '</a>'
         ;
 
     } // end if $userSettingChangeAllowed
@@ -112,14 +112,14 @@ elseif (    $can_request_course_creator_status // FROM CONFIG
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
-    $messageList[] = $langYourRequestToBeCourseManagerIsSent;
+    $messageList[] = get_lang('YourRequestToBeCourseManagerIsSent');
 }
 elseif (    $can_request_revoquation // FROM CONFIG
          && $cmd == 'exRevoquation' )
 {
     // send a request for revoquation
     profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
-    $messageList[] = $langYourRequestToRemoveYourAccountIsSent;
+    $messageList[] = get_lang('YourRequestToRemoveYourAccountIsSent');
 }
 elseif (    $can_request_course_creator_status  // FROM CONFIG
          && $cmd == 'reqCCstatus' )
@@ -127,7 +127,7 @@ elseif (    $can_request_course_creator_status  // FROM CONFIG
     // display course creator status form
     $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
-    $nameTools = $langRequestOfCourseCreatorStatus;
+    $nameTools = get_lang('RequestOfCourseCreatorStatus');
 }
 elseif ( $can_request_revoquation // FROM CONFIG
          && $cmd == 'reqRevoquation' )
@@ -164,20 +164,20 @@ switch ( $display )
         // display user tracking link
         echo '<p>'
         .    '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
-        .    '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif">' . $langMyStats
+        .    '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif">' . get_lang('MyStats')
         .    '</a>'
         ;
 
         // display request course creator status
         if ( $can_request_course_creator_status )
         {
-            echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . $langRequestOfCourseCreatorStatus . '</a>';
+            echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('RequestOfCourseCreatorStatus') . '</a>';
         }
 
         // display user revoquation
         if ( $can_request_revoquation )
         {
-            echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . $langDeleteMyAccount . '</a>' ;
+            echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('DeleteMyAccount') . '</a>' ;
         }
 
         echo '</p>' . "\n" ;
@@ -188,20 +188,20 @@ switch ( $display )
 
         if ( $can_request_course_creator_status )
         {
-            echo '<p>' . $langFillTheAreaToExplainTheMotivations . '</p>';
+            echo '<p>' . get_lang('FillTheAreaToExplainTheMotivations') . '</p>';
 
             // display request course creator form
             echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
             .    '<input type="hidden" name="cmd" value="exCCstatus" />'
             .    '<table>'
             .    '<tr valign="top">'
-            .    '<td><label for="explanation">' . $langComment . ': </label></td>'
+            .    '<td><label for="explanation">' . get_lang('Comment') . ': </label></td>'
             .    '<td><textarea cols="60" rows="6" name="explanation" id="explanation"></textarea></td>'
             .    '</tr>'
             .    '<tr valign="top">'
-            .    '<td>' . $langSubmit . ': </td>'
-            .    '<td><input type="submit" value="' . $langOk . '"> '
-            .    claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+            .    '<td>' . get_lang('Submit') . ': </td>'
+            .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
+            .    claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'
@@ -218,21 +218,21 @@ switch ( $display )
             .    '<input type="hidden" name="cmd" value="exRevoquation" />'
             .    '<table>'
             .    '<tr valign="top">'
-            .    '<td>' . $langUserName . ': </td>'
+            .    '<td>' . get_lang('UserName') . ': </td>'
             .    '<td><input type="text" name="loginToDelete" ></td>'
             .    '</tr>'
             .    '<tr valign="top">'
-            .    '<td>' . $langPassword . ': </td>'
+            .    '<td>' . get_lang('Password') . ': </td>'
             .    '<td><input type="password" name="passwordToDelete" ></td>'
             .    '</tr>'
             .    '<tr valign="top">'
-            .    '<td><label for="explanation">' . $langComment . ': </label></td>'
+            .    '<td><label for="explanation">' . get_lang('Comment') . ': </label></td>'
             .    '<td><textarea cols="60" rows="6" name="explanation" id="explanation"></textarea></td>'
             .    '</tr>'
             .    '<tr valign="top">'
-            .    '<td>' . $langSubmit . ': </td>'
-            .    '<td><input type="submit" value="' . $langDeleteMyAccount . '"> '
-            .    claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+            .    '<td>' . get_lang('Submit') . ': </td>'
+            .    '<td><input type="submit" value="' . get_lang('DeleteMyAccount') . '"> '
+            .    claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'

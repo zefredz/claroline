@@ -21,12 +21,12 @@ include $includePath.'/conf/user_profile.conf.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
-$nameTools=$langUserSettings;
+$nameTools=get_lang('UserSettings');
 $dialogBox = '';
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 //declare needed tables
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -50,17 +50,17 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
     {
         if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true) )
         {
-            $dialogBox .= $langUserUnsubscribed;
+            $dialogBox .= get_lang('UserUnsubscribed');
         }
         else
         {
             switch ( claro_failure::get_last_failure() )
             {
                 case 'cannot_unsubscribe_the_last_course_manager' :
-                    $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+                    $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
                     break;
                 case 'course_manager_cannot_unsubscribe_himself' :
-                    $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+                    $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
                     break;
                 default :       
             }       
@@ -78,7 +78,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 // Display tool title
 
-echo claro_disp_tool_title($langUserUnregistered);
+echo claro_disp_tool_title(get_lang('UserUnregistered'));
 
 // Display Forms or dialog box(if needed)
 
@@ -89,8 +89,8 @@ if ( !empty($dialogBox) )
 
 // Display TOOL links :
 
-echo "<a class=\"claroCmd\" href=\"index.php\">".$langBackToAdmin."</a> | ";
-echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\">".$langBackToCourseList."</a>";
+echo "<a class=\"claroCmd\" href=\"index.php\">".get_lang('BackToAdmin')."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\">".get_lang('BackToCourseList')."</a>";
 
 // Display footer
 

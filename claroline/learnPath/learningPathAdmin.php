@@ -53,9 +53,9 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 
-$nameTools = $langLearningPath;
+$nameTools = get_lang('LearningPath');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
                               // when one need to add a parameter after the filename
   
@@ -187,7 +187,7 @@ switch($cmd)
             // if origin and target are the same ... cancel operation
             if ($movedModule['learnPath_module_id'] == $_POST['newPos'])
             {
-                $dialogBox .= $langWrongOperation;
+                $dialogBox .= get_lang('WrongOperation');
             }
             else
             {
@@ -209,7 +209,7 @@ switch($cmd)
                             `rank` = " . (int)$order . "
                         WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
                 $query = claro_sql_query($sql);  
-                $dialogBox .= $langModuleMoved;
+                $dialogBox .= get_lang('ModuleMoved');
             }
 
         }
@@ -237,7 +237,7 @@ switch($cmd)
             $elementList = array();
             $elementList = build_element_list($extendedList, 'parent', 'learnPath_module_id');
             
-            $topElement['name'] = $langRoot;
+            $topElement['name'] = get_lang('Root');
             $topElement['value'] = 0;    // value is required by claro_nested_build_select_menu
             if (!is_array($elementList)) $elementList = array();
             array_unshift($elementList,$topElement);
@@ -409,21 +409,21 @@ else
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
     $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
-                  <h4><label for=\"newLabel\">".$langNewLabel."</label></h4>
+                  <h4><label for=\"newLabel\">".get_lang('NewLabel')."</label></h4>
                   <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
                   <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
-                  <input type=\"submit\" value=\"".$langOk."\" />
+                  <input type=\"submit\" value=\"".get_lang('Ok')."\" />
                   </form>";
 }
 if (isset($displayChangePosForm) && $displayChangePosForm)
 { 
     $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
-                  <h4>".$langMove." ' ".$moduleInfos['name']." ' ".$langTo."</h4>";
+                  <h4>".get_lang('Move')." ' ".$moduleInfos['name']." ' ".get_lang('To')."</h4>";
     // build select input - $elementList has been declared in the previous big cmd case
     $dialogBox .= claro_build_nested_select_menu("newPos",$elementList);
     $dialogBox .= "<input type=\"hidden\" name=\"cmd\" value=\"changePos\" />
                    <input type=\"hidden\" name=\"cmdid\" value=\"".$_REQUEST['cmdid']."\" />
-                   <input type=\"submit\" value=\"".$langOk."\" />
+                   <input type=\"submit\" value=\"".get_lang('Ok')."\" />
                    </form>";
 }
 
@@ -442,10 +442,10 @@ if (isset($dialogBox) && $dialogBox!="")
 
 ?>
  <p>
- <a class="claroCmd" href="insertMyDoc.php"><?php echo $langDocumentAsModule; ?></a> |
- <a class="claroCmd" href="insertMyExercise.php"><?php echo $langExerciseAsModule; ?></a> |
- <a class="claroCmd" href="insertMyModule.php"><?php echo $langModuleOfMyCourse; ?></a> |
- <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo $langCreateLabel; ?></a>
+ <a class="claroCmd" href="insertMyDoc.php"><?php echo get_lang('DocumentAsModule'); ?></a> |
+ <a class="claroCmd" href="insertMyExercise.php"><?php echo get_lang('ExerciseAsModule'); ?></a> |
+ <a class="claroCmd" href="insertMyModule.php"><?php echo get_lang('ModuleOfMyCourse'); ?></a> |
+ <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo get_lang('CreateLabel'); ?></a>
  </p>
 <?php
 
@@ -496,13 +496,13 @@ for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
   <table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
        <thead>
          <tr class="headerX" align="center" valign="top">
-           <th colspan="<?php echo $maxDeep+1 ?>"><?php echo $langModule; ?></th>
-           <th><?php echo $langModify; ?></th>
-           <th><?php echo $langRemove; ?></th>
-           <th><?php echo $langBlock; ?></th>
-           <th><?php echo $langVisibility; ?></th>
-           <th><?php echo $langMove; ?></th>
-           <th colspan="2"><?php echo $langOrder; ?></th>
+           <th colspan="<?php echo $maxDeep+1 ?>"><?php echo get_lang('Module'); ?></th>
+           <th><?php echo get_lang('Modify'); ?></th>
+           <th><?php echo get_lang('Remove'); ?></th>
+           <th><?php echo get_lang('Block'); ?></th>
+           <th><?php echo get_lang('Visibility'); ?></th>
+           <th><?php echo get_lang('Move'); ?></th>
+           <th colspan="2"><?php echo get_lang('Order'); ?></th>
           </tr>
      </thead>
      <tbody>
@@ -562,7 +562,7 @@ foreach ($flatElementList as $module)
     // Modify command / go to other page
     echo "<td>
           <a href=\"module.php?module_id=".$module['module_id']."\">".
-         "<img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"".$langModify."\" />".
+         "<img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"".get_lang('Modify')."\" />".
          "</a>
          </td>";
 
@@ -571,17 +571,17 @@ foreach ($flatElementList as $module)
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
     echo "<td>
           <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-         "onClick=\"return confirmation('".clean_str_for_javascript($langAreYouSureToRemove." ".$module['name'])." ? ";
+         "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('AreYouSureToRemove')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_) 
-        echo clean_str_for_javascript($langAreYouSureToRemoveSCORM) ;
+        echo clean_str_for_javascript(get_lang('AreYouSureToRemoveSCORM')) ;
     elseif ( $module['contentType'] == CTLABEL_ )
-        echo clean_str_for_javascript($langAreYouSureToRemoveLabel);
+        echo clean_str_for_javascript(get_lang('AreYouSureToRemoveLabel'));
     else
-        echo clean_str_for_javascript($langAreYouSureToRemoveStd);
+        echo clean_str_for_javascript(get_lang('AreYouSureToRemoveStd'));
 
     echo   "');\"
-    ><img src=\"".$imgRepositoryWeb."delete.gif\" border=0 alt=\"".$langRemove."\"></a>
+    ><img src=\"".$imgRepositoryWeb."delete.gif\" border=0 alt=\"".get_lang('Remove')."\"></a>
        </td>";
 
     // LOCK
@@ -594,13 +594,13 @@ foreach ($flatElementList as $module)
     elseif ( $module['lock'] == 'OPEN')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"$langBlock\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"get_lang('Block')\" border=0>".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"$langAltMakeNotBlocking\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"get_lang('AltMakeNotBlocking')\" border=0>".
              "</a>";
     }
     echo "</td>";
@@ -611,21 +611,21 @@ foreach ($flatElementList as $module)
     if ( $module['visibility'] == 'HIDE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\">".
+             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"get_lang('AltMakeVisible')\" border=\"0\">".
              "</a>";
     }
     else
     {
         if( $module['lock'] == 'CLOSE' )
         {
-            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript($langAlertBlockingMakedInvisible)."');\"";
+            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('AlertBlockingMakedInvisible'))."');\"";
         }
         else
         {
             $onclick = "";
         }
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-             "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"$langMakeInvisible\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"get_lang('MakeInvisible')\" border=0>".
              "</a>";
     }
 
@@ -635,7 +635,7 @@ foreach ($flatElementList as $module)
     // DISPLAY CATEGORY MOVE COMMAND 
     echo "<td>".
          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-         "<img src=\"".$imgRepositoryWeb."move.gif\" alt=\"$langAltMove\" border=0>".
+         "<img src=\"".$imgRepositoryWeb."move.gif\" alt=\"get_lang('AltMove')\" border=0>".
          "</a>".
          "</td>";
 
@@ -644,7 +644,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"$langAltMoveUp\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"get_lang('AltMoveUp')\" border=0>".
              "</a>".
              "</td>";
     }
@@ -658,7 +658,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"$langMoveDown\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"get_lang('MoveDown')\" border=0>".
              "</a>".
              "</td>";
     }
@@ -678,7 +678,7 @@ echo "<tfoot>";
 
 if ($atleastOne == false)
 {
-    echo "<tr><td align=\"center\" colspan=\"7\">".$langNoModule."</td></tr>";
+    echo "<tr><td align=\"center\" colspan=\"7\">".get_lang('NoModule')."</td></tr>";
 }
 
 echo "</tfoot>";

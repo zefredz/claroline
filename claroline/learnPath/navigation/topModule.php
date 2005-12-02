@@ -25,16 +25,16 @@
 
   require '../../inc/claro_init_global.inc.php';
 
-  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> $langLearningPathList);
+  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('LearningPathList'));
   if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
   {
-       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> $langLearningPathAdmin);
+       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
   }
   else
   {
-       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> $langLearningPath);
+       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('LearningPath'));
   }
-  $interbredcrump[]= array ("url"=>"../module.php", "name"=> $langModule);
+  $interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
   //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
   //header
   $hide_body = true;

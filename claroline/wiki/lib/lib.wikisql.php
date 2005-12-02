@@ -111,11 +111,9 @@
      */
     function init_wiki_main_page( &$con, $wikiId, $creatorId, $wikiTitle )
     {
-        global $langWikiMainPageContent;
-        
         $tblList = claro_sql_get_course_tbl();
 
-        $mainPageContent = sprintf( $langWikiMainPageContent, $wikiTitle = '' );
+        $mainPageContent = sprintf( get_lang('WikiMainPageContent'), $wikiTitle = '' );
         
         $config = array();
         // use claro functions
@@ -140,7 +138,7 @@
 #     */
 #    function create_sample_wiki( &$con, $creatorId, $groupId = 0 )
 #    {
-#        global $langWikiSampleTitle, $langWikiSampleDescription;
+#        global get_lang('WikiSampleTitle'), get_lang('WikiSampleDescription');
 #        
 #        $config = array();
 #        // use claro functions
@@ -152,8 +150,8 @@
 #        
 #        $wiki = new Wiki( $con, $config );
 #        
-#        $wiki->setTitle( $langWikiSampleTitle );
-#        $wiki->setDescription( $langWikiSampleDescription );
+#        $wiki->setTitle( get_lang('WikiSampleTitle') );
+#        $wiki->setDescription( get_lang('WikiSampleDescription') );
 #        $wiki->setGroupId( $groupId );
 #        
 #        if ( $groupId != 0 )

@@ -175,9 +175,9 @@ $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $u
                     HEADER
 ---------------------------------------------*/
 
-$interbredcrump[]= array ('url' => '../work/work.php', 'name' => $langWork);
+$interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Work'));
 
-$nameTools = $langAssignment;
+$nameTools = get_lang('Assignment');
 // to prevent parameters to be added in the breadcrumb
 $_SERVER['QUERY_STRING'] = 'assigId='.$_REQUEST['assigId']; 
 
@@ -197,7 +197,7 @@ echo claro_disp_tool_title($pageTitle);
   
 // end date
 echo '<p>' . "\n"
-.    '<b>' . $langEndDate . '</b><br />' . "\n"
+.    '<b>' . get_lang('EndDate') . '</b><br />' . "\n"
 .    claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date'])
 .    '</p>' . "\n"
 ;    
@@ -205,7 +205,7 @@ echo '<p>' . "\n"
 if( !empty($assignment['description']) )
 {
     echo '<div>' . "\n"
-    .    '<b>' . $langAssignmentDescription . '</b>'
+    .    '<b>' . get_lang('AssignmentDescription') . '</b>'
     .    '<br />'
     .    claro_parse_user_text($assignment['description'])
     .    '</div>' . "\n"
@@ -254,7 +254,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
 {
     echo '<fieldset>' . "\n"
     .    '<legend>'
-    .    '<b>' . $langFeedback . '</b>'
+    .    '<b>' . get_lang('Feedback') . '</b>'
     .    '</legend>'
     ;
 
@@ -410,7 +410,7 @@ if ( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
     .    '?authId=' . $_uid 
     .    '&amp;cmd=rqSubWrk'
     .    '&amp;assigId=' . $_REQUEST['assigId'] . '">'
-    .    $langSubmitWork
+    .    get_lang('SubmitWork')
     .    '</a>' . "\n"
     ;
     
@@ -422,7 +422,7 @@ if ( $is_allowedToEditAll )
     echo '<a class="claroCmd" href="feedback.php'
     .    '?cmd=rqEditFeedback'
     .    '&amp;assigId=' . $assignment['id'] . '">'
-    .    $langEditFeedback
+    .    get_lang('EditFeedback')
     .    '</a>' . "\n"
     ;
 }
@@ -434,10 +434,10 @@ $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assi
 echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
-.    '<th>' . $langWrkAuthors . '</th>' . "\n"
-.    '<th>' . $langFirstSubmission . '</th>' . "\n"
-.    '<th>' . $langSubmissions . '</th>' . "\n"
-.    '<th>' . $langFeedbacks . '</th>' . "\n"
+.    '<th>' . get_lang('WrkAuthors') . '</th>' . "\n"
+.    '<th>' . get_lang('FirstSubmission') . '</th>' . "\n"
+.    '<th>' . get_lang('Submissions') . '</th>' . "\n"
+.    '<th>' . get_lang('Feedbacks') . '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>'

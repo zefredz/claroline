@@ -17,7 +17,7 @@
     
     require '../inc/claro_init_global.inc.php';
 
-    $nameTools = $langWiki;
+    $nameTools = get_lang('Wiki');
     $hide_banner=TRUE;
     
     $htmlHeadXtra[] =
@@ -29,18 +29,18 @@
     
     $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
     
-    echo '<center><a href="#" onclick="window.close()">'.$langCloseWindow.'</a></center>' . "\n";
+    echo '<center><a href="#" onclick="window.close()">'.get_lang('CloseWindow').'</a></center>' . "\n";
     
     switch( $help )
     {
         case 'syntax':
         {
-            echo $langWikiHelpSyntaxContent;
+            echo get_lang('WikiHelpSyntaxContent');
             break;
         }
         case 'admin':
         {
-            echo $langWikiHelpAdminContent;
+            echo get_lang('WikiHelpAdminContent');
             break;
         }
         default:
@@ -49,7 +49,7 @@
         }
     }
     
-    echo '<center><a href="#" onclick="window.close()">'.$langCloseWindow.'</a></center>' . "\n";
+    echo '<center><a href="#" onclick="window.close()">'.get_lang('CloseWindow').'</a></center>' . "\n";
     
     $hide_footer = true;
     require_once $includePath."/claro_init_footer.inc.php";

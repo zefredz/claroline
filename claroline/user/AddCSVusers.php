@@ -37,13 +37,13 @@ switch ($AddType)
     case 'adminTool' :
     case 'adminClassTool' :
         if ( ! $_uid ) claro_disp_auth_form();
-        if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+        if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
     break;
 
     case 'userTool' :
     default :
         if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-        if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+        if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
         $AddType = 'userTool' ;
     break;
 }
@@ -96,7 +96,7 @@ elseif (isset($_REQUEST['usedFormat']))
         
     if (!$field_correct)
     {
-        $dialogBox = $langErrorFormatCSV;
+        $dialogBox = get_lang('ErrorFormatCSV');
     }
     else
     {
@@ -157,12 +157,12 @@ switch ($cmd)
     if ( $_FILES['CSVfile']['size'] == 0 )
     {
         $display   = 'default';
-        $dialogBox = $langMustSelectAFile;
+        $dialogBox = get_lang('MustSelectAFile');
     }
     elseif (!in_array($_FILES["CSVfile"]['type'],$mimetypes) && (strpos($_FILES["CSVfile"]['type'],"text")===FALSE) )
     {
         $display   = 'default';
-        $dialogBox = $langMustSelectATxtFile;
+        $dialogBox = get_lang('MustSelectATxtFile');
     }
     else
     {
@@ -276,22 +276,22 @@ switch ($AddType)
 {
     case 'adminTool':
         $noQUERY_STRING   = true;
-        $nameTools        = $langAddCSVUsers;
-        $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
+        $nameTools        = get_lang('AddCSVUsers');
+        $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
     break;
         
     case 'adminClassTool':
         $noQUERY_STRING      = true;
-        $nameTools           = $langAddCSVUsersInClass;
-        $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
-    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> $langClass);
-    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> $langClassMembers);
+        $nameTools           = get_lang('AddCSVUsersInClass');
+        $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
+    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Class'));
+    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> get_lang('ClassMembers'));
     break;
         
     case 'userTool':
         $noQUERY_STRING   = true;
-        $nameTools        = $langAddCSVUsersInCourse;
-        $interbredcrump[] = array ('url'=>'user.php', 'name'=> $langUsers);
+        $nameTools        = get_lang('AddCSVUsersInCourse');
+        $interbredcrump[] = array ('url'=>'user.php', 'name'=> get_lang('Users'));
     break;
 }
 
@@ -318,30 +318,30 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==",")  $coma_selected_sep     = "selected"; else $coma_selected_sep = "";
 	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=="")   $blank_selected_sep    = "selected"; else $blank_selected_sep = "";
 	
-	$dialogBox = $langModifyFormat .' :<br><br>'
-    .            $langTheFields . ' <b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> ' . $langAreCompulsory . '<br><br>'
+	$dialogBox = get_lang('ModifyFormat') .' :<br><br>'
+    .            get_lang('TheFields') . ' <b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> ' . get_lang('AreCompulsory') . '<br><br>'
     .          '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .          '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55"><br /><br />'
-    .            '<label for="fieldSeparator">' .  $langFieldSeparatorUsed . ' </label>:' 
+    .            '<label for="fieldSeparator">' .  get_lang('FieldSeparatorUsed') . ' </label>:' 
     
     .            '<select name="fieldSeparator" id="fieldSeparator">'
     .            '  <option value=";"  '.$dot_coma_selected_sep.'>;</option>'
     .            '  <option value=","  '.$coma_selected_sep.'    >,</option>'
-    .            '  <option value=" "  '.$blank_selected_sep.'   >' . $langBlankSpace . ' </option>'      
+    .            '  <option value=" "  '.$blank_selected_sep.'   >' . get_lang('BlankSpace') . ' </option>'      
     .            '</select>'  
     .' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     .            '<label for="enclosedBy">'
-    .            '  ' . $lang_fields_enclosed_by .' :'
+    .            '  ' . get_lang('_fields_enclosed_by') .' :'
     .            '</label>'
     
     .            '<select name="enclosedBy" id="enclosedBy">'
-    .            ' <option value=""        '.$blank_selected.'>' . $langNone . ' </option>'
+    .            ' <option value=""        '.$blank_selected.'>' . get_lang('None') . ' </option>'
     .            ' <option value="dbquote" '.$dbquote_selected.'>"</option>'
     .            ' <option value=","       '.$coma_selected.'>,</option>'
     .            ' <option value="."       '.$dot_selected.'>.</option>'      
     .            '</select><br />'
-    .            '<input type="submit" value="' . $langOk . '"'
+    .            '<input type="submit" value="' . get_lang('Ok') . '"'
     .          '</form>'
     ;
     
@@ -380,20 +380,20 @@ case 'default' :
     
     $_SESSION['claro_CSV_done'] = FALSE;
     
-    echo $langSpecifyFormat;
+    echo get_lang('SpecifyFormat');
     ?> 
     : 
     <br><br>
 <form enctype="multipart/form-data"  method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>"> 
-  <input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES"> <label for="firstLineFormat_YES"><?php echo $langUseFormatDefined; ?></label><br><br>
-  <input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO"> <label for="firstLineFormat_NO"><?php echo $langUseFollowingFormat; ?></label><br><br>
+  <input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES"> <label for="firstLineFormat_YES"><?php echo get_lang('UseFormatDefined'); ?></label><br><br>
+  <input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO"> <label for="firstLineFormat_NO"><?php echo get_lang('UseFollowingFormat'); ?></label><br><br>
     <b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $usedFormat; ?><br><br>
     </b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;loadDefault=yes&amp;AddType=' . $AddType ; ?>"><?php echo $langLoadDefaultFormat; ?></a>] 
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;loadDefault=yes&amp;AddType=' . $AddType ; ?>"><?php echo get_lang('LoadDefaultFormat'); ?></a>] 
     | 
-    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes&amp;AddType=' . $AddType; ?>"><?php echo $langEditFormat; ?></a>]<br><br>
+    [<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] . '?display=default&amp;chformat=yes&amp;AddType=' . $AddType; ?>"><?php echo get_lang('EditFormat'); ?></a>]<br><br>
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  
@@ -401,10 +401,10 @@ case 'default' :
     <input type="hidden" name="enclosedBy" value="<?php echo $_SESSION['CSV_enclosedBy']; ?>" > 
     <input type="hidden" name="AddType" value="<?php echo $AddType; ?>" > 
     <br>
-    <?php echo $langFileForCSVUpload; ?><input type="file" name="CSVfile">
+    <?php echo get_lang('FileForCSVUpload'); ?><input type="file" name="CSVfile">
     <br><br>
-    <input type="submit" name="submitCSV" value="<?php echo $lang_add_user_list; ?>">
-    <?php echo claro_disp_button($backButtonUrl,$langCancel); ?>
+    <input type="submit" name="submitCSV" value="<?php echo get_lang('_add_user_list'); ?>">
+    <?php echo claro_disp_button($backButtonUrl,get_lang('Cancel')); ?>
     <input type="hidden" name="cmd" value="exImp">
 </form>
 
@@ -425,7 +425,7 @@ case "stepone" :
         !(count($_SESSION['claro_username_duplicate_error'])==0) ||
         !(count($_SESSION['claro_officialcode_duplicate_error'])==0))
     {
-        echo '<b>' . $lang_the_following_errors_were_found . ' :</b><br><br>' . "\n";
+        echo '<b>' . get_lang('_the_following_errors_were_found') . ' :</b><br><br>' . "\n";
                       
         //display errors encountered while trying to add users
         
@@ -435,7 +435,7 @@ case "stepone" :
     }
     else 
     {
-        echo $lang_no_error_in_file_found."<br>";
+        echo get_lang('_no_error_in_file_found')."<br>";
 
         $noerror = TRUE;
     }
@@ -444,24 +444,24 @@ case "stepone" :
     if (!(isset($_SESSION['claro_invalid_format_error'])) || ($_SESSION['claro_invalid_format_error'] == false))
     {        
         echo '<br>'
-        .    $lang_do_you_want_to_continue
+        .    get_lang('_do_you_want_to_continue')
         .    '<br>'
         ;
         if (!$noerror) 
         {
-            echo '(' . $lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored . ')<br>';
+            echo '(' . get_lang('_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored') . ')<br>';
         }
         echo '<br>'
         .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
         .    '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
-        .   '<input type="submit" value="' . $langContinue .'" >' . "\n"
-        .   claro_disp_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), $langCancel)
+        .   '<input type="submit" value="' . get_lang('Continue') .'" >' . "\n"
+        .   claro_disp_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
         .   '</form>' . "\n";
         
     }
     else
     {
-        echo "<br>".claro_disp_button($_SERVER['PHP_SELF'], $langCancel)."<br>";
+        echo "<br>".claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."<br>";
     }
 
     
@@ -471,7 +471,7 @@ case "stepone" :
 
 case "steptwo" :
     
-    echo "<b>". sizeof($usersToAdd) . " $langNewUsersIn </b> <br><br>";
+    echo "<b>". sizeof($usersToAdd) . " get_lang('NewUsersIn') </b> <br><br>";
 
     foreach ($usersToAdd as $user)
     {
@@ -481,15 +481,15 @@ case "steptwo" :
        switch ($AddType)
        {
           case "adminTool":
-              echo $user['firstname']." ".$user['lastname']." $langAddedToCampus <br>";
+              echo $user['firstname']." ".$user['lastname']." get_lang('AddedToCampus') <br>";
           break;
         
           case "adminClassTool":
-              echo $user['firstname']." ".$user['lastname']." $langAddedToCampusAndClass <br>";
+              echo $user['firstname']." ".$user['lastname']." get_lang('AddedToCampusAndClass') <br>";
           break;
         
           case "userTool":
-              echo $user['firstname']." ".$user['lastname']." $langAddedToCampusAndCourse <br>";
+              echo $user['firstname']." ".$user['lastname']." get_lang('AddedToCampusAndCourse') <br>";
           break;
        } 
     }
@@ -499,15 +499,15 @@ case "steptwo" :
    switch ($AddType)
    {
       case "adminTool":
-          echo "<br><a href=\"../admin/adminusers.php\">&gt;&gt; $langCSVSeeUserList</a>";
+          echo "<br><a href=\"../admin/adminusers.php\">&gt;&gt; get_lang('CSVSeeUserList')</a>";
       break;
         
       case "adminClassTool":
-          echo "<br><a href=\"../admin/admin_class.php\">&gt;&gt; $langBackToClassList</a>";
+          echo "<br><a href=\"../admin/admin_class.php\">&gt;&gt; get_lang('BackToClassList')</a>";
       break;
       
       case "userTool":
-          echo "<br><a href=\"user.php\">&gt;&gt; $langBackToUserList</a>";
+          echo "<br><a href=\"user.php\">&gt;&gt; get_lang('BackToUserList')</a>";
       break;
   }
     break;

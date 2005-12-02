@@ -77,7 +77,7 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
    	)
 	{
         include ($includePath.'/claro_init_header.inc.php');
-		echo '<br />'.claro_disp_message_box($langExerciseNotFound).'<br />';
+		echo '<br />'.claro_disp_message_box(get_lang('ExerciseNotFound')).'<br />';
         include ($includePath.'/claro_init_footer.inc.php');
         die(); 
 	}
@@ -229,7 +229,7 @@ if ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 }
 else
 {
-  $interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
+  $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
 }
 include($includePath.'/claro_init_header.inc.php');
 
@@ -243,16 +243,16 @@ $showExerciseForm = true;
 
 if($exerciseType == 2) 
 { 
-	$statusMsg .= $langCurrentTime." : ".(time() - $_SESSION['exeStartTime']);
+	$statusMsg .= get_lang('CurrentTime')." : ".(time() - $_SESSION['exeStartTime']);
 }
 
 if($exerciseMaxTime != 0)
 {
-  $statusMsg .= " ".$langMaxAllowedTime." : ".claro_disp_duration($exerciseMaxTime);
+  $statusMsg .= " ".get_lang('MaxAllowedTime')." : ".claro_disp_duration($exerciseMaxTime);
 }
 else
 {
-  $statusMsg .= " ".$langNoTimeLimit;
+  $statusMsg .= " ".get_lang('NoTimeLimit');
 }
 	
 // MAX ALLOWED ATTEMPTS
@@ -261,14 +261,14 @@ else
 // do not show attempts for anonymous user
 if( isset($_uid) )
 {
-  $statusMsg .= "<br />".$langAttempt." ".$userTryQty." ";
+  $statusMsg .= "<br />".get_lang('Attempt')." ".$userTryQty." ";
   if( $exerciseMaxAttempt )
   {
-    $statusMsg .= $langOn." ".$exerciseMaxAttempt;
+    $statusMsg .= get_lang('On')." ".$exerciseMaxAttempt;
     if( $userTryQty > $exerciseMaxAttempt )
     {
         $showExerciseForm = false;
-        $errMsg .=  "<br/>".$langNoMoreAttemptsAvailable;
+        $errMsg .=  "<br/>".get_lang('NoMoreAttemptsAvailable');
     }
   }
 }
@@ -277,30 +277,30 @@ if( isset($_uid) )
 $mktimeNow      = mktime();
 $timeStartDate  = $_SESSION['objExercise']->get_start_date('timestamp');
 
-$statusMsg  .= "<br />".$langAvailableFrom." "
+$statusMsg  .= "<br />".get_lang('AvailableFrom')." "
                     .claro_disp_localised_date($dateTimeFormatLong,$timeStartDate);
 
 if($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59")
 {
     $timeEndDate    = $_SESSION['objExercise']->get_end_date('timestamp');
-    $statusMsg   .= " ".$langUntil." "
+    $statusMsg   .= " ".get_lang('Until')." "
                         .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
 }
                       
 if( $timeStartDate > $mktimeNow )
 {
     $showExerciseForm = false;
-    $errMsg .= "<br />".$langExerciseNotAvailable;
+    $errMsg .= "<br />".get_lang('ExerciseNotAvailable');
 }
 elseif( ($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59") && ($timeEndDate < $mktimeNow) )
 {
     $showExerciseForm = false;
-    $errMsg .= "<br />".$langExerciseNoMoreAvailable;
+    $errMsg .= "<br />".get_lang('ExerciseNoMoreAvailable');
 }
 
 // concat errmsg to status msg before displaying it
 $statusMsg .= "<br /><b>".$errMsg."</b>";
-echo claro_disp_tool_title($langExercise." : ".$exerciseTitle);
+echo claro_disp_tool_title(get_lang('Exercise')." : ".$exerciseTitle);
 
 if( $showExerciseForm || $is_allowedToEdit )
 {
@@ -314,7 +314,7 @@ if( $showExerciseForm || $is_allowedToEdit )
 <?php
 	if( $is_allowedToEdit && ( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) )
 	{
-		echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.$langModifyExercise.'</a>';
+		echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.get_lang('ModifyExercise').'</a>';
 	}	
 ?>
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -359,7 +359,7 @@ if( $showExerciseForm || $is_allowedToEdit )
 				// destruction of the Question object
 				unset($objQuestionTmp);
 
-				echo '<tr><td>'.$langAlreadyAnswered.' &quot;'.$questionName.'&quot;</td></tr>';
+				echo '<tr><td>'.get_lang('AlreadyAnswered').' &quot;'.$questionName.'&quot;</td></tr>';
 
 				break;
 			}
@@ -369,7 +369,7 @@ if( $showExerciseForm || $is_allowedToEdit )
   <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
     <tr class="headerX">
       <th valign="top" colspan="2">
-      <?php echo $langQuestion; ?> <?php echo $i; if($exerciseType == 2) echo ' / '.$nbrQuestions; ?>
+      <?php echo get_lang('Question'); ?> <?php echo $i; if($exerciseType == 2) echo ' / '.$nbrQuestions; ?>
       </th>
     </tr>
    <tfoot>
@@ -393,7 +393,7 @@ if( $showExerciseForm || $is_allowedToEdit )
   </tr>
   <tr>
     <td align="center"><br />
-    <input type="submit" value="<?php echo ($exerciseType == 1 || $nbrQuestions == $questionNum )?$langOk:$langNext.' &gt;'; ?>">
+    <input type="submit" value="<?php echo ($exerciseType == 1 || $nbrQuestions == $questionNum )?get_lang('Ok'):get_lang('Next').' &gt;'; ?>">
 	</td>
   </tr>
   </form>

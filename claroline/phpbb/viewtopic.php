@@ -87,7 +87,7 @@ if ($topicSettingList)
         && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
     {   
         $allowed = FALSE;
-        $error_message = $langNotAllowed;
+        $error_message = get_lang('NotAllowed');
 	}
     else
     {
@@ -127,9 +127,9 @@ if ($topicSettingList)
             if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
             {
                 $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
-                                    . $l_notify
+                                    . get_lang('notify')
                                     . ' [<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exdoNotNotify">'
-                                    .$langDisable
+                                    .get_lang('Disable')
                                     . '</a>]';
             }
             else   //display link to be notified for this topic
@@ -137,7 +137,7 @@ if ($topicSettingList)
                 $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
                                     . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
                                     . '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> '
-                                    . $l_notify 
+                                    . get_lang('notify') 
                                     . '</a>';
             }
         
@@ -150,7 +150,7 @@ else
 {
     // forum or topic doesn't exist
     $allowed = false;
-    $error_message = $langNotAllowed;
+    $error_message = get_lang('NotAllowed');
 }
 
 if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
@@ -164,7 +164,7 @@ $htmlHeadXtra[] =
           "<script type=\"text/javascript\">
            function confirm_delete()
            {
-               if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . " ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDelete')) . " ?'))
                {return true;}
                else
                {return false;}
@@ -174,11 +174,11 @@ $htmlHeadXtra[] =
 if (    $forum_cat_id == GROUP_FORUMS_CATEGORY
     && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
+    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
     $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
 }
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
@@ -193,13 +193,13 @@ else
 	  Display Forum Header
 	 -----------------------------------------------------------------*/
 	
-	$pagetitle = $l_topictitle;
+	$pagetitle = get_lang('topictitle');
 	$pagetype  = 'viewtopic';
 	
 	$is_allowedToEdit = claro_is_allowed_to_edit() 
 	                    || ( $is_groupTutor && !$is_courseAdmin);
 	
-	echo claro_disp_tool_title($langForums, 
+	echo claro_disp_tool_title(get_lang('Forums'), 
 	                      $is_allowedToEdit ? 'help_forum.php' : false);
 		
     if ($forum_post_allowed)
@@ -244,8 +244,8 @@ else
 	
 	        .'  <th class="headerX">' . "\n"
 	        .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
-	        . $l_author . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-	        .'<small>' . $l_posted . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
+	        . get_lang('author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+	        .'<small>' . get_lang('posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
 	        .'  </th>' . "\n"
 	
 	        .' </tr>'. "\n"
@@ -260,12 +260,12 @@ else
 	        echo '<p>' . "\n"
 	
 	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . $langEdit . '" />'
+	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
 	            . '</a>' . "\n"
 	
 	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
             	. 'onClick="return confirm_delete();" >'
-	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '" />'
+	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
 	            . '</a>' . "\n"
 	
 	            . '</p>' . "\n";

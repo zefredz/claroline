@@ -29,7 +29,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(TRUE);
-$nameTools = $langCourseProgram;
+$nameTools = get_lang('CourseProgram');
 
 $noQUERY_STRING = TRUE; // to remove parameters in the last breadcrumb link
 
@@ -67,11 +67,11 @@ if ( $is_allowedToEdit )
         if ( course_description_set_item($descId, $descTitle, $descContent) != false )
         {
             $eventNotifier->notifyCourseEvent('course_description_modified', $_cid, $_tid, $descId, $_gid, '0');
-            $dialogBox .= '<p>' . $langDescUpdated . '</p>';
+            $dialogBox .= '<p>' . get_lang('DescUpdated') . '</p>';
         }
         else
         {
-            $dialogBox .= '<p>' . $langDescUnableToUpdate . '</p>';
+            $dialogBox .= '<p>' . get_lang('DescUnableToUpdate') . '</p>';
         }
     }
 
@@ -79,7 +79,7 @@ if ( $is_allowedToEdit )
     {
         // Add new description
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
-        $dialogBox .= '<p>' . ($descId !== false ? $langDescAdded : $langUnableDescToAdd ) . '</p>';
+        $dialogBox .= '<p>' . ($descId !== false ? get_lang('DescAdded') : get_lang('UnableDescToAdd') ) . '</p>';
 
         $eventNotifier->notifyCourseEvent('course_description_added',$_cid, $_tid, $descId, $_gid, 0);
 
@@ -144,11 +144,11 @@ if ( $is_allowedToEdit )
         if ( course_description_delete_item($descId) )
         {
             $eventNotifier->notifyCourseEvent('course_description_deleted',$_cid, $_tid, $descId, $_gid, '0');
-            $dialogBox .= '<p>' . $langDescDeleted . '</p>';
+            $dialogBox .= '<p>' . get_lang('DescDeleted') . '</p>';
         }
         else
         {
-            $dialogBox .= '<p>' . $langDescUnableToDelete . '</p>';
+            $dialogBox .= '<p>' . get_lang('DescUnableToDelete') . '</p>';
         }
     }
 
@@ -162,7 +162,7 @@ if ( $is_allowedToEdit )
     {
         if ( course_description_visibility_item($descId , $cmd) )
         {
-            $dialogBox .= '<p>' . $langViMod. '</p>';
+            $dialogBox .= '<p>' . get_lang('ViMod'). '</p>';
         }
 
         //notify that an item is now visible
@@ -214,13 +214,13 @@ if ( $is_allowedToEdit )
         .    '<input type="hidden" name="cmd" value="' . ($descItem['content'] ? 'exEdit' : 'exAdd' ). '">'
         .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
         .    (isset($descItem['id']) ? '<input type="hidden" name="id" value="' . $descItem['id'] . '">' : '' )
-        .    '<p><label for="descTitle"><b>' . $langTitle . ' : </b></label><br /></p>' . "\n"
+        .    '<p><label for="descTitle"><b>' . get_lang('Title') . ' : </b></label><br /></p>' . "\n"
         .    ( $descNotEditable==true ? htmlspecialchars($descPresetTitle) . '<input type="hidden" name="descTitle" value="'. htmlspecialchars($descPresetTitle) .'">' : '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($descItem['title']) . '">' . "\n")
-        .    '<p><label for="descContent"><b>'.$langContent.' : </b></label><br /></td></tr><tr><td>'."\n"
+        .    '<p><label for="descContent"><b>'.get_lang('Content').' : </b></label><br /></td></tr><tr><td>'."\n"
         .    claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
-        .    '<input type="submit" name="save" value="' . $langOk . '" />' . "\n"
-        .    claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+        .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />' . "\n"
+        .    claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</form>' . "\n"
         .    '</td>'  . "\n"
 
@@ -229,14 +229,14 @@ if ( $is_allowedToEdit )
 
         if ( $descPresetQuestion )
         {
-            echo '<h4>' . $langQuestionPlan . '</h4>' . "\n"
+            echo '<h4>' . get_lang('QuestionPlan') . '</h4>' . "\n"
             .    '<p>' . $descPresetQuestion . '</p>' . "\n"
             ;
         }
 
         if ($descPresetTip)
         {
-            echo '<h4>' . $langInfo2Say . '</h4>' . "\n"
+            echo '<h4>' . get_lang('Info2Say') . '</h4>' . "\n"
             .    '<p>' . $descPresetTip . '</p>' . "\n"
             ;
         }
@@ -277,9 +277,9 @@ if ( $is_allowedToEdit )
             }
         }
 
-        echo '<option value="-1">' . $langNewBloc . '</option>' . "\n"
+        echo '<option value="-1">' . get_lang('NewBloc') . '</option>' . "\n"
         .    '</select>' . "\n"
-        .    '<input type="submit" name="add" value="' . $langAdd . '">' . "\n"
+        .    '<input type="submit" name="add" value="' . get_lang('Add') . '">' . "\n"
         .    '</form>' . "\n\n"
         ;
     }
@@ -344,25 +344,25 @@ if ( count($descList) )
         if ( $is_allowedToEdit )
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb.'edit.gif" alt="' . $langModify . '">'
+            .    '<img src="' . $imgRepositoryWeb.'edit.gif" alt="' . get_lang('Modify') . '">'
             .    '</a>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
-            .    ' onClick="if(!confirm(\'' . clean_str_for_javascript($langAreYouSureToDelete)
+            .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete'))
             .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.$langDelete.'" />'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.get_lang('Delete').'" />'
             .    '</a>' . "\n"
             ;
             if ($thisDesc['visibility'] == 'SHOW')
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . $langInvisible . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . $langVisible . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -377,7 +377,7 @@ if ( count($descList) )
 
 if( !$hasDisplayedItems )
 {
-    echo "\n" . '<p>' . $langThisCourseDescriptionIsEmpty . '</p>' . "\n";
+    echo "\n" . '<p>' . get_lang('ThisCourseDescriptionIsEmpty') . '</p>' . "\n";
 }
 
 include $includePath . '/claro_init_footer.inc.php';

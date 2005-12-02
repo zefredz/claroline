@@ -29,16 +29,15 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 include($includePath.'/lib/debug.lib.inc.php');
 include($includePath.'/lib/course.lib.inc.php');
 include($includePath.'/lib/config.lib.inc.php');
 
 // define
-$langConfiguration          = 'Configuration';
-$nameTools          = $langConfiguration;
-$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$nameTools          = get_lang('Configuration');
+$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $noQUERY_STRING     = TRUE;
 
 /* ************************************************************************** */

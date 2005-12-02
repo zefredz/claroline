@@ -27,7 +27,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 include($includePath . '/lib/admin.lib.inc.php');
 include($includePath . '/lib/user.lib.php');
@@ -78,11 +78,11 @@ switch ($cmd)
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
-                $dialogBox = $langUserIsNowCourseManager;
+                $dialogBox = get_lang('UserIsNowCourseManager');
             }
             else
             {
-                $dialogBox = $langStatusChangeNotMade;
+                $dialogBox = get_lang('StatusChangeNotMade');
             }
         }
         elseif ( $_REQUEST['status_form'] == 'student' )
@@ -93,11 +93,11 @@ switch ($cmd)
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
-                $dialogBox = $langUserIsNowStudent;
+                $dialogBox = get_lang('UserIsNowStudent');
             }
             else
             {
-                $dialogBox = $langStatusChangeNotMade;
+                $dialogBox = get_lang('StatusChangeNotMade');
             }
         }
     }
@@ -161,16 +161,16 @@ if(isset($user_id))
 // PREPARE DISPLAY
 //------------------------------------
 
-$nameTools=$langModifUserCourseSettings;
+$nameTools=get_lang('ModifUserCourseSettings');
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration
 $htmlHeadXtra[] =
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -197,10 +197,10 @@ include($includePath . '/claro_init_header.inc.php');
 // Display tool title
 
 echo claro_disp_tool_title( array( 'mainTitle' =>$nameTools
-                                 , 'subTitle' => $langCourse . ' : ' 
+                                 , 'subTitle' => get_lang('Course') . ' : ' 
                                               .  $courseData['name'] 
                                               .  '<br />' 
-                                              .  $langUser . ' : ' 
+                                              .  get_lang('User') . ' : ' 
                                               .  $prenom_form 
                                               .  ' ' 
                                               .  $nom_form
@@ -218,15 +218,15 @@ if(isset($dialogBox))
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <table width="100%" >
 <tr>
-<td><?php echo $langUserStatus?> : </td>
+<td><?php echo get_lang('UserStatus')?> : </td>
 <td>
 <input type="radio" name="status_form" value="student" id="status_form_student" <?php if ($isStudent) { echo "checked"; }?> >
-<label for="status_form_student"><?php echo $langStudent?></label>
+<label for="status_form_student"><?php echo get_lang('Student')?></label>
 <input type="radio" name="status_form" value="teacher" id="status_form_teacher" <?php if ($isCourseManager) { echo "checked"; }?> >
-<label for="status_form_teacher"><?php echo $langCourseManager?></label>
+<label for="status_form_teacher"><?php echo get_lang('CourseManager')?></label>
 <input type="hidden" name="uidToEdit" value="<?php echo $user_id?>">
 <input type="hidden" name="cidToEdit" value="<?php echo $cidToEdit?>">
-<input type="submit" name="applyChange" value="<?php echo $langSaveChanges?>">
+<input type="submit" name="applyChange" value="<?php echo get_lang('SaveChanges')?>">
 <input type="hidden" name="cmd" value="changeStatus">
 <input type="hidden" name="cfrom" value="<?php echo $cfrom?>">
 <input type="hidden" name="ccfrom" value="<?php echo $ccfrom?>">
@@ -244,12 +244,12 @@ echo '<a class="claroCmd" href="adminuserunregistered.php'
 .    '&amp;cmd=UnReg'
 .    '&amp;uidToEdit=' . $user_id . '" '
 .    ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript($prenom_form . ' ' . $nom_form) . '\');">' 
-.    $langUnsubscribe
+.    get_lang('Unsubscribe')
 .    '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="adminprofile.php'
 .    '?uidToEdit=' . $uidToEdit . '">' 
-.    $langGoToMainUserSettings 
+.    get_lang('GoToMainUserSettings') 
 .    '</a>'
 ;
 
@@ -260,7 +260,7 @@ if ( $displayBackToCU )//coming from courseuser list
     echo ' | <a class="claroCmd" href="admincourseusers.php'
     .    '?cidToEdit=' . $cidToEdit 
     .    '&amp;uidToEdit=' . $uidToEdit . '">' 
-    .    $langBackToList
+    .    get_lang('BackToList')
     .    '</a> '
     ;
 }
@@ -270,7 +270,7 @@ elseif ( $displayBackToUC )//coming from usercourse list
     .    '<a class="claroCmd" href="adminusercourses.php'
     .    '?cidToEdit=' . $cidToEdit
     .    '&amp;uidToEdit=' . $uidToEdit . '">'
-    .    $langBackToList
+    .    get_lang('BackToList')
     .    '</a> '
     ;
 }

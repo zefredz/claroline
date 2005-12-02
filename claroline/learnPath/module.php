@@ -42,17 +42,17 @@ claro_set_display_mode_available(true);
 
 $is_AllowedToEdit = claro_is_allowed_to_edit();    // as teacher
 //-- interbredcrump
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 if ( $is_AllowedToEdit )
 {
-    $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> $langLearningPath);
+    $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPath'));
 }
 else
 {
-    $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> $langLearningPath);
+    $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> get_lang('LearningPath'));
 }
 
-$nameTools = $langModule;
+$nameTools = get_lang('Module');
 
 // tables names
 $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
@@ -96,7 +96,7 @@ $sql = "SELECT `comment`, `startAsset_id`, `contentType`
 
 $module = claro_sql_query_get_single_row($sql);
 
-if( empty($module['comment']) || $module['comment'] == $langDefaultModuleComment )
+if( empty($module['comment']) || $module['comment'] == get_lang('DefaultModuleComment') )
 {
   	$noModuleComment = true;
 }
@@ -123,7 +123,7 @@ $sql = "SELECT `specificComment`
 
 $learnpath_module = claro_sql_query_get_single_row($sql);
 
-if( empty($learnpath_module['specificComment']) || $learnpath_module['specificComment'] == $langDefaultModuleAddedComment )
+if( empty($learnpath_module['specificComment']) || $learnpath_module['specificComment'] == get_lang('DefaultModuleAddedComment') )
 {
 	$noModuleSpecificComment = true;
 }
@@ -230,7 +230,7 @@ else
 	$pathBack = "./learningPath.php";
 }
 
-echo '<small><a href="'.$pathBack.'"><< '.$langBackModule.'</a></small><br /><br />'."\n\n";
+echo '<small><a href="'.$pathBack.'"><< '.get_lang('BackModule').'</a></small><br /><br />'."\n\n";
 
 //####################################################################################\\
 //############################ PROGRESS  AND  START LINK #############################\\
@@ -245,35 +245,35 @@ if($module['contentType'] != CTLABEL_) //
         $contentType_img = selectImage($resultBrowsed['contentType']);
         $contentType_alt = selectAlt($resultBrowsed['contentType']);
 
-        if ($resultBrowsed['contentType']== CTSCORM_   ) { $contentDescType = $langSCORMTypeDesc;    }
-        if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = $langEXERCISETypeDesc; }
-        if ($resultBrowsed['contentType']== CTDOCUMENT_ ) { $contentDescType = $langDOCUMENTTypeDesc; }
+        if ($resultBrowsed['contentType']== CTSCORM_   ) { $contentDescType = get_lang('SCORMTypeDesc');    }
+        if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = get_lang('EXERCISETypeDesc'); }
+        if ($resultBrowsed['contentType']== CTDOCUMENT_ ) { $contentDescType = get_lang('DOCUMENTTypeDesc'); }
 
-		echo '<b>'.$langProgInModuleTitle.'</b><br /><br />'."\n\n"
+		echo '<b>'.get_lang('ProgInModuleTitle').'</b><br /><br />'."\n\n"
 			.'<table align="center" class="claroTable" border="0" cellspacing="2">'."\n"
 			.'<thead>'."\n"
 			.'<tr class="headerX">'."\n"
-			.'<th>'.$langInfoProgNameTitle.'</th>'."\n"
-			.'<th>'.$langPersoValue.'</th>'."\n"
+			.'<th>'.get_lang('InfoProgNameTitle').'</th>'."\n"
+			.'<th>'.get_lang('PersoValue').'</th>'."\n"
 			.'</tr>'."\n"
 			.'</thead>'."\n\n"
 			.'<tbody>'."\n\n";
 
         //display type of the module
 		echo '<tr>'."\n"
-            .'<td>'.$langTypeOfModule.'</td>'."\n"
+            .'<td>'.get_lang('TypeOfModule').'</td>'."\n"
 			.'<td><img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
 			.'</tr>'."\n\n";
 
         //display total time already spent in the module
 		echo '<tr>'."\n"
-			.'<td>'.$langTotalTimeSpent.'</td>'."\n"
+			.'<td>'.get_lang('TotalTimeSpent').'</td>'."\n"
 			.'<td>'.$resultBrowsed['total_time'].'</td>'."\n"
 			.'</tr>'."\n\n";
 
         //display time passed in last session
 		echo '<tr>'."\n"
-			.'<td>'.$langLastSessionTimeSpent.'</td>'."\n"
+			.'<td>'.get_lang('LastSessionTimeSpent').'</td>'."\n"
 			.'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
 			.'</tr>'."\n\n";
 			
@@ -299,7 +299,7 @@ if($module['contentType'] != CTLABEL_) //
         if (($resultBrowsed['contentType'] != CTDOCUMENT_))
         {
 			echo '<tr>'."\n"
-				.'<td>'.$langYourBestScore.'</td>'."\n"
+				.'<td>'.get_lang('YourBestScore').'</td>'."\n"
 				.'<td>'.claro_disp_progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
 				.'</tr>'."\n\n";
         }
@@ -312,11 +312,11 @@ if($module['contentType'] != CTLABEL_) //
         {
             if ($resultBrowsed['lesson_status']=="COMPLETED")
             {
-                $statusToDisplay = $langAlreadyBrowsed;
+                $statusToDisplay = get_lang('AlreadyBrowsed');
             }
             else
             {
-                $statusToDisplay = $langNeverBrowsed;
+                $statusToDisplay = get_lang('NeverBrowsed');
             }
         }
         else
@@ -324,7 +324,7 @@ if($module['contentType'] != CTLABEL_) //
             $statusToDisplay = $resultBrowsed['lesson_status'];
         }
 		echo '<tr>'."\n"
-			.'<td>'.$langLessonStatus.'</td>'."\n"
+			.'<td>'.get_lang('LessonStatus').'</td>'."\n"
 			.'<td>'.$statusToDisplay.'</td>'."\n"
 			.'</tr>'."\n\n"
 			.'</tbody>'."\n\n"
@@ -347,13 +347,13 @@ if($module['contentType'] != CTLABEL_) //
 
 		echo '<center>'."\n"
 			.'<form action="./navigation/viewer.php" method="post">'."\n"
-			.'<input type="submit" value="'.$langStartModule.'" />'."\n"
+			.'<input type="submit" value="'.get_lang('StartModule').'" />'."\n"
 			.'</form>'."\n"
 			.'</center>'."\n\n";
     }
     else
     {
-        echo '<p><center>'.$langNoStartAsset.'</center></p>'."\n";
+        echo '<p><center>'.get_lang('NoStartAsset').'</center></p>'."\n";
     }
 }// end if($module['contentType'] != CTLABEL_) 
 // if module is a label, only allow to change its name.

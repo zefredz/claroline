@@ -162,8 +162,8 @@ if ($intro_dispForm)
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
     .    claro_disp_html_area('intro_content', trim($introContent))
     .	'<br />'."\n"
-    .   '<input class="claroButton" type="submit" value="' . $langOk . '">'."\n"  
-    .   claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+    .   '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '">'."\n"  
+    .   claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
     .   '<br />'."\n"
     .   '</form>'."\n\n"
     ;
@@ -186,7 +186,7 @@ if ($intro_dispDefault)
         .    '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
         .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="" border="0">'
-        .    $langAddIntro
+        .    get_lang('AddIntro')
         .    '</a>' . "\n"
         .    '</p>' . "\n\n"
         ;
@@ -211,9 +211,9 @@ if ($intro_dispDefault)
             {
                 echo '<p>' . "\n"
                 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqEd&introId='.$introId.'">'
-                .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . $langModify . '" border="0">'
+                .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Modify') . '" border="0">'
                 .    '</a>' . "\n"
-                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=exDel&introId='.$introId.'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;"><img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . $langDelete . '" border="0"></a>' . "\n"
+                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=exDel&introId='.$introId.'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('ConfirmYourChoice')).'\')) return false;"><img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0"></a>' . "\n"
                 .    '</p>' . "\n\n"
                 ;
             }

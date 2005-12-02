@@ -85,7 +85,7 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
     {      
           if ($_FILES['prefillDocPath']['size'] > $fileAllowedSize)
           {
-                $dialogBox .= $langTooBig . '<br />';
+                $dialogBox .= get_lang('TooBig') . '<br />';
                 $formCorrectlySent = false;
           }
           else
@@ -132,7 +132,7 @@ if( isset($_REQUEST['submitFeedback']) && isset($_REQUEST['assigId']) && $is_all
 				}
 				else
 				{
-                    $dialogBox .= $langCannotCopyFile . '<br />';
+                    $dialogBox .= get_lang('CannotCopyFile') . '<br />';
                     $formCorrectlySent = false;
                 }
 
@@ -193,9 +193,9 @@ if($is_allowedToEdit)
                 WHERE `id` = ". (int)$_REQUEST['assigId'];
             claro_sql_query($sql);
 
-            $dialogBox .= $langFeedbackEdited . '<br /><br />'
+            $dialogBox .= get_lang('FeedbackEdited') . '<br /><br />'
                        .  '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">' 
-                       . $langBack 
+                       . get_lang('Back') 
                        . '</a>'
                        ;
                        
@@ -255,9 +255,9 @@ if($is_allowedToEdit)
   --------------------------------------------------------------------*/
 
 // bredcrump to return to the list when in a form
-$interbredcrump[]= array ('url' => "./work.php", 'name' => $langWork);
-$interbredcrump[]= array ('url' => "./workList.php?assigId=".$_REQUEST['assigId'], 'name' => $langAssignment);
-$nameTools = $langFeedback;
+$interbredcrump[]= array ('url' => "./work.php", 'name' => get_lang('Work'));
+$interbredcrump[]= array ('url' => "./workList.php?assigId=".$_REQUEST['assigId'], 'name' => get_lang('Assignment'));
+$nameTools = get_lang('Feedback');
 
 
 include($includePath.'/claro_init_header.inc.php');
@@ -286,10 +286,10 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 ?>
     <table cellpadding="5" width="100%">
       <tr>
-        <td valign="top" colspan="2"><p><?php echo $langFeedbackHelp; ?></p></td>
+        <td valign="top" colspan="2"><p><?php echo get_lang('FeedbackHelp'); ?></p></td>
       </tr>
       <tr>
-        <td valign="top"><label for="prefillText"><?php echo $langFeedbackText; ?>&nbsp;:<br /></label></td>
+        <td valign="top"><label for="prefillText"><?php echo get_lang('FeedbackText'); ?>&nbsp;:<br /></label></td>
         <td>
 <?php          
         echo claro_disp_html_area('prefillText', htmlspecialchars($form['prefillText']));
@@ -302,7 +302,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
           $completeFileUrl = $currentCourseRepositoryWeb."work/assig_".$_REQUEST['assigId']."/".$form['currentPrefillDocPath'];
           echo '<tr>' . "\n"
           .    '<td valign="top">'
-          .    $langCurrentFeedbackFile
+          .    get_lang('CurrentFeedbackFile')
           
           // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
           .    '&nbsp;:'
@@ -313,7 +313,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
           .    '<br />'
           .    '<input type="checkBox" name="delFeedbackFile" id="delFeedbackFile">'
           .    '<label for="delFeedbackFile">' 
-          .    $langExplainDeleteFile . ' ' . $langExplainReplaceFile 
+          .    get_lang('ExplainDeleteFile') . ' ' . get_lang('ExplainReplaceFile') 
           .    '</label> '
           .    '</td>'."\n"
           .    '</tr>'
@@ -321,20 +321,20 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     }
 ?>
       <tr>
-        <td valign="top"><label for="prefillDocPath"><?php echo $langFeedbackFile; ?>&nbsp;:<br /></label></td>
+        <td valign="top"><label for="prefillDocPath"><?php echo get_lang('FeedbackFile'); ?>&nbsp;:<br /></label></td>
         <td>
         <input type="file" name="prefillDocPath" id="prefillDocPath" size="30">
         </td>
       </tr>
  
       <tr>
-        <td valign="top"><?php echo $langFeedbackSubmit; ?>&nbsp;:</td>
+        <td valign="top"><?php echo get_lang('FeedbackSubmit'); ?>&nbsp;:</td>
         <td>
         <input type="radio" name="prefillSubmit" id="prefillSubmitEndDate" value="ENDDATE" <?php if($form['prefillSubmit'] == "ENDDATE") echo 'checked="checked"'; ?>>
-          <label for="prefillSubmitEndDate">&nbsp;<?php echo $langSubmitFeedbackAfterEndDate . ' (' . claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']) . ')'; ?></label>
+          <label for="prefillSubmitEndDate">&nbsp;<?php echo get_lang('SubmitFeedbackAfterEndDate') . ' (' . claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']) . ')'; ?></label>
           <br />
         <input type="radio" name="prefillSubmit" id="prefillSubmitAfterPost" value="AFTERPOST" <?php if($form['prefillSubmit'] == "AFTERPOST") echo 'checked="checked"'; ?>>
-          <label for="prefillSubmitAfterPost">&nbsp;<?php echo $langSubmitFeedbackAfterPost; ?></label>
+          <label for="prefillSubmitAfterPost">&nbsp;<?php echo get_lang('SubmitFeedbackAfterPost'); ?></label>
           <br />
         </td>
       </tr>
@@ -342,8 +342,8 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
       <tr>
         <td>&nbsp;</td>
         <td>
-          <input type="submit" name="submitFeedback" value="<?php echo $langOk; ?>">
-<?php echo claro_disp_button($_SERVER['PHP_SELF'], $langCancel); ?>
+          <input type="submit" name="submitFeedback" value="<?php echo get_lang('Ok'); ?>">
+<?php echo claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel')); ?>
         </td>
       </tr>
       </table>

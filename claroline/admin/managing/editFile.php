@@ -25,7 +25,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 include($includePath . '/lib/debug.lib.inc.php');
 
@@ -54,7 +54,7 @@ if ( isset($_REQUEST['modify']) )
             unlink($filePathList[$_REQUEST['file']]);
         }
     }
-    $controlMsg['info'][] = $lang_EditFile_ModifyOk
+    $controlMsg['info'][] = get_lang('_EditFile_ModifyOk')
     .                       ' <br />'
     .                       '<strong>'
     .                       basename($filePathList[$_REQUEST['file']])
@@ -85,7 +85,7 @@ if( isset($_REQUEST['file']) )
         if ( trim( strip_tags( $textContent,'<img>' ) ) == '' )
         $textContent = '<blockquote>'."\n"
         .              '<font color="#808080">- <em>'."\n"
-        .              $langNoContent."\n"
+        .              get_lang('NoContent')."\n"
         .              '</em> -</font><br />'."\n".'</blockquote>'."\n"
         ;
         $subtitle = 'Preview : '.basename($filenameList[$_REQUEST['file']]);
@@ -95,8 +95,8 @@ if( isset($_REQUEST['file']) )
 
 // DISPLAY
 
-$nameTools = $langHomePageTextZone;
-$interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$nameTools = get_lang('HomePageTextZone');
+$interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 include($includePath . '/claro_init_header.inc.php');
 
@@ -117,16 +117,16 @@ if($display==DISP_FILE_LIST
 {
 ?>
 <p>
-<?php echo $langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage ?>
+<?php echo get_lang('Hereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage') ?>
 <br />
-<?php echo $langSeebelowthefilesyoucaneditfromthistool ?>
+<?php echo get_lang('Seebelowthefilesyoucaneditfromthistool') ?>
 </p>
 
 <table cellspacing="2" cellpadding="2" border="0" class="claroTable">
 <tr class="headerX">
-    <th ><?php echo $langFileName ?></th>
-    <th ><?php echo $langEdit ?></th>
-    <th ><?php echo $langPreview ?></th>
+    <th ><?php echo get_lang('FileName') ?></th>
+    <th ><?php echo get_lang('Edit') ?></th>
+    <th ><?php echo get_lang('Preview') ?></th>
 </tr>
 
     <?php
@@ -135,8 +135,8 @@ if($display==DISP_FILE_LIST
     ?>
 <tr>
     <td ><?php echo basename($fileName); ?></td>
-    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEdit ?>" ></a></td>
-    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>preview.gif" border="0" alt="<?php echo $langPreview ?>" ></a></td>
+    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo get_lang('Edit') ?>" ></a></td>
+    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>preview.gif" border="0" alt="<?php echo get_lang('Preview') ?>" ></a></td>
 </tr>
     <?php
     }
@@ -158,8 +158,8 @@ echo claro_disp_html_area('textContent', $textContent);
 ?>
             <br /><br /> &nbsp;&nbsp;
             <input type="hidden" name="file" value="<?php echo htmlspecialchars($_REQUEST['file']); ?>">
-            <input type="submit" class="claroButton" name="modify" value=" <?php echo $langOk; ?>">
-            <?php   echo claro_disp_button($_SERVER['PHP_SELF'], $langCancel); ?>
+            <input type="submit" class="claroButton" name="modify" value=" <?php echo get_lang('Ok'); ?>">
+            <?php   echo claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel')); ?>
         </form>
     <?php
 }

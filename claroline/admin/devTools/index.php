@@ -19,15 +19,14 @@
 
 require '../../inc/claro_init_global.inc.php';
 if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
-$langFillToolCourses = 'Fill tools of a course (lorem ipsum filler)';
 
 $is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form(); 
 
-$nameTools = $langDevTools;
+$nameTools = get_lang('DevTools');
 
-$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
+$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -38,16 +37,16 @@ echo claro_disp_tool_title(
     );
 
 ?>
-<h4><?php echo $langTranslations ?></h4>
+<h4><?php echo get_lang('Translations') ?></h4>
 <ul>
-    <li><a href="../xtra/sdk/translation_index.php"><?php echo $langTranslations ?></a></li>
+    <li><a href="../xtra/sdk/translation_index.php"><?php echo get_lang('Translations') ?></a></li>
 </ul>
-<h4><?php echo $langFilling ?></h4>
+<h4><?php echo get_lang('Filling') ?></h4>
 <ul>
- <li><a href="./fillUser.php"><?php echo $langFillUsers ?></a></li>
- <li><a href="./fillCourses.php"><?php echo $langFillCourses ?></a>(and  subscribe some existing students)</li>
- <li><a href="./fillTree.php"><?php echo $langFillTree ?></a></li>
- <li><a href="./fillToolCourses.php"><?php echo $langFillToolCourses ?></a></li>
+ <li><a href="./fillUser.php"><?php echo get_lang('FillUsers') ?></a></li>
+ <li><a href="./fillCourses.php"><?php echo get_lang('FillCourses') ?></a>(and  subscribe some existing students)</li>
+ <li><a href="./fillTree.php"><?php echo get_lang('FillTree') ?></a></li>
+ <li><a href="./fillToolCourses.php"><?php echo get_lang('FillToolCourses') ?></a></li>
 </ul>
 
 <?php

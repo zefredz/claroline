@@ -72,7 +72,7 @@ $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 // maximum number of exercises on a same page
 $exercisesPerPage = 25;
 
-$nameTools = $langExercices;
+$nameTools = get_lang('Exercices');
 
 /* Asking for an export in IMS/QTI ?
  * We need to take care of it before any content has been sent.
@@ -239,14 +239,14 @@ echo '<p>'."\n";
 // if tracking is enabled && user is not anomymous
 if($is_trackingEnabled && $_uid)
 {
-   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.$langMyResults.'</a>';
+   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.get_lang('MyResults').'</a>';
    if( $is_allowedToEdit ) echo ' | ';
    echo "\n";
 }
 if($is_allowedToEdit)
 {
-	echo '<a class="claroCmd" href="admin.php">'.$langNewEx.'</a> | '."\n"
-		.'<a class="claroCmd" href="question_pool.php">'.$langQuestionPool.'</a>'."\n";
+	echo '<a class="claroCmd" href="admin.php">'.get_lang('NewEx').'</a> | '."\n"
+		.'<a class="claroCmd" href="question_pool.php">'.get_lang('QuestionPool').'</a>'."\n";
 }
 echo '</p>'."\n\n";
 //pager display
@@ -259,18 +259,18 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 <thead>
 <tr class="headerX">
-  <th><?php echo $langExerciseName; ?></th>
+  <th><?php echo get_lang('ExerciseName'); ?></th>
 <?php
 	if($is_allowedToEdit)
 	{
 ?>
-  <th><?php echo $langModify; ?></th>
-  <th><?php echo $langDelete; ?></th>
-  <th><?php echo $langEnable.' / '.$langDisable; ?></th>
+  <th><?php echo get_lang('Modify'); ?></th>
+  <th><?php echo get_lang('Delete'); ?></th>
+  <th><?php echo get_lang('Enable').' / '.get_lang('Disable'); ?></th>
 <?php
 		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
 		{
-  			echo '<th>'.$langExport.'</th>'."\n";
+  			echo '<th>'.get_lang('Export').'</th>'."\n";
 		}
 
 	}
@@ -278,7 +278,7 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
   	if($is_allowedToTrack)
   	{
 ?>
-  <th><?php echo $langTracking; ?></th>
+  <th><?php echo get_lang('Tracking'); ?></th>
 <?php
   	}
 ?>
@@ -297,7 +297,7 @@ if( !is_array($exercisesList) || count($exercisesList) == 0 )
 ?>
 <tbody>
 <tr>
-  <td<?php echo $colspan; ?>><?php echo $langNoEx; ?></td>
+  <td<?php echo $colspan; ?>><?php echo get_lang('NoEx'); ?></td>
 </tr>
 </tbody>
 <?php
@@ -321,10 +321,10 @@ $actionsForDelete[] = array();
 while ($list = mysql_fetch_array($res))
 {
     $exId = $list['thePath'];
-    $toAdd = clean_str_for_javascript($langUsedInSeveralPath." ".$langConfirmDeleteExercise);
+    $toAdd = clean_str_for_javascript(get_lang('UsedInSeveralPath')." ".get_lang('ConfirmDeleteExercise'));
     $actionsForDelete[$exId] = "onclick=\"javascript:if(!confirm('".$toAdd."')) return false;\"";
 }
-$defaultConfirm = "onclick=\"javascript:if(!confirm('".clean_str_for_javascript($langConfirmDeleteExercise)."')) return false;\"";
+$defaultConfirm = "onclick=\"javascript:if(!confirm('".clean_str_for_javascript(get_lang('ConfirmDeleteExercise'))."')) return false;\"";
 
 
 $i = 1;
@@ -363,10 +363,10 @@ foreach( $exercisesList as $exercise )
     <a class="item<?php echo $classItem; ?>" href="exercice_submit.php?exerciseId=<?php echo $exercise['id']; ?>"><?php echo $exercise['titre']; ?></a>
   </td>
   <td align="center">
-  	<a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlspecialchars($langModify); ?>"></a>
+  	<a href="admin.php?exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo htmlspecialchars(get_lang('Modify')); ?>"></a>
   </td>
   <td align="center">
-  	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $exercise['id']; if (isset($actionsForDelete[$exercise['id']])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$exercise['id']])) { echo $actionsForDelete[$exercise['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlspecialchars($langDelete); ?>"></a>
+  	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=delete&amp;exerciseId=<?php echo $exercise['id']; if (isset($actionsForDelete[$exercise['id']])) { echo "&amp;lpmDel=true";}?>" <?php if (isset($actionsForDelete[$exercise['id']])) { echo $actionsForDelete[$exercise['id']];} else {echo $defaultConfirm;} ?>><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo htmlspecialchars(get_lang('Delete')); ?>"></a>
   </td>
 <?php
 		// if active
@@ -374,7 +374,7 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
   <td align="center">
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlspecialchars($langDisable); ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=disable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>visible.gif" border="0" alt="<?php echo htmlspecialchars(get_lang('Disable')); ?>"></a>
   </td>
 <?php
 		}
@@ -383,7 +383,7 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
   <td align="center">
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlspecialchars($langEnable); ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?choice=enable&amp;offset=<?php echo $offset; ?>&amp;exerciseId=<?php echo $exercise['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>invisible.gif" border="0" alt="<?php echo htmlspecialchars(get_lang('Enable')); ?>"></a>
   </td>
 <?php
 		}
@@ -392,7 +392,7 @@ foreach( $exercisesList as $exercise )
 		{
 ?>
   <td align="center">
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0" alt="<?php echo $langExport; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?export=<?php echo $exercise['id']; ?>"><img src="<?php echo $clarolineRepositoryWeb; ?>img/export.gif" border="0" alt="<?php echo get_lang('Export'); ?>"></a>
   </td>
 
 <?php
@@ -401,7 +401,7 @@ foreach( $exercisesList as $exercise )
 	    if($is_allowedToTrack)
 	    {
   ?>
-          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&amp;src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlspecialchars($langTracking); ?>"></a></td>
+          <td align="center"><a href="../tracking/exercises_details.php?exo_id=<?php echo $exercise['id']; ?>&amp;src=ex"><img src="<?php echo $clarolineRepositoryWeb ?>img/statistics.gif" border="0" alt="<?php echo htmlspecialchars(get_lang('Tracking')); ?>"></a></td>
      
    <?php
 	    }

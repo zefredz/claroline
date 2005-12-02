@@ -27,9 +27,6 @@ function showQuestion($questionId, $onlyAnswers=false)
 {
 	global $attachedFilePathWeb;
 	global $attachedFilePathSys;
-	
-	global $langUniqueAnswer;
-	global $langMultipleAnswers;
 
 	// construction of the Question object
 	$objQuestionTmp = new Question();
@@ -277,7 +274,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 	{
 	?>
 		<tr>
-		<td colspan="2"><small><?php echo $langUniqueAnswer; ?></small></td>
+		<td colspan="2"><small><?php echo get_lang('UniqueAnswer'); ?></small></td>
 		</tr>
 	<?php
 	}
@@ -285,7 +282,7 @@ function showQuestion($questionId, $onlyAnswers=false)
 	{
 	?>
 		<tr>
-		<td colspan="2"><small><?php echo $langMultipleAnswers; ?></small></td>
+		<td colspan="2"><small><?php echo get_lang('MultipleAnswers'); ?></small></td>
 		</tr>	
 	<?php
 	}
@@ -307,7 +304,6 @@ function display_attached_file($attachedFile)
 {
   global $attachedFilePathWeb;
   global $attachedFilePathSys;
-  global $langDownloadAttachedFile;
   
   if( !file_exists($attachedFilePathSys.'/'.$attachedFile) )return false;
   
@@ -336,7 +332,7 @@ function display_attached_file($attachedFile)
                       <embed align=\"middle\" src=\"".$attachedFilePathWeb."/".$attachedFile."\" volume=\"50%\" loop=\"false\" controller=\"true\" autoplay=\"false\" type=\"video/quicktime\">
                       </embed> 
                       </object>
-                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".$langDownloadAttachedFile." (.mov)</a></small>";
+                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".get_lang('DownloadAttachedFile')." (.mov)</a></small>";
         break;
     */
     /*
@@ -400,14 +396,14 @@ function display_attached_file($attachedFile)
 					.'</object>'."\n"
 					.'<p>'."\n".'<small>'."\n"
 					.$mp3Title
-	                .'<br /><a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.$langDownloadAttachedFile.' ('.$attachedFile.')</a>'."\n"
+	                .'<br /><a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.get_lang('DownloadAttachedFile').' ('.$attachedFile.')</a>'."\n"
 					.'</small>'."\n\n"
 					;
 						  
         break;
     
     default :
-        $returnedString .= '<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'" target="_blank">'.$langDownloadAttachedFile.'</a>'."\n";
+        $returnedString .= '<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'" target="_blank">'.get_lang('DownloadAttachedFile').'</a>'."\n";
         break;        
   
   }

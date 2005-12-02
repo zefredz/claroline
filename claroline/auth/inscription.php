@@ -22,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 // Registration not allowed
 if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE )
 {
-    claro_die($langMessageRegistrationNotAllowed);
+    claro_die(get_lang('MessageRegistrationNotAllowed'));
 }
 
 // Already logged
@@ -131,7 +131,7 @@ else
   Display Section
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-$interbredcrump[]= array ('url' => 'inscription.php', 'name' => $langCreateUserAccount);
+$interbredcrump[]= array ('url' => 'inscription.php', 'name' => get_lang('CreateUserAccount'));
 
 // Display Header
 
@@ -139,25 +139,25 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display Title
 
-echo claro_disp_tool_title($langCreateUserAccount);
+echo claro_disp_tool_title(get_lang('CreateUserAccount'));
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
         // registration succeeded
 
-        printf($langMessageSubscribeDone_p_firstname_lastname, $user_data['firstname'], $user_data['lastname']);
+        printf(get_lang('MessageSubscribeDone_p_firstname_lastname'), $user_data['firstname'], $user_data['lastname']);
 
         if ( $is_allowedCreateCourse )
         {
-            echo '<p>' . $langNowGoCreateYourCourse . '</p>' . "\n";
+            echo '<p>' . get_lang('NowGoCreateYourCourse') . '</p>' . "\n";
         }
         else
         {
-            echo '<p>' . $langNowGoChooseYourCourses . '</p>' . "\n";
+            echo '<p>' . get_lang('NowGoChooseYourCourses') . '</p>' . "\n";
         }
 
         echo '<form action="../../index.php?cidReset=1" >'
-        .    '<input type="submit" name="next" value="' . $langNext . '" />' . "\n"
+        .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
         .    '</form>' . "\n"
         ;
 }
@@ -175,7 +175,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     {
         echo '&nbsp;'
         .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=2">'
-        .    '<img src="claroline/img/edit.gif" />' . $langEditTextZone
+        .    '<img src="claroline/img/edit.gif" />' . get_lang('EditTextZone')
         .    '</a>' . "\n"
         .    '<br />' . "\n"
         ;
@@ -184,8 +184,8 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     echo '<br />'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
-    .    '<input type="submit" name="next" value="' . $langOk . '" />' . "\n"
-    .    claro_disp_button( $rootWeb, $langCancel )
+    .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
+    .    claro_disp_button( $rootWeb, get_lang('Cancel') )
     .    '</form>' . "\n"
     ;
 }

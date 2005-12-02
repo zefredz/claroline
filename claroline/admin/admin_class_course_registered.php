@@ -22,12 +22,12 @@ include $includePath . '/conf/user_profile.conf.php'; // find this file to modif
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 //bredcrump
 
-$nameTools=$langClassRegistered;
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langClassRegistered);
+$nameTools=get_lang('ClassRegistered');
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('ClassRegistered'));
 /**#@+
  * DB tables definition
  * @var $tbl_mdb_names array table name for the central database
@@ -65,7 +65,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['OK'] as $userSubscribed)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] ' . sprintf($lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname,$userSubscribed['prenom'], $userSubscribed['nom']) . '<br />';
+                $outputResultLog .= '[<font color="green">OK</font>] ' . sprintf(get_lang('_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname'),$userSubscribed['prenom'], $userSubscribed['nom']) . '<br />';
             }
         }
 
@@ -73,7 +73,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['KO'] as $userSubscribedKo)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] ' . sprintf($lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname, $userSubscribedKo['prenom'], $userSubscribedKo['nom']).'<br />';
+                $outputResultLog .= '[<font color="red">KO</font>] ' . sprintf(get_lang('_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'), $userSubscribedKo['prenom'], $userSubscribedKo['nom']).'<br />';
             }
         }
     }
@@ -87,7 +87,7 @@ if (isset($cmd) && $is_platformAdmin)
 include $includePath . '/claro_init_header.inc.php';
 // Display tool title
 
-echo claro_disp_tool_title($langClassRegistered . ' : ' . $classinfo['name']);
+echo claro_disp_tool_title(get_lang('ClassRegistered') . ' : ' . $classinfo['name']);
 
 //Display Forms or dialog box(if needed)
 
@@ -104,9 +104,9 @@ if ( !empty($dialogBox) )
 
 // display TOOL links :
 
-echo '<p><a class="claroCmd" href="index.php">' . $langBackToAdmin . '</a> | ';
-echo '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . $langBackToClassMembers . '</a> | ';
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . $langClassRegisterWholeClassAgain . '</a></p>';
+echo '<p><a class="claroCmd" href="index.php">' . get_lang('BackToAdmin') . '</a> | ';
+echo '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('BackToClassMembers') . '</a> | ';
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('ClassRegisterWholeClassAgain') . '</a></p>';
 
 // display footer
 

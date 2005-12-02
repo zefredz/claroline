@@ -126,7 +126,6 @@ class ScormExport
     function fetch()
     {
         global $TABLELEARNPATH, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET, $coursesRepositorySys;
-        global $langLearningPathNotFound, $langLearningPathEmpty;
     
         /* Get general infos about the learning path */
         $sql = 'SELECT `name`, `comment`
@@ -136,14 +135,14 @@ class ScormExport
         $result = claro_sql_query($sql);
         if ( empty($result) )
         {
-            $this->error[] = $langLearningPathNotFound;
+            $this->error[] = get_lang('LearningPathNotFound');
             return false;
         }
         
         $list = mysql_fetch_array($result, MYSQL_ASSOC);
         if ( empty($list) )
         {
-            $this->error[] = $langLearningPathNotFound;
+            $this->error[] = get_lang('LearningPathNotFound');
             return false;
         }
         
@@ -175,7 +174,7 @@ class ScormExport
         $result = claro_sql_query($sql);
         if ( empty($result) )
         {
-            $this->error = $langLearningPathEmpty;
+            $this->error = get_lang('LearningPathEmpty');
             return false;
         }
         
@@ -230,7 +229,7 @@ class ScormExport
     */
     function prepareQuiz($quizId, $raw_to_pass=50)
     {
-        global $langQuestion, $langOk, $langScore, $claro_stylesheet, $clarolineRepositorySys;
+        global $claro_stylesheet, $clarolineRepositorySys;
         
         // those two variables are needed by display_attached_file()
         global $attachedFilePathWeb;
@@ -259,7 +258,7 @@ class ScormExport
         $quiz = new Exercise();
         if (! $quiz->read($quizId))
         {
-            $this->error[] = $langErrorLoadingExercise;
+            $this->error[] = get_lang('ErrorLoadingExercise');
             return false;
         }
         
@@ -287,7 +286,7 @@ class ScormExport
             $question = new Question();
             if (!$question->read($questionId))
             {
-                $this->error[] = $langErrorLoadingQuestion;
+                $this->error[] = get_lang('ErrorLoadingQuestion');
                 return false;
             }
             $qtype        = $question->selectType();
@@ -297,7 +296,7 @@ class ScormExport
             
             // Generic display, valid for all kind of question
             $pageBody .= '<table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
-    <tr class="headerX"><th valign="top" colspan="2">' . $langQuestion . ' ' . $questionCount . '</th></tr>
+    <tr class="headerX"><th valign="top" colspan="2">' . get_lang('Question') . ' ' . $questionCount . '</th></tr>
     <tfoot>
         <tr><td valign="top" colspan="2">' . $qtitle . '</td></tr>
         <tr><td valign="top" colspan="2"><i>' . claro_parse_user_text($qdescription) . '</i></td></tr>' . "\n";
@@ -309,7 +308,7 @@ class ScormExport
                 // copy the attached file
                 if ( !claro_copy_file($this->srcDirExercise . '/' . $attachedFile, $this->destDir . '/Exercises') )
                 {
-                    $this->error[] = $langErrorCopyAttachedFile . $attachedFile;
+                    $this->error[] = get_lang('ErrorCopyAttachedFile') . $attachedFile;
                     return false;
                 }
                 
@@ -543,7 +542,7 @@ class ScormExport
         // No more questions, add the button.
         $pageEnd = '</td></tr>
             <tr>
-                <td align="center"><br><input type="button" value="' . $langOk . '" onClick="calcScore()"></td>
+                <td align="center"><br><input type="button" value="' . get_lang('Ok') . '" onClick="calcScore()"></td>
             </tr>
             </table>
             </form>
@@ -609,7 +608,7 @@ class ScormExport
 	        doLMSCommit();
 	        doLMSFinish();
 	        scoreCommited = true;
-	        if(showScore) alert(\''.clean_str_for_javascript($langScore).' :\n\' + rawScore + \'/\' + weighting );
+	        if(showScore) alert(\''.clean_str_for_javascript(get_lang('Score')).' :\n\' + rawScore + \'/\' + weighting );
 		}
     }
 
@@ -625,7 +624,7 @@ class ScormExport
                 
         if (! $f = fopen($this->destDir . '/' . $filename, 'w') )
         {
-            $this->error[] = $langErrorCreatingFile . $filename;
+            $this->error[] = get_lang('ErrorCreatingFile') . $filename;
             return false;
         }
         fwrite($f, $pageContent);
@@ -649,12 +648,12 @@ class ScormExport
     function prepare()
     {
         global $clarolineRepositorySys, $claro_stylesheet;
-        global $langErrorCopyScormFiles, $langErrorCreatingDirectory, $langErrorCopyingScorm, $langErrorCopyAttachedFile;
+
         // (re)create fresh directory
         claro_delete_file($this->destDir);
         if ( !claro_mkdir($this->destDir, CLARO_FILE_PERMISSIONS , true))
         {
-            $this->error[] = $langErrorCreatingDirectory . $this->destDir;
+            $this->error[] = get_lang('ErrorCreatingDirectory') . $this->destDir;
             return false;
         }
         
@@ -669,7 +668,7 @@ class ScormExport
             || !claro_copy_file('export/imsmd_rootv1p2p1.xsd', $this->destDir)
             || !claro_copy_file('export/adlcp_rootv1p2.xsd', $this->destDir)  )
         {
-            $this->error[] = $langErrorCopyScormFiles;
+            $this->error[] = get_lang('ErrorCopyScormFiles');
             return false;
         }
         
@@ -682,7 +681,7 @@ class ScormExport
                    !claro_copy_file($this->srcDirScorm,  $this->destDir)
                 || !claro_rename_file($this->destDir.'/path_'.$this->id, $this->destDir.'/OrigScorm')  )
             {
-                $this->error[] = $langErrorCopyingScorm;
+                $this->error[] = get_lang('ErrorCopyingScorm');
                 return false;
             }
         }
@@ -724,7 +723,7 @@ class ScormExport
         {        
             if ( !claro_copy_file($clarolineRepositorySys . '/exercice/claroPlayer.swf', $this->destDir) )
             {
-                $this->error[] = $langErrorCopyAttachedFile . $clarolineRepositorySys . '/exercice/claroPlayer.swf'; 
+                $this->error[] = get_lang('ErrorCopyAttachedFile') . $clarolineRepositorySys . '/exercice/claroPlayer.swf'; 
                 
                 // This is *NOT* a fatal error.
                 // Do *NOT* return false.
@@ -847,11 +846,10 @@ class ScormExport
          */
         function createFrameFile($fileName, $targetPath)
         {
-            global $langErrorCreatingFrame, $langErrorCreatingManifest;
             
             if ( !($f = fopen($fileName, 'w')) )
             {
-                $this->error[] = $langErrorCreatingFrame;
+                $this->error[] = get_lang('ErrorCreatingFrame');
                 return false;
             }
             
@@ -935,7 +933,7 @@ class ScormExport
         $manifestPath = $this->destDir . '/imsmanifest.xml';
         if ( ! $f = fopen($manifestPath, 'w') ) 
         {
-            $this->error[] = $langErrorCreatingManifest;
+            $this->error[] = get_lang('ErrorCreatingManifest');
             return false;
         }
         
@@ -971,7 +969,6 @@ class ScormExport
      */
     function zip()
     {
-        global $langErrorCreatingScormArchive;
         
         $list = 1;
         $zipFile = new PclZip($this->destDir . '.zip');
@@ -979,7 +976,7 @@ class ScormExport
         
         if ( !$list )
         {
-            $this->error[] = $langErrorCreatingScormArchive;
+            $this->error[] = get_lang('ErrorCreatingScormArchive');
             return false;
         }
         

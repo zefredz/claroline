@@ -26,7 +26,7 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 // 1 : display claroline header and footer and table of content, and content
 define ( 'USE_FRAMES' , 1 );
 
-$nameTools = $langLearningPath;
+$nameTools = get_lang('LearningPath');
 if (!isset($titlePage)) $titlePage = '';
 if(!empty($nameTools))
 {
@@ -83,9 +83,9 @@ else
 
     <noframes>
         <body>
-            <?php echo $langBrowserCannotSeeFrames ?>
+            <?php echo get_lang('BrowserCannotSeeFrames') ?>
             <br />
-            <a href="../module.php"><?php echo $langBack ?></a>
+            <a href="../module.php"><?php echo get_lang('Back') ?></a>
         </body>
     </noframes>
 </html>

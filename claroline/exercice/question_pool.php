@@ -106,9 +106,9 @@ if($is_allowedToEdit)
 	}
 }
 
-$nameTools = $langQuestionPool;
+$nameTools = get_lang('QuestionPool');
 
-$interbredcrump[] = array("url" => "exercice.php","name" => $langExercices);
+$interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -121,11 +121,11 @@ if($is_allowedToEdit)
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <input type="hidden" name="fromExercise" value="<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>">
 <p align="right">
-	<label for="exerciseId"><?php echo $langFilter; ?></label> : 
+	<label for="exerciseId"><?php echo get_lang('Filter'); ?></label> : 
 	
 	<select id="exerciseId" name="exerciseId">
-		<option value="0">-- <?php echo $langAllExercises; ?> --</option>
-		<option value="-1" <?php if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == -1 ) echo 'selected="selected"'; ?>>-- <?php echo $langOrphanQuestions; ?> --</option>
+		<option value="0">-- <?php echo get_lang('AllExercises'); ?> --</option>
+		<option value="-1" <?php if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == -1 ) echo 'selected="selected"'; ?>>-- <?php echo get_lang('OrphanQuestions'); ?> --</option>
 
 <?php
 	$sql = "SELECT `id`, `titre` as `title`
@@ -152,7 +152,7 @@ if($is_allowedToEdit)
 ?>
 
     </select>
-	<input type="submit" value="<?php echo $langOk; ?>">
+	<input type="submit" value="<?php echo get_lang('Ok'); ?>">
 </p>
 <?php
 
@@ -204,7 +204,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-		<small><a href="admin.php">&lt;&lt; <?php echo $langGoBackToEx; ?></a></small>
+		<small><a href="admin.php">&lt;&lt; <?php echo get_lang('GoBackToEx'); ?></a></small>
 
 <?php
 	}
@@ -212,7 +212,7 @@ if($is_allowedToEdit)
 	{
 ?>
 
-		<a class="claroCmd" href="admin.php?newQuestion=yes"><?php echo $langNewQu; ?></a>
+		<a class="claroCmd" href="admin.php?newQuestion=yes"><?php echo get_lang('NewQu'); ?></a>
 <?php
 	}
 ?>
@@ -248,8 +248,8 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 	{
 ?>
 
-  <th width="80%" align="center"><?php echo $langQuestion; ?></th>
-  <th width="20%" align="center"><?php echo $langReuse; ?></th>
+  <th width="80%" align="center"><?php echo get_lang('Question'); ?></th>
+  <th width="20%" align="center"><?php echo get_lang('Reuse'); ?></th>
 
 <?php
 	}
@@ -257,13 +257,13 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 	{
 ?>
 
-  <th width="70%" align="center"><?php echo $langQuestion; ?></th>
-  <th width="10%" align="center"><?php echo $langModify; ?></th>
-  <th width="10%" align="center"><?php echo $langDelete; ?></th>
+  <th width="70%" align="center"><?php echo get_lang('Question'); ?></th>
+  <th width="10%" align="center"><?php echo get_lang('Modify'); ?></th>
+  <th width="10%" align="center"><?php echo get_lang('Delete'); ?></th>
 <?php
 		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
 		{
-  			echo '  <th width="10%" align="center">'.$langExport.'</th>'."\n";
+  			echo '  <th width="10%" align="center">'.get_lang('Export').'</th>'."\n";
 		}
 
 	}
@@ -289,7 +289,7 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 			{
 ?>
 
-	<a href="admin.php?editQuestion=<?php echo $question['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo $langEditQuestion; ?>"></a>
+	<a href="admin.php?editQuestion=<?php echo $question['id']; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo get_lang('EditQuestion'); ?>"></a>
 
 <?php
 			}
@@ -297,7 +297,7 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 			{
 ?>
 
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo $langReuse; ?>"></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?recup=<?php echo $question['id']; ?>&fromExercise=<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>"><img src="<?php echo $imgRepositoryWeb ?>enroll.gif" border="0" alt="<?php echo get_lang('Reuse'); ?>"></a>
 
 <?php
 			}
@@ -311,14 +311,14 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 ?>
 
   <td align="center">
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $question['id']; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript($langConfirmDeleteQuestion); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo $langDelete; ?>"></a>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $question['id']; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('ConfirmDeleteQuestion')); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo get_lang('Delete'); ?>"></a>
   </td>
 <?php
                 if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
                 {
   					echo '<td align="center">'
     					.'<a href="'.$_SERVER['PHP_SELF'].'?export='.$question['id'].'"><img src="'.$clarolineRepositoryWeb.'img/export.gif" border="0"'
-      					.'alt="'.$langExport.'"></a>'
+      					.'alt="'.get_lang('Export').'"></a>'
   						.'</td>'."\n";
 				}
 
@@ -336,7 +336,7 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 ?>
 
 <tr>
-  <td colspan="<?php echo $fromExercise?2:3; ?>"><?php echo $langNoQuestion; ?></td>
+  <td colspan="<?php echo $fromExercise?2:3; ?>"><?php echo get_lang('NoQuestion'); ?></td>
 </tr>
 
 <?php
@@ -355,7 +355,7 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 // if not admin of course
 else
 {
-	echo $langNotAllowed;
+	echo get_lang('NotAllowed');
 }
 include($includePath.'/claro_init_footer.inc.php');
 ?>

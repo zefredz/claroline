@@ -5,7 +5,7 @@ $tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 
 if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
-if ( !$is_courseAdmin ) claro_die($langNotAllowed);
+if ( !$is_courseAdmin ) claro_die(get_lang('NotAllowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 include($includePath."/lib/user.lib.php");
@@ -18,7 +18,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"" . clean_str_for_javascript($langConfirmEnrollClassToCourse) . "\"))
+                if (confirm(\"" . clean_str_for_javascript(get_lang('ConfirmEnrollClassToCourse')) . "\"))
                     {return true;}
                 else
                     {return false;}
@@ -61,7 +61,7 @@ switch ($cmd)
       
   // subscribe a class to the course    
   case "subscribe" :           
-    $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br />";
+    $dialogBox = "<b>Class ".$_REQUEST['classname']." get_lang('HasBeenEnrolled') </b><br />";
     $sql = " SELECT U.`user_id`,
                     U.`nom` as `lastname` , 
         		    U.`prenom` as `firstname` , 
@@ -83,17 +83,17 @@ switch ($cmd)
             // send mail to user
             user_send_enroll_to_course_mail ($user_id, $user);
             // add message 
-	        $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsNowRegistered<br />";
+	        $dialogBox .= $user['firstname']." ".$user['lastname']." get_lang('IsNowRegistered')<br />";
         }
     	else
 	    {
             switch (claro_failure::get_last_failure())
             {
                 case 'already_enrolled_in_course' : 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsAlreadyRegistered<br />";
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." get_lang('IsAlreadyRegistered')<br />";
                     break;
         	    default: 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langUnableToEnrollInCourse<br />";
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." get_lang('UnableToEnrollInCourse')<br />";
             }            
         }
     }
@@ -121,8 +121,8 @@ $display = "tree";
 // set bredcrump
 
 
-$nameTools = $langAddClass;
-$interbredcrump[]    = array ('url' => "user.php", 'name' => $langUsers);
+$nameTools = get_lang('AddClass');
+$interbredcrump[]    = array ('url' => "user.php", 'name' => get_lang('Users'));
 
 // display top banner
 
@@ -130,7 +130,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_disp_tool_title($langAddAClassToCourse);
+echo claro_disp_tool_title(get_lang('AddAClassToCourse'));
 
 // Display Forms or dialog box (if needed)
 
@@ -147,7 +147,7 @@ switch ($display)
     
     // display tool links
 
-    echo "<a class=\"claroCmd\" href=\"user.php\">".$langBackToList."</a><br /><br />";
+    echo "<a class=\"claroCmd\" href=\"user.php\">".get_lang('BackToList')."</a><br /><br />";
 
     // display cols headers
 
@@ -155,13 +155,13 @@ switch ($display)
             ." <thead>\n"
             ."  <tr class=\"headerX\">\n"
             ."    <th>\n"
-            ."      $langClass\n"
+            ."      get_lang('Class')\n"
             ."    </th>\n"
             ."    <th>\n"
-            ."      $langUsers\n"
+            ."      get_lang('Users')\n"
             ."    </th>\n"
             ."    <th>\n"
-            ."      $langSubscribeToCourse\n"
+            ."      get_lang('SubscribeToCourse')\n"
             ."    </th>\n"
             ."  </tr>\n"
             ."</thead>\n";
@@ -173,7 +173,7 @@ switch ($display)
         break;
 
     case "class_added" :
-        echo $langDispClassAdded;
+        echo get_lang('DispClassAdded');
         break;
 }
 

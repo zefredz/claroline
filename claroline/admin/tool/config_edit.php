@@ -64,7 +64,7 @@ require '../../inc/claro_init_global.inc.php';
 $controlMsg = array();
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
@@ -162,11 +162,11 @@ else
                         // create an empty file
                         if ( touch($conf_file) )
                         {
-                            $controlMsg['info'][] = sprintf($lang_p_config_file_creation,$conf_file);
+                            $controlMsg['info'][] = sprintf(get_lang('_p_config_file_creation'),$conf_file);
                         }
                         else
                         {
-                            $controlMsg['info'][] = sprintf($lang_p_config_file_creation,$conf_file);
+                            $controlMsg['info'][] = sprintf(get_lang('_p_config_file_creation'),$conf_file);
                         }
                     }
 
@@ -185,7 +185,7 @@ else
                             //$conf_hash = filemtime($conf_file);
                             if (save_config_hash_in_db($config_code,$conf_hash) )
                             {
-                                $controlMsg['info'][] = sprintf( $lang_p_PropForConfigCommited
+                                $controlMsg['info'][] = sprintf( get_lang('_p_PropForConfigCommited')
                                                                , $config_name
                                                                , $config_code
                                                                );
@@ -195,7 +195,7 @@ else
                         }
                         else
                         {
-                            $controlMsg['error'][] = sprintf( $lang_p_ErrorOnBuild_S_for_S
+                            $controlMsg['error'][] = sprintf( get_lang('_p_ErrorOnBuild_S_for_S')
                                                             , $confFile
                                                             , $config_code);
                         }
@@ -261,10 +261,10 @@ else
 
         if (isset($conf_def['section']['sectionmissing']))
         {
-            $conf_def['section']['sectionmissing']['label'] = $langPropertiesNotIncludeInSections;
+            $conf_def['section']['sectionmissing']['label'] = get_lang('PropertiesNotIncludeInSections');
             $conf_def['section']['sectionmissing']['description'] =
-            $langThisIsAnErrorInDefinitionFile . ' ' .
-            $langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile;
+            get_lang('ThisIsAnErrorInDefinitionFile') . ' ' .
+            get_lang('RequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile');
         }
     }
     else
@@ -288,7 +288,7 @@ else
 
 if ( !isset($config_name) )
 {
-    $nameTools = $langConfiguration;
+    $nameTools = get_lang('Configuration');
 }
 else
 {
@@ -298,8 +298,8 @@ else
 }
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'name' => $langConfiguration);
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'name' => get_lang('Configuration'));
 
 // display claroline header
 include($includePath . '/claro_init_header.inc.php');
@@ -308,7 +308,7 @@ include($includePath . '/claro_init_header.inc.php');
 if ( isset($controlMsg['debug']) ) unset($controlMsg['debug']);
 
 // display tool title
-echo claro_disp_tool_title(array('mainTitle'=>$langConfiguration,'subTitle'=>$nameTools))
+echo claro_disp_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools))
 .    claro_disp_msg_arr($controlMsg,1)
 ;
 
@@ -395,7 +395,7 @@ if ( $display_form )
     }
     else
     {
-        $controlMsg['info'][] = sprintf($lang_p_nothing_to_edit_in_S ,get_config_name($config_code));
+        $controlMsg['info'][] = sprintf(get_lang('_p_nothing_to_edit_in_S') ,get_config_name($config_code));
         echo claro_disp_message_box($controlMsg);
     }
 }

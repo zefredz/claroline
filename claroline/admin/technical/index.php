@@ -23,9 +23,9 @@ $is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
-$nameTools = $langTechnical;
+$nameTools = get_lang('Technical');
 
-$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
+$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
 include($includePath . '/claro_init_header.inc.php');
 
@@ -37,8 +37,8 @@ echo claro_disp_tool_title(
 
 ?>
 <ul>
- <li><a href="./diskUsage.php"><?php echo $langDiskUsage ?></a></li>
- <li><a href="./phpInfo.php"><?php echo $lang_php_info ?></a></li>
+ <li><a href="./diskUsage.php"><?php echo get_lang('DiskUsage') ?></a></li>
+ <li><a href="./phpInfo.php"><?php echo get_lang('_php_info') ?></a></li>
 </ul>
 
 <?php

@@ -23,7 +23,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 DEFINE('DISP_RESULT_INSERT'        , __LINE__);
 DEFINE('DISP_FORM_SET_OPTION'    , __LINE__);
@@ -54,10 +54,10 @@ require_once $includePath . '/lib/add_course.lib.inc.php';
 require_once $includePath . '/lib/debug.lib.inc.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 
-$nameTools = $langAdd_users;
+$nameTools = get_lang('Add_users');
 
-$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
-$interbredcrump[]= array ('url' => 'index.php', 'name' => $langDevTools);
+$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
+$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('DevTools'));
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
@@ -199,12 +199,12 @@ echo claro_disp_tool_title( array('mainTitle'=>$nameTools));
 switch ($display)
 {
     case DISP_RESULT_INSERT :
-        echo $lang_you_had_request; ?> :
+        echo get_lang('_you_had_request'); ?> :
         <UL>
             <LI>
-                <?php echo $nbp . ' ' . $langTeachers; ?></LI>
+                <?php echo $nbp . ' ' . get_lang('Teachers'); ?></LI>
             <LI>
-                <?php echo $nbs . ' ' . $langStudents; ?>
+                <?php echo $nbs . ' ' . get_lang('Students'); ?>
             </LI>
         </UL>
 <?php
@@ -222,10 +222,10 @@ if ( CONFVAL_LIST_USER_ADDED )
 ?>
             <UL class="menu">
                 <LI>
-                    <a href="<?php echo $_SERVER['PHP_SELF'] ?>" ><?php echo $langAgain; ?></a>
+                    <a href="<?php echo $_SERVER['PHP_SELF'] ?>" ><?php echo get_lang('Again'); ?></a>
                 </LI>
                 <LI>
-                    <a href="<?php echo $rootAdminWeb ?>" ><?php echo $langAdmin; ?></a>
+                    <a href="<?php echo $rootAdminWeb ?>" ><?php echo get_lang('Admin'); ?></a>
                 </LI>
             </UL>
         <?php
@@ -238,7 +238,7 @@ if ( CONFVAL_LIST_USER_ADDED )
         <table class="claroTable" >
             <tr>
                 <th >
-                    <label for="nbp"><?php echo $langTeacherQty ?>  : </label>
+                    <label for="nbp"><?php echo get_lang('TeacherQty') ?>  : </label>
                 </th>
                 <td>
                     <input align="right" type="text" id="nbp" name="nbp" value="<?php echo $nbp ?>" size="5" maxlength="3" />
@@ -246,7 +246,7 @@ if ( CONFVAL_LIST_USER_ADDED )
             </tr>
             <tr>
                 <th>
-                    <label for="nbs"><?php echo $langStudentQty ?> : </label>
+                    <label for="nbs"><?php echo get_lang('StudentQty') ?> : </label>
                 </th>
                 <td>
                     <input align="right" type="text" id="nbs" name="nbs" value="<?php echo $nbs ?>" size="5" maxlength="4" />
@@ -273,7 +273,7 @@ if ( CONFVAL_LIST_USER_ADDED )
             </tr>
             <tr>
                 <th >
-                    <?php echo $langFirstName; ?>
+                    <?php echo get_lang('FirstName'); ?>
                 </th>
                 <td>
                     <div>
@@ -288,7 +288,7 @@ if ( CONFVAL_LIST_USER_ADDED )
             </tr>
             <tr>
                 <th valign="top" >
-                    <?php echo $langLogin; ?>
+                    <?php echo get_lang('Login'); ?>
                 </th>
                 <td>
                     <div>
@@ -297,22 +297,22 @@ if ( CONFVAL_LIST_USER_ADDED )
                     </div>
                     <div>
                         <input type="radio" id="" name="selLogin" value="name">
-                        <label for="selFirstnameRandom" ><?php echo $langName ?></label>
+                        <label for="selFirstnameRandom" ><?php echo get_lang('Name') ?></label>
                     </div>
                     <div>
                         <input type="radio" id="" name="selLogin" value="firstname">
-                        <label for="selFirstnameRandom" ><?php echo $langFirstName ?></label>
+                        <label for="selFirstnameRandom" ><?php echo get_lang('FirstName') ?></label>
                     </div>
                     <div>
                         <input type="radio" name="selLogin" value="fix">
                         <input type="text" id="selLoginFix" align="right" name="login" value="" size="10" maxlength="25">
-                        <label for="selLoginFix" ><?php echo $langFree ?></label>
+                        <label for="selLoginFix" ><?php echo get_lang('Free') ?></label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <th >
-                    <?php echo $langEmail; ?>
+                    <?php echo get_lang('Email'); ?>
                 </th>
                 <td>
                     <div>

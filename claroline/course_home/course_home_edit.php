@@ -24,13 +24,13 @@ require '../inc/claro_init_global.inc.php';
 if ( !$_cid || !$_uid ) claro_disp_auth_form(true);
 
 if ( $is_courseAdmin ) $is_allowedToEdit = TRUE;
-else                   claro_die($langNotAllowed);
+else                   claro_die(get_lang('NotAllowed'));
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm(\''.clean_str_for_javascript($langAreYouSureToDelete).'\'+ name + \' ?\'))
+    if (confirm(\''.clean_str_for_javascript(get_lang('AreYouSureToDelete')).'\'+ name + \' ?\'))
         {return true;}
     else
         {return false;}
@@ -111,11 +111,11 @@ if ($cmd == 'exSetToolAccess')
         // notify that tool list has been changed
 
         $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, '0', '0', '0', '0');
-        $msg .= $langChangedTool;
+        $msg .= get_lang('ChangedTool');
     }
     else
     {
-        $msg .= $langUnableChangedTool;
+        $msg .= get_lang('UnableChangedTool');
     }
 
 }
@@ -135,16 +135,16 @@ if ($cmd == 'exAdd')
 
          $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
-         $msg .= $langAddedExternalTool;
+         $msg .= get_lang('AddedExternalTool');
         }
         else
         {
-            $msg .= $langUnableAddExternalTool;
+            $msg .= get_lang('UnableAddExternalTool');
         }
     }
     else
     {
-        $msg .= $langMissingValue;
+        $msg .= get_lang('MissingValue');
         $cmd = 'rqAdd';
     }
 }
@@ -163,16 +163,16 @@ if ($cmd == 'exEdit')
 
             $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
-            $msg .= $langUpdatedExternalTool;
+            $msg .= get_lang('UpdatedExternalTool');
         }
         else
         {
-            $msg .= $langUnableUpdateExternalTool;
+            $msg .= get_lang('UnableUpdateExternalTool');
         }
     }
     else
     {
-        $msg .= $langMissingValue;
+        $msg .= get_lang('MissingValue');
         $cmd = 'rqEdit';
     }
 
@@ -188,16 +188,16 @@ if ($cmd == 'exDelete')
     {
         if (delete_course_tool($_REQUEST['externalToolId']) !== false)
         {
-            $msg .= $langDeletedExternalTool;
+            $msg .= get_lang('DeletedExternalTool');
         }
         else
         {
-            $msg .= $langUnableDeleteExternalTool;
+            $msg .= get_lang('UnableDeleteExternalTool');
         }
     }
     else
     {
-        $msg .= $langUnableDeleteExternalTool;
+        $msg .= get_lang('UnableDeleteExternalTool');
     }
 
 }
@@ -241,19 +241,19 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '">' . "\n";
     }
 
-    $msg .= '<label for="toolName">'.$langExternalToolName.'</label><br />'."\n"
+    $msg .= '<label for="toolName">'.get_lang('ExternalToolName').'</label><br />'."\n"
             .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
-            .'<label for="toolUrl">'.$langExternalToolUrl.'</label><br />'."\n"
+            .'<label for="toolUrl">'.get_lang('ExternalToolUrl').'</label><br />'."\n"
             .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
-            .'<input class="claroButton" type="submit" value="'.$langOk.'">&nbsp;'."\n"
-            .claro_disp_button($_SERVER['PHP_SELF'], $langCancel)."\n"
+            .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
+            .claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
             .'</form>'."\n" ;
 }
 
 $backLink = '<p>'
             .'<small>'
             .'<a href="'.$coursesRepositoryWeb . $currentCourseRepository.'/index.php?cidReset=true&amp;cidReq='.$_cid.'">'
-            .'&lt;&lt;&nbsp;'.$langHome.'</a>'
+            .'&lt;&lt;&nbsp;'.get_lang('Home').'</a>'
             .'</small>'
             .'</p>'."\n\n" ;
 
@@ -263,11 +263,11 @@ $backLink = '<p>'
 
 echo $backLink;
 
-echo claro_disp_tool_title($langEditToolList);
+echo claro_disp_tool_title(get_lang('EditToolList'));
 
 if ($msg) echo claro_disp_message_box($msg);
 
-echo '<p>'.$langIntroEditToolList.'</p>'."\n"
+echo '<p>'.get_lang('IntroEditToolList').'</p>'."\n"
     .'<blockquote>'."\n"
     .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
     .'<input type="hidden" name="cmd" value="exSetToolAccess" >'."\n"
@@ -278,8 +278,8 @@ $toolList = get_course_home_tool_list($reqAccessLevel);
 echo '<table class="claroTable" >'."\n\n"
     . '<thead>'."\n"
     . '<tr class="headerX">'."\n"
-    . '<th>'.$langTools.'</th>'."\n"
-    . '<th>'.$langActivate.'</th>'."\n"
+    . '<th>'.get_lang('Tools').'</th>'."\n"
+    . '<th>'.get_lang('Activate').'</th>'."\n"
     . '</tr>'."\n"
     . '</thead>'."\n\n"
     . '<tbody>'."\n"
@@ -339,11 +339,11 @@ foreach($toolList as $thisTool)
     if ($removableTool)
     {
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$thisTool['id'].'">'
-            .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.$langModify.'" />'
+            .'<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.get_lang('Modify').'" />'
             .'</a>'."\n"
             .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$thisTool['id'].'"'
             .' onClick="return confirmation(\''.clean_str_for_javascript($toolName).'\');">'
-            .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.$langDelete.'" />'
+            .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.get_lang('Delete').'" />'
             .'</a>'."\n";
 
     }
@@ -353,12 +353,12 @@ foreach($toolList as $thisTool)
 
 echo '</tbody>'."\n"
     . '</table>'."\n\n"
-    . '<input class="claroButton" type="submit" value="' . $langOk . '" >'."\n"
-    . claro_disp_button($coursesRepositoryWeb . $_course['path'], $langCancel)
+    . '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '" >'."\n"
+    . claro_disp_button($coursesRepositoryWeb . $_course['path'], get_lang('Cancel'))
     . '</form>'."\n"
     . '</blockquote>' . "\n"
     . '<hr size="1" noshade="noshade" >' . "\n\n"
-    . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . $langAddExternalTool . '</a>' . "\n"
+    . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . get_lang('AddExternalTool') . '</a>' . "\n"
     . $backLink;
 
 include $includePath . '/claro_init_footer.inc.php';

@@ -632,13 +632,13 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
 
     if ($helpUrl)
     {
-        global $clarolineRepositoryWeb, $imgRepositoryWeb,$langHelp;
+        global $clarolineRepositoryWeb, $imgRepositoryWeb;
 
     $string .= "<a href='#' onClick=\"MyWindow=window.open('". $clarolineRepositoryWeb . "help/" .$helpUrl
             ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
             .'<img src="'.$imgRepositoryWeb.'/help.gif" '
-            .' alt ="'.$langHelp.'"'
+            .' alt ="'.get_lang('Help').'"'
             .' align="right"'
             .' hspace="30">'
             .'</a>' . "\n"
@@ -690,8 +690,7 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
 
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
-    global $clarolineRepositoryWeb, $is_courseAdmin,
-           $langCourseManager,  $langStudent, $langViewMode;
+    global $clarolineRepositoryWeb, $is_courseAdmin;
 
     if ( ! $is_courseAdmin || ! claro_is_display_mode_available() ) return false;
 
@@ -728,18 +727,18 @@ function claro_disp_tool_view_option($viewModeRequested = false)
         case 'COURSE_ADMIN' :
 
             $studentButton     = '<a href="' . $url . '&amp;viewMode=STUDENT">'
-                               . $langStudent
+                               . get_lang('Student')
                                . '</a>'
                                ;
-            $courseAdminButton = '<b>' . $langCourseManager . '</b>';
+            $courseAdminButton = '<b>' . get_lang('CourseManager') . '</b>';
 
             break;
 
         case 'STUDENT' :
 
-            $studentButton     = '<b>'.$langStudent.'</b>';
+            $studentButton     = '<b>'.get_lang('Student').'</b>';
             $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
-                               . $langCourseManager
+                               . get_lang('CourseManager')
                                . '</a>';
             break;
     }
@@ -748,7 +747,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo $langViewMode . ' : '
+    echo get_lang('ViewMode') . ' : '
     .    $studentButton
     .    ' | '
     .    $courseAdminButton
@@ -989,10 +988,7 @@ function claro_die($message)
     global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $rootWeb,
            $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email,
            $is_platformAdmin, $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-           $is_courseAllowed, $imgRepositoryWeb, $lang_footer_p_CourseManager,
-           $lang_p_platformManager, $langPoweredBy, $langModifyProfile,
-           $langLogout, $langOtherCourses, $langModifyProfile, $langMyCourses,
-           $langMyAgenda, $langLogin, $langCourseHome, $_tid;
+           $is_courseAllowed, $imgRepositoryWeb, $_tid;
 
     if ( ! headers_sent () )
     {
@@ -1212,10 +1208,7 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 
 function claro_disp_duration( $duration  )
 {
-    global $langPeriodDayShort, $langPeriodHourShort,
-            $langMinuteShort, $langSecondShort;
-
-    if( $duration == 0 ) return '0 '.$langSecondShort;
+    if( $duration == 0 ) return '0 '.get_lang('SecondShort');
 
     $days = floor(($duration/86400));
     $duration = $duration % 86400;
@@ -1229,10 +1222,10 @@ function claro_disp_duration( $duration  )
 
     $durationString = '';
 
-    if( $days > 0 ) $durationString .= $days . ' ' . $langPeriodDayShort . ' ';
-    if( $hours > 0 ) $durationString .= $hours . ' ' . $langPeriodHourShort . ' ';
-    if( $minutes > 0 ) $durationString .= $minutes . ' ' . $langMinuteShort . ' ';
-    if( $duration > 0 ) $durationString .= $duration . ' ' . $langSecondShort;
+    if( $days > 0 ) $durationString .= $days . ' ' . get_lang('PeriodDayShort') . ' ';
+    if( $hours > 0 ) $durationString .= $hours . ' ' . get_lang('PeriodHourShort') . ' ';
+    if( $minutes > 0 ) $durationString .= $minutes . ' ' . get_lang('MinuteShort') . ' ';
+    if( $duration > 0 ) $durationString .= $duration . ' ' . get_lang('SecondShort');
 
     return $durationString;
 }
@@ -1265,7 +1258,6 @@ function claro_disp_textarea_editor($name, $content = '',
 								  $optAttrib='')
 {
 	global $rootWeb, $rootSys;
-	global $langTextEditorDisable, $langTextEditorEnable, $langSwitchEditorToTextConfirm;
 	global $claro_editor;
 	
 	if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
@@ -1296,13 +1288,13 @@ function claro_disp_textarea_editor($name, $content = '',
 			if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
 	        {
 	            $switchState = 'off';
-	            $message     = $langTextEditorDisable;
-	            $confirmCommand = "if(!confirm('".clean_str_for_javascript($langSwitchEditorToTextConfirm)."'))return(false);";
+	            $message     = get_lang('TextEditorDisable');
+	            $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
 	        }
 	        else
 	        {
 	            $switchState = 'on';
-	            $message     = $langTextEditorEnable;
+	            $message     = get_lang('TextEditorEnable');
 	            $confirmCommand = '';
 	        }
 
@@ -1647,26 +1639,22 @@ function claro_stripslashes_for_unquote_gpc( &$var )
  */
 function claro_get_tool_name_list()
 {
-    global $langAnnouncement, $langForums, $langAgenda, $langChat, $langDocument,
-           $langDescriptionCours, $langGroups, $langLearningPath, $langExercises,
-           $langWork, $langUsers, $langWiki;
-
     static $toolNameList;
 
     if( ! isset( $toolNameList ) )
     {
-        $toolNameList = array('CLANN___' => $langAnnouncement
-        ,                     'CLFRM___' => $langForums
-        ,                      'CLCAL___' => $langAgenda
-        ,                      'CLCHT___' => $langChat
-        ,                      'CLDOC___' => $langDocument
-        ,                      'CLDSC___' => $langDescriptionCours
-        ,                      'CLGRP___' => $langGroups
-        ,                      'CLLNP___' => $langLearningPath
-        ,                      'CLQWZ___' => $langExercises
-        ,                      'CLWRK___' => $langWork
-        ,                      'CLUSR___' => $langUsers
-        ,                      'CLWIKI__' => $langWiki
+        $toolNameList = array('CLANN___' => get_lang('Announcement')
+        ,                     'CLFRM___' => get_lang('Forums')
+        ,                      'CLCAL___' => get_lang('Agenda')
+        ,                      'CLCHT___' => get_lang('Chat')
+        ,                      'CLDOC___' => get_lang('Document')
+        ,                      'CLDSC___' => get_lang('DescriptionCours')
+        ,                      'CLGRP___' => get_lang('Groups')
+        ,                      'CLLNP___' => get_lang('LearningPath')
+        ,                      'CLQWZ___' => get_lang('Exercises')
+        ,                      'CLWRK___' => get_lang('Work')
+        ,                      'CLUSR___' => get_lang('Users')
+        ,                      'CLWIKI__' => get_lang('Wiki')
         );
     }
     return $toolNameList;
@@ -1759,6 +1747,8 @@ function http_response_splitting_workaround( $str )
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4052#14205 
  */
 
+/*
+
 function get_lang($stringId)
 {
     $stringIdKey = 'lang'.strtr($stringId,'ãáàâäõóôöoíiîïéèêëúùûüý- ','aaaaaoooooiiiieeeeuuuuy__');
@@ -1772,4 +1762,7 @@ function get_lang($stringId)
 
     return vsprintf($stringId,$argsList);
 }
+
+*/
+
 ?>

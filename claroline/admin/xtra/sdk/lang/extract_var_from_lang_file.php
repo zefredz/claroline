@@ -15,11 +15,11 @@ require '../../../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /*
  * This script retrieves all the existing translation of an existing Claroline
- * It scans all the files of the 'lang' directory and stored the $lang variables
+ * It scans all the files of the 'lang' directory and stored the get_lang(' variables')
  * content into a mySQL database.
  */
 
@@ -42,9 +42,9 @@ $nameTools = 'Extract variables from language files';
 
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('TranslationTools'));
 
 include($includePath."/claro_init_header.inc.php");
 

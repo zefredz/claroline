@@ -48,7 +48,7 @@ include $includePath . '/lib/claro_mail.lib.inc.php';
 $error = FALSE;
 $error_message = '';
 $allowed = TRUE;
-$pagetitle = $langPostReply;
+$pagetitle = get_lang('PostReply');
 $pagetype  = 'reply';
 
 /*=================================================================
@@ -101,7 +101,7 @@ elseif ( $topicSettingList )
         // forum and the group of the concerned forum isn't the same as the session 
         // one, something weird is happening, indeed ...
         $allowed = FALSE;
-        $error_message = $langNotAllowed ;
+        $error_message = get_lang('NotAllowed') ;
     }
 
     if ( isset($_REQUEST['submit']) )
@@ -127,7 +127,7 @@ elseif ( $topicSettingList )
         else
         {
             $error = TRUE;
-            $error_message = $l_emptymsg;
+            $error_message = get_lang('emptymsg');
         }
     }
 }
@@ -135,7 +135,7 @@ else
 {
     // topic doesn't exist
     $error = 1;
-    $error_message = $langNotAllowed;
+    $error_message = get_lang('NotAllowed');
 }
 
 /*=================================================================
@@ -145,21 +145,21 @@ else
 if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY 
     && $is_groupAllowed)
 {
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> $langGroups);
+    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
     $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
 }
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
-$pagetitle = $l_topictitle;
+$pagetitle = get_lang('topictitle');
 $pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit(); 
 
-echo claro_disp_tool_title($langForums, 
+echo claro_disp_tool_title(get_lang('Forums'), 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )
@@ -173,7 +173,7 @@ else
 	if ( isset($_REQUEST['submit']) && !$error )
 	{
 	    // DISPLAY SUCCES MESSAGE
-	    disp_confirmation_message ($l_stored, $forum_id, $topic_id);
+	    disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
 	}
 	else
 	{
@@ -191,20 +191,20 @@ else
         
         echo '<table border="0">' . "\n"
             . '<tr valign="top">' . "\n"
-            . '<td align="right"><br />' . $l_body . '&nbsp;:</td>'
+            . '<td align="right"><br />' . get_lang('body') . '&nbsp;:</td>'
             . '<td>'
             .claro_disp_html_area('message', htmlspecialchars($message))
             .'</td>'
             . '</tr>'
             . '<tr valign="top"><td>&nbsp;</td>'
             . '<td>'
-            . '<input type="submit" name="submit" value="' . $langOk . '" />&nbsp;'
-            . '<input type="submit" name="cancel" value="' . $langCancel . '" />'
+            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp;'
+            . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
             . '</tr>'
             . '</table>'
             . '</form>' ;
 
-        echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . $l_topicreview . '</a>';
+        echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . get_lang('topicreview') . '</a>';
 
 	} // end else if submit
 }

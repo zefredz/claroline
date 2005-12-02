@@ -84,9 +84,7 @@ function commentBox($type, $mode)
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     // globals
     global $is_AllowedToEdit;
-    global $langModify, $langOk, $langErrorNameAlreadyExists, $langAddComment, $langConfirmYourChoice;
-    global $langDefaultLearningPathComment, $langDefaultModuleComment;
-    global $langDefaultModuleAddedComment, $imgRepositoryWeb, $langDelete;
+    global $imgRepositoryWeb;
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -94,7 +92,7 @@ function commentBox($type, $mode)
     switch ( $type )
     {
         case MODULE_ :
-            $defaultTxt = $langDefaultModuleComment;
+            $defaultTxt = get_lang('DefaultModuleComment');
             $col_name = 'comment';
             $tbl_name = $tbl_lp_module;
             if ( isset($_REQUEST['module_id'] ) )
@@ -108,13 +106,13 @@ function commentBox($type, $mode)
             $where_cond = "`module_id` = " . (int) $module_id;  // use backticks ( ` ) for col names and simple quote ( ' ) for string
             break;
         case LEARNINGPATH_ :
-            $defaultTxt = $langDefaultLearningPathComment;
+            $defaultTxt = get_lang('DefaultLearningPathComment');
             $col_name = 'comment';
             $tbl_name = $tbl_lp_learnPath;
             $where_cond = '`learnPath_id` = '. (int) $_SESSION['path_id'];  // use backticks ( ` ) for col names and simple quote ( ' ) for string
             break;
         case LEARNINGPATHMODULE_ :
-            $defaultTxt = $langDefaultModuleAddedComment;
+            $defaultTxt = get_lang('DefaultModuleAddedComment');
             $col_name = 'specificComment';
             $tbl_name = $tbl_lp_rel_learnPath_module;
             $where_cond = "`learnPath_id` = " . (int) $_SESSION['path_id'] . "
@@ -151,7 +149,7 @@ function commentBox($type, $mode)
             echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
                 .claro_disp_html_area('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
                 .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
-                .'<input type="submit" value="' . $langOk . '" />' . "\n"
+                .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
                 .'<br />' . "\n"
                 .'</form>' . "\n"
             ;
@@ -188,7 +186,7 @@ function commentBox($type, $mode)
             {
                 echo '<p>' . "\n"
                 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    $langAddComment . '</a>' . "\n"
+                .    get_lang('AddComment') . '</a>' . "\n"
                 .    '</p>' . "\n"
                 ;
             }
@@ -204,11 +202,11 @@ function commentBox($type, $mode)
                 echo '<p>' . "\n"
                 .    '<small>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0" />' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
-                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript($langConfirmYourChoice).'\')) return false;">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . $langDelete . '" border="0" />' . "\n"
+                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('ConfirmYourChoice')).'\')) return false;">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</small>' . "\n"
                 .    '</p>' . "\n"
@@ -238,7 +236,7 @@ function nameBox($type, $mode)
     // globals
     global $is_AllowedToEdit;
     global $urlAppend;
-    global $langModify, $langOk, $langErrorNameAlreadyExists, $imgRepositoryWeb;
+    global $imgRepositoryWeb;
 
     // $dsp will be set 'true' if the comment has to be displayed
     $dsp = FALSE;
@@ -283,7 +281,7 @@ function nameBox($type, $mode)
             }
             else
             {
-                echo $langErrorNameAlreadyExists . '<br />';
+                echo get_lang('ErrorNameAlreadyExists') . '<br />';
                 $dsp = TRUE;
             }
         }
@@ -299,7 +297,7 @@ function nameBox($type, $mode)
             .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName).'" />'
             .    '<br />' . "\n"
             .    '<input type="hidden" name="cmd" value="updateName" />' ."\n"
-            .    '<input type="submit" value="' . $langOk . '" />' . "\n"
+            .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
             .    '<br />' . "\n"
             .    '</form>' . "\n"
             ;
@@ -321,7 +319,7 @@ function nameBox($type, $mode)
 
         if ( $is_AllowedToEdit )
             echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '" border="0" />'
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />'
             .    '</a>' . "\n";
         echo '</h4>'."\n\n";
     }
@@ -366,12 +364,10 @@ function nameBox($type, $mode)
   */
  function selectAlt($contentType)
  {
-      global $langAltDocument, $langAltClarodoc, $langAltExercise, $langAltScorm;
-
-      $altList[CTDOCUMENT_] = $langAltDocument;
-      $altList[CTCLARODOC_] = $langAltClarodoc;
-      $altList[CTEXERCISE_] = $langAltExercise;
-      $altList[CTSCORM_] = $langAltScorm;
+      $altList[CTDOCUMENT_] = get_lang('AltDocument');
+      $altList[CTCLARODOC_] = get_lang('AltClarodoc');
+      $altList[CTEXERCISE_] = get_lang('AltExercise');
+      $altList[CTSCORM_] = get_lang('AltScorm');
 
       if (array_key_exists( $contentType , $altList ))
       {
@@ -395,7 +391,6 @@ function nameBox($type, $mode)
  */
 function setOrderTab ( $formValuesTab )
 {
-    global $langErrorInvalidParms, $langErrorValuesInDouble;
     global $dialogBox;
 
     $tabOrder = array(); // declaration to avoid bug in "elseif (in_array ... "
@@ -405,12 +400,12 @@ function setOrderTab ( $formValuesTab )
         // error if input is not a number
         if( !is_num($requiredOrder) )
         {
-            $dialogBox .= $langErrorInvalidParms;
+            $dialogBox .= get_lang('ErrorInvalidParms');
             return 0;
         }
         elseif( in_array($requiredOrder, $tabOrder) )
         {
-            $dialogBox .= $langErrorValuesInDouble;
+            $dialogBox .= get_lang('ErrorValuesInDouble');
             return 0;
         }
         // $tabInvert = required order => id module
@@ -471,7 +466,6 @@ function display_path_content()
     $tbl_lp_asset                = $tbl_cdb_names['lp_asset'];
 
     global $_cid;
-    global $langModule;
     global $imgRepositoryWeb;
     $style = "";
 
@@ -508,7 +502,7 @@ function display_path_content()
 
     echo "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
-	.    '<th colspan="' . ($maxDeep+1).'">' . $langModule . '</th>'."\n"
+	.    '<th colspan="' . ($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
     .    '</tr>'."\n\n"
 	.	 '<tbody>'."\n"
     ;
@@ -645,11 +639,6 @@ function display_my_exercises($dialogBox)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_quiz_test = $tbl_cdb_names['quiz_test'];
 
-    global $langAddModule;
-    global $langAddModulesButton;
-    global $langExercise;
-    global $langNoEx;
-    global $langAddOneModuleButton;
     global $imgRepositoryWeb;
 
     echo '<!-- display_my_exercises output -->' . "\n";
@@ -664,10 +653,10 @@ function display_my_exercises($dialogBox)
     echo '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th width="10%">'
-    .    $langAddModule
+    .    get_lang('AddModule')
     .    '</th>'."\n"
     .    '<th>'
-    .    $langExercise
+    .    get_lang('Exercise')
     .    '</th>'."\n"
     .    '</tr>'."\n\n"
     ;
@@ -692,7 +681,7 @@ function display_my_exercises($dialogBox)
 	        .    '</td>'."\n"
 	        .    '<td align="left">'
 	        .    '<label for="check_'.$exercise['id'].'" >'
-	        .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . $langExercise . '" />'
+	        .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . get_lang('Exercise') . '" />'
 	        .    $exercise['title']
 	        .    '</label>'
 	        .    '</td>'."\n"
@@ -722,7 +711,7 @@ function display_my_exercises($dialogBox)
     {
         echo '<tr>'."\n"
 		.	 '<td colspan="2" align="center">'
-        .    $langNoEx
+        .    get_lang('NoEx')
         .    '</td>'."\n"
 		.	 '</tr>'."\n\n"
         ;
@@ -740,7 +729,7 @@ function display_my_exercises($dialogBox)
     {
         echo '<tr>'."\n"
 		.	 '<td colspan="2">'
-        .    '<input type="submit" name="insertExercise" value="'.$langAddModulesButton.'" />'
+        .    '<input type="submit" name="insertExercise" value="'.get_lang('AddModulesButton').'" />'
         .    '</td>'."\n"
 		.	 '</tr>'."\n\n"
         ;
@@ -769,14 +758,6 @@ function display_my_documents($dialogBox)
     global $curDirName;
     global $curDirPath;
     global $parentDir;
-
-	global $langAddModule;
-    global $langUp;
-    global $langName;
-    global $langSize;
-    global $langDate;
-    global $langOk;
-    global $langAddModulesButton;
 
     global $fileList;
     global $imgRepositoryWeb;
@@ -813,7 +794,7 @@ function display_my_documents($dialogBox)
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
         .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" align="absbottom" hspace="5" alt="" />'."\n"
-        .    '<small>' . $langUp . '</small>' . "\n"
+        .    '<small>' . get_lang('Up') . '</small>' . "\n"
         .    '</a>' . "\n"
         ;
     }
@@ -833,10 +814,10 @@ function display_my_documents($dialogBox)
     }
 
     echo '<tr class="headerX" align="center" valign="top">'
-    .    '<th>' . $langAddModule . '</th>' . "\n"
-    .    '<th>' . $langName . '</th>' . "\n"
-    .    '<th>' . $langSize . '</th>' . "\n"
-    .    '<th>' . $langDate . '</th>' . "\n"
+    .    '<th>' . get_lang('AddModule') . '</th>' . "\n"
+    .    '<th>' . get_lang('Name') . '</th>' . "\n"
+    .    '<th>' . get_lang('Size') . '</th>' . "\n"
+    .    '<th>' . get_lang('Date') . '</th>' . "\n"
     .    '</tr><tbody>' . "\n"
     ;
 
@@ -955,7 +936,7 @@ function display_my_documents($dialogBox)
 			.'<td colspan="'.$colspan.'" align="left">'."\n"
 			.'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
 			.'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
-			.'<input type="submit" name="submitInsertedDocument" value="'.$langAddModulesButton.'" />'."\n"
+			.'<input type="submit" name="submitInsertedDocument" value="'.get_lang('AddModulesButton').'" />'."\n"
 			.'</td>'."\n"
 			.'</tr>'."\n";
     } // end if ( $fileList)

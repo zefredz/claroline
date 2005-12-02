@@ -27,7 +27,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
+if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
 
 // include configuration file
 include($includePath."/conf/user_profile.conf.php");
@@ -37,8 +37,8 @@ require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
-$nameTools        = $langAddAU;
-$interbredcrump[] = array ('url' => 'user.php', 'name' => $langUsers);
+$nameTools        = get_lang('AddAU');
+$interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users'));
 
 $messageList = array();
 
@@ -179,7 +179,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
     }
 
     // display message     
-    $messageList[]= sprintf("$langTheU %s %s $langAddedToCourse.",$user_data['firstname'],$user_data['lastname']);
+    $messageList[]= sprintf("get_lang('TheU') %s %s get_lang('AddedToCourse').",$user_data['firstname'],$user_data['lastname']);
 }
 
 /*=====================================================================
@@ -189,7 +189,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
 // display header
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => $langUsers),
+echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
 				'help_user.php');
 
 // message box
@@ -201,7 +201,7 @@ if ( count($messageList) > 0 )
 
 if ( $platformRegSucceed ) 
 {
-    echo '<p><a href="user.php"><< ' .  $langBackToUsersList . '</a></p>' . "\n";
+    echo '<p><a href="user.php"><< ' .  get_lang('BackToUsersList') . '</a></p>' . "\n";
 }
 else 
 {
@@ -214,29 +214,29 @@ else
         if ($allowSearchInAddUser) $enclose_field = '*';
         else                       $enclose_field = '';
 
-        echo $langSearchOn . ' : ';
+        echo get_lang('SearchOn') . ' : ';
         
         if ($user_data['lastname'] != '')
         {  
-            echo $langLastName . '=' . $user_data['lastname'] . $enclose_field . ' ';
+            echo get_lang('LastName') . '=' . $user_data['lastname'] . $enclose_field . ' ';
         }
         if ($user_data['email'] != '')
         {
-            echo $langEmail . '=' . $user_data['email'] . $enclose_field . ' ';
+            echo get_lang('Email') . '=' . $user_data['email'] . $enclose_field . ' ';
         }
         if ($user_data['officialCode'] != '')
         {
-            echo $langOfficialCode . "=" . $user_data['officialCode'] . " ";
+            echo get_lang('OfficialCode') . "=" . $user_data['officialCode'] . " ";
         }
         echo '<br /><br />'
         .    '<table class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
-        .    '<th>' . $langLastName     . '</th>' . "\n"
-        .    '<th>' . $langFirstName    . '</th>' . "\n"
-        .    '<th>' . $langEmail        . '</th>' . "\n"
-        .    '<th>' . $langOfficialCode . '</th>' . "\n"
-        .    '<th>' . $langRegister     . '</th>' . "\n"
+        .    '<th>' . get_lang('LastName')     . '</th>' . "\n"
+        .    '<th>' . get_lang('FirstName')    . '</th>' . "\n"
+        .    '<th>' . get_lang('Email')        . '</th>' . "\n"
+        .    '<th>' . get_lang('OfficialCode') . '</th>' . "\n"
+        .    '<th>' . get_lang('Register')     . '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
@@ -272,7 +272,7 @@ else
                 {
                     echo '<small>'
                     .    '<span class="highlight">'
-                    .    $lang_already_enrolled
+                    .    get_lang('_already_enrolled')
                     .    '</span>'
                     .    '</small>'
                     ;
@@ -284,7 +284,7 @@ else
 
         if (sizeof($users)==0)
         {
-            echo '<td align="center" colspan="5">' . $langNoUserFound . '</td>';
+            echo '<td align="center" colspan="5">' . get_lang('NoUserFound') . '</td>';
         }
         echo '</body>'
         .    '</table><br />'
@@ -293,8 +293,8 @@ else
 
     //display form to add a user
 
-    echo $langOneByOne." :";
-    echo '<p>' . $langUserOneByOneExplanation . '</p>' . "\n";
+    echo get_lang('OneByOne')." :";
+    echo '<p>' . get_lang('UserOneByOneExplanation') . '</p>' . "\n";
 
     user_display_form_add_new_user($user_data);
 

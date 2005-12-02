@@ -95,7 +95,7 @@ function glance_through_dir_lang ($dirPath, $languageName)
  * Get defined language variables of the script and store them.
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - string $fileName - language file where to retrieve $lang variable translation
+ * @param  - string $fileName - language file where to retrieve get_lang(' variable') translation
  * @param  - string $languageName - language name of the translation
  */
 
@@ -517,7 +517,11 @@ function detect_get_lang($tokenList)
                     }
                     $i++;
                 }
-                $languageVarList[]=$varName;
+                $varName = trim($varName);
+                if ( !empty($varName) ) 
+                {
+                    $languageVarList[]=$varName;
+                }
             }
         }
         $i++;

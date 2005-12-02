@@ -111,10 +111,10 @@ $lpName = claro_sql_query_get_single_value($sql);
 echo '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
 	. '<p>'."\n"
 	. '<small>'
-	. $langView.' : '
-	. '<a href="viewer.php?frames=0" target="_top">'.$langFullScreen.'</a>'
+	. get_lang('View').' : '
+	. '<a href="viewer.php?frames=0" target="_top">'.get_lang('FullScreen').'</a>'
 	. ' | '
-	. '<a href="viewer.php?frames=1" target="_top">'.$langInFrames.'</a>'
+	. '<a href="viewer.php?frames=1" target="_top">'.get_lang('InFrames').'</a>'
 	. '</small>'."\n"
 	. '</p>'."\n\n"
 	. '<table width="100%">'."\n\n"
@@ -295,21 +295,21 @@ if ( $moduleNb > 1 )
 	
 	if( $previousModule != '' )
 	{
-		$prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.$langPrevious.'</a>';
+		$prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.get_lang('Previous').'</a>';
 	}
 	else
 	{
-		$prevNextString .=  $langPrevious;
+		$prevNextString .=  get_lang('Previous');
 	}
 	$prevNextString .=  ' | ';
 	
 	if( $nextModule != '' )
 	{
-		$prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.$langNext.'</a>';
+		$prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.get_lang('Next').'</a>';
 	}
 	else
 	{
-		$prevNextString .=  $langNext;
+		$prevNextString .=  get_lang('Next');
 	}  
 	$prevNextString .=  '</small><br /><br />'."\n";
 	
@@ -324,7 +324,7 @@ else
 	
 ?>
 <form action="<?php echo $returl; ?>" method="post" target="_top">
-<input type="submit" value="<?php echo $langQuitViewer; ?>">
+<input type="submit" value="<?php echo get_lang('QuitViewer'); ?>">
 </form>
 
 </center>

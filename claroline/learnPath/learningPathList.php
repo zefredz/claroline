@@ -69,7 +69,7 @@ $htmlHeadXtra[] =
           "<script>
           function confirmation (name)
           {
-              if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . "' + name + '? " . $langModuleStillInPool . "'))
+              if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDelete')) . "' + name + '? " . get_lang('ModuleStillInPool') . "'))
                   {return true;}
               else
                   {return false;}
@@ -79,14 +79,14 @@ $htmlHeadXtra[] =
          "<script>
           function scormConfirmation (name)
           {
-              if (confirm('". clean_str_for_javascript($langAreYouSureToDeleteScorm) .  "' + name + '?'))
+              if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDeleteScorm')) .  "' + name + '?'))
                   {return true;}
               else
                   {return false;}
           }
           </script>";
 
-$nameTools = $langLearningPathList;
+$nameTools = get_lang('LearningPathList');
 
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
@@ -120,7 +120,7 @@ $lpUid = $_uid;
 
 // display introduction
 $moduleId = $_tid; // Id of the Learning Path introduction Area
-$helpAddIntroText = $langIntroLearningPath;
+$helpAddIntroText = get_lang('IntroLearningPath');
 include($includePath."/introductionSection.inc.php");
 
 // execution of commands
@@ -352,19 +352,19 @@ switch ( $cmd )
                 else
                 {
                     // display error message
-                    $dialogBox = $langErrorNameAlreadyExists;
+                    $dialogBox = get_lang('ErrorNameAlreadyExists');
                 }
             }
             else  // create form requested
             {
                 $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
-                              ."<h4>".$langCreateNewLearningPath."</h4>\n"
-                              ."<label for=\"newPathName\">".$langLearningPathName."</label><br />\n"
+                              ."<h4>".get_lang('CreateNewLearningPath')."</h4>\n"
+                              ."<label for=\"newPathName\">".get_lang('LearningPathName')."</label><br />\n"
                               ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input><br /><br />\n"
-                              ."<label for=\"newComment\">".$langComment."</label><br />\n"
+                              ."<label for=\"newComment\">".get_lang('Comment')."</label><br />\n"
                               ."<textarea id=\"newComment\" name=\"newComment\" rows=\"2\" cols=\"50\"></textarea><br />\n"
                               ."<input type=\"hidden\" name=\"cmd\" value=\"create\">\n"
-                              ."<input type=\"submit\" value=\"".$langOk."\"></input>\n"
+                              ."<input type=\"submit\" value=\"".get_lang('Ok')."\"></input>\n"
                               ."</form>\n\n";
             }
             break;
@@ -430,10 +430,10 @@ if($is_AllowedToEdit)
     // Display links to create and import a learning path
 ?>
       <p>
-      <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo $langCreateNewLearningPath; ?></a> |
-      <a class="claroCmd" href="importLearningPath.php"><?php echo $langimportLearningPath; ?></a> |
-      <a class="claroCmd" href="modules_pool.php"><?php echo $langModulesPoolToolName ?></a> |
-      <a class="claroCmd" href="<?php echo $clarolineRepositoryWeb; ?>tracking/learnPath_detailsAllPath.php"><?php echo $langTrackAllPath; ?></a>
+      <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo get_lang('CreateNewLearningPath'); ?></a> |
+      <a class="claroCmd" href="importLearningPath.php"><?php echo get_lang('importLearningPath'); ?></a> |
+      <a class="claroCmd" href="modules_pool.php"><?php echo get_lang('ModulesPoolToolName') ?></a> |
+      <a class="claroCmd" href="<?php echo $clarolineRepositoryWeb; ?>tracking/learnPath_detailsAllPath.php"><?php echo get_lang('TrackAllPath'); ?></a>
       </p>
 <?php
 }
@@ -471,23 +471,23 @@ if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid); // get 
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
  <thead>
  <tr class=\"headerX\" align=\"center\" valign=\"top\">
-  <th>".$langLearningPath."</th>";
+  <th>".get_lang('LearningPath')."</th>";
 
 if($is_AllowedToEdit)
 {
      // Titles for teachers
-     echo "<th>".$langModify."</th>"
-            ."<th>".$langDelete."</th>"
-            ."<th>".$langBlock."</th>"
-            ."<th>".$langVisibility."</th>"
-            ."<th colspan=\"2\">".$langOrder."</th>"
-            ."<th>".$langExport."</th>"
-            ."<th>".$langTracking."</th>";
+     echo "<th>".get_lang('Modify')."</th>"
+            ."<th>".get_lang('Delete')."</th>"
+            ."<th>".get_lang('Block')."</th>"
+            ."<th>".get_lang('Visibility')."</th>"
+            ."<th colspan=\"2\">".get_lang('Order')."</th>"
+            ."<th>".get_lang('Export')."</th>"
+            ."<th>".get_lang('Tracking')."</th>";
 }
 elseif($lpUid)
 {
    // display progression only if user is not teacher && not anonymous
-   echo "<th colspan=\"2\">".$langProgress."</th>";
+   echo "<th colspan=\"2\">".get_lang('Progress')."</th>";
 }
 // close title line
 echo "</tr>\n</thead>\n<tbody>";
@@ -737,7 +737,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // Modify command / go to other page
         echo "<td>\n",
              "<a href=\"learningPathAdmin.php?path_id=".$list['learnPath_id']."\">\n",
-             "<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"$langModify\" />\n",
+             "<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"get_lang('Modify')\" />\n",
              "</a>\n",
              "</td>\n";
 
@@ -751,7 +751,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                   "onClick=\"return scormConfirmation('",clean_str_for_javascript($list['name']),"');\">\n",
-                  "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"get_lang('Delete')\" />\n",
                   "</a>\n",
                   "</td>\n";
 
@@ -761,7 +761,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
                   "onClick=\"return confirmation('",clean_str_for_javascript($list['name']),"');\">\n",
-                  "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"get_lang('Delete')\" />\n",
                   "</a>\n",
                   "</td>\n";
         }
@@ -773,13 +773,13 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['lock'] == 'OPEN')
         {
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"$langBlock\" border=\"0\">\n",
+                  "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"get_lang('Block')\" border=\"0\">\n",
                   "</a>\n";
         }
         else
         {
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"$langAltMakeNotBlocking\" border=\"0\">\n",
+                  "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"get_lang('AltMakeNotBlocking')\" border=\"0\">\n",
                   "</a>\n";
         }
         echo  "</td>\n";
@@ -791,14 +791,14 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['visibility'] == 'HIDE')
         {
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&visibility_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"$langAltMakeVisible\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"get_lang('AltMakeVisible')\" border=\"0\" />\n",
                   "</a>";
         }
         else
         {
             if ($list['lock']=='CLOSE')
             {
-                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript($langAlertBlockingPathMadeInvisible) . "');\"";
+                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_lang('AlertBlockingPathMadeInvisible')) . "');\"";
             }
             else
             {
@@ -806,7 +806,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             }
 
             echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
-                 "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"$langMakeInvisible\" border=\"0\" />\n",
+                 "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"get_lang('MakeInvisible')\" border=\"0\" />\n",
                  "</a>\n";
         }
         echo  "</td>\n";
@@ -818,7 +818,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"$langAltMoveUp\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"get_lang('AltMoveUp')\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
         }
@@ -832,7 +832,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"$langMoveDown\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"get_lang('MoveDown')\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
         }
@@ -843,12 +843,12 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         
         // EXPORT links
         echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
-            .'<img src="' . $clarolineRepositoryWeb . 'img/export.gif" alt="' . $langExport . '" border="0"></a></td>' . "\n";
+            .'<img src="' . $clarolineRepositoryWeb . 'img/export.gif" alt="' . get_lang('Export') . '" border="0"></a></td>' . "\n";
         
         // statistics links
         echo "<td>\n
           <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-          <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"$langTracking\" />
+          <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"get_lang('Tracking')\" />
           </a>
           </td>\n";
     }
@@ -875,7 +875,7 @@ echo "</tbody>\n<tfoot>";
 
 if( $iterator == 1 )
 {
-      echo "<tr><td align=\"center\" colspan=\"8\">".$langNoLearningPath."</td></tr>";
+      echo "<tr><td align=\"center\" colspan=\"8\">".get_lang('NoLearningPath')."</td></tr>";
 }
 elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
 {
@@ -884,7 +884,7 @@ elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
     $total = round($globalprog/($iterator-1));
     echo "<tr>
           <td align =\"right\">
-          ".$langPathsInCourseProg." :
+          ".get_lang('PathsInCourseProg')." :
           </td>
           <td align=\"right\" >".
           claro_disp_progress_bar($total, 1).

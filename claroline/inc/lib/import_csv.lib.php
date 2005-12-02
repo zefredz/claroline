@@ -245,19 +245,10 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
  
 function claro_disp_CSV_error_backlog()
 {
-    global $langMailSynthaxError;
-    global $langMailUsed;
-    global $langUsernameUsed;
-    global $langCodeUsed;
-    global $langPasswordSimple;
-    global $langMailAppearAlready;
-    global $langUsernameAppearAlready;
-    global $langCodeAppearAlready;
-    global $langErrorFormatCSV;
     
     if (isset($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error'] == true)
     {
-       echo $langErrorFormatCSV."<br>";
+       echo get_lang('ErrorFormatCSV')."<br>";
        return;
     }
     
@@ -267,35 +258,35 @@ function claro_disp_CSV_error_backlog()
 
 	    if (isset($_SESSION['claro_mail_synthax_error'][$i]) && $_SESSION['claro_mail_synthax_error'][$i]) 
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> $langMailSynthaxError  <br>";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>" . get_lang('MailSynthaxError') . " <br>";
 	    }      
 	    if (isset($_SESSION['claro_mail_used_error'][$i]) && $_SESSION['claro_mail_used_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b> $langMailUsed  <br>\n";         
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>" . get_lang('MailUsed') . " <br>\n";         
 	    }
 	    if (isset($_SESSION['claro_username_used_error'][$i]) && $_SESSION['claro_username_used_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> $langUsernameUsed  <br>\n";     
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b>" . get_lang('UsernameUsed') . " <br>\n";     
 	    }
 	    if (isset($_SESSION['claro_officialcode_used_error'][$i]) && $_SESSION['claro_officialcode_used_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> $langCodeUsed  <br>\n"; 
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b>" . get_lang('CodeUsed') . " <br>\n"; 
 	    }
 	    if (isset($_SESSION['claro_password_error'][$i]) && $_SESSION['claro_password_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b> $langPasswordSimple  <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b>" . get_lang('PasswordSimple') . " <br>\n";
 	    }
 	    if (isset($_SESSION['claro_mail_duplicate_error'][$i]) && $_SESSION['claro_mail_duplicate_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>$langMailAppearAlready  <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>" . get_lang('MailAppearAlready')  . "<br>\n";
 	    }
 	    if (isset($_SESSION['claro_username_duplicate_error'][$i]) && $_SESSION['claro_username_duplicate_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b> $langUsernameAppearAlready  <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b>" . get_lang('UsernameAppearAlready') . "<br>\n";
 	    }
 	    if (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && $_SESSION['claro_officialcode_duplicate_error'][$i])
 	    {
-	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b> $langCodeAppearAlready  <br>\n";
+	        echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b>" . get_lang('CodeAppearAlready') . " <br>\n";
 	    }
     }
 }

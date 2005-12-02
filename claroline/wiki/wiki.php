@@ -31,7 +31,7 @@
         }
         else
         {
-            claro_die($langNotAllowed);
+            claro_die(get_lang('NotAllowed'));
         }
     }*/
     
@@ -55,12 +55,12 @@
         // group context
         $groupId = (int) $_gid;
         
-        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => $langGroups);
+        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
         $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
-        claro_die($langNotAllowed);
+        claro_die(get_lang('NotAllowed'));
     }
     elseif ( $is_courseAllowed )
     {
@@ -109,7 +109,7 @@
         $wikiTitle = ( isset( $_POST['title'] ) ) ? strip_tags( $_POST['title'] ) : '';
         $wikiDesc = ( isset( $_POST['desc'] ) ) ? strip_tags( $_POST['desc'] ) : '';
         
-        if ( $wikiDesc == $langWikiDefaultDescription )
+        if ( $wikiDesc == get_lang('WikiDefaultDescription') )
         {
             $wikiDesc = '';
         }
@@ -193,15 +193,15 @@
         {
             if ( ! $wikiStore->wikiIdExists( $wikiId ) )
             {
-                // die( $langWikiInvalidWikiId );
-                $message = $langWikiInvalidWikiId;
+                // die( get_lang('WikiInvalidWikiId') );
+                $message = get_lang('WikiInvalidWikiId');
                 $action = "error";
             }
             else
             {
                 $wiki = $wikiStore->loadWiki( $wikiId );
                 $wikiTitle = $wiki->getTitle();
-                $message = $langWikiDeleteWikiWarning;
+                $message = get_lang('WikiDeleteWikiWarning');
             }
             
             break;
@@ -215,7 +215,7 @@
             }
             else
             {
-                $message = $langWikiInvalidWikiId;
+                $message = get_lang('WikiInvalidWikiId');
                 $action = "error";
             }
 
@@ -228,7 +228,7 @@
                 $wikiList = $wikiStore->getWikiListByGroup( $groupId );
             }
 
-            $message = $langWikiDeletionSucceed;
+            $message = get_lang('WikiDeletionSucceed');
 
             //notify that the wiki was deleted
             
@@ -263,7 +263,7 @@
             }
             else
             {
-                $message = $langWikiInvalidWikiId;
+                $message = get_lang('WikiInvalidWikiId');
                 $action = "error";
             }
             break;
@@ -289,13 +289,13 @@
                                          , $_gid
                                          , '0');
                 
-                $mainPageContent = sprintf( $langWikiMainPageContent, $wikiTitle );
+                $mainPageContent = sprintf( get_lang('WikiMainPageContent'), $wikiTitle );
                 
                 $wikiPage = new WikiPage( $con, $config, $wikiId );
                 $wikiPage->create( $creatorId, '__MainPage__'
                     , $mainPageContent, date( "Y-m-d H:i:s" ), true );
             
-                $message = $langWikiCreationSucceed;
+                $message = get_lang('WikiCreationSucceed');
             }
             elseif ( $wikiStore->wikiIdExists( $wikiId ) )
             {
@@ -315,11 +315,11 @@
                                          , $_gid
                                          , '0');
                 
-                $message = $langWikiEditionSucceed;
+                $message = get_lang('WikiEditionSucceed');
             }
             else
             {
-                $message = $langWikiInvalidWikiId;
+                $message = get_lang('WikiInvalidWikiId');
                 $action = "error";
             }
             
@@ -359,19 +359,19 @@
     {
         case "rqEdit":
         {
-            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => $langWiki );
+            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang('Wiki') );
             $interbredcrump[]= array ('url' => NULL
                 , 'name' => $wikiTitle);
-            $nameTools = $langWikiProperties;
+            $nameTools = get_lang('WikiProperties');
             $noPHP_SELF = true;
             break;
         }
         case "rqDelete":
         {
-            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => $langWiki );
+            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang('Wiki') );
             $interbredcrump[]= array ('url' => NULL
                 , 'name' => $wikiTitle);
-            $nameTools = $langDelete;
+            $nameTools = get_lang('Delete');
             $noPHP_SELF = true;
             break;
         }
@@ -404,11 +404,11 @@
         {
             if ( $wikiId == 0 )
             {
-                $toolTitle['mainTitle'] = $langWikiTitleNew;
+                $toolTitle['mainTitle'] = get_lang('WikiTitleNew');
             }
             else
             {
-                $toolTitle['mainTitle'] = $langWikiTitleEdit;
+                $toolTitle['mainTitle'] = get_lang('WikiTitleEdit');
                 $toolTitle['subTitle'] = $wikiTitle;
             }
 
@@ -417,14 +417,14 @@
         // delete form
         case "rqDelete":
         {
-            $toolTitle['mainTitle'] = $langWikiDeleteWiki;
+            $toolTitle['mainTitle'] = get_lang('WikiDeleteWiki');
 
             break;
         }
         // list wiki
         case "list":
         {
-            $toolTitle['mainTitle'] = sprintf( $langWikiTitlePattern, $langWikiList );
+            $toolTitle['mainTitle'] = sprintf( get_lang('WikiTitlePattern'), get_lang('WikiList') );
             
             break;
         }
@@ -463,8 +463,8 @@
                 
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
-                . '<input type="submit" name="action[exDelete]" value="' . $langContinue . '" />' . "\n"
-                . claro_disp_button ($_SERVER['PHP_SELF'], $langCancel )
+                . '<input type="submit" name="action[exDelete]" value="' . get_lang('Continue') . '" />' . "\n"
+                . claro_disp_button ($_SERVER['PHP_SELF'], get_lang('Cancel') )
                 . '</div>'
                 ;
 
@@ -495,8 +495,8 @@
                     . $_SERVER['PHP_SELF']
                     . '?action=rqEdit'
                     . '" class="claroCmd">'
-                    . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWikiCreateNewWiki.'" />&nbsp;'
-                    . $langWikiCreateNewWiki
+                    . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang('WikiCreateNewWiki').'" />&nbsp;'
+                    . get_lang('WikiCreateNewWiki')
                     . '</a></p>'
                     . "\n"
                     ;
@@ -511,11 +511,11 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th>'.$langTitle.'</th>' . "\n"
-                    . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
-                    . '<th>'.$langWikiRecentChanges.'</th>'
-                    . '<th>'.$langWikiProperties.'</th>' . "\n"
-                    . '<th>'.$langDelete.'</th>' . "\n"
+                    . '<th>'.get_lang('Title').'</th>' . "\n"
+                    . '<th>'.get_lang('WikiNumberOfPages').'</th>' . "\n"
+                    . '<th>'.get_lang('WikiRecentChanges').'</th>'
+                    . '<th>'.get_lang('WikiProperties').'</th>' . "\n"
+                    . '<th>'.get_lang('Delete').'</th>' . "\n"
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -525,9 +525,9 @@
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
-                    . '<th>'.$langTitle.'</th>' . "\n"
-                    . '<th>'.$langWikiNumberOfPages.'</th>' . "\n"
-                    . '<th>'.$langWikiRecentChanges.'</th>'
+                    . '<th>'.get_lang('Title').'</th>' . "\n"
+                    . '<th>'.get_lang('WikiNumberOfPages').'</th>' . "\n"
+                    . '<th>'.get_lang('WikiRecentChanges').'</th>'
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -564,7 +564,7 @@
                     echo '<a class="item'.$classItem.'" href="page.php?wikiId='  
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.$langWiki.'" />&nbsp;'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang('Wiki').'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
                         ;
@@ -588,7 +588,7 @@
                     echo '<a href="page.php?wikiId='
                         . $entry['id'].'&amp;action=recent'
                         . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/history.gif" alt="'.$langWikiRecentChanges.'" />'
+                        . '<img src="' . $imgRepositoryWeb . '/history.gif" alt="'.get_lang('WikiRecentChanges').'" />'
                         . '</a>'
                         ;
                         ;
@@ -605,7 +605,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
                             . '">'
-                            . '<img src="'.$imgRepositoryWeb.'settings.gif" border="0" alt="'.$langWikiEditProperties.'" />'
+                            . '<img src="'.$imgRepositoryWeb.'settings.gif" border="0" alt="'.get_lang('WikiEditProperties').'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
@@ -616,7 +616,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
-                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.$langDelete.'" />'
+                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
@@ -643,7 +643,7 @@
             // wiki list empty
             else
             {
-                echo '<tr><td colspan="5" style="text-align: center;">'.$langWikiNoWiki.'</td></tr>' . "\n";
+                echo '<tr><td colspan="5" style="text-align: center;">'.get_lang('WikiNoWiki').'</td></tr>' . "\n";
             }
             
             echo '</tbody>' . "\n";

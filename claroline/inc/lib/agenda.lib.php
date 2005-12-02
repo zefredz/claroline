@@ -273,7 +273,7 @@ function get_agenda_items($userCourseList, $month, $year)
     return $agendaItemList;
 }
 
-function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName, $langToday)
+function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
 {
 
     //Handle leap year

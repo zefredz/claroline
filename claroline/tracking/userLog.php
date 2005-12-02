@@ -30,12 +30,12 @@
  
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../user/user.php", "name"=> $langUsers);
+$interbredcrump[]= array ("url"=>"../user/user.php", "name"=> get_lang('Users'));
 
 if( !empty($_REQUEST['uInfo']) )
-	$interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_REQUEST['uInfo'], "name"=> $langUser);
+	$interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_REQUEST['uInfo'], "name"=> get_lang('User'));
 
-$nameTools = $langStatistics;
+$nameTools = get_lang('Statistics');
 
 /*
  * DB tables definition
@@ -86,7 +86,7 @@ $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all s
 include($includePath."/claro_init_header.inc.php");
 
 $toolTitle['mainTitle'] = $nameTools;
-$toolTitle['subTitle'] = $langStatsOfUser;
+$toolTitle['subTitle'] = get_lang('StatsOfUser');
 echo claro_disp_tool_title($toolTitle);
 
 if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackingEnabled )
@@ -96,7 +96,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         /***************************************************************************
          *        Display list of user of this group
          ***************************************************************************/
-        echo '<h4>'.$langListStudents.'</h4>'."\n";
+        echo '<h4>'.get_lang('ListStudents').'</h4>'."\n";
 
         $userPerPage = 50; // number of student per page
 
@@ -134,7 +134,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 		  ----------------------------------------------------------------------*/
 		echo '<table class="claroTable" width="100%" cellpadding="2" cellspacing="1" border="0">'."\n"
             .'<tr class="headerX" align="center" valign="top">'."\n"
-            .'<th align="left">'.$langUserName.'</th>'."\n"
+            .'<th align="left">'.get_lang('UserName').'</th>'."\n"
             .'</tr>'."\n";
 
         foreach( $userList as $thisUser )
@@ -186,10 +186,10 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
             echo '<p>'."\n"
                 .'<ul>'."\n"
-                .'<li>'.$langLastName.' : '.$trackedUser['lastname'].'</li>'."\n"
-                .'<li>'.$langFirstName.' : '.$trackedUser['firstname'].'</li>'."\n"
-                .'<li>'.$langEmail.' : ';
-			if( empty($trackedUser['email']) )	echo $langNoEmail;
+                .'<li>'.get_lang('LastName').' : '.$trackedUser['lastname'].'</li>'."\n"
+                .'<li>'.get_lang('FirstName').' : '.$trackedUser['firstname'].'</li>'."\n"
+                .'<li>'.get_lang('Email').' : ';
+			if( empty($trackedUser['email']) )	echo get_lang('NoEmail');
 			else 								echo $trackedUser['email'];
 
 			echo '</li>'."\n"
@@ -199,8 +199,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
             echo "\n".'<small>'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=1111111">'.$langShowAll.'</a>]&nbsp;'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=0000000">'.$langShowNone.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=1111111">'.get_lang('ShowAll').'</a>]&nbsp;'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=0000000">'.get_lang('ShowNone').'</a>]'."\n"
                 .'</small>'."\n\n";
 
             $viewLevel = -1; //  position of the flag of the view in the $view array/string
@@ -218,8 +218,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-              echo '-&nbsp;&nbsp;<b>'.$langLoginsAndAccessTools.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
-                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langLoginsDetails.'<br />'."\n";
+              echo '-&nbsp;&nbsp;<b>'.get_lang('LoginsAndAccessTools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
+                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('LoginsDetails').'<br />'."\n";
                 
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`, count(`login_date`) AS `nbr_login`
                             FROM `".$tbl_track_e_login."`
@@ -230,8 +230,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                 	.'<tr class="headerX">'."\n"
-                    .'<th>'.$langLoginsTitleMonthColumn.'</th>'."\n"
-                    .'<th>'.$langLoginsTitleCountColumn.'</th>'."\n"
+                    .'<th>'.get_lang('LoginsTitleMonthColumn').'</th>'."\n"
+                    .'<th>'.get_lang('LoginsTitleCountColumn').'</th>'."\n"
                     .'</tr>'."\n"
                     .'<tbody>'."\n";
                         
@@ -247,14 +247,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 	                    $total = $total + $result['nbr_login'];
 	                }
 	                echo '</tbody>'."\n".'<tfoot>'."\n".'<tr>'."\n"
-	                    .'<td>'.$langTotal.'</td>'."\n"
+	                    .'<td>'.get_lang('Total').'</td>'."\n"
 	                    .'<td align="right">'.$total.'</td>'."\n"
 	                    .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-                        .'<td colspan="2"><center>'.$langNoResult.'</center></td>'."\n"
+                        .'<td colspan="2"><center>'.get_lang('NoResult').'</center></td>'."\n"
                         .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n"
@@ -263,7 +263,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langLoginsAndAccessTools.'</a>'."\n";
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('LoginsAndAccessTools').'</a>'."\n";
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
@@ -278,8 +278,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>'.$langExercisesResults.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'."\n"
-                        .'<br />&nbsp;&nbsp;&nbsp;'.$langExercisesDetails.'<br />'."\n";
+                echo '-&nbsp;&nbsp;<b>'.get_lang('ExercisesResults').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'."\n"
+                        .'<br />&nbsp;&nbsp;&nbsp;'.get_lang('ExercisesDetails').'<br />'."\n";
                         
                 $sql = "SELECT `E`.`titre`, `E`.`id`,
                         MIN(`TEX`.`exe_result`) AS `minimum`,
@@ -299,13 +299,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                 	.'<tr class="headerX">'."\n"
-                    .'<th>'.$langExercisesTitleExerciseColumn.'</th>'."\n"
-                    .'<th>'.$langScoreMin.'</th>'."\n"
-                    .'<th>'.$langScoreMax.'</th>'."\n"
-                    .'<th>'.$langScoreAvg.'</th>'."\n"
-                    .'<th>'.$langExeAvgTime.'</th>'."\n"
-                    .'<th>'.$langAttempts.'</th>'."\n"
-                    .'<th>'.$langLastAttempt.'</th>'."\n"
+                    .'<th>'.get_lang('ExercisesTitleExerciseColumn').'</th>'."\n"
+                    .'<th>'.get_lang('ScoreMin').'</th>'."\n"
+                    .'<th>'.get_lang('ScoreMax').'</th>'."\n"
+                    .'<th>'.get_lang('ScoreAvg').'</th>'."\n"
+                    .'<th>'.get_lang('ExeAvgTime').'</th>'."\n"
+                    .'<th>'.get_lang('Attempts').'</th>'."\n"
+                    .'<th>'.get_lang('LastAttempt').'</th>'."\n"
                     .'</tr>';
                     
                 if( !empty($results) && is_array($results) )
@@ -338,9 +338,9 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 								.'<td colspan="6" class="noHover">'."\n"
 								.'<table class="claroTable" cellspacing="1" cellpadding="2" border="0" width="100%">'."\n"
 								.'<tr class="headerX">'."\n"
-								.'<th><small>'.$langDate.'</small></th>'."\n"
-								.'<th><small>'.$langScore.'</small></th>'."\n"
-								.'<th><small>'.$langExeTime.'</small></th>'."\n"
+								.'<th><small>'.get_lang('Date').'</small></th>'."\n"
+								.'<th><small>'.get_lang('Score').'</small></th>'."\n"
+								.'<th><small>'.get_lang('ExeTime').'</small></th>'."\n"
 								.'</tr>'."\n"
 								.'<tbody>'."\n";
 
@@ -364,7 +364,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 				else
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-                          .'<td colspan="7" align="center">'.$langNoResult.'</td>'."\n"
+                          .'<td colspan="7" align="center">'.get_lang('NoResult').'</td>'."\n"
                           .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n\n"
@@ -374,7 +374,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langExercisesResults.'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('ExercisesResults').'</a>';
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
@@ -389,8 +389,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>'.$langLearningPath.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
-                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langLearnPathDetails.'<br />'."\n";
+                echo '-&nbsp;&nbsp;<b>'.get_lang('LearningPath').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
+                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('LearnPathDetails').'<br />'."\n";
                 
                 // get list of learning paths of this course
                 // list available learning paths
@@ -403,13 +403,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 // table header
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                     .'<tr class="headerX">'."\n"
-                    .'<th>'.$langLearningPath.'</th>'."\n"
-                    .'<th colspan="2">'.$langProgress.'</th>'."\n"
+                    .'<th>'.get_lang('LearningPath').'</th>'."\n"
+                    .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
                     .'</tr>';
                 if(sizeof($lpList) == 0)
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-						.'<td colspan="3" align="center">'.$langNoLearningPath.'</td>'."\n"
+						.'<td colspan="3" align="center">'.get_lang('NoLearningPath').'</td>'."\n"
 						.'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
@@ -437,7 +437,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langLearningPath.'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('LearningPath').'</a>';
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
@@ -452,8 +452,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>'.$langWorkUploads.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
-                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langWorksDetails.'<br />'."\n";
+                echo '-&nbsp;&nbsp;<b>'.get_lang('WorkUploads').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
+                        .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('WorksDetails').'<br />'."\n";
                         
                 $sql = "SELECT `A`.`title` as `a_title`, `A`.`assignment_type`,
                                 `S`.`id`, `S`.`title` as `s_title`,
@@ -506,11 +506,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                         .'<tr class="headerX">'."\n"
-                        .'<th>'.$langAssignment.'</th>'."\n"
-                        .'<th>'.$langWorkTitle.'</th>'."\n"
-                        .'<th>'.$langWorkAuthors.'</th>'."\n"
-                        .'<th>'.$langScore.'</th>'."\n"
-                        .'<th>'.$langDate.'</th>'."\n"
+                        .'<th>'.get_lang('Assignment').'</th>'."\n"
+                        .'<th>'.get_lang('WorkTitle').'</th>'."\n"
+                        .'<th>'.get_lang('WorkAuthors').'</th>'."\n"
+                        .'<th>'.get_lang('Score').'</th>'."\n"
+                        .'<th>'.get_lang('Date').'</th>'."\n"
                         .'</tr>'."\n";
                 // third pass to finally display
                 if( !empty($results) && is_array($results) )
@@ -537,7 +537,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         }
                         else
                         {
-                                $displayedScore  = $langNoScore;
+                                $displayedScore  = get_lang('NoScore');
                         }
                         
                         if( isset($work['g_name']) )
@@ -563,7 +563,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 else
                 {
                     echo '<tfoot><tr>'."\n"
-                        .'<td colspan="5" align="center">'.$langNoResult.'</td>'."\n"
+                        .'<td colspan="5" align="center">'.get_lang('NoResult').'</td>'."\n"
                         .'</tr></tfoot>'."\n";
                 }
                 echo '</table>'."\n"
@@ -572,7 +572,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langWorkUploads.'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.get_lang('WorkUploads').'</a>';
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
@@ -585,8 +585,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>'.$langDocumentsAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langClose.'</a>]</small>'
-                    .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.$langDocumentsDetails.'<br />'."\n";
+                echo '-&nbsp;&nbsp;<b>'.get_lang('DocumentsAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
+                    .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('DocumentsDetails').'<br />'."\n";
                         
                 $sql = "SELECT `down_doc_path`
                             FROM `".$tbl_track_e_downloads."`
@@ -596,7 +596,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                 	.'<tr class="headerX">'."\n"
-					.'<th>'.$langDocumentsTitleDocumentColumn.'</th>'."\n"
+					.'<th>'.get_lang('DocumentsTitleDocumentColumn').'</th>'."\n"
 					.'</tr>'."\n";
                 if( !empty($results) && is_array($results) )
                 { 
@@ -613,7 +613,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 else
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-                            .'<td align="center">'.$langNoResult.'</td>'."\n"
+                            .'<td align="center">'.get_lang('NoResult').'</td>'."\n"
                             .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n"
@@ -623,7 +623,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langDocumentsAccess.'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.get_lang('DocumentsAccess').'</a>';
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
@@ -638,7 +638,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>'.$langTrackForumUsage.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.$langClose.'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>'.get_lang('TrackForumUsage').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
                         .'<br />'."\n";
                 // total number of messages posted by user
                 $sql = "SELECT count(`post_id`)
@@ -655,9 +655,9 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $totalTopics = claro_sql_query_get_single_value($sql);
 
                 echo '<ul>'."\n"
-                    .'<li>'.$langTrackTotalPosts.' : '.$totalPosts.'</li>'
-                    .'<li>'.$langTrackTotalTopics.' : '.$totalTopics.'</li>'
-                    .'<li>'.$langLastMsgs."\n";
+                    .'<li>'.get_lang('TrackTotalPosts').' : '.$totalPosts.'</li>'
+                    .'<li>'.get_lang('TrackTotalTopics').' : '.$totalTopics.'</li>'
+                    .'<li>'.get_lang('LastMsgs')."\n";
                 // last 10 distinct messages posted
                 $sql = "SELECT `bb_t`.`topic_id`,
                                 `bb_t`.`topic_title`, 
@@ -673,8 +673,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
 					.'<tr class="headerX">'."\n"
-					.'<th>'.$l_topic.'</th>'."\n"
-					.'<th>'.$langLastMsg.'</th>'."\n"
+					.'<th>'.get_lang('topic').'</th>'."\n"
+					.'<th>'.get_lang('LastMsg').'</th>'."\n"
 					.'</tr>'."\n";
                 if( !empty($results) && is_array($results) )
                 {
@@ -692,7 +692,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 else
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-	                    .'<td align="center">'.$langNoResult.'</td>'."\n"
+	                    .'<td align="center">'.get_lang('NoResult').'</td>'."\n"
 	                    .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n"
@@ -702,13 +702,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.$langTrackForumUsage.'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.get_lang('TrackForumUsage').'</a>';
             }
             echo '<br />'."\n".'</p>'."\n\n";
         }
         else
         {
-            echo $langErrorUserNotInGroup;
+            echo get_lang('ErrorUserNotInGroup');
         }
         
     }
@@ -718,11 +718,11 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        echo $langTrackingDisabled;
+        echo get_lang('TrackingDisabled');
     }
     else
     {
-        echo $langNotAllowed;
+        echo get_lang('NotAllowed');
     }
 }
 include($includePath."/claro_init_footer.inc.php");

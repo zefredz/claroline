@@ -26,7 +26,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 
-$nameTools  = $langChat;
+$nameTools  = get_lang('Chat');
 
 // STATS & TRACKING
 event_access_tool($_tid, $_courseTool['label']);

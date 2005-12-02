@@ -6,7 +6,7 @@ $htmlHeadXtra[] =
           "<script type=\"text/javascript\">
            function confirm_delete(name)
            {
-               if (confirm('". clean_str_for_javascript($langAreYouSureToDelete) . "' + name + ' ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDelete')) . "' + name + ' ?'))
                {return true;}
                else
                {return false;}
@@ -14,7 +14,7 @@ $htmlHeadXtra[] =
 
            function confirm_empty(name)
            {
-               if (confirm('". clean_str_for_javascript($langConfirmEmptyForum) . "' + name + ' ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('ConfirmEmptyForum')) . "' + name + ' ?'))
                {return true;}
                else
                {return false;}
@@ -36,13 +36,13 @@ if ( $cmd == 'exMkCat' )
     	}
     	else
     	{
-    	    $dialogBox .= '<p>'.$langUnableCreateCategory.'</p>'."\n";
+    	    $dialogBox .= '<p>'.get_lang('UnableCreateCategory').'</p>'."\n";
     	    $cmd = 'rqMkCat';
     	}
 	}
 	else
 	{
-	     $dialogBox .= '<p>'.$langMissingFields.'</p>'."\n";
+	     $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
     	 $cmd = 'rqMkCat';
 	}
 }
@@ -52,15 +52,15 @@ if ( $cmd == 'rqMkCat' )
     if ( isset($_REQUEST['catName']) ) $catName = $_REQUEST['catName'];
     else                               $catName = '';
 
-    $dialogBox .= '<h4>'.$langAddCategory.'</h4>'
+    $dialogBox .= '<h4>'.get_lang('AddCategory').'</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
-               .  '<label for="catName">'.$langName.' : </label><br />'."\n"
+               .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
                .  '<input type="text" name="catName" id="catName"'
                .  ' value="' . $catName . '" /><br />'."\n"
-               .  '<input type="submit" value="'.$langOk.'" /> '
-               .  claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+               .  '<input type="submit" value="'.get_lang('Ok').'" /> '
+               .  claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'
                .  "\n";
 }
@@ -77,17 +77,17 @@ if ( $cmd == 'exMkForum' )
 	                          $forumPostAllowed,
 	                          (int) $_REQUEST['forumCatId'] ) )
 	        {
-	           $dialogBox .= '<p>'.$langForumCreated.'</p>'."\n";
+	           $dialogBox .= '<p>'.get_lang('ForumCreated').'</p>'."\n";
 	        }
 	        else
 	        {                   
-	           $dialogBox .= '<p>'.$langUnableCreateForum.'</p>'."\n";
+	           $dialogBox .= '<p>'.get_lang('UnableCreateForum').'</p>'."\n";
 	           $cmd        = 'rqMkForum';
 	        }
     }
 	else 
 	{
-        $dialogBox .= '<p>'.$langMissingFields.'</p>'."\n";
+        $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
 	    $cmd        = 'rqMkForum';
 	}
 }
@@ -98,7 +98,7 @@ if ( $cmd == 'rqMkForum' )
 
     if ( count($formCategoryList) > 0 )
     {
-        $catSelectBox = $langCategory . ' : <br />'."\n"
+        $catSelectBox = get_lang('Category') . ' : <br />'."\n"
                        .'<select name="forumCatId">';
 
         foreach($formCategoryList as $thisFormCategory)
@@ -122,24 +122,24 @@ if ( $cmd == 'rqMkForum' )
                                   ' checked ' : '';
 
 
-    $dialogBox .= '<h4>'.$langAddForum.'</h4>'
+    $dialogBox .= '<h4>'.get_lang('AddForum').'</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-               .'<label for="forumName">'.$langName.': </label><br />'."\n"
+               .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
                .'<input type="text" name="forumName" id="forumName"'
                .' value="'.$reqForumName.'" /><br />'."\n"
-               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'."\n"
+               .'<label for="forumDesc">' . get_lang('Description') . ' : </label><br />'."\n"
                .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
                .$reqForumDesc
                .'</textarea><br />'."\n"
                .$catSelectBox."\n"
                .'<br />'."\n"
                .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$reqForumPostUnallowedState.' />'."\n"
-               .'<label for="forumPostUnallowed">'.$langLocked.' <small>('.$langNoPostAllowed.')</small></label><br />'."\n"
+               .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('NoPostAllowed').')</small></label><br />'."\n"
                .'<br />'."\n"
-               .'<input type="submit" value="'.$langOk.'" />'."\n"
-               . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+               .'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
+               . claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 }
 
@@ -149,16 +149,16 @@ if ( $cmd == 'exEdCat' )
     {
         if ( update_category_title( $_REQUEST['catId'], $_REQUEST['catName'] ) )
         {
-            $dialogBox .= '<p>'.$langCategoryUpdated.'</p>'."\n";
+            $dialogBox .= '<p>'.get_lang('CategoryUpdated').'</p>'."\n";
         }
         else
         {
-            $dialogBox .= '<p>'.$langUnableToUpdateCategory.'</p>'."\n";
+            $dialogBox .= '<p>'.get_lang('UnableToUpdateCategory').'</p>'."\n";
         }
     }
     else
     {
-        $dialogBox .= '<p>'.$langMissingFields.'</p>'."\n";
+        $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
         $cmd        = 'rqEdCat';
     }
 }
@@ -169,16 +169,16 @@ if ( $cmd == 'rqEdCat' )
 
     if ( $categorySettingList )
     {
-        $dialogBox .= '<h4>'.$langEditCategory.'</h4>'."\n"
+        $dialogBox .= '<h4>'.get_lang('EditCategory').'</h4>'."\n"
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exEdCat" />'."\n"
-               .  '<label for="catName">'.$langName.' : </label><br />'."\n"
+               .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
                .  '<input type="text" name="catName" id="catName"'
                .  ' value="'.$categorySettingList['cat_title'].'" /><br />'."\n"
-               .  '<input type="submit" value="'.$langOk.'" /> '
-               .  claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+               .  '<input type="submit" value="'.get_lang('Ok').'" /> '
+               .  claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'."\n"
                .  "\n";
     }   
@@ -194,16 +194,16 @@ if ( $cmd == 'exEdForum' )
                                    $_REQUEST['forumDesc' ], $forumPostAllowed, 
                                    $_REQUEST['forumCatId']) )
         {
-            $dialogBox .= '<p>'.$langForumUpdated.'</p>'."\n";
+            $dialogBox .= '<p>'.get_lang('ForumUpdated').'</p>'."\n";
         }
         else
         {
-            $dialogBox .= '<p>'.$langUnableToUpdateForum.'</p>'."\n";
+            $dialogBox .= '<p>'.get_lang('UnableToUpdateForum').'</p>'."\n";
         }
     }
     else 
     {
-        $dialogBox .= '<p>'.$langMissingFields.'</p>'."\n";
+        $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
         $cmd        = 'rqEdForum';
     }
 }
@@ -216,7 +216,7 @@ if ( $cmd == 'rqEdForum' )
 
     if ( count($formCategoryList) > 0 )
     {
-        $catSelectBox = $langCategory . ' : <br />'."\n"
+        $catSelectBox = get_lang('Category') . ' : <br />'."\n"
                        .'<select name="forumCatId">';
 
         foreach( $formCategoryList as $thisFormCategory )
@@ -253,25 +253,25 @@ if ( $cmd == 'rqEdForum' )
                                    :
                                     ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
 
-    $dialogBox .= '<h4>'.$langAddForum.'</h4>'."\n"
+    $dialogBox .= '<h4>'.get_lang('AddForum').'</h4>'."\n"
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'" />'."\n"
-               .'<label for="forumName">'.$langName.': </label><br />'."\n"
+               .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
                .'<input type="text" name="forumName" id="forumName"'
                .' value="'.htmlspecialchars($formForumNameValue).'" /><br />'."\n"
-               .'<label for="forumDesc">' . $langDescription . ' : </label><br />'."\n"
+               .'<label for="forumDesc">' . get_lang('Description') . ' : </label><br />'."\n"
                .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
                .htmlspecialchars($formForumDescriptionValue)
                .'</textarea><br />'."\n"
                .$catSelectBox."\n"
                .'<br />'."\n"
                .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$formForumPostUnallowedState.' />'."\n"
-               .'<label for="forumPostUnallowed">'.$langLocked.' <small>('.$langNoPostAllowed.')</small></label><br />'."\n"
+               .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('NoPostAllowed').')</small></label><br />'."\n"
                .'<br />'."\n"
-               .'<input type="submit" value="'.$langOk.'" /> '."\n"
-               . claro_disp_button($_SERVER['PHP_SELF'], $langCancel)
+               .'<input type="submit" value="'.get_lang('Ok').'" /> '."\n"
+               . claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 
 }
@@ -280,19 +280,19 @@ if ( $cmd == 'exDelCat' )
 {
     if ( delete_category($_REQUEST['catId']) )
     {
-    	$dialogBox .= '<p>'.$langCategoryDeleted.'</p>'."\n";
+    	$dialogBox .= '<p>'.get_lang('CategoryDeleted').'</p>'."\n";
     }
     else
     {
-    	$dialogBox .= '<p>'.$langUnableDeleteCategory.'</p>'."\n";
+    	$dialogBox .= '<p>'.get_lang('UnableDeleteCategory').'</p>'."\n";
 
         if ( claro_failure::get_last_failure() == 'GROUP_FORUMS_CATEGORY_REMOVALE_FORBIDDEN' )
         {
-            $dialogBox .= '<p>'.$langUnableDeleteGroupCategoryForum.'</p>'."\n";
+            $dialogBox .= '<p>'.get_lang('UnableDeleteGroupCategoryForum').'</p>'."\n";
         }
         elseif(claro_failure::get_last_failure() == 'GROUP_FORUM_REMOVALE_FORBIDDEN')
         {
-        	$dialogBox .= '<p>'.$langCannotRemoveGroupForum.'</p>' ;
+        	$dialogBox .= '<p>'.get_lang('CannotRemoveGroupForum').'</p>' ;
         }
         
     }
@@ -306,16 +306,16 @@ if ( $cmd == 'exDelForum' )
     {
         if ( delete_forum ($_REQUEST['forumId']) )
     	{
-    	    $dialogBox .= '<p>'.$langForumDeleted.'</p>'."\n";
+    	    $dialogBox .= '<p>'.get_lang('ForumDeleted').'</p>'."\n";
     	}
     	else
     	{
-    	    $dialogBox .= '<p>'.$langUnableDeleteForum.'</p>'."\n";
+    	    $dialogBox .= '<p>'.get_lang('UnableDeleteForum').'</p>'."\n";
     	}
     }
     else
     {
-            $dialogBox .= '<p>'.$langCannotRemoveGroupForum.'</p>'."\n";
+            $dialogBox .= '<p>'.get_lang('CannotRemoveGroupForum').'</p>'."\n";
     }
 }
 
@@ -323,11 +323,11 @@ if ( $cmd == 'exEmptyForum' )
 {
 	if ( delete_all_post_in_forum($_REQUEST['forumId']) )
 	{
-	    $dialogBox .= '<p>'.$langForumEmptied.'</p>'."\n";
+	    $dialogBox .= '<p>'.get_lang('ForumEmptied').'</p>'."\n";
 	}
 	else
 	{
-	    $dialogBox .= '<p>'.$langUnableToEmptyForum.'</p>'."\n";
+	    $dialogBox .= '<p>'.get_lang('UnableToEmptyForum').'</p>'."\n";
 	}
 }
 

@@ -58,16 +58,16 @@ $is_allowedToTrack = $is_courseAdmin;
 // bredcrump
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
-	$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> $langExercices);
+	$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('Exercices'));
 	$src = '&src=ex';
 }
 else
 {
- $interbredcrump[]= array ('url'=>'courseLog.php', 'name'=> $langStatistics);
+ $interbredcrump[]= array ('url'=>'courseLog.php', 'name'=> get_lang('Statistics'));
 	$src = '';
 }
-$interbredcrump[]= array ('url'=>'exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src, 'name'=> $langStatsOfExercise);
-$nameTools = $langStatsOfQuestion;
+$interbredcrump[]= array ('url'=>'exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src, 'name'=> get_lang('StatsOfExercise'));
+$nameTools = get_lang('StatsOfQuestion');
 
 
 // if the question_id is not set display the stats of all questions of this exercise
@@ -99,7 +99,7 @@ $titleTab['mainTitle'] = $nameTools;
 echo claro_disp_tool_title($titleTab);
 
 // build back link
-$backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src.'">&lt;&lt;&nbsp;'.$langBack.'</a></small>'."\n\n";
+$backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";
 echo $backLink;
 
 if($is_allowedToTrack && $is_trackingEnabled)
@@ -327,8 +327,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
 			// display tab header
 			echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
 				.'<tr class="headerX" align="center" valign="top">'."\n"
-				.'<th>'.$langExpectedChoice.'</th>'."\n"
-			    .'<th width="60%">'.$langAnswer.'</th>'."\n"
+				.'<th>'.get_lang('ExpectedChoice').'</th>'."\n"
+			    .'<th width="60%">'.get_lang('Answer').'</th>'."\n"
 			    .'<th colspan="2">#</th>'."\n"
 			  	.'</tr>'."\n"
 			  	.'<tbody>'."\n\n";
@@ -385,7 +385,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 
 						echo '<tr >'
 							.'<td '.$class.'>';
-						if( empty($result['answer']) ) 	echo '('.$langEmpty.')';
+						if( empty($result['answer']) ) 	echo '('.get_lang('Empty').')';
 						else 							echo $result['answer'];
 
 	                    if($result['nbr'] == 0 )	$pourcent = 0;
@@ -400,7 +400,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 	   			else
 	   			{
 	            	echo '<tr >'
-						.'<td colspan="2" align="center">'.$langNoResult.'</td>'."\n"
+						.'<td colspan="2" align="center">'.get_lang('NoResult').'</td>'."\n"
 						.'</tr>';
 				}
 		        echo '</table>'."\n\n"
@@ -452,11 +452,11 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        echo $langTrackingDisabled;
+        echo get_lang('TrackingDisabled');
     }
     else
     {
-        echo $langNotAllowed;
+        echo get_lang('NotAllowed');
     }
 }
 

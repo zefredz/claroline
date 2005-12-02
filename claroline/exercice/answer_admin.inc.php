@@ -159,7 +159,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 			// checks if field is empty
 			if( $reponse[$i] == "" )
 			{
-				$msgErr = $langGiveAnswers;
+				$msgErr = get_lang('GiveAnswers');
 
 				// clears answers already recorded into the Answer object
 				$_SESSION['objAnswer']->cancel();
@@ -177,7 +177,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 		{
  			if(!$nbrGoodAnswers)
 			{
-				$msgErr = ($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)?$langChooseGoodAnswer:$langChooseGoodAnswers;
+				$msgErr = ($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)?get_lang('ChooseGoodAnswer'):get_lang('ChooseGoodAnswers');
 
 				// clears answers already recorded into the Answer object
 				$_SESSION['objAnswer']->cancel();
@@ -280,11 +280,11 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 			// if no text has been typed or the text contains no blank
 			elseif(empty($reponse))
 			{
-				$msgErr = $langGiveText;
+				$msgErr = get_lang('GiveText');
 			}
 			elseif(!ereg('\[.+\]',$reponse))
 			{
-				$msgErr = $langDefineBlanks;
+				$msgErr = get_lang('DefineBlanks');
 			}
 			else
 			{
@@ -341,7 +341,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 			// checks if field is empty
 			if(empty($option[$i]))
 			{
-				$msgErr = $langFillLists;
+				$msgErr = get_lang('FillLists');
 
 				// clears options already recorded into the Answer object
 				$_SESSION['objAnswer']->cancel();
@@ -369,7 +369,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 				// checks if field is empty
 				if(empty($match[$i]))
 				{
-					$msgErr = $langFillLists;
+					$msgErr = get_lang('FillLists');
 
 					// clears matches already recorded into the Answer object
 					$_SESSION['objAnswer']->cancel();
@@ -632,10 +632,10 @@ if( isset($modifyAnswers) )
 <thead>
 <tr class="headerX">
   <th>N°</th>
-  <th><?php echo $langExpectedChoice; ?></th>
-  <th><?php echo $langAnswer; ?></th>
-  <th><?php echo $langComment; ?></th>
-  <th><?php echo $langQuestionWeighting; ?></th>
+  <th><?php echo get_lang('ExpectedChoice'); ?></th>
+  <th><?php echo get_lang('Answer'); ?></th>
+  <th><?php echo get_lang('Comment'); ?></th>
+  <th><?php echo get_lang('QuestionWeighting'); ?></th>
 </tr>
 </thead>
 <tbody>
@@ -675,8 +675,8 @@ if( isset($modifyAnswers) )
 				}
 				elseif( $answerType == TRUEFALSE )
 				{
-					if( $i == 1 ) echo $langTrue.'<input type="hidden" name="reponse['.$i.']" value="'.$langTrue.'" />' ;
-					elseif( $i == 2 ) echo $langFalse.'<input type="hidden" name="reponse['.$i.']" value="'.$langFalse.'" />';
+					if( $i == 1 ) echo get_lang('True').'<input type="hidden" name="reponse['.$i.']" value="'.get_lang('True').'" />' ;
+					elseif( $i == 2 ) echo get_lang('False').'<input type="hidden" name="reponse['.$i.']" value="'.get_lang('False').'" />';
 				}
 				else
 				{
@@ -696,17 +696,17 @@ if( isset($modifyAnswers) )
 <tfoot>
 <tr>
   <td colspan="5" align="center">
-	<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
+	<input type="submit" name="submitAnswers" value="<?php echo get_lang('Ok'); ?>">
 <?php
 			if( $answerType != TRUEFALSE )
 			{
 ?>
-	&nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo $langLessAnswers; ?>">
-	&nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo $langMoreAnswers; ?>">
+	&nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo get_lang('LessAnswers'); ?>">
+	&nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo get_lang('MoreAnswers'); ?>">
 <?php
 			}
 ?>
-	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo get_lang('Cancel'); ?>">
   </td>
 </tr>
 </tfoot>
@@ -737,26 +737,26 @@ if( isset($modifyAnswers) )
 				}
 ?>
 <p>
-	<?php echo $langTypeTextBelow.', '.$langAnd.' '.$langUseTagForBlank; ?>&nbsp;:
+	<?php echo get_lang('TypeTextBelow').', '.get_lang('And').' '.get_lang('UseTagForBlank'); ?>&nbsp;:
 </p>
 
-<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo $langDefaultTextInBlanks; else echo htmlspecialchars($reponse); ?></textarea>
+<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo get_lang('DefaultTextInBlanks'); else echo htmlspecialchars($reponse); ?></textarea>
 
 <p>
-	<?php echo $langFillType; ?>&nbsp;:
+	<?php echo get_lang('FillType'); ?>&nbsp;:
 </p>
 <p>
-	<input type="radio" name="fillType" id="textFill" value="<?php echo TEXTFIELD_FILL; ?>" <?php if(isset($fillType) && $fillType == TEXTFIELD_FILL) echo 'checked="checked"'; ?> /><label for="textFill"><?php echo $langFillTextField; ?></label><br />
-	<input type="radio" name="fillType" id="listboxFill" value="<?php echo LISTBOX_FILL; ?>" <?php if(isset($fillType) && $fillType == LISTBOX_FILL) echo 'checked="checked"'; ?> /><label for="listboxFill"><?php echo $langFillSelectBox; ?></label><br />
+	<input type="radio" name="fillType" id="textFill" value="<?php echo TEXTFIELD_FILL; ?>" <?php if(isset($fillType) && $fillType == TEXTFIELD_FILL) echo 'checked="checked"'; ?> /><label for="textFill"><?php echo get_lang('FillTextField'); ?></label><br />
+	<input type="radio" name="fillType" id="listboxFill" value="<?php echo LISTBOX_FILL; ?>" <?php if(isset($fillType) && $fillType == LISTBOX_FILL) echo 'checked="checked"'; ?> /><label for="listboxFill"><?php echo get_lang('FillSelectBox'); ?></label><br />
 </p>
 <p>
-	<?php echo $langAddWrongAnswers; ?>
+	<?php echo get_lang('AddWrongAnswers'); ?>
 </p>
 	<textarea name="wrongAnswers" cols="30" rows="6"><?php echo $wrongAnswers; ?></textarea>
 </p>
 <p>
-	<input type="submit" name="submitAnswers" value="<?php echo $langNext; ?> &gt;">
-	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
+	<input type="submit" name="submitAnswers" value="<?php echo get_lang('Next'); ?> &gt;">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo get_lang('Cancel'); ?>">
 </p>
 
 <?php
@@ -778,7 +778,7 @@ if( isset($modifyAnswers) )
 				}
 ?>
 <p>
-<?php echo $langWeightingForEachBlank; ?> :
+<?php echo get_lang('WeightingForEachBlank'); ?> :
 </p>
 
 <?php
@@ -805,9 +805,9 @@ if( isset($modifyAnswers) )
 ?>
 
 <p>
-	<input type="submit" name="buttonBack" value="&lt; <?php echo $langBack; ?>">
-	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
-	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
+	<input type="submit" name="buttonBack" value="&lt; <?php echo get_lang('Back'); ?>">
+	&nbsp;&nbsp;<input type="submit" name="submitAnswers" value="<?php echo get_lang('Ok'); ?>">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo get_lang('Cancel'); ?>">
 </p>
 
 <?php
@@ -846,8 +846,8 @@ if( isset($modifyAnswers) )
 ?>
 <table border="0" cellpadding="5">
 <tr>
-  <td colspan="3"><?php echo $langMakeCorrespond; ?> :</td>
-  <td><?php echo $langQuestionWeighting; ?> :</td>
+  <td colspan="3"><?php echo get_lang('MakeCorrespond'); ?> :</td>
+  <td><?php echo get_lang('QuestionWeighting'); ?> :</td>
 </tr>
 
 <?php
@@ -856,8 +856,8 @@ if( isset($modifyAnswers) )
                 $inputValue = '';
                 if(!isset($_REQUEST['formSent']) && !isset($match[$i]))
                 {
-					if($j == 1) $inputValue = $langDefaultMatchingProp1;
-					elseif($j == 2) $inputValue = $langDefaultMatchingProp2;
+					if($j == 1) $inputValue = get_lang('DefaultMatchingProp1');
+					elseif($j == 2) $inputValue = get_lang('DefaultMatchingProp2');
 				}
 				else
 				{
@@ -891,12 +891,12 @@ if( isset($modifyAnswers) )
 
 <tr>
   <td colspan="4">
-	<input type="submit" name="lessMatches" value="<?php echo $langLessElements; ?>">
-	&nbsp;&nbsp;<input type="submit" name="moreMatches" value="<?php echo $langMoreElements; ?>">
+	<input type="submit" name="lessMatches" value="<?php echo get_lang('LessElements'); ?>">
+	&nbsp;&nbsp;<input type="submit" name="moreMatches" value="<?php echo get_lang('MoreElements'); ?>">
   </td>
 </tr>
 <tr>
-  <td colspan="4"><?php echo $langDefineOptions; ?> :</td>
+  <td colspan="4"><?php echo get_lang('DefineOptions'); ?> :</td>
 </tr>
 
 <?php
@@ -905,8 +905,8 @@ if( isset($modifyAnswers) )
                 $inputValue = '';
                 if(!isset($_REQUEST['formSent']) && !isset($option[$key]))
                 {
-					if($val == 'A') $inputValue = $langDefaultMatchingOpt1;
-					elseif($val == 'B') $inputValue = $langDefaultMatchingOpt2;
+					if($val == 'A') $inputValue = get_lang('DefaultMatchingOpt1');
+					elseif($val == 'B') $inputValue = get_lang('DefaultMatchingOpt2');
 				}
 				else
 				{
@@ -925,14 +925,14 @@ if( isset($modifyAnswers) )
 
 <tr>
   <td colspan="4">
-	<input type="submit" name="lessOptions" value="<?php echo $langLessElements; ?>">
-	&nbsp;&nbsp;<input type="submit" name="moreOptions" value="<?php echo $langMoreElements; ?>">
+	<input type="submit" name="lessOptions" value="<?php echo get_lang('LessElements'); ?>">
+	&nbsp;&nbsp;<input type="submit" name="moreOptions" value="<?php echo get_lang('MoreElements'); ?>">
   </td>
 </tr>
 <tr>
   <td colspan="4" align="center">
-	<input type="submit" name="submitAnswers" value="<?php echo $langOk; ?>">
-	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo $langCancel; ?>">
+	<input type="submit" name="submitAnswers" value="<?php echo get_lang('Ok'); ?>">
+	&nbsp;&nbsp;<input type="submit" name="cancelAnswers" value="<?php echo get_lang('Cancel'); ?>">
   </td>
 </tr>
 </table>

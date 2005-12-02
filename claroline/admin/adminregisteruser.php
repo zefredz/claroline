@@ -29,7 +29,7 @@ include($includePath . '/lib/user.lib.php');
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
 {
@@ -50,8 +50,8 @@ $user_id = isset( $_REQUEST['user_id'] ) ? $_REQUEST['user_id'] : null ;
 if ($cidToEdit=='') { $dialogBox ='ERROR : NO USER SET!!!'; }
 
 // Deal with interbredcrumps
-$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => $langAdministration);
-$nameTools = $langEnrollUser;
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$nameTools = get_lang('EnrollUser');
 
 //TABLES
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -82,7 +82,7 @@ switch ( $cmd )
         if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher
         {
             $properties['status'] = 1;
-            $properties['role']   = $langCourseManager;
+            $properties['role']   = get_lang('CourseManager');
             $properties['tutor']  = 1;
         }
         elseif ($_REQUEST['subas']=='stud')  // ... as student
@@ -97,7 +97,7 @@ switch ( $cmd )
 
         if ( $done )
         {
-           $dialogBox = $langUserSubscribed;
+           $dialogBox = get_lang('UserSubscribed');
         }
         break;
 
@@ -228,7 +228,7 @@ if( isset($dialogBox) )
        
 if ( isset( $search ) && $search != '' )         { $isSearched .= $search . '* '; }
 if (($isSearched == '') || !isset($isSearched) ) { $title = ''; } 
-                                            else { $title = $langSearchOn . ' : '; }
+                                            else { $title = get_lang('SearchOn') . ' : '; }
 
 echo '<table width="100%" >'
 .    '<tr>'
@@ -240,9 +240,9 @@ echo '<table width="100%" >'
 .    '</td>' . "\n"
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-.    '<label for="search">' . $langMakeSearch . '</label> :' . "\n"
+.    '<label for="search">' . get_lang('MakeSearch') . '</label> :' . "\n"
 .    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" >' . "\n"
-.    '<input type="submit" value=" ' . $langOk . ' ">' . "\n"
+.    '<input type="submit" value=" ' . get_lang('Ok') . ' ">' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes">' . "\n"
 .    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '">' . "\n"
 .    '</form>' . "\n"
@@ -251,7 +251,7 @@ echo '<table width="100%" >'
 .    '</table>' . "\n"
 //TOOL LINKS
 .    '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'
-.    $langAllUsersOfThisCourse
+.    get_lang('AllUsersOfThisCourse')
 .    '</a><br /><br />'
 ;
       
@@ -277,14 +277,14 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 
 .    '<a href="' . $_SERVER['PHP_SELF'] 
 .    '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' 
-.    $langUserid 
+.    get_lang('Userid') 
 .    '</a>'
 .    '</th>' . "\n"
 
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom'
 .    '&amp;chdir=yes&amp;search=' . $search 
-.    '&amp;cidToEdit=' . $cidToEdit . '">' . $langLastName . '</a>'
+.    '&amp;cidToEdit=' . $cidToEdit . '">' . get_lang('LastName') . '</a>'
 .    '</th>' . "\n"
 
 .    '<th>'
@@ -293,12 +293,12 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '&amp;chdir=yes'
 .    '&amp;search=' . $search 
 .    '&amp;cidToEdit=' . $cidToEdit . '">' 
-.    $langFirstName 
+.    get_lang('FirstName') 
 .    '</a>'
 .    '</th>' . "\n"
 
-.    '<th>' . $langEnrollAsStudent . '</th>' . "\n"
-.    '<th>' . $langEnrollAsManager . '</th>' . "\n"
+.    '<th>' . get_lang('EnrollAsStudent') . '</th>' . "\n"
+.    '<th>' . get_lang('EnrollAsManager') . '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>'
@@ -345,7 +345,7 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id=' . $user['ID']
             .'&amp;subas=stud' . $addToURL.'">'
-            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="'.$langSubscribeUser.'" />'."\n"
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="'.get_lang('SubscribeUser').'" />'."\n"
             .'</a>' 
             .'</td>'."\n"
             ;
@@ -355,7 +355,7 @@ foreach($userList as $user)
         // already enrolled as student
         echo '<td align="center" >'."\n"
             .'<small>'
-            .$lang_already_enrolled
+            .get_lang('_already_enrolled')
             .'</small>'
             .'</td>'."\n"
             ;
@@ -369,7 +369,7 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id=' . $user['ID']
             .'&amp;subas=teach' . $addToURL.'">'
-            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langSubscribeUser . '" />'
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeUser') . '" />'
             .'</a>' . "\n"
             .'</td>' . "\n"
             ;
@@ -379,7 +379,7 @@ foreach($userList as $user)
         // already enrolled as teacher
         echo '<td align="center" >'."\n"
             .'<small>'
-            .$lang_already_enrolled
+            .get_lang('_already_enrolled')
             .'</small>'
             .'</td>'."\n"
             ;

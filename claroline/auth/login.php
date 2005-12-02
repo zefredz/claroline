@@ -89,17 +89,17 @@ if ( is_null($_uid) && $uidRequired )
         echo '<table align="center">'                                     ."\n"
         .    '<tr>'                                                       ."\n"
         .    '<td>'                                                       ."\n"
-        .    claro_disp_tool_title($langAuthenticationRequired);
+        .    claro_disp_tool_title(get_lang('AuthenticationRequired'));
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
             if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
             {
-                echo claro_disp_message_box($langInvalidId);
+                echo claro_disp_message_box(get_lang('InvalidId'));
             }
             else
             {
-                echo claro_disp_message_box(sprintf($langInvalidIdSelfReg,
+                echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),
                                                     $urlAppend.'/claroline/auth/inscription.php') )
                 .    '<br />';
             }
@@ -112,16 +112,16 @@ if ( is_null($_uid) && $uidRequired )
         .    $cidRequiredFormField
         .    $sourceCidFormField                                          ."\n"
         .    $sourceGidFormField                                          ."\n"
-        .    '<legend>' . $langAuthentication . '</legend>'               ."\n"
+        .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
-        .    '<label for="username">'.$langUserName.' : </label><br />'   ."\n"
+        .    '<label for="username">'.get_lang('UserName').' : </label><br />'   ."\n"
         .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
-        .    '<label for="password">'.$langPassword.' : </label><br />'   ."\n"
+        .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
         .    '<input type="password" name="password" id="password"><br />'."\n"
         .    '<br />'
-        .    '<input type="submit" value="'.$langOk.'"> '                 ."\n"
-        .    claro_disp_button($clarolineRepositoryWeb, $langCancel)
+        .    '<input type="submit" value="'.get_lang('Ok').'"> '                 ."\n"
+        .    claro_disp_button($clarolineRepositoryWeb, get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
@@ -136,7 +136,7 @@ if ( is_null($_uid) && $uidRequired )
     {
         echo '<div align="center">'
         .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
-        .    (isset($claro_CasLoginString) ? $claro_CasLoginString : $langLogin)
+        .    (isset($claro_CasLoginString) ? $claro_CasLoginString : get_lang('Login'))
         .    '</a>'
         .    '</div>';
     } // end if claro_CASEnabled
@@ -175,7 +175,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '<table align="center">'                                ."\n"
         .    '<tr>'                                                  ."\n"
         .    '<td colspan="2">'                                      ."\n"
-        .    claro_disp_tool_title($langChooseACourseToAccessThisPage)
+        .    claro_disp_tool_title(get_lang('ChooseACourseToAccessThisPage'))
         .    $sourceUrlFormField                                     ."\n"
         .    $cidRequiredFormField                                   ."\n"
         .    $sourceCidFormField                                     ."\n"
@@ -183,7 +183,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '<tr>'                                                  ."\n"
         .    '<td>'                                                  ."\n"
         .    '<label for="selectCourse">' 
-        .    $langCourse 
+        .    get_lang('Course') 
         .    '</label> : '                                           ."\n"
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
@@ -196,8 +196,8 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '<td>'                                                  ."\n"
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
-        .    '<input type="submit" value="' . $langOk . '">'         ."\n"
-        .    claro_disp_button($rootWeb, $langCancel)
+        .    '<input type="submit" value="' . get_lang('Ok') . '">'         ."\n"
+        .    claro_disp_button($rootWeb, get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
         .    '</table>'                                              ."\n"
@@ -208,9 +208,9 @@ elseif ( is_null($_cid) && $cidRequired )
     {            
         // Display link to student to enrol to this course
         echo '<p align="center">'           ."\n"
-        .    $lang_if_you_wish_to_enroll_to_this_course
+        .    get_lang('_if_you_wish_to_enroll_to_this_course')
         .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg">'
-        .    $langReg.'</a>' ."\n"
+        .    get_lang('Reg').'</a>' ."\n"
         .    '</p>'          ."\n";
     }
 
@@ -230,10 +230,10 @@ else
             {
                 // Display link to student to enrol to this course
                 echo '<p align="center">'           ."\n"
-                .    $lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br />'
-                .    $lang_if_you_wish_to_enroll_to_this_course
+                .    get_lang('_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course').'<br />'
+                .    get_lang('_if_you_wish_to_enroll_to_this_course')
                 .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
-                .    $langReg.'</a>' ."\n"
+                .    get_lang('Reg').'</a>' ."\n"
                 .    '</p>'          ."\n";
 
             }
@@ -241,9 +241,9 @@ else
             {
                 // Display a link to anonymous to register on the platform
                 echo '<p align="center">'                           ."\n"
-                .    $langCreate1stAccountOnPlatform                ."\n"
+                .    get_lang('Create1stAccountOnPlatform')                ."\n"
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
-                .    $langGo2accountCreationPage
+                .    get_lang('Go2accountCreationPage')
                 .    '</a>'                                         ."\n"
                 .    '</p>'                                         ."\n";
             }
@@ -251,7 +251,7 @@ else
             {
                 // Anonymous cannot register on the platform
                 echo '<p align="center">'                           ."\n"
-                . $langMessageRegistrationNotAllowed
+                . get_lang('MessageRegistrationNotAllowed')
                 .    '</p>'                                         ."\n";
             }
         }
@@ -259,7 +259,7 @@ else
     {
         // Enrolment is not allowed for this course
             echo '<p align="center">'                           ."\n"
-                . $langMessageEnrollToCourseNotAllowed;
+                . get_lang('MessageEnrollToCourseNotAllowed');
             if ($_course['email'] && $_course['titular'])
             {
                 echo '<br />Please contact course titular(s) : '.$_course['titular']

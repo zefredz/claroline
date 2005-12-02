@@ -452,7 +452,7 @@ function group_count_group_of_a_user($user_id, $course_id=null)
 
 function create_group($groupName, $maxMember)
 {
-    global $coursesRepositorySys, $currentCourseRepository, $includePath, $langGroup, $langForum;
+    global $coursesRepositorySys, $currentCourseRepository, $includePath ;
 
     require_once $includePath . '/lib/forum.lib.php';
     require_once $includePath . '/lib/fileManage.lib.php';
@@ -491,7 +491,7 @@ function create_group($groupName, $maxMember)
      * Create a forum for the group in the forum table
      */
 
-    $forumInsertId = create_forum( $groupName. ' - '. strtolower($langForum)
+    $forumInsertId = create_forum( $groupName. ' - '. strtolower(get_lang('Forum'))
                                  , '' // forum description
                                  , 2  // means forum post allowed,
                                  , (int) GROUP_FORUMS_CATEGORY

@@ -19,7 +19,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 // Include configuration
 include $includePath . '/conf/user_profile.conf.php';
@@ -28,7 +28,7 @@ include $includePath . '/conf/user_profile.conf.php';
 require_once $includePath . '/lib/user.lib.php';
 
 // Initialise variables
-$nameTools=$langUserSettings;
+$nameTools=get_lang('UserSettings');
 $error = false;
 $messageList = array();
 
@@ -78,13 +78,13 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         }
 
         $classMsg = 'success';
-        $dialogBox = $langAppliedChange;
+        $dialogBox = get_lang('AppliedChange');
 
         // set user admin parameter
         if ( $user_data['is_admin'] ) user_add_admin($user_id);
         else                          user_delete_admin($user_id);
 
-        $messageList[] = $langAppliedChange;
+        $messageList[] = get_lang('AppliedChange');
     }
     else
     {
@@ -101,18 +101,18 @@ $user_data['is_admin'] = user_is_admin($user_id);
  Display Section
  =====================================================================*/
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => $langListUsers);
+    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => get_lang('ListUsers'));
 }
 
 $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToDelete'))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -137,15 +137,15 @@ user_display_form_admin_user_profile($user_data);
 
 // Display tools link :
 
-echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\'' . clean_str_for_javascript($langAreYouSureToDelete . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . $langDeleteUser . '</a>'
+echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . get_lang('DeleteUser') . '</a>'
 .    ' | '
-.    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . $langRegisterUser . '</a>'
+.    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . get_lang('RegisterUser') . '</a>'
 .    ' | '
-.    '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . $langSendToUserAccountInfoByMail . '</a>';
+.    '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . get_lang('SendToUserAccountInfoByMail') . '</a>';
 
 if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
 {
-    echo ' | <a class="claroCmd" href="adminusers.php" >' . $langBackToUserList . '</a>' ;
+    echo ' | <a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>' ;
 }
 
 // display footer

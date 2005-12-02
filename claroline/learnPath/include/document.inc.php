@@ -35,13 +35,13 @@ $fileDate = format_date(filectime($file));
 //######################## DISPLAY DETAILS ABOUT THE DOCUMENT ########################\\
 //####################################################################################\\
 echo "\n\n".'<hr noshade="noshade" size="1" />'."\n\n"
-	.'<h4>'.$langDocumentInModule.'</h4>'."\n\n"
+	.'<h4>'.get_lang('DocumentInModule').'</h4>'."\n\n"
 	.'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
 	.'<thead>'."\n"
 	.'<tr class="headerX">'."\n"
-	.'<th>'.$langFileName.'</th>'."\n"
-    .'<th>'.$langSize.'</th>'."\n"
-    .'<th>'.$langDate.'</th>'."\n"
+	.'<th>'.get_lang('FileName').'</th>'."\n"
+    .'<th>'.get_lang('Size').'</th>'."\n"
+    .'<th>'.get_lang('Date').'</th>'."\n"
 	.'</tr>'."\n"
 	.'</thead>'."\n"
 	.'<tbody>'."\n"

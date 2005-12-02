@@ -748,27 +748,24 @@ function user_remove_from_group($user_id, $course_code)
 
 function user_send_registration_mail ($user_id, $data)
 {
-    global $langDear, $langYourReg, $langYouAreReg, $langSettings, $langPassword, $langAddress,
-           $langIs, $langProblem, $langFormula, $langManager, $langEmail;
-
     global $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email;
 
     if ( ! empty($data['email']) )
     {
         // email subjet
-        $emailSubject  = '[' . $siteName . '] ' . $langYourReg ;
+        $emailSubject  = '[' . $siteName . '] ' . get_lang('YourReg') ;
 
         // email body
-        $emailBody = $langDear . ' ' . $data['firstname'] . ' ' . $data['lastname'] . ',' . "\n"
-                    . $langYouAreReg . ' ' . $siteName . ' ' . $langSettings . ' ' . $data['username'] . "\n"
-                    . $langPassword . ' : ' . $data['password'] . "\n"
-                    . $langAddress . ' ' . $siteName . ' ' . $langIs . ' : ' . $rootWeb . "\n"
-                    . $langProblem . "\n"
-                    . $langFormula . ',' . "\n"
+        $emailBody = get_lang('Dear') . ' ' . $data['firstname'] . ' ' . $data['lastname'] . ',' . "\n"
+                    . get_lang('YouAreReg') . ' ' . $siteName . ' ' . get_lang('Settings') . ' ' . $data['username'] . "\n"
+                    . get_lang('Password') . ' : ' . $data['password'] . "\n"
+                    . get_lang('Address') . ' ' . $siteName . ' ' . get_lang('Is') . ' : ' . $rootWeb . "\n"
+                    . get_lang('Problem') . "\n"
+                    . get_lang('Formula') . ',' . "\n"
                     . $administrator_name . "\n"
-                    . $langManager . ' ' . $siteName . "\n"
+                    . get_lang('Manager') . ' ' . $siteName . "\n"
                     . 'T. ' . $administrator_phone . "\n"
-                    . $langEmail . ' : ' . $administrator_email . "\n";
+                    . get_lang('Email') . ' : ' . $administrator_email . "\n";
 
         if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
         {
@@ -797,31 +794,28 @@ function user_send_registration_mail ($user_id, $data)
 
 function user_send_enroll_to_course_mail ($user_id, $data)
 {
-    global $langYourReg, $langDear, $langOneResp, $langRegYou, $langManager,$langEmail,
-           $langSettings, $langAddress, $langIs, $langProblem, $langFormula, $langAdministrator,
-           $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email,
-           $_course ;
+    global $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email, $_course ;
 
     if ( ! empty($data['email']) )
     {
         // email subjet
-        $emailSubject  = '[' . $siteName . '] ' . $langYourReg ;
+        $emailSubject  = '[' . $siteName . '] ' . get_lang('YourReg') ;
 
         // Send message
-	    $emailBody = "$langDear %s %s ,\n"
-                    . "$langOneResp " . $_course['officialCode'] . " $langRegYou $siteName $langSettings %s\n"
-                    . "$langAddress $siteName $langIs: $rootWeb\n"
-                    . "$langProblem\n"
+	    $emailBody = get_lang('Dear') . " %s %s ,\n"
+                    . get_lang('OneResp'). $_course['officialCode'] . get_lang('RegYou') . " " . $siteName . " " . get_lang('Settings') . " %s\n"
+                    . get_lang('Address') . " " . $siteName . " " . get_lang('Is'). ": $rootWeb\n"
+                    . get_lang('Problem') . "\n"
                     . "\n"
-                    . "$langFormula,\n"
-                    . "$langAdministrator $administrator_name \n"
-                    . "$langManager $siteName\n";
+                    . get_lang('Formula') . ",\n"
+                    . get_lang('Administrator') . " $administrator_name \n"
+                    . get_lang('Manager') . " $siteName\n";
 
         $emailBody = sprintf($emailBody,$data['firstname'],$data['lastname'], $data['email']);
 
         if ( ! empty($administrator_phone) ) $emailBody .= "T. $administrator_phone \n";
 
-        $emailBody .= "$langEmail: $administrator_email \n";
+        $emailBody .= get_lang('Email') . ": $administrator_email \n";
 
         if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
         {
@@ -851,7 +845,7 @@ function user_send_enroll_to_course_mail ($user_id, $data)
 
 function user_validate_form_registration($data)
 {
-    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice, $langPassTooEasy;
+    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
 
     $messageList = array();
 
@@ -866,7 +860,7 @@ function user_validate_form_registration($data)
        )
     {
         $error = true;
-        $messageList[] = $langEmptyFields;
+        $messageList[] = get_lang('EmptyFields');
     }
 
     // check if official code is available
@@ -893,7 +887,7 @@ function user_validate_form_registration($data)
     if ( $data['password_conf']  != $data['password']  )
     {
         $error = true;
-        $messageList[] = $langPassTwice ;
+        $messageList[] = get_lang('PassTwice') ;
     }
 
     // check if password isn't too easy
@@ -909,7 +903,7 @@ function user_validate_form_registration($data)
         {
             $error = true;
             if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
-                $messageList[] = $langPassTooEasy . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
+                $messageList[] = get_lang('PassTooEasy') . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
 
         }
     }
@@ -938,7 +932,7 @@ function user_validate_form_registration($data)
 
 function user_validate_form_profile($data,$user_id)
 {
-    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $langEmptyFields, $langPassTwice, $langPassTooEasy;
+    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty ;
 
     $messageList = array();
 
@@ -951,7 +945,7 @@ function user_validate_form_profile($data,$user_id)
        )
     {
         $error = true;
-        $messageList[] = $langEmptyFields;
+        $messageList[] = get_lang('EmptyFields');
     }
 
     // check if official code is available
@@ -978,7 +972,7 @@ function user_validate_form_profile($data,$user_id)
     if ( $data['password_conf'] != $data['password']  )
     {
         $error = true;
-        $messageList[] = $langPassTwice ;
+        $messageList[] = get_lang('PassTwice') ;
     }
     else
     {
@@ -995,7 +989,7 @@ function user_validate_form_profile($data,$user_id)
             {
                 $error = true;
                 if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
-                    $messageList[] =  $langPassTooEasy  . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
+                    $messageList[] =  get_lang('PassTooEasy')  . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
             }
         }
     }
@@ -1048,15 +1042,13 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 
 function is_valid_email($email)
 {
-    global $langEmailWrong;
-
     if (is_well_formed_email_address($email) )
     {
         return true;
     }
     else
     {
-        return claro_failure::set_failure($langEmailWrong);
+        return claro_failure::set_failure(get_lang('EmailWrong'));
     }
 }
 
@@ -1071,8 +1063,6 @@ function is_valid_email($email)
 
 function is_username_available($username,$user_id=null)
 {
-    global $langUserTaken;
-
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
 
@@ -1093,7 +1083,7 @@ function is_username_available($username,$user_id=null)
     }
     else
     {
-        return claro_failure::set_failure($langUserTaken);
+        return claro_failure::set_failure(get_lang('UserTaken'));
     }
 }
 
@@ -1108,8 +1098,6 @@ function is_username_available($username,$user_id=null)
 
 function is_official_code_available($official_code,$user_id=null)
 {
-    global $langCodeUsed;
-
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
 
@@ -1130,7 +1118,7 @@ function is_official_code_available($official_code,$user_id=null)
     }
     else
     {
-        return claro_failure::set_failure($langCodeUsed);
+        return claro_failure::set_failure(get_lang('CodeUsed'));
     }
 }
 
@@ -1213,15 +1201,6 @@ function user_display_form_admin_user_profile($data)
 
 function user_display_form($data, $form_type='registration')
 {
-    global $langLastname, $langFirstname, $langOfficialCode, $langUserName, $langPassword,
-           $langConfirmation, $langEmail, $langPhone, $langAction,
-           $langRegStudent, $langRegAdmin, $langUserid,
-           $langUpdateImage, $langAddImage, $langDelImage, $langSaveChanges, $langOk, $langCancel, $langSearch, $langChangePwdexp,
-           $langGroupTutor,$langManager,
-           $langPersonalCourseList, $langYes, $langNo, $langUserIsPlaformAdmin,
-           $langChooseYourPassword, $langMemorizeYourPassord, $langWarning, $langTheSystemIsCaseSensitive,
-           $ask_for_official_code, $langLegendRequiredFields, $langCreate;
-
     global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $imgRepositoryWeb;
 
     global $rootWeb;
@@ -1241,7 +1220,7 @@ function user_display_form($data, $form_type='registration')
     {
         echo '<input type="hidden" name="uidToEdit" value="' . $data['user_id'] . '">';
         echo '<tr>'
-            . '<td align="right">' . $langUserid . ' :</td>'
+            . '<td align="right">' . get_lang('Userid') . ' :</td>'
             . '<td >' . $data['user_id'] . '</td>'
             . '</tr>';
 
@@ -1249,13 +1228,13 @@ function user_display_form($data, $form_type='registration')
 
     // lastname
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="lastname">' . required_field($langLastname) . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="lastname">' . required_field(get_lang('Lastname')) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" name="lastname" id="lastname" value="' . htmlspecialchars($data['lastname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
 
     // firstname
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="firstname">' . required_field($langFirstname) . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="firstname">' . required_field(get_lang('Firstname')) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="firstname" name="firstname" value="' . htmlspecialchars($data['firstname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n" ;
 
@@ -1263,7 +1242,7 @@ function user_display_form($data, $form_type='registration')
     if ( isset($ask_for_official_code) && $ask_for_official_code == TRUE )
     {
         echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . ($userOfficialCodeCanBeEmpty?$langOfficialCode:required_field($langOfficialCode)) . '&nbsp;:</label></td>'  . "\n"
+            . '  <td align="right"><label for="officialCode">' . ($userOfficialCodeCanBeEmpty?get_lang('OfficialCode'):required_field(get_lang('OfficialCode'))) . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }
@@ -1273,7 +1252,7 @@ function user_display_form($data, $form_type='registration')
     {
         echo '<tr>' . "\n"
             . '<td align="right">' . "\n"
-            . ' <label for="picture">' . $data['picture']?$langUpdateImage:$langAddImage . ' :<br />' . "\n"
+            . ' <label for="picture">' . $data['picture']?get_lang('UpdateImage'):get_lang('AddImage') . ' :<br />' . "\n"
             . ' <small>(.jpg or .jpeg only)</small></label>'
             . ' </td>' . "\n"
             . ' <td>' . "\n"
@@ -1281,7 +1260,7 @@ function user_display_form($data, $form_type='registration')
 
         if ( empty($data['picture']) )
         {
-            echo '<br />' . "\n" . '<label for="del_picture">' . $langDelImage . '</label>'
+            echo '<br />' . "\n" . '<label for="del_picture">' . get_lang('DelImage') . '</label>'
                 . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">';
         }
         else
@@ -1297,7 +1276,7 @@ function user_display_form($data, $form_type='registration')
         && $form_type == 'profile' )
     {
         // disable modification of username and password with external autentication
-    	echo '<tr><td align="right">'.$langUserName.' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
+    	echo '<tr><td align="right">'.get_lang('UserName').' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
     }
     else
     {
@@ -1310,8 +1289,10 @@ function user_display_form($data, $form_type='registration')
         {
             echo '<tr>' . "\n"
                 . '<td>&nbsp;</td>' . "\n"
-                . '<td><small>(' . $langChangePwdexp . ')</small></td>' . "\n"
+                . '<td><small>(' . get_lang('ChangePwdexp') . ')</small></td>' . "\n"
                 . '</tr>' . "\n" ;
+            
+            $required_password = false;
         }
         else
         {
@@ -1321,34 +1302,43 @@ function user_display_form($data, $form_type='registration')
                 .     '<td>&nbsp;</td>'
                 .     '<td>'
                 .    '<small>'
-                .    $langChooseYourPassword . '<br />'
-                .    $langMemorizeYourPassord . '<br />'
-                .    '<strong>' . $langWarning . ' '. $langTheSystemIsCaseSensitive . '</strong>'
+                .    get_lang('ChooseYourPassword') . '<br />'
+                .    get_lang('MemorizeYourPassord') . '<br />'
+                .    '<strong>' . get_lang('Warning') . ' '. get_lang('TheSystemIsCaseSensitive') . '</strong>'
                 .    '</small>'
                 .    '</td>'
                 .    '</tr>';
 
             }
 
-            $langPassword = required_field($langPassword);
+            $required_password = true;
+        }
+
+        if ( $required_password ) 
+        {
+            $password_label = required_field(get_lang('Password'));
+        }
+        else
+        {
+            $password_label = get_lang('Password');
         }
 
         // username
         echo ' <tr>' . "\n"
-            . '  <td align="right"><label for="username">' . required_field($langUserName) . '&nbsp;:</label></td>' . "\n"
+            . '  <td align="right"><label for="username">' . required_field(get_lang('UserName')) . '&nbsp;:</label></td>' . "\n"
             . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
 
         // password
         echo ' <tr>'  . "\n"
-            . '     <td align="right"><label for="password">' . $langPassword . '&nbsp;:</label></td>' . "\n"
+            . '     <td align="right"><label for="password">' . $password_label . '&nbsp;:</label></td>' . "\n"
             . '  <td><input type="password" size="40" id="password" name="password" /></td>' . "\n"
             . '    </tr>' . "\n";
 
         // password confirmation
         echo ' <tr>' . "\n"
-            . '     <td align="right"><label for="password_conf">' . $langPassword . '&nbsp;:<br>' . "\n" . "\n"
-            . ' <small>(' . $langConfirmation . ')</small></label></td>' . "\n"
+            . '     <td align="right"><label for="password_conf">' . $password_label . '&nbsp;:<br>' . "\n" . "\n"
+            . ' <small>(' . get_lang('Confirmation') . ')</small></label></td>' . "\n"
             . '  <td><input type="password" size="40" id="password_conf" name="password_conf" /></td>' . "\n"
             . ' </tr>' . "\n";
 
@@ -1360,12 +1350,12 @@ function user_display_form($data, $form_type='registration')
 
     // email
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="email">' . ($userMailCanBeEmpty?$langEmail:required_field($langEmail)) . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="email">' . ($userMailCanBeEmpty?get_lang('Email'):required_field(get_lang('Email'))) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
         . ' </tr>' . "\n"
 
         . ' <tr>' . "\n"
-        . '  <td align="right"><label for="phone">' . $langPhone . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="phone">' . get_lang('Phone') . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
 
@@ -1373,12 +1363,12 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'add_new_user' )
     {
         echo '<tr valign="top">'
-            . '<td align="right">' . $langGroupTutor .' : </td>'
+            . '<td align="right">' . get_lang('GroupTutor') .' : </td>'
             . '<td>'
             . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_tutor']?'checked':'') . ' >'
-            . '<label for="tutor_form_yes">' . $langYes . '</label>'
+            . '<label for="tutor_form_yes">' . get_lang('Yes') . '</label>'
             . '<input type="radio" name="is_tutor" value="0"  id="tutor_form_no" ' . (!$data['is_tutor']?'checked':'') . ' >'
-            . '<label for="tutor_form_no">' . $langNo . '</label>'
+            . '<label for="tutor_form_no">' . get_lang('No') . '</label>'
             . '</td>'
             . '</tr>';
     }
@@ -1387,12 +1377,12 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'add_new_user' )
     {
         echo ' <tr>' . "\n"
-            . '  <td align="right">' . $langManager . '&nbsp;:</label></td>' . "\n"
+            . '  <td align="right">' . get_lang('Manager') . '&nbsp;:</label></td>' . "\n"
             . '<td>'
             . '<input type="radio" name="is_coursemanager" value="' . COURSEMANAGER . '" id="coursemanager_form_yes" ' . ($data['is_coursemanager']==COURSEMANAGER?'checked':'') . ' >'
-            . '<label for="coursemanager_form_yes">' . $langYes . '</label>'
+            . '<label for="coursemanager_form_yes">' . get_lang('Yes') . '</label>'
             . '<input type="radio" name="is_coursemanager" value="' . STUDENT . '" id="coursemanager_form_no" ' . ($data['is_coursemanager']==STUDENT?'checked':'') . ' >'
-            . '<label for="coursemanager_form_no">' . $langNo . '</label>'
+            . '<label for="coursemanager_form_no">' . get_lang('No') . '</label>'
             . '</td>'
             . ' </tr>' . "\n";
     }
@@ -1401,11 +1391,11 @@ function user_display_form($data, $form_type='registration')
     if ( ($allowSelfRegProf && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
     {
         echo ' <tr>' . "\n"
-            . '  <td align="right"><label for="status">' . $langAction . '&nbsp;:</label></td>' . "\n"
+            . '  <td align="right"><label for="status">' . get_lang('Action') . '&nbsp;:</label></td>' . "\n"
             . '  <td>' . "\n"
             . '<select id="status" name="status">'
-            . '    <option value="' . STUDENT . '">' . $langRegStudent . '</option>'
-            . '    <option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . $langRegAdmin . '</option>'
+            . '    <option value="' . STUDENT . '">' . get_lang('RegStudent') . '</option>'
+            . '    <option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . get_lang('RegAdmin') . '</option>'
             . '</select>'
             . '  </td>' . "\n"
             . ' </tr>' . "\n";
@@ -1415,12 +1405,12 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'admin_user_profile' )
     {
         echo '<tr valign="top">'
-            . '<td align="right">' . $langUserIsPlaformAdmin .' : </td>'
+            . '<td align="right">' . get_lang('UserIsPlaformAdmin') .' : </td>'
             . '<td>'
             . '<input type="radio" name="is_admin" value="1" id="admin_form_yes" ' . ($data['is_admin']?'checked':'') . ' >'
-            . '<label for="admin_form_yes">' . $langYes . '</label>'
+            . '<label for="admin_form_yes">' . get_lang('Yes') . '</label>'
             . '<input type="radio" name="is_admin" value="0"  id="admin_form_no" ' . (!$data['is_admin']?'checked':'') . ' >'
-            . '<label for="admin_form_no">' . $langNo . '</label>'
+            . '<label for="admin_form_no">' . get_lang('No') . '</label>'
             . '</td>'
             . '</tr>';
     }
@@ -1429,48 +1419,48 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'registration' )
     {
 		echo ' <tr>' . "\n"
-            . '  <td align="right">' . ucfirst($langCreate) . ' : </td>' . "\n"
+            . '  <td align="right">' . ucfirst(get_lang('Create')) . ' : </td>' . "\n"
             . '  <td>' . "\n"
-            . '  <input type="submit" value="' . $langOk . '" />&nbsp;'
-            . claro_disp_button($rootWeb, $langCancel)
+            . '  <input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
+            . claro_disp_button($rootWeb, get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
     elseif (  $form_type == 'admin_add_new_user' )
     {
         echo ' <tr>' . "\n"
-            . '  <td align="right">' . ucfirst($langCreate) . ' : </td>' . "\n"
+            . '  <td align="right">' . ucfirst(get_lang('Create')) . ' : </td>' . "\n"
             . '  <td>' . "\n"
-            . '  <input type="submit" value="' . $langOk . '" />&nbsp;'
-            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            . '  <input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
+            . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
     elseif ($form_type == 'add_new_user')
     {
        echo '<tr>' . "\n"
-            . ' <td align="right"><label for="applyChange">' . $langSaveChanges . ' : </label></td>' . "\n"
+            . ' <td align="right"><label for="applyChange">' . get_lang('SaveChanges') . ' : </label></td>' . "\n"
             . ' <td>'
-            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'
-            . ' <input type="submit" name="applySearch" id="applySearch" value="' . $langSearch . '" />&nbsp;'
-            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            . ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
+            . ' <input type="submit" name="applySearch" id="applySearch" value="' . get_lang('Search') . '" />&nbsp;'
+            . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
     else
     {
         echo '<tr>' . "\n"
-            . ' <td align="right"><label for="applyChange">' . $langSaveChanges . ' : </label></td>' . "\n"
+            . ' <td align="right"><label for="applyChange">' . get_lang('SaveChanges') . ' : </label></td>' . "\n"
             . ' <td>'
-            . ' <input type="submit" name="applyChange" id="applyChange" value="' . $langOk . '" />&nbsp;'
-            . claro_disp_button($_SERVER['HTTP_REFERER'], $langCancel)
+            . ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
+            . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
 
     echo '<tr>' . "\n"
          . '<td>&nbsp;</td>' . "\n"
-         . '<td><small>' . $langLegendRequiredFields . '</small></td>' . "\n"
+         . '<td><small>' . get_lang('LegendRequiredFields') . '</small></td>' . "\n"
          . '</tr>' . "\n" ;
 
     // Personnal course list
@@ -1480,7 +1470,7 @@ function user_display_form($data, $form_type='registration')
             . '<td align="right">&nbsp;</td>'
             . '<td>'
             .'<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-            . '<img src="'.$imgRepositoryWeb.'course.gif">' . $langPersonalCourseList
+            . '<img src="'.$imgRepositoryWeb.'course.gif">' . get_lang('PersonalCourseList')
             . '</a>'
             .'</td>'
             . '</tr>';

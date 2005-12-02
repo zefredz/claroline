@@ -27,7 +27,7 @@ require '../../inc/claro_init_global.inc.php';
 include_once($includePath . '/lib/debug.lib.inc.php');
 include_once($includePath . '/lib/admin.lib.inc.php');
 
-$nameTools = $langRestoreCourseRepository;
+$nameTools = get_lang('RestoreCourseRepository');
 
 // Security Check
 
@@ -69,7 +69,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
 // Display
 
 // Deal with interbredcrumps  and title variable
-$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 include($includePath . '/claro_init_header.inc.php');
 
@@ -81,7 +81,7 @@ if (isset($restored_courses)) echo $restored_courses;
 
 // display link to launch the restore
 
-echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . $langLaunchRestoreCourseRepository . '</a></p>';
+echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . get_lang('LaunchRestoreCourseRepository') . '</a></p>';
 
 include $includePath . '/claro_init_footer.inc.php';
 

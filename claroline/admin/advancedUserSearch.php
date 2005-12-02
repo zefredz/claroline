@@ -21,7 +21,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 include_once($includePath . '/lib/admin.lib.inc.php');
 include_once($includePath . '/lib/form.lib.php');
@@ -47,8 +47,8 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$nameTools = $langSearchUserAdvanced;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$nameTools = get_lang('SearchUserAdvanced');
 
 //retrieve needed parameters from URL to prefill search form
 
@@ -78,7 +78,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 <table border="0">
     <tr>
         <td align="right">
-            <label for="lastName"><?php echo $langLastName?></label>
+            <label for="lastName"><?php echo get_lang('LastName')?></label>
             : <br />
         </td>
         <td>
@@ -88,7 +88,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
     <tr>
         <td align="right">
-            <label for="firstName"><?php echo $langFirstName?></label>
+            <label for="firstName"><?php echo get_lang('FirstName')?></label>
             : <br />
         </td>
         <td>
@@ -98,7 +98,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
     
     <tr>
         <td align="right">
-            <label for="userName"><?php echo $langUserName ?></label> 
+            <label for="userName"><?php echo get_lang('UserName') ?></label> 
             :  <br />
         </td>
         <td>
@@ -108,7 +108,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
     <tr>
         <td align="right">
-            <label for="mail"><?php echo $langEmail ?></label> 
+            <label for="mail"><?php echo get_lang('Email') ?></label> 
             : <br />
         </td>
         <td>
@@ -118,15 +118,15 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="action"><?php echo $langStatus ?></label> : <br />
+   <label for="action"><?php echo get_lang('Status') ?></label> : <br />
   </td>
   <td>
 <?php 
 
-$action_list['all'] = $langAll;
-$action_list['followcourse'] = $langStudent;
-$action_list['createcourse'] =  $langCourseCreator;
-$action_list['plateformadmin'] = $langPlatformAdministrator;
+$action_list['all'] = get_lang('All');
+$action_list['followcourse'] = get_lang('Student');
+$action_list['createcourse'] =  get_lang('CourseCreator');
+$action_list['plateformadmin'] = get_lang('PlatformAdministrator');
 
 
 echo claro_html_form_select( 'action'
@@ -141,7 +141,7 @@ echo claro_html_form_select( 'action'
     <td>
     </td>
     <td>
-        <input type="submit" class="claroButton" value="<?php echo $langSearchUser?>" >
+        <input type="submit" class="claroButton" value="<?php echo get_lang('SearchUser')?>" >
     </td>
 </tr>
 </table>

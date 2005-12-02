@@ -23,7 +23,7 @@ require_once $includePath . '/lib/admin.lib.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 $userPerPage = 20; // numbers of user to display on the same page
 
@@ -78,7 +78,7 @@ switch ($cmd)
                SET `user_id` = '". (int)$_REQUEST['user_id'] ."',
                    `class_id` = '". (int)$classinfo['id'] ."' ";
             claro_sql_query($sql);
-            $dialogBox = $langUserRegisteredClass;
+            $dialogBox = get_lang('UserRegisteredClass');
         }
     } break;
 
@@ -89,7 +89,7 @@ switch ($cmd)
              AND `class_id` = ". (int) $classinfo['id'];
         claro_sql_query($sql);
 
-        $dialogBox = $langUserUnregisteredFromClass;
+        $dialogBox = get_lang('UserUnregisteredFromClass');
     } break;
 
 }
@@ -155,10 +155,10 @@ if (isset($_SESSION['admin_class_reg_user_order_crit']))
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => $langClass);
-$interbredcrump[]    = array ('url' => $rootAdminWeb . 'admin_class_user.php', 'name' => $langListClassUser);
-$nameTools = $langRegisterUserToClass;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Class'));
+$interbredcrump[]    = array ('url' => $rootAdminWeb . 'admin_class_user.php', 'name' => get_lang('ListClassUser'));
+$nameTools = get_lang('RegisterUserToClass');
 
 //Header
 include $includePath . '/claro_init_header.inc.php';
@@ -187,11 +187,11 @@ if(isset($dialogBox)) echo claro_disp_message_box($dialogBox);
 
 //TOOL LINKS
 
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . $langClassMembers . '</a>'
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('ClassMembers') . '</a>'
 .    '<br /><br />'
 ;
 
-if (isset($cfrom) && ($cfrom=="clist")) echo claro_disp_button("admincourses.php", $langBackToCourseList);
+if (isset($cfrom) && ($cfrom=="clist")) echo claro_disp_button("admincourses.php", get_lang('BackToCourseList'));
 
 //Pager
 
@@ -203,11 +203,11 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . $langUserid . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . $langLastName . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . $langFirstName . '</a></th>' . "\n"
-.    '<th>' . $langSubscribeClass . '</th>'
-.    '<th>' . $langUnsubscribeClass . '</th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('Userid') . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . get_lang('LastName') . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . get_lang('FirstName') . '</a></th>' . "\n"
+.    '<th>' . get_lang('SubscribeClass') . '</th>'
+.    '<th>' . get_lang('UnsubscribeClass') . '</th>'
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n"
@@ -228,7 +228,7 @@ foreach($resultList as $list)
      {
          echo '<td align="center">' . "\n"
          .    '<a href="' . $_SERVER['PHP_SELF'] . '?class=' . $classinfo['id'] . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
-         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . $langSubscribeClass . '" />' . "\n"
+         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeClass') . '" />' . "\n"
          .    '</a>' . "\n"
          .    '</td>' . "\n"
          ;
@@ -236,7 +236,7 @@ foreach($resultList as $list)
      else
      {
          echo '<td align="center">'."\n"
-         .    '<small>'.$langUserAlreadyInClass.'</small>' . "\n"
+         .    '<small>'.get_lang('UserAlreadyInClass').'</small>' . "\n"
          .    '</td>' . "\n"
          ;
      }
@@ -247,7 +247,7 @@ foreach($resultList as $list)
      {
          echo '<td align="center">'."\n"
          .    '<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
-         .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.$langUnsubscribeClass.'" />'."\n"
+         .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.get_lang('UnsubscribeClass').'" />'."\n"
          .    '</a>'."\n"
          .    '</td>'."\n"
          ;
@@ -255,7 +255,7 @@ foreach($resultList as $list)
      else
      {
          echo '<td align="center">' . "\n"
-         .    '<small>' . $langUserNotInClass . '</small>' . "\n"
+         .    '<small>' . get_lang('UserNotInClass') . '</small>' . "\n"
          .    '</td>' . "\n"
          ;
      }

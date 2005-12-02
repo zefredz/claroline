@@ -15,7 +15,7 @@ require '../../../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /*
  * This script display progression of all language.
@@ -52,9 +52,9 @@ $nameTools = 'Display Progression of Translations';
 
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('TranslationTools'));
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -151,7 +151,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
     
     // display nb results
-    echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
+    echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
 
 }
 else

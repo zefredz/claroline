@@ -1,7 +1,7 @@
 <?php // $Id$
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langHFor;
+$nameTools = get_lang('HFor');
 $hide_banner = true;
 $hide_footer = true;
 
@@ -12,24 +12,24 @@ include $includePath . '/claro_init_header.inc.php';
 <tr>
   <td align="left" valign="top">
 
-    <?php echo "<h4>$langHFor</h4>"; ?>
+    <?php echo "<h4>get_lang('HFor')</h4>"; ?>
 
   </td>
   <td align="right" valign="top">
-    <a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a>
+    <a href="javascript:window.close();"><?php echo get_lang('CloseWindow'); ?></a>
   </td>
 </tr>
 <tr>
   <td colspan="2">
 
-    <?php echo $langForContent; ?>
+    <?php echo get_lang('ForContent'); ?>
 
   </td>
 </tr>
 <tr>
   <td colspan="2">
     <br />
-    <center><a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a></center>
+    <center><a href="javascript:window.close();"><?php echo get_lang('CloseWindow'); ?></a></center>
   </td>
 </tr>
 </table>

@@ -22,7 +22,7 @@ $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 /*--------------------------------------------------------------------
                LIST OF COUNTRY ISO CODES AND COUNTRY NAMES
   --------------------------------------------------------------------*/
@@ -280,7 +280,7 @@ require_once($includePath.'/lib/nusoap.php');
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 // status codes
 // keep in mind that these code must be the same than those in the
@@ -314,23 +314,23 @@ if( isset($_REQUEST['register']) )
 
     if( $soapResponse == CAMPUS_ADDED )
     {
-        $dialogBox = $langCampusRegistrationSubmitted;
+        $dialogBox = get_lang('CampusRegistrationSubmitted');
     }
     elseif( $soapResponse == LOCAL_URL_ERROR )
     {
-        $dialogBox = $langRegisterLocalUrl;
+        $dialogBox = get_lang('RegisterLocalUrl');
     }
     elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
     {
-        $dialogBox = $langCampusAlreadyRegistered;
+        $dialogBox = get_lang('CampusAlreadyRegistered');
     }
     elseif( $soapResponse == COUNTRY_CODE_ERROR )
     {
-        $dialogBox = $langCountryCodeError;
+        $dialogBox = get_lang('CountryCodeError');
     }
     else
     {
-        $dialogBox = $langUnkownSOAPError;
+        $dialogBox = get_lang('UnkownSOAPError');
     }
 }
 
@@ -342,21 +342,21 @@ if( !isset($_REQUEST['register']) )
 
     if( $soapResponse )
     {
-        $dialogBox = $langCurrentStatus.'<br />'."\n";
+        $dialogBox = get_lang('CurrentStatus').'<br />'."\n";
 
         switch($soapResponse)
         {
             case 'SUBMITTED' :
-                $dialogBox .= $langCampusSubmitted;
+                $dialogBox .= get_lang('CampusSubmitted');
                 break;
             case 'REGISTERED' :
-                $dialogBox .= $langCampusRegistered;
+                $dialogBox .= get_lang('CampusRegistered');
                 break;
             case 'UNREGISTERED' :
-                $dialogBox .= $langCampusRemoved;
+                $dialogBox .= get_lang('CampusRemoved');
                 break;
             case 'HIDDEN' :
-                $dialogBox .= $langCampusDeleted;
+                $dialogBox .= get_lang('CampusDeleted');
                 break;
             default :
                 // unknown status ?
@@ -370,13 +370,13 @@ if( !isset($_REQUEST['register']) )
 /*============================================================================
                         DISPLAY
   ============================================================================*/
-$nameTools = $langRegisterMyCampus;
+$nameTools = get_lang('RegisterMyCampus');
 // bread crumb à ajouter
 
 include $includePath . '/claro_init_header.inc.php';
 
 $title['mainTitle'] = $nameTools;
-$title['subTitle'] = $langAddMyCampusOnClarolineNet;
+$title['subTitle'] = get_lang('AddMyCampusOnClarolineNet');
 echo claro_disp_tool_title($title);
 
 if( isset($dialogBox) && $dialogBox != '' ) echo claro_disp_message_box($dialogBox);
@@ -385,13 +385,13 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 {
     echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
         .'<ul>'."\n"
-        .'<li>'.$langSiteName.' : '.stripslashes($siteName).'</li>'."\n"
-        .'<li>'.$langURL.'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
-        .'<li>'.$langInstitution.' : '.stripslashes($institution_name).'</li>'."\n"
-        .'<li>'.$langInstitutionUrl.' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
-        .'<li>'.$langEmail.' : '.$administrator_email.'</li>'."\n"
+        .'<li>'.get_lang('SiteName').' : '.stripslashes($siteName).'</li>'."\n"
+        .'<li>'.get_lang('URL').'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
+        .'<li>'.get_lang('Institution').' : '.stripslashes($institution_name).'</li>'."\n"
+        .'<li>'.get_lang('InstitutionUrl').' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
+        .'<li>'.get_lang('Email').' : '.$administrator_email.'</li>'."\n"
         .'<li>'
-        .'<label for="country">'.$langCountry.' : </label>'."\n"
+        .'<label for="country">'.get_lang('Country').' : </label>'."\n"
         .'<select name="country" id="country">'."\n";
 
     $optionString = "";
@@ -405,9 +405,9 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
         .'</li>'."\n"
         .'</ul>'."\n"
         .'<br />'."\n"
-        .'<input type="submit" name="register" value="'.$langRegisterMyCampus.'" />'."\n"
+        .'<input type="submit" name="register" value="'.get_lang('RegisterMyCampus').'" />'."\n"
         .'<p>'
-        .'<small>'.$langRegisterCampusAdvice.'</small>'
+        .'<small>'.get_lang('RegisterCampusAdvice').'</small>'
         .'</p>'."\n"
         .'</form>'."\n";
 }

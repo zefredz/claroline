@@ -11,9 +11,9 @@
  */ 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langUserAccessDetails;
+$nameTools = get_lang('UserAccessDetails');
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $TABLEUSER           = $tbl_mdb_names['user'  ];
@@ -42,7 +42,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 			$viewedToolLabel = claro_sql_query_get_single_row($sql);
 
 			if( isset($viewedToolLabel['label']) && isset($toolNameList[$viewedToolLabel['label']]) )
-					$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$viewedToolLabel['label']];
+					$toolTitle['subTitle'] = get_lang('Tool')." : ".$toolNameList[$viewedToolLabel['label']];
 					
 					
 			// prepare SQL query
@@ -60,7 +60,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
 	{
 		    // set the subtitle for the echo claro_disp_tool_title function
-			$toolTitle['subTitle'] = $langDocument." : ".$_REQUEST['path'];
+			$toolTitle['subTitle'] = get_lang('Document')." : ".$_REQUEST['path'];
 			// prepare SQL query
 			$sql = "SELECT `nom` as `lastName`,
 						`prenom` as `firstName`,
@@ -75,7 +75,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	}
 	else
 	{
-		$dialogBox = $langWrongOperation;
+		$dialogBox = get_lang('WrongOperation');
 	}
 
 	echo claro_disp_tool_title($toolTitle);
@@ -86,9 +86,9 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	echo '<br />'."\n\n"
 		.'<table class="claroTable" border="0" cellpadding="5" cellspacing="1">'."\n"
 		.'<tr class="headerX">'."\n"
-		.'<th>'.$langUserName.'</th>'."\n"
-		.'<th>'.$langLastAccess.'</th>'."\n"
-		.'<th>'.$langNbrAccess.'</th>'."\n"
+		.'<th>'.get_lang('UserName').'</th>'."\n"
+		.'<th>'.get_lang('LastAccess').'</th>'."\n"
+		.'<th>'.get_lang('NbrAccess').'</th>'."\n"
 		.'</tr>'."\n"
 		.'<tbody>'."\n\n";
 
@@ -115,12 +115,12 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 	    }
 	}
     // in case of error or no results to display
-    if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.$langNoResult.'</center></td>'."\n\n";
+    if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.get_lang('NoResult').'</center></td>'."\n\n";
  
     echo '</tbody>'."\n\n".'</table>'."\n\n";
 	
     if( $anonymousCount != 0 )
-		echo '<p>'.$langAnonymousUserAccessCount.' '.$anonymousCount.'</p>'."\n";
+		echo '<p>'.get_lang('AnonymousUserAccessCount').' '.$anonymousCount.'</p>'."\n";
  
 }
 // not allowed
@@ -128,11 +128,11 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        echo $langTrackingDisabled;
+        echo get_lang('TrackingDisabled');
     }
     else
     {
-        echo $langNotAllowed;
+        echo get_lang('NotAllowed');
     }
 }
 

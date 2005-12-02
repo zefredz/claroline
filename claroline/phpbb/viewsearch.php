@@ -65,12 +65,12 @@ if (isset($_REQUEST['searchPattern']))
 
 $pagetype= 'viewsearch';
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => $langForums);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title($langForums, 
+echo claro_disp_tool_title(get_lang('Forums'), 
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
 disp_forum_toolbar($pagetype, null);
@@ -81,13 +81,13 @@ disp_forum_breadcrumb($pagetype, null, null, null);
 echo '<table class="claroTable" width="100%">'                          . "\n"
 .    '<tr align="left">'                                                . "\n"
 .    '<th class="superHeader">'                                         . "\n"
-.    $langSearchResult. ' : '.htmlspecialchars($_REQUEST['searchPattern']) . "\n"
+.    get_lang('SearchResult'). ' : '.htmlspecialchars($_REQUEST['searchPattern']) . "\n"
 .    '</th>'                                                            . "\n"
 .    '</tr>'                                                            . "\n";
 
     if (count($searchResultList) < 1 )
     {
-        echo '<tr><td align="center">' . $langNoResult . '</td></tr>';
+        echo '<tr><td align="center">' . get_lang('NoResult') . '</td></tr>';
     }
     else foreach ( $searchResultList as $thisPost )
     {
@@ -119,8 +119,8 @@ echo '<table class="claroTable" width="100%">'                          . "\n"
             .   $thisPost['topic_title'] 
             .   '</a><br />'                                              . "\n"
             .   '<img src="' . $imgRepositoryWeb . $postImg . '" alt="">'
-            .   $l_author . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-            .   '<small>' . $l_posted . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
+            .   get_lang('author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+            .   '<small>' . get_lang('posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"
 
             .   '</tr>'                                                  . "\n"

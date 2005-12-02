@@ -850,8 +850,6 @@ function parse_config_file($conf_file)
 
 function claroconf_disp_editbox_of_a_value($property_def, $property_name, $currentValue=NULL)
 {
-    global $langEmpty;
-
     if (  isset($property_def['type']) ) $type = $property_def['type'];
     else                                 $type = '';
 
@@ -937,7 +935,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
         As $htmlPropDefault is never set with this comment, I comment  his display below in the code
         if ( $currentValue != $property_def['default']) 
         {
-            $htmlPropDefault = 'Default : ' . (empty($property_def['default'])?$langEmpty:$default_value);
+            $htmlPropDefault = 'Default : ' . (empty($property_def['default'])?get_lang('Empty'):$default_value);
         }
         */
     } 
@@ -985,7 +983,7 @@ function claroconf_disp_editbox_of_a_value($property_def, $property_name, $curre
                 // probably a string or integer
                 if ( empty($htmlPropValue) )
                 {
-                    echo $langEmpty;
+                    echo get_lang('Empty');
                 }
                 else
                 {

@@ -19,7 +19,6 @@
 
 function register_class_to_course($class_id, $course_code) 
 {
-    global $lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname;
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_user       = $tbl_mdb_names['user'];
     $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
@@ -69,7 +68,6 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
     global $clarolineRepositoryWeb;
     global $imgRepositoryWeb;
     global $tbl_class_user; 
-    global $langUsersMin;
 
     foreach ($class_list as $cur_class)
     {
@@ -139,7 +137,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
     	    echo "  <td align=\"center\">\n"
 	            ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."user.gif\" border=\"0\"> "
-		        ."        (".$qty_user."  ".$langUsersMin.") \n"
+		        ."        (".$qty_user."  ".get_lang('UsersMin').") \n"
                 ."    </a>\n"
                 ."  </td>\n";
 		
@@ -199,9 +197,7 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
 
     global $clarolineRepositoryWeb;
     global $tbl_class_user; 
-    global $langUsersMin;
     global $imgRepositoryWeb;
-    global $langSubscribeToCourse;
 
     foreach ($class_list as $cur_class)
     {
@@ -269,14 +265,14 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
 	    $qty_user = $resultcount[0]['qty_user'];
 	    
 	    echo "  <td align=\"center\">\n"
-	        .$qty_user."  ".$langUsersMin." \n"
+	        .$qty_user."  ".get_lang('UsersMin')." \n"
 		."  </td>\n";
 		
 	      //add to course link	
 			
             echo "  <td align=\"center\">\n"
 	        ."    <a onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
-                ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".$langSubscribeToCourse."\">\n"
+                ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".get_lang('SubscribeToCourse')."\">\n"
 	        ."    </a>\n"
 		."  </td>\n";
 	    
@@ -299,13 +295,12 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
  * @param  the pre-selected class'id in the select box  
  * @param  space to display for children to show deepness  
  * @global $tbl_class
- * @global $langTopLevel
+ * @global get_lang('TopLevel')
  * @return void
 */
 function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;") 
 {       
 	global $tbl_class;
-	global $langTopLevel;
 	
 	$sql = " SELECT * 
              FROM `".$tbl_class."`
@@ -313,7 +308,7 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 	$classes = claro_sql_query_fetch_all($sql);
 	
 	$result = "<select name=\"theclass\">\n"
-	    ."<option value=\"root\"> ".$langTopLevel." </option>"; 
+	    ."<option value=\"root\"> ".get_lang('TopLevel')." </option>"; 
 	$result .= buildSelectClass($classes,$selected,null,$space);
 	$result .= "</select>\n";
 	return $result;

@@ -22,11 +22,11 @@ require '../inc/claro_init_global.inc.php';
 
 if(isset($_gid))
 {
-    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => $langGroups);
+    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
     $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
 }
 
-$nameTools  = $langChat;
+$nameTools  = get_lang('Chat');
 $noPHP_SELF = TRUE;
 
 include($includePath . '/claro_init_header.inc.php');

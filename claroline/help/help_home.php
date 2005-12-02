@@ -1,7 +1,7 @@
 <?php // $Id$
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = $langHHome;
+$nameTools = get_lang('HHome');
 $hide_banner = true;
 $hide_footer = true;
 include $includePath . '/claro_init_header.inc.php';
@@ -11,24 +11,24 @@ include $includePath . '/claro_init_header.inc.php';
 <tr>
   <td align="left" valign="top">
 
-    <?php echo "<h4>$langHHome</h4>"; ?>
+    <?php echo "<h4>get_lang('HHome')</h4>"; ?>
 
   </td>
   <td align="right" valign="top">
-    <a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a>
+    <a href="javascript:window.close();"><?php echo get_lang('CloseWindow'); ?></a>
   </td>
 </tr>
 <tr>
   <td colspan="2">
 
-    <?php echo $langHomeContent; ?>
+    <?php echo get_lang('HomeContent'); ?>
 
   </td>
 </tr>
 <tr>
   <td colspan="2">
     <br />
-    <center><a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a></center>
+    <center><a href="javascript:window.close();"><?php echo get_lang('CloseWindow'); ?></a></center>
   </td>
 </tr>
 </table>

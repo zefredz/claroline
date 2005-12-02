@@ -213,13 +213,12 @@
         * reorganize the resources in a array
         *
         * @return a array with the tree of the current node
-        * @global $baseServUrl,$rootWeb,$langEmpty
+        * @global $baseServUrl,$rootWeb
         */        
 
         function getArrayRessource()
         {
         	global $baseServUrl,$rootWeb;
-        	global $langEmpty;
         	
         	$baseServUrl = $rootWeb;
             $resourceArray = array();
@@ -280,7 +279,7 @@
            if(!$passed)
            {
                $elementResource = array();
-               $elementResource["name"] = "&lt;&lt;&nbsp;".$langEmpty."&nbsp;&gt;&gt;";
+               $elementResource["name"] = "&lt;&lt;&nbsp;".get_lang('Empty')."&nbsp;&gt;&gt;";
                $elementResource["crl"] = $this->_node; 
                $elementResource["container"] = FALSE;      
                $elementResource["linkable"] = FALSE;   

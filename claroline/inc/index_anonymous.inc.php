@@ -101,7 +101,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
     $backCommandLine = '<p>'
                       .'<small>'
                       .'<a href="' . $_SERVER['PHP_SELF'] . '?category=' . $parentCategory['code_P'] . '">'
-                      .'&lt;&lt; ' . $langPreviousLevel
+                      .'&lt;&lt; ' . get_lang('PreviousLevel')
                       .'</a>'
                       .'</small>'
                       .'</p>'
@@ -112,7 +112,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
 else
 {
 	$backCommandLine = '<p>&nbsp;</p>';
-    $pageTitle       = $langCategories;
+    $pageTitle       = get_lang('Categories');
 }
 
 echo $backCommandLine;
@@ -121,7 +121,7 @@ echo claro_disp_tool_title($pageTitle);
 
     if ( ( count($categoryList) - 1 )  > 0 && $category != null) // don't display subtitle of categories if we are at root or if there is only one categorie
     {
-        echo '<h4>' . $langCategories . '</h4>' . "\n";
+        echo '<h4>' . get_lang('Categories') . '</h4>' . "\n";
     }
     echo '<ul>' . "\n";
 
@@ -158,7 +158,7 @@ if ( count($courseList) > 0 )
        echo '<hr size="1" noshade="noshade">' . "\n";
    }
 
-    echo '<h4>' . $langCourseList . '</h4>' . "\n"
+    echo '<h4>' . get_lang('CourseList') . '</h4>' . "\n"
     .    '<ul style="list-style-image:url(claroline/img/course.gif);">' . "\n"
     ;
 
@@ -205,7 +205,7 @@ if ( count($courseList) > 0 )
 }
 else
 {
-	// echo "<blockquote>",$lang_No_course_publicly_available,"</blockquote>\n";
+	// echo "<blockquote>",get_lang('_No_course_publicly_available'),"</blockquote>\n";
 }
 
 echo $backCommandLine;
@@ -224,7 +224,7 @@ if (isset($claro_CasEnabled) && $claro_CasEnabled) // CAS is a special cas of ex
 {
     echo '<div align="center">'
     .    '<a href="'.$clarolineRepositoryWeb . 'auth/login.php?authModeReq=CAS">'
-    .    (isset($claro_CasLoginString) ? $claro_CasLoginString : $langLogin)
+    .    (isset($claro_CasLoginString) ? $claro_CasLoginString : get_lang('Login'))
     .    '</a>'
     .    '</div>';
 }
@@ -234,20 +234,20 @@ if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
 ?>
 <form action ="<?php echo $clarolineRepositoryWeb . 'auth/login.php' ?>"  method="post">
 <fieldset style="padding: 7px;">
-<legend><?php echo $langAuthentication ?> : </legend>
+<legend><?php echo get_lang('Authentication') ?> : </legend>
 <p>
 <small>
 
 <label for="login">
-<?php echo $langUserName; ?><br>
+<?php echo get_lang('UserName'); ?><br>
 <input type="text" name="login" id="login" size="12"><br>
 </label>
 
 <label for="password" >
-<?php echo $langPassword ?><br>
+<?php echo get_lang('Password') ?><br>
 <input type="password" name="password" id="password" size="12"><br>
 </label>
-<input type="submit" value="<?php echo $langEnter ?>" name="submitAuth">
+<input type="submit" value="<?php echo get_lang('Enter') ?>" name="submitAuth">
 
 </small>
 </p>
@@ -259,17 +259,17 @@ if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
     {
         if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
         {
-    		echo claro_disp_message_box($langInvalidId);
+    		echo claro_disp_message_box(get_lang('InvalidId'));
         }
         else
         {
-        	echo claro_disp_message_box(sprintf($langInvalidIdSelfReg,$urlAppend.'/claroline/auth/inscription.php') );
+        	echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),$urlAppend.'/claroline/auth/inscription.php') );
         }
         
     }
 ?>
 <p>
-<a href="claroline/auth/lostPassword.php"><?php echo $langLostPassword ?></a>
+<a href="claroline/auth/lostPassword.php"><?php echo get_lang('LostPassword') ?></a>
 </p>
 
 <?php
@@ -277,7 +277,7 @@ if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
     {
         ?>
         <p>
-        <a href="claroline/auth/inscription.php"><?php echo $langCreateUserAccount ?></a>
+        <a href="claroline/auth/inscription.php"><?php echo get_lang('CreateUserAccount') ?></a>
         </p>
 
         <?php

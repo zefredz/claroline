@@ -38,21 +38,6 @@
         global $publicCoursesAllowed; // -> config variable
         global $externalLinkAllowed; // -> config variable
         global $imgRepositoryWeb;
-        global $langEmpty;
-        global $langUp;
-        global $langLinkerAdd;
-        global $langLinkerAddNewAttachment;
-        global $langLinkerAlreadyInAttachementList;
-        global $langLinkerAttachements;
-        global $langLinkerCloseJpspan;
-        global $langLinkerDelete;
-        global $langLinkerExternalLink;
-        global $langLinkerMyOtherCourses;
-        global $langLinkerUntitled;
-        global $langLinkerPublicCourses;
-        global $langLinkerPromptForUrl;
-        global $langLinkerPromptInvalidEmail;
-        global $langLinkerPromptInvalidUrl;
         global $includePath;
         require_once($includePath . '/lib/JPSpan/JPSpan.php');
         require_once($includePath . '/lib/JPSpan/JPSpan/Include.php');
@@ -63,49 +48,49 @@
         
         //lang variable
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_add = '".addslashes($langLinkerAdd)."';</script>\n";    
+                . "var lang_add = '".addslashes(get_lang('LinkerAdd'))."';</script>\n";    
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_delete = '".addslashes($langLinkerDelete)."';</script>\n";    
+                . "var lang_delete = '".addslashes(get_lang('LinkerDelete'))."';</script>\n";    
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_empty = '".addslashes($langEmpty)."';</script>\n";    
+                . "var lang_empty = '".addslashes(get_lang('Empty'))."';</script>\n";    
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_up = '".addslashes($langUp)."';</script>\n";    
+                . "var lang_up = '".addslashes(get_lang('Up'))."';</script>\n";    
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_my_other_courses = '".addslashes($langLinkerMyOtherCourses)."';</script>\n";
+                . "var lang_my_other_courses = '".addslashes(get_lang('LinkerMyOtherCourses'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_public_courses = '".addslashes($langLinkerPublicCourses)."';</script>\n";
+                . "var lang_public_courses = '".addslashes(get_lang('LinkerPublicCourses'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_external_link = '".addslashes($langLinkerExternalLink)."';</script>\n";
+                . "var lang_external_link = '".addslashes(get_lang('LinkerExternalLink'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_attachements = '".addslashes($langLinkerAttachements)."';</script>\n";
+                . "var lang_attachements = '".addslashes(get_lang('LinkerAttachements'))."';</script>\n";
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_already_in_attachement_list = '".addslashes($langLinkerAlreadyInAttachementList)."';</script>\n";
+                . "var lang_already_in_attachement_list = '".addslashes(get_lang('LinkerAlreadyInAttachementList'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_add_new_attachment = '".addslashes($langLinkerAddNewAttachment)."';</script>\n"; 
+                . "var lang_linker_add_new_attachment = '".addslashes(get_lang('LinkerAddNewAttachment'))."';</script>\n"; 
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_close = '".addslashes($langLinkerCloseJpspan)."';</script>\n"; 
+                . "var lang_linker_close = '".addslashes(get_lang('LinkerCloseJpspan'))."';</script>\n"; 
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_close = '".addslashes($langLinkerCloseJpspan)."';</script>\n";
+                . "var lang_linker_close = '".addslashes(get_lang('LinkerCloseJpspan'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_for_url = '".addslashes($langLinkerPromptForUrl)."';</script>\n";
+                . "var lang_linker_prompt_for_url = '".addslashes(get_lang('LinkerPromptForUrl'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_invalid_url = '".addslashes($langLinkerPromptInvalidUrl)."';</script>\n";
+                . "var lang_linker_prompt_invalid_url = '".addslashes(get_lang('LinkerPromptInvalidUrl'))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_invalid_email = '".addslashes($langLinkerPromptInvalidEmail)."';</script>\n";
+                . "var lang_linker_prompt_invalid_email = '".addslashes(get_lang('LinkerPromptInvalidEmail'))."';</script>\n";
         
         //javascript function 
         $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"" 
@@ -205,12 +190,10 @@
     */    
     function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {   
-        global $langLinkerAddNewAttachment;
-         
         echo '<div id="shoppingCart" style="width:100%">' . "\n"
         .    '</div>' . "\n"
         .    '<div style="margin-top : 1em;margin-bottom : 1em;" id="openCloseAttachment">' . "\n"
-        .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . $langLinkerAddNewAttachment . '</a>' . "\n"
+        .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . get_lang('LinkerAddNewAttachment') . '</a>' . "\n"
         .    '</div>' . "\n"
         .    '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;" id="navbox">' . "\n"
         .    '<div id="toolBar">' . "\n"

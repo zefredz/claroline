@@ -145,7 +145,7 @@ if($is_allowedToEdit) // check teacher status
             
             if ( announcement_delete_item($id) )
             {
-                $message = $langAnnDel;
+                $message = get_lang('AnnDel');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
                 $ex_rss_refresh = TRUE;
@@ -167,7 +167,7 @@ if($is_allowedToEdit) // check teacher status
         {
             if ( announcement_delete_all_items() )
             {
-                $message = $langAnnEmpty;
+                $message = get_lang('AnnEmpty');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $ex_rss_refresh = TRUE;
                 
@@ -186,7 +186,7 @@ if($is_allowedToEdit) // check teacher status
 
         if ( $cmd == 'rqEdit' )
         {
-            $subTitle = $langModifAnn;
+            $subTitle = get_lang('ModifAnn');
             claro_set_display_mode_available(false);
 
             // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
@@ -216,7 +216,7 @@ if($is_allowedToEdit) // check teacher status
 
             if (announcement_set_item_visibility($id,$visibility))
             {
-                $message = $langViMod;
+                $message = get_lang('ViMod');
             }
         }
 
@@ -226,7 +226,7 @@ if($is_allowedToEdit) // check teacher status
 
         if ( $cmd == 'rqCreate')
         {
-            $subTitle = $langAddAnn;
+            $subTitle = get_lang('AddAnn');
             claro_set_display_mode_available(false);
             $displayForm = TRUE;
             $nextCommand = 'exCreate';
@@ -251,7 +251,7 @@ if($is_allowedToEdit) // check teacher status
                 
                 if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
                 {
-                    $message = $langAnnModify;
+                    $message = get_lang('AnnModify');
                     $message .= linker_update();
                     $eventNotifier->notifyCourseEvent('anouncement_modified', $_cid, $_tid, $id, $_gid, '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
@@ -275,7 +275,7 @@ if($is_allowedToEdit) // check teacher status
                 {
                     // notify that a new anouncement is present in this course
                     $eventNotifier->notifyCourseEvent('anouncement_added',$_cid, $_tid, $insert_id, $_gid, '0');
-                    $message  = $langAnnAdd;
+                    $message  = get_lang('AnnAdd');
                     $message .= linker_update();
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $ex_rss_refresh = TRUE;
@@ -298,7 +298,7 @@ if($is_allowedToEdit) // check teacher status
                 // email subject
                 $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ';
                 if ( !empty($title) ) $emailSubject .= $title ;
-                else                  $emailSubject .= $langProfessorMessage;
+                else                  $emailSubject .= get_lang('ProfessorMessage');
 
                 // email message
                 $msgContent = $content;
@@ -348,8 +348,8 @@ if($is_allowedToEdit) // check teacher status
                         $countUnvalid++;
                     }
                 }
-                $messageUnvalid = $langOn.' '.$countEmail.' '.$langRegUser.', '.$countUnvalid.' '.$langUnvalid;
-                $message .= ' '.$langEmailSent.'<br /><b>'.$messageUnvalid.'</b><br />';
+                $messageUnvalid = get_lang('On').' '.$countEmail.' '.get_lang('RegUser').', '.$countUnvalid.' '.get_lang('Unvalid');
+                $message .= ' '.get_lang('EmailSent').'<br /><b>'.$messageUnvalid.'</b><br />';
                 $message .= $messageFailed;
 
             }   // end if $emailOption==1
@@ -384,7 +384,7 @@ event_access_tool($_tid, $_courseTool['label']);
  */
 
 
-$nameTools = $langAnnouncement;
+$nameTools = get_lang('Announcement');
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
@@ -423,27 +423,27 @@ if ( $displayButtonLine )
     echo '<p>' . "\n"
     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
     .    '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
-    .    $langAddAnn
+    .    get_lang('AddAnn')
     .    '</a>' . "\n"
     .    ' | ' . "\n"
     .    '<a class="claroCmd" href="messages.php">'
     .    '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
-    .    $langMessageToSelectedUsers
+    .    get_lang('MessageToSelectedUsers')
     .    '</a>' . "\n"
     .    ' | ' . "\n";
     if (($announcementQty > 0 ))
     {   
         echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-        .    ' onclick="if (confirm(\'' . clean_str_for_javascript($langEmptyAnn) . ' ?\')){return true;}else{return false;}">'
+        .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('EmptyAnn')) . ' ?\')){return true;}else{return false;}">'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    $langEmptyAnn
+        .    get_lang('EmptyAnn')
         .    '</a>' . "\n";
     }
     else
     {   
         echo '<span class="claroCmdDisabled" >'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    $langEmptyAnn
+        .    get_lang('EmptyAnn')
         .    '</span>' . "\n";
     }
     echo '</p>' . "\n";
@@ -469,7 +469,7 @@ if ( $displayForm )
          )
     .    '<table>'
     .    '<tr>'
-    .    '<td valign="top"><label for="title">' . $langTitle . ' : </label></td>'
+    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>'
     .    '<td><input type="text" id="title" name="title" value = "'
     .    ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
     .    '" size="80" ></td>'
@@ -488,7 +488,7 @@ if ( $displayForm )
     .    '<tr>' 
     .    '<td></td>'
     .    '<td><input type=checkbox value="1" name="emailOption" id="emailOption" >'
-    .    '<label for="emailOption">' . $langEmailOption . '</label><hr />' . "\n"
+    .    '<label for="emailOption">' . get_lang('EmailOption') . '</label><hr />' . "\n"
     ;
 
     //---------------------
@@ -498,14 +498,14 @@ if ( $displayForm )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
         linker_set_display();
-        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . $langOk . '">'."\n";
+        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
     }
     else // popup mode
     {
         if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
         else                       linker_set_display();
         
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . $langOk . '">'."\n";
+        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
     }
 
     echo claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
@@ -529,7 +529,7 @@ if ($displayList)
 
     if ($announcementQty < 1)
     {
-        echo '<br /><blockquote>' . $langNoAnnouncement . '</blockquote>' . "\n";
+        echo '<br /><blockquote>' . get_lang('NoAnnouncement') . '</blockquote>' . "\n";
     }
 
     echo '<table class="claroTable" width="100%">';
@@ -564,7 +564,7 @@ if ($displayList)
             .    '<th class="headerX item'.$classItem.'">'."\n"
             .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
             .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '">' . "\n"
-            .    $langPubl
+            .    get_lang('Publ')
             .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))
             .    '</th>' . "\n"
             .    '</tr>' . "\n"
@@ -585,12 +585,12 @@ if ($displayList)
             echo '<p>'
             // EDIT Request LINK
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . $langModify . '">'
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '">'
             .    '</a>' . "\n"
             // DELETE  Request LINK
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
-            .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript($langConfirmYourChoice) . '\')) return false;">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . $langDelete . '" border="0">'
+            .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('ConfirmYourChoice')) . '\')) return false;">'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0">'
             .    '</a>' . "\n"
             ;
 
@@ -601,7 +601,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . $langOrderUp . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('OrderUp') . '">'
                 .    '</a>' . "\n"
                 ;
             }
@@ -613,7 +613,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . $langDown . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Down') . '">'
                 .    '</a>' . "\n"
                 ;
             }
@@ -622,14 +622,14 @@ if ($displayList)
             if ($thisAnnouncement['visibility']=='SHOW')
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . $langInvisible.'">'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible').'">'
                 .    '</a>' . "\n"
                 ;
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . $langVisible . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '">'
                 .    '</a>' . "\n"
                 ;
             }

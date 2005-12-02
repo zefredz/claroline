@@ -24,7 +24,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
@@ -81,7 +81,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
         function confirmation (name)
         {
-            if (confirm("'.clean_str_for_javascript($langAreYouSureToDelete).'" + name + "? "))
+            if (confirm("'.clean_str_for_javascript(get_lang('AreYouSureToDelete')).'" + name + "? "))
                 {return true;}
             else
                 {return false;}
@@ -90,8 +90,8 @@ $htmlHeadXtra[] =
 
 // Deal with interbredcrumps
 
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
-$nameTools = $langListUsers;
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$nameTools = get_lang('ListUsers');
 //TABLES
 
 //------------------------------------
@@ -106,7 +106,7 @@ switch ( $cmd )
     {
         if  (isset($_REQUEST['user_id']) ) $user_id = $_REQUEST['user_id'];
         else                               $user_id = null;
-        $dialogBox = ( user_delete($user_id) ? $langUserDelete : $langNotUnregYourself);
+        $dialogBox = ( user_delete($user_id) ? get_lang('UserDelete') : get_lang('NotUnregYourself'));
     }   break;
 }
 
@@ -260,38 +260,38 @@ if ( !empty($_SESSION['admin_user_search']) )
 }
 if ( !empty($_SESSION['admin_user_firstName']) )
 {
-    $isSearched .= $langFirstName.'='.$_SESSION['admin_user_firstName'].'* ';
+    $isSearched .= get_lang('FirstName').'='.$_SESSION['admin_user_firstName'].'* ';
     $advanced_search_query_string [] = 'firstName='. urlencode($_SESSION['admin_user_firstName']);
 }
 if ( !empty($_SESSION['admin_user_lastName']) )
 {
-    $isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";
+    $isSearched .= get_lang('LastName')."=".$_SESSION['admin_user_lastName']."* ";
     $advanced_search_query_string[] = "lastName=".urlencode($_SESSION['admin_user_lastName']);
 }
 if ( !empty($_SESSION['admin_user_userName']) )
 {
-    $isSearched .= $langUserName."=".$_SESSION['admin_user_userName']."* ";
+    $isSearched .= get_lang('UserName')."=".$_SESSION['admin_user_userName']."* ";
     $advanced_search_query_string[] = "userName=".urlencode($_SESSION['admin_user_userName']);
 }
 if ( !empty($_SESSION['admin_user_mail']) )
 {
-    $isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";
+    $isSearched .= get_lang('Email')."=".$_SESSION['admin_user_mail']."* ";
     $advanced_search_query_string[] = "mail=".urlencode($_SESSION['admin_user_mail']);
 }
 
 if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=="followcourse"))
 {
-    $isSearched .= "<b> <br />".$langRegStudent."  </b> ";
+    $isSearched .= "<b> <br />".get_lang('RegStudent')."  </b> ";
     $advanced_search_query_string[] = 'action=' . urlencode($_SESSION['admin_user_action']);
 }
 elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'createcourse'))
 {
-    $isSearched .= '<b> <br />' . $langCourseCreator . '  </b> ';
+    $isSearched .= '<b> <br />' . get_lang('CourseCreator') . '  </b> ';
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=='plateformadmin'))
 {
-    $isSearched .= '<b> <br />' . $langPlatformAdministrator . '  </b> ';
+    $isSearched .= '<b> <br />' . get_lang('PlatformAdministrator') . '  </b> ';
     $advanced_search_query_string[] = "action=".urlencode($_SESSION['admin_user_action']);
 }
 else
@@ -315,7 +315,7 @@ if( empty($isSearched) )
 }
 else
 {
-    $title = $langSearchOn." : ";
+    $title = get_lang('SearchOn')." : ";
 }
 
 //---------
@@ -357,11 +357,11 @@ echo '<table width="100%">'
 .    '</td>'
 .    '<td align="right">'
 .    '<form action="'.$_SERVER['PHP_SELF'].'">'
-.    '<label for="search">'.$langMakeNewSearch.'</label>'
+.    '<label for="search">'.get_lang('MakeNewSearch').'</label>'
 .    '<input type="text" value="'.htmlspecialchars($search).'" name="search" id="search" />'
-.    '<input type="submit" value=" '.$langOk.' " />'
+.    '<input type="submit" value=" '.get_lang('Ok').' " />'
 .    '<input type="hidden" name="newsearch" value="yes" />'
-.    '[<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >' . $langAdvanced . '</a>]'
+.    '[<a class="claroCmd" href="advancedUserSearch.php'.$addtoAdvanced.'" >' . get_lang('Advanced') . '</a>]'
 .    '</form>'
 .    '</td>'
 .    '</tr>'
@@ -379,15 +379,15 @@ $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=uid&amp;dir=' . $order['uid'] . '">' . $langNumero . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=name&amp;dir='  . $order['name'] . '">' . $langLastName . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=firstname&amp;dir=' . $order['firstname'] . '">' . $langFirstName . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;dir=' . $order['officialCode'] . '">' . $langOfficialCode . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=email&amp;dir=' . $order['email'] . '">' . $langEmail . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=status&amp;dir=' . $order['status'] . '">' . $langUserStatus . '</a></th>'
-.    '<th>' . $langUserSettings . '</th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=courseqty&amp;dir=' . $order['courseqty'] . '">' . $langCourses . '</a></th>'
-.    '<th>' . $langDelete . '</th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=uid&amp;dir=' . $order['uid'] . '">' . get_lang('Numero') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=name&amp;dir='  . $order['name'] . '">' . get_lang('LastName') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=firstname&amp;dir=' . $order['firstname'] . '">' . get_lang('FirstName') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;dir=' . $order['officialCode'] . '">' . get_lang('OfficialCode') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=email&amp;dir=' . $order['email'] . '">' . get_lang('Email') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=status&amp;dir=' . $order['status'] . '">' . get_lang('UserStatus') . '</a></th>'
+.    '<th>' . get_lang('UserSettings') . '</th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=courseqty&amp;dir=' . $order['courseqty'] . '">' . get_lang('Courses') . '</a></th>'
+.    '<th>' . get_lang('Delete') . '</th>'
 .    '</tr><tbody>'
 ;
 
@@ -410,8 +410,8 @@ foreach($userList as $list)
 
     if ( empty($list['officialCode']) ) $list['officialCode'] = ' - ';
 
-    $userStatus = ($list['statut']=='COURSE_CREATOR' ? $langCourseCreator : $langNormalUser);
-    if (isAdminUser($list['user_id'])) $userStatus .= '<br /><font color="red">'.$langAdministrator.'</font>';
+    $userStatus = ($list['statut']=='COURSE_CREATOR' ? get_lang('CourseCreator') : get_lang('NormalUser'));
+    if (isAdminUser($list['user_id'])) $userStatus .= '<br /><font color="red">'.get_lang('Administrator').'</font>';
 
     echo '<tr>'
     .    '<td align="center">' . $list['user_id'] . '</td>' . "\n"
@@ -427,7 +427,7 @@ foreach($userList as $list)
     .    '<a href="adminprofile.php'
     .    '?uidToEdit=' . $list['user_id']
     .    '&amp;cfrom=ulist' . $addToURL . '">'
-    .    '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . $langUserSettings . '" />'
+    .    '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('UserSettings') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
 
@@ -436,7 +436,7 @@ foreach($userList as $list)
     .    '<td align="center">'
     .    '<a href="adminusercourses.php?uidToEdit=' . $list['user_id']
     .    '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
-    .    sprintf(($list['qty_course']>1 ? $lang_p_d_courses : $lang_p_d_course), $list['qty_course']) . "\n"
+    .    sprintf(($list['qty_course']>1 ? get_lang('_p_d_courses') : get_lang('_p_d_course')), $list['qty_course']) . "\n"
     .    '</a>' . "\n"
     .    '</td>' . "\n"
 
@@ -447,7 +447,7 @@ foreach($userList as $list)
     .    '?cmd=delete&amp;user_id=' . $list['user_id']
     .    '&amp;ffset=' . $offset . $addToURL . '" '
     .    ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $list['prenom'] . ' ' . $list['nom']).'\');">'."\n"
-    .    '<img src="' . $imgRepositoryWeb . 'deluser.gif" border="0" alt="' . $langDelete . '" />' . "\n"
+    .    '<img src="' . $imgRepositoryWeb . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a> '."\n"
     .    '</td>'."\n"
     .    '</tr>'
@@ -459,9 +459,9 @@ if ( ! isset($atLeastOne) )
 {
     echo '<tr>' . "\n"
     .    '<td colspan="9" align="center">' . "\n"
-    .    $langNoUserResult . "\n"
+    .    get_lang('NoUserResult') . "\n"
     .    '<br />' . "\n"
-    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . $langSearchAgain . '</a>' . "\n"
+    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('SearchAgain') . '</a>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>'
     ;

@@ -72,7 +72,7 @@ function daysTab($sql)
     while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
-        $display_date = $date_array["mday"]." ".$langMonthNames['short'][$date_array["mon"]-1]." ".$date_array["year"];
+        $display_date = $date_array["mday"]." ". $langMonthNames['short'][$date_array["mon"]-1]." ".$date_array["year"];
         
         if ($date_array["mday"] == $last_day)
         {
@@ -138,16 +138,14 @@ function monthTab($sql)
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
-    global $langHits;
-    global $langTotal,
-	$clarolineRepositoryWeb;
+	global $clarolineRepositoryWeb;
 
     echo '<table class="claroTable" width="100%" cellpadding="0" cellspacing="1" align="center">'."\n";
     // titles
     echo '<tr class="headerX">'."\n"
 		.'<th width="15%">'.$periodTitle.'</th>'."\n"
 		.'<th width="60%">&nbsp;</th>'."\n"
-		.'<th width="10%">'.$langHits.'</th>'."\n"
+		.'<th width="10%">'.get_lang('Hits').'</th>'."\n"
 		.'<th width="15%"> % </th>'."\n"
 		.'</tr>'."\n\n"
 		.'<tbody>'."\n\n";
@@ -180,7 +178,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     echo '</tbody>'."\n\n"
           .'<tfoot>'."\n"
           .'<tr>'."\n"
-          .'<td width="15%" align="center">'.$langTotal.'</td>'."\n"
+          .'<td width="15%" align="center">'.get_lang('Total').'</td>'."\n"
           .'<td align="right" width="60%">&nbsp;</td>'."\n"
           .'<td align="center" width="10%">'.$period_array["total"].'</td>'."\n"
           .'<td width="15%">&nbsp;</td>'."\n"
@@ -199,9 +197,6 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
  */
 function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 {
-    global $langNoResult;
-    global $langNbLines;
-    
     echo '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">'."\n";
     
     if($leftTitle != "" || $rightTitle != "")
@@ -213,7 +208,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     }
     
     echo '<tr class="headerX">'."\n"
-		.'<th colspan="2">'.$langNbLines.' : '.count($results).' </th>'."\n"
+		.'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
 		.'</tr>'."\n\n"
 		.'<tbody>'."\n\n";
     if( !empty($results) && is_array($results) )
@@ -231,7 +226,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     else
     {
         echo '<tr>'."\n"
-			.'<td colspan="2"><center>'.$langNoResult.'</center></td>'."\n"
+			.'<td colspan="2"><center>'.get_lang('NoResult').'</center></td>'."\n"
 			.'</tr>'."\n\n";
     }
     echo '</tbody>'."\n".'</table>'."\n\n";
@@ -249,21 +244,16 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
  */
 function buildTabDefcon($results)
 {
-    global $langDefcon;
-    global $langAllRight;
-    global $langNULLValue;
-    global $langNbLines;
-    
     echo '<table class="claroTable" width="60%" cellpadding="2" cellspacing="1" align="center">'."\n";
 
     if( !empty($results) && is_array($results) )
     { 
         // there is some strange cases ... 
         echo '<tr class="headerX">'."\n"
-                .'<th colspan="2" align="center"><span class="error">'.$langDefcon.'</span></th>'."\n"
+                .'<th colspan="2" align="center"><span class="error">'.get_lang('Defcon').'</span></th>'."\n"
                 .'</tr>'."\n"
                 .'<tr class="headerX">'."\n"
-                .'<th colspan="2">'.$langNbLines.' : '.count($results).' </th>'."\n"
+                .'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
                 .'</tr>'."\n";
                 
         foreach( $results as $result )
@@ -272,7 +262,7 @@ function buildTabDefcon($results)
             
             if( !isset($result[$keys[0]]) || $result[$keys[0]] == "")
             {
-                $key = $langNULLValue;
+                $key = get_lang('NULLValue');
             }
             else
             {
@@ -292,7 +282,7 @@ function buildTabDefcon($results)
     {
         // all right
         echo '<tr>'."\n"
-                .'<td colspan="2" align="center"><span class="correct">'.$langAllRight.'</span></td>'."\n"
+                .'<td colspan="2" align="center"><span class="correct">'.get_lang('AllRight').'</span></td>'."\n"
                 .'</tr>'."\n";
     }
     echo '</table>'."\n\n";
@@ -306,7 +296,6 @@ function buildTabDefcon($results)
  */
 function changeResultOfVisibility($results)
 {
-    global $langNoResult;
 	$visibilityLabel[0] = "closed - hide";
 	$visibilityLabel[1] = "open - hide";
 	$visibilityLabel[2] = "open - visible";

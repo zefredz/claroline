@@ -55,15 +55,12 @@
         * @return ClaroContainer who contains the objects current node
         * @throws  E_USER_ERROR if the node is not intended for the tool forum
         * @throws  E_USER_ERROR if the node is empty
-        * @global $langCategories;
-        * @global $langForums;
-        * @global $l_topics;
+        * @global get_lang('Categories');
+        * @global get_lang('Forums');
+        * @global get_lang('topics');
         */
         function getResource($node = NULL)
         {
-            global $langCategories;
-            global $langForums;
-            global $l_topics;
             global $platform_id;
             
             if($node)
@@ -105,7 +102,7 @@
                     {
                          // listing of a categories, it is a container no linkable
                          $categories = $this->_listCat();
-                         $name = $langCategories;
+                         $name = get_lang('Categories');
                          $elementList = array();
                          
                          foreach ($categories as $itemCategorie )
@@ -122,7 +119,7 @@
                          if( $resultat["type"] == "forum")
                          {
                              $forums = $this->_listForum($resultat["id"]);
-                             $name = $langForums;
+                             $name = get_lang('Forums');
                              $elementList = array();
                              
                              foreach ($forums as $itemForum )
@@ -135,7 +132,7 @@
                          else
                          {                             
                              $topics = $this->_listTopic($resultat["id"]);
-                             $name = $l_topics;
+                             $name = get_lang('topics');
                              $elementList = array();
                              
                              foreach ($topics as $itemTopic )

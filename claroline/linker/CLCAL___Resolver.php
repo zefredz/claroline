@@ -186,7 +186,6 @@
         */ 
         function getTitle( $course_sys_code , $id )
         {           
-            global $langLinkerUntitled;
             $agendaInfo = $this->_getInfo( $course_sys_code , $id );
 
             $content = trim( stripslashes(strip_tags($agendaInfo[0]["contenu"])));     
@@ -206,7 +205,7 @@
                   /*------------------------------
                    *   todo : no name of event   -
                    *-----------------------------*/
-                   $title = $langLinkerUntitled." {" . $agendaInfo[0]["day"]."}";      
+                   $title = get_lang('LinkerUntitled')." {" . $agendaInfo[0]["day"]."}";      
                }
                
                return $title; 

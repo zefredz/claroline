@@ -50,14 +50,13 @@
    function displayAttachmentList($current_crl)
    {
        global $caddy;
-       global $langLinkerDelete,$langEmpty,$langLinkerAttachements;
        global $imgRepositoryWeb;
 
        $content = $caddy->getAttachmentList();
 
        if( is_array($content) && isset($content['crl']) && count( $content['crl'] ) > 0 )
        {
-           echo '<hr /><b>' . $langLinkerAttachements . '</b>' . "\n";
+           echo '<hr /><b>' . get_lang('LinkerAttachements') . '</b>' . "\n";
 
            echo '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n";
 
@@ -69,7 +68,7 @@
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.$langLinkerDelete.'" />'
+               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.get_lang('LinkerDelete').'" />'
                .    '</a></td></tr>' . "\n"
                ;
            }
@@ -127,8 +126,6 @@
     */
     function display( $navigator , $crl , $elementCRLArray )
     {
-        global $langLinkerAdd,$langEmpty;
-
         $container = $navigator->getResource();
         $iterator = $container->iterator();
 
@@ -188,7 +185,7 @@
                 .    '?cmd=add&amp;crl=' . urlencode($object->getCRL())
                 .    '&amp;current_crl=' . urlencode($crl) . '" '
                 .    'class="claroCmd">'
-                .    '[' . $langLinkerAdd . ']</a><br />' . "\n"
+                .    '[' . get_lang('LinkerAdd') . ']</a><br />' . "\n"
                 ;
             }
             else if($object->isLinkable() && !$object->isVisible() )
@@ -197,7 +194,7 @@
                 .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add&amp;crl=' . urlencode($object->getCRL())
                 .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
-                .    '[' . $langLinkerAdd . ']'
+                .    '[' . get_lang('LinkerAdd') . ']'
                 .    '</a><br />' . "\n"
                 ;
             }
@@ -209,7 +206,7 @@
         // if a directory is empty
         if (!$passed )
         {
-            echo '&lt;&lt;&nbsp;' . $langEmpty . '&nbsp;&gt;&gt;' . "\n";
+            echo '&lt;&lt;&nbsp;' . get_lang('Empty') . '&nbsp;&gt;&gt;' . "\n";
         }
         echo '</div>';
     }
@@ -222,14 +219,14 @@
     */
     function displayOtherCourse( $navigator , $crl )
     {
-        global $platform_id,$langLinkerMyOtherCourses,$langLinkerAdd;
+        global $platform_id;
 
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
         displayOtherCoursesLink( FALSE );
         displayPublicCoursesLink();
         displayExternalLink( $crl );
-        echo '<br /><b>' . $langLinkerMyOtherCourses . '</b><hr />';
+        echo '<br /><b>' . get_lang('LinkerMyOtherCourses') . '</b><hr />';
         displayParentLink ( $navigator , FALSE );
 
         $otherCourseInfo = $navigator->getOtherCoursesList();
@@ -252,7 +249,7 @@
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
                 .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
-                .    '[' . $langLinkerAdd . ']</A><br />' . "\n"
+                .    '[' . get_lang('LinkerAdd') . ']</A><br />' . "\n"
                 ;
             }
         }
@@ -273,7 +270,7 @@
     */
     function displayPublicCourse( $navigator , $crl )
     {
-        global $platform_id,$langLinkerPublicCourses,$langLinkerAdd;
+        global $platform_id;
 
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
@@ -281,7 +278,7 @@
         displayPublicCoursesLink( FALSE );
         displayExternalLink( $crl );
 
-        echo '<br /><b>' . $langLinkerPublicCourses . '</b><hr />';
+        echo '<br /><b>' . get_lang('LinkerPublicCourses') . '</b><hr />';
 
         displayParentLink ( $navigator , FALSE );
 
@@ -305,7 +302,7 @@
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
                 .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
-                .    '[' . $langLinkerAdd . ']</A><br />' . "\n"
+                .    '[' . get_lang('LinkerAdd') . ']</A><br />' . "\n"
                 ;
             }
         }
@@ -323,7 +320,7 @@
     */
     function displayParentLink ( $navigator , $isLink = TRUE)
     {
-        global $langUp,$imgRepositoryWeb;
+        global $imgRepositoryWeb;
 
         $crlParent = $navigator->getParent();
 
@@ -334,7 +331,7 @@
             .    '&amp;cmd=browse'
             .    '&amp;current_crl=' . urlencode ($crlParent) . '" class="claroCmd">'
             .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" alt="" />'
-            .    $langUp
+            .    get_lang('Up')
             .    '</a>'
             ;
         }
@@ -342,7 +339,7 @@
         {
             echo '<span class="claroCmdDisabled">'
             .    '<img src="' . $imgRepositoryWeb . 'parentdisabled.gif" border="0" alt="" />'
-            .    $langUp
+            .    get_lang('Up')
             .    '</span>'
             ;
         }
@@ -358,7 +355,6 @@
     function displayOtherCoursesLink( $isLink = TRUE )
     {
         global $otherCoursesAllowed;//-> config variable
-        global $langLinkerMyOtherCourses;
 
          if ($otherCoursesAllowed)
          {
@@ -366,13 +362,13 @@
             {
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=browseMyCourses" class="claroCmd">'
-                .    $langLinkerMyOtherCourses . '</a>&nbsp;' . "\n"
+                .    get_lang('LinkerMyOtherCourses') . '</a>&nbsp;' . "\n"
                 ;
             }
             else
             {
                 echo '<span class="claroCmdDisabled">'
-                .    $langLinkerMyOtherCourses
+                .    get_lang('LinkerMyOtherCourses')
                 .    '</span>'
                 .    '&nbsp;' . "\n"
                 ;
@@ -390,18 +386,17 @@
     function displayPublicCoursesLink( $isLink = TRUE )
     {
         global $publicCoursesAllowed;//-> config variable
-        global $langLinkerPublicCourses;
 
          if ($publicCoursesAllowed)
          {
              if( $isLink )
             {
                 echo '<a href="'.$_SERVER["PHP_SELF"].'?cmd=browsePublicCourses" class="claroCmd">';
-                echo $langLinkerPublicCourses."</A>&nbsp;\n";
+                echo get_lang('LinkerPublicCourses')."</A>&nbsp;\n";
             }
             else
             {
-                echo '<span class="claroCmdDisabled">'.$langLinkerPublicCourses . '</span> &nbsp;' . "guim\n";
+                echo '<span class="claroCmdDisabled">'.get_lang('LinkerPublicCourses') . '</span> &nbsp;' . "guim\n";
             }
         }
 
@@ -434,33 +429,30 @@
    /**
     * display the general title
     *
-    * @global string $langLinkerResourceAttachment
+    * @global string get_lang('LinkerResourceAttachment')
     */
     function displayGeneralTitle()
     {
-        global $langLinkerResourceAttachment;
-
-        echo '<h1>' . $langLinkerResourceAttachment . '</h1>';
+        echo '<h1>' . get_lang('LinkerResourceAttachment') . '</h1>';
     }
 
     /**
     * display the link of the external link
     *
     * @global boolean $externalLinkAllowed
-    * @global string $langLinkerExternalLink
+    * @global string get_lang('LinkerExternalLink')
     *
     * @param crl $current_crl
     */
     function displayExternalLink($current_crl)
     {
         global $externalLinkAllowed;//-> config variable
-        global $langLinkerExternalLink;
 
          if ($externalLinkAllowed)
          {
             echo '<a href="http://claroline.net" class="claroCmd" '
             .    ' onclick="prompt_popup_for_external_link(\'' . $current_crl . '\');return false;">'
-            .    $langLinkerExternalLink . '</a>' . "\n"
+            .    get_lang('LinkerExternalLink') . '</a>' . "\n"
             ;
         }
 
@@ -474,11 +466,9 @@
      */
     function displayLinkerButtons()
     {
-        global $langLinkerClosePopup;
-
         echo '<input type="submit" '
         .    'onclick="linker_confirm();return false;" '
-        .    'value="' . $langLinkerClosePopup . '" >'
+        .    'value="' . get_lang('LinkerClosePopup') . '" >'
         ;
     }
 ?>

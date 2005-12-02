@@ -20,11 +20,11 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => $langAdministration);
+$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
-$nameTools = $langViewPlatFormError;
+$nameTools = get_lang('ViewPlatFormError');
 
 $htmlHeadXtra[] = "
 <style media='print' type='text/css'>
@@ -71,9 +71,9 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     // will be show, 0 means don't show
     echo "\n"
     .    '<small>'
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=1111111">' . $langShowAll . '</a>]'
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=1111111">' . get_lang('ShowAll') . '</a>]'
     .    '&nbsp;'
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=0000000">' . $langShowNone . '</a>]'
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=0000000">' . get_lang('ShowNone') . '</a>]'
     .    '</small>' . "\n\n"
     ;
 
@@ -91,7 +91,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[$levelView] == '1')
     {
         $tempView[$levelView] = '0';
-        echo '- &nbsp;&nbsp;<b>'.$langMultipleLogins.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('MultipleLogins').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         //--  multiple logins |
         //--     multiple logins are not possible in the new version but this page can be used with previous versions
         $sql = "SELECT DISTINCT username , count(*) as nb
@@ -108,7 +108,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langMultipleLogins.'</a>'."\n";
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('MultipleLogins').'</a>'."\n";
     }
     echo '</p>'."\n\n";
 
@@ -123,7 +123,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[$levelView] == '1')
     {
         $tempView[$levelView] = '0';
-        echo '- &nbsp;&nbsp;<b>'.$langMultipleEmails.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('MultipleEmails').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         //--  multiple account with same email
 
         $sql = "SELECT DISTINCT email , count(*) as nb
@@ -139,7 +139,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langMultipleEmails.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('MultipleEmails').'</a>';
     }
     echo '</p>'."\n";
 
@@ -151,7 +151,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[$levelView] = '0';
         //--  courses without professor
-        echo '- &nbsp;&nbsp;<b>'.$langCourseWithoutProf.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('CourseWithoutProf').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
 
         $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
                     FROM `".$tbl_course."` c
@@ -168,7 +168,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langCourseWithoutProf.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('CourseWithoutProf').'</a>';
     }
     echo "</p>\n\n";
 
@@ -179,7 +179,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[$levelView] = '0';
         //-- courses without students
-        echo '- &nbsp;&nbsp;<b>'.$langCourseWithoutStudents.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('CourseWithoutStudents').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
                     FROM `".$tbl_course."` c
                     LEFT JOIN `".$tbl_rel_course_user."` cu
@@ -195,7 +195,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langCourseWithoutStudents.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('CourseWithoutStudents').'</a>';
     }
     echo '</p>'."\n\n";
 
@@ -207,7 +207,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[$levelView] = '0';
         //-- logins not used for $limitBeforeUnused
-        echo '- &nbsp;&nbsp;<b>'.$langLoginWithoutAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('LoginWithoutAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
 
         $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
                     FROM `".$tbl_user."` AS us
@@ -222,7 +222,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         {
             if ( !isset($loginWithoutAccessResults[$i][1]) )
             {
-                $loginWithoutAccessResults[$i][1] = $langNeverUsed;
+                $loginWithoutAccessResults[$i][1] = get_lang('NeverUsed');
             }
         }
         buildTabDefcon($loginWithoutAccessResults);
@@ -230,7 +230,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langLoginWithoutAccess.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('LoginWithoutAccess').'</a>';
     }
     echo '</p>'."\n\n";
 
@@ -242,7 +242,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[$levelView] = '0';
         //--  multiple account with same username AND same password (for compatibility with previous versions)
-        echo '- &nbsp;&nbsp;<b>'.$langMultipleUsernameAndPassword.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('MultipleUsernameAndPassword').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
 
         $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password) as paire, count(*) as nb
                     FROM `".$tbl_user."`
@@ -255,7 +255,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langMultipleUsernameAndPassword.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('MultipleUsernameAndPassword').'</a>';
     }
     echo '</p>'."\n\n";
 
@@ -267,7 +267,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     {
         $tempView[$levelView] = '0';
         //-- courses without access, not used for $limitBeforeUnused
-        echo '- &nbsp;&nbsp;<b>'.$langCourseWithoutAccess.'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langClose.'</a>]</small><br />'."\n";
+        echo '- &nbsp;&nbsp;<b>'.get_lang('CourseWithoutAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         $sql ="SELECT code, dbName
                        FROM    `".$tbl_course."`
                      ORDER BY code ASC";
@@ -287,7 +287,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                 $courseWithoutAccess[$i][0] = $course['code'];
                 if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull') // if no records found ,course was never accessed
                 {
-                    $courseWithoutAccess[$i][1] = $langNeverUsed;
+                    $courseWithoutAccess[$i][1] = get_lang('NeverUsed');
                 }
                 else
                 {
@@ -304,7 +304,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[$levelView] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.$langCourseWithoutAccess.'</a>';
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('CourseWithoutAccess').'</a>';
     }
     echo "</p>\n\n";
 }
@@ -312,11 +312,11 @@ else // not allowed to track
 {
     if(!$is_trackingEnabled)
     {
-        echo $langTrackingDisabled;
+        echo get_lang('TrackingDisabled');
     }
     else
     {
-        echo $langNotAllowed;
+        echo get_lang('NotAllowed');
     }
 }
 

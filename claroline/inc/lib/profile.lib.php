@@ -30,20 +30,19 @@
 
 function profile_send_request_course_creator_status ($explanation)
 {
-    global $_uid, $_user, $dateFormatLong, $siteName, $rootAdminWeb, $administrator_email,
-           $langCourseManagerStatusToUser, $langUser, $langName, $langEmail, $langComment, $langLink ;
+    global $_uid, $_user, $dateFormatLong, $siteName, $rootAdminWeb, $administrator_email;
 
     $mailToUidList = claro_get_uid_of_platform_admin();
 
-    $requestMessage_Title = '[' . $siteName . '][Request]' . sprintf($langCourseManagerStatusToUser,$_user['lastName'],$_user['firstName']);
+    $requestMessage_Title = '[' . $siteName . '][Request]' . sprintf(get_lang('CourseManagerStatusToUser'),$_user['lastName'],$_user['firstName']);
 
 	$requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
-                            . sprintf($langCourseManagerStatusToUser,$_user['lastName'],$_user['firstName']) . "\n"
-                            . $langUser . ': ' . $_uid . "\n"
-                            . $langName . ': ' . $_user['firstName']. ' ' . $_user['lastName'] . "\n"
-                            . $langEmail . ':' . $_user['mail'] . "\n"
-                            . $langComment . ': ' . nl2br($explanation) . "\n"
-                            . $langLink . ': ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid;
+                            . sprintf(get_lang('CourseManagerStatusToUser'),$_user['lastName'],$_user['firstName']) . "\n"
+                            . get_lang('User') . ': ' . $_uid . "\n"
+                            . get_lang('Name') . ': ' . $_user['firstName']. ' ' . $_user['lastName'] . "\n"
+                            . get_lang('Email') . ':' . $_user['mail'] . "\n"
+                            . get_lang('Comment') . ': ' . nl2br($explanation) . "\n"
+                            . get_lang('Link') . ': ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid;
 
 	foreach ( $mailToUidList as $mailToUid )
 	{
@@ -62,21 +61,19 @@ function profile_send_request_course_creator_status ($explanation)
 
 function profile_send_request_revoquation ($explanation,$login,$password)
 {
-    global $_uid, $_user, $siteName, $rootAdminWeb, $administrator_email, $dateFormatLong,
-           $langRevoquationOfUser, $langUser, $langName, $langEmail, $langComment, $langLink;
-           
+    global $_uid, $_user, $siteName, $rootAdminWeb, $administrator_email, $dateFormatLong;
 
     $mailToUidList = claro_get_uid_of_platform_admin();
-	$requestMessage_Title = '[' . $siteName .'][Request]' . sprintf($langRevoquationOfUser,$_user['lastName'],$_user['firstName']);
+	$requestMessage_Title = '[' . $siteName .'][Request]' . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']);
 	$requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
-                            . sprintf($langRevoquationOfUser,$_user['lastName'],$_user['firstName']) . "\n"
-                            . $langUser . ': ' . $_uid . "\n"
-                            . $langName . ': ' . $_user['firstName'] . ' ' . $_user['lastName'] . "\n"
-                            . $langEmail . ': ' . $_user['mail'] . "\n"
+                            . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']) . "\n"
+                            . get_lang('User') . ': ' . $_uid . "\n"
+                            . get_lang('Name') . ': ' . $_user['firstName'] . ' ' . $_user['lastName'] . "\n"
+                            . get_lang('Email') . ': ' . $_user['mail'] . "\n"
                             . 'login de confirmation: ' . $login . "\n"
                             . 'paswd de confirmation: ' . $password . "\n"
-                            . $langComment . ': ' . $explanation . "\n"
-                            . $langLink . ' : ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid . "\n";
+                            . get_lang('Comment') . ': ' . $explanation . "\n"
+                            . get_lang('Link') . ' : ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid . "\n";
 
 	foreach ($mailToUidList as $mailToUid)
 	{

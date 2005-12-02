@@ -22,15 +22,15 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 // rss reader library
 require $includePath . '/lib/lastRSS/lastRSS.php';
 
 
-$nameTools = $langClarolineNetNews;
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$nameTools = get_lang('ClarolineNetNews');
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $noQUERY_STRING   = TRUE;
 
 
@@ -82,7 +82,7 @@ if ($rs = $rss->get($urlNewsClaroline))
 }
 else
 {
-    echo claro_disp_message_box($langErrorCannotReadRSSFile);
+    echo claro_disp_message_box(get_lang('ErrorCannotReadRSSFile'));
 }
 
 include $includePath . '/claro_init_footer.inc.php';

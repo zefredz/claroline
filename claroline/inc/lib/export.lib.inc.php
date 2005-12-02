@@ -210,39 +210,12 @@ $archiveRepositorySys, $archiveRepositoryWeb,         // from configs files
 $appendCourse, $appendMainDb,                        //
 $archiveName, $mainDbName,
 $clarolineRepositorySys,$_course,$coursesRepositorySys,
-$TABLEUSER, $TABLECOURSUSER, $TABLECOURS, $TABLEANNOUNCEMENT,
-$langArchiveName,
-$langArchiveLocation,
-$langSizeOf,
-$langDisk_free_space,
-$langCreateMissingDirectories,
-$langBUCourseDataOfMainBase,
-$langBUUsersInMainBase,
-$langBUAnnounceInMainBase,
-$langCopyDirectoryCourse,
-$langFileCopied,
-$langBackupOfDataBase,
-$langBuildTheCompressedFile ;
+$TABLEUSER, $TABLECOURSUSER, $TABLECOURS, $TABLEANNOUNCEMENT;
+
 ////////////////////////////////////////////////////
 // ****** 1° Check if all data needed are aivailable
 
 // ****** 1° 1. language vars
-
-if ($verboseBackup)
-{
-    if ($langArchiveName=="")                  $langArchiveName                 = "Archive name";
-    if ($langArchiveLocation=="")              $langArchiveLocation             = "Archive location";
-    if ($langSizeOf=="")                      $langSizeOf                      = "Size of";
-    if ($langDisk_free_space=="")              $langDisk_free_space             = "Disk free";
-    if ($langCreateMissingDirectories=="")  $langCreateMissingDirectories    = "Directory missing ";
-    if ($langBUCourseDataOfMainBase=="")      $langBUCourseDataOfMainBase      = "Backup Course data";
-    if ($langBUUsersInMainBase=="")          $langBUUsersInMainBase              = "Backup Users";
-    if ($langBUAnnounceInMainBase=="")      $langBUAnnounceInMainBase        = "Backups announcement";
-    if ($langCopyDirectoryCourse=="")          $langCopyDirectoryCourse         = "Copy files";
-    if ($langFileCopied==""    )                  $langFileCopied                  = "File copied";
-    if ($langBackupOfDataBase=="")          $langBackupOfDataBase              = "Backup of database";
-    if ($langBuildTheCompressedFile=="")    $langBuildTheCompressedFile     = "zip file";
-}
 
 // ****** 1° 2. params.
     $errorCode =0;
@@ -343,12 +316,12 @@ if ($verboseBackup)
 ###################
     if ($verboseBackup)
     {
-        echo "<hr /><u>",$langArchiveName,"</u> : "
-            ,"<strong>",basename($systemFileNameOfArchive),"</strong><br /><u>",$langArchiveLocation,"</u> : "
-            ,"<strong>",realpath($systemFileNameOfArchive),"</strong><br /><u>",$langSizeOf," ",realpath("../../".$exportedCourseId."/"),"</u> : "
+        echo "<hr /><u>",get_lang('ArchiveName'),"</u> : "
+            ,"<strong>",basename($systemFileNameOfArchive),"</strong><br /><u>",get_lang('ArchiveLocation'),"</u> : "
+            ,"<strong>",realpath($systemFileNameOfArchive),"</strong><br /><u>",get_lang('SizeOf')," ",realpath("../../".$exportedCourseId."/"),"</u> : "
             ,"<strong>",claro_get_file_size("../../".$exportedCourseId."/"),"</strong> bytes <br />";
         if (  function_exists(diskfreespace))
-            echo "<u>".$langDisk_free_space."</u> : <strong>".diskfreespace("/")."</strong> bytes";
+            echo "<u>".get_lang('Disk_free_space')."</u> : <strong>".diskfreespace("/")."</strong> bytes";
         echo "<hr />" ;
     }
     claro_mkdir($archiveDirOriginalDocs.$appendMainDb    ,CLARO_FILE_PERMISSIONS, true);
@@ -414,7 +387,7 @@ build config file
     if ( $verboseBackup )
         echo "
 <LI>
-".$langBUCourseDataOfMainBase."  ".$exportedCourseId."
+".get_lang('BUCourseDataOfMainBase')."  ".$exportedCourseId."
 <hr />
 <PRE>";
     $sqlInsertCourse = "
@@ -486,7 +459,7 @@ INSERT INTO cours SET ";
         if ( $verboseBackup )
             echo "
         <LI>
-            ".$langBUUsersInMainBase." ".$exportedCourseId."
+            ".get_lang('BUUsersInMainBase')." ".$exportedCourseId."
             <hr />
         <PRE>";
 
@@ -580,7 +553,7 @@ if ($saveAnnouncement)
     if ( $verboseBackup )
         echo "
     <LI>
-        ".$langBUAnnounceInMainBase." ".$exportedCourseId."
+        ".get_lang('BUAnnounceInMainBase')." ".$exportedCourseId."
         <hr />
     <PRE>";
 
@@ -661,7 +634,7 @@ INSERT INTO users SET ";
     if ( $verboseBackup )
         echo "
         <LI>
-            ".$langCopyDirectoryCourse;
+            ".get_lang('CopyDirectoryCourse');
 
     $nbFiles = copydir($coursesRepositorySys.$_course['path'], $archiveDirOriginalDocs.$appendCourse, $verboseBackup);
     if ( $verboseBackup )
@@ -669,7 +642,7 @@ INSERT INTO users SET ";
             <strong>
                 ".$nbFiles."
             </strong>
-            ".$langFileCopied."
+            ".get_lang('FileCopied')."
             <br />
         </li>";
     $stringConfig .= "
@@ -682,39 +655,39 @@ INSERT INTO users SET ";
     if ( $verboseBackup )
         echo "
         <LI>
-            ".$langBackupOfDataBase." ".$exportedCourseId."  (SQL)
+            ".get_lang('BackupOfDataBase')." ".$exportedCourseId."  (SQL)
             <hr />";
     backup_database($db , $exportedCourseId , true, true , 'SQL' , $archiveDirSql.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         </LI>
         <LI>
-            ".$langBackupOfDataBase." ".$exportedCourseId."  (PHP)
+            ".get_lang('BackupOfDataBase')." ".$exportedCourseId."  (PHP)
             <hr />";
     backup_database($db , $exportedCourseId , true, true , 'PHP' , $archiveDirPhp.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         </LI>
         <LI>
-            ".$langBackupOfDataBase." ".$exportedCourseId."  (CSV)
+            ".get_lang('BackupOfDataBase')." ".$exportedCourseId."  (CSV)
             <hr />";
     backup_database($db , $exportedCourseId , true, true , 'CSV' , $archiveDirCsv.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         <LI>
-            ".$langBackupOfDataBase." ".$exportedCourseId."  (HTML)
+            ".get_lang('BackupOfDataBase')." ".$exportedCourseId."  (HTML)
             <hr />";
     backup_database($db , $exportedCourseId , true, true , 'HTML' , $archiveDirHtml.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         <LI>
-            ".$langBackupOfDataBase." ".$exportedCourseId."  (XML)
+            ".get_lang('BackupOfDataBase')." ".$exportedCourseId."  (XML)
             <hr />";
     backup_database($db , $exportedCourseId , true, true , 'XML' , $archiveDirXml.$appendCourse,true,$verboseBackup);
     if ( $verboseBackup )
         echo "
         <LI>
-            ".$langBackupOfDataBase." ".$exportedCourseId."  (LOG)
+            ".get_lang('BackupOfDataBase')." ".$exportedCourseId."  (LOG)
             <hr />";
     backup_database($db , $exportedCourseId , true, true , 'LOG' , $archiveDirLog.$appendCourse,true,$verboseBackup);
 
@@ -760,7 +733,7 @@ INSERT INTO users SET ";
             echo "<br />";
         }
         $pathToArchive = $archiveRepositoryWeb.$archiveFileName;
-        if ( $verboseBackup  )    echo "<hr />".$langBuildTheCompressedFile;
+        if ( $verboseBackup  )    echo "<hr />".get_lang('BuildTheCompressedFile');
     }
 
 ?>

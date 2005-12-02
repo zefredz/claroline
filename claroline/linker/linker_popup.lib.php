@@ -49,12 +49,10 @@
     *
     * @param $extraGetVar integer who is id of a resource
     * @param $tLabel tlabel of a tool
-    * @global $langLinkerResourceAttachment
+    * @global get_lang('LinkerResourceAttachment')
     */    
     function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {
-        global $langLinkerResourceAttachment;
-        
         $url = "../linker/linker_popup.inc.php";
         
         if( $extraGetVar !== false )
@@ -76,7 +74,7 @@
         
         echo "<br />\n";
         echo "<A href=\"javascript:popup('"
-            . $url."')\">".$langLinkerResourceAttachment
+            . $url."')\">".get_lang('LinkerResourceAttachment')
             ."</A><br /><br />\n";
     }
 

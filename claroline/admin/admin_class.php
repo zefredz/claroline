@@ -22,7 +22,7 @@ require_once $includePath . '/lib/class.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /*
 * DB tables definition
@@ -40,8 +40,8 @@ if (!isset($_SESSION['admin_visible_class']))
 }
 
 // Deal with interbredcrumps  and title variable
-$nameTools = $langAdministrationClassTools;
-$interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+$nameTools = get_lang('AdministrationClassTools');
+$interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration for header
 
@@ -49,7 +49,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-    if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+' '+ name + \"? \"))
+    if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToDelete'))."\"+' '+ name + \"? \"))
         {return true;}
     else
         {return false;}
@@ -77,7 +77,7 @@ switch ($cmd)
     // delete the class itself
     if ($has_children)
     {
-        $dialogBox = $langErrorClassNotEmpty;
+        $dialogBox = get_lang('ErrorClassNotEmpty');
     }
     else
     {
@@ -93,14 +93,14 @@ switch ($cmd)
     $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
     .            '<table>' . "\n"
     .            '<tr>' . "\n"
-    .            '<td>' . $langNewClassName.' : ' . '</td>' . "\n"
+    .            '<td>' . get_lang('NewClassName').' : ' . '</td>' . "\n"
     .            '<td>' . "\n"
     .            '<input type="hidden" name="cmd" value="new" />' . "\n"
     .            '<input type="text" name="classname" />' . "\n"
     .            '</td>' . "\n"
     .            '</tr>' . "\n"
     .            '<tr>' . "\n"
-    .            '<td>'. $langLocation.' :' . '</td>' . "\n"
+    .            '<td>'. get_lang('Location').' :' . '</td>' . "\n"
     .            '<td>' . "\n"
     .            displaySelectBox()
     .            '<input type="submit" value=" Ok " />' . "\n"
@@ -116,11 +116,11 @@ switch ($cmd)
     case 'new' :
     if ($_REQUEST['classname']=='')
     {
-        $dialogBox = $langCannotBeBlank;
+        $dialogBox = get_lang('CannotBeBlank');
     }
     else
     {
-        $dialogBox = $langNewClassCreated;
+        $dialogBox = get_lang('NewClassCreated');
         $sql = "INSERT INTO `" . $tbl_class . "`
                 SET `name`='". addslashes($_REQUEST['classname']) ."'";
 
@@ -139,7 +139,7 @@ switch ($cmd)
 
     if ($_REQUEST['classname']=='')
     {
-        $dialogBox = $langCannotBeBlank;
+        $dialogBox = get_lang('CannotBeBlank');
     }
     else
     {
@@ -147,7 +147,7 @@ switch ($cmd)
                        SET name='". addslashes($_REQUEST['classname']) ."'
                        WHERE id= " . (int) $_REQUEST['class'];
         claro_sql_query($sql_update);
-        $dialogBox = $langNameChanged;
+        $dialogBox = get_lang('NameChanged');
 
     }
     break;
@@ -165,13 +165,13 @@ switch ($cmd)
     .           '<table>' . "\n"
     .           '<tr>' . "\n"
     .           '<td>' . "\n"
-    .           $langClassName.' : ' . "\n"
+    .           get_lang('ClassName').' : ' . "\n"
     .           '</td>' . "\n"
     .           '<td>' . "\n"
     .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     .           '<input type="hidden" name="class" value="' . $_REQUEST['class'].'" />' . "\n"
     .           '<input type="text" name="classname" value="' . htmlspecialchars($class_name) . '" />' . "\n"
-    .           '<input type="submit" value=" ' . $langOk . ' " />' . "\n"
+    .           '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
     .           '</td>' . "\n"
     .           '</tr>' . "\n"
     .           '</table>' . "\n"
@@ -194,7 +194,7 @@ switch ($cmd)
 
     if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId'])
     {
-        $dialogBox = $langErrorMove;
+        $dialogBox = get_lang('ErrorMove');
     }
     else
     {
@@ -211,7 +211,7 @@ switch ($cmd)
                      SET class_parent_id= " . $parent . "
                      WHERE id= " . (int) $_REQUEST['movedClassId'] ;
         claro_sql_query($sql_update);
-        $dialogBox = $langClassMoved;
+        $dialogBox = get_lang('ClassMoved');
     }
     break;
 
@@ -222,7 +222,7 @@ switch ($cmd)
     . '<table>'
     . '<tr>' . "\n"
     . '<td>' . "\n"
-    . $langMove ." ". $_REQUEST['classname'].' : '
+    . get_lang('Move') ." ". $_REQUEST['classname'].' : '
     . '</td>' . "\n"
     . '<td>' . "\n"
     . '<input type="hidden" name="cmd" value="exMove" />' . "\n"
@@ -270,18 +270,18 @@ if ( isset($dialogBox))
 //display tool links
 
 echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=formNew">'
-.    '<img src="' . $imgRepositoryWeb . 'class.gif" />' . $langCreateNewClass
+.    '<img src="' . $imgRepositoryWeb . 'class.gif" />' . get_lang('CreateNewClass')
 .    '</a>'
 .    '<br /><br />' . "\n"
 //display cols headers
 .    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">'
-.    '<th>' . $langClassName    . '</th>'
-.    '<th>' . $langUsers        . '</th>'
-.    '<th>' . $langEditSettings . '</th>'
-.    '<th>' . $langMove         . '</th>'
-.    '<th>' . $langDelete       . '</th>'
+.    '<th>' . get_lang('ClassName')    . '</th>'
+.    '<th>' . get_lang('Users')        . '</th>'
+.    '<th>' . get_lang('EditSettings') . '</th>'
+.    '<th>' . get_lang('Move')         . '</th>'
+.    '<th>' . get_lang('Delete')       . '</th>'
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 //display Class list

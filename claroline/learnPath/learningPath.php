@@ -23,9 +23,9 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 
-$nameTools = $langLearningPath;
+$nameTools = get_lang('LearningPath');
 
 // tables names
 $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
@@ -142,13 +142,13 @@ commentBox(LEARNINGPATH_, DISPLAY_);
 echo "\n".'<br />'."\n"
   	.'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
 	.'<tr class="headerX" align="center" valign="top">'."\n"
-	.'<th colspan="'.($maxDeep+1).'">'.$langModule.'</th>'."\n";
+	.'<th colspan="'.($maxDeep+1).'">'.get_lang('Module').'</th>'."\n";
 
 
 if ( $_uid )
 {
 	// show only progress column for authenticated users
-    echo '<th colspan="2">'.$langProgress.'</th>'."\n";
+    echo '<th colspan="2">'.get_lang('Progress').'</th>'."\n";
 }
 
 echo '</tr>'."\n\n"
@@ -299,7 +299,7 @@ if ($atleastOne == false)
 {
     echo '<tfoot>'."\n\n"
 		.'<tr>'."\n"
-		.'<td align="center" colspan="3">'.$langNoModule.'</td>'."\n"
+		.'<td align="center" colspan="3">'.get_lang('NoModule').'</td>'."\n"
 		.'</tr>'."\n\n"
 		.'</tfoot>'."\n\n";
 }
@@ -312,7 +312,7 @@ elseif($_uid && $moduleNb > 0)
 		.'</tr>'."\n\n"
     	// display progression
 		.'<tr>'."\n"
-		.'<td align="right" colspan="'.($maxDeep+1).'">'.$langGlobalProgress.'</td>'."\n"
+		.'<td align="right" colspan="'.($maxDeep+1).'">'.get_lang('GlobalProgress').'</td>'."\n"
 		.'<td align="right">'
         .claro_disp_progress_bar(round($globalProg / ($moduleNb) ), 1 )
 		.'</td>'."\n"

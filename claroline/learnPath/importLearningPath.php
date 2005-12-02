@@ -22,9 +22,9 @@ require '../inc/claro_init_global.inc.php';
    
 $is_AllowedToEdit = $is_courseAdmin;
 if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
-if (! $is_AllowedToEdit ) claro_die($langNotAllowed);
+if (! $is_AllowedToEdit ) claro_die(get_lang('NotAllowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 $nameTools = $langimportLearningPath;
 
 //header
@@ -225,11 +225,9 @@ function elementData($parser,$data)
     global $iterator;
     global $dialogBox;
     global $errorFound;
-    global $langErrorReadingXMLFile;
     global $zipFile;
     global $errorMsgs,$okMsgs;
     global $pathToManifest;
-    global $langErrorOpeningXMLFile;
     
     $data = trim(utf8_decode_if_is_utf8($data));
     
@@ -286,7 +284,7 @@ function elementData($parser,$data)
                 if ( !($fp = @fopen($file, "r")) )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, $langErrorOpeningXMLFile.$pathToManifest.$file );
+                    array_push ($errorMsgs, get_lang('ErrorOpeningXMLFile').$pathToManifest.$file );
                 }
                 else
                 {
@@ -325,7 +323,7 @@ function elementData($parser,$data)
                             // if reading of the xml file in not successfull :
                             // set errorFound, set error msg, break while statement
                             $errorFound = true;
-                            array_push ($errorMsgs, $langErrorReadingXMLFile.$pathToManifest.$file );
+                            array_push ($errorMsgs, get_lang('ErrorReadingXMLFile').$pathToManifest.$file );
                             break;
                         }
                     } // while $readdata
@@ -505,7 +503,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     $insertedModule_id = array();
     $insertedAsset_id = array();
 
-    $lpName = $langUnamedPath;
+    $lpName = get_lang('UnamedPath');
 
     // we need a new path_id for this learning path so we prepare a line in DB
     // this line will be removed if an error occurs
@@ -534,7 +532,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if( !isset($_FILES['uploadedPackage']) || !is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
     {
         $errorFound = true;
-        array_push ($errorMsgs, $langFileError.'<br />'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize') );
+        array_push ($errorMsgs, get_lang('FileError').'<br />'.get_lang('Notice').' : '.get_lang('MaxFileSize').' '.get_cfg_var('upload_max_filesize') );
     }
 
     /*
@@ -545,7 +543,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     elseif ( ! enough_size($_FILES['uploadedPackage']['size'], $baseWorkDir, $maxFilledSpace))
     {
         $errorFound = true;
-        array_push ($errorMsgs, $langNoSpace ) ;
+        array_push ($errorMsgs, get_lang('NoSpace') ) ;
     }
 
     /*
@@ -554,12 +552,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     elseif ( preg_match("/.zip$/i", $_FILES['uploadedPackage']['name']) )
     {
-        array_push ($okMsgs, $langOkFileReceived.basename($_FILES['uploadedPackage']['name']) );
+        array_push ($okMsgs, get_lang('OkFileReceived').basename($_FILES['uploadedPackage']['name']) );
         
         if (!function_exists('gzopen'))
         {
             $errorFound = true;
-            array_push ($errorMsgs,$langErrorNoZlibExtension );
+            array_push ($errorMsgs,get_lang('ErrorNoZlibExtension') );
         }
         else
         {
@@ -573,7 +571,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             if ($zipContentArray == 0)
             {
               $errorFound = true;
-              array_push ($errorMsgs,$langErrorReadingZipFile );
+              array_push ($errorMsgs,get_lang('ErrorReadingZipFile') );
             }
             
             $pathToManifest  = ""; // empty by default because we can expect that the manifest.xml is in the root of zip file
@@ -585,7 +583,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( preg_match('/.(php[[:digit:]]?|phtml)$/i', $thisContent['filename']) )
                 {
                         $errorFound = true;
-                        array_push ($errorMsgs, $langZipNoPhp );
+                        array_push ($errorMsgs, get_lang('ZipNoPhp') );
                         $is_allowedToUnzip = false;
                         break;
                 }
@@ -610,7 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             if ( ($realFileSize + $alreadyFilledSpace) > $maxFilledSpace) // check the real size.
             {
                 $errorFound = true;
-                array_push ($errorMsgs, $langNoSpace ) ;
+                array_push ($errorMsgs, get_lang('NoSpace') ) ;
                 $is_allowedToUnzip = false;
             }
  
@@ -625,7 +623,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( $unzippingState == 0 )  
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, $langErrortExtractingManifest );
+                    array_push ($errorMsgs, get_lang('ErrortExtractingManifest') );
                 }
             } //end of if ($is_allowedToUnzip)
         } // end of if (!function_exists...
@@ -633,7 +631,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     else
     {
         $errorFound = true;
-        array_push ($errorMsgs, $langErrorFileMustBeZip );
+        array_push ($errorMsgs, get_lang('ErrorFileMustBeZip') );
     }
     // find xmlmanifest (must be in root else ==> cancel operation, delete files)
 
@@ -665,13 +663,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         if (!($fp = @fopen($file, "r")))
         {
             $errorFound = true;
-            array_push ($errorMsgs, $langErrorOpeningManifest );
+            array_push ($errorMsgs, get_lang('ErrorOpeningManifest') );
         }
         else
         {
             if (!isset($manifestPath)) $manifestPath = "";
 
-            array_push ($okMsgs, $langOkManifestFound.$manifestPath."imsmanifest.xml" );
+            array_push ($okMsgs, get_lang('OkManifestFound').$manifestPath."imsmanifest.xml" );
 
             while ($data = str_replace("\n","",fread($fp, 4096)))
             {
@@ -714,7 +712,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     // set errorFound, set error msg, break while statement
                    
                     $errorFound = true;
-                    array_push ($errorMsgs, $langErrorReadingManifest );
+                    array_push ($errorMsgs, get_lang('ErrorReadingManifest') );
                     break;
                 }
             }
@@ -731,7 +729,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     // check if all starts assets files exist in the zip file
     if ( !$errorFound )
     {
-        array_push ($okMsgs, $langOkManifestRead );  
+        array_push ($okMsgs, get_lang('OkManifestRead') );  
         if ( sizeof($manifestData['items']) > 0 )
         {
             // if there is items in manifest we look for sco type resources referenced in idientifierref
@@ -759,7 +757,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, $langErrorAssetNotFound.$manifestData['scos'][$item['identifierref']]['href'] );
+                    array_push ($errorMsgs, get_lang('ErrorAssetNotFound').$manifestData['scos'][$item['identifierref']]['href'] );
                     break;
                 }
             }
@@ -794,7 +792,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, $langErrorAssetNotFound.$sco['href'] );
+                    array_push ($errorMsgs, get_lang('ErrorAssetNotFound').$sco['href'] );
                     break;
                 }
             }
@@ -802,7 +800,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         else
         {
             $errorFound = true;
-            array_push ($errorMsgs, $langErrorNoModuleInPackage );
+            array_push ($errorMsgs, get_lang('ErrorNoModuleInPackage') );
         }
     }// if errorFound
 
@@ -828,7 +826,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         if ( sizeof( $manifestData['items'] ) == 0 )
         {
             $errorFound = true;
-            array_push ($errorMsgs, $langErrorNoModuleInPackage );
+            array_push ($errorMsgs, get_lang('ErrorNoModuleInPackage') );
         }
         else
         {
@@ -867,7 +865,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     if ( mysql_error() )
                     {
                         $errorFound = true;
-                        array_push($errorMsgs, $langErrorSql);
+                        array_push($errorMsgs, get_lang('ErrorSql'));
                         break;
                     }
                     $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
@@ -896,12 +894,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     if ( mysql_error() )
                     {
                         $errorFound = true;
-                        array_push($errorMsgs, $langErrorSql);
+                        array_push($errorMsgs, get_lang('ErrorSql'));
                         break;
                     }
                     if (!$errorFound)
                     {
-                        array_push ($okMsgs, $langOkChapterHeadAdded."<i>".$chapterTitle."</i>" ) ;
+                        array_push ($okMsgs, get_lang('OkChapterHeadAdded')."<i>".$chapterTitle."</i>" ) ;
                     }
                     $i++;
                     continue;
@@ -910,7 +908,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // use found title of module or use default title
                 if ( !isset( $item['title'] ) || $item['title'] == '')
                 {
-                    $moduleName = $langUnamedModule;
+                    $moduleName = get_lang('UnamedModule');
                 }
                 else
                 {
@@ -925,7 +923,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                                ( !isset($manifestData['scos'][$item['identifierref']]['description']) /*|| $manifestData['scos'][$item['identifierref']]['parameters'] == ''*/ )
                        )
                 {
-                    $description = $langDefaultModuleComment;
+                    $description = get_lang('DefaultModuleComment');
                 }
                 else
                 {
@@ -952,7 +950,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, $langErrorSql);
+                    array_push($errorMsgs, get_lang('ErrorSql'));
                     break;
                 }
 
@@ -986,7 +984,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, $langErrorSql);
+                    array_push($errorMsgs, get_lang('ErrorSql'));
                     break;
                 }
 
@@ -1001,7 +999,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, $langErrorSql);
+                    array_push($errorMsgs, get_lang('ErrorSql'));
                     break;
                 }
 
@@ -1018,7 +1016,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `visibility`, `lock`, `parent`)
-                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes($langDefaultModuleAddedComment)."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
+                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
                 $query = claro_sql_query($sql);
                     
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
@@ -1029,13 +1027,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, $langErrorSql);
+                    array_push($errorMsgs, get_lang('ErrorSql'));
                     break;
                 }
                     
                 if (!$errorFound)
                 {
-                    array_push ($okMsgs, $langOkModuleAdded."<i>".$moduleName."</i>" ) ;
+                    array_push ($okMsgs, get_lang('OkModuleAdded')."<i>".$moduleName."</i>" ) ;
                 }
                 $i++;
             }//foreach
@@ -1113,7 +1111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            array_push($okMsgs, $langOkDefaultTitleUsed );
+            array_push($okMsgs, get_lang('OkDefaultTitleUsed') );
         }
 
         if ( isset($manifestData['packageDesc']) )
@@ -1122,8 +1120,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            $lpComment = $langDefaultLearningPathComment;
-            array_push($okMsgs, $langOkDefaultCommentUsed );
+            $lpComment = get_lang('DefaultLearningPathComment');
+            array_push($okMsgs, get_lang('OkDefaultCommentUsed') );
         }
 
         $sql = "UPDATE `".$TABLELEARNPATH."`
@@ -1156,14 +1154,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     // installation completed or not message
     if ( !$errorFound )
     {
-        echo "\n<br /><center><b>".$langInstalled."</b></center>";
+        echo "\n<br /><center><b>".get_lang('Installed')."</b></center>";
         echo "\n<br /><br ><center><a href=\"learningPathAdmin.php?path_id=".$tempPathId."\">".$lpName."</a></center>";
     }
     else
     {
-        echo "\n<br /><center><b>".$langNotInstalled."</b></center>";
+        echo "\n<br /><center><b>".get_lang('NotInstalled')."</b></center>";
     }
-    echo "\n<br /><a href=\"learningPathList.php\">$langBack</a>";   
+    echo "\n<br /><a href=\"learningPathList.php\">get_lang('Back')</a>";   
        
 }
 else // if method == 'post'
@@ -1173,7 +1171,7 @@ else // if method == 'post'
     /*--------------------------------------
       UPLOAD FORM
      --------------------------------------*/
-    echo "\n\n".$langScormIntroTextForDummies;
+    echo "\n\n".get_lang('ScormIntroTextForDummies');
     ?>
 <br /><br />
 
@@ -1181,9 +1179,9 @@ else // if method == 'post'
 
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 <input type="file" name="uploadedPackage">
-<input type="submit" value="<?php echo $langImport ?>"><br />
+<input type="submit" value="<?php echo get_lang('Import') ?>"><br />
 
-<small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+<small><?php echo get_lang('MaxFileSize'); ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
 
 </form>
 

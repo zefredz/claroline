@@ -15,7 +15,7 @@ require '../../../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
+if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
 /*
  * This script build the lang files with var without translation for all languages.
@@ -41,9 +41,9 @@ $nameTools = 'Build missing language files';
 
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('TranslationTools'));
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -64,7 +64,7 @@ if ( sizeof($languagePathList) > 0)
 {
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
     echo "<select name=\"language\">";
-    echo '<option value="all" selected="selected">' . $langAll . '</option>'. "\n";
+    echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
 	foreach($languagePathList as $key => $languagePath)
 	{
 

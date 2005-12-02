@@ -119,8 +119,8 @@ else
     //header("Content-Location: $doc_dl_url");
 
     // if the browser doesn't support the location header
-    echo  $langIfNotRedirect
-        .'<a href="'.$doc_dl_url.'">'.$lang_click_here.'</a> .';
+    echo  get_lang('IfNotRedirect')
+        .'<a href="'.$doc_dl_url.'">'.get_lang('_click_here').'</a> .';
 
     // exit to be sure the script stop running
     exit();
