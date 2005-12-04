@@ -4,7 +4,7 @@
  *
  * This script display list of configuration file
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -31,9 +31,9 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 
-include($includePath.'/lib/debug.lib.inc.php');
-include($includePath.'/lib/course.lib.inc.php');
-include($includePath.'/lib/config.lib.inc.php');
+include $includePath . '/lib/debug.lib.inc.php';
+include $includePath . '/lib/course.lib.inc.php';
+include $includePath . '/lib/config.lib.inc.php';
 
 // define
 $nameTools          = get_lang('Configuration');
@@ -105,7 +105,12 @@ if ( is_array($def_class_list) )
             echo '<ul>' . "\n";
             foreach ($class_def_list['conf'] as $code => $name)
             {
-                echo '<li><a href="'.$urlEditConf . '?config_code=' . $code .'">' . $name  . '</a></li>' . "\n";
+                echo '<li>'
+                .    '<a href="' . $urlEditConf . '?config_code=' . $code .'">' 
+                .    $name  
+                .    '</a>'
+                .    '</li>' . "\n"
+                ;
             }
             echo '</ul>' . "\n";
         }
