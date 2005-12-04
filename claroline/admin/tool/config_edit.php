@@ -39,7 +39,7 @@
  *   This script would be continue
  *   to generate a def conf file.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -70,9 +70,9 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-require_once $includePath.'/lib/debug.lib.inc.php';
-require_once $includePath.'/lib/course.lib.inc.php';
-require_once $includePath.'/lib/config.lib.inc.php';
+require_once $includePath . '/lib/debug.lib.inc.php';
+require_once $includePath . '/lib/course.lib.inc.php';
+require_once $includePath . '/lib/config.lib.inc.php';
 
 /* ************************************************************************** */
 /* Process
@@ -84,7 +84,7 @@ if ( !isset($_REQUEST['config_code']) )
 {
     // no config_code
     // return to index
-    $controlMsg['info'][] = 'No configuration code';
+    $controlMsg['info'][] = get_lang('No configuration code');
     $display_form = FALSE;
 }
 else
@@ -120,7 +120,7 @@ else
                     {
                         if (!validate_property($propertyValue, $conf_def_property_list[$propertyName]))
                         {
-                            $controlMsg['info'][] = $propertyName . ' (No valid)';
+                            $controlMsg['info'][] = $propertyName . ' ' . get_lang('(No valid)');
                             $okToSave = FALSE;
                         }
                     }
@@ -139,14 +139,14 @@ else
                     }
                     else
                     {
-                        $controlMsg['info'][] = 'Save aborded';
+                        $controlMsg['info'][] = get_lang('Save aborded');
                     }
                 }
                 else
                 {
                     // No values posted by form
                     $okToSave = FALSE;
-                    $controlMsg['info'][] = 'Save aborded';
+                    $controlMsg['info'][] = get_lang('Save aborded');
                 }
 
                 if ( $okToSave )
@@ -189,21 +189,21 @@ else
                                                                , $config_name
                                                                , $config_code
                                                                );
-                                $controlMsg['debug'][] = 'File generated for <b>' . $config_name . '</b> is <em>'.$conf_file.'</em><br />' . "\n"
-                                                       . 'Signature : <tt>' . $conf_hash . '</tt>';
+                                $controlMsg['debug'][] = get_lang('File generated for') . ' <b>' . $config_name . '</b> ' . get_lang('is') . ' <em>' . $conf_file . '</em><br />' . "\n"
+                                                       . get_lang('Signature') . ' : <tt>' . $conf_hash . '</tt>';
                             }
                         }
                         else
                         {
                             $controlMsg['error'][] = sprintf( get_lang('_p_ErrorOnBuild_S_for_S')
-                                                            , $confFile
+                                                            , $conf_file
                                                             , $config_code);
                         }
                     }
                     else
                     {
                         $controlMsg['info'][] = 'No Properties for '.$config_name . ' (' . $config_code . '). <br />' . "\n"
-                                              . '<em>'.$confFile.'</em>is not generated' ;
+                                              . '<em>'.$conf_file.'</em>is not generated' ;
                     }
                 }
 
@@ -282,10 +282,6 @@ else
 
 }
 
-/* ************************************************************************** */
-/* Display
-/* ************************************************************************** */
-
 if ( !isset($config_name) )
 {
     $nameTools = get_lang('Configuration');
@@ -296,6 +292,10 @@ else
     $nameTools = $config_name; // the name of the configuration page
     $_SERVER['QUERY_STRING'] = 'config_code=' . $config_code;
 }
+
+/* ************************************************************************** */
+/* Display
+/* ************************************************************************** */
 
 // define bredcrumb
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -326,8 +326,8 @@ if ( $display_form )
 
         // start edition form
         echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $config_code . '" name="editConfClass" >' . "\n";
-        echo '<input type="hidden" name="config_code" value="' . $config_code . '" >' . "\n";
-        echo '<input type="hidden" name="cmd" value="save" >' . "\n";
+        echo '<input type="hidden" name="config_code" value="' . $config_code . '" />' . "\n";
+        echo '<input type="hidden" name="cmd" value="save" />' . "\n";
 
         if (is_array($conf_def['section']) )
         {
@@ -385,11 +385,11 @@ if ( $display_form )
             }
             echo '</table>' . "\n";
 
-            echo '<input type="submit" value="Save" >' . "\n";
+            echo '<input type="submit" value="Save" />' . "\n";
         }
         else
         {
-            echo 'No section found in definition file';
+            echo get_lang('No section found in definition file');
         }
         echo '</form>'."\n";
     }
