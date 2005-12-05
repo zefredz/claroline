@@ -1329,7 +1329,7 @@ if( $dispWrkLst )
 			{
 				if( !empty($thisWrk['submitted_doc_path']) )
 				{
-					$completeWrkUrl = $assigDirWeb.$thisWrk['submitted_doc_path'];
+					$completeWrkUrl = $assigDirWeb.urlencode($thisWrk['submitted_doc_path']);
 					// show file if this is not a TEXT only work
 					echo '<b>'.$txtForFile.'</b>&nbsp;: '
 						.'<a href="'.$completeWrkUrl.'">'.$thisWrk['submitted_doc_path'].'</a>'
