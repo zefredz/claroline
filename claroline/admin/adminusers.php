@@ -226,13 +226,13 @@ if (isset($_SESSION['admin_user_order_crit']))
 
 //set the reorder parameters for colomuns titles
 
-if (!isset($order['uid']))              $order['uid']          = '';
-if (!isset($order['name']))             $order['name']         = '';
-if (!isset($order['firstname']))        $order['firstname']    = '';
-if (!isset($order['officialCode']))     $order['officialCode'] = '';
-if (!isset($order['email']))            $order['email']        = '';
-if (!isset($order['status']))           $order['status']       = '';
-if (!isset($order['courseqty']))        $order['courseqty']    = '';
+if ( ! isset($order['uid'         ]) ) $order['uid'         ] = '';
+if ( ! isset($order['name'        ]) ) $order['name'        ] = '';
+if ( ! isset($order['firstname'   ]) ) $order['firstname'   ] = '';
+if ( ! isset($order['officialCode']) ) $order['officialCode'] = '';
+if ( ! isset($order['email'       ]) ) $order['email'       ] = '';
+if ( ! isset($order['status'      ]) ) $order['status'      ] = '';
+if ( ! isset($order['courseqty'   ]) ) $order['courseqty'   ] = '';
 
 //Build pager with SQL request
 
