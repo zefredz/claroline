@@ -236,16 +236,10 @@ if ( ! isset($order['courseqty'   ]) ) $order['courseqty'   ] = '';
 
 //Build pager with SQL request
 
-if (!isset($_REQUEST['offset']))
-{
-    $offset = '0';
-}
-else
-{
-    $offset = $_REQUEST['offset'];
-}
+if ( ! isset($_REQUEST['offset']) ) $offset = '0';
+else                                $offset = $_REQUEST['offset'];
 
-$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+$myPager  = new claro_sql_pager($sql, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 
 //Display search form
