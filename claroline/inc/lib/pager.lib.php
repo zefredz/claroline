@@ -57,6 +57,18 @@ class claro_sql_pager
     }
 
     /**
+     * Allows to change the parameter name of the request uri for the pager.
+     * By default, this name is set to 'offset'.
+     * @param string paramName
+     */
+
+    function set_pager_call_param_name($paramName)
+    {
+    	$this->paramName = $paramName;
+    }
+
+
+    /**
      * (Private method) Rewrite the SQL query to allowing paging. It adds LIMIT 
      * parameter to the end of the query end SQL_CALC_FOUND_ROWS between the 
      * SELECT statement and the column list 
@@ -318,11 +330,6 @@ class claro_sql_pager
         .    '</tr>'."\n"
         .    '</table>'."\n\n"
         ;
-    }
-
-    function set_pager_call_param_name($paramName)
-    {
-    	$this->paramName = $paramName;
     }
 }
 
