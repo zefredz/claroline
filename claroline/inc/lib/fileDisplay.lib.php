@@ -281,7 +281,7 @@ function claro_disp_document_breadcrumb($curDirPath)
     {
         if ( empty($thisDir) )
         {
-            $breadcrumbNameList[] = 'Root';
+            $breadcrumbNameList[] = get_lang('Root');
             $breadcrumbUrlList[]  = '?cmd=exChDir&amp;file=';
         }
         else
