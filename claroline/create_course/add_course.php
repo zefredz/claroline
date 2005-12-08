@@ -58,11 +58,10 @@ $courseEnrollmentKey = isset($_REQUEST['enrollmentKey'  ]) ? trim(strip_tags($_R
 
 $courseVisibility   = isset($_REQUEST['courseVisibility']    )
                     ? ($_REQUEST['courseVisibility'         ] == 'true' ? true : false)
-                    :  true;
+                    : ( $defaultVisibilityForANewCourse == 2 or $defaultVisibilityForANewCourse == 3 ? true : false )  ;
 $courseEnrollAllowed = isset($_REQUEST['courseEnrollAllowed'])
-                     ? ($_REQUEST['courseEnrollAllowed'] == 'true' ? true : false)
-                     : true;
-
+                    ? ($_REQUEST['courseEnrollAllowed'] == 'true' ? true : false)
+                    : ( $defaultVisibilityForANewCourse == 1 or $defaultVisibilityForANewCourse == 2 ? true : false ) ;
 
 $display   = DISP_COURSE_CREATION_FORM; // default display ...
 $errorList = array();
