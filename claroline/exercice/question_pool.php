@@ -236,7 +236,7 @@ elseif ( !empty($_REQUEST['exerciseId']) )
 elseif ( !empty($_REQUEST['fromExercise']) )	
 	$pagerTarget .= '?fromExercise='.$_REQUEST['fromExercise'];
 	
-$myPager->disp_pager_tool_bar($pagerTarget);
+echo $myPager->disp_pager_tool_bar($pagerTarget);
 
 ?>
 
@@ -346,7 +346,7 @@ $myPager->disp_pager_tool_bar($pagerTarget);
 </table>
 <?php
 //pager display
-$myPager->disp_pager_tool_bar($pagerTarget);
+echo $myPager->disp_pager_tool_bar($pagerTarget);
 ?>
 </form>
 

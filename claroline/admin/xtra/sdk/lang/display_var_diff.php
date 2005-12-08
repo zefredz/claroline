@@ -134,7 +134,7 @@ echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
 
 // display pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 // display table header
 
@@ -181,7 +181,7 @@ echo "</tbody>\n</table>";
 
 // display pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 // display nb results
 

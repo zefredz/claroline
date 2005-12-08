@@ -788,7 +788,7 @@ class topicLister
 
     function disp_pager_tool_bar($pagerUrl)
     {
-        $this->sqlPager->disp_pager_tool_bar($pagerUrl);
+        echo $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
 }
 
@@ -863,7 +863,7 @@ class postLister
 
     function disp_pager_tool_bar($pagerUrl)
     {
-        $this->sqlPager->disp_pager_tool_bar($pagerUrl);
+        echo echo $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
 }
 

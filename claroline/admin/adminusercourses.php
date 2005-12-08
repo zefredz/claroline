@@ -232,7 +232,7 @@ if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must di
 
 //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '"?uidToEdit=' . $uidToEdit);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '"?uidToEdit=' . $uidToEdit);
 
 // display User's course list
 
@@ -319,7 +319,7 @@ echo '<tbody>'
 
 //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit);
 
 // display footer
 include $includePath . '/claro_init_footer.inc.php';

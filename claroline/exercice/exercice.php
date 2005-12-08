@@ -250,7 +250,7 @@ if($is_allowedToEdit)
 }
 echo '</p>'."\n\n";
 //pager display
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 ?>
 

@@ -214,7 +214,7 @@ if (isset($cfrom) && ($cfrom=='clist'))
 }
 
 //Pager
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
 
 // Display list of users
@@ -318,6 +318,6 @@ echo '</tbody>'
 ;
 
 //Pager
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 include $includePath . '/claro_init_footer.inc.php';
 ?>

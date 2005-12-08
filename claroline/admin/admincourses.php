@@ -414,7 +414,7 @@ echo "\n".'<table width="100%">'."\n\n"
 
    //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display list
 
@@ -562,7 +562,7 @@ echo '</tbody>'."\n\n"
 
 //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // display footer
 

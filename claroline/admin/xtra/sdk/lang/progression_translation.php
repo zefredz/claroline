@@ -101,7 +101,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     $result_missing_var = $myPager->get_result_list();
 
     // display pager
-    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
 	
     // display table header
     echo "<table class=\"claroTable\" width=\"100%\" >\n";
@@ -148,7 +148,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     echo "</table>";
     
     // display pager
-    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
     
     // display nb results
     echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;

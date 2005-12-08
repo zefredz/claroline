@@ -288,7 +288,7 @@ if ( $disp_tool_link )
    Display pager
   ----------------------------------------------------------------------*/
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 /*----------------------------------------------------------------------
    Display table header
@@ -447,7 +447,7 @@ echo '</tbody>' . "\n"
    Display pager
   ----------------------------------------------------------------------*/
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
 include $includePath . '/claro_init_footer.inc.php';

@@ -200,7 +200,7 @@ echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class
 
    //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
 // Display list of users
@@ -263,7 +263,7 @@ echo '</tbody>'."\n"
 
 //Pager
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 include $includePath . '/claro_init_footer.inc.php';
 

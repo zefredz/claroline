@@ -264,7 +264,7 @@ if (isset($_REQUEST['order_crit']))
               ;
 }
 
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
 
 // Display list of users
 // start table...
@@ -389,6 +389,6 @@ foreach($userList as $user)
 // end display users table
 echo '</tbody></table>';
 //Pager
-$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
 include $includePath . '/claro_init_footer.inc.php';
 ?>
