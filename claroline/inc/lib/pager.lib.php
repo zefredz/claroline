@@ -3,11 +3,11 @@
 /**
  * Pager class allowing to manage the paging system into claroline
  *
- *  exemple : $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
+ *  example : $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
  *
  *            echo '<table><tr><td>';
  *
- *            $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+ *            echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
  *
  *            echo '</td></tr>';
  *
@@ -22,15 +22,12 @@
  *
  * Note : The pager will request page change by the $_GET['offset'] variable
  * If it conflicts with other variable you can change this name with the 
- * set_pager_call_param_name($paramName) method
+ * set_pager_call_param_name($paramName) method.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * 
  */
 
-/**
- * @package DISPLAY
- */
 class claro_sql_pager
 {
     /**
@@ -53,12 +50,11 @@ class claro_sql_pager
         $this->resultList       = claro_sql_query_fetch_all($sqlPrep);
         $this->totalResultCount = $this->get_total_result_count($this->sql);
         $this->offsetCount      = ceil( $this->totalResultCount / $this->step );
-        
     }
 
     /**
-     * Allows to change the parameter name of the request uri for the pager.
-     * By default, this name is set to 'offset'.
+     * Allows to change the parameter name in the url for page change request.
+     * By default, this parameter name is 'offset'.
      * @param string paramName
      */
 
@@ -86,7 +82,7 @@ class claro_sql_pager
             return $sql . ' LIMIT ' . $offset . ', ' . $step;
 
             // Insert SQL_CALC_FOUND_ROWS into the query 
-            // -- Only works with mySQL 4. Usefeul if the scritp calls
+            // -- Only works with mySQL 4. Useful if the scritp calls
             // SELECT FOUND_ROWS() later ( see get_total_result_count() method )
             //
             // $sql = substr_replace ($sql, 'SELECT SQL_CALC_FOUND_ROWS ', 
@@ -235,102 +231,155 @@ class claro_sql_pager
      * Display a standart pager tool bar
      *
      * @author Hugues Peeters <hugues.peeters@claroline.net>
-     * @param  string $url where the pager tool bar commands need to point to
+     * @param  string $url - where the pager tool bar commands need to point to
+     * @param  int $linkMax - (optionnal) maximum of page links in the pager tool bar
      * @return void
      */
 
-    function disp_pager_tool_bar($url)
+    function disp_pager_tool_bar($url, $linkMax = 10)
     {
-        if (strrpos($url, '?') === false) $url .= '?'.$this->paramName.'=';
-        else                             $url .= '&'.$this->paramName.'=';
+        if ( strrpos($url, '?') === false) $url .= '?'.$this->paramName.'=';
+        else                               $url .= '&'.$this->paramName.'=';
         
-        $start    = $this->get_first_offset();
-        $previous = $this->get_previous_offset();
-        $pageList = $this->get_offset_list();
-        $next     = $this->get_next_offset();
-        $end      = $this->get_last_offset();
+        $startPage    = $this->get_first_offset();
+        $previousPage = $this->get_previous_offset();
+        $pageList     = $this->get_offset_list();
+        $nextPage     = $this->get_next_offset();
+        $endPage      = $this->get_last_offset();
 
 
+        $output =                                                                                        "\n\n"
+                . '<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n"
+                . '<tr valign="top">'                                                                  . "\n"
+                . '<td align="left" width="20%">'                                                      . "\n"
+                ;
 
-        echo "\n\n".'<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">'."\n"
-            .'<tr valign="top">'."\n"
-            .'<td align="left" width="20%">'."\n";
-
-        if ($previous !== false)
+        if ($previousPage !== false)
         {
-            echo '<b><a href="'.$url.$start.'">|&lt;&lt;</a>&nbsp;&nbsp;</b>'
-                .'<b><a href="'.$url.$previous.'">&lt; </a></b>';
+            $output .= '<b>'
+                    . '<a href="' . $url . $startPage    . '">|&lt;&lt;</a>&nbsp;&nbsp;'
+                    . '<a href="' . $url . $previousPage . '">&lt; </a>'
+                    . '</b>'
+                    ;
         }
         else
         {
-			echo '&nbsp;';
-		}
+            $output .= '&nbsp;';
+        }
 
-        echo "\n".'</td>'."\n"
-        
-            .'<td align="center" width="60%">'."\n";
+        $output .=                                     "\n"
+                .  '</td>'                           . "\n"
+                .  '<td align="center" width="60%">' . "\n"
+                ;
 
         // current page
-        $current_page = (int)$this->offset/$this->step ;
+        $currentPage = (int) $this->offset / $this->step ;
+
         // total page
-        $count_page = $this->offsetCount; 
+        $pageCount = $this->offsetCount; 
+
         // start page    
-        if ( $current_page > 10 ) $start_page = $current_page - 10;
-        else                      $start_page = 0;
+        if ( $currentPage > $linkMax ) $firstLink = $currentPage - $linkMax;
+        else                           $firstLink = 0;
+
         // end page
-        if ( $current_page + 10 < $count_page ) $end_page = $current_page + 10;
-        else                                    $end_page = $count_page;
+        if ( $currentPage + $linkMax < $pageCount ) $lastLink = $currentPage + $linkMax;
+        else                                        $lastLink = $pageCount;
 
         // display 1 ... {start_page}
-        if ( $start_page > 0 )
+        
+        if ( $firstLink > 0 )
         {
-            echo '<a href="'.$url.$pageList[0].'">'.(0+1).'</a>&nbsp;';
-            if ( $start_page > 1 ) echo '...&nbsp;';
+            $output .= '<a href="' . $url . $pageList[0] . '">' . (0+1) . '</a>&nbsp;';
+            if ( $firstLink > 1 ) $output .= '...&nbsp;';
         } 
 
-        if ( $count_page > 1) 
+        if ( $pageCount > 1) 
         {
             // display page
-            for ($page=$start_page; $page < $end_page ; $page++)
+            for ($link = $firstLink; $page < $lastLink ; $link++)
             {
-                if ( $current_page == $page )
+                if ( $currentPage == $link )
                 {
-                    echo '<b>'.($page+1).'</b> '; // current page
+                    $output .= '<b>' . ($link + 1) . '</b> '; // current page
                 }
                 else
                 {
-                    echo '<a href="'.$url.$pageList[$page].'">'.($page+1).'</a> ';
+                    $output .= '<a href="' . $url . $pageList[$link] . '">' . ($link + 1) . '</a> ';
                 }
             }
         }
 
         // display 1 ... {start_page}
-        if ( $end_page < $count_page )
+        if ( $lastLink < $pageCount )
         {
-            if ( $end_page + 1 < $count_page ) echo '...';
-            echo '&nbsp;<a href="'.$url.$pageList[$count_page-1].'">'.($count_page).'</a>';
+            if ( $lastLink + 1 < $pageCount ) $output .= '...';
+
+            $output .= '&nbsp;<a href="'. $url . $pageList[$pageCount-1] . '">'.($pageCount).'</a>';
         } 
 
-        echo "\n".'</td>'."\n"
-        .    '<td align="right" width="20%">'."\n"
-        ;
+        $output .=                                   "\n"
+                .  '</td>'.                          "\n"
+                .  '<td align="right" width="20%">'. "\n"
+                ;
 
-        if ($next !== false)
+        if ($nextPage !== false)
         {
-            echo '<b><a href="' . $url.$next . '"> &gt;</a>&nbsp;&nbsp;</b>'
-            .    '<b><a href="' . $url.$end . '"> &gt;&gt;|</a></b>'
-            ;
+            $output .= '<b>'
+                    .  '<a href="' . $url . $nextPage . '"> &gt;</a>&nbsp;&nbsp;'
+                    .  '<a href="' . $url . $endPage  . '"> &gt;&gt;|</a>'
+                    .  '</b>'
+                    ;
         }
-		else
+        else
         {
-			echo '&nbsp;';
-		}
+            $output .= '&nbsp;';
+        }
 
-        echo "\n".'</td>'."\n"
-        .    '</tr>'."\n"
-        .    '</table>'."\n\n"
-        ;
+        $output .=             "\n"
+                .  '</td>'    ."\n"
+                .  '</tr>'    ."\n"
+                .  '</table>' ."\n\n"
+                ;
     }
 }
+
+
+//function get_sort_url_list($url)
+//{
+//    $sortArgList = array_keys($this->resultList[0]);
+//    $urlList = array();
+//
+//    foreach($sortArgList as $thisArg)
+//    {
+//        if ($thisArg == $this->sortKey && $this->sortDir == SORT_ASC)
+//        {
+//        	$direction = SORT_DESC;
+//        }
+//        else
+//        {
+//            $direction = SORT_ASC;
+//        }
+//        
+//        $urlList[] = $url 
+//                   . ( strstr($url, '?') !== false ) ? '&amp' : '?'
+//                   . 'sort = ' . urlencode($thisArg)
+//                   . '&ampdir=' . $direction;
+//    }
+//
+//    return $urlList;
+//}
+//
+//function sort_by($key, $direction)
+//{
+//    $this->sortKey = $key;
+//    $this->sortDir = $direction;
+//
+//    if     ( $direction == SORT_DESC) $direction == 'DESC';
+//    elseif ( $direction == SORT_ASC ) $direction == 'ASC';
+//
+//    $this->sql . = 'ORDER BY ' . $key . ' ' . $direction;
+//}
+
 
 ?>
