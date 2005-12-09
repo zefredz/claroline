@@ -8,7 +8,7 @@
  *         - Add entries
  *         - generate an "announce" entries about an entries
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -57,7 +57,7 @@ function agenda_delete_item($event_id, $course_id=NULL)
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     $sql = "DELETE FROM  `" . $tbl_calendar_event . "`
-            WHERE id='" . (int) $event_id . "'";
+            WHERE id= " . (int) $event_id;
     return claro_sql_query($sql);
 }
 
@@ -140,7 +140,7 @@ function agenda_update_item($event_id, $title=NULL,$content=NULL, $day=NULL, $ho
     {
         $sql = "UPDATE `" . $tbl_calendar_event . "`
                 SET " . implode(', ',$sqlSet) ."
-                WHERE `id` = '" . (int) $event_id ."'";        
+                WHERE `id` = " . (int) $event_id ;
 
         return claro_sql_query($sql);
     }
@@ -170,10 +170,13 @@ function agenda_get_item($event_id, $course_id=NULL)
                    `lasting` as `lastingAncient`
             FROM `" . $tbl_calendar_event . "` 
 
-            WHERE `id` = '" . (int) $event_id . "'";
+            WHERE `id` = " . (int) $event_id ;
 
-    $event =  claro_sql_query_fetch_all($sql);
-    return  $event[0];
+    $event = claro_sql_query_get_single_row($sql);
+    
+    if ($event) return $event;
+    else        return claro_failure::set_failure('EVENT_ENTRY_UNKNOW');
+
 }
 
 /**
@@ -193,8 +196,8 @@ function agenda_set_item_visibility($event_id, $visibility, $course_id=NULL)
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     $sql = "UPDATE `" . $tbl_calendar_event . "`
-            SET   visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "'
-                  WHERE id =  '" . (int) $event_id . "'";
+            SET   visibility = '" . ($visibility=='HIDE'?"HIDE":"SHOW") . "'
+                  WHERE id =  " . (int) $event_id ;
     return  claro_sql_query($sql);
 }
 
