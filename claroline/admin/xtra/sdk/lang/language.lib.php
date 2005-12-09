@@ -679,10 +679,11 @@ function get_lang_path_list($path_lang)
     	{
 	    	continue; // skip current and parent directories
     	}
-	    if ( is_dir($element) )
+	    if ( is_dir($path_lang . '/' . $element) )
     	{
 	    	$path = $path_lang . '/' . $element;
-		    $name = reset( explode (".", $element) );
+            $elements = explode (".", $element);
+		    $name = reset($elements);
     		$languagePathList[$name] = $path;
         }
     }
