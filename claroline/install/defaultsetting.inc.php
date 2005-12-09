@@ -1,6 +1,6 @@
 <?php # $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This script set default content at init of install
  * Most of def value are from def file.
@@ -45,11 +45,11 @@ $caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
 // build the regular expression pattern
 $ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
 $urlAppendPath  = preg_replace ($ereg, '', $urlAppendPath);
-$urlForm        = "http://".$_SERVER['SERVER_NAME'].$urlAppendPath."/";
-$pathForm       = realpath("../..")."/";
+$urlForm        = 'http://' . $_SERVER['SERVER_NAME'] . ($_SERVER['SERVER_PORT']!='80'?':' . $_SERVER['SERVER_PORT']:'') . $urlAppendPath . '/';
+$pathForm       = realpath('../..') . '/';
 
-$imgRepositoryAppendForm        =  $conf_def_property_list['imgRepositoryAppend']['default']; 
-$userImageRepositoryAppendForm =  $conf_def_property_list['userImageRepositoryAppend']['default']; 
+$imgRepositoryAppendForm        =  $conf_def_property_list['imgRepositoryAppend']['default'];
+$userImageRepositoryAppendForm =  $conf_def_property_list['userImageRepositoryAppend']['default'];
 
 $courseRepositoryForm = $conf_def_property_list['coursesRepositoryAppend']['default'];
 
@@ -59,9 +59,9 @@ $institutionUrlForm  = $conf_def_property_list['institution_url'] ['default'];
 
 $languageForm = $conf_def_property_list['platformLanguage']['default'];
 
-$userPasswordCrypted =$conf_def_property_list['userPasswordCrypted']['default'];
+$userPasswordCrypted = $conf_def_property_list['userPasswordCrypted']['default'];
 
-$allowSelfReg =$conf_def_property_list['allowSelfReg']['default'] ;
+$allowSelfReg = $conf_def_property_list['allowSelfReg']['default'] ;
 
 /**
  * admin & contact
