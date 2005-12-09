@@ -1730,10 +1730,37 @@ function claro_get_language_list()
  * @return string clean string to filter http_response_splitting attack
  * @see http://www.saintcorporation.com/cgi-bin/demo_tut.pl?tutorial_name=HTTP_Response_Splitting.html
  */
+
 function http_response_splitting_workaround( $str )
 {
     $dangerousCharactersPattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
     return preg_replace( $dangerousCharactersPattern, '', $str );
+}
+
+/**
+ * This is a beta function to return value of configuration parameter
+ *
+ * Prepare to use get_conf with old varnames
+ *
+ * @param string $param config parameter
+ * @return string param value
+ * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
+*/
+
+function get_conf($param,$default = NULL)
+{
+    if ( isset($GLOBALS[$param]) )
+    {
+        return $GLOBALS[$param];
+    }
+    elseif ( defined($param) )
+    {
+        return constant($param);
+    }
+    else
+    {
+        return $default;
+    }
 }
 
 ?>
