@@ -14,7 +14,7 @@
  * * ordre      : order of the announcement display
  *              (the announcements are display in desc order)
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -174,11 +174,11 @@ function announcement_get_item($announcement_id, $course_id=NULL)
 
     $sql = "SELECT id, title, contenu content, visibility, ordre rank
             FROM  `" . $tbl_announcement . "`
-            WHERE id='" . (int) $announcement_id . "'";
-    $announcement = claro_sql_query_fetch_all($sql);
+            WHERE id=" . (int) $announcement_id ;
+    $announcement = claro_sql_query_get_single_row($sql);
 
-    if (isset($announcement[0])) return $announcement[0];
-    else                         return claro_failure::set_failure('ANNOUNCEMENT_UNKNOW');
+    if ($announcement) return $announcement;
+    else               return claro_failure::set_failure('ANNOUNCEMENT_UNKNOW');
 }
 
 function announcement_set_item_visibility($announcement_id, $visibility, $course_id=NULL)
