@@ -126,7 +126,7 @@ if ( $postSettingList && $is_allowedToEdit )
             {
                 $message = $_REQUEST['message'];
 
-                if ( $allow_html == 0 || isset($html) ) $message = htmlspecialchars($message);
+                if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
             }
             else
             {

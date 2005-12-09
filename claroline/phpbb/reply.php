@@ -109,7 +109,7 @@ elseif ( $topicSettingList )
         if ( trim(strip_tags($message)) != '' )
         {
 
-            if ( $allow_html == 0 || isset($html) ) $message = htmlspecialchars($message);
+            if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
 
             $lastName   = $_user['lastName'];
             $firstName  = $_user['firstName'];

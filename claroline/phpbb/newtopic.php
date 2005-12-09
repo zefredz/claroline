@@ -121,7 +121,7 @@ elseif ( $forumSettingList )
 		    $subject = trim($subject);
 		
 		    // MESSAGE
-		    if ( $allow_html == 0 || isset($html) ) $message = htmlspecialchars($message);
+		    if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
 		    $message = trim($message);
 		
 		    // USER

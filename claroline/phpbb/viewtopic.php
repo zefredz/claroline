@@ -92,7 +92,7 @@ if ($topicSettingList)
     else
     {
         // get post and use pager	
-        $postLister = new postLister($topic_id, $start, $posts_per_page);
+        $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
         $postList   = $postLister->get_post_list();     
         $pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
         

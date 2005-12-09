@@ -89,7 +89,7 @@ if ( $forumSettingList )
     {  
         // Get topics list
 
-        $topicLister = new topicLister($forum_id, $start, $topics_per_page);
+        $topicLister = new topicLister($forum_id, $start, get_conf('topics_per_page') );
         $topicList   = $topicLister->get_topic_list();
         $pagerUrl = 'viewforum.php?forum=' . $forum_id . '&gidReq='.$_gid;
     }
@@ -218,7 +218,7 @@ else
             echo '&nbsp;'
                 .'<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
     
-            disp_mini_pager($topic_link, 'start', $replys+1, $posts_per_page);
+            disp_mini_pager($topic_link, 'start', $replys+1, get_conf('posts_per_page') );
     
             echo '</td>' . "\n"
                 .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
