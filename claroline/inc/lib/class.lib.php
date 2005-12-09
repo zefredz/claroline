@@ -21,7 +21,11 @@ function register_class_to_course($class_id, $course_code)
 {
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_user       = $tbl_mdb_names['user'];
-    $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
+    $tbl_class_user = $tbl_mdb_names['rel_class_user'];
+    $tbl_class      = $tbl_mdb_names['class'];
+    
+    echo "<br>we are in the recursion of class :".$class_id."<br>";
+    
     //get the list of users in this class 
     
     $sql = "SELECT * FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u` 
@@ -31,7 +35,7 @@ function register_class_to_course($class_id, $course_code)
     
     //subscribe the users each by each
     
-    $resultLog = array();
+    $resultLog = array();   
     
     foreach ($result as $user)
     {
@@ -45,6 +49,27 @@ function register_class_to_course($class_id, $course_code)
             $resultLog['KO'][] = $user;
         } 
     }
+    
+    //find subclasses of current class
+    
+    $sql = "SELECT `id` FROM `".$tbl_class."` 
+                             WHERE `class_parent_id`='". (int)$class_id."'";
+
+    $subClassesList = claro_sql_query_fetch_all($sql);
+      
+    //RECURSIVE CALL to register subClasses too
+    
+    if (!isset($resultLog['OK'])) $resultLog['OK'] = array();
+    if (!isset($resultLog['KO'])) $resultLog['KO'] = array();
+    
+    foreach ($subClassesList as $subClass)    
+    {
+        $subClassResultLog = register_class_to_course($subClass['id'], $course_code);
+        
+        if (isset($subClassResultLog['OK'])) $resultLog['OK'] = array_merge($resultLog['OK'],$subClassResultLog['OK']);
+        if (isset($subClassResultLog['KO'])) $resultLog['KO'] = array_merge($resultLog['KO'],$subClassResultLog['KO']); 
+    }
+    
     return $resultLog;
 }
 
@@ -127,12 +152,8 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 ."  </td>\n";
 
             //Users
-	    
-    	    $sqlcount = " SELECT COUNT(`user_id`) AS qty_user 
-                          FROM `".$tbl_class_user ."` 
-                          WHERE `class_id`='" . (int)$cur_class['id'] . "'";  
-	        $resultcount = claro_sql_query_fetch_all($sqlcount);	   
-	        $qty_user = $resultcount[0]['qty_user'];
+	       
+	        $qty_user = get_class_user_number($cur_class['id']);
 	    
     	    echo "  <td align=\"center\">\n"
 	            ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
@@ -141,7 +162,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 ."    </a>\n"
                 ."  </td>\n";
 		
-            //edit settings	
+            //Edit settings	
 			
             echo "  <td align=\"center\">\n"
 	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&amp;class=".$cur_class['id']."\">\n"
@@ -157,7 +178,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
         		."    </a>\n"
 	            ."  </td>\n";
 	    
-            //delete	
+            //Delete	
 		
             echo "  <td align=\"center\">\n"
                 ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&amp;class=".$cur_class['id']."\""
@@ -176,6 +197,50 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
             }	    
 	    }
     }    
+}
+
+/**
+ * Get the number of users in a class, including sublclasses
+ *
+ * @author Guillaume Lederer
+ * @param  id of the (parent) class ffrom which we want to know the number of users 
+ * @return (int) number of users in this class and its subclasses
+ *
+ */
+
+function get_class_user_number($class_id)
+{
+    //global variables needed    
+
+    global $tbl_class_user;
+    global $tbl_class;
+    
+    //1- get class users number 
+          
+    $sqlcount = " SELECT COUNT(`user_id`) AS qty_user 
+                          FROM `".$tbl_class_user ."` 
+                          WHERE `class_id`='" . (int)$class_id . "'";  
+	$resultcount = claro_sql_query_fetch_all($sqlcount);	   
+	$qty_user = $resultcount[0]['qty_user'];
+	
+	
+	//find subclasses of current class
+    
+    $sql = "SELECT `id` FROM `".$tbl_class."` 
+                             WHERE `class_parent_id`='". (int)$class_id."'";
+
+    $subClassesList = claro_sql_query_fetch_all($sql);
+		
+	//2- recursive call to get subclasses'users too
+	
+	foreach ($subClassesList as $subClass)    
+    {
+        $qty_user += get_class_user_number($subClass['id']);
+    }
+	
+	//3- return result of counts and recursive calls
+	
+	return $qty_user;
 }
 
 /**
@@ -347,6 +412,30 @@ function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&n
         }
     }
     return $result;
+}
+
+function getSubClasses($class_id)
+{    
+    global $tbl_class;
+    
+    $sub_classes_list = array();
+    
+    $sql = "SELECT `id`
+              FROM `".$tbl_class."` 
+             WHERE `class_parent_id`='". (int)$class_id ."'";
+
+    $query_result = claro_sql_query($sql);
+    
+    while ( $this_sub_class = mysql_fetch_array($query_result) )
+    {        
+        // add this subclass id to array
+        $sub_classes_list[] = $this_sub_class['id'];
+        // add children of this subclass id to array
+        $this_sub_classes_list = getSubClasses($this_sub_class['id']);
+        $sub_classes_list = array_merge($this_sub_classes_list,$sub_classes_list);    
+    }
+
+    return $sub_classes_list;
 }
 
 ?>

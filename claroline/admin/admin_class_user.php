@@ -87,8 +87,15 @@ else                         $cmd = null;
 switch ($cmd)
 {
     case 'unsubscribe' :
+        
+        $classes_list = getSubClasses($_SESSION['admin_user_class_id']);
+        $classes_list[] = $_SESSION['admin_user_class_id'];
+        
         $sql = "DELETE FROM `" . $tbl_class_user . "`
-                WHERE `user_id` = " . (int) $_REQUEST['userid'];
+                WHERE `user_id` = " . (int) $_REQUEST['userid'] . "
+                AND `class_id`
+                 in (" . implode($classes_list,",") . ")";
+                 
         claro_sql_query($sql);
         $dialogBox = get_lang('UserUnregisteredFromClass');
         break;
@@ -109,17 +116,20 @@ $sqlclass = "SELECT *
              WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
 list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
-//find this current content
+//find this class current content
 
-$sql = "SELECT *
+$classes_list = getSubClasses($_SESSION['admin_user_class_id']);
+$classes_list[] = $_SESSION['admin_user_class_id'];
+
+$sql = "SELECT distinct (U.user_id), U.nom, U.prenom, U.email, U.officialCode
         FROM `" . $tbl_user . "` AS U
             LEFT JOIN `" . $tbl_class_user . "` AS CU
             ON U.`user_id`= CU.`user_id`
-        WHERE `class_id`='" . (int)$_SESSION['admin_user_class_id'] . "'
-        ";
+        WHERE `CU`.`class_id`
+            in (" . implode($classes_list,",") . ")";
 
 
-//first see is direction must be changed
+//first see if direction must be changed
 
 if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
 {
