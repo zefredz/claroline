@@ -1,11 +1,10 @@
 <?php // $Id$
-
 /** 
  * CLAROLINE 
  *
  * User lib contains function to manage users on the platform 
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -70,8 +69,8 @@ function profile_send_request_revoquation ($explanation,$login,$password)
                             . get_lang('User') . ': ' . $_uid . "\n"
                             . get_lang('Name') . ': ' . $_user['firstName'] . ' ' . $_user['lastName'] . "\n"
                             . get_lang('Email') . ': ' . $_user['mail'] . "\n"
-                            . 'login de confirmation: ' . $login . "\n"
-                            . 'paswd de confirmation: ' . $password . "\n"
+                            . get_lang('login de confirmation: ') . $login . "\n"
+                            . get_lang('paswd de confirmation: ') . $password . "\n"
                             . get_lang('Comment') . ': ' . $explanation . "\n"
                             . get_lang('Link') . ' : ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid . "\n";
 
@@ -79,6 +78,7 @@ function profile_send_request_revoquation ($explanation,$login,$password)
 	{
 		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
 	}
+    return true;
 }
 
 /**
