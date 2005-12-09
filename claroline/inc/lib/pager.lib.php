@@ -297,7 +297,7 @@ class claro_sql_pager
         if ( $pageCount > 1) 
         {
             // display page
-            for ($link = $firstLink; $page < $lastLink ; $link++)
+            for ($link = $firstLink; $link < $lastLink ; $link++)
             {
                 if ( $currentPage == $link )
                 {
@@ -341,6 +341,8 @@ class claro_sql_pager
                 .  '</tr>'    ."\n"
                 .  '</table>' ."\n\n"
                 ;
+
+        return $output;
     }
 }
 
