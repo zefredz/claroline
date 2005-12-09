@@ -80,7 +80,7 @@ if ($_gid && $is_groupAllowed)
     $groupContext      = TRUE;
     $courseContext     = FALSE;
 
-    $maxFilledSpace    = isset($maxFilledSpace_for_groups)  ? $maxFilledSpace_for_groups : 2*1024*1024;
+    $maxFilledSpace    = get_conf('maxFilledSpace_for_groups');
     $courseDir         = $_course['path'] . '/group/' . $_group['directory'];
     $groupDir          = urlencode('group/' . $_group['directory']);
 
@@ -100,7 +100,6 @@ else
     $groupContext     = FALSE;
     $courseContext    = TRUE;
 
-    $maxFilledSpace   = $maxFilledSpace_for_course;
     $courseDir   = $_course['path'].'/document';
 
     // initialise view mode tool
@@ -108,7 +107,7 @@ else
 
     $is_allowedToEdit  = claro_is_allowed_to_edit();
     $is_allowedToUnzip = claro_is_allowed_to_edit();
-    $maxFilledSpace    = isset($maxFilledSpace_for_course)?$maxFilledSpace_for_course:50*1024*1024;
+    $maxFilledSpace    = get_conf('maxFilledSpace_for_course');
 
     // table names for learning path (needed to check integrity)
 
@@ -1380,7 +1379,7 @@ echo claro_disp_tool_title($titleElement,
         // compute absolute path to requested image
 
         if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-          && (isset($secureDocumentDownload) && $secureDocumentDownload == true) )
+          && get_conf('secureDocumentDownload') )
         {
             // slash argument method - only compatible with Apache
             $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file));
@@ -1679,8 +1678,8 @@ echo claro_disp_tool_title($titleElement,
             echo "</tr>\n";
 
             display_thumbnails($imageList, $fileList, $page
-                , $thumbnailWidth, $colWidth
-                , $numberOfCols, $numberOfRows);
+                , get_conf('thumbnailWidth'), $colWidth
+                , get_conf('numberOfCols'), get_conf('numberOfRows') );
 
         }
 
@@ -1895,7 +1894,7 @@ echo claro_disp_tool_title($titleElement,
                     $date        = format_date($fileList['date'][$fileKey]);
 
                     if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-                        && ( isset($secureDocumentDownload) && $secureDocumentDownload == true ) )
+                        && get_conf('secureDocumentDownload') )
                     {
                         // slash argument method - only compatible with Apache
                         $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
@@ -1909,7 +1908,7 @@ echo claro_disp_tool_title($titleElement,
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
 
-                    $target = ($openNewWindowForDoc ? 'target="_blank"' : '');
+                    $target = ( get_conf('openNewWindowForDoc') ? 'target="_blank"' : '');
                 }
                 elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
                 {

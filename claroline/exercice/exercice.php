@@ -77,7 +77,7 @@ $nameTools = get_lang('Exercices');
 /* Asking for an export in IMS/QTI ?
  * We need to take care of it before any content has been sent.
  */
-if( isset($_REQUEST['export']) && isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+if( isset($_REQUEST['export']) && get_conf('enableExerciseExportQTI') )
 {
     include('exercise_export.php');
     
@@ -268,7 +268,7 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
   <th><?php echo get_lang('Delete'); ?></th>
   <th><?php echo get_lang('Enable').' / '.get_lang('Disable'); ?></th>
 <?php
-		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+		if( get_conf('enableExerciseExportQTI') )
 		{
   			echo '<th>'.get_lang('Export').'</th>'."\n";
 		}
@@ -288,9 +288,9 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 if( !is_array($exercisesList) || count($exercisesList) == 0 )
 {
-	if($is_allowedToEdit && isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+	if($is_allowedToEdit && get_conf('enableExerciseExportQTI') )
 		$colspan = ' colspan="6"';
-	elseif( $is_allowedToEdit && ( !isset($enableExerciseExportQTI) || $enableExerciseExportQTI != true ) )
+	elseif( $is_allowedToEdit && get_conf('enableExerciseExportQTI') )
 		$colspan = ' colspan="5"';
 	else
 	    $colspan = '';
@@ -388,7 +388,7 @@ foreach( $exercisesList as $exercise )
 <?php
 		}
 		
-		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+		if( get_conf('enableExerciseExportQTI') )
 		{
 ?>
   <td align="center">

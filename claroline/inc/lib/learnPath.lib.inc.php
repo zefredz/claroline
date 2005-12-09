@@ -761,8 +761,6 @@ function display_my_documents($dialogBox)
 
     global $fileList;
     global $imgRepositoryWeb;
-    
-    global $secureDocumentDownload;
 
     /**
      * DISPLAY
@@ -860,7 +858,7 @@ function display_my_documents($dialogBox)
                 $date        = format_date($fileList['date'][$fileKey]);
                 
                 if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-                    && (isset($secureDocumentDownload) && $secureDocumentDownload == true) )
+                    && get_conf('secureDocumentDownload') )
                 {
                     // slash argument method - only compatible with Apache
                     $doc_url = $cmdFileName;

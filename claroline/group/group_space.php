@@ -87,7 +87,7 @@ $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $is_courseTutor || 
      ( $is_courseTutor 
        &&
-       $tutorCanBeSimpleMemberOfOthersGroupsAsStudent //FROM CONFIG
+       get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
        )));
 
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && $_uid && ( ! $is_groupMember ) && $is_courseMember;

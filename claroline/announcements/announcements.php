@@ -356,8 +356,10 @@ if($is_allowedToEdit) // check teacher status
         }   // end if $submit Announcement
 
         // rss update
-        if ( ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
-               && $ex_rss_refresh && file_exists('./announcements.rssgen.inc.php'))
+        if ( get_conf('enable_rss_in_course')
+               && $ex_rss_refresh 
+               && file_exists('./announcements.rssgen.inc.php')
+           )
         {
             include('./announcements.rssgen.inc.php');
         }
@@ -388,7 +390,7 @@ $nameTools = get_lang('Announcement');
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
-if ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
+if ( get_conf('enable_rss_in_course') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
             .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';

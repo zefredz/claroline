@@ -50,7 +50,7 @@ $sql = "SELECT `intitule`   `title`,
         FROM `".$tbl_courses."` 
         WHERE `faculte` = '". addslashes($category) ."'";
 
-if ( empty($course_order_by) || $course_order_by == 'official_code' )
+if ( get_conf('course_order_by') == 'official_code' )
 {
     $sql .= " ORDER BY UPPER(`fake_code`), `title`";
 }
@@ -184,7 +184,7 @@ if ( count($courseList) > 0 )
         echo '<li>' . "\n"
         .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">';
 
-        if ( empty($course_order_by) || $course_order_by == 'official_code' )
+        if ( get_conf('course_order_by') == 'official_code' )
         {
              echo $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
         }

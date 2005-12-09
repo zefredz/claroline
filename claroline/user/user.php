@@ -65,13 +65,12 @@ function confirmation (name)
    Variables
   ----------------------------------------------------------------------*/
 
-$userPerPage = isset($nbUsersPerPage) ? $nbUsersPerPage : 50;
+$userPerPage = get_conf('nbUsersPerPage',50);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 $can_add_user     = (bool) (   $is_courseAdmin
-                     && isset($is_coursemanager_allowed_to_add_user)
-                     && $is_coursemanager_allowed_to_add_user)
+                     && get_conf('is_coursemanager_allowed_to_add_user') )
                      || $is_platformAdmin;
 
 $currentCourse = $currentCourseID  = $_course['sysCode'];

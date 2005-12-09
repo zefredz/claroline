@@ -1028,7 +1028,7 @@
                 $script = $_SERVER['PHP_SELF'];
 
                 echo claro_disp_wiki_editor( $wikiId, $title, $versionId, $content, $script
-                    , $showWikiEditorToolbar, $forcePreviewBeforeSaving )
+                    , get_conf('showWikiEditorToolbar'), get_conf('forcePreviewBeforeSaving') )
                     ;
             }
 

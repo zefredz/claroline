@@ -58,10 +58,10 @@ $courseEnrollmentKey = isset($_REQUEST['enrollmentKey'  ]) ? trim(strip_tags($_R
 
 $courseVisibility   = isset($_REQUEST['courseVisibility']    )
                     ? ($_REQUEST['courseVisibility'         ] == 'true' ? true : false)
-                    : ( $defaultVisibilityForANewCourse == 2 or $defaultVisibilityForANewCourse == 3 ? true : false )  ;
+                    : ( get_conf('defaultVisibilityForANewCourse') == 2 or get_conf('defaultVisibilityForANewCourse') == 3 ? true : false )  ;
 $courseEnrollAllowed = isset($_REQUEST['courseEnrollAllowed'])
                     ? ($_REQUEST['courseEnrollAllowed'] == 'true' ? true : false)
-                    : ( $defaultVisibilityForANewCourse == 1 or $defaultVisibilityForANewCourse == 2 ? true : false ) ;
+                    : ( get_conf('defaultVisibilityForANewCourse') == 1 or get_conf('defaultVisibilityForANewCourse') == 2 ? true : false ) ;
 
 $display   = DISP_COURSE_CREATION_FORM; // default display ...
 $errorList = array();
@@ -72,10 +72,10 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 {
     // SUBMITTED DATA CHECKING
 
-    if ( ! $courseTitle && $human_label_needed)                 $errorList[] = get_lang('LabelCanBeEmpty');
-    if ( ! $courseOfficialCode && $human_code_needed )          $errorList[] = get_lang('CodeCanBeEmpty');
+    if ( ! $courseTitle && get_conf('human_label_needed') )                 $errorList[] = get_lang('LabelCanBeEmpty');
+    if ( ! $courseOfficialCode && get_conf('human_code_needed') )          $errorList[] = get_lang('CodeCanBeEmpty');
     if ( ! $courseCategory || $courseCategory == 'choose_one')  $errorList[] = sprintf(get_lang('_p_aCategoryWouldBeSelected'), 'mailto:'.$administrator_email);
-    if ( empty($courseEmail) && $course_email_needed )          $errorList[] = get_lang('EmailCanBeEmpty');
+    if ( empty($courseEmail) && get_conf('course_email_needed') )          $errorList[] = get_lang('EmailCanBeEmpty');
     if ( ! empty( $courseEmail )
         && ! is_well_formed_email_address($courseEmail) )       $errorList[] = get_lang('EmailWrong');
 
@@ -284,7 +284,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
 <tr valign="top">
 <td align="right">
-<label for="title"><?php echo ($human_label_needed ? '<span class="required">*</span>' :'') . get_lang('CourseTitle') ?></label> :
+<label for="title"><?php echo ( get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('CourseTitle') ?></label> :
 </td>
 <td valign="top">
 <input type="Text" name="title" id="title" size="60" value="<?php echo htmlspecialchars($courseTitle) ?>" />
@@ -294,7 +294,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
 <tr valign="top">
 <td align="right">
-<label for="officialCode"><?php echo ($human_code_needed ? '<span class="required">*</span>' :'') . get_lang('Code') ?></label> :
+<label for="officialCode"><?php echo ( get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Code') ?></label> :
 </td>
 <td >
     <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>" />
@@ -314,7 +314,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
 <tr>
 <td align="right">
-<label for="email"><?php echo ($course_email_needed ? '<span class="required">*</span>' : '') . get_lang('Email') ?></label>&nbsp;:
+<label for="email"><?php echo ( get_conf('course_email_needed') ? '<span class="required">*</span>' : '') . get_lang('Email') ?></label>&nbsp;:
 </td>
 <td>
 <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="30" maxlength="255">

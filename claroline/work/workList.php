@@ -52,7 +52,7 @@ claro_set_display_mode_available(true);
 $currentCourseRepositorySys = $coursesRepositorySys.$_course['path'] . '/';
 $currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course['path'] . '/';
 
-$fileAllowedSize     = $max_file_size_per_works ;    //file size in bytes (from config file)
+$fileAllowedSize     = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
 $wrkDirSys          = $currentCourseRepositorySys . 'work/'; // systeme work directory
 $wrkDirWeb          = $currentCourseRepositoryWeb  .'work/'; // web work directory
 $maxFilledSpace     = 100000000;

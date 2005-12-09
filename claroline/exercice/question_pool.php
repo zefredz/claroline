@@ -89,7 +89,7 @@ if($is_allowedToEdit)
 		exit();
 	}
 	// Export a question in IMS/QTI
-	elseif( isset($_REQUEST['export']) && isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+	elseif( isset($_REQUEST['export']) && get_conf('enableExerciseExportQTI') )
 	{
 		include('question_export.php');
 		
@@ -261,7 +261,7 @@ echo $myPager->disp_pager_tool_bar($pagerTarget);
   <th width="10%" align="center"><?php echo get_lang('Modify'); ?></th>
   <th width="10%" align="center"><?php echo get_lang('Delete'); ?></th>
 <?php
-		if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+		if( get_conf('enableExerciseExportQTI') )
 		{
   			echo '  <th width="10%" align="center">'.get_lang('Export').'</th>'."\n";
 		}
@@ -314,7 +314,7 @@ echo $myPager->disp_pager_tool_bar($pagerTarget);
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?exerciseId=<?php echo $exerciseId; ?>&delete=<?php echo $question['id']; ?>" onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('ConfirmDeleteQuestion')); ?>')) return false;"><img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo get_lang('Delete'); ?>"></a>
   </td>
 <?php
-                if( isset($enableExerciseExportQTI) && $enableExerciseExportQTI == true )
+                if( get_conf('enableExerciseExportQTI') )
                 {
   					echo '<td align="center">'
     					.'<a href="'.$_SERVER['PHP_SELF'].'?export='.$question['id'].'"><img src="'.$clarolineRepositoryWeb.'img/export.gif" border="0"'

@@ -200,7 +200,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
 	$username_used_error          = check_username_used_userlist($working2Darray);
 	$officialcode_used_error      = check_officialcode_used_userlist($working2Darray);
 	
-	if (SECURE_PASSWORD_REQUIRED) 
+	if ( get_conf('SECURE_PASSWORD_REQUIRED') ) 
 	$password_error               = check_password_userlist($working2Darray);
 	
 	$mail_duplicate_error         = check_duplicate_mail_userlist($working2Darray);

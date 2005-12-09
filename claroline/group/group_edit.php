@@ -424,7 +424,7 @@ while ( $myNotMember = mysql_fetch_array($resultNotMember) )
 </select>
 <br />
 <?php
-if ( $multiGroupAllowed )
+if ( get_conf('multiGroupAllowed') )
 {
     echo get_lang('StudentsNotInThisGroups');
 }

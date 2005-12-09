@@ -22,7 +22,7 @@
 	require_once dirname(__FILE__).'/jpspan.lib.php'; 
 
 	//$jpspanAllowed -> config variable
-	$jpspanEnabled = $jpspanAllowed && claro_is_jpspan_enabled();
+	$jpspanEnabled = get_conf('jpspanAllowed') && claro_is_jpspan_enabled();
 	
 	//for debugging : disabled jpspan 
 	//$jpspanEnabled = false; 

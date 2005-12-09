@@ -66,13 +66,13 @@ if ( $_user['firstName'] == '' && $_user['lastName'] == '')
 else
 {
     $nick = $_user['firstName'] . ' ' . $_user['lastName'] ;
-    if (strlen($nick) > $max_nick_length) $nick = $_user['firstName'] . ' '. $_user['lastName'][0] . '.' ;
+    if (strlen($nick) > get_conf('max_nick_length') ) $nick = $_user['firstName'] . ' '. $_user['lastName'][0] . '.' ;
 }
 
 
 // theses  line prevent missing config file
-$refresh_display_rate = (int) $refresh_display_rate;
-if (!isset($refresh_display_rate) || $refresh_display_rate==0)  $refresh_display_rate = 10;
+$refresh_display_rate = get_conf('refresh_display_rate');
+if ( empty($refresh_display_rate) ) $refresh_display_rate = 10;
 
 /*============================================================================
         CHAT INIT
@@ -252,7 +252,7 @@ if ( !isset($dateLastWrite) )
 $activeLineList  = file($activeChatFile);
 $activeLineCount = count($activeLineList);
 
-$excessLineCount = $activeLineCount - $max_line_to_display;
+$excessLineCount = $activeLineCount - get_conf('max_line_to_display');
 if ($excessLineCount < 0) $excessLineCount = 0;
 $excessLineList = array_splice($activeLineList, 0 , $excessLineCount);
 $curDisplayLineList = $activeLineList;

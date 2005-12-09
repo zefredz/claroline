@@ -268,8 +268,9 @@ if ( $is_allowedToEdit )
     } // end if diplayMainCommands
 
     // rss update
-    if ( ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
-         && $ex_rss_refresh && file_exists('./agenda.rssgen.inc.php'))
+    if ( get_conf('enable_rss_in_course')
+         && $ex_rss_refresh && file_exists('./agenda.rssgen.inc.php')
+       )
     {
         include './agenda.rssgen.inc.php';
     }
@@ -284,7 +285,7 @@ if ( $is_allowedToEdit )
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
-if ( ! isset($enable_rss_in_course) || $enable_rss_in_course == true )
+if ( get_conf('enable_rss_in_course') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
             .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';

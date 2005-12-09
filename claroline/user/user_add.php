@@ -211,8 +211,8 @@ else
     {
         //displkay a search legend first
               
-        if ($allowSearchInAddUser) $enclose_field = '*';
-        else                       $enclose_field = '';
+        if ( get_conf('allowSearchInAddUser') ) $enclose_field = '*';
+        else                                    $enclose_field = '';
 
         echo get_lang('SearchOn') . ' : ';
         

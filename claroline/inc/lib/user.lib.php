@@ -845,8 +845,6 @@ function user_send_enroll_to_course_mail ($user_id, $data)
 
 function user_validate_form_registration($data)
 {
-    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty;
-
     $messageList = array();
 
     // required fields
@@ -855,8 +853,8 @@ function user_validate_form_registration($data)
         || empty($data['password_conf'])
         || empty($data['password'])
         || empty($data['username'])
-        || ( empty($data['officialCode']) && ! $userOfficialCodeCanBeEmpty )
-        || ( empty($data['email'] ) && !$userMailCanBeEmpty )
+        || ( empty($data['officialCode']) && ! get_conf('userOfficialCodeCanBeEmpty') )
+        || ( empty($data['email'] ) && ! get_conf('userMailCanBeEmpty') )
        )
     {
         $error = true;
@@ -891,7 +889,7 @@ function user_validate_form_registration($data)
     }
 
     // check if password isn't too easy
-    if ( !empty($data['password']) && SECURE_PASSWORD_REQUIRED )
+    if ( !empty($data['password']) && get_conf('SECURE_PASSWORD_REQUIRED') )
     {
         if ( ! is_password_secure_enough( $data['password'],
                                           array( $data['username'] ,
@@ -932,16 +930,14 @@ function user_validate_form_registration($data)
 
 function user_validate_form_profile($data,$user_id)
 {
-    global $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty ;
-
     $messageList = array();
 
     // required fields
     if ( empty($data['lastname'])
         || empty($data['firstname'])
         || empty($data['username'])
-        || ( empty($data['officialCode']) && ! $userOfficialCodeCanBeEmpty )
-        || ( empty($data['email'] ) && !$userMailCanBeEmpty )
+        || ( empty($data['officialCode']) && ! get_conf('userOfficialCodeCanBeEmpty') )
+        || ( empty($data['email'] ) && ! get_conf('userMailCanBeEmpty') )
        )
     {
         $error = true;
@@ -977,7 +973,7 @@ function user_validate_form_profile($data,$user_id)
     else
     {
         // check if password isn't too easy
-        if ( !empty($data['password']) && SECURE_PASSWORD_REQUIRED )
+        if ( !empty($data['password']) && get_conf('SECURE_PASSWORD_REQUIRED') )
         {
             if ( ! is_password_secure_enough( $data['password'],
                                               array( $data['username'] ,
@@ -1201,7 +1197,7 @@ function user_display_form_admin_user_profile($data)
 
 function user_display_form($data, $form_type='registration')
 {
-    global $allowSelfRegProf, $userOfficialCodeCanBeEmpty, $userMailCanBeEmpty, $imgRepositoryWeb;
+    global $imgRepositoryWeb;
 
     global $rootWeb;
 
@@ -1239,10 +1235,10 @@ function user_display_form($data, $form_type='registration')
         . ' </tr>' . "\n" ;
 
     // official code
-    if ( isset($ask_for_official_code) && $ask_for_official_code == TRUE )
+    if ( get_conf('ask_for_official_code') )
     {
         echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . ($userOfficialCodeCanBeEmpty?get_lang('OfficialCode'):required_field(get_lang('OfficialCode'))) . '&nbsp;:</label></td>'  . "\n"
+            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('OfficialCode'):required_field(get_lang('OfficialCode'))) . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }
@@ -1350,7 +1346,7 @@ function user_display_form($data, $form_type='registration')
 
     // email
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="email">' . ($userMailCanBeEmpty?get_lang('Email'):required_field(get_lang('Email'))) . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="email">' . ( get_conf('userMailCanBeEmpty')?get_lang('Email'):required_field(get_lang('Email'))) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
         . ' </tr>' . "\n"
 
@@ -1388,7 +1384,7 @@ function user_display_form($data, $form_type='registration')
     }
 
     // Status: Allow registration as course manager
-    if ( ($allowSelfRegProf && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
+    if ( ( get_conf('allowSelfRegProf') && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
     {
         echo ' <tr>' . "\n"
             . '  <td align="right"><label for="status">' . get_lang('Action') . '&nbsp;:</label></td>' . "\n"
@@ -1500,8 +1496,6 @@ function required_field($field)
 
 function user_search($name, $mail, $code, $course_id="")
 {
-    global $allowSearchInAddUser;
-
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_user        = $tbl_mdb_names['user'];
     $tbl_course_user = $tbl_mdb_names['rel_course_user'];
@@ -1523,7 +1517,7 @@ function user_search($name, $mail, $code, $course_id="")
                                             ";
     $sql .= " WHERE (0=0) ";
 
-    if ($allowSearchInAddUser)
+    if ( get_conf('allowSearchInAddUser') )
     {
         $like_search = "%";
     }

@@ -78,7 +78,7 @@ $is_allowedToManage      = claro_is_allowed_to_edit();
 $isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
                            && (  !$is_courseTutor
                                || (  $is_courseTutor
-                                   && $tutorCanBeSimpleMemberOfOthersGroupsAsStudent //from config
+                                   && get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
                          )
                                );
 // Warning $groupRegAllowed is not valable before check of groupPerUserQuota
@@ -351,7 +351,7 @@ if ( $is_allowedToManage )
                                   || (
                                        $is_courseTutor
                                        &&
-                                       $tutorCanBeSimpleMemberOfOthersGroupsAsStudent //from config
+                                       get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
                                        )
                                 );
 

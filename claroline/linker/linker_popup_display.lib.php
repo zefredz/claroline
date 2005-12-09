@@ -350,13 +350,10 @@
     * display the link of the other course
     *
     * @param $isLink boolean
-    * @global $otherCoursesAllowed -> config variable
     */
     function displayOtherCoursesLink( $isLink = TRUE )
     {
-        global $otherCoursesAllowed;//-> config variable
-
-         if ($otherCoursesAllowed)
+         if ( get_conf('otherCoursesAllowed') )
          {
              if( $isLink )
             {
@@ -381,13 +378,10 @@
     * display the link of the public course
     *
     * @param $isLink boolean
-    * @global $publicCoursesAllowed -> config variable
     */
     function displayPublicCoursesLink( $isLink = TRUE )
     {
-        global $publicCoursesAllowed;//-> config variable
-
-         if ($publicCoursesAllowed)
+         if ( get_conf('publicCoursesAllowed') )
          {
              if( $isLink )
             {
@@ -439,16 +433,11 @@
     /**
     * display the link of the external link
     *
-    * @global boolean $externalLinkAllowed
-    * @global string get_lang('LinkerExternalLink')
-    *
     * @param crl $current_crl
     */
     function displayExternalLink($current_crl)
     {
-        global $externalLinkAllowed;//-> config variable
-
-         if ($externalLinkAllowed)
+         if ( get_conf('externalLinkAllowed') )
          {
             echo '<a href="http://claroline.net" class="claroCmd" '
             .    ' onclick="prompt_popup_for_external_link(\'' . $current_crl . '\');return false;">'

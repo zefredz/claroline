@@ -37,7 +37,7 @@ $sql = "SELECT course.code           `sysCode`,
                WHERE course.code         = course_user.code_cours
                  AND course_user.user_id = '" . (int) $_uid . "'";
 
-if ( empty($course_order_by) || $course_order_by == 'official_code' )
+if ( get_conf('course_order_by') == 'official_code' )
 {
     $sql .= " ORDER BY UPPER(`fake_code`), `title`";
 }
@@ -231,7 +231,7 @@ foreach($personnalCourseList as $thisCourse)
     echo '<li class="item' . $classItem . '">' ."\n"
     .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">';
 
-    if ( empty($course_order_by) || $course_order_by == 'official_code' )
+    if ( get_conf('course_order_by') == 'official_code' )
     {
         echo $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
     }
@@ -290,7 +290,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
 
         $courseDigestList['content'][$i] = preg_replace('/<br( \/)?>/', ' ', $courseDigestList['content'][$i]);
         $courseDigestList['content'][$i] = strip_tags($courseDigestList['content'][$i]);
-        $courseDigestList['content'][$i] = substr($courseDigestList['content'][$i],0, $max_char_from_content);
+        $courseDigestList['content'][$i] = substr($courseDigestList['content'][$i],0, get_conf('max_char_from_content') );
 
         echo '<p>' . "\n"
         .    '<small>'

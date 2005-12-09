@@ -41,7 +41,7 @@ include($includePath . '/lib/fileManage.lib.php'); // need claro_delete_file
 $currentCourseRepositorySys = $coursesRepositorySys . $_course['path'] . '/';
 $currentCourseRepositoryWeb = $coursesRepositoryWeb . $_course['path'] . '/';
 
-$fileAllowedSize = $max_file_size_per_works ;    //file size in bytes
+$fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $wrkDir           = $currentCourseRepositorySys . 'work/'; //directory path to create assignment dirs
 
 // use with strip_tags function when strip_tags is used to check if a text is empty

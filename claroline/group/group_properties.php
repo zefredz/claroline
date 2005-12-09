@@ -68,7 +68,7 @@ session_register('_groupProperties');
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'            ];
 
-if ($multiGroupAllowed)
+if ( get_conf('multiGroupAllowed') )
 {
     if ($_groupProperties ['nbGroupPerUser'] == 1)
     {
@@ -106,7 +106,7 @@ echo claro_disp_tool_title( array('supraTitle' => get_lang('Groups'), 'mainTitle
         </td>
     </tr>
 <?php
-    if ($multiGroupAllowed)
+    if ( get_conf('multiGroupAllowed') )
     {
 ?>
     <tr>

@@ -42,11 +42,11 @@ include_once $includePath . '/conf/course_main.conf.php';
 $fieldRequiredStateList['category'     ] = true;
 $fieldRequiredStateList['lanCourseForm'] = true;
 $fieldRequiredStateList['lecturer'     ] = false;
-$fieldRequiredStateList['intitule'     ] = $human_label_needed;
-$fieldRequiredStateList['screenCode'   ] = $human_code_needed;
-$fieldRequiredStateList['extLinkName'  ] = $extLinkNameNeeded;
-$fieldRequiredStateList['extLinkUrl'   ] = $extLinkUrlNeeded;
-$fieldRequiredStateList['email'        ] = $course_email_needed;
+$fieldRequiredStateList['intitule'     ] = get_conf('human_label_needed');
+$fieldRequiredStateList['screenCode'   ] = get_conf('human_code_needed');
+$fieldRequiredStateList['extLinkName'  ] = get_conf('extLinkNameNeeded');
+$fieldRequiredStateList['extLinkUrl'   ] = get_conf('extLinkUrlNeeded');
+$fieldRequiredStateList['email'        ] = get_conf('course_email_needed');
 
 /*
  * DB tables definition
@@ -300,7 +300,7 @@ if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
 
 // add delete course link
 
-if ( $showLinkToDeleteThisCourse )
+if ( get_conf('showLinkToDeleteThisCourse') )
 {
 
     $links[] = '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
@@ -333,12 +333,12 @@ echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
 <table  cellpadding="3" border="0">
 
 <tr>
-<td align="right"><label for="int"><?php echo ($human_label_needed ? '<span class="required">*</span>' :'') . get_lang('CourseTitle') ?></label> :</td>
+<td align="right"><label for="int"><?php echo (get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('CourseTitle') ?></label> :</td>
 <td><input type="Text" name="int" id="int" value="<?php echo htmlspecialchars($courseTitle); ?>" size="60"></td>
 </tr>
 
 <tr>
-<td align="right"><label for="screenCode"><?php echo ($human_code_needed ? '<span class="required">*</span>' :'') . get_lang('Code') ?></label>&nbsp;:</td>
+<td align="right"><label for="screenCode"><?php echo (get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Code') ?></label>&nbsp;:</td>
 <td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlspecialchars($courseOfficialCode); ?>" size="20"></td>
 </tr>
 
@@ -348,7 +348,7 @@ echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
 </tr>
 
 <tr>
-<td align="right"><label for="email"><?php echo ($course_email_needed ? '<span class="required">*</span>' : '') . get_lang('Email') ?></label>&nbsp;:</td>
+<td align="right"><label for="email"><?php echo ( get_conf('course_email_needed') ? '<span class="required">*</span>' : '') . get_lang('Email') ?></label>&nbsp;:</td>
 <td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="60" maxlength="255"></td>
 </tr>
 

@@ -60,17 +60,9 @@ function define_course_keys ($wantedCode,
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'];
 
-    GLOBAL $coursesRepositories,$prefixAntiNumber,$prefixAntiEmpty,$nbCharFinalSuffix,$DEBUG,$singleDbEnabled;
+    GLOBAL $coursesRepositories, $DEBUG,$singleDbEnabled;
 
-    if ( !isset($nbCharFinalSuffix)
-       ||!is_numeric($nbCharFinalSuffix)
-       || $nbCharFinalSuffix < 1
-       )
-    $nbCharFinalSuffix = 2 ; // Number of car to add on end of key
-
-    if ($coursesRepositories == '')
-    {
-    };
+    $nbCharFinalSuffix = get_conf('nbCharFinalSuffix');
 
     // $keys["currentCourseCode"] is the "public code"
 
@@ -83,7 +75,7 @@ function define_course_keys ($wantedCode,
     $wantedCode = ereg_replace('['.$charToReplaceByUnderscore.']', '_', $wantedCode);
     $wantedCode = ereg_replace('[^A-Za-z0-9_]', '', $wantedCode);
 
-    if ($wantedCode=='') $wantedCode = $prefixAntiEmpty;
+    if ($wantedCode=='') $wantedCode = get_conf('prefixAntiEmpty');
 
     $keysCourseCode    = $wantedCode;
 
@@ -180,7 +172,7 @@ function define_course_keys ($wantedCode,
     // dbName Can't begin with a number
     if (!strstr("abcdefghijklmnopqrstuvwyzABCDEFGHIJKLMNOPQRSTUVWXYZ",$keysCourseDbName[0]))
     {
-        $keysCourseDbName = $prefixAntiNumber.$keysCourseDbName;
+        $keysCourseDbName = get_conf('prefixAntiNumber') . $keysCourseDbName;
     }
 
     $keys['currentCourseCode'      ] = $keysCourseCode;      // screen code

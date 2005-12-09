@@ -79,7 +79,7 @@ else
     $intermediatePath = $_course['path']. '/document';
 }
 
-if ( isset($secureDocumentDownload) && $secureDocumentDownload 
+if ( get_conf('secureDocumentDownload')
     && strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
 {
     $pathInfo = realpath($coursesRepositorySys . $intermediatePath . '/' . $requestUrl);

@@ -182,7 +182,7 @@
         $fileUrl = $file;
 
         if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
-             && (isset($secureDocumentDownload) && $secureDocumentDownload == true) 
+             && get_conf('secureDocumentDownload') 
            )
         {
             // slash argument method - only compatible with Apache
@@ -302,7 +302,6 @@
     function display_link_to_previous_image($imageList, $fileList, $current)
     {
         global $curDirPath;
-        global $thumbnailWidth;
         global $searchCmdUrl;
          
         // get previous image
@@ -334,7 +333,7 @@
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
 				. "?docView=image&file=" . urlencode($prevName)
             	. "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
-				. create_thumbnail($prevName, $thumbnailWidth)
+				. create_thumbnail($prevName, get_conf('thumbnailWidth'))
             	."</a>\n"
 				;
              
@@ -362,7 +361,6 @@
     function display_link_to_next_image($imageList, $fileList, $current)
     {
         global $curDirPath;
-        global $thumbnailWidth;
         global $searchCmdUrl;
          
         // get next image
@@ -393,7 +391,7 @@
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
 				. "?docView=image&file=" . urlencode($nextName)
             	. "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
-				. create_thumbnail($nextName, $thumbnailWidth)
+				. create_thumbnail($nextName, get_conf('thumbnailWidth') )
             	. "</a>\n"
 				;
              
@@ -423,8 +421,8 @@
     */
     function has_next_page($imageList, $page)
     {
-        global $numberOfCols;
-        global $numberOfRows;
+        $numberOfCols = get_conf('numberOfCols');
+        $numberOfRows = get_conf('numberOfRows');
          
         if (($page * $numberOfCols * $numberOfRows) < count($imageList))
         {
@@ -458,8 +456,8 @@
     */
     function get_offset($page)
     {
-        global $numberOfCols;
-        global $numberOfRows;
+        $numberOfCols = get_conf('numberOfCols');
+        $numberOfRows = get_conf('numberOfRows');
          
         if ($page == 1)
         {
@@ -482,8 +480,8 @@
     */
     function get_page_number($offset)
     {
-        global $numberOfCols;
-        global $numberOfRows;
+        $numberOfCols = get_conf('numberOfCols');
+        $numberOfRows = get_conf('numberOfRows');
          
         $page = floor($offset / ($numberOfCols * $numberOfRows)) + 1;
          

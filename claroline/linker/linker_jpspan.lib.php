@@ -34,9 +34,6 @@
         global $claroBodyOnload;
         global $platform_id;  
         global $_course;
-        global $otherCoursesAllowed; // -> config variable
-        global $publicCoursesAllowed; // -> config variable
-        global $externalLinkAllowed; // -> config variable
         global $imgRepositoryWeb;
         global $includePath;
         require_once($includePath . '/lib/JPSpan/JPSpan.php');
@@ -107,7 +104,7 @@
             ;    
 
         // config variable
-        if($otherCoursesAllowed)
+        if( get_conf('otherCoursesAllowed') )
         {    
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var other_courses_allowed = true;</script>\n";
@@ -118,7 +115,7 @@
                 . "var other_courses_allowed = false;</script>\n";
         }
         
-        if($publicCoursesAllowed)
+        if( get_conf('publicCoursesAllowed') )
         {    
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var public_courses_allowed = true;</script>\n";
@@ -129,7 +126,7 @@
                 . "var public_courses_allowed = false;</script>\n";    
         }    
         
-        if($externalLinkAllowed)
+        if( get_conf('externalLinkAllowed') )
         {    
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var external_link_allowed = true;</script>\n";

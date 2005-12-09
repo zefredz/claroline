@@ -117,7 +117,7 @@ if ( $cmd == 'registration' && $error == false )
 {
         $display = DISP_REGISTRATION_SUCCEED;
 }
-elseif ( $cmd == 'agree' || !$show_agreement_panel || $cmd == 'registration' )
+elseif ( $cmd == 'agree' || ! get_conf('show_agreement_panel') || $cmd == 'registration' )
 {
         $display = DISP_REGISTRATION_FORM;
 }

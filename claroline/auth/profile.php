@@ -107,21 +107,21 @@ if ( isset($_REQUEST['applyChange']) )
     $user_data = user_get_data($_uid);
 
 }
-elseif (    $can_request_course_creator_status // FROM CONFIG
+elseif (    get_conf('can_request_course_creator_status')
          && $cmd == 'exCCstatus' )
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
     $messageList[] = get_lang('YourRequestToBeCourseManagerIsSent');
 }
-elseif (    $can_request_revoquation // FROM CONFIG
+elseif (    get_conf('can_request_revoquation')
          && $cmd == 'exRevoquation' )
 {
     // send a request for revoquation
     profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
     $messageList[] = get_lang('YourRequestToRemoveYourAccountIsSent');
 }
-elseif (    $can_request_course_creator_status  // FROM CONFIG
+elseif (    get_conf('can_request_course_creator_status')
          && $cmd == 'reqCCstatus' )
 {
     // display course creator status form
@@ -129,7 +129,7 @@ elseif (    $can_request_course_creator_status  // FROM CONFIG
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
     $nameTools = get_lang('RequestOfCourseCreatorStatus');
 }
-elseif ( $can_request_revoquation // FROM CONFIG
+elseif ( get_conf('can_request_revoquation')
          && $cmd == 'reqRevoquation' )
 {
     // display revoquation form
@@ -169,13 +169,13 @@ switch ( $display )
         ;
 
         // display request course creator status
-        if ( $can_request_course_creator_status )
+        if ( get_conf('can_request_course_creator_status') )
         {
             echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('RequestOfCourseCreatorStatus') . '</a>';
         }
 
         // display user revoquation
-        if ( $can_request_revoquation )
+        if ( get_conf('can_request_revoquation') )
         {
             echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('DeleteMyAccount') . '</a>' ;
         }
@@ -186,7 +186,7 @@ switch ( $display )
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
 
-        if ( $can_request_course_creator_status )
+        if ( get_conf('can_request_course_creator_status') )
         {
             echo '<p>' . get_lang('FillTheAreaToExplainTheMotivations') . '</p>';
 
@@ -211,7 +211,7 @@ switch ( $display )
 
     case DISP_REQUEST_REVOQUATION :
 
-        if ( $can_request_revoquation )
+        if ( get_conf('can_request_revoquation') )
         {
 
             echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'

@@ -25,7 +25,7 @@ require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/conf/rss.conf.php';
 
 // RSS enabled
-if ( isset($enable_rss_in_course) && $enable_rss_in_course == false )
+if ( ! get_conf('enable_rss_in_course') )
 {
     // Codes Status HTTP 404 for rss feeder
     header('HTTP/1.0 404 Not Found');
@@ -78,6 +78,6 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 include $includePath . '/lib/rss/write/gencourse_rss.inc.php';
 
 header('Content-type: text/xml;');
-readfile (build_course_feed(!$use_rss_cache, $_cid));
+readfile (build_course_feed(!get_conf('use_rss_cache'), $_cid));
 
 ?>

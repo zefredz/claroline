@@ -55,11 +55,11 @@
         * @return ClaroContainer who contains the objects current node
         * @throws  E_USER_ERROR if the node is not intended for the tool forum
         * @throws  E_USER_ERROR if the node is empty
-        * @global $rootWeb,$groupAllowed
+        * @global $rootWeb
         */
         function getResource($node = null)
         {
-            global $rootWeb,$groupAllowed;
+            global $rootWeb;
             
             if($node)
             {

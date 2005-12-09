@@ -382,8 +382,6 @@
         */
         function _getRoot()
         {
-        	global $groupAllowed; //-> config variable
-        	
             $courseToolList = get_course_tool_list($this->_elementCRLArray["course_sys_code"]);
             
             $accessLevelList = array('ALL' => 0, 
@@ -417,7 +415,7 @@
         	    	}
 
             	    if(  is_NULL($label) || !file_exists($label."Navigator.php") 
-            	    	|| ( $label == "CLGRP___" && $groupAllowed == FALSE) )
+            	    	|| ( $label == "CLGRP___" && get_conf('groupAllowed') == FALSE) )
             	    {
             			$toolContainer = new ClaroObject($name, $node , TRUE , FALSE , $isVisible);	
             	    } 
@@ -440,11 +438,9 @@
         * get tool list for groups
         *
         * @return ClaroContainer 
-        * @global $toolGroupAllowed
         */
         function _getGroupRoot()
         {
-        	global $toolGroupAllowed; //-> config variable
         	
         	$courseToolList = get_course_tool_list($this->_elementCRLArray["course_sys_code"]);
         	$infoGroup = $this->_infoGroup();
@@ -463,7 +459,7 @@
 					$node = $this->_node."/".$label;
 					$isVisible = true;
 					
-					if( !file_exists($label."Navigator.php") || $toolGroupAllowed == FALSE )
+					if( !file_exists($label."Navigator.php") || get_conf('toolGroupAllowed') == FALSE )
 					{
 						$toolGroupContainer = new ClaroObject($name, $node , TRUE , FALSE , $isVisible);	
 					}
