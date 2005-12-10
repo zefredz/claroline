@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * GOAL : install claroline 1.7 on server
+ * GOAL : install claroline 1.8 on server
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -721,7 +721,7 @@ if ($display==DISP_WELCOME)
         Checking PHP settings.
         <UL>
             ';
-    if (!checkVersion(phpversion(), $requiredPhpVersion))
+    if (!version_compare(phpversion(), $requiredPhpVersion,'>='))
     {
         echo '<li>'
         .    '<p class="setup_error">' . "\n"
