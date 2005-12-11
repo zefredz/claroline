@@ -31,7 +31,7 @@
  *            announcement list
  *            form to fill new or modified announcement
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -111,11 +111,11 @@ if($is_allowedToEdit) // check teacher status
     if( $jpspanEnabled )
     {
            linker_set_local_crl( isset ($_REQUEST['id']) );
-       }
+    }
    
-       if( isset($_REQUEST['cmd']) 
-           && ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
-       {
+    if( isset($_REQUEST['cmd']) 
+          && ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
+    {
         linker_html_head_xtra();
     }
     //linker
@@ -152,11 +152,11 @@ if($is_allowedToEdit) // check teacher status
                 
                 linker_delete_resource();
             }
-//            else
-//            {
-//                //error on delete
-//                //claro_failure::set_failure('CLANN:announcement '.var_dump((int) $_REQUEST['id']).' can be delete '.mysql_error());
-//            }
+//          else
+//          {
+//              //error on delete
+//              //claro_failure::set_failure('CLANN:announcement '.var_dump((int) $_REQUEST['id']).' can be delete '.mysql_error());
+//          }
         }
 
         /**
@@ -173,11 +173,11 @@ if($is_allowedToEdit) // check teacher status
                 
                 linker_delete_all_tool_resources();
             }
-//            else
-//            {
-//                //error on delete
-//                //claro_failure::set_failure('CLANN:announcement can delete all items '.mysql_error());
-//            }
+//          else
+//          {
+//              //error on delete
+//              //claro_failure::set_failure('CLANN:announcement can delete all items '.mysql_error());
+//          }
         }
 
         /**
@@ -397,7 +397,7 @@ if ( get_conf('enable_rss_in_course') )
 }
 
 // Display header
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php' ;
 
 /*----------------------------------------------------------------------------
 TOOL TITLE
@@ -463,18 +463,20 @@ if ( $displayForm )
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'."\n"
-       .     '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">'
-    .    '<input type="hidden" name="cmd" value="' . $nextCommand . '">'
+    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+    .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     .    (isset( $announcementToEdit['id'] ) 
-         ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '">' . "\n"
+         ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '" />' . "\n"
          : ''
          )
     .    '<table>'
     .    '<tr>'
     .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>'
-    .    '<td><input type="text" id="title" name="title" value = "'
+    .    '<td>'
+    .    '<input type="text" id="title" name="title" value = "'
     .    ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
-    .    '" size="80" ></td>'
+    .    '" size="80" />'
+    .    '</td>'
     .    '</tr>' . "\n"
     .    '<tr>'
     .    '<td valign="top">'
@@ -489,7 +491,8 @@ if ( $displayForm )
     .    '</tr>' . "\n"
     .    '<tr>' 
     .    '<td></td>'
-    .    '<td><input type=checkbox value="1" name="emailOption" id="emailOption" >'
+    .    '<td>'
+    .    '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
     .    '<label for="emailOption">' . get_lang('EmailOption') . '</label><hr />' . "\n"
     ;
 
@@ -500,14 +503,14 @@ if ( $displayForm )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
         linker_set_display();
-        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
+        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
     else // popup mode
     {
         if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
         else                       linker_set_display();
         
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
+        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
     echo claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
@@ -565,7 +568,7 @@ if ($displayList)
             echo '<tr>'."\n"
             .    '<th class="headerX item'.$classItem.'">'."\n"
             .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
-            .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '" />' . "\n"
             .    get_lang('Publ')
             .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))
             .    '</th>' . "\n"
@@ -587,12 +590,12 @@ if ($displayList)
             echo '<p>'
             // EDIT Request LINK
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '">'
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" />'
             .    '</a>' . "\n"
             // DELETE  Request LINK
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
             .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('ConfirmYourChoice')) . '\')) return false;">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0">'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
             .    '</a>' . "\n"
             ;
 
@@ -603,7 +606,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('OrderUp') . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('OrderUp') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -615,7 +618,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Down') . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Down') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -624,14 +627,14 @@ if ($displayList)
             if ($thisAnnouncement['visibility']=='SHOW')
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible').'">'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible').'" />'
                 .    '</a>' . "\n"
                 ;
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
