@@ -35,7 +35,7 @@ function profile_send_request_course_creator_status ($explanation)
 
     $requestMessage_Title = '[' . $siteName . '][Request]' . sprintf(get_lang('CourseManagerStatusToUser'),$_user['lastName'],$_user['firstName']);
 
-	$requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
+    $requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
                             . sprintf(get_lang('CourseManagerStatusToUser'),$_user['lastName'],$_user['firstName']) . "\n"
                             . get_lang('User') . ': ' . $_uid . "\n"
                             . get_lang('Name') . ': ' . $_user['firstName']. ' ' . $_user['lastName'] . "\n"
@@ -43,10 +43,12 @@ function profile_send_request_course_creator_status ($explanation)
                             . get_lang('Comment') . ': ' . nl2br($explanation) . "\n"
                             . get_lang('Link') . ': ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid;
 
-	foreach ( $mailToUidList as $mailToUid )
-	{
-		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
-	}
+    foreach ( $mailToUidList as $mailToUid )
+    {
+        claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
+    }
+    
+    return true;
 }
 
 /**
@@ -63,8 +65,8 @@ function profile_send_request_revoquation ($explanation,$login,$password)
     global $_uid, $_user, $siteName, $rootAdminWeb, $administrator_email, $dateFormatLong;
 
     $mailToUidList = claro_get_uid_of_platform_admin();
-	$requestMessage_Title = '[' . $siteName .'][Request]' . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']);
-	$requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
+    $requestMessage_Title = '[' . $siteName .'][Request]' . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']);
+    $requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
                             . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']) . "\n"
                             . get_lang('User') . ': ' . $_uid . "\n"
                             . get_lang('Name') . ': ' . $_user['firstName'] . ' ' . $_user['lastName'] . "\n"
@@ -74,10 +76,10 @@ function profile_send_request_revoquation ($explanation,$login,$password)
                             . get_lang('Comment') . ': ' . $explanation . "\n"
                             . get_lang('Link') . ' : ' . $rootAdminWeb . 'adminprofile.php?uidToEdit=' . $_uid . "\n";
 
-	foreach ($mailToUidList as $mailToUid)
-	{
-		claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
-	}
+    foreach ($mailToUidList as $mailToUid)
+    {
+        claro_mail_user($mailToUid['idUser'], $requestMessage_Content, $requestMessage_Title, $administrator_email, 'profile');
+    }
     return true;
 }
 
@@ -91,13 +93,13 @@ function profile_send_request_revoquation ($explanation,$login,$password)
 
 function claro_get_uid_of_platform_admin()
 {
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$sql = 'SELECT idUser 
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $sql = 'SELECT idUser 
             FROM `'.$tbl_mdb_names['admin'].'`';
 
-	$adminUidList =	claro_sql_query_fetch_all($sql);
+    $adminUidList =    claro_sql_query_fetch_all($sql);
 
-	return $adminUidList;
+    return $adminUidList;
 }
 
 ?>
