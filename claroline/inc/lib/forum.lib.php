@@ -4,7 +4,7 @@
  *
  * Library for forum tool
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
@@ -321,7 +321,7 @@ function get_topic_settings($topicId)
 function create_new_topic($subject, $time, $forumId
                          , $userId, $userFirstname, $userLastname)
 {
-    
+
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forums  = $tbl_cdb_names['bb_forums'];
     $tbl_topics  = $tbl_cdb_names['bb_topics'];
@@ -1147,14 +1147,14 @@ function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
-    $sql = 'UPDATE `'.$tbl_forum_forums.'`
-            SET `forum_name`     = "'. addslashes($forum_name) .'",
-                `forum_desc`     = "'. addslashes($forum_desc) .'",
-                `forum_access`   = "'.($forum_post_allowed ? 2 : 0).'",
+    $sql = "UPDATE `" . $tbl_forum_forums . "`
+            SET `forum_name`     = '" . addslashes($forum_name) . "',
+                `forum_desc`     = '" . addslashes($forum_desc) . "',
+                `forum_access`   = " . ($forum_post_allowed ? 2 : 0) . ",
                 `forum_moderator`= 1,
-                `cat_id`         = "' . (int)$cat_id     . '",
+                `cat_id`         = " . (int) $cat_id . ",
                 `forum_type`     = 0
-            WHERE `forum_id` = ' . (int)$forum_id;
+            WHERE `forum_id` = " . (int) $forum_id;
 
     if (claro_sql_query($sql) != false) return true;
     else                                return false;
@@ -1166,18 +1166,21 @@ function create_category($cat_title)
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
     // Find order in the category we must give to the newly created forum
-    $sql = 'SELECT MAX(`cat_order`) FROM `'.$tbl_forum_categories.'`';
+    $sql = 'SELECT MAX(`cat_order`) FROM `' . $tbl_forum_categories . '`';
     $result = claro_sql_query($sql);
 
     list($orderMax) = mysql_fetch_row($result);
     $order = $orderMax + 1;
 
-    $sql = 'INSERT INTO `'.$tbl_forum_categories.'`
+    $sql = 'INSERT INTO `' . $tbl_forum_categories . '`
             SET `cat_title` = "'. addslashes($cat_title) .'",
-                `cat_order` = "'. (int) $order.'"';
-
-    if ( claro_sql_query($sql) != false) return true;
-    else                                 return false;
+                `cat_order` = '. (int) $order;
+    
+    $catId = claro_sql_query_insert_id($sql);
+    
+    if ( $catId != false) return $catId;
+    else                  return false;
+    
 }
 
 function delete_category($cat_id)
@@ -1234,8 +1237,8 @@ function delete_forum($forum_id)
     delete_all_post_in_forum($forum_id);
 
 
-    $sql = 'DELETE FROM `'.$tbl_forum_forums.'` 
-            WHERE `forum_id` = "'. (int) $forum_id.'"';
+    $sql = "DELETE FROM `" . $tbl_forum_forums . "'` 
+            WHERE `forum_id` = " . (int) $forum_id ;
         
     if ( claro_sql_query($sql) == false) return false;
     else                                 return true;
@@ -1263,15 +1266,15 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
 
     // add new forum in DB
 
-    $sql = 'INSERT INTO `'.$tbl_forum_forums.'`
-            SET forum_name      = "'. addslashes($forum_name) .'", 
-                group_id        = '.(is_null($group_id) ? 'NULL' : (int) $group_id).',
-                forum_desc      = "'. addslashes($forum_desc) .'", 
-                forum_access    = "'.($forum_post_allowed ? 2 : 0).'",
+    $sql = "INSERT INTO `" . $tbl_forum_forums . "`
+            SET forum_name      = " . addslashes($forum_name) . ", 
+                group_id        = " . (is_null($group_id) ? "NULL" : (int) $group_id) . ",
+                forum_desc      = " . addslashes($forum_desc) . ", 
+                forum_access    = " . ($forum_post_allowed ? 2 : 0) . ",
                 forum_moderator = 1, 
-                cat_id          = "'. (int) $cat_id .'", 
+                cat_id          = " . (int) $cat_id . ", 
                 forum_type      = 0, 
-                forum_order     ="'. (int) $order.'"';
+                forum_order     = " . (int) $order ;
 
     return claro_sql_query_insert_id($sql);
 }
@@ -1288,18 +1291,18 @@ function move_up_forum($forum_id)
     if ($forum_rank > 1 )
     {
         // previous forum +1
-        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+        $sql = "UPDATE `" . $tbl_forum_forums . "`
                 SET    `forum_order` = `forum_order`+1
-                WHERE  `forum_order` =  '. ($forum_rank - 1) . '
-                  AND  `cat_id` = '. (int) $cat_id ;
+                WHERE  `forum_order` =  " . ($forum_rank - 1) . "
+                  AND  `cat_id` = " . (int) $cat_id ;
 
         if ( claro_sql_query($sql) == false ) return false;
 
         // forum -1
-        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+        $sql = "UPDATE `" . $tbl_forum_forums . "`
                 SET    `forum_order` = `forum_order`-1
-                WHERE  `forum_id` =  "'.(int) $forum_id.'"
-                  AND  `cat_id` = '. (int) $cat_id ;
+                WHERE  `forum_id` = " . (int) $forum_id . "
+                  AND  `cat_id` = " . (int) $cat_id ;
 
         if ( claro_sql_query($sql) == false ) return false;
 
@@ -1507,6 +1510,5 @@ function increase_topic_view_count($topicId)
     if ( claro_sql_query($sql) == false) return false;
     else                                 return true;
 }
-
 
 ?>
