@@ -373,14 +373,29 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 												break;
 											}
 
-											// [ and ] are prohibited in answers because of the [word] system in
-											// statement creation
-											$charsToAvoid = array("[","]");
-
+										
 		   									if( isset($choice[$j]) )
-												$choice[$j] = trim(htmlspecialchars(str_replace($charsToAvoid, "", $choice[$j])));
+		   									{
+		   										if( $fillType == TEXTFIELD_FILL )
+		   										{
+		   											// encode forbidden chars to compare the given answer with the one recorded in DB
+		   											$charsToReplace = array('::','[',']','<','>');
+													$replacingChars = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
+		   										}
+		   										else
+		   										{
+		   											// forbidden chars are already encoded in select option of html form
+		   											$charsToReplace = array();
+		   											$replacingChars = array();
+		   													
+		   										}
+		   									
+		   										$choice[$j] = trim(str_replace($charsToReplace, $replacingChars, $choice[$j]));
+		   									}
 											else
+											{
 											    $choice[$j] = '';
+											}
 
 											// check answer validity
 											if( $fillType == LISTBOX_FILL )

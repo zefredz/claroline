@@ -204,7 +204,10 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 	}
 	elseif($answerType == FILL_IN_BLANKS)
 	{
-		$reponse = trim($reponse);
+		// replace some forbidden chars by their hexadecimal encoded value
+		$charsToReplace = array('::','\[','\]','<','>');
+		$replacingChars = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
+		$reponse = str_replace($charsToReplace,$replacingChars,trim($reponse));
 
 		if(!isset($_REQUEST['buttonBack']))
 		{
@@ -257,11 +260,18 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
 					// we have to remove blank lines
 					$wrongAnswers = explode("\n", $wrongAnswers);
 					$temp = array();
-					$charsToAvoid = array('::','[',']');
+					
+					// replace some forbidden chars by their hexadecimal encoded value
+					$charsToReplace = array('::','[',']','<','>');
+					$replacingChars = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
+					
 					for( $j = 0; $j < count($wrongAnswers); $j++)
 					{
                         if( trim($wrongAnswers[$j]) != "" )
-                            $temp[] = str_replace($charsToAvoid,'',trim($wrongAnswers[$j]));
+                        {
+                            $temp[] = str_replace($charsToReplace,$replacingChars,trim($wrongAnswers[$j]));
+                            
+                        }
       				}
      				$reponse .= implode('[',$temp);
 
@@ -483,6 +493,11 @@ if( isset($modifyAnswers) )
 
                 $explodedResponse = explode( '::',$reponse);
                 $reponse = (isset($explodedResponse[0]))?$explodedResponse[0]:'';
+                
+                // replace special entities by correct chars for display
+                $charsToReplace = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
+				$replacingChars = array('::','\[','\]','<','>');
+                $reponse = str_replace($charsToReplace, $replacingChars, $reponse);
                 
                 $weighting = (isset($explodedResponse[1]))?$explodedResponse[1]:'';
 
