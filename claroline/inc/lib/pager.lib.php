@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Pager class allowing to manage the paging system into claroline
  *
@@ -79,68 +78,26 @@ class claro_sql_pager
     {
         if ( $step > 0)
         {
-            return $sql . ' LIMIT ' . $offset . ', ' . $step;
+            // Include SQL_CALC_FOUND_ROWS inside the query
+            // This mySQL clause permit to know how many rows the statement 
+            // would have returned with no LIMIT clause, without running the 
+            // statement again. To retrieve this rows count, one invokes
+            // FOUND_ROWS() afterward (see get_total_result_count method).
 
-            // Insert SQL_CALC_FOUND_ROWS into the query 
-            // -- Only works with mySQL 4. Useful if the scritp calls
-            // SELECT FOUND_ROWS() later ( see get_total_result_count() method )
-            //
-            // $sql = substr_replace ($sql, 'SELECT SQL_CALC_FOUND_ROWS ', 
-            //                       0   , strlen('SELECT '));
+            $sql = substr_replace ($sql, 'SELECT SQL_CALC_FOUND_ROWS ', 
+                                  0   , strlen('SELECT '))
+                   . ' LIMIT ' . $offset . ', ' . $step;
+            return $sql;
         }
         else
         {
-        	return false;
+            return false;
         }
     }
 
     function get_total_result_count()
     {
-        // chek the occurence of a GROUP BY statement into the query
-        if ( ! eregi('[[:space:]]+(GROUP BY|HAVING|SELECT[[:space:]]+DISTINCT)[[:space:]]+',
-                   $this->sql) )
-        {
-            // Split the whole sql query in three part and store it into an array :
-            // [0]. the SELECT part
-            // [1]. the FROM part
-            // [2]. the ORDER BY part (ORDER statements pose problems 
-            //                         on COUNT queries)
-            //
-            // The code mainly uses the FROM part
-
-            $sqlPartList = split('[[:space:]]+(FROM|ORDER BY)[[:space:]]+', 
-                                 $this->sql);
-
-            // check the occurence of DISTINCT
-
-            if ( eregi('^SELECT DISTINCT(.*)', $sqlPartList[0], $distinctDetect) )
-            {
-                $countWhat = 'DISTINCT ' . $distinctDetect[1];
-            }
-            else
-            {
-                $countWhat = '*';
-            }
-
-            $sql = 'SELECT COUNT(' . $countWhat . ') AS totalResultCount 
-                    FROM ' . $sqlPartList[1];
-
-            return claro_sql_query_get_single_value($sql);
-        }
-        else
-        {
-            // heavier, but we have no choice 
-            // when there is COUNT and GROUP BY statements
-
-            return mysql_num_rows( claro_sql_query($this->sql) );
-        }
-
-        // Other option, faster but only available for mySQL 4
-        //
-        // list($totalResultCount) = 
-        // claro_sql_query_fetch_all('SELECT FOUND_ROWS() foundRows');
-        //
-        // return $totalResultCount['foundRows'];
+       return claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
     }
 
     /**
@@ -345,43 +302,5 @@ class claro_sql_pager
         return $output;
     }
 }
-
-
-//function get_sort_url_list($url)
-//{
-//    $sortArgList = array_keys($this->resultList[0]);
-//    $urlList = array();
-//
-//    foreach($sortArgList as $thisArg)
-//    {
-//        if ($thisArg == $this->sortKey && $this->sortDir == SORT_ASC)
-//        {
-//        	$direction = SORT_DESC;
-//        }
-//        else
-//        {
-//            $direction = SORT_ASC;
-//        }
-//        
-//        $urlList[] = $url 
-//                   . ( strstr($url, '?') !== false ) ? '&amp' : '?'
-//                   . 'sort = ' . urlencode($thisArg)
-//                   . '&ampdir=' . $direction;
-//    }
-//
-//    return $urlList;
-//}
-//
-//function sort_by($key, $direction)
-//{
-//    $this->sortKey = $key;
-//    $this->sortDir = $direction;
-//
-//    if     ( $direction == SORT_DESC) $direction == 'DESC';
-//    elseif ( $direction == SORT_ASC ) $direction == 'ASC';
-//
-//    $this->sql . = 'ORDER BY ' . $key . ' ' . $direction;
-//}
-
 
 ?>
