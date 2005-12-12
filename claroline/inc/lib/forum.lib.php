@@ -35,7 +35,7 @@ function get_userdata_from_id($userId)
                    email, 
                    user_id
             FROM `" . $tbl_users . "`
-            WHERE user_id ='" . (int) $userId . "'";
+            WHERE user_id = " . (int) $userId;
 
     $result = claro_sql_query_fetch_all($sql);
 
@@ -328,20 +328,19 @@ function create_new_topic($subject, $time, $forumId
 
     $sql = "INSERT INTO `" . $tbl_topics . "` 
             SET topic_title  = '" . addslashes($subject) . "', 
-                topic_poster = '" . (int) $userId . "', 
-                forum_id     = '" . (int) $forumId . "', 
+                topic_poster = " . (int) $userId . ", 
+                forum_id     = " . (int) $forumId . ", 
                 topic_time   = '" . addslashes($time) . "', 
                 topic_notify = 1,
                 nom          = '" . addslashes($userLastname) . "', 
                 prenom       = '" . addslashes($userFirstname) . "'";
-
     $topicId = claro_sql_query_insert_id($sql);
-
+    
     // UPDATE THE TOPIC STATUS FOR THE CURRENT FORUM
 
     $sql = "UPDATE `" . $tbl_forums."` 
-            SET   forum_topics = forum_topics+1
-            WHERE forum_id     = '" . (int) $forumId . "'";
+            SET   forum_topics = forum_topics + 1
+            WHERE forum_id     = " . (int) $forumId;
 
     claro_sql_query($sql);
 
@@ -366,9 +365,9 @@ function get_post_settings($postId)
                    p.nom poster_lastname, p.prenom poster_firstname,
                    p.poster_ip, p.post_time,
                    pt.post_text
-            FROM `".$tbl_posts."`      p,
-                 `".$tbl_posts_text."` pt
-            WHERE p.post_id   = '". (int) $postId."'
+            FROM `" . $tbl_posts . "`      p,
+                 `" . $tbl_posts_text . "` pt
+            WHERE p.post_id   = " . (int) $postId . "
               AND pt.post_id  = p.post_id";
 
     $result = claro_sql_query_fetch_all($sql);
@@ -1237,7 +1236,7 @@ function delete_forum($forum_id)
     delete_all_post_in_forum($forum_id);
 
 
-    $sql = "DELETE FROM `" . $tbl_forum_forums . "'` 
+    $sql = "DELETE FROM `" . $tbl_forum_forums . "` 
             WHERE `forum_id` = " . (int) $forum_id ;
         
     if ( claro_sql_query($sql) == false) return false;
@@ -1250,14 +1249,14 @@ function delete_forum($forum_id)
 
 function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null)
 {
-     $tbl_cdb_names    = claro_sql_get_course_tbl();
-     $tbl_forum_forums = $tbl_cdb_names['bb_forums'             ];
+    $tbl_cdb_names    = claro_sql_get_course_tbl();
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
-   // find order in the category we have to give to the newly created forum
+    // find order in the category we have to give to the newly created forum
 
-    $sql = 'SELECT MAX(`forum_order`)
-            FROM `'.$tbl_forum_forums.'`
-            WHERE cat_id = "'. (int) $cat_id.'"';
+    $sql = "SELECT MAX(`forum_order`)
+            FROM `" . $tbl_forum_forums . "`
+            WHERE cat_id = " . (int) $cat_id;
 
     $result = claro_sql_query($sql);
 
@@ -1267,9 +1266,9 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
     // add new forum in DB
 
     $sql = "INSERT INTO `" . $tbl_forum_forums . "`
-            SET forum_name      = " . addslashes($forum_name) . ", 
+            SET forum_name      = '" . addslashes($forum_name) . "', 
                 group_id        = " . (is_null($group_id) ? "NULL" : (int) $group_id) . ",
-                forum_desc      = " . addslashes($forum_desc) . ", 
+                forum_desc      = '" . addslashes($forum_desc) . "', 
                 forum_access    = " . ($forum_post_allowed ? 2 : 0) . ",
                 forum_moderator = 1, 
                 cat_id          = " . (int) $cat_id . ", 
