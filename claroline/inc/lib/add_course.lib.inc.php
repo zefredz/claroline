@@ -1063,7 +1063,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
   claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '1', '')");
 
 ############################## FORUMS  #######################################
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'".addslashes(get_lang('ExMessage'))."',-1,'2001-09-18 20:25',1,'',1,1,'0','1', '".addslashes($nom)."', '".addslashes($prenom)."')");
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'".addslashes(get_lang('ExMessage'))."',-1,NOW(),1,0,1,1,'0','1', '".addslashes($nom)."', '".addslashes($prenom)."')");
 
     return true;
 };
@@ -1126,7 +1126,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
             enrollment_key    = '".  addslashes($enrollmentKey)    . "',
             diskQuota         = NULL,
             creationDate      = NOW(),
-            expirationDate    = '" . addslashes($expirationDate)   . "',
+            expirationDate    = " . addslashes($expirationDate)   . ",
             versionDb         = '" . addslashes($versionDb)        . "',
             versionClaro      = '" . addslashes($clarolineVersion) . "',
             lastEdit          = NOW(),
