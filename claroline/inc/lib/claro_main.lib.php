@@ -1593,43 +1593,52 @@ function make_clickable($text)
  * slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
  * these slashes. It needs to be called just once at the biginning
  * of the script.
- * @return void
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @return void
  */
 
 function claro_unquote_gpc()
 {
-    if ( ! defined('CL_GPC_UNQUOTED'))
+    if ( ! defined('CL_GPC_UNQUOTED') )
     {
         if ( get_magic_quotes_gpc() )
         {
-            if ( !empty($_GET) )     array_walk($_GET,     'claro_stripslashes_for_unquote_gpc');
-            if ( !empty($_POST) )    array_walk($_POST,    'claro_stripslashes_for_unquote_gpc');
-            if ( !empty($_REQUEST) ) array_walk($_REQUEST, 'claro_stripslashes_for_unquote_gpc' );
-            if ( !empty($_COOKIE) )  array_walk($_COOKIE,  'claro_stripslashes_for_unquote_gpc' );
-        }
+         /*
+          * The new version is written in a safer approach inspired by Ilia 
+          * Alshanetsky. The previous approach which was using recursive 
+          * function permits to smash the stack and crash PHP. For example if 
+          * the user supplies a very deep multidimensional array, such as 
+          * foo[][][][] ..., the recursion can reach the point of exhausting 
+          * the stack. Generating such an attack is quite trivial, via the 
+          * use of :
+          *
+          *    str_repeat() function example $str = str_repeat("[]", 100000); 
+          *    file_get_contents("http://sitre.com.scriptphp?foo={$str}");
+          */
 
-        define('CL_GPC_UNQUOTED', true);
+            $inputList = array(&$_REQUEST, &$_GET, &$_POST, 
+                               &$_COOKIE , &$_ENV, &$_SERVER);
+
+            while ( list($topKey, $array) = each($inputList) )
+            {
+                foreach( $array as $childKey => $value)
+                {
+                    if ( ! is_array($value) )
+                    {
+                        $inputList[$topKey][$childKey] = stripslashes($value);
+                    }
+                    else
+                    {
+                    	$inputList[] =& $inputList[$topKey][$childKey];
+                    }
+                }
+            }
+
+            define('CL_GPC_UNQUOTED', true);
+
+        } // end if get_magic_quotes_gpc
     }
-}
-
-
-/**
- * Special function for claro_unquote_gpc()
- *
- * This function is needed rather a simple stripslashes for two reasons.
- * First the PHP function array_walk() works only with user functions,
- * not PHP ones. Second, the submitted array could be an array of arrays,
- * and all the values has to be treated.
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @return void
- */
-
-function claro_stripslashes_for_unquote_gpc( &$var )
-{
-    if (is_array($var) ) array_walk($var, 'claro_stripslashes_for_unquote_gpc');
-    else                 $var = stripslashes($var);
 }
 
 /**
