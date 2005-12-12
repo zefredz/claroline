@@ -92,7 +92,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
     $courseSysCode      = $keys[ 'currentCourseId'         ];
     $courseDbName       = $keys[ 'currentCourseDbName'     ];
     $courseDirectory    = $keys[ 'currentCourseRepository' ];
-    $courseCreationDate = time();
+    $courseExpirationDate = '';
 
     if ($okToCreate)
     {
@@ -117,7 +117,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                    ,               $courseVisibility
                    ,               $courseEnrollAllowed
                    ,               $courseEnrollmentKey
-                   ,               $courseCreationDate
+                   ,               $courseExpirationDate
                    ,               $extLinkName
                    ,               $extLinkUrl)
                 )
