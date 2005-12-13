@@ -691,4 +691,39 @@ function get_lang_path_list($path_lang)
     return $languagePathList;
 }
 
+function load_array_translation ($language)
+{
+    global $includePath;
+
+    if ( file_exists($includePath . '/../lang/' . $language . '/complete.lang.php') )
+    {
+        include($includePath . '/../lang/' . $language . '/complete.lang.php');
+
+        $localVar = get_defined_vars();
+
+        if ( isset($localVar['_lang']) )
+        {
+            return $localVar['_lang'];
+        }
+        else
+        {
+            // retrieve old language var
+            $translations = array();
+            
+            foreach($localVar as $thisVarKey => $thisVarContent)
+            {
+		        if ( is_a_lang_varname($thisVarKey) )
+		        {
+                    // modify var name
+                    $thisVarKey = preg_replace('/(^lang|^l_)/','',$thisVarKey);
+			        $translations[$thisVarKey] = $thisVarContent;
+		        }
+	        }
+            
+            return $translations;
+        }
+    }
+
+}
+
 ?>

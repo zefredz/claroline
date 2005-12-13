@@ -1,0 +1,21 @@
+<?xml version='1.0' standalone='yes'?>
+<conversion>
+ <varname conversion="rename">
+  <old>HelloWorld</old>
+  <new>Hello world</new>
+ </varname>
+ <varname conversion="rename">
+  <old>MyFirstScript</old>
+  <new>My first Script</new>
+ </varname>
+ <varname conversion="delete">
+  <name>helloworld</name>
+ </varname>
+ <varname conversion="delete">
+  <name>Delete</name>
+ </varname>
+ <varname conversion="rename">
+  <old>AreYouSureDeleteModule</old>
+  <new>Are you sure to delete this module ?</new>
+ </varname>
+</conversion>

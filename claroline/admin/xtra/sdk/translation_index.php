@@ -81,6 +81,11 @@ if ( $table_exists == TRUE )
 <ul>
 <li><a href="lang/progression_translation.php"><?php echo get_lang('TranslationStatistics')?></a></li>
 </ul>
+
+<h4><?php echo get_lang('Conversion')?></h4>
+<ul>
+<li><a href="lang/convert_lang_17_to_18.php"><?php echo get_lang('Conversion 1.7 to 1.8')?></a></li>
+</ul>
 <?
 }
 ?>
