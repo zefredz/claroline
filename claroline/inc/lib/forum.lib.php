@@ -24,7 +24,6 @@
  */
 
 define ('GROUP_FORUMS_CATEGORY', 1);
-
 function get_userdata_from_id($userId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -295,7 +294,7 @@ function get_topic_settings($topicId)
                    topic_replies, topic_last_post_id, topic_notify, 
                    nom, prenom
             FROM `" . $tbl_topics . "` 
-            WHERE topic_id = '" . (int) $topicId . "'";
+            WHERE topic_id = " . (int) $topicId;
 
     $settingList = claro_sql_query_fetch_all($sql);
 
@@ -545,11 +544,11 @@ function cancel_topic_notification($topicId = null, $userId = null)
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
     $conditionList = array();
-    if ($userId ) $conditionList[]  = "`user_id`  = " . (int) $userId;
-    if ($topicId) $conditionList[]  = "`topic_id` = " . (int) $topicId;
+    if ($userId ) $conditionList[]  = " `user_id`  = " . (int) $userId;
+    if ($topicId) $conditionList[]  = " `topic_id` = " . (int) $topicId;
 
     $sql = "DELETE FROM `" . $tbl_user_notify . "`"
-          . ( ( count($conditionList) > 0) ? "WHERE ".implode('AND ', $conditionList) : '' );
+    .      ( ( count($conditionList) > 0) ? " WHERE " . implode(" AND ", $conditionList) : "" );
 
     if (claro_sql_query($sql) == false) return false;
     else                                return true;
@@ -569,10 +568,10 @@ function is_topic_notification_requested($topicId, $userId)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
-    $sql = "SELECT COUNT(*) 
+    $sql = "SELECT COUNT(*) notification_qty
             FROM `" . $tbl_user_notify . "`
-            WHERE `user_id`  = '" . (int) $userId . "'
-              AND `topic_id` = '" . (int) $topicId . "'";
+            WHERE `user_id`  = " . (int) $userId . "
+              AND `topic_id` = " . (int) $topicId ;
 
     if (claro_sql_query_get_single_value($sql) > 0) return true;
     else                                            return false;
@@ -591,7 +590,7 @@ function trig_topic_notification($topicId)
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `" . $tbl_user_notify . "` AS notif, 
                  `" . $tbl_users . "` AS u
-            WHERE notif.topic_id = '" . (int) $topicId . "'
+            WHERE notif.topic_id = " . (int) $topicId . "
             AND   notif.user_id  = u.user_id";
 
     $notifyResult = claro_sql_query($sql);
