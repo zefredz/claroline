@@ -91,7 +91,8 @@ while ($element = readdir($handle) )
 	if ( is_dir($element) )
 	{
 		$languageAttribute['path'] = $path_lang . '/' . $element;
-		$languageAttribute['name'] = reset( explode (".", $element) );
+        $elements                  = explode (".", $element);
+		$languageAttribute['name'] = reset( $elements );
 		$languageList     []       = $languageAttribute;
 	}
 }
