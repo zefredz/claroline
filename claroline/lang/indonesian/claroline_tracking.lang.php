@@ -148,6 +148,7 @@ $_lang['PreviousYear'] = "Tahun Sebelumnya";
 $_lang['Progress'] = "Kemajuan";
 $_lang['Question'] = "Pertanyaan";
 $_lang['QuestionTitle'] = "Judul pertanyaan";
+$_lang['Root'] = "root";
 $_lang['Score'] = "Skor";
 $_lang['ScoreAvg'] = "Nilai rata-rata";
 $_lang['ScoreMax'] = "Nilai terbaik";

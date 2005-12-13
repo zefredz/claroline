@@ -166,6 +166,7 @@ $_lang['ReplaceAttachedFile'] = "استبدال الملف المرفق";
 $_lang['Required'] = "مطلوب";
 $_lang['Result'] = "النتيجة";
 $_lang['Reuse'] = "إعادة استخدام";
+$_lang['Root'] = "جذر";
 $_lang['Score'] = "مجموع النقاط";
 $_lang['SecondShort'] = "ثانية";
 $_lang['SequentialExercise'] = "سؤال واحد في كل صفحة ( اسئلة متتابعة)";

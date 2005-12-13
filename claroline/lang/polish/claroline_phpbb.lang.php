@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Zarz±dca / zarz±dcy %s";
 $_lang['_p_platformManager'] = "Administrator %s";
 $_lang['author'] = "Autor";
 $_lang['body'] = "Wpisz wiadomo¶æ";
+$_lang['catcreated'] = "Utworzono now± kategoriê";
 $_lang['click'] = "Kliknij";
 $_lang['delete'] = "Usuñ wiadomo¶æ";
 $_lang['deleted'] = "Twoja lista zosta³a skasowana.";

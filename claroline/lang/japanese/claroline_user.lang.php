@@ -35,6 +35,7 @@ $_lang['Role'] = "Role";
 $_lang['Settings'] = "次の設定です: 
  Username:";
 $_lang['Student'] = "student";
+$_lang['TheU'] = "The user";
 $_lang['To'] = "to";
 $_lang['Unreg'] = "Unregister";
 $_lang['User'] = "ユーザたち";

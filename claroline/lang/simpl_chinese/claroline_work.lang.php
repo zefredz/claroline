@@ -118,6 +118,7 @@ $_lang['PoweredBy'] = "技术支持";
 $_lang['PreventLateUpload'] = "不，防止用户在截止日期之后提交";
 $_lang['PrivateFeedback'] = "私密反馈";
 $_lang['Required'] = "必需";
+$_lang['Root'] = "根目录";
 $_lang['Score'] = "得分";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "大小";

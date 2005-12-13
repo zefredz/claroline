@@ -175,6 +175,7 @@ $_lang['ReplaceAttachedFile'] = "Reemprazar";
 $_lang['Required'] = "Requirido";
 $_lang['Result'] = "Resultados";
 $_lang['Reuse'] = "Reutilizar";
+$_lang['Root'] = "ra&iacute;z";
 $_lang['Score'] = "Puntuaci&oacute;n";
 $_lang['SecondShort'] = "seg.";
 $_lang['SequentialExercise'] = "Unha cuesti&oacute;n por p&aacute;xina (secuencial)";

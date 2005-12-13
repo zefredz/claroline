@@ -116,6 +116,7 @@ $_lang['PoweredBy'] = "Generado con";
 $_lang['PreventLateUpload'] = "No, impedir que los usuarios puedan enviar trabajos despu&eacute;s de la fecha l&iacute;mite";
 $_lang['PrivateFeedback'] = "Correcci&oacute;n privada";
 $_lang['Required'] = "Requerido";
+$_lang['Root'] = "ra&iacute;z";
 $_lang['Score'] = "Puntuaci&oacute;n";
 $_lang['SecondShort'] = "seg.";
 $_lang['Size'] = "Tama&ntilde;o";

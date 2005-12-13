@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "Amministrazione Claroline";
 $_lang['PoweredBy'] = "Supportato da";
 $_lang['Publish'] = "Pubblicare";
 $_lang['Rename'] = "Rinominare";
+$_lang['Root'] = "root";
 $_lang['Search'] = "Trova";
 $_lang['SearchResult'] = "Risultati della ricerca";
 $_lang['SecondShort'] = "sec.";

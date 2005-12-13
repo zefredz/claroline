@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Beheerder(s) voor %s";
 $_lang['_p_platformManager'] = "Beheerder voor %s";
 $_lang['author'] = "Auteur";
 $_lang['body'] = "Bericht";
+$_lang['catcreated'] = "De nieuwe categorie werd aangemaakt.";
 $_lang['click'] = "Klik";
 $_lang['delete'] = "Dit bericht verwijderen";
 $_lang['deleted'] = "Uw bericht werd verwijderd.";

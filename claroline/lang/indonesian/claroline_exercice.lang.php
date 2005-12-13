@@ -171,6 +171,7 @@ $_lang['ReplaceAttachedFile'] = "Ganti file lampiran";
 $_lang['Required'] = "Diwajibkan";
 $_lang['Result'] = "Hasil";
 $_lang['Reuse'] = "Gunakan lagi";
+$_lang['Root'] = "root";
 $_lang['Score'] = "Skor";
 $_lang['SecondShort'] = "detik";
 $_lang['SequentialExercise'] = "Satu pertanyaan per halaman (berurutan)";

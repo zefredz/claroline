@@ -18,6 +18,10 @@ $_lang['AlreadyBrowsed'] = "ήδη αναζητήθηκε";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Εγγραφο";
 $_lang['AltExercise'] = "Ασκηση";
+$_lang['AltMakeNotBlocking'] = "Αποδέσμευση ";
+$_lang['AltMakeVisible'] = "Κάντετο ορατό";
+$_lang['AltMove'] = "Μετακίνηση";
+$_lang['AltMoveUp'] = "Διαταγή";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Ανακοινώσεις";
 $_lang['AreYouSureToDelete'] = "Είστε βέβαιος ότι θέλετε να το διαγράψετε";
@@ -176,4 +180,5 @@ $_lang['ZipNoPhp'] = "Το αρχείο zip δεν πρέπει να περιέχει αρχεία.PHP";
 $_lang['_enroll'] = "Eγγραφή";
 $_lang['_footer_p_CourseManager'] = "Υπεύθυνος για %s";
 $_lang['_p_platformManager'] = "Διαχειριστής για %s";
+$_lang['importLearningPath'] = "Εισαγωγή διαδρομής μάθησης";
 ?>

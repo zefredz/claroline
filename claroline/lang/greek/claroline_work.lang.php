@@ -113,6 +113,7 @@ $_lang['PoweredBy'] = "Με τη βοήθεια του";
 $_lang['PreventLateUpload'] = "όχι, να εμποδίζεται η υποβολή εργασιών χρηστών μετά το τέλος της χρονικής προθεσμίας";
 $_lang['PrivateFeedback'] = "Προσωπική επικοινωνία";
 $_lang['Required'] = "Απαιτείται";
+$_lang['Root'] = "αιτία";
 $_lang['Score'] = "Βαθμολογία";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Μέγεθος";

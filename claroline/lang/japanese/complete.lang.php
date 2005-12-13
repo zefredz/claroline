@@ -209,6 +209,7 @@ $_lang['Status'] = "Status";
 $_lang['Student'] = "student";
 $_lang['TargetFac'] = "このコースの学科、学部";
 $_lang['TestForum'] = "テスト会議室";
+$_lang['TheU'] = "The user";
 $_lang['TipLang'] = "この言語は、あなたのコースのウエブサイトの全ての訪問者の公用言語です。";
 $_lang['Title'] = "タイトル";
 $_lang['To'] = "to";

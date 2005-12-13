@@ -138,6 +138,7 @@ $_lang['PreviousYear'] = "Προηγούμενου έτους";
 $_lang['Progress'] = "Πρόοδος";
 $_lang['Question'] = "Ερώτηση";
 $_lang['QuestionTitle'] = "Τίτλος ερώτησης";
+$_lang['Root'] = "αιτία";
 $_lang['Score'] = "Βαθμολογία";
 $_lang['ScoreAvg'] = "Μέσο όρο";
 $_lang['ScoreMax'] = "Mέγιστο";

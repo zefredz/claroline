@@ -2,6 +2,7 @@
 $_lang['Action'] = "Действие";
 $_lang['AddAU'] = "Добавить пользователей";
 $_lang['AddNewHeading'] = "Добавить название";
+$_lang['AddedToCourse'] = "зарегистрирован на вашем курсе";
 $_lang['Address'] = "Адрес";
 $_lang['Agenda'] = "Календарь";
 $_lang['Announcement'] = "Объявления";
@@ -70,6 +71,7 @@ $_lang['Remove'] = "Удалить";
 $_lang['Role'] = "Роль";
 $_lang['Settings'] = "со следующими параметрами: Имя пользователя:";
 $_lang['Student'] = "студент";
+$_lang['TheU'] = "Пользователь";
 $_lang['To'] = "в";
 $_lang['Tracking'] = "Действия пользователей";
 $_lang['Unreg'] = "Отписать";

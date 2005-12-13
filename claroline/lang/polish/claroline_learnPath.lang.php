@@ -18,6 +18,10 @@ $_lang['AlreadyBrowsed'] = "Ju¿ przegl±dniête";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Dokument";
 $_lang['AltExercise'] = "Æwiczenie";
+$_lang['AltMakeNotBlocking'] = "Odblokuj";
+$_lang['AltMakeVisible'] = "Uczyñ widocznym";
+$_lang['AltMove'] = "Przesuñ";
+$_lang['AltMoveUp'] = "Przesuñ do góry";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Og³oszenia";
 $_lang['AreYouSureDeleteModule'] = "Jeste¶ pewien, a¿eby ca³kowicie usun±æ ten modu³ ?
@@ -196,4 +200,5 @@ $_lang['ZipNoPhp'] = "Plik zip nie mo¿e zawieraæ plików .PHP";
 $_lang['_enroll'] = "Zapisz";
 $_lang['_footer_p_CourseManager'] = "Zarz±dca / zarz±dcy %s";
 $_lang['_p_platformManager'] = "Administrator %s";
+$_lang['importLearningPath'] = "Import ¶cie¿ki nauczania";
 ?>

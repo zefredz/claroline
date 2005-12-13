@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "Rendszer Adminisztráció";
 $_lang['PoweredBy'] = "Fejlesztõ:";
 $_lang['Publish'] = "Közzétesz";
 $_lang['Rename'] = "Átnevez";
+$_lang['Root'] = "root/gyökér";
 $_lang['Search'] = "Keresés";
 $_lang['SearchResult'] = "Keresési eredmény";
 $_lang['SecondShort'] = "m.p.";

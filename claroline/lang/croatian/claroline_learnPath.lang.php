@@ -14,6 +14,10 @@ $_lang['AlreadyBrowsed'] = "Prethodno pregledano";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Dokument";
 $_lang['AltExercise'] = "Vježba";
+$_lang['AltMakeNotBlocking'] = "Odblokiraj";
+$_lang['AltMakeVisible'] = "Učini vidljivim";
+$_lang['AltMove'] = "Pomakni";
+$_lang['AltMoveUp'] = "Pomakni gore";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Obavijesti";
 $_lang['AreYouSureDeleteModule'] = "Ukoliko izbrišete modul, modul će biti uklonjen iz svih redoslijeda učenja u kojima se koristi.
@@ -170,4 +174,5 @@ $_lang['ZipNoPhp'] = "Zip datoteka ne smije sadržavati .PHP datoteke";
 $_lang['_enroll'] = "Prijavi";
 $_lang['_footer_p_CourseManager'] = "Voditelj predmeta %s";
 $_lang['_p_platformManager'] = "Administrator sustava %s";
+$_lang['importLearningPath'] = "<i>Importiraj</i> redoslijed učenja";
 ?>

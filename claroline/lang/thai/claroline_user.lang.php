@@ -39,6 +39,7 @@ $_lang['Role'] = "สถานะภาพ";
 $_lang['Settings'] = "ตามข้อมูล:
 Username:";
 $_lang['Student'] = "นักศึกษา";
+$_lang['TheU'] = "นักศึกษา";
 $_lang['To'] = "ไปยัง";
 $_lang['Unreg'] = "ถอนการลงทะเบียน";
 $_lang['UserName'] = "ชื่อผู้ใช้";

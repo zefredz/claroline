@@ -166,6 +166,7 @@ $_lang['ReplaceAttachedFile'] = "Csatolt fájl cseréje";
 $_lang['Required'] = "Kötelezõ";
 $_lang['Result'] = "Eredmény";
 $_lang['Reuse'] = "Újra felhasznál";
+$_lang['Root'] = "root/gyökér";
 $_lang['Score'] = "Eredmény";
 $_lang['SecondShort'] = "m.p.";
 $_lang['SequentialExercise'] = "Oldalanként egy kérdés (sorban)";

@@ -114,6 +114,7 @@ $_lang['PoweredBy'] = "مطورة باستخدام";
 $_lang['PreventLateUpload'] = "لا , منع المستخدمين من إرسال العمل بعد انقضاء المهلة المحددة للإرسال";
 $_lang['PrivateFeedback'] = "مراجعة خاصة";
 $_lang['Required'] = "مطلوب";
+$_lang['Root'] = "جذر";
 $_lang['Score'] = "مجموع النقاط";
 $_lang['SecondShort'] = "ثانية";
 $_lang['Size'] = "الحجم";

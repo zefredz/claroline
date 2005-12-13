@@ -1,5 +1,6 @@
 <?php
 $_lang['AddAU'] = "Kullanýcý ekle";
+$_lang['AddedToCourse'] = "kampüse kaydolmuþ fakat bu derse kaydedilmemiþti. Þimdi kaydedildi.";
 $_lang['Address'] = "Adres ";
 $_lang['Agenda'] = "Gündem";
 $_lang['Announcement'] = "Duyurular";
@@ -49,6 +50,7 @@ $_lang['Role'] = "Rolü";
 $_lang['Settings'] = "Kayýt bilgileriniz þunlardýr:
 Username:";
 $_lang['Student'] = "öðrenci";
+$_lang['TheU'] = "Kullanýcý";
 $_lang['To'] = "buraya";
 $_lang['Unreg'] = "Kayýt sil";
 $_lang['UserName'] = "Kullanýcý adýnýz";

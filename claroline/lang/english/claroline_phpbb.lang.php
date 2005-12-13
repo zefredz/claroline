@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Manager(s) for %s";
 $_lang['_p_platformManager'] = "Administrator for %s";
 $_lang['author'] = "Author";
 $_lang['body'] = "Message Body";
+$_lang['catcreated'] = "The new category has been created.";
 $_lang['click'] = "Click";
 $_lang['delete'] = "Delete this Post";
 $_lang['deleted'] = "Your Post has been deleted.";

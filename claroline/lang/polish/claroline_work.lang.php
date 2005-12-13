@@ -113,6 +113,7 @@ $_lang['PoweredBy'] = "Powered by";
 $_lang['PreventLateUpload'] = "Nie zabezpiecz przed dostarczaniem prac u¿ytkownikó po dacie koñcowej";
 $_lang['PrivateFeedback'] = "Prywatna informacja zwrotna";
 $_lang['Required'] = "Wymagany";
+$_lang['Root'] = "root";
 $_lang['Score'] = "Wynik";
 $_lang['SecondShort'] = "[s]";
 $_lang['Size'] = "Rozmiar";

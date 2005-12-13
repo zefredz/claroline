@@ -55,6 +55,7 @@ $_lang['PlatformAdministration'] = "Platform beheer";
 $_lang['PoweredBy'] = " gebruikt het platform";
 $_lang['Previous'] = "Vorige";
 $_lang['QuitViewer'] = "Back to list";
+$_lang['Root'] = "basis";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Grootte";
 $_lang['Student'] = "student";

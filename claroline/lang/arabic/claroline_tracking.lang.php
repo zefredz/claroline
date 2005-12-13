@@ -142,6 +142,7 @@ $_lang['PreviousYear'] = "السنة الماضية";
 $_lang['Progress'] = "مستوى التقدم";
 $_lang['Question'] = "السؤال";
 $_lang['QuestionTitle'] = "عنوان السؤال";
+$_lang['Root'] = "جذر";
 $_lang['Score'] = "مجموع النقاط";
 $_lang['ScoreAvg'] = "المعدل";
 $_lang['ScoreMax'] = "العلامة العظمي";

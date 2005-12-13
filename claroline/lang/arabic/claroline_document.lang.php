@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "الإدارة";
 $_lang['PoweredBy'] = "مطورة باستخدام";
 $_lang['Publish'] = "نشر";
 $_lang['Rename'] = "تغيير اسم";
+$_lang['Root'] = "جذر";
 $_lang['Search'] = "بحث";
 $_lang['SearchResult'] = "نتيجة البحث";
 $_lang['SecondShort'] = "ثانية";

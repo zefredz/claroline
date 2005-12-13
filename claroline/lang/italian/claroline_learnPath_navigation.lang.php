@@ -55,6 +55,7 @@ $_lang['PlatformAdministration'] = "Amministrazione Claroline";
 $_lang['PoweredBy'] = "Supportato da";
 $_lang['Previous'] = "Precedente";
 $_lang['QuitViewer'] = "Torna alla lista";
+$_lang['Root'] = "root";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Dimensione";
 $_lang['Student'] = "Studenti";

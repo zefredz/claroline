@@ -2,6 +2,7 @@
 $_lang['Action'] = "Handling";
 $_lang['AddAU'] = "Tilføj en bruger";
 $_lang['AddNewHeading'] = "Tilføj ny overskrift";
+$_lang['AddedToCourse'] = "er blevet registreret på dit kursus";
 $_lang['Address'] = "Adressen på ";
 $_lang['Agenda'] = "Kalenderen - Hvad sker der?";
 $_lang['Announcement'] = "Meddelelser";
@@ -69,6 +70,7 @@ $_lang['Remove'] = "Fjern";
 $_lang['Role'] = "Titel";
 $_lang['Settings'] = "med følgende brugernavn:";
 $_lang['Student'] = "studerende";
+$_lang['TheU'] = "Deltageren";
 $_lang['To'] = "til";
 $_lang['Tracking'] = "Udtræk";
 $_lang['Unreg'] = "Afmeld";

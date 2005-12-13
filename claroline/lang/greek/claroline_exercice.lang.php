@@ -153,6 +153,7 @@ $_lang['ReplaceAttachedFile'] = "Αντικατάσταη επισυναπτόμενου αρχείου";
 $_lang['Required'] = "Απαιτείται";
 $_lang['Result'] = "Βαθμολογία";
 $_lang['Reuse'] = "ξανα χρησιμοποείται";
+$_lang['Root'] = "αιτία";
 $_lang['Score'] = "Βαθμολογία";
 $_lang['SecondShort'] = "sec.";
 $_lang['SequentialExercise'] = "Μία ερώτηση ανά σελίδα (συνεχόμενα)";

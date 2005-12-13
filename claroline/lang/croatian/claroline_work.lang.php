@@ -112,6 +112,7 @@ $_lang['PoweredBy'] = "Powered by";
 $_lang['PreventLateUpload'] = "Ne, korisnici ne mogu predati zadatak nakon roka predaje";
 $_lang['PrivateFeedback'] = "Napomene";
 $_lang['Required'] = "Obavezno";
+$_lang['Root'] = "vršna kategorija";
 $_lang['Score'] = "Ocjena";
 $_lang['SecondShort'] = "s";
 $_lang['Size'] = "Veličina";

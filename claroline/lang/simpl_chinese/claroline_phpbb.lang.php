@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "%s的课程负责人 ";
 $_lang['_p_platformManager'] = "%s 的平台负责人";
 $_lang['author'] = "作者";
 $_lang['body'] = "消息 内容";
+$_lang['catcreated'] = "新的分类已经建立。";
 $_lang['click'] = "点击";
 $_lang['delete'] = "删除这篇文章";
 $_lang['deleted'] = "您的 文章 已删除.";

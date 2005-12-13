@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "المدير المسؤول عن %s";
 $_lang['_p_platformManager'] = "المسؤول عن موقع   %s";
 $_lang['author'] = "المؤلف";
 $_lang['body'] = "نص الرسالة";
+$_lang['catcreated'] = "تم إنشاء التصنيف الجديد";
 $_lang['click'] = "انقر";
 $_lang['delete'] = "إلغاء هذه الرسالة";
 $_lang['deleted'] = "تم حذف مشاركتك";

@@ -66,6 +66,7 @@ $_lang['_footer_p_CourseManager'] = "Voditelj predmeta %s";
 $_lang['_p_platformManager'] = "Administrator sustava %s";
 $_lang['author'] = "Autor/ica";
 $_lang['body'] = "Tijelo poruke";
+$_lang['catcreated'] = "Nova kategorija je stvorena";
 $_lang['click'] = "Kliknite";
 $_lang['delete'] = "Izbriši ovu poruku";
 $_lang['deleted'] = "Vaša je poruka izbrisana";

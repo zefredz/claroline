@@ -14,6 +14,10 @@ $_lang['AlreadyBrowsed'] = "已浏览";
 $_lang['AltClarodoc'] = "Claro文本";
 $_lang['AltDocument'] = "文件";
 $_lang['AltExercise'] = "练习";
+$_lang['AltMakeNotBlocking'] = "解锁";
+$_lang['AltMakeVisible'] = "显现";
+$_lang['AltMove'] = "移动";
+$_lang['AltMoveUp'] = "向上";
 $_lang['AltScorm'] = "SCORM标准";
 $_lang['Announcement'] = "公告通知";
 $_lang['AreYouSureDeleteModule'] = "你确认一起删除该模块？它将从服务器上和学习路线中完全删除。你将不能在任何学习路线中使用它。
@@ -193,4 +197,5 @@ $_lang['ZipNoPhp'] = "zip文件不能包含PHP文件";
 $_lang['_enroll'] = "登记";
 $_lang['_footer_p_CourseManager'] = "%s的课程负责人 ";
 $_lang['_p_platformManager'] = "%s 的平台负责人";
+$_lang['importLearningPath'] = "输入一个学习路线";
 ?>

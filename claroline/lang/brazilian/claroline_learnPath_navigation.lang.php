@@ -53,6 +53,7 @@ $_lang['PlatformAdministration'] = "Administração da Plataforma";
 $_lang['PoweredBy'] = "Movido por";
 $_lang['Previous'] = "Anterior";
 $_lang['QuitViewer'] = "Voltar para a lista";
+$_lang['Root'] = "raiz";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Tamanho";
 $_lang['Student'] = "Estudantes";

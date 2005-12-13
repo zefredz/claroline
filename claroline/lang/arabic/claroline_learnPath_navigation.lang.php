@@ -55,6 +55,7 @@ $_lang['PlatformAdministration'] = "الإدارة";
 $_lang['PoweredBy'] = "مطورة باستخدام";
 $_lang['Previous'] = "السابق";
 $_lang['QuitViewer'] = "العودة للقائمة";
+$_lang['Root'] = "جذر";
 $_lang['SecondShort'] = "ثانية";
 $_lang['Size'] = "الحجم";
 $_lang['Student'] = "طالب";

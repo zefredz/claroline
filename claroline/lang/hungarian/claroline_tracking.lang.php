@@ -142,6 +142,7 @@ $_lang['PreviousYear'] = "Elõzõ Év";
 $_lang['Progress'] = "Elõrehaladás";
 $_lang['Question'] = "Kérdés";
 $_lang['QuestionTitle'] = "Kérdés címe";
+$_lang['Root'] = "root/gyökér";
 $_lang['Score'] = "Eredmény";
 $_lang['ScoreAvg'] = "Átlageredmény";
 $_lang['ScoreMax'] = "Legjobb eredmény";

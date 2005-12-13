@@ -36,6 +36,7 @@ $_lang['Role'] = "Rooli";
 $_lang['Settings'] = "seuraavilla asetuksilla:
 Käyttäjänimi:";
 $_lang['Student'] = "Opiskelija";
+$_lang['TheU'] = "Käyttäjä";
 $_lang['To'] = "Hakemistoon";
 $_lang['Unreg'] = "Reksiteröi pois";
 $_lang['UserName'] = "Käyttäjänimi";

@@ -2,6 +2,7 @@
 $_lang['Action'] = "Ac&ccedil;&atilde;o";
 $_lang['AddAU'] = "Acrescentar um utilizador";
 $_lang['AddNewHeading'] = "Acrescentar um novo cabe&ccedil;alho";
+$_lang['AddedToCourse'] = "foi registado no seu curso";
 $_lang['Address'] = "A morada de";
 $_lang['Agenda'] = "Agenda";
 $_lang['Announcement'] = "An&uacute;ncios";
@@ -73,6 +74,7 @@ $_lang['Settings'] = "com os seguintes par&aacute;metros:
 
 Nome de utilizador:";
 $_lang['Student'] = "estudante";
+$_lang['TheU'] = "O utilizador";
 $_lang['To'] = "para";
 $_lang['Tracking'] = "Estat&iacute;sticas";
 $_lang['Unreg'] = "Cancelar a inscri&ccedil;&atilde;o";

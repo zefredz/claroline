@@ -61,6 +61,7 @@ $_lang['PlatformAdministration'] = "Διαχείρηση Πλατφόρμας";
 $_lang['PoweredBy'] = "Με τη βοήθεια του";
 $_lang['Publish'] = "Δημοσίευση";
 $_lang['Rename'] = "Μετονομασία";
+$_lang['Root'] = "αιτία";
 $_lang['Search'] = "Έρευνα";
 $_lang['SearchResult'] = "Αποτέλεσμα έρευνας";
 $_lang['SecondShort'] = "sec.";

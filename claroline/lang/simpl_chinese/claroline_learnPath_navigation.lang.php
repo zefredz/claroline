@@ -57,6 +57,7 @@ $_lang['PlatformAdministration'] = "平台管理";
 $_lang['PoweredBy'] = "技术支持";
 $_lang['Previous'] = "先前的";
 $_lang['QuitViewer'] = "返回列表";
+$_lang['Root'] = "根目录";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "大小";
 $_lang['Student'] = "学生";

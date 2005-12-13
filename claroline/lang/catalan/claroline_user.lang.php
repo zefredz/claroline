@@ -1,5 +1,6 @@
 <?php
 $_lang['AddAU'] = "Afegeix un usuari";
+$_lang['AddedToCourse'] = "ja es troba enregistrat al campus però no en aquest curs. S'ha fet ara. ";
 $_lang['Address'] = "L'adreça de ";
 $_lang['Agenda'] = "Agenda";
 $_lang['Announcement'] = "Anuncis";
@@ -47,6 +48,7 @@ $_lang['Role'] = "Rol";
 $_lang['Settings'] = "amb els següents detalls:
 Nom d'usuari:";
 $_lang['Student'] = "estudiant";
+$_lang['TheU'] = "L'usuari";
 $_lang['To'] = "cap a";
 $_lang['Unreg'] = "Treu del registre";
 $_lang['UserName'] = "Nom d'usuari";

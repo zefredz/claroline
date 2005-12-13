@@ -53,6 +53,7 @@ $_lang['PlatformAdministration'] = "Διαχείρηση Πλατφόρμας";
 $_lang['PoweredBy'] = "Με τη βοήθεια του";
 $_lang['Previous'] = "Προηγουμενου";
 $_lang['QuitViewer'] = "Επιστροφή στη λίστα";
+$_lang['Root'] = "αιτία";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Μέγεθος";
 $_lang['Student'] = "φοιτητής";

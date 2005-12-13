@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Xestor(es) para %s";
 $_lang['_p_platformManager'] = "Administrador para %s";
 $_lang['author'] = "Autor";
 $_lang['body'] = "Corpo da \$1_message";
+$_lang['catcreated'] = "A nova categor&iacute;a foi creada.";
 $_lang['click'] = "Premer co rato";
 $_lang['delete'] = "Eliminar este correo";
 $_lang['deleted'] = "O seu Env&iacute;o foi eliminado";

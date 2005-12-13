@@ -61,6 +61,7 @@ $_lang['PlatformAdministration'] = "Administiranje";
 $_lang['PoweredBy'] = "Powered by";
 $_lang['Publish'] = "Objavi";
 $_lang['Rename'] = "Preimenuj";
+$_lang['Root'] = "vršna kategorija";
 $_lang['Search'] = "Traži";
 $_lang['SearchResult'] = "Rezultati pretrage";
 $_lang['SecondShort'] = "s";

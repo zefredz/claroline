@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "Administrasi Platform";
 $_lang['PoweredBy'] = "Diperkuat oleh";
 $_lang['Publish'] = "Terbitkan";
 $_lang['Rename'] = "Ganti nama";
+$_lang['Root'] = "root";
 $_lang['Search'] = "Cari";
 $_lang['SearchResult'] = "Hasil pencarian";
 $_lang['SecondShort'] = "detik";

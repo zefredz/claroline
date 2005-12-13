@@ -16,6 +16,10 @@ $_lang['AlreadyBrowsed'] = "Sudah dilihat";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Dokumen";
 $_lang['AltExercise'] = "Latihan";
+$_lang['AltMakeNotBlocking'] = "Tidak diblokir";
+$_lang['AltMakeVisible'] = "Tampilkan";
+$_lang['AltMove'] = "Pindahkan";
+$_lang['AltMoveUp'] = "Naikkan urutan";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Pengumuman";
 $_lang['AreYouSureDeleteModule'] = "Benar-benar akan menghapus modul ini seluruhnya?
@@ -201,4 +205,5 @@ $_lang['ZipNoPhp'] = "File zip tidak dapat berisi file .PHP";
 $_lang['_enroll'] = "Daftar";
 $_lang['_footer_p_CourseManager'] = "Pengelola %s";
 $_lang['_p_platformManager'] = "Administrator untuk %s";
+$_lang['importLearningPath'] = "Import alur pembelajaran";
 ?>

@@ -112,6 +112,7 @@ $_lang['PoweredBy'] = "Utilise la plate-forme";
 $_lang['PreventLateUpload'] = "Non, ne pas autoriser les utilisateurs à soumettre leur travail après la date de fin";
 $_lang['PrivateFeedback'] = "Remarques";
 $_lang['Required'] = "Requis";
+$_lang['Root'] = "Niveau supérieur";
 $_lang['Score'] = "Résultat";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Taille";

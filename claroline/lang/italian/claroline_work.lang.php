@@ -111,6 +111,7 @@ $_lang['PoweredBy'] = "Supportato da";
 $_lang['PreventLateUpload'] = "No, impedisci agli utenti di inserire i lavori dopo la data di scadenza";
 $_lang['PrivateFeedback'] = "Feedback privato";
 $_lang['Required'] = "Necessario";
+$_lang['Root'] = "root";
 $_lang['Score'] = "Punteggio";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Dimensione";

@@ -2,6 +2,7 @@
 $_lang['Action'] = "Hành động";
 $_lang['AddAU'] = "Thêm user";
 $_lang['AddNewHeading'] = "Add new heading";
+$_lang['AddedToCourse'] = "đã đăng ký theo khoá học";
 $_lang['Address'] = "The address of ";
 $_lang['Agenda'] = "Agenda (Lịch công tác)";
 $_lang['Announcement'] = "Thông báo";
@@ -70,6 +71,7 @@ $_lang['Role'] = "Vai trò";
 $_lang['Settings'] = "with the following settings:
 Username:";
 $_lang['Student'] = "học sinh";
+$_lang['TheU'] = "Người dùng";
 $_lang['To'] = "đến";
 $_lang['Tracking'] = "Theo dõi";
 $_lang['Unreg'] = "Thôi đăng ký";

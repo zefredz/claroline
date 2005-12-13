@@ -168,6 +168,7 @@ $_lang['ReplaceAttachedFile'] = "Reemplazar el archivo agregado";
 $_lang['Required'] = "Requerido";
 $_lang['Result'] = "Resultado";
 $_lang['Reuse'] = "Reutilizar";
+$_lang['Root'] = "ra&iacute;z";
 $_lang['Score'] = "Puntuaci&oacute;n";
 $_lang['SecondShort'] = "seg.";
 $_lang['SequentialExercise'] = "Una pregunta por p&aacute;gina (secuencial)";

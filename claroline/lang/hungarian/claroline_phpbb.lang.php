@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "%s vezetõje";
 $_lang['_p_platformManager'] = "%s adminisztrátora";
 $_lang['author'] = "Szerzõ";
 $_lang['body'] = "Üzenet Törzs";
+$_lang['catcreated'] = "Az új kategória létrehozva";
 $_lang['click'] = "Kattint";
 $_lang['delete'] = "Üzenet Törlése";
 $_lang['deleted'] = "Az Üzenetet töröltük";

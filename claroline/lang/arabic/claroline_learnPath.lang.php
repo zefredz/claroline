@@ -16,6 +16,10 @@ $_lang['AlreadyBrowsed'] = "تم استعراضه من قبل";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "وثيقة";
 $_lang['AltExercise'] = "تمرين";
+$_lang['AltMakeNotBlocking'] = "إلغاء القفل";
+$_lang['AltMakeVisible'] = "جعله مرئياً";
+$_lang['AltMove'] = "نقل";
+$_lang['AltMoveUp'] = "ترتيب تصاعدي";
 $_lang['AltScorm'] = "Scorm ";
 $_lang['Announcement'] = "الإعلانات";
 $_lang['AreYouSureDeleteModule'] = "هل أنت متأكد من مسح هذه الوحدة كلياً؟
@@ -191,4 +195,5 @@ $_lang['ZipNoPhp'] = "لا يسمح لك بان تحمل ملف مضغوط يح�
 $_lang['_enroll'] = "تسجيل";
 $_lang['_footer_p_CourseManager'] = "المدير المسؤول عن %s";
 $_lang['_p_platformManager'] = "المسؤول عن موقع   %s";
+$_lang['importLearningPath'] = "استيراد مسار تعليم";
 ?>

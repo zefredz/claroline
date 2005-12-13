@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "Administraci&oacute;n de la plataforma";
 $_lang['PoweredBy'] = "Generado con";
 $_lang['Publish'] = "Publicar";
 $_lang['Rename'] = "Renombrar";
+$_lang['Root'] = "ra&iacute;z";
 $_lang['Search'] = "Buscar";
 $_lang['SearchResult'] = "Resultados de la b&uacute;squeda";
 $_lang['SecondShort'] = "seg.";

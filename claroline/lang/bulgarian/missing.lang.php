@@ -542,6 +542,7 @@ $_lang['NeverUsed'] = "Never used";
 $_lang['NewClassCreated'] = "The new class has been created";
 $_lang['NewClassName'] = "New Class name";
 $_lang['NewLabel'] = "Create a new label / title in this learning path";
+$_lang['NewUsersIn'] = "new users in the platform : ";
 $_lang['NoEmail'] = "No email address specified";
 $_lang['NoEndDate'] = "No closing date";
 $_lang['NoEventInTheAgenda'] = "No event in the agenda";

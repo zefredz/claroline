@@ -120,6 +120,7 @@ $_lang['PoweredBy'] = "Diperkuat oleh";
 $_lang['PreventLateUpload'] = "Tidak boleh, cegah user mengumpulkan tugas setelah tanggal berakhir";
 $_lang['PrivateFeedback'] = "Umpan balik Privat";
 $_lang['Required'] = "Diwajibkan";
+$_lang['Root'] = "root";
 $_lang['Score'] = "Skor";
 $_lang['SecondShort'] = "detik";
 $_lang['Size'] = "Ukuran";

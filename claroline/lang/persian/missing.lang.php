@@ -5,6 +5,9 @@ $_lang['AddLoginPass'] = "Add a login/pass in .htpassword</a><br />";
 $_lang['AddLoginPassForThisUser'] = "Add login pass from campus account of this user in .htpassword";
 $_lang['AddModulesButton'] = "Add module(s)";
 $_lang['AddMyCampusOnClarolineNet'] = "Add my campus on Claroline.net website";
+$_lang['AddedToCampus'] = " has been added to the campus";
+$_lang['AddedToCampusAndClass'] = " has been added to the campus and to the class";
+$_lang['AddedToCampusAndCourse'] = " has been added to the campus and to the course";
 $_lang['AdmitError'] = "Admit one's own errors to invite one's interlocutor to do the same.";
 $_lang['AlertBlockingMakedInvisible'] = "This module is blocked.
 Making it invisible will allow students to access
@@ -15,6 +18,8 @@ Making it invisible will allow students to access
  the next path without having to complete this one.
 Confirm ?";
 $_lang['AltClarodoc'] = "Clarodoc";
+$_lang['AltMakeNotBlocking'] = "Unblock";
+$_lang['AltMoveUp'] = "Order up";
 $_lang['AltScorm'] = "Scorm";
 $_lang['AnonymousAttemptsAllowed'] = "Allowed : don't record usernames in tracking, anonymous users can do the exercise.";
 $_lang['AnonymousAttemptsNotAllowed'] = "Not allowed : record usernames in tracking, anonymous users cannot do the exercise.";
@@ -611,6 +616,7 @@ $_lang['ModuleOfMyCourse'] = "Use a module of this course";
 $_lang['ModuleStillInPool'] = "Modules of this path will still be available in the pool of modules";
 $_lang['Modules'] = "Modules";
 $_lang['ModulesPoolToolName'] = "Pool of modules";
+$_lang['NewUsersIn'] = "new users in the platform : ";
 $_lang['NoFunctionInThisSection'] = "No function in this extension";
 $_lang['NoGroupStudents'] = "Unassigned students";
 $_lang['NoModule'] = "No module";
@@ -782,6 +788,7 @@ $_lang['TextFile'] = "Text with attached file (text required, file optional)";
 $_lang['TextOnly'] = "Text only (text required, no file)";
 $_lang['TheFields'] = "The fields";
 $_lang['TheSystemIsCaseSensitive'] = "The system is case sensitive.";
+$_lang['TheU'] = "The user";
 $_lang['ThisCourseDescriptionIsEmpty'] = "This course is currently not described";
 $_lang['ThisIsAnErrorInDefinitionFile'] = "This is an error in definition file.";
 $_lang['Thumbnails'] = "Thumbnails";
@@ -1088,6 +1095,8 @@ $_lang['_you_had_request'] = "You ask";
 $_lang['_you_have_been_enrolled_to_the_course'] = "You've been enrolled on the course";
 $_lang['_your_enrollment_to_the_course_has_been_removed'] = "Your enrollment on the course has been removed";
 $_lang['_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course'] = "Your user profile doesn't seem to be enrolled on this course";
+$_lang['catcreated'] = "The new category has been created.";
+$_lang['importLearningPath'] = "Import a learning path";
 $_lang['indextitle'] = "Forum Index";
 $_lang['notify'] = "Notify by email when replies are posted";
 $_lang['notifybody'] = "You are receiving this Email because a new message in one of your favourite topics

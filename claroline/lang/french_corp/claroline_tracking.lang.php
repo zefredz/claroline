@@ -138,6 +138,7 @@ $_lang['PreviousYear'] = "Ann&eacute;e pr&eacute;c&eacute;dente";
 $_lang['Progress'] = "Progression";
 $_lang['Question'] = "Question";
 $_lang['QuestionTitle'] = "Titre";
+$_lang['Root'] = "Niveau supérieur";
 $_lang['Score'] = "Résultat";
 $_lang['ScoreAvg'] = "Moyenne";
 $_lang['ScoreMax'] = "Maximum";

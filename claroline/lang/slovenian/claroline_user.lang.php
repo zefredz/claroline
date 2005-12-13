@@ -2,6 +2,7 @@
 $_lang['Action'] = "Akcija";
 $_lang['AddAU'] = "Dodaj uporabnika";
 $_lang['AddNewHeading'] = "Dodaj nov naslov";
+$_lang['AddedToCourse'] = "je bil registriran za tvoj tecaj";
 $_lang['Address'] = "Naslov ";
 $_lang['Agenda'] = "Agenda";
 $_lang['Announcement'] = "Obvestila";
@@ -69,6 +70,7 @@ $_lang['Role'] = "Vloga";
 $_lang['Settings'] = "z naslednjimi nastavitvami:
 Ime uporabnika:";
 $_lang['Student'] = "student";
+$_lang['TheU'] = "Uporabnik";
 $_lang['To'] = "na";
 $_lang['Tracking'] = "Sledenje";
 $_lang['Unreg'] = "Izpisi";

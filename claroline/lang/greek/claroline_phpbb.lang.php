@@ -65,6 +65,7 @@ $_lang['_footer_p_CourseManager'] = "Υπεύθυνος για %s";
 $_lang['_p_platformManager'] = "Διαχειριστής για %s";
 $_lang['author'] = "Συγγραφέας";
 $_lang['body'] = "Σώμα μηνύματος";
+$_lang['catcreated'] = "Η νέα κατηγορία έχει δημιουργηθεί.";
 $_lang['click'] = "Πιέστε";
 $_lang['delete'] = "Διαγραφή αυτού του μηνύματος";
 $_lang['deleted'] = "Το Αποστολή διαγράφτηκε.";

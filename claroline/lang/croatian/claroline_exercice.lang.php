@@ -152,6 +152,7 @@ $_lang['ReplaceAttachedFile'] = "Zamijeni priloženu datoteku";
 $_lang['Required'] = "Obavezno";
 $_lang['Result'] = "Rezultat";
 $_lang['Reuse'] = "Preuzmi pitanje";
+$_lang['Root'] = "vršna kategorija";
 $_lang['Score'] = "Ocjena";
 $_lang['SecondShort'] = "s";
 $_lang['SequentialExercise'] = "Svako pitanje na svojoj stranici";

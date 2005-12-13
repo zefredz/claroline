@@ -166,6 +166,7 @@ $_lang['ReplaceAttachedFile'] = "Replace attached file";
 $_lang['Required'] = "Required";
 $_lang['Result'] = "Result";
 $_lang['Reuse'] = "Reuse";
+$_lang['Root'] = "root";
 $_lang['Score'] = "Score";
 $_lang['SecondShort'] = "sec.";
 $_lang['SequentialExercise'] = "One question per page (sequential)";

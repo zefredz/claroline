@@ -166,6 +166,7 @@ $_lang['ReplaceAttachedFile'] = "Remplacer le fichier joint";
 $_lang['Required'] = "Requis";
 $_lang['Result'] = "Résultat";
 $_lang['Reuse'] = "Récupérer";
+$_lang['Root'] = "Niveau supérieur";
 $_lang['Score'] = "Résultat";
 $_lang['SecondShort'] = "sec";
 $_lang['SequentialExercise'] = "Une question par page (séquentiel)";

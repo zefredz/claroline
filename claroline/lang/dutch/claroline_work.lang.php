@@ -115,6 +115,7 @@ $_lang['PoweredBy'] = " gebruikt het platform";
 $_lang['PreventLateUpload'] = "Nee, gebruikers mogen geen werk indienen na de einddatum";
 $_lang['PrivateFeedback'] = "Prive commentaar";
 $_lang['Required'] = "Vereist";
+$_lang['Root'] = "basis";
 $_lang['Score'] = "Score";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Grootte";

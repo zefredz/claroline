@@ -20,6 +20,10 @@ $_lang['AlreadyBrowsed'] = "Xa visitado";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Documento";
 $_lang['AltExercise'] = "Exercicio";
+$_lang['AltMakeNotBlocking'] = "Desbloquear";
+$_lang['AltMakeVisible'] = "Facer visible";
+$_lang['AltMove'] = "Mover";
+$_lang['AltMoveUp'] = "Orde ascendente";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Anuncios";
 $_lang['AreYouSureDeleteModule'] = "Est&aacute; vostede seguro de que desexa borrar totalmente este
@@ -229,4 +233,5 @@ $_lang['ZipNoPhp'] = "O ficheiro comprimido non pode conter arquivos con extensi
 $_lang['_enroll'] = "Matricularse";
 $_lang['_footer_p_CourseManager'] = "Xestor(es) para %s";
 $_lang['_p_platformManager'] = "Administrador para %s";
+$_lang['importLearningPath'] = "Importar unha secuencia de aprendizaxe";
 ?>

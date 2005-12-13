@@ -109,6 +109,7 @@ $_lang['PoweredBy'] = "Movido por";
 $_lang['PreventLateUpload'] = "Não, previne que usuários enviem trabalhos após a data limite.";
 $_lang['PrivateFeedback'] = "Notificação privada";
 $_lang['Required'] = "Requirido";
+$_lang['Root'] = "raiz";
 $_lang['Score'] = "Pontuação";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Tamanho";

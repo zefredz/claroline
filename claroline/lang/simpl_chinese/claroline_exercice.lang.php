@@ -168,6 +168,7 @@ $_lang['ReplaceAttachedFile'] = "替代附件";
 $_lang['Required'] = "必需";
 $_lang['Result'] = "分数";
 $_lang['Reuse'] = "重新使用";
+$_lang['Root'] = "根目录";
 $_lang['Score'] = "得分";
 $_lang['SecondShort'] = "sec.";
 $_lang['SequentialExercise'] = "一页一个问题 (连续)";

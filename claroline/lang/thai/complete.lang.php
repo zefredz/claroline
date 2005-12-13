@@ -297,6 +297,7 @@ $_lang['Student'] = "นักศึกษา";
 $_lang['SupportForum'] = "กระดานข่าวสนับสนุน";
 $_lang['TargetFac'] = "";
 $_lang['TestForum'] = "กระดานข่าวทดสอบ";
+$_lang['TheU'] = "นักศึกษา";
 $_lang['Title'] = "ชื่อวิชา";
 $_lang['Titular'] = "นักศึกษา";
 $_lang['To'] = "ไปยัง";

@@ -52,6 +52,7 @@ $_lang['PlatformAdministration'] = "Administiranje";
 $_lang['PoweredBy'] = "Powered by";
 $_lang['Previous'] = "Prethodno";
 $_lang['QuitViewer'] = "Natrag na popis";
+$_lang['Root'] = "vršna kategorija";
 $_lang['SecondShort'] = "s";
 $_lang['Size'] = "Veličina";
 $_lang['Student'] = "Korisnik";

@@ -65,6 +65,7 @@ $_lang['_footer_p_CourseManager'] = "Administrador(es) para %s";
 $_lang['_p_platformManager'] = "Adiministrador para %s";
 $_lang['author'] = "Autor";
 $_lang['body'] = "Corpo da Menssagem";
+$_lang['catcreated'] = "A nova categoria foi criada.";
 $_lang['click'] = "Clique";
 $_lang['delete'] = "Apagar esta Postagem";
 $_lang['deleted'] = "Sua Postagem foi apagada.";

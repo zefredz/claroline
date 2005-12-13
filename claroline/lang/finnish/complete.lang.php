@@ -217,6 +217,7 @@ $_lang['Status'] = "Tilanne";
 $_lang['Student'] = "Opiskelija";
 $_lang['TargetFac'] = "Kurssista vastaava koulutusala: ";
 $_lang['TestForum'] = "testifoorumi";
+$_lang['TheU'] = "Käyttäjä";
 $_lang['TipLang'] = "Tämä kieli on pätee kaikille kurssin sivuston kävijöille.";
 $_lang['Title'] = "Otsikko";
 $_lang['To'] = "Hakemistoon";

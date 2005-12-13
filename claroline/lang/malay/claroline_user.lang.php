@@ -2,6 +2,7 @@
 $_lang['Action'] = "Tindakan";
 $_lang['AddAU'] = "Tambah Ahli";
 $_lang['AddNewHeading'] = "Tambah Tajuk Utama baru";
+$_lang['AddedToCourse'] = "telah didaftarkan dalam Subjek anda";
 $_lang['Address'] = "Alamat ";
 $_lang['Agenda'] = "Agenda";
 $_lang['Announcement'] = "Pengumuman";
@@ -69,6 +70,7 @@ $_lang['Role'] = "Peranan";
 $_lang['Settings'] = "dengan maklumat seperti beriku:
 Username:";
 $_lang['Student'] = "Pelajar";
+$_lang['TheU'] = "Pengguna";
 $_lang['To'] = "ke";
 $_lang['Tracking'] = "Pengesanan";
 $_lang['Unreg'] = "Gugurkan Pelajar";

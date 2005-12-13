@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "平台管理";
 $_lang['PoweredBy'] = "技术支持";
 $_lang['Publish'] = "发布";
 $_lang['Rename'] = "更名";
+$_lang['Root'] = "根目录";
 $_lang['Search'] = "搜索";
 $_lang['SearchResult'] = "搜索结果";
 $_lang['SecondShort'] = "sec.";

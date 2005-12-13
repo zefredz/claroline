@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Manager(s) di %s";
 $_lang['_p_platformManager'] = "Amministratore di %s";
 $_lang['author'] = "Autore";
 $_lang['body'] = "Testo del messaggio";
+$_lang['catcreated'] = "La nuova categoria è stata creata.";
 $_lang['click'] = "Clicca";
 $_lang['delete'] = "Cancella questo messaggio";
 $_lang['deleted'] = "Il tuo messaggio &egrave; stato cancellato.";

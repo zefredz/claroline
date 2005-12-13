@@ -2,6 +2,7 @@
 $_lang['Action'] = "Utför";
 $_lang['AddAU'] = "Lägg till en användare";
 $_lang['AddNewHeading'] = "Lägg till ny rubrik";
+$_lang['AddedToCourse'] = "är redan registrerad till campus men inte i denna kurs. Ordnar detta nu.";
 $_lang['Address'] = "Adressen till ";
 $_lang['Agenda'] = "Agenda";
 $_lang['Announcement'] = "Tillkännagivanden";
@@ -69,6 +70,7 @@ $_lang['Role'] = "Roll";
 $_lang['Settings'] = "med följande inställningar:
 Användarnamn:";
 $_lang['Student'] = "elev";
+$_lang['TheU'] = "Användaren";
 $_lang['To'] = "till";
 $_lang['Tracking'] = "Spårning";
 $_lang['Unreg'] = "Avregistrera";

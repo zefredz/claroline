@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Pengelola %s";
 $_lang['_p_platformManager'] = "Administrator untuk %s";
 $_lang['author'] = "Pengarang";
 $_lang['body'] = "Tubuh pesan";
+$_lang['catcreated'] = "Kategori baru telah dibuat.";
 $_lang['click'] = "klik";
 $_lang['delete'] = "Hapus pesan ini";
 $_lang['deleted'] = "Kiriman anda telah dihapus.";

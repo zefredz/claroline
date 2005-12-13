@@ -16,6 +16,10 @@ $_lang['AlreadyBrowsed'] = "Már járt itt";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Dokumentum";
 $_lang['AltExercise'] = "Gyakorlat";
+$_lang['AltMakeNotBlocking'] = "Felold";
+$_lang['AltMakeVisible'] = "Láthatóvá tesz";
+$_lang['AltMove'] = "Átmozgat";
+$_lang['AltMoveUp'] = "Felfelé";
 $_lang['AltScorm'] = "SCORM";
 $_lang['Announcement'] = "Hirdetmények";
 $_lang['AreYouSureDeleteModule'] = "Biztos abban, hogy törli a modult?
@@ -191,4 +195,5 @@ $_lang['ZipNoPhp'] = "A zip fájl nem tartalmazhat .php scriptet";
 $_lang['_enroll'] = "Bejelentkezik";
 $_lang['_footer_p_CourseManager'] = "%s vezetõje";
 $_lang['_p_platformManager'] = "%s adminisztrátora";
+$_lang['importLearningPath'] = "Tanösvény importálása";
 ?>

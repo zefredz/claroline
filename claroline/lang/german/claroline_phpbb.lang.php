@@ -95,6 +95,7 @@ $_lang['_footer_p_CourseManager'] = "Verantwortliche(r) f&uuml;r %s";
 $_lang['_p_platformManager'] = "Administrator von %s";
 $_lang['author'] = "Autor";
 $_lang['body'] = "Inhalt des Postings";
+$_lang['catcreated'] = "Die neue Kategorie wurde erfolgreich angelegt.";
 $_lang['click'] = "Klicken Sie";
 $_lang['delete'] = "Dieses Posting l&ouml;schen";
 $_lang['deleted'] = "Ihr Posting wurde gel&ouml;scht.";

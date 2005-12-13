@@ -8,6 +8,10 @@ $_lang['AlreadyBrowsed'] = "Вече разгледано";
 $_lang['AltClarodoc'] = "Клародок";
 $_lang['AltDocument'] = "Документ";
 $_lang['AltExercise'] = "Упражнение";
+$_lang['AltMakeNotBlocking'] = "Разблокирай";
+$_lang['AltMakeVisible'] = "Направи видимо";
+$_lang['AltMove'] = "Премести";
+$_lang['AltMoveUp'] = "Подреди";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Обяви";
 $_lang['AreYouSureDeleteModule'] = "Сигурни ли сте за изтриване на целия модул?
@@ -126,4 +130,5 @@ $_lang['YourBestScore'] = "Твоето най-добро изпълнение";
 $_lang['ZipNoPhp'] = "Zip архивът не бива да съдържа PHP файлове";
 $_lang['_footer_p_CourseManager'] = "Водещ на курс %s е";
 $_lang['_p_platformManager'] = "Администратор на %s";
+$_lang['importLearningPath'] = "Импорт на обучителна пътека";
 ?>

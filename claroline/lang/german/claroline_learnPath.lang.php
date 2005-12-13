@@ -18,6 +18,10 @@ $_lang['AlreadyBrowsed'] = "Bereits durchgesehen";
 $_lang['AltClarodoc'] = "Systemdokument";
 $_lang['AltDocument'] = "Dokument";
 $_lang['AltExercise'] = "Test";
+$_lang['AltMakeNotBlocking'] = "Freischalten";
+$_lang['AltMakeVisible'] = "Sichtbar machen";
+$_lang['AltMove'] = "Verschieben";
+$_lang['AltMoveUp'] = "Nach oben schieben";
 $_lang['AltScorm'] = "SCORM";
 $_lang['Announcement'] = "Ankündigungen";
 $_lang['AreYouSureDeleteModule'] = "Wollen Sie dieses Modul endgültig löschen ?
@@ -197,4 +201,5 @@ $_lang['ZipNoPhp'] = "Die zip-Datei darf keine .PHP-Dateien enthalten";
 $_lang['_enroll'] = "Anmeldung";
 $_lang['_footer_p_CourseManager'] = "Verantwortliche(r) f&uuml;r %s";
 $_lang['_p_platformManager'] = "Administrator von %s";
+$_lang['importLearningPath'] = "Einen Lernpfad importieren";
 ?>

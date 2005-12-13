@@ -55,6 +55,7 @@ $_lang['PlatformAdministration'] = "Rendszer Adminisztráció";
 $_lang['PoweredBy'] = "Fejlesztõ:";
 $_lang['Previous'] = "Elõzõ";
 $_lang['QuitViewer'] = "Vissza a listához";
+$_lang['Root'] = "root/gyökér";
 $_lang['SecondShort'] = "m.p.";
 $_lang['Size'] = "Méret";
 $_lang['Student'] = "Hallgató";

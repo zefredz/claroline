@@ -55,6 +55,7 @@ $_lang['PlatformAdministration'] = "System-Administration";
 $_lang['PoweredBy'] = "Powered by";
 $_lang['Previous'] = "zurück";
 $_lang['QuitViewer'] = "Zurück zur Übersicht";
+$_lang['Root'] = "root";
 $_lang['SecondShort'] = "sec.";
 $_lang['Size'] = "Größe";
 $_lang['Student'] = "Teilnehmer";

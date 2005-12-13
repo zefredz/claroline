@@ -60,6 +60,7 @@ $_lang['PlatformAdministration'] = "Administrasi Platform";
 $_lang['PoweredBy'] = "Diperkuat oleh";
 $_lang['Previous'] = "Sebelumnya";
 $_lang['QuitViewer'] = "Kembali ke daftar";
+$_lang['Root'] = "root";
 $_lang['SecondShort'] = "detik";
 $_lang['Size'] = "Ukuran";
 $_lang['Student'] = "mahasiswa";

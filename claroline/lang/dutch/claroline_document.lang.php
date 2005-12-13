@@ -65,6 +65,7 @@ $_lang['PlatformAdministration'] = "Platform beheer";
 $_lang['PoweredBy'] = " gebruikt het platform";
 $_lang['Publish'] = "Publiceren";
 $_lang['Rename'] = "Hernoemen";
+$_lang['Root'] = "basis";
 $_lang['Search'] = "Zoeken";
 $_lang['SearchResult'] = "Resultaat zoekbewerking";
 $_lang['SecondShort'] = "sec.";

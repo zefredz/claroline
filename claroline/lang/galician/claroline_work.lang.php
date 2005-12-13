@@ -121,6 +121,7 @@ $_lang['PoweredBy'] = "Emprega a plataforma";
 $_lang['PreventLateUpload'] = "Non, previr que os usuarios envien os seus traballos despois da data l&iacute;mite de entrega";
 $_lang['PrivateFeedback'] = "Resoluci&oacute;n privada";
 $_lang['Required'] = "Requirido";
+$_lang['Root'] = "ra&iacute;z";
 $_lang['Score'] = "Puntuaci&oacute;n";
 $_lang['SecondShort'] = "seg.";
 $_lang['Size'] = "Tama&ntilde;o";

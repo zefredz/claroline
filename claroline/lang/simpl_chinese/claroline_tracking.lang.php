@@ -145,6 +145,7 @@ $_lang['PreviousYear'] = "上一年";
 $_lang['Progress'] = "进展状况";
 $_lang['Question'] = "问题";
 $_lang['QuestionTitle'] = "问题标题";
+$_lang['Root'] = "根目录";
 $_lang['Score'] = "得分";
 $_lang['ScoreAvg'] = "平均";
 $_lang['ScoreMax'] = "最大";

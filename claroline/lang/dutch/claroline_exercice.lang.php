@@ -166,6 +166,7 @@ $_lang['ReplaceAttachedFile'] = "Vervang aangehecht bestand";
 $_lang['Required'] = "Vereist";
 $_lang['Result'] = "Resultaat";
 $_lang['Reuse'] = "Hergebruik";
+$_lang['Root'] = "basis";
 $_lang['Score'] = "Score";
 $_lang['SecondShort'] = "sec.";
 $_lang['SequentialExercise'] = "E&eacute;n vraag per pagina (sequentieel)";

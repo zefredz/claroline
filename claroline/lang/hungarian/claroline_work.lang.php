@@ -113,6 +113,7 @@ $_lang['PoweredBy'] = "Fejlesztõ:";
 $_lang['PreventLateUpload'] = "Nem, akadályozza meg, hogy a felhasználók munkát adjanak be a zárási dátum után";
 $_lang['PrivateFeedback'] = "Személyes visszacsatolás";
 $_lang['Required'] = "Kötelezõ";
+$_lang['Root'] = "root/gyökér";
 $_lang['Score'] = "Eredmény";
 $_lang['SecondShort'] = "m.p.";
 $_lang['Size'] = "Méret";

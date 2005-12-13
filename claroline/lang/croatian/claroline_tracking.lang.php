@@ -137,6 +137,7 @@ $_lang['PreviousYear'] = "Prethodna godina";
 $_lang['Progress'] = "Napredak";
 $_lang['Question'] = "Pitanje";
 $_lang['QuestionTitle'] = "Naslov pitanja";
+$_lang['Root'] = "vršna kategorija";
 $_lang['Score'] = "Ocjena";
 $_lang['ScoreAvg'] = "Prosječno bodova";
 $_lang['ScoreMax'] = "Maksimum";

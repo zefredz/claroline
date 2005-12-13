@@ -75,6 +75,7 @@ $_lang['_footer_p_CourseManager'] = "Водещ на курс %s е";
 $_lang['_p_platformManager'] = "Администратор на %s";
 $_lang['author'] = "Автор";
 $_lang['body'] = "Съобщение Body";
+$_lang['catcreated'] = "Новата категория е саздадена.";
 $_lang['click'] = "Натисни";
 $_lang['delete'] = "Изтрий този запис";
 $_lang['deleted'] = "Вашата Обява е изтрита.";

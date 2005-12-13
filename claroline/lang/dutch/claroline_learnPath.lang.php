@@ -10,6 +10,10 @@ $_lang['AlreadyBrowsed'] = "U hebt dit reeds bekeken";
 $_lang['AltClarodoc'] = "Clarodoc";
 $_lang['AltDocument'] = "Document";
 $_lang['AltExercise'] = "Oefening";
+$_lang['AltMakeNotBlocking'] = "Niet-blokkerend";
+$_lang['AltMakeVisible'] = "Zichtbaar maken";
+$_lang['AltMove'] = "Verplaatsen";
+$_lang['AltMoveUp'] = "Opgaand sorteren";
 $_lang['AltScorm'] = "Scorm";
 $_lang['Announcement'] = "Ad Valvas";
 $_lang['AreYouSureDeleteModule'] = "bent U zeker dat U deze module compleet wil verwijderen ?<br/>Het zal permanent van de server verwijderd worden, en van elk leerpad waar het deel van uitmaakt.<br/>U zal het niet meer kunnen gebruiken in een leerpad. <br />Bevestig verwijderen van : ";
@@ -182,4 +186,5 @@ $_lang['ZipNoPhp'] = "Het ZIP bestand mag geen php-bestanden bevatten";
 $_lang['_enroll'] = "Inschrijven";
 $_lang['_footer_p_CourseManager'] = "Beheerder(s) voor %s";
 $_lang['_p_platformManager'] = "Beheerder voor %s";
+$_lang['importLearningPath'] = "Importeer een leerpad";
 ?>

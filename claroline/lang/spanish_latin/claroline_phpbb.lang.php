@@ -65,6 +65,7 @@ $_lang['_enroll'] = "Inscribirse";
 $_lang['_footer_p_CourseManager'] = "Administrado por %s";
 $_lang['_p_platformManager'] = "Administrado por %s";
 $_lang['author'] = "Autor";
+$_lang['catcreated'] = "La nueva categoría ha sido creada.";
 $_lang['click'] = "Hacer click";
 $_lang['delete'] = "Borrar el mensaje";
 $_lang['deleted'] = "Su Enviar mensaje ha sido borrado.";
