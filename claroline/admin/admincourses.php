@@ -67,38 +67,34 @@ $nameTools = get_lang('CourseList');
 
 // clean session if needed from  previous search
 
-if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch']=='yes')
+if ( isset($_REQUEST['newsearch']) && $_REQUEST['newsearch']=='yes')
 {
-    unset($_SESSION['admin_course_code']);
-    unset($_SESSION['admin_course_letter']);
-    unset($_SESSION['admin_course_intitule']);
-    unset($_SESSION['admin_course_category']);
-    unset($_SESSION['admin_course_language']);
-    unset($_SESSION['admin_course_access']);
+    unset($_SESSION['admin_course_code'        ]);
+    unset($_SESSION['admin_course_letter'      ]);
+    unset($_SESSION['admin_course_intitule'    ]);
+    unset($_SESSION['admin_course_category'    ]);
+    unset($_SESSION['admin_course_language'    ]);
+    unset($_SESSION['admin_course_access'      ]);
     unset($_SESSION['admin_course_subscription']);
-    unset($_SESSION['admin_course_dir']);
-    unset($_SESSION['admin_course_order_crit']);
 }
 
-if (isset($_REQUEST['code']))    {$_SESSION['admin_course_code']         = trim($_REQUEST['code']);}
-if (isset($_REQUEST['letter']))  {$_SESSION['admin_course_letter']       = trim($_REQUEST['letter']);}
-if (isset($_REQUEST['search']))  {$_SESSION['admin_course_search']       = trim($_REQUEST['search']);}
-if (isset($_REQUEST['intitule'])){$_SESSION['admin_course_intitule']     = trim($_REQUEST['intitule']);}
-if (isset($_REQUEST['category'])){$_SESSION['admin_course_category']     = trim($_REQUEST['category']);}
-if (isset($_REQUEST['language'])){$_SESSION['admin_course_language']     = trim($_REQUEST['language']);}
-if (isset($_REQUEST['access']))  {$_SESSION['admin_course_access']       = trim($_REQUEST['access']);}
-if (isset($_REQUEST['subscription']))
-                                 {$_SESSION['admin_course_subscription'] = trim($_REQUEST['subscription']);}
-if (isset($_REQUEST['order_crit']))
-                                 {$_SESSION['admin_course_order_crit']   = trim($_REQUEST['order_crit']) ;}
-if (isset($_REQUEST['dir']))     {$_SESSION['admin_course_dir']          = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
-if (isset($_REQUEST['search']))  {$search = $_REQUEST['search'];} else $search='';
+if (isset($_REQUEST['code'        ])) $_SESSION['admin_course_code'    ] = trim($_REQUEST['code'    ]);
+if (isset($_REQUEST['letter'      ])) $_SESSION['admin_course_letter'  ] = trim($_REQUEST['letter'  ]);
+if (isset($_REQUEST['search'      ])) $_SESSION['admin_course_search'  ] = trim($_REQUEST['search'  ]);
+if (isset($_REQUEST['intitule'    ])) $_SESSION['admin_course_intitule'] = trim($_REQUEST['intitule']);
+if (isset($_REQUEST['category'    ])) $_SESSION['admin_course_category'] = trim($_REQUEST['category']);
+if (isset($_REQUEST['language'    ])) $_SESSION['admin_course_language'] = trim($_REQUEST['language']);
+if (isset($_REQUEST['access'      ])) $_SESSION['admin_course_access'  ] = trim($_REQUEST['access'  ]);
+if (isset($_REQUEST['subscription'])) $_SESSION['admin_course_subscription'] = trim($_REQUEST['subscription']);
+
+if (isset($_REQUEST['search']))  $search = $_REQUEST['search'];
+else                             $search='';
 
 //set the reorder parameters for colomuns titles
 
-if (!isset($order['code']))    $order['code']   = '';
-if (!isset($order['label']))   $order['label']  = '';
-if (!isset($order['cat']))     $order['cat']    = '';
+if (!isset($order['code' ])) $order['code']   = '';
+if (!isset($order['label'])) $order['label']  = '';
+if (!isset($order['cat'  ])) $order['cat']    = '';
 
 // Set parameters to add to URL to know where we come from and what options will be given to the user
 
@@ -122,9 +118,8 @@ if (!isset($cfrom) || $cfrom!='clist') //offset not kept when come from another 
 // EXECUTE COMMAND
 //----------------------------------
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
+if (isset($_REQUEST['cmd'])) $cmd = $_REQUEST['cmd'];
+else                         $cmd = null;
 
 switch ($cmd)
 {
@@ -260,27 +255,16 @@ if (isset($_SESSION['admin_course_subscription']))   // type of subscription all
 }
     $sql.=' GROUP BY C.code';
 
-// deal with REORDER
-if (isset($_SESSION['admin_course_order_crit']))
-{
-    switch ($_SESSION['admin_course_order_crit'])
-    {
-        case 'code'    : $fieldSort = 'fake_code'; break;
-        case 'label'   : $fieldSort = 'intitule';  break;
-        case 'cat'     : $fieldSort = 'faculte';   break;
-        case 'titular' : $fieldSort = 'titulaire'; break;
-        case 'email'   : $fieldSort = 'email';
-    }
-    $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_course_dir'];
-    $order[$_SESSION['admin_course_order_crit']] = ($_SESSION['admin_course_dir']=='ASC'?'DESC':'ASC');
-    $sql.=$toAdd;
-}
 
-//echo $sql."<br />";
-
-//USE PAGER
+// USE PAGER
 
 $myPager = new claro_sql_pager($sql, $offsetC, $coursePerPage);
+
+$sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'officialCode';
+$sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
+
+$myPager->set_sort($sortKey, $sortDir);
+
 $myPager->set_pager_call_param_name('offsetC');
 $resultList = $myPager->get_result_list();
 
@@ -416,39 +400,24 @@ echo "\n".'<table width="100%">'."\n\n"
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
+$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
 // display list
 
-echo "\n\n".'<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
-.    '<thead>'."\n"
-.    '<tr class="headerX" align="center" valign="top">'."\n"
+echo                                                         "\n\n"
+.    '<table class="claroTable emphaseLine" width="100%" >'. "\n\n"
 
+.    '<thead>'                                             . "\n"
+.    '<tr class="headerX" align="center" valign="top">'    . "\n"
+.    '<th><a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Code')        . '</a></th>'."\n"
+.    '<th><a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('CourseTitle') . '</a></th>'."\n"
+.    '<th><a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a></th>'."\n"
 
-//add titles for the table
-.    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '">'
-.    get_lang('Code')
-.    '</a>'
-.    '</th>'."\n"
-
-.    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '">'
-.    get_lang('CourseTitle')
-.    '</a>'
-.    '</th>'."\n"
-
-.    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cat&amp;dir=' . $order['cat'] . '">'
-.    get_lang('Category')
-.    '</a>'
-.    '</th>'."\n"
-
-.    '<th>' . get_lang('AllUsersOfThisCourse') . '</th>'."\n"
-.    '<th>' . get_lang('CourseSettings') . '</th>'."\n"
-.    '<th>' . get_lang('Delete') . '</th>'."\n"
-.    '</tr>'."\n"
+.    '<th>' . get_lang('AllUsersOfThisCourse'). '</th>' . "\n"
+.    '<th>' . get_lang('CourseSettings')      . '</th>' . "\n"
+.    '<th>' . get_lang('Delete')              . '</th>' . "\n"
+.    '</tr>'                                            . "\n"
 .    '</thead>' . "\n\n"
-
-// Display list of the course of the user :
 
 .    '<tbody>' ."\n\n"
 ;
