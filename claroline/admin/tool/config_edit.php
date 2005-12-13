@@ -189,8 +189,8 @@ else
                                                                , $config_name
                                                                , $config_code
                                                                );
-                                $controlMsg['debug'][] = get_lang('File generated for') . ' <b>' . $config_name . '</b> ' . get_lang('is') . ' <em>' . $conf_file . '</em><br />' . "\n"
-                                                       . get_lang('Signature') . ' : <tt>' . $conf_hash . '</tt>';
+                                $controlMsg['debug'][] = 'File generated for' . ' <b>' . $config_name . '</b> ' . 'is' . ' <em>' . $conf_file . '</em><br />' . "\n"
+                                                       . 'Signature' . ' : <tt>' . $conf_hash . '</tt>';
                             }
                         }
                         else
