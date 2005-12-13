@@ -25,7 +25,7 @@ if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('NotAllowed'));
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
-$nameTools = $langimportLearningPath;
+$nameTools = get_lang('importLearningPath');
 
 //header
 include($includePath."/claro_init_header.inc.php");
@@ -482,7 +482,7 @@ function utf8_decode_if_is_utf8($str) {
 
 // main page
 
-echo claro_disp_tool_title($langimportLearningPath);
+echo claro_disp_tool_title(get_lang('importLearningPath'));
 
 // init msg arays
 $okMsgs   = array();

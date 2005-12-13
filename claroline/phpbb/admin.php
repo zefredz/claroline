@@ -32,7 +32,7 @@ if ( $cmd == 'exMkCat' )
 	{
         if ( create_category( trim($_REQUEST['catName']) ) )
     	{
-    	   $dialogBox .= '<p>'.$langcatcreated.'</p>'."\n";
+    	   $dialogBox .= '<p>'. get_lang('catcreated') .'</p>'."\n";
     	}
     	else
     	{

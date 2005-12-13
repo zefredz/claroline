@@ -471,7 +471,7 @@ case "stepone" :
 
 case "steptwo" :
     
-    echo "<b>". sizeof($usersToAdd) . " get_lang('NewUsersIn') </b> <br><br>";
+    echo "<b>". sizeof($usersToAdd) . " " . get_lang('NewUsersIn') . "</b> <br><br>";
 
     foreach ($usersToAdd as $user)
     {
@@ -481,15 +481,15 @@ case "steptwo" :
        switch ($AddType)
        {
           case "adminTool":
-              echo $user['firstname']." ".$user['lastname']." get_lang('AddedToCampus') <br>";
+              echo $user['firstname']." ".$user['lastname']." " . get_lang('AddedToCampus') ."<br>";
           break;
         
           case "adminClassTool":
-              echo $user['firstname']." ".$user['lastname']." get_lang('AddedToCampusAndClass') <br>";
+              echo $user['firstname']." ".$user['lastname']." " . get_lang('AddedToCampusAndClass') . "<br>";
           break;
         
           case "userTool":
-              echo $user['firstname']." ".$user['lastname']." get_lang('AddedToCampusAndCourse') <br>";
+              echo $user['firstname']." ".$user['lastname']." " . get_lang('AddedToCampusAndCourse') . "<br>";
           break;
        } 
     }
@@ -499,15 +499,15 @@ case "steptwo" :
    switch ($AddType)
    {
       case "adminTool":
-          echo "<br><a href=\"../admin/adminusers.php\">&gt;&gt; get_lang('CSVSeeUserList')</a>";
+          echo "<br><a href=\"../admin/adminusers.php\">&gt;&gt; " . get_lang('CSVSeeUserList') . "</a>";
       break;
         
       case "adminClassTool":
-          echo "<br><a href=\"../admin/admin_class.php\">&gt;&gt; get_lang('BackToClassList')</a>";
+          echo "<br><a href=\"../admin/admin_class.php\">&gt;&gt; " . get_lang('BackToClassList') . "</a>";
       break;
       
       case "userTool":
-          echo "<br><a href=\"user.php\">&gt;&gt; get_lang('BackToUserList')</a>";
+          echo "<br><a href=\"user.php\">&gt;&gt; " . get_lang('BackToUserList'). "</a>";
       break;
   }
     break;

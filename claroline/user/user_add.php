@@ -179,7 +179,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
     }
 
     // display message     
-    $messageList[]= sprintf("get_lang('TheU') %s %s get_lang('AddedToCourse').",$user_data['firstname'],$user_data['lastname']);
+    $messageList[]= sprintf(get_lang('TheU') . " %s %s " . get_lang('AddedToCourse'),$user_data['firstname'],$user_data['lastname']);
 }
 
 /*=====================================================================

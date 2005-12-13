@@ -61,7 +61,7 @@ switch ($cmd)
       
   // subscribe a class to the course    
   case "subscribe" :           
-    $dialogBox = "<b>Class ".$_REQUEST['classname']." get_lang('HasBeenEnrolled') </b><br />";
+    $dialogBox = "<b>Class ".$_REQUEST['classname']. " " . get_lang('HasBeenEnrolled') . "</b><br />";
     $sql = " SELECT U.`user_id`,
                     U.`nom` as `lastname` , 
         		    U.`prenom` as `firstname` , 
@@ -83,17 +83,17 @@ switch ($cmd)
             // send mail to user
             user_send_enroll_to_course_mail ($user_id, $user);
             // add message 
-	        $dialogBox .= $user['firstname']." ".$user['lastname']." get_lang('IsNowRegistered')<br />";
+	        $dialogBox .= $user['firstname']." ".$user['lastname']. " " . get_lang('IsNowRegistered') . "<br />";
         }
     	else
 	    {
             switch (claro_failure::get_last_failure())
             {
                 case 'already_enrolled_in_course' : 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." get_lang('IsAlreadyRegistered')<br />";
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." " . get_lang('IsAlreadyRegistered') . "<br />";
                     break;
         	    default: 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." get_lang('UnableToEnrollInCourse')<br />";
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." " . get_lang('UnableToEnrollInCourse') . "<br />";
             }            
         }
     }
