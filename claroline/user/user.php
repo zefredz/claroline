@@ -164,9 +164,7 @@ $sqlNbUser = "SELECT count(user_id) `nb_users`
               FROM `" . $tbl_rel_course_user . "` `cours_user`
               WHERE `cours_user`.`code_cours` = '" . addslashes($currentCourseID) . "'";
 
-$userTotalNb = claro_sql_query_fetch_all($sqlNbUser);
-
-$userTotalNb = $userTotalNb[0]['nb_users'];
+$userTotalNb = claro_sql_query_get_single_value($sqlNbUser);
 
 /*----------------------------------------------------------------------
    Get User List
@@ -193,7 +191,7 @@ else
     $offset = $_REQUEST['offset'];
 }
 
-$myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
+$myPager  = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 $userList = $myPager->get_result_list();
 
 /*----------------------------------------------------------------------
