@@ -45,7 +45,7 @@ CLAROLINE MAIN SETTINGS
 require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
 if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
 include_once $includePath . '/lib/claro_mail.lib.inc.php';
 

@@ -31,7 +31,7 @@
         }
         else
         {
-            claro_die(get_lang('NotAllowed'));
+            claro_die(get_lang('Not allowed'));
         }
     }*/
     
@@ -60,7 +60,7 @@
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
-        claro_die(get_lang('NotAllowed'));
+        claro_die(get_lang('Not allowed'));
     }
     elseif ( $is_courseAllowed )
     {

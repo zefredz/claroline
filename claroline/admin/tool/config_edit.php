@@ -64,7 +64,7 @@ require '../../inc/claro_init_global.inc.php';
 $controlMsg = array();
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries

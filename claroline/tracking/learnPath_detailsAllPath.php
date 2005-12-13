@@ -21,7 +21,7 @@
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 

@@ -237,7 +237,7 @@ if( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ) && $is_tracking
 else
 {
     if(!$is_trackingEnabled) echo get_lang('TrackingDisabled');
-    else                     echo get_lang('NotAllowed');
+    else                     echo get_lang('Not allowed');
 }
 
 include $includePath . '/claro_init_footer.inc.php';

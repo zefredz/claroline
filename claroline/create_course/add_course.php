@@ -31,7 +31,7 @@ define('DISP_COURSE_CREATION_PROGRESS' ,__LINE__);
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_uid )                   claro_disp_auth_form();
-if ( ! $is_allowedCreateCourse ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_allowedCreateCourse ) claro_die(get_lang('Not allowed'));
 
 include $includePath . '/conf/course_main.conf.php';
 require_once $includePath . '/lib/add_course.lib.inc.php';

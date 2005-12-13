@@ -29,7 +29,7 @@ include_once $includePath . '/conf/user_profile.conf.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $iconForCuStatus['STUDENT']        = 'user.gif';
 $iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';

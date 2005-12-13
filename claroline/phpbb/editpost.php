@@ -95,7 +95,7 @@ if ( $postSettingList && $is_allowedToEdit )
         // forum and the group of the concerned forum isn't the same as the session 
         // one, something weird is happening, indeed ...
         $allowed = false;
-        $error_message = get_lang('NotAllowed') ;
+        $error_message = get_lang('Not allowed') ;
     } 
     else 
     {
@@ -177,7 +177,7 @@ else
 {
     // post doesn't exist or not allowed to edit post
     $allowed = FALSE;
-    $error_message = get_lang('NotAllowed');
+    $error_message = get_lang('Not allowed');
 }
 
 /*=================================================================

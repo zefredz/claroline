@@ -29,7 +29,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 include $includePath . '/lib/debug.lib.inc.php';
 include $includePath . '/lib/course.lib.inc.php';

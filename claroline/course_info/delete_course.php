@@ -27,7 +27,7 @@ $isAllowedToDelete = $is_courseAdmin;
 
 if ( ! $isAllowedToDelete )
 {
-    claro_die(get_lang('NotAllowed'));
+    claro_die(get_lang('Not allowed'));
 }
 
 include($includePath . '/lib/fileManage.lib.php');

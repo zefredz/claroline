@@ -25,7 +25,7 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 // check user right
 if ( ! $is_courseAdmin )
 {
-    claro_die(get_lang('NotAllowed'));
+    claro_die(get_lang('Not allowed'));
 }
 
 $nameTools = get_lang('GroupProperties');

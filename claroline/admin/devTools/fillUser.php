@@ -23,7 +23,7 @@ require '../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 DEFINE('DISP_RESULT_INSERT'        , __LINE__);
 DEFINE('DISP_FORM_SET_OPTION'    , __LINE__);

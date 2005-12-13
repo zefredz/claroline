@@ -355,7 +355,7 @@ echo $myPager->disp_pager_tool_bar($pagerTarget);
 // if not admin of course
 else
 {
-	echo get_lang('NotAllowed');
+	echo get_lang('Not allowed');
 }
 include($includePath.'/claro_init_footer.inc.php');
 ?>

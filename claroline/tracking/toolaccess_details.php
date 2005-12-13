@@ -198,7 +198,7 @@ else // not allowed to track
     }
     else
     {
-        echo get_lang('NotAllowed');
+        echo get_lang('Not allowed');
     }
 }
     

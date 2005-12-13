@@ -101,7 +101,7 @@ elseif ( $topicSettingList )
         // forum and the group of the concerned forum isn't the same as the session 
         // one, something weird is happening, indeed ...
         $allowed = FALSE;
-        $error_message = get_lang('NotAllowed') ;
+        $error_message = get_lang('Not allowed') ;
     }
 
     if ( isset($_REQUEST['submit']) )
@@ -135,7 +135,7 @@ else
 {
     // topic doesn't exist
     $error = 1;
-    $error_message = get_lang('NotAllowed');
+    $error_message = get_lang('Not allowed');
 }
 
 /*=================================================================

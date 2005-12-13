@@ -11,7 +11,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/statsUtils.lib.inc.php';
 $tbl_mdb_names             = claro_sql_get_main_tbl();
@@ -196,7 +196,7 @@ echo claro_disp_tool_title(
         }
         else
         {
-            echo get_lang('NotAllowed');
+            echo get_lang('Not allowed');
         }
     }
 

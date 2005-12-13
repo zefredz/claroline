@@ -29,7 +29,7 @@ require '../inc/claro_init_global.inc.php';
 
 // check if user is logged as administrator
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 include_once $includePath . '/lib/debug.lib.inc.php';
 include_once $includePath . '/lib/course.lib.inc.php';

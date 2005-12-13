@@ -114,7 +114,7 @@ if (!empty($_REQUEST['exerciseId']))     $exerciseId      = $_REQUEST['exerciseI
 
 if(!$is_allowedToEdit)
 {
-    die(get_lang('NotAllowed'));
+    die(get_lang('Not allowed'));
 }
 
 // intializes the Exercise object

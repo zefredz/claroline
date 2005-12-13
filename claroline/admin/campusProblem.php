@@ -20,7 +20,7 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
@@ -316,7 +316,7 @@ else // not allowed to track
     }
     else
     {
-        echo get_lang('NotAllowed');
+        echo get_lang('Not allowed');
     }
 }
 

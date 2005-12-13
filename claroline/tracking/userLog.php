@@ -722,7 +722,7 @@ else
     }
     else
     {
-        echo get_lang('NotAllowed');
+        echo get_lang('Not allowed');
     }
 }
 include($includePath."/claro_init_footer.inc.php");

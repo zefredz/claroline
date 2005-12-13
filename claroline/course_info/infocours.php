@@ -27,7 +27,7 @@ $is_allowedToEdit = $is_courseAdmin;
 
 if ( ! $is_allowedToEdit )
 {
-    claro_die(get_lang('NotAllowed'));
+    claro_die(get_lang('Not allowed'));
 }
 
 include_once $includePath . '/lib/auth.lib.inc.php';

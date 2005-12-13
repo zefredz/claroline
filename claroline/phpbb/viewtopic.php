@@ -87,7 +87,7 @@ if ($topicSettingList)
         && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
     {   
         $allowed = FALSE;
-        $error_message = get_lang('NotAllowed');
+        $error_message = get_lang('Not allowed');
 	}
     else
     {
@@ -150,7 +150,7 @@ else
 {
     // forum or topic doesn't exist
     $allowed = false;
-    $error_message = get_lang('NotAllowed');
+    $error_message = get_lang('Not allowed');
 }
 
 if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop

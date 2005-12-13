@@ -31,7 +31,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 $is_AllowedToEdit = $is_courseAdmin;
 
-if ( ! $is_AllowedToEdit ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));

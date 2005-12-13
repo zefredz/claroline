@@ -27,7 +27,7 @@ $is_allowedToManage = $is_courseAdmin;
 
 if ( ! $is_allowedToManage ) 
 {
-    claro_die(get_lang('NotAllowed'));
+    claro_die(get_lang('Not allowed'));
 }
 
 $nameTools = get_lang('EditGroup');

@@ -82,7 +82,7 @@ if ( $forumSettingList )
     {
         // user are not allowed to see topics of this group
         $forumAllowed       = false;
-        $error_message = get_lang('NotAllowed');
+        $error_message = get_lang('Not allowed');
     }
 
     if ( $forumAllowed )
@@ -100,7 +100,7 @@ else
     $forumAllowed       = false;
     $forum_post_allowed = false;
     $$forum_cat_id      = null;
-    $error_message      = get_lang('NotAllowed');
+    $error_message      = get_lang('Not allowed');
 }
 
 /*=================================================================

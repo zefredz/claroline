@@ -18,7 +18,7 @@ require '../inc/claro_init_global.inc.php';
 //SECURITY CHECK
 
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('NotAllowed'));
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 

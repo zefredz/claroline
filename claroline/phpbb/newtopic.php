@@ -104,7 +104,7 @@ elseif ( $forumSettingList )
 	    // forum and the group of the concerned forum isn't the same as the session 
 	    // one, something weird is happening, indeed ...
 	    $allowed = FALSE;
-        $error_message = get_lang('NotAllowed') ;
+        $error_message = get_lang('Not allowed') ;
 	}
     else
     {
@@ -159,7 +159,7 @@ else
 {
     // forum doesn't exists
     $allowed = false;
-    $error_message = get_lang('NotAllowed');
+    $error_message = get_lang('Not allowed');
 }
 
 /*=================================================================

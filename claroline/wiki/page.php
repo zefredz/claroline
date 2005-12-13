@@ -31,7 +31,7 @@
         }
         else
         {
-            claro_die(get_lang('NotAllowed'));
+            claro_die(get_lang('Not allowed'));
         }
     }*/
     
@@ -63,7 +63,7 @@
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
-        claro_die(get_lang('NotAllowed'));
+        claro_die(get_lang('Not allowed'));
     }
     elseif ( $is_courseAllowed )
     {
@@ -109,11 +109,11 @@
 
         if ( isset( $_gid ) && $_gid != $wikiGroupId )
         {
-            claro_die(get_lang('NotAllowed'));
+            claro_die(get_lang('Not allowed'));
         }
         elseif( !isset( $_gid ) && $result['group_id'] != 0 )
         {
-            claro_die(get_lang('NotAllowed'));
+            claro_die(get_lang('Not allowed'));
         }
     }
     
