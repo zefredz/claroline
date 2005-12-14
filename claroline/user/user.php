@@ -283,11 +283,6 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
-/* <DEBUG> */
-echo "<pre style='color:red;font-weight:bold'>";
-var_dump($sortUrlList);
-echo "</pre>";
-/* </DEBUG> */
 
 /*----------------------------------------------------------------------
    Display table header
