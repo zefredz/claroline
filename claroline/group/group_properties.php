@@ -46,8 +46,7 @@ $sql = "SELECT `self_registration`,`private`,`nbGroupPerUser`,
  * $_groupProperties ['tools'] is a course_tool properties to se if 
  * roups can use or not these tools in the groups of this course
 */
-$res = claro_sql_query($sql);
-list($gpData) = claro_sql_fetch_all($res);
+list($gpData) = claro_sql_query_fetch_all($sql);
 $_groupProperties ['registrationAllowed'] =   $gpData['self_registration'] == 1;
 $_groupProperties ['private'            ] = !($gpData['private']           == 1);
 $_groupProperties ['nbGroupPerUser'     ] =   $gpData['nbGroupPerUser'];
