@@ -76,7 +76,7 @@ class claro_sql_pager
     {
         $this->sql       = $sql;
         $this->offset    = (int) $offset;
-        $this->step      = (int) 2;
+        $this->step      = (int) $step;
         $this->set_pager_call_param_name('offset');
         $this->set_sort_key_call_param_name('sort');
         $this->set_sort_dir_call_param_name('dir');
