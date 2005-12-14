@@ -576,7 +576,9 @@ echo                                                         "\n"
 $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 echo '<tr class="headerX" align="center">' . "\n"
-.    '<th align="left">&nbsp;<a href="'.$sortUrlList['name'].'">' . get_lang('ExistingGroups') . '</a></th>' . "\n"
+.    '<th align="left">'
+.    '&nbsp;<a href="'.$sortUrlList['name'].'">'.get_lang('ExistingGroups') . '</a>'
+.    '</th>'                               . "\n"
 ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
