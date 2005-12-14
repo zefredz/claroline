@@ -9,7 +9,7 @@
  * insert between smin and smax students
  * insert between pmin and pmax courses admins
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -62,15 +62,14 @@ if (!isset($includePath)) trigger_error('init not run',E_USER_ERROR);
 if (!isset($_uid)) trigger_error('you need to be logged',E_USER_ERROR);
 
 //// Config tool
-include($includePath . '/conf/course_main.conf.php');
+include $includePath . '/conf/course_main.conf.php';
 //// LIBS
 
-include($includePath . '/lib/add_course.lib.inc.php');
-include($includePath . '/lib/course.lib.inc.php');
-include($includePath . '/lib/group.lib.inc.php');
-include($includePath . '/lib/debug.lib.inc.php');
-include($includePath . '/lib/fileManage.lib.php');
-include($includePath . '/conf/course_main.conf.php');
+include_once $includePath . '/lib/add_course.lib.inc.php';
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/group.lib.inc.php';
+include_once $includePath . '/lib/debug.lib.inc.php';
+include_once $includePath . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('CreateSite');
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Administration'));
@@ -211,7 +210,6 @@ if ($cmd == 'exFill')
         // function     fill_db_course($courseDbName,$courseRepository)
         fill_db_course(
         $currentCourseDbName,
-        $currentCourseRepository,
         $language_course
         );
         register_course(
@@ -224,8 +222,7 @@ if ($cmd == 'exFill')
         $faculte,
         $wantedCode,
         $language_course,
-        $uidCourse,
-        $expirationDate
+        $uidCourse,true,true,''
         );
 
         /////// REGISTER TEATCHERS
@@ -293,9 +290,9 @@ if ($cmd == 'exFill')
             $sql = "INSERT INTO `" . $tbl_Forums . "`
                     (forum_id, forum_name, forum_desc, forum_access, forum_moderator,
                     forum_topics, forum_posts, forum_last_post_id, cat_id,
-                    forum_type, md5)
+                    forum_type)
                     VALUES ('','" . get_lang('ForumGroup') . " " . $lastId . "','', 2, 1, 0, 0,
-                            1, 1, 0,'" . md5(time()) . "')";
+                            1, 1, 0)";
 
 
             $forumInsertId = claro_sql_query_insert_id($sql);
@@ -319,7 +316,7 @@ if ($cmd == 'exFill')
 
             $sql = "UPDATE `" . $tbl_Groups . "`
                     SET name            = '" . get_lang('Group') . ' ' . $lastId . "',
-                        forumId         = '" . $forumInsertId . "',
+#                       forumId         = '" . $forumInsertId . "',
                         secretDirectory = '" . $secretDirectory . "'
                     WHERE id ='" . $lastId . "'";
 
