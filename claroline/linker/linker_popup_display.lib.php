@@ -68,7 +68,7 @@
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.get_lang('LinkerDelete').'" />'
+               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.get_lang('Delete').'" />'
                .    '</a></td></tr>' . "\n"
                ;
            }

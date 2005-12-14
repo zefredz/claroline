@@ -25,7 +25,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
-$nameTools = get_lang('StatsOfCampus');
+$nameTools = get_lang('PlatformStats');
 
 // regroup table names for maintenance purpose
 /*

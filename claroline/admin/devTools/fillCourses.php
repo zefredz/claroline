@@ -401,7 +401,7 @@ switch ($display)
     <input type="text" id="smax" align="right" name="smax" value="<?php echo $smax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
-    <legend ><?php echo get_lang('Professor')."(".get_lang('AddedToCreator').")"; ?> </legend>
+    <legend ><?php echo get_lang('CourseManager'); ?> </legend>
     <Label for="pmin"> <?php echo get_lang('Min') ?> </Label>
     <input align="right" id="pmin"  type="text" name="pmin" value="<?php echo $pmin ?>" size="5" maxlength="3"><br />
     <Label for="pmax"> <?php echo get_lang('Maximum') ?> </Label>

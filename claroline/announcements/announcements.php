@@ -606,7 +606,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('OrderUp') . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('MoveUp') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -618,7 +618,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Down') . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('MoveDown') . '" />'
                 .    '</a>' . "\n"
                 ;
             }

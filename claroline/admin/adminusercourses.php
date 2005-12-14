@@ -249,7 +249,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 //    add titles for the table
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Code') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('CourseTitle') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Titular') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('CourseManager') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cuStatus&amp;dir=' . $order['cuStatus'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Role') . '</a></th>'
 .    '<th>' . get_lang('Unsubscribe') . '</th>'
 .    '</tr>'

@@ -146,7 +146,7 @@ function claro_disp_tree($elem,$father,$space)
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty['id'];
                             ?>" name="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo get_lang('_faculty_imgDown') ?>" > </a>
+                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo get_lang('MoveDown') ?>" > </a>
                     <?php
                         }
                         else

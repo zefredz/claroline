@@ -97,7 +97,7 @@ switch ( $cmd )
 
         if ( $done )
         {
-           $dialogBox = get_lang('UserSubscribed');
+           $dialogBox = get_lang('_user_has_been_enrolled_to_the_course');
         }
         break;
 

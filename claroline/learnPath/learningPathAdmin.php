@@ -611,7 +611,7 @@ foreach ($flatElementList as $module)
     if ( $module['visibility'] == 'HIDE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('AltMakeVisible') . "\" border=\"0\">".
+             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('MakeVisible') . "\" border=\"0\">".
              "</a>";
     }
     else
@@ -635,7 +635,7 @@ foreach ($flatElementList as $module)
     // DISPLAY CATEGORY MOVE COMMAND 
     echo "<td>".
          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-         "<img src=\"".$imgRepositoryWeb."move.gif\" alt=\"" . get_lang('AltMove'). "\" border=0>".
+         "<img src=\"".$imgRepositoryWeb."move.gif\" alt=\"" . get_lang('Move'). "\" border=0>".
          "</a>".
          "</td>";
 
@@ -644,7 +644,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('AltMoveUp') . "\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('MoveUp') . "\" border=0>".
              "</a>".
              "</td>";
     }

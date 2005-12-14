@@ -156,7 +156,7 @@ if ( !empty($fromAdmin) )
     if ( $fromAdmin == 'class' )
     {
         // bred different if we come from admin tool for a CLASS
-        $nameTools = get_lang('RegisterClass');
+        $nameTools = get_lang('EnrollClass');
 
         //find info about the class
         $sqlclass = "SELECT id, name, class_parent_id, class_level
@@ -666,12 +666,12 @@ switch ( $displayMode )
                     elseif($thisCourse['visible'] == 1 || $thisCourse['visible'] == 2)
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['code'] . $inURL . '">'
-                            . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Locked') . '">'
+                            . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Subscription') . '">'
                             . '</a>' ;
                     }
                     else
                     {
-                        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('_enroll') . '">';
+                        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '">';
                     }
 
                     echo '</td>' . "\n";

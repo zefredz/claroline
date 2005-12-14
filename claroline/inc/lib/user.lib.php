@@ -1391,7 +1391,7 @@ function user_display_form($data, $form_type='registration')
             . '  <td>' . "\n"
             . '<select id="status" name="status">'
             . '    <option value="' . STUDENT . '">' . get_lang('RegStudent') . '</option>'
-            . '    <option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . get_lang('RegAdmin') . '</option>'
+            . '    <option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . get_lang('CreateCourse') . '</option>'
             . '</select>'
             . '  </td>' . "\n"
             . ' </tr>' . "\n";

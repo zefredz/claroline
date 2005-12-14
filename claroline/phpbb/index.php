@@ -198,7 +198,7 @@ foreach ( $categories as $this_category )
         .    ' <th align="left">' . get_lang('Forum') . '</th>' . "\n"
         .    ' <th>' . get_lang('topics') . '</th>' . "\n"
         .    ' <th>' . get_lang('posts')  . '</th>' . "\n"
-        .    ' <th>' . get_lang('lastpost') . '</th>' . "\n"
+        .    ' <th>' . get_lang('LastMsg') . '</th>' . "\n"
         ;       
 
         if ($is_allowedToEdit)

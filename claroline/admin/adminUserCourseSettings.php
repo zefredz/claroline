@@ -73,7 +73,7 @@ switch ($cmd)
         if ( $_REQUEST['status_form'] == 'teacher' )
         {
             $properties['status'] = 1;
-            $properties['role']   = 'Professor';
+            $properties['role']   = get_lang('CourseManager');
             $properties['tutor']  = 1;
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
@@ -88,7 +88,7 @@ switch ($cmd)
         elseif ( $_REQUEST['status_form'] == 'student' )
         {
             $properties['status'] = 5;
-            $properties['role']   = 'Student';
+            $properties['role']   = get_lang('Student');
             $properties['tutor']  = 0;
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)

@@ -365,7 +365,7 @@ if ( $displayForm == TRUE )
     .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
     .    '<tr valign="top" align="center">'
     .    '<td>' . "\n"
-    .    '<p><b>' . get_lang('Userlist') . '</b></p>' . "\n"
+    .    '<p><b>' . get_lang('ListUsers') . '</b></p>' . "\n"
     .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
     ;
 

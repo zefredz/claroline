@@ -364,9 +364,9 @@ function nameBox($type, $mode)
   */
  function selectAlt($contentType)
  {
-      $altList[CTDOCUMENT_] = get_lang('AltDocument');
+      $altList[CTDOCUMENT_] = get_lang('Document');
       $altList[CTCLARODOC_] = get_lang('AltClarodoc');
-      $altList[CTEXERCISE_] = get_lang('AltExercise');
+      $altList[CTEXERCISE_] = get_lang('Exercise');
       $altList[CTSCORM_] = get_lang('AltScorm');
 
       if (array_key_exists( $contentType , $altList ))

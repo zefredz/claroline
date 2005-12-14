@@ -121,7 +121,7 @@ $display = "tree";
 // set bredcrump
 
 
-$nameTools = get_lang('AddClass');
+$nameTools = get_lang('EnrollClass');
 $interbredcrump[]    = array ('url' => "user.php", 'name' => get_lang('Users'));
 
 // display top banner

@@ -139,7 +139,7 @@ user_display_form_admin_user_profile($user_data);
 
 echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . get_lang('DeleteUser') . '</a>'
 .    ' | '
-.    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . get_lang('RegisterUser') . '</a>'
+.    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . get_lang('EnrollToNewCourse') . '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . get_lang('SendToUserAccountInfoByMail') . '</a>';
 

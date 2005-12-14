@@ -791,7 +791,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['visibility'] == 'HIDE')
         {
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&visibility_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('AltMakeVisible') . "\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('MakeVisible') . "\" border=\"0\" />\n",
                   "</a>";
         }
         else
@@ -818,7 +818,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('AltMoveUp') . "\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('MoveUp') . "\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
         }

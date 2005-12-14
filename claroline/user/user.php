@@ -262,11 +262,11 @@ if ( $disp_tool_link )
     <?php
        //add CSV file of user link
     ?>
-    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo get_lang('AddListUser'); ?></a> |
+    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo get_lang('AddCSVUsers'); ?></a> |
     <?php
        //add a class link
     ?>
-    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo get_lang('AddClass'); ?></a> |
+    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo get_lang('EnrollClass'); ?></a> |
     <?php
 
     }

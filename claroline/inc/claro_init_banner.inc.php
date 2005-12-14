@@ -239,7 +239,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         echo '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
         .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
-        .    '<b>'.get_lang('_enroll').'</b>'
+        .    '<b>'.get_lang('Subscription').'</b>'
         .    '</a>'
         .    '</div>' . "\n";
     }

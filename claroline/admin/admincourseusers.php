@@ -264,7 +264,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '?order_crit=cu_status'
 .    '&amp;dir=' . $order['cu_status']
 .    '&amp;cidToEdit=' . $cidToEdit . '">'
-.    get_lang('Status')
+.    get_lang('Action')
 .    '</a>'
 .    '</th>'
 .    '<th>' . get_lang('Unsubscribe') . '</th>'

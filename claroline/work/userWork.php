@@ -1095,7 +1095,7 @@ if( $is_allowedToSubmit )
 				if( $assignmentContent == "TEXTFILE" )
 				{
 					// if text is required, file is considered as a an attached document
-					echo get_lang('AttachDoc');
+					echo get_lang('AttachFile');
 				}
 				else
 				{

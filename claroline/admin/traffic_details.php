@@ -20,7 +20,7 @@ $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 $is_allowedToTrack = $is_platformAdmin;
 
 $interbredcrump[]= array ('url' => "index.php", 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('StatsOfCampus'));
+$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('PlatformStats'));
 
 $nameTools = get_lang('TrafficDetails');
 

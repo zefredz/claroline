@@ -40,7 +40,7 @@ if (!isset($_SESSION['admin_visible_class']))
 }
 
 // Deal with interbredcrumps  and title variable
-$nameTools = get_lang('AdministrationClassTools');
+$nameTools = get_lang('Class');
 $interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration for header

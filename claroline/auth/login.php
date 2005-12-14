@@ -210,7 +210,7 @@ elseif ( is_null($_cid) && $cidRequired )
         echo '<p align="center">'           ."\n"
         .    get_lang('_if_you_wish_to_enroll_to_this_course')
         .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg">'
-        .    get_lang('Reg').'</a>' ."\n"
+        .    get_lang('Subscription').'</a>' ."\n"
         .    '</p>'          ."\n";
     }
 
@@ -233,7 +233,7 @@ else
                 .    get_lang('_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course').'<br />'
                 .    get_lang('_if_you_wish_to_enroll_to_this_course')
                 .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
-                .    get_lang('Reg').'</a>' ."\n"
+                .    get_lang('Subscription').'</a>' ."\n"
                 .    '</p>'          ."\n";
 
             }

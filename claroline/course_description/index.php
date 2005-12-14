@@ -29,7 +29,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(TRUE);
-$nameTools = get_lang('CourseProgram');
+$nameTools = get_lang('DescriptionCours');
 
 $noQUERY_STRING = TRUE; // to remove parameters in the last breadcrumb link
 

@@ -1143,7 +1143,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
             SET code_cours     = '" . $courseSysCode . "',
                 user_id = '" . (int) $uidCreator."',
                 statut  = 1,
-                role    = '" . addslashes( get_lang('Professor') ) . "',
+                role    = '" . addslashes( get_lang('CourseManager') ) . "',
                 tutor   = 1";
 
     if ( claro_sql_query($sql) == false) return false;
