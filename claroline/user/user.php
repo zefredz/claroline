@@ -154,18 +154,6 @@ if ( $is_allowedToEdit )
 
 }    // end if allowed to edit
 
-
-
-/*----------------------------------------------------------------------
-   Get total user
-  ----------------------------------------------------------------------*/
-
-$sqlNbUser = "SELECT count(user_id) `nb_users`
-              FROM `" . $tbl_rel_course_user . "` `cours_user`
-              WHERE `cours_user`.`code_cours` = '" . addslashes($currentCourseID) . "'";
-
-$userTotalNb = claro_sql_query_get_single_value($sqlNbUser);
-
 /*----------------------------------------------------------------------
    Get User List
   ----------------------------------------------------------------------*/
@@ -173,26 +161,32 @@ $userTotalNb = claro_sql_query_get_single_value($sqlNbUser);
 $sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`,
                       `user`.`email`, `cours_user`.`statut`,
                       `cours_user`.`tutor`, `cours_user`.`role`
-               FROM `'.$tbl_users.'` `user`, `'.$tbl_rel_course_user.'` `cours_user`
+               FROM `'.$tbl_users.'` user, `'.$tbl_rel_course_user.'` cours_user
                WHERE `user`.`user_id`=`cours_user`.`user_id`
-               AND `cours_user`.`code_cours`="'. addslashes($currentCourseID) .'"
-               ORDER BY `cours_user`.`statut` ASC
-               ,        `cours_user`.`tutor` DESC
-               ,        `user`.`nom`
-               ,        `user`.`prenom` '
-;
+               AND   `cours_user`.`code_cours`="'. addslashes($currentCourseID) .'"';
 
-if ( !isset($_REQUEST['offset']) )
+$offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
+
+$myPager     = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
+
+if ( isset($_GET['sort']) )
 {
-    $offset = '0';
-}
-else
-{
-    $offset = $_REQUEST['offset'];
+    $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
 }
 
-$myPager  = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
-$userList = $myPager->get_result_list();
+$defaultSortKeyList = array ('cours_user.statut' => SORT_ASC,
+                             'cours_user.tutor'  => SORT_DESC,
+                             'user.nom'          => SORT_ASC,
+                             'user.prenom'       => SORT_ASC);
+
+foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
+{
+    $myPager->add_sort_key( $thisSortKey, $thisSortDir);
+
+}
+
+$userList    = $myPager->get_result_list();
+$userTotalNb = $myPager->get_total_result_count();
 
 /*----------------------------------------------------------------------
   Get groups
@@ -214,7 +208,7 @@ if ( count($usersId)> 0 )
                         LEFT JOIN `".$tbl_groups."` `sg`
                         ON `ug`.`team` = `sg`.`id`
                         WHERE `ug`.`user` IN (".implode(",",$usersId).")
-						ORDER BY `sg`.`name`";
+                        ORDER BY `sg`.`name`";
 
     $userGroupList = claro_sql_query_fetch_all($sqlGroupOfUsers);
 
@@ -287,6 +281,14 @@ if ( $disp_tool_link )
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
+
+$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
+/* <DEBUG> */
+echo "<pre style='color:red;font-weight:bold'>";
+var_dump($sortUrlList);
+echo "</pre>";
+/* </DEBUG> */
+
 /*----------------------------------------------------------------------
    Display table header
   ----------------------------------------------------------------------*/
@@ -306,16 +308,16 @@ echo '<table class="claroTable emphaseLine" '
 
     echo '<thead>'."\n"
        . '<tr class="headerX" align="center" valign="top">'."\n"
-       . '<th scope="col" id="lastname">'.get_lang('LastName').'</th>'."\n"
-       . '<th scope="col" id="firstname">'.get_lang('FirstName').'</th>'."\n"
-       . '<th scope="col" id="role">'.get_lang('Role').'</th>'."\n"
+       . '<th scope="col" id="lastname"><a href="'.$sortUrlList['nom'].'">'.get_lang('LastName').'</a></th>'."\n"
+       . '<th scope="col" id="firstname"><a href="'.$sortUrlList['prenom'].'">'.get_lang('FirstName').'</a></th>'."\n"
+       . '<th scope="col" id="role"><a href="'.$sortUrlList['role'].'">'.get_lang('Role').'</a></th>'."\n"
        . '<th scope="col" id="team">'.get_lang('Group').'</th>'."\n"
        ;
 
     if($is_allowedToEdit) // EDIT COMMANDS
     {
-        echo '<th scope="col" id="tut"  >'.get_lang('GroupTutor').'</th>'."\n"
-           . '<th scope="col" id="CM"   >'.get_lang('CourseManager').'</th>'."\n"
+        echo '<th scope="col" id="tut"  ><a href="'.$sortUrlList['tutor'].'">'.get_lang('GroupTutor').'</a></th>'."\n"
+           . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['statut'].'">'.get_lang('CourseManager').'</a></th>'."\n"
            . '<th scope="col" id="edit" >'.get_lang('Edit').'</th>'."\n"
            . '<th scope="col" id="del"  >'.get_lang('Unreg').'</th>'."\n"
            ;
