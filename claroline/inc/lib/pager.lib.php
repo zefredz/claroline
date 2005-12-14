@@ -60,7 +60,7 @@
 
 class claro_sql_pager
 {
-    var $sortKey          = null ,  $sortDir      = null , 
+    var $sortKeyList = array(),
         $totalResultCount = null ,  $offsetCount = null  ,
         $resultList       = null;
 
@@ -76,7 +76,7 @@ class claro_sql_pager
     {
         $this->sql       = $sql;
         $this->offset    = (int) $offset;
-        $this->step      = (int) $step;
+        $this->step      = (int) 2;
         $this->set_pager_call_param_name('offset');
         $this->set_sort_key_call_param_name('sort');
         $this->set_sort_dir_call_param_name('dir');
@@ -101,7 +101,7 @@ class claro_sql_pager
 
     function set_sort_key_call_param_name($paramName)
     {
-    	$this->sortKeyParamName = $paramName;
+        $this->sortKeyParamName = $paramName;
     }
 
     /**
@@ -124,14 +124,40 @@ class claro_sql_pager
 
     function set_sort($key, $direction)
     {
-        if ($this->resultList) 
-            claro_die('set_sort() IMPOSSIBLE : QUERY ALREADY COMMITED TO DATABASE SERVER.');
+        $this->set_multiple_sort( array($key => $direction) );
+    }
 
-        $this->sortKey = $key;
-        $this->sortDir = $direction;
+    /**
+     * Set multiple sorting for the result returned by the query.
+     * 
+     * @param array $keyList - each array key are the sort keys 
+     *        it has to be something understable by the SQL parser.
+     *        while each array values are sort direction of the concerned key
+     */
+
+
+    function set_multiple_sort($keyList)
+    {
+        $this->sortKeyList = array(); // reset the sort key list
+        $this->sortKeyList = $keyList;
     }
 
 
+
+    function add_sort_key($key, $direction)
+    {
+         if ($this->resultList) 
+              claro_die('add_sort_key() IMPOSSIBLE : QUERY ALREADY COMMITED TO DATABASE SERVER.');
+
+        if ( ! array_key_exists($key, $this->sortKeyList) )
+        {
+            $this->sortKeyList[$key] = $direction;
+            return true;
+        }
+
+        return false;
+    }
+    
     /**
      * (Private method) Rewrite the SQL query to allowing paging. It adds LIMIT 
      * parameter to the end of the query end SQL_CALC_FOUND_ROWS between the 
@@ -143,18 +169,24 @@ class claro_sql_pager
      * @return string the rewrote query
      */
 
-    function get_prepared_query($sql, $offset, $step, $sortKey, $sortDir)
+    function get_prepared_query($sql, $offset, $step, $sortKeyList)
     {
-        if ($sortKey)
+        if ( count($sortKeyList) > 0 )
         {
-            if     ( $sortDir == SORT_DESC) $direction = 'DESC';
-            elseif ( $sortDir == SORT_ASC ) $direction = 'ASC';
-            else                            $direction = '';
+            $orderByList = array();
+            foreach( $sortKeyList as $thisSortKey => $thisSortDirection)
+            {
+                if     ( $thisSortDirection == SORT_DESC) $direction = 'DESC';
+                elseif ( $thisSortDirection == SORT_ASC ) $direction = 'ASC';
+                else                                      $direction = '';
 
-            $sql .= "\n\t" . 'ORDER BY ' . $sortKey . ' ' . $direction;
+                $orderByList[] = $thisSortKey . ' ' . $direction ;
+            }
+
+            $sql .= "\n\t" . 'ORDER BY '. implode(', ', $orderByList) ;
         }
 
-        if ( $step > 0)
+        if ( $step > 0 )
         {
             // Include SQL_CALC_FOUND_ROWS inside the query
             // This mySQL clause permit to know how many rows the statement 
@@ -175,7 +207,6 @@ class claro_sql_pager
        if ( ! $this->totalResultCount )
        {
             $this->get_result_list(); // required to be executed before SELECT FOUND_ROWS
-            $this->totalResultCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
        }
        
        return $this->totalResultCount;
@@ -187,7 +218,7 @@ class claro_sql_pager
         {
             $this->offsetCount = ceil( $this->get_total_result_count() / $this->step );
         }
-        
+
         return $this->offsetCount;
     }
 
@@ -203,9 +234,15 @@ class claro_sql_pager
         {
             $preparedQuery = $this->get_prepared_query($this->sql,
                                                      $this->offset, $this->step, 
-                                                     $this->sortKey, $this->sortDir);
+                                                     $this->sortKeyList);
 
-            $this->resultList = claro_sql_query_fetch_all( $preparedQuery );
+            $this->resultList        = claro_sql_query_fetch_all( $preparedQuery );
+
+            // The query below has to be executed just after the previous one. 
+            // Otherwise other potential queries could impair the reliability 
+            // of mySQL FOUND_ROWS() function.
+
+            $this->totalResultCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
         }
 
         return $this->resultList;
@@ -272,8 +309,8 @@ class claro_sql_pager
 
         $offsetList = array();
         
-        for ($i = 0, $currentOffset = 0; 
-             $i < $this->get_offset_count();
+        for ($i = 0, $currentOffset = 0, $offsetCount = $this->get_offset_count(); 
+             $i < $offsetCount;
              $i ++)
         {
             $offsetList [] = $currentOffset;
@@ -292,17 +329,25 @@ class claro_sql_pager
      * @return array 
      */
 
-
     function get_sort_url_list($url)
     {
         $urlList        = array();
+        $sortArgList    = array();
 
-        list($firstResultRow) = $this->get_result_list();
-        $sortArgList    = array_keys($firstResultRow);
+        if ( count($this->get_result_list() ) )
+        {
+            list($firstResultRow) = $this->get_result_list();
+            $sortArgList          = array_keys($firstResultRow);
+        }
+        else
+        {
+            $sortArgList = claro_sql_field_names($this->sql);
+        }
 
         foreach($sortArgList as $thisArg)
         {
-            if ($thisArg == $this->sortKey && $this->sortDir != SORT_DESC)
+            if (   array_key_exists($thisArg, $this->sortKeyList) 
+                && $this->sortKeyList[$thisArg] != SORT_DESC)
             {
                 $direction = SORT_DESC;
             }
@@ -316,7 +361,7 @@ class claro_sql_pager
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
                        . '&amp;' . $this->sortDirParamName . '=' . $direction;
         }
-
+       
         return $urlList;
     }
 
@@ -331,19 +376,19 @@ class claro_sql_pager
 
     function disp_pager_tool_bar($url, $linkMax = 10)
     {
-        // Add optionnal sorting calls
 
-        if ($this->sortKey)
+        if ( count($this->sortKeyList) > 0 )
         {
+            // Add optionnal sorting calls. 
+            // IT KEEPS ONLY THE FIRST SORT KEY !
+
+            reset($this->sortKeyList);
+            list($sortKey, $sortDir) = each($this->sortKeyList);
+
             $url .= ( ( strrpos($url, '?') === false) ? '?' : '&amp;') 
-                 .  'sort=' . urlencode($this->sortKey);
-
-            if ($this->sortDir)
-            {
-                $url .= '&amp;dir=' . $this->sortDir;
-            }
+                 .  $this->sortKeyParamName.'=' . urlencode($sortKey)
+                 .  '&amp;'.$this->sortDirParamName.'=' . $sortDir;
         }
-
 
         if ( strrpos($url, '?') === false) $url .= '?'    .$this->pagerParamName.'=';
         else                               $url .= '&amp;'.$this->pagerParamName.'=';
@@ -354,7 +399,6 @@ class claro_sql_pager
         $pageList     = $this->get_offset_list();
         $nextPage     = $this->get_next_offset();
         $endPage      = $this->get_last_offset();
-
 
         $output =                                                                                        "\n\n"
                 . '<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n"
