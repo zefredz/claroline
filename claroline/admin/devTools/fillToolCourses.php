@@ -4,7 +4,7 @@
  *
  * Filler for tools in course
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -33,10 +33,10 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 //// Config tool
 include($includePath . '/conf/course_main.conf.php');
 //// LIBS
-require_once($includePath . '/lib/add_course.lib.inc.php');
-require_once($includePath . '/lib/debug.lib.inc.php');
-require_once($includePath . '/lib/fileManage.lib.php');
-require_once($includePath . '/conf/course_main.conf.php');
+require_once $includePath . '/lib/add_course.lib.inc.php';
+require_once $includePath . '/lib/debug.lib.inc.php';
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/conf/course_main.conf.php';
 
 $nameTools = get_lang('PopulateTools');
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
@@ -191,7 +191,7 @@ function fill_tool_in_course($course_code,$tool_label)
             return announcement_add_item($lorem_title, $lorem_content, 'SHOW', $randomTime, $course_code);
             break;
         case 'CLCAL' :
-            require_once($includePath . '/lib/agenda.lib.php');
+            require_once $includePath . '/lib/agenda.lib.php';
 
             $lorem_title = lorem('characters',rand(10,80));
             $lorem_content = lorem('paragraphs',rand(1,8));
@@ -283,7 +283,7 @@ function fill_tool_in_course($course_code,$tool_label)
 
             }
 
-            $resultPopulate .= '<li>Cat ' . $categoryToPopulate . ' selected.  ' . '</li>';
+            $resultPopulate .= '<li>Cat ' . $categoryToPopulate . ' ' . get_lang('selected') .  '. </li>';
             // SELECT FORUM... Create it if needed
             $frm_qty = get_total_forum($categoryToPopulate, $course_id);
 
@@ -304,7 +304,7 @@ function fill_tool_in_course($course_code,$tool_label)
 
                 // find order in the category we must give to the newly created forum
 
-                $forumToPopulate = create_forum($forum_name, $forum_desc, 2, $categoryToPopulate, $course_id);
+                $forumToPopulate = create_forum($forum_name, $forum_desc, 2, $categoryToPopulate,NULL, $course_id);
 
                 // add new forum in DB
                 $resultPopulate .= '<li>'. sprintf(get_lang('_p_forum_s_created') , $forumToPopulate).' : <i>'.$forum_name.'</i>'.'</li>';
@@ -662,7 +662,38 @@ function lorem($units, $length)
         }//end switch($units)
 
     return trim($output,' .');
-    }//end function greek()
+}//end function greek()
+
+
+
+function get_total_category($course_id=NULL)
+{
+    $crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $sql = "SELECT COUNT(cat_id) AS total
+	        FROM `" . $crsTableList['bb_categories'] . "`";
+
+    return claro_sql_query_get_single_value($sql);
+}
+
+function get_total_forum($cat_id, $course_id=NULL)
+{
+    $crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $sql = "SELECT COUNT(forum_id) AS total
+	        FROM `" . $crsTableList['bb_forums'] . "`
+	        WHERE cat_id = " . (int) $cat_id;
+
+    return claro_sql_query_get_single_value($sql);
+}
+function get_total_topics($forum_id, $course_id=NULL)
+{
+
+	$crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+	$sql = "SELECT COUNT(topic_id) AS total
+	        FROM `" . $crsTableList['bb_topics'] . "`
+	        WHERE forum_id = " . (int) $forum_id;
+
+    return claro_sql_query_get_single_value($sql);
+}
 
 
 ?>
