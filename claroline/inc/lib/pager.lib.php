@@ -371,7 +371,7 @@ class claro_sql_pager
      * @author Hugues Peeters <hugues.peeters@claroline.net>
      * @param  string $url - where the pager tool bar commands need to point to
      * @param  int $linkMax - (optionnal) maximum of page links in the pager tool bar
-     * @return void
+     * @return string
      */
 
     function disp_pager_tool_bar($url, $linkMax = 10)
