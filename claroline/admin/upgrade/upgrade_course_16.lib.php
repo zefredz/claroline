@@ -294,10 +294,8 @@ function assignment_upgrade_to_16($course_code)
                                              " FROM `". $tbl_rel_course_user . "` " .
                                              " WHERE `code_cours` = '".$course_code."' LIMIT 1";
                 
-                $res_id_of_one_teacher = claro_sql_query($sql_get_id_of_one_teacher);
-                
-                $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
-                
+                $teacher = claro_sql_query_fetch_all($sql_get_id_of_one_teacher);
+
                 $teacher_uid = $teacher[0]['uid'];
                 
                 // if no course manager, you are enrolled in as            
