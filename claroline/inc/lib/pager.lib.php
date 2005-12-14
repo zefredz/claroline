@@ -355,13 +355,13 @@ class claro_sql_pager
             {
                 $direction = SORT_ASC;
             }
-            
+
             $urlList[$thisArg] = $url 
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
                        . '&amp;' . $this->sortDirParamName . '=' . $direction;
         }
-       
+
         return $urlList;
     }
 
