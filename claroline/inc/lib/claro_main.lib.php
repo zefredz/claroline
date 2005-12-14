@@ -287,35 +287,6 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
     return $resultHandler;
 }
 
-
-/**
- * Claroline SQL fetch array returning all the result rows
- * in an associative array.    Compared to    the    PHP    mysql_fetch_array(),
- * it proceeds in a    single pass.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>,
- * @param  handler $sql $sqlResultHandler
- * @param  int     $resultType (optional) -    MYSQL_ASSOC    constant by    default
- * @return array   associative array containing    all    the    result rows
- */
-
-
-function claro_sql_fetch_all($sqlResultHandler, $resultType = MYSQL_ASSOC)
-{
-    $rowList = array();
-
-    while( $row = mysql_fetch_array($sqlResultHandler, $resultType) )
-    {
-        $rowList [] = $row;
-    }
-
-    mysql_free_result($sqlResultHandler);
-
-    return $rowList;
-}
-
-
-
 /**
  * Claroline SQL query and fetch array wrapper. It returns all the result rows
  * in an associative array.
@@ -323,9 +294,6 @@ function claro_sql_fetch_all($sqlResultHandler, $resultType = MYSQL_ASSOC)
  * @param  string  $sqlQuery the sql query
  * @param  handler $dbHandler optional
  * @return array associative array containing all the result rows
- *
- * @see    claro_sql_query(), claro_sql_fetch_all
- *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
  */
 
@@ -333,8 +301,23 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
-    if ($result) return claro_sql_fetch_all($result);
-    else         return false;
+    if ($result) 
+    {
+        $rowList = array();
+
+        while( $row = mysql_fetch_array($result, MYSQL_ASSOC) )
+        {
+            $rowList [] = $row;
+        }
+
+        mysql_free_result($result);
+
+        return $rowList;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
