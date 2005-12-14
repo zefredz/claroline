@@ -288,6 +288,46 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 }
 
 /**
+ * Get the name of the specified fields in a query result
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $sq - SQL query
+ * @param ressource (optional) - result pointer
+ * @return  names of the specified field index
+ */
+
+function claro_sql_field_names( $sql, $resultPt = null )
+{
+    static $_colNameList = array();
+
+    $sqlHash = md5($sql);
+
+    if ( ! array_key_exists( $sqlHash, $_colNameList) )
+    {
+        if ( ! is_resource($resultPt) || get_resource_type($resultPt) != 'Unknown' )
+        {
+            $resultPt     = claro_sql_query($sql);
+            $releasablePt = true;
+        }
+        else
+        {
+            $releasablePt = false;
+        }
+
+        $resultFieldCount = mysql_num_fields($resultPt);
+
+        for ( $i = 0; $i < $resultFieldCount ; ++$i )
+        {
+            $_colNameList[$sqlHash][] = mysql_field_name($resultPt, $i);
+        }
+
+        if ( $releasablePt ) mysql_free_result($resultPt);
+    }
+
+    return $_colNameList[$sqlHash];
+}
+
+/**
  * Claroline SQL query and fetch array wrapper. It returns all the result rows
  * in an associative array.
  *
@@ -308,6 +348,16 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
         while( $row = mysql_fetch_array($result, MYSQL_ASSOC) )
         {
             $rowList [] = $row;
+        }
+
+        if ( count($rowList) == 0 )
+        {
+            // If there is no result at all, anticipate that the user could ask 
+            // for field name at least. It is more efficient to call the 
+            // function now as we still hold the result pointer. The field names 
+            // will be statically cached into the claro_sql_field_names() funtion. 
+
+            claro_sql_field_names($sqlQuery, $result);
         }
 
         mysql_free_result($result);
@@ -346,18 +396,17 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
             foreach($row as $key => $value ) $colList[$key][] = $value;
         }
 
-        if( count($colList) < 1)
+        if( count($colList) == 0 )
         {
             // WHEN NO RESULT, THE SCRIPT CREATES AT LEAST COLUMN HEADERS
 
-            $resultFieldCount = mysql_num_fields($result);
+            $FieldNamelist = claro_sql_field_names($sqlQuery, $result);
 
-            for ( $i = 0; $i < $resultFieldCount ; ++$i )
+            foreach($FieldNamelist as $thisFieldName)
             {
-                $colList[ mysql_field_name($result, $i) ] = array();
+            	$colList[$thisFieldName] = array();
             }
-
-        } // end if( count($colList) < 1)
+        } // end if( count($colList) == 0)
 
         mysql_free_result($result);
 
