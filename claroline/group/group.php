@@ -41,6 +41,7 @@ DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 include_once $includePath . '/lib/group.lib.inc.php' ;
+include_once $includePath . '/lib/pager.lib.php';
 //stats
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -394,10 +395,16 @@ if ($display == DISP_GROUP_LIST)
           LEFT JOIN `" . $tbl_GroupsUsers . "` `ug2`
           ON `ug2`.`team` = `g`.`id`
 
-          GROUP BY `g`.`id`
-          ORDER BY UPPER(g.name)";
+          GROUP BY `g`.`id`";
 
-    $groupList = claro_sql_query_fetch_all($sql);
+    $groupPager = new claro_sql_pager($sql);
+
+    $sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'name';
+    $sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
+
+    $groupPager->add_sort_key($sortKey, $sortDir);
+
+    $groupList = $groupPager->get_result_list($sql);
 
 
 
@@ -557,14 +564,19 @@ if ( is_integer($nbGroupPerUser) )
     if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
 }
 
-echo "\n" . '<table class="claroTable emphaseLine" border="0" cellspacing="2" cellpadding="2" width="100%">' . "\n";
+echo $groupPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+echo                                                         "\n"
+.    '<table class="claroTable emphaseLine" width="100%">' . "\n";
 
  /*-------------
       HEADINGS
    -------------*/
 
+$sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
 echo '<tr class="headerX" align="center">' . "\n"
-.    '<th align="left">' . '&nbsp; ' . get_lang('ExistingGroups') . '</th>' . "\n"
+.    '<th align="left">&nbsp;<a href="'.$sortUrlList['name'].'">' . get_lang('ExistingGroups') . '</a></th>' . "\n"
 ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
@@ -572,8 +584,8 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
     echo '<th align="left">' . get_lang('GroupSelfRegistration') . '</th>' . "\n"  ;
 }
 
-echo '<th>' . get_lang('Registered') . '</th>' . "\n"
-.    '<th>' . get_lang('Max') . '</th>' . "\n"
+echo '<th><a href="'.$sortUrlList['nbMember'].'">' . get_lang('Registered') . '</a></th>' . "\n"
+.    '<th><a href="'.$sortUrlList['maxStudent'].'">' . get_lang('Max') . '</a></th>' . "\n"
 ;
 
 if ( $is_allowedToManage ) // only for course administrator
