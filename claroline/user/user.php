@@ -340,21 +340,37 @@ foreach ( $userList as $thisUser )
        . '<td id="u'.$i.'" headers="name" align="left">'
        . '<img src="'.$imgRepositoryWeb.'user.gif" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
-       . '&nbsp;'
-       . '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
-       . ucfirst(strtolower($thisUser['nom']))
-       . '</a>'
-       . '</td>'."\n";
+       . '&nbsp;';
 
-    echo '<td id="u'.$i.'" headers="name" align="left">'
-       . '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
-       . ucfirst(strtolower($thisUser['prenom']))
-       . '</a>'
-       . '</td>'."\n";
+    if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
+    {
+        echo '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
+            . ucfirst(strtolower($thisUser['nom']))
+            . '</a>';
+    }
+    else
+    {
+        echo ucfirst(strtolower($thisUser['nom']));
+    }
 
-       // User role column
-    echo '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n"
-       ;
+    echo '</td>'."\n"
+        . '<td id="u'.$i.'" headers="name" align="left">';
+
+    if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
+    {
+        echo '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
+            . ucfirst(strtolower($thisUser['prenom']))
+            . '</a>';
+    }
+    else
+    {
+        echo ucfirst(strtolower($thisUser['prenom']));
+    }
+
+    echo '</td>'."\n";
+
+    // User role column
+    echo '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n";
 
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent

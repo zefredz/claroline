@@ -30,6 +30,7 @@ $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] = 
 array ( 'linkToUserInfo'
+      , 'user_email_hidden_to_anonymous'
       , 'is_coursemanager_allowed_to_add_user'
       , 'nbUsersPerPage'
       );
@@ -40,6 +41,16 @@ $conf_def_property_list['linkToUserInfo'] =
 array ('label'         => 'Show user profile'
       ,'description'   => 'Allow user to see detail informations of other users'
       ,'default'       => 'TRUE'
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
+      );
+
+$conf_def_property_list['user_email_hidden_to_anonymous'] =
+array ('label'         => 'Hidden email address to anonymous user'
+      ,'description'   => 'Don\'t display email of user to anonymous (to avoid spam)'
+      ,'default'       => 'FALSE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'

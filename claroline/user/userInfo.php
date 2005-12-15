@@ -73,6 +73,11 @@ $allowedToEditDef         = claro_is_allowed_to_edit();
 $is_allowedToTrack        =  claro_is_allowed_to_edit() && $is_trackingEnabled
 || ($userIdViewer == $userIdViewed );
 
+if ( ! claro_is_allowed_to_edit() && ! get_conf('linkToUserInfo') ) 
+{
+    claro_die(get_lang('Not allowed'));
+}
+
 // clean field submited by the user
 if ($_POST)
 {
@@ -522,11 +527,14 @@ elseif ($displayMode == "viewContentList") // default display
         }
         echo '</tr>' . "\n"
         .    '</tbody>' . "\n"
-        .    '</table>'."\n\n"
-        .    '<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a>'
-        .    '<p>' . "\n"
-        .    '<hr noshade="noshade" size="1" />' . "\n"
-        ;
+        .    '</table>'."\n\n";
+
+        if ( ! empty($_uid) || ! get_conf('user_email_hidden_to_anonymous') )
+        {
+            echo '<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a></p>';
+        }
+
+        echo '<hr noshade="noshade" size="1" />' . "\n" ;
     }
 
     if ($allowedToEditDef) // only course administrators see this line
