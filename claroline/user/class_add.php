@@ -130,7 +130,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_disp_tool_title(get_lang('AddAClassToCourse'));
+echo claro_disp_tool_title(get_lang('AddClass'));
 
 // Display Forms or dialog box (if needed)
 

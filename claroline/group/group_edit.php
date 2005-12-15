@@ -300,7 +300,7 @@ if ( isset($messageGroupEdited) )
     .    '</option>'
     .    '</select>'
     .    '&nbsp;&nbsp;'
-    .    '<small><a href="../user/user.php">' . get_lang('AddTutors') . '</a></small>'
+    .    '<small><a href="../user/user.php">' . get_lang('ListUsers') . '</a></small>'
     .    '<td>'
     .    '<label for="maxMember">' . get_lang('Max') . '</label> ';
 
