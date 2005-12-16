@@ -263,7 +263,7 @@ $myPager = new claro_sql_pager($sql, $offsetC, $coursePerPage);
 $sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'officialCode';
 $sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
 
-$myPager->set_sort($sortKey, $sortDir);
+$myPager->set_sort_key($sortKey, $sortDir);
 
 $myPager->set_pager_call_param_name('offsetC');
 $resultList = $myPager->get_result_list();

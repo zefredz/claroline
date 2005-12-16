@@ -41,37 +41,37 @@ if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_RE
 
 if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
 {
-    unset($_SESSION['admin_user_letter']);
-    unset($_SESSION['admin_user_search']);
+    unset($_SESSION['admin_user_letter'   ]);
+    unset($_SESSION['admin_user_search'   ]);
     unset($_SESSION['admin_user_firstName']);
-    unset($_SESSION['admin_user_lastName']);
-    unset($_SESSION['admin_user_userName']);
-    unset($_SESSION['admin_user_mail']);
-    unset($_SESSION['admin_user_action']);
-    unset($_SESSION['admin_order_crit']);
+    unset($_SESSION['admin_user_lastName' ]);
+    unset($_SESSION['admin_user_userName' ]);
+    unset($_SESSION['admin_user_mail'     ]);
+    unset($_SESSION['admin_user_action'   ]);
+    unset($_SESSION['admin_order_crit'    ]);
 }
 
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
 
-if (isset($_REQUEST['letter']))    {$_SESSION['admin_user_letter']     = trim($_REQUEST['letter'])     ;}
-if (isset($_REQUEST['search']))    {$_SESSION['admin_user_search']     = trim($_REQUEST['search'])     ;}
-if (isset($_REQUEST['firstName'])) {$_SESSION['admin_user_firstName']  = trim($_REQUEST['firstName'])  ;}
-if (isset($_REQUEST['lastName']))  {$_SESSION['admin_user_lastName']   = trim($_REQUEST['lastName'])   ;}
-if (isset($_REQUEST['userName']))  {$_SESSION['admin_user_userName']   = trim($_REQUEST['userName'])   ;}
-if (isset($_REQUEST['mail']))      {$_SESSION['admin_user_mail']       = trim($_REQUEST['mail'])       ;}
-if (isset($_REQUEST['action']))    {$_SESSION['admin_user_action']     = trim($_REQUEST['action'])     ;}
-if (isset($_REQUEST['order_crit'])){$_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']) ;}
-if (isset($_REQUEST['dir']))       {$_SESSION['admin_user_dir'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
+if (isset($_REQUEST['letter'    ])) $_SESSION['admin_user_letter'    ] = trim($_REQUEST['letter'    ]);
+if (isset($_REQUEST['search'    ])) $_SESSION['admin_user_search'    ] = trim($_REQUEST['search'    ]);
+if (isset($_REQUEST['firstName' ])) $_SESSION['admin_user_firstName' ] = trim($_REQUEST['firstName' ]);
+if (isset($_REQUEST['lastName'  ])) $_SESSION['admin_user_lastName'  ] = trim($_REQUEST['lastName'  ]);
+if (isset($_REQUEST['userName'  ])) $_SESSION['admin_user_userName'  ] = trim($_REQUEST['userName'  ]);
+if (isset($_REQUEST['mail'      ])) $_SESSION['admin_user_mail'      ] = trim($_REQUEST['mail'      ]);
+if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_REQUEST['action'    ]);
+if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
+if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
 
 //TABLES
 //declare needed tables
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_admin            = $tbl_mdb_names['admin'          ];
+$tbl_mdb_names   = claro_sql_get_main_tbl();
 
-$tbl_course_user      = $tbl_mdb_names['rel_course_user'];
-$tbl_user             = $tbl_mdb_names['user'];
+$tbl_admin       = $tbl_mdb_names['admin'          ];
+$tbl_course_user = $tbl_mdb_names['rel_course_user'];
+$tbl_user        = $tbl_mdb_names['user'           ];
 
 
 
@@ -205,41 +205,16 @@ if (   isset($_SESSION['admin_user_action'])
 
 $sql.=" GROUP BY U.`user_id` ";
 
-// deal with REORDER
-if (isset($_SESSION['admin_user_order_crit']))
-{
-    // set the name of culomn to sort following $_SESSION['admin_user_order_crit'] value
-    switch ($_SESSION['admin_user_order_crit'])
-    {
-        case 'uid'          : $fieldSort = 'U`.`user_id';      break;
-        case 'name'         : $fieldSort = 'U`.`nom';          break;
-        case 'firstname'    : $fieldSort = 'U`.`prenom';       break;
-        case 'officialCode' : $fieldSort = 'U`.`officialCode'; break;
-        case 'email'        : $fieldSort = 'U`.`email';        break;
-        case 'status'       : $fieldSort = 'U`.`statut';       break;
-        case 'courseqty'    : $fieldSort = 'qty_course';
-
-    }
-    $sql.= " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_dir'];
-    $order[$_SESSION['admin_user_order_crit']] = ($_SESSION['admin_user_dir']=='ASC'?'DESC':'ASC');
-}
-
-//set the reorder parameters for colomuns titles
-
-if ( ! isset($order['uid'         ]) ) $order['uid'         ] = '';
-if ( ! isset($order['name'        ]) ) $order['name'        ] = '';
-if ( ! isset($order['firstname'   ]) ) $order['firstname'   ] = '';
-if ( ! isset($order['officialCode']) ) $order['officialCode'] = '';
-if ( ! isset($order['email'       ]) ) $order['email'       ] = '';
-if ( ! isset($order['status'      ]) ) $order['status'      ] = '';
-if ( ! isset($order['courseqty'   ]) ) $order['courseqty'   ] = '';
-
 //Build pager with SQL request
 
-if ( ! isset($_REQUEST['offset']) ) $offset = '0';
-else                                $offset = $_REQUEST['offset'];
+$offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
+$myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
 
-$myPager  = new claro_sql_pager($sql, $offset, $userPerPage);
+$pagerSortKey = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'nom';
+$pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
+$myPager->set_sort_key($pagerSortKey, $pagerSortDir);
+
+
 $userList = $myPager->get_result_list();
 
 //Display search form
@@ -366,6 +341,8 @@ echo '<table width="100%">'
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
+$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
 // Display list of users
 
 // start table...
@@ -373,14 +350,14 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=uid&amp;dir=' . $order['uid'] . '">' . get_lang('Numero') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=name&amp;dir='  . $order['name'] . '">' . get_lang('LastName') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=firstname&amp;dir=' . $order['firstname'] . '">' . get_lang('FirstName') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;dir=' . $order['officialCode'] . '">' . get_lang('OfficialCode') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=email&amp;dir=' . $order['email'] . '">' . get_lang('Email') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=status&amp;dir=' . $order['status'] . '">' . get_lang('UserStatus') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['user_id'     ] . '">' . get_lang('Numero') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['nom'         ] . '">' . get_lang('LastName') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['prenom'      ] . '">' . get_lang('FirstName') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['officialCode'] . '">' . get_lang('OfficialCode') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['email'       ] . '">' . get_lang('Email') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['statut'      ] . '">' . get_lang('UserStatus') . '</a></th>'
 .    '<th>' . get_lang('UserSettings') . '</th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=courseqty&amp;dir=' . $order['courseqty'] . '">' . get_lang('Courses') . '</a></th>'
+.    '<th><a href="' . $sortUrlList['qty_course' ] . '">' . get_lang('Courses') . '</a></th>'
 .    '<th>' . get_lang('Delete') . '</th>'
 .    '</tr><tbody>'
 ;
