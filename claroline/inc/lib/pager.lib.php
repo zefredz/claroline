@@ -112,8 +112,8 @@ class claro_sql_pager
 
     function set_sort_dir_call_param_name($paramName)
     {
-    	$this->sortDirParamName = $paramName;
-    }   
+        $this->sortDirParamName = $paramName;
+    }
 
     /**
      * Set a specificic sorting for the result returned by the query.
@@ -122,9 +122,9 @@ class claro_sql_pager
      * @param string $direction use PHP constants SORT_ASC and SORT_DESC
      */
 
-    function set_sort($key, $direction)
+    function set_sort_key($key, $direction)
     {
-        $this->set_multiple_sort( array($key => $direction) );
+        $this->set_multiple_sort_keys( array($key => $direction) );
     }
 
     /**
@@ -135,14 +135,11 @@ class claro_sql_pager
      *        while each array values are sort direction of the concerned key
      */
 
-
-    function set_multiple_sort($keyList)
+    function set_multiple_sort_keys($keyList)
     {
         $this->sortKeyList = array(); // reset the sort key list
         $this->sortKeyList = $keyList;
     }
-
-
 
     function add_sort_key($key, $direction)
     {
@@ -157,19 +154,20 @@ class claro_sql_pager
 
         return false;
     }
-    
+
     /**
-     * (Private method) Rewrite the SQL query to allowing paging. It adds LIMIT 
-     * parameter to the end of the query end SQL_CALC_FOUND_ROWS between the 
-     * SELECT statement and the column list 
+     * Rewrite the SQL query to allowing paging. It adds LIMIT parameter to the 
+     * end of the query end SQL_CALC_FOUND_ROWS between the SELECT statement 
+     * and the column list
      *
+     * @access private
      * @param  string $sql current SQL query
      * @param  int $offset requested offset
      * @param int $step current step paging
      * @return string the rewrote query
      */
 
-    function get_prepared_query($sql, $offset, $step, $sortKeyList)
+    function _get_prepared_query($sql, $offset, $step, $sortKeyList)
     {
         if ( count($sortKeyList) > 0 )
         {
@@ -202,15 +200,44 @@ class claro_sql_pager
         return $sql;
     }
 
+    /**
+     * Trig the execution of the SQL queries
+     *
+     * @access private
+     */
+
+    function _execute_pager_queries()
+    {
+        $preparedQuery = $this->_get_prepared_query($this->sql,
+                                                   $this->offset, $this->step, 
+                                                   $this->sortKeyList);
+
+       $this->resultList        = claro_sql_query_fetch_all( $preparedQuery );
+
+       // The query below has to be executed immediateley after the previous one. 
+       // Otherwise other potential queries could impair the reliability 
+       // of mySQL FOUND_ROWS() function.
+
+       $this->totalResultCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
+    }
+
+
+    /**
+     * get the total number of the complete the results
+     * @return int
+     */
+
     function get_total_result_count()
     {
-       if ( ! $this->totalResultCount )
-       {
-            $this->get_result_list(); // required to be executed before SELECT FOUND_ROWS
-       }
-       
+       if ( ! $this->totalResultCount ) $this->_execute_pager_queries();
+
        return $this->totalResultCount;
     }
+
+    /**
+     * get the number of offsets needed to build a complete pager
+     * @return int
+     */
 
     function get_offset_count()
     {
@@ -230,20 +257,7 @@ class claro_sql_pager
 
     function get_result_list()
     {
-        if ( ! $this->resultList )
-        {
-            $preparedQuery = $this->get_prepared_query($this->sql,
-                                                     $this->offset, $this->step, 
-                                                     $this->sortKeyList);
-
-            $this->resultList        = claro_sql_query_fetch_all( $preparedQuery );
-
-            // The query below has to be executed just after the previous one. 
-            // Otherwise other potential queries could impair the reliability 
-            // of mySQL FOUND_ROWS() function.
-
-            $this->totalResultCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
-        }
+        if ( ! $this->resultList ) $this->_execute_pager_queries();
 
         return $this->resultList;
     }
@@ -299,7 +313,7 @@ class claro_sql_pager
     }
 
     /**
-     * return the offset list needed for each page
+     * return the offsets list needed for each page
      *
      * @return array of int
      */
