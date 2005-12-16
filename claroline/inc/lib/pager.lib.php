@@ -1,6 +1,267 @@
 <?php
+
+ /**
+  * Pager class allowing to manage the paging system into claroline
+  *
+  * example : $myPager = new claro_pager($totalItemCount, $offset, $step);
+  *           $myPager->set_pager_call_param_name('myOffset') // optionnal
+  *           echo $myPager->disp_pager_tool_bar();
+  */
+
+class claro_pager
+{
+    var $offsetCount = null;
+
+    /**
+     * Constructor
+     *
+     * @param string $sql current SQL query
+     * @param int $offset requested offset
+     * @param int $step current step paging
+     */
+
+    function claro_pager($totalItemCount, $offset = 0, $step = 20)
+    {
+        $this->offset         = (int) $offset;
+        $this->step           = (int) $step;
+        $this->totalItemCount = (int) $totalItemCount;
+        $this->set_pager_call_param_name('offset');
+    }
+
+    /**
+     * Allows to change the parameter name in the url for page change request.
+     * By default, this parameter name is 'offset'.
+     * @param string paramName
+     */
+
+    function set_pager_call_param_name($paramName)
+    {
+        $this->pagerParamName = $paramName;
+    }
+
+    /**
+     * get the total number of the complete the results
+     * @return int
+     */
+
+    function get_total_item_count()
+    {
+       return $this->totalItemCount;
+    }
+
+    /**
+     * get the number of offsets needed to build a complete pager
+     * @return int
+     */
+
+    function get_offset_count()
+    {
+        if ( ! $this->offsetCount )
+        {
+            $this->offsetCount = ceil( $this->get_total_item_count() / $this->step );
+        }
+
+        return $this->offsetCount;
+    }
+
+    /**
+     * return the offset needed to get the previous page
+     *
+     * @return int
+     */
+
+    function get_previous_offset()
+    {
+        $previousOffset = $this->offset - $this->step;
+
+        if ($previousOffset >= 0) return $previousOffset;
+        else                      return false;
+    }
+
+    /**
+     * return the offset needed to get the next page
+     *
+     * @return int
+     */
+
+    function get_next_offset()
+    {
+        $nextOffset = $this->offset + $this->step;
+
+        if ($nextOffset < $this->get_total_item_count() ) return $nextOffset;
+        else                                              return false;
+    }
+
+    /**
+     * return the offset needed to get the first page
+     *
+     * @return int
+     */
+
+    function get_first_offset()
+    {
+        return 0;
+    }
+
+    /**
+     * return the offset needed to get the last page
+     *
+     * @return int
+     */
+
+    function get_last_offset()
+    {
+        return (int)($this->get_offset_count() - 1) * $this->step;
+    }
+
+    /**
+     * return the offsets list needed for each page
+     *
+     * @return array of int
+     */
+
+    function get_offset_list()
+    {
+
+        $offsetList = array();
+        
+        for ($i = 0, $currentOffset = 0, $offsetCount = $this->get_offset_count(); 
+             $i < $offsetCount;
+             $i ++)
+        {
+            $offsetList [] = $currentOffset;
+            $currentOffset = $currentOffset + $this->step;
+        }
+
+        return $offsetList;
+    }
+
+
+    /**
+     * Display a standart pager tool bar
+     *
+     * @author Hugues Peeters <hugues.peeters@claroline.net>
+     * @param  string $url - where the pager tool bar commands need to point to
+     * @param  int $linkMax - (optionnal) maximum of page links in the pager tool bar
+     * @return string
+     */
+
+    function disp_pager_tool_bar($url, $linkMax = 10)
+    {
+        $startPage    = $this->get_first_offset();
+        $previousPage = $this->get_previous_offset();
+        $pageList     = $this->get_offset_list();
+        $nextPage     = $this->get_next_offset();
+        $endPage      = $this->get_last_offset();
+
+        if ( strrpos($url, '?') === false) $url .= '?'    .$this->pagerParamName.'=';
+        else                               $url .= '&amp;'.$this->pagerParamName.'=';
+
+
+        $output =                                                                                        "\n\n"
+                . '<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n"
+                . '<tr valign="top">'                                                                  . "\n"
+                . '<td align="left" width="20%">'                                                      . "\n"
+                ;
+
+        if ($previousPage !== false)
+        {
+            $output .= '<b>'
+                    . '<a href="' . $url . $startPage    . '">|&lt;&lt;</a>&nbsp;&nbsp;'
+                    . '<a href="' . $url . $previousPage . '">&lt; </a>'
+                    . '</b>'
+                    ;
+        }
+        else
+        {
+            $output .= '&nbsp;';
+        }
+
+        $output .=                                     "\n"
+                .  '</td>'                           . "\n"
+                .  '<td align="center" width="60%">' . "\n"
+                ;
+
+        // current page
+        $currentPage = (int) $this->offset / $this->step ;
+
+        // total page
+        $pageCount = $this->get_offset_count();
+
+        // start page    
+        if ( $currentPage > $linkMax ) $firstLink = $currentPage - $linkMax;
+        else                           $firstLink = 0;
+
+        // end page
+        if ( $currentPage + $linkMax < $pageCount ) $lastLink = $currentPage + $linkMax;
+        else                                        $lastLink = $pageCount;
+
+        // display 1 ... {start_page}
+        
+        if ( $firstLink > 0 )
+        {
+            $output .= '<a href="' . $url . $pageList[0] . '">' . (0+1) . '</a>&nbsp;';
+            if ( $firstLink > 1 ) $output .= '...&nbsp;';
+        } 
+
+        if ( $pageCount > 1) 
+        {
+            // display page
+            for ($link = $firstLink; $link < $lastLink ; $link++)
+            {
+                if ( $currentPage == $link )
+                {
+                    $output .= '<b>' . ($link + 1) . '</b> '; // current page
+                }
+                else
+                {
+                    $output .= '<a href="' . $url . $pageList[$link] . '">' . ($link + 1) . '</a> ';
+                }
+            }
+        }
+
+        // display 1 ... {start_page}
+        if ( $lastLink < $pageCount )
+        {
+            if ( $lastLink + 1 < $pageCount ) $output .= '...';
+
+            $output .= '&nbsp;<a href="'. $url . $pageList[$pageCount-1] . '">'.($pageCount).'</a>';
+        } 
+
+        $output .=                                   "\n"
+                .  '</td>'.                          "\n"
+                .  '<td align="right" width="20%">'. "\n"
+                ;
+
+        if ($nextPage !== false)
+        {
+            $output .= '<b>'
+                    .  '<a href="' . $url . $nextPage . '"> &gt;</a>&nbsp;&nbsp;'
+                    .  '<a href="' . $url . $endPage  . '"> &gt;&gt;|</a>'
+                    .  '</b>'
+                    ;
+        }
+        else
+        {
+            $output .= '&nbsp;';
+        }
+
+        $output .=             "\n"
+                .  '</td>'    ."\n"
+                .  '</tr>'    ."\n"
+                .  '</table>' ."\n\n"
+                ;
+
+        return $output;
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
 /**
- * Pager class allowing to manage the paging system into claroline
+ * Pager class allowing to manage a paging system from a simple SQL query
  *
  *  example 1 : $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
  *
@@ -18,6 +279,7 @@
  *
  *            echo '</table>';
  *
+ * The 
  *  example 2 : 
  *
  *            $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
@@ -58,10 +320,10 @@
  * 
  */
 
-class claro_sql_pager
+class claro_sql_pager extends claro_pager // implements sortable
 {
     var $sortKeyList = array(),
-        $totalResultCount = null ,  $offsetCount = null  ,
+        $totalItemCount = null ,  $offsetCount = null  ,
         $resultList       = null;
 
     /**
@@ -80,17 +342,6 @@ class claro_sql_pager
         $this->set_pager_call_param_name('offset');
         $this->set_sort_key_call_param_name('sort');
         $this->set_sort_dir_call_param_name('dir');
-    }
-
-    /**
-     * Allows to change the parameter name in the url for page change request.
-     * By default, this parameter name is 'offset'.
-     * @param string paramName
-     */
-
-    function set_pager_call_param_name($paramName)
-    {
-    	$this->pagerParamName = $paramName;
     }
 
     /**
@@ -218,7 +469,7 @@ class claro_sql_pager
        // Otherwise other potential queries could impair the reliability 
        // of mySQL FOUND_ROWS() function.
 
-       $this->totalResultCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
+       $this->totalItemCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
     }
 
 
@@ -227,26 +478,11 @@ class claro_sql_pager
      * @return int
      */
 
-    function get_total_result_count()
+    function get_total_item_count()
     {
-       if ( ! $this->totalResultCount ) $this->_execute_pager_queries();
+       if ( ! $this->totalItemCount ) $this->_execute_pager_queries();
 
-       return $this->totalResultCount;
-    }
-
-    /**
-     * get the number of offsets needed to build a complete pager
-     * @return int
-     */
-
-    function get_offset_count()
-    {
-        if ( ! $this->offsetCount )
-        {
-            $this->offsetCount = ceil( $this->get_total_result_count() / $this->step );
-        }
-
-        return $this->offsetCount;
+       return $this->totalItemCount;
     }
 
     /**
@@ -261,79 +497,6 @@ class claro_sql_pager
 
         return $this->resultList;
     }
-
-    /**
-     * return the offset needed to get the previous page
-     *
-     * @return int
-     */
-
-    function get_previous_offset()
-    {
-        $previousOffset = $this->offset - $this->step;
-
-        if ($previousOffset >= 0) return $previousOffset;
-        else                      return false;
-    }
-
-    /**
-     * return the offset needed to get the next page
-     *
-     * @return int
-     */
-
-    function get_next_offset()
-    {
-        $nextOffset = $this->offset + $this->step;
-
-        if ($nextOffset < $this->get_total_result_count() ) return $nextOffset;
-        else                                                return false;
-    }
-
-    /**
-     * return the offset needed to get the first page
-     *
-     * @return int
-     */
-
-    function get_first_offset()
-    {
-        return 0;
-    }
-
-    /**
-     * return the offset needed to get the last page
-     *
-     * @return int
-     */
-
-    function get_last_offset()
-    {
-        return (int)($this->get_offset_count() - 1) * $this->step;
-    }
-
-    /**
-     * return the offsets list needed for each page
-     *
-     * @return array of int
-     */
-
-    function get_offset_list()
-    {
-
-        $offsetList = array();
-        
-        for ($i = 0, $currentOffset = 0, $offsetCount = $this->get_offset_count(); 
-             $i < $offsetCount;
-             $i ++)
-        {
-            $offsetList [] = $currentOffset;
-            $currentOffset = $currentOffset + $this->step;
-        }
-
-        return $offsetList;
-    }
-
 
     /**
      * returns prepared url able to require sorting for each column 
@@ -404,112 +567,59 @@ class claro_sql_pager
                  .  '&amp;'.$this->sortDirParamName.'=' . $sortDir;
         }
 
-        if ( strrpos($url, '?') === false) $url .= '?'    .$this->pagerParamName.'=';
-        else                               $url .= '&amp;'.$this->pagerParamName.'=';
-
-
-        $startPage    = $this->get_first_offset();
-        $previousPage = $this->get_previous_offset();
-        $pageList     = $this->get_offset_list();
-        $nextPage     = $this->get_next_offset();
-        $endPage      = $this->get_last_offset();
-
-        $output =                                                                                        "\n\n"
-                . '<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n"
-                . '<tr valign="top">'                                                                  . "\n"
-                . '<td align="left" width="20%">'                                                      . "\n"
-                ;
-
-        if ($previousPage !== false)
-        {
-            $output .= '<b>'
-                    . '<a href="' . $url . $startPage    . '">|&lt;&lt;</a>&nbsp;&nbsp;'
-                    . '<a href="' . $url . $previousPage . '">&lt; </a>'
-                    . '</b>'
-                    ;
-        }
-        else
-        {
-            $output .= '&nbsp;';
-        }
-
-        $output .=                                     "\n"
-                .  '</td>'                           . "\n"
-                .  '<td align="center" width="60%">' . "\n"
-                ;
-
-        // current page
-        $currentPage = (int) $this->offset / $this->step ;
-
-        // total page
-        $pageCount = $this->get_offset_count();
-
-        // start page    
-        if ( $currentPage > $linkMax ) $firstLink = $currentPage - $linkMax;
-        else                           $firstLink = 0;
-
-        // end page
-        if ( $currentPage + $linkMax < $pageCount ) $lastLink = $currentPage + $linkMax;
-        else                                        $lastLink = $pageCount;
-
-        // display 1 ... {start_page}
-        
-        if ( $firstLink > 0 )
-        {
-            $output .= '<a href="' . $url . $pageList[0] . '">' . (0+1) . '</a>&nbsp;';
-            if ( $firstLink > 1 ) $output .= '...&nbsp;';
-        } 
-
-        if ( $pageCount > 1) 
-        {
-            // display page
-            for ($link = $firstLink; $link < $lastLink ; $link++)
-            {
-                if ( $currentPage == $link )
-                {
-                    $output .= '<b>' . ($link + 1) . '</b> '; // current page
-                }
-                else
-                {
-                    $output .= '<a href="' . $url . $pageList[$link] . '">' . ($link + 1) . '</a> ';
-                }
-            }
-        }
-
-        // display 1 ... {start_page}
-        if ( $lastLink < $pageCount )
-        {
-            if ( $lastLink + 1 < $pageCount ) $output .= '...';
-
-            $output .= '&nbsp;<a href="'. $url . $pageList[$pageCount-1] . '">'.($pageCount).'</a>';
-        } 
-
-        $output .=                                   "\n"
-                .  '</td>'.                          "\n"
-                .  '<td align="right" width="20%">'. "\n"
-                ;
-
-        if ($nextPage !== false)
-        {
-            $output .= '<b>'
-                    .  '<a href="' . $url . $nextPage . '"> &gt;</a>&nbsp;&nbsp;'
-                    .  '<a href="' . $url . $endPage  . '"> &gt;&gt;|</a>'
-                    .  '</b>'
-                    ;
-        }
-        else
-        {
-            $output .= '&nbsp;';
-        }
-
-        $output .=             "\n"
-                .  '</td>'    ."\n"
-                .  '</tr>'    ."\n"
-                .  '</table>' ."\n\n"
-                ;
-
-        return $output;
+        return parent::disp_pager_tool_bar($url, $linkMax);
     }
 }
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Pager class allowing to manage a paging system from a an array containing 
+ * all the concerned items
+ */
+
+class claro_array_pager extends claro_pager
+{
+    /**
+     * constructor
+     */
+
+    function claro_array_pager($array, $offset = 0, $step = 20)
+    {
+        $this->baseArray = $array;
+        parent::claro_pager( count($array), $offset, $step);
+    }
+
+    function get_result_list()
+    {
+        return array_slice($this->baseArray, $this->offset, $this->step);
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Pager class allowing to manage a paging system from a any object containing 
+ * provided this object implment the get_total_item_count() method
+ */
+
+class claro_object_pager extends claro_pager
+{
+    /**
+     * constructor
+     */
+
+    function claro_object_pager( &$object, $offset = 0, $step = 20)
+    {
+        $this->baseObject = & $object;
+
+        parent::claro_pager( $this->baseObject->get_total_item_count(), $offset, $step);
+    }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
 
 ?>
