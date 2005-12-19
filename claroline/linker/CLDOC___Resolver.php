@@ -99,7 +99,7 @@
                         }
                         else if( is_file($path)) 
                         {
-                            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
+                            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
                                  && get_conf('secureDocumentDownload') )
                             {
                                 // slash argument method - only compatible with Apache
@@ -109,7 +109,7 @@
                             else
                             {
                                 // question mark argument method, for IIS ...
-                                $url = 'goto/?url=' . $elementCRLArray['resource_id'];
+                                $url .= '/goto/?url=/' . $elementCRLArray['resource_id'];
                             }
 
                         }
