@@ -55,11 +55,13 @@ class csvTrackSingle extends csv
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
 						`TEA`.`answer`
-				FROM `".$tbl_quiz_question."` AS `Q`,
+				FROM (
+					`".$tbl_quiz_question."` AS `Q`,
 					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
 					`".$tbl_track_e_exercises."` AS `TE`,
 					`".$tbl_track_e_exe_details."` AS `TED`,
 					`".$tbl_user."` AS `U`
+					)
 				LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
 				    ON `TEA`.`details_id` = `TED`.`id`
     			WHERE `RTQ`.`question_id` = `Q`.`id`
@@ -138,11 +140,13 @@ class csvTrackMulti extends csv
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
 						`TEA`.`answer`
-				FROM `".$tbl_quiz_question."` AS `Q`,
+				FROM (
+					 `".$tbl_quiz_question."` AS `Q`,
 					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
 					`".$tbl_track_e_exercises."` AS `TE`,
 					`".$tbl_track_e_exe_details."` AS `TED`,
 					`".$tbl_user."` AS `U`
+					)
 				LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
 				    ON `TEA`.`details_id` = `TED`.`id`
     			WHERE `RTQ`.`question_id` = `Q`.`id`
@@ -233,12 +237,14 @@ class csvTrackFIB extends csv
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
 						`TEA`.`answer`
-				FROM `".$tbl_quiz_question."` AS `Q`,
+				FROM (
+					`".$tbl_quiz_question."` AS `Q`,
 					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
 					`".$tbl_quiz_answer."` AS `A`,
 					`".$tbl_track_e_exercises."` AS `TE`,
 					`".$tbl_track_e_exe_details."` AS `TED`,
 					`".$tbl_user."` AS `U`
+					)
 				LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
 				    ON `TEA`.`details_id` = `TED`.`id`
     			WHERE `RTQ`.`question_id` = `Q`.`id`
@@ -269,7 +275,13 @@ class csvTrackFIB extends csv
 				$recordList[$key]['name'] = $tmpRecord['name'];
 				$recordList[$key]['question'] = $tmpRecord['question'];
 			}
+			
 			// add answer one by one
+			// for a better display replace entities by real chars
+			$charsToReplace = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
+			$replacingChars = array('::','[',']','<','>');
+			$tmpRecord['answer'] = str_replace($charsToReplace,$replacingChars,trim($tmpRecord['answer']));
+			
 			$recordList[$key][] = $tmpRecord['answer'];
 
 			$previousKey = $key;
@@ -318,11 +330,13 @@ class csvTrackMatching extends csv
 						CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
 						`Q`.`question`,
 						`TEA`.`answer`
-				FROM `".$tbl_quiz_question."` AS `Q`,
+				FROM (
+					`".$tbl_quiz_question."` AS `Q`,
 					`".$tbl_quiz_rel_test_question."` AS `RTQ`,
 					`".$tbl_track_e_exercises."` AS `TE`,
 					`".$tbl_track_e_exe_details."` AS `TED`,
 					`".$tbl_user."` AS `U`
+					)
 				LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
 				    ON `TEA`.`details_id` = `TED`.`id`
     			WHERE `RTQ`.`question_id` = `Q`.`id`
