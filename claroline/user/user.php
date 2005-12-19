@@ -186,7 +186,7 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 }
 
 $userList    = $myPager->get_result_list();
-$userTotalNb = $myPager->get_total_result_count();
+$userTotalNb = $myPager->get_total_item_count();
 
 /*----------------------------------------------------------------------
   Get groups
