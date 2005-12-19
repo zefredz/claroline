@@ -581,6 +581,10 @@ class claro_sql_pager extends claro_pager // implements sortable
 
 class claro_array_pager extends claro_pager
 {
+    var $sortKeyList    = array(),
+        $totalItemCount = null ,  $offsetCount = null  ,
+        $resultList     = null;
+
     /**
      * constructor
      */
@@ -589,11 +593,166 @@ class claro_array_pager extends claro_pager
     {
         $this->baseArray = $array;
         parent::claro_pager( count($array), $offset, $step);
+        $this->set_sort_key_call_param_name('sort');
+        $this->set_sort_dir_call_param_name('dir');
+    }
+
+    /**
+     * Allows to change the parameter name in the url for sort key request.
+     * By default, this parameter name is 'sort'.
+     * @param string paramName
+     */
+
+    function set_sort_key_call_param_name($paramName)
+    {
+        $this->sortKeyParamName = $paramName;
+    }
+
+    /**
+     * Allows to change the parameter name in the url for sort direction 
+     * request. By default, this parameter name is 'dir'.
+     * @param string paramName
+     */
+
+    function set_sort_dir_call_param_name($paramName)
+    {
+        $this->sortDirParamName = $paramName;
     }
 
     function get_result_list()
     {
-        return array_slice($this->baseArray, $this->offset, $this->step);
+        if ( ! $this->resultList )
+        {
+            if ( count($this->sortKeyList) > 0 )
+            {
+                usort($this->baseArray, array( &$this, 'compare_array_rows') );
+            }
+
+            $this->resultList = array_slice($this->baseArray, $this->offset, $this->step);
+        }
+
+        return $this->resultList;
+    }
+
+    /**
+     * This method is dedicated to the usort() process 
+     * into get_result_list() method
+     * @acess private
+     */
+
+    function compare_array_rows($row1, $row2)
+    {
+        foreach($this->sortKeyList as $thisSortKey => $thisSortDir)
+        {
+            $direction = ($thisSortDir == SORT_ASC) ? 1 : -1;
+
+            $result = $direction * (int) strnatcasecmp($row1[$thisSortKey], $row2[$thisSortKey]);
+
+            if ($result != 0) return $result;
+        }
+    }
+
+    /**
+     * Set a specificic sorting for the result returned by the query.
+     * 
+     * @param string $key - has to be something understable by the SQL parser.
+     * @param string $direction use PHP constants SORT_ASC and SORT_DESC
+     */
+
+    function set_sort_key($key, $direction)
+    {
+        $this->set_multiple_sort_keys( array($key => $direction) );
+    }
+
+    /**
+     * Set multiple sorting for the result returned by the query.
+     * 
+     * @param array $keyList - each array key are the sort keys 
+     *        it has to be something understable by the SQL parser.
+     *        while each array values are sort direction of the concerned key
+     */
+
+    function set_multiple_sort_keys($keyList)
+    {
+        $this->sortKeyList = array(); // reset the sort key list
+        $this->sortKeyList = $keyList;
+    }
+
+    function add_sort_key($key, $direction)
+    {
+         if ($this->resultList) 
+              claro_die('add_sort_key() IMPOSSIBLE : SORT ALREADY PROCESSED.');
+
+        if ( ! array_key_exists($key, $this->sortKeyList) )
+        {
+            $this->sortKeyList[$key] = $direction;
+            return true;
+        }
+
+        return false;
+    }
+
+    function get_sort_url_list($url, $defaultArrayKeyList = array() )
+    {
+        $urlList        = array();
+        $sortArgList    = array();
+
+        if ( count($this->get_result_list() ) )
+        {
+            list($firstResultRow) = $this->get_result_list();
+            $sortArgList          = array_keys($firstResultRow);
+        }
+        else
+        {
+             $sortArgList = $defaultArrayKeyList;
+        }
+
+        foreach($sortArgList as $thisArg)
+        {
+            if (   array_key_exists($thisArg, $this->sortKeyList) 
+                && $this->sortKeyList[$thisArg] != SORT_DESC)
+            {
+                $direction = SORT_DESC;
+            }
+            else
+            {
+                $direction = SORT_ASC;
+            }
+
+            $urlList[$thisArg] = $url 
+                       . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
+                       . $this->sortKeyParamName . '=' . urlencode($thisArg)
+                       . '&amp;' . $this->sortDirParamName . '=' . $direction;
+        }
+
+        return $urlList;
+    }
+
+    /**
+     * Display a standart pager tool bar
+     *
+     * @param  string $url - where the pager tool bar commands need to point to
+     * @param  int $linkMax - (optionnal) maximum of page links in the pager tool bar
+     * @return string
+     */
+
+    function disp_pager_tool_bar($url, $linkMax = 10)
+    {
+
+        if ( count($this->sortKeyList) > 0 )
+        {
+            // Add optionnal sorting calls. 
+            // IT KEEPS ONLY THE FIRST SORT KEY !
+
+            reset($this->sortKeyList);
+            list($sortKey, $sortDir) = each($this->sortKeyList);
+
+            $url .= ( ( strrpos($url, '?') === false) ? '?' : '&amp;') 
+                 .  $this->sortKeyParamName.'=' . urlencode($sortKey)
+                 .  '&amp;'.$this->sortDirParamName.'=' . $sortDir;
+        }
+
+        return parent::disp_pager_tool_bar($url, $linkMax);
     }
 }
 
