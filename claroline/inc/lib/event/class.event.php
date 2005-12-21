@@ -118,19 +118,29 @@ class EventManager
      */
     function eventOccurs( $event )
     {
-        if ( is_array( $this->_registry[$event->getEventType()] )
+        if ( isset( $this->_registry[$event->getEventType()] )
+            && is_array( $this->_registry[$event->getEventType()] )
             && array_size( $this->_registry[$event->getEventType()] ) != 0 )
         {
             foreach( $this->_registry[$event->getEventType()] as $listener )
             {
                 if( !is_null( $listener ) )
-                $listener->handle($event);
+                {
+                    $listener->handle($event);
+                }
             }
         }
         else
         {
-            $errmsg = __CLASS__ . "{no listener found for EVENT[".$event->getEventType()."]}";
-            trigger_error( $errmsg, E_USER_ERROR );
+            if ( defined( "DEBUG_MODE" ) && DEBUG_MODE )
+            {
+                $errmsg = __CLASS__ 
+                    . "{no listener found for EVENT["
+                    . $event->getEventType()
+                    . "]}"
+                    ;
+                trigger_error( $errmsg, E_USER_ERROR );
+            }
         }
     }
 
