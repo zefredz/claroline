@@ -317,11 +317,16 @@ function assignment_set_item_visibility($assignment_id, $visibility, $course_id=
 }
 
 
+/**
+ * Class of static method to get list data about assingment
+ *
+ */
 class CLWRK_LIST
 {
-    function get_assignement_data($assignmentId)
+
+    function get_assignement_data($assignmentId,$course=null)
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
         $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 
         $sql = "SELECT *,
@@ -334,9 +339,9 @@ class CLWRK_LIST
     }
 
 
-    function get_wrk_submission_of_user($workId, $userId = null)
+    function get_wrk_submission_of_user($workId, $userId = null,$course=null)
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
         $tbl_wrk_submission      = $tbl_cdb_names['wrk_submission'];
 
         $userId = is_null($userId) ? $GLOBALS['_uid'] : $userId;
@@ -390,14 +395,31 @@ class CLWRK_LIST
 
 }
 
+/**
+ * This class would manage read info about relation between a user  of a course and a group of same course
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @todo find a good name
+ * @static
+ *
+ */
 
 class REL_GROUP_USER
 {
-    function get_user_group_list($_uid)
+    /**
+     * Return list of groupe subscribed by a ginv user in a given/current course
+     *
+     * @param integer $_uid
+     * @param course_syscode $course
+     *
+     */
+    function get_user_group_list($_uid,$course=null)
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
         $tbl_group_team          = $tbl_cdb_names['group_team'];
         $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+
+        $userGroupList = array();
+
         $sql = "SELECT `tu`.`team` `id` , `t`.`name`
     	        FROM `" . $tbl_group_rel_team_user . "` as `tu`
     	        INNER JOIN `" . $tbl_group_team . "`    as `t`
@@ -409,6 +431,8 @@ class REL_GROUP_USER
         {
             foreach( $groupList AS $group ) $userGroupList[$group['team']] = $group;
         }
+
+        return $userGroupList;
 
     }
 }
