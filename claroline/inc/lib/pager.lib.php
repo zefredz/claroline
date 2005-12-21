@@ -336,7 +336,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 
     function claro_sql_pager($sql, $offset = 0, $step = 20)
     {
-        $this->sql       = $sql;
+        $this->sql       = trim($sql);
         $this->offset    = (int) $offset;
         $this->step      = (int) $step;
         $this->set_pager_call_param_name('offset');
