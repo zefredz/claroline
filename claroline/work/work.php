@@ -4,18 +4,18 @@
  *
  * Main script for work tool
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/CLWRK/
  *
  * @author Claro Team <cvs@claroline.net>
  *
  * @package CLWRK
- * 
+ *
  */
 
 $tlabelReq = 'CLWRK___';
@@ -23,11 +23,11 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-include($includePath . '/lib/assignment.lib.php');
+include_once $includePath . '/lib/assignment.lib.php';
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
-$tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];    
+$tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
 
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -48,7 +48,7 @@ $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $wrkDir          = $currentCourseRepositorySys . 'work/'; //directory path to create assignment dirs
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
-// but a 'text' with only an image don't have to be considered as empty 
+// but a 'text' with only an image don't have to be considered as empty
 $allowedTags = '<img>';
 
 // initialise dialog box to an empty string, all dialog will be concat to it
@@ -68,89 +68,89 @@ $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
   =============================================================================*/
 if( !empty($cmd) )
 {
- 	if( isset($_REQUEST['assigId']) && !isset($_REQUEST['submitAssignment']) )
-	{
+     if( isset($_REQUEST['assigId']) && !isset($_REQUEST['submitAssignment']) )
+    {
         // we handle a particular assignment , no form has been posted
-        
+
         // so read the data of this assignment
-		$assignment_data = assignment_get_data($_REQUEST['assigId']);
-		// cannot read assignment $_REQUEST['assigId']
-		if(claro_failure::get_last_failure() == 'ASSIGNMENT_NOT_FOUND')
-      	{
-		    $cmd = '';
-			$_REQUEST['assigId'] == NULL;
-		}
-		else
-		{
-			// get date and time data usable in form
-			list($assignment_data['start_date_date'], $assignment_data['start_date_time']) = split(' ', $assignment_data['start_date']);
-			list($assignment_data['end_date_date'], $assignment_data['end_date_time']) = split(' ', $assignment_data['end_date']);
-		}
-	}
-	elseif( isset($_REQUEST['submitAssignment']) )
-	{
-		// form has been sent
+        $assignment_data = assignment_get_data($_REQUEST['assigId']);
+        // cannot read assignment $_REQUEST['assigId']
+        if(claro_failure::get_last_failure() == 'ASSIGNMENT_NOT_FOUND')
+          {
+            $cmd = '';
+            $_REQUEST['assigId'] == NULL;
+        }
+        else
+        {
+            // get date and time data usable in form
+            list($assignment_data['start_date_date'], $assignment_data['start_date_time']) = split(' ', $assignment_data['start_date']);
+            list($assignment_data['end_date_date'], $assignment_data['end_date_time']) = split(' ', $assignment_data['end_date']);
+        }
+    }
+    elseif( isset($_REQUEST['submitAssignment']) )
+    {
+        // form has been sent
         $assignment_data = assignment_initialise();
-        
-        if ( isset($_REQUEST['title']) )		$assignment_data['title'] = strip_tags(trim($_REQUEST['title'])) ;
-        if ( isset($_REQUEST['def_submission_visibility']) )		$assignment_data['def_submission_visibility'] = $_REQUEST['def_submission_visibility'] ;
-        if ( isset($_REQUEST['startDate']) )		$assignment_data['description'] = trim($_REQUEST['assigDesc']) ;
-        if ( isset($_REQUEST['startTime']) )		$assignment_data['def_submission_visibility'] = $_REQUEST['defSubVis'] ;
-        if ( isset($_REQUEST['endDate']) )			$assignment_data['title'] = strip_tags(trim($_REQUEST['assigTitle'])) ;
-        if ( isset($_REQUEST['endTime']) )			$assignment_data['description'] = trim($_REQUEST['assigDesc']) ;
-        if ( isset($_REQUEST['assignment_type']) )	$assignment_data['assignment_type'] = $_REQUEST['assignment_type'] ;
-        if ( isset($_REQUEST['allow_late_upload']) )	$assignment_data['allow_late_upload'] = $_REQUEST['allow_late_upload'] ;
-		// authorized type
-		if ( isset($_REQUEST['authorized_content'])
-			&& ($_REQUEST['authorized_content'] == 'TEXTFILE' || $_REQUEST['authorized_content'] == 'TEXT' || $_REQUEST['authorized_content'] == 'FILE')
-			)
-		{
-		    $assignment_data['authorized_content'] = $_REQUEST['authorized_content'];
-		}
-		else
-		{
-			$assignment_data['authorized_content'] = 'TEXT';
-		}
 
-		// description
-		if( !isset($_REQUEST['description']) || trim( strip_tags($_REQUEST['description'], $allowedTags ) ) == "" )
-		{
-		    $assignment_data['description'] = ''; // avoid multiple br tags to be added when editing an empty form
-		}
-		else
-		{
-		    $assignment_data['description'] = trim( $_REQUEST['description'] );
+        if ( isset($_REQUEST['title']) )        $assignment_data['title'] = strip_tags(trim($_REQUEST['title'])) ;
+        if ( isset($_REQUEST['def_submission_visibility']) )        $assignment_data['def_submission_visibility'] = $_REQUEST['def_submission_visibility'] ;
+        if ( isset($_REQUEST['startDate']) )        $assignment_data['description'] = trim($_REQUEST['assigDesc']) ;
+        if ( isset($_REQUEST['startTime']) )        $assignment_data['def_submission_visibility'] = $_REQUEST['defSubVis'] ;
+        if ( isset($_REQUEST['endDate']) )            $assignment_data['title'] = strip_tags(trim($_REQUEST['assigTitle'])) ;
+        if ( isset($_REQUEST['endTime']) )            $assignment_data['description'] = trim($_REQUEST['assigDesc']) ;
+        if ( isset($_REQUEST['assignment_type']) )    $assignment_data['assignment_type'] = $_REQUEST['assignment_type'] ;
+        if ( isset($_REQUEST['allow_late_upload']) )    $assignment_data['allow_late_upload'] = $_REQUEST['allow_late_upload'] ;
+        // authorized type
+        if ( isset($_REQUEST['authorized_content'])
+            && ($_REQUEST['authorized_content'] == 'TEXTFILE' || $_REQUEST['authorized_content'] == 'TEXT' || $_REQUEST['authorized_content'] == 'FILE')
+            )
+        {
+            $assignment_data['authorized_content'] = $_REQUEST['authorized_content'];
+        }
+        else
+        {
+            $assignment_data['authorized_content'] = 'TEXT';
+        }
 
-		}
+        // description
+        if( !isset($_REQUEST['description']) || trim( strip_tags($_REQUEST['description'], $allowedTags ) ) == "" )
+        {
+            $assignment_data['description'] = ''; // avoid multiple br tags to be added when editing an empty form
+        }
+        else
+        {
+            $assignment_data['description'] = trim( $_REQUEST['description'] );
 
-		$assignment_data['start_date'] = $_REQUEST['startYear'].'-'
-									.$_REQUEST['startMonth'].'-'
-									.$_REQUEST['startDay'].' '
-									.$_REQUEST['startHour'].':'
-									.$_REQUEST['startMinute'].':00';
+        }
+
+        $assignment_data['start_date'] = $_REQUEST['startYear'].'-'
+                                    .$_REQUEST['startMonth'].'-'
+                                    .$_REQUEST['startDay'].' '
+                                    .$_REQUEST['startHour'].':'
+                                    .$_REQUEST['startMinute'].':00';
 
         $assignment_data['end_date'] = $_REQUEST['endYear'].'-'
-									. $_REQUEST['endMonth'].'-'
-									. $_REQUEST['endDay'].' '
-									. $_REQUEST['endHour'].':'
-									. $_REQUEST['endMinute'].':00';
-									
-		$assignment_data['start_date_date'	] = $_REQUEST['startYear'] . '-' . $_REQUEST['startMonth'] . '-' . $_REQUEST['startDay'];
-		$assignment_data['start_date_time'	] = $_REQUEST['startHour'] . ':' . $_REQUEST['startMinute'] . ':00';
-		$assignment_data['end_date_date'	] = $_REQUEST['endYear'] . '-' . $_REQUEST['endMonth'] . '-' . $_REQUEST['endDay'];
-		$assignment_data['end_date_time'	] = $_REQUEST['endHour'] . ':' . $_REQUEST['endMinute'] . ':00';
-	}
-	else
-	{
-		// get default data to prefill the form
+                                    . $_REQUEST['endMonth'].'-'
+                                    . $_REQUEST['endDay'].' '
+                                    . $_REQUEST['endHour'].':'
+                                    . $_REQUEST['endMinute'].':00';
+
+        $assignment_data['start_date_date'    ] = $_REQUEST['startYear'] . '-' . $_REQUEST['startMonth'] . '-' . $_REQUEST['startDay'];
+        $assignment_data['start_date_time'    ] = $_REQUEST['startHour'] . ':' . $_REQUEST['startMinute'] . ':00';
+        $assignment_data['end_date_date'    ] = $_REQUEST['endYear'] . '-' . $_REQUEST['endMonth'] . '-' . $_REQUEST['endDay'];
+        $assignment_data['end_date_time'    ] = $_REQUEST['endHour'] . ':' . $_REQUEST['endMinute'] . ':00';
+    }
+    else
+    {
+        // get default data to prefill the form
         $assignment_data = assignment_initialise();
 
         // add date format used to pre fill the form
- 		$assignment_data['start_date_date'	] = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y') ) );
-        $assignment_data['start_date_time'	] = date('H:i:00', mktime( date('H'),date('i'),0) );
-        $assignment_data['end_date_date'	] = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y')+1 ) );
-        $assignment_data['end_date_time'	] = date('H:i:00', mktime( date('H'),date('i'),0) );
-	}
+         $assignment_data['start_date_date'    ] = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y') ) );
+        $assignment_data['start_date_time'    ] = date('H:i:00', mktime( date('H'),date('i'),0) );
+        $assignment_data['end_date_date'    ] = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y')+1 ) );
+        $assignment_data['end_date_time'    ] = date('H:i:00', mktime( date('H'),date('i'),0) );
+    }
 }
 
 
@@ -165,10 +165,10 @@ if ($is_allowedToEdit)
     {
         if ( isset($_REQUEST['vis']) )
         {
-			assignment_set_item_visibility($_REQUEST['assigId'], $_REQUEST['vis']);
-            
+            assignment_set_item_visibility($_REQUEST['assigId'], $_REQUEST['vis']);
+
             // notify eventmanager
-            
+
             if ( $_REQUEST['vis'] == 'v')
             {
                 $eventNotifier->notifyCourseEvent('work_visible', $_cid, $_tid, $_REQUEST['assigId'], $_gid, '0');
@@ -191,10 +191,10 @@ if ($is_allowedToEdit)
 
         //notify eventmanager
         $eventNotifier->notifyCourseEvent('work_deleted', $_cid, $_tid, $_REQUEST['assigId'], $_gid, '0');
-        
-        $dialogBox .= get_lang('AssignmentDeleted');    
+
+        $dialogBox .= get_lang('AssignmentDeleted');
     }
-   
+
     /*--------------------------------------------------------------------
                           MODIFY AN ASSIGNMENT
     --------------------------------------------------------------------*/
@@ -210,17 +210,17 @@ if ($is_allowedToEdit)
         {
             assignment_update((int) $_REQUEST['assigId'], $assignment_data);
 
-			$dialogBox .= get_lang('AssignmentEdited');
-        } 
+            $dialogBox .= get_lang('AssignmentEdited');
+        }
         else
         {
-   			if(claro_failure::get_last_failure() == 'assignment_no_title')
-			   $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
-			if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-				$dialogBox .= get_lang('AssignmentTitleAlreadyExists').'<br />';
+               if(claro_failure::get_last_failure() == 'assignment_no_title')
+               $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
+            if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
+                $dialogBox .= get_lang('AssignmentTitleAlreadyExists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-				$dialogBox .= get_lang('IncorrectDate')."<br />";
-				
+                $dialogBox .= get_lang('IncorrectDate')."<br />";
+
             $cmd = 'rqEditAssig';
         }
     }
@@ -236,11 +236,11 @@ if ($is_allowedToEdit)
         // ask the display of the form
         $displayAssigForm = true;
     }
-  
+
     /*--------------------------------------------------------------------
                           CREATE NEW ASSIGNMENT
     --------------------------------------------------------------------*/
-    
+
     /*-----------------------------------
         STEP 2 : check & query
     -------------------------------------*/
@@ -250,29 +250,29 @@ if ($is_allowedToEdit)
         // form data have been handled before this point if the form was sent
         if( assignment_validate_form($assignment_data) )
         {
-			$lastAssigId = assignment_insert($assignment_data, $wrkDir);
+            $lastAssigId = assignment_insert($assignment_data, $wrkDir);
             // confirmation message
             $dialogBox .= get_lang('AssignmentAdded');
-            
+
             if($lastAssigId)
             {
-	            //notify eventmanager that a new assignement is created
-	            $eventNotifier->notifyCourseEvent("work_added",$_cid, $_tid, $lastAssigId, $_gid, "0");
-			}
+                //notify eventmanager that a new assignement is created
+                $eventNotifier->notifyCourseEvent("work_added",$_cid, $_tid, $lastAssigId, $_gid, "0");
+            }
         }
         else
         {
-   			if(claro_failure::get_last_failure() == 'assignment_no_title')
-			   $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
-			if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-				$dialogBox .= get_lang('AssignmentTitleAlreadyExists').'<br />';
+               if(claro_failure::get_last_failure() == 'assignment_no_title')
+               $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
+            if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
+                $dialogBox .= get_lang('AssignmentTitleAlreadyExists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-				$dialogBox .= get_lang('IncorrectDate')."<br />";
+                $dialogBox .= get_lang('IncorrectDate')."<br />";
 
             $cmd = 'rqMkAssig';
         }
     }
-  
+
     /*-----------------------------------
         STEP 1 : display form
     -------------------------------------*/
@@ -316,22 +316,49 @@ else
     $nameTools = get_lang('Work');
 }
 
-include( $includePath . '/claro_init_header.inc.php' );
+
+
+    /*--------------------------------------------------------------------
+                                  LIST
+      --------------------------------------------------------------------*/
+    // if user come from a group
+    if ( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed )
+    {
+        // select only the group assignments
+          $sql = "SELECT `id`, `title`, `visibility`,
+            `description`, `assignment_type`, `authorized_content`,
+            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
+            FROM `" . $tbl_wrk_assignment . "`
+            WHERE `assignment_type` = 'GROUP'
+            ORDER BY `end_date` ASC";
+    }
+    else
+    {
+        $sql = "SELECT `id`, `title`, `visibility`,
+            `description`, `assignment_type`, `authorized_content`,
+            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
+            FROM `" . $tbl_wrk_assignment . "`
+            ORDER BY `end_date` ASC";
+    }
+    $assignmentList = claro_sql_query_fetch_all($sql);
+
+
+include $includePath . '/claro_init_header.inc.php' ;
 
 /*--------------------------------------------------------------------
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
 echo claro_disp_tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
-  
- 
+
+
 if ($is_allowedToEdit)
 {
 
     /*--------------------------------------------------------------------
                             DIALOG BOX SECTION
       --------------------------------------------------------------------*/
-    
+
     if ( isset($dialogBox) && !empty($dialogBox) )
     {
         echo claro_disp_message_box($dialogBox);
@@ -340,7 +367,7 @@ if ($is_allowedToEdit)
     /*--------------------------------------------------------------------
                           CREATE AND EDIT FORM
       --------------------------------------------------------------------*/
-    if ( isset($displayAssigForm) && $displayAssigForm ) 
+    if ( isset($displayAssigForm) && $displayAssigForm )
     {
 ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
@@ -363,12 +390,12 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><label for="description"><?php echo get_lang('AssignmentDescription'); ?>&nbsp;:<br /></label></td>
         <td>
-<?php          
+<?php
     echo claro_disp_html_area('description', htmlspecialchars($assignment_data['description']));
-?> 
+?>
         </td>
       </tr>
-      
+
       <tr>
         <td valign="top"><?php echo get_lang('SubmissionType'); ?>&nbsp;:</td>
         <td>
@@ -383,27 +410,27 @@ if ($is_allowedToEdit)
             <br />
         </td>
       </tr>
-      
+
       <tr>
         <td valign="top"><?php echo get_lang('StartDate'); ?>&nbsp;:</td>
         <td>
 <?php
     echo claro_disp_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date_date'], 'long') . ' ' . claro_disp_time_form('startHour', 'startMinute', $assignment_data['start_date_time']);
     echo '&nbsp;<small>' . get_lang('ChooseDateHelper') . '</small>';
-?>      
+?>
         </td>
-      </tr>    
-      
+      </tr>
+
       <tr>
         <td valign="top"><?php echo get_lang('EndDate'); ?>&nbsp;:</td>
         <td>
 <?php
     echo claro_disp_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date_date'], 'long') . ' ' . claro_disp_time_form('endHour', 'endMinute', $assignment_data['end_date_time']);
     echo '&nbsp;<small>' . get_lang('ChooseDateHelper') . '</small>';
-?>      
+?>
         </td>
       </tr>
-      
+
       <tr>
         <td valign="top"><?php echo get_lang('DefSubVisibility'); ?>&nbsp;:</td>
         <td>
@@ -415,7 +442,7 @@ if ($is_allowedToEdit)
             <br />
         </td>
       </tr>
-      
+
       <tr>
         <td valign="top"><?php echo get_lang('AssignmentType'); ?>&nbsp;:</td>
         <td>
@@ -426,7 +453,7 @@ if ($is_allowedToEdit)
             <label for="group">&nbsp;<?php echo get_lang('GroupAssignment'); ?></label>
             <br />
         </td>
-      </tr> 
+      </tr>
 
       <tr>
         <td valign="top"><?php echo get_lang('AllowLateUploadShort'); ?>&nbsp;:</td>
@@ -455,16 +482,16 @@ if ($is_allowedToEdit)
 /*--------------------------------------------------------------------
                             ASSIGNMENT LIST
     --------------------------------------------------------------------*/
-// if we don't display assignment form    
+// if we don't display assignment form
 if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 {
     /*--------------------------------------------------------------------
                         INTRODUCTION SECTION
       --------------------------------------------------------------------*/
-    
+
     $moduleId = $_tid; // Id of the Student Paper introduction Area
     $helpAddIntroText = get_lang('IntroWork');
-    include($includePath . '/introductionSection.inc.php');  
+    include($includePath . '/introductionSection.inc.php');
 
     /*--------------------------------------------------------------------
                         ADMIN LINKS
@@ -472,39 +499,15 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     if ( $is_allowedToEdit )
     {
         // link to create a new assignment
-        echo '<p>' 
+        echo '<p>'
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig">'
-        .    '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" />' . get_lang('CreateAssignment') 
+        .    '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" />' . get_lang('CreateAssignment')
         .    '</a>'
         .    '</p>' . "\n"
         ;
     }
 
-    /*--------------------------------------------------------------------
-                                  LIST
-      --------------------------------------------------------------------*/
-    // if user come from a group
-    if ( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed ) 
-    {
-        // select only the group assignments
-          $sql = "SELECT `id`, `title`, `visibility`, 
-            `description`, `assignment_type`, `authorized_content`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
-            FROM `" . $tbl_wrk_assignment . "`
-            WHERE `assignment_type` = 'GROUP'
-            ORDER BY `end_date` ASC";    
-    }
-    else
-    {
-        $sql = "SELECT `id`, `title`, `visibility`, 
-            `description`, `assignment_type`, `authorized_content`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
-            FROM `" . $tbl_wrk_assignment . "` 
-            ORDER BY `end_date` ASC";
-    }          
-    $assignmentList = claro_sql_query_fetch_all($sql);
-
-    echo "<table class=\"claroTable\" width=\"100%\">\n";
+    echo '<table class="claroTable" width="100%">' . "\n";
 
     $atLeastOneAssignmentToShow = false;
 
@@ -513,7 +516,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     foreach ( $assignmentList as $anAssignment )
     {
         //modify style if the file is recently added since last login and that assignment tool is used with visible default mode for submissions.
-		$classItem='';
+        $classItem='';
         if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id'],FALSE) && ($anAssignment['def_submission_visibility']=="VISIBLE"  || $is_allowedToEdit))
         {
             $classItem=' hot';
@@ -521,9 +524,9 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         elseif( isset($_uid) ) //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
         {
             $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id']);
-		}
-        
-        
+        }
+
+
         if ( $anAssignment['visibility'] == "INVISIBLE" )
         {
             if ( $is_allowedToEdit )
@@ -542,43 +545,42 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         $atLeastOneAssignmentToShow = true;
 
-        echo    '<tr>'."\n"
-              . '<th class="headerX">'."\n";
+        echo '<tr>'."\n"
+        .    '<th class="headerX">' . "\n"
+        ;
 
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
             echo '<a href="workList.php?cmd=rqSubWrk&amp;assigId='.$anAssignment['id'].'&amp;submitGroupWorkUrl='.urlencode($_REQUEST['submitGroupWorkUrl']).'" class="item'.$classItem.'">';
-                
         }
         else
         {
             echo '<a href="workList.php?assigId='.$anAssignment['id'].'" class="item'.$classItem.'">';
         }
-		echo 	'<img src="'.$imgRepositoryWeb.'assignment.gif" alt="" /> '
-			  . $anAssignment['title']
-			  . "</a>\n";
-        echo "</th>"
-            ;
-
-        echo "<tr".$style.">\n"
-            ."<td>\n";
+        echo '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" /> '
+        .    $anAssignment['title']
+        .    '</a>' . "\n"
+        .    '</th>'
+        .    '<tr' . $style . '>' . "\n"
+        .    '<td>' . "\n"
+        ;
 
         if ( strlen($anAssignment['description']) > 500 )
         {
-			// if the text needs to be cutted remove html tags
+            // if the text needs to be cutted remove html tags
             $desc = $anAssignment['description'];
-			// add spaces before and after tags so that stripped text will have some air
-   			$desc = preg_replace('/</',' <',$desc);
-			$desc = preg_replace('/>/','> ',$desc);
-			// remove html and/or php tags
-			$desc = strip_tags($desc);
-			$desc = preg_replace('/[\n\r\t]/',' ',$desc);
-			$desc = preg_replace('/  /',' ',$desc);
-			// keep the 455 first chars of the text
-			$desc = substr($desc,0,455);
-			// remove last splitted word
-			$desc = substr($desc,0,strrpos($desc, " "));
-			
+            // add spaces before and after tags so that stripped text will have some air
+               $desc = preg_replace('/</',' <',$desc);
+            $desc = preg_replace('/>/','> ',$desc);
+            // remove html and/or php tags
+            $desc = strip_tags($desc);
+            $desc = preg_replace('/[\n\r\t]/',' ',$desc);
+            $desc = preg_replace('/  /',' ',$desc);
+            // keep the 455 first chars of the text
+            $desc = substr($desc,0,455);
+            // remove last splitted word
+            $desc = substr($desc,0,strrpos($desc, " "));
+
             echo "<div>".$desc." ... "."</div><br />\n";
         }
         elseif( !empty($anAssignment['description']) )
@@ -625,25 +627,26 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
                       ."</a>"
                       ;
             }
-            echo "</td>\n"
-                ."</tr>\n"
-                ;
+            echo '</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
         }
 
     }
 
     if ( ! $atLeastOneAssignmentToShow )
     {
-        echo "<tr>\n"
-            ."<td>\n"
-            .get_lang('NoVisibleAssignment')
-            ."</td>\n"
-            ."</tr>\n";
+        echo '<tr>' . "\n"
+        .    '<td>' . "\n"
+        .    get_lang('NoVisibleAssignment')
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        ;
     }
-    echo "</table>\n\n";
+    echo '</table>' . "\n\n";
 
 
 }
 // FOOTER
-include $includePath . '/claro_init_footer.inc.php'; 
+include $includePath . '/claro_init_footer.inc.php';
 ?>
