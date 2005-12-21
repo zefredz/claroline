@@ -341,7 +341,7 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
-    if ($result) 
+    if ($result)
     {
         $rowList = array();
 
@@ -352,10 +352,10 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 
         if ( count($rowList) == 0 )
         {
-            // If there is no result at all, anticipate that the user could ask 
-            // for field name at least. It is more efficient to call the 
-            // function now as we still hold the result pointer. The field names 
-            // will be statically cached into the claro_sql_field_names() funtion. 
+            // If there is no result at all, anticipate that the user could ask
+            // for field name at least. It is more efficient to call the
+            // function now as we still hold the result pointer. The field names
+            // will be statically cached into the claro_sql_field_names() funtion.
 
             claro_sql_field_names($sqlQuery, $result);
         }
@@ -1041,7 +1041,7 @@ function claro_die($message)
 }
 
 /**
- * Cheks if the string has been written html style (ie &eacute; etc)
+ * Checks if the string has been written html style (ie &eacute; etc)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $string
@@ -1050,7 +1050,7 @@ function claro_die($message)
 
 function is_htmlspecialcharized($string)
 {
-    return preg_match('/(&[a-z]+;)|(&#[0-9]+;)/', $string);
+    return (bool) preg_match('/(&[a-z]+;)|(&#[0-9]+;)/', $string);
 }
 
 
@@ -1202,7 +1202,7 @@ function claro_date($format, $timestamp = -1)
 function claro_time()
 {
      $mainTimeShift = (int) (isset($GLOBALS['mainTimeShift'])?$GLOBALS['mainTimeShift']:0);
-     return time()+(3600*$mainTimeShift);
+     return time()+(3600 * $mainTimeShift);
 }
 
 /**
@@ -1225,11 +1225,11 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
-    $date = ereg_replace('%[A]', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
-    $date = ereg_replace('%[a]', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $date);
-    $date = ereg_replace('%[B]', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $date);
-    $date = ereg_replace('%[b]', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $date);
-    return strftime($date, $timestamp);
+    $formatOfDate = ereg_replace('%[A]', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $formatOfDate = ereg_replace('%[a]', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $formatOfDate = ereg_replace('%[B]', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
+    $formatOfDate = ereg_replace('%[b]', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
+    return strftime($formatOfDate, $timestamp);
 }
 
 /**
@@ -1291,7 +1291,7 @@ function claro_disp_textarea_editor($name, $content = '',
 {
 	global $rootWeb, $rootSys;
 	global $claro_editor;
-	
+
 	if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
 
  	$returnString = '';
@@ -1388,7 +1388,7 @@ function claro_disp_textarea_editor($name, $content = '',
 			."\n".$content."\n"
 			.'</textarea>'."\n";
 	}
-	
+
 	return $returnString;
 }
 
@@ -1637,19 +1637,19 @@ function claro_unquote_gpc()
         if ( get_magic_quotes_gpc() )
         {
          /*
-          * The new version is written in a safer approach inspired by Ilia 
-          * Alshanetsky. The previous approach which was using recursive 
-          * function permits to smash the stack and crash PHP. For example if 
-          * the user supplies a very deep multidimensional array, such as 
-          * foo[][][][] ..., the recursion can reach the point of exhausting 
-          * the stack. Generating such an attack is quite trivial, via the 
+          * The new version is written in a safer approach inspired by Ilia
+          * Alshanetsky. The previous approach which was using recursive
+          * function permits to smash the stack and crash PHP. For example if
+          * the user supplies a very deep multidimensional array, such as
+          * foo[][][][] ..., the recursion can reach the point of exhausting
+          * the stack. Generating such an attack is quite trivial, via the
           * use of :
           *
-          *    str_repeat() function example $str = str_repeat("[]", 100000); 
+          *    str_repeat() function example $str = str_repeat("[]", 100000);
           *    file_get_contents("http://sitre.com.scriptphp?foo={$str}");
           */
 
-            $inputList = array(&$_REQUEST, &$_GET, &$_POST, 
+            $inputList = array(&$_REQUEST, &$_GET, &$_POST,
                                &$_COOKIE , &$_ENV, &$_SERVER);
 
             while ( list($topKey, $array) = each($inputList) )
