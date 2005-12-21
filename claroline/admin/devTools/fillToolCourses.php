@@ -433,8 +433,77 @@ function fill_tool_in_course($course_code,$tool_label)
             $resultPopulate .= '</ul>';
             return $resultPopulate;
             break;
-        case 'CLWRK' :
+            case 'CLWRK' :
+            {
+                $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];
+
+                include_once $includePath . '/lib/assignment.lib.php';
+                $assignment_data = assignment_initialise();
+
+                $wrkDir          = $coursesRepositorySys . claro_get_course_path($course_id) . '/work/'; //directory path to create assignment dirs
+
+                $assignment_data['title'] = lorem('words',rand(1,5));
+                $assignment_data['description'] = lorem('paragraphs',rand(1,5));
+
+
+//                $assignment_data['def_submission_visibility'] = $_REQUEST['def_submission_visibility'] ;
+//                $assignment_data['assignment_type'] = $_REQUEST['assignment_type'] ;
+                  $assignment_data['allow_late_upload'] = true ;
+//                $assignment_data['authorized_content'] = 'TEXT';
+                $lastAssigId = assignment_insert($assignment_data, $wrkDir, $course_id);
+
+                $sql = "select user_id From `".$tbl_rel_course_user."` WHERE code_cours='" . $course_code."' ";
+                $userList = claro_sql_query_fetch_all($sql);
+
+                $rand_userkeys = array_rand($userList, rand(3, sizeof($userList)));
+                if(!is_array($rand_userkeys)) // stupid array_rand do not an array
+                                          // if result contain only 1 value
+                {   // rebuild an array
+                    $rand_key = $rand_userkeys;
+                    unset($rand_userkeys);
+                    $rand_userkeys[0] = $rand_key;
+                    unset($rand_key);
+                }
+
+                foreach($rand_userkeys as $rand_userkey)
+                {
+                    $user = $userList[$rand_userkey];
+
+                    $limit =array_rand(array(1,1,1,1,1,1,1,2,2,2,3,1,1));
+                    for($i=0;$i<$limit;$i++)
+                    {
+                        $sqlAddWork = "INSERT INTO `" . $tbl_wrk_submission . "`
+                                   SET `assignment_id` = " . (int) $lastAssigId . ","
+                        ."`user_id` = " . (int) $user['user_id'] . ",
+                  				               `title` = '" . addslashes(lorem('words',rand(1,5))) ."',
+        						      `submitted_text` = '" . addslashes(lorem('paragraphs',rand(1,3))) . "',
+        							     `authors`     = '" . addslashes(lorem('words',rand(1,5))) . "',
+                                       `creation_date` = NOW(),
+                                      `last_edit_date` = NOW()";
+                        $thisSubmit = claro_sql_query_insert_id($sqlAddWork);
+
+                        if(3 < rand(0,10))
+                        {
+                            $sqlAddWork = "INSERT INTO `" . $tbl_wrk_submission . "`
+        						SET `assignment_id` = ". (int) $lastAssigId.",
+        							`parent_id` = ". (int) $thisSubmit.",
+                                    `user_id`= ". (int) $_uid.",
+                                    `original_id`= ". (int) $user['user_id'].",
+        							`title`       = '" .  addslashes(lorem('words',rand(1,5))) ."',
+        							`submitted_text` = '". addslashes(lorem('paragraphs',rand(1,3)))."',
+        							`private_feedback` = '". addslashes(lorem('paragraphs',rand(1,2)))."',
+        							`authors`     = '" .  addslashes(lorem('words',rand(1,5))) . "',
+        							`score` = ". (int) rand(1,100) . ",
+        							`creation_date` = NOW(),
+        							`last_edit_date` = NOW()";
+                            claro_sql_query($sqlAddWork);
+
+                        }
+                    }
+                }
+
                 return 'Filler not ready';
+            }
             break;
         default :
             return 'Nothing done';
