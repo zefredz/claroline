@@ -4,18 +4,18 @@
  *
  * This script list member of campus and  propose to subscribe it to the given course
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/CLADMIN/
  *
  * @author Claro Team <cvs@claroline.net>
  *
  * @package CLUSR
- * 
+ *
  */
 
 $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
@@ -23,9 +23,9 @@ $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
 
-include($includePath . '/lib/pager.lib.php');
-include($includePath . '/lib/admin.lib.inc.php');
-include($includePath . '/lib/user.lib.php');
+include_once $includePath . '/lib/pager.lib.php';
+include_once $includePath . '/lib/admin.lib.inc.php';
+include_once $includePath . '/lib/user.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -35,7 +35,7 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_RE
 {
     unset($_REQUEST['cidToEdit']);
     $dialogBox = 'ERROR : NO COURSE SET!!!';
-    
+
 }
 else
 {
@@ -77,7 +77,7 @@ switch ( $cmd )
     case 'sub' : //execute subscription command...
 
         $done = user_add_to_course($user_id, $cidToEdit);
-        
+
         // Set status requested
         if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher
         {
@@ -88,7 +88,7 @@ switch ( $cmd )
         elseif ($_REQUEST['subas']=='stud')  // ... as student
         {
             $properties['status'] = 5;
-            $properties['role']   = ''; 
+            $properties['role']   = '';
             $properties['tutor']  = 0;
         }
         user_update_course_properties($user_id, $cidToEdit, $properties);
@@ -112,15 +112,15 @@ $courseData = claro_get_course_data($cidToEdit);
 //----------------------------------
 
 $sql = "
-SELECT 
-    U.nom, U.prenom, U.`user_id` AS ID, 
+SELECT
+    U.nom, U.prenom, U.`user_id` AS ID,
     CU.*,
     CU.`user_id` AS Register
 FROM  `" . $tbl_user . "` AS U";
 
 $toAdd = "
-LEFT JOIN `" . $tbl_course_user . "` AS CU 
-    ON             CU.`user_id`=U.`user_id` 
+LEFT JOIN `" . $tbl_course_user . "` AS CU
+    ON             CU.`user_id`=U.`user_id`
             AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'
         ";
 
@@ -152,7 +152,7 @@ if ( isset( $_REQUEST['search'] ) && $_REQUEST['search'] != '' )
 
 if ( isset( $_REQUEST['chdir'] ) && ( $_REQUEST['chdir'] == 'yes' ) )
 {
-    if ( $_SESSION['admin_register_dir'] == 'ASC' ) 
+    if ( $_SESSION['admin_register_dir'] == 'ASC' )
     {
         $_SESSION['admin_register_dir'] = 'DESC';
     }
@@ -177,7 +177,7 @@ if (isset($_SESSION['admin_register_order_crit']))
 
 //Build pager with SQL request
 
-if ( !isset( $_REQUEST['offset'] ) ) 
+if ( !isset( $_REQUEST['offset'] ) )
 {
     $offset = '0';
 }
@@ -206,6 +206,21 @@ if ( !isset($addToURL) ) $addToURL = '';
 
 $nameTools .= ' : ' . $courseData['name'];
 
+// search form
+
+if ( isset( $search ) && $search != '' )         { $isSearched .= $search . '* '; }
+if (($isSearched == '') || !isset($isSearched) ) { $title = ''; }
+                                            else { $title = get_lang('SearchOn') . ' : '; }
+
+//Pager
+
+if (isset($_REQUEST['order_crit']))
+{
+    $addToURL = '&amp;order_crit=' . $_SESSION['admin_register_order_crit']
+              . '&amp;dir=' . $_SESSION['admin_register_dir']
+              ;
+}
+
 //------------------------------------
 // DISPLAY
 //------------------------------------
@@ -213,7 +228,7 @@ $nameTools .= ' : ' . $courseData['name'];
 // Display tool title
 
 //Header
-include($includePath . '/claro_init_header.inc.php' );
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title( $nameTools );
 
@@ -224,11 +239,6 @@ if( isset($dialogBox) )
     echo claro_disp_message_box($dialogBox);
 }
 
-// search form
-       
-if ( isset( $search ) && $search != '' )         { $isSearched .= $search . '* '; }
-if (($isSearched == '') || !isset($isSearched) ) { $title = ''; } 
-                                            else { $title = get_lang('SearchOn') . ' : '; }
 
 echo '<table width="100%" >'
 .    '<tr>'
@@ -254,15 +264,6 @@ echo '<table width="100%" >'
 .    get_lang('AllUsersOfThisCourse')
 .    '</a><br /><br />'
 ;
-      
-//Pager
-
-if (isset($_REQUEST['order_crit']))
-{
-    $addToURL = '&amp;order_crit=' . $_SESSION['admin_register_order_crit'] 
-              . '&amp;dir=' . $_SESSION['admin_register_dir']
-              ;
-}
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
 
@@ -273,27 +274,27 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidTo
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">' . "\n"
-.    '<th>' 
+.    '<th>'
 
-.    '<a href="' . $_SERVER['PHP_SELF'] 
-.    '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">' 
-.    get_lang('Userid') 
+.    '<a href="' . $_SERVER['PHP_SELF']
+.    '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">'
+.    get_lang('Userid')
 .    '</a>'
 .    '</th>' . "\n"
 
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom'
-.    '&amp;chdir=yes&amp;search=' . $search 
+.    '&amp;chdir=yes&amp;search=' . $search
 .    '&amp;cidToEdit=' . $cidToEdit . '">' . get_lang('LastName') . '</a>'
 .    '</th>' . "\n"
 
 .    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF'] 
+.    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=prenom'
 .    '&amp;chdir=yes'
-.    '&amp;search=' . $search 
-.    '&amp;cidToEdit=' . $cidToEdit . '">' 
-.    get_lang('FirstName') 
+.    '&amp;search=' . $search
+.    '&amp;cidToEdit=' . $cidToEdit . '">'
+.    get_lang('FirstName')
 .    '</a>'
 .    '</th>' . "\n"
 
@@ -316,26 +317,26 @@ if (isset($offset))
 }
 foreach($userList as $user)
 {
-    if (isset($_REQUEST['search'])&& ($_REQUEST['search']!="")) 
+    if (isset($_REQUEST['search'])&& ($_REQUEST['search']!=""))
     {
         $user['nom'] = eregi_replace("^(".$_REQUEST['search'].")",'<b>\\1</b>', $user['nom']);
         $user['prenom'] = eregi_replace("^(".$_REQUEST['search'].")","<b>\\1</b>", $user['prenom']);
     }
-    
+
     echo '<tr>' . "\n"
     //  Id
-        .'<td align="center">'
-        .$user['ID']
-        .'</td>'."\n"
-         // name
-        .'<td align="left">'
-        .$user['nom']
-        .'</td>'
-        //  Firstname
-        .'<td align="left">'
-        .$user['prenom']
-        .'</td>'
-        ;
+    .   '<td align="center">'
+    .   $user['ID']
+    .   '</td>'."\n"
+    // name
+    .   '<td align="left">'
+    .   $user['nom']
+    .   '</td>'
+    //  Firstname
+    .   '<td align="left">'
+    .   $user['prenom']
+    .   '</td>'
+    ;
     if ($user['statut'] != "5")  // user is already enrolled but as student
     {
         // Register as user
@@ -345,44 +346,44 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id=' . $user['ID']
             .'&amp;subas=stud' . $addToURL.'">'
-            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="'.get_lang('SubscribeUser').'" />'."\n"
-            .'</a>' 
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeUser') . '" />' . "\n"
+            .'</a>'
             .'</td>'."\n"
             ;
     }
     else
     {
         // already enrolled as student
-        echo '<td align="center" >'."\n"
-            .'<small>'
-            .get_lang('_already_enrolled')
-            .'</small>'
-            .'</td>'."\n"
-            ;
+        echo '<td align="center" >' . "\n"
+        .    '<small>'
+        .    get_lang('_already_enrolled')
+        .    '</small>'
+        .    '</td>' . "\n"
+        ;
     }
     if ($user['statut'] != "1")  // user is not enrolled
     {
             //register as teacher
         echo '<td align="center">' . "\n"
-            .'<a href="' . $_SERVER['PHP_SELF']
-            .'?cidToEdit=' . $cidToEdit
-            .'&amp;cmd=sub&amp;search='.$search
-            .'&amp;user_id=' . $user['ID']
-            .'&amp;subas=teach' . $addToURL.'">'
-            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeUser') . '" />'
-            .'</a>' . "\n"
-            .'</td>' . "\n"
-            ;
+        .    '<a href="' . $_SERVER['PHP_SELF']
+        .    '?cidToEdit=' . $cidToEdit
+        .    '&amp;cmd=sub&amp;search='.$search
+        .    '&amp;user_id=' . $user['ID']
+        .    '&amp;subas=teach' . $addToURL.'">'
+        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeUser') . '" />'
+        .    '</a>' . "\n"
+        .    '</td>' . "\n"
+        ;
     }
     else
     {
         // already enrolled as teacher
         echo '<td align="center" >'."\n"
-            .'<small>'
-            .get_lang('_already_enrolled')
-            .'</small>'
-            .'</td>'."\n"
-            ;
+        .    '<small>'
+        .    get_lang('_already_enrolled')
+        .    '</small>'
+        .    '</td>'."\n"
+        ;
     }
     echo '</tr>';
 }
