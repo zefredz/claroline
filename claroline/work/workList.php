@@ -38,7 +38,7 @@ $currentUserFirstName = $_user['firstName'];
 $currentUserLastName  = $_user['lastName'];
 
 // 'step' of pager
-$usersPerPage = 50;
+$usersPerPage = get_conf('usersPerPage',25);
 
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -49,13 +49,10 @@ claro_set_display_mode_available(true);
 BASIC VARIABLES DEFINITION
 =============================================================================*/
 
-$currentCourseRepositorySys = $coursesRepositorySys.$_course['path'] . '/';
-$currentCourseRepositoryWeb = $coursesRepositoryWeb.$_course['path'] . '/';
-
-$fileAllowedSize     = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
-$wrkDirSys          = $currentCourseRepositorySys . 'work/'; // systeme work directory
-$wrkDirWeb          = $currentCourseRepositoryWeb  .'work/'; // web work directory
-$maxFilledSpace = get_conf('maxFilledSpace', 100000000);
+$fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
+$wrkDirSys       = get_conf('coursesRepositorySys').$_course['path'] . '/' . 'work/'; // systeme work directory
+$wrkDirWeb       = get_conf('coursesRepositoryWeb').$_course['path'] . '/'  .'work/'; // web work directory
+$maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 
 // initialise dialog box to an empty string, all dialog will be concat to it
 $dialogBox = '';
@@ -69,9 +66,11 @@ unset ($req);
 // $req['cmd'] = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
 $req['assigmentId'] = ( isset($_REQUEST['assigId'])
-&& !empty($_REQUEST['assigId'])
-&& ctype_digit($_REQUEST['assigId'])
-) ? (int) $_REQUEST['assigId'] : false;
+                    && !empty($_REQUEST['assigId'])
+                    && ctype_digit($_REQUEST['assigId'])
+                    )
+                    ? (int) $_REQUEST['assigId']
+                    : false;
 
 /*============================================================================
 PREREQUISITES
@@ -103,26 +102,17 @@ GROUP 'publish' option
 // redirect to the submission form prefilled with a .url document targetting the published document
 
 /**
- * @todo $_REQUEST['submitGroupWorkUrl'] mus be treated in  filter process
+ * @todo $_REQUEST['submitGroupWorkUrl'] must be treated in  filter process
  */
 if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid) )
 {
     header( 'Location: userWork.php?authId='
     .       $_gid
     .       '&cmd=rqSubWrk'
-    .       '&assigId=' . $_REQUEST['assigId']
+    .       '&assigId=' . $req['assigmentId']
     .       '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
     );
     exit();
-}
-/*--------------------------------------------------------------------
-USER GROUP INFORMATIONS
---------------------------------------------------------------------*/
-// if this is a group assignement we will need some group infos about the user
-if ( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
-{
-    // get the list of group the user is in
-    $userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
 }
 
 /*============================================================================
@@ -150,24 +140,173 @@ $uploadDateIsOk      = (bool) ( $afterStartDate
                                  )
                               );
 
+if (isset($_uid))
+{
+    // call this function to set the __assignment__ as seen, all the submission as seen
+    $claro_notifier->is_a_notified_ressource($_cid, $claro_notifier->get_notification_date($_uid), $_uid, $_gid, $_tid, $req['assigmentId']);
+}
+
+
+if( $assignment['assignment_type'] == 'GROUP' )
+{
+    $userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
+}
+
+
+/* Prepare SQL filtering on submission visibility */
+
+$workVisiblityConditionList = array();
+
+if( ! $is_allowedToEditAll ) $workVisiblityConditionList[] = "`S`.`visibility` = 'VISIBLE'";
+if( isset($userGroupList)  ) $workVisiblityConditionList[] = "S.group_id IN (" . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
+elseif ( isset($_uid)      ) $workVisiblityConditionList[] = "`S`.`user_id` = " . (int) $_uid;
+
+if (count($workVisiblityConditionList) > 0)
+{
+    $workVisiblitySqlFilter = " AND (".implode(' OR ', $workVisiblityConditionList).")";
+}
+
 if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 {
     // user is authed and allowed
     $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
+    // do not count invisible work and feedbacks if the user is not courseAdmin
+
+    if( $is_allowedToEditAll ) $feedbackVisiblitySqlFilter = " ";
+    elseif( isset($_uid) )
+    {
+        $feedbackVisiblitySqlFilter = " AND `S`.`visibility` = 'VISIBLE'
+                                    AND ( `FB`.`visibility` = 'VISIBLE'
+                                       OR `FB`.`user_id` = " . (int) $_uid . ") ";
+    }
+    else
+    {
+        $feedbackVisiblitySqlFilter = " AND `S`.`visibility` = 'VISIBLE'
+                                    AND `FB`.`visibility` = 'VISIBLE' ";
+    }
+
+    $sql = "SELECT `U`.`user_id`                        AS `authId`,
+                   CONCAT(`U`.`nom`, ' ', `U`.`prenom`) AS `name`,
+                   `S`.`title`,
+                   COUNT(`S`.`id`)                      AS `submissionCount`,
+                   COUNT(`FB`.`id`)                     AS `feedbackCount`
+            #GET USER LIST
+            FROM  `" . $tbl_user . "` AS `U`
+
+            #ONLY FROM COURSE
+            INNER JOIN  `" . $tbl_rel_course_user . "` AS `CU`
+                    ON  `U`.`user_id` = `CU`.`user_id`
+                   AND `CU`.`code_cours` = '" . addslashes($_cid) . "'
+
+            # SEARCH ON SUBMISSIONs
+            LEFT JOIN `" . $tbl_wrk_submission . "` AS `S`
+                   ON ( `S`.`assignment_id` = " . (int) $req['assigmentId'] . " OR `S`.`assignment_id` IS NULL)
+                  AND `S`.`user_id` = `U`.`user_id`
+                  AND `S`.`original_id` IS NULL
+            " . $workVisiblitySqlFilter . "
+
+             # SEARCH ON FEEDBACKS
+            LEFT JOIN `".$tbl_wrk_submission."` as `FB`
+                   ON `FB`.`parent_id` = `S`.`id`
+             " . $feedbackVisiblitySqlFilter . "
+
+            GROUP BY `U`.`user_id`,
+                     `S`.`original_id`
+
+            ORDER BY `CU`.`statut` ASC,
+                     `CU`.`tutor` DESC,
+                     `U`.`nom` ASC,
+                     `U`.`prenom` ASC";
+
 }
-else
+else  // $assignment['assignment_type'] == 'GROUP'
 {
+    /**
+     * USER GROUP INFORMATIONS
+     */
     $userCanPost = (bool) ! ( isset($userGroupList) && count($userGroupList) <= 0 );
+    // do not count invisible work and feedbacks if the user is not courseAdmin
+    if( $is_allowedToEditAll )
+    {
+        $feedbackVisiblitySqlFilter = " ";
+    }
+    elseif(isset($_uid))
+    {
+        $feedbackVisiblitySqlFilter = " AND `S`.`visibility` = 'VISIBLE'
+                                    AND ( `FB`.`visibility` = 'VISIBLE'
+                                       OR `FB`.`user_id` = ". (int) $_uid . ") ";
+    }
+    else
+    {
+        // work and his feedback must be visible OR the user is member of concerned group
+        $feedbackVisiblitySqlFilter = " AND ( (`S`.`visibility` = 'VISIBLE'
+                        AND `FB`.`visibility` = 'VISIBLE') ";
+        foreach( $userGroupList as $userGroup )
+        {
+            $feedbackVisiblitySqlFilter .= " OR `FB`.`group_id` = ". (int) $userGroup['id'];
+        }
+        $feedbackVisiblitySqlFilter .= ") ";
+    }
+
+    $sql = "SELECT `G`.`id`            AS `authId`,
+                   `G`.`name`,
+                   `S`.`title`,
+                   COUNT(`S`.`id`)     AS `submissionCount`,
+                   COUNT(`FB`.`id`)    AS `feedbackCount`
+
+        FROM `" . $tbl_group_team . "` AS `G`
+
+        # SEARCH ON SUBMISSIONS
+        LEFT JOIN `".$tbl_wrk_submission."` AS `S`
+               ON `S`.`group_id` = `G`.`id`
+              AND (`S`.`assignment_id` = " . $req['assigmentId'] . " OR `S`.`assignment_id` IS NULL )
+              AND `S`.`original_id` IS NULL
+        " . $workVisiblitySqlFilter . "
+
+        # SEARCH ON FEEBACKS
+        LEFT JOIN `" . $tbl_wrk_submission . "` as `FB`
+               ON `FB`.`parent_id` = `S`.`id`
+        " . $feedbackVisiblitySqlFilter . "
+
+        GROUP BY `G`.`id`,          # group by 'group'
+                 `S`.`original_id`
+
+        ORDER BY `G`.`name` ASC";
+
 }
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
+$strsql = '<div>'.__LINE__.': $sql = <pre>'. var_export($sql,1).'</PRE></div>';
+
+/*--------------------------------------------------------------------
+WORK LIST
+--------------------------------------------------------------------*/
+$offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
+$workPager = new claro_sql_pager($sql,$offset, $usersPerPage);
+$workList = $workPager->get_result_list();
+foreach ( $workList as $workId => $thisWrk )
+{
+
+    $thisWrk['is_mine'] = (  ($assignment['assignment_type'] == 'INDIVIDUAL' && $thisWrk['authId'] == $_uid)
+                          || ($assignment['assignment_type'] == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
+
+    if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . $thisWrk['name'] . '</b>';
+
+    $workList[$workId]['name'] = '<a class="item" href="userWork.php'
+    .                            '?authId=' . $thisWrk['authId']
+    .                            '&amp;assigId=' . $req['assigmentId'] . '">'
+    .                            $workList[$workId]['name']
+    .                            '</a>'
+    ;
+
+
+}
 
 /**
  * HEADER
  */
 
 $interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Work'));
-
 $nameTools = get_lang('Assignment');
 
 // to prevent parameters to be added in the breadcrumb
@@ -176,8 +315,8 @@ $_SERVER['QUERY_STRING'] = 'assigId=' . $req['assigmentId'];
 /**
  * TOOL TITLE
  */
-$pageTitle['mainTitle'  ] = $nameTools;
-$pageTitle['subTitle'   ] = $assignment['title'];
+$pageTitle['mainTitle'] = $nameTools;
+$pageTitle['subTitle' ] = $assignment['title'];
 
 
 // SHOW FEEDBACK
@@ -205,16 +344,28 @@ $showAfterPost = (bool)
                  &&
                  (  $assignment['prefill_submit'] == 'AFTERPOST'
                     &&
-                    CLWRK_LIST::get_wrk_submission_od_user($req['assigmentId']) >= 1
+                    CLWRK_LIST::get_wrk_submission_of_user($req['assigmentId']) >= 1
                  );
 
+
+
+
+ /**
+  * OUTPUT
+  *
+  * 3 parts in this output
+  * - A detail about the current assgnment
+  * - "Command" links to commands
+  * - A list of user relating submission and feedback
+  *
+  */
 
 include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($pageTitle);
 
-/*--------------------------------------------------------------------
-ASSIGNMENT INFOS
---------------------------------------------------------------------*/
+/**
+ * ASSIGNMENT INFOS
+ */
 
 // end date
 echo '<p>' . "\n"
@@ -270,135 +421,10 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     .    '<br />'
     ;
 }
-/*--------------------------------------------------------------------
-WORK LIST
---------------------------------------------------------------------*/
-if( $assignment['assignment_type'] == 'GROUP' )
-{
-    // do not count invisible work and feedbacks if the user is not courseAdmin
-    if( $is_allowedToEditAll )
-    {
-        $checkVisible = " ";
-    }
-    elseif( isset($userGroupList) )
-    {
-        $checkVisible = " AND (`S`.`visibility` = 'VISIBLE' ";
-        foreach( $userGroupList as $userGroup )
-        {
-            $checkVisible .= " OR `group_id` = ". (int) $userGroup['id'];
-        }
-        $checkVisible .= ") ";
-    }
-    else
-    $checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
 
-    $sql = "SELECT `G`.`id` as `authId`,`G`.`name`,
-            count(`S`.`id`) as `submissionCount`, `S`.`title`
-        FROM `".$tbl_group_team."` as `G`
-        LEFT JOIN `".$tbl_wrk_submission."` as `S`
-            ON `S`.`group_id` = `G`.`id`
-                AND (
-                    `S`.`assignment_id` = ".$_REQUEST['assigId']."
-                    OR `S`.`assignment_id` IS NULL
-                    )
-                AND `S`.`original_id` IS NULL
-                ".$checkVisible."
-        GROUP BY `G`.`id`
-        ORDER BY `G`.`name` ASC
-        ";
-}
-else // INDIVIDUAL
-{
-    // do not count invisible work and feedbacks if the user is not courseAdmin
-    if( $is_allowedToEditAll )
-    {
-        $checkVisible = " ";
-    }
-    elseif( isset($_uid) )
-    {
-        $checkVisible = " AND (`S`.`visibility` = 'VISIBLE' OR `S`.`user_id` = ". (int)$_uid.") ";
-    }
-    else
-    {
-        $checkVisible = " AND `S`.`visibility` = 'VISIBLE' ";
-    }
-
-    $sql = "SELECT `U`.`user_id` as `authId`, concat(`U`.`nom`, ' ', `U`.`prenom`) as `name`,
-            count(`S`.`id`) as `submissionCount`, `S`.`title`, MIN(`S`.`creation_date`)
-        FROM (`".$tbl_rel_course_user."` as `CU`, `".$tbl_user."` as `U`)
-        LEFT JOIN `".$tbl_wrk_submission."` as `S`
-            ON `S`.`user_id` = `U`.`user_id`
-                AND (
-                    `S`.`assignment_id` = ". (int)$_REQUEST['assigId']."
-                    OR `S`.`assignment_id` IS NULL
-                    )
-                AND `S`.`original_id` IS NULL
-                ".$checkVisible."
-        WHERE `U`.`user_id` = `CU`.`user_id`
-            AND `CU`.`code_cours` = '". addslashes($_cid)."'
-        GROUP BY `U`.`user_id`
-        ORDER BY `CU`.`statut` ASC, `CU`.`tutor` DESC,
-                `U`.`nom` ASC, `U`.`prenom` ASC
-        ";
-}
-$offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
-$workPager = new claro_sql_pager($sql,$offset, $usersPerPage);
-
-$workList = $workPager->get_result_list();
-
-// get the number of feedback for submissions of each displayed user/group
-$parentCondition = "";
-foreach( $workList as $wrk )
-{
-    $parentCondition .= " OR `S`.`original_id` = ".$wrk['authId']; // wrk['id'] = user_id or group_id, according to the session context
-}
-
-if( $is_allowedToEditAll )
-{
-    $checkVisible = " ";
-}
-elseif( isset($_uid) && !isset($userGroupList) )
-{
-    $checkVisible = " AND `S`.`visibility` = 'VISIBLE'
-                    AND ( `S2`.`visibility` = 'VISIBLE'
-                    OR `S2`.`user_id` = ". (int) $_uid . ") ";
-}
-elseif( isset($userGroupList) )
-{
-    // work and his feedback must be visible OR the user is member of concerned group
-    $checkVisible = " AND ( (`S`.`visibility` = 'VISIBLE'
-                    AND `S2`.`visibility` = 'VISIBLE') ";
-    foreach( $userGroupList as $userGroup )
-    {
-        $checkVisible .= " OR `S2`.`group_id` = ". (int) $userGroup['id'];
-    }
-    $checkVisible .= ") ";
-}
-else
-{
-    $checkVisible = " AND `S`.`visibility` = 'VISIBLE'
-                    AND `S2`.`visibility` = 'VISIBLE' ";
-}
-
-$sql = "SELECT `S`.`original_id`, count(`S`.`id`) as `nbrFeedback`
-        FROM `".$tbl_wrk_submission."` as `S`
-        LEFT JOIN `".$tbl_wrk_submission."` as `S2`
-            ON `S`.`parent_id` = `S2`.`id`
-        WHERE `S`.`assignment_id` = ". (int)$_REQUEST['assigId']
-.$checkVisible
-." AND ( 0 = 1 "
-.$parentCondition
-." ) GROUP BY `S`.`original_id`";
-
-$feedbackCounter = claro_sql_query_fetch_all($sql);
-foreach( $feedbackCounter as $counter )
-{
-    $feedbackNbrList[$counter['original_id']] = $counter['nbrFeedback'];
-}
-// end of 'get the number of feedback for submissions of each displayed user/group'
-/*--------------------------------------------------------------------
-ADMIN LINKS
---------------------------------------------------------------------*/
+/**
+ * COMMAND LINKS
+ */
 echo '<p>';
 if ( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
 {
@@ -406,7 +432,7 @@ if ( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
     echo '<a class="claroCmd" href="userWork.php'
     .    '?authId=' . $_uid
     .    '&amp;cmd=rqSubWrk'
-    .    '&amp;assigId=' . $_REQUEST['assigId'] . '">'
+    .    '&amp;assigId=' . $req['assigmentId'] . '">'
     .    get_lang('SubmitWork')
     .    '</a>' . "\n"
     ;
@@ -424,11 +450,15 @@ if ( $is_allowedToEditAll )
     ;
 }
 echo '</p>';
-echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']);
-/*--------------------------------------------------------------------
-LIST
---------------------------------------------------------------------*/
-echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
+
+
+/**
+ * Submiter (User or group) listing
+ */
+
+echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId'])
+
+.    '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('WrkAuthors') . '</th>' . "\n"
@@ -440,74 +470,35 @@ echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<tbody>'
 ;
 
-if (isset($_uid))
-{
-    $date = $claro_notifier->get_notification_date($_uid);
-    // call this function to set the __assignment__ as seen, all the submission as seen
-    $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $_REQUEST['assigId']);
-}
 
 foreach ( $workList as $thisWrk )
 {
-
     echo '<tr align="center">' . "\n"
     .    '<td align="left">'
-    .    '<a class="item" href="userWork.php'
-    .    '?authId=' . $thisWrk['authId']
-    .    '&amp;assigId=' . $_REQUEST['assigId'] . '">'
-    ;
-
-    if ( ($assignment['assignment_type'] != 'GROUP'
-    && $thisWrk['authId'] == $_uid)
-    )
-    {
-        echo '<b>' . $thisWrk['name'] . '</b>';
-    }
-    elseif($assignment['assignment_type'] == 'GROUP' && isset($userGroupList) && is_array($userGroupList) && array_key_exists($thisWrk['authId'],$userGroupList))
-    {
-        echo '<b>' . $thisWrk['name'] . '</b>';
-    }
-    else
-    {
-        echo $thisWrk['name'];
-    }
-
-
-    echo '</a>'
+    .     $thisWrk['name']
     .    '</td>' . "\n"
-    .    '<td>';
-    if( empty($thisWrk['title']) )
-    echo '&nbsp;';
-    else
-    echo $thisWrk['title'];
-
-    echo '</td>' . "\n"
-    .    '<td>' . $thisWrk['submissionCount'] . '</td>' . "\n"
     .    '<td>'
-    ;
-
-    if( isset($feedbackNbrList) && is_array($feedbackNbrList) && array_key_exists($thisWrk['authId'],$feedbackNbrList))
-    {
-        echo $feedbackNbrList[$thisWrk['authId']] ;
-    }
-    else
-    {
-        echo '0';
-    }
-
-
-    echo '</td>' . "\n"
+    .    $thisWrk['title']
+    .    '</td>' . "\n"
+    .    '<td>'
+    .    $thisWrk['submissionCount']
+    .    '</td>' . "\n"
+    .    '<td>'
+    .    $thisWrk['feedbackCount']
+    .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;
 }
 
 echo '</tbody>' . "\n"
 .    '</table>' . "\n\n"
-;
 
-echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$_REQUEST['assigId']);
+.    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId']);
 
 // FOOTER
+//echo $strsql;
+//echo '<div>'.__LINE__.': $workList = <pre>'. var_export($workList,1).'</PRE></div>';
+//echo '<div>'.__LINE__.': $strgl = <pre>'. var_export($strgl,1).'</PRE></div>';
 include $includePath . '/claro_init_footer.inc.php';
 
 

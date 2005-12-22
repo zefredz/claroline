@@ -19,12 +19,12 @@
 $tlabelReq = 'CLWRK___';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $GLOBALS['_cid'] || ! $GLOBALS['is_courseAllowed'] ) claro_disp_auth_form(true);
 
 include_once $includePath . '/lib/fileManage.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user            = $tbl_mdb_names['user'];
+$tbl_user      = $tbl_mdb_names['user'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment   = $tbl_cdb_names['wrk_assignment'   ];
@@ -39,8 +39,6 @@ $currentUserLastName        = $_user['lastName'];
 
 event_access_tool($_tid, $_courseTool['label']);
 
-
-
 include_once $includePath . '/lib/fileUpload.lib.php';
 include_once $includePath . '/lib/fileDisplay.lib.php';
 include_once $includePath . '/lib/learnPath.lib.inc.php';
@@ -51,13 +49,11 @@ claro_set_display_mode_available(true);
 /*============================================================================
                      BASIC VARIABLES DEFINITION
   =============================================================================*/
-$currentCourseRepositorySys = $coursesRepositorySys . $_course['path'] . '/';
-$currentCourseRepositoryWeb = $coursesRepositoryWeb . $_course['path'] . '/';
 
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
-$wrkDirSys          = $currentCourseRepositorySys . 'work/'; // systeme work directory
-$wrkDirWeb          = $currentCourseRepositoryWeb . 'work/'; // web work directory
-$maxFilledSpace 	= get_conf('maxFilledSpace',100000000);
+$wrkDirSys       = get_conf('coursesRepositorySys') . $_course['path'] . '/' . 'work/'; // systeme work directory
+$wrkDirWeb       = get_conf('coursesRepositoryWeb') . $_course['path'] . '/' . 'work/'; // web work directory
+$maxFilledSpace  = get_conf('maxFilledSpace',100000000);
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
 // but a 'text' with only an image don't have to be considered as empty
@@ -74,6 +70,12 @@ $dispFbkFields = false;
                      CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
 $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
+$req['assigmentId'] = ( isset($_REQUEST['assigId'])
+                    && !empty($_REQUEST['assigId'])
+                    && ctype_digit($_REQUEST['assigId'])
+                    )
+                    ? (int) $_REQUEST['assigId']
+                    : false;
 
 /*============================================================================
                           PREREQUISITES
@@ -82,20 +84,20 @@ $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
   /*--------------------------------------------------------------------
                   REQUIRED : ASSIGNMENT INFORMATIONS
   --------------------------------------------------------------------*/
-if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
+if( $req['assigmentId'] != false )
 {
 
 	// we need to know the assignment settings
 	$sql = "SELECT *,
 				UNIX_TIMESTAMP(`start_date`) AS `unix_start_date`,
 				UNIX_TIMESTAMP(`end_date`) AS `unix_end_date`
-				FROM `".$tbl_wrk_assignment."`
-				WHERE `id` = ". (int)$_REQUEST['assigId'];
+				FROM `" . $tbl_wrk_assignment . "`
+				WHERE `id` = ". (int) $req['assigmentId'];
 
 	list($assignment) = claro_sql_query_fetch_all($sql);
 
-	$assigDirSys = $wrkDirSys . 'assig_' . $_REQUEST['assigId'] . '/';
-	$assigDirWeb = $wrkDirWeb . 'assig_' . $_REQUEST['assigId'] . '/';
+	$assigDirSys = $wrkDirSys . 'assig_' . $req['assigmentId'] . '/';
+	$assigDirWeb = $wrkDirWeb . 'assig_' . $req['assigmentId'] . '/';
 }
 
   /*--------------------------------------------------------------------
@@ -103,7 +105,7 @@ if( isset($_REQUEST['assigId']) && !empty($_REQUEST['assigId']) )
   --------------------------------------------------------------------*/
 if( isset($assignment) && isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 {
-  	if( $assignment['assignment_type'] == "GROUP")
+  	if( $assignment['assignment_type'] == 'GROUP')
 	{
 		$sql = "SELECT `name`
 				FROM `" . $tbl_group_team . "`
@@ -637,7 +639,7 @@ if($is_allowedToEditAll)
 		{
 			$sqlAddWork = "INSERT INTO `".$tbl_wrk_submission."`
 						SET `submitted_doc_path` = \"". addslashes($wrkForm['fileName'])."\",
-							`assignment_id` = ". (int)$_REQUEST['assigId'].",
+							`assignment_id` = ". (int) $req['assigmentId'] . ",
 							`parent_id` = ". (int)$_REQUEST['wrkId'].",
                             `user_id`= ". (int)$_uid.",
 							`visibility` = \"". addslashes($assignment['def_submission_visibility'])."\",
@@ -1224,7 +1226,7 @@ if( $dispWrkLst )
 	$parentCondition = ' ';
 	foreach( $wrkLst as $thisWrk )
 	{
-		$parentCondition .= " OR `parent_id` = '". (int)$thisWrk['id']."' ";
+		$parentCondition .= " OR `parent_id` = ". (int) $thisWrk['id'];
 	}
 	// select all feedback relating to the user submission in this assignment
 	$sql = "SELECT *,
@@ -1232,8 +1234,8 @@ if( $dispWrkLst )
 				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
 			FROM `".$tbl_wrk_submission."`
 			WHERE 0 = 1
-				AND `assignment_id` = ". (int)$_REQUEST['assigId']."
-				".$parentCondition;
+				AND `assignment_id` = ". (int) $_REQUEST['assigId'] . "
+				" . $parentCondition;
 
 	$feedbackLst = claro_sql_query_fetch_all($sql);
 
@@ -1261,7 +1263,7 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new assignment
-		echo '<p><a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('SubmitWork').'</a></p>'."\n";
+		echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?authId=' . $_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('SubmitWork').'</a></p>'."\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
@@ -1299,64 +1301,70 @@ if( $dispWrkLst )
 			}
 
 			// title (and edit links)
-			echo '<tr>'."\n"
-		  		.'<th class="headerX">'."\n"
-				.$thisWrk['title']
-				."\n".'</th>'."\n"
-				.'</tr>'."\n";
+			echo '<tr>' . "\n"
+			.    '<th class="headerX">' . "\n"
+			.    $thisWrk['title'] . "\n"
+			.    '</th>' . "\n"
+			.    '</tr>' . "\n"
+			.    '<tr ' . $style . '>' . "\n"
+			;
 
-			if( $is_feedback )
-			{
-				echo '<tr'.$style.'>'."\n"
-					.'<td style="padding-left: 35px;">'."\n";
-			}
-			else
-			{
-				echo '<tr'.$style.'>'."\n"
-					.'<td>'."\n";
-			}
+			if( $is_feedback ) echo '<td style="padding-left: 35px;">' . "\n";
+			else               echo '<td>'."\n";
 
 			// author
-			echo '<b>'.get_lang('WrkAuthors').'</b>&nbsp;: '.$thisWrk['authors'].'<br />';
+			echo '<b>' . get_lang('WrkAuthors') . '</b>&nbsp;: ' . $thisWrk['authors'] . '<br />';
 
-			if( $assignment['assignment_type'] == 'GROUP' && !$is_feedback )
+			if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) && !$is_feedback )
 			{
 				 // display group if this is a group assignment and if this is not a correction
-				 echo '<b>'.get_lang('Group').'</b>&nbsp;: '.$allGroupList[$thisWrk['group_id']]['name'].'<br />';
+				 echo '<b>' . get_lang('Group') . '</b>&nbsp;: ' . $allGroupList[$thisWrk['group_id']]['name'].'<br />';
 			}
 
-			if( $assignmentContent != "TEXT" )
+			if( $assignmentContent != 'TEXT' )
 			{
 				if( !empty($thisWrk['submitted_doc_path']) )
 				{
-					$completeWrkUrl = $assigDirWeb.urlencode($thisWrk['submitted_doc_path']);
 					// show file if this is not a TEXT only work
-					echo '<b>'.$txtForFile.'</b>&nbsp;: '
-						.'<a href="'.$completeWrkUrl.'">'.$thisWrk['submitted_doc_path'].'</a>'
-						.'<br />'."\n";
+					echo '<b>' . $txtForFile . '</b>&nbsp;: '
+	                .    '<a href="' . $assigDirWeb.urlencode($thisWrk['submitted_doc_path']) . '">' . $thisWrk['submitted_doc_path'] . '</a>'
+					.    '<br />' . "\n"
+					;
 				}
 				else
 				{
-				     echo '<b>'.$txtForFile.'</b>&nbsp;: '.get_lang('NoFile').'<br />'."\n";
+				     echo '<b>' . $txtForFile . '</b>&nbsp;: '
+				     .     get_lang('NoFile')
+				     .    '<br />' . "\n"
+				     ;
 				}
 			}
 
-			echo '<br /><div><b>'.$txtForText.'</b>&nbsp;: <br />'."\n"
-				.$thisWrk['submitted_text'].'</div>'."\n";
+			echo '<br />'
+			.    '<div>'
+			.    '<b>' . $txtForText . '</b>&nbsp;: ' . '<br />' . "\n"
+			.    $thisWrk['submitted_text'] . '</div>' . "\n"
+			;
 
 			if( $is_feedback )
 			{
 				if( $is_allowedToEditAll )
 				{
-					echo '<br /><div><b>'.get_lang('PrivateFeedback').'</b>&nbsp;: <br />'."\n"
-						.$thisWrk['private_feedback'].'</div>'."\n";
+					echo '<br />'
+					.    '<div>'
+					.    '<b>' . get_lang('PrivateFeedback') . '</b>&nbsp;: '
+					.    '<br />' . "\n"
+					.    $thisWrk['private_feedback']
+					.    '</div>' . "\n"
+					;
 				}
 				echo '<br /><b>'.get_lang('Score').'</b>&nbsp;: ';
 				echo ( $thisWrk['score'] == -1 ) ? get_lang('NoScore') : $thisWrk['score'].' %' ;
 				echo '<br />'."\n";
 			}
-			echo '<p><b>'.get_lang('SubmissionDate').'</b>&nbsp;: '
-				.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date']);
+			echo '<p><b>' . get_lang('SubmissionDate') . '</b>&nbsp;: '
+			.    claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date'])
+			;
 
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
