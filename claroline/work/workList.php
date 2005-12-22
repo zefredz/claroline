@@ -153,37 +153,38 @@ if( $assignment['assignment_type'] == 'GROUP' )
 }
 
 
-/* Prepare SQL filtering on submission visibility */
+/* Prepare submission and feedback SQL filters - remove hidden item from count */
 
-$workVisiblityConditionList = array();
+$submissionConditionList = array();
+$feedbackConditionList = array();
 
-if( ! $is_allowedToEditAll ) $workVisiblityConditionList[] = "`S`.`visibility` = 'VISIBLE'";
-if( isset($userGroupList)  ) $workVisiblityConditionList[] = "S.group_id IN (" . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
-elseif ( isset($_uid)      ) $workVisiblityConditionList[] = "`S`.`user_id` = " . (int) $_uid;
-
-if (count($workVisiblityConditionList) > 0)
+if( ! $is_allowedToEditAll ) 
 {
-    $workVisiblitySqlFilter = " AND (".implode(' OR ', $workVisiblityConditionList).")";
+    $submissionConditionList[] = "`S`.`visibility` = 'VISIBLE'";
+    $feedbackConditionList[]   = "(`S`.`visibility` = 'VISIBLE' AND `FB`.`visibility` = 'VISIBLE')";
+
+    if( isset($userGroupList)  ) 
+    {
+        $submissionConditionList[] = "S.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
+        $feedbackConditionList[]   = "FB.group_id IN (" . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
+    }
+    elseif ( isset($_uid)      ) 
+    {
+        $submissionConditionList[] = "`S`.`user_id` = "      . (int) $_uid;
+        $feedbackConditionList[]   = "`FB`.`original_id` = " . (int) $_uid;
+    }
 }
+
+$submissionFilterSql = implode(' OR ', $submissionConditionList);
+if (!empty($submissionFilterSql) ) $submissionFilterSql = ' AND ('.$submissionFilterSql.') ';
+
+$feedbackFilterSql = implode(' OR ', $feedbackConditionList);
+if ( ! empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterSql.')';
 
 if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 {
     // user is authed and allowed
     $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
-    // do not count invisible work and feedbacks if the user is not courseAdmin
-
-    if( $is_allowedToEditAll ) $feedbackVisiblitySqlFilter = " ";
-    elseif( isset($_uid) )
-    {
-        $feedbackVisiblitySqlFilter = " AND `S`.`visibility` = 'VISIBLE'
-                                    AND ( `FB`.`visibility` = 'VISIBLE'
-                                       OR `FB`.`user_id` = " . (int) $_uid . ") ";
-    }
-    else
-    {
-        $feedbackVisiblitySqlFilter = " AND `S`.`visibility` = 'VISIBLE'
-                                    AND `FB`.`visibility` = 'VISIBLE' ";
-    }
 
     $sql = "SELECT `U`.`user_id`                        AS `authId`,
                    CONCAT(`U`.`nom`, ' ', `U`.`prenom`) AS `name`,
@@ -203,12 +204,12 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
                    ON ( `S`.`assignment_id` = " . (int) $req['assigmentId'] . " OR `S`.`assignment_id` IS NULL)
                   AND `S`.`user_id` = `U`.`user_id`
                   AND `S`.`original_id` IS NULL
-            " . $workVisiblitySqlFilter . "
+            " . $submissionFilterSql . "
 
              # SEARCH ON FEEDBACKS
             LEFT JOIN `".$tbl_wrk_submission."` as `FB`
                    ON `FB`.`parent_id` = `S`.`id`
-             " . $feedbackVisiblitySqlFilter . "
+             " . $feedbackFilterSql . "
 
             GROUP BY `U`.`user_id`,
                      `S`.`original_id`
@@ -217,7 +218,6 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
                      `CU`.`tutor` DESC,
                      `U`.`nom` ASC,
                      `U`.`prenom` ASC";
-
 }
 else  // $assignment['assignment_type'] == 'GROUP'
 {
@@ -225,28 +225,6 @@ else  // $assignment['assignment_type'] == 'GROUP'
      * USER GROUP INFORMATIONS
      */
     $userCanPost = (bool) ! ( isset($userGroupList) && count($userGroupList) <= 0 );
-    // do not count invisible work and feedbacks if the user is not courseAdmin
-    if( $is_allowedToEditAll )
-    {
-        $feedbackVisiblitySqlFilter = " ";
-    }
-    elseif(isset($_uid))
-    {
-        $feedbackVisiblitySqlFilter = " AND `S`.`visibility` = 'VISIBLE'
-                                    AND ( `FB`.`visibility` = 'VISIBLE'
-                                       OR `FB`.`user_id` = ". (int) $_uid . ") ";
-    }
-    else
-    {
-        // work and his feedback must be visible OR the user is member of concerned group
-        $feedbackVisiblitySqlFilter = " AND ( (`S`.`visibility` = 'VISIBLE'
-                        AND `FB`.`visibility` = 'VISIBLE') ";
-        foreach( $userGroupList as $userGroup )
-        {
-            $feedbackVisiblitySqlFilter .= " OR `FB`.`group_id` = ". (int) $userGroup['id'];
-        }
-        $feedbackVisiblitySqlFilter .= ") ";
-    }
 
     $sql = "SELECT `G`.`id`            AS `authId`,
                    `G`.`name`,
@@ -261,12 +239,12 @@ else  // $assignment['assignment_type'] == 'GROUP'
                ON `S`.`group_id` = `G`.`id`
               AND (`S`.`assignment_id` = " . $req['assigmentId'] . " OR `S`.`assignment_id` IS NULL )
               AND `S`.`original_id` IS NULL
-        " . $workVisiblitySqlFilter . "
+        " . $submissionFilterSql . "
 
         # SEARCH ON FEEBACKS
         LEFT JOIN `" . $tbl_wrk_submission . "` as `FB`
                ON `FB`.`parent_id` = `S`.`id`
-        " . $feedbackVisiblitySqlFilter . "
+        " . $feedbackFilterSql . "
 
         GROUP BY `G`.`id`,          # group by 'group'
                  `S`.`original_id`
@@ -495,10 +473,6 @@ echo '</tbody>' . "\n"
 
 .    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId']);
 
-// FOOTER
-//echo $strsql;
-//echo '<div>'.__LINE__.': $workList = <pre>'. var_export($workList,1).'</PRE></div>';
-//echo '<div>'.__LINE__.': $strgl = <pre>'. var_export($strgl,1).'</PRE></div>';
 include $includePath . '/claro_init_footer.inc.php';
 
 
