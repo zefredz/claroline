@@ -254,7 +254,6 @@ else  // $assignment['assignment_type'] == 'GROUP'
 }
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
-$strsql = '<div>'.__LINE__.': $sql = <pre>'. var_export($sql,1).'</PRE></div>';
 
 /*--------------------------------------------------------------------
 WORK LIST
