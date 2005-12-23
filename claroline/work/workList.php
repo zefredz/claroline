@@ -215,14 +215,13 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
                      `S`.`original_id`
 ";
 
-if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-
-$sortKeyList['CU.statut'] = SORT_ASC;
-$sortKeyList['CU.tutor']  = SORT_DESC;
-$sortKeyList['U.nom']     = SORT_ASC;
-$sortKeyList['U.prenom']  = SORT_ASC;
-
     if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+
+    $sortKeyList['CU.statut'] = SORT_ASC;
+    $sortKeyList['CU.tutor']  = SORT_DESC;
+    $sortKeyList['U.nom']     = SORT_ASC;
+    $sortKeyList['U.prenom']  = SORT_ASC;
+
 }
 else  // $assignment['assignment_type'] == 'GROUP'
 {
@@ -455,22 +454,22 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 .    '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
-.    '<th>'
+.    '<th scope="col" id="n">'
 .    '<a href="' . $headerUrl['name'] . '">'
 .    get_lang('WrkAuthors')
 .    '</a>'
 .    '</th>' . "\n"
-.    '<th>'
+.    '<th scope="col" id="t">'
 .    '<a href="' . $headerUrl['title'] . '">'
 .    get_lang('FirstSubmission')
 .    '</a>'
 .    '</th>' . "\n"
-.    '<th>'
+.    '<th scope="col" id="s">'
 .    '<a href="' . $headerUrl['submissionCount'] . '">'
 .    get_lang('Submissions')
 .    '</a>'
 .    '</th>' . "\n"
-.    '<th>'
+.    '<th scope="col" id="fb">'
 .    '<a href="' . $headerUrl['feedbackCount'] . '">'
 .    get_lang('Feedbacks')
 .    '</a>'
@@ -483,17 +482,18 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 
 foreach ( $workList as $thisWrk )
 {
+
     echo '<tr align="center">' . "\n"
-    .    '<td align="left">'
+    .    '<td align="left" headers="n" id="a'.$thisWrk['authId'].'" scope="row" >'
     .     $thisWrk['name']
     .    '</td>' . "\n"
-    .    '<td>'
+    .    '<td headers="t a' . $thisWrk['authId'] . '">'
     .    $thisWrk['title']
     .    '</td>' . "\n"
-    .    '<td>'
+    .    '<td headers="s a' . $thisWrk['authId'] . '">'
     .    $thisWrk['submissionCount']
     .    '</td>' . "\n"
-    .    '<td>'
+    .    '<td headers="fb a' . $thisWrk['authId'] . '">'
     .    $thisWrk['feedbackCount']
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
