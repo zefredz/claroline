@@ -38,7 +38,7 @@ $currentUserFirstName = $_user['firstName'];
 $currentUserLastName  = $_user['lastName'];
 
 // 'step' of pager
-$usersPerPage = get_conf('usersPerPage',25);
+$usersPerPage = get_conf('usersPerPage',20);
 
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -158,17 +158,17 @@ if( $assignment['assignment_type'] == 'GROUP' )
 $submissionConditionList = array();
 $feedbackConditionList = array();
 
-if( ! $is_allowedToEditAll ) 
+if( ! $is_allowedToEditAll )
 {
     $submissionConditionList[] = "`S`.`visibility` = 'VISIBLE'";
     $feedbackConditionList[]   = "(`S`.`visibility` = 'VISIBLE' AND `FB`.`visibility` = 'VISIBLE')";
 
-    if( isset($userGroupList)  ) 
+    if( isset($userGroupList)  )
     {
         $submissionConditionList[] = "S.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
         $feedbackConditionList[]   = "FB.group_id IN (" . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
     }
-    elseif ( isset($_uid)      ) 
+    elseif ( isset($_uid)      )
     {
         $submissionConditionList[] = "`S`.`user_id` = "      . (int) $_uid;
         $feedbackConditionList[]   = "`FB`.`original_id` = " . (int) $_uid;
@@ -213,11 +213,16 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 
             GROUP BY `U`.`user_id`,
                      `S`.`original_id`
+";
 
-            ORDER BY `CU`.`statut` ASC,
-                     `CU`.`tutor` DESC,
-                     `U`.`nom` ASC,
-                     `U`.`prenom` ASC";
+if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+
+$sortKeyList['CU.statut'] = SORT_ASC;
+$sortKeyList['CU.tutor']  = SORT_DESC;
+$sortKeyList['U.nom']     = SORT_ASC;
+$sortKeyList['U.prenom']  = SORT_ASC;
+
+    if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
 }
 else  // $assignment['assignment_type'] == 'GROUP'
 {
@@ -249,10 +254,13 @@ else  // $assignment['assignment_type'] == 'GROUP'
         GROUP BY `G`.`id`,          # group by 'group'
                  `S`.`original_id`
 
-        ORDER BY `G`.`name` ASC";
+
+        ";
+
+    if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+    $sortKeyList['G.name'] = SORT_ASC;
 
 }
-
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
 
 /*--------------------------------------------------------------------
@@ -260,6 +268,13 @@ WORK LIST
 --------------------------------------------------------------------*/
 $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
 $workPager = new claro_sql_pager($sql,$offset, $usersPerPage);
+
+foreach($sortKeyList as $thisSortKey => $thisSortDir)
+{
+    $workPager->add_sort_key( $thisSortKey, $thisSortDir);
+}
+
+
 $workList = $workPager->get_result_list();
 foreach ( $workList as $workId => $thisWrk )
 {
@@ -275,7 +290,6 @@ foreach ( $workList as $workId => $thisWrk )
     .                            $workList[$workId]['name']
     .                            '</a>'
     ;
-
 
 }
 
@@ -432,16 +446,35 @@ echo '</p>';
 /**
  * Submiter (User or group) listing
  */
+$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId']);
 
 echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId'])
+
+
 
 .    '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
-.    '<th>' . get_lang('WrkAuthors') . '</th>' . "\n"
-.    '<th>' . get_lang('FirstSubmission') . '</th>' . "\n"
-.    '<th>' . get_lang('Submissions') . '</th>' . "\n"
-.    '<th>' . get_lang('Feedbacks') . '</th>' . "\n"
+.    '<th>'
+.    '<a href="' . $headerUrl['name'] . '">'
+.    get_lang('WrkAuthors')
+.    '</a>'
+.    '</th>' . "\n"
+.    '<th>'
+.    '<a href="' . $headerUrl['title'] . '">'
+.    get_lang('FirstSubmission')
+.    '</a>'
+.    '</th>' . "\n"
+.    '<th>'
+.    '<a href="' . $headerUrl['submissionCount'] . '">'
+.    get_lang('Submissions')
+.    '</a>'
+.    '</th>' . "\n"
+.    '<th>'
+.    '<a href="' . $headerUrl['feedbackCount'] . '">'
+.    get_lang('Feedbacks')
+.    '</a>'
+.    '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>'
