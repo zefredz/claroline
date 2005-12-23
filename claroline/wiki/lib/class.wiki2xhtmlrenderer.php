@@ -180,7 +180,10 @@
                     $url = 'mailto:'.$this->__antiSpam(substr($url, 7));
                 }
                  
-                if (!ereg('[a-zA-Z]+://', $url) && $this->getOpt('active_wiki_urls' ))
+                if ((!ereg('[a-zA-Z]+://', $url)
+                        && !ereg('#', $url )
+                        && !ereg('/', $url) )
+                    && $this->getOpt('active_wiki_urls' ))
                 {
                     $attr = $this->_getWikiPageLink($url );
                 }
