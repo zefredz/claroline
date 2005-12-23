@@ -181,8 +181,8 @@
                 }
                  
                 if ((!ereg('[a-zA-Z]+://', $url)
-                        && !ereg('#', $url )
-                        && !ereg('/', $url) )
+                        && !preg_match('~^#~', $url )
+                        && !preg_match('~^/~', $url) )
                     && $this->getOpt('active_wiki_urls' ))
                 {
                     $attr = $this->_getWikiPageLink($url );
