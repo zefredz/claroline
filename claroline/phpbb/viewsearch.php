@@ -11,7 +11,11 @@ $is_allowedToEdit  = claro_is_allowed_to_edit();
 
 if (  !isset($_cid) || !isset($is_courseAllowed) || $is_courseAllowed == FALSE ) claro_disp_auth_form(true);
 
-if (isset($_REQUEST['searchPattern']))
+if ( isset($_REQUEST['searchUser']) )
+{
+    $sqlClauseString = ' p.poster_id = '. (int) $_REQUEST['searchUser'];
+}
+elseif ( isset($_REQUEST['searchPattern']) )
 {
     $searchPatternString = trim($_REQUEST['searchPattern']);
 
@@ -35,7 +39,15 @@ if (isset($_REQUEST['searchPattern']))
         }
 
         $sqlClauseString = implode("\n OR \n", $sqlClauseList);
+    }
+}
+else
+{
+	$sqlClauseString = null;
+}
 
+if ( $sqlClauseString )
+{
         $tbl_cdb_names  = claro_sql_get_course_tbl();
         $tbl_posts_text = $tbl_cdb_names['bb_posts_text'];
         $tbl_posts      = $tbl_cdb_names['bb_posts'     ];
@@ -60,7 +72,10 @@ if (isset($_REQUEST['searchPattern']))
 
         $userGroupList  = get_user_group_list($_uid);
         $tutorGroupList = get_tutor_group_list($_uid);
-    }
+}
+else
+{
+	$searchResultList = array();
 }
 
 $pagetype= 'viewsearch';
@@ -81,7 +96,7 @@ disp_forum_breadcrumb($pagetype, null, null, null);
 echo '<table class="claroTable" width="100%">'                          . "\n"
 .    '<tr align="left">'                                                . "\n"
 .    '<th class="superHeader">'                                         . "\n"
-.    get_lang('SearchResult'). ' : '.htmlspecialchars($_REQUEST['searchPattern']) . "\n"
+.    get_lang('SearchResult'). ' : '. (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
 .    '</th>'                                                            . "\n"
 .    '</tr>'                                                            . "\n";
 
