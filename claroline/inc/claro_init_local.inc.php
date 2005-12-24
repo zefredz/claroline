@@ -695,18 +695,18 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
-    if ( !empty($_SESSION['is_courseMember']) ) $is_courseMember      = $_SESSION['is_courseMember'     ];
-    else                                        $is_courseMember      = null;
-    if ( !empty($_SESSION['is_courseAdmin']) )  $is_courseAdmin      = $_SESSION['is_courseAdmin'     ];
-    else                                        $is_courseAdmin      = null;
-    if ( !empty($_SESSION['is_courseAllowed']) )$is_courseAllowed      = $_SESSION['is_courseAllowed'     ];
-    else                                        $is_courseAllowed      = null;
-    if ( !empty($_SESSION['is_courseTutor']) )  $is_courseTutor      = $_SESSION['is_courseTutor'     ];
-    else                                        $is_courseTutor      = null;
+    if ( !empty($_SESSION['is_courseMember']) ) $is_courseMember  = $_SESSION['is_courseMember' ];
+    else                                        $is_courseMember  = false;
+    if ( !empty($_SESSION['is_courseAdmin']) )  $is_courseAdmin   = $_SESSION['is_courseAdmin' ];
+    else                                        $is_courseAdmin   = false;
+    if ( !empty($_SESSION['is_courseAllowed']) )$is_courseAllowed = $_SESSION['is_courseAllowed' ];
+    else                                        $is_courseAllowed = false;
+    if ( !empty($_SESSION['is_courseTutor']) )  $is_courseTutor   = $_SESSION['is_courseTutor'];
+    else                                        $is_courseTutor   = false;
 
     // not used
-    if ( !empty($_SESSION['_courseUser']) )      $_courseUser      = $_SESSION['_courseUser'     ];
-    else                                        $_courseUser      = null;
+    if ( !empty($_SESSION['_courseUser']) )  $_courseUser      = $_SESSION['_courseUser'     ];
+    else                                     $_courseUser      = null;
 }
 
 /*---------------------------------------------------------------------------
