@@ -495,6 +495,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<th>'.get_lang('GroupTutor').'</th>' . "\n"
         .    '<th>'.get_lang('CourseManager').'</th>' . "\n"
         .    ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
+        .    '<th>'.get_lang('Forum posts').'</th>'
         .    ($is_allowedToTrack?"<th>".get_lang('Tracking').'</th>' . "\n":'')
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
@@ -516,6 +517,12 @@ elseif ($displayMode == "viewContentList") // default display
             ;
         }
 
+        echo '<td>'
+        .    '<a href="'.$clarolineRepositoryWeb.'phpbb/viewsearch.php?searchUser='.$userIdViewed.'">'
+        .    '<img src="'.$imgRepositoryWeb.'post.gif" alt="'.get_lang('Forum posts').'">'
+        .    '</a>'
+        .    '</td>';
+
         if($is_allowedToTrack)
         {
             echo '<td>'
@@ -525,6 +532,7 @@ elseif ($displayMode == "viewContentList") // default display
             .    '</td>' . "\n"
             ;
         }
+
         echo '</tr>' . "\n"
         .    '</tbody>' . "\n"
         .    '</table>'."\n\n";
@@ -536,6 +544,7 @@ elseif ($displayMode == "viewContentList") // default display
 
         echo '<hr noshade="noshade" size="1" />' . "\n" ;
     }
+
 
     if ($allowedToEditDef) // only course administrators see this line
     {
