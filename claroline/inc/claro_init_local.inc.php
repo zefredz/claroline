@@ -1037,19 +1037,19 @@ else                            $_SESSION['_groupProperties'] = null;
  ---------------------------------------------------------------------------*/
 
 if ( isset($is_courseAdmin) ) $_SESSION['is_courseAdmin'] = $is_courseAdmin;
-else                          $_SESSION['is_courseAdmin'] = null;
+else                          $_SESSION['is_courseAdmin'] = false;
 
 if ( isset($is_courseAllowed) ) $_SESSION['is_courseAllowed'] = $is_courseAllowed;
-else                            $_SESSION['is_courseAllowed'] = null;
+else                            $_SESSION['is_courseAllowed'] = false;
 
 if ( isset($is_courseMember) ) $_SESSION['is_courseMember'] = $is_courseMember;
-else                           $_SESSION['is_courseMember'] = null;
+else                           $_SESSION['is_courseMember'] = false;
 
 if ( isset($is_courseTutor) ) $_SESSION['is_courseTutor'] = $is_courseTutor;
-else                          $_SESSION['is_courseTutor'] = null;
+else                          $_SESSION['is_courseTutor'] = false;
 
 if ( isset($_courseUser) ) $_SESSION['_courseUser'] = $_courseUser; // not used
-else                       $_SESSION['_courseUser'] = null;
+else                       $_SESSION['_courseUser'] = false;
 
 /*---------------------------------------------------------------------------
   Tool info of $_tid in $_cid course
