@@ -352,22 +352,10 @@ foreach ( $userList as $thisUser )
     {
         echo ucfirst(strtolower($thisUser['nom']));
     }
+    
+    echo '</td>';
 
-    echo '</td>'."\n"
-        . '<td id="u'.$i.'" headers="name" align="left">';
-
-    if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
-    {
-        echo '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
-            . ucfirst(strtolower($thisUser['prenom']))
-            . '</a>';
-    }
-    else
-    {
-        echo ucfirst(strtolower($thisUser['prenom']));
-    }
-
-    echo '</td>'."\n";
+    echo '<td align="left">'.$thisUser['prenom'].'</td>';
 
     // User role column
     echo '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n";
