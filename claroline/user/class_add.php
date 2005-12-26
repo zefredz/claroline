@@ -64,11 +64,11 @@ switch ($cmd)
     $dialogBox = "<b>Class ".$_REQUEST['classname']. " " . get_lang('HasBeenEnrolled') . "</b><br />";
     $sql = " SELECT U.`user_id`,
                     U.`nom` as `lastname` , 
-        		    U.`prenom` as `firstname` , 
-        		    U.`username` , 
-        		    U.`email` , 
-        		    U.`officialCode` , 
-        		    U.`phoneNumber` as `phone` 
+                    U.`prenom` as `firstname` , 
+                    U.`username` , 
+                    U.`email` , 
+                    U.`officialCode` , 
+                    U.`phoneNumber` as `phone` 
                FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U 
                WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='". (int)$_REQUEST['class']."'  
                ORDER BY U.`nom`";
@@ -79,21 +79,21 @@ switch ($cmd)
         $user_id = $user['user_id'];
 
         if ( user_add_to_course($user['user_id'], $_cid) )
-    	{   
+        {   
             // send mail to user
             user_send_enroll_to_course_mail ($user_id, $user);
             // add message 
-	        $dialogBox .= $user['firstname']." ".$user['lastname']. " " . get_lang('IsNowRegistered') . "<br />";
+            $dialogBox .= $user['firstname']." ".$user['lastname']. " " . get_lang('IsNowRegistered') . "<br />";
         }
-    	else
-	    {
+        else
+        {
             switch (claro_failure::get_last_failure())
             {
                 case 'already_enrolled_in_course' : 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." " . get_lang('IsAlreadyRegistered') . "<br />";
+                    $dialogBox .= $user['firstname']." ".$user['lastname']." " . get_lang('IsAlreadyRegistered') . "<br />";
                     break;
-        	    default: 
-	                $dialogBox .= $user['firstname']." ".$user['lastname']." " . get_lang('UnableToEnrollInCourse') . "<br />";
+                default: 
+                    $dialogBox .= $user['firstname']." ".$user['lastname']." " . get_lang('UnableToEnrollInCourse') . "<br />";
             }            
         }
     }

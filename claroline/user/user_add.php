@@ -167,7 +167,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
 {
 
     if ( $platformRegSucceed )
-   	{
+       {
         // Send message and login and password
         user_send_registration_mail($user_id, $user_data);
     }
@@ -190,7 +190,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
 include($includePath.'/claro_init_header.inc.php');
 
 echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
-				'help_user.php');
+                'help_user.php');
 
 // message box
 

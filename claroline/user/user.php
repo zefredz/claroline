@@ -214,13 +214,13 @@ if ( count($usersId)> 0 )
 
     $usersGroup = array();
 
-	if( is_array($userGroupList) && !empty($userGroupList) )
-	{
-	    foreach( $userGroupList as $thisAffiliation )
-	    {
-	        $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
-	    }
-	}
+    if( is_array($userGroupList) && !empty($userGroupList) )
+    {
+        foreach( $userGroupList as $thisAffiliation )
+        {
+            $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
+        }
+    }
 }
 
 /*=====================================================================

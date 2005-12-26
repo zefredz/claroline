@@ -167,8 +167,8 @@ switch ($cmd)
     else
     {
        //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
-    	   
-	   claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);        
+           
+       claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);        
        $display = 'stepone';
        
     }
@@ -310,15 +310,15 @@ echo claro_disp_tool_title($nameTools);
 if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
     if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=="dbquote") $dbquote_selected = "selected"; else $dbquote_selected = "";
-	if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=="")   $blank_selected   = "selected"; else $blank_selected   = "";
-	if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==",")  $coma_selected    = "selected"; else $coma_selected    = "";
-	if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==".")  $dot_selected     = "selected"; else $dot_selected     = "";
-	
-	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==";")  $dot_coma_selected_sep = "selected"; else $dot_coma_selected_sep = "";
-	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==",")  $coma_selected_sep     = "selected"; else $coma_selected_sep = "";
-	if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=="")   $blank_selected_sep    = "selected"; else $blank_selected_sep = "";
-	
-	$dialogBox = get_lang('ModifyFormat') .' :<br><br>'
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=="")   $blank_selected   = "selected"; else $blank_selected   = "";
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==",")  $coma_selected    = "selected"; else $coma_selected    = "";
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==".")  $dot_selected     = "selected"; else $dot_selected     = "";
+    
+    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==";")  $dot_coma_selected_sep = "selected"; else $dot_coma_selected_sep = "";
+    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==",")  $coma_selected_sep     = "selected"; else $coma_selected_sep = "";
+    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=="")   $blank_selected_sep    = "selected"; else $blank_selected_sep = "";
+    
+    $dialogBox = get_lang('ModifyFormat') .' :<br><br>'
     .            get_lang('TheFields') . ' <b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> ' . get_lang('AreCompulsory') . '<br><br>'
     .          '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .          '<input type="hidden" name="AddType" value="' . $AddType . '" >' 
