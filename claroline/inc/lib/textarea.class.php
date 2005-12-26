@@ -5,7 +5,7 @@
  * simply produces an HTML textarea. It allows to dynamicaly 
  * offers wysiwig editor or not, according the the browser possibilities.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
