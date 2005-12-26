@@ -926,6 +926,72 @@ if ($cmd == 'rqSearch')
                     ."</form>\n";
 }
 
+if ($cmd == 'exDownload')
+{
+    /*
+     * PREPARE THE FILE COLLECTION
+     */
+
+    $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+
+    if (! $is_allowedToEdit && $courseContext)
+    {
+        // Build an exclude file list to prevent simple user
+        // to see document contained in "invisible" directories
+
+        $sql = "SELECT path FROM `".$dbTable."` WHERE visibility ='i'";
+
+        $searchExcludeList = claro_sql_query_fetch_all_cols($sql);
+        $searchExcludeList = $searchExcludeList['path'];
+    }
+    else
+    {
+        $searchExcludeList = array();
+    }
+
+    $filePathList = claro_search_file('||',
+                                      $baseWorkDir.$_REQUEST['file'],
+                                      true,
+                                      'ALL',
+                                      $searchExcludeList);
+
+    /*
+     * BUILD THE ZIP ARCHIVE
+     */
+
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+
+    $downloadArchivePath = $baseWorkDir.$_REQUEST['file'].'/'.uniqid().'.zip';
+    $downloadArchiveName = $_REQUEST['file'].'.zip';
+    $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('document').'.zip';
+
+    $downloadArchive     = new PclZip($downloadArchivePath);
+
+    $downloadArchive->add($filePathList, 
+                          PCLZIP_OPT_REMOVE_PATH,
+                          $baseWorkDir.$_REQUEST['file']);
+
+
+    $downloadArchiveSize = filesize($downloadArchivePath);
+
+
+    /*
+     * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+     */
+
+    header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Pragma: no-cache');
+    header('Content-type: application/zip');
+    header('Content-Length: '.$downloadArchiveSize);
+    header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
+
+    readfile($downloadArchivePath);
+    unlink($downloadArchivePath);
+    exit();
+}
 
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -1728,6 +1794,13 @@ echo claro_disp_tool_title($titleElement,
             ."<img src=\"".$imgRepositoryWeb."search.gif\" border=\"0\" alt=\"\">\n"
             .get_lang('Search')
             ."</a>\n";
+
+        echo " | "
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;file=".$cmdCurDirPath."\">\n"
+            ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">\n"
+            .get_lang('Download current directory')
+            ."</a>\n";
+
 
         if ($is_allowedToEdit)
         {
