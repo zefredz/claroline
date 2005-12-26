@@ -223,9 +223,9 @@ if ( !$atleastOne )
         .'</tr>'."\n";
 }
 echo '<tr>'
-	.'<td colspan="6"><hr noshade size="1"></td>'
-	.'</tr>'."\n"
-	;
+    .'<td colspan="6"><hr noshade size="1"></td>'
+    .'</tr>'."\n"
+    ;
 // Display button to add selected modules
 
 if ( $atleastOne )

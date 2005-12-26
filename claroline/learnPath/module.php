@@ -98,7 +98,7 @@ $module = claro_sql_query_get_single_row($sql);
 
 if( empty($module['comment']) || $module['comment'] == get_lang('DefaultModuleComment') )
 {
-  	$noModuleComment = true;
+      $noModuleComment = true;
 }
 else
 {
@@ -125,7 +125,7 @@ $learnpath_module = claro_sql_query_get_single_row($sql);
 
 if( empty($learnpath_module['specificComment']) || $learnpath_module['specificComment'] == get_lang('DefaultModuleAddedComment') )
 {
-	$noModuleSpecificComment = true;
+    $noModuleSpecificComment = true;
 }
 else
 {
@@ -135,11 +135,11 @@ else
 // check in DB if user has already browsed this module
 
 $sql = "SELECT `contentType`,
-				`total_time`,
-				`session_time`,
-				`scoreMax`,
-				`raw`,
-				`lesson_status`
+                `total_time`,
+                `session_time`,
+                `scoreMax`,
+                `raw`,
+                `lesson_status`
         FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, 
              `".$TABLELEARNPATHMODULE."` AS LPM, 
              `".$TABLEMODULE."` AS M
@@ -153,11 +153,11 @@ $resultBrowsed = claro_sql_query_get_single_row($sql);
 
 // redirect user to the path browser if needed
 if( !$is_AllowedToEdit
-	&& ( !is_array($resultBrowsed) || !$resultBrowsed || count($resultBrowsed) <= 0 )
-	&& $noModuleComment
-	&& $noModuleSpecificComment
-	&& !$noStartAsset
-	)
+    && ( !is_array($resultBrowsed) || !$resultBrowsed || count($resultBrowsed) <= 0 )
+    && $noModuleComment
+    && $noModuleSpecificComment
+    && !$noStartAsset
+    )
 {
     header("Location:./navigation/viewer.php");
     exit();
@@ -223,11 +223,11 @@ if($module['contentType'] != CTLABEL_ )
 //back button
 if ($is_AllowedToEdit)
 {
-	$pathBack = "./learningPathAdmin.php";
+    $pathBack = "./learningPathAdmin.php";
 }
 else
 {
-	$pathBack = "./learningPath.php";
+    $pathBack = "./learningPath.php";
 }
 
 echo '<small><a href="'.$pathBack.'"><< '.get_lang('BackModule').'</a></small><br /><br />'."\n\n";
@@ -249,42 +249,42 @@ if($module['contentType'] != CTLABEL_) //
         if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = get_lang('EXERCISETypeDesc'); }
         if ($resultBrowsed['contentType']== CTDOCUMENT_ ) { $contentDescType = get_lang('DOCUMENTTypeDesc'); }
 
-		echo '<b>'.get_lang('ProgInModuleTitle').'</b><br /><br />'."\n\n"
-			.'<table align="center" class="claroTable" border="0" cellspacing="2">'."\n"
-			.'<thead>'."\n"
-			.'<tr class="headerX">'."\n"
-			.'<th>'.get_lang('InfoProgNameTitle').'</th>'."\n"
-			.'<th>'.get_lang('PersoValue').'</th>'."\n"
-			.'</tr>'."\n"
-			.'</thead>'."\n\n"
-			.'<tbody>'."\n\n";
+        echo '<b>'.get_lang('ProgInModuleTitle').'</b><br /><br />'."\n\n"
+            .'<table align="center" class="claroTable" border="0" cellspacing="2">'."\n"
+            .'<thead>'."\n"
+            .'<tr class="headerX">'."\n"
+            .'<th>'.get_lang('InfoProgNameTitle').'</th>'."\n"
+            .'<th>'.get_lang('PersoValue').'</th>'."\n"
+            .'</tr>'."\n"
+            .'</thead>'."\n\n"
+            .'<tbody>'."\n\n";
 
         //display type of the module
-		echo '<tr>'."\n"
+        echo '<tr>'."\n"
             .'<td>'.get_lang('TypeOfModule').'</td>'."\n"
-			.'<td><img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
-			.'</tr>'."\n\n";
+            .'<td><img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
+            .'</tr>'."\n\n";
 
         //display total time already spent in the module
-		echo '<tr>'."\n"
-			.'<td>'.get_lang('TotalTimeSpent').'</td>'."\n"
-			.'<td>'.$resultBrowsed['total_time'].'</td>'."\n"
-			.'</tr>'."\n\n";
+        echo '<tr>'."\n"
+            .'<td>'.get_lang('TotalTimeSpent').'</td>'."\n"
+            .'<td>'.$resultBrowsed['total_time'].'</td>'."\n"
+            .'</tr>'."\n\n";
 
         //display time passed in last session
-		echo '<tr>'."\n"
-			.'<td>'.get_lang('LastSessionTimeSpent').'</td>'."\n"
-			.'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
-			.'</tr>'."\n\n";
-			
+        echo '<tr>'."\n"
+            .'<td>'.get_lang('LastSessionTimeSpent').'</td>'."\n"
+            .'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
+            .'</tr>'."\n\n";
+            
         //display user best score
         if ($resultBrowsed['scoreMax'] > 0)
         {
-			$raw = round($resultBrowsed['raw']/$resultBrowsed['scoreMax']*100);
+            $raw = round($resultBrowsed['raw']/$resultBrowsed['scoreMax']*100);
         }
         else
         {
-			$raw = 0;
+            $raw = 0;
         }
 
         $raw = max($raw, 0);
@@ -292,16 +292,16 @@ if($module['contentType'] != CTLABEL_) //
         if (($resultBrowsed['contentType'] == CTSCORM_ ) && ($resultBrowsed['scoreMax'] <= 0)
             &&  (  ( ($resultBrowsed['lesson_status'] == "COMPLETED") || ($resultBrowsed['lesson_status'] == "PASSED") ) || ($resultBrowsed['raw'] != -1) ) )
         {
-			$raw = 100;
+            $raw = 100;
         }
 
         // no sens to display a score in case of a document module
         if (($resultBrowsed['contentType'] != CTDOCUMENT_))
         {
-			echo '<tr>'."\n"
-				.'<td>'.get_lang('YourBestScore').'</td>'."\n"
-				.'<td>'.claro_disp_progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
-				.'</tr>'."\n\n";
+            echo '<tr>'."\n"
+                .'<td>'.get_lang('YourBestScore').'</td>'."\n"
+                .'<td>'.claro_disp_progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
+                .'</tr>'."\n\n";
         }
 
         //display lesson status
@@ -323,12 +323,12 @@ if($module['contentType'] != CTLABEL_) //
         {
             $statusToDisplay = $resultBrowsed['lesson_status'];
         }
-		echo '<tr>'."\n"
-			.'<td>'.get_lang('LessonStatus').'</td>'."\n"
-			.'<td>'.$statusToDisplay.'</td>'."\n"
-			.'</tr>'."\n\n"
-			.'</tbody>'."\n\n"
-			.'</table>'."\n\n";
+        echo '<tr>'."\n"
+            .'<td>'.get_lang('LessonStatus').'</td>'."\n"
+            .'<td>'.$statusToDisplay.'</td>'."\n"
+            .'</tr>'."\n\n"
+            .'</tbody>'."\n\n"
+            .'</table>'."\n\n";
 
     } //end display stats
 
@@ -340,16 +340,16 @@ if($module['contentType'] != CTLABEL_) //
              WHERE `asset_id` = ". (int)$module['startAsset_id']."
                AND `module_id` = ". (int)$_SESSION['module_id'];
 
-	$asset = claro_sql_query_get_single_row($sql);
+    $asset = claro_sql_query_get_single_row($sql);
 
     if( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'] )
     {
 
-		echo '<center>'."\n"
-			.'<form action="./navigation/viewer.php" method="post">'."\n"
-			.'<input type="submit" value="'.get_lang('StartModule').'" />'."\n"
-			.'</form>'."\n"
-			.'</center>'."\n\n";
+        echo '<center>'."\n"
+            .'<form action="./navigation/viewer.php" method="post">'."\n"
+            .'<input type="submit" value="'.get_lang('StartModule').'" />'."\n"
+            .'</form>'."\n"
+            .'</center>'."\n\n";
     }
     else
     {
