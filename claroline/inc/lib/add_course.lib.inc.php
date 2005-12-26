@@ -7,7 +7,7 @@
  * fill the course database, build the content directorys, build the index page
  * build the directory tree, register the course.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -189,7 +189,7 @@ function define_course_keys ($wantedCode,
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
  *
- * @author  Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
@@ -251,7 +251,7 @@ function prepare_course_repository($courseRepository, $courseId)
  * @global  string  courseTablePrefix common prefix for all table of courses
  * @global  string  dbGlu glu between logical name of DB and logical name of table 267
  *
- * @author    Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  */
 
@@ -895,7 +895,7 @@ function update_db_course($courseDbName)
  *
  * @param    string    $courseRepository        path from $coursesRepositorySys to root of course
  *
- * @author    Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  */
 
@@ -918,7 +918,7 @@ function     fill_course_repository($courseRepository)
  * @param  string  $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
  * @param  string  $language            language request for this course
  *
- * @author    Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  *
  * note  $language would be removed soon.

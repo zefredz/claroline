@@ -14,7 +14,7 @@
  *     Add users with CSV files
  *     ...see details of pre/post for each function's proper use.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
