@@ -1,10 +1,10 @@
 <?php // $Id$
 
 /*
-	To use this function :
-	* include this file in your script
-	* Call the main function : $id1 = mp3_id( "01.mp3" );
-	* all informations are in an array in $id1
+    To use this function :
+    * include this file in your script
+    * Call the main function : $id1 = mp3_id( "01.mp3" );
+    * all informations are in an array in $id1
  
  */
 // This function parse ID3 tag from MP3 file. It's quite fast.
@@ -41,36 +41,36 @@
 
  function mp3_id($file) {
 
- 	// see http://www.mp3-tech.org/programmer/frame_header.html
-	$version=Array("00"=>2.5, "10"=>2, "11"=>1);
-	$layer  =Array("01"=>3, "10"=>2, "11"=>1);
-	$crc=Array("Yes", "No");
-	$bitrate["0001"]=Array(32,32,32,32,8,8);
-	$bitrate["0010"]=Array(64,48,40,48,16,16);
-	$bitrate["0011"]=Array(96,56,48,56,24,24);
-	$bitrate["0100"]=Array(128,64,56,64,32,32);
-	$bitrate["0101"]=Array(160,80,64,80,40,40);
-	$bitrate["0110"]=Array(192,96,80,96,48,48);
-	$bitrate["0111"]=Array(224,112,96,112,56,56);
-	$bitrate["1000"]=Array(256,128,112,128,64,64);
-	$bitrate["1001"]=Array(288,160,128,144,80,80);
-	$bitrate["1010"]=Array(320,192,160,160,96,96);
-	$bitrate["1011"]=Array(352,224,192,176,112,112);
-	$bitrate["1100"]=Array(384,256,224,192,128,128);
-	$bitrate["1101"]=Array(416,320,256,224,144,144);
-	$bitrate["1110"]=Array(448,384,320,256,160,160);
-	$bitrate["1111"]=Array("bad","bad","bad","bad","bad","bad");
-	$bitindex=Array("1111"=>"0","1110"=>"1","1101"=>"2","1011"=>"3","1010"=>"4","1001"=>"5","0011"=>"3","0010"=>"4","0001"=>"5");
-	// second index represent the version 11 = mpeg1 , 10 = mpeg2, 00 = mpeg2.5
-	$freq["00"]=Array("11"=>44100,"10"=>22050,"00"=>11025);
-	$freq["01"]=Array("11"=>48000,"10"=>24000,"00"=>12000);
-	$freq["10"]=Array("11"=>32000,"10"=>16000,"00"=>8000);
-	$freq["11"]=Array("11"=>"reserved","10"=>"reserved","00"=>"reserved");
-	$mode=Array("00"=>"Stereo","01"=>"Joint stereo","10"=>"Dual channel","11"=>"Mono");
-	$copy=Array("No","Yes");
-	$padding = Array(0,1);
-	
-	
+     // see http://www.mp3-tech.org/programmer/frame_header.html
+    $version=Array("00"=>2.5, "10"=>2, "11"=>1);
+    $layer  =Array("01"=>3, "10"=>2, "11"=>1);
+    $crc=Array("Yes", "No");
+    $bitrate["0001"]=Array(32,32,32,32,8,8);
+    $bitrate["0010"]=Array(64,48,40,48,16,16);
+    $bitrate["0011"]=Array(96,56,48,56,24,24);
+    $bitrate["0100"]=Array(128,64,56,64,32,32);
+    $bitrate["0101"]=Array(160,80,64,80,40,40);
+    $bitrate["0110"]=Array(192,96,80,96,48,48);
+    $bitrate["0111"]=Array(224,112,96,112,56,56);
+    $bitrate["1000"]=Array(256,128,112,128,64,64);
+    $bitrate["1001"]=Array(288,160,128,144,80,80);
+    $bitrate["1010"]=Array(320,192,160,160,96,96);
+    $bitrate["1011"]=Array(352,224,192,176,112,112);
+    $bitrate["1100"]=Array(384,256,224,192,128,128);
+    $bitrate["1101"]=Array(416,320,256,224,144,144);
+    $bitrate["1110"]=Array(448,384,320,256,160,160);
+    $bitrate["1111"]=Array("bad","bad","bad","bad","bad","bad");
+    $bitindex=Array("1111"=>"0","1110"=>"1","1101"=>"2","1011"=>"3","1010"=>"4","1001"=>"5","0011"=>"3","0010"=>"4","0001"=>"5");
+    // second index represent the version 11 = mpeg1 , 10 = mpeg2, 00 = mpeg2.5
+    $freq["00"]=Array("11"=>44100,"10"=>22050,"00"=>11025);
+    $freq["01"]=Array("11"=>48000,"10"=>24000,"00"=>12000);
+    $freq["10"]=Array("11"=>32000,"10"=>16000,"00"=>8000);
+    $freq["11"]=Array("11"=>"reserved","10"=>"reserved","00"=>"reserved");
+    $mode=Array("00"=>"Stereo","01"=>"Joint stereo","10"=>"Dual channel","11"=>"Mono");
+    $copy=Array("No","Yes");
+    $padding = Array(0,1);
+    
+    
    if(!$f=@fopen($file, "r")) { return -1; break; } else {
 
 // read first 4 bytes from file and determine if it is wave file if so, header begins five bytes after word 'data'
@@ -87,13 +87,13 @@
 
 // now convert those four bytes to BIN. maybe it can be faster and easier. dunno how yet. help?
 
-	$bajt = '';
-	for($y=0;$y<4;$y++)
-	{
-		$x=decbin(ord($tmp[$y]));
-		for($i=0;$i<(8-StrLen($x));$i++) {$x.="0";}
-		$bajt.=$x;
-	}
+    $bajt = '';
+    for($y=0;$y<4;$y++)
+    {
+        $x=decbin(ord($tmp[$y]));
+        for($i=0;$i<(8-StrLen($x));$i++) {$x.="0";}
+        $bajt.=$x;
+    }
 
 // every mp3 framesynch begins with eleven ones, lets look for it. if not found continue looking for some 1024 bytes (you can search multiple for it or you can disable this, it will speed up and not many mp3 are like this. anyways its not standart)
 
@@ -125,33 +125,33 @@
 
 // now parse all the info from frame header
 
-	$len=filesize($file);
-	$idtag["version"]=$version[substr($bajt,11,2)];
-	$idtag["layer"]=$layer[substr($bajt,13,2)];
-	$idtag["crc"]=$crc[$bajt[15]];
-	$idtag["bitrate"]=$bitrate[substr($bajt,16,4)][$bitindex[substr($bajt,11,4)]];
-	if( $idtag["bitrate"] == "bad" || $idtag["bitrate"] == 0 || is_null($idtag["bitrate"]) ) return 0;
-	$idtag["frequency"]=$freq[substr($bajt,20,2)][substr($bajt,11,2)];
-	if( $idtag["frequency"] == "reserved" || is_null($idtag["frequency"]) ) return 0;
-	$idtag["padding"]=$copy[$bajt[22]];
-	$idtag["mode"]=$mode[substr($bajt,24,2)];
-	$idtag["copyright"]=$copy[$bajt[28]];
-	$idtag["original"]=$copy[$bajt[29]];
-	
-	// lets count length of the song	
-	if($idtag["layer"]==1) 
-	{
-	  $fsize=(12*($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"])*4; 
-	}
-	else 
-	{
-	  $fsize=144*(($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"]);
-	}
-	
-	// Modified by Luca (18/02/01): devel@lluca.com
-	$idtag["length_sec"]=round($len/Round($fsize)/38.37);
-	// end
-	$idtag["length"]=date("i:s",round($len/Round($fsize)/38.37));
+    $len=filesize($file);
+    $idtag["version"]=$version[substr($bajt,11,2)];
+    $idtag["layer"]=$layer[substr($bajt,13,2)];
+    $idtag["crc"]=$crc[$bajt[15]];
+    $idtag["bitrate"]=$bitrate[substr($bajt,16,4)][$bitindex[substr($bajt,11,4)]];
+    if( $idtag["bitrate"] == "bad" || $idtag["bitrate"] == 0 || is_null($idtag["bitrate"]) ) return 0;
+    $idtag["frequency"]=$freq[substr($bajt,20,2)][substr($bajt,11,2)];
+    if( $idtag["frequency"] == "reserved" || is_null($idtag["frequency"]) ) return 0;
+    $idtag["padding"]=$copy[$bajt[22]];
+    $idtag["mode"]=$mode[substr($bajt,24,2)];
+    $idtag["copyright"]=$copy[$bajt[28]];
+    $idtag["original"]=$copy[$bajt[29]];
+    
+    // lets count length of the song    
+    if($idtag["layer"]==1) 
+    {
+      $fsize=(12*($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"])*4; 
+    }
+    else 
+    {
+      $fsize=144*(($idtag["bitrate"]*1000)/$idtag["frequency"]+$idtag["padding"]);
+    }
+    
+    // Modified by Luca (18/02/01): devel@lluca.com
+    $idtag["length_sec"]=round($len/Round($fsize)/38.37);
+    // end
+    $idtag["length"]=date("i:s",round($len/Round($fsize)/38.37));
 
 // now lets see at the end of the file for id3 tag. if exists then  parse it. if file doesnt have an id 3 tag if will return -1 in field 'tag' and if title is empty it returns file name.
 
@@ -182,7 +182,7 @@
        $idtag["tag"]=0;
      }
 
-	// close opened file and return results.
+    // close opened file and return results.
 
    if( !isset($idtag["title"]) ) {
      $idtag["title"]=Str_replace("\\","/", $file);

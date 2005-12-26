@@ -42,7 +42,7 @@ define('UNIQUE_ANSWER',   1);
 define('MULTIPLE_ANSWER', 2);
 define('FILL_IN_BLANKS',  3);
 define('MATCHING',        4);
-define('TRUEFALSE',	 	  5);
+define('TRUEFALSE',           5);
 
 /*--------------------------------------------------------
       Classes
@@ -364,15 +364,15 @@ class ImsFIB extends ImsItem
         
             if( strpos($part,'[') !== false )
             {
-            	list($rawText, $blank) = explode('[', $part);
-			}
-			else
-			{
-				$rawText = $part;
-				$blank = "";
-			}
+                list($rawText, $blank) = explode('[', $part);
+            }
+            else
+            {
+                $rawText = $part;
+                $blank = "";
+            }
 
-			if ($rawText!="")
+            if ($rawText!="")
             {
                 $out.="  <material><mattext><![CDATA[" . $rawText . "]]></mattext></material>\n";
             }
@@ -522,8 +522,8 @@ function export_question($questionId, $standalone=True)
         case MATCHING:
             $ims = new ImsMatching($objQuestion);
             break;
-		case TRUEFALSE:
-		    $ims = new ImsSingle($objQuestion);
+        case TRUEFALSE:
+            $ims = new ImsSingle($objQuestion);
         /*default:
             break;*/
     }
