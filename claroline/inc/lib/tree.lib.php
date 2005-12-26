@@ -437,30 +437,30 @@ class node
       */
      function swap( $id_node_a, $id_node_b=null)
      {
-     	$node_a = new node($id_node_a);
-     	if (is_null($id_node_b))
-     	{
-     	    $node_b = $this;
-     	}
-     	else
-     	{
-     	    $node_b = new node($id_node_b);
-     	}
-     	
-     	if ($node_a->id_low < $node_b->id_low)
-     	{
-     	     $node_Up_idParent  = $node_b->id_parent;
-     	     $node_Down_idParent  = $node_a->id_parent;
-     	}
-        else
-     	{
-     	     $node_toUp  = $node_b;
-     	     $node_toDown  = $node_a;
-     	}
-        
-     	
+         $node_a = new node($id_node_a);
+         if (is_null($id_node_b))
+         {
+             $node_b = $this;
+         }
+         else
+         {
+             $node_b = new node($id_node_b);
+         }
          
-     	return $success;
+         if ($node_a->id_low < $node_b->id_low)
+         {
+              $node_Up_idParent  = $node_b->id_parent;
+              $node_Down_idParent  = $node_a->id_parent;
+         }
+        else
+         {
+              $node_toUp  = $node_b;
+              $node_toDown  = $node_a;
+         }
+        
+         
+         
+         return $success;
      }
     
     

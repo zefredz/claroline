@@ -30,52 +30,52 @@
 
 function choose_image($fileName)
 {
-	static $type, $image;
+    static $type, $image;
 
-	/* TABLES INITILIASATION */
+    /* TABLES INITILIASATION */
 
-	if (!$type || !$image)
-	{
-		$type['word'      ] = array("doc", "dot", "rtf", "mcw", "wps");
-		$type['web'       ] = array("htm", "html", "htx", "xml", "xsl", "php");
-		$type['image'     ] = array("gif", "jpg", "png", "bmp", "jpeg");
-		$type['audio'     ] = array("wav", "midi", "mp2", "mp3", "mp4", "vqf", "midi");
-		$type['excel'     ] = array("xls", "xlt", "xls", "xlt");
-		$type['compressed'] = array("zip", "tar", "rar", "gz");
-		$type['code'      ] = array("js", "cpp", "c", "java");
-		$type['acrobat'   ] = array("pdf");
-		$type['powerpoint'] = array("ppt");
+    if (!$type || !$image)
+    {
+        $type['word'      ] = array("doc", "dot", "rtf", "mcw", "wps");
+        $type['web'       ] = array("htm", "html", "htx", "xml", "xsl", "php");
+        $type['image'     ] = array("gif", "jpg", "png", "bmp", "jpeg");
+        $type['audio'     ] = array("wav", "midi", "mp2", "mp3", "mp4", "vqf", "midi");
+        $type['excel'     ] = array("xls", "xlt", "xls", "xlt");
+        $type['compressed'] = array("zip", "tar", "rar", "gz");
+        $type['code'      ] = array("js", "cpp", "c", "java");
+        $type['acrobat'   ] = array("pdf");
+        $type['powerpoint'] = array("ppt");
         $type['link'      ] = array("url");
 
-		$image['word'      ] = "doc.gif";
-		$image['web'       ] = "html.gif";
-		$image['image'     ] = "gif.gif";
-		$image['audio'     ] = "wav.gif";
-		$image['excel'     ] = "xls.gif";
-		$image['compressed'] = "zip.gif";
-		$image['code'      ] = "js.gif";
-		$image['acrobat'   ] = "pdf.gif";
-		$image['powerpoint'] = "ppt.gif";
+        $image['word'      ] = "doc.gif";
+        $image['web'       ] = "html.gif";
+        $image['image'     ] = "gif.gif";
+        $image['audio'     ] = "wav.gif";
+        $image['excel'     ] = "xls.gif";
+        $image['compressed'] = "zip.gif";
+        $image['code'      ] = "js.gif";
+        $image['acrobat'   ] = "pdf.gif";
+        $image['powerpoint'] = "ppt.gif";
         $image['link'      ] = "link.gif";
 
-	}
+    }
 
-	/* FUNCTION CORE */
+    /* FUNCTION CORE */
 
-	if (ereg("\.([[:alnum:]]+)$", $fileName, $extension))
-	{
-		$extension[1] = strtolower ($extension[1]);
+    if (ereg("\.([[:alnum:]]+)$", $fileName, $extension))
+    {
+        $extension[1] = strtolower ($extension[1]);
 
-		foreach( $type as $genericType => $typeList)
-		{
-			if (in_array($extension[1], $typeList))
-			{
-				return$image[$genericType];
-			}
-		}
-	}
+        foreach( $type as $genericType => $typeList)
+        {
+            if (in_array($extension[1], $typeList))
+            {
+                return$image[$genericType];
+            }
+        }
+    }
 
-	return "default.gif";
+    return "default.gif";
 }
 
 //------------------------------------------------------------------------------
@@ -89,27 +89,27 @@ function choose_image($fileName)
 
 function format_file_size($fileSize)
 {
-	// byteUnits is setted in trad4all
-	global $byteUnits;
-	
-	if($fileSize >= 1073741824)
-	{
-		$fileSize = round($fileSize / 1073741824 * 100) / 100 . '&nbsp;' . $byteUnits[3]; //GB
-	}
-	elseif($fileSize >= 1048576)
-	{
-		$fileSize = round($fileSize / 1048576 * 100) / 100 . '&nbsp;' . $byteUnits[2]; //MB
-	}
-	elseif($fileSize >= 1024)
-	{
-		$fileSize = round($fileSize / 1024 * 100) / 100 . '&nbsp;' . $byteUnits[1]; //KB
-	}
-	else
-	{
-		$fileSize = $fileSize . '&nbsp;' . $byteUnits[0];
-	}
+    // byteUnits is setted in trad4all
+    global $byteUnits;
+    
+    if($fileSize >= 1073741824)
+    {
+        $fileSize = round($fileSize / 1073741824 * 100) / 100 . '&nbsp;' . $byteUnits[3]; //GB
+    }
+    elseif($fileSize >= 1048576)
+    {
+        $fileSize = round($fileSize / 1048576 * 100) / 100 . '&nbsp;' . $byteUnits[2]; //MB
+    }
+    elseif($fileSize >= 1024)
+    {
+        $fileSize = round($fileSize / 1024 * 100) / 100 . '&nbsp;' . $byteUnits[1]; //KB
+    }
+    else
+    {
+        $fileSize = $fileSize . '&nbsp;' . $byteUnits[0];
+    }
 
-	return $fileSize;
+    return $fileSize;
 }
 
 
@@ -125,7 +125,7 @@ function format_file_size($fileSize)
 
 function format_date($fileDate)
 {
-	return date('d.m.Y', $fileDate);
+    return date('d.m.Y', $fileDate);
 }
 
 //------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ function format_date($fileDate)
         $pathElementList[$i] = rawurlencode($pathElementList[$i]);
     }
 
-	return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
+    return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
 }*/
 
 function format_url($url)
@@ -160,34 +160,34 @@ function format_url($url)
 
     if ( isset( $urlArray['user'] ) )
     {
-		$urlToRet = $urlArray['user'];
-		$urlToRet .= isset( $urlArray['pass'] )
-			? ':'.$urlArray['pass']
-			: ''
-			;
-		$urlToRet .= '@';
-	}
+        $urlToRet = $urlArray['user'];
+        $urlToRet .= isset( $urlArray['pass'] )
+            ? ':'.$urlArray['pass']
+            : ''
+            ;
+        $urlToRet .= '@';
+    }
 
-	$urlToRet .= $urlArray['host'];
-	$urlToRet .= isset( $urlArray['port']  )
-		? ':' . $urlArray['port']
-		: ''
-		;
+    $urlToRet .= $urlArray['host'];
+    $urlToRet .= isset( $urlArray['port']  )
+        ? ':' . $urlArray['port']
+        : ''
+        ;
 
-	$urlToRet .= isset( $urlArray['path'] )
-		? '/' . format_url_path( substr( $urlArray['path'],  1 ) )
-		: ''
-		;
+    $urlToRet .= isset( $urlArray['path'] )
+        ? '/' . format_url_path( substr( $urlArray['path'],  1 ) )
+        : ''
+        ;
 
-	$urlToRet .= isset( $urlArray['query'] )
-		? '?' . format_url_query( $urlArray['query'] )
-		: ''
-		;
+    $urlToRet .= isset( $urlArray['query'] )
+        ? '?' . format_url_query( $urlArray['query'] )
+        : ''
+        ;
 
-	$urlToRet .= isset( $urlArray['fragment'] )
-		? '#' . $urlArray['fragment']
-		: ''
-		;
+    $urlToRet .= isset( $urlArray['fragment'] )
+        ? '#' . $urlArray['fragment']
+        : ''
+        ;
 
     return $urlArray['scheme'] . '://' . $urlToRet;
 }
@@ -201,54 +201,54 @@ function format_url_path( $path )
         $pathElementList[$i] = rawurlencode($pathElementList[$i]);
     }
 
-	return implode('/',$pathElementList);
+    return implode('/',$pathElementList);
 }
 
 function format_url_query( $query )
 {
-	$ret = '';
-	
+    $ret = '';
+    
     if ( strpos( $query, '&' ) !== false
         || strpos( $query, '&amp;' ) !== false
         || strpos( $query, '=' ) !== false )
-	{
-		$queryArray = preg_split( '~(&|&amp;)~', $query );
-		$parts = array();
-		foreach ( $queryArray as $part )
-		{
+    {
+        $queryArray = preg_split( '~(&|&amp;)~', $query );
+        $parts = array();
+        foreach ( $queryArray as $part )
+        {
             if ( preg_match( '~(.*?)=(.*?)~', $part ) )
             {
                 $parts[] = preg_replace_callback( '~(.+?)=(.+)~', 'query_make_part', $part );
-			}
-			elseif ( preg_match( '~/?[^=]+~', $part ) )
-			{
+            }
+            elseif ( preg_match( '~/?[^=]+~', $part ) )
+            {
                 // option 1 :
                 $parts[] = '/' . format_url_path( substr( $part,  1 ) );
                 // option 2
                 // $parts[] = $part;
                 // option 3
                 // $parts[] = rawurlencode($part);
-			}
-			else
-			{
+            }
+            else
+            {
                 // option 1
                 // $parts[] = $part;
                 // option 2
                 // $parts[] = rawurlencode($part);
-			}
-		}
+            }
+        }
         $ret = implode( '&', $parts );
-	}
+    }
     elseif ( strpos( $query, '/' ) !== false )
     {
         $ret = format_url_path( $query );
     }
-	else
-	{
-		$ret = rawurlencode( $query );
-	}
+    else
+    {
+        $ret = rawurlencode( $query );
+    }
 
-	return $ret;
+    return $ret;
 }
 
 function query_make_part( $matches )

@@ -56,9 +56,9 @@ $intro_exDel = false;
 
 if ($intro_editAllowed)
 {
-	/* Replace command */
+    /* Replace command */
 
-	if( $introCmd == 'exAdd')
+    if( $introCmd == 'exAdd')
     {
         $intro_content = trim($_REQUEST['intro_content']);
 
@@ -97,16 +97,16 @@ if ($intro_editAllowed)
            {
              // unsucceed
            }
-		}
-		else 
-		{
-			$introCmd = 'exDel';	// got to the delete command
-		}
-	}
+        }
+        else 
+        {
+            $introCmd = 'exDel';    // got to the delete command
+        }
+    }
 
     if ($introCmd == 'rqEd')
     {
-    	$sql = "SELECT `id`, `content` 
+        $sql = "SELECT `id`, `content` 
                 FROM `" . $TBL_INTRODUCTION . "`
                 WHERE `id` = ".(int)$_REQUEST['introId'];
 
@@ -118,7 +118,7 @@ if ($intro_editAllowed)
     }
 
 
-	/* Delete Command */
+    /* Delete Command */
 
     if( $introCmd == 'exDel')
     {
@@ -137,14 +137,14 @@ if ($intro_editAllowed)
 
 if ( $intro_editAllowed && ($introCmd == 'rqEd' || $introCmd == 'rqAdd' ) )
 {
-	$intro_dispDefault = false;
-	$intro_dispForm    = true;
-	$intro_dispCommand = false;
+    $intro_dispDefault = false;
+    $intro_dispForm    = true;
+    $intro_dispCommand = false;
 }
 else
 {
-	$intro_dispDefault = true;
-	$intro_dispForm    = false;
+    $intro_dispDefault = true;
+    $intro_dispForm    = false;
     $intro_dispCommand = $intro_editAllowed ;
 }
 
@@ -161,7 +161,7 @@ if ($intro_dispForm)
     .    '<input type="hidden" name="introCmd" value="'.$introEditorCmdValue.'">'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
     .    claro_disp_html_area('intro_content', trim($introContent))
-    .	'<br />'."\n"
+    .    '<br />'."\n"
     .   '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '">'."\n"  
     .   claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
     .   '<br />'."\n"

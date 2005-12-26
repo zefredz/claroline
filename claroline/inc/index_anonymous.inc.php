@@ -84,8 +84,8 @@ if ($category)
 }
 else
 {
-	$sql .= "WHERE `faculte`.`code`   IS NULL
-		        OR `faculte`.`code_P` IS NULL \n";
+    $sql .= "WHERE `faculte`.`code`   IS NULL
+                OR `faculte`.`code_P` IS NULL \n";
 }
 
 $sql .= "GROUP  BY `faculte`.`code`
@@ -111,7 +111,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
 }
 else
 {
-	$backCommandLine = '<p>&nbsp;</p>';
+    $backCommandLine = '<p>&nbsp;</p>';
     $pageTitle       = get_lang('Categories');
 }
 
@@ -146,10 +146,10 @@ echo claro_disp_tool_title($pageTitle);
             }
 
             echo '</li>' . "\n";
-		}
-	}
+        }
+    }
 
-	echo '</ul>' . "\n";
+    echo '</ul>' . "\n";
 
 if ( count($courseList) > 0 )
 {
@@ -200,12 +200,12 @@ if ( count($courseList) > 0 )
         ;
     }
 
-	echo '</ul>' . "\n";
+    echo '</ul>' . "\n";
 
 }
 else
 {
-	// echo "<blockquote>",get_lang('_No_course_publicly_available'),"</blockquote>\n";
+    // echo "<blockquote>",get_lang('_No_course_publicly_available'),"</blockquote>\n";
 }
 
 echo $backCommandLine;
@@ -259,11 +259,11 @@ if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
     {
         if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
         {
-    		echo claro_disp_message_box(get_lang('InvalidId'));
+            echo claro_disp_message_box(get_lang('InvalidId'));
         }
         else
         {
-        	echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),$urlAppend.'/claroline/auth/inscription.php') );
+            echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),$urlAppend.'/claroline/auth/inscription.php') );
         }
         
     }

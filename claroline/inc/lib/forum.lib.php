@@ -54,7 +54,7 @@ function get_userdata_from_id($userId)
 
 function get_total_posts($id, $type = 'all', $course_id=NULL)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_posts = $tbl_cdb_names['bb_posts'];
 
     switch ( $type )
@@ -320,7 +320,7 @@ function get_topic_settings($topicId)
 function create_new_topic($subject, $time, $forumId
                          , $userId, $userFirstname, $userLastname, $course_id=NULL)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forums  = $tbl_cdb_names['bb_forums'];
     $tbl_topics  = $tbl_cdb_names['bb_topics'];
 
@@ -387,7 +387,7 @@ function get_post_settings($postId)
 function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                         , $userLastname, $userFirstname, $message, $course_id=NULL)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forums           = $tbl_cdb_names['bb_forums'];
     $tbl_topics           = $tbl_cdb_names['bb_topics'];
     $tbl_posts            = $tbl_cdb_names['bb_posts'];
@@ -1159,7 +1159,7 @@ function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_
 
 function create_category($cat_title, $course_id=NULL)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
     // Find order in the category we must give to the newly created forum
@@ -1247,7 +1247,7 @@ function delete_forum($forum_id)
 
 function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null, $course_id=NULL)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
     // find order in the category we have to give to the newly created forum

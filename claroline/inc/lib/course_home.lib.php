@@ -166,7 +166,7 @@ function get_course_tool_settings ($toolId)
 
 function enable_course_tool($toolIdList, $accessLevel = 'ALL')
 {
-	set_course_tool_access_level($toolIdList, $accessLevel);
+    set_course_tool_access_level($toolIdList, $accessLevel);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -174,7 +174,7 @@ function enable_course_tool($toolIdList, $accessLevel = 'ALL')
 
 function disable_course_tool($toolIdList, $disablingLevel = 'COURSE_ADMIN')
 {
-	set_course_tool_access_level($toolIdList, $disablingLevel);
+    set_course_tool_access_level($toolIdList, $disablingLevel);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -368,12 +368,12 @@ function offset_course_tool_rank_from($startRank, $offset = 1)
 
 function move_up_course_tool($toolId)
 {
-	return move_course_tool($toolId, 'UP');
+    return move_course_tool($toolId, 'UP');
 }
 
 function move_down_course_tool($toolId)
 {
-	return move_course_tool($toolId, 'DOWN');
+    return move_course_tool($toolId, 'DOWN');
 }
 
 
@@ -392,14 +392,14 @@ function move_course_tool($reqToolId, $moveDirection)
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
-	if ( strtoupper($moveDirection)     == 'DOWN' ) $sortDirection   = 'DESC';
-	elseif ( strtoupper($moveDirection) == 'UP'   ) $sortDirection   = 'ASC';
+    if ( strtoupper($moveDirection)     == 'DOWN' ) $sortDirection   = 'DESC';
+    elseif ( strtoupper($moveDirection) == 'UP'   ) $sortDirection   = 'ASC';
 
-	if ($sortDirection)
-	{
-		$sql = "SELECT id, rank
+    if ($sortDirection)
+    {
+        $sql = "SELECT id, rank
                 FROM `".$tbl_tool_list."`
-		        ORDER BY rank ". $sortDirection;
+                ORDER BY rank ". $sortDirection;
 
         $toolList = claro_sql_query_fetch_all($sql);
 
@@ -408,35 +408,35 @@ function move_course_tool($reqToolId, $moveDirection)
         foreach($toolList as $thisTool)
         {
             // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.
-			//          COMMIT ORDER SWAP ON THE DB
+            //          COMMIT ORDER SWAP ON THE DB
 
-			if ($reqToolFound)
-			{
-				$nextToolId   = $thisTool['id'  ];
-				$nextToolRank = $thisTool['rank'];
-
-                $sql = "UPDATE `".$tbl_course_tool_list."`
-				        SET rank = \"".$nextToolRank."\"
-				        WHERE id = \"".$reqToolId."\"";
-
-				claro_sql_query($sql);
+            if ($reqToolFound)
+            {
+                $nextToolId   = $thisTool['id'  ];
+                $nextToolRank = $thisTool['rank'];
 
                 $sql = "UPDATE `".$tbl_course_tool_list."`
-				        SET rank = \"".$reqToolRank."\"
-						WHERE id = \"".$nextToolId."\"";
+                        SET rank = \"".$nextToolRank."\"
+                        WHERE id = \"".$reqToolId."\"";
 
-				claro_sql_query($sql);
+                claro_sql_query($sql);
 
-				return true;
-			}
+                $sql = "UPDATE `".$tbl_course_tool_list."`
+                        SET rank = \"".$reqToolRank."\"
+                        WHERE id = \"".$nextToolId."\"";
+
+                claro_sql_query($sql);
+
+                return true;
+            }
 
             // STEP 1 : FIND THE ORDER OF THE ANNOUNCEMENT
 
-			if ($thisTool['id'] == $reqToolId)
-			{
+            if ($thisTool['id'] == $reqToolId)
+            {
                 $reqToolRank  = $thisTool['rank'];
-				$reqToolFound = true;
-			}
+                $reqToolFound = true;
+            }
 
         } // end foreach toolList as thisTool
     } // end if sortDirection

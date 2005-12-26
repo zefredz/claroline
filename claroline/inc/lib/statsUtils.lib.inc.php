@@ -25,29 +25,29 @@
  */
 function hoursTab($sql)
 {
-	$query = claro_sql_query( $sql );
+    $query = claro_sql_query( $sql );
 
-	$hours_array["total"] = 0;
-	$last_hours = -1;
+    $hours_array["total"] = 0;
+    $last_hours = -1;
 
-	while( $row = @mysql_fetch_row( $query ) )
-	{
-	    $date_array = getdate($row[0]);
+    while( $row = @mysql_fetch_row( $query ) )
+    {
+        $date_array = getdate($row[0]);
 
-	    if($date_array["hours"] == $last_hours )
-	    {
-	        $hours_array[$date_array["hours"]]++;
-	    }
-	    else
-	    {
-	        $hours_array[$date_array["hours"]] = 1;
-	        $last_hours = $date_array["hours"];
-	    }
+        if($date_array["hours"] == $last_hours )
+        {
+            $hours_array[$date_array["hours"]]++;
+        }
+        else
+        {
+            $hours_array[$date_array["hours"]] = 1;
+            $last_hours = $date_array["hours"];
+        }
 
-	    $hours_array["total"]++;
-	}
+        $hours_array["total"]++;
+    }
 
-	return $hours_array;
+    return $hours_array;
 }
 
 /**
@@ -138,17 +138,17 @@ function monthTab($sql)
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
-	global $clarolineRepositoryWeb;
+    global $clarolineRepositoryWeb;
 
     echo '<table class="claroTable" width="100%" cellpadding="0" cellspacing="1" align="center">'."\n";
     // titles
     echo '<tr class="headerX">'."\n"
-		.'<th width="15%">'.$periodTitle.'</th>'."\n"
-		.'<th width="60%">&nbsp;</th>'."\n"
-		.'<th width="10%">'.get_lang('Hits').'</th>'."\n"
-		.'<th width="15%"> % </th>'."\n"
-		.'</tr>'."\n\n"
-		.'<tbody>'."\n\n";
+        .'<th width="15%">'.$periodTitle.'</th>'."\n"
+        .'<th width="60%">&nbsp;</th>'."\n"
+        .'<th width="10%">'.get_lang('Hits').'</th>'."\n"
+        .'<th width="15%"> % </th>'."\n"
+        .'</tr>'."\n\n"
+        .'<tbody>'."\n\n";
     $factor = 4;
     $maxSize = $factor * 100; //pixels
     while(list($periodPiece,$cpt) = each($period_array))
@@ -166,11 +166,11 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             
             $barwidth = $factor * $pourcent ;
             echo '<tr>'."\n"
-				.'<td align="center" width="15%">'.$periodPiece.'</td>'."\n"
-				.'<td width="60%" align="center">'.claro_disp_progress_bar($pourcent, 4).'</td>'."\n"
-				.'<td align="center" width="10%">'.$cpt.'</td>'."\n"
-				.'<td align="center" width="15%">'.$pourcent.' %</td>'."\n"
-				.'</tr>'."\n\n";
+                .'<td align="center" width="15%">'.$periodPiece.'</td>'."\n"
+                .'<td width="60%" align="center">'.claro_disp_progress_bar($pourcent, 4).'</td>'."\n"
+                .'<td align="center" width="10%">'.$cpt.'</td>'."\n"
+                .'<td align="center" width="15%">'.$pourcent.' %</td>'."\n"
+                .'</tr>'."\n\n";
         }
     }
     
@@ -208,26 +208,26 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     }
     
     echo '<tr class="headerX">'."\n"
-		.'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
-		.'</tr>'."\n\n"
-		.'<tbody>'."\n\n";
+        .'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
+        .'</tr>'."\n\n"
+        .'<tbody>'."\n\n";
     if( !empty($results) && is_array($results) )
     {
         foreach( $results as $result )
         {
-          	$keys = array_keys($result);
+              $keys = array_keys($result);
             echo '<tr>'."\n"
-				.'<td>'.$result[$keys[0]].'</td>'."\n"
-				.'<td align="right">'.$result[$keys[1]].'</td>'."\n"
-				.'</tr>'."\n\n";
+                .'<td>'.$result[$keys[0]].'</td>'."\n"
+                .'<td align="right">'.$result[$keys[1]].'</td>'."\n"
+                .'</tr>'."\n\n";
         }
 
     }
     else
     {
         echo '<tr>'."\n"
-			.'<td colspan="2"><center>'.get_lang('NoResult').'</center></td>'."\n"
-			.'</tr>'."\n\n";
+            .'<td colspan="2"><center>'.get_lang('NoResult').'</center></td>'."\n"
+            .'</tr>'."\n\n";
     }
     echo '</tbody>'."\n".'</table>'."\n\n";
 
@@ -269,12 +269,12 @@ function buildTabDefcon($results)
                 $key = $result[$keys[0]];
             }
             echo '<tr>'."\n"
-				.'<td width="70%">'.$key.'</td>'."\n"
-				.'<td width="30%" align="right">';
-			if( isset($result[$keys[1]]) ) echo $result[$keys[1]];
-			else echo '&nbsp;';
-			echo '</td>'
-				.'</tr>'."\n\n";
+                .'<td width="70%">'.$key.'</td>'."\n"
+                .'<td width="30%" align="right">';
+            if( isset($result[$keys[1]]) ) echo $result[$keys[1]];
+            else echo '&nbsp;';
+            echo '</td>'
+                .'</tr>'."\n\n";
         }
     
     }
@@ -296,24 +296,24 @@ function buildTabDefcon($results)
  */
 function changeResultOfVisibility($results)
 {
-	$visibilityLabel[0] = "closed - hide";
-	$visibilityLabel[1] = "open - hide";
-	$visibilityLabel[2] = "open - visible";
-	$visibilityLabel[3] = "closed - visible";
+    $visibilityLabel[0] = "closed - hide";
+    $visibilityLabel[1] = "open - hide";
+    $visibilityLabel[2] = "open - visible";
+    $visibilityLabel[3] = "closed - visible";
 
     if( !empty($results) && is_array($results) )
     {
-		$i = 0;
+        $i = 0;
         foreach( $results as $result )
         {
             $keys = array_keys($result);
 
-			$resultsChanged[$i][$keys[0]] = $result[$keys[0]]." <small>(".$visibilityLabel[$result[$keys[0]]].")</small>";
-			$resultsChanged[$i][$keys[1]] = $result[$keys[1]];
-			$i++;
+            $resultsChanged[$i][$keys[0]] = $result[$keys[0]]." <small>(".$visibilityLabel[$result[$keys[0]]].")</small>";
+            $resultsChanged[$i][$keys[1]] = $result[$keys[1]];
+            $i++;
         }
     }
-	return $resultsChanged;
+    return $resultsChanged;
 }
 
 /**
@@ -325,48 +325,48 @@ function changeResultOfVisibility($results)
  */
 function resetStatForCourse($course_id, $dateLimite )
 {
-	global $dbGlu;
-	//access_date DATETIME
-	if (is_int($dateLimite))
-	{
-		$tbl_mdb_names = claro_sql_get_main_tbl();
-		$tbl_track_e_default   = $tbl_mdb_names['track_e_default'];
-		$tbl_course            = $tbl_mdb_names['course'];
-		$sql = 'SELECT dbName From `'.$tbl_course.'` WHERE code = "'.$course_id.'"';
-		$course_data = claro_sql_query_fetch_all($sql);
-		$tbl_crs_name = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		$tbl_track_e_access    = $tbl_crs_name['track_e_access'   ];
-		$tbl_track_e_downloads = $tbl_crs_name['track_e_downloads'];
-		$tbl_track_e_exercices = $tbl_crs_name['track_e_exercices'];
-		$tbl_track_e_uploads   = $tbl_crs_name['track_e_uploads'  ];
+    global $dbGlu;
+    //access_date DATETIME
+    if (is_int($dateLimite))
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_track_e_default   = $tbl_mdb_names['track_e_default'];
+        $tbl_course            = $tbl_mdb_names['course'];
+        $sql = 'SELECT dbName From `'.$tbl_course.'` WHERE code = "'.$course_id.'"';
+        $course_data = claro_sql_query_fetch_all($sql);
+        $tbl_crs_name = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+        $tbl_track_e_access    = $tbl_crs_name['track_e_access'   ];
+        $tbl_track_e_downloads = $tbl_crs_name['track_e_downloads'];
+        $tbl_track_e_exercices = $tbl_crs_name['track_e_exercices'];
+        $tbl_track_e_uploads   = $tbl_crs_name['track_e_uploads'  ];
 
-		$sql = 'DELETE
-					FROM  `'.$tbl_track_e_access.'`
-					WHERE UNIX_TIMESTAMP(`access_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);
-		$sql = 'DELETE
-					FROM  `'.$tbl_track_e_downloads.'`
-					WHERE UNIX_TIMESTAMP(`down_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);
-		$sql = 'DELETE
-					FROM  `'.$tbl_track_e_exercices.'`
-					WHERE UNIX_TIMESTAMP(`exe_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);
-		$sql = 'DELETE
-					FROM  `'.$tbl_track_e_uploads.'`
-					WHERE UNIX_TIMESTAMP(`upload_date`) < "'.$dateLimite.'"';
-		claro_sql_query($sql);
-	  // central table
-		$sql = 'DELETE
-					FROM  `'.$tbl_track_e_default.'`
-					WHERE
-						`default_cours_code` = "'.$course_id.'"
-						AND
-						UNIX_TIMESTAMP(`default_date`) < "'.$dateLimite.'"';
+        $sql = 'DELETE
+                    FROM  `'.$tbl_track_e_access.'`
+                    WHERE UNIX_TIMESTAMP(`access_date`) < "'.$dateLimite.'"';
+        claro_sql_query($sql);
+        $sql = 'DELETE
+                    FROM  `'.$tbl_track_e_downloads.'`
+                    WHERE UNIX_TIMESTAMP(`down_date`) < "'.$dateLimite.'"';
+        claro_sql_query($sql);
+        $sql = 'DELETE
+                    FROM  `'.$tbl_track_e_exercices.'`
+                    WHERE UNIX_TIMESTAMP(`exe_date`) < "'.$dateLimite.'"';
+        claro_sql_query($sql);
+        $sql = 'DELETE
+                    FROM  `'.$tbl_track_e_uploads.'`
+                    WHERE UNIX_TIMESTAMP(`upload_date`) < "'.$dateLimite.'"';
+        claro_sql_query($sql);
+      // central table
+        $sql = 'DELETE
+                    FROM  `'.$tbl_track_e_default.'`
+                    WHERE
+                        `default_cours_code` = "'.$course_id.'"
+                        AND
+                        UNIX_TIMESTAMP(`default_date`) < "'.$dateLimite.'"';
 
-		claro_sql_query($sql);
-	}
-	return true;
+        claro_sql_query($sql);
+    }
+    return true;
 }
 
 ?>

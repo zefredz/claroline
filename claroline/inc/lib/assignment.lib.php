@@ -52,19 +52,19 @@ function assignment_initialise()
  */
 function assignment_get_data($assignment_id)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 
     $sql = "SELECT
-				`title`,
-				`description`,
-				`visibility`,
-				`start_date`,
-				`end_date`,
-				`authorized_content`,
-				`def_submission_visibility`,
-				`assignment_type`,
-				`allow_late_upload`
+                `title`,
+                `description`,
+                `visibility`,
+                `start_date`,
+                `end_date`,
+                `authorized_content`,
+                `def_submission_visibility`,
+                `assignment_type`,
+                `allow_late_upload`
         FROM `" . $tbl_wrk_assignment . "`
         WHERE `id` = " . (int) $assignment_id;
 
@@ -72,13 +72,13 @@ function assignment_get_data($assignment_id)
 
     if( mysql_num_rows($result) )
     {
-		$data = mysql_fetch_array($result);
-		return $data;
-	}
-	else
-	{
-		return claro_failure::set_failure('ASSIGNMENT_NOT_FOUND');
-	}
+        $data = mysql_fetch_array($result);
+        return $data;
+    }
+    else
+    {
+        return claro_failure::set_failure('ASSIGNMENT_NOT_FOUND');
+    }
 }
 
 /**
@@ -91,13 +91,13 @@ function assignment_get_data($assignment_id)
  */
 function assignment_get_feedback($assignment_id)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 
     $sql = "SELECT
-				`prefill_text`,
-				`prefill_doc_path`,
-				`prefill_submit`
+                `prefill_text`,
+                `prefill_doc_path`,
+                `prefill_submit`
         FROM `" . $tbl_wrk_assignment . "`
         WHERE `id` = " . (int) $assignment_id;
 
@@ -105,13 +105,13 @@ function assignment_get_feedback($assignment_id)
 
     if( mysql_num_rows($result) )
     {
-		$data = mysql_fetch_array($result);
-		return $data;
-	}
-	else
-	{
-		return claro_failure::set_failure('ASSIGNMENT_FEEDBACK_NOT_FOUND');
-	}
+        $data = mysql_fetch_array($result);
+        return $data;
+    }
+    else
+    {
+        return claro_failure::set_failure('ASSIGNMENT_FEEDBACK_NOT_FOUND');
+    }
 }
 
 /**
@@ -123,37 +123,37 @@ function assignment_get_feedback($assignment_id)
  */
 function assignment_insert($data, $wrkDir, $course=null)
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
-	$tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
+    $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 
-	$sql = "INSERT INTO `".$tbl_wrk_assignment."`
-			SET `title` = '".addslashes($data['title'])."',
-				`description` = '".addslashes($data['description'])."',
-				`visibility` = '".addslashes($data['visibility'])."',
-				`def_submission_visibility` = '".addslashes($data['def_submission_visibility'])."',
-				`assignment_type` = '".addslashes($data['assignment_type'])."',
-				`authorized_content` = '".addslashes($data['authorized_content'])."',
-				`allow_late_upload` = '".addslashes($data['allow_late_upload'])."',
-				`start_date` = '".addslashes($data['start_date'])."',
-    			`end_date` = '".addslashes($data['end_date'])."'";
+    $sql = "INSERT INTO `".$tbl_wrk_assignment."`
+            SET `title` = '".addslashes($data['title'])."',
+                `description` = '".addslashes($data['description'])."',
+                `visibility` = '".addslashes($data['visibility'])."',
+                `def_submission_visibility` = '".addslashes($data['def_submission_visibility'])."',
+                `assignment_type` = '".addslashes($data['assignment_type'])."',
+                `authorized_content` = '".addslashes($data['authorized_content'])."',
+                `allow_late_upload` = '".addslashes($data['allow_late_upload'])."',
+                `start_date` = '".addslashes($data['start_date'])."',
+                `end_date` = '".addslashes($data['end_date'])."'";
 
-	// on creation of an assignment the automated feedback take the default values from mysql
+    // on creation of an assignment the automated feedback take the default values from mysql
 
-	// execute the creation query and return id of inserted assignment
+    // execute the creation query and return id of inserted assignment
     $lastAssigId = claro_sql_query_insert_id($sql);
 
-	if( $lastAssigId )
-	{
-	   	// create the assignment directory if query was successfull and dir not already exists
-		$wrkAssigDir = $wrkDir . 'assig_' . $lastAssigId;
+    if( $lastAssigId )
+    {
+           // create the assignment directory if query was successfull and dir not already exists
+        $wrkAssigDir = $wrkDir . 'assig_' . $lastAssigId;
 
-		if( !is_dir( $wrkAssigDir ) ) mkdir( $wrkAssigDir , CLARO_FILE_PERMISSIONS );
-		return $lastAssigId;
-	}
-	else
-	{
-		return false;
-	}
+        if( !is_dir( $wrkAssigDir ) ) mkdir( $wrkAssigDir , CLARO_FILE_PERMISSIONS );
+        return $lastAssigId;
+    }
+    else
+    {
+        return false;
+    }
 
 }
 
@@ -165,43 +165,43 @@ function assignment_insert($data, $wrkDir, $course=null)
  */
 function assignment_update($assignment_id, $data)
 {
-	global $confval_def_sub_vis_change_only_new;
+    global $confval_def_sub_vis_change_only_new;
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
     $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
 
-	$sql = "UPDATE `".$tbl_wrk_assignment."`
-			SET `title` = '".addslashes($data['title'])."',
-				`description` = '".addslashes($data['description'])."',
-				`visibility` = '".addslashes($data['visibility'])."',
-				`def_submission_visibility` = '".addslashes($data['def_submission_visibility'])."',
-				`assignment_type` = '".addslashes($data['assignment_type'])."',
-				`authorized_content` = '".addslashes($data['authorized_content'])."',
-				`allow_late_upload` = '".addslashes($data['allow_late_upload'])."',
-				`start_date` = '".addslashes($data['start_date'])."',
-				`end_date` = '".addslashes($data['end_date'])."'
-    		WHERE `id` = '" . (int) $assignment_id . "'";
+    $sql = "UPDATE `".$tbl_wrk_assignment."`
+            SET `title` = '".addslashes($data['title'])."',
+                `description` = '".addslashes($data['description'])."',
+                `visibility` = '".addslashes($data['visibility'])."',
+                `def_submission_visibility` = '".addslashes($data['def_submission_visibility'])."',
+                `assignment_type` = '".addslashes($data['assignment_type'])."',
+                `authorized_content` = '".addslashes($data['authorized_content'])."',
+                `allow_late_upload` = '".addslashes($data['allow_late_upload'])."',
+                `start_date` = '".addslashes($data['start_date'])."',
+                `end_date` = '".addslashes($data['end_date'])."'
+            WHERE `id` = '" . (int) $assignment_id . "'";
 
-	if( isset($confval_def_sub_vis_change_only_new) && !$confval_def_sub_vis_change_only_new )
-	{
-		// get current assignment data
-		$current_data = assignment_get_data($assignment_id);
-		// change visibility of all works only if def_submission_visibility has changed
-		if( $current_data['def_submission_visibility'] != $data['def_submission_visibility'] )
-		{
-			// adapt visibility of all submissions of the assignment
-			// according to the default submission visibility
-			$sql2 = "UPDATE `".$tbl_wrk_submission."`
-					SET `visibility` = '".addslashes($data['def_submission_visibility'])."'
-					WHERE `assignment_id` = ".(int) $assignment_id."
-					AND `visibility` != '".addslashes($data['def_submission_visibility'])."'";
+    if( isset($confval_def_sub_vis_change_only_new) && !$confval_def_sub_vis_change_only_new )
+    {
+        // get current assignment data
+        $current_data = assignment_get_data($assignment_id);
+        // change visibility of all works only if def_submission_visibility has changed
+        if( $current_data['def_submission_visibility'] != $data['def_submission_visibility'] )
+        {
+            // adapt visibility of all submissions of the assignment
+            // according to the default submission visibility
+            $sql2 = "UPDATE `".$tbl_wrk_submission."`
+                    SET `visibility` = '".addslashes($data['def_submission_visibility'])."'
+                    WHERE `assignment_id` = ".(int) $assignment_id."
+                    AND `visibility` != '".addslashes($data['def_submission_visibility'])."'";
 
-			claro_sql_query ($sql2);
-		}
-	}
-	// execute and return main query
-	return claro_sql_query($sql);
+            claro_sql_query ($sql2);
+        }
+    }
+    // execute and return main query
+    return claro_sql_query($sql);
 }
 /**
  * Delete an assignment in the given or current course
@@ -270,16 +270,16 @@ function assignment_validate_form($data, $assignment_id = '')
         {
             // creating an assignment
             $sql = "SELECT `title`
-	                FROM `" . $tbl_wrk_assignment . "`
-	                WHERE `title` = '" . addslashes($data['title']) . "'";
+                    FROM `" . $tbl_wrk_assignment . "`
+                    WHERE `title` = '" . addslashes($data['title']) . "'";
         }
 
         $query = claro_sql_query($sql);
 
         if(mysql_num_rows($query) != 0 )
         {
-			claro_failure::set_failure('assignment_title_already_exists');
-			return false;
+            claro_failure::set_failure('assignment_title_already_exists');
+            return false;
         }
     }
 
@@ -289,11 +289,11 @@ function assignment_validate_form($data, $assignment_id = '')
 
     if( $unixEndDate <= $unixStartDate )
     {
-		claro_failure::set_failure('assignment_incorrect_dates');
-		return false;
+        claro_failure::set_failure('assignment_incorrect_dates');
+        return false;
     }
 
-	return true; // no errors, form is validate
+    return true; // no errors, form is validate
 }
 /**
  * Change visibility of an assignment in the given or current course
@@ -421,10 +421,10 @@ class REL_GROUP_USER
         $userGroupList = array();
 
         $sql = "SELECT `tu`.`team` `id` , `t`.`name`
-    	        FROM `" . $tbl_group_rel_team_user . "` as `tu`
-    	        INNER JOIN `" . $tbl_group_team . "`    as `t`
-    	          ON `tu`.`team` = `t`.`id`
-    	        WHERE `tu`.`user` = " . (int) $_uid ;
+                FROM `" . $tbl_group_rel_team_user . "` as `tu`
+                INNER JOIN `" . $tbl_group_team . "`    as `t`
+                  ON `tu`.`team` = `t`.`id`
+                WHERE `tu`.`user` = " . (int) $_uid ;
 
         $groupList = claro_sql_query_fetch_all($sql);
         if( is_array($groupList) )

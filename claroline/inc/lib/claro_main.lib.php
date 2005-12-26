@@ -404,7 +404,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
 
             foreach($FieldNamelist as $thisFieldName)
             {
-            	$colList[$thisFieldName] = array();
+                $colList[$thisFieldName] = array();
             }
         } // end if( count($colList) == 0)
 
@@ -614,10 +614,10 @@ class claro_failure
     {
         global $claro_failureList;
 
-		if( isset( $claro_failureList[ count($claro_failureList) - 1 ] ) )
-        	return $claro_failureList[ count($claro_failureList) - 1 ];
-		else
-		    return '';
+        if( isset( $claro_failureList[ count($claro_failureList) - 1 ] ) )
+            return $claro_failureList[ count($claro_failureList) - 1 ];
+        else
+            return '';
     }
 }
 
@@ -1024,7 +1024,7 @@ function claro_die($message)
 
     if ( ! headers_sent () )
     {
-	// display header
+    // display header
         require $includePath . '/claro_init_header.inc.php';
     }
 
@@ -1087,7 +1087,7 @@ function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
         }
 
         $htmlizedName = is_htmlspecialcharized($thisName)
-						? $thisName
+                        ? $thisName
                         : htmlspecialchars($thisName);
 
         $breadCrumbList [] = $startAnchorTag
@@ -1269,7 +1269,7 @@ function claro_disp_duration( $duration  )
  *
  * @param string $name content for name attribute in textarea tag
  * @param string $content optional content previously inserted into    the    area
- * @param int	 $rows optional    textarea rows
+ * @param int     $rows optional    textarea rows
  * @param int    $cols optional    textarea columns
  * @param string $optAttrib    optional - additionnal tag attributes
  *                                       (wrap, class, ...)
@@ -1286,118 +1286,118 @@ function claro_disp_duration( $duration  )
  */
 
 function claro_disp_textarea_editor($name, $content = '',
-	                              $rows=20,    $cols=80,
-								  $optAttrib='')
+                                  $rows=20,    $cols=80,
+                                  $optAttrib='')
 {
-	global $rootWeb, $rootSys;
-	global $claro_editor;
+    global $rootWeb, $rootSys;
+    global $claro_editor;
 
-	if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
+    if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
 
- 	$returnString = '';
+     $returnString = '';
 
-	// default value of htmlEditor
-	if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
+    // default value of htmlEditor
+    if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
 
-	// get content if in url
-	if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
+    // get content if in url
+    if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
 
-	// $claro_editor is the directory name of the editor
-	$incPath = $rootSys . 'claroline/editor/'.$claro_editor;
-	$editorPath = $rootWeb . 'claroline/editor/';
-	$webPath = $editorPath . $claro_editor;
+    // $claro_editor is the directory name of the editor
+    $incPath = $rootSys . 'claroline/editor/'.$claro_editor;
+    $editorPath = $rootWeb . 'claroline/editor/';
+    $webPath = $editorPath . $claro_editor;
 
-	if( file_exists($incPath . '/editor.class.php') )
-	{
-		// include editor class
-		include_once $incPath . '/editor.class.php';
+    if( file_exists($incPath . '/editor.class.php') )
+    {
+        // include editor class
+        include_once $incPath . '/editor.class.php';
 
-		// editor instance
-		$editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
+        // editor instance
+        $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
 
-		if (claro_is_javascript_enabled())
-	    {
-			if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-	        {
-	            $switchState = 'off';
-	            $message     = get_lang('TextEditorDisable');
-	            $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
-	        }
-	        else
-	        {
-	            $switchState = 'on';
-	            $message     = get_lang('TextEditorEnable');
-	            $confirmCommand = '';
-	        }
+        if (claro_is_javascript_enabled())
+        {
+            if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+            {
+                $switchState = 'off';
+                $message     = get_lang('TextEditorDisable');
+                $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
+            }
+            else
+            {
+                $switchState = 'on';
+                $message     = get_lang('TextEditorEnable');
+                $confirmCommand = '';
+            }
 
-	        $location = '\''
-	        .           $editorPath.'/editorswitcher.php?'
-	        .           'switch='.$switchState
-	        .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
-	        .           '&areaContent='
-	        .           '\''
-	        .           '+escape(document.getElementById(\''.$name.'\').value)'
-	        ;
-			// use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
-	        $returnString .=
-			"\n".'<div align="right">'
-	        .    '<small>'
-	        .    '<b>'
-	        .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
-			.	 'onClick ="' . $confirmCommand . 'window.location='
-	        .    $location . ';return(false);">'
-	        .    $message
-	        .    '</a>'
-	        .    '</b>'
-	        .    '</small>'
-	        .    '</div>'."\n"
-	        ;
-		}
+            $location = '\''
+            .           $editorPath.'/editorswitcher.php?'
+            .           'switch='.$switchState
+            .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
+            .           '&areaContent='
+            .           '\''
+            .           '+escape(document.getElementById(\''.$name.'\').value)'
+            ;
+            // use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
+            $returnString .=
+            "\n".'<div align="right">'
+            .    '<small>'
+            .    '<b>'
+            .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
+            .     'onClick ="' . $confirmCommand . 'window.location='
+            .    $location . ';return(false);">'
+            .    $message
+            .    '</a>'
+            .    '</b>'
+            .    '</small>'
+            .    '</div>'."\n"
+            ;
+        }
 
-		if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-		{
-			$returnString .= $editor->getAdvancedEditor();
-		}
-		else
-		{
-			// get standard text area
-	   		$returnString .=
-	        	'<textarea '
-				.'id="'.$name.'" '
-				.'name="'.$name.'" '
-				.'style="width:100%" '
-				.'rows="'.$rows.'" '
-				.'cols="'.$cols.'" '
-				.$optAttrib.' >'
-				."\n".$content."\n"
-				.'</textarea>'."\n";
-		}
-	}
-	else
-	{
-		// if the editor class doesn't exists we cannot rely on it to display
-		// the standard textarea
-		$returnString .=
-        	'<textarea '
-			.'id="'.$name.'" '
-			.'name="'.$name.'" '
-			.'style="width:100%" '
-			.'rows="'.$rows.'" '
-			.'cols="'.$cols.'" '
-			.$optAttrib.' >'
-			."\n".$content."\n"
-			.'</textarea>'."\n";
-	}
+        if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+        {
+            $returnString .= $editor->getAdvancedEditor();
+        }
+        else
+        {
+            // get standard text area
+               $returnString .=
+                '<textarea '
+                .'id="'.$name.'" '
+                .'name="'.$name.'" '
+                .'style="width:100%" '
+                .'rows="'.$rows.'" '
+                .'cols="'.$cols.'" '
+                .$optAttrib.' >'
+                ."\n".$content."\n"
+                .'</textarea>'."\n";
+        }
+    }
+    else
+    {
+        // if the editor class doesn't exists we cannot rely on it to display
+        // the standard textarea
+        $returnString .=
+            '<textarea '
+            .'id="'.$name.'" '
+            .'name="'.$name.'" '
+            .'style="width:100%" '
+            .'rows="'.$rows.'" '
+            .'cols="'.$cols.'" '
+            .$optAttrib.' >'
+            ."\n".$content."\n"
+            .'</textarea>'."\n";
+    }
 
-	return $returnString;
+    return $returnString;
 }
 
 function claro_disp_html_area($name, $content = '',
                               $rows=20, $cols=80,
-							  $optAttrib='')
+                              $optAttrib='')
 {
-	// becomes a alias while the function call is not replaced by the new one
-	return claro_disp_textarea_editor($name,$content,$rows,$cols,$optAttrib);
+    // becomes a alias while the function call is not replaced by the new one
+    return claro_disp_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
 
 
@@ -1662,7 +1662,7 @@ function claro_unquote_gpc()
                     }
                     else
                     {
-                    	$inputList[] =& $inputList[$topKey][$childKey];
+                        $inputList[] =& $inputList[$topKey][$childKey];
                     }
                 }
             }

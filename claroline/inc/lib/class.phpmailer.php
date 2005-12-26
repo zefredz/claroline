@@ -378,10 +378,10 @@ class PHPMailer
         }
         elseif($this->Mailer == "debug")
         {
-		
-			echo '<br>
-			<strong>Headers:</strong><PRE>'.htmlentities($header).'</PRE><br>
-			<strong>body:</strong><PRE>'.htmlentities($body).'</PRE>';
+        
+            echo '<br>
+            <strong>Headers:</strong><PRE>'.htmlentities($header).'</PRE><br>
+            <strong>body:</strong><PRE>'.htmlentities($body).'</PRE>';
               return false;
         }
         else
@@ -428,7 +428,7 @@ class PHPMailer
      * @return bool
      */
     function MailSend($header, $body) 
-	{
+    {
         $to = "";
         for($i = 0; $i < count($this->to); $i++)
         {

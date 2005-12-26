@@ -97,89 +97,89 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
     foreach ($class_list as $cur_class)
     {
         
-	    if (($parent_class==$cur_class['class_parent_id']))
+        if (($parent_class==$cur_class['class_parent_id']))
         {
             
-	        //Set space characters to add in name display
-	    
-    	    $blankspace = "&nbsp;&nbsp;&nbsp;";	
-	        for ($i = 0; $i < $deep; $i++) 
-    	    {
+            //Set space characters to add in name display
+        
+            $blankspace = "&nbsp;&nbsp;&nbsp;";    
+            for ($i = 0; $i < $deep; $i++) 
+            {
                 $blankspace .= "&nbsp;&nbsp;&nbsp;";
             } 
     
-    	    //see if current class to display has children
-	    
-	        $has_children = FALSE;
-    	    foreach ($class_list as $search_parent)
+            //see if current class to display has children
+        
+            $has_children = FALSE;
+            foreach ($class_list as $search_parent)
             {
-    	        if ($cur_class['id'] == $search_parent['class_parent_id'])
-	    	    {    
-		            $has_children = TRUE;
-		            break;
-    		    }
-	        }
-	    
-	        //Set link to open or close current class
-	    
-    	    if ($has_children)
-	        {
-	            if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
-    	    	{
-	    	        $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
-		                              ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
-				                      ."</a>\n";
-		        }
-		        else
-		        {
-		            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
-		                              ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
-				                      ."</a>\n";
-		        }    
-	        }
-	        else
-	        {
-	            $open_close_link =" ° "; 
-	        }
-	    
-    	    //DISPLAY CURRENT ELEMENT (CLASS)
+                if ($cur_class['id'] == $search_parent['class_parent_id'])
+                {    
+                    $has_children = TRUE;
+                    break;
+                }
+            }
+        
+            //Set link to open or close current class
+        
+            if ($has_children)
+            {
+                if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
+                {
+                    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
+                                      ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
+                                      ."</a>\n";
+                }
+                else
+                {
+                    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
+                                      ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
+                                      ."</a>\n";
+                }    
+            }
+            else
+            {
+                $open_close_link =" ° "; 
+            }
+        
+            //DISPLAY CURRENT ELEMENT (CLASS)
 
-	        //Name
-		
+            //Name
+        
             echo "<tr>\n"
                 ."  <td>\n"
                 ."    ".$blankspace.$open_close_link." ".$cur_class['name']
                 ."  </td>\n";
 
             //Users
-	       
-	        $qty_user = get_class_user_number($cur_class['id']);
-	    
-    	    echo "  <td align=\"center\">\n"
-	            ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
+           
+            $qty_user = get_class_user_number($cur_class['id']);
+        
+            echo "  <td align=\"center\">\n"
+                ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."user.gif\" border=\"0\"> "
-		        ."        (".$qty_user."  ".get_lang('UsersMin').") \n"
+                ."        (".$qty_user."  ".get_lang('UsersMin').") \n"
                 ."    </a>\n"
                 ."  </td>\n";
-		
-            //Edit settings	
-			
+        
+            //Edit settings    
+            
             echo "  <td align=\"center\">\n"
-	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&amp;class=".$cur_class['id']."\">\n"
+                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&amp;class=".$cur_class['id']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" >\n"
-	            ."    </a>\n"
-		        ."  </td>\n";
-	    
-            //Move	
-		
+                ."    </a>\n"
+                ."  </td>\n";
+        
+            //Move    
+        
             echo "  <td align=\"center\">\n"
-	            ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&amp;class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
+                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&amp;class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" >\n"
-        		."    </a>\n"
-	            ."  </td>\n";
-	    
-            //Delete	
-		
+                ."    </a>\n"
+                ."  </td>\n";
+        
+            //Delete    
+        
             echo "  <td align=\"center\">\n"
                 ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&amp;class=".$cur_class['id']."\""
                 ."     onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\">\n"
@@ -188,14 +188,14 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 ."  </td>\n";
             echo "</tr>\n";
             
-	    
+        
             // RECURSIVE CALL TO DISPLAY CHILDREN
-	    
+        
             if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && ($_SESSION['admin_visible_class'][$cur_class['id']]=="open"))
             {
-	            display_tree_class_in_admin($class_list, $cur_class['id'], $deep+1);
-            }	    
-	    }
+                display_tree_class_in_admin($class_list, $cur_class['id'], $deep+1);
+            }        
+        }
     }    
 }
 
@@ -220,27 +220,27 @@ function get_class_user_number($class_id)
     $sqlcount = " SELECT COUNT(`user_id`) AS qty_user 
                           FROM `".$tbl_class_user ."` 
                           WHERE `class_id`='" . (int)$class_id . "'";  
-	$resultcount = claro_sql_query_fetch_all($sqlcount);	   
-	$qty_user = $resultcount[0]['qty_user'];
-	
-	
-	//find subclasses of current class
+    $resultcount = claro_sql_query_fetch_all($sqlcount);       
+    $qty_user = $resultcount[0]['qty_user'];
+    
+    
+    //find subclasses of current class
     
     $sql = "SELECT `id` FROM `".$tbl_class."` 
                              WHERE `class_parent_id`='". (int)$class_id."'";
 
     $subClassesList = claro_sql_query_fetch_all($sql);
-		
-	//2- recursive call to get subclasses'users too
-	
-	foreach ($subClassesList as $subClass)    
+        
+    //2- recursive call to get subclasses'users too
+    
+    foreach ($subClassesList as $subClass)    
     {
         $qty_user += get_class_user_number($subClass['id']);
     }
-	
-	//3- return result of counts and recursive calls
-	
-	return $qty_user;
+    
+    //3- return result of counts and recursive calls
+    
+    return $qty_user;
 }
 
 /**
@@ -267,89 +267,89 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
     foreach ($class_list as $cur_class)
     {
         
-	if (($parent_class==$cur_class['class_parent_id']))
+    if (($parent_class==$cur_class['class_parent_id']))
         {
             
-	    //Set space characters to add in name display
-	    
-	    $blankspace = "&nbsp;&nbsp;&nbsp;";	
-	    for ($i = 0; $i < $deep; $i++) 
-	    {
+        //Set space characters to add in name display
+        
+        $blankspace = "&nbsp;&nbsp;&nbsp;";    
+        for ($i = 0; $i < $deep; $i++) 
+        {
                 $blankspace .= "&nbsp;&nbsp;&nbsp;";
             } 
     
-	    //see if current class to display has children
-	    
-	    $has_children = FALSE;
-	    foreach ($class_list as $search_parent)
+        //see if current class to display has children
+        
+        $has_children = FALSE;
+        foreach ($class_list as $search_parent)
             {
-	        if ($cur_class['id'] == $search_parent['class_parent_id'])
-		{    
-		    $has_children = TRUE;
-		    break;
-		}
-	    }
-	    
-	    //Set link to open or close current class
-	    
-	    if ($has_children)
-	    {
-	        if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && $_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
-		{
-		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
-		                      ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
-				      ."</a>\n";
-		}
-		else
-		{
-		    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
-		                      ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
-				      ."</a>\n";
-		}    
-	    }
-	    else
-	    {
-	        $open_close_link = "°"; 
-	    }
-	    
-	    //DISPLAY CURRENT ELEMENT (CLASS)
+            if ($cur_class['id'] == $search_parent['class_parent_id'])
+        {    
+            $has_children = TRUE;
+            break;
+        }
+        }
+        
+        //Set link to open or close current class
+        
+        if ($has_children)
+        {
+            if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && $_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
+        {
+            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
+                              ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
+                      ."</a>\n";
+        }
+        else
+        {
+            $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
+                              ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
+                      ."</a>\n";
+        }    
+        }
+        else
+        {
+            $open_close_link = "°"; 
+        }
+        
+        //DISPLAY CURRENT ELEMENT (CLASS)
 
-	      //Name
-		
-	    echo "  <tr>\n"
+          //Name
+        
+        echo "  <tr>\n"
                 ."<td>\n"
                 ."    ".$blankspace.$open_close_link." ".$cur_class['name']
                 ."  </td>\n";
 
-	      //Users
-	    
-	    $sqlcount=" SELECT COUNT(`user_id`) AS qty_user 
+          //Users
+        
+        $sqlcount=" SELECT COUNT(`user_id`) AS qty_user 
                     FROM `".$tbl_class_user ."` 
                     WHERE `class_id`='". (int)$cur_class['id']."'";
-	    $resultcount = claro_sql_query_fetch_all($sqlcount);   
-	    $qty_user = $resultcount[0]['qty_user'];
-	    
-	    echo "  <td align=\"center\">\n"
-	        .$qty_user."  ".get_lang('UsersMin')." \n"
-		."  </td>\n";
-		
-	      //add to course link	
-			
+        $resultcount = claro_sql_query_fetch_all($sqlcount);   
+        $qty_user = $resultcount[0]['qty_user'];
+        
+        echo "  <td align=\"center\">\n"
+            .$qty_user."  ".get_lang('UsersMin')." \n"
+        ."  </td>\n";
+        
+          //add to course link    
+            
             echo "  <td align=\"center\">\n"
-	        ."    <a onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
+            ."    <a onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
                 ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".get_lang('SubscribeToCourse')."\">\n"
-	        ."    </a>\n"
-		."  </td>\n";
-	    
+            ."    </a>\n"
+        ."  </td>\n";
+        
             echo "</tr>\n";
-	    
-	    // RECURSIVE CALL TO DISPLAY CHILDREN
-	    
-	    if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open"))
-	    {
-	        display_tree_class_in_user($class_list, $cur_class['id'], $deep+1);
-	    }	    
-	}
+        
+        // RECURSIVE CALL TO DISPLAY CHILDREN
+        
+        if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open"))
+        {
+            display_tree_class_in_user($class_list, $cur_class['id'], $deep+1);
+        }        
+    }
     }    
 }
 
@@ -365,18 +365,18 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
 */
 function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;") 
 {       
-	global $tbl_class;
-	
-	$sql = " SELECT * 
+    global $tbl_class;
+    
+    $sql = " SELECT * 
              FROM `".$tbl_class."`
              ORDER BY `name`";
-	$classes = claro_sql_query_fetch_all($sql);
-	
-	$result = "<select name=\"theclass\">\n"
-	    ."<option value=\"root\"> ".get_lang('TopLevel')." </option>"; 
-	$result .= buildSelectClass($classes,$selected,null,$space);
-	$result .= "</select>\n";
-	return $result;
+    $classes = claro_sql_query_fetch_all($sql);
+    
+    $result = "<select name=\"theclass\">\n"
+        ."<option value=\"root\"> ".get_lang('TopLevel')." </option>"; 
+    $result .= buildSelectClass($classes,$selected,null,$space);
+    $result .= "</select>\n";
+    return $result;
 }
     
 /**

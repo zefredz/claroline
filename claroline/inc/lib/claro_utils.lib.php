@@ -11,7 +11,7 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-	/**
+    /**
     * cut string allowing word integrity preservation
     *
     * TODO : move to a more accurate library
@@ -22,13 +22,13 @@
     * @param  length (int) length of the resulting string
     * @param  allow_cut_word (boolean) allow word cutting default : TRUE
     * @param  extra_length (int) allow extra length to the string to
-    *		preserve word integrity
+    *        preserve word integrity
     * @param  ending (string) append the given string at the end of the
-	*		cutted one
+    *        cutted one
     * @return (string) the cutted string
     */
     function cutstring( $str, $length, $allow_cut_word = TRUE, 
-		$extra_length = 0, $ending = "" )
+        $extra_length = 0, $ending = "" )
     {
         if( $allow_cut_word )
         {
@@ -64,17 +64,17 @@
     */
     function stripstresses( $str )
     {
-    	$str = strtolower( $str );
+        $str = strtolower( $str );
         $ret = "";
         for( $i = 0; $i < strlen( $str ); $i++ )
         {
-        	$chr = substr( $str, $i, 1 );
+            $chr = substr( $str, $i, 1 );
             $val = ord( $chr );
             if ( $val >= 224 )
             {
                 if ( $val >= 224 && $val <= 229 )
                 {
-                	$chr = 'a';
+                    $chr = 'a';
                 }
                 if ( $val == 231 )
                 {
@@ -109,5 +109,5 @@
             $ret .= $chr;
         }
         return( $ret );
-	}
+    }
 ?>

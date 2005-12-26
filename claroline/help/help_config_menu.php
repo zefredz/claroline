@@ -37,16 +37,16 @@ include($includePath."/claro_init_header.inc.php");
         </tr>
     </table>
     <ul>
-    	<li><strong>Nom de l'outil</strong> : Nom de l'outil, ou son code s'il n'a pas de nom</li>
-    	<li><strong>éditer</strong> : permet d'éditer les paramètres</li>
-    	<li><strong>appliquer</strong> : créer le fichier de configuration</li>
-    	<li><strong>Show Def</strong> : afficher le fichier de définition qui détermine les paramètres et le formulaire pour les éditer</li>
-    	<li><strong>Show Conf</strong> : affichier le fichier de configuration généré par cet outil</li>
+        <li><strong>Nom de l'outil</strong> : Nom de l'outil, ou son code s'il n'a pas de nom</li>
+        <li><strong>éditer</strong> : permet d'éditer les paramètres</li>
+        <li><strong>appliquer</strong> : créer le fichier de configuration</li>
+        <li><strong>Show Def</strong> : afficher le fichier de définition qui détermine les paramètres et le formulaire pour les éditer</li>
+        <li><strong>Show Conf</strong> : affichier le fichier de configuration généré par cet outil</li>
     </ul>
 
     <ul>
-    	<li><strong><strike>Show Def</strike></strong> : il n'y a pas de fichier de définition pour cet outil</li>
-    	<li><strong><strike>Show Conf</strike></strong> : le fichier n'a jamais été généré</li>
+        <li><strong><strike>Show Def</strike></strong> : il n'y a pas de fichier de définition pour cet outil</li>
+        <li><strong><strike>Show Conf</strike></strong> : le fichier n'a jamais été généré</li>
     </ul>
 
   </td>

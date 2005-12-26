@@ -16,12 +16,12 @@
  */
 
     /*============================================================================
-    						IMAGE MANIPULATION LIBRARY
+                            IMAGE MANIPULATION LIBRARY
       ============================================================================*/
     
     /**
     * @private allowedImageTypes
-	*/
+    */
     // allowed image extensions
     $allowedImageTypes = 'jpg|png|gif|jpeg|bmp';
 
@@ -35,13 +35,13 @@
     * @param  length (int) length of the resulting string
     * @param  allow_cut_word (boolean) allow word cutting default : true
     * @param  extra_length (int) allow extra length to the string to
-    *		preserve word integrity
+    *        preserve word integrity
     * @param  ending (string) append the given string at the end of the
-	*		cutted one
+    *        cutted one
     * @return (string) the cutted string
     */
     function cutstring( $str, $length, $allow_cut_word = true, 
-		$extra_length = 0, $ending = "" )
+        $extra_length = 0, $ending = "" )
     {
         if( $allow_cut_word )
         {
@@ -163,9 +163,9 @@
         global $courseDir;
          
         $imgPath = $coursesRepositorySys 
-			. $courseDir
-			. $file
-			;
+            . $courseDir
+            . $file
+            ;
          
         list($width, $height, $type, $attr) = getimagesize($imgPath);
          
@@ -195,11 +195,11 @@
         }
 
         return "<img src=\"" . $img_url 
-			. "\" width=\"" . $thumbWidth 
-			. "\" height=\"" . $newHeight 
-			. "\" " . $title . " alt=\"" 
-			. $file . "\" />\n"
-			;
+            . "\" width=\"" . $thumbWidth 
+            . "\" height=\"" . $newHeight 
+            . "\" " . $title . " alt=\"" 
+            . $file . "\" />\n"
+            ;
          
     }
     
@@ -319,31 +319,31 @@
             }
              
             echo "<th class=\"". $prevStyle 
-				. "\" width=\"30%\">\n"
-				;
+                . "\" width=\"30%\">\n"
+                ;
              
             echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?docView=image&file="
-				. urlencode($prevName) . "&cwd=" . $curDirPath
-				. $searchCmdUrl . "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
-				;
-				
-			echo "<br /><br />\n";
+                . urlencode($prevName) . "&cwd=" . $curDirPath
+                . $searchCmdUrl . "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
+                ;
+                
+            echo "<br /><br />\n";
              
             // display thumbnail
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
-				. "?docView=image&file=" . urlencode($prevName)
-            	. "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
-				. create_thumbnail($prevName, get_conf('thumbnailWidth'))
-            	."</a>\n"
-				;
+                . "?docView=image&file=" . urlencode($prevName)
+                . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
+                . create_thumbnail($prevName, get_conf('thumbnailWidth'))
+                ."</a>\n"
+                ;
              
             echo "</th>\n";
         }
         else
         {
             echo "<th class=\"". $prevStyle . "\" width=\"30%\">\n" 
-				. "<!-- empty -->\n" . "</th>\n"
-				;
+                . "<!-- empty -->\n" . "</th>\n"
+                ;
         } // end if has previous image
     }
      
@@ -380,20 +380,20 @@
             echo "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
              
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
-				. "?docView=image&file=" . urlencode($nextName)
-            	. "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
-				. "&nbsp;&gt;&gt;</a>\n"
-				;
-				
-			echo "<br /><br />\n";
+                . "?docView=image&file=" . urlencode($nextName)
+                . "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
+                . "&nbsp;&gt;&gt;</a>\n"
+                ;
+                
+            echo "<br /><br />\n";
              
             // display thumbnail
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
-				. "?docView=image&file=" . urlencode($nextName)
-            	. "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
-				. create_thumbnail($nextName, get_conf('thumbnailWidth') )
-            	. "</a>\n"
-				;
+                . "?docView=image&file=" . urlencode($nextName)
+                . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
+                . create_thumbnail($nextName, get_conf('thumbnailWidth') )
+                . "</a>\n"
+                ;
              
             echo "</th>\n";
         }
@@ -502,7 +502,7 @@
     * @global curDirPath
     */
     function display_thumbnails($imageList, $fileList, $page 
-		, $thumbnailWidth, $colWidth, $numberOfCols, $numberOfRows)
+        , $thumbnailWidth, $colWidth, $numberOfCols, $numberOfRows)
     {
         global $curDirPath;
         global $searchCmdUrl;
@@ -536,13 +536,13 @@
                  
                 // display thumbnail
                 echo "<td style=\"text-align: center;\" style=\"width:" 
-					. $colWidth . "%;\">\n" 
-					;
+                    . $colWidth . "%;\">\n" 
+                    ;
                  
                 echo "<a href=\"". $_SERVER['PHP_SELF'] . "?docView=image&file="
-					. urlencode($fileName)
-                	. "&cwd=". $curDirPath . $searchCmdUrl ."\">"
-					;
+                    . urlencode($fileName)
+                    . "&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                    ;
                  
                 // display image description using title attribute
                 $title = "";
@@ -553,8 +553,8 @@
                     /*if (strlen($text ) > 30 )
                     {
                         $text = substr($text , 0, 30)
-                        	. "..."
-							;
+                            . "..."
+                            ;
                     }*/
                     
                     $text = cutstring( $text, 40, false, 5, "..." );
@@ -585,7 +585,7 @@
                 // finished ?
                 if ($displayed >= count($imageList))
                 {
-                	echo "</tr>\n";
+                    echo "</tr>\n";
                     return;
                 }
             } // end loop on columns

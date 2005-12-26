@@ -501,7 +501,7 @@ function validate_property ($propertyValue, $propertyDef)
                 closedir($handle);
                 $type='enum';
                 break;
-			case 'editor' :
+            case 'editor' :
                 $dirname = $rootSys . 'claroline/editor/';
                 if($dirname[strlen($dirname)-1]!='/')
                     $dirname.='/';

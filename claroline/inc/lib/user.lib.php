@@ -487,7 +487,7 @@ function get_course_enrollment_key($courseId)
     }
     else
     {
-    	return null;
+        return null;
     }
 }
 
@@ -581,8 +581,8 @@ function user_add_to_class($user_id,$class_id)
     // 4. Add user to class in the rel_class_user table
 
     $sql = "INSERT INTO `" . $tbl_rel_class_user . "`
-	        SET `user_id` = '" . $user_id . "',
-	           `class_id` = '" . $class_id . "' ";
+            SET `user_id` = '" . $user_id . "',
+               `class_id` = '" . $class_id . "' ";
 
     return claro_sql_query($sql);
 }
@@ -802,7 +802,7 @@ function user_send_enroll_to_course_mail ($user_id, $data)
         $emailSubject  = '[' . $siteName . '] ' . get_lang('YourReg') ;
 
         // Send message
-	    $emailBody = get_lang('Dear') . " %s %s ,\n"
+        $emailBody = get_lang('Dear') . " %s %s ,\n"
                     . get_lang('OneResp'). $_course['officialCode'] . get_lang('RegYou') . " " . $siteName . " " . get_lang('Settings') . " %s\n"
                     . get_lang('Address') . " " . $siteName . " " . get_lang('Is'). ": $rootWeb\n"
                     . get_lang('Problem') . "\n"
@@ -1272,7 +1272,7 @@ function user_display_form($data, $form_type='registration')
         && $form_type == 'profile' )
     {
         // disable modification of username and password with external autentication
-    	echo '<tr><td align="right">'.get_lang('UserName').' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
+        echo '<tr><td align="right">'.get_lang('UserName').' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
     }
     else
     {
@@ -1294,7 +1294,7 @@ function user_display_form($data, $form_type='registration')
         {
             if ( $form_type == 'registration' )
             {
-            	echo  '<tr>'
+                echo  '<tr>'
                 .     '<td>&nbsp;</td>'
                 .     '<td>'
                 .    '<small>'
@@ -1414,7 +1414,7 @@ function user_display_form($data, $form_type='registration')
     // Submit
     if ( $form_type == 'registration' )
     {
-		echo ' <tr>' . "\n"
+        echo ' <tr>' . "\n"
             . '  <td align="right">' . ucfirst(get_lang('Create')) . ' : </td>' . "\n"
             . '  <td>' . "\n"
             . '  <input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'

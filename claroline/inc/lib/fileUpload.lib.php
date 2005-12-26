@@ -27,17 +27,17 @@
 
 function replace_dangerous_char($string, $strict = 'loose')
 {
-	$search[] = ' ';  $replace[] = '_';
-	$search[] = '/';  $replace[] = '-';
-	$search[] = '\\'; $replace[] = '-';
-	$search[] = '"';  $replace[] = '-';
-	$search[] = '\'';  $replace[] = '_';
-	$search[] = '?';  $replace[] = '-';
-	$search[] = '*';  $replace[] = '-';
-	$search[] = '>';  $replace[] = '';
-	$search[] = '<';  $replace[] = '-';
-	$search[] = '|';  $replace[] = '-';
-	$search[] = ':';  $replace[] = '-';
+    $search[] = ' ';  $replace[] = '_';
+    $search[] = '/';  $replace[] = '-';
+    $search[] = '\\'; $replace[] = '-';
+    $search[] = '"';  $replace[] = '-';
+    $search[] = '\'';  $replace[] = '_';
+    $search[] = '?';  $replace[] = '-';
+    $search[] = '*';  $replace[] = '-';
+    $search[] = '>';  $replace[] = '';
+    $search[] = '<';  $replace[] = '-';
+    $search[] = '|';  $replace[] = '-';
+    $search[] = ':';  $replace[] = '-';
     $search[] = '$';  $replace[] = '-';
     $search[] = '(';  $replace[] = '-';
     $search[] = ')';  $replace[] = '-';
@@ -47,21 +47,21 @@ function replace_dangerous_char($string, $strict = 'loose')
     $search[] = '..';  $replace[] = '';
 
 
-	foreach($search as $key=>$char )
-	{
-		$string = str_replace($char, $replace[$key], $string);
-	}
+    foreach($search as $key=>$char )
+    {
+        $string = str_replace($char, $replace[$key], $string);
+    }
 
-	if ($strict == 'strict')
-	{
+    if ($strict == 'strict')
+    {
         $string = str_replace('-', '_', $string);
         $string = str_replace("'", '', $string);
         $string = strtr($string,
                         'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
                         'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-	}
+    }
 
-	return $string;
+    return $string;
 }
 
 //------------------------------------------------------------------------------
@@ -77,8 +77,8 @@ function replace_dangerous_char($string, $strict = 'loose')
 
 function php2phps ($fileName)
 {
-	$fileName = eregi_replace("\.(php.?|phtml)$", ".phps", $fileName);
-	return $fileName;
+    $fileName = eregi_replace("\.(php.?|phtml)$", ".phps", $fileName);
+    return $fileName;
 }
 
 /**
@@ -93,8 +93,8 @@ function php2phps ($fileName)
 
 function htaccess2txt($fileName)
 {
-	$fileName = str_replace('.htaccess', 'htaccess.txt', $fileName);
-	$fileName = str_replace('.HTACCESS', 'HTACCESS.txt', $fileName);
+    $fileName = str_replace('.htaccess', 'htaccess.txt', $fileName);
+    $fileName = str_replace('.HTACCESS', 'HTACCESS.txt', $fileName);
     return $fileName;
 }
 
@@ -137,17 +137,17 @@ function get_secure_file_name($fileName)
 
 function enough_size($fileSize, $dir, $maxDirSpace)
 {
-	if ($maxDirSpace)
-	{
-		$alreadyFilledSpace = dir_total_space($dir);
+    if ($maxDirSpace)
+    {
+        $alreadyFilledSpace = dir_total_space($dir);
 
-		if ( ($fileSize + $alreadyFilledSpace) > $maxDirSpace)
-		{
-			return false;
-		}
-	}
+        if ( ($fileSize + $alreadyFilledSpace) > $maxDirSpace)
+        {
+            return false;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
@@ -162,38 +162,38 @@ function enough_size($fileSize, $dir, $maxDirSpace)
 
 function dir_total_space($dirPath)
 {
-	chdir ($dirPath) ;
-	$handle = opendir($dirPath);
+    chdir ($dirPath) ;
+    $handle = opendir($dirPath);
         $sumSize = 0;
-	
-	while ($element = readdir($handle) )
-	{
-		if ( $element == "." || $element == "..")
-		{
-			continue; // skip the current and parent directories
-		}
-		if ( is_file($element) )
-		{
-			$sumSize += filesize($element);
-		}
-		if ( is_dir($element) )
-		{
-			$dirList[] = $dirPath.'/'.$element;
-		}
-	}
+    
+    while ($element = readdir($handle) )
+    {
+        if ( $element == "." || $element == "..")
+        {
+            continue; // skip the current and parent directories
+        }
+        if ( is_file($element) )
+        {
+            $sumSize += filesize($element);
+        }
+        if ( is_dir($element) )
+        {
+            $dirList[] = $dirPath.'/'.$element;
+        }
+    }
 
-	closedir($handle) ;
+    closedir($handle) ;
         
-	if ( isset($dirList) && sizeof($dirList) > 0)
-	{
-		foreach($dirList as $j)
-		{
-			$sizeDir = dir_total_space($j);	// recursivity
-			$sumSize += $sizeDir;
-		}
-	}
+    if ( isset($dirList) && sizeof($dirList) > 0)
+    {
+        foreach($dirList as $j)
+        {
+            $sizeDir = dir_total_space($j);    // recursivity
+            $sumSize += $sizeDir;
+        }
+    }
 
-	return $sumSize;
+    return $sumSize;
 }
 
 
@@ -379,40 +379,40 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
     
 
     if ( ! enough_size($uploadedFile['size'], $baseWorkDir, $maxFilledSpace))
-	{
-		return claro_failure::set_failure('not_enough_space');
-	}
+    {
+        return claro_failure::set_failure('not_enough_space');
+    }
 
-	if (   $uncompress == 'unzip' 
+    if (   $uncompress == 'unzip' 
         && preg_match('/.zip$/i', $uploadedFile['name']) )
-	{
-		return unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFilledSpace);
-	}
-	else
-	{
-		/* TRY TO ADD AN EXTENSION TO FILES WITOUT EXTENSION */
-		$fileName = $uploadedFile['name'] . add_extension_for_uploaded_file($uploadedFile);
+    {
+        return unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFilledSpace);
+    }
+    else
+    {
+        /* TRY TO ADD AN EXTENSION TO FILES WITOUT EXTENSION */
+        $fileName = $uploadedFile['name'] . add_extension_for_uploaded_file($uploadedFile);
 
-		$fileName = trim($uploadedFile['name']);
+        $fileName = trim($uploadedFile['name']);
 
-		/* CHECK FOR NO DESIRED CHARACTERS */
-		$fileName = replace_dangerous_char($fileName);
+        /* CHECK FOR NO DESIRED CHARACTERS */
+        $fileName = replace_dangerous_char($fileName);
 
-		/* HANDLE DANGEROUS FILE NAME FOR SERVER SECURITY */
-		$fileName = get_secure_file_name($fileName);
+        /* HANDLE DANGEROUS FILE NAME FOR SERVER SECURITY */
+        $fileName = get_secure_file_name($fileName);
 
-		/* COPY THE FILE TO THE DESIRED DESTINATION */
-		if ( move_uploaded_file($uploadedFile['tmp_name'], 
+        /* COPY THE FILE TO THE DESIRED DESTINATION */
+        if ( move_uploaded_file($uploadedFile['tmp_name'], 
             $baseWorkDir.$uploadPath.'/'.$fileName) )
-		{
+        {
             chmod($baseWorkDir.$uploadPath.'/'.$fileName,CLARO_FILE_PERMISSIONS);
             return $fileName;
-		}
+        }
         else
         {
             return false;
         }
-	}
+    }
 
     return false;
 }
@@ -436,52 +436,52 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 
 function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFilledSpace)
 {
-	$zipFile = new pclZip($uploadedFile['tmp_name']);
+    $zipFile = new pclZip($uploadedFile['tmp_name']);
 
-	// Check the zip content (real size and file extension)
+    // Check the zip content (real size and file extension)
 
-	$zipContentArray = $zipFile->listContent();
+    $zipContentArray = $zipFile->listContent();
 
-	foreach($zipContentArray as $thisContent)
-	{
-		if ( preg_match('~.(php.?|phtml)$~i', $thisContent['filename']) )
-		{
-			return claro_failure::set_failure('php_file_in_zip_file');
-		}
+    foreach($zipContentArray as $thisContent)
+    {
+        if ( preg_match('~.(php.?|phtml)$~i', $thisContent['filename']) )
+        {
+            return claro_failure::set_failure('php_file_in_zip_file');
+        }
                 if (!isset($realFileSize)) $realFileSize = 0;
-		$realFileSize += $thisContent['size'];
-	}
-		
-	if (! enough_size($realFileSize, $baseWorkDir, $maxFilledSpace) )
-	{
-		return claro_failure::set_failure('not_enough_space');
-	}
+        $realFileSize += $thisContent['size'];
+    }
+        
+    if (! enough_size($realFileSize, $baseWorkDir, $maxFilledSpace) )
+    {
+        return claro_failure::set_failure('not_enough_space');
+    }
 
 
-	/*
-	 * Uncompressing phase
+    /*
+     * Uncompressing phase
      * TODO: a lot of hosting service disable the use of exec function
      *       we must put a config variable to use unzip on linux
      * In next release put $exec_unzip_cmd as a constant in config file
-	 */
+     */
 
     $exec_unzip_cmd = false;
 
-	if (PHP_OS == 'Linux' && $exec_unzip_cmd)
-	{
-		// Shell Method - if this is possible, it gains some speed
-		exec("unzip -d \"".$baseWorkDir.$uploadPath."/\" "
-			 .$uploadedFile['tmp_name']);
-	}
-	else
-	{
-		// PHP method - slower...
+    if (PHP_OS == 'Linux' && $exec_unzip_cmd)
+    {
+        // Shell Method - if this is possible, it gains some speed
+        exec("unzip -d \"".$baseWorkDir.$uploadPath."/\" "
+             .$uploadedFile['tmp_name']);
+    }
+    else
+    {
+        // PHP method - slower...
 
-		chdir($baseWorkDir.$uploadPath);
-		$unzippingState = $zipFile->extract();
-	}
+        chdir($baseWorkDir.$uploadPath);
+        $unzippingState = $zipFile->extract();
+    }
 
-	return true;
+    return true;
 }
 
 
@@ -495,38 +495,38 @@ function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFille
 
 function search_img_from_html($htmlFile)
 {
-	$imgPathList = array();
+    $imgPathList = array();
 
-	$fp = fopen($htmlFile, "r") or die('<center>can not open file</center>');
+    $fp = fopen($htmlFile, "r") or die('<center>can not open file</center>');
 
-	// search and store occurences of the <IMG> tag in an array
+    // search and store occurences of the <IMG> tag in an array
 
-	$buffer = fread( $fp, filesize($htmlFile) ) or die('<center>can not read file</center>');;
+    $buffer = fread( $fp, filesize($htmlFile) ) or die('<center>can not read file</center>');;
 
-	if ( preg_match_all('~<[[:space:]]*img[^>]*>~i', $buffer, $matches) )
-	{
-		$imgTagList = $matches[0];
-	}
+    if ( preg_match_all('~<[[:space:]]*img[^>]*>~i', $buffer, $matches) )
+    {
+        $imgTagList = $matches[0];
+    }
 
-	fclose ($fp); unset($buffer);
+    fclose ($fp); unset($buffer);
 
-	// Search the image file path from all the <IMG> tag detected
+    // Search the image file path from all the <IMG> tag detected
 
-	if ( isset($imgTagList) && sizeof($imgTagList)  > 0)
-	{
-		foreach($imgTagList as $thisImgTag)
-		{
-			if ( preg_match('~src[[:space:]]*=[[:space:]]*[\"]{1}([^\"]+)[\"]{1}~i', 
-							$thisImgTag, $matches) )
-			{
-				$imgPathList[] = $matches[1];
-			}
-		}
+    if ( isset($imgTagList) && sizeof($imgTagList)  > 0)
+    {
+        foreach($imgTagList as $thisImgTag)
+        {
+            if ( preg_match('~src[[:space:]]*=[[:space:]]*[\"]{1}([^\"]+)[\"]{1}~i', 
+                            $thisImgTag, $matches) )
+            {
+                $imgPathList[] = $matches[1];
+            }
+        }
 
-		$imgPathList = array_unique($imgPathList);		// remove duplicate entries
-	}
+        $imgPathList = array_unique($imgPathList);        // remove duplicate entries
+    }
 
-	return $imgPathList;
+    return $imgPathList;
 
 }
 
@@ -544,9 +544,9 @@ function create_unexisting_directory($desiredDirName)
 {
 
     $finalName = get_unexisting_file_name($desiredDirName);
-	
-	if ( mkdir($finalName, CLARO_FILE_PERMISSIONS) ) return $finalName;
-	else                                             return false;
+    
+    if ( mkdir($finalName, CLARO_FILE_PERMISSIONS) ) return $finalName;
+    else                                             return false;
 }
 
 /**
@@ -562,14 +562,14 @@ function create_unexisting_directory($desiredDirName)
 
 function get_unexisting_file_name($desiredDirName)
 {
-	$nb = '';
+    $nb = '';
     
     $fileName = $desiredDirName;
 
-	while ( file_exists($fileName.$nb) )
-	{
-		$nb += 1;
-	}
+    while ( file_exists($fileName.$nb) )
+    {
+        $nb += 1;
+    }
 
     return $fileName.$nb;
 }
@@ -587,62 +587,62 @@ function move_uploaded_file_collection_into_directory($uploadedFileCollection, $
 {
     $uploadedFileNb = count($uploadedFileCollection['name']);
 
-	for ($i=0; $i < $uploadedFileNb; $i++)
-	{
+    for ($i=0; $i < $uploadedFileNb; $i++)
+    {
 
-		if (is_uploaded_file($uploadedFileCollection['tmp_name'][$i]))
-		{
+        if (is_uploaded_file($uploadedFileCollection['tmp_name'][$i]))
+        {
             if ( move_uploaded_file($uploadedFileCollection['tmp_name'][$i],
                                     $destPath.'/'.php2phps($uploadedFileCollection['name'][$i])) )
-			{
-				$newFileList[$i] = basename($destPath).'/'.$uploadedFileCollection['name'][$i];
-			}
+            {
+                $newFileList[$i] = basename($destPath).'/'.$uploadedFileCollection['name'][$i];
+            }
             else
             {
-            	die('<center>can not move uploaded file</center>');
+                die('<center>can not move uploaded file</center>');
             }
-		}
-	}
-	
-	return $newFileList;
+        }
+    }
+    
+    return $newFileList;
 }
 
 function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 {
-	/*
-	 * Open the old html file and replace the src path into the img tag
-	 */
+    /*
+     * Open the old html file and replace the src path into the img tag
+     */
 
-	$fp = fopen($htmlFile, 'r') or die ('<center>cannot open file</center>');
+    $fp = fopen($htmlFile, 'r') or die ('<center>cannot open file</center>');
 
     $newHtmlFileContent = '';
 
-	while ( !feof($fp) )
-	{
-		$buffer = fgets($fp, 4096);
+    while ( !feof($fp) )
+    {
+        $buffer = fgets($fp, 4096);
 
-		for ($i = 0, $fileNb = count($originalImgPath); $i < $fileNb ; $i++)
-		{
+        for ($i = 0, $fileNb = count($originalImgPath); $i < $fileNb ; $i++)
+        {
             if ( array_key_exists($i, $newImgPath) )
             {
-                $buffer = str_replace(	$originalImgPath[$i],
+                $buffer = str_replace(    $originalImgPath[$i],
                                         './'.$newImgPath[$i],
                                         $buffer);
-    		}
+            }
         }
 
         $newHtmlFileContent .= $buffer;
 
-	} // end while !feof
+    } // end while !feof
 
-	fclose ($fp) or die ('<center>cannot close file</center>');;
+    fclose ($fp) or die ('<center>cannot close file</center>');;
 
-	/*
-	 * Write the resulted new file
-	 */
+    /*
+     * Write the resulted new file
+     */
 
-	$fp = fopen($htmlFile, 'w')      or die('<center>cannot open file</center>');
-	fwrite($fp, $newHtmlFileContent) or die('<center>cannot write in file</center>');
+    $fp = fopen($htmlFile, 'w')      or die('<center>cannot open file</center>');
+    fwrite($fp, $newHtmlFileContent) or die('<center>cannot write in file</center>');
 }
 
 /**
@@ -656,15 +656,15 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 
 function create_link_file($filePath, $url)
 {
-	global $charset;
-	
+    global $charset;
+    
     $fileContent = '<html>'
                   .'<head>'
                   .'<meta http-equiv="content-Type" content="text/html;charset='.$charset.'">'
                   .'<meta http-equiv="refresh" content="0;url='.format_url($url).'">'
                   .'</head>'
                   .'<body>'
-		          .'<div align="center">'
+                  .'<div align="center">'
                   .'<a href="'.format_url($url).'">'.$url.'</a>'
                   .'</div>'
                   .'</body>'
@@ -689,9 +689,9 @@ function create_file($filePath, $fileContent)
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param int local max allowed file size e.g. remaining place in
- *	an allocated course directory	
+ *    an allocated course directory    
  * @return int lower value between php.ini values of upload_max_filesize and 
- *	post_max_size and the claroline value of size left in directory 
+ *    post_max_size and the claroline value of size left in directory 
  * @see    - get_max_upload_size() uses  dir_total_space() function
  */
 function get_max_upload_size($maxFilledSpace, $baseWorkDir)
@@ -706,6 +706,6 @@ function get_max_upload_size($maxFilledSpace, $baseWorkDir)
         sort($fileSizeLimitList);
         list($maxFileSize) = $fileSizeLimitList;
 
-	return $maxFileSize;
+    return $maxFileSize;
 }
 ?>

@@ -54,19 +54,19 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     // month field
     if( $formatMonth == 'numeric' )
     {
-	    for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-	      $available_months[$monthCounter] = $monthCounter;
-	}
-	elseif( $formatMonth == 'long' )
-	{
-    	for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-	      $available_months[$monthCounter] = $langMonthNames['long'][$monthCounter-1];
-	}
-	elseif( $formatMonth == 'short' )
-	{
-		for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-	      $available_months[$monthCounter] = $langMonthNames['short'][$monthCounter-1];
-	}
+        for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+          $available_months[$monthCounter] = $monthCounter;
+    }
+    elseif( $formatMonth == 'long' )
+    {
+        for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+          $available_months[$monthCounter] = $langMonthNames['long'][$monthCounter-1];
+    }
+    elseif( $formatMonth == 'short' )
+    {
+        for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+          $available_months[$monthCounter] = $langMonthNames['short'][$monthCounter-1];
+    }
     $monthField = claro_html_form_select( $monthFieldName
                                    , $available_months
                                    , $selMonth

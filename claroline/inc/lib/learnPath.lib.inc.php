@@ -134,9 +134,9 @@ function commentBox($type, $mode)
             claro_sql_query($sql);
             
             if($mode == UPDATE_)
-            	$dsp = true;
+                $dsp = true;
             elseif($mode == UPDATENOTSHOWN_)
-            	$dsp = false;
+                $dsp = false;
         }
         else // display form
         {
@@ -443,9 +443,9 @@ function is_num($var)
 
         // 48 to 57 are decimal ascii values for 0 to 9
         if ( $ascii >= 48 && $ascii <= 57)
-        	continue;
+            continue;
         else
-        	return FALSE;
+            return FALSE;
     }
 
     return TRUE;
@@ -502,16 +502,16 @@ function display_path_content()
 
     echo "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
-	.    '<th colspan="' . ($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
+    .    '<th colspan="' . ($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
     .    '</tr>'."\n\n"
-	.	 '<tbody>'."\n"
+    .     '<tbody>'."\n"
     ;
 
     foreach ($flatElementList as $module)
     {
         $spacingString = '';
         for($i = 0; $i < $module['children']; $i++)
-        	$spacingString .= '<td width="5">&nbsp;</td>'."\n";
+            $spacingString .= '<td width="5">&nbsp;</td>'."\n";
         $colspan = $maxDeep - $module['children']+1;
 
         echo '<tr align="center" '.$style.'>' . "\n"
@@ -526,10 +526,10 @@ function display_path_content()
         else // module
         {
             if($module['contentType'] == CTEXERCISE_ )
-            	$moduleImg = 'quiz.gif';
+                $moduleImg = 'quiz.gif';
             else
-            	$moduleImg = choose_image(basename($module['path']));
-            	
+                $moduleImg = choose_image(basename($module['path']));
+                
             $contentType_alt = selectAlt($module['contentType']);
 
             echo '<img src="' . $imgRepositoryWeb . $moduleImg . '" alt="' .$contentType_alt.'" border="0" />'
@@ -537,10 +537,10 @@ function display_path_content()
             ;
         }
         echo '</td>'."\n"
-		.	 '</tr>'."\n\n";
+        .     '</tr>'."\n\n";
     }
     echo '</tbody>'."\n\n"
-	.	 '</table>'."\n\n";
+    .     '</table>'."\n\n";
 }
 
 /**
@@ -617,10 +617,10 @@ function get_learnPath_progress($lpid, $lpUid)
                     ";
         $nbrOfVisibleModules = claro_sql_query_get_single_value($sqlnum);
 
-		if( is_numeric($nbrOfVisibleModules) )
-          	$progression = @round($progress/$nbrOfVisibleModules);
-		else
-			$progression = 0;
+        if( is_numeric($nbrOfVisibleModules) )
+              $progression = @round($progress/$nbrOfVisibleModules);
+        else
+            $progression = 0;
 
     }
     return $progression;
@@ -671,49 +671,49 @@ function display_my_exercises($dialogBox)
     
     if( is_array($exercises) && !empty($exercises) )
     {
-		echo '<tbody>' . "\n\n";
-		
-	    foreach ( $exercises as $exercise )
-	    {
-	        echo '<tr>'."\n"
-	        .    '<td align="center">'
-	        .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '" />'
-	        .    '</td>'."\n"
-	        .    '<td align="left">'
-	        .    '<label for="check_'.$exercise['id'].'" >'
-	        .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . get_lang('Exercise') . '" />'
-	        .    $exercise['title']
-	        .    '</label>'
-	        .    '</td>'."\n"
-	        .    '</tr>'."\n\n"
-	        ;
+        echo '<tbody>' . "\n\n";
+        
+        foreach ( $exercises as $exercise )
+        {
+            echo '<tr>'."\n"
+            .    '<td align="center">'
+            .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '" />'
+            .    '</td>'."\n"
+            .    '<td align="left">'
+            .    '<label for="check_'.$exercise['id'].'" >'
+            .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . get_lang('Exercise') . '" />'
+            .    $exercise['title']
+            .    '</label>'
+            .    '</td>'."\n"
+            .    '</tr>'."\n\n"
+            ;
 
-	        // COMMENT
+            // COMMENT
 
-	        if( !empty($exercise['description']) )
-	        {
-	            echo '<tr>'."\n"
-	            .    '<td>&nbsp;</td>'."\n"
-	            .    '<td>'
-	            .    '<small>' . $exercise['description'] . '</small>'
-	            .    '</td>'."\n"
-	            .    '</tr>'."\n\n"
-	            ;
-	        }
-	        $atleastOne = true;
-	    }//end while another module to display
-	    echo '</tbody>'."\n\n";
-	}
+            if( !empty($exercise['description']) )
+            {
+                echo '<tr>'."\n"
+                .    '<td>&nbsp;</td>'."\n"
+                .    '<td>'
+                .    '<small>' . $exercise['description'] . '</small>'
+                .    '</td>'."\n"
+                .    '</tr>'."\n\n"
+                ;
+            }
+            $atleastOne = true;
+        }//end while another module to display
+        echo '</tbody>'."\n\n";
+    }
     
     echo '<tfoot>'."\n\n";
     
     if( !$atleastOne )
     {
         echo '<tr>'."\n"
-		.	 '<td colspan="2" align="center">'
+        .     '<td colspan="2" align="center">'
         .    get_lang('NoEx')
         .    '</td>'."\n"
-		.	 '</tr>'."\n\n"
+        .     '</tr>'."\n\n"
         ;
     }
 
@@ -723,15 +723,15 @@ function display_my_exercises($dialogBox)
     .    '<td colspan="2">'
     .    '<hr noshade size="1">'
     .    '</td>'."\n"
-	.	 '</tr>'."\n\n"
+    .     '</tr>'."\n\n"
     ;
     if( $atleastOne )
     {
         echo '<tr>'."\n"
-		.	 '<td colspan="2">'
+        .     '<td colspan="2">'
         .    '<input type="submit" name="insertExercise" value="'.get_lang('AddModulesButton').'" />'
         .    '</td>'."\n"
-		.	 '</tr>'."\n\n"
+        .     '</tr>'."\n\n"
         ;
     }
     echo '</form>'."\n\n"
@@ -917,35 +917,35 @@ function display_my_documents($dialogBox)
                 $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
 
                 echo '<tr align="left">'."\n"
-                	.'<td>&nbsp;</td>'."\n"
-                	.'<td colspan="'.$colspan.'">'."\n"
-                	.'<div class="comment">'
-                	.$fileList['comment'][$fileKey]
-	                .'</div>'."\n"
-	                .'</td>'."\n"
-	                .'</tr>'."\n";
+                    .'<td>&nbsp;</td>'."\n"
+                    .'<td colspan="'.$colspan.'">'."\n"
+                    .'<div class="comment">'
+                    .$fileList['comment'][$fileKey]
+                    .'</div>'."\n"
+                    .'</td>'."\n"
+                    .'</tr>'."\n";
             }
         }  // end each ($fileList)
         // form button
         echo '</tbody><tfoot>'
-        	.'<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
+            .'<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
 
         echo '<tr>'."\n"
-			.'<td colspan="'.$colspan.'" align="left">'."\n"
-			.'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
-			.'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
-			.'<input type="submit" name="submitInsertedDocument" value="'.get_lang('AddModulesButton').'" />'."\n"
-			.'</td>'."\n"
-			.'</tr>'."\n";
+            .'<td colspan="'.$colspan.'" align="left">'."\n"
+            .'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
+            .'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
+            .'<input type="submit" name="submitInsertedDocument" value="'.get_lang('AddModulesButton').'" />'."\n"
+            .'</td>'."\n"
+            .'</tr>'."\n";
     } // end if ( $fileList)
-	else
-	{
-		echo '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
+    else
+    {
+        echo '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
     }
 
-	echo '</tfoot></table>'."\n"
-    	.'</form>'."\n"
-    	.'<!-- end of display_my_documents output -->'."\n";
+    echo '</tfoot></table>'."\n"
+        .'</form>'."\n"
+        .'<!-- end of display_my_documents output -->'."\n";
 
 }
 

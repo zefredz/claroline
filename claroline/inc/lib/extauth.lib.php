@@ -66,7 +66,7 @@ class ExternalAuthentication
 
     function setAuthSourceName($authSourceName)
     {
-    	$this->authSourceName = $authSourceName;
+        $this->authSourceName = $authSourceName;
     }
 
 

@@ -137,7 +137,7 @@ function claro_disp_tree($elem,$father,$space)
                         }
                         ?>
                          </td>
-						 <td align="center">
+                         <td align="center">
                         <?php
 
                         //If isn't the last child, you can down
@@ -421,7 +421,7 @@ function get_node_children_count($node)
         $sql .= "WHERE code_P = '" . $node . "'";
     }
 
-	return claro_sql_query_get_single_value($sql);
+    return claro_sql_query_get_single_value($sql);
 }
 
 /**
@@ -447,7 +447,7 @@ function get_node_descendance_count($node)
         WHERE code = '" . $node . "'";
     }
 
-	return claro_sql_query_get_single_value($sql);
+    return claro_sql_query_get_single_value($sql);
 }
 
 /**
@@ -466,7 +466,7 @@ function get_node_children_count_course($node)
             FROM `" . $tbl_course . "` `courses`
             WHERE `courses`.`faculte` = '". addslashes($node) ."'";
 
-	return claro_sql_query_get_single_value($sql);
+    return claro_sql_query_get_single_value($sql);
 }
 
 /**
@@ -482,7 +482,7 @@ function delete_node($id_node)
     $tbl_course_node = $tbl_mdb_names['category'];
 
     $cat_data = get_cat_data($id_node);
-	if (!$cat_data) return false;
+    if (!$cat_data) return false;
 
     $sql_Delete= " DELETE FROM `" . $tbl_course_node . "`
                    WHERE id= ". (int) $cat_data['id'];
@@ -496,7 +496,7 @@ function delete_node($id_node)
                     SET treePos = treePos - 1
                     WHERE treePos > " . (int) $cat_data['treePos'] ;
     claro_sql_query($sql_update);
-	return true;
+    return true;
 }
 
 /**
