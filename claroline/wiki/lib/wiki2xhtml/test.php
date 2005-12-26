@@ -21,9 +21,9 @@ require dirname(__FILE__).'/class.wiki2xhtml.php';
 
 function wikiword($str)
 {
-	$tag = 'a';
-	$attr = ' href="'.$str.'"';
-	return '<a href="/'.$str.'">'.$str.'</a>';
+    $tag = 'a';
+    $attr = ' href="'.$str.'"';
+    return '<a href="/'.$str.'">'.$str.'</a>';
 }
 
 $text = implode('',file(dirname(__FILE__).'/texte-monkey.txt'));

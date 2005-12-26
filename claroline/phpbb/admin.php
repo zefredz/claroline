@@ -28,23 +28,23 @@ if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd']; else $cmd = null;
 
 if ( $cmd == 'exMkCat' )
 {
-	if ( trim($_REQUEST['catName']) != '')
-	{
+    if ( trim($_REQUEST['catName']) != '')
+    {
         if ( create_category( trim($_REQUEST['catName']) ) )
-    	{
-    	   $dialogBox .= '<p>'. get_lang('catcreated') .'</p>'."\n";
-    	}
-    	else
-    	{
-    	    $dialogBox .= '<p>'.get_lang('UnableCreateCategory').'</p>'."\n";
-    	    $cmd = 'rqMkCat';
-    	}
-	}
-	else
-	{
-	     $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
-    	 $cmd = 'rqMkCat';
-	}
+        {
+           $dialogBox .= '<p>'. get_lang('catcreated') .'</p>'."\n";
+        }
+        else
+        {
+            $dialogBox .= '<p>'.get_lang('UnableCreateCategory').'</p>'."\n";
+            $cmd = 'rqMkCat';
+        }
+    }
+    else
+    {
+         $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
+         $cmd = 'rqMkCat';
+    }
 }
 
 if ( $cmd == 'rqMkCat' )
@@ -70,26 +70,26 @@ if ( $cmd == 'exMkForum' )
     $forumPostAllowed = ( isset($_REQUEST['forumPostUnallowed']) ) ? false : true;
 
     if (   ( ( trim($_REQUEST['forumName']) != '') )
-	    && (   0 < (int) $_REQUEST['forumCatId']   )  )
-	{
+        && (   0 < (int) $_REQUEST['forumCatId']   )  )
+    {
             if ( create_forum(trim($_REQUEST['forumName']), 
-	                          trim($_REQUEST['forumDesc']), 
-	                          $forumPostAllowed,
-	                          (int) $_REQUEST['forumCatId'] ) )
-	        {
-	           $dialogBox .= '<p>'.get_lang('ForumCreated').'</p>'."\n";
-	        }
-	        else
-	        {                   
-	           $dialogBox .= '<p>'.get_lang('UnableCreateForum').'</p>'."\n";
-	           $cmd        = 'rqMkForum';
-	        }
+                              trim($_REQUEST['forumDesc']), 
+                              $forumPostAllowed,
+                              (int) $_REQUEST['forumCatId'] ) )
+            {
+               $dialogBox .= '<p>'.get_lang('ForumCreated').'</p>'."\n";
+            }
+            else
+            {                   
+               $dialogBox .= '<p>'.get_lang('UnableCreateForum').'</p>'."\n";
+               $cmd        = 'rqMkForum';
+            }
     }
-	else 
-	{
+    else 
+    {
         $dialogBox .= '<p>'.get_lang('MissingFields').'</p>'."\n";
-	    $cmd        = 'rqMkForum';
-	}
+        $cmd        = 'rqMkForum';
+    }
 }
 
 if ( $cmd == 'rqMkForum' )
@@ -239,7 +239,7 @@ if ( $cmd == 'rqEdForum' )
     }
     else
     {
-    	$catSelectBox = '';
+        $catSelectBox = '';
     }
 
     $formForumNameValue        = isset($_REQUEST['forumName']) ? 
@@ -280,11 +280,11 @@ if ( $cmd == 'exDelCat' )
 {
     if ( delete_category($_REQUEST['catId']) )
     {
-    	$dialogBox .= '<p>'.get_lang('CategoryDeleted').'</p>'."\n";
+        $dialogBox .= '<p>'.get_lang('CategoryDeleted').'</p>'."\n";
     }
     else
     {
-    	$dialogBox .= '<p>'.get_lang('UnableDeleteCategory').'</p>'."\n";
+        $dialogBox .= '<p>'.get_lang('UnableDeleteCategory').'</p>'."\n";
 
         if ( claro_failure::get_last_failure() == 'GROUP_FORUMS_CATEGORY_REMOVALE_FORBIDDEN' )
         {
@@ -292,7 +292,7 @@ if ( $cmd == 'exDelCat' )
         }
         elseif(claro_failure::get_last_failure() == 'GROUP_FORUM_REMOVALE_FORBIDDEN')
         {
-        	$dialogBox .= '<p>'.get_lang('CannotRemoveGroupForum').'</p>' ;
+            $dialogBox .= '<p>'.get_lang('CannotRemoveGroupForum').'</p>' ;
         }
         
     }
@@ -305,13 +305,13 @@ if ( $cmd == 'exDelForum' )
     if ( is_null($forumSettingList['idGroup']) )
     {
         if ( delete_forum ($_REQUEST['forumId']) )
-    	{
-    	    $dialogBox .= '<p>'.get_lang('ForumDeleted').'</p>'."\n";
-    	}
-    	else
-    	{
-    	    $dialogBox .= '<p>'.get_lang('UnableDeleteForum').'</p>'."\n";
-    	}
+        {
+            $dialogBox .= '<p>'.get_lang('ForumDeleted').'</p>'."\n";
+        }
+        else
+        {
+            $dialogBox .= '<p>'.get_lang('UnableDeleteForum').'</p>'."\n";
+        }
     }
     else
     {
@@ -321,14 +321,14 @@ if ( $cmd == 'exDelForum' )
 
 if ( $cmd == 'exEmptyForum' )
 {
-	if ( delete_all_post_in_forum($_REQUEST['forumId']) )
-	{
-	    $dialogBox .= '<p>'.get_lang('ForumEmptied').'</p>'."\n";
-	}
-	else
-	{
-	    $dialogBox .= '<p>'.get_lang('UnableToEmptyForum').'</p>'."\n";
-	}
+    if ( delete_all_post_in_forum($_REQUEST['forumId']) )
+    {
+        $dialogBox .= '<p>'.get_lang('ForumEmptied').'</p>'."\n";
+    }
+    else
+    {
+        $dialogBox .= '<p>'.get_lang('UnableToEmptyForum').'</p>'."\n";
+    }
 }
 
 if ( $cmd == 'exMvUpCat' )
@@ -338,17 +338,17 @@ if ( $cmd == 'exMvUpCat' )
 
 if ( $cmd == 'exMvDownCat')
 {
-	move_down_category($_REQUEST['catId']);
+    move_down_category($_REQUEST['catId']);
 }
 
 if ( $cmd == 'exMvUpForum' )
 {
-	move_up_forum($_REQUEST['forumId']);
+    move_up_forum($_REQUEST['forumId']);
 }
 
 if ( $cmd == 'exMvDownForum' )
 {
-	move_down_forum($_REQUEST['forumId']);
+    move_down_forum($_REQUEST['forumId']);
 }
 
 ?>

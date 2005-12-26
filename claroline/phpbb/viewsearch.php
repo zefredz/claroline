@@ -43,7 +43,7 @@ elseif ( isset($_REQUEST['searchPattern']) )
 }
 else
 {
-	$sqlClauseString = null;
+    $sqlClauseString = null;
 }
 
 if ( $sqlClauseString )
@@ -75,7 +75,7 @@ if ( $sqlClauseString )
 }
 else
 {
-	$searchResultList = array();
+    $searchResultList = array();
 }
 
 $pagetype= 'viewsearch';
@@ -147,11 +147,11 @@ echo '<table class="claroTable" width="100%">'                          . "\n"
             .   '</td>'                                                  . "\n"
             .   '</tr>'                                                  . "\n";
         } // end else if ( ! is_null($thisPost['group_id'])
-	
-	} // end for each
-	
-	echo '</table>' . "\n";
-	
+    
+    } // end for each
+    
+    echo '</table>' . "\n";
+    
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/

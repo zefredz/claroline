@@ -88,10 +88,10 @@ if ($topicSettingList)
     {   
         $allowed = FALSE;
         $error_message = get_lang('Not allowed');
-	}
+    }
     else
     {
-        // get post and use pager	
+        // get post and use pager    
         $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
         $postList   = $postLister->get_post_list();     
         $pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
@@ -169,7 +169,7 @@ $htmlHeadXtra[] =
                else
                {return false;}
            }
-		   </script>";
+           </script>";
            
 if (    $forum_cat_id == GROUP_FORUMS_CATEGORY
     && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
@@ -189,96 +189,96 @@ if ( ! $allowed )
 }
 else
 {
-	/*-----------------------------------------------------------------
-	  Display Forum Header
-	 -----------------------------------------------------------------*/
-	
-	$pagetitle = get_lang('topictitle');
-	$pagetype  = 'viewtopic';
-	
-	$is_allowedToEdit = claro_is_allowed_to_edit() 
-	                    || ( $is_groupTutor && !$is_courseAdmin);
-	
-	echo claro_disp_tool_title(get_lang('Forums'), 
-	                      $is_allowedToEdit ? 'help_forum.php' : false);
-		
+    /*-----------------------------------------------------------------
+      Display Forum Header
+     -----------------------------------------------------------------*/
+    
+    $pagetitle = get_lang('topictitle');
+    $pagetype  = 'viewtopic';
+    
+    $is_allowedToEdit = claro_is_allowed_to_edit() 
+                        || ( $is_groupTutor && !$is_courseAdmin);
+    
+    echo claro_disp_tool_title(get_lang('Forums'), 
+                          $is_allowedToEdit ? 'help_forum.php' : false);
+        
     if ($forum_post_allowed)
     {
         disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
     }
-	
-	disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_subject);
-	
-	$postLister->disp_pager_tool_bar($pagerUrl);
-	
-	echo '<table class="claroTable" width="100%">' . "\n"
-	.    ' <tr align="left">' . "\n"
-	.    '  <th class="superHeader">';
-	
-	// display notification link
-	
-	if ( !empty($notification_bloc) )
-	{
-	    echo $notification_bloc;
-	}
-	
-	echo $topic_subject
-	    . '  </th>' . "\n"
-	    . ' </tr>' . "\n";
-	
-	if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
-	
-	foreach ( $postList as $thisPost )
-	{
-	    // Check if the forum post is after the last login
-	    // and choose the image according this state
-	
-	    $post_time = datetime_to_timestamp($thisPost['post_time']);
-	
-	    if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))    
-	    $postImg = 'post_hot.gif';
-	    else                         
-	    $postImg = 'post.gif';
-	
-	    echo ' <tr>' . "\n"
-	
-	        .'  <th class="headerX">' . "\n"
-	        .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
-	        . get_lang('author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-	        .'<small>' . get_lang('posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
-	        .'  </th>' . "\n"
-	
-	        .' </tr>'. "\n"
-	
-	        .' <tr>' . "\n"
-	
-	        .'  <td>' . "\n"
-	        .claro_parse_user_text($thisPost['post_text']) . "\n";
-	
-	    if ( $is_allowedToEdit )
-	    {
-	        echo '<p>' . "\n"
-	
-	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-	            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
-	            . '</a>' . "\n"
-	
-	            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
-            	. 'onClick="return confirm_delete();" >'
-	            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
-	            . '</a>' . "\n"
-	
-	            . '</p>' . "\n";
-	    }
-	
-	    echo    '  </td>' . "\n",
-	            ' </tr>' . "\n";
-	
-	} // end for each
-	
-	echo '</table>' . "\n";
-	
-	$postLister->disp_pager_tool_bar($pagerUrl);
+    
+    disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_subject);
+    
+    $postLister->disp_pager_tool_bar($pagerUrl);
+    
+    echo '<table class="claroTable" width="100%">' . "\n"
+    .    ' <tr align="left">' . "\n"
+    .    '  <th class="superHeader">';
+    
+    // display notification link
+    
+    if ( !empty($notification_bloc) )
+    {
+        echo $notification_bloc;
+    }
+    
+    echo $topic_subject
+        . '  </th>' . "\n"
+        . ' </tr>' . "\n";
+    
+    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    
+    foreach ( $postList as $thisPost )
+    {
+        // Check if the forum post is after the last login
+        // and choose the image according this state
+    
+        $post_time = datetime_to_timestamp($thisPost['post_time']);
+    
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))    
+        $postImg = 'post_hot.gif';
+        else                         
+        $postImg = 'post.gif';
+    
+        echo ' <tr>' . "\n"
+    
+            .'  <th class="headerX">' . "\n"
+            .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
+            . get_lang('author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+            .'<small>' . get_lang('posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
+            .'  </th>' . "\n"
+    
+            .' </tr>'. "\n"
+    
+            .' <tr>' . "\n"
+    
+            .'  <td>' . "\n"
+            .claro_parse_user_text($thisPost['post_text']) . "\n";
+    
+        if ( $is_allowedToEdit )
+        {
+            echo '<p>' . "\n"
+    
+                . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
+                . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+                . '</a>' . "\n"
+    
+                . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
+                . 'onClick="return confirm_delete();" >'
+                . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+                . '</a>' . "\n"
+    
+                . '</p>' . "\n";
+        }
+    
+        echo    '  </td>' . "\n",
+                ' </tr>' . "\n";
+    
+    } // end for each
+    
+    echo '</table>' . "\n";
+    
+    $postLister->disp_pager_tool_bar($pagerUrl);
 
 }
 

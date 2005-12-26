@@ -248,72 +248,72 @@
         
         function __initTags()
         {
-		  $this->tags = array(
+          $this->tags = array(
             'strong' => array("'''","'''"),
-			'em' => array("''","''"),
-			'acronym' => array('??','??'),
-			'a' => array('[',']'),
-			'img' => array('((','))'),
-			'q' => array('{{','}}'),
-			'code' => array('@@','@@'),
-			'anchor' => array('~','~'),
-			'del' => array('--','--'),
-			'stroke' => array('--','--'),
-			'ins' => array('++','++'),
-			'u' => array('__','__'),
-			'note' => array('$$','$$'),
-			'word' => array('¶¶¶','¶¶¶'),
-			'macro' => array('"""','"""')
-		  );
+            'em' => array("''","''"),
+            'acronym' => array('??','??'),
+            'a' => array('[',']'),
+            'img' => array('((','))'),
+            'q' => array('{{','}}'),
+            'code' => array('@@','@@'),
+            'anchor' => array('~','~'),
+            'del' => array('--','--'),
+            'stroke' => array('--','--'),
+            'ins' => array('++','++'),
+            'u' => array('__','__'),
+            'note' => array('$$','$$'),
+            'word' => array('¶¶¶','¶¶¶'),
+            'macro' => array('"""','"""')
+          );
 
-		  # Suppression des tags selon les options
-		  if (!$this->getOpt('active_urls')) {
-			unset($this->tags['a']);
-		  }
-		  if (!$this->getOpt('active_img')) {
-			unset($this->tags['img']);
-		  }
-		  if (!$this->getOpt('active_anchor')) {
-			unset($this->tags['anchor']);
-		  }
-		  if (!$this->getOpt('active_em')) {
-			unset($this->tags['em']);
-		  }
-		  if (!$this->getOpt('active_strong')) {
-			unset($this->tags['strong']);
-		  }
-		  if (!$this->getOpt('active_q')) {
-			unset($this->tags['q']);
-		  }
-		  if (!$this->getOpt('active_code')) {
-			unset($this->tags['code']);
-		  }
-		  if (!$this->getOpt('active_acronym')) {
-			unset($this->tags['acronym']);
-		  }
-		  if (!$this->getOpt('active_ins')) {
-			unset($this->tags['ins']);
-		  }
-		  if (!$this->getOpt('active_del')) {
-			unset($this->tags['del']);
-		  }
-		  if (!$this->getOpt('active_footnotes')) {
-			unset($this->tags['note']);
-		  }
-		  if (!$this->getOpt('active_wikiwords')) {
-			unset($this->tags['word']);
-		  }
-		  if (!$this->getOpt('active_macros')) {
-			unset($this->tags['macro']);
-		  }
+          # Suppression des tags selon les options
+          if (!$this->getOpt('active_urls')) {
+            unset($this->tags['a']);
+          }
+          if (!$this->getOpt('active_img')) {
+            unset($this->tags['img']);
+          }
+          if (!$this->getOpt('active_anchor')) {
+            unset($this->tags['anchor']);
+          }
+          if (!$this->getOpt('active_em')) {
+            unset($this->tags['em']);
+          }
+          if (!$this->getOpt('active_strong')) {
+            unset($this->tags['strong']);
+          }
+          if (!$this->getOpt('active_q')) {
+            unset($this->tags['q']);
+          }
+          if (!$this->getOpt('active_code')) {
+            unset($this->tags['code']);
+          }
+          if (!$this->getOpt('active_acronym')) {
+            unset($this->tags['acronym']);
+          }
+          if (!$this->getOpt('active_ins')) {
+            unset($this->tags['ins']);
+          }
+          if (!$this->getOpt('active_del')) {
+            unset($this->tags['del']);
+          }
+          if (!$this->getOpt('active_footnotes')) {
+            unset($this->tags['note']);
+          }
+          if (!$this->getOpt('active_wikiwords')) {
+            unset($this->tags['word']);
+          }
+          if (!$this->getOpt('active_macros')) {
+            unset($this->tags['macro']);
+          }
 
-		  $this->open_tags = $this->__getTags();
-		  $this->close_tags = $this->__getTags(false);
-		  $this->all_tags = $this->__getAllTags();
-		  $this->tag_pattern = $this->__getTagsPattern();
+          $this->open_tags = $this->__getTags();
+          $this->close_tags = $this->__getTags(false);
+          $this->all_tags = $this->__getAllTags();
+          $this->tag_pattern = $this->__getTagsPattern();
 
-		  $this->escape_table = $this->all_tags;
-		  array_walk($this->escape_table,create_function('&$a','$a = \'\\\\\'.$a;'));
-	   }
+          $this->escape_table = $this->all_tags;
+          array_walk($this->escape_table,create_function('&$a','$a = \'\\\\\'.$a;'));
+       }
     }
 ?>

@@ -394,7 +394,7 @@
     
     if ( $_gid )
     {
-		$toolTitle['supraTitle'] = $_group['name'];
+        $toolTitle['supraTitle'] = $_group['name'];
     }
     
     switch( $action )

@@ -189,8 +189,8 @@ foreach ( $categories as $this_category )
     if ($this_category['forum_count'] == 0)
     {
         echo '<tr>' . "\n"
-        .	 '<td  colspan="' . $colspan . '" align="center">' . get_lang('NoForum') . '</td>' . "\n"
-        .	 '</tr>' . "\n";
+        .     '<td  colspan="' . $colspan . '" align="center">' . get_lang('NoForum') . '</td>' . "\n"
+        .     '</tr>' . "\n";
     }
     else
     {
@@ -338,7 +338,7 @@ foreach ( $categories as $this_category )
                 }
                 else
                 {
-                	echo '&nbsp;';
+                    echo '&nbsp;';
                 }
 
                 echo '</td>'

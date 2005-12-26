@@ -170,17 +170,17 @@ if ( !$allowed )
 else
 {
 
-	if ( isset($_REQUEST['submit']) && !$error )
-	{
-	    // DISPLAY SUCCES MESSAGE
-	    disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
-	}
-	else
-	{
-	    if ( $error )
-	    {
-	        echo claro_disp_message_box($error_message);
-	    }
+    if ( isset($_REQUEST['submit']) && !$error )
+    {
+        // DISPLAY SUCCES MESSAGE
+        disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
+    }
+    else
+    {
+        if ( $error )
+        {
+            echo claro_disp_message_box($error_message);
+        }
 
         disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id);
         disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_title);
@@ -206,7 +206,7 @@ else
 
         echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . get_lang('topicreview') . '</a>';
 
-	} // end else if submit
+    } // end else if submit
 }
 
 // Display Forum Footer

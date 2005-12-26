@@ -90,28 +90,28 @@
                 . "\n"
                 ;
             $toolbar .= "<script type=\"text/javascript\">if (document.getElementById) {
-		var tb = new dcToolBar(document.getElementById('".$this->attributeList['id']."'),
-		'wiki','".document_web_path()."/toolbar/');
+        var tb = new dcToolBar(document.getElementById('".$this->attributeList['id']."'),
+        'wiki','".document_web_path()."/toolbar/');
 
         tb.btStrong('Strong emphasis');
-		tb.btEm('Emphasis');
-		tb.btIns('Inserted');
-		tb.btDel('Deleted');
-		tb.btQ('Inline quote');
-		tb.btCode('Code');
-		tb.addSpace(10);
-		tb.btBr('Line break');
-		tb.addSpace(10);
-		tb.btBquote('Blockquote');
-		tb.btPre('Preformated text');
-		tb.btList('Unordered list','ul');
-		tb.btList('Ordered list','ol');
-		tb.addSpace(10);
+        tb.btEm('Emphasis');
+        tb.btIns('Inserted');
+        tb.btDel('Deleted');
+        tb.btQ('Inline quote');
+        tb.btCode('Code');
+        tb.addSpace(10);
+        tb.btBr('Line break');
+        tb.addSpace(10);
+        tb.btBquote('Blockquote');
+        tb.btPre('Preformated text');
+        tb.btList('Unordered list','ul');
+        tb.btList('Ordered list','ol');
+        tb.addSpace(10);
         tb.btLink('Link','URL?','Language?','fr');
         tb.btImgLink('External image','URL?');
-		tb.draw('');
-	}
-	</script>\n";
+        tb.draw('');
+    }
+    </script>\n";
             
             return $toolbar;
         }
