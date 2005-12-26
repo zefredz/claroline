@@ -2,10 +2,9 @@
 /**
  * CLAROLINE
  *
+ * This is lib for manage course tree with tree structure version 1
  *
- * This  is  lib  for manage course tree with tree structure version 1
- *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -24,10 +23,10 @@
      * @author - < Benoît Muret >
      * @param   - elem             array     : the array of each category
      * @param   - father        string     : the father of the category
-
+     *
      * @return  - void
      *
-     * @desc - display the bom whith option to edit or delete the categories
+     * display the bom whith option to edit or delete the categories
      */
 
 function claro_disp_tree($elem,$father,$space)
@@ -281,7 +280,7 @@ function addNbChildFather($fatherChangeChild, $newNbChild)
 /**
      *This function create de select box categories
      *
-     * @author  Benoît Muret
+     * @author Benoît Muret
      * @param   $elem array the categories
      * @param   $father string the father of the category
      * @param   $editFather string the category editing

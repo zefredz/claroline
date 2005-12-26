@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -24,7 +24,7 @@
  * @param boolean $selectedDate
  * @param string  $formatMonth display type of month select box : numeric, long, short
  *
- * @author Sébastien Piraux pir@cerdecam.be
+ * @author Sébastien Piraux <pir@cerdecam.be>
  *
  * @return string html stream to output input tag for a date
  *
@@ -90,7 +90,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
  * @param string  $minuteFieldName attribute name of the input MONTH
  * @param integer  $selectedTime attribute name of the input YEAR
  *
- * @author Sébastien Piraux pir@cerdecam.be
+ * @author Sébastien Piraux <pir@cerdecam.be>
  *
  * @return string html stream to output input tag for an hour
  *

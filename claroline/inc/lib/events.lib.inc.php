@@ -8,7 +8,7 @@
  *
  * All this  function output only  if  debugClaro is on
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -206,12 +206,11 @@ function event_access_tool($tid, $tlabel)
 }
 
 /**
-
- * @param doc_url url of document
+ * Record information for download event
+ * (when an user click to d/l a document)
+ * it will be used in a redirection page
+ * @param string doc_url url of document
  * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record information for download event
-     (when an user click to d/l a document)
-     it will be used in a redirection page
  */
 function event_download($doc_url)
 {
@@ -302,12 +301,14 @@ function event_upload($doc_id)
 }
 
 /**
+ * Record result of user when an exercice was done
  * @param exo_id ( id in courseDb exercices table )
  * @param result ( score @ exercice )
  * @param weighting ( higher score )
+ *
  * @return inserted id or false if the query cannot be done
+ *
  * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record result of user when an exercice was done
 */
 function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 {
@@ -350,12 +351,13 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 }
 
 /**
+ * Record result of user when an exercice was done
  * @param exerciseTrackId id in track_e_exercices table
  * @param questionId id of the question
  * @param values array with user answers
  * @param questionResult result of this question
+ *
  * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Record result of user when an exercice was done
 */
 function event_exercise_details($exerciseTrackId,$questionId,$values,$questionResult)
 {
@@ -408,12 +410,12 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
 }
 
 /**
-
+ * Standard function for all users who wants to add an event recording in their pages
+ * e.g. : event_default("Exercice Result",array ("ex_id"=>"1", "result"=> "5", "weighting" => "20"));
  * @param type_event type of event to record
  * @param values indexed array of values (keys are the type of values, values are the event_values)
+ *
  * @author Sebastien Piraux <pir@cerdecam.be>
- * @desc Standard function for all users who wants to add an event recording in their pages
-         e.g. : event_default("Exercice Result",array ("ex_id"=>"1", "result"=> "5", "weighting" => "20"));
 */
 function event_default($type_event,$values)
 {
