@@ -1,27 +1,31 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
- * @version 1.7 $Revision$ 
+ * @version 1.8 $Revision$
+ *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLTRACK
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Sébastien Piraux <piraux@claroline.net>
  *
+ * @todo
+ *
  */
 
 /**
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
- * @param sql : a sql query (as a string)
- * @return hours_array 
- * @desc        Return an assoc array.  Keys are the hours, values are
-                the number of time this hours was found.
-                key "total" return the sum of all number of time hours
-                appear
+ * Return an assoc array.  Keys are the hours, values are
+ * the number of time this hours was found.
+ * key "total" return the sum of all number of time hours
+ * appear
+ *
+ * @param string sql query
+ *
+ * @return array hours
  */
 function hoursTab($sql)
 {
@@ -51,14 +55,15 @@ function hoursTab($sql)
 }
 
 /**
-
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
- * @param sql : a sql query (as a string)
+ * Return an assoc array.  Keys are the days, values are
+ * the number of time this hours was found.
+ * key "total" return the sum of all number of time days
+ * appear
+ *
+ * @param string sql query
+ *
  * @return days_array
- * @desc        Return an assoc array.  Keys are the days, values are
-                the number of time this hours was found.
-                key "total" return the sum of all number of time days
-                appear
+ *
  */
 function daysTab($sql)
 {
@@ -66,14 +71,14 @@ function daysTab($sql)
     global $langMonthNames;
 
     $query = claro_sql_query( $sql );
-    
+
     $days_array["total"] = 0;
     $last_day = -1;
     while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
         $display_date = $date_array["mday"]." ". $langMonthNames['short'][$date_array["mon"]-1]." ".$date_array["year"];
-        
+
         if ($date_array["mday"] == $last_day)
         {
             $days_array[$display_date]++;
@@ -85,37 +90,38 @@ function daysTab($sql)
         }
         $days_array["total"]++;
     }
-    
+
     return $days_array;
 }
 
 /**
-
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
- * @param sql : a sql query (as a string)
- * @return month_array 
- * @desc        Return an assoc array.  Keys are the days, values are
-                the number of time this hours was found.
-                key "total" return the sum of all number of time days
-                appear
+ * Return an assoc array.  Keys are the days, values are
+ * the number of time this hours was found.
+ * key "total" return the sum of all number of time days
+ * appear
+ *
+ * @param string sql query
+ *
+ * @return array month
+ *
  */
 function monthTab($sql)
 {
 
     global $langMonthNames;
 
-    
+
     $query = claro_sql_query( $sql );
-    
+
     // init tab with all month
     for($i = 0;$i < 12; $i++)
     {
         $month_array[$langMonthNames['long'][$i]] = 0;
-        
+
     }
-    // and with total    
+    // and with total
     $month_array["total"] = 0;
-    
+
     while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
@@ -124,17 +130,25 @@ function monthTab($sql)
     }
     return $month_array;
 }
-/**
 
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
+/**
+ * Display a 4 column array
+ * Columns are : hour of day, graph, number of hits and %
+ * First line are titles
+ * next are informations
+ * Last is total number of hits
+ *
  * @param period_array : an array provided by hoursTab($sql) or daysTab($sql)
  * @param periodTitle : title of the first column, type of period
- * @param linkOnPeriod : 
- * @desc        Display a 4 column array
-                Columns are : hour of day, graph, number of hits and %
-                First line are titles
-                next are informations
-                Last is total number of hits
+ * @param linkOnPeriod :
+ *
+ * @return
+ *
+ * @todo variable $linkOnPeriod n'apparaît qu'une fois
+ * @todo déclaration de globale inutilisée :  $clarolineRepositoryWeb
+ * @todo La valeur de la variable $maxSize n'est jamais utilisée
+ * @todo La variable $barwidth n'apparaît qu'une fois
+ *
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
@@ -153,7 +167,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     $maxSize = $factor * 100; //pixels
     while(list($periodPiece,$cpt) = each($period_array))
     {
-        if($periodPiece != "total")    
+        if($periodPiece != "total")
         {
             if($period_array["total"] == 0 )
             {
@@ -163,7 +177,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             {
                 $pourcent = round(100 * $cpt / $period_array["total"]);
             }
-            
+
             $barwidth = $factor * $pourcent ;
             echo '<tr>'."\n"
                 .'<td align="center" width="15%">'.$periodPiece.'</td>'."\n"
@@ -173,8 +187,8 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
                 .'</tr>'."\n\n";
         }
     }
-    
-    // footer 
+
+    // footer
     echo '</tbody>'."\n\n"
           .'<tfoot>'."\n"
           .'<tr>'."\n"
@@ -187,18 +201,19 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
           .'</table>'."\n\n";
 }
 /**
-
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
+ * Display a 2 column tab from an array
+ * this tab has no title
+ *
  * @param results : a 2 columns array
  * @param leftTitle : string, title of the left column
  * @param rightTitle : string, title of the ... right column
- * @desc        display a 2 column tab from an array
-                this tab has no title
+ *
+ * @return
  */
 function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 {
     echo '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">'."\n";
-    
+
     if($leftTitle != "" || $rightTitle != "")
     {
         echo '<tr class="headerX">'."\n"
@@ -206,7 +221,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
                 .'<th>&nbsp;'.$rightTitle.'</th>'."\n"
                 .'</tr>'."\n";
     }
-    
+
     echo '<tr class="headerX">'."\n"
         .'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
         .'</tr>'."\n\n"
@@ -234,32 +249,33 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 }
 
 /**
-
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
+ * This function is used to display
+ * integrity errors in the platform
+ * if results is not an array there is
+ * no error, else errors are displayed
+ *
  * @param tableau : a 2 columns array
- * @desc        this function is used to display
-                integrity errors in the platform
-                if results is not an array there is
-                no error, else errors are displayed
+ *
+ * @return
  */
 function buildTabDefcon($results)
 {
     echo '<table class="claroTable" width="60%" cellpadding="2" cellspacing="1" align="center">'."\n";
 
     if( !empty($results) && is_array($results) )
-    { 
-        // there is some strange cases ... 
+    {
+        // there is some strange cases ...
         echo '<tr class="headerX">'."\n"
                 .'<th colspan="2" align="center"><span class="error">'.get_lang('Defcon').'</span></th>'."\n"
                 .'</tr>'."\n"
                 .'<tr class="headerX">'."\n"
                 .'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
                 .'</tr>'."\n";
-                
+
         foreach( $results as $result )
-        { 
+        {
             $keys = array_keys($result);
-            
+
             if( !isset($result[$keys[0]]) || $result[$keys[0]] == "")
             {
                 $key = get_lang('NULLValue');
@@ -268,15 +284,19 @@ function buildTabDefcon($results)
             {
                 $key = $result[$keys[0]];
             }
-            echo '<tr>'."\n"
-                .'<td width="70%">'.$key.'</td>'."\n"
-                .'<td width="30%" align="right">';
+            echo '<tr>' . "\n"
+            .    '<td width="70%">' . $key . '</td>' . "\n"
+            .    '<td width="30%" align="right">'
+            ;
+
             if( isset($result[$keys[1]]) ) echo $result[$keys[1]];
-            else echo '&nbsp;';
+            else                           echo '&nbsp;';
+
             echo '</td>'
-                .'</tr>'."\n\n";
+            .    '</tr>' . "\n\n"
+            ;
         }
-    
+
     }
     else
     {
@@ -289,17 +309,21 @@ function buildTabDefcon($results)
 }
 
 /**
- * changeResultOfVisibility($results)
- * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
+ * Complete the content of visibility column a with the litteral meaning
+ *
  * @param results
- * @desc        complete the content of visibility column a with the litteral meaning
+ *
+ * @return array
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 function changeResultOfVisibility($results)
 {
-    $visibilityLabel[0] = "closed - hide";
-    $visibilityLabel[1] = "open - hide";
-    $visibilityLabel[2] = "open - visible";
-    $visibilityLabel[3] = "closed - visible";
+    $visibilityLabel[0] = 'closed - hide';
+    $visibilityLabel[1] = 'open - hide';
+    $visibilityLabel[2] = 'open - visible';
+    $visibilityLabel[3] = 'closed - visible';
 
     if( !empty($results) && is_array($results) )
     {
@@ -308,7 +332,7 @@ function changeResultOfVisibility($results)
         {
             $keys = array_keys($result);
 
-            $resultsChanged[$i][$keys[0]] = $result[$keys[0]]." <small>(".$visibilityLabel[$result[$keys[0]]].")</small>";
+            $resultsChanged[$i][$keys[0]] = $result[$keys[0]] . ' <small>(' . $visibilityLabel[$result[$keys[0]]] . ')</small>';
             $resultsChanged[$i][$keys[1]] = $result[$keys[1]];
             $i++;
         }
@@ -317,11 +341,14 @@ function changeResultOfVisibility($results)
 }
 
 /**
- * resetStatForCourse($course_id, $dateLimite )
- * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
+ * Delete track hits in a course before a date limit.
  * @param $course_id  course_id where function would delete track hits
  * @param $dateLimite timestamp which mark until wich date  the function would delete track hits
- * @desc  delete track hits in a course before a date limit.
+ *
+ * @return boolean true
+ *
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
+ *
  */
 function resetStatForCourse($course_id, $dateLimite )
 {
