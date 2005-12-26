@@ -114,8 +114,8 @@
             
             if( isset($ret) && $ret === FALSE )
             {
-				// workaround for bug #303
-				// TODO : FIXME
+                // workaround for bug #303
+                // TODO : FIXME
                 // $msg .= 'error in the insert of the link';
             }    
         }
@@ -126,8 +126,8 @@
             
             if( isset($ret) && $ret === FALSE )
             {
-				// workaround for bug #303
-				// TODO : FIXME
+                // workaround for bug #303
+                // TODO : FIXME
                 // $msg .= 'error in the delete of the link';
             }
         }

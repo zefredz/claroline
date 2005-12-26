@@ -252,11 +252,11 @@
     }
     else
     {
-		// DEBUG_MODE
+        // DEBUG_MODE
         if ( defined("DEBUG_MODE") && DEBUG_MODE == true )
-		{
-			require_once JPSPAN . 'ErrorHandler.php';
-		}
+        {
+            require_once JPSPAN . 'ErrorHandler.php';
+        }
         $jpspan->serve();  
     }
 ?>

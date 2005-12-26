@@ -117,8 +117,8 @@
                         {
                             // trigger_error("ERROR: invalid path ($crl)",E_USER_ERROR);
                             $url = '../linker/notfound.php?requestedFile='
-								.rawurlencode($elementCRLArray['resource_id'])
-								;
+                                .rawurlencode($elementCRLArray['resource_id'])
+                                ;
                         }
                         
                         $url .= ( (strpos($url, '?')===false) ? '?' : '&') 
