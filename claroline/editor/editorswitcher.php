@@ -2,18 +2,20 @@
 /**
  * CLAROLINE
  *
- * Filler for tools in course
+ * editor loader
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package SDK
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package EDITOR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Sébastien Piraux <pir@cerdecam.be>
  *
  */
 
