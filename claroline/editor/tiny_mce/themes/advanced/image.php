@@ -1,6 +1,25 @@
-<?php
+<?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * 
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package EDITOR
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <pir@cerdecam.be>
+ *
+ */
 
-include_once('../../../../inc/claro_init_global.inc.php');
+include_once '../../../../inc/claro_init_global.inc.php';
 
 // initialiase variables
 
@@ -8,8 +27,8 @@ $imgUrl = '';
 
 if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
 {
-    include_once( $includePath . '/lib/fileUpload.lib.php' );
-    include_once( $includePath . '/lib/fileManage.lib.php');
+    include_once $includePath . '/lib/fileUpload.lib.php';
+    include_once $includePath . '/lib/fileManage.lib.php';
 
     $imgFile = $_FILES['imgFile'];
 
@@ -35,7 +54,7 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
             $imgUrl = $uploadDirPathWeb . '/' . $imgFile['name'];
         }
         // else $imgUrl = '';
-	}
+    }
     // else $imgUrl = '';
 }
 
@@ -43,10 +62,10 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>{$lang_insert_image_title}</title>
-	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
-	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
-	<script language="javascript" type="text/javascript" src="jscripts/image.js"></script>
+    <title>{$lang_insert_image_title}</title>
+    <script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+    <script language="javascript" type="text/javascript" src="jscripts/image.js"></script>
 
 </head>
 <body onload="<?php echo (empty($imgUrl))?'init();"':'getImageData()'; ?>" style="display: none">
@@ -66,24 +85,24 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
                 </tr>
               </table></td>
           </tr>
-		  <!-- Image list -->
-		  <script language="javascript">
-			if (typeof(tinyMCEImageList) != "undefined" && tinyMCEImageList.length > 0) {
-				var html = "";
+          <!-- Image list -->
+          <script language="javascript">
+            if (typeof(tinyMCEImageList) != "undefined" && tinyMCEImageList.length > 0) {
+                var html = "";
 
-				html += '<tr><td>{$lang_image_list}:</td>';
-				html += '<td><select name="image_list" style="width: 200px" onchange="this.form.src.value=this.options[this.selectedIndex].value;resetImageData();getImageData();">';
-				html += '<option value="">---</option>';
+                html += '<tr><td>{$lang_image_list}:</td>';
+                html += '<td><select name="image_list" style="width: 200px" onchange="this.form.src.value=this.options[this.selectedIndex].value;resetImageData();getImageData();">';
+                html += '<option value="">---</option>';
 
-				for (var i=0; i<tinyMCEImageList.length; i++)
-					html += '<option value="' + tinyMCEImageList[i][1] + '">' + tinyMCEImageList[i][0] + '</option>';
+                for (var i=0; i<tinyMCEImageList.length; i++)
+                    html += '<option value="' + tinyMCEImageList[i][1] + '">' + tinyMCEImageList[i][0] + '</option>';
 
-				html += '</select></td></tr>';
+                html += '</select></td></tr>';
 
-				document.write(html);
-			}
-		  </script>
-		  <!-- /Image list -->
+                document.write(html);
+            }
+          </script>
+          <!-- /Image list -->
           <tr>
             <td nowrap="nowrap">{$lang_insert_image_alt}:</td>
             <td><input name="alt" type="text" id="alt" value="" style="width: 200px" /></td>
@@ -137,9 +156,9 @@ if ($_cid && $is_courseAdmin)
 <form name="imgFileUpload" method="post" action="image.php" enctype="multipart/form-data">
 <fieldset>
 <legend>Add an image file</legend>
-	<input type="hidden" name="sent" value="1" />
-	<input type="file" name="imgFile" size="25" value="" />
-	<input type="submit" name="upload" value="Upload" />
+    <input type="hidden" name="sent" value="1" />
+    <input type="file" name="imgFile" size="25" value="" />
+    <input type="submit" name="upload" value="Upload" />
 </fieldset>
 </form>
 <?php
