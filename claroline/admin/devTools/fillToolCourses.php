@@ -475,9 +475,9 @@ function fill_tool_in_course($course_code,$tool_label)
                         $sqlAddWork = "INSERT INTO `" . $tbl_wrk_submission . "`
                                    SET `assignment_id` = " . (int) $lastAssigId . ","
                         ."`user_id` = " . (int) $user['user_id'] . ",
-                  				               `title` = '" . addslashes(lorem('words',rand(1,5))) ."',
-        						      `submitted_text` = '" . addslashes(lorem('paragraphs',rand(1,3))) . "',
-        							     `authors`     = '" . addslashes(lorem('words',rand(1,5))) . "',
+                                                 `title` = '" . addslashes(lorem('words',rand(1,5))) ."',
+                                      `submitted_text` = '" . addslashes(lorem('paragraphs',rand(1,3))) . "',
+                                         `authors`     = '" . addslashes(lorem('words',rand(1,5))) . "',
                                        `creation_date` = NOW(),
                                       `last_edit_date` = NOW()";
                         $thisSubmit = claro_sql_query_insert_id($sqlAddWork);
@@ -485,17 +485,17 @@ function fill_tool_in_course($course_code,$tool_label)
                         if(3 < rand(0,10))
                         {
                             $sqlAddWork = "INSERT INTO `" . $tbl_wrk_submission . "`
-        						SET `assignment_id` = ". (int) $lastAssigId.",
-        							`parent_id` = ". (int) $thisSubmit.",
+                                SET `assignment_id` = ". (int) $lastAssigId.",
+                                    `parent_id` = ". (int) $thisSubmit.",
                                     `user_id`= ". (int) $_uid.",
                                     `original_id`= ". (int) $user['user_id'].",
-        							`title`       = '" .  addslashes(lorem('words',rand(1,5))) ."',
-        							`submitted_text` = '". addslashes(lorem('paragraphs',rand(1,3)))."',
-        							`private_feedback` = '". addslashes(lorem('paragraphs',rand(1,2)))."',
-        							`authors`     = '" .  addslashes(lorem('words',rand(1,5))) . "',
-        							`score` = ". (int) rand(1,100) . ",
-        							`creation_date` = NOW(),
-        							`last_edit_date` = NOW()";
+                                    `title`       = '" .  addslashes(lorem('words',rand(1,5))) ."',
+                                    `submitted_text` = '". addslashes(lorem('paragraphs',rand(1,3)))."',
+                                    `private_feedback` = '". addslashes(lorem('paragraphs',rand(1,2)))."',
+                                    `authors`     = '" .  addslashes(lorem('words',rand(1,5))) . "',
+                                    `score` = ". (int) rand(1,100) . ",
+                                    `creation_date` = NOW(),
+                                    `last_edit_date` = NOW()";
                             claro_sql_query($sqlAddWork);
 
                         }
@@ -739,7 +739,7 @@ function get_total_category($course_id=NULL)
 {
     $crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $sql = "SELECT COUNT(cat_id) AS total
-	        FROM `" . $crsTableList['bb_categories'] . "`";
+            FROM `" . $crsTableList['bb_categories'] . "`";
 
     return claro_sql_query_get_single_value($sql);
 }
@@ -748,18 +748,18 @@ function get_total_forum($cat_id, $course_id=NULL)
 {
     $crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $sql = "SELECT COUNT(forum_id) AS total
-	        FROM `" . $crsTableList['bb_forums'] . "`
-	        WHERE cat_id = " . (int) $cat_id;
+            FROM `" . $crsTableList['bb_forums'] . "`
+            WHERE cat_id = " . (int) $cat_id;
 
     return claro_sql_query_get_single_value($sql);
 }
 function get_total_topics($forum_id, $course_id=NULL)
 {
 
-	$crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-	$sql = "SELECT COUNT(topic_id) AS total
-	        FROM `" . $crsTableList['bb_topics'] . "`
-	        WHERE forum_id = " . (int) $forum_id;
+    $crsTableList = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $sql = "SELECT COUNT(topic_id) AS total
+            FROM `" . $crsTableList['bb_topics'] . "`
+            WHERE forum_id = " . (int) $forum_id;
 
     return claro_sql_query_get_single_value($sql);
 }
