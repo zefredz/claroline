@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * 
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
@@ -387,7 +387,7 @@ function form_dir_list($file, $baseWorkDir)
 
 
 /**
- * create directory
+ * create directories path
  *
  * @param string  $pathname
  * @param int     $mode directory permission (optional)
