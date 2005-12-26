@@ -33,7 +33,7 @@ require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ("url"=>"../user/user.php", "name"=> get_lang('Users'));
 
 if( !empty($_REQUEST['uInfo']) )
-	$interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_REQUEST['uInfo'], "name"=> get_lang('User'));
+    $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_REQUEST['uInfo'], "name"=> get_lang('User'));
 
 $nameTools = get_lang('Statistics');
 
@@ -119,20 +119,20 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         }
 
         /*----------------------------------------------------------------------
-		   Pager
-		  ----------------------------------------------------------------------*/
-		if ( empty($_REQUEST['offset']) )	$offset = "0";
-		else 								$offset = $_REQUEST['offset'];
-		
-		$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
-		$userList = $myPager->get_result_list();
+           Pager
+          ----------------------------------------------------------------------*/
+        if ( empty($_REQUEST['offset']) )    $offset = "0";
+        else                                 $offset = $_REQUEST['offset'];
+        
+        $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+        $userList = $myPager->get_result_list();
 
-		$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+        $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
         /*----------------------------------------------------------------------
-		   Display user list
-		  ----------------------------------------------------------------------*/
-		echo '<table class="claroTable" width="100%" cellpadding="2" cellspacing="1" border="0">'."\n"
+           Display user list
+          ----------------------------------------------------------------------*/
+        echo '<table class="claroTable" width="100%" cellpadding="2" cellspacing="1" border="0">'."\n"
             .'<tr class="headerX" align="center" valign="top">'."\n"
             .'<th align="left">'.get_lang('UserName').'</th>'."\n"
             .'</tr>'."\n";
@@ -140,11 +140,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         foreach( $userList as $thisUser )
         {
             echo '<tr valign="top" align="center">'."\n"
-				.'<td align="left">'
-				.'<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$thisUser['user_id'].'">'
-				.$thisUser['nom'].' '.$thisUser['prenom']
-				.'</a>'
-				.'</td>'."\n";
+                .'<td align="left">'
+                .'<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$thisUser['user_id'].'">'
+                .$thisUser['nom'].' '.$thisUser['prenom']
+                .'</a>'
+                .'</td>'."\n";
         }
         echo '</table>'."\n";
 
@@ -152,7 +152,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
     else // if $_REQUEST['uInfo'] is set
     {
         if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
-		else							$view = "0000000";
+        else                            $view = "0000000";
         /***************************************************************************
          *              
          *        Informations about student uInfo
@@ -189,10 +189,10 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 .'<li>'.get_lang('LastName').' : '.$trackedUser['lastname'].'</li>'."\n"
                 .'<li>'.get_lang('FirstName').' : '.$trackedUser['firstname'].'</li>'."\n"
                 .'<li>'.get_lang('Email').' : ';
-			if( empty($trackedUser['email']) )	echo get_lang('NoEmail');
-			else 								echo $trackedUser['email'];
+            if( empty($trackedUser['email']) )    echo get_lang('NoEmail');
+            else                                 echo $trackedUser['email'];
 
-			echo '</li>'."\n"
+            echo '</li>'."\n"
                 .'</ul>'."\n"
                 .'</p>'."\n";
             
@@ -229,7 +229,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $results = claro_sql_query_fetch_all($sql);
 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-                	.'<tr class="headerX">'."\n"
+                    .'<tr class="headerX">'."\n"
                     .'<th>'.get_lang('LoginsTitleMonthColumn').'</th>'."\n"
                     .'<th>'.get_lang('LoginsTitleCountColumn').'</th>'."\n"
                     .'</tr>'."\n"
@@ -238,18 +238,18 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $total = 0;
                 if( !empty($results) && is_array($results) )
                 { 
-					foreach( $results as $result )
-	                {
-						echo '<tr>'."\n"
-							.'<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$result['unix_date'].'">'.$langMonthNames['long'][date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a></td>'."\n"
-							.'<td valign="top" align="right">'.$result['nbr_login'].'</td>'."\n"
-							.'</tr>'."\n";
-	                    $total = $total + $result['nbr_login'];
-	                }
-	                echo '</tbody>'."\n".'<tfoot>'."\n".'<tr>'."\n"
-	                    .'<td>'.get_lang('Total').'</td>'."\n"
-	                    .'<td align="right">'.$total.'</td>'."\n"
-	                    .'</tr>'."\n".'</tfoot>'."\n";
+                    foreach( $results as $result )
+                    {
+                        echo '<tr>'."\n"
+                            .'<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$result['unix_date'].'">'.$langMonthNames['long'][date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a></td>'."\n"
+                            .'<td valign="top" align="right">'.$result['nbr_login'].'</td>'."\n"
+                            .'</tr>'."\n";
+                        $total = $total + $result['nbr_login'];
+                    }
+                    echo '</tbody>'."\n".'<tfoot>'."\n".'<tr>'."\n"
+                        .'<td>'.get_lang('Total').'</td>'."\n"
+                        .'<td align="right">'.$total.'</td>'."\n"
+                        .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
                 {
@@ -258,7 +258,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n"
-					.'</td></tr>'."\n";
+                    .'</td></tr>'."\n";
             }
             else
             {
@@ -298,7 +298,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $results = claro_sql_query_fetch_all($sql);
                 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-                	.'<tr class="headerX">'."\n"
+                    .'<tr class="headerX">'."\n"
                     .'<th>'.get_lang('ExercisesTitleExerciseColumn').'</th>'."\n"
                     .'<th>'.get_lang('ScoreMin').'</th>'."\n"
                     .'<th>'.get_lang('ScoreMax').'</th>'."\n"
@@ -310,65 +310,65 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     
                 if( !empty($results) && is_array($results) )
                 {
-                	echo '<tbody>'."\n";
-					foreach( $results as $exo_details )
-					{
-						echo '<tr>'."\n"
-							.'<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['titre'].'</td>'."\n"
-							.'<td>'.$exo_details['minimum'].'</td>'."\n"
-							.'<td>'.$exo_details['maximum'].'</td>'."\n"
-							.'<td>'.(round($exo_details['average']*10)/10).'</td>'."\n"
-							.'<td>'.claro_disp_duration(floor($exo_details['avgTime'])).'</td>'."\n"
-							.'<td>'.$exo_details['attempts'].'</td>'."\n"
-							.'<td>'.$exo_details['lastAttempt'].'</td>'."\n"
-							.'</tr>'."\n";
+                    echo '<tbody>'."\n";
+                    foreach( $results as $exo_details )
+                    {
+                        echo '<tr>'."\n"
+                            .'<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['titre'].'</td>'."\n"
+                            .'<td>'.$exo_details['minimum'].'</td>'."\n"
+                            .'<td>'.$exo_details['maximum'].'</td>'."\n"
+                            .'<td>'.(round($exo_details['average']*10)/10).'</td>'."\n"
+                            .'<td>'.claro_disp_duration(floor($exo_details['avgTime'])).'</td>'."\n"
+                            .'<td>'.$exo_details['attempts'].'</td>'."\n"
+                            .'<td>'.$exo_details['lastAttempt'].'</td>'."\n"
+                            .'</tr>'."\n";
                               
-						// display details of the exercise, all attempts
-						if ( isset($_GET['exoDet']) && $_GET['exoDet'] == $exo_details['id'])
-						{
-							$sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
-									FROM `".$tbl_track_e_exercises."`
-									WHERE `exe_exo_id` = ". (int)$exo_details['id']."
-									AND `exe_user_id` = ". (int)$_GET['uInfo']."
-									ORDER BY `exe_date` ASC";
-							$resListAttempts = claro_sql_query_fetch_all($sql);
+                        // display details of the exercise, all attempts
+                        if ( isset($_GET['exoDet']) && $_GET['exoDet'] == $exo_details['id'])
+                        {
+                            $sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
+                                    FROM `".$tbl_track_e_exercises."`
+                                    WHERE `exe_exo_id` = ". (int)$exo_details['id']."
+                                    AND `exe_user_id` = ". (int)$_GET['uInfo']."
+                                    ORDER BY `exe_date` ASC";
+                            $resListAttempts = claro_sql_query_fetch_all($sql);
 
-							echo '<tr>'
-								.'<td class="noHover">&nbsp;</td>'."\n"
-								.'<td colspan="6" class="noHover">'."\n"
-								.'<table class="claroTable" cellspacing="1" cellpadding="2" border="0" width="100%">'."\n"
-								.'<tr class="headerX">'."\n"
-								.'<th><small>'.get_lang('Date').'</small></th>'."\n"
-								.'<th><small>'.get_lang('Score').'</small></th>'."\n"
-								.'<th><small>'.get_lang('ExeTime').'</small></th>'."\n"
-								.'</tr>'."\n"
-								.'<tbody>'."\n";
+                            echo '<tr>'
+                                .'<td class="noHover">&nbsp;</td>'."\n"
+                                .'<td colspan="6" class="noHover">'."\n"
+                                .'<table class="claroTable" cellspacing="1" cellpadding="2" border="0" width="100%">'."\n"
+                                .'<tr class="headerX">'."\n"
+                                .'<th><small>'.get_lang('Date').'</small></th>'."\n"
+                                .'<th><small>'.get_lang('Score').'</small></th>'."\n"
+                                .'<th><small>'.get_lang('ExeTime').'</small></th>'."\n"
+                                .'</tr>'."\n"
+                                .'<tbody>'."\n";
 
-							foreach ( $resListAttempts as $exo_attempt )
-							{
-								echo '<tr>'."\n"
-								.'<td><small><a href="user_exercise_details.php?track_id='.$exo_attempt['exe_id'].'">'.$exo_attempt['exe_date'].'</a></small></td>'."\n"
-								.'<td><small>'.$exo_attempt['exe_result'].'/'.$exo_attempt['exe_weighting'].'</small></td>'."\n"
-								.'<td><small>'.claro_disp_duration($exo_attempt['exe_time']).'</small></td>'."\n"
-								.'</tr>'."\n";
-							}
-							echo '</tbody>'."\n".'</table>'."\n\n"
-								.'</td>'."\n"
-								.'</tr>'."\n";
+                            foreach ( $resListAttempts as $exo_attempt )
+                            {
+                                echo '<tr>'."\n"
+                                .'<td><small><a href="user_exercise_details.php?track_id='.$exo_attempt['exe_id'].'">'.$exo_attempt['exe_date'].'</a></small></td>'."\n"
+                                .'<td><small>'.$exo_attempt['exe_result'].'/'.$exo_attempt['exe_weighting'].'</small></td>'."\n"
+                                .'<td><small>'.claro_disp_duration($exo_attempt['exe_time']).'</small></td>'."\n"
+                                .'</tr>'."\n";
+                            }
+                            echo '</tbody>'."\n".'</table>'."\n\n"
+                                .'</td>'."\n"
+                                .'</tr>'."\n";
 
-						}
+                        }
                       
-					}
-					echo '</tbody>'."\n";
+                    }
+                    echo '</tbody>'."\n";
                 }
-				else
+                else
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
                           .'<td colspan="7" align="center">'.get_lang('NoResult').'</td>'."\n"
                           .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n\n"
-                	.'</td>'."\n".'</tr>'."\n";
+                    .'</td>'."\n".'</tr>'."\n";
 
             }
             else
@@ -395,8 +395,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 // get list of learning paths of this course
                 // list available learning paths
                 $sql = "SELECT LP.`name`, LP.`learnPath_id`
-						 FROM `".$TABLELEARNPATH."` AS LP
-						 ORDER BY LP.`rank`";
+                         FROM `".$TABLELEARNPATH."` AS LP
+                         ORDER BY LP.`rank`";
               
                 $lpList = claro_sql_query_fetch_all($sql);
 
@@ -409,8 +409,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 if(sizeof($lpList) == 0)
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-						.'<td colspan="3" align="center">'.get_lang('NoLearningPath').'</td>'."\n"
-						.'</tr>'."\n".'</tfoot>'."\n";
+                        .'<td colspan="3" align="center">'.get_lang('NoLearningPath').'</td>'."\n"
+                        .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 else
                 {
@@ -423,16 +423,16 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                       
                       $lpProgress = get_learnPath_progress($lpDetails['learnPath_id'],$_GET['uInfo']);
                       echo "\n".'<tr>'."\n"
-	                      .'<td><a href="lp_modules_details.php?uInfo='.$_GET['uInfo'].'&path_id='.$lpDetails['learnPath_id'].'">'.htmlspecialchars($lpDetails['name']).'</a></td>'."\n"
-	                      .'<td align="right">'."\n"
-	                      .claro_disp_progress_bar($lpProgress, 1)
-	                      .'</td>'."\n"
-	                      .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
-	                      .'</tr>'."\n";
+                          .'<td><a href="lp_modules_details.php?uInfo='.$_GET['uInfo'].'&path_id='.$lpDetails['learnPath_id'].'">'.htmlspecialchars($lpDetails['name']).'</a></td>'."\n"
+                          .'<td align="right">'."\n"
+                          .claro_disp_progress_bar($lpProgress, 1)
+                          .'</td>'."\n"
+                          .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
+                          .'</tr>'."\n";
                   }
                 }
                 echo '</table>'."\n"
-                	.'</td>'."\n".'</tr>'."\n";
+                    .'</td>'."\n".'</tr>'."\n";
             }
             else
             {
@@ -595,9 +595,9 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $results = claro_sql_query_fetch_all($sql);
                 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-                	.'<tr class="headerX">'."\n"
-					.'<th>'.get_lang('DocumentsTitleDocumentColumn').'</th>'."\n"
-					.'</tr>'."\n";
+                    .'<tr class="headerX">'."\n"
+                    .'<th>'.get_lang('DocumentsTitleDocumentColumn').'</th>'."\n"
+                    .'</tr>'."\n";
                 if( !empty($results) && is_array($results) )
                 { 
                     echo '<tbody>'."\n";
@@ -672,19 +672,19 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 $results = claro_sql_query_fetch_all($sql);
 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-					.'<tr class="headerX">'."\n"
-					.'<th>'.get_lang('topic').'</th>'."\n"
-					.'<th>'.get_lang('LastMsg').'</th>'."\n"
-					.'</tr>'."\n";
+                    .'<tr class="headerX">'."\n"
+                    .'<th>'.get_lang('topic').'</th>'."\n"
+                    .'<th>'.get_lang('LastMsg').'</th>'."\n"
+                    .'</tr>'."\n";
                 if( !empty($results) && is_array($results) )
                 {
                     echo '<tbody>'."\n";
                     foreach( $results as $result )
                     {
-						echo '<tr>'."\n"
-							.'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
-							.'<td>'.$result['last_message'].'</td>'."\n"
-							.'</tr>'."\n";
+                        echo '<tr>'."\n"
+                            .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
+                            .'<td>'.$result['last_message'].'</td>'."\n"
+                            .'</tr>'."\n";
                     }
                     echo '</tbody>'."\n";
 
@@ -692,8 +692,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 else
                 {
                     echo '<tfoot>'."\n".'<tr>'."\n"
-	                    .'<td align="center">'.get_lang('NoResult').'</td>'."\n"
-	                    .'</tr>'."\n".'</tfoot>'."\n";
+                        .'<td align="center">'.get_lang('NoResult').'</td>'."\n"
+                        .'</tr>'."\n".'</tfoot>'."\n";
                 }
                 echo '</table>'."\n"
                     .'</li>'."\n".'</ul>';

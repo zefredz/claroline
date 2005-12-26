@@ -46,7 +46,7 @@ else
 
 if( $is_allowedToTrack && $is_trackingEnabled )
 {
-	// toolId is required, go to the tool list if it is missing
+    // toolId is required, go to the tool list if it is missing
     if( empty($_REQUEST['toolId']) ) 
     {
         header("Location: ./courseLog.php?view=0010000");
@@ -58,10 +58,10 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     }
     
 
-  	if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
-    	$reqdate = time();  // default value
-	else
-	    $reqdate = (int)$_REQUEST['reqdate'];
+      if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
+        $reqdate = time();  // default value
+    else
+        $reqdate = (int)$_REQUEST['reqdate'];
 
     if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
     else                                $period = "day"; // default value
@@ -70,20 +70,20 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     $sql = "SELECT `access_tlabel` as `label`
             FROM `".$TABLETRACK_ACCESS."`
             WHERE `access_tid` = ". (int)$toolId ."
-			GROUP BY `access_tid`" ;
+            GROUP BY `access_tid`" ;
 
     $result = claro_sql_query_fetch_all($sql);
     
     include($includePath."/claro_init_header.inc.php");
-	$title['mainTitle'] = $nameTools;
-	
-	if( isset($result[0]['label']) )
-		if( isset($toolNameList[$result[0]['label']]) )
-			$title['subTitle'] = $toolNameList[$result[0]['label']];
+    $title['mainTitle'] = $nameTools;
+    
+    if( isset($result[0]['label']) )
+        if( isset($toolNameList[$result[0]['label']]) )
+            $title['subTitle'] = $toolNameList[$result[0]['label']];
 
-	echo claro_disp_tool_title( $title );
+    echo claro_disp_tool_title( $title );
 
-	echo '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n";
+    echo '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n";
 
 
     /* ------ display ------ */
@@ -111,12 +111,12 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     echo '</td>'."\n".'</tr>'."\n";
     // periode choice
     echo '<tr>'."\n"
-		.'<td>'."\n"
-		.'<small>'."\n"
-		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('PeriodDay').'</a>]'."\n"
-		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('PeriodWeek').'</a>]'."\n"
-		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('PeriodMonth').'</a>]'."\n"
-		.'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
+        .'<td>'."\n"
+        .'<small>'."\n"
+        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('PeriodDay').'</a>]'."\n"
+        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('PeriodWeek').'</a>]'."\n"
+        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('PeriodMonth').'</a>]'."\n"
+        .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
 
     switch($period)
     {
@@ -145,10 +145,10 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     }
     
     echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-		.'[<a href="./courseLog.php?view=0010000">'.get_lang('ViewToolList').'</a>]'."\n"
-		.'</small>'."\n"
-		.'</td>'."\n"
-		.'</tr>'."\n"."\n";
+        .'[<a href="./courseLog.php?view=0010000">'.get_lang('ViewToolList').'</a>]'."\n"
+        .'</small>'."\n"
+        .'</td>'."\n"
+        .'</tr>'."\n"."\n";
     // display information about this period
     switch($period)
     {

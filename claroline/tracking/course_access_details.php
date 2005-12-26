@@ -5,7 +5,7 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
-      |   Authors : see CREDITS.txt	
+      |   Authors : see CREDITS.txt    
       +----------------------------------------------------------------------+
  */
  
@@ -26,9 +26,9 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 
 
 echo claro_disp_tool_title(
-	array(
-	'mainTitle'=>$nameTools,
-	)
+    array(
+    'mainTitle'=>$nameTools,
+    )
 );
 
 ?>
@@ -38,15 +38,15 @@ echo claro_disp_tool_title(
 if ( $is_trackingEnabled )
 {
     if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
-    	$reqdate = time();  // default value
-	else
-	    $reqdate = (int)$_REQUEST['reqdate'];
+        $reqdate = time();  // default value
+    else
+        $reqdate = (int)$_REQUEST['reqdate'];
 
     if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
     else                                $period = 'day'; // default value
 
     if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
-    else                                	$displayType = ''; // default value
+    else                                    $displayType = ''; // default value
     
     //** dislayed period
     echo '<tr>'."\n".'<td><b>';

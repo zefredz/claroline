@@ -45,7 +45,7 @@ $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
 $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-$TABLECOURSUSER	        = $tbl_rel_course_user;
+$TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
 include($includePath."/claro_init_header.inc.php");
@@ -65,16 +65,16 @@ if ( $is_trackingEnabled )
     // display a list of user and their respective progress
     
     $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
-          FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."`	 AS CU
+          FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."`     AS CU
           WHERE U.`user_id`= CU.`user_id`
            AND CU.`code_cours` = '". addslashes($_cid) ."'";
     $usersList = claro_sql_query_fetch_all($sql);
     
     // display tab header
     echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
-    	.'<tr class="headerX" align="center" valign="top">'."\n"
-		.'<th>'.get_lang('Student').'</th>'."\n"
-		.'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
+        .'<tr class="headerX" align="center" valign="top">'."\n"
+        .'<th>'.get_lang('Student').'</th>'."\n"
+        .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
         .'</tr>'."\n\n"
         .'<tbody>'."\n\n";
     
@@ -82,43 +82,43 @@ if ( $is_trackingEnabled )
     // display tab content
     foreach ( $usersList as $user )
     {
-		// list available learning paths
-		$sql = "SELECT LP.`learnPath_id`
-		         FROM `".$tbl_lp_learnPath."` AS LP";
+        // list available learning paths
+        $sql = "SELECT LP.`learnPath_id`
+                 FROM `".$tbl_lp_learnPath."` AS LP";
 
-		$learningPathList = claro_sql_query_fetch_all($sql);
+        $learningPathList = claro_sql_query_fetch_all($sql);
 
-		$iterator = 1;
-		$globalprog = 0;
+        $iterator = 1;
+        $globalprog = 0;
 
-		foreach( $learningPathList as $learningPath )
-		{
-			// % progress
-			$prog = get_learnPath_progress($learningPath['learnPath_id'], $user['user_id']);
+        foreach( $learningPathList as $learningPath )
+        {
+            // % progress
+            $prog = get_learnPath_progress($learningPath['learnPath_id'], $user['user_id']);
 
-			if ($prog >= 0)
-			{
-			    $globalprog += $prog;
-			}
-			$iterator++;
-		}
+            if ($prog >= 0)
+            {
+                $globalprog += $prog;
+            }
+            $iterator++;
+        }
 
 
-		if( $iterator == 1 )
-		{
-			echo '<tr><td align="center" colspan="8">'.get_lang('NoLearningPath').'</td></tr>'."\n\n";
-		}
-		else
-		{
-			$total = round($globalprog/($iterator-1));
-			echo '<tr>'."\n"
-				.'<td><a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
-				.'<td align="right">'
+        if( $iterator == 1 )
+        {
+            echo '<tr><td align="center" colspan="8">'.get_lang('NoLearningPath').'</td></tr>'."\n\n";
+        }
+        else
+        {
+            $total = round($globalprog/($iterator-1));
+            echo '<tr>'."\n"
+                .'<td><a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+                .'<td align="right">'
                 .claro_disp_progress_bar($total, 1)
-				.'</td>'."\n"
-			   	.'<td align="left"><small>'.$total.'%</small></td>'."\n"
-				.'</tr>'."\n\n";
-		}
+                .'</td>'."\n"
+                   .'<td align="left"><small>'.$total.'%</small></td>'."\n"
+                .'</tr>'."\n\n";
+        }
 
     }
     

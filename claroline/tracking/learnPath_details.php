@@ -25,8 +25,8 @@ if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed')) ;
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) )
 {
-	header("Location: ../learnPath/learningPathList.php");
-	exit();
+    header("Location: ../learnPath/learningPathList.php");
+    exit();
 }
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
@@ -54,7 +54,7 @@ $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
 $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-$TABLECOURSUSER	        = $tbl_rel_course_user;
+$TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
 include($includePath.'/lib/statsUtils.lib.inc.php');
@@ -94,10 +94,10 @@ if ( $is_trackingEnabled )
 
             // display tab header
             echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
-           		.'<tr class="headerX" align="center" valign="top">'."\n"
-				.'<th>'.get_lang('Student').'</th>'."\n"
-				.'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
-				.'</tr>'."\n\n"
+                   .'<tr class="headerX" align="center" valign="top">'."\n"
+                .'<th>'.get_lang('Student').'</th>'."\n"
+                .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
+                .'</tr>'."\n\n"
                 .'<tbody>'."\n\n";
 
             // display tab content
@@ -105,10 +105,10 @@ if ( $is_trackingEnabled )
             {
                 $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
                 echo '<tr>'."\n"
-					.'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+                    .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                     .'<td align="right">'
                     .claro_disp_progress_bar($lpProgress, 1)
-              	    .'</td>'."\n"
+                      .'</td>'."\n"
                     .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
                     .'</tr>'."\n\n";
             }
