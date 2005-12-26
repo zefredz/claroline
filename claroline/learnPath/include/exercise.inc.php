@@ -16,17 +16,17 @@
 
 if( isset($cmd) && $cmd = "raw" )
 {
-	// change raw if value is a number between 0 and 100
-	if (isset($_POST['newRaw']) && is_num($_POST['newRaw']) && $_POST['newRaw'] <= 100 && $_POST['newRaw'] >= 0 )
-	{
-		$sql = "UPDATE `".$TABLELEARNPATHMODULE."`
-				SET `raw_to_pass` = ". (int)$_POST['newRaw']."
-				WHERE `module_id` = ". (int)$_SESSION['module_id']."
-				AND `learnPath_id` = ". (int)$_SESSION['path_id'];
-		claro_sql_query($sql);
+    // change raw if value is a number between 0 and 100
+    if (isset($_POST['newRaw']) && is_num($_POST['newRaw']) && $_POST['newRaw'] <= 100 && $_POST['newRaw'] >= 0 )
+    {
+        $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
+                SET `raw_to_pass` = ". (int)$_POST['newRaw']."
+                WHERE `module_id` = ". (int)$_SESSION['module_id']."
+                AND `learnPath_id` = ". (int)$_SESSION['path_id'];
+        claro_sql_query($sql);
 
-		$dialogBox = get_lang('RawHasBeenChanged');
-	}
+        $dialogBox = get_lang('RawHasBeenChanged');
+    }
 }
 
 
@@ -37,7 +37,7 @@ echo '<hr noshade="noshade" size="1" />';
 //####################################################################################\\
 if( !empty($dialogBox) )
 {
-	echo claro_disp_message_box($dialogBox);
+    echo claro_disp_message_box($dialogBox);
 }
 
 // form to change raw needed to pass the exercise
@@ -50,15 +50,15 @@ $learningPath_module = claro_sql_query_get_single_row($sql);
 
 // if this module blocks the user if he doesn't complete
 if( isset($learningPath_module['lock'])
-	&& $learningPath_module['lock'] == 'CLOSE'
-	&& isset($learningPath_module['raw_to_pass']) )
+    && $learningPath_module['lock'] == 'CLOSE'
+    && isset($learningPath_module['raw_to_pass']) )
 {
-	echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-		.'<label for="newRaw">'.get_lang('ChangeRaw').'</label>'."\n"
-		.'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
-		.'<input type="hidden" name="cmd" value="raw" />'."\n"
-		.'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
-		.'</form>'."\n\n";
+    echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n"
+        .'<label for="newRaw">'.get_lang('ChangeRaw').'</label>'."\n"
+        .'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
+        .'<input type="hidden" name="cmd" value="raw" />'."\n"
+        .'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
+        .'</form>'."\n\n";
 }
 
 // display current exercise info and change comment link
@@ -73,13 +73,13 @@ $sql = "SELECT `E`.`id` AS `exerciseId`, `M`.`name`
 $module = claro_sql_query_get_single_row($sql);
 if( $module )
 {
-	echo "\n\n".'<h4>'.get_lang('ExerciseInModule').' :</h4>'."\n"
-		.'<p>'."\n"
-		.htmlspecialchars($module['name'])
-		.'<a href="../exercice/admin.php?exerciseId='.$module['exerciseId'].'">'
-		.'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
-		.'</a>'."\n"
-		.'</p>'."\n";
+    echo "\n\n".'<h4>'.get_lang('ExerciseInModule').' :</h4>'."\n"
+        .'<p>'."\n"
+        .htmlspecialchars($module['name'])
+        .'<a href="../exercice/admin.php?exerciseId='.$module['exerciseId'].'">'
+        .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+        .'</a>'."\n"
+        .'</p>'."\n";
 } // else sql error, do nothing except in debug mode, where claro_sql_query_fetch_all will show the error
 
 
