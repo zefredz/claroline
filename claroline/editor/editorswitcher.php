@@ -1,21 +1,28 @@
-<?php # -$Id$
+<?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * Filler for tools in course
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ */
 
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-// This script allows to switch on the fly the wysiwyg editor. It retrieves the 
-// source url  and the textarea content, and after storing in session a value 
-// disabling the wysiwyg editor, it trigs a relocation to the source page with 
-// the area content.
+/**
+ * This script allows to switch on the fly the wysiwyg editor. It retrieves the 
+ * source url  and the textarea content, and after storing in session a value 
+ * disabling the wysiwyg editor, it trigs a relocation to the source page with 
+ * the area content.
+ */
 
 require '../inc/claro_init_global.inc.php';
 
@@ -57,7 +64,7 @@ function html2txt($content)
 
     foreach($ruleList as $pattern => $replace)
     {
-    	$content = preg_replace('|'.$pattern.'|i', $replace , $content);
+        $content = preg_replace('|'.$pattern.'|i', $replace , $content);
     }
 
     return strip_tags($content);
