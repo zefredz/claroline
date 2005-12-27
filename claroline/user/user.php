@@ -4,7 +4,7 @@
  *
  * This tool list user member of the course.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -32,11 +32,14 @@ claro_set_display_mode_available(true);
    Include Library
   ----------------------------------------------------------------------*/
 
-include($includePath  . '/lib/admin.lib.inc.php');
-include($includePath  . '/lib/user.lib.php');
-include($includePath  . '/conf/user_profile.conf.php');
-include($includePath  . '/lib/pager.lib.php');
-@include($includePath . '/lib/debug.lib.inc.php');
+include $includePath  . '/lib/admin.lib.inc.php';
+include $includePath  . '/lib/user.lib.php';
+include $includePath  . '/lib/pager.lib.php';
+
+/*----------------------------------------------------------------------
+   Load config
+  ----------------------------------------------------------------------*/
+include $includePath  . '/conf/user_profile.conf.php';
 
 /*----------------------------------------------------------------------
   Stats
@@ -91,22 +94,33 @@ $tbl_courses_users   = $tbl_rel_course_user;
 $tbl_rel_users_groups= $tbl_cdb_names['group_rel_team_user'    ];
 $tbl_groups          = $tbl_cdb_names['group_team'             ];
 
+/*----------------------------------------------------------------------
+  Filter data
+  ----------------------------------------------------------------------*/
+
+$cmd = ( isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '');
+$offset = (int) isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
+
+if (isset($_REQUEST['user_id']))
+{
+    if ($_REQUEST['user_id'] == 'allStudent'
+                    &&  $cmd == 'unregister' ) $req['user_id'] = 'allStudent';
+    elseif ( 0 < (int) $_REQUEST['user_id'] )  $req['user_id'] = (int) $_REQUEST['user_id'];
+    else                                       $req['user_id'] = false;
+}
 /*=====================================================================
   Main section
   =====================================================================*/
 
 $disp_tool_link = FALSE;
 
-$cmd = ( isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '');
-
 if ( $is_allowedToEdit )
 {
     $disp_tool_link = TRUE;
 
-    if ( $cmd == 'register')
+    if ( $cmd == 'register' && $req['user_id'])
     {
-        $user_id   = $_REQUEST['user_id'];
-        $done = user_add_to_course($user_id, $_cid);
+        $done = user_add_to_course($req['user_id'], $_cid);
         if ($done)
         {
             $dialogBox = get_lang('UserRegisteredToCourse');
@@ -118,7 +132,7 @@ if ( $is_allowedToEdit )
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
 
-        if ($_REQUEST['user_id'] == 'allStudent')
+        if ('allStudent' == $req['user_id'])
         {
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
                     WHERE `code_cours` = '" . addslashes($currentCourseID) . "'
@@ -126,12 +140,12 @@ if ( $is_allowedToEdit )
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
-            $dialogBox .= sprintf(get_lang('_p_d_StudentUnregistredFormCours'),$unregisterdUserCount);
+            $dialogBox .= sprintf(get_lang('_p_d_StudentUnregistredFormCours'), $unregisterdUserCount);
         }
-        elseif ( 0 < (int)$_REQUEST['user_id'] )
+        elseif ( 0 < (int)  $req['user_id'] )
         {
             // delete user from course user list
-            if ( user_remove_from_course( $_REQUEST['user_id'], $_cid) )
+            if ( user_remove_from_course(  $req['user_id'], $_cid) )
             {
                $dialogBox .= get_lang('UserUnsubscribedFromCourse');
             }
@@ -165,7 +179,7 @@ $sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`,
                WHERE `user`.`user_id`=`cours_user`.`user_id`
                AND   `cours_user`.`code_cours`="'. addslashes($currentCourseID) .'"';
 
-$offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
+
 
 $myPager     = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 
@@ -182,7 +196,6 @@ $defaultSortKeyList = array ('cours_user.statut' => SORT_ASC,
 foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 {
     $myPager->add_sort_key( $thisSortKey, $thisSortDir);
-
 }
 
 $userList    = $myPager->get_result_list();
@@ -233,15 +246,12 @@ $nameTools = get_lang('Users');
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title($nameTools.' ('.get_lang('UserNumber').' : '.$userTotalNb.')',
+echo claro_disp_tool_title($nameTools . ' (' . get_lang('UserNumber') . ' : ' . $userTotalNb . ')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) )
-{
-    echo claro_disp_message_box($dialogBox);
-}
+if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 // Display tool links
 
@@ -296,18 +306,18 @@ echo '<table class="claroTable emphaseLine" '
 
     if($is_allowedToEdit)
     {
-        echo '<colgroup span="2"></colgroup>'."\n"
-           . '<colgroup span="2" width="0" ></colgroup>'."\n"
-           ;
+        echo '<colgroup span="2"></colgroup>' . "\n"
+        .    '<colgroup span="2" width="0" ></colgroup>' . "\n"
+        ;
     }
 
-    echo '<thead>'."\n"
-       . '<tr class="headerX" align="center" valign="top">'."\n"
-       . '<th scope="col" id="lastname"><a href="'.$sortUrlList['nom'].'">'.get_lang('LastName').'</a></th>'."\n"
-       . '<th scope="col" id="firstname"><a href="'.$sortUrlList['prenom'].'">'.get_lang('FirstName').'</a></th>'."\n"
-       . '<th scope="col" id="role"><a href="'.$sortUrlList['role'].'">'.get_lang('Role').'</a></th>'."\n"
-       . '<th scope="col" id="team">'.get_lang('Group').'</th>'."\n"
-       ;
+    echo '<thead>' . "\n"
+    .    '<tr class="headerX" align="center" valign="top">'."\n"
+    .    '<th scope="col" id="lastname"><a href="' . $sortUrlList['nom'] . '">' . get_lang('LastName') . '</a></th>' . "\n"
+    .    '<th scope="col" id="firstname"><a href="' . $sortUrlList['prenom'] . '">' . get_lang('FirstName') . '</a></th>'."\n"
+    .    '<th scope="col" id="role"><a href="' . $sortUrlList['role'] . '">' . get_lang('Role') . '</a></th>'."\n"
+    .    '<th scope="col" id="team">' . get_lang('Group') . '</th>'."\n"
+    ;
 
     if($is_allowedToEdit) // EDIT COMMANDS
     {
@@ -352,7 +362,7 @@ foreach ( $userList as $thisUser )
     {
         echo ucfirst(strtolower($thisUser['nom']));
     }
-    
+
     echo '</td>';
 
     echo '<td align="left">'.$thisUser['prenom'].'</td>';
