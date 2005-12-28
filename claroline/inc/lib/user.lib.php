@@ -700,7 +700,7 @@ function user_remove_from_course($user_id, $course_code,$force_it=false)
     }
 
     $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-            WHERE user_id = '" . (int)$user_id . "'
+            WHERE user_id = " . (int) $user_id . "
               AND code_cours = '" . addslashes($course_code) . "'";
 
     if ( claro_sql_query($sql) )
@@ -729,7 +729,7 @@ function user_remove_from_group($user_id, $course_code)
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
 
     $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
-            WHERE user = '" . (int)$user_id . "'";
+            WHERE user = " . (int) $user_id;
 
     claro_sql_query($sql);
 
@@ -757,24 +757,20 @@ function user_send_registration_mail ($user_id, $data)
 
         // email body
         $emailBody = get_lang('Dear') . ' ' . $data['firstname'] . ' ' . $data['lastname'] . ',' . "\n"
-                    . get_lang('YouAreReg') . ' ' . $siteName . ' ' . get_lang('Settings') . ' ' . $data['username'] . "\n"
-                    . get_lang('Password') . ' : ' . $data['password'] . "\n"
-                    . get_lang('Address') . ' ' . $siteName . ' ' . get_lang('Is') . ' : ' . $rootWeb . "\n"
-                    . get_lang('Problem') . "\n"
-                    . get_lang('Formula') . ',' . "\n"
-                    . $administrator_name . "\n"
-                    . get_lang('Manager') . ' ' . $siteName . "\n"
-                    . 'T. ' . $administrator_phone . "\n"
-                    . get_lang('Email') . ' : ' . $administrator_email . "\n";
+        .            get_lang('YouAreReg') . ' ' . $siteName . ' '
+        .            get_lang('Settings') . ' ' . $data['username'] . "\n"
+        .            get_lang('Password') . ' : ' . $data['password'] . "\n"
+        .            get_lang('Address') . ' ' . $siteName . ' '
+        .            get_lang('Is') . ' : ' . $rootWeb . "\n"
+        .            get_lang('Problem') . "\n"
+        .            get_lang('Formula') . ',' . "\n"
+        .            $administrator_name . "\n"
+        .            get_lang('Manager') . ' ' . $siteName . "\n"
+        .            'T. ' . $administrator_phone . "\n"
+        .            get_lang('Email') . ' : ' . $administrator_email . "\n";
 
-        if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
+        else                                                        return false;
     }
     else
     {
@@ -802,29 +798,26 @@ function user_send_enroll_to_course_mail ($user_id, $data)
         $emailSubject  = '[' . $siteName . '] ' . get_lang('YourReg') ;
 
         // Send message
-        $emailBody = get_lang('Dear') . " %s %s ,\n"
-                    . get_lang('OneResp'). $_course['officialCode'] . get_lang('RegYou') . " " . $siteName . " " . get_lang('Settings') . " %s\n"
-                    . get_lang('Address') . " " . $siteName . " " . get_lang('Is'). ": $rootWeb\n"
-                    . get_lang('Problem') . "\n"
-                    . "\n"
-                    . get_lang('Formula') . ",\n"
-                    . get_lang('Administrator') . " $administrator_name \n"
-                    . get_lang('Manager') . " $siteName\n";
+        $emailBody = get_lang('Dear') . ' %s %s ,' . "\n"
+        .            get_lang('OneResp') . $_course['officialCode']
+        .            get_lang('RegYou') . ' ' . $siteName . ' '
+        .            get_lang('Settings') . ' %s' . "\n"
+        .            get_lang('Address') . ' ' . $siteName . ' '
+        .            get_lang('Is'). ': ' . $rootWeb . "\n"
+        .            get_lang('Problem') . "\n" . "\n"
+        .            get_lang('Formula') . ', ' . "\n"
+        .            get_lang('Administrator') . ' ' . $administrator_name . "\n"
+        .            get_lang('Manager') . ' ' . $siteName . "\n";
 
         $emailBody = sprintf($emailBody,$data['firstname'],$data['lastname'], $data['email']);
 
-        if ( ! empty($administrator_phone) ) $emailBody .= "T. $administrator_phone \n";
+        if ( ! empty($administrator_phone) ) $emailBody .= 'T. ' . $administrator_phone . ' ' . "\n";
 
-        $emailBody .= get_lang('Email') . ": $administrator_email \n";
+        $emailBody .= get_lang('Email') . ': ' . $administrator_email . ' ' . "\n";
 
-        if ( claro_mail_user($user_id, $emailBody, $emailSubject) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
+        else                                                        return false;
+
     }
     else
     {
@@ -876,7 +869,6 @@ function user_validate_form_registration($data)
     {
         if ( ! is_username_available($data['username']) )
         {
-            $error = true;
             $messageList[] = claro_failure::get_last_failure();
         }
     }
@@ -884,7 +876,6 @@ function user_validate_form_registration($data)
     // check if the two password are identical
     if ( $data['password_conf']  != $data['password']  )
     {
-        $error = true;
         $messageList[] = get_lang('PassTwice') ;
     }
 
@@ -899,7 +890,6 @@ function user_validate_form_registration($data)
                                                  $data['email'] ))
             )
         {
-            $error = true;
             if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
                 $messageList[] = get_lang('PassTooEasy') . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
 
@@ -911,7 +901,6 @@ function user_validate_form_registration($data)
     {
         if ( ! is_valid_email($data['email']) )
         {
-            $error = true;
             $messageList[] = claro_failure::get_last_failure();
         }
     }
@@ -959,7 +948,6 @@ function user_validate_form_profile($data,$user_id)
     {
         if ( ! is_username_available($data['username'],$user_id) )
         {
-            $error = true;
             $messageList[] = claro_failure::get_last_failure();
         }
     }
@@ -967,7 +955,6 @@ function user_validate_form_profile($data,$user_id)
     // check if the two password are identical
     if ( $data['password_conf'] != $data['password']  )
     {
-        $error = true;
         $messageList[] = get_lang('PassTwice') ;
     }
     else
@@ -983,7 +970,6 @@ function user_validate_form_profile($data,$user_id)
                                                      $data['email'] ))
                 )
             {
-                $error = true;
                 if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
                     $messageList[] =  get_lang('PassTooEasy')  . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
             }
@@ -995,7 +981,6 @@ function user_validate_form_profile($data,$user_id)
     {
         if ( ! is_valid_email($data['email']) )
         {
-            $error = true;
             $messageList[] = claro_failure::get_last_failure();
         }
     }
@@ -1206,7 +1191,7 @@ function user_display_form($data, $form_type='registration')
 
     // hidden fields
     echo '<input type="hidden" name="cmd" value="registration" />' . "\n"
-        . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
+    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
 
     // table begin
     echo '<table cellpadding="3" cellspacing="0" border="0">' . "\n";
@@ -1267,8 +1252,8 @@ function user_display_form($data, $form_type='registration')
             . '</tr>' . "\n";
     }
 
-    if ( isset($data['authsource']) && 
-         ( strtolower($data['authsource']) != 'claroline' && strtolower($data['authsource']) != 'clarocrypt' ) 
+    if ( isset($data['authsource']) &&
+         ( strtolower($data['authsource']) != 'claroline' && strtolower($data['authsource']) != 'clarocrypt' )
         && $form_type == 'profile' )
     {
         // disable modification of username and password with external autentication
@@ -1287,7 +1272,7 @@ function user_display_form($data, $form_type='registration')
                 . '<td>&nbsp;</td>' . "\n"
                 . '<td><small>(' . get_lang('ChangePwdexp') . ')</small></td>' . "\n"
                 . '</tr>' . "\n" ;
-            
+
             $required_password = false;
         }
         else
@@ -1310,7 +1295,7 @@ function user_display_form($data, $form_type='registration')
             $required_password = true;
         }
 
-        if ( $required_password ) 
+        if ( $required_password )
         {
             $password_label = required_field(get_lang('Password'));
         }
