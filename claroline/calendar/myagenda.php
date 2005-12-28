@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  *    This file generates a general agenda of all items of the courses
  *    the user is registered for.
@@ -8,11 +8,11 @@
  *    Based on the master-calendar code of Eric Remy (6 Oct 2003)
  *    adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLCAL
  *
@@ -30,7 +30,7 @@ require '../inc/claro_init_global.inc.php';
 // check access
 if ( ! $_uid ) claro_disp_auth_form();
 
-require_once($includePath . '/lib/agenda.lib.php');
+require_once $includePath . '/lib/agenda.lib.php';
 
 $nameTools = get_lang('MyAgenda');
 
@@ -41,13 +41,16 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
 // Main
 
-$sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
-               cours.intitule title, cours.titulaires t, 
-               cours.dbName db, cours.directory dir
+$sql = "SELECT cours.code sysCode,
+               cours.fake_code officialCode,
+               cours.intitule title,
+               cours.titulaires t,
+               cours.dbName db,
+               cours.directory dir
         FROM    `" . $tbl_course . "`     cours,
                 `" . $tbl_rel_course_user . "` cours_user
         WHERE cours.code         = cours_user.code_cours
-        AND   cours_user.user_id = '" . (int) $_uid . "'";
+        AND   cours_user.user_id = " . (int) $_uid ;
 
 $userCourseList = claro_sql_query_fetch_all($sql);
 
@@ -66,7 +69,7 @@ $monthName = $langMonthNames['long'][$month-1];
 // Display
 
 // Header
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
 
 // Display Calendar
