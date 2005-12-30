@@ -1,84 +1,90 @@
 <?php // $Id$
-/**
+/******************************************************************************
  * CLAROLINE
+ ******************************************************************************
+ * Campus Home Page
  *
- * This is  the  home page of a campus
- *
- * @version 1.7 $Revision$
- *
+ * @version 1.8 $Revision$
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author claroline Team <cvs@claroline.net>
- *
+ * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
- *
- */
+ ******************************************************************************/
 
-unset($includePath);
+unset($includePath); // prevent hacking
 
-/* 
- * Flag forcing the 'current course' reset,
- * as we're not anymore inside a course 
- */
+// Flag forcing the 'current course' reset, as we're not anymore inside a course 
 
 $cidReset = TRUE;
 $tidReset = TRUE;
 
-/*
- * Include Library and configuration file
- */
+// Include Library and configuration file
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
-if (file_exists($includePath . '/conf/CLHOME.conf.php'))
-{
-    require $includePath . '/conf/CLHOME.conf.php'; // conf file
-}
-else 
-{
-    // Perhapas  it's better to add here a die("Upgrade your campus");
-}
+require $includePath . '/conf/CLHOME.conf.php'; // conf file
 
 // logout request : delete session data
 
 if (isset($_REQUEST['logout'])) session_destroy();
 
-/*
- * DB tables definition
- */
-
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_admin             = $tbl_mdb_names['admin'            ];
-$tbl_courses           = $tbl_mdb_names['course'           ];
-$tbl_link_user_courses = $tbl_mdb_names['rel_course_user'  ];
-$tbl_courses_nodes     = $tbl_mdb_names['category'         ];
-$tbl_user              = $tbl_mdb_names['user'             ];
-$tbl_trackLogin        = $tbl_mdb_names['track_e_login'    ];
-
-/*
- * CLAROLINE HEADER AND BANNER
- */
-
+// CLAROLINE HEADER AND BANNER
 require $includePath . '/claro_init_header.inc.php';
 
-if ( isset($_uid) )
-{
-    /*
-     * AUTHENTICATED USER SECTION
-     */
+?>
 
-    require $includePath . '/index_authenticated.inc.php';
+<table width="100%" border="0" cellpadding="4" >
+<tr>
+<td valign="top">
+
+<?php
+
+// INTRODUCTION MESSAGE IF NEEDED
+if ( file_exists('./textzone_top.inc.html') ) include './textzone_top.inc.html';
+
+if ($is_platformAdmin) // edit command
+{
+    echo '&nbsp;'
+    .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
+    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
+    .    '</a>' . "\n"
+    ;
 }
-else
-{
-    /*
-     * ANONYMOUS (DEFAULT) SECTION
-     */
 
+
+if ( isset($_uid) ) // AUTHENTICATED USER SECTION
+{
+    require $includePath . '/index_mycourses.inc.php';
+}
+else // ANONYMOUS (DEFAULT) SECTION
+{
     event_open();
-    require $includePath . '/index_anonymous.inc.php';
+    require $includePath . '/index_platformcourses.inc.php';
 }
+
+?>
+
+</td>
+
+<td width="200" valign="top" class="claroRightMenu">
+
+<?php
+if ( isset($_uid) ) // AUTHENTICATED USER SECTION
+{
+    require $includePath . '/index_mydigest.inc.php';
+}
+else // ANONYMOUS (DEFAULT) SECTION
+{
+    require $includePath . '/index_loginzone.inc.php';
+}
+
+if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.html';
+
+?>
+
+</td>
+</tr>
+</table>
+
+<?php
 
 /*
  * CLAROLINE FOOTER
