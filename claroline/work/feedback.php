@@ -99,6 +99,7 @@ if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
         }
         else
         {
+
             // add file extension if it doesn't have one
             $newFileName  = $_FILES['prefillDocPath']['name'];
             $newFileName .= add_extension_for_uploaded_file($_FILES['prefillDocPath']);
@@ -109,12 +110,14 @@ if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
             // Transform any .php file in .phps fo security
             $newFileName = get_secure_file_name($newFileName);
 
+
             // -- create a unique file name to avoid any conflict
             // there can be only one automatic feedback but the file is put in the
             // assignments directory
             $assigDirSys = $wrkDir . 'assig_' . $_REQUEST['assigId'] . '/';
             // split file and its extension
             $dotPosition = strrpos($newFileName, '.');
+
             if( $dotPosition !== false &&  $dotPosition != 0 )
             {
                 // if a dot was found and not as first letter (case of files like .blah)
@@ -202,11 +205,10 @@ if($is_allowedToEdit)
                 WHERE `id` = ". (int)$_REQUEST['assigId'];
             claro_sql_query($sql);
 
-            $dialogBox .= get_lang('FeedbackEdited') . '<br /><br />'
-            .  '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">'
-            . get_lang('Back')
-            . '</a>'
-            ;
+            $dialogBox .= get_lang('FeedbackEdited') . '<br /><br />';
+            $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
+            $dialogBox .= get_lang('Back');
+            $dialogBox .= '</a>';
 
             $displayFeedbackForm = false;
         }
@@ -231,7 +233,7 @@ if($is_allowedToEdit)
             $sql = "SELECT `prefill_text` , `prefill_doc_path`, `prefill_submit`,
                           UNIX_TIMESTAMP(`end_date`) as `unix_end_date`
                     FROM `".$tbl_wrk_assignment."`
-                    WHERE `id` = ". (int)$_REQUEST['assigId'];
+                    WHERE `id` = " . (int)$_REQUEST['assigId'];
             list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
 
             // feedback
@@ -259,35 +261,32 @@ if($is_allowedToEdit)
 
 }
 
-/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-DISPLAY
-= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =*/
+/**
+ * DISPLAY
+ */
 
-/*--------------------------------------------------------------------
-HEADER
---------------------------------------------------------------------*/
+/**
+ * HEADER
+ */
 
 // bredcrump to return to the list when in a form
 $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Work'));
 $interbredcrump[]= array ('url' => './workList.php?assigId=' . $_REQUEST['assigId'], 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
-
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
 
-if ($dialogBox)
-{
-    echo claro_disp_message_box($dialogBox);
-}
-/*--------------------------------------------------------------------
-FEEDBACK FORM
---------------------------------------------------------------------*/
+if ($dialogBox) echo claro_disp_message_box($dialogBox);
+/**
+ * FEEDBACK FORM
+ */
 if( isset($displayFeedbackForm) && $displayFeedbackForm )
 {
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
-    .    '<input type="hidden" name="cmd" value="exEditFeedback" />';
+    .    '<input type="hidden" name="cmd" value="exEditFeedback" />'
+    ;
 
     if( isset($_REQUEST['assigId']) )
     {
