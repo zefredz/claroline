@@ -6,7 +6,7 @@
  * Most of def value are from def file.
  * Special case are set are. def file would evoluate to deprecate this script
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -20,7 +20,7 @@
  * @package INSTALL
  *
  */
-include_once('../inc/conf/def/CLMAIN.def.conf.inc.php');
+include_once '../inc/conf/def/CLMAIN.def.conf.inc.php';
 
 $dbHostForm     = $conf_def_property_list['dbHost']['default'];
 $dbUsernameForm = $conf_def_property_list['dbLogin']['default'];

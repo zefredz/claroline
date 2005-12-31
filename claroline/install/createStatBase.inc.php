@@ -6,7 +6,7 @@
  * @var $statsTblPrefixForm prefix set during  install, and keep in mainconf
  * @private $sql var where build sql request.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
