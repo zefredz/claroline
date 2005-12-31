@@ -6,7 +6,7 @@
  * tool from the page to visualize the user profile (adminprofile.php)
  * and display a confirmation message to the admin.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -32,7 +32,7 @@ require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
 $nameTools=get_lang('UserSettings');
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_conf($rootAdminWeb), 'name' => get_lang('Administration'));
 
 //------------------------------------
 // Execute COMMAND section
@@ -40,11 +40,26 @@ $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administra
 
 $cmd = (isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null );
 
-if ( $cmd=='delete' )
+$req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uidToEdit']))
+? (int) $_REQUEST['uidToEdit']
+: false;
+if ( $cmd=='delete' && $req['uidToEdit'] )
 {
-    $dialogBox = user_delete((int) $_REQUEST['uidToEdit']) ? get_lang('UserDelete') : get_lang('NotUnregYourself');
+    if(false!== $deletionResult = user_delete($req['uidToEdit']))
+    $dialogBox =   get_lang('UserDelete');
+    else
+    {
+        switch (claro_failure::get_last_failure())
+        {
+            case 'user_cannot_remove_himself'  :
+            {
+                $dialogBox = get_lang('NotUnregYourself');
+            } break;
+            default :  $dialogBox = get_lang('Deletetion unable');
+        }
+    }
 }
-
+else $dialogBox = get_lang('Deletetion unable');
 //------------------------------------
 // DISPLAY
 //------------------------------------
@@ -64,7 +79,6 @@ if ( isset($dialogBox) ) echo claro_disp_message_box($dialogBox);
 echo '<a class="claroCmd" href="index.php" >' . get_lang('BackToAdmin') . '</a> | '
 .    '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>'
 ;
-
 
 // display footer
 include $includePath . '/claro_init_footer.inc.php';
