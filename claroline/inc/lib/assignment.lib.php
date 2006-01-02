@@ -420,16 +420,17 @@ class REL_GROUP_USER
 
         $userGroupList = array();
 
-        $sql = "SELECT `tu`.`team` `id` , `t`.`name`
+        $sql = "SELECT `tu`.`team` as `id` , `t`.`name`
                 FROM `" . $tbl_group_rel_team_user . "` as `tu`
                 INNER JOIN `" . $tbl_group_team . "`    as `t`
                   ON `tu`.`team` = `t`.`id`
                 WHERE `tu`.`user` = " . (int) $_uid ;
 
         $groupList = claro_sql_query_fetch_all($sql);
+
         if( is_array($groupList) )
         {
-            foreach( $groupList AS $group ) $userGroupList[$group['team']] = $group;
+            foreach( $groupList AS $group ) $userGroupList[$group['id']] = $group;
         }
 
         return $userGroupList;
