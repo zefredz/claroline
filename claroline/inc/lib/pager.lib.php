@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 
  /**
   * Pager class allowing to manage the paging system into claroline
@@ -6,6 +6,8 @@
   * example : $myPager = new claro_pager($totalItemCount, $offset, $step);
   *           $myPager->set_pager_call_param_name('myOffset') // optionnal
   *           echo $myPager->disp_pager_tool_bar();
+  * @author Hugues Peeters <hugues.peeters@claroline.net>
+  * @since 1.6
   */
 
 class claro_pager
@@ -18,6 +20,8 @@ class claro_pager
      * @param string $sql current SQL query
      * @param int $offset requested offset
      * @param int $step current step paging
+     * @return void
+     * @since
      */
 
     function claro_pager($totalItemCount, $offset = 0, $step = 20)
@@ -32,6 +36,8 @@ class claro_pager
      * Allows to change the parameter name in the url for page change request.
      * By default, this parameter name is 'offset'.
      * @param string paramName
+     * @return null
+     * @since
      */
 
     function set_pager_call_param_name($paramName)
@@ -42,6 +48,7 @@ class claro_pager
     /**
      * get the total number of the complete the results
      * @return int
+     * @since
      */
 
     function get_total_item_count()
@@ -124,8 +131,8 @@ class claro_pager
     {
 
         $offsetList = array();
-        
-        for ($i = 0, $currentOffset = 0, $offsetCount = $this->get_offset_count(); 
+
+        for ($i = 0, $currentOffset = 0, $offsetCount = $this->get_offset_count();
              $i < $offsetCount;
              $i ++)
         {
@@ -188,7 +195,7 @@ class claro_pager
         // total page
         $pageCount = $this->get_offset_count();
 
-        // start page    
+        // start page
         if ( $currentPage > $linkMax ) $firstLink = $currentPage - $linkMax;
         else                           $firstLink = 0;
 
@@ -197,14 +204,14 @@ class claro_pager
         else                                        $lastLink = $pageCount;
 
         // display 1 ... {start_page}
-        
+
         if ( $firstLink > 0 )
         {
             $output .= '<a href="' . $url . $pageList[0] . '">' . (0+1) . '</a>&nbsp;';
             if ( $firstLink > 1 ) $output .= '...&nbsp;';
-        } 
+        }
 
-        if ( $pageCount > 1) 
+        if ( $pageCount > 1)
         {
             // display page
             for ($link = $firstLink; $link < $lastLink ; $link++)
@@ -226,7 +233,7 @@ class claro_pager
             if ( $lastLink + 1 < $pageCount ) $output .= '...';
 
             $output .= '&nbsp;<a href="'. $url . $pageList[$pageCount-1] . '">'.($pageCount).'</a>';
-        } 
+        }
 
         $output .=                                   "\n"
                 .  '</td>'.                          "\n"
@@ -279,14 +286,14 @@ class claro_pager
  *
  *            echo '</table>';
  *
- * The 
- *  example 2 : 
+ * The
+ *  example 2 :
  *
  *            $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
  *
  *            $myPager->set_sort('column_1', SORT_DESC);
  *
- *            echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']); 
+ *            echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
  *
  *            echo '<table>';
  *
@@ -313,11 +320,11 @@ class claro_pager
  *
  *
  * Note : The pager will request page change by the $_GET['offset'] variable
- * If it conflicts with other variable you can change this name with the 
+ * If it conflicts with other variable you can change this name with the
  * set_pager_call_param_name($paramName) method.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * 
+ *
  */
 
 class claro_sql_pager extends claro_pager // implements sortable
@@ -356,7 +363,7 @@ class claro_sql_pager extends claro_pager // implements sortable
     }
 
     /**
-     * Allows to change the parameter name in the url for sort direction 
+     * Allows to change the parameter name in the url for sort direction
      * request. By default, this parameter name is 'dir'.
      * @param string paramName
      */
@@ -368,7 +375,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 
     /**
      * Set a specificic sorting for the result returned by the query.
-     * 
+     *
      * @param string $key - has to be something understable by the SQL parser.
      * @param string $direction use PHP constants SORT_ASC and SORT_DESC
      */
@@ -380,8 +387,8 @@ class claro_sql_pager extends claro_pager // implements sortable
 
     /**
      * Set multiple sorting for the result returned by the query.
-     * 
-     * @param array $keyList - each array key are the sort keys 
+     *
+     * @param array $keyList - each array key are the sort keys
      *        it has to be something understable by the SQL parser.
      *        while each array values are sort direction of the concerned key
      */
@@ -394,7 +401,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 
     function add_sort_key($key, $direction)
     {
-         if ($this->resultList) 
+         if ($this->resultList)
               claro_die('add_sort_key() IMPOSSIBLE : QUERY ALREADY COMMITED TO DATABASE SERVER.');
 
         if ( ! array_key_exists($key, $this->sortKeyList) )
@@ -407,8 +414,8 @@ class claro_sql_pager extends claro_pager // implements sortable
     }
 
     /**
-     * Rewrite the SQL query to allowing paging. It adds LIMIT parameter to the 
-     * end of the query end SQL_CALC_FOUND_ROWS between the SELECT statement 
+     * Rewrite the SQL query to allowing paging. It adds LIMIT parameter to the
+     * end of the query end SQL_CALC_FOUND_ROWS between the SELECT statement
      * and the column list
      *
      * @access private
@@ -438,12 +445,12 @@ class claro_sql_pager extends claro_pager // implements sortable
         if ( $step > 0 )
         {
             // Include SQL_CALC_FOUND_ROWS inside the query
-            // This mySQL clause permit to know how many rows the statement 
-            // would have returned with no LIMIT clause, without running the 
+            // This mySQL clause permit to know how many rows the statement
+            // would have returned with no LIMIT clause, without running the
             // statement again. To retrieve this rows count, one invokes
             // FOUND_ROWS() afterward (see get_total_result_count method).
 
-            $sql = substr_replace ($sql, 'SELECT SQL_CALC_FOUND_ROWS ', 
+            $sql = substr_replace ($sql, 'SELECT SQL_CALC_FOUND_ROWS ',
                                   0   , strlen('SELECT '))
                    . "\n\t" . ' LIMIT ' . $offset . ', ' . $step;
         }
@@ -460,13 +467,13 @@ class claro_sql_pager extends claro_pager // implements sortable
     function _execute_pager_queries()
     {
         $preparedQuery = $this->_get_prepared_query($this->sql,
-                                                   $this->offset, $this->step, 
+                                                   $this->offset, $this->step,
                                                    $this->sortKeyList);
 
        $this->resultList        = claro_sql_query_fetch_all( $preparedQuery );
 
-       // The query below has to be executed immediateley after the previous one. 
-       // Otherwise other potential queries could impair the reliability 
+       // The query below has to be executed immediateley after the previous one.
+       // Otherwise other potential queries could impair the reliability
        // of mySQL FOUND_ROWS() function.
 
        $this->totalItemCount  = claro_sql_query_get_single_value('SELECT FOUND_ROWS()');
@@ -499,11 +506,11 @@ class claro_sql_pager extends claro_pager // implements sortable
     }
 
     /**
-     * returns prepared url able to require sorting for each column 
+     * returns prepared url able to require sorting for each column
      * of the pager results
      *
-     * @param  string $url 
-     * @return array 
+     * @param  string $url
+     * @return array
      */
 
     function get_sort_url_list($url)
@@ -523,7 +530,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 
         foreach($sortArgList as $thisArg)
         {
-            if (   array_key_exists($thisArg, $this->sortKeyList) 
+            if (   array_key_exists($thisArg, $this->sortKeyList)
                 && $this->sortKeyList[$thisArg] != SORT_DESC)
             {
                 $direction = SORT_DESC;
@@ -533,7 +540,7 @@ class claro_sql_pager extends claro_pager // implements sortable
                 $direction = SORT_ASC;
             }
 
-            $urlList[$thisArg] = $url 
+            $urlList[$thisArg] = $url
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
                        . '&amp;' . $this->sortDirParamName . '=' . $direction;
@@ -556,13 +563,13 @@ class claro_sql_pager extends claro_pager // implements sortable
 
         if ( count($this->sortKeyList) > 0 )
         {
-            // Add optionnal sorting calls. 
+            // Add optionnal sorting calls.
             // IT KEEPS ONLY THE FIRST SORT KEY !
 
             reset($this->sortKeyList);
             list($sortKey, $sortDir) = each($this->sortKeyList);
 
-            $url .= ( ( strrpos($url, '?') === false) ? '?' : '&amp;') 
+            $url .= ( ( strrpos($url, '?') === false) ? '?' : '&amp;')
                  .  $this->sortKeyParamName.'=' . urlencode($sortKey)
                  .  '&amp;'.$this->sortDirParamName.'=' . $sortDir;
         }
@@ -575,7 +582,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * Pager class allowing to manage a paging system from a an array containing 
+ * Pager class allowing to manage a paging system from a an array containing
  * all the concerned items
  */
 
@@ -609,7 +616,7 @@ class claro_array_pager extends claro_pager
     }
 
     /**
-     * Allows to change the parameter name in the url for sort direction 
+     * Allows to change the parameter name in the url for sort direction
      * request. By default, this parameter name is 'dir'.
      * @param string paramName
      */
@@ -635,7 +642,7 @@ class claro_array_pager extends claro_pager
     }
 
     /**
-     * This method is dedicated to the usort() process 
+     * This method is dedicated to the usort() process
      * into get_result_list() method
      * @acess private
      */
@@ -654,7 +661,7 @@ class claro_array_pager extends claro_pager
 
     /**
      * Set a specificic sorting for the result returned by the query.
-     * 
+     *
      * @param string $key - has to be something understable by the SQL parser.
      * @param string $direction use PHP constants SORT_ASC and SORT_DESC
      */
@@ -666,8 +673,8 @@ class claro_array_pager extends claro_pager
 
     /**
      * Set multiple sorting for the result returned by the query.
-     * 
-     * @param array $keyList - each array key are the sort keys 
+     *
+     * @param array $keyList - each array key are the sort keys
      *        it has to be something understable by the SQL parser.
      *        while each array values are sort direction of the concerned key
      */
@@ -680,7 +687,7 @@ class claro_array_pager extends claro_pager
 
     function add_sort_key($key, $direction)
     {
-         if ($this->resultList) 
+         if ($this->resultList)
               claro_die('add_sort_key() IMPOSSIBLE : SORT ALREADY PROCESSED.');
 
         if ( ! array_key_exists($key, $this->sortKeyList) )
@@ -709,7 +716,7 @@ class claro_array_pager extends claro_pager
 
         foreach($sortArgList as $thisArg)
         {
-            if (   array_key_exists($thisArg, $this->sortKeyList) 
+            if (   array_key_exists($thisArg, $this->sortKeyList)
                 && $this->sortKeyList[$thisArg] != SORT_DESC)
             {
                 $direction = SORT_DESC;
@@ -719,7 +726,7 @@ class claro_array_pager extends claro_pager
                 $direction = SORT_ASC;
             }
 
-            $urlList[$thisArg] = $url 
+            $urlList[$thisArg] = $url
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
                        . '&amp;' . $this->sortDirParamName . '=' . $direction;
@@ -741,13 +748,13 @@ class claro_array_pager extends claro_pager
 
         if ( count($this->sortKeyList) > 0 )
         {
-            // Add optionnal sorting calls. 
+            // Add optionnal sorting calls.
             // IT KEEPS ONLY THE FIRST SORT KEY !
 
             reset($this->sortKeyList);
             list($sortKey, $sortDir) = each($this->sortKeyList);
 
-            $url .= ( ( strrpos($url, '?') === false) ? '?' : '&amp;') 
+            $url .= ( ( strrpos($url, '?') === false) ? '?' : '&amp;')
                  .  $this->sortKeyParamName.'=' . urlencode($sortKey)
                  .  '&amp;'.$this->sortDirParamName.'=' . $sortDir;
         }
@@ -760,7 +767,7 @@ class claro_array_pager extends claro_pager
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * Pager class allowing to manage a paging system from a any object containing 
+ * Pager class allowing to manage a paging system from a any object containing
  * provided this object implment the get_total_item_count() method
  */
 
