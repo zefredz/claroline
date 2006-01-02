@@ -152,7 +152,6 @@ if( $assignment['assignment_type'] == 'GROUP' )
     $userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
 }
 
-
 /* Prepare submission and feedback SQL filters - remove hidden item from count */
 
 $submissionConditionList = array();
@@ -210,9 +209,11 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
             LEFT JOIN `".$tbl_wrk_submission."` as `FB`
                    ON `FB`.`parent_id` = `S`.`id`
              " . $feedbackFilterSql . "
-
-            GROUP BY `U`.`user_id`,
+             
+			GROUP BY `U`.`user_id`,
                      `S`.`original_id`
+        	
+        	HAVING `submissionCount` > 0
 ";
 
     if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
@@ -253,6 +254,7 @@ else  // $assignment['assignment_type'] == 'GROUP'
         GROUP BY `G`.`id`,          # group by 'group'
                  `S`.`original_id`
 
+		HAVING `submissionCount` > 0 OR `feedbackCount` > 0
 
         ";
 
