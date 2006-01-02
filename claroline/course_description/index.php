@@ -6,7 +6,7 @@
  *
  * If ist's the admin, he can access to the editing
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -192,8 +192,9 @@ echo claro_disp_tool_title(array('mainTitle' => $nameTools));
 
 if ( isset($dialogBox) && ! empty($dialogBox) )
 {
-    echo claro_disp_message_box($dialogBox);
-    echo '<br />'."\n";
+    echo claro_disp_message_box($dialogBox)
+    .    '<br />' . "\n"
+    ;
 }
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -207,16 +208,31 @@ if ( $is_allowedToEdit )
 
     if ( isset($displayForm) && $displayForm )
     {
+        $cmdForm = ($descItem['content'] ? 'exEdit' : 'exAdd' );
+        if (!isset($descItem['id'])) $descItem['id']='';
         echo '<table border="0">' . "\n"
         .    '<tr>'               . "\n"
         .    '<td>'               . "\n"
-        .    '<form  method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-        .    '<input type="hidden" name="cmd" value="' . ($descItem['content'] ? 'exEdit' : 'exAdd' ). '">'
-        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-        .    (isset($descItem['id']) ? '<input type="hidden" name="id" value="' . $descItem['id'] . '">' : '' )
-        .    '<p><label for="descTitle"><b>' . get_lang('Title') . ' : </b></label><br /></p>' . "\n"
+        .    '<form  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    '<input type="hidden" name="cmd" value="' . $cmdForm . '">'
+        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+        .    '<input type="hidden" name="id" value="' . $descItem['id'] . '">'
+        .    '<p>' . "\n"
+        .    '<label for="descTitle">' . "\n"
+        .    '<b>' . get_lang('Title') . ' : </b>' . "\n"
+        .    '</label>' . "\n"
+        .    '<br />' . "\n"
+        .    '</p>' . "\n"
         .    ( $descNotEditable==true ? htmlspecialchars($descPresetTitle) . '<input type="hidden" name="descTitle" value="'. htmlspecialchars($descPresetTitle) .'">' : '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($descItem['title']) . '">' . "\n")
-        .    '<p><label for="descContent"><b>'.get_lang('Content').' : </b></label><br /></td></tr><tr><td>'."\n"
+        .    '<p>' . "\n"
+        .    '<label for="descContent">' . "\n"
+        .    '<b>' . get_lang('Content') . ' : </b>' . "\n"
+        .    '</label>' . "\n"
+        .    '<br />' . "\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        .    '<tr>' . "\n"
+        .    '<td>'."\n"
         .    claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />' . "\n"
@@ -324,7 +340,7 @@ if ( count($descList) )
                 echo '&nbsp;';
             else
                 echo htmlspecialchars($thisDesc['title']);
-                
+
             echo '</div>'
             .    '</th>'
             .    '</tr>' . "\n"
