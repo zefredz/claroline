@@ -78,6 +78,15 @@ else // ANONYMOUS (DEFAULT) SECTION
 
 if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.html';
 
+if ( $is_platformAdmin )
+{
+    echo '&nbsp;'
+    .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
+    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
+    .    '</a>' . "\n"
+    ;
+}
+
 ?>
 
 </td>
