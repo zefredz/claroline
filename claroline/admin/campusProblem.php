@@ -46,12 +46,16 @@ $is_allowedToCheckProblems = $is_platformAdmin;
 
 // Cache_lite setting & init
 $cache_options = array(
-'cacheDir' => realpath('.') . '/tmp/',
+'cacheDir' => get_conf('rootSys') . 'cache/campusProblem/',
 'lifeTime' => get_conf('cache_lifeTime',3600*48),
 'automaticCleaningFactor' => 50,
 );
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
-
+if (! file_exists($cache_options['cacheDir']) )
+{
+    include_once $includePath . '/lib/fileManage.lib.php';
+    claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
+}
 $Cache_Lite = new Cache_Lite($cache_options);
 
 /**
