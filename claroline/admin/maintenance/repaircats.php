@@ -4,7 +4,7 @@
  *
  * This tool try to repair a broken category tree
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -32,6 +32,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
+include_once $includePath . '/lib/datagrid.lib.php';
+
 // build bredcrump
 $nameTools        = get_lang('CategoriesRepairs');
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -73,13 +75,13 @@ switch($cmd)
         {
             $analyseResult = analyseCat($catCode);
             $dataAnalyseResult[] = array ( 'Code'=>$catCode
-                                         , 'Result'=>$analyseResult?claro_get_lang('Ok'):claro_get_lang('Fail')
+                                         , 'Result'=>$analyseResult?get_lang('Ok'):get_lang('Fail')
                                          , 'Message'=>$analyseResult?'':claro_failure::get_last_failure());
             if (! $analyseResult) $errorCounter++;
 
         }
-        if ($errorCounter == 1)    $analyseTreeResultMsg['error'][] = claro_get_lang('One error found');
-        elseif ($errorCounter > 1) $analyseTreeResultMsg['error'][] = claro_get_lang('%s errors found', $errorCounter);
+        if ($errorCounter == 1)    $analyseTreeResultMsg['error'][] = get_lang('One error found');
+        elseif ($errorCounter > 1) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
         // analyse Course onwance
         $sql = "SELECT c.code `Course code`, c.faculte `Unknow faculty`
         FROM  `" . $tbl_course . "`  c
@@ -95,14 +97,14 @@ switch($cmd)
        $repairResult = repairTree();
        if ($repairResult)
        {
-           $repairResultMsg['success'][] = claro_get_lang('CategoriesStructureOK');
+           $repairResultMsg['success'][] = get_lang('CategoriesStructureOK');
        }
        else
        switch ($failure = claro_failure::get_last_failure())
        {
            case 'node_moved' :
            {
-                $repairResultMsg['warning'][] = claro_get_lang('Node Moved, relaunch repair process to complete');
+                $repairResultMsg['warning'][] = get_lang('Node Moved, relaunch repair process to complete');
            } break;
            case defaut :
            {
@@ -142,8 +144,8 @@ switch ($view)
         .    claro_disp_tool_title('Course ownance')
         .    claro_disp_datagrid($courseOwnanceCheck , array('idLine' => 'numeric'
                                                             ,'idLineShift' => 10
-                                                            ,'colTitleList' => array( claro_get_lang('Code')
-                                                                                    , claro_get_lang('Unknow faculty'))
+                                                            ,'colTitleList' => array( get_lang('Code')
+                                                                                    , get_lang('Unknow faculty'))
                                                             ,))
         ;
     }
@@ -177,7 +179,7 @@ include $includePath . '/claro_init_footer.inc.php';
  * $dataGrid[]=array('nom'=>'dupont', 'prenom'=>'pol');
  * $dataGrid[]=array('nom'=>'durand', 'prenom'=>'simon');
  */
-
+/*
 function claro_disp_datagrid($dataGrid, $option = null)
 {
     if(is_null($option) || ! is_array($option) )  $option=array();
@@ -255,27 +257,5 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
 }
 
-/**
- * this is a beta function to manage I18N
- *
- * @param string $stringId
- * @return string translated string.
- */
-
-function claro_get_lang($stringId)
-{
-
-    $stringIdKey = 'lang'.strtr($stringId,'ãáàâäõóôöoíiîïéèêëúùûüý- ','aaaaaoooooiiiieeeeuuuuy__');
-    if (isset($GLOBALS[$stringIdKey]))
-    {
-        $stringId = $GLOBALS[$stringIdKey];
-    }
-
-    $argsList = func_get_args();
-    array_shift($argsList);
-
-    return vsprintf($stringId,$argsList);
-}
-
-
+*/
 ?>
