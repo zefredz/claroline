@@ -87,105 +87,6 @@ function trueFalse($booleanState)
     return ($booleanState?'TRUE':'FALSE');
 }
 
-/**
- * Replace value of variable in file
- *
- * @param string $varName name of the variable
- * @param string $value new value of the variable
- * @param string $file path to file
- *
- * @return whether the success
- *
- * @author Benoit
- * @deprecated          
- */
-
-function replace_var_value_in_conf_file ($varName,$value,$file)
-{
-
-    $replace = false;
-
-    // Quote regular expression characters of varName
-
-    if ($varName != '')
-    {
-        // build regexp
-        $regVarName = preg_quote($varName);
-        $regExp = '~(\$(' . $regVarName . '))[[:space:]]*=[[:space:]]*(.*);~U';
-    }
-    else
-    {
-        return false;
-    }
-
-    if(file_exists($file))
-    {
-        //Open config file
-        if($fp = @fopen($file,"r"))
-        {
-            // take all lines in the file
-            while(!feof($fp))
-            {
-                // length param in fgets is required before PHP 4.2.0
-                $line=fgets($fp,1024);
-                trim($line);
-
-                unset($find);
-                $find = preg_match_all($regExp,$line,$result);
-
-                if($find)
-                {
-                    // $result[0] the variable and the value
-                    // $result[1] the name of the variable
-                    // $result[2] the value
-
-                    // replace the variable with the new value
-                    $line = str_replace($result[3]," \"".$value."\"",$line);
-                    $replace = true;
-                }
-                //Create a table with correct ligne to create de new file config
-                $newLines[]= $line;
-            }
-            fclose($fp);
-        }
-        else
-        {
-            // can't open file in read
-            return false;
-        }
-    }
-    else
-    {
-        // file doesn't exists
-        return false;
-    }
-
-    if ($replace)
-    {
-
-        // rewrite file
-        if($nf=@fopen($file,"w+"))
-        {
-            if(isset($newLines))
-            {
-                foreach($newLines as $line)
-                {
-                    fwrite($nf,$line);
-                }
-            }
-            fclose($nf);
-        }
-        else
-        {
-            // can't open file in write
-            return false;
-        }
-    }
-
-    return true;
-
-}
-
 
 /**
  * brutal replacement of ; by :
@@ -214,17 +115,6 @@ function cleanvalue($string)
 function cleanoutputvalue($string)
 {
     return trim(htmlspecialchars(cleanvalue($string)));
-}
-
-/**
- * Make string ready to output in a php file
- *
- * @param $string
- * @return string cleaned string
- **/
-function cleanwritevalue($string)
-{
-    return trim(str_replace('"','\"',cleanvalue($string)));
 }
 
 /**
@@ -781,71 +671,6 @@ function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$
     {
         return FALSE;
     }
-}
-
-/**
- * Parse a php file and return an array of containers of a present affectation
- *
- * @return  array where key are value name, and content is value
- *
- * @global  string 
- */
-
-function parse_config_file($conf_file)
-{
-
-    if( file_exists($conf_file) )
-    {
-        $code = file_get_contents($conf_file);
-        $tokens = token_get_all($code);
-
-        include($conf_file);
-
-        $vars = array();
-        for($i=0; $i < count($tokens); $i++)
-        {
-            if (($tokens[$i][0] == T_VARIABLE ))
-            {
-                $possibleVar = substr($tokens[$i][1], 1);
-                if (  $tokens[$i+1][0] == T_WHITESPACE
-                && $tokens[$i+2] == '='
-                )
-                {
-                    $i += 2;
-                    if ($tokens[$i+1][0] == T_WHITESPACE) $i++;
-                    $vars[$possibleVar] = '';
-                    while ($i++)
-                    {
-                        if ($tokens[$i] == ';') break;
-                        if (is_array($tokens[$i]))
-                        $val = $tokens[$i][1];
-                        else
-                        $val = $tokens[$i];
-                        $vars[$possibleVar] .= $val;
-                    }
-                }
-                //$propList[$possibleVar] =  $vars[$possibleVar];
-                $propList[$possibleVar] =  $$possibleVar;
-            }
-            elseif (($tokens[$i][0] == T_CONSTANT_ENCAPSED_STRING ))
-            {
-                $tokens[$i][1] = str_replace('\'','',$tokens[$i][1]);
-                $tokens[$i][1] = str_replace('"','',$tokens[$i][1]);
-                if (defined($tokens[$i][1]))
-                {
-                    unset($value);
-
-                    @eval('$value = '.$tokens[$i][1].';');
-                    $propList[$tokens[$i][1]] =  $value;
-                }
-            }
-        }
-    }
-    else
-    {
-        $propList = array();
-    }
-    return  $propList;
 }
 
 function claroconf_disp_editbox_of_a_value($property_def, $property_name, $currentValue=NULL)
