@@ -162,7 +162,7 @@ if( ! $is_allowedToEditAll )
     $submissionConditionList[] = "`S`.`visibility` = 'VISIBLE'";
     $feedbackConditionList[]   = "(`S`.`visibility` = 'VISIBLE' AND `FB`.`visibility` = 'VISIBLE')";
 
-    if( isset($userGroupList)  )
+    if( !empty($userGroupList)  )
     {
         $submissionConditionList[] = "S.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
         $feedbackConditionList[]   = "FB.group_id IN (" . implode(', ', array_map( 'intval', $userGroupList) ) . ")";
