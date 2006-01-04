@@ -924,7 +924,7 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
             case 'GROUP_TUTOR'      : $is_toolAllowed = $is_groupTutor;    break;
             case 'GROUP_MEMBER'     : $is_toolAllowed = $is_groupMember;   break;
             case 'COURSE_MEMBER'    : $is_toolAllowed = $is_courseMember;  break;
-            case "PLATFORM_MEMBER"  : $is_toolAllowed = (bool) $_uid;      break;
+            case 'PLATFORM_MEMBER'  : $is_toolAllowed = (bool) $_uid;      break;
             case 'ALL'              : $is_toolAllowed = true;              break;
             default                 : $is_toolAllowed = false;
         }
