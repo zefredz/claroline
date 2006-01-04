@@ -2034,14 +2034,14 @@ echo claro_disp_tool_title($titleElement,
                     echo "<td>"
                         ."<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exRm&amp;file=",$cmdFileName,"\" "
                         ."onClick=\"return confirmation('".clean_str_for_javascript($dspFileName)."');\">"
-                        ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"get_lang('Delete')\">"
+                        ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\">"
                         ."</a>"
                         ."</td>\n";
 
                     /* MOVE COMMAND */
                     echo "<td>"
                         ."<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqMv&amp;file=",$cmdFileName,"\">"
-                        ."<img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" alt=\"get_lang('Move')\">"
+                        ."<img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" alt=\"".get_lang('Move')."\">"
                         ."</a>"
                         ."</td>\n";
 
@@ -2074,7 +2074,7 @@ echo claro_disp_tool_title($titleElement,
                         else
                         {
                             echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&amp;file=",$cmdFileName,"&amp;vis=i\">"
-                                ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"get_lang('MakeInvisible')\">"
+                                ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".get_lang('MakeInvisible')."\">"
                                 ."</a>";
                         }
                     }
