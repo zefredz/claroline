@@ -282,10 +282,10 @@ while ($list = mysql_fetch_array($result))
                 </a>
             </td>
             <td align=\"center\">
-               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqRename&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"get_lang('Rename')\" /></a>
+               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqRename&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"".get_lang('Rename')."\" /></a>
             </td>
             <td align=\"center\">
-               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqComment&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."comment.gif\" border=0 alt=\"get_lang('Comment')\" /></a>
+               <a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqComment&amp;module_id=".$list['module_id']."\"><img src=\"".$imgRepositoryWeb."comment.gif\" border=0 alt=\"".get_lang('Comment')."\" /></a>
             </td>";
     echo "</tr>";
 
