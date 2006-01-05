@@ -2,10 +2,6 @@
 /**
  * CLAROLINE
  *
- * This  page show  to the user, the course description
- *
- * If ist's the admin, he can access to the editing
- *
  * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
@@ -33,13 +29,13 @@
  *
  */
 
-function course_description_get_item_list($course_id=Null)
+function course_description_get_item_list($course_id=NULL)
 {
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
     $sql = "SELECT `id`, `title`, `content` , `visibility`
-            FROM `".$tbl_course_description."`
+            FROM `" . $tbl_course_description . "`
             ORDER BY `id`";
     return  claro_sql_query_fetch_all($sql);
 }
@@ -58,16 +54,16 @@ function course_description_get_item_list($course_id=Null)
  *
 */
 
-function course_description_get_item($descId, $course_id=Null)
+function course_description_get_item($descId, $course_id=NULL)
 {
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
     $sql = 'SELECT `id`, `title`, `content`, `visibility`
-            FROM `'.$tbl_course_description.'`
+            FROM `' . $tbl_course_description . '`
             WHERE id = ' . (int) $descId ;
 
-    list($descItem) = claro_sql_query_fetch_all($sql);
+    $descItem = claro_sql_query_get_single_row($sql);
     return $descItem;
 }
 
@@ -88,7 +84,7 @@ function course_description_delete_item($descId, $course_id=Null)
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
-    $sql = 'DELETE FROM `'.$tbl_course_description.'`
+    $sql = 'DELETE FROM `' . $tbl_course_description . '`
             WHERE id = ' . (int) $descId;
 
     return  claro_sql_query($sql);
@@ -114,11 +110,11 @@ function course_description_set_item($descId , $descTitle , $descContent, $cours
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
-    $sql = "UPDATE `".$tbl_course_description."`
+    $sql = "UPDATE `" . $tbl_course_description."`
                SET   `title`   = '" . addslashes($descTitle) . "',
                      `content` = '" . addslashes($descContent) . "',
                      `upDate`  = NOW()
-               WHERE `id` = '". $descId ."' ";
+               WHERE `id` = " . (int) $descId ;
 
     return claro_sql_query($sql);
 }
@@ -151,11 +147,11 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
         $descId = max((int) $maxBloc,$maxId+1);
     }
 
-    $sql ="INSERT INTO `".$tbl_course_description."`
-               SET   `title`   = '". addslashes($descTitle  ) . "',
-                     `content` = '". addslashes($descContent) . "',
+    $sql ="INSERT INTO `" . $tbl_course_description . "`
+               SET   `title`   = '" . addslashes($descTitle  ) . "',
+                     `content` = '" . addslashes($descContent) . "',
                      `upDate`  = NOW(),
-                     `id` = ". (int) ($descId);
+                     `id` = " . (int) ($descId);
 
     if (claro_sql_query($sql))
     {
@@ -184,12 +180,12 @@ function course_description_visibility_item($descId, $cmd, $dbnameGlu=Null)
     $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
     $tbl_course_description  = $tbl_cdb_names['course_description'];
 
-    if ($cmd == "mkShow")  $visibility = 'SHOW'; else $visibility = 'HIDE';
-    if ($cmd == "mkHide")  $visibility = 'HIDE'; else $visibility = 'SHOW';
+    if ($cmd == 'mkShow')  $visibility = 'SHOW'; else $visibility = 'HIDE';
+    if ($cmd == 'mkHide')  $visibility = 'HIDE'; else $visibility = 'SHOW';
 
-    $sql = "UPDATE `".$tbl_course_description."`
+    $sql = "UPDATE `" . $tbl_course_description . "`
                SET   `visibility`   = '" . $visibility . "'
-               WHERE `id` = '". (int) $descId ."' ";
+               WHERE `id` = ". (int) $descId;
 
     return claro_sql_query($sql);
 }
