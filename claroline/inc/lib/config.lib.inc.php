@@ -20,6 +20,993 @@
  *
  */
 
+class Config
+{
+    // config code
+    var $config_code;
+
+    // path of the configuration file
+    var $config_filename;
+
+    // path of the definition file
+    var $def_filename;
+    
+    // list of properties and values
+    var $property_list = array();
+
+    // definition of configuration file
+    var $conf_def = array();
+
+    // dirname of config folder
+    var $conf_dirname = '';
+
+    // dirname of def folder
+    var $def_dirname = '';
+
+    // list of property definition    
+    var $conf_def_property_list = array();
+
+    // md5 of the properties
+    var $md5;
+
+    // array with error
+    var $error = array();
+
+    /**
+     * constructor, build a config object
+     * 
+     * @param string $config_code
+     */ 
+
+    function Config($config_code)
+    {
+        global $includePath;
+
+        $this->config_code = $config_code;
+        $this->conf_dirname = realpath($includePath . '/conf/') ;
+        $this->def_dirname = realpath($includePath . '/conf/def/') ;
+    }
+
+    /**
+     * load definition and configuration file
+     */
+
+    function load()
+    {
+        // search config file
+        $def_filename = $this->def_dirname . '/' . $this->config_code . '.def.conf.inc.php';
+
+        if ( file_exists($def_filename) )
+        {
+            // set definition filename
+            $this->def_filename = $def_filename;
+            
+            // load definition file
+            $this->load_def_file();
+
+            // set configuration filename
+            $this->conf_filename = $this->build_conf_filename();
+
+            // init list of properties
+            $this->init_property_list();
+
+            // init md5
+            $this->init_md5();
+
+            return true;
+        }
+        else
+        {
+            // error definition file doesn't exist
+            return false;
+        }
+    }
+
+    /**
+     * Initialise property list : get default values in definition file and overwrite then with values in configuration file
+     */
+
+    function init_property_list()
+    {
+        $this->property_list = array();
+
+        // get default value from definition file
+        foreach ( $this->conf_def_property_list as $property_name => $property_def )
+        {
+            if ( !empty($property_def['default']) ) 
+            {
+                if ( $property_def['type'] == 'boolean' ) 
+                {
+                    $this->property_list[$property_name] = trueFalse($property_def['default']);
+                }
+                else
+                {
+                    $this->property_list[$property_name] = $property_def['default'];
+                }
+            }
+            else
+            {
+                $this->property_list[$property_name] = null;
+            }
+        }
+
+        // get values from configuration file
+        if ( file_exists($this->conf_filename) )
+        {
+            include($this->conf_filename);
+
+            foreach ( $this->conf_def_property_list as $property_name => $property_def )
+            {
+                if ( isset($property_def['container']) && $property_def['container']=='CONST')
+                {
+                    if ( defined($property_name) )
+                    {
+                        $this->property_list[$property_name] = constant($property_name);
+                    }
+                }
+                else
+                {
+                    if ( isset($$property_name) )
+                    {
+                        $this->property_list[$property_name] = $$property_name;
+                    }
+                }
+            } 
+        }
+        return $this->property_list;
+    }
+    
+    /**
+     * Read defintion file and set value of $conf_def and $conf_def_property_list
+     */
+
+    function load_def_file()
+    {
+        // get $conf_def and $conf_def_property_list from definition file
+        include $this->def_filename;
+
+        $this->conf_def = $conf_def;
+        $this->conf_def_property_list = $conf_def_property_list;
+    }
+
+    /**
+     * Build the path and filename of the config file
+     */
+
+    function build_conf_filename()
+    {
+        if ( !empty($this->conf_def['config_file']) ) 
+        {
+            // get the name of config file in definition file
+            return $this->conf_dirname.'/'.$this->conf_def['config_file'];            
+        }
+        else
+        {
+            // build the filename with the config_code
+            return $this->conf_dirname.'/'.$config_code.'.conf.php';
+        }
+    }
+
+    /**
+     * Get the name of configuration in definition
+     */
+
+    function get_conf_name()
+    {
+        if ( !empty($this->conf_def['config_name']) )
+        {
+            // name is the config name
+            $name = $this->conf_def['config_name'];
+        }
+        else
+        {
+            // name is the config_file name
+            $name = $this->config_filename;
+        }
+        return $name;
+    }
+
+    /**
+     * Get the value of a property
+     */
+
+    function get_property($name)
+    {
+        if ( isset($this->property_list[$name]) )
+        {
+            return $this->property_list[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Set the value of a property
+     */
+
+    function set_property($name,$value)
+    {
+        if ( isset($this->conf_def_property_list[$name]) )
+        {
+            if ( validate_property($name,$value) )
+            {
+                $this->property_list[$name] = $value;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            $this->error_message('');
+            return false;
+        }
+    }
+
+    /**
+     * Validate value of the list of new properties
+     */
+
+    function validate($new_property_list)
+    {
+        $valid = true;
+
+        $property_name_list = array_keys($this->conf_def_property_list);
+
+        foreach ( $property_name_list as $name )
+        {
+            if ( isset($new_property_list[$name]) )
+            {
+                if ( $this->validate_property($name,$new_property_list[$name]) )
+                {
+                    $this->property_list[$name] = $new_property_list[$name];
+                }
+                else
+                {
+                    $valid = false;
+                }
+            }
+        }
+        
+        return $valid ;
+    }
+
+    /**
+     * Validate value of a property
+     */
+
+    function validate_property($name,$value)
+    {
+        global $rootSys;
+
+        $valid = true;
+
+        $property_def = $this->conf_def_property_list[$name];
+
+        // init property type
+        if ( isset($property_def['type']) ) $type = $property_def['type'];
+        else                                $type = null;  
+
+        // init property label
+        if ( isset($property_def['label']) ) $label = $property_def['label'];
+        else                                $label = $name;
+
+        // init property accepted value
+        if ( ! empty($property_def['acceptedValue']) ) $acceptedValue = $property_def['acceptedValue'];
+        else                                           $acceptedValue = null;
+
+        // validate property
+        switch ($type)
+        {
+            case 'boolean' :
+                if ( ! ($value == 'TRUE' || $value == 'FALSE' ) )
+                {
+                    $this->error_message(sprintf(get_lang('%s would be boolean'),$label));
+                    $valid = false;
+                }
+                break;
+
+            case 'integer' :
+                if ( eregi('[^0-9]',$value) )
+                {
+                    $this->error_message(sprintf(get_lang('%s would be integer'),$label));
+                    $valid = false;
+                }
+                elseif ( isset($acceptedValue['max']) && $value > $acceptedValue['max'] )
+                {
+                    $this->error_message(sprintf(get_lang('%s would be integer inferior or equal to %s'), $label, $acceptedValue['max']));
+                    $valid = false;
+                }
+                elseif ( isset($acceptedValue['min']) && $value < $acceptedValue['min'] )
+                {
+                    $this->error_message(sprintf(get_lang('%s would be integer superior or equal to %s'), $label, $acceptedValue['min']));
+                    $valid = false;
+                }
+                break;
+
+            case 'css':
+            case 'lang':
+            case 'editor':
+            case 'enum' :           
+
+                if ( $type == 'css' ) 
+                {
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
+                }
+                elseif ( $type == 'lang' )
+                {
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                }
+                elseif ( $type == 'editor' )
+                {
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
+                }            
+
+                if ( isset($acceptedValue) && is_array($acceptedValue) )
+                {
+                    if ( !in_array($value, array_keys($acceptedValue)) )
+                    {
+                        $this->error_message(sprintf(get_lang('%s would be in enum list'),$label));
+                        $valid = false;
+                    }
+                }
+                break;
+                
+            case 'relpath' :
+                break;
+
+            case 'syspath' :
+            case 'wwwpath' :
+                if ( empty($value) )
+                {
+                    $this->error_message(sprintf(get_lang('%s is required'),$label));
+                    $valid = false;
+                }
+                break;
+
+            case 'regexp' :
+                if ( isset($acceptedValue) && !eregi( $acceptedValue, $propValue ))
+                {
+                    $this->error_message(sprintf(get_lang('%s would be valid for %s'),$label,$acceptedValue));
+                    $valid = false;
+                }
+                break;
+
+            case 'string' :
+            default :
+                $valid = true;
+        }            
+
+        return $valid;
+
+    }
+
+    /**
+     * Save all properties in config file
+     */
+
+    function save($generatorFile=__FILE__)
+    {
+        global $dateTimeFormatLong;
+
+        // split generation file
+
+        if ( strlen($generatorFile)>50 )
+        {
+            $generatorFile = str_replace("\\","/",$generatorFile);
+            $generatorFile = "\n\t\t".str_replace("/","\n\t\t/",$generatorFile);
+        }
+
+        $fileHeader = '<?php '."\n"
+                      . '/** '
+                      . ' * DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"
+                      . ' * -------------------------------------------------'."\n"
+                      . ' * Generated by '.$generatorFile.' '."\n"
+                      . ' * Date '.claro_disp_localised_date($dateTimeFormatLong)."\n"
+                      . ' * -------------------------------------------------'."\n"
+                      . ' * DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"
+                      . ' **/'."\n\n";
+
+        $fileHeader .=  '// $'.$this->config_code.'GenDate is an internal mark'."\n"
+                      . '   $'.$this->config_code.'GenDate = "'.time().'";'."\n\n";
+
+
+        if ( ! empty($this->conf_def['technicalInfo']) )
+        {
+            $fileHeader .= '/*' . str_replace('*/', '* /', $this->conf_def['technicalInfo']) . '*/' ;
+        }
+
+        // open configuration file
+        if ( $handle = fopen($this->conf_filename,'w') )
+        {
+
+            // write header
+            fwrite($handle,$fileHeader);
+
+            foreach ( $this->property_list as $name => $value )
+            {
+
+                // build comment about the property
+                $propertyComment = '';
+
+                // comment : add description
+                if ( !empty($this->conf_def_property_list[$name]['description']) )
+                {
+                    $propertyComment .= '/* ' . $name . ' : ' . str_replace("\n",'',$this->conf_def_property_list[$name]['description']) . ' */' . "\n";
+                }
+                else
+                {
+                    if ( isset($this->conf_def_property_list[$name]['label']) )
+                    {
+                        $propertyComment .= '/* '.$name.' : '.str_replace("\n","",$this->conf_def_property_list[$name]['label']).' */'."\n";
+                    }
+                    
+                }
+                
+                // comment : add technical info
+                if ( !empty($this->conf_def_property_list[$name]['technicalInfo']) )
+                {
+                    $propertyComment .= '/*'."\n"
+                                      . str_replace('*/', '* /', $this->conf_def_property_list[$name]['technicalInfo'] )."\n"
+                                      . '*/'."\n";
+                }
+
+                // property type define how to write the value
+                switch ($this->conf_def_property_list[$name]['type'])
+                {
+                    case 'boolean':
+                        if ( is_bool($value) ) 
+                        {
+                            $valueToWrite = trueFalse($value);
+                        } 
+                        else
+                        {
+                            $valueToWrite = $value;
+                        }
+                        break;
+                    case 'integer':
+                        $valueToWrite = $value;
+                        break;
+                    default:
+                        $valueToWrite = "'". str_replace("'","\'",$value) . "'";
+                        break;
+                }
+
+                // container : Constance or variable
+                if ( isset($this->conf_def_property_list[$name]['container']) 
+                    && strtoupper($this->conf_def_property_list[$name]['container']) == 'CONST' )
+                {
+                    $propertyLine = 'if (!defined("'.$name.'")) define("'.$name.'",'.$valueToWrite.');'."\n";
+                }
+                else
+                {
+                    $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
+                }
+                $propertyLine .= "\n\n";
+
+                fwrite($handle,$propertyComment);
+                fwrite($handle,$propertyLine);
+
+            }
+            fwrite($handle,"\n".'?>');
+            fclose($handle);
+
+            // save the new md5 value
+            $this->save_md5();
+
+            return true;
+        }
+        else
+        {
+            $this->error_message('');
+            return false;
+        }
+    }
+
+    /**
+     * Get the property list of the config
+     */
+
+    function get_property_list()
+    {
+        return $this->property_list;
+    }
+
+    /**
+     * Init the value of md5
+     */
+
+    function init_md5()
+    {
+        $tbl_mdb_names   = claro_sql_get_main_tbl();
+        $tbl_config_file = $tbl_mdb_names['config_file'];
+
+        $sql = 'SELECT `config_hash` `config_hash`
+                FROM `'.$tbl_config_file.'`
+                WHERE `config_code` = "'. addslashes($this->config_code) .'"';
+
+        $result = claro_sql_query($sql);
+
+        if ( $row = mysql_fetch_row($result) )
+        {
+            // return hash value
+            $this->md5 = $row[0];
+        }
+        else
+        {
+            // no hash value in db
+            $this->md5 = '';
+        }
+        return $this->md5;
+    }
+
+    /**
+     * Get the md5 value
+     */
+
+    function get_md5()
+    {
+        return $this->md5;
+    }
+
+    /**
+     * Calculate the md5 value of the config file
+     */
+
+    function calculate_md5()
+    {
+        return md5_file($this->conf_filename);
+    }
+
+    /**
+     * Save md5 in database and re-initialise the value of md5
+     */
+
+    function save_md5()
+    {
+        // get table name of config file
+        $mainTbl = claro_sql_get_main_tbl();
+        $tbl_config_file = $mainTbl['config_file'];
+     
+        // caculate new md5   
+        $new_md5 = $this->calculate_md5();
+    
+        if ( empty($this->md5) )
+        {
+            // insert md5 in database
+            $sql = "INSERT IGNORE INTO `" . $tbl_config_file  . "` 
+                    SET config_hash = '" . addslashes($new_md5) . "',
+                        config_code = '" . addslashes($this->config_code) . "'";
+        }
+        else
+        {
+            // update md5 in database
+            $sql = "UPDATE `" . $tbl_config_file  . "`
+                    SET config_hash = '" . addslashes($new_md5) . "'
+                    WHERE config_code = '" . addslashes($this->config_code) . "'" ;
+        }
+
+        // execute sql query
+        if ( claro_sql_query($sql) )
+        {
+            $this->md5 = $new_md5;
+            return true;
+        }
+        else
+        {
+            $this->error_message('');
+            return false;
+        }
+    }
+    
+    /**
+     * Verify if config file is manually updated
+     */
+
+    function is_modified()
+    {
+        $current_md5 = '';
+
+        if ( file_exists($this->conf_filename) )
+        {
+            $current_md5 = $this->calculate_md5();
+        }
+
+        if ( $current_md5 != $this->md5 )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Display the web form to edit config file
+     */
+
+    function display_form($property_list=null)
+    {
+        $form = '';
+
+        // display description of configuration
+        if ( !empty($conf_def['description']) )
+        {
+            $form .= '<p>' . $this->conf_def['description'] . '</p>' . "\n";
+        }
+
+        // display start form
+        $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code . '" name="editConfClass" >' . "\n"
+               . '<input type="hidden" name="config_code" value="' . $this->config_code . '" />' . "\n"
+               . '<input type="hidden" name="cmd" value="save" />' . "\n";
+
+        $form .= '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
+
+        // display each section of properties
+        foreach ($this->conf_def['section'] as $section) 
+        {
+            if ( ! isset($section['display']) || $section['display'] != false )
+            {
+                // display fieldset with the label of the section
+                $form .= '<tr>'
+                       . '<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
+                       . '</tr>' . "\n";
+
+                // display description of the section
+                if ( !empty($section['description']) )
+                {
+                    $form .= '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
+                }
+                else
+                {
+                    $form .= '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
+                }            
+            }
+
+            if ( is_array($section['properties']) )
+            {
+                // display each property of the section
+                foreach ( $section['properties'] as $name )
+                {
+                    if ( is_array($this->conf_def_property_list[$name]) )
+                    {
+                        if ( isset($property_list[$name]) )
+                        {
+                            // display elt with new content 
+                            $form .= $this->display_form_elt($name,$property_list[$name]);
+                        }
+                        else
+                        {
+                            // display elt with current content
+                            $form .= $this->display_form_elt($name,$this->property_list[$name]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // display end form
+        
+        $form .= '<tr>' ."\n"
+               . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
+               . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
+               . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+               . '</tr>' . "\n";
+
+        $form .= '</table>' . "\n"
+               . '</form>' . "\n";
+
+        return $form ; 
+    }
+
+    /**
+     * Display the form elt of a property
+     */
+
+    function display_form_elt($name,$value)
+    {
+        global $rootSys;
+
+        $elt_form = '';
+
+        $property_def = $this->conf_def_property_list[$name];
+        
+        // convert boolean value to true or false string
+        if ( is_bool($value) )
+        {
+            $value = $value?'TRUE':'FALSE';
+        }
+
+        // property type
+        $type = !empty($property_def['type'])?$property_def['type']:'string';
+
+        // form name of property
+        $html_input_name = 'property['.$name.']';
+
+        // label of property
+        $html_label = !empty($property_def['label'])?htmlspecialchars($property_def['label']):htmlspecialchars($name);
+        
+        // value of property 
+        $html_value = htmlspecialchars($value);
+
+        // description of property
+        $html_description = !empty($property_def['description'])?nl2br(htmlspecialchars($property_def['description'])):'';
+
+        // unit of property
+        $html_unit = !empty($property_def['unit'])?htmlspecialchars($property_def['unit']):'';
+
+        // type of property
+        $html_type = !empty($property_def['type'])?'<small>('.htmlspecialchars($property_def['type']).')</small>':'';
+        
+        // evaluate the size of input box
+        $input_size = (int) strlen($value);
+        $input_size = min(150,2+(($input_size > 50)?50:(($input_size < 15)?15:$input_size)));
+
+        // build element form
+
+        if ( isset($property_def['display']) && $property_def['display'] == false )
+        {
+            // no display, do nothing
+        }
+        else
+        {
+            $elt_form .= '<tr style="vertical-align: top">' . "\n" ; 
+
+            
+
+            if ( isset($property_def['readonly']) && $property_def['readonly'] )
+            {
+                // read only display
+
+                // display property label
+                $elt_form .= '<td style="text-align: right" width="250">' . $html_label . '&nbsp;:</td>' . "\n";
+
+                // display property value
+                $elt_form .= '<td nowrap="nowrap">' . "\n";
+
+                switch ( $type )
+                {
+                    case 'boolean' :                        
+                    case 'enum' : 
+                        if ( isset($property_def['acceptedValue'][$value]) )
+                        {
+                            $elt_form .= $property_def['acceptedValue'][$value];
+                        }
+                        else
+                        {
+                            $elt_form .= $html_value;
+                        }
+                        break;
+                    case 'integer' :
+                    case 'string' :
+                    default : 
+                        // probably a string or integer
+                        if ( empty($html_value) )
+                        {
+                            $elt_form .= get_lang('Empty');
+                        }
+                        else
+                        {
+                            $elt_form .= $html_value;
+                        }                    
+                }
+
+                $elt_form .= '</td>' . "\n";
+
+            }
+            else
+            {
+                // display property form element
+
+                switch( $type )
+                {
+                    case 'boolean' :
+
+                    // display label
+                    $elt_form .= '<td style="text-align: right" width="250">' . $html_label . '&nbsp;:</td>';
+
+                    // display true/false radio button
+                    $elt_form .= '<td nowrap="nowrap">'
+                        . '<input id="'. $name .'_TRUE"  type="radio" name="'.$html_input_name.'" value="TRUE"  '
+                        . ( $value=='TRUE'?' checked="checked" ':' ') . ' >'
+                        . '<label for="'. $name .'_TRUE"  >'
+                        . ($property_def['acceptedValue']['TRUE']?$property_def['acceptedValue']['TRUE' ]:'TRUE')
+                        . '</label>'
+                        . '<br />'
+                        . '<input id="'. $name .'_FALSE" type="radio" name="'.$html_input_name.'" value="FALSE" '
+                        . ($value=='FALSE'?' checked="checked" ': ' ') . ' >'
+                        . '<label for="'. $name.'_FALSE" >'
+                        . ($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
+                        . '</label>'
+                        . '</td>' ;
+                    break;
+
+                    case 'css':
+                    case 'lang':
+                    case 'editor':
+                    
+                        if ( $type == 'css' ) 
+                        {
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
+                        }
+                        elseif ( $type == 'lang' )
+                        {
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                        }
+                        elseif ( $type == 'editor' )
+                        {
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
+                        }
+
+                        // no break, go to enum case
+                    
+                    case 'enum' :
+
+                        $total_accepted_value = count($property_def['acceptedValue']);
+
+                        if ( $total_accepted_value == 1 || $total_accepted_value > 3 )
+                        {
+                            // display label
+                            $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html_label.'&nbsp;:</label></td>' ;
+
+                            // display select box with accepted value
+                            $elt_form .= '<td nowrap="nowrap">' . "\n"
+                                . '<select id="' . $name . '" name="'.$html_input_name.'">' . "\n";
+
+                            foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal )
+                            {
+                                if ( $keyVal == $value )
+                                {
+                                    $elt_form .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $html_unit .'</option>' . "\n";
+                                }
+                                else
+                                {
+                                    $elt_form .= '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $html_unit .'</option>' . "\n";
+                                }
+                            } // end foreach
+
+                            $elt_form .= '</select></td>' . "\n";
+
+                        }
+                        else
+                        {
+                            $elt_form .= '<td style="text-align: right" width="250">' . $html_label . '&nbsp;:</td>'
+                                . '<td nowrap="nowrap">' . "\n";
+
+                            foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal) 
+                            {
+                                $elt_form .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$html_input_name.'" value="'.$keyVal.'"  '
+                                    . ($value==$keyVal?' checked="checked" ':' ').' >'
+                                    . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                                    . '<span class="propUnit">'.$html_unit.'</span>'
+                                    . '<br />'."\n";
+                            }
+                            $elt_form .= '</td>';
+                        }
+                    
+                        break;
+
+                    case 'integer' :
+
+                        $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html_label.'&nbsp;:</label></td>'
+                            . '<td nowrap="nowrap">' . "\n"
+                            . '<input size="'.$input_size.'" align="right" id="'.$name.'" type="text" name="'.$html_input_name.'" value="'. $html_value .'"> '."\n"
+                            . '<span class="propUnit">'.$html_unit.'</span>'
+                            . '<span class="propType">'.$html_type.'</span>'
+                            . '</td>';
+
+                        break;
+                    
+                    default:
+                        // by default is a string
+                        $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >' . $html_label . '&nbsp;:</label></td>'
+                            . '<td nowrap="nowrap">' . "\n"
+                            . '<input size="'.$input_size.'" id="'.$name.'" type="text" name="'.$html_input_name.'" value="'.$html_value.'"> '
+                            . '<span class="propUnit">'.$html_unit.'</span>'
+                            . '<span class="propType">'.$html_type.'</span>'. "\n"
+                            . '</td>';
+
+                } // end switch on property type
+            }
+
+            // display description
+            $elt_form .= '<td><em>' . $html_description . '</td>';
+
+            $elt_form .= '</tr>' . "\n";
+
+        }        
+
+        return $elt_form;
+    }
+
+    /**
+     * Retrieve accepted value from a folder (ie : lang folder, css, folder, ...)
+     */
+
+    function retrieve_accepted_values_from_folder($path,$elt_type,$elt_extension=null,$elt_disallowed=null)
+    {
+        // init accepted_values list
+        $accepted_values = array();
+    
+        $dirname = realpath($path) . '/' ;
+    
+        if ( is_dir($dirname) )
+        {
+            $handle = opendir($dirname);
+            while ( $elt = readdir($handle) )
+            {
+                // skip '.', '..' and 'CVS'
+                if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
+    
+                // skip disallowed elt
+                if ( !empty($elt_disallowed) && in_array($elt,$elt_disallowed) ) continue; 
+                
+                if ( $elt_type == 'folder' )
+                {
+                    // skip no folder
+                    if ( ! is_dir($dirname.$elt) ) continue ; 
+                }
+
+                if ( $elt_type == 'file' )
+                {
+                    // skip no file
+                    if ( ! is_file($dirname.$elt) ) continue;
+                
+                    if ( isset($elt_extension) )
+                    {
+                        // skip file with wrong extension 
+                        $ext = strrchr($elt, '.');
+                        if ( is_array($elt_extension) && ! in_array(strtolower($ext),$elt_extension) ) continue;
+                        elseif ( strtolower($ext) != $elt_extension ) continue;
+                    }
+                }
+
+                // add elt to array
+                $elt_name = $elt;
+                $elt_value = $elt;
+
+                $accepted_values[$elt_name] = $elt_value;
+            }
+            return $accepted_values;
+        }
+        else
+        {
+            $this->error_message('');
+            return false;
+        }
+
+    }
+
+    function error_message ($message)
+    {
+        $this->error[] = $message ;
+    }
+    
+    function get_error_message ()
+    {
+        return $this->error;
+    }
+
+    /**
+     * Return the name (public label) of the config class
+     */
+
+    function get_conf_class()
+    {
+        $class = isset($this->conf_def['config_class']) 
+        ? strtolower($this->conf_def['config_class'])
+        : 'other';
+
+        return $class;
+    }
+
+}
+
 /**
  * Proceed to rename conf.php.dist file in unexisting .conf.php files
  *
@@ -77,45 +1064,29 @@ function claro_undist_file ($file)
  * @param $booleanState boolean
  *
  * @return string boolean value as string
- * * CLAROLINE
- *
- * @version 1.4
  *
  */
+
 function trueFalse($booleanState)
 {
     return ($booleanState?'TRUE':'FALSE');
 }
 
-
 /**
- * brutal replacement of ; by :
- * stripslashes striptags trim
- * these functions are  use to manage free strings.
- * function cleanvalue($string) this function remove tags, ; , top and terminal blank
- * this function is called by two others
- *
- * function cleanoutputvalue($string) protect html entities before an output (in html page)
- * function cleanwritevalue($string) protect befor write it in a file between " ";
- *
- * @param string string:
- * @return string trimed and without ;
- **/
-function cleanvalue($string)
+ * redefine  unexisting function (compatibility for older php)
+ */
+
+if (!function_exists('md5_file'))
 {
-    return trim(str_replace(';',':',strip_tags(stripslashes($string))));
+    function md5_file($file_name)
+    {
+        $fileContent = file($file_name);
+        $fileContent = !$fileContent ? FALSE : implode('', $fileContent);
+        return md5($fileContent);
+    }
 }
 
-/**
- * Make string ready to output in a html stream
- *
- * @param $string string change
- * @return string prepare to output in html stream
- **/
-function cleanoutputvalue($string)
-{
-    return trim(htmlspecialchars(cleanvalue($string)));
-}
+// TODO : rewrite this code :
 
 /**
  * return array list of found definition files
@@ -125,7 +1096,7 @@ function cleanoutputvalue($string)
 
 function get_def_file_list()
 {
-    GLOBAL $includePath ;
+    global $includePath ;
     
     $defConfFileList = array();
     if (is_dir($includePath . '/conf/def') && $handle = opendir($includePath . '/conf/def'))
@@ -140,8 +1111,10 @@ function get_def_file_list()
             if ($file != "." && $file != ".." && substr($file, -17)=='.def.conf.inc.php')
             {
                 $config_code = str_replace('.def.conf.inc.php','',$file);
-                $defConfFileList[$config_code] ['name'] = get_conf_name($config_code);
-                $defConfFileList[$config_code] ['class'] = get_conf_class($config_code);
+                $config = new Config($config_code);
+                $config->load();
+                $defConfFileList[$config_code]['name'] = $config->get_conf_name($config_code);
+                $defConfFileList[$config_code]['class'] = $config->get_conf_class();
             }
         }
         closedir($handle);
@@ -152,918 +1125,6 @@ function get_def_file_list()
         return FALSE;
     }
 
-}
-
-/**
- * Return the complete path and name of the config file of a given $config_code
- *
- * @param  string $config_code the config code to process
- * @global string includePath use to access to conf repository.
- * @return string the name of the config file (with complete path)
- *
- */
-
-function get_conf_file($config_code)
-{
-    global $includePath;
-
-    // include definition file and get $conf_def array
-    $def_file = get_def_file($config_code);
-    unset($conf_def);
-    if (file_exists($def_file)) include $def_file;
-
-    if ( isset($conf_def['config_file']) && !empty($conf_def['config_file']) )
-    {
-       // get the name of config file in definition file
-       return realpath($includePath . '/conf/').'/'.$conf_def['config_file'];
-    }
-    else
-    {
-       // build the filename with the config_code
-       return realpath($includePath . '/conf/').'/'.$config_code.'.conf.php';
-    }
-}
-
-/**
- * Return the complete path and name of the definition file of a given $config_code
- *
- * @param  string $config_code the config code to process
- * @global string includePath use to access to def repository.
- * @return the name of the config file (with complete path)
- *
- */
-
-function get_def_file($config_code)
-{
-    global $includePath;
-
-    $def_filename = realpath($includePath . '/conf/def/' . $config_code . '.def.conf.inc.php');
-
-    return $def_filename;
-}
-
-
-/**
- * Return the name (public label) of the Config of a given $config_code
- *
- * @param   $config_code string the config code to process
- *
- * @return  the name of the config 
- *
- */
-
-function get_conf_name($config_code)
-{
-    $def_file = get_def_file($config_code);
-
-     // include definition file and get $conf_def array
-    unset($conf_def);
-    if ( file_exists($def_file) )
-        include $def_file;
-
-    if ( isset($conf_def['config_name']) )
-    {
-        // name is the config name
-        $name = $conf_def['config_name'];
-    }
-    else
-    {
-        if ( isset($conf_def['config_file']) )
-        {
-            // name is the config_file name
-            $name = $conf_def['config_file'];
-        }
-        else
-        {
-            // name is the config code
-            $name = $config_code;
-        }
-    }
-    return $name;
-}
-
-/**
- * Return the name (public label) of the Config of a given $config_code
- *
- * @param  string $config_code the config code to process
- *
- * @return the name of the config 
- *
- */
-
-function get_conf_class($config_code)
-{
-    $def_file = get_def_file($config_code);
-
-     // include definition file and get $conf_def array
-    unset($conf_def);
-    if ( file_exists($def_file) )
-        include $def_file;
-
-    $class = isset($conf_def['config_class']) 
-    ? strtolower($conf_def['config_class'])
-    : 'other';
-
-    return $class;
-}
-
-/**
- * @param config_code string code of a claroline config.
- * @return the hash code stored for a given config
- */
-
-function get_conf_hash($config_code)
-{
-   $tbl_mdb_names   = claro_sql_get_main_tbl();
-   $tbl_config_file = $tbl_mdb_names['config_file'];
-
-   $sql = ' SELECT `config_hash` `config_hash`
-            FROM `'.$tbl_config_file.'`
-            WHERE `config_code` = "'. addslashes($config_code) .'"';
-
-   $result = claro_sql_query($sql);
-
-   if ($row = mysql_fetch_row($result))
-   {
-       // return hash value
-       return $row[0];
-   }
-   else
-   {
-       // no hash value in db
-       return '';
-   }
-}
-
-/**
- * @param string $config_code code of a claroline config.
- * @return boolean true if the config of the given config_code 
- *         is change since the last build by config tool  
- */
-
-function is_conf_file_modified($config_code)
-{
-    $conf_file = get_conf_file($config_code);
-
-    if ( file_exists($conf_file) )
-    {
-        $hash = get_conf_hash($config_code);
-        if ( !empty($hash) && $hash != md5_file($conf_file) )
-        //if ( !empty($hash) && $hash != filemtime($conf_file) )
-        {
-            // file is modified
-            return TRUE;
-        }
-        else
-        {
-            // no hash value in db
-            return FALSE;
-        }
-    }
-    else
-    {
-        // conf file doesn't exists
-        return FALSE;
-    }
-
-}
-
-/**
- *
- * @param mixed $propertyValue
- * @param array $propertyDef
- * @return boolean whether the value is valide following the rules in $propertyDef
- * @global array controlMsg array push a line if the validation failed
- */
-function validate_property ($propertyValue, $propertyDef)
-{
-    global $controlMsg, $rootSys;
-
-    $is_valid = TRUE;
-
-    // get validation value from property definition
-    if ( isset($propertyDef['acceptedValue']) ) $acceptedValue = $propertyDef['acceptedValue'];
-    else                                        $acceptedValue = array();
-    if ( isset($propertyDef['label']) ) $propertyName  = $propertyDef['label'];
-    else                                $propertyName  = '';
-    if ( isset($propertyDef['type']) )  $type = $propertyDef['type'];
-    else                                $type = '';
-
-    if( is_array($propertyDef) )
-    {
-                // display label
-        // if Type = css or lang,  acceptedValue would be fill
-        // and work after as enum.
-        switch($type)
-        {
-            case 'css' :
-                if ($handle = opendir($rootSys.'claroline/css'))
-                {
-                    $acceptedValue=array();
-                   while (false !== ($file = readdir($handle)))
-                   {
-                       $ext = strrchr($file, '.');
-                       if ($file != "." && $file != ".." && (strtolower($ext)==".css"))
-                       {
-                           $acceptedValue[$file] = $file;
-                       }
-                   }
-                   closedir($handle);
-                }
-
-                $type='enum';
-                break;
-            case 'lang' :
-                $dirname = $rootSys . 'claroline/lang/';
-                if($dirname[strlen($dirname)-1]!='/')
-                    $dirname.='/';
-                $handle=opendir($dirname);
-                $acceptedValue=array();
-                while ($entries = readdir($handle))
-                {
-                    if ($entries=='.' || $entries=='..' || $entries=='CVS')
-                        continue;
-                    if (is_dir($dirname . $entries))
-                    {
-                        $acceptedValue[$entries] = $entries;
-                    }
-                }
-                closedir($handle);
-                $type='enum';
-                break;
-            case 'editor' :
-                $dirname = $rootSys . 'claroline/editor/';
-                if($dirname[strlen($dirname)-1]!='/')
-                    $dirname.='/';
-                $handle=opendir($dirname);
-                $acceptedValue=array();
-                while ($entries = readdir($handle))
-                {
-                    if ($entries=='.' || $entries=='..' || $entries=='CVS')
-                        continue;
-                    if (is_dir($dirname . $entries))
-                    {
-                        $acceptedValue[$entries] = $entries;
-                    }
-                }
-                closedir($handle);
-                $type='enum';
-                break;
-        }
-
-
-
-        switch($type)
-        {
-            case 'boolean' :
-                if ( !($propertyValue==TRUE || $propertyValue==FALSE) )
-                {
-                    $controlMsg['error'][] = $propertyName.' would be boolean';
-                    $is_valid = FALSE;
-                }
-                break;
-
-            case 'integer' :
-                if ( eregi("[^0-9]",$propertyValue) )
-                {
-                    $controlMsg['error'][] = $propertyName.' would be integer';
-                    $is_valid = FALSE;
-                }
-                elseif ( isset($acceptedValue['max']) && $acceptedValue['max'] < $propertyValue )
-                {
-                    $controlMsg['error'][] = $propertyName.' would be integer inferior or equal to '.$acceptedValue['max'];
-                    $is_valid = FALSE;
-                }
-                elseif ( isset($acceptedValue['min']) && $acceptedValue['min'] > $propertyValue )
-                {
-                    $controlMsg['error'][] = $propertyName.' would be integer superior or equal to '.$acceptedValue['min'];
-                    $is_valid = FALSE;
-                }
-                break;
-
-            case 'lang' :
-
-            case 'enum' :
-                if ( is_array($acceptedValue) )
-                {
-                    if ( !in_array($propertyValue, array_keys($acceptedValue)) )
-                    {
-                        $controlMsg['error'][] = $propertyName.' would be in enum list';
-                        $is_valid = FALSE;
-                    }
-                }
-                else
-                {
-                    trigger_error('propertyDef is not an array, coding error', E_USER_WARNING);
-                }
-                break;
-
-            case 'relpath' :
-                break;
-            case 'syspath' :
-            case 'wwwpath' :
-                if ( empty($propertyValue) )
-                {
-                    $controlMsg['error'][] = $propertyName.' is empty';
-                    $is_valid = FALSE;
-                }
-                break;
-            case 'regexp' :
-                if (isset($acceptedValue) && !eregi( $acceptedValue, $propValue ))
-                {
-                    $controlMsg['error'][] = $propertyName.' would be valid for '.$acceptedValue;
-                    $is_valid = FALSE;
-                }
-                break;
-            case 'php' :
-                if (eval('$foo ='.$propertyValue.';'))
-                {
-                    $controlMsg['error'][] = $propertyName.' would be php valid code return in 1 value';
-                    $is_valid = FALSE;
-                }
-                break;
-            case 'string' :
-            default :
-        }
-    }
-    else
-    {
-        //trigger_error('propertyDef is not an array, coding error',E_USER_WARNING);
-        return false;
-    }
-    return $is_valid;
-}
-
-function save_config_hash_in_db($config_code,$conf_hash)
-{
-    // get table name of config file
-    $mainTbl = claro_sql_get_main_tbl();
-    $tbl_config_file = $mainTbl['config_file'];
-
-    // update config : set hash
-    $sql =" UPDATE `" . $tbl_config_file  . "`"
-    .     " SET config_hash = '" . addslashes($conf_hash) . "'"
-    .     " WHERE config_code = '" . addslashes($config_code) . "'" ;
-
-    if ( !claro_sql_query_affected_rows($sql) )
-    {
-        // insert an entry for config_file
-        $sql ="INSERT IGNORE INTO `" . $tbl_config_file  . "` 
-               SET config_hash = '" . addslashes($conf_hash) . "'
-               ,   config_code = '" . addslashes($config_code) . "'";
-        return claro_sql_query($sql);
-    }
-    else
-    {
-        return true;
-    }
-}
-
-function write_conf_file($conf_def,$conf_def_property_list,$storedPropertyList,$confFile,$generatorFile=__FILE__)
-{
-    global $dateTimeFormatLong;
-
-    if ( strlen($generatorFile)>50 )
-    {
-        $generatorFile = str_replace("\\","/",$generatorFile);
-        $generatorFile = "\n\t\t".str_replace("/","\n\t\t/",$generatorFile);
-    }
-
-    $fileHeader = '<?php '."\n"
-                  . '/** '
-                  . ' * DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"
-                  . ' * -------------------------------------------------'."\n"
-                  . ' * Generated by '.$generatorFile.' '."\n"
-                  . ' * Date '.claro_disp_localised_date($dateTimeFormatLong)."\n"
-                  . ' * -------------------------------------------------'."\n"
-                  . ' * DONT EDIT THIS FILE - NE MODIFIEZ PAS CE FICHIER '."\n"
-                  . ' **/'."\n\n"
-                  . '// $'.$conf_def['config_code'].'GenDate is an internal mark'."\n"
-                  . '   $'.$conf_def['config_code'].'GenDate = "'.time().'";'."\n\n"
-                  . (isset($conf_def['technicalInfo'])
-                  ? '/*'
-                  . str_replace('*/', '* /', $conf_def['technicalInfo'])
-                  . '*/'
-                  : '')
-                  ;
-
-    // open configuration file
-    if ( $handle = fopen($confFile,'w') )
-    {
-
-        // write header
-        fwrite($handle,$fileHeader);
-
-        foreach($storedPropertyList as $storedProperty)
-        {
-            // Writting of a properties include
-            // The  comment from technical info
-            // the creation (const or var)
-            // the comment  of lastChange
-
-            $propertyName = $storedProperty['propName'];
-            $propertyValue = $storedProperty['propValue'];
-
-            if ( isset($conf_def_property_list[$propertyName]['container']) )
-            {
-                $container = $conf_def_property_list[$propertyName]['container'];
-            }
-            else
-            {
-                $container = '';
-            }
-
-            if ( isset($conf_def_property_list[$propertyName]['description']) )
-            {
-                $description = $conf_def_property_list[$propertyName]['description'];
-            }
-            else
-            {
-                $description = '';
-            }
-
-            if ( isset($conf_def_property_list[$propertyName]['technicalInfo']) )
-            {
-                $technicalInfo = $conf_def_property_list[$propertyName]['technicalInfo'];
-            }
-            else
-            {
-                $technicalInfo = '';
-            }
-
-            // property type define how to write the value
-            switch ($conf_def_property_list[$propertyName]['type'])
-            {
-                case 'boolean':
-                    if ( is_bool($propertyValue) ) 
-                    {
-                        $valueToWrite = trueFalse($propertyValue);
-                    } 
-                    else
-                    {
-                        $valueToWrite = $propertyValue;
-                    }
-                    break;
-                case 'php':
-                case 'integer':
-                    $valueToWrite = $propertyValue;
-                    break;
-                default:
-                    $valueToWrite = "'". str_replace("'","\'",$propertyValue) . "'";
-                    break;
-            }
-
-            // description
-            if ( !empty($description) )
-            {
-                $propertyDesc = '/* ' . $propertyName . ' : ' . str_replace("\n",'',$description) . ' */' . "\n";
-            }
-            else
-            {
-                if ( isset($conf_def_property_list[$propertyName]['label']) )
-                {
-                    $propertyDesc = '/* '.$propertyName.' : '.str_replace("\n","",$conf_def_property_list[$propertyName]['label']).' */'."\n";
-                }
-                else
-                {
-                    $propertyDesc = '';
-                }
-            }
-
-            // technical information
-            if ( !empty($technicalInfo) )
-            {
-                $propertyDesc .= '/*'."\n"
-                               . str_replace('*/', '* /', $conf_def_property_list[$propertyName]['technicalInfo'])."\n"
-                               . '*/'."\n";
-            }
-
-
-            // container : Constance or variable
-            if ( isset($conf_def_property_list[$propertyName]['container']) )
-            {
-                $container = $conf_def_property_list[$propertyName]['container'];
-            }
-            else
-            {
-                $container = '';
-            }
-            
-            if ( strtoupper($container)=='CONST' )
-            {
-                $propertyLine = 'if (!defined("'.$propertyName.'")) define("'.$propertyName.'",'.$valueToWrite.');'."\n";
-            }
-            else
-            {
-                $propertyLine = '$'.$propertyName.' = '. $valueToWrite .';'."\n";
-            }
-            $propertyLine .= "\n\n";
-
-            fwrite($handle,$propertyDesc);
-            fwrite($handle,$propertyLine);
-
-        }
-        fwrite($handle,"\n".'?>');
-        fclose($handle);
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-
-function claroconf_disp_editbox_of_a_value($property_def, $property_name, $currentValue=NULL)
-{
-    if (  isset($property_def['type']) ) $type = $property_def['type'];
-    else                                 $type = '';
-
-    // current value: set to TRUE or false if boolean
-    if ( is_bool($currentValue) )
-    {
-        $currentValue = $currentValue?'TRUE':'FALSE';
-    }
-
-    // name of the form element
-    $htmlPropName = 'prop['.($property_name).']';
-
-    // label of the form element
-    if ( isset($property_def['label']) )
-    {
-        $htmlPropLabel = htmlspecialchars($property_def['label']);
-    }
-    else
-    {
-        $htmlPropLabel = htmlspecialchars($property_name);
-    }
-
-    // type description to display
-    if ( strlen($type) > 0 )
-    {
-        $htmlPropType = ' <small>(' . htmlspecialchars($type) . ')</small>';
-    }
-    else
-    {
-        $htmlPropType = '';
-    }
-
-    // actual value to display
-    if ( isset($property_def['acceptedValue'][$currentValue]) )
-    {
-        // get the label of the actual value
-        $actual_value = $property_def['acceptedValue'][$currentValue];
-    }
-    else
-    {
-        $actual_value = $currentValue;
-    }
-
-    // default value to display
-    // 1st, if  boolean, stringify value
-
-    if ( isset($property_def['default']) ) $default = $property_def['default'];
-    else                                   $default = '';
-
-    if ( $type == 'boolean' )
-    {
-        $fooDef = trueFalse($default);
-    }
-    else
-    {
-        $fooDef = $default;
-    }
-
-    if ( isset($property_def['acceptedValue'][$fooDef]) )
-    {
-        $default_value = $property_def['acceptedValue'][$fooDef];
-    }
-    else
-    {
-        $default_value = $fooDef;
-    }
-
-    // description to display 
-    if ( isset($property_def['description']) )
-    {
-        $htmlPropDesc = nl2br(htmlspecialchars($property_def['description']));
-    }
-    else
-    {
-        $htmlPropDesc = '';
-    }
- 
-    if ( isset($currentValue) )
-    {
-        $htmlPropValue = $currentValue;
-
-        /* Default value  have  perhaps no sense to be display
-        As $htmlPropDefault is never set with this comment, I comment  his display below in the code
-        if ( $currentValue != $property_def['default']) 
-        {
-            $htmlPropDefault = 'Default : ' . (empty($property_def['default'])?get_lang('Empty'):$default_value);
-        }
-        */
-    } 
-    else
-    {
-        // if not set --> default value
-        $htmlPropValue = $default;
-    }
-
-    $size = (int) strlen($htmlPropValue);
-    $size = 2+(($size > 50)?50:(($size < 15)?15:$size));
-
-    $htmlUnit = (isset($property_def['unit'])?''.htmlspecialchars($property_def['unit']).' ':'');
-
-    if ( isset($property_def['display']) && !$property_def['display'] )
-    {
-        echo '<input type="hidden" value="'. htmlspecialchars($htmlPropValue).'" name="'.$htmlPropName.'">'."\n";
-    }
-    elseif ( isset($property_def['readonly']) && $property_def['readonly'] )
-    {
-        echo '<tr style="vertical-align: top">' .
-             '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' . "\n";
-
-        echo '<input type="hidden" value="'. htmlspecialchars($htmlPropValue).'" name="'.$htmlPropName.'">'."\n";
-
-        echo '<td nowrap="nowrap">' . "\n";
-
-        switch ( $type )
-        {
-            case 'boolean' :
-            case 'lang' :
-            case 'enum' :
-                if ( isset($property_def['acceptedValue'][$htmlPropValue]) )
-                {
-                    echo $property_def['acceptedValue'][$htmlPropValue];
-                }
-                else
-                {
-                    echo $htmlPropValue;
-                }
-                break;
-            case 'integer' :
-            case 'string' :
-            default:
-                // probably a string or integer
-                if ( empty($htmlPropValue) )
-                {
-                    echo get_lang('Empty');
-                }
-                else
-                {
-                    echo $htmlPropValue;
-                }
-        } // switch
-
-        echo '</td>';
-        echo '<td><em>' . $htmlPropDesc . '</em></td>' . "\n";
-        echo '</tr>';
-    }
-    else
-    // Prupose a form following the type
-    {
-        // display label
-        // if Type = css or lang,  acceptedValue would be fill
-        // and work after as enum.
-        $invalid_css = array('print.css','compatible.css');
-
-        switch ( $type )
-        {
-            case 'css' :
-                if ($handle = opendir('../../css'))
-                {
-                   $property_def['acceptedValue']=array();
-                   while (false !== ($file = readdir($handle)))
-                   {
-                       $ext = strrchr($file, '.');
-                       if ($file != "." && $file != ".." && (strtolower($ext)==".css"))
-                       {
-                            if ( ! in_array($file,$invalid_css) )
-                            {
-                                $property_def['acceptedValue'][$file] = $file;
-                            }
-                       }
-                   }
-                   closedir($handle);
-                }
-                $type = 'enum';
-                break;
-            case 'lang' :
-                $dirname = '../../lang/';
-                if($dirname[strlen($dirname)-1]!='/')
-                    $dirname.='/';
-                $handle=opendir($dirname);
-                $property_def['acceptedValue']=array();
-                while ($entries = readdir($handle))
-                {
-                    if ($entries=='.'||$entries=='..'||$entries=='CVS')
-                        continue;
-                    if (is_dir($dirname.$entries))
-                    {
-                        $property_def['acceptedValue'][$entries] = $entries;
-                    }
-                }
-                closedir($handle);
-                $type = 'enum';
-                break;
-            case 'editor' :
-                $dirname = '../../editor/';
-                if($dirname[strlen($dirname)-1]!='/')
-                    $dirname.='/';
-                $handle=opendir($dirname);
-                $property_def['acceptedValue']=array();
-                while ($entries = readdir($handle))
-                {
-                    if ($entries=='.'||$entries=='..'||$entries=='CVS')
-                        continue;
-                    if (is_dir($dirname.$entries))
-                    {
-                        $property_def['acceptedValue'][$entries] = $entries;
-                    }
-                }
-                closedir($handle);
-                $type = 'enum';
-                break;
-        }
-
-        switch( $type )
-        {
-            case 'boolean' :
-                echo '<tr style="vertical-align: top">' .
-                    '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' ;
-
-                echo '<td nowrap="nowrap">' . "\n";
-
-                echo '<input id="'.$property_name.'_TRUE"  type="radio" name="'.$htmlPropName.'" value="TRUE"  '
-                    . ($htmlPropValue=='TRUE'?' checked="checked" ':' ')
-                    . ' >' ;
-                echo '<label for="'.$property_name.'_TRUE"  >'
-                     . ($property_def['acceptedValue']['TRUE' ]?$property_def['acceptedValue']['TRUE' ]:'TRUE' )
-                     . '</label>';
-
-                echo '<br />';
-
-                echo '<input id="'.$property_name.'_FALSE" type="radio" name="'.$htmlPropName.'" value="FALSE" '
-                     . ($htmlPropValue=='FALSE'?' checked="checked" ': ' ')
-                     . ' >' ;
-                echo '<label for="'.$property_name.'_FALSE" >'
-                     .($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
-                     .'</label>';
-                break;
-
-            case 'enum' :
-
-                echo '<tr style="vertical-align: top">' ;
-
-                if ( count($property_def['acceptedValue']) > 3 )
-                {
-                    echo '<td style="text-align: right" width="250"><label for="' . $property_name . '"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
-                    echo '<td nowrap="nowrap">' . "\n";
-                    echo '<select id="' . $property_name . '" name="'.$htmlPropName.'">' . "\n";
-
-                    foreach($property_def['acceptedValue'] as  $keyVal => $labelVal)
-                    {
-                        if ($htmlPropValue==$keyVal)
-                        {
-                            echo '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $htmlUnit .'</option>' . "\n";
-                        }
-                        else
-                        {
-                            echo '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $htmlUnit .'</option>' . "\n";
-                        }
-                    }
-
-                    echo '</select>' . "\n";
-
-                }
-                else
-                {
-                    echo '<td style="text-align: right" width="250">' . $htmlPropLabel . '&nbsp;:</td>' ;
-                    echo '<td nowrap="nowrap">' . "\n";
-
-                    foreach($property_def['acceptedValue'] as  $keyVal => $labelVal)
-                    {
-                        echo '<input id="'.$property_name.'_'.$keyVal.'"  type="radio" name="'.$htmlPropName.'" value="'.$keyVal.'"  '
-                        .($htmlPropValue==$keyVal?' checked="checked" ':' ')
-                        .' >'
-                        .'<label for="'.$property_name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
-                        .'<span class="propUnit">'.$htmlUnit.'</span>'
-                        .'<br />'."\n";
-                    }
-                }
-                break;
-
-            //TYPE : integer, an integer is attempt
-            case 'integer' :
-
-                echo '<tr style="vertical-align: top">' .
-                    '<td style="text-align: right" width="250"><label for="'.$property_name.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
-
-                echo '<td nowrap="nowrap">' . "\n";
-
-                echo '<input size="'.$size.'"  align="right" id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'. htmlspecialchars($htmlPropValue) .'"> '."\n"
-                .'<span class="propUnit">'.$htmlUnit.'</span>'
-                .'<span class="propType">'.$htmlPropType.'</span>'
-                ."\n" ;
-                break;
-
-            default:
-                // probably a string
-                echo '<tr style="vertical-align: top">' .
-                    '<td style="text-align: right" width="250"><label for="'.$property_name.'"  >' . $htmlPropLabel . '&nbsp;:</label></td>' ;
-
-                echo '<td nowrap="nowrap">' . "\n";
-                echo '<input size="'.$size.'"  id="'.$property_name.'" type="text" name="'.$htmlPropName.'" value="'. htmlspecialchars($htmlPropValue) .'"> '
-                .'<span class="propUnit">'.$htmlUnit.'</span>'
-                .'<span class="propType">'.$htmlPropType.'</span>'."\n";
-
-        } // switch
-
-        echo '</td><td>';
-        /*  this disabling is  commented  in $htmlPropDefault setting  100 lines before.
-        if (!empty($htmlPropDefault))
-        {
-            echo '<small>(' . $htmlPropDefault . ' ' . $htmlUnit . ')</small> ';
-        }
-        */
-        if (!empty($htmlPropDesc))
-        {
-            echo '<em>' . $htmlPropDesc. '</em>';
-        }
-        echo '</td></tr>' . "\n";
-
-    } // else
-}
-
-// To work
-/*
-function claro_create_conf_filename($config_code)
-{
-    return true;
-}
-
-function validate_conf_property ($name, $value, $config_code)
-{
-    return true;
-}
-
-function validate_conf_properties ($properties, $config_code)
-{
-    return true;
-}
-
-*/
-/**
- * return value found in a given file following a given property list
- *
- */
-function get_values_from_confFile($file_name,$conf_def_property_list)
-{
-    $value_list = array();
-    if(file_exists($file_name))
-    {
-        include($file_name);
-        if ( is_array($conf_def_property_list) )
-        {
-            foreach($conf_def_property_list as $propName => $propDef )
-            {
-                if ( isset($propDef['container']) && $propDef['container']=='CONST')
-                {
-                    if ( defined($propName) )
-                        @eval('$value_list[$propName] = '.$propName.';');
-                }
-                else
-                {
-                    if(isset($$propName))
-                    {
-                        $value_list[$propName] = $$propName;
-                    }
-                    else 
-                    {
-                        $value_list[$propName] = null;
-                    }
-                    
-                }
-            }
-        }
-    }
-    return $value_list;
-}
-
-
-/**
- * redefine  unexisting function (for older php)
- */
-
-if (!function_exists('md5_file'))
-{
-    function md5_file($file_name)
-    {
-        $fileContent = file($file_name);
-        $fileContent = !$fileContent ? FALSE : implode('', $fileContent);
-        return md5($fileContent);
-    }
 }
 
 
