@@ -4,7 +4,7 @@
  *
  * This tool manage properties of an exiting course
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -117,7 +117,7 @@ if ( isset($_REQUEST['changeProperties']) )
 
     if ( empty($courseTitle)        && $fieldRequiredStateList['intitule'])
         $errorMsgList[] = get_lang('ErrorCourseTitleEmpty');
-    if ( empty($courseCategory)     && $fieldRequiredStateList['category'])
+    if ( is_null($courseCategory)   && $fieldRequiredStateList['category'])
         $errorMsgList[] = get_lang('ErrorCategoryEmpty');
     if ( empty($courseHolder)       && $fieldRequiredStateList['lecturer'])
         $errorMsgList[] = get_lang('ErrorLecturerEmpty');
@@ -199,22 +199,27 @@ if ( isset($_REQUEST['changeProperties']) )
         elseif (   $visibility && ! $registrationAllowed) $visibilityState = 3;
         elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
 
+        /**
+         * @todo TODO create a function and  merge this  job with create course
+         */
         $sql = "UPDATE `" . $tbl_course . "`
-                SET `intitule`         = '" .addslashes($courseTitle)       . "',
-                    `faculte`          = '" .addslashes($courseCategory)    . "',
-                    `titulaires`       = '" .addslashes($courseHolder)      . "',
-                    `fake_code`        = '" .addslashes($courseOfficialCode). "',
-                    `languageCourse`   = '" .addslashes($courseLanguage)    . "',
-                    `departmentUrlName`= '" .addslashes($extLinkName)       . "',
-                    `departmentUrl`    = '" .addslashes($extLinkUrl)        . "',
-                    `email`            = '" .addslashes($courseEmail)       . "',
-                    `enrollment_key`   = '" .addslashes($enrollmentKey)     ."',
-                    `visible`          = "  .(int) $visibilityState         ."
+                SET `intitule`         = '" . addslashes($courseTitle)       . "',
+                    `faculte`          = '" . addslashes($courseCategory)    . "',
+                    `titulaires`       = '" . addslashes($courseHolder)      . "',
+                    `fake_code`        = '" . addslashes($courseOfficialCode). "',
+                    `languageCourse`   = '" . addslashes($courseLanguage)    . "',
+                    `departmentUrlName`= '" . addslashes($extLinkName)       . "',
+                    `departmentUrl`    = '" . addslashes($extLinkUrl)        . "',
+                    `email`            = '" . addslashes($courseEmail)       . "',
+                    `enrollment_key`   = '" . addslashes($enrollmentKey)     . "',
+                    `visible`          = "  . (int) $visibilityState         . "
                 WHERE code='" . addslashes($current_cid) . "'";
 
         claro_sql_query($sql);
 
         $dialogBox = get_lang('ModifDone');
+
+
     }
 
 
@@ -228,6 +233,11 @@ include($includePath . '/claro_init_local.inc.php');
 $language_list = claro_get_lang_flat_list();
 
 $category_array = claro_get_cat_flat_list();
+if(get_conf('rootCanHaveCourse', true))
+{
+    $category_array = array_merge(array('root' => get_lang('top')),$category_array);
+}
+
 // If there is no current $courseCategory, add a fake option
 // to prevent auto select the first in list
 // to prevent auto select the first in list

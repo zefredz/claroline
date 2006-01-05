@@ -9,7 +9,7 @@
  * - Wait
  * - Done
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -72,10 +72,10 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 {
     // SUBMITTED DATA CHECKING
 
-    if ( ! $courseTitle && get_conf('human_label_needed') )                 $errorList[] = get_lang('LabelCanBeEmpty');
-    if ( ! $courseOfficialCode && get_conf('human_code_needed') )          $errorList[] = get_lang('CodeCanBeEmpty');
-    if ( ! $courseCategory || $courseCategory == 'choose_one')  $errorList[] = sprintf(get_lang('_p_aCategoryWouldBeSelected'), 'mailto:'.$administrator_email);
-    if ( empty($courseEmail) && get_conf('course_email_needed') )          $errorList[] = get_lang('EmailCanBeEmpty');
+    if ( ! $courseTitle && get_conf('human_label_needed') )       $errorList[] = get_lang('LabelCanBeEmpty');
+    if ( ! $courseOfficialCode && get_conf('human_code_needed') ) $errorList[] = get_lang('CodeCanBeEmpty');
+    if ( ! $courseCategory || $courseCategory == 'choose_one')    $errorList[] = sprintf(get_lang('_p_aCategoryWouldBeSelected'), 'mailto:'.$administrator_email);
+    if ( empty($courseEmail) && get_conf('course_email_needed') ) $errorList[] = get_lang('EmailCanBeEmpty');
     if ( ! empty( $courseEmail )
         && ! is_well_formed_email_address($courseEmail) )       $errorList[] = get_lang('EmailWrong');
 
@@ -84,6 +84,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 
     // PREPARE COURSE INTERNAL SYSTEM SETTINGS
 
+    if($courseCategory == 'root') $courseCategory = null;
     $courseOfficialCode = ereg_replace('[^A-Za-z0-9_]', '', $courseOfficialCode);
     $courseOfficialCode = strtoupper($courseOfficialCode);
 
@@ -126,24 +127,21 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 $display = DISP_COURSE_CREATION_SUCCEED;
 
                 // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
-                $mailSubject =
-                '['.$siteName.'] '.get_lang('CreationMailNotificationSubject').' : '.$courseTitle;
+                $mailSubject  = '['.$siteName.'] ';
+                $mailSubject .= get_lang('CreationMailNotificationSubject').' : ';
+                $mailSubject .= $courseTitle;
 
-                $mailBody    =
-                  claro_disp_localised_date($dateTimeFormatLong) . "\n\n"
-                . get_lang('CreationMailNotificationBody') .' ' . $siteName . ' '
-                . get_lang('ByUser') . ' ' . $_user['firstName'] . ' ' . $_user['lastName']
-                . ' (' . $_user['mail'] . ') '
-                . "\n\n"
-                . get_lang('Code')          . "\t:\t" . $courseOfficialCode  ."\n"
-                . get_lang('CourseTitle')   . "\t:\t" . $courseTitle         ."\n"
-                . get_lang('Professors')    . "\t:\t" . $courseHolder        ."\n"
-                . get_lang('Email')         . "\t:\t" . $courseEmail         ."\n"
-                . get_lang('Category')      . "\t:\t" . $courseCategory      ."\n"
-                . get_lang('Language')      . "\t:\t" . $courseLanguage      ."\n"
-                . "\n"
-                . $coursesRepositoryWeb.$courseDirectory."/\n\n"
-                ;
+                $mailBody  = claro_disp_localised_date($dateTimeFormatLong) . "\n\n";
+                $mailBody .= get_lang('CreationMailNotificationBody') .' ' . $siteName . ' ';
+                $mailBody .= get_lang('ByUser') . ' ' . $_user['firstName'] . ' ' . $_user['lastName'];
+                $mailBody .= ' (' . $_user['mail'] . ') ' . "\n\n";
+                $mailBody .= get_lang('Code')          . "\t:\t" . $courseOfficialCode  . "\n";
+                $mailBody .= get_lang('CourseTitle')   . "\t:\t" . $courseTitle         . "\n";
+                $mailBody .= get_lang('Professors')    . "\t:\t" . $courseHolder        . "\n";
+                $mailBody .= get_lang('Email')         . "\t:\t" . $courseEmail         . "\n";
+                $mailBody .= get_lang('Category')      . "\t:\t" . $courseCategory      . "\n";
+                $mailBody .= get_lang('Language')      . "\t:\t" . $courseLanguage      . "\n\n";
+                $mailBody .= $coursesRepositoryWeb . $courseDirectory . "/\n\n";
 
                 // GET THE CONCERNED SENDEES OF THE EMAIL
                 $platformAdminList = claro_get_admin_list ();
@@ -263,6 +261,10 @@ if( $display == DISP_COURSE_CREATION_FORM )
     $language_list        = claro_get_lang_flat_list();
     $courseCategory_array = claro_get_cat_flat_list();
 
+    if(get_conf('rootCanHaveCourse', true))
+    {
+        $courseCategory_array = array_merge(array('root' => get_lang('top')),$courseCategory_array);
+    }
     // If there is no current course category, add a fake option
     // to prevent user to simply select the first in list without purpose
 
