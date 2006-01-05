@@ -186,7 +186,6 @@ $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)
 //$urlAppendPath = ereg_replace ("claroline/install/index.php", "", $_SERVER['PHP_SELF']);
 
 // here I want find  something to get garbage out of documentRoot
-include_once('../inc/conf/def/CLMAIN.def.conf.inc.php');
 
 $fd = @fopen($configFilePath, 'w');
 if (!$fd)
@@ -236,14 +235,12 @@ else
     $form_value_list['allowSelfReg'] = trueFalse($allowSelfReg);
     $form_value_list['platformLanguage'] = $languageForm ;
     $form_value_list['claro_stylesheet'] = 'default.css';
-    $form_value_list['CLARO_DEBUG_MODE']= $conf_def_property_list['CLARO_DEBUG_MODE']['default'];
-    $form_value_list['DEVEL_MODE']= $conf_def_property_list['DEVEL_MODE']['default'];
 
-######### DEALING WITH FILES #########################################
+    ######### DEALING WITH FILES #########################################
 
-/**
-* Config file to undist
-*/
+    /**
+     * Config file to undist
+     */
 
     $arr_file_to_undist =
     array (
@@ -262,70 +259,36 @@ else
     $includePath = $newIncludePath;
     $def_file_list = get_def_file_list();
 
-    if (is_array($def_file_list))
+    if ( is_array($def_file_list) )
     {
-
         foreach ( $def_file_list as  $config_code => $def )
         {
-            $okToSave = TRUE;
+            // new config object
+            $config = new Config($config_code);    
 
-            unset($conf_def, $conf_def_property_list);
-
-            $conf_file = get_conf_file($config_code);
-            $def_file  = get_def_file($config_code);
-
-            if ( file_exists($def_file) )
-                require($def_file);
-
-            if ( is_array($conf_def_property_list) )
+            // load configuration
+            if ( $config->load() ) 
             {
-                $propertyList = array();
-
-                foreach($conf_def_property_list as $propName => $propDef )
+                $config_name = $config->config_code;
+                
+                // validate config
+                if ( $config->validate($form_value_list) )
                 {
-                    if ( isset($form_value_list[$propName]) )
-                    {
-                        // get value from form
-                        $propValue = $form_value_list[$propName];
-                    }
-                    else
-                    {
-                        // get default value
-                        $propValue = $propDef['default']; // Use default as effective value
-                    }
-
-                    if ( !validate_property($propValue, $propDef) )
-                    {
-                        $okToSave = FALSE;
-                    }
-                    else
-                    {
-                        $propertyList[] = array('propName'=>$propName
-                                               ,'propValue'=>$propValue);
-                    }
+                    // save config file
+                    $config->save();
+                }
+                else
+                {
+                    // no valid
+                    $error = true ;
+                    $message = $config->get_error_message();
                 }
             }
             else
             {
-                $okToSave = FALSE;
-            }
-
-            if ($okToSave)
-            {
-
-                if ( !file_exists($conf_file) ) touch($conf_file);
-
-                if ( is_array($propertyList) && count($propertyList)>0 )
-                {
-
-                    if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
-                    {
-                        // calculate hash of the config file
-                        $conf_hash = md5_file($conf_file); // md5_file not in PHP 4.1
-                        //$conf_hash = filemtime($conf_file);
-                        save_config_hash_in_db($config_code,$conf_hash);
-                    }
-                }
+                // error loading the configuration
+                $error = true ;
+                $message = $config->get_error_message();
             }
         }
     }
