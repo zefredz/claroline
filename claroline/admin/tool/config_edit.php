@@ -61,7 +61,9 @@ $gidReset=TRUE;
 // include init and library files
 
 require '../../inc/claro_init_global.inc.php';
-$controlMsg = array();
+$error = false ;
+$error_msg = array();
+
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
@@ -70,214 +72,71 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-require_once $includePath . '/lib/debug.lib.inc.php';
-require_once $includePath . '/lib/course.lib.inc.php';
 require_once $includePath . '/lib/config.lib.inc.php';
 
 /* ************************************************************************** */
 /* Process
 /* ************************************************************************** */
 
-$display_form = TRUE;
+$form = '';
 
 if ( !isset($_REQUEST['config_code']) )
 {
-    // no config_code
-    // return to index
-    $controlMsg['info'][] = get_lang('No configuration code');
-    $display_form = FALSE;
+    $message = get_lang('No configuration code');
 }
 else
 {
     // get config_code
     $config_code = trim($_REQUEST['config_code']);
 
-    // Get info def and conf file (existing or not) for this config code.
-    $def_file  = get_def_file($config_code);
-    $conf_file = get_conf_file($config_code);
+    // new config object
+    $config = new Config($config_code);    
 
-    if ( file_exists($def_file) )
+    // load configuration
+    if ( $config->load() ) 
     {
-        $config_name = get_conf_name($config_code);
-
-        if ( isset($_REQUEST['cmd']) && isset($_REQUEST['prop']) )
+        $config_name = $config->config_code;
+        
+        if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
         {
             if ( $_REQUEST['cmd'] == 'save')
             {
-                $okToSave = TRUE;
-
-                // unset $conf_def & $conf_def_property_list array
-                unset($conf_def,$conf_def_property_list);
-
-                // get $conf_def & $conf_def_property_list array from definition files
-                require($def_file);
-
-                // validation of params posted by form
-                if ( is_array($_REQUEST['prop']) )
+                if ( ! empty($_REQUEST['property']) )
                 {
-                    // validate form params
-                    foreach ( $_REQUEST['prop'] as $propertyName => $propertyValue )
+                    // validate config
+                    if ( $config->validate($_REQUEST['property']) )
                     {
-                        if (!validate_property($propertyValue, $conf_def_property_list[$propertyName]))
-                        {
-                            $controlMsg['info'][] = $propertyName . ' ' . get_lang('(No valid)');
-                            $okToSave = FALSE;
-                        }
-                    }
-
-                    if ( $okToSave )
-                    {
-                        // save property in database
-                        reset($_REQUEST['prop']);
-                        foreach ( $_REQUEST['prop'] as $propertyName => $propertyValue )
-                        {
-                            $storedPropertyList[] = array( 'propName' => $propertyName
-                                                         , 'propValue' => $propertyValue);
-
-                            // here was writing to DB.... Perhaps refactoring is needed
-                        }
+                        // save config file
+                        $config->save();
+                        $message[] = sprintf( get_lang('_p_PropForConfigCommited'), $config_name, $config_code);; 
                     }
                     else
                     {
-                        $controlMsg['info'][] = get_lang('Save aborded');
-                    }
-                }
-                else
-                {
-                    // No values posted by form
-                    $okToSave = FALSE;
-                    $controlMsg['info'][] = get_lang('Save aborded');
-                }
-
-                if ( $okToSave )
-                {
-                    // build the conf file.
-
-                    // 1° Get extra info from the def file.
-                    require($def_file);
-
-                    // 2° Perhaps it's the first creation
-                    if ( !file_exists($conf_file) )
-                    {
-                        // create an empty file
-                        if ( touch($conf_file) )
-                        {
-                            $controlMsg['info'][] = sprintf(get_lang('_p_config_file_creation'),$conf_file);
-                        }
-                        else
-                        {
-                            $controlMsg['info'][] = sprintf(get_lang('_p_config_file_creation'),$conf_file);
-                        }
-                    }
-
-                    // here was reading from DB.... Perhaps refactoring is needed
-                    if ( is_array($storedPropertyList) && count($storedPropertyList)>0 )
-                    {
-
-                        if ( write_conf_file( $conf_def
-                                            , $conf_def_property_list
-                                            , $storedPropertyList
-                                            , $conf_file,realpath(__FILE__))
-                                            )
-                        {
-                            // calculate hash of the config file
-                            $conf_hash = md5_file($conf_file); // not in php 4.1
-                            //$conf_hash = filemtime($conf_file);
-                            if (save_config_hash_in_db($config_code,$conf_hash) )
-                            {
-                                $controlMsg['info'][] = sprintf( get_lang('_p_PropForConfigCommited')
-                                                               , $config_name
-                                                               , $config_code
-                                                               );
-                                $controlMsg['debug'][] = 'File generated for' . ' <b>' . $config_name . '</b> ' . 'is' . ' <em>' . $conf_file . '</em><br />' . "\n"
-                                                       . 'Signature' . ' : <tt>' . $conf_hash . '</tt>';
-                            }
-                        }
-                        else
-                        {
-                            $controlMsg['error'][] = sprintf( get_lang('_p_ErrorOnBuild_S_for_S')
-                                                            , $conf_file
-                                                            , $config_code);
-                        }
-                    }
-                    else
-                    {
-                        $controlMsg['info'][] = 'No Properties for '.$config_name . ' (' . $config_code . '). <br />' . "\n"
-                                              . '<em>'.$conf_file.'</em>is not generated' ;
-                    }
-                }
-
-            }
-
-        }
-
-        /*
-         *  Get values from the configuration file.
-         */
-
-        // unset $conf_def & $conf_def_property_list array
-        unset($conf_def,$conf_def_property_list);
-        require($def_file);
-
-        // Search for value  existing  in conf file
-        $currentConfContent = get_values_from_confFile($conf_file,$conf_def_property_list);
-
-        unset($currentConfContent[$config_code.'GenDate']);
-
-        if (is_array($conf_def['section']) )
-        {
-            foreach($conf_def['section'] as $sectionKey => $section)
-            {
-                // set force display off if section is hidden
-                $force_display_off = (isset($section['display']) && !$section['display'] );
-
-                if (is_array($section['properties']))
-                {
-                    foreach($section['properties'] as $propertyName )
-                    {
-                        $conf_def_property_list[$propertyName]['section']=$sectionKey;
-
-                        // force display FALSE for properties in hidden section
-                        if ($force_display_off) $conf_def_property_list[$propertyName]['display'] = FALSE;
+                        // no valid
+                        $error = true ;
+                        $message = $config->get_error_message();
                     }
                 }
             }
-        }
-
-        if(!is_array($conf_def_property_list))
-        {
-             $controlMsg['info'][] = ''.$config_name . ' def file not valid (' . $config_code . '). <br />' . "\n"
-                                   . '<em>$conf_def_property_list </em>is missing' ;
+            // display form
+            $form = $config->display_form($_REQUEST['property']);
         }
         else
-        foreach ($conf_def_property_list as $_propName => $_propDescriptorList)
         {
-            if (!isset($_propDescriptorList['section']))
-            {
-                $conf_def_property_list['section']='missingSection';
-                $conf_def['section']['sectionmissing']['properties'][]=$_propName;
-            }
-        }
-
-        if (isset($conf_def['section']['sectionmissing']))
-        {
-            $conf_def['section']['sectionmissing']['label'] = get_lang('PropertiesNotIncludeInSections');
-            $conf_def['section']['sectionmissing']['description'] =
-            get_lang('ThisIsAnErrorInDefinitionFile') . ' ' .
-            get_lang('RequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile');
+            // display form
+            $form = $config->display_form();
         }
     }
     else
     {
-        // Definition file doesn't exists
-        $controlMsg['info'][] = sprintf("This %s doesn't exist",$config_code.'.def.conf.php');
-        $display_form = FALSE;
+        // error loading the configuration
+        $error = true ;
+        $message = $config->get_error_message();
     }
 
-    // verify is config file manually edit
-    if ( is_conf_file_modified($_REQUEST['config_code']) )
+    if ( $config->is_modified() )
     {
-        $controlMsg['info'][] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br />';
+        $message[] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br />';
     }
 
 }
@@ -289,13 +148,13 @@ if ( !isset($config_name) )
 else
 {
     // tool name and url to edit config file
-    $nameTools = $config_name; // the name of the configuration page
+    $nameTools = $config->get_conf_name(); // the name of the configuration page
     $_SERVER['QUERY_STRING'] = 'config_code=' . $config_code;
 }
 
-/* ************************************************************************** */
+/*************************************************************************** */
 /* Display
-/* ************************************************************************** */
+/*************************************************************************** */
 
 // define bredcrumb
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -304,100 +163,19 @@ $interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'nam
 // display claroline header
 include($includePath . '/claro_init_header.inc.php');
 
-
-if ( isset($controlMsg['debug']) ) unset($controlMsg['debug']);
-
 // display tool title
-echo claro_disp_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools))
-.    claro_disp_msg_arr($controlMsg,1)
-;
+echo claro_disp_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
 
-// Display edition form
-if ( $display_form )
+// display error message
+if ( ! empty($message) )
 {
-    if ( is_array($conf_def) )
-    {
+    echo claro_disp_message_box(implode('<br />',$message));
+}
 
-        // display description of configuration
-        if ( !empty($conf_def['description']) )
-        {
-            echo '<p>'.$conf_def['description'].'</p>' . "\n";
-        }
-
-        // start edition form
-        echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $config_code . '" name="editConfClass" >' . "\n";
-        echo '<input type="hidden" name="config_code" value="' . $config_code . '" />' . "\n";
-        echo '<input type="hidden" name="cmd" value="save" />' . "\n";
-
-        if (is_array($conf_def['section']) )
-        {
-
-            echo '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
-
-            // display each section of properties
-            foreach($conf_def['section'] as $section)
-            {
-                if (!(isset($section['display'])) || $section['display'] )
-                {
-                    // display fieldset with the label of the section
-                    echo '<tr>'
-                        .'<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
-                        .'</tr>' . "\n";
-
-                    // display description of the section
-                    if ( !empty($section['description']) )
-                    {
-                        echo '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
-                    }
-                    else
-                    {
-                        echo '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
-                    }
-                }
-
-                // The default value is show in input or preselected value if there is no value set.
-                // If a value is already set the default value is show as sample.
-                if ( is_array($section['properties']) )
-                {
-                    // display each property of the section
-                    foreach ( $section['properties'] as $property_name )
-                    {
-                        if ( is_array($conf_def_property_list[$property_name]) )
-                        {
-                            // PHP 4.3 - $debugMsg['val'][]=var_export($conf_def_property_list[$property_name],1);
-
-                            if ( isset($_REQUEST['prop'])  )
-                            {
-                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property_name], $property_name, $_REQUEST['prop'][$property_name]);
-                            }
-                            else
-                            {
-                                claroconf_disp_editbox_of_a_value($conf_def_property_list[$property_name], $property_name, $currentConfContent[$property_name]);
-                            }
-                        }
-                        else
-                        {
-                            echo 'Def corrupted: property ' . $property_name . ' is not defined';
-                        }
-                    }
-                }
-
-            }
-            echo '</table>' . "\n";
-
-            echo '<input type="submit" value="Save" />' . "\n";
-        }
-        else
-        {
-            echo get_lang('No section found in definition file');
-        }
-        echo '</form>'."\n";
-    }
-    else
-    {
-        $controlMsg['info'][] = sprintf(get_lang('_p_nothing_to_edit_in_S') ,get_config_name($config_code));
-        echo claro_disp_message_box($controlMsg);
-    }
+// display edition form
+if ( !empty($form) ) 
+{
+    echo $form ;
 }
 
 // display footer
