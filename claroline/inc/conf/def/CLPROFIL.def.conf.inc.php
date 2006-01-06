@@ -52,6 +52,7 @@ array ( 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
       , 'SECURE_PASSWORD_REQUIRED'
+      , 'profile_editable'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
@@ -80,6 +81,20 @@ array ( 'label'         => 'Ask the official code'
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE' => 'Yes'
                                  ,'FALSE'  => 'No'
+                                 )
+      );
+
+$conf_def_property_list['profile_editable'] =
+array ( 'label'         => 'Profile form'
+      , 'description'   => 'Which parts of the profile can be changed?'
+      , 'default'       => array('name','login','password','email','password','language')
+      , 'type'          => 'multi'
+      , 'acceptedValue' => array ('name' => 'Name'
+                                 ,'official_code' => 'Official Code'
+                                 ,'login' => 'Login'
+                                 ,'password' => 'Password'
+                                 ,'email' => 'Email'
+                                 ,'language' => 'Language'
                                  )
       );
 
