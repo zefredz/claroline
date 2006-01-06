@@ -1,10 +1,10 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for profil editor
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -22,7 +22,7 @@
 
 $conf_def['config_code'] = 'CLPROFIL';
 $conf_def['config_name'] = 'User profile options';
-//$conf_def['description'] = ''; 
+//$conf_def['description'] = '';
 $conf_def['config_file'] = 'user_profile.conf.php';
 $conf_def['old_config_file'][] ='profile.conf.php';
 $conf_def['config_class']='user';
@@ -31,10 +31,10 @@ $conf_def['config_class']='user';
 
 $conf_def['section']['agreement']['label'] = 'Registration agreement';
 $conf_def['section']['agreement']['description'] = '';
-$conf_def['section']['agreement']['properties'] = 
+$conf_def['section']['agreement']['properties'] =
 array ( 'show_agreement_panel'
       );
-          
+
 $conf_def_property_list['show_agreement_panel'] =
 array ( 'label'         => 'Show the agreement panel before creating a new account'
       ,'description'   => 'The content of this panel is editable in administration '
@@ -47,7 +47,7 @@ array ( 'label'         => 'Show the agreement panel before creating a new accou
 
 $conf_def['section']['required']['label'] = 'Data checkin';
 $conf_def['section']['required']['description'] = '';
-$conf_def['section']['required']['properties'] = 
+$conf_def['section']['required']['properties'] =
 array ( 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
@@ -87,7 +87,7 @@ array ( 'label'         => 'Ask the official code'
 $conf_def_property_list['profile_editable'] =
 array ( 'label'         => 'Profile form'
       , 'description'   => 'Which parts of the profile can be changed?'
-      , 'default'       => array('name','login','password','email','password','language')
+      , 'default'       => array('name','login','password','email','language')
       , 'type'          => 'multi'
       , 'acceptedValue' => array ('name' => 'Name'
                                  ,'official_code' => 'Official Code'
@@ -103,7 +103,7 @@ array ( 'label'         => 'Profile form'
 $conf_def['section']['readonly']['label'] = 'Allow to modify field';
 //$conf_def['section']['readonly']['description'] = '';
 $conf_def['section']['readonly']['display'] = FALSE;
-$conf_def['section']['readonly']['properties'] = 
+$conf_def['section']['readonly']['properties'] =
 array (
       );
 
@@ -123,18 +123,18 @@ array ('label'         => 'Check password strength'
 $conf_def['section']['view']['label'] = 'Display data';
 $conf_def['section']['view']['display'] = FALSE;
 //$conf_def['section']['view']['description'] = '';
-$conf_def['section']['view']['properties'] = 
+$conf_def['section']['view']['properties'] =
 array (
       );
 
-// Section 
+// Section
 
 $conf_def['section']['request']['label'] = 'User request';
 $conf_def['section']['request']['description'] = '';
-$conf_def['section']['request']['properties'] = 
+$conf_def['section']['request']['properties'] =
 array ( 'allowSelfRegProf'
       , 'can_request_course_creator_status'
-      , 'can_request_revoquation' 
+      , 'can_request_revoquation'
       );
 
 $conf_def_property_list['can_request_course_creator_status'] =
@@ -162,7 +162,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
       );
 
 
-$conf_def_property_list['allowSelfRegProf'] = 
+$conf_def_property_list['allowSelfRegProf'] =
 array ('label'       => 'Creation of Course Creator account'
        ,'description' => 'Are users allowed to create themselves a Course Creator account ?'
       ,'default'     => 'TRUE'
@@ -180,9 +180,9 @@ array ('label'       => 'Creation of Course Creator account'
 $conf_def['section']['const']['label'] = 'Const';
 $conf_def['section']['const']['display'] = FALSE;
 //$conf_def['section']['const']['description'] = '';
-$conf_def['section']['const']['properties'] = 
+$conf_def['section']['const']['properties'] =
 array ( 'COURSEMANAGER'
-       ,'STUDENT' 
+       ,'STUDENT'
       );
 
 $conf_def_property_list['COURSEMANAGER'] =
