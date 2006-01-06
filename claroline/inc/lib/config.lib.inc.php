@@ -355,7 +355,27 @@ class Config
                     }
                 }
                 break;
+
+            case 'multi' :
                 
+                if ( is_array($value) )
+                { 
+                    foreach ( $value as $item_value)
+                    {
+                        if ( !in_array($item_value,array_keys($acceptedValue)) )
+                        {
+                            $this->error_message(sprintf(get_lang('%s must be in the accepted value list'),$label));
+                            $valid = false;
+                        }                    
+                    }
+                }
+                else
+                {
+                    $this->error_message(sprintf(get_lang('%s must be an array'),$label));
+                    $valid = false;
+                }
+                break;
+
             case 'relpath' :
                 break;
 
@@ -470,6 +490,11 @@ class Config
                         break;
                     case 'integer':
                         $valueToWrite = $value;
+                        break;
+                    case 'multi':
+                        $valueToWrite = 'array(';
+                        if ( !empty($value) && is_array($value) ) $valueToWrite .= '\''. implode('\',\'',$value) . '\'';
+                        $valueToWrite .= ')';
                         break;
                     default:
                         $valueToWrite = "'". str_replace("'","\'",$value) . "'";
@@ -713,6 +738,9 @@ class Config
         global $rootSys;
 
         $elt_form = '';
+        
+        // array with html-safe variable
+        $html = array();
 
         $property_def = $this->conf_def_property_list[$name];
         
@@ -726,22 +754,22 @@ class Config
         $type = !empty($property_def['type'])?$property_def['type']:'string';
 
         // form name of property
-        $html_input_name = 'property['.$name.']';
+        $input_name = 'property['.$name.']';
 
         // label of property
-        $html_label = !empty($property_def['label'])?htmlspecialchars($property_def['label']):htmlspecialchars($name);
+        $html['label'] = !empty($property_def['label'])?htmlspecialchars($property_def['label']):htmlspecialchars($name);
         
         // value of property 
-        $html_value = htmlspecialchars($value);
+        if ( ! is_array($value) ) $html['value'] = htmlspecialchars($value);
 
         // description of property
-        $html_description = !empty($property_def['description'])?nl2br(htmlspecialchars($property_def['description'])):'';
+        $html['description'] = !empty($property_def['description'])?nl2br(htmlspecialchars($property_def['description'])):'';
 
         // unit of property
-        $html_unit = !empty($property_def['unit'])?htmlspecialchars($property_def['unit']):'';
+        $html['unit'] = !empty($property_def['unit'])?htmlspecialchars($property_def['unit']):'';
 
         // type of property
-        $html_type = !empty($property_def['type'])?'<small>('.htmlspecialchars($property_def['type']).')</small>':'';
+        $html['type'] = !empty($property_def['type'])?' <small>('.htmlspecialchars($property_def['type']).')</small>':'';
         
         // evaluate the size of input box
         $input_size = (int) strlen($value);
@@ -755,16 +783,14 @@ class Config
         }
         else
         {
-            $elt_form .= '<tr style="vertical-align: top">' . "\n" ; 
-
-            
+            $elt_form .= '<tr style="vertical-align: top">' . "\n" ;            
 
             if ( isset($property_def['readonly']) && $property_def['readonly'] )
             {
                 // read only display
 
                 // display property label
-                $elt_form .= '<td style="text-align: right" width="250">' . $html_label . '&nbsp;:</td>' . "\n";
+                $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>' . "\n";
 
                 // display property value
                 $elt_form .= '<td nowrap="nowrap">' . "\n";
@@ -779,20 +805,35 @@ class Config
                         }
                         else
                         {
-                            $elt_form .= $html_value;
+                            $elt_form .= $html['value'];
+                        }
+                        break;
+                    case 'multi' :
+                        if ( empty($value) || ! is_array($value) )
+                        {
+                            $elt_form .= get_lang('Empty');
+                        }
+                        else
+                        {
+                            $value_list = array();;
+                            foreach ( $value as $value_item )
+                            {
+                                $value_list[] = htmlspecialchars($property_def['acceptedValue'][$value_item]);
+                            }
+                            $elt_form .= implode(', ',$value_list);
                         }
                         break;
                     case 'integer' :
                     case 'string' :
                     default : 
                         // probably a string or integer
-                        if ( empty($html_value) )
+                        if ( empty($html['value']) )
                         {
                             $elt_form .= get_lang('Empty');
                         }
                         else
                         {
-                            $elt_form .= $html_value;
+                            $elt_form .= $html['value'];
                         }                    
                 }
 
@@ -808,17 +849,17 @@ class Config
                     case 'boolean' :
 
                     // display label
-                    $elt_form .= '<td style="text-align: right" width="250">' . $html_label . '&nbsp;:</td>';
+                    $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>';
 
                     // display true/false radio button
                     $elt_form .= '<td nowrap="nowrap">'
-                        . '<input id="'. $name .'_TRUE"  type="radio" name="'.$html_input_name.'" value="TRUE"  '
+                        . '<input id="'. $name .'_TRUE"  type="radio" name="'. $input_name.'" value="TRUE"  '
                         . ( $value=='TRUE'?' checked="checked" ':' ') . ' >'
                         . '<label for="'. $name .'_TRUE"  >'
                         . ($property_def['acceptedValue']['TRUE']?$property_def['acceptedValue']['TRUE' ]:'TRUE')
                         . '</label>'
                         . '<br />'
-                        . '<input id="'. $name .'_FALSE" type="radio" name="'.$html_input_name.'" value="FALSE" '
+                        . '<input id="'. $name .'_FALSE" type="radio" name="'. $input_name.'" value="FALSE" '
                         . ($value=='FALSE'?' checked="checked" ': ' ') . ' >'
                         . '<label for="'. $name.'_FALSE" >'
                         . ($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
@@ -852,21 +893,21 @@ class Config
                         if ( $total_accepted_value == 1 || $total_accepted_value > 3 )
                         {
                             // display label
-                            $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html_label.'&nbsp;:</label></td>' ;
+                            $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html['label'].'&nbsp;:</label></td>' ;
 
                             // display select box with accepted value
                             $elt_form .= '<td nowrap="nowrap">' . "\n"
-                                . '<select id="' . $name . '" name="'.$html_input_name.'">' . "\n";
+                                . '<select id="' . $name . '" name="'.$input_name.'">' . "\n";
 
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal )
                             {
                                 if ( $keyVal == $value )
                                 {
-                                    $elt_form .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $html_unit .'</option>' . "\n";
+                                    $elt_form .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $html['unit'] .'</option>' . "\n";
                                 }
                                 else
                                 {
-                                    $elt_form .= '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $html_unit .'</option>' . "\n";
+                                    $elt_form .= '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $html['unit'] .'</option>' . "\n";
                                 }
                             } // end foreach
 
@@ -875,15 +916,15 @@ class Config
                         }
                         else
                         {
-                            $elt_form .= '<td style="text-align: right" width="250">' . $html_label . '&nbsp;:</td>'
+                            $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>'
                                 . '<td nowrap="nowrap">' . "\n";
 
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal) 
                             {
-                                $elt_form .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$html_input_name.'" value="'.$keyVal.'"  '
+                                $elt_form .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
                                     . ($value==$keyVal?' checked="checked" ':' ').' >'
                                     . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
-                                    . '<span class="propUnit">'.$html_unit.'</span>'
+                                    . '<span class="propUnit">'.$html['unit'].'</span>'
                                     . '<br />'."\n";
                             }
                             $elt_form .= '</td>';
@@ -891,31 +932,48 @@ class Config
                     
                         break;
 
+                    case 'multi' :
+
+                        $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>'
+                            . '<td nowrap="nowrap">' . "\n";
+
+                        foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal) 
+                        {
+                            $elt_form .= '<input id="'.$name.'_'.$keyVal.'"  type="checkbox" name="'.$input_name.'[]" value="'.$keyVal.'"  '
+                                . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').' >'
+                                . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                                . '<span class="propUnit">'.$html['unit'].'</span>'
+                                . '<br />'."\n";
+                        }
+                        $elt_form .= '</td>';
+
+                        break;
+
                     case 'integer' :
 
-                        $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html_label.'&nbsp;:</label></td>'
+                        $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html['label'].'&nbsp;:</label></td>'
                             . '<td nowrap="nowrap">' . "\n"
-                            . '<input size="'.$input_size.'" align="right" id="'.$name.'" type="text" name="'.$html_input_name.'" value="'. $html_value .'"> '."\n"
-                            . '<span class="propUnit">'.$html_unit.'</span>'
-                            . '<span class="propType">'.$html_type.'</span>'
+                            . '<input size="'.$input_size.'" align="right" id="'.$name.'" type="text" name="'.$input_name.'" value="'. $html['value'] .'"> '."\n"
+                            . '<span class="propUnit">'.$html['unit'].'</span>'
+                            . '<span class="propType">'.$html['type'].'</span>'
                             . '</td>';
 
                         break;
                     
                     default:
                         // by default is a string
-                        $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >' . $html_label . '&nbsp;:</label></td>'
+                        $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >' . $html['label'] . '&nbsp;:</label></td>'
                             . '<td nowrap="nowrap">' . "\n"
-                            . '<input size="'.$input_size.'" id="'.$name.'" type="text" name="'.$html_input_name.'" value="'.$html_value.'"> '
-                            . '<span class="propUnit">'.$html_unit.'</span>'
-                            . '<span class="propType">'.$html_type.'</span>'. "\n"
+                            . '<input size="'.$input_size.'" id="'.$name.'" type="text" name="'.$input_name.'" value="'.$html['value'].'"> '
+                            . '<span class="propUnit">'.$html['unit'].'</span>'
+                            . '<span class="propType">'.$html['type'].'</span>'. "\n"
                             . '</td>';
 
                 } // end switch on property type
             }
 
             // display description
-            $elt_form .= '<td><em>' . $html_description . '</td>';
+            $elt_form .= '<td><em>' . $html['description'] . '</td>';
 
             $elt_form .= '</tr>' . "\n";
 
