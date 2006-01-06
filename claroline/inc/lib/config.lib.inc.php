@@ -698,18 +698,25 @@ class Config
                 // display each property of the section
                 foreach ( $section['properties'] as $name )
                 {
-                    if ( is_array($this->conf_def_property_list[$name]) )
+                    if (key_exists($name,$this->conf_def_property_list))
                     {
-                        if ( isset($property_list[$name]) )
+                        if ( is_array($this->conf_def_property_list[$name]) )
                         {
-                            // display elt with new content
-                            $form .= $this->display_form_elt($name,$property_list[$name]);
+                            if ( isset($property_list[$name]) )
+                            {
+                                // display elt with new content
+                                $form .= $this->display_form_elt($name,$property_list[$name]);
+                            }
+                            else
+                            {
+                                // display elt with current content
+                                $form .= $this->display_form_elt($name,$this->property_list[$name]);
+                            }
                         }
-                        else
-                        {
-                            // display elt with current content
-                            $form .= $this->display_form_elt($name,$this->property_list[$name]);
-                        }
+                    }
+                    else
+                    {
+                        die('error in $section, ' . $name . ' doesn\'t exist in property list');
                     }
                 }
             }
