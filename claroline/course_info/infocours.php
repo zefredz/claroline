@@ -35,7 +35,7 @@ include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/form.lib.php';
 include_once $includePath . '/conf/course_main.conf.php';
 
-/*
+/**
  * Configuration array , define here which field can be left empty or not
  */
 
@@ -48,7 +48,7 @@ $fieldRequiredStateList['extLinkName'  ] = get_conf('extLinkNameNeeded');
 $fieldRequiredStateList['extLinkUrl'   ] = get_conf('extLinkUrlNeeded');
 $fieldRequiredStateList['email'        ] = get_conf('course_email_needed');
 
-/*
+/**
  * DB tables definition
  */
 
@@ -59,8 +59,7 @@ $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
 $tbl_course           = $tbl_mdb_names['course'         ];
 $tbl_category         = $tbl_mdb_names['category'       ];
 
-
-/*
+/**
  * PRE FILL OF  FORM FIELDS
  */
 
@@ -127,7 +126,7 @@ if ( isset($_REQUEST['changeProperties']) )
         $errorMsgList[] = get_lang('ErrorLanguageEmpty');
     if ( empty($extLinkName)        && $fieldRequiredStateList['extLinkName'])
         $errorMsgList[] = get_lang('ErrorDepartmentEmpty');
-    if ( empty($_extLinkUrl)        && $fieldRequiredStateList['extLinkUrl'])
+    if ( empty($extLinkUrl)        && $fieldRequiredStateList['extLinkUrl'])
         $errorMsgList[] = get_lang('ErrorDepartmentURLEmpty');
     if ( empty($courseEmail)        && $fieldRequiredStateList['email'])
         $errorMsgList[] = get_lang('ErrorEmailEmpty');
