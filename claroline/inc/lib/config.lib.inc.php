@@ -903,7 +903,45 @@ class Config
 
                         $total_accepted_value = count($property_def['acceptedValue']);
 
-                        if ( $total_accepted_value == 1 || $total_accepted_value > 3 )
+                        if ( $total_accepted_value == 0 || $total_accepted_value == 1 )
+                        {
+                            $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>' . "\n"
+                                . '<td nowrap="nowrap">' ;
+                            
+                            if ( $total_accepted_value == 0 ) 
+                            {
+                                    $elt_form .= get_lang('Empty');
+                            }
+                            else
+                            {
+                                if ( isset($property_def['acceptedValue'][$value]) )
+                                {
+                                    $elt_form .= $property_def['acceptedValue'][$value];
+                                }
+                                else
+                                {
+                                    $elt_form .= $html['value'];
+                                }
+                            }
+                            $elt_form .= '</td>' . "\n";
+
+                        }
+                        elseif ( $total_accepted_value == 2 )
+                        {
+                            $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>'
+                                . '<td nowrap="nowrap">' . "\n";
+
+                            foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
+                            {
+                                $elt_form .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
+                                    . ($value==$keyVal?' checked="checked" ':' ').' >'
+                                    . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                                    . '<span class="propUnit">'.$html['unit'].'</span>'
+                                    . '<br />'."\n";
+                            }
+                            $elt_form .= '</td>';
+                        }
+                        elseif ( $total_accepted_value > 2 )
                         {
                             // display label
                             $elt_form .= '<td style="text-align: right" width="250"><label for="'.$name.'"  >'.$html['label'].'&nbsp;:</label></td>' ;
@@ -925,22 +963,6 @@ class Config
                             } // end foreach
 
                             $elt_form .= '</select></td>' . "\n";
-
-                        }
-                        else
-                        {
-                            $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>'
-                                . '<td nowrap="nowrap">' . "\n";
-
-                            foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
-                            {
-                                $elt_form .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
-                                    . ($value==$keyVal?' checked="checked" ':' ').' >'
-                                    . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
-                                    . '<span class="propUnit">'.$html['unit'].'</span>'
-                                    . '<br />'."\n";
-                            }
-                            $elt_form .= '</td>';
                         }
 
                         break;
