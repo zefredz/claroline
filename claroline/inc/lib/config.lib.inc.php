@@ -299,6 +299,22 @@ class Config
         if ( ! empty($property_def['acceptedValue']) ) $acceptedValue = $property_def['acceptedValue'];
         else                                           $acceptedValue = null;
 
+        if ( isset($property_def['acceptedValueType']) )
+        {
+            switch ( $property_def['acceptedValueType'] ) 
+            {
+                case 'css':
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
+                    break;
+                case 'lang':
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                    break;
+                case 'editor':
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
+                    break;
+            }
+        }
+
         // validate property
         switch ($type)
         {
@@ -328,24 +344,8 @@ class Config
                 }
                 break;
 
-            case 'css':
-            case 'lang':
-            case 'editor':
             case 'enum' :
-
-                if ( $type == 'css' )
-                {
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
-                }
-                elseif ( $type == 'lang' )
-                {
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
-                }
-                elseif ( $type == 'editor' )
-                {
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
-                }
-
+            
                 if ( isset($acceptedValue) && is_array($acceptedValue) )
                 {
                     if ( !in_array($value, array_keys($acceptedValue)) )
@@ -855,6 +855,23 @@ class Config
             }
             else
             {
+
+                if ( isset($property_def['acceptedValueType']) )
+                {
+                    switch ( $property_def['acceptedValueType'] )
+                    {
+                        case 'css' :
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
+                            break;
+                        case 'lang' :
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                            break;
+                        case 'editor' :
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
+                            break;
+                    }
+                }                
+
                 // display property form element
 
                 switch( $type )
@@ -879,25 +896,6 @@ class Config
                         . '</label>'
                         . '</td>' ;
                     break;
-
-                    case 'css':
-                    case 'lang':
-                    case 'editor':
-
-                        if ( $type == 'css' )
-                        {
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
-                        }
-                        elseif ( $type == 'lang' )
-                        {
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
-                        }
-                        elseif ( $type == 'editor' )
-                        {
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
-                        }
-
-                        // no break, go to enum case
 
                     case 'enum' :
 
@@ -1067,6 +1065,7 @@ class Config
 
                 $accepted_values[$elt_name] = $elt_value;
             }
+            ksort($accepted_values);
             return $accepted_values;
         }
         else

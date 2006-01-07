@@ -29,9 +29,16 @@ $conf_def['section']['PLATFORM_SETTING']['label']='Platform';
 $conf_def['section']['PLATFORM_SETTING']['description']='Global settings';
 $conf_def['section']['PLATFORM_SETTING']['properties'] =
 array ( 'siteName'
-      , 'platformLanguage'
       , 'claro_stylesheet'
       , 'claro_editor'
+      );
+
+$conf_def['section']['LANGUAGE']['label']='Language';
+$conf_def['section']['LANGUAGE']['description']='';
+$conf_def['section']['LANGUAGE']['properties'] =
+array ( 'platformLanguage'
+      , 'language_to_display'
+      , 'CLAROLANG'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Technical contact';
@@ -88,7 +95,6 @@ array ( 'mysqlRepositorySys'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
       , 'DEVEL_MODE'
-      , 'CLAROLANG'
       );
 
 
@@ -282,8 +288,19 @@ $conf_def_property_list['platformLanguage'] =
 array ('label'         => 'Platform language'
       ,'description'   => 'Set the default language of the platform.'."\n".'It doesn\'t prevent course managers to set an other language for each course they create.'
       ,'default'       => 'english'
-      ,'type'          => 'lang'
+      ,'type'          => 'enum'
+      , 'acceptedValueType' => 'lang'
       ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      );
+
+$conf_def_property_list['language_to_display'] =
+array ('label'         => 'Language to display'
+      ,'description'   => ''
+      ,'default'       => 'english'
+      ,'type'          => 'multi'
+      ,'display'       => false
+      ,'acceptedValueType' => 'lang'
       ,'readonly'      => FALSE
       );
 
@@ -291,7 +308,8 @@ $conf_def_property_list['claro_stylesheet'] =
 array ('label'       => 'Layout'
       ,'description' => 'Set the Cascading Style Sheet (CSS) layout.'
       ,'default'     => 'default.css'
-      ,'type'        => 'css'
+      ,'type'        => 'enum'
+      ,'acceptedValueType' => 'css'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
@@ -300,7 +318,8 @@ $conf_def_property_list['claro_editor'] =
 array ('label'       => 'Editor'
       ,'description' => 'Set the editor that will replace standard html textarea.'
       ,'default'     => 'tiny_mce'
-      ,'type'        => 'editor'
+      ,'type'        => 'enum'
+      ,'acceptedValueType' => 'editor'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
