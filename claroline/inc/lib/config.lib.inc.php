@@ -371,8 +371,11 @@ class Config
                 }
                 else
                 {
-                    $this->error_message(sprintf(get_lang('%s must be an array'),$label));
-                    $valid = false;
+                    if ( ! empty($value) )
+                    {
+                        $this->error_message(sprintf(get_lang('%s must be an array'),$label));
+                        $valid = false;
+                    }
                 }
                 break;
 
@@ -946,6 +949,8 @@ class Config
 
                         $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>'
                             . '<td nowrap="nowrap">' . "\n";
+                        
+                        $elt_form .= '<input type="hidden" name="'.$input_name.'" value="">' . "\n";
 
                         foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                         {
