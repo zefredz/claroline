@@ -140,7 +140,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
             $i=0;
             foreach ($dataLine as $colId => $dataCell)
             {
-                $stream .= '<td headers="c' . $i++ . '" ' . $attrCol[$colId] . '>';
+                $stream .= '<td headers="c' . $i++ . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
                 $stream .= $dataCell;
                 $stream .= '</td>' . "\n";
             }
