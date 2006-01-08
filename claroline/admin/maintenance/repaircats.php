@@ -139,10 +139,10 @@ switch ($view)
     {
         echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_disp_msg_arr($analyseTreeResultMsg, 1)
-        .    claro_disp_datagrid($dataAnalyseResult, array('idLine' => 'numeric'))
+        .    claro_disp_datagrid($dataAnalyseResult, array('idLineType' => 'numeric'))
         .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
         .    claro_disp_tool_title('Course ownance')
-        .    claro_disp_datagrid($courseOwnanceCheck , array('idLine' => 'numeric'
+        .    claro_disp_datagrid($courseOwnanceCheck , array('idLineType' => 'numeric'
                                                             ,'colTitleList' => array( get_lang('Code')
                                                                                     , get_lang('Unknow faculty'))
                                                             ,))

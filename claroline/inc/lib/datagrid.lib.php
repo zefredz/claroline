@@ -54,17 +54,22 @@ function claro_disp_datagrid($dataGrid, $option = null)
 {
     if(is_null($option) || ! is_array($option) )  $option=array();
 
-    if (! array_key_exists('idLineShift', $option)) $option['idLineShift'] = 1;
+    if (array_key_exists('idLine', $option)) die('idLine n\'est plus une option valide, il faut utiliser idLineType');
+
+    if (! array_key_exists('idLineType',   $option)) $option['idLineType'] = 'numeric';
+    if (! array_key_exists('idLineShift',  $option)) $option['idLineShift'] = 1;
     if (! array_key_exists('colTitleList', $option)) $option['colTitleList'] = array_keys($dataGrid[0]);
-    if (! array_key_exists('idLine',      $option)) $option['idLine'] = 'numeric';
 
     $dispIdCol = true;
-    switch (strtolower($option['idLine']))
+
+    //* manage idLine option
+
+    switch (strtolower($option['idLineType']))
     {
-        case 'blank'   : $idLine = '';       break;
+        case 'blank'   : $idLineType = '';       break;
         case 'none'    : $dispIdCol = false; break;
         case 'numeric' : $internalkey = 0;   break;
-        default        : $idLine = '';       break;
+        default        : $idLineType = '';       break;
     }
 
 
@@ -127,15 +132,15 @@ function claro_disp_datagrid($dataGrid, $option = null)
         $stream .= '<tbody>' . "\n";
         foreach ($dataGrid as $key => $dataLine )
         {
-            switch ($option['idLine'])
+            switch ($option['idLineType'])
             {
-                case 'key'     : $idLine = $option['idLineShift'] + $key ;           break;
-                case 'numeric' : $idLine = $option['idLineShift'] + $internalkey++ ; break;
+                case 'key'     : $idLineType = $option['idLineShift'] + $key ;           break;
+                case 'numeric' : $idLineType = $option['idLineShift'] + $internalkey++ ; break;
             }
 
             $stream .= '<tr>' . "\n";
 
-            if ($dispIdCol) $stream .= '<td>' . $idLine . '</td>' . "\n";
+            if ($dispIdCol) $stream .= '<td>' . $idLineType . '</td>' . "\n";
 
             $i=0;
             foreach ($dataLine as $colId => $dataCell)
