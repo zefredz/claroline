@@ -22,48 +22,14 @@ $personnalCourseList = get_user_course_list($_uid);
 $date            = $claro_notifier->get_notification_date($_uid);
 $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
 
+
+
 /******************************************************************************
                                     DISPLAY
 ******************************************************************************/
 
-echo claro_disp_tool_title(get_lang('MyCourses'));
+echo claro_disp_tool_title( get_lang('MyCourses') );
 
-/*
- * Commands line
- */
-
-echo '<p>'
-.    '<small>'. "\n"
-    .'<b>';
-
-    if ($is_allowedCreateCourse) /* 'Create Course Site' command.
-                                     Only available for teacher. */
-    {
-        echo '<a href="claroline/create_course/add_course.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
-        .    get_lang('CourseCreate')
-        .    '</a>'
-        ;
-        if ($allowToSelfEnroll) echo '&nbsp;|&nbsp;';
-    }
-
-    if ($allowToSelfEnroll)
-    {
-        echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=">'
-        .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
-        .    get_lang('_enroll_to_a_new_course')
-        .    '</a>'
-        .    '&nbsp;|&nbsp;'
-
-        .    '<a href="claroline/auth/courses.php?cmd=rqUnreg">'
-        .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" alt="" /> '
-        .    get_lang('_remove_course_enrollment')
-        .    '</a>'
-        .    '</b>'
-        .    '</small>' . "\n"
-        .    '</p>'     . "\n"
-        ;
-    }
 
 //display list
 
@@ -133,53 +99,6 @@ echo '</ul>' . "\n";
 echo '<br />'
 .    '<small><span class="item hot"> '.get_lang('NewLegend').'</span></small>';
 echo '</td>' . "\n";
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-
-
-function get_user_course_list($userId, $renew = false)
-{
-    static $uid = null, $userCourseList = null;
-
-    if ($uid != $userId || is_null($userCourseList) || $renew)
-    {
-        $uid = $userId;
-
-        $tbl_mdb_names         = claro_sql_get_main_tbl();
-        $tbl_courses           = $tbl_mdb_names['course'           ];
-        $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'  ];
-
-        $sql = "SELECT course.code           `sysCode`,
-                       course.directory      `directory`,
-                       course.fake_code      `officialCode`,
-                       course.dbName         `db`,
-                       course.intitule       `title`,
-                       course.titulaires     `titular`,
-                       course.languageCourse `language`,
-                       course_user.statut    `userSatus`
-
-                       FROM `" . $tbl_courses . "`           course,
-                            `" . $tbl_link_user_courses . "` course_user
-
-                       WHERE course.code         = course_user.code_cours
-                         AND course_user.user_id = '" . (int) $userId . "'";
-
-        if ( get_conf('course_order_by') == 'official_code' )
-        {
-            $sql .= " ORDER BY UPPER(`fake_code`), `title`";
-        }
-        else
-        {
-            $sql .= " ORDER BY `title`, UPPER(`fake_code`)";
-        }
-
-        $userCourseList = claro_sql_query_fetch_all($sql);
-    }
-    
-    return $userCourseList;
-}
 
 
 ?>

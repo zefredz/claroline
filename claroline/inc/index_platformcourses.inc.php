@@ -1,20 +1,4 @@
-<?php # -$Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*==================================
-  DISPLAY COURSES LIST OF A CATEGORY
-  ==================================*/
+<?php
 
 // Prevent direct reference to this script
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
@@ -24,28 +8,37 @@ if ( !empty ($_REQUEST['category']) ) $category = $_REQUEST['category'];
 else                                  $category = null;
 
 
-$categoryBrowser = new category_browser($category);
 
-$parentCategory = $categoryBrowser->get_current_category_settings();
-$categoryList   = $categoryBrowser->get_sub_category_list();
-$courseList     = $categoryBrowser->get_course_list();
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search')
+{
+    $categoryList = array();
+    $courseList = search_course($_REQUEST['keyword']);
+}
+else
+{
+    $categoryBrowser = new category_browser($category);
+    $parentCategory = $categoryBrowser->get_current_category_settings();
+    $categoryList   = $categoryBrowser->get_sub_category_list();
+    $courseList     = $categoryBrowser->get_course_list();
+}
+
 
 if ( trim($category) != '' ) // means that we are not on the root level of the category tree
 {
-    $backCommandLine = "<p>"
-                      ."<small>"
-                      ."<a href=\"".$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P']."\">"
-                      ."&lt;&lt; ".get_lang('PreviousLevel')
-                      ."</a>"
-                      ."</small>"
-                      ."</p>";
+    $backCommandLine = '<p>'
+                      .'<small>'
+                      .'<a href="'.$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P'].'">'
+                      .'&lt;&lt; '.get_lang('PreviousLevel')
+                      .'</a>'
+                      .'</small>'
+                      .'</p>'. "\n";
 
     $pageTitle      = $parentCategory['name'];
 }
 else
 {
-    $backCommandLine = "<p>&nbsp;</p>";
-    $pageTitle       = get_lang('Categories');
+    $backCommandLine = '';
+    $pageTitle       = get_lang('Platform Courses');
 }
 
 echo $backCommandLine;
@@ -113,83 +106,18 @@ else
 	// echo "<blockquote>",$lang_No_course_publicly_available,"</blockquote>\n";
 }
 
+echo '<blockquote>' . "\n"
+.    '<p><label for="keyword">' . get_lang('_or_search_from_keyword') . '</label> : </p>' . "\n"
+.    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+.    '<input type="hidden" name="cmd" value="search" />' . "\n"
+.    '<input type="text" name="keyword" id="keyword" />' . "\n"
+.    '&nbsp;<input type="submit" value="' . get_lang('Search') . '" />' . "\n"
+.    '</form>' . "\n"
+.    '</blockquote>' . "\n";
 
 echo $backCommandLine;
 
 
 echo '</td>';
-
-//////////////////////////////////////////////////////////////////////////////
-
-class category_browser
-{
-    function category_browser($categoryCode = null)
-    {
-        $this->categoryCode = $categoryCode;
-
-        $tbl_mdb_names          = claro_sql_get_main_tbl();
-        $tbl_courses           = $tbl_mdb_names['course'  ];
-        $tbl_courses_nodes     = $tbl_mdb_names['category'];
-
-        $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
-                       `faculte`.`code_P`, `faculte`.`nb_childs`,
-                       COUNT( `cours`.`cours_id` ) `nbCourse`
-                FROM `".$tbl_courses_nodes."` `faculte`
-
-                LEFT JOIN `".$tbl_courses_nodes."` `subCat`
-                       ON (`subCat`.`treePos` >= `faculte`.`treePos`
-                      AND `subCat`.`treePos` <= (`faculte`.`treePos`+`faculte`.`nb_childs`) )
-
-                LEFT JOIN `".$tbl_courses."` `cours`
-                       ON `cours`.`faculte` = `subCat`.`code` \n";
-
-        if ($categoryCode)
-        {
-            $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER(\"".addslashes($categoryCode)."\")
-                        OR UPPER(`faculte`.`code`)   = UPPER(\"".addslashes($categoryCode)."\") \n";
-        }
-        else
-        {
-            $sql .= "WHERE `faculte`.`code`   IS NULL
-                        OR `faculte`.`code_P` IS NULL \n";
-        }
-
-        $sql .= "GROUP  BY `faculte`.`code`
-                 ORDER BY  `faculte`.`treePos`";
-
-        $this->categoryList = claro_sql_query_fetch_all($sql);
-    }
-
-    function get_current_category_settings()
-    {
-        if ($this->categoryCode) return $this->categoryList[0];
-        else                     return null;
-    }
-
-    function get_sub_category_list()
-    {
-        if ($this->categoryCode) return array_slice($this->categoryList, 1);
-        else                     return $this->categoryList;
-    }
-
-    function get_course_list()
-    {
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_courses   = $tbl_mdb_names['course'];
-
-        $sql = "SELECT `intitule`   `title`,
-                       `titulaires` `titular`,
-                       `code`       `sysCode`,
-                       `fake_code`  `officialCode`,
-                       `directory` 
-                FROM `".$tbl_courses."` 
-                WHERE `faculte` = '".$this->categoryCode."'
-                ORDER BY UPPER(fake_code)";
-
-        return claro_sql_query_fetch_all($sql); 
-    }
-}
-
-
 
 ?>
