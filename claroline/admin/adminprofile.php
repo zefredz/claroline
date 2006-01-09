@@ -1,7 +1,7 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -137,18 +137,42 @@ user_display_form_admin_user_profile($user_data);
 
 // Display tools link :
 
-echo '<a class="claroCmd" href="adminuserdeleted.php?uidToEdit=' . $user_id . '&cmd=delete" onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" ><img src="' . $imgRepositoryWeb . 'deluser.gif" /> ' . get_lang('DeleteUser') . '</a>'
+echo '<a class="claroCmd" href="adminuserdeleted.php'
+.    '?uidToEdit=' . $user_id
+.    '&amp;cmd=delete" '
+.    'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" >'
+.    '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
+.    get_lang('DeleteUser')
+.    '</a>'
+
 .    ' | '
-.    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $user_id . '&amp;fromAdmin=settings&amp;category=" >' . '<img src="' . $imgRepositoryWeb . 'enroll.gif">' . get_lang('EnrollToNewCourse') . '</a>'
+
+.    '<a class="claroCmd" href="../auth/courses.php'
+.    '?cmd=rqReg'
+.    '&amp;uidToEdit=' . $user_id
+.    '&amp;fromAdmin=settings'
+.    '&amp;category=" >'
+.    '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
+.    get_lang('EnrollToNewCourse')
+.    '</a>'
+
 .    ' | '
-.    '<a class="claroCmd" href="../auth/lostPassword.php?Femail=' . urlencode($user_data['email']) . '&amp;searchPassword=1" >' . '<img src="'.$imgRepositoryWeb.'email.gif">' . get_lang('SendToUserAccountInfoByMail') . '</a>';
+
+.    '<a class="claroCmd" href="../auth/lostPassword.php'
+.    '?Femail=' . urlencode($user_data['email'])
+.    '&amp;searchPassword=1" >'
+.    '<img src="'.$imgRepositoryWeb.'email.gif" />'
+.    get_lang('SendToUserAccountInfoByMail')
+.    '</a>'
+;
 
 if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
 {
-    echo ' | <a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>' ;
+    echo ' | '
+    .    '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>' ;
 }
 
 // display footer
 
-include $includePath .'/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>
