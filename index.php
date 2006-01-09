@@ -22,6 +22,9 @@ $tidReset = TRUE;
 require './claroline/inc/claro_init_global.inc.php'; // main init
 require $includePath . '/conf/CLHOME.conf.php'; // conf file
 
+require_once $includePath . '/lib/courselist.lib.php'; // conf file
+
+
 // logout request : delete session data
 
 if (isset($_REQUEST['logout'])) session_destroy();
@@ -37,11 +40,12 @@ require $includePath . '/claro_init_header.inc.php';
 
 <?php
 
-// INTRODUCTION MESSAGE IF NEEDED
+// INTRODUCTION MESSAGE
 if ( file_exists('./textzone_top.inc.html') ) include './textzone_top.inc.html';
 
-if ($is_platformAdmin) // edit command
+if ($is_platformAdmin) 
 {
+    // EDIT COMMAND
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
     .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
@@ -50,13 +54,72 @@ if ($is_platformAdmin) // edit command
 }
 
 
-if ( isset($_uid) ) // AUTHENTICATED USER SECTION
+if ( isset($_uid) )
 {
+    /*
+     * Commands line
+     */
+
+    echo '<p><nobr>';
+
+        if ($is_allowedCreateCourse) /* 'Create Course Site' command.
+                                         Only available for teacher. */
+        {
+            echo '<a href="claroline/create_course/add_course.php" class="claroCmd">'
+            .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
+            .    get_lang('CourseCreate')
+            .    '</a>'
+            ;
+            if ($allowToSelfEnroll) echo '&nbsp;|&nbsp;';
+        }
+
+        if ($allowToSelfEnroll)
+        {
+            echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
+            .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
+            .    get_lang('_enroll_to_a_new_course')
+            .    '</a>'
+            .    '&nbsp;|&nbsp;'
+
+            .    '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
+            .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" alt="" /> '
+            .    get_lang('_remove_course_enrollment')
+            .    '</a>'
+            ;
+        }
+        
+        if ( isset($_REQUEST['category']) )
+        {
+            echo '&nbsp;|&nbsp;'
+                .'<a href="'.$_SERVER['PHP_SELF'].'" class="claroCmd">'
+                .'<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
+                . get_lang('MyCourses')
+                .'</a>'
+                ;
+        }
+        else
+        {
+            echo '&nbsp;|&nbsp;'
+                .'<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
+                .'<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
+                . get_lang('All platform courses')
+                .'</a>'
+                ;
+        }
+
+        echo  '</nobr></p>' . "\n";
+}
+
+if ( $_uid && ! isset($_REQUEST['category']) )
+{
+    // DISPLAY USER OWN COURSE LIST
     require $includePath . '/index_mycourses.inc.php';
 }
-else // ANONYMOUS (DEFAULT) SECTION
+else
 {
     event_open();
+
+    // DISPLAY PLATFORM COURSE LIST
     require $includePath . '/index_platformcourses.inc.php';
 }
 
@@ -67,12 +130,14 @@ else // ANONYMOUS (DEFAULT) SECTION
 <td width="200" valign="top" class="claroRightMenu">
 
 <?php
-if ( isset($_uid) ) // AUTHENTICATED USER SECTION
+if ( isset($_uid) )
 {
+    // DISPLAY CROSS COURSE DIGEST FOR USER
     require $includePath . '/index_mydigest.inc.php';
 }
-else // ANONYMOUS (DEFAULT) SECTION
+else
 {
+    // DISPLAY LOGIN FORM
     require $includePath . '/index_loginzone.inc.php';
 }
 
