@@ -194,9 +194,6 @@ function claro_get_course_data($course_id = NULL)
             $_courseDatas['visibility'  ]         = (bool) ($_courseDatas['visible'] == 2 || $_courseDatas['visible'] == 3);
             $_courseDatas['registrationAllowed']  = (bool) ($_courseDatas['visible'] == 1 || $_courseDatas['visible'] == 2);
             $_courseDatas['dbNameGlu'] = $courseTablePrefix . $_courseDatas['dbName'] . $dbGlu; // use in all queries
-            $_courseDatas['extLink']['name'] = $_courseDatas['extLinkName'];
-            $_courseDatas['extLink']['url']  = $_courseDatas['extLinkUrl'];
-
         }
 
     } // end if ( count($course_tbl) == 0 )

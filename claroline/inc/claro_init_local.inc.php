@@ -92,8 +92,8 @@
  * string  $_course['dbNameGlu'   ]
  * string  $_course['titular'     ]
  * string  $_course['language'    ]
- * string  $_course['extLink'     ]['url' ]
- * string  $_course['extLink'     ]['name']
+ * string  $_course['extLinkUrl'  ]
+ * string  $_course['extLinkName' ]
  * string  $_course['categoryCode']
  * string  $_course['categoryName']
  *
@@ -241,7 +241,7 @@ $tbl_course          = $tbl_mdb_names['course'         ];
 $tbl_category        = $tbl_mdb_names['category'       ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 $tbl_tool            = $tbl_mdb_names['tool'           ];
-$tbl_sso             = $tbl_mdb_names['sso'];
+$tbl_sso             = $tbl_mdb_names['sso'            ];
 
 /*---------------------------------------------------------------------------
   Check authentification
@@ -396,54 +396,43 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
 
     if ( !empty($_uid) ) // a uid is given (log in succeeded)
     {
-        if ( $is_trackingEnabled )
-        {
-            $sql = "SELECT `user`.`prenom`                       `firstname`,
-                           `user`.`nom`                          `lastname` ,
-                           `user`.`email`                        `email`    ,
-                           `user`.`statut`,
-                           `a`.`idUser`                          `is_admin`,
-                            UNIX_TIMESTAMP(`login`.`login_date`) `lastLogin`,
-                            `user`.`creatorId`                   `creatorId`
-                     FROM `".$tbl_user."` `user`
-                     LEFT JOIN `". $tbl_admin  ."` `a`
-                     ON `user`.`user_id` = `a`.`idUser`
-                     LEFT JOIN `". $tbl_track_e_login ."` `login`
-                     ON `user`.`user_id`  = `login`.`login_user_id`
-                     WHERE `user`.`user_id` = '". (int) $_uid."'
-                     ORDER BY `login`.`login_date` DESC LIMIT 1";
-        }
-        else
-        {
-            $sql = "SELECT `user`.`prenom`                      `firstname`,
-                           `user`.`nom`                         `lastname` ,
-                           `user`.`email`                 ,
-                            DATE_SUB(CURDATE(), INTERVAL 1 DAY) `lastLogin`,
-                            `user`.`statut`,
-                            `a`.`idUser`                        `is_admin`
-                    FROM `". $tbl_user ."` `user`
+            $sql = "SELECT `user`.`prenom`           AS firstName             ,
+                           `user`.`nom`              AS lastName              ,
+                           `user`.`email`            AS `mail`                ,
+                           (`user`.`statut` = 1)     AS is_allowedCreateCourse,
+                           `a`.`idUser`              AS is_platformAdmin      ,
+                            `user`.`creatorId`       AS creatorId             , "
+
+                  .       ($is_trackingEnabled 
+                           ? "UNIX_TIMESTAMP(`login`.`login_date`)" 
+                           : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin  
+
+                    FROM `".$tbl_user."` `user`
                     LEFT JOIN `". $tbl_admin  ."` `a`
-                    ON    `user`.`user_id` = `a`.`idUser`
-                    WHERE `user`.`user_id` = '". (int) $_uid."'";
-        }
+                           ON `user`.`user_id` = `a`.`idUser` "
 
-        $result = claro_sql_query($sql);
+                 . ($is_trackingEnabled 
+                    ? "LEFT JOIN `". $tbl_track_e_login ."` `login` 
+                              ON `user`.`user_id`  = `login`.`login_user_id` "
+                    : '')
 
-        if ( mysql_num_rows($result) > 0 )
+                 .   "WHERE `user`.`user_id` = ". (int) $_uid
+
+                 .  ($is_trackingEnabled 
+                     ? " ORDER BY `login`.`login_date` DESC LIMIT 1"
+                     : '')
+                 ;
+
+        $_user = claro_sql_query_get_single_row($sql);
+
+        if ( is_array($_user) )
         {
             // Extracting the user data
 
-            $uData = mysql_fetch_array($result);
+            $is_platformAdmin        = (bool) ( $_user['is_platformAdmin'       ] );
+            $is_allowedCreateCourse  = (bool) ( $_user['is_allowedCreateCourse'] );
 
-            $_user ['firstName'] = $uData ['firstname'];
-            $_user ['lastName' ] = $uData ['lastname' ];
-            $_user ['mail'     ] = $uData ['email'    ];
-            $_user ['lastLogin'] = $uData ['lastLogin'];
-
-            $is_platformAdmin        = (bool) (! is_null( $uData['is_admin']));
-            $is_allowedCreateCourse  = (bool) ($uData ['statut'] == 1);
-
-            if ( $_uid != $uData['creatorId'] )
+            if ( $_uid != $_user['creatorId'] )
             {
                 // first login for a not self registred (e.g. registered by a teacher)
                 // do nothing (code may be added later)
@@ -539,49 +528,33 @@ if ( $cidReset ) // course session data refresh requested
 
     if ( $cidReq )
     {
-        $sql =  "SELECT `c`.`code`,
-                        `c`.`intitule`,
-                        `c`.`fake_code`,
-                        `c`.`directory`,
-                        `c`.`dbName`,
-                        `c`.`titulaires`,
-                        `c`.`email`,
-                        `c`.`languageCourse`,
-                        `c`.`departmentUrl`,
-                        `c`.`departmentUrlName`,
-                        `c`.`visible`,
-                        `cat`.`code` `faCode`,
-                        `cat`.`name` `faName`
+        $sql =  "SELECT c.code                           AS sysCode             ,
+                        c.intitule                       AS name                ,
+                        c.fake_code                      AS officialCode        ,
+                        c.directory                      AS path                ,
+                        c.dbName                         AS dbName              ,
+                        c.titulaires                     AS titular             ,
+                        c.email                          AS email               ,
+                        c.languageCourse                 AS language            ,
+                        c.departmentUrl                  AS extLinkUrl          ,
+                        c.departmentUrlName              AS extLinkName         ,
+                        (c.visible = 2 OR c.visible = 3) AS visibility          ,
+                        (c.visible = 1 OR c.visible = 2) AS registrationAllowed ,
+                        cat.code                         AS categoryCode        ,
+                        cat.name                         AS categoryName
                  FROM     `".$tbl_course."`    `c`
                  LEFT JOIN `".$tbl_category."` `cat`
                  ON `c`.`faculte` =  `cat`.`code`
                  WHERE `c`.`code` = '". addslashes($cidReq) ."'";
 
-        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $_course = claro_sql_query_get_single_row($sql);
 
-        if ( mysql_num_rows($result) > 0 )
+        if ( is_array($_course) )
         {
-            $cData = mysql_fetch_array($result);
-
-            $_cid                            = $cData['code'             ];
-
-            $_course['name'        ]         = $cData['intitule'         ];
-            $_course['officialCode']         = $cData['fake_code'        ]; // use in echo
-            $_course['sysCode'     ]         = $cData['code'             ]; // use as key in db
-            $_course['path'        ]         = $cData['directory'        ]; // use as key in path
-            $_course['dbName'      ]         = $cData['dbName'           ]; // use as key in db list
-            $_course['dbNameGlu'   ]         = $courseTablePrefix . $cData['dbName'] . $dbGlu; // use in all queries
-            $_course['titular'     ]         = $cData['titulaires'       ];
-            $_course['email'       ]         = $cData['email'            ];
-            $_course['language'    ]         = $cData['languageCourse'   ];
-            $_course['extLink'     ]['url' ] = $cData['departmentUrl'    ];
-            $_course['extLink'     ]['name'] = $cData['departmentUrlName'];
-            $_course['categoryCode']         = $cData['faCode'           ];
-            $_course['categoryName']         = $cData['faName'           ];
-            $_course['email'        ]        = $cData['email'            ];
-
-            $_course['visibility'  ]         = (bool) ($cData['visible'] == 2 || $cData['visible'] == 3);
-            $_course['registrationAllowed']  = (bool) ($cData['visible'] == 1 || $cData['visible'] == 2);
+            $_cid                            = $_course['sysCode'             ];
+            $_course['visibility'         ] = (bool) $_course['visibility'         ];
+            $_course['registrationAllowed'] = (bool) $_course['registrationAllowed'];
+            $_course['dbNameGlu'          ] = $courseTablePrefix . $_course['dbName'] . $dbGlu; // used in all queries
 
             // read of group tools config related to this course
 
@@ -728,13 +701,14 @@ if ( $tidReset || $cidReset ) // session data refresh requested
 {
     if ( ( $tidReq || $tlabelReq) && $_cid ) // have keys to search data
     {
-        $sql = " SELECT ctl.id             id,
-                      pct.claro_label    label,
-                      ctl.script_name    name,
-                      ctl.access         access,
-                      pct.icon           icon,
-                      pct.access_manager access_manager,
-                      CONCAT('".$clarolineRepositoryWeb."', pct.script_url) url
+        $sql = " SELECT ctl.id                  AS id            ,
+                      pct.claro_label           AS label         ,
+                      ctl.script_name           AS name          ,
+                      ctl.access                AS access        ,
+                      pct.icon                  AS icon          ,
+                      pct.access_manager        AS access_manager,
+                      CONCAT('".$clarolineRepositoryWeb."', pct.script_url) 
+                                                AS url
 
                    FROM `".$_course['dbNameGlu']."tool_list` ctl,
                     `".$tbl_tool."`  pct
@@ -745,21 +719,11 @@ if ( $tidReset || $cidReset ) // session data refresh requested
                      )";
 
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'
-        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $_courseTool = claro_sql_query_get_single_row($sql);
 
-        if ( mysql_num_rows($result) == 1 ) // this tool have a recorded state for this course
+        if ( is_array(_courseTool) ) // this tool have a recorded state for this course
         {
-            $ctData = mysql_fetch_array($result);
-
-            $_tid                          = $ctData['id'             ];
-
-            $_courseTool['label'         ] = $ctData['label'          ];
-            $_courseTool['name'          ] = $ctData['name'           ];
-            $_courseTool['access'        ] = $ctData['access'         ];
-            $_courseTool['url'           ] = $ctData['url'            ];
-            $_courseTool['icon'          ] = $ctData['icon'           ];
-            $_courseTool['access_manager'] = $ctData['access_manager' ];
-
+            $_tid                          = $_courseTool['id'];
         }
         else // this tool has no status related to this course
         {
@@ -798,13 +762,13 @@ if ( $gidReset || $cidReset ) // session data refresh requested
 {
     if ( $gidReq && $_cid ) // have keys to search data
     {
-        $sql = "SELECT g.id,
-                       g.name,
-                       g.description,
-                       g.tutor,
-                       f.forum_id         forumId,
-                       g.secretDirectory,
-                       g.maxStudent
+        $sql = "SELECT g.id               AS id          ,
+                       g.name             AS name        ,
+                       g.description      AS description ,
+                       g.tutor            AS tutorId     ,
+                       f.forum_id         AS forumId     ,
+                       g.secretDirectory  AS directory   ,
+                       g.maxStudent       AS maxMember
 
                 FROM `".$_course['dbNameGlu']."group_team`      g
                 LEFT JOIN `".$_course['dbNameGlu']."bb_forums`   f
@@ -812,20 +776,11 @@ if ( $gidReset || $cidReset ) // session data refresh requested
                    ON    g.id = f.group_id
                 WHERE    `id` = '". (int) $gidReq."'";
 
-        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $_group = claro_sql_query_get_single_row($sql);
 
-        if ( mysql_num_rows($result) > 0 ) // This group has recorded status related to this course
+        if ( is_array($_group) ) // This group has recorded status related to this course
         {
-            $gpData = mysql_fetch_array($result);
-
-            $_gid                   = $gpData ['id'             ];
-            $_group ['name'       ] = $gpData ['name'           ];
-            $_group ['description'] = $gpData ['description'    ];
-            $_group ['tutorId'    ] = $gpData ['tutor'          ];
-            $_group ['forumId'    ] = $gpData ['forumId'        ];
-            $_group ['directory'  ] = $gpData ['secretDirectory'];
-            $_group ['maxMember'  ] = $gpData ['maxStudent'     ];
-
+            $_gid = $_group ['id'];
         }
         else
         {
@@ -959,33 +914,27 @@ if ($uidReset || $cidReset)
         if ($is_courseMember ) $reqAccessList [] = 'COURSE_MEMBER';
         if ($_uid            ) $reqAccessList [] = 'PLATFORM_MEMBER';
 
-        $sql ="SELECT ctl.id             id,
-                      pct.claro_label    label,
-                      ctl.script_name    name,
-                      ctl.access         access,
-                      IFNULL(pct.icon,'tool.gif')  icon,
-                      pct.access_manager access_manager,
+
+        $sql ="SELECT ctl.id                       AS id,
+                      pct.claro_label              AS label,
+                      ctl.script_name              AS name,
+                      ctl.access                   AS access,
+                      IFNULL(pct.icon,'tool.gif')  AS icon,
+                      pct.access_manager           AS access_manager,
 
                       IF(pct.script_url IS NULL ,
                          ctl.script_url,CONCAT('".$clarolineRepositoryWeb."',
-                         pct.script_url)) url
+                         pct.script_url))          AS url
 
                FROM `".$_course['dbNameGlu']."tool_list` ctl
 
                LEFT JOIN `" . $tbl_tool . "` pct
-               ON       pct.id = ctl.tool_id
+                      ON  pct.id = ctl.tool_id
 
                WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")
                ORDER BY ctl.rank";
 
-        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
-
-        $_courseToolList = array();
-
-        while( $tlistData = mysql_fetch_array($result))
-        {
-            $_courseToolList[] = $tlistData;
-        }
+        $_courseToolList = claro_sql_query_fetch_all($sql);
 
     }
     else

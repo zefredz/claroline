@@ -71,8 +71,8 @@ $courseLanguage     = isset($_REQUEST['lanCourseForm']) ? trim(strip_tags($_REQU
 $courseEmail        = isset($_REQUEST['email'        ]) ? trim(strip_tags($_REQUEST['email'        ])) : $thisCourse['email'   ];
 $courseCategory     = isset($_REQUEST['category'     ]) ? trim(strip_tags($_REQUEST['category'     ])) : $thisCourse['categoryCode'];
 $courseOfficialCode = isset($_REQUEST['screenCode'   ]) ? trim(strip_tags($_REQUEST['screenCode'   ])) : $thisCourse['officialCode'];
-$extLinkName        = isset($_REQUEST['extLinkName'  ]) ? trim(strip_tags($_REQUEST['extLinkName'  ])) : $thisCourse['extLink' ]['name'];
-$extLinkUrl         = isset($_REQUEST['extLinkUrl'   ]) ? trim(strip_tags($_REQUEST['extLinkUrl'   ])) : $thisCourse['extLink' ]['url'];
+$extLinkName        = isset($_REQUEST['extLinkName'  ]) ? trim(strip_tags($_REQUEST['extLinkName'  ])) : $thisCourse['extLinkName'];
+$extLinkUrl         = isset($_REQUEST['extLinkUrl'   ]) ? trim(strip_tags($_REQUEST['extLinkUrl'   ])) : $thisCourse['extLinkUrl'];
 $enrollmentKey      = isset($_REQUEST['enrollmentKey']) ? trim(strip_tags($_REQUEST['enrollmentKey'])) : $thisCourse['enrollmentKey'];
 
 $visibility          = isset($_REQUEST['visible']           )

@@ -22,17 +22,17 @@ if( !empty($institution_name) )
         echo $institution_name;
 }
 
-if( !empty($_course['extLink']['name']) )    /* --- External Link Section --- */
+if( !empty($_course['extLinkName']) )    /* --- External Link Section --- */
 {
     echo ' / ';
-    if( !empty($_course['extLink']['url']) )
+    if( !empty($_course['extLinkUurl']) )
     {
-        echo '<a href="' . $_course['extLink']['url'] . '" target="_top">';
+        echo '<a href="' . $_course['extLinkUrl'] . '" target="_top">';
     }
 
-    echo $_course['extLink']['name'];
+    echo $_course['extLinkName'];
     
-    if( !empty($_course['extLink']['url']) )
+    if( !empty($_course['extLinkUrl']) )
     {
             echo '</a>';
     }
