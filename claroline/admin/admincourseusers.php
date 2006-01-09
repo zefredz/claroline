@@ -4,7 +4,7 @@
  *
  * This tool list user of a course but in admin section
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -17,10 +17,9 @@
  *
  */
 
-$cidReset=true;
-$gidReset=true;
-$tidReset=true;
-$userPerPage = 20; // numbers of user to display on the same page
+$cidReset=true;$gidReset=true;$tidReset=true;
+$iconForCuStatus['STUDENT']        = 'user.gif';
+$iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';
 
 require '../inc/claro_init_global.inc.php';
 
@@ -37,64 +36,35 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 /* ************************************************************************** */
 $dialogBox = '';
 // initialisation of global variables and used libraries
-$iconForCuStatus['STUDENT']        = "user.gif";
-$iconForCuStatus['COURSE_MANAGER'] = "manager.gif";
-include_once $includePath . '/lib/pager.lib.php';
-include_once $includePath . '/lib/admin.lib.inc.php';
-include_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/datagrid.lib.php';
+
 include $includePath . '/conf/user_profile.conf.php';
-//find which course is concerned in URL parameters
+
+//TABLES
+$tbl_mdb_names   = claro_sql_get_main_tbl();
+$tbl_user        = $tbl_mdb_names['user'  ];
+$tbl_course_user = $tbl_mdb_names['rel_course_user' ];
+
+/**
+ * Manage incoming.
+ */
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
     $dialogBox .= 'ERROR : NO COURSE SET!!!';
 }
-else
-{
-   $cidToEdit = $_REQUEST['cidToEdit'];
-}
-// javascript confirm pop up declaration
-$htmlHeadXtra[] =
-         "<script>
-         function confirmationReg (name)
-         {
-             if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \" ? \"))
-                 {return true;}
-             else
-                 {return false;}
-         }
-         </script>";
+else $cidToEdit = $_REQUEST['cidToEdit'];
 // See SESSION variables used for reorder criteria :
-if (isset($_REQUEST['order_crit']))
-{
-    $_SESSION['admin_course_user_order_crit']   = trim($_REQUEST['order_crit']) ;
-}
-
-if (isset($_REQUEST['dir']))
-{
-    $_SESSION['admin_course_user_dir'] = $_REQUEST['dir']=='DESC'?'DESC':'ASC';
-}
-
-//set the reorder parameters for colomuns titles
-if (!isset($order['uid']))              $order['uid']          = '';
-if (!isset($order['name']))             $order['name']         = '';
-if (!isset($order['firstname']))        $order['firstname']    = '';
-if (!isset($order['cu_status']))        $order['cu_status']    = '';
-//TABLES
-$tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_user        = $tbl_mdb_names['user'  ];
-$tbl_courses     = $tbl_mdb_names['course'];
-$tbl_admin       = $tbl_mdb_names['admin' ];
-$tbl_course_user = $tbl_mdb_names['rel_course_user' ];
-$tbl_track_default = $tbl_mdb_names['track_e_default' ];
-
-//------------------------------------
-// Execute COMMAND section
-//------------------------------------
-
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
+$pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0';
 
+/**
+ * COMMAND
+ */
 if ( $cmd == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true) )
@@ -106,11 +76,13 @@ if ( $cmd == 'unsub' )
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
+            {
                 $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
-                break;
+            }   break;
             case 'course_manager_cannot_unsubscribe_himself' :
+            {
                 $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
-                break;
+            }   break;
             default :
         }
     }
@@ -121,85 +93,104 @@ $courseData = claro_get_course_data($cidToEdit);
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
-$sql = "SELECT *, IF(CU.statut=1,'COURSE_MANAGER','STUDENT') `stat`
+$sql = "SELECT u.user_id  AS user_id,
+               u.nom      AS name,
+               u.prenom   AS firstname,
+               u.username AS username,
+               IF(CU.statut=1,'COURSE_MANAGER','STUDENT') AS `status`
         FROM  `" . $tbl_user . "` AS U
-        ";
-$toAdd = ", `" . $tbl_course_user . "` AS CU
+            , `" . $tbl_course_user . "` AS CU
           WHERE CU.`user_id` = U.`user_id`
-            AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'
-        ";
-$sql.=$toAdd;
+            AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'";
 
-//deal with LETTER classification call
-if (isset($_REQUEST['letter']))
+$myPager = new claro_sql_pager($sql, $pager_offset, get_conf('userPerPage',20));
+
+$sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'user_id';
+$sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
+$myPager->set_sort_key($sortKey, $sortDir);
+$myPager->set_pager_call_param_name('pager_offset');
+
+$userList = $myPager->get_result_list();
+
+// Start the list of users...
+foreach($userList as $lineId => $user)
 {
-    $toAdd = "
-             AND U.`nom` LIKE '" . addslashes($_REQUEST['letter']) . "%'
-             ";
-    $sql.=$toAdd;
-}
-//deal with KEY WORDS classification call
-if (isset($_REQUEST['search']))
-{
-    $toAdd = " AND ((U.`nom` LIKE '%" . addslashes($_REQUEST['search']) . "%'
-              OR U.`username` LIKE '%" . addslashes($_REQUEST['search']) . "%'
-              OR U.`prenom` LIKE '%" . addslashes($_REQUEST['search']) . "%')) ";
-    $sql.=$toAdd;
-}
-// deal with REORDER
-  if (isset($_SESSION['admin_course_user_order_crit']))
-{
-    switch ($_SESSION['admin_course_user_order_crit'])
-    {
-        case 'uid'       : $fieldSort = 'U`.`user_id'; break;
-        case 'name'      : $fieldSort = 'U`.`nom';     break;
-        case 'firstname' : $fieldSort = 'U`.`prenom';  break;
-        case 'cu_status' : $fieldSort = 'CU`.`statut'; break;
-//        case 'email'  : $fieldSort = 'email';
-    }
-    $toAdd = " ORDER BY `" . $fieldSort . "` " . $_SESSION['admin_course_user_dir'];
-    $order[$_SESSION['admin_course_user_order_crit']] = ($_SESSION['admin_course_user_dir']=='ASC'?'DESC':'ASC');
-    $sql.=$toAdd;
-}
+     $userDataList[$lineId]['user_id']         = $user['user_id'];
+     $userDataList[$lineId]['name']            = $user['name'];
+     $userDataList[$lineId]['firstname']       = $user['firstname'];
+     $userDataList[$lineId]['cmd_cu_setting']  = '<a href="adminUserCourseSettings.php'
+     .                                           '?cidToEdit=' . $cidToEdit
+     .                                           '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
+     .                                           '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus[$user['status']] . '" '
+     .                                           ' alt="' . $user['status'] . '" border="0"  hspace="4" title="' . $user['status'] . '" />'
+     .                                           '</a>';
+     $userDataList[$lineId]['cmd_cu_unenroll']  = '<a href="' . $_SERVER['PHP_SELF']
+     .                                            '?cidToEdit=' . $cidToEdit
+     .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
+     .                                            '&amp;pager_offset=' . $pager_offset . '" '
+     .                                            ' onClick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
+     .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
+     .                                            '</a>' . "\n";
 
-//Build SQL query
-if (!isset($_REQUEST['offset']))
-{
-    $offset = '0';
-}
-else
-{
-    $offset = $_REQUEST['offset'];
-}
+} // end display users table
 
-$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
-$resultList = $myPager->get_result_list();
+/**
+ * Prepare output
+ */
 
+// javascript confirm pop up declaration
+$htmlHeadXtra[] =
+         "<script>
+         function confirmationReg (name)
+         {
+             if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \" ? \"))
+                 {return true;}
+             else
+                 {return false;}
+         }
+         </script>";
 
+// Config Datagrid
 
+$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
+$dg_opt_list['idLineType'] = 'none';
+$dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Userid') . '</a>'
+                                     , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('LastName') . '</a>'
+                                     , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('FirstName') . '</a>'
+                                     , 'cmd_cu_setting'  => '<a href="' . $sortUrlList['status'] . '">' . get_lang('Action') . '</a>'
+                                     , 'cmd_cu_unenroll' => get_lang('Unsubscribe')
+);
 
-//------------------------------------
-// DISPLAY
-//------------------------------------
-// Display tool title
+$dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'center')
+                                         , 'cmd_cu_setting'    => array ('align' => 'center')
+                                         , 'cmd_cu_unenroll' => array ('align' => 'center')
+);
+
+$dg_opt_list['caption'] = '<small>'
+.                         '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus['STUDENT'] . '" '
+.                         ' alt="STUDENT" border="0" title="statut Student" />'
+.                         get_lang('Student')
+.                         '<wbr>'
+.                         '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus['COURSE_MANAGER'].'" '
+.                         ' alt="course manager" border="0" title="statut Course manager" />'
+.                         get_lang('Course Manager')
+.                         '</nobr>'
+.                         '</small>'
+;
 
 $nameTools = get_lang('AllUsersOfThisCourse');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
-//Header
+//------------------------------------
+// DISPLAY
+//------------------------------------
+// Display tool title
 include($includePath . '/claro_init_header.inc.php');
-
 echo claro_disp_tool_title($nameTools);
-
-// Display Forms or dialog box(if needed)
-
-if ( !empty($dialogBox) )
-{
-    echo claro_disp_message_box($dialogBox);
-}
+if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 //Display selectbox, alphabetic choice, and advanced search link search
 echo '<a class="claroCmd" href="adminregisteruser.php'
@@ -207,117 +198,15 @@ echo '<a class="claroCmd" href="adminregisteruser.php'
 .    get_lang('EnrollUser')
 .    '</a>'
 ;
-
 if (isset($cfrom) && ($cfrom=='clist'))
 {
     echo ' | <a class="claroCmd" href="admincourses.php">' . get_lang('BackToCourseList') . '</a>';
 }
 
-//Pager
+/** DISPLAY : LIST of data */
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
+echo claro_disp_datagrid($userDataList, $dg_opt_list);
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
-
-// Display list of users
-   // start table...
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-.    '<thead >'
-.    '<caption>'
-.    '<small>'
-.    '<img src="' . $imgRepositoryWeb . $iconForCuStatus['STUDENT'] . '" '
-.    ' alt="STUDENT" border="0" title="statut" />'
-.    ' Student '
-.    '<wbr>'
-.    '<img src="' . $imgRepositoryWeb . $iconForCuStatus['COURSE_MANAGER'].'" '
-.    ' alt="course manager" border="0" title="statut" />'
-.    'Course Manager'
-.    '</nobr>'
-.    '</small>'
-.    '</caption>'
-.    '<tr class="headerX" align="center" valign="top">'
-
-.    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF']
-.    '?order_crit=uid&amp;dir=' . $order['uid']
-.    '&amp;cidToEdit=' . $cidToEdit."\">"
-.    get_lang('Userid')
-.    '</a>'
-.    '</th>'
-
-.    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF']
-.    '?order_crit=name&amp;dir=' . $order['name']
-.    '&amp;cidToEdit='.$cidToEdit.'">'
-.    get_lang('LastName')
-.    '</a>'
-.    '</th>'
-
-.    '<th>'
-.    '<a href="' . $_SERVER['PHP_SELF']
-.    '?order_crit=firstname&amp;dir=' . $order['firstname']
-.    '&amp;cidToEdit=' . $cidToEdit.  '">'
-.    get_lang('FirstName')
-.    '</a>'
-.    '</th>'
-
-.    '<th>'
-.    '<a href="'.$_SERVER['PHP_SELF']
-.    '?order_crit=cu_status'
-.    '&amp;dir=' . $order['cu_status']
-.    '&amp;cidToEdit=' . $cidToEdit . '">'
-.    get_lang('Action')
-.    '</a>'
-.    '</th>'
-.    '<th>' . get_lang('Unsubscribe') . '</th>'
-.    '</tr>'
-.    '</thead>'
-.    '<tbody>'
-;
-
-// Start the list of users...
-foreach($resultList as $list)
-{
-     echo '<tr>';
-     //  Id
-     echo '<td align="center">'
-     .    $list['user_id']
-     .    '</td>'
-     // lastname
-     .    '<td >' . $list['nom'] . '</td>'
-     //  Firstname
-     .    '<td >' . $list['prenom'] . '</td>'
-     //  course manager
-     .    '<td align="center">'
-     .    '<a href="adminUserCourseSettings.php'
-     .    '?cidToEdit=' . $cidToEdit
-     .    '&amp;uidToEdit=' . $list['user_id'] . '&amp;ccfrom=culist">'
-     .    '<img src="' . $imgRepositoryWeb . $iconForCuStatus[$list['stat']] . '" '
-     .    ' alt="' . $list['stat'] . '" border="0"  hspace="4" title="' . $list['stat'] . '" />'
-     .    '</a>'
-     .    '</td>'
-     ;
-
-     // Unregister
-     if (isset($cidToEdit))
-     {
-        echo  '<td align="center">' . "\n"
-        .     '<a href="' . $_SERVER['PHP_SELF']
-        .     '?cidToEdit=' . $cidToEdit
-        .     '&amp;cmd=unsub&amp;user_id=' . $list['user_id']
-        .     '&amp;offset=' . $offset . '" '
-        .     ' onClick="return confirmationReg(\'' . clean_str_for_javascript($list['username']) . '\');">' . "\n"
-        .     '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
-        .     '</a>' . "\n"
-        .     '</td>' . "\n"
-        ;
-     }
-
-     echo '</tr>';
-} // end display users table
-echo '</tbody>'
-.    '</table>'
-;
-
-//Pager
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 include $includePath . '/claro_init_footer.inc.php';
 ?>
