@@ -110,17 +110,17 @@ switch ( $cmd )
 
 $sql = "SELECT
        `U`.`user_id`     ,
-       `U`.`nom`         `name`,
-       `U`.`prenom`      `firstname`,
+       `U`.`nom`         AS `name`,
+       `U`.`prenom`      AS `firstname`,
        `U`.`authSource`  ,
        `U`.`email`       ,
-       `U`.`statut`      `status`,
+       `U`.`statut`      AS `status`,
        `U`.`officialCode`,
        `U`.`phoneNumber` ,
        `U`.`pictureUri`  ,
-       `U`.`creatorId` creator_id,
-       IF(`U`.`statut`=" . COURSE_CREATOR . ",'COURSE_CREATOR','ORDINARY') `statut` ,
-       count(DISTINCT `CU`.`code_cours`) `qty_course`
+       `U`.`creatorId`   AS creator_id,
+       IF(`U`.`statut`=" . COURSE_CREATOR . ",'COURSE_CREATOR','ORDINARY') AS `statut` ,
+       count(DISTINCT `CU`.`code_cours`) AS `qty_course`
        FROM  `" . $tbl_user . "` AS `U`";
 
 //deal with admin user search only (PART ONE)
@@ -359,7 +359,7 @@ foreach($userList as $user)
     if ( empty($user['officialCode']) ) $user['officialCode'] = ' - ';
 
     $userStatus = ($user['status']=='COURSE_CREATOR' ? get_lang('CourseCreator') : get_lang('NormalUser'));
-    if (isAdminUser($user['user_id'])) $userStatus .= '<br /><font color="red">'.get_lang('Administrator').'</font>';
+    if (isAdminUser($user['user_id'])) $userStatus .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
 
     echo '<tr>'
     .    '<td align="center">' . $user['user_id'] . '</td>' . "\n"
