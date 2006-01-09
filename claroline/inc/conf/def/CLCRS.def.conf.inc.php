@@ -71,8 +71,10 @@ array ('label'       => 'Course code is'
       ,'description' => 'User can leave course code (officialCode) field empty or not'
       ,'default'     => 'TRUE'
       ,'type'        => 'boolean'
+      ,'display'     => false
+      ,'readonly'    => true
       ,'acceptedValue' => array ('TRUE' => 'Required'
-                                ,'FALSE'=> 'Optional'
+//                                ,'FALSE'=> 'Optional'
                                 )
       );
 
