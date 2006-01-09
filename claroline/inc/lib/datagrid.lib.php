@@ -59,6 +59,8 @@ function claro_disp_datagrid($dataGrid, $option = null)
     if (! array_key_exists('idLineType',   $option)) $option['idLineType'] = 'numeric';
     if (! array_key_exists('idLineShift',  $option)) $option['idLineShift'] = 1;
     if (! array_key_exists('colTitleList', $option)) $option['colTitleList'] = array_keys($dataGrid[0]);
+    if (array_key_exists('caption',      $option))   $option['caption'] = '<caption>' . $option['caption'] . '</caption>';
+    else                                             $option['caption'] = '';
 
     $dispIdCol = true;
 
@@ -99,6 +101,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
         $stream .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
         // THEAD LINE
         .          '<thead>' . "\n"
+        .          $option['caption']
         .          '<tr class="headerX" align="center" valign="top">' . "\n"
         ;
 
