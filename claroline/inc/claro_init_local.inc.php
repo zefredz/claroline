@@ -717,8 +717,8 @@ else // else of if ($uidReset || $cidReset) - continue with the previous values
 // (special request can come from the tool id, or the tool label)
 
 if (   ( $tidReq    && $tidReq    != $_SESSION['_tid']                 )
-    || ( $tlabelReq && ( !isset($_SESSION['_courseTool']['label'])
-        || $tlabelReq != $_SESSION['_courseTool']['label']) )
+    || ( $tlabelReq && ( ! isset($_SESSION['_courseTool']['label'])
+                         || $tlabelReq != $_SESSION['_courseTool']['label']) )
    )
 {
     $tidReset = true;
