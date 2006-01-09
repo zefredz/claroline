@@ -1006,93 +1006,61 @@ else // continue with the previous values
 /*---------------------------------------------------------------------------
   User info in the platform
  ---------------------------------------------------------------------------*/
+$_SESSION['_uid'                  ] = $_uid;
+$_SESSION['_user'                 ] = $_user;
+$_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
+$_SESSION['is_platformAdmin'      ] = $is_platformAdmin;
 
-if ( isset($_uid) ) $_SESSION['_uid'] = $_uid;
-else                $_SESSION['_uid'] = null; // unset
-
-if ( isset($_user) ) $_SESSION['_user'] = $_user;
-else                 $_SESSION['_uid'] = null;
-
-if ( isset($is_allowedCreateCourse) ) $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
-else                                  $_SESSION['is_allowedCreateCourse'] = null;
-
-if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
-else                            $_SESSION['is_platformAdmin'] = null;
 
 /*---------------------------------------------------------------------------
   Course info of $_cid course
  ---------------------------------------------------------------------------*/
 
-if ( isset($_cid) ) $_SESSION['_cid'] = $_cid;
-else                $_SESSION['_cid'] = null;
-
-if ( isset($_course) ) $_SESSION['_course'] = $_course;
-else                   $_SESSION['_course'] = null;
-
-if ( isset($_groupProperties) ) $_SESSION['_groupProperties'] = $_groupProperties;
-else                            $_SESSION['_groupProperties'] = null;
+$_SESSION['_cid'            ] = $_cid;
+$_SESSION['_course'         ] = $_course;
+$_SESSION['_groupProperties'] = $_groupProperties;
 
 /*---------------------------------------------------------------------------
   User rights of $_uid in $_cid course
  ---------------------------------------------------------------------------*/
 
-if ( isset($is_courseAdmin) ) $_SESSION['is_courseAdmin'] = $is_courseAdmin;
-else                          $_SESSION['is_courseAdmin'] = false;
-
-if ( isset($is_courseAllowed) ) $_SESSION['is_courseAllowed'] = $is_courseAllowed;
-else                            $_SESSION['is_courseAllowed'] = false;
-
-if ( isset($is_courseMember) ) $_SESSION['is_courseMember'] = $is_courseMember;
-else                           $_SESSION['is_courseMember'] = false;
-
-if ( isset($is_courseTutor) ) $_SESSION['is_courseTutor'] = $is_courseTutor;
-else                          $_SESSION['is_courseTutor'] = false;
+$_SESSION['is_courseAdmin'  ] = $is_courseAdmin;
+$_SESSION['is_courseAllowed'] = $is_courseAllowed;
+$_SESSION['is_courseMember' ] = $is_courseMember;
+$_SESSION['is_courseTutor'  ] = $is_courseTutor;
 
 if ( isset($_courseUser) ) $_SESSION['_courseUser'] = $_courseUser; // not used
-else                       $_SESSION['_courseUser'] = false;
 
 /*---------------------------------------------------------------------------
   Tool info of $_tid in $_cid course
  ---------------------------------------------------------------------------*/
 
-if ( isset($_tid) ) $_SESSION['_tid'] = $_tid;
-else               $_SESSION['_tid'] = null;
-
-if ( isset($_courseTool) ) $_SESSION['_courseTool'] = $_courseTool;
-else                       $_SESSION['_courseTool'] = null;
+$_SESSION['_tid'       ] = $_tid;
+$_SESSION['_courseTool'] = $_courseTool;
 
 /*---------------------------------------------------------------------------
   Group info of $_gid in $_cid course
  ---------------------------------------------------------------------------*/
 
-if ( isset($_gid) ) $_SESSION['_gid'] = $_gid;
-else                $_SESSION['_gid'] = null ;
+$_SESSION['_gid'           ] = $_gid;
+$_SESSION['_group'         ] = $_group;
+$_SESSION['is_groupAllowed'] = $is_groupAllowed;
+$_SESSION['is_groupMember' ] = $is_groupMember;
+$_SESSION['is_groupTutor'  ] = $is_groupTutor;
 
-if ( isset($_group) ) $_SESSION['_group'] = $_group;
-else                  $_SESSION['_group'] = null;
-
-if ( isset($is_groupAllowed) ) $_SESSION['is_groupAllowed'] = $is_groupAllowed;
-else                           $_SESSION['is_groupAllowed'] = null;
-
-if ( isset($is_groupMember) ) $_SESSION['is_groupMember'] = $is_groupMember;
-else                          $_SESSION['is_groupMember'] = null ;
-
-if ( isset($is_groupTutor) ) $_SESSION['is_groupTutor'] = $is_groupTutor;
-else                         $_SESSION['is_groupTutor'] = null ;
 
 /*---------------------------------------------------------------------------
  Tool in $_cid course allowed to $_uid user
  ---------------------------------------------------------------------------*/
 
-if ( isset($is_toolAllowed)) $_SESSION['is_toolAllowed'] = $is_toolAllowed;
-else                         $_SESSION['is_toolAllowed'] = null ;
+$_SESSION['is_toolAllowed'] = $is_toolAllowed;
+
 
 /*---------------------------------------------------------------------------
   List of available tools in $_cid course
  ---------------------------------------------------------------------------*/
 
-if ( isset($_courseToolList) ) $_SESSION['_courseToolList'] = $_courseToolList;
-else                           $_SESSION['_courseToolList'] = null ;
+$_SESSION['_courseToolList'] = $_courseToolList;
 
 /*===========================================================================
   Set config for course ---> to move in claro_init_global
