@@ -30,7 +30,6 @@ $conf_def['section']['PLATFORM_SETTING']['description']='Global settings';
 $conf_def['section']['PLATFORM_SETTING']['properties'] =
 array ( 'siteName'
       , 'claro_stylesheet'
-      , 'claro_editor'
       );
 
 $conf_def['section']['LANGUAGE']['label']='Language';
@@ -91,7 +90,8 @@ array ( 'mysqlRepositorySys'
       , 'allowSelfReg'
       , 'allowToSelfEnroll'
       , 'is_trackingEnabled'
-      ,'claro_texRendererUrl'
+      , 'claro_editor'
+      , 'claro_texRendererUrl'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
       , 'DEVEL_MODE'
