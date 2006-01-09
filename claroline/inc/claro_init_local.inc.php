@@ -551,27 +551,29 @@ if ( $cidReset ) // course session data refresh requested
 
         if ( is_array($_course) )
         {
-            $_cid                            = $_course['sysCode'             ];
-            $_course['visibility'         ] = (bool) $_course['visibility'         ];
-            $_course['registrationAllowed'] = (bool) $_course['registrationAllowed'];
+            $_cid                           =        $_course['sysCode'             ];
+            $_course['visibility'         ] = (bool) $_course['visibility'          ];
+            $_course['registrationAllowed'] = (bool) $_course['registrationAllowed' ];
             $_course['dbNameGlu'          ] = $courseTablePrefix . $_course['dbName'] . $dbGlu; // used in all queries
 
             // read of group tools config related to this course
 
-            $sql = "SELECT self_registration,
-                           private,
-                           nbGroupPerUser,
-                           forum, document,
-                           wiki,
-                           chat
+            $sql = "SELECT self_registration AS registrationAllowed,
+                           private           AS private            ,
+                           nbGroupPerUser    AS nbGroupPerUser     ,
+                           forum             AS forum              ,
+                           document          AS document           ,
+                           wiki              AS wiki               ,
+                           chat              AS chat
+
                     FROM `".$_course['dbNameGlu']."group_property`";
 
             $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
             $gpData = mysql_fetch_array($result);
 
-            $_groupProperties ['registrationAllowed'] = (bool) ($gpData['self_registration'] == 1);
-            $_groupProperties ['private'            ] = (bool) ($gpData['private'          ] == 1);
+            $_groupProperties ['registrationAllowed'] = (bool) ($gpData['registrationAllowed'] == 1);
+            $_groupProperties ['private'            ] = (bool) ($gpData['private'            ] == 1);
             $_groupProperties ['nbGroupPerUser'     ] = $gpData['nbGroupPerUser'];
             $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum'            ] == 1);
             $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document'         ] == 1);
@@ -721,7 +723,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'
         $_courseTool = claro_sql_query_get_single_row($sql);
 
-        if ( is_array(_courseTool) ) // this tool have a recorded state for this course
+        if ( is_array($_courseTool) ) // this tool have a recorded state for this course
         {
             $_tid                          = $_courseTool['id'];
         }
