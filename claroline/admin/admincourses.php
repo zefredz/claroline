@@ -328,10 +328,10 @@ foreach($courseList as $numLine => $courseLine)
     $atleastOneResult = TRUE;
 }
 
-
 // CONFIG DATAGRID.
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 $dg_opt_list['idLineType'] = 'none';
+$dg_opt_list['colHead'] = 'officialCode';
 $dg_opt_list['colTitleList'] = array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Code')        . '</a>'
                                      , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('CourseTitle') . '</a>'
                                      , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
