@@ -954,7 +954,10 @@ function claro_disp_auth_form($cidRequired = false)
 {
     global $rootWeb, $includePath, $_cid;
 
-    $sourceUrl = $_SERVER['REQUEST_URI'];
+    $sourceUrl = ( isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on' 
+                   ? 'https://' 
+                   : 'http://')
+               .  $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 
     // note : some people say that REQUEST_URI isn't available on IIS.
     // It has to be checked  ...
