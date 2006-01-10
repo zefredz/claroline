@@ -113,6 +113,7 @@ $myPager->set_pager_call_param_name('pager_offset');
 $userList = $myPager->get_result_list();
 
 // Start the list of users...
+$userDataList = array();
 foreach($userList as $lineId => $user)
 {
      $userDataList[$lineId]['user_id']         = $user['user_id'];
@@ -154,7 +155,8 @@ $htmlHeadXtra[] =
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
-$dg_opt_list['idLineType'] = 'none';
+
+$dg_opt_list['idLineShift'] = $myPager->offset + 1;
 $dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Userid') . '</a>'
                                      , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('LastName') . '</a>'
                                      , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('FirstName') . '</a>'
