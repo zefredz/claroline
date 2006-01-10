@@ -48,6 +48,18 @@
  * $dataGrid[]=array('nom'=>'dubois', 'prenom'=>'jean');
  * $dataGrid[]=array('nom'=>'dupont', 'prenom'=>'pol');
  * $dataGrid[]=array('nom'=>'durand', 'prenom'=>'simon');
+ *
+ * $option
+ * * idLine      : deprecated (renamed to idLineType)
+ * * idLineType  : choose between 'none', 'blank', 'numeric' (default)
+ * * idLineShift : when idLineType is numeric shith the first line number (use when external pagined datagird)
+ * * colTitleList: array of string  to replace the colKey as title of column
+ * * colHead     : set the col to use as colHeading (use by scope)
+ * * caption     : add the caption of the datagrid
+ * * dispCounter : whether true, add a tfoot line with  count of  line in datagird.
+ * * colAttributeList
+ *               : array of attibute by column
+ *
  */
 
 function claro_disp_datagrid($dataGrid, $option = null)
@@ -58,6 +70,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
     if (! array_key_exists('idLineType',   $option)) $option['idLineType'] = 'numeric';
     if (! array_key_exists('idLineShift',  $option)) $option['idLineShift'] = 1;
+    if (! array_key_exists('colHead',      $option))     $option['colHead'] = null;
     if (! array_key_exists('colTitleList', $option)) $option['colTitleList'] = array_keys($dataGrid[0]);
     if (array_key_exists('caption',      $option))   $option['caption'] = '<caption>' . $option['caption'] . '</caption>';
     else                                             $option['caption'] = '';
@@ -68,10 +81,10 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
     switch (strtolower($option['idLineType']))
     {
-        case 'blank'   : $idLineType = '';       break;
+        case 'blank'   : $idLineType = '';   break;
         case 'none'    : $dispIdCol = false; break;
         case 'numeric' : $internalkey = 0;   break;
-        default        : $idLineType = '';       break;
+        default        : $idLineType = '';   break;
     }
 
 
@@ -105,7 +118,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
         .          '<tr class="headerX" align="center" valign="top">' . "\n"
         ;
 
-        if ($dispIdCol) $stream .= '<th></th>' . "\n";
+        if ($dispIdCol) $stream .= '<th width="10"></th>' . "\n";
 
         $i=0;
         foreach ($option['colTitleList'] as $colTitle)
@@ -143,14 +156,23 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
             $stream .= '<tr>' . "\n";
 
-            if ($dispIdCol) $stream .= '<td>' . $idLineType . '</td>' . "\n";
+            if ($dispIdCol) $stream .= '<td align="right" valign="middle">' . $idLineType . '</td>' . "\n";
 
             $i=0;
             foreach ($dataLine as $colId => $dataCell)
             {
-                $stream .= '<td headers="c' . $i++ . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
-                $stream .= $dataCell;
-                $stream .= '</td>' . "\n";
+                if ($option['colHead'] == $colId)
+                {
+                    $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
+                    $stream .= $dataCell;
+                    $stream .= '</td>' . "\n";
+                }
+                else
+                {
+                    $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
+                    $stream .= $dataCell;
+                    $stream .= '</td>' . "\n";
+                }
             }
             $stream .= '</tr>' . "\n";
 
