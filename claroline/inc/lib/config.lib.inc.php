@@ -658,7 +658,7 @@ class Config
      * Display the web form to edit config file
      */
 
-    function display_form($property_list=null)
+    function display_form($property_list=null,$section_selected=null)
     {
         $form = '';
 
@@ -667,41 +667,38 @@ class Config
         {
             $form .= '<p>' . $this->conf_def['description'] . '</p>' . "\n";
         }
+        
+        // get section list
+        $section_list = $this->get_def_section_list();
 
-        // display start form
-        $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code . '" name="editConfClass" >' . "\n"
-               . '<input type="hidden" name="config_code" value="' . $this->config_code . '" />' . "\n"
-               . '<input type="hidden" name="cmd" value="save" />' . "\n";
-
-        $form .= '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
-
-        // display each section of properties
-        foreach ($this->conf_def['section'] as $section)
+        if ( !empty($section_list) )
         {
-            if ( ! isset($section['display']) || $section['display'] != false )
+            if ( empty($section_selected) || ! in_array($section_selected,$section_list) )
             {
-                // display fieldset with the label of the section
-                $form .= '<tr>'
-                       . '<th class="superHeader" colspan="3">' . $section['label'] . '</th>'
-                       . '</tr>' . "\n";
-
-                // display description of the section
-                if ( !empty($section['description']) )
-                {
-                    $form .= '<tr><th class="headerX" colspan="3">' . $section['description'] . '</th></tr>' . "\n";
-                }
-                else
-                {
-                    $form .= '<tr><th class="headerX" colspan="3">&nbsp;</th></tr>' . "\n";
-                }
+                $section_selected = current($section_list);
             }
+            
+            // section array
+            $section = $this->conf_def['section'][$section_selected];
 
+            // display start form
+            $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code . '" name="editConfClass" >' . "\n"
+                   . '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
+                   . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
+                   . '<input type="hidden" name="cmd" value="save" />' . "\n";
+
+
+            // display description of the section
+            if ( !empty($section['description']) ) $form .= '<div><p><em>' . $section['description'] . '</em></p></div>';
+            
+            $form .= '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
+
+            // display each property of the section
             if ( is_array($section['properties']) )
             {
-                // display each property of the section
                 foreach ( $section['properties'] as $name )
                 {
-                    if (key_exists($name,$this->conf_def_property_list))
+                    if ( key_exists($name,$this->conf_def_property_list) )
                     {
                         if ( is_array($this->conf_def_property_list[$name]) )
                         {
@@ -719,22 +716,23 @@ class Config
                     }
                     else
                     {
-                        die('error in $section, ' . $name . ' doesn\'t exist in property list');
+                        $form .= 'Error in $section, ' . $name . ' doesn\'t exist in property list';
                     }
-                }
-            }
+                } // foreach $section['properties'] as $name
+            } // is_array($section['properties'])
+
+            // display submit button
+            $form .= '<tr>' ."\n"
+                   . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
+                   . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
+                   . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+                   . '</tr>' . "\n";
+            
+            // display end form
+            $form .= '</table>' . "\n"
+                   . '</form>' . "\n";
+
         }
-
-        // display end form
-
-        $form .= '<tr>' ."\n"
-               . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
-               . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
-               . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
-               . '</tr>' . "\n";
-
-        $form .= '</table>' . "\n"
-               . '</form>' . "\n";
 
         return $form ;
     }
@@ -1008,13 +1006,66 @@ class Config
             }
 
             // display description
-            $elt_form .= '<td><em>' . $html['description'] . '</td>';
+            $elt_form .= '<td><em><small>' . $html['description'] . '</small></em></td>';
 
             $elt_form .= '</tr>' . "\n";
 
         }
 
         return $elt_form;
+    }
+
+    /**
+     * Return list of displayed section
+     */
+
+    function get_def_section_list()
+    {
+        $section_list = array();
+
+        foreach ( $this->conf_def['section'] as $id => $section )
+        {
+            if ( ! isset($section['display']) || $section['display'] != false )
+            {
+                $section_list[] = $id ;
+            }
+        }
+
+        return $section_list ;
+    }
+
+    /**
+     * Display section menu
+     */
+
+    function display_section_menu($section_selected)
+    {
+        $menu = '';
+    
+        $section_list = $this->get_def_section_list();
+
+        if ( !empty($section_list) )
+        {
+            if ( empty($section_selected) || ! in_array($section_selected,$section_list) )
+            {
+                $section_selected = current($section_list);
+            }
+
+            $menu = '<div >' . "\n"
+                . '<ul id="navlist">' . "\n";
+
+            foreach ( $section_list as $section )
+            {
+                $menu .=  '<li>'
+                    . '<a ' . ( $section == $section_selected ? 'class="current"' : '' ) 
+                    . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) 
+                    . '&section=' . htmlspecialchars($section) . '">'
+                    . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
+            } 
+            $menu .= '</ul>' . "\n"
+                . '</div>' . "\n" ;
+        }
+        return $menu;
     }
 
     /**

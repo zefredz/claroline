@@ -68,6 +68,53 @@ $error_msg = array();
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
+// temporary css style sheet for tab navigation
+
+$htmlHeadXtra[] = '<style type="text/css" media="screen">
+
+<!--
+#navlist
+{
+padding: 3px 0;
+margin-left: 0;
+border-bottom: 1px solid #778;
+font: bold 12px Verdana, sans-serif;
+}
+
+#navlist li
+{
+list-style: none;
+margin: 0;
+display: inline;
+}
+
+#navlist li a
+{
+padding: 3px 0.5em;
+margin-left: 3px;
+border: 1px solid #778;
+border-bottom: none;
+background: #DDE;
+text-decoration: none;
+}
+
+#navlist li a:link { color: #448; }
+#navlist li a:visited { color: #667; }
+
+#navlist li a:hover
+{
+color: #000;
+background: #AAE;
+border-color: #227;
+}
+
+#navlist li a.current
+{
+background: white;
+border-bottom: 1px solid white;
+}
+</style>';
+
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
@@ -82,7 +129,7 @@ $form = '';
 
 if ( !isset($_REQUEST['config_code']) )
 {
-    $message = get_lang('No configuration code');
+    $message[] = get_lang('No configuration code');
 }
 else
 {
@@ -95,6 +142,12 @@ else
     // load configuration
     if ( $config->load() ) 
     {
+        $section = isset($_REQUEST['section'])?$_REQUEST['section']:null;
+
+        // display section menu
+        $form .= $config->display_section_menu($section);
+
+        // init config name
         $config_name = $config->config_code;
         
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
@@ -119,12 +172,12 @@ else
                 }
             }
             // display form
-            $form = $config->display_form($_REQUEST['property']);
+            $form .= $config->display_form($_REQUEST['property'],$section);
         }
         else
         {
             // display form
-            $form = $config->display_form();
+            $form .= $config->display_form(null,$section);
         }
     }
     else
