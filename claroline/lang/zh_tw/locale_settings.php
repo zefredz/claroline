@@ -13,8 +13,11 @@
  * @author Claro team <cvs@claroline.net>
  */
 
-$iso639_1_code = "en";
-$iso639_2_code = "eng";
+$iso639_1_code = "zh";
+//$iso639_2_code = "eng";
+
+$englishLangName = "taiwan";
+$localLangName = "taiwan";
 
 unset($langNameOfLang);
 unset($langDay_of_weekNames);
@@ -50,7 +53,7 @@ $langNameOfLang['turkish']       = "turkish";
 $langNameOfLang['vietnamese']    = "vietnamese";
 $langNameOfLang['zh_tw']         = "taiwan";
 
-$charset = 'iso-8859-1';
+$charset = 'utf-8';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
