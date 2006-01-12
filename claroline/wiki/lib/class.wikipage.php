@@ -270,7 +270,7 @@
          * Get page version history
          * @return array page history on success, null on failure
          */
-        function history( $offset = 0, $limit = 50, $order = 'DESC' )
+        function history( $offset = 0, $limit = 0, $order = 'DESC' )
         {
             // reconnect if needed
             if ( ! $this->con->isConnected() )
