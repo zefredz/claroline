@@ -466,7 +466,7 @@
          * @param int count number of record to return starting at offset
          * @return array recently modified pages (title, last_mtime, editor_id)
          */
-        function recentChanges( $offset = 0, $count = 0 )
+        function recentChanges( $offset = 0, $count = 50 )
         {
             // reconnect if needed
             if ( ! $this->con->isConnected() )
