@@ -44,6 +44,8 @@ $langNameOfLang['swedish']       = "suédois";
 $langNameOfLang['thai']          = "thaïlandais";
 $langNameOfLang['turkish']       = "turc";
 $langNameOfLang['vietnamese']    = "vietnamien";
+$langNameOfLang['zh_tw']         = "chinois traditionnel";
+
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr';

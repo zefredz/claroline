@@ -48,7 +48,7 @@ $langNameOfLang['swedish']       = "swedish";
 $langNameOfLang['thai']          = "thai";
 $langNameOfLang['turkish']       = "turkish";
 $langNameOfLang['vietnamese']    = "vietnamese";
-$langNameOfLang['zh_tw']         = "taiwan";
+$langNameOfLang['zh_tw']         = "traditional chinese";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
