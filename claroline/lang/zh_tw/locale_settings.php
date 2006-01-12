@@ -1,23 +1,20 @@
-<?php // $Id$
+<?php
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.7 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
- * @package LANG-EN
+ * @package LANG-zh_tw
  *
- * @author Claro team <cvs@claroline.net>
+ * @author Finjon Kiang http://twpug.net
  */
 
-$iso639_1_code = "zh";
-//$iso639_2_code = "eng";
-
-$englishLangName = "taiwan";
-$localLangName = "taiwan";
+$iso639_1_code = "zh"; //zh-tw
+$iso639_2_code = "chi";
 
 unset($langNameOfLang);
 unset($langDay_of_weekNames);
@@ -40,42 +37,41 @@ $langNameOfLang['greek']         = "greek";
 $langNameOfLang['italian']       = "italian";
 $langNameOfLang['indonesian']    = "indonesian";
 $langNameOfLang['japanese']      = "japanese";
-$langNameOfLang['malay']         = "malay";
+$langNameOfLang['malay']         = "malay"; 
 $langNameOfLang['polish']        = "polish";
 $langNameOfLang['portuguese']    = "portuguese";
 $langNameOfLang['russian']       = "russian";
-$langNameOfLang['simpl_chinese'] = "simplified chinese";
+$langNameOfLang['simpl_chinese'] = "簡體中文";
 $langNameOfLang['slovenian']     = "slovenian";
 $langNameOfLang['spanish']       = "spanish";
 $langNameOfLang['swedish']       = "swedish";
 $langNameOfLang['thai']          = "thai";
 $langNameOfLang['turkish']       = "turkish";
-$langNameOfLang['vietnamese']    = "vietnamese";
-$langNameOfLang['zh_tw']         = "taiwan";
+$langNameOfLang['vietnamese']    = "vietnameseV";
+$langNameOfLang['zh_tw']    = "正體中文";
 
-$charset = 'utf-8';
+$charset = 'UTF-8';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
-$left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
-$right_font_family = 'helvetica, arial, geneva, sans-serif';
+$left_font_family = ''; //There are few Chinese fonts, it's not necessary to set font-famly
+$right_font_family = '';
 $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
-$langDay_of_weekNames['init'] = array('S', 'M', 'T', 'W', 'T', 'F', 'S');
-$langDay_of_weekNames['short'] = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
-$langDay_of_weekNames['long'] = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+$langDay_of_weekNames['init'] = array('日', '一', '二', '三', '四', '五', '六');
+$langDay_of_weekNames['short'] = array('日', '一', '二', '三', '四', '五', '六');
+$langDay_of_weekNames['long'] = array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
 
-$langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-$langMonthNames['long'] = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+$langMonthNames['init']  = array(1,2,3,4,5,6,7,8,9,10,11,12);
+$langMonthNames['short'] = array('一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二');
+$langMonthNames['long'] = array('一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月');
 
-// Voir http://www.php.net/manual/en/function.strftime.php pour la variable
-// ci-dessous
+// http://www.php.net/manual/en/function.strftime.php
 
-$dateFormatShort =  "%b. %d, %y";
-$dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
-$dateTimeFormatShort = "%b. %d, %y %I:%M %p";
-$timeNoSecFormat = '%I:%M %p';
+$dateFormatShort =  "%y %b. %d";
+$dateFormatLong  = '%Y %B %d, %A';
+$dateTimeFormatLong  = '%Y %B %d, %p %I:%M';
+$dateTimeFormatShort = "%y %b. %d, %p %I:%M";
+$timeNoSecFormat = '%p %I:%M';
 
 ?>
