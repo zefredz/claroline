@@ -329,7 +329,7 @@ foreach ( $categories as $this_category )
             {
                 echo '<td align="center">';
 
-                if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY)
+                if ( is_null($group_id ) )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
                     .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="'.get_lang('Edit').'" />'
@@ -352,7 +352,7 @@ foreach ( $categories as $this_category )
 
                 .'<td align="center">';
 
-                if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY)
+                if ( is_null($group_id ) )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
                     .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
