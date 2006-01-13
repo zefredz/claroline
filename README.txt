@@ -1,4 +1,5 @@
 ******************************************
+        CLAROLINE 1.8.*.cvsversion never released
         CLAROLINE 1.7.1 - README
 ******************************************
 
@@ -81,7 +82,7 @@ NEW FEATURES IN CLAROLINE 1.7.1 SINCE CLAROLINE 1.7.0
 * New translation updates : Arabic, Bulgarian, Croatian, Dutch, French, Galician, 
                             Indonesian, Persian, Polish and Spanish
 * Security and bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://wwww.claroline.net/wiki/index.php/Changelog_1.7.x
+  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
 
 NEW FEATURES IN CLAROLINE 1.7 SINCE CLAROLINE 1.6
 -------------------------------------------------
@@ -101,7 +102,7 @@ NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
 
 * DOCUMENTS AND LINKS. Two new features: 
 
-	- new image gallery
+    - new image gallery
     - Internal search functionality
 
 * EXERCISES. important improvements.
