@@ -89,6 +89,8 @@ Chinese translation :           Maizeman (Maizeman@21cn.com)
                                 Barry (barry@synu.edu.cn)
                                 Ping Pingjianban (pingjianban@gmail.com)
 
+Chinese (traditionnal) :        Kiang (kiange@gmail.com) - Taiwan PHP User Group http://twpug.net/
+
 Croatian translation :          Dragan Misovic
                                 Karolj Skala (skala@irb.hr)
                                 Bozo Jonic (bjonic@irb.hr) 
