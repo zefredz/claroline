@@ -388,9 +388,8 @@ else
 if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
 {
     // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
-    // This function is vital in preventing session fixation attacks
-    session_regenerate_id();
-
+    // This function is vital in preventing session fixation attackselle
+    function_exists('session_regenerate_id') && session_regenerate_id();
     $cidReset = true;
     $gidReset = true;
 
@@ -403,22 +402,22 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
                            `a`.`idUser`              AS is_platformAdmin      ,
                             `user`.`creatorId`       AS creatorId             , "
 
-                  .       ($is_trackingEnabled 
-                           ? "UNIX_TIMESTAMP(`login`.`login_date`)" 
-                           : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin  
+                  .       ($is_trackingEnabled
+                           ? "UNIX_TIMESTAMP(`login`.`login_date`)"
+                           : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin
 
                     FROM `".$tbl_user."` `user`
                     LEFT JOIN `". $tbl_admin  ."` `a`
                            ON `user`.`user_id` = `a`.`idUser` "
 
-                 . ($is_trackingEnabled 
-                    ? "LEFT JOIN `". $tbl_track_e_login ."` `login` 
+                 . ($is_trackingEnabled
+                    ? "LEFT JOIN `". $tbl_track_e_login ."` `login`
                               ON `user`.`user_id`  = `login`.`login_user_id` "
                     : '')
 
                  .   "WHERE `user`.`user_id` = ". (int) $_uid
 
-                 .  ($is_trackingEnabled 
+                 .  ($is_trackingEnabled
                      ? " ORDER BY `login`.`login_date` DESC LIMIT 1"
                      : '')
                  ;
@@ -709,7 +708,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
                       ctl.access                AS access        ,
                       pct.icon                  AS icon          ,
                       pct.access_manager        AS access_manager,
-                      CONCAT('".$clarolineRepositoryWeb."', pct.script_url) 
+                      CONCAT('".$clarolineRepositoryWeb."', pct.script_url)
                                                 AS url
 
                    FROM `".$_course['dbNameGlu']."tool_list` ctl,
