@@ -114,7 +114,7 @@ switch ($cmd)
 
     //Create a new class
     case 'new' :
-    if ($_REQUEST['Class name']=='')
+    if ($_REQUEST['classname']=='')
     {
         $dialogBox = get_lang('CannotBeBlank');
     }
@@ -122,7 +122,7 @@ switch ($cmd)
     {
         $dialogBox = get_lang('NewClassCreated');
         $sql = "INSERT INTO `" . $tbl_class . "`
-                SET `name`='". addslashes($_REQUEST['Class name']) ."'";
+                SET `name`='". addslashes($_REQUEST['classname']) ."'";
 
         if ($_REQUEST['theclass'] && ($_REQUEST['theclass']!='') && ($_REQUEST['theclass']!='root'))
         {
