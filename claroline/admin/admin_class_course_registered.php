@@ -26,8 +26,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 //bredcrump
 
-$nameTools=get_lang('ClassRegistered');
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('ClassRegistered'));
+$nameTools=get_lang('Class registered');
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Class registered'));
 /**#@+
  * DB tables definition
  * @var $tbl_mdb_names array table name for the central database
@@ -87,7 +87,7 @@ if (isset($cmd) && $is_platformAdmin)
 include $includePath . '/claro_init_header.inc.php';
 // Display tool title
 
-echo claro_disp_tool_title(get_lang('ClassRegistered') . ' : ' . $classinfo['name']);
+echo claro_disp_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
 //Display Forms or dialog box(if needed)
 
@@ -106,7 +106,7 @@ if ( !empty($dialogBox) )
 
 echo '<p><a class="claroCmd" href="index.php">' . get_lang('BackToAdmin') . '</a> | ';
 echo '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('BackToClassMembers') . '</a> | ';
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('ClassRegisterWholeClassAgain') . '</a></p>';
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a></p>';
 
 // display footer
 

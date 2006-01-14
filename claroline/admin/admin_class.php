@@ -49,7 +49,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-    if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToDelete'))."\"+' '+ name + \"? \"))
+    if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure to delete'))."\"+' '+ name + \"? \"))
         {return true;}
     else
         {return false;}
@@ -114,7 +114,7 @@ switch ($cmd)
 
     //Create a new class
     case 'new' :
-    if ($_REQUEST['classname']=='')
+    if ($_REQUEST['Class name']=='')
     {
         $dialogBox = get_lang('CannotBeBlank');
     }
@@ -122,7 +122,7 @@ switch ($cmd)
     {
         $dialogBox = get_lang('NewClassCreated');
         $sql = "INSERT INTO `" . $tbl_class . "`
-                SET `name`='". addslashes($_REQUEST['classname']) ."'";
+                SET `name`='". addslashes($_REQUEST['Class name']) ."'";
 
         if ($_REQUEST['theclass'] && ($_REQUEST['theclass']!='') && ($_REQUEST['theclass']!='root'))
         {
@@ -165,7 +165,7 @@ switch ($cmd)
     .           '<table>' . "\n"
     .           '<tr>' . "\n"
     .           '<td>' . "\n"
-    .           get_lang('ClassName').' : ' . "\n"
+    .           get_lang('Class name').' : ' . "\n"
     .           '</td>' . "\n"
     .           '<td>' . "\n"
     .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
@@ -211,7 +211,7 @@ switch ($cmd)
                      SET class_parent_id= " . $parent . "
                      WHERE id= " . (int) $_REQUEST['movedClassId'] ;
         claro_sql_query($sql_update);
-        $dialogBox = get_lang('ClassMoved');
+        $dialogBox = get_lang('The class has been moved');
     }
     break;
 
@@ -270,14 +270,14 @@ if ( isset($dialogBox))
 //display tool links
 
 echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=formNew">'
-.    '<img src="' . $imgRepositoryWeb . 'class.gif" />' . get_lang('CreateNewClass')
+.    '<img src="' . $imgRepositoryWeb . 'class.gif" />' . get_lang('Create a new class')
 .    '</a>'
 .    '<br /><br />' . "\n"
 //display cols headers
 .    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">'
-.    '<th>' . get_lang('ClassName')    . '</th>'
+.    '<th>' . get_lang('Class name')    . '</th>'
 .    '<th>' . get_lang('Users')        . '</th>'
 .    '<th>' . get_lang('EditSettings') . '</th>'
 .    '<th>' . get_lang('Move')         . '</th>'
