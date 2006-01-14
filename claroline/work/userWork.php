@@ -347,7 +347,7 @@ if( isset($_REQUEST['submitWrk']) )
 	{
 	    if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
 	    {
-			$dialogBox .= get_lang('AnswerRequired')."<br />";
+			$dialogBox .= get_lang('Answer is required')."<br />";
 			$formCorrectlySent = false;
 	    }
 	    else
@@ -372,7 +372,7 @@ if( isset($_REQUEST['submitWrk']) )
 	// check if a title has been given
 	if( ! isset($_REQUEST['wrkTitle']) || trim($_REQUEST['wrkTitle']) == "" )
 	{
-		$dialogBox .= get_lang('WrkTitleRequired')."<br />";
+		$dialogBox .= get_lang('Work title required')."<br />";
 		$formCorrectlySent = false;
         $wrkForm['wrkTitle'] = '';
 	}
@@ -394,7 +394,7 @@ if( isset($_REQUEST['submitWrk']) )
 	    }
 	    else
 	    {
-			$dialogBox .= get_lang('WrkAuthorsRequired')."<br />";
+			$dialogBox .= get_lang('Author(s) is(are) required')."<br />";
 			$formCorrectlySent = false;
 	    }
 	}
@@ -410,7 +410,7 @@ if( isset($_REQUEST['submitWrk']) )
 	{
 	    if( $_REQUEST['wrkScore'] < -1 || $_REQUEST['wrkScore'] > 100 )
 	    {
-			$dialogBox .= get_lang('WrkScoreRequired')."<br />";
+			$dialogBox .= get_lang('Score required')."<br />";
 			$formCorrectlySent = false;
 	    }
 	    else
@@ -464,7 +464,7 @@ if( isset($_REQUEST['submitWrk']) )
 		{
 			if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
 			{
-			    $dialogBox .= get_lang('TooBig')."<br />";
+			    $dialogBox .= get_lang('You didnt choose any file to send, or it is too big')."<br />";
 			    $formCorrectlySent = false;
 			}
 			else
@@ -511,7 +511,7 @@ if( isset($_REQUEST['submitWrk']) )
 				}
 				else
 				{
-                    $dialogBox .= get_lang('CannotCopyFile') . '<br />';
+                    $dialogBox .= get_lang('Cannot copy the file') . '<br />';
                     $formCorrectlySent = false;
                 }
 
@@ -654,7 +654,7 @@ if($is_allowedToEditAll)
 
 			claro_sql_query($sqlAddWork);
 
-			$dialogBox .= get_lang('FeedbackAdded');
+			$dialogBox .= get_lang('Feedback added');
 
             // notify eventmanager that a new correction has been posted
             $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['wrkId'], '0', '0');
@@ -695,7 +695,7 @@ if($is_allowedToEditAll)
 
 		$cmdToSend = "exGradeWrk";
 
-		$txtForFormTitle = get_lang('AddFeedback');
+		$txtForFormTitle = get_lang('Add feedback');
 		$isGrade = true;
 
 		// display flags
@@ -754,7 +754,7 @@ if ( $is_allowedToEdit )
 
 		    $lastWrkId = claro_sql_query($sqlEditWork);
 
-		    $dialogBox .= get_lang('WrkEdited');
+		    $dialogBox .= get_lang('Work modified');
 
 		    // display flags
 		    $dispWrkLst = true;
@@ -840,7 +840,7 @@ if( $is_allowedToSubmit )
 
             claro_sql_query($sqlAddWork);
 
-            $dialogBox .= get_lang('WrkAdded');
+            $dialogBox .= get_lang('Work added');
 
             // notify eventmanager that a new submission has been posted
             $eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
@@ -882,7 +882,7 @@ if( $is_allowedToSubmit )
     // request the form with correct cmd
     $cmdToSend = "exSubWrk";
     // fill the title of the page
-    $txtForFormTitle = get_lang('SubmitWork');
+    $txtForFormTitle = get_lang('Submit a work');
 
     // display flags
 	$dispWrkLst = false;
@@ -907,7 +907,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-	if (confirm(" '.clean_str_for_javascript(get_lang('AreYouSureToDelete')).' "+ name + " ?  " ))
+	if (confirm(" '.clean_str_for_javascript(get_lang('Are you sure to delete')).' "+ name + " ?  " ))
 		{return true;}
 	else
 		{return false;}
@@ -1054,12 +1054,12 @@ if( $is_allowedToSubmit )
                         if( $assignment['authorized_content'] == "TEXT"  )
                         {
                               // if text is required, file is considered as a an attached document
-                              echo get_lang('CurrentAttachedDoc');
+                              echo get_lang('Current attached file');
                         }
                         else
                         {
                               // if the file is required and the text is only a description of the file
-                              echo get_lang('CurrentDoc');
+                              echo get_lang('Current file');
                         }
                         if( !empty($form['wrkUrl']) )
                         {
@@ -1074,9 +1074,9 @@ if( $is_allowedToSubmit )
                               {
                                     // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
                                     echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />'
-                                    .'<label for="delAttachedFile">'.get_lang('ExplainDeleteFile').'</label>';
+                                    .'<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>';
                               }
-                              echo get_lang('ExplainReplaceFile').'</td>'."\n"
+                              echo get_lang('Upload a new file to replace the file').'</td>'."\n"
                                     .'</tr>'."\n\n";
                         }
                         else
@@ -1102,7 +1102,7 @@ if( $is_allowedToSubmit )
 				else
 				{
 					// if the file is required and the text is only a description of the file
-					echo get_lang('UploadDoc').'&nbsp;*';
+					echo get_lang('Upload document').'&nbsp;*';
 				}
 				echo '&nbsp;:</label></td>'."\n";
 				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
@@ -1155,7 +1155,7 @@ if( $is_allowedToSubmit )
 				echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkPrivFbk">'
-                        .get_lang('PrivateFeedback')
+                        .get_lang('Private feedback')
                         .'&nbsp;:<br />'
 						.'<small>'.get_lang('CourseAdministratorOnly').'</small>'
 						.'</label></td>'
@@ -1171,7 +1171,7 @@ if( $is_allowedToSubmit )
                   {
                         $wrkScoreField .= ' selected="selected"';
                   }
-                  $wrkScoreField .= '>'.get_lang('NoScore').'</option>'."\n";
+                  $wrkScoreField .= '>'.get_lang('No score').'</option>'."\n";
 
                   for($i=0;$i <= 100; $i++)
                   {
@@ -1287,7 +1287,7 @@ if( $dispWrkLst )
 			// change some displayed text depending on the context
 			if( $assignmentContent == "TEXTFILE" || $is_feedback )
 			{
-				$txtForFile = get_lang('AttachedFile');
+				$txtForFile = get_lang('Attached file');
 				$txtForText = get_lang('Answer');
 			}
 			elseif( $assignmentContent == "TEXT" )
@@ -1296,7 +1296,7 @@ if( $dispWrkLst )
 			}
 			elseif( $assignmentContent == "FILE" )
 			{
-				$txtForFile = get_lang('UploadedFile');
+				$txtForFile = get_lang('Uploaded file');
 				$txtForText = get_lang('FileDesc');
 			}
 
@@ -1352,14 +1352,14 @@ if( $dispWrkLst )
 				{
 					echo '<br />'
 					.    '<div>'
-					.    '<b>' . get_lang('PrivateFeedback') . '</b>&nbsp;: '
+					.    '<b>' . get_lang('Private feedback') . '</b>&nbsp;: '
 					.    '<br />' . "\n"
 					.    $thisWrk['private_feedback']
 					.    '</div>' . "\n"
 					;
 				}
 				echo '<br /><b>'.get_lang('Score').'</b>&nbsp;: ';
-				echo ( $thisWrk['score'] == -1 ) ? get_lang('NoScore') : $thisWrk['score'].' %' ;
+				echo ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' ;
 				echo '<br />'."\n";
 			}
 			echo '<p><b>' . get_lang('SubmissionDate') . '</b>&nbsp;: '
@@ -1415,7 +1415,7 @@ if( $dispWrkLst )
 				    .    '&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId']
 				    .    '&amp;wrkId='.$thisWrk['id']
 				    .    '&amp;vis=v">'
-				    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('MakeVisible') . '" />'
+				    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
 				    .    '</a>'
 				    ;
 				}
@@ -1426,7 +1426,7 @@ if( $dispWrkLst )
 				    .    '&amp;cmd=exChVis&amp;assigId=' . $_REQUEST['assigId']
 				    .    '&amp;wrkId='.$thisWrk['id']
 				    .    '&amp;vis=i">'
-				    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('MakeInvisible') . '" />'
+				    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
 				    .    '</a>'
 				    ;
 				}
@@ -1438,7 +1438,7 @@ if( $dispWrkLst )
 					.    '?authId=' . $_REQUEST['authId']
 					.    '&amp;assigId=' . $_REQUEST['assigId']
 					.    '&amp;cmd=rqGradeWrk&amp;wrkId='.$thisWrk['id'] . '">'
-					.    get_lang('AddFeedback')
+					.    get_lang('Add feedback')
 					.    '</a>'
 					;
 				}
@@ -1452,7 +1452,7 @@ if( $dispWrkLst )
 	}
 	else
 	{
-		echo "\n".'<p>'."\n".'<blockquote>'.get_lang('NoVisibleSubmission').'</blockquote>'."\n".'</p>'."\n";
+		echo "\n".'<p>'."\n".'<blockquote>'.get_lang('No visible submission').'</blockquote>'."\n".'</p>'."\n";
 	}
 }
 // FOOTER

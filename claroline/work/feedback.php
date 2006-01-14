@@ -94,7 +94,7 @@ if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
     {
         if ($_FILES['prefillDocPath']['size'] > $fileAllowedSize)
         {
-            $dialogBox .= get_lang('TooBig') . '<br />';
+            $dialogBox .= get_lang('You didnt choose any file to send, or it is too big') . '<br />';
             $formCorrectlySent = false;
         }
         else
@@ -144,7 +144,7 @@ if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
             }
             else
             {
-                $dialogBox .= get_lang('CannotCopyFile') . '<br />';
+                $dialogBox .= get_lang('Cannot copy the file') . '<br />';
                 $formCorrectlySent = false;
             }
 
@@ -205,7 +205,7 @@ if($is_allowedToEdit)
                 WHERE `id` = ". (int)$_REQUEST['assigId'];
             claro_sql_query($sql);
 
-            $dialogBox .= get_lang('FeedbackEdited') . '<br /><br />';
+            $dialogBox .= get_lang('Feedback Edited') . '<br /><br />';
             $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
             $dialogBox .= get_lang('Back');
             $dialogBox .= '</a>';
@@ -319,7 +319,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         $completeFileUrl = $currentCourseRepositoryWeb . 'work/assig_' . $_REQUEST['assigId'] . '/' . $form['currentPrefillDocPath'];
         echo '<tr>' . "\n"
         .    '<td valign="top">'
-        .    get_lang('CurrentFeedbackFile')
+        .    get_lang('Current feedback file')
 
         // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
         .    '&nbsp;:'
@@ -330,7 +330,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         .    '<br />'
         .    '<input type="checkBox" name="delFeedbackFile" id="delFeedbackFile" />'
         .    '<label for="delFeedbackFile">'
-        .    get_lang('ExplainDeleteFile') . ' ' . get_lang('ExplainReplaceFile')
+        .    get_lang('Check this box to delete the attached file') . ' ' . get_lang('Upload a new file to replace the file')
         .    '</label> '
         .    '</td>' . "\n"
         .    '</tr>'
@@ -340,7 +340,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     echo '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
     .    '<label for="prefillDocPath">' . "\n"
-    .    get_lang('FeedbackFile')
+    .    get_lang('Feedback file')
     .    '&nbsp;:<br />' . "\n"
     .    '</label>' . "\n"
     .    '</td>' . "\n"
@@ -350,21 +350,21 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
-    .    get_lang('FeedbackSubmit')
+    .    get_lang('Submit feedback')
     .    '&nbsp;:</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input type="radio" name="prefillSubmit" id="prefillSubmitEndDate" value="ENDDATE '
     .    $prefillSubmitEndDateCheckStatus . '>' . "\n"
     .    '<label for="prefillSubmitEndDate">' . "\n"
     .    '&nbsp;' . "\n"
-    .    get_lang('SubmitFeedbackAfterEndDate')
+    .    get_lang('Automatically, after end date')
     .    ' (' . claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']) . ')' . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '<input type="radio" name="prefillSubmit" id="prefillSubmitAfterPost" value="AFTERPOST" '
     .    $prefillSubmitAfterPostCheckStatus . '>' . "\n"
     .    '<label for="prefillSubmitAfterPost">&nbsp;' . "\n"
-    .    get_lang('SubmitFeedbackAfterPost') . "\n"
+    .    get_lang('Automatically, after each submission') . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '</td>' . "\n"

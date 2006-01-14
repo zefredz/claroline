@@ -425,7 +425,7 @@ if ( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
     .    '?authId=' . $_uid
     .    '&amp;cmd=rqSubWrk'
     .    '&amp;assigId=' . $req['assigmentId'] . '">'
-    .    get_lang('SubmitWork')
+    .    get_lang('Submit a work')
     .    '</a>' . "\n"
     ;
 
@@ -437,7 +437,7 @@ if ( $is_allowedToEditAll )
     echo '<a class="claroCmd" href="feedback.php'
     .    '?cmd=rqEditFeedback'
     .    '&amp;assigId=' . $assignment['id'] . '">'
-    .    get_lang('EditFeedback')
+    .    get_lang('Edit automatic feedback')
     .    '</a>' . "\n"
     ;
 }
@@ -458,12 +458,12 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 .    '<tr class="headerX">' . "\n"
 .    '<th scope="col" id="n">'
 .    '<a href="' . $headerUrl['name'] . '">'
-.    get_lang('WrkAuthors')
+.    get_lang('Author(s)')
 .    '</a>'
 .    '</th>' . "\n"
 .    '<th scope="col" id="t">'
 .    '<a href="' . $headerUrl['title'] . '">'
-.    get_lang('FirstSubmission')
+.    get_lang('First submission')
 .    '</a>'
 .    '</th>' . "\n"
 .    '<th scope="col" id="s">'
