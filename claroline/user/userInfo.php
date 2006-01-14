@@ -373,7 +373,7 @@ elseif ($displayMode == "viewDefList")
 
     echo     '<div align="center">' . "\n"
     .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
-    .    '<input type="submit" name="addDef" value="'.get_lang('AddNewHeading').'" />' . "\n"
+    .    '<input type="submit" name="addDef" value="'.get_lang('Add new heading').'" />' . "\n"
     .    '</form>' . "\n"
     .    '</div>' . "\n";
 
@@ -425,7 +425,7 @@ elseif ($displayMode =="viewMainInfoEdit")
     .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
     .    '<th align="left"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label></th>' . "\n"
     .    '<th><label for="promoteTutor">' . get_lang('GroupTutor') . '</label></th>' . "\n"
-    .    '<th><label for="promoteCourseAdmin">' . get_lang('CourseManager') . '</label></th>' . "\n"
+    .    '<th><label for="promoteCourseAdmin">' . get_lang('Course manager') . '</label></th>' . "\n"
     .    '<th>&nbsp;</th>' . "\n"
     .    '</tr>' . "\n"
     .    '</thead>' . "\n"
@@ -440,7 +440,7 @@ elseif ($displayMode =="viewMainInfoEdit")
     if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
     {
         echo '<td>'
-        .    get_lang('CourseManager')
+        .    get_lang('Course manager')
         .    '</td>' . "\n"
         ;
     }
@@ -480,7 +480,7 @@ elseif ($displayMode == "viewContentList") // default display
     if ($mainUserInfo)
     {
         $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? get_lang('GroupTutor') : ' - ');
-        $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? get_lang('CourseManager') : ' - ');
+        $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? get_lang('Course manager') : ' - ');
 
         if ($mainUserInfo['picture'] != '')
         {
@@ -493,7 +493,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
         .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
         .    '<th>'.get_lang('GroupTutor').'</th>' . "\n"
-        .    '<th>'.get_lang('CourseManager').'</th>' . "\n"
+        .    '<th>'.get_lang('Course manager').'</th>' . "\n"
         .    ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
         .    '<th>'.get_lang('Forum posts').'</th>'
         .    ($is_allowedToTrack?"<th>".get_lang('Tracking').'</th>' . "\n":'')

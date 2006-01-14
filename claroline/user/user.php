@@ -56,7 +56,7 @@ $htmlHeadXtra[] =
 <script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm(" ' . clean_str_for_javascript(get_lang('AreYouSureToDelete')) . ' "+ name + " ?"))
+    if (confirm(" ' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' "+ name + " ?"))
         {return true;}
     else
         {return false;}
@@ -262,7 +262,7 @@ if ( $disp_tool_link )
     {
        //add a user link
     ?>
-    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo get_lang('AddAU'); ?></a> |
+    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo get_lang('Add a user'); ?></a> |
     <?php
        //add CSV file of user link
     ?>
@@ -322,7 +322,7 @@ echo '<table class="claroTable emphaseLine" '
     if($is_allowedToEdit) // EDIT COMMANDS
     {
         echo '<th scope="col" id="tut"  ><a href="'.$sortUrlList['tutor'].'">'.get_lang('GroupTutor').'</a></th>'."\n"
-           . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['statut'].'">'.get_lang('CourseManager').'</a></th>'."\n"
+           . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['statut'].'">'.get_lang('Course manager').'</a></th>'."\n"
            . '<th scope="col" id="edit" >'.get_lang('Edit').'</th>'."\n"
            . '<th scope="col" id="del"  >'.get_lang('Unreg').'</th>'."\n"
            ;
@@ -409,7 +409,7 @@ foreach ( $userList as $thisUser )
         // course manager column
         if($thisUser['statut'] == '1')
         {
-            echo '<td headers="CM u'.$i.'">'.get_lang('CourseManager').'</td>'."\n";
+            echo '<td headers="CM u'.$i.'">'.get_lang('Course manager').'</td>'."\n";
         }
         else
         {

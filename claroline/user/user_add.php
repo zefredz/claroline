@@ -37,7 +37,7 @@ require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
-$nameTools        = get_lang('AddAU');
+$nameTools        = get_lang('Add a user');
 $interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users'));
 
 $messageList = array();

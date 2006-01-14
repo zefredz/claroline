@@ -285,12 +285,12 @@ switch ($AddType)
         $nameTools           = get_lang('AddCSVUsersInClass');
         $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
     $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Class'));
-    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> get_lang('ClassMembers'));
+    $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> get_lang('Class members'));
     break;
         
     case 'userTool':
         $noQUERY_STRING   = true;
-        $nameTools        = get_lang('AddCSVUsersInCourse');
+        $nameTools        = get_lang('Add a user list in course');
         $interbredcrump[] = array ('url'=>'user.php', 'name'=> get_lang('Users'));
     break;
 }
