@@ -4,9 +4,9 @@
  *
  * Show news read from claroline.net
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -29,7 +29,7 @@ require_once $includePath . '/lib/admin.lib.inc.php';
 require $includePath . '/lib/lastRSS/lastRSS.php';
 
 
-$nameTools = get_lang('ClarolineNetNews');
+$nameTools = get_lang('Claroline.net news');
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $noQUERY_STRING   = TRUE;
 
@@ -82,7 +82,7 @@ if ($rs = $rss->get($urlNewsClaroline))
 }
 else
 {
-    echo claro_disp_message_box(get_lang('ErrorCannotReadRSSFile'));
+    echo claro_disp_message_box(get_lang('Error : cannot read RSS feed'));
 }
 
 include $includePath . '/claro_init_footer.inc.php';

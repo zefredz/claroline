@@ -4,7 +4,7 @@
  * This tool run some check to detect abnormal situation
  *
  * @version 1.8 $Revision$
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/ADMIN
  * @author Sébastien Piraux <pir@claroline.net>
@@ -82,7 +82,7 @@ $limitBeforeUnused = "INTERVAL 6 MONTH";
 // Prepare output
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
-$nameTools = get_lang('ViewPlatFormError');
+$nameTools = get_lang('Scan technical fault');
 
 $htmlHeadXtra[] = "
 <style media='print' type='text/css'>
@@ -265,7 +265,7 @@ switch ($display)
             echo '- '
             .    '&nbsp;&nbsp;'
             .    '<b>'
-            .    get_lang('CourseWithoutProf')
+            .    get_lang('Courses without a lecturer')
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<small>'
@@ -310,7 +310,7 @@ switch ($display)
             echo '+'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('CourseWithoutProf')
+            .    get_lang('Courses without a lecturer')
             .    '</a>'
             ;
         }
@@ -326,7 +326,7 @@ switch ($display)
             echo '- '
             .    '&nbsp;&nbsp;'
             .    '<b>'
-            .    get_lang('CourseWithoutStudents')
+            .    get_lang('Courses without student')
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<small>'
@@ -370,7 +370,7 @@ switch ($display)
             echo '+'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('CourseWithoutStudents')
+            .    get_lang('Courses without student')
             .    '</a>'
             ;
         }
@@ -545,7 +545,7 @@ switch ($display)
                 $datagrid[$levelView] = '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('CourseWithoutAccess')
+                .    get_lang('Courses not used')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<small>'
@@ -577,7 +577,7 @@ switch ($display)
             echo '+'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('CourseWithoutAccess')
+            .    get_lang('Courses not used')
             .    '</a>'
             ;
         }

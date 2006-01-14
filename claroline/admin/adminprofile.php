@@ -3,7 +3,7 @@
  * CLAROLINE
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -86,11 +86,8 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
         $messageList[] = get_lang('AppliedChange');
     }
-    else
-    {
-        // user validate form return error messages
-        $error = true;
-    }
+    // user validate form return error messages
+    else $error = true;
 
 } // if apply changes
 
@@ -112,7 +109,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToDelete'))." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -153,7 +150,7 @@ echo '<a class="claroCmd" href="adminuserdeleted.php'
 .    '&amp;fromAdmin=settings'
 .    '&amp;category=" >'
 .    '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
-.    get_lang('EnrollToNewCourse')
+.    get_lang('Enrol to a new course')
 .    '</a>'
 
 .    ' | '
@@ -161,7 +158,7 @@ echo '<a class="claroCmd" href="adminuserdeleted.php'
 .    '<a class="claroCmd" href="../auth/lostPassword.php'
 .    '?Femail=' . urlencode($user_data['email'])
 .    '&amp;searchPassword=1" >'
-.    '<img src="'.$imgRepositoryWeb.'email.gif" />'
+.    '<img src="' . $imgRepositoryWeb . 'email.gif" />'
 .    get_lang('SendToUserAccountInfoByMail')
 .    '</a>'
 ;
@@ -175,4 +172,32 @@ if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must 
 // display footer
 
 include $includePath . '/claro_init_footer.inc.php';
+
+
+function claro_disp_piped_menu($itemList,$option=null)
+{
+    // class="toollink"
+    $htmlStream = array();
+    foreach ($itemList as $item )
+    {
+        switch($item['type'])
+        {
+            case 'link' :
+            {
+                $htmlStream[] = '<a href="'. $item['url'] . '" ' . $item['attribute'] . ' >'
+                .              $item['label']
+                .              '</a>'
+                ;
+
+            } break;
+            case 'free' :
+            {
+                $htmlStream[] = $item['stream'];
+            } break;
+
+        }
+        ;
+    }
+    return implode( ' | ',$htmlStream);
+}
 ?>

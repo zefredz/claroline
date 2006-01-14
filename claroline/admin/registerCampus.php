@@ -4,9 +4,9 @@
  *
  * prupose to admin to register  his claroline on claroline.net worldwild list
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -388,7 +388,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
         .'<li>'.get_lang('SiteName').' : '.stripslashes($siteName).'</li>'."\n"
         .'<li>'.get_lang('URL').'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
         .'<li>'.get_lang('Institution').' : '.stripslashes($institution_name).'</li>'."\n"
-        .'<li>'.get_lang('InstitutionUrl').' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
+        .'<li>'.get_lang('Institution URL').' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
         .'<li>'.get_lang('Email').' : '.$administrator_email.'</li>'."\n"
         .'<li>'
         .'<label for="country">'.get_lang('Country').' : </label>'."\n"

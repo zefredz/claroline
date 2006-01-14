@@ -4,9 +4,9 @@
  *
  * This  tools admin courses subscription of one user
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -222,7 +222,7 @@ if ( !empty($dialogBox) )
 //TOOL LINKS
 
 echo '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('SeeUserSettings') . '</a> | ';
-echo '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('EnrollToNewCourse') . '</a>';
+echo '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
 if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must display go back to list
 {
@@ -249,7 +249,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 //    add titles for the table
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Code') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('CourseTitle') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('CourseManager') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Course manager') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cuStatus&amp;dir=' . $order['cuStatus'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Role') . '</a></th>'
 .    '<th>' . get_lang('Unsubscribe') . '</th>'
 .    '</tr>'

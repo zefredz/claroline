@@ -3,7 +3,7 @@
  * CLAROLINE
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -75,7 +75,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
         function confirmation (name)
         {
-            if (confirm("'.clean_str_for_javascript(get_lang('AreYouSureToDelete')).'" + name + "? "))
+            if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete')).'" + name + "? "))
                 {return true;}
             else
                 {return false;}

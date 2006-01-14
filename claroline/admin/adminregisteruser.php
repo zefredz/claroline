@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -51,7 +51,7 @@ if ($cidToEdit=='') { $dialogBox ='ERROR : NO USER SET!!!'; }
 
 // Deal with interbredcrumps
 $interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$nameTools = get_lang('EnrollUser');
+$nameTools = get_lang('Enroll a user');
 
 //TABLES
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -82,7 +82,7 @@ switch ( $cmd )
         if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher
         {
             $properties['status'] = 1;
-            $properties['role']   = get_lang('CourseManager');
+            $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
         }
         elseif ($_REQUEST['subas']=='stud')  // ... as student
@@ -298,8 +298,8 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '</a>'
 .    '</th>' . "\n"
 
-.    '<th>' . get_lang('EnrollAsStudent') . '</th>' . "\n"
-.    '<th>' . get_lang('EnrollAsManager') . '</th>' . "\n"
+.    '<th>' . get_lang('Enrol as student') . '</th>' . "\n"
+.    '<th>' . get_lang('Enrol as course manager') . '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>'

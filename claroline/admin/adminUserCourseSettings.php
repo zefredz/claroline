@@ -5,8 +5,8 @@
   * This tool edit status of user in a course
  * Strangly, the is nothing to edit role and courseTutor status
  *
- * @version 1.7 $Revision$ 
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$ 
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
@@ -73,7 +73,7 @@ switch ($cmd)
         if ( $_REQUEST['status_form'] == 'teacher' )
         {
             $properties['status'] = 1;
-            $properties['role']   = get_lang('CourseManager');
+            $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
@@ -161,7 +161,7 @@ if(isset($user_id))
 // PREPARE DISPLAY
 //------------------------------------
 
-$nameTools=get_lang('ModifUserCourseSettings');
+$nameTools=get_lang('User course settings');
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
@@ -223,7 +223,7 @@ if(isset($dialogBox))
 <input type="radio" name="status_form" value="student" id="status_form_student" <?php if ($isStudent) { echo "checked"; }?> >
 <label for="status_form_student"><?php echo get_lang('Student')?></label>
 <input type="radio" name="status_form" value="teacher" id="status_form_teacher" <?php if ($isCourseManager) { echo "checked"; }?> >
-<label for="status_form_teacher"><?php echo get_lang('CourseManager')?></label>
+<label for="status_form_teacher"><?php echo get_lang('Course manager')?></label>
 <input type="hidden" name="uidToEdit" value="<?php echo $user_id?>">
 <input type="hidden" name="cidToEdit" value="<?php echo $cidToEdit?>">
 <input type="submit" name="applyChange" value="<?php echo get_lang('SaveChanges')?>">
@@ -249,7 +249,7 @@ echo '<a class="claroCmd" href="adminuserunregistered.php'
 .    ' | '
 .    '<a class="claroCmd" href="adminprofile.php'
 .    '?uidToEdit=' . $uidToEdit . '">' 
-.    get_lang('GoToMainUserSettings') 
+.    get_lang('Last 7 days') 
 .    '</a>'
 ;
 

@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -43,7 +43,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm("' . clean_str_for_javascript(get_lang('AreYouSureToDelete')) . '" + name + \'"? \'))
+    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . '" + name + \'"? \'))
         {return true;}
     else
         {return false;}
@@ -126,11 +126,11 @@ switch ($cmd)
             {
                 case 'course_not_found':
                 {
-                    $dialogBox = get_lang('CourseNotFound');
+                    $dialogBox = get_lang('Course not found');
                 } break;
                 default  :
                 {
-                    $dialogBox = get_lang('CourseNotFound');
+                    $dialogBox = get_lang('Course not found');
                 }
             }
 
@@ -314,7 +314,7 @@ foreach($courseList as $numLine => $courseLine)
     // Course Settings
     $courseDataList[$numLine]['cmdSetting'] = '<a href="../course_info/infocours.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img src="' . get_conf('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('CourseSettings'). '" />'
+    .                                         '<img src="' . get_conf('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings'). '" />'
     .                                         '</a>'
     ;
 
@@ -336,7 +336,7 @@ $dg_opt_list['colTitleList'] = array ( 'officialCode' => '<a href="' . $sortUrlL
                                      , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('CourseTitle') . '</a>'
                                      , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
                                      , 'qty_cm'       => get_lang('AllUsersOfThisCourse')
-                                     , 'cmdSetting'   => get_lang('CourseSettings')
+                                     , 'cmdSetting'   => get_lang('Course settings')
                                      , 'cmdDelete'    => get_lang('Delete')
 );
 $dg_opt_list['colAttributeList'] = array ( 'qty_cm'     => array ('align' => 'right')

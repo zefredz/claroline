@@ -4,9 +4,9 @@
  *
  * this tool manage the new users
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,7 +30,7 @@ require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
-$nameTools = get_lang('AddUser');
+$nameTools = get_lang('Create a new user');
 $error = false;
 $messageList = array();
 
@@ -107,11 +107,11 @@ if ( $cmd == 'registration' && $error == false )
     .    '</li>'
     .    '<li>'
     .    '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category="> '
-    .    get_lang('GoToUserSettings')
+    .    get_lang('Last 7 days')
     .    '</a>'
     .    '</li>'
     .    '<li>'
-    .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . get_lang('CreateAnotherUser') . ' </a>'
+    .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . get_lang('Create another new user') . ' </a>'
     .    '</li>'
     .    '<li>'
     .    '<a class="claroCmd" href="index.php"> ' . get_lang('BackToAdmin') . ' </a>'

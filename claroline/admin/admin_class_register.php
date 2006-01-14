@@ -4,7 +4,7 @@
  *
  * this tool manage the
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -187,7 +187,7 @@ if(isset($dialogBox)) echo claro_disp_message_box($dialogBox);
 
 //TOOL LINKS
 
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('ClassMembers') . '</a>'
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Class members') . '</a>'
 .    '<br /><br />'
 ;
 

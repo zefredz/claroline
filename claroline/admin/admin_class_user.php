@@ -4,9 +4,9 @@
  *
  * this tool manage the
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -68,7 +68,7 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Class'));
-$nameTools = get_lang('ClassMembers');
+$nameTools = get_lang('Class members');
 
 //SESSION VARIABLES
 
@@ -192,18 +192,18 @@ if (isset($dialogBox))
 echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
 .    '?class='.$classinfo['id'].'">'
 .    '<img src="'.$imgRepositoryWeb . 'enroll.gif" border="0"/> '
-.    get_lang('ClassRegisterUser') . '</a>'
+.    get_lang('Register a user for this class') . '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
 .    '?cmd=rqReg&amp;fromAdmin=class">'
 .    '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
-.    get_lang('ClassRegisterWholeClass')
+.    get_lang('Register class for course')
 .    '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php'
 .    '?AddType=adminClassTool">'
 .    '<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
-.    get_lang('AddCSVUsersInClass')
+.    get_lang('Add a user list in class')
 .    '</a>'
 .    '<br /><br />'
 ;

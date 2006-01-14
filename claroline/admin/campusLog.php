@@ -3,9 +3,9 @@
  * CLAROLINE
  * This tool run some check to detect abnormal situation
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -41,7 +41,7 @@ $tbl_track_e_default = $tbl_mdb_names['track_e_default'];
 $tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
 $tbl_track_e_open    = $tbl_mdb_names['track_e_open'];
 
-$tbl_document        = $tbl_cdb_names['document'         ];
+$tbl_document        = $tbl_cdb_names['document'];
 
 $toolNameList = claro_get_tool_name_list();
 
@@ -197,14 +197,14 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last31days').' : '.$count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
 
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_open."`
                     WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last7Days').' : '.$count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
 
         //--  yesterday
         $sql = "SELECT count(*)
@@ -240,14 +240,14 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                     FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last31days').' : '.$count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
 
         //--  last 7 days
         $sql = "SELECT count(*)
                     FROM `".$tbl_track_e_login."`
                     WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last7Days').' : '.$count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
 
         //--  yesterday
         $sql = "SELECT count(*)

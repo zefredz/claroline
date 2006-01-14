@@ -81,16 +81,16 @@ $menuCourses[] =  array('type'=>'link', 'url'=>'admincats.php',       'attribute
 
 
 $menuPlatform[] =  array('type'=>'link', 'url'=>'tool/config_list.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('Configuration'));
-$menuPlatform[] =  array('type'=>'link', 'url'=>'managing/editFile.php',      'attribute'=>'class="toollink"', 'label'=>get_lang('HomePageTextZone'));
-$menuPlatform[] =  array('type'=>'link', 'url'=>'campusLog.php',              'attribute'=>'class="toollink"', 'label'=>get_lang('ViewPlatFormStatistics'));
-$menuPlatform[] =  array('type'=>'link', 'url'=>'campusProblem.php',          'attribute'=>'class="toollink"', 'label'=>get_lang('ViewPlatFormError'));
+$menuPlatform[] =  array('type'=>'link', 'url'=>'managing/editFile.php',      'attribute'=>'class="toollink"', 'label'=>get_lang('Home page text zones'));
+$menuPlatform[] =  array('type'=>'link', 'url'=>'campusLog.php',              'attribute'=>'class="toollink"', 'label'=>get_lang('Platform statistics'));
+$menuPlatform[] =  array('type'=>'link', 'url'=>'campusProblem.php',          'attribute'=>'class="toollink"', 'label'=>get_lang('Scan technical fault'));
 $menuPlatform[] =  array('type'=>'link', 'url'=>'maintenance/repaircats.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('CategoriesRepairs'));
 $menuPlatform[] =  array('type'=>'link', 'url'=>'upgrade/index.php',          'attribute'=>'class="toollink"', 'label'=>get_lang('Upgrade'));
 
 
 $menuClaroline[] =  array('type'=>'link', 'url'=>'registerCampus.php',            'attribute'=>'class="toollink"', 'label'=>get_lang('RegisterMyCampus'));
 $menuClaroline[] =  array('type'=>'link', 'url'=>'http://www.claroline.net/forum','attribute'=>'class="extlink"','label'=>get_lang('SupportForum'));
-$menuClaroline[] =  array('type'=>'link', 'url'=>'clarolinenews.php',             'attribute'=>'class="extlink"','label'=>get_lang('ClarolineNetNews'));
+$menuClaroline[] =  array('type'=>'link', 'url'=>'clarolinenews.php',             'attribute'=>'class="extlink"','label'=>get_lang('Claroline.net news'));
 
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuSDK[] =  array('type'=>'link', 'url'=>'xtra/sdk/translation_index.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('TranslationTools'));
