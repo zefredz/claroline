@@ -105,7 +105,7 @@ function claro_mail_spool($mails)
             $mail->FromName = $administrator_name;
        }
 
-       $mail->Charset = $GLOBALS['charset'];     
+       $mail->CharSet = $GLOBALS['charset'];     
        $mail->IsMail();
        $mail->Subject = $mailToSend['subject'];
        $mail->Body    = $mailToSend['body'];
@@ -224,6 +224,7 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
         $mail->FromName = $administrator_name;
     }
         
+    $mail->CharSet = $GLOBALS['charset'];     
     $mail->IsMail();
     $mail->Subject = $subject;
     $mail->Body    = $message;
