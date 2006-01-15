@@ -57,7 +57,7 @@ $titlePage .= $siteName;
 
 <link rel="top" href="<?php echo $rootWeb ?>index.php" title="" />
 <link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo get_lang('OtherCourses') ?>" />
-<link rel="profil" href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" title="<?php echo get_lang('ModifyProfile') ?>" />
+<link rel="profil" href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" title="<?php echo get_lang('My User Account') ?>" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />

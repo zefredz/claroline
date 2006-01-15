@@ -44,7 +44,7 @@ if(isset($_cid))
 </div>
 
 <div id="poweredBy">
-<?php echo get_lang('PoweredBy') ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2005
+<?php echo get_lang('Powered by') ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2005
 </div>
 
 </div>

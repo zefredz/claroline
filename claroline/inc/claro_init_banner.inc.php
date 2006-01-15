@@ -58,14 +58,14 @@ if($_uid)
 
 <div id="userBanner">
 <span id="userName"><?php echo $_user ['firstName'] . ' ' . $_user ['lastName'] ?> : </span>
-<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo get_lang('MyCourses'); ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo get_lang('MyAgenda'); ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo get_lang('ModifyProfile'); ?></a> | 
+<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo get_lang('My course list'); ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo get_lang('My calendar'); ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo get_lang('My User Account'); ?></a> | 
 <?php 
 if($is_platformAdmin)
 {
 ?>
-<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo get_lang('PlatformAdministration') ?></a> | 
+<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo get_lang('Platform Administration') ?></a> | 
 <?php 
 } 
 ?>
@@ -130,7 +130,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
 <?php
 
-echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('CourseHome') . '</option>' . "\n";
+echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
     if (is_array($_courseToolList))
     {
@@ -247,9 +247,9 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
     {
         echo "\n".'<div id="toolViewOption">'                    ."\n";
 
-        if ( isset($_REQUEST['viewMode']) )
+        if ( isset($_REQUEST['View mode']) )
         {
-            claro_disp_tool_view_option($_REQUEST['viewMode']);
+            claro_disp_tool_view_option($_REQUEST['View mode']);
         }
         else
         {
