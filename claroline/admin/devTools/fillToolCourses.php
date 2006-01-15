@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -189,7 +189,7 @@ function fill_tool_in_course($course_code,$tool_label)
             ;
             $randomTime = mktime($hour, $min, $sec, $month, $day,$year);
             return announcement_add_item($lorem_title, $lorem_content, 'SHOW', $randomTime, $course_code);
-            break;
+            //break;
         case 'CLCAL' :
             require_once $includePath . '/lib/agenda.lib.php';
 
@@ -210,7 +210,7 @@ function fill_tool_in_course($course_code,$tool_label)
             $randomLasting = rand(1,6) . 'h';
 
             return agenda_add_item($lorem_title, $lorem_content, $randomDate, $randomTime,$randomLasting,'SHOW', $course_code);
-            break;
+            //break;
         case 'CLCHT' :
             break; /// not ready
             $nick     = 'lorem hips';
@@ -249,7 +249,7 @@ function fill_tool_in_course($course_code,$tool_label)
                 fclose($fchat);
             }
             return 'ok';
-            break;
+            //break;
         case 'CLDOC' :
             //$foo = lorem('words', 180);
             return false ;
@@ -356,20 +356,20 @@ function fill_tool_in_course($course_code,$tool_label)
                                 ;
             $resultPopulate .= '</ul>';
             return $resultPopulate;
-            break;
+            //break;
         case 'CLGRP' :
                 return 'Nothing to add here, use fillCourse with add randomly groups';
-            break;
+            //break;
         case 'CLLNP' :
                 return 'Filler not ready';
-            break;
+            //break;
         case 'CLQWZ' :
                 ///// Select An quizz
                 ///// Select a Question
                 ///// Add an Answer
 
                 return 'Filler not ready';
-            break;
+            //break;
         case 'CLUSR' :
             return 'Filler not ready';
             require_once($includePath.'/lib/user_info.lib.php');
@@ -423,16 +423,16 @@ function fill_tool_in_course($course_code,$tool_label)
                 //choose a bloc to fill
                 if ($userDefQty)    // submit a content change
                 {
-                    claro_user_info_edit_cat_content($defToPopulate, $userIdViewed, $def_content, $REMOTE_ADDR);
+                    claro_user_info_edit_cat_content($defToPopulate, $userIdViewed, $def_content, $_SERVER['REMOTE_ADDR']);
                 }
                 else        // submit a totally new content
                 {
-                    claro_user_info_fill_new_cat_content($defToPopulate, $userIdViewed, $def_content, $REMOTE_ADDR);
+                    claro_user_info_fill_new_cat_content($defToPopulate, $userIdViewed, $def_content, $_SERVER['REMOTE_ADDR']);
                 }
             }
             $resultPopulate .= '</ul>';
             return $resultPopulate;
-            break;
+            //break;
             case 'CLWRK' :
             {
                 $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];
