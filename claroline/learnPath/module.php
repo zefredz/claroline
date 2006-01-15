@@ -5,7 +5,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -45,11 +45,11 @@ $is_AllowedToEdit = claro_is_allowed_to_edit();    // as teacher
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 if ( $is_AllowedToEdit )
 {
-    $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPath'));
+    $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path'));
 }
 else
 {
-    $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> get_lang('LearningPath'));
+    $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> get_lang('Learning path'));
 }
 
 $nameTools = get_lang('Module');
@@ -312,7 +312,7 @@ if($module['contentType'] != CTLABEL_) //
         {
             if ($resultBrowsed['lesson_status']=="COMPLETED")
             {
-                $statusToDisplay = get_lang('AlreadyBrowsed');
+                $statusToDisplay = get_lang('Already browsed');
             }
             else
             {

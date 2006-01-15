@@ -4,7 +4,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,7 +32,7 @@
   }
   else
   {
-       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('LearningPath'));
+       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('Learning path'));
   }
   $interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
   //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";

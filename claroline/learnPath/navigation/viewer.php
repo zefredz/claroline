@@ -4,7 +4,7 @@
  *
  * @version version 1.7
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -26,7 +26,7 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 // 1 : display claroline header and footer and table of content, and content
 define ( 'USE_FRAMES' , 1 );
 
-$nameTools = get_lang('LearningPath');
+$nameTools = get_lang('Learning path');
 if (!isset($titlePage)) $titlePage = '';
 if(!empty($nameTools))
 {

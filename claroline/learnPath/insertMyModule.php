@@ -3,7 +3,7 @@
   +----------------------------------------------------------------------+
   | CLAROLINE version 1.6.*
   +----------------------------------------------------------------------+
-  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+  | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
   +----------------------------------------------------------------------+
   | This source file is subject to the GENERAL PUBLIC LICENSE,           |
   | available through the world-wide-web at                              |
@@ -232,7 +232,7 @@ if ( $atleastOne )
 {
     echo '<tr>'."\n"
         .'<td colspan="2">'."\n"
-        .'<input type="submit" value="'.get_lang('AddModulesButton').'" />'."\n"
+        .'<input type="submit" value="'.get_lang('Add module(s)').'" />'."\n"
         .'<input type="hidden" name="cmdglobal" value="add">'."\n"
         .'</td>'."\n"
         .'</tr>'."\n";

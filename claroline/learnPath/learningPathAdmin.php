@@ -4,7 +4,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -55,7 +55,7 @@ $htmlHeadXtra[] =
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 
-$nameTools = get_lang('LearningPath');
+$nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
                               // when one need to add a parameter after the filename
   
@@ -611,7 +611,7 @@ foreach ($flatElementList as $module)
     if ( $module['visibility'] == 'HIDE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('MakeVisible') . "\" border=\"0\">".
+             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\">".
              "</a>";
     }
     else
@@ -625,7 +625,7 @@ foreach ($flatElementList as $module)
             $onclick = "";
         }
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-             "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"" . get_lang('MakeInvisible') . "\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0>".
              "</a>";
     }
 

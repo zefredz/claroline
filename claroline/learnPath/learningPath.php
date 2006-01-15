@@ -4,7 +4,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -25,7 +25,7 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
 
-$nameTools = get_lang('LearningPath');
+$nameTools = get_lang('Learning path');
 
 // tables names
 $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";

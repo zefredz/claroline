@@ -4,7 +4,7 @@
  *
  * @version 1.7
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -69,7 +69,7 @@ $htmlHeadXtra[] =
           "<script>
           function confirmation (name)
           {
-              if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDelete')) . "' + name + '? " . get_lang('ModuleStillInPool') . "'))
+              if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . "' + name + '? " . get_lang('ModuleStillInPool') . "'))
                   {return true;}
               else
                   {return false;}
@@ -471,7 +471,7 @@ if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid); // get 
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
  <thead>
  <tr class=\"headerX\" align=\"center\" valign=\"top\">
-  <th>".get_lang('LearningPath')."</th>";
+  <th>".get_lang('Learning path')."</th>";
 
 if($is_AllowedToEdit)
 {
@@ -791,7 +791,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['visibility'] == 'HIDE')
         {
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&visibility_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('MakeVisible') . "\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\" />\n",
                   "</a>";
         }
         else
@@ -806,7 +806,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             }
 
             echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
-                 "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"".get_lang('MakeInvisible')."\" border=\"0\" />\n",
+                 "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"".get_lang('Make invisible')."\" border=\"0\" />\n",
                  "</a>\n";
         }
         echo  "</td>\n";
