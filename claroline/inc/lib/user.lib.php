@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -760,10 +760,10 @@ function user_send_registration_mail ($user_id, $data)
         .            get_lang('YouAreReg') . ' ' . $siteName . ' '
         .            get_lang('Settings') . ' ' . $data['username'] . "\n"
         .            get_lang('Password') . ' : ' . $data['password'] . "\n"
-        .            get_lang('Address') . ' ' . $siteName . ' '
+        .            get_lang('The address of ') . ' ' . $siteName . ' '
         .            get_lang('Is') . ' : ' . $rootWeb . "\n"
         .            get_lang('Problem') . "\n"
-        .            get_lang('Formula') . ',' . "\n"
+        .            get_lang('Yours sincerely') . ',' . "\n"
         .            $administrator_name . "\n"
         .            get_lang('Manager') . ' ' . $siteName . "\n"
         .            'T. ' . $administrator_phone . "\n"
@@ -802,10 +802,10 @@ function user_send_enroll_to_course_mail ($user_id, $data)
         .            get_lang('OneResp') . $_course['officialCode']
         .            get_lang('RegYou') . ' ' . $siteName . ' '
         .            get_lang('Settings') . ' %s' . "\n"
-        .            get_lang('Address') . ' ' . $siteName . ' '
+        .            get_lang('The address of ') . ' ' . $siteName . ' '
         .            get_lang('Is'). ': ' . $rootWeb . "\n"
         .            get_lang('Problem') . "\n" . "\n"
-        .            get_lang('Formula') . ', ' . "\n"
+        .            get_lang('Yours sincerely') . ', ' . "\n"
         .            get_lang('Administrator') . ' ' . $administrator_name . "\n"
         .            get_lang('Manager') . ' ' . $siteName . "\n";
 
@@ -851,7 +851,7 @@ function user_validate_form_registration($data)
        )
     {
         $error = true;
-        $messageList[] = get_lang('EmptyFields');
+        $messageList[] = get_lang('You left some required fields empty');
     }
 
     // check if official code is available
@@ -930,7 +930,7 @@ function user_validate_form_profile($data,$user_id)
        )
     {
         $error = true;
-        $messageList[] = get_lang('EmptyFields');
+        $messageList[] = get_lang('You left some required fields empty');
     }
 
     // check if official code is available
@@ -1029,7 +1029,7 @@ function is_valid_email($email)
     }
     else
     {
-        return claro_failure::set_failure(get_lang('EmailWrong'));
+        return claro_failure::set_failure(get_lang('The email address is not valid'));
     }
 }
 
@@ -1233,7 +1233,7 @@ function user_display_form($data, $form_type='registration')
     {
         echo '<tr>' . "\n"
             . '<td align="right">' . "\n"
-            . ' <label for="picture">' . $data['picture']?get_lang('UpdateImage'):get_lang('AddImage') . ' :<br />' . "\n"
+            . ' <label for="picture">' . $data['picture']?get_lang('UpdateImage'):get_lang('Include picture') . ' :<br />' . "\n"
             . ' <small>(.jpg or .jpeg only)</small></label>'
             . ' </td>' . "\n"
             . ' <td>' . "\n"
@@ -1270,7 +1270,7 @@ function user_display_form($data, $form_type='registration')
         {
             echo '<tr>' . "\n"
                 . '<td>&nbsp;</td>' . "\n"
-                . '<td><small>(' . get_lang('ChangePwdexp') . ')</small></td>' . "\n"
+                . '<td><small>(' . get_lang('Enter new password twice to change, leave empty to keep it') . ')</small></td>' . "\n"
                 . '</tr>' . "\n" ;
 
             $required_password = false;
@@ -1283,7 +1283,7 @@ function user_display_form($data, $form_type='registration')
                 .     '<td>&nbsp;</td>'
                 .     '<td>'
                 .    '<small>'
-                .    get_lang('ChooseYourPassword') . '<br />'
+                .    get_lang('Choose now a username and a password for the user account') . '<br />'
                 .    get_lang('MemorizeYourPassord') . '<br />'
                 .    '<strong>' . get_lang('Warning') . ' '. get_lang('TheSystemIsCaseSensitive') . '</strong>'
                 .    '</small>'
