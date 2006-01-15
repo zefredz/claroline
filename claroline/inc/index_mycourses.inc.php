@@ -6,7 +6,7 @@
  * This module displays the course list of a the current authenticated user
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
  ******************************************************************************/
@@ -28,8 +28,7 @@ $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
                                     DISPLAY
 ******************************************************************************/
 
-echo claro_disp_tool_title( get_lang('MyCourses') );
-
+echo claro_disp_tool_title(get_lang('My course list'));
 
 //display list
 
@@ -61,7 +60,7 @@ foreach($personnalCourseList as $thisCourse)
         $course_language_txt = '';
     }
 
-    echo '<li class="item' . $classItem . '">' ."\n"
+    echo '<li class="item' . $classItem . '">' . "\n"
     .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">';
 
     if ( get_conf('course_order_by') == 'official_code' )

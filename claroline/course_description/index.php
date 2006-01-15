@@ -8,7 +8,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -28,7 +28,7 @@ include_once $includePath . '/lib/courseDescription.lib.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(TRUE);
-$nameTools = get_lang('DescriptionCours');
+$nameTools = get_lang('Course description');
 
 $noQUERY_STRING = TRUE; // to remove parameters in the last breadcrumb link
 
@@ -66,11 +66,11 @@ if ( $is_allowedToEdit )
         if ( course_description_set_item($descId, $descTitle, $descContent) != false )
         {
             $eventNotifier->notifyCourseEvent('course_description_modified', $_cid, $_tid, $descId, $_gid, '0');
-            $dialogBox .= '<p>' . get_lang('DescUpdated') . '</p>';
+            $dialogBox .= '<p>' . get_lang('Description updated') . '</p>';
         }
         else
         {
-            $dialogBox .= '<p>' . get_lang('DescUnableToUpdate') . '</p>';
+            $dialogBox .= '<p>' . get_lang('Unable to update') . '</p>';
         }
     }
 
@@ -161,7 +161,7 @@ if ( $is_allowedToEdit )
     {
         if ( course_description_visibility_item($descId , $cmd) )
         {
-            $dialogBox .= '<p>' . get_lang('ViMod'). '</p>';
+            $dialogBox .= '<p>' . get_lang('Visibility modified'). '</p>';
         }
 
         //notify that an item is now visible
@@ -362,7 +362,7 @@ if ( count($descList) )
             .    '<img src="' . $imgRepositoryWeb.'edit.gif" alt="' . get_lang('Modify') . '">'
             .    '</a>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
-            .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete'))
+            .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
             .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
             .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.get_lang('Delete').'" />'
             .    '</a>' . "\n"

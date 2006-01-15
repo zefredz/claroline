@@ -11,7 +11,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -77,7 +77,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
     if ( ! $courseCategory || $courseCategory == 'choose_one')    $errorList[] = sprintf(get_lang('_p_aCategoryWouldBeSelected'), 'mailto:'.$administrator_email);
     if ( empty($courseEmail) && get_conf('course_email_needed') ) $errorList[] = get_lang('EmailCanBeEmpty');
     if ( ! empty( $courseEmail )
-        && ! is_well_formed_email_address($courseEmail) )       $errorList[] = get_lang('EmailWrong');
+        && ! is_well_formed_email_address($courseEmail) )       $errorList[] = get_lang('The email address is not valid');
 
     if (count ($errorList) > 0) $okToCreate  = FALSE;
     else                       $okToCreate = TRUE;
@@ -437,7 +437,7 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
     echo claro_disp_message_box($dialogBox)
     .    '<br />'
     .    '<a class="claroCmd" href="../../index.php">'
-    .    get_lang('BackToMyCourseList')
+    .    get_lang('Back to my course list')
     .    '</a>'
     ;
 } // if all fields fullfilled

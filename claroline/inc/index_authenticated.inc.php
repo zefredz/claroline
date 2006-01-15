@@ -9,7 +9,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -143,7 +143,7 @@ if ($is_platformAdmin)
     ;
 }
 
-echo claro_disp_tool_title(get_lang('MyCourses'));
+echo claro_disp_tool_title(get_lang('My course list'));
 
 /*
  * Commands line
@@ -312,7 +312,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
 
 ?>
 <div align="center">
-<a href="claroline/calendar/myagenda.php"><?php echo get_lang('MyAgenda') ?></a>
+<a href="claroline/calendar/myagenda.php"><?php echo get_lang('My calendar') ?></a>
 </div>
 
 <hr noshade size="1">
@@ -326,7 +326,7 @@ echo '<td width="200" class="claroRightMenu"><!-- RIGHT COLUMN -->' . "\n";
                             Only available for platform administrator */
     {
 ?>
-<p><a href="claroline/admin/"><?php echo get_lang('PlatformAdministration') ?></a></p>
+<p><a href="claroline/admin/"><?php echo get_lang('Platform Administration') ?></a></p>
 
 <?php
     } // end if is_platformAdmin

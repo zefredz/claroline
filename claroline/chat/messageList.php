@@ -8,9 +8,9 @@
  * the file  is reserved because always formed
  * with the group id of the current user in the current course.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -130,7 +130,7 @@ if ( ! file_exists($activeChatFile))
 {
     // create the file
     $fp = @fopen($activeChatFile, 'w')
-    or die ('<center>'.get_lang('CannotInitChat').'</center>');
+    or die ('<center>'.get_lang('Error : Cannot initialize chat').'</center>');
     fclose($fp);
 
     $dateLastWrite = get_lang('NewChat');
@@ -158,7 +158,7 @@ if ( ! file_exists($activeChatFile))
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
     $fchat = fopen($activeChatFile,'w');
-    fwrite($fchat, '<small>'.$timeNow.' -------- '.get_lang('ChatResetBy').' '.$nick.' --------</small><br />'."\n");
+    fwrite($fchat, '<small>'.$timeNow.' -------- '.get_lang('Chat reset by').' '.$nick.' --------</small><br />'."\n");
     fclose($fchat);
 
     @unlink($onflySaveFile);
@@ -204,7 +204,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     }
     else
     {
-        $cmdMsg = '<blockquote>' . get_lang('CopyFailed') . '</blockquote>'."\n";
+        $cmdMsg = '<blockquote>' . get_lang('Print failed') . '</blockquote>'."\n";
     }
 }
 
@@ -240,8 +240,8 @@ DISPLAY MESSAGE LIST
 
 if ( !isset($dateLastWrite) )
 {
-    $dateLastWrite = get_lang('DateLastWrite')
-                .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
+    $dateLastWrite = get_lang('Last message was on') . ' : '
+    .                strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
 
 

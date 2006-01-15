@@ -6,7 +6,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -42,7 +42,7 @@ include $includePath . '/lib/claro_mail.lib.inc.php';
 include $includePath . '/lib/fileManage.lib.php';
 //include $includePath.'/lib/auth.lib.inc.php';
 
-$nameTools = get_lang('ModifyProfile');
+$nameTools = get_lang('My User Account');
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();

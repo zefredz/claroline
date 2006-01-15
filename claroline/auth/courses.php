@@ -6,7 +6,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -252,7 +252,7 @@ if ( $cmd == 'exReg' )
                 if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
                 {
                     $properties['status'] = 1;
-                    $properties['role']   = get_lang('CourseManager');
+                    $properties['role']   = get_lang('Course manager');
                     $properties['tutor']  = 1;
                     user_update_course_properties($userId, $course, $properties);
                 }
@@ -593,7 +593,7 @@ switch ( $displayMode )
                     echo '<thead>' . "\n"
                     .    '<tr class="headerX">' . "\n"
                     .    '<th>&nbsp;</th>' . "\n"
-                    .    '<th>' . get_lang('EnrollAsStudent') . '</th>' . "\n"
+                    .    '<th>' . get_lang('Enroll as student') . '</th>' . "\n"
                     .    '<th>' . get_lang('EnrollAsTeacher') . '</th>' . "\n"
                     .    '<tr>' . "\n"
                     .    '</thead>' . "\n"
@@ -637,7 +637,7 @@ switch ( $displayMode )
 
                         echo '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['code'] . $inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('EnrollAsStudent') . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enroll as student') . '">'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['code'] .$inURL . '">'
@@ -759,7 +759,7 @@ switch ( $displayMode )
                 }
                 else
                 {
-                    echo '<small><span class="highlight">' . get_lang('CourseManager') . '</span></small>' . "\n";
+                    echo '<small><span class="highlight">' . get_lang('Course manager') . '</span></small>' . "\n";
                 }
 
                 echo '</td>' . "\n"
