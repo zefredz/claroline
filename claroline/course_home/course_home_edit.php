@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,7 +30,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm(\''.clean_str_for_javascript(get_lang('AreYouSureToDelete')).'\'+ name + \' ?\'))
+    if (confirm(\''.clean_str_for_javascript(get_lang('Are you sure to delete')).'\'+ name + \' ?\'))
         {return true;}
     else
         {return false;}
@@ -135,7 +135,7 @@ if ($cmd == 'exAdd')
 
          $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
-         $msg .= get_lang('AddedExternalTool');
+         $msg .= get_lang('External Tool added');
         }
         else
         {
@@ -358,7 +358,7 @@ echo '</tbody>'."\n"
     . '</form>'."\n"
     . '</blockquote>' . "\n"
     . '<hr size="1" noshade="noshade" >' . "\n\n"
-    . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . get_lang('AddExternalTool') . '</a>' . "\n"
+    . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">' . get_lang('Add external link') . '</a>' . "\n"
     . $backLink;
 
 include $includePath . '/claro_init_footer.inc.php';
