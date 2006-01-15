@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -266,7 +266,7 @@ function buildTabDefcon($results)
     {
         // there is some strange cases ...
         echo '<tr class="headerX">'."\n"
-                .'<th colspan="2" align="center"><span class="error">'.get_lang('Defcon').'</span></th>'."\n"
+                .'<th colspan="2" align="center"><span class="error">'.get_lang('Ooops, stranges cases detected !!').'</span></th>'."\n"
                 .'</tr>'."\n"
                 .'<tr class="headerX">'."\n"
                 .'<th colspan="2">'.get_lang('NbLines').' : '.count($results).' </th>'."\n"
