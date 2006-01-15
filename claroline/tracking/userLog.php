@@ -389,7 +389,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>'.get_lang('LearningPath').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>'.get_lang('Learning path').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
                         .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('LearnPathDetails').'<br />'."\n";
                 
                 // get list of learning paths of this course
@@ -403,7 +403,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 // table header
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                     .'<tr class="headerX">'."\n"
-                    .'<th>'.get_lang('LearningPath').'</th>'."\n"
+                    .'<th>'.get_lang('Learning path').'</th>'."\n"
                     .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
                     .'</tr>';
                 if(sizeof($lpList) == 0)
@@ -437,7 +437,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('LearningPath').'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Learning path').'</a>';
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
@@ -537,7 +537,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         }
                         else
                         {
-                                $displayedScore  = get_lang('NoScore');
+                                $displayedScore  = get_lang('No score');
                         }
                         
                         if( isset($work['g_name']) )

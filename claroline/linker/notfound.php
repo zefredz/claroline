@@ -40,7 +40,7 @@ echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;" class=""
 echo '<p style="padding-left: 2em;">'
 .    'Back to :'
 .    '<ul>'
-.    '<li><a href="' . $clarolineRepositoryWeb . 'document/document.php">' . get_lang('Document') . '</a></li>'
+.    '<li><a href="' . $clarolineRepositoryWeb . 'document/document.php">' . get_lang('Documents and Links') . '</a></li>'
 .    ( (! empty($referer)) ? '<li><a href="' . $referer . '">Previous page</a></li>' : '' )
 .    '</ul>'
 .    '</p>'

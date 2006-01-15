@@ -60,7 +60,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
     {
             // set the subtitle for the echo claro_disp_tool_title function
-            $toolTitle['subTitle'] = get_lang('Document')." : ".$_REQUEST['path'];
+            $toolTitle['subTitle'] = get_lang('Documents and Links')." : ".$_REQUEST['path'];
             // prepare SQL query
             $sql = "SELECT `nom` as `lastName`,
                         `prenom` as `firstName`,

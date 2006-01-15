@@ -180,7 +180,7 @@ if( $is_trackingEnabled)
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))
                         AND access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last31days').' : '.$count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
         
         // last 7 days
         $sql = "SELECT count(`access_id`) 
@@ -188,7 +188,7 @@ if( $is_trackingEnabled)
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
                         AND access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last7Days').' : '.$count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
         
         // today
         $sql = "SELECT count(`access_id`) 

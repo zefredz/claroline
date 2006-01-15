@@ -12,7 +12,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> get_lang('ModifyProfile'));
+$interbredcrump[]= array ("url"=>"../auth/profile.php", "name"=> get_lang('My User Account'));
 $nameTools = get_lang('Statistics');
 
 if (!$_uid) claro_disp_auth_form();

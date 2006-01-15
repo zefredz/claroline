@@ -6,7 +6,7 @@ $htmlHeadXtra[] =
           "<script type=\"text/javascript\">
            function confirm_delete(name)
            {
-               if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDelete')) . "' + name + ' ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . "' + name + ' ?'))
                {return true;}
                else
                {return false;}
@@ -52,7 +52,7 @@ if ( $cmd == 'rqMkCat' )
     if ( isset($_REQUEST['catName']) ) $catName = $_REQUEST['catName'];
     else                               $catName = '';
 
-    $dialogBox .= '<h4>'.get_lang('AddCategory').'</h4>'
+    $dialogBox .= '<h4>'.get_lang('Add a category').'</h4>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
@@ -122,7 +122,7 @@ if ( $cmd == 'rqMkForum' )
                                   ' checked ' : '';
 
 
-    $dialogBox .= '<h4>'.get_lang('AddForum').'</h4>'
+    $dialogBox .= '<h4>'.get_lang('Add forum').'</h4>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
@@ -253,7 +253,7 @@ if ( $cmd == 'rqEdForum' )
                                    :
                                     ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
 
-    $dialogBox .= '<h4>'.get_lang('AddForum').'</h4>'."\n"
+    $dialogBox .= '<h4>'.get_lang('Add forum').'</h4>'."\n"
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"

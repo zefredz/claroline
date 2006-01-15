@@ -164,7 +164,7 @@ $htmlHeadXtra[] =
           "<script type=\"text/javascript\">
            function confirm_delete()
            {
-               if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDelete')) . " ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . " ?'))
                {return true;}
                else
                {return false;}
