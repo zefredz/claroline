@@ -145,7 +145,7 @@ if($is_allowedToEdit) // check teacher status
             
             if ( announcement_delete_item($id) )
             {
-                $message = get_lang('AnnDel');
+                $message = get_lang('Announcement has been deleted');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
                 $ex_rss_refresh = TRUE;
@@ -167,7 +167,7 @@ if($is_allowedToEdit) // check teacher status
         {
             if ( announcement_delete_all_items() )
             {
-                $message = get_lang('AnnEmpty');
+                $message = get_lang('Announcements list has been cleared up');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $ex_rss_refresh = TRUE;
                 
@@ -186,7 +186,7 @@ if($is_allowedToEdit) // check teacher status
 
         if ( $cmd == 'rqEdit' )
         {
-            $subTitle = get_lang('ModifAnn');
+            $subTitle = get_lang('Modifies this announcement');
             claro_set_display_mode_available(false);
 
             // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
@@ -216,7 +216,7 @@ if($is_allowedToEdit) // check teacher status
 
             if (announcement_set_item_visibility($id,$visibility))
             {
-                $message = get_lang('ViMod');
+                $message = get_lang('Visibility modified');
             }
         }
 
@@ -226,7 +226,7 @@ if($is_allowedToEdit) // check teacher status
 
         if ( $cmd == 'rqCreate')
         {
-            $subTitle = get_lang('AddAnn');
+            $subTitle = get_lang('Add announcement');
             claro_set_display_mode_available(false);
             $displayForm = TRUE;
             $nextCommand = 'exCreate';
@@ -251,7 +251,7 @@ if($is_allowedToEdit) // check teacher status
                 
                 if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
                 {
-                    $message = get_lang('AnnModify');
+                    $message = get_lang('Announcement has been modified');
                     $message .= linker_update();
                     $eventNotifier->notifyCourseEvent('anouncement_modified', $_cid, $_tid, $id, $_gid, '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
@@ -275,7 +275,7 @@ if($is_allowedToEdit) // check teacher status
                 {
                     // notify that a new anouncement is present in this course
                     $eventNotifier->notifyCourseEvent('anouncement_added',$_cid, $_tid, $insert_id, $_gid, '0');
-                    $message  = get_lang('AnnAdd');
+                    $message  = get_lang('Announcement has been added');
                     $message .= linker_update();
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $ex_rss_refresh = TRUE;
@@ -298,7 +298,7 @@ if($is_allowedToEdit) // check teacher status
                 // email subject
                 $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ';
                 if ( !empty($title) ) $emailSubject .= $title ;
-                else                  $emailSubject .= get_lang('ProfessorMessage');
+                else                  $emailSubject .= get_lang('Message from your lecturer');
 
                 // email message
                 $msgContent = $content;
@@ -348,7 +348,7 @@ if($is_allowedToEdit) // check teacher status
                         $countUnvalid++;
                     }
                 }
-                $messageUnvalid = get_lang('On').' '.$countEmail.' '.get_lang('RegUser').', '.$countUnvalid.' '.get_lang('Unvalid');
+                $messageUnvalid = get_lang('On').' '.$countEmail.' '.get_lang('registered users of the site').', '.$countUnvalid.' '.get_lang('have unvalid or no email address');
                 $message .= ' '.get_lang('EmailSent').'<br /><b>'.$messageUnvalid.'</b><br />';
                 $message .= $messageFailed;
 
@@ -425,27 +425,27 @@ if ( $displayButtonLine )
     echo '<p>' . "\n"
     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
     .    '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
-    .    get_lang('AddAnn')
+    .    get_lang('Add announcement')
     .    '</a>' . "\n"
     .    ' | ' . "\n"
     .    '<a class="claroCmd" href="messages.php">'
     .    '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
-    .    get_lang('MessageToSelectedUsers')
+    .    get_lang('Messages to selected users')
     .    '</a>' . "\n"
     .    ' | ' . "\n";
     if (($announcementQty > 0 ))
     {   
         echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-        .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('EmptyAnn')) . ' ?\')){return true;}else{return false;}">'
+        .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    get_lang('EmptyAnn')
+        .    get_lang('Clear up list of announcements')
         .    '</a>' . "\n";
     }
     else
     {   
         echo '<span class="claroCmdDisabled" >'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    get_lang('EmptyAnn')
+        .    get_lang('Clear up list of announcements')
         .    '</span>' . "\n";
     }
     echo '</p>' . "\n";
@@ -493,7 +493,7 @@ if ( $displayForm )
     .    '<td></td>'
     .    '<td>'
     .    '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
-    .    '<label for="emailOption">' . get_lang('EmailOption') . '</label><hr />' . "\n"
+    .    '<label for="emailOption">' . get_lang('Send this announcement by email to registered students') . '</label><hr />' . "\n"
     ;
 
     //---------------------
@@ -594,7 +594,7 @@ if ($displayList)
             .    '</a>' . "\n"
             // DELETE  Request LINK
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
-            .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('ConfirmYourChoice')) . '\')) return false;">'
+            .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
             .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
             .    '</a>' . "\n"
             ;

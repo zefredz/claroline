@@ -73,8 +73,8 @@ else                           $cmd = null;
 
 $dialogBox = '';
 
-if     ( $cmd == 'rqAdd' ) $subTitle = get_lang('AddEvent');
-elseif ( $cmd == 'rqEdit') $subTitle = get_lang('EditEvent');
+if     ( $cmd == 'rqAdd' ) $subTitle = get_lang('Add an event');
+elseif ( $cmd == 'rqEdit') $subTitle = get_lang('Edit Event');
 else                       $subTitle = '&nbsp;';
 
 
@@ -108,7 +108,7 @@ if ( $is_allowedToEdit )
         $insert_id = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $insert_id != false )
         {
-            $dialogBox .= '<p>' . get_lang('EventAdded') . '</p>' . "\n";
+            $dialogBox .= '<p>' . get_lang('Event added to the agenda') . '</p>' . "\n";
             $dialogBox .= linker_update(); //return textual error msg
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
@@ -124,7 +124,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox .= '<p>' . get_lang('UnableToAdd') . '</p>' . "\n";
+            $dialogBox .= '<p>' . get_lang('Unable to add the event to the agenda') . '</p>' . "\n";
         }
     }
 
@@ -145,11 +145,11 @@ if ( $is_allowedToEdit )
                 $dialogBox .= linker_update(); //return textual error msg
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
                 $ex_rss_refresh = TRUE;
-                $dialogBox .= '<p>' . get_lang('EventUpdated') . '</p>' . "\n";
+                $dialogBox .= '<p>' . get_lang('Event updated into the agenda') . '</p>' . "\n";
             }
             else
             {
-                $dialogBox .= '<p>' . get_lang('UnableToUpdate') . '</p>' . "\n";
+                $dialogBox .= '<p>' . get_lang('Unable to update the event into the agenda') . '</p>' . "\n";
             }
         }
     }
@@ -163,7 +163,7 @@ if ( $is_allowedToEdit )
 
         if ( agenda_delete_item($id) )
         {
-            $dialogBox .= '<p>' . get_lang('EventDeleted') . '</p>' . "\n";
+            $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
 
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
             $ex_rss_refresh = TRUE;
@@ -174,7 +174,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox = '<p>' . get_lang('UnableToDelete') . '</p>' . "\n";
+            $dialogBox = '<p>' . get_lang('Unable to delete event from the agenda') . '</p>' . "\n";
         }
 
         linker_delete_resource();
@@ -188,7 +188,7 @@ if ( $is_allowedToEdit )
     {
         if ( agenda_delete_all_items())
         {
-            $dialogBox .= '<p>' . get_lang('EventDeleted') . '</p>' . "\n";
+            $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
@@ -197,7 +197,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox = '<p>' . get_lang('UnableToDelete') . '</p>' . "\n";
+            $dialogBox = '<p>' . get_lang('Unable to delete event from the agenda') . '</p>' . "\n";
         }
 
         linker_delete_all_tool_resources();
@@ -225,7 +225,7 @@ if ( $is_allowedToEdit )
 
         if ( agenda_set_item_visibility($id, $visibility)  )
         {
-            $dialogBox = get_lang('ViMod');
+            $dialogBox = get_lang('Visibility modified');
         }
         //        else
         //        {
@@ -421,7 +421,7 @@ if ($display_command)
 
     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
     .    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt="" />'
-    .    get_lang('AddEvent')
+    .    get_lang('Add an event')
     .    '</a>'
     .    ' | ';
 
@@ -431,9 +431,9 @@ if ($display_command)
     if ( count($eventList) > 0 )
     {
         echo '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-        .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('ClearList')) . ' ? \')){return true;}else{return false;}">'
+        .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    get_lang('ClearList')
+        .    get_lang('Clear up event list')
         .    '</a>'
         ;
     }
@@ -441,7 +441,7 @@ if ($display_command)
     {
         echo '<span class="claroCmdDisabled" >'
         .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    get_lang('ClearList')
+        .    get_lang('Clear up event list')
         .    '</span>'
         ;
     }
@@ -453,17 +453,17 @@ $monthBar     = '';
 
 if ( count($eventList) < 1 )
 {
-    echo "\n" . '<br /><blockquote>' . get_lang('NoEventInTheAgenda') . '</blockquote>' . "\n";
+    echo "\n" . '<br /><blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
 }
 else
 {
     if ( $orderDirection == 'DESC' )
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . get_lang('OldToNew') . '</a>' . "\n";
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . get_lang('Oldest first') . '</a>' . "\n";
     }
     else
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . get_lang('NewToOld') . '</a>' . "\n";
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . get_lang('Newest first') . '</a>' . "\n";
     }
 
     echo "\n" . '<table class="claroTable" width="100%">' . "\n";

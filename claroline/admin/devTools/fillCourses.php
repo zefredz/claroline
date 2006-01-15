@@ -11,7 +11,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -398,7 +398,7 @@ switch ($display)
     <input type="text" id="smax" align="right" name="smax" value="<?php echo $smax ?>" size="5" maxlength="3">
     </fieldset>
     <fieldset>
-    <legend ><?php echo get_lang('CourseManager'); ?> </legend>
+    <legend ><?php echo get_lang('Course manager'); ?> </legend>
     <Label for="pmin"> <?php echo get_lang('Min') ?> </Label>
     <input align="right" id="pmin"  type="text" name="pmin" value="<?php echo $pmin ?>" size="5" maxlength="3"><br />
     <Label for="pmax"> <?php echo get_lang('Maximum') ?> </Label>

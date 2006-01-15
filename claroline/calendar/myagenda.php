@@ -10,7 +10,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,7 +32,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 
 require_once $includePath . '/lib/agenda.lib.php';
 
-$nameTools = get_lang('MyAgenda');
+$nameTools = get_lang('My calendar');
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 

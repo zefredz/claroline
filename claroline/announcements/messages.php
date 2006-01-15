@@ -113,7 +113,7 @@ function valida()
     var    dat;
 
     if (f.elements[3].length <    1) {
-        alert(\"" . clean_str_for_javascript(get_lang('PleaseSelectUsers')) . "\");
+        alert(\"" . clean_str_for_javascript(get_lang('You must select some users')) . "\");
         return false;
     }
     for    (var i=0; i<f.elements[3].length; i++)    
@@ -123,7 +123,7 @@ function valida()
     if(dat.length == 0)
     {
         //old: Debe    introducir el Texto    del    Mensaje
-        alert(\"" . clean_str_for_javascript(get_lang('PleaseEnterMessage')) . "\");
+        alert(\"" . clean_str_for_javascript(get_lang('You must introduce the message text')) . "\");
         f.emailContent.focus();
         f.emailContent.select();
         return false;    
@@ -239,7 +239,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             */
 
             // email subject
-            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . get_lang('ProfessorMessage');
+            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . get_lang('Message from your lecturer');
 
             // email content
             $emailBody = $_REQUEST['emailContent'] . "\n" . "\n" 
@@ -247,7 +247,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             .            $senderFirstName . ' ' . $senderLastName . "\n" 
             .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" 
             .            $siteName . "\n"
-            .            '(' . get_lang('ProfessorMessage') . ')'
+            .            '(' . get_lang('Message from your lecturer') . ')'
             ;
 
             /*
@@ -275,7 +275,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             $messageUnvalid    = '<p>'
             . get_lang('On').'    '
             . count($userIdList) .' '
-            . get_lang('SelUser').',    ' .  $countUnvalid . ' ' .get_lang('Unvalid')
+            . get_lang('selected users of the site').',    ' .  $countUnvalid . ' ' .get_lang('have unvalid or no email address')
             . '<br /><small>'
             . $messageFailed
             . '</small>'
@@ -296,7 +296,7 @@ if ( !empty($message) )
     echo claro_disp_message_box($message);
 
     echo '<br />' . "\n"
-    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('BackList') . '</a>'
+    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Return to the list') . '</a>'
     .    '<br />' . "\n"
     ;
 
@@ -406,7 +406,7 @@ if ( $displayForm == TRUE )
     .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<p><b>' . get_lang('SelectedUsers') . '</b></p>' . "\n"
+    .    '<p><b>' . get_lang('Selected Users') . '</b></p>' . "\n"
     .    '<p>'
     .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
     .    '</select>'

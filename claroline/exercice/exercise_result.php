@@ -566,7 +566,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 <tr>
   <td align="center">
     <?php 
-        echo get_lang('YourTime')." ".claro_disp_duration($timeToCompleteExe);
+        echo get_lang('Your time is')." ".claro_disp_duration($timeToCompleteExe);
         if( $exerciseMaxTime > 0 )
         {
             echo "<br />".get_lang('MaxAllowedTime')." ".claro_disp_duration($exerciseMaxTime);

@@ -16,7 +16,7 @@
  * Notice : This script is also used to show a question before modifying it by
  * the administrator
  *
- * @version version 1.7 $Revision$
+ * @version version 1.8 $Revision$
  *
  * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
  *
@@ -277,7 +277,7 @@ if( isset($_uid) )
 $mktimeNow      = mktime();
 $timeStartDate  = $_SESSION['objExercise']->get_start_date('timestamp');
 
-$statusMsg  .= "<br />".get_lang('AvailableFrom')." "
+$statusMsg  .= "<br />".get_lang('Available from')." "
                     .claro_disp_localised_date($dateTimeFormatLong,$timeStartDate);
 
 if($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59")

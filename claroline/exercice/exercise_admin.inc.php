@@ -242,7 +242,7 @@ if( isset($modifyExercise) )
 <!-- start date form -->
 <tr>
 
-<td><?php echo get_lang('StartDate'); ?>&nbsp;:</td>
+<td><?php echo get_lang('Start date'); ?>&nbsp;:</td>
 
 <td>
 <?php
@@ -337,7 +337,7 @@ else
 <ul>
   <li><?php echo get_lang('ExerciseType')." : "; echo ($exerciseType >= 2)?get_lang('SequentialExercise'):get_lang('SimpleExercise'); ?></li>
   <li><?php echo get_lang('RandomQuestions')." : "; echo ($randomQuestions)?get_lang('Yes'):get_lang('No'); ?></li>
-  <li><?php echo get_lang('StartDate'). " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$_SESSION['objExercise']->get_start_date('timestamp')); ?></li>
+  <li><?php echo get_lang('Start date'). " : ";  echo claro_disp_localised_date($dateTimeFormatLong,$_SESSION['objExercise']->get_start_date('timestamp')); ?></li>
   <li><?php echo get_lang('EndDate')." : "; 
                     if($useEndDate) 
                     {

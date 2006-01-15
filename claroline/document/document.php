@@ -3,9 +3,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -894,7 +894,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         update_db_info('update', $_REQUEST['file'], array('visibility' => $_REQUEST['vis']) );
 
-    $dialogBox = get_lang('ViMod');
+    $dialogBox = get_lang('Visibility modified');
 
         //notify claroline that visibility changed
 
@@ -964,7 +964,7 @@ if ($cmd == 'exDownload')
     $downloadArchivePath = $baseWorkDir.$_REQUEST['file'].'/'.uniqid().'.zip';
     $downloadArchiveName = $_REQUEST['file'].'.zip';
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
-    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('document').'.zip';
+    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('Documents and Links').'.zip';
 
     $downloadArchive     = new PclZip($downloadArchivePath);
 
@@ -1275,7 +1275,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-    if (confirm(\" ".clean_str_for_javascript(get_lang('AreYouSureToDelete'))." \"+ name + \" ?\"))
+    if (confirm(\" ".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \" ?\"))
         {return true;}
     else
         {return false;}
@@ -1360,7 +1360,7 @@ function getWindowWidth ()
     $claroBodyOnload[] = "zoomOut();";
 }
 
-$nameTools = get_lang('Document');
+$nameTools = get_lang('Documents and Links');
 
 $_SERVER['QUERY_STRING'] = ''; // used for the breadcrumb
                               // when one need to add a parameter after the filename
@@ -1374,7 +1374,7 @@ $cmdParentDir  = rawurlencode($parentDir);
 
 //display toot title and subtitle
 
-$titleElement['mainTitle'] = get_lang('Document');
+$titleElement['mainTitle'] = get_lang('Documents and Links');
 if ( $_gid && $is_groupAllowed) $titleElement['supraTitle'] = $_group['name'];
 
 echo claro_disp_tool_title($titleElement,
@@ -2068,13 +2068,13 @@ echo claro_disp_tool_title($titleElement,
                         if ($fileList['visibility'][$fileKey] == "i")
                         {
                             echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&amp;file=",$cmdFileName,"&amp;vis=v\">"
-                                ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".get_lang('MakeVisible')."\">"
+                                ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".get_lang('Make visible')."\">"
                                 ."</a>";
                         }
                         else
                         {
                             echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&amp;file=",$cmdFileName,"&amp;vis=i\">"
-                                ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".get_lang('MakeInvisible')."\">"
+                                ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".get_lang('Make invisible')."\">"
                                 ."</a>";
                         }
                     }

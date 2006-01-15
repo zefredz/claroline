@@ -5,7 +5,7 @@
  * This tool manage properties of an exiting course
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,7 +17,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('CourseSettings');
+$nameTools = get_lang('Course settings');
 
 $dialogBox = '';
 
