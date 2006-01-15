@@ -4,9 +4,9 @@
  *
  * This functions library is used by most of the pages of the learning path tool
  *
- * @version version 1.7 $Revision$
+ * @version version 1.8 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
@@ -186,7 +186,7 @@ function commentBox($type, $mode)
             {
                 echo '<p>' . "\n"
                 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    get_lang('AddComment') . '</a>' . "\n"
+                .    get_lang('Add a comment') . '</a>' . "\n"
                 .    '</p>' . "\n"
                 ;
             }
@@ -205,7 +205,7 @@ function commentBox($type, $mode)
                 .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
-                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('ConfirmYourChoice')).'\')) return false;">' . "\n"
+                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;">' . "\n"
                 .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</small>' . "\n"
@@ -364,7 +364,7 @@ function nameBox($type, $mode)
   */
  function selectAlt($contentType)
  {
-      $altList[CTDOCUMENT_] = get_lang('Document');
+      $altList[CTDOCUMENT_] = get_lang('Documents and Links');
       $altList[CTCLARODOC_] = get_lang('AltClarodoc');
       $altList[CTEXERCISE_] = get_lang('Exercise');
       $altList[CTSCORM_] = get_lang('AltScorm');
@@ -405,7 +405,7 @@ function setOrderTab ( $formValuesTab )
         }
         elseif( in_array($requiredOrder, $tabOrder) )
         {
-            $dialogBox .= get_lang('ErrorValuesInDouble');
+            $dialogBox .= get_lang('Error : One or more values are doubled');
             return 0;
         }
         // $tabInvert = required order => id module
@@ -729,7 +729,7 @@ function display_my_exercises($dialogBox)
     {
         echo '<tr>'."\n"
         .     '<td colspan="2">'
-        .    '<input type="submit" name="insertExercise" value="'.get_lang('AddModulesButton').'" />'
+        .    '<input type="submit" name="insertExercise" value="'.get_lang('Add module(s)').'" />'
         .    '</td>'."\n"
         .     '</tr>'."\n\n"
         ;
@@ -934,7 +934,7 @@ function display_my_documents($dialogBox)
             .'<td colspan="'.$colspan.'" align="left">'."\n"
             .'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
             .'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
-            .'<input type="submit" name="submitInsertedDocument" value="'.get_lang('AddModulesButton').'" />'."\n"
+            .'<input type="submit" name="submitInsertedDocument" value="'.get_lang('Add module(s)').'" />'."\n"
             .'</td>'."\n"
             .'</tr>'."\n";
     } // end if ( $fileList)

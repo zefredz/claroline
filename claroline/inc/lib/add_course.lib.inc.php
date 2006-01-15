@@ -9,7 +9,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1143,7 +1143,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
             SET code_cours     = '" . $courseSysCode . "',
                 user_id = '" . (int) $uidCreator."',
                 statut  = 1,
-                role    = '" . addslashes( get_lang('CourseManager') ) . "',
+                role    = '" . addslashes( get_lang('Course manager') ) . "',
                 tutor   = 1";
 
     if ( claro_sql_query($sql) == false) return false;

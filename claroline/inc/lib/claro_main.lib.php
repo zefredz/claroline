@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -759,7 +759,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                                . get_lang('Student')
                                . '</a>'
                                ;
-            $courseAdminButton = '<b>' . get_lang('CourseManager') . '</b>';
+            $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
 
             break;
 
@@ -767,7 +767,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 
             $studentButton     = '<b>'.get_lang('Student').'</b>';
             $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
-                               . get_lang('CourseManager')
+                               . get_lang('Course manager')
                                . '</a>';
             break;
     }
@@ -776,7 +776,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
                              DISPLAY COMMANDS MENU
       ------------------------------------------------------------------------*/
 
-    echo get_lang('ViewMode') . ' : '
+    echo get_lang('View mode') . ' : '
     .    $studentButton
     .    ' | '
     .    $courseAdminButton
@@ -1320,13 +1320,13 @@ function claro_disp_textarea_editor($name, $content = '',
             if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
             {
                 $switchState = 'off';
-                $message     = get_lang('TextEditorDisable');
+                $message     = get_lang('Disable text editor');
                 $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
             }
             else
             {
                 $switchState = 'on';
-                $message     = get_lang('TextEditorEnable');
+                $message     = get_lang('Enable text editor');
                 $confirmCommand = '';
             }
 
@@ -1688,10 +1688,10 @@ function claro_get_tool_name_list()
         ,                     'CLFRM___' => get_lang('Forums')
         ,                      'CLCAL___' => get_lang('Agenda')
         ,                      'CLCHT___' => get_lang('Chat')
-        ,                      'CLDOC___' => get_lang('Document')
-        ,                      'CLDSC___' => get_lang('DescriptionCours')
+        ,                      'CLDOC___' => get_lang('Documents and Links')
+        ,                      'CLDSC___' => get_lang('Course description')
         ,                      'CLGRP___' => get_lang('Groups')
-        ,                      'CLLNP___' => get_lang('LearningPath')
+        ,                      'CLLNP___' => get_lang('Learning path')
         ,                      'CLQWZ___' => get_lang('Exercises')
         ,                      'CLWRK___' => get_lang('Work')
         ,                      'CLUSR___' => get_lang('Users')
