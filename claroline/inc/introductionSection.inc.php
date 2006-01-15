@@ -186,7 +186,7 @@ if ($intro_dispDefault)
         .    '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
         .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="" border="0">'
-        .    get_lang('AddIntro')
+        .    get_lang('Add introduction text')
         .    '</a>' . "\n"
         .    '</p>' . "\n\n"
         ;
@@ -213,7 +213,7 @@ if ($intro_dispDefault)
                 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqEd&introId='.$introId.'">'
                 .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Modify') . '" border="0">'
                 .    '</a>' . "\n"
-                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=exDel&introId='.$introId.'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('ConfirmYourChoice')).'\')) return false;"><img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0"></a>' . "\n"
+                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=exDel&introId='.$introId.'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;"><img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0"></a>' . "\n"
                 .    '</p>' . "\n\n"
                 ;
             }
