@@ -1180,7 +1180,14 @@
 
                     $userInfo = user_get_data( $version['editor_id'] );
 
-                    $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+                    if ( ! empty( $userInfo ) )
+                    {
+                        $userStr = $userInfo['firstname'] . " " . $userInfo['lastname'];
+                    }
+                    else
+                    {
+                        $userStr = get_lang( "Unknown" );
+                    }
                     
                     if ( $is_courseMember )
                     {
