@@ -655,7 +655,9 @@ class Config
     }
 
     /**
-     * Display the web form to edit config file
+     * Function to create the different elements of the configuration form to display
+     *
+     * @return the HTML code to display web form to edit config file
      */
 
     function display_form($property_list=null,$section_selected=null)
