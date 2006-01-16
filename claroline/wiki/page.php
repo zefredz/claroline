@@ -944,10 +944,17 @@
                     $time = claro_disp_localised_date( $dateTimeFormatLong
                         , strtotime($recentChange['last_mtime']) )
                         ;
-                        
+
                     $userInfo = user_get_data( $recentChange['editor_id'] );
                     
-                    $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+                    if ( !empty( $userInfo ) )
+                    {
+                        $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
+                    }
+                    else
+                    {
+                        $userStr = get_lang( "Unknown" );
+                    }
                     
                     if ( $is_courseMember )
                     {
