@@ -23,9 +23,7 @@ function register_class_to_course($class_id, $course_code)
     $tbl_user       = $tbl_mdb_names['user'];
     $tbl_class_user = $tbl_mdb_names['rel_class_user'];
     $tbl_class      = $tbl_mdb_names['class'];
-    
-    echo "<br>we are in the recursion of class :".$class_id."<br>";
-    
+        
     //get the list of users in this class 
     
     $sql = "SELECT * FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u` 
