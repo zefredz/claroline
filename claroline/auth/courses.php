@@ -16,6 +16,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+require $includePath.'/lib/courselist.lib.php';
 
 $nameTools  = get_lang('_course_enrollment');
 $noPHP_SELF = TRUE;
@@ -297,24 +298,8 @@ if ( $cmd == 'exReg' )
 
 if ( $cmd == 'rqUnreg' )
 {
-
-    $sql = "SELECT c.intitule,
-                   c.titulaires,
-                   c.fake_code AS officialCode,
-                   c.code,
-                   cu.user_id AS enrolled,
-                   cu.statut,
-                   c.visible
-            FROM `" . $tbl_course."` `c`
-            ,    `" . $tbl_rel_course_user . "` `cu`
-            WHERE `cu`.`user_id` = '" . (int) $userId . "'
-            AND   `c`.`code`    = `cu`.`code_cours`
-            ORDER BY `c`.`fake_code`";
-
-    $courseList = claro_sql_query_fetch_all($sql);
-
+    $courseList = get_user_course_list($userId);
     $displayMode = DISPLAY_USER_COURSES;
-
 } // if ($cmd == 'rqUnreg')
 
 /*----------------------------------------------------------------------------
@@ -352,87 +337,15 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
     else
     {
-        $sql = "SELECT `c`.`visible`, `c`.`intitule`, `c`.`directory`, `c`.`code`,
-                       `c`.`titulaires`, `c`.`languageCourse`, `c`.`fake_code` AS `officialCode`,
-                       `cu`.`user_id` AS `enrolled`
+        $courseCategoryBrowser = new category_browser($category, $userId);
 
-                FROM `" . $tbl_course . "` AS `c`
+        $currentCategory     = $courseCategoryBrowser->get_current_category_settings();
+        $currentCategoryName = $currentCategory['name'  ];
+        $parentCategoryCode  = $currentCategory['code_P'];
 
-                LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
-                ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . $userId . ")
+        $categoryList = $courseCategoryBrowser->get_sub_category_list();
 
-                WHERE `faculte` = '" . addslashes($category ) ."'
-
-                ORDER BY UPPER(`fake_code`)";
-
-        $courseList = claro_sql_query_fetch_all($sql);
-
-        /*
-         * Get the subcategories of this category
-         */
-
-        if ( $category != '' )
-        {
-            $sqlFilter = "# get the direct children categories
-
-                          UPPER(`faculte`.`code_P`) = UPPER('" . $category . "')
-
-                          # get the current category
-
-                          OR UPPER(`faculte`.`code`  ) = UPPER('" . $category . "')";
-        }
-        else
-        {
-            $sqlFilter = "   `faculte`.`code`   IS NULL
-                          OR `faculte`.`code_P` IS NULL";
-        }
-
-        $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
-                       `faculte`.`code_P`, `faculte`.`nb_childs`,
-                       COUNT( c.`cours_id` ) `nbCourse`
-
-                FROM `" . $tbl_course_nodes . "` `faculte`
-
-                # The two left are used for the course count
-
-                LEFT JOIN `" . $tbl_course_nodes . "` `subCat`
-                ON  `subCat`.`treePos` >= `faculte`.`treePos`
-                AND `subCat`.`treePos` <= (`faculte`.`treePos` + `faculte`.`nb_childs`)
-
-                LEFT JOIN `".$tbl_course."` c
-                ON c.`faculte` = `subCat`.`code`
-
-                # filter to get the current and direct children categories
-
-                WHERE " . $sqlFilter . "
-
-                GROUP  BY  `faculte`.`code`
-
-                # ordered the brother subcategory
-
-                ORDER  BY  `faculte`.`treePos`";
-
-        $categoryList = claro_sql_query_fetch_all($sql);
-
-        /*
-         * Get the current category name and parent code
-         */
-
-        if ( count($categoryList) > 0 )
-        {
-            foreach ( $categoryList as $thisKey => $thisCategory )
-            {
-                if ( $thisCategory['code'] == $category )
-                {
-                    $currentCategoryName = $thisCategory['name'  ];
-                    $parentCategoryCode  = $thisCategory['code_P'];
-
-                    unset ( $categoryList[$thisKey] );
-                    break;
-                }
-            } // end foreach
-
-        } // end if count($categoryList) > 0
+        $courseList   = $courseCategoryBrowser->get_course_list();
 
         $displayMode = DISPLAY_COURSE_TREE;
     }
@@ -615,8 +528,8 @@ switch ( $displayMode )
             foreach($courseList as $thisCourse)
             {
                 echo '<tr>' . "\n"
-                .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['intitule'] . '<br />' . "\n"
-                .    '<small>' . $thisCourse['titulaires'] . '</small>' ."\n"
+                .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
+                .    '<small>' . $thisCourse['titular'] . '</small>' ."\n"
                 .    '</td>' . "\n"
                 ;
 
@@ -665,7 +578,7 @@ switch ( $displayMode )
                     }
                     elseif($thisCourse['visible'] == 1 || $thisCourse['visible'] == 2)
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['code'] . $inURL . '">'
+                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&course=' . $thisCourse['sysCode'] . $inURL . '">'
                             . '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Subscription') . '">'
                             . '</a>' ;
                     }
@@ -741,13 +654,13 @@ switch ( $displayMode )
             {
                 echo '<tr>' . "\n"
                 .    '<td>' . "\n"
-                .    $thisCourse['intitule'] . '<br />' . "\n"
-                .    '<small>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['titulaires'] . '</small>'
+                .    $thisCourse['title'] . '<br />' . "\n"
+                .    '<small>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['titular'] . '</small>'
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
                 ;
 
-                if ( $thisCourse['statut'] != 1 )
+                if ( $thisCourse['userSatus'] != 1 )
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['code'] . $inURL . '"'
                     .    ' onclick="javascript:if(!confirm(\''
@@ -803,64 +716,5 @@ echo $backLink;
 
 include $includePath . '/claro_init_footer.inc.php';
 
-//////////////////////////////////////////////////////////////////////////////
-
-/**
- * search a specific course based on his course code
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
- * @param  string  $courseCode course code from the cours table
- *
- * @return array    course parameters
- *         boolean  FALSE  otherwise.
- */
-
-function search_course($keyword)
-{
-    global $userId;
-    global $is_platformAdmin;
-
-    $tbl_mdb_names        = claro_sql_get_main_tbl();
-    $tbl_course           = $tbl_mdb_names['course'           ];
-    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-
-    $keyword = trim($keyword);
-
-    if (!$is_platformAdmin)
-    {
-        $visibility_cond = "(c.visible = 2 OR c.visible = 1)";
-    }
-    else
-    {
-        $visibility_cond = "1=1";
-    }
-
-    if (empty($keyword) ) return array();
-    $upperKeyword = trim(strtoupper($keyword));
-
-    $sql = 'SELECT c.intitule,
-                   c.titulaires,
-                   c.fake_code AS officialCode,
-                   c.code,
-                   cu.user_id AS enrolled,
-                   c.visible
-            FROM `' . $tbl_course . '` c
-
-            LEFT JOIN `'.$tbl_rel_course_user.'` cu
-            ON  c.code = cu.code_cours
-            AND cu.user_id = "' . (int) $userId . '"
-
-            WHERE (UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
-               OR  UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
-               OR  UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
-
-            ORDER BY officialCode';
-
-    $courseList = claro_sql_query_fetch_all($sql);
-
-    if (count($courseList) > 0) return $courseList;
-    else                        return false;
-} // function search_course($keyword)
 
 ?>
