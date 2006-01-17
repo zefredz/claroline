@@ -66,7 +66,7 @@ $errorFound = false;
 /**
  * Function used by the SAX xml parser when the parser meets a opening tag
  * exemple :
- *          <manifest identifier="samplescorm" version"1.1">
+ *          <manifest identifier="samplescorm" version="1.1">
  *      will give
  *          $name == "manifest"
  *          attributes["identifier"] == "samplescorm"
