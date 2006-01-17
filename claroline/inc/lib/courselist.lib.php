@@ -71,13 +71,16 @@ class category_browser
                        code       sysCode,
                        fake_code  officialCode,
                        directory,
-                       visible,
-                       cu.user_id enrolled
-                FROM `".$tbl_courses."` c
+                       visible 
+                       "
+              .       ( $this->userId ? ", cu.user_id enrolled " : "")
+
+              . " FROM `".$tbl_courses."` c
                 "
               . ($this->userId 
                  ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
-                   ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . (int) $this->userId . ")
+                           ON  `c`.`code`    = `cu`.`code_cours` 
+                          AND `cu`.`user_id` = " . (int) $this->userId . "
                    "
                  : " ")
 
