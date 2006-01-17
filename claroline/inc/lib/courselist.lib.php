@@ -9,7 +9,7 @@
 
 class category_browser
 {
-    function category_browser($categoryCode = null)
+    function category_browser($categoryCode = null, $userId = null)
     {
         $this->categoryCode = $categoryCode;
 
@@ -69,7 +69,7 @@ class category_browser
                        `fake_code`  `officialCode`,
                        `directory` 
                 FROM `".$tbl_courses."` 
-                WHERE `faculte` = '".$this->categoryCode."'
+                WHERE `faculte` = '".addslashes($this->categoryCode)."'
                 ORDER BY UPPER(fake_code)";
 
         return claro_sql_query_fetch_all($sql); 
