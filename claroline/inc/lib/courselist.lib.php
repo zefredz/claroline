@@ -12,10 +12,11 @@ class category_browser
     function category_browser($categoryCode = null, $userId = null)
     {
         $this->categoryCode = $categoryCode;
+        $this->userId       = $userId;
 
-        $tbl_mdb_names          = claro_sql_get_main_tbl();
-        $tbl_courses           = $tbl_mdb_names['course'  ];
-        $tbl_courses_nodes     = $tbl_mdb_names['category'];
+        $tbl_mdb_names         = claro_sql_get_main_tbl();
+        $tbl_courses           = $tbl_mdb_names['course'         ];
+        $tbl_courses_nodes     = $tbl_mdb_names['category'       ];
 
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
@@ -62,15 +63,26 @@ class category_browser
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_courses   = $tbl_mdb_names['course'];
+        $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-        $sql = "SELECT `intitule`   `title`,
-                       `titulaires` `titular`,
-                       `code`       `sysCode`,
-                       `fake_code`  `officialCode`,
-                       `directory` 
-                FROM `".$tbl_courses."` 
-                WHERE `faculte` = '".addslashes($this->categoryCode)."'
-                ORDER BY UPPER(fake_code)";
+
+        $sql = "SELECT intitule   title,
+                       titulaires titular,
+                       code       sysCode,
+                       fake_code  officialCode,
+                       directory,
+                       visible,
+                       cu.user_id enrolled
+                FROM `".$tbl_courses."` c
+                "
+              . ($this->userId 
+                 ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
+                   ON (`c`.`code` = `cu`.`code_cours` AND `cu`.`user_id` = " . (int) $this->userId . ")
+                   "
+                 : " ")
+
+              . "WHERE c.`faculte` = '".addslashes($this->categoryCode)."'
+                 ORDER BY UPPER(c.fake_code)";
 
         return claro_sql_query_fetch_all($sql); 
     }
@@ -82,6 +94,7 @@ class category_browser
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  * @param  string  $courseCode course code from the cours table
+ * @param  int userId (optionnal)
  *
  * @return array    course parameters
  *         boolean  FALSE  otherwise.
@@ -126,6 +139,8 @@ function search_course($keyword, $userId = null)
     if (count($courseList) > 0) return $courseList;
     else                        return false;
 } // function search_course($keyword)
+
+
 
 function get_user_course_list($userId, $renew = false)
 {
