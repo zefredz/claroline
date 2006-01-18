@@ -76,7 +76,7 @@ if( !empty($cmd) )
         $assignment_data = assignment_get_data($_REQUEST['assigId']);
         // cannot read assignment $_REQUEST['assigId']
         if(claro_failure::get_last_failure() == 'ASSIGNMENT_NOT_FOUND')
-          {
+		{
             $cmd = '';
             $_REQUEST['assigId'] == NULL;
         }
@@ -214,8 +214,8 @@ if ($is_allowedToEdit)
         }
         else
         {
-               if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox .= get_lang('Assignment title required').'<br />';
+			if(claro_failure::get_last_failure() == 'assignment_no_title')
+               $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
                 $dialogBox .= get_lang('Assignment title already exists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
@@ -262,8 +262,8 @@ if ($is_allowedToEdit)
         }
         else
         {
-               if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox .= get_lang('Assignment title required').'<br />';
+        	if(claro_failure::get_last_failure() == 'assignment_no_title')
+               $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
                 $dialogBox .= get_lang('Assignment title already exists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
@@ -325,18 +325,18 @@ else
     if ( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed )
     {
         // select only the group assignments
-          $sql = "SELECT `id`, `title`, `visibility`,
-            `description`, `assignment_type`, `authorized_content`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
+          $sql = "SELECT `id`, `title`, 
+          	`visibility`, `assignment_type`,
+            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
             FROM `" . $tbl_wrk_assignment . "`
             WHERE `assignment_type` = 'GROUP'
             ORDER BY `end_date` ASC";
     }
     else
     {
-        $sql = "SELECT `id`, `title`, `visibility`,
-            `description`, `assignment_type`, `authorized_content`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`, `def_submission_visibility`
+        $sql = "SELECT `id`, `title`,
+            `visibility`, `assignment_type`,
+            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
             FROM `" . $tbl_wrk_assignment . "`
             ORDER BY `end_date` ASC";
     }
@@ -435,10 +435,10 @@ if ($is_allowedToEdit)
         <td valign="top"><?php echo get_lang('Default works visibility'); ?>&nbsp;:</td>
         <td>
           <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment_data['def_submission_visibility'] == "VISIBLE") echo 'checked="checked"'; ?>>
-            <label for="visible">&nbsp;<?php echo get_lang('Visible'); ?></label>
+            <label for="visible">&nbsp;<?php echo get_lang('Visible to other users'); ?></label>
             <br />
           <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment_data['def_submission_visibility'] == "INVISIBLE") echo 'checked="checked"'; ?>>
-            <label for="invisible">&nbsp;<?php echo get_lang('Invisible'); ?></label>
+            <label for="invisible">&nbsp;<?php echo get_lang('Invisible to other users'); ?></label>
             <br />
         </td>
       </tr>
@@ -496,7 +496,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     /*--------------------------------------------------------------------
                         ADMIN LINKS
       --------------------------------------------------------------------*/
-    if ( $is_allowedToEdit )
+    if( $is_allowedToEdit )
     {
         // link to create a new assignment
         echo '<p>'
@@ -507,7 +507,29 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         ;
     }
 
-    echo '<table class="claroTable" width="100%">' . "\n";
+    echo '<table class="claroTable" width="100%">' . "\n"
+    .	 '<tr class="headerX">'
+    .	 '<th>' . get_lang('Title') . '</th>' . "\n"
+    .	 '<th>' . get_lang('Type') . '</th>' . "\n"
+    .	 '<th>' . get_lang('Available from') . '</th>' . "\n"
+    .	 '<th>' . get_lang('Until') . '</th>' . "\n";
+    
+    if( $is_allowedToEdit )
+    {
+    	echo '<th>' . get_lang('Edit') . '</th>' . "\n"
+    	.	 '<th>' . get_lang('Delete') . '</th>' . "\n"
+    	.	 '<th>' . get_lang('Visibility') . '</th>' . "\n";
+    	
+    	$colspan = '7';
+    }
+    else
+    {
+    	$colspan = '4';	
+    }
+    
+    echo '</tr>' . "\n"
+    .	 '<tbody>' . "\n\n";
+    
 
     $atLeastOneAssignmentToShow = false;
 
@@ -543,76 +565,50 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             $style='';
         }
 
-        $atLeastOneAssignmentToShow = true;
-
-        echo '<tr>'."\n"
-        .    '<th class="headerX">' . "\n"
+        echo '<tr ' . $style . '>'."\n"
+        .    '<td>' . "\n"
         ;
 
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
-            echo '<a href="workList.php?cmd=rqSubWrk&amp;assigId='.$anAssignment['id'].'&amp;submitGroupWorkUrl='.urlencode($_REQUEST['submitGroupWorkUrl']).'" class="item'.$classItem.'">';
+            echo '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '" class="item' . $classItem . '">';
         }
         else
         {
-            echo '<a href="workList.php?assigId='.$anAssignment['id'].'" class="item'.$classItem.'">';
+            echo '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">';
         }
         echo '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" /> '
         .    $anAssignment['title']
         .    '</a>' . "\n"
-        .    '</th>'
-        .    '<tr' . $style . '>' . "\n"
-        .    '<td>' . "\n"
+        .    '</td>' . "\n"
         ;
 
-        if ( strlen($anAssignment['description']) > 500 )
-        {
-            // if the text needs to be cutted remove html tags
-            $desc = $anAssignment['description'];
-            // add spaces before and after tags so that stripped text will have some air
-               $desc = preg_replace('/</',' <',$desc);
-            $desc = preg_replace('/>/','> ',$desc);
-            // remove html and/or php tags
-            $desc = strip_tags($desc);
-            $desc = preg_replace('/[\n\r\t]/',' ',$desc);
-            $desc = preg_replace('/  /',' ',$desc);
-            // keep the 455 first chars of the text
-            $desc = substr($desc,0,455);
-            // remove last splitted word
-            $desc = substr($desc,0,strrpos($desc, " "));
-
-            echo "<div>".$desc." ... "."</div><br />\n";
-        }
-        elseif( !empty($anAssignment['description']) )
-        {
-            echo "<div>".$anAssignment['description']."</div><br />\n";
-        }
-
-        echo "<small>".get_lang('Available from')." ".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix'])." ".get_lang('Until')." <b>".claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix'])."</b></small><br />"
-            ."<small>"
-            ;
-        // content type
-        if( $anAssignment['authorized_content'] == 'TEXT' ) echo get_lang('Text only (text required, no file)');
-        elseif( $anAssignment['authorized_content'] == 'FILE' ) echo get_lang('FileOnly');
-        elseif( $anAssignment['authorized_content'] == 'TEXTFILE' ) echo get_lang('Text with attached file (text required, file optional)');
-
-        echo "<br />";
-        // assignment type
-        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) echo get_lang('Individual') ;
-        elseif( $anAssignment['assignment_type'] == 'GROUP' ) echo get_lang('GroupAssignment');
-
-        echo "</small>\n";
-
-        echo "</td>\n"
-            ."</tr>\n\n";
-
+		echo '<td align="center">';
+		
+		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
+			echo '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" alt="' . get_lang('Individual') . '" />' ;
+        elseif( $anAssignment['assignment_type'] == 'GROUP' ) 
+        	echo '<img src="' . $imgRepositoryWeb . 'group.gif" border="0" alt="' . get_lang('GroupAssignment') . '" />' ;
+        else 
+        	echo '&nbsp;';
+        	
+        echo '</td>' . "\n";
+        
+        echo '<td>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix']) . '</td>' . "\n"
+        .	 '<td>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix']) . '</td>' . "\n";
+        
         if ( $is_allowedToEdit )
         {
-            echo "<tr".$style.">\n"
-                ."<td>\n"
-                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEditAssig&amp;assigId=".$anAssignment['id']."\"><img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".get_lang('Modify')."\"></a>\n"
-                ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=exRmAssig&amp;assigId=".$anAssignment['id']."\" onClick=\"return confirmation('",clean_str_for_javascript($anAssignment['title']),"');\"><img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" /></a>\n"
-                ;
+            echo '<td align="center">'
+			.	 '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&amp;assigId=' . $anAssignment['id'] . '">'
+			.	 '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Modify') . '"></a>'
+			.	 '</td>' . "\n"
+			.	 '<td align="center">'
+			.	 '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onClick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
+			.	 '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"></a>'
+			.	 '</td>' . "\n"
+			.	 '<td align="center">';
+			
             if ( $anAssignment['visibility'] == "INVISIBLE" )
             {
                 echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=v\">"
@@ -623,27 +619,29 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;assigId=' . $anAssignment['id'] . '&amp;vis=i">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" / >'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
                 .    '</a>'
                 ;
             }
             echo '</td>' . "\n"
-            .    '</tr>' . "\n"
+            .    '</tr>' . "\n\n"
             ;
         }
-
+        
+        $atLeastOneAssignmentToShow = true;
     }
 
     if ( ! $atLeastOneAssignmentToShow )
     {
         echo '<tr>' . "\n"
-        .    '<td>' . "\n"
+        .    '<td colspan=' . $colspan . '>' . "\n"
         .    get_lang('There is no assignment at the moment')
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         ;
     }
-    echo '</table>' . "\n\n";
+    echo '</tbody>' . "\n"
+	.	 '</table>' . "\n\n";
 
 
 }
