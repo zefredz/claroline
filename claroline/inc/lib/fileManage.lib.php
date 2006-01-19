@@ -487,7 +487,7 @@ function claro_get_file_size($filePath)
 /**
  * search files or directory whose name fit a pattern
  *
- * @param string $searchPattern - regex pattern to search on file name
+ * @param string $searchPattern - Perl compatible regex to search on file name
  * @param string $baseDirPath - directory path where to start the search
  * @param string $fileType (optional) - filter allowing to restrict search 
  *        on files or directories (allowed value are 'ALL', 'FILE', 'DIR').
@@ -554,6 +554,25 @@ function claro_search_file($searchPattern             , $baseDirPath,
         }
 
         return $searchResultList;
+}
+
+/**
+ * convert search string coming from the user interface
+ * to a Perl Compatible Regular Expression (PCRE)
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string search string
+ * @return string Perl Compatible Regular Expression
+ */
+
+
+function search_string_to_pcre($searchPattern)
+{
+    $searchPattern   = str_replace('.', '\\.', $searchPattern);
+    $searchPattern   = str_replace('*', '.*' , $searchPattern);
+    $searchPattern   = str_replace('?', '.?' , $searchPattern);
+    $searchPattern   = '|'.$searchPattern.'|i';
+    return $searchPattern;
 }
 
 /**
