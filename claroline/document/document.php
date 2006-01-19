@@ -932,7 +932,17 @@ if ($cmd == 'exDownload')
      * PREPARE THE FILE COLLECTION
      */
 
-    $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+    if ( isset($_REQUEST['file'] ) )
+    {
+        $requestDownloadPath = $baseWorkDir
+                             . preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+        $searchDownloadPatter = '';
+    }
+    elseif( isset($_REQUEST['searchPattern']) )
+    {
+            $requestDownloadPath   = $baseWorkDir;
+            $searchDownloadPattern = $_REQUEST['searchPattern'];
+    }
 
     if (! $is_allowedToEdit && $courseContext)
     {
@@ -949,8 +959,8 @@ if ($cmd == 'exDownload')
         $searchExcludeList = array();
     }
 
-    $filePathList = claro_search_file('||',
-                                      $baseWorkDir.$_REQUEST['file'],
+    $filePathList = claro_search_file(search_string_to_pcre($searchDownloadPattern),
+                                      $requestDownloadPath,
                                       true,
                                       'ALL',
                                       $searchExcludeList);
@@ -961,8 +971,8 @@ if ($cmd == 'exDownload')
 
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
 
-    $downloadArchivePath = $baseWorkDir.$_REQUEST['file'].'/'.uniqid().'.zip';
-    $downloadArchiveName = $_REQUEST['file'].'.zip';
+    $downloadArchivePath = $requestDownloadPath.'/'.uniqid().'.zip';
+    $downloadArchiveName = basename($requestDownloadPath.'.zip');
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
     if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('Documents and Links').'.zip';
 
@@ -970,27 +980,32 @@ if ($cmd == 'exDownload')
 
     $downloadArchive->add($filePathList, 
                           PCLZIP_OPT_REMOVE_PATH,
-                          $baseWorkDir.$_REQUEST['file']);
+                          $baseWorkDir.$requestDownloadPath);
 
+    if ( file_exists($downloadArchivePath) )
+    {
+        $downloadArchiveSize = filesize($downloadArchivePath);
 
-    $downloadArchiveSize = filesize($downloadArchivePath);
+        /*
+         * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+         */
 
+        header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        header('Content-type: application/zip');
+        header('Content-Length: '.$downloadArchiveSize);
+        header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
 
-    /*
-     * SEND THE ZIP ARCHIVE FOR DOWNLOAD
-     */
-
-    header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
-    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-    header('Cache-Control: no-cache, must-revalidate');
-    header('Pragma: no-cache');
-    header('Content-type: application/zip');
-    header('Content-Length: '.$downloadArchiveSize);
-    header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
-
-    readfile($downloadArchivePath);
-    unlink($downloadArchivePath);
-    exit();
+        readfile($downloadArchivePath);
+        unlink($downloadArchivePath);
+        exit();
+    }
+    else
+    {
+    	$dialogBox .= get_lang('Unable to create zip file');
+    }
 }
 
 
@@ -1083,11 +1098,6 @@ if ($cmd == 'exSearch')
     $searchPattern    = $_REQUEST['searchPattern'];
     $searchPatternSql = $_REQUEST['searchPattern'];
 
-    $searchPattern   = str_replace('.', '\\.', $searchPattern);
-    $searchPattern   = str_replace('*', '.*' , $searchPattern);
-    $searchPattern   = str_replace('?', '.?' , $searchPattern);
-    $searchPattern   = '|'.$searchPattern.'|i';
-
     $searchPatternSql = str_replace('_', '\\_', $searchPatternSql);
     $searchPatternSql = str_replace('%', '\\%', $searchPatternSql);
     $searchPatternSql = str_replace('?', '_' , $searchPatternSql);
@@ -1098,7 +1108,7 @@ if ($cmd == 'exSearch')
 }
 else
 {
-    $searchPattern   = '||';
+    $searchPattern   = '';
     $searchRecursive = false;
     $searchBasePath  = $baseWorkDir.$curDirPath;
     $searchExcludeList = array();
@@ -1106,7 +1116,7 @@ else
 
 $searchBasePath = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $searchBasePath);
 
-$filePathList = claro_search_file($searchPattern,
+$filePathList = claro_search_file( search_string_to_pcre($searchPattern),
                                   $searchBasePath,
                                   $searchRecursive,
                                   'ALL',
@@ -1795,8 +1805,11 @@ echo claro_disp_tool_title($titleElement,
             .get_lang('Search')
             ."</a>\n";
 
+        if ( $searchPattern != '||') $downloadArgument = 'searchPattern='.$searchPattern;
+        else                         $downloadArgument = "file=".$cmdCurDirPath;
+
         echo " | "
-            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;file=".$cmdCurDirPath."\">\n"
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">\n"
             ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">\n"
             .get_lang('Download current directory')
             ."</a>\n";
