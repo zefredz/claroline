@@ -136,21 +136,10 @@ function claro_CSV_format_ok($format, $delim, $enclosedBy)
  */
 
 function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $fieldSeparator, $enclosedBy)
-{
-        //check if temporary directory for uploaded file exists, if not we create it
+{  
+    //open file
 
-    if (!file_exists($uploadTempDir))
-    {
-        mkdir($uploadTempDir,CLARO_FILE_PERMISSIONS);
-    }
-
-    //check if the uploaded fie path exists, otherwise
-
-    //store the uploaded file in a temporary dir
-
-    move_uploaded_file($_FILES["CSVfile"]["tmp_name"], $uploadTempDir.$_FILES["CSVfile"]["name"]);
-
-    $openfile = fopen($uploadTempDir.$_FILES['CSVfile']['name'],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
+    $openfile = fopen($_FILES["CSVfile"]["tmp_name"],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
 
     //Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 
@@ -161,7 +150,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
 
       //create file Parser
 
-    $CSVParser = new CSV($uploadTempDir.$_FILES["CSVfile"]["name"],$fieldSeparator,$usedFormat,$enclosedBy);
+    $CSVParser = new CSV($_FILES["CSVfile"]["tmp_name"],$fieldSeparator,$usedFormat,$enclosedBy);
 
     if ($CSVParser->validFormat==false)
     {
