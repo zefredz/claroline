@@ -175,10 +175,6 @@
             }
             else
             {
-                /*
-                    I don't know why but I have to duplicade this code in the
-                    next else clause to get the antispam working...
-                 */
                 if ( $this->getOpt('active_antispam' ) && preg_match('/^mailto:/', $url ) )
                 {
                     $url = 'mailto:'.$this->__antiSpam(substr($url, 7));
@@ -194,15 +190,6 @@
                 }
                 else
                 {
-                    /*
-                        I don't know why but I have to duplicade this code here to get the
-                        antispam working...
-                     */
-                    if ($this->getOpt('active_antispam') && preg_match('/^mailto:/',$url))
-                    {
-                        $url = 'mailto:'.$this->__antiSpam(substr($url,7));
-                    }
-                    
                     $attr = ' href="'.$this->protectAttr($this->protectUrls($url ) ).'"' . ' rel="nofollow"' ;
                 }
 
