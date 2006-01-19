@@ -100,7 +100,6 @@ class category_browser
  * @param  int userId (optionnal)
  *
  * @return array    course parameters
- *         boolean  FALSE  otherwise.
  */
 
 function search_course($keyword, $userId = null)
@@ -112,7 +111,8 @@ function search_course($keyword, $userId = null)
     $keyword = trim($keyword);
 
     if (empty($keyword) ) return array();
-    $upperKeyword = trim(strtoupper($keyword));
+
+    $upperKeyword = addslashes(strtoupper($keyword));
 
     $sql = 'SELECT c.intitule   AS title,
                    c.titulaires AS titular,
@@ -140,7 +140,7 @@ function search_course($keyword, $userId = null)
     $courseList = claro_sql_query_fetch_all($sql);
 
     if (count($courseList) > 0) return $courseList;
-    else                        return false;
+    else                        return array() ;
 } // function search_course($keyword)
 
 
