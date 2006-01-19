@@ -40,7 +40,7 @@ function choose_image($fileName)
         $type['web'       ] = array('htm', 'html', 'htx', 'xml', 'xsl', 'php');
         $type['image'     ] = array('gif', 'jpg', 'png', 'bmp', 'jpeg');
         $type['audio'     ] = array('wav', 'midi', 'mp2', 'mp3', 'mp4', 'vqf');
-        $type['excel'     ] = array('xls', 'xlt', 'xls', 'xlt');
+        $type['excel'     ] = array('xls', 'xlt');
         $type['compressed'] = array('zip', 'tar', 'rar', 'gz');
         $type['code'      ] = array('js', 'cpp', 'c', 'java');
         $type['acrobat'   ] = array('pdf');
