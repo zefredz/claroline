@@ -36,27 +36,27 @@ function choose_image($fileName)
 
     if (!$type || !$image)
     {
-        $type['word'      ] = array("doc", "dot", "rtf", "mcw", "wps");
-        $type['web'       ] = array("htm", "html", "htx", "xml", "xsl", "php");
-        $type['image'     ] = array("gif", "jpg", "png", "bmp", "jpeg");
-        $type['audio'     ] = array("wav", "midi", "mp2", "mp3", "mp4", "vqf", "midi");
-        $type['excel'     ] = array("xls", "xlt", "xls", "xlt");
-        $type['compressed'] = array("zip", "tar", "rar", "gz");
-        $type['code'      ] = array("js", "cpp", "c", "java");
-        $type['acrobat'   ] = array("pdf");
-        $type['powerpoint'] = array("ppt");
-        $type['link'      ] = array("url");
+        $type['word'      ] = array('doc', 'dot', 'rtf', 'mcw', 'wps');
+        $type['web'       ] = array('htm', 'html', 'htx', 'xml', 'xsl', 'php');
+        $type['image'     ] = array('gif', 'jpg', 'png', 'bmp', 'jpeg');
+        $type['audio'     ] = array('wav', 'midi', 'mp2', 'mp3', 'mp4', 'vqf');
+        $type['excel'     ] = array('xls', 'xlt', 'xls', 'xlt');
+        $type['compressed'] = array('zip', 'tar', 'rar', 'gz');
+        $type['code'      ] = array('js', 'cpp', 'c', 'java');
+        $type['acrobat'   ] = array('pdf');
+        $type['powerpoint'] = array('ppt', 'pps');
+        $type['link'      ] = array('url');
 
-        $image['word'      ] = "doc.gif";
-        $image['web'       ] = "html.gif";
-        $image['image'     ] = "gif.gif";
-        $image['audio'     ] = "wav.gif";
-        $image['excel'     ] = "xls.gif";
-        $image['compressed'] = "zip.gif";
-        $image['code'      ] = "js.gif";
-        $image['acrobat'   ] = "pdf.gif";
-        $image['powerpoint'] = "ppt.gif";
-        $image['link'      ] = "link.gif";
+        $image['word'      ] = 'doc.gif';
+        $image['web'       ] = 'html.gif';
+        $image['image'     ] = 'gif.gif';
+        $image['audio'     ] = 'wav.gif';
+        $image['excel'     ] = 'xls.gif';
+        $image['compressed'] = 'zip.gif';
+        $image['code'      ] = 'js.gif';
+        $image['acrobat'   ] = 'pdf.gif';
+        $image['powerpoint'] = 'ppt.gif';
+        $image['link'      ] = 'link.gif';
 
     }
 
