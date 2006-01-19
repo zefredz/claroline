@@ -318,7 +318,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         $keyword = trim($_REQUEST['keyword']);
         $result  = search_course($keyword);
 
-        if ( $result != false )
+        if ( count($result) > 0 )
         {
             $courseList = $result;
         }
