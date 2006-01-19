@@ -163,8 +163,8 @@ function enough_size($fileSize, $dir, $maxDirSpace)
 function dir_total_space($dirPath)
 {
     chdir ($dirPath) ;
-    $handle = opendir($dirPath);
-        $sumSize = 0;
+    $handle  = opendir($dirPath);
+    $sumSize = 0;
     
     while ($element = readdir($handle) )
     {
@@ -172,10 +172,12 @@ function dir_total_space($dirPath)
         {
             continue; // skip the current and parent directories
         }
+
         if ( is_file($element) )
         {
             $sumSize += filesize($element);
         }
+
         if ( is_dir($element) )
         {
             $dirList[] = $dirPath.'/'.$element;
@@ -183,7 +185,7 @@ function dir_total_space($dirPath)
     }
 
     closedir($handle) ;
-        
+
     if ( isset($dirList) && sizeof($dirList) > 0)
     {
         foreach($dirList as $j)
@@ -386,7 +388,8 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
     if (   $uncompress == 'unzip' 
         && preg_match('/.zip$/i', $uploadedFile['name']) )
     {
-        return unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFilledSpace);
+        return treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath, 
+                                                $baseWorkDir, $maxFilledSpace);
     }
     else
     {
@@ -420,7 +423,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 
 
 /**
- * Manages all the unzipping process of an uploaded document 
+ * Securely manage all the unzipping process of an uploaded document 
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
@@ -434,7 +437,8 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
  * @return boolean true if it succeeds false otherwise
  */
 
-function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFilledSpace)
+function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath, 
+                                          $baseWorkDir, $maxFilledSpace)
 {
     $zipFile = new pclZip($uploadedFile['tmp_name']);
 
@@ -449,39 +453,23 @@ function unzip_uploaded_file($uploadedFile, $uploadPath, $baseWorkDir, $maxFille
             return claro_failure::set_failure('php_file_in_zip_file');
         }
                 if (!isset($realFileSize)) $realFileSize = 0;
+
         $realFileSize += $thisContent['size'];
     }
         
-    if (! enough_size($realFileSize, $baseWorkDir, $maxFilledSpace) )
+    if ( ! enough_size($realFileSize, $baseWorkDir, $maxFilledSpace) )
     {
         return claro_failure::set_failure('not_enough_space');
     }
 
-
-    /*
-     * Uncompressing phase
-     * TODO: a lot of hosting service disable the use of exec function
-     *       we must put a config variable to use unzip on linux
-     * In next release put $exec_unzip_cmd as a constant in config file
-     */
-
-    $exec_unzip_cmd = false;
-
-    if (PHP_OS == 'Linux' && $exec_unzip_cmd)
+    if ( is_array($zipFile->extract(PCLZIP_OPT_PATH, $baseWorkDir.$uploadPath) ) )
     {
-        // Shell Method - if this is possible, it gains some speed
-        exec("unzip -d \"".$baseWorkDir.$uploadPath."/\" "
-             .$uploadedFile['tmp_name']);
+        return true;
     }
     else
     {
-        // PHP method - slower...
-
-        chdir($baseWorkDir.$uploadPath);
-        $unzippingState = $zipFile->extract();
+        return false;
     }
-
-    return true;
 }
 
 
