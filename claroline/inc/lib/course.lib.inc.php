@@ -254,11 +254,12 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
         {
 
             if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
+            
             return get_full_path($categories, $parent, $separator)
             .      $separator
             .      $catcode
             ;
-            break;
+            
         }
     }
 }
