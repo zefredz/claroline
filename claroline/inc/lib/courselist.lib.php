@@ -31,19 +31,19 @@ class category_browser
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
                        COUNT( `cours`.`cours_id` ) AS `nbCourse`
-                FROM `".$tbl_courses_nodes."` AS `faculte`
+                FROM `" . $tbl_courses_nodes . "` AS `faculte`
 
-                LEFT JOIN `".$tbl_courses_nodes."` AS `subCat`
+                LEFT JOIN `" . $tbl_courses_nodes . "` AS `subCat`
                        ON (`subCat`.`treePos` >= `faculte`.`treePos`
                       AND `subCat`.`treePos` <= (`faculte`.`treePos`+`faculte`.`nb_childs`) )
 
-                LEFT JOIN `".$tbl_courses."` AS `cours`
+                LEFT JOIN `" . $tbl_courses . "` AS `cours`
                        ON `cours`.`faculte` = `subCat`.`code` \n";
 
         if ($categoryCode)
         {
-            $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER(\"".addslashes($categoryCode)."\")
-                        OR UPPER(`faculte`.`code`)   = UPPER(\"".addslashes($categoryCode)."\") \n";
+            $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER('" . addslashes($categoryCode) . "')
+                        OR UPPER(`faculte`.`code`)   = UPPER('" . addslashes($categoryCode) . "') \n";
         }
         else
         {
@@ -142,7 +142,7 @@ function search_course($keyword, $userId = null)
                    c.code       AS code,
                    c.visible    AS visible"
 
-         .  ($userId ? ", cu.user_id AS enrolled " : "")
+         .  ($userId ? ", cu.user_id AS enrolled " : " ")
 
          .  "FROM `" . $tbl_course . "` c "
 
