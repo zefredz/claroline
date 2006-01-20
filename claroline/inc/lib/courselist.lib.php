@@ -1,14 +1,24 @@
-<?php # -$Id$
+<?php // $Id$
 
 /******************************************************************************
  * CLAROLINE
  ******************************************************************************
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
- * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package CLCOURSELIST
+ * @author Claro Team <cvs@claroline.net>
  ******************************************************************************/
 
 class category_browser
 {
+    /**
+     * constructor
+     *
+     * @param mixed $categoryCode null or valid category_code
+     * @param mixed $userId null or valid user_id
+     * @return category_browser object
+     */
     function category_browser($categoryCode = null, $userId = null)
     {
         $this->categoryCode = $categoryCode;
@@ -20,14 +30,14 @@ class category_browser
 
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
-                       COUNT( `cours`.`cours_id` ) `nbCourse`
-                FROM `".$tbl_courses_nodes."` `faculte`
+                       COUNT( `cours`.`cours_id` ) AS `nbCourse`
+                FROM `".$tbl_courses_nodes."` AS `faculte`
 
-                LEFT JOIN `".$tbl_courses_nodes."` `subCat`
+                LEFT JOIN `".$tbl_courses_nodes."` AS `subCat`
                        ON (`subCat`.`treePos` >= `faculte`.`treePos`
                       AND `subCat`.`treePos` <= (`faculte`.`treePos`+`faculte`.`nb_childs`) )
 
-                LEFT JOIN `".$tbl_courses."` `cours`
+                LEFT JOIN `".$tbl_courses."` AS `cours`
                        ON `cours`.`faculte` = `subCat`.`code` \n";
 
         if ($categoryCode)
@@ -47,39 +57,50 @@ class category_browser
         $this->categoryList = claro_sql_query_fetch_all($sql);
     }
 
+    /**
+     * @since 1.8
+     * @return array list of setting of the current category
+     */
     function get_current_category_settings()
     {
         if ($this->categoryCode) return $this->categoryList[0];
         else                     return null;
     }
 
+    /**
+     * @since 1.8
+     * @return array list of sub category of the current category
+     */
     function get_sub_category_list()
     {
         if ($this->categoryCode) return array_slice($this->categoryList, 1);
         else                     return $this->categoryList;
     }
 
+    /**
+     * @since 1.8
+     * @return array list of courses of the current category
+     */
     function get_course_list()
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_courses   = $tbl_mdb_names['course'];
         $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-
-        $sql = "SELECT intitule   title,
-                       titulaires titular,
-                       code       sysCode,
-                       fake_code  officialCode,
-                       directory,
-                       visible 
+        $sql = "SELECT intitule   AS title,
+                       titulaires AS titular,
+                       code       AS sysCode,
+                       fake_code  AS officialCode,
+                                     directory,
+                                     visible
                        "
-              .       ( $this->userId ? ", cu.user_id enrolled " : "")
+              .       ( $this->userId ? ", cu.user_id AS enrolled " : "")
 
-              . " FROM `".$tbl_courses."` c
+              . " FROM `".$tbl_courses."` AS c
                 "
-              . ($this->userId 
+              . ($this->userId
                  ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
-                           ON  `c`.`code`    = `cu`.`code_cours` 
+                           ON  `c`.`code`    = `cu`.`code_cours`
                           AND `cu`.`user_id` = " . (int) $this->userId . "
                    "
                  : " ")
@@ -87,17 +108,17 @@ class category_browser
               . "WHERE c.`faculte` = '".addslashes($this->categoryCode)."'
                  ORDER BY UPPER(c.fake_code)";
 
-        return claro_sql_query_fetch_all($sql); 
+        return claro_sql_query_fetch_all($sql);
     }
 }
 
 /**
- * search a specific course based on his course code
+ * Search a specific course based on his course code
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @param  string  $courseCode course code from the cours table
- * @param  int userId (optionnal)
+ * @param  string  $keyword course code from the cours table
+ * @param  mixed   $userId  null or valid id of a user (default:null)
  *
  * @return array    course parameters
  */
@@ -114,35 +135,42 @@ function search_course($keyword, $userId = null)
 
     $upperKeyword = addslashes(strtoupper($keyword));
 
-    $sql = 'SELECT c.intitule   AS title,
+    $sql = "SELECT c.intitule   AS title,
                    c.titulaires AS titular,
                    c.fake_code  AS officialCode,
-                   c.directory,
-                   c.code,
-                   c.visible '
+                   c.directory  AS directory,
+                   c.code       AS code,
+                   c.visible    AS visible"
 
-         .  ($userId ? ', cu.user_id AS enrolled ' : '')
+         .  ($userId ? ", cu.user_id AS enrolled " : "")
 
-         .  'FROM `' . $tbl_course . '` c '
+         .  "FROM `" . $tbl_course . "` c "
 
-         .  ($userId ? 'LEFT JOIN `'.$tbl_rel_course_user.'` cu
+         .  ($userId ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
                         ON  c.code = cu.code_cours
-                        AND cu.user_id = "' . (int) $userId . '"'
+                        AND cu.user_id = " . (int) $userId
 
-                     :  '') 
+                     :  "")
 
-         . 'WHERE (UPPER(fake_code)  LIKE "%'.$upperKeyword.'%"
-               OR  UPPER(intitule)   LIKE "%'.$upperKeyword.'%"
-               OR  UPPER(titulaires) LIKE "%'.$upperKeyword.'%")
+         . "WHERE (UPPER(fake_code)  LIKE '%" . $upperKeyword . "%'
+               OR  UPPER(intitule)   LIKE '%" . $upperKeyword . "%'
+               OR  UPPER(titulaires) LIKE '%" . $upperKeyword . "%')
 
-            ORDER BY officialCode';
+            ORDER BY officialCode";
 
     $courseList = claro_sql_query_fetch_all($sql);
 
     if (count($courseList) > 0) return $courseList;
     else                        return array() ;
-} // function search_course($keyword)
+}
 
+/**
+ * return the list of course of a user.
+ *
+ * @param int $userId valid id of a user
+ * @param boolean $renew whether true, force to read databaseingoring an existing cache.
+ * @return array (list of course) of array (course settings) of the given user.
+ */
 
 
 function get_user_course_list($userId, $renew = false)
@@ -157,20 +185,20 @@ function get_user_course_list($userId, $renew = false)
         $tbl_courses           = $tbl_mdb_names['course'         ];
         $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'];
 
-        $sql = "SELECT course.code           `sysCode`,
-                       course.directory      `directory`,
-                       course.fake_code      `officialCode`,
-                       course.dbName         `db`,
-                       course.intitule       `title`,
-                       course.titulaires     `titular`,
-                       course.languageCourse `language`,
-                       course_user.statut    `userSatus`
+        $sql = "SELECT course.code           AS `sysCode`,
+                       course.directory      AS `directory`,
+                       course.fake_code      AS `officialCode`,
+                       course.dbName         AS `db`,
+                       course.intitule       AS `title`,
+                       course.titulaires     AS `titular`,
+                       course.languageCourse AS `language`,
+                       course_user.statut    AS `userSatus`
 
                        FROM `" . $tbl_courses . "`           course,
                             `" . $tbl_link_user_courses . "` course_user
 
                        WHERE course.code         = course_user.code_cours
-                         AND course_user.user_id = '" . (int) $userId . "'";
+                         AND course_user.user_id = " . (int) $userId ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -183,9 +211,8 @@ function get_user_course_list($userId, $renew = false)
 
         $userCourseList = claro_sql_query_fetch_all($sql);
     }
-    
+
     return $userCourseList;
 }
-
 
 ?>
