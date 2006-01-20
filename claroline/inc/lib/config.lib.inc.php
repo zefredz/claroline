@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -301,7 +301,7 @@ class Config
 
         if ( isset($property_def['acceptedValueType']) )
         {
-            switch ( $property_def['acceptedValueType'] ) 
+            switch ( $property_def['acceptedValueType'] )
             {
                 case 'css':
                     $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
@@ -345,7 +345,7 @@ class Config
                 break;
 
             case 'enum' :
-            
+
                 if ( isset($acceptedValue) && is_array($acceptedValue) )
                 {
                     if ( !in_array($value, array_keys($acceptedValue)) )
@@ -669,7 +669,7 @@ class Config
         {
             $form .= '<p>' . $this->conf_def['description'] . '</p>' . "\n";
         }
-        
+
         // get section list
         $section_list = $this->get_def_section_list();
 
@@ -679,7 +679,7 @@ class Config
             {
                 $section_selected = current($section_list);
             }
-            
+
             // section array
             $section = $this->conf_def['section'][$section_selected];
 
@@ -692,7 +692,7 @@ class Config
 
             // display description of the section
             if ( !empty($section['description']) ) $form .= '<div><p><em>' . $section['description'] . '</em></p></div>';
-            
+
             $form .= '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
 
             // display each property of the section
@@ -729,7 +729,7 @@ class Config
                    . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
                    . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
                    . '</tr>' . "\n";
-            
+
             // display end form
             $form .= '</table>' . "\n"
                    . '</form>' . "\n";
@@ -870,7 +870,7 @@ class Config
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
                             break;
                     }
-                }                
+                }
 
                 // display property form element
 
@@ -905,8 +905,8 @@ class Config
                         {
                             $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>' . "\n"
                                 . '<td nowrap="nowrap">' ;
-                            
-                            if ( $total_accepted_value == 0 ) 
+
+                            if ( $total_accepted_value == 0 )
                             {
                                     $elt_form .= get_lang('Empty');
                             }
@@ -969,7 +969,7 @@ class Config
 
                         $elt_form .= '<td style="text-align: right" width="250">' . $html['label'] . '&nbsp;:</td>'
                             . '<td nowrap="nowrap">' . "\n";
-                        
+
                         $elt_form .= '<input type="hidden" name="'.$input_name.'" value="">' . "\n";
 
                         foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
@@ -1025,6 +1025,12 @@ class Config
     {
         $section_list = array();
 
+        if(!array_key_exists('section',$this->conf_def) || ($this->conf_def['section']))
+        {
+            $this->conf_def['section']['generic']['label'] = '+';
+            $this->conf_def['section']['generic']['properties'] = array_keys($this->conf_def_property_list);
+        }
+
         foreach ( $this->conf_def['section'] as $id => $section )
         {
             if ( ! isset($section['display']) || $section['display'] != false )
@@ -1032,6 +1038,7 @@ class Config
                 $section_list[] = $id ;
             }
         }
+
 
         return $section_list ;
     }
@@ -1043,10 +1050,10 @@ class Config
     function display_section_menu($section_selected)
     {
         $menu = '';
-    
+
         $section_list = $this->get_def_section_list();
 
-        if ( !empty($section_list) )
+        if ( !empty($section_list) && count($section_list)>2)
         {
             if ( empty($section_selected) || ! in_array($section_selected,$section_list) )
             {
@@ -1059,11 +1066,11 @@ class Config
             foreach ( $section_list as $section )
             {
                 $menu .=  '<li>'
-                    . '<a ' . ( $section == $section_selected ? 'class="current"' : '' ) 
-                    . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) 
+                    . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
+                    . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
                     . '&section=' . htmlspecialchars($section) . '">'
                     . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
-            } 
+            }
             $menu .= '</ul>' . "\n"
                 . '</div>' . "\n" ;
         }
