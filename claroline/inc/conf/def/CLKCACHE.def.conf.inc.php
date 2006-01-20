@@ -34,7 +34,7 @@ $conf_def_property_list['cache_lifeTime']
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ( 'min'=>2
-                                  , 'max'=>25000
+                                  , 'max'=>3600*365*24
                                   )
         );
 
