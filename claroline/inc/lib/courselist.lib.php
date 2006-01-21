@@ -25,8 +25,8 @@ class category_browser
         $this->userId       = $userId;
 
         $tbl_mdb_names         = claro_sql_get_main_tbl();
-        $tbl_courses           = $tbl_mdb_names['course'         ];
-        $tbl_courses_nodes     = $tbl_mdb_names['category'       ];
+        $tbl_courses           = $tbl_mdb_names['course'  ];
+        $tbl_courses_nodes     = $tbl_mdb_names['category'];
 
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
@@ -57,7 +57,7 @@ class category_browser
         $this->categoryList = claro_sql_query_fetch_all($sql);
     }
 
-    /**
+        /**
      * @since 1.8
      * @return array list of setting of the current category
      */
@@ -126,8 +126,8 @@ class category_browser
 function search_course($keyword, $userId = null)
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
-    $tbl_course           = $tbl_mdb_names['course'           ];
-    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+    $tbl_course           = $tbl_mdb_names['course'         ];
+    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
 
     $keyword = trim($keyword);
 
@@ -142,16 +142,16 @@ function search_course($keyword, $userId = null)
                    c.code       AS code,
                    c.visible    AS visible"
 
-         .  ($userId ? ", cu.user_id AS enrolled " : " ")
-
+         .  ($userId ? ", cu.user_id AS enrolled" : "")
+         . " \n "
          .  "FROM `" . $tbl_course . "` c "
-
+         . " \n "
          .  ($userId ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
                         ON  c.code = cu.code_cours
                         AND cu.user_id = " . (int) $userId
 
                      :  "")
-
+         . " \n "
          . "WHERE (UPPER(fake_code)  LIKE '%" . $upperKeyword . "%'
                OR  UPPER(intitule)   LIKE '%" . $upperKeyword . "%'
                OR  UPPER(titulaires) LIKE '%" . $upperKeyword . "%')
@@ -170,16 +170,17 @@ function search_course($keyword, $userId = null)
  * @param int $userId valid id of a user
  * @param boolean $renew whether true, force to read databaseingoring an existing cache.
  * @return array (list of course) of array (course settings) of the given user.
+ * @todo search and merge other instance of this functionality
  */
 
 
 function get_user_course_list($userId, $renew = false)
 {
-    static $uid = null, $userCourseList = null;
+    static $cached_uid = null, $userCourseList = null;
 
-    if ($uid != $userId || is_null($userCourseList) || $renew)
+    if ($cached_uid != $userId || is_null($userCourseList) || $renew)
     {
-        $uid = $userId;
+        $cached_uid = $userId;
 
         $tbl_mdb_names         = claro_sql_get_main_tbl();
         $tbl_courses           = $tbl_mdb_names['course'         ];
@@ -194,11 +195,11 @@ function get_user_course_list($userId, $renew = false)
                        course.languageCourse AS `language`,
                        course_user.statut    AS `userSatus`
 
-                       FROM `" . $tbl_courses . "`           course,
-                            `" . $tbl_link_user_courses . "` course_user
+                       FROM `" . $tbl_courses . "`           AS course,
+                            `" . $tbl_link_user_courses . "` AS course_user
 
                        WHERE course.code         = course_user.code_cours
-                         AND course_user.user_id = " . (int) $userId ;
+                         AND course_user.user_id = " . (int) $userId . " \n " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
