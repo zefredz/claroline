@@ -32,11 +32,11 @@ function delete_directory($dir)
 
       while($entryname = readdir($current_dir))
       {
-         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname!=".."))
+         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname != '..'))
          {
                delete_directory("${dir}/${entryname}");
          }
-        elseif($entryname != "." && $entryname!="..")
+        elseif($entryname != '.' && $entryname != '..')
         {
                unlink("${dir}/${entryname}");
          }
@@ -51,6 +51,7 @@ function delete_directory($dir)
   * Create a command to create a selectBox with the language
   * @param string $selected the language selected
   * @return the command to create the selectBox
+  * @todo merge this with  claro_disp_select_box
   */
 
 function create_select_box_language($selected=NULL)
@@ -69,7 +70,7 @@ function create_select_box_language($selected=NULL)
         if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries] != '' && $langNameOfLang[$entries] != $entries)
             $selectBox .= ' - ' . $langNameOfLang[$entries];
 
-        $selectBox.="</option>\n";
+        $selectBox .= '</option>' . "\n";
     }
 
     return $selectBox;
@@ -82,7 +83,7 @@ function create_select_box_language($selected=NULL)
 function language_exists()
 {
     global $clarolineRepositorySys;
-    $dirname = $clarolineRepositorySys.'lang/';
+    $dirname = $clarolineRepositorySys . 'lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
         $dirname.='/';
@@ -100,7 +101,7 @@ function language_exists()
         //else it is a repertory of a language
         if (is_dir($dirname.$entries))
         {
-            $arrayLanguage[]=$entries;
+            $arrayLanguage[] = $entries;
         }
     }
     closedir($handle);
@@ -123,17 +124,17 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
     $tbl_category        = $tbl_mdb_names['category'];
 
     $sql = " SELECT code, code_P, name, canHaveCoursesChild
-               FROM `".$tbl_category."`
+               FROM `" . $tbl_category . "`
                ORDER BY `name`";
     $result = claro_sql_query($sql);
     // first we get the categories available in DB from the SQL query result in parameter
 
     while ($myfac = mysql_fetch_array($result))
     {
-        $categories[$myfac["code"]]["code"]   = $myfac["code"];
-        $categories[$myfac["code"]]["parent"] = $myfac["code_P"];
-        $categories[$myfac["code"]]["name"]   = $myfac["name"];
-        $categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
+        $categories[$myfac['code']]['code']   = $myfac['code'];
+        $categories[$myfac['code']]['parent'] = $myfac['code_P'];
+        $categories[$myfac['code']]['name']   = $myfac['name'];
+        $categories[$myfac['code']]['childs'] = $myfac['canHaveCoursesChild'];
     }
 
     // then we build the table we need : full path of editable cats in an array
