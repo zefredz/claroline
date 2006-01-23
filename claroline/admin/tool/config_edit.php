@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * This tool is write to edit setting  of  claroline.
+ * This tool is write to edit setting of Claroline.
  *
  * In the old claroline, there was a central config file
  * in next release a conf repository
@@ -41,7 +41,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -137,10 +137,10 @@ else
     $config_code = trim($_REQUEST['config_code']);
 
     // new config object
-    $config = new Config($config_code);    
+    $config = new Config($config_code);
 
     // load configuration
-    if ( $config->load() ) 
+    if ( $config->load() )
     {
         $section = isset($_REQUEST['section'])?$_REQUEST['section']:null;
 
@@ -149,7 +149,7 @@ else
 
         // init config name
         $config_name = $config->config_code;
-        
+
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
         {
             if ( $_REQUEST['cmd'] == 'save')
@@ -161,7 +161,7 @@ else
                     {
                         // save config file
                         $config->save();
-                        $message[] = sprintf( get_lang('_p_PropForConfigCommited'), $config_name, $config_code);; 
+                        $message[] = sprintf( get_lang('_p_PropForConfigCommited'), $config_name, $config_code);;
                     }
                     else
                     {
@@ -214,7 +214,7 @@ $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administr
 $interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'name' => get_lang('Configuration'));
 
 // display claroline header
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
 echo claro_disp_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
@@ -226,7 +226,7 @@ if ( ! empty($message) )
 }
 
 // display edition form
-if ( !empty($form) ) 
+if ( !empty($form) )
 {
     echo $form ;
 }
