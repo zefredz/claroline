@@ -2,6 +2,7 @@
 
 
 require '../inc/claro_init_global.inc.php';
+require_once $includePath . '/lib/fileManage.lib.php';
 
 if ($_gid && $is_groupAllowed)
 {
@@ -61,7 +62,9 @@ if ($cmd ==  'rqMkHtml' )
 }
 elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 {
-    $fileContentList = file($baseWorkDir.$_REQUEST['file']);
+    $fileContent = implode("\n",file($baseWorkDir.$_REQUEST['file']));
+
+    $fileContent = get_html_body_content($fileContent)
       
     ?><form action="document.php" method="post">
     <input type="hidden" name="cmd" value="exEditHtml">
@@ -72,7 +75,7 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     <p>
     <b><?php echo get_lang('DocumentContent') ?></b>
     <?php
-    echo claro_disp_html_area('htmlContent', implode("\n", $fileContentList));
+    echo claro_disp_html_area('htmlContent', $fileContent );
     ?>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>">
     <?php echo claro_disp_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
