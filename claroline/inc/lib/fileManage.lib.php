@@ -805,7 +805,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
 function get_html_body_content($html)
 {
-    $body_open_pattern = '/<body[^<>]+>/';
+    $body_open_pattern = '/<body[^<>]*>/';
     $body_close_pattern = '/<\/body>/';
 
     // remove html before <body>
