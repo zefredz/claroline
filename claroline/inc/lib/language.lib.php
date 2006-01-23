@@ -13,11 +13,13 @@
  *
  */
 
+define( 'LANG_KEY_DELIMITER', '%' );
+
 /**
  * Get the translation of the string
  * 
  * @param $name string name
- * @param $var_to_remplace array with variables to replace
+ * @param $var_to_remplace array with variables to replace in translation
  *
  * @return string translation 
  *
@@ -27,27 +29,38 @@ function get_lang ($name,$var_to_replace=null)
 {
     global $_lang;
    
+    $translation  = '';
+
     if ( isset($_lang[$name]) )
     {
-        if ( !empty($var_to_replace) && is_array($var_to_replace) )
-        {
-            $search = array_keys($var_to_replace);
-            $replace = array_values($var_to_replace);
-           
-            // return translation with replacement
-            return str_replace($search,$replace,$lang[$name]); 
-        }
-        else
-        {
-            // return translation
-            return $_lang[$name];
-        }
+        $translation = $_lang[$name];
     }
     else
     {
         // missing translation
-        return $name;
+        $translation = $name;
     }
+    
+    if ( !empty($var_to_replace) && is_array($var_to_replace) )
+    {
+        $search = array_keys($var_to_replace);
+        array_walk($search,'lang_mk_key_delimiter');
+        $replace = array_values($var_to_replace);
+       
+        // return translation with replacement
+        return str_replace($search,$replace,$translation); 
+    }
+    else
+    {
+        // return translation
+        return $translation;
+    }
+
+}
+    
+function lang_mk_key_delimiter(&$string)
+{        
+    $string = LANG_KEY_DELIMITER . $string . LANG_KEY_DELIMITER ;
 }
 
 /**
