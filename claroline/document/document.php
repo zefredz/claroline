@@ -422,6 +422,14 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                             CREATE DOCUMENT : STEP 2
       ------------------------------------------------------------------------*/
 
+    $htmlContentHeader = '<html>' . "\n"
+        . '<head>' . "\n"
+        . '<meta http-equiv="Content-Type" content="text/HTML; charset=' . $charset . '"  />' . "\n"
+        . '</head>' . "\n"
+        . '<body>' . "\n";
+
+    $htmlContentFooter = '</body></html>';
+
     if ($cmd == 'exMkHtml')
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
@@ -437,8 +445,10 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
+            $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
+
             create_file($baseWorkDir.$_REQUEST['cwd'].'/'.$fileName,
-                        $_REQUEST['htmlContent']);
+                        $htmlContent);
 
             $eventNotifier->notifyCourseEvent("document_htmlfile_created",$_cid, $_tid, $_REQUEST['cwd'].'/'.$fileName, $_gid, "0");
             $dialogBox .= get_lang('FileCreated');
@@ -478,7 +488,9 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         if ($fp)
         {
-            if ( fwrite($fp, $_REQUEST['htmlContent']) )
+            $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
+
+            if ( fwrite($fp, $htmlContent) )
             {
                 $eventNotifier->notifyCourseEvent("document_htmlfile_edited",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
                                 $dialogBox .= get_lang('FileContentModified')."<br />";
