@@ -13,6 +13,15 @@
  *
  */
 
+/**
+ * Get the translation of the string
+ * 
+ * @param $name string name
+ * @param $var_to_remplace array with variables to replace
+ *
+ * @return string translation 
+ *
+ */
 
 function get_lang ($name,$var_to_replace=null)
 {
@@ -20,16 +29,56 @@ function get_lang ($name,$var_to_replace=null)
    
     if ( isset($_lang[$name]) )
     {
-        // return translation
-        return $_lang[$name];
+        if ( !empty($var_to_replace) && is_array($var_to_replace) )
+        {
+            $search = array_keys($var_to_replace);
+            $replace = array_values($var_to_replace);
+           
+            // return translation with replacement
+            return str_replace($search,$replace,$lang[$name]); 
+        }
+        else
+        {
+            // return translation
+            return $_lang[$name];
+        }
     }
     else
     {
         // missing translation
         return $name;
     }
-
 }
+
+/**
+ * Get the translation of the block
+ * 
+ * @param $name block name
+ * @param $var_to_remplace array with variables to replace
+ *
+ * @return block translation 
+ *
+ */
+
+function get_block ($name,$var_to_replace=null)
+{
+    if ( !empty($var_to_replace) && is_array($var_to_replace) )
+    {
+        return get_lang($name,$var_to_replace);
+    }
+    else
+    {
+        return get_lang($name);
+    }
+}
+
+/**
+ * Load the global array ($_lang) with all translations of the language
+ * 
+ * @param $language language
+ * @param $mode TRANSLATION, PRODUCTION
+ *
+ */
 
 function load_language_translation ($language,$mode)
 {
