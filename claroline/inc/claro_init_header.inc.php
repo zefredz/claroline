@@ -48,7 +48,7 @@ $titlePage .= $siteName;
 
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-
+<meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo $charset; ?>"  />
 
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/compatible.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="screen, projection, tv" />
@@ -56,7 +56,7 @@ $titlePage .= $siteName;
 
 
 <link rel="top" href="<?php echo $rootWeb ?>index.php" title="" />
-<link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo get_lang('OtherCourses') ?>" />
+<link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo get_lang('Course list') ?>" />
 <link rel="profil" href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" title="<?php echo get_lang('My User Account') ?>" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
