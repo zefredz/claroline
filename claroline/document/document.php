@@ -52,6 +52,7 @@ if ( ! $_cid || ! $is_courseAllowed) claro_disp_auth_form(true);
  */
 
 require_once $includePath . '/lib/image.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
 
 
 /*
@@ -240,7 +241,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                     default:
                         $dialogBox .= 'File upload failed.';
                 }
-                
+
             }
 
             //notify that a new document has been uploaded
@@ -1160,36 +1161,12 @@ if ($cmd == 'exSearch' && $courseContext)
         }
     }
 
-
     $filePathList = array_unique( array_merge($filePathList, $dbSearchResult['path']) );
 }
 
+$fileList = array();
 
 if ( count($filePathList) > 0 )
-{
-    define('A_DIRECTORY', 1);
-    define('A_FILE',      2);
-
-    foreach($filePathList as $thisFile)
-    {
-        $fileList['path'][] = $thisFile;
-
-        if( is_dir($baseWorkDir.$thisFile) )
-        {
-            $fileList['type'][] = A_DIRECTORY;
-            $fileList['size'][] = false;
-            $fileList['date'][] = false;
-        }
-        elseif( is_file($baseWorkDir.$thisFile) )
-        {
-            $fileList['type'][] = A_FILE;
-            $fileList['size'][] = claro_get_file_size($baseWorkDir.$thisFile);
-            $fileList['date'][] = filectime($baseWorkDir.$thisFile);
-        }
-    }
-}
-
-if (isset($courseContext) && ($courseContext != false) && isset($fileList))
 {
     /*--------------------------------------------------------------------------
                  SEARCHING FILES & DIRECTORIES INFOS ON THE DB
@@ -1199,50 +1176,63 @@ if (isset($courseContext) && ($courseContext != false) && isset($fileList))
      * Search infos in the DB about the current directory the user is in
      */
 
-    $sql = "SELECT `path`, `visibility`, `comment`
-            FROM `".$dbTable."`
-            WHERE path IN ('".implode("', '", array_map('addslashes', $fileList['path']) )."')";
-
-    $attributeList = claro_sql_query_fetch_all_cols($sql);
-
-
-    /*
-     * Make the correspondance between info given by the file system
-     * and info given by the DB
-     */
-
-    foreach($fileList['path'] as $thisFile)
+    if ($courseContext)
     {
-        $keyAttribute = array_search($thisFile, $attributeList['path']);
+        $sql = "SELECT `path`, `visibility`, `comment`
+                FROM `".$dbTable."`
+                WHERE path IN ('".implode("', '", array_map('addslashes', $filePathList) )."')";
 
-        if ($keyAttribute !== false)
+        $xtraAttributeList = claro_sql_query_fetch_all_cols($sql);
+    }
+    else
+    {
+        $xtraAttributeList = array('path' => array(), 'visibility'=> array(), 'comment' => array() );
+    }
+
+
+    define('A_DIRECTORY', 1);
+    define('A_FILE',      2);
+
+    foreach($filePathList as $thisFile)
+    {
+        $fileAttributeList['path'] = $thisFile;
+
+        if( is_dir($baseWorkDir.$thisFile) )
         {
-            $fileList['comment'   ][] = $attributeList['comment'   ][$keyAttribute];
-            $fileList['visibility'][] = $attributeList['visibility'][$keyAttribute];
+            $fileAttributeList['type'] = A_DIRECTORY;
+            $fileAttributeList['size'] = false;
+            $fileAttributeList['date'] = false;
+        }
+        elseif( is_file($baseWorkDir.$thisFile) )
+        {
+            $fileAttributeList['type'] = A_FILE;
+            $fileAttributeList['size'] = claro_get_file_size($baseWorkDir.$thisFile);
+            $fileAttributeList['date'] = filectime($baseWorkDir.$thisFile);
+        }
 
-            /*
-             * Progressively unset the attribut to be able to check at the
-             * end if it remains unassigned attribute - which should mean
-             * there is  base integrity problem
-             */
+        $xtraAttributeKey = array_search($thisFile, $xtraAttributeList['path']);
 
-            unset ($attributeList['comment'   ][$keyAttribute],
-                   $attributeList['visibility'][$keyAttribute],
-                   $attributeList['path'      ][$keyAttribute]);
+        if ($xtraAttributeKey !== false)
+        {
+            $fileAttributeList['comment'   ] = $xtraAttributeList['comment'   ][$xtraAttributeKey];
+            $fileAttributeList['visibility'] = $xtraAttributeList['visibility'][$xtraAttributeKey];
+
+            unset( $xtraAttributeList['path'][$xtraAttributeKey] );
         }
         else
         {
-            $fileList['comment'   ][] = false;
-            $fileList['visibility'][] = false;
+            $fileAttributeList['comment'   ] = null;
+            $fileAttributeList['visibility'] = null;
         }
-    }  // end foreach fileList[name] as thisFile
 
+        $fileList[] = $fileAttributeList;
+    } // end foreach $filePathList
 
     /*------------------------------------------------------------------------
                               CHECK BASE INTEGRITY
       ------------------------------------------------------------------------*/
 
-    if ( count($attributeList['path']) > 0 )
+    if ( count($xtraAttributeList['path']) > 0 )
     {
         $sql = "DELETE FROM `".$dbTable."`
                 WHERE `path` IN ( \"".implode("\" , \"" , $attributeList['path'])."\" )";
@@ -1258,32 +1248,17 @@ if (isset($courseContext) && ($courseContext != false) && isset($fileList))
 
     }    // end if sizeof($attribute['path']) > 0
 
-} // end if courseContext
+} // end if count ($filePathList) > 0
 
 
+$defaultSortkeyList = array('type', 'path', 'date', 'size', 'visibility');
+$fileLister = new claro_array_pager($fileList, 0, 1000);
+foreach ($defaultSortkeyList as $thisSortkey) $fileLister->add_sort_key($thisSortkey, SORT_ASC);
+if ( isset($_GET['sort']) ) $fileLister->set_sort_key($_GET['sort'], $_GET['dir']);
 
-/*----------------------------------------------------------------------------
-                       SORT ALPHABETICALLY THE FILE LIST
-  ----------------------------------------------------------------------------*/
+$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.urlencode($curDirPath) );
 
-if (isset($fileList))
-{
-    if ($courseContext)
-    {
-        array_multisort($fileList['type'   ], $fileList['path'      ],
-                        $fileList['size'   ], $fileList['date'      ],
-                        $fileList['comment'], $fileList['visibility']);
-    }
-    else
-    {
-        array_multisort($fileList['type'], $fileList['path'],
-                        $fileList['size'], $fileList['date']);
-    }
-}
-
-unset($attribute);
-
-
+$fileList = $fileLister->get_result_list();
 
 
       /* > > > > > > END: COMMON TO TEACHERS AND STUDENTS < < < < < < <*/
@@ -1454,13 +1429,10 @@ echo claro_disp_tool_title($titleElement,
             $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
         }
 
-        // compute relative url for requested image
-        //$fileUrl = $fileName;
-
         // get requested image key in fileList
-        $imgKey = image_search( $file, $fileList );
+        $imgKey = image_search( $file, $filePathList );
 
-          $current = get_current_index($imageList, $imgKey);
+        $current = get_current_index($imageList, $imgKey);
 
         $offset = "&amp;offset=" . $current;
 
@@ -1911,9 +1883,10 @@ echo claro_disp_tool_title($titleElement,
 
         echo "<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
 
-        echo "<th>".get_lang('Name')."</th>\n"
-            ."<th>".get_lang('Size')."</th>\n"
-            ."<th>".get_lang('Date')."</th>\n";
+        echo '<th><a href="'.$sortUrlList['path'].'">'.get_lang('Name').'</a></th>' . "\n"
+        .    '<th><a href="'.$sortUrlList['size'].'">'.get_lang('Size').'</a></th>' . "\n"
+        .    '<th><a href="'.$sortUrlList['date'].'">'.get_lang('Date').'</a></th>' . "\n"
+        ;
 
         if ($is_allowedToEdit)
         {
@@ -1948,16 +1921,16 @@ echo claro_disp_tool_title($titleElement,
 
                 if (isset($fileList))
         {
-            foreach($fileList['path'] as $fileKey => $fileName )
+            foreach($fileList as $thisFile )
             {
                 // Note. We've switched from 'each' to 'foreach', as 'each' seems to
                 // poses problems on PHP 4.1, when the array contains only
                 // a single element
 
-                $dspFileName = htmlspecialchars( basename($fileName) );
-                $cmdFileName = rawurlencode($fileName);
+                $dspFileName = htmlspecialchars( basename($thisFile['path']) );
+                $cmdFileName = rawurlencode($thisFile['path']);
 
-                if (isset($fileList['visibility']) && $fileList['visibility'][$fileKey] == 'i')
+                if ( $thisFile['visibility'] == 'i')
                 {
                     if ($is_allowedToEdit)
                     {
@@ -1975,7 +1948,7 @@ echo claro_disp_tool_title($titleElement,
 
                 //modify style if the file is recently added since last login
 
-                if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $fileName))
+                if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisFile['path']))
                 {
                     $classItem=' hot';
                 }
@@ -1985,11 +1958,11 @@ echo claro_disp_tool_title($titleElement,
                 }
 
 
-                if ($fileList['type'][$fileKey] == A_FILE)
+                if ($thisFile['type'] == A_FILE)
                 {
-                    $image       = choose_image($fileName);
-                    $size        = format_file_size($fileList['size'][$fileKey]);
-                    $date        = format_date($fileList['date'][$fileKey]);
+                    $image       = choose_image($thisFile['path']);
+                    $size        = format_file_size($thisFile['size']);
+                    $date        = format_date($thisFile['date']);
 
                     if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
                         && get_conf('secureDocumentDownload') )
@@ -2008,7 +1981,7 @@ echo claro_disp_tool_title($titleElement,
 
                     $target = ( get_conf('openNewWindowForDoc') ? 'target="_blank"' : '');
                 }
-                elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
+                elseif ($thisFile['type'] == A_DIRECTORY)
                 {
                     $image       = 'folder.gif';
                     $size        = '&nbsp;';
@@ -2021,10 +1994,10 @@ echo claro_disp_tool_title($titleElement,
                 echo "<tr align=\"center\">\n"
                     ."<td align=\"left\">";
 
-                if( is_image( $fileName ) )
+                if( is_image( $thisFile['path'] ) )
                 {
                     echo "<a class=\"".$style." item".$classItem."\" href=\"". $_SERVER['PHP_SELF'],
-                        "?docView=image&amp;file=" . urlencode($fileName) . "&cwd="
+                        "?docView=image&amp;file=" . urlencode($thisFile['path']) . "&cwd="
                         . $curDirPath . $searchCmdUrl ."\">";
                 }
                 else
@@ -2077,7 +2050,7 @@ echo claro_disp_tool_title($titleElement,
                     {
                         /* PUBLISH COMMAND */
 
-                        if ($fileList['type'][$fileKey] == A_FILE)
+                        if ($thisFile['type'] == A_FILE)
                         {
                             echo "<a href=\"../work/work.php?"
                                 ."submitGroupWorkUrl=".$groupDir.$cmdFileName."\">"
@@ -2090,7 +2063,7 @@ echo claro_disp_tool_title($titleElement,
                     {
                         /* VISIBILITY COMMAND */
 
-                        if ($fileList['visibility'][$fileKey] == "i")
+                        if ($thisFile['visibility'] == "i")
                         {
                             echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&amp;file=",$cmdFileName,"&amp;vis=v\">"
                                 ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".get_lang('Make visible')."\">"
@@ -2111,15 +2084,15 @@ echo claro_disp_tool_title($titleElement,
 
                 /* COMMENTS */
 
-                if (isset($fileList['comment']) && $fileList['comment'][$fileKey] != '' )
+                if ( $thisFile['comment'] != '' )
                 {
-                    $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
-                    $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
+                    $thisFile['comment'] = htmlspecialchars($thisFile['comment']);
+                    $thisFile['comment'] = claro_parse_user_text($thisFile['comment']);
 
                     echo "<tr align=\"left\">\n"
                         ."<td colspan=\"$colspan\">"
                         ."<div class=\"comment\">"
-                        .$fileList['comment'][$fileKey]
+                        .$thisFile['comment']
                         ."</div>"
                         ."</td>\n"
                         ."</tr>\n";

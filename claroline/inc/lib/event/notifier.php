@@ -360,8 +360,8 @@ class Notifier extends EventDriven
     function is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $ressourceId,$setAsViewed=TRUE)
     {
         global $_courseTool;
-        global $fileList, $fileKey; //needed for the document tool
-
+        // global $fileList, $fileKey; //needed for the document tool
+        global $thisFile;
         $keysStrings = $_cid . ':' . $_tid . ':' . $_gid . ':';
 
         // see if the ressource is new AND not consulted yet
@@ -373,7 +373,7 @@ class Notifier extends EventDriven
 
         //deal with specific case of folders in document tool
 
-        if (($_courseTool['label'] == 'CLDOC___') && ($fileList['type'][$fileKey] == A_DIRECTORY))
+        if (($_courseTool['label'] == 'CLDOC___') && ($thisFile['type'] == A_DIRECTORY))
         {
             $ressourceList = $this->toolNotifiedRessourceList;
 

@@ -18,7 +18,7 @@
     /*============================================================================
                             IMAGE MANIPULATION LIBRARY
       ============================================================================*/
-    
+
     /**
     * @private allowedImageTypes
     */
@@ -50,9 +50,9 @@
         else
         {
             $words = preg_split( "~\s~", $str );
-            
+
             $ret = "";
-            
+
             foreach( $words as $word )
             {
                 if( strlen( $ret . $word ) + 1 <= $length + $extra_length )
@@ -65,12 +65,12 @@
                     break;
                 }
             }
-            
+
             return $ret;
         }
     }
-     
-     
+
+
     /**
     * identifies images (i.e. if file extension is an allowed image extension)
     *
@@ -84,7 +84,7 @@
     function is_image($fileName)
     {
         global $allowedImageTypes;
-         
+
         // if file extension is an allowed image extension
         if (preg_match("/\.(" . $allowedImageTypes . ")$/i", $fileName))
         {
@@ -95,7 +95,7 @@
             return false;
         }
     }
-     
+
     /**
     * get image list from fileList
     *
@@ -108,22 +108,22 @@
     function get_image_list($fileList, $allowed = false)
     {
         $imageList = array();
-         
+
         if (is_array($fileList))
         {
-            foreach($fileList['path'] as $num => $value)
+            foreach($fileList as $numKey => $thisFile)
             {
-                if (is_image($value )
-                    && ( ( isset($fileList['visibility']) && $fileList['visibility'][$num] != 'i' ) || $allowed))
+                if (is_image( $thisFile['path'] )
+                    && ( ( $thisFile['visibility'] != 'i' ) || $allowed))
                 {
-                    $imageList[] = $num;
+                    $imageList[] = $numKey;
                 }
             }
         }
-         
+
         return $imageList;
     }
-     
+
     /**
     * get image color depth from image info
     *
@@ -137,7 +137,7 @@
         $info = getimagesize($img);
         return $info['bits'];
     }
-     
+
     // THE EVIL NASTY ONE !
     /**
     * create thumbnails end return html code to display it
@@ -161,14 +161,14 @@
         global $coursesRepositoryWeb;
         global $coursesRepositorySys;
         global $courseDir;
-         
+
         $imgPath = $coursesRepositorySys 
             . $courseDir
             . $file
             ;
-         
+
         list($width, $height, $type, $attr) = getimagesize($imgPath);
-         
+
         if ($width > $thumbWidth)
         {
             $newHeight = round($height * $thumbWidth / $width);
@@ -178,7 +178,7 @@
             $thumbWidth = $width;
             $newHeight = $height;
         }
-         
+
         $fileUrl = $file;
 
         if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
@@ -200,18 +200,18 @@
             . "\" " . $title . " alt=\"" 
             . $file . "\" />\n"
             ;
-         
+
     }
-    
-    function image_search($file, $fileList)
+
+    function image_search($file, $filePathList)
     {
-        return array_search( $file, $fileList['path'] );
+        return array_search( $file, $filePathList );
     }
-     
+
     /*-------------------------------------------------------------------------------
                                  FUNCTIONS FOR IMAGE VIEWER
       -------------------------------------------------------------------------------*/
-     
+
     /**
     * get the index of the current image in imageList from its index in fileList
     *
@@ -226,7 +226,7 @@
         $index = array_search($fileIndex, $imageList);
         return $index;
     }
-     
+
     /**
     * return true if there one or more image after the current image in imageList
     *
@@ -240,7 +240,7 @@
     {
         return (($index >= 0) && ($index < (count($imageList) - 1 )));
     }
-     
+
     /**
     * return true if there one or more image before the current image in imageList
     *
@@ -254,7 +254,7 @@
     {
         return (($index > 0) && (count($imageList) > 0));
     }
-     
+
     /**
     * return the index of the next image in imageList
     *
@@ -270,7 +270,7 @@
         return $imageList[$index + 1];
         // @post return next index in imageList
     }
-     
+
     /**
     * return the index of the previous image in imageList
     *
@@ -287,7 +287,7 @@
         return $imageList[$index - 1];
         // @post return previous index in imageList
     }
-     
+
     /**
     * display link and thumbnail of previous image
     * TODO : see if this function can be merge with display_link_to_next_image
@@ -303,32 +303,32 @@
     {
         global $curDirPath;
         global $searchCmdUrl;
-         
+
         // get previous image
         $prevStyle = 'prev';
-         
+
         if (has_previous_image($imageList, $current))
         {
             $prev = get_previous_image_index($imageList, $current);
-             
-            $prevName = $fileList['path'][$prev];
-             
-            if (isset( $fileList['visibility'] ) && $fileList['visibility'][$prev] == 'i')
+
+            $prevName = $fileList[$prev]['path'];
+
+            if ($fileList[$prev]['visibility'] == 'i')
             {
                 $prevStyle = 'prev invisible';
             }
-             
+
             echo "<th class=\"". $prevStyle 
                 . "\" width=\"30%\">\n"
                 ;
-             
+
             echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?docView=image&file="
                 . urlencode($prevName) . "&cwd=" . $curDirPath
                 . $searchCmdUrl . "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
                 ;
-                
+
             echo "<br /><br />\n";
-             
+
             // display thumbnail
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
                 . "?docView=image&file=" . urlencode($prevName)
@@ -336,7 +336,7 @@
                 . create_thumbnail($prevName, get_conf('thumbnailWidth'))
                 ."</a>\n"
                 ;
-             
+
             echo "</th>\n";
         }
         else
@@ -346,7 +346,7 @@
                 ;
         } // end if has previous image
     }
-     
+
     /**
     * display link and thumbnail of next image
     * TODO : see if this function can be merge with display_link_to_previous_image
@@ -362,31 +362,31 @@
     {
         global $curDirPath;
         global $searchCmdUrl;
-         
+
         // get next image
         $nextStyle = 'next';
-         
+
         if (has_next_image($imageList, $current))
         {
             $next = get_next_image_index($imageList, $current);
-             
-            $nextName = $fileList['path'][$next];
-             
-            if ( isset( $fileList['visibility'] ) && $fileList['visibility'][$next] == 'i')
+
+            $nextName = $fileList[$next]['path'];
+
+            if ( $fileList[$next]['visibility'] == 'i')
             {
                 $nextStyle = 'next invisible';
             }
-             
+
             echo "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
-             
+
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
                 . "?docView=image&file=" . urlencode($nextName)
                 . "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
                 . "&nbsp;&gt;&gt;</a>\n"
                 ;
-                
+
             echo "<br /><br />\n";
-             
+
             // display thumbnail
             echo "<a href=\"" . $_SERVER['PHP_SELF'] 
                 . "?docView=image&file=" . urlencode($nextName)
@@ -394,7 +394,7 @@
                 . create_thumbnail($nextName, get_conf('thumbnailWidth') )
                 . "</a>\n"
                 ;
-             
+
             echo "</th>\n";
         }
         else
@@ -403,14 +403,14 @@
             echo "<!-- empty -->\n";
             echo "</th>\n";
         } // enf if previous image
-         
+
     }
-     
-     
+
+
     /*-------------------------------------------------------------------------------
                             FUNCTIONS FOR THUMBNAILS VIEWER
       -------------------------------------------------------------------------------*/
-     
+
     /**
     * return true if there are one or more pages left to display after the current one
     *
@@ -423,7 +423,7 @@
     {
         $numberOfCols = get_conf('numberOfCols');
         $numberOfRows = get_conf('numberOfRows');
-         
+
         if (($page * $numberOfCols * $numberOfRows) < count($imageList))
         {
             return true;
@@ -433,7 +433,7 @@
             return false;
         }
     }
-     
+
     /**
     * return true if there one or more pages left to display before the current one
     *
@@ -446,7 +446,7 @@
     {
         return ($page != 1 && count($imageList) != 0);
     }
-     
+
     /**
     * return the index of the first image of the given page in imageList
     *
@@ -458,7 +458,7 @@
     {
         $numberOfCols = get_conf('numberOfCols');
         $numberOfRows = get_conf('numberOfRows');
-         
+
         if ($page == 1)
         {
             $offset = 0;
@@ -467,10 +467,10 @@
         {
             $offset = (($page - 1) * $numberOfCols * $numberOfRows);
         }
-         
+
         return $offset;
     }
-     
+
     /**
     * return the number of the page on which the image is located
     *
@@ -482,12 +482,12 @@
     {
         $numberOfCols = get_conf('numberOfCols');
         $numberOfRows = get_conf('numberOfRows');
-         
+
         $page = floor($offset / ($numberOfCols * $numberOfRows)) + 1;
-         
+
         return $page;
     }
-     
+
     /**
     * display a page of thumbnails
     *
@@ -506,26 +506,26 @@
     {
         global $curDirPath;
         global $searchCmdUrl;
-         
+
         // get index of first thumbnail on the page
         $displayed = get_offset($page);
-         
+
         // loop on rows
         for($rows = 0; $rows < $numberOfRows; $rows++)
         {
             echo "<tr>\n";
-             
+
             // loop on columns
             for($cols = 0; $cols < $numberOfCols; $cols++)
             {
                 // get index of image
                 $num = $imageList[$displayed];
-                 
+
                 // get file name
-                $fileName = $fileList['path'][$num];
-                 
+                $fileName = $fileList[$num]['path'];
+
                 // visibility style
-                if (isset( $fileList['visibility'] ) && $fileList['visibility'][$num] == 'i')
+                if ( $fileList[$num]['visibility'] == 'i' )
                 {
                     $style = "style=\"font-style: italic; color: silver;\"";
                 }
@@ -533,48 +533,40 @@
                 {
                     $style = '';
                 }
-                 
+
                 // display thumbnail
                 echo "<td style=\"text-align: center;\" style=\"width:" 
                     . $colWidth . "%;\">\n" 
                     ;
-                 
+
                 echo "<a href=\"". $_SERVER['PHP_SELF'] . "?docView=image&file="
                     . urlencode($fileName)
                     . "&cwd=". $curDirPath . $searchCmdUrl ."\">"
                     ;
-                 
+
                 // display image description using title attribute
                 $title = "";
-                if ( isset( $fileList['comment'] ) && $fileList['comment'][$num] )
+                if ( $fileList[$num]['comment'] )
                 {
-                    $text = $fileList['comment'][$num];
-                     
-                    /*if (strlen($text ) > 30 )
-                    {
-                        $text = substr($text , 0, 30)
-                            . "..."
-                            ;
-                    }*/
-                    
+                    $text = $fileList[$num]['comment'];
                     $text = cutstring( $text, 40, false, 5, "..." );
-                     
+
                     $title = "title=\"" . $text . "\"";
                 }
-                 
+
                 echo create_thumbnail($fileName, $thumbnailWidth, $title);
-                 
+
                 // unset title for the next pass in the loop
                 unset($title );
-                 
+
                 echo "</a>\n";
 
                 // display image name
-                $imgName = ( strlen( basename( $fileList['path'][$num] ) ) > 25 )
-                    ? substr( basename( $fileList['path'][$num] ), 0, 25 ) .  "..."
-                    : basename( $fileList['path'][$num] )
+                $imgName = ( strlen( basename( $fileList[$num]['path'] ) ) > 25 )
+                    ? substr( basename( $fileListi[$num]['path'] ), 0, 25 ) .  "..."
+                    : basename( $fileList[$num]['path'] )
                     ;
-                
+
                 echo "<p " . $style . ">" . $imgName  . "</p>";
 
                 echo "</td>\n";
