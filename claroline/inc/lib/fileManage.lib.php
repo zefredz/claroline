@@ -795,4 +795,36 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
 }
 
+/*
+ * Return html content between <body> and </body> from $html
+ * 
+ * @param string $html html content
+ *
+ * @return string html body content
+ */
+
+function get_html_body_content($html)
+{
+    $body_open_pattern = '/<body[^<>]+>/';
+    $body_close_pattern = '/<\/body>/';
+
+    // remove html before <body>
+    $split_html = preg_split($body_open_pattern,$html);
+    
+    if ( count($split_html) > 1 )
+    {
+        $html = $split_html[1];
+    }
+
+    // remove html after </body>
+    $split_html = preg_split($body_close_pattern,$html);
+    
+    if ( count($split_html) > 0 )
+    {
+        $html = $split_html[0];
+    }
+    
+    return $html;
+}
+
 ?>
