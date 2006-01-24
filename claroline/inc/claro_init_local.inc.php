@@ -454,7 +454,7 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
             if ( $ssoEnabled )
             {
                $ssoCookieExpireTime = time() + $ssoCookiePeriodValidity;
-               $ssoCookieValue      = md5( mktime() );
+               $ssoCookieValue      = md5( mktime() . rand(100, 1000000) );
 
                 $sql = "UPDATE `".$tbl_sso."`
                         SET cookie    = '".$ssoCookieValue."',
