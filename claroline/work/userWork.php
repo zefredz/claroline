@@ -1063,21 +1063,23 @@ if( $is_allowedToSubmit )
                         }
                         if( !empty($form['wrkUrl']) )
                         {
-                              // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-                              $completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
-                              echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
-                                    .'</td>'."\n"
-                                    .'<td>'
-                                    .'<a href="'.$completeWrkUrl.'">'.$form['wrkUrl'].'</a>'
-                                    .'<br />';
-                              if( $assignmentContent == "TEXTFILE" )
-                              {
-                                    // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
-                                    echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />'
-                                    .'<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>';
-                              }
-                              echo get_lang('Upload a new file to replace the file').'</td>'."\n"
-                                    .'</tr>'."\n\n";
+                        	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
+							// display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
+							$completeWrkUrl = $assigDirWeb.$form['wrkUrl'];
+							echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
+							.	 '</td>'."\n"
+							.	 '<td>'
+							.	 '<a href="'.$completeWrkUrl.'" ' . $target . '>'.$form['wrkUrl'].'</a>'
+							.	 '<br />';
+							
+							if( $assignmentContent == "TEXTFILE" )
+							{
+								// we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
+								echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />' . "\n"
+								.	 '<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>' . "\n";
+							}
+							echo get_lang('Upload a new file to replace the file').'</td>'."\n"
+							.	 '</tr>'."\n\n";
                         }
                         else
                         {
@@ -1325,9 +1327,10 @@ if( $dispWrkLst )
 			{
 				if( !empty($thisWrk['submitted_doc_path']) )
 				{
+					$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
 					// show file if this is not a TEXT only work
 					echo '<b>' . $txtForFile . '</b>&nbsp;: '
-	                .    '<a href="' . $assigDirWeb.urlencode($thisWrk['submitted_doc_path']) . '">' . $thisWrk['submitted_doc_path'] . '</a>'
+	                .    '<a href="' . $assigDirWeb.urlencode($thisWrk['submitted_doc_path']) . '" ' . $target . '>' . $thisWrk['submitted_doc_path'] . '</a>'
 					.    '<br />' . "\n"
 					;
 				}
