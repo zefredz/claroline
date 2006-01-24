@@ -1779,29 +1779,121 @@ function http_response_splitting_workaround( $str )
 }
 
 /**
- * This is a beta function to return value of configuration parameter
- *
- * Prepare to use get_conf with old varnames
- *
+ * Return the value of a Claroline configuration parameter
  * @param string $param config parameter
+ * @param mixed $default (optionnal) - set a defaut to return value 
+ *                                     if no paramater with such a name is found.
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
 */
 
-function get_conf($param,$default = NULL)
+function get_conf($param, $default = null)
 {
-    if ( isset($GLOBALS[$param]) )
+    if     ( isset($GLOBALS[$param]) )  return $GLOBALS[$param];
+    elseif ( defined($param)         )  return constant($param);
+    else                                return $default;
+}
+
+/**
+ * Return the tool list for a course according a certain access level
+ * @param  string  $courseIdReq - the requested course id
+ * @param  string  $accessLevelReq (optionnal) -  should be in 'ALL', 'COURSE_MEMBER',
+ *                'GROUP_MEMBER', 'COURSE_TUTOR','COURSE_MANAGER', 'PLATFORM_ADMIN'.
+ *                 Default is 'ALL'
+ * @param  boolean $force (optionnal) - reset the result cache, default is false
+ * @return array   the course list
+ */
+
+function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $force = false)
+{
+    global $clarolineRepositoryWeb;
+
+    static $courseTooList = null, $courseId = null, $accessLevel = null;
+
+    if (   is_null($courseTooList)
+        || $courseId    != $courseIdReq
+        || $accessLevel != $accessLevelReq
+        || $force )
     {
-        return $GLOBALS[$param];
-    }
-    elseif ( defined($param) )
-    {
-        return constant($param);
-    }
-    else
-    {
-        return $default;
-    }
+        $courseId   = $courseIdReq;
+        $accessLevel = $accessLevelReq;
+
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_tool_list        = $tbl_mdb_names['tool'];
+        $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+        /*
+         * Build a list containing all the necessary access level
+         */
+
+        $standartAccessList = array('ALL',           'PLATFORM_MEMBER',
+                                    'COURSE_MEMBER', 'COURSE_TUTOR',
+                                    'GROUP_MEMBER',  'GROUP_TUTOR',
+                                    'COURSE_ADMIN',  'PLATFORM_ADMIN');
+
+        if ( ! in_array($accessLevel, $standartAccessList) ) claro_die('Wrong access level : '.$accessLevel);
+
+        foreach($standartAccessList as $thisAccessType)
+        {
+            $accessList[] = $thisAccessType;
+
+            if ($thisAccessType == $accessLevel) break;
+        }
+
+        /*
+         * Search all the tool corresponding to this access levels
+         */
+
+        $sql ="SELECT ctl.id                       AS id,
+                      pct.claro_label              AS label,
+                      ctl.script_name              AS name,
+                      ctl.access                   AS access,
+                      IFNULL(pct.icon,'tool.gif')  AS icon,
+                      pct.access_manager           AS access_manager,
+                      ISNULL(ctl.tool_id)           AS external,
+
+                      IFNULL( ctl.script_url ,
+                              CONCAT('".$clarolineRepositoryWeb."', pct.script_url) )
+                      AS url
+
+               FROM `". $tbl_course_tool_list ."` ctl
+
+               LEFT JOIN `" . $tbl_tool_list . "` pct
+                      ON  pct.id = ctl.tool_id
+
+               WHERE ctl.access IN (\"".implode("\", \"", $accessList)."\")
+               ORDER BY external, ctl.rank";
+
+        $courseToolList = claro_sql_query_fetch_all($sql);
+
+        /*
+         * Complete the list with the appropriate tool names
+         */
+
+        $toolNameList = claro_get_tool_name_list();
+
+        foreach ($courseToolList as $thisToolKey => $thisToolAttributeList)
+        {
+            if ( trim($thisToolAttributeList['name']) == '')
+            {
+                if ( ! empty ($thisToolAttributeList['label'] ) )
+                {
+                    $courseToolList[$thisToolKey]['name'] = $toolNameList[$thisToolAttributeList['label']];
+                }
+                else
+                {
+                    $courseToolList[$thisToolKey]['name'] = get_lang('No name');
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
+    } // end if $force
+
+    return $courseToolList;
 }
 
 ?>

@@ -85,7 +85,7 @@ if ($cmd == 'exSetToolAccess')
     $enablableToolList  = array();
     $disablableToolList = array();
 
-    $currentToolStateList = get_course_home_tool_list($reqAccessLevel);
+    $currentToolStateList = claro_get_course_tool_list($_cid, $reqAccessLevel);
 
     foreach($currentToolStateList as $thisCurrentToolState)
     {
@@ -191,7 +191,7 @@ if ($cmd == 'exDelete')
         }
         else
         {
-            $msg .= get_lang('UnableDeleteExternalTool');
+           $msg .= get_lang('UnableDeleteExternalTool');
         }
     }
     else
@@ -272,7 +272,7 @@ echo '<p>'.get_lang('IntroEditToolList').'</p>'."\n"
     .'<input type="hidden" name="cmd" value="exSetToolAccess" >'."\n"
     ;
 
-$toolList = get_course_home_tool_list($reqAccessLevel);
+$toolList = claro_get_course_tool_list($_cid, $reqAccessLevel);
 
 echo '<table class="claroTable" >'."\n\n"
     . '<thead>'."\n"
@@ -353,7 +353,10 @@ foreach($toolList as $thisTool)
 echo '</tbody>'."\n"
     . '</table>'."\n\n"
     . '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '" >'."\n"
-    . claro_disp_button($coursesRepositoryWeb . $_course['path'], get_lang('Cancel'))
+    . claro_disp_button( $clarolineRepositoryWeb 
+                        . 'course/index.php?cidReset=true&amp;cid='
+                        . htmlspecialchars($_cid) ,
+                         get_lang('Cancel'))
     . '</form>'."\n"
     . '</blockquote>' . "\n"
     . '<hr size="1" noshade="noshade" >' . "\n\n"

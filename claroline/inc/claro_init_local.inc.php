@@ -905,38 +905,16 @@ if ($uidReset || $cidReset)
 {
     if ($_cid) // have course keys to search data
     {
-        $reqAccessList = array('ALL');
+        if     ($is_platformAdmin) $courseReqAccessLevel = 'PLATFORM_ADMIN' ;
+        elseif ($is_courseAdmin  ) $courseReqAccessLevel = 'COURSE_ADMIN'   ;
+        elseif ($is_courseTutor  ) $courseReqAccessLevel = 'COURSE_TUTOR'   ;
+        elseif ($is_groupTutor   ) $courseReqAccessLevel = 'GROUP_TUTOR'    ;
+        elseif ($is_groupMember  ) $courseReqAccessLevel = 'GROUP_MEMBER'   ;
+        elseif ($is_courseMember ) $courseReqAccessLevel = 'COURSE_MEMBER'  ;
+        elseif ($_uid            ) $courseReqAccessLevel = 'PLATFORM_MEMBER';
+        else                       $courseReqAccessLevel = 'ALL';
 
-        if ($is_platformAdmin) $reqAccessList [] = 'PLATFORM_ADMIN';
-        if ($is_courseAdmin  ) $reqAccessList [] = 'COURSE_ADMIN';
-        if ($is_courseTutor  ) $reqAccessList [] = 'COURSE_TUTOR';
-        if ($is_groupTutor   ) $reqAccessList [] = 'GROUP_TUTOR';
-        if ($is_groupMember  ) $reqAccessList [] = 'GROUP_MEMBER';
-        if ($is_courseMember ) $reqAccessList [] = 'COURSE_MEMBER';
-        if ($_uid            ) $reqAccessList [] = 'PLATFORM_MEMBER';
-
-
-        $sql ="SELECT ctl.id                       AS id,
-                      pct.claro_label              AS label,
-                      ctl.script_name              AS name,
-                      ctl.access                   AS access,
-                      IFNULL(pct.icon,'tool.gif')  AS icon,
-                      pct.access_manager           AS access_manager,
-
-                      IF(pct.script_url IS NULL ,
-                         ctl.script_url,CONCAT('".$clarolineRepositoryWeb."',
-                         pct.script_url))          AS url
-
-               FROM `".$_course['dbNameGlu']."tool_list` ctl
-
-               LEFT JOIN `" . $tbl_tool . "` pct
-                      ON  pct.id = ctl.tool_id
-
-               WHERE ctl.access IN (\"".implode("\", \"", $reqAccessList)."\")
-               ORDER BY ctl.rank";
-
-        $_courseToolList = claro_sql_query_fetch_all($sql);
-
+        $_courseToolList = claro_get_course_tool_list($_cid, $courseReqAccessLevel, true);
     }
     else
     {

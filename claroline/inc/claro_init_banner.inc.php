@@ -107,19 +107,6 @@ if (isset($_cid))
  */
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
-    $toolNameList = claro_get_tool_name_list();
-    
-    foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
-    {
-        if (is_null($_courseToolDatas['name']))
-            $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
-    
-        // now recheck to be sure the value is really filled before going further
-        if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
-            $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
-    
-    }
-
 ?>
 
 <form action="<?php echo $clarolineRepositoryWeb ?>redirector.php" 

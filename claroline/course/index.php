@@ -25,7 +25,7 @@ $tidReset = TRUE;
 if ( isset($_REQUEST['cid']) )
 {
     $cidReq = $_REQUEST['cid']; 
-    
+
     require '../inc/claro_init_global.inc.php';
 
     include $includePath . '/lib/course_home.lib.php';
@@ -85,11 +85,16 @@ if ( isset($_REQUEST['cid']) )
     $is_allowedToEdit = claro_is_allowed_to_edit();
     $disp_edit_command = $is_allowedToEdit;
 
-    if     ($is_platformAdmin     && $is_allowedToEdit)   $reqAccessLevel   = 'PLATFORM_ADMIN';
-    elseif ($is_allowedToEdit)   $reqAccessLevel   = 'COURSE_ADMIN';
-    else                         $reqAccessLevel   = 'ALL';
+    if     ($is_platformAdmin) $reqAccessLevel = 'PLATFORM_ADMIN' ;
+    elseif ($is_courseAdmin  ) $reqAccessLevel = 'COURSE_ADMIN'   ;
+    elseif ($is_courseTutor  ) $reqAccessLevel = 'COURSE_TUTOR'   ;
+    elseif ($is_groupTutor   ) $reqAccessLevel = 'GROUP_TUTOR'    ;
+    elseif ($is_groupMember  ) $reqAccessLevel = 'GROUP_MEMBER'   ;
+    elseif ($is_courseMember ) $reqAccessLevel = 'COURSE_MEMBER'  ;
+    elseif ($_uid            ) $reqAccessLevel = 'PLATFORM_MEMBER';
+    else                       $reqAccessLevel = 'ALL';
 
-    $toolList = get_course_home_tool_list($reqAccessLevel);
+    $toolList = claro_get_course_tool_list($_cid, $reqAccessLevel);
 
     // get tool id where new events have been recorded since last login
 
@@ -106,33 +111,11 @@ if ( isset($_REQUEST['cid']) )
     <td valign="top" style="border-right: gray solid 1px;" width="220">
     <?php
 
-
     foreach($toolList as $thisTool)
     {
-        if ( ! empty($thisTool['label']))   // standart claroline tool
-        {
-            $toolName = $toolNameList[ $thisTool['label'] ];
-            $url      = trim($toolRepository . $thisTool['url']);
-        }
-        elseif( ! empty($thisTool['name']) ) // external tool added by course manager
-        {
-            $toolName = $thisTool['name'];
-            $url      = trim($thisTool['url']);
-        }
-        else
-        {
-            $toolName = '<i>no name</i>';
-            $url      = trim($thisTool['url']);
-        }
-
-        if (! empty($thisTool['icon']))
-        {
-            $icon = $imgRepositoryWeb . $thisTool['icon'];
-        }
-        else
-        {
-            $icon = $imgRepositoryWeb . 'tool.gif';
-        }
+        $toolName = $thisTool['name'];
+        $url      = trim($thisTool['url']);
+        $icon     = $imgRepositoryWeb . $thisTool['icon'];
 
         if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
         {
@@ -153,25 +136,17 @@ if ( isset($_REQUEST['cid']) )
         {
             $classItem = "";
         }
-        
+
             //deal with specific case of group tool
-        
+
         if (isset($_uid) && ($thisTool['label']=="CLGRP___"))
         {
             // we must notify if there is at least one group containing notification
-            
-            $groups = $claro_notifier->get_notified_groups($_cid, $date);
 
-            if (!empty($groups))  
-            {
-                $classItem = " hot"; 
-            }
-            else 
-            {
-                $classItem = "";
-            }
+            $groups = $claro_notifier->get_notified_groups($_cid, $date);
+            $classItem = ( ! empty($groups) ) ? ' hot' : '';
         }
-        
+
         if ( ! empty($url) )
         {
             echo ' <a class="' . $style . 'item'.$classItem.'" href="' . $url . '">'

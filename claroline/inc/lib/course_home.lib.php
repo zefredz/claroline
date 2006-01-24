@@ -64,71 +64,6 @@ function insert_course_tool($tool_label)
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * return the list of tools for the current cours and given reqAccessLevel.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $reqAccessLevel should be in 'ALL', 'COURSE_MEMBER',
- *                                'GROUP_MEMBER', 'COURSE_TUTOR',
- *                                'COURSE_MANAGER', 'PLATFORM_ADMIN'
- * @return array
- */
-
-
-function get_course_home_tool_list($reqAccessLevel = 'ALL')
-{
-    $tbl_mdb_names        = claro_sql_get_main_tbl();
-    $tbl_tool_list        = $tbl_mdb_names['tool'  ];
-    $tbl_cdb_names        = claro_sql_get_course_tbl();
-    $tbl_course_tool_list = $tbl_cdb_names['tool'];
-
-
-    /*
-     * Build a list containing all the necessary access level
-     */
-
-    $standartAccessList = array('ALL',           'PLATFORM_MEMBER',
-                                'COURSE_MEMBER', 'COURSE_TUTOR',
-                                'GROUP_MEMBER',  'GROUP_TUTOR',
-                                'COURSE_ADMIN',  'PLATFORM_ADMIN');
-
-    foreach($standartAccessList as $thisAccessLevel)
-    {
-        $reqAccessList[] = $thisAccessLevel;
-
-        if ($thisAccessLevel == $reqAccessLevel) break;
-    }
-
-    /*
-     * Search all the tool corresponding to these Access
-     */
-
-    $sql = "SELECT tl.id                               id,
-                   tl.script_name                      name,
-                   tl.access                           access,
-                   tl.rank                             rank,
-                   IFNULL(ct.script_url,tl.script_url) url,
-                   ct.claro_label                      label,
-                   ct.icon                             icon,
-                   ct.access_manager                   access_manager,
-                   ISNULL(tl.tool_id)                  external
-
-            FROM `" . $tbl_course_tool_list . "` tl
-
-            LEFT JOIN `" . $tbl_tool_list . "` ct
-
-            ON        ct.id = tl.tool_id
-
-            WHERE tl.access IN ('" . implode("', '", $reqAccessList) . "')
-
-            ORDER BY external, tl.rank
-            ";
-
-     return claro_sql_query_fetch_all($sql);
-}
-
-//////////////////////////////////////////////////////////////////////////////
-
-/**
  * Get all the settings from a specific tool
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
@@ -465,6 +400,8 @@ function move_course_tool($reqToolId, $moveDirection)
         } // end foreach toolList as thisTool
     } // end if sortDirection
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 
