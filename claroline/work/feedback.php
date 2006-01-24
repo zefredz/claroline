@@ -69,7 +69,6 @@ $req['assigmentId'] = ( isset($_REQUEST['assigId'])
 : false;
 
 
-
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT FEEDBACK
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -285,12 +284,12 @@ if ($dialogBox) echo claro_disp_message_box($dialogBox);
 if( isset($displayFeedbackForm) && $displayFeedbackForm )
 {
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
-    .    '<input type="hidden" name="cmd" value="exEditFeedback" />'
+    .    '<input type="hidden" name="cmd" value="exEditFeedback" />' . "\n"
     ;
 
     if( isset($_REQUEST['assigId']) )
     {
-        echo '<input type="hidden" name="assigId" value="<' .  $_REQUEST['assigId'] . '" />';
+        echo '<input type="hidden" name="assigId" value="' . $_REQUEST['assigId'] . '" />' . "\n";
     }
     echo '<table cellpadding="5" width="100%">' . "\n"
     .    '<tr>' . "\n"
@@ -316,6 +315,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 
     if( isset($form['currentPrefillDocPath']) && $form['currentPrefillDocPath'] != '' )
     {
+    	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
         $completeFileUrl = $currentCourseRepositoryWeb . 'work/assig_' . $_REQUEST['assigId'] . '/' . $form['currentPrefillDocPath'];
         echo '<tr>' . "\n"
         .    '<td valign="top">'
@@ -326,7 +326,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         .    '<input type="hidden" name="currentPrefillDocPath" value="' . $form['currentPrefillDocPath'] . '" />'
         .    '</td>' . "\n"
         .    '<td>'
-        .    '<a href="' . $completeFileUrl . '">' . $form['currentPrefillDocPath'] . '</a>'
+        .    '<a href="' . $completeFileUrl . '" ' . $target . '>' . $form['currentPrefillDocPath'] . '</a>'
         .    '<br />'
         .    '<input type="checkBox" name="delFeedbackFile" id="delFeedbackFile" />'
         .    '<label for="delFeedbackFile">'
@@ -353,8 +353,8 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    get_lang('Submit feedback')
     .    '&nbsp;:</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="radio" name="prefillSubmit" id="prefillSubmitEndDate" value="ENDDATE '
-    .    $prefillSubmitEndDateCheckStatus . '>' . "\n"
+    .    '<input type="radio" name="prefillSubmit" id="prefillSubmitEndDate" value="ENDDATE" '
+    .    $prefillSubmitEndDateCheckStatus . '/>' . "\n"
     .    '<label for="prefillSubmitEndDate">' . "\n"
     .    '&nbsp;' . "\n"
     .    get_lang('Automatically, after end date')
@@ -372,7 +372,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<tr>' . "\n"
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">'
+    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">' . "\n"
     .    claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
