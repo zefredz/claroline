@@ -212,8 +212,6 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
              
 			GROUP BY `U`.`user_id`,
                      `S`.`original_id`
-        	
-        	HAVING `submissionCount` > 0
 ";
 
     if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
@@ -253,9 +251,6 @@ else  // $assignment['assignment_type'] == 'GROUP'
 
         GROUP BY `G`.`id`,          # group by 'group'
                  `S`.`original_id`
-
-		HAVING `submissionCount` > 0 OR `feedbackCount` > 0
-
         ";
 
     if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
@@ -392,23 +387,15 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
         echo claro_parse_user_text($assignment['prefill_text']);
     }
 
-    if(  !empty($assignment['prefill_doc_path'])
-    && !empty($assignment['prefill_text']) )
+    if( !empty($assignment['prefill_doc_path']) )
     {
-        echo  '<p>'
-        .     '<a href="' . $assignment['dirWeb'] . $assignment['prefill_doc_path'] . '">'
+    	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
+        echo  '<p><a href="' . $assignment['dirWeb'] . $assignment['prefill_doc_path'] . '" ' . $target . '>'
         .     $assignment['prefill_doc_path']
-        .     '</a>'
-        .     '</p>'
+        .     '</a></p>'
         ;
     }
-    elseif( !empty($assignment['prefill_doc_path']) )
-    {
-        echo  '<a href="' . $assignment['dirWeb'] . $assignment['prefill_doc_path'] . '">'
-        .     $assignment['prefill_doc_path']
-        .     '</a>'
-        ;
-    }
+    
     echo '</fieldset>'
     .    '<br />'
     ;
