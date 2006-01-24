@@ -11,6 +11,8 @@
  *
  * @author claroline Team <cvs@claroline.net>
  *
+ * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/infocours.php
+ *
  * @package CLCRS
  *
  */
@@ -275,14 +277,14 @@ $links = array();
 
 // add course home link
 
-$links[] = '<a class="claroCmd" href="' . $coursesRepositoryWeb . $currentCourseRepository . '/index.php">'
+$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '">'
         .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
         .    get_lang('Home')
         .    '</a>';
 
 // add course tool list edit
 
-$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course_home/course_home_edit.php">'
+$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php">'
         .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
         .    get_lang('EditToolList')
         .    '</a>';
@@ -312,7 +314,7 @@ if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
 
-    $links[] = '<a class="claroCmd" href="delete_course.php' . $toAdd . '">'
+    $links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/delete.php' . $toAdd . '">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    get_lang('DelCourse')
     .    '</a>';
@@ -457,7 +459,7 @@ if (isset($cidToEdit))
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo get_lang('Ok') ?> ">
 <?php
-echo claro_disp_button( $coursesRepositoryWeb .$currentCourseRepository .'/index.php', get_lang('Cancel'));
+echo claro_disp_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'));
 ?>
 </td>
 </tr>

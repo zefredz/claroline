@@ -91,7 +91,7 @@ if (isset($_cid))
 
 
 <div id="course">
-<h2 id="courseName"><a href="<?php echo $coursesRepositoryWeb . $_course['path'] ?>/index.php" target="_top"><?php echo $_course['name'] ?></a></h2>
+<h2 id="courseName"><a href="<?php echo $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) ?>" target="_top"><?php echo $_course['name'] ?></a></h2>
 <span id="courseCode"><?php echo $_course['officialCode'] . ' - ' . $_course['titular']; ?></span>
 </div>
 
@@ -189,7 +189,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
 
         if ( isset($_cid) )
         {
-            $breadcrumbUrlList[]  = $coursesRepositoryWeb . $_course['path'] . '/index.php';
+            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid);
             $breadcrumbNameList[] = $_course['officialCode'];
         }
 

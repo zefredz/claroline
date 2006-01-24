@@ -61,7 +61,7 @@ foreach($personnalCourseList as $thisCourse)
     }
 
     echo '<li class="item' . $classItem . '">' . "\n"
-    .    '<a href="' . $coursesRepositoryWeb . $thisCourse['directory'] . '/">';
+    .    '<a href="' . $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
 
     if ( get_conf('course_order_by') == 'official_code' )
     {

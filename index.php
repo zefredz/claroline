@@ -65,7 +65,7 @@ if ( isset($_uid) )
         if ($is_allowedCreateCourse) /* 'Create Course Site' command.
                                          Only available for teacher. */
         {
-            echo '<a href="claroline/create_course/add_course.php" class="claroCmd">'
+            echo '<a href="claroline/course/create.php" class="claroCmd">'
             .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
             .    get_lang('CourseCreate')
             .    '</a>'

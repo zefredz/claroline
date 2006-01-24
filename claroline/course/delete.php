@@ -8,6 +8,8 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
+ * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/delete_course.php
+ *
  * @package CLCRS
  *
  * @author Claro Team <cvs@claroline.net>
@@ -56,7 +58,7 @@ $currentCourseCode = $course_to_delete['officialCode'];
 $currentCourseName = $course_to_delete['name'];
 
 $nameTools = get_lang('DelCourse');
-$interbredcrump[] = array('url' => 'infocours.php?' . $addToURL, 'name' => get_lang('Course settings'));
+$interbredcrump[] = array('url' => 'settings.php?' . $addToURL, 'name' => get_lang('Course settings'));
 
 if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
 {
@@ -112,7 +114,7 @@ switch ($display)
         .    get_lang('Yes')
         .    '</a>'
         .    '&nbsp;|&nbsp;'
-        .    '<a href="infocours.php?'.$addToURL.'">'
+        .    '<a href="settings.php?'.$addToURL.'">'
         .    get_lang('No')
         .    '</a>'
         .    '</font>'

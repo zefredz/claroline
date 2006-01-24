@@ -19,6 +19,8 @@
  *
  * @package COURSE
  *
+ * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
+ *
  * @author Claro Team <cvs@claroline.net>
  *
  */

@@ -10,11 +10,10 @@
  *
  * @package CLHOME
  *
+ * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home_edit.php
+ *
  * @author Claro Team <cvs@claroline.net>
  */
-
-
-$course_homepage = TRUE;
 
 $gidReset = true; // If user is here. It means he isn't in any group space now.
                   // So it's careful to to reset the group setting
@@ -252,7 +251,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
 $backLink = '<p>'
             .'<small>'
-            .'<a href="'.$coursesRepositoryWeb . $currentCourseRepository.'/index.php?cidReset=true&amp;cidReq='.$_cid.'">'
+            .'<a href="'. $clarolineRepositoryWeb . 'course/index.php?cidReset=true&amp;cid=' . htmlspecialchars($_cid) . '">'
             .'&lt;&lt;&nbsp;'.get_lang('Home').'</a>'
             .'</small>'
             .'</p>'."\n\n" ;

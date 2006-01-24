@@ -86,19 +86,17 @@ if ( count($courseList) > 0 )
 
     foreach($courseList as $thisCourse)
     {
-        echo "<li>\n"
-
-            ."<a href=\"".$coursesRepositoryWeb.$thisCourse['directory']."/\">"
-            .$thisCourse['officialCode']." - "
-            .$thisCourse['title']
-            ."</a>"
-            ."<br>"
-            ."<small>".$thisCourse['titular']."</small>\n"
-
-            ."</li>\n";
+        echo '<li>' . "\n"
+            . '<a href="' .  $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
+            . $thisCourse['officialCode'] . ' - '
+            . $thisCourse['title']
+            . '</a>'
+            . '<br>'
+            . '<small>' . $thisCourse['titular'] . '</small>' . "\n"
+            . '</li>' . "\n";
     }
 
-	echo "</ul>\n";
+	echo '</ul>' . "\n";
 
 }
 else

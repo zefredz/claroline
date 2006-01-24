@@ -164,7 +164,7 @@ function get_menu_item_list($type)
                                               . '&nbsp;&nbsp;'
                                               . '<small><a href="advancedUserSearch.php">' . get_lang('Advanced') . '</small></a>'
                                               . '</form>');
-$menuAdminUser[] =  array('type'=>'link', 'url'=>'AdminUser.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ListUsers'));
+$menuAdminUser[] =  array('type'=>'link', 'url'=>'adminusers.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ListUsers'));
 $menuAdminUser[] =  array('type'=>'link', 'url'=>'adminaddnewuser.php',       'attribute'=>'class="toollink"', 'label'=> get_lang('CreateUser'));
 $menuAdminUser[] =  array('type'=>'link', 'url'=>'admin_class.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ManageClasses'));
 $menuAdminUser[] =  array('type'=>'link', 'url'=>'../user/AddCSVusers.php?AddType=adminTool',       'attribute'=>'class="toollink"', 'label'=> get_lang('AddCSVUsers'));
@@ -176,12 +176,9 @@ $menuAdminCourse[] =  array('type'=>'free', 'stream'=>'<form name="searchCourse"
                                               . '<input type="submit" value="' . get_lang('Search'). '" />' . "\n"
                                               . '&nbsp; &nbsp;<small><a href="advancedCourseSearch.php">' . get_lang('Advanced') . '</a></small>' . "\n"
                                               . '</form>');
-$menuAdminCourse[] =  array('type'=>'link', 'url'=>'AdminUser.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ListUsers'));
 
-
-
-$menuAdminCourse[] =  array('type'=>'link', 'url'=>'AdminCourse.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('CourseList'));
-$menuAdminCourse[] =  array('type'=>'link', 'url'=>'../create_course/add_course.php?fromAdmin=yes',       'attribute'=>'class="toollink"', 'label'=>get_lang('CreateCourse'));
+$menuAdminCourse[] =  array('type'=>'link', 'url'=>'admincourses.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('CourseList'));
+$menuAdminCourse[] =  array('type'=>'link', 'url'=>'../course/create.php?fromAdmin=yes',       'attribute'=>'class="toollink"', 'label'=>get_lang('CreateCourse'));
 $menuAdminCourse[] =  array('type'=>'link', 'url'=>'admincats.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ManageCourseCategories'));
 
 
@@ -203,8 +200,6 @@ if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuAdminSDK[] =  arra
 if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 {
     $menuAdminSDK[] =  array('type'=>'link', 'url' => 'devTools', 'attribute'=>'class="toollink"', 'label'=>get_lang('DevTools'));
-    $menuAdminSDK[] =  array('type'=>'link', 'url' => '../tracking/allCourseLog.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('refresh tracking datas'));
-    $menuAdminSDK[] =  array('type'=>'link', 'url' => '../tracking/allCourseLogToCsv.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('get csv of tracking'));
 }
 
 

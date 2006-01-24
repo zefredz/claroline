@@ -271,7 +271,7 @@ foreach($resultList as $list)
 
     // title
 
-    echo '<td align="left"><a href="'.$coursesRepositoryWeb.$list['directory'].'">'.$list['intitule'].'</a></td>';
+    echo '<td align="left"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($list['code']) . '">'.$list['intitule'].'</a></td>';
 
     //  Titular
 
