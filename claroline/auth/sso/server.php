@@ -243,7 +243,7 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 
 function generate_cookie()
 {
-    return md5( mktime() . rand(100, 1000000) );
+    return md5( mktime() . rand(100,1000000) );
 }
 
 /**
