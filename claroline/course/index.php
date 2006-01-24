@@ -85,16 +85,11 @@ if ( isset($_REQUEST['cid']) )
     $is_allowedToEdit = claro_is_allowed_to_edit();
     $disp_edit_command = $is_allowedToEdit;
 
-    if     ($is_platformAdmin) $reqAccessLevel = 'PLATFORM_ADMIN' ;
-    elseif ($is_courseAdmin  ) $reqAccessLevel = 'COURSE_ADMIN'   ;
-    elseif ($is_courseTutor  ) $reqAccessLevel = 'COURSE_TUTOR'   ;
-    elseif ($is_groupTutor   ) $reqAccessLevel = 'GROUP_TUTOR'    ;
-    elseif ($is_groupMember  ) $reqAccessLevel = 'GROUP_MEMBER'   ;
-    elseif ($is_courseMember ) $reqAccessLevel = 'COURSE_MEMBER'  ;
-    elseif ($_uid            ) $reqAccessLevel = 'PLATFORM_MEMBER';
-    else                       $reqAccessLevel = 'ALL';
+    if     ($is_platformAdmin && $is_allowedToEdit) $reqAccessLevel   = 'PLATFORM_ADMIN';
+    elseif ($is_allowedToEdit                     ) $reqAccessLevel   = 'COURSE_ADMIN';
+    else                                            $reqAccessLevel   = 'ALL';
 
-    $toolList = claro_get_course_tool_list($_cid, $reqAccessLevel);
+    $toolList = claro_get_course_tool_list($_cid, $reqAccessLevel, true);
 
     // get tool id where new events have been recorded since last login
 
