@@ -325,7 +325,7 @@ else
     if ( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed )
     {
         // select only the group assignments
-          $sql = "SELECT `id`, `title`, 
+          $sql = "SELECT `id`, `title`, `def_submission_visibility`,
           	`visibility`, `assignment_type`,
             unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
             FROM `" . $tbl_wrk_assignment . "`
@@ -334,7 +334,7 @@ else
     }
     else
     {
-        $sql = "SELECT `id`, `title`,
+        $sql = "SELECT `id`, `title`, `def_submission_visibility`,
             `visibility`, `assignment_type`,
             unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
             FROM `" . $tbl_wrk_assignment . "`
