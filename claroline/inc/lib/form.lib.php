@@ -86,13 +86,15 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
 }
 
 /**
- * @param string  $hourFieldName attribute name of the input DAY
- * @param string  $minuteFieldName attribute name of the input MONTH
- * @param integer  $selectedTime attribute name of the input YEAR
+ * build htmlstream for input form of a time
  *
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @param string $hourFieldName attribute name of the input Hour
+ * @param string $minuteFieldName attribute name of the input minutes
+ * @param string $selectedTime current Time (default value in selection)
  *
  * @return string html stream to output input tag for an hour
+ *
+ * @author Sébastien Piraux <pir@cerdecam.be>
  *
  */
 

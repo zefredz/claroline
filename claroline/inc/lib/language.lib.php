@@ -1,8 +1,8 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * language library 
+ * language library
  * contains function to manage l10n
  *
  * @copyright 2001-2005 Universite catholique de Louvain (UCL)
@@ -17,18 +17,18 @@ define( 'LANG_KEY_DELIMITER', '%' );
 
 /**
  * Get the translation of the string
- * 
+ *
  * @param $name string name
  * @param $var_to_remplace array with variables to replace in translation
  *
- * @return string translation 
+ * @return string translation
  *
  */
 
 function get_lang ($name,$var_to_replace=null)
 {
     global $_lang;
-   
+
     $translation  = '';
 
     if ( isset($_lang[$name]) )
@@ -40,15 +40,15 @@ function get_lang ($name,$var_to_replace=null)
         // missing translation
         $translation = $name;
     }
-    
+
     if ( !empty($var_to_replace) && is_array($var_to_replace) )
     {
         $search = array_keys($var_to_replace);
         array_walk($search,'lang_mk_key_delimiter');
         $replace = array_values($var_to_replace);
-       
+
         // return translation with replacement
-        return str_replace($search,$replace,$translation); 
+        return str_replace($search,$replace,$translation);
     }
     else
     {
@@ -57,19 +57,19 @@ function get_lang ($name,$var_to_replace=null)
     }
 
 }
-    
+
 function lang_mk_key_delimiter(&$string)
-{        
+{
     $string = LANG_KEY_DELIMITER . $string . LANG_KEY_DELIMITER ;
 }
 
 /**
  * Get the translation of the block
- * 
+ *
  * @param $name block name
  * @param $var_to_remplace array with variables to replace
  *
- * @return block translation 
+ * @return block translation
  *
  */
 
@@ -87,9 +87,9 @@ function get_block ($name,$var_to_replace=null)
 
 /**
  * Load the global array ($_lang) with all translations of the language
- * 
- * @param $language language
- * @param $mode TRANSLATION, PRODUCTION
+ *
+ * @param string $language language (default : english)
+ * @param string $mode     TRANSLATION or PRODUCTION (default : PRODUCTION)
  *
  */
 
@@ -99,7 +99,7 @@ function load_language_translation ($language,$mode)
     global $includePath, $urlAppend ;
 
     /*----------------------------------------------------------------------
-      Initialise language array 
+      Initialise language array
       ----------------------------------------------------------------------*/
 
     $_lang = array();

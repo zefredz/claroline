@@ -1,28 +1,29 @@
-<?php # $Id$
+<?php // $Id$
 
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*============================================================================
-                              FILE UPLOAD LIBRARY
-  ============================================================================*/
-
+/**
+ * CLAROLINE
+ *
+ *                       FILE UPLOAD LIBRARY
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLDOC
+ *
+ * @author Hugues Peeters <hugues@claroline.net>
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 /**
  * replaces some dangerous character in a string for HTML use
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - string (string) string
- * @param  - string $strict (optional) removes also scores and simple quotes
- * @return - the string cleaned of dangerous character
+ * @param  string $string
+ * @param  string $strict (optional) removes also scores and simple quotes
+ * @return string : the string cleaned of dangerous character
+ *
  */
 
 function replace_dangerous_char($string, $strict = 'loose')
@@ -67,12 +68,11 @@ function replace_dangerous_char($string, $strict = 'loose')
 //------------------------------------------------------------------------------
 
 /**
- * change the file name extension from .php to .phps
+ * Change the file name extension from .php to .phps
  * Useful to secure a site !!
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - fileName (string) name of a file
- * @return - string the filename phps'ized
+ * @param  string $fileName Name of a file
+ * @return string : the filename phps'ized
  */
 
 function php2phps ($fileName)
@@ -85,9 +85,9 @@ function php2phps ($fileName)
  * change the file named .htacess in htacess.txt
  * Useful to secure a site working on Apache.
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - fileName (string) name of a file
- * @return - string 'Apache safe' file name
+ * @param  string $fileName Name of a file
+ *
+ * @return string : 'Apache safe' file name
  */
 
 
@@ -103,7 +103,6 @@ function htaccess2txt($fileName)
  * change the file named .htacess in htacess.txt
  * Useful to secure a site working on Apache.
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - fileName (string) name of a file
  * @return - string innocuous filename
  * @see    - htaccess2txt and php2phps
@@ -120,17 +119,16 @@ function get_secure_file_name($fileName)
 //------------------------------------------------------------------------------
 
 
-/** 
+/**
  * Check if there is enough place to add a file on a directory
  * on the base of a maximum directory size allowed
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - fileSize (int) - size of the file in byte
- * @param  - dir (string) - Path of the directory
- *           whe the file should be added
- * @param  - maxDirSpace (int) - maximum size of the diretory in byte
- * @return - boolean true if there is enough space
- * @return - false otherwise
+ * @param  interger $fileSize  Size of the file in byte
+ * @param  string   $dir       Path of the directory where
+ *                             the file should be added
+ * @param  interger $maxDirSpace Maximum size of the diretory in byte
+ *
+ * @return mixed : boolean true if there is enough space false otherwise
  *
  * @see    - enough_size() uses  dir_total_space() function
  */
@@ -150,14 +148,15 @@ function enough_size($fileSize, $dir, $maxDirSpace)
     return true;
 }
 
+
 //------------------------------------------------------------------------------
 
-/** 
+/**
  * Compute the size already occupied by a directory and is subdirectories
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - dirPath (string) - size of the file in byte
- * @return - int - return the directory size in bytes
+ * @param string $dirPath Size of the file in byte
+ *
+ * @return integer : the directory size in bytes
  */
 
 function dir_total_space($dirPath)
@@ -165,10 +164,10 @@ function dir_total_space($dirPath)
     chdir ($dirPath) ;
     $handle  = opendir($dirPath);
     $sumSize = 0;
-    
+
     while ($element = readdir($handle) )
     {
-        if ( $element == "." || $element == "..")
+        if ( $element == '.' || $element == '..')
         {
             continue; // skip the current and parent directories
         }
@@ -201,19 +200,20 @@ function dir_total_space($dirPath)
 
 //------------------------------------------------------------------------------
 
-/** 
+/**
  * Try to add an extension to files witout extension
  * Some applications on Macintosh computers don't add an extension to the files.
- * This subroutine try to fix this on the basis of the MIME type send 
+ * This subroutine try to fix this on the basis of the MIME type send
  * by the browser.
  *
  * Note : some browsers don't send the MIME Type (e.g. Netscape 4).
  *        We don't have solution for this kind of situation
  *
- * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - array $uploadedFile
- *           It has to be the superglobals $_FILE['myFile'] array
- * @return - string extension (empty string if the file has already an extension)
+ * @param  array $uploadedFile
+ *         It has to be the superglobals $_FILE['myFile'] array
+ *
+ * @return string : extension (empty string if the file has already an extension)
+ *
  */
 
 function add_extension_for_uploaded_file($uploadedFile)
@@ -238,24 +238,29 @@ function add_extension_for_uploaded_file($uploadedFile)
 }
 
 /**
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * Return the extention of a given filename
+ *
  * @param string $fileName
- * @return string extension
- *         boolean false if no extension is found
+ *
+ * @return mixed : string  : extension
+ *              or false   : if no extension is found
  */
 
 function get_extension_from_file_name($fileName)
 {
     if ( preg_match('/.+\.([a-zA-Z0-9]+)$/', $fileName, $matchList) )
+    {
         return  $matchList[1];
-    else
-        return null;
+    }
+    else return null;
 }
 
 /**
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * return the common extension for a given mimeType
  * @param string $mimeType
- * @return string extension
+ *
+ * @return mixed : string  : extension
+ *              or false   : if no extension is found
  */
 
 function get_extension_from_mime_type($mimeType)
@@ -291,10 +296,8 @@ function get_mime_type_from_extension($extension)
  * Typical use :
  *      list(mimeTypeLis, $extensionList) = get_mime_type_extension_map()
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param void
- * @return array nested array containing two other arrays, 
- *         the firt one with the MIME TYPES, and the second with the 
+ * @return array : nested array containing two other arrays,
+ *         the firt one with the MIME TYPES, and the second with the
  *         corresponding EXTENSIONS. keys of both sub arrays are mapped
  */
 
@@ -337,18 +340,20 @@ function get_mime_type_extension_map()
 }
 
 /**
- * executes all the necessary operation to upload the file in the document tool
- * 
+ * Executes all the necessary operation to upload the file in the document tool
+ *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  * @param  array $uploadedFile - follows the $_FILES Structure
  * @param  string $baseWorkDir - base working directory of the module
- * @param  string $uploadPath  - destination of the upload. 
+ * @param  string $uploadPath  - destination of the upload.
  *                               This path is to append to $baseWorkDir
- * @param  int $maxFilledSpace - amount of bytes to not exceed in the base 
+ * @param  int $maxFilledSpace - amount of bytes to not exceed in the base
  *                               working directory
+ * @param  string $uncompress  - whether 'unzip' and file is a zip;
+ *                               extract the content.
  *
- * @return boolean true if it succeds, false otherwise
+ * @return boolean : true if it succeds, false otherwise
  */
 
 function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '')
@@ -378,17 +383,17 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 
         return claro_failure::set_failure($failureStr);
     }
-    
+
 
     if ( ! enough_size($uploadedFile['size'], $baseWorkDir, $maxFilledSpace))
     {
         return claro_failure::set_failure('not_enough_space');
     }
 
-    if (   $uncompress == 'unzip' 
+    if (   $uncompress == 'unzip'
         && preg_match('/.zip$/i', $uploadedFile['name']) )
     {
-        return treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath, 
+        return treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
                                                 $baseWorkDir, $maxFilledSpace);
     }
     else
@@ -405,16 +410,13 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
         $fileName = get_secure_file_name($fileName);
 
         /* COPY THE FILE TO THE DESIRED DESTINATION */
-        if ( move_uploaded_file($uploadedFile['tmp_name'], 
-            $baseWorkDir.$uploadPath.'/'.$fileName) )
+        if ( move_uploaded_file($uploadedFile['tmp_name'],
+            $baseWorkDir.$uploadPath . '/' . $fileName) )
         {
-            chmod($baseWorkDir.$uploadPath.'/'.$fileName,CLARO_FILE_PERMISSIONS);
+            chmod($baseWorkDir.$uploadPath . '/' . $fileName,CLARO_FILE_PERMISSIONS);
             return $fileName;
         }
-        else
-        {
-            return false;
-        }
+        else return false;
     }
 
     return false;
@@ -423,21 +425,21 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 
 
 /**
- * Securely manage all the unzipping process of an uploaded document 
+ * Securely manage all the unzipping process of an uploaded document
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  * @param  array  $uploadedFile - follows the $_FILES Structure
- * @param  string $uploadPath   - destination of the upload. 
+ * @param  string $uploadPath   - destination of the upload.
  *                                This path is to append to $baseWorkDir
  * @param  string $baseWorkDir  - base working directory of the module
- * @param  int $maxFilledSpace  - amount of bytes to not exceed in the base 
+ * @param  int $maxFilledSpace  - amount of bytes to not exceed in the base
  *                                working directory
  *
  * @return boolean true if it succeeds false otherwise
  */
 
-function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath, 
+function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
                                           $baseWorkDir, $maxFilledSpace)
 {
     $zipFile = new pclZip($uploadedFile['tmp_name']);
@@ -456,7 +458,7 @@ function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
 
         $realFileSize += $thisContent['size'];
     }
-        
+
     if ( ! enough_size($realFileSize, $baseWorkDir, $maxFilledSpace) )
     {
         return claro_failure::set_failure('not_enough_space');
@@ -504,7 +506,7 @@ function search_img_from_html($htmlFile)
     {
         foreach($imgTagList as $thisImgTag)
         {
-            if ( preg_match('~src[[:space:]]*=[[:space:]]*[\"]{1}([^\"]+)[\"]{1}~i', 
+            if ( preg_match('~src[[:space:]]*=[[:space:]]*[\"]{1}([^\"]+)[\"]{1}~i',
                             $thisImgTag, $matches) )
             {
                 $imgPathList[] = $matches[1];
@@ -519,12 +521,12 @@ function search_img_from_html($htmlFile)
 }
 
 /**
- * creates a new directory trying to find a directory name 
+ * creates a new directory trying to find a directory name
  * that doesn't already exist
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param string $desiredDirName complete path of the desired name
- * @return string actual directory name if it succeeds, 
+ * @return string actual directory name if it succeeds,
  *         boolean false otherwise
  */
 
@@ -532,18 +534,18 @@ function create_unexisting_directory($desiredDirName)
 {
 
     $finalName = get_unexisting_file_name($desiredDirName);
-    
+
     if ( mkdir($finalName, CLARO_FILE_PERMISSIONS) ) return $finalName;
     else                                             return false;
 }
 
 /**
- * creates a guinely file name that doesn't already exist 
+ * creates a guinely file name that doesn't already exist
  * inside a specific path
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param string $desiredDirName complete path of the desired name
- * @return string actual file name if it succeeds, 
+ * @return string actual file name if it succeeds,
  *         boolean false otherwise
  */
 
@@ -551,7 +553,7 @@ function create_unexisting_directory($desiredDirName)
 function get_unexisting_file_name($desiredDirName)
 {
     $nb = '';
-    
+
     $fileName = $desiredDirName;
 
     while ( file_exists($fileName.$nb) )
@@ -563,7 +565,7 @@ function get_unexisting_file_name($desiredDirName)
 }
 
 /**
- * 
+ *
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param array $uploadedFileCollection - follows the $_FILES Structure
@@ -591,7 +593,7 @@ function move_uploaded_file_collection_into_directory($uploadedFileCollection, $
             }
         }
     }
-    
+
     return $newFileList;
 }
 
@@ -645,7 +647,7 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 function create_link_file($filePath, $url)
 {
     global $charset;
-    
+
     $fileContent = '<html>'
                   .'<head>'
                   .'<meta http-equiv="content-Type" content="text/html;charset='.$charset.'">'
@@ -675,11 +677,14 @@ function create_file($filePath, $fileContent)
  * and post_max_size parameters. This value is diplayed on the upload
  * form.
  *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param int local max allowed file size e.g. remaining place in
- *    an allocated course directory    
- * @return int lower value between php.ini values of upload_max_filesize and 
- *    post_max_size and the claroline value of size left in directory 
+ * @param integer $maxFilledSpace local max allowed file size
+ *                                e.g. remaining place in
+ *                                an allocated course directory
+ *
+ * @return integer : lower value between php.ini values of upload_max_filesize
+ *                   and post_max_size
+ *                   and the claroline value of size left in directory
+ *
  * @see    - get_max_upload_size() uses  dir_total_space() function
  */
 function get_max_upload_size($maxFilledSpace, $baseWorkDir)
@@ -696,4 +701,5 @@ function get_max_upload_size($maxFilledSpace, $baseWorkDir)
 
     return $maxFileSize;
 }
+
 ?>
