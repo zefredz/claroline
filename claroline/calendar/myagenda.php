@@ -41,14 +41,16 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
 // Main
 
-$sql = "SELECT cours.code sysCode,
-               cours.fake_code officialCode,
-               cours.intitule title,
-               cours.titulaires t,
-               cours.dbName db,
-               cours.directory dir
-        FROM    `" . $tbl_course . "`     cours,
-                `" . $tbl_rel_course_user . "` cours_user
+$sql = "SELECT cours.code       AS sysCode,
+               cours.fake_code  AS officialCode,
+               cours.intitule   AS title,
+               cours.titulaires AS t,
+               cours.dbName     AS db,
+               cours.directory  AS dir
+
+        FROM    `" . $tbl_course . "`          AS cours,
+                `" . $tbl_rel_course_user . "` AS cours_user
+
         WHERE cours.code         = cours_user.code_cours
         AND   cours_user.user_id = " . (int) $_uid ;
 
@@ -56,7 +58,7 @@ $userCourseList = claro_sql_query_fetch_all($sql);
 
 $today = getdate();
 
-if ( isset($_REQUEST['year']) ) $year  = $_REQUEST['year' ];
+if ( isset($_REQUEST['year']) ) $year = $_REQUEST['year' ];
 else                            $year = $today['year'];
 
 if( isset($_REQUEST['month']) ) $month = $_REQUEST['month'];
@@ -73,7 +75,7 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
 
 // Display Calendar
-claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName);
+echo claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName);
 
 // Footer
 include $includePath . '/claro_init_footer.inc.php';
