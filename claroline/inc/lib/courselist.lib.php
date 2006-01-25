@@ -137,6 +137,7 @@ function search_course($keyword, $userId = null)
 
     $sql = "SELECT c.intitule   AS title,
                    c.titulaires AS titular,
+                   c.code       AS sysCode,
                    c.fake_code  AS officialCode,
                    c.directory  AS directory,
                    c.code       AS code,
