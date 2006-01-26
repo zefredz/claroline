@@ -23,7 +23,12 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-include_once $includePath . '/lib/assignment.lib.php';
+require_once $includePath . '/lib/assignment.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/fileUpload.lib.php';
+require_once $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
+require_once $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
+
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
@@ -31,9 +36,8 @@ $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
 
 event_access_tool($_tid, $_courseTool['label']);
 
-include($includePath . '/lib/fileUpload.lib.php');
-include($includePath . '/lib/fileDisplay.lib.php'); // need format_url function
-include($includePath . '/lib/fileManage.lib.php'); // need claro_delete_file
+// 'step' of pager
+$assignmentsPerPage = get_conf('assignmentsPerPage', 20);
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -313,6 +317,7 @@ if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 }
 else
 {
+	$noQUERY_STRING = true;
     $nameTools = get_lang('Work');
 }
 
@@ -325,22 +330,37 @@ else
     if ( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed )
     {
         // select only the group assignments
-          $sql = "SELECT `id`, `title`, `def_submission_visibility`,
-          	`visibility`, `assignment_type`,
-            unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
-            FROM `" . $tbl_wrk_assignment . "`
-            WHERE `assignment_type` = 'GROUP'
-            ORDER BY `end_date` ASC";
+        $sql = "SELECT `id`, `title`, `def_submission_visibility`,
+	      	`visibility`, `assignment_type`,
+	        unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
+	        FROM `" . $tbl_wrk_assignment . "`
+	        WHERE `assignment_type` = 'GROUP'";
+	        
+	        if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+			
+			$sortKeyList['end_date']	= SORT_ASC;
     }
     else
     {
         $sql = "SELECT `id`, `title`, `def_submission_visibility`,
             `visibility`, `assignment_type`,
             unix_timestamp(`start_date`) as `start_date_unix`, unix_timestamp(`end_date`) as `end_date_unix`
-            FROM `" . $tbl_wrk_assignment . "`
-            ORDER BY `end_date` ASC";
+            FROM `" . $tbl_wrk_assignment . "`";
+
+		if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+					
+		$sortKeyList['end_date']	= SORT_ASC;
     }
-    $assignmentList = claro_sql_query_fetch_all($sql);
+    
+    $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
+	$assignmentPager = new claro_sql_pager($sql, $offset, $assignmentsPerPage);
+	
+	foreach($sortKeyList as $thisSortKey => $thisSortDir)
+	{
+	    $assignmentPager->add_sort_key( $thisSortKey, $thisSortDir);
+	}
+
+	$assignmentList = $assignmentPager->get_result_list();
 
 
 include $includePath . '/claro_init_header.inc.php' ;
@@ -485,7 +505,7 @@ if ($is_allowedToEdit)
 // if we don't display assignment form
 if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 {
-    /*--------------------------------------------------------------------
+	/*--------------------------------------------------------------------
                         INTRODUCTION SECTION
       --------------------------------------------------------------------*/
 
@@ -507,12 +527,17 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         ;
     }
 
+
+	$headerUrl = $assignmentPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
+	echo $assignmentPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
     echo '<table class="claroTable" width="100%">' . "\n"
     .	 '<tr class="headerX">'
-    .	 '<th>' . get_lang('Title') . '</th>' . "\n"
-    .	 '<th>' . get_lang('Type') . '</th>' . "\n"
-    .	 '<th>' . get_lang('Available from') . '</th>' . "\n"
-    .	 '<th>' . get_lang('Until') . '</th>' . "\n";
+    .	 '<th><a href="' . $headerUrl['title'] . '">' . get_lang('Title') . '</a></th>' . "\n"
+    .	 '<th><a href="' . $headerUrl['assignment_type'] . '">' . get_lang('Type') . '</a></th>' . "\n"
+    .	 '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Available from') . '</a></th>' . "\n"
+    .	 '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('Until') . '</a></th>' . "\n";
     
     if( $is_allowedToEdit )
     {
