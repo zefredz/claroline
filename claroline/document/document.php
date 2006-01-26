@@ -1355,7 +1355,7 @@ function getWindowWidth ()
 }
 </script>";
     $claroBodyOnload[] = "zoomOut();";
-}
+}//
 
 $nameTools = get_lang('Documents and Links');
 
@@ -1578,14 +1578,14 @@ echo claro_disp_tool_title($titleElement,
         // -> title and size
         echo "<br /><small>[ Info : " . $imgTitle . " - " . $width
             . "x" . $height
-            . " - " .format_file_size($fileList['size'][$imgKey])
+            . " - " .format_file_size($fileList[$imgKey]['size'])
             ;
 
         // -> color depth
         echo " - " . $depth . "bits";
 
         // -> mime type
-        if(version_compare(phpversion(), "4.3.0", ">"))
+        if( version_compare(phpversion(), '4.3.0', '>') )
         {
             $mime_type = image_type_to_mime_type($type);
             echo " - " . $mime_type ;
