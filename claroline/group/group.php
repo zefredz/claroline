@@ -18,9 +18,9 @@
  *  - remove (all) groups
  * complete listing of  groups member is not aivailable. the  unsorted info is in user tool
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -40,8 +40,10 @@ DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-include_once $includePath . '/lib/group.lib.inc.php' ;
-include_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/group.lib.inc.php' ;
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/claro_html.class.php';
+
 //stats
 event_access_tool($_tid, $_courseTool['label']);
 
@@ -51,8 +53,6 @@ claro_set_display_mode_available(TRUE);
 
 $display = DISP_GROUP_LIST;
 $nameTools = get_lang('Groups');
-
-
 
 /**
  * DB TABLE NAMES INIT
@@ -363,6 +363,35 @@ if ( $is_allowedToManage )
         $groupHaveChat   = $_groupProperties['tools']['chat'     ];
 
     }    // end if $submit
+
+    // Create new groups
+$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkGroup">'
+.                            '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
+.                            get_lang('NewGroupCreate')
+.                            '</a>'
+;
+// Delete all groups
+$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL" onClick="return confirmationDelete();">'
+.                            '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+.                            get_lang('DeleteGroups')
+.                            '</a>';
+// Fill groups
+$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exFillGroup" onClick="return confirmationFill();">'
+.                            '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
+.                            get_lang('FillGroups')
+.                            '</a>';
+// Empty all groups
+$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup"  onClick="return confirmationEmpty();">'
+.                            '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
+.                            get_lang('EmtpyGroups')
+.                            '</a>';
+// Main group settings
+$groupadmin_manager_menu[] = '<a class="claroCmd" href="group_properties.php">'
+.                            '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+.                            get_lang('MainGroupSettings')
+.                            '</a>';
+
+
 } // end if is_allowedToManage
 
 
@@ -484,54 +513,9 @@ if ( !empty($message) )
 }
 
 /*==========================
-    COURSE ADMIN ONLY
-  ==========================*/
-
-if ( $display_groupadmin_manager )
-{
-    /*--------------------
-       COMMANDS BUTTONS
-      --------------------*/
-
-    echo '<p>' . "\n"
-
-    // Create new groups
-    .    '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkGroup">'
-    .    '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
-    .    get_lang('NewGroupCreate')
-    .    '</a> |'
-    .    '&nbsp;' . "\n"
-
-    // Delete all groups
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL" onClick="return confirmationDelete();">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-    .    get_lang('DeleteGroups')
-    .    '</a> |'
-    .    '&nbsp;' . "\n"
-    // Fill groups
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exFillGroup" onClick="return confirmationFill();">'
-    .    '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
-    .    get_lang('FillGroups')
-    .    '</a> |'
-    .    '&nbsp;' . "\n"
-
-    // Empty all groups
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup"  onClick="return confirmationEmpty();">'
-    .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
-    .    get_lang('EmtpyGroups')
-    .    '</a> |'
-    .    '&nbsp;' . "\n"
-
-    // Main group settings
-    .    '<a class="claroCmd" href="group_properties.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
-    .    get_lang('MainGroupSettings')
-    .    '</a>'
-    .    '&nbsp;' . "\n"
-    .    '</p>' . "\n"
-    ;
-
-}    // end course admin only
+COURSE ADMIN ONLY
+==========================*/
+if ( $display_groupadmin_manager ) echo '<p>' . claro_html::menu_horizontal($groupadmin_manager_menu) . '</p>';
 
 /**
   VIEW COMMON TO STUDENT & TEACHERS
