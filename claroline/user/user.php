@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,9 +32,10 @@ claro_set_display_mode_available(true);
    Include Library
   ----------------------------------------------------------------------*/
 
-include $includePath  . '/lib/admin.lib.inc.php';
-include $includePath  . '/lib/user.lib.php';
-include $includePath  . '/lib/pager.lib.php';
+require_once $includePath  . '/lib/admin.lib.inc.php';
+require_once $includePath  . '/lib/user.lib.php';
+require_once $includePath  . '/lib/pager.lib.php';
+require_once $includePath . '/lib/claro_html.class.php';
 
 /*----------------------------------------------------------------------
    Load config
@@ -172,16 +173,19 @@ if ( $is_allowedToEdit )
    Get User List
   ----------------------------------------------------------------------*/
 
-$sqlGetUsers ='SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`,
-                      `user`.`email`, `cours_user`.`statut`,
-                      `cours_user`.`tutor`, `cours_user`.`role`
-               FROM `'.$tbl_users.'` user, `'.$tbl_rel_course_user.'` cours_user
+$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
+                       `user`.`nom`          AS `nom`,
+                       `user`.`prenom`       AS `prenom`,
+                       `user`.`email`        AS `email`,
+                       `cours_user`.`statut` AS `statut`,
+                       `cours_user`.`tutor`  AS `tutor`,
+                       `cours_user`.`role`   AS `role`
+               FROM `" . $tbl_users . "`           AS user,
+                    `" . $tbl_rel_course_user . "` AS cours_user
                WHERE `user`.`user_id`=`cours_user`.`user_id`
-               AND   `cours_user`.`code_cours`="'. addslashes($currentCourseID) .'"';
+               AND   `cours_user`.`code_cours`='" . addslashes($currentCourseID) . "'";
 
-
-
-$myPager     = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
+$myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 
 if ( isset($_GET['sort']) )
 {
@@ -215,12 +219,13 @@ foreach ( $userList as $thisUser )
 
 if ( count($usersId)> 0 )
 {
-    $sqlGroupOfUsers = "SELECT `ug`.`user` AS `uid`, `ug`.`team` AS `team`,
-                        `sg`.`name` AS `nameTeam`
-                        FROM `".$tbl_rel_users_groups."` `ug`
-                        LEFT JOIN `".$tbl_groups."` `sg`
+    $sqlGroupOfUsers = "SELECT `ug`.`user` AS `uid`,
+                               `ug`.`team` AS `team`,
+                               `sg`.`name` AS `nameTeam`
+                        FROM `"  . $tbl_rel_users_groups . "` AS `ug`
+                        LEFT JOIN `" . $tbl_groups . "` AS `sg`
                         ON `ug`.`team` = `sg`.`id`
-                        WHERE `ug`.`user` IN (".implode(",",$usersId).")
+                        WHERE `ug`.`user` IN (" . implode(",",$usersId) . ")
                         ORDER BY `sg`.`name`";
 
     $userGroupList = claro_sql_query_fetch_all($sqlGroupOfUsers);
@@ -236,11 +241,57 @@ if ( count($usersId)> 0 )
     }
 }
 
-/*=====================================================================
-  Display section
-  =====================================================================*/
+// PREPARE DISPLAY
 
 $nameTools = get_lang('Users');
+if ($can_add_user)
+{
+    //add a user link
+
+    $userMenu[] = '<a class="claroCmd" href="user_add.php">'
+    .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
+    .    get_lang('Add a user')
+    .    '</a>'
+    ;
+    $userMenu[] =        //add CSV file of user link
+    '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
+    .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
+    .    get_lang('AddCSVUsers')
+    .    '</a>'
+    ;
+    //add a class link
+    $userMenu[] =
+    '<a class="claroCmd" href="class_add.php">'
+    .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
+    .    get_lang('EnrollClass')
+    .    '</a>'
+
+    ;
+
+}
+
+$userMenu[] = '<a class="claroCmd" href="../group/group.php">'
+.             '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
+.             get_lang('GroupUserManagement')
+.             '</a>'
+;
+
+$userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+.             '?cmd=unregister&amp;user_id=allStudent" '
+.             ' onClick="return confirmation(\'' . clean_str_for_javascript(' all students ') . '\')">'
+.             '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
+.             get_lang('UnregisterAllStudents')
+.             '</a>'
+;
+
+/*=====================================================================
+Display section
+  =====================================================================*/
+
+
+
+
+
 
 // Display header
 
@@ -254,36 +305,8 @@ echo claro_disp_tool_title($nameTools . ' (' . get_lang('UserNumber') . ' : ' . 
 if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 // Display tool links
+if ( $disp_tool_link ) echo '<p>' . claro_html::menu_horizontal($userMenu) . '</p>';
 
-if ( $disp_tool_link )
-{
-    echo '<p>';
-    if ($can_add_user)
-    {
-       //add a user link
-    ?>
-    <a class="claroCmd" href="user_add.php"><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /><?php echo get_lang('Add a user'); ?></a> |
-    <?php
-       //add CSV file of user link
-    ?>
-    <a class="claroCmd" href="AddCSVusers.php?AddType=userTool"><img src="<?php echo $imgRepositoryWeb; ?>importlist.gif" alt="" /> <?php echo get_lang('AddCSVUsers'); ?></a> |
-    <?php
-       //add a class link
-    ?>
-    <a class="claroCmd" href="class_add.php"><img src="<?php echo $imgRepositoryWeb; ?>class.gif" alt="" /> <?php echo get_lang('EnrollClass'); ?></a> |
-    <?php
-
-    }
-    ?>
-    <a class="claroCmd" href="../group/group.php"><img src="<?php echo $imgRepositoryWeb; ?>group.gif" alt="" /><?php echo get_lang('GroupUserManagement'); ?></a> |
-
-    <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=unregister&amp;user_id=allStudent"
-       onClick="return confirmation('<?php echo clean_str_for_javascript(' all students '); ?>')">
-    <img src="<?php echo $imgRepositoryWeb; ?>unenroll.gif" alt="" /><?php echo get_lang('UnregisterAllStudents') ?>
-    </a>
-    </p>
-<?php
-}
 
 /*----------------------------------------------------------------------
    Display pager
@@ -457,6 +480,6 @@ echo '</tbody>' . "\n"
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-
 include $includePath . '/claro_init_footer.inc.php';
+
 ?>
