@@ -10,7 +10,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -26,6 +26,7 @@ require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 require_once $includePath . '/lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/conf/rss.conf.php';
+require_once $includePath . '/lib/claro_html.class.php';
 
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
@@ -77,6 +78,7 @@ if     ( $cmd == 'rqAdd' ) $subTitle = get_lang('Add an event');
 elseif ( $cmd == 'rqEdit') $subTitle = get_lang('Edit Event');
 else                       $subTitle = '&nbsp;';
 
+$orderDirection = isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' ?'DESC':'ASC';
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 /**
@@ -291,6 +293,42 @@ if ( get_conf('enable_rss_in_course') )
     .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
 
+$eventList = agenda_get_item_list($orderDirection);
+
+/**
+     * Add event button
+         */
+
+$cmd_menu[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
+.    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt="" />'
+.    get_lang('Add an event')
+.    '</a>'
+;
+
+/*
+* remove all event button
+*/
+if ( count($eventList) > 0 )
+{
+    $cmd_menu[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
+    .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+    .    get_lang('Clear up event list')
+    .    '</a>'
+    ;
+}
+else
+{
+    $cmd_menu[]=  '<span class="claroCmdDisabled" >'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+    .    get_lang('Clear up event list')
+    .    '</span>'
+    ;
+}
+
+
+
+
 // Display header
 include $includePath . '/claro_init_header.inc.php';
 
@@ -400,54 +438,7 @@ if ($display_form)
     ;
 }
 
-if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' )
-{
-    $orderDirection = 'DESC';
-}
-else
-{
-    $orderDirection = 'ASC';
-}
-
-$eventList = agenda_get_item_list($orderDirection);
-
-if ($display_command)
-{
-    echo "\n\n" . '<p>'
-
-    /**
-         * Add event button
-         */
-
-    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-    .    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt="" />'
-    .    get_lang('Add an event')
-    .    '</a>'
-    .    ' | ';
-
-    /*
-    * remove all event button
-    */
-    if ( count($eventList) > 0 )
-    {
-        echo '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-        .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    get_lang('Clear up event list')
-        .    '</a>'
-        ;
-    }
-    else
-    {
-        echo '<span class="claroCmdDisabled" >'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-        .    get_lang('Clear up event list')
-        .    '</span>'
-        ;
-    }
-
-    echo '</p>' . "\n";
-}
+if ( $display_command ) echo '<p>' . claro_html::menu_horizontal($cmd_menu) . '</p>';
 
 $monthBar     = '';
 
