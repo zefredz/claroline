@@ -159,23 +159,30 @@ if ( isset($_REQUEST['changeProperties']) )
      *  accept ; [space] and , as separator but  if all is right replace all by ;
      * if  one is wrong display the erronous and dont change
      */
-    $is_emailListValid = true;
-    $emailControlList = (strpos($courseEmail,';')===false) ? strtr($courseEmail,', ',';;'):$email;
-    $emailControlList = explode(';',$emailControlList);
-    foreach ($emailControlList as $emailControl )
-    if ( ! is_well_formed_email_address( trim($emailControl)) )
+    if ( ! empty( $courseEmail ) || $fieldRequiredStateList['email'] )
     {
-        $is_emailListValid = false;
-        $errorMsgList[] = get_lang('ErrorEmailInvalid') . ' : <i>' . $emailControl . '</i>';
+        $is_emailListValid = true;
+        $emailControlList = (strpos($courseEmail,';')===false) ? strtr($courseEmail,', ',';;'):$email;
+        $emailControlList = explode(';',$emailControlList);
+        foreach ($emailControlList as $emailControl )
+        {
+            if ( ! is_well_formed_email_address( trim($emailControl)) )
+            {
+                $is_emailListValid = false;
+                $errorMsgList[] = get_lang('ErrorEmailInvalid') . ' : <i>' . $emailControl . '</i>';
+            }
+            else
+            {
+                $emailValidList[] = trim($emailControl);
+            }
+        }
+        
+        if ($is_emailListValid && is_array($emailValidList))
+        {
+            $courseEmail = implode(';',$emailValidList);
+        }
     }
-    else
-    {
-        $emailValidList[] = trim($emailControl);
-    }
-    if ($is_emailListValid && is_array($emailValidList))
-    {
-        $courseEmail = implode(';',$emailValidList);
-    }
+    
     if ( count($errorMsgList) > 0)
     {
         $dialogBox .= '<p>'
