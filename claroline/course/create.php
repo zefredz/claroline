@@ -414,7 +414,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
 if ($display == DISP_COURSE_CREATION_FAILED)
 {
-    if (count ($errorList) > 0 ) $errorString = implode ('<br />'. $errorList);
+    if (count ($errorList) > 0 ) $errorString = implode ('<br />', $errorList);
     else                        $errorString = '';
 
     echo claro_disp_message_box('<p>Course Creation failed.</p>'
