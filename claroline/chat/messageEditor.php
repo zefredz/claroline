@@ -1,12 +1,12 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
@@ -19,6 +19,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+require_once $includePath . '/lib/claro_html.class.php';
 $is_allowedToManage = $is_courseAdmin || (isset($_gid) && $is_groupTutor) ;
 
 // header
@@ -34,28 +35,30 @@ function prepare_message()
 }
 </script>';
 
+
+
+if ($is_allowedToManage)
+{
+    $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList">'
+    .             get_lang('ResetChat') . '</a>'
+    ;
+    $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=store" target="messageList">'
+    .             get_lang('StoreChat') . '</a>'
+    ;
+}
+
+
 $hide_banner = TRUE;
-include ( $includePath . '/claro_init_header.inc.php' );
+include $includePath . '/claro_init_header.inc.php' ;
 
+echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">' . "\n"
+.    '<input type="text"    name="msg" size="80">' . "\n"
+.    '<input type="hidden"  name="chatLine">' . "\n"
+.    '<input type="submit" value=" >> ">' . "\n"
+.    '<br />' . "\n"
+.    '' . "\n"
+.    claro_html::menu_horizontal($cmd_menu) . "\n"
+.    '</form>';
 
-?>
-<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">
-
-
-<input type="text"    name="msg" size="80">
-<input type="hidden"  name="chatLine">
-<input type="submit" value=" >> ">
-<br />
-<?php if ($is_allowedToManage) { ?>
-<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList"><?php echo get_lang('ResetChat') ?></a> |
-<a class="claroCmd" href="messageList.php?cmd=store" target="messageList"><?php echo get_lang('StoreChat') ?></a>
-<?php }
-?>
-</form>
-<?php
-/*==========================
-           FOOTER
-  ==========================*/
-
-include( $includePath . '/claro_init_footer.inc.php' );
+include  $includePath . '/claro_init_footer.inc.php' ;
 ?>
