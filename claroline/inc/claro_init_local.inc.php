@@ -278,9 +278,12 @@ else
 
         // lookup the user in the Claroline database
 
-        $sql = "SELECT user_id, username, password, authSource
-                FROM `".$tbl_user."` `user`
-                WHERE BINARY username = '". addslashes($login) ."'";
+        $sql = 'SELECT user_id, username, password, authSource
+                FROM `' . $tbl_user . '` `user`
+                WHERE '
+             . ( $claro_authUsernameCaseSensitive ? 'BINARY'         : '') 
+             . ' username = "'. addslashes($login) .'"'
+             ;
 
         $result = claro_sql_query($sql);
 
