@@ -92,7 +92,18 @@
 // $extAuthSource['mambo']['login'  ] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 // $extAuthSource['mambo']['newUser'] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 
+/*
+ * Flag enabling case sensitivity for the username 
+ * during the authentication process
+ */
 
+$claro_authUsernameCaseSensitive = false;
+
+
+/*
+ * Flag enabling the display of the Claroline internal 
+ * authentication form
+ */
 
 $claro_displayLocalAuthForm    = true;
 
