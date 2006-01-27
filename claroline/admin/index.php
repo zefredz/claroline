@@ -126,7 +126,7 @@ include $includePath . '/claro_init_footer.inc.php';
 function get_menu_item_list($type)
 {
 
-    $menuAdminUser[] =  '<form name="searchUser" action="AdminUser.php" method="GET" >' . "\n"
+    $menuAdminUser[] =  '<form name="searchUser" action="adminusers.php" method="GET" >' . "\n"
     .                   '<label for="search_user">' . get_lang('User') . '</label>'
     .                   ' : '
     .                   '<input name="search" id="search_user" />'
@@ -145,7 +145,7 @@ $menuAdminUser[] =  array('type'=>'link', 'url'=>'admin_class.php',       'attri
 $menuAdminUser[] =  array('type'=>'link', 'url'=>'../user/AddCSVusers.php?AddType=adminTool',       'attribute'=>'class="toollink"', 'label'=> get_lang('AddCSVUsers'));
 
 
-$menuAdminCourse[] = '<form name="searchCourse" action="AdminCourse.php" method="GET" >' . "\n"
+$menuAdminCourse[] = '<form name="searchCourse" action="admincourses.php" method="GET" >' . "\n"
 .                    '<label for="search_course">' . get_lang('Course') . '</label> :' . "\n"
 .                    '<input name="search" id="search_course" />' . "\n"
 .                    '<input type="submit" value="' . get_lang('Search'). '" />' . "\n"
