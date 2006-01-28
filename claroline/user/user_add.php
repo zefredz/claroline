@@ -4,9 +4,9 @@
  *
  * This tool allow to add a user in his course (an din the platform)
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,7 +19,7 @@
  */
 /*=====================================================================
  Init Section
- =====================================================================*/ 
+ =====================================================================*/
 
 $tlabelReq = 'CLUSR___';
 
@@ -47,9 +47,9 @@ $courseRegSucceed = false;
 
 /*=====================================================================
  Main Section
- =====================================================================*/ 
+ =====================================================================*/
 
-// Initialise field variable from subscription form 
+// Initialise field variable from subscription form
 $user_data = user_initialise();
 $user_data['is_coursemanager'] = STUDENT;
 $user_data['is_tutor'] = 0;
@@ -57,15 +57,15 @@ $user_data['is_tutor'] = 0;
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
-if ((isset($_REQUEST['applySearch']) && ($_REQUEST['applySearch'] != ""))) 
+if ((isset($_REQUEST['applySearch']) && ($_REQUEST['applySearch'] != "")))
 {
-    $cmd = "applySearch"; 
+    $cmd = "applySearch";
 }
 
 if ( !empty($cmd) )
 {
     // get params from the form
-   
+
     if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
     if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
     if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
@@ -75,7 +75,7 @@ if ( !empty($cmd) )
     if ( isset($_REQUEST['email']) )         $user_data['email']  = strip_tags(trim($_REQUEST['email'])) ;
     if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
-    
+
     if ( isset($_REQUEST['is_coursemanager'])) $user_data['is_coursemanager'] = (int) $_REQUEST['is_coursemanager'];
     if ( isset($_REQUEST['is_tutor']))         $user_data['is_tutor'] = (int) $_REQUEST['is_tutor'];
 }
@@ -94,12 +94,12 @@ switch ( $cmd )
             // register the new user in the claroline platform
             $user_id = user_add($user_data);
 
-            if ( $user_id ) 
+            if ( $user_id )
             {
                 $platformRegSucceed = true;
 
                 // add user to course
-                if ( user_add_to_course($user_id, $_cid) ) 
+                if ( user_add_to_course($user_id, $_cid) )
                 {
                     // update course manager and tutor status
                     user_update_course_manager_status($user_id, $_cid, $user_data['is_coursemanager']);
@@ -120,12 +120,12 @@ switch ( $cmd )
 
         // search on username, official_code, ...
 
-        $displayResultTable = TRUE; 
-        
+        $displayResultTable = TRUE;
+
         $user_data['lastname']     = str_replace('%', '', $user_data['lastname']);
         $user_data['email']        = str_replace('%', '', $user_data['email']);
         $user_data['officialCode'] = str_replace('%', '', $user_data['officialCode']);
-        
+
         if (!(empty($user_data['lastname']) && empty($user_data['email']) && empty($user_data['officialCode'])))
         {
             $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
@@ -136,7 +136,7 @@ switch ( $cmd )
 
     case 'subscribe_to_course':
 
-        if ( isset($_REQUEST['user_id']) ) 
+        if ( isset($_REQUEST['user_id']) )
         {
             $user_id = $_REQUEST['user_id'];
 
@@ -146,7 +146,7 @@ switch ( $cmd )
             // get user info
             $user_data = user_get_data($user_id);
 
-            $courseRegSucceed = true;        
+            $courseRegSucceed = true;
         }
         else
         {
@@ -178,13 +178,13 @@ if ( $platformRegSucceed || $courseRegSucceed )
         user_send_enroll_to_course_mail ($user_id, $user_data);
     }
 
-    // display message     
+    // display message
     $messageList[]= sprintf(get_lang('TheU') . " %s %s " . get_lang('AddedToCourse'),$user_data['firstname'],$user_data['lastname']);
 }
 
 /*=====================================================================
  Display Section
- =====================================================================*/ 
+ =====================================================================*/
 
 // display header
 include($includePath.'/claro_init_header.inc.php');
@@ -194,30 +194,30 @@ echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_l
 
 // message box
 
-if ( count($messageList) > 0 ) 
+if ( count($messageList) > 0 )
 {
     echo claro_disp_message_box( implode('<br />', $messageList) );
 }
 
-if ( $platformRegSucceed ) 
+if ( $platformRegSucceed )
 {
     echo '<p><a href="user.php"><< ' .  get_lang('BackToUsersList') . '</a></p>' . "\n";
 }
-else 
+else
 {
     //display result of search (if any)
 
     if ($displayResultTable)
     {
         //displkay a search legend first
-              
+
         if ( get_conf('allowSearchInAddUser') ) $enclose_field = '*';
         else                                    $enclose_field = '';
 
         echo get_lang('SearchOn') . ' : ';
-        
+
         if ($user_data['lastname'] != '')
-        {  
+        {
             echo get_lang('LastName') . '=' . $user_data['lastname'] . $enclose_field . ' ';
         }
         if ($user_data['email'] != '')
