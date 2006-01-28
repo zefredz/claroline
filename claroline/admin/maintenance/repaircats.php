@@ -5,7 +5,7 @@
  * This tool try to repair a broken category tree
  *
  * @version 1.8 $Revision$
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,7 +32,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
-include_once $includePath . '/lib/datagrid.lib.php';
+include_once $includePath . '/lib/claro_html.class.php';
 
 // build bredcrump
 $nameTools        = get_lang('CategoriesRepairs');
@@ -83,9 +83,10 @@ switch($cmd)
         if ($errorCounter == 1)    $analyseTreeResultMsg['error'][] = get_lang('One error found');
         elseif ($errorCounter > 1) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
         // analyse Course onwance
-        $sql = "SELECT c.code `Course code`, c.faculte `Unknow faculty`
-        FROM  `" . $tbl_course . "`  c
-        LEFT JOIN  `" . $tbl_course_node. "` f
+        $sql = "SELECT c.code    AS `Course code`, 
+                       c.faculte AS `Unknow faculty`
+        FROM  `" . $tbl_course . "` AS c
+        LEFT JOIN  `" . $tbl_course_node. "` AS f
         ON c.FACULTE = f.code
         WHERE f.id IS null ";
         $courseOwnanceCheck = claro_sql_query_fetch_all($sql);

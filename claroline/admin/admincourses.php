@@ -32,7 +32,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 // initialisation of global variables and used libraries
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/datagrid.lib.php';
+require_once $includePath . '/lib/claro_html.class.php';
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $tbl_course          = $tbl_mdb_names['course'];

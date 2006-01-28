@@ -32,7 +32,7 @@ define('DISP_NOT_ALLOWED',__LINE__);
 require '../inc/claro_init_global.inc.php';
 
 include_once $includePath . '/lib/statsUtils.lib.inc.php';
-include_once $includePath . '/lib/datagrid.lib.php';
+include_once $includePath . '/lib/claro_html.class.php';
 include_once $includePath . '/lib/pear/Lite.php';
 
 
