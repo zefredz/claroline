@@ -23,9 +23,12 @@ $coursePerPage= 20;
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
+
 include_once $includePath . '/lib/admin.lib.inc.php';
 include_once $includePath . '/lib/user.lib.php';
-include_once $includePath . '/conf/user_profile.conf.php';
+include_once $includePath . '/lib/claro_html.class.php';
+
+include $includePath . '/conf/user_profile.conf.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -86,9 +89,7 @@ if ( empty($uidToEdit) ) $dialogBox .= 'ERROR : NO USER SET!!!';
 // EXECUTE COMMAND
 //----------------------------------
 
-if (isset($_REQUEST['cmd']))
-$cmd = $_REQUEST['cmd'];
-else $cmd = null;
+$cmd = (isset($_REQUEST['cmd'])) ? $_REQUEST['cmd'] : null;
 
 switch ($cmd)
 {
@@ -103,12 +104,17 @@ switch ($cmd)
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
-            $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
-            break;
+            {
+                $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
+            }   break;
             case 'course_manager_cannot_unsubscribe_himself' :
-            $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
-            break;
+            {
+                $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
+            }   break;
             default :
+            {
+
+            }
         }
     }
     break;
@@ -187,6 +193,7 @@ $resultList = $myPager->get_result_list();
 
 if (!isset($addToUrl)) $addToUrl ='';
 
+
 //display title
 
 $nameTools .= ' : ' . $userData['firstname'] . ' ' . $userData['lastname'];
@@ -203,6 +210,14 @@ $htmlHeadXtra[] =
             }
             </script>";
 
+$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('SeeUserSettings') . '</a>';
+$cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
+
+if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must display go back to list
+{
+    $cmdList[] = '<a class="claroCmd" href="adminusers.php">' . get_lang('BackToUserList') . '</a>';
+    $addToUrl = '&amp;cfrom=ulist';
+}
 
 
 //----------------------------------
@@ -219,16 +234,8 @@ if ( !empty($dialogBox) )
     echo claro_disp_message_box($dialogBox);
 }
 
-//TOOL LINKS
 
-echo '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('SeeUserSettings') . '</a> | ';
-echo '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
-
-if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must display go back to list
-{
-    echo ' | <a class="claroCmd" href="adminusers.php">' . get_lang('BackToUserList') . '</a>';
-    $addToUrl = '&amp;cfrom=ulist';
-}
+echo claro_html::menu_horizontal($cmdList);
 
 //Pager
 
@@ -317,7 +324,6 @@ echo '<tbody>'
 .    '</table>'
 ;
 
-//Pager
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit);
 

@@ -1,14 +1,14 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
   * This tool edit status of user in a course
  * Strangly, the is nothing to edit role and courseTutor status
  *
- * @version 1.8 $Revision$ 
+ * @version 1.8 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLUSR
  *
@@ -29,26 +29,20 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include($includePath . '/lib/admin.lib.inc.php');
-include($includePath . '/lib/user.lib.php');
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/claro_html.class.php';
+
 include($includePath . '/conf/user_profile.conf.php'); // find this file to modify values.
 
 // used tables
-
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_course           = $tbl_mdb_names['course'           ];
-$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-$tbl_admin            = $tbl_mdb_names['admin'            ];
-$tbl_user             = $tbl_mdb_names['user'             ];
-
 
 // deal with session variables (must unset variables if come back from enroll script)
-
 unset($_SESSION['userEdit']);
 
 
 // see which user we are working with ...
-
 $user_id   = $_REQUEST['uidToEdit'];
 $uidToEdit = $_REQUEST['uidToEdit'];
 $cidToEdit = $_REQUEST['cidToEdit'];
@@ -57,14 +51,13 @@ $cidToEdit = $_REQUEST['cidToEdit'];
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($_REQUEST['cmd']))
-     $cmd = $_REQUEST['cmd'];
-else $cmd = null;
 
 //Display "form and info" about the user
 
 if (isset($_REQUEST['ccfrom'])) {$ccfrom = $_REQUEST['ccfrom'];} else {$ccfrom = '';}
 if (isset($_REQUEST['cfrom']))  {$cfrom  = $_REQUEST['cfrom'];} else {$cfrom = '';}
+
+$cmd =(isset($_REQUEST['cmd'])) ? $_REQUEST['cmd'] : null;
 
 switch ($cmd)
 {
@@ -113,11 +106,16 @@ if(isset($user_id))
 {
     // claro_get_user_data
     $sqlGetInfoUser ="
-    SELECT *
-        FROM  `".$tbl_user."`
+    SELECT user_id,
+           nom,
+           prenom,
+           username,
+           email,
+           phoneNumber
+        FROM  `" . $tbl_mdb_names['user'] . "`
         WHERE user_id='". (int)$user_id . "'";
     $result=claro_sql_query($sqlGetInfoUser);
-    
+
     //echo $sqlGetInfoUser;
     $myrow          = mysql_fetch_array($result);
     $user_id        = $myrow['user_id'];
@@ -128,16 +126,16 @@ if(isset($user_id))
     $userphone_form = $myrow['phoneNumber'];
     // end of claro_get_user_data
 
-    
+
     $display = USER_DATA_FORM;
 
     $courseData = claro_get_course_data($cidToEdit);
-    
-    
-    
+
+
+
     // claro_get_course_user_data
     // find course user settings, must see if the user is teacher for the course
-    $sql = 'SELECT * FROM `' . $tbl_rel_course_user . '`
+    $sql = 'SELECT * FROM `' . $tbl_mdb_names['rel_course_user'] . '`
             WHERE user_id="' . (int)$uidToEdit . '"
             AND code_cours="' . addslashes($cidToEdit) . '"';
     $resultCourseUser = claro_sql_query($sql);
@@ -197,12 +195,12 @@ include($includePath . '/claro_init_header.inc.php');
 // Display tool title
 
 echo claro_disp_tool_title( array( 'mainTitle' =>$nameTools
-                                 , 'subTitle' => get_lang('Course') . ' : ' 
-                                              .  $courseData['name'] 
-                                              .  '<br />' 
-                                              .  get_lang('User') . ' : ' 
-                                              .  $prenom_form 
-                                              .  ' ' 
+                                 , 'subTitle' => get_lang('Course') . ' : '
+                                              .  $courseData['name']
+                                              .  '<br />'
+                                              .  get_lang('User') . ' : '
+                                              .  $prenom_form
+                                              .  ' '
                                               .  $nom_form
                                  )
                           );
@@ -243,13 +241,13 @@ echo '<a class="claroCmd" href="adminuserunregistered.php'
 .    '?cidToEdit=' . $cidToEdit
 .    '&amp;cmd=UnReg'
 .    '&amp;uidToEdit=' . $user_id . '" '
-.    ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript($prenom_form . ' ' . $nom_form) . '\');">' 
+.    ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript($prenom_form . ' ' . $nom_form) . '\');">'
 .    get_lang('Unsubscribe')
 .    '</a>'
 .    ' | '
 .    '<a class="claroCmd" href="adminprofile.php'
-.    '?uidToEdit=' . $uidToEdit . '">' 
-.    get_lang('Last 7 days') 
+.    '?uidToEdit=' . $uidToEdit . '">'
+.    get_lang('Last 7 days')
 .    '</a>'
 ;
 
@@ -258,8 +256,8 @@ echo '<a class="claroCmd" href="adminuserunregistered.php'
 if ( $displayBackToCU )//coming from courseuser list
 {
     echo ' | <a class="claroCmd" href="admincourseusers.php'
-    .    '?cidToEdit=' . $cidToEdit 
-    .    '&amp;uidToEdit=' . $uidToEdit . '">' 
+    .    '?cidToEdit=' . $cidToEdit
+    .    '&amp;uidToEdit=' . $uidToEdit . '">'
     .    get_lang('BackToList')
     .    '</a> '
     ;

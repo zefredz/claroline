@@ -26,6 +26,8 @@ include $includePath . '/conf/user_profile.conf.php';
 
 // Include libraries
 require_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/claro_html.class.php';
+
 
 // Initialise variables
 $nameTools=get_lang('UserSettings');
@@ -91,12 +93,10 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
 } // if apply changes
 
-$user_data = user_get_data($user_id);
-$user_data['is_admin'] = user_is_admin($user_id);
 
-/*=====================================================================
- Display Section
- =====================================================================*/
+/**
+ * PREPARE DISPLAY
+ */
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
@@ -116,6 +116,49 @@ $htmlHeadXtra[] =
             }
             </script>";
 
+$user_data = user_get_data($user_id);
+$user_data['is_admin'] = user_is_admin($user_id);
+
+$cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
+.             '?uidToEdit=' . $user_id
+.             '&amp;cmd=delete" '
+.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" >'
+.             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
+.             get_lang('DeleteUser')
+.             '</a>'
+
+;
+
+$cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
+.             '?cmd=rqReg'
+.             '&amp;uidToEdit=' . $user_id
+.             '&amp;fromAdmin=settings'
+.             '&amp;category=" >'
+.             '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
+.             get_lang('Enrol to a new course')
+.             '</a>'
+
+;
+
+$cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
+.             '?Femail=' . urlencode($user_data['email'])
+.             '&amp;searchPassword=1" >'
+.             '<img src="' . $imgRepositoryWeb . 'email.gif" />'
+.             get_lang('SendToUserAccountInfoByMail')
+.             '</a>'
+;
+
+if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
+{
+    $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>';
+}
+
+
+
+/**
+ * DISPLAY
+ */
+
 // Disdplay header
 include $includePath . '/claro_init_header.inc.php';
 
@@ -132,44 +175,7 @@ if ( count($messageList) > 0 )
 
 user_display_form_admin_user_profile($user_data);
 
-// Display tools link :
-
-echo '<a class="claroCmd" href="adminuserdeleted.php'
-.    '?uidToEdit=' . $user_id
-.    '&amp;cmd=delete" '
-.    'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" >'
-.    '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
-.    get_lang('DeleteUser')
-.    '</a>'
-
-.    ' | '
-
-.    '<a class="claroCmd" href="../auth/courses.php'
-.    '?cmd=rqReg'
-.    '&amp;uidToEdit=' . $user_id
-.    '&amp;fromAdmin=settings'
-.    '&amp;category=" >'
-.    '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
-.    get_lang('Enrol to a new course')
-.    '</a>'
-
-.    ' | '
-
-.    '<a class="claroCmd" href="../auth/lostPassword.php'
-.    '?Femail=' . urlencode($user_data['email'])
-.    '&amp;searchPassword=1" >'
-.    '<img src="' . $imgRepositoryWeb . 'email.gif" />'
-.    get_lang('SendToUserAccountInfoByMail')
-.    '</a>'
-;
-
-if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
-{
-    echo ' | '
-    .    '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>' ;
-}
-
-// display footer
+echo claro_html::menu_horizontal($cmd_menu);
 
 include $includePath . '/claro_init_footer.inc.php';
 

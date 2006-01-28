@@ -1,23 +1,29 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ *
+ * @package CLUSR
+ * @package CLCOURSES
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-include $includePath."/lib/admin.lib.inc.php";
-include $includePath."/lib/user.lib.php";
-include $includePath.'/conf/user_profile.conf.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
+
+include $includePath . '/conf/user_profile.conf.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -62,21 +68,24 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
                 case 'course_manager_cannot_unsubscribe_himself' :
                     $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
                     break;
-                default :       
-            }       
+                default :
+            }
         }
     }
 }
 
-//------------------------------------
-// DISPLAY
-//------------------------------------
+/**
+ * PREPARE DISPLAY
+ */
 
-// Display header
+$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('BackToAdmin') . '</a>';
+$cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('BackToCourseList') . '</a>';
 
-include($includePath.'/claro_init_header.inc.php');
+/**
+ * DISPLAY
+ */
 
-// Display tool title
+include $includePath.'/claro_init_header.inc.php';
 
 echo claro_disp_tool_title(get_lang('UserUnregistered'));
 
@@ -87,10 +96,7 @@ if ( !empty($dialogBox) )
     echo claro_disp_message_box($dialogBox);
 }
 
-// Display TOOL links :
-
-echo "<a class=\"claroCmd\" href=\"index.php\">".get_lang('BackToAdmin')."</a> | ";
-echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\">".get_lang('BackToCourseList')."</a>";
+echo claro_html::menu_horizontal($cmd_menu);
 
 // Display footer
 
