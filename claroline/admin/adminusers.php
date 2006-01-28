@@ -32,9 +32,9 @@ require_once $includePath . '/lib/user.lib.php';
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
 
 
-//------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 // clean session if needed
 
@@ -109,16 +109,16 @@ switch ( $cmd )
 //----------------------------------
 
 $sql = "SELECT
-       `U`.`user_id`     ,
-       `U`.`nom`         AS `name`,
-       `U`.`prenom`      AS `firstname`,
-       `U`.`authSource`  ,
-       `U`.`email`       ,
-       `U`.`statut`      AS `status`,
-       `U`.`officialCode`,
-       `U`.`phoneNumber` ,
-       `U`.`pictureUri`  ,
-       `U`.`creatorId`   AS creator_id,
+       `U`.`user_id`      AS `user_id`,
+       `U`.`nom`          AS `name`,
+       `U`.`prenom`       AS `firstname`,
+       `U`.`authSource`   AS `authSource`,
+       `U`.`email`        AS `email`,
+       `U`.`statut`       AS `status`,
+       `U`.`officialCode` AS `officialCode`,
+       `U`.`phoneNumber`  AS `phoneNumber`,
+       `U`.`pictureUri`   AS `pictureUri`,
+       `U`.`creatorId`    AS creator_id,
        IF(`U`.`statut`=" . COURSE_CREATOR . ",'COURSE_CREATOR','ORDINARY') AS `statut` ,
        count(DISTINCT `CU`.`code_cours`) AS `qty_course`
        FROM  `" . $tbl_user . "` AS `U`";
