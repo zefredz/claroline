@@ -7,7 +7,7 @@
  * and display a confirmation message to the admin.
  *
  * @version 1.8 $Revision$
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -43,9 +43,14 @@ $cmd = (isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null );
 $req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uidToEdit']))
 ? (int) $_REQUEST['uidToEdit']
 : false;
-if ( $cmd=='delete' && $req['uidToEdit'] )
+
+
+$cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('BackToAdmin') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>';
+
+if ( $cmd == 'delete' && $req['uidToEdit'] )
 {
-    if(false!== $deletionResult = user_delete($req['uidToEdit']))
+    if(false !== $deletionResult = user_delete($req['uidToEdit']))
     $dialogBox =   get_lang('UserDelete');
     else
     {
@@ -66,21 +71,11 @@ else $dialogBox = get_lang('Deletetion unable');
 
 include $includePath . '/claro_init_header.inc.php';
 
-// Display tool title
-
 echo claro_disp_tool_title(get_lang('DeleteUser'));
-
-//Display Forms or dialog box(if needed)
 
 if ( isset($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
-// display TOOL links :
+claro_html::menu_horizontal($cmdList);
 
-echo '<a class="claroCmd" href="index.php" >' . get_lang('BackToAdmin') . '</a> | '
-.    '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>'
-;
-
-// display footer
 include $includePath . '/claro_init_footer.inc.php';
-
 ?>
