@@ -27,13 +27,11 @@ if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 //check user right
 $isAllowedToDelete = $is_courseAdmin;
 
-if ( ! $isAllowedToDelete )
-{
-    claro_die(get_lang('Not allowed'));
-}
+if ( ! $isAllowedToDelete ) claro_die(get_lang('Not allowed'));
 
-include($includePath . '/lib/fileManage.lib.php');
-include($includePath . '/lib/admin.lib.inc.php');
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/claro_html.class.php';
 
 // in case of admin access (from admin tool) to the script, we must determine which course we are working with
 $addToURL = '';
@@ -73,35 +71,33 @@ else
     $display = DISP_CONFIRM_DELETE;
 }        // end else if $delete
 
-include($includePath . '/claro_init_header.inc.php');
-// display tool title
+include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
 
 switch ($display)
 {
     case DISP_DELETE_RESULT :
+    {
+        $cmd_menu[] ='<a href="../../index.php">' . get_lang('BackHomeOf').' '. $siteName  . '</a>' ;
+
+        if ( isset($cidToEdit) ) //we can suppose that script is accessed from admin tool in this case
+        {
+            $cmd_menu[] = '<a href="../admin/index.php">' . get_lang('BackToAdmin') . '</a>';
+        }
+
         echo '<p>'
         .    get_lang('Course').' &quot;'.$currentCourseName.'&quot; '
         .    '('.$currentCourseCode.') '
         .    get_lang('HasDel')
         .    '</p>'
         .    '<p>'
-        .    '<a href="../../index.php">'
-        .    get_lang('BackHomeOf').' '. $siteName
-        .    '</a>'
+        .    claro_html::menu_horizontal($cmd_menu)
+        .    '</p>'
         ;
-
-        if ( isset($cidToEdit) ) //we can suppose that script is accessed from admin tool in this case
-        {
-            echo ' | '
-            .    '<a href="../admin/index.php">'
-            .    get_lang('BackToAdmin') . '</a>'
-            ;
-        }
-        echo '</p>';
-        break;
+    }   break;
     // ASK DELETE CONFIRMATION TO THE USER
     case DISP_CONFIRM_DELETE :
+    {
         echo '<p>'
         .    '<font color="#CC0000">'
         .    get_lang('ByDel').' &quot;' . $currentCourseName . '&quot; '
@@ -120,7 +116,7 @@ switch ($display)
         .    '</font>'
         .    '</p>'
         ;
-        break;
+    }   break;
 }
 
 include $includePath . '/claro_init_footer.inc.php';

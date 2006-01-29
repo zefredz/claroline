@@ -36,6 +36,7 @@ include_once $includePath . '/lib/auth.lib.inc.php';
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/form.lib.php';
 include_once $includePath . '/conf/course_main.conf.php';
+require_once $includePath . '/lib/claro_html.class.php';
 
 /**
  * Configuration array , define here which field can be left empty or not
@@ -176,13 +177,13 @@ if ( isset($_REQUEST['changeProperties']) )
                 $emailValidList[] = trim($emailControl);
             }
         }
-        
+
         if ($is_emailListValid && is_array($emailValidList))
         {
             $courseEmail = implode(';',$emailValidList);
         }
     }
-    
+
     if ( count($errorMsgList) > 0)
     {
         $dialogBox .= '<p>'
@@ -340,8 +341,8 @@ if ( isset($cfrom) && ($is_platformAdmin) )
     }
 }
 
-// Display links
-echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
+
+echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
 
 // Display form
 
