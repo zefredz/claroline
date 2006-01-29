@@ -409,7 +409,7 @@ function getSubClasses($class_id)
 
     $query_result = claro_sql_query($sql);
 
-    while ( () $this_sub_class = mysql_fetch_array($query_result) ) )
+    while ( ( $this_sub_class = mysql_fetch_array($query_result) ) )
     {
         // add this subclass id to array
         $sub_classes_list[] = $this_sub_class['id'];
