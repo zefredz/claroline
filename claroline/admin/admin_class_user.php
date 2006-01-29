@@ -12,7 +12,6 @@
  *
  * @author Claro Team <cvs@claroline.net>
  */
-$userPerPage = 20; // numbers of user to display on the same page
 
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
@@ -47,10 +46,13 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_RE
 
 // deal with session variables for search criteria
 
-if (isset($_REQUEST['dir'])) {$_SESSION['admin_user_class_dir']  = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
+if (isset($_REQUEST['dir']))
+{
+    $_SESSION['admin_user_class_dir']  = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+}
 
 
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+if(file_exists($includePath.'/currentVersion.inc.php')) include $includePath . '/currentVersion.inc.php';
 
 // javascript confirm pop up declaration
 
@@ -64,11 +66,6 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/
                     {return false;}
             }
             </script>";
-
-// Deal with interbredcrumps
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Class'));
-$nameTools = get_lang('Class members');
 
 //SESSION VARIABLES
 
@@ -87,15 +84,15 @@ else                         $cmd = null;
 switch ($cmd)
 {
     case 'unsubscribe' :
-        
+
         $classes_list = getSubClasses($_SESSION['admin_user_class_id']);
         $classes_list[] = $_SESSION['admin_user_class_id'];
-        
+
         $sql = "DELETE FROM `" . $tbl_class_user . "`
                 WHERE `user_id` = " . (int) $_REQUEST['userid'] . "
                 AND `class_id`
                  in (" . implode($classes_list,",") . ")";
-                 
+
         claro_sql_query($sql);
         $dialogBox = get_lang('UserUnregisteredFromClass');
         break;
@@ -121,7 +118,11 @@ list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 $classes_list = getSubClasses($_SESSION['admin_user_class_id']);
 $classes_list[] = $_SESSION['admin_user_class_id'];
 
-$sql = "SELECT distinct (U.user_id), U.nom, U.prenom, U.email, U.officialCode
+$sql = "SELECT distinct U.user_id      AS user_id,
+                        U.nom          AS nom,
+                        U.prenom       AS prenom,
+                        U.email        AS email,
+                        U.officialCode AS officialCode
         FROM `" . $tbl_user . "` AS U
             LEFT JOIN `" . $tbl_class_user . "` AS CU
             ON U.`user_id`= CU.`user_id`
@@ -160,11 +161,38 @@ if (isset($_SESSION['admin_user_class_order_crit']))
 }
 
 //Build pager with SQL request
-if (!isset($_REQUEST['offset'])) $offset = "0";
+if (!isset($_REQUEST['offset'])) $offset = '0';
 else                             $offset = $_REQUEST['offset'];
 
-$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+$myPager = new claro_sql_pager($sql, $offset, get_conf('userPerPage', 20) );
 $resultList = $myPager->get_result_list();
+
+/**
+ * PREPARE DISPLAY
+ */
+// Deal with interbredcrumps
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Class'));
+$nameTools = get_lang('Class members');
+
+$cmd_menu[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
+.             '?class='.$classinfo['id'].'">'
+.             '<img src="'.$imgRepositoryWeb . 'enroll.gif" border="0"/> '
+.             get_lang('Register a user for this class') . '</a>'
+;
+$cmd_menu[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
+.             '?cmd=rqReg&amp;fromAdmin=class">'
+.             '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
+.             get_lang('Register class for course')
+.             '</a>'
+;
+$cmd_menu[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php'
+.             '?AddType=adminClassTool">'
+.             '<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
+.             get_lang('Add a user list in class')
+.             '</a>'
+;
+
 
 //------------------------------------
 // DISPLAY
@@ -175,43 +203,13 @@ if (!isset($addToUrl)) $addToUrl ='';
 //Header
 include $includePath . '/claro_init_header.inc.php';
 
-// Display tool title
-
 echo claro_disp_tool_title($nameTools . ' : ' . $classinfo['name']);
 
-//Display Forms or dialog box(if needed)
+if (isset($dialogBox))  echo claro_disp_message_box($dialogBox). '<br />';
 
-if (isset($dialogBox))
-{
-    echo claro_disp_message_box($dialogBox);
-    echo '<br />';
-}
-
-//TOOL LINKS
-
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
-.    '?class='.$classinfo['id'].'">'
-.    '<img src="'.$imgRepositoryWeb . 'enroll.gif" border="0"/> '
-.    get_lang('Register a user for this class') . '</a>'
-.    ' | '
-.    '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
-.    '?cmd=rqReg&amp;fromAdmin=class">'
-.    '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
-.    get_lang('Register class for course')
-.    '</a>'
-.    ' | '
-.    '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php'
-.    '?AddType=adminClassTool">'
-.    '<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
-.    get_lang('Add a user list in class')
-.    '</a>'
+echo claro_html::menu_horizontal($cmd_menu)
 .    '<br /><br />'
-;
-
-   //Pager
-
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 // Display list of users
 
