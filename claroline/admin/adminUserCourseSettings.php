@@ -186,11 +186,51 @@ elseif ($ccfrom=='uclist')//coming from usercourse list
     $displayBackToUC = TRUE;
 }
 
+
+$cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
+.             '?cidToEdit=' . $cidToEdit
+.             '&amp;cmd=UnReg'
+.             '&amp;uidToEdit=' . $user_id . '" '
+.             ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript($prenom_form . ' ' . $nom_form) . '\');">'
+.             get_lang('Unsubscribe')
+.             '</a>'
+;
+
+$cmd_menu[] = '<a class="claroCmd" href="adminprofile.php'
+.             '?uidToEdit=' . $uidToEdit . '">'
+.             get_lang('Last 7 days')
+.             '</a>'
+;
+
+//link to go back to list : depend where we come from...
+
+if ( $displayBackToCU )//coming from courseuser list
+{
+    $cmd_menu[] = '<a class="claroCmd" href="admincourseusers.php'
+    .             '?cidToEdit=' . $cidToEdit
+    .             '&amp;uidToEdit=' . $uidToEdit . '">'
+    .             get_lang('BackToList')
+    .             '</a> '
+    ;
+}
+elseif ( $displayBackToUC )//coming from usercourse list
+{
+    $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php'
+    .             '?cidToEdit=' . $cidToEdit
+    .             '&amp;uidToEdit=' . $uidToEdit . '">'
+    .             get_lang('BackToList')
+    .             '</a> '
+    ;
+}
+
+
+
+
 //------------------------------------
 // DISPLAY
 //------------------------------------
 
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
@@ -234,45 +274,8 @@ if(isset($dialogBox))
 </form>
 
 <?php
-
 // display TOOL links :
-
-echo '<a class="claroCmd" href="adminuserunregistered.php'
-.    '?cidToEdit=' . $cidToEdit
-.    '&amp;cmd=UnReg'
-.    '&amp;uidToEdit=' . $user_id . '" '
-.    ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript($prenom_form . ' ' . $nom_form) . '\');">'
-.    get_lang('Unsubscribe')
-.    '</a>'
-.    ' | '
-.    '<a class="claroCmd" href="adminprofile.php'
-.    '?uidToEdit=' . $uidToEdit . '">'
-.    get_lang('Last 7 days')
-.    '</a>'
-;
-
-//link to go back to list : depend where we come from...
-
-if ( $displayBackToCU )//coming from courseuser list
-{
-    echo ' | <a class="claroCmd" href="admincourseusers.php'
-    .    '?cidToEdit=' . $cidToEdit
-    .    '&amp;uidToEdit=' . $uidToEdit . '">'
-    .    get_lang('BackToList')
-    .    '</a> '
-    ;
-}
-elseif ( $displayBackToUC )//coming from usercourse list
-{
-    echo ' | '
-    .    '<a class="claroCmd" href="adminusercourses.php'
-    .    '?cidToEdit=' . $cidToEdit
-    .    '&amp;uidToEdit=' . $uidToEdit . '">'
-    .    get_lang('BackToList')
-    .    '</a> '
-    ;
-}
-
+echo claro_html::menu_horizontal($cmd_menu);
 // display footer
 
 include $includePath . '/claro_init_footer.inc.php';
