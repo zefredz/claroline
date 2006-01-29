@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$ 
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- * @copyright 2004-2005 Centre de Recherche et de Développement de l'ECAM (CERDECAM)
+ * @copyright 2004-2006 Centre de Recherche et de Développement de l'ECAM (CERDECAM)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
