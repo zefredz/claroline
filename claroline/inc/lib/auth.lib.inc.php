@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLAUTH
  *
@@ -17,7 +17,7 @@
  * generates randomly a new password
  *
  * @author Damien Seguy
- * @return string the new password
+ * @return string : the new password
  */
 
 function generate_passwd()
@@ -73,7 +73,8 @@ function generate_passwd()
 /**
  * Check an email
  * @version 1.0
- * @param  integer    $email email to check
+ * @param  string $email email to check
+ *
  * @return boolean state of validity.
  * @author Christophe Gesche <moosh@claroline.net>
  */
