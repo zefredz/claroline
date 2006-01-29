@@ -16,7 +16,13 @@
  * @since 1.6
  */
 
-
+/**
+ * Enter description here...
+ *
+ * @param integer $class_id
+ * @param string $course_code
+ * @return unknown
+ */
 function register_class_to_course($class_id, $course_code)
 {
     $tbl_mdb_names  = claro_sql_get_main_tbl();
@@ -24,14 +30,14 @@ function register_class_to_course($class_id, $course_code)
     $tbl_class_user = $tbl_mdb_names['rel_class_user'];
     $tbl_class      = $tbl_mdb_names['class'];
 
-    echo "<br>we are in the recursion of class :".$class_id."<br>";
+    echo '<br>' . sprintf(get_lang('we are in the recursion of class : %s'),$class_id) . '<br>';
 
     //get the list of users in this class
 
     $sql = "SELECT *
-            FROM `".$tbl_class_user."` AS `rel_c_u`,
-                 `".$tbl_user."`       AS `u`
-            WHERE `class_id` = '". (int) $class_id."'
+            FROM `" . $tbl_class_user . "` AS `rel_c_u`,
+                 `" . $tbl_user . "`       AS `u`
+                    WHERE `class_id`= " . (int) $class_id . "
                AND `rel_c_u`.`user_id` = `u`.`user_id`";
     $result = claro_sql_query_fetch_all($sql);
 
@@ -42,20 +48,15 @@ function register_class_to_course($class_id, $course_code)
     foreach ($result as $user)
     {
         $done = user_add_to_course($user['user_id'], $course_code);
-        if ($done)
-        {
-            $resultLog['OK'][] = $user;
-        }
-        else
-        {
-            $resultLog['KO'][] = $user;
-        }
+        if ($done) $resultLog['OK'][] = $user;
+        else       $resultLog['KO'][] = $user;
     }
 
     //find subclasses of current class
 
-    $sql = "SELECT `id` FROM `".$tbl_class."`
-                             WHERE `class_parent_id`='". (int)$class_id."'";
+    $sql = "SELECT `id`
+            FROM `" . $tbl_class . "`
+            WHERE `class_parent_id`=" . (int) $class_id;
 
     $subClassesList = claro_sql_query_fetch_all($sql);
 
@@ -78,13 +79,10 @@ function register_class_to_course($class_id, $course_code)
 /**
  * Display the tree of classes
  *
- * @author Guillaume Lederer
- * @param  list of all the classes informations of the platform
- * @param  list of the classes that must be visible
- * @return
- *
- * @see
- *
+ * @param unknown_type $class_list list of all the classes informations of the platform
+ * @param unknown_type $parent_class
+ * @param unknown_type $deep
+ * @return unknown
  */
 
 function display_tree_class_in_admin ($class_list, $parent_class = null, $deep = 0)
@@ -95,10 +93,6 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
     global $clarolineRepositoryWeb;
     global $imgRepositoryWeb;
 
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
-
-
     foreach ($class_list as $cur_class)
     {
 
@@ -107,10 +101,10 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
 
             //Set space characters to add in name display
 
-            $blankspace = "&nbsp;&nbsp;&nbsp;";
+            $blankspace = '&nbsp;&nbsp;&nbsp;';
             for ($i = 0; $i < $deep; $i++)
             {
-                $blankspace .= "&nbsp;&nbsp;&nbsp;";
+                $blankspace .= '&nbsp;&nbsp;&nbsp;';
             }
 
             //see if current class to display has children
@@ -131,15 +125,17 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
             {
                 if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
                 {
-                    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
-                                      ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
-                                      ."</a>\n";
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
+                    .                  '</a>' . "\n"
+                    ;
                 }
                 else
                 {
-                    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
-                                      ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
-                                      ."</a>\n";
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
+                    .                  '</a>' . "\n"
+                    ;
                 }
             }
             else
@@ -150,50 +146,37 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
             //DISPLAY CURRENT ELEMENT (CLASS)
 
             //Name
-
-            echo "<tr>\n"
-                ."  <td>\n"
-                ."    ".$blankspace.$open_close_link." ".$cur_class['name']
-                ."  </td>\n";
-
-            //Users
-
             $qty_user = get_class_user_number($cur_class['id']);
 
-            echo "  <td align=\"center\">\n"
-                ."    <a href=\"".$clarolineRepositoryWeb."admin/admin_class_user.php?class=".$cur_class['id']."\">\n"
-                ."      <img src=\"".$imgRepositoryWeb."user.gif\" border=\"0\"> "
-                ."        (".$qty_user."  ".get_lang('UsersMin').") \n"
-                ."    </a>\n"
-                ."  </td>\n";
-
-            //Edit settings
-
-            echo "  <td align=\"center\">\n"
-                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=edit&amp;class=".$cur_class['id']."\">\n"
-                ."      <img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" >\n"
-                ."    </a>\n"
-                ."  </td>\n";
-
-            //Move
-
-            echo "  <td align=\"center\">\n"
-                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=move&amp;class=".$cur_class['id']."&classname=".$cur_class['name']."\">\n"
-                ."      <img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" >\n"
-                ."    </a>\n"
-                ."  </td>\n";
-
-            //Delete
-
-            echo "  <td align=\"center\">\n"
-                ."    <a href=\"".$_SERVER['PHP_SELF']."?cmd=del&amp;class=".$cur_class['id']."\""
-                ."     onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\">\n"
-                ."      <img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" >\n"
-                ."    </a>\n"
-                ."  </td>\n";
-            echo "</tr>\n";
-
-
+            echo '<tr>' . "\n"
+            .    '<td>' . "\n"
+            .    '    ' . $blankspace . $open_close_link . ' ' . $cur_class['name']
+            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n"
+            .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $cur_class['id'] . '">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" />' . "\n"
+            .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n"
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=edit&amp;class=' . $cur_class['id'] . '">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" />' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n"
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=move&amp;class=' . $cur_class['id'] . '&classname=' . $cur_class['name'] . '">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . 'move.gif" border="0" />' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n"
+            .    '<a href="' . $_SERVER['PHP_SELF']
+            .    '?cmd=del&amp;class=' . $cur_class['id'] . '"'
+            .    ' onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" />' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
             // RECURSIVE CALL TO DISPLAY CHILDREN
 
             if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && ($_SESSION['admin_visible_class'][$cur_class['id']]=="open"))
@@ -218,20 +201,17 @@ function get_class_user_number($class_id)
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_class_user = $tbl_mdb_names['rel_class_user'];
     $tbl_class      = $tbl_mdb_names['class'];
-
     //1- get class users number
 
-    $sqlcount = " SELECT COUNT(`user_id`) AS qty_user
-                  FROM `" . $tbl_class_user . "`
-                  WHERE `class_id`='" . (int) $class_id . "'";
-    $resultcount = claro_sql_query_fetch_all($sqlcount);
-    $qty_user = $resultcount[0]['qty_user'];
+    $sqlcount = "SELECT COUNT(`user_id`) AS qty_user
+                 FROM `" . $tbl_class_user . "`
+                 WHERE `class_id`=" . (int) $class_id;
 
+    $qty_user =  claro_sql_query_get_single_value($sqlcount);
 
-    //find subclasses of current class
-
-    $sql = "SELECT `id` FROM `".$tbl_class."`
-                             WHERE `class_parent_id`='". (int)$class_id."'";
+    $sql = "SELECT `id`
+            FROM `" . $tbl_class . "`
+            WHERE `class_parent_id`=" . (int) $class_id;
 
     $subClassesList = claro_sql_query_fetch_all($sql);
 
@@ -270,16 +250,15 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
 
     foreach ($class_list as $cur_class)
     {
-
         if (($parent_class==$cur_class['class_parent_id']))
         {
 
             //Set space characters to add in name display
 
-            $blankspace = "&nbsp;&nbsp;&nbsp;";
+            $blankspace = '&nbsp;&nbsp;&nbsp;';
             for ($i = 0; $i < $deep; $i++)
             {
-                $blankspace .= "&nbsp;&nbsp;&nbsp;";
+                $blankspace .= '&nbsp;&nbsp;&nbsp;';
             }
 
             //see if current class to display has children
@@ -300,53 +279,50 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
             {
                 if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && $_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
                 {
-                    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exClose&amp;class=".$cur_class['id']."\">\n"
-                    ."   <img src=\"".$imgRepositoryWeb."minus.gif\" border=\"0\" >\n"
-                    ."</a>\n";
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF']
+                    .                  '?cmd=exClose&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
+                    .                  '</a>' . "\n"
+                    ;
                 }
                 else
                 {
-                    $open_close_link = "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exOpen&amp;class=".$cur_class['id']."\">\n"
-                    ."  <img src=\"".$imgRepositoryWeb."plus.gif\" border=\"0\" >\n"
-                    ."</a>\n";
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
+                    .                  '</a>' . "\n"
+                    ;
                 }
             }
             else
             {
-                $open_close_link = "°";
+                $open_close_link = '°';
             }
+
+
+            $sqlcount="SELECT COUNT(`user_id`) AS qty_user
+                       FROM `" . $tbl_class_user . "`
+                       WHERE `class_id`= " . (int) $cur_class['id'];
+            $qty_user = claro_sql_query_get_single_value($sqlcount);
+
 
             //DISPLAY CURRENT ELEMENT (CLASS)
 
             //Name
 
-            echo "  <tr>\n"
-            ."<td>\n"
-            ."    ".$blankspace.$open_close_link." ".$cur_class['name']
-            ."  </td>\n";
-
-            //Users
-
-            $sqlcount=" SELECT COUNT(`user_id`) AS qty_user
-                    FROM `".$tbl_class_user ."`
-                    WHERE `class_id`='". (int)$cur_class['id']."'";
-            $resultcount = claro_sql_query_fetch_all($sqlcount);
-            $qty_user = $resultcount[0]['qty_user'];
-
-            echo "  <td align=\"center\">\n"
-            .$qty_user."  ".get_lang('UsersMin')." \n"
-            ."  </td>\n";
-
-            //add to course link
-
-            echo "  <td align=\"center\">\n"
-            ."    <a onClick=\"return confirmation('".clean_str_for_javascript($cur_class['name'])."');\" href=\"".$_SERVER['PHP_SELF']."?cmd=subscribe&amp;class=".$cur_class['id']."&amp;classname=".$cur_class['name']."\">\n"
-            ."      <img src=\"".$imgRepositoryWeb."enroll.gif\" border=\"0\" alt=\"".get_lang('SubscribeToCourse')."\">\n"
-            ."    </a>\n"
-            ."  </td>\n";
-
-            echo "</tr>\n";
-
+            echo '<tr>' . "\n"
+            .    '<td>' . "\n"
+            .    $blankspace.$open_close_link." ".$cur_class['name'] . "\n"
+            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n"
+            .    $qty_user . '  ' . get_lang('UsersMin') . "\n"
+            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n"
+            .    '<a onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');" href="' . $_SERVER['PHP_SELF'] . '?cmd=subscribe&amp;class=' . $cur_class['id'] . '&amp;classname=' . $cur_class['name'] . '">' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeToCourse') . '" />' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
             // RECURSIVE CALL TO DISPLAY CHILDREN
 
             if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open"))
@@ -367,13 +343,14 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
  * @global get_lang('TopLevel')
  * @return void
 */
+
 function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 {
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_class      = $tbl_mdb_names['class'];
 
     $sql = " SELECT *
-             FROM `".$tbl_class."`
+             FROM `" . $tbl_class . "`
              ORDER BY `name`";
     $classes = claro_sql_query_fetch_all($sql);
 
@@ -397,7 +374,7 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 */
 function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&nbsp;")
 {
-    $result = "";
+    $result = '';
     if($classes)
     {
         foreach($classes as $one_class)
@@ -427,12 +404,12 @@ function getSubClasses($class_id)
     $sub_classes_list = array();
 
     $sql = "SELECT `id`
-              FROM `".$tbl_class."`
-             WHERE `class_parent_id`='". (int) $class_id ."'";
+            FROM `" . $tbl_class . "`
+            WHERE `class_parent_id`=" . (int) $class_id;
 
     $query_result = claro_sql_query($sql);
 
-    while ( $this_sub_class = mysql_fetch_array($query_result) )
+    while ( () $this_sub_class = mysql_fetch_array($query_result) ) )
     {
         // add this subclass id to array
         $sub_classes_list[] = $this_sub_class['id'];
