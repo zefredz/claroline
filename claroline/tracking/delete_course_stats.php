@@ -1,36 +1,18 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      |                                                                      |
-      |   This program is distributed in the hope that it will be useful,    |
-      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
-      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
-      |   GNU General Public License for more details.                       |
-      |                                                                      |
-      |   You should have received a copy of the GNU General Public License  |
-      |   along with this program; if not, write to the Free Software        |
-      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
-      |   02111-1307, USA. The GNU GPL license is also available through     |
-      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
-      +----------------------------------------------------------------------+
+/**
+ /**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @author Sebastien Piraux  <piraux_seb@hotmail.com>
  */
- 
+
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true); 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
 // regroup table names for maintenance purpose
@@ -56,30 +38,30 @@ if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     // do delete
     $sql = "TRUNCATE TABLE `".$tbl_track_e_access."`";
     claro_sql_query($sql);
-    
+
     $sql = "TRUNCATE TABLE `".$tbl_track_e_downloads."`";
     claro_sql_query($sql);
-    
+
     $sql = "TRUNCATE TABLE `".$tbl_track_e_uploads."`";
     claro_sql_query($sql);
-    
+
     $sql = "TRUNCATE TABLE `".$tbl_track_e_exercices."`";
     claro_sql_query($sql);
-    
+
     $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_details."`";
     claro_sql_query($sql);
-    
+
     $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_answers."`";
     claro_sql_query($sql);
-    
+
     $sql = "TRUNCATE TABLE `".$tbl_lp_user_module_progress."`";
     claro_sql_query($sql);
-    
+
     // display confirm msg and back link
     echo get_lang('DelCourseStatsDone')."\n"
          .'<br /><br />'."\n"
          .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n";
-    
+
 }                    // end if $delete
 else
 {

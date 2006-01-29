@@ -1,15 +1,11 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
 */
 if(!class_exists('Question')):
 
@@ -27,7 +23,7 @@ class Question
     var $position;
     var $type;
     var $attachedFile;
-  
+
     var $tempAttachedFile;
 
     var $exerciseList;  // array with the list of exercises which this question is in
@@ -55,9 +51,9 @@ class Question
     /**
      * reads question informations from the data base
      *
-     * @author - Olivier Brouckaert
-     * @param - integer $id - question ID
-     * @return - boolean - true if question exists, otherwise false
+     * @author Olivier Brouckaert
+     * @param integer $id question ID
+     * @return boolean : true if question exists, otherwise false
      */
     function read($id)
     {
@@ -163,8 +159,8 @@ class Question
     /**
      * returns the array with the exercise ID list
      *
-     * @author - Olivier Brouckaert
-     * @return - array - list of exercise ID which the question is in
+     * @author Olivier Brouckaert
+     * @return array : list of exercise ID which the question is in
      */
     function selectExerciseList()
     {
@@ -174,31 +170,31 @@ class Question
     /**
      * returns the number of exercises which this question is in
      *
-     * @author - Olivier Brouckaert
-     * @return - integer - number of exercises
+     * @author Olivier Brouckaert
+     * @return integer : number of exercises
      */
     function selectNbrExercises()
     {
         return sizeof($this->exerciseList);
     }
-        
+
   /**
    * returns the attached file name
    *
    */
-  function selectAttachedFile() 
+  function selectAttachedFile()
   {
         return $this->attachedFile;
   }
-  
+
   /**
    * returns the temporary attached file name
    *
    */
-  function selectTempAttachedFile() 
+  function selectTempAttachedFile()
   {
         return $this->tempAttachedFile;
-  }  
+  }
 
     /**
      * changes the question title
@@ -274,13 +270,13 @@ class Question
    *
    *
    *
-   */   
+   */
   function updateTempAttachedFile($tempAttachedFileName)
   {
       $this->tempAttachedFile = $tempAttachedFileName;
   }
-  
-  
+
+
     /**
      * attach a file to the question
      *
@@ -297,9 +293,9 @@ class Question
         if($this->id)
         {
         $extension=substr(strrchr($attachedFile, '.'), 1);
-        
+
         $this->attachedFile = 'quiz-'.$this->id.'.'.$extension;
-                        
+
               return @move_uploaded_file($tempAttachedFile,$attachedFilePathSys.'/'.$this->attachedFile)?true:false;
         }
 
@@ -321,7 +317,7 @@ class Question
         {
       $attachedFile=$this->attachedFile;
       $this->attachedFile = '';
-                        
+
             return @unlink($attachedFilePathSys.'/'.$attachedFile)?true:false;
         }
 
@@ -344,10 +340,10 @@ class Question
     {
         $extension=substr(strrchr($this->attachedFile, '.'), 1);
         $attachedFile='quiz-'.$questionId.'.'.$extension;
-        
+
         $sql="UPDATE `".$tbl_quiz_question."` SET attached_file = '".$attachedFile."' WHERE id='".$questionId."'";
         claro_sql_query($sql);
-        
+
         return @copy($attachedFilePathSys.'/'.$this->attachedFile,$attachedFilePathSys.'/'.$attachedFile)?true:false;
         }
 
@@ -366,7 +362,7 @@ class Question
     function setTmpAttachedFile($tempAttachedFile,$attachedFile)
     {
         global $attachedFilePathSys;
-                
+
         $extension = substr(strrchr($attachedFile, '.'), 1);
 
             // saves the file into a temporary file
@@ -388,7 +384,7 @@ class Question
      * For example, if we first show a confirmation box.
      *
      * @author - Olivier Brouckaert
-   * @param $tmpFileName 
+   * @param $tmpFileName
      * @return - boolean - true if moved, otherwise false
      */
     function getTmpAttachedFile()
@@ -398,7 +394,7 @@ class Question
         if($this->id && file_exists($attachedFilePathSys."/".$this->tempAttachedFile) )
         {
         $extension=substr(strrchr($this->tempAttachedFile, '.'), 1);
-        
+
         $this->attachedFile = 'quiz-'.$this->id.'.'.$extension;
         return rename($attachedFilePathSys."/".$this->tempAttachedFile,$attachedFilePathSys.'/'.$this->attachedFile)?true:false;
         }
@@ -427,20 +423,20 @@ class Question
         // question already exists
         if($id)
         {
-            $sql = "UPDATE `".$tbl_quiz_question."` 
+            $sql = "UPDATE `".$tbl_quiz_question."`
                     SET question='".$question."',
                         description='".$description."',
                         ponderation='".$weighting."',
                         q_position='".$position."',
                         type='".$type."',
-                        attached_file='".$attachedFile."' 
+                        attached_file='".$attachedFile."'
                     WHERE id='".$id."'";
             claro_sql_query($sql);
         }
         // creates a new question
         else
         {
-            $sql = "INSERT INTO `".$tbl_quiz_question."`(question,description,ponderation,q_position,type,attached_file) 
+            $sql = "INSERT INTO `".$tbl_quiz_question."`(question,description,ponderation,q_position,type,attached_file)
                     VALUES ('".$question."','".$description."','".$weighting."','".$position."','".$type."','".$attachedFile."')";
             claro_sql_query($sql);
 
@@ -503,7 +499,7 @@ class Question
             // deletes the position in the array containing the wanted exercise ID
             unset($this->exerciseList[$pos]);
 
-            $sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` 
+            $sql = "DELETE FROM `".$tbl_quiz_rel_test_question."`
                     WHERE question_id = '".$id."' AND exercice_id = '".$exerciseId."'";
             claro_sql_query($sql);
 
@@ -528,15 +524,15 @@ class Question
         // if the question must be removed from all exercises
         if(!$deleteFromEx)
         {
-            $sql = "DELETE FROM `".$tbl_quiz_rel_test_question."` 
+            $sql = "DELETE FROM `".$tbl_quiz_rel_test_question."`
                     WHERE `question_id` = '".$id."'";
             claro_sql_query($sql);
 
-            $sql = "DELETE FROM `".$tbl_quiz_question."` 
+            $sql = "DELETE FROM `".$tbl_quiz_question."`
                     WHERE `id` = '".$id."'";
             claro_sql_query($sql);
 
-            $sql = "DELETE FROM `".$tbl_quiz_answer."` 
+            $sql = "DELETE FROM `".$tbl_quiz_answer."`
                     WHERE `question_id` = '".$id."'";
             claro_sql_query($sql);
 
@@ -570,7 +566,7 @@ class Question
 
         $sql = "INSERT INTO `".$tbl_quiz_question."` (question,description,ponderation,q_position,type)
                 VALUES('".$question."','".$description."','".$weighting."','".$position."','".$type."')";
-            
+
         $id = claro_sql_query_insert_id($sql);
 
         // duplicates the attached file

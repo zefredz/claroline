@@ -1,43 +1,24 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      |                                                                      |
-      |   This program is distributed in the hope that it will be useful,    |
-      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
-      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
-      |   GNU General Public License for more details.                       |
-      |                                                                      |
-      |   You should have received a copy of the GNU General Public License  |
-      |   along with this program; if not, write to the Free Software        |
-      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
-      |   02111-1307, USA. The GNU GPL license is also available through     |
-      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
-      +----------------------------------------------------------------------+
-      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @author Sebastien Piraux  <piraux_seb@hotmail.com>
  */
- 
+
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../user/user.php", "name"=> get_lang('Users'));
+$interbredcrump[]= array ('url'=>'../user/user.php', 'name'=> get_lang('Users'));
 
 if( !empty($_REQUEST['uInfo']) )
     $interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_REQUEST['uInfo'], "name"=> get_lang('User'));
 
 $nameTools = get_lang('Statistics');
 
-/*
+/**
  * DB tables definition
  */
 
@@ -56,7 +37,7 @@ $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
 $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
 $tbl_wrk_assignment          = $tbl_cdb_names['wrk_assignment'         ];
-$tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];    
+$tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
@@ -64,8 +45,8 @@ $tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
 $tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 
 
-// for learning paths section 
-// those vars need to be name like this $TABLE* be cause they are used 
+// for learning paths section
+// those vars need to be name like this $TABLE* be cause they are used
 // in get_learnPath_progress function
 $TABLELEARNPATH         = $tbl_lp_learnPath;
 $TABLEMODULE            = $tbl_lp_module;
@@ -74,9 +55,8 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
-include($includePath."/lib/statsUtils.lib.inc.php");
-include($includePath."/lib/pager.lib.php");
-
+require_once $includePath . '/lib/statsUtils.lib.inc.php';
+require_once $includePath . '/lib/pager.lib.php';
 
 $is_allowedToTrack = $is_groupTutor; // allowed to track only user of one group
 if (isset($_REQUEST['uInfo']) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($_REQUEST['uInfo'] == $_uid);
@@ -105,7 +85,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // list of users in this course
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
-                        FROM `".$tbl_rel_course_user."` cu , `".$tbl_user."` u 
+                        FROM `".$tbl_rel_course_user."` cu , `".$tbl_user."` u
                         WHERE `cu`.`user_id` = `u`.`user_id`
                             AND `cu`.`code_cours` = '". addslashes($_cid)."'";
         }
@@ -113,7 +93,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             // list of users of this group
             $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
-                        FROM `".$tbl_group_rel_team_user."` gu , `".$tbl_user."` u 
+                        FROM `".$tbl_group_rel_team_user."` gu , `".$tbl_user."` u
                         WHERE `gu`.`user` = `u`.`user_id`
                             AND `gu`.`team` = '". (int)$_gid."'";
         }
@@ -123,7 +103,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
           ----------------------------------------------------------------------*/
         if ( empty($_REQUEST['offset']) )    $offset = "0";
         else                                 $offset = $_REQUEST['offset'];
-        
+
         $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
         $userList = $myPager->get_result_list();
 
@@ -154,13 +134,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
         else                            $view = "0000000";
         /***************************************************************************
-         *              
+         *
          *        Informations about student uInfo
          *
          ***************************************************************************/
-        // these checks exists for security reasons, neither a prof nor a tutor can see statistics of an user from 
+        // these checks exists for security reasons, neither a prof nor a tutor can see statistics of an user from
         // another course, or group
-        //if( $is_allowedToTrackEverybodyInCourse ) 
+        //if( $is_allowedToTrackEverybodyInCourse )
         if( $is_allowedToTrackEverybodyInCourse || ($_REQUEST['uInfo'] == $_uid) )
         {
             // check if user is in this course
@@ -195,7 +175,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             echo '</li>'."\n"
                 .'</ul>'."\n"
                 .'</p>'."\n";
-            
+
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
             echo "\n".'<small>'."\n"
@@ -204,10 +184,10 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 .'</small>'."\n\n";
 
             $viewLevel = -1; //  position of the flag of the view in the $view array/string
-            
-            
+
+
             /***************************************************************************
-             *              
+             *
              *        Logins
              *
              ***************************************************************************/
@@ -220,7 +200,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
               echo '-&nbsp;&nbsp;<b>'.get_lang('LoginsAndAccessTools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
                         .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('LoginsDetails').'<br />'."\n";
-                
+
                 $sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`, count(`login_date`) AS `nbr_login`
                             FROM `".$tbl_track_e_login."`
                             WHERE `login_user_id` = '". (int)$_REQUEST['uInfo']."'
@@ -234,10 +214,10 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     .'<th>'.get_lang('LoginsTitleCountColumn').'</th>'."\n"
                     .'</tr>'."\n"
                     .'<tbody>'."\n";
-                        
+
                 $total = 0;
                 if( !empty($results) && is_array($results) )
-                { 
+                {
                     foreach( $results as $result )
                     {
                         echo '<tr>'."\n"
@@ -267,7 +247,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
-             *              
+             *
              *        Exercises
              *
              ***************************************************************************/
@@ -280,7 +260,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '-&nbsp;&nbsp;<b>'.get_lang('ExercisesResults').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'."\n"
                         .'<br />&nbsp;&nbsp;&nbsp;'.get_lang('ExercisesDetails').'<br />'."\n";
-                        
+
                 $sql = "SELECT `E`.`titre`, `E`.`id`,
                         MIN(`TEX`.`exe_result`) AS `minimum`,
                         MAX(`TEX`.`exe_result`) AS `maximum`,
@@ -296,7 +276,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     ORDER BY `E`.`titre` ASC";
 
                 $results = claro_sql_query_fetch_all($sql);
-                
+
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                     .'<tr class="headerX">'."\n"
                     .'<th>'.get_lang('ExercisesTitleExerciseColumn').'</th>'."\n"
@@ -307,7 +287,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     .'<th>'.get_lang('Attempts').'</th>'."\n"
                     .'<th>'.get_lang('LastAttempt').'</th>'."\n"
                     .'</tr>';
-                    
+
                 if( !empty($results) && is_array($results) )
                 {
                     echo '<tbody>'."\n";
@@ -322,7 +302,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             .'<td>'.$exo_details['attempts'].'</td>'."\n"
                             .'<td>'.$exo_details['lastAttempt'].'</td>'."\n"
                             .'</tr>'."\n";
-                              
+
                         // display details of the exercise, all attempts
                         if ( isset($_GET['exoDet']) && $_GET['exoDet'] == $exo_details['id'])
                         {
@@ -357,7 +337,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                 .'</tr>'."\n";
 
                         }
-                      
+
                     }
                     echo '</tbody>'."\n";
                 }
@@ -378,7 +358,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
-             *              
+             *
              *        Learning paths // doesn't use the tracking table but the lp_user_module_progress learnPath table
              *
              ***************************************************************************/
@@ -391,13 +371,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '-&nbsp;&nbsp;<b>'.get_lang('Learning path').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
                         .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('LearnPathDetails').'<br />'."\n";
-                
+
                 // get list of learning paths of this course
                 // list available learning paths
                 $sql = "SELECT LP.`name`, LP.`learnPath_id`
                          FROM `".$TABLELEARNPATH."` AS LP
                          ORDER BY LP.`rank`";
-              
+
                 $lpList = claro_sql_query_fetch_all($sql);
 
                 // table header
@@ -416,11 +396,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 {
                   // we need the library of learning paths, include it only if needed
                   include($includePath."/lib/learnPath.lib.inc.php");
-                  
+
                   // display each learning path with the corresponding progression of the user
                   foreach($lpList as $lpDetails)
                   {
-                      
+
                       $lpProgress = get_learnPath_progress($lpDetails['learnPath_id'],$_GET['uInfo']);
                       echo "\n".'<tr>'."\n"
                           .'<td><a href="lp_modules_details.php?uInfo='.$_GET['uInfo'].'&path_id='.$lpDetails['learnPath_id'].'">'.htmlspecialchars($lpDetails['name']).'</a></td>'."\n"
@@ -441,7 +421,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
             }
             echo '<br />'."\n".'</p>'."\n\n";
             /***************************************************************************
-             *              
+             *
              *        Works
              *
              ***************************************************************************/
@@ -454,7 +434,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '-&nbsp;&nbsp;<b>'.get_lang('WorkUploads').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
                         .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('WorksDetails').'<br />'."\n";
-                        
+
                 $sql = "SELECT `A`.`title` as `a_title`, `A`.`assignment_type`,
                                 `S`.`id`, `S`.`title` as `s_title`,
                                 `S`.`group_id`, `S`.`last_edit_date`, `S`.`authors`,
@@ -470,7 +450,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             ORDER BY `A`.`title` ASC, `S`.`last_edit_date` ASC";
 
                 $results = claro_sql_query_fetch_all($sql);
-                
+
                 // first pass to create a array of submission id
                 // do not record the correction id
                 $submissions = array();
@@ -495,15 +475,15 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                                         $submissions[$work['parent_id']] = $work['score'];
                                 }
                         }
-                        
+
                         if( isset($work['parent_id']) && !empty($work['parent_id']) )
                         {
-                                // unset correction 
+                                // unset correction
                                 unset($results[$i]);
                         }
                         $i++;
                 }
-                
+
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                         .'<tr class="headerX">'."\n"
                         .'<th>'.get_lang('Assignment').'</th>'."\n"
@@ -514,14 +494,14 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         .'</tr>'."\n";
                 // third pass to finally display
                 if( !empty($results) && is_array($results) )
-                { 
+                {
                     echo '<tbody>'."\n";
                     $prevATitle = "";
                     foreach($results as $work)
-                    { 
+                    {
                         $timestamp = strtotime($work['last_edit_date']);
                         $beautifulDate = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
-                        
+
                         if( $work['a_title'] == $prevATitle )
                         {
                                 $displayedATitle = "";
@@ -539,7 +519,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         {
                                 $displayedScore  = get_lang('No score');
                         }
-                        
+
                         if( isset($work['g_name']) )
                         {
                                 $displayedAuthors = $work['authors']."( ".$work['g_name']." )";
@@ -548,7 +528,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         {
                                 $displayedAuthors = $work['authors'];
                         }
-                        
+
                         echo '<tr>'."\n"
                             .'<td>'.$displayedATitle.'</td>'."\n"
                             .'<td>'.$work['s_title'].'</td>'."\n"
@@ -558,7 +538,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             .'</tr>'."\n";
                     }
                     echo '</tbody>'."\n";
-                
+
                 }
                 else
                 {
@@ -587,28 +567,28 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '-&nbsp;&nbsp;<b>'.get_lang('DocumentsAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">'.get_lang('Close').'</a>]</small>'
                     .'<br />'."\n".'&nbsp;&nbsp;&nbsp;'.get_lang('DocumentsDetails').'<br />'."\n";
-                        
+
                 $sql = "SELECT `down_doc_path`
                             FROM `".$tbl_track_e_downloads."`
                             WHERE `down_user_id` = '". (int)$_REQUEST['uInfo']."'
                             GROUP BY `down_doc_path`";
                 $results = claro_sql_query_fetch_all($sql);
-                
+
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                     .'<tr class="headerX">'."\n"
                     .'<th>'.get_lang('DocumentsTitleDocumentColumn').'</th>'."\n"
                     .'</tr>'."\n";
                 if( !empty($results) && is_array($results) )
-                { 
+                {
                     echo '<tbody>'."\n";
                     foreach( $results as $result )
-                    { 
+                    {
                             echo '<tr>'."\n"
                                     .'<td>'.$result['down_doc_path'].'</td>'."\n"
                                     .'</tr>'."\n";
                     }
                     echo '</tbody>'."\n";
-                
+
                 }
                 else
                 {
@@ -646,7 +626,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                             WHERE `poster_id` = '". (int)$_REQUEST['uInfo']."'
                             ";
                 $totalPosts = claro_sql_query_get_single_value($sql);
-                
+
                 // total number of threads started by user
                 $sql = "SELECT count(`topic_title`)
                             FROM `".$tbl_bb_topics."`
@@ -660,7 +640,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                     .'<li>'.get_lang('LastMsgs')."\n";
                 // last 10 distinct messages posted
                 $sql = "SELECT `bb_t`.`topic_id`,
-                                `bb_t`.`topic_title`, 
+                                `bb_t`.`topic_title`,
                                 max(`bb_t`.`topic_time`) as `last_message`
                             FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
                             WHERE `bb_p`.`poster_id` = '". (int)$_REQUEST['uInfo']."'
@@ -697,7 +677,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 }
                 echo '</table>'."\n"
                     .'</li>'."\n".'</ul>';
-                
+
             }
             else
             {
@@ -710,7 +690,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         {
             echo get_lang('ErrorUserNotInGroup');
         }
-        
+
     }
 }
 // not allowed

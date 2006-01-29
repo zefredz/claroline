@@ -1,20 +1,11 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-      +----------------------------------------------------------------------+
-      | Authors: Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      | Changed by Guillaume Lederer <lederer@cerdecam.be>                   |
-      |              Sébastien Piraux <piraux@cerdecam.be>                   |
-      +----------------------------------------------------------------------+
-*/
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ */
 
         /*>>>>>>>>>>>>>>>>>>>> EXERCISE RESULT <<<<<<<<<<<<<<<<<<<<*/
 
@@ -130,9 +121,9 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
     $i = 0;
     $totalScore = 0;
     $totalWeighting = 0;
-    
-    // check if max allowed time has been respected 
-    if ( $exerciseMaxTime > 0 && $exerciseMaxTime < $timeToCompleteExe )  
+
+    // check if max allowed time has been respected
+    if ( $exerciseMaxTime > 0 && $exerciseMaxTime < $timeToCompleteExe )
     {
         $displayAnswers     = false;
         $displayScore         = false;
@@ -140,9 +131,9 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
     else
     {
         $displayScore = true;
-        
+
         // check if answers have to be shown
-        // count number of attempts of the user 
+        // count number of attempts of the user
         $sql="SELECT count(`exe_result`) AS `tryQty`
                 FROM `".$tbl_track_e_exercises."`
                WHERE `exe_user_id` = '".(int)$_uid."'
@@ -152,7 +143,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 
         if( isset($result[0]['tryQty']) )    $userTryQty = $result[0]['tryQty']+1;
         else                                $userTryQty = 1; // first try
-        
+
         if ( $showAnswers == 'ALWAYS' )
         {
             $displayAnswers = true;
@@ -203,7 +194,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
         {
             $colspan = 1;
         }
-        
+
         if($displayAnswers)
         {
 ?>
@@ -217,13 +208,13 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 <tfoot>
 <tr>
   <td colspan="<?php echo $colspan; ?>">
-    <?php echo $questionTitle; ?>    
+    <?php echo $questionTitle; ?>
     <blockquote>
-    <?php 
-        echo $questionStatement; 
-        
+    <?php
+        echo $questionStatement;
+
         if( !empty($attachedFile) )
-        { 
+        {
             echo "<br />".display_attached_file($attachedFile);
         }
     ?>
@@ -289,7 +280,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
         $questionScore = 0;
 
         $valueToTrack = array();
-        
+
         for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
         {
             // $answerId is NOT a unique id of the answer but a
@@ -338,7 +329,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
                                         $fillType = (!empty($explodedAnswer[2]))?$explodedAnswer[2]:1;
                                         // default value if value is invalid
                                         if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
-                                        
+
                                         // splits weightings that are joined with a comma
                                         $answerWeighting = explode(',',$answerWeighting);
 
@@ -373,7 +364,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
                                                 break;
                                             }
 
-                                        
+
                                                if( isset($choice[$j]) )
                                                {
                                                    if( $fillType == TEXTFIELD_FILL )
@@ -387,9 +378,9 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
                                                        // forbidden chars are already encoded in select option of html form
                                                        $charsToReplace = array();
                                                        $replacingChars = array();
-                                                               
+
                                                    }
-                                               
+
                                                    $choice[$j] = trim(str_replace($charsToReplace, $replacingChars, $choice[$j]));
                                                }
                                             else
@@ -419,7 +410,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 
                                                 // adds the word in green at the end of the string
                                                 $answer .= $choice[$j];
-                                                
+
                                                 $valueToTrack[] = $choice[$j];
                                             }
                                             // else if the word entered by the student IS NOT the same as the one defined by the professor
@@ -565,7 +556,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 <table width="100%" border="0" cellpadding="3" cellspacing="2">
 <tr>
   <td align="center">
-    <?php 
+    <?php
         echo get_lang('Your time is')." ".claro_disp_duration($timeToCompleteExe);
         if( $exerciseMaxTime > 0 )
         {
@@ -577,7 +568,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 <tr>
   <td align="center">
     <b>
-<?php 
+<?php
     if ( $displayScore )
     {
         echo get_lang('YourTotalScore')." ". $totalScore."/".$totalWeighting;
@@ -632,7 +623,7 @@ if($is_trackingEnabled && $displayScore)
     }
 }
 
-// record progression 
+// record progression
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && $displayScore ) // learning path mode
 {
     // update raw in DB to keep the best one, so update only if new raw is better  AND if user NOT anonymous
@@ -664,13 +655,13 @@ if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && $displayScore )
         $row = mysql_fetch_array($query);
 
         $scormSessionTime = seconds_to_scorm_time($timeToCompleteExe);
-        
+
         // build sql query
         $sql = "UPDATE `".$tbl_lp_user_module_progress."` SET ";
         // if recorded score is less then the new score => update raw, credit and status
 
         if ($row['raw'] < $totalScore)
-        { 
+        {
             // update raw
             $sql .= "`raw` = $totalScore,";
             // update credit and statut if needed ( score is better than raw_to_pass )
@@ -679,7 +670,7 @@ if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && $displayScore )
                 $sql .= "    `credit` = 'CREDIT',
                              `lesson_status` = 'PASSED',";
             }
-            else // minimum raw to pass needed to get credit 
+            else // minimum raw to pass needed to get credit
             {
                 $sql .= "    `credit` = 'NO-CREDIT',
                             `lesson_status` = 'FAILED',";

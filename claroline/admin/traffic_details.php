@@ -1,10 +1,10 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.6
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
+/**
+ * Claroline
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -39,10 +39,10 @@ echo claro_disp_tool_title(
             $reqdate = time();  // default value
         else
             $reqdate = (int)$_REQUEST['reqdate'];
-            
+
         if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
         else                                $period = "day"; // default value
-        
+
         if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
         else                                    $displayType = ''; // default value
 
@@ -51,10 +51,10 @@ echo claro_disp_tool_title(
 
         switch($period)
         {
-            case "year" : 
+            case "year" :
                 echo date(" Y", $reqdate);
                 break;
-            case "month" : 
+            case "month" :
                 echo $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
                 break;
             default :
@@ -63,7 +63,7 @@ echo claro_disp_tool_title(
                 echo $langDay_of_weekNames['long'][date("w" , $reqdate)].date(" d " , $reqdate).$langMonthNames['long'][date("n", $reqdate)-1].date(" Y" , $reqdate);
                 break;
         }
-        
+
         echo "</b></tr></td>";
         // menu
         echo "<tr>
@@ -78,20 +78,20 @@ echo claro_disp_tool_title(
         ";
         switch($period)
         {
-            case "year" : 
+            case "year" :
                     //-- if period is "year" display can be by month, day or hour
                     echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=month' >" . get_lang('PeriodMonth') . "</a>]";
-            case "month" : 
+            case "month" :
                     //-- if period is "month" display can be by day or hour
                     echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=day' >" . get_lang('PeriodDay') . "</a>]";
-            case "day" : 
+            case "day" :
                     //-- if period is "day" display can only be by hour
                     echo "  [<a href='".$_SERVER['PHP_SELF']."?period=$period&reqdate=$reqdate&displayType=hour' >" . get_lang('PeriodHour') . "</a>]";
                     break;
         }
-        
+
         echo "&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;";
-        
+
         switch($period)
         {
             case "year" :
@@ -119,8 +119,8 @@ echo claro_disp_tool_title(
                 $previousReqDate = $reqdate - 86400;
                 $nextReqDate = $reqdate + 86400;
                 echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('PreviousDay')."</a>] 
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('NextDay')."</a>] 
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('PreviousDay')."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('NextDay')."</a>]
                 ";
                 break;
         }
@@ -134,7 +134,7 @@ echo claro_disp_tool_title(
         {
             // all days
             case "year" :
-                $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
+                $sql = "SELECT UNIX_TIMESTAMP( `open_date` )
                             FROM `".$tbl_track_e_open."`
                             WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( ".(int)$reqdate." ) ) ";
                 if( $displayType == "month" )
@@ -158,9 +158,9 @@ echo claro_disp_tool_title(
                 break;
             // all days
             case "month" :
-                $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
+                $sql = "SELECT UNIX_TIMESTAMP( `open_date` )
                             FROM `".$tbl_track_e_open."`
-                            WHERE MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) ) 
+                            WHERE MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
                                 AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) ";
                 if( $displayType == "day" )
                 {
@@ -177,11 +177,11 @@ echo claro_disp_tool_title(
                 break;
             // all hours
             case "day"  :
-                $sql = "SELECT UNIX_TIMESTAMP( `open_date` ) 
+                $sql = "SELECT UNIX_TIMESTAMP( `open_date` )
                             FROM `".$tbl_track_e_open."`
-                            WHERE DAYOFMONTH(`open_date`) = DAYOFMONTH(FROM_UNIXTIME( $reqdate ) ) 
-                                AND MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) ) 
-                                AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) 
+                            WHERE DAYOFMONTH(`open_date`) = DAYOFMONTH(FROM_UNIXTIME( $reqdate ) )
+                                AND MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
+                                AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
                             ORDER BY HOUR( `open_date` )";
                 $hours_array = hoursTab($sql,$reqdate);
                 makeHitsTable($hours_array,get_lang('PeriodHour'));
