@@ -67,18 +67,18 @@ function user_get_data($user_id)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = 'SELECT  `user_id`,
-                    `nom`         AS `lastname` ,
-                    `prenom`      AS `firstname`,
-                    `username`                  ,
-                    `email`                     ,
-                    `authSource`  AS authsource ,
-                    `pictureUri`  AS `picture`  ,
-                    `officialCode`              ,
-                    `phoneNumber` AS `phone`    ,
+    $sql = "SELECT                   `user_id`     ,
+                    `nom`         AS `lastname`    ,
+                    `prenom`      AS `firstname`   ,
+                                     `username`    ,
+                                     `email`       ,
+                    `authSource`  AS authsource    ,
+                    `pictureUri`  AS `picture`     ,
+                                     `officialCode`,
+                    `phoneNumber` AS `phone`       ,
                     `statut`      AS `status`
-            FROM   `' . $tbl_user . '`
-            WHERE  `user_id` = "' . (int) $user_id . '"';
+            FROM   `" . $tbl_user . "`
+            WHERE  `user_id` = " . (int) $user_id;
 
     $result = claro_sql_query($sql);
 
@@ -113,7 +113,7 @@ function user_add ($data)
 
     if ( empty($data['status']) ) $data['status'] = STUDENT;
 
-    $sql = "INSERT INTO `".$tbl_user."`
+    $sql = "INSERT INTO `" . $tbl_user . "`
             SET `nom`          = '". addslashes($data['lastname']) ."' ,
                 `prenom`       = '". addslashes($data['firstname']) ."',
                 `username`     = '". addslashes($data['username']) ."',
@@ -214,9 +214,10 @@ function user_delete ($user_id)
 
     // get the list of course code where the user is subscribed
     $sql_user_courses = " SELECT `c`.`code`
-                          FROM `" . $tbl_rel_course_user . "` cu,`" . $tbl_course . "` c
+                          FROM `" . $tbl_rel_course_user . "` AS cu,
+                               `" . $tbl_course . "`          AS c
                           WHERE `cu`.`code_cours`=`c`.`code`
-                            AND `cu`.`user_id`='" . $user_id . "'";
+                            AND `cu`.`user_id`=" . $user_id;
 
     $res_user_courses = claro_sql_query($sql_user_courses) ;
 
@@ -238,32 +239,32 @@ function user_delete ($user_id)
             $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
 
             // delete user information in the table group_rel_team_user
-            $sql_deleteUserFromGroup = " delete from `" . $tbl_group_rel_team_user . "` where `user`='" . $user_id . "'";
+            $sql_deleteUserFromGroup = "DELETE FROM `" . $tbl_group_rel_team_user . "` WHERE `user`= " . (int) $user_id;
             claro_sql_query($sql_deleteUserFromGroup);
 
-            // change tutor -> NULL for the course where the the tutor is the user deleting
-            $sql_update = " update `" . $tbl_group_team . "` set `tutor`=NULL where `tutor`='" . $user_id . "'";
+            // change tutor -> NULL for the course WHERE the the tutor is the user deleting
+            $sql_update = "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . $user_id . "'";
             claro_sql_query($sql_update);
 
             // delete user notification in the table bb_rel_topic_userstonotify
-            $sql_deleteUserNotification = " delete from `" . $tbl_bb_rel_topic_userstonotify . "` where `user_id` ='" . $user_id . "'";
+            $sql_deleteUserNotification = "DELETE FROM `" . $tbl_bb_rel_topic_userstonotify . "` WHERE `user_id` = " . (int) $user_id;
             claro_sql_query($sql_deleteUserNotification) ;
 
             // delete user information in the table userinfo_content
-            $sql_deleteUserFromGroup = " delete from `" . $tbl_userinfo_content . "` where `user_id`='" . $user_id . "'";
+            $sql_deleteUserFromGroup = "DELETE FROM `" . $tbl_userinfo_content . "` WHERE `user_id`='" . $user_id . "'";
             claro_sql_query($sql_deleteUserFromGroup) ;
 
             // delete user data in tracking tables
-            $sql_DeleteUser = " delete from `" . $tbl_track_e_access ."` where `access_user_id`='" . $user_id."'";
+            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_access ."` WHERE `access_user_id`='" . $user_id."'";
             claro_sql_query($sql_DeleteUser);
 
-            $sql_DeleteUser = " delete from `" . $tbl_track_e_downloads . "` where `down_user_id`='" . $user_id . "'";
+            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_downloads . "` WHERE `down_user_id`='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
 
-            $sql_DeleteUser = " delete from `" . $tbl_track_e_exercices . "` where `exe_user_id`='" . $user_id . "'";
+            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_exercices . "` WHERE `exe_user_id`='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
 
-            $sql_DeleteUser = " delete from `" . $tbl_track_e_uploads . "` where `upload_user_id`='" . $user_id . "'";
+            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_uploads . "` WHERE `upload_user_id`='" . $user_id . "'";
             claro_sql_query($sql_DeleteUser);
 
         }
@@ -271,34 +272,34 @@ function user_delete ($user_id)
     }
 
     // delete the user in the table user
-    $sql_DeleteUser= " delete from `" . $tbl_user . "` where `user_id`='" . $user_id . "'";
+    $sql_DeleteUser= "DELETE FROM `" . $tbl_user . "` WHERE `user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
     // delete user information in the table course_user
-    $sql_DeleteUser = " delete from `" . $tbl_rel_course_user . "` where `user_id`='" . $user_id . "'";
+    $sql_DeleteUser = "DELETE FROM `" . $tbl_rel_course_user . "` WHERE `user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
     // delete user information in the table admin
-    $sql_DeleteUser = "delete from `" . $tbl_admin . "` where `idUser`='" . $user_id . "'";
+    $sql_DeleteUser = "DELETE FROM `" . $tbl_admin . "` WHERE `idUser`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
     // change creatorId -> NULL
-    $sql_update = " update `" . $tbl_user . "` set `creatorId`=NULL where `creatorId`='" . $user_id . "'";
+    $sql_update = "UPDATE `" . $tbl_user . "` SET `creatorId`=NULL WHERE `creatorId`='" . $user_id . "'";
     claro_sql_query($sql_update);
 
     // delete user information in the tables clarolineStat
-    $sql_DeleteUser = " delete from `" . $tbl_track_default . "` where `default_user_id`='" . $user_id . "'";
+    $sql_DeleteUser = "DELETE FROM `" . $tbl_track_default . "` WHERE `default_user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
-    $sql_DeleteUser = " delete from `" . $tbl_track_login . "` where `login_user_id`='" . $user_id . "'";
+    $sql_DeleteUser = "DELETE FROM `" . $tbl_track_login . "` WHERE `login_user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
     // delete the info in the class table
-    $sql_DeleteUser = " delete from `" . $tbl_rel_class_user . "` where `user_id`='" . $user_id . "'";
+    $sql_DeleteUser = "DELETE FROM `" . $tbl_rel_class_user . "` WHERE `user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
     // delete info from sso table
-    $sql_DeleteUser = " delete from `" . $tbl_sso . "` where `user_id`='" . $user_id . "'";
+    $sql_DeleteUser = "DELETE FROM `" . $tbl_sso . "` WHERE `user_id`='" . $user_id . "'";
     claro_sql_query($sql_DeleteUser);
 
     return true;
@@ -345,7 +346,8 @@ function user_add_admin($user_id)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_admin = $tbl_mdb_names['admin'];
 
-    $sql = "SELECT `idUser` FROM `" . $tbl_admin . "`
+    $sql = "SELECT `idUser`
+            FROM `" . $tbl_admin . "`
             WHERE `idUser`= " . (int) $user_id;
     $result =  claro_sql_query($sql);
 
