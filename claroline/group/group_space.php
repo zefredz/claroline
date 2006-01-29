@@ -4,9 +4,9 @@
  * 
  * This tool is "groupe_home" + "group_user" 
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *

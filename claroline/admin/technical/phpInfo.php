@@ -6,8 +6,8 @@
  * - configuration of Claroline, PHP, Mysql, Webserver
  * - credits
  *
- * @version 1.7 $Revision$
- * @copyright (c) 2001-2005 Université catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Université catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *

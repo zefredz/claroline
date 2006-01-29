@@ -5,8 +5,8 @@
  * This script displays the stats of all users of a course 
  * for his progression into the sum of all learning paths of the course
  *
- * @version 1.7 $Revision$ 
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$ 
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *

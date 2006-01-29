@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE 1.7
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available 

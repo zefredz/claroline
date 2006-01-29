@@ -6,7 +6,7 @@
  * This module displays a cross course digest for the current authenticated user
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
  ******************************************************************************/

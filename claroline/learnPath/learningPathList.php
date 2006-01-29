@@ -2,7 +2,7 @@
 /**
  * CLAROLINE 
  *
- * @version 1.7
+ * @version 1.8
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *

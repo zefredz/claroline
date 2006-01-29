@@ -5,7 +5,7 @@
  * Class which update the main database with the date
  * of the latest new item in each tool of each course.
  *
- * @version 1.7 $Revision$
+ * @version 1.8 $Revision$
  * @author Guillaume Lederer guim@claroline.net
  *
  */
