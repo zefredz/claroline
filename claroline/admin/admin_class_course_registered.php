@@ -59,7 +59,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['KO'] as $userSubscribedKo)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] ' . sprintf(get_lang('_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'), $userSubscribedKo['prenom'], $userSubscribedKo['nom']).'<br />';
+                $outputResultLog .= '[<font color="red">KO</font>] ' . sprintf(get_lang('_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'), $userSubscribedKo['prenom'], $userSubscribedKo['nom']) . '<br />';
             }
         }
     }
