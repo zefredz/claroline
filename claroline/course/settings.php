@@ -467,18 +467,13 @@ if (isset($cidToEdit))
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo get_lang('Ok') ?> ">
 <?php
-echo claro_disp_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'));
-?>
-</td>
-</tr>
-
-</table>
-</form>
-<?php
-
-// Display links
-echo '<p>' . implode(' | ',$links) . '</p>' . "\n";
-
+echo claro_disp_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+.    '</form>' . "\n"
+.    '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n"
+;
 // Display footer
 include $includePath . '/claro_init_footer.inc.php' ;
 
