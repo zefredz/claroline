@@ -179,31 +179,4 @@ echo claro_html::menu_horizontal($cmd_menu);
 
 include $includePath . '/claro_init_footer.inc.php';
 
-
-function claro_disp_piped_menu($itemList,$option=null)
-{
-    // class="toollink"
-    $htmlStream = array();
-    foreach ($itemList as $item )
-    {
-        switch($item['type'])
-        {
-            case 'link' :
-            {
-                $htmlStream[] = '<a href="'. $item['url'] . '" ' . $item['attribute'] . ' >'
-                .              $item['label']
-                .              '</a>'
-                ;
-
-            } break;
-            case 'free' :
-            {
-                $htmlStream[] = $item['stream'];
-            } break;
-
-        }
-        ;
-    }
-    return implode( ' | ',$htmlStream);
-}
 ?>
