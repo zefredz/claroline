@@ -169,7 +169,7 @@ please ask your hosting provider for advice.
 
    Windows with easyPhp locally, open:
 
-   http://localhost/mydir/laroline/admin/upgrade/upgrade.php
+   http://localhost/mydir/claroline/admin/upgrade/upgrade.php
 
 5. Follow instructions.
 
