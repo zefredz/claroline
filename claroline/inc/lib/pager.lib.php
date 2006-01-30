@@ -272,7 +272,6 @@ class claro_pager
  *
  *  example 1 : $myPager = new claro_sql_pager('SELECT * FROM USER', $offset, $step);
  *
- *
  *            echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
  *
  *            $resultList = $myPager->get_result_list();
@@ -374,30 +373,13 @@ class claro_sql_pager extends claro_pager // implements sortable
     }
 
     /**
-     * Set a specificic sorting for the result returned by the query.
+     * Add incrementaly sort key to the sorting.
      *
-     * @param string $key - has to be something understable by the SQL parser.
-     * @param string $direction use PHP constants SORT_ASC and SORT_DESC
+     * @param  string sort key
+     * @param  int direction (use PHP constant SORT_ASC, SORT_DESC)
+     * @return boolean true if it suceeds, false otherwise (it probably means 
+     *                 that the key is already set in the sort sequence
      */
-
-    function set_sort_key($key, $direction)
-    {
-        $this->set_multiple_sort_keys( array($key => $direction) );
-    }
-
-    /**
-     * Set multiple sorting for the result returned by the query.
-     *
-     * @param array $keyList - each array key are the sort keys
-     *        it has to be something understable by the SQL parser.
-     *        while each array values are sort direction of the concerned key
-     */
-
-    function set_multiple_sort_keys($keyList)
-    {
-        $this->sortKeyList = array(); // reset the sort key list
-        $this->sortKeyList = $keyList;
-    }
 
     function add_sort_key($key, $direction)
     {
@@ -412,6 +394,37 @@ class claro_sql_pager extends claro_pager // implements sortable
 
         return false;
     }
+
+    /**
+     * Set a specificic sorting for the result returned by the query.
+     * Note. If a previous sorting was set, this function erase it and reset 
+     * a new one
+     *
+     * @param string $key - has to be something understable by the SQL parser.
+     * @param string $direction use PHP constants SORT_ASC and SORT_DESC
+     */
+
+    function set_sort_key($key, $direction)
+    {
+        $this->set_multiple_sort_keys( array($key => $direction) );
+    }
+
+    /**
+     * Set multiple sorting for the result returned by the query.
+     * Note. If a previous sorting was set, this function erase it and reste 
+     * a new one.
+     *
+     * @param array $keyList - each array key are the sort keys
+     *        it has to be something understable by the SQL parser.
+     *        while each array values are sort direction of the concerned key
+     */
+
+    function set_multiple_sort_keys($keyList)
+    {
+        $this->sortKeyList = array(); // reset the sort key list
+        $this->sortKeyList = $keyList;
+    }
+
 
     /**
      * Rewrite the SQL query to allowing paging. It adds LIMIT parameter to the
