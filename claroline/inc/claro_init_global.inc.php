@@ -152,7 +152,7 @@ require $includePath . '/lib/event/init_event_manager.inc.php';
 if ($_course['language']) $languageInterface = $_course['language'];
 else                      $languageInterface = $platformLanguage;
 
-if ( ! defined('CLAROLANG') ) CLAROLANG == 'PRODUCTION';
+if ( ! defined('CLAROLANG') ) define('CLAROLANG','PRODUCTION');
 load_language_translation($languageInterface, CLAROLANG);
 
 // include the locale settings language
