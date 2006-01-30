@@ -117,7 +117,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
 <?php
 
-echo '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
+echo '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
     if (is_array($_courseToolList))
     {
