@@ -252,8 +252,16 @@ if($is_allowedToEdit)
         }
         // ask the display of the form
 
-        if($form['prefillSubmit'] == 'ENDDATE')   $prefillSubmitEndDateCheckStatus = 'checked="checked"';
-        elseif($form['prefillSubmit'] == 'AFTERPOST') $prefillSubmitAfterPostCheckStatus = 'checked="checked"';
+        if($form['prefillSubmit'] == 'ENDDATE')
+        {   
+        	$prefillSubmitEndDateCheckStatus = 'checked="checked"';
+        	$prefillSubmitAfterPostCheckStatus = '';
+        }
+        elseif($form['prefillSubmit'] == 'AFTERPOST')
+        {
+        	$prefillSubmitEndDateCheckStatus = ''; 
+        	$prefillSubmitAfterPostCheckStatus = 'checked="checked"';
+        }
 
         $displayFeedbackForm = true;
     }
