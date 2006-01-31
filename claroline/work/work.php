@@ -539,18 +539,22 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     .	 '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Available from') . '</a></th>' . "\n"
     .	 '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('Until') . '</a></th>' . "\n";
     
+    $colspan = 4;
+    
+    if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+    {
+    	echo '<th>' . get_lang('Publish') . '</th>' . "\n";
+    	$colspan++;	
+    }
+    
     if( $is_allowedToEdit )
     {
     	echo '<th>' . get_lang('Edit') . '</th>' . "\n"
     	.	 '<th>' . get_lang('Delete') . '</th>' . "\n"
     	.	 '<th>' . get_lang('Visibility') . '</th>' . "\n";
-    	
-    	$colspan = '7';
+    	$colspan += 3;
     }
-    else
-    {
-    	$colspan = '4';	
-    }
+    
     
     echo '</tr>' . "\n"
     .	 '<tbody>' . "\n\n";
@@ -592,17 +596,8 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         echo '<tr ' . $style . '>'."\n"
         .    '<td>' . "\n"
-        ;
-
-        if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
-        {
-            echo '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '" class="item' . $classItem . '">';
-        }
-        else
-        {
-            echo '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">';
-        }
-        echo '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" /> '
+    	.	 '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">'        
+        .	 '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" /> '
         .    $anAssignment['title']
         .    '</a>' . "\n"
         .    '</td>' . "\n"
@@ -619,8 +614,17 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         	
         echo '</td>' . "\n";
         
-        echo '<td>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix']) . '</td>' . "\n"
-        .	 '<td>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix']) . '</td>' . "\n";
+        echo '<td><small>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix']) . '</small></td>' . "\n"
+        .	 '<td><small>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix']) . '</small></td>' . "\n";
+        
+        if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+        {
+            echo '<td>'
+			.	 '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '" class="item' . $classItem . '">'
+			. 	 '<small>' . get_lang('Publish') . '</small>'
+			.	 '</a>'
+			.	 '</td>' . "\n";
+        }
         
         if ( $is_allowedToEdit )
         {
