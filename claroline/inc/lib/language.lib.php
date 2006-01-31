@@ -124,31 +124,24 @@ function load_language_translation ($language,$mode)
     {
         // PRODUCTION MODE : include the language file with variables used by the script
 
-        if ( isset($course_homepage) && $course_homepage == true )
+        /*
+         * tool specific language translation
+         */
+
+        // build lang file of the tool
+        $languageFilename = preg_replace('|^'.preg_quote($urlAppend.'/').'|', '',  $_SERVER['PHP_SELF'] );
+        $pos = strpos($languageFilename, 'claroline/');
+
+        if ($pos === FALSE || $pos != 0)
         {
-            $languageFilename = 'claroline_course_home';
+            // if the script isn't in the claroline folder the language file base name is index
+            $languageFilename = 'index';
         }
         else
         {
-            /*
-             * tool specific language translation
-             */
-
-            // build lang file of the tool
-            $languageFilename = preg_replace('|^'.preg_quote($urlAppend.'/').'|', '',  $_SERVER['PHP_SELF'] );
-            $pos = strpos($languageFilename, 'claroline/');
-
-            if ($pos === FALSE || $pos != 0)
-            {
-                // if the script isn't in the claroline folder the language file base name is index
-                $languageFilename = 'index';
-            }
-            else
-            {
-                // else language file basename is like claroline_folder_subfolder_...
-                $languageFilename = dirname($languageFilename);
-                $languageFilename = str_replace('/','_',$languageFilename);
-            }
+            // else language file basename is like claroline_folder_subfolder_...
+            $languageFilename = dirname($languageFilename);
+            $languageFilename = str_replace('/','_',$languageFilename);
         }
 
         // add extension to file
