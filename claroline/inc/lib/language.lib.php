@@ -183,6 +183,9 @@ class language
                $number_thousands_separator, $number_decimal_separator,
                $dateFormatShort, $dateFormatLong, $dateTimeFormatLong, $dateTimeFormatShort, $timeNoSecFormat;
 
+        /*
+        * tool specific language translation
+        */
         if ( is_null($language) ) $language = language::current_language();
 
         // include the locale settings language
@@ -281,4 +284,105 @@ function claro_display_preferred_language_form()
     return $form;
 }
 
+
+/**
+ * return an array with names of months
+ *
+ * @param string $size size / format of strings
+ *                           'long' for complete name
+ *                           'short' or 'abbr' for abbreviation
+ * @return array of 12 strings (0 = january)
+ */
+
+
+function get_lang_month_name_list($size='long')
+{
+    switch ($size)
+    {
+        case 'abbr' : {}
+        case 'short' :
+        {
+            $nameList = array(
+            get_lang('Jan'),
+            get_lang('Feb'),
+            get_lang('Mar'),
+            get_lang('Apr'),
+            get_lang('May'),
+            get_lang('Jun'),
+            get_lang('Jul'),
+            get_lang('Aug'),
+            get_lang('Sep'),
+            get_lang('Oct'),
+            get_lang('Nov'),
+            get_lang('Dec'),
+            );
+        }
+        default : {}
+        case 'long' :
+        {
+            $nameList = array(
+            get_lang('January'),
+            get_lang('February'),
+            get_lang('March'),
+            get_lang('April'),
+            get_lang('May'),
+            get_lang('June'),
+            get_lang('July'),
+            get_lang('August'),
+            get_lang('September'),
+            get_lang('October'),
+            get_lang('November'),
+            get_lang('December'),
+            );
+        }   break;
+    }
+    return $nameList;
+}
+
+/**
+ * return an array with names of weekdays
+ *
+ * @param string $size size / format of strings
+ *                           'long' for complete name
+ *                           'short' or 'abbr' for abbreviation
+ * @return array of 7 strings (0 = monday)
+ */
+
+function get_lang_weekday_name_list($size='long')
+{
+    switch ($size)
+    {
+        case 'abbr' :
+        case 'short' :
+        {
+            $nameList = array(
+            get_lang('Sun'),
+            get_lang('Mon'),
+            get_lang('Tue'),
+            get_lang('Wed'),
+            get_lang('Thu'),
+            get_lang('Fri'),
+            get_lang('Sat'),
+            );
+
+        }
+
+        case 'long' : {}
+        default :
+        {
+            $nameList = array(
+            get_lang('Sunday'),
+            get_lang('Monday'),
+            get_lang('Tuesday'),
+            get_lang('Wednesday'),
+            get_lang('Thursday'),
+            get_lang('Friday'),
+            get_lang('Saturday'),
+            );
+
+        }   break;
+
+    }
+    return $nameList;
+}
 ?>
