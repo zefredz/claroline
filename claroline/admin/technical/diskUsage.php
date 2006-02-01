@@ -2,9 +2,9 @@
 /**
  * Claroline
  *
- * This  tool comput the disk Usage of each course.
+ * This  tool compute the disk Usage of each course.
  * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author  Christophe Gesché <moosh@claroline.net>
@@ -18,9 +18,8 @@ require_once '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-require_once($includePath . '/lib/debug.lib.inc.php');
-require_once($includePath . '/lib/fileManage.lib.php');
-require_once($includePath . '/lib/form.lib.php');
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/form.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
@@ -71,11 +70,8 @@ if ($disp_form)
 }
 
 
-
 //OUTPUT
-
-
-include( $includePath . '/claro_init_header.inc.php' );
+include $includePath . '/claro_init_header.inc.php' ;
 
 echo claro_disp_tool_title(
     array(
@@ -90,9 +86,7 @@ echo get_lang('Course_Repository') . ' : ' . $coursesRepositorySys . '<br />' . 
 
 if ($disp_form)
 {
-?>
-<ul>
-<?php
+    echo '<ul>';
 if ($disp_claro )
     echo '<li>'
     .    'Claroline : '
@@ -150,7 +144,11 @@ echo claro_html_form_select( 'coursesToCheck[]'
 if ($disp_selCrs && $coursesToCheck)
 {
     echo '<li><ol>';
-    $sqlListCourses = "SELECT fake_code code, directory dir, dbName db, diskQuota FROM `" . $tbl_course . "` ";
+    $sqlListCourses = "SELECT fake_code code,
+                      directory dir,
+                      dbName db,
+                      diskQuota
+                      FROM `" . $tbl_course . "` ";
     if($coursesToCheck[0]==" all ")
     {
         $sqlListCourses .= " order by dbName";
@@ -176,10 +174,10 @@ if ($disp_selCrs && $coursesToCheck)
 //            $duBase  = get_db_size($course["db"],k);
 
             $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
-            echo '<p>' . $coursesRepositorySys . $course["dir"] . '/'
+            echo '<p>' . $coursesRepositorySys . $course['dir'] . '/'
             .    ' = '
             .    '<pre>'
-            .    var_export( $coursesRepositorySys . $course["dir"] . '/',1)
+            .    var_export( $coursesRepositorySys . $course['dir'] . '/',1)
             .    '</pre>'
             ;
 
@@ -187,7 +185,7 @@ if ($disp_selCrs && $coursesToCheck)
             echo '<li>'
             .    $course['code'] . ' : '
             .    (is_null($course['diskQuota']) ? ' ' . get_lang('NoQuota') . ' '
-                                                : 'Quota : ' . $course["diskQuota"]
+                                                : get_lang('Quota') . ' : ' . $course['diskQuota']
                  )
             .    ' ' . $byteUnits[2] . ' | '
             .    sprintf("%01.2f", $duFiles ) . ' ' . $byteUnits[1]
@@ -196,7 +194,7 @@ if ($disp_selCrs && $coursesToCheck)
             .    sprintf('%01.2f', $duTotal ) . ' ' . $byteUnits[2] . '</strong>'
             .    (is_null($course['diskQuota']) || ($quota > (int) $duTotal)
                  ? ' ok '
-                 : ' <font color="#FF0000">!!!!!!!! OVER QUOTA !!!!!!</font>'
+                 : ' <font color="#FF0000">!!!!!!!! '. get_lang('OVER QUOTA') .' !!!!!!</font>'
                  )
             .   '</li>'
             ;
@@ -266,7 +264,7 @@ function get_db_size($tdb)
     }
     else
     {
-        return FALSE;
+        return false;
     }
 }
 
