@@ -21,6 +21,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $GLOBALS['_cid'] || ! $GLOBALS['is_courseAllowed'] ) claro_disp_auth_form(true);
 
+require_once $includePath . '/lib/assignment.lib.php';
 include_once $includePath . '/lib/fileManage.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -101,7 +102,7 @@ if( $req['assigmentId'] != false )
 }
 
   /*--------------------------------------------------------------------
-                    REQUIRED : USER INFORMATIONS OR
+                    REQUIRED : USER INFORMATIONS
   --------------------------------------------------------------------*/
 if( isset($assignment) && isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 {
@@ -202,7 +203,6 @@ if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 			FROM `" . $tbl_group_team . "` as `t`";
 
 	$groupList = claro_sql_query_fetch_all($sql);
-
 	if( is_array($groupList) && !empty($groupList) )
 	{
 		foreach( $groupList AS $group )
@@ -220,22 +220,7 @@ if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) )
 	else
 	{
 		// get the list of group the user is in
-		$sql = "SELECT `tu`.`team`, `t`.`name`
-			FROM `".$tbl_group_rel_team_user."` as `tu`, `".$tbl_group_team."` as `t`
-			WHERE `tu`.`user` = " . (int) $_uid . "
-			AND `tu`.`team` = `t`.`id`";
-
-		$groupList = claro_sql_query_fetch_all($sql);
-
-		if( is_array($groupList) && !empty($groupList) )
-		{
-			foreach( $groupList AS $group )
-			{
-				// yes it is redundant but it is for a easier user later in the script
-				$userGroupList[$group['team']]['id'] = $group['team'];
-				$userGroupList[$group['team']]['name'] = $group['name'];
-			}
-	 	}
+		$userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
 	}
 }
 
@@ -290,7 +275,7 @@ if( isset($wrk) && isset($_uid) && $assignment['prefill_submit'] != 'AFTERPOST')
             }
             // SO : a user can edit if the works is owned by one of his groups
             //      OR directly owned by him
-            $userCanEdit = ( (isset($userGroupList) && $groupFound ) || ( $wrk['user_id'] == $_uid ) );
+            $userCanEdit = ( $groupFound || ( $wrk['user_id'] == $_uid ) );
       }
       elseif( $assignment['assignment_type'] == 'INDIVIDUAL' )
       {
@@ -946,15 +931,17 @@ include($includePath.'/claro_init_header.inc.php');
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
-$pageTitle['mainTitle'  ] = get_lang('Assignment')." : ".$assignment['title'];
+$pageTitle['mainTitle'] = get_lang('Assignment')." : ".$assignment['title'];
 
-if( isset($_gid) )
+if( $assignment['assignment_type'] == 'GROUP' )
 {
-	$pageTitle['subTitle'   ] = get_lang('Group')." : <a href=\"../group/group_space.php?gidReq=".$_REQUEST['authId']."\">".$authName."</a>\n";
+	$pageTitle['subTitle'] = get_lang('Group') . ' : ' . $authName . "\n";
+	if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../group/group_space.php?gidReq='.$_REQUEST['authId'].'">'.get_lang('View group data').'</a>)</small>'."\n";
 }
 else
 {
-	$pageTitle['subTitle'   ] = get_lang('User')." : <a href=\"../user/userInfo.php?uInfo=".$_REQUEST['authId']."\">".$authName."</a>\n";
+	$pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
+	if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../user/userInfo.php?uInfo='.$_REQUEST['authId'].'">'.get_lang('View user data').'</a>)</small>'."\n";
 }
 echo claro_disp_tool_title($pageTitle);
 
@@ -970,14 +957,57 @@ if( $is_allowedToSubmit )
 
 	if( $dispWrkForm )
 	{
-			echo '<br />'."\n";
+			/**
+			 * ASSIGNMENT INFOS
+			 */
+			 
+			echo '<p>' . "\n" . '<small>' . "\n"
+			.    '<b>' . get_lang('Title') . '</b> : ' . "\n"
+			.    $assignment['title'] . '<br />'  . "\n"
+			.    '<b>' . get_lang('From') . '</b>' . "\n"
+			.    claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date']) . "\n"
+			
+			.    '<b>' . get_lang('until') . '</b>' . "\n"
+			.    claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date'])
+			
+			.	'<br />'  .  "\n"
+			
+			.    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
+			
+			if( $assignment['authorized_content'] == 'TEXT'  )
+				get_lang('Text only (text required, no file)');
+			elseif( $assignment['authorized_content'] == 'TEXTFILE' )
+				get_lang('Text with attached file (text required, file optional)');
+			else
+				echo get_lang('File Only');
+			
+			
+			echo '<br />'  .  "\n"
+			
+			.    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
+			.    ($assignment['def_submission_visibility'] == 'VISIBLE' ? get_lang('Visible to all users') : get_lang('Only visible by teacher and submitter')) 
+			
+			.	'<br />'  .  "\n"
+			
+			.    '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
+			.    ($assignment['assignment_type'] == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') ) 
+			
+			.	'<br />'  .  "\n"
+			
+			.    '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
+			.    ($assignment['allow_late_upload'] == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
+			
+			.    '</small>' . "\n" . '</p>' . "\n";
+			
 			// description of assignment
 			if( !empty($assignment['description']) )
 			{
-				echo "\n".'<div>'."\n"
-					.'<b>'.get_lang('AssignmentDescription').'</b><br />'
-					.claro_parse_user_text($assignment['description'])
-					."\n".'</div>'."\n".'<br />'."\n";
+			    echo '<div>' . "\n" . '<small>' . "\n"
+			    .    '<b>' . get_lang('Description') . '</b><br />' . "\n"
+			    .    claro_parse_user_text($assignment['description'])
+			    .    '</small>' . "\n" . '</div>' . "\n"
+			    .    '<br />' . "\n"
+			    ;
 			}
 
             echo '<h4>'.$txtForFormTitle.'</h4>'."\n"
@@ -1003,7 +1033,7 @@ if( $is_allowedToSubmit )
 
             // display the list of groups of the user
             if( $assignment['assignment_type'] == "GROUP" &&
-					(isset($userGroupList) && count($userGroupList) > 0) || ($is_courseAdmin && isset($_gid) )
+					!empty($userGroupList) || ($is_courseAdmin && isset($_gid) )
 				)
             {
 				echo '<tr>'."\n"
@@ -1270,27 +1300,24 @@ if( $dispWrkLst )
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
 	{
-		echo '<table class="claroTable" width="100%">'."\n";
 		foreach ( $wrkAndFeedbackLst as $thisWrk )
 		{
 			$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
 			$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
 			$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( ( $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']])) && $uploadDateIsOk );
 
-			if ($thisWrk['visibility'] == "INVISIBLE")
-			{
-				$style=' class="invisible"';
-			}
-			else
-			{
-				$style='';
-			}
+			if( $thisWrk['visibility'] == "INVISIBLE" )	$visStyle = ' class="invisible"';
+			else										$visStyle = '';
+			
+			if( $is_feedback )  $feedbackStyle = 'style="padding-left: 35px;"';
+			else				$feedbackStyle = '';	
 
 			// change some displayed text depending on the context
 			if( $assignmentContent == "TEXTFILE" || $is_feedback )
 			{
 				$txtForFile = get_lang('Attached file');
-				$txtForText = get_lang('Answer');
+				if( $is_feedback )	$txtForText = get_lang('Public feedback');
+				else				$txtForText = get_lang('Answer');
 			}
 			elseif( $assignmentContent == "TEXT" )
 			{
@@ -1302,25 +1329,21 @@ if( $dispWrkLst )
 				$txtForText = get_lang('FileDesc');
 			}
 
+			if( !$is_feedback ) echo '<hr />';
 			// title (and edit links)
-			echo '<tr>' . "\n"
-			.    '<th class="headerX">' . "\n"
+			echo '<h3' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
 			.    $thisWrk['title'] . "\n"
-			.    '</th>' . "\n"
-			.    '</tr>' . "\n"
-			.    '<tr ' . $style . '>' . "\n"
+			.    '</h3>' . "\n"
+			.    '<div' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
 			;
 
-			if( $is_feedback ) echo '<td style="padding-left: 35px;">' . "\n";
-			else               echo '<td>'."\n";
-
 			// author
-			echo '<b>' . get_lang('WrkAuthors') . '</b>&nbsp;: ' . $thisWrk['authors'] . '<br />';
+			echo get_lang('WrkAuthors') . '&nbsp;: ' . $thisWrk['authors'] . '<br />' . "\n";
 
 			if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) && !$is_feedback )
 			{
 				 // display group if this is a group assignment and if this is not a correction
-				 echo '<b>' . get_lang('Group') . '</b>&nbsp;: ' . $allGroupList[$thisWrk['group_id']]['name'].'<br />';
+				 echo get_lang('Group') . '&nbsp;: ' . $allGroupList[$thisWrk['group_id']]['name'].'<br />' . "\n";
 			}
 
 			if( $assignmentContent != 'TEXT' )
@@ -1329,43 +1352,41 @@ if( $dispWrkLst )
 				{
 					$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
 					// show file if this is not a TEXT only work
-					echo '<b>' . $txtForFile . '</b>&nbsp;: '
+					echo $txtForFile . '&nbsp;: '
 	                .    '<a href="' . $assigDirWeb.urlencode($thisWrk['submitted_doc_path']) . '" ' . $target . '>' . $thisWrk['submitted_doc_path'] . '</a>'
 					.    '<br />' . "\n"
 					;
 				}
 				else
 				{
-				     echo '<b>' . $txtForFile . '</b>&nbsp;: '
+				     echo $txtForFile . '&nbsp;: '
 				     .     get_lang('NoFile')
 				     .    '<br />' . "\n"
 				     ;
 				}
 			}
 
-			echo '<br />'
-			.    '<div>'
-			.    '<b>' . $txtForText . '</b>&nbsp;: ' . '<br />' . "\n"
-			.    $thisWrk['submitted_text'] . '</div>' . "\n"
+			echo '<br />' . "\n"
+			.    $txtForText . '&nbsp;: ' . '<br />' . "\n"
+			.    '<blockquote>' . $thisWrk['submitted_text'] . '</blockquote>' . "\n"
 			;
 
 			if( $is_feedback )
 			{
 				if( $is_allowedToEditAll )
 				{
-					echo '<br />'
+					echo '<br />' . "\n"
 					.    '<div>'
-					.    '<b>' . get_lang('Private feedback') . '</b>&nbsp;: '
-					.    '<br />' . "\n"
-					.    $thisWrk['private_feedback']
+					.    get_lang('Private feedback') . '&nbsp;:<br />'
+					.    '<blockquote>' . $thisWrk['private_feedback'] . '</blockquote>' . "\n"
 					.    '</div>' . "\n"
 					;
 				}
-				echo '<br /><b>'.get_lang('Score').'</b>&nbsp;: ';
-				echo ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' ;
-				echo '<br />'."\n";
+				echo '<br />' . "\n" . get_lang('Score') . '&nbsp;: '
+				.	 ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
+				.	 '<br />' . "\n";
 			}
-			echo '<p><b>' . get_lang('SubmissionDate') . '</b>&nbsp;: '
+			echo '<p>' . get_lang('SubmissionDate') . '&nbsp;: '
 			.    claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date'])
 			;
 
@@ -1374,11 +1395,11 @@ if( $dispWrkLst )
 			{
 			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('LateUpload').'" />';
 			}
-			echo '<br />'."\n";
+			echo '<br />' . "\n";
 
 			if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
 			{
-				echo '<b>'.get_lang('LastEditDate').'</b>&nbsp;: '
+				echo get_lang('LastEditDate').'&nbsp;: '
 					.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
 				// display an alert if work was submitted after end date and work is not a correction !
 				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
@@ -1447,11 +1468,10 @@ if( $dispWrkLst )
 				}
 			}
 
-			echo '</td>' . "\n"
-			.    '</tr>' . "\n"
+			echo '</div>' . "\n"
+			.	 '<br />' . "\n"
 			;
 		}
-		echo '</table>';
 	}
 	else
 	{
