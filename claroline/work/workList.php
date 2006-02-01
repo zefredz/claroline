@@ -183,10 +183,10 @@ if( ! $is_allowedToEditAll )
 }
 
 $submissionFilterSql = implode(' OR ', $submissionConditionList);
-if (!empty($submissionFilterSql) ) $submissionFilterSql = ' AND ('.$submissionFilterSql.') ';
+if ( !empty($submissionFilterSql) ) $submissionFilterSql = ' AND ('.$submissionFilterSql.') ';
 
 $feedbackFilterSql = implode(' OR ', $feedbackConditionList);
-if ( ! empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterSql.')';
+if ( !empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterSql.')';
 
 if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 {
@@ -323,12 +323,13 @@ $workList = $workPager->get_result_list();
 
 // add the good last title ...
 $results = claro_sql_query_fetch_all($sql2);
+
 foreach( $results as $result )
 {
 	$lastWorkTitleList[$result['authId']] = $result['title'];
 }
 
-if($lastWorkTitleList)
+if( !empty($lastWorkTitleList) )
 {
 	for( $i = 0; $i < count($workList); $i++ )
 	{
@@ -420,8 +421,7 @@ echo claro_disp_tool_title($pageTitle);
  * ASSIGNMENT INFOS
  */
  
-// end date
-echo '<p>' . "\n"
+echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 .    $assignment['title'] . '<br />'  . "\n"
 .    '<b>' . get_lang('From') . '</b>' . "\n"
@@ -457,15 +457,15 @@ echo '<br />'  .  "\n"
 .    '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
 .    ($assignment['allow_late_upload'] == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
 
-.    '</p>' . "\n";
+.    '</small>' . "\n" . '</p>' . "\n";
 
 // description of assignment
 if( !empty($assignment['description']) )
 {
-    echo '<div>' . "\n"
-    .    '<b>' . get_lang('Description') . '</b><br />' . "\n"
+    echo '<b><small>' . get_lang('Description') . '</small></b>' . "\n"
+    .    '<blockquote>' . "\n" . '<small>' . "\n"
     .    claro_parse_user_text($assignment['description'])
-    .    '</div>' . "\n"
+    .    '</small>' . "\n" . '</blockquote>' . "\n"
     .    '<br />' . "\n"
     ;
 }
