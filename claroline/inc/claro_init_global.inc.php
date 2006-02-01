@@ -146,23 +146,11 @@ require $includePath . '/claro_init_local.inc.php';
 require $includePath . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
-  Load language files
+  Load language translation and locale settings
   ----------------------------------------------------------------------*/
 
-if ($_course['language']) $languageInterface = $_course['language'];
-else                      $languageInterface = $platformLanguage;
-
-if ( ! defined('CLAROLANG') ) define('CLAROLANG','PRODUCTION');
-load_language_translation($languageInterface, CLAROLANG);
-
-// include the locale settings language
-
-include($includePath.'/../lang/english/locale_settings.php');
-
-if ( $languageInterface  != 'english' ) // // Avoid useless include as English lang is preloaded
-{
-   include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
-}
+language::load_translation();
+language::load_locale_settings();
 
 /*----------------------------------------------------------------------
   Prevent duplicate form submission

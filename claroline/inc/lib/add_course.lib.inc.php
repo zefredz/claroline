@@ -887,9 +887,6 @@ function update_db_course($courseDbName)
     return true;
 };
 
-
-
-
 /**
  * Add starting files in course
  *
@@ -910,8 +907,6 @@ function     fill_course_repository($courseRepository)
                 $coursesRepositorySys.$courseRepository.'/document/Example_document.pdf');
 };
 
-
-
 /**
  * Insert starting data in db of course.
  *
@@ -930,14 +925,14 @@ function fill_db_course($courseDbName,$language)
            $clarolineRepositorySys, $_user, $includePath;
 
     // include the language file with all language variables
-    load_language_translation($language,'TRANSLATION');
+    language::load_translation($language,'TRANSLATION');
+    language::load_locale_settings($language);
 
     $courseDbName = $courseTablePrefix . $courseDbName.$dbGlu;
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
     $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
 
     $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'];// $courseDbName."group_property";
-
 
     $TABLEQUIZ              = $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
     $TABLEQUIZQUESTION      = $tbl_cdb_names['quiz_rel_test_question'];

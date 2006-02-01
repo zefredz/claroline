@@ -12,7 +12,7 @@
 
 unset($includePath); // prevent hacking
 
-// Flag forcing the 'current course' reset, as we're not anymore inside a course 
+// Flag forcing the 'current course' reset, as we're not anymore inside a course
 
 $cidReset = TRUE;
 $tidReset = TRUE;
@@ -43,7 +43,7 @@ require $includePath . '/claro_init_header.inc.php';
 // INTRODUCTION MESSAGE
 if ( file_exists('./textzone_top.inc.html') ) include './textzone_top.inc.html';
 
-if ($is_platformAdmin) 
+if ($is_platformAdmin)
 {
     // EDIT COMMAND
     echo '&nbsp;'
@@ -87,7 +87,7 @@ if ( isset($_uid) )
             .    '</a>'
             ;
         }
-        
+
         if ( isset($_REQUEST['category']) )
         {
             echo '&nbsp;|&nbsp;'
@@ -130,6 +130,12 @@ else
 <td width="200" valign="top" class="claroRightMenu">
 
 <?php
+
+if ( get_conf('l10n_platfrom',true) )
+{
+    echo claro_display_preferred_language_form();
+}
+
 if ( isset($_uid) )
 {
     // DISPLAY CROSS COURSE DIGEST FOR USER

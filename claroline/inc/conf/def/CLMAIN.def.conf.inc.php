@@ -7,7 +7,7 @@
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
@@ -174,7 +174,7 @@ array ( 'label'       => 'Prefix for tracking table names'
       , 'display'     => TRUE
       , 'readonly'    => TRUE
       );
-      
+
 $conf_def_property_list['platform_id'] =
 array ('label'       => 'unique id of the platform'
       ,'type'        => 'string'
@@ -299,7 +299,7 @@ array ('label'         => 'Language to display'
       ,'description'   => ''
       ,'default'       => 'english'
       ,'type'          => 'multi'
-      ,'display'       => false
+      ,'display'       => true
       ,'acceptedValueType' => 'lang'
       ,'readonly'      => FALSE
       );
@@ -323,7 +323,7 @@ array ('label'       => 'Editor'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-      
+
 $conf_def_property_list['CLAROLANG'] =
 array('label'         => 'Language mode'
      ,'description'   => 'Translation: use a single language file'."\n".'Production: each script use its own language file.'
@@ -494,7 +494,7 @@ array ('label'       => 'Debug mode'
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
-      
+
 $conf_def_property_list['DEVEL_MODE'] =
 array ('label'       => 'Development mode'
       ,'description' => 'Add addtionnal tools in the SDK section of the platform administration.'
@@ -505,7 +505,7 @@ array ('label'       => 'Development mode'
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'On'
                                ,'FALSE'=>'Off')
-      );      
+      );
 
 $conf_def_property_list['allowToSelfEnroll']
 = array ('label'     => 'Personnal course list modification'
