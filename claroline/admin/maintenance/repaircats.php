@@ -6,7 +6,6 @@
  *
  * @version 1.8 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLTREE
@@ -32,8 +31,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
+include_once $includePath . '/lib/datagrid.inc.php';
 include_once $includePath . '/lib/claro_html.class.php';
-
 // build bredcrump
 $nameTools        = get_lang('CategoriesRepairs');
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -160,7 +159,7 @@ switch ($view)
     break;
     default :
     {
-        echo '<div>'.__LINE__.': $view = <pre>'. var_export($view,1).'</PRE></div>';
+        echo '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
     }
 }
 
