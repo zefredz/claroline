@@ -1,14 +1,14 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
- * 
- * This tool is "groupe_home" + "group_user" 
+/**
+ * CLAROLINE
+ *
+ * This tool is "groupe_home" + "group_user"
  *
  * @version 1.8 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLGRP
  *
@@ -22,10 +22,10 @@ $cidNeeded = true;
 $gidNeeded = true;
 $tlabelReq = 'CLGRP___';
 
-$toolNameList=array();
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/lib/group.lib.inc.php';
 
+$toolNameList= claro_get_tool_name_list();
 $toolRepository = $clarolineRepositoryWeb;
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
@@ -33,9 +33,9 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 // block if !$_gid
 // accept  if $is_groupAllowed
 
-if ( ! $_gid 
-    || (!   $is_groupAllowed 
-        && !isset($_REQUEST['selfReg']) || $_REQUEST['registration'] ))
+if ( ! $_gid
+    || (!   $is_groupAllowed
+        && !isset($_REQUEST['selfReg']) || isset($_REQUEST['registration']) ))
 {
     header('Location:group.php');
     exit();
@@ -86,8 +86,8 @@ $userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $us
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
 && ( ! $userGroupQuotaExceeded )
-&& ( ! $is_courseTutor || 
-     ( $is_courseTutor 
+&& ( ! $is_courseTutor ||
+     ( $is_courseTutor
        &&
        get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
        )));
@@ -117,7 +117,7 @@ if( isset($_REQUEST['registration']) )
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
             header('Location:' . $_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
             exit();
-            
+
         }
     }
 }
@@ -418,7 +418,7 @@ function get_group_tool_list($course_id=NULL)
     $tbl_tool  = $tbl_mdb_names['tool'];
 
     $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
-    
+
     $sql = "
 SELECT tl.id                               id,
        tl.script_name                      name,
@@ -428,11 +428,11 @@ SELECT tl.id                               id,
        ct.claro_label                      label,
        ct.icon                             icon
 FROM      `" . $tbl_course_tool . "`       tl
-LEFT JOIN `" . $tbl_tool . "` `ct` 
+LEFT JOIN `" . $tbl_tool . "` `ct`
 ON        ct.id = tl.tool_id";
 
     $tool_list = claro_sql_query_fetch_all($sql);
-    
+
     foreach($tool_list as $tool)
     {
         if (in_array(trim($tool['label'],'_'),$aivailable_tool_in_group))
