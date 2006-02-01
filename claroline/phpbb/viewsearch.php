@@ -58,10 +58,10 @@ if ( $sqlClauseString )
                        p.nom lastname, p.prenom firstname, p.post_time,
                        t.topic_id, t.topic_title,
                        f.forum_id, f.forum_name, f.group_id
-               FROM   ".$tbl_posts_text." pt, 
-                      ".$tbl_posts."     p, 
-                      ".$tbl_topics."    t, 
-                      ".$tbl_forums."    f
+               FROM  `".$tbl_posts_text."` pt, 
+                     `".$tbl_posts."`     p, 
+                     `".$tbl_topics."`    t, 
+                     `".$tbl_forums."`    f
                WHERE ( ". $sqlClauseString . ")
                  AND pt.post_id = p.post_id
                  AND p.topic_id = t.topic_id
