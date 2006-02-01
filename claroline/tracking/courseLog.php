@@ -17,7 +17,7 @@
  * @todo to split work and output
  *
  */
- 
+
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
@@ -51,6 +51,10 @@ echo claro_disp_tool_title(
     )
 );
 
+// initialise tool name list
+
+$toolNameList= claro_get_tool_name_list();
+
 // check if uid is prof of this group
 
 if( $is_trackingEnabled)
@@ -65,29 +69,29 @@ if( $is_trackingEnabled)
 
     if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
     else                            $view ="0000000";
-    
+
     $viewLevel = -1; //  position of the flag of the view in the $view array/string
     /***************************************************************************
-     *              
+     *
      *        Main
      *
      ***************************************************************************/
-    
+
     $tempView = $view;
     $viewLevel++;
     echo '<p>'."\n";
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Users').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";   
-        
+        echo '-&nbsp;&nbsp;<b>'.get_lang('Users').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
+
         //-- total number of user in the course
         $sql = "SELECT count(*)
                     FROM `".$tbl_rel_course_user."`
                     WHERE code_cours = '".$_cid."'";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('CountUsers').' : '.$count.'<br />'."\n";
-        
+
         //--  student never connected
         $sql = "SELECT  U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`
             FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."` AS CU
@@ -96,17 +100,17 @@ if( $is_trackingEnabled)
             WHERE U.`user_id` = CU.`user_id`
             AND CU.`code_cours` = '".$_cid."'
             AND A.`access_user_id` IS NULL
-            "; 
+            ";
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('NeverConnectedStudents');
-    
+
         $results = claro_sql_query_fetch_all($sql);
-        
+
         if( !empty($results) && is_array($results) )
-        { 
+        {
             echo '<ul>'."\n";
             foreach( $results as $result )
-            { 
-                echo '<li>' 
+            {
+                echo '<li>'
                     .'<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'.$result['firstname'].' '.$result['lastname'].'</a>'
                     .'</li>'."\n";
             }
@@ -123,18 +127,18 @@ if( $is_trackingEnabled)
             AND CU.`code_cours` = '".$_cid."'
             AND U.`user_id` = A.`access_user_id`
             GROUP BY A.`access_user_id`
-            HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY ) 
+            HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY )
             ORDER BY A.`access_date` ASC
             ";
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('NotRecentlyConnectedStudents');
-    
+
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
-        { 
+        {
             echo '<ul>'."\n";
             foreach( $results as $result )
-            { 
-                    echo '<li>' 
+            {
+                    echo '<li>'
                         .'<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'.$result['firstname'].' '.$result['lastname'].'</a> ( '.get_lang('LastAccess').' : '.$result['max_access_date'].' )'
                         .'</li>'."\n";
             }
@@ -167,49 +171,49 @@ if( $is_trackingEnabled)
     {
         $tempView[$viewLevel] = '0';
         echo '-&nbsp;&nbsp;<b>'.get_lang('CourseAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
-        
+
         $sql = "SELECT count(`access_id`)
                     FROM `".$tbl_track_e_access."`
                     WHERE access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('CountToolAccess').' : '.$count.'<br />'."\n";
-        
+
         // last 31 days
-        $sql = "SELECT count(`access_id`) 
-                    FROM `".$tbl_track_e_access."` 
+        $sql = "SELECT count(`access_id`)
+                    FROM `".$tbl_track_e_access."`
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))
                         AND access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
-        
+
         // last 7 days
-        $sql = "SELECT count(`access_id`) 
-                    FROM `".$tbl_track_e_access."` 
+        $sql = "SELECT count(`access_id`)
+                    FROM `".$tbl_track_e_access."`
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
                         AND access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
-        
+
         // today
-        $sql = "SELECT count(`access_id`) 
-                    FROM `".$tbl_track_e_access."` 
+        $sql = "SELECT count(`access_id`)
+                    FROM `".$tbl_track_e_access."`
                     WHERE ( access_date > CURDATE() )
                         AND access_tid IS NULL";
         $count = claro_sql_query_get_single_value($sql);
-        
+
         echo '&nbsp;&nbsp;&nbsp;'
             .get_lang('Thisday')
             .' : '
             .$count
             .'<br />'."\n";
-            
+
         // today user list
-        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, 
+        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`,
                     MAX(A.`access_date`) AS `max_access_date`, count(A.`access_date`) AS `access_nbr`
             FROM `".$tbl_track_e_access."` AS A
             LEFT JOIN `".$tbl_user."` AS U
                 ON U.`user_id` = A.`access_user_id`
-            WHERE access_date > CURDATE() 
+            WHERE access_date > CURDATE()
             AND access_tid IS NULL
             GROUP BY A.`access_user_id`
             ORDER BY A.`access_date` ASC
@@ -217,15 +221,15 @@ if( $is_trackingEnabled)
 
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
-        { 
+        {
             echo '<ul>'."\n";
             foreach( $results as $result )
-            { 
-                    
+            {
+
                 echo '<li>';
                 if ( empty($result['user_id']) || empty($result['firstname']) )
                 {
-                    echo get_lang('Anonymous') 
+                    echo get_lang('Anonymous')
                         .' <small>( '.get_lang('LastAccess').' : '.$result['max_access_date'].' ; '.get_lang('Total').' : '.$result['access_nbr'].' )</small>';
                 }
                 else
@@ -236,23 +240,23 @@ if( $is_trackingEnabled)
                 echo '</li>'."\n";
             }
             echo '</ul>'."\n";
-        }    
+        }
         //-- view details of traffic
         echo '&nbsp;&nbsp;&nbsp;'
             .'<a href="course_access_details.php">'.get_lang('TrafficDetails').'</a><br />'
             ."\n"
             ;
-    
+
     }
     else
     {
         $tempView[$viewLevel] = '1';
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('CourseAccess').'</a>';
-        
+
     }
     echo '</p>'."\n\n";
     /***************************************************************************
-     *              
+     *
      *        Tools
      *
      ***************************************************************************/
@@ -262,8 +266,8 @@ if( $is_trackingEnabled)
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('ToolsAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";   
-        
+        echo '-&nbsp;&nbsp;<b>'.get_lang('ToolsAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
+
         $sql = "SELECT `access_tid`,
                         COUNT(DISTINCT `access_user_id`) AS `nbr_distinct_users_access`,
                         COUNT( `access_tid` ) AS `nbr_access`,
@@ -272,7 +276,7 @@ if( $is_trackingEnabled)
                     WHERE `access_tid` IS NOT NULL
                       AND `access_tid` <> ''
                     GROUP BY `access_tid`";
-        
+
         $results = claro_sql_query_fetch_all($sql);
         echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
             .'<tr class="headerX">'."\n"
@@ -283,20 +287,20 @@ if( $is_trackingEnabled)
             .'<tbody>'."\n"
             ;
         if( !empty($results) && is_array($results))
-        { 
+        {
             foreach( $results as $result )
-            {                 
+            {
                 echo '<tr>'."\n"
                     .'<td><a href="toolaccess_details.php?toolId='.$result['access_tid'].'">'.$toolNameList[$result['access_tlabel']].'</a></td>'."\n"
                     .'<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$result['access_tid'].'">'.$result['nbr_distinct_users_access'].'</a></td>'."\n"
                     .'<td align="right">'.$result['nbr_access'].'</td>'."\n"
                     .'</tr>'."\n\n";
             }
-        
+
         }
         else
         {
-            echo '<tr>'."\n" 
+            echo '<tr>'."\n"
                 .'<td colspan="3"><div align="center">'.get_lang('NoResult').'</div></td>'."\n"
                 .'</tr>'."\n"
                 ;
@@ -313,7 +317,7 @@ if( $is_trackingEnabled)
     echo '</p>'."\n\n";
 
     /***************************************************************************
-     *              
+     *
      *        Documents
      *
      ***************************************************************************/
@@ -323,16 +327,16 @@ if( $is_trackingEnabled)
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('DocumentsAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";   
-        
+        echo '-&nbsp;&nbsp;<b>'.get_lang('DocumentsAccess').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
+
         $sql = "SELECT `down_doc_path` AS `path`,
                         COUNT(DISTINCT `down_user_id`) AS `nbr_distinct_user_downloads`,
                         COUNT(`down_doc_path`) AS `nbr_total_downloads`
                     FROM `".$tbl_track_e_downloads."`
                     GROUP BY `down_doc_path`";
-    
+
         $results = claro_sql_query_fetch_all($sql);
-        
+
         echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
             .'<tr class="headerX">'."\n"
             .'<th>&nbsp;'.get_lang('DocumentsTitleDocumentColumn').'&nbsp;</th>'."\n"
@@ -342,9 +346,9 @@ if( $is_trackingEnabled)
             .'<tbody>'."\n"
             ;
         if( !empty($results) && is_array($results) )
-        { 
+        {
             foreach( $results as $result )
-            { 
+            {
                     echo '<tr>'."\n"
                         .'<td>'.$result['path'].'</td>'."\n"
                         .'<td align="right"><a href="user_access_details.php?cmd=doc&amp;path='.urlencode($result['path']).'">'.$result['nbr_distinct_user_downloads'].'</a></td>'."\n"
@@ -352,11 +356,11 @@ if( $is_trackingEnabled)
                         .'</tr>'."\n\n"
                         ;
             }
-        
+
         }
         else
         {
-            echo '<tr>'."\n" 
+            echo '<tr>'."\n"
                 .'<td colspan="3"><div align="center">'.get_lang('NoResult').'</div></td>'."\n"
                 .'</tr>'."\n"
                 ;
@@ -371,7 +375,7 @@ if( $is_trackingEnabled)
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('DocumentsAccess').'</a>';
     }
     echo '</p>'."\n\n";
-    
+
     /***************************************************************************
      *        Exercises
      ***************************************************************************/
@@ -381,8 +385,8 @@ if( $is_trackingEnabled)
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Exercises').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'" >'.get_lang('Close').'</a>]</small><br />'."\n";   
-        
+        echo '-&nbsp;&nbsp;<b>'.get_lang('Exercises').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'" >'.get_lang('Close').'</a>]</small><br />'."\n";
+
         $sql = "SELECT TEX.`exe_exo_id`,
                         COUNT(DISTINCT TEX.`exe_user_id`) AS `nbr_distinct_user_attempts`,
                         COUNT(TEX.`exe_exo_id`) AS `nbr_total_attempts`,
@@ -390,7 +394,7 @@ if( $is_trackingEnabled)
                     FROM `".$tbl_track_e_exercises."` AS TEX, `".$tbl_quiz_test."` AS EX
                     WHERE TEX.`exe_exo_id` = EX.`id`
                     GROUP BY TEX.`exe_exo_id`";
-    
+
         $results = claro_sql_query_fetch_all($sql);
         echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
             .'<tr class="headerX">'."\n"
@@ -400,11 +404,11 @@ if( $is_trackingEnabled)
             .'</tr>'."\n"
             .'<tbody>'."\n"
             ;
-                
+
         if( !empty($results) && is_array($results) )
-        { 
+        {
             foreach( $results as $result )
-            { 
+            {
                     echo '<tr>'."\n"
                         .'<td><a href="exercises_details.php?exo_id='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
                         .'<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
@@ -415,7 +419,7 @@ if( $is_trackingEnabled)
         }
         else
         {
-            echo '<tr>'."\n" 
+            echo '<tr>'."\n"
                 .'<td colspan="3"><div align="center">'.get_lang('NoResult').'</div></td>'."\n"
                 .'</tr>'."\n"
                 ;
@@ -430,7 +434,7 @@ if( $is_trackingEnabled)
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Exercises').'</a>';
     }
     echo '</p>'."\n\n";
-    
+
     /***************************************************************************
      *
      *        Forum posts
@@ -442,20 +446,20 @@ if( $is_trackingEnabled)
     if($view[$viewLevel] == '1')
     {
         $tempView[$viewLevel] = '0';
-    
+
         echo '-&nbsp;&nbsp;<b>'.get_lang('TrackForumUsage').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
 
         // total number of posts
         $sql = "SELECT count(`post_id`)
                         FROM `".$tbl_bb_posts."`";
         $totalPosts = claro_sql_query_get_single_value($sql);
-        
+
         // total number of threads
         $sql = "SELECT count(`topic_title`)
                         FROM `".$tbl_bb_topics."`";
         $totalTopics = claro_sql_query_get_single_value($sql);
 
-        // display total of posts and threads        
+        // display total of posts and threads
         echo '<ul>'."\n"
             .'<li>'.get_lang('TrackTotalPosts').' : '.$totalPosts.'</li>'."\n"
             .'<li>'.get_lang('TrackTotalTopics').' : '.$totalTopics.'</li>'."\n";
@@ -483,7 +487,7 @@ if( $is_trackingEnabled)
                     .'</tr>'."\n";
             }
             echo '</tbody>'."\n";
-        
+
         }
         else
         {
@@ -493,8 +497,8 @@ if( $is_trackingEnabled)
         }
         echo '</table>'."\n"
             .'</li>'."\n";
-        
-        
+
+
         // top 10 topics more seen
         $sql = "SELECT `topic_id`, `topic_title`, `topic_views`
                     FROM `".$tbl_bb_topics."`
@@ -502,7 +506,7 @@ if( $is_trackingEnabled)
                     LIMIT 10
                     ";
         $results = claro_sql_query_fetch_all($sql);
-        
+
         echo '<li>'.get_lang('MoreSeenTopics').'<br />'
             .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
             .'<tr class="headerX">'."\n"
@@ -520,7 +524,7 @@ if( $is_trackingEnabled)
                     .'</tr>'."\n";
             }
             echo '</tbody>'."\n";
-        
+
         }
         else
         {
@@ -530,7 +534,7 @@ if( $is_trackingEnabled)
         }
         echo '</table>'."\n"
             .'</li>'."\n";
-        
+
         // last 10 distinct messages posted
         $sql = "SELECT `bb_t`.`topic_id`, `bb_t`.`topic_title`, max(`bb_t`.`topic_time`) as `last_message`
                 FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
@@ -538,9 +542,9 @@ if( $is_trackingEnabled)
                 GROUP BY `bb_t`.`topic_title`
                 ORDER BY `bb_p`.`post_time` DESC
                 LIMIT 10";
-            
+
         $results = claro_sql_query_fetch_all($sql);
-        
+
         echo '<li>'.get_lang('LastActiveTopics').'<br />'
             .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
                 .'<tr class="headerX">'."\n"
@@ -558,7 +562,7 @@ if( $is_trackingEnabled)
                             .'</tr>'."\n";
             }
             echo '</tbody>'."\n";
-        
+
         }
         else
         {
@@ -568,7 +572,7 @@ if( $is_trackingEnabled)
         }
         echo '</table>'."\n"
             .'</li>';
-            
+
         echo '</ul>';
     }
     else
@@ -577,7 +581,7 @@ if( $is_trackingEnabled)
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('TrackForumUsage').'</a>';
     }
     echo '<br /></p>'."\n\n";
-    
+
     // display link to delete all course stats
     echo '<hr />'."\n"
         .'<a class="claroButton" href="delete_course_stats.php">'
