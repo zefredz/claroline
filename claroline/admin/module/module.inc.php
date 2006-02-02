@@ -12,10 +12,12 @@
  * @author claro team <cvs@claroline.net>
  */
 
-$tbl_module      = "cl_module";
-$tbl_dock        = "cl_dock";
-$tbl_module_info = "cl_module_info";
 
+$tbl_name = claro_sql_get_main_tbl();
+
+$tbl_module = $tbl_name['module'];
+$tbl_module_info = $tbl_name['module_info'];
+$tbl_dock = $tbl_name['dock'];
 
 /**
  * function to activate a module, its effect is 
