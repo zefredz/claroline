@@ -78,7 +78,7 @@ array ( 'dbHost'
       , 'singleDbEnabled'
       , 'mainTblPrefix'
       , 'statsTblPrefix'
-      ,'dbNamePrefix'
+      , 'dbNamePrefix'
       , 'dbGlu'
       , 'courseTablePrefix'
       );
@@ -86,6 +86,7 @@ array ( 'dbHost'
 $conf_def['section']['advanced']['label']='Advanced settings';
 $conf_def['section']['advanced']['properties'] =
 array ( 'mysqlRepositorySys'
+      , 'tmpPathSys'
       , 'userPasswordCrypted'
       , 'allowSelfReg'
       , 'allowToSelfEnroll'
@@ -262,6 +263,16 @@ array ('label'       => 'Platform local path '
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'technicalInfo' => 'The hostname of mysql server'
+      );
+
+
+$conf_def_property_list['tmpPathSys'] =
+array ('label'         => 'Repository for temporary files and dirs'
+      , 'description'  => 'Note : this repository should be protected with a .htaccess or
+       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'
+      ,'default'       => get_conf('rootWeb') . 'claroline/tmp /'
+      ,'display'     => FALSE
+      ,'type'          => 'syspath'
       );
 
 $conf_def_property_list['garbageRepositorySys'] =
