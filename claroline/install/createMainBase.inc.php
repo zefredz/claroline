@@ -184,4 +184,46 @@ PRIMARY KEY ( `id` )
 
 claro_sql_query($sql);
 
+// table used for claroline's modules
+
+$sql = "CREATE TABLE `".$mainTblPrefixForm."module` (
+  `id` int(11) NOT NULL auto_increment,
+  `label` varchar(8) NOT NULL default '',
+  `name` varchar(100) NOT NULL default '',
+  `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
+  `type` enum('coursetool','applet') NOT NULL default 'applet',
+  `module_info_id` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=0";
+
+claro_sql_query($sql);
+
+//table used to store claroline's modules complementary information
+
+$sql = "CREATE TABLE `".$mainTblPrefixForm."module_info` (
+  `id` int(11) NOT NULL auto_increment,
+  `module_id` int(11) NOT NULL default '0',
+  `version` varchar(10) NOT NULL default '',
+  `author` varchar(50) default NULL,
+  `author_email` varchar(100) default NULL,
+  `website` varchar(255) default NULL,
+  `description` varchar(255) default NULL,
+  `license` varchar(50) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=0";
+
+claro_sql_query($sql);
+
+//table used to store claroline's docks (where some content can be displayed by the modules)
+
+$sql= "CREATE TABLE `".$mainTblPrefixForm."dock` (
+  `id` int(11) NOT NULL auto_increment,
+  `module_id` int(11) NOT NULL default '0',
+  `name` varchar(50) NOT NULL default '',
+  `rank` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=0";
+
+claro_sql_query($sql);
+
 ?>
