@@ -13,16 +13,23 @@
  *
  */
 
-define( 'LANG_KEY_DELIMITER', '%' );
-
 /**
- * Get the translation of the string
+ * Translate strings to the current locale
  *
- * @param $name string name
- * @param $var_to_remplace array with variables to replace in translation
+ * When using get_lang(), try to put entire sentences and strings in
+ * one get_lang() call. This makes it easier for translators.
  *
- * @return string translation
+ * @code
+ *  $msg = get_lang('Hello %name',array('%name' => $username))
+ * @endcode
  *
+ * @param $name
+ *   A string containing the English string to translate.
+ * @param $var_to_replace
+ *   An associative array of replacements to make after translation. Incidences
+ *   of any key in this array are replaced with the corresponding value.
+ * @return
+ *   The translated string.
  */
 
 function get_lang ($name,$var_to_replace=null)
@@ -43,24 +50,13 @@ function get_lang ($name,$var_to_replace=null)
 
     if ( !empty($var_to_replace) && is_array($var_to_replace) )
     {
-        $search = array_keys($var_to_replace);
-        array_walk($search,'lang_mk_key_delimiter');
-        $replace = array_values($var_to_replace);
-
-        // return translation with replacement
-        return str_replace($search,$replace,$translation);
+        return strtr($translation, $var_to_replace);
     }
     else
     {
         // return translation
         return $translation;
     }
-
-}
-
-function lang_mk_key_delimiter(&$string)
-{
-    $string = LANG_KEY_DELIMITER . $string . LANG_KEY_DELIMITER ;
 }
 
 /**
@@ -385,4 +381,5 @@ function get_lang_weekday_name_list($size='long')
     }
     return $nameList;
 }
+
 ?>
