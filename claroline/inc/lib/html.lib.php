@@ -65,7 +65,7 @@ function claro_disp_button($url, $text, $confirmMessage = '')
 class claro_html
 {
 
-/**
+    /**
  * display a item list as vertical menu.
  *
  * @param array $itemList each item are include in a list.
@@ -247,6 +247,32 @@ class claro_html
 
         return $string;
     }
+
+
+/**
+ * Prepare display of the message box appearing on the top of the window,
+ * just    below the tool title. It is recommended to use this function
+ * to display any confirmation or error messages, or to ask to the user
+ * to enter simple parameters.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $message - include your self any additionnal html
+ *                          tag if you need them
+ * @return $string html string for a message box
+ */
+
+    function message_box($message)
+    {
+        return "\n".'<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
+        .      '<tr>'
+        .      '<td>'
+        .      $message
+        .      '</td>'
+        .      '</tr>'
+        .      '</table>' . "\n\n"
+        ;
+    }
+
 
 }
 
@@ -863,9 +889,7 @@ function claro_disp_duration( $duration  )
  * @author Sébastien Piraux <pir@cerdecam.be>
  */
 
-function claro_disp_textarea_editor($name, $content = '',
-$rows=20,    $cols=80,
-$optAttrib='')
+function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
     global $rootWeb, $rootSys;
     global $claro_editor;
