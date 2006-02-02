@@ -241,35 +241,4 @@ function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specif
     return 1;
 }
 
-  /**
-   *  Send an e-mail to all the users of a course.
-   *  to be implemented !!!
-   */
-
-   function ClaroMailCourse($course_id, $message, $subject ,$specificFrom="")
-   {
-
-   }
-
-  /**
-  *  Send an e-mail to all the users of the plateform
-  *  to be implemented !!!
-  *
-  */
-   function ClaroMailAll($message, $subject ,$specificFrom="")
-   {
-
-   }
-
-   /**
-    * Send an e-mail to a specific group of users
-    * $users_ids must be an array with the id of the users that must receive the mail
-    * to be implemented !!!
-    *
-    */
-
-    function ClaroMailUsers($users_ids, $message, $subject ,$specificFrom="")
-    {
-
-    }
 ?>
