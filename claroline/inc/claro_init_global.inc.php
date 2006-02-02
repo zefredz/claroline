@@ -103,6 +103,16 @@ require $includePath . '/lib/claro_main.lib.php';
 require $includePath . '/lib/language.lib.php';
 
 /*----------------------------------------------------------------------
+  Include Plugin libraries and create needed buffer
+  ----------------------------------------------------------------------*/
+$tbl_module      = "cl_module";
+$tbl_dock        = "cl_dock";
+$tbl_module_info = "cl_module_info";
+
+require $includePath . '/lib/buffer.lib.php';
+
+
+/*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
   ----------------------------------------------------------------------*/
 
@@ -202,6 +212,24 @@ if ( isset($_POST['claroFormId']) )
             array_pop( $_SESSION['claroFormIdList'] );
          }
     }
+}
+
+/*----------------------------------------------------------------------
+  Find MODULES's includes to add and include them
+ ----------------------------------------------------------------------*/
+
+$sql = "SELECT * FROM `".$tbl_module."` AS M
+                WHERE M.`activation` = 'activated'";
+
+$module_list = claro_sql_query_fetch_all($sql);
+
+foreach($module_list as $module)
+{
+   if (file_exists($includePath.'/../module/'.$module['label'].'/functions.php'))
+   {
+       require $includePath.'/../module/'.$module['label'].'/functions.php';
+       
+   }
 }
 
 ?>
