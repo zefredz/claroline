@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * Try to create main database of claroline without remove existing content
- * 
+ *
  * @version 1.8 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
@@ -86,6 +86,7 @@ if ($cmd == 'run')
 
 // Display Header
 echo upgrade_disp_header();
+echo '<div>'.__LINE__.': $currentDbVersion = <pre>'. var_export($currentDbVersion,1).'</PRE></div>';
 
 switch ( $display )
 {
@@ -95,9 +96,9 @@ switch ( $display )
 
         echo  '<h2>Step 2 of 3: main platform tables upgrade</h2>
               <p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored
-              into the <b>main Claroline tables</b> (users, course categories, tools list, ...) 
+              into the <b>main Claroline tables</b> (users, course categories, tools list, ...)
               and set them to be compatible with the new Claroline version.</p>
-              <p class="help">Note. Depending of the speed of your server or the amount of data 
+              <p class="help">Note. Depending of the speed of your server or the amount of data
               stored on your platform, this operation may take some time.</p>
               <center>
               <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch main platform tables upgrade</button></p>
@@ -109,12 +110,12 @@ switch ( $display )
 
         // Initialise
         $nbError = 0;
-    
+
         // Display upgrade result
-        
+
         echo '<h2>Step 2 of 3: main platform tables upgrade</h2>
              <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
-        
+
         if ( ! preg_match('/^1.7/',$currentDbVersion) )
         {
             // repair tables
@@ -155,7 +156,7 @@ switch ( $display )
             {
                 // Upgrade 1.5 to 1.6 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.6</p>' . "\n";
-    
+
                 // Database version is 1.6
                 $currentDbVersion = '1.6';
 
@@ -181,7 +182,7 @@ switch ( $display )
             {
                 // Upgrade 1.6 to 1.7 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
-                
+
                 // Database version is 1.7
                 $currentDbVersion = $new_version;
 
@@ -190,16 +191,39 @@ switch ( $display )
             }
         } // End of upgrade 1.6 to 1.7
 
+        /*---------------------------------------------------------------------
+        Upgrade 1.7 to 1.8
+        ---------------------------------------------------------------------*/
+
+        if ( preg_match('/^1.7/',$currentDbVersion))
+        {
+            echo '<p >process upgrade to 1.8</p>' . "\n";
+
+            // Apply sql query from $sqlForUpdate17 to main database
+            $sqlForUpdate18 = query_to_upgrade_main_database_to_18();
+            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate18,$verbose);
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.7 to 1.8 Succeed
+                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
+
+                // Database version is 1.8
+                $currentDbVersion = $new_version;
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $new_version);
+            }
+        } // End of upgrade 1.7 to 1.8
+
         if ( $nbError == 0 )
         {
-            if ( preg_match('/^1.7/',$currentDbVersion) )
+            if ( preg_match('/^1.8/',$currentDbVersion) )
             {
                 echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
             }
-            else
-            {
-                echo '<p class="error">Db version unknown : ' . $currentDbVersion . '</p>';
-            }
+            else echo '<p class="error">Db version unknown : ' . $currentDbVersion . '</p>';
+
         }
         else
         {
