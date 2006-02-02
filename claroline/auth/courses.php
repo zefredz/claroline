@@ -2,17 +2,16 @@
 /**
  * CLAROLINE
  *
- * prupose list of course to enroll or leave
+ * Prupose list of course to enroll or leave
  *
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author Claro Team <cvs@claroline.net>
  *
  * @package AUTH
  *
- * @author Claro Team <cvs@claroline.net>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -160,11 +159,14 @@ if ( !empty($fromAdmin) )
         $nameTools = get_lang('EnrollClass');
 
         //find info about the class
-        $sqlclass = "SELECT id, name, class_parent_id, class_level
+        $sqlclass = "SELECT id,
+                            name,
+                            class_parent_id,
+                            class_level
                      FROM `" . $tbl_class . "`
-                     WHERE `id` = '" . (int) $_SESSION['admin_user_class_id'] . "'";
+                     WHERE `id` = " . (int) $_SESSION['admin_user_class_id'];
 
-        list($classinfo) = claro_sql_query_fetch_all($sqlclass);
+        $classinfo = claro_sql_query_get_single_row($sqlclass);
     }
 }
 
@@ -179,13 +181,15 @@ if(!$userInfo)
     $cmd='';
     switch (claro_failure::get_last_failure())
     {
-        case 'user_not_found':
-        $msg = 'User not found';
-        break;
+        case 'user_not_found' :
+        {
+            $msg = get_lang('User not found');
+        }   break;
 
         default:
-        $msg = 'user invalid';
-        break;
+        {
+            $msg = get_lang('user invalid');
+        }   break;
     }
 }
 
@@ -206,13 +210,14 @@ if ( $cmd == 'exUnreg' )
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
-            $message = get_lang('CannotUnsubscribeLastCourseManager');
-            break;
+            {
+                $message = get_lang('CannotUnsubscribeLastCourseManager');
+            } break;
             case 'course_manager_cannot_unsubscribe_himself' :
-            $message = get_lang('CourseManagerCannotUnsubscribeHimself');
-            break;
-            default :
-            $message = get_lang('UnableToRemoveCourseRegistration');
+            {
+                $message = get_lang('CourseManagerCannotUnsubscribeHimself');
+            } break;
+            default : $message = get_lang('UnableToRemoveCourseRegistration');
         }
     }
 
@@ -263,10 +268,10 @@ if ( $cmd == 'exReg' )
                 switch (claro_failure::get_last_failure())
                 {
                     case 'already_enrolled_in_course' :
-                    $message = get_lang('_TheUserIsAlreadyEnrolledInTheCourse');
-                    break;
-                    default:
-                    $message = get_lang('UnableToEnrollInCourse');
+                    {
+                        $message = get_lang('_TheUserIsAlreadyEnrolledInTheCourse');
+                    }   break;
+                    default: $message = get_lang('UnableToEnrollInCourse');
                 }
             }
 
@@ -277,7 +282,7 @@ if ( $cmd == 'exReg' )
         {
             if ( isset($_REQUEST['enrollmentKey']) )
             {
-                $message = 'Wrong Enrollment Key.';
+                $message = get_lang('Wrong Enrollment Key.');
             }
 
             $displayMode = DISPLAY_ENROLLMENT_KEY_FORM;
@@ -552,11 +557,11 @@ switch ( $displayMode )
 
                         echo '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['code'] . $inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enroll as student') . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enroll as student') . '" />'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['code'] .$inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . get_lang('EnrollAsTeacher') . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . get_lang('EnrollAsTeacher') . '" />'
                         .    '</a>'
                         .    '</td>' . "\n"
                         ;
@@ -568,7 +573,7 @@ switch ( $displayMode )
                     .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php'
                     .    '?cmd=exReg&course=' . $thisCourse['code']
                     .    '&class=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('EnrollClass') . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('EnrollClass') . '" />'
                     .     '</a>'
                     .     '</td>' . "\n"
                     ;
@@ -585,13 +590,13 @@ switch ( $displayMode )
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?cmd=exReg&course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Subscription') . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Subscription') . '" />'
                         .    '</a>'
                         ;
                     }
                     else
                     {
-                        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '">';
+                        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />';
                     }
 
                     echo '</td>' . "\n";
@@ -715,10 +720,10 @@ switch ( $displayMode )
         .     '<input type="hidden" name="cmd" value="exReg">' . "\n"
         .     get_lang('Key')
         .     ' : '
-        .     '<input type="hidden" name="course" value="' . $_REQUEST['course'] . '">'
-        .     '<input type="text" name="enrollmentKey">' . "\n"
+        .     '<input type="hidden" name="course" value="' . $_REQUEST['course'] . '" />'
+        .     '<input type="text" name="enrollmentKey" />' . "\n"
         .     '<p>'
-        .     '<input type="submit" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
+        .     '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
         .     claro_disp_button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
         .     '</p>'
         .     '</form>' . "\n"
@@ -731,9 +736,6 @@ switch ( $displayMode )
 
 echo $backLink;
 
-/*---------------------------------------------------------------------
-Display footer
----------------------------------------------------------------------*/
 include $includePath . '/claro_init_footer.inc.php';
 
 ?>
