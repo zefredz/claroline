@@ -114,7 +114,13 @@ if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 ?>
 </ul>
 </td>
-<td nowrap="nowrap">&nbsp;</td>
+<td nowrap="nowrap">
+<h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" alt="" />&nbsp;Modules</h4>
+<ul>
+<li><a href="module/module_list.php">Module list</a></li>
+<li><a href="module/module.php">Add a module</a></li>
+</ul>
+</td>
 </tr>
 <?php
 }
