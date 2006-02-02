@@ -9,44 +9,62 @@ ob_start();
 
 <div id="topBanner">
 
+<!-- - - - - - - - - - -   Claroline platform Banner - - - - - - - - - -  -->
 <div id="platformBanner">
-
-<span id="siteName"><a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo $siteName ?></a></span>
 <?php
-echo '<span id="institution">';
+
+//CAMPUS BANNER LEFT DOCK declaration
+
+$campusBannerLeftDock = new Dock('campusBannerLeft');
+$siteNameOutput   = '<span id="siteName"><a href="'.$rootWeb.'index.php" target="_top">'.$siteName.'</a></span>';
+$campusBannerLeftDock->addOutput($siteNameOutput);
+$appletList = getAppletList($campusBannerLeftDock);
+$campusBannerLeftDock->setAppletList($appletList);
+
+echo $campusBannerLeftDock->render();
+
+//CAMPUS BANNER RIGHT DOCK declaration
+
+$campusBannerRightDock = new Dock('campusBannerRight');
+$institutionNameOutput = '<span id="institution">';
+
 if( !empty($institution_name) )
 {
     if( !empty($institution_url) )
-        echo '<a href="'.$institution_url.'" target="_top">'.$institution_name.'</a>';
+        $institutionNameOutput .= '<a href="'.$institution_url.'" target="_top">'.$institution_name.'</a>';
     else
-        echo $institution_name;
+        $institutionNameOutput .= $institution_name;
 }
 
 if( !empty($_course['extLinkName']) )    /* --- External Link Section --- */
 {
-    echo ' / ';
+    $institutionNameOutput .= ' / ';
     if( !empty($_course['extLinkUurl']) )
     {
-        echo '<a href="' . $_course['extLinkUrl'] . '" target="_top">';
+        $institutionNameOutput .= '<a href="' . $_course['extLinkUrl'] . '" target="_top">';
     }
 
-    echo $_course['extLinkName'];
+    $institutionNameOutput .= $_course['extLinkName'];
     
     if( !empty($_course['extLinkUrl']) )
     {
-            echo '</a>';
+        $institutionNameOutput .= '</a>';
     }
 }
 
-echo '</span>'."\n";
-?>
+$institutionNameOutput .= '</span>'."\n";
 
+$campusBannerRightDock->addOutput($institutionNameOutput);
+$appletList = getAppletList($campusBannerRightDock);
+$campusBannerRightDock->setAppletList($appletList);
+
+echo $campusBannerRightDock->render();
+
+?>
 <div class="spacer"></div>
 </div>
+<?
 
-
-
-<?php
 /******************************************************************************
                                   USER SECTION
  ******************************************************************************/
@@ -55,25 +73,52 @@ echo '</span>'."\n";
 if($_uid)
 {
 ?>
-
 <div id="userBanner">
-<span id="userName"><?php echo $_user ['firstName'] . ' ' . $_user ['lastName'] ?> : </span>
-<a href="<?php echo $rootWeb?>index.php" target="_top"><?php echo get_lang('My course list'); ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>calendar/myagenda.php" target="_top"><?php echo get_lang('My calendar'); ?></a> | 
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" target="_top"><?php echo get_lang('My User Account'); ?></a> | 
-<?php 
+<?php
+
+//USER BANNER LEFT DOCK declaration
+
+$userBannerLeftDock = new Dock('userBannerLeft');
+$appletList = getAppletList($userBannerLeftDock);
+$userBannerLeftDock->setAppletList($appletList);
+
+$userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
+$userBannerLeftDock->addOutput($userNameOutput);
+
+$courseListLink = '<a href="'. $rootWeb.'index.php" target="_top">'. get_lang('My course list').'</a> |';
+$userBannerLeftDock->addOutput($courseListLink);
+
+$myAgendaLink   = '<a href="'. $clarolineRepositoryWeb. 'calendar/myagenda.php" target="_top">'. get_lang('My calendar').'</a> |';
+$userBannerLeftDock->addOutput($myAgendaLink);
+
+$myProfileLink  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a> |';
+$userBannerLeftDock->addOutput($myProfileLink);
+ 
 if($is_platformAdmin)
 {
-?>
-<a href="<?php echo $clarolineRepositoryWeb ?>admin/" target="_top"><?php echo get_lang('Platform Administration') ?></a> | 
-<?php 
+    $administrationLink = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a> |';
+    $userBannerLeftDock->addOutput($administrationLink); 
 } 
+
+$logoutLink = '<a href="'. $rootWeb.'index.php?logout=true" target="_top">'. get_lang('Logout').'</a>';
+$userBannerLeftDock->addOutput($logoutLink); 
+
+echo $userBannerLeftDock->render();
+
+//USER BANNER RIGHT DOCK declaration
+
+$userBannerRightDock = new Dock('userBannerRight');
+$appletList = getAppletList($userBannerRightDock);
+$userBannerRightDock->setAppletList($appletList);
+echo $userBannerRightDock->render();
+
 ?>
-<a href="<?php echo $rootWeb?>index.php?logout=true" target="_top"><?php echo get_lang('Logout'); ?></a>
+
 <div class="spacer"></div>
 </div>
 
 <?php
+
 } // end if _uid
 
 /******************************************************************************
@@ -82,21 +127,36 @@ if($is_platformAdmin)
 
 if (isset($_cid))
 {
+
+//COURSE BANNER LEFT DOCK declaration
+
     /*------------------------------------------------------------------------
                          COURSE TITLE, CODE & TITULARS
-      ------------------------------------------------------------------------*/
+      ------------------------------------------------------------------------*/      
+
+$courseBannerLeftDock = new Dock('courseBannerLeft');
+$appletList = getAppletList($courseBannerLeftDock);
+$courseBannerLeftDock->setAppletList($appletList);
+
 ?>
-
 <div id="courseBanner">
-
-
-<div id="course">
-<h2 id="courseName"><a href="<?php echo $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) ?>" target="_top"><?php echo $_course['name'] ?></a></h2>
-<span id="courseCode"><?php echo $_course['officialCode'] . ' - ' . $_course['titular']; ?></span>
-</div>
-
-<div id="courseToolList">
 <?php
+$courseName = '<div id="course"> <h2 id="courseName"><a href="'. $coursesRepositoryWeb . $_course['path'] .'/index.php" target="_top">'.$_course['name'] .'</a></h2>';
+$courseBannerLeftDock->addOutput($courseName);
+
+$courseCode = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
+</div>
+<div id="courseToolList">';
+
+$courseBannerLeftDock->addOutput($courseCode); 
+echo $courseBannerLeftDock->render();
+
+
+//COURSE BANNER LEFT DOCK declaration
+
+$courseBannerRightDock = new Dock('courseBannerRight');
+$appletList = getAppletList($courseBannerRightDock);
+$courseBannerRightDock->setAppletList($appletList);
 
     /*------------------------------------------------------------------------
                              COURSE TOOLS SELECTOR
@@ -107,23 +167,31 @@ if (isset($_cid))
  */
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
-?>
 
-<form action="<?php echo $clarolineRepositoryWeb ?>redirector.php" 
+    $toolNameList = claro_get_tool_name_list();
+    
+    foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
+    {
+        if (is_null($_courseToolDatas['name']))
+            $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
+    
+        // now recheck to be sure the value is really filled before going further
+        if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
+            $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
+    
+    }
+    $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" 
       name="redirector" method="POST">
+    <select name="url" size="1" 
+        onchange="top.location=redirector.url.options[selectedIndex].value" >';
 
-<select name="url" size="1" 
-        onchange="top.location=redirector.url.options[selectedIndex].value" >
-
-<?php
-
-echo '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
+    $courseToolSelector .= '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-  left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
     if (is_array($_courseToolList))
     {
         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
-            echo '<option value="'.$_courseToolData['url'].'" '
+            $courseToolSelector .= '<option value="'.$_courseToolData['url'].'" '
             .    ( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '') 
             .   'style="padding-left:22px;background:url('.$imgRepositoryWeb.$_courseToolData['icon'].') no-repeat">'
             .    $_courseToolData['name']
@@ -131,17 +199,21 @@ echo '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htm
             ;
         }
     } // end if is_array _courseToolList
-?>
-</select>
-
+    $courseToolSelector .=
+'</select>
 <noscript>
 <input type="submit" name="gotool" value="go">
 </noscript>
 
-</form>
-<?php 
-    } // end if is_array($courseTooList) && $isCouseAllowed
+</form>';
+
+} // end if is_array($courseTooList) && $isCourseAllowed
+
+$courseBannerRightDock->addOutput($courseToolSelector);
+echo $courseBannerRightDock->render();
+
 ?>
+
 </div>
 <div class="spacer"></div>
 </div>
@@ -270,6 +342,4 @@ else
     $claro_banner = false;
 }
 ?>
-
-
 <!-- - - - - - - - - - -  End of Claroline Banner  - - - - - - - - - - -->
