@@ -51,7 +51,7 @@ function getAppletList($dock)
                         
     $sql = "SELECT * 
               FROM `".$tbl_module."` AS M, `".$tbl_dock."` AS D
-             WHERE D.`name` = '".$dock->name."'
+             WHERE D.`name` = '".$dock."'
                AND D.`module_id` = M.`id`
                AND M.`activation` = 'activated' 
               ";
