@@ -170,7 +170,7 @@ $menuAdminClaroline[] = claro_html::tool_link('registerCampus.php',  get_lang('R
 $menuAdminClaroline[] = claro_html::tool_link('http://www.claroline.net/forum', get_lang('SupportForum'));
 $menuAdminClaroline[] = claro_html::tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
 
-$menuAdminModule[]    = array('type'=>'link','url'=>'module/module_list.php','attribute'=>'class="toollink"', 'label'=>get_lang('Module list'));
+$menuAdminModule[]    = claro_html::tool_link('module/module_list.php', get_lang('Module list'));
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuAdminSDK[] = claro_html::tool_link('xtra/sdk/translation_index.php', get_lang('TranslationTools'));
 if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
