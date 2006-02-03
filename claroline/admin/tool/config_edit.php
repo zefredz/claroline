@@ -220,10 +220,7 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
 
 // display error message
-if ( ! empty($message) )
-{
-    echo claro_disp_message_box(implode('<br />',$message));
-}
+if ( ! empty($message) ) echo claro_html::message_box(implode('<br />',$message));
 
 // display edition form
 if ( !empty($form) )

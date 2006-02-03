@@ -113,7 +113,7 @@ switch ($display)
 {
     case DISP_NOT_ALLOWED :
     {
-        echo claro_disp_message_box(get_lang('Not allowed'));
+        echo claro_html::message_box(get_lang('Not allowed'));
     } break;
 
     case DISP_RESULT :

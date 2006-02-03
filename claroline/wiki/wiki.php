@@ -434,7 +434,7 @@
 
     if ( ! empty( $message ) )
     {
-        echo claro_disp_message_box( $message ) . "\n";
+        echo claro_html::message_box( $message ) . "\n";
     }
 
     switch( $action )

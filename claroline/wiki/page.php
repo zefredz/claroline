@@ -664,7 +664,7 @@
     
     if ( !empty($message) )
     {
-        echo claro_disp_message_box($message) . "\n";
+        echo claro_html::message_box($message) . "\n";
     }
     
     // Check javascript
@@ -841,7 +841,7 @@
             
             $message = get_lang('WikiConflictHowTo');
                 
-            echo claro_disp_message_box ( $message ) . '<br />' . "\n";
+            echo claro_html::message_box ( $message ) . '<br />' . "\n";
             
             echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
             echo '<textarea name="conflictContent" id="content"'

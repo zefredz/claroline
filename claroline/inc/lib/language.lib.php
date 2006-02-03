@@ -249,9 +249,11 @@ class language
 function claro_display_preferred_language_form()
 {
     global $langNameOfLang ;
+    require_once $GLOBALS['includePath'] . '/lib/form.lib.php';
 
     $platformLanguage = get_conf('platformLanguage');
     $language_list = get_conf('language_to_display');
+    $language_list[] = $platformLanguage;
 
     $form = '';
 
@@ -260,21 +262,16 @@ function claro_display_preferred_language_form()
         // get the the current language
         $user_language = language::current_language();
 
-        // build language selector form
-        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post" style="margin:5px;">' . "\n"
-            . '<select name="language" onchange="top.location=this.options[selectedIndex].value">' . "\n";
-
         foreach ( $language_list as $language )
         {
-            $form .= '<option value="'.$_SERVER['PHP_SELF'].'?language='.urlencode($language).'"'
-                . ($language==$user_language?'selected="selected"':' ') . '>'
-                . (isset($langNameOfLang[$language])?$langNameOfLang[$language]:$language)
-                . '</option>' . "\n";
+            $languageOption_list[$_SERVER['PHP_SELF'].'?language='.urlencode($language)] = (isset($langNameOfLang[$language])?$langNameOfLang[$language]:$language);
         }
 
-        $form .= '</select>' . "\n"
-            . '<noscript><input type="submit" value="'.get_lang('Ok').'" /></noscript>' . "\n"
-            . '</form>' . "\n";
+        // build language selector form
+        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post" style="margin:5px;">' . "\n"
+              . claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n"
+              . '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n"
+              . '</form>' . "\n";
     }
 
     return $form;
@@ -381,5 +378,37 @@ function get_lang_weekday_name_list($size='long')
     }
     return $nameList;
 }
+
+/**
+ * Display a date at localized format
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
+ * @param formatOfDate
+         see http://www.php.net/manual/en/function.strftime.php
+         for syntax to use for this string
+         I suggest to use the format you can find in trad4all.inc.php files
+ * @param timestamp timestamp of date to format
+ */
+
+function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
+{
+    $langDay_of_weekNames['long'] = get_lang_weekday_name_list('long');
+    $langDay_of_weekNames['short'] = get_lang_weekday_name_list('short');
+
+    $langMonthNames['short'] = get_lang_month_name_list('short');
+    $langMonthNames['long'] = get_lang_month_name_list('long');
+
+    if ($timestamp == -1) $timestamp = claro_time();
+
+    // avec un ereg on fait nous même le replace des jours et des mois
+    // with the ereg  we  replace %aAbB of date format
+    //(they can be done by the system when  locale date aren't aivailable
+
+    $formatOfDate = ereg_replace('%[A]', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $formatOfDate = ereg_replace('%[a]', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $formatOfDate = ereg_replace('%[B]', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
+    $formatOfDate = ereg_replace('%[b]', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
+    return strftime($formatOfDate, $timestamp);
+}
+
 
 ?>

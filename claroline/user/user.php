@@ -301,7 +301,7 @@ echo claro_disp_tool_title($nameTools . ' (' . get_lang('UserNumber') . ' : ' . 
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 // Display tool links
 if ( $disp_tool_link ) echo '<p>' . claro_html::menu_horizontal($userMenu) . '</p>';

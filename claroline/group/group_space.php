@@ -173,7 +173,7 @@ echo claro_disp_tool_title( array('supraTitle'=> get_lang('Groups'),
 
 if ( !empty($message) )
 {
-    echo claro_disp_message_box($message);
+    echo claro_html::message_box($message);
 }
 
 

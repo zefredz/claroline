@@ -192,7 +192,7 @@ elseif ( $display == DISP_REGISTRATION_FORM )
 
     if ( count($messageList) > 0 )
     {
-        echo claro_disp_message_box( implode('<br />', $messageList) );
+        echo claro_html::message_box( implode('<br />', $messageList) );
     }
 
     user_display_form_registration($user_data);

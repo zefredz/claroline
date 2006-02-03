@@ -52,6 +52,7 @@ $tbl_user      = $tbl_mdb_names['user'];
 define('DISP_PROFILE_FORM',__LINE__);
 define('DISP_REQUEST_COURSE_CREATOR_STATUS',__LINE__);
 define('DISP_REQUEST_REVOQUATION',__LINE__);
+define('DISP_EDIT_PHOTO',__LINE__);
 
 $display = DISP_PROFILE_FORM;
 
@@ -91,7 +92,7 @@ if ( isset($_REQUEST['applyChange']) )
         // re-init the system to take new settings in account
 
         $uidReset = true;
-        include('../inc/claro_init_local.inc.php');
+        include '../inc/claro_init_local.inc.php';
         $messageList[] = get_lang('ProfileReg') . '<br />' . "\n"
         .                '<a href="../../index.php">' . get_lang('Home') . '</a>'
         ;
@@ -136,7 +137,11 @@ elseif ( get_conf('can_request_revoquation')
     $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_REVOQUATION;
 }
-
+elseif (get_conf('can_have_photo',false))
+{
+    $noQUERY_STRING = TRUE;
+    $display = DISP_EDIT_PHOTO;
+}
 // Initialise
 $user_data = user_get_data($_uid);
 
@@ -159,33 +164,35 @@ switch ( $display )
     case DISP_PROFILE_FORM :
 
         // display form profile
+
         user_display_form_profile($user_data);
 
         // display user tracking link
-        echo '<p>'
-        .    '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
-        .    '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif">' . get_lang('MyStats')
-        .    '</a>'
+        $profile_menu[] = '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
+        .                 '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif" />' . get_lang('MyStats')
+        .                 '</a>'
         ;
+
+        $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqEditPic">' . get_lang('My Picture') . '</a>';
 
         // display request course creator status
         if ( get_conf('can_request_course_creator_status') )
         {
-            echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('RequestOfCourseCreatorStatus') . '</a>';
+            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('RequestOfCourseCreatorStatus') . '</a>';
         }
 
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
-            echo ' | <a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('DeleteMyAccount') . '</a>' ;
+            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('DeleteMyAccount') . '</a>' ;
         }
 
-        echo '</p>' . "\n" ;
+        echo '<p>' . claro_html::menu_horizontal($profile_menu) . '</p>';
 
         break;
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
-
+    {
         if ( get_conf('can_request_course_creator_status') )
         {
             echo '<p>' . get_lang('FillTheAreaToExplainTheMotivations') . '</p>';
@@ -207,9 +214,10 @@ switch ( $display )
             .    '</form>'
             ;
         }
-        break;
+    }    break;
 
     case DISP_REQUEST_REVOQUATION :
+    {
 
         if ( get_conf('can_request_revoquation') )
         {
@@ -238,8 +246,12 @@ switch ( $display )
             .    '</form>'
             ;
         }
-        break;
+    }   break;
 
+    case DISP_EDIT_PHOTO :
+    {
+
+    }    break;
 } // end switch display
 
 // display footer

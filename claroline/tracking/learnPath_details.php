@@ -120,7 +120,7 @@ if ( $is_trackingEnabled )
 // not allowed
 else
 {
-    echo claro_disp_message_box(get_lang('TrackingDisabled'));
+    echo claro_html::message_box(get_lang('TrackingDisabled'));
 }
 
 include($includePath."/claro_init_footer.inc.php");

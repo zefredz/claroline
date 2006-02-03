@@ -34,10 +34,6 @@ $nameTools = get_lang('Create a new user');
 $error = false;
 $messageList = array();
 
-// DB tables definition
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user = $tbl_mdb_names['user'];
-
 /*=====================================================================
   Main Section
  =====================================================================*/
@@ -123,10 +119,7 @@ else
 {
     //  if registration failed display error message
 
-    if ( count($messageList) > 0 )
-    {
-        echo claro_disp_message_box( implode('<br />', $messageList) );
-    }
+    if ( count($messageList) > 0 ) echo claro_html::message_box( implode('<br />', $messageList) );
 
     echo get_lang('AddUserOneByOne');
 

@@ -131,7 +131,7 @@ else
 
 <?php
 
-if ( get_conf('l10n_platfrom',true) )
+if ( get_conf('l10n_platfrom',true))
 {
     echo claro_display_preferred_language_form();
 }

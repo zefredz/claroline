@@ -258,11 +258,7 @@ echo claro_disp_tool_title($nameTools);
 
 // display dialog Box (or any forms)
 
-if ( isset($dialogBox))
-{
-    echo claro_disp_message_box($dialogBox);
-    echo '<br />';
-}
+if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 //display tool links
 

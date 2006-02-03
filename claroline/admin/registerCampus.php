@@ -379,7 +379,7 @@ $title['mainTitle'] = $nameTools;
 $title['subTitle'] = get_lang('AddMyCampusOnClarolineNet');
 echo claro_disp_tool_title($title);
 
-if( isset($dialogBox) && $dialogBox != '' ) echo claro_disp_message_box($dialogBox);
+if( isset($dialogBox) && $dialogBox != '' ) echo claro_html::message_box($dialogBox);
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {

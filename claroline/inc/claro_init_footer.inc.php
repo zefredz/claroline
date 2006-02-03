@@ -1,4 +1,5 @@
 <?php // $Id$
+
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 if (!isset($hide_body) || $hide_body == false)
@@ -11,9 +12,9 @@ if (!isset($hide_body) || $hide_body == false)
 //echo "<pre>".var_export($_courseToolList,1)."</pre>";
 
 // depends on $claro_brailleViewMode
-if ( isset($claro_banner) ) 
+if ( isset($claro_banner) )
 {
-    echo $claro_banner;    
+    echo $claro_banner;
 }
 
 // don't display the footer text if requested, only display minimal html closing tags
@@ -24,7 +25,7 @@ if (!isset($hide_footer) || $hide_footer == false)
 
 <div id="campusFooter">
 <hr />
-<?php 
+<?php
 
 //FOOTER LEFT DOCK declaration
 
@@ -45,7 +46,7 @@ echo $footerLeftDock->render();
 
 $footerRightDock = new Dock('campusFooterRight');
 
-$platformManagerOutput = '<div id="platformManager">'.sprintf(get_lang('_p_platformManager'),$siteName). ' : 
+$platformManagerOutput = '<div id="platformManager">'.sprintf(get_lang('_p_platformManager'),$siteName). ' :
 <a href="mailto:' . $administrator_email."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]".'">'. $administrator_name .'</a>
 </div>';
 

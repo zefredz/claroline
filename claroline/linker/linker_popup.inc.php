@@ -156,7 +156,7 @@ if ($isToolAllowed)
         {
             $res = new Resolver('');
             $title = $res->getResourceName($crl);
-            echo claro_disp_message_box('[' . $title . ']' . get_lang('LinkerAlreadyInAttachementList'));
+            echo claro_html::message_box('[' . $title . ']' . get_lang('LinkerAlreadyInAttachementList'));
         }
 
         if($current_crl != $crl)

@@ -407,7 +407,7 @@ Display header
 
 include $includePath . '/claro_init_header.inc.php';
 
-if (isset($msg)) echo claro_disp_message_box($msg);
+if (isset($msg)) echo claro_html::message_box($msg);
 echo $backLink;
 
 switch ( $displayMode )
@@ -453,7 +453,7 @@ switch ( $displayMode )
 
         if ( !empty($message) )
         {
-            echo claro_disp_message_box($message);
+            echo claro_html::message_box($message);
         }
 
         // Display categories
@@ -643,7 +643,7 @@ switch ( $displayMode )
 
         if ( !empty($message) )
         {
-            echo claro_disp_message_box( '<p>'.$message.'</p>' . "\n"
+            echo claro_html::message_box( '<p>'.$message.'</p>' . "\n"
             .    '<p align="center">'
             .    '<a href="' . $backUrl . '">' .$backLabel . '</a>'
             .    '</p>'  . "\n"
@@ -713,7 +713,7 @@ switch ( $displayMode )
     case DISPLAY_ENROLLMENT_KEY_FORM :
     {
 
-        if ( ! empty($message) ) echo claro_disp_message_box($message);
+        if ( ! empty($message) ) echo claro_html::message_box($message);
 
         echo  '<blockquote>' . get_lang('This course requires a key for enrollment') . '</p>' . "\n"
         .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"

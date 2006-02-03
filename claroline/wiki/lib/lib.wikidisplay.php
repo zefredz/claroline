@@ -129,7 +129,7 @@
         
         $out .= '</div>' . "\n";
         
-        $out .= claro_disp_message_box( '<small>'.get_lang('WikiPreviewWarning').'</small>' )
+        $out .= claro_html::message_box( '<small>'.get_lang('WikiPreviewWarning').'</small>' )
             . "\n";
 
         $out .= '<div class="wiki2xhtml">' . "\n";

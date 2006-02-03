@@ -111,7 +111,7 @@ echo claro_disp_tool_title(get_lang('Forums'),
 
 echo disp_search_box();
 
-if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 // Forum toolbar
 

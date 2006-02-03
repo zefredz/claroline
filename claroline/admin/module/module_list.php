@@ -1,4 +1,4 @@
-<?php 
+<?php // $Id$
 /**
  * CLAROLINE
  * @version 1.8 
@@ -75,15 +75,15 @@ border-bottom: 1px solid white;
 
 //CONFIG and DEVMOD vars :
 
-$modulePerPage = 10;
-$maxFilledSpaceForModule = 10000000; //needed for the installation of a new module
+$modulePerPage = get_conf($modulePerPage , 10);
+$maxFilledSpaceForModule = get_conf($maxFilledSpaceForModule , 10000000); //needed for the installation of a new module
 $debug_mode = true;
 
 //Needed Libraries
 
-require_once($includePath."/lib/fileManage.lib.php");
-require_once($includePath."/lib/fileUpload.lib.php");
-require_once('module.inc.php');
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/fileUpload.lib.php';
+require_once 'module.inc.php';
 
 //----------------------------------
 // EXECUTE COMMAND
@@ -274,10 +274,7 @@ echo claro_disp_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
-{
-    echo claro_disp_message_box($dialogBox)."<br>";
-}
+if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 //display action links
 

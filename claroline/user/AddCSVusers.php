@@ -360,7 +360,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 
 include $includePath.'/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
-if( isset( $dialogBox ) ) echo claro_disp_message_box($dialogBox) . '<br>';
+if( isset( $dialogBox ) ) echo claro_html::message_box($dialogBox) . '<br>';
 
 switch ( $display )
 {

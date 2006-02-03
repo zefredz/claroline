@@ -121,7 +121,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 if ( ! $forumAllowed )
 {
-    echo claro_disp_message_box($error_message);
+    echo claro_html::message_box($error_message);
 }
 else
 {

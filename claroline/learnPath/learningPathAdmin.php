@@ -433,7 +433,7 @@ if (isset($displayChangePosForm) && $displayChangePosForm)
 
 if (isset($dialogBox) && $dialogBox!="")
 {
-    echo claro_disp_message_box($dialogBox);
+    echo claro_html::message_box($dialogBox);
 }
 
 //####################################################################################\\

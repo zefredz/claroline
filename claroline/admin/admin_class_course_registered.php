@@ -85,7 +85,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
-if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 echo claro_html::menu_horizontal($cmd_menu);
 

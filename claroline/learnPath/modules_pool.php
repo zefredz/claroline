@@ -183,13 +183,13 @@ switch( $cmd )
             }
             else
             {
-                echo claro_disp_message_box(get_lang('ErrorNameAlreadyExists'));
+                echo claro_html::message_box(get_lang('ErrorNameAlreadyExists'));
                 echo "<br />";
             }
         }
         else
         {
-            echo claro_disp_message_box(get_lang('ErrorEmptyName'));
+            echo claro_html::message_box(get_lang('ErrorEmptyName'));
             echo "<br />";
         }
         break;

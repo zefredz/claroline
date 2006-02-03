@@ -786,7 +786,7 @@ if( isset($modifyAnswers) )
                 // if there is an error message
                 if(!empty($msgErr))
                 {
-                    echo claro_disp_message_box($msgErr);
+                    echo claro_html::message_box($msgErr);
                 }
 ?>
 <p>

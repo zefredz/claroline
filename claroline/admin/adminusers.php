@@ -283,10 +283,7 @@ echo claro_disp_tool_title($nameTools) . "\n\n";
 
 //Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
-{
-    echo claro_disp_message_box($dialogBox);
-}
+if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 //Display selectbox and advanced search link
 

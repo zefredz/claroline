@@ -93,9 +93,9 @@ if ( is_null($_uid) && $uidRequired )
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
-            if ( get_conf('allowSelfReg',false)) echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),
+            if ( get_conf('allowSelfReg',false)) echo claro_html::message_box(sprintf(get_lang('InvalidIdSelfReg'),
                                                     $urlAppend . '/claroline/auth/inscription.php') );
-            else                                 echo claro_disp_message_box(sprintf(get_lang('InvalidId'),
+            else                                 echo claro_html::message_box(sprintf(get_lang('InvalidId'),
                                                     $urlAppend . '/claroline/auth/inscription.php') );
         }
 

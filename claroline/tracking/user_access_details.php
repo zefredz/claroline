@@ -80,7 +80,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
     echo claro_disp_tool_title($toolTitle);
 
-    if( isset($dialogBox) ) echo claro_disp_message_box($dialogBox);
+    if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 
     echo '<br />'."\n\n"

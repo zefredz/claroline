@@ -960,11 +960,11 @@ function disp_search_box()
 {
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
     {
-        return claro_disp_message_box(
+        return claro_html::message_box(
         '<form action="viewsearch.php" method="post">'
-        .            get_lang('Search').' : <br />'
+        .            get_lang('Search') . ' : <br />'
         .            '<input type="text" name="searchPattern"><br />'
-        .            '<input type="submit" value="'.get_lang('Ok').'">&nbsp;'
+        .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
         .            claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
         );
@@ -999,7 +999,7 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
             $breadCrumbUrlList[]  = null;
     }
 
-    echo claro_disp_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, get_lang('separator'));
+    echo claro_html::breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, get_lang('separator'));
 }
 
 
@@ -1019,7 +1019,7 @@ function disp_forum_group_toolbar($gid)
 
     echo  '<p>'
         . '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
-        . '<img src="' . $imgRepositoryWeb.'group.gif">&nbsp;'
+        . '<img src="' . $imgRepositoryWeb . 'group.gif" />&nbsp;'
         . get_lang('GroupSpaceLink')
         . '</a>'
         ;

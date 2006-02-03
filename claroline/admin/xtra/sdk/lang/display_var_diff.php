@@ -106,7 +106,7 @@ $form .= "</select></p>";
 $form .= "<p><input type=\"submit\" value=\"OK\" /></p>";
 $form .= "</form>";
 
-echo claro_disp_message_box($form);
+echo claro_html::message_box($form);
 
 // find all variables with same names and different content
 

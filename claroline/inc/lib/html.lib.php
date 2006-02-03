@@ -263,7 +263,7 @@ class claro_html
 
     function message_box($message)
     {
-        return "\n".'<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
+        return "\n" . '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
         .      '<tr>'
         .      '<td>'
         .      $message
@@ -272,6 +272,62 @@ class claro_html
         .      '</table>' . "\n\n"
         ;
     }
+
+
+/**
+ * Allows to easily display a breadcrumb trail
+ *
+ * @param array $nameList bame of each breadcrumb
+ * @param array $urlList url corresponding to the breadcrumb name above
+ * @param string $separator (optionnal) element which segregate the breadcrumbs
+ * @param string $homeImg (optionnal) source url for a home icon at the trail start
+ * @return string : the build breadcrumb trail
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ */
+
+function breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
+{
+    // trail of only one element has no sense ...
+    if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
+
+    $breadCrumbList = array();
+
+    foreach($nameList as $thisKey => $thisName)
+    {
+        if (   array_key_exists($thisKey, $urlList)
+        && ! is_null($urlList[$thisKey])       )
+        {
+            $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
+            $endAnchorTag   = '</a>';
+        }
+        else
+        {
+            $startAnchorTag = '';
+            $endAnchorTag   = '';
+        }
+
+        $htmlizedName = is_htmlspecialcharized($thisName)
+        ? $thisName
+        : htmlspecialchars($thisName);
+
+        $breadCrumbList [] = $startAnchorTag
+        . $htmlizedName
+        . $endAnchorTag;
+    }
+
+    // Embed the last bread crumb entry of the list.
+
+    $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
+    .end($breadCrumbList)
+    .'</strong>';
+
+    return  '<div class="breadcrumbTrail">'
+    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
+    . implode($separator, $breadCrumbList)
+    . '</div>';
+}
+
 
 
 }
@@ -642,8 +698,8 @@ function claro_disp_msg_arr($msgArrBody, $return=true)
                 $msgBox .= '</div>';
             }
         }
-        if($return) return claro_disp_message_box($msgBox);
-        else        echo   claro_disp_message_box($msgBox);
+        if($return) return claro_html::message_box($msgBox);
+        else        echo   claro_html::message_box($msgBox);
     }
 }
 
@@ -694,83 +750,6 @@ function claro_disp_auth_form($cidRequired = false)
 }
 
 /**
- * Prepare display of the message box appearing on the top of the window,
- * just    below the tool title. It is recommended to use this function
- * to display any confirmation or error messages, or to ask to the user
- * to enter simple parameters.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $message - include your self any additionnal html
- *                          tag if you need them
- * @return $string - the
- */
-
-function claro_disp_message_box($message)
-{
-    return "\n".'<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
-    .      '<tr>'
-    .      '<td>'
-    .      $message
-    .      '</td>'
-    .      '</tr>'
-    .      '</table>' . "\n\n"
-    ;
-}
-
-/**
- * Allows to easily display a breadcrumb trail
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param array $nameList bame of each breadcrumb
- * @param array $urlList url corresponding to the breadcrumb name above
- * @param string $separator (optionnal) element which segregate the breadcrumbs
- * @param string $homeImg (optionnal) source url for a home icon at the trail start
- * @return string the build breadcrumb trail
- */
-
-function claro_disp_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
-{
-    // trail of only one element has no sense ...
-    if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
-
-    $breadCrumbList = array();
-
-    foreach($nameList as $thisKey => $thisName)
-    {
-        if (   array_key_exists($thisKey, $urlList)
-        && ! is_null($urlList[$thisKey])       )
-        {
-            $startAnchorTag = '<a href="'.$urlList[$thisKey].'" target="_top">';
-            $endAnchorTag   = '</a>';
-        }
-        else
-        {
-            $startAnchorTag = '';
-            $endAnchorTag   = '';
-        }
-
-        $htmlizedName = is_htmlspecialcharized($thisName)
-        ? $thisName
-        : htmlspecialchars($thisName);
-
-        $breadCrumbList [] = $startAnchorTag
-        . $htmlizedName
-        . $endAnchorTag;
-    }
-
-    // Embed the last bread crumb entry of the list.
-
-    $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
-    .end($breadCrumbList)
-    .'</strong>';
-
-    return  '<div class="breadcrumbTrail">'
-    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
-    . implode($separator, $breadCrumbList)
-    . '</div>';
-}
-
-/**
  * Function used to draw a progression bar
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
@@ -803,37 +782,6 @@ function claro_disp_progress_bar ($progress, $factor)
     $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="">';
 
     return $progressBar;
-}
-
-/**
- * Display a date at localized format
- * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
- * @param formatOfDate
-         see http://www.php.net/manual/en/function.strftime.php
-         for syntax to use for this string
-         I suggest to use the format you can find in trad4all.inc.php files
- * @param timestamp timestamp of date to format
- */
-
-function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
-{
-    $langDay_of_weekNames['long'] = get_lang_weekday_name_list('long');
-    $langDay_of_weekNames['short'] = get_lang_weekday_name_list('short');
-
-    $langMonthNames['short'] = get_lang_month_name_list('short');
-    $langMonthNames['long'] = get_lang_month_name_list('long');
-
-    if ($timestamp == -1) $timestamp = claro_time();
-
-    // avec un ereg on fait nous même le replace des jours et des mois
-    // with the ereg  we  replace %aAbB of date format
-    //(they can be done by the system when  locale date aren't aivailable
-
-    $formatOfDate = ereg_replace('%[A]', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
-    $formatOfDate = ereg_replace('%[a]', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $formatOfDate);
-    $formatOfDate = ereg_replace('%[B]', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
-    $formatOfDate = ereg_replace('%[b]', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
-    return strftime($formatOfDate, $timestamp);
 }
 
 /**
@@ -905,7 +853,7 @@ function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
 
     // $claro_editor is the directory name of the editor
-    $incPath = $rootSys . 'claroline/editor/'.$claro_editor;
+    $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
     $editorPath = $rootWeb . 'claroline/editor/';
     $webPath = $editorPath . $claro_editor;
 

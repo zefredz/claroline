@@ -352,7 +352,7 @@ $dg_opt_list['colAttributeList'] = array ( 'qty_cm'     => array ('align' => 'ri
 
 include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
-if (isset($dialogBox)) echo claro_disp_message_box($dialogBox);
+if (isset($dialogBox)) echo claro_html::message_box($dialogBox);
 
 
 

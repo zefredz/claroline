@@ -460,7 +460,7 @@ if ( $display == DISP_COURSE_CREATION_PROGRESS )
     .      sprintf(get_lang('_p_IfNothingHappendClickHere'),$paramString)
     .      '</p>'
     ;
-    echo claro_disp_message_box( $msg );
+    echo claro_html::message_box( $msg );
 }
 
 

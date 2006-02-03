@@ -149,7 +149,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
      /*
      if ( !$atleastOne )
      {
-         echo claro_disp_message_box("No module selected !!");
+         echo claro_html::message_box("No module selected !!");
      }
      */
 } //end if ADD command
