@@ -28,10 +28,9 @@ $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 
 
 require '../inc/claro_init_global.inc.php';
 
-include($includePath.'/lib/admin.lib.inc.php');
-include($includePath.'/lib/user.lib.php');
-include($includePath.'/lib/user_info.lib.php');
-@include($includePath.'/lib/debug.lib.inc.php');
+require_once $includePath.'/lib/admin.lib.inc.php' ;
+require_once $includePath.'/lib/user.lib.php';
+require_once $includePath.'/lib/user_info.lib.php';
 
 $interbredcrump[]= array ('url' => 'user.php', 'name' => get_lang('Users'));
 
@@ -57,7 +56,7 @@ else $userIdViewed = 0;
 Connection API between Claroline and the current script
 --------------------------------------------------------*/
 
-$courseCode              = $_course['sysCode'];
+$courseSysCode           = $_course['sysCode'];
 $tbl_mdb_names           = claro_sql_get_main_tbl();
 $tbl_crs_names           = claro_sql_get_course_tbl();
 $tbl_rel_course_user     = $tbl_mdb_names['rel_course_user'    ];
@@ -73,7 +72,7 @@ $allowedToEditDef         = claro_is_allowed_to_edit();
 $is_allowedToTrack        =  claro_is_allowed_to_edit() && $is_trackingEnabled
 || ($userIdViewer == $userIdViewed );
 
-if ( ! claro_is_allowed_to_edit() && ! get_conf('linkToUserInfo') ) 
+if ( ! claro_is_allowed_to_edit() && ! get_conf('linkToUserInfo') )
 {
     claro_die(get_lang('Not allowed'));
 }
@@ -196,7 +195,7 @@ if ($allowedToEditDef)
         }
         else
         {
-            user_update_course_properties($userIdViewed, $courseCode, $userProperties);
+            user_update_course_properties($userIdViewed, $courseSysCode, $userProperties);
             $displayMode = "viewContentList";
         }
     }
@@ -409,12 +408,13 @@ elseif ($displayMode =="viewMainInfoEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES MAIN INFO : EDIT <<<<<<<<<<<<*/
 
-    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $courseCode);
+    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $courseSysCode);
+
 
     if ($mainUserInfo)
     {
-    ($mainUserInfo['status'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = "";
-    ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = "";
+    ($mainUserInfo['status'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = '';
+    ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = '';
 
 
     echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">'
@@ -475,7 +475,7 @@ elseif ($displayMode == "viewContentList") // default display
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : LIST <<<<<<<<<<<<*/
 
-    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $courseCode);
+    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $courseSysCode);
 
     if ($mainUserInfo)
     {
