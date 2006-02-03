@@ -240,7 +240,7 @@ $sql = "SELECT M.*,
         LEFT JOIN `".$tbl_dock."` AS D
         ON M.`id` = D.`module_id`        
         WHERE M.`type` = '".$selected_type."'      
-        ORDER BY D.`dockname`, D.`rank`
+        ORDER BY `dockname`, D.`rank`
         ";
                                       
 
