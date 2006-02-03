@@ -272,9 +272,10 @@ foreach ($flatElementList as $module)
     {
         // display the progress value for current module
         echo '<td align="right">'.claro_disp_progress_bar ($progress, 1).'</td>'."\n"
-            .'<td align="left">'
-            .'<small>&nbsp;'.$progress.'%</small>'
-            .'</td>'."\n";
+        .    '<td align="left">'
+        .    '<small>&nbsp;' . $progress . '%</small>'
+        .    '</td>' . "\n"
+        ;
     }
     elseif( $_uid && $module['contentType'] == CTLABEL_ )
     {
@@ -289,19 +290,20 @@ foreach ($flatElementList as $module)
     if($module['contentType'] != CTLABEL_) 
         $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
        
-    echo '</tr>'."\n\n";
+    echo '</tr>' . "\n\n";
     $atleastOne = true;
 }
   
-echo '</tbody>'."\n\n";
+echo '</tbody>' . "\n\n";
 
 if ($atleastOne == false)
 {
     echo '<tfoot>'."\n\n"
-        .'<tr>'."\n"
-        .'<td align="center" colspan="3">'.get_lang('NoModule').'</td>'."\n"
-        .'</tr>'."\n\n"
-        .'</tfoot>'."\n\n";
+    .    '<tr>'."\n"
+    .    '<td align="center" colspan="3">'.get_lang('NoModule').'</td>'."\n"
+    .    '</tr>'."\n\n"
+    .    '</tfoot>'."\n\n"
+    ;
 }
 elseif($_uid && $moduleNb > 0)
 {

@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -13,9 +13,9 @@
  *
  * @package CLLNP
  *
- * This is the page where the list of modules of the course present 
+ * This is the page where the list of modules of the course present
  * on the platform can be browsed
- * user allowed to edit the course can 
+ * user allowed to edit the course can
  * delete the modules form this page
  */
 
@@ -204,7 +204,7 @@ switch( $cmd )
                     WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
             $result = claro_sql_query($query);
             $comment = mysql_fetch_array($result);
-            
+
             if( isset($comment['comment']) )
             {
                 echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
@@ -231,28 +231,9 @@ switch( $cmd )
         break;
 }
 
-
-echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
-    <thead>
-        <tr class=\"headerX\" align=\"center\" valign=\"top\">
-          <th>
-            ".get_lang('Module')."
-          </th>
-          <th>
-            ".get_lang('Delete')."
-          </th>
-          <th>
-            ".get_lang('Rename')."
-          </th>
-          <th>
-            ".get_lang('Comment')."
-          </th>";
-echo      "</tr>\n",
-      "</thead>\n",
-          "<tbody>\n";
-
-$sql = "SELECT M.*, count(M.`module_id`) AS timesUsed
-        FROM `".$TABLEMODULE."` AS M
+$sql = "SELECT M.*,
+               count(M.`module_id`) AS timesUsed
+        FROM `" . $TABLEMODULE . "` AS M
           LEFT JOIN `".$TABLELEARNPATHMODULE."` AS LPM ON LPM.`module_id` = M.`module_id`
         WHERE M.`contentType` != \"".CTSCORM_."\"
           AND M.`contentType` != \"".CTLABEL_."\"
@@ -261,6 +242,27 @@ $sql = "SELECT M.*, count(M.`module_id`) AS timesUsed
 
 $result = claro_sql_query($sql);
 $atleastOne = false;
+
+
+echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'
+.    '<thead>' . "\n"
+.    '<tr class="headerX" align="center" valign="top">' . "\n"
+.    '<th>' . "\n"
+.    get_lang('Module') . "\n"
+.    '</th>' . "\n"
+.    '<th>' . "\n"
+.    get_lang('Delete') . "\n"
+.    '</th>' . "\n"
+.    '<th>' . "\n"
+.    get_lang('Rename') . "\n"
+.    '</th>' . "\n"
+.    '<th>' . "\n"
+.    get_lang('Comment') . "\n"
+.    '</th>' . "\n"
+.    '</tr>' . "\n"
+.    '</thead>' . "\n"
+.    '<tbody>' . "\n"
+;
 
 // Display modules of the pool of this course
 
@@ -291,12 +293,12 @@ while ($list = mysql_fetch_array($result))
 
     if ( isset($list['comment']) )
     {
-        echo "
-              <tr>
-                 <td colspan=\"5\">
-                        <small>".$list['comment']."</small>
-                 </td>
-              </tr>";
+        echo '<tr>'
+        .    '<td colspan=\"5\">'
+        .    '<small>' . $list['comment'] . '</small>'
+        .    '</td>'
+        .    '</tr>'
+        ;
     }
 
     $atleastOne = true;
@@ -307,9 +309,11 @@ if ($atleastOne == false) {echo "<tr><td align=\"center\" colspan=\"5\">".get_la
 
 // Display button to add selected modules
 
-echo "</tbody>\n</table>";
+echo '</tbody>' . "\n"
+.    '</table>'
+;
 
 // footer
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

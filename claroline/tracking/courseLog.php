@@ -290,11 +290,15 @@ if( $is_trackingEnabled)
         {
             foreach( $results as $result )
             {
-                echo '<tr>'."\n"
-                    .'<td><a href="toolaccess_details.php?toolId='.$result['access_tid'].'">'.$toolNameList[$result['access_tlabel']].'</a></td>'."\n"
-                    .'<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$result['access_tid'].'">'.$result['nbr_distinct_users_access'].'</a></td>'."\n"
-                    .'<td align="right">'.$result['nbr_access'].'</td>'."\n"
-                    .'</tr>'."\n\n";
+                echo '<tr>' . "\n"
+                .    '<td>'
+                .    '<a href="toolaccess_details.php?toolId='.$result['access_tid'].'">'
+                .    $toolNameList[$result['access_tlabel']] . '</a></td>' . "\n"
+                .    '<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$result['access_tid'].'">'.$result['nbr_distinct_users_access'] . '</a></td>' . "\n"
+                .    '<td align="right">' . $result['nbr_access'] . '</td>' . "\n"
+                .    '</tr>'
+                .    "\n\n"
+                ;
             }
 
         }
@@ -306,8 +310,8 @@ if( $is_trackingEnabled)
                 ;
         }
         echo '</tbody>'
-            .'</table>'."\n"
-            ;
+        .    '</table>'."\n"
+        ;
     }
     else
     {
@@ -419,10 +423,12 @@ if( $is_trackingEnabled)
         }
         else
         {
-            echo '<tr>'."\n"
-                .'<td colspan="3"><div align="center">'.get_lang('NoResult').'</div></td>'."\n"
-                .'</tr>'."\n"
-                ;
+            echo '<tr>' . "\n"
+            .    '<td colspan="3">'
+            .    '<div align="center">' . get_lang('NoResult') . '</div>'
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
         }
         echo '</tbody>'."\n"
             .'</table>'."\n"

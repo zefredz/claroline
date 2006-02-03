@@ -5,24 +5,24 @@
       +----------------------------------------------------------------------+
       | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
-      |   Authors : see CREDITS.txt    
+      |   Authors : see CREDITS.txt
       +----------------------------------------------------------------------+
  */
- 
+
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid && ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url" => 'courseLog.php', "name" => get_lang('Statistics'));
+$interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
 
 $nameTools = get_lang('TrafficDetails');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
-include($includePath."/claro_init_header.inc.php");
-include($includePath."/lib/statsUtils.lib.inc.php");
+include $includePath . '/claro_init_header.inc.php';
+include $includePath . '/lib/statsUtils.lib.inc.php';
 
 
 echo claro_disp_tool_title(
@@ -47,25 +47,28 @@ if ( $is_trackingEnabled )
 
     if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
     else                                    $displayType = ''; // default value
-    
+
     //** dislayed period
-    echo '<tr>'."\n".'<td><b>';
-        switch($period)
-        {
-            case 'year' :
-                echo date(' Y', $reqdate);
-                break;
-            case 'month' :
-                echo $langMonthNames['long'][date('n', $reqdate)-1].date(' Y', $reqdate);
-                break;
-            // default == day
-            default :
-                $period = 'day';
-            case 'day' :
-                echo $langDay_of_weekNames['long'][date('w' , $reqdate)].date(' d ' , $reqdate). $langMonthNames['long'][date('n', $reqdate)-1].date(' Y' , $reqdate);
-                break;
-        }
-    echo '</b></td>'."\n".'</tr>'."\n\n";
+    echo '<tr>' . "\n"
+    .    '<td>'
+    .    '<b>'
+    ;
+    switch($period)
+    {
+        case 'year' :
+            echo date(' Y', $reqdate);
+            break;
+        case 'month' :
+            echo claro_disp_localised_date('%B %Y',$reqdate);
+          break;
+        // default == day
+        default :
+            $period = 'day';
+        case 'day' :
+            echo claro_disp_localised_date('%A %d %B %Y',$reqdate);
+          break;
+    }
+echo '</b></td>'."\n".'</tr>'."\n\n";
     //** menu
     echo '<tr>'."\n".'<td><small>'."\n";
     echo get_lang('PeriodToDisplay').' : [<a href="'.$_SERVER['PHP_SELF'].'?period=year&reqdate='.$reqdate.'&displayType=month">'.get_lang('PeriodYear').'</a>]'."\n"
@@ -87,9 +90,9 @@ if ( $is_trackingEnabled )
                 echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=hour">'.get_lang('PeriodHour').'</a>]'."\n";
                 break;
     }
-    
+
     echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
-    
+
     switch($period)
     {
         case 'year' :
