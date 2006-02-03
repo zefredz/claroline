@@ -1,7 +1,7 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version 1.8 
+ * @version 1.8
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -11,7 +11,7 @@
  *
  * @author claro team <cvs@claroline.net>
  */
- 
+
 require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
@@ -75,8 +75,8 @@ border-bottom: 1px solid white;
 
 //CONFIG and DEVMOD vars :
 
-$modulePerPage = get_conf($modulePerPage , 10);
-$maxFilledSpaceForModule = get_conf($maxFilledSpaceForModule , 10000000); //needed for the installation of a new module
+$modulePerPage = get_conf('modulePerPage' , 10);
+$maxFilledSpaceForModule = get_conf('maxFilledSpaceForModule' , 10000000); //needed for the installation of a new module
 $debug_mode = true;
 
 //Needed Libraries
@@ -97,18 +97,18 @@ if  (isset($_REQUEST['dockname']) ) $dockname = $_REQUEST['dockname'];
 switch ( $cmd )
 {
     case 'activ' :
-    {                  
-        activate_module($module_id);            
-    }     
+    {
+        activate_module($module_id);
+    }
     break;
-    
-    case 'desactiv' :
-    {         
-        desactivate_module($module_id);   
-    }    
-    break;       
 
-    
+    case 'desactiv' :
+    {
+        desactivate_module($module_id);
+    }
+    break;
+
+
     case 'up' :
     {
         //1-find value of current module rank in the dock
@@ -116,27 +116,27 @@ switch ( $cmd )
                   FROM `".$tbl_dock."` AS D
                  WHERE D.`module_id`=".$module_id."
                    AND D.`name`='".$dockname."'";
-        $result=claro_sql_query_get_single_value($sql);        
-           
+        $result=claro_sql_query_get_single_value($sql);
+
         //2-move down above module
         $sql = "UPDATE `".$tbl_dock."` as D
                    SET D.`rank` = D.`rank`+1
                  WHERE D.`module_id`!=".$module_id."
                    AND D.`name`='".$dockname."'
                    AND D.`rank`=".$result['rank']."-1";
-        
-        claro_sql_query($sql);     
-        
+
+        claro_sql_query($sql);
+
         //3-move up current module
         $sql = "UPDATE `".$tbl_dock."` as D
                    SET D.`rank` = D.`rank`-1
                  WHERE D.`module_id`=".$module_id."
                    AND D.`name`='".$dockname."'
-                   AND D.`rank`>1"; // this last condition is to avoid wrong update due to a page refreshment                
+                   AND D.`rank`>1"; // this last condition is to avoid wrong update due to a page refreshment
         claro_sql_query($sql);
     }
     break;
-    
+
     case 'down' :
     {
         //1-find value of current module rank in the dock
@@ -145,51 +145,51 @@ switch ( $cmd )
                  WHERE D.`module_id`=".$module_id."
                    AND D.`name`='".$dockname."'";
         $result=claro_sql_query_get_single_value($sql);
-        
+
           //this second query is to avoid a page refreshment wrong update
-        
+
         $sqlmax= "SELECT MAX(D.`rank`) AS `max_rank`
-                 FROM `".$tbl_dock."` AS D 
+                 FROM `".$tbl_dock."` AS D
                 WHERE D.`name`='".$dockname."'";
         $resultmax=claro_sql_query_get_single_value($sqlmax);
-              
-        if ($resultmax['max_rank']==$result['rank']) 
+
+        if ($resultmax['max_rank']==$result['rank'])
         {
            break;
         }
-                      
+
         //2-move up above module
         $sql = "UPDATE `".$tbl_dock."` as D
                    SET D.`rank` = D.`rank`-1
                  WHERE D.`module_id`!=".$module_id."
                    AND D.`name`='".$dockname."'
-                   AND D.`rank`=".$result['rank']."+1 
-                   AND D.`rank`>1";              
-        claro_sql_query($sql);     
+                   AND D.`rank`=".$result['rank']."+1
+                   AND D.`rank`>1";
+        claro_sql_query($sql);
 
-        
+
         //3-move down current module
         $sql = "UPDATE `".$tbl_dock."` as D
                    SET D.`rank` = D.`rank`+1
                  WHERE D.`module_id`=".$module_id."
-                   AND D.`name`='".$dockname."'";                
+                   AND D.`name`='".$dockname."'";
         claro_sql_query($sql);
 
     }
     break;
-    
+
     case 'uninstall' :
     {
         $result_log = uninstall_module($module_id);
         $dialogBox  = "Module uninstallation : <br>";
-        
+
         foreach ( $result_log as $log)
         {
-          $dialogBox .=$log."<br>"; 
-        }  
-    }  
+          $dialogBox .=$log."<br>";
+        }
+    }
     break;
-    
+
     case 'show_install' :
     {
         $dialogBox = '<p>Imported modules must consist of a zip file and be compatible with your Claroline version.<br>'
@@ -203,19 +203,19 @@ switch ( $cmd )
                     .'</form>';
     }
     break;
-    
+
     case 'do_install' :
     {
         //include needed librabries for treatment
-               
-        $result_log = install_module();        
+
+        $result_log = install_module();
         $dialogBox = "";
-        
+
         //display the result message (fail or success)
-        
+
         foreach ($result_log as $log)
         {
-          $dialogBox .=$log."<br>"; 
+          $dialogBox .=$log."<br>";
         }
     }
 }
@@ -235,17 +235,17 @@ $sql = "SELECT M.*,
                M.`type`,
                M.`module_info_id`,
                D.`name` AS `dockname`,
-               D.`rank`           
+               D.`rank`
         FROM `".$tbl_module."` AS M
         LEFT JOIN `".$tbl_dock."` AS D
-        ON M.`id` = D.`module_id`        
-        WHERE M.`type` = '".$selected_type."'      
+        ON M.`id` = D.`module_id`
+        WHERE M.`type` = '".$selected_type."'
         ORDER BY `dockname`, D.`rank`
         ";
-                                      
+
 
 //pager creation
-                                      
+
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 $myPager      = new claro_sql_pager($sql, $offset, $modulePerPage);
 $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
@@ -257,12 +257,12 @@ $firstmodules = array();
 $lastmodules   = array();
 
 foreach ($moduleList as $module)
-{ 
+{
    if (!isset($firstmodules[$module['dockname']])) $firstmodules[$module['dockname']] = $module['id'];
    $lastmodules[$module['dockname']] = $module['id'];
 }
 
-       
+
 //----------------------------------
 // DISPLAY
 //----------------------------------
@@ -288,9 +288,9 @@ echo '<div id="moduletypecontainer">
 //display the module type tabbed naviguation bar
 
 $types[] = 'applet';
-$types[] = 'coursetool'; 
-        
-foreach ($types as $type)       
+$types[] = 'coursetool';
+
+foreach ($types as $type)
 {
       if ($selected_type == $type)
       {
@@ -299,7 +299,7 @@ foreach ($types as $type)
       else
       {
           echo '<li><a href="module_list.php?selected_type='.$type.'">'.$type.'</a></li>';
-      }             
+      }
 }
 
 echo '  </ul>
@@ -341,15 +341,15 @@ if ($module['activation']=='activated') $class_css="item"; else  $class_css='inv
 //module_id column
 
 echo '<tr>'
-    .    '<td align="center">' . $module['id'] . '</td>' . "\n";    
+    .    '<td align="center">' . $module['id'] . '</td>' . "\n";
 
 //icon column
 
-if (file_exists($includePath.'/../module/'.$module['label'].'/icon.png')) 
+if (file_exists($includePath.'/../module/'.$module['label'].'/icon.png'))
 {
-    $icon = '<img src="'.$rootWeb.'claroline/module/'.$module['label'].'/icon.png" />';    
+    $icon = '<img src="'.$rootWeb.'claroline/module/'.$module['label'].'/icon.png" />';
 }
-elseif (file_exists($includePath.'/../module/'.$module['label'].'/icon.gif')) 
+elseif (file_exists($includePath.'/../module/'.$module['label'].'/icon.gif'))
 {
     $icon = '<img src="'.$rootWeb.'claroline/module/'.$module['label'].'/icon.gif" />';
 }
@@ -372,7 +372,7 @@ echo     '<td align="left" class="'.$class_css.'"><small>' . $module['dockname']
 
 echo     '<td align="center" >';
 
-if ($module['activation']=='activated') 
+if ($module['activation']=='activated')
 {
    echo '<a class="item" href="module_list.php?cmd=desactiv&module_id='.$module['id'].'&selected_type='.$selected_type.'"><img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Activated') . '" /></a>';
 }
@@ -409,9 +409,9 @@ else
 
 echo     '</td>' . "\n";
 
-    
+
 //edit settings link
-    
+
 echo     '<td align="center"><a href="module.php?module_id='.$module['id'].'"><img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" /></a></td>' . "\n";
 
 //uninstall link
