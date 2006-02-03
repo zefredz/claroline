@@ -29,8 +29,6 @@ if (!isset($hide_footer) || $hide_footer == false)
 //FOOTER LEFT DOCK declaration
 
 $footerLeftDock = new Dock('campusFooterLeft');
-$appletList = getAppletList($footerLeftDock);
-$footerLeftDock->setAppletList($appletList);
 
 if(isset($_cid))
 {
@@ -46,8 +44,6 @@ echo $footerLeftDock->render();
 //FOOTER RIGHT DOCK declaration
 
 $footerRightDock = new Dock('campusFooterRight');
-$appletList = getAppletList($footerRightDock);
-$footerRightDock->setAppletList($appletList);
 
 $platformManagerOutput = '<div id="platformManager">'.sprintf(get_lang('_p_platformManager'),$siteName). ' : 
 <a href="mailto:' . $administrator_email."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]".'">'. $administrator_name .'</a>
@@ -61,8 +57,6 @@ echo $footerRightDock->render();
 //FOOTER CENTER DOCK declaration
 
 $footerCenterDock = new Dock('campusFooterCenter');
-$appletList = getAppletList($footerCenterDock);
-$footerCenterDock->setAppletList($appletList);
 
 $poweredByOutput = '<div id="poweredBy">'. get_lang('Powered by') . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2006 </div></div>';
 

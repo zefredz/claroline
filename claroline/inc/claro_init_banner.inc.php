@@ -18,8 +18,6 @@ ob_start();
 $campusBannerLeftDock = new Dock('campusBannerLeft');
 $siteNameOutput   = '<span id="siteName"><a href="'.$rootWeb.'index.php" target="_top">'.$siteName.'</a></span>';
 $campusBannerLeftDock->addOutput($siteNameOutput);
-$appletList = getAppletList($campusBannerLeftDock);
-$campusBannerLeftDock->setAppletList($appletList);
 
 echo $campusBannerLeftDock->render();
 
@@ -55,8 +53,6 @@ if( !empty($_course['extLinkName']) )    /* --- External Link Section --- */
 $institutionNameOutput .= '</span>'."\n";
 
 $campusBannerRightDock->addOutput($institutionNameOutput);
-$appletList = getAppletList($campusBannerRightDock);
-$campusBannerRightDock->setAppletList($appletList);
 
 echo $campusBannerRightDock->render();
 
@@ -79,8 +75,6 @@ if($_uid)
 //USER BANNER LEFT DOCK declaration
 
 $userBannerLeftDock = new Dock('userBannerLeft');
-$appletList = getAppletList($userBannerLeftDock);
-$userBannerLeftDock->setAppletList($appletList);
 
 $userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
 $userBannerLeftDock->addOutput($userNameOutput);
@@ -108,8 +102,7 @@ echo $userBannerLeftDock->render();
 //USER BANNER RIGHT DOCK declaration
 
 $userBannerRightDock = new Dock('userBannerRight');
-$appletList = getAppletList($userBannerRightDock);
-$userBannerRightDock->setAppletList($appletList);
+
 echo $userBannerRightDock->render();
 
 ?>
@@ -135,8 +128,6 @@ if (isset($_cid))
       ------------------------------------------------------------------------*/      
 
 $courseBannerLeftDock = new Dock('courseBannerLeft');
-$appletList = getAppletList($courseBannerLeftDock);
-$courseBannerLeftDock->setAppletList($appletList);
 
 ?>
 <div id="courseBanner">
@@ -148,15 +139,14 @@ $courseCode = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_cou
 </div>
 <div id="courseToolList">';
 
-$courseBannerLeftDock->addOutput($courseCode); 
+$courseBannerLeftDock->addOutput($courseCode);
+
 echo $courseBannerLeftDock->render();
 
 
 //COURSE BANNER LEFT DOCK declaration
 
 $courseBannerRightDock = new Dock('courseBannerRight');
-$appletList = getAppletList($courseBannerRightDock);
-$courseBannerRightDock->setAppletList($appletList);
 
     /*------------------------------------------------------------------------
                              COURSE TOOLS SELECTOR
@@ -210,6 +200,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 } // end if is_array($courseTooList) && $isCourseAllowed
 
 $courseBannerRightDock->addOutput($courseToolSelector);
+
 echo $courseBannerRightDock->render();
 
 ?>

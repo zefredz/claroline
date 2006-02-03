@@ -84,10 +84,11 @@ class Dock
     var $kernelOutput;
     var $kernelOutputAtEnd;
      
-    function Dock($name, $appletList = array())
+    function Dock($name)
     {
        $this->name = $name;
-       $this->appletList = $appletList;
+       $appletList = getAppletList($this->name);
+       $this->setAppletList($appletList);
     }
     
     function setAppletList($appletList = array())
