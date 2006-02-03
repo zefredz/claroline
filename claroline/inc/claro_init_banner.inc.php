@@ -79,22 +79,22 @@ $userBannerLeftDock = new Dock('userBannerLeft');
 $userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
 $userBannerLeftDock->addOutput($userNameOutput);
 
-$courseListLink = '<a href="'. $rootWeb.'index.php" target="_top">'. get_lang('My course list').'</a> |';
+$courseListLink = '<a href="'. $rootWeb.'index.php" target="_top">'. get_lang('My course list').'</a> | ';
 $userBannerLeftDock->addOutput($courseListLink);
 
-$myAgendaLink   = '<a href="'. $clarolineRepositoryWeb. 'calendar/myagenda.php" target="_top">'. get_lang('My calendar').'</a> |';
+$myAgendaLink   = '<a href="'. $clarolineRepositoryWeb. 'calendar/myagenda.php" target="_top">'. get_lang('My calendar').'</a> | ';
 $userBannerLeftDock->addOutput($myAgendaLink);
 
-$myProfileLink  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a> |';
+$myProfileLink  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a> | ';
 $userBannerLeftDock->addOutput($myProfileLink);
  
 if($is_platformAdmin)
 {
-    $administrationLink = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a> |';
+    $administrationLink = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a> | ';
     $userBannerLeftDock->addOutput($administrationLink); 
 } 
 
-$logoutLink = '<a href="'. $rootWeb.'index.php?logout=true" target="_top">'. get_lang('Logout').'</a>';
+$logoutLink = '<a href="'. $rootWeb.'index.php?logout=true" target="_top">'. get_lang('Logout').'</a> ';
 $userBannerLeftDock->addOutput($logoutLink); 
 
 echo $userBannerLeftDock->render();
